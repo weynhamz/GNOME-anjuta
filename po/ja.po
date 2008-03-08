@@ -1,18 +1,19 @@
 # anjuta ja.po.
-# Copyright (C) 2001-2003,2006,2007 Free Software Foundation, Inc.
-# Takeshi Aihana <takeshi.aihana@gmail.com>, 2001-2003,2006,2007.
+# Copyright (C) 2001-2003,2006-2008 Free Software Foundation, Inc.
+# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2001-2003,2006-2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-14 21:43+0900\n"
-"PO-Revision-Date: 2008-01-14 21:42+0900\n"
+"POT-Creation-Date: 2008-03-08 21:35+0900\n"
+"PO-Revision-Date: 2008-03-08 21:35+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -236,18 +237,18 @@ msgstr "選択可能なエンコーディング"
 msgid "Supported Encodings"
 msgstr "サポートしているエンコーディング"
 
-#: ../libanjuta/anjuta-launcher.c:1109 ../libanjuta/resources.c:264
-#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:541
-#: ../plugins/devhelp/plugin.c:550 ../plugins/gdb/utilities.c:280
+#: ../libanjuta/anjuta-launcher.c:1126 ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:542
+#: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "コマンドを起動できません: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1110
+#: ../libanjuta/anjuta-launcher.c:1127
 msgid "execvp failed"
 msgstr "execvp(3) に失敗しました"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2188
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
 msgid "Anjuta Shell"
 msgstr "Anjuta シェル"
 
@@ -255,7 +256,7 @@ msgstr "Anjuta シェル"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "プラグインを含んだ Anjuta シェル"
 
-#: ../libanjuta/anjuta-plugin-manager.c:764
+#: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -269,25 +270,25 @@ msgstr ""
 "次のとおりです:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:863
+#: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
 msgid "Load"
 msgstr "使用中"
 
-#: ../libanjuta/anjuta-plugin-manager.c:885
-#: ../libanjuta/anjuta-plugin-manager.c:1823
+#: ../libanjuta/anjuta-plugin-manager.c:912
+#: ../libanjuta/anjuta-plugin-manager.c:1850
 msgid "Available Plugins"
 msgstr "利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:998 ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:829
 msgid "Preferred plugins"
 msgstr "お気に入りのプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1112
+#: ../libanjuta/anjuta-plugin-manager.c:1139
 msgid "Only show user activatable plugins"
 msgstr "ユーザが利用できるプラグインのみ表示する"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1159
+#: ../libanjuta/anjuta-plugin-manager.c:1186
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -297,71 +298,67 @@ msgstr ""
 "あるプラグインを削除した場合は、別のプラグインをもう一度選択してもらうことに"
 "なります。"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1319
-#: ../libanjuta/anjuta-plugin-manager.c:1421
-#: ../plugins/debug-manager/queue.c:550
+#: ../libanjuta/anjuta-plugin-manager.c:1346
+#: ../libanjuta/anjuta-plugin-manager.c:1448
+#: ../plugins/debug-manager/queue.c:558
 msgid "Select a plugin"
 msgstr "プラグインの選択"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1320
-#: ../libanjuta/anjuta-plugin-manager.c:1422
-#: ../plugins/debug-manager/queue.c:551
+#: ../libanjuta/anjuta-plugin-manager.c:1347
+#: ../libanjuta/anjuta-plugin-manager.c:1449
+#: ../plugins/debug-manager/queue.c:559
 msgid "Please select a plugin to activate"
 msgstr "サポートするプラグインを選択して下さい"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1334
+#: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
 msgid "No plugin able to load other plugins in %s"
 msgstr "%s で利用できる他のプラグインはありません"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1842
+#: ../libanjuta/anjuta-plugin-manager.c:1869
 msgid "Remember this selection"
 msgstr "この選択内容を記憶する"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2169
+#: ../libanjuta/anjuta-plugin-manager.c:2196
 msgid "Profiles"
 msgstr "プロファイル"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2170
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Current stack of profiles"
 msgstr "プロファイルの現在のスタック"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2175
+#: ../libanjuta/anjuta-plugin-manager.c:2202
 msgid "Available plugins"
 msgstr "利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2176
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Currently available plugins found in plugin paths"
 msgstr "プラグイン・フォルダの中にある現在利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2182
+#: ../libanjuta/anjuta-plugin-manager.c:2209
 msgid "Activated plugins"
 msgstr "利用中のプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2183
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Currently activated plugins"
 msgstr "現在、利用中のプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2189
+#: ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta shell for which the plugins are"
 msgstr "プラグインを含んだ Anjuta シェル"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2224
 msgid "Anjuta Status"
 msgstr "Anjuta の状態"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2198
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "プラグインの読み込みや読み込み解除で使用する Anjuta の状態"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
 msgstr "読み込み中: "
-
-#: ../libanjuta/anjuta-plugin-manager.c:2357
-msgid "..."
-msgstr "..."
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
@@ -392,8 +389,8 @@ msgid "Synchronization URI"
 msgstr "URI との同期"
 
 #: ../libanjuta/anjuta-profile.c:241
-msgid "URI to sync the proflie xml"
-msgstr "xml 形式のプロファイルと同期する URI"
+msgid "URI to sync the profile xml"
+msgstr "プロファイルの xml と同期する URI"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -414,18 +411,19 @@ msgstr "'%s' の読み込みに失敗: XML の解析エラー"
 #: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
 msgid ""
-"Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins "
+"Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
 "profile."
 msgstr ""
 "'%s' の読み込みに失敗: XML の解析エラー (Anjuta のプラグイン用プロファイルが"
-"無効かまたは壊れています)"
+"間違っているか壊れています)"
 
-#: ../libanjuta/anjuta-profile.c:754
+#. <Pluginname>: Install it from <some location on the web>
+#: ../libanjuta/anjuta-profile.c:755
 #, c-format
 msgid "%s: Install it from '%s'\n"
 msgstr "%s: '%s' からインストール\n"
 
-#: ../libanjuta/anjuta-profile.c:762
+#: ../libanjuta/anjuta-profile.c:763
 #, c-format
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
@@ -434,7 +432,7 @@ msgstr ""
 "'%s' の読み込みに失敗: 次の必須なプラグインが見つかりません:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1424
+#: ../libanjuta/anjuta-preferences.c:1432
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -442,7 +440,7 @@ msgstr ""
 "本当に現在の設定をリセットして、\n"
 "デフォルトの設定に戻してもよろしいですか？"
 
-#: ../libanjuta/anjuta-preferences.c:1428
+#: ../libanjuta/anjuta-preferences.c:1436
 msgid "_Reset"
 msgstr "リセット(_R)"
 
@@ -455,8 +453,8 @@ msgstr "カテゴリ"
 #: ../libanjuta/anjuta-preferences-dialog.c:144
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
-#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:8
-#: ../src/anjuta-app.c:817
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:11
+#: ../src/anjuta-app.c:816
 msgid "General"
 msgstr "全般"
 
@@ -468,30 +466,35 @@ msgstr "Anjuta の設定"
 msgid "Select the items to save:"
 msgstr "保存するアイテムの選択:"
 
-#: ../libanjuta/anjuta-save-prompt.c:188
+#: ../libanjuta/anjuta-save-prompt.c:190
 msgid "If you do not save, all your changes will be lost."
 msgstr "保存しないと、全ての変更内容を失うことになります。"
 
-#: ../libanjuta/anjuta-save-prompt.c:195
-#: ../plugins/document-manager/plugin.c:583
+#: ../libanjuta/anjuta-save-prompt.c:197
+#: ../plugins/document-manager/plugin.c:591
 msgid "Save"
 msgstr "保存する"
 
-#: ../libanjuta/anjuta-save-prompt.c:202
+#: ../libanjuta/anjuta-save-prompt.c:204
 msgid "Item"
 msgstr "アイテム"
 
-#: ../libanjuta/anjuta-save-prompt.c:208
+#: ../libanjuta/anjuta-save-prompt.c:210
 msgid "_Discard changes"
 msgstr "変更を破棄する(_D)"
 
-#: ../libanjuta/anjuta-save-prompt.c:303
+#: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
-msgid "There are %d items with unsaved changes. Save changes before closing?"
-msgstr ""
-"保存していない %d個のアイテムがあります。閉じる前に変更内容を保存しますか？"
+msgid ""
+"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural ""
+"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgstr[0] ""
+"保存していないアイテムが %d 個あります。閉じる前に変更内容を保存しますか？"
+msgstr[1] ""
+"保存していないアイテムが %d 個あります。閉じる前に変更内容を保存しますか？"
 
-#: ../libanjuta/anjuta-save-prompt.c:310
+#: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "保存していないアイテムがあります。閉じる前に変更内容を保存しますか？"
 
@@ -543,15 +546,10 @@ msgstr ""
 "ユーティリティ \"%s\" がインストールされていません。\n"
 "インストールして下さい。"
 
-#: ../libanjuta/anjuta-utils.c:792
+#: ../libanjuta/anjuta-utils.c:792 ../libanjuta/anjuta-utils.c:796
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "コマンドを起動できません: %s (シェル %s から)\n"
-
-#: ../libanjuta/anjuta-utils.c:796
-#, c-format
-msgid "Cannot execute command %s (using shell %s)\n"
-msgstr "コマンド %s を起動できません (シェル %s から)\n"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:219
 msgid "Text"
@@ -584,16 +582,16 @@ msgid "<b>Build</b>"
 msgstr "<b>ビルド</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
-msgid "<b>Program execution:</b>"
-msgstr "<b>プログラムの実行形式:</b>"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Scratchbox Options</b>"
 msgstr "<b>Scratchbox のオプション</b>"
 
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+msgid "<b>Select Program to run:</b>"
+msgstr "<b>実行するプログラムの選択:</b>"
+
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
-msgid "Arguments: "
-msgstr "引数: "
+msgid "Arguments:"
+msgstr "引数:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
@@ -604,7 +602,7 @@ msgid "Install as root:"
 msgstr "Root 権限を借用する:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
-#: ../plugins/document-manager/anjuta-docman.c:314
+#: ../plugins/document-manager/anjuta-docman.c:311
 msgid "Path:"
 msgstr "パス名:"
 
@@ -614,269 +612,272 @@ msgid "Run in terminal"
 msgstr "端末内で実行する"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
-msgid "Select execution program and args"
-msgstr "実行プログラムと引数の選択"
+msgid "Select Program"
+msgstr "プログラムの選択"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Use scratchbox"
 msgstr "Scratchbox (クロス・コンパイル環境) を使う"
 
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:559
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:563
 #, c-format
 msgid "make[%d]: Entering directory '%s'"
 msgstr "make[%d]: ディレクトリ '%s' に入ります"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:560
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
 #, c-format
 msgid "make: Entering directory '%s'"
 msgstr "make: ディレクトリ '%s' に入ります"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:561
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: ディレクトリ '%s' に入ります"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:562
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:566
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: ディレクトリ '%s' に入ります"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:573
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:581
 #, c-format
 msgid "Entering: %s"
 msgstr "%s に入ります"
 
 #. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:581
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:589
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr "make[%d]: ディレクトリ '%s' から出ます"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:582
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
 #, c-format
 msgid "make: Leaving directory '%s'"
 msgstr "make: ディレクトリ '%s' から出ます"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:583
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: ディレクトリ '%s' から出ます"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:584
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: ディレクトリ '%s' から出ます"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:595
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:608
 #, c-format
 msgid "Leaving: %s"
 msgstr "%s から出ます"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:627
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:640
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr "警告:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:743
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:762
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "所要時間: %lu秒\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:748
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:767
 msgid "Completed unsuccessful\n"
 msgstr "完了しました (失敗です)\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:753
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:772
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
 msgstr "完了しました (成功です)\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:805
+#. Translators: the first number is the number of the build attemp,
+#. the string is the directory where the build takes place
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:826
 #, c-format
 msgid "Build %d: %s"
 msgstr "ビルド %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "\"%s\" をコンパイルできません: この種類のファイルをコンパイルするルールが定義"
 "されていません"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1075
+#. Configure = ./configure script
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1097
 msgid "Configure Parameters:"
 msgstr "Configure の引数:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1283
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1561
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1407
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1583
 msgid "_Build"
 msgstr "ビルド(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1287
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
 msgid "_Build Project"
 msgstr "プロジェクトのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1288
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1310
 msgid "Build whole project"
 msgstr "プロジェクト全体をビルドします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1293
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1315
 msgid "_Install Project"
 msgstr "プロジェクトのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1294
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1316
 msgid "Install whole project"
 msgstr "プロジェクト全体をインストールします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1299
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
 msgid "_Clean Project"
 msgstr "プロジェクトのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1300
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1322
 msgid "Clean whole project"
 msgstr "プロジェクト全体をクリーンします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1327
 msgid "Run C_onfigure..."
 msgstr "Configure の実行(_O) ..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1306
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1328
 msgid "Configure project"
 msgstr "ビルドの準備をします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1311
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
 msgid "Run _Autogenerate..."
 msgstr "自動生成の実行(_A)..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1312
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
 msgid "Autogenerate project files"
 msgstr "いろいろなプロジェクト・ファイルを自動生成します"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1317
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
 msgid "Build _Tarball"
 msgstr "Tarball の生成(_T)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1318
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
 msgid "Build project tarball distribution"
 msgstr "配布用の Tarball を生成します"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1323
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
 msgid "_Execute Program..."
 msgstr "プログラムの実行(_E)..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1324
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
 msgid "Execute program"
 msgstr "プログラムを実行します"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1329
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1351
 msgid "_Build Module"
 msgstr "モジュールのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1330
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1352
 msgid "Build module associated with current file"
 msgstr "このファイルに関連するモジュールをビルドします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1335
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
 msgid "_Install Module"
 msgstr "モジュールのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1336
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
 msgid "Install module associated with current file"
 msgstr "このファイルに関連するモジュールをインストールします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1341
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1363
 msgid "_Clean Module"
 msgstr "モジュールのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1342
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1364
 msgid "Clean module associated with current file"
 msgstr "このファイルに関連するモジュールをクリーンします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1347
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1369
 msgid "Co_mpile File"
 msgstr "単一コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1348
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1370
 msgid "Compile current editor file"
 msgstr "現在編集中のファイルをコンパイルします"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1383
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
 msgid "_Compile"
 msgstr "コンパイル(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1384
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
 msgid "Compile file"
 msgstr "ファイルのコンパイル"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
 msgid "Build module"
 msgstr "モジュールのビルド"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1565
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
 msgid "_Install"
 msgstr "インストール(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
 msgid "Install module"
 msgstr "モジュールのインストール"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1407
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1569
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
 msgid "_Clean"
 msgstr "クリーン(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1408
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
 msgid "Clean module"
 msgstr "モジュールのクリーン"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1573
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1595
 msgid "Co_mpile"
 msgstr "コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1582
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
 #, c-format
 msgid "_Build (%s)"
 msgstr "ビルド(_B) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1589
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
 #, c-format
 msgid "_Install (%s)"
 msgstr "インストール(_I) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1596
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1618
 #, c-format
 msgid "_Clean (%s)"
 msgstr "クリーン(_C) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1603
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "コンパイル(_M) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2007
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2032
 msgid "Build commands"
 msgstr "ビルドのコマンド"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2014
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2039
 msgid "Build popup commands"
 msgstr "ビルドの操作"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2316
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2336
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2341
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2361
 msgid "Build Autotools"
 msgstr "autotools"
 
@@ -964,39 +965,43 @@ msgid "Author/Date-Time"
 msgstr "作者と日付"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
+msgid "Author/Date/Time"
+msgstr "作者/日付/時刻"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "Base Class Inheritance:"
 msgstr "継承の種類:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Base Class:"
 msgstr "基底クラス:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Class Function Prefix:"
 msgstr "関数の接頭子:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
 msgid "Class Name:"
 msgstr "クラスの名前:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
 msgid "Class Options:"
 msgstr "クラスのオプション:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
 msgid "Create"
 msgstr "生成"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "GObject Class\t"
 msgstr "GObject クラス"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "GObject Prefix and Type:"
 msgstr "GObject の接頭子と型:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
 msgid ""
 "General Public License (GPL)\n"
 "Lesser General Public License (LGPL)\n"
@@ -1006,42 +1011,42 @@ msgstr ""
 "劣等一般公衆利用許諾契約書 (LGPL)\n"
 "なし"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
 msgstr "汎用のＣ++クラス"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Header File:"
 msgstr "ヘッダ・ファイル:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Inline the declaration and implementation"
 msgstr "インライン宣言とインライン実装"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "License:"
 msgstr "ライセンス:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Member Functions/Variables"
 msgstr "メンバ関数/変数"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 #: ../plugins/glade/plugin.c:515
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
 msgid "Signals"
 msgstr "シグナル"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "Source File:"
 msgstr "ソース・ファイル:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
 msgid "Source/Header Headings:"
 msgstr "ソース/ヘッダの見出し:"
 
@@ -1098,7 +1103,8 @@ msgid "<b>Options:</b>"
 msgstr "<b>オプション:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
-#: ../plugins/search/anjuta-search.glade.h:13
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
+#: ../plugins/search/anjuta-search.glade.h:3
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:4
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "<b>Options</b>"
@@ -1213,7 +1219,7 @@ msgid "Delete empty directories"
 msgstr "空ディレクトリの削除"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
-#: ../plugins/subversion/anjuta-subversion.glade.h:28
+#: ../plugins/subversion/anjuta-subversion.glade.h:30
 msgid "Do not act recursively"
 msgstr "再帰的に処理しない"
 
@@ -1222,7 +1228,7 @@ msgid "File is binary"
 msgstr "バイナリのファイル"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-msgid "Ignore .cvsrc file (recommend)"
+msgid "Ignore .cvsrc file (recommended)"
 msgstr ".cvsrc ファイルを無視する (推奨)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
@@ -1244,7 +1250,8 @@ msgid "Module name:"
 msgstr "モジュール名:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-msgid "Password: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
+msgid "Password:"
 msgstr "パスワード:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
@@ -1280,7 +1287,7 @@ msgid "Unified format instead of context format"
 msgstr "コンテキスト形式ではなく統一形式の書式にする"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "リビジョン/タグ: "
 
@@ -1289,21 +1296,20 @@ msgid "Use revision: "
 msgstr "リビジョン: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
-msgid "Username: "
-msgstr "ユーザ名: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
+msgid "Username:"
+msgstr "ユーザ名:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
 msgstr "ベンダー・タグ: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "プロジェクト全体"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-ui-utils.c:86
 msgid "Please enter a filename!"
 msgstr "ファイル名を入力して下さい！"
 
@@ -1321,10 +1327,9 @@ msgid "Unable to delete file"
 msgstr "ファイルを削除できません"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
-#: ../plugins/cvs-plugin/cvs-callbacks.c:458
 #: ../plugins/subversion/subversion-commit-dialog.c:70
-msgid "Are you sure that you do not want a log message?"
-msgstr "本当にメッセージをログしなくてもよろしいですか？"
+msgid "Are you sure that you want to pass an empty log message?"
+msgstr "本当に空のログ・メッセージを送信してもよろしいですか？"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:434
 msgid "CVSROOT"
@@ -1346,21 +1351,27 @@ msgstr "リリース"
 msgid "Directory"
 msgstr "ディレクトリ"
 
+#: ../plugins/cvs-plugin/cvs-callbacks.c:458
+msgid "Are you sure that you do not want a log message?"
+msgstr "本当にメッセージをログしなくてもよろしいですか？"
+
 #: ../plugins/cvs-plugin/cvs-execute.c:128
-msgid "CVS command failed! - See above for details"
-msgstr "CVS コマンドが失敗しました - 詳細は上にあるログを参照して下さい！"
+msgid "CVS command failed - See above for details"
+msgstr "CVS コマンドが失敗しました - 詳細は上にあるログを参照して下さい"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
-msgid "CVS command successful! - Time taken %ld secs."
-msgstr "CVS コマンドが完了しました - 所要時間: %ld秒"
+msgid "CVS command successful! - Time taken: %ld second"
+msgid_plural "CVS command successful! - Time taken: %ld seconds"
+msgstr[0] "CVS コマンドが完了しました (所要時間: %ld秒)"
+msgstr[1] "CVS コマンドが完了しました (所要時間: %ld秒)"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:223
+#: ../plugins/cvs-plugin/cvs-execute.c:224
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "CVS コマンドを実行中です - 完了するまで少々お待ち下さい"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:231
-#: ../plugins/cvs-plugin/cvs-execute.c:235 ../plugins/cvs-plugin/plugin.c:489
+#: ../plugins/cvs-plugin/cvs-execute.c:232
+#: ../plugins/cvs-plugin/cvs-execute.c:236 ../plugins/cvs-plugin/plugin.c:489
 #: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "CVS"
@@ -1410,7 +1421,7 @@ msgstr "CVS ツリーに変更内容をコミットします"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:47
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:48
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
 msgstr "更新(_U)"
@@ -1496,7 +1507,7 @@ msgid "Breakpoint properties"
 msgstr "ブレークポイントのプロパティ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1942
+#: ../plugins/debug-manager/breakpoints.c:1949
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "ブレークポイント"
@@ -1544,9 +1555,8 @@ msgid "Enable _all"
 msgstr "全て有効(_A)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
-#: ../plugins/gdb/anjuta-gdb.glade.h:12
-msgid "Enter a Hexa adress or select one in the data"
-msgstr "16進アドレスを入力するか、データから一つ選択して下さい"
+msgid "Enter an address in hexadecimal or select one in the data"
+msgstr "16進形式でアドレスを入力するかデータから一つ選択して下さい"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
@@ -1554,7 +1564,6 @@ msgid "Hide process para_meters"
 msgstr "引数を隠す(_M)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
-#: ../plugins/editor/text_editor_menu.c:175
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
 msgstr "検証"
@@ -1564,13 +1573,13 @@ msgid "Inspect/Evaluate"
 msgstr "検証/評価"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:945
-#: ../plugins/debug-manager/plugin.c:1045 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1049 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "カーネルのシグナル"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "場所"
@@ -1609,40 +1618,44 @@ msgid "SIGINT"
 msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
+msgid "Select one directory"
+msgstr "フォルダの選択"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
 #: ../plugins/debug-manager/signals.c:423 ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
 msgstr "シグナルのプロパティ設定"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 #: ../plugins/debug-manager/sharedlib.c:161
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "共有ライブラリ"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
 #: ../plugins/gdb/anjuta-gdb.glade.h:26
 msgid "Signal:"
 msgstr "シグナル:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
 #: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Source Directories"
 msgstr "ソースのフォルダ"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
 msgid "Start Debugger"
 msgstr "デバッガの起動"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 msgid "Stop at beginning"
 msgstr "起動時に停止する"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "停止:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
@@ -1650,212 +1663,218 @@ msgstr "停止:"
 msgid "Yes"
 msgstr "はい"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 #: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
 msgstr "アタッチ(_A)"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
 msgid "_Automatic update"
 msgstr "自動的に更新する(_A):"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
 msgstr "条件(_C):"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
 #: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Disable all"
 msgstr "全て無効(_D)"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
 #: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Hide paths"
 msgstr "パスを隠す(_H)"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
 #: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Location:"
 msgstr "場所(_L):"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
 msgid "_Name:"
 msgstr "名前(_N):"
 
 #. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
 msgid "_Pass count:"
 msgstr "パスの個数(_P):"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
 #: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
 msgstr "アタッチする先のプロセス(_P):"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:47
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
 msgstr "全て削除(_R)"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:48
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:49
 msgid "_Value:"
 msgstr "値(_V):"
 
-#: ../plugins/debug-manager/breakpoints.c:1635
+#: ../plugins/debug-manager/breakpoints.c:1642
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "本当に全てのブレークポイントを削除してもよろしいですか？"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1732
+#: ../plugins/debug-manager/breakpoints.c:1739
 msgid "_Breakpoints"
 msgstr "ブレークポイント(_B)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1740
+#: ../plugins/debug-manager/breakpoints.c:1747
 msgid "Toggle Breakpoint"
 msgstr "ブレークポイントの ON/OFF"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1742
+#: ../plugins/debug-manager/breakpoints.c:1749
 msgid "Toggle breakpoint at the current location"
 msgstr "この場所のブレークポイントの ON/OFF を切り替えます"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1748
+#: ../plugins/debug-manager/breakpoints.c:1755
 msgid "Add Breakpoint..."
 msgstr "ブレークポイント追加..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1750
+#: ../plugins/debug-manager/breakpoints.c:1757
 msgid "Add a breakpoint"
 msgstr "ブレークポイントを追加します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1756
+#: ../plugins/debug-manager/breakpoints.c:1763
 msgid "Remove Breakpoint"
 msgstr "ブレークポイントの削除"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1758
+#: ../plugins/debug-manager/breakpoints.c:1765
 msgid "Remove a breakpoint"
 msgstr "ブレークポイントを削除します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1764
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Edit Breakpoint"
 msgstr "ブレークポイントの編集"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1766
+#: ../plugins/debug-manager/breakpoints.c:1773
 msgid "Edit breakpoint properties"
 msgstr "ブレークポイントのプロパティを編集します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1772
-#: ../plugins/debug-manager/breakpoints.c:1843
+#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1850
 msgid "Enable Breakpoint"
 msgstr "ブレークポイントを有効にする"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1774
-#: ../plugins/debug-manager/breakpoints.c:1844
+#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1851
 msgid "Enable a breakpoint"
 msgstr "ブレークポイントを有効にします"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1780
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Disable All Breakpoints"
 msgstr "全ブレークポイントを無効にする"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1782
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Deactivate all breakpoints"
 msgstr "全てのブレークポイントを一時的に無効にします"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1788
-msgid "C_lear All Breakpoints"
-msgstr "全ブレークポイントのクリア(_L)"
+#: ../plugins/debug-manager/breakpoints.c:1795
+msgid "R_emove All Breakpoints"
+msgstr "全てのブレークポイントの削除(_E)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1790
-msgid "Delete all breakpoints"
+#: ../plugins/debug-manager/breakpoints.c:1797
+msgid "Remove all breakpoints"
 msgstr "全てのブレークポイントを削除します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1799
+#: ../plugins/debug-manager/breakpoints.c:1806
 msgid "Jump to Breakpoint"
 msgstr "ブレークポイントへジャンプ"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1808
 msgid "Jump to breakpoint location"
 msgstr "ブレークポイントがある場所へジャンプします"
 
-#: ../plugins/debug-manager/breakpoints.c:1838
+#: ../plugins/debug-manager/breakpoints.c:1845
 msgid "Disable Breakpoint"
 msgstr "ブレークポイントの無効"
 
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Disable a breakpoint"
 msgstr "ブレークポイントを無効にします"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "有効"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
-#: ../plugins/debug-manager/stack_trace.c:656
-#: ../plugins/debug-manager/threads.c:461
+#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/stack_trace.c:664
+#: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "アドレス"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
-#: ../plugins/debug-manager/debug_tree.c:124
+#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "型"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Condition"
 msgstr "条件"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Pass count"
 msgstr "通過する回数"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "State"
 msgstr "状態"
 
-#: ../plugins/debug-manager/breakpoints.c:1919
-#: ../plugins/debug-manager/breakpoints.c:1925
+#: ../plugins/debug-manager/breakpoints.c:1926
+#: ../plugins/debug-manager/breakpoints.c:1932
 msgid "Breakpoint operations"
 msgstr "ブレークポイントの操作"
 
-#: ../plugins/debug-manager/debug_tree.c:124 ../plugins/tools/editor.c:457
+#. create goto menu_item.
+#: ../plugins/debug-manager/data_view.c:383
+#: ../plugins/debug-manager/sparse_view.c:491
+msgid "_Goto address"
+msgstr "指定したアドレスへ移動(_G)"
+
+#: ../plugins/debug-manager/debug_tree.c:126 ../plugins/tools/editor.c:457
 msgid "Variable"
 msgstr "変数"
 
-#: ../plugins/debug-manager/debug_tree.c:124
+#: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:464 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "値"
@@ -1869,257 +1888,257 @@ msgid "Information"
 msgstr "情報"
 
 #: ../plugins/debug-manager/info.c:127
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:47
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:48
 #: ../plugins/editor/print.c:1040
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Lines"
 msgstr "行ごと"
 
 #. This is the list of local variables.
-#: ../plugins/debug-manager/locals.c:106
+#: ../plugins/debug-manager/locals.c:107
 msgid "Locals"
 msgstr "ローカル"
 
-#: ../plugins/debug-manager/plugin.c:308
+#: ../plugins/debug-manager/plugin.c:312
 msgid "Debugger Log"
 msgstr "デバッガのログ"
 
-#: ../plugins/debug-manager/plugin.c:382 ../plugins/debug-manager/plugin.c:411
-#: ../plugins/debug-manager/plugin.c:431 ../plugins/debug-manager/plugin.c:453
-#: ../plugins/debug-manager/plugin.c:498 ../plugins/debug-manager/plugin.c:533
+#: ../plugins/debug-manager/plugin.c:386 ../plugins/debug-manager/plugin.c:415
+#: ../plugins/debug-manager/plugin.c:435 ../plugins/debug-manager/plugin.c:457
+#: ../plugins/debug-manager/plugin.c:502 ../plugins/debug-manager/plugin.c:537
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "デバッガ"
 
-#: ../plugins/debug-manager/plugin.c:382
+#: ../plugins/debug-manager/plugin.c:386
 msgid "Started"
 msgstr "起動中"
 
-#: ../plugins/debug-manager/plugin.c:411
+#: ../plugins/debug-manager/plugin.c:415
 msgid "Loaded"
 msgstr "読み込み中"
 
-#: ../plugins/debug-manager/plugin.c:431
+#: ../plugins/debug-manager/plugin.c:435
 msgid "Running..."
 msgstr "実行中..."
 
-#: ../plugins/debug-manager/plugin.c:453
+#: ../plugins/debug-manager/plugin.c:457
 msgid "Stopped"
 msgstr "停止中"
 
-#: ../plugins/debug-manager/plugin.c:498
+#: ../plugins/debug-manager/plugin.c:502
 msgid "Unloaded"
 msgstr "アンロード済"
 
-#: ../plugins/debug-manager/plugin.c:539
+#: ../plugins/debug-manager/plugin.c:543
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "デバッガがエラー・コード (%d:%s) で強制終了しました\n"
 
-#: ../plugins/debug-manager/plugin.c:552
+#: ../plugins/debug-manager/plugin.c:556
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "プログラムがシグナルを受け取りました: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:829 ../plugins/valgrind/plugin.c:437
+#: ../plugins/debug-manager/plugin.c:833 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "デバッグ(_D)"
 
-#: ../plugins/debug-manager/plugin.c:837
+#: ../plugins/debug-manager/plugin.c:841
 msgid "_Start Debugger"
 msgstr "デバッガの起動(_S)"
 
-#: ../plugins/debug-manager/plugin.c:845
+#: ../plugins/debug-manager/plugin.c:849
 msgid "Run Target..."
 msgstr "ターゲットの起動..."
 
-#: ../plugins/debug-manager/plugin.c:847
+#: ../plugins/debug-manager/plugin.c:851
 msgid "load and start the target for debugging"
 msgstr "デバッグするターゲット (実行形式) を読み込んで起動します"
 
-#: ../plugins/debug-manager/plugin.c:853
+#: ../plugins/debug-manager/plugin.c:857
 msgid "Restart Target"
 msgstr "ターゲットの再起動"
 
-#: ../plugins/debug-manager/plugin.c:855
+#: ../plugins/debug-manager/plugin.c:859
 msgid "restart the same target for debugging"
 msgstr "デバッグするターゲットを再起動します"
 
-#: ../plugins/debug-manager/plugin.c:861
+#: ../plugins/debug-manager/plugin.c:865
 msgid "_Attach to Process..."
 msgstr "プロセスへアタッチ(_A) ..."
 
-#: ../plugins/debug-manager/plugin.c:863
+#: ../plugins/debug-manager/plugin.c:867
 msgid "Attach to a running program"
 msgstr "既に実行中のプログラムにアタッチしてデバッグします"
 
-#: ../plugins/debug-manager/plugin.c:869
+#: ../plugins/debug-manager/plugin.c:873
 msgid "Stop Debugger"
 msgstr "デバッガの停止"
 
-#: ../plugins/debug-manager/plugin.c:871
+#: ../plugins/debug-manager/plugin.c:875
 msgid "Say goodbye to the debugger"
 msgstr "デバッガに \"さよなら\" します"
 
-#: ../plugins/debug-manager/plugin.c:877
+#: ../plugins/debug-manager/plugin.c:881
 msgid "Add source paths..."
 msgstr "ソース・パスの追加..."
 
-#: ../plugins/debug-manager/plugin.c:879
+#: ../plugins/debug-manager/plugin.c:883
 msgid "Add additional source paths"
 msgstr "ソース・パスを追加します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:889 ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:893
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "Debugger Command..."
 msgstr "デバッガのコマンド..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:891 ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:895
+#: ../plugins/debug-manager/plugin.c:1003
 msgid "Custom debugger command"
 msgstr "デバッガのコマンドを変更します"
 
-#: ../plugins/debug-manager/plugin.c:897
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "_Info"
 msgstr "情報(_I)"
 
-#: ../plugins/debug-manager/plugin.c:905
+#: ../plugins/debug-manager/plugin.c:909
 msgid "Info _Target Files"
 msgstr "ターゲット・ファイル(_T)"
 
-#: ../plugins/debug-manager/plugin.c:907
+#: ../plugins/debug-manager/plugin.c:911
 msgid "Display information on the files the debugger is active with"
 msgstr "ファイル上にデバッグ対象の情報を表示します"
 
-#: ../plugins/debug-manager/plugin.c:913
+#: ../plugins/debug-manager/plugin.c:917
 msgid "Info _Program"
 msgstr "プログラム(_P)"
 
-#: ../plugins/debug-manager/plugin.c:915
+#: ../plugins/debug-manager/plugin.c:919
 msgid "Display information on the execution status of the program"
 msgstr "プログラムの実行ステータスについての情報を表示します"
 
-#: ../plugins/debug-manager/plugin.c:921
+#: ../plugins/debug-manager/plugin.c:925
 msgid "Info _Kernel User Struct"
 msgstr "カーネル・ユーザ構造体(_K)"
 
-#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:927
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "子プロセスのカーネル構造体 'struct user' の内容を表示します"
 
-#: ../plugins/debug-manager/plugin.c:937
-#: ../plugins/debug-manager/plugin.c:1037
+#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Shared Libraries"
 msgstr "共有ライブラリ"
 
-#: ../plugins/debug-manager/plugin.c:939
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Show shared libraries mappings"
 msgstr "共有ライブラリのマッピングを表示します"
 
-#: ../plugins/debug-manager/plugin.c:947
-#: ../plugins/debug-manager/plugin.c:1047
+#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:1051
 msgid "Show kernel signals"
 msgstr "カーネル・シグナルを一覧表示します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:961
 msgid "Run/_Continue"
 msgstr "実行/続行(_C)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:959
+#: ../plugins/debug-manager/plugin.c:963
 msgid "Continue the execution of the program"
 msgstr "プログラムの実行を続行します"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:969
 msgid "Step _In"
 msgstr "ステップイン(_I)"
 
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:971
 msgid "Single step into function"
 msgstr "関数の中に一つ進みます"
 
-#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Step O_ver"
 msgstr "ステップオーバー(_V)"
 
-#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:979
 msgid "Single step over function"
 msgstr "関数を飛ばして一つ進みます"
 
-#: ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Step _Out"
 msgstr "ステップアウト(_O)"
 
-#: ../plugins/debug-manager/plugin.c:983
+#: ../plugins/debug-manager/plugin.c:987
 msgid "Single step out of the function"
 msgstr "関数の中から外に一つ進みます"
 
-#: ../plugins/debug-manager/plugin.c:989
+#: ../plugins/debug-manager/plugin.c:993
 msgid "_Run to Cursor"
 msgstr "カーソル位置まで実行(_R)"
 
-#: ../plugins/debug-manager/plugin.c:991
+#: ../plugins/debug-manager/plugin.c:995
 msgid "Run to the cursor"
 msgstr "カーソルの位置まで一気に実行します"
 
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Info _Global Variables"
 msgstr "グローバル変数の情報(_G)"
 
-#: ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:1019
 msgid "Display all global and static variables of the program"
 msgstr "プログラムの全グローバル及びスタティック変数を表示します"
 
-#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "Info _Current Frame"
 msgstr "現在のフレーム(_C)"
 
-#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:1027
 msgid "Display information about the current frame of execution"
 msgstr "実行中の現在のスコープについての情報を表示します"
 
-#: ../plugins/debug-manager/plugin.c:1029
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Info Function _Arguments"
 msgstr "関数の引数(_A)"
 
-#: ../plugins/debug-manager/plugin.c:1031
+#: ../plugins/debug-manager/plugin.c:1035
 msgid "Display function arguments of the current frame"
 msgstr "現在のスコープの関数引数を表示します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1057
+#: ../plugins/debug-manager/plugin.c:1061
 msgid "Pa_use Program"
 msgstr "プログラムの一時停止(_U)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:1063
 msgid "Pauses the execution of the program"
 msgstr "実行中のプログラムを一時停止します"
 
-#: ../plugins/debug-manager/plugin.c:1100
-#: ../plugins/debug-manager/plugin.c:1106
-#: ../plugins/debug-manager/plugin.c:1112
-#: ../plugins/debug-manager/plugin.c:1118
+#: ../plugins/debug-manager/plugin.c:1104
+#: ../plugins/debug-manager/plugin.c:1110
+#: ../plugins/debug-manager/plugin.c:1116
+#: ../plugins/debug-manager/plugin.c:1122
 msgid "Debugger operations"
 msgstr "デバッガの操作"
 
-#: ../plugins/debug-manager/queue.c:537
+#: ../plugins/debug-manager/queue.c:545
 #, c-format
-msgid "Unable to find one debugger plugin acception %s mime type"
-msgstr ""
-"%s という MIME 型をサポートするデバッガのプラグインが１つも見つかりませんでし"
-"た"
+msgid ""
+"Unable to find one debugger plugin supporting a target with %s mime type"
+msgstr "%s という MIME 型をサポートするデバッガのプラグインが見つかりません"
 
 #: ../plugins/debug-manager/registers.c:457
 msgid "Register"
@@ -2130,8 +2149,9 @@ msgid "Registers"
 msgstr "レジスタ"
 
 #: ../plugins/debug-manager/sharedlib.c:183
-msgid "  Shared Object  "
-msgstr "  共有オブジェクト  "
+#: ../plugins/valgrind/vgrule-editor.c:138
+msgid "Shared Object"
+msgstr "共有オブジェクト"
 
 #: ../plugins/debug-manager/sharedlib.c:187
 msgid "From"
@@ -2212,101 +2232,101 @@ msgstr "行マーカのアイコンを表示するかどうかです"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/stack_trace.c:543
+#: ../plugins/debug-manager/stack_trace.c:551
 msgid "Set current frame"
 msgstr "カレント・フレームにする"
 
-#: ../plugins/debug-manager/stack_trace.c:551
-#: ../plugins/debug-manager/threads.c:370
+#: ../plugins/debug-manager/stack_trace.c:559
+#: ../plugins/debug-manager/threads.c:386
 msgid "View Source"
-msgstr "ソース表示"
+msgstr "ソースの表示"
 
-#: ../plugins/debug-manager/stack_trace.c:589
-#: ../plugins/debug-manager/threads.c:406
+#: ../plugins/debug-manager/stack_trace.c:597
+#: ../plugins/debug-manager/threads.c:422
 msgid "Active"
 msgstr "有効"
 
-#: ../plugins/debug-manager/stack_trace.c:600
+#: ../plugins/debug-manager/stack_trace.c:608
 msgid "Frame"
 msgstr "フレーム"
 
 #. Register actions
-#: ../plugins/debug-manager/stack_trace.c:620
-#: ../plugins/debug-manager/threads.c:431 ../src/anjuta-app.c:616
+#: ../plugins/debug-manager/stack_trace.c:628
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:615
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "ファイル"
 
-#: ../plugins/debug-manager/stack_trace.c:631
-#: ../plugins/debug-manager/threads.c:440
-#: ../plugins/document-manager/plugin.c:931
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/debug-manager/stack_trace.c:639
+#: ../plugins/debug-manager/threads.c:456
+#: ../plugins/document-manager/plugin.c:939
+#: ../plugins/document-manager/plugin.c:953
 msgid "Line"
 msgstr "行"
 
-#: ../plugins/debug-manager/stack_trace.c:642
-#: ../plugins/debug-manager/threads.c:449
+#: ../plugins/debug-manager/stack_trace.c:650
+#: ../plugins/debug-manager/threads.c:465
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "関数名"
 
-#: ../plugins/debug-manager/stack_trace.c:668
+#: ../plugins/debug-manager/stack_trace.c:676
 msgid "Arguments"
 msgstr "引数"
 
-#: ../plugins/debug-manager/stack_trace.c:692
+#: ../plugins/debug-manager/stack_trace.c:700
 msgid "Stack"
 msgstr "スタック"
 
-#: ../plugins/debug-manager/stack_trace.c:759
+#: ../plugins/debug-manager/stack_trace.c:767
 msgid "Stack frame operations"
 msgstr "スタック・フレームの操作"
 
-#: ../plugins/debug-manager/start.c:94
+#: ../plugins/debug-manager/start.c:97
 msgid "Pid"
 msgstr "PID"
 
-#: ../plugins/debug-manager/start.c:94
+#: ../plugins/debug-manager/start.c:97
 msgid "User"
 msgstr "ユーザ"
 
-#: ../plugins/debug-manager/start.c:94
+#: ../plugins/debug-manager/start.c:97
 #: ../plugins/profiler/gprof-call-graph-view.c:344
 msgid "Time"
 msgstr "時刻"
 
-#: ../plugins/debug-manager/start.c:94
+#: ../plugins/debug-manager/start.c:97
 msgid "Command"
 msgstr "コマンド名"
 
-#: ../plugins/debug-manager/start.c:624
+#: ../plugins/debug-manager/start.c:638
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "実行できません: %s"
 
-#: ../plugins/debug-manager/start.c:638
+#: ../plugins/debug-manager/start.c:652
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "ファイルが開けません: %s\n"
 
-#: ../plugins/debug-manager/start.c:889 ../plugins/debug-manager/start.c:1112
+#: ../plugins/debug-manager/start.c:903 ../plugins/debug-manager/start.c:1191
 #, c-format
 msgid "Missing file %s"
 msgstr "%s というファイルはありません"
 
-#: ../plugins/debug-manager/start.c:1010
+#: ../plugins/debug-manager/start.c:1024
 msgid "Load Target to debug"
-msgstr "デバッグするターゲットの読み込み"
+msgstr "デバッグするターゲットの選択"
 
-#: ../plugins/debug-manager/start.c:1018 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "全てのファイル"
 
-#: ../plugins/debug-manager/start.c:1122
+#: ../plugins/debug-manager/start.c:1212
 msgid "Path"
 msgstr "パス名"
 
-#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1576
+#: ../plugins/debug-manager/start.c:1260 ../plugins/gdb/debugger.c:1639
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2316,19 +2336,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/threads.c:362
+#: ../plugins/debug-manager/threads.c:378
 msgid "Set current thread"
-msgstr "カレント・フレームにする"
+msgstr "フレーム対象にする"
 
-#: ../plugins/debug-manager/threads.c:416
+#: ../plugins/debug-manager/threads.c:432
 msgid "Id"
 msgstr "ID"
 
-#: ../plugins/debug-manager/threads.c:486
+#: ../plugins/debug-manager/threads.c:502
 msgid "Thread"
 msgstr "スレッド"
 
-#: ../plugins/debug-manager/threads.c:596
+#: ../plugins/debug-manager/threads.c:612
 msgid "Thread operations"
 msgstr "スレッドの操作"
 
@@ -2386,8 +2406,8 @@ msgstr "ウォッチ"
 msgid "Search Help:"
 msgstr "ヘルプの検索:"
 
-#: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:249
-#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:257
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 msgid "_Goto"
 msgstr "ジャンプ(_G)"
 
@@ -2439,20 +2459,20 @@ msgstr "ヘルプの操作"
 msgid "Books"
 msgstr "ブック"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:997
-#: ../plugins/search/search-replace.c:1681
-#: ../plugins/search/search-replace.c:1688
-#: ../plugins/search/search-replace.c:1700
-#: ../plugins/search/search-replace.c:2014
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:1069
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1008
+#: ../plugins/search/search-replace.c:1690
+#: ../plugins/search/search-replace.c:1697
+#: ../plugins/search/search-replace.c:1709
+#: ../plugins/search/search-replace.c:2023
+#: ../plugins/symbol-browser/plugin.c:951
 msgid "Search"
 msgstr "検索"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:633
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:632
 msgid "Help"
 msgstr "ヘルプ"
 
-#: ../plugins/devhelp/plugin.c:386
+#: ../plugins/devhelp/plugin.c:387
 msgid "Help display"
 msgstr "ヘルプの表示"
 
@@ -2466,27 +2486,27 @@ msgstr ""
 "(保存していない変更点は全て破棄されます)"
 
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:341 ../plugins/sourceview/sourceview.c:200
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:215
 msgid "_Reload"
 msgstr "もう一度読み込む(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:253
-#: ../plugins/document-manager/anjuta-docman.c:257
+#: ../plugins/document-manager/anjuta-docman.c:250
+#: ../plugins/document-manager/anjuta-docman.c:254
 msgid "Close file"
 msgstr "ファイルを閉じる"
 
-#: ../plugins/document-manager/anjuta-docman.c:430
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "ファイルを開きます"
 
-#: ../plugins/document-manager/anjuta-docman.c:449
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "別名で保存"
 
-#: ../plugins/document-manager/anjuta-docman.c:528
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2496,9 +2516,8 @@ msgstr ""
 "ファイル '%s' は既に存在しています。\n"
 "本当に上書きしてもよろしいですか？"
 
-#: ../plugins/document-manager/anjuta-docman.c:536
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
-#: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
 msgstr "置換(_R)"
 
@@ -2527,9 +2546,9 @@ msgid "Do not show tabs"
 msgstr "表示しない"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1703
-#: ../plugins/document-manager/plugin.c:2091
-#: ../plugins/document-manager/plugin.c:2103
+#: ../plugins/document-manager/plugin.c:1719
+#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:2118
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -2642,9 +2661,7 @@ msgstr "ファイルの再読み込み(_I)"
 msgid "Reload current file"
 msgstr "このファイルを再度読み込みます"
 
-#. 8
 #: ../plugins/document-manager/plugin.c:174
-#: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr ".h/.c の交換"
 
@@ -2763,447 +2780,455 @@ msgstr "現在のソースコードのブロックを選択状態にします"
 msgid "Co_mment"
 msgstr "コメント(_M)"
 
-#. menu title
-#: ../plugins/document-manager/plugin.c:237
+#. Block comment: Uses line-comment (comment that affects only single line
+#. such as '//' or '#') and comments a block of lines.
+#: ../plugins/document-manager/plugin.c:239
 msgid "_Block Comment/Uncomment"
 msgstr "ブロック型コメントの付与/解除(_B)"
 
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:240
 msgid "Block comment the selected text"
 msgstr "選択した複数の行をブロック型にコメントアウト (//...) したり解除します"
 
-#: ../plugins/document-manager/plugin.c:240
+#. Box comment: Uses stream-comment to comment a block of lines, usually with
+#. some decorations, to give an appearance of box.
+#: ../plugins/document-manager/plugin.c:244
 msgid "Bo_x Comment/Uncomment"
 msgstr "ボックス型コメントの付与/解除(_X)"
 
-#: ../plugins/document-manager/plugin.c:241
+#: ../plugins/document-manager/plugin.c:245
 msgid "Box comment the selected text"
 msgstr "選択した複数の行を箱型にコメントアウト (/* .. */) したり解除します"
 
-#: ../plugins/document-manager/plugin.c:243
+#. Stream comment: Uses 'stream comment' (comment that affects a stream of
+#. characters -- has start and end comment code) and comments any code from
+#. arbitrary start position to arbitrary end position (can be in middle of
+#. lines).
+#: ../plugins/document-manager/plugin.c:251
 msgid "_Stream Comment/Uncomment"
 msgstr "ストリーム型コメントの付与/解除(_S)"
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:252
 msgid "Stream comment the selected text"
 msgstr "選択した行をコメントアウト (/* */) したり解除します"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:258
 msgid "_Line Number..."
 msgstr "行番号(_L)..."
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:259
 msgid "Go to a particular line in the editor"
 msgstr "エディタ内で指定した行番号にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:253
+#: ../plugins/document-manager/plugin.c:261
 msgid "Matching _Brace"
 msgstr "対応する括弧(_B)"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:262
 msgid "Go to the matching brace in the editor"
 msgstr "エディタ内で対応する括弧にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:264
 msgid "_Start of Block"
 msgstr "ブロックの先頭(_S)"
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:265
 msgid "Go to the start of the current block"
 msgstr "このブロックの先頭にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:259
+#: ../plugins/document-manager/plugin.c:267
 msgid "_End of Block"
 msgstr "ブロックの末尾(_E)"
 
-#: ../plugins/document-manager/plugin.c:260
+#: ../plugins/document-manager/plugin.c:268
 msgid "Go to the end of the current block"
 msgstr "このブロックの末尾にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:262
+#: ../plugins/document-manager/plugin.c:270
 msgid "Previous _History"
 msgstr "前の履歴(_H)"
 
-#: ../plugins/document-manager/plugin.c:263
+#: ../plugins/document-manager/plugin.c:271
 msgid "Goto previous history"
 msgstr "前の履歴にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:273
 msgid "Next Histor_y"
 msgstr "次の履歴(_Y)"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:274
 msgid "Goto next history"
 msgstr "次の履歴にジャンプします"
 
-#: ../plugins/document-manager/plugin.c:271 ../plugins/search/plugin.c:193
+#: ../plugins/document-manager/plugin.c:279 ../plugins/search/plugin.c:193
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../plugins/document-manager/plugin.c:272
+#: ../plugins/document-manager/plugin.c:280
 msgid "_Quick Search"
 msgstr "クィック検索(_Q)"
 
-#: ../plugins/document-manager/plugin.c:273
+#: ../plugins/document-manager/plugin.c:281
 msgid "Quick editor embedded search"
 msgstr "エディタ内蔵型の検索機能です"
 
-#: ../plugins/document-manager/plugin.c:275
+#: ../plugins/document-manager/plugin.c:283
 msgid "Quick _ReSearch"
 msgstr "クィック再検索(_R)"
 
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:284
 msgid "Repeat quick search"
 msgstr "クィック検索を再び実行します"
 
-#: ../plugins/document-manager/plugin.c:281 ../plugins/gtodo/interface.c:164
+#: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1443
+#: ../plugins/language-support-cpp-java/plugin.c:1596
 msgid "_Edit"
 msgstr "編集(_E)"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:290
 msgid "_Editor"
 msgstr "エディタ(_E)"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:297
 msgid "_Add Editor View"
 msgstr "エディタ表示の追加(_A)"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:298
 msgid "Add one more view of current document"
 msgstr "このドキュメントに複数個のビューを追加します"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:300
 msgid "_Remove Editor View"
 msgstr "エディタ表示の削除(_R)"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:301
 msgid "Remove current view of the document"
 msgstr "この表示を削除します"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:303
 msgid "U_ndo"
 msgstr "元に戻す(_U)"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:304
 msgid "Undo the last action"
 msgstr "最後の操作に戻します"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:306
 msgid "_Redo"
 msgstr "やり直す(_R)"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:307
 msgid "Redo the last undone action"
 msgstr "最後の操作を取り消します"
 
-#: ../plugins/document-manager/plugin.c:301
+#: ../plugins/document-manager/plugin.c:309
 msgid "C_ut"
 msgstr "切り取り(_U)"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:310
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "エディタから指定した範囲を切り取り、クリップボードに格納します"
 
-#: ../plugins/document-manager/plugin.c:304
-#: ../plugins/valgrind/vgdefaultview.c:1153
+#: ../plugins/document-manager/plugin.c:312
+#: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Copy"
 msgstr "コピー(_C)"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:313
 msgid "Copy the selected text to the clipboard"
 msgstr "指定した範囲をクリップボードに格納します"
 
-#: ../plugins/document-manager/plugin.c:307
-#: ../plugins/valgrind/vgdefaultview.c:1154
+#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "_Paste"
 msgstr "貼り付け(_P)"
 
-#: ../plugins/document-manager/plugin.c:308
+#: ../plugins/document-manager/plugin.c:316
 msgid "Paste the content of clipboard at the current position"
 msgstr "クリップボードの内容を現在の場所に貼り付けます"
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:324
 msgid "_Clear"
 msgstr "クリア(_C)"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:325
 msgid "Delete the selected text from the editor"
 msgstr "エディタから指定した範囲を削除します"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:330
 msgid "_Line Number Margin"
 msgstr "行番号の余白(_L)"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:331
 msgid "Show/Hide line numbers"
 msgstr "行番号の表示を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:333
 msgid "_Marker Margin"
 msgstr "マーカーの余白(_M)"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:334
 msgid "Show/Hide marker margin"
 msgstr "マーカーを表示するための余白の ON/OFF を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:336
 msgid "_Code Fold Margin"
 msgstr "コード折り返しマージン(_C)"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:337
 msgid "Show/Hide code fold margin"
 msgstr "コード折り返しする際の余白の表示を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:331
+#: ../plugins/document-manager/plugin.c:339
 msgid "_Indentation Guides"
 msgstr "インデントのガイド(_I)"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:340
 msgid "Show/Hide indentation guides"
 msgstr "インデント・ガイドの表示 ON/OFF を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:342
 msgid "_White Space"
 msgstr "ホワイトスペース(_W)"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:343
 msgid "Show/Hide white spaces"
 msgstr "ホワイトスペースの表示を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:337
+#: ../plugins/document-manager/plugin.c:345
 msgid "_Line End Characters"
 msgstr "行末の文字(_L)"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:346
 msgid "Show/Hide line end characters"
 msgstr "行末文字の表示を切り替えます"
 
-#: ../plugins/document-manager/plugin.c:340
+#: ../plugins/document-manager/plugin.c:348
 msgid "Line _Wrapping"
 msgstr "行ラッピング(_W)"
 
-#: ../plugins/document-manager/plugin.c:341
+#: ../plugins/document-manager/plugin.c:349
 msgid "Enable/disable line wrapping"
 msgstr "行末のラッピングを有効/無効にします"
 
-#: ../plugins/document-manager/plugin.c:346
+#: ../plugins/document-manager/plugin.c:354
 msgid "Zoom In"
 msgstr "拡大"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:355
 msgid "Zoom in: Increase font size"
 msgstr "拡大: フォントを大きくします"
 
-#: ../plugins/document-manager/plugin.c:349
+#: ../plugins/document-manager/plugin.c:357
 msgid "Zoom Out"
 msgstr "縮小"
 
-#: ../plugins/document-manager/plugin.c:350
+#: ../plugins/document-manager/plugin.c:358
 msgid "Zoom out: Decrease font size"
 msgstr "縮小: フォントを小さくします"
 
-#: ../plugins/document-manager/plugin.c:355
+#: ../plugins/document-manager/plugin.c:363
 msgid "_Highlight Mode"
 msgstr "強調表示モード(_H)"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:367
 msgid "_Close All Folds"
 msgstr "全ての折り畳みを閉じる(_C)"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:368
 msgid "Close all code folds in the editor"
 msgstr "エディタ内にあるコードの折り畳みを全て閉じます"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:370
 msgid "_Open All Folds"
 msgstr "全ての折り畳みを開く(_O)"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:371
 msgid "Open all code folds in the editor"
 msgstr "エディタ内にあるコードの折り畳みを全て開きます"
 
-#: ../plugins/document-manager/plugin.c:365
+#: ../plugins/document-manager/plugin.c:373
 msgid "_Toggle Current Fold"
 msgstr "カーソル行の折り畳みの切替え(_T)"
 
-#: ../plugins/document-manager/plugin.c:366
+#: ../plugins/document-manager/plugin.c:374
 msgid "Toggle current code fold in the editor"
 msgstr "カーソル行のコードの折り畳みを切り替えます"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:379
 msgid "Bookmar_k"
 msgstr "ブックマーク(_K)"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Toggle Bookmark"
 msgstr "ブックマークの ON/OFF(_T)"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:381
 msgid "Toggle a bookmark at the current line position"
 msgstr "カーソル行の位置でブックマークを切り替えます"
 
-#: ../plugins/document-manager/plugin.c:375
+#: ../plugins/document-manager/plugin.c:383
 msgid "_First Bookmark"
 msgstr "最初のブックマーク(_F)"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:384
 msgid "Jump to the first bookmark in the file"
 msgstr "このファイルにある最初のブックマークにジャンプします"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Previous Bookmark"
 msgstr "前のブックマーク(_P)"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:387
 msgid "Jump to the previous bookmark in the file"
 msgstr "このファイルにある前のブックマークにジャンプします"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:389
 msgid "_Next Bookmark"
 msgstr "次のブックマーク(_N)"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:390
 msgid "Jump to the next bookmark in the file"
 msgstr "このファイルにある次のブックマークにジャンプします"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:392
 msgid "_Last Bookmark"
 msgstr "最後のブックマーク(_L)"
 
-#: ../plugins/document-manager/plugin.c:385
+#: ../plugins/document-manager/plugin.c:393
 msgid "Jump to the last bookmark in the file"
 msgstr "このファイルにある最後のブックマークにジャンプします"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:395
 msgid "_Clear All Bookmarks"
 msgstr "全てのブックマークのクリア(_C)"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:396
 msgid "Clear bookmarks"
 msgstr "ブックマークを全てクリアします"
 
-#: ../plugins/document-manager/plugin.c:407
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor file operations"
 msgstr "エディタのファイル操作"
 
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor print operations"
 msgstr "エディタの印刷操作"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor text transformation"
 msgstr "エディタの文字変換"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor text selection"
 msgstr "エディタの文字選択"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:420
 msgid "Editor code commenting"
 msgstr "エディタのコメント操作"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:421
 msgid "Editor navigations"
 msgstr "エディタのナビゲータ"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:422
 msgid "Editor edit operations"
 msgstr "エディタの編集操作"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:423
 msgid "Editor zoom operations"
 msgstr "エディタの拡大縮小操作"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:424
 msgid "Editor syntax highlighting styles"
 msgstr "エディタの文法強調表示のスタイル"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:425
 msgid "Editor text formating"
 msgstr "エディタの書式整形"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:426
 msgid "Editor bookmarks"
 msgstr "エディタのブックマーク"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:427
 msgid "Simple searching"
 msgstr "簡易検索"
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:431
 msgid "Editor view settings"
 msgstr "エディタの表示設定"
 
-#: ../plugins/document-manager/plugin.c:579
+#: ../plugins/document-manager/plugin.c:587
 #: ../plugins/file-loader/plugin.c:1127
 msgid "New"
 msgstr "新規"
 
-#: ../plugins/document-manager/plugin.c:587
+#: ../plugins/document-manager/plugin.c:595
 msgid "Reload"
 msgstr "再読み込み"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:601
 msgid "Goto"
 msgstr "ジャンプ"
 
-#: ../plugins/document-manager/plugin.c:924
+#: ../plugins/document-manager/plugin.c:932
 msgid "OVR"
 msgstr "[上書き]"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:936
 msgid "INS"
 msgstr "[挿入]"
 
-#: ../plugins/document-manager/plugin.c:930
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:938
+#: ../plugins/document-manager/plugin.c:952
 msgid "Zoom"
 msgstr "拡大レベル"
 
-#: ../plugins/document-manager/plugin.c:932
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:954
 msgid "Col"
 msgstr "桁"
 
-#: ../plugins/document-manager/plugin.c:933
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:941
+#: ../plugins/document-manager/plugin.c:955
 msgid "Mode"
 msgstr "モード"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1014
+#: ../plugins/document-manager/plugin.c:1022
 msgid "Automatic"
 msgstr "自動的に強調表示"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1518
+#: ../plugins/document-manager/plugin.c:1534
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s の自動保存に失敗しました"
 
-#: ../plugins/document-manager/plugin.c:1532
+#: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
 msgstr "自動保存が完了しました"
 
-#: ../plugins/document-manager/search-box.c:379
-#, c-format
-msgid "Search for \"%s\" reached end and was continued on top!"
-msgstr "\"%s\" の検索が終了しました"
-
 #: ../plugins/document-manager/search-box.c:385
+#, c-format
+msgid "Search for \"%s\" reached end and was continued on top."
+msgstr "\"%s\" の検索が終了し先頭から検索を継続しました"
+
+#: ../plugins/document-manager/search-box.c:391
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
-"found!"
-msgstr "\"%s\" の検索が完了しました (新しい検索結果はありません)"
+"found."
+msgstr ""
+"\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
 
-#: ../plugins/document-manager/search-box.c:442
+#: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
 msgstr "大/小文字を区別しない"
 
@@ -3237,12 +3262,10 @@ msgid "<b>Print options</b>"
 msgstr "<b>印刷オプション</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:8
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
 msgid "Add line number every:"
 msgstr "行番号を付与する間隔:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:9
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
 msgid "Add page header"
 msgstr "ページ・ヘッダを追加する"
 
@@ -3260,7 +3283,7 @@ msgid "Autocompletion pop up choices"
 msgstr "個の候補を表示する"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:13
-msgid "Back color:"
+msgid "Background color:"
 msgstr "背景色:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:14
@@ -3280,7 +3303,7 @@ msgid "Caret (cursor) color:"
 msgstr "カーソルの色:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:18
-msgid "Caret blink period in milli-seconds"
+msgid "Caret blink period in ms"
 msgstr "カーソルの点滅周期 (ミリ秒)"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:19
@@ -3296,7 +3319,6 @@ msgid "Colors & Fonts"
 msgstr "色とフォント"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:22
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
 msgid "Colour"
 msgstr "カラー"
 
@@ -3312,187 +3334,200 @@ msgstr "強調表示を無効にする"
 msgid "Draw line below folded lines"
 msgstr "折り畳んだ行の下に線を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:26
+#. Column where a vertical line will be drawn to indicate that lines should not be longer
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
 msgid "Edge column"
 msgstr "端の桁数"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:28
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
 msgid "Editor"
 msgstr "エディタ"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:28
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:29
 msgid "Editor caret (cursor) width in pixels"
 msgstr "エディタのカーソル幅 (ピクセル)"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:29
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:30
 msgid "Enable HTML tags folding"
 msgstr "HTML タグの折り畳みを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:30
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:31
 msgid "Enable automatic indentation"
 msgstr "自動インデントを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:31
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:32
 msgid "Enable braces check"
 msgstr "括弧の対応をチェックする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:32
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:33
 msgid "Enable code folding"
 msgstr "コード部の折り畳みを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:33
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:34
 msgid "Enable comments folding"
 msgstr "コメント部の折り畳みを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:34
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:35
 msgid "Enable line wrap"
 msgstr "行ラップを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:35
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:36
 msgid "Enable python comments folding"
 msgstr "Python のコメント部の折り畳みを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:36
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:37
 msgid "Enable python quoted strings folding"
 msgstr "Python の引用文字列の折り畳みを有効にする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:37
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:38
 msgid "Filter extraneous characters in DOS mode"
 msgstr "DOS モードで不適切な文字をフィルタする"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:38
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
 msgid "Fold style:"
 msgstr "折り畳むスタイル:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:40
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
 msgid "Font:"
 msgstr "フォント:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:40
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:41
 msgid "Fonts and colors for editor"
 msgstr "エディタで使用するフォントと色"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:41
-msgid "Fore color:"
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:42
+msgid "Foreground color:"
 msgstr "前景色:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:42
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:43
 msgid "Indent closing braces"
 msgstr "インデント・バランスを閉じる"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:43
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:44
 msgid "Indent opening braces"
 msgstr "インデント・バランスを開く"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:44
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:45
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:15
 msgid "Indentation size in spaces:"
 msgstr "インデントのサイズ:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:45
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:46
 msgid "Italic"
 msgstr "斜体"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:46
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:47
 msgid "Line numbers margin width in pixels"
 msgstr "行番号のマージン幅 (ピクセル)"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:48
+#. If the user presses enter, the indentation of the current line will automatically be added to the next line
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:50
 msgid "Maintain past Indentation"
 msgstr "過去のインデントを維持する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:49
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
 msgstr "折り返しの余白を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:50
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
 msgstr "行番号の余白を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
 msgid "Margin Marker visible"
 msgstr "マーカーの余白を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
 msgstr "モード:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:22
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:55
 msgid "Monochrome"
 msgstr "白黒"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:56
+msgid ""
+"Plus/Minus\n"
+"Arrows\n"
+"Circular\n"
+"Squares"
+msgstr ""
+"＋/ー\n"
+"矢印\n"
+"円\n"
+"四角"
+
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
 msgid "Pressing backspace un-indents"
 msgstr "[BS] キー押下でインデントから抜ける"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:55
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
 msgid "Pressing tab inserts indentation"
 msgstr "[TAB] キー押下でインデントに入る"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:56
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
 msgid "Printing"
 msgstr "印刷"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:57
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Select highlight style to edit:"
 msgstr "編集する強調表示スタイルの選択:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:58
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
 msgid "Selection background:"
 msgstr "背景色の選択:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:59
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:65
 msgid "Selection foreground:"
 msgstr "前景色の選択:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
 msgid "Strip trailling spaces on file save"
 msgstr "保存時に後ろ付きの空白を除く"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
 msgid "Tab size in spaces:"
 msgstr "タブのサイズ:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
 msgid "Underlined"
 msgstr "下線"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:69
 msgid "Use default"
 msgstr "デフォルトを使用する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:32
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
 msgid "Use tabs for indentation"
 msgstr "インデントにタブを使う"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:65
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View EOL chars"
 msgstr "EOL 文字を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
 msgid "View Indentation Guides"
 msgstr "インデントガイドを表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:73
 msgid "View Line Wrap"
 msgstr "行ラップを表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:74
 msgid "View Whitespaces"
 msgstr "ホワイトスペースを表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:69
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:75
 msgid "View indentation whitespaces"
 msgstr "インデントの空白を表示する"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
+#. Next bookmark at the end of the file will jump to the first bookmark from the beginning
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:77
 msgid "Wrap bookmarks search around"
 msgstr "ブックマークの検索をくくる"
 
@@ -3522,7 +3557,7 @@ msgstr "印刷プレビュー"
 msgid "Scintilla Editor"
 msgstr "Scintilla エディタ"
 
-#: ../plugins/editor/text_editor.c:327 ../plugins/sourceview/sourceview.c:186
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:201
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3533,24 +3568,24 @@ msgstr ""
 "バッファに格納されたものよりも新しいようです。\n"
 "再度、そのファイルを読み込みますか？"
 
-#: ../plugins/editor/text_editor.c:1331
+#: ../plugins/editor/text_editor.c:1343
 msgid "Could not get file info"
 msgstr "ファイル情報を取得できませんでした"
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
-#: ../plugins/editor/text_editor.c:1338
+#: ../plugins/editor/text_editor.c:1350
 msgid "This file is too big. Unable to allocate memory."
 msgstr "このファイルは大きすぎます。メモリを割り当てることができません。"
 
-#: ../plugins/editor/text_editor.c:1345
+#: ../plugins/editor/text_editor.c:1357
 msgid "Could not open file"
 msgstr "ファイルを開けませんでした"
 
-#: ../plugins/editor/text_editor.c:1353
+#: ../plugins/editor/text_editor.c:1365
 msgid "Error while reading from file"
 msgstr "ファイルを読み込む際にエラーが発生しました。"
 
-#: ../plugins/editor/text_editor.c:1399
+#: ../plugins/editor/text_editor.c:1411
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3561,11 +3596,11 @@ msgstr ""
 "エンコーディング\" の一覧にあるかどうかを確認して下さい。無い場合は設定から追"
 "加して下さい。"
 
-#: ../plugins/editor/text_editor.c:1564
+#: ../plugins/editor/text_editor.c:1576
 msgid "Loading file..."
 msgstr "ファイルの読み込み中 ..."
 
-#: ../plugins/editor/text_editor.c:1573
+#: ../plugins/editor/text_editor.c:1585
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3576,29 +3611,34 @@ msgstr ""
 "\n"
 "詳細: %s"
 
-#: ../plugins/editor/text_editor.c:1593
+#: ../plugins/editor/text_editor.c:1605
 msgid "File loaded successfully"
 msgstr "ファイルの読み込みが完了しました"
 
-#: ../plugins/editor/text_editor.c:1614
+#: ../plugins/editor/text_editor.c:1626
 msgid "Saving file..."
 msgstr "ファイルの保存中..."
 
-#: ../plugins/editor/text_editor.c:1626
+#: ../plugins/editor/text_editor.c:1638
 #, c-format
-msgid "Could not save intermediate file %s: %s."
-msgstr "作業ファイル %s を保存できませんでした: %s"
+msgid "Could not save intermediate file %s: %s"
+msgstr "%s というファイルを即座に保存できませんでした: %s"
 
-#: ../plugins/editor/text_editor.c:1658
+#: ../plugins/editor/text_editor.c:1686
 #, c-format
 msgid "Could not save file %s: %s."
 msgstr "ファイル %s を保存できませんでした: %s"
 
-#: ../plugins/editor/text_editor.c:1667
+#: ../plugins/editor/text_editor.c:1699
+#, c-format
+msgid "Could not set file permissions %s: %s."
+msgstr "ファイルのパーミッション (%s) をセットできませんでした: %s"
+
+#: ../plugins/editor/text_editor.c:1707
 msgid "File saved successfully"
 msgstr "ファイルの保存が完了しました"
 
-#: ../plugins/editor/text_editor.c:2032
+#: ../plugins/editor/text_editor.c:2072
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3610,162 +3650,6 @@ msgstr ""
 "%s\n"
 "これは不適当な動作または不確定要素による結果かもしれません。\n"
 "Anjuta は (限定された) 設定でビルドするためにフォールバックします。"
-
-#: ../plugins/editor/text_editor_menu.c:78
-msgid "Back"
-msgstr "戻る"
-
-#: ../plugins/editor/text_editor_menu.c:85
-#: ../plugins/search/anjuta-search.glade.h:24
-#: ../plugins/search/search-replace.c:93
-msgid "Forward"
-msgstr "現在の場所から前方へ"
-
-#: ../plugins/editor/text_editor_menu.c:94
-msgid "Tag Definition"
-msgstr "タグの定義へ"
-
-#: ../plugins/editor/text_editor_menu.c:101
-msgid "Tag Declaration"
-msgstr "タグの宣言へ"
-
-#: ../plugins/editor/text_editor_menu.c:109
-msgid "Prev mesg"
-msgstr "前のメッセージへ"
-
-#: ../plugins/editor/text_editor_menu.c:115
-msgid "Next mesg"
-msgstr "次のメッセージへ"
-
-#: ../plugins/editor/text_editor_menu.c:121
-msgid "Prev bookmark"
-msgstr "前のブックマークへ"
-
-#: ../plugins/editor/text_editor_menu.c:127
-msgid "Next bookmark"
-msgstr "次のブックマークへ"
-
-#: ../plugins/editor/text_editor_menu.c:137
-msgid "Toggle breakpoint"
-msgstr "ブレークポイントの切り替え"
-
-#: ../plugins/editor/text_editor_menu.c:144
-msgid "Step in"
-msgstr "ステップイン"
-
-#: ../plugins/editor/text_editor_menu.c:150
-msgid "Step over"
-msgstr "ステップオーバー"
-
-#: ../plugins/editor/text_editor_menu.c:156
-msgid "Step out"
-msgstr "ステップアウト"
-
-#: ../plugins/editor/text_editor_menu.c:162
-msgid "Run to cursor"
-msgstr "カーソル位置まで実行"
-
-#: ../plugins/editor/text_editor_menu.c:168
-msgid "Run/Continue"
-msgstr "実行/続行"
-
-#: ../plugins/editor/text_editor_menu.c:182
-msgid "Interrupt"
-msgstr "割り込み"
-
-#: ../plugins/editor/text_editor_menu.c:192
-msgid "Toggle Line numbers"
-msgstr "行番号の ON/OFF"
-
-#: ../plugins/editor/text_editor_menu.c:199
-msgid "Toggle Marker Margin"
-msgstr "マーカーマージンの ON/OFF"
-
-#: ../plugins/editor/text_editor_menu.c:206
-msgid "Toggle Fold Margin"
-msgstr "折り畳みマージンの ON/OFF"
-
-#: ../plugins/editor/text_editor_menu.c:213
-msgid "Toggle Guides"
-msgstr "ガイドの ON/OFF"
-
-#: ../plugins/editor/text_editor_menu.c:221
-msgid "++Zoom"
-msgstr "拡大する"
-
-#: ../plugins/editor/text_editor_menu.c:228
-msgid "--Zoom"
-msgstr "縮小する"
-
-#. 0
-#: ../plugins/editor/text_editor_menu.c:240
-msgid "Cut"
-msgstr "切り取り"
-
-#. 1
-#: ../plugins/editor/text_editor_menu.c:248
-msgid "Copy"
-msgstr "コピー"
-
-#. 2
-#: ../plugins/editor/text_editor_menu.c:256
-msgid "Paste"
-msgstr "貼り付け"
-
-#. 4
-#: ../plugins/editor/text_editor_menu.c:266
-msgid "Context Help"
-msgstr "ツリー型ヘルプ"
-
-#. 6
-#: ../plugins/editor/text_editor_menu.c:276
-msgid "Toggle Bookmark"
-msgstr "ブックマークの ON/OFF"
-
-#. 7
-#: ../plugins/editor/text_editor_menu.c:284
-msgid "Auto format"
-msgstr "書式の自動整形"
-
-#. 10
-#: ../plugins/editor/text_editor_menu.c:302
-msgid "Go"
-msgstr "ジャンプ"
-
-#. 11
-#: ../plugins/editor/text_editor_menu.c:310
-#: ../plugins/editor/text_editor_menu.c:432
-msgid "Tags"
-msgstr "タグ"
-
-#. 13
-#. Action name
-#. Stock icon, if any
-#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:295
-#: ../plugins/profiler/plugin.c:718
-msgid "Debug"
-msgstr "デバッグ"
-
-#. 15
-#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:137
-msgid "Options"
-msgstr "オプション"
-
-#. 17
-#: ../plugins/editor/text_editor_menu.c:340
-msgid "Find Usage"
-msgstr "用法の検索"
-
-#. 18
-#: ../plugins/editor/text_editor_menu.c:348
-#: ../plugins/project-manager/plugin.c:490
-msgid "Close"
-msgstr "閉じる"
-
-#. 19
-#: ../plugins/editor/text_editor_menu.c:356
-msgid "Docked"
-msgstr "組み込む"
 
 #: ../plugins/file-loader/plugin.c:144
 #, c-format
@@ -3921,29 +3805,28 @@ msgid "Do not show hidden files"
 msgstr "隠しファイルは表示しない"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
-msgid "Root directory if no project is open: "
-msgstr "プロジェクトを開いていない時にルートにするフォルダ: "
+msgid "Root directory if no project is open:"
+msgstr "デフォルトのルート・フォルダ:"
 
 #: ../plugins/file-manager/file-model.c:148
-#: ../plugins/symbol-browser/an_symbol_view.c:869
-#: ../plugins/symbol-db/symbol-db-view.c:809
+#: ../plugins/symbol-browser/an_symbol_view.c:873
 msgid "Loading..."
 msgstr "読み込み中 ..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "基底 URI"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "フォルダ・ツリーを表示する際に使用する最上位の URI です"
 
-#: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:750
-#: ../plugins/symbol-browser/plugin.c:317
+#: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
+#: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "更新(_R)"
 
@@ -3964,37 +3847,26 @@ msgid "File Manager"
 msgstr "ファイル・マネージャ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
-msgid "<span weight=\"bold\">File Information</span>"
-msgstr "<span weight=\"bold\">ファイルの情報</span>"
+msgid "<b>File Information</b>"
+msgstr "<b>ファイルの情報</b>"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:3
-msgid "<span weight=\"bold\">Options</span>"
-msgstr "<span weight=\"bold\">オプション</span>"
-
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:4
 msgid "Add License Information"
 msgstr "ライセンス情報を追加する"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:4
 msgid "Add to project"
 msgstr "プロジェクトに追加する"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to repository"
 msgstr "リポジトリに追加する"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
 msgid "Create corresponding header file"
 msgstr "対応するヘッダ・ファイルも生成する"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:8
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -4002,21 +3874,22 @@ msgstr ""
 "ファイル名を入力して下さい。\n"
 "拡張子は種類に応じて自動的に付与されます。"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: ../plugins/macro/anjuta-macro.glade.h:6
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "名前:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 msgid "New File"
 msgstr "新しいファイル"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "Type:"
 msgstr "種類:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:14
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Use Template for the Header file"
 msgstr "ヘッダ・ファイルにテンプレートを利用する"
 
@@ -4026,11 +3899,11 @@ msgstr "Ｃソースファイル"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C/C++ Header File"
-msgstr "Ｃ/Ｃ++ ヘッダファイル"
+msgstr "Ｃ/Ｃ++のヘッダファイル"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
-msgstr "Ｃ++ ソースファイル:"
+msgstr "Ｃ++のソースファイル:"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
@@ -4070,9 +3943,18 @@ msgstr "劣等一般公衆利用許諾契約書 (LGPL)"
 msgid "Unable to build user interface for New File"
 msgstr "新しいファイルのユーザ・インタフェースを構築できません"
 
+#: ../plugins/gdb/anjuta-gdb.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+msgid "*"
+msgstr "*"
+
 #: ../plugins/gdb/anjuta-gdb.glade.h:6
 msgid "Command Line Parameters"
-msgstr "コマンド・ライン引数"
+msgstr "コマンド・ラインの引数"
+
+#: ../plugins/gdb/anjuta-gdb.glade.h:12
+msgid "Enter a Hexa adress or select one in the data"
+msgstr "16進形式でアドレスを入力するかデータから一つ選択して下さい"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:13
 msgid "Execute Program"
@@ -4086,15 +3968,15 @@ msgstr "端末内で実行する"
 msgid "_Pass:"
 msgstr "パス(_P):"
 
-#: ../plugins/gdb/debugger.c:636 ../plugins/gdb/debugger.c:834
+#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
 msgid "Loading Executable: "
 msgstr "実行ファイルの読み込み: "
 
-#: ../plugins/gdb/debugger.c:666
+#: ../plugins/gdb/debugger.c:719
 msgid "Loading Core: "
 msgstr "core の読み込み: "
 
-#: ../plugins/gdb/debugger.c:703
+#: ../plugins/gdb/debugger.c:756
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4105,53 +3987,54 @@ msgstr ""
 "デバッガを初期化できません。Anjuta が\n"
 "正しくインストールされているか確認して下さい。"
 
-#: ../plugins/gdb/debugger.c:828
+#: ../plugins/gdb/debugger.c:885
 msgid "Getting ready to start debugging session...\n"
 msgstr "デバッグ・セッションを開始する準備が整いました ...\n"
 
-#: ../plugins/gdb/debugger.c:843
+#: ../plugins/gdb/debugger.c:900
 msgid "No executable specified.\n"
 msgstr "実行形式が指定されていません。\n"
 
-#: ../plugins/gdb/debugger.c:846
+#: ../plugins/gdb/debugger.c:903
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "まず最初に、実行形式を開くかまたはプロセスにアタッチして下さい。\n"
 
-#: ../plugins/gdb/debugger.c:855
+#: ../plugins/gdb/debugger.c:912
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "デバッガを起動中にエラーが発生しました。\n"
 
-#: ../plugins/gdb/debugger.c:859
+#: ../plugins/gdb/debugger.c:916
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "'gdb' が正しくインストールされているか確認して下さい。\n"
 
-#: ../plugins/gdb/debugger.c:1150
+#: ../plugins/gdb/debugger.c:1207
 msgid "Program exited normally\n"
 msgstr "プログラムが正常に終了しました。\n"
 
-#: ../plugins/gdb/debugger.c:1161
+#: ../plugins/gdb/debugger.c:1218
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "プログラムがエラー・コード (%s) 付きで終了しました。\n"
 
-#: ../plugins/gdb/debugger.c:1176
+#. The program has reached one breakpoint and will stop
+#: ../plugins/gdb/debugger.c:1233
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "ブレークポイント (%s) に到達しました。\n"
 
-#: ../plugins/gdb/debugger.c:1185
+#: ../plugins/gdb/debugger.c:1242
 msgid "Function finished\n"
 msgstr "関数の処理が終了しました。\n"
 
-#: ../plugins/gdb/debugger.c:1191
+#: ../plugins/gdb/debugger.c:1248
 msgid "Stepping finished\n"
 msgstr "ステップ処理が終了しました。\n"
 
-#: ../plugins/gdb/debugger.c:1197
+#: ../plugins/gdb/debugger.c:1254
 msgid "Location reached\n"
 msgstr "指定した場所に到達しました。\n"
 
-#: ../plugins/gdb/debugger.c:1573
+#: ../plugins/gdb/debugger.c:1636
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4159,16 +4042,16 @@ msgstr ""
 "プログラムにアタッチ中です。\n"
 "本当にデバッガを停止してもよろしいですか？"
 
-#: ../plugins/gdb/debugger.c:1762
+#: ../plugins/gdb/debugger.c:1826
 msgid "Program attached\n"
 msgstr "プログラムにアタッチしました。\n"
 
-#: ../plugins/gdb/debugger.c:1779
+#: ../plugins/gdb/debugger.c:1847
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "プロセスにアタッチ中: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1805
+#: ../plugins/gdb/debugger.c:1873
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4176,37 +4059,37 @@ msgstr ""
 "既にプロセスが実行中です。\n"
 "プロセスを強制終了して、新しいプロセスを取り込みますか？"
 
-#: ../plugins/gdb/debugger.c:1822
+#: ../plugins/gdb/debugger.c:1890
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta 自身を添付することはできません。"
 
-#: ../plugins/gdb/debugger.c:1870
+#: ../plugins/gdb/debugger.c:1940
 msgid "Program terminated\n"
 msgstr "プログラムが終了しました。\n"
 
-#: ../plugins/gdb/debugger.c:1885
+#: ../plugins/gdb/debugger.c:1955
 msgid "Program detached\n"
 msgstr "プログラムへのアタッチを解除しました。\n"
 
-#: ../plugins/gdb/debugger.c:1904
+#: ../plugins/gdb/debugger.c:1975
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "アタッチを解除しています...\n"
 
-#: ../plugins/gdb/debugger.c:1926
+#: ../plugins/gdb/debugger.c:1996
 msgid "Interrupting the process\n"
 msgstr "プロセスに割り込んでいます。\n"
 
-#: ../plugins/gdb/debugger.c:3677
+#: ../plugins/gdb/debugger.c:3779
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "シグナル %s をプロセス (%d) に送信中:"
 
-#: ../plugins/gdb/debugger.c:3703
+#: ../plugins/gdb/debugger.c:3805
 msgid "Error whilst signaling the process."
 msgstr "プロセスにシグナルを送信する際にエラーが発生しました。"
 
-#: ../plugins/gdb/plugin.c:100
+#: ../plugins/gdb/plugin.c:102
 msgid ""
 "Anjuta terminal plugin is not installed. The program will be run without a "
 "terminal."
@@ -4214,17 +4097,23 @@ msgstr ""
 "Anjuta の端末プラグインがインストールされていないようです (端末を介さずにプロ"
 "グラムを実行します)"
 
-#: ../plugins/gdb/plugin.c:115
+#: ../plugins/gdb/plugin.c:117
 #, c-format
 msgid ""
-"Fail to create fifo file named %s. The program will be run without a terminal"
+"Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
-"%s という名前付きの FIFO を生成できませんでした (端末を介さずにプログラムを実"
-"行します)"
+"%s という名前付き FIFO の生成に失敗しました (端末を介さずにプログラムを実行し"
+"ます)"
 
-#: ../plugins/gdb/plugin.c:150
+#: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
 msgstr "デバッグ用の端末を起動できません。"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
+msgid "Debug"
+msgstr "デバッグ"
 
 #: ../plugins/glade/plugin.c:505
 msgid "Widgets"
@@ -4280,7 +4169,7 @@ msgstr "サマリ:"
 
 #. option menu label
 #: ../plugins/gtodo/add_edit_item.c:162
-#: ../plugins/macro/anjuta-macro.glade.h:5
+#: ../plugins/macro/anjuta-macro.glade.h:4
 msgid "Category:"
 msgstr "カテゴリ:"
 
@@ -4376,7 +4265,6 @@ msgid "Export to"
 msgstr "エキスポート先"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
-#: ../src/shell.c:88
 msgid "_View"
 msgstr "表示(_V)"
 
@@ -4464,17 +4352,19 @@ msgstr "削除する"
 msgid "<New category (%d)>"
 msgstr "<新しいカテゴリ (%d)>"
 
-#: ../plugins/gtodo/notification.c:66
+#: ../plugins/gtodo/notification.c:67
 #, c-format
-msgid "The following item is due in %i minutes:"
-msgstr "次のアイテムは %i分後が期限です:"
+msgid "The following item is due in %i minute:"
+msgid_plural "The following item is due in %i minutes:"
+msgstr[0] "次のアイテムは %i分後が期限です:"
+msgstr[1] "次のアイテムは %i分後が期限です:"
 
-#: ../plugins/gtodo/notification.c:74
+#: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
 msgstr "次のアイテムの期限:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:114
+#: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
 msgstr "二度と表示しない(_D)"
 
@@ -4567,80 +4457,45 @@ msgstr "期限切れのアイテム"
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
-msgid "Items that are due in the next %i days"
-msgstr "あと %i日で期限になるアイテム"
+msgid "Items that are due in the next %i day"
+msgid_plural "Items that are due in the next %i days"
+msgstr[0] "あと %i日で期限になるアイテム"
+msgstr[1] "あと %i日で期限になるアイテム"
 
-#: ../plugins/gtodo/preferences.c:169
+#: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
 msgstr "その他"
 
-#: ../plugins/gtodo/preferences.c:172
+#: ../plugins/gtodo/preferences.c:174
 msgid "Auto purge completed items"
 msgstr "完了したアイテムを自動的に削除する"
 
-#: ../plugins/gtodo/preferences.c:177
+#: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
 msgstr "次を超えたら削除する: "
 
-#: ../plugins/gtodo/preferences.c:181
+#: ../plugins/gtodo/preferences.c:183
 msgid "days."
 msgstr "日"
 
-#: ../plugins/gtodo/preferences.c:194 ../plugins/gtodo/preferences.c:196
+#: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
 msgstr "自動削除"
 
-#: ../plugins/gtodo/preferences.c:208 ../plugins/gtodo/preferences.c:210
+#: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
 msgstr "通知"
 
-#: ../plugins/gtodo/preferences.c:217
+#: ../plugins/gtodo/preferences.c:219
 #, c-format
-msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr "%i分後に期限切れになるアイテムを通知する"
+msgid "Allow todo items to notifiy me when they are due in %i minute"
+msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
+msgstr[0] "%i分後に期限切れになるアイテムを通知する"
+msgstr[1] "%i分後に期限切れになるアイテムを通知する"
 
-#: ../plugins/gtodo/preferences.c:224
+#: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
 msgstr "通知アイコンを表示する"
-
-#: ../plugins/gtodo/preferences.c:304
-msgid ""
-"Showing Tooltips in the todo list is still very alpha.\n"
-"Because of some weird behaviour in gtk it only works with the column headers "
-"disabled.\n"
-"I hope to get this fixed soon"
-msgstr ""
-"ツールチップの表示機能はまだ開発中のものです。\n"
-"GTK+ の奇妙な動きが原因で、項目名を表示しない時にのみ動作します。\n"
-"これはまもなく修正が完了する予定です。"
-
-#: ../plugins/gtodo/preferences.c:387
-msgid "/View/Sorting/Sort Ascending"
-msgstr "/表示/並べ替え/昇順"
-
-#: ../plugins/gtodo/preferences.c:388
-msgid "/View/Sorting/Sort Descending"
-msgstr "/表示/並べ替え/降順"
-
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Completed Items"))),settings.hide_done);
-#.
-#: ../plugins/gtodo/preferences.c:397
-msgid "/View/Hide Completed Items"
-msgstr "/表示/完了したアイテムを隠す"
-
-#. "/schemas
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
-#.
-#: ../plugins/gtodo/preferences.c:406
-msgid "/View/Hide Items that Are Past Due Date"
-msgstr "/表示/期限切れのアイテムを隠す"
-
-#. "/schemas
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
-#.
-#: ../plugins/gtodo/preferences.c:415
-msgid "/View/Hide Items Without an End Date"
-msgstr "/表示/期限の無いアイテムを隠す"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -4679,47 +4534,43 @@ msgstr "タスクの一覧"
 msgid "Todo List Manager"
 msgstr "タスクの一覧のマネージャ"
 
-#: ../plugins/macro/anjuta-macro.glade.h:2
+#: ../plugins/macro/anjuta-macro.glade.h:1
 msgid "<b>Macro details:</b>"
 msgstr "<b>マクロの詳細:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:3
+#: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro text:</b>"
 msgstr "<b>マクロ文:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:4
+#: ../plugins/macro/anjuta-macro.glade.h:3
 msgid "<b>Macros:</b>"
 msgstr "<b>マクロ:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:6
+#: ../plugins/macro/anjuta-macro.glade.h:5
 msgid "Edit..."
 msgstr "編集..."
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
-msgid "Name: "
-msgstr "名前: "
-
-#: ../plugins/macro/anjuta-macro.glade.h:8
 msgid "Shortcut:"
 msgstr "ショートカット:"
 
-#: ../plugins/macro/macro-actions.c:123
+#: ../plugins/macro/macro-actions.c:126
 msgid "Press macro shortcut..."
 msgstr "キーを押して下さい..."
 
-#: ../plugins/macro/macro-actions.c:130
+#: ../plugins/macro/macro-actions.c:133
 msgid "Press shortcut"
 msgstr "ショートカットを押して下さい"
 
-#: ../plugins/macro/macro-db.c:242
+#: ../plugins/macro/macro-db.c:245
 msgid "Anjuta macros"
 msgstr "Anjuta のマクロ集"
 
-#: ../plugins/macro/macro-db.c:246
+#: ../plugins/macro/macro-db.c:249
 msgid "My macros"
 msgstr "ユーザのマクロ集"
 
-#: ../plugins/macro/macro-dialog.c:256
+#: ../plugins/macro/macro-dialog.c:260
 msgid "Insert macro"
 msgstr "マクロの追加"
 
@@ -4809,7 +4660,8 @@ msgstr "タブの位置:"
 msgid "Truncate long messages"
 msgstr "長いメッセージを切り詰める"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
+#. Error/Warning indication style in editor
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:16
 msgid ""
 "Underline-Plain\n"
 "Underline-Squiggle\n"
@@ -4823,15 +4675,15 @@ msgstr ""
 "斜線\n"
 "打ち消し線"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:20
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
 msgstr "警告メッセージの識別スタイル:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:22
 msgid "Warnings:"
 msgstr "警告:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "全てのメッセージ・タブを閉じます"
 
@@ -4881,7 +4733,7 @@ msgid "Save message"
 msgstr "メッセージを保存します"
 
 #: ../plugins/message-view/plugin.c:197
-msgid "Next/Prev Message"
+msgid "Next/Previous Message"
 msgstr "次/前のメッセージ"
 
 #: ../plugins/patch/patch-plugin.c:68
@@ -4892,7 +4744,7 @@ msgstr "パッチするファイル/フォルダ"
 msgid "Patch file"
 msgstr "パッチ・ファイル"
 
-#: ../plugins/patch/patch-plugin.c:118 ../plugins/patch/patch-plugin.glade.h:2
+#: ../plugins/patch/patch-plugin.c:118
 msgid "Patch"
 msgstr "パッチ"
 
@@ -4910,10 +4762,9 @@ msgid "Patching...\n"
 msgstr "パッチの適用中...\n"
 
 #: ../plugins/patch/patch-plugin.c:168
-msgid "There are unfinished jobs, please wait until they are finished"
+msgid "There are unfinished jobs, please wait until they are finished."
 msgstr ""
-"完了していない処理があります。これらの処理が完了するまでしばらくお待ち下さ"
-"い。"
+"完了していない処理があります (これらの処理が完了するまでしばらくお待ち下さい)"
 
 #: ../plugins/patch/patch-plugin.c:210
 msgid ""
@@ -4926,7 +4777,7 @@ msgstr ""
 "リジェクトされたファイルを調べて削除して下さい。\n"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Dry run"
 msgstr "テスト"
 
@@ -4958,22 +4809,22 @@ msgstr "関数名"
 #. * This is the same as the "Seconds" field in the flat profile.
 #. Time spent in a subroutine of a function.
 #. Time spent in this function when it was called by its caller
-#: ../plugins/profiler/gprof-call-graph-view.c:359
-#: ../plugins/profiler/gprof-call-graph-view.c:371
-#: ../plugins/profiler/gprof-call-graph-view.c:383
+#: ../plugins/profiler/gprof-call-graph-view.c:361
+#: ../plugins/profiler/gprof-call-graph-view.c:375
+#: ../plugins/profiler/gprof-call-graph-view.c:389
 msgid "Self"
 msgstr "自分自身"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:394
-#: ../plugins/profiler/gprof-call-graph-view.c:404
+#: ../plugins/profiler/gprof-call-graph-view.c:402
 #: ../plugins/profiler/gprof-call-graph-view.c:414
+#: ../plugins/profiler/gprof-call-graph-view.c:426
 msgid "Children"
 msgstr "子"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:425
-#: ../plugins/profiler/gprof-call-graph-view.c:435
-#: ../plugins/profiler/gprof-call-graph-view.c:445
-#: ../plugins/profiler/gprof-flat-profile-view.c:104
+#: ../plugins/profiler/gprof-call-graph-view.c:439
+#: ../plugins/profiler/gprof-call-graph-view.c:449
+#: ../plugins/profiler/gprof-call-graph-view.c:459
+#: ../plugins/profiler/gprof-flat-profile-view.c:113
 msgid "Calls"
 msgstr "呼び出し回数"
 
@@ -4981,24 +4832,24 @@ msgstr "呼び出し回数"
 msgid "% Time"
 msgstr "% 時間"
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:79
+#: ../plugins/profiler/gprof-flat-profile-view.c:82
 msgid "Cumulative Seconds"
 msgstr "合計した時間 (秒)"
 
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
-#: ../plugins/profiler/gprof-flat-profile-view.c:93
+#: ../plugins/profiler/gprof-flat-profile-view.c:99
 msgid "Self Seconds"
 msgstr "自分自身の時間 (秒)"
 
 #. The average number of milliseconds spent in a function, excluding
 #. * the functions that it calls.
-#: ../plugins/profiler/gprof-flat-profile-view.c:118
+#: ../plugins/profiler/gprof-flat-profile-view.c:127
 msgid "Self ms/call"
 msgstr "自分自身の時間/呼び出し"
 
 #. Same as self ms/call, but includes called functions.
-#: ../plugins/profiler/gprof-flat-profile-view.c:131
+#: ../plugins/profiler/gprof-flat-profile-view.c:143
 msgid "Total ms/call"
 msgstr "合計した時間/呼び出し"
 
@@ -5006,12 +4857,11 @@ msgstr "合計した時間/呼び出し"
 msgid ""
 "Could not get profiling data.\n"
 "\n"
-"Please check the path to this target's profiling data file"
+"Please check the path to this target's profiling data file."
 msgstr ""
 "プロファイルのデータを取得できませんでした。\n"
 "\n"
-"このターゲットのプロファイル・データを格納しているファイルの所在を確認して下"
-"さい。"
+"このターゲットのプロファイル・データを格納しているパスを確認して下さい。"
 
 #: ../plugins/profiler/plugin.c:284
 msgid ""
@@ -5027,46 +4877,46 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:726 ../plugins/profiler/plugin.c:845
+#: ../plugins/profiler/plugin.c:735 ../plugins/profiler/plugin.c:854
 #: ../plugins/profiler/profiler.plugin.in.h:3
 msgid "Profiler"
 msgstr "プロファイラ"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:734
+#: ../plugins/profiler/plugin.c:743
 msgid "Select Target..."
 msgstr "ターゲットの選択..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:742
+#: ../plugins/profiler/plugin.c:751
 msgid "Refresh"
 msgstr "更新"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:750
+#: ../plugins/profiler/plugin.c:759
 msgid "Delete Data"
 msgstr "データの削除"
 
-#: ../plugins/profiler/plugin.c:800
+#: ../plugins/profiler/plugin.c:809
 msgid "Application Performance Profiler"
 msgstr "アプリケーションのパフォーマンスを調査するプロファイラ"
 
-#: ../plugins/profiler/plugin.c:822
+#: ../plugins/profiler/plugin.c:831
 msgid "Flat Profile"
 msgstr "関数毎の実行時間"
 
-#: ../plugins/profiler/plugin.c:827 ../plugins/profiler/profiler.glade.h:7
+#: ../plugins/profiler/plugin.c:836 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
 msgstr "コール・グラフ"
 
-#: ../plugins/profiler/plugin.c:832
+#: ../plugins/profiler/plugin.c:841
 msgid "Function Call Tree"
 msgstr "関数の呼び出しツリー"
 
-#: ../plugins/profiler/plugin.c:839
+#: ../plugins/profiler/plugin.c:848
 msgid "Function Call Chart"
 msgstr "関数の呼び出し図"
 
@@ -5189,9 +5039,9 @@ msgid "Import Project"
 msgstr "プロジェクトのインポート"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid "This wizard will import an existing project into Anjuta."
+msgid "This assistent will import an existing project into Anjuta."
 msgstr ""
-"このウィザードは、既存のプロジェクトを Anjuta にインポートするお手伝いをしま"
+"このアシスタントは既存のプロジェクトを Anjuta にインポートするお手伝いをしま"
 "す。"
 
 #: ../plugins/project-import/project-import.c:98
@@ -5227,11 +5077,11 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
 #, c-format
-msgid "A file named \"%s\" already exists.  Do you want to replace it?"
+msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr ""
 "\"%s\" という名前のファイルが既に存在します。上書きしてもよろしいですか？"
 
-#: ../plugins/project-import/project-import.c:353
+#: ../plugins/project-import/project-import.c:370
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -5246,7 +5096,7 @@ msgid "Failed to refresh project: %s"
 msgstr "プロジェクトの更新に失敗しました: %s"
 
 #: ../plugins/project-manager/plugin.c:366
-#: ../plugins/project-manager/plugin.c:745
+#: ../plugins/project-manager/plugin.c:748
 msgid "Project properties"
 msgstr "プロジェクトのプロパティ"
 
@@ -5263,11 +5113,15 @@ msgstr "ターゲットのプロパティ"
 msgid "Group properties"
 msgstr "グループのプロパティ"
 
+#: ../plugins/project-manager/plugin.c:490
+msgid "Close"
+msgstr "閉じる"
+
 #: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
 msgstr "このグループには利用可能なプロパティはありません"
 
-#: ../plugins/project-manager/plugin.c:585
+#: ../plugins/project-manager/plugin.c:586
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -5275,18 +5129,18 @@ msgstr ""
 "本当に次のグループをプロジェクトから削除してもよろしいですか？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:586
+#: ../plugins/project-manager/plugin.c:587
 #, c-format
 msgid ""
-"%sGroup: %s\n"
+"Group: %s\n"
 "\n"
 "The group will not be deleted from file system."
 msgstr ""
-"%sグループ: %s\n"
+"グループ: %s\n"
 "\n"
-"ファイルシステムからグループを削除しません"
+"このグループはファイルシステムから削除されません"
 
-#: ../plugins/project-manager/plugin.c:589
+#: ../plugins/project-manager/plugin.c:590
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -5294,12 +5148,12 @@ msgstr ""
 "本当に次のターゲットをプロジェクトから削除してもよろしいですか？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:591
 #, c-format
-msgid "%sTarget: %s"
-msgstr "%sターゲット: %s"
+msgid "Target: %s"
+msgstr "ターゲット: %s"
 
-#: ../plugins/project-manager/plugin.c:593
+#: ../plugins/project-manager/plugin.c:594
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -5307,18 +5161,18 @@ msgstr ""
 "本当に次のソース・ファイルをプロジェクトから削除してもよろしいですか？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:594
+#: ../plugins/project-manager/plugin.c:595
 #, c-format
 msgid ""
-"%sSource: %s\n"
+"Source: %s\n"
 "\n"
 "The source file will not be deleted from file system."
 msgstr ""
-"%sソース: %s\n"
+"ソース: %s\n"
 "\n"
-"ファイルシステムからソースを削除しません"
+"このソースはファイルシステムから削除されません"
 
-#: ../plugins/project-manager/plugin.c:648
+#: ../plugins/project-manager/plugin.c:651
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -5327,102 +5181,102 @@ msgstr ""
 "'%s' を削除できません:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:704
+#: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
 msgstr "選択したファイルはリンクなのでプロジェクトに追加できません"
 
-#: ../plugins/project-manager/plugin.c:706
+#: ../plugins/project-manager/plugin.c:709
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "%s の URI 情報を取得できませんでした: %s"
 
-#: ../plugins/project-manager/plugin.c:741
+#: ../plugins/project-manager/plugin.c:744
 msgid "_Project"
 msgstr "プロジェクト(_P)"
 
-#: ../plugins/project-manager/plugin.c:745
-#: ../plugins/project-manager/plugin.c:779
+#: ../plugins/project-manager/plugin.c:748
+#: ../plugins/project-manager/plugin.c:782
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
-#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:753
 msgid "Refresh project manager tree"
 msgstr "プロジェクト・マネージャのツリーを更新します"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:758
 msgid "Add _Group..."
 msgstr "グループの追加(_G)..."
 
-#: ../plugins/project-manager/plugin.c:755
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:758
+#: ../plugins/project-manager/plugin.c:792
 msgid "Add a group to project"
 msgstr "グループをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:763
 msgid "Add _Target..."
 msgstr "ターゲットの追加(_T)..."
 
-#: ../plugins/project-manager/plugin.c:760
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:763
+#: ../plugins/project-manager/plugin.c:797
 msgid "Add a target to project"
 msgstr "ターゲットをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:768
 msgid "Add _Source File..."
 msgstr "ソースの追加(_S)..."
 
-#: ../plugins/project-manager/plugin.c:765
-#: ../plugins/project-manager/plugin.c:784
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:768
+#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:802
 msgid "Add a source file to project"
 msgstr "ソース・ファイルをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:773
 msgid "Close Pro_ject"
 msgstr "プロジェクトを閉じる(_J)"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:773
 msgid "Close project"
 msgstr "プロジェクトを閉じます"
 
-#: ../plugins/project-manager/plugin.c:779
+#: ../plugins/project-manager/plugin.c:782
 msgid "Properties of group/target/source"
 msgstr "グループ/ターゲット/ソースのプロパティ"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:787
 msgid "_Add To Project"
 msgstr "プロジェクトへ追加(_A)"
 
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:792
 msgid "Add _Group"
 msgstr "グループの追加(_G)"
 
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:797
 msgid "Add _Target"
 msgstr "ターゲットの追加(_T)"
 
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:802
 msgid "Add _Source File"
 msgstr "ソースの追加(_S)"
 
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:807
 msgid "Re_move"
 msgstr "削除(_M)"
 
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:807
 msgid "Remove from project"
 msgstr "プロジェクトから削除します"
 
-#: ../plugins/project-manager/plugin.c:1152
+#: ../plugins/project-manager/plugin.c:1155
 #, c-format
 msgid "Loading project: %s"
 msgstr "プロジェクトの読み込み中: %s"
 
-#: ../plugins/project-manager/plugin.c:1160
+#: ../plugins/project-manager/plugin.c:1163
 msgid "Created project view..."
 msgstr "プロジェクト表示の生成中..."
 
-#: ../plugins/project-manager/plugin.c:1173
+#: ../plugins/project-manager/plugin.c:1176
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -5431,31 +5285,31 @@ msgstr ""
 "プロジェクトの解析に失敗しました (とりあえずプロジェクトは開きますが、プロ"
 "ジェクト表示はしません) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1193
-#: ../plugins/project-manager/plugin.c:1268
-#: ../plugins/project-manager/plugin.c:1440
+#: ../plugins/project-manager/plugin.c:1196
+#: ../plugins/project-manager/plugin.c:1271
+#: ../plugins/project-manager/plugin.c:1443
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "プロジェクト"
 
-#: ../plugins/project-manager/plugin.c:1356
+#: ../plugins/project-manager/plugin.c:1359
 #, c-format
 msgid "Error closing project: %s"
 msgstr "プロジェクトを閉じる際にエラー: %s"
 
-#: ../plugins/project-manager/plugin.c:1419
+#: ../plugins/project-manager/plugin.c:1422
 msgid "Project manager actions"
 msgstr "プロジェクト・マネージャの操作"
 
-#: ../plugins/project-manager/plugin.c:1427
+#: ../plugins/project-manager/plugin.c:1430
 msgid "Project manager popup actions"
 msgstr "プロジェクト・マネージャのポップアップ"
 
-#: ../plugins/project-manager/plugin.c:2346
+#: ../plugins/project-manager/plugin.c:2351
 msgid "Loaded Project... Initializing"
 msgstr "プロジェクトの読み込み... 初期化中"
 
-#: ../plugins/project-manager/plugin.c:2357
+#: ../plugins/project-manager/plugin.c:2362
 msgid "Loaded Project..."
 msgstr "プロジェクトの読み込み中..."
 
@@ -5468,8 +5322,8 @@ msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>開発するアプリケーションの種類を選択して下さい:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "Application Wizard"
-msgstr "アプリケーション・ウィザード"
+msgid "Application Assistent"
+msgstr "アプリケーション・アシスタント"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
@@ -5482,7 +5336,7 @@ msgstr "基本情報"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "プロジェクトのフォルダ:"
 
@@ -5501,13 +5355,13 @@ msgstr "プロジェクトの種類"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid ""
-"The Application Wizard will generate a basic skeleton for a project, "
+"The Application Assistent will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"アプリケーション・ウィザードはアプリケーションのビルドに必要な基本ファイルを"
-"生成します。また、このウィザードは開発しようとするアプリケーションの初期構造"
+"このアシスタントではアプリケーションのビルドに必要な基本ファイルを生成しま"
+"す。また、このアシスタントは開発しようとするアプリケーションの (初期の) 構成"
 "についていろいろ質問します。あとで変更できない設定がいくつかあるので注意深く"
 "答えて下さい。"
 
@@ -5557,15 +5411,15 @@ msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "\"%s\" というファイルが既に存在します。上書きしてもよろしいですか？"
 
 #: ../plugins/project-wizard/druid.c:836
-msgid "Unable to build project wizard user interface"
-msgstr "プロジェクト・ウィザードのインタフェースを構築できません"
+msgid "Unable to build project assistent user interface."
+msgstr "プロジェクト・アシスタントのインタフェースを構築できません"
 
 #: ../plugins/project-wizard/install.c:387
-msgid "New project has been created successfully"
+msgid "New project has been created successfully."
 msgstr "新しいプロジェクトの生成が完了しました"
 
 #: ../plugins/project-wizard/install.c:394
-msgid "New project creation has failed"
+msgid "New project creation has failed."
 msgstr "新しいプロジェクトの生成に失敗しました"
 
 #: ../plugins/project-wizard/install.c:440
@@ -5593,8 +5447,8 @@ msgid "Executing: "
 msgstr "実行形式: "
 
 #: ../plugins/project-wizard/plugin.c:150
-msgid "New Project Wizard"
-msgstr "新しいプロジェクトのウィザード"
+msgid "New Project Assistent"
+msgstr "新しいプロジェクトのアシスタント"
 
 #: ../plugins/project-wizard/property.c:248
 msgid "Choose directory"
@@ -5610,7 +5464,7 @@ msgstr "アイコンの選択"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
-msgstr "C++ 言語のサポート:"
+msgstr "Ｃ++言語のサポート:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
@@ -5625,18 +5479,18 @@ msgid "Add shared library support:"
 msgstr "共有ライブラリのサポート:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
-msgid "Adds c++ support to the project so that c++ source files can be built"
-msgstr "C++ のソース・ファイルもコンパイルできるようになります"
+msgid "Adds C++ support to the project so that C++ source files can be built"
+msgstr "Ｃ++のソース・ファイルもコンパイルできるようになります"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
-msgid "Adds supports for building shared libraries in your project"
-msgstr "プロジェクトの中で共有ライブラリをビルドできるようになります"
+msgid "Adds support for building shared libraries in your project"
+msgstr "プロジェクトの中で共有ライブラリを作成しビルドできるようになります"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid ""
-"Adds supports for internationalization so that your project can have "
+"Adds support for internationalization so that your project can have "
 "translations in different languages"
-msgstr "プロジェクトをいろいろな言語で利用できるようになります"
+msgstr "プロジェクトをいろいろな言語で利用できるようにします"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid "Basic information"
@@ -5864,12 +5718,15 @@ msgid "Use libglade for the UI"
 msgstr "ユーザインタフェースに libglade を利用する"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
-msgid "Use pkg-config to add library supports from other packages"
-msgstr "pkg-config を使って他のライブラリのサポートを追加します"
+msgid "Use pkg-config to add library support from other packages"
+msgstr "pkg-config を使って他のパッケージのライブラリを追加します"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Use the libglade-2.0 library to load .glade at runtime"
-msgstr "実行時に .glade ファイルを libglade-2.0 ライブラリを使って読み込みます"
+msgid ""
+"Use the libglade-2.0 library to load the glade interface file at runtime"
+msgstr ""
+"libglade ライブラリを使いインタフェース定義ファイルを実行時に読み込めるように"
+"します"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Value Name:"
@@ -5914,184 +5771,158 @@ msgid "SamplePlugin"
 msgstr "サンプル・プラグイン"
 
 #: ../plugins/search/anjuta-search.glade.h:1
-msgid ""
-"\n"
-"$(module.source.files) $(module.include.files)"
-msgstr ""
-"\n"
-"$(module.source.files) $(module.include.files)"
-
-#: ../plugins/search/anjuta-search.glade.h:3
-msgid ""
-"\n"
-"CVS\n"
-"CVS intl po "
-msgstr ""
-"\n"
-"CVS\n"
-"CVS intl po "
-
-#: ../plugins/search/anjuta-search.glade.h:6
-msgid "*.so *.o *.a *.la\n"
-msgstr "*.so *.o *.a *.la\n"
-
-#: ../plugins/search/anjuta-search.glade.h:8
-msgid ""
-"*\\.*\n"
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-msgstr ""
-"*\\.*\n"
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-
-#: ../plugins/search/anjuta-search.glade.h:11
 msgid "<b>Actions</b>"
 msgstr "<b>アクション</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:12
+#: ../plugins/search/anjuta-search.glade.h:2
 msgid "<b>File Filter</b>"
 msgstr "<b>ファイルのフィルタ</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:14
+#: ../plugins/search/anjuta-search.glade.h:4
 msgid "<b>Parameters</b>"
 msgstr "<b>パラメータ</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:15
+#: ../plugins/search/anjuta-search.glade.h:5
 msgid "<b>Scope</b>"
 msgstr "<b>範囲</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:16
-msgid "<b>Search Variable</b>"
+#. User can select variables that contain lists of files, so this is a combined noun
+#: ../plugins/search/anjuta-search.glade.h:7
+msgid "<b>Search variable</b>"
 msgstr "<b>検索の変数</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:17
-#: ../plugins/search/search-replace.c:94
+#: ../plugins/search/anjuta-search.glade.h:8
+#: ../plugins/search/search-replace.c:95
 msgid "Backward"
 msgstr "現在の場所から後方へ"
 
-#: ../plugins/search/anjuta-search.glade.h:18
+#: ../plugins/search/anjuta-search.glade.h:9
 msgid "Basic Search & Replace"
 msgstr "基本的な検索と置換を行う"
 
-#: ../plugins/search/anjuta-search.glade.h:19
+#: ../plugins/search/anjuta-search.glade.h:10
 msgid "Case insensitive"
 msgstr "大/小文字を区別しない"
 
-#: ../plugins/search/anjuta-search.glade.h:20
+#: ../plugins/search/anjuta-search.glade.h:11
 msgid "Choose Directories:"
 msgstr "フォルダの選択:"
 
-#: ../plugins/search/anjuta-search.glade.h:21
+#: ../plugins/search/anjuta-search.glade.h:12
 msgid "Choose Files:"
 msgstr "ファイルの選択:"
 
-#: ../plugins/search/anjuta-search.glade.h:22
+#: ../plugins/search/anjuta-search.glade.h:13
 msgid "Expand regex back references"
 msgstr "拡張正規表現で後方参照する"
 
-#: ../plugins/search/anjuta-search.glade.h:23
+#: ../plugins/search/anjuta-search.glade.h:14
 msgid "Find & Replace"
 msgstr "検索と置換"
 
+#: ../plugins/search/anjuta-search.glade.h:15
+#: ../plugins/search/search-replace.c:94
+msgid "Forward"
+msgstr "現在の場所から前方へ"
+
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
-#: ../plugins/search/anjuta-search.glade.h:25
-#: ../plugins/search/search-replace.c:92
+#: ../plugins/search/anjuta-search.glade.h:16
+#: ../plugins/search/search-replace.c:93
 msgid "Full Buffer"
 msgstr "バッファ全体"
 
-#: ../plugins/search/anjuta-search.glade.h:26
+#: ../plugins/search/anjuta-search.glade.h:17
 msgid "Greedy matching"
 msgstr "\"欲張り\" マッチングにする"
 
-#: ../plugins/search/anjuta-search.glade.h:27
+#: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
 msgstr "バイナリ・ファイルを無視する"
 
-#: ../plugins/search/anjuta-search.glade.h:28
+#: ../plugins/search/anjuta-search.glade.h:19
 msgid "Ignore Directories:"
 msgstr "無視するフォルダ:"
 
-#: ../plugins/search/anjuta-search.glade.h:29
+#: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Files:"
 msgstr "無視するファイル:"
 
-#: ../plugins/search/anjuta-search.glade.h:30
+#: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Directories"
 msgstr "隠しフォルダを無視する"
 
-#: ../plugins/search/anjuta-search.glade.h:31
+#: ../plugins/search/anjuta-search.glade.h:22
 msgid "Ignore Hidden Files"
 msgstr "隠しファイルを無視する"
 
-#: ../plugins/search/anjuta-search.glade.h:32
+#: ../plugins/search/anjuta-search.glade.h:23
 msgid "Match at start of word"
 msgstr "単語の先頭にマッチする"
 
-#: ../plugins/search/anjuta-search.glade.h:33
+#: ../plugins/search/anjuta-search.glade.h:24
 msgid "Match complete lines"
 msgstr "行の全てにマッチする"
 
-#: ../plugins/search/anjuta-search.glade.h:34
+#: ../plugins/search/anjuta-search.glade.h:25
 msgid "Match complete words"
 msgstr "単語全体にマッチする"
 
-#: ../plugins/search/anjuta-search.glade.h:35
-msgid "Max. Actions"
-msgstr "操作数の最大値"
+#: ../plugins/search/anjuta-search.glade.h:26
+msgid "Maximum Actions"
+msgstr "アクションの回数"
 
-#: ../plugins/search/anjuta-search.glade.h:36
+#: ../plugins/search/anjuta-search.glade.h:27
 msgid "Modify"
 msgstr "変更"
 
-#: ../plugins/search/anjuta-search.glade.h:37
+#: ../plugins/search/anjuta-search.glade.h:28
 msgid "New Name:"
 msgstr "新しい名前:"
 
-#: ../plugins/search/anjuta-search.glade.h:38
+#: ../plugins/search/anjuta-search.glade.h:29
 msgid "No Limit"
 msgstr "制限なし"
 
-#: ../plugins/search/anjuta-search.glade.h:39
+#: ../plugins/search/anjuta-search.glade.h:30
 msgid "Regular Expression"
 msgstr "正規表現を使用する"
 
-#: ../plugins/search/anjuta-search.glade.h:40
+#: ../plugins/search/anjuta-search.glade.h:31
 msgid "Replace With:"
 msgstr "次で置換する:"
 
-#: ../plugins/search/anjuta-search.glade.h:41
+#: ../plugins/search/anjuta-search.glade.h:32
 msgid "Search Action:"
 msgstr "アクションの種類:"
 
-#: ../plugins/search/anjuta-search.glade.h:42
+#: ../plugins/search/anjuta-search.glade.h:33
 msgid "Search Direction:"
 msgstr "検索する方向:"
 
-#: ../plugins/search/anjuta-search.glade.h:43
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:35
 msgid "Search Expression"
 msgstr "検索式"
 
-#: ../plugins/search/anjuta-search.glade.h:44
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:37
 msgid "Search Expression:"
 msgstr "検索式:"
 
-#: ../plugins/search/anjuta-search.glade.h:45
+#: ../plugins/search/anjuta-search.glade.h:38
 msgid "Search In:"
 msgstr "検索する場所:"
 
-#: ../plugins/search/anjuta-search.glade.h:46
+#: ../plugins/search/anjuta-search.glade.h:39
 msgid "Search Recursively"
 msgstr "再帰的に検索する"
 
-#: ../plugins/search/anjuta-search.glade.h:47
+#: ../plugins/search/anjuta-search.glade.h:40
 msgid "Search Target"
 msgstr "検索する対象"
 
-#: ../plugins/search/anjuta-search.glade.h:48
+#: ../plugins/search/anjuta-search.glade.h:41
 msgid "Setting"
 msgstr "設定"
 
@@ -6101,7 +5932,7 @@ msgstr "検索(_F) ..."
 
 #: ../plugins/search/plugin.c:195
 msgid "Search for a string or regular expression in the editor"
-msgstr "エディタ内で文字列または正規表現を検索します"
+msgstr "エディタの中から文字列または正規表現を検索します"
 
 #: ../plugins/search/plugin.c:197
 msgid "Find _Next"
@@ -6124,13 +5955,9 @@ msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr "検索して文字列または正規表現を別の文字列に置き換えます"
 
-#: ../plugins/search/plugin.c:208
-msgid "Advanced Search And Replace"
-msgstr "高度な検索と置換を行います"
-
-#: ../plugins/search/plugin.c:209
-msgid "New advance search And replace stuff"
-msgstr "新しい高度な検索と置換"
+#: ../plugins/search/plugin.c:208 ../plugins/search/plugin.c:209
+msgid "Search and Replace"
+msgstr "検索と置換"
 
 #: ../plugins/search/plugin.c:211
 msgid "Fin_d in Files..."
@@ -6165,7 +5992,7 @@ msgid "Basic Search"
 msgstr "基本的な検索"
 
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "デフォルト"
 
@@ -6173,98 +6000,100 @@ msgstr "デフォルト"
 msgid "Name"
 msgstr "名前"
 
-#: ../plugins/search/search-replace.c:99
+#: ../plugins/search/search-replace.c:100
 msgid "Current Buffer"
 msgstr "現在のバッファ"
 
-#: ../plugins/search/search-replace.c:100
+#: ../plugins/search/search-replace.c:101
 msgid "Current Selection"
 msgstr "現在の選択範囲"
 
-#: ../plugins/search/search-replace.c:101
+#: ../plugins/search/search-replace.c:102
 msgid "Current Block"
 msgstr "現在のブロック"
 
-#: ../plugins/search/search-replace.c:102
+#: ../plugins/search/search-replace.c:103
 msgid "Current Function"
 msgstr "現在の関数"
 
-#: ../plugins/search/search-replace.c:103
+#: ../plugins/search/search-replace.c:104
 msgid "All Open Buffers"
 msgstr "開いている全てのバッファ"
 
-#: ../plugins/search/search-replace.c:104
+#: ../plugins/search/search-replace.c:105
 msgid "All Project Files"
 msgstr "全てのプロジェクト・ファイル"
 
 #. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:106
+#: ../plugins/search/search-replace.c:107
 msgid "Specify File Patterns"
 msgstr "種類をパターンで指定する"
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:112
 msgid "Select next match"
 msgstr "次にマッチする文字列を選択する"
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:113
 msgid "Bookmark all matched lines"
 msgstr "マッチした行を全てブックマークに追加する"
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:114
 msgid "Mark all matches"
 msgstr "マッチした全ての文字列にマークを付与する"
 
-#: ../plugins/search/search-replace.c:114
+#: ../plugins/search/search-replace.c:115
 msgid "List matches in find pane"
 msgstr "検索結果を一覧にする"
 
-#: ../plugins/search/search-replace.c:115
+#: ../plugins/search/search-replace.c:116
 msgid "Replace next match"
 msgstr "次にマッチする文字列を置換する"
 
-#: ../plugins/search/search-replace.c:116
+#: ../plugins/search/search-replace.c:117
 msgid "Replace all matches"
 msgstr "マッチした全ての文字列を置換する"
 
-#: ../plugins/search/search-replace.c:320
+#: ../plugins/search/search-replace.c:321
 msgid "Find: "
 msgstr "検索: "
 
-#: ../plugins/search/search-replace.c:489
+#: ../plugins/search/search-replace.c:497
 msgid "Replace"
 msgstr "置換"
 
-#: ../plugins/search/search-replace.c:623
+#: ../plugins/search/search-replace.c:631
 msgid "Search complete"
 msgstr "検索が完了しました"
 
-#: ../plugins/search/search-replace.c:1000
-#: ../plugins/search/search-replace.c:1695
+#: ../plugins/search/search-replace.c:1011
+#: ../plugins/search/search-replace.c:1704
 msgid "Replace All"
 msgstr "全て置換"
 
-#: ../plugins/search/search-replace.c:1042
+#: ../plugins/search/search-replace.c:1050
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "\"%s\" に一致するものが見つかりませんでした。ドキュメント全体を検索してみます"
 "か？"
 
-#: ../plugins/search/search-replace.c:1062
+#: ../plugins/search/search-replace.c:1070
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "\"%s\" に一致するものが見つかりませんでした"
 
-#: ../plugins/search/search-replace.c:1077
+#: ../plugins/search/search-replace.c:1085
 msgid "The maximum number of results has been reached."
 msgstr "検索件数の上限を超えました"
 
-#: ../plugins/search/search-replace.c:1090
+#: ../plugins/search/search-replace.c:1098
 #, c-format
-msgid "%d matches have been replaced."
-msgstr " %d個のアイテムを置換しました。"
+msgid "%d match has been replaced."
+msgid_plural "%d matches have been replaced."
+msgstr[0] " %d個のアイテムを置換しました。"
+msgstr[1] " %d個のアイテムを置換しました。"
 
-#: ../plugins/search/search-replace.c:1255
+#: ../plugins/search/search-replace.c:1264
 msgid "Unable to build user interface for Search And Replace"
 msgstr "検索と置換のユーザ・インタフェースを構築できません"
 
@@ -6273,8 +6102,8 @@ msgstr "検索と置換のユーザ・インタフェースを構築できませ
 msgid "Could not obtain backup filename"
 msgstr "バックアップ用のファイル名を取得できませんでした"
 
-#: ../plugins/sourceview/anjuta-document.c:487
-#: ../plugins/sourceview/anjuta-document.c:568
+#: ../plugins/sourceview/anjuta-document.c:486
+#: ../plugins/sourceview/anjuta-document.c:567
 #, c-format
 msgid "Unsaved Document %d"
 msgstr "編集中のドキュメント %d"
@@ -6283,18 +6112,22 @@ msgstr "編集中のドキュメント %d"
 msgid "Unknown"
 msgstr "不明"
 
-#: ../plugins/sourceview/sourceview.c:314
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "読み込み中"
 
-#: ../plugins/sourceview/sourceview.c:337
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "保存中..."
 
-#: ../plugins/sourceview/sourceview.c:344
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "ファイル %s は他のアプリから変更されています。強制的に保存しますか？"
+
+#: ../plugins/sourceview/sourceview-print.c:47
+msgid "Preparing pages for printing"
+msgstr "印刷の準備中"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Colors:</b>"
@@ -6312,69 +6145,81 @@ msgstr "<b>インデントと自動整形のオプション</b>"
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
 msgid "Background:"
 msgstr "背景色:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
 msgid "Enable VFS file monitoring"
-msgstr "VFS によるファイルの監視を有効にする"
+msgstr "ファイルの状態を監視する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:14
-msgid "Font "
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
+msgid "Font"
 msgstr "フォント"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:15
-msgid "Font: "
-msgstr "フォント: "
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 msgid "Highlight current line"
 msgstr "カーソル行を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
 msgid "Highlight matching brackets"
 msgstr "対となる括弧を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:14
 msgid "Highlight syntax"
 msgstr "構文を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:16
+msgid "Print Linenumbers"
+msgstr "行番号を印刷する"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
+msgid "Print page footer"
+msgstr "ページ毎にフッタを印刷する"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
+msgid "Print page header"
+msgstr "ページ毎にヘッダを印刷する"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Right margin position in characters"
 msgstr "右マージンの位置 (文字数単位)"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
-msgid "Selected text: "
-msgstr "選択した文字列: "
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
+msgid "Selected text:"
+msgstr "選択した文字:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:22
 msgid "Selection:"
 msgstr "選択範囲:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
 msgid "Show line numbers"
 msgstr "行番号を表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
 msgid "Show marks"
 msgstr "マーカーを表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Show right margin"
 msgstr "右マージンを表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
-msgid "Text: "
-msgstr "文字: "
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
+msgid "Text:"
+msgstr "文字:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:33
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
 msgid "Use theme colors"
 msgstr "テーマの色を使用する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:34
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
 msgid "Use theme font"
 msgstr "テーマのフォントを使用する"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
+msgid "Wrap long lines to fit on paper"
+msgstr "長い行を用紙に合わせて折り返す"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -6452,139 +6297,127 @@ msgstr "ファイル/ディレクトリの追加"
 msgid "Commit Changes"
 msgstr "変更点のコミット"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "Copy files/folders"
+msgstr "ファイルやディレクトリのコピー"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Diff Selected Revisions"
 msgstr "選択したリビジョンの差分"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
+msgid "Diff file/directory"
+msgstr "ファイルやディレクトリの差分"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
 msgstr "前のリビジョンとの差分"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:30
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Force"
 msgstr "強制する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:31
+#: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
 msgstr "系譜を無視する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:32
+#: ../plugins/subversion/anjuta-subversion.glade.h:34
+msgid "Merge changes into working copy"
+msgstr "変更点を作業領域 (Working Copy) へマージします"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
 msgstr "その他のリビジョン:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:33
-msgid "Password:"
-msgstr "パスワード:"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:34
+#: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
 msgstr "Realm:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:35
-msgid "Realm: "
-msgstr "Realm: "
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:36
+#: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Recurse"
 msgstr "再帰的に処理する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:37
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Remember Password"
 msgstr "パスワードを記憶する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:38
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Remember this decision"
 msgstr "この決定を記憶する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:39
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
+msgid "Remove file/directory"
+msgstr "ファイルやディレクトリの削除"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Repository Head"
 msgstr "リポジトリの HEAD"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository authorization"
 msgstr "リポジトリの認証"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
 msgstr "ステータスの取得中..."
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
+msgid "Revert Changes"
+msgstr "変更点の取り消し"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
 msgstr "リビジョン:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Save open files before diffing"
 msgstr "差分を取得する前に開いているファイルを保存する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
 msgstr "衝突を解決する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
 msgstr "転送元:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion Preferences"
 msgstr "Subversion の設定"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
-msgid "Subversion: Copy files/folders"
-msgstr "Subversion: ファイル/フォルダのコピー"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
-msgid "Subversion: Diff file/directory"
-msgstr "Subversion: ファイル/ディレクトリの差分"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
-msgid "Subversion: Merge changes into working copy"
-msgstr "Subversion: 変更点のマージ"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
-msgid "Subversion: Remove file/directory"
-msgstr "Subversion: ファイル/ディレクトリの削除"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:51
-msgid "Subversion: Revert Changes"
-msgstr "Subversion: 変更点の取り消し"
+msgid "Switch to branch/tag"
+msgstr "ブランチ/タグの切り替え"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
-msgid "Subversion: Switch to branch/tag"
-msgstr "Subversion: ブランチ/タグへの切り替え"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
-msgid "Subversion: Update file/directory"
-msgstr "Subversion: ファイル/ディレクトリの更新"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
-msgid "TODO!"
-msgstr "TODO!"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Trust server"
 msgstr "サーバを信用する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
+msgid "Update file/directory"
+msgstr "ファイルやディレクトリの更新"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
 msgstr "最初のパスを使用する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
 msgstr "ログの表示"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
 msgstr "選択したリビジョンを表示する"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "Whole Project"
 msgstr "プロジェクト全体"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
 msgstr "作業領域 (Working Copy)"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:64
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "realm"
 msgstr "realm"
 
@@ -6756,19 +6589,39 @@ msgstr "Subversion のログ"
 msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: 次回のコミット時にファイルが追加されます"
 
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "パス名を入力して下さい"
+
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: コミット完了"
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
-msgid "Subversion: Committing changes  to the repository..."
+msgid "Subversion: Committing changes to the repository..."
 msgstr "Subversion: 変更点をリポジトリにコミット中..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
 msgstr "Subversion: コピー完了"
 
-#: ../plugins/subversion/subversion-diff-dialog.c:83
+#: ../plugins/subversion/subversion-copy-dialog.c:184
+msgid "Please enter a source path."
+msgstr "ソースのパス名を入力して下さい"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:190
+msgid "Please enter a destination path."
+msgstr "コピー先のパス名を入力して下さい"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:207
+#: ../plugins/subversion/subversion-switch-dialog.c:120
+msgid "Please enter a revision."
+msgstr "リビジョンを入力して下さい"
+
+#: ../plugins/subversion/subversion-diff-dialog.c:86
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
@@ -6790,6 +6643,27 @@ msgstr "Subversion: ファイルの取得中..."
 msgid "Subversion: Merge complete."
 msgstr "Subversion: マージ完了"
 
+#: ../plugins/subversion/subversion-merge-dialog.c:93
+msgid "Please enter the first path."
+msgstr "１番目のパス名を入力して下さい"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:99
+msgid "Please enter the second path."
+msgstr "２番目のパス名を入力して下さい"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:105
+#: ../plugins/subversion/subversion-switch-dialog.c:100
+msgid "Please enter a working copy path."
+msgstr "作業領域のパス名を入力して下さい"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:119
+msgid "Please enter the start revision."
+msgstr "開始リビジョンを入力して下さい"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:134
+msgid "Please enter the end revision."
+msgstr "終了リビジョンを入力して下さい"
+
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
 msgstr "Subversion: 次回のコミット時にファイルが削除されます"
@@ -6806,13 +6680,17 @@ msgstr "Subversion: Revert 完了"
 msgid "Subversion: Switch complete."
 msgstr "Subversion: 切り替え完了"
 
+#: ../plugins/subversion/subversion-switch-dialog.c:106
+msgid "Please enter a branch/tag URL."
+msgstr "ブランチまたはタグの URL を入力して下さい"
+
 #: ../plugins/subversion/subversion-ui-utils.c:64
 #: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:325
+#: ../plugins/subversion/subversion-ui-utils.c:342
 msgid "Subversion: Diff complete."
 msgstr "Subversion: 差分の取得完了"
 
@@ -6835,11 +6713,11 @@ msgstr "指紋: "
 
 #: ../plugins/subversion/svn-command.c:175
 msgid "Valid from: "
-msgstr "Valid from: "
+msgstr "検証の開始: "
 
 #: ../plugins/subversion/svn-command.c:176
 msgid "Valid until: "
-msgstr "Valid until: "
+msgstr "検証の終了: "
 
 #: ../plugins/subversion/svn-command.c:177
 msgid "Issuer DN: "
@@ -6850,13 +6728,13 @@ msgid "DER certificate: "
 msgstr "DER certificate: "
 
 #: ../plugins/subversion/svn-command.c:325
-#: ../plugins/subversion/svn-command.c:340
+#: ../plugins/subversion/svn-command.c:341
 #, c-format
 msgid "Deleted: %s"
 msgstr "削除済: %s"
 
 #: ../plugins/subversion/svn-command.c:328
-#: ../plugins/subversion/svn-command.c:346
+#: ../plugins/subversion/svn-command.c:347
 #, c-format
 msgid "Added: %s"
 msgstr "追加済: %s"
@@ -6866,45 +6744,43 @@ msgstr "追加済: %s"
 msgid "Resolved: %s"
 msgstr "解消済: %s"
 
-#: ../plugins/subversion/svn-command.c:343
+#: ../plugins/subversion/svn-command.c:344
 #, c-format
 msgid "Updated: %s"
 msgstr "更新済: %s"
 
-#: ../plugins/subversion/svn-command.c:349
+#: ../plugins/subversion/svn-command.c:350
 #, c-format
 msgid "Externally Updated: %s"
 msgstr "Anjuta 以外で更新済: %s"
 
-#: ../plugins/subversion/svn-command.c:383
+#: ../plugins/subversion/svn-command.c:384
 #, c-format
 msgid "Modified: %s"
 msgstr "変更済: %s"
 
-#: ../plugins/subversion/svn-command.c:386
+#: ../plugins/subversion/svn-command.c:387
 #, c-format
 msgid "Merged: %s"
 msgstr "マージ済: %s"
 
-#: ../plugins/subversion/svn-command.c:389
+#: ../plugins/subversion/svn-command.c:390
 #, c-format
 msgid "Conflicted: %s"
 msgstr "衝突状態: %s"
 
-#: ../plugins/subversion/svn-command.c:393
+#: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Missing: %s"
 msgstr "不明: %s"
 
-#: ../plugins/subversion/svn-command.c:396
+#: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Obstructed: %s"
 msgstr "衝突の原因: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:565
-#: ../plugins/symbol-db/symbol-db-view-locals.c:286
-#: ../plugins/symbol-db/symbol-db-view.c:1433
+#: ../plugins/symbol-browser/an_symbol_view.c:569
 msgid "Symbol"
 msgstr "シンボル"
 
@@ -6957,121 +6833,111 @@ msgid "<b>Create API tags:</b>"
 msgstr "<b>API タグの生成:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+msgid "Add Directory"
+msgstr "フォルダの追加"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
 msgstr "スキャンするフォルダを追加して下さい:"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
-msgid "Add directory"
-msgstr "フォルダの追加"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
-msgid "Crea_te"
-msgstr "生成(_T)"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Create API tags"
 msgstr "API タグを生成します"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
-msgid "Update globale tags"
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+msgid "Update Global Tags"
 msgstr "グローバル・タグの更新"
 
-#: ../plugins/symbol-browser/plugin.c:273
+#: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
 msgstr "タグの定義(_D)"
 
-#: ../plugins/symbol-browser/plugin.c:275
-#: ../plugins/symbol-browser/plugin.c:295
+#: ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/symbol-browser/plugin.c:289
 msgid "Goto symbol definition"
 msgstr "シンボルを定義している場所へジャンプします"
 
-#: ../plugins/symbol-browser/plugin.c:281
+#: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
 msgstr "タグの宣言(_C)"
 
-#: ../plugins/symbol-browser/plugin.c:283
-#: ../plugins/symbol-browser/plugin.c:303
+#: ../plugins/symbol-browser/plugin.c:277
+#: ../plugins/symbol-browser/plugin.c:297
 msgid "Goto symbol declaration"
 msgstr "シンボルを宣言している場所へジャンプします"
 
-#: ../plugins/symbol-browser/plugin.c:293
+#: ../plugins/symbol-browser/plugin.c:287
 msgid "Goto _Definition"
 msgstr "定義へジャンプ(_D)"
 
-#: ../plugins/symbol-browser/plugin.c:301
+#: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto De_claration"
 msgstr "宣言へジャンプ(_C)"
 
-#: ../plugins/symbol-browser/plugin.c:309
+#: ../plugins/symbol-browser/plugin.c:303
 msgid "_Find Usage"
 msgstr "用法の検索(_F)"
 
-#: ../plugins/symbol-browser/plugin.c:311
+#: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
 msgstr "プロジェクト内でシンボルを利用している場所を探します"
 
-#: ../plugins/symbol-browser/plugin.c:319
+#: ../plugins/symbol-browser/plugin.c:313
 msgid "Refresh symbol browser tree"
 msgstr "シンボル参照ツリーを更新します"
 
-#: ../plugins/symbol-browser/plugin.c:388
+#: ../plugins/symbol-browser/plugin.c:382
 msgid "Created symbols..."
 msgstr "シンボルの生成中..."
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:1020
+#. Local symbols of the file
+#: ../plugins/symbol-browser/plugin.c:910
 msgid "Local"
 msgstr "ローカル"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:1045
+#. Global project-wide symbols
+#: ../plugins/symbol-browser/plugin.c:930
 msgid "Global"
 msgstr "グローバル"
 
-#: ../plugins/symbol-browser/plugin.c:1059
+#: ../plugins/symbol-browser/plugin.c:974
 msgid "Symbol browser actions"
 msgstr "シンボル・ブラウザの操作"
 
-#: ../plugins/symbol-browser/plugin.c:1066
+#: ../plugins/symbol-browser/plugin.c:981
 msgid "Symbol browser popup actions"
 msgstr "シンボル・ブラウザのポップアップ"
 
-#: ../plugins/symbol-browser/plugin.c:1075
+#: ../plugins/symbol-browser/plugin.c:990
 msgid "Goto symbol"
 msgstr "シンボルへジャンプ"
 
-#: ../plugins/symbol-browser/plugin.c:1076
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Select the symbol to go"
 msgstr "選択したシンボルへジャンプします"
 
-#: ../plugins/symbol-browser/plugin.c:1085
+#: ../plugins/symbol-browser/plugin.c:1000
 msgid "Symbol navigations"
 msgstr "シンボルの閲覧"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:1102
+#: ../plugins/symbol-browser/plugin.c:1009
 msgid "Symbols"
 msgstr "シンボル"
 
-#: ../plugins/symbol-db/plugin.c:935
-msgid "Populating symbols' db..."
-msgstr "シンボル DB の生成中..."
-
-#: ../plugins/symbol-db/symbol-db.glade.h:1
-msgid "Anjuta Plugin User Interface"
-msgstr "Anjuta プラグインのユーザ・インタフェース"
-
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
 msgstr "<b>端末のオプション</b>"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
 msgid "Use GNOME terminal profile:"
 msgstr "使用する GNOME 端末のプロファイル:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "GNOME 端末で現在選択されているプロファイルを使用する"
 
-#: ../plugins/terminal/terminal.c:606 ../plugins/terminal/terminal.c:717
-#: ../plugins/terminal/terminal.c:733
+#: ../plugins/terminal/terminal.c:605 ../plugins/terminal/terminal.c:716
+#: ../plugins/terminal/terminal.c:732
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "端末"
@@ -7082,11 +6948,11 @@ msgstr "コマンド:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:2
 msgid "Edit as script"
-msgstr "スクリプトとして編集"
+msgstr "スクリプトとして編集する"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
-msgid "Edit command in Anjuta on close"
-msgstr "閉じる際に Anjuta 組込みコマンドとして編集します"
+msgid "Edit command as script in Anjuta on close"
+msgstr "Anjuta の組込みスクリプトとしてコマンドを編集します"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
@@ -7139,10 +7005,6 @@ msgstr "作業フォルダ:"
 msgid "_Variable..."
 msgstr "変数(_V)..."
 
-#: ../plugins/tools/anjuta-tools.glade.h:23
-msgid "toggle"
-msgstr "切り替え"
-
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
@@ -7191,12 +7053,12 @@ msgstr "同名のツールが既に存在しています！"
 #: ../plugins/tools/editor.c:731
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
-"keep it anyway ?"
+"keep it anyway?"
 msgstr ""
 "そのショートカットは Anjuta の他のコンポーネントが使用しています。それでも使"
 "用しますか？"
 
-#: ../plugins/tools/editor.c:816
+#: ../plugins/tools/editor.c:817
 msgid "Unable to edit script"
 msgstr "スクリプトを編集できません"
 
@@ -7239,7 +7101,7 @@ msgstr "コマンドの実行中:"
 
 #: ../plugins/tools/execute.c:506
 #, c-format
-msgid "Completed unsuccessful with %d\n"
+msgid "Completed unsuccessful with status code %d\n"
 msgstr "完了しました (%d で失敗)\n"
 
 #: ../plugins/tools/execute.c:626
@@ -7250,10 +7112,10 @@ msgstr "バッファを生成できないのでコマンドの実行を中断し
 msgid "No document currently open, command aborted"
 msgstr "ドキュメントを開いていないのでコマンドの実行を中断します"
 
-#: ../plugins/tools/execute.c:1011
+#: ../plugins/tools/execute.c:1016
 #, c-format
-msgid "Unable to open input file %s, Command aborted"
-msgstr "入力ファイル %s を開けないのでコマンドの実行を中断します"
+msgid "Unable to open input file %s, command aborted"
+msgstr "入力ファイルの %s を開けないのでコマンドの実行を中断します"
 
 #: ../plugins/tools/fileop.c:248
 msgid "Missing tool name"
@@ -7262,7 +7124,7 @@ msgstr "ツール名がありません"
 #: ../plugins/tools/fileop.c:258
 #, c-format
 msgid "Unexpected element \"%s\""
-msgstr "予期しない要素 \"%s\""
+msgstr "想定外の要素 \"%s\""
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
@@ -7275,11 +7137,11 @@ msgstr "%s を書き込みモードで開けません"
 
 #: ../plugins/tools/plugin.c:143
 msgid "_Configure"
-msgstr "Configure(_C)"
+msgstr "設定(_C)"
 
 #: ../plugins/tools/plugin.c:145
 msgid "Configure external tools"
-msgstr "Configure 外部ツール"
+msgstr "外部ツールを設定します"
 
 #: ../plugins/tools/plugin.c:185
 msgid "Tool operations"
@@ -7315,19 +7177,23 @@ msgstr "ツールの選択:"
 msgid "Select Valgrind Target"
 msgstr "Valgrind ターゲットの選択"
 
+#: ../plugins/valgrind/plugin.c:137
+msgid "Options"
+msgstr "オプション"
+
 #: ../plugins/valgrind/plugin.c:250
 msgid "Select debugging target"
 msgstr "デバッグするターゲットの選択"
 
 #: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
-#: ../plugins/valgrind/plugin.c:660 ../plugins/valgrind/plugin.c:670
+#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:670
 msgid "Valgrind"
 msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
 msgid ""
-"No executable target selected for debugging with Valgrind.Please select one."
-msgstr "Valgrind でデバッグする実行形式が選択されていません。"
+"No executable target selected for debugging with Valgrind. Please select one."
+msgstr "Valgrind でデバッグする実行形式を選択して下さい"
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
@@ -7455,11 +7321,13 @@ msgstr ""
 msgid "Override default settings"
 msgstr "デフォルトの設定を上書きする"
 
-#: ../plugins/valgrind/vgcachegrindprefs.c:244
+#. This is the format of the preference, simply translate the words
+#. * inside the <>
+#: ../plugins/valgrind/vgcachegrindprefs.c:246
 msgid "Enter <size>,<assoc>,<line_size>:"
 msgstr "<サイズ>,<assoc>,<行の長さ> を指定して下さい:"
 
-#: ../plugins/valgrind/vgcachegrindprefs.c:278
+#: ../plugins/valgrind/vgcachegrindprefs.c:280
 msgid "Cachegrind"
 msgstr "Cachegrind"
 
@@ -7485,69 +7353,70 @@ msgid "Invalid regular expression: '%s': %s"
 msgstr "正規表現が間違っています: '%s': %s"
 
 #. FIXME: we should really get this title from somewhere else?
-#: ../plugins/valgrind/vgdefaultview.c:757
+#: ../plugins/valgrind/vgdefaultview.c:758
 msgid "Valgrind Suppression Rules"
 msgstr "Valgrind の抑止ルール"
 
 #. FIXME: we should really get this title from somewhere else?
-#: ../plugins/valgrind/vgdefaultview.c:1102
+#: ../plugins/valgrind/vgdefaultview.c:1103
 #: ../plugins/valgrind/vgrule-list.c:134
 msgid "Valgrind Suppression"
 msgstr "Valgrind の抑止"
 
-#: ../plugins/valgrind/vgdefaultview.c:1152
+#: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "Cu_t"
 msgstr "切り取り(_T)"
 
-#: ../plugins/valgrind/vgdefaultview.c:1156
+#: ../plugins/valgrind/vgdefaultview.c:1157
 msgid "Suppress"
 msgstr "抑止"
 
-#: ../plugins/valgrind/vgdefaultview.c:1158
+#: ../plugins/valgrind/vgdefaultview.c:1159
 msgid "Edit in Custom Editor"
 msgstr "他のエディタで編集する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:178
-msgid "Demangle c++ symbol names"
+#. demangle = decode C++ name encoding
+#: ../plugins/valgrind/vggeneralprefs.c:179
+msgid "Demangle C++ symbol names"
 msgstr "Ｃ++のシンボル名を改変する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:186
+#: ../plugins/valgrind/vggeneralprefs.c:187
 msgid "Show"
 msgstr "スタックトレースで表示する個数:"
 
-#: ../plugins/valgrind/vggeneralprefs.c:198
+#: ../plugins/valgrind/vggeneralprefs.c:199
 msgid "callers in stack trace"
 msgstr "個"
 
-#: ../plugins/valgrind/vggeneralprefs.c:205
+#: ../plugins/valgrind/vggeneralprefs.c:206
 msgid "Stop showing errors if there are too many"
 msgstr "大量のエラーが発生したら表示を停止する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:213
+#: ../plugins/valgrind/vggeneralprefs.c:214
 msgid "Round malloc sizes to next word"
 msgstr "次のワードに malloc のサイズを丸める"
 
-#: ../plugins/valgrind/vggeneralprefs.c:221
+#: ../plugins/valgrind/vggeneralprefs.c:222
 msgid "Trace any child processes forked off by the program being debugged"
 msgstr "デバッグ中のプログラムから fork() した子プロセスも追跡する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:229
+#: ../plugins/valgrind/vggeneralprefs.c:230
 msgid "Track open file descriptors"
 msgstr "開いたファイル・ディスクリプタを追跡する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:237
+#: ../plugins/valgrind/vggeneralprefs.c:238
 msgid "Add time stamps to log messages"
 msgstr "ログにタイムスタンプを付与する"
 
-#: ../plugins/valgrind/vggeneralprefs.c:245
+#: ../plugins/valgrind/vggeneralprefs.c:246
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
 msgstr "メモリリークをチェックする前に exit で __libc_freeres() 関数を呼び出す"
 
-#: ../plugins/valgrind/vggeneralprefs.c:253
+#: ../plugins/valgrind/vggeneralprefs.c:254
 msgid "Suppressions File:"
 msgstr "抑止ファイル:"
 
-#: ../plugins/valgrind/vggeneralprefs.c:273
+#: ../plugins/valgrind/vggeneralprefs.c:274
 msgid "Choose Valgrind Suppressions File..."
 msgstr "Valgrind の抑止ファイルの選択..."
 
@@ -7595,10 +7464,6 @@ msgstr "free() した後のキューのバイト数"
 msgid "Work around bugs generated by gcc 2.96"
 msgstr "gcc-2.96 が生成するバグを回避する"
 
-#: ../plugins/valgrind/vgrule-editor.c:138
-msgid "Shared Object"
-msgstr "共有オブジェクト"
-
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
 msgstr "伸ばす"
@@ -7630,8 +7495,8 @@ msgstr "呼び出しチェイン:"
 #: ../plugins/valgrind/vgrule-editor.c:529
 #: ../plugins/valgrind/vgrule-editor.c:544
 #, c-format
-msgid "Error saving to suppression file `%s': %s"
-msgstr "抑止ファイル '%s' への保存でエラー: %s"
+msgid "Error saving to suppression file '%s': %s"
+msgstr "'%s' という抑止ファイルに保存する際にエラー: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:176 ../plugins/valgrind/vgrule-list.c:245
 msgid "You have forgotten to name your suppression rule."
@@ -7671,30 +7536,39 @@ msgid "<b>Appearance</b>"
 msgstr "<b>外観</b>"
 
 #: ../src/anjuta.glade.h:2
-msgid "<b>General Information:</b>"
-msgstr "<b>全般の情報:</b>"
+msgid "<b>Project Defaults</b>"
+msgstr "<b>プロジェクトのデフォルト値</b>"
 
 #: ../src/anjuta.glade.h:3
-msgid "<b>Session:</b>"
-msgstr "<b>セッション:</b>"
+msgid "<b>Session</b>"
+msgstr "<b>セッション</b>"
 
 #: ../src/anjuta.glade.h:4
-msgid "Default project directory"
-msgstr "デフォルトのプロジェクト・フォルダ"
+msgid "Default project directory:"
+msgstr "プロジェクトのフォルダ:"
 
 #: ../src/anjuta.glade.h:5
+msgid "Developer email address:"
+msgstr "開発者の連絡先:"
+
+#: ../src/anjuta.glade.h:6
+msgid "Developer name:"
+msgstr "開発者の名前:"
+
+#: ../src/anjuta.glade.h:7
 msgid "Do not load last project and files on startup"
 msgstr "起動後に最後のプロジェクトやファイルを読み込まない"
 
-#: ../src/anjuta.glade.h:6
+#: ../src/anjuta.glade.h:8
 msgid "Do not load last session on startup"
 msgstr "起動後に最後のセッションを読み込まない"
 
-#: ../src/anjuta.glade.h:7
+#. Style of the buttons/tabs used to select docked windows in anjuta
+#: ../src/anjuta.glade.h:10
 msgid "Dock switcher style: "
 msgstr "ドック切り替えボタンのスタイル: "
 
-#: ../src/anjuta.glade.h:9
+#: ../src/anjuta.glade.h:12
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7708,19 +7582,11 @@ msgstr ""
 "デスクトップの設定\n"
 "タブ"
 
-#: ../src/anjuta.glade.h:14
-msgid "User email address"
-msgstr "E-メール・アドレス"
-
-#: ../src/anjuta.glade.h:15
-msgid "User name"
-msgstr "ユーザの氏名"
-
-#: ../src/anjuta-actions.h:23 ../src/shell.c:86
+#: ../src/anjuta-actions.h:23
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../src/anjuta-actions.h:24 ../src/shell.c:94
+#: ../src/anjuta-actions.h:24
 msgid "_Quit"
 msgstr "終了(_Q)"
 
@@ -7764,7 +7630,7 @@ msgstr "レイアウトのロック(_L)"
 msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr "現在のドック・レイアウトをロックして、ドックを削除できないようにします"
 
-#: ../src/anjuta-actions.h:58 ../src/shell.c:90
+#: ../src/anjuta-actions.h:58
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
@@ -7840,43 +7706,26 @@ msgstr "外部プラグインについて(_P)"
 msgid "About third party Anjuta plugins"
 msgstr "サードパーティ製の Anjuta プラグインの情報です"
 
-#: ../src/anjuta-app.c:620
+#: ../src/anjuta-app.c:619
 msgid "Edit"
 msgstr "編集"
 
-#: ../src/anjuta-app.c:624
+#: ../src/anjuta-app.c:623 ../src/anjuta-app.c:628
 msgid "View"
 msgstr "表示"
 
-#: ../src/anjuta-app.c:629
-msgid "Toggle View"
-msgstr "表示の切り替え"
-
-#: ../src/anjuta-app.c:828
+#: ../src/anjuta-app.c:827
 msgid "Installed plugins"
 msgstr "インストール済のプラグイン"
 
-#: ../src/anjuta-app.c:832
+#: ../src/anjuta-app.c:831
 msgid "Shortcuts"
 msgstr "ショートカット"
 
-#: ../src/anjuta-app.c:904 ../src/shell.c:232
+#: ../src/anjuta-app.c:903
 #, c-format
 msgid "Value doesn't exist"
 msgstr "値が存在しません"
-
-#: ../src/anjuta-callbacks.c:48
-msgid "Could not open file for writing"
-msgstr "ファイルを書き込みモードで開けませんでした"
-
-#: ../src/anjuta-callbacks.c:72
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to replace it with the one you are saving?."
-msgstr ""
-"ファイル '%s' は既に存在しています。\n"
-"保存するファイルで置き換えてもよろしいですか？"
 
 #: ../src/main.c:70
 msgid "Specify the size and location of the main window"
@@ -7915,42 +7764,6 @@ msgstr "- 統合開発環境"
 #: ../src/main.c:379
 msgid "Anjuta"
 msgstr "Anjuta"
-
-#: ../src/shell.c:76
-msgid "Anjuta Plugins"
-msgstr "Anjuta のプラグイン"
-
-#: ../src/shell.c:89
-msgid "_Settings"
-msgstr "設定(_S)"
-
-#: ../src/shell.c:96
-msgid "Quit Anjuta Test Shell"
-msgstr "Anjuta のテスト用シェルを終了します"
-
-#: ../src/shell.c:102
-msgid "_Preferences..."
-msgstr "設定(_P) ..."
-
-#: ../src/shell.c:104
-msgid "Preferences"
-msgstr "設定"
-
-#: ../src/shell.c:110
-msgid "C_ustomize shortcuts"
-msgstr "ショートカットのカスタマイズ(_U)"
-
-#: ../src/shell.c:112
-msgid "Customize shortcuts associated with menu items"
-msgstr "メニューのエントリに関連するショートカットをカスタマイズします"
-
-#: ../src/shell.c:183
-msgid "Test shell action group"
-msgstr "テスト用のシェルのアクション・グループ"
-
-#: ../src/shell.c:442
-msgid "Anjuta test shell"
-msgstr "Anjuta のテスト用のシェル"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
@@ -8012,30 +7825,30 @@ msgstr "スマート・インデント"
 msgid "Statement indentation size in spaces:"
 msgstr "文中のインデント (空白の数):"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1449
+#: ../plugins/language-support-cpp-java/plugin.c:1602
 msgid "_AutoComplete"
 msgstr "自動補完(_A)"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1450
+#: ../plugins/language-support-cpp-java/plugin.c:1603
 msgid "AutoComplete the current word"
 msgstr "選択している単語を自動補完します"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1456
+#: ../plugins/language-support-cpp-java/plugin.c:1609
 msgid "Auto Indent"
 msgstr "自動インデント"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1457
+#: ../plugins/language-support-cpp-java/plugin.c:1610
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "現在の行またはインデント設定に従った選択範囲をを自動インデントします"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1499
-msgid "Cpp/Java Assistance"
-msgstr "C++/Java アシスタンス"
+#: ../plugins/language-support-cpp-java/plugin.c:1652
+msgid "C++/Java Assistance"
+msgstr "Ｃ++/Java 言語のアシスタンス"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1587
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1740
+#: ../plugins/language-support-cpp-java/plugin.c:1749
 msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+msgstr "Ｃ/Ｃ++/Java/Vala"
 
 #: ../plugins/sourceview/plugin.c:152 ../plugins/sourceview/plugin.c:169
 msgid "GtkSourceView Editor"
@@ -8062,12 +7875,12 @@ msgid "Provides document management capabilities."
 msgstr "Anjuta にドキュメントの管理機能を提供します"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
-msgid "Anjuta File Wizard Plugin"
-msgstr "ファイル・ウィザードのプラグインです"
+msgid "Anjuta File Assistent Plugin"
+msgstr "Anjuta のファイル・アシスタント用プラグインです"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-msgid "File Wizard"
-msgstr "ファイル・ウィザード"
+msgid "File Assistent"
+msgstr "ファイル・アシスタント"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
@@ -8163,11 +7976,11 @@ msgstr "autotools ベースのプロジェクトをインポートします"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
-msgstr "既存のソースからプロジェクトをインポートします"
+msgstr "既存のソースからのインポート"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
-msgid "Project Import Wizard"
-msgstr "プロジェクトのインポート・ウィザード"
+msgid "Project Import Assistent"
+msgstr "プロジェクトのインポート・アシスタント"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
 msgid "An alternate editor based on GtkSourceview"
@@ -8183,15 +7996,15 @@ msgstr "ファイルを編集するための Scintilla ベースのコンポー�
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
-msgstr "C++ と Java のサポート・プラグイン"
+msgstr "Ｃ++と Java のサポート・プラグイン"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
-msgstr "C++ や Java でコードを補完したり自動インデント等をサポートします"
+msgstr "Ｃ++や Java でコードを補完したり自動インデント等をサポートします"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-msgid "Project Wizard"
-msgstr "プロジェクト・ウィザード"
+msgid "Project Assistent"
+msgstr "プロジェクトのアシスタント"
 
 #: ../plugins/profiler/profiler.plugin.in.h:1
 msgid "Application performance profiler"
