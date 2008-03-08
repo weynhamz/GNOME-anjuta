@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 16:20+0000\n"
-"PO-Revision-Date: 2008-02-26 16:23+0100\n"
+"POT-Creation-Date: 2008-02-27 20:07+0000\n"
+"PO-Revision-Date: 2008-03-08 18:29-0000\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -3267,8 +3267,8 @@ msgstr "تلقائي"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "تعذر الحفظ الآلي للملف %s: %s"
+msgid "Autosave failed for %s"
+msgstr "تعذر الحفظ الآلي لـ %s"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
