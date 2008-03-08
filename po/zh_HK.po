@@ -1,4 +1,4 @@
-# traditional Chinese translation of anjuta.
+# Chinese (Hong Kong) translation of anjuta.
 # Copyright (C) 2001, 2003 Free Software Foundation, Inc.
 # Joe Man <trmetal@yahoo.com.hk>, 2001.
 # Abel Cheung <maddog@linux.org.hk>, 2003-2005.
@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: anjuta 2.3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-08 20:59+0800\n"
-"PO-Revision-Date: 2008-03-02 06:08+0800\n"
+"PO-Revision-Date: 2008-03-08 20:59+0800\n"
 "Last-Translator: Hialan Liu <hialan.liu@gmail.com>\n"
-"Language-Team: Chinese (traditional) <Community@linuxhall.org>\n"
+"Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -212,7 +212,7 @@ msgstr "簡體中文"
 #: ../libanjuta/anjuta-encodings.c:202
 #: ../plugins/sourceview/anjuta-encodings.c:218
 msgid "Georgian"
-msgstr "喬治亞文"
+msgstr "格魯吉亞文"
 
 #: ../libanjuta/anjuta-encodings.c:230
 #: ../plugins/sourceview/anjuta-encodings.c:248
@@ -466,7 +466,7 @@ msgstr "選擇項目以儲存："
 
 #: ../libanjuta/anjuta-save-prompt.c:190
 msgid "If you do not save, all your changes will be lost."
-msgstr "如果您沒有儲存，將遺失所有修改。"
+msgstr "如果你沒有儲存，將遺失所有修改。"
 
 #: ../libanjuta/anjuta-save-prompt.c:197
 #: ../plugins/document-manager/plugin.c:591
@@ -539,7 +539,7 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
-"您尚未安裝“%s”公用程式。\n"
+"你尚未安裝“%s”公用程式。\n"
 "安裝後請重新啟動 Anjuta。"
 
 #: ../libanjuta/anjuta-utils.c:792 ../libanjuta/anjuta-utils.c:796
@@ -979,7 +979,7 @@ msgstr "基底類別："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Class Function Prefix:"
-msgstr "類別函式前置字串："
+msgstr "類別函數前置字串："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
 msgid "Class Name:"
@@ -1033,7 +1033,7 @@ msgstr "許可證："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Member Functions/Variables"
-msgstr "成員函式/變數"
+msgstr "成員函數/變數"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 #: ../plugins/glade/plugin.c:515
@@ -1078,9 +1078,7 @@ msgstr "無法開啟檔案：%s\n"
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
-msgstr ""
-"找不到 autogen 第五版，請安裝 autogen 套件。您可以從 http://autogen."
-"sourceforge.net 取得"
+msgstr "找不到 autogen 第五版，請安裝 autogen 套件。你可以從 http://autogen.sourceforge.net 取得"
 
 #: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:413
 #, fuzzy, c-format
@@ -1354,7 +1352,7 @@ msgstr "目錄"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
 msgid "Are you sure that you do not want a log message?"
-msgstr "您確定您不想要紀錄訊息？"
+msgstr "你確定你不想要紀錄訊息？"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed - See above for details"
@@ -1417,7 +1415,7 @@ msgstr "提交(_C)"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:71 ../plugins/cvs-plugin/plugin.c:130
 msgid "Commit your changes to the CVS tree"
-msgstr "提交您的修改至 CVS 樹"
+msgstr "提交你的修改至 CVS 樹"
 
 #. Action name
 #. Stock icon, if any
@@ -1431,7 +1429,7 @@ msgstr "更新(_U)"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:79 ../plugins/cvs-plugin/plugin.c:138
 msgid "Sync your local copy with the CVS tree"
-msgstr "將您本機的複本與 CVS 樹同步"
+msgstr "將你本機的複本與 CVS 樹同步"
 
 #. Action name
 #. Stock icon, if any
@@ -1602,7 +1600,7 @@ msgstr "通過："
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:23
 #: ../plugins/gdb/anjuta-gdb.glade.h:20
 msgid "Print:"
-msgstr "列印："
+msgstr "打印："
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:24
 #: ../plugins/gdb/anjuta-gdb.glade.h:21
@@ -2014,7 +2012,7 @@ msgstr "偵錯工具指令..."
 #: ../plugins/debug-manager/plugin.c:895
 #: ../plugins/debug-manager/plugin.c:1003
 msgid "Custom debugger command"
-msgstr "自訂偵錯器指令"
+msgstr "自選偵錯器指令"
 
 #: ../plugins/debug-manager/plugin.c:901
 #: ../plugins/debug-manager/plugin.c:1009
@@ -2079,7 +2077,7 @@ msgstr "步入(_I)"
 
 #: ../plugins/debug-manager/plugin.c:971
 msgid "Single step into function"
-msgstr "步入目前函式內然後單步執行"
+msgstr "步入目前函數內然後單步執行"
 
 #: ../plugins/debug-manager/plugin.c:977
 msgid "Step O_ver"
@@ -2087,7 +2085,7 @@ msgstr "步過(_V)"
 
 #: ../plugins/debug-manager/plugin.c:979
 msgid "Single step over function"
-msgstr "單步執行目前函式"
+msgstr "單步執行目前函數"
 
 #: ../plugins/debug-manager/plugin.c:985
 msgid "Step _Out"
@@ -2095,7 +2093,7 @@ msgstr "步出(_O)"
 
 #: ../plugins/debug-manager/plugin.c:987
 msgid "Single step out of the function"
-msgstr "執行目前函式內餘下程式碼後退回"
+msgstr "執行目前函數內餘下程式碼後退回"
 
 #: ../plugins/debug-manager/plugin.c:993
 msgid "_Run to Cursor"
@@ -2124,11 +2122,11 @@ msgstr "顯示目前堆疊結構內的資訊"
 
 #: ../plugins/debug-manager/plugin.c:1033
 msgid "Info Function _Arguments"
-msgstr "函式參數(_A)"
+msgstr "函數參數(_A)"
 
 #: ../plugins/debug-manager/plugin.c:1035
 msgid "Display function arguments of the current frame"
-msgstr "顯示目前堆疊結構所屬函式的參數"
+msgstr "顯示目前堆疊結構所屬函數的參數"
 
 #. Action name
 #. Stock icon, if any
@@ -2193,7 +2191,7 @@ msgstr "否"
 
 #: ../plugins/debug-manager/signals.c:260
 msgid "Modify Signal"
-msgstr "變更訊號"
+msgstr "更改訊號"
 
 #: ../plugins/debug-manager/signals.c:267
 msgid "Send to process"
@@ -2213,7 +2211,7 @@ msgstr "停止"
 
 #: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1031
 msgid "Print"
-msgstr "列印"
+msgstr "打印"
 
 #: ../plugins/debug-manager/signals.c:344
 #, fuzzy
@@ -2230,7 +2228,7 @@ msgstr " 停止："
 
 #: ../plugins/debug-manager/signals.c:471
 msgid " Print: "
-msgstr " 列印："
+msgstr " 打印："
 
 #: ../plugins/debug-manager/sparse_view.c:1195
 msgid "Show Line Numbers"
@@ -2287,7 +2285,7 @@ msgstr "行"
 #: ../plugins/debug-manager/threads.c:465
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
-msgstr "函式"
+msgstr "函數"
 
 #: ../plugins/debug-manager/stack_trace.c:676
 msgid "Arguments"
@@ -2508,7 +2506,7 @@ msgid ""
 "Any unsaved changes will be lost."
 msgstr ""
 "是否確定要重新載入 %s。\n"
-"之前尚未儲存的變更將無法復原。"
+"之前尚未儲存的更改將無法復原。"
 
 #: ../plugins/document-manager/action-callbacks.c:288
 #: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:215
@@ -2539,7 +2537,7 @@ msgid ""
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 "檔案‘%s’已經存在。\n"
-"您是否要以現在準備儲存的檔案覆寫它？"
+"你是否要以現在準備儲存的檔案覆寫它？"
 
 #: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
@@ -2599,15 +2597,15 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:13
 msgid "Sorted by most recent use"
-msgstr "依最近使用排序"
+msgstr "根據最近使用排序"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:14
 msgid "Sorted in alphabetical order"
-msgstr "依字母順序排序"
+msgstr "根據字母順序排序"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:15
 msgid "Sorted in opening order"
-msgstr "依開啟順序排序"
+msgstr "根據開啟順序排序"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:16
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
@@ -2700,20 +2698,20 @@ msgstr "最近開啟檔案 (_F)"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
-msgstr "列印(_P)..."
+msgstr "打印(_P)..."
 
 #: ../plugins/document-manager/plugin.c:182
 msgid "Print the current file"
-msgstr "列印目前檔案的內容"
+msgstr "打印目前檔案的內容"
 
 #: ../plugins/document-manager/plugin.c:189
 msgid "_Print Preview"
-msgstr "預覽列印(_P)"
+msgstr "預覽打印(_P)"
 
 #: ../plugins/document-manager/plugin.c:190
 #, fuzzy
 msgid "Preview the current file in print-format"
-msgstr "列印目前檔案的內容"
+msgstr "打印目前檔案的內容"
 
 #: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
@@ -2738,12 +2736,12 @@ msgstr "將選定範圍內的字母轉為小寫字母"
 
 #: ../plugins/document-manager/plugin.c:202
 msgid "Convert EOL to CRLF"
-msgstr "轉換 EOL 字元成 CRLF"
+msgstr "轉換 EOL 字符成 CRLF"
 
 #: ../plugins/document-manager/plugin.c:203
 #, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "將句子的結束字元 EOL 轉換為 Unix 的 LF 字元"
+msgstr "將句子的結束字符 EOL 轉換為 Unix 的 LF 字符"
 
 #: ../plugins/document-manager/plugin.c:205
 msgid "Convert EOL to LF"
@@ -2752,7 +2750,7 @@ msgstr "轉換 EOL 為 LF"
 #: ../plugins/document-manager/plugin.c:206
 #, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr "將句子的結束字元 EOL 轉換為 Unix 的 LF 字元"
+msgstr "將句子的結束字符 EOL 轉換為 Unix 的 LF 字符"
 
 #: ../plugins/document-manager/plugin.c:208
 msgid "Convert EOL to CR"
@@ -2761,17 +2759,17 @@ msgstr "轉換 EOL 為 CR"
 #: ../plugins/document-manager/plugin.c:209
 #, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr "將句子的結束字元 EOL 轉換為 Unix 的 LF 字元"
+msgstr "將句子的結束字符 EOL 轉換為 Unix 的 LF 字符"
 
 #: ../plugins/document-manager/plugin.c:211
 #, fuzzy
 msgid "Convert EOL to Majority EOL"
-msgstr "EOL 成為 LF 字元"
+msgstr "EOL 成為 LF 字符"
 
 #: ../plugins/document-manager/plugin.c:212
 #, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "將句子的結束字元 EOL 轉換為 Unix 的 LF 字元"
+msgstr "將句子的結束字符 EOL 轉換為 Unix 的 LF 字符"
 
 #: ../plugins/document-manager/plugin.c:217
 msgid "_Select"
@@ -2796,11 +2794,11 @@ msgstr "選取目前括號至另一方的對稱括號內的文字"
 #: ../plugins/document-manager/plugin.c:230
 #, fuzzy
 msgid "Select _Code Block"
-msgstr "函式內原始碼"
+msgstr "函數內原始碼"
 
 #: ../plugins/document-manager/plugin.c:231
 msgid "Select the current code block"
-msgstr "選取目前函式內的原始碼"
+msgstr "選取目前函數內的原始碼"
 
 #: ../plugins/document-manager/plugin.c:236
 msgid "Co_mment"
@@ -3018,7 +3016,7 @@ msgstr "展疊區 (_C)"
 
 #: ../plugins/document-manager/plugin.c:337
 msgid "Show/Hide code fold margin"
-msgstr "顯示 / 隱藏函式展疊區"
+msgstr "顯示 / 隱藏函數展疊區"
 
 #: ../plugins/document-manager/plugin.c:339
 #, fuzzy
@@ -3033,20 +3031,20 @@ msgstr "顯示 / 隱藏縮排導線"
 #: ../plugins/document-manager/plugin.c:342
 #, fuzzy
 msgid "_White Space"
-msgstr "空白字元 (_W)"
+msgstr "空白字符 (_W)"
 
 #: ../plugins/document-manager/plugin.c:343
 msgid "Show/Hide white spaces"
-msgstr "顯示 / 隱藏空白字元"
+msgstr "顯示 / 隱藏空白字符"
 
 #: ../plugins/document-manager/plugin.c:345
 #, fuzzy
 msgid "_Line End Characters"
-msgstr "句子結束字元 (_L)"
+msgstr "句子結束字符 (_L)"
 
 #: ../plugins/document-manager/plugin.c:346
 msgid "Show/Hide line end characters"
-msgstr "顯示 / 隱藏句子結束字元"
+msgstr "顯示 / 隱藏句子結束字符"
 
 #: ../plugins/document-manager/plugin.c:348
 #, fuzzy
@@ -3079,20 +3077,20 @@ msgstr "語法標示模式(_H)"
 
 #: ../plugins/document-manager/plugin.c:367
 msgid "_Close All Folds"
-msgstr "函式全部摺疊(_C)"
+msgstr "函數全部摺疊(_C)"
 
 #: ../plugins/document-manager/plugin.c:368
 msgid "Close all code folds in the editor"
-msgstr "將全部函式的原始碼摺疊"
+msgstr "將全部函數的原始碼摺疊"
 
 #: ../plugins/document-manager/plugin.c:370
 msgid "_Open All Folds"
-msgstr "函式全部展開(_O)"
+msgstr "函數全部展開(_O)"
 
 #: ../plugins/document-manager/plugin.c:371
 #, fuzzy
 msgid "Open all code folds in the editor"
-msgstr "將全部函式的原始碼展開"
+msgstr "將全部函數的原始碼展開"
 
 #: ../plugins/document-manager/plugin.c:373
 msgid "_Toggle Current Fold"
@@ -3160,7 +3158,7 @@ msgstr "編輯器檔案操作"
 
 #: ../plugins/document-manager/plugin.c:416
 msgid "Editor print operations"
-msgstr "編輯器列印操作"
+msgstr "編輯器打印操作"
 
 #: ../plugins/document-manager/plugin.c:417
 msgid "Editor text transformation"
@@ -3303,7 +3301,7 @@ msgstr "<b>其它色彩</b>"
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:7
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:5
 msgid "<b>Print options</b>"
-msgstr "<b>列印選項</b>"
+msgstr "<b>打印選項</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:8
 msgid "Add line number every:"
@@ -3357,7 +3355,7 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:20
 msgid "Collapse all code folds on file open"
-msgstr "開啟檔案時將全部函式摺疊"
+msgstr "開啟檔案時將全部函數摺疊"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:21
 msgid "Colors & Fonts"
@@ -3519,7 +3517,7 @@ msgstr "按下 tab 可以增加縮排"
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
 msgid "Printing"
-msgstr "列印"
+msgstr "打印"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Select highlight style to edit:"
@@ -3535,12 +3533,12 @@ msgstr "選擇範圍前景色彩："
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
 msgid "Strip trailling spaces on file save"
-msgstr "儲存檔案時刪除末端多餘的空白字元"
+msgstr "儲存檔案時刪除末端多餘的空白字符"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
 msgid "Tab size in spaces:"
-msgstr "Tab 字元長度："
+msgstr "Tab 字符長度："
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
 msgid "Underlined"
@@ -3553,11 +3551,11 @@ msgstr "使用預設值"
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
 msgid "Use tabs for indentation"
-msgstr "縮排時使用 Tab 字元"
+msgstr "縮排時使用 Tab 字符"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View EOL chars"
-msgstr "檢視 EOL 字元"
+msgstr "檢視 EOL 字符"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
 #, fuzzy
@@ -3572,7 +3570,7 @@ msgstr "會自動換行"
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:74
 #, fuzzy
 msgid "View Whitespaces"
-msgstr "空白字元 (_W)"
+msgstr "空白字符 (_W)"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:75
 #, fuzzy
@@ -3586,11 +3584,11 @@ msgstr ""
 
 #: ../plugins/editor/print.c:482
 msgid "No file to print!"
-msgstr "沒有可以列印的檔案！"
+msgstr "沒有可以打印的檔案！"
 
 #: ../plugins/editor/print.c:505
 msgid "Unable to get text buffer for printing"
-msgstr "無法讀取準備列印的文字緩衝區"
+msgstr "無法讀取準備打印的文字緩衝區"
 
 #: ../plugins/editor/print.c:759
 #, c-format
@@ -3599,11 +3597,11 @@ msgstr "檔案：%s"
 
 #: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 msgid "Printing..."
-msgstr "正在列印..."
+msgstr "正在打印..."
 
 #: ../plugins/editor/print.c:1067
 msgid "Print Preview"
-msgstr "預覽列印"
+msgstr "預覽打印"
 
 #: ../plugins/editor/plugin.c:121 ../plugins/editor/plugin.c:133
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
@@ -4069,7 +4067,7 @@ msgstr "中斷點"
 #: ../plugins/gdb/debugger.c:1242
 #, fuzzy
 msgid "Function finished\n"
-msgstr "/函式定義 (_F)"
+msgstr "/函數定義 (_F)"
 
 #: ../plugins/gdb/debugger.c:1248
 msgid "Stepping finished\n"
@@ -4166,7 +4164,7 @@ msgstr "偵錯"
 #: ../plugins/glade/plugin.c:505
 #, fuzzy
 msgid "Widgets"
-msgstr "寬度"
+msgstr "闊度"
 
 #: ../plugins/glade/plugin.c:510
 #, fuzzy
@@ -4700,12 +4698,12 @@ msgstr ""
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
 #, fuzzy
 msgid "Number of first characters to show:"
-msgstr "可顯示的開端字元數目"
+msgstr "可顯示的開端字符數目"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
 #, fuzzy
 msgid "Number of last characters to show:"
-msgstr "可顯示的末端字元數目"
+msgstr "可顯示的末端字符數目"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
 msgid "Tabs position:"
@@ -4850,7 +4848,7 @@ msgstr "修補檔案/目錄"
 #: ../plugins/profiler/gprof-flat-profile-view.c:56
 #: ../plugins/profiler/gprof-function-call-tree-view.c:60
 msgid "Function Name"
-msgstr "函式名稱"
+msgstr "函數名稱"
 
 #. Total amount of time spent in this function, excluding those it calla.
 #. * This is the same as the "Seconds" field in the flat profile.
@@ -4959,7 +4957,7 @@ msgstr "呼叫圖"
 
 #: ../plugins/profiler/plugin.c:841
 msgid "Function Call Tree"
-msgstr "函式呼叫樹"
+msgstr "函數呼叫樹"
 
 #: ../plugins/profiler/plugin.c:848
 msgid "Function Call Chart"
@@ -4975,7 +4973,7 @@ msgstr "<b>已叫用</b>"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:3
 msgid "<b>Functions</b>"
-msgstr "<b>函式</b>"
+msgstr "<b>函數</b>"
 
 #: ../plugins/profiler/profiler.glade.h:1
 #, fuzzy
@@ -5011,7 +5009,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
-msgstr "不顯示靜態函式"
+msgstr "不顯示靜態函數"
 
 #: ../plugins/profiler/profiler.glade.h:10
 msgid "Do not show these symbols:"
@@ -5066,7 +5064,7 @@ msgstr "只顯示這些符號："
 
 #: ../plugins/profiler/profiler.glade.h:25
 msgid "Show uncalled functions"
-msgstr "顯示未呼叫的函式"
+msgstr "顯示未呼叫的函數"
 
 #: ../plugins/profiler/profiler.glade.h:26
 msgid "Use this profiling data file:"
@@ -5074,7 +5072,7 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
 msgid "<b>Enter the base path of your project:</b>"
-msgstr "<b>輸入您的專案的基礎路徑：</b>"
+msgstr "<b>輸入你的專案的基礎路徑：</b>"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
 msgid "<b>Enter the project name:</b>"
@@ -5118,7 +5116,7 @@ msgstr ""
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr ""
 "檔案‘%s’已經存在。\n"
-"您是否要以現在準備儲存的檔案覆寫它？"
+"你是否要以現在準備儲存的檔案覆寫它？"
 
 #: ../plugins/project-import/project-import.c:370
 #, c-format
@@ -5148,7 +5146,7 @@ msgstr "目標屬性"
 
 #: ../plugins/project-manager/plugin.c:487
 msgid "Group properties"
-msgstr "群組屬性"
+msgstr "羣組屬性"
 
 #: ../plugins/project-manager/plugin.c:490
 msgid "Close"
@@ -5156,14 +5154,14 @@ msgstr "關閉"
 
 #: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
-msgstr "沒有可用的屬性給此群組"
+msgstr "沒有可用的屬性給此羣組"
 
 #: ../plugins/project-manager/plugin.c:586
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
 msgstr ""
-"您是否確定將下列群組從專案中移除？\n"
+"你是否確定將下列羣組從專案中移除？\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:587
@@ -5173,16 +5171,16 @@ msgid ""
 "\n"
 "The group will not be deleted from file system."
 msgstr ""
-"群組：%s\n"
+"羣組：%s\n"
 "\n"
-"該群組將不會從檔案系統中刪除。"
+"該羣組將不會從檔案系統中刪除。"
 
 #: ../plugins/project-manager/plugin.c:590
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
 msgstr ""
-"您是否確定將下列目標從專案中移除？\n"
+"你是否確定將下列目標從專案中移除？\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:591
@@ -5221,7 +5219,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
-msgstr "您選擇的檔案是一個連結，無法加入到專案中。"
+msgstr "你選擇的檔案是一個連結，無法加入到專案中。"
 
 #: ../plugins/project-manager/plugin.c:709
 #, fuzzy, c-format
@@ -5245,12 +5243,12 @@ msgstr "更新專案管理員專案樹"
 
 #: ../plugins/project-manager/plugin.c:758
 msgid "Add _Group..."
-msgstr "加入群組(_G)..."
+msgstr "加入羣組(_G)..."
 
 #: ../plugins/project-manager/plugin.c:758
 #: ../plugins/project-manager/plugin.c:792
 msgid "Add a group to project"
-msgstr "加入群組至專案"
+msgstr "加入羣組至專案"
 
 #: ../plugins/project-manager/plugin.c:763
 msgid "Add _Target..."
@@ -5289,7 +5287,7 @@ msgstr "加入至專案(_A)"
 
 #: ../plugins/project-manager/plugin.c:792
 msgid "Add _Group"
-msgstr "加入群組(_G)"
+msgstr "加入羣組(_G)"
 
 #: ../plugins/project-manager/plugin.c:797
 msgid "Add _Target"
@@ -5359,7 +5357,7 @@ msgstr "<b>專案說明：</b>"
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 #, fuzzy
 msgid "<b>Select the type of application to be developed</b>"
-msgstr "選取您想要發展的應用程式類別"
+msgstr "選取你想要發展的應用程式類別"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Assistent"
@@ -5402,8 +5400,7 @@ msgid ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"程式精靈將會產生一些專案所需的基本檔案，包括用作將源代碼編譯成為程式的檔案。"
-"它也會詢問一些有關該程式的結構。\n"
+"程式精靈將會產生一些專案所需的基本檔案，包括用作將源代碼編譯成為程式的檔案。它也會詢問一些有關該程式的結構。\n"
 "\n"
 "請小心回答問題，因為有部分設定在事後是無法更改的。"
 
@@ -5448,7 +5445,7 @@ msgstr ""
 #: ../plugins/project-wizard/druid.c:514
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr "檔案 \"%s\" 已存在。您是否想要覆蓋他？"
+msgstr "檔案 \"%s\" 已存在。你是否想要覆蓋他？"
 
 #: ../plugins/project-wizard/druid.c:836
 #, fuzzy
@@ -5540,7 +5537,7 @@ msgstr "基本資訊"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr "柏克萊軟體散佈許可證 （BSD）"
+msgstr "柏克萊軟件散佈許可證 （BSD）"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid ""
@@ -5911,7 +5908,7 @@ msgstr "最多動作次數"
 
 #: ../plugins/search/anjuta-search.glade.h:27
 msgid "Modify"
-msgstr "變更"
+msgstr "更改"
 
 #: ../plugins/search/anjuta-search.glade.h:28
 msgid "New Name:"
@@ -6055,7 +6052,7 @@ msgstr "目前所在區塊"
 
 #: ../plugins/search/search-replace.c:103
 msgid "Current Function"
-msgstr "目前所在函式"
+msgstr "目前所在函數"
 
 #: ../plugins/search/search-replace.c:104
 msgid "All Open Buffers"
@@ -6166,7 +6163,7 @@ msgstr "檔案 %s 已被其他應用程式修改。無論如何都要儲存？"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr "正在準備頁面以提供列印"
+msgstr "正在準備頁面以提供打印"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Colors:</b>"
@@ -6215,11 +6212,11 @@ msgstr "印出行號"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
 msgid "Print page footer"
-msgstr "列印頁面註腳"
+msgstr "打印頁面註腳"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
 msgid "Print page header"
-msgstr "列印頁面標頭"
+msgstr "打印頁面標頭"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Right margin position in characters"
@@ -6331,7 +6328,7 @@ msgstr ""
 #: ../plugins/subversion/anjuta-subversion.glade.h:19
 #, fuzzy
 msgid "<b>Working Copy Path:</b>"
-msgstr "<b>列印選項</b>"
+msgstr "<b>打印選項</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
@@ -6514,7 +6511,7 @@ msgstr "提交(_C)..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
-msgstr "提交您的修改至 Subversion 樹"
+msgstr "提交你的修改至 Subversion 樹"
 
 #. Action name
 #. Stock icon, if any
@@ -6564,7 +6561,7 @@ msgstr "複製檔案/資料夾..."
 #: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
 #, fuzzy
 msgid "Copy files/folders in the repository"
-msgstr "將全部函式的原始碼摺疊"
+msgstr "將全部函數的原始碼摺疊"
 
 #. Action name
 #. Stock icon, if any
@@ -7101,11 +7098,11 @@ msgstr "已停用"
 
 #: ../plugins/tools/editor.c:698
 msgid "You must provide a tool name!"
-msgstr "您必須提供工具的名稱！"
+msgstr "你必須提供工具的名稱！"
 
 #: ../plugins/tools/editor.c:706
 msgid "You must provide a tool command!"
-msgstr "您必須提供執行該工具的指令！"
+msgstr "你必須提供執行該工具的指令！"
 
 #: ../plugins/tools/editor.c:714
 msgid "A tool with the same name already exists!"
@@ -7262,7 +7259,7 @@ msgstr ""
 
 #: ../plugins/valgrind/plugin.c:353
 msgid "Choose file where to save Valgrind log"
-msgstr "選擇要將 Valgrind 紀錄儲存在哪裡"
+msgstr "選擇要將 Valgrind 紀錄儲存在哪裏"
 
 #: ../plugins/valgrind/plugin.c:403
 msgid "Open Valgrind log file"
@@ -7389,7 +7386,7 @@ msgstr "錯誤包含"
 
 #: ../plugins/valgrind/vgdefaultview.c:191
 msgid "Function contains"
-msgstr "函式包含"
+msgstr "函數包含"
 
 #: ../plugins/valgrind/vgdefaultview.c:192
 msgid "Object contains"
@@ -7426,7 +7423,7 @@ msgstr "支援"
 
 #: ../plugins/valgrind/vgdefaultview.c:1159
 msgid "Edit in Custom Editor"
-msgstr "在自訂編輯器中編輯"
+msgstr "在自選編輯器中編輯"
 
 #. demangle = decode C++ name encoding
 #: ../plugins/valgrind/vggeneralprefs.c:179
@@ -7579,8 +7576,7 @@ msgstr "Anjuta 外掛程式"
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
-msgstr ""
-"無法顯示求助。請確定 Anjuta 文件套件已安裝。他可以從 http://anjuta.org 下載"
+msgstr "無法顯示求助。請確定 Anjuta 文件套件已安裝。他可以從 http://anjuta.org 下載"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
@@ -7842,11 +7838,11 @@ msgstr "<b>巨集詳細資料：</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
-msgstr "在自動補完函式名稱後加上 '('"
+msgstr "在自動補完函數名稱後加上 '('"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
-msgstr "在自動補完函式名稱後加上一個空格"
+msgstr "在自動補完函數名稱後加上一個空格"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
