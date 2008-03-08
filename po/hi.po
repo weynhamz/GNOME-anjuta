@@ -1,13 +1,13 @@
-# translation of anjuta.HEAD.hi.po to Hindi
+# translation of hi.po to Hindi
 # Copyright (C) 2008 Free Software Foundation, Inc.
 #
 # Rajesh Ranjan <rranjan@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD.hi\n"
+"Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-27 20:07+0000\n"
-"PO-Revision-Date: 2008-03-03 16:06+0530\n"
+"PO-Revision-Date: 2008-03-08 07:05+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -764,288 +768,247 @@ msgid "Configure project"
 msgstr "प्रोजेक्ट विन्यस्त करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
-#, fuzzy
 msgid "Run _Autogenerate..."
-msgstr "एक वीवर(V)"
+msgstr "ऑटोजनेरेट चलाएं "
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
-#, fuzzy
 msgid "Autogenerate project files"
-msgstr "फाइल"
+msgstr "प्रोजेक्ट फाइल ऑटोजेनरेट करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
 msgid "Build _Tarball"
-msgstr ""
+msgstr "टारबाल बिल्ड करें (_T)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
-#, fuzzy
 msgid "Build project tarball distribution"
-msgstr "वितरण सूची"
+msgstr "प्रोजेक्ट वितरण टारबाल निर्मित करें"
 
 # libgnomeui/gnome-app-helper.c:147
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
-#, fuzzy
 msgid "_Execute Program..."
-msgstr "प्रोग्राम."
+msgstr "प्रोग्राम चलाएं (_E)..."
 
 # libgnomeui/gnome-app-helper.c:147
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
-#, fuzzy
 msgid "Execute program"
-msgstr "प्रोग्राम"
+msgstr "प्रोग्राम चलाएं"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1351
-#, fuzzy
 msgid "_Build Module"
-msgstr "%u फाइल्स"
+msgstr "मॉड्यूल बिल्ड करें (_B)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1352
-#, fuzzy
 msgid "Build module associated with current file"
-msgstr "के साथ फाइल"
+msgstr "मौजूदा फाइल के साथ मॉड्यूल बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
-#, fuzzy
 msgid "_Install Module"
 msgstr "प्रविष्ट करें"
 
 # libgnomeprintui/gnome-print-master-preview.c:687
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
-#, fuzzy
 msgid "Install module associated with current file"
 msgstr "के साथ फाइल"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1363
-#, fuzzy
 msgid "_Clean Module"
-msgstr "सभी बंद करें"
+msgstr "माड्यूल साफ करें"
 
 # #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui HEAD)  #-#-#-#-#
 # libgnomeui/gnome-app-helper.c:114
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1364
-#, fuzzy
 msgid "Clean module associated with current file"
-msgstr "के साथ फाइल"
+msgstr "मौजूदा फाइल के साथ जुड़े माड्यूल साफ करें"
 
 # libgnomeprintui/gnome-print-copies.c:250
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1369
-#, fuzzy
 msgid "Co_mpile File"
-msgstr "फ़ाइल"
+msgstr "फ़ाइल कंपाइल करें"
 
 # #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui HEAD)  #-#-#-#-#
 # libgnomeui/gnome-app-helper.c:142
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1370
-#, fuzzy
 msgid "Compile current editor file"
-msgstr "फाइल"
+msgstr "वर्तमान संपादक फाइल कंपाइल करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1383
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
-#, fuzzy
 msgid "_Compile"
-msgstr "फाइल कापी करें"
+msgstr "कंपाइल करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1384
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
-#, fuzzy
 msgid "Compile file"
-msgstr "फाइल"
+msgstr "फाइल कंपाइल करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
-#, fuzzy
 msgid "Build module"
-msgstr "%u फाइल्स"
+msgstr "मॉड्यूल बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
-#, fuzzy
 msgid "_Install"
 msgstr "अधिष्ठापित करें  (_I)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
-#, fuzzy
 msgid "Install module"
-msgstr "प्रोजेक्ट बंद करें"
+msgstr "मॉड्यूल अधिष्ठापित करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
-#, fuzzy
 msgid "_Clean"
-msgstr "खाली"
+msgstr "साफ करें (_C)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
-#, fuzzy
 msgid "Clean module"
-msgstr "सभी बंद करें"
+msgstr "मॉड्यूल साफ करें"
 
 # libgnomeprintui/gnome-print-copies.c:250
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1595
-#, fuzzy
 msgid "Co_mpile"
-msgstr "प्रतियां"
+msgstr "कंपाइल करें (_m)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
-#, fuzzy, c-format
+#, c-format
 msgid "_Build (%s)"
-msgstr "%u फाइल्स"
+msgstr "बिल्ड (_B) (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
-#, fuzzy, c-format
+#, c-format
 msgid "_Install (%s)"
-msgstr "प्रविष्ट करें"
+msgstr "अधिष्ठापित करें (_I) (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1618
-#, fuzzy, c-format
+#, c-format
 msgid "_Clean (%s)"
-msgstr "खाली"
+msgstr "साफ करें (_C) (%s)"
 
 # libgnomeprintui/gnome-print-copies.c:250
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
-#, fuzzy, c-format
+#, c-format
 msgid "Co_mpile (%s)"
-msgstr "प्रतियां"
+msgstr "कंपाइल करें (_m) (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2032
-#, fuzzy
 msgid "Build commands"
-msgstr "निर्देश चलाएं"
+msgstr "कमांड बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2039
-#, fuzzy
 msgid "Build popup commands"
-msgstr "पॉपअप"
+msgstr "पॉपअप कमांड बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2341
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2361
-#, fuzzy
 msgid "Build Autotools"
-msgstr "छैतिज पैमाना"
+msgstr "आटोटूल बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/executer.c:76
-#, fuzzy
 msgid "No executables in this project!"
-msgstr "नहीं इं!"
+msgstr "इस  प्रोजेक्ट में कोई निष्पादनीय नहीं"
 
 # #-#-#-#-#  gnome-applets.gnome-2-2.hi.po (gnome-applets 2.x)  #-#-#-#-#
 # desktop-links/Root.directory.in.h:1
 #: ../plugins/build-basic-autotools/executer.c:154
-#, fuzzy
 msgid "Program"
 msgstr "प्रोग्राम"
 
 #: ../plugins/build-basic-autotools/executer.c:255
-#, fuzzy
 msgid "No file or project currently opened."
-msgstr "नहीं फाइल."
+msgstr "अभी कोई फाइल या प्रोजेक्ट अभी खुला नहीं है."
 
 #: ../plugins/build-basic-autotools/executer.c:295
 #, c-format
-#, fuzzy
 msgid "Program '%s' is not a local file"
-msgstr "प्रोग्राम है नहीं ए फाइल"
+msgstr "प्रोग्राम '%s' लोकेल फाइल नहीं है"
 
 #: ../plugins/build-basic-autotools/executer.c:310
-#, fuzzy, c-format
+#, c-format
 msgid "Program '%s' does not exists"
-msgstr "प्रोग्राम नहीं उपस्थित है"
+msgstr "प्रोग्राम '%s' नहीं उपस्थित है"
 
 #: ../plugins/build-basic-autotools/executer.c:318
 #, c-format
-#, fuzzy
 msgid "Program '%s' does not have execution permission"
-msgstr "प्रोग्राम नहीं"
+msgstr "प्रोग्राम '%s' में चलाने की अनुमति नहीं है"
 
 #: ../plugins/build-basic-autotools/executer.c:350
-#, fuzzy
 msgid "No executable for this file."
-msgstr "नहीं के लिये फाइल."
+msgstr "इस फाइल के लिए कोई निष्पादनीय नहीं है."
 
 #: ../plugins/build-basic-autotools/executer.c:356
-#, fuzzy, c-format
+#, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr "है नहीं ऊपर."
+msgstr "निष्पादनीय '%s' अद्यतन नहीं है."
 
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:132
 msgid "Fixed data-view"
-msgstr ""
+msgstr "स्थिर डाटा दृश्य"
 
 #: ../plugins/class-inheritance/class-inherit.c:914
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
 msgid "Update"
-msgstr "अपडेट (अद्यतन)"
+msgstr "अपडेट"
 
 #: ../plugins/class-inheritance/class-inherit.c:915
-#, fuzzy
 msgid "Update the graph"
-msgstr "अद्यतन"
+msgstr "ग्राफ अद्यतन करें"
 
 #: ../plugins/class-inheritance/plugin.c:115
 msgid "Inheritance Graph"
-msgstr ""
+msgstr "इनहेरीटेंस ग्राफ"
 
 # #-#-#-#-#  gnome-desktop.HEAD.hi.po (gnome-desktop VERSION)  #-#-#-#-#
 # libgnome-desktop/gnome-ditem-edit.c:324
 # #-#-#-#-#  libgnomeprintui.gnome-2-2.hi.po (libgnomeprintui )  #-#-#-#-#
 # libgnomeprintui/gnome-printer-dialog.c:129
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
-#, fuzzy
 msgid "<b>Class Elements</b>"
 msgstr "<b> वर्ग तत्व</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
-#, fuzzy
 msgid "<b>General Class Properties</b>"
 msgstr "<b> सामान्य वर्ग गुण</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
-#, fuzzy
 msgid "Add to Project"
-msgstr "जोड़ें"
+msgstr "प्रोजेक्ट में जोड़ें"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
-#, fuzzy
 msgid "Add to Repository"
-msgstr "जोड़ें"
+msgstr "रिपॉजिटरी में जोड़ें"
 
 # libgnomeui/gnome-about.c:365
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
-#, fuzzy
 msgid "Author Email:"
 msgstr "लेखक ईमेल:"
 
 # libgnomeui/gnome-about.c:365
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
-#, fuzzy
 msgid "Author Name:"
 msgstr "लेखक नाम:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
-#, fuzzy
 msgid "Author/Date-Time"
-msgstr "लेखक तिथि समय"
+msgstr "लेखक/ तिथि समय"
 
 # libgnomeui/gnome-about.c:365
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-#, fuzzy
 msgid "Author/Date/Time"
-msgstr "लेखक तिथि समय"
+msgstr "लेखक /तिथि /समय"
 
 # libgnomevfs/gnome-vfs-result.c:63
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
-#, fuzzy
 msgid "Base Class Inheritance:"
-msgstr "आधार वर्ग:"
+msgstr "आधार वर्ग इनहेरीटेंस:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
-#, fuzzy
 msgid "Base Class:"
 msgstr "आधार वर्ग:"
 
@@ -1054,12 +1017,10 @@ msgstr "आधार वर्ग:"
 # #-#-#-#-#  gnome-session.HEAD.hi.po (gnome-session VERSION)  #-#-#-#-#
 # gnome-session/session-properties-capplet.c:217
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
-#, fuzzy
 msgid "Class Function Prefix:"
-msgstr "वर्ग फंक्शन:"
+msgstr "वर्ग फंक्शन उपसर्ग:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
-#, fuzzy
 msgid "Class Name:"
 msgstr "वर्ग नाम:"
 
@@ -1074,90 +1035,78 @@ msgstr "वर्ग विकल्प:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
-#, fuzzy
 msgid "Create"
 msgstr "बनाएँ"
 
 # libgnome-desktop/gnome-ditem-edit.c:621
 # libgnome-desktop/gnome-ditem-edit.c:726
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
-#, fuzzy
 msgid "GObject Class\t"
-msgstr "वर्ग"
+msgstr "GObject वर्ग\t"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
-#, fuzzy
 msgid "GObject Prefix and Type:"
-msgstr "और प्रकार:"
+msgstr "GObject उपसर्ग व प्रकार:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
-#, fuzzy
 msgid ""
 "General Public License (GPL)\n"
 "Lesser General Public License (LGPL)\n"
 "No License"
-msgstr "सामान्य सार्वजनिक लाइसेंस सामान्य सार्वजनिक लाइसेंस लाइसेंस"
+msgstr ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"No License"
 
 # libgnome-desktop/gnome-ditem-edit.c:621
 # libgnome-desktop/gnome-ditem-edit.c:726
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
-#, fuzzy
 msgid "Generic C++ Class"
-msgstr "ज़ेनेरिक सी वर्ग"
+msgstr "Generic C++ Class"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
-#, fuzzy
 msgid "Header File:"
 msgstr "शीर्ष फ़ाइल:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
-#, fuzzy
 msgid "Inline the declaration and implementation"
-msgstr "इनलाइल और"
+msgstr "घोषणा व कार्यान्वयन इनलाइन लें"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
-#, fuzzy
 msgid "License:"
 msgstr "लाइसेंस:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#, fuzzy
 msgid "Member Functions/Variables"
-msgstr "सदस्य फंक्शन्स चर"
+msgstr "सदस्य फंक्शन्स / चर"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 #: ../plugins/glade/plugin.c:515
-#, fuzzy
 msgid "Properties"
 msgstr "गुण"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
-#, fuzzy
 msgid "Signals"
-msgstr "खास"
+msgstr "संकेत"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
-#, fuzzy
 msgid "Source File:"
 msgstr "श्रोत फ़ाइल:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
-#, fuzzy
 msgid "Source/Header Headings:"
-msgstr "श्रोत शीर्ष शीर्षक:"
+msgstr "श्रोत/ शीर्ष शीर्षक:"
 
 #: ../plugins/class-gen/generator.c:132
 #, c-format
-#, fuzzy
 msgid "Header or source file has not been created"
-msgstr "शीर्ष श्रोत फाइल नहीं"
+msgstr "शीर्ष/ श्रोत फाइल नहीं बनाया गया है"
 
 #: ../plugins/class-gen/generator.c:294
-#, fuzzy
 msgid "Autogen template used for the header file"
-msgstr "के लिये हेडर फाइल"
+msgstr "हेडर फाइल के लिए ऑटोजेन टेंपलेट प्रयुक्त"
 
 #: ../plugins/class-gen/generator.c:302
 #, fuzzy
