@@ -1959,12 +1959,12 @@ msgstr "Выгружен"
 #: ../plugins/debug-manager/plugin.c:543
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
-msgstr "Программа завершилась с кодом ошибки %s\n"
+msgstr "Программа завершилась с ошибкой %d: %s\n"
 
 #: ../plugins/debug-manager/plugin.c:556
 #, c-format
 msgid "Program has received signal: %s\n"
-msgstr "Программа·получила·сигнал: %s\n"
+msgstr "Программа получила сигнал: %s\n"
 
 #. Action name
 #. Stock icon, if any
@@ -7904,7 +7904,7 @@ msgstr "Документация и ресурсы online"
 
 #: ../src/anjuta-actions.h:80
 msgid "Report _Bugs/Patches/Requests"
-msgstr "Сообщить·об·ошибке/исправлении/возможности"
+msgstr "Сообщить об ошибке/исправлении/возможности"
 
 #: ../src/anjuta-actions.h:81
 msgid "Submit a bug report, patch or feature request for Anjuta"
