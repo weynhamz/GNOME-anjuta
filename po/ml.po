@@ -1,3 +1,4 @@
+# translation of anjuta.HEAD.ml.po to
 # Anjuta IDE UI translation in Malayalam.
 # Copyright (C) 2003-2008 Naba Kumar
 # This file is distributed under the same license as the Anjuta IDE package.
@@ -5,18 +6,19 @@
 # Arun.K.R <code333@gmail.com>,2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
+"Project-Id-Version: anjuta.HEAD.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-03 23:14+0000\n"
-"PO-Revision-Date: 2008-03-07 23:31+0530\n"
-"Last-Translator: Praveen|പ്രവീണ്‍ A|എ <pravi.a@gmail.com>\n"
-"Language-Team: Swathanthra Malayalam Computing|||സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ്ങ് <smc-discuss@googlegroups.com>\n"
+"POT-Creation-Date: 2008-03-07 18:28+0000\n"
+"PO-Revision-Date: 2008-03-10 13:23+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"MIME-Version: 1.0\n"
 "X-Poedit-Language: Malayalam\n"
 "X-Poedit-Country: INDIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -26,9 +28,7 @@ msgstr "അന്‍ജുത ഐഡിഇ"
 msgid "Develop software in an integrated development environment"
 msgstr ""
 
-#: ../anjuta.desktop.in.in.h:3
-#: ../src/about.c:187
-#: ../src/main.c:341
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:341
 msgid "Integrated Development Environment"
 msgstr ""
 
@@ -62,10 +62,8 @@ msgstr ""
 msgid "plugin %s fails to register type %s"
 msgstr ""
 
-#: ../libanjuta/anjuta-encodings.c:140
-#: ../libanjuta/anjuta-encodings.c:166
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:166
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:248
 #: ../plugins/sourceview/anjuta-encodings.c:151
 #: ../plugins/sourceview/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:223
@@ -73,8 +71,7 @@ msgstr ""
 msgid "Western"
 msgstr "പടിഞ്ഞാറന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:142
-#: ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:142 ../libanjuta/anjuta-encodings.c:209
 #: ../libanjuta/anjuta-encodings.c:244
 #: ../plugins/sourceview/anjuta-encodings.c:153
 #: ../plugins/sourceview/anjuta-encodings.c:225
@@ -87,8 +84,7 @@ msgstr "മധ്യ യൂറോപ്യന്"
 msgid "South European"
 msgstr "ദക്ഷിണ യൂറോപ്യന്‌"
 
-#: ../libanjuta/anjuta-encodings.c:146
-#: ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:162
 #: ../libanjuta/anjuta-encodings.c:258
 #: ../plugins/sourceview/anjuta-encodings.c:157
 #: ../plugins/sourceview/anjuta-encodings.c:173
@@ -96,10 +92,8 @@ msgstr "ദക്ഷിണ യൂറോപ്യന്‌"
 msgid "Baltic"
 msgstr "ബാള്ട്ടിക്"
 
-#: ../libanjuta/anjuta-encodings.c:148
-#: ../libanjuta/anjuta-encodings.c:211
-#: ../libanjuta/anjuta-encodings.c:224
-#: ../libanjuta/anjuta-encodings.c:228
+#: ../libanjuta/anjuta-encodings.c:148 ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:224 ../libanjuta/anjuta-encodings.c:228
 #: ../libanjuta/anjuta-encodings.c:246
 #: ../plugins/sourceview/anjuta-encodings.c:159
 #: ../plugins/sourceview/anjuta-encodings.c:227
@@ -110,8 +104,7 @@ msgstr "ബാള്ട്ടിക്"
 msgid "Cyrillic"
 msgstr "സിറിലിക്"
 
-#: ../libanjuta/anjuta-encodings.c:150
-#: ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:150 ../libanjuta/anjuta-encodings.c:217
 #: ../libanjuta/anjuta-encodings.c:256
 #: ../plugins/sourceview/anjuta-encodings.c:161
 #: ../plugins/sourceview/anjuta-encodings.c:233
@@ -119,8 +112,7 @@ msgstr "സിറിലിക്"
 msgid "Arabic"
 msgstr "അറബിക്"
 
-#: ../libanjuta/anjuta-encodings.c:152
-#: ../libanjuta/anjuta-encodings.c:250
+#: ../libanjuta/anjuta-encodings.c:152 ../libanjuta/anjuta-encodings.c:250
 #: ../plugins/sourceview/anjuta-encodings.c:163
 #: ../plugins/sourceview/anjuta-encodings.c:268
 msgid "Greek"
@@ -131,8 +123,7 @@ msgstr "ഗ്രീക്ക്"
 msgid "Hebrew Visual"
 msgstr "ഹീബ്ര‍ു വിഷ്വല്"
 
-#: ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:215
+#: ../libanjuta/anjuta-encodings.c:156 ../libanjuta/anjuta-encodings.c:215
 #: ../libanjuta/anjuta-encodings.c:254
 #: ../plugins/sourceview/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:231
@@ -140,8 +131,7 @@ msgstr "ഹീബ്ര‍ു വിഷ്വല്"
 msgid "Hebrew"
 msgstr "ഹീബ്ര‍ു"
 
-#: ../libanjuta/anjuta-encodings.c:158
-#: ../libanjuta/anjuta-encodings.c:213
+#: ../libanjuta/anjuta-encodings.c:158 ../libanjuta/anjuta-encodings.c:213
 #: ../libanjuta/anjuta-encodings.c:252
 #: ../plugins/sourceview/anjuta-encodings.c:169
 #: ../plugins/sourceview/anjuta-encodings.c:229
@@ -164,10 +154,8 @@ msgstr "സെല്റ്റിക്"
 msgid "Romanian"
 msgstr "റൊമേനിയന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:171
-#: ../libanjuta/anjuta-encodings.c:173
-#: ../libanjuta/anjuta-encodings.c:175
-#: ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:171 ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:175 ../libanjuta/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:137
 #: ../plugins/sourceview/anjuta-encodings.c:182
 #: ../plugins/sourceview/anjuta-encodings.c:184
@@ -181,8 +169,7 @@ msgstr "യുണികോഡ്"
 msgid "Armenian"
 msgstr "അര്‍മേനിയന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:182
-#: ../libanjuta/anjuta-encodings.c:184
+#: ../libanjuta/anjuta-encodings.c:182 ../libanjuta/anjuta-encodings.c:184
 #: ../libanjuta/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:195
@@ -195,8 +182,7 @@ msgstr "ചൈനീസ് പരമ്പരാഗതം"
 msgid "Cyrillic/Russian"
 msgstr "സിറിലിക്/റഷ്യന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:189
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:189 ../libanjuta/anjuta-encodings.c:220
 #: ../libanjuta/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:200
 #: ../plugins/sourceview/anjuta-encodings.c:202
@@ -206,10 +192,8 @@ msgstr "സിറിലിക്/റഷ്യന്‍"
 msgid "Japanese"
 msgstr "ജാപ്പനിസ്"
 
-#: ../libanjuta/anjuta-encodings.c:191
-#: ../libanjuta/anjuta-encodings.c:222
-#: ../libanjuta/anjuta-encodings.c:226
-#: ../libanjuta/anjuta-encodings.c:239
+#: ../libanjuta/anjuta-encodings.c:191 ../libanjuta/anjuta-encodings.c:222
+#: ../libanjuta/anjuta-encodings.c:226 ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/sourceview/anjuta-encodings.c:207
 #: ../plugins/sourceview/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:242
@@ -217,10 +201,8 @@ msgstr "ജാപ്പനിസ്"
 msgid "Korean"
 msgstr "കൊറിയന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:196
-#: ../libanjuta/anjuta-encodings.c:198
-#: ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:204
+#: ../libanjuta/anjuta-encodings.c:196 ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:204
 #: ../plugins/sourceview/anjuta-encodings.c:212
 #: ../plugins/sourceview/anjuta-encodings.c:214
 #: ../plugins/sourceview/anjuta-encodings.c:216
@@ -238,8 +220,7 @@ msgstr "ജോര്‍ജ്ജിയന്‍"
 msgid "Cyrillic/Ukrainian"
 msgstr "സിറിലിക്/ഉക്രേനിയന്‍"
 
-#: ../libanjuta/anjuta-encodings.c:235
-#: ../libanjuta/anjuta-encodings.c:241
+#: ../libanjuta/anjuta-encodings.c:235 ../libanjuta/anjuta-encodings.c:241
 #: ../libanjuta/anjuta-encodings.c:260
 #: ../plugins/sourceview/anjuta-encodings.c:253
 #: ../plugins/sourceview/anjuta-encodings.c:259
@@ -260,22 +241,18 @@ msgstr ""
 msgid "Supported Encodings"
 msgstr "പിന്തുണക്കുന്ന എന്കോഡിങ്ങുകള്‍"
 
-#: ../libanjuta/anjuta-launcher.c:1109
-#: ../libanjuta/resources.c:264
-#: ../libanjuta/resources.c:273
-#: ../plugins/devhelp/plugin.c:542
-#: ../plugins/devhelp/plugin.c:551
-#: ../plugins/gdb/utilities.c:280
+#: ../libanjuta/anjuta-launcher.c:1126 ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:542
+#: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr ""
 
-#: ../libanjuta/anjuta-launcher.c:1110
+#: ../libanjuta/anjuta-launcher.c:1127
 msgid "execvp failed"
 msgstr "എക്സെക്‌വിപി പരാജയപ്പെട്ടു "
 
-#: ../libanjuta/anjuta-plugin.c:327
-#: ../libanjuta/anjuta-plugin-manager.c:2215
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
 msgid "Anjuta Shell"
 msgstr "അന്‍ജുത ഷെല്‍"
 
@@ -287,7 +264,8 @@ msgstr ""
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message leading to this was:\n"
+"This usually means that your installation is corrupted. The error message "
+"leading to this was:\n"
 "%s"
 msgstr ""
 
@@ -301,8 +279,7 @@ msgstr "ചേര്‍ക്കുക "
 msgid "Available Plugins"
 msgstr "ലഭ്്യമായ പ്ലഗ്ഗിനുകള്‍"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025
-#: ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:829
 msgid "Preferred plugins"
 msgstr "പരിഗണനയുള്ള പ്ലഗ്ഗിനുകള്‍"
 
@@ -311,7 +288,10 @@ msgid "Only show user activatable plugins"
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1186
-msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
+msgid ""
+"These are the plugins selected by you when Anjuta prompted to choose one of "
+"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
+"you again to choose different plugin."
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
@@ -332,9 +312,8 @@ msgid "No plugin able to load other plugins in %s"
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1869
-#, fuzzy
 msgid "Remember this selection"
-msgstr "അടയാളവാക്യം"
+msgstr "ഈ തിരഞ്ഞെടുത്തത് ഓര്‍ക്കുക"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2196
 msgid "Profiles"
@@ -409,8 +388,7 @@ msgstr "സിന്‌‌ക്രൊണൈസേഷന് യുആര്‍�
 msgid "URI to sync the profile xml"
 msgstr ""
 
-#: ../libanjuta/anjuta-profile.c:512
-#: ../libanjuta/anjuta-profile.c:535
+#: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
 msgid "Failed to read '%s': %s"
@@ -421,16 +399,16 @@ msgstr "'%s':%s എന്നതു വായിക്കുന്നതില്
 msgid "No read permission for: %s"
 msgstr "%s നു വായിക്കാനുള്ള അധികാരമില്ല "
 
-#: ../libanjuta/anjuta-profile.c:560
-#: ../libanjuta/anjuta-profile.c:570
+#: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
 msgid "Failed to read '%s': XML parse error"
 msgstr ""
 
-#: ../libanjuta/anjuta-profile.c:581
-#: ../libanjuta/anjuta-profile.c:732
+#: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
-msgid "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins profile."
+msgid ""
+"Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
+"profile."
 msgstr ""
 
 #. <Pluginname>: Install it from <some location on the web>
@@ -454,11 +432,10 @@ msgstr ""
 
 #: ../libanjuta/anjuta-preferences.c:1436
 msgid "_Reset"
-msgstr ""
+msgstr "_വീണ്ടും സജ്ജമാക്കുക"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:101
-#: ../plugins/gtodo/interface.c:220
-#: ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:220 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "വിഭാഗങ്ങള്"
 
@@ -466,9 +443,8 @@ msgstr "വിഭാഗങ്ങള്"
 #: ../libanjuta/anjuta-preferences-dialog.c:144
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
-#: ../plugins/valgrind/vggeneralprefs.c:172
-#: ../src/anjuta.glade.h:11
-#: ../src/anjuta-app.c:817
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:11
+#: ../src/anjuta-app.c:816
 msgid "General"
 msgstr "സാര്‍വത്രികമായ"
 
@@ -485,7 +461,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "നിങ്ങള്‍ സംഭരിക്കുന്നില്ല എങ്കില്‍ താങ്കളുടെ എല്ലാ മാറ്റങ്ങളും നഷ്ട്പ്പെടും "
 
 #: ../libanjuta/anjuta-save-prompt.c:197
-#: ../plugins/document-manager/plugin.c:583
+#: ../plugins/document-manager/plugin.c:591
 msgid "Save"
 msgstr "സംരംക്ഷിക്കുക"
 
@@ -556,8 +532,7 @@ msgstr ""
 "\"%s\" എന്ന ഉപകരണം ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടില്ല.\n"
 "ദയവായി അതു ഇന്‍സ്റ്റോള്‍ ചെയ്യുക."
 
-#: ../libanjuta/anjuta-utils.c:792
-#: ../libanjuta/anjuta-utils.c:796
+#: ../libanjuta/anjuta-utils.c:792 ../libanjuta/anjuta-utils.c:796
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr ""
@@ -583,8 +558,7 @@ msgstr ""
 msgid "Widget not found: %s"
 msgstr "%s എന്ന വിഡ്ജെറ്റ് കാണാനില്ല "
 
-#: ../libanjuta/resources.c:76
-#: ../libanjuta/resources.c:98
+#: ../libanjuta/resources.c:76 ../libanjuta/resources.c:98
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr ""
@@ -635,24 +609,25 @@ msgstr "സ്ക്രാച് ബോക്സ് ഉപയോഗിക്ക�
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:563
 #, c-format
 msgid "make[%d]: Entering directory '%s'"
-msgstr ""
+msgstr "make[%d]: '%s' ഡയറക്ടറിയിലേക്ക് പ്രവേശിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:564
 #, c-format
 msgid "make: Entering directory '%s'"
-msgstr ""
+msgstr "make: '%s' ഡയറക്ടറിയിലേക്ക് പ്രവേശിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:565
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
-msgstr ""
+msgstr "make[%d]: `%s' ഡയറക്ടറിയിലേക്ക് പ്രവേശിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:566
 #, c-format
 msgid "make: Entering directory `%s'"
-msgstr ""
+msgstr "make: '%s' ഡയറക്ടറിയിലേക്ക് പ്രവേശിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:581
+#, c-format
 msgid "Entering: %s"
 msgstr "%s അകത്തു കടക്കുന്നു"
 
@@ -660,24 +635,25 @@ msgstr "%s അകത്തു കടക്കുന്നു"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:589
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
-msgstr ""
+msgstr "make[%d]: '%s' ഡയറക്ടറി ഉപേക്ഷിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:590
 #, c-format
 msgid "make: Leaving directory '%s'"
-msgstr ""
+msgstr "make: '%s' ഡയറക്ടറി ഉപേക്ഷിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:591
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
-msgstr ""
+msgstr "make[%d]: `%s' ഡയറക്ടറി ഉപേക്ഷിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "make: Leaving directory `%s'"
-msgstr ""
+msgstr "make:`%s' ഡയറക്ടറി ഉപേക്ഷിക്കുന്നു"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:608
+#, c-format
 msgid "Leaving: %s"
 msgstr "%s പുറത്തുകടക്കുന്നു"
 
@@ -710,14 +686,15 @@ msgstr "ബില്‍ഡ് %d: %s"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr "\"%s\" കംപൈല് ചെയ്യാന് സാധിക്കില്ല : ഇത്തരത്തിലുള്ള ഫയല് കംപൈല് ചെയ്യാനുള്ള നിയമം പറഞ്ഞു വെച്ചിട്ടില്ല ."
+msgstr ""
+"\"%s\" കംപൈല് ചെയ്യാന് സാധിക്കില്ല : ഇത്തരത്തിലുള്ള ഫയല് കംപൈല് ചെയ്യാനുള്ള നിയമം പറഞ്ഞു "
+"വെച്ചിട്ടില്ല ."
 
 #. Configure = ./configure script
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1097
-#, fuzzy
 msgid "Configure Parameters:"
-msgstr "സജ്ജീകരിക്കുക"
+msgstr "പരാമീറ്ററുകള്‍ ക്രമികരിക്കുക:"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
@@ -793,9 +770,8 @@ msgid "Build module associated with current file"
 msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
-#, fuzzy
 msgid "_Install Module"
-msgstr "സംസ്ഥാപിക്കുക"
+msgstr "ഘടകം _ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
 msgid "Install module associated with current file"
@@ -803,7 +779,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1363
 msgid "_Clean Module"
-msgstr ""
+msgstr "ഘടകം _വെടിപ്പാക്കുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1364
 msgid "Clean module associated with current file"
@@ -840,41 +816,38 @@ msgstr "സംസ്ഥാപിക്കുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
-#, fuzzy
 msgid "Install module"
-msgstr "സംസ്ഥാപിക്കുക"
+msgstr "ഘടകം ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
-#, fuzzy
 msgid "_Clean"
-msgstr "വൃത്തിയാക്കല്"
+msgstr "_വെടിപ്പാക്കുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
-#, fuzzy
 msgid "Clean module"
-msgstr "മൊഡ്യൂള്‍ "
+msgstr "ഘടകം വെടിപ്പാക്കുക"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1595
 msgid "Co_mpile"
 msgstr "കംപൈല് "
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
-#, fuzzy, c-format
+#, c-format
 msgid "_Build (%s)"
-msgstr "നിര്മ്മിതി"
+msgstr "_ബിള്‍ഡ് (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
-#, fuzzy, c-format
+#, c-format
 msgid "_Install (%s)"
-msgstr "സംസ്ഥാപിക്കുക"
+msgstr "_ഇന്‍സ്റ്റോള്‍ ചെയ്യുക (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1618
 #, c-format
 msgid "_Clean (%s)"
-msgstr ""
+msgstr "_വെടിപ്പാക്കുക (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
 #, c-format
@@ -899,9 +872,8 @@ msgid "No executables in this project!"
 msgstr ""
 
 #: ../plugins/build-basic-autotools/executer.c:154
-#, fuzzy
 msgid "Program"
-msgstr "നിര്‍ദ്ദേശ-സംഹിത"
+msgstr "പ്രോഗ്രാം"
 
 #: ../plugins/build-basic-autotools/executer.c:255
 msgid "No file or project currently opened."
@@ -951,9 +923,8 @@ msgid "Inheritance Graph"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
-#, fuzzy
 msgid "<b>Class Elements</b>"
-msgstr "അഭിപ്രായം:"
+msgstr "<b>ക്ലാസ്സ് എലമെന്റുകള്‍</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
 msgid "<b>General Class Properties</b>"
@@ -1063,6 +1034,7 @@ msgid "Source/Header Headings:"
 msgstr ""
 
 #: ../plugins/class-gen/generator.c:132
+#, c-format
 msgid "Header or source file has not been created"
 msgstr ""
 
@@ -1074,22 +1046,22 @@ msgstr ""
 msgid "Autogen template used for the implementation file"
 msgstr ""
 
-#: ../plugins/class-gen/generator.c:310
-#: ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
 msgid "File to which the processed template will be written"
 msgstr ""
 
 #: ../plugins/class-gen/generator.c:402
+#, c-format
 msgid "Failed to write autogen definition file"
 msgstr ""
 
-#: ../plugins/class-gen/plugin.c:99
-#: ../plugins/project-wizard/druid.c:828
-msgid "Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"
+#: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:828
+msgid ""
+"Could not find autogen version 5, please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net"
 msgstr ""
 
-#: ../plugins/class-gen/plugin.c:259
-#: ../plugins/class-gen/plugin.c:413
+#: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:413
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr ""
@@ -1108,29 +1080,29 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
-#, fuzzy
 msgid "<b>Options:</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>ഉപാധികള്‍:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
 #: ../plugins/search/anjuta-search.glade.h:3
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:4
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>ഉപാധികള്‍</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
-msgstr ""
+msgstr "<b>സംഭരണി: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
 msgid "Be verbose"
@@ -1154,7 +1126,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Import"
-msgstr ""
+msgstr "CVS: Import"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Log file/directory"
@@ -1178,7 +1150,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "CVSROOT:"
-msgstr ""
+msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:22
@@ -1252,9 +1224,8 @@ msgstr "മൊഡ്യൂളിന്റെ പേരു്:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 #: ../plugins/subversion/anjuta-subversion.glade.h:36
-#, fuzzy
 msgid "Password:"
-msgstr "അടയാളവാക്യം"
+msgstr "പാസ്‌വേര്‍ഡ്:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
@@ -1297,9 +1268,8 @@ msgstr "റിവിഷന്‍ ഉപയോഗിക്കുക:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
-#, fuzzy
 msgid "Username:"
-msgstr "ഉപയോക്താവ്"
+msgstr "ഉപയോക്താവ്:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
@@ -1349,9 +1319,8 @@ msgid "Release"
 msgstr "പുറത്തിറക്കല് "
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
-#, fuzzy
 msgid "Directory"
-msgstr "കൂടുകള്"
+msgstr "ഡയറക്ടറി"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
 msgid "Are you sure that you do not want a log message?"
@@ -1373,16 +1342,14 @@ msgid "CVS command is running - please wait until it finishes!"
 msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-execute.c:232
-#: ../plugins/cvs-plugin/cvs-execute.c:236
-#: ../plugins/cvs-plugin/plugin.c:489
+#: ../plugins/cvs-plugin/cvs-execute.c:236 ../plugins/cvs-plugin/plugin.c:489
 #: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "സിവിഎസ് "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:45
-#: ../plugins/cvs-plugin/plugin.c:120
+#: ../plugins/cvs-plugin/plugin.c:45 ../plugins/cvs-plugin/plugin.c:120
 msgid "_CVS"
 msgstr "‌_സിവിഎസ് "
 
@@ -1412,23 +1379,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:69
-#: ../plugins/cvs-plugin/plugin.c:128
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:69 ../plugins/cvs-plugin/plugin.c:128
 msgid "_Commit"
-msgstr "അഭിപ്രായം:"
+msgstr "_സമര്‍പ്പിക്കുക"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:71
-#: ../plugins/cvs-plugin/plugin.c:130
+#: ../plugins/cvs-plugin/plugin.c:71 ../plugins/cvs-plugin/plugin.c:130
 msgid "Commit your changes to the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:77
-#: ../plugins/cvs-plugin/plugin.c:136
+#: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:48
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
@@ -1436,52 +1399,45 @@ msgstr "പരിഷ്ക്കരിക്കുക"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:79
-#: ../plugins/cvs-plugin/plugin.c:138
+#: ../plugins/cvs-plugin/plugin.c:79 ../plugins/cvs-plugin/plugin.c:138
 msgid "Sync your local copy with the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:85
-#: ../plugins/cvs-plugin/plugin.c:144
+#: ../plugins/cvs-plugin/plugin.c:85 ../plugins/cvs-plugin/plugin.c:144
 msgid "_Diff"
 msgstr "ഡി ഫ് "
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:87
-#: ../plugins/cvs-plugin/plugin.c:146
+#: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "Show differences between your local copy and the tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:93
-#: ../plugins/cvs-plugin/plugin.c:152
+#: ../plugins/cvs-plugin/plugin.c:93 ../plugins/cvs-plugin/plugin.c:152
 msgid "_Show Status"
 msgstr "നിലവാരം കാണിക്കുക "
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:95
-#: ../plugins/cvs-plugin/plugin.c:154
+#: ../plugins/cvs-plugin/plugin.c:95 ../plugins/cvs-plugin/plugin.c:154
 msgid "Show the status of a file/directory"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:101
-#: ../plugins/cvs-plugin/plugin.c:160
+#: ../plugins/cvs-plugin/plugin.c:101 ../plugins/cvs-plugin/plugin.c:160
 msgid "_Show Log"
-msgstr ""
+msgstr "ലോഗ് _കാണിക്കുക"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:103
-#: ../plugins/cvs-plugin/plugin.c:162
+#: ../plugins/cvs-plugin/plugin.c:103 ../plugins/cvs-plugin/plugin.c:162
 msgid "Show the log of a file/directory"
-msgstr ""
+msgstr "ഒരു ഫയല്‍/ഡയറക്ടറിയുടെ ലോഗ് കാണിക്കുക"
 
 #. Action name
 #. Stock icon, if any
@@ -1497,7 +1453,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/plugin.c:350
 msgid "CVS operations"
-msgstr ""
+msgstr "CVS പ്രക്രിയകള്‍"
 
 #: ../plugins/cvs-plugin/plugin.c:356
 msgid "CVS popup operations"
@@ -1522,7 +1478,7 @@ msgid "Breakpoint properties"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1945
+#: ../plugins/debug-manager/breakpoints.c:1949
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr ""
@@ -1537,9 +1493,8 @@ msgid "Change Watch"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
-#, fuzzy
 msgid "Command Line Parameters:"
-msgstr "സജ്ജീകരിക്കുക"
+msgstr "കമാന്‍ഡ് ലൈന്‍ പരാമീറ്ററുകള്‍:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:9
 msgid "Debugger Target:"
@@ -1590,26 +1545,23 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
 #: ../plugins/debug-manager/plugin.c:949
-#: ../plugins/debug-manager/plugin.c:1049
-#: ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:1049 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
-msgstr ""
+msgstr "കേര്‍ണല്‍ സിഗ്നലുകള്‍"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1872
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "സ്ഥാനം:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/memory.c:178
-#: ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/debug-manager/memory.c:178 ../plugins/gdb/anjuta-gdb.glade.h:18
 msgid "Memory"
 msgstr "ഓര്മ്മ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/signals.c:475
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/debug-manager/signals.c:475 ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
 msgstr "കൈമാറുക:"
 
@@ -1624,28 +1576,24 @@ msgid "Program Interrupt"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
-#, fuzzy
 msgid "Program parameters"
-msgstr "നിര്‍ദ്ദേശ-സംഹിത"
+msgstr "പ്രോഗ്രാം പരാമീറ്ററുകള്‍"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
-#, fuzzy
 msgid "Run In Terminal"
-msgstr "കല്പ്പനാസ്ഥാനത്ത് പ്രവ‍ര്ത്തിക്കുക"
+msgstr "ടെര്‍മിനലില്‍ പ്രവര്‍ത്തിപ്പിക്കുക"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:27
 #: ../plugins/gdb/anjuta-gdb.glade.h:23
 msgid "SIGINT"
-msgstr ""
+msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
-#, fuzzy
 msgid "Select one directory"
-msgstr "കൂടുകള്"
+msgstr "ഒരു ഡയറക്ടറി തിരഞ്ഞെടുക്കുക"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
-#: ../plugins/debug-manager/signals.c:423
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/debug-manager/signals.c:423 ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
 msgstr ""
 
@@ -1681,8 +1629,7 @@ msgstr "നിര്‌ത്തുക"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
-#: ../plugins/debug-manager/signals.c:219
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
+#: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
 #: ../plugins/project-wizard/property.c:212
 msgid "Yes"
 msgstr "അതെ"
@@ -1693,9 +1640,8 @@ msgid "_Attach"
 msgstr "ചേര്‍ക്കുക "
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
-#, fuzzy
 msgid "_Automatic update"
-msgstr "തനിയെയുള്ള"
+msgstr "_സ്വയം പരിഷ്കരിക്കുക"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
@@ -1740,156 +1686,154 @@ msgstr "എല്ലാം കളയുക "
 msgid "_Value:"
 msgstr "മൂല്യം"
 
-#: ../plugins/debug-manager/breakpoints.c:1638
+#: ../plugins/debug-manager/breakpoints.c:1642
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1735
+#: ../plugins/debug-manager/breakpoints.c:1739
 msgid "_Breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1743
+#: ../plugins/debug-manager/breakpoints.c:1747
 msgid "Toggle Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1745
+#: ../plugins/debug-manager/breakpoints.c:1749
 msgid "Toggle breakpoint at the current location"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1751
+#: ../plugins/debug-manager/breakpoints.c:1755
 msgid "Add Breakpoint..."
 msgstr "ബ്രേക്ക്പോയിന്റു്  ചേര്‍ക്കുക....."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1753
+#: ../plugins/debug-manager/breakpoints.c:1757
 msgid "Add a breakpoint"
 msgstr "ഒരു ബ്രേക്ക്പോയിന്റു്  ചേര്‍ക്കുക"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1759
+#: ../plugins/debug-manager/breakpoints.c:1763
 msgid "Remove Breakpoint"
 msgstr "ബ്രേക്ക്പോയിന്റു്  നീക്കം ചെയ്യുക "
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1761
+#: ../plugins/debug-manager/breakpoints.c:1765
 msgid "Remove a breakpoint"
 msgstr "ഒരു ബ്രേക്ക്പോയിന്റു്  നീക്കം ചെയ്യുക "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1767
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Edit Breakpoint"
 msgstr "ബ്രേക്ക്പോയിന്റു്  ക്രമീകരിക്കുക "
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1769
-#, fuzzy
+#: ../plugins/debug-manager/breakpoints.c:1773
 msgid "Edit breakpoint properties"
-msgstr "കൂടുകള്"
+msgstr "ബ്രെയിക്ക്പോയിന്റ് ഗുണഗണങ്ങളില്‍ മാറ്റം വരുത്തുക"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1775
-#: ../plugins/debug-manager/breakpoints.c:1846
+#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1850
 msgid "Enable Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1777
-#: ../plugins/debug-manager/breakpoints.c:1847
+#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1851
 msgid "Enable a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1783
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Disable All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1785
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Deactivate all breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1791
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "R_emove All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1793
+#: ../plugins/debug-manager/breakpoints.c:1797
 msgid "Remove all breakpoints"
 msgstr "എല്ലാ ബ്രേക്ക്പോയിന്റുുകളും  നീക്കം ചെയ്യുക "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1802
+#: ../plugins/debug-manager/breakpoints.c:1806
 msgid "Jump to Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1804
+#: ../plugins/debug-manager/breakpoints.c:1808
 msgid "Jump to breakpoint location"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1845
 msgid "Disable Breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1842
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Disable a breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1872
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "പ്രാപ്യം"
 
-#: ../plugins/debug-manager/breakpoints.c:1872
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "വിലാസം"
 
-#: ../plugins/debug-manager/breakpoints.c:1872
-#: ../plugins/debug-manager/debug_tree.c:124
+#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "തരം "
 
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Condition"
 msgstr "ഉപാധി"
 
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Pass count"
 msgstr "എണ്ണം കൈമാറുക "
 
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "State"
 msgstr "അവസ്ഥ "
 
-#: ../plugins/debug-manager/breakpoints.c:1922
-#: ../plugins/debug-manager/breakpoints.c:1928
-#, fuzzy
+#: ../plugins/debug-manager/breakpoints.c:1926
+#: ../plugins/debug-manager/breakpoints.c:1932
 msgid "Breakpoint operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "ബ്രെയിക്ക്പോയിന്റ് പ്രക്രിയകള്‍"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:383
@@ -1897,24 +1841,20 @@ msgstr "കൂടുതല് ബദലുകള്"
 msgid "_Goto address"
 msgstr "വിലാസത്തിലേക്ക് പോകുക "
 
-#: ../plugins/debug-manager/debug_tree.c:124
-#: ../plugins/tools/editor.c:457
+#: ../plugins/debug-manager/debug_tree.c:126 ../plugins/tools/editor.c:457
 msgid "Variable"
 msgstr "മാറിവരുന്ന"
 
-#: ../plugins/debug-manager/debug_tree.c:124
-#: ../plugins/debug-manager/registers.c:464
-#: ../plugins/tools/editor.c:463
+#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/registers.c:464 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "മൂല്യം"
 
 #: ../plugins/debug-manager/disassemble.c:852
-#, fuzzy
 msgid "Disassembly"
-msgstr "ദൃശ്യമായ"
+msgstr ""
 
-#: ../plugins/debug-manager/info.c:52
-#: ../plugins/debug-manager/info.c:101
+#: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 msgid "Information"
 msgstr "വിവരം"
 
@@ -1925,7 +1865,7 @@ msgid "Lines"
 msgstr "വരികള്‌"
 
 #. This is the list of local variables.
-#: ../plugins/debug-manager/locals.c:106
+#: ../plugins/debug-manager/locals.c:107
 msgid "Locals"
 msgstr ""
 
@@ -1933,16 +1873,12 @@ msgstr ""
 msgid "Debugger Log"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:386
-#: ../plugins/debug-manager/plugin.c:415
-#: ../plugins/debug-manager/plugin.c:435
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:502
-#: ../plugins/debug-manager/plugin.c:537
+#: ../plugins/debug-manager/plugin.c:386 ../plugins/debug-manager/plugin.c:415
+#: ../plugins/debug-manager/plugin.c:435 ../plugins/debug-manager/plugin.c:457
+#: ../plugins/debug-manager/plugin.c:502 ../plugins/debug-manager/plugin.c:537
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
-#, fuzzy
 msgid "Debugger"
-msgstr "തിരുത്ത്"
+msgstr "ഡീബഗ്ഗര്‍"
 
 #: ../plugins/debug-manager/plugin.c:386
 msgid "Started"
@@ -1976,8 +1912,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:833
-#: ../plugins/valgrind/plugin.c:437
+#: ../plugins/debug-manager/plugin.c:833 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "തിരുത്ത്"
 
@@ -2022,9 +1957,8 @@ msgid "Add source paths..."
 msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:883
-#, fuzzy
 msgid "Add additional source paths"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "കൂടുതല്‍ സോഴ്സ് പാഥുകള്‍ ചേര്‍ക്കുക"
 
 #. Action name
 #. Stock icon, if any
@@ -2129,9 +2063,8 @@ msgid "Run to the cursor"
 msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:1017
-#, fuzzy
 msgid "Info _Global Variables"
-msgstr "മാറിവരുന്ന"
+msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:1019
 msgid "Display all global and static variables of the program"
@@ -2156,9 +2089,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:1061
-#, fuzzy
 msgid "Pa_use Program"
-msgstr "നിര്‍ദ്ദേശ-സംഹിത"
+msgstr "പ്രോഗ്രാം തല്‍ക്കാലത്തേക്ക് നിര്‍ത്തുക"
 
 #. Display label
 #. short-cut
@@ -2201,9 +2133,8 @@ msgstr "വരെ"
 
 #. Whether the debugging symbols in the shared libraries have been read
 #: ../plugins/debug-manager/sharedlib.c:196
-#, fuzzy
 msgid "Symbols read"
-msgstr "അടയാളം"
+msgstr "ലഭ്യമായ മുദ്രകള്‍"
 
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
@@ -2233,8 +2164,7 @@ msgstr "സിഗ്നല്‍ "
 msgid "Stop"
 msgstr "നിര്‌ത്തുക"
 
-#: ../plugins/debug-manager/signals.c:340
-#: ../plugins/editor/print.c:1031
+#: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1031
 msgid "Print"
 msgstr "അച്ചടി"
 
@@ -2273,9 +2203,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/stack_trace.c:551
-#, fuzzy
 msgid "Set current frame"
-msgstr "ഇപ്പോഴത്തെ രചന അച്ചടിക്കുക"
+msgstr "നിലവിലുള്ള ഫ്രെയിം ക്രമികരിക്കുക"
 
 #: ../plugins/debug-manager/stack_trace.c:559
 #: ../plugins/debug-manager/threads.c:386
@@ -2293,16 +2222,15 @@ msgstr "ചട്ടക്കൂട്"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:447
-#: ../src/anjuta-app.c:616
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:615
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "ഫയ"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:931
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:939
+#: ../plugins/document-manager/plugin.c:953
 msgid "Line"
 msgstr "വരി‌"
 
@@ -2321,9 +2249,8 @@ msgid "Stack"
 msgstr "സ്റ്റാ ക്ക് "
 
 #: ../plugins/debug-manager/stack_trace.c:767
-#, fuzzy
 msgid "Stack frame operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "ഫ്രെയിം പ്രക്രിയകള്‍ സ്റ്റാക്ക് ചെയ്യുക"
 
 #: ../plugins/debug-manager/start.c:97
 msgid "Pid"
@@ -2352,8 +2279,7 @@ msgstr ""
 msgid "Unable to open the file: %s\n"
 msgstr ""
 
-#: ../plugins/debug-manager/start.c:903
-#: ../plugins/debug-manager/start.c:1191
+#: ../plugins/debug-manager/start.c:903 ../plugins/debug-manager/start.c:1191
 #, c-format
 msgid "Missing file %s"
 msgstr ""
@@ -2362,8 +2288,7 @@ msgstr ""
 msgid "Load Target to debug"
 msgstr ""
 
-#: ../plugins/debug-manager/start.c:1032
-#: ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "എല്ലാ ഫയലുകളും "
 
@@ -2371,8 +2296,7 @@ msgstr "എല്ലാ ഫയലുകളും "
 msgid "Path"
 msgstr "വഴി "
 
-#: ../plugins/debug-manager/start.c:1260
-#: ../plugins/gdb/debugger.c:1597
+#: ../plugins/debug-manager/start.c:1260 ../plugins/gdb/debugger.c:1639
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2381,23 +2305,20 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/threads.c:378
-#, fuzzy
 msgid "Set current thread"
-msgstr "ഇപ്പോഴത്തെ രചന അച്ചടിക്കുക"
+msgstr "നിലവിലുള്ള ത്രെഡ് ക്രമികരിക്കുക"
 
 #: ../plugins/debug-manager/threads.c:432
 msgid "Id"
 msgstr ""
 
 #: ../plugins/debug-manager/threads.c:502
-#, fuzzy
 msgid "Thread"
-msgstr "തായ്"
+msgstr "ത്രെഡ്"
 
 #: ../plugins/debug-manager/threads.c:612
-#, fuzzy
 msgid "Thread operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "ത്രെഡ് പ്രക്രിയകള്‍"
 
 #. Action name
 #. Stock icon, if any
@@ -2416,19 +2337,16 @@ msgid "Add Watch..."
 msgstr ""
 
 #: ../plugins/debug-manager/watch.c:393
-#, fuzzy
 msgid "Remove Watch"
-msgstr "നീക്കം ചെയ്യ‍ുക"
+msgstr "നിരീക്ഷിക്കുന്നത് നീക്കം ചെയ്യുക"
 
 #: ../plugins/debug-manager/watch.c:401
-#, fuzzy
 msgid "Update Watch"
-msgstr "പരിഷ്ക്കരിക്കുക"
+msgstr "നിരീക്ഷണം പരിഷ്ക്കരിക്കുക"
 
 #: ../plugins/debug-manager/watch.c:409
-#, fuzzy
 msgid "Change Value"
-msgstr "റദ്ദാക്കുക"
+msgstr "മൂല്ല്യം മാറ്റുക"
 
 #: ../plugins/debug-manager/watch.c:417
 msgid "Update all"
@@ -2441,15 +2359,12 @@ msgstr "എല്ലാം നീക്കം ചെയ്യ‍ുക"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:436
-#, fuzzy
 msgid "Automatic update"
-msgstr "തനിയെയുള്ള"
+msgstr "സ്വയമേയുള്ള പരിഷ്കരണം"
 
-#: ../plugins/debug-manager/watch.c:462
-#: ../plugins/debug-manager/watch.c:468
-#, fuzzy
+#: ../plugins/debug-manager/watch.c:462 ../plugins/debug-manager/watch.c:468
 msgid "Watch operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "നിരീക്ഷണ പ്രക്രിയകള്‍"
 
 #: ../plugins/debug-manager/watch.c:540
 msgid "Watches"
@@ -2459,10 +2374,8 @@ msgstr ""
 msgid "Search Help:"
 msgstr "സഹായം തെരയുക"
 
-#: ../plugins/devhelp/plugin.c:230
-#: ../plugins/document-manager/plugin.c:249
-#: ../plugins/message-view/plugin.c:68
-#: ../plugins/symbol-browser/plugin.c:263
+#: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:257
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 msgid "_Goto"
 msgstr ""
 
@@ -2499,25 +2412,22 @@ msgid "Search help for the current word in the editor"
 msgstr ""
 
 #: ../plugins/devhelp/plugin.c:275
-#, fuzzy
 msgid "_Search Help"
-msgstr "തെരയുക"
+msgstr "_തെരച്ചിലിനുള്ള സഹായം"
 
 #: ../plugins/devhelp/plugin.c:277
 msgid "Search for a term in help"
 msgstr ""
 
 #: ../plugins/devhelp/plugin.c:341
-#, fuzzy
 msgid "Help operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "സഹായ പ്രക്രിയകള്‍"
 
 #: ../plugins/devhelp/plugin.c:376
 msgid "Books"
 msgstr "പുസ്തകങ്ങള്‍ "
 
-#: ../plugins/devhelp/plugin.c:378
-#: ../plugins/search/search-replace.c:1008
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1008
 #: ../plugins/search/search-replace.c:1690
 #: ../plugins/search/search-replace.c:1697
 #: ../plugins/search/search-replace.c:1709
@@ -2526,8 +2436,7 @@ msgstr "പുസ്തകങ്ങള്‍ "
 msgid "Search"
 msgstr "തെരയുക"
 
-#: ../plugins/devhelp/plugin.c:383
-#: ../src/anjuta-app.c:633
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:632
 msgid "Help"
 msgstr "സഹായം"
 
@@ -2543,8 +2452,7 @@ msgid ""
 msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:340
-#: ../plugins/sourceview/sourceview.c:200
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:215
 msgid "_Reload"
 msgstr "_പുതുക്കുക"
 
@@ -2553,33 +2461,27 @@ msgstr "_പുതുക്കുക"
 msgid "Close file"
 msgstr "ഫയല്‍ അടയ്ക്കുക "
 
-#: ../plugins/document-manager/anjuta-docman.c:427
-#: ../plugins/file-loader/plugin.c:507
-#: ../plugins/file-loader/plugin.c:770
-#: ../plugins/file-loader/plugin.c:780
-#: ../plugins/file-loader/plugin.c:793
+#: ../plugins/document-manager/anjuta-docman.c:422
+#: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
+#: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "ഫയല്‍ തുറക്കുക "
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
-#, fuzzy
 msgid "Save file as"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "ഫയലിന്റെ പേര് മാറ്റി സൂക്ഷിക്കുക"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
-#: ../plugins/file-wizard/file.c:240
-#: ../plugins/valgrind/plugin.c:375
+#: ../plugins/document-manager/anjuta-docman.c:520
+#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 
-#: ../plugins/document-manager/anjuta-docman.c:533
-#: ../plugins/file-wizard/file.c:248
-#: ../plugins/valgrind/plugin.c:383
-#: ../src/anjuta-callbacks.c:79
+#: ../plugins/document-manager/anjuta-docman.c:528
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_മാറ്റി എഴുതുക"
 
@@ -2608,16 +2510,15 @@ msgid "Do not show tabs"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1713
-#: ../plugins/document-manager/plugin.c:2101
-#: ../plugins/document-manager/plugin.c:2112
+#: ../plugins/document-manager/plugin.c:1719
+#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:2118
 msgid "Documents"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:8
-#, fuzzy
 msgid "Enable files autosave"
-msgstr "ഫയലുകള്‍ സ്വയം സംഭരിക്കുന്ന രീതി ഉണര്‍ത്തുക "
+msgstr "ഫയലുകള്‍ സ്വയം സൂക്ഷിക്കുന്ന രീതി സജ്ജമാക്കുക "
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "Encodings"
@@ -2665,9 +2566,8 @@ msgid "Try to save in original encoding"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:154
-#, fuzzy
 msgid "_New"
-msgstr "പുതിയ"
+msgstr "_പുതിയ"
 
 #: ../plugins/document-manager/plugin.c:155
 msgid "New empty file"
@@ -2726,14 +2626,12 @@ msgid "Swap .h/.c"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:175
-#, fuzzy
 msgid "Swap c header and source files"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "സി ഹെഡറും സോഴ്സ് ഫയലുകളും സ്വാപ്പ് ചെയ്യുക"
 
 #: ../plugins/document-manager/plugin.c:177
-#, fuzzy
 msgid "Recent _Files"
-msgstr "ഏറ്റവും കൂടിയ നവരചനകള്‌"
+msgstr "ഏറ്റവും ഒടുവില്‍ ഉപയോഗിച്ച _ഫയലുകള്‍"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
@@ -2748,9 +2646,8 @@ msgid "_Print Preview"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:190
-#, fuzzy
 msgid "Preview the current file in print-format"
-msgstr "ഇപ്പോഴത്തെ രചന അച്ചടിക്കുക"
+msgstr "നിലവിലുള്ള ഫയല്‍ പ്രിന്റ് ചെയ്യുന്ന രീതിയില്‍ കാണുക"
 
 #: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
@@ -2837,473 +2734,464 @@ msgstr ""
 msgid "Co_mment"
 msgstr "_അഭിപ്രായം"
 
-#. menu title
-#: ../plugins/document-manager/plugin.c:237
+#. Block comment: Uses line-comment (comment that affects only single line
+#. such as '//' or '#') and comments a block of lines.
+#: ../plugins/document-manager/plugin.c:239
 msgid "_Block Comment/Uncomment"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:240
 msgid "Block comment the selected text"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:240
+#. Box comment: Uses stream-comment to comment a block of lines, usually with
+#. some decorations, to give an appearance of box.
+#: ../plugins/document-manager/plugin.c:244
 msgid "Bo_x Comment/Uncomment"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:241
+#: ../plugins/document-manager/plugin.c:245
 msgid "Box comment the selected text"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:243
+#. Stream comment: Uses 'stream comment' (comment that affects a stream of
+#. characters -- has start and end comment code) and comments any code from
+#. arbitrary start position to arbitrary end position (can be in middle of
+#. lines).
+#: ../plugins/document-manager/plugin.c:251
 msgid "_Stream Comment/Uncomment"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:252
 msgid "Stream comment the selected text"
 msgstr ""
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:258
 msgid "_Line Number..."
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:259
 msgid "Go to a particular line in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:253
+#: ../plugins/document-manager/plugin.c:261
 msgid "Matching _Brace"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:262
 msgid "Go to the matching brace in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:264
 msgid "_Start of Block"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:265
 msgid "Go to the start of the current block"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:259
+#: ../plugins/document-manager/plugin.c:267
 msgid "_End of Block"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:260
+#: ../plugins/document-manager/plugin.c:268
 msgid "Go to the end of the current block"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:262
+#: ../plugins/document-manager/plugin.c:270
 msgid "Previous _History"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:263
+#: ../plugins/document-manager/plugin.c:271
 msgid "Goto previous history"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:273
 msgid "Next Histor_y"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:274
 msgid "Goto next history"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:271
-#: ../plugins/search/plugin.c:193
+#: ../plugins/document-manager/plugin.c:279 ../plugins/search/plugin.c:193
 msgid "_Search"
 msgstr "_തെരയുക"
 
-#: ../plugins/document-manager/plugin.c:272
+#: ../plugins/document-manager/plugin.c:280
 msgid "_Quick Search"
 msgstr "_പെട്ടന്നു തെരയുക"
 
-#: ../plugins/document-manager/plugin.c:273
+#: ../plugins/document-manager/plugin.c:281
 msgid "Quick editor embedded search"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:275
+#: ../plugins/document-manager/plugin.c:283
 msgid "Quick _ReSearch"
 msgstr "പെട്ടന്നു _രണ്ടാമതും തെരയുക"
 
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:284
 msgid "Repeat quick search"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:281
-#: ../plugins/gtodo/interface.c:164
+#: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
-#: ../plugins/valgrind/vgrule-list.c:405
-#: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1430
+#: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1596
 msgid "_Edit"
 msgstr "_ചിട്ട"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:290
 msgid "_Editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:297
 msgid "_Add Editor View"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:298
 msgid "Add one more view of current document"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:300
 msgid "_Remove Editor View"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:301
 msgid "Remove current view of the document"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:303
 msgid "U_ndo"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:304
 msgid "Undo the last action"
 msgstr "അവസാനം ചെയ്തതു് ഒഴിവാക്കുക"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:306
 msgid "_Redo"
 msgstr "_വീണ്ടും"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:307
 msgid "Redo the last undone action"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:301
+#: ../plugins/document-manager/plugin.c:309
 msgid "C_ut"
 msgstr "_മുറിയ്ക്കുക"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:310
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:304
-#: ../plugins/valgrind/vgdefaultview.c:1153
+#: ../plugins/document-manager/plugin.c:312
+#: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Copy"
 msgstr "_പകര്‍ത്തുക"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:313
 msgid "Copy the selected text to the clipboard"
 msgstr "തെരഞ്ഞെടുത്ത പദാവലി ക്ലിപ്പ്ബോര്‍ഡിലേയ്ക്കു് പകര്‍ത്തുക"
 
-#: ../plugins/document-manager/plugin.c:307
-#: ../plugins/valgrind/vgdefaultview.c:1154
+#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "_Paste"
 msgstr "_ഒട്ടിയ്ക്കുക"
 
-#: ../plugins/document-manager/plugin.c:308
+#: ../plugins/document-manager/plugin.c:316
 msgid "Paste the content of clipboard at the current position"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:324
 msgid "_Clear"
 msgstr "_വൃത്തിയാക്കുക"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:325
 msgid "Delete the selected text from the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:330
 msgid "_Line Number Margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:331
 msgid "Show/Hide line numbers"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:333
 msgid "_Marker Margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:334
 msgid "Show/Hide marker margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:336
 msgid "_Code Fold Margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:337
 msgid "Show/Hide code fold margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:331
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:339
 msgid "_Indentation Guides"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
-
-#: ../plugins/document-manager/plugin.c:332
-msgid "Show/Hide indentation guides"
-msgstr ""
-
-#: ../plugins/document-manager/plugin.c:334
-#, fuzzy
-msgid "_White Space"
-msgstr "മാറ്റി എഴുതുക"
-
-#: ../plugins/document-manager/plugin.c:335
-msgid "Show/Hide white spaces"
-msgstr ""
-
-#: ../plugins/document-manager/plugin.c:337
-msgid "_Line End Characters"
-msgstr ""
-
-#: ../plugins/document-manager/plugin.c:338
-msgid "Show/Hide line end characters"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:340
-msgid "Line _Wrapping"
+msgid "Show/Hide indentation guides"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:341
-msgid "Enable/disable line wrapping"
+#: ../plugins/document-manager/plugin.c:342
+msgid "_White Space"
+msgstr "_വൈറ്റ് സ്പെയിസ്"
+
+#: ../plugins/document-manager/plugin.c:343
+msgid "Show/Hide white spaces"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:345
+msgid "_Line End Characters"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:346
-#, fuzzy
-msgid "Zoom In"
-msgstr "താഴെ"
+msgid "Show/Hide line end characters"
+msgstr ""
 
-#: ../plugins/document-manager/plugin.c:347
-msgid "Zoom in: Increase font size"
+#: ../plugins/document-manager/plugin.c:348
+msgid "Line _Wrapping"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:349
-#, fuzzy
-msgid "Zoom Out"
-msgstr "താഴെ"
+msgid "Enable/disable line wrapping"
+msgstr ""
 
-#: ../plugins/document-manager/plugin.c:350
+#: ../plugins/document-manager/plugin.c:354
+msgid "Zoom In"
+msgstr "വലുതാക്കുക"
+
+#: ../plugins/document-manager/plugin.c:355
+msgid "Zoom in: Increase font size"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:357
+msgid "Zoom Out"
+msgstr "ചെറുതാക്കുക"
+
+#: ../plugins/document-manager/plugin.c:358
 msgid "Zoom out: Decrease font size"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:355
+#: ../plugins/document-manager/plugin.c:363
 msgid "_Highlight Mode"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:367
 msgid "_Close All Folds"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:368
 msgid "Close all code folds in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:370
 msgid "_Open All Folds"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:371
 msgid "Open all code folds in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:365
+#: ../plugins/document-manager/plugin.c:373
 msgid "_Toggle Current Fold"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:366
+#: ../plugins/document-manager/plugin.c:374
 msgid "Toggle current code fold in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:379
 msgid "Bookmar_k"
-msgstr ""
+msgstr "_ഓര്‍മ്മക്കുറിപ്പ്"
 
-#: ../plugins/document-manager/plugin.c:372
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Toggle Bookmark"
-msgstr "അടയാളം"
+msgstr "ഓര്‍മ്മക്കുറിപ്പ് _ടൊഗ്ഗിള്‍ ചെയ്യുക"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:381
 msgid "Toggle a bookmark at the current line position"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:375
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:383
 msgid "_First Bookmark"
-msgstr "അടയാളം"
-
-#: ../plugins/document-manager/plugin.c:376
-msgid "Jump to the first bookmark in the file"
-msgstr ""
-
-#: ../plugins/document-manager/plugin.c:378
-#, fuzzy
-msgid "_Previous Bookmark"
-msgstr "അടയാളം"
-
-#: ../plugins/document-manager/plugin.c:379
-msgid "Jump to the previous bookmark in the file"
-msgstr ""
-
-#: ../plugins/document-manager/plugin.c:381
-#, fuzzy
-msgid "_Next Bookmark"
-msgstr "അടയാളം"
-
-#: ../plugins/document-manager/plugin.c:382
-msgid "Jump to the next bookmark in the file"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:384
-#, fuzzy
-msgid "_Last Bookmark"
-msgstr "അടയാളം"
+msgid "Jump to the first bookmark in the file"
+msgstr ""
 
-#: ../plugins/document-manager/plugin.c:385
-msgid "Jump to the last bookmark in the file"
+#: ../plugins/document-manager/plugin.c:386
+msgid "_Previous Bookmark"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:387
+msgid "Jump to the previous bookmark in the file"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:389
+msgid "_Next Bookmark"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:390
+msgid "Jump to the next bookmark in the file"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:392
+msgid "_Last Bookmark"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:393
+msgid "Jump to the last bookmark in the file"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:395
 msgid "_Clear All Bookmarks"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:396
 msgid "Clear bookmarks"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:407
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor file operations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "എഡിറ്റര്‍ ഫയലിനുള്ള പ്രക്രിയകള്‍"
 
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor print operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor text transformation"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor text selection"
 msgstr ""
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:420
 msgid "Editor code commenting"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:413
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:421
 msgid "Editor navigations"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr ""
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:422
 msgid "Editor edit operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:423
 msgid "Editor zoom operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:424
 msgid "Editor syntax highlighting styles"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:425
 msgid "Editor text formating"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:426
 msgid "Editor bookmarks"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:427
 msgid "Simple searching"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:431
 msgid "Editor view settings"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:579
+#: ../plugins/document-manager/plugin.c:587
 #: ../plugins/file-loader/plugin.c:1127
 msgid "New"
 msgstr "പുതിയ"
 
-#: ../plugins/document-manager/plugin.c:587
+#: ../plugins/document-manager/plugin.c:595
 msgid "Reload"
 msgstr "പുതുക്കുക"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:601
 msgid "Goto"
 msgstr "പോകുക"
 
-#: ../plugins/document-manager/plugin.c:924
+#: ../plugins/document-manager/plugin.c:932
 msgid "OVR"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:936
 msgid "INS"
 msgstr "ഇന്‍സെര്‍ട്ട്"
 
-#: ../plugins/document-manager/plugin.c:930
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:938
+#: ../plugins/document-manager/plugin.c:952
 msgid "Zoom"
 msgstr "വലുതാക്കുക "
 
-#: ../plugins/document-manager/plugin.c:932
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:954
 msgid "Col"
 msgstr "കോളം "
 
-#: ../plugins/document-manager/plugin.c:933
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:941
+#: ../plugins/document-manager/plugin.c:955
 msgid "Mode"
 msgstr "രീതി"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1014
+#: ../plugins/document-manager/plugin.c:1022
 msgid "Automatic"
 msgstr "തനിയെയുള്ള"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1528
+#: ../plugins/document-manager/plugin.c:1534
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s സ്വയം സൂക്ഷിയ്ക്കുന്നതു് പരാജയപ്പെട്ടു"
 
-#: ../plugins/document-manager/plugin.c:1542
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
-msgstr "സ്വയംപൂരകം"
+msgstr "സ്വയം സൂക്ഷിക്കല്‍ പൂര്‍ത്തിയാക്കിയിരിക്കുന്നു"
 
-#: ../plugins/document-manager/search-box.c:377
+#: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
 msgstr ""
 
-#: ../plugins/document-manager/search-box.c:383
+#: ../plugins/document-manager/search-box.c:391
 #, c-format
-msgid "Search for \"%s\" reached end and was continued on top but no new match was found."
+msgid ""
+"Search for \"%s\" reached end and was continued on top but no new match was "
+"found."
 msgstr ""
 
-#: ../plugins/document-manager/search-box.c:440
-#, fuzzy
+#: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
-msgstr "ലിപി ഗ്രാഹകം"
+msgstr "ലിപി ഗ്രാഹകം "
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:1
-#, fuzzy
 msgid "<b>Autocompletion</b>"
-msgstr "സ്വയംപൂരകം"
+msgstr "<b>സ്വയംപൂര്‍ത്തിയാക്കല്‍</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:2
-#, fuzzy
 msgid "<b>Basic Indentation</b>"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:3
 msgid "<b>Code folding</b>"
@@ -3352,9 +3240,8 @@ msgid "Background color:"
 msgstr "പശ്ചാത്തല നിറം"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:14
-#, fuzzy
 msgid "Basic Indentation"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:15
 msgid "Bold"
@@ -3606,8 +3493,7 @@ msgstr ""
 msgid "File: %s"
 msgstr "ഫയല്‍: %s"
 
-#: ../plugins/editor/print.c:872
-#: ../plugins/editor/print.c:884
+#: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 msgid "Printing..."
 msgstr "അച്ചടിയ്ക്കുന്നു ..."
 
@@ -3615,14 +3501,12 @@ msgstr "അച്ചടിയ്ക്കുന്നു ..."
 msgid "Print Preview"
 msgstr "അച്ചടിയ്ക്കുമുമ്പു് കണ്ടുനോക്കുക"
 
-#: ../plugins/editor/plugin.c:121
-#: ../plugins/editor/plugin.c:133
+#: ../plugins/editor/plugin.c:121 ../plugins/editor/plugin.c:133
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "സ്കിന്റില രചനാ സഹായി "
 
-#: ../plugins/editor/text_editor.c:326
-#: ../plugins/sourceview/sourceview.c:186
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:201
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3648,7 +3532,10 @@ msgid "Error while reading from file"
 msgstr ""
 
 #: ../plugins/editor/text_editor.c:1411
-msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
 msgstr ""
 
 #: ../plugins/editor/text_editor.c:1576
@@ -3704,7 +3591,8 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
@@ -3712,9 +3600,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:164
-#, fuzzy
 msgid "Open with:"
-msgstr "രചന തുറക്കുക"
+msgstr "തുറക്കേണ്ട പ്രയോഗം:"
 
 #. Document manager plugin
 #: ../plugins/file-loader/plugin.c:172
@@ -3759,9 +3646,8 @@ msgid "Hyper text markup files"
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:480
-#, fuzzy
 msgid "Shell scripts files"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "ഷെല്‍ സ്ക്രിപ്റ്റ് ഫയലുകള്‍"
 
 #: ../plugins/file-loader/plugin.c:485
 msgid "Makefiles"
@@ -3784,25 +3670,19 @@ msgstr ""
 msgid "_Open..."
 msgstr "_തുറക്കുക..."
 
-#: ../plugins/file-loader/plugin.c:779
-#: ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:779 ../plugins/file-loader/plugin.c:792
 msgid "_Open"
 msgstr "_തുറക്കുക"
 
-#: ../plugins/file-loader/plugin.c:786
-#: ../plugins/file-loader/plugin.c:799
-#, fuzzy
+#: ../plugins/file-loader/plugin.c:786 ../plugins/file-loader/plugin.c:799
 msgid "Open _With"
-msgstr "രചന തുറക്കുക"
+msgstr "ഫയല്‍ _തുറക്കേണ്ട പ്രയോഗം"
 
-#: ../plugins/file-loader/plugin.c:787
-#: ../plugins/file-loader/plugin.c:800
-#, fuzzy
+#: ../plugins/file-loader/plugin.c:787 ../plugins/file-loader/plugin.c:800
 msgid "Open with"
-msgstr "രചന തുറക്കുക"
+msgstr "ഫയല്‍ തുറക്കേണ്ട പ്രയോഗം"
 
-#: ../plugins/file-loader/plugin.c:1115
-#: ../plugins/file-loader/plugin.c:1121
+#: ../plugins/file-loader/plugin.c:1115 ../plugins/file-loader/plugin.c:1121
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr ""
@@ -3820,14 +3700,12 @@ msgid "Open _Recent"
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1144
-#, fuzzy
 msgid "Open recent file"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "ഏറ്റവും ഒടുവില്‍ തുറന്ന ഫയല്‍ തുറക്കുക"
 
 #: ../plugins/file-loader/plugin.c:1154
-#, fuzzy
 msgid "Open recent files"
-msgstr "ഏറ്റവും കൂടിയ നവരചനകള്‌"
+msgstr "ഏറ്റവും ഒടുവില്‍ തുറന്ന ഫയലുകള്‍ തുറക്കുക"
 
 #: ../plugins/file-manager/file-manager.glade.h:1
 msgid "<b>Filter</b>"
@@ -3858,25 +3736,23 @@ msgid "Root directory if no project is open:"
 msgstr ""
 
 #: ../plugins/file-manager/file-model.c:148
-#: ../plugins/symbol-browser/an_symbol_view.c:869
+#: ../plugins/symbol-browser/an_symbol_view.c:873
 msgid "Loading..."
 msgstr "എടുക്കുന്നു ..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "ഫയലിന്റെ പേരു്"
 
-#: ../plugins/file-manager/file-view.c:399
-#, fuzzy
-msgid "Base uri"
-msgstr "ബാള്ട്ടിക്"
-
 #: ../plugins/file-manager/file-view.c:400
+msgid "Base uri"
+msgstr "ബെയിസ് യുആര്‍ഐ"
+
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr ""
 
-#: ../plugins/file-manager/plugin.c:72
-#: ../plugins/project-manager/plugin.c:753
+#: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
 #: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "_പുതുക്കുക"
@@ -3893,20 +3769,17 @@ msgstr ""
 msgid "Files"
 msgstr "ഫയലുകള്‍"
 
-#: ../plugins/file-manager/plugin.c:363
-#: ../plugins/file-manager/plugin.c:372
+#: ../plugins/file-manager/plugin.c:363 ../plugins/file-manager/plugin.c:372
 msgid "File Manager"
 msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#, fuzzy
 msgid "<b>File Information</b>"
-msgstr "വിവരം"
+msgstr "<b>ഫയല്‍ സംബന്ധിച്ചുള്ള വിവരം</b>"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:3
-#, fuzzy
 msgid "Add License Information"
-msgstr "വിവരം"
+msgstr "ലൈസന്‍സ് സംബന്ധിച്ചുള്ള വിവരം ചേര്‍ക്കുക"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:4
 msgid "Add to project"
@@ -3974,9 +3847,8 @@ msgid "Python Source File"
 msgstr "പൈത്തണ്‍ സോഴ്സ് ഫയല്‍"
 
 #: ../plugins/file-wizard/file.c:89
-#, fuzzy
 msgid "Shell Script File"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "ഷെല്‍ സ്ക്രിപ്റ്റ് ഫയല്‍"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Other"
@@ -3998,7 +3870,6 @@ msgstr ""
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -4022,16 +3893,15 @@ msgstr "ടെര്‍മിനലില്‍ പ്രവര്‍ത്ത�
 msgid "_Pass:"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:653
-#: ../plugins/gdb/debugger.c:851
+#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
 msgid "Loading Executable: "
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:683
+#: ../plugins/gdb/debugger.c:719
 msgid "Loading Core: "
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:720
+#: ../plugins/gdb/debugger.c:756
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4039,106 +3909,108 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:845
+#: ../plugins/gdb/debugger.c:885
 msgid "Getting ready to start debugging session...\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:860
+#: ../plugins/gdb/debugger.c:900
 msgid "No executable specified.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:863
+#: ../plugins/gdb/debugger.c:903
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:872
+#: ../plugins/gdb/debugger.c:912
 msgid "There was an error whilst launching the debugger.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:876
+#: ../plugins/gdb/debugger.c:916
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1167
+#: ../plugins/gdb/debugger.c:1207
 msgid "Program exited normally\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1178
+#: ../plugins/gdb/debugger.c:1218
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr ""
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1193
+#: ../plugins/gdb/debugger.c:1233
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1202
-#, fuzzy
+#: ../plugins/gdb/debugger.c:1242
 msgid "Function finished\n"
-msgstr "ധ‌ര്മ്മം"
+msgstr "ഫംഗ്ഷന്‍ പൂര്‍ത്തിയാക്കിയിരിക്കുന്നു\n"
 
-#: ../plugins/gdb/debugger.c:1208
+#: ../plugins/gdb/debugger.c:1248
 msgid "Stepping finished\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1214
+#: ../plugins/gdb/debugger.c:1254
 msgid "Location reached\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1594
+#: ../plugins/gdb/debugger.c:1636
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1783
+#: ../plugins/gdb/debugger.c:1826
 msgid "Program attached\n"
 msgstr "പ്രോഗ്രാം ചേര്‍ത്തിയിരിയ്ക്കുന്നു\n"
 
-#: ../plugins/gdb/debugger.c:1800
+#: ../plugins/gdb/debugger.c:1847
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1826
+#: ../plugins/gdb/debugger.c:1873
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1843
+#: ../plugins/gdb/debugger.c:1890
 msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1891
+#: ../plugins/gdb/debugger.c:1940
 msgid "Program terminated\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1906
+#: ../plugins/gdb/debugger.c:1955
 msgid "Program detached\n"
 msgstr "പ്രോഗ്രാം വേര്‍പ്പെടുത്തിയിരിയ്ക്കുന്നു\n"
 
-#: ../plugins/gdb/debugger.c:1925
+#: ../plugins/gdb/debugger.c:1975
+#, c-format
 msgid "Detaching the process...\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1947
+#: ../plugins/gdb/debugger.c:1996
 msgid "Interrupting the process\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:3699
+#: ../plugins/gdb/debugger.c:3779
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:3725
+#: ../plugins/gdb/debugger.c:3805
 msgid "Error whilst signaling the process."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:102
-msgid "Anjuta terminal plugin is not installed. The program will be run without a terminal."
+msgid ""
+"Anjuta terminal plugin is not installed. The program will be run without a "
+"terminal."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
@@ -4152,20 +4024,17 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/utilities.c:295
-#: ../plugins/profiler/plugin.c:718
+#: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
 msgid "Debug"
 msgstr "തിരുത്തു്"
 
 #: ../plugins/glade/plugin.c:505
-#, fuzzy
 msgid "Widgets"
-msgstr "വീതി"
+msgstr "വിഡ്ജറ്റുകള്‍"
 
 #: ../plugins/glade/plugin.c:510
-#, fuzzy
 msgid "Palette"
-msgstr "ഒട്ടിപ്പ്"
+msgstr "പാലറ്റ്"
 
 #: ../plugins/glade/plugin.c:655
 #, c-format
@@ -4175,7 +4044,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:706
 #, c-format
 msgid "Could not open %s"
-msgstr ""
+msgstr "%s തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
 #: ../plugins/glade/plugin.c:783
 msgid "Could not create a new glade project."
@@ -4200,15 +4069,13 @@ msgstr ""
 
 #: ../plugins/gtodo/add_edit_item.c:110
 msgid "Add Item"
-msgstr ""
+msgstr "വസ്തു ചേര്‍ക്കുക"
 
 #: ../plugins/gtodo/add_edit_item.c:113
-#, fuzzy
 msgid "Edit Item"
-msgstr "സംവിധാനം"
+msgstr "വസ്തുവില്‍ മാറ്റം വരുത്തുക"
 
-#: ../plugins/gtodo/add_edit_item.c:144
-#: ../plugins/gtodo/add_edit_item.c:145
+#: ../plugins/gtodo/add_edit_item.c:144 ../plugins/gtodo/add_edit_item.c:145
 #: ../plugins/gtodo/list_tooltip.c:42
 msgid "Summary:"
 msgstr "രത്നച്ചുരുക്കം:"
@@ -4219,17 +4086,13 @@ msgstr "രത്നച്ചുരുക്കം:"
 msgid "Category:"
 msgstr "വിഭാഗങ്ങള്‍:"
 
-#: ../plugins/gtodo/add_edit_item.c:184
-#: ../plugins/gtodo/add_edit_item.c:467
-#: ../plugins/gtodo/mcategory.c:20
-#: ../plugins/gtodo/todo_db.c:70
+#: ../plugins/gtodo/add_edit_item.c:184 ../plugins/gtodo/add_edit_item.c:467
+#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:70
 #: ../plugins/gtodo/todo_db.c:71
-#, fuzzy
 msgid "Edit Categories"
-msgstr "വിഭാഗങ്ങള്"
+msgstr "വിഭാഗങ്ങളില്‍ മാറ്റം വരുത്തുക"
 
-#: ../plugins/gtodo/add_edit_item.c:195
-#: ../plugins/gtodo/list_tooltip.c:48
+#: ../plugins/gtodo/add_edit_item.c:195 ../plugins/gtodo/list_tooltip.c:48
 #: ../plugins/gtodo/list_tooltip.c:54
 msgid "Due date:"
 msgstr ""
@@ -4239,35 +4102,28 @@ msgid "Notify when due"
 msgstr ""
 
 #. label
-#: ../plugins/gtodo/add_edit_item.c:227
-#: ../plugins/gtodo/list_tooltip.c:64
-#: ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:227 ../plugins/gtodo/list_tooltip.c:64
+#: ../plugins/gtodo/list_tooltip.c:71 ../plugins/gtodo/list_tooltip.c:77
 msgid "Priority:"
 msgstr ""
 
-#: ../plugins/gtodo/add_edit_item.c:239
-#: ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:239 ../plugins/gtodo/list_tooltip.c:77
 #: ../plugins/gtodo/todo_db.c:132
-#, fuzzy
 msgid "High"
-msgstr "ഉയരം"
+msgstr "ഉയര്‍ന്ന"
 
-#: ../plugins/gtodo/add_edit_item.c:241
-#: ../plugins/gtodo/list_tooltip.c:71
+#: ../plugins/gtodo/add_edit_item.c:241 ../plugins/gtodo/list_tooltip.c:71
 #: ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
-msgstr ""
+msgstr "മദ്ധ്യത്തില്‍"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:243
-#: ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:243 ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:130
 msgid "Low"
-msgstr ""
+msgstr "കുറഞ്ഞ"
 
-#: ../plugins/gtodo/add_edit_item.c:254
-#: ../plugins/gtodo/add_edit_item.c:255
+#: ../plugins/gtodo/add_edit_item.c:254 ../plugins/gtodo/add_edit_item.c:255
 #: ../plugins/gtodo/list_tooltip.c:81
 msgid "Comment:"
 msgstr "അഭിപ്രായം:"
@@ -4276,21 +4132,18 @@ msgstr "അഭിപ്രായം:"
 msgid "Completed"
 msgstr "മുഴുവനായി "
 
-#: ../plugins/gtodo/add_edit_item.c:285
-#: ../plugins/gtodo/add_edit_item.c:331
+#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:331
 #: ../plugins/gtodo/add_edit_item.c:444
 msgid "started:"
 msgstr "തുടങ്ങുക:"
 
-#: ../plugins/gtodo/add_edit_item.c:285
-#: ../plugins/gtodo/add_edit_item.c:292
-#: ../plugins/gtodo/add_edit_item.c:328
-#: ../plugins/gtodo/add_edit_item.c:329
+#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:292
+#: ../plugins/gtodo/add_edit_item.c:328 ../plugins/gtodo/add_edit_item.c:329
+#, c-format
 msgid "n/a"
 msgstr "ബാധകമല്ല "
 
-#: ../plugins/gtodo/add_edit_item.c:292
-#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:292 ../plugins/gtodo/add_edit_item.c:335
 #: ../plugins/gtodo/add_edit_item.c:444
 msgid "stopped:"
 msgstr "നിര്‍ത്തുക:"
@@ -4303,26 +4156,27 @@ msgstr ""
 msgid "Are you sure you want to remove the selected todo item?"
 msgstr ""
 
-#: ../plugins/gtodo/callback.c:20
-#: ../plugins/gtodo/callback.c:100
+#: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:100
 msgid "Remove"
 msgstr "നീക്കം ചെയ്യുക"
 
 #: ../plugins/gtodo/callback.c:97
+#, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
 msgstr ""
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
-msgid "Are you sure you want to remove all the completed todo items in the category \"%s\"?"
+msgid ""
+"Are you sure you want to remove all the completed todo items in the category "
+"\"%s\"?"
 msgstr ""
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
 msgstr ""
 
-#: ../plugins/gtodo/interface.c:34
-#: ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "കാഴ്ച"
 
@@ -4336,7 +4190,7 @@ msgstr "മുന്‍ഗണന"
 
 #: ../plugins/gtodo/interface.c:213
 msgid "Due date"
-msgstr ""
+msgstr "അവസാന ദിവസം"
 
 #: ../plugins/gtodo/interface.c:227
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
@@ -4344,15 +4198,17 @@ msgid "Summary"
 msgstr "രത്നച്ചുരുക്കം"
 
 #: ../plugins/gtodo/libgtodo.c:609
+#, c-format
 msgid "No permission to read the file."
 msgstr "ഫയല്‍ വായിക്കാന്‍ അനുമതിയില്ല."
 
-#: ../plugins/gtodo/libgtodo.c:636
-#: ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
+#, c-format
 msgid "Failed to parse xml structure"
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:654
+#, c-format
 msgid "File is not a valid gtodo file"
 msgstr ""
 
@@ -4369,6 +4225,7 @@ msgid "Unfiled"
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:759
+#, c-format
 msgid "No Gtodo Client to save."
 msgstr ""
 
@@ -4378,16 +4235,19 @@ msgid "Failed to delete %s."
 msgstr "%s തുടച്ചു നീക്കുന്നതില്‍ പരാജയപ്പെട്ടു "
 
 #: ../plugins/gtodo/libgtodo.c:794
+#, c-format
 msgid "Failed to create/open file."
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:803
+#, c-format
 msgid "Failed to write data to file."
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:880
+#, c-format
 msgid "No filename supplied."
-msgstr ""
+msgstr "ഫയലിനുള്ള നാമം നല്‍കിയിട്ടില്ല."
 
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
@@ -4395,14 +4255,13 @@ msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr ""
 
 #: ../plugins/gtodo/mcategory.c:146
-#, fuzzy
 msgid "Delete"
-msgstr "തെരഞ്ഞെടുക്കുക"
+msgstr "നീക്കം ചെയ്യുക"
 
 #: ../plugins/gtodo/mcategory.c:173
 #, c-format
 msgid "<New category (%d)>"
-msgstr ""
+msgstr "<New category (%d)>"
 
 #: ../plugins/gtodo/notification.c:67
 #, c-format
@@ -4418,12 +4277,11 @@ msgstr ""
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
-msgstr ""
+msgstr "ഇനി കാണിക്കുവാന്‍ _പാടില്ല"
 
 #: ../plugins/gtodo/plugin.c:64
-#, fuzzy
 msgid "_Tasks"
-msgstr "അനുബന്ധങ്ങള്"
+msgstr "_ജോലികള്‍"
 
 #: ../plugins/gtodo/plugin.c:73
 msgid "Hide _Completed Items"
@@ -4458,12 +4316,10 @@ msgid "Tasks manager view"
 msgstr ""
 
 #: ../plugins/gtodo/plugin.c:174
-#, fuzzy
 msgid "Tasks"
-msgstr "അനുബന്ധങ്ങള്"
+msgstr "ജോലികള്‍"
 
-#: ../plugins/gtodo/plugin.c:282
-#: ../plugins/gtodo/plugin.c:291
+#: ../plugins/gtodo/plugin.c:282 ../plugins/gtodo/plugin.c:291
 msgid "Todo Manager"
 msgstr ""
 
@@ -4473,7 +4329,7 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:87
 msgid "Interface"
-msgstr ""
+msgstr "സംയോജകഘടകം"
 
 #: ../plugins/gtodo/preferences.c:91
 msgid "Show due date column"
@@ -4491,16 +4347,13 @@ msgstr ""
 msgid "Tooltips in list"
 msgstr ""
 
-#: ../plugins/gtodo/preferences.c:120
-#: ../plugins/gtodo/preferences.c:122
+#: ../plugins/gtodo/preferences.c:120 ../plugins/gtodo/preferences.c:122
 msgid "Show in main window"
 msgstr "പ്രധാന ജാലകത്തില്‍ കാണിയ്ക്കുക "
 
-#: ../plugins/gtodo/preferences.c:133
-#: ../plugins/gtodo/preferences.c:135
-#, fuzzy
+#: ../plugins/gtodo/preferences.c:133 ../plugins/gtodo/preferences.c:135
 msgid "Highlight"
-msgstr "ഉയരം"
+msgstr ""
 
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
@@ -4522,12 +4375,11 @@ msgstr[1] ""
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
-msgstr ""
+msgstr "പലവിധം"
 
 #: ../plugins/gtodo/preferences.c:174
-#, fuzzy
 msgid "Auto purge completed items"
-msgstr "സ്വയംപൂരകം"
+msgstr "പൂര്‍ത്തിയാക്കിയ വസ്തുക്കള്‍ ഓട്ടോ പേര്‍ജ് ചെയ്യുക"
 
 #: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
@@ -4537,16 +4389,13 @@ msgstr ""
 msgid "days."
 msgstr "ദിവസങ്ങള്‍."
 
-#: ../plugins/gtodo/preferences.c:196
-#: ../plugins/gtodo/preferences.c:198
+#: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
 msgstr ""
 
-#: ../plugins/gtodo/preferences.c:210
-#: ../plugins/gtodo/preferences.c:212
-#, fuzzy
+#: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
-msgstr "അനുരൂപമാക്കല്‍"
+msgstr "അറിയിപ്പ്"
 
 #: ../plugins/gtodo/preferences.c:219
 #, c-format
@@ -4557,13 +4406,6 @@ msgstr[1] ""
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
-msgstr ""
-
-#: ../plugins/gtodo/preferences.c:309
-msgid ""
-"Showing Tooltips in the todo list is still very alpha.\n"
-"Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
-"I hope to get this fixed soon"
 msgstr ""
 
 #: ../plugins/gtodo/tasklists.c:9
@@ -4588,14 +4430,13 @@ msgstr "/‌_ഒളിപ്പിയ്ക്കുക"
 
 #: ../plugins/gtodo/tray-icon.c:24
 msgid "/_Show"
-msgstr ""
+msgstr "/_കാണിക്കുക"
 
 #: ../plugins/gtodo/tray-icon.c:26
 msgid "/_Quit"
 msgstr "/_പുറത്തുകടക്കുക "
 
-#: ../plugins/gtodo/tray-icon.c:74
-#: ../plugins/gtodo/tray-icon.c:132
+#: ../plugins/gtodo/tray-icon.c:74 ../plugins/gtodo/tray-icon.c:132
 msgid "Todo List"
 msgstr ""
 
@@ -4614,16 +4455,15 @@ msgstr ""
 
 #: ../plugins/macro/anjuta-macro.glade.h:3
 msgid "<b>Macros:</b>"
-msgstr ""
+msgstr "<b>മാക്രോസ്:</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:5
-#, fuzzy
 msgid "Edit..."
-msgstr "സംവിധാനം"
+msgstr "മാറ്റം വരുത്തുക..."
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
 msgid "Shortcut:"
-msgstr ""
+msgstr "കുറുക്ക് വഴി:"
 
 #: ../plugins/macro/macro-actions.c:126
 msgid "Press macro shortcut..."
@@ -4631,41 +4471,41 @@ msgstr ""
 
 #: ../plugins/macro/macro-actions.c:133
 msgid "Press shortcut"
-msgstr ""
+msgstr "കുറുക്ക് വഴി അമര്‍ത്തുക"
 
-#: ../plugins/macro/macro-db.c:242
+#: ../plugins/macro/macro-db.c:245
 msgid "Anjuta macros"
-msgstr ""
+msgstr "അഞ്ചുതാ മാക്രോസ്"
 
-#: ../plugins/macro/macro-db.c:246
+#: ../plugins/macro/macro-db.c:249
 msgid "My macros"
-msgstr ""
+msgstr "എന്റെ മാക്രോസ്"
 
-#: ../plugins/macro/macro-dialog.c:259
+#: ../plugins/macro/macro-dialog.c:260
 msgid "Insert macro"
-msgstr ""
+msgstr "മാക്രോ ഇടയ്ക്ക് ചേര്‍ക്കുക"
 
 #: ../plugins/macro/macro-edit.c:195
 msgid "Add/Edit macro"
-msgstr ""
+msgstr "മാക്രോ ചേര്‍ക്കുക/മാറ്റം വരുത്തുക"
 
 #. Macros can expand the current date in the format specified below
 #: ../plugins/macro/macro-util.c:60
 msgid "%Y-%m-%d"
-msgstr ""
+msgstr "%Y-%m-%d"
 
 #. Macros can expand the year in the format specified below
 #: ../plugins/macro/macro-util.c:74
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: ../plugins/macro/plugin.c:34
 msgid "Macros"
-msgstr ""
+msgstr "മാക്രോസ്"
 
 #: ../plugins/macro/plugin.c:41
 msgid "_Insert Macro..."
-msgstr ""
+msgstr "മാക്രോ _ഇടയ്ക്ക് ചേര്‍ക്കുക..."
 
 #: ../plugins/macro/plugin.c:43
 msgid "Insert a macro using a shortcut"
@@ -4673,15 +4513,15 @@ msgstr ""
 
 #: ../plugins/macro/plugin.c:48
 msgid "_Add Macro..."
-msgstr ""
+msgstr "മാക്രോ _ചേര്‍ക്കുക..."
 
 #: ../plugins/macro/plugin.c:50
 msgid "Add a macro"
-msgstr ""
+msgstr "ഒരു മാക്രോ ചേര്‍ക്കുക"
 
 #: ../plugins/macro/plugin.c:55
 msgid "Macros..."
-msgstr ""
+msgstr "മാക്രോസ്..."
 
 #: ../plugins/macro/plugin.c:57
 msgid "Add/Edit/Remove macros"
@@ -4689,7 +4529,7 @@ msgstr ""
 
 #: ../plugins/macro/plugin.c:115
 msgid "Macro operations"
-msgstr ""
+msgstr "മാക്രോ പ്രക്രിയകള്‍"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:1
 msgid "<b>Indicators</b>"
@@ -4749,7 +4589,7 @@ msgstr ""
 msgid "Warnings:"
 msgstr "മുന്നറിയിപ്പു്:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr ""
 
@@ -4764,40 +4604,39 @@ msgid "Icon"
 msgstr "ചിഹ്നം"
 
 #: ../plugins/message-view/message-view.c:728
-#: ../plugins/message-view/plugin.c:215
-#: ../plugins/message-view/plugin.c:393
+#: ../plugins/message-view/plugin.c:215 ../plugins/message-view/plugin.c:393
 #: ../plugins/message-view/plugin.c:405
 msgid "Messages"
-msgstr ""
+msgstr "സന്ദേശങ്ങള്‍"
 
 #: ../plugins/message-view/message-view.c:1074
 #, c-format
 msgid "Error writing %s"
-msgstr ""
+msgstr "%s എഴുതുന്നതില്‍ പിശക്"
 
 #: ../plugins/message-view/plugin.c:70
 msgid "_Next Message"
-msgstr ""
+msgstr "_അടുത്ത സന്ദേശം"
 
 #: ../plugins/message-view/plugin.c:71
 msgid "Next message"
-msgstr ""
+msgstr "അടുത്ത സന്ദേശം"
 
 #: ../plugins/message-view/plugin.c:74
 msgid "_Previous Message"
-msgstr ""
+msgstr "_മുമ്പുള്ള സന്ദേശം"
 
 #: ../plugins/message-view/plugin.c:75
 msgid "Previous message"
-msgstr ""
+msgstr "മുമ്പുള്ള സന്ദേശം"
 
 #: ../plugins/message-view/plugin.c:78
 msgid "_Save Message"
-msgstr ""
+msgstr "സന്ദേശം _സൂക്ഷിക്കുക"
 
 #: ../plugins/message-view/plugin.c:79
 msgid "Save message"
-msgstr ""
+msgstr "സന്ദേശം സൂക്ഷിക്കുക"
 
 #: ../plugins/message-view/plugin.c:197
 msgid "Next/Previous Message"
@@ -4809,11 +4648,11 @@ msgstr ""
 
 #: ../plugins/patch/patch-plugin.c:70
 msgid "Patch file"
-msgstr ""
+msgstr "പാച്ച് ഫയല്‍"
 
 #: ../plugins/patch/patch-plugin.c:118
 msgid "Patch"
-msgstr ""
+msgstr "പാച്ച്"
 
 #: ../plugins/patch/patch-plugin.c:133
 msgid "Please select the directory where the patch should be applied"
@@ -4846,17 +4685,15 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55
-#: ../plugins/tools/plugin.c:135
+#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:135
 msgid "_Tools"
-msgstr ""
+msgstr "_ഉപകരണങ്ങള്‍"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:63
-#, fuzzy
 msgid "_Patch..."
-msgstr "ഒട്ടിപ്പ്"
+msgstr "_പാച്ച്..."
 
 #: ../plugins/patch/plugin.c:94
 msgid "Patch files/directories"
@@ -4867,9 +4704,8 @@ msgstr ""
 #: ../plugins/profiler/gprof-call-graph-view.c:332
 #: ../plugins/profiler/gprof-flat-profile-view.c:56
 #: ../plugins/profiler/gprof-function-call-tree-view.c:60
-#, fuzzy
 msgid "Function Name"
-msgstr "ധ‌ര്മ്മം"
+msgstr "ഫംഗ്ഷന്റെ പേര്"
 
 #. Total amount of time spent in this function, excluding those it calla.
 #. * This is the same as the "Seconds" field in the flat profile.
@@ -4884,9 +4720,8 @@ msgstr ""
 #: ../plugins/profiler/gprof-call-graph-view.c:402
 #: ../plugins/profiler/gprof-call-graph-view.c:414
 #: ../plugins/profiler/gprof-call-graph-view.c:426
-#, fuzzy
 msgid "Children"
-msgstr "ശേഖരം"
+msgstr "ചിള്‍ഡ്രന്‍"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:439
 #: ../plugins/profiler/gprof-call-graph-view.c:449
@@ -4906,9 +4741,8 @@ msgstr ""
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
 #: ../plugins/profiler/gprof-flat-profile-view.c:99
-#, fuzzy
 msgid "Self Seconds"
-msgstr "ചിഹ്നം"
+msgstr ""
 
 #. The average number of milliseconds spent in a function, excluding
 #. * the functions that it calls.
@@ -4932,56 +4766,52 @@ msgstr ""
 msgid ""
 "This target does not have any profiling data.\n"
 "\n"
-"Please ensure that the target is complied with profiling support and that it is run at least once."
+"Please ensure that the target is complied with profiling support and that it "
+"is run at least once."
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:726
-#: ../plugins/profiler/plugin.c:845
+#: ../plugins/profiler/plugin.c:735 ../plugins/profiler/plugin.c:854
 #: ../plugins/profiler/profiler.plugin.in.h:3
-#, fuzzy
 msgid "Profiler"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr "പ്രൊഫൈലര്‍"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:734
+#: ../plugins/profiler/plugin.c:743
 msgid "Select Target..."
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:742
+#: ../plugins/profiler/plugin.c:751
 msgid "Refresh"
 msgstr "പുതുക്കുക"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:750
-#, fuzzy
+#: ../plugins/profiler/plugin.c:759
 msgid "Delete Data"
-msgstr "തെരഞ്ഞെടുക്കുക"
+msgstr "ഡേറ്റാ നീക്കം ചെയ്യുക"
 
-#: ../plugins/profiler/plugin.c:800
+#: ../plugins/profiler/plugin.c:809
 msgid "Application Performance Profiler"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:822
+#: ../plugins/profiler/plugin.c:831
 msgid "Flat Profile"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:827
-#: ../plugins/profiler/profiler.glade.h:7
+#: ../plugins/profiler/plugin.c:836 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:832
-#, fuzzy
+#: ../plugins/profiler/plugin.c:841
 msgid "Function Call Tree"
-msgstr "ധ‌ര്മ്മം"
+msgstr "ഫംഗ്ഷന്‍ കോള്‍ ട്രീ"
 
-#: ../plugins/profiler/plugin.c:839
+#: ../plugins/profiler/plugin.c:848
 msgid "Function Call Chart"
 msgstr ""
 
@@ -4990,14 +4820,12 @@ msgid "<b>Called By</b>"
 msgstr ""
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:2
-#, fuzzy
 msgid "<b>Called</b>"
-msgstr "അഭിപ്രായം:"
+msgstr "<b>കോള്‍ഡ്</b>"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:3
-#, fuzzy
 msgid "<b>Functions</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>ഫംഗ്ഷനുകള്‍</b>"
 
 #: ../plugins/profiler/profiler.glade.h:1
 msgid "<b>Profiling Data</b>"
@@ -5008,14 +4836,12 @@ msgid "<b>Select Target to Profile</b>"
 msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:3
-#, fuzzy
 msgid "<b>Symbols</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>മുദ്രകള്‍</b>"
 
 #: ../plugins/profiler/profiler.glade.h:4
-#, fuzzy
 msgid "<b>Time Propagation</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:5
 msgid "Automatically refresh profile data display"
@@ -5024,7 +4850,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Browse..."
-msgstr ""
+msgstr "പരതുക..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
@@ -5036,7 +4862,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:10
 msgid "Do not show these symbols:"
-msgstr ""
+msgstr "ഈ മുദ്രകള്‍ കാണിക്കരുത്:"
 
 #: ../plugins/profiler/profiler.glade.h:11
 msgid ""
@@ -5052,9 +4878,8 @@ msgid "Options..."
 msgstr "ഐച്ഛികങ്ങള്‍..."
 
 #: ../plugins/profiler/profiler.glade.h:17
-#, fuzzy
 msgid "Profiling Options"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:18
 msgid "Propagate time for all symbols"
@@ -5065,9 +4890,8 @@ msgid "Propagate time for only these symbols:"
 msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:20
-#, fuzzy
 msgid "Select Other Target..."
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "മറ്റ് ലക്ഷ്യങ്ങള്‍ തിരഞ്ഞെടുക്കുക..."
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
@@ -5075,7 +4899,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:22
 msgid "Show all symbols"
-msgstr ""
+msgstr "എല്ലാ മുദ്രകളും കാണിക്കുക"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
@@ -5083,7 +4907,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
-msgstr ""
+msgstr "ഈ മുദ്രകള്‍ മാത്രം കാണിക്കുക:"
 
 #: ../plugins/profiler/profiler.glade.h:25
 msgid "Show uncalled functions"
@@ -5099,7 +4923,7 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
 msgid "<b>Enter the project name:</b>"
-msgstr ""
+msgstr "<b>സംരംഭത്തിന്റെ പേര് നല്‍കുക:</b>"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
 msgid "Import Project"
@@ -5111,7 +4935,10 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:98
 #, c-format
-msgid "Could not find a valid project backend for the directory given (%s). Please select a different directory, or try upgrading to a newer version of the Gnome Build Framework."
+msgid ""
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:120
@@ -5123,17 +4950,21 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:306
-msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up to date."
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
-msgstr ""
+msgstr "\"%s\" എന്ന പേരില്‍ ഒരു ഫയല്‍ നിലവിലുണ്ട്. നിങ്ങള്‍ക്ക് അത് മാറ്റി എഴുതണമോ?"
 
-#: ../plugins/project-import/project-import.c:353
+#: ../plugins/project-import/project-import.c:370
 #, c-format
-msgid "A file named \"%s\" cannot be written: %s.  Check if you have write access to the project directory."
+msgid ""
+"A file named \"%s\" cannot be written: %s.  Check if you have write access "
+"to the project directory."
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:343
@@ -5143,9 +4974,8 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:366
 #: ../plugins/project-manager/plugin.c:748
-#, fuzzy
 msgid "Project properties"
-msgstr "കൂടുകള്"
+msgstr "സംരംഭത്തിന്റെ ഗുണഗണങ്ങള്‍"
 
 #: ../plugins/project-manager/plugin.c:381
 #: ../plugins/project-manager/plugin.c:473
@@ -5158,7 +4988,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:487
 msgid "Group properties"
-msgstr ""
+msgstr "കൂട്ടത്തിന്റെ വിശേഷതകള്‍"
 
 #: ../plugins/project-manager/plugin.c:490
 msgid "Close"
@@ -5166,7 +4996,7 @@ msgstr "അടയ്ക്കുക"
 
 #: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
-msgstr ""
+msgstr "ഈ കൂട്ടത്തിനുള്ള വിശേഷതകള്‍ ലഭ്യമല്ല"
 
 #: ../plugins/project-manager/plugin.c:586
 msgid ""
@@ -5191,7 +5021,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:591
 #, c-format
 msgid "Target: %s"
-msgstr ""
+msgstr "ലക്ഷ്യസ്ഥാനം: %s"
 
 #: ../plugins/project-manager/plugin.c:594
 msgid ""
@@ -5213,6 +5043,8 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
+"'%s' നീക്കം ചെയ്യുന്നതില്‍ പിശക്:\n"
+"%s"
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
@@ -5229,23 +5061,21 @@ msgstr "_പദ്ധതി"
 
 #: ../plugins/project-manager/plugin.c:748
 #: ../plugins/project-manager/plugin.c:782
-#, fuzzy
 msgid "_Properties"
-msgstr "പദ്ധതി"
+msgstr "_ഗുണഗണങ്ങള്‍"
 
 #: ../plugins/project-manager/plugin.c:753
 msgid "Refresh project manager tree"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:758
-#, fuzzy
 msgid "Add _Group..."
-msgstr "കൂട്ടം:"
+msgstr "_കൂട്ടം ചേര്‍ക്കുക..."
 
 #: ../plugins/project-manager/plugin.c:758
 #: ../plugins/project-manager/plugin.c:792
 msgid "Add a group to project"
-msgstr ""
+msgstr "സംരംഭത്തിലേക്ക് ഒരു കൂട്ടം ചേര്‍ക്കുക"
 
 #: ../plugins/project-manager/plugin.c:763
 msgid "Add _Target..."
@@ -5268,11 +5098,11 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:773
 msgid "Close Pro_ject"
-msgstr ""
+msgstr "_സംരംഭം അടയ്ക്കുക"
 
 #: ../plugins/project-manager/plugin.c:773
 msgid "Close project"
-msgstr ""
+msgstr "സംരംഭം അടയ്ക്കുക"
 
 #: ../plugins/project-manager/plugin.c:782
 msgid "Properties of group/target/source"
@@ -5300,7 +5130,7 @@ msgstr "_നീക്കം ചെയ്യുക"
 
 #: ../plugins/project-manager/plugin.c:807
 msgid "Remove from project"
-msgstr ""
+msgstr "സംരംഭത്തില്‍ നിന്നും നീക്കം ചെയ്യുക"
 
 #: ../plugins/project-manager/plugin.c:1155
 #, c-format
@@ -5313,7 +5143,9 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:1176
 #, c-format
-msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+msgid ""
+"Failed to parse project (the project is opened, but there will be no project "
+"view) %s: %s\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:1196
@@ -5321,12 +5153,12 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:1443
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
-msgstr ""
+msgstr "സംരംഭം"
 
 #: ../plugins/project-manager/plugin.c:1359
 #, c-format
 msgid "Error closing project: %s"
-msgstr ""
+msgstr "സംരംഭം അടയ്ക്കുന്നതില്‍ പിശക്: %s"
 
 #: ../plugins/project-manager/plugin.c:1422
 msgid "Project manager actions"
@@ -5336,18 +5168,17 @@ msgstr ""
 msgid "Project manager popup actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2349
+#: ../plugins/project-manager/plugin.c:2351
 msgid "Loaded Project... Initializing"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2360
-#, fuzzy
+#: ../plugins/project-manager/plugin.c:2362
 msgid "Loaded Project..."
-msgstr "പദ്ധതി"
+msgstr "സംരംഭം ലഭ്യമാക്കിയിരിക്കുന്നു..."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
-msgstr ""
+msgstr "<b>സംരംഭത്തിന്റെ വിവരണം:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
@@ -5364,18 +5195,17 @@ msgstr "രചയിതാവു്:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
-msgstr ""
+msgstr "അടിസ്ഥാന വിവരങ്ങള്‍"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
-#, fuzzy
 msgid "Destination:"
-msgstr "വിവരണം"
+msgstr "ലക്ഷ്യസ്ഥാനം:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Enter the basic Project information"
-msgstr ""
+msgstr "സംരംഭത്തെപ്പറ്റിയുള്ള അടിസ്ഥാന വിവരങ്ങള്‍ നല്‍കുക"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
@@ -5387,23 +5217,29 @@ msgid "Project Type"
 msgstr "പദ്ധതിയുടെ തരം "
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
-msgid "The Application Assistent will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
+msgid ""
+"The Application Assistent will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Version:"
-msgstr ""
+msgstr "ലക്കം:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
-msgstr ""
+msgstr "ലേബല്‍"
 
 #: ../plugins/project-wizard/druid.c:177
 msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
+"ഈ വിവരങ്ങള്‍ ഉറപ്പ് വരുത്തുക:\n"
+"\n"
 
 #: ../plugins/project-wizard/druid.c:179
 msgid "Project Type: "
@@ -5417,17 +5253,19 @@ msgstr ""
 #: ../plugins/project-wizard/druid.c:479
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
-msgstr ""
+msgstr "\"%s\" ആവശ്യമുള്ളതാണ്. ദയവായി അത് നല്‍കുക."
 
 #: ../plugins/project-wizard/druid.c:512
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
 msgstr ""
 
 #: ../plugins/project-wizard/druid.c:514
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr ""
+msgstr "\"%s\" ഫയല്‍ നിലവിലുണ്ട്. നിങ്ങള്‍ക്കത് മാറ്റി എഴുതണമോ?"
 
 #: ../plugins/project-wizard/druid.c:836
 msgid "Unable to build project assistent user interface."
@@ -5457,46 +5295,41 @@ msgid "Creating %s (using AutoGen)... %s"
 msgstr ""
 
 #: ../plugins/project-wizard/install.c:502
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s ... %s"
-msgstr "ക്രൊയോഷ്യന്‍"
+msgstr "%s ഉണ്ടാക്കുന്നു ... %s"
 
 #: ../plugins/project-wizard/install.c:544
-#, fuzzy
 msgid "Executing: "
-msgstr "നിര്‍വ്വഹിക്കുക"
+msgstr "നിര്‍വഹിക്കുന്നു: "
 
 #: ../plugins/project-wizard/plugin.c:150
 msgid "New Project Assistent"
 msgstr ""
 
 #: ../plugins/project-wizard/property.c:248
-#, fuzzy
 msgid "Choose directory"
-msgstr "കൂടുകള്"
+msgstr "ഡയറക്ടറി തിരഞ്ഞെടുക്കുക"
 
 #: ../plugins/project-wizard/property.c:258
-#, fuzzy
 msgid "Choose file"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "ഫയല്‍ തിരഞ്ഞെടുക്കുക"
 
 #: ../plugins/project-wizard/property.c:268
-#, fuzzy
 msgid "Icon choice"
-msgstr "സൂചക വലിപ്പം"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
-msgstr ""
+msgstr "C++ പിന്തുണ ചേര്‍ക്കുക:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
-msgstr ""
+msgstr "gtk-doc സിസ്റ്റം ചേര്‍ക്കുക:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-#, fuzzy
 msgid "Add internationalization:"
-msgstr "കൂടുതല് ബദലുകള്"
+msgstr "ഇന്റര്‍ണാഷ്നലൈസേഷന്‍:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "Add shared library support:"
@@ -5511,31 +5344,32 @@ msgid "Adds support for building shared libraries in your project"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-msgid "Adds support for internationalization so that your project can have translations in different languages"
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-#, fuzzy
 msgid "Basic information"
-msgstr "വിവരം"
+msgstr "അടിസ്ഥാന വിവരങ്ങള്‍"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr ""
+msgstr "ബെര്‍ക്ക്ലി സോഫ്റ്റ്‌വെയര്‍ ഡിസ്ട്രിബ്യൂഷന്‍ ലൈസന്‍സ് (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
-msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
-#, fuzzy
 msgid "Configure external packages"
-msgstr "സജ്ജീകരിക്കുക"
+msgstr "പുറത്ത് നിന്നുള്ള പാക്കേജുകള്‍ ക്രമികരിക്കുക"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "Configure external packages:"
-msgstr "സജ്ജീകരിക്കുക"
+msgstr "പുറത്ത് നിന്നുള്ള പാക്കേജുകള്‍ ക്രമികരിക്കുക:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Create a template glade interface file"
@@ -5559,25 +5393,26 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "Email address:"
-msgstr ""
+msgstr "ഈമെയില്‍ വിലാസം:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
-#, fuzzy
 msgid "General Project Information"
-msgstr "വിവരം"
+msgstr "സാധാരണ സംരംഭത്തിന്റെ വിവരങ്ങള്‍"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
-#, fuzzy
 msgid "Icon File:"
-msgstr "സൂചക വലിപ്പം"
+msgstr "പ്രതിരൂപത്തിനുള്ള ഫയല്‍:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon file for the plugin"
@@ -5592,9 +5427,8 @@ msgid "Interface implemented by the plugin"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
-#, fuzzy
 msgid "Interface:"
-msgstr "വിയറ്ര്നാമിസ്"
+msgstr "സംയോജകഘടകം:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
 msgid "License"
@@ -5602,11 +5436,11 @@ msgstr "അനുമതി"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Main Class:"
-msgstr ""
+msgstr "പ്രധാന ക്ലാസ്സ്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Main class"
-msgstr ""
+msgstr "പ്രധാന ക്ലാസ്സ്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Mininum SDL version required"
@@ -5633,13 +5467,12 @@ msgid "Plugin Dependencies:"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
-#, fuzzy
 msgid "Plugin Description:"
-msgstr "വിവരണം"
+msgstr "പ്ലഗിന്‍ വിവരണം:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Plugin Title:"
-msgstr ""
+msgstr "പ്ലഗ്ഗിന്‍ തലക്കെട്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "Plugin class name"
@@ -5658,12 +5491,13 @@ msgid "Project directory, output file etc."
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
-#, fuzzy
 msgid "Project directory:"
-msgstr "പദ്ധതി"
+msgstr "സംരംഭത്തിനുള്ള ഡയറക്ടറി:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
@@ -5671,62 +5505,60 @@ msgid "Project name:"
 msgstr "പദ്ധതിയുടെ പേരു്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
-#, fuzzy
 msgid "Project options"
-msgstr "കൂടുകള്"
+msgstr "സംരംഭത്തിനുള്ള ഉപാധികള്‍"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Require Package:"
-msgstr ""
+msgstr "പാക്കേജ് ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Require SDL version:"
-msgstr ""
+msgstr "എസ്ഡിഎല്‍ ലക്കം ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Require SDL_gfx library"
-msgstr ""
+msgstr "SDL_gfx ലൈബ്രറി ആവശ്യമുണ്ട്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Require SDL_gfx:"
-msgstr ""
+msgstr "SDL_gfx ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Require SDL_image library"
-msgstr ""
+msgstr "SDL_image ലൈബ്രറി ആവശ്യമുണ്ട്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Require SDL_image:"
-msgstr ""
+msgstr "SDL_image ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Require SDL_mixer library"
-msgstr ""
+msgstr "SDL_mixer ലൈബ്രറി ആവശ്യമുണ്ട്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Require SDL_mixer:"
-msgstr ""
+msgstr "SDL_mixer ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Require SDL_net library"
-msgstr ""
+msgstr "SDL_net ലൈബ്രറി ആവശ്യമുണ്ട്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Require SDL_net:"
-msgstr ""
+msgstr "SDL_net ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Require SDL_ttf library"
-msgstr ""
+msgstr "SDL_ttf ലൈബ്രറി ആവശ്യമുണ്ട്"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Require SDL_ttf:"
-msgstr ""
+msgstr "SDL_ttf ആവശ്യമുണ്ട്:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
-#, fuzzy
 msgid "Select code license"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "കോഡിനുള്ള ലൈസന്‍സ് തിരഞ്ഞെടുക്കുക"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Shell values to watch"
@@ -5745,9 +5577,8 @@ msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
-#, fuzzy
 msgid "Value Name:"
-msgstr "നാമം:"
+msgstr "മൂല്ല്യത്തിനുള്ള നാമം:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Values to watch"
@@ -5769,25 +5600,25 @@ msgstr "പദ്ധതിയുടെ പേരു്"
 #. Stock icon, if any
 #: ../plugins/sample1/plugin.c:56
 msgid "_Sample action"
-msgstr ""
+msgstr "_മാതൃകാ പ്രവര്‍ത്തി"
 
 #. Display label
 #. short-cut
 #: ../plugins/sample1/plugin.c:58
 msgid "Sample action"
-msgstr ""
+msgstr "മാതൃകാ പ്രവര്‍ത്തി"
 
 #: ../plugins/sample1/plugin.c:79
 msgid "Sample file operations"
-msgstr ""
+msgstr "മാതൃകാ ഫയല്‍ പ്രക്രിയകള്‍"
 
 #: ../plugins/sample1/plugin.c:85
 msgid "SamplePlugin"
-msgstr ""
+msgstr "SamplePlugin"
 
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "<b>Actions</b>"
-msgstr ""
+msgstr "<b>പ്രവര്‍ത്തികള്‍</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:2
 msgid "<b>File Filter</b>"
@@ -5795,7 +5626,7 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:4
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>പരാമീറ്ററുകള്‍</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:5
 msgid "<b>Scope</b>"
@@ -5821,11 +5652,11 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:11
 msgid "Choose Directories:"
-msgstr ""
+msgstr "ഡയറക്ടറികള്‍ തിരഞ്ഞെടുക്കുക: "
 
 #: ../plugins/search/anjuta-search.glade.h:12
 msgid "Choose Files:"
-msgstr ""
+msgstr "ഫയലുകള്‍ തിരഞ്ഞെടുക്കുക:"
 
 #: ../plugins/search/anjuta-search.glade.h:13
 msgid "Expand regex back references"
@@ -5833,7 +5664,7 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:14
 msgid "Find & Replace"
-msgstr ""
+msgstr "കണ്ടുപിടിച്ച് മാറ്റി എഴുതുക"
 
 #: ../plugins/search/anjuta-search.glade.h:15
 #: ../plugins/search/search-replace.c:94
@@ -5853,23 +5684,23 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
-msgstr ""
+msgstr "ബൈനറി ഫയലുകള്‍ അവഗണിക്കുക"
 
 #: ../plugins/search/anjuta-search.glade.h:19
 msgid "Ignore Directories:"
-msgstr ""
+msgstr "ഡയറക്ടറികള്‍ അവഗണിക്കുക:"
 
 #: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Files:"
-msgstr ""
+msgstr "ഫയലുകള്‍ അവഗണിക്കുക:"
 
 #: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Directories"
-msgstr ""
+msgstr "അദൃശ്യമായ ഡയറക്ടറികള്‍ അവഗണിക്കുക"
 
 #: ../plugins/search/anjuta-search.glade.h:22
 msgid "Ignore Hidden Files"
-msgstr ""
+msgstr "അദൃശ്യമായ ഫയലുകള്‍ വേണ്ടെന്ന് വയ്ക്കുക"
 
 #: ../plugins/search/anjuta-search.glade.h:23
 msgid "Match at start of word"
@@ -5885,11 +5716,11 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:26
 msgid "Maximum Actions"
-msgstr ""
+msgstr "ഏറ്റവും കൂടുതല്‍ പ്രവര്‍ത്തികള്‍"
 
 #: ../plugins/search/anjuta-search.glade.h:27
 msgid "Modify"
-msgstr ""
+msgstr "മാറ്റം വരുത്തുക"
 
 #: ../plugins/search/anjuta-search.glade.h:28
 msgid "New Name:"
@@ -5897,7 +5728,7 @@ msgstr "പുതിയ പേരു്:"
 
 #: ../plugins/search/anjuta-search.glade.h:29
 msgid "No Limit"
-msgstr ""
+msgstr "പരിധിയില്ല"
 
 #: ../plugins/search/anjuta-search.glade.h:30
 msgid "Regular Expression"
@@ -5905,37 +5736,39 @@ msgstr "റെഗുലര്‍ എക്സ്പ്രഷന്‍"
 
 #: ../plugins/search/anjuta-search.glade.h:31
 msgid "Replace With:"
-msgstr ""
+msgstr "ഇതുപയോഗിച്ച് മാറ്റി എഴുതേണ്ടത്:"
 
 #: ../plugins/search/anjuta-search.glade.h:32
 msgid "Search Action:"
-msgstr ""
+msgstr "തെരയേണ്ട പ്രവര്‍ത്തി:"
 
 #: ../plugins/search/anjuta-search.glade.h:33
 msgid "Search Direction:"
 msgstr ""
 
-#: ../plugins/search/anjuta-search.glade.h:34
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:35
 msgid "Search Expression"
 msgstr ""
 
-#: ../plugins/search/anjuta-search.glade.h:35
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:37
 msgid "Search Expression:"
 msgstr ""
 
-#: ../plugins/search/anjuta-search.glade.h:36
-msgid "Search In:"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.glade.h:37
-msgid "Search Recursively"
-msgstr ""
-
 #: ../plugins/search/anjuta-search.glade.h:38
-msgid "Search Target"
-msgstr ""
+msgid "Search In:"
+msgstr "എവിടെ തെരയണം:"
 
 #: ../plugins/search/anjuta-search.glade.h:39
+msgid "Search Recursively"
+msgstr "ആവര്‍ത്തിച്ച് തെരയുക"
+
+#: ../plugins/search/anjuta-search.glade.h:40
+msgid "Search Target"
+msgstr "ലക്ഷ്യത്തിനായി തെരയുക"
+
+#: ../plugins/search/anjuta-search.glade.h:41
 msgid "Setting"
 msgstr "സജ്ജീകരണം"
 
@@ -5949,51 +5782,47 @@ msgstr ""
 
 #: ../plugins/search/plugin.c:197
 msgid "Find _Next"
-msgstr ""
+msgstr "_അടുത്തത് കണ്ടുപിടിക്കുക"
 
-#: ../plugins/search/plugin.c:198
-#: ../plugins/search/plugin.c:202
+#: ../plugins/search/plugin.c:198 ../plugins/search/plugin.c:202
 msgid "Repeat the last Find command"
 msgstr ""
 
 #: ../plugins/search/plugin.c:200
 msgid "Find _Previous"
-msgstr ""
+msgstr "_മുമ്പുള്ളത് കണ്ടുപിടിക്കുക"
 
 #: ../plugins/search/plugin.c:204
 msgid "Find and R_eplace..."
-msgstr ""
+msgstr "കണ്ടുപിടിച്ച് മാറ്റി _എഴുതുക..."
 
 #: ../plugins/search/plugin.c:206
 msgid "Search for and replace a string or regular expression with another string"
 msgstr ""
 
-#: ../plugins/search/plugin.c:208
-#: ../plugins/search/plugin.c:209
+#: ../plugins/search/plugin.c:208 ../plugins/search/plugin.c:209
 msgid "Search and Replace"
 msgstr "തെരയുകയും മാറ്റിവെയ്ക്കുകയും"
 
 #: ../plugins/search/plugin.c:211
 msgid "Fin_d in Files..."
-msgstr ""
+msgstr "ഫയലുകളില്‍ _കണ്ടുപിടിക്കുക..."
 
 #: ../plugins/search/plugin.c:212
 msgid "Search for a string in multiple files or directories"
 msgstr ""
 
 #: ../plugins/search/plugin.c:215
-#, fuzzy
 msgid "Ne_xt Occurrence"
-msgstr "രചന ചിട്ടപ്പെടുത്തല്‌ ഉപാധി"
+msgstr ""
 
 #: ../plugins/search/plugin.c:216
 msgid "Find the next occurrence of current word"
 msgstr ""
 
 #: ../plugins/search/plugin.c:219
-#, fuzzy
 msgid "Pre_vious Occurrence"
-msgstr "രചന ചിട്ടപ്പെടുത്തല്‌ ഉപാധി"
+msgstr ""
 
 #: ../plugins/search/plugin.c:220
 msgid "Find the previous occurrence of current word"
@@ -6008,7 +5837,7 @@ msgid "Basic Search"
 msgstr "അടിസ്ഥാനപരമായ തെരച്ചില്‍"
 
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "സഹജമായ"
 
@@ -6018,20 +5847,19 @@ msgstr "പേരു്"
 
 #: ../plugins/search/search-replace.c:100
 msgid "Current Buffer"
-msgstr ""
+msgstr "നിലവിലുള്ള ബഫര്‍"
 
 #: ../plugins/search/search-replace.c:101
 msgid "Current Selection"
-msgstr ""
+msgstr "നിലവിലുള്ള തിരഞ്ഞെടുക്കല്‍"
 
 #: ../plugins/search/search-replace.c:102
 msgid "Current Block"
-msgstr ""
+msgstr "നിലവിലുള്ള ബ്ളോക്ക്"
 
 #: ../plugins/search/search-replace.c:103
-#, fuzzy
 msgid "Current Function"
-msgstr "ധ‌ര്മ്മം"
+msgstr "നിലവിലുള്ള ഫംഗ്ഷന്‍"
 
 #: ../plugins/search/search-replace.c:104
 msgid "All Open Buffers"
@@ -6067,9 +5895,8 @@ msgid "Replace next match"
 msgstr ""
 
 #: ../plugins/search/search-replace.c:117
-#, fuzzy
 msgid "Replace all matches"
-msgstr "എല്ലാം മാറ്റി എഴുതുക"
+msgstr "പൊരുത്തമുള്ളവയെല്ലാം മാറ്റി എഴുതുക"
 
 #: ../plugins/search/search-replace.c:321
 msgid "Find: "
@@ -6081,7 +5908,7 @@ msgstr "മാറ്റി എഴുതുക"
 
 #: ../plugins/search/search-replace.c:631
 msgid "Search complete"
-msgstr ""
+msgstr "തെരച്ചില്‍ പൂര്‍ത്തിയായിരിക്കുന്നു"
 
 #: ../plugins/search/search-replace.c:1011
 #: ../plugins/search/search-replace.c:1704
@@ -6116,34 +5943,34 @@ msgstr ""
 #. bad bad luck...
 #: ../plugins/sourceview/anjuta-document-saver.c:521
 msgid "Could not obtain backup filename"
-msgstr ""
+msgstr "ബാക്കപ്പ് ഫയല്‍നാമം ലഭ്യമായില്ല"
 
 #: ../plugins/sourceview/anjuta-document.c:486
 #: ../plugins/sourceview/anjuta-document.c:567
 #, c-format
 msgid "Unsaved Document %d"
-msgstr ""
+msgstr "പേരിടാത്ത രേഖ %d"
 
 #: ../plugins/sourceview/anjuta-encodings.c:441
 msgid "Unknown"
-msgstr ""
+msgstr "അപരിചിതം"
 
-#: ../plugins/sourceview/sourceview.c:314
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "ചേര്‍ക്കുന്നു "
 
-#: ../plugins/sourceview/sourceview.c:337
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
-msgstr ""
+msgstr "സൂക്ഷിക്കുന്നു..."
 
-#: ../plugins/sourceview/sourceview.c:344
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr ""
+msgstr "പ്രിന്റ് ചെയ്യുന്നതിനായി താളുകള്‍ തയ്യാറാകുന്നു"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Colors:</b>"
@@ -6187,15 +6014,15 @@ msgstr "സിന്റാക്സ് എടുത്തു കാണിയ്�
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:16
 msgid "Print Linenumbers"
-msgstr ""
+msgstr "വരിയുടെ നംബറുകള്‍ പ്രിന്റ് ചെയ്യുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
 msgid "Print page footer"
-msgstr ""
+msgstr "താളിന്റെ അടിക്കുറിപ്പ് പ്രിന്റ് ചെയ്യുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
 msgid "Print page header"
-msgstr ""
+msgstr "താളിന്റെ തലക്കെട്ട് പ്രിന്റ് ചെയ്യുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Right margin position in characters"
@@ -6211,15 +6038,15 @@ msgstr "തെരഞ്ഞെടുക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
 msgid "Show line numbers"
-msgstr ""
+msgstr "വരിയുടെ നംബര്‍ കാണിക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
 msgid "Show marks"
-msgstr ""
+msgstr "അടയാളങ്ങള്‍ കാണിക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Show right margin"
-msgstr ""
+msgstr "വലത് മാര്‍ജിന്‍ കാണിക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
 msgid "Text:"
@@ -6227,11 +6054,11 @@ msgstr "പദാവലി:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
 msgid "Use theme colors"
-msgstr ""
+msgstr "ഥീം നിറങ്ങള്‍ ഉപയോഗിക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
 msgid "Use theme font"
-msgstr ""
+msgstr "ഥീം ഫോണ്ട് ഉപയോഗിക്കുക"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
 msgid "Wrap long lines to fit on paper"
@@ -6246,9 +6073,8 @@ msgid "<b>Changes:</b>"
 msgstr "<b>മാറ്റങ്ങള്‍:‌</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
-#, fuzzy
 msgid "<b>End Revision:</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "<b>File or directory to diff:</b>"
@@ -6256,26 +6082,23 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "<b>File/URL to Remove:</b>"
-msgstr ""
+msgstr "<b>നീക്കം ചെയ്യുന്നതിനുള്ള ഫയല്‍/യൂആര്‍എല്‍:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
-#, fuzzy
 msgid "<b>First Path:</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "<b>Log Message:</b>"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
-#, fuzzy
 msgid "<b>Revision:</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:11
-#, fuzzy
 msgid "<b>Second Path:</b>"
-msgstr "അഭിപ്രായം:"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
@@ -6283,7 +6106,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
-msgstr ""
+msgstr "<b>സമര്‍പ്പിക്കുന്നതിനുള്ള ഫയലുകള്‍ തിരഞ്ഞെടുക്കുക:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
@@ -6294,9 +6117,8 @@ msgid "<b>Source/Destination Paths:</b>"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:16
-#, fuzzy
 msgid "<b>Start Revision:</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "<b>Subversion Options</b>"
@@ -6312,7 +6134,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
-msgstr ""
+msgstr "ഫയല്‍/ഡയറക്ടറി ചേര്‍ക്കുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Commit Changes"
@@ -6320,7 +6142,7 @@ msgstr "മാറ്റങ്ങള്‍ കമ്മിറ്റ് ചെയ�
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
-msgstr ""
+msgstr "ഫയലുകള്‍/ഫോള്‍ഡറുകള്‍ പകര്‍ത്തുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Diff Selected Revisions"
@@ -6344,7 +6166,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Merge changes into working copy"
-msgstr ""
+msgstr "പ്രവര്‍ത്തിക്കുന്ന പകര്‍പ്പിലേക്ക് മാറ്റങ്ങള്‍ ചേര്‍ക്കുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
@@ -6352,7 +6174,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
-msgstr ""
+msgstr "സാമ്രാജ്യം:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Recurse"
@@ -6368,12 +6190,11 @@ msgstr "ഈ തീരുമാനം ഓര്‍ത്തുവെയ്ക്�
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Remove file/directory"
-msgstr ""
+msgstr "ഫയല്‍/ഡയറക്ടറി നീക്കം ചെയ്യുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:42
-#, fuzzy
 msgid "Repository Head"
-msgstr "പടിഞ്ഞാറന്‌"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository authorization"
@@ -6416,18 +6237,16 @@ msgid "Trust server"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
-#, fuzzy
 msgid "Update file/directory"
-msgstr "കൂടുകള്"
+msgstr "ഫയല്‍/ഡയറക്ടറി പരിഷ്കരിക്കുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
-#, fuzzy
 msgid "View Log"
-msgstr "കാഴ്ച"
+msgstr "ലോഗ് കാണുക"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
@@ -6439,55 +6258,47 @@ msgstr "മുഴുവന്‍ പദ്ധതിയും"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
-msgstr ""
+msgstr "പ്രവര്‍ത്തിക്കുന്ന പകര്‍പ്പ്"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:62
-#, fuzzy
 msgid "realm"
-msgstr "ചട്ടക്കൂട്"
+msgstr "സാമ്രാജ്യം"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:52
-#: ../plugins/subversion/plugin.c:151
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
-msgstr ""
+msgstr "_സബ്‌വേര്‍ഷന്‍"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:60
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:167
 msgid "_Add..."
 msgstr "_ചേര്‍ക്കുക..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62
-#: ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
 msgid "Add a new file/directory to the Subversion tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:175
-#, fuzzy
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
 msgid "_Remove..."
-msgstr "നീക്കം ചെയ്യ‍ുക"
+msgstr "_നീക്കം ചെയ്യുക..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "Remove a file/directory from Subversion tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:76
-#, fuzzy
 msgid "_Commit..."
-msgstr "അഭിപ്രായം:"
+msgstr "_സമര്‍പ്പിക്കുക..."
 
 #. Display label
 #. short-cut
@@ -6498,15 +6309,14 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:84
-#, fuzzy
 msgid "_Revert..."
-msgstr "നീക്കം ചെയ്യ‍ുക"
+msgstr "_തിരികെ വരുക..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:86
 msgid "Revert changes to your working copy."
-msgstr ""
+msgstr "നിങ്ങള്‍ പണി ചെയ്യുന്ന പകര്‍പ്പിലേക്ക് മാറ്റങ്ങള്‍ വരുത്തുക."
 
 #. Action name
 #. Stock icon, if any
@@ -6522,16 +6332,13 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:100
-#: ../plugins/subversion/plugin.c:159
-#, fuzzy
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update..."
-msgstr "പരിഷ്ക്കരിക്കുക"
+msgstr "_പരിഷ്ക്കരിക്കുക..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:102
-#: ../plugins/subversion/plugin.c:161
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Sync your local copy with the Subversion tree"
 msgstr ""
 
@@ -6539,14 +6346,13 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:108
 msgid "Copy Files/Folders..."
-msgstr ""
+msgstr "ഫയലുകള്‍/ഫോള്‍ഡറുകള്‍ പകര്‍ത്തുക..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110
-#: ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
 msgid "Copy files/folders in the repository"
-msgstr ""
+msgstr "സംഭരണിയിലേക്ക് ഫയലുകള്‍/ഡയറക്ടറികള്‍ പകര്‍ത്തുക"
 
 #. Action name
 #. Stock icon, if any
@@ -6564,7 +6370,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
 msgid "Merge..."
-msgstr ""
+msgstr "കൂട്ടിചേര്‍ക്കുക..."
 
 #. Display label
 #. short-cut
@@ -6574,16 +6380,13 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132
-#: ../plugins/subversion/plugin.c:183
-#, fuzzy
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
 msgid "_View Log..."
-msgstr "പുതിയ"
+msgstr "_ലോഗ് കാണുക..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134
-#: ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
 msgid "View file history"
 msgstr ""
 
@@ -6595,17 +6398,15 @@ msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142
-#: ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
 msgid "Diff local tree with repository"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:191
-#, fuzzy
 msgid "Copy..."
-msgstr "പക‍ര്പ്പ്"
+msgstr "പക‍ര്‍ത്തുക..."
 
 #. Action name
 #. Stock icon, if any
@@ -6615,7 +6416,7 @@ msgstr ""
 
 #: ../plugins/subversion/plugin.c:439
 msgid "Subversion operations"
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍ പ്രക്രിയകള്‍"
 
 #: ../plugins/subversion/plugin.c:445
 msgid "Subversion popup operations"
@@ -6623,30 +6424,30 @@ msgstr ""
 
 #: ../plugins/subversion/plugin.c:473
 msgid "Subversion Log"
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍ ലോഗ്"
 
 #: ../plugins/subversion/subversion-add-dialog.c:39
 msgid "Subversion: File will be added on next commit."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: അടുത്ത തവണ സമര്‍പ്പിക്കുമ്പോള്‍ ഫയല്‍ ചേര്‍ക്കപ്പെടുന്നു."
 
 #: ../plugins/subversion/subversion-add-dialog.c:63
 #: ../plugins/subversion/subversion-diff-dialog.c:64
 #: ../plugins/subversion/subversion-remove-dialog.c:98
 #: ../plugins/subversion/subversion-update-dialog.c:66
 msgid "Please enter a path."
-msgstr ""
+msgstr "ദയവായി ഒരു പാഥ് നല്‍കുക."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: സമര്‍പ്പിച്ചു."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
 msgid "Subversion: Committing changes to the repository..."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: സംഭരണിയിലേക്ക് മാറ്റങ്ങള്‍ സമര്‍പ്പിക്കുന്നു..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: പകര്‍പ്പ് പൂര്‍ത്തിയാക്കിയിരിക്കുന്നു."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:184
 msgid "Please enter a source path."
@@ -6669,27 +6470,27 @@ msgstr ""
 
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: ലോഗ് ലഭ്യമാക്കുന്നു..."
 
 #: ../plugins/subversion/subversion-log-dialog.c:301
 msgid "Subversion: File retrieved."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: ഫയല്‍ ലഭ്യമാക്കിയിരിക്കുന്നു."
 
 #: ../plugins/subversion/subversion-log-dialog.c:343
 msgid "Subversion: Retrieving file..."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: ഫയല്‍ ലഭ്യമാക്കുന്നു..."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:36
 msgid "Subversion: Merge complete."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: കൂട്ടിചേര്‍ക്കല്‍ പൂര്‍ത്തിയാക്കിയിരിക്കുന്നു."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:93
 msgid "Please enter the first path."
-msgstr ""
+msgstr "ദയവായി ആദ്യത്തെ പാഥ് നല്‍കുക."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:99
 msgid "Please enter the second path."
-msgstr ""
+msgstr "ദയവായി രണ്ടാമത്തെ പാഥ് നല്‍കുക."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:105
 #: ../plugins/subversion/subversion-switch-dialog.c:100
@@ -6722,13 +6523,13 @@ msgstr ""
 
 #: ../plugins/subversion/subversion-switch-dialog.c:106
 msgid "Please enter a branch/tag URL."
-msgstr ""
+msgstr "ദയവായി ഒരു ശാഖ/ടാഗ് യൂആര്‍എല്‍ നല്‍കുക."
 
 #: ../plugins/subversion/subversion-ui-utils.c:64
 #: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍"
 
 #: ../plugins/subversion/subversion-ui-utils.c:342
 msgid "Subversion: Diff complete."
@@ -6736,29 +6537,28 @@ msgstr ""
 
 #: ../plugins/subversion/subversion-update-dialog.c:39
 msgid "Subversion: Update complete."
-msgstr ""
+msgstr "സബ്‌വേര്‍ഷന്‍: പരിഷ്കാരം പൂര്‍ത്തിയാക്കിയിരിക്കുന്നു."
 
 #: ../plugins/subversion/svn-command.c:144
 #: ../plugins/subversion/svn-command.c:200
 msgid "Authentication canceled"
-msgstr ""
+msgstr "ആധികാരികത ഉറപ്പാക്കല്‍ റദ്ദാക്കിയിരിക്കുന്നു"
 
 #: ../plugins/subversion/svn-command.c:173
-#, fuzzy
 msgid "Hostname: "
-msgstr "നാമം:"
+msgstr "ഹോസ്റ്റ് നാമം:"
 
 #: ../plugins/subversion/svn-command.c:174
 msgid "Fingerprint: "
-msgstr ""
+msgstr "വിരലടയാളം: "
 
 #: ../plugins/subversion/svn-command.c:175
 msgid "Valid from: "
-msgstr ""
+msgstr "കാലാവധി എന്ന് മുതല്‍: "
 
 #: ../plugins/subversion/svn-command.c:176
 msgid "Valid until: "
-msgstr ""
+msgstr "കാലാവധി എന്ന് വരെ: "
 
 #: ../plugins/subversion/svn-command.c:177
 msgid "Issuer DN: "
@@ -6766,29 +6566,29 @@ msgstr ""
 
 #: ../plugins/subversion/svn-command.c:178
 msgid "DER certificate: "
-msgstr ""
+msgstr "ഡിഇആര്‍ സര്‍ട്ടിഫിക്കേറ്റ്: "
 
 #: ../plugins/subversion/svn-command.c:325
 #: ../plugins/subversion/svn-command.c:341
-#, fuzzy, c-format
+#, c-format
 msgid "Deleted: %s"
-msgstr "തെരഞ്ഞെടുക്കുക"
+msgstr "നീക്കം ചെയ്തിരിക്കുന്നു: %s"
 
 #: ../plugins/subversion/svn-command.c:328
 #: ../plugins/subversion/svn-command.c:347
-#, fuzzy, c-format
+#, c-format
 msgid "Added: %s"
-msgstr "പിന്"
+msgstr "ചേര്‍ത്തിരിക്കുന്നു: %s"
 
 #: ../plugins/subversion/svn-command.c:338
-#, fuzzy, c-format
+#, c-format
 msgid "Resolved: %s"
-msgstr "നീക്കം ചെയ്യ‍ുക"
+msgstr "പരിഹരിച്ചിരിക്കുന്നു: %s"
 
 #: ../plugins/subversion/svn-command.c:344
-#, fuzzy, c-format
+#, c-format
 msgid "Updated: %s"
-msgstr "പരിഷ്ക്കരിക്കുക"
+msgstr "പരിഷ്ക്കരിച്ചു: %s"
 
 #: ../plugins/subversion/svn-command.c:350
 #, c-format
@@ -6796,14 +6596,14 @@ msgid "Externally Updated: %s"
 msgstr ""
 
 #: ../plugins/subversion/svn-command.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Modified: %s"
-msgstr "രചന : %s"
+msgstr "മാറ്റം വരുത്തിയിരിക്കുന്നു: %s"
 
 #: ../plugins/subversion/svn-command.c:387
-#, fuzzy, c-format
+#, c-format
 msgid "Merged: %s"
-msgstr "പിന്"
+msgstr "കൂട്ടി ചേര്‍ത്തിരിക്കുന്നു: %s"
 
 #: ../plugins/subversion/svn-command.c:390
 #, c-format
@@ -6813,7 +6613,7 @@ msgstr ""
 #: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Missing: %s"
-msgstr ""
+msgstr "ലഭ്യമല്ല: %s"
 
 #: ../plugins/subversion/svn-command.c:397
 #, c-format
@@ -6821,32 +6621,31 @@ msgid "Obstructed: %s"
 msgstr ""
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:565
+#: ../plugins/symbol-browser/an_symbol_view.c:569
 msgid "Symbol"
 msgstr "അടയാളം"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:326
 #: ../plugins/symbol-browser/an_symbol_prefs.c:522
 msgid "Select directory"
-msgstr ""
+msgstr "ഡയറക്ടറി തിരഞ്ഞെടുക്കുക"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:391
-#, fuzzy
 msgid "Directories to scan"
-msgstr "കൂടുകള്"
+msgstr "പരിശോധിക്കുവാനുള്ള ഡയറക്ടറികള്‍"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:431
 msgid "Please enter a name and at least one directory."
-msgstr ""
+msgstr "ഒരു പേരും കുറഞ്ഞത് ഒരു ഡയറക്ടറിയും ദയവായി നല്‍കുക."
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:531
 msgid "Anjuta tags files"
-msgstr ""
+msgstr "അഞ്ചുതാ ടാഗുകളുടെ ഫയലുകള്‍"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:674
 #, c-format
 msgid "Scanning package: %s"
-msgstr ""
+msgstr "പാക്കേജ് പരിശോധിക്കുന്നു: %s"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:729
 msgid "Completed system tags generation"
@@ -6855,45 +6654,40 @@ msgstr ""
 #: ../plugins/symbol-browser/an_symbol_prefs.c:770
 #: ../plugins/symbol-browser/an_symbol_prefs.c:864
 #: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:1
-#, fuzzy
 msgid "Symbol Browser"
-msgstr "അടയാളം"
+msgstr ""
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:789
-#, fuzzy
 msgid "API Tags"
-msgstr "അനുബന്ധങ്ങള്"
+msgstr "എപിഐ ടാഗുകള്‍"
 
 #: ../plugins/symbol-browser/an_symbol_view.c:204
-#, fuzzy
 msgid "No file details"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr "ഫയല്‍ വിവരണം ലഭ്യമല്ല"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
-msgstr ""
+msgstr "<b>ലഭ്യമായ എപിഐ ടാഗുകള്‍:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
 msgid "<b>Create API tags:</b>"
-msgstr ""
+msgstr "<b>എപിഐ ടാഗുകള്‍ ഉണ്ടാക്കുക:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
-#, fuzzy
 msgid "Add Directory"
-msgstr "കൂടുകള്"
+msgstr "ഡയറക്ടറി ചേര്‍ക്കുക"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
 msgstr ""
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
-#, fuzzy
 msgid "Create API tags"
-msgstr "അനുബന്ധങ്ങള്"
+msgstr "എപിഐ ടാഗുകള്‍ ഉണ്ടാക്കുക"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 msgid "Update Global Tags"
-msgstr ""
+msgstr "ഗ്ലോബല്‍ ടാഗുകള്‍ പരിഷ്കരിക്കുക"
 
 #: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
@@ -6923,7 +6717,7 @@ msgstr ""
 
 #: ../plugins/symbol-browser/plugin.c:303
 msgid "_Find Usage"
-msgstr ""
+msgstr "ഉപയോഗം _കണ്ടുപിടിക്കുക"
 
 #: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
@@ -6935,18 +6729,17 @@ msgstr ""
 
 #: ../plugins/symbol-browser/plugin.c:382
 msgid "Created symbols..."
-msgstr ""
+msgstr "ഉണ്ടാക്കിയ മുദ്രകള്‍..."
 
 #. Local symbols of the file
 #: ../plugins/symbol-browser/plugin.c:910
-#, fuzzy
 msgid "Local"
-msgstr "പ്രാദേശിക"
+msgstr "ലോക്കല്‍"
 
 #. Global project-wide symbols
 #: ../plugins/symbol-browser/plugin.c:930
 msgid "Global"
-msgstr ""
+msgstr "ഗ്ലോബല്‍"
 
 #: ../plugins/symbol-browser/plugin.c:974
 msgid "Symbol browser actions"
@@ -6970,22 +6763,21 @@ msgstr ""
 
 #: ../plugins/symbol-browser/plugin.c:1009
 msgid "Symbols"
-msgstr ""
+msgstr "മുദ്രകള്‍"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
 msgstr ""
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
 msgid "Use GNOME terminal profile:"
-msgstr ""
+msgstr "ഗ്നോം ടെര്‍മിനല്‍ പ്രൊഫൈല്‍ ഉപയോഗിക്കുക:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
 msgid "Use currently selected profile in GNOME terminal"
-msgstr ""
+msgstr "നിലവില്‍ തിരഞ്ഞെടുത്ത പ്രൊഫൈല്‍ ഗ്നോം ടെര്‍മിനലില്‍ ഉപയോഗിക്കുക"
 
-#: ../plugins/terminal/terminal.c:605
-#: ../plugins/terminal/terminal.c:716
+#: ../plugins/terminal/terminal.c:605 ../plugins/terminal/terminal.c:716
 #: ../plugins/terminal/terminal.c:732
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
@@ -7009,11 +6801,11 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
-msgstr ""
+msgstr "പരാമീറ്ററുകള്‍:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:9
 msgid "Save all files"
-msgstr ""
+msgstr "എല്ലാ ഫയലുകളും സൂക്ഷിക്കുക"
 
 #: ../plugins/tools/anjuta-tools.glade.h:10
 msgid "Short cut:"
@@ -7022,17 +6814,17 @@ msgstr "കുറുക്കു വഴി:"
 #. This is the Unix stderr, see http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard error:"
-msgstr ""
+msgstr "സാധാരണ പിശക്:"
 
 #. This is the Unix stdin. See http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Standard input:"
-msgstr ""
+msgstr "സാധാരണ ഇന്‍പുട്ട്:"
 
 #. This is the standard Unis stdout, see http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.glade.h:16
 msgid "Standard output:"
-msgstr ""
+msgstr "സാധാരണ ഔട്ട്പുട്ട്:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Tool Editor"
@@ -7048,17 +6840,16 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "Working directory:"
-msgstr ""
+msgstr "പ്രവര്‍ത്തിക്കുന്ന ഡയറക്ടറി:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:22
-#, fuzzy
 msgid "_Variable..."
-msgstr "മാറിവരുന്ന"
+msgstr "_വേരിയബിള്‍..."
 
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr ""
+msgstr "നിങ്ങള്‍ക്ക് ഈ '%s' ഉപകരണം നീക്കം ചെയ്യണമെന്നുറപ്പാണോ?"
 
 #: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
@@ -7085,9 +6876,8 @@ msgid "Meaning"
 msgstr "അര്‍ത്ഥം "
 
 #: ../plugins/tools/editor.c:535
-#, fuzzy
 msgid "Disabled"
-msgstr "ദൃശ്യമായ"
+msgstr "നിര്‍ജീവമാക്കിയ"
 
 #: ../plugins/tools/editor.c:698
 msgid "You must provide a tool name!"
@@ -7102,7 +6892,9 @@ msgid "A tool with the same name already exists!"
 msgstr ""
 
 #: ../plugins/tools/editor.c:731
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
 msgstr ""
 
 #: ../plugins/tools/editor.c:817
@@ -7180,7 +6972,7 @@ msgstr ""
 #: ../plugins/tools/fileop.c:703
 #, c-format
 msgid "Unable to open %s for writing"
-msgstr ""
+msgstr "എഴുതുന്നതിനായി %s തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
 #: ../plugins/tools/plugin.c:143
 msgid "_Configure"
@@ -7188,25 +6980,23 @@ msgstr "ക്രമീകരിയ്ക്കുക"
 
 #: ../plugins/tools/plugin.c:145
 msgid "Configure external tools"
-msgstr ""
+msgstr "ആന്തരിക ഉപകരണങ്ങള്‍ ക്രമികരിക്കുക"
 
 #: ../plugins/tools/plugin.c:185
 msgid "Tool operations"
-msgstr ""
+msgstr "ഉപകരണ പ്രക്രിയകള്‍"
 
 #: ../plugins/tools/variable.c:487
 msgid "Command line parameters"
-msgstr ""
+msgstr "കമാന്‍ഡ് ലൈന്‍ പരാമീറ്ററുകള്‍"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:1
-#, fuzzy
 msgid "<b>Program to test:</b>"
-msgstr "അഭിപ്രായം:"
+msgstr "<b>പരീക്ഷിക്കുന്നതിനുള്ള പ്രോഗ്രാം:</b>"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:2
-#, fuzzy
 msgid "<b>Valgrind</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>Valgrind</b>"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:3
 msgid ""
@@ -7214,11 +7004,13 @@ msgid ""
 "Addrcheck\n"
 "Helgrind"
 msgstr ""
+"Memcheck\n"
+"Addrcheck\n"
+"Helgrind"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:7
-#, fuzzy
 msgid "Select Tool:"
-msgstr "എല്ലാം തെരഞ്ഞെടുക്കുക"
+msgstr "ഉപകരണം തിരഞ്ഞെടുക്കുക:"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:8
 msgid "Select Valgrind Target"
@@ -7232,12 +7024,10 @@ msgstr "ഐച്ഛികങ്ങള്‍"
 msgid "Select debugging target"
 msgstr ""
 
-#: ../plugins/valgrind/plugin.c:304
-#: ../plugins/valgrind/plugin.c:425
-#: ../plugins/valgrind/plugin.c:660
-#: ../plugins/valgrind/plugin.c:670
+#: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
+#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:670
 msgid "Valgrind"
-msgstr ""
+msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
 msgid "No executable target selected for debugging with Valgrind. Please select one."
@@ -7254,49 +7044,44 @@ msgid "Choose file where to save Valgrind log"
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:403
-#, fuzzy
 msgid "Open Valgrind log file"
-msgstr "രചന തെരഞ്ഞെടുക്കുക"
+msgstr "Valgrind ലോഗ് ഫയല്‍ തുറക്കുക"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:445
 msgid "_Valgrind"
-msgstr ""
+msgstr "_Valgrind"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:453
 msgid "_Select Tool and Run..."
-msgstr ""
+msgstr "ഉപകരണം _തിരഞ്ഞെടുത്ത പ്രവര്‍ത്തിപ്പിക്കുക..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:461
-#, fuzzy
 msgid "_Kill Execution"
-msgstr "നിര്‍വ്വഹിക്കുക"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:469
-#, fuzzy
 msgid "_Load Log"
-msgstr "പ്രാദേശിക"
+msgstr "_ലോഗ് ലഭ്യമാക്കുക"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:477
-#, fuzzy
 msgid "S_ave Log"
-msgstr "സംരംക്ഷിക്കുക"
+msgstr "ലോഗ് _സൂക്ഷിക്കുക"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:485
-#, fuzzy
 msgid "Edit Rules"
-msgstr "സംവിധാനം"
+msgstr "നിയമങ്ങളില്‍ മാറ്റം വരുത്തുക"
 
 #: ../plugins/valgrind/plugin.c:550
 msgid "Use Valgrind debug tool"
@@ -7315,9 +7100,8 @@ msgid "Choose Valgrind Binary File Path..."
 msgstr ""
 
 #: ../plugins/valgrind/preferences.c:162
-#, fuzzy
 msgid "Preview"
-msgstr "അച്ചടി-തിരനോട്ടം"
+msgstr "തിരനോട്ടം "
 
 #: ../plugins/valgrind/preferences.c:175
 msgid "lines above and below the target line."
@@ -7326,12 +7110,12 @@ msgstr ""
 #: ../plugins/valgrind/process.c:55
 #, c-format
 msgid "Failed to create pipe to '%s': %s"
-msgstr ""
+msgstr "'%s'-നുള്ള പൈപ്പ് ഉണ്ടാക്കുന്നതില്‍ പരാജയം: %s"
 
 #: ../plugins/valgrind/process.c:110
 #, c-format
 msgid "Failed to create child process '%s': %s"
-msgstr ""
+msgstr "ചൈള്‍ഡ പ്രക്രിയ '%s' ഉണ്ടാക്കുന്നതില്‍ പരാജയം: %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
@@ -7339,7 +7123,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
-msgstr ""
+msgstr "പ്രക്രിയയില്‍ നിന്നും പുറത്ത് കടന്നിരിക്കുന്നു."
 
 #: ../plugins/valgrind/vgactions.c:197
 msgid "Could not get the right valgrind-binary gconf key:"
@@ -7347,11 +7131,12 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:205
 #, c-format
-msgid "Valgrind binary [%s] does not exist. Please check the preferences or install Valgrind package."
+msgid ""
+"Valgrind binary [%s] does not exist. Please check the preferences or install "
+"Valgrind package."
 msgstr ""
 
-#: ../plugins/valgrind/vgactions.c:241
-#: ../plugins/valgrind/vgactions.c:248
+#: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
 msgstr ""
 
@@ -7364,13 +7149,13 @@ msgstr ""
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:234
 msgid "Override default settings"
-msgstr ""
+msgstr "സ്വതവേയുള്ള ക്രമികരണങ്ങള്‍ മാറ്റി എഴുതുക"
 
 #. This is the format of the preference, simply translate the words
 #. * inside the <>
 #: ../plugins/valgrind/vgcachegrindprefs.c:246
 msgid "Enter <size>,<assoc>,<line_size>:"
-msgstr ""
+msgstr "<size>,<assoc>,<line_size> നല്‍കുക:"
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:280
 msgid "Cachegrind"
@@ -7378,12 +7163,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgdefaultview.c:190
 msgid "Error contains"
-msgstr ""
+msgstr "പിശകില്‍ ഉള്‍പ്പെടുന്നത്"
 
 #: ../plugins/valgrind/vgdefaultview.c:191
-#, fuzzy
 msgid "Function contains"
-msgstr "ധ‌ര്മ്മം"
+msgstr "ഫംഗ്ഷനില്‍ അടങ്ങുന്നവ"
 
 #: ../plugins/valgrind/vgdefaultview.c:192
 msgid "Object contains"
@@ -7399,25 +7183,25 @@ msgid "Invalid regular expression: '%s': %s"
 msgstr ""
 
 #. FIXME: we should really get this title from somewhere else?
-#: ../plugins/valgrind/vgdefaultview.c:757
+#: ../plugins/valgrind/vgdefaultview.c:758
 msgid "Valgrind Suppression Rules"
 msgstr ""
 
 #. FIXME: we should really get this title from somewhere else?
-#: ../plugins/valgrind/vgdefaultview.c:1102
+#: ../plugins/valgrind/vgdefaultview.c:1103
 #: ../plugins/valgrind/vgrule-list.c:134
 msgid "Valgrind Suppression"
 msgstr ""
 
-#: ../plugins/valgrind/vgdefaultview.c:1152
+#: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "Cu_t"
 msgstr "_മുറിയ്ക്കുക"
 
-#: ../plugins/valgrind/vgdefaultview.c:1156
+#: ../plugins/valgrind/vgdefaultview.c:1157
 msgid "Suppress"
 msgstr "അടിച്ചമര്‍ത്തുക "
 
-#: ../plugins/valgrind/vgdefaultview.c:1158
+#: ../plugins/valgrind/vgdefaultview.c:1159
 msgid "Edit in Custom Editor"
 msgstr ""
 
@@ -7483,9 +7267,8 @@ msgid "Memcheck"
 msgstr "ഓര്‍മ പരിശോധിക്കുക "
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:194
-#, fuzzy
 msgid "Memory leaks"
-msgstr "ഓര്മ്മ"
+msgstr ""
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:199
 msgid "Leak check:"
@@ -7512,18 +7295,16 @@ msgid "Work around bugs generated by gcc 2.96"
 msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:197
-#, fuzzy
 msgid "Grow"
-msgstr "പോകുക"
+msgstr "വലുതാകുക"
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr "ചുരുക്കുക "
+msgstr "ചുരുക്കുക"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
-#, fuzzy
 msgid "Rule name:"
-msgstr "നാമം:"
+msgstr "നിയമത്തിന്റെ നാമം:"
 
 #: ../plugins/valgrind/vgrule-editor.c:237
 msgid "Suppress messages of type:"
@@ -7547,8 +7328,7 @@ msgstr ""
 msgid "Error saving to suppression file '%s': %s"
 msgstr ""
 
-#: ../plugins/valgrind/vgrule-list.c:176
-#: ../plugins/valgrind/vgrule-list.c:245
+#: ../plugins/valgrind/vgrule-list.c:176 ../plugins/valgrind/vgrule-list.c:245
 msgid "You have forgotten to name your suppression rule."
 msgstr ""
 
@@ -7567,10 +7347,12 @@ msgstr "പകര്‍പ്പവകാശം (c) നാബ കുമാര്
 
 #: ../src/about.c:239
 msgid "Anjuta Plugin"
-msgstr ""
+msgstr "അഞ്ചുതാ പ്ലഗ്ഗിന്‍"
 
 #: ../src/action-callbacks.c:109
-msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
 msgstr ""
 
 #: ../src/anjuta.c:495
@@ -7579,30 +7361,27 @@ msgstr ""
 
 #: ../src/anjuta.glade.h:1
 msgid "<b>Appearance</b>"
-msgstr ""
+msgstr "<b>കാഴ്ച</b>"
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>Project Defaults</b>"
 msgstr ""
 
 #: ../src/anjuta.glade.h:3
-#, fuzzy
 msgid "<b>Session</b>"
-msgstr "ബദലുകള്‌"
+msgstr "<b>സെഷന്‍</b>"
 
 #: ../src/anjuta.glade.h:4
-#, fuzzy
 msgid "Default project directory:"
-msgstr "കൂടുകള്"
+msgstr "സ്വതവേയുള്ള സംരംഭ ഡയറക്ടറി:"
 
 #: ../src/anjuta.glade.h:5
 msgid "Developer email address:"
 msgstr "വികസിപ്പിച്ചയാളുടെ ഇ-മെയില്‍ വിലാസം:"
 
 #: ../src/anjuta.glade.h:6
-#, fuzzy
 msgid "Developer name:"
-msgstr "വിയറ്ര്നാമിസ്"
+msgstr "ഡവലപ്പറിന്റെ പേര്:"
 
 #: ../src/anjuta.glade.h:7
 msgid "Do not load last project and files on startup"
@@ -7610,7 +7389,7 @@ msgstr ""
 
 #: ../src/anjuta.glade.h:8
 msgid "Do not load last session on startup"
-msgstr ""
+msgstr "തുടക്കത്തില്‍ ഏറ്റവും ഒടുവിലുപയോഗിച്ച സെഷന്‍ ലഭ്യമാക്കരുത്"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:10
@@ -7627,9 +7406,8 @@ msgid ""
 msgstr ""
 
 #: ../src/anjuta-actions.h:23
-#, fuzzy
 msgid "_File"
-msgstr "ശേഖരം"
+msgstr "_ഫയല്‍"
 
 #: ../src/anjuta-actions.h:24
 msgid "_Quit"
@@ -7637,7 +7415,7 @@ msgstr "പുറത്തുകടക്കുക "
 
 #: ../src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
-msgstr ""
+msgstr "അഞ്ചുതാ ഐഡിഇയില്‍ നിന്നും പുറത്ത് കടക്കുക"
 
 #: ../src/anjuta-actions.h:32
 msgid "_Preferences"
@@ -7645,7 +7423,7 @@ msgstr "മുന്‍ണനകള്‍"
 
 #: ../src/anjuta-actions.h:33
 msgid "Do you prefer coffee to tea? Check it out."
-msgstr ""
+msgstr "നിങ്ങള്‍ക്ക് ചായയേക്കാള്‍ കാപ്പിയാണോ ഇഷ്ടം? പരിശോധിക്കുക."
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
@@ -7736,9 +7514,8 @@ msgid "Submit a question for FAQs"
 msgstr ""
 
 #: ../src/anjuta-actions.h:88
-#, fuzzy
 msgid "_About"
-msgstr "മുറിക്കുക"
+msgstr "_സംബന്ധിച്ച്"
 
 #: ../src/anjuta-actions.h:89
 msgid "About Anjuta"
@@ -7752,48 +7529,36 @@ msgstr ""
 msgid "About third party Anjuta plugins"
 msgstr ""
 
-#: ../src/anjuta-app.c:620
+#: ../src/anjuta-app.c:619
 msgid "Edit"
 msgstr "ചിട്ട"
 
-#: ../src/anjuta-app.c:624
-#: ../src/anjuta-app.c:629
+#: ../src/anjuta-app.c:623 ../src/anjuta-app.c:628
 msgid "View"
 msgstr "കാഴ്ച"
 
-#: ../src/anjuta-app.c:828
-#, fuzzy
+#: ../src/anjuta-app.c:827
 msgid "Installed plugins"
-msgstr "സംസ്ഥാപിക്കുക"
+msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്തിരിക്കുന്ന പ്ലഗ്ഗിനുകള്‍"
 
-#: ../src/anjuta-app.c:832
+#: ../src/anjuta-app.c:831
 msgid "Shortcuts"
 msgstr "കുറുക്കു വഴികള്‍ "
 
-#: ../src/anjuta-app.c:904
+#: ../src/anjuta-app.c:903
+#, c-format
 msgid "Value doesn't exist"
 msgstr "വില നിലവിലില്ല "
 
-#: ../src/anjuta-callbacks.c:48
-msgid "Could not open file for writing"
-msgstr "എഴുതാനായി ഫയല്‍ തുറക്കാന്‍ സാധിയ്ക്കുന്നില്ല "
-
-#: ../src/anjuta-callbacks.c:72
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to replace it with the one you are saving?."
-msgstr ""
-
 #: ../src/main.c:70
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "പ്രധാന ജാലകത്തിന്റെ വ്യാപ്തിയും സ്ഥാനവും വ്യക്തമാക്കുക"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
 #: ../src/main.c:73
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr ""
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:78
 msgid "Do not show the splashscreen"
@@ -7805,11 +7570,11 @@ msgstr ""
 
 #: ../src/main.c:90
 msgid "Do not open last session on startup"
-msgstr ""
+msgstr "തുടക്കത്തില്‍ ഏറ്റവും ഒടുവിലുള്ള സെഷന്‍ തുറക്കരുത്"
 
 #: ../src/main.c:96
 msgid "Do not open last project and files on startup"
-msgstr ""
+msgstr "തുടക്കത്തില്‍ ഏറ്റവും ഒടുവിലുള്ള സംരംഭമോ ഫയലോ തുറക്കരുത്"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
@@ -7824,23 +7589,20 @@ msgid "Anjuta"
 msgstr "അന്‍ജുത"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
-#, fuzzy
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr "സ്വയംപൂരകം"
+msgstr "<b>Autocompletion (C/C++/Java only)</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
-#, fuzzy
 msgid "<b>Calltips</b>"
-msgstr "ബദലുകള്‌"
+msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
 msgid "<b>Indentation parameters</b>"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
-#, fuzzy
 msgid "<b>Smart Indentation</b>"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
@@ -7879,41 +7641,39 @@ msgid "Show calltips"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
-#, fuzzy
 msgid "Smart Indentation"
-msgstr "സ്ഥാന നിര്ണ്ണയം"
+msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
 msgid "Statement indentation size in spaces:"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1436
+#: ../plugins/language-support-cpp-java/plugin.c:1602
 msgid "_AutoComplete"
 msgstr "_സ്വയം പൂര്‍ത്തിയാക്കുക"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1437
+#: ../plugins/language-support-cpp-java/plugin.c:1603
 msgid "AutoComplete the current word"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1443
+#: ../plugins/language-support-cpp-java/plugin.c:1609
 msgid "Auto Indent"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1444
+#: ../plugins/language-support-cpp-java/plugin.c:1610
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1486
+#: ../plugins/language-support-cpp-java/plugin.c:1652
 msgid "C++/Java Assistance"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1574
-#: ../plugins/language-support-cpp-java/plugin.c:1583
+#: ../plugins/language-support-cpp-java/plugin.c:1740
+#: ../plugins/language-support-cpp-java/plugin.c:1749
 msgid "C/C++/Java/Vala"
-msgstr ""
+msgstr "C/C++/Java/Vala"
 
-#: ../plugins/sourceview/plugin.c:152
-#: ../plugins/sourceview/plugin.c:169
+#: ../plugins/sourceview/plugin.c:152 ../plugins/sourceview/plugin.c:169
 msgid "GtkSourceView Editor"
 msgstr "ജിടികെ സോഴ്സ്‌വ്യൂ എഡിറ്റര്‍"
 
@@ -7931,7 +7691,7 @@ msgstr "എപിഐ സഹായം"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr ""
+msgstr "അഞ്ചുതയ്ക്കുള്ള Devhelp പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
@@ -7983,7 +7743,7 @@ msgstr ""
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
-msgstr ""
+msgstr "മാക്രോ പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -7999,15 +7759,15 @@ msgstr "ഉപകരണങ്ങള്‍ "
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
-msgstr ""
+msgstr "അഞ്ചുതായ്ക്കുള്ള എക്സ്റ്റേര്‍ണല്‍ പ്രോഗ്രാം ഉപയോഗിക്കുക"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 msgid "Sample Plugin"
-msgstr ""
+msgstr "മാതൃകാ പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:2
 msgid "Sample Plugin for Anjuta."
-msgstr ""
+msgstr "അഞ്ചുതായ്ക്കുള്ള മാതൃകാ പ്ലഗ്ഗിന്‍."
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -8023,15 +7783,15 @@ msgstr "പ്രവര്‍ത്തിപ്പിയ്ക്കുക"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
-msgstr ""
+msgstr "അഞ്ചുതായ്ക്കുള്ള ടെര്‍മിനല്‍ പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr ""
+msgstr "ഒരു വേര്‍ഷന്‍ കണ്ട്രോള്‍ സിസ്റ്റമിനുള്ള പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
-msgstr ""
+msgstr "CVS പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
@@ -8059,7 +7819,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
-msgstr ""
+msgstr "C++, ജാവാ പിന്തുണയുള്ള പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
@@ -8079,7 +7839,7 @@ msgstr "പ്രൊഫൈല്‍"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
 msgid "Component for searching"
-msgstr ""
+msgstr "തെരയുന്നതിനുള്ള ഘടകം"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
@@ -8087,11 +7847,11 @@ msgstr "തെരയുക"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
-msgstr ""
+msgstr "അഞ്ചുതാ ക്ലാസ്സ് ജനറേറ്റര്‍ പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
-msgstr ""
+msgstr "C++/GObject ക്ലാസ്സ്"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
@@ -8119,17 +7879,17 @@ msgstr ""
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
 msgid "Powerful debugging tool."
-msgstr ""
+msgstr "ശക്തമായ ഡീബഗ്ഗിങ് ഉപകരണം."
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:2
 msgid "Valgrind Plugin"
-msgstr ""
+msgstr "Valgrind പ്ലഗ്ഗിന്‍"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:2
 msgid "File loader to load different files"
-msgstr ""
+msgstr "പല ഫയലുകള്‍ ലഭ്യമാക്കുന്നതിനുള്ള ഫയല്‍ ലോഡര്‍"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
-msgstr ""
+msgstr "മാനേജര്‍ പ്ലഗ്ഗിന്‍ ഡീബഗ് ചെയ്യുക."
 
