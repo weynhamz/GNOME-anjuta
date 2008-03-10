@@ -1,3 +1,18 @@
+=== anjuta 2.4.0 ===
+
+2008-03-11  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated for 2.4.0 stable release.
+	* configure.in: Version bumped to 2.4.0
+	* TODO.tasks: Updated.
+
+2008-03-10  Rob Bradford  <rob@robster.org.uk>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* global-tags/Makefile.am:
+	Revert change for #515954. This change was incorrect, the anjuta-tags
+	program is installed into the $(bindir) rather than the $(scriptdir).
+
 2008-03-02  Naba Kumar  <naba@gnome.org>
 
 	* plugins/message-view/anjuta-msgman.h: Fixed a build error.

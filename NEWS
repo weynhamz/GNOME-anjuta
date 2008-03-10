@@ -1,3 +1,24 @@
+Anjuta 2.4.0 (10 Mar 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+Translation updates: ca, it, es, pt_BR, gl, fi, lt, fr, en_GB, hi, hu,
+nl, ja, zh_TW, zh_HK, ar, ru, sv, nb, da and ml.
+
+Bugfixes:
+=========
+* Hide tooltip when Up, Down, Page_Up or Page_Down is pressed
+* Fixed memory leaks and implemented ianjuta_editor_get_offset() which
+  was missing.
+* Updated prepare-Changelog.pl to latest script version in gnome svn
+* Escape tooltip text to avoid broken markup
+* Removed some debug code
+* Fixed #519275 - Subversion should allow offline diffs
+* Fixes #518469 - Save message buffer not working good
+* Added a configure requirement for scintilla editor plugin
+* Fixed tags generation that broke in last release.
+
 Anjuta 2.3.5 (25 Feb 2008) -- Naba Kumar
 -----------------------------------------
 
