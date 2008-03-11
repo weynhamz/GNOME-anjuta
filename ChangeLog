@@ -1,3 +1,16 @@
+2008-03-11  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation_base):
+	* plugins/sourceview/anjuta-view.c (anjuta_view_key_press_event),
+	(anjuta_view_button_press_event):
+	* plugins/sourceview/sourceview.c (on_insert_text),
+	(sourceview_adjustment_changed), (sourceview_new):
+	* plugins/subversion/plugin.c (activate_plugin):
+	
+	#520761 – Weirz behavior with popup
+	#520415 – [PATCH] Problems in auto indentatation code
+
 === anjuta 2.4.0 ===
 
 2008-03-11  Naba Kumar  <naba@gnome.org>

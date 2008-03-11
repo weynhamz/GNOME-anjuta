@@ -752,7 +752,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
       case GDK_Down:
       case GDK_Page_Up:
       case GDK_Page_Down:
-        gtk_widget_destroy (GTK_WIDGET(view->priv->sv->priv->assist_tip));
+        gtk_widget_destroy (GTK_WIDGET(assist_tip));
         break;
 		}
 	}
@@ -764,6 +764,18 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	
+  /* If we have a calltip shown - hide it */
+  AssistTip* assist_tip = view->priv->sv->priv->assist_tip;
+  AssistWindow* assist_win = view->priv->sv->priv->assist_win;
+  if (assist_win)
+  {
+    gtk_widget_destroy (GTK_WIDGET (assist_win));
+  }
+	if (assist_tip)
+	{
+    gtk_widget_destroy (GTK_WIDGET (assist_tip));
+  }
+  
 	switch(event->button)
 	{
 		case 3: /* Right Button */

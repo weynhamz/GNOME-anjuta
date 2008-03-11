@@ -871,25 +871,26 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 												 NULL);
 
 		/* DEBUG_PRINT("point_ch = %c", point_ch); */
-		/* Check if we are inside a comment */
+		
+		/* Check for line comment comment */
 		if (!line_checked_for_comment && !isspace(point_ch))
 		{
 			gboolean comment = FALSE;
-			gboolean comment_end = FALSE;
 			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
 			do
 			{
 				gchar c;
 				c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
 												  NULL);
-				if (!comment_end && iter_is_newline (new_iter, c))
+				if (iter_is_newline (new_iter, c))
 				{
 					line_checked_for_comment = TRUE;
 					break;
 				}
 				if (c == '/')
 				{
-					ianjuta_iterable_previous (new_iter, NULL);
+					if (!ianjuta_iterable_previous (new_iter, NULL))
+						break;
 					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
 													  NULL);
 					if (c == '/')
@@ -898,6 +899,31 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 						comment = TRUE;
 						break;
 					}
+				}
+			} while (ianjuta_iterable_previous (new_iter, NULL));
+			if (comment)
+			{
+				ianjuta_iterable_set_position (iter,
+											   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
+											   NULL);
+				g_object_unref (new_iter);
+				continue;
+			}
+			g_object_unref (new_iter);
+		}
+		/* Check if we are inside a comment */
+		if (point_ch == '/' || point_ch == '*')
+		{
+			gboolean comment = FALSE;
+			gboolean comment_end = FALSE;
+			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
+			do
+			{
+				gchar c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(new_iter),
+												  0, NULL);
+				if (!comment_end && iter_is_newline (new_iter, c))
+				{
+					break;
 				}
 				if (c == '*')
 				{
@@ -910,20 +936,31 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 					gchar next_c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (next), 0,
 													  NULL);					
 					if (prev_c == '/')
-					{
+					{		 
 						/* starts comment */
 						comment = TRUE;
-						DEBUG_PRINT ("Starts comment");
 						if (!comment_end)
+						{
 							extra_indent++;
+							/* In the middle of a comment we can't know
+						     * if the statement is incomplete
+							 */
+							*incomplete_statement = -1;
+							/* ":" have to be ignored inside comments */
+							if (*colon_indent)
+							{
+								*colon_indent = FALSE;
+								extra_indent -= INDENT_SIZE;
+							}
+						}
 						g_object_unref (prev);
 						g_object_unref (next);
 						break;
+						
 					}
 					else if (next_c == '/')
 					{
-						/* ends comment */
-						DEBUG_PRINT ("Ends comment");
+						/* ends comment: */
 						comment_end = TRUE;
 						g_object_unref (prev);
 						g_object_unref (next);
@@ -1113,8 +1150,11 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				*incomplete_statement = 1;
 		}
 	}
-	if (ianjuta_iterable_first (iter, NULL))
+	if (!line_indent && extra_indent)
+	{
+		DEBUG_PRINT ("Adding special indent");
 		line_indent += extra_indent;
+	}
 	g_object_unref (iter);
 	
 	return line_indent;

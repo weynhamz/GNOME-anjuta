@@ -427,6 +427,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	Subversion *subversion;
 	GtkAction *commit_action;
 	GtkAction *revert_action;
+	GtkAction *resolve_action;
 	
 	DEBUG_PRINT ("Subversion: Activating Subversion plugin ...");
 	subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
@@ -485,11 +486,16 @@ activate_plugin (AnjutaPlugin *plugin)
 															   NULL),
 										  "ActionGroupSubversion",
 										  "ActionSubversionRevert");
+	resolve_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionResolve");
 
 	if (!subversion->project_root_dir)
 	{
 		gtk_action_set_sensitive (commit_action, FALSE);
 		gtk_action_set_sensitive (revert_action, FALSE);
+		gtk_action_set_sensitive (resolve_action, FALSE);
 	}
 							 
 	return TRUE;

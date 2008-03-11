@@ -125,7 +125,7 @@ static void on_insert_text (GtkTextBuffer* buffer,
 							Sourceview* sv)
 {
 	/* We only want ascii characters */
-	if (len > 1)
+	if (len > 1 || strlen(text) > 1)
 		return;
 	else
 	{
@@ -423,6 +423,17 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 }
 
 static void 
+sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
+{
+	/* Hide assistance windows when scrolling vertically */
+	
+	if (sv->priv->assist_win)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_win));
+	if (sv->priv->assist_tip)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
+}
+
+static void 
 sourceview_instance_init(Sourceview* sv)
 {
 	sv->priv = g_slice_new0 (SourceviewPrivate);
@@ -580,6 +591,7 @@ Sourceview *
 sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 {
 	AnjutaShell* shell;
+	GtkAdjustment* v_adj;
 	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
@@ -628,6 +640,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 				      GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(sv), GTK_WIDGET(sv->priv->view));
 	gtk_widget_show_all(GTK_WIDGET(sv));
+	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv));
+	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
 	
 	if (uri != NULL && strlen(uri) > 0)
 	{
