@@ -42,7 +42,9 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 	build-basic-autotools.c \
 	build-basic-autotools.h \
 	executer.c \
-	executer.h 
+	executer.h \
+	build-options.c \
+	build-options.h
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \

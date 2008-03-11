@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "build-basic-autotools.h"
+#include "build-options.h"
 #include "executer.h"
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin-48.png"
@@ -915,10 +916,19 @@ save_all_files (AnjutaPlugin *plugin)
 	}
 }
 
+static void build_set_env (gpointer key, gpointer value, gpointer user_data)
+{
+	AnjutaLauncher* launcher = ANJUTA_LAUNCHER (user_data);
+	const gchar* name = key;
+	const gchar* env_value = value;
+	anjuta_launcher_set_env (launcher, name, env_value);
+}
+
 static void
-build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
-					   const gchar *command,
-					   gboolean save_file)
+build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
+							const gchar *command,
+							gboolean save_file,
+							GHashTable* env)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
 	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -945,6 +955,11 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 		real_command = g_strdup(command);
 	}
 	
+	if (env)
+	{
+		g_hash_table_foreach (env, build_set_env, context->launcher);
+	}
+	
 	ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
 	ianjuta_message_view_buffer_append (context->message_view, dir, NULL);
@@ -955,6 +970,15 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 	anjuta_launcher_execute (context->launcher, real_command,
 							 on_build_mesg_arrived, context);
 	g_free(real_command);
+}
+
+
+static void
+build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
+					   const gchar *command,
+					   gboolean save_file)
+{
+	build_execute_command_full (bplugin, dir, command, save_file, NULL);
 }
 
 static gboolean
@@ -1062,11 +1086,14 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	gint response;
 	GtkWindow *parent;
 	gchar *input = NULL;
+	GHashTable* build_options = NULL;
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
 	/* Configure = ./configure script */
-	response = anjuta_util_dialog_input (parent, _("Configure Parameters:"),
-										 plugin->configure_args, &input);
+	response = build_dialog_configure (parent, _("Configure"),
+									   &build_options, 
+									   plugin->configure_args, 
+									   &input);
 	if (response)
 	{
 		gchar *cmd;
@@ -1081,8 +1108,10 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		{
 			cmd = g_strdup (CHOOSE_COMMAND (plugin, CONFIGURE));
 		}
-		build_execute_command (plugin, plugin->project_root_dir, cmd, TRUE);
+		build_execute_command_full (plugin, plugin->project_root_dir, 
+							   cmd, TRUE, build_options);
 		g_free (cmd);
+		g_hash_table_destroy (build_options);
 	}
 }
 
@@ -1092,10 +1121,13 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	gint response;
 	GtkWindow *parent;
 	gchar *input = NULL;
+	GHashTable* build_options = NULL;
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
-	response = anjuta_util_dialog_input (parent, _("Configure Parameters:"),
-										 plugin->configure_args, &input);
+	response = build_dialog_configure (parent, _("Autogenerate"),
+									   &build_options, 
+									   plugin->configure_args, 
+									   &input);
 	if (response)
 	{
 		gboolean has_autogen = directory_has_file (plugin->project_root_dir,
@@ -1119,8 +1151,10 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 			else /* FIXME: Get override command for this too */
 				cmd = g_strdup ("autoreconf -i --force");
 		}
-		build_execute_command (plugin, plugin->project_root_dir, cmd, TRUE);
+		build_execute_command_full (plugin, plugin->project_root_dir, 
+									cmd, TRUE, build_options);
 		g_free (cmd);
+		g_hash_table_destroy (build_options);
 	}
 }
 

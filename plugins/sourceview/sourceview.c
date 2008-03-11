@@ -80,6 +80,7 @@ static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
 static void sourceview_dispose(GObject *object);
+
 static GObjectClass *parent_class = NULL;
 
 #if HAVE_TOOLTIP_API
@@ -125,10 +126,11 @@ static void on_insert_text (GtkTextBuffer* buffer,
 							Sourceview* sv)
 {
 	/* We only want ascii characters */
-	if (len > 1)
+	if (len > 1 || strlen(text) > 1)
 		return;
 	else
 	{
+		DEBUG_PRINT ("insert_text");
 		int offset = gtk_text_iter_get_offset (location);
 		SourceviewCell* cell = sourceview_cell_new (location, 
 													GTK_TEXT_VIEW(sv->priv->view));
@@ -423,6 +425,18 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 }
 
 static void 
+sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
+{
+	DEBUG_PRINT (__FUNCTION__);
+	/* Hide assistance windows when scrolling vertically */
+
+	if (sv->priv->assist_win)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_win));
+	if (sv->priv->assist_tip)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
+}
+
+static void 
 sourceview_instance_init(Sourceview* sv)
 {
 	sv->priv = g_slice_new0 (SourceviewPrivate);
@@ -432,7 +446,7 @@ static void
 sourceview_class_init(SourceviewClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-
+	
 	parent_class = g_type_class_peek_parent(klass);
 	object_class->dispose = sourceview_dispose;
 	object_class->finalize = sourceview_finalize;
@@ -580,6 +594,7 @@ Sourceview *
 sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 {
 	AnjutaShell* shell;
+	GtkAdjustment* v_adj;
 	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
@@ -628,6 +643,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 				      GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(sv), GTK_WIDGET(sv->priv->view));
 	gtk_widget_show_all(GTK_WIDGET(sv));
+	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv));
+	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
 	
 	if (uri != NULL && strlen(uri) > 0)
 	{

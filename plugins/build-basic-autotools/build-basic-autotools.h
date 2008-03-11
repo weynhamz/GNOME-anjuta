@@ -66,6 +66,7 @@ struct _BasicAutotoolsPlugin{
 	
 	/* Build parameters */
 	gchar *configure_args;
+	gchar *build_options;
 	
 	/* Execution parameters */
 	gchar *program_args;

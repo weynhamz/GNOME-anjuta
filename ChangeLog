@@ -1,3 +1,43 @@
+2008-03-11  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/language-support-cpp-java/cpp-java-utils.c:
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation_base), (on_editor_char_inserted_cpp):
+	520415 – [PATCH] Problems in auto indentatation code,
+	520766 – Brace autocompletion (Patch from Ignacio Casal Quinteiro <nacho@gnome.org>)
+	
+	* plugins/sourceview/anjuta-view.c (anjuta_view_key_press_event),
+	(anjuta_view_button_press_event):
+	* plugins/sourceview/sourceview.c (on_insert_text),
+	(sourceview_adjustment_changed), (sourceview_new):
+	#520761 – Weirz behavior with popup
+
+2008-03-03  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-launcher.c (anjuta_launcher_initialize),
+	(anjuta_launcher_dispose), (anjuta_launcher_finalize),
+	(anjuta_launcher_set_env), (anjuta_launcher_fork_setenv),
+	(anjuta_launcher_fork):
+	* libanjuta/anjuta-launcher.h:
+	Add API to set environment variables for the forked process
+	
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/build-basic-autotools/build-basic-autotools.c
+	(build_set_env), (build_execute_command_full),
+	(build_execute_command), (build_configure_project),
+	(build_autogen_project):
+	* plugins/build-basic-autotools/build-basic-autotools.h:
+	* plugins/build-basic-autotools/build-options.c
+	(fill_options_combo), (build_dialog_configure):
+	* plugins/build-basic-autotools/build-options.h:
+	Use new launcher API to set CFLAGS when running configure. New configure dialog
+	which has predefined CFLAGS settings.
+
+	Fixes 520076 – [PATCH] Add support for setting custom CFLAGS from the UI
+
 === anjuta 2.4.0 ===
 
 2008-03-11  Naba Kumar  <naba@gnome.org>

@@ -141,6 +141,9 @@ struct _AnjutaLauncherPriv
 	/* Encondig */
 	gboolean custom_encoding;
 	gchar* encoding;
+	
+	/* Env */
+	GHashTable* env;
 };
 
 enum
@@ -212,6 +215,10 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	/* Encoding */
 	obj->priv->custom_encoding = FALSE;
 	obj->priv->encoding = NULL;
+	
+	/* Env */
+	obj->priv->env = g_hash_table_new_full (g_str_hash, g_str_equal,
+											g_free, g_free);
 }
 
 GType
@@ -257,8 +264,6 @@ anjuta_launcher_dispose (GObject *obj)
 		kill (child_pid_save, SIGTERM);
 		launcher->priv->busy = FALSE;
 		
-		if (launcher->priv->custom_encoding && launcher->priv->encoding)
-			g_free (launcher->priv->encoding);
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -267,6 +272,11 @@ static void
 anjuta_launcher_finalize (GObject *obj)
 {
 	AnjutaLauncher *launcher = ANJUTA_LAUNCHER (obj);	
+	if (launcher->priv->custom_encoding && launcher->priv->encoding)
+		g_free (launcher->priv->encoding);
+	
+	g_hash_table_destroy (launcher->priv->env);
+	
 	g_free (launcher->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -1083,6 +1093,35 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 	  launcher->priv->encoding = NULL;		
 }
 
+/**
+ * anjuta_launcher_set_env:
+ * @launcher: a #AnjutaLancher object.
+ * @name: Name of the environment variable to set
+ * @value: Value of the environment variable to set
+ * 
+ * Set an environment variable for the forked process
+ *
+ */ 
+void
+anjuta_launcher_set_env (AnjutaLauncher *launcher,
+						 const gchar *name,
+						 const gchar *value)
+{
+	g_return_if_fail (launcher && ANJUTA_IS_LAUNCHER(launcher));
+	g_return_if_fail (name != NULL);
+	g_return_if_fail (value != NULL);
+	
+	g_hash_table_insert (launcher->priv->env,
+						 g_strdup(name),
+						 g_strdup(value));
+}
+
+static void
+anjuta_launcher_fork_setenv (const gchar* name, const gchar* value)
+{
+	setenv (name, value, TRUE);
+}
+
 static pid_t
 anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
@@ -1121,6 +1160,11 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 			fcntl (stdout_pipe[1], F_SETFL, O_SYNC | md);
 		if ((md = fcntl (stderr_pipe[1], F_GETFL)) != -1)
 			fcntl (stderr_pipe[1], F_SETFL, O_SYNC | md);
+		
+		/* Set up environment */
+		g_hash_table_foreach (launcher->priv->env,
+							  (GHFunc) anjuta_launcher_fork_setenv,
+							  NULL);
 		
 		execvp (args[0], args);
 		g_warning (_("Cannot execute command: \"%s\""), args[0]);

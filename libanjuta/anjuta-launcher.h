@@ -89,6 +89,11 @@ gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
 									gpointer callback_data);
 void anjuta_launcher_set_encoding (AnjutaLauncher *launcher,
 									   const gchar *charset);
+
+void anjuta_launcher_set_env (AnjutaLauncher *launcher,
+							  const gchar *name,
+							  const gchar *value);
+
 void anjuta_launcher_send_stdin (AnjutaLauncher *launcher,
 								 const gchar *input_str);
 void anjuta_launcher_send_stdin_eof (AnjutaLauncher *launcher);
