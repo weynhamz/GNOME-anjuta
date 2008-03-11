@@ -1,5 +1,20 @@
 2008-03-11  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Rob Bradford:
+	* plugins/build-basic-autotools/executer.c (execute_program):
+	520324 – Execute command is not overridable
+	
+	* plugins/sourceview/sourceview.c (on_insert_text):
+	Removed Debug print
+
+2008-03-11  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from James Liggett:
+	* plugins/subversion/plugin.c (activate_plugin):
+	521691 – Crash when click "Resolve Conflicts" without opened project
+
+2008-03-11  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
 	* plugins/language-support-cpp-java/cpp-java-utils.c:
 	* plugins/language-support-cpp-java/plugin.c

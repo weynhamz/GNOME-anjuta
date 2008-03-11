@@ -130,7 +130,6 @@ static void on_insert_text (GtkTextBuffer* buffer,
 		return;
 	else
 	{
-		DEBUG_PRINT ("insert_text");
 		int offset = gtk_text_iter_get_offset (location);
 		SourceviewCell* cell = sourceview_cell_new (location, 
 													GTK_TEXT_VIEW(sv->priv->view));
