@@ -1,3 +1,9 @@
+2008-03-11  Johannes Schmid  <jhs@idefix>
+
+	Patch by Rob Bradford:
+	* plugins/build-basic-autotools/executer.c (execute_program):
+	520324 – Execute command is not overridable
+
 2008-03-11  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c
@@ -6,10 +12,13 @@
 	(anjuta_view_button_press_event):
 	* plugins/sourceview/sourceview.c (on_insert_text),
 	(sourceview_adjustment_changed), (sourceview_new):
-	* plugins/subversion/plugin.c (activate_plugin):
 	
 	#520761 – Weirz behavior with popup
 	#520415 – [PATCH] Problems in auto indentatation code
+	
+	Patch by James Liggett:
+	* plugins/subversion/plugin.c (activate_plugin):
+	#521691 – Crash when click "Resolve Conflicts" without opened project
 
 === anjuta 2.4.0 ===
 
