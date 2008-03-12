@@ -1,3 +1,10 @@
+2008-03-12  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c (extract_mode_line),
+	(get_line_indentation_base):
+	
+	#521847 – anjuta freez when edit file
+
 2008-03-11  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Rob Bradford:

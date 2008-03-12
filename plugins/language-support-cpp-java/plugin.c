@@ -556,7 +556,7 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 		/* Check for escape characters */
 		while (end_modeline)
 		{
-			 if ((end_modeline - 1) != "\\")
+			 if (!g_str_equal ((end_modeline - 1), "\\"))
 				break;
 			end_modeline++;
 			end_modeline = strstr (end_modeline, ":");
@@ -564,7 +564,7 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 		if (end_modeline)
 		{
 			gchar* vim_modeline = g_strndup (begin_modeline, end_modeline - begin_modeline);
-      *vim = TRUE;
+			*vim = TRUE;
 			return vim_modeline;
 		}
 	}
@@ -890,16 +890,22 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				}
 				if (c == '/')
 				{
-					if (!ianjuta_iterable_previous (new_iter, NULL))
+					IAnjutaIterable* tmp_iter = ianjuta_iterable_clone (new_iter, NULL);
+					if (!ianjuta_iterable_previous (tmp_iter, NULL))
+					{
+						g_object_unref (tmp_iter);
 						break;
-					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+					}
+					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (tmp_iter), 0,
 													  NULL);
 					if (c == '/')
 					{
 						/* is a line comment, skip until begin of comment */
 						comment = TRUE;
+						g_object_unref (tmp_iter);
 						break;
 					}
+					g_object_unref (tmp_iter);
 				}
 			} while (ianjuta_iterable_previous (new_iter, NULL));
 			if (comment)
