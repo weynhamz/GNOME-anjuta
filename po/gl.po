@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-06 19:21+0100\n"
-"PO-Revision-Date: 2008-02-04 11:57+0100\n"
+"POT-Creation-Date: 2008-03-12 10:59+0100\n"
+"PO-Revision-Date: 2008-03-12 11:02+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type:  text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -242,14 +242,14 @@ msgstr "Codificacións dispoñibles"
 msgid "Supported Encodings"
 msgstr "Codificacións soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:1126 ../libanjuta/resources.c:264
+#: ../libanjuta/anjuta-launcher.c:1170 ../libanjuta/resources.c:264
 #: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Non se pode executar o comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1127
+#: ../libanjuta/anjuta-launcher.c:1171
 msgid "execvp failed"
 msgstr "fallou execvp"
 
@@ -330,7 +330,7 @@ msgstr "Perfís"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Current stack of profiles"
-msgstr "Pila actual de perfiles"
+msgstr "Pila actual de perfís"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2202
 msgid "Available plugins"
@@ -384,7 +384,7 @@ msgstr "Nome do perfil do complemento"
 
 #: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
-msgstr "Accións de perfiles"
+msgstr "Accións de perfís"
 
 #: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
@@ -588,126 +588,142 @@ msgid "Could not find application pixmap file: %s"
 msgstr "Non se puido atopar o ficheiro pixmap da aplicación: %s"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
+msgid "<b>Build Options:</b>"
+msgstr "<b>Opcións de construción:</b>"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
 msgid "<b>Build</b>"
 msgstr "<b>Construír</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+msgid "<b>Configure Options:</b>"
+msgstr "<b>Opcións de configuración:</b>"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "<b>Scratchbox Options</b>"
 msgstr "<b>Opcións do Scratchbox</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "<b>Select Program to run:</b>"
 msgstr "<b>Seleccionar programa a executar:</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 msgid "Arguments:"
 msgstr "Argumentos:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 msgid "Highlight build message locations in editor"
 msgstr "Resalta as ubicacións da mensaxe de construción no editor"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 msgid "Install as root:"
 msgstr "Instalar como root:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 #: ../plugins/document-manager/anjuta-docman.c:311
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Executar nunha terminal"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 msgid "Select Program"
 msgstr "Seleccionar programa"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Use scratchbox"
 msgstr "Usar scratchbox"
 
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
+msgid "gtk-apply"
+msgstr "gtk-apply"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:563
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
 #, c-format
 msgid "make[%d]: Entering directory '%s'"
 msgstr "make [%d]: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
 #, c-format
 msgid "make: Entering directory '%s'"
 msgstr "make: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:566
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:566
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:567
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entrando no directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:581
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:582
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando: %s"
 
 #. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:589
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr "make [%d]: Deixando o directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
 #, c-format
 msgid "make: Leaving directory '%s'"
 msgstr "make: Deixando o directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Deixando o directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:593
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Deixando o directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:608
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:609
 #, c-format
 msgid "Leaving: %s"
 msgstr "Deixando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:640
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:641
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:762
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total empregado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:767
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:768
 msgid "Completed unsuccessful\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:772
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:773
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:826
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:827
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construír %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
@@ -715,181 +731,205 @@ msgstr ""
 "este tipo de ficheiro."
 
 #. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1097
-msgid "Configure Parameters:"
-msgstr "Configurar parámetros:"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1093
+msgid "Configure"
+msgstr "Configurar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1407
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1583
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1127
+msgid "Autogenerate"
+msgstr "Xerar automaticamente"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1413
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1441
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
 msgid "_Build Project"
 msgstr "_Construír proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1310
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
 msgid "Build whole project"
 msgstr "Construír o proxecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1315
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
 msgid "_Install Project"
 msgstr "_Instalar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1316
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
 msgid "_Clean Project"
 msgstr "_Limpar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1322
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
 msgid "Clean whole project"
 msgstr "Limpa todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1327
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
 msgid "Run C_onfigure..."
 msgstr "Executar C_onfiguración..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1328
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
 msgid "Run _Autogenerate..."
 msgstr "Executar _Autoxerar..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
 msgid "Autogenerate project files"
 msgstr "Auto-xerar os ficheiros do proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
 msgid "Build _Tarball"
 msgstr "Construír _paquete de distribución"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
 msgid "Build project tarball distribution"
 msgstr "Constrúe un paquete para a distribución do proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
 msgid "_Execute Program..."
 msgstr "_Executar programa..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
 msgid "Execute program"
 msgstr "Executar o programa"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1351
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
 msgid "_Build Module"
 msgstr "_Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1352
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
 msgid "Build module associated with current file"
 msgstr "Constrúe o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1363
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1397
 msgid "_Clean Module"
 msgstr "_Limpar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1364
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1398
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1369
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1403
 msgid "Co_mpile File"
 msgstr "Co_mpilar ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1370
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1404
 msgid "Compile current editor file"
 msgstr "Compila o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1383
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1384
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
 msgid "Build module"
 msgstr "Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1457
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1621
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1458
 msgid "Install module"
 msgstr "Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1435
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1463
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1436
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1464
 msgid "Clean module"
 msgstr "Limpar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1595
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1629
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1638
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1645
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1618
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1652
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1659
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2032
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2039
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2073
 msgid "Build popup commands"
 msgstr "Comandos de construcción emerxentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2341
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2361
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2375
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2395
 msgid "Build Autotools"
 msgstr "Ferramentas automáticas de construción"
+
+#: ../plugins/build-basic-autotools/build-options.c:41
+#: ../plugins/search/search_preferences.c:523
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid "Default"
+msgstr "Por defecto"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/build-basic-autotools/build-options.c:42
+#: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
+msgid "Debug"
+msgstr "Depurar"
+
+#: ../plugins/build-basic-autotools/build-options.c:43
+msgid "Profiling"
+msgstr "Perfilado"
+
+#: ../plugins/build-basic-autotools/build-options.c:44
+msgid "Optimized"
+msgstr "Optimizado"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 msgid "No executables in this project!"
@@ -2498,7 +2538,7 @@ msgstr ""
 "Perderá as modificacións sen gardar."
 
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:215
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:216
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2891,7 +2931,7 @@ msgstr "Repetir busca rápida"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1714
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3565,7 +3605,7 @@ msgstr "Previsualización da impresión"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:201
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:202
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4116,12 +4156,6 @@ msgstr ""
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
 msgstr "Non se puido iniciar o terminal para depuración."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
-msgid "Debug"
-msgstr "Depurar"
 
 #: ../plugins/glade/plugin.c:505
 msgid "Widgets"
@@ -6008,11 +6042,6 @@ msgstr "Procurando..."
 msgid "Basic Search"
 msgstr "Busca básica"
 
-#: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
-msgid "Default"
-msgstr "Por defecto"
-
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nome"
@@ -6129,15 +6158,15 @@ msgstr "Documento %d sen gardar"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../plugins/sourceview/sourceview.c:332
+#: ../plugins/sourceview/sourceview.c:333
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:355
+#: ../plugins/sourceview/sourceview.c:356
 msgid "Saving..."
 msgstr "Gardando..."
 
-#: ../plugins/sourceview/sourceview.c:362
+#: ../plugins/sourceview/sourceview.c:363
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
@@ -6590,15 +6619,15 @@ msgstr "Copiar..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Operacións de Subversion"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Operacións emerxentes de Subversion"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Rexistro de subversion"
 
@@ -7833,49 +7862,53 @@ msgid "Enable code completion"
 msgstr "Activar completado do código"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
+msgid "Enable smart brace completion"
+msgstr "Activar completado de corchetes intelixente"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
 msgid "Enable smart indentation"
 msgstr "Activar sangrado intelixente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
 msgid "Pressing tab indents"
 msgstr "Incrementar sangría ao premer o tabulador"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
 msgid "Show calltips"
 msgstr "Mostrar consellos de chamada"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
 msgid "Smart Indentation"
 msgstr "Sangrado intelixente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangrado en espazos:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1720
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1721
 msgid "AutoComplete the current word"
 msgstr "Autocompletar a palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1727
 msgid "Auto Indent"
 msgstr "Sangrado automático"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1728
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña actual ou a selección baseándose nos axustes "
 "de sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1770
 msgid "C++/Java Assistance"
 msgstr "Asistente C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1858
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8100,6 +8133,9 @@ msgstr "Cargador de ficheiros para cargar diferentes ficheiros"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Complemento de xestor de depuración."
+
+#~ msgid "Configure Parameters:"
+#~ msgstr "Configurar parámetros:"
 
 #~ msgid ""
 #~ "Showing Tooltips in the todo list is still very alpha.\n"
