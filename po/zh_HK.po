@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-08 20:59+0800\n"
-"PO-Revision-Date: 2008-03-08 20:59+0800\n"
+"POT-Creation-Date: 2008-03-13 20:21+0800\n"
+"PO-Revision-Date: 2008-03-13 20:28+0800\n"
 "Last-Translator: Hialan Liu <hialan.liu@gmail.com>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -305,7 +305,7 @@ msgstr "選擇外掛程式"
 #: ../libanjuta/anjuta-plugin-manager.c:1449
 #: ../plugins/debug-manager/queue.c:559
 msgid "Please select a plugin to activate"
-msgstr "請選擇外掛程式以使用"
+msgstr "請選擇欲啟用的外掛程式"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
@@ -703,7 +703,7 @@ msgstr "無法編譯 \"%s\"：沒有為此檔案類型定義任何編譯規則�
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1097
 msgid "Configure Parameters:"
-msgstr ""
+msgstr "Configure 參數："
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
@@ -740,16 +740,15 @@ msgstr "清除整個專案"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1327
 msgid "Run C_onfigure..."
-msgstr "執行設置(_O) ..."
+msgstr "執行 C_onfigure..."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1328
 msgid "Configure project"
 msgstr "設置專案"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
-#, fuzzy
 msgid "Run _Autogenerate..."
-msgstr "產生建程檔案 (_G) ..."
+msgstr "執行 Autogenerate(_A)..."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
 msgid "Autogenerate project files"
@@ -880,7 +879,7 @@ msgstr "建立訊息"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2341
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2361
 msgid "Build Autotools"
-msgstr ""
+msgstr "建置 Autotools"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 msgid "No executables in this project!"
@@ -950,8 +949,9 @@ msgid "Add to Project"
 msgstr "加入至專案"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+#, fuzzy
 msgid "Add to Repository"
-msgstr ""
+msgstr "加入至軟件庫"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
 msgid "Author Email:"
@@ -1252,7 +1252,7 @@ msgstr "密碼： "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
-msgstr "“cvs” 指令的路徑"
+msgstr "「cvs」 指令的路徑"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
@@ -1267,9 +1267,8 @@ msgid "Reset sticky tags"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-#, fuzzy
 msgid "Revision: "
-msgstr "版本："
+msgstr "修訂版："
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
@@ -1283,14 +1282,12 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
-#, fuzzy
 msgid "Use revision/tag: "
-msgstr "版本："
+msgstr "使用修訂版/標籤："
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-#, fuzzy
 msgid "Use revision: "
-msgstr "版本："
+msgstr "使用修訂版："
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
@@ -1317,7 +1314,7 @@ msgstr "關閉全部檔案"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:81
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr "CVS 指令正在執行！請等候直到他結束！"
+msgstr "CVS 仍在執行中，請稍待。"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:153
 msgid "Unable to delete file"
@@ -1363,7 +1360,6 @@ msgstr "CVS 指令失敗 - 詳見以上細節"
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
 msgstr[0] "CVS 指令成功！ - 費時： %ld 秒"
-msgstr[1] "CVS 指令成功！ - 費時： %ld 秒"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:224
 msgid "CVS command is running - please wait until it finishes!"
@@ -1452,9 +1448,8 @@ msgstr "顯示狀態(_S)"
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:95 ../plugins/cvs-plugin/plugin.c:154
-#, fuzzy
 msgid "Show the status of a file/directory"
-msgstr "編輯專案的內容"
+msgstr "顯示檔案/目錄的狀態"
 
 #. Action name
 #. Stock icon, if any
@@ -1465,9 +1460,8 @@ msgstr "顯示紀錄(_S)"
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:103 ../plugins/cvs-plugin/plugin.c:162
-#, fuzzy
 msgid "Show the log of a file/directory"
-msgstr "清除原始檔目錄內在編譯時所產生的檔案"
+msgstr "顯示檔案/目錄的紀錄檔"
 
 #. Action name
 #. Stock icon, if any
@@ -1482,9 +1476,8 @@ msgid "Import a new source tree to CVS"
 msgstr "匯入新來源樹至 CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:350
-#, fuzzy
 msgid "CVS operations"
-msgstr "編譯器選項"
+msgstr "CVS 操作"
 
 #: ../plugins/cvs-plugin/plugin.c:356
 #, fuzzy
@@ -1962,23 +1955,20 @@ msgid "Run Target..."
 msgstr "執行目標..."
 
 #: ../plugins/debug-manager/plugin.c:851
-#, fuzzy
 msgid "load and start the target for debugging"
-msgstr "開啟一個執行檔進行偵錯"
+msgstr "載入並起始目標來偵錯"
 
 #: ../plugins/debug-manager/plugin.c:857
 msgid "Restart Target"
 msgstr "重新啟動目標"
 
 #: ../plugins/debug-manager/plugin.c:859
-#, fuzzy
 msgid "restart the same target for debugging"
-msgstr "開啟一個執行檔進行偵錯"
+msgstr "重新起始相同的目標來偵錯"
 
 #: ../plugins/debug-manager/plugin.c:865
-#, fuzzy
 msgid "_Attach to Process..."
-msgstr "進程偵錯 (_A)..."
+msgstr "根據附行程(_A)..."
 
 #: ../plugins/debug-manager/plugin.c:867
 msgid "Attach to a running program"
@@ -2050,9 +2040,8 @@ msgstr "共享函式庫"
 
 #: ../plugins/debug-manager/plugin.c:943
 #: ../plugins/debug-manager/plugin.c:1043
-#, fuzzy
 msgid "Show shared libraries mappings"
-msgstr "供享函式庫"
+msgstr "顯示共享函式庫對映"
 
 #: ../plugins/debug-manager/plugin.c:951
 #: ../plugins/debug-manager/plugin.c:1051
@@ -2104,9 +2093,8 @@ msgid "Run to the cursor"
 msgstr "程式執行至遊標目前位置時停止"
 
 #: ../plugins/debug-manager/plugin.c:1017
-#, fuzzy
 msgid "Info _Global Variables"
-msgstr "全區域變數 (_G)"
+msgstr "全域變數資訊(_G)"
 
 #: ../plugins/debug-manager/plugin.c:1019
 msgid "Display all global and static variables of the program"
@@ -2915,7 +2903,7 @@ msgstr "重複快速搜尋"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1642
 msgid "_Edit"
 msgstr "編輯(_E)"
 
@@ -2962,7 +2950,7 @@ msgstr "剪下(_U)"
 
 #: ../plugins/document-manager/plugin.c:310
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "將選定範圍的文字複製到剪貼簿後移除"
+msgstr "剪下編輯器中選定的文字"
 
 #: ../plugins/document-manager/plugin.c:312
 #: ../plugins/valgrind/vgdefaultview.c:1154
@@ -2991,9 +2979,8 @@ msgid "Delete the selected text from the editor"
 msgstr "將選定範圍的文字刪除"
 
 #: ../plugins/document-manager/plugin.c:330
-#, fuzzy
 msgid "_Line Number Margin"
-msgstr "行號區 (_L)"
+msgstr "行號區(_L)"
 
 #: ../plugins/document-manager/plugin.c:331
 msgid "Show/Hide line numbers"
@@ -3010,23 +2997,20 @@ msgid "Show/Hide marker margin"
 msgstr "顯示 / 隱藏標號區"
 
 #: ../plugins/document-manager/plugin.c:336
-#, fuzzy
 msgid "_Code Fold Margin"
-msgstr "展疊區 (_C)"
+msgstr "程式碼展疊區(_C)"
 
 #: ../plugins/document-manager/plugin.c:337
 msgid "Show/Hide code fold margin"
 msgstr "顯示 / 隱藏函數展疊區"
 
 #: ../plugins/document-manager/plugin.c:339
-#, fuzzy
 msgid "_Indentation Guides"
-msgstr "縮排導線 (_I)"
+msgstr "縮排指引(_I)"
 
 #: ../plugins/document-manager/plugin.c:340
-#, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "顯示 / 隱藏縮排導線"
+msgstr "顯示 / 隱藏縮排指引"
 
 #: ../plugins/document-manager/plugin.c:342
 #, fuzzy
@@ -3188,7 +3172,7 @@ msgstr "編輯器縮放操作"
 
 #: ../plugins/document-manager/plugin.c:424
 msgid "Editor syntax highlighting styles"
-msgstr "編輯器語法強調風格"
+msgstr "編輯器語法標示風格"
 
 #: ../plugins/document-manager/plugin.c:425
 msgid "Editor text formating"
@@ -3278,9 +3262,8 @@ msgid "<b>Autocompletion</b>"
 msgstr "<b>自動完成</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:2
-#, fuzzy
 msgid "<b>Basic Indentation</b>"
-msgstr "<b>巨集詳細資料：</b>"
+msgstr "<b>基本縮排</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:3
 msgid "<b>Code folding</b>"
@@ -3510,9 +3493,8 @@ msgid "Pressing backspace un-indents"
 msgstr "按下 backspace 可以減少縮排"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
-#, fuzzy
 msgid "Pressing tab inserts indentation"
-msgstr "按下 tab 可以增加縮排"
+msgstr "按下 Tab 增加縮排"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
@@ -3555,12 +3537,11 @@ msgstr "縮排時使用 Tab 字符"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View EOL chars"
-msgstr "檢視 EOL 字符"
+msgstr "標示 EOL 字符"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
-#, fuzzy
 msgid "View Indentation Guides"
-msgstr "縮排導線 (_I)"
+msgstr "檢視縮排指引(_I)"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:73
 #, fuzzy
@@ -3584,7 +3565,7 @@ msgstr ""
 
 #: ../plugins/editor/print.c:482
 msgid "No file to print!"
-msgstr "沒有可以打印的檔案！"
+msgstr "沒有可打印的檔案！"
 
 #: ../plugins/editor/print.c:505
 msgid "Unable to get text buffer for printing"
@@ -3818,9 +3799,8 @@ msgid "Open recent files"
 msgstr "最近開啟的檔案"
 
 #: ../plugins/file-manager/file-manager.glade.h:1
-#, fuzzy
 msgid "<b>Filter</b>"
-msgstr "<b>檔案過濾器</b>"
+msgstr "<b>過濾器</b>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
 msgid "<b>Global</b>"
@@ -3937,7 +3917,7 @@ msgstr "C 原始檔"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C/C++ Header File"
-msgstr "C -C++ 標頭檔"
+msgstr "C/C++ 標頭檔"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
@@ -4016,23 +3996,21 @@ msgid "Loading Core: "
 msgstr "正在載入 Core 檔："
 
 #: ../plugins/gdb/debugger.c:756
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
 "找不到：%s。\n"
-"無法初始化偵錯工具。:-(\n"
+"無法初始化偵錯工具。\n"
 "請確定 Anjuta 是否安裝正確。"
 
 #: ../plugins/gdb/debugger.c:885
-#, fuzzy
 msgid "Getting ready to start debugging session...\n"
-msgstr "準備啟動偵錯環境 ...\n"
+msgstr "準備啟動偵錯階段...\n"
 
 #: ../plugins/gdb/debugger.c:900
-#, fuzzy
 msgid "No executable specified.\n"
 msgstr "尚未指定執行檔\n"
 
@@ -4067,7 +4045,7 @@ msgstr "中斷點"
 #: ../plugins/gdb/debugger.c:1242
 #, fuzzy
 msgid "Function finished\n"
-msgstr "/函數定義 (_F)"
+msgstr "函數結束\n"
 
 #: ../plugins/gdb/debugger.c:1248
 msgid "Stepping finished\n"
@@ -4078,23 +4056,21 @@ msgid "Location reached\n"
 msgstr ""
 
 #: ../plugins/gdb/debugger.c:1636
-#, fuzzy
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
 "程式仍在執行中。\n"
-"是否確定要停止偵錯工作？"
+"是否仍要停止偵錯工作？"
 
 #: ../plugins/gdb/debugger.c:1826
-#, fuzzy
 msgid "Program attached\n"
-msgstr "程式名稱："
+msgstr "已根據附程式\n"
 
 #: ../plugins/gdb/debugger.c:1847
-#, fuzzy, c-format
+#, c-format
 msgid "Attaching to process: %d...\n"
-msgstr "對這個進程進行偵錯：%d\n"
+msgstr "正在根據附行程：%d...\n"
 
 #: ../plugins/gdb/debugger.c:1873
 msgid ""
@@ -4109,29 +4085,26 @@ msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
 #: ../plugins/gdb/debugger.c:1940
-#, fuzzy
 msgid "Program terminated\n"
-msgstr "程式名稱："
+msgstr "程式終結\n"
 
 #: ../plugins/gdb/debugger.c:1955
-#, fuzzy
 msgid "Program detached\n"
-msgstr "程式名稱："
+msgstr "已離開程式\n"
 
 #: ../plugins/gdb/debugger.c:1975
-#, fuzzy, c-format
+#, c-format
 msgid "Detaching the process...\n"
-msgstr "停止這個進程偵錯：%d\n"
+msgstr "正在離開行程...\n"
 
 #: ../plugins/gdb/debugger.c:1996
-#, fuzzy
 msgid "Interrupting the process\n"
-msgstr "中斷這個進程：%d\n"
+msgstr "中斷此行程\n"
 
 #: ../plugins/gdb/debugger.c:3779
-#, fuzzy, c-format
+#, c-format
 msgid "Sending signal %s to the process: %d"
-msgstr "傳送一個訊號 %s 給進程：%d\n"
+msgstr "傳送訊號 %s 給行程：%d"
 
 #: ../plugins/gdb/debugger.c:3805
 #, fuzzy
@@ -4151,9 +4124,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:152
-#, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr "錯誤：無法開啟終端機進行偵錯。"
+msgstr "無法開啟終端機進行偵錯。"
 
 #. Action name
 #. Stock icon, if any
@@ -4345,9 +4317,9 @@ msgid "Failed to parse xml structure"
 msgstr "分析 xml 結構失敗"
 
 #: ../plugins/gtodo/libgtodo.c:654
-#, fuzzy, c-format
+#, c-format
 msgid "File is not a valid gtodo file"
-msgstr "檔案尚未儲存。儲存後編譯。"
+msgstr "檔案並不是一個有效的 gtodo 檔"
 
 #: ../plugins/gtodo/libgtodo.c:666
 msgid "Personal"
@@ -4406,7 +4378,6 @@ msgstr ""
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
 msgstr[0] "下列事項在 %i 分鐘內到期："
-msgstr[1] "下列事項在 %i 分鐘內到期："
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
@@ -4510,7 +4481,6 @@ msgstr "過去到期的項目"
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
 msgstr[0] "項目在未來 %i 天內到期"
-msgstr[1] "項目在未來 %i 天內到期"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -5189,13 +5159,12 @@ msgid "Target: %s"
 msgstr "目標：%s"
 
 #: ../plugins/project-manager/plugin.c:594
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
 msgstr ""
-"是否確定將 \"%s\" \n"
-"從專案內移除？"
+"是否確定將下列原始檔從專案中移除？\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:595
 #, c-format
@@ -5666,7 +5635,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Plugin interfaces to implement"
-msgstr ""
+msgstr "欲實做的外掛程式介面"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Project directory, output file etc."
@@ -5748,11 +5717,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Use libglade for the UI"
-msgstr ""
+msgstr "使用者介面使用 libglade 函式庫"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr ""
+msgstr "使用 pkg"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid ""
@@ -5974,9 +5943,8 @@ msgid "Find _Next"
 msgstr "搜尋下一個 (_N)"
 
 #: ../plugins/search/plugin.c:198 ../plugins/search/plugin.c:202
-#, fuzzy
 msgid "Repeat the last Find command"
-msgstr "重複執行上一個搜尋指令"
+msgstr "重複上一個搜尋指令"
 
 #: ../plugins/search/plugin.c:200
 msgid "Find _Previous"
@@ -6270,7 +6238,7 @@ msgstr "<b>更改：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>End Revision:</b>"
-msgstr "<b>結束版本號：</b>"
+msgstr "<b>結束修訂版：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
 #, fuzzy
@@ -6291,7 +6259,7 @@ msgstr "<b>紀錄訊息：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "<b>Revision:</b>"
-msgstr "<b>版本號：</b>"
+msgstr "<b>修訂版：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "<b>Second Path:</b>"
@@ -6315,7 +6283,7 @@ msgstr "<b>來源/目標路徑：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "<b>Start Revision:</b>"
-msgstr "<b>起始版本號：</b>"
+msgstr "<b>起始修訂版：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "<b>Subversion Options</b>"
@@ -6323,12 +6291,11 @@ msgstr "<b>Subversion 選項</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
-msgstr ""
+msgstr "<b>檢視檔案/資料夾的紀錄檔：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:19
-#, fuzzy
 msgid "<b>Working Copy Path:</b>"
-msgstr "<b>打印選項</b>"
+msgstr "<b>工作副本路徑：</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
@@ -6356,9 +6323,8 @@ msgid "Diff to Previous"
 msgstr "找上一個(_P)"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
-#, fuzzy
 msgid "Force"
-msgstr "編號"
+msgstr "強制"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 #, fuzzy
@@ -6371,7 +6337,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
-msgstr "其他版本："
+msgstr "其他修訂版："
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
@@ -6414,7 +6380,7 @@ msgstr "移除檔案"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
-msgstr "版本："
+msgstr "修訂版："
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:47
 #, fuzzy
@@ -6455,16 +6421,15 @@ msgstr "檢視紀錄"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
-msgstr ""
+msgstr "檢視所選的修訂版"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "Whole Project"
 msgstr "整個專案"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:61
-#, fuzzy
 msgid "Working Copy"
-msgstr "工作目錄："
+msgstr "工作副本"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:62
 #, fuzzy
@@ -6623,16 +6588,16 @@ msgstr "複製..."
 msgid "Diff..."
 msgstr "差異..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Subversion 操作"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 #, fuzzy
 msgid "Subversion popup operations"
 msgstr "終端機選項"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Subversion 紀錄"
 
@@ -6670,7 +6635,7 @@ msgstr "請輸入目標路徑。"
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:120
 msgid "Please enter a revision."
-msgstr "請輸入版本號。"
+msgstr "請輸入修訂版。"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:86
 #: ../plugins/subversion/subversion-log-dialog.c:417
@@ -6707,17 +6672,16 @@ msgstr "請輸入第二路徑。"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:105
 #: ../plugins/subversion/subversion-switch-dialog.c:100
-#, fuzzy
 msgid "Please enter a working copy path."
-msgstr "請輸入檔名！"
+msgstr "請輸入工作副本路徑。"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:119
 msgid "Please enter the start revision."
-msgstr "請輸入起始版本號。"
+msgstr "請輸入起始修訂版。"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:134
 msgid "Please enter the end revision."
-msgstr "請輸入結束版本號。"
+msgstr "請輸入結束修訂版。"
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
@@ -7171,9 +7135,9 @@ msgid "No document currently open, command aborted"
 msgstr "目前沒有文件被開啟，指令中斷"
 
 #: ../plugins/tools/execute.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open input file %s, command aborted"
-msgstr "無法開啟檔案：%s\n"
+msgstr "無法開啟輸入檔 %s，命令中止"
 
 #: ../plugins/tools/fileop.c:248
 msgid "Missing tool name"
@@ -7280,9 +7244,8 @@ msgstr "選擇工具並執行(_S)..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:461
-#, fuzzy
 msgid "_Kill Execution"
-msgstr "執行 (_E)"
+msgstr "終止執行(_K)"
 
 #. Action name
 #. Stock icon, if any
@@ -7884,28 +7847,28 @@ msgstr "智慧縮排"
 msgid "Statement indentation size in spaces:"
 msgstr "使用空白個數表示縮排大小："
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1648
 msgid "_AutoComplete"
 msgstr "自動補完(_A)"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1649
 msgid "AutoComplete the current word"
 msgstr "自動補完目前的字"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1655
 msgid "Auto Indent"
 msgstr "自動縮排"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1698
 msgid "C++/Java Assistance"
 msgstr "C++/Java 援助"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1786
+#: ../plugins/language-support-cpp-java/plugin.c:1795
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8013,7 +7976,7 @@ msgstr "自動建置"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
-msgstr ""
+msgstr "基本 Autotools 建置外掛程式。"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
@@ -8033,7 +7996,7 @@ msgstr "CVS 外掛程式"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
-msgstr ""
+msgstr "匯入已存在的 Autotools 專案至 Anjuta"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
