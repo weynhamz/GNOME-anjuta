@@ -1,6 +1,6 @@
 if HAVE_PLUGIN_SCINTILLA
 
-SUBDIRS = scintilla
+SUBDIRS = scintilla properties
 
 # Plugin glade file
 editor_gladedir = $(anjuta_glade_dir)

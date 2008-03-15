@@ -1,5 +1,16 @@
 2008-03-15  Naba Kumar  <naba@naba-desktop>
 
+	* configure.in:
+	* data/Makefile.am:
+	* (removed) data/properties:
+	* (added) plugins/editor/properties:
+	* plugins/editor/Makefile.am:
+
+	Moved data/properties to plugins/editor/ and removed dead code from
+	Makefile.am files.
+	
+2008-03-15  Naba Kumar  <naba@naba-desktop>
+
 	* plugins/macro/macro-db.c (macro_db_dispose), (macro_db_finalize):
 	* plugins/macro/macro-dialog.c (macro_dialog_dispose),
 	(macro_dialog_finalize):
