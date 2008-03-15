@@ -1,3 +1,7 @@
+2008-03-15  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated and marked debugger bounties completed.
+	
 2008-03-12  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c (extract_mode_line),
