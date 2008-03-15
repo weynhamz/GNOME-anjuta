@@ -2134,7 +2134,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -2163,7 +2163,7 @@ finalize (GObject *obj)
 	ba_plugin->program_args = NULL;
 	ba_plugin->configure_args = NULL;
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

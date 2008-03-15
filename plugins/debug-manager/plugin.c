@@ -1283,7 +1283,7 @@ dma_plugin_instance_init (GObject* obj)
 static void
 dma_plugin_dispose (GObject* obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 /* finalize is the last destruction step. It must free all memory allocated
@@ -1304,7 +1304,7 @@ dma_plugin_finalize (GObject* obj)
 		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 	}
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* class_init intialize the class itself not the instance */

@@ -232,7 +232,13 @@ macro_dialog_dispose (GObject * object)
 		g_object_unref (dialog->macro_db);
 		dialog->macro_db = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (object)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+macro_dialog_finalize (GObject *object)
+{
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -241,6 +247,7 @@ macro_dialog_class_init (MacroDialogClass * klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->dispose = macro_dialog_dispose;
+	object_class->finalize = macro_dialog_finalize;
 }
 
 static void

@@ -3724,7 +3724,7 @@ debugger_dispose (GObject *obj)
 		debugger->priv->launcher = NULL;
 	}
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -3735,7 +3735,7 @@ debugger_finalize (GObject *obj)
 	g_string_free (debugger->priv->stdo_acc, TRUE);
 	g_string_free (debugger->priv->stde_line, TRUE);
 	g_free (debugger->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

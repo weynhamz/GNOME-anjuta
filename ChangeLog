@@ -1,3 +1,92 @@
+2008-03-15  Naba Kumar  <naba@naba-desktop>
+
+	Patch from Ignacio Casal Quinteiro:
+
+	* plugins/build-basic-autotools/build-basic-autotools.c (dispose),
+	(finalize):
+	* plugins/class-gen/plugin.c (dispose), (finalize):
+	* plugins/class-inheritance/plugin.c (class_inheritance_finalize),
+	(class_inheritance_dispose):
+	* plugins/cvs-plugin/plugin.c (finalize), (dispose):
+	* plugins/debug-manager/plugin.c (dma_plugin_dispose),
+	(dma_plugin_finalize):
+	* plugins/debug-manager/queue.c (dma_debugger_queue_dispose),
+	(dma_debugger_queue_finalize):
+	* plugins/devhelp/plugin.c (devhelp_finalize), (devhelp_dispose):
+	* plugins/document-manager/anjuta-docman.c (anjuta_docman_dispose),
+	(anjuta_docman_finalize):
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/plugin.c (dispose), (finalize),
+	(editor_plugin_class_init):
+	* plugins/editor/text_editor.c (text_editor_dispose),
+	(text_editor_finalize):
+	* plugins/file-loader/plugin.c (dispose), (finalize),
+	(anjuta_file_loader_plugin_class_init):
+	* plugins/file-manager/plugin.c (file_manager_finalize),
+	(file_manager_dispose):
+	* plugins/file-wizard/plugin.c (dispose), (finalize),
+	(file_wizard_plugin_class_init):
+	* plugins/gdb/debugger.c (debugger_dispose), (debugger_finalize):
+	* plugins/gdb/plugin.c (gdb_plugin_dispose), (gdb_plugin_finalize):
+	* plugins/glade/plugin.c (glade_plugin_dispose),
+	(glade_plugin_finalize), (glade_plugin_class_init):
+	* plugins/gtodo/plugin.c (finalize), (dispose):
+	* plugins/gvim/plugin.c (anjuta_vim_plugin_finalize),
+	(anjuta_vim_plugin_dispose):
+	* plugins/indent/plugin.c (indent_plugin_finalize),
+	(indent_plugin_dispose):
+	* plugins/language-manager/plugin.c (language_manager_finalize),
+	(language_manager_dispose):
+	* plugins/language-support-cpp-java/plugin.c
+	(cpp_java_plugin_finalize), (cpp_java_plugin_dispose):
+	* plugins/macro/macro-db.c (macro_db_dispose), (macro_db_finalize),
+	(macro_db_class_init):
+	* plugins/macro/macro-dialog.c (macro_dialog_dispose),
+	(macro_dialog_finalize), (macro_dialog_class_init):
+	* plugins/macro/macro-edit.c (macro_edit_dispose),
+	(macro_edit_finalize), (macro_edit_class_init):
+	* plugins/macro/plugin.c (finalize), (dispose):
+	* plugins/message-view/anjuta-msgman.c (anjuta_msgman_dispose),
+	(anjuta_msgman_finalize):
+	* plugins/message-view/message-view.c (message_view_dispose),
+	(message_view_finalize):
+	* plugins/message-view/plugin.c (message_view_plugin_dispose),
+	(message_view_plugin_finalize):
+	* plugins/patch/plugin.c (patch_plugin_finalize),
+	(patch_plugin_dispose):
+	* plugins/profiler/plugin.c (profiler_finalize),
+	(profiler_dispose):
+	* plugins/project-import/plugin.c (dispose), (finalize),
+	(project_import_plugin_class_init):
+	* plugins/project-manager/plugin.c
+	(project_manager_plugin_finalize),
+	(project_manager_plugin_dispose):
+	* plugins/project-wizard/plugin.c (npw_plugin_dispose),
+	(npw_plugin_finalize), (npw_plugin_class_init):
+	* plugins/sample1/plugin.c (sample_plugin_finalize),
+	(sample_plugin_dispose):
+	* plugins/search/plugin.c (dispose), (finalize),
+	(search_plugin_class_init):
+	* plugins/sourceview/plugin.c (sourceview_plugin_finalize),
+	(sourceview_plugin_dispose):
+	* plugins/subversion/plugin.c (finalize), (dispose):
+	* plugins/symbol-browser/an_symbol.c (anjuta_symbol_finalize):
+	* plugins/symbol-browser/an_symbol_iter.c
+	(anjuta_symbol_iter_finalize), (anjuta_symbol_iter_dispose):
+	* plugins/symbol-browser/an_symbol_search.c
+	(an_symbol_search_dispose), (an_symbol_search_finalize):
+	* plugins/symbol-browser/an_symbol_view.c
+	(anjuta_symbol_view_finalize), (anjuta_symbol_view_dispose):
+	* plugins/symbol-browser/plugin.c (dispose), (finalize):
+	* plugins/symbol-db/plugin.c (symbol_db_finalize),
+	(symbol_db_dispose):
+	* plugins/terminal/terminal.c (terminal_plugin_dispose),
+	(terminal_plugin_finalize):
+	* plugins/tools/plugin.c (atp_plugin_dispose),
+	(atp_plugin_finalize), (atp_plugin_class_init):
+	* plugins/valgrind/plugin.c (valgrind_finalize),
+	(valgrind_dispose): Removed all GNOME_CALL* calls in plugins.
+
 2008-03-15  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated and marked debugger bounties completed.

@@ -168,7 +168,15 @@ macro_edit_dispose (GObject * edit)
 {
 	//MacroEdit *medit = MACRO_EDIT (edit);
 	//g_object_unref(medit->gxml);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (edit)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+macro_edit_finalize (GObject * edit)
+{
+	//MacroEdit *medit = MACRO_EDIT (edit);
+	//g_object_unref(medit->gxml);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -177,6 +185,7 @@ macro_edit_class_init (MacroEditClass * klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->dispose = macro_edit_dispose;
+	object_class->finalize = macro_edit_finalize;
 }
 
 static void

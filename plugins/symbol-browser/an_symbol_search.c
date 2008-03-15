@@ -34,7 +34,7 @@
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtktreeview.h>
 #include <gtk/gtktreeselection.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "an_symbol_search.h"
@@ -132,7 +132,7 @@ an_symbol_search_dispose (GObject * obj)
 	if (priv->hitlist)
 		priv->hitlist = NULL;
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));	
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -148,7 +148,7 @@ an_symbol_search_finalize (GObject * obj)
 	g_completion_free (priv->completion);
 	g_free (priv);
 			
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /*-----------------------------------------------------------------------------

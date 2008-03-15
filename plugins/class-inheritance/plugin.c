@@ -24,7 +24,7 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/anjuta-debug.h>
@@ -169,14 +169,14 @@ class_inheritance_finalize (GObject *obj)
 		g_free (ci_plugin->top_dir);
 	
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 class_inheritance_dispose (GObject *obj)
 {
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

@@ -1170,14 +1170,14 @@ symbol_db_finalize (GObject *obj)
 {
 	DEBUG_PRINT ("Symbol-DB finalize");
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 symbol_db_dispose (GObject *obj)
 {
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

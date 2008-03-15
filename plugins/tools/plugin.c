@@ -164,7 +164,15 @@ atp_plugin_dispose (GObject *obj)
 {
 	/* Warning this function could be called several times */
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+atp_plugin_finalize (GObject *obj)
+{
+	/* Warning this function could be called several times */
+
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* finalize used to free object created with instance init is not used */
@@ -238,6 +246,7 @@ atp_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = atp_plugin_activate;
 	plugin_class->deactivate = atp_plugin_deactivate;
 	klass->dispose = atp_plugin_dispose;
+	klass->finalize = atp_plugin_finalize;
 }
 
 ANJUTA_PLUGIN_BOILERPLATE (ATPPlugin, atp_plugin);

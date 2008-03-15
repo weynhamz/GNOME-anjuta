@@ -96,14 +96,14 @@ static void
 sourceview_plugin_finalize (GObject *obj)
 {
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 sourceview_plugin_dispose (GObject *obj)
 {
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

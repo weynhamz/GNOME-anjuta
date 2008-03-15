@@ -269,7 +269,15 @@ dispose (GObject *obj)
 {
 	//SearchPlugin *plugin = ANJUTA_PLUGIN_SEARCH (obj);
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+finalize (GObject *obj)
+{
+	//SearchPlugin *plugin = ANJUTA_PLUGIN_SEARCH (obj);
+	
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -288,6 +296,7 @@ search_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
+	klass->finalize = finalize;
 }
 ANJUTA_PLUGIN_BEGIN (SearchPlugin, search_plugin);
 ANJUTA_PLUGIN_END;

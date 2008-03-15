@@ -45,14 +45,14 @@ anjuta_symbol_iter_finalize (GObject * obj)
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (obj);
 	
 	g_free (si->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 anjuta_symbol_iter_dispose (GObject * obj)
 {
 	/* AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (obj); */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

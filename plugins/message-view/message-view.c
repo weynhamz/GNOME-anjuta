@@ -668,7 +668,7 @@ message_view_dispose (GObject *obj)
 	{
 		mview->privat->tree_view = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -679,7 +679,7 @@ message_view_finalize (GObject *obj)
 	g_free (mview->privat->label);
 	g_free (mview->privat->pixmap);
 	g_free (mview->privat);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

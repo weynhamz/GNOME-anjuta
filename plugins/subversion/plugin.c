@@ -527,14 +527,14 @@ static void
 finalize (GObject *obj)
 {
 	apr_terminate ();
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 dispose (GObject *obj)
 {
 	// Subversion *plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

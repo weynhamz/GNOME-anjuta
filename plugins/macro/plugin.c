@@ -147,7 +147,7 @@ deactivate_plugin (AnjutaPlugin * plugin)
 static void
 finalize (GObject * obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -157,7 +157,7 @@ dispose (GObject * obj)
 	if (plugin->macro_dialog != NULL)
 		g_object_unref (plugin->macro_dialog);
 	g_object_unref(plugin->macro_db);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

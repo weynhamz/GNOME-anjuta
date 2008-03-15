@@ -20,7 +20,7 @@
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
@@ -128,7 +128,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -143,7 +143,7 @@ finalize (GObject *obj)
 	if(cg_plugin->generator != NULL)
 		g_object_unref(G_OBJECT(cg_plugin->generator));
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

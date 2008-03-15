@@ -62,7 +62,13 @@ npw_plugin_dispose (GObject *obj)
 		this->view = NULL;
 	}
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+npw_plugin_finalize (GObject *obj)
+{
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* finalize used to free object created with instance init is not used */
@@ -91,6 +97,7 @@ npw_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = npw_plugin_activate;
 	plugin_class->deactivate = npw_plugin_deactivate;
 	klass->dispose = npw_plugin_dispose;
+	klass->finalize = npw_plugin_finalize;
 }
 
 static void

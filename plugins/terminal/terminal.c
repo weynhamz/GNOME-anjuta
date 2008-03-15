@@ -648,13 +648,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 terminal_plugin_dispose (GObject *obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
 terminal_plugin_finalize (GObject *obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

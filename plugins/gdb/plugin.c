@@ -253,7 +253,7 @@ gdb_plugin_dispose (GObject* obj)
 		debugger_free (this->debugger);
 		this->debugger = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 /* finalize is the last destruction step. It must free all memory allocated
@@ -263,7 +263,7 @@ gdb_plugin_dispose (GObject* obj)
 static void
 gdb_plugin_finalize (GObject* obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT (obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* class_init intialize the class itself not the instance */

@@ -29,7 +29,7 @@
 #include <ctype.h>
 #include <regex.h>
 #include <libgnomeui/gnome-stock-icons.h> 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libgnome/gnome-macros.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-utils.h>
@@ -966,7 +966,7 @@ anjuta_symbol_view_finalize (GObject * obj)
 	g_hash_table_destroy (sv->priv->tm_files);
 	tm_workspace_free ((gpointer) sv->priv->tm_workspace);
 	g_free (sv->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -978,7 +978,7 @@ anjuta_symbol_view_dispose (GObject * obj)
 
 	/* All file symbol refs would be freed when the hash table is distroyed */
 	sv->priv->file_symbol_model = NULL;
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 /* Anjuta symbol view class */

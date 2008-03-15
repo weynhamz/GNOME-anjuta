@@ -610,7 +610,7 @@ anjuta_docman_dispose (GObject *obj)
 		}
 		g_list_free (pages);
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -627,7 +627,7 @@ anjuta_docman_finalize (GObject *obj)
 		g_free (docman->priv);
 		docman->priv = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

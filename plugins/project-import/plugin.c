@@ -20,7 +20,7 @@
 
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -56,7 +56,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+finalize (GObject *obj)
+{
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -75,6 +81,7 @@ project_import_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
+	klass->finalize = finalize;
 }
 
 static void

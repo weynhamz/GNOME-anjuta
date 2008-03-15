@@ -218,7 +218,15 @@ macro_db_dispose (GObject * db)
 {
 	DEBUG_PRINT ("Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (db)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
+}
+
+static void
+macro_db_finalize (GObject * db)
+{
+	DEBUG_PRINT ("Disposing MacroDB");
+	macro_db_save (MACRO_DB (db));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -227,6 +235,7 @@ macro_db_class_init (MacroDBClass * klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->dispose = macro_db_dispose;
+	object_class->finalize = macro_db_finalize;
 }
 
 static void

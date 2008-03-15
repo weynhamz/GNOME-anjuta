@@ -898,7 +898,7 @@ dma_debugger_queue_dispose (GObject *obj)
 
 	dma_debugger_queue_clear (self);
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 /* finalize is the last destruction step. It must free all memory allocated
@@ -912,7 +912,7 @@ dma_debugger_queue_finalize (GObject *obj)
 
 	g_queue_free (self->queue);
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* instance_init is the constructor. All functions should work after this

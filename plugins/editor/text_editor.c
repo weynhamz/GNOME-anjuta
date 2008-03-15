@@ -538,7 +538,7 @@ text_editor_dispose (GObject *obj)
 		text_editor_prefs_finalize (te);
 		te->gconf_notify_ids = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(te)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 void
@@ -551,7 +551,7 @@ text_editor_finalize (GObject *obj)
 	g_free (te->force_hilite);
 	g_free (te->last_saved_content);
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 void

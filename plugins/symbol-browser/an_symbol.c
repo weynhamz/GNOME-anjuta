@@ -44,7 +44,7 @@ anjuta_symbol_finalize (GObject * obj)
 	if (s->priv->uri)
 		g_free (s->priv->uri);
 	g_free (s->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

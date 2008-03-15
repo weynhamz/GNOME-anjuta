@@ -286,14 +286,14 @@ file_manager_finalize (GObject *obj)
 	g_list_free(plugin->gconf_notify_ids);
 	
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 file_manager_dispose (GObject *obj)
 {
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

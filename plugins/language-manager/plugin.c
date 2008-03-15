@@ -155,7 +155,7 @@ static void
 language_manager_finalize (GObject *obj)
 {
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -165,7 +165,7 @@ language_manager_dispose (GObject *obj)
 	LanguageManager* lang = LANGUAGE_MANAGER (obj);
 	
 	g_hash_table_unref (lang->languages);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

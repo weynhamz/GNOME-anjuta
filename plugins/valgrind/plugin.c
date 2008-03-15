@@ -23,7 +23,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-about.h>
@@ -613,14 +613,14 @@ static void
 valgrind_finalize (GObject *obj)
 {
 	/* Finalization codes here */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
 valgrind_dispose (GObject *obj)
 {
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void

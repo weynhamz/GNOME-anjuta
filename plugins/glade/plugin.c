@@ -582,7 +582,7 @@ glade_plugin_dispose (GObject *obj)
 	/* GladePlugin *plugin = ANJUTA_PLUGIN_GLADE (obj); */
 	
 	/* FIXME: Glade widgets should be destroyed */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -590,7 +590,7 @@ glade_plugin_finalize (GObject *obj)
 {
 	GladePlugin *plugin = ANJUTA_PLUGIN_GLADE (obj);
 	g_free (plugin->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -616,7 +616,7 @@ glade_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = glade_plugin_dispose;
-	klass->dispose = glade_plugin_finalize;
+	klass->finalize = glade_plugin_finalize;
 }
 
 gchar* glade_get_filename(GladePlugin *plugin)

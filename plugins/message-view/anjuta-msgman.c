@@ -182,7 +182,7 @@ anjuta_msgman_dispose (GObject *obj)
 	{
 		anjuta_msgman_remove_all_views (msgman);
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -195,7 +195,7 @@ anjuta_msgman_finalize (GObject *obj)
 		g_free (msgman->priv);
 		msgman->priv = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

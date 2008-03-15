@@ -260,14 +260,14 @@ static void
 message_view_plugin_dispose (GObject *obj)
 {
 	// MessageViewPlugin *plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (obj);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
 message_view_plugin_finalize (GObject *obj)
 {
 	// MessageViewPlugin *plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (obj);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

@@ -457,7 +457,7 @@ devhelp_finalize (GObject *obj)
 	/* Finalization codes here */
 	AnjutaDevhelp *plugin = ANJUTA_PLUGIN_DEVHELP (obj);
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -469,7 +469,7 @@ devhelp_dispose (GObject *obj)
 	// g_object_unref(G_OBJECT(devhelp->base));
 
 	/* Disposition codes */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 #endif
 

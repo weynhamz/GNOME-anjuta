@@ -1090,14 +1090,14 @@ dispose (GObject *obj)
 										   (gpointer)&sv_plugin->ss);
 
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
 finalize (GObject *obj)
 {
 	/* SymbolBrowserPlugin *plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (obj); */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
