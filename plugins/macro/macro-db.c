@@ -218,7 +218,7 @@ macro_db_dispose (GObject * db)
 {
 	DEBUG_PRINT ("Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
-	G_OBJECT_CLASS (parent_class)->dispose (obj);
+	G_OBJECT_CLASS (parent_class)->dispose (db);
 }
 
 static void
@@ -226,7 +226,7 @@ macro_db_finalize (GObject * db)
 {
 	DEBUG_PRINT ("Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (db);
 }
 
 static void

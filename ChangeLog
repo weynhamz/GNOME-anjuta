@@ -1,5 +1,15 @@
 2008-03-15  Naba Kumar  <naba@naba-desktop>
 
+	* plugins/macro/macro-db.c (macro_db_dispose), (macro_db_finalize):
+	* plugins/macro/macro-dialog.c (macro_dialog_dispose),
+	(macro_dialog_finalize):
+	* plugins/macro/macro-edit.c (macro_edit_dispose),
+	(macro_edit_finalize):
+
+	Fixed errors in previous patch.
+	
+2008-03-15  Naba Kumar  <naba@naba-desktop>
+
 	Patch from Ignacio Casal Quinteiro:
 
 	* plugins/build-basic-autotools/build-basic-autotools.c (dispose),

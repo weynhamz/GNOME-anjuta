@@ -232,13 +232,13 @@ macro_dialog_dispose (GObject * object)
 		g_object_unref (dialog->macro_db);
 		dialog->macro_db = NULL;
 	}
-	G_OBJECT_CLASS (parent_class)->dispose (obj);
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
 macro_dialog_finalize (GObject *object)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void

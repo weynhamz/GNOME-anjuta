@@ -168,7 +168,7 @@ macro_edit_dispose (GObject * edit)
 {
 	//MacroEdit *medit = MACRO_EDIT (edit);
 	//g_object_unref(medit->gxml);
-	G_OBJECT_CLASS (parent_class)->dispose (obj);
+	G_OBJECT_CLASS (parent_class)->dispose (edit);
 }
 
 static void
@@ -176,7 +176,7 @@ macro_edit_finalize (GObject * edit)
 {
 	//MacroEdit *medit = MACRO_EDIT (edit);
 	//g_object_unref(medit->gxml);
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (edit);
 }
 
 static void
