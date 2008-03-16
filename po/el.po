@@ -8,13 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 20:07+0000\n"
-"PO-Revision-Date: 2008-03-11 01:42+0200\n"
-"Last-Translator: nikosCharonitakis <nikosx@gmail.com>\n"
-"Language-Team: Greek <nls@tux.hellug.gr>\n"
+"POT-Creation-Date: 2008-03-16 09:30+0200\n"
+"PO-Revision-Date: 2008-03-16 09:25+0200\n"
+"Last-Translator: Giannis Katsampirhs <giannis1_86@hotmail.com>\n"
+"Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -27,9 +28,7 @@ msgid "Develop software in an integrated development environment"
 msgstr "Ενσωματωμένο Περιβάλλον Ανάπτυξης"
 
 #
-#: ../anjuta.desktop.in.in.h:3
-#: ../src/about.c:187
-#: ../src/main.c:341
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:341
 msgid "Integrated Development Environment"
 msgstr "Ενσωματωμένο περιβάλλον προγραμματισμού"
 
@@ -42,31 +41,31 @@ msgstr "Αδύνατη η εύρεση αρχείου pixmap: \"%s\""
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
 msgstr ""
+"Αδύνατη η εύρεση της πρόσθετης λειτουργίας της συνάρτησης εγγραφής %s στο "
+"άρθρωμα %s"
 
 #: ../libanjuta/anjuta-c-module.c:219
 #, c-format
 msgid "Unknown error in module %s"
-msgstr ""
+msgstr "Άγνωστο σφάλμα στο άρθρωμα %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
-msgstr ""
+msgstr "Λείπει η τοποθεσία της πρόσθετης λειτουργίας %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:141
 #, c-format
 msgid "Missing type defined by plugin %s"
-msgstr ""
+msgstr "Λείπει ο τύπος που καθορίστηκε από την πρόσθετη λειτουργία %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:149
 #, c-format
 msgid "plugin %s fails to register type %s"
-msgstr ""
+msgstr "Η πρόσθετη λειτουργία %s αποτυγχάνει να εγγράψει τον τύπο %s"
 
-#: ../libanjuta/anjuta-encodings.c:140
-#: ../libanjuta/anjuta-encodings.c:166
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:166
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:248
 #: ../plugins/sourceview/anjuta-encodings.c:151
 #: ../plugins/sourceview/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:223
@@ -74,8 +73,7 @@ msgstr ""
 msgid "Western"
 msgstr "Δυτική"
 
-#: ../libanjuta/anjuta-encodings.c:142
-#: ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:142 ../libanjuta/anjuta-encodings.c:209
 #: ../libanjuta/anjuta-encodings.c:244
 #: ../plugins/sourceview/anjuta-encodings.c:153
 #: ../plugins/sourceview/anjuta-encodings.c:225
@@ -89,8 +87,7 @@ msgid "South European"
 msgstr "Νότιας Ευρώπης"
 
 #
-#: ../libanjuta/anjuta-encodings.c:146
-#: ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:162
 #: ../libanjuta/anjuta-encodings.c:258
 #: ../plugins/sourceview/anjuta-encodings.c:157
 #: ../plugins/sourceview/anjuta-encodings.c:173
@@ -98,10 +95,8 @@ msgstr "Νότιας Ευρώπης"
 msgid "Baltic"
 msgstr "Βαλτική"
 
-#: ../libanjuta/anjuta-encodings.c:148
-#: ../libanjuta/anjuta-encodings.c:211
-#: ../libanjuta/anjuta-encodings.c:224
-#: ../libanjuta/anjuta-encodings.c:228
+#: ../libanjuta/anjuta-encodings.c:148 ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:224 ../libanjuta/anjuta-encodings.c:228
 #: ../libanjuta/anjuta-encodings.c:246
 #: ../plugins/sourceview/anjuta-encodings.c:159
 #: ../plugins/sourceview/anjuta-encodings.c:227
@@ -112,8 +107,7 @@ msgstr "Βαλτική"
 msgid "Cyrillic"
 msgstr "Κυριλλική"
 
-#: ../libanjuta/anjuta-encodings.c:150
-#: ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:150 ../libanjuta/anjuta-encodings.c:217
 #: ../libanjuta/anjuta-encodings.c:256
 #: ../plugins/sourceview/anjuta-encodings.c:161
 #: ../plugins/sourceview/anjuta-encodings.c:233
@@ -121,8 +115,7 @@ msgstr "Κυριλλική"
 msgid "Arabic"
 msgstr "Αραβικά"
 
-#: ../libanjuta/anjuta-encodings.c:152
-#: ../libanjuta/anjuta-encodings.c:250
+#: ../libanjuta/anjuta-encodings.c:152 ../libanjuta/anjuta-encodings.c:250
 #: ../plugins/sourceview/anjuta-encodings.c:163
 #: ../plugins/sourceview/anjuta-encodings.c:268
 msgid "Greek"
@@ -131,10 +124,9 @@ msgstr "Ελληνικά"
 #: ../libanjuta/anjuta-encodings.c:154
 #: ../plugins/sourceview/anjuta-encodings.c:165
 msgid "Hebrew Visual"
-msgstr "Ορατά Εβραϊκά"
+msgstr "Οπτικά Εβραϊκά"
 
-#: ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:215
+#: ../libanjuta/anjuta-encodings.c:156 ../libanjuta/anjuta-encodings.c:215
 #: ../libanjuta/anjuta-encodings.c:254
 #: ../plugins/sourceview/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:231
@@ -143,8 +135,7 @@ msgid "Hebrew"
 msgstr "Εβραϊκά"
 
 #
-#: ../libanjuta/anjuta-encodings.c:158
-#: ../libanjuta/anjuta-encodings.c:213
+#: ../libanjuta/anjuta-encodings.c:158 ../libanjuta/anjuta-encodings.c:213
 #: ../libanjuta/anjuta-encodings.c:252
 #: ../plugins/sourceview/anjuta-encodings.c:169
 #: ../plugins/sourceview/anjuta-encodings.c:229
@@ -167,10 +158,8 @@ msgstr "Κέλτικα"
 msgid "Romanian"
 msgstr "Ρουμανικά"
 
-#: ../libanjuta/anjuta-encodings.c:171
-#: ../libanjuta/anjuta-encodings.c:173
-#: ../libanjuta/anjuta-encodings.c:175
-#: ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:171 ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:175 ../libanjuta/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:137
 #: ../plugins/sourceview/anjuta-encodings.c:182
 #: ../plugins/sourceview/anjuta-encodings.c:184
@@ -184,8 +173,7 @@ msgstr "Unicode"
 msgid "Armenian"
 msgstr "Αρμενικά"
 
-#: ../libanjuta/anjuta-encodings.c:182
-#: ../libanjuta/anjuta-encodings.c:184
+#: ../libanjuta/anjuta-encodings.c:182 ../libanjuta/anjuta-encodings.c:184
 #: ../libanjuta/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:195
@@ -198,8 +186,7 @@ msgstr "Παραδοσιακά Κινέζικα"
 msgid "Cyrillic/Russian"
 msgstr "Κυριλλικά/Ρώσικα"
 
-#: ../libanjuta/anjuta-encodings.c:189
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:189 ../libanjuta/anjuta-encodings.c:220
 #: ../libanjuta/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:200
 #: ../plugins/sourceview/anjuta-encodings.c:202
@@ -209,10 +196,8 @@ msgstr "Κυριλλικά/Ρώσικα"
 msgid "Japanese"
 msgstr "Ιαπωνικά"
 
-#: ../libanjuta/anjuta-encodings.c:191
-#: ../libanjuta/anjuta-encodings.c:222
-#: ../libanjuta/anjuta-encodings.c:226
-#: ../libanjuta/anjuta-encodings.c:239
+#: ../libanjuta/anjuta-encodings.c:191 ../libanjuta/anjuta-encodings.c:222
+#: ../libanjuta/anjuta-encodings.c:226 ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/sourceview/anjuta-encodings.c:207
 #: ../plugins/sourceview/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:242
@@ -220,10 +205,8 @@ msgstr "Ιαπωνικά"
 msgid "Korean"
 msgstr "Κορεάτικα"
 
-#: ../libanjuta/anjuta-encodings.c:196
-#: ../libanjuta/anjuta-encodings.c:198
-#: ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:204
+#: ../libanjuta/anjuta-encodings.c:196 ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:204
 #: ../plugins/sourceview/anjuta-encodings.c:212
 #: ../plugins/sourceview/anjuta-encodings.c:214
 #: ../plugins/sourceview/anjuta-encodings.c:216
@@ -242,8 +225,7 @@ msgstr "Γεωργιανά"
 msgid "Cyrillic/Ukrainian"
 msgstr "Κυριλλικά/Ουκρανικά"
 
-#: ../libanjuta/anjuta-encodings.c:235
-#: ../libanjuta/anjuta-encodings.c:241
+#: ../libanjuta/anjuta-encodings.c:235 ../libanjuta/anjuta-encodings.c:241
 #: ../libanjuta/anjuta-encodings.c:260
 #: ../plugins/sourceview/anjuta-encodings.c:253
 #: ../plugins/sourceview/anjuta-encodings.c:259
@@ -257,100 +239,102 @@ msgid "Thai"
 msgstr "Ταϊλανδέζικα"
 
 #: ../libanjuta/anjuta-encodings.c:772
-#, fuzzy
 msgid "Stock Encodings"
-msgstr "Φάκελος κωδικοποιήσεων:"
+msgstr "Αποθήκευση κωδικοποιήσεων"
 
 #: ../libanjuta/anjuta-encodings.c:791
 msgid "Supported Encodings"
 msgstr "Υποστηριζόμενες κωδικοποιήσεις"
 
 #
-#: ../libanjuta/anjuta-launcher.c:1126
-#: ../libanjuta/resources.c:264
-#: ../libanjuta/resources.c:273
-#: ../plugins/devhelp/plugin.c:542
-#: ../plugins/devhelp/plugin.c:551
-#: ../plugins/gdb/utilities.c:280
+#: ../libanjuta/anjuta-launcher.c:1170 ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:542
+#: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr "Δεν μπορώ να εκετελέσω την εντολή: \"%s\""
+msgstr "Δεν μπορώ να εκτελέσω την εντολή: \"%s\""
 
 #
-#: ../libanjuta/anjuta-launcher.c:1127
-#, fuzzy
+#: ../libanjuta/anjuta-launcher.c:1171
 msgid "execvp failed"
-msgstr "Αφαίρεση αρχείου"
+msgstr "Το execvp απέτυχε"
 
-#: ../libanjuta/anjuta-plugin.c:327
-#: ../libanjuta/anjuta-plugin-manager.c:2215
-#, fuzzy
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
 msgid "Anjuta Shell"
-msgstr "Αναζήτηση βοήθειας Anjuta"
+msgstr "Κέλυφος του Anjuta"
 
 #: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
-msgstr ""
+msgstr "Το κέλυφος του anjuta που θα περιέχει την πρόσθετη λειτουργία"
 
 #: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message leading to this was:\n"
+"This usually means that your installation is corrupted. The error message "
+"leading to this was:\n"
 "%s"
 msgstr ""
+"Δεν ήταν δυνατή η φόρτωση του %s\n"
+"Αυτό συνήθως σημαίνει ότι η εγκατάστασή σας είναι κατεστραμμένη.Το μήνυμα "
+"σφάλματος που οδηγεί σε αυτό ήταν το εξής:\n"
+"%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
-#, fuzzy
 msgid "Load"
-msgstr "Φ_όρτωση"
+msgstr "Φόρτωση"
 
 #
 #: ../libanjuta/anjuta-plugin-manager.c:912
 #: ../libanjuta/anjuta-plugin-manager.c:1850
-#, fuzzy
 msgid "Available Plugins"
-msgstr "Λίστα μεταβλητών"
+msgstr "Διαθέσιμες πρόσθετες λειτουργίες"
 
 #  3
 #  4
-#: ../libanjuta/anjuta-plugin-manager.c:1025
-#: ../src/anjuta-app.c:829
-#, fuzzy
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:829
 msgid "Preferred plugins"
-msgstr "_Προτιμήσεις ..."
+msgstr "Προτιμώμενες πρόσθετες λειτουργίες"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1139
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "Προβολή μόνο των ενεργών από το χρήστη πρόσθετων λειτουργιών"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1186
-msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
+msgid ""
+"These are the plugins selected by you when Anjuta prompted to choose one of "
+"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
+"you again to choose different plugin."
 msgstr ""
+"Αυτές είναι οι πρόσθετες λειτουργίες που επιλέχτηκαν από εσάς όταν ζητήθηκε "
+"από το Anjuta να διαλέξει μία από τις πολλές κατάλληλες πρόσθετες "
+"λειτουργίες. Αν διαγράψετε τη προτιμώμενη πρόσθετη λειτουργία, αυτό θα "
+"αναγκάσει το Anjuta να σας ζητήσει ξανά να διαλέξετε διαφορετική πρόσθετη "
+"λειτουργία."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
 #: ../plugins/debug-manager/queue.c:558
-#, fuzzy
 msgid "Select a plugin"
-msgstr "Anjuta: %s"
+msgstr "Επιλογή μιας πρόσθετης λειτουργίας"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1449
 #: ../plugins/debug-manager/queue.c:559
 msgid "Please select a plugin to activate"
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε μια πρόσθετη λειτουργία για να την ενεργοποιήσετε"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
 msgid "No plugin able to load other plugins in %s"
 msgstr ""
+"Καμία πρόσθετη λειτουργία δεν μπορεί να φορτώσει άλλες πρόσθετες λειτουργίες "
+"στο %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1869
-#, fuzzy
 msgid "Remember this selection"
-msgstr "Διαγραφή αρχείου"
+msgstr "Απομνημόνευση αυτής της επιλογής"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2196
 msgid "Profiles"
@@ -358,55 +342,55 @@ msgstr "Προφίλ"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Current stack of profiles"
-msgstr ""
+msgstr "Τρέχουσα στοίβα με προφίλ"
 
 #
 #: ../libanjuta/anjuta-plugin-manager.c:2202
-#, fuzzy
 msgid "Available plugins"
-msgstr "Λίστα μεταβλητών"
+msgstr "Διαθέσιμες πρόσθετες λειτουργίες"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
+"Οι τρέχουσες διαθέσιμες πρόσθετες λειτουργίες που βρέθηκαν στα μονοπάτια των "
+"πρόσθετων λειτουργιών"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2209
-#, fuzzy
 msgid "Activated plugins"
-msgstr "Anjuta: %s"
+msgstr "Ενεργοποιημένες πρόσθετες λειτουργίες"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2210
-#, fuzzy
 msgid "Currently activated plugins"
-msgstr "Δεν είναι δυνατή η εκκίνηση πρόσθετης λειτουργίας %s"
+msgstr "Ενεργοποιημένες τρέχοντες πρόσθετες λειτουργίες"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta shell for which the plugins are"
-msgstr ""
+msgstr "Το κέλυφος του Anjuta με το οποίο σχετίζονται οι πρόσθετες λειτουργίες"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2224
-#, fuzzy
 msgid "Anjuta Status"
-msgstr "Συχνές Ερωτήσεις Anjuta"
+msgstr "Κατάσταση του Anjuta"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr ""
+"Η κατάσταση του Anjuta που χρησιμοποιείται στην φόρτωση και στην εκφόρτωση "
+"των πρόσθετων λειτουργιών"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2384
-#, fuzzy
 msgid "Loaded: "
-msgstr "Φ_όρτωση"
+msgstr "Φορτώθηκε:"
 
 #: ../libanjuta/anjuta-profile.c:214
-#, fuzzy
 msgid "Plugin Manager"
-msgstr "Διαχείρηση Διάταξης"
+msgstr "Διαχειριστής πρόσθετων λειτουργιών"
 
 #: ../libanjuta/anjuta-profile.c:215
 msgid "The plugin manager to use for resolving plugins"
 msgstr ""
+"Ο διαχειριστής πρόσθετων λειτουργιών που χρησιμοποιείται για επίλυση "
+"πρόσθετων λειτουργιών"
 
 #: ../libanjuta/anjuta-profile.c:223
 #, fuzzy
@@ -415,54 +399,54 @@ msgstr "Όνομα Έργου:"
 
 #: ../libanjuta/anjuta-profile.c:224
 msgid "Name of the plugin profile"
-msgstr ""
+msgstr "Το όνομα του προφίλ της πρόσθετης λειτουργίας"
 
 #: ../libanjuta/anjuta-profile.c:232
-#, fuzzy
 msgid "Profile Plugins"
-msgstr "Πρόσθετες επιλογές κατασκεύης:"
+msgstr "Πρόσθετες λειτουργίες προφίλ:"
 
 #: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
-msgstr ""
+msgstr "Λίστα με τις πρόσθετες λειτουργίες για αυτό το προφίλ"
 
 #: ../libanjuta/anjuta-profile.c:240
 msgid "Synchronization URI"
-msgstr ""
+msgstr "URI συγχρονισμού"
 
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the profile xml"
-msgstr ""
+msgstr "URI για το συγχρονισμό του προφίλ xml"
 
-#: ../libanjuta/anjuta-profile.c:512
-#: ../libanjuta/anjuta-profile.c:535
+#: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read '%s': %s"
-msgstr "Αδύνατη η φόρτωση Έργου: %s"
+msgstr "Αδυναμία ανάγνωσης '%s': %s"
 
 #: ../libanjuta/anjuta-profile.c:526
 #, c-format
 msgid "No read permission for: %s"
-msgstr ""
+msgstr "Δεν υπάρχει άδεια ανάγνωσης για το: %s"
 
-#: ../libanjuta/anjuta-profile.c:560
-#: ../libanjuta/anjuta-profile.c:570
-#, fuzzy, c-format
-msgid "Failed to read '%s': XML parse error"
-msgstr "Αδύνατη η φόρτωση Έργου: %s"
-
-#: ../libanjuta/anjuta-profile.c:581
-#: ../libanjuta/anjuta-profile.c:732
+#: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
-msgid "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins profile."
+msgid "Failed to read '%s': XML parse error"
+msgstr "Αποτυχία ανάγνωσης '%s': XML parse error"
+
+#: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
+#, c-format
+msgid ""
+"Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
+"profile."
 msgstr ""
+"Αποτυχία κατά την ανάγνωση του '%s': σφάλμα φόρτωσης του XML. Μη έγκυρο ή "
+"κατεστραμμένο προφίλ πρόσθετων λειτουργιών του anjuta."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:755
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "%s: Εγκατάστασή του από τη σελίδα '%s'\n"
 
 #: ../libanjuta/anjuta-profile.c:763
 #, c-format
@@ -470,6 +454,9 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
+"Αποτυχία κατά την ανάγνωση του '%s': Οι ακόλουθες απαραίτητες πρόσθετες "
+"λειτουργίες λείπουν:\n"
+"%s"
 
 #: ../libanjuta/anjuta-preferences.c:1432
 msgid ""
@@ -484,8 +471,7 @@ msgid "_Reset"
 msgstr "_Επαναφορά"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:101
-#: ../plugins/gtodo/interface.c:220
-#: ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:220 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Κατηγορία"
 
@@ -494,8 +480,7 @@ msgstr "Κατηγορία"
 #: ../libanjuta/anjuta-preferences-dialog.c:144
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
-#: ../plugins/valgrind/vggeneralprefs.c:172
-#: ../src/anjuta.glade.h:11
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:11
 #: ../src/anjuta-app.c:816
 msgid "General"
 msgstr "Γενικά"
@@ -531,14 +516,20 @@ msgstr "Στοιχείο"
 
 #: ../libanjuta/anjuta-save-prompt.c:210
 msgid "_Discard changes"
-msgstr ""
+msgstr "_Απόρριψη αλλαγών"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
-#, c-format
-msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+#, fuzzy, c-format
+msgid ""
+"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural ""
+"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
+"Το αρχείο '%s' δεν αποθηκεύτηκε.\n"
+"Θέλετε να το αποθηκεύσετε πριν το κλείσιμο του επεξεργαστή;"
 msgstr[1] ""
+"Το αρχείο '%s' δεν αποθηκεύτηκε.\n"
+"Θέλετε να το αποθηκεύσετε πριν το κλείσιμο του επεξεργαστή;"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 #, fuzzy
@@ -599,8 +590,7 @@ msgstr ""
 "Εγκαταστείστε το και ύστερα επανεκκινείστε το Anjuta."
 
 #
-#: ../libanjuta/anjuta-utils.c:792
-#: ../libanjuta/anjuta-utils.c:796
+#: ../libanjuta/anjuta-utils.c:792 ../libanjuta/anjuta-utils.c:796
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Αδυναμία εκτέλεσης εντολής: \"%s\" (χρήση κελύφους %s)\n"
@@ -629,8 +619,7 @@ msgstr "Το pixbuf για εμφάνιση"
 msgid "Widget not found: %s"
 msgstr "Το Widget δε βρέθηκε: %s"
 
-#: ../libanjuta/resources.c:76
-#: ../libanjuta/resources.c:98
+#: ../libanjuta/resources.c:76 ../libanjuta/resources.c:98
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Δε βρέθηκε αρχείο pixmap εφαρμογής: %s"
@@ -638,123 +627,144 @@ msgstr "Δε βρέθηκε αρχείο pixmap εφαρμογής: %s"
 #
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 #, fuzzy
+msgid "<b>Build Options:</b>"
+msgstr "Επιλογές"
+
+#
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+#, fuzzy
 msgid "<b>Build</b>"
 msgstr "Επιλογές"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+#
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+#, fuzzy
+msgid "<b>Configure Options:</b>"
+msgstr "Επιλογές"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 #, fuzzy
 msgid "<b>Scratchbox Options</b>"
 msgstr "Επιλογές εκτύπωσης"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 #, fuzzy
 msgid "<b>Select Program to run:</b>"
 msgstr "Επιλογές εκτύπωσης"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 msgid "Arguments:"
 msgstr "Ορίσματα:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 msgid "Highlight build message locations in editor"
-msgstr ""
+msgstr "Επισήμανση τοποθεσιών κατασκευής μηνυμάτων στον επεξεργαστή"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 #, fuzzy
 msgid "Install as root:"
 msgstr "Εγκατάσταση Έργου"
 
 #
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 #: ../plugins/document-manager/anjuta-docman.c:311
 msgid "Path:"
 msgstr "Διαδρομή:"
 
 #
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Εκτέλεση σε τερματικό"
 
 #
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 #, fuzzy
 msgid "Select Program"
 msgstr "Εκτέλεση Προγράμματος"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
+#, fuzzy
 msgid "Use scratchbox"
-msgstr ""
+msgstr "Χρήση αρχικού κουτιού"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
+msgid "gtk-apply"
+msgstr "gtk-εφαρμογή"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
+msgid "gtk-cancel"
+msgstr "gtk-ακύρωση"
 
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:563
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
 #, fuzzy, c-format
 msgid "make[%d]: Entering directory '%s'"
 msgstr "Κατάλογος εργασίας:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
 #, fuzzy, c-format
 msgid "make: Entering directory '%s'"
 msgstr "Κατάλογος εργασίας:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
-#, c-format
-msgid "make[%d]: Entering directory `%s'"
-msgstr ""
-
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:566
 #, c-format
-msgid "make: Entering directory `%s'"
-msgstr ""
+msgid "make[%d]: Entering directory `%s'"
+msgstr "make[%d]: Εισαγωγή στον κατάλογο `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:581
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:567
+#, c-format
+msgid "make: Entering directory `%s'"
+msgstr "make: Εισαγωγή στον κατάλογο `%s'"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:582
 #, fuzzy, c-format
 msgid "Entering: %s"
 msgstr "Κροάτικα"
 
 #. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:589
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
 #, fuzzy, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr "Κατάλογος εργασίας:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
 #, fuzzy, c-format
 msgid "make: Leaving directory '%s'"
 msgstr "Κατάλογος εργασίας:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
-msgstr ""
+msgstr "make[%d]: Έξοδος από τον κατάλογο `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:593
 #, fuzzy, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "Κατάλογος εργασίας:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:608
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:609
 #, fuzzy, c-format
 msgid "Leaving: %s"
 msgstr "Κροάτικα"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:640
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:641
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr "προειδοποίηση: "
 
 # sysdeps/names/fsusage.c:44 sysdeps/names/fsusage.c:53
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:762
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Συνολικός χρόνος που χρειάστηκε:%lu δευτερόλεπτα\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:767
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:768
 #, fuzzy
 msgid "Completed unsuccessful\n"
 msgstr "Ολοκληρώθηκε ... χωρίς επιτυχία\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:772
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:773
 #: ../plugins/tools/execute.c:513
 #, fuzzy
 msgid "Completed successful\n"
@@ -762,231 +772,262 @@ msgstr "Ολοκληρώθηκε ... με επιτυχία\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:826
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:827
 #, fuzzy, c-format
 msgid "Build %d: %s"
 msgstr "Εντολή κατασκευής:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
+"Δεν μπορεί να γίνει η μεταγλώττιση του \"%s\": Δεν καθορίστηκε κάποιος "
+"κανόνας μεταγλώττισης  για αυτό τον τύπο αρχείων."
 
+#
 #. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1097
-#, fuzzy
-msgid "Configure Parameters:"
-msgstr "Ρύθμιση Παραμέτρων"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1093
+msgid "Configure"
+msgstr "Ρύθμιση"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1407
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1583
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1127
+#, fuzzy
+msgid "Autogenerate"
+msgstr "_Αυτόματη δημιουργία ..."
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1413
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1441
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
 msgid "_Build"
 msgstr "_Κατασκευή"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
 #, fuzzy
 msgid "_Build Project"
 msgstr "Κατασκευή Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1310
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
 #, fuzzy
 msgid "Build whole project"
 msgstr "Κατασκευή ολόκληρου του Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1315
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
 #, fuzzy
 msgid "_Install Project"
 msgstr "Εγκατάσταση Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1316
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
 #, fuzzy
 msgid "Install whole project"
 msgstr "Εγκατάσταση Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
 #, fuzzy
 msgid "_Clean Project"
 msgstr "Κλείσιμο Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1322
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
 #, fuzzy
 msgid "Clean whole project"
 msgstr "Καθαρισμός όλων από το Έργο:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1327
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
 #, fuzzy
 msgid "Run C_onfigure..."
 msgstr "&Ρύθμιση ..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1328
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
 #, fuzzy
 msgid "Configure project"
 msgstr "Ρύθμιση Έργου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
 #, fuzzy
 msgid "Run _Autogenerate..."
 msgstr "_Αυτόματη δημιουργία ..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
 #, fuzzy
 msgid "Autogenerate project files"
 msgstr "Αρχεία έργου Anjuta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
 #, fuzzy
 msgid "Build _Tarball"
 msgstr "Κατασκευή _Όλων"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
 #, fuzzy
 msgid "Build project tarball distribution"
 msgstr "Κατασκευή Διανομής"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
 msgid "_Execute Program..."
 msgstr "_Εκτέλεση προγράμματος..."
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
 #, fuzzy
 msgid "Execute program"
 msgstr "Εκτέλεση Προγράμματος"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1351
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
 #, fuzzy
 msgid "_Build Module"
 msgstr "_Κατασκευή Αρχείου:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1352
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
 #, fuzzy
 msgid "Build module associated with current file"
-msgstr "Προσαρμογή των συντομεύσεων που συνδέονται με τα στοιχεία του καταλόγου"
+msgstr ""
+"Προσαρμογή των συντομεύσεων που συνδέονται με τα στοιχεία του καταλόγου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
 #, fuzzy
 msgid "_Install Module"
 msgstr "Ε_γκατάσταση"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
 #, fuzzy
 msgid "Install module associated with current file"
 msgstr "Εκτύπωση κατάστασης τρέχοντος αρχείου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1363
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1397
 #, fuzzy
 msgid "_Clean Module"
 msgstr "Καθαρισμός Όλων"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1364
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1398
 #, fuzzy
 msgid "Clean module associated with current file"
 msgstr "Μετονομασία του τρέχοντος αρχείου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1369
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1403
 #, fuzzy
 msgid "Co_mpile File"
 msgstr "Μεταγλώττιση"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1370
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1404
 #, fuzzy
 msgid "Compile current editor file"
 msgstr "Μεταγλώττιση τρέχοντος αρχείου πηγαίου κώδικα"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1383
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
 msgid "_Compile"
 msgstr "_Μεταγλώττιση"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1384
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
 #, fuzzy
 msgid "Compile file"
 msgstr "Ενσωμάτωση αρχείου"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
 #, fuzzy
 msgid "Build module"
 msgstr "Αρχεία Build"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1457
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1621
 msgid "_Install"
 msgstr "Ε_γκατάσταση"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1458
 #, fuzzy
 msgid "Install module"
 msgstr "Εγκατάσταση Έργου"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1435
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1463
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
 #, fuzzy
 msgid "_Clean"
 msgstr "Καθαρισμός"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1436
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1464
 #, fuzzy
 msgid "Clean module"
 msgstr "Καθαρισμός Όλων"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1595
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1629
 #, fuzzy
 msgid "Co_mpile"
 msgstr "Μεταγλώττιση"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1638
 #, fuzzy, c-format
 msgid "_Build (%s)"
 msgstr "_Κατασκευή"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1645
 #, fuzzy, c-format
 msgid "_Install (%s)"
 msgstr "Ε_γκατάσταση"
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1618
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1652
 #, fuzzy, c-format
 msgid "_Clean (%s)"
 msgstr "Καθαρισμός"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1659
 #, fuzzy, c-format
 msgid "Co_mpile (%s)"
 msgstr "Μεταγλώττιση"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2032
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
 #, fuzzy
 msgid "Build commands"
 msgstr "Εντολή κατασκευής:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2039
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2073
 #, fuzzy
 msgid "Build popup commands"
 msgstr "Εντολή κατασκευής:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2341
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2361
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2375
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2395
 #, fuzzy
 msgid "Build Autotools"
 msgstr "Επιλογές Κατασκευής"
+
+#: ../plugins/build-basic-autotools/build-options.c:41
+#: ../plugins/search/search_preferences.c:523
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid "Default"
+msgstr "Προεπιλεγμένο"
+
+#
+#. Action name
+#. Stock icon, if any
+#: ../plugins/build-basic-autotools/build-options.c:42
+#: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
+msgid "Debug"
+msgstr "Εκσφαλμάτωση"
+
+#: ../plugins/build-basic-autotools/build-options.c:43
+#, fuzzy
+msgid "Profiling"
+msgstr "Προφίλ"
+
+#: ../plugins/build-basic-autotools/build-options.c:44
+#, fuzzy
+msgid "Optimized"
+msgstr "Βελτιστοποίηση"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 #, fuzzy
@@ -1010,12 +1051,12 @@ msgstr "Το αρχείο %s δεν είναι τοπικό."
 #: ../plugins/build-basic-autotools/executer.c:310
 #, c-format
 msgid "Program '%s' does not exists"
-msgstr ""
+msgstr "Το πρόγραμμα '%s' δεν υπάρχει"
 
 #: ../plugins/build-basic-autotools/executer.c:318
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr ""
+msgstr "Το πρόγραμμα '%s' δεν έχει άδεια εκτέλεσής του"
 
 #: ../plugins/build-basic-autotools/executer.c:350
 msgid "No executable for this file."
@@ -1029,7 +1070,7 @@ msgstr "Το εκτελέσιμο δεν ενημερώθηκε."
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:132
 msgid "Fixed data-view"
-msgstr ""
+msgstr "Προβολή διορθωμένων δεδομένων"
 
 #
 #: ../plugins/class-inheritance/class-inherit.c:914
@@ -1045,7 +1086,7 @@ msgstr "Ενημέρωση όλων"
 
 #: ../plugins/class-inheritance/plugin.c:115
 msgid "Inheritance Graph"
-msgstr ""
+msgstr "Γράφημα κληρονομικότητας"
 
 #
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
@@ -1082,7 +1123,7 @@ msgstr "Συγγραφέας:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
 msgid "Author/Date-Time"
-msgstr ""
+msgstr "Συγγραφέας/ημερομηνία-χρόνος"
 
 #
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
@@ -1129,7 +1170,7 @@ msgstr "Κλάση GTK+"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "GObject Prefix and Type:"
-msgstr ""
+msgstr "Πρόθεμα του gobject και τύπος:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
 msgid ""
@@ -1137,6 +1178,9 @@ msgid ""
 "Lesser General Public License (LGPL)\n"
 "No License"
 msgstr ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"Καμία άδεια"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
@@ -1159,7 +1203,7 @@ msgstr "Άδεια χρήσης:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Member Functions/Variables"
-msgstr ""
+msgstr "Συναρτήσεις μελών/μεταβλητές"
 
 #
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
@@ -1180,55 +1224,58 @@ msgid "Source File:"
 msgstr "Αρχείο Πηγαίου Κώδικα C"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
+#, fuzzy
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "Επικεφαλίδες Source/Header:"
 
 #: ../plugins/class-gen/generator.c:132
 #, c-format
 msgid "Header or source file has not been created"
-msgstr ""
+msgstr "Η επικεφαλίδα του αρχείου ανοικτού κώδικα δεν έχει δημιουργηθεί"
 
 #: ../plugins/class-gen/generator.c:294
 msgid "Autogen template used for the header file"
-msgstr ""
+msgstr "Το πρότυπο autogen χρησιμοποιήθηκε στο αρχείο επικεφαλίδας"
 
 #: ../plugins/class-gen/generator.c:302
 #, fuzzy
 msgid "Autogen template used for the implementation file"
 msgstr "Φυλλομέτρηση για το όνομα αρχείου υλοποίησης."
 
-#: ../plugins/class-gen/generator.c:310
-#: ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
 msgid "File to which the processed template will be written"
-msgstr ""
+msgstr "Αρχείο στο οποίο το επεξεργασμένο πρότυπο θα εγγραφεί"
 
 #: ../plugins/class-gen/generator.c:402
 #, fuzzy, c-format
 msgid "Failed to write autogen definition file"
 msgstr "Είναι αδύνατη η δημιουργία του αρχείου: %s."
 
-#: ../plugins/class-gen/plugin.c:99
-#: ../plugins/project-wizard/druid.c:828
-msgid "Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"
+#: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:828
+msgid ""
+"Could not find autogen version 5, please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net"
 msgstr ""
+"Δεν ήταν δυνατή η εύρεση της έκδοσης 5 του autogen, παρακαλώ να "
+"εγκαταστήσετε το πακέτο autogen. Μπορείτε να το βρείτε στην σελίδα http://"
+"autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:259
-#: ../plugins/class-gen/plugin.c:413
+#: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:413
 #, fuzzy, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Δεν είναι δυνατή η εκκίνηση πρόσθετης λειτουργίας %s"
 
 #: ../plugins/class-gen/window.c:816
 msgid "XML description of the user interface"
-msgstr ""
+msgstr "Περιγραφή XML της διεπαφής του χρήστη"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 msgid "<b>CVS Options</b>"
-msgstr ""
+msgstr "<b>Ρυθμίσεις CVS</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "<b>Module Details:</b>"
-msgstr ""
+msgstr "<b>Λεπτομέρειες αρθρώματος:</b>"
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
@@ -1251,16 +1298,23 @@ msgstr "Επιλογές"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
+"<b>Παρακαλώ σημειώστε: </b>\n"
+"\n"
+"Αν πιέσετε το Εντάξει, τότε θα διαγραφεί το αρχείο από το δίσκο και από το "
+"CVS. Φυσικά το αρχείο δεν θα διαγραφεί από το CVS πριν χρησιμοποιήσετε το "
+"Σχόλιο CVS. <b>Έχετε μια προειδοποίηση!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
-msgstr ""
+msgstr "<b>Χώρος αποθήκευσης: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
 msgid "Be verbose"
-msgstr ""
+msgstr "Να γίνει περιφραστικό"
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
@@ -1275,7 +1329,7 @@ msgstr "CVS: Προσθήκη αρχείου"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "CVS: Commit file/directory"
-msgstr ""
+msgstr "CVS: Καταχώρηση αρχείου/καταλόγου"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 #, fuzzy
@@ -1303,7 +1357,7 @@ msgstr "CVS: Κατάσταση"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Status from file/directory"
-msgstr ""
+msgstr "CVS: Κατάσταση από αρχείο/κατάλογο"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 #, fuzzy
@@ -1334,11 +1388,11 @@ msgstr "Επιλέξτε καταλόγους"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to get log:"
-msgstr ""
+msgstr "Επιλογή αρχείου ή καταλόγου για τη λήψη της καταγραφής:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to get the status from:"
-msgstr ""
+msgstr "Επιλογή αρχείου ή καταλόγου για τη λήψη της κατάστασης από:"
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
@@ -1376,11 +1430,11 @@ msgstr "Αναζήτηση Αναδρομικά"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "File is binary"
-msgstr ""
+msgstr "Το αρχείο είναι δυαδικό"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Ignore .cvsrc file (recommended)"
-msgstr ""
+msgstr "Αγνόηση αρχείου .cvsrc (προτεινόμενο)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid ""
@@ -1388,16 +1442,17 @@ msgid ""
 "Extern (rsh)\n"
 "Password server (pserver)\n"
 msgstr ""
+"Τοπικό\n"
+"Εξωτερικό (rsh)\n"
+"Εξυπηρετητής κωδικών (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
-#, fuzzy
 msgid "Log message:"
-msgstr "Μήνυμα ημερολογίου: "
+msgstr "Μήνυμα αναφοράς: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
-#, fuzzy
 msgid "Module name:"
-msgstr "Όνομα αρθρώματος: "
+msgstr "Όνομα αρθρώματος:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 #: ../plugins/subversion/anjuta-subversion.glade.h:36
@@ -1406,21 +1461,19 @@ msgstr "Κωδικός:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
-msgstr ""
+msgstr "Μονοπάτι της εντολής \"cvs\""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
-#, fuzzy
 msgid "Project root directory:"
-msgstr "Μετάβαση στο γονικό κατάλογο"
+msgstr "Γονικός κατάλογος του έργου:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
-#, fuzzy
 msgid "Release tag:"
-msgstr "Όνομα έκδοσης: "
+msgstr "Απελευθέρωση ετικέτας:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
-msgstr ""
+msgstr "Επαναφορά καρφιτσωμένων ετικετών"
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
@@ -1435,20 +1488,18 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
-msgstr ""
+msgstr "Ενοποιημένη μορφή αντί για μορφή συμφραζομένων"
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
-#, fuzzy
 msgid "Use revision/tag: "
-msgstr "Αναθεώρηση: "
+msgstr "Χρήση αναθεώρησης/ετικέτας: "
 
 #
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-#, fuzzy
 msgid "Use revision: "
-msgstr "Αναθεώρηση: "
+msgstr "Χρήση αναθεώρησης: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
@@ -1456,60 +1507,53 @@ msgid "Username:"
 msgstr "Όνομα χρήστη:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
-#, fuzzy
 msgid "Vendor tag:"
-msgstr "Πωλητής ετικέτας: "
+msgstr "Ετικέτα πωλητή: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
 #: ../plugins/subversion/anjuta-subversion.glade.h:60
-#, fuzzy
 msgid "Whole project"
-msgstr "Έργο Xlib"
+msgstr "Ολόκληρο το έργο"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
 msgid "Please enter a filename!"
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα όνομα για το αρχείο!"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:61
-#, fuzzy, c-format
+#, c-format
 msgid "Please fill field: %s"
-msgstr "Κλείσιμο όλων των αρχείων"
+msgstr "Παρακαλώ συμπληρώστε το πεδίο: %s"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:81
-#, fuzzy
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr "Υπάρχουν εργασιες που τρέχουν, παρακαλώ περιμένετε όσπου να ολοκληρωθούν"
+msgstr ""
+"Η εντολή του CVS τρέχει, παρακαλώ περιμένετε μέχρι να έχει ολοκληρωθεί!"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:153
-#, fuzzy
 msgid "Unable to delete file"
-msgstr "Δεν είναι δυνατό να ολοκληρωθεί η αντιγραφή αρχείου"
+msgstr "Δεν είναι δυνατό να ολοκληρωθεί η διαγραφή αρχείου"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/subversion/subversion-commit-dialog.c:70
-#, fuzzy
 msgid "Are you sure that you want to pass an empty log message?"
-msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε όλα τα σημεία διακοπής;"
+msgstr "Είστε βέβαιος ότι θέλετε να διέρθετε από ένα κενό μήνυμα αναφοράς;"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:434
 msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:437
-#, fuzzy
 msgid "Module"
-msgstr "Μονάδες"
+msgstr "Άρθρωμα"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:440
-#, fuzzy
 msgid "Vendor"
-msgstr "Πωλητής ετικέτας: "
+msgstr "Πωλητής ετικέτας"
 
 #
 #: ../plugins/cvs-plugin/cvs-callbacks.c:443
-#, fuzzy
 msgid "Release"
-msgstr "Αντικατάσταση"
+msgstr "Απελευθέρωση"
 
 #
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
@@ -1518,35 +1562,32 @@ msgstr "Κατάλογος"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
 msgid "Are you sure that you do not want a log message?"
-msgstr ""
+msgstr "Είστε βέβαιος ότι δεν επιθυμείτε μήνυμα αναφοράς;"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed - See above for details"
-msgstr ""
+msgstr "Απέτυχε η εντολή CVS - Δείτε παραπάνω για λεπτομέρειες"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Επιτυχής εντολή CVS! - Χρόνος διάρκειας: %ld δευτερόλεπτο"
+msgstr[1] "Επιτυχής εντολή CVS! - Χρόνος διάρκειας: %ld δευτερόλεπτα"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:224
-#, fuzzy
 msgid "CVS command is running - please wait until it finishes!"
-msgstr "Υπάρχουν εργασιες που τρέχουν, παρακαλώ περιμένετε όσπου να ολοκληρωθούν"
+msgstr "Η εντολή του CVS τρέχει, παρακαλώ περιμένετε μέχρι να ολοκληρωθεί!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:232
-#: ../plugins/cvs-plugin/cvs-execute.c:236
-#: ../plugins/cvs-plugin/plugin.c:489
+#: ../plugins/cvs-plugin/cvs-execute.c:236 ../plugins/cvs-plugin/plugin.c:489
 #: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:45
-#: ../plugins/cvs-plugin/plugin.c:120
+#: ../plugins/cvs-plugin/plugin.c:45 ../plugins/cvs-plugin/plugin.c:120
 msgid "_CVS"
 msgstr "_CVS"
 
@@ -1561,44 +1602,38 @@ msgstr "_Προσθήκη"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:55
 msgid "Add a new file/directory to the CVS tree"
-msgstr ""
+msgstr "Προσθήκη νέου αρχείου/καταλόγου στο δέντρο του CVS"
 
 #
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:61
-#, fuzzy
 msgid "_Remove"
-msgstr "Αφαίρεση"
+msgstr "_Αφαίρεση"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:63
 msgid "Remove a file/directory from CVS tree"
-msgstr ""
+msgstr "Διαγραφή ενός αρχείου/καταλόγου από το δέντρο του CVS"
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:69
-#: ../plugins/cvs-plugin/plugin.c:128
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:69 ../plugins/cvs-plugin/plugin.c:128
 msgid "_Commit"
-msgstr "Ενσωμάτωση"
+msgstr "_Ενσωμάτωση"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:71
-#: ../plugins/cvs-plugin/plugin.c:130
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:71 ../plugins/cvs-plugin/plugin.c:130
 msgid "Commit your changes to the CVS tree"
-msgstr "Ενσωμάτωση αλλαγών στο χώρο απόθεσης"
+msgstr "Ενσωμάτωση αλλαγών στο δέντρο του CVS"
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:77
-#: ../plugins/cvs-plugin/plugin.c:136
+#: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:48
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
@@ -1606,53 +1641,43 @@ msgstr "Ε_νημέρωση"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:79
-#: ../plugins/cvs-plugin/plugin.c:138
+#: ../plugins/cvs-plugin/plugin.c:79 ../plugins/cvs-plugin/plugin.c:138
 msgid "Sync your local copy with the CVS tree"
-msgstr ""
+msgstr "Συγχρονισμός του τοπικού αντιγράφου σας με το δέντρο του CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:85
-#: ../plugins/cvs-plugin/plugin.c:144
+#: ../plugins/cvs-plugin/plugin.c:85 ../plugins/cvs-plugin/plugin.c:144
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:87
-#: ../plugins/cvs-plugin/plugin.c:146
+#: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "Show differences between your local copy and the tree"
-msgstr ""
+msgstr "Προβολή διαφορών μεταξύ του τοπικού σας αντιγράφου και του δέντρου"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:93
-#: ../plugins/cvs-plugin/plugin.c:152
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:93 ../plugins/cvs-plugin/plugin.c:152
 msgid "_Show Status"
-msgstr "Εμφάνιση κατάστασης"
+msgstr "_Εμφάνιση κατάστασης"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:95
-#: ../plugins/cvs-plugin/plugin.c:154
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:95 ../plugins/cvs-plugin/plugin.c:154
 msgid "Show the status of a file/directory"
-msgstr "Εκτύπωση κατάστασης του Έργου"
+msgstr "Προβολή κατάστασης αρχείου/καταλόγου"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:101
-#: ../plugins/cvs-plugin/plugin.c:160
-#, fuzzy
+#: ../plugins/cvs-plugin/plugin.c:101 ../plugins/cvs-plugin/plugin.c:160
 msgid "_Show Log"
-msgstr "Εμφάνιση ημερολογίου"
+msgstr "_Εμφάνιση ημερολογίου"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:103
-#: ../plugins/cvs-plugin/plugin.c:162
+#: ../plugins/cvs-plugin/plugin.c:103 ../plugins/cvs-plugin/plugin.c:162
 #, fuzzy
 msgid "Show the log of a file/directory"
 msgstr "Μετάβαση στην αρχική τοποθεσία"
@@ -1668,7 +1693,7 @@ msgstr "_Εισαγωγή Έργου"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:111
 msgid "Import a new source tree to CVS"
-msgstr ""
+msgstr "Εισαγωγή νέου πηγαίου δέντρου στο CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:350
 #, fuzzy
@@ -1698,19 +1723,18 @@ msgstr "Προσάρτηση στη διεργασία"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
 #: ../plugins/gdb/anjuta-gdb.glade.h:3
 msgid "Breakpoint properties"
-msgstr "Ιδιότητες Σημείου Διακοπής"
+msgstr "Ιδιότητες Breakpoint"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/debug-manager/breakpoints.c:1949
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
-msgstr "Σημεία Διακοπής"
+msgstr "Breakpoints"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
 #: ../plugins/gdb/anjuta-gdb.glade.h:5
-#, fuzzy
 msgid "CPU Registers"
-msgstr "Μητρώα Επεξεργαστών"
+msgstr "Μητρώα CPU"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:7
 #, fuzzy
@@ -1778,8 +1802,7 @@ msgstr "Επιθεώρηση/Αποτίμηση"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
 #: ../plugins/debug-manager/plugin.c:949
-#: ../plugins/debug-manager/plugin.c:1049
-#: ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:1049 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Σήματα πυρήνα"
 
@@ -1791,14 +1814,12 @@ msgid "Location"
 msgstr "Τοποθεσία"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/memory.c:178
-#: ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/debug-manager/memory.c:178 ../plugins/gdb/anjuta-gdb.glade.h:18
 msgid "Memory"
 msgstr "Μνήμη"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/signals.c:475
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/debug-manager/signals.c:475 ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
 msgstr "Πέρασμα:"
 
@@ -1835,8 +1856,7 @@ msgid "Select one directory"
 msgstr "Επιλογή καταλόγου"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
-#: ../plugins/debug-manager/signals.c:423
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/debug-manager/signals.c:423 ../plugins/gdb/anjuta-gdb.glade.h:24
 #, fuzzy
 msgid "Set Signal Property"
 msgstr "Ρύθμιση προταιρεότητας σήματος"
@@ -1866,7 +1886,7 @@ msgstr "Έ_ναρξη εκσφαλματωτή"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 msgid "Stop at beginning"
-msgstr ""
+msgstr "Τερματισμός στο ξεκίνημα"
 
 #
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
@@ -1878,8 +1898,7 @@ msgstr "Διακοπή:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
-#: ../plugins/debug-manager/signals.c:219
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
+#: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
 #: ../plugins/project-wizard/property.c:212
 msgid "Yes"
 msgstr "Ναι"
@@ -2101,8 +2120,9 @@ msgid "Condition"
 msgstr "Συνθήκη"
 
 #: ../plugins/debug-manager/breakpoints.c:1877
+#, fuzzy
 msgid "Pass count"
-msgstr ""
+msgstr "Πέρασμα μετρητή"
 
 #
 #: ../plugins/debug-manager/breakpoints.c:1877
@@ -2124,15 +2144,13 @@ msgid "_Goto address"
 msgstr "Προσθήκη Έκφρασης"
 
 #
-#: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/tools/editor.c:457
+#: ../plugins/debug-manager/debug_tree.c:126 ../plugins/tools/editor.c:457
 msgid "Variable"
 msgstr "Μεταβλητή"
 
 #
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/debug-manager/registers.c:464
-#: ../plugins/tools/editor.c:463
+#: ../plugins/debug-manager/registers.c:464 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "Τιμή"
 
@@ -2142,8 +2160,7 @@ msgid "Disassembly"
 msgstr "Απενερ_γοποίηση όλων"
 
 #
-#: ../plugins/debug-manager/info.c:52
-#: ../plugins/debug-manager/info.c:101
+#: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #, fuzzy
 msgid "Information"
 msgstr "Πληροφορίες"
@@ -2165,12 +2182,9 @@ msgid "Debugger Log"
 msgstr "Επιλογές μηνυμάτων"
 
 #
-#: ../plugins/debug-manager/plugin.c:386
-#: ../plugins/debug-manager/plugin.c:415
-#: ../plugins/debug-manager/plugin.c:435
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:502
-#: ../plugins/debug-manager/plugin.c:537
+#: ../plugins/debug-manager/plugin.c:386 ../plugins/debug-manager/plugin.c:415
+#: ../plugins/debug-manager/plugin.c:435 ../plugins/debug-manager/plugin.c:457
+#: ../plugins/debug-manager/plugin.c:502 ../plugins/debug-manager/plugin.c:537
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 #, fuzzy
 msgid "Debugger"
@@ -2205,17 +2219,16 @@ msgstr "Unicode"
 #: ../plugins/debug-manager/plugin.c:543
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
-msgstr ""
+msgstr "Ο βοηθός αποσφαλμάτωσης τερματίστηκε με σφάλμα %d: %s\n"
 
 #: ../plugins/debug-manager/plugin.c:556
 #, c-format
 msgid "Program has received signal: %s\n"
-msgstr ""
+msgstr "Το πρόγραμμα έχει λάβει το σήμα: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:833
-#: ../plugins/valgrind/plugin.c:437
+#: ../plugins/debug-manager/plugin.c:833 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "_Εκσφαλμάτωση"
 
@@ -2288,7 +2301,7 @@ msgstr "Επιλογές μηνυμάτων"
 #: ../plugins/debug-manager/plugin.c:895
 #: ../plugins/debug-manager/plugin.c:1003
 msgid "Custom debugger command"
-msgstr ""
+msgstr "Προσαρμοσμένη εντολή βοηθού αποσφαλμάτωσης"
 
 #
 #: ../plugins/debug-manager/plugin.c:901
@@ -2305,7 +2318,8 @@ msgstr "Info _Αρχεία Στόχων"
 #: ../plugins/debug-manager/plugin.c:911
 #, fuzzy
 msgid "Display information on the files the debugger is active with"
-msgstr "Εμφάνιση πληροφοριών για τα αρχεία με τα οποία ο εκσφαλματωτής είναι ενεργός"
+msgstr ""
+"Εμφάνιση πληροφοριών για τα αρχεία με τα οποία ο εκσφαλματωτής είναι ενεργός"
 
 #: ../plugins/debug-manager/plugin.c:917
 #, fuzzy
@@ -2449,8 +2463,11 @@ msgstr "Επιλογές μηνυμάτων"
 
 #: ../plugins/debug-manager/queue.c:545
 #, c-format
-msgid "Unable to find one debugger plugin supporting a target with %s mime type"
+msgid ""
+"Unable to find one debugger plugin supporting a target with %s mime type"
 msgstr ""
+"Αδύνατη η εύρεση πρόσθετης λειτουργίας βοηθού αποσφαλμάτωσης που να "
+"υποστηρίζει ένα στόχο με τύπο mime %s"
 
 #: ../plugins/debug-manager/registers.c:457
 #, fuzzy
@@ -2516,8 +2533,7 @@ msgid "Stop"
 msgstr "Διακοπή"
 
 #
-#: ../plugins/debug-manager/signals.c:340
-#: ../plugins/editor/print.c:1031
+#: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1031
 msgid "Print"
 msgstr "Εκτύπωση"
 
@@ -2555,7 +2571,7 @@ msgstr "Εμφάνιση/Απόκρυψη περιθωρίου δεικτών"
 
 #: ../plugins/debug-manager/sparse_view.c:1204
 msgid "Whether to display line marker pixbufs"
-msgstr ""
+msgstr "Αν θα εμφανίζονται σημάνσεις γραμμής"
 
 #
 #. Action name
@@ -2584,8 +2600,7 @@ msgstr "Πλαίσιο"
 #
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:447
-#: ../src/anjuta-app.c:615
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:615
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Αρχείο"
@@ -2648,18 +2663,16 @@ msgstr "Δεν είναι δυνατή η εκτέλεση: %s."
 msgid "Unable to open the file: %s\n"
 msgstr "Δεν είναι δυνατό το άνοιγμα του αρχείου: %s\n"
 
-#: ../plugins/debug-manager/start.c:903
-#: ../plugins/debug-manager/start.c:1191
+#: ../plugins/debug-manager/start.c:903 ../plugins/debug-manager/start.c:1191
 #, fuzzy, c-format
 msgid "Missing file %s"
 msgstr "Κατασκευή αρχείου: %s ...\n"
 
 #: ../plugins/debug-manager/start.c:1024
 msgid "Load Target to debug"
-msgstr ""
+msgstr "Φόρτωση στόχου για αποσφαλμάτωση"
 
-#: ../plugins/debug-manager/start.c:1032
-#: ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
@@ -2669,8 +2682,7 @@ msgstr "Όλα τα αρχεία"
 msgid "Path"
 msgstr "Επίρραμμα"
 
-#: ../plugins/debug-manager/start.c:1260
-#: ../plugins/gdb/debugger.c:1639
+#: ../plugins/debug-manager/start.c:1260 ../plugins/gdb/debugger.c:1639
 #, fuzzy
 msgid ""
 "The program is running.\n"
@@ -2752,8 +2764,7 @@ msgstr "Αφαίρεση όλων"
 msgid "Automatic update"
 msgstr "Αυτόματο"
 
-#: ../plugins/debug-manager/watch.c:462
-#: ../plugins/debug-manager/watch.c:468
+#: ../plugins/debug-manager/watch.c:462 ../plugins/debug-manager/watch.c:468
 #, fuzzy
 msgid "Watch operations"
 msgstr "Διάφορες επιλογές"
@@ -2769,10 +2780,8 @@ msgstr "Παρατηρητές"
 msgid "Search Help:"
 msgstr "Αναζήτηση Σε:"
 
-#: ../plugins/devhelp/plugin.c:230
-#: ../plugins/document-manager/plugin.c:257
-#: ../plugins/message-view/plugin.c:68
-#: ../plugins/symbol-browser/plugin.c:263
+#: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:257
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 #, fuzzy
 msgid "_Goto"
 msgstr "_Μετάβαση"
@@ -2839,8 +2848,7 @@ msgstr "Διάφορες επιλογές"
 msgid "Books"
 msgstr "Σελιδοδείκτης"
 
-#: ../plugins/devhelp/plugin.c:378
-#: ../plugins/search/search-replace.c:1008
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1008
 #: ../plugins/search/search-replace.c:1690
 #: ../plugins/search/search-replace.c:1697
 #: ../plugins/search/search-replace.c:1709
@@ -2850,8 +2858,7 @@ msgid "Search"
 msgstr "Αναζήτηση"
 
 #
-#: ../plugins/devhelp/plugin.c:383
-#: ../src/anjuta-app.c:632
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:632
 msgid "Help"
 msgstr "Βοήθεια"
 
@@ -2871,8 +2878,7 @@ msgstr ""
 
 #
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:340
-#: ../plugins/sourceview/sourceview.c:215
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:216
 msgid "_Reload"
 msgstr "_Επαναφόρτωση"
 
@@ -2881,22 +2887,19 @@ msgstr "_Επαναφόρτωση"
 msgid "Close file"
 msgstr "Κλείσιμο αρχείου"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
-#: ../plugins/file-loader/plugin.c:507
-#: ../plugins/file-loader/plugin.c:770
-#: ../plugins/file-loader/plugin.c:780
-#: ../plugins/file-loader/plugin.c:793
+#: ../plugins/document-manager/anjuta-docman.c:422
+#: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
+#: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Άνοιγμα αρχείου"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Αποθήκευση αρχείου ως"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
-#: ../plugins/file-wizard/file.c:240
-#: ../plugins/valgrind/plugin.c:375
+#: ../plugins/document-manager/anjuta-docman.c:520
+#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2906,9 +2909,8 @@ msgstr ""
 "Θέλετε να το αντικαταστήσετε με αυτό που αποθηκεύετε:"
 
 #
-#: ../plugins/document-manager/anjuta-docman.c:533
-#: ../plugins/file-wizard/file.c:248
-#: ../plugins/valgrind/plugin.c:383
+#: ../plugins/document-manager/anjuta-docman.c:528
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Αντικατάσταση"
 
@@ -2942,8 +2944,8 @@ msgstr "Μην εμφανίσεις τις στηλοθετήσεις "
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 #: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:2115
+#: ../plugins/document-manager/plugin.c:2126
 msgid "Documents"
 msgstr "Έγγραφα"
 
@@ -3294,8 +3296,7 @@ msgstr "Μετάβαση στον επόμενο κατάλογο"
 msgid "Goto next history"
 msgstr "Μετάβαση στον επόμενο κατάλογο"
 
-#: ../plugins/document-manager/plugin.c:279
-#: ../plugins/search/plugin.c:193
+#: ../plugins/document-manager/plugin.c:279 ../plugins/search/plugin.c:193
 msgid "_Search"
 msgstr "_Αναζήτηση"
 
@@ -3306,7 +3307,7 @@ msgstr "Βασική Αναζήτηση και Αντικατάσταση"
 
 #: ../plugins/document-manager/plugin.c:281
 msgid "Quick editor embedded search"
-msgstr ""
+msgstr "Ενσωματωμένη αναζήτηση με γρήγορο επεξεργαστή"
 
 #: ../plugins/document-manager/plugin.c:283
 #, fuzzy
@@ -3315,15 +3316,13 @@ msgstr "Βασική Αναζήτηση και Αντικατάσταση"
 
 #: ../plugins/document-manager/plugin.c:284
 msgid "Repeat quick search"
-msgstr ""
+msgstr "Επανάληψη της γρήγορης αναζήτησης"
 
 #
-#: ../plugins/document-manager/plugin.c:289
-#: ../plugins/gtodo/interface.c:164
+#: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
-#: ../plugins/valgrind/vgrule-list.c:405
-#: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1714
 msgid "_Edit"
 msgstr "Ε_πεξεργασία"
 
@@ -3368,7 +3367,7 @@ msgstr "Αναίρεση της τελευταίας ενέργειας"
 #
 #: ../plugins/document-manager/plugin.c:306
 msgid "_Redo"
-msgstr "_Επανάληψη"
+msgstr "Α_κύρωση αναίρεσης"
 
 #
 #: ../plugins/document-manager/plugin.c:307
@@ -3382,7 +3381,8 @@ msgstr "Αποκο_πή"
 
 #: ../plugins/document-manager/plugin.c:310
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "Αποκοπή του επιλεγμένου κειμένου και μετακίνησή του στο πρόχειρο (clipboard)"
+msgstr ""
+"Αποκοπή του επιλεγμένου κειμένου και μετακίνησή του στο πρόχειρο (clipboard)"
 
 #
 #: ../plugins/document-manager/plugin.c:312
@@ -3485,7 +3485,7 @@ msgstr "Μεγέθυνση"
 
 #: ../plugins/document-manager/plugin.c:355
 msgid "Zoom in: Increase font size"
-msgstr ""
+msgstr "Μεγέθυνση: Αύξηση του μεγέθους της γραμματοσειράς"
 
 #: ../plugins/document-manager/plugin.c:357
 msgid "Zoom Out"
@@ -3493,7 +3493,7 @@ msgstr "Σμίκρυνση"
 
 #: ../plugins/document-manager/plugin.c:358
 msgid "Zoom out: Decrease font size"
-msgstr ""
+msgstr "Σμίκρυνση: Μείωση του μεγέθους της γραμματοσειράς"
 
 #: ../plugins/document-manager/plugin.c:363
 #, fuzzy
@@ -3524,7 +3524,7 @@ msgstr "_Μετάπτωση Τρέχουσας Αναδίπλωσης"
 #
 #: ../plugins/document-manager/plugin.c:374
 msgid "Toggle current code fold in the editor"
-msgstr "Μετάπτωση τρέχουσας αναδίπλωσης κώδικα στον επεξεργαστή"
+msgstr "Εναλλαγή τρέχουσας αναδίπλωσης κώδικα στον επεξεργαστή"
 
 #: ../plugins/document-manager/plugin.c:379
 msgid "Bookmar_k"
@@ -3537,7 +3537,7 @@ msgstr "Μετάπτωση Σελιδοδείκτη"
 
 #: ../plugins/document-manager/plugin.c:381
 msgid "Toggle a bookmark at the current line position"
-msgstr "Μετάπτωση σελιδοδείκτη στη τρέχουσα θέση γραμμής"
+msgstr "Εναλλαγή σελιδοδείκτη στη τρέχουσα θέση γραμμής"
 
 #: ../plugins/document-manager/plugin.c:383
 #, fuzzy
@@ -3609,7 +3609,7 @@ msgstr "Σφάλμα στην λήψη επιλογής\n"
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
 #: ../plugins/document-manager/plugin.c:420
 msgid "Editor code commenting"
-msgstr ""
+msgstr "Σχολιασμός επεξεργαστή κώδικα"
 
 #: ../plugins/document-manager/plugin.c:421
 #, fuzzy
@@ -3623,7 +3623,7 @@ msgstr "Επιλογές εκτύπωσης"
 
 #: ../plugins/document-manager/plugin.c:423
 msgid "Editor zoom operations"
-msgstr ""
+msgstr "Λειτουργίες επεξεργαστή ζουμ"
 
 #: ../plugins/document-manager/plugin.c:424
 #, fuzzy
@@ -3715,11 +3715,16 @@ msgstr "Α_υτόματη Συμπλήρωση"
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
 msgstr ""
+"Η αναζήτηση για  το \"%s\" έφτασε στο τέλος της και συνεχίστηκε στην κορυφή."
 
 #: ../plugins/document-manager/search-box.c:391
 #, c-format
-msgid "Search for \"%s\" reached end and was continued on top but no new match was found."
+msgid ""
+"Search for \"%s\" reached end and was continued on top but no new match was "
+"found."
 msgstr ""
+"Η αναζήτηση για  το \"%s\" έφτασε στο τέλος της και συνεχίστηκε στην κορυφή "
+"αλλά κανένα ταίριασμα δεν βρέθηκε."
 
 #: ../plugins/document-manager/search-box.c:448
 #, fuzzy
@@ -3848,7 +3853,7 @@ msgstr "Σχεδίασε γραμμή κάτω από τις πτυσσόμεν�
 #. Column where a vertical line will be drawn to indicate that lines should not be longer
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
 msgid "Edge column"
-msgstr ""
+msgstr "Στήλη άκρων"
 
 #
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:28
@@ -3912,7 +3917,7 @@ msgstr "Γραμματοσειρά:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:41
 msgid "Fonts and colors for editor"
-msgstr ""
+msgstr "Γραμματοσειρές και χρώματος για τον επεξεργαστή"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:42
 #, fuzzy
@@ -3952,15 +3957,15 @@ msgstr "Ενεργοποίησε αυτόματη ενδοπαραγραφοπο
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
-msgstr ""
+msgstr "Ορατή δίπλωση περιθωρίων"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
-msgstr ""
+msgstr "Ορατό περιθώριο Linenum"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
 msgid "Margin Marker visible"
-msgstr ""
+msgstr "Ορατή σήμανση περιθωρίου"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
@@ -3977,6 +3982,10 @@ msgid ""
 "Circular\n"
 "Squares"
 msgstr ""
+"Συν/Μείον\n"
+"Βέλη\n"
+"Κυκλικό\n"
+"Τετράγωνα"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
 #, fuzzy
@@ -4033,7 +4042,7 @@ msgstr "Χρήση παραθέσεων για ενδοπαραγραφοποί�
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View EOL chars"
-msgstr ""
+msgstr "Προβολή χαρακτήρων EOL"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
 #, fuzzy
@@ -4079,8 +4088,7 @@ msgid "File: %s"
 msgstr "Αρχείο: %s"
 
 #
-#: ../plugins/editor/print.c:872
-#: ../plugins/editor/print.c:884
+#: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 msgid "Printing..."
 msgstr "Εκτύπωση..."
 
@@ -4088,14 +4096,12 @@ msgstr "Εκτύπωση..."
 msgid "Print Preview"
 msgstr "Προεπισκόπηση Εκτύπωσης"
 
-#: ../plugins/editor/plugin.c:121
-#: ../plugins/editor/plugin.c:133
+#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
-msgstr ""
+msgstr "Επεξεργαστή scintilla"
 
-#: ../plugins/editor/text_editor.c:326
-#: ../plugins/sourceview/sourceview.c:201
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:202
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4115,7 +4121,9 @@ msgstr "Δεν αποθηκεύτηκε το αρχείο: %s."
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1350
 msgid "This file is too big. Unable to allocate memory."
-msgstr "Tο αρχείο αυτό είναι πολύ μεγάλο σε μέγεθος. Είναι αδύνατος ο καταμερισμός μνήμης."
+msgstr ""
+"Tο αρχείο αυτό είναι πολύ μεγάλο σε μέγεθος. Είναι αδύνατος ο καταμερισμός "
+"μνήμης."
 
 #: ../plugins/editor/text_editor.c:1357
 #, fuzzy
@@ -4129,8 +4137,15 @@ msgid "Error while reading from file"
 msgstr "Σφάλμα Εγγραφής στο αρχείο: %s."
 
 #: ../plugins/editor/text_editor.c:1411
-msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
-msgstr "Το αρχείο δεν μοιάζει με αρχείο κειμένου είτε ή κωδικοποίηση αρχείου δεν υποστηείζεται. Παρακαλώ ελέγξτε αν η κωδικοποίηση του αρχείου περιλαμβάνεται στο κατάλογο των κωδικοποιήσεων που υποστηρίζονται. Αν όχι, προσθέστε την από τις προτιμήσεις. "
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+"Το αρχείο δεν μοιάζει με αρχείο κειμένου είτε ή κωδικοποίηση αρχείου δεν "
+"υποστηείζεται. Παρακαλώ ελέγξτε αν η κωδικοποίηση του αρχείου περιλαμβάνεται "
+"στο κατάλογο των κωδικοποιήσεων που υποστηρίζονται. Αν όχι, προσθέστε την "
+"από τις προτιμήσεις. "
 
 #: ../plugins/editor/text_editor.c:1576
 #, fuzzy
@@ -4200,12 +4215,22 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
+"<b>Αδύνατο το άνοιγμα \"%s\"</b>.\n"
+"\n"
+"Δεν υπάρχει πρόσθετη λειτουργία, προεπιλεγμένη ενέργεια ή ρυθμισμένη "
+"εφαρμογή για το χειρισμό αυτού του τύπου αρχείου.\n"
+"\n"
+"Τύπος mime: %s.\n"
+"\n"
+"Καλύτερα διαλέξτε να προσπαθήσετε να το ανοίξετε με τις επόμενες πρόσθετες "
+"λειτουργίες ή εφαρμογές."
 
 #
 #: ../plugins/file-loader/plugin.c:164
@@ -4293,25 +4318,21 @@ msgid "_Open..."
 msgstr "Ά_νοιγμα..."
 
 #
-#: ../plugins/file-loader/plugin.c:779
-#: ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:779 ../plugins/file-loader/plugin.c:792
 msgid "_Open"
 msgstr "Ά_νοιγμα"
 
 #
-#: ../plugins/file-loader/plugin.c:786
-#: ../plugins/file-loader/plugin.c:799
+#: ../plugins/file-loader/plugin.c:786 ../plugins/file-loader/plugin.c:799
 msgid "Open _With"
 msgstr "Άνοιγμα _με"
 
 #
-#: ../plugins/file-loader/plugin.c:787
-#: ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:787 ../plugins/file-loader/plugin.c:800
 msgid "Open with"
 msgstr "Άνοιγμα με"
 
-#: ../plugins/file-loader/plugin.c:1115
-#: ../plugins/file-loader/plugin.c:1121
+#: ../plugins/file-loader/plugin.c:1115 ../plugins/file-loader/plugin.c:1121
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 #, fuzzy
 msgid "File Loader"
@@ -4352,7 +4373,7 @@ msgstr "Αυτόματη αποθήκευση"
 
 #: ../plugins/file-manager/file-manager.glade.h:3
 msgid "Choose Directory to show if no project is open"
-msgstr ""
+msgstr "Επιλογή καταλόγου προς εμφάνιση όταν κανένα έργο δεν είναι ανοικτό"
 
 #: ../plugins/file-manager/file-manager.glade.h:4
 #, fuzzy
@@ -4370,7 +4391,7 @@ msgstr "Μην εμφανίσεις τα κρυφά αρχεία"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
 msgid "Root directory if no project is open:"
-msgstr ""
+msgstr "Ο γονικός κατάλογος αν κανένα έργο δεν είναι ανοικτό:"
 
 #: ../plugins/file-manager/file-model.c:148
 #: ../plugins/symbol-browser/an_symbol_view.c:873
@@ -4379,22 +4400,21 @@ msgid "Loading..."
 msgstr "Φόρτωση αρχείου ..."
 
 #
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
 #
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 #, fuzzy
 msgid "Base uri"
 msgstr "Βαλτική"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr ""
 
-#: ../plugins/file-manager/plugin.c:72
-#: ../plugins/project-manager/plugin.c:753
+#: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
 #: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "_Ανανέωση"
@@ -4415,8 +4435,7 @@ msgstr "Επιλογές μεταγλωτtιστή και εκδότη συνδ�
 msgid "Files"
 msgstr "Αρχεία"
 
-#: ../plugins/file-manager/plugin.c:363
-#: ../plugins/file-manager/plugin.c:372
+#: ../plugins/file-manager/plugin.c:363 ../plugins/file-manager/plugin.c:372
 msgid "File Manager"
 msgstr "Διαχειριστής αρχείων"
 
@@ -4443,7 +4462,7 @@ msgstr "Προσθήκη στο Έργο"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
 msgid "Create corresponding header file"
-msgstr ""
+msgstr "Δημιουργία αντίστοιχου αρχείου επικεφαλίδας"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid ""
@@ -4466,11 +4485,11 @@ msgstr "Νέο αρχείο"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "Type:"
-msgstr ""
+msgstr "Τύπος:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Use Template for the Header file"
-msgstr ""
+msgstr "Χρήση προτύπου για το αρχείο επικεφαλίδας"
 
 #: ../plugins/file-wizard/file.c:82
 #, fuzzy
@@ -4515,12 +4534,12 @@ msgstr "Άλλο"
 #: ../plugins/file-wizard/file.c:107
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "General Public License (GPL)"
-msgstr ""
+msgstr "General Public License (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Lesser General Public License (LGPL)"
-msgstr ""
+msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/file-wizard/file.c:176
 msgid "Unable to build user interface for New File"
@@ -4553,8 +4572,7 @@ msgstr "Εκτέλεση σε τερματικό"
 msgid "_Pass:"
 msgstr "_Πέρασμα:"
 
-#: ../plugins/gdb/debugger.c:689
-#: ../plugins/gdb/debugger.c:891
+#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
 msgid "Loading Executable: "
 msgstr "Φόρτωση εκτελέσιμου: "
 
@@ -4586,7 +4604,9 @@ msgstr "Δεν καθορίστηκαν εκτελέσιμα\n"
 #: ../plugins/gdb/debugger.c:903
 #, fuzzy
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Άνοιξε ένα εκτελέσιμο ή επισύναψέ το σε μια διεργασία για να ξεκινήσει η εκσφαλμάτωση.\n"
+msgstr ""
+"Άνοιξε ένα εκτελέσιμο ή επισύναψέ το σε μια διεργασία για να ξεκινήσει η "
+"εκσφαλμάτωση.\n"
 
 #: ../plugins/gdb/debugger.c:912
 #, fuzzy
@@ -4599,12 +4619,12 @@ msgstr "Βεβαιωθείτε ότι το'gdb' είναι εγκατεστημ�
 
 #: ../plugins/gdb/debugger.c:1207
 msgid "Program exited normally\n"
-msgstr ""
+msgstr "Το πρόγραμμα τερματίστηκε κανονικά\n"
 
 #: ../plugins/gdb/debugger.c:1218
 #, c-format
 msgid "Program exited with error code %s\n"
-msgstr ""
+msgstr "Το πρόγραμμα τερματίστηκε με κώδικα σφάλματος %s\n"
 
 #. The program has reached one breakpoint and will stop
 #: ../plugins/gdb/debugger.c:1233
@@ -4619,7 +4639,7 @@ msgstr "Συναρτήσεις"
 
 #: ../plugins/gdb/debugger.c:1248
 msgid "Stepping finished\n"
-msgstr ""
+msgstr "Ο βηματισμός τελείωσε\n"
 
 #: ../plugins/gdb/debugger.c:1254
 msgid "Location reached\n"
@@ -4688,25 +4708,20 @@ msgid "Error whilst signaling the process."
 msgstr "Σφάλμα whlist σηματοδοτεί τη διεργασία."
 
 #: ../plugins/gdb/plugin.c:102
-msgid "Anjuta terminal plugin is not installed. The program will be run without a terminal."
+msgid ""
+"Anjuta terminal plugin is not installed. The program will be run without a "
+"terminal."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid "Failed to create fifo file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
 msgstr "Αδυναμία εκκίνησης τερματικού για εκσφαλμάτωση."
-
-#
-#. Action name
-#. Stock icon, if any
-#: ../plugins/gdb/utilities.c:295
-#: ../plugins/profiler/plugin.c:727
-msgid "Debug"
-msgstr "Εκσφαλμάτωση"
 
 #
 #: ../plugins/glade/plugin.c:505
@@ -4765,8 +4780,7 @@ msgid "Edit Item"
 msgstr "Επεξεργασία"
 
 #
-#: ../plugins/gtodo/add_edit_item.c:144
-#: ../plugins/gtodo/add_edit_item.c:145
+#: ../plugins/gtodo/add_edit_item.c:144 ../plugins/gtodo/add_edit_item.c:145
 #: ../plugins/gtodo/list_tooltip.c:42
 msgid "Summary:"
 msgstr "Περίληψη:"
@@ -4777,57 +4791,48 @@ msgstr "Περίληψη:"
 msgid "Category:"
 msgstr "Κατηγορία:"
 
-#: ../plugins/gtodo/add_edit_item.c:184
-#: ../plugins/gtodo/add_edit_item.c:467
-#: ../plugins/gtodo/mcategory.c:20
-#: ../plugins/gtodo/todo_db.c:70
+#: ../plugins/gtodo/add_edit_item.c:184 ../plugins/gtodo/add_edit_item.c:467
+#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:70
 #: ../plugins/gtodo/todo_db.c:71
 #, fuzzy
 msgid "Edit Categories"
 msgstr "Κατηγορία"
 
-#: ../plugins/gtodo/add_edit_item.c:195
-#: ../plugins/gtodo/list_tooltip.c:48
+#: ../plugins/gtodo/add_edit_item.c:195 ../plugins/gtodo/list_tooltip.c:48
 #: ../plugins/gtodo/list_tooltip.c:54
 msgid "Due date:"
 msgstr "Ημερομηνία λήξης:"
 
 #: ../plugins/gtodo/add_edit_item.c:214
 msgid "Notify when due"
-msgstr ""
+msgstr "Προειδοποίηση κατά τη λήξη"
 
 #
 #. label
-#: ../plugins/gtodo/add_edit_item.c:227
-#: ../plugins/gtodo/list_tooltip.c:64
-#: ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:227 ../plugins/gtodo/list_tooltip.c:64
+#: ../plugins/gtodo/list_tooltip.c:71 ../plugins/gtodo/list_tooltip.c:77
 msgid "Priority:"
 msgstr "Προτεραιότητα:"
 
 #
-#: ../plugins/gtodo/add_edit_item.c:239
-#: ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:239 ../plugins/gtodo/list_tooltip.c:77
 #: ../plugins/gtodo/todo_db.c:132
 msgid "High"
 msgstr "Υψηλό"
 
-#: ../plugins/gtodo/add_edit_item.c:241
-#: ../plugins/gtodo/list_tooltip.c:71
+#: ../plugins/gtodo/add_edit_item.c:241 ../plugins/gtodo/list_tooltip.c:71
 #: ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
 msgstr "Μεσαίο"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:243
-#: ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:243 ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:130
 msgid "Low"
 msgstr "Χαμηλό"
 
 #
-#: ../plugins/gtodo/add_edit_item.c:254
-#: ../plugins/gtodo/add_edit_item.c:255
+#: ../plugins/gtodo/add_edit_item.c:254 ../plugins/gtodo/add_edit_item.c:255
 #: ../plugins/gtodo/list_tooltip.c:81
 msgid "Comment:"
 msgstr "Σχόλιο:"
@@ -4836,23 +4841,19 @@ msgstr "Σχόλιο:"
 msgid "Completed"
 msgstr "Ολοκληρώθηκε"
 
-#: ../plugins/gtodo/add_edit_item.c:285
-#: ../plugins/gtodo/add_edit_item.c:331
+#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:331
 #: ../plugins/gtodo/add_edit_item.c:444
 msgid "started:"
 msgstr "Ξεκίνησε:"
 
-#: ../plugins/gtodo/add_edit_item.c:285
-#: ../plugins/gtodo/add_edit_item.c:292
-#: ../plugins/gtodo/add_edit_item.c:328
-#: ../plugins/gtodo/add_edit_item.c:329
+#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:292
+#: ../plugins/gtodo/add_edit_item.c:328 ../plugins/gtodo/add_edit_item.c:329
 #, c-format
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 #
-#: ../plugins/gtodo/add_edit_item.c:292
-#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:292 ../plugins/gtodo/add_edit_item.c:335
 #: ../plugins/gtodo/add_edit_item.c:444
 #, fuzzy
 msgid "stopped:"
@@ -4860,7 +4861,7 @@ msgstr "Διακοπή:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
-msgstr ""
+msgstr "Πρέπει να επιλέξετε ένα ολόκληρο αντικείμενο πριν διαγράψετε αυτό"
 
 #: ../plugins/gtodo/callback.c:20
 #, fuzzy
@@ -4868,8 +4869,7 @@ msgid "Are you sure you want to remove the selected todo item?"
 msgstr "Θέλετε πραγματικά να διαγράψετε το εργαλείο '%s';"
 
 #
-#: ../plugins/gtodo/callback.c:20
-#: ../plugins/gtodo/callback.c:100
+#: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:100
 msgid "Remove"
 msgstr "Αφαίρεση"
 
@@ -4880,7 +4880,9 @@ msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετ�
 
 #: ../plugins/gtodo/callback.c:98
 #, fuzzy, c-format
-msgid "Are you sure you want to remove all the completed todo items in the category \"%s\"?"
+msgid ""
+"Are you sure you want to remove all the completed todo items in the category "
+"\"%s\"?"
 msgstr ""
 "Θέλετε σίγουρα την αφαίρεση του στοιχείου\n"
 "'%s' από το Έργο;"
@@ -4890,8 +4892,7 @@ msgid "Export to"
 msgstr "Εξαγωγή σε"
 
 #
-#: ../plugins/gtodo/interface.c:34
-#: ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_Προβολή"
 
@@ -4917,13 +4918,12 @@ msgstr "Περίληψη"
 #: ../plugins/gtodo/libgtodo.c:609
 #, c-format
 msgid "No permission to read the file."
-msgstr ""
+msgstr "Δεν έχετε άδεια για την ανάγνωση του αρχείου."
 
-#: ../plugins/gtodo/libgtodo.c:636
-#: ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
 #, c-format
 msgid "Failed to parse xml structure"
-msgstr ""
+msgstr "Αποτυχία κατά τη φόρτωση της κατασκευής xml"
 
 #: ../plugins/gtodo/libgtodo.c:654
 #, fuzzy, c-format
@@ -4947,7 +4947,7 @@ msgstr "Άνοιγμα αρχείου"
 #: ../plugins/gtodo/libgtodo.c:759
 #, c-format
 msgid "No Gtodo Client to save."
-msgstr ""
+msgstr "Δεν υπάρχει πελάτης Gtodo για να αποθηκευτεί."
 
 #
 #: ../plugins/gtodo/libgtodo.c:778
@@ -4974,6 +4974,7 @@ msgstr "Δεν βρέθηκαν αρχεία προς μετονομασία."
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr ""
+"Όταν αφαιρείτε την κατηγορία \"%s\", όλα τα αντικείμενα που περιέχει χάνονται"
 
 #: ../plugins/gtodo/mcategory.c:146
 #, fuzzy
@@ -4983,18 +4984,18 @@ msgstr "Διαγραφή αρχείου"
 #: ../plugins/gtodo/mcategory.c:173
 #, c-format
 msgid "<New category (%d)>"
-msgstr ""
+msgstr "<Νέα κατηγορία (%d)>"
 
 #: ../plugins/gtodo/notification.c:67
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Το ακόλουθο αντικείμενο λήγει σε %i λεπτό:"
+msgstr[1] "Το ακόλουθο αντικείμενο λήγει σε %i λεπτά:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
-msgstr ""
+msgstr "Το ακόλουθο αντικείμενο λήγει:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:116
@@ -5009,27 +5010,27 @@ msgstr "_Πέρασμα:"
 
 #: ../plugins/gtodo/plugin.c:73
 msgid "Hide _Completed Items"
-msgstr ""
+msgstr "Απόκρυψη _ολοκληρωμένων αντικειμένων"
 
 #: ../plugins/gtodo/plugin.c:75
 msgid "Hide completed todo items"
-msgstr ""
+msgstr "Απόκρυψη ολοκληρωμένων προς υλοποίηση αντικειμένων"
 
 #: ../plugins/gtodo/plugin.c:82
 msgid "Hide Items Past _Due Date"
-msgstr ""
+msgstr "Απόκρυψη _ληγμένων αντικειμένων"
 
 #: ../plugins/gtodo/plugin.c:84
 msgid "Hide items that are past due date"
-msgstr ""
+msgstr "Απόκρυψη αντικειμένων που έχουν ήδη λήξει"
 
 #: ../plugins/gtodo/plugin.c:91
 msgid "Hide Items Without _End Date"
-msgstr ""
+msgstr "Απόκρυψη αντικειμένων χωρίς η_μερομηνία λήξης"
 
 #: ../plugins/gtodo/plugin.c:93
 msgid "Hide items without an end date"
-msgstr ""
+msgstr "Απόκρυψη αντικειμένων χωρίς ημερομηνία λήξης"
 
 #: ../plugins/gtodo/plugin.c:162
 #, fuzzy
@@ -5045,8 +5046,7 @@ msgstr "Διαχείρηση Makefiles από:"
 msgid "Tasks"
 msgstr "Εργασίες"
 
-#: ../plugins/gtodo/plugin.c:282
-#: ../plugins/gtodo/plugin.c:291
+#: ../plugins/gtodo/plugin.c:282 ../plugins/gtodo/plugin.c:291
 #, fuzzy
 msgid "Todo Manager"
 msgstr "Διαχείρηση Διάταξης"
@@ -5073,44 +5073,42 @@ msgstr "Εμφάνιση παραθύρου αποτύπωσης μνήμης"
 
 #: ../plugins/gtodo/preferences.c:104
 msgid "Show priority column"
-msgstr ""
+msgstr "προβολή στήλης προτεραιότητας"
 
 #: ../plugins/gtodo/preferences.c:109
 msgid "Tooltips in list"
-msgstr ""
+msgstr "Συμβουλές σε λίστα"
 
-#: ../plugins/gtodo/preferences.c:120
-#: ../plugins/gtodo/preferences.c:122
+#: ../plugins/gtodo/preferences.c:120 ../plugins/gtodo/preferences.c:122
 #, fuzzy
 msgid "Show in main window"
 msgstr "Εμφάνιση παραθύρου Σελιδοδεικτών"
 
-#: ../plugins/gtodo/preferences.c:133
-#: ../plugins/gtodo/preferences.c:135
+#: ../plugins/gtodo/preferences.c:133 ../plugins/gtodo/preferences.c:135
 msgid "Highlight"
 msgstr "Επισήμανση"
 
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
 msgid "Items that are due today"
-msgstr ""
+msgstr "Αντικείμενα που λήγουν σήμερα"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:151
 msgid "Items that are past due"
-msgstr ""
+msgstr "Αντικείμενα που έχουν ήδη λήξει"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Αντικείμενα που λήγουν την επόμενη %i ημέρα"
+msgstr[1] "Αντικείμενα που λήγουν στις επόμενες %i ημέρες"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
-msgstr ""
+msgstr "Διάφορα"
 
 #: ../plugins/gtodo/preferences.c:174
 #, fuzzy
@@ -5119,19 +5117,17 @@ msgstr "Η αυτόματη μορφοποίηση ολοκληρώθηκε"
 
 #: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
-msgstr ""
+msgstr "Εκκαθάριση αντικειμένων μετά από"
 
 #: ../plugins/gtodo/preferences.c:183
 msgid "days."
 msgstr "ημέρες."
 
-#: ../plugins/gtodo/preferences.c:196
-#: ../plugins/gtodo/preferences.c:198
+#: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
-msgstr ""
+msgstr "Αυτόματη εκκαθάριση"
 
-#: ../plugins/gtodo/preferences.c:210
-#: ../plugins/gtodo/preferences.c:212
+#: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
 msgstr "Ειδοποίηση"
 
@@ -5140,19 +5136,21 @@ msgstr "Ειδοποίηση"
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
 msgstr[0] ""
-msgstr[1] ""
+"Να επιτρέπεται στα αντικείμενα προς υλοποίηση να με ειδοποιούν όταν λήγουν "
+"στο %i λεπτόΝα επιτρέπεται στα αντικείμενα προς υλοποίηση να με ειδοποιούν "
+"όταν λήγουν σε %i λεπτά"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
-msgstr ""
+msgstr "Προβολή ειδοποιητικών μηνυμάτων πλαισίου"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
-msgstr ""
+msgstr "Άνοιγμα μιας λίστα εργασιών"
 
 #: ../plugins/gtodo/tasklists.c:30
 msgid "Create a Task List"
-msgstr ""
+msgstr "Δημιουργία μιας λίστα εργασιών"
 
 #: ../plugins/gtodo/todo_db.c:165
 #, fuzzy
@@ -5170,7 +5168,7 @@ msgstr "/Α_πόκρυψη"
 
 #: ../plugins/gtodo/tray-icon.c:24
 msgid "/_Show"
-msgstr ""
+msgstr "/_Προβολή"
 
 #
 #: ../plugins/gtodo/tray-icon.c:26
@@ -5179,8 +5177,7 @@ msgid "/_Quit"
 msgstr "έ/ξοδος"
 
 #
-#: ../plugins/gtodo/tray-icon.c:74
-#: ../plugins/gtodo/tray-icon.c:132
+#: ../plugins/gtodo/tray-icon.c:74 ../plugins/gtodo/tray-icon.c:132
 #, fuzzy
 msgid "Todo List"
 msgstr "Επεξεργαστής εργαλείων"
@@ -5188,15 +5185,15 @@ msgstr "Επεξεργαστής εργαλείων"
 #. setup the tray icon
 #: ../plugins/gtodo/tray-icon.c:281
 msgid "Todo List Manager"
-msgstr ""
+msgstr "Διαχειριστής λίστας υπό υλοποίηση"
 
 #: ../plugins/macro/anjuta-macro.glade.h:1
 msgid "<b>Macro details:</b>"
-msgstr ""
+msgstr "<b>Λεπτομέρειες μακροεντολών:</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro text:</b>"
-msgstr ""
+msgstr "<b>Κείμενο με μακροεντολές:</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:3
 #, fuzzy
@@ -5218,25 +5215,25 @@ msgstr ""
 
 #: ../plugins/macro/macro-actions.c:133
 msgid "Press shortcut"
-msgstr ""
+msgstr "Πιέστε τη συντόμευση"
 
-#: ../plugins/macro/macro-db.c:245
+#: ../plugins/macro/macro-db.c:254
 #, fuzzy
 msgid "Anjuta macros"
 msgstr "Συχνές Ερωτήσεις Anjuta"
 
-#: ../plugins/macro/macro-db.c:249
+#: ../plugins/macro/macro-db.c:258
 #, fuzzy
 msgid "My macros"
 msgstr "Μακροεντολές"
 
 #
-#: ../plugins/macro/macro-dialog.c:260
+#: ../plugins/macro/macro-dialog.c:267
 #, fuzzy
 msgid "Insert macro"
 msgstr "Μείω. ενδοπαραγράφου"
 
-#: ../plugins/macro/macro-edit.c:195
+#: ../plugins/macro/macro-edit.c:204
 msgid "Add/Edit macro"
 msgstr ""
 
@@ -5350,7 +5347,7 @@ msgstr "Προειδοποιητικό μήνυμα στυλ ενδείκτη:"
 msgid "Warnings:"
 msgstr "Προειδοποιήσεις"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 #, fuzzy
 msgid "Close all message tabs"
 msgstr "Κανονικά μηνύματα:"
@@ -5367,8 +5364,7 @@ msgid "Icon"
 msgstr "Εικονίδιο"
 
 #: ../plugins/message-view/message-view.c:728
-#: ../plugins/message-view/plugin.c:215
-#: ../plugins/message-view/plugin.c:393
+#: ../plugins/message-view/plugin.c:215 ../plugins/message-view/plugin.c:393
 #: ../plugins/message-view/plugin.c:405
 msgid "Messages"
 msgstr "Μηνύματα"
@@ -5443,7 +5439,9 @@ msgstr "Κάνει επίρραμμα...\n"
 #: ../plugins/patch/patch-plugin.c:168
 #, fuzzy
 msgid "There are unfinished jobs, please wait until they are finished."
-msgstr "Ορισμένες εργασίες δεν έχουν ολοκληρωθεί, παρακαλώ περιμένετε ώσπου να ολοκληρωθούν"
+msgstr ""
+"Ορισμένες εργασίες δεν έχουν ολοκληρωθεί, παρακαλώ περιμένετε ώσπου να "
+"ολοκληρωθούν"
 
 #: ../plugins/patch/patch-plugin.c:210
 msgid ""
@@ -5463,8 +5461,7 @@ msgstr ""
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55
-#: ../plugins/tools/plugin.c:135
+#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:135
 #, fuzzy
 msgid "_Tools"
 msgstr "Εργαλείο"
@@ -5557,13 +5554,13 @@ msgstr ""
 msgid ""
 "This target does not have any profiling data.\n"
 "\n"
-"Please ensure that the target is complied with profiling support and that it is run at least once."
+"Please ensure that the target is complied with profiling support and that it "
+"is run at least once."
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:735
-#: ../plugins/profiler/plugin.c:854
+#: ../plugins/profiler/plugin.c:735 ../plugins/profiler/plugin.c:854
 #: ../plugins/profiler/profiler.plugin.in.h:3
 #, fuzzy
 msgid "Profiler"
@@ -5597,8 +5594,7 @@ msgstr ""
 msgid "Flat Profile"
 msgstr "Αρχείο δεδομένων"
 
-#: ../plugins/profiler/plugin.c:836
-#: ../plugins/profiler/profiler.glade.h:7
+#: ../plugins/profiler/plugin.c:836 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
 msgstr ""
 
@@ -5613,7 +5609,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:1
 msgid "<b>Called By</b>"
-msgstr ""
+msgstr "<b>Κλήθηκε από</b>"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:2
 #, fuzzy
@@ -5649,7 +5645,7 @@ msgstr "Διάφορες επιλογές"
 
 #: ../plugins/profiler/profiler.glade.h:5
 msgid "Automatically refresh profile data display"
-msgstr ""
+msgstr "Αυτόματη ανανέωση προβολής των δεδομένων των προφίλ"
 
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
@@ -5748,7 +5744,10 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:98
 #, c-format
-msgid "Could not find a valid project backend for the directory given (%s). Please select a different directory, or try upgrading to a newer version of the Gnome Build Framework."
+msgid ""
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:120
@@ -5760,7 +5759,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:306
-msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up to date."
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
@@ -5772,7 +5773,9 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:370
 #, c-format
-msgid "A file named \"%s\" cannot be written: %s.  Check if you have write access to the project directory."
+msgid ""
+"A file named \"%s\" cannot be written: %s.  Check if you have write access "
+"to the project directory."
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:343
@@ -5936,7 +5939,7 @@ msgstr "Κλείσιμο Έργου"
 
 #: ../plugins/project-manager/plugin.c:782
 msgid "Properties of group/target/source"
-msgstr ""
+msgstr "Ιδιότητες ομάδας/στόχου/πηγής"
 
 #: ../plugins/project-manager/plugin.c:787
 #, fuzzy
@@ -5982,7 +5985,9 @@ msgstr "Αποθήκευση Έργου ...\n"
 
 #: ../plugins/project-manager/plugin.c:1176
 #, c-format
-msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+msgid ""
+"Failed to parse project (the project is opened, but there will be no project "
+"view) %s: %s\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:1196
@@ -6067,7 +6072,11 @@ msgstr "Τύπος έργου"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 #, fuzzy
-msgid "The Application Assistent will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
+msgid ""
+"The Application Assistent will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
 msgstr ""
 "Ο αυτόματος Οδηγός της Εφαρμογής θα δημιουργήσει \n"
 "ένα βασικό σκελετό για έργο, συμπεριλαμβανομένων όλων \n"
@@ -6113,8 +6122,12 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:512
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
 msgstr ""
+"Ο κατάλογος  \"%s\" δεν είναι κενός. Η δημιουργία έργων ίσως αποτύχει αν "
+"κάποια αρχεία δεν μπορούν να εγγραφούν. Θέλετε να συνεχίσετε;"
 
 #: ../plugins/project-wizard/druid.c:514
 #, fuzzy, c-format
@@ -6133,35 +6146,34 @@ msgstr "Το έργο αποθηκεύτηκε με επιτυχία"
 
 #: ../plugins/project-wizard/install.c:394
 msgid "New project creation has failed."
-msgstr ""
+msgstr "Η δημιουργία νέας εργασίας απέτυχε."
 
 #: ../plugins/project-wizard/install.c:440
 #, c-format
 msgid "Skipping %s: file already exists"
-msgstr ""
+msgstr "Παράβλεψη του %s: το αρχείο υπάρχει ήδη"
 
 #: ../plugins/project-wizard/install.c:481
 #, c-format
 msgid "Creating %s ... Fail to create directory"
-msgstr ""
+msgstr "Δημιουργία του %s ... Αποτυχία κατά τη δημιουργία καταλόγου"
 
 #: ../plugins/project-wizard/install.c:497
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s (using AutoGen)... %s"
-msgstr "Επίρραμμα του %s με χρήση %s\n"
+msgstr "Δημιουργία του %s (με χρήση του Autogen)... %s"
 
 #: ../plugins/project-wizard/install.c:502
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s ... %s"
-msgstr "Κροάτικα"
+msgstr "Δημιουργία των %s ... %s"
 
 #: ../plugins/project-wizard/install.c:544
-#, fuzzy
 msgid "Executing: "
-msgstr "Ε_κτέλεση"
+msgstr "Γίνεται εκτέλεση:"
 
 #
-#: ../plugins/project-wizard/plugin.c:150
+#: ../plugins/project-wizard/plugin.c:157
 #, fuzzy
 msgid "New Project Assistent"
 msgstr "Oδηγός Εισαγωγής Έργου"
@@ -6181,11 +6193,11 @@ msgstr "Επιλογή εικονιδίου"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
-msgstr ""
+msgstr "Προσθήκη υποστήριξης για C++:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
-msgstr ""
+msgstr "Προσθήκη συστήματος gtk-doc:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 #, fuzzy
@@ -6206,7 +6218,9 @@ msgid "Adds support for building shared libraries in your project"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-msgid "Adds support for internationalization so that your project can have translations in different languages"
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
@@ -6216,10 +6230,12 @@ msgstr "Βασικές Πληροφορίες"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr ""
+msgstr "Berkeley Software Distribution License (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
-msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
@@ -6234,7 +6250,7 @@ msgstr "Ρύθμιση Παραμέτρων"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Create a template glade interface file"
-msgstr ""
+msgstr "Δημιουργία ενός πρότυπου αρχείο διεπαφής του glade"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:15
 #, fuzzy
@@ -6243,11 +6259,11 @@ msgstr "Είναι αδύνατη η κατασκευή διεπιφάνειας
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Display description of the plugin"
-msgstr ""
+msgstr "Προβολή της περιγραφής της πρόσθετης λειτουργίας"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Display title of the plugin"
-msgstr ""
+msgstr "Προβολή του τίτλου της πρόσθετης λειτουργίας"
 
 #
 #: ../plugins/project-wizard/templates/translatable-strings.h:19
@@ -6262,6 +6278,7 @@ msgstr "Ηλ. Διεύθυνση:"
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
+"Το gcj χρειάζεται να γνωρίζει ποια κλάση περιέχει την κύρια συνάρτηση ()"
 
 #
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
@@ -6270,8 +6287,14 @@ msgid "General Project Information"
 msgstr " Πληροφορίες Έργου "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
+"Δώστε ένα όνομα πακέτου που το έργο σας απαιτεί. Μπορεί επίσης να σας "
+"υπενθυμίζεται ποια είναι η απαιτούμενη έκδοση για το πακέτο σας. Για "
+"παράδειγμα, το 'libgnomeui-2.0' ή το 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 #, fuzzy
@@ -6280,7 +6303,7 @@ msgstr "Προσφατα αρχεία:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon file for the plugin"
-msgstr ""
+msgstr "Αρχείο εικονιδίου για την πρόσθετη λειτουργία"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Implement plugin interfaces"
@@ -6310,11 +6333,11 @@ msgstr "Σελίδες man"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Mininum SDL version required"
-msgstr ""
+msgstr "Η ελάχιστη απαιτούμενη έκδοση SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Name of the value to watch"
-msgstr ""
+msgstr "Όνομα της τιμής που θα προβληθεί"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:36
 #, fuzzy
@@ -6323,7 +6346,7 @@ msgstr "Γραμμή"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Options for project build system"
-msgstr ""
+msgstr "Επιλογές για την κατασκευή έργου του συστήματος"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 #, fuzzy
@@ -6332,7 +6355,7 @@ msgstr "Όνομα κλάσης: "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Plugin Dependencies:"
-msgstr ""
+msgstr "Εξαρτήσεις της πρόσθετης λειτουργίας:"
 
 #
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
@@ -6342,7 +6365,7 @@ msgstr "Περιγραφή:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Plugin Title:"
-msgstr ""
+msgstr "Τίτλος πρόσθετης λειτουργίας:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 #, fuzzy
@@ -6351,15 +6374,16 @@ msgstr "Όνομα κλάσης: "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin has menus or/and toolbars"
-msgstr ""
+msgstr "Η πρόσθετη λειτουργία περιέχει μενού ή/και γραμμές εργαλείων"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
+#, fuzzy
 msgid "Plugin interfaces to implement"
-msgstr ""
+msgstr "Διεπαφές πρόσθετων λειτουργιών  "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Project directory, output file etc."
-msgstr ""
+msgstr "Ο κατάλογος του έργου, το αρχείο εξόδου κλπ."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 #, fuzzy
@@ -6367,8 +6391,12 @@ msgid "Project directory:"
 msgstr "Μετάβαση στο γονικό κατάλογο"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
 msgstr ""
+"Το όνομα του έργου δεν πρέπει να περιέχει κενά, επειδή αυτό θα είναι το "
+"όνομα του κατασκευασμένου στόχου του έργου (εκτελέσιμο, βιβλιοθήκη κλπ.)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 #, fuzzy
@@ -6383,51 +6411,51 @@ msgstr "Prj/Ιδιότητες"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Require Package:"
-msgstr ""
+msgstr "Απαίτηση του πακέτου:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Require SDL version:"
-msgstr ""
+msgstr "Απαίτηση της έκδοσης SDL:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Require SDL_gfx library"
-msgstr ""
+msgstr "Απαίτηση της βιβλιοθήκης SDL-gfx"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Require SDL_gfx:"
-msgstr ""
+msgstr "Απαίτηση της SDL-gfx:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Require SDL_image library"
-msgstr ""
+msgstr "Απαίτηση της βιβλιοθήκης SDL-image"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Require SDL_image:"
-msgstr ""
+msgstr "Απαίτηση της SDL-image:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Require SDL_mixer library"
-msgstr ""
+msgstr "Απαίτηση της βιβλιοθήκης SDL-mixer"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Require SDL_mixer:"
-msgstr ""
+msgstr "Απαίτηση της SDL-mixer:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Require SDL_net library"
-msgstr ""
+msgstr "Απαίτηση της βιβλιοθήκης SDL-net"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Require SDL_net:"
-msgstr ""
+msgstr "Απαίτηση της SDL-net:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Require SDL_ttf library"
-msgstr ""
+msgstr "Απαίτηση της βιβλιοθήκης SDL-ttf"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Require SDL_ttf:"
-msgstr ""
+msgstr "Απαίτηση της SDL-ttf:"
 
 #
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
@@ -6437,7 +6465,7 @@ msgstr "Επιλέξτε Μπλόκ Κωδικού"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Shell values to watch"
-msgstr ""
+msgstr "Οι τιμές του κέλυφου που θα προβληθούν"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Use libglade for the UI"
@@ -6448,7 +6476,8 @@ msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
+msgid ""
+"Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
@@ -6475,30 +6504,26 @@ msgstr "Όνομα έργου"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/sample1/plugin.c:56
-#, fuzzy
 msgid "_Sample action"
-msgstr "Παράδειγμα πρόσθετης λειτουργίας"
+msgstr "_Παράδειγμα ενέργειας"
 
 #. Display label
 #. short-cut
 #: ../plugins/sample1/plugin.c:58
-#, fuzzy
 msgid "Sample action"
-msgstr "Παράδειγμα πρόσθετης λειτουργίας"
+msgstr "Παράδειγμα ενέργειας"
 
 #: ../plugins/sample1/plugin.c:79
-#, fuzzy
 msgid "Sample file operations"
-msgstr "Επιλογές μεταγλωτtιστή και εκδότη συνδέσμων"
+msgstr "Παράδειγμα λειτουργιών αρχείων"
 
 #: ../plugins/sample1/plugin.c:85
-#, fuzzy
 msgid "SamplePlugin"
 msgstr "Παράδειγμα πρόσθετης λειτουργίας"
 
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "<b>Actions</b>"
-msgstr ""
+msgstr "<b>Ενέργειες</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:2
 #, fuzzy
@@ -6507,7 +6532,7 @@ msgstr "Φίλτρο Αρχείου"
 
 #: ../plugins/search/anjuta-search.glade.h:4
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Παράμετροι</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:5
 msgid "<b>Scope</b>"
@@ -6561,9 +6586,8 @@ msgstr "Μπροστά"
 #. radio buttons on another page
 #: ../plugins/search/anjuta-search.glade.h:16
 #: ../plugins/search/search-replace.c:93
-#, fuzzy
 msgid "Full Buffer"
-msgstr "Αντιμνήμη πλήρης "
+msgstr "Ενδιάμεση μνήμη πλήρης "
 
 #: ../plugins/search/anjuta-search.glade.h:17
 #, fuzzy
@@ -6605,9 +6629,8 @@ msgid "Match complete words"
 msgstr "Ταίριαξε ολόκληρες λέξεις"
 
 #: ../plugins/search/anjuta-search.glade.h:26
-#, fuzzy
 msgid "Maximum Actions"
-msgstr "Μέγιστες Ενέργειες"
+msgstr "Μέγιστες ενέργειες"
 
 #
 #: ../plugins/search/anjuta-search.glade.h:27
@@ -6681,32 +6704,29 @@ msgid "Find _Next"
 msgstr "Εύρεση Επο_μένου"
 
 #
-#: ../plugins/search/plugin.c:198
-#: ../plugins/search/plugin.c:202
-#, fuzzy
+#: ../plugins/search/plugin.c:198 ../plugins/search/plugin.c:202
 msgid "Repeat the last Find command"
-msgstr "Επανάληψη της ενέργειας που έχει ακυρωθεί."
+msgstr "Επανάληψη της τελευταίας εντολής αναζήτησης"
 
 #: ../plugins/search/plugin.c:200
-#, fuzzy
 msgid "Find _Previous"
-msgstr "Αναζήτηση Προηγουμένου"
+msgstr "Αναζήτηση _προηγούμενου"
 
 #: ../plugins/search/plugin.c:204
-#, fuzzy
 msgid "Find and R_eplace..."
-msgstr "Αναζήτηση και Α_ντικατάσταση ..."
+msgstr "Αναζήτηση και α_ντικατάσταση..."
 
 #
 #: ../plugins/search/plugin.c:206
-msgid "Search for and replace a string or regular expression with another string"
-msgstr "Αναζήτηση και αντικατάσταση αλφαριθμητικού ή κανονικής έκφρασης με άλλο αλφαριθμητικό"
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr ""
+"Αναζήτηση και αντικατάσταση αλφαριθμητικού ή κανονικής έκφρασης με άλλο "
+"αλφαριθμητικό"
 
-#: ../plugins/search/plugin.c:208
-#: ../plugins/search/plugin.c:209
-#, fuzzy
+#: ../plugins/search/plugin.c:208 ../plugins/search/plugin.c:209
 msgid "Search and Replace"
-msgstr "Εύρεση και αντικατάσταση κειμένου"
+msgstr "Αναζήτηση και αντικατάσταση"
 
 #: ../plugins/search/plugin.c:211
 msgid "Fin_d in Files..."
@@ -6742,11 +6762,6 @@ msgstr "Κάνει επίρραμμα...\n"
 #: ../plugins/search/search_preferences.c:44
 msgid "Basic Search"
 msgstr "Βασική αναζήτηση"
-
-#: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
-msgid "Default"
-msgstr "Προεπιλεγμένο"
 
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
@@ -6798,7 +6813,7 @@ msgstr ""
 
 #: ../plugins/search/search-replace.c:114
 msgid "Mark all matches"
-msgstr ""
+msgstr "Σήμανση όλων των ταιριασμάτων"
 
 #: ../plugins/search/search-replace.c:115
 msgid "List matches in find pane"
@@ -6860,7 +6875,8 @@ msgstr[1] "%d αποτελέσματα της αναζήτησης έχουν α
 
 #: ../plugins/search/search-replace.c:1264
 msgid "Unable to build user interface for Search And Replace"
-msgstr "Είναι αδύνατη η κατασκευή διεπιφάνειας χρήστη για Αναζήτηση Και Αντικατάσταση"
+msgstr ""
+"Είναι αδύνατη η κατασκευή διεπιφάνειας χρήστη για Αναζήτηση Και Αντικατάσταση"
 
 #. bad bad luck...
 #: ../plugins/sourceview/anjuta-document-saver.c:521
@@ -6872,30 +6888,30 @@ msgstr "Δεν είναι δυνατό το άνοιγμα αρχείου για
 #: ../plugins/sourceview/anjuta-document.c:567
 #, c-format
 msgid "Unsaved Document %d"
-msgstr ""
+msgstr "Μη αποθηκευμένο αρχείο %d"
 
 #: ../plugins/sourceview/anjuta-encodings.c:441
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:333
 #, fuzzy
 msgid "Loading"
 msgstr "Φόρτωση αρχείου ..."
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:356
 #, fuzzy
 msgid "Saving..."
 msgstr "Φόρτωση αρχείου ..."
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:363
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr ""
+msgstr "Προετοιμάζονται οι σελίδες για εκτύπωση"
 
 #
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
@@ -6956,7 +6972,7 @@ msgstr " Μετάβαση στη γραμμή με αριθμό "
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
 msgid "Print page footer"
-msgstr ""
+msgstr "Εκτύπωση του υποσέλιδου της σελίδας"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
 #, fuzzy
@@ -6965,7 +6981,7 @@ msgstr "Προσθήκη κεφαλίδας σελίδας"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Right margin position in characters"
-msgstr ""
+msgstr "Δεξιά θέση περιθωρίου σε χαρακτήρες"
 
 #
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
@@ -6999,11 +7015,11 @@ msgstr "Κείμενο:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
 msgid "Use theme colors"
-msgstr ""
+msgstr "Χρήση χρωμάτων θέματος"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
 msgid "Use theme font"
-msgstr ""
+msgstr "Χρήση γραμματοσειράς θέματος"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
 msgid "Wrap long lines to fit on paper"
@@ -7011,7 +7027,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
-msgstr ""
+msgstr "<b>Κλάδος/ετικέτα ιστοσελίδας:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:2
 #, fuzzy
@@ -7058,7 +7074,7 @@ msgstr "Σχόλιο:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
-msgstr ""
+msgstr "<b>Επιλογή αλλαγών για επαναφορά:</b"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 #, fuzzy
@@ -7067,7 +7083,7 @@ msgstr "Φίλτρο Αρχείου"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr ""
+msgstr "<b>Επιλογή αρχείων για σήμανσή τους σαν να έχουν επιλυθεί:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 #, fuzzy
@@ -7107,7 +7123,7 @@ msgstr "Ενσωμάτωση αρχείου"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
-msgstr ""
+msgstr "Αντιγραφή αρχείων/φακέλων"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Diff Selected Revisions"
@@ -7136,7 +7152,7 @@ msgstr "Αγνόησε αρχεία"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Merge changes into working copy"
-msgstr ""
+msgstr "Συγχώνευση αλλαγών μέσα στο ενεργό αντίγραφο"
 
 #
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
@@ -7157,11 +7173,11 @@ msgstr "_Επαναφορά"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Remember Password"
-msgstr ""
+msgstr "Απομνημόνευση κωδικού"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Remember this decision"
-msgstr ""
+msgstr "Απομνημόνευση αυτής της απόφασης"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:41
 #, fuzzy
@@ -7199,7 +7215,7 @@ msgstr "Δεν είναι δυνατό το άνοιγμα αρχείου για
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
-msgstr ""
+msgstr "Καθορισμός των συγκρούσεων σαν να έχουν επιλυθεί "
 
 #
 #: ../plugins/subversion/anjuta-subversion.glade.h:49
@@ -7215,11 +7231,11 @@ msgstr "Προτιμήσεις Anjuta"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Switch to branch/tag"
-msgstr ""
+msgstr "Εναλλαγή σε κλάδο/ετικέτα"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
-msgstr ""
+msgstr "Εξυπηρετητής υπό κηδεμονία"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
 #, fuzzy
@@ -7228,7 +7244,7 @@ msgstr "Επιλογή καταλόγου"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
-msgstr ""
+msgstr "Χρήση του πρώτου μονοπατιού"
 
 #
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
@@ -7238,7 +7254,7 @@ msgstr "Προβολή"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
-msgstr ""
+msgstr "Προβολή της επιλεγμένης αναθεώρησης"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:59
 #, fuzzy
@@ -7258,39 +7274,34 @@ msgstr "Πλαίσιο"
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:52
-#: ../plugins/subversion/plugin.c:151
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:60
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:167
 #, fuzzy
 msgid "_Add..."
 msgstr "Προσθήκη"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62
-#: ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
 msgid "Add a new file/directory to the Subversion tree"
-msgstr ""
+msgstr "Προσθήκη νέου αρχείου/καταλόγου στο δέντρο του subvesion"
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:175
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
 msgid "_Remove..."
 msgstr "_Αφαίρεση..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 #, fuzzy
 msgid "Remove a file/directory from Subversion tree"
 msgstr "CVS: Αφαίρεση αρχείου"
@@ -7321,45 +7332,42 @@ msgstr "Εξυπηρετητής"
 #. short-cut
 #: ../plugins/subversion/plugin.c:86
 msgid "Revert changes to your working copy."
-msgstr ""
+msgstr "Επαναφορά αλλαγών στο ενεργό σας αντίγραφο."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:92
 msgid "_Resolve Conflicts..."
-msgstr ""
+msgstr "_Επίλυση συγκρούσεων..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:94
 msgid "Resolve conflicts in your working copy."
-msgstr ""
+msgstr "Επίλυση συγκρούσεων στο ενεργό αντίγραφό σας."
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:100
-#: ../plugins/subversion/plugin.c:159
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update..."
 msgstr "Ε_νημέρωση..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:102
-#: ../plugins/subversion/plugin.c:161
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Sync your local copy with the Subversion tree"
-msgstr ""
+msgstr "Συγχρονισμός του τοπικού σας αντιγράφου  με το δέντρο του subversion"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:108
 msgid "Copy Files/Folders..."
-msgstr ""
+msgstr "Γίνεται αντιγραφή αρχείων/φακέλων..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110
-#: ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
 #, fuzzy
 msgid "Copy files/folders in the repository"
 msgstr "Κλείσιμο όλων των αναδιπλώσεων κώδικα στον επεξεργαστή"
@@ -7368,41 +7376,41 @@ msgstr "Κλείσιμο όλων των αναδιπλώσεων κώδικα �
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:116
 msgid "Switch to a Branch/Tag..."
-msgstr ""
+msgstr "Κάντε εναλλαγή σε ένα κλάδο/ετικέτα..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
 msgstr ""
+"Κάντε εναλλαγή του τοπικού σας αντιγράφου σε ένα κλάδο ή μια ετικέτα στο "
+"χώρο αποθήκευσης"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
 msgid "Merge..."
-msgstr ""
+msgstr "Συγχώνευση..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:126
 msgid "Merge changes into your working copy"
-msgstr ""
+msgstr "Συγχώνευση αλλαγών στο ενεργό αντίγραφό σας"
 
 #
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132
-#: ../plugins/subversion/plugin.c:183
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
 #, fuzzy
 msgid "_View Log..."
 msgstr "Ά_νοιγμα ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134
-#: ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
 msgid "View file history"
-msgstr ""
+msgstr "Προβολή του ιστορικού αρχείου"
 
 #. Action name
 #. Stock icon, if any
@@ -7412,8 +7420,7 @@ msgstr "_Diff..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142
-#: ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
 #, fuzzy
 msgid "Diff local tree with repository"
 msgstr "Ενσωμάτωση τοπικών αλλαγών στο χώρο απόθεσης"
@@ -7431,32 +7438,32 @@ msgstr "Αντιγραφή..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 #, fuzzy
 msgid "Subversion operations"
 msgstr "Διάφορες επιλογές"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 #, fuzzy
 msgid "Subversion popup operations"
 msgstr "Διάφορες επιλογές"
 
 #
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 #, fuzzy
 msgid "Subversion Log"
 msgstr "Έκδοση:"
 
 #: ../plugins/subversion/subversion-add-dialog.c:39
 msgid "Subversion: File will be added on next commit."
-msgstr ""
+msgstr "Subversion: Το αρχείο θα προστεθεί στην επόμενη καταχώρηση."
 
 #: ../plugins/subversion/subversion-add-dialog.c:63
 #: ../plugins/subversion/subversion-diff-dialog.c:64
 #: ../plugins/subversion/subversion-remove-dialog.c:98
 #: ../plugins/subversion/subversion-update-dialog.c:66
 msgid "Please enter a path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα μονοπάτι."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 #, fuzzy
@@ -7475,11 +7482,11 @@ msgstr "Διάφορες επιλογές"
 
 #: ../plugins/subversion/subversion-copy-dialog.c:184
 msgid "Please enter a source path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα πηγαίο μονοπάτι."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:190
 msgid "Please enter a destination path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα μονοπάτι προορισμού."
 
 #
 #: ../plugins/subversion/subversion-copy-dialog.c:207
@@ -7492,7 +7499,7 @@ msgstr "Αναθεώρηση: "
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
-msgstr ""
+msgstr "Subversion: Ανάκτηση διαφορών..."
 
 #: ../plugins/subversion/subversion-log-dialog.c:255
 #, fuzzy
@@ -7517,28 +7524,28 @@ msgstr "Προτιμήσεις Anjuta"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:93
 msgid "Please enter the first path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε το πρώτο μονοπάτι."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:99
 msgid "Please enter the second path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε το δεύτερο μονοπάτι."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:105
 #: ../plugins/subversion/subversion-switch-dialog.c:100
 msgid "Please enter a working copy path."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα ενεργό αντίγραφο μονοπατιού."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:119
 msgid "Please enter the start revision."
-msgstr ""
+msgstr "Παρακαλώ εισέλθετε στην αρχή της αναθεώρησης."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:134
 msgid "Please enter the end revision."
-msgstr ""
+msgstr "Παρακαλώ εισέλθετε στο τέλος της αναθεώρησης."
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
-msgstr ""
+msgstr "Subversion: Το αρχείο θα διαγραφεί στην επόμενη καταχώρηση."
 
 #: ../plugins/subversion/subversion-resolve-dialog.c:36
 #, fuzzy
@@ -7557,7 +7564,7 @@ msgstr "Διάφορες επιλογές"
 
 #: ../plugins/subversion/subversion-switch-dialog.c:106
 msgid "Please enter a branch/tag URL."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε μια ετικέτα/κλάδο ιστοσελίδας."
 
 #
 #: ../plugins/subversion/subversion-ui-utils.c:64
@@ -7579,7 +7586,7 @@ msgstr "Επιλογή καταλόγου"
 #: ../plugins/subversion/svn-command.c:144
 #: ../plugins/subversion/svn-command.c:200
 msgid "Authentication canceled"
-msgstr ""
+msgstr "Ακυρώθηκε η πιστοποίηση"
 
 #: ../plugins/subversion/svn-command.c:173
 #, fuzzy
@@ -7588,23 +7595,23 @@ msgstr "Όνομα χρήστη:"
 
 #: ../plugins/subversion/svn-command.c:174
 msgid "Fingerprint: "
-msgstr ""
+msgstr "Αποτύπωμα:"
 
 #: ../plugins/subversion/svn-command.c:175
 msgid "Valid from: "
-msgstr ""
+msgstr "Έγκυρο από:"
 
 #: ../plugins/subversion/svn-command.c:176
 msgid "Valid until: "
-msgstr ""
+msgstr "Έγκυρο μέχρι:"
 
 #: ../plugins/subversion/svn-command.c:177
 msgid "Issuer DN: "
-msgstr ""
+msgstr "Εκδότης DN:"
 
 #: ../plugins/subversion/svn-command.c:178
 msgid "DER certificate: "
-msgstr ""
+msgstr "Πιστοποιητικό DER:"
 
 #: ../plugins/subversion/svn-command.c:325
 #: ../plugins/subversion/svn-command.c:341
@@ -7634,7 +7641,7 @@ msgstr "Ενημέρωση"
 #: ../plugins/subversion/svn-command.c:350
 #, c-format
 msgid "Externally Updated: %s"
-msgstr ""
+msgstr "Εξωτερικά ενημερωμένο: %s"
 
 #
 #: ../plugins/subversion/svn-command.c:384
@@ -7650,17 +7657,17 @@ msgstr "Στόχος:"
 #: ../plugins/subversion/svn-command.c:390
 #, c-format
 msgid "Conflicted: %s"
-msgstr ""
+msgstr "Συγκρούστηκε το: %s"
 
 #: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Missing: %s"
-msgstr ""
+msgstr "Λείπει το: %s"
 
 #: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Obstructed: %s"
-msgstr ""
+msgstr "Παρεμποδίστηκε το: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:569
@@ -7680,7 +7687,7 @@ msgstr "Κατάλογοι"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:431
 msgid "Please enter a name and at least one directory."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα όνομα και τουλάχιστον έναν κατάλογο."
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:531
 #, fuzzy
@@ -7690,11 +7697,11 @@ msgstr "Αρχεία έργου Anjuta"
 #: ../plugins/symbol-browser/an_symbol_prefs.c:674
 #, c-format
 msgid "Scanning package: %s"
-msgstr ""
+msgstr "Σάρωση πακέτου: %s"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:729
 msgid "Completed system tags generation"
-msgstr ""
+msgstr "Παραγωγή συμπληρωμένων ετικετών συστήματος"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:770
 #: ../plugins/symbol-browser/an_symbol_prefs.c:864
@@ -7715,11 +7722,11 @@ msgstr "Κανονικά μηνύματα:"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
-msgstr ""
+msgstr "<b>Διαθέσιμες ετικέτες API:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
 msgid "<b>Create API tags:</b>"
-msgstr ""
+msgstr "<b>Δημιουργία ετικετών API:</b>"
 
 #
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
@@ -7728,7 +7735,7 @@ msgstr "Προσθήκη καταλόγου"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
-msgstr ""
+msgstr "προσθήκη καταλόγων στη λίστα για σάρωση:"
 
 #  6
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
@@ -7780,7 +7787,7 @@ msgstr "Χρήση Εύρεσης"
 
 #: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
-msgstr ""
+msgstr "Αναζήτηση χρησιμοποίησης συμβόλου στο έργο"
 
 #: ../plugins/symbol-browser/plugin.c:313
 #, fuzzy
@@ -7789,7 +7796,7 @@ msgstr "Ανανέωση προβολής συμβόλου ..."
 
 #: ../plugins/symbol-browser/plugin.c:382
 msgid "Created symbols..."
-msgstr ""
+msgstr "Δημιουργημένα σύμβολα..."
 
 #. Local symbols of the file
 #: ../plugins/symbol-browser/plugin.c:910
@@ -7799,7 +7806,7 @@ msgstr "Τοπικό"
 #. Global project-wide symbols
 #: ../plugins/symbol-browser/plugin.c:930
 msgid "Global"
-msgstr ""
+msgstr "Καθολικά"
 
 #: ../plugins/symbol-browser/plugin.c:974
 #, fuzzy
@@ -7808,7 +7815,7 @@ msgstr "Διάφορες επιλογές"
 
 #: ../plugins/symbol-browser/plugin.c:981
 msgid "Symbol browser popup actions"
-msgstr ""
+msgstr "Αναδυόμενες ενέργειες περιηγητή συμβόλων"
 
 #: ../plugins/symbol-browser/plugin.c:990
 #, fuzzy
@@ -7823,7 +7830,7 @@ msgstr "Επιλέξτε θέμα:"
 
 #: ../plugins/symbol-browser/plugin.c:1000
 msgid "Symbol navigations"
-msgstr ""
+msgstr "Πλοηγήσεις συμβόλων"
 
 #: ../plugins/symbol-browser/plugin.c:1009
 msgid "Symbols"
@@ -7844,8 +7851,7 @@ msgid "Use currently selected profile in GNOME terminal"
 msgstr "Χρήση τρέχουσας επιλογής προφίλ στο τερματικό GNOME"
 
 #
-#: ../plugins/terminal/terminal.c:605
-#: ../plugins/terminal/terminal.c:716
+#: ../plugins/terminal/terminal.c:605 ../plugins/terminal/terminal.c:716
 #: ../plugins/terminal/terminal.c:732
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
@@ -7858,15 +7864,15 @@ msgstr "Εντολή:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:2
 msgid "Edit as script"
-msgstr ""
+msgstr "Επεξεργασία ως δέσμη ενεργειών"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit command as script in Anjuta on close"
-msgstr ""
+msgstr "Επεξεργασία εντολής ως δέσμη ενεργειών στο τερματισμό του anjuta"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
-msgstr ""
+msgstr "Αντικείμενα του μενού:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:7
 #, fuzzy
@@ -7929,7 +7935,8 @@ msgstr "Θέλετε πραγματικά να διαγράψετε το εργ�
 #: ../plugins/tools/dialog.c:340
 #, fuzzy
 msgid "Unable to build user interface for tool list"
-msgstr "Δεν είναι δυνατή η κατασκευή διεπιφάνειας χρήστη για επεξεργαστή εργαλείων"
+msgstr ""
+"Δεν είναι δυνατή η κατασκευή διεπιφάνειας χρήστη για επεξεργαστή εργαλείων"
 
 #
 #: ../plugins/tools/dialog.c:360
@@ -7938,7 +7945,7 @@ msgstr "Εργαλείο"
 
 #: ../plugins/tools/editor.c:305
 msgid "ask at runtime"
-msgstr ""
+msgstr "ερώτηση κατά την εκτέλεση"
 
 #
 #: ../plugins/tools/editor.c:310
@@ -7976,7 +7983,9 @@ msgstr "Υπάρχει ήδη εργαλείο με το όνομα '%s'."
 
 #: ../plugins/tools/editor.c:731
 #, fuzzy
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
 msgstr "Υπάρχει ήδη ανοικτό Έργο. Θέλετε πρώτα να το κλείσετε;"
 
 #: ../plugins/tools/editor.c:817
@@ -7986,11 +7995,12 @@ msgstr "Αδύνατο να βρεθεί σενάριο εισαγωγής %s"
 
 #: ../plugins/tools/editor.c:953
 msgid "New accelerator..."
-msgstr ""
+msgstr "Νέα επιτάχυνση..."
 
 #: ../plugins/tools/editor.c:978
 msgid "Unable to build user interface for tool editor"
-msgstr "Δεν είναι δυνατή η κατασκευή διεπιφάνειας χρήστη για επεξεργαστή εργαλείων"
+msgstr ""
+"Δεν είναι δυνατή η κατασκευή διεπιφάνειας χρήστη για επεξεργαστή εργαλείων"
 
 #: ../plugins/tools/execute.c:312
 #, fuzzy, c-format
@@ -8007,7 +8017,7 @@ msgstr "σφάλμα: "
 #.
 #: ../plugins/tools/execute.c:407
 msgid "(output)"
-msgstr ""
+msgstr "(αρχείο εξόδου)"
 
 #. This is append to the tool name to give something
 #. * like "My tools (error)". It's used to name the message
@@ -8015,7 +8025,7 @@ msgstr ""
 #.
 #: ../plugins/tools/execute.c:415
 msgid "(error)"
-msgstr ""
+msgstr "(σφάλμα)"
 
 #: ../plugins/tools/execute.c:466
 #, fuzzy
@@ -8035,7 +8045,7 @@ msgstr "Αδυναμία λήψης αντιμνήμης κειμένου για
 
 #: ../plugins/tools/execute.c:638
 msgid "No document currently open, command aborted"
-msgstr ""
+msgstr "Δεν υπάρχει τρέχον ανοικτό αρχείο, η εντολή διακόπηκε"
 
 #: ../plugins/tools/execute.c:1016
 #, fuzzy, c-format
@@ -8044,7 +8054,7 @@ msgstr "Δεν είναι δυνατό το άνοιγμα του αρχείου
 
 #: ../plugins/tools/fileop.c:248
 msgid "Missing tool name"
-msgstr ""
+msgstr "Λείπει το όνομα του εργαλείου"
 
 #: ../plugins/tools/fileop.c:258
 #, c-format
@@ -8067,11 +8077,10 @@ msgid "_Configure"
 msgstr "_Ρύθμιση"
 
 #: ../plugins/tools/plugin.c:145
-#, fuzzy
 msgid "Configure external tools"
-msgstr "Ρύθμιση Παραμέτρων"
+msgstr "Ρύθμιση εξωτερικών εργαλείων"
 
-#: ../plugins/tools/plugin.c:185
+#: ../plugins/tools/plugin.c:193
 #, fuzzy
 msgid "Tool operations"
 msgstr "Διάφορες επιλογές"
@@ -8119,15 +8128,14 @@ msgstr "Επιλογές"
 msgid "Select debugging target"
 msgstr "Φόρτωση Έργου ...\n"
 
-#: ../plugins/valgrind/plugin.c:304
-#: ../plugins/valgrind/plugin.c:425
-#: ../plugins/valgrind/plugin.c:661
-#: ../plugins/valgrind/plugin.c:670
+#: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
+#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:670
 msgid "Valgrind"
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:332
-msgid "No executable target selected for debugging with Valgrind. Please select one."
+msgid ""
+"No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:341
@@ -8138,7 +8146,7 @@ msgstr ""
 
 #: ../plugins/valgrind/plugin.c:353
 msgid "Choose file where to save Valgrind log"
-msgstr ""
+msgstr "Επιλογή του αρχείου όπου θα αποθηκευτεί η αναφορά του Valgrind"
 
 #: ../plugins/valgrind/plugin.c:403
 #, fuzzy
@@ -8149,13 +8157,13 @@ msgstr "Άνοιγμα αρχείου"
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:445
 msgid "_Valgrind"
-msgstr ""
+msgstr "_Valgrind"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:453
 msgid "_Select Tool and Run..."
-msgstr ""
+msgstr "_Επιλογή εργαλείου και εκτέλεση..."
 
 #. Action name
 #. Stock icon, if any
@@ -8193,15 +8201,15 @@ msgstr ""
 
 #: ../plugins/valgrind/preferences.c:123
 msgid "<b>Valgrind general preferences</b>"
-msgstr ""
+msgstr "<b>Γενικές προτιμήσεις για το Valgrind</b>"
 
 #: ../plugins/valgrind/preferences.c:129
 msgid "Valgrind binary file path:"
-msgstr ""
+msgstr "Δυαδικό μονοπάτι αρχείου valgrind:"
 
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
-msgstr ""
+msgstr "Επιλογή δυαδικού μονοπατιού αρχείου valgrind..."
 
 #: ../plugins/valgrind/preferences.c:162
 msgid "Preview"
@@ -8209,7 +8217,7 @@ msgstr "Προεπισκόπηση"
 
 #: ../plugins/valgrind/preferences.c:175
 msgid "lines above and below the target line."
-msgstr ""
+msgstr "γραμμές πάνω και κάτω από τη γραμμή του στόχου."
 
 #: ../plugins/valgrind/process.c:55
 #, fuzzy, c-format
@@ -8224,10 +8232,12 @@ msgstr "Αδύνατη η φόρτωση Έργου: %s"
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
 msgstr ""
+"Τερματισμός του αρχείου εισόδου ή σφάλμα κατά την ανάλυση της εξόδου του "
+"valgind."
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
-msgstr ""
+msgstr "Η διαδικασία τελείωσε."
 
 #: ../plugins/valgrind/vgactions.c:197
 msgid "Could not get the right valgrind-binary gconf key:"
@@ -8235,11 +8245,12 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:205
 #, c-format
-msgid "Valgrind binary [%s] does not exist. Please check the preferences or install Valgrind package."
+msgid ""
+"Valgrind binary [%s] does not exist. Please check the preferences or install "
+"Valgrind package."
 msgstr ""
 
-#: ../plugins/valgrind/vgactions.c:241
-#: ../plugins/valgrind/vgactions.c:248
+#: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
 msgstr ""
 
@@ -8287,7 +8298,7 @@ msgstr "Αρχεία πηγαίου κώδικα:"
 #: ../plugins/valgrind/vgdefaultview.c:230
 #, c-format
 msgid "Invalid regular expression: '%s': %s"
-msgstr ""
+msgstr "Μη έγκυρη κανονική έκφραση: '%s': %s"
 
 #. FIXME: we should really get this title from somewhere else?
 #: ../plugins/valgrind/vgdefaultview.c:758
@@ -8312,7 +8323,7 @@ msgstr "Υποστηρίξεις"
 
 #: ../plugins/valgrind/vgdefaultview.c:1159
 msgid "Edit in Custom Editor"
-msgstr ""
+msgstr "Επεξεργασία σε προσαρμοσμένο επεξεργαστή"
 
 #. demangle = decode C++ name encoding
 #: ../plugins/valgrind/vggeneralprefs.c:179
@@ -8330,7 +8341,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vggeneralprefs.c:206
 msgid "Stop showing errors if there are too many"
-msgstr ""
+msgstr "Τερματισμός εμφάνισης σφαλμάτων αν αυτά είναι πάρα πολλά"
 
 #: ../plugins/valgrind/vggeneralprefs.c:214
 msgid "Round malloc sizes to next word"
@@ -8371,7 +8382,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
-msgstr ""
+msgstr "Προβολή της τοποθεσίας της τελευταίας πρόσβασης κειμένου στο σφάλμα:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:189
 msgid "Memcheck"
@@ -8397,7 +8408,7 @@ msgstr "Αναζήτηση Κατεύθυνσης:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
-msgstr ""
+msgstr "Συνέχιση μέχρι"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
@@ -8414,7 +8425,7 @@ msgstr "Πήγαινε"
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr ""
+msgstr "Συστολή"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 #, fuzzy
@@ -8423,11 +8434,11 @@ msgstr "Όνομα αρθρώματος: "
 
 #: ../plugins/valgrind/vgrule-editor.c:237
 msgid "Suppress messages of type:"
-msgstr ""
+msgstr "Μηνύματα καταστολής του τύπου:"
 
 #: ../plugins/valgrind/vgrule-editor.c:247
 msgid "Suppress when using:"
-msgstr ""
+msgstr "Καταστολή κατά τη χρήση του:"
 
 #
 #: ../plugins/valgrind/vgrule-editor.c:260
@@ -8439,7 +8450,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:271
 msgid "Call chain:"
-msgstr ""
+msgstr "Καλέστε την αλυσίδα:"
 
 #
 #: ../plugins/valgrind/vgrule-editor.c:529
@@ -8448,19 +8459,18 @@ msgstr ""
 msgid "Error saving to suppression file '%s': %s"
 msgstr "Σφάλμα Εγγραφής στο αρχείο: %s."
 
-#: ../plugins/valgrind/vgrule-list.c:176
-#: ../plugins/valgrind/vgrule-list.c:245
+#: ../plugins/valgrind/vgrule-list.c:176 ../plugins/valgrind/vgrule-list.c:245
 msgid "You have forgotten to name your suppression rule."
-msgstr ""
+msgstr "Έχετε ξεχάσει να ονομάσετε τον κανόνα καταστολής."
 
 #: ../plugins/valgrind/vgrule-list.c:650
 #, c-format
 msgid "Cannot save suppression rules: %s"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η αποθήκευση των κανόνων καταστολής: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:652
 msgid "You have not set a suppressions file in your settings."
-msgstr ""
+msgstr "Δεν έχετε θέσει αρχείο καταστολών στις ρυθμίσεις σας."
 
 #: ../src/about.c:185
 msgid "Copyright (c) Naba Kumar"
@@ -8471,8 +8481,13 @@ msgid "Anjuta Plugin"
 msgstr "Πρόσθετη λειτουργία Anjuta"
 
 #: ../src/action-callbacks.c:109
-msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
-msgstr "Είναι αδύνατη η προβολή βοήθειας. Παρακαλώ σιγουρευτείτε οτι το πακέτο τεκμηρίωσης του Anjuta έχει εγκατασταθεί. Μπορεί να γίνει λήψη από το http://anjuta.org"
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr ""
+"Είναι αδύνατη η προβολή βοήθειας. Παρακαλώ σιγουρευτείτε οτι το πακέτο "
+"τεκμηρίωσης του Anjuta έχει εγκατασταθεί. Μπορεί να γίνει λήψη από το http://"
+"anjuta.org"
 
 #: ../src/anjuta.c:495
 #, fuzzy
@@ -8512,16 +8527,16 @@ msgstr "Όνομα χρήστη:"
 
 #: ../src/anjuta.glade.h:7
 msgid "Do not load last project and files on startup"
-msgstr ""
+msgstr "Να μην φορτώνονται το τελευταίο έργο και τα αρχεία στην έναρξη"
 
 #: ../src/anjuta.glade.h:8
 msgid "Do not load last session on startup"
-msgstr ""
+msgstr "Να μην φορτώνεται η τελευταία συνεδρία στην έναρξη"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:10
 msgid "Dock switcher style: "
-msgstr ""
+msgstr "Στυλ εναλλαγής προσάρτησης:"
 
 #: ../src/anjuta.glade.h:12
 msgid ""
@@ -8543,9 +8558,8 @@ msgid "_Quit"
 msgstr "Έ_ξοδος"
 
 #: ../src/anjuta-actions.h:25
-#, fuzzy
 msgid "Quit Anjuta IDE"
-msgstr "Anjuta IDE"
+msgstr "Τερματισμός του Anjuta IDE"
 
 #  3
 #  4
@@ -8581,9 +8595,8 @@ msgid "Toggle fullscreen mode"
 msgstr "_Μετάπτωση Τρέχουσας Αναδίπλωσης"
 
 #: ../src/anjuta-actions.h:52
-#, fuzzy
 msgid "_Lock Dock Layout"
-msgstr "_Κλείδωσε στοιχεία αγκίστρου"
+msgstr "_Κλείδωμα διατάξεων προσάρτησης"
 
 #: ../src/anjuta-actions.h:53
 msgid "Lock the current dock layout so that widgets cannot be moved"
@@ -8595,18 +8608,16 @@ msgid "_Help"
 msgstr "_Βοήθεια"
 
 #: ../src/anjuta-actions.h:60
-#, fuzzy
 msgid "_User's Manual"
-msgstr "Όνομα χρήστη:"
+msgstr "Εγχειρίδιο _χρήστη"
 
 #: ../src/anjuta-actions.h:61
-#, fuzzy
 msgid "Anjuta user's manual"
-msgstr "Εγχειρίδιο Anjuta"
+msgstr "Εγχειρίδιο χρήστη του Anjuta"
 
 #: ../src/anjuta-actions.h:64
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "Απομάκρυνση της αρχής του _σεμιναρίου"
 
 #  1
 #: ../src/anjuta-actions.h:65
@@ -8628,11 +8639,11 @@ msgstr "Διδακτική Παρουσίαση (Tutorial) Anjuta Για Προ�
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "_Συχνές ερωτήσεις"
 
 #: ../src/anjuta-actions.h:73
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "Συχνές ερωτήσεις για το anjuta"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta _Home Page"
@@ -8644,7 +8655,7 @@ msgstr "Διαδυκτιακή τεκμηρίωση και πόροι"
 
 #: ../src/anjuta-actions.h:80
 msgid "Report _Bugs/Patches/Requests"
-msgstr ""
+msgstr "Αναφορά _προβλημάτων/διορθώσεων/απαιτήσεων"
 
 #
 #: ../src/anjuta-actions.h:81
@@ -8669,7 +8680,7 @@ msgstr "_Περί"
 
 #: ../src/anjuta-actions.h:89
 msgid "About Anjuta"
-msgstr ""
+msgstr "Σχετικά με το Anjuta"
 
 #: ../src/anjuta-actions.h:92
 #, fuzzy
@@ -8678,7 +8689,7 @@ msgstr "Anjuta: %s"
 
 #: ../src/anjuta-actions.h:93
 msgid "About third party Anjuta plugins"
-msgstr ""
+msgstr "Σχετικά με πρόσθετες λειτουργίες τρίτου μέρους του Anjuta"
 
 #
 #: ../src/anjuta-app.c:619
@@ -8686,15 +8697,13 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 #
-#: ../src/anjuta-app.c:623
-#: ../src/anjuta-app.c:628
+#: ../src/anjuta-app.c:623 ../src/anjuta-app.c:628
 msgid "View"
 msgstr "Προβολή"
 
 #: ../src/anjuta-app.c:827
-#, fuzzy
 msgid "Installed plugins"
-msgstr "Anjuta: %s"
+msgstr "Εγκατεστημένες πρόσθετες λειτουργίες"
 
 #: ../src/anjuta-app.c:831
 msgid "Shortcuts"
@@ -8703,11 +8712,11 @@ msgstr "Συντομεύσεις"
 #: ../src/anjuta-app.c:903
 #, c-format
 msgid "Value doesn't exist"
-msgstr ""
+msgstr "Η τιμή δεν υπάρχει"
 
 #: ../src/main.c:70
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "Καθορισμός του μεγέθους και της τοποθεσίας του κύριου παραθύρου"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
@@ -8722,10 +8731,11 @@ msgstr "Να μην εμφανιστεί το splashscreen"
 #: ../src/main.c:84
 msgid "Start a new instance and do not open the file in a existing"
 msgstr ""
+"Ξεκίνημα μιας νέας διεργασίας με μη άνοιγμα του αρχείου σε μια υπάρχουσα"
 
 #: ../src/main.c:90
 msgid "Do not open last session on startup"
-msgstr ""
+msgstr "Να μην ανοίγει η τελευταία συνεδρία στην έναρξη"
 
 #: ../src/main.c:96
 #, fuzzy
@@ -8735,6 +8745,8 @@ msgstr "Δεν είναι δυνατό το άνοιγμα του αρχείου
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr ""
+"Κανονικός τερματισμός του anjuta απελευθερώνοντας όλους τους πόρους (για "
+"αποσφαλμάτωση)"
 
 #
 #: ../src/main.c:314
@@ -8769,11 +8781,12 @@ msgstr "Επιλογές εκτύπωσης"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
-msgstr ""
+msgstr "Προσθήκη '(' μετά η συνάρτηση καλεί την αυτόματη συμπλήρωση)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
 msgstr ""
+"Προσθήκη ενός διαστήματος όταν η συνάρτηση καλεί την αυτόματη συμπλήρωση"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
@@ -8797,67 +8810,71 @@ msgstr "Ενεργοποίησε αναδήπλωση κώδικα"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
 #, fuzzy
+msgid "Enable smart brace completion"
+msgstr "Ενεργοποίησε αναδήπλωση κώδικα"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
+#, fuzzy
 msgid "Enable smart indentation"
 msgstr "Ενεργοποίησε αυτόματη ενδοπαραγραφοποίηση"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
 msgid "Pressing tab indents"
 msgstr "Πατώντας το πλήκτρο στηλοθέτησης (tab) γίνεται ενδοπαράγραφος"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
 #, fuzzy
 msgid "Show calltips"
 msgstr "Π_ροβολή calltip"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
 #, fuzzy
 msgid "Smart Indentation"
 msgstr "Αυξ. ενδοπαραγράφου"
 
 #
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
 #, fuzzy
 msgid "Statement indentation size in spaces:"
 msgstr "Μέγεθος ενδοπαραγραφοποίησης σε κενά:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1720
 msgid "_AutoComplete"
 msgstr "Α_υτόματη συμπλήρωση"
 
 #
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1721
 msgid "AutoComplete the current word"
 msgstr "Αυτόματη συμπλήρωση της τρέχουσας λέξης"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1727
 msgid "Auto Indent"
 msgstr "Αυτόματη εσοχή"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1728
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1770
 msgid "C++/Java Assistance"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1858
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "C/C++/Java/Vala"
 msgstr ""
 
-#: ../plugins/sourceview/plugin.c:152
-#: ../plugins/sourceview/plugin.c:169
+#: ../plugins/sourceview/plugin.c:152 ../plugins/sourceview/plugin.c:169
 msgid "GtkSourceView Editor"
-msgstr ""
+msgstr "Επεξεργαστής GtkSourceView"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
 msgid "Gdb"
-msgstr ""
+msgstr "Gdb"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
-msgstr ""
+msgstr "Πρόσθετη λειτουργία Gdb."
 
 #
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
@@ -8867,11 +8884,11 @@ msgstr "Βοήθεια"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr ""
+msgstr "Πρόσθετη λειτουργία του devhelp για το Anjuta."
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
-msgstr ""
+msgstr "Παρέχει δυνατότητες διαχείρισης αρχείων."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 #, fuzzy
@@ -8880,15 +8897,15 @@ msgstr "Anjuta: %s"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistent"
-msgstr ""
+msgstr "Βοηθός αρχείων"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
-msgstr ""
+msgstr "Μια πρόσθετη λειτουργία πελάτη subvesion βασισμένη στο libsvn"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
 msgid "A graph painter for the inheritance of the classes."
-msgstr ""
+msgstr "Ένας ζωγράφος γραφημάτων για την κληρονομικότητα των κλάσεων."
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 #, fuzzy
@@ -8902,11 +8919,11 @@ msgstr "Αρχείο Glade"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
-msgstr ""
+msgstr "Πρόσθετη λειτουργία glade για το Anjuta."
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
 msgid "Glade interface designer"
-msgstr ""
+msgstr "Σχεδιαστής διεπαφής glade"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:1
 #, fuzzy
@@ -8915,11 +8932,11 @@ msgstr "Διαχείρηση Makefiles από:"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr ""
+msgstr "Προς υλοποίηση πρόσθετη λειτουργία για το Anjuta."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
-msgstr ""
+msgstr "Εισαγωγή προκαθορισμένων μακροεντολών μέσα στον επεξεργαστή"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 #, fuzzy
@@ -8944,7 +8961,7 @@ msgstr "Εργαλεία"
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
-msgstr ""
+msgstr "Χρήση εξωτερικού προγράμματος από το Anjuta"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 #, fuzzy
@@ -8963,7 +8980,7 @@ msgstr "Αυτόματο"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
-msgstr ""
+msgstr "Βασικά αυτόματα εργαλεία για την κατασκευή πρόσθετων λειτουργιών."
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
@@ -9030,7 +9047,7 @@ msgstr "Προφίλ"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
 msgid "Component for searching"
-msgstr ""
+msgstr "Περιεχόμενο για αναζήτηση"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 #, fuzzy
@@ -9048,7 +9065,7 @@ msgstr "Κλάση C++/GObject"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
-msgstr ""
+msgstr "Παραγωγός κλάσεων"
 
 #
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
@@ -9064,7 +9081,7 @@ msgstr "Ρύθμιση Έργου"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:2
 msgid "Symbol Browser Plugin for Anjuta."
-msgstr ""
+msgstr "Πρόσθετη λειτουργία συμβολικού περιηγητή για το Anjuta."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9077,7 +9094,7 @@ msgstr "Διαχείρηση Makefiles από:"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
 msgid "Powerful debugging tool."
-msgstr ""
+msgstr "Δυναμικό εργαλείο αποσφαλμάτωσης."
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:2
 msgid "Valgrind Plugin"
@@ -9092,64 +9109,104 @@ msgstr ""
 msgid "Debug Manager plugin."
 msgstr "Επιλογές μηνυμάτων"
 
+#, fuzzy
+#~ msgid "Configure Parameters:"
+#~ msgstr "Ρύθμιση Παραμέτρων"
+
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</"
+#~ "b><b>There are %d items with unsaved changes. Save changes before closing?"
+#~ "</b>"
+#~ msgstr ""
+#~ "<b>Υπάρχει το αντικείμενο %d με μη αποθηκευμένες αλλαγές. Να αποθηκευτούν "
+#~ "οι αλλαγές πριν την έξοδο;</b><b>Υπάρχουν τα αντικείμενα %d με μη "
+#~ "αποθηκευμένες αλλαγές. Να αποθηκευτούν οι αλλαγές πριν την έξοδο;</b>"
+
 #~ msgid "    "
 #~ msgstr "    "
+
 #~ msgid "<: Enter Here"
 #~ msgstr "<: Εισάγετε εδώ"
+
 #~ msgid "Additional"
 #~ msgstr "Πρόσθετα"
+
 #~ msgid "Additional Libraries (LDADD):"
 #~ msgstr "Πρόσθετες βιβλιοθήκες (LDADD):"
+
 #~ msgid "Additional build options:"
 #~ msgstr "Πρόσθετες επιλογές κατασκεύης:"
+
 #~ msgid "Anjuta help search"
 #~ msgstr "Αναζήτηση βοήθειας Anjuta"
+
 #~ msgid "Anjuta start with dialog"
 #~ msgstr "Βοηθός εκκίνησης Anjuta"
+
 #~ msgid "Ask for parameters at run-time"
 #~ msgstr "Ρώτα για παράμετρους κατά την εκτέλεση"
+
 #~ msgid "Automatically load last Project"
 #~ msgstr "Αυτόματη φόρτωση τελευταίου Έργου"
+
 #~ msgid "Autosave editor files before build starts"
 #~ msgstr "Αυτόματη αποθήκευση αρχείων επεξεργαστή πριν αρχίσει η κατασκευή"
 
 #, fuzzy
 #~ msgid "Beep on job complete"
 #~ msgstr "Προειδοποιητικός ήχος σε εργασία ολοκληρώθηκε"
+
 #~ msgid "Build"
 #~ msgstr "Κατασκευή"
+
 #~ msgid "Build command:"
 #~ msgstr "Εντολή κατασκευής:"
+
 #~ msgid "Build file browser automatically"
 #~ msgstr "Κατασκεύασε αυτόματα το περιηγητή αρχείων"
+
 #~ msgid "Build files"
 #~ msgstr "Αρχεία Build"
+
 #~ msgid "Build symbol browser automatically"
 #~ msgstr "Κατασκεύασε αυτόματα το περιηγητή συμβόλων"
+
 #~ msgid "CVS command options"
 #~ msgstr "Επιλογές εντολής CVS"
+
 #~ msgid "CVS context diff format"
 #~ msgstr "Μορφότυπο diff περιβάλλοντος CVS"
+
 #~ msgid "CVS unified diff format"
 #~ msgstr "Ενοποιημένο μορφότυπο diff του CVS"
+
 #~ msgid "CVS update and prune directories [-dP]"
 #~ msgstr "Ενημέρωση CVS και κλάδεμα καταλόγων [-dP]"
+
 #~ msgid "C_ompile:"
 #~ msgstr "_Μεταγλώττιση"
+
 #~ msgid "Commands"
 #~ msgstr "Εντολές"
+
 #~ msgid "Common commands:"
 #~ msgstr "Συνήθεις εντολές:"
+
 #~ msgid "Compiler"
 #~ msgstr "Μεταγλωττιστής"
+
 #~ msgid "Compiler Flags (CFLAGS):"
 #~ msgstr "Σημαίες Μεταγλωττιστή (CFLAGS):"
+
 #~ msgid "Compiler and linker options"
 #~ msgstr "Επιλογές μεταγλωτtιστή και εκδότη συνδέσμων"
+
 #~ msgid "Configuration"
 #~ msgstr "Ρυθμίσεις"
+
 #~ msgid "Configuration script segments"
 #~ msgstr "Ρύθμιση τμημάτων σεναρίου"
+
 #~ msgid "Configure Parameters"
 #~ msgstr "Ρύθμιση Παραμέτρων"
 
@@ -9164,27 +9221,36 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Defines"
 #~ msgstr "Ορίζει"
+
 #~ msgid "Dialog on job complete"
 #~ msgstr "Βοηθός εκκίνησης εργασίας ολοκληρώθηκε"
 
 #
 #~ msgid "Directories"
 #~ msgstr "Κατάλογοι"
+
 #~ msgid "Disable overwriting files"
 #~ msgstr "Απενεργοποίηση αρχείων αντικατάστασης"
+
 #~ msgid "Do not show start with dialog again."
 #~ msgstr "Μην εμφανίσεις ξανά το βοηθό εκκίνησης"
+
 #~ msgid "Document module Makefile.am"
 #~ msgstr "Άρθρωμα εγγράφου Makefile.am"
+
 #~ msgid "Enable Debugging"
 #~ msgstr "Ενεργοποίησε εκσφαλμάτωση"
+
 #~ msgid "File level"
 #~ msgstr "Επίπεδο αρχείου"
+
 #~ msgid "Format"
 #~ msgstr "Μορφοποίηση"
+
 #, fuzzy
 #~ msgid "GUI editor command:"
 #~ msgstr "Εντολή Eπεξεργαστή GUI:"
+
 #~ msgid ""
 #~ "Give a space separated list of directories to be built after source "
 #~ "module. This will be set in configure and Makefiles will be generated for "
@@ -9195,6 +9261,7 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "άρθρωμα πηγαίου κώδικα. Αυτό θα ρυθμιστεί στο configure και τα Makefiles "
 #~ "θα δημιουργηθούν γι'αυτούς. Θα κατασκευαστούν μετά από τον κατάλογο "
 #~ "source (src/) κατά τη διάρκεια του \"make\"."
+
 #~ msgid ""
 #~ "Give a space separated list of directories to be built before source "
 #~ "module. This will be set in configure.in and Makefiles will be generated "
@@ -9205,26 +9272,34 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "άρθρωμα πηγαίου κώδικα. Αυτό θα οριστεί στο configure.in και τα Makefiles "
 #~ "θα δημιουργηθούν γι'αυτούς. Θα κατασκευαστούν πριν από τον κατάλογο "
 #~ "source (src/) κατά τη διάρκεια του \"make\"."
+
 #~ msgid "Gnome API"
 #~ msgstr "Gnome API"
 
 #
 #~ msgid "HTML _viewer:"
 #~ msgstr "Προβο_λέας HTML:"
+
 #~ msgid "Headers"
 #~ msgstr "Κεφαλίδες"
+
 #~ msgid "Help module Makefile.am"
 #~ msgstr "Άρθρωμα βοήθειας Makefile.am"
+
 #~ msgid "High-Level Optimization (Functions inlined wherever possible)"
 #~ msgstr "Bελτιστοποίηση Υψηλού Επιπέδου (Συναρτήσεις σε γραμμή όπου δυνατόν)"
+
 #~ msgid "History sizes"
 #~ msgstr "Μεγέθη ιστορικού"
+
 #
 #~ msgid "Ignore files and directories"
 #~ msgstr "Αγνόησε αρχεία και καταλόγους"
+
 #
 #~ msgid "Import Wizard"
 #~ msgstr "Αυτόματος οδηγός Εισαγωγής"
+
 #~ msgid ""
 #~ "Import existing project. The Import Wizard will guide you to import an "
 #~ "existing Project into Anjuta and convert it into Anjuta Project. There "
@@ -9234,15 +9309,20 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "καθοδηγήσει για να εισάγετε ένα υπάρχον Έργο στο Anjuta και να το "
 #~ "μετατρέψετε σε Έργο Anjuta. Δεν θα υπάρξει απώλεια δεδομένων ή "
 #~ "τροποποίηση του έργου."
+
 #~ msgid "Include Paths"
 #~ msgstr "Συμπερίληψη Διαδρομών"
+
 #
 #~ msgid "Include module Makefile.am"
 #~ msgstr "Συμπερίληψη αρθρώματος Makefile.am"
+
 #~ msgid "Info Pages"
 #~ msgstr "Σελίδες info"
+
 #~ msgid "Input string:"
 #~ msgstr "Αλφαριθμητικό εισόδου:"
+
 #, fuzzy
 #~ msgid "Keep going when some targets cannot be made"
 #~ msgstr "Συνέχεισε όταν ορισμένοι στόχοι δεν μπορούν να δημιουργηθούν"
@@ -9250,10 +9330,13 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Language-specific commands:"
 #~ msgstr "Ειδικές εντολές γλώσσας:"
+
 #~ msgid "Libraries"
 #~ msgstr "Βιβλιοθήκες"
+
 #~ msgid "Library Paths"
 #~ msgstr "Διαδρομές βιβλιοθήκης"
+
 #~ msgid "Linker Flags (LDFLAGS):"
 #~ msgstr "Σημαίες εκδότη συνδέσμων (LDFLAGS):"
 
@@ -9261,17 +9344,22 @@ msgstr "Επιλογές μηνυμάτων"
 # it is not quite suitable in this context...
 #~ msgid "Load _global defaults"
 #~ msgstr "Φόρτωση_γενικών προεπιλογών"
+
 # Using standard translation for "default" for consistency, although
 # it is not quite suitable in this context...
 #~ msgid "Load _user defaults"
 #~ msgstr "Φόρτωση _προεπιλογών χρήστη"
+
 #~ msgid "Low-Level Optimization (Machine dependent optimization)"
 #~ msgstr ""
 #~ "Bελτιστοποίηση Χαμηλού Επιπέδου (Bελτιστοποίηση εξαρτώμενη από το σύστημα)"
+
 #~ msgid "Makefile.am"
 #~ msgstr "Makefile.am"
+
 #~ msgid "Maximum number of independent jobs (0 == no limit)"
 #~ msgstr "Μέγιστος αριθμός ανεξάρτητων εργασιών (0 == no limit)"
+
 #, fuzzy
 #~ msgid "Medium-Level Optimization (Without space-speed trade-off)"
 #~ msgstr "Βελτιοποίηση μετρίου επιπέδου (Χωρίς space-speed trade-off)"
@@ -9283,10 +9371,13 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Menu location:"
 #~ msgstr "Τοποθεσία καταλόγου επιλογών:"
+
 #~ msgid "Modules"
 #~ msgstr "Μονάδες"
+
 #~ msgid "No Optimization"
 #~ msgstr "Καμία Βελτιστοποίηση"
+
 #~ msgid ""
 #~ "Note: If there is a project open, the preferences in this page are "
 #~ "project preferences and will be loaded from and saved with the project. "
@@ -9296,65 +9387,85 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "αποτελούνπροτιμήσεις του έργου. Η φόρτωση και η αποθήκευση τους θα γίνουν "
 #~ "μαζί με το έργο. Αν δεν υπάρχει ανοικτό έργο, θα γίνουν γενικές "
 #~ "προτιμήσεις."
+
 #~ msgid "Open Project"
 #~ msgstr "Άνοιγμα Έργου"
+
 #~ msgid "Open existing Project."
 #~ msgstr "Άνοιγμα υπάρχοντος Έργου."
+
 #~ msgid "Open existing file or create a new file."
 #~ msgstr "Άνοιγμα υπάρχοντος αρχείου ή δημιουργία νέου."
+
 #~ msgid "Open last working Project"
 #~ msgstr "Άνοιγμα τελευταίου Έργου εργασίας"
-#~ msgid "Optimization"
-#~ msgstr "Βελτιστοποίηση"
+
 #
 #~ msgid "Others"
 #~ msgstr "Άλλα"
+
 #~ msgid "Output files"
 #~ msgstr "Αρχεία εξόδου"
+
 #~ msgid "Pixmap module Makefile.am"
 #~ msgstr "Makefile.am αρθρώματος Pixmap"
+
 #, fuzzy
 #~ msgid "Po module (translation) Makefile.am"
 #~ msgstr "Makefile.am αρθρώματος Po (μεταγλώττιση)"
+
 #~ msgid "Programs"
 #~ msgstr "Προγράμματα"
 
 #
 #~ msgid "Project Configuration"
 #~ msgstr "Ρύθμιση Έργου"
+
 #~ msgid "Project Description"
 #~ msgstr "Περιγραφή Έργου"
+
 #, fuzzy
 #~ msgid "Project configure.in"
 #~ msgstr "Εισαγωγή στην εργασία..."
+
 #~ msgid "Project level"
 #~ msgstr "Επίπεδο Έργου"
+
 #~ msgid "Projects:"
 #~ msgstr "Έργα:"
+
 #~ msgid "Recent Projects:"
 #~ msgstr "Πρόσφατα Έργα:"
+
 #~ msgid "Reset all sticky tags during update (looses branch) [-A]"
 #~ msgstr ""
 #~ "Επαναφορά όλων των συμπαγών ετικετών κατά την ενημέρωση (Με απώλεια "
 #~ "διακλάδωσης) [-A]"
+
 #~ msgid "Run Configure Script"
 #~ msgstr "Εκτέλεση Σεναρίου Ρύθμησης"
+
 #~ msgid "Run detached"
 #~ msgstr "Εκτέλεση αποσπασμένου"
+
 #~ msgid "Scripts at the end of top level Makefile.am"
 #~ msgstr "Σενάρια στο τέλος του Makefile.am κορυφαίου επιπέδου "
 
 #
 #~ msgid "Settings"
 #~ msgstr "Ρυθμίσεις"
+
 #~ msgid "Show tooltips"
 #~ msgstr "Εμφάνιση Συμβουλών Εργαλείων"
+
 #, fuzzy
 #~ msgid "Silent. That is, do not echo shell commads during make"
 #~ msgstr ""
 #~ "Σιωπή. Μην κάνετε ανταπόκριση εντολών κέλυφους κατά τη διάρκεια του make"
+
 #~ msgid "Source module Makefile.am"
 #~ msgstr "Makefile.am αρθρώματος πηγαίου κώδικα"
+
 #~ msgid ""
 #~ "Start with a new Project. Application wizard will guide you with Project "
 #~ "creation. With the Application Wizard, you will be able to create the "
@@ -9369,33 +9480,43 @@ msgstr "Επιλογές μηνυμάτων"
 #~ msgstr ""
 #~ "Οι υποστηρίξεις είναι διαθέσιμες μόνο στη μετταγλώττιση και στη κατασκευή "
 #~ "τύπου File."
+
 #~ msgid "Top level Makefile.am"
 #~ msgstr "Makefile.am κορυφαίου επίπεδου"
+
 #~ msgid "Update tags image automatically"
 #~ msgstr "Αυτόματη ενημέρωση ετικετών εικόνας "
 
 #
 #~ msgid "User information"
 #~ msgstr "Πληροφορίες χρήστη"
+
 #~ msgid "Warn when an undefined variable is referenced in the Makefile"
 #~ msgstr "Ειδοποίηση σε περίπτωση αναφοράς αόριστης μεταβλητής στο Makefile"
+
 #~ msgid "Warnings"
 #~ msgstr "Προειδοποιήσεις"
+
 #~ msgid "_Build a file:"
 #~ msgstr "_Κατασκευή Αρχείου:"
+
 #~ msgid "_Image editor:"
 #~ msgstr "Επεξε_ργαστής εικόνας:"
+
 #~ msgid "_Language:"
 #~ msgstr "_Γλώσσα:"
+
 #, fuzzy
 #~ msgid "_Make a file:"
 #~ msgstr "Κάνε _Make σε αρχείο:"
+
 #~ msgid "_Pixmap editor:"
 #~ msgstr "Επεξεργαστής _Pixmap:"
 
 #
 #~ msgid "_Terminal:"
 #~ msgstr "_Τερματικό:"
+
 #, fuzzy
 #~ msgid "dialog2"
 #~ msgstr "Βοηθός εκκίνησης2"
@@ -9403,14 +9524,17 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "dialog4"
 #~ msgstr "Βοηθός εκκίνησης4"
+
 #~ msgid "launcher.c: Error while reading child pty\n"
 #~ msgstr "launcher.c: Σφάλμα κατά την ανάγνωση του child pty\n"
+
 #~ msgid "Anjuta Preferences Dialog"
 #~ msgstr "Βοηθός Επιλογής Προτιμήσεων Anjuta"
 
 #
 #~ msgid "Cannot execute command %s (using shell %s)\n"
 #~ msgstr "Αδυναμία εκτέλεσης εντολής \"%s\" (χρήση κελύφους %s)\n"
+
 #, fuzzy
 #~ msgid "Model"
 #~ msgstr "Κατάσταση:"
@@ -9418,6 +9542,7 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Width"
 #~ msgstr "Πλάτος"
+
 #, fuzzy
 #~ msgid "Text in the entry"
 #~ msgstr "Κείμενο προς εμφάνιση"
@@ -9442,42 +9567,57 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "No type attribute specified."
 #~ msgstr "Δεν καθορίστηκαν εκτελέσιμα\n"
+
 #~ msgid "Dock items"
 #~ msgstr "Στοιχεία αγκίστρων"
+
 #~ msgid "Layout Managment"
 #~ msgstr "Διαχείρηση Διάταξης"
+
 #~ msgid "Saved layouts"
 #~ msgstr "Αποθηκευμένες διατάξεις"
+
 #~ msgid "_Lock dock items"
 #~ msgstr "_Κλείδωσε στοιχεία αγκίστρου"
 
 #, fuzzy
 #~ msgid "Incremental search"
 #~ msgstr "Αναζήτηση βοήθειας Anjuta"
+
 #~ msgid "This file has not been saved. Save it first and then build."
 #~ msgstr ""
 #~ "Το αρχείο δεν αποθηκεύτηκε. Κάντε πρώτα αποθήκευση και ύστερα κατασκευή."
+
 #~ msgid "The executable is up-to-date, there is no need to build it again."
 #~ msgstr ""
 #~ "Το εκτελέσιμο πρόγραμμα είναι ενημερωμένο, δε χρειάζεται να το "
 #~ "κατασκευάσετε ξανά."
+
 #~ msgid "No build command has been specified for this type of file."
 #~ msgstr "Δεν προσδιορίστηκε εντολή κατασκευής γι'αυτό τον τύπο αρχείων."
+
 #~ msgid "Completed ... unsuccessful"
 #~ msgstr "Ολοκληρώθηκε ... χωρίς επιτυχία"
+
 #~ msgid "Completed ... successful"
 #~ msgstr "Ολοκληρώθηκε ... με επιτυχία"
+
 #~ msgid "Unable to build module. Check Settings->Commands."
 #~ msgstr ""
 #~ "Δεν είναι δυνατή η κατασκευή αρθρώματος. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "Build Project"
 #~ msgstr "Κατασκευή Έργου"
+
 #~ msgid "Building source directory of the Project: "
 #~ msgstr "Κατασκευή καταλόγου πηγαίου κώδικα του Έργου: "
+
 #~ msgid "Unable to build Project. Check Settings->Commands."
 #~ msgstr "Δεν είναι δύνατή η κατασκευή του Έργου. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "Building the whole Project: "
 #~ msgstr "Κατασκευή ολόκληρου του Έργου: "
+
 #~ msgid "Unable to build tarball. Check Settings->Commands."
 #~ msgstr ""
 #~ "Δεν είναι δυνατή η κατασκευή του tarball. Ελέγξτε Ρυθμίσεις->Εντολές."
@@ -9485,44 +9625,61 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Build Distribution"
 #~ msgstr "Κατασκευή Διανομής"
+
 #~ msgid "Building the distribution package of the Project: "
 #~ msgstr "Κατασκευή πακέτου διανομής του Έργου: "
+
 #~ msgid "Do you prefer installing as root ?"
 #~ msgstr "Προτιμάτε την εγκατάσταση σαν διαχειριστής συστήματος (root);"
+
 #~ msgid "Unable to auto generate. Check Settings->Commands."
 #~ msgstr "Δεν είναι δυνατή η αυτόματη δημιουργία. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "Auto generate Project"
 #~ msgstr "Αυτόματη δημιουργία Έργου"
+
 #~ msgid "Auto generating the Project: "
 #~ msgstr "Αυτόματη δημιουργία Έργου: "
+
 #~ msgid "Unable to install Project. Check Settings->Commands."
 #~ msgstr "Δεν είναι δυνατή η εγκατάσταση Έργου. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "Installing the Project: "
 #~ msgstr "Εγκατάσταση Έργου: "
+
 #~ msgid "Unable to clean Project. Check Settings->Commands."
 #~ msgstr "Είναι αδύνατος ο καθαρισμός του Έργου. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 # backends/xml-backend.c:300
 #~ msgid "Cleaning the source directory of the Project: "
 #~ msgstr "Καθαρισμός πηγαίου καταλόγου του Έργου: "
+
 #~ msgid "Unable to Clean All for the Project. Check Settings->Commands."
 #~ msgstr ""
 #~ "Είναι αδύνατος ο Καθαρισμός Όλων για το Έργο. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "Cleaning whole of the Project: "
 #~ msgstr "Καθαρισμός όλων από το Έργο:"
+
 #~ msgid "This file has not been saved. Save it first and then compile."
 #~ msgstr ""
 #~ "Αυτό το αρχείο δεν αποθηκεύτηκε. Αποθηκεύσετε το πρώτα και μετά "
 #~ "μεταγλωττίστε το."
+
 #~ msgid "The object file is up-to-date, there is no need to compile it again."
 #~ msgstr ""
 #~ "Το αρχείο αντικειμένου είναι προς ενημερωση, δεν χρειάζεται να το "
 #~ "μεταγλωττίσετε ξανά."
+
 #~ msgid "No compile command has been specified for this type of file."
 #~ msgstr "Δεν προσδιορίστηκε εντολή μεταγλώττισης γι'αυτό τον τύπο αρχείου."
+
 #~ msgid "Compile"
 #~ msgstr "Μεταγλώττιση"
+
 #~ msgid "Compiling file: %s ...\n"
 #~ msgstr "Μεταγλώττιση αρχείου: %s ...\n"
+
 #~ msgid ""
 #~ "You have changed some of the compiler options of the project,\n"
 #~ "would you like the next build action to perform a complete\n"
@@ -9531,13 +9688,17 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Αλλάξατε ορισμένες από τις επιλογές του μεταγλωττιστή,\n"
 #~ "θέλετε κατά την επόμενη ενέργεια κατασκευής να γίνει\n"
 #~ "εξ'ολοκλήρου ανακατασκευή του έργου;"
+
 #~ msgid "Do you want to clear the list?"
 #~ msgstr "Θέλετε να διαγράψετε τη λίστα;"
+
 #, fuzzy
 #~ msgid "Include paths"
 #~ msgstr "Να περιλάβεις διαδρομές"
+
 #~ msgid "Libraries paths"
 #~ msgstr "Διαδρομές βιβλιοθηκών"
+
 #~ msgid "Libraries and modules"
 #~ msgstr "Βιβλιοθήκες και αρθρώματα"
 
@@ -9548,8 +9709,10 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Stock Defines"
 #~ msgstr "?Σηματοδότης αποθηκευμένων"
+
 #~ msgid "Warning"
 #~ msgstr "Προειδοποίηση"
+
 #~ msgid ""
 #~ "Project does not have an executable configure script.\n"
 #~ "Auto generate the Project first."
@@ -9558,25 +9721,30 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Αυτόματη δημιουργία του Έργου πρώτα."
 
 #
-#~ msgid "Configure"
-#~ msgstr "Ρύθμιση"
-#
 #~ msgid "Configuring the Project ....\n"
 #~ msgstr "Ρύθμιση του Έργου ....\n"
+
 #~ msgid "The target executable of this Project is unknown"
 #~ msgstr "Το εκτελέσιμο στόχου αυτού του Έργου είναι άγνωστο"
+
 #~ msgid "The target executable of this Project is not executable"
 #~ msgstr "Το εκτελέσιμο στόχου αυτού του Έργου δεν είναι εκτελέσιμο"
+
 #~ msgid "The target executable does not exist for this Project"
 #~ msgstr "Το εκτελέσιμο στόχου δεν υπάρχει γι'αυτό το Έργο"
+
 #~ msgid "Executable is not up-to-date."
 #~ msgstr "Το εκτελέσιμο δεν ενημερώθηκε."
+
 #~ msgid "Unable to execute Project. Check Settings->Commands."
 #~ msgstr "Είναι αδύνατο να εκτελεστεί το Έργο. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #~ msgid "This file has not been saved. Save it first."
 #~ msgstr "Το αρχείο δεν αποθηκεύτηκε. Αποθηκεύστε το πρώτα."
+
 #~ msgid "Unable to execute file. Check Settings->Commands."
 #~ msgstr "Είναι αδύνατο να εκτελεστεί το αρχείο. Ελέγξτε Ρυθμίσεις->Εντολές."
+
 #
 #, fuzzy
 #~ msgid "_Execute program"
@@ -9603,10 +9771,13 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Add to current Project?"
 #~ msgstr "Αποθήκευση του τρέχοντος Έργου"
+
 #~ msgid "Browse for the declaration file name."
 #~ msgstr "Φυλλομέτρηση για το όνομα αρχείου δήλωσης."
+
 #~ msgid "Enter the name for the class you want to add."
 #~ msgstr "Εισάγετε το όνομα της κλάσης που θέλετε να προσθέσετε."
+
 #~ msgid "Enter the name of the class your new class will inherit from."
 #~ msgstr "Εισάγετε το όνομα της κλάσης απ'οπου η νέα κλάση θα κληροδοτήσει."
 
@@ -9642,6 +9813,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "dialog1"
 #~ msgstr "Βοηθός εκκίνησης3"
+
 #~ msgid "Start the debugging session"
 #~ msgstr "Έναρξη συνεδρίας εκσφαλμάτωσης"
 
@@ -9653,6 +9825,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Contents"
 #~ msgstr "Σχόλιο:"
+
 #~ msgid ""
 #~ "The editor is being used as output buffer for an operation.\n"
 #~ "Closing it will result in stopping the process.\n"
@@ -9661,6 +9834,7 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Ο επεξεργαστής χρησιμοποιείται ως αντιμνήμη εξόδου για μια λειτουργία.\n"
 #~ "Κλείνοντάς τον θα τερματιστεί η διεργασία.\n"
 #~ "Θέλετε ακόμα να κλείσετε τον επεξεργαστή;"
+
 #~ msgid "Do_n't save"
 #~ msgstr "Ό_χι αποθήκευση"
 
@@ -9671,18 +9845,23 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "No matches. Wrap search around the document?"
 #~ msgstr "Χωρίς αποτέλεσμα. Επέκταση αναζήτησης γύρω από το κείμενο;"
+
 #~ msgid "$(module.source.files) $(module.include.files)"
 #~ msgstr "$(module.source.files) $(module.include.files)"
+
 #~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 #~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
 #~ msgid ""
 #~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 #~ "README AUTHORS ChangeLog *.m4"
 #~ msgstr ""
 #~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 #~ "README AUTHORS ChangeLog *.m4"
+
 #~ msgid "*.so *.o *.a *.la"
 #~ msgstr "*.so *.o *.a *.la"
+
 #~ msgid "*\\.*"
 #~ msgstr "*\\.*"
 
@@ -9693,24 +9872,31 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Anjuta coding style"
 #~ msgstr "Στυλ κωδικοποίησης GNU"
+
 #~ msgid "Arrows"
 #~ msgstr "Βέλη"
 
 #
 #~ msgid "Bottom"
 #~ msgstr "Κάτω"
+
 #~ msgid "CVS intl po"
 #~ msgstr "CVS intl po"
+
 #
 #~ msgid "Circular"
 #~ msgstr "Κυκλικά"
+
 #~ msgid "Custom style"
 #~ msgstr "Προσαρμοσμένο στυλ"
+
 #
 #~ msgid "Delete Theme"
 #~ msgstr "Διαγραφή Θέματος"
+
 #~ msgid "Disable auto-format"
 #~ msgstr "Απενεργοποίησε αυτόματη διαμόρφωση"
+
 #~ msgid ""
 #~ "Enter the command line arguments for the 'indent' program. Read the info "
 #~ "page for 'indent' for more details"
@@ -9718,28 +9904,37 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Εισάγετε τις παράμετρους της γραμμής εντολής για το πρόγραμμα "
 #~ "'ενδοπαραγραφοποίησης'. Διαβάστε τη σελίδα πληροφοριών 'ενδοπαράγραφος' "
 #~ "για περισσότερες πληροφορίες"
+
 #~ msgid "GNU coding style"
 #~ msgstr "Στυλ κωδικοποίησης GNU"
+
 #~ msgid "Kernighan and Ritchie style"
 #~ msgstr "Στυλ Kernighan και Ritchie"
+
 #
 #~ msgid "Left"
 #~ msgstr "Αριστερά"
+
 #~ msgid "Original Berkeley style"
 #~ msgstr "Αυθεντικό στυλ Berkeley"
+
 #~ msgid "Plus/Minus"
 #~ msgstr "Συν/Πλην"
+
 # Using standard translation for "default" for consistency, although
 # it is not quite suitable in this context...
 #~ msgid "Reload Session Defaults"
 #~ msgstr "Επαναφόρτωση Προεπιλογών Συνεδρίας"
+
 # Using standard translation for "default" for consistency, although
 # it is not quite suitable in this context...
 #~ msgid "Reload System Defaults"
 #~ msgstr "Επαναφόρτωση Προεπιλογών Συστήματος"
+
 #
 #~ msgid "Right"
 #~ msgstr "Δεξιά"
+
 #, fuzzy
 #~ msgid "Space-seperated list of directory name patterns to ignore"
 #~ msgstr "Λίστα προτύπων ονομάτων καταλόγου χωρισμένων με κενό προς αγνόηση"
@@ -9759,17 +9954,21 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Squares"
 #~ msgstr "Τετράγωνα"
+
 #~ msgid "Style of Kangleipak"
 #~ msgstr "Στυλ Kangleipak"
 
 #
 #~ msgid "Top"
 #~ msgstr "Επάνω"
+
 #~ msgid "_Save Theme As"
 #~ msgstr "Αποθήκευση Θέματος _Ως"
+
 #, fuzzy
 #~ msgid "<b>Go to Line number:</b>"
 #~ msgstr " Μετάβαση στη γραμμή με αριθμό "
+
 #~ msgid "Close All Files"
 #~ msgstr "Κλείσιμο Όλων των Αρχείων"
 
@@ -9780,6 +9979,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_Enter Selection/I-Search"
 #~ msgstr "Εισαγωγή Επιλογής/I-Search"
+
 #~ msgid "Enter the selected text as the search target"
 #~ msgstr "Εισάγετε το επιλεγμένο κείμενο ως στόχο αναζήτησης"
 
@@ -9787,19 +9987,24 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Co_mment code"
 #~ msgstr "Κωδικός _Σχολίου"
+
 #~ msgid "For_mat"
 #~ msgstr "_Μορφή"
+
 #~ msgid "Auto _Format"
 #~ msgstr "Αυτόματη Μορρφοποίηση"
 
 #
 #~ msgid "Autoformat the current source file"
 #~ msgstr "Αυτόματη μορφοποίηση τρέχοντος αρχείου πηγαίου κώδικα"
+
 #~ msgid "_Toggle bookmark"
 #~ msgstr "Μετάπτωση σελιδοδείκτη"
+
 #
 #~ msgid "Find"
 #~ msgstr "Εύρεση"
+
 #, fuzzy
 #~ msgid "Goto line"
 #~ msgstr "Μετάβαση σε Δήλωση"
@@ -9807,43 +10012,56 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Enter the line number to jump and press enter"
 #~ msgstr "Εισαγωγή του αριθμού γραμμής για μετάβαση"
+
 #~ msgid "%d"
 #~ msgstr "%d"
 
 #
 #~ msgid "Printing .."
 #~ msgstr "Εκτύπωση .."
+
 #~ msgid ""
 #~ "Auto format is currently disabled. Change the setting in Preferences."
 #~ msgstr ""
 #~ "Η αυτόματη διαμόρφωση είναι απενεργοποιημένη. Αλλάξτε τη ρύθμιση στις "
 #~ "Προτιμήσεις."
+
 #~ msgid "Error in auto formatting ..."
 #~ msgstr "Σφάλμα κατά την αυτόματη μορφοποίηση ..."
+
 #~ msgid "Anjuta does not know %s!"
 #~ msgstr "Το Anjuta δεν αναγνωρίζει το %s!"
+
 #~ msgid ""
 #~ "Error in auto formatting ...\n"
 #~ "Details: %s"
 #~ msgstr ""
 #~ "Σφάλμα κατά την αυτόματη μορφοποίηση ...\n"
 #~ "Λεπτομέρειες: %s"
+
 #~ msgid "Back"
 #~ msgstr "Πίσω"
+
 #~ msgid "Tag Definition"
 #~ msgstr "Ορισμός Ετικέτας"
+
 #~ msgid "Tag Declaration"
 #~ msgstr "Δήλωση ετικέτας"
+
 #
 #~ msgid "Prev mesg"
 #~ msgstr "Προηγούμενο μήνυμα"
+
 #
 #~ msgid "Next mesg"
 #~ msgstr "Επόμενο μήνυμα"
+
 #~ msgid "Prev bookmark"
 #~ msgstr "Προηγούμενος σελιδοδείκτης"
+
 #~ msgid "Next bookmark"
 #~ msgstr "Επόμενος σελιδοδείκτης"
+
 #, fuzzy
 #~ msgid "Step in"
 #~ msgstr "Είσοδος"
@@ -9863,39 +10081,53 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Run/Continue"
 #~ msgstr "Εκτέλεση/Συνέχεια"
+
 #~ msgid "Interrupt"
 #~ msgstr "Διακοπή"
+
 #~ msgid "Toggle Line numbers"
 #~ msgstr "Μετάπτωση αριθμών &γραμμής"
+
 #~ msgid "Toggle Marker Margin"
 #~ msgstr "Μετάπτωση Περιθωρίου Δείκτη"
+
 #~ msgid "Toggle Fold Margin"
 #~ msgstr "Μετάπτωση Περιθωρίου Αναδίπλωσης"
+
 #~ msgid "Toggle Guides"
 #~ msgstr "Μετάπτωση Οδηγών"
+
 #~ msgid "++Zoom"
 #~ msgstr "++Εστίαση"
+
 #~ msgid "--Zoom"
 #~ msgstr "--Εστίαση"
+
 #
 #~ msgid "Cut"
 #~ msgstr "Αποκοπή"
+
 #
 #~ msgid "Paste"
 #~ msgstr "Επικόλληση"
+
 #, fuzzy
 #~ msgid "Context Help"
 #~ msgstr "Σχετική βοήθεια"
+
 #~ msgid "Auto format"
 #~ msgstr "Αυτόματη διαμόρφωση"
+
 #~ msgid "Tags"
 #~ msgstr "Ετικέτες"
+
 #~ msgid "Find Usage"
 #~ msgstr "Χρήση Εύρεσης"
 
 #
 #~ msgid "Docked"
 #~ msgstr "Σε Άγκιστρα"
+
 #, fuzzy
 #~ msgid "New empty editor."
 #~ msgstr "Επιλογή καταλόγου"
@@ -9913,12 +10145,14 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Directory "
 #~ msgstr "Κατάλογος:"
+
 #~ msgid "Do not show hidden directories"
 #~ msgstr "Μην εμφανίσεις τους κρυφούς καταλόγους"
 
 #
 #~ msgid "Ignore directories"
 #~ msgstr "Αγνόησε καταλόγους"
+
 #, fuzzy
 #~ msgid "Space-separated list of directory name patterns to ignore"
 #~ msgstr "Λίστα προτύπων ονομάτων καταλόγου χωρισμένων με κενό προς αγνόηση"
@@ -9942,6 +10176,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "%s is not a '.h' file !"
 #~ msgstr "Το αρχείο \"%s\" δεν είναι αρχείο κεφαλίδων."
+
 #~ msgid "_Insert text"
 #~ msgstr "Εισ_αγωγή κειμένου"
 
@@ -9961,33 +10196,39 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_Header"
 #~ msgstr "Κεφαλίδα"
+
 #~ msgid "Insert a file header"
 #~ msgstr "Εισαγωγή αρχείου κεφαλίδας"
 
 #, fuzzy
 #~ msgid "/_* GPL Notice */"
 #~ msgstr "/* Σημείωση GPL */"
+
 #~ msgid "Insert GPL notice with C style comments"
 #~ msgstr "Εισαγωγή σημείωσης GPL με σχόλια στυλ C"
 
 #, fuzzy
 #~ msgid "/_/ GPL Notice"
 #~ msgstr "// Σημείωση GPL"
+
 #~ msgid "Insert GPL notice with C++ style comments"
 #~ msgstr "Εισαγωγή σημείωσης GPL με σχόλια στυλ C++"
 
 #, fuzzy
 #~ msgid "_# GPL Notice"
 #~ msgstr "# Σημείωση GPL"
+
 #~ msgid "Insert GPL notice with Python style comments"
 #~ msgstr "Εισαγωγή σημείωσης GPL με σχόλια στυλ Python"
 
 #
 #~ msgid "Insert name of current user"
 #~ msgstr "Εισαγωγή ονόματος τρέχοντος χρήστη"
+
 #, fuzzy
 #~ msgid "Current _Date & Time"
 #~ msgstr "Τρέχουσα Ημερομηνία & Ώρα"
+
 #~ msgid "Insert current date & time"
 #~ msgstr "Εισαγωγή τρέχουσας ώρας & ημερομηνίας"
 
@@ -9998,14 +10239,17 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Insert a standard header file template"
 #~ msgstr "Εισαγωγή πρότυπου αρχείου standard κεφαλίδων"
+
 #~ msgid "ChangeLog entry"
 #~ msgstr "Καταχώριση ChangeLog"
+
 #~ msgid "Insert a ChangeLog entry"
 #~ msgstr "Εισαγωγή καταχώρισης ChangeLog"
 
 #, fuzzy
 #~ msgid "Insert a switch template"
 #~ msgstr "Εισαγωγή προτύπου αλλαγής"
+
 #~ msgid "Insert a for template"
 #~ msgstr "Εισαγωγή a ως πρότυπο"
 
@@ -10017,6 +10261,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Insert a while template"
 #~ msgstr "Εισαγωγή ποτύπου while"
+
 #~ msgid "Insert an if...else template"
 #~ msgstr "Εισαγωγή προτύπου if...else"
 
@@ -10032,6 +10277,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_Date"
 #~ msgstr "Ημερομηνία: "
+
 #~ msgid "Insert the CVS Date keyword (date and time of the change)"
 #~ msgstr "Εισαγωγή λέξης-κλειδί Ημερομηνίας CVS (Ημ/νία και ώρα αλλαγής)"
 
@@ -10050,12 +10296,14 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_Log"
 #~ msgstr "Είσ_οδος"
+
 #~ msgid "Insert the CVS Log keyword (log message)"
 #~ msgstr "Εισαγωγή λέξης-κλειδί για Ημερολόγιο CVS (μήνυμα ημερολογίου)"
 
 #, fuzzy
 #~ msgid "_Name"
 #~ msgstr "Όνομα"
+
 #~ msgid "Insert the CVS Name keyword (name of the sticky tag)"
 #~ msgstr ""
 #~ "Εισαγωγή λέξης-κλειδί για Όνομα CVS (Όνομα της ετικέτας που κολλάει)"
@@ -10064,6 +10312,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_Revision"
 #~ msgstr "Αναθεώρηση: "
+
 #~ msgid "Insert the CVS Revision keyword (revision number)"
 #~ msgstr "Εισαγωγή λέξης-κλειδί για Αναθεώρηση CVS (αριθμός αναθεωρήσεων)"
 
@@ -10087,6 +10336,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Disp"
 #~ msgstr "Lisp"
+
 #~ msgid "You must give a valid location to set the breakpoint."
 #~ msgstr ""
 #~ "Πρέπει να δώσετε μια έγκυρη τοποθεσία για να ρυθμίσετε το σημείο διακοπής."
@@ -10102,12 +10352,16 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "All breakpoints removed.\n"
 #~ msgstr "Όλα τα σημεία διακοπής σβήστηκαν:\n"
+
 #~ msgid "Local Variables"
 #~ msgstr "Τοπικές Μεταβλητές"
+
 #~ msgid "Default format"
 #~ msgstr "Πρεπιλεγμένο μορφότυπο"
+
 #~ msgid "Binary"
 #~ msgstr "Δυαδικό"
+
 #~ msgid "Octal"
 #~ msgstr "Οκταδικό"
 
@@ -10118,23 +10372,28 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Unsigned decimal"
 #~ msgstr "Δεκαδικό"
+
 #~ msgid "Hex"
 #~ msgstr "Δεκαεξαδικό"
 
 #
 #~ msgid "Char"
 #~ msgstr "Χαρακτήρας"
+
 #
 #~ msgid "Inspect memory"
 #~ msgstr "Επιθεώρηση μνήμης"
+
 #~ msgid "Debugger is ready.\n"
 #~ msgstr "Το πρόγραμμα εκσφαλμάτωσης είναι έτοιμο.\n"
+
 #~ msgid ""
 #~ "Program is ATTACHED.\n"
 #~ "Do you still want to stop Debugger?"
 #~ msgstr ""
 #~ "Το πρόγραμμα είναι ΣΥΝΝΗΜΜΕΝΟ.\n"
 #~ "Θέλετε ακόμα να τερματήσετε το πρόγραμμα εκσφαλμάτωσης;"
+
 #, fuzzy
 #~ msgid "Cannot execute gnome-terminal"
 #~ msgstr "Αδυναμία ανοίγματος τερματικού ελέγχου%s\n"
@@ -10146,6 +10405,7 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "_Breakpoints ..."
 #~ msgstr "_Σημεία Διακοπής ..."
+
 #, fuzzy
 #~ msgid "Display the IDs of currently known threads"
 #~ msgstr "Πατήστε για την εμφάνιση αλληλουχίας μηνυμάτων"
@@ -10157,6 +10417,7 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Display local variables of the current frame"
 #~ msgstr "Εμφάνιση τοπικών μεταβλητών τρέχοντος πλαισίου"
+
 #, fuzzy
 #~ msgid "Examine _Memory"
 #~ msgstr "Εξάντληση μνήμης!"
@@ -10168,12 +10429,16 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "_Restart Program"
 #~ msgstr "_Επανεκκίνηση Προγράμματος"
+
 #~ msgid "Stop and restart the program"
 #~ msgstr "Τερματισμός και επανεκκίνηση του προγράμματος"
+
 #~ msgid "S_top Program"
 #~ msgstr "Δια_κοπή Προγράμματος"
+
 #~ msgid "Stop the program being debugged"
 #~ msgstr "Τερματισμός εκσφαλμάτωσης του προγράμματος"
+
 #  8
 #, fuzzy
 #~ msgid "_Detach Debugger"
@@ -10186,13 +10451,17 @@ msgstr "Επιλογές μηνυμάτων"
 #  11
 #~ msgid "Si_gnal to Process"
 #~ msgstr "Σήμα στη _Διεργασία"
+
 #~ msgid "Send a kernel signal to the process being debugged"
 #~ msgstr "Αποστολή σήματος πυρήνα στη διεργασία που εκσφαλματώνεται"
+
 #  19
 #~ msgid "Add Expression in _Watch ..."
 #~ msgstr "Προσθήκη Έκφρασης σε _Watch ..."
+
 #~ msgid "Add expression or variable to the watch"
 #~ msgstr "Προσθήκη έκφρασης ή μεταβλητής στο watch"
+
 #, fuzzy
 #~ msgid "Registers ..."
 #~ msgstr "Μητρώα"
@@ -10212,27 +10481,36 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Location: %s, line %d\n"
 #~ msgstr "Επίρραμμα του %s με χρήση %s\n"
+
 #~ msgid "Sysm Read"
 #~ msgstr "Aνάγνωση Sysm"
+
 #~ msgid "Frame info"
 #~ msgstr "Πληροφορίες πλαισίου"
+
 #~ msgid "< Not defined in current context >"
 #~ msgstr "< Δεν ορίστηκε στο τρέχοντα συνδυασμό >"
+
 #~ msgid "Add expression"
 #~ msgstr "Προσθήκη Έκφρασης"
 
 #
 #~ msgid "Clear"
 #~ msgstr "Καθαρισμός"
+
 #~ msgid "Add Watch Expression"
 #~ msgstr "Προσθήκη Έκφρασης Watch"
+
 #, fuzzy
 #~ msgid "Add expression to watch"
 #~ msgstr "Προσθήκη έκφρασης watch"
+
 #~ msgid "Modify Watch Expression"
 #~ msgstr "Τροποποίηση Έκφρασης Watch"
+
 #~ msgid "Modify watched expression"
 #~ msgstr "ΤΡοποποίηση watched έκφρασης"
+
 #~ msgid "Inspect/Evaluate Expression"
 #~ msgstr "Επιθεώρηση/Αποτίμηση Έκφρασης"
 
@@ -10332,6 +10610,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "_No Date"
 #~ msgstr "Δε βρέθηκαν ταιριάσματα"
+
 #~ msgid "Orientation"
 #~ msgstr "Προσανατολισμός"
 
@@ -10411,6 +10690,7 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "// LGPL"
 #~ msgstr "// Σημείωση GPL"
+
 #~ msgid "C"
 #~ msgstr "C"
 
@@ -10487,12 +10767,15 @@ msgstr "Επιλογές μηνυμάτων"
 # sysdeps/names/procsignal.c:42
 #~ msgid "Diagonal"
 #~ msgstr "Διαγώνια"
+
 #~ msgid "Enable automatic messages indicators"
 #~ msgstr "Ενεργοποίησε ενδείκτες αυτόματων μηνυμάτων"
+
 #
 #, fuzzy
 #~ msgid "Information:"
 #~ msgstr "Πληροφορίες"
+
 #~ msgid "Pick a color"
 #~ msgstr "Διάλεξε χρώμα"
 
@@ -10508,11 +10791,14 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "Underline Squiggle"
 #~ msgstr "Υπογράμμιση Squiggle"
+
 #
 #~ msgid "Underline-TT"
 #~ msgstr "Υπογράμμιση-TT"
+
 #~ msgid "Patch successful.\n"
 #~ msgstr "Επίρραμμα Επιτυχές.\n"
+
 #, fuzzy
 #~ msgid " ..."
 #~ msgstr "..."
@@ -10532,8 +10818,10 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Loading project. Please wait ..."
 #~ msgstr "Eισαγωγή Έργου...παρακαλώ περιμένετε"
+
 #~ msgid "Unable to load Project: %s"
 #~ msgstr "Αδύνατη η φόρτωση Έργου: %s"
+
 #~ msgid ""
 #~ "Anjuta version %s or later is required to open this Project.\n"
 #~ "Please upgrade to the latest version of Anjuta (Help for more "
@@ -10542,8 +10830,10 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Απαιτείται το Anjuta έκδοσης %s ή νεότερης για να ανοιχθεί αυτό το Έργο.\n"
 #~ "Παρακαλώ αναβαθμίστε το πρόγραμμα με την τελευταία έκδοση του Anjuta "
 #~ "(Βοήθεια για περισσότερες πληροφορίες)."
+
 #~ msgid "Unable to save the Project."
 #~ msgstr "Είναι αδύνατη η αποθήκευση του Έργου."
+
 #~ msgid ""
 #~ "A .glade file does not exist in the top level Project directory. If you "
 #~ "do not use glade for GUI editing,  please specify a custom command for it "
@@ -10553,112 +10843,155 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "χρησιμοποιείτε το glade για επεξεργασία GUI, παρακαλώ προσδιορίστε μια "
 #~ "προσαρμοσμένη εντολή για αυτό στο [Έργο]->[Ρύθμιση Έργου]->[Eπεξεργαστής "
 #~ "εντολών GUI]"
+
 #~ msgid ""
 #~ "A .glade file does not\n"
 #~ "exist in the top level Project directory."
 #~ msgstr ""
 #~ "Δεν υπάρχει αρχείο .glade στον\n"
 #~ "κορυφαίου επιπέδου κατάλογο Έργου."
+
 #~ msgid "Recent Projects "
 #~ msgstr "Πρόσφατα Έργα "
+
 #~ msgid "Project: "
 #~ msgstr "Έργο: "
+
 #~ msgid ""
 #~ "Unable to get relative file name for %s\n"
 #~ " in %s"
 #~ msgstr ""
 #~ "Είναι αδύνατη η λήψη σχετικού ονόματος αρχείου για το %s\n"
 #~ " σε %s"
+
 #~ msgid " already exists in the project"
 #~ msgstr " υπάρχει ήδη στο έργο"
+
 #~ msgid "Error while copying the file inside the module."
 #~ msgstr "Σφάλμα κατά την αντιγραφή του αρχείου στο άρθρωμα."
+
 #~ msgid ""
 #~ "Are you sure you want to remove the item\n"
 #~ "'%s' from the Project?"
 #~ msgstr ""
 #~ "Θέλετε σίγουρα την αφαίρεση του στοιχείου\n"
 #~ "'%s' από το Έργο;"
+
 #~ msgid "Help files"
 #~ msgstr "Αρχεία βοήθειας"
+
 #~ msgid "Pascal files"
 #~ msgstr "Αρχεία Pascal"
+
 #~ msgid "PHP files"
 #~ msgstr "Αρχεία PHP"
+
 #~ msgid "Perl files"
 #~ msgstr "Αρχεία Perl"
+
 #~ msgid "Python files"
 #~ msgstr "Αρχεία Python"
 
 #
 #~ msgid "Shell Script files"
 #~ msgstr "Κελύφος Αρχείων σεναρίων"
+
 #~ msgid "Visual Basic files"
 #~ msgstr "Αρχεία Visual Basic"
+
 #~ msgid ".lua files"
 #~ msgstr "Αρχεία .lua"
+
 #~ msgid "PNG files"
 #~ msgstr "Αρχεία PNG"
+
 #~ msgid "JPG files"
 #~ msgstr "Αρχεία JPG"
+
 #~ msgid "BMP files"
 #~ msgstr "Αρχεία BMP"
+
 #
 #~ msgid "GIF files"
 #~ msgstr "Αρχεία GIF"
+
 #~ msgid "Text files"
 #~ msgstr "Αρχεία κειμένου"
+
 #~ msgid "XML files"
 #~ msgstr "Αρχεία XML"
+
 #
 #~ msgid "HTML files"
 #~ msgstr "Αρχεία HTML"
+
 #~ msgid "DOC files"
 #~ msgstr "Αρχεία DOC"
+
 #~ msgid "PO files"
 #~ msgstr "Αρχεία PO"
+
 #~ msgid "C/C++ Headers"
 #~ msgstr "Κεφαλίδες C/C++"
+
 #~ msgid "Add file to module: "
 #~ msgstr "Προσθήκη αρχείου στο άρθρωμα:"
+
 #
 #~ msgid "Include file"
 #~ msgstr "Συμπερίληψη αρχείου"
+
 #~ msgid "Source file"
 #~ msgstr "Πηγαίο αρχείο"
+
 #~ msgid "Help file"
 #~ msgstr "Αρχείο βοηθείας"
+
 #  4
 #~ msgid "Pixmap file"
 #~ msgstr "Αρχείο pixmap"
+
 #~ msgid "Translation file"
 #~ msgstr "Αρχείο μετάφρασης"
+
 #~ msgid "Doc file"
 #~ msgstr "Αρχείο doc"
+
 #
 #~ msgid "Add File"
 #~ msgstr "Προσθήκη αρχείου"
+
 #~ msgid "Open in default viewer"
 #~ msgstr "Άνοιγμα στο προεπιλεγμένο προβολέα"
+
 #~ msgid "Open in Anjuta"
 #~ msgstr "Άνοιγμα στο Anjuta"
+
 #~ msgid "Configure Project"
 #~ msgstr "Ρύθμιση Έργου"
+
 #~ msgid "Project Info"
 #~ msgstr "Πληροφορίες Έργου"
+
 #
 #~ msgid "Project Information"
 #~ msgstr "Πληροφορίες Έργου"
+
 #~ msgid "Program Name:"
 #~ msgstr "Όνομα Προγράμματος:"
+
 #~ msgid "Help files:"
 #~ msgstr "Αρχεία βοήθειας:"
+
 #~ msgid "Data files:"
 #~ msgstr "Αρχεία δεδομένων:"
+
 #~ msgid "Pixmap files:"
 #~ msgstr "Αρχεία Pixmap:"
+
 #~ msgid "Doc files:"
 #~ msgstr "Αρχεία Doc:"
+
 #, fuzzy
 #~ msgid "GUI editable by Glade:"
 #~ msgstr "GUI επεξεργάσιμο από Glade\n"
@@ -10666,73 +10999,102 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Makefiles managed:"
 #~ msgstr "Διαχείρηση Makefiles από:"
+
 #~ msgid "Gettext support:"
 #~ msgstr "Υποστήριξη Gettext:"
+
 #~ msgid "Project Type:"
 #~ msgstr "Τύπος Έργου:"
+
 #~ msgid ""
 #~ "Project is not saved.\n"
 #~ "Do you want to save it before closing?"
 #~ msgstr ""
 #~ "Το αρχείο δεν αποθηκεύτηκε.\n"
 #~ "Θέλετε να το αποθηκεύσετε πριν το κλείσιμο;"
+
 #~ msgid "Breton"
 #~ msgstr "Βρετονικά"
+
 #~ msgid "Catalan"
 #~ msgstr "Καταλωνικά"
 
 #
 #~ msgid "Czech"
 #~ msgstr "Τσέχικα"
+
 #~ msgid "Danish"
 #~ msgstr "Δανέζικα"
+
 #
 #~ msgid "German"
 #~ msgstr "Γερμανικά"
+
 #~ msgid "Esperanto"
 #~ msgstr "Εσπεράντο"
+
 #~ msgid "Spanish"
 #~ msgstr "Ισπανικά"
+
 #~ msgid "Finnish"
 #~ msgstr "Φιλανδικά"
+
 #~ msgid "French"
 #~ msgstr "Γαλλικά"
+
 #~ msgid "Herbrew"
 #~ msgstr "Εβραϊκά"
+
 #~ msgid "Croatian"
 #~ msgstr "Κροάτικα"
+
 #~ msgid "Hungarian"
 #~ msgstr "Ουγγρική"
+
 #~ msgid "Islandic"
 #~ msgstr "Ισλανδικά"
+
 #~ msgid "Italian"
 #~ msgstr "Ιταλικά"
+
 #~ msgid "Macedonian"
 #~ msgstr "Μακεδονική"
+
 #
 #~ msgid "Dutch"
 #~ msgstr "Ολλανδικά"
+
 #~ msgid "Norwegian"
 #~ msgstr "Νορβηγικά"
+
 #~ msgid "Polish"
 #~ msgstr "Πολωνικά"
+
 #~ msgid "Portuguese"
 #~ msgstr "Πορτογαλλικά"
+
 #~ msgid "Russian"
 #~ msgstr "Ρωσικά"
+
 #~ msgid "Slovak"
 #~ msgstr "Σλοβάκικα"
+
 #~ msgid "Simplified Chinese"
 #~ msgstr "Απλοποιημένα Κινέζικα"
+
 #~ msgid "Chinese"
 #~ msgstr "Κινέζικα"
+
 #~ msgid "Estonian"
 #~ msgstr "Εστονικά"
+
 #, fuzzy
 #~ msgid "Select regional language"
 #~ msgstr "Επιλέξτε Γλώσσα"
+
 #~ msgid "Select regional language:"
 #~ msgstr "Επιλέξτε Γλώσσα:"
+
 #~ msgid ""
 #~ "\"%s\"\n"
 #~ "does not exist.\n"
@@ -10741,8 +11103,10 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Το \"%s\"\n"
 #~ "δεν υπάρχει.\n"
 #~ "Θέλετε να το δημιουργήσετε τώρα;"
+
 #~ msgid "Not a regular file: %s."
 #~ msgstr "Δεν είναι κανονικό αρχείο:%s."
+
 #~ msgid ""
 #~ "\"%s\"\n"
 #~ "does not exist in the current module directory.\n"
@@ -10751,48 +11115,68 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Το \"%s\"\n"
 #~ "δεν υπάρχει στο τρέχοντα κατάλογο αρθρωμάτων.\n"
 #~ "Θέλετε ΕΙΣΑΓΩΓΗ (αντιγραφή) του στο άρθρωμα;"
+
 #~ msgid "Unable to find import script %s"
 #~ msgstr "Αδύνατο να βρεθεί σενάριο εισαγωγής %s"
+
 #~ msgid "%s: Not a regular file"
 #~ msgstr "%s: Δεν είναι κανονικό αρχείο"
+
 #~ msgid "Importing Project from %s ...\n"
 #~ msgstr "Εισάγεται Έργο από %s ...\n"
+
 #~ msgid "Could not launch script!\n"
 #~ msgstr "Αδύνατο να φορτωθεί το σενάριο!\n"
+
 #~ msgid "Importing Project...please wait"
 #~ msgstr "Eισαγωγή Έργου...παρακαλώ περιμένετε"
+
 #~ msgid "Project import completed...unsuccessful\n"
 #~ msgstr "Εισαγωγή Έργου ολοκληρώθηκε ... χωρίς επιτυχία\n"
+
 #~ msgid "Project import completed...unsuccessful"
 #~ msgstr "Εισαγωγή Έργου ολοκληρώθηκε ... χωρίς επιτυχία"
+
 #~ msgid "Project import completed...successful\n"
 #~ msgstr "Η Εισαγωγή έργου ολοκληρώθηκε...με επιτυχία\n"
+
 #~ msgid "Project import completed...successful"
 #~ msgstr "Η εισαγωγή έργου ολοκληρώθηκε...με επτιτυχία"
+
 #~ msgid "Could not import Project: no project file found!"
 #~ msgstr "Δεν έγινε εισαγωγή Έργου: δε βρέθηκε αρχείο έργου!"
+
 #~ msgid "Opening Project...please wait"
 #~ msgstr "Άνοιγμα Έργου...παρακαλώ περιμένετε"
+
 #~ msgid "Please complete all of the required fields"
 #~ msgstr "Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία"
+
 #~ msgid "Project Name:    "
 #~ msgstr "Όνομα Έργου:    "
+
 #~ msgid "Project Type:    "
 #~ msgstr "Τύπος Έργου:"
+
 #~ msgid "Target Type:     "
 #~ msgstr "Τύπος Στόχου:    "
+
 #~ msgid "Source Target:   "
 #~ msgstr "Στόχος πηγαίου κώδικα:   "
 
 #
 #~ msgid "Version:         "
 #~ msgstr "Έκδοση:         "
+
 #~ msgid "Author:          "
 #~ msgstr "Συγγραφέας:         "
+
 #~ msgid "Language:        "
 #~ msgstr "Γλώσσα:         "
+
 #~ msgid "Gettext Support: "
 #~ msgstr "Υποστήριξη Gettext: "
+
 #~ msgid ""
 #~ "The import operation has already begun.\n"
 #~ "Click Cancel to skip the customisation stage, or Next to continue."
@@ -10800,6 +11184,7 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "Η λειτουργία εισαγωγής έχει ήδη ξεκινήσει.\n"
 #~ "Πατήστε Ακύρωση για να προσπεράσετε το βήμα προσαρμογής, ή Επόμενο για να "
 #~ "συνεχίσετε."
+
 #~ msgid ""
 #~ "The Project Import Wizard scans the directory of an\n"
 #~ "existing code project, and attempts to import the structure\n"
@@ -10814,14 +11199,18 @@ msgstr "Επιλογές μηνυμάτων"
 #~ "οι αξίες που εντοπίστηκαν αυτόματα κατά τη διεργασία εισαγωγής.\n"
 #~ "\n"
 #~ "ΑΥΤΗ ΕΙΝΑΙ ΠΕΙΡΑΜΑΤΙΚΗ ΛΕΙΤΟΥΡΓΙΑ\n"
+
 # backends/xml-backend.c:300
 #, fuzzy
 #~ msgid "Select top level directory of an existing project"
 #~ msgstr "Αδύνατη η εύρεση ριζικού καταλόγου %s στη διεύθυνση `%s'"
+
 #~ msgid "Select existing project directory"
 #~ msgstr "Επιλογή υπάρχοντος καταλόγου έργου"
+
 #~ msgid "Click Forward to begin the import"
 #~ msgstr "Πατήστε για να ξεκινήσετε την εισαγωγή"
+
 #~ msgid "Error writing to: %s."
 #~ msgstr "Σφάλμα εγγραφής στο: %s"
 
@@ -10898,19 +11287,24 @@ msgstr "Επιλογές μηνυμάτων"
 #
 #~ msgid "_Settings"
 #~ msgstr "_Ρυθμίσεις"
+
 #  3
 #  4
 #~ msgid "_Preferences ..."
 #~ msgstr "_Προτιμήσεις ..."
+
 #  8
 #~ msgid "Set _Default Preferences"
 #~ msgstr "Ρύθμιση Προεπιλεγμένων Προτιμήσεων"
+
 #~ msgid "But I prefer tea."
 #~ msgstr "Αλλά προτιμώ τσάι."
+
 #  9
 #, fuzzy
 #~ msgid "C_ustomize shortcuts"
 #~ msgstr "Προσαρμο_γή συντομεύσεων"
+
 #~ msgid "Customize shortcuts associated with menu items"
 #~ msgstr ""
 #~ "Προσαρμογή των συντομεύσεων που συνδέονται με τα στοιχεία του καταλόγου"
@@ -10918,12 +11312,14 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Toggle View"
 #~ msgstr "Μετάπτωση Οδηγών"
+
 #~ msgid ""
 #~ "The file '%s' already exists.\n"
 #~ "Do you want to replace it with the one you are saving?."
 #~ msgstr ""
 #~ "Το αρχείο '%s' υπάρχει ήδη.\n"
 #~ "Θέλετε να το αντικαταστήσετε με αυτό που αποθηκεύετε;"
+
 #~ msgid ""
 #~ "One or more files are not saved.\n"
 #~ "Do you still want to exit?"
@@ -10934,4 +11330,3 @@ msgstr "Επιλογές μηνυμάτων"
 #, fuzzy
 #~ msgid "Anjuta test shell"
 #~ msgstr "Αναζήτηση βοήθειας Anjuta"
-
