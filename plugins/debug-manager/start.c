@@ -847,7 +847,7 @@ on_select_target (GtkButton *button, gpointer user_data)
 	gtk_dialog_response (GTK_DIALOG (user_data), ANJUTA_RESPONSE_SELECT_TARGET);
 }
 
-static void
+static gboolean
 dma_start_load_uri (DmaStart *this)
 {
 	GList *search_dirs;
@@ -855,29 +855,38 @@ dma_start_load_uri (DmaStart *this)
 	gchar *mime_type;
 	gchar *filename;
 
-	if (!dma_quit_debugger (this)) return;
+	if (!dma_quit_debugger (this)) return FALSE;
 	
-	if ((this->target_uri != NULL) && (*(this->target_uri) != '\0'))
+	if ((this->target_uri == NULL) || (*(this->target_uri) == '\0'))
 	{
-		vfs_uri = gnome_vfs_uri_new (this->target_uri);
-		
-		g_return_if_fail (vfs_uri != NULL);
-		
-		if (!gnome_vfs_uri_is_local (vfs_uri)) return;
-			
-		search_dirs = get_source_directories (this->plugin);
-		
-		mime_type = gnome_vfs_get_mime_type (this->target_uri);
-	    filename = gnome_vfs_get_local_path_from_uri (this->target_uri);
-
-		dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
-		
-		g_free (filename);
-		g_free (mime_type);
-		gnome_vfs_uri_unref (vfs_uri);
-		free_source_directories (search_dirs);
-
+		/* Missing URI */
+		return FALSE;
 	}
+	vfs_uri = gnome_vfs_uri_new (this->target_uri);
+		
+	g_return_if_fail (vfs_uri != NULL);
+	
+	if (!gnome_vfs_uri_is_local (vfs_uri)) return FALSE;
+			
+	search_dirs = get_source_directories (this->plugin);
+		
+	mime_type = gnome_vfs_get_mime_type (this->target_uri);
+	if (mime_type == NULL)
+	{
+		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
+				_("Unable to open %s. Debugger cannot start."), this->target_uri);
+		return FALSE;
+	}
+    	filename = gnome_vfs_get_local_path_from_uri (this->target_uri);
+
+	dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
+		
+	g_free (filename);
+	g_free (mime_type);
+	gnome_vfs_uri_unref (vfs_uri);
+	free_source_directories (search_dirs);
+
+	return TRUE;
 }
 
 static gboolean
@@ -1304,13 +1313,13 @@ dma_attach_to_process (DmaStart* this)
 gboolean
 dma_run_target (DmaStart *this)
 {
-	if (dma_set_parameters (this) == TRUE)
-	{       
-		dma_start_load_uri (this);
-		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
-	}
+	if (!dma_set_parameters (this)) return FALSE;
+       
+	if (!dma_start_load_uri (this)) return FALSE;
+
+	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
 	
-	return this->target_uri != NULL;
+	return TRUE;
 }
 
 gboolean
@@ -1318,7 +1327,8 @@ dma_rerun_target (DmaStart *this)
 {
 	if (this->target_uri == NULL) return FALSE;
 
-	dma_start_load_uri (this);
+	if (!dma_start_load_uri (this)) return FALSE;
+
 	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
 	
 	return TRUE;

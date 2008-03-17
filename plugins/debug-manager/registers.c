@@ -128,7 +128,13 @@ on_cpu_registers_updated (const GList *registers, gpointer user_data, GError *er
 		
 		return;
 	}
-	
+
+	if (self->current == NULL)
+	{
+		/* Program has exited */
+		return;
+	}
+
 	/* Get first item in list view */
 	valid = gtk_tree_model_get_iter_first (self->current->model, &iter);
 	list = GTK_LIST_STORE (self->current->model);
@@ -246,7 +252,7 @@ dma_thread_create_new_register_list (CpuRegisters *self, gint thread)
 		GError *err = NULL;
 		
 		self->current = regs;
-		
+	
 		/* List is empty, ask debugger to get all register name */
 		dma_queue_list_register (
 				self->debugger,
@@ -291,11 +297,12 @@ on_clear_register_list (gpointer data, gpointer user_data)
 static void
 dma_thread_clear_all_register_list (CpuRegisters *self)
 {
+	self->current = NULL;
+
 	/* Clear all GtkListStore */
 	g_list_foreach (self->list, (GFunc)on_clear_register_list, NULL);
 	g_list_free (self->list);
 	
-	self->current = NULL;
 	self->list = NULL;
 }
 

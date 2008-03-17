@@ -202,6 +202,8 @@ const static GdbMessageCode GdbErrorMessage[] =
 	IANJUTA_DEBUGGER_UNABLE_TO_ACCESS_MEMORY},
 	{"No source file named  ",
 	IANJUTA_DEBUGGER_UNABLE_TO_OPEN_FILE},
+	{"No executable file specified.",
+	IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND},
 	{NULL, 0}};
 
 static guint
@@ -213,12 +215,6 @@ gdb_match_error(const gchar *message)
 	{
 		gsize len = strlen (msg->msg);
 		
-		if (!isspace (msg->msg[len - 1]))
-		{
-			/* Match the whole string */
-			len++;
-		}
-
 		if (memcmp (msg->msg, message, len) == 0)
 		{
 			return msg->code;
@@ -1458,6 +1454,14 @@ debugger_stdo_flush (Debugger *debugger)
 		GError *error;
 
 		error = gdb_parse_error (debugger, val);
+
+		/* Trap state error */
+		if ((error != NULL) && (error->code == IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND))
+		{
+			debugger->priv->prog_is_running = FALSE;
+			debugger->priv->prog_is_attached = FALSE;
+			debugger->priv->prog_is_loaded = FALSE;
+		}
 
 		if (debugger->priv->current_cmd.parser != NULL)
 		{
