@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 10:59+0100\n"
-"PO-Revision-Date: 2008-03-12 11:02+0100\n"
+"POT-Creation-Date: 2008-03-22 12:48+0100\n"
+"PO-Revision-Date: 2008-03-22 12:49+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -1925,7 +1925,7 @@ msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/debug-manager/registers.c:464 ../plugins/tools/editor.c:463
+#: ../plugins/debug-manager/registers.c:471 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "Valor"
 
@@ -2192,11 +2192,11 @@ msgstr ""
 "Imposible encontrar un complemento de depuración que soporte un obxectivo "
 "cun tipo MIME %s"
 
-#: ../plugins/debug-manager/registers.c:457
+#: ../plugins/debug-manager/registers.c:464
 msgid "Register"
 msgstr "Rexistrador"
 
-#: ../plugins/debug-manager/registers.c:484
+#: ../plugins/debug-manager/registers.c:491
 msgid "Registers"
 msgstr "Rexistradores"
 
@@ -2361,24 +2361,29 @@ msgstr "Non se puido executar: %s"
 msgid "Unable to open the file: %s\n"
 msgstr "Non se puido abrir o ficheiro: %s\n"
 
-#: ../plugins/debug-manager/start.c:903 ../plugins/debug-manager/start.c:1191
+#: ../plugins/debug-manager/start.c:877
+#, c-format
+msgid "Unable to open %s. Debugger cannot start."
+msgstr "Non se puido abrir %s. Non se pode iniciar o depurador."
+
+#: ../plugins/debug-manager/start.c:912 ../plugins/debug-manager/start.c:1200
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta o ficheiro %s"
 
-#: ../plugins/debug-manager/start.c:1024
+#: ../plugins/debug-manager/start.c:1033
 msgid "Load Target to debug"
 msgstr "Cargar obxectivo para depurar"
 
-#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1041 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "Todos os ficheiros"
 
-#: ../plugins/debug-manager/start.c:1212
+#: ../plugins/debug-manager/start.c:1221
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1260 ../plugins/gdb/debugger.c:1639
+#: ../plugins/debug-manager/start.c:1269 ../plugins/gdb/debugger.c:1643
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2599,8 +2604,8 @@ msgstr "Non mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 #: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:2115
+#: ../plugins/document-manager/plugin.c:2126
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3600,7 +3605,7 @@ msgstr "Imprimindo..."
 msgid "Print Preview"
 msgstr "Previsualización da impresión"
 
-#: ../plugins/editor/plugin.c:121 ../plugins/editor/plugin.c:133
+#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
@@ -4015,15 +4020,15 @@ msgstr "Executar nunha terminal"
 msgid "_Pass:"
 msgstr "_Pasar:"
 
-#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
+#: ../plugins/gdb/debugger.c:685 ../plugins/gdb/debugger.c:887
 msgid "Loading Executable: "
 msgstr "Cargando executable: "
 
-#: ../plugins/gdb/debugger.c:719
+#: ../plugins/gdb/debugger.c:715
 msgid "Loading Core: "
 msgstr "Cargando core: "
 
-#: ../plugins/gdb/debugger.c:756
+#: ../plugins/gdb/debugger.c:752
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4034,55 +4039,55 @@ msgstr ""
 "Non se puido inicializar o depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:885
+#: ../plugins/gdb/debugger.c:881
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar a sesión de depuración...\n"
 
-#: ../plugins/gdb/debugger.c:900
+#: ../plugins/gdb/debugger.c:896
 msgid "No executable specified.\n"
 msgstr "Non se especificou o executable.\n"
 
-#: ../plugins/gdb/debugger.c:903
+#: ../plugins/gdb/debugger.c:899
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
 
-#: ../plugins/gdb/debugger.c:912
+#: ../plugins/gdb/debugger.c:908
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Houbo un erro ao lanzar o depurador.\n"
 
-#: ../plugins/gdb/debugger.c:916
+#: ../plugins/gdb/debugger.c:912
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de ter 'gdb' instalado no sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1207
+#: ../plugins/gdb/debugger.c:1203
 msgid "Program exited normally\n"
 msgstr "O programa saíu normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1218
+#: ../plugins/gdb/debugger.c:1214
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "O programa saíu co código de erro %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1233
+#: ../plugins/gdb/debugger.c:1229
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Alcanzouse o punto de rotura %s\n"
 
-#: ../plugins/gdb/debugger.c:1242
+#: ../plugins/gdb/debugger.c:1238
 msgid "Function finished\n"
 msgstr "Función finalizada\n"
 
-#: ../plugins/gdb/debugger.c:1248
+#: ../plugins/gdb/debugger.c:1244
 msgid "Stepping finished\n"
 msgstr "Paso finalizado\n"
 
-#: ../plugins/gdb/debugger.c:1254
+#: ../plugins/gdb/debugger.c:1250
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1636
+#: ../plugins/gdb/debugger.c:1640
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4090,16 +4095,16 @@ msgstr ""
 "O programa está adxuntado.\n"
 "Todavía quere deter o depurador?"
 
-#: ../plugins/gdb/debugger.c:1826
+#: ../plugins/gdb/debugger.c:1830
 msgid "Program attached\n"
 msgstr "Programa adxuntado\n"
 
-#: ../plugins/gdb/debugger.c:1847
+#: ../plugins/gdb/debugger.c:1851
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Adxuntando o proceso: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1873
+#: ../plugins/gdb/debugger.c:1877
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4107,33 +4112,33 @@ msgstr ""
 "Xa existe un proceso en execución.\n"
 "Desexa rematalo e adxuntarse ao novo proceso?"
 
-#: ../plugins/gdb/debugger.c:1890
+#: ../plugins/gdb/debugger.c:1894
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta non pode adxuntarse a sí mesmo."
 
-#: ../plugins/gdb/debugger.c:1940
+#: ../plugins/gdb/debugger.c:1944
 msgid "Program terminated\n"
 msgstr "Programa rematado\n"
 
-#: ../plugins/gdb/debugger.c:1955
+#: ../plugins/gdb/debugger.c:1959
 msgid "Program detached\n"
 msgstr "Programa separado\n"
 
-#: ../plugins/gdb/debugger.c:1975
+#: ../plugins/gdb/debugger.c:1979
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Separando o proceso...\n"
 
-#: ../plugins/gdb/debugger.c:1996
+#: ../plugins/gdb/debugger.c:2000
 msgid "Interrupting the process\n"
 msgstr "Interrumpindo o proceso\n"
 
-#: ../plugins/gdb/debugger.c:3779
+#: ../plugins/gdb/debugger.c:3783
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviando sinal %s ao proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3805
+#: ../plugins/gdb/debugger.c:3809
 msgid "Error whilst signaling the process."
 msgstr "Erro ao enviar o sinal ao proceso."
 
@@ -4607,19 +4612,19 @@ msgstr "Premer atallo de macro..."
 msgid "Press shortcut"
 msgstr "Premer atallo"
 
-#: ../plugins/macro/macro-db.c:245
+#: ../plugins/macro/macro-db.c:254
 msgid "Anjuta macros"
 msgstr "Macros de Anjuta"
 
-#: ../plugins/macro/macro-db.c:249
+#: ../plugins/macro/macro-db.c:258
 msgid "My macros"
 msgstr "Miñas macros"
 
-#: ../plugins/macro/macro-dialog.c:260
+#: ../plugins/macro/macro-dialog.c:267
 msgid "Insert macro"
 msgstr "Inserir macro"
 
-#: ../plugins/macro/macro-edit.c:195
+#: ../plugins/macro/macro-edit.c:204
 msgid "Add/Edit macro"
 msgstr "Engadir/Editar macro"
 
@@ -5490,7 +5495,7 @@ msgstr "Creando %s ... %s"
 msgid "Executing: "
 msgstr "Executando: "
 
-#: ../plugins/project-wizard/plugin.c:150
+#: ../plugins/project-wizard/plugin.c:157
 msgid "New Project Assistent"
 msgstr "Asistente de creación de proxectos."
 
@@ -7192,7 +7197,7 @@ msgstr "_Configurar"
 msgid "Configure external tools"
 msgstr "Configurar ferramentas externas"
 
-#: ../plugins/tools/plugin.c:185
+#: ../plugins/tools/plugin.c:193
 msgid "Tool operations"
 msgstr "Operacións con ferramentas"
 
