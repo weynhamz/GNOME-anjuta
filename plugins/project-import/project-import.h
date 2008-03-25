@@ -37,8 +37,7 @@ struct _ProjectImport
 {
 	GObject parent;
 	
-	GtkWidget* window;
-	GtkWidget* druid;
+	GtkWidget* assistant;
 	GtkWidget* import_name;
 	GtkWidget* import_path;
 	GtkWidget* import_finish;

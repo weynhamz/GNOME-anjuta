@@ -1,5 +1,7 @@
 /*
  *  project-import.c (c) 2005 Johannes Schmid
+ *			 2008 Ignacio Casal Quinteiro
+ * 
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,15 +18,14 @@
  */
 
 #include "project-import.h"
-#include <gnome.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <config.h>
 
 #include <gbf/gbf-backend.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-import.glade"
 #define AM_PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
 #define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/project/mkfile/project.anjuta"
 
@@ -48,20 +49,23 @@ on_import_key_press_event(GtkWidget *widget, GdkEventKey *event,
 	return FALSE;
 }
 
-static gboolean
-on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
+static void
+on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 {
 	GSList* l;
 	GbfBackend* backend = NULL;
 	GbfProject* proj;
 	
-	const gchar* name = gtk_entry_get_text(GTK_ENTRY(pi->import_name));
-	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(pi->import_path));
+	if (page != pi->import_finish)
+		return;
+	
+	const gchar* name = gtk_entry_get_text (GTK_ENTRY (pi->import_name));
+	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (pi->import_path));
 	
 	if (!name || !path || !strlen(name) || !strlen(path))
 	{
 		g_free (path);
-		return TRUE;
+		return;
 	}
 	
 	gbf_backend_init();
@@ -90,7 +94,7 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 			g_object_unref(proj);
 		}
 		backend = NULL;
-	}	
+	}
 
 	if (!backend)
 	{
@@ -101,7 +105,7 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 						  "the Gnome Build Framework."), path);
 		
 		GtkDialog* message = 
-		GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->window),
+		GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->assistant),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_MESSAGE_ERROR,
 										  GTK_BUTTONS_CLOSE,
@@ -112,7 +116,13 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 		gtk_dialog_run(message);
 		gtk_widget_destroy(GTK_WIDGET(message));
 		g_free (path);
-		return TRUE;
+		
+		/*
+		 * Now we can't apply
+		 */
+		gtk_label_set_text (GTK_LABEL (pi->import_finish), _("Please, fix the configuration"));
+		gtk_assistant_set_page_complete (GTK_ASSISTANT (pi->assistant), pi->import_finish, FALSE);
+		return;
 	}
 	
 	gchar* summary;
@@ -121,21 +131,24 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 								"Project type: %s\n"
 								"Project path: %s\n"),
 								name, backend->name, path);
-	gnome_druid_page_edge_set_text(GNOME_DRUID_PAGE_EDGE(pi->import_finish),
-								   summary);
+	gtk_label_set_text (GTK_LABEL (pi->import_finish),
+			    summary);
 
 	g_free(summary);
+	
+	/*
+	 * If we are here, everything is ok
+	 */
+	gtk_assistant_set_page_complete (GTK_ASSISTANT (pi->assistant), pi->import_finish, TRUE);
 	
 	if (pi->backend_id)
 		g_free(pi->backend_id);
 	pi->backend_id = g_strdup(backend->id);
 	g_free (path);
-	
-	return FALSE;							   
 }
 
-static gboolean
-on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
+static void
+on_import_apply (GtkAssistant *assistant, ProjectImport* pi)
 {
 	const gchar* name = gtk_entry_get_text (GTK_ENTRY(pi->import_name));
 	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(pi->import_path));
@@ -148,7 +161,7 @@ on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	{
 		g_free (project_file);
 		g_free (path);
-		return TRUE;
+		return;
 	}
 	
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (pi->plugin)->shell,
@@ -156,43 +169,137 @@ on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	if (!loader)
 	{
 		g_warning("No IAnjutaFileLoader interface! Cannot open project file!");
-		g_object_unref (G_OBJECT (pi));
 		g_free (project_file);
-		return FALSE;
+		return;
 	}
 	ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
-	g_object_unref (G_OBJECT (pi));
 	g_free (project_file);
 	g_free (path);
-	return FALSE;
 }
 
 static void
-project_import_init(ProjectImport *pi)
+create_start_page (ProjectImport *pi)
 {
-	GladeXML* gxml = glade_xml_new(GLADE_FILE, "import_window", NULL);
-	GtkWidget* import_page;
+	GtkWidget *box, *label;
+
+	box = gtk_hbox_new (FALSE, 12);
+	gtk_widget_show (box);
+	gtk_container_set_border_width (GTK_CONTAINER (box), 12);
+
+	label = gtk_label_new (_("This assistent will import an existing project into Anjuta."));
+	gtk_widget_show (label);
+	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
+
+	gtk_assistant_append_page (GTK_ASSISTANT (pi->assistant), box);
+	gtk_assistant_set_page_title (GTK_ASSISTANT (pi->assistant), box, _("Import Project"));
+	gtk_assistant_set_page_complete (GTK_ASSISTANT (pi->assistant), box, TRUE);
+	gtk_assistant_set_page_type (GTK_ASSISTANT (pi->assistant), box, GTK_ASSISTANT_PAGE_INTRO);
+}
+
+static void
+on_entry_changed (GtkWidget *widget, gpointer data)
+{
+	GtkAssistant *assistant = GTK_ASSISTANT (data);
+	GtkWidget *current_page;
+	gint page_number;
+	const gchar *text;
+
+	page_number = gtk_assistant_get_current_page (assistant);
+	current_page = gtk_assistant_get_nth_page (assistant, page_number);
+	text = gtk_entry_get_text (GTK_ENTRY (widget));
+
+	if (text && *text)
+		gtk_assistant_set_page_complete (assistant, current_page, TRUE);
+	else
+		gtk_assistant_set_page_complete (assistant, current_page, FALSE);
+}
+
+static void
+create_import_page (ProjectImport *pi)
+{
+	GtkWidget *box, *vbox1, *vbox2;
+	GtkWidget *label;
+
+	box = gtk_vbox_new (FALSE, 12);
+	gtk_widget_show (box);
+	gtk_container_set_border_width (GTK_CONTAINER (box), 5);
+
+	/*
+	 * Project name:
+	 */
+	vbox1 = gtk_vbox_new (FALSE, 12);
+	gtk_widget_show (vbox1);
+	gtk_box_pack_start (GTK_BOX (box), vbox1, FALSE, FALSE, 0);
 	
-	pi->window = glade_xml_get_widget(gxml, "import_window");
-	pi->druid = glade_xml_get_widget(gxml, "import_druid");
-	pi->import_name = glade_xml_get_widget(gxml, "import_name");
-	pi->import_path = glade_xml_get_widget(gxml, "import_path");
-	pi->import_finish = glade_xml_get_widget(gxml, "import_finish");
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label),
+			      _("<b>Enter the project name:</b>"));
+	gtk_widget_show (label);
+	gtk_box_pack_start (GTK_BOX (vbox1), label, FALSE, FALSE, 0);
+	
+	pi->import_name = gtk_entry_new ();
+	gtk_widget_show (pi->import_name);
+	gtk_box_pack_start (GTK_BOX (vbox1), pi->import_name, FALSE, FALSE, 0);
+	g_signal_connect (G_OBJECT (pi->import_name), "changed",
+			  G_CALLBACK (on_entry_changed), pi->assistant);
+	
+	/*
+	 * Base path:
+	 */
+	vbox2 = gtk_vbox_new (FALSE, 12);
+	gtk_widget_show (vbox2);
+	gtk_box_pack_start (GTK_BOX (box), vbox2, FALSE, FALSE, 0);
+	
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label),
+			      _("<b>Enter the base path of your project:</b>"));
+	gtk_widget_show (label);
+	gtk_box_pack_start (GTK_BOX (vbox2), label, FALSE, FALSE, 0);
+	
+	pi->import_path = gtk_file_chooser_button_new (_("Select project directory"),
+						       GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	gtk_widget_show (pi->import_path);
+	gtk_box_pack_start (GTK_BOX (vbox2), pi->import_path, FALSE, FALSE, 0);
+
+	gtk_assistant_append_page (GTK_ASSISTANT (pi->assistant), box);
+	gtk_assistant_set_page_title (GTK_ASSISTANT (pi->assistant), box, _("Project to Import"));
+}
+
+static void
+create_finish_page (ProjectImport *pi)
+{
+	pi->import_finish = gtk_label_new (NULL);
+	gtk_widget_show (pi->import_finish);
+	
+	gtk_assistant_append_page (GTK_ASSISTANT (pi->assistant), pi->import_finish);
+	gtk_assistant_set_page_type (GTK_ASSISTANT (pi->assistant), pi->import_finish,
+				     GTK_ASSISTANT_PAGE_CONFIRM);
+	gtk_assistant_set_page_complete (GTK_ASSISTANT (pi->assistant), pi->import_finish, TRUE);
+	gtk_assistant_set_page_title (GTK_ASSISTANT (pi->assistant), pi->import_finish, _("Confirmation"));
+}
+
+static void
+project_import_init (ProjectImport *pi)
+{
+	pi->assistant = gtk_assistant_new ();
+	create_start_page (pi);
+	create_import_page (pi);
+	create_finish_page (pi);
 	
 	pi->backend_id = NULL;
 	
-	import_page = glade_xml_get_widget(gxml, "import_page");
-	g_signal_connect(G_OBJECT(import_page), "next", 
+	g_signal_connect(G_OBJECT (pi->assistant), "prepare", 
 					 G_CALLBACK(on_import_next), pi);
-	g_signal_connect(G_OBJECT(pi->import_finish), "finish",
-					 G_CALLBACK(on_import_finish), pi);
-	g_signal_connect(G_OBJECT(pi->druid), "cancel",
-					 G_CALLBACK(on_import_cancel), pi);
-	g_signal_connect(G_OBJECT(pi->druid), "key-press-event",
-			G_CALLBACK(on_import_key_press_event), pi);
+	g_signal_connect(G_OBJECT (pi->assistant), "apply",
+					 G_CALLBACK (on_import_apply), pi);
+	g_signal_connect(G_OBJECT (pi->assistant), "cancel",
+					 G_CALLBACK (on_import_cancel), pi);
+	g_signal_connect(G_OBJECT (pi->assistant), "close",
+					 G_CALLBACK (on_import_cancel), pi);
+	g_signal_connect(G_OBJECT(pi->assistant), "key-press-event",
+					 G_CALLBACK(on_import_key_press_event), pi);
 
-	g_object_unref(G_OBJECT(gxml));
-	gtk_widget_show_all(pi->window);
+	gtk_widget_show (pi->assistant);
 }
 
 static void
@@ -201,10 +308,12 @@ project_import_finalize(GObject *object)
 	ProjectImport *cobj;
 	cobj = PROJECT_IMPORT(object);
 	
+	DEBUG_PRINT ("Finalizing ProjectImport object");
+	
 	if (cobj->backend_id)
 		g_free(cobj->backend_id);
 	
-	gtk_widget_destroy(cobj->window);
+	gtk_widget_destroy(cobj->assistant);
 	
 	/* Deactivate plugin once wizard is finished */
 	if (anjuta_plugin_is_active(cobj->plugin))
@@ -254,7 +363,7 @@ project_import_new(AnjutaPlugin* plugin)
 	obj = PROJECT_IMPORT(g_object_new(PROJECT_IMPORT_TYPE, NULL));
 	
 	obj->plugin = plugin;
-	gtk_window_set_transient_for (GTK_WINDOW (obj->window),
+	gtk_window_set_transient_for (GTK_WINDOW (obj->assistant),
 								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
 	
 	return obj;
@@ -299,7 +408,7 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 		
 		GtkWidget *dlg;
 		
-		dlg = gtk_message_dialog_new(GTK_WINDOW(pi->window), 
+		dlg = gtk_message_dialog_new(GTK_WINDOW(pi->assistant), 
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_ERROR, 
 									 GTK_BUTTONS_CLOSE,
@@ -325,7 +434,7 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	/* Handle already existing file */
 	if (error == GNOME_VFS_ERROR_FILE_EXISTS)
 	{       
-		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->window),
+		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->assistant),
 				_("A file named \"%s\" already exists. "
 				  "Do you want to replace it?"), prjfile))
 		{
@@ -366,7 +475,7 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	case GNOME_VFS_ERROR_FILE_EXISTS:
 		return FALSE;
 	default:
-		anjuta_util_dialog_error (GTK_WINDOW (pi->window),
+		anjuta_util_dialog_error (GTK_WINDOW (pi->assistant),
 				_("A file named \"%s\" cannot be written: %s.  "
 				  "Check if you have write access to the project directory."),
 				  prjfile, gnome_vfs_result_to_string (error));

@@ -136,7 +136,6 @@ plugins/profiler/profiler-flat-profile.glade
 plugins/profiler/profiler-function-call-tree.glade
 plugins/profiler/profiler.glade
 plugins/profiler/string-utils.c
-plugins/project-import/anjuta-project-import.glade
 plugins/project-import/project-import.c
 plugins/project-manager/plugin.c
 plugins/project-wizard/anjuta-project-wizard.glade

@@ -1,6 +1,3 @@
-# Plugin glade file
-wizard_gladedir = $(anjuta_glade_dir)
-wizard_glade_DATA =  anjuta-project-import.glade
 
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)
@@ -40,5 +37,4 @@ libanjuta_project_import_la_SOURCES= \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(wizard_pixmaps_DATA) \
-	$(wizard_plugin_DATA) \
-	$(wizard_glade_DATA)
+	$(wizard_plugin_DATA)
