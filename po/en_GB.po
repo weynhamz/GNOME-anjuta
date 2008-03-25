@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta 1.20\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-03 18:57+0000\n"
+"POT-Creation-Date: 2008-03-25 21:53+0000\n"
 "PO-Revision-Date: 2008-02-17 09:36-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en_GB@li.org>\n"
@@ -2878,7 +2878,7 @@ msgstr "Repeat quick search"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1642
 msgid "_Edit"
 msgstr "_Edit"
 
@@ -3978,7 +3978,7 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 "Unable to find: %s.\n"
-"Unable to initialize debugger.\n"
+"Unable to initialise debugger.\n"
 "Make sure Anjuta is installed correctly."
 
 #: ../plugins/gdb/debugger.c:885
@@ -4081,7 +4081,7 @@ msgstr "Sending signal %s to the process: %d"
 
 #: ../plugins/gdb/debugger.c:3805
 msgid "Error whilst signaling the process."
-msgstr "Error whilst signaling the process."
+msgstr "Error whilst signalling the process."
 
 #: ../plugins/gdb/plugin.c:102
 msgid ""
@@ -5495,7 +5495,7 @@ msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
-"Comma separated.Oother plugins that this plugin depends on. It could be "
+"Comma-separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
@@ -5570,7 +5570,7 @@ msgstr "Interface:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
 msgid "License"
-msgstr "License"
+msgstr "Licence"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Main Class:"
@@ -6559,15 +6559,15 @@ msgstr "Copy..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Subversion operations"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Subversion popup operations"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Subversion Log"
 
@@ -7810,28 +7810,28 @@ msgstr "Smart Indentation"
 msgid "Statement indentation size in spaces:"
 msgstr "Statement indentation size in spaces:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1648
 msgid "_AutoComplete"
 msgstr "_AutoComplete"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1649
 msgid "AutoComplete the current word"
 msgstr "AutoComplete the current word"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1655
 msgid "Auto Indent"
 msgstr "Auto Indent"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "Auto indent current line or selection based on indentation settings"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1698
 msgid "C++/Java Assistance"
 msgstr "C++/Java Assistance"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1786
+#: ../plugins/language-support-cpp-java/plugin.c:1795
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
