@@ -1,3 +1,37 @@
+2008-03-25  Naba Kumar  <naba@gnome.org>
+
+	Patch from Carl-Anton Ingmarsson:
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-ui.c (sensitivity_toggled),
+	(visibility_toggled), (accel_edited_callback),
+	(accel_cleared_callback), (iter_compare_func), (accel_set_func),
+	(anjuta_ui_instance_init), (anjuta_ui_add_action_group),
+	(anjuta_ui_get_accel_editor):
+	* libegg/Makefile.am:
+	* libegg/eggaccelerators.c (removed):
+	* libegg/eggcellrendererkeys.c (removed):
+	* libegg/eggtreeviewstate.c (removed):
+	* libegg/test-tree-utils.c (removed):
+	* libegg/treeviewutils/Makefile.am:
+	* libegg/treeviewutils/eggaccelerators.h (removed):
+	* libegg/treeviewutils/eggcellrendererkeys.h (removed):
+	* libegg/treeviewutils/eggtreeviewstate.h (removed):
+
+	Ports anjuta-ui to gtk_cell_renderer_accel
+	
+2008-03-16  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-import/Makefile.am:
+	* plugins/project-import/project-import.{ch}:
+	* plugins/project-import/anjuta-project-import.glade (removed):
+	* configure.in, po/POTFILES.in:
+
+	Ported the GnomeDruid stuff to GtkAssistant an removed the glade
+	file because libglade doesn't have GtkAssistant support.
+
 2008-03-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/registers.c:
