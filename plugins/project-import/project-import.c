@@ -186,7 +186,7 @@ create_start_page (ProjectImport *pi)
 	gtk_widget_show (box);
 	gtk_container_set_border_width (GTK_CONTAINER (box), 12);
 
-	label = gtk_label_new (_("This assistent will import an existing project into Anjuta."));
+	label = gtk_label_new (_("This assistant will import an existing project into Anjuta."));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
 

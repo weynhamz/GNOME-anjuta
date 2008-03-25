@@ -833,7 +833,7 @@ npw_druid_new (NPWPlugin* plugin)
 	xml = glade_xml_new (GLADE_FILE, NEW_PROJECT_DIALOG, NULL);
 	if ((this == NULL) || (xml == NULL))
 	{
-		anjuta_util_dialog_error (NULL, _("Unable to build project assistent user interface."));
+		anjuta_util_dialog_error (NULL, _("Unable to build project assistant user interface."));
 		g_free (this);
 
 		return NULL;
