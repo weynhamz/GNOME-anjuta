@@ -36,14 +36,11 @@ libanjuta_egg_la_SOURCES = \
 	egg-entry-action.c \
 	egg-combo-action.c \
 	egg-recent-action.c \
-	eggaccelerators.c \
-	eggcellrendererkeys.c \
 	eggcellrendererpopup.c \
 	egg-cell-renderer-text.c \
 	eggtreemodelfilter.c \
 	eggtreemodelunion.c \
 	eggtreemultidnd.c \
-	eggtreeviewstate.c \
 	egg-recent-files-module.c \
 	egg-recent-model.c \
 	egg-recent-view-gtk.c \
@@ -61,14 +58,9 @@ libanjuta_egg_la_LIBADD = \
 	$(GCONF_LIBS)
 
 noinst_PROGRAMS = \
-	test-tree-utils \
 	test-multi-drag \
 	test-union \
 	test-actions
-
-test_tree_utils_SOURCES = test-tree-utils.c
-test_tree_utils_LDADD = libanjuta-egg.la
-test_tree_utils_DEPENDENCIES = libanjuta-egg.la
 
 test_multi_drag_SOURCES = test-multi-drag.c
 test_multi_drag_LDADD = libanjuta-egg.la

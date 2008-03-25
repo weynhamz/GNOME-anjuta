@@ -75,10 +75,9 @@
 #include <gtk/gtkcellrendererpixbuf.h>
 #include <gtk/gtkimage.h>
 #include <gtk/gtklabel.h>
+#include <gtk/gtkcellrendereraccel.h>
 
 #include <libgnome/gnome-macros.h>
-
-#include <libegg/treeviewutils/eggcellrendererkeys.h>
 
 #include "resources.h"
 #include "anjuta-ui.h"
@@ -93,10 +92,10 @@ struct _AnjutaUIPrivate {
 
 enum {
 	COLUMN_PIXBUF,
-	COLUMN_ACTION,
+	COLUMN_ACTION_LABEL,
 	COLUMN_VISIBLE,
 	COLUMN_SENSITIVE,
-	COLUMN_DATA,
+	COLUMN_ACTION,
 	COLUMN_GROUP,
 	N_COLUMNS
 };
@@ -116,7 +115,7 @@ sensitivity_toggled (GtkCellRendererToggle *cell,
 	
 	gtk_tree_model_get (model, &iter,
 						COLUMN_SENSITIVE, &sensitive,
-						COLUMN_DATA, &action, -1);
+						COLUMN_ACTION, &action, -1);
 	g_object_set (G_OBJECT (action), "sensitive", !sensitive, NULL);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
 						COLUMN_SENSITIVE, !sensitive, -1);
@@ -138,7 +137,7 @@ visibility_toggled (GtkCellRendererToggle *cell,
 	
 	gtk_tree_model_get (model, &iter,
 						COLUMN_VISIBLE, &visible,
-						COLUMN_DATA, &action, -1);
+						COLUMN_ACTION, &action, -1);
 	g_object_set (G_OBJECT (action), "visible", !visible, NULL);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
 						COLUMN_VISIBLE, !visible, -1);
@@ -169,33 +168,8 @@ get_action_label (GtkAction *action)
 	return action_label;
 }
 
-static gchar*
-get_action_accel_path (GtkAction *action, const gchar *group_name)
-{
-	gchar *accel_path;
-	accel_path = g_strconcat ("<Actions>/", group_name,
-							  "/", gtk_action_get_name (action), NULL);
-	return accel_path;
-}
-
-static gchar*
-get_action_accel (GtkAction *action, const gchar *group_name)
-{
-	gchar *accel_path;
-	gchar *accel_name;
-	GtkAccelKey key;
-	
-	accel_path = get_action_accel_path (action, group_name);
-	if ( gtk_accel_map_lookup_entry (accel_path, &key))
-		accel_name = gtk_accelerator_name (key.accel_key, key.accel_mods);
-	else
-		accel_name = strdup ("");
-	g_free (accel_path);
-	return accel_name;
-}
-
 static void
-accel_edited_callback (GtkCellRendererText *cell,
+accel_edited_callback (GtkCellRendererAccel *cell,
                        const char          *path_string,
                        guint                keyval,
                        GdkModifierType      mask,
@@ -206,25 +180,53 @@ accel_edited_callback (GtkCellRendererText *cell,
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
 	GtkTreeIter iter;
 	GtkAction *action;
-	gchar *accel_path, *action_group;
+	const gchar *accel_path;
 	
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_model_get (model, &iter,
-						COLUMN_DATA, &action,
-						COLUMN_GROUP, &action_group, -1);
+						COLUMN_ACTION, &action, -1);
 	
 	/* sanity check */
-	if (action == NULL || action_group == NULL)
+	if (action == NULL)
 		return;
 	
-	accel_path = get_action_accel_path (action, action_group);
+	accel_path = gtk_action_get_accel_path (action);
 	if (accel_path) {
 		gtk_accel_map_change_entry (accel_path, keyval, mask, TRUE);
-		g_free (accel_path);
 	}
 	
 	gtk_tree_path_free (path);
 }
+
+static void
+accel_cleared_callback (GtkCellRendererAccel *cell,
+						const char *path_string,
+						gpointer data)
+{
+	GtkTreeModel *model = (GtkTreeModel *)data;
+	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	GtkTreeIter iter;
+	GtkAction *action;
+	const gchar *accel_path;
+	
+	
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter,
+						COLUMN_ACTION, &action, -1);
+	
+	/* sanity check */
+	if (action == NULL)
+		return;
+	
+	accel_path = gtk_action_get_accel_path (action);
+	if (accel_path) {
+		gtk_accel_map_change_entry (accel_path, 0, 0, TRUE);
+	}
+	
+	gtk_tree_path_free (path);
+}
+	
+	
 
 static gint
 iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
@@ -234,8 +236,8 @@ iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
 	gchar *text_b;
 	gint retval = 0;
 	
-	gtk_tree_model_get (model, a, COLUMN_ACTION, &text_a, -1);
-	gtk_tree_model_get (model, b, COLUMN_ACTION, &text_b, -1);
+	gtk_tree_model_get (model, a, COLUMN_ACTION_LABEL, &text_a, -1);
+	gtk_tree_model_get (model, b, COLUMN_ACTION_LABEL, &text_b, -1);
 	if (text_a == NULL && text_b == NULL) retval = 0;
 	else if (text_a == NULL) retval = -1;
 	else if (text_b == NULL) retval = 1;
@@ -247,42 +249,6 @@ iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
 	return retval;
 }
 
-static gboolean
-binding_from_string (const char      *str,
-                     guint           *accelerator_key,
-                     GdkModifierType *accelerator_mods)
-{
-	EggVirtualModifierType virtual;
-	
-	g_return_val_if_fail (accelerator_key != NULL, FALSE);
-	
-	if (str == NULL || (str && strcmp (str, "disabled") == 0))
-	{
-		*accelerator_key = 0;
-		*accelerator_mods = 0;
-		return TRUE;
-	}
-	
-	if (!egg_accelerator_parse_virtual (str, accelerator_key, &virtual))
-		return FALSE;
-	
-	egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-										  virtual,
-										  accelerator_mods);
-	
-	/* Be sure the GTK accelerator system will be able to handle this
-	* accelerator. Be sure to allow no-accelerator accels like F1.
-	*/
-	if ((*accelerator_mods & gtk_accelerator_get_default_mod_mask ()) == 0 &&
-		*accelerator_mods != 0)
-		return FALSE;
-	
-	if (*accelerator_key == 0)
-		return FALSE;
-	else
-		return TRUE;
-}
-
 static void
 accel_set_func (GtkTreeViewColumn *tree_column,
                 GtkCellRenderer   *cell,
@@ -291,30 +257,28 @@ accel_set_func (GtkTreeViewColumn *tree_column,
                 gpointer           data)
 {
 	GtkAction *action;
-	gchar *accel_name;
-	gchar *group_name;
-	guint keyval;
-	GdkModifierType keymods;
+	const gchar *accel_path;
+	GtkAccelKey key;
 	
 	gtk_tree_model_get (model, iter,
-						COLUMN_DATA, &action,
-						COLUMN_GROUP, &group_name, -1);
+						COLUMN_ACTION, &action, -1);
 	if (action == NULL)
 		g_object_set (G_OBJECT (cell), "visible", FALSE, NULL);
 	else
 	{
-		accel_name = get_action_accel (action, group_name);
-		if (binding_from_string (accel_name, &keyval, &keymods))
+		if ((accel_path = gtk_action_get_accel_path (action)))
 		{
-			g_object_set (G_OBJECT (cell), "visible", TRUE,
-						  "accel_key", keyval,
-						  "accel_mask", keymods, NULL);
+			if (gtk_accel_map_lookup_entry (accel_path, &key))
+			{
+				g_object_set (G_OBJECT (cell), "visible", TRUE,
+							  "accel-key", key.accel_key,
+							  "accel-mods", key.accel_mods, NULL);
+			}
+			else
+				g_object_set (G_OBJECT (cell), "visible", TRUE,
+							  "accel-key", 0,
+							  "accel-mods", 0, NULL);	
 		}
-		else
-			g_object_set (G_OBJECT (cell), "visible", TRUE,
-						  "accel_key", 0,
-						  "accel_mask", 0, NULL);
-		g_free (accel_name);	
 	}
 }
 
@@ -408,10 +372,10 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 								G_TYPE_BOOLEAN,
 								G_TYPE_OBJECT,
 								G_TYPE_STRING);
-	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION,
+	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION_LABEL,
 									 iter_compare_func, NULL, NULL);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
-										  COLUMN_ACTION, GTK_SORT_ASCENDING);
+										  COLUMN_ACTION_LABEL, GTK_SORT_ASCENDING);
 	
 	/* unreferenced in dispose() method. */
 	ui->priv->model = GTK_TREE_MODEL (store);
@@ -574,7 +538,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	pixbuf = NULL;
 	gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &parent,
 						COLUMN_PIXBUF, pixbuf,
-						COLUMN_ACTION, action_group_label,
+						COLUMN_ACTION_LABEL, action_group_label,
 						COLUMN_GROUP, action_group_name,
 						-1);
 	for (l = actions; l; l = l->next)
@@ -611,10 +575,10 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 			{
 				gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
 									COLUMN_PIXBUF, pixbuf,
-									COLUMN_ACTION, action_label,
+									COLUMN_ACTION_LABEL, action_label,
 									COLUMN_VISIBLE, gtk_action_get_visible (action),
 									COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
-									COLUMN_DATA, action,
+									COLUMN_ACTION, action,
 									COLUMN_GROUP, action_group_name,
 									-1);
 				g_object_unref (G_OBJECT (pixbuf));
@@ -625,10 +589,10 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		else
 		{
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
-								COLUMN_ACTION, action_label,
+								COLUMN_ACTION_LABEL, action_label,
 								COLUMN_VISIBLE, gtk_action_get_visible (action),
 								COLUMN_SENSITIVE, gtk_action_get_sensitive (action),
-								COLUMN_DATA, action,
+								COLUMN_ACTION, action,
 								COLUMN_GROUP, action_group_name,
 								-1);
 		}
@@ -898,7 +862,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										COLUMN_ACTION);
+										COLUMN_ACTION_LABEL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree_view), column);
 	gtk_tree_view_column_set_sort_column_id (column, 0);
@@ -928,17 +892,19 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Shortcut"));
 	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	*/
-	renderer = g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
+	renderer = g_object_new (GTK_TYPE_CELL_RENDERER_ACCEL,
 							"editable", TRUE,
-							"accel_mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,
 							NULL);
-	g_signal_connect (G_OBJECT (renderer), "keys_edited",
+	g_signal_connect (G_OBJECT (renderer), "accel-edited",
 					  G_CALLBACK (accel_edited_callback),
+					  store);
+	g_signal_connect (G_OBJECT (renderer), "accel-cleared",
+					  G_CALLBACK (accel_cleared_callback),
 					  store);
 	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_set_cell_data_func (column, renderer, accel_set_func, NULL, NULL);
-	gtk_tree_view_column_set_sort_column_id (column, COLUMN_DATA);
+	gtk_tree_view_column_set_sort_column_id (column, COLUMN_ACTION);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 	
 	sw = gtk_scrolled_window_new (NULL, NULL);

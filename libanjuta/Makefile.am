@@ -19,7 +19,6 @@ AM_CPPFLAGS = \
 lib_LTLIBRARIES=libanjuta.la 
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
-	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS)
