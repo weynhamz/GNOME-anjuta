@@ -112,6 +112,10 @@ gchar* anjuta_util_get_real_path (const gchar *path);
 
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
 
+void anjuta_util_help_display (GtkWindow   *parent,
+							   const gchar *doc_id,
+							   const gchar *file_name);
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

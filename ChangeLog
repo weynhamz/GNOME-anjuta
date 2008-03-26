@@ -1,5 +1,20 @@
 2008-03-26  Naba Kumar  <naba@naba-desktop>
 
+	* libanjuta/resources.c (anjuta_res_url_show): Use
+	anjuta_prog_is_installed() instead of g_find_program_in_path() and
+	fixed formatting.
+
+	Patch from Carl-Anton Ingmarsson:
+
+	* libanjuta/anjuta-utils.c (anjuta_util_help_display):
+	* libanjuta/anjuta-utils.h:
+	* src/action-callbacks.c (help_activate),
+	(on_help_manual_activate), (on_help_tutorial_activate),
+	(on_help_advanced_tutorial_activate), (on_help_faqs_activate):
+	Get rid of gnome_help_display_with_doc_id()
+
+2008-03-26  Naba Kumar  <naba@naba-desktop>
+
 	Patch from Carl-Anton Ingmarsson:
 
 	* libanjuta/resources.c (anjuta_res_url_show): Get rid of gnome_url_open.

@@ -102,36 +102,33 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 }
 
 static void
-help_activate (const gchar *doc_id, const gchar *item)
+help_activate (GtkWindow *parent, const gchar *doc_id, const gchar *item)
 {
-	if (gnome_help_display_with_doc_id (NULL, doc_id, item, NULL, NULL) == FALSE)
-	{
-	  anjuta_util_dialog_error (NULL, _("Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"));	
-	}
+	anjuta_util_help_display (parent, doc_id, item);
 }
 
 void
 on_help_manual_activate (GtkAction *action, gpointer data)
 {
-	help_activate ("anjuta-manual", "anjuta-manual.xml");
+	help_activate (data, "anjuta-manual", "anjuta-manual.xml");
 }
 
 void
 on_help_tutorial_activate (GtkAction *action, gpointer data)
 {
-	help_activate ("anjuta-tutorial", "anjuta-tutorial.xml");
+	help_activate (data, "anjuta-tutorial", "anjuta-tutorial.xml");
 }
 
 void
 on_help_advanced_tutorial_activate (GtkAction *action, gpointer data)
 {
-	help_activate ("anjuta-advanced-tutorial", "anjuta-advanced-tutorial.xml");
+	help_activate (data, "anjuta-advanced-tutorial", "anjuta-advanced-tutorial.xml");
 }
 
 void
 on_help_faqs_activate (GtkAction *action, gpointer data)
 {
-	help_activate ("anjuta-faqs", "anjuta-faqs.xml");
+	help_activate (data, "anjuta-faqs", "anjuta-faqs.xml");
 }
 
 void

@@ -1319,3 +1319,62 @@ int scandir(const char *dir, struct dirent ***namelist,
 }
 
 #endif /* HAVE_LIBUTIL */
+
+void
+anjuta_util_help_display (GtkWindow   *parent,
+						  const gchar *doc_id,
+						  const gchar *file_name)
+{
+
+	GError *error = NULL;
+	GdkScreen *screen;
+	gchar *command;
+	const gchar *lang;
+	const gchar * const *langs;
+	gchar *uri = NULL;
+	gint i;
+	
+	g_return_if_fail (file_name != NULL);
+
+	langs = g_get_language_names ();
+	for (i = 0; langs[i]; i++)
+	{
+		lang = langs[i];
+		if (strchr (lang, '.'))
+			continue;
+
+		uri = g_build_filename (DATADIR, "/gnome/help/", doc_id,
+							    lang, file_name, NULL);
+
+		if (g_file_test (uri, G_FILE_TEST_EXISTS)) {
+			break;
+		}
+		g_free (uri);
+		uri = NULL;
+	}
+
+	if (uri == NULL)
+	{
+		anjuta_util_dialog_error (parent, _("Unable to display help. Please make sure Anjuta "
+								  "documentation package is install. It can be downloaded "
+								  "from http://anjuta.org"));
+
+		return;
+	}
+	
+	command = g_strconcat ("gnome-help ghelp://", uri,  NULL);
+	g_free (uri);
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (parent));
+	gdk_spawn_command_line_on_screen (screen, command, &error);
+	if (error != NULL)
+	{
+		g_warning ("Error executing help application: %s",
+				   error->message);
+		g_error_free (error);
+		
+		return;
+	}
+	g_free (command);
+}
+
