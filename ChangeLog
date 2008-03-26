@@ -1,4 +1,4 @@
-2008-03-26  Naba Kumar  <naba@naba-desktop>
+2008-03-26  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/resources.c (anjuta_res_url_show): Use
 	anjuta_prog_is_installed() instead of g_find_program_in_path() and
@@ -14,7 +14,7 @@
 	* libanjuta/Makefile.am:
 	Get rid of gnome_help_display_with_doc_id()
 
-2008-03-26  Naba Kumar  <naba@naba-desktop>
+2008-03-26  Naba Kumar  <naba@gnome.org>
 
 	Patch from Carl-Anton Ingmarsson:
 
