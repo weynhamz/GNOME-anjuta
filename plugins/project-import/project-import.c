@@ -32,7 +32,7 @@
 static GObjectClass *parent_class = NULL;
 
 static void
-on_import_cancel (GnomeDruid* druid, ProjectImport* pi)
+on_import_cancel (GtkAssistant* assistant, ProjectImport* pi)
 {
 	g_object_unref (G_OBJECT(pi));
 }

@@ -1,3 +1,19 @@
+2008-03-26  Naba Kumar  <naba@naba-desktop>
+
+	Patch from Carl-Anton Ingmarsson:
+
+	* libanjuta/resources.c (anjuta_res_url_show): Get rid of gnome_url_open.
+	* plugins/project-import/project-import.c (on_import_cancel): Remove
+	stray GnomeDruid variable.
+
+2008-03-26  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-import/project-import.c (create_start_page):
+	* plugins/project-wizard/druid.c (npw_druid_new):
+	* plugins/project-wizard/plugin.c (npw_plugin_create_view):
+	
+	Fixed type 'assistent' to 'assistant'.
+
 2008-03-25  Naba Kumar  <naba@gnome.org>
 
 	Patch from Carl-Anton Ingmarsson:

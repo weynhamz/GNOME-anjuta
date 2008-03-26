@@ -32,7 +32,9 @@
 #	include <config.h>
 #endif
 
-#include <gnome.h>
+#include <unistd.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
 
 #include <libanjuta/resources.h>
 
@@ -276,8 +278,24 @@ anjuta_res_help_search (const gchar * word)
 	}
 }
 
-void anjuta_res_url_show (const char *url)
+void anjuta_res_url_show (const gchar *url)
 {
-	GError *error = NULL;
-	gnome_url_show (url, &error);
+	gchar *open[3];
+
+	if (g_find_program_in_path ("xdg-open"))
+	{
+		open[0] = "xdg-open";
+	}
+	else return;
+	
+	open[1] = (gchar *)url;
+	open[2] = NULL;
+					
+	gdk_spawn_on_screen (gdk_screen_get_default (),
+			     NULL,
+			     open,
+			     NULL,
+			     G_SPAWN_SEARCH_PATH,
+			     NULL,
+			     NULL, NULL, NULL);
 }
