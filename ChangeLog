@@ -11,6 +11,7 @@
 	* src/action-callbacks.c (help_activate),
 	(on_help_manual_activate), (on_help_tutorial_activate),
 	(on_help_advanced_tutorial_activate), (on_help_faqs_activate):
+	* libanjuta/Makefile.am:
 	Get rid of gnome_help_display_with_doc_id()
 
 2008-03-26  Naba Kumar  <naba@naba-desktop>

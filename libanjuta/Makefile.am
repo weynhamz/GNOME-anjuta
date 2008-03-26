@@ -9,11 +9,11 @@ AM_CPPFLAGS = \
 	$(LIBXML_CFLAGS) \
 	$(GNOMEVFS_CFAGS) \
 	-I$(top_srcdir) \
+	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
-	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
 lib_LTLIBRARIES=libanjuta.la 
