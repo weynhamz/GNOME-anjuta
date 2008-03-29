@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Anjuta 2.3.4\n"
+"Project-Id-Version: Anjuta 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 16:32+0100\n"
-"PO-Revision-Date: 2008-02-16 15:53+0100\n"
+"POT-Creation-Date: 2008-03-29 11:49+0100\n"
+"PO-Revision-Date: 2008-03-29 11:50+0100\n"
 "Last-Translator: Andrea Zagli <azagli@inwind.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -268,8 +268,8 @@ msgid ""
 "%s"
 msgstr ""
 "Impossibile caricare %s\n"
-"Questo in genere significa che l'installazione è danneggiata. Il messaggio di "
-"errore che conduce a questo era:\n"
+"Questo in genere significa che l'installazione è danneggiata. Il messaggio "
+"di errore che conduce a questo era:\n"
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
@@ -489,12 +489,8 @@ msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] ""
-"C'è %d elemento con cambiamenti non salvati. Salvare i cambiamenti prima di "
-"chiudere?"
-msgstr[1] ""
-"Ci sono %d elementi con cambiamenti non salvati. Salvare i cambiamenti prima "
-"di chiudere?"
+msgstr[0] "<b>C'è %d elemento con cambiamenti non salvati. Salvare i cambiamenti prima di chiudere?</b>"
+msgstr[1] "<b>Ci sono %d elementi con cambiamenti non salvati. Salvare i cambiamenti prima di chiudere?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -1272,7 +1268,7 @@ msgstr "Etichetta rilascio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
-msgstr ""
+msgstr "Azzera etichette sticky"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 msgid "Revision: "
@@ -2287,7 +2283,7 @@ msgstr "Stack"
 
 #: ../plugins/debug-manager/stack_trace.c:767
 msgid "Stack frame operations"
-msgstr ""
+msgstr "Operazioni sullo stack frame"
 
 #: ../plugins/debug-manager/start.c:97
 msgid "Pid"
@@ -2502,18 +2498,18 @@ msgstr "_Ricarica"
 msgid "Close file"
 msgstr "Chiudi file"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Apri file"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Salva file come"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2523,7 +2519,7 @@ msgstr ""
 "Il file «%s» esiste già.\n"
 "Si vuole sostituirlo con quello che si sta salvando?"
 
-#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Sostituisci"
@@ -2886,7 +2882,7 @@ msgstr "Ripete la ricerca veloce"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1642
 msgid "_Edit"
 msgstr "_Modifica"
 
@@ -3063,7 +3059,7 @@ msgstr "Commuta l'avvolgimento di codice corrente nell'editor"
 
 #: ../plugins/document-manager/plugin.c:379
 msgid "Bookmar_k"
-msgstr "_Segnalibro"
+msgstr "S_egnalibro"
 
 #: ../plugins/document-manager/plugin.c:380
 msgid "_Toggle Bookmark"
@@ -3210,8 +3206,8 @@ msgstr "Automatica"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "Salvataggio automatico fallito per «%s»: %s"
+msgid "Autosave failed for %s"
+msgstr "Salvataggio automatico fallito per «%s»"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
@@ -3815,15 +3811,15 @@ msgstr "Directory radice se nessun progetto è aperto:"
 msgid "Loading..."
 msgstr "Caricamento..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Nome file"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "Uri base"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "Uri del percorso più alto visualizzato"
 
@@ -4688,7 +4684,7 @@ msgstr "Stile indicatore messaggio avvertimento:"
 msgid "Warnings:"
 msgstr "Avvertimenti:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "Chiudi tutte le schede messaggio"
 
@@ -4850,12 +4846,12 @@ msgstr "Secondi propri"
 #. * the functions that it calls.
 #: ../plugins/profiler/gprof-flat-profile-view.c:127
 msgid "Self ms/call"
-msgstr ""
+msgstr "ms/chiamata propri"
 
 #. Same as self ms/call, but includes called functions.
 #: ../plugins/profiler/gprof-flat-profile-view.c:143
 msgid "Total ms/call"
-msgstr "Ms totali/chiamata"
+msgstr "ms/chiamata totali"
 
 #: ../plugins/profiler/plugin.c:177
 msgid ""
@@ -5187,8 +5183,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
 msgstr ""
-"Il file selezionato è un collegamento e non può essere aggiunto al "
-"progetto"
+"Il file selezionato è un collegamento e non può essere aggiunto al progetto"
 
 #: ../plugins/project-manager/plugin.c:709
 #, c-format
@@ -5368,7 +5363,8 @@ msgstr ""
 "L'assistente di applicazione genererà uno scheletro di base per un progetto, "
 "includendo tutti i file di generazione. Chiederà dei dettagli della "
 "struttura iniziale per l'applicazione. Rispondere alle domande con "
-"attenzione, dato che potrebbe non essere possibile cambiare alcune impostazioni più tardi."
+"attenzione, dato che potrebbe non essere possibile cambiare alcune "
+"impostazioni più tardi."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
@@ -5848,7 +5844,7 @@ msgstr "Buffer intero"
 
 #: ../plugins/search/anjuta-search.glade.h:17
 msgid "Greedy matching"
-msgstr ""
+msgstr "Corrispondenza \"greedy\""
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
@@ -5977,7 +5973,7 @@ msgstr "Cerca e sostituisci"
 
 #: ../plugins/search/plugin.c:211
 msgid "Fin_d in Files..."
-msgstr "_Trova nei file..."
+msgstr "Trova nei _file..."
 
 #: ../plugins/search/plugin.c:212
 msgid "Search for a string in multiple files or directories"
@@ -6090,8 +6086,8 @@ msgstr "Sostituisci tutti"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"La corrispondenza «%s» non è stata trovata. Continuare la ricerca dall'inizio del "
-"documento?"
+"La corrispondenza «%s» non è stata trovata. Continuare la ricerca dall'inizio "
+"del documento?"
 
 #: ../plugins/search/search-replace.c:1070
 #, c-format
@@ -6128,15 +6124,15 @@ msgstr "Documento non salvato %d"
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "Caricamento"
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "Salvataggio..."
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
@@ -6212,15 +6208,15 @@ msgstr "Selezione:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
 msgid "Show line numbers"
-msgstr "Mostra numeri di riga"
+msgstr "Mostrare numeri di riga"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
 msgid "Show marks"
-msgstr "Mostra indicatori"
+msgstr "Mostrare indicatori"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Show right margin"
-msgstr "Mostra margine destro"
+msgstr "Mostrare margine destro"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
 msgid "Text:"
@@ -6236,7 +6232,7 @@ msgstr "Utilizzare il carattere del tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
 msgid "Wrap long lines to fit on paper"
-msgstr "Manda a capo le righe lunghe per adattarle alla carta"
+msgstr "Mandare a capo le righe lunghe per adattarle alla carta"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -6588,15 +6584,15 @@ msgstr "Copia..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Operazioni Subversion"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Operazioni a comparsa di Subversion"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Registro di Subversion"
 
@@ -6874,7 +6870,7 @@ msgstr "Vai alla definizione del simbolo"
 
 #: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
-msgstr "Di_chiarazione etichetta"
+msgstr "D_ichiarazione etichetta"
 
 #: ../plugins/symbol-browser/plugin.c:277
 #: ../plugins/symbol-browser/plugin.c:297
@@ -7483,7 +7479,7 @@ msgstr "byte nella coda dopo free()"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
-msgstr ""
+msgstr "Aggira errori generati da gcc 2.96"
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
@@ -7589,7 +7585,7 @@ msgstr "Non caricare l'ultima sessione all'avvio"
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:10
 msgid "Dock switcher style: "
-msgstr ""
+msgstr "Stile del selettore delle finestre agganciabili:"
 
 #: ../src/anjuta.glade.h:12
 msgid ""
@@ -7846,7 +7842,7 @@ msgstr "La pressione di tab toglie il rientro"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
 msgid "Show calltips"
-msgstr "Mostra suggerimenti chiamata"
+msgstr "Mostrare suggerimenti chiamata"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
 msgid "Smart Indentation"
@@ -7856,30 +7852,30 @@ msgstr "Rientro furbo"
 msgid "Statement indentation size in spaces:"
 msgstr "Dimensione in spazi del rientro della dichiarazione:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1648
 msgid "_AutoComplete"
-msgstr "Completa _automaticamente"
+msgstr "Completa a_utomaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1649
 msgid "AutoComplete the current word"
 msgstr "Completa automaticamente la parola corrente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1655
 msgid "Auto Indent"
 msgstr "Rientro automatico"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Rientro automatico della riga o selezione corrente in base alle impostazioni "
 "di rientro"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1698
 msgid "C++/Java Assistance"
 msgstr "Assistenza C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1786
+#: ../plugins/language-support-cpp-java/plugin.c:1795
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8104,3 +8100,12 @@ msgstr "Caricatore di file per caricare file differenti"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Plugin gestore debug."
+
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</"
+#~ "b><b>There are %d items with unsaved changes. Save changes before closing?"
+#~ "</b>"
+#~ msgstr ""
+#~ "C'è %d elemento con cambiamenti non salvati. Salvare i cambiamenti prima "
+#~ "di chiudere?Ci sono %d elementi con cambiamenti non salvati. Salvare i "
+#~ "cambiamenti prima di chiudere?"
