@@ -1,3 +1,16 @@
+2008-03-30  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/start.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	libanjuta/interfaces/libanjuta.idl:
+	Improve start program dialog, allowing to specify working
+	directory and environment variables
+
 2008-03-26  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/resources.c (anjuta_res_url_show): Use

@@ -107,6 +107,10 @@ void debugger_load_core (Debugger *debugger, const gchar *core);
 void debugger_attach_process (Debugger *debugger, pid_t pid);
 void debugger_detach_process (Debugger *debugger);
 
+/* Environment */
+gboolean debugger_set_working_directory (Debugger *debugger, const gchar *directory);
+gboolean debugger_set_environment (Debugger *debugger, const GList *variables);
+
 /* Execution */
 void debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop);
 void debugger_stop_program (Debugger *debugger);

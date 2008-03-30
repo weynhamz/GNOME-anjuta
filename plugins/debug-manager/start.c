@@ -37,6 +37,9 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-buildable.h>
+#include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -97,6 +100,12 @@ static char *column_names[COLUMNS_NB] = {
 	N_("Pid"), N_("User"), N_("Time"), N_("Command")
 };
 
+enum {
+	VARIABLE_COLUMN,
+	VALUE_COLUMN,
+	VAR_COLUMNS_NB
+};
+
 struct _AddSourceDialog
 {
 	GtkTreeView *tree;
@@ -116,12 +125,14 @@ struct _DmaStart
 
 	DmaDebuggerQueue *debugger;
 
-	gchar* target_uri;
-	gchar* program_args;
 	gboolean run_in_terminal;
 	gboolean stop_at_beginning;
 
  	GList *source_dirs;
+	GList *environment_vars;
+	GList *recent_target;
+	GList *recent_dirs;
+	GList *recent_args;
 };
 
 /* Widgets found in glade file
@@ -133,6 +144,10 @@ struct _DmaStart
 #define PARAMETER_COMBO "parameter_combo"
 #define TARGET_COMBO "target_combo"
 #define TARGET_SELECT_SIGNAL "on_select_target_clicked"
+#define ADD_VAR_BUTTON "add_button"
+#define REMOVE_VAR_BUTTON "remove_button"
+#define VAR_TREEVIEW "environment_treeview"
+#define DIR_CHOOSER "working_dir_chooser"
 
 #define ADD_SOURCE_DIALOG "source_paths_dialog"
 #define SOURCE_ENTRY "src_entry"
@@ -143,6 +158,8 @@ struct _DmaStart
 #define DOWN_BUTTON "down_button"
 
 #define ANJUTA_RESPONSE_SELECT_TARGET 0
+
+#define MAX_RECENT_ITEM		12
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
@@ -224,86 +241,148 @@ free_source_directories (GList *dirs)
 	g_list_free (dirs);
 }
 
+static gboolean
+save_all_files_and_continue (AnjutaPlugin *plugin)
+{
+	IAnjutaDocumentManager *docman;
+	IAnjutaFileSavable* save;
+
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
+	
+    /* No document manager, so no file to save */
+	if (docman != NULL)
+    {
+    	save = IANJUTA_FILE_SAVABLE (docman);
+		if (save != NULL)
+		{
+			if (ianjuta_file_savable_is_dirty (save, NULL))
+			{
+				gboolean yes;
+				
+				yes = anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+					_("Some files are not saved. Do you want to save all them before starting the debugger?"));
+
+				if (yes)
+				{
+                	ianjuta_file_savable_save (save, NULL);
+				}
+				
+				return yes;
+			}
+		}
+	}
+	
+	return TRUE;
+}
+
+static gboolean
+build_target (AnjutaPlugin* plugin, const gchar *target_uri)
+{
+	IAnjutaBuildable *buildable;
+
+	buildable = anjuta_shell_get_interface (plugin->shell, IAnjutaBuildable, NULL);
+	if (buildable != NULL)
+	{
+		gchar *filename;
+		gchar *dirname;
+		
+		filename = gnome_vfs_get_local_path_from_uri (target_uri);
+		g_free (filename);
+		dirname = g_path_get_dirname (filename);
+		ianjuta_buildable_build (buildable, dirname, NULL);
+		g_free (dirname);
+	}
+	
+	return TRUE;
+}
+
 /* Callback for saving session
  *---------------------------------------------------------------------------*/
 
 static void
-on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *this)
+anjuta_session_set_limited_string_list (AnjutaSession *session, const gchar *section, const gchar *key, GList **value)
+{
+	GList *node;
+	
+	while ((node = g_list_nth (*value, MAX_RECENT_ITEM)) != NULL)
+	{
+		g_free (node->data);
+		*value = g_list_delete_link (*value, node);
+	}
+	anjuta_session_set_string_list (session, section, key, *value);
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *self)
 {
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	if (this->program_args)
-	{
-		gchar *arg;
-		anjuta_session_set_string (session, "Execution", "Program arguments", this->program_args);
-		arg = anjuta_session_get_string (session, "Execution", "Program arguments");
-	}
-	if (this->target_uri)
-	{
-		gchar *uri;
-		anjuta_session_set_string (session, "Execution", "Program uri", this->target_uri);
-		uri = anjuta_session_get_string (session, "Execution", "Program uri");
-	}
-	anjuta_session_set_int (session, "Execution", "Run in terminal", this->run_in_terminal + 1);
-	anjuta_session_set_int (session, "Execution", "Stop at beginning", this->stop_at_beginning + 1);
- 	if (this->source_dirs)
- 	{
- 		anjuta_session_set_string_list (session, "Debugger", "Source directories", this->source_dirs);
- 	}
+	anjuta_session_set_limited_string_list (session, "Debugger", "Program arguments", &self->recent_args);
+	anjuta_session_set_limited_string_list (session, "Debugger", "Program uri", &self->recent_target);
+	anjuta_session_set_int (session, "Execution", "Run in terminal", self->run_in_terminal + 1);
+	anjuta_session_set_int (session, "Debugger", "Stop at beginning", self->stop_at_beginning + 1);
+	anjuta_session_set_string_list (session, "Debugger", "Source directories", self->source_dirs);
+	anjuta_session_set_string_list (session, "Debugger", "Working directories", self->recent_dirs);
+	anjuta_session_set_string_list (session, "Debugger", "Environment variables", self->environment_vars);
 }
 
-static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *this)
+static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *self)
 {
-	gchar *program_args;
-	gchar *target_uri;
     gint run_in_terminal;
 	gint stop_at_beginning;
 
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	program_args = anjuta_session_get_string (session, "Execution", "Program arguments");
-	if (this->program_args)
-	{
-		g_free (this->program_args);
-		this->program_args = NULL;
-	}
-    if (program_args)
-    {
-		this->program_args = program_args;
-    }
+ 	if (self->recent_args != NULL)
+ 	{		
+ 		g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
+ 		g_list_free (self->recent_args);
+ 	}
+ 	self->recent_args = anjuta_session_get_string_list (session, "Debugger", "Program arguments");
 
-	target_uri = anjuta_session_get_string (session, "Execution", "Program uri");
-	if (this->target_uri)
-	{
-		g_free (this->target_uri);
-		this->target_uri = NULL;
-	}
-    if (target_uri)
-    {
-		this->target_uri = target_uri;
-    }
+ 	if (self->recent_target != NULL)
+ 	{		
+ 		g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
+ 		g_list_free (self->recent_target);
+ 	}
+ 	self->recent_target = anjuta_session_get_string_list (session, "Debugger", "Program uri");
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
 	run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
 	if (run_in_terminal == 0)
-		this->run_in_terminal = TRUE;	/* Default value */
+		self->run_in_terminal = TRUE;	/* Default value */
 	else
-		this->run_in_terminal = run_in_terminal - 1;
+		self->run_in_terminal = run_in_terminal - 1;
 	
-	stop_at_beginning = anjuta_session_get_int (session, "Execution", "Stop at beginning");
+	stop_at_beginning = anjuta_session_get_int (session, "Debugger", "Stop at beginning");
 	if (stop_at_beginning == 0)
-		this->stop_at_beginning = TRUE;	/* Default value */
+		self->stop_at_beginning = TRUE;	/* Default value */
 	else
-		this->stop_at_beginning = stop_at_beginning - 1;
+		self->stop_at_beginning = stop_at_beginning - 1;
+	
 	/* Initialize source_dirs */
- 	if (this->source_dirs != NULL)
+ 	if (self->source_dirs != NULL)
  	{		
- 		g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
- 		g_list_free (this->source_dirs);
+ 		g_list_foreach (self->source_dirs, (GFunc)g_free, NULL);
+ 		g_list_free (self->source_dirs);
  	}
- 	this->source_dirs = anjuta_session_get_string_list (session, "Debugger", "Source directories");
+ 	self->source_dirs = anjuta_session_get_string_list (session, "Debugger", "Source directories");
+	
+ 	if (self->recent_dirs != NULL)
+ 	{		
+ 		g_list_foreach (self->recent_dirs, (GFunc)g_free, NULL);
+ 		g_list_free (self->recent_dirs);
+ 	}
+ 	self->recent_dirs = anjuta_session_get_string_list (session, "Debugger", "Working directories");
+
+ 	if (self->environment_vars != NULL)
+ 	{		
+ 		g_list_foreach (self->environment_vars, (GFunc)g_free, NULL);
+ 		g_list_free (self->environment_vars);
+ 	}
+ 	self->environment_vars = anjuta_session_get_string_list (session, "Debugger", "Environment variables");
 }
 
 /* Attach to process private functions
@@ -841,12 +920,6 @@ attach_process_destroy (AttachProcess * ap)
 /* Load file private functions
  *---------------------------------------------------------------------------*/
 
-static void
-on_select_target (GtkButton *button, gpointer user_data)
-{
-	gtk_dialog_response (GTK_DIALOG (user_data), ANJUTA_RESPONSE_SELECT_TARGET);
-}
-
 static gboolean
 dma_start_load_uri (DmaStart *this)
 {
@@ -855,38 +928,190 @@ dma_start_load_uri (DmaStart *this)
 	gchar *mime_type;
 	gchar *filename;
 
+	if (this->recent_target == NULL) return FALSE;	/* Missing URI */
+	
 	if (!dma_quit_debugger (this)) return FALSE;
 	
-	if ((this->target_uri == NULL) || (*(this->target_uri) == '\0'))
-	{
-		/* Missing URI */
-		return FALSE;
-	}
-	vfs_uri = gnome_vfs_uri_new (this->target_uri);
+	vfs_uri = gnome_vfs_uri_new ((const gchar *)(this->recent_target->data));
 		
-	g_return_if_fail (vfs_uri != NULL);
+	g_return_val_if_fail (vfs_uri != NULL, TRUE);
 	
 	if (!gnome_vfs_uri_is_local (vfs_uri)) return FALSE;
-			
+
+	if (save_all_files_and_continue (this->plugin))
+	{
+		build_target (this->plugin, (const gchar *)(this->recent_target->data));
+	}
+	
 	search_dirs = get_source_directories (this->plugin);
-		
-	mime_type = gnome_vfs_get_mime_type (this->target_uri);
+	
+	mime_type = gnome_vfs_get_mime_type ((const gchar *)(this->recent_target->data));
 	if (mime_type == NULL)
 	{
 		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
-				_("Unable to open %s. Debugger cannot start."), this->target_uri);
+				_("Unable to open %s. Debugger cannot start."), (const gchar *)(this->recent_target->data));
 		return FALSE;
 	}
-    	filename = gnome_vfs_get_local_path_from_uri (this->target_uri);
-
+	filename = gnome_vfs_get_local_path_from_uri ((const gchar *)(this->recent_target->data));
+	
 	dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
-		
+	
 	g_free (filename);
 	g_free (mime_type);
 	gnome_vfs_uri_unref (vfs_uri);
 	free_source_directories (search_dirs);
 
 	return TRUE;
+}
+
+/* Run program dialog
+ *---------------------------------------------------------------------------*/
+
+static void
+on_select_target (GtkButton *button, gpointer user_data)
+{
+	gtk_dialog_response (GTK_DIALOG (user_data), ANJUTA_RESPONSE_SELECT_TARGET);
+}
+
+static void
+on_environment_add_button (GtkButton *button, GtkTreeView *view)
+{
+	GtkTreeIter iter;
+	GtkListStore *model;
+	GtkTreeViewColumn *column;
+	GtkTreePath *path;
+		
+	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+	gtk_list_store_append (model, &iter);
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+	column = gtk_tree_view_get_column (view, 0);
+	gtk_tree_view_set_cursor (view, path, column ,TRUE);
+	gtk_tree_path_free (path);
+}
+
+static void
+on_environment_remove_button (GtkButton *button, GtkTreeView *view)
+{
+	GtkTreeIter iter;
+	GtkTreeSelection* sel;
+
+	sel = gtk_tree_view_get_selection (view);
+	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
+	{
+		GtkListStore *model;
+		model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+		
+		gtk_list_store_remove (model, &iter);
+	}
+}
+
+static void
+on_environment_variable_edited (GtkCellRendererText *cell,
+						  gchar *path,
+                          gchar *text,
+                          GtkTreeView *view)
+{
+	GtkTreeIter iter;
+	GtkListStore *model;
+	
+	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));	
+	if (gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path))
+	{
+		GtkTreeViewColumn *column;
+		GtkTreePath *path;
+		gtk_list_store_set (model, &iter, VARIABLE_COLUMN, text, -1);		
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+		column = gtk_tree_view_get_column (view, 1);
+		gtk_tree_view_set_cursor (view, path, column ,TRUE);
+	}
+}
+
+static void
+on_environment_selection_changed (GtkTreeSelection *selection, GtkWidget *button)
+{
+	gtk_widget_set_sensitive (button, gtk_tree_selection_get_selected (selection, NULL, NULL));
+}
+
+static void
+on_environment_value_edited (GtkCellRendererText *cell,
+						  gchar *path,
+                          gchar *text,
+                          GtkTreeView *view)
+{
+	GtkTreeIter iter;
+	GtkListStore *model;
+	
+	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));	
+	if (gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path))
+	{
+		gtk_list_store_set (model, &iter, VALUE_COLUMN, text, -1);		
+	}
+}
+
+static void
+on_add_string_in_model (gpointer data, gpointer user_data)
+{
+	GtkListStore* model = (GtkListStore *)user_data;
+	GtkTreeIter iter;
+	
+	gtk_list_store_append (model, &iter);
+	gtk_list_store_set (model, &iter, 0, (const gchar *)data, -1);
+}
+
+static void
+on_add_uri_in_model (gpointer data, gpointer user_data)
+{
+	GtkListStore* model = (GtkListStore *)user_data;
+	GtkTreeIter iter;
+	gchar *local;
+	
+	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	gtk_list_store_append (model, &iter);
+	gtk_list_store_set (model, &iter, 0, local, -1);
+	g_free (local);
+}
+
+static void
+on_add_variable_in_model (gpointer data, gpointer user_data)
+{
+	GtkListStore* model = (GtkListStore *)user_data;
+	GtkTreeIter iter;
+	gchar **var;
+	
+	var = g_strsplit ((const gchar *)data, "=", 2);
+
+	if (var)
+	{
+		gtk_list_store_append (model, &iter);
+		gtk_list_store_set (model, &iter, 0, var[0], 1, var[1], -1);
+		g_strfreev (var);
+	}
+}
+
+static void
+on_add_directory_in_chooser (gpointer data, gpointer user_data)
+{
+	GtkFileChooser* chooser = (GtkFileChooser *)user_data;
+	gchar *local;
+
+	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	gtk_file_chooser_add_shortcut_folder (chooser, (const gchar *)local, NULL);
+	g_free (local);
+}
+
+static gboolean
+on_add_variable_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
+{
+	GList** list = (GList **)user_data;
+	gchar* name;
+	gchar* value;
+
+	gtk_tree_model_get (model, iter, 0, &name, 1, &value, -1);
+	*list = g_list_prepend (*list, g_strconcat(name, "=", value, NULL));
+	g_free (name);
+	g_free (value);
+	
+	return FALSE;
 }
 
 static gboolean
@@ -901,7 +1126,12 @@ dma_set_parameters (DmaStart *this)
 	GtkComboBox *target;
 	gint response;
 	GtkTreeModel* model;
-	GtkTreeIter iter;
+	GtkTreeView *vars;
+	GtkFileChooser *dirs;
+	GtkCellRenderer *renderer;	
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
+	GObject *button;
 	GValue value = {0,};
 	const gchar *project_root_uri;
 	
@@ -918,18 +1148,28 @@ dma_set_parameters (DmaStart *this)
 	stop_at_beginning = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, STOP_AT_BEGINNING_CHECK_BUTTON));
 	params = GTK_COMBO_BOX (glade_xml_get_widget (gxml, PARAMETER_COMBO));
 	target = GTK_COMBO_BOX (glade_xml_get_widget (gxml, TARGET_COMBO));
+	vars = GTK_TREE_VIEW (glade_xml_get_widget (gxml, VAR_TREEVIEW));
+	dirs = GTK_FILE_CHOOSER (glade_xml_get_widget (gxml, DIR_CHOOSER));
+
+	/* Connect signals */	
 	glade_xml_signal_connect_data (gxml, TARGET_SELECT_SIGNAL, GTK_SIGNAL_FUNC (on_select_target), dlg);
+	button = G_OBJECT (glade_xml_get_widget (gxml, ADD_VAR_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_add_button), vars);
+	button = G_OBJECT (glade_xml_get_widget (gxml, REMOVE_VAR_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_remove_button), vars);
+	selection = gtk_tree_view_get_selection (vars);
+	g_signal_connect (selection, "changed", G_CALLBACK (on_environment_selection_changed), GTK_WIDGET (button));
+	
 	g_object_unref (gxml);
 
 	/* Fill parameter combo box */
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, GTK_TYPE_STRING));
 	gtk_combo_box_set_model (params, model);
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(params), 0);
-	if (this->program_args != NULL)
+	g_list_foreach (this->recent_args, on_add_string_in_model, model);
+	if (this->recent_args != NULL)
 	{
-		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, this->program_args, -1);
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (params)->child), this->program_args);
+		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (params)->child), (const char *)this->recent_args->data);
 	}
 	g_object_unref (model);
 
@@ -937,6 +1177,7 @@ dma_set_parameters (DmaStart *this)
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, GTK_TYPE_STRING));
 	gtk_combo_box_set_model (target, model);
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(target), 0);
+	g_list_foreach (this->recent_target, on_add_uri_in_model, model);
 
     anjuta_shell_get_value (this->plugin->shell, "project_root_uri", &value, NULL);
 	project_root_uri = G_VALUE_HOLDS_STRING (&value) ? g_value_get_string (&value) : NULL;
@@ -960,10 +1201,16 @@ dma_set_parameters (DmaStart *this)
 
 			for (node = exec_targets; node; node = g_list_next (node))
 			{
-				if ((this->target_uri == NULL) || (strcmp(this->target_uri, node->data) != 0))
+				GList *target;
+				for (target = this->recent_target; target; target = g_list_next (target))
 				{
-					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-					gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, node->data, -1);
+					if (strcmp ((const gchar *)target->data, node->data) == 0) break;
+				}
+				if (target == NULL)
+				{
+					on_add_uri_in_model (node->data, model);
+					/*gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+					gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, node->data, -1);*/
 				}
 				g_free (node->data);
 			}
@@ -972,20 +1219,35 @@ dma_set_parameters (DmaStart *this)
 	}
 	g_object_unref (model);
 
-	if (this->target_uri != NULL)
+	if (this->recent_target != NULL)
 	{
-		gtk_list_store_prepend (GTK_LIST_STORE (model), &iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, this->target_uri, -1);
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), this->target_uri);
-	}
-	else if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter))
-	{
-		gchar *txt;
+		gchar *local;
 		
-		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 0, &txt, -1);
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), txt);
-		g_free (txt);
+		local = gnome_vfs_get_local_path_from_uri ((const char *)this->recent_target->data);
+		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), local);
+		g_free (local);
 	}
+	/* Fill working directory list */
+	g_list_foreach (this->recent_dirs, on_add_directory_in_chooser, dirs);	
+	
+	/* Fill environment variable list */
+	model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING)); 
+	gtk_tree_view_set_model (vars, model);
+	g_list_foreach (this->environment_vars, on_add_variable_in_model, model);
+	g_object_unref (model);
+	
+	renderer = gtk_cell_renderer_text_new ();
+	g_object_set(renderer, "editable", TRUE, NULL);	
+	g_signal_connect(renderer, "edited", (GCallback) on_environment_variable_edited, vars);
+	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer, "text", 0, NULL);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (vars, column);
+	renderer = gtk_cell_renderer_text_new ();
+	g_object_set(renderer, "editable", TRUE, NULL);	
+	g_signal_connect(renderer, "edited", (GCallback) on_environment_value_edited, vars);
+	column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer, "text", 1, NULL);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (vars, column);
 	
 	/* Set terminal option */	
 	if (this->run_in_terminal) gtk_toggle_button_set_active (term, TRUE);
@@ -1003,25 +1265,56 @@ dma_set_parameters (DmaStart *this)
 		case GTK_RESPONSE_APPLY:
 		{
 			const gchar *arg;
-			const gchar *uri;
+			const gchar *filename;
+			gchar *uri;
+			GList *find;
 			
-			if (this->program_args != NULL) g_free (this->program_args);
 			arg = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (params)->child));
-			this->program_args = g_strdup (arg);
-			
-			uri = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (target)->child));
-			if (this->target_uri != NULL)
+			if (arg != NULL)
 			{
-				if (strcmp(uri, this->target_uri) != 0)
+				find = g_list_find_custom(this->recent_args, arg, (GCompareFunc)strcmp);
+				if (find)
 				{
-					g_free (this->target_uri);
-					this->target_uri = g_strdup (uri);
+					g_free (find->data);
+					this->recent_args = g_list_delete_link (this->recent_args, find);
+				}
+				this->recent_args = g_list_prepend (this->recent_args, g_strdup (arg));
+			}	
+			
+			filename = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (target)->child));
+			if (filename != NULL)
+			{
+				uri = gnome_vfs_get_uri_from_local_path (filename);
+				if (uri != NULL)
+				{
+					find = g_list_find_custom (this->recent_target, uri, (GCompareFunc)strcmp);
+					if (find)
+					{
+						g_free (find->data);
+						this->recent_target = g_list_delete_link (this->recent_target, find);
+					}
+					this->recent_target = g_list_prepend (this->recent_target, uri);
 				}
 			}
-			else
+
+			uri = gtk_file_chooser_get_uri (dirs);
+			if (uri != NULL)
 			{
-				this->target_uri = g_strdup (uri);
+				find = g_list_find_custom(this->recent_dirs, uri, (GCompareFunc)strcmp);
+				if (find)
+				{
+					g_free (find->data);
+					this->recent_dirs = g_list_delete_link (this->recent_dirs, find);
+				}
+				this->recent_dirs = g_list_prepend (this->recent_dirs, uri);
 			}
+			
+			g_list_foreach (this->environment_vars, (GFunc)g_free, NULL);
+			g_list_free (this->environment_vars);
+			this->environment_vars = NULL;
+			model = gtk_tree_view_get_model (vars);			
+			gtk_tree_model_foreach (GTK_TREE_MODEL (model), on_add_variable_in_list, &this->environment_vars);
+			this->environment_vars = g_list_reverse (this->environment_vars);
 			
 			this->run_in_terminal = gtk_toggle_button_get_active (term);
 			this->stop_at_beginning = gtk_toggle_button_get_active (stop_at_beginning);
@@ -1048,27 +1341,10 @@ dma_set_parameters (DmaStart *this)
 
 			if (response == GTK_RESPONSE_OK)
 			{
-				gchar* uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (sel_dlg));
-				
-				if (this->target_uri != NULL)
-				{
-					if (strcmp(uri, this->target_uri) != 0)
-					{
-						g_free (this->target_uri);
-						this->target_uri = uri;
-					}
-					else
-					{
-						g_free (uri);
-					}
-				}
-				else
-				{
-					this->target_uri = uri;
-				}
-					
-				gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), this->target_uri);
+				gchar* filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (sel_dlg));
 
+				gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), filename);
+				g_free (filename);
 			}
 			gtk_widget_destroy (GTK_WIDGET (sel_dlg));
 
@@ -1100,19 +1376,6 @@ on_add_source_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter
 	g_free (dir);
 	
 	return FALSE;
-}
-
-static void
-on_add_source_in_model (gpointer data, gpointer user_data)
-{
-	GtkListStore* model = (GtkListStore *)user_data;
-	GtkTreeIter iter;
-	gchar *local;
-	
-	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
-	gtk_list_store_append (model, &iter);
-	gtk_list_store_set (model, &iter, 0, local, -1);
-	g_free (local);
 }
 
 static void
@@ -1229,7 +1492,7 @@ add_source_show (DmaStart *this)
 	gtk_window_set_transient_for (GTK_WINDOW (widget), parent);
 
 	/* Initialize source path list */
-	g_list_foreach (this->source_dirs, on_add_source_in_model, dlg.model);
+	g_list_foreach (this->source_dirs, on_add_uri_in_model, dlg.model);
 	
 	/* Run dialog */
 	for (;;)
@@ -1248,7 +1511,7 @@ add_source_show (DmaStart *this)
 			break;
 		case GTK_RESPONSE_CANCEL:
 			gtk_list_store_clear (dlg.model);
-			g_list_foreach (this->source_dirs, on_add_source_in_model, dlg.model);
+			g_list_foreach (this->source_dirs, on_add_uri_in_model, dlg.model);
 			continue;
 		default:
 			break;
@@ -1314,22 +1577,30 @@ gboolean
 dma_run_target (DmaStart *this)
 {
 	if (!dma_set_parameters (this)) return FALSE;
-       
-	if (!dma_start_load_uri (this)) return FALSE;
-
-	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
-	
-	return TRUE;
+    
+	return dma_rerun_target (this);
 }
 
 gboolean
 dma_rerun_target (DmaStart *this)
 {
-	if (this->target_uri == NULL) return FALSE;
-
+	gchar *dir;
+	
 	if (!dma_start_load_uri (this)) return FALSE;
 
-	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
+	if (this->recent_dirs != NULL)
+	{
+		dir = gnome_vfs_get_local_path_from_uri ((const gchar *)(this->recent_dirs->data));
+	}
+	else
+	{
+		dir = NULL;
+	}
+	dma_queue_set_working_directory (this->debugger, dir);
+	g_free (dir);
+	dma_queue_set_environment (this->debugger, this->environment_vars);
+	
+	dma_queue_start (this->debugger, this->recent_args == NULL ? "" : (const char *)this->recent_args->data,this->run_in_terminal, this->stop_at_beginning);
 	
 	return TRUE;
 }
@@ -1361,13 +1632,18 @@ dma_start_free (DmaStart *this)
 {
 	g_signal_handlers_disconnect_by_func (this->plugin->shell, G_CALLBACK (on_session_save), this);
     g_signal_handlers_disconnect_by_func (this->plugin->shell, G_CALLBACK (on_session_load), this);
-	if (this->source_dirs != NULL)
-	{
-		g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
-		g_list_free (this->source_dirs);
-	}
-	if (this->program_args != NULL) g_free (this->program_args);
-	if (this->target_uri != NULL) g_free (this->target_uri);
+	g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
+	g_list_free (this->source_dirs);
+	g_list_foreach (this->recent_target, (GFunc)g_free, NULL);
+	g_list_free (this->recent_target);
+	g_list_foreach (this->recent_args, (GFunc)g_free, NULL);
+	g_list_free (this->recent_args);
+	g_list_foreach (this->recent_args, (GFunc)g_free, NULL);
+	g_list_free (this->recent_args);
+	g_list_foreach (this->recent_dirs, (GFunc)g_free, NULL);
+	g_list_free (this->recent_dirs);
+	g_list_foreach (this->environment_vars, (GFunc)g_free, NULL);
+	g_list_free (this->environment_vars);
 	g_free (this);
 }
 

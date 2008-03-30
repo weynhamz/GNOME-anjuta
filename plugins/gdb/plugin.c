@@ -350,6 +350,26 @@ idebugger_unload (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
+idebugger_set_working_directory (IAnjutaDebugger *plugin, const gchar *directory, GError **err)
+{
+	GdbPlugin *self = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_set_working_directory (self->debugger, directory);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_set_environment (IAnjutaDebugger *plugin, const GList *variables, GError **err)
+{
+	GdbPlugin *self = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_set_environment (self->debugger, variables);
+
+	return TRUE;
+}
+
+static gboolean
 idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
@@ -733,6 +753,8 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->get_state = idebugger_get_state;
 	iface->attach = idebugger_attach;
 	iface->load = idebugger_load;
+	iface->set_working_directory = idebugger_set_working_directory;
+	iface->set_environment = idebugger_set_environment;
 	iface->start = idebugger_start;
 	iface->unload = idebugger_unload;
 	iface->quit = idebugger_quit;

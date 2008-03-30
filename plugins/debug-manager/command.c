@@ -56,13 +56,15 @@ typedef enum
 	INSPECT_MEMORY_COMMAND,
 	DISASSEMBLE_COMMAND,
 	LIST_REGISTER_COMMAND,
+	SET_WORKING_DIRECTORY_COMMAND,
+	SET_ENVIRONMENT_COMMAND,
 	UNLOAD_COMMAND,         /* Program loaded */
 	START_COMMAND,         
 	BREAK_LINE_COMMAND,		  /* Program loaded - Program stopped */
 	BREAK_FUNCTION_COMMAND,
-	BREAK_ADDRESS_COMMAND,
+	BREAK_ADDRESS_COMMAND,	/* 0x10 */
 	ENABLE_BREAK_COMMAND,
-	IGNORE_BREAK_COMMAND,	/* 0x10 */
+	IGNORE_BREAK_COMMAND,
 	CONDITION_BREAK_COMMAND,
 	REMOVE_BREAK_COMMAND,
 	LIST_BREAK_COMMAND,
@@ -76,9 +78,9 @@ typedef enum
 	RUN_COMMAND,		
 	RUN_TO_COMMAND,
 	STEPI_IN_COMMAND,
-	STEPI_OVER_COMMAND,
+	STEPI_OVER_COMMAND,			/* 0x20 */
 	RUN_TO_ADDRESS_COMMAND,
-	EXIT_COMMAND,				/* 0x20 */
+	EXIT_COMMAND,
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
 	LIST_ARG_COMMAND,
@@ -92,9 +94,9 @@ typedef enum
 	SET_FRAME_COMMAND,
 	LIST_FRAME_COMMAND,
 	UPDATE_REGISTER_COMMAND,
-	WRITE_REGISTER_COMMAND,
+	WRITE_REGISTER_COMMAND,		/* 0x30 */
 	EVALUATE_COMMAND,
-	INSPECT_COMMAND,			/* 0x30 */
+	INSPECT_COMMAND,
 	PRINT_COMMAND,
 	CREATE_VARIABLE,
 	EVALUATE_VARIABLE,
@@ -134,6 +136,12 @@ typedef enum
 	DMA_LIST_REGISTER_COMMAND =
 		LIST_REGISTER_COMMAND |
 		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
+	DMA_SET_WORKING_DIRECTORY_COMMAND =
+		SET_WORKING_DIRECTORY_COMMAND |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED,
+	DMA_SET_ENVIRONMENT_COMMAND =
+		SET_ENVIRONMENT_COMMAND |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED,
 	DMA_UNLOAD_COMMAND =
 		UNLOAD_COMMAND | START_DEBUGGER |
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
@@ -341,6 +349,8 @@ struct _DmaQueueCommand
 			gchar *name;
 			gchar *value;
 		} var;
+		GList *env;
+		gchar *dir;
 	} data;
 	struct _DmaQueueCommand *next;
 };
@@ -393,6 +403,16 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 	case QUIT_COMMAND:
 		break;
 	case ABORT_COMMAND:
+		break;
+	case SET_WORKING_DIRECTORY_COMMAND:
+		cmd->data.dir = g_strdup (va_arg (args, gchar *));
+		break;
+	case SET_ENVIRONMENT_COMMAND:
+		for (list = va_arg (args, GList *); list != NULL; list = g_list_next (list))
+		{
+			cmd->data.env = g_list_prepend (cmd->data.env, g_strdup (list->data));
+		}
+		cmd->data.env = g_list_reverse (cmd->data.env);
 		break;
 	case START_COMMAND:
 		cmd->data.start.args = g_strdup (va_arg (args, gchar *));
@@ -627,6 +647,18 @@ dma_queue_attach (DmaDebuggerQueue *self, pid_t pid, const GList *search_dirs)
 	if (!dma_debugger_queue_start (self, NULL)) return FALSE;
 	
 	return dma_debugger_queue_append (self, dma_command_new (DMA_ATTACH_COMMAND, pid, search_dirs));
+}
+
+gboolean
+dma_queue_set_working_directory(DmaDebuggerQueue *self, const gchar *directory)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_SET_WORKING_DIRECTORY_COMMAND, directory));
+}
+
+gboolean
+dma_queue_set_environment(DmaDebuggerQueue *self, const GList *variables)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_SET_ENVIRONMENT_COMMAND, variables));
 }
 
 gboolean
@@ -1015,6 +1047,13 @@ dma_command_free (DmaQueueCommand *cmd)
         g_list_foreach (cmd->data.load.dirs, (GFunc)g_free, NULL);
         g_list_free (cmd->data.load.dirs);
 		break;
+	case SET_WORKING_DIRECTORY_COMMAND:
+		if (cmd->data.dir) g_free (cmd->data.dir);
+		break;
+	case SET_ENVIRONMENT_COMMAND:
+        g_list_foreach (cmd->data.env, (GFunc)g_free, NULL);
+        g_list_free (cmd->data.env);
+		break;
 	case ATTACH_COMMAND:
         g_list_foreach (cmd->data.attach.dirs, (GFunc)g_free, NULL);
         g_list_free (cmd->data.attach.dirs);
@@ -1113,6 +1152,12 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		break;
 	case ATTACH_COMMAND:
 		ret = ianjuta_debugger_attach (debugger, cmd->data.attach.pid, cmd->data.load.dirs, err);	
+		break;
+	case SET_WORKING_DIRECTORY_COMMAND:
+		ret = ianjuta_debugger_set_working_directory (debugger, cmd->data.dir, err);	
+		break;
+	case SET_ENVIRONMENT_COMMAND:
+		ret = ianjuta_debugger_set_environment (debugger, cmd->data.env, err);	
 		break;
 	case UNLOAD_COMMAND:
 	    ret = ianjuta_debugger_unload (debugger, err);
@@ -1316,6 +1361,8 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case QUIT_COMMAND:
 	case ABORT_COMMAND:
 	case START_COMMAND:
+	case SET_WORKING_DIRECTORY_COMMAND:
+	case SET_ENVIRONMENT_COMMAND:	
 	case RUN_COMMAND:
 	case RUN_TO_COMMAND:
 	case STEP_IN_COMMAND:

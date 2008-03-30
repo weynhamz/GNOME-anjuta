@@ -59,6 +59,8 @@ typedef enum
 /* Create a new command structure and append to command queue */
 gboolean dma_queue_initialize (DmaDebuggerQueue *self);
 gboolean dma_queue_load (DmaDebuggerQueue *self, const gchar *file, const gchar* mime_type, const GList *search_dirs);
+gboolean dma_queue_set_working_directory (DmaDebuggerQueue *self, const gchar *directory);
+gboolean dma_queue_set_environment (DmaDebuggerQueue *self, const GList *variables);
 gboolean dma_queue_attach (DmaDebuggerQueue *self, pid_t pid, const GList *search_dirs);
 gboolean dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal, gboolean stop);
 gboolean dma_queue_unload (DmaDebuggerQueue *self);

@@ -726,6 +726,45 @@ debugger_load_core (Debugger *debugger, const gchar *core)
 	g_free (command);
 }
 
+/* Set environment
+ *---------------------------------------------------------------------------*/
+
+gboolean
+debugger_set_working_directory (Debugger *debugger, const gchar *directory)
+{
+	gchar *buff;
+
+	DEBUG_PRINT ("In function: set_working_directory()");
+	
+	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
+
+	buff = g_strdup_printf ("-environment-cd %s", directory);	
+	debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
+	g_free (buff);
+	
+	return TRUE;
+}
+
+gboolean
+debugger_set_environment (Debugger *debugger, const GList *variables)
+{
+	gchar *buff;
+	GList *node;
+
+	DEBUG_PRINT ("In function: set_environment()");
+
+	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
+
+	for (node = variables; node != NULL; node = g_list_next (node))
+	{
+		buff = g_strdup_printf("set environment %s", (const char *)node->data);
+		debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
+		g_free (buff);
+	}
+	
+	return TRUE;
+}
+
 gboolean
 debugger_start (Debugger *debugger, const GList *search_dirs,
 				const gchar *prog, gboolean is_libtool_prog)
