@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-11 13:37+0000\n"
-"PO-Revision-Date: 2008-03-11 16:18+0100\n"
+"POT-Creation-Date: 2008-03-25 22:30+0000\n"
+"PO-Revision-Date: 2008-03-30 10:44+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -511,19 +511,19 @@ msgstr ""
 "cerrar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:891
+#: ../libanjuta/anjuta-ui.c:855
 msgid "Action"
 msgstr "Acción"
 
-#: ../libanjuta/anjuta-ui.c:909
+#: ../libanjuta/anjuta-ui.c:873
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:920
+#: ../libanjuta/anjuta-ui.c:884
 msgid "Sensitive"
 msgstr "Distinguir mayúsculas"
 
-#: ../libanjuta/anjuta-ui.c:929
+#: ../libanjuta/anjuta-ui.c:893
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
@@ -1927,7 +1927,7 @@ msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/debug-manager/registers.c:464 ../plugins/tools/editor.c:463
+#: ../plugins/debug-manager/registers.c:471 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "Valor"
 
@@ -2195,11 +2195,11 @@ msgstr ""
 "No se puede encontrar un complemento de depuración que soporte un objetivo "
 "con un tipo MIME %s"
 
-#: ../plugins/debug-manager/registers.c:457
+#: ../plugins/debug-manager/registers.c:464
 msgid "Register"
 msgstr "Registro"
 
-#: ../plugins/debug-manager/registers.c:484
+#: ../plugins/debug-manager/registers.c:491
 msgid "Registers"
 msgstr "Registros"
 
@@ -2364,24 +2364,29 @@ msgstr "No se puede ejecutar: %s."
 msgid "Unable to open the file: %s\n"
 msgstr "No se puede abrir el archivo: %s\n"
 
-#: ../plugins/debug-manager/start.c:903 ../plugins/debug-manager/start.c:1191
+#: ../plugins/debug-manager/start.c:877
+#, c-format
+msgid "Unable to open %s. Debugger cannot start."
+msgstr "No se puede abrir %s. El depurador no puede iniciarse."
+
+#: ../plugins/debug-manager/start.c:912 ../plugins/debug-manager/start.c:1200
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
-#: ../plugins/debug-manager/start.c:1024
+#: ../plugins/debug-manager/start.c:1033
 msgid "Load Target to debug"
 msgstr "Cargar objetivo a depurar"
 
-#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1041 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/debug-manager/start.c:1212
+#: ../plugins/debug-manager/start.c:1221
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1260 ../plugins/gdb/debugger.c:1639
+#: ../plugins/debug-manager/start.c:1269 ../plugins/gdb/debugger.c:1643
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2541,7 +2546,7 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:217
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:216
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2602,8 +2607,8 @@ msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 #: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:2115
+#: ../plugins/document-manager/plugin.c:2126
 msgid "Documents"
 msgstr "Documentos"
 
@@ -2933,7 +2938,7 @@ msgstr "Repetir la búsqueda rápida"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1714
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3602,12 +3607,12 @@ msgstr "Imprimiendo…"
 msgid "Print Preview"
 msgstr "Vista previa de la impresión"
 
-#: ../plugins/editor/plugin.c:121 ../plugins/editor/plugin.c:133
+#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:203
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:202
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4018,15 +4023,15 @@ msgstr "Ejecutar en un terminal"
 msgid "_Pass:"
 msgstr "_Pasada:"
 
-#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
+#: ../plugins/gdb/debugger.c:685 ../plugins/gdb/debugger.c:887
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable: "
 
-#: ../plugins/gdb/debugger.c:719
+#: ../plugins/gdb/debugger.c:715
 msgid "Loading Core: "
 msgstr "Cargando core: "
 
-#: ../plugins/gdb/debugger.c:756
+#: ../plugins/gdb/debugger.c:752
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4037,54 +4042,54 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:885
+#: ../plugins/gdb/debugger.c:881
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:900
+#: ../plugins/gdb/debugger.c:896
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:903
+#: ../plugins/gdb/debugger.c:899
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:912
+#: ../plugins/gdb/debugger.c:908
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:916
+#: ../plugins/gdb/debugger.c:912
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1207
+#: ../plugins/gdb/debugger.c:1203
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1218
+#: ../plugins/gdb/debugger.c:1214
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1233
+#: ../plugins/gdb/debugger.c:1229
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1242
+#: ../plugins/gdb/debugger.c:1238
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1248
+#: ../plugins/gdb/debugger.c:1244
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1254
+#: ../plugins/gdb/debugger.c:1250
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1636
+#: ../plugins/gdb/debugger.c:1640
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4092,16 +4097,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1826
+#: ../plugins/gdb/debugger.c:1830
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1847
+#: ../plugins/gdb/debugger.c:1851
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1873
+#: ../plugins/gdb/debugger.c:1877
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4109,33 +4114,33 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1890
+#: ../plugins/gdb/debugger.c:1894
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1940
+#: ../plugins/gdb/debugger.c:1944
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1955
+#: ../plugins/gdb/debugger.c:1959
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:1975
+#: ../plugins/gdb/debugger.c:1979
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1996
+#: ../plugins/gdb/debugger.c:2000
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3779
+#: ../plugins/gdb/debugger.c:3783
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3805
+#: ../plugins/gdb/debugger.c:3809
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
@@ -4605,19 +4610,19 @@ msgstr "Presionar combinación de teclas de macro…"
 msgid "Press shortcut"
 msgstr "Presionar combinación de teclas"
 
-#: ../plugins/macro/macro-db.c:245
+#: ../plugins/macro/macro-db.c:254
 msgid "Anjuta macros"
 msgstr "Macros de Anjuta"
 
-#: ../plugins/macro/macro-db.c:249
+#: ../plugins/macro/macro-db.c:258
 msgid "My macros"
 msgstr "Mis macros"
 
-#: ../plugins/macro/macro-dialog.c:260
+#: ../plugins/macro/macro-dialog.c:267
 msgid "Insert macro"
 msgstr "Insertar macro"
 
-#: ../plugins/macro/macro-edit.c:195
+#: ../plugins/macro/macro-edit.c:204
 msgid "Add/Edit macro"
 msgstr "Añadir/Editar macro"
 
@@ -5068,23 +5073,7 @@ msgstr "Mostrar funciones no llamadas"
 msgid "Use this profiling data file:"
 msgstr "Usar este archivo de perfilado de datos:"
 
-#: ../plugins/project-import/anjuta-project-import.glade.h:1
-msgid "<b>Enter the base path of your project:</b>"
-msgstr "<b>Introduzca la ruta base de su proyecto:</b>"
-
-#: ../plugins/project-import/anjuta-project-import.glade.h:2
-msgid "<b>Enter the project name:</b>"
-msgstr "<b>Introduzca el nombre del proyecto:</b>"
-
-#: ../plugins/project-import/anjuta-project-import.glade.h:3
-msgid "Import Project"
-msgstr "Importar un proyecto"
-
-#: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid "This assistent will import an existing project into Anjuta."
-msgstr "Este asistente importará en Anjuta un proyecto ya existente."
-
-#: ../plugins/project-import/project-import.c:98
+#: ../plugins/project-import/project-import.c:102
 #, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
@@ -5095,7 +5084,14 @@ msgstr ""
 "(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
 "más moderna del marco de compilación de Gnome."
 
-#: ../plugins/project-import/project-import.c:120
+#.
+#. * Now we can't apply
+#.
+#: ../plugins/project-import/project-import.c:123
+msgid "Please, fix the configuration"
+msgstr "Arregle la configuración"
+
+#: ../plugins/project-import/project-import.c:130
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -5106,7 +5102,35 @@ msgstr ""
 "Tipo de proyecto: %s\n"
 "Ruta del proyecto: %s\n"
 
-#: ../plugins/project-import/project-import.c:306
+#: ../plugins/project-import/project-import.c:189
+msgid "This assistant will import an existing project into Anjuta."
+msgstr "Este asistente importará en Anjuta un proyecto ya existente."
+
+#: ../plugins/project-import/project-import.c:194
+msgid "Import Project"
+msgstr "Importar un proyecto"
+
+#: ../plugins/project-import/project-import.c:236
+msgid "<b>Enter the project name:</b>"
+msgstr "<b>Introduzca el nombre del proyecto:</b>"
+
+#: ../plugins/project-import/project-import.c:255
+msgid "<b>Enter the base path of your project:</b>"
+msgstr "<b>Introduzca la ruta base de su proyecto:</b>"
+
+#: ../plugins/project-import/project-import.c:259
+msgid "Select project directory"
+msgstr "Seleccionar el directorio del proyecto"
+
+#: ../plugins/project-import/project-import.c:265
+msgid "Project to Import"
+msgstr "Proyecto que importar"
+
+#: ../plugins/project-import/project-import.c:278
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: ../plugins/project-import/project-import.c:415
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -5115,12 +5139,12 @@ msgstr ""
 "plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
 "Anjuta está actualizada."
 
-#: ../plugins/project-import/project-import.c:329
+#: ../plugins/project-import/project-import.c:438
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/project-import.c:370
+#: ../plugins/project-import/project-import.c:479
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -5451,7 +5475,7 @@ msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
 #: ../plugins/project-wizard/druid.c:836
-msgid "Unable to build project assistent user interface."
+msgid "Unable to build project assistant user interface."
 msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
 
 #: ../plugins/project-wizard/install.c:387
@@ -5486,8 +5510,8 @@ msgstr "Creando %s … %s"
 msgid "Executing: "
 msgstr "Ejecutando: "
 
-#: ../plugins/project-wizard/plugin.c:150
-msgid "New Project Assistent"
+#: ../plugins/project-wizard/plugin.c:157
+msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
 #: ../plugins/project-wizard/property.c:248
@@ -6151,15 +6175,15 @@ msgstr "Documento no guardado %d"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../plugins/sourceview/sourceview.c:334
+#: ../plugins/sourceview/sourceview.c:333
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:357
+#: ../plugins/sourceview/sourceview.c:356
 msgid "Saving..."
 msgstr "Guardando…"
 
-#: ../plugins/sourceview/sourceview.c:364
+#: ../plugins/sourceview/sourceview.c:363
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "Otra aplicación modificó el archivo %s. ¿Guardarlo de todas formas?"
@@ -6610,15 +6634,15 @@ msgstr "Copiar…"
 msgid "Diff..."
 msgstr "Diff…"
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Operaciones de Subversion"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Operaciones emergentes de Subversion"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Registro de Subversion"
 
@@ -7180,7 +7204,7 @@ msgstr "_Configurar"
 msgid "Configure external tools"
 msgstr "Configurar herramientas externas"
 
-#: ../plugins/tools/plugin.c:185
+#: ../plugins/tools/plugin.c:193
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
@@ -7871,30 +7895,30 @@ msgstr "Sangrado inteligente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1714
+#: ../plugins/language-support-cpp-java/plugin.c:1720
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1715
+#: ../plugins/language-support-cpp-java/plugin.c:1721
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1721
+#: ../plugins/language-support-cpp-java/plugin.c:1727
 msgid "Auto Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1722
+#: ../plugins/language-support-cpp-java/plugin.c:1728
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1764
+#: ../plugins/language-support-cpp-java/plugin.c:1770
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1852
-#: ../plugins/language-support-cpp-java/plugin.c:1861
+#: ../plugins/language-support-cpp-java/plugin.c:1858
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
