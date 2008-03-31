@@ -65,6 +65,53 @@ static void anjuta_app_layout_save (AnjutaApp *app,
 
 static gpointer parent_class = NULL;
 static GList* toolbars = NULL;
+static GtkToolbarStyle style = -1;
+
+static void
+on_toolbar_style_changed (GConfClient* client, guint id, GConfEntry* entry,
+						  gpointer user_data)
+{
+	AnjutaApp* app = ANJUTA_APP (user_data);
+	GList *node = toolbars;
+	
+	char* tb_style = anjuta_preferences_get (app->preferences, "anjuta.toolbar.style");
+	
+	if (tb_style)
+	{	
+		if (strcasecmp (tb_style, "Default") == 0)
+			style = -1;
+		else if (strcasecmp (tb_style, "Both") == 0)
+			style = GTK_TOOLBAR_BOTH;
+		else if (strcasecmp (tb_style, "Horiz") == 0)
+			style = GTK_TOOLBAR_BOTH_HORIZ;
+		else if (strcasecmp (tb_style, "Icons") == 0)
+			style = GTK_TOOLBAR_ICONS;
+		else if (strcasecmp (tb_style, "Text") == 0)
+			style = GTK_TOOLBAR_TEXT;
+		
+		DEBUG_PRINT ("Toolbar style: %s", tb_style);
+		
+		g_free(tb_style);
+	}
+	
+	if (style != -1)
+	{
+		while (node)
+		{
+			gtk_toolbar_set_style (GTK_TOOLBAR (node->data), style);
+			node = node->next;
+		}
+	}
+	else
+	{
+		while (node)
+		{
+			gtk_toolbar_unset_style (GTK_TOOLBAR (node->data));
+			node = node->next;
+		}
+	}
+}
+	
 
 static void
 on_gdl_style_changed (GConfClient* client, guint id, GConfEntry* entry,
@@ -255,6 +302,10 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		
 		/* Showing the arrows seem to break anything completly! */
 		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
+		
+		/* Set the toolbar style */
+		if (style != -1)
+			gtk_toolbar_set_style(GTK_TOOLBAR (widget), style);
 		
 		gtk_widget_show (widget);
 		g_object_set_data (G_OBJECT (widget), "app", ui_container);
@@ -610,6 +661,11 @@ anjuta_app_instance_init (AnjutaApp *app)
 								   on_gdl_style_changed, app, NULL);
 	
 	on_gdl_style_changed (NULL, 0, NULL, app);
+	
+	anjuta_preferences_notify_add (app->preferences, "anjuta.toolbar.style",
+								   on_toolbar_style_changed, app, NULL);
+	
+	on_toolbar_style_changed (NULL, 0, NULL, app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
