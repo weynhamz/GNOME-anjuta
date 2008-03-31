@@ -1,5 +1,11 @@
 2008-03-31  Johannes Schmid  <jhs@gnome.org>
 
+	patch by: Carl-Anton Ingmarsson:
+	* src/anjuta.glade:
+	Fixed padding in preferences
+
+2008-03-31  Johannes Schmid  <jhs@gnome.org>
+
 	patch by: Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	* plugins/tools/anjuta-tools.glade:
