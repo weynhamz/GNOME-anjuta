@@ -1,5 +1,27 @@
 2008-03-31  Johannes Schmid  <jhs@gnome.org>
 
+	patch by: Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/tools/anjuta-tools.glade:
+	* plugins/tools/anjuta-tools.ui:
+	* plugins/tools/dialog.c (TOOL_LIST, TOOL_TREEVIEW, TOOL_EDIT_BUTTON,
+	  TOOL_DELETE_BUTTON, TOOL_UP_BUTTON, TOOL_DOWN_BUTTON,
+	  atp_tool_dialog_refresh, atp_tool_dialog_show):
+	* plugins/tools/dialog.h (dialog, plugin):
+	* plugins/tools/plugin.c (prefs, gxml, action_group,
+	  atp_plugin_finalize, test, atp_plugin_activate,
+	  atp_plugin_deactivate, atp_plugin_class_init, ipreferences_merge,
+	  ipreferences_unmerge, ipreferences_iface_init):
+	* plugins/tools/tool.c (action, action_group, accel_key, accel_mods,
+	  icon, merge_id, atp_user_tool_free, atp_user_tool_deactivate,
+	  atp_user_tool_activate, atp_tool_list_append_new,
+	  atp_tool_list_activate, atp_tool_list_deactivate):
+	* plugins/tools/tool.h (plugin):
+	
+	#515854 – Move configuration into preferences
+
+2008-03-31  Johannes Schmid  <jhs@gnome.org>
+
 	patch by: Carl-Anton Ingmarsson:
 	* src/anjuta-app.c (style, on_toolbar_style_changed,
 	  on_add_merge_widget, anjuta_app_instance_init):

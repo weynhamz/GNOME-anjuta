@@ -97,6 +97,8 @@ R7: Tool Storage
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 
+#include <libanjuta/interfaces/ianjuta-preferences.h>
+
 /*---------------------------------------------------------------------------*/
 
 #define ICON_FILE "anjuta-tools-plugin-48.png"
@@ -106,6 +108,9 @@ R7: Tool Storage
 
 struct _ATPPlugin {
 	AnjutaPlugin parent;
+	AnjutaPreferences *prefs;
+	GladeXML *gxml;
+	GtkActionGroup* action_group;
 	gint uiid;
 	ATPToolList list;
 	ATPToolDialog dialog;
@@ -115,15 +120,6 @@ struct _ATPPlugin {
 
 struct _ATPPluginClass {
 	AnjutaPluginClass parent_class;
-};
-
-/* Call backs
- *---------------------------------------------------------------------------*/
-
-static void
-atp_on_menu_tools_configure (GtkAction* action, ATPPlugin* plugin)
-{
-	atp_tool_dialog_show(&plugin->dialog);
 };
 
 /*---------------------------------------------------------------------------*/
@@ -136,14 +132,6 @@ static GtkActionEntry actions_tools[] = {
 		NULL,			/* Short-cut */
 		NULL,			/* Tooltip */
 		NULL			/* Callback */
-	},
-	{
-		"ActionConfigureTools",
-	 	NULL,
-	 	N_("_Configure"),
-	 	NULL,
-	 	N_("Configure external tools"),
-	 	G_CALLBACK (atp_on_menu_tools_configure)
 	}
 };
 		 
@@ -177,32 +165,29 @@ atp_plugin_finalize (GObject *obj)
 
 /* finalize used to free object created with instance init is not used */
 
+
+static void test (GtkAction *action)
+{
+}
+
 static gboolean
 atp_plugin_activate (AnjutaPlugin *plugin)
 {
 	ATPPlugin *this = ANJUTA_PLUGIN_ATP (plugin);
 	AnjutaUI *ui;
-	GtkMenu* menu;
-	GtkWidget* sep;
+	GtkAction *action;
 	
 	DEBUG_PRINT ("Tools Plugin: Activating tools plugin...");
-	
+
 	/* Add all our actions */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupTools",
+	this->action_group = anjuta_ui_add_action_group_entries (ui, 
+					"ActionGroupTools",
 					_("Tool operations"),
 					actions_tools,
 					G_N_ELEMENTS (actions_tools),
 					GETTEXT_PACKAGE, TRUE, plugin);
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
-
-	/* Load tools */
-	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), MENU_PLACEHOLDER))));
-
-	/* Add a separator */
-	sep = gtk_separator_menu_item_new();
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), sep);
-	gtk_widget_show (sep);
 
 	/* Add tool menu item */
 	atp_tool_list_construct (&this->list, this);
@@ -213,7 +198,9 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	atp_tool_dialog_construct (&this->dialog, this);
 	atp_variable_construct (&this->variable, plugin->shell);
 	atp_context_list_construct (&this->context);
-	
+
+	atp_tool_list_activate (atp_plugin_get_tool_list (this->dialog.plugin));
+
 	return TRUE;
 }
 
@@ -225,6 +212,7 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 
 	DEBUG_PRINT ("Tools Plugin: Deactivating tools plugin...");
 
+	atp_tool_list_deactivate (&this->list);	
 	atp_context_list_destroy (&this->context);
 	atp_variable_destroy (&this->variable);
 	atp_tool_dialog_destroy (&this->dialog);
@@ -232,6 +220,8 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, this->uiid);
+
+	g_object_unref (this->gxml);
 
 	return TRUE;
 }
@@ -249,7 +239,44 @@ atp_plugin_class_init (GObjectClass *klass)
 	klass->finalize = atp_plugin_finalize;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (ATPPlugin, atp_plugin);
+static void
+ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e)
+{
+	/* Create the tools preferences page */
+	ATPPlugin* atp_plugin;
+
+	atp_plugin = ANJUTA_PLUGIN_ATP (obj);
+	atp_plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(obj)->shell,
+														NULL);
+
+	/* Load glade file */
+	atp_plugin->gxml = glade_xml_new (GLADE_FILE, "list_tools", NULL);
+	if (atp_plugin->gxml == NULL)
+		return FALSE;
+
+	atp_tool_dialog_show(&atp_plugin->dialog, atp_plugin->gxml);
+
+	anjuta_preferences_add_page (atp_plugin->prefs, atp_plugin->gxml,
+									"Tools", _("Tools"), ICON_FILE);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e)
+{
+	anjuta_preferences_remove_page (prefs, "Tools");
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
+ANJUTA_PLUGIN_BEGIN (ATPPlugin, atp_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (ATPPlugin, atp_plugin);
 
 /* Access plugin variables

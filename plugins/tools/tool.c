@@ -62,9 +62,12 @@ struct _ATPUserTool
 	gchar *input_string;
 	ATPToolStore storage;
 	GtkWidget* menu_item;
+	GtkAction *action;
+	GtkActionGroup *action_group;
 	guint accel_key;
 	GdkModifierType accel_mods;
 	gchar *icon;
+	guint merge_id;
 	ATPToolList *owner;	 
 	ATPUserTool *over;	/* Same tool in another storage */
 	ATPUserTool *next;	/* Next tool in the list */
@@ -428,7 +431,7 @@ atp_user_tool_free (ATPUserTool *this)
 	g_return_if_fail (this->owner);
 
 	atp_user_tool_remove (this);
-	atp_user_tool_deactivate (this);
+	atp_user_tool_deactivate (this, this->owner->ui);
 
 	g_chunk_free (this, this->owner->data_pool);
 }
@@ -711,31 +714,59 @@ atp_user_tool_move_after (ATPUserTool *this, ATPUserTool *position)
 }
 
 void
-atp_user_tool_deactivate (ATPUserTool* this)
+atp_user_tool_deactivate (ATPUserTool* this, AnjutaUI *ui)
 {
-	/* accelerator is destroyed with the widget */
-	if (this->menu_item)
+	if (this->merge_id != 0)	
 	{
-	       	gtk_widget_destroy (this->menu_item);
-		this->menu_item = NULL;
+		gtk_ui_manager_remove_ui (GTK_UI_MANAGER (ui), this->merge_id);
+		gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), this->action_group);
 	}
 }
 
 gboolean
-atp_user_tool_activate (ATPUserTool *this, GtkMenu *submenu, GtkAccelGroup *group)
+atp_user_tool_activate (ATPUserTool *this, GtkAccelGroup *group, AnjutaUI *ui)
 {
+	gchar *menuitem_path;	
+
 	/* Remove previous menu */
-	atp_user_tool_deactivate (this);
+	atp_user_tool_deactivate (this, ui);
 
 	/* Create new menu item */
-	this->menu_item = gtk_image_menu_item_new_with_mnemonic (this->name);
-	gtk_widget_set_sensitive (this->menu_item, this->flags & ATP_TOOL_ENABLE);
+	this->action = gtk_action_new (this->name, this->name, this->name, NULL);
+	this->action_group = gtk_action_group_new ("ActionGroupTools");
+
+	if (this->accel_key != 0)
+	{
+		gchar *accelerator;		
+		
+		accelerator = gtk_accelerator_name (this->accel_key, this->accel_mods);
+		gtk_action_group_add_action_with_accel (this->action_group, this->action, accelerator);
+	}	
+	else
+	{
+		gtk_action_group_add_action (this->action_group, this->action);
+	}
+
+	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), this->action_group, 0);
+
+	this->merge_id = gtk_ui_manager_new_merge_id (GTK_UI_MANAGER (ui));
+	gtk_ui_manager_add_ui (GTK_UI_MANAGER (ui), 
+							this->merge_id,
+							MENU_PLACEHOLDER,
+							this->name,
+							this->name,
+							GTK_UI_MANAGER_MENUITEM,
+							FALSE);
+
+	menuitem_path = g_strconcat (MENU_PLACEHOLDER, "/", this->name, NULL);
+	this->menu_item = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), menuitem_path);
+	gtk_action_set_sensitive (this->action, this->flags & ATP_TOOL_ENABLE);
 
 	/* Add icon */
 	if ((this->menu_item != NULL) && (this->icon != NULL))
 	{
 		GdkPixbuf *pixbuf;
-	       	GdkPixbuf *scaled_pixbuf;
+		GdkPixbuf *scaled_pixbuf;
 		gint height, width;
 			
 		gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (this->menu_item), GTK_ICON_SIZE_MENU, &width, &height);
@@ -753,15 +784,7 @@ atp_user_tool_activate (ATPUserTool *this, GtkMenu *submenu, GtkAccelGroup *grou
 		}
 	}
 
-	g_signal_connect (G_OBJECT (this->menu_item), "activate", G_CALLBACK (atp_user_tool_execute), this);
-
-	if (this->accel_key != 0)
-	{
-		gtk_widget_add_accelerator(this->menu_item, "activate", group, this->accel_key, this->accel_mods, GTK_ACCEL_VISIBLE);
-	}
-
-	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), this->menu_item);
-	gtk_widget_show(this->menu_item);
+	g_signal_connect (G_OBJECT (this->action), "activate", G_CALLBACK (atp_user_tool_execute), this);
 
 	return TRUE;
 }
@@ -883,18 +906,30 @@ atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore sto
 	return tool;
 }
 
-gboolean atp_tool_list_activate (ATPToolList *this)
+gboolean 
+atp_tool_list_activate (ATPToolList *this)
 {
 	ATPUserTool *next;
-	GtkMenu* menu;
 	GtkAccelGroup* group;
 
-	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(this->ui), MENU_PLACEHOLDER))));
-	group = anjuta_ui_get_accel_group(this->ui);
+	group = anjuta_ui_get_accel_group (this->ui);
 
 	for (next = atp_tool_list_first (this); next != NULL; next = atp_user_tool_next (next))
 	{
-		atp_user_tool_activate (next, menu, group);
+		atp_user_tool_activate (next, group, this->ui);
+	}
+
+	return TRUE;
+}
+
+gboolean 
+atp_tool_list_deactivate (ATPToolList *this)
+{
+	ATPUserTool *next;
+
+	for (next = atp_tool_list_first (this); next != NULL; next = atp_user_tool_next (next))
+	{
+		atp_user_tool_deactivate (next, next->owner->ui);
 	}
 
 	return TRUE;

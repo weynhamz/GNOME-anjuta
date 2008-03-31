@@ -36,14 +36,13 @@
 /* Widget and signal name found in glade file
  *---------------------------------------------------------------------------*/
 
-#define TOOL_LIST "list_dialog"
+#define TOOL_LIST "list_tools"
 #define TOOL_TREEVIEW "tools_treeview"
 #define TOOL_EDIT_BUTTON "edit_bt"
 #define TOOL_DELETE_BUTTON "delete_bt"
 #define TOOL_UP_BUTTON "up_bt"
 #define TOOL_DOWN_BUTTON "down_bt"
 
-#define LIST_RESPONSE_SIGNAL "on_list_dialog_response"
 #define TOOL_ADD_SIGNAL "on_tool_add"
 #define TOOL_ACTIVATED_SIGNAL "on_tool_activated"
 #define TOOL_EDIT_SIGNAL "on_tool_edit"
@@ -258,18 +257,6 @@ on_tool_selection_changed (GtkTreeSelection *selection, gpointer user_data)
 	update_sensitivity (this);
 }
 
-static void
-on_list_response (GtkDialog *dialog, gint res, gpointer user_data)
-{
-	ATPToolDialog *this = (ATPToolDialog *)user_data;
-
-	/* Just save tool list */
-	atp_anjuta_tools_save(this->plugin);
-
-	/* Close widget */
-	atp_tool_dialog_close (this);
-}
-
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -314,34 +301,22 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 	/* Restore changed signal */
 	g_signal_handler_unblock (selection, this->changed_sig);	
 	update_sensitivity(this);
+
+	/* Just save tool list */
+	atp_anjuta_tools_save(this->plugin);
 }
 
 /* Start the tool lister and editor */
 
-gboolean
-atp_tool_dialog_show (ATPToolDialog* this)
+void
+atp_tool_dialog_show (ATPToolDialog* this, GladeXML *xml)
 {
-	GladeXML *xml;
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 
-	if (this->dialog != NULL)
-	{
-		/* dialog is already displayed */
-		gtk_window_present (GTK_WINDOW (this->dialog));
-		return FALSE;
-	}
-
-	/* Load glade file */
-	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_LIST, NULL)))
-	{
-		anjuta_util_dialog_error(atp_plugin_get_app_window (this->plugin), _("Unable to build user interface for tool list"));
-		return FALSE;
-	}
-	this->dialog = GTK_DIALOG(glade_xml_get_widget(xml, TOOL_LIST));
-	gtk_widget_show (GTK_WIDGET(this->dialog));
+	this->dialog = GTK_WINDOW (glade_xml_get_widget(xml, TOOL_LIST));
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->plugin));
 
 	/* Create tree view */	
@@ -368,8 +343,7 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	this->up_bt = glade_xml_get_widget(xml, TOOL_UP_BUTTON);
 	this->down_bt = glade_xml_get_widget(xml, TOOL_DOWN_BUTTON);
 
-	/* Connect all signals */	
-	glade_xml_signal_connect_data (xml, LIST_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_list_response), this);
+	/* Connect all signals */
 	glade_xml_signal_connect_data (xml, TOOL_ADD_SIGNAL, GTK_SIGNAL_FUNC (on_tool_add), this);
 	glade_xml_signal_connect_data (xml, TOOL_ACTIVATED_SIGNAL, GTK_SIGNAL_FUNC (on_tool_activated), this);
 	glade_xml_signal_connect_data (xml, TOOL_EDIT_SIGNAL, GTK_SIGNAL_FUNC (on_tool_edit), this);
@@ -379,11 +353,7 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	selection = gtk_tree_view_get_selection (this->view);
 	this->changed_sig = g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (on_tool_selection_changed), this);
 
-	g_object_unref (xml);
-
 	atp_tool_dialog_refresh (this, NULL);
-
-	return TRUE;
 }
 
 void

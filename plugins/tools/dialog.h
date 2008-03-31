@@ -30,7 +30,7 @@
 typedef struct _ATPToolDialog ATPToolDialog;
 
 struct _ATPToolDialog {
-	GtkDialog* dialog;
+	GtkWindow* dialog;
 	GtkTreeView* view;
 	gboolean changed_sig ;
 	GtkWidget *edit_bt;
@@ -49,7 +49,7 @@ void atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select);
 
 ATPVariable* atp_tool_dialog_get_variable (const ATPToolDialog *this);
 
-gboolean atp_tool_dialog_show (ATPToolDialog *this);
+void atp_tool_dialog_show (ATPToolDialog *this, GladeXML *xml);
 void atp_tool_dialog_close (ATPToolDialog *this);
 
 #endif
