@@ -1,5 +1,10 @@
 2008-04-02  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview.c (autodetect_language):
+	Use gnome_vfs_get_slow_mime_type()
+
+2008-04-02  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-utils.c (anjuta_util_get_uri_mime_type):
 	* plugins/file-loader/plugin.c (get_available_plugins_for_mime),
 	(open_with_dialog):
