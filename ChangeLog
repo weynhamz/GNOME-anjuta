@@ -1,3 +1,14 @@
+2008-04-02  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-utils.c (anjuta_util_get_uri_mime_type):
+	* plugins/file-loader/plugin.c (get_available_plugins_for_mime),
+	(open_with_dialog):
+	
+	Use gnome_vfs_get_slow_mime_type() to determine the mime-type and try
+	supertype instead no plugin for mime-type was found (#525706)
+	
+	(backport from trunk)
+
 2008-03-12  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c (extract_mode_line),
