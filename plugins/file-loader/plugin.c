@@ -159,7 +159,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 								 "There is no plugin, default action, or application "
 								 "configured to handle this file type.\n"
 								 "\n"
-								 "Mime type: %s\n"
+								 "Mime type: %s.\n"
 								 "\n"
 								 "You may choose to try opening it with the following "
 								 "plugins or applications."),
