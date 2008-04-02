@@ -998,7 +998,7 @@ anjuta_util_get_uri_mime_type (const gchar *uri)
 	 */
 	if (!path)
 	{
-		mime_type = gnome_vfs_get_mime_type (uri);
+		mime_type = gnome_vfs_get_slow_mime_type (uri);
 	}
 	else if (anjuta_util_path_has_extension (path, "anjuta"))
 	{
@@ -1018,7 +1018,7 @@ anjuta_util_get_uri_mime_type (const gchar *uri)
 	}
 	else
 	{
-		mime_type = gnome_vfs_get_mime_type (uri);
+		mime_type = gnome_vfs_get_slow_mime_type (uri);
 	}
 	
 	if (vfs_uri)

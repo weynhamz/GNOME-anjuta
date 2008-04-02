@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-mime.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
 
@@ -122,6 +123,19 @@ get_available_plugins_for_mime (AnjutaFileLoaderPlugin* plugin,
 												"SupportedMimeTypes",
 												mime_type,
 												NULL);
+	if (!plugin_descs);
+	{
+		gchar* supertype = gnome_vfs_get_supertype_from_mime_type (mime_type);
+		plugin_descs = anjuta_plugin_manager_query (plugin_manager,
+												"Anjuta Plugin",
+												"Interfaces", "IAnjutaFile",
+												"File Loader",
+												"SupportedMimeTypes",
+												supertype,
+												NULL);
+		g_free (supertype);
+	}
+	
 	return plugin_descs;
 }
 
@@ -145,7 +159,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 								 "There is no plugin, default action, or application "
 								 "configured to handle this file type.\n"
 								 "\n"
-								 "Mime type: %s.\n"
+								 "Mime type: %s\n"
 								 "\n"
 								 "You may choose to try opening it with the following "
 								 "plugins or applications."),
