@@ -1882,7 +1882,7 @@ static const gchar*
 autodetect_language (Sourceview* sv)
 {
 	const gchar* uri = anjuta_document_get_uri (sv->priv->document);
-	const gchar* vfs_mime_type = gnome_vfs_get_mime_type (uri);
+	const gchar* vfs_mime_type = gnome_vfs_get_slow_mime_type (uri);
 	GStrv languages;
 	GStrv cur_lang;
 	const gchar* detected_language = NULL;
