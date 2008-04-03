@@ -1,3 +1,142 @@
+2008-04-03  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in:
+	* libanjuta/anjuta-launcher.c (anjuta_launcher_scan_output),
+	(anjuta_launcher_scan_error), (anjuta_launcher_scan_pty):
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/Makefile.am:
+	* plugins/class-inheritance/class-inherit.c
+	(class_inheritance_show_dynamic_class_popup_menu),
+	(cls_inherit_add_node), (cls_inherit_draw_expanded_node),
+	(class_inheritance_update_graph):
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(create_completion),
+	(cpp_java_assist_create_scope_completion_cache),
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_show_calltip):
+	* plugins/profiler/gprof-view.c (gprof_view_show_symbol_in_editor):
+	* plugins/symbol-browser/an_symbol.c (anjuta_symbol_get_name),
+	(isymbol_get_name), (isymbol_get_sym_type), (isymbol_get_args),
+	(isymbol_get_extra_info_string), (isymbol_get_line),
+	(isymbol_get_icon), (isymbol_iface_init):
+	* plugins/symbol-browser/an_symbol.h:
+	* plugins/symbol-browser/an_symbol_view.c
+	(anjuta_symbol_view_get_file_symbol_model):
+	* plugins/symbol-browser/plugin.c (isymbol_manager_search),
+	(isymbol_manager_get_members), (isymbol_manager_get_class_parents),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout), (on_editor_saved),
+	(value_added_current_editor), (goto_local_tree_iter),
+	(goto_global_tree_iter), (on_global_treeview_row_expanded),
+	(on_global_treeview_row_collapsed), (on_project_element_added),
+	(on_project_element_removed), (on_importing_project_end),
+	(do_import_sources_after_abort), (do_import_sources),
+	(project_root_added), (project_root_removed), (symbol_db_activate),
+	(symbol_db_deactivate), (isymbol_manager_search),
+	(isymbol_manager_get_members), (isymbol_manager_get_class_parents),
+	(isymbol_manager_iface_init), (ipreferences_merge),
+	(ipreferences_unmerge), (ipreferences_iface_init):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_new),
+	(sdb_engine_iterator_node_instance_init),
+	(sdb_engine_iterator_node_finalize),
+	(symbol_db_engine_iterator_node_get_symbol_id),
+	(symbol_db_engine_iterator_node_get_symbol_name),
+	(symbol_db_engine_iterator_node_get_symbol_file_pos),
+	(symbol_db_engine_iterator_node_get_symbol_is_file_scope),
+	(symbol_db_engine_iterator_node_get_symbol_signature),
+	(symbol_db_engine_iterator_node_get_symbol_extra_string),
+	(isymbol_get_name), (isymbol_get_args),
+	(isymbol_get_extra_info_string), (isymbol_get_uri),
+	(isymbol_get_line), (isymbol_get_icon), (isymbol_get_sym_type),
+	(isymbol_iface_init):
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(symbol_db_engine_iterator_new):
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_execute_unknown_sql), (sdb_engine_execute_select_sql),
+	(sdb_engine_execute_non_select_sql), (sdb_engine_get_query_by_id),
+	(sdb_engine_free_cached_queries), (sdb_engine_disconnect_from_db),
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(sdb_engine_ctags_output_callback_1), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (sdb_engine_finalize),
+	(sdb_engine_set_defaults_db_parameters),
+	(sdb_engine_connect_to_db), (sdb_engine_create_db_tables),
+	(symbol_db_engine_close_db), (symbol_db_engine_open_db),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (symbol_db_engine_add_new_files),
+	(sdb_engine_add_new_sym_type), (sdb_engine_add_new_sym_kind),
+	(sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_second_pass_do), (sdb_engine_add_new_symbol),
+	(sdb_engine_detects_removed_ids), (sdb_engine_update_file),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_fill_type_array),
+	(symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file), (on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_get_full_local_path),
+	(symbol_db_engine_get_file_db_path),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (on_gconf_notify_prefs),
+	(pkg_list_compare), (on_cflags_output), (on_cflags_exit),
+	(on_listall_output), (on_listall_exit), (files_visit_dir),
+	(on_tag_load_toggled), (symbol_db_prefs_init),
+	(symbol_db_prefs_finalize):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(sdb_view_locals_get_iter_from_row_ref), (sdb_view_locals_init),
+	(do_add_root_symbol_to_view),
+	(consume_symbols_inserted_queue_idle_destroy),
+	(consume_symbols_inserted_queue_idle), (on_scan_end),
+	(do_recurse_subtree_and_remove), (on_symbol_removed),
+	(on_symbol_inserted),
+	(symbol_db_view_locals_recv_signals_from_engine),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_get_iter_from_row_ref), (prepare_for_adding),
+	(on_symbol_removed), (sdb_view_row_expanded_idle_destroy),
+	(sdb_view_row_expanded_idle), (sdb_view_namespace_row_expanded),
+	(sdb_view_global_row_expanded), (sdb_view_vars_row_expanded),
+	(sdb_view_build_and_display_base_tree):
+	* plugins/symbol-db/symbol-db.glade:
+	* plugins/symbol-db/symbol-db.ui:
+	* plugins/symbol-db/tables.sql:
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/symbol-db/test/main.c (get_parents), (main),
+	(packages_foreach), (files_visit_dir):
+	
+	Merged changes from symbol-db branch
+
 2008-04-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c (autodetect_language):

@@ -773,7 +773,6 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 			/* Ignore illegal characters */
 			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				g_warning ("stdout: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -781,7 +780,6 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				g_warning ("stdout: %s", err->message);
 				launcher->priv->stdout_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
 				ret = FALSE;
@@ -829,7 +827,6 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 			/* Ignore illegal characters */
 			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				g_warning ("stderr: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -837,7 +834,6 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				g_warning ("stderr: %s", err->message);
 				
 				launcher->priv->stderr_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
@@ -892,7 +888,6 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 			/* Ignore illegal characters */
 			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				g_warning ("pty: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -900,7 +895,6 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				g_warning ("pty: %s", err->message);
 				ret = FALSE;
 			}
 		/* Read next chars if buffer was too small

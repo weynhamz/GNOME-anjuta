@@ -1133,6 +1133,8 @@ symbol_browser_plugin_class_init (SymbolBrowserPluginClass *klass)
 static IAnjutaIterable*
 isymbol_manager_search (IAnjutaSymbolManager *sm,
 						IAnjutaSymbolType match_types,
+						gboolean include_types,
+						IAnjutaSymbolField info_fields,
 						const gchar *match_name,
 						gboolean partial_name_match,
 						gboolean global_search,
@@ -1159,14 +1161,18 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
-							 const gchar *symbol_name,
+							 IAnjutaSymbol *symbol, 
+							 IAnjutaSymbolField info_fields,
 							 gboolean global_search,
 							 GError **err)
 {
 	const GPtrArray *tags_array;
 	AnjutaSymbolIter *iter = NULL;
+	AnjutaSymbol *s;
 	
-	tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
+	s = ANJUTA_SYMBOL (symbol);
+	
+	tags_array = tm_workspace_find_scope_members (NULL, anjuta_symbol_get_name (s),
 												  global_search, TRUE);
 												  
 	
@@ -1179,14 +1185,18 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 }
 
 static IAnjutaIterable*
-isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
-							 const gchar *symbol_name,
+isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
+							 IAnjutaSymbol *symbol,
+							 IAnjutaSymbolField info_fields,
 							 GError **err)
 {
 	const GPtrArray *tags_array;
 	AnjutaSymbolIter *iter = NULL;
+	AnjutaSymbol *s;
 	
-	tags_array = tm_workspace_get_parents (symbol_name);
+	s = ANJUTA_SYMBOL (symbol);
+	
+	tags_array = tm_workspace_get_parents (anjuta_symbol_get_name (s));
 	if (tags_array && tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
@@ -1200,7 +1210,7 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
-	iface->get_parents = isymbol_manager_get_parents;
+	iface->get_class_parents = isymbol_manager_get_class_parents;
 }
 
 static void

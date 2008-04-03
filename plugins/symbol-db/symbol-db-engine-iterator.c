@@ -92,7 +92,7 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 	priv = dbi->priv;
 	
 	priv->data_model = model;
-	priv->data_iter = gda_data_model_iter_new (model);
+	priv->data_iter = gda_data_model_create_iter (model);
 	
 	/* because gda_data_model_get_n_rows () could be cpu-intensive, we'll 
 	 * proxy this value, e.g. it's calculated if it is really needed */

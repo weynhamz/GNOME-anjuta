@@ -103,7 +103,6 @@ sdb_view_get_iter_from_row_ref (SymbolDBView *dbv, GtkTreeRowReference *row_ref,
 	if (row_ref == NULL) 
 	{
 		/* no node displayed found */
-		DEBUG_PRINT ("sdb_view_get_iter_from_row_ref (): row_ref == NULL");
 		return FALSE;
 	}
 			
@@ -525,9 +524,6 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 
 		if (curr_tree_row_ref == NULL)
 		{
-			g_warning ("prepare_for_adding (): row_ref == NULL. symbol_name %s "
-					   "symbol_id %d kind %s parent_symbol_id %d", 
-					   symbol_name, symbol_id, kind, parent_symbol_id);
 			return;
 		}		
 		
@@ -767,7 +763,6 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
 	if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &iter) == FALSE)
 	{
-		g_warning ("on_symbol_removed (): iter was not set ?![%d]", symbol_id);
 		return;
 	}
 	
@@ -821,7 +816,6 @@ sdb_view_row_expanded_idle_destroy (gpointer data)
 	NodeIdleExpand *node_expand;
 	SymbolDBView *dbv;
 	SymbolDBEngine *dbe;
-	SymbolDBEngineIterator *iterator;
 	
 	g_return_if_fail (data != NULL);
 	node_expand = data;	
@@ -892,7 +886,6 @@ sdb_view_row_expanded_idle (gpointer data)
 										symbol_name, curr_symbol_id);
 	if (curr_tree_row_ref == NULL)
 	{
-		g_warning ("sdb_view_global_row_expanded (): row_ref == NULL");
 		return symbol_db_engine_iterator_move_next (iterator);
 	}		
 		
@@ -978,13 +971,11 @@ sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	/* get results from database */
 	iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
 									expanded_symbol_id, 
-									-1,
-									-1,
-									SYMINFO_SIMPLE|
-									SYMINFO_KIND|
-									SYMINFO_ACCESS,
 									filter_array,
-									TRUE
+									TRUE,
+									-1,
+									-1,
+									SYMINFO_SIMPLE| SYMINFO_KIND| SYMINFO_ACCESS
 									);
 
 	g_ptr_array_free (filter_array, TRUE);
@@ -1077,7 +1068,7 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 						 (gpointer) node_expand,
 						 (GDestroyNotify) sdb_view_row_expanded_idle_destroy);
 		
-		/* insert the idle_id into a g_tree */
+		/* insert the idle_id into a g_tree for (eventually) a later retrieval */
 		DEBUG_PRINT ("Inserting into g_tree expanded_symbol_id %d and idle_id %d", 
 					 expanded_symbol_id, idle_id);
 		g_tree_insert (priv->expanding_gfunc_ids, (gpointer)expanded_symbol_id, 
@@ -1130,13 +1121,13 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	{
 		iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
 									positive_symbol_expanded, 
+									filter_array,
+									FALSE,
 									-1,
 									-1,
 									SYMINFO_SIMPLE|
 									SYMINFO_KIND|
-									SYMINFO_ACCESS,
-									filter_array,
-									FALSE
+									SYMINFO_ACCESS
 									);
 	}
 	
@@ -1724,7 +1715,6 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 												symbol_name, curr_symbol_id);
 			if (curr_tree_row_ref == NULL)
 			{
-				g_warning ("sdb_view_build_and_display_base_tree (): row_ref == NULL");
 				continue;
 			}		
 		
@@ -1756,7 +1746,6 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 		
 	if (global_tree_row_ref == NULL)
 	{
-		g_warning ("sdb_view_build_and_display_base_tree (): row_ref == NULL");
 		return;
 	}		
 	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_GLOBAL, 

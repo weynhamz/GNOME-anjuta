@@ -47,6 +47,7 @@ struct _AnjutaSymbolClass
 GType anjuta_symbol_get_type (void);
 AnjutaSymbol* anjuta_symbol_new (const TMTag *tm_tag);
 void anjuta_symbol_set_tag (AnjutaSymbol* symbol, const TMTag *tm_tag);
+const gchar* anjuta_symbol_get_name (AnjutaSymbol* symbol);
 
 G_END_DECLS
 #endif

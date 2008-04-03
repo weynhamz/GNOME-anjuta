@@ -1,6 +1,6 @@
 
 bin_PROGRAMS = \
-	test-symbol-db 
+	benchmark 
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -12,8 +12,10 @@ AM_CPPFLAGS = \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \
-	$(GDL_CFLAGS)
+	$(GDL_CFLAGS) \
+	-DDEBUG
 
+AM_CFLAGS = -g -pg
 
 test_symbol_db_SOURCES = \
 	main.c       \
@@ -26,10 +28,50 @@ test_symbol_db_SOURCES = \
 	../symbol-db-engine-iterator-node.c \
 	../symbol-db-engine-iterator-node.h \
 	../symbol-db-view.h \
-	../symbol-db-view.c 
+	../symbol-db-view.c \
+	pkg.c \
+	pkg.h \
+	parse.c \
+	parse.h
  
 
 test_symbol_db_LDFLAGS = \
+	$(LIBANJUTA_LIBS) \
+	$(PLUGIN_SYMBOL_DB_LIBS)
+
+benchmark_SOURCES = \
+	benchmark.c       \
+	../readtags.c       \
+	../readtags.h       \
+	../symbol-db-engine.c       \
+	../symbol-db-engine.h       \
+	../symbol-db-engine-iterator.c       \
+	../symbol-db-engine-iterator.h \
+	../symbol-db-engine-iterator-node.c \
+	../symbol-db-engine-iterator-node.h \
+	../symbol-db-view.h \
+	../symbol-db-view.c
+ 
+
+benchmark_LDFLAGS = \
+	$(LIBANJUTA_LIBS) \
+	$(PLUGIN_SYMBOL_DB_LIBS)
+
+
+gda_2_connections_bug_SOURCES = \
+	gda_two_connections_bug.c       \
+	../readtags.c       \
+	../readtags.h       \
+	../symbol-db-engine.c       \
+	../symbol-db-engine.h       \
+	../symbol-db-engine-iterator.c       \
+	../symbol-db-engine-iterator.h \
+	../symbol-db-engine-iterator-node.c \
+	../symbol-db-engine-iterator-node.h \
+	../symbol-db-view.h \
+	../symbol-db-view.c
+
+gda_2_connections_bug_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
 

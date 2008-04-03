@@ -4337,68 +4337,100 @@ interface IAnjutaSymbol
 	{
 		TYPE_UNDEF = 0,                // Unknown type
 		TYPE_CLASS = 1,                // Class declaration
-		TYPE_ENUM = 2,                 // Enum declaration
-		TYPE_ENUMERATOR = 4,           // Enumerator value
-		TYPE_FIELD = 8,                // Field (Java only)
-		TYPE_FUNCTION = 16,            // Function definition
-		TYPE_INTERFACE = 32,           // Interface (Java only)
-		TYPE_MEMBER = 64,              // Member variable of class/struct
-		TYPE_METHOD = 128,             // Class method (Java only)
-		TYPE_NAMESPACE = 256,          // Namespace declaration
+		TYPE_ENUM = 2,                 // Enum declaration 
+		TYPE_ENUMERATOR = 4,           // Enumerator value 
+		TYPE_FIELD = 8,                // Field (Java only) 
+		TYPE_FUNCTION = 16,            // Function definition 
+		TYPE_INTERFACE = 32,           // Interface (Java only) 
+		TYPE_MEMBER = 64,              // Member variable of class/struct 
+		TYPE_METHOD = 128,             // Class method (Java only) 
+		TYPE_NAMESPACE = 256,          // Namespace declaration 
 		TYPE_PACKAGE = 512,            // Package (Java only)
-		TYPE_PROTOTYPE = 1024,         // Function prototype
-		TYPE_STRUCT = 2048,            // Struct declaration
-		TYPE_TYPEDEF = 4096,           // Typedef
-		TYPE_UNION = 8192,             // Union
-		TYPE_VARIABLE = 16384,         // Variable
-		TYPE_EXTERNVAR = 32768,        // Extern or forward declaration
-		TYPE_MACRO = 65536,            //  Macro (without arguments)
-		TYPE_MACRO_WITH_ARG = 131072,  // Parameterized macro
-		TYPE_FILE = 262144,            // File (Pseudo tag)
-		TYPE_OTHER = 524288,           // Other (non C/C++/Java tag)
-		TYPE_MAX = 1048575             // Maximum value
+		TYPE_PROTOTYPE = 1024,         // Function prototype 
+		TYPE_STRUCT = 2048,            // Struct declaration 
+		TYPE_TYPEDEF = 4096,           // Typedef 
+		TYPE_UNION = 8192,             // Union 
+		TYPE_VARIABLE = 16384,         // Variable 
+		TYPE_EXTERNVAR = 32768,        // Extern or forward declaration 
+		TYPE_MACRO = 65536,            //  Macro (without arguments) 
+		TYPE_MACRO_WITH_ARG = 131072,  // Parameterized macro 
+		TYPE_FILE = 262144,            // File (Pseudo tag) 
+		TYPE_OTHER = 524288,           // Other (non C/C++/Java tag) 
+		TYPE_MAX = 1048575             // Maximum value 
 	}
 
-	// Field masks -- used mainly for search
+	/* Field masks -- used mainly to retrieve fields of a symbol */
 	enum Field
 	{
-		FIELD_NONE = 0,                 // Undefined
-		FIELD_NAME = 1,                 // Name field
-		FIELD_TYPE = 2,                 // Type field
-		FIELD_FILE = 4,                 // File field
-		FIELD_LINE = 8,                 // Line number field
-		FIELD_POSITION = 16,            // Byte pos of symbol (Obsolete)
-		FIELD_SCOPE = 32,               // Scope of the symbol field
-		FIELD_INHERITANCE = 64,         // Parent classes
-		FIELD_ARGUMENTS = 128,          // Argument list
-		FIELD_LOCAL = 256,              // If it has local scope
-		FIELD_TIME = 512,               // Modification time (File symbol only)
-		FIELD_VARTYPE = 1024,           // Variable Type
-		FIELD_ACCESS = 2048,            // Access type
-		FIELD_IMPLEMENTATION = 4096,    // Implementation (e.g. virtual)
-		FIELD_LANGUAGE = 8192,          // Language (File symbols only)
-		FIELD_INACTIVE = 16384,         // Inactive file (File symbols only)
-		FIELD_POINTER = 32768,          // Inactive file (File symbols only)
-		FIELD_MAX = 65535               // Maximum value
+
+		FIELD_SIMPLE = 0,				// With this field you will have name, line of declaration,
+										// is_file_scope and signature of the symbol 
+		FIELD_FILE_PATH = 1,
+		FIELD_IMPLEMENTATION = 2,
+		FIELD_ACCESS = 4,
+		FIELD_KIND = 8,
+		FIELD_TYPE = 16,
+		FIELD_TYPE_NAME = 32,
+		FIELD_LANGUAGE = 64,
+		FIELD_FILE_IGNORE = 128,
+		FIELD_FILE_INCLUDE = 256,
+		FIELD_PROJECT_NAME = 512,
+		FIELD_WORKSPACE_NAME = 1024
 	}
 	
-	// Methods
-	Type type ();                // Symbol type [int value]
-	const gchar *type_str ();	 // Symbol type [const char* value]
-	const gchar *type_name ();	 // Symbol type name. e.g. a member which name is 
-								 // 'my_foo_member'.
-	const gchar *name ();        // Symbol name
-	const gchar *args ();        // Args list (functions/prototypes/macros)
-	const gchar *scope ();       // Scope of symbol
-	const gchar *inheritance (); // Parent classes
-	const gchar *var_type ();    // Variable type (maps to struct for typedefs)
-	const gchar *access ();      // Access type (public/protected/private/etc.)
-	const gchar *impl ();        // Implementation (e.g. virtual)
-	const gchar *uri ();   	     // URI in which the symbol occurs
-	gulong line ();              // Line number of the symbol
-	gboolean is_local ();        // Is the symbol of local scope
+	/**
+	* ianjuta_symbol_get_name:
+	* The name of the symbol
+	*/
+	const gchar *get_name ();
 	
-	const GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
+	/**
+	 * ianjuta_symbol_get_uri:
+	 * The uri of the symbol
+	 */
+	const gchar *get_uri();
+	
+	/**
+	* ianjuta_symbol_get_line:
+	* Line of the file in which the symbol is declared.
+	*/	
+	gulong get_line ();	
+
+	/**
+	* ianjuta_symbol_is_local:
+	* Is the symbol a static (private) one?
+	*/	
+	gboolean is_local ();
+	
+	/**
+	* ianjuta_symbol_get_args:
+	* If symbol is a function then this will return a string with the args.
+	*/	
+	const gchar *get_args ();
+
+	/**
+	 * ianjuta_symbol_get_sym_type:
+	 * You can obtain an IAnjutaSymbolType of the symbol.
+	 * To have a string representation see ianjuta_symbol_get_extra_info_string ().
+	 * You *need* a symbol with FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
+	 * passing FIELD_TYPE as info_fields.
+	 */
+	Type get_sym_type ();
+	
+	/** 
+	* ianjuta_symbol_get_extra_info_string:
+ 	* @sym_info: Just one FIELD_* per time. It is NOT possible to pass something like
+	* FIELD_1 | FIELD_2 | ...
+ 	*/
+	const gchar *get_extra_info_string (Field sym_info);
+
+	/** 
+	 * Pixbuf icon representing the symbol. 
+	 * You *need* a symbol with FIELD_ACCESS | FIELD_KIND enabled attribute. e.g. use 
+	 * ianjuta_symbol_manager_search passing FIELD_ACCESS | FIELD_KIND as info_fields.
+	 */
+	const GdkPixbuf *get_icon ();
+	
 }
 
 /**
@@ -4418,17 +4450,21 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search:
 	* @obj: Self
-	* @match_types: fixme
+	* @match_types: If passed IANJUTA_TYPE_UNDEF the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @match_name: fixme
-	* @partial_name_match: fixme
-	* @global_search: fixme
+	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
+	* string match_name.
+	* @global_search: if TRUE it will search only for public/extern functions. 
+	* If FALSE it will search also for static/private functions.
 	* @err: Error propagation and reporting.
 	* 
 	* Database query. Returned iterable must be unrefed after use.
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* search (IAnjutaSymbolType match_types, const gchar *match_name, gboolean partial_name_match, gboolean global_search);
+	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_search);
 	
 	/**
 	* ianjuta_symbol_manager_get_members:
@@ -4441,7 +4477,7 @@ interface IAnjutaSymbolManager
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* get_members (const gchar *symbol_name, gboolean global_search);
+	IAnjutaIterable* get_members (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
 	
 	/**
 	* ianjuta_symbol_manager_get_parents:
@@ -4453,7 +4489,7 @@ interface IAnjutaSymbolManager
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* get_parents (const gchar *symbol_name);
+	IAnjutaIterable* get_class_parents (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
 }
 
 /**

@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * plugin.c
- * Copyright (C) Massimo Cora' 2007 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * plugin.c is free software.
  * 
@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include <libegg/menu/egg-combo-action.h>
 
@@ -46,14 +47,19 @@
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-engine-iterator.h"
+#include "symbol-db-prefs.h"
 
-#define UI_FILE ANJUTA_DATA_DIR"/ui/symbol-db.ui"
-
-#define GLADE_FILE ANJUTA_DATA_DIR"/glade/symbol-db.glade"
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
+
+#define CTAGS_PREFS_KEY		"ctags.executable"
+#define CTAGS_PATH			"/usr/bin/ctags"
+#define CHOOSER_WIDGET		"preferences_folder:text:/:0:symboldb.root"
+
+#define LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY 	"/.anjuta"
+
 
 static gpointer parent_class;
 static gboolean need_symbols_update = FALSE;
@@ -132,7 +138,6 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		GPtrArray *real_files_list;
 		GPtrArray *text_buffers;
 		GPtrArray *buffer_sizes;
-		gchar *project_name;
 								
 		gchar * local_path = gnome_vfs_get_local_path_from_uri (uri);
 
@@ -145,14 +150,11 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		buffer_sizes = g_ptr_array_new ();
 		g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
 
-		project_name = symbol_db_engine_get_opened_project_name (sdb_plugin->sdbe);
-
-		symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe,
-												project_name,
+		symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+												sdb_plugin->project_opened,
 												real_files_list,
 												text_buffers,
 												buffer_sizes);
-		g_free (project_name);
 												
 		g_free (uri);
 	}
@@ -289,7 +291,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 			old_uri = NULL;
 
 		/* files_array will be freed once updating has taken place */
-		symbol_db_engine_update_files_symbols (sdb_plugin->sdbe, 
+		symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
 				sdb_plugin->project_root_dir, files_array, TRUE);
 		g_hash_table_insert (sdb_plugin->editor_connected, editor,
 							 g_strdup (saved_uri));
@@ -331,6 +333,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	local_path = gnome_vfs_get_local_path_from_uri (uri);
 	DEBUG_PRINT ("value_added_current_editor () gonna refresh local syms: local_path %s "
 				 "uri %s", local_path, uri);
+	if (local_path == NULL)
+	{
+		g_critical ("FIXME local_path == NULL");
+		return;
+	}
 	
 	if (strstr (local_path, "//") != NULL)
 	{
@@ -340,7 +347,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	 
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-				 sdb_plugin->sdbe, local_path);
+				 sdb_plugin->sdbe_project, local_path);
 				 
 	if (g_hash_table_lookup (sdb_plugin->editor_connected, editor) == NULL)
 	{
@@ -420,7 +427,7 @@ goto_local_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 
 	line = symbol_db_view_locals_get_line (SYMBOL_DB_VIEW_LOCALS (
 									sdb_plugin->dbv_view_tree_locals), 
-										   sdb_plugin->sdbe,
+										   sdb_plugin->sdbe_project,
 										   iter);
 
 	DEBUG_PRINT ("got line %d", line);
@@ -449,7 +456,7 @@ goto_global_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 	gchar *file;
 
 	if (symbol_db_view_get_file_and_line (
-			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe,
+			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project,
 							iter, &line, &file) == FALSE)
 	{
 		g_warning ("goto_global_tree_iter (): error while trying to get file/line");
@@ -537,7 +544,7 @@ on_global_treeview_row_expanded (GtkTreeView *tree_view,
 	DEBUG_PRINT ("on_global_treeview_row_expanded ()");
 
 	symbol_db_view_row_expanded (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe, iter);
+								user_data->sdbe_project, iter);
 }
 
 static void
@@ -549,7 +556,7 @@ on_global_treeview_row_collapsed (GtkTreeView *tree_view,
 	DEBUG_PRINT ("on_global_treeview_row_collapsed ()");
 	
 	symbol_db_view_row_collapsed (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe, iter);
+								user_data->sdbe_project, iter);
 	
 }
 
@@ -620,8 +627,8 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 					 filename + strlen(sdb_plugin->project_root_dir) );
 		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
 		
-		symbol_db_engine_add_new_files (sdb_plugin->sdbe, 
-			sdb_plugin->project_root_dir, files_array, languages_array, TRUE);
+		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
+			sdb_plugin->project_opened, files_array, languages_array, TRUE);
 		
 		g_free (filename);
 		g_ptr_array_free (files_array, TRUE);
@@ -648,7 +655,7 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 		DEBUG_PRINT ("gonna removing %s", 
 					 filename + strlen(sv_plugin->project_root_dir));
 		DEBUG_PRINT ("project_root_dir %s", sv_plugin->project_root_dir );
-		symbol_db_engine_remove_file (sv_plugin->sdbe, 
+		symbol_db_engine_remove_file (sv_plugin->sdbe_project, 
 			sv_plugin->project_root_dir, filename);
 		
 		g_free (filename);
@@ -708,14 +715,14 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	/* re-enable signals receiving on local-view */
 	symbol_db_view_locals_recv_signals_from_engine (
 						SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-								 sdb_plugin->sdbe, TRUE);
+								 sdb_plugin->sdbe_project, TRUE);
 
 	/* and on global view */
 	symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-								 sdb_plugin->sdbe, TRUE);
+								 sdb_plugin->sdbe_project, TRUE);
 	
 	/* re-active global symbols */
-	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe);
+	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project);
 	
 	/* disconnect this coz it's not important after the process of importing */
 	g_signal_handlers_disconnect_by_func (dbe, on_single_file_scan_end, data);																 
@@ -727,7 +734,227 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	sdb_plugin->files_count = 0;
 }
 
+/* we assume that sources_array has already unique elements */
+static void
+do_import_sources_after_abort (AnjutaPlugin *plugin, const gchar *root_dir, 
+							   const GPtrArray *sources_array)
+{
+	SymbolDBPlugin *sdb_plugin;
+	GPtrArray* languages_array = NULL;
+	GPtrArray *to_scan_array = NULL;
+	IAnjutaLanguage* lang_manager;
+	gint i;
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
+		
+	/* if we're importing first shut off the signal receiving.
+	 * We'll re-enable that on scan-end 
+	 */
+	symbol_db_view_locals_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe_project, FALSE);
 
+	symbol_db_view_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe_project, FALSE);
+				
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
+		  G_CALLBACK (on_importing_project_end), plugin);				
+
+	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
+										NULL);
+
+	/* create array of languages */
+	languages_array = g_ptr_array_new ();
+	to_scan_array = g_ptr_array_new ();
+	
+	if (!lang_manager)
+	{
+		g_critical ("LanguageManager not found");
+		return;
+	}
+
+	for (i=0; i < sources_array->len; i++) 
+	{
+		const gchar *file_mime;
+		const gchar *lang;
+		const gchar *local_filename;
+		IAnjutaLanguageId lang_id;
+		
+		local_filename = g_ptr_array_index (sources_array, i);
+		
+		if (local_filename == NULL)
+			continue;
+		file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
+					
+		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+													 file_mime, NULL);
+					
+		if (!lang_id)
+		{
+			continue;
+		}
+				
+		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
+
+		/* test its existence */
+		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
+		{
+			continue;
+		}
+					
+		sdb_plugin->files_count++;
+		g_ptr_array_add (languages_array, g_strdup (lang));					
+		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
+	}
+			
+	/* connect to receive signals on single file scan complete. We'll
+	 * update a status bar notifying the user about the status
+	 */
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
+		  G_CALLBACK (on_single_file_scan_end), plugin);
+	
+	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
+					sources_array, languages_array, TRUE);
+			
+	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (languages_array, TRUE);
+	
+	g_ptr_array_foreach (to_scan_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (to_scan_array, TRUE);
+}
+
+static void
+do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm, 
+				   const gchar *root_dir)
+{
+	SymbolDBPlugin *sdb_plugin;
+	GList* prj_elements_list;
+	GPtrArray* sources_array = NULL;
+	GPtrArray* languages_array = NULL;
+	GHashTable *check_unique_file;
+	IAnjutaLanguage* lang_manager;
+	gint i;
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
+		
+	/* if we're importing first shut off the signal receiving.
+	 * We'll re-enable that on scan-end 
+	 */
+	symbol_db_view_locals_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe_project, FALSE);
+
+	symbol_db_view_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe_project, FALSE);
+				
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
+		  G_CALLBACK (on_importing_project_end), plugin);				
+				
+	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
+										NULL);
+			
+	if (!lang_manager)
+	{
+		g_critical ("LanguageManager not found");
+		return;
+	}
+								  
+	prj_elements_list = ianjuta_project_manager_get_elements (pm,
+					   IANJUTA_PROJECT_MANAGER_SOURCE,
+					   NULL);
+	
+	/* to speed the things up we must avoid the dups */
+	check_unique_file = g_hash_table_new_full (g_str_hash, 
+						g_str_equal, g_free, g_free);
+
+	DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
+					 g_list_length (prj_elements_list));
+				
+	for (i=0; i < g_list_length (prj_elements_list); i++)
+	{	
+		gchar *local_filename;
+		const gchar *file_mime;
+		const gchar *lang;
+		IAnjutaLanguageId lang_id;
+					
+		local_filename = 
+			gnome_vfs_get_local_path_from_uri (g_list_nth_data (
+											prj_elements_list, i));
+					
+		if (local_filename == NULL)
+			continue;
+					
+		/* check if it's already present in the list. This avoids
+		 * duplicates.
+		 */
+		if (g_hash_table_lookup (check_unique_file, 
+								 local_filename) == NULL)
+		{
+			g_hash_table_insert (check_unique_file, 
+								 g_strdup (local_filename), 
+								 g_strdup (local_filename));
+		}
+		else 
+		{
+			/* you're a dup! we don't want you */
+			g_free (local_filename);
+			continue;
+		}
+					
+		file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
+					
+		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+													 file_mime, NULL);
+					
+		if (!lang_id)
+		{
+			g_free (local_filename);
+			continue;
+		}
+				
+		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
+		DEBUG_PRINT ("Language of %s is %s", local_filename, file_mime);
+		/* test its existence */
+		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
+		{
+			g_free (local_filename);
+			continue;
+		}
+					
+		if (!sources_array)
+			sources_array = g_ptr_array_new ();
+					
+		if (!languages_array)
+			languages_array = g_ptr_array_new ();
+
+		sdb_plugin->files_count++;
+		g_ptr_array_add (sources_array, local_filename);
+		g_ptr_array_add (languages_array, g_strdup (lang));					
+	}
+			
+	DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
+			 root_dir);
+
+	/* connect to receive signals on single file scan complete. We'll
+	 * update a status bar notifying the user about the status
+	 */
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
+		  G_CALLBACK (on_single_file_scan_end), plugin);
+	
+	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
+					sources_array, languages_array, TRUE);
+				
+	g_hash_table_unref (check_unique_file);
+				
+	g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (sources_array, TRUE);
+
+	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (languages_array, TRUE);	
+}
 
 /* add a new project */
 static void
@@ -744,18 +971,24 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);
 	
+		
 	g_free (sdb_plugin->project_root_uri);
 	sdb_plugin->project_root_uri = NULL;
 	root_uri = g_value_get_string (value);
+	
 	if (root_uri)
 	{
 		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
-		DEBUG_PRINT ("Symbol-DB: added project %s", root_dir);
+		DEBUG_PRINT ("Symbol-DB: added project root_dir %s, name %s", root_dir, name);
+		
+		/* FIXME: where's the project name itself? */
+		DEBUG_PRINT ("FIXME: where's the project name itself? ");
+		sdb_plugin->project_opened = g_strdup (root_dir);
+		
 		if (root_dir)
 		{
 			gboolean needs_sources_scan = FALSE;
 			gboolean project_exist = FALSE;
-			gint i;
 			GHashTable* lang_hash; 
 				
 			lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
@@ -767,7 +1000,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			/* is it a fresh-new project? is it an imported project with 
 			 * no 'new' symbol-db database but the 'old' one symbol-browser? 
 			 */
-			if (symbol_db_engine_db_exists (sdb_plugin->sdbe, root_dir) == FALSE)
+			if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, root_dir) == FALSE)
 			{
 				DEBUG_PRINT ("Symbol-DB: project did not exist");
 				needs_sources_scan = TRUE;
@@ -778,168 +1011,55 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				project_exist = TRUE;
 			}
 
-			if (symbol_db_engine_open_db (sdb_plugin->sdbe, root_dir) == FALSE)
+			/* we'll use the same values for db_directory and project_directory */
+			DEBUG_PRINT ("opening db %s and project_dir %s", root_dir, root_dir);
+			if (symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, root_dir) == FALSE)
 				g_error ("Symbol-DB: error in opening db");
 
 			/* if project did not exist add a new project */
 			if (project_exist == FALSE)
 			{
 				DEBUG_PRINT ("Symbol-DB: creating new project.");
-				symbol_db_engine_add_new_project (sdb_plugin->sdbe,
-												  NULL,	/* still no workspace */
-												  root_dir);
-			}			
-
-			/* open the project. we can do this only if the db was loaded */
-			if (symbol_db_engine_open_project (sdb_plugin->sdbe, root_dir) == FALSE)
-			{
-				g_error ("Symbol-DB: error in opening project");
+				symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
+												  NULL,	/* still no workspace logic */
+												  sdb_plugin->project_opened);
 			}
 
-			/* needs an import */
+			/* we need an import */
 			if (needs_sources_scan == TRUE)
 			{
-				GList* prj_elements_list;
-				GPtrArray* sources_array = NULL;
-				GPtrArray* languages_array = NULL;
-				GHashTable *check_unique_file;
-				IAnjutaLanguage* lang_manager;
-				
-				/* if we're importing first shut off the signal receiving.
-				 * We'll re-enable that on scan-end 
-				 */
-				symbol_db_view_locals_recv_signals_from_engine (																
-							SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-											 sdb_plugin->sdbe, FALSE);
-
-				symbol_db_view_recv_signals_from_engine (																
-							SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-											 sdb_plugin->sdbe, FALSE);
-				
-				g_signal_connect (G_OBJECT (sdb_plugin->sdbe), "scan-end",
-					  G_CALLBACK (on_importing_project_end), plugin);
-				
-				
-				lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
-													NULL);
-			
-				if (!lang_manager)
-				{
-					g_critical ("LanguageManager not found");
-					return;
-				}
-								  
-				prj_elements_list = ianjuta_project_manager_get_elements (pm,
-								   IANJUTA_PROJECT_MANAGER_SOURCE,
-								   NULL);
-				/* to speed the things up we must avoid the dups */
-				check_unique_file = g_hash_table_new_full (g_str_hash, 
-									g_str_equal, g_free, g_free);
-
-				DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
-							 g_list_length (prj_elements_list));
-				
-				for (i=0; i < g_list_length (prj_elements_list); i++)
-				{	
-					gchar *local_filename;
-					const gchar *file_mime;
-					const gchar *lang;
-					IAnjutaLanguageId lang_id;
-					
-					local_filename = 
-						gnome_vfs_get_local_path_from_uri (g_list_nth_data (
-														prj_elements_list, i));
-					
-					if (local_filename == NULL)
-						continue;
-					
-					/* check if it's already present in the list. This to avoid
-					 * duplicates.
-					 */
-					if (g_hash_table_lookup (check_unique_file, 
-											 local_filename) == NULL)
-					{
-						g_hash_table_insert (check_unique_file, 
-											 g_strdup (local_filename), 
-											 g_strdup (local_filename));
-					}
-					else 
-					{
-						DEBUG_PRINT ("%s go away!", local_filename);
-						/* you're a dup! we don't want you */
-						g_free (local_filename);
-						continue;
-					}
-					
-					file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
-					
-					lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
-																 file_mime, NULL);
-					
-					if (!lang_id)
-					{
-						g_free (local_filename);
-						continue;
-					}
-				
-					lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
-					DEBUG_PRINT ("Language of %s is %s", local_filename, file_mime);
-					/* test its existence */
-					if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
-					{
-						g_free (local_filename);
-						continue;
-					}
-					
-					if (!sources_array)
-					{
-						sources_array = g_ptr_array_new ();
-					}	
-					
-					if (!languages_array)
-					{
-						languages_array = g_ptr_array_new ();
-					}
-
-					sdb_plugin->files_count++;
-					g_ptr_array_add (sources_array, local_filename);
-					g_ptr_array_add (languages_array, g_strdup (lang));					
-				}
-			
-				DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
-							 root_dir);
-
-				/* connect to receive signals on single file scan complete. We'll
-				 * update a status bar notifying the user about the status
-				 */
-				g_signal_connect (G_OBJECT (sdb_plugin->sdbe), "single-file-scan-end",
-					  G_CALLBACK (on_single_file_scan_end), plugin);
-				
-				symbol_db_engine_add_new_files (sdb_plugin->sdbe, root_dir,
-									sources_array, languages_array, TRUE);
-				
-				g_hash_table_unref (lang_hash);
-				g_hash_table_unref (check_unique_file);
-				
-				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-				g_ptr_array_free (sources_array, TRUE);
-
-				g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-				g_ptr_array_free (languages_array, TRUE);
+				DEBUG_PRINT ("Symbol-DB: importing sources...");
+				do_import_sources (plugin, pm, root_dir);				
 			}
-			else	/* no import needed. Update the symbols */
-			{
-				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe, root_dir);
+			else	/* no import needed. */
+			{								
+				/* we may have aborted the scan of sources ..*/
+				GPtrArray *sources_array = NULL;
+				
+				sources_array = symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
+
+				if (sources_array != NULL && sources_array->len > 0) 
+				{
+					DEBUG_PRINT ("do_import_sources_after_abort ");
+					do_import_sources_after_abort (plugin, root_dir, sources_array);
+					
+					g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
+					g_ptr_array_free (sources_array, TRUE);
+				}
+
+				/* Update the symbols */
+				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, root_dir);
 			}
 			anjuta_status_progress_tick (status, NULL, _("Populating symbols' db..."));
 			anjuta_status_progress_add_ticks (status, sdb_plugin->files_count);
 			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
-								 sdb_plugin->sdbe);
+								 sdb_plugin->sdbe_project);
 
 			/* root dir */
 			sdb_plugin->project_root_dir = root_dir;
+			
+			g_hash_table_unref (lang_hash);			
 		}
 		/* this is uri */
 		sdb_plugin->project_root_uri = g_strdup (root_uri);
@@ -982,29 +1102,48 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	symbol_db_view_clear_cache (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree));
 	
 	/* don't forget to close the project */
-	symbol_db_engine_close_project (sdb_plugin->sdbe, 
-									sdb_plugin->project_root_dir);
+	symbol_db_engine_close_db (sdb_plugin->sdbe_project);
 
 	g_free (sdb_plugin->project_root_uri);
 	g_free (sdb_plugin->project_root_dir);
+	g_free (sdb_plugin->project_opened);
 	sdb_plugin->project_root_uri = NULL;
-	sdb_plugin->project_root_dir = NULL;
+	sdb_plugin->project_root_dir = NULL;	
+	sdb_plugin->project_opened = NULL;
 }
 
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *symbol_db;
+	gchar *home_anjuta_dir;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
+	
+	/* Initialize gda library. */
+	gda_init ("AnjutaGda", NULL, 0, NULL);
 
 	register_stock_icons (plugin);
 
 	symbol_db = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	symbol_db->ui = anjuta_shell_get_ui (plugin->shell, NULL);
-
-	/* create SymbolDBEngine */
-	symbol_db->sdbe = symbol_db_engine_new ();
+	symbol_db->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	symbol_db->prefs_list_store = NULL;
+	symbol_db->pkg_config_launcher = NULL;
+	symbol_db->project_opened = NULL;
+	
+	/* create SymbolDBEngine(s) */
+	symbol_db->sdbe_project = symbol_db_engine_new ();
+	
+	/* the globals one too */
+	symbol_db->sdbe_globals = symbol_db_engine_new ();
+	/* open it */
+	home_anjuta_dir = g_strdup_printf ("%s%s", g_get_home_dir(),
+									   LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY);
+	symbol_db_engine_open_db (symbol_db->sdbe_globals, 
+							  home_anjuta_dir, "/");
+	g_free (home_anjuta_dir);
+	
 	
 	/* Create widgets */
 	symbol_db->dbv_notebook = gtk_notebook_new();
@@ -1022,7 +1161,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* activate signals receiving by default */
 	symbol_db_view_locals_recv_signals_from_engine (
 					SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
-											 symbol_db->sdbe, TRUE);										 
+											 symbol_db->sdbe_project, TRUE);										 
 
 	g_object_add_weak_pointer (G_OBJECT (symbol_db->dbv_view_tree_locals),
 							   (gpointer)&symbol_db->dbv_view_tree_locals);
@@ -1049,7 +1188,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* activate signals receiving by default */
 	symbol_db_view_recv_signals_from_engine (
 					SYMBOL_DB_VIEW (symbol_db->dbv_view_tree), 
-											 symbol_db->sdbe, TRUE);										 
+											 symbol_db->sdbe_project, TRUE);										 
 
 	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-activated",
 					  G_CALLBACK (on_global_treeview_row_activated), plugin);
@@ -1065,7 +1204,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	/* Search symbols */
 	symbol_db->dbv_view_tree_search =
-		(GtkWidget*) symbol_db_view_search_new (symbol_db->sdbe);
+		(GtkWidget*) symbol_db_view_search_new (symbol_db->sdbe_project);
 	symbol_db->dbv_view_search_tab_label = gtk_label_new (_("Search" ));
 
 	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree_search), "symbol-selected",
@@ -1121,10 +1260,15 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	DEBUG_PRINT ("SymbolDBPlugin: Dectivating SymbolDBPlugin plugin ...");
-
 	DEBUG_PRINT ("SymbolDBPlugin: destroying engine ...");
-	g_object_unref (sdb_plugin->sdbe);
-	sdb_plugin->sdbe = NULL;
+	g_object_unref (sdb_plugin->sdbe_project);
+	sdb_plugin->sdbe_project = NULL;
+	
+	g_object_unref (sdb_plugin->sdbe_globals);
+	sdb_plugin->sdbe_globals = NULL;
+	
+	g_free (sdb_plugin->project_opened);
+	sdb_plugin->project_opened = NULL;
 
 	/* disconnect some signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
@@ -1142,6 +1286,18 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 							  on_editor_foreach_disconnect, plugin);
 		g_hash_table_destroy (sdb_plugin->editor_connected);
 		sdb_plugin->editor_connected = NULL;
+	}
+	
+	if (sdb_plugin->pkg_config_launcher) 
+	{
+		g_object_unref (sdb_plugin->pkg_config_launcher);
+		sdb_plugin->pkg_config_launcher = NULL;
+	}
+		
+	if (sdb_plugin->prefs_list_store)
+	{
+		g_object_unref (sdb_plugin->prefs_list_store);
+		sdb_plugin->prefs_list_store = NULL;
 	}
 	
 	/* Remove watches */
@@ -1205,6 +1361,8 @@ symbol_db_class_init (GObjectClass *klass)
 static IAnjutaIterable*
 isymbol_manager_search (IAnjutaSymbolManager *sm,
 						IAnjutaSymbolType match_types,
+						gboolean include_types,
+						IAnjutaSymbolField info_fields,
 						const gchar *match_name,
 						gboolean partial_name_match,
 						gboolean global_search,
@@ -1213,53 +1371,89 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	SymbolDBEngineIterator *iterator = NULL;
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBEngine *dbe;
-	const gchar* name;
+	GPtrArray *filter_array;
 
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
-	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	
-	if (match_name && strlen (match_name) > 0)
-		name = match_name;
-	else
-		name = NULL;
-	
-	iterator = 
-		symbol_db_engine_find_symbol_by_name_pattern (dbe, 
-									name, SYMINFO_SIMPLE |
-								  	SYMINFO_FILE_PATH |
-									SYMINFO_IMPLEMENTATION |
-									SYMINFO_ACCESS |
-									SYMINFO_KIND |
-									SYMINFO_TYPE |
-									SYMINFO_TYPE_NAME |
-									SYMINFO_LANGUAGE |
-									SYMINFO_FILE_IGNORE |
-									SYMINFO_FILE_INCLUDE |
-									SYMINFO_PROJECT_NAME |
-									SYMINFO_WORKSPACE_NAME );
+	if (global_search == FALSE)
+	{
+		g_message ("isymbol_manager_search (): TODO: search provide only global searches for now");
+		return NULL;
+	}
 
+	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
+		filter_array = NULL;
+	else
+		filter_array = symbol_db_engine_fill_type_array (match_types);
+
+	iterator = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe,
+																	  match_name,
+																	  !partial_name_match,
+																	  filter_array,
+																	  include_types,
+																	  global_search,
+																	  info_fields);
+
+	if (filter_array)
+	{
+		g_ptr_array_foreach (filter_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (filter_array, TRUE);
+	}
 	return IANJUTA_ITERABLE (iterator);
 }
 
 static IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
-							 const gchar *symbol_name,
+							 IAnjutaSymbol *symbol, 
+							 IAnjutaSymbolField info_fields,
 							 gboolean global_search,
 							 GError **err)
 {
-	/* TODO */
-	DEBUG_PRINT ("TODO: isymbol_manager_get_members ()");
-	return NULL;
+	SymbolDBEngineIteratorNode *node;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	gint sym_id;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (symbol);
+	
+	sym_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	
+	iterator = symbol_db_engine_get_scope_members_by_symbol_id (dbe,
+																sym_id,
+																-1, 
+																-1,
+																info_fields);
+	return IANJUTA_ITERABLE (iterator);
 }
 
 static IAnjutaIterable*
-isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
-							 const gchar *symbol_name,
+isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
+							 IAnjutaSymbol *symbol,
+							 IAnjutaSymbolField info_fields,
 							 GError **err)
 {
-	/* TODO */
-	DEBUG_PRINT ("TODO: isymbol_manager_get_parents ()");
-	return NULL;
+	SymbolDBEngineIteratorNode *node;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	gint sym_id;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (symbol);
+	
+	sym_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	
+	iterator = symbol_db_engine_get_class_parents_by_symbol_id (dbe, 
+																sym_id, 
+																info_fields);
+	return IANJUTA_ITERABLE (iterator);
 }
 
 static void
@@ -1267,11 +1461,35 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
-	iface->get_parents = isymbol_manager_get_parents;
+	iface->get_class_parents = isymbol_manager_get_class_parents;
 }
+
+
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	DEBUG_PRINT ("SymbolDB: ipreferences_merge");	
+	symbol_db_prefs_init (ANJUTA_PLUGIN_SYMBOL_DB (ipref), prefs);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	symbol_db_prefs_finalize (ANJUTA_PLUGIN_SYMBOL_DB (ipref), prefs);
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	DEBUG_PRINT ("SymbolDB: ipreferences_iface_init");	
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 
 ANJUTA_PLUGIN_BEGIN (SymbolDBPlugin, symbol_db);
 ANJUTA_PLUGIN_ADD_INTERFACE (isymbol_manager, IANJUTA_TYPE_SYMBOL_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (SymbolDBPlugin, symbol_db);

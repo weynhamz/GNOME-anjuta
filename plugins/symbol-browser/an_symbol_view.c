@@ -1167,6 +1167,7 @@ anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView * sv,
 GtkTreeModel *
 anjuta_symbol_view_get_file_symbol_model (AnjutaSymbolView * sv)
 {
+	g_return_val_if_fail (sv != NULL, NULL);
 	return sv->priv->file_symbol_model;
 }
 

@@ -62,6 +62,7 @@ typedef struct _FileSymbolsStatus {
 	GtkTreeStore *store;
 	GTree *nodes_displayed;
 	GTree *waiting_for;	
+	GQueue *symbols_inserted_ids;
 	
 } FileSymbolsStatus;
 
@@ -71,9 +72,11 @@ struct _SymbolDBViewLocalsPriv {
 	gint insert_handler;
 	gint remove_handler;	
 	gint scan_end_handler;
+	gint insertion_idle_handler;
 	
 	GTree *nodes_displayed;
 	GTree *waiting_for;	
+	GQueue *symbols_inserted_ids;
 
 	gboolean recv_signals;
 	GHashTable *files_view_status;
@@ -154,7 +157,6 @@ sdb_view_locals_get_iter_from_row_ref (SymbolDBViewLocals *dbvl,
 	if (row_ref == NULL) 
 	{
 		/* no node displayed found */
-		DEBUG_PRINT ("sdb_view_locals_get_iter_from_row_ref (): row_ref == NULL");
 		return FALSE;
 	}
 			
@@ -172,7 +174,7 @@ sdb_view_locals_get_iter_from_row_ref (SymbolDBViewLocals *dbvl,
 		gtk_tree_path_free (path);
 		return FALSE;
 	}
-	gtk_tree_path_free (path);	
+	gtk_tree_path_free (path);
 	
 	return TRUE;
 }
@@ -258,9 +260,11 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	priv->current_local_file_path = NULL;
 	priv->nodes_displayed = NULL;
 	priv->waiting_for = NULL;
+	priv->symbols_inserted_ids = NULL;
 	priv->insert_handler = 0;
 	priv->scan_end_handler = 0;
 	priv->remove_handler = 0;
+	priv->insertion_idle_handler = 0;
 	priv->files_view_status = g_hash_table_new_full (g_str_hash, 
 								g_str_equal, g_free, (GDestroyNotify)file_view_status_destroy);
 
@@ -381,8 +385,7 @@ do_add_root_symbol_to_view (SymbolDBViewLocals *dbvl, const GdkPixbuf *pixbuf,
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
  	
-	gtk_tree_store_append (store, &child_iter, NULL);
-			
+	gtk_tree_store_append (store, &child_iter, NULL);			
 	gtk_tree_store_set (store, &child_iter,
 		COLUMN_PIXBUF, pixbuf,
 		COLUMN_NAME, symbol_name,
@@ -536,108 +539,6 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 	
 	/* continue the traversing */
 	return FALSE;
-}
-
-
-static void
-on_scan_end (SymbolDBEngine *dbe, gpointer data)
-{
-	SymbolDBViewLocals *dbvl;
-	SymbolDBViewLocalsPriv *priv;
-	gint waiting_for_size;
-	TraverseData tdata;
-
-	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
-	g_return_if_fail (dbvl != NULL);	
-	priv = dbvl->priv;
-
-	DEBUG_PRINT ("locals on_scan_end ()");
-	/* ok, symbol parsing has ended, are we sure that all the waiting_for
-	 * objects have been checked?
-	 * If it's not the case then try to add it to the on the root of the gtktreeview
-	 * and to trigger the insertion.
-	 */
-	if (priv->waiting_for == NULL || 
-		(waiting_for_size = g_tree_nnodes (priv->waiting_for)) <= 0)
-		return;
-
-	/* we have something left. Search the parent_symbol_id [identified by the
-	 * waiting_for id]
-	 */
-	tdata.dbvl = dbvl;
-	tdata.dbe = dbe;
-
-	g_tree_foreach (priv->waiting_for, traverse_on_scan_end, &tdata);
-}
-
-static void
-do_recurse_subtree_and_remove (SymbolDBViewLocals *dbvl, 
-							   GtkTreeIter *parent_subtree_iter)
-{
-	gint curr_symbol_id;
-	const GdkPixbuf *curr_pixbuf;
-	GtkTreeStore *store;
-	gchar *curr_symbol_name;
-
-	SymbolDBViewLocalsPriv *priv;
-	
-	g_return_if_fail (dbvl != NULL);
-	
-	priv = dbvl->priv;
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));	
-	
-	gtk_tree_model_get (GTK_TREE_MODEL (store), parent_subtree_iter,
-				COLUMN_SYMBOL_ID, &curr_symbol_id,
-			    COLUMN_PIXBUF, &curr_pixbuf, 
-				COLUMN_NAME, &curr_symbol_name,	/* no strdup required */
-				-1);
-	
-	/*DEBUG_PRINT ("do_recurse_subtree_and_remove (): curr_symbol_id %d", 
-				 curr_symbol_id);*/
-				 
-	while (gtk_tree_model_iter_has_child  (GTK_TREE_MODEL (store), parent_subtree_iter)) 
-	{
-		GtkTreeIter child;
-		gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, parent_subtree_iter);
-		
-		/* recurse */
-		do_recurse_subtree_and_remove (dbvl, &child);
-	}
-
-	gtk_tree_store_remove (store, parent_subtree_iter);
-	g_tree_remove (priv->nodes_displayed, (gpointer) curr_symbol_id);
-
-	/* don't forget to free this gchar */				   
-	g_free (curr_symbol_name);
-}
-
-
-static void 
-on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
-{
-	GtkTreeStore *store;
-	SymbolDBViewLocals *dbvl;
-	SymbolDBViewLocalsPriv *priv;
-    GtkTreeIter  iter;	
-	GtkTreeRowReference *row_ref;
-	
-	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
-
-	g_return_if_fail (dbvl != NULL);
-	priv = dbvl->priv;
-
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));		
-
-	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
-
-	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
-	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
-	{
-		g_warning ("on_symbol_removed locals: something went wrong");
-		return;
-	}
-
-	do_recurse_subtree_and_remove (dbvl, &iter);
 }
 
 
@@ -895,23 +796,84 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	}
 }
 
-static void 
-on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
+static void
+consume_symbols_inserted_queue_idle_destroy (gpointer data)
 {
+	TraverseData *tdata;
+	SymbolDBViewLocals *dbvl;
+	SymbolDBEngine *dbe;
+	SymbolDBViewLocalsPriv *priv;
+	gint waiting_for_size;
+	
+	tdata = (TraverseData *)data;
+
+	dbvl = tdata->dbvl;
+	dbe = tdata->dbe;	
+	g_return_if_fail (dbvl != NULL);
+	priv = dbvl->priv;
+	
+	tdata = (TraverseData *)data;
+
+	DEBUG_PRINT ("consume_symbols_inserted_queue_idle_destroy");
+	priv->insertion_idle_handler = 0;
+
+	if (g_queue_get_length (priv->symbols_inserted_ids) <= 0)
+	{
+		/* ok, symbol parsing has ended, are we sure that all the waiting_for
+	 	 * objects have been checked?
+	 	 * If it's not the case then try to add it to the on the root of the gtktreeview
+	 	 * and to trigger the insertion.
+	 	 */
+		if (priv->waiting_for == NULL || 
+			(waiting_for_size = g_tree_nnodes (priv->waiting_for)) <= 0)
+			return;
+
+		/* we have something left. Search the parent_symbol_id [identified by the
+	 	 * waiting_for id]
+	 	 */
+		DEBUG_PRINT ("destroying tdata");
+		g_tree_foreach (priv->waiting_for, traverse_on_scan_end, tdata);
+	}
+
+	g_free (tdata);
+}
+
+static gboolean
+consume_symbols_inserted_queue_idle (gpointer data)
+{
+	TraverseData *tdata;
+	SymbolDBViewLocals *dbvl;
+	SymbolDBEngine *dbe;
+	SymbolDBViewLocalsPriv *priv;
 	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
-	SymbolDBViewLocals *dbvl;
-	SymbolDBViewLocalsPriv *priv;
+	gint consumed_symbol_id;
+	gint queue_length;
 	
 	/* it's not obligatory referred to a class inheritance */
 	gint parent_symbol_id;
 	
-	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
+	tdata = (TraverseData *)data;
 
-	g_return_if_fail (dbvl != NULL);	
-	priv = dbvl->priv;	
+	dbvl = tdata->dbvl;
+	dbe = tdata->dbe;	
+	g_return_val_if_fail (dbvl != NULL, FALSE);
+	priv = dbvl->priv;
 	
-/*	DEBUG_PRINT ("on_symbol_inserted (): -local- %d", symbol_id);*/
+	
+	queue_length = g_queue_get_length (priv->symbols_inserted_ids);
+	
+/*	DEBUG_PRINT ("consume_symbols_inserted_queue_idle [remaining %d]", queue_length);*/
+	
+	/* consume a symbol */
+	if (queue_length > 0)
+	{
+		consumed_symbol_id = (gint) g_queue_pop_head (priv->symbols_inserted_ids);
+	}
+	else {
+		return FALSE;
+	}
+	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 	
 	/* again we use a little trick to insert symbols here. First of all forget chars
@@ -928,16 +890,16 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	 *
 	 */
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
-															symbol_id,
+															consumed_symbol_id,
 															priv->current_db_file);
 	/* try in a global fashion */
 	if (parent_symbol_id <= 0)
 		parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
-															symbol_id,
+															consumed_symbol_id,
 															NULL);
 		
 	/* get the original symbol infos */
-	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
+	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, consumed_symbol_id, 
 													   SYMINFO_SIMPLE |
 													   SYMINFO_ACCESS |
 													   SYMINFO_KIND);	
@@ -963,7 +925,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		 */
 		SymbolDBEngineIterator *iterator_for_children;
 		iterator_for_children = 
-			symbol_db_engine_get_scope_members_by_symbol_id (dbe, symbol_id, -1,
+			symbol_db_engine_get_scope_members_by_symbol_id (dbe, consumed_symbol_id, -1,
 															 -1,
 															 SYMINFO_SIMPLE);
 		if (iterator_for_children == NULL) 
@@ -1002,19 +964,137 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 				}		
 				
 				/* put on waiting_for the subtree */
-				do_recurse_subtree_and_invalidate (dbvl, &child_iter, symbol_id);
+				do_recurse_subtree_and_invalidate (dbvl, &child_iter, consumed_symbol_id);
 			} while (symbol_db_engine_iterator_move_next (iterator_for_children) 
 					 == TRUE);
 			
 			g_object_unref (iterator_for_children);
 		}		
 		
-		prepare_for_adding (dbvl, parent_symbol_id, symbol_name, symbol_id, pixbuf);
+		prepare_for_adding (dbvl, parent_symbol_id, symbol_name, consumed_symbol_id, 
+							pixbuf);
 		
 		g_object_unref (iterator);
 	}	
 	
 	gtk_tree_view_expand_all (GTK_TREE_VIEW (dbvl));
+	
+	return TRUE;
+}
+
+static void
+on_scan_end (SymbolDBEngine *dbe, gpointer data)
+{
+	SymbolDBViewLocals *dbvl;
+	SymbolDBViewLocalsPriv *priv;
+	TraverseData *tdata;
+
+	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
+	g_return_if_fail (dbvl != NULL);
+	priv = dbvl->priv;
+
+	tdata = g_new (TraverseData, 1);
+	tdata->dbvl = dbvl;
+	tdata->dbe = dbe;
+	
+	DEBUG_PRINT ("locals: on_scan_end");
+	if (priv->symbols_inserted_ids != NULL)
+	{
+		if (g_queue_get_length (priv->symbols_inserted_ids) > 0) 
+		{
+			/* reverswe the queue */
+			g_queue_reverse (priv->symbols_inserted_ids);
+			
+			priv->insertion_idle_handler = g_idle_add_full (G_PRIORITY_LOW, 
+						 (GSourceFunc) consume_symbols_inserted_queue_idle,
+						 (gpointer) tdata,
+						 (GDestroyNotify) consume_symbols_inserted_queue_idle_destroy);
+		}
+	}
+}
+
+static void
+do_recurse_subtree_and_remove (SymbolDBViewLocals *dbvl, 
+							   GtkTreeIter *parent_subtree_iter)
+{
+	gint curr_symbol_id;
+	const GdkPixbuf *curr_pixbuf;
+	GtkTreeStore *store;
+	gchar *curr_symbol_name;
+
+	SymbolDBViewLocalsPriv *priv;
+	
+	g_return_if_fail (dbvl != NULL);
+	
+	priv = dbvl->priv;
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));	
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (store), parent_subtree_iter,
+				COLUMN_SYMBOL_ID, &curr_symbol_id,
+			    COLUMN_PIXBUF, &curr_pixbuf, 
+				COLUMN_NAME, &curr_symbol_name,	/* no strdup required */
+				-1);
+	
+	/*DEBUG_PRINT ("do_recurse_subtree_and_remove (): curr_symbol_id %d", 
+				 curr_symbol_id);*/
+				 
+	while (gtk_tree_model_iter_has_child  (GTK_TREE_MODEL (store), parent_subtree_iter)) 
+	{
+		GtkTreeIter child;
+		gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, parent_subtree_iter);
+		
+		/* recurse */
+		do_recurse_subtree_and_remove (dbvl, &child);
+	}
+
+	gtk_tree_store_remove (store, parent_subtree_iter);
+	g_tree_remove (priv->nodes_displayed, (gpointer) curr_symbol_id);
+
+	/* don't forget to free this gchar */				   
+	g_free (curr_symbol_name);
+}
+
+
+static void 
+on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
+{
+	GtkTreeStore *store;
+	SymbolDBViewLocals *dbvl;
+	SymbolDBViewLocalsPriv *priv;
+    GtkTreeIter  iter;	
+	GtkTreeRowReference *row_ref;
+	
+	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
+
+	g_return_if_fail (dbvl != NULL);
+	priv = dbvl->priv;
+
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));		
+
+	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
+
+	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
+	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
+	{
+		return;
+	}
+
+	do_recurse_subtree_and_remove (dbvl, &iter);
+}
+
+static void 
+on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
+{
+	SymbolDBViewLocals *dbvl;
+	SymbolDBViewLocalsPriv *priv;
+	
+	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
+
+	g_return_if_fail (dbvl != NULL);	
+	priv = dbvl->priv;	
+	
+	/* save the symbol_id to be added in the queue and just return */
+	g_queue_push_head (priv->symbols_inserted_ids, (gpointer)symbol_id);
 }
 
 gint
@@ -1056,8 +1136,8 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 }								
 
 void
-symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
-										 gboolean enable_status)
+symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, 
+							SymbolDBEngine *dbe, gboolean enable_status)
 {
 	SymbolDBViewLocalsPriv *priv;
 
@@ -1070,8 +1150,8 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, Symbol
 		/* connect some signals */
 		if (priv->insert_handler <= 0) 
 		{
-			priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
-						  G_CALLBACK (on_symbol_inserted), dbvl);
+			priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), 
+						"symbol-inserted", G_CALLBACK (on_symbol_inserted), dbvl);
 		}
 
 		if (priv->remove_handler <= 0)
@@ -1143,15 +1223,24 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	if (priv->current_db_file != NULL)
 	{
 		FileSymbolsStatus *hash_node;
-		/* save current symbols status - e.g. gtktreestore, symbols_displayed etc */
+		/* save current symbols status - e.g. gtktreestore, symbols_displayed etc.,
+		 * if it hasn't already been done.
+		 */
 		hash_node = g_hash_table_lookup (priv->files_view_status, 
 										 priv->current_db_file);
 		
-		/* did we find something? yes? well, then we should save anything... */
+		/* did we find something? yes? well, then we should save nothing... */
 		if (hash_node == NULL)
 		{
 			/* found nothing? ok, save the status */
 			GtkTreeStore * store;
+		
+			/* remove the GSourceFunc, if it's running */
+			if (priv->insertion_idle_handler > 0)
+			{				
+				g_source_remove (priv->insertion_idle_handler);
+				priv->insertion_idle_handler = 0;
+			}
 			
 			store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));	
 			
@@ -1163,12 +1252,13 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 				fss->store = store;
 				fss->nodes_displayed = priv->nodes_displayed;
 				fss->waiting_for = priv->waiting_for;
+				fss->symbols_inserted_ids = priv->symbols_inserted_ids;
 				
 				DEBUG_PRINT ("symbol_db_view_locals_update_list (): g_hash_table_insert ");
 				/* insert it */
 				g_hash_table_insert (priv->files_view_status, 
 									 g_strdup (priv->current_db_file), fss);
-			}
+			}			
 		}
 	}
 	
@@ -1192,52 +1282,61 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	
 	/* try to see if we had something saved before in the hash table */
 	fsstatus = g_hash_table_lookup (priv->files_view_status,
-									priv->current_db_file);
-	
+									priv->current_db_file);	
 
-	/* set the nodes_displayed */
 	if (fsstatus != NULL)
 	{
+		/* restore the previous saved status ... */
+		
+		/* set the nodes_displayed */
 		priv->nodes_displayed = fsstatus->nodes_displayed;
+		
+		/* ... the waiting_for ... */
+		priv->waiting_for = fsstatus->waiting_for;
+	
+		/* ... the pending symbols_id to be inserted ... */
+		priv->symbols_inserted_ids = fsstatus->symbols_inserted_ids;
+
+		/* and last but not the least the store */
+		store = fsstatus->store;		
+
+		/* with this set there's no need to re-retrieve the symbols from db,
+		 * speeding up the things.
+		 */
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+					 "setting gtk_tree_view_set_model to the saved one");
+		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
+		
+		
+		/* check if we left some ids on the queue. In case restart the idle_function */
+		if (g_queue_get_length (priv->symbols_inserted_ids) > 0)
+		{
+			TraverseData *tdata;
+			
+			tdata = g_new0 (TraverseData, 1);
+			tdata->dbvl = dbvl;
+			tdata->dbe = dbe;
+			
+			priv->insertion_idle_handler = g_idle_add_full (G_PRIORITY_LOW, 
+						 (GSourceFunc) consume_symbols_inserted_queue_idle,
+						 (gpointer) tdata,
+						 (GDestroyNotify) consume_symbols_inserted_queue_idle_destroy);			
+		}		
 	}
 	else 
 	{	
 		priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
 										 NULL,
-										 (GDestroyNotify)&gtk_tree_row_reference_free);
-		
-	}
-	
-	/* ... and the waiting_for */
-	if (fsstatus != NULL)
-	{
-		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
-					 "setting waiting_for to the saved one");
-		priv->waiting_for = fsstatus->waiting_for;
-	}
-	else 
-	{
+										 (GDestroyNotify)&gtk_tree_row_reference_free);		
+
 		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 NULL);
-	}
+		
+		priv->symbols_inserted_ids = g_queue_new ();
 
-	/* last but not the least the store */
-	if (fsstatus != NULL)
-	{
-		store = fsstatus->store;		
-
-		/* with tis set there's no need to re-retrieve the symbols from db,
-		 * speeding up the things.
-		 */
-		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
-					 "setting gtk_tree_view_set_model to the saved one");
-		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
-	}
-	else 
-	{
 		DEBUG_PRINT ("symbol_db_view_locals_update_list (): creating new store"); 
 		store = sdb_view_locals_create_new_store ();
 		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
@@ -1247,7 +1346,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		iterator = symbol_db_engine_get_file_symbols (dbe, filepath, SYMINFO_SIMPLE |
 												  	SYMINFO_ACCESS |
 													SYMINFO_KIND);		
-	
+	 	
 		if (iterator != NULL)
 		{
 			do {
@@ -1267,19 +1366,11 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 			g_object_unref (iterator);
 		}
 
-	/*	DEBUG_PRINT ("symbol_db_view_locals_update_list (): waiting for displaying: %d", 
-				 	g_tree_nnodes (priv->waiting_for));
-		DEBUG_PRINT ("symbol_db_view_locals_update_list (): already displayed: %d", 
-				 	g_tree_nnodes (priv->nodes_displayed));*/
-
 		/* ok, there may be some symbols left on the waiting_for_list...
  	 	* launch the callback function by hand, flushing the list it in case 
 	 	*/
-		on_scan_end (dbe, dbvl);
-		
+		on_scan_end (dbe, dbvl);		
 	}
-
-
 	
 	/* only gtk 2.12 ...
 	 * gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbvl)); */

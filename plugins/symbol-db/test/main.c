@@ -101,6 +101,7 @@ add_new_files (SymbolDBEngine *dbe)
 static void
 get_parents (SymbolDBEngine *dbe)
 {
+#if 0	
 	gint i;
 	GPtrArray *scope_path;	
 	scope_path = g_ptr_array_new();	
@@ -123,6 +124,7 @@ get_parents (SymbolDBEngine *dbe)
 			symbol_db_engine_get_class_parents (dbe, "YourClass", NULL);
 	
 	dump_iterator (iterator);
+#endif	
 }
 
 static void
@@ -314,10 +316,11 @@ main(int argc, char ** argv)
 
 #endif
 
-#if 0
+#if 1
 int main(int argc, char** argv)
 {
-	SymbolDBEngine *dbe;
+	SymbolDBEngine *dbe_one;
+	SymbolDBEngine *dbe_two;
 	tagFile *tag_file;
 	tagFileInfo tag_file_info;
 	tagEntry tag_entry;
@@ -326,31 +329,50 @@ int main(int argc, char** argv)
 	gnome_vfs_init ();
     g_type_init();
 	gda_init ("Test db", "0.1", argc, argv);
-	dbe = symbol_db_engine_new ();
 	
-	gchar *prj_dir = "/home/pescio/Projects/entwickler-0.1";
+	dbe_one = symbol_db_engine_new ();
+	dbe_two = symbol_db_engine_new ();
+	
+	gchar *prj_dir_one = "/home/pescio/Projects/entwickler-0.1";
 
-	g_message ("opening database");
-	if (symbol_db_engine_open_db (dbe, prj_dir) == FALSE)
-		g_message ("error in opening db");
+	g_message ("opening database ONE");
+	if (symbol_db_engine_open_db (dbe_one, prj_dir_one, prj_dir_one) == FALSE)
+		g_message ("error in opening db 1");
 	
-//	g_message ("adding new workspace");
-//	if (symbol_db_engine_add_new_workspace (dbe, "foo_workspace") == FALSE)
-//		g_message ("error adding workspace");
+	g_message ("opening project ONE");
+	if (symbol_db_engine_add_new_project (dbe_one, NULL, "project_one") == FALSE)
+		g_message ("error in opening project 1");	
+
+
+	gchar *prj_dir_two = "/home/pescio/Projects/foobar-sample";
+
+	g_message ("opening database TWO");
+	if (symbol_db_engine_open_db (dbe_two, prj_dir_two, prj_dir_two) == FALSE)
+		g_message ("error in opening db 2");
 	
-//	g_message ("adding new project");
-//	if (symbol_db_engine_add_new_project (dbe, NULL, "foo_project") == FALSE)
-//		g_message ("error in adding project");
-	
-	g_message ("opening project");
-	if (symbol_db_engine_open_project (dbe, "/home/pescio/Projects/entwickler-0.1") == FALSE)
-		g_message ("error in opening project");	
-	
+	g_message ("opening project TWO");
+	if (symbol_db_engine_add_new_project (dbe_two, NULL, "project_two") == FALSE)
+		g_message ("error in opening project 2");	
 
 	
-//	g_message ("adding files...");
-//	add_new_files  (dbe);
+	/* ------ add files ------ */
 
+	g_message ("adding files to ONE");
+	GPtrArray * files_array_one = g_ptr_array_new();	
+	GPtrArray * languages_one = g_ptr_array_new ();
+	g_ptr_array_add (files_array_one, g_strdup("/home/pescio/Projects/entwickler-0.1/entwickler/app.cc"));	
+	g_ptr_array_add (languages_one, g_strdup ("C"));
+	symbol_db_engine_add_new_files (dbe_one, "project_one", files_array_one, languages_one, TRUE);
+
+	
+	g_message ("adding files to TWO");
+	GPtrArray * files_array_two = g_ptr_array_new();	
+	GPtrArray * languages_two = g_ptr_array_new ();
+	g_ptr_array_add (files_array_two, g_strdup("/home/pescio/Projects/foobar-sample/src/main.c"));	
+	g_ptr_array_add (languages_two, g_strdup ("C"));
+	symbol_db_engine_add_new_files (dbe_two, "project_two", files_array_two, languages_two, TRUE);
+	
+	
 	/* 
 	** Message: elapsed: 319.713238 for (4008) [0.079769 per symbol]
 	
@@ -387,8 +409,8 @@ int main(int argc, char** argv)
 //	g_message ("getting scope members");
 //	get_scope_members (dbe);
 	
-	g_message ("getting get_global_members");
-	get_global_members (dbe);
+//	g_message ("getting get_global_members");
+//	get_global_members (dbe);
 
 //	g_message ("getting parents");
 //	get_parents (dbe);
@@ -403,11 +425,11 @@ int main(int argc, char** argv)
 //	update_buffers (dbe);
 	
 	g_message ("go on with main loop");
+
 	GMainLoop *main_loop;	
 	main_loop = g_main_loop_new( NULL, FALSE );
 	
 	g_main_loop_run( main_loop );
-
 	return 0;
 }
 #endif
@@ -457,7 +479,7 @@ int main(int argc, char** argv)
 }
 #endif
 
-#if 1
+#if 0
 
 #include <libgda/libgda.h>
 #include <stdio.h>
@@ -521,9 +543,182 @@ main(int argc, char ** argv)
 
 	return 0;
 }
-
-
-
-
 #endif
+
+#if 0
+#include "pkg.h"
+#include "parse.h"
+
+static void
+packages_foreach (gpointer key, gpointer value, gpointer data)
+{
+	g_message ("--------------------------------------");
+	g_message ("key : %s, value : %s", key, value );
+	
+///*	
+	Package *pkg = parse_package_file (value, TRUE, TRUE);
+	
+	if (pkg == NULL)
+	{
+		g_message ("pkg is NULL.");
+		return;
+	}
+	
+	gchar *output = package_get_I_cflags (pkg);
+	g_message ("I flags: %s", output);
+	//*/
+}
+
+int main(int argc, char** argv)
+{
+  	g_thread_init(NULL);
+  	gtk_init (&argc, &argv);
+	gchar *search_path;
+  
+	GSList *packages;
+	
+  	search_path = getenv ("PKG_CONFIG_PATH");
+  	if (search_path) 
+    {
+      add_search_dirs(search_path, G_SEARCHPATH_SEPARATOR_S);
+    }
+	
+	g_message ("got search path %s", search_path);
+	
+  	if (getenv("PKG_CONFIG_LIBDIR") != NULL) 
+    {
+      add_search_dirs(getenv("PKG_CONFIG_LIBDIR"), G_SEARCHPATH_SEPARATOR_S);
+    }
+	
+	
+	disable_uninstalled = TRUE;
+	enable_private_libs();
+	
+	package_init  ();	
+	
+//	print_package_list ();	
+
+
+	GHashTable *locations = get_packages_locations ();
+	if (locations == NULL)
+	{
+		g_message ("locations is NULL");
+	}
+	g_hash_table_foreach (locations, packages_foreach, NULL);
+	
+	/*
+	Package *pkg = parse_package_file ("/usr/lib/pkgconfig/glib-2.0.pc", TRUE, TRUE);
+	
+	g_message ("got %s", pkg->name);
+	
+	gchar *output = package_get_I_cflags (pkg);
+	g_message ("Got this %s", output);
+	*/
+	
+	/*/
+	packages = parse_module_list (NULL, "glib-2.0", "(command line arguments)");
+	
+	g_message ("==> %d", g_slist_length (packages));
+		
+	if (packages == NULL)
+	{
+		g_message ("packages is NULL!");
+		return -1;
+	}
+
+	output = packages_get_I_cflags (packages);
+	g_message ("Got this %s", output);
+	//*/
+	
+  	gtk_main();
+	
+	return 0;
+}
+#endif
+
+
+#if 0
+#include <libgnomevfs/gnome-vfs.h>
+
+
+GList **
+files_visit_dir (GList **files_list, const gchar* uri)
+{
+	
+	GList *files_in_curr_dir = NULL;
+	
+	if (gnome_vfs_directory_list_load (&files_in_curr_dir, uri,
+								   GNOME_VFS_FILE_INFO_GET_MIME_TYPE) == GNOME_VFS_OK) 
+	{
+		GList *node;
+		node = files_in_curr_dir;
+		do {
+			GnomeVFSFileInfo* info;
+						
+			info = node->data;
+			
+			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+				
+				if (strcmp (info->name, ".") == 0 ||
+					strcmp (info->name, "..") == 0)
+					continue;
+
+				g_message ("node [DIRECTORY]: %s", info->name);				
+				gchar *tmp = g_strdup_printf ("%s/%s", uri, info->name);
+				
+				g_message ("recursing for: %s", tmp);
+				/* recurse */
+				files_list = files_visit_dir (files_list, tmp);
+				
+				g_free (tmp);
+			}
+			else {
+				gchar *local_path;
+				gchar *tmp = g_strdup_printf ("%s/%s", 
+									uri, info->name);
+			
+				g_message ("prepending %s", tmp);
+				local_path = gnome_vfs_get_local_path_from_uri (tmp);
+				*files_list = g_list_append (*files_list, local_path );
+				g_free (tmp);
+			}
+		} while ((node = node->next) != NULL);		
+	}	 
+	
+	return files_list;
+}
+
+
+
+
+int main(int argc, char** argv)
+{
+  	g_thread_init(NULL);
+  	gtk_init (&argc, &argv);
+	GList *files = NULL;
+	GList *node;
+
+	gnome_vfs_init  ();
+	
+	files_visit_dir (&files, "file:///usr/include/glib-2.0");
+
+	if (files == NULL) 
+	{
+		g_message ("files null");
+		return -1;
+	}
+	
+	node = files;
+	
+	do {
+		g_message ("node: %s", node->data);
+	} while ((node = node->next) != NULL);		
+	
+
+  	gtk_main();
+	
+	return 0;  
+}
+#endif
+
 

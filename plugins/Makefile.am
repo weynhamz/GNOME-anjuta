@@ -13,7 +13,6 @@ SUBDIRS = . \
 	file-wizard \
 	project-wizard \
 	project-manager \
-	symbol-browser \
 	sample1 \
 	cvs-plugin \
 	macro \
@@ -32,6 +31,7 @@ SUBDIRS = . \
 	profiler \
 	language-manager \
 	symbol-db \
+	symbol-browser \
 	sourceview
 
 # indent

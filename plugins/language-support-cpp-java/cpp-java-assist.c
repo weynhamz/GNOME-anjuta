@@ -141,14 +141,14 @@ create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
 	GList* suggestions = NULL;
 	do
 	{
-		const gchar* name = ianjuta_symbol_name (IANJUTA_SYMBOL(iter), NULL);
+		const gchar* name = ianjuta_symbol_get_name (IANJUTA_SYMBOL(iter), NULL);
 		if (name != NULL)
 		{
 			if (!g_hash_table_lookup (suggestions_hash, name))
 			{
 				CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
 				tag->name = g_strdup (name);
-				tag->is_func = (ianjuta_symbol_args (IANJUTA_SYMBOL (iter),
+				tag->is_func = (ianjuta_symbol_get_args (IANJUTA_SYMBOL (iter),
 													 NULL)
 								!= NULL);
 				g_hash_table_insert (suggestions_hash, (gchar*)name,
@@ -307,6 +307,8 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 											   const gchar *scope_operator,
 											   const gchar *scope_context)
 {
+	DEBUG_PRINT ("TODO: cpp_java_assist_create_scope_completion_cache ()");
+#if 0	
 	cpp_java_assist_destroy_completion_cache (assist);
 	if (g_str_equal (scope_operator, "::"))
 	{
@@ -327,6 +329,7 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 		/* TODO: Find the type of context by parsing the file somehow and
 		search for the member as it is done with the :: context */
 	}
+#endif	
 }
 
 static void
@@ -337,6 +340,8 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 	IAnjutaIterable* iter = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
+									    TRUE,
+										IANJUTA_SYMBOL_FIELD_SIMPLE,
 										pre_word, TRUE, TRUE, NULL);
 	if (iter)
 	{
@@ -479,16 +484,18 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_FUNCTION|
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+									   TRUE,
+									   IANJUTA_SYMBOL_FIELD_SIMPLE,
 									   call_context, FALSE, TRUE, NULL);
 	if (iter)
 	{
 		do
 		{
 			IAnjutaSymbol* symbol = IANJUTA_SYMBOL(iter);
-			const gchar* name = ianjuta_symbol_name(symbol, NULL);
+			const gchar* name = ianjuta_symbol_get_name(symbol, NULL);
 			if (name != NULL)
 			{
-				const gchar* args = ianjuta_symbol_args(symbol, NULL);
+				const gchar* args = ianjuta_symbol_get_args(symbol, NULL);
 				gchar* print_args;
 				gchar* separator;
 				gchar* white_name = g_strnfill (strlen(name) + 1, ' ');

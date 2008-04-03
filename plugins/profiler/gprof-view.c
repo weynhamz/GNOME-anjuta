@@ -125,6 +125,8 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 	{									   	
 		symbol_iter = ianjuta_symbol_manager_search (self->priv->symbol_manager,
 													 IANJUTA_SYMBOL_TYPE_FUNCTION,
+													 TRUE,
+													 IANJUTA_SYMBOL_FIELD_SIMPLE,
 													 symbol_name,
 													 FALSE,
 													 TRUE,
@@ -134,8 +136,8 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 			ianjuta_iterable_get_length (symbol_iter, NULL) > 0)
 		{
 			symbol = IANJUTA_SYMBOL (symbol_iter);
-			uri = ianjuta_symbol_uri (symbol, NULL);
-			line = ianjuta_symbol_line (symbol, NULL);
+			uri = ianjuta_symbol_get_uri (symbol, NULL);
+			line = ianjuta_symbol_get_line (symbol, NULL);
 			
 			ianjuta_document_manager_goto_uri_line (self->priv->document_manager, 
 													 uri, line, NULL);

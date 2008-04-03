@@ -27,7 +27,7 @@
 
 #include <glib-object.h>
 #include <glib.h>
-
+#include <libanjuta/interfaces/ianjuta-symbol.h>
 #include "symbol-db-engine-iterator.h"
 
 G_BEGIN_DECLS
@@ -95,50 +95,50 @@ symbol_db_engine_is_locked (SymbolDBEngine *dbe);
 
 /**
  * Open or create a new database. 
- * Be sure to give a base_prj_path with the ending '/' for directory.
- * E.g: a project on '/tmp/foo/' dir.
+ * Be sure to give a base_db_path with the ending '/' for directory.
+ * @param base_db_path directory where .anjuta_sym_db.db will be stored. It can be
+ *        different from project_directory
+ *        E.g: a db on '/tmp/foo/' dir.
+ * @param prj_directory project directory. It may be different from base_db_path.
+ *        It's mainly used to map files inside the db. Say for example that you want to
+ *        add to a project a file /home/user/project/foo_prj/src/file.c with a project
+ *        directory of /home/user/project/foo_prj/. On db it'll be represented as
+ *        src/file.c. In this way you can move around the project dir without dealing
+ *        with relative paths.
  */
 gboolean 
-symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_prj_path);
+symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_db_path,
+						  const gchar * prj_directory);
+
+
+/** Disconnect db, gda client and db_connection */
+gboolean 
+symbol_db_engine_close_db (SymbolDBEngine *dbe);
+
 
 /**
- * Check if the database already exists into the prj_directory
+ * Check if the database already exists into the db_directory
  */
 gboolean
-symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory);
+symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * db_directory);
 
-
-/** Add a new workspace to database. */
+/** Add a new workspace to an opened database. */
 gboolean 
 symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace);
 
 
-/** Add a new project to workspace.*/
+/** Add a new project to workspace to an opened database.*/
 gboolean 
 symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
 								  const gchar* project);
 
-/**
- * Return the name of the opened project.
- * NULL on error. Returned string must be freed by caller.
- */
-gchar*
-symbol_db_engine_get_opened_project_name (SymbolDBEngine * dbe);
-
-
 /** 
- * Open a project. Return false if project isn't created/opened. 
- * This function *must* be called before any other operation on db.
- * Another option would be create a fresh new project: that way will also open it.
+ * Test project existence. 
+ * @return false if project isn't found
  */ 
 gboolean 
-symbol_db_engine_open_project (SymbolDBEngine *dbe, /*gchar* workspace, */
+symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
 								  const gchar* project_name);
-
-
-/** Disconnect db, gda client and db_connection and close the project */
-gboolean 
-symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name);
 
 
 /** 
@@ -148,6 +148,9 @@ symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name);
  * symbol_db_engine_open_db ().
  * @note if some file fails to enter the db the function will return without
  * processing the remaining files.
+ * @param project_name something like 'foo_project', or 'helloworld_project'
+ * @param project_directory something like the base path '/home/user/projects/foo_project/'
+ *        Be sure not to exchange the db_directory with project_directory! they're different!
  * @param files_path requires full path to files on disk. Ctags itself requires that.
  *        it must be something like "/home/path/to/my/foo/file.xyz". Also it requires
  *		  a language string to represent the file.
@@ -158,9 +161,11 @@ symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name);
  *		  elments that files_path has. It should be populated like this: "C", "C++",
  *		  "Java"
  * 		  This is done to be uniform to the language-manager plugin.
+ * @return true is insertion is successful.
  */
 gboolean 
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, const gchar* project,
+symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
+								const gchar * project_name,
 							    const GPtrArray *files_path,
 								const GPtrArray *languages,
 								gboolean scan_symbols);
@@ -214,12 +219,77 @@ symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file)
 gchar*
 symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
 
+/** 
+ * Hash table that converts from a char like 'class' 'struct' etc to an 
+ * IANJUTA_SYMBOL_TYPE
+ */
+const GHashTable*
+symbol_db_engine_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
 
 /**
- * Will test the opened project within the dbe plugin and the passed one.
+ * Return a GPtrArray that must be freed from caller.
  */
-gboolean inline
-symbol_db_engine_is_project_opened (SymbolDBEngine *dbe, const gchar* project_name);
+GPtrArray *
+symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types);
+
+/**
+ * Try to get all the files with zero symbols: these should be the ones
+ * excluded by an abort on population process.
+ * @return A GPtrArray with paths on disk of the files. Must be freed by caller.
+ * @return NULL if no files are found.
+ */
+GPtrArray *
+symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe);
+
+
+/**********************
+ * ITERATABLE QUERIES
+ **********************/
+
+/**
+ * Use this function to find symbols names by patterns like '%foo_func%'
+ * that will return a family of my_foo_func_1, your_foo_func_2 etc
+ * @name must not be NULL.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
+									const gchar *name, SymExtraInfo sym_info);
+
+/**
+ * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
+ * @param exact_match Should the pattern searched for an exact match?
+ * @param filter_kinds Can be NULL. In that case these filters will be taken into consideration.
+ * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
+ * @param global_search If TRUE only global public function will be searched. If false
+ *		  even private or static (for C language) will be searched.
+ * @param sym_info Infos about symbols you want to know.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
+									const gchar *pattern, 
+									gboolean exact_match,
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds,
+									gboolean global_search,
+									SymExtraInfo sym_info);
+
+
+/**
+ * Return an iterator to the data retrieved from database. 
+ * The iterator, if not null, will contain a list of parent classes for the 
+ * given symbol name.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
+									 const GPtrArray *scope_path, SymExtraInfo sym_info);
+
+/**
+ * Use this function to get parent symbols of a given class.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe, 
+												 gint child_klass_symbol_id,
+												 SymExtraInfo sym_info);
 
 /**
  * Return an iterator to the data retrieved from database. 
@@ -229,74 +299,33 @@ SymbolDBEngineIterator *
 symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, 
 									const gchar* filename, gulong line);
 
+
 /**
- * Return an iterator to the data retrieved from database. 
- * The iterator, if not null, will contain a list of parent classes for the 
- * given symbol name.
+ * Use this function to get symbols of a file.
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
-									 const GPtrArray *scope_path);
-
+symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
+								   const gchar *file_path, 
+								   SymExtraInfo sym_info);
 
 /**
+ * Use this function to get global symbols only. I.e. private or file-only scoped symbols
+ * will NOT be returned.
  * @param filter_kinds Can be NULL. In that case we'll return all the kinds of symbols found
  * at root level [global level].
  * @param include_kinds Should we include in the result the filter_kinds or not?
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
- * If FALSE you can have as result more symbols with the same name but different
- * symbols id. See for example more namespaces declared on different files.
+ * 		If FALSE you can have as result more symbols with the same name but different
+ * 		symbols id. See for example more namespaces declared on different files.
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
 									const GPtrArray *filter_kinds,
-									gboolean include_kinds, gboolean group_them,
-									gint results_limit, gint results_offset,
-								 	gint sym_info);
-
-SymbolDBEngineIterator *
-symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
-									const gchar *file_path, gint sym_info);
-
-SymbolDBEngineIterator *
-symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
-									gint sym_id, gint sym_info);
-
-/**
- * Use this function to find symbols names by patterns like '%foo_func%'
- * that will return a family of my_foo_func_1, your_foo_func_2 etc
- */
-SymbolDBEngineIterator *
-symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
-									const gchar *name, gint sym_info);
-
-/** scope_path cannot be NULL.
- * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
- * "scope2_name", NULL 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
-									const GPtrArray* scope_path, gint sym_info);
-
-/**
- * Sometimes it's useful going to query just with ids [and so integers] to have
- * a little speed improvement.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, 
-									gint results_limit,
+									gboolean include_kinds, 
+									gboolean group_them,
+									gint results_limit, 
 									gint results_offset,
-									gint sym_info);
-
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, 
-									gint results_limit,
-									gint results_offset,
-									gint sym_info,
-									const GPtrArray *filter_kinds,
-									gboolean include_kinds);
+								 	SymExtraInfo sym_info);
 
 /** 
  * No iterator for now. We need the quickest query possible.
@@ -308,8 +337,40 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
 									gint scoped_symbol_id,
 									const gchar* db_file);
 
-const GHashTable*
-symbol_db_engine_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
+/** scope_path cannot be NULL.
+ * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
+ * "scope2_name", NULL 
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
+									const GPtrArray* scope_path, SymExtraInfo sym_info);
+
+/**
+ * Sometimes it's useful going to query just with ids [and so integers] to have
+ * a little speed improvement.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
+									gint scope_parent_symbol_id, 
+									gint results_limit,
+									gint results_offset,
+									SymExtraInfo sym_info);
+
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
+									gint scope_parent_symbol_id, 
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds,														  
+									gint results_limit,
+									gint results_offset,
+									SymExtraInfo sym_info);
+
+/**
+ * Use this function to get infos about a symbol.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
+									gint sym_id, SymExtraInfo sym_info);
 
 G_END_DECLS
 

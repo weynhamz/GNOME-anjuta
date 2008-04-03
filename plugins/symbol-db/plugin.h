@@ -26,6 +26,7 @@
 #define _SYMBOL_DB_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-launcher.h>
 #include "symbol-db-engine.h"
 #include "symbol-db-engine-iterator.h"
 
@@ -47,6 +48,11 @@ struct _SymbolDBPlugin{
 	AnjutaPlugin parent;
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
+	GtkListStore *prefs_list_store;
+	AnjutaLauncher *pkg_config_launcher;
+//	AnjutaLauncher *cflags_launcher;
+	
+	gint prefs_notify_id;
 	
 	/* project monitor */
 	guint root_watch_id;
@@ -55,9 +61,13 @@ struct _SymbolDBPlugin{
 	guint editor_watch_id;
 	gchar *project_root_uri;
 	gchar *project_root_dir;
+	gchar *project_opened;
 	
-	/* Symbol's engine connection to database. */
-	SymbolDBEngine *sdbe;
+	/* Symbol's engine connection to database. Instance for local project */
+	SymbolDBEngine *sdbe_project;
+	
+	/* global's one */
+	SymbolDBEngine *sdbe_globals;
 	
 	GtkWidget *dbv_notebook;          	/* symbol main window [gtk_notebook] */	
 	GtkWidget *scrolled_global; 		/* symbol view scrolledwindow for global
