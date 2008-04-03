@@ -26,7 +26,6 @@
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libegg/menu/egg-combo-action.h>
 
 #include "symbol-db-view-locals.h"
 #include "symbol-db-engine.h"

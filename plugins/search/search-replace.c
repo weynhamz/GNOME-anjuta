@@ -36,8 +36,6 @@
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 
-#include <libegg/menu/egg-entry-action.h>
-
 #include "search-replace_backend.h"
 #include "search-replace.h"
 #include "search_preferences.h"
@@ -1353,21 +1351,6 @@ list_max_items(GList *list, guint nb_max)
 }
 
 #define MAX_ITEMS_SEARCH_COMBO 16
-
-void
-search_toolbar_set_text(gchar *search_text)
-{
-	AnjutaUI *ui; 
-	GtkAction *action; 
-	
-	AnjutaShell* shell;
-	g_object_get(G_OBJECT(sr->docman), "shell", &shell, NULL);
-	
-	ui = anjuta_shell_get_ui (shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-								   "ActionEditSearchEntry");
-	egg_entry_action_set_text (EGG_ENTRY_ACTION(action), search_text);	
-}
 
 static void
 search_update_combos(void)

@@ -1,6 +1,6 @@
 
 #include <libanjuta/anjuta-plugin.h>
-#include <libegg/recent-files/egg-recent-model.h>
+#include <gtk/gtkrecentmanager.h>
 
 extern GType anjuta_file_loader_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_FILE_LOADER         (anjuta_file_loader_plugin_get_type (NULL))
@@ -15,8 +15,8 @@ typedef struct _AnjutaFileLoaderPluginClass AnjutaFileLoaderPluginClass;
 
 struct _AnjutaFileLoaderPlugin{
 	AnjutaPlugin parent;
-	EggRecentModel *recent_files_model_top;
-	EggRecentModel *recent_files_model_bottom;
+	
+	GtkRecentManager *recent_manager;
 	GtkActionGroup *action_group;
 	GtkActionGroup *popup_action_group;
 	GtkActionGroup *recent_group;

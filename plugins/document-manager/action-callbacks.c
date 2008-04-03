@@ -38,8 +38,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 
-#include <libegg/menu/egg-entry-action.h>
-
 #include <sys/wait.h>
 #include <sys/stat.h>
 

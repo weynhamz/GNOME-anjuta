@@ -3,7 +3,7 @@
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = tagmanager global-tags \
-	libegg pixmaps scripts data \
+	pixmaps scripts data \
 	doc libanjuta plugins src manuals mime launcher po
 
 anjutadocdir = $(datadir)/doc/anjuta

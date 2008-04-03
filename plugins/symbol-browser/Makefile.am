@@ -62,7 +62,6 @@ libanjuta_symbol_browser_la_LIBADD = \
 	$(GDL_LIBS) \
 	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 	
 prefs_glade_files = anjuta-symbol-browser-plugin.glade

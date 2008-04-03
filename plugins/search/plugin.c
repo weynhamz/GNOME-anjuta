@@ -24,8 +24,6 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 
-#include <libegg/menu/egg-entry-action.h>
-
 #include "plugin.h"
 #include "search-replace.h"
 #include "search-replace_backend.h"

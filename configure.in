@@ -1097,11 +1097,6 @@ po/Makefile.in
 tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
-libegg/Makefile
-libegg/util/Makefile
-libegg/treeviewutils/Makefile
-libegg/menu/Makefile
-libegg/recent-files/Makefile
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
 libanjuta/interfaces/Makefile

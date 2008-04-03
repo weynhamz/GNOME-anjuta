@@ -24,7 +24,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
 
-#include <libegg/menu/egg-entry-action.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>

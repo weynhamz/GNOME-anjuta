@@ -42,7 +42,6 @@ libanjuta_search_la_LIBADD = \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
 libanjuta_search_la_SOURCES= \

@@ -1,5 +1,90 @@
 2008-04-03  Johannes Schmid  <jhs@gnome.org>
 
+	* Makefile.am:
+	* configure.in:
+	* libegg/.cvsignore:
+	* libegg/Makefile.am:
+	* libegg/egg-cell-renderer-text.c:
+	* libegg/egg-combo-action.c:
+	* libegg/egg-entry-action.c:
+	* libegg/egg-recent-action.c:
+	* libegg/egg-recent-files-module.c:
+	* libegg/egg-recent-item.c:
+	* libegg/egg-recent-model.c:
+	* libegg/egg-recent-util.c:
+	* libegg/egg-recent-view-gtk.c:
+	* libegg/egg-recent-view.c:
+	* libegg/egg-submenu-action.c:
+	* libegg/eggcellrendererpopup.c:
+	* libegg/eggcomboselect.c:
+	* libegg/eggmarshalers.list:
+	* libegg/eggtreemodelfilter.c:
+	* libegg/eggtreemodelunion.c:
+	* libegg/eggtreemultidnd.c:
+	* libegg/gtkcellview.h:
+	* libegg/layout.glade:
+	* libegg/menu/.cvsignore:
+	* libegg/menu/Makefile.am:
+	* libegg/menu/egg-combo-action.h:
+	* libegg/menu/egg-entry-action.h:
+	* libegg/menu/egg-recent-action.h:
+	* libegg/menu/egg-submenu-action.h:
+	* libegg/menu/eggcomboselect.h:
+	* libegg/recent-files/.cvsignore:
+	* libegg/recent-files/Makefile.am:
+	* libegg/recent-files/egg-recent-item.h:
+	* libegg/recent-files/egg-recent-model.h:
+	* libegg/recent-files/egg-recent-util.h:
+	* libegg/recent-files/egg-recent-view-gtk.h:
+	* libegg/recent-files/egg-recent-view.h:
+	* libegg/recent-files/egg-recent.h:
+	* libegg/test-actions.c:
+	* libegg/test-multi-drag.c:
+	* libegg/test-union.c:
+	* libegg/treeviewutils/.cvsignore:
+	* libegg/treeviewutils/Makefile.am:
+	* libegg/treeviewutils/egg-cell-renderer-text.h:
+	* libegg/treeviewutils/eggcellrendererpopup.h:
+	* libegg/treeviewutils/eggtreemodelfilter.h:
+	* libegg/treeviewutils/eggtreemodelunion.h:
+	* libegg/treeviewutils/eggtreemultidnd.h:
+	* libegg/util/.cvsignore:
+	* libegg/util/Makefile.am:
+	* libegg/util/egg-macros.h:
+	* libegg/util/eggintl.h:
+	
+	Killed libegg (#349279)
+	
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/plugin.c:
+	(on_open_recent_file), (sort_recent_menu),
+	(setup_recent_chooser_menu), (activate_plugin), (dispose),
+	(anjuta_file_loader_plugin_instance_init):
+	* plugins/file-loader/plugin.h:
+	* plugins/search/Makefile.am:
+	* plugins/search/plugin.c:
+	* plugins/search/search-replace.c:
+	
+	Removed dead code and libegg from Makefiles
+	
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.ui:
+	* plugins/symbol-browser/plugin.c (on_editor_saved),
+	(update_editor_symbol_model), (iter_matches),
+	(value_removed_current_editor), (activate_plugin):
+	Removed symbol-browser toolbar which used libegg and was
+	buggy (#451588)
+	
+	Patch from Ignacio Casal Quinteiro with lots of changes:
+	* plugins/file-loader/Makefile.am:
+	* plugins/file-loader/anjuta-loader-plugin.ui:
+	* plugins/file-loader/plugin.c (set_recent_file), (open_file),
+	Port FileLoader to GtkRecent (#398984)
+
+2008-04-03  Johannes Schmid  <jhs@gnome.org>
+
 	* configure.in:
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_scan_output),
 	(anjuta_launcher_scan_error), (anjuta_launcher_scan_pty):

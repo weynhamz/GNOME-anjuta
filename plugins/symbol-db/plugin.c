@@ -39,8 +39,6 @@
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
-#include <libegg/menu/egg-combo-action.h>
-
 #include "plugin.h"
 #include "symbol-db-view.h"
 #include "symbol-db-view-locals.h"

@@ -32,7 +32,6 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
-#include <libegg/menu/egg-combo-action.h>
 
 #include <tm_tagmanager.h>
 #include "an_symbol_view.h"
@@ -544,17 +543,6 @@ goto_tree_iter (SymbolBrowserPlugin *sv_plugin, GtkTreeIter *iter)
 }
 
 static void
-on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
-{
-	GtkTreeIter iter;
-	
-	if (egg_combo_action_get_active_iter (EGG_COMBO_ACTION (action), &iter))
-	{
-		goto_tree_iter (sv_plugin, &iter);
-	}
-}
-
-static void
 on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 								 GtkTreeViewColumn *arg2,
 								 SymbolBrowserPlugin *sv_plugin)
@@ -644,8 +632,6 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		
 		/* Update File symbol view */
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
-									   "ActionGotoSymbol");
 		
 		
 		file_symbol_model =
@@ -653,18 +639,11 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		g_object_set_data (G_OBJECT (editor), "tm_file",
 						   g_object_get_data (G_OBJECT (file_symbol_model),
 											  "tm_file"));
-		/* Set toolbar version */
-		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		/* Set local view version */
 		gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
 								 file_symbol_model);
 		sv_plugin->locals_line_number = 0;
 		on_editor_update_ui (editor, sv_plugin);
-		
-		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		else
-			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 
 #if 0
 		/* FIXME: Re-hilite all editors on tags update */
@@ -733,8 +712,6 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 		g_free (local_filename);
 		
 		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), uri);
-		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
-									   "ActionGotoSymbol");
 		g_free (uri);
 		
 		file_symbol_model =
@@ -744,19 +721,12 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 			g_object_set_data (G_OBJECT (editor), "tm_file",
 						   g_object_get_data (G_OBJECT (file_symbol_model),
 											  "tm_file"));
-			/* Set toolbar version */
-			egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 			
 			/* Set local view version */
 			gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
 									 file_symbol_model);
 			sv_plugin->locals_line_number = 0;
 			on_editor_update_ui (IANJUTA_EDITOR (editor), sv_plugin);
-			
-			if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
-				g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-			else
-				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 		}
 	}
 }
@@ -770,11 +740,7 @@ iter_matches (SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter,
 	if (line == lineno)
 	{
 		GtkTreePath* path = gtk_tree_model_get_path (model, iter);
-		GtkAction* action = anjuta_ui_get_action (sv_plugin->ui, 
-												  "ActionGroupSymbolNavigation",
-												  "ActionGotoSymbol");
 		
-		egg_combo_action_set_active_iter (EGG_COMBO_ACTION (action), iter);
 		gtk_tree_view_set_cursor (GTK_TREE_VIEW (sv_plugin->sl_tree), path, NULL,
 								 FALSE);
 		gtk_tree_path_free (path);
@@ -875,9 +841,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
-								   "ActionGotoSymbol");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	sv_plugin->current_editor = NULL;
 }
 
@@ -885,7 +848,6 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkActionGroup *group;
-	GtkAction *action;
 	SymbolBrowserPlugin *sv_plugin;
 	
 	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin...");
@@ -983,19 +945,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											G_N_ELEMENTS (popup_actions),
 											GETTEXT_PACKAGE, FALSE, plugin);
 	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
-
-	/* create a new combobox in style of libegg... */
-	action = g_object_new (EGG_TYPE_COMBO_ACTION,
-						   "name", "ActionGotoSymbol",
-						   "label", _("Goto symbol"),
-						   "tooltip", _("Select the symbol to go"),
-						   "stock_id", GTK_STOCK_JUMP_TO,
-							NULL);
-
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_symbol_selected), sv_plugin);
-	gtk_action_group_add_action (group, action);
+	
 	anjuta_ui_add_action_group (sv_plugin->ui, "ActionGroupSymbolNavigation",
 								N_("Symbol navigations"), group, FALSE);
 	sv_plugin->action_group_nav = group;
