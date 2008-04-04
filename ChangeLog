@@ -1,3 +1,16 @@
+2008-04-04  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c (ui_give_shorter_names),
+	(update_document_ui_disable_all):
+	* plugins/file-loader/anjuta-loader-plugin.ui:
+	* plugins/file-loader/plugin.c (on_new_activate),
+	(activate_plugin):
+	
+	Moved "New" action from document-manager to file-loader using 
+	IAnjutaDocumentManager interface. Reenabled pop-down menu for "New"-ToolItem.
+
 2008-04-03  Johannes Schmid  <jhs@gnome.org>
 
 	* Makefile.am:

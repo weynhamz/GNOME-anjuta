@@ -250,17 +250,6 @@ on_close_all_file_activate (GtkAction *action, gpointer user_data)
 }
 
 void
-on_new_file_activate (GtkAction *action, gpointer user_data)
-{
-	AnjutaDocman *docman;
-	DocmanPlugin *plugin;
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
-
-	anjuta_docman_add_editor (docman, NULL, NULL);
-}
-
-void
 on_reload_file_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;

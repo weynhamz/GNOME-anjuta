@@ -150,9 +150,6 @@ static ShortcutMapping global_keymap[] = {
 };
 
 static GtkActionEntry actions_file[] = {
-  { "ActionFileNew", GTK_STOCK_NEW, N_("_New"), "<control>n",
-	N_("New empty file"),
-    G_CALLBACK (on_new_file_activate)},
   { "ActionFileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save_activate)},
   { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."),  "<shift><control>s",
@@ -582,10 +579,6 @@ ui_give_shorter_names (AnjutaPlugin *plugin)
 			
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
-									"ActionFileNew");
-	g_object_set (G_OBJECT (action), "short-label", _("New"),
-				  "is-important", TRUE, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
 								   "ActionFileSave");
 	g_object_set (G_OBJECT (action), "short-label", _("Save"),
 				  "is-important", TRUE, NULL);
@@ -636,10 +629,8 @@ update_document_ui_disable_all (AnjutaPlugin *plugin)
 		{
 			action = anjuta_ui_get_action (ui, action_groups[i].name,
 										   action_groups[i].group[j].name);
-			if (action_groups[i].group[j].callback &&
-				strcmp (action_groups[i].group[j].name, "ActionFileNew") != 0)
+			if (action_groups[i].group[j].callback)
 			{
-				/* Disable all but ActoinFileNew actions */
 				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 			}
 		}

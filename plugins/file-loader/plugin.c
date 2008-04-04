@@ -546,6 +546,17 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 }
 
 static void
+on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
+{
+	AnjutaShell* shell = ANJUTA_PLUGIN (plugin)->shell;
+	IAnjutaDocumentManager *docman = anjuta_shell_get_interface (shell, 
+																 IAnjutaDocumentManager,
+																 NULL);
+	if (docman)
+		ianjuta_document_manager_add_buffer (docman, NULL, NULL, NULL);
+}
+
+static void
 on_open_activate (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
 {
 	GtkWidget *dlg;
@@ -768,6 +779,14 @@ pm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 }
 
 static GtkActionEntry actions_file[] = {
+	{ 
+		"ActionFileNew", 
+		GTK_STOCK_NEW,
+		N_("_New"), 
+		"<control>n",
+		N_("New empty file"),
+		G_CALLBACK (on_new_activate)
+	},
 	{
 		"ActionFileOpen",
 		GTK_STOCK_OPEN,
@@ -1171,6 +1190,8 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, FALSE, plugin);
 	saction = gtk_recent_action_new ("ActionFileWizard", _("New"),
 							  _("New file, project and project components."), NULL);
+	g_object_set (saction, "stock-id", GTK_STOCK_NEW, NULL);
+	g_signal_connect (saction, "activate", G_CALLBACK (on_new_activate), loader_plugin);
 	gtk_action_group_add_action (loader_plugin->action_group,
 								 GTK_ACTION (saction));
 	
@@ -1206,6 +1227,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	widget = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
 					"/MenuMain/MenuFile/PlaceholderFileMenus/Wizard");
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), on_create_submenu(loader_plugin));
+	
+	widget = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+					"/ToolbarMain/PlaceholderFileToolbar/New");
+	gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (widget), on_create_submenu(loader_plugin));
 	
 	/* Install drag n drop handler */
 	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,

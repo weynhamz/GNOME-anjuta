@@ -3,7 +3,7 @@
 	<menubar name="MenuMain">
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
-				<placeholder name="PlaceholderFilewMenuNew" />
+				<menuitem name="New" action="ActionFileNew" />
 				<menuitem name="Wizard" action="ActionFileWizard" />
 				<menuitem name="Open" action="ActionFileOpen" />
 				<menuitem name="OpenRecent" action="ActionFileOpenRecent" />
@@ -27,7 +27,7 @@
 	</popup>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
-			<placeholder name="PlaceholderFileToolbarNew" />
+			<toolitem name="New" action="ActionFileWizard" />
 			<toolitem name="Open" action="ActionFileOpenRecent" />
 		</placeholder>
 	</toolbar>

@@ -3,9 +3,6 @@
 	<menubar name="MenuMain">
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
-				<placeholder name="PlaceholderFilewMenuNew">
-					<menuitem name="New" action="ActionFileNew" />
-				</placeholder>
 				<menuitem name="Save" action="ActionFileSave" />
 				<menuitem name="SaveAs" action="ActionFileSaveAs" />
 				<menuitem name="SaveAll" action="ActionFileSaveAll" />
@@ -117,9 +114,6 @@
 	</menubar>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
-			<placeholder name="PlaceholderFileToolbarNew">
-				<toolitem name="New" action="ActionFileNew" />
-			</placeholder>
 			<toolitem name="Save" action="ActionFileSave" />
 			<toolitem name="Reload" action="ActionFileReload" />
 			<separator name="separator16"/>
