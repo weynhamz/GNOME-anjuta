@@ -94,13 +94,6 @@ void		 anjuta_view_select_all		(AnjutaView       *view);
 
 void		 anjuta_view_scroll_to_cursor 	(AnjutaView       *view);
 
-void 		 anjuta_view_set_colors 		(AnjutaView       *view, 
-						 gboolean         def,
-						 GdkColor        *backgroud, 
-						 GdkColor        *text,
-						 GdkColor        *selection, 
-						 GdkColor        *sel_text);
-
 void 		 anjuta_view_set_font		(AnjutaView       *view,
 						 gboolean         def,
 						 const gchar     *font_name);

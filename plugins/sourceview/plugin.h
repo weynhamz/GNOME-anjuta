@@ -41,7 +41,7 @@ typedef struct _SourceviewPluginClass SourceviewPluginClass;
 struct _SourceviewPlugin{
 	AnjutaPlugin parent;
 	
-	GtkWidget* check_color;
+	GtkWidget* combo_styles;
 	GtkWidget* check_font;
 };
 

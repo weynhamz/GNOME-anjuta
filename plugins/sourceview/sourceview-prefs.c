@@ -40,12 +40,6 @@ static AnjutaPreferences* prefs = NULL;
 #define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
 #define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
-#define COLOR_THEME "sourceview.color.use_theme"
-#define COLOR_TEXT	"sourceview.color.text"
-#define COLOR_BACKGROUND	"sourceview.color.background"
-#define COLOR_SELECTED_TEXT	"sourceview.color.selected_text"
-#define COLOR_SELECTION	"sourceview.color.selection"
-
 #define FONT_THEME "sourceview.font.use_theme"
 #define FONT "sourceview.font"
 #define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
@@ -199,41 +193,6 @@ on_gconf_notify_right_margin_position (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-on_gconf_notify_color (GConfClient *gclient, guint cnxn_id,
-											 GConfEntry *entry, gpointer user_data)
-{
-	Sourceview *sv;
-	GdkColor *text, *background, *selected_text, *selection;
-	AnjutaPreferences* prefs = sourceview_get_prefs();
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-  if (!anjuta_preferences_get_int (prefs, COLOR_THEME))
-  {
-    text = anjuta_util_convert_color(prefs, COLOR_TEXT);
-    background = anjuta_util_convert_color(prefs, COLOR_BACKGROUND);
-    selected_text = anjuta_util_convert_color(prefs, COLOR_SELECTED_TEXT);
-    selection = anjuta_util_convert_color(prefs, COLOR_SELECTION);
-    anjuta_view_set_colors(sv->priv->view, FALSE, background, text, selection, selected_text);
-  }
-}
-
-static void
-on_gconf_notify_color_theme (GConfClient *gclient, guint cnxn_id,
-														 GConfEntry *entry, gpointer user_data)
-{
-	Sourceview *sv;
-	gboolean use_theme = get_bool(entry);
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	if (use_theme)
-	{
-		anjuta_view_set_colors(sv->priv->view, TRUE, NULL, NULL, NULL, NULL);
-	}
-	else
-		on_gconf_notify_color(NULL, 0, NULL, sv);
-}
-
-static void
 on_gconf_notify_font (GConfClient *gclient, guint cnxn_id,
 											GConfEntry *entry, gpointer user_data)
 {
@@ -272,13 +231,11 @@ on_gconf_notify_font_theme (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-init_colors_and_fonts(Sourceview* sv)
+init_fonts(Sourceview* sv)
 {
 	gboolean font_theme;
-	gboolean color_theme;
 	
 	font_theme = anjuta_preferences_get_int(prefs, FONT_THEME);
-	color_theme = anjuta_preferences_get_int(prefs, COLOR_THEME);
 	
 	if (!font_theme)
 	{
@@ -299,10 +256,6 @@ init_colors_and_fonts(Sourceview* sv)
 		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
 	}
- 	if (!color_theme)
-  		on_gconf_notify_color (NULL, 0, NULL, sv);
-	else
-		anjuta_view_set_colors(sv->priv->view, TRUE, NULL, NULL, NULL, NULL);
 }
 
 static int
@@ -338,7 +291,7 @@ sourceview_prefs_init(Sourceview* sv)
 																						get_key(sv, RIGHTMARGIN_POSITION));
 	
 	
-	init_colors_and_fonts(sv);
+	init_fonts(sv);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
@@ -351,11 +304,6 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (VIEW_LINENUMBERS, on_gconf_notify_view_linenums);
 	REGISTER_NOTIFY (VIEW_RIGHTMARGIN, on_gconf_notify_view_right_margin);
 	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_gconf_notify_right_margin_position);
-	REGISTER_NOTIFY (COLOR_THEME, on_gconf_notify_color_theme);
-	REGISTER_NOTIFY (COLOR_TEXT, on_gconf_notify_color);
-	REGISTER_NOTIFY (COLOR_BACKGROUND, on_gconf_notify_color);
-	REGISTER_NOTIFY (COLOR_SELECTED_TEXT, on_gconf_notify_color);
-	REGISTER_NOTIFY (COLOR_SELECTION, on_gconf_notify_color);
 	REGISTER_NOTIFY (FONT_THEME, on_gconf_notify_font_theme);
 	REGISTER_NOTIFY (FONT, on_gconf_notify_font);	
 	

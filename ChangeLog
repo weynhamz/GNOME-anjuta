@@ -1,5 +1,21 @@
 2008-04-04  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/anjuta-view.c:
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview-prefs.c (init_fonts),
+	(sourceview_prefs_init):
+	Removed unused color management code
+	
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/plugin.c (ieditor_factory_new_editor),
+	(create_style_model), (on_style_changed), (ipreferences_merge),
+	(ipreferences_unmerge):
+	* plugins/sourceview/plugin.h:
+	
+	Added style chooser for sourceview editor (#522555)
+
+2008-04-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/action-callbacks.c:
 	* plugins/document-manager/anjuta-document-manager.ui:
 	* plugins/document-manager/plugin.c (ui_give_shorter_names),
