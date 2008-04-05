@@ -187,7 +187,7 @@ about_box_new ()
 		_("Integrated Development Environment"));
 	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
 		NULL);
-	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "www.anjuta.org");
+	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.anjuta.org");
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
 	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors);

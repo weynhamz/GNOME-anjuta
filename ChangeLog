@@ -1,3 +1,8 @@
+2008-04-05  Naba Kumar  <naba@gnome.org>
+
+	patch from  surenspost@gmail.com:
+	* src/about.c: Fixed bug #523068 link in about window doesn't work.
+
 2008-04-04  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/anjuta-view.c:
