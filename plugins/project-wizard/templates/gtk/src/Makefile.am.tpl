@@ -16,7 +16,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = [+NameCLower+]
+bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
 	callbacks.c \

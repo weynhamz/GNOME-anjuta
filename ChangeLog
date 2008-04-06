@@ -1,5 +1,10 @@
 2008-04-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/project-wizard/templates/gtk/src/Makefile.am.tpl:
+	One additional change missed in the previous commit
+
+2008-04-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/project-wizard/templates/gtkmm.wiz,
 	plugins/project-wizard/templates/gtkmm/src/Makefile.am.tpl,
 	plugins/project-wizard/templates/gtkmm/src/main.cc,
