@@ -762,9 +762,12 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
 			if (n > 0) /* There is output */
 			{
-				gchar *utf8_chars;
+				gchar *utf8_chars = NULL;
 				buffer[n] = '\0';
-				utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+				if (!launcher->priv->custom_encoding)
+					utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+				else
+					utf8_chars = g_strdup(buffer);
 				anjuta_launcher_buffered_output (launcher,
 												 ANJUTA_LAUNCHER_OUTPUT_STDOUT,
 												 utf8_chars);
@@ -1080,7 +1083,7 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 	if (launcher->priv->custom_encoding)
 		g_free (launcher->priv->encoding);
 	
-	launcher->priv->custom_encoding = (charset != NULL);
+	launcher->priv->custom_encoding = TRUE;
 	if (charset)
 	  launcher->priv->encoding = g_strdup(charset);
 	else

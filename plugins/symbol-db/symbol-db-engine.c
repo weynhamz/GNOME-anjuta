@@ -134,8 +134,8 @@ select symbol_id_base, symbol.name from heritage
 
 #define THREADS_MONITOR_TIMEOUT			50
 #define THREADS_MAX_CONCURRENT			15
-#define TRIGGER_SIGNALS_DELAY			500
-#define	TRIGGER_MAX_CLOSURE_RETRIES		30
+#define TRIGGER_SIGNALS_DELAY			100
+#define	TRIGGER_MAX_CLOSURE_RETRIES		50
 #define	THREAD_MAX_CLOSURE_RETRIES		20
 
 enum {
@@ -540,6 +540,11 @@ struct _SymbolDBEnginePriv
 	
 	GHashTable *sym_type_conversion_hash;
 	GHashTable *garbage_shared_mem_files;
+	
+	/* Caches */
+	GHashTable *kind_cache;
+	GHashTable *access_cache;
+	GHashTable *implementation_cache;
 };
 
 typedef struct _ThreadDataOutput {
@@ -565,6 +570,48 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 						   const gchar * base_prj_path, const gchar * fake_file,
 						   gboolean sym_update);
 
+
+static gint
+sdb_engine_cache_lookup (GHashTable** hash_table, const gchar* lookup)
+{
+	if (*hash_table == NULL)
+	{
+		*hash_table = g_hash_table_new_full (g_str_hash,
+											g_str_equal,
+											g_free,
+											NULL);
+	}
+	{
+		gpointer id = g_hash_table_lookup (*hash_table, 
+										   lookup);
+		if (id)
+		{
+			gint table_id = GPOINTER_TO_INT (id);
+			return table_id;
+		}
+	}
+	return -1;
+}
+
+static void
+sdb_engine_insert_cache (GHashTable* hash_table, const gchar* key,
+						 gint value)
+{
+	g_hash_table_insert (hash_table, g_strdup (key), 
+						 GINT_TO_POINTER (value));
+}
+
+static void
+sdb_engine_clear_caches (SymbolDBEngine* dbe)
+{
+	SymbolDBEnginePriv *priv = dbe->priv;
+	g_hash_table_destroy (priv->kind_cache);
+	g_hash_table_destroy (priv->access_cache);	
+	g_hash_table_destroy (priv->implementation_cache);
+	priv->kind_cache = NULL;
+	priv->access_cache = NULL;
+	priv->implementation_cache = NULL;
+}
 
 static gboolean 
 sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
@@ -1158,7 +1205,7 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	if (priv->thread_monitor_handler <= 0)
 	{
 		priv->thread_monitor_handler = 
-			g_timeout_add_full (G_PRIORITY_LOW,
+			g_timeout_add_full (G_PRIORITY_DEFAULT_IDLE,
 					THREADS_MONITOR_TIMEOUT, 
 					sdb_engine_thread_monitor, 
 					user_data,
@@ -1351,31 +1398,6 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe = SYMBOL_DB_ENGINE (object);
 	sdbe->priv = g_new0 (SymbolDBEnginePriv, 1);
 
-	/* initialize some priv data */
-	sdbe->priv->db_connection = NULL;
-	sdbe->priv->sql_parser = NULL;
-	sdbe->priv->db_directory = NULL;
-	sdbe->priv->project_directory = NULL;
-	
-	sdbe->priv->scan_queue = NULL;	
-	sdbe->priv->updated_symbols_id = NULL;
-	sdbe->priv->inserted_symbols_id = NULL;
-	sdbe->priv->shared_mem_file = NULL;
-	sdbe->priv->shared_mem_fd = 0;
-	sdbe->priv->shared_mem_str = NULL;
-	sdbe->priv->scanning_status = FALSE;
-	sdbe->priv->force_sym_update = FALSE;
-	
-	sdbe->priv->mutex = NULL;
-	sdbe->priv->signals_queue = NULL;
-	sdbe->priv->thread_list = NULL;
-	sdbe->priv->thread_status = FALSE;
-	sdbe->priv->concurrent_threads = 0;
-	sdbe->priv->thread_monitor_handler = 0;
-	sdbe->priv->timeout_trigger_handler = 0;	
-	sdbe->priv->trigger_closure_retries = 0;
-	sdbe->priv->thread_closure_retries = 0;
-	
 	/* initialize an hash table to be used and shared with Iterators */
 	sdbe->priv->sym_type_conversion_hash =
 		g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);	
@@ -2681,9 +2703,13 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	if (kind_name == NULL)
 		return -1;
 
+	if ((table_id = sdb_engine_cache_lookup (&priv->kind_cache, kind_name) != -1))
+		return table_id;
+
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, kind_name);
-
+		
+	
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 										PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
 										"kindname",
@@ -2736,6 +2762,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	}
 	gda_value_free (value);
 	
+	sdb_engine_insert_cache (priv->kind_cache, kind_name, table_id);
 	return table_id;
 }
 
@@ -2760,7 +2787,11 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		/* no access associated with current tag */
 		return -1;
 	}
+	
+	if ((table_id = sdb_engine_cache_lookup (&priv->access_cache, access) != -1))
+		return table_id;
 
+	
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, access);
 
@@ -2815,8 +2846,9 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		
 		g_object_unref (plist);
 	}
-	gda_value_free (value);
-		
+	gda_value_free (value);	
+	sdb_engine_insert_cache (priv->access_cache, access, table_id);
+	
 	return table_id;
 }
 
@@ -2843,7 +2875,9 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		/* no implementation associated with current tag */
 		return -1;
 	}
-
+	if ((table_id = sdb_engine_cache_lookup (&priv->implementation_cache, implementation) != -1))
+		return table_id;
+	
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, implementation);
 
@@ -2897,9 +2931,8 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		}
 		g_object_unref (plist);
 	}
-	gda_value_free (value);
-	
-	
+	gda_value_free (value);	
+	sdb_engine_insert_cache (priv->implementation_cache, implementation, table_id);	
 	return table_id;
 }
 
@@ -4464,7 +4497,9 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	
 	priv = dbe->priv;
 	files_to_scan = update_data->files_path;
-
+	
+	sdb_engine_clear_caches (dbe);
+	
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);

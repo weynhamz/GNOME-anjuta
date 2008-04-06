@@ -42,6 +42,12 @@ static GPtrArray* get_files (const gchar* dir)
 	return files;
 }	
 	
+static void 
+on_scan_end (SymbolDBEngine* engine, gpointer user_data)
+{
+  exit(0);
+}
+
 int main (int argc, char** argv)
 {
   SymbolDBEngine* engine;
@@ -61,7 +67,9 @@ int main (int argc, char** argv)
 	}
 	root_dir = argv[1];
 	
-  	engine = symbol_db_engine_new ();
+  engine = symbol_db_engine_new ();
+  g_signal_connect (engine, "scan-end", G_CALLBACK (on_scan_end), NULL);
+  
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))
 	{
 		g_message ("Could not open database: %s", root_dir);

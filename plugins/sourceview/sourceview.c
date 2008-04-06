@@ -426,7 +426,6 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 static void 
 sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
 {
-	DEBUG_PRINT (__FUNCTION__);
 	/* Hide assistance windows when scrolling vertically */
 
 	if (sv->priv->assist_win)
