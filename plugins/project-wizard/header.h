@@ -44,6 +44,20 @@ const gchar* npw_header_get_description (const NPWHeader* this);
 void npw_header_set_iconfile (NPWHeader* this, const gchar* confile);
 const gchar* npw_header_get_iconfile (const NPWHeader* this);
 
+void npw_header_add_required_program (NPWHeader* this, const gchar* program);
+
+/* Returns list of missing programs, or NULL if none is missing
+ * Only the glist should be freed, not the strings within
+ */
+GList* npw_header_check_required_programs (NPWHeader* this);
+
+void npw_header_add_required_package (NPWHeader* this, const gchar* package);
+
+/* Returns list of missing packages, or NULL if none is missing
+ * Only the glist should be freed, not the strings within
+ */
+GList* npw_header_check_required_packages (NPWHeader* this);
+
 gboolean npw_header_is_leaf(const NPWHeader* this);
 
 NPWHeaderList* npw_header_list_new (void);

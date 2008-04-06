@@ -591,6 +591,35 @@ anjuta_util_glist_strings_dup (GList * list)
 	return new_list;
 }
 
+/* Join list of strings using the given delimiter */
+gchar*
+anjuta_util_glist_strings_join (GList * list, gchar *delimiter)
+{
+	GString *joined;
+	gboolean first = TRUE;
+	GList *node;
+	
+	joined = g_string_new (NULL);
+	node = list;
+	while (node)
+	{
+		if (node->data)
+		{
+			if (!first)
+				g_string_append (joined, delimiter);
+			else
+				first = FALSE;
+			g_string_append (joined, node->data);
+		}
+		node = g_list_next (node);
+	}
+	if (joined->len > 0)
+		return g_string_free (joined, FALSE);
+	else
+		g_string_free (joined, TRUE);
+	return NULL;
+}
+
 gchar*
 anjuta_util_get_real_path (const gchar *path)
 {

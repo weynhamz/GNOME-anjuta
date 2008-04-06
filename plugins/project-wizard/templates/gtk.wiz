@@ -3,6 +3,11 @@
 	<description>A generic GTK+ project</description>
 	<icon>gtk-logo.png</icon>
 	<category>C</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-package>gtk+-2.0 >= 2.8</required-package>
+	<required-package>libglade-2.0 >= 2.6.0</required-package>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

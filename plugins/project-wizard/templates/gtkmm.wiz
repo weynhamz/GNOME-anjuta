@@ -3,6 +3,11 @@
 	<description>A generic GTKmm (C++) project</description>
 	<icon>gtkmm-logo.png</icon>
 	<category>C++</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-package>gtkmm-2.4 >= 2.8</required-package>
+	<required-package>libglademm-2.4 >= 2.6</required-package>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

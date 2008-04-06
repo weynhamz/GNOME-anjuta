@@ -24,10 +24,13 @@
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #include "header.h"
 
 #include <glib/gdir.h>
+#include <libanjuta/anjuta-utils.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -48,6 +51,8 @@ struct _NPWHeader {
 	gchar* iconfile;
 	gchar* category;
 	gchar* filename;
+	GList* required_programs;
+	GList* required_packages;
 	NPWHeaderList* owner;
 	GNode* node;
 };
@@ -74,12 +79,14 @@ npw_header_free (NPWHeader* this)
 {
 	GNode* node;
 
+	/* Memory allocated in string pool and project pool is not free */
 	node = g_node_find (this->owner->list, G_IN_ORDER, G_TRAVERSE_ALL, this);
 	if (node != NULL)
-	{
 		g_node_destroy (node);
-		/* Memory allocated in string pool and project pool is not free */
-	}
+	if (this->required_programs)
+		g_list_free (this->required_programs);
+	if (this->required_packages)
+		g_list_free (this->required_packages);
 }
 
 void
@@ -141,6 +148,70 @@ const gchar*
 npw_header_get_iconfile (const NPWHeader* this)
 {
 	return this->iconfile;
+}
+
+void
+npw_header_add_required_program (NPWHeader* this, const gchar* program)
+{
+	this->required_programs =
+		g_list_prepend (this->required_programs,
+						g_string_chunk_insert (this->owner->string_pool,
+											   program));
+	
+}
+
+void
+npw_header_add_required_package (NPWHeader* this, const gchar* package)
+{
+	this->required_packages =
+		g_list_prepend (this->required_packages,
+						g_string_chunk_insert (this->owner->string_pool,
+											   package));
+}
+
+GList*
+npw_header_check_required_programs (NPWHeader* this)
+{
+	GList *node = NULL;
+	GList *failed_programs = NULL;
+	for (node = this->required_programs; node; node = g_list_next (node))
+	{
+		if (!anjuta_util_prog_is_installed (node->data, FALSE))
+		{
+			failed_programs = g_list_prepend (failed_programs, node->data);
+		}
+	}
+	return failed_programs;
+}
+
+static gboolean
+package_is_installed (const gchar *package)
+{
+	int status;
+	int exit_status;
+	pid_t pid;
+	if ((pid = fork()) == 0)
+	{
+		execlp ("pkg-config", "pkg-config", "--exists", package, NULL);
+	}
+	waitpid (pid, &status, 0);
+	exit_status = WEXITSTATUS (status);
+	return (exit_status == 0);
+}
+
+GList*
+npw_header_check_required_packages (NPWHeader* this)
+{
+	GList *node = NULL;
+	GList *failed_packages = NULL;
+	for (node = this->required_packages; node; node = g_list_next (node))
+	{
+		if (!package_is_installed (node->data))
+		{
+			failed_packages = g_list_prepend (failed_packages, node->data);
+		}
+	}
+	return failed_packages;
 }
 
 gboolean

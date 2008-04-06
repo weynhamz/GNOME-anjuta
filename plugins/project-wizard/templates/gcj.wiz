@@ -3,6 +3,10 @@
 	<description>A generic natively compiled java project using the GNU Java Compiler (gcj)</description>
 	<icon>gcj-logo.png</icon>
 	<category>Java</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-program>gcj</required-program>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

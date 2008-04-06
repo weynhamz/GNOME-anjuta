@@ -3,6 +3,10 @@
 	<description>A generic java project using automake project management</description>
 	<icon>java-logo.png</icon>
 	<category>Java</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-program>java</required-program>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

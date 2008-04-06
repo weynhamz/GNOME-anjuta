@@ -3,6 +3,7 @@
 	<description>Makefile-based project</description>
 	<icon>mkfile-logo.png</icon>
 	<category>C</category>
+	<required-program>make</required-program>
 </project-wizard>
 
 <page name="options" _label="Project options" _description="Project directory, output file etc.">

@@ -84,6 +84,7 @@ void anjuta_util_glist_strings_free(GList* list);
 void anjuta_util_glist_strings_prefix (GList * list, const gchar *prefix);
 void anjuta_util_glist_strings_sufix (GList * list, const gchar *sufix);
 GList* anjuta_util_glist_strings_sort (GList * list);
+gchar* anjuta_util_glist_strings_join (GList * list, gchar *delimiter);
 
 /**********************************************************/
 /* Both the returned glist and the data should be g_freed */

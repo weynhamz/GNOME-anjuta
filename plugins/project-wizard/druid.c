@@ -656,6 +656,82 @@ on_druid_parse_page (const gchar* output, gpointer data)
 	npw_page_parser_parse (parser, output, strlen (output), NULL);
 }
 
+static void
+check_and_warn_missing (NPWDruid *this)
+{
+	GList *missing_programs, *missing_packages;
+	GString *missing_message = NULL;
+	
+	missing_programs = npw_header_check_required_programs (this->header);
+	missing_packages = npw_header_check_required_packages (this->header);
+	
+	if (missing_programs || missing_packages)
+	{
+		missing_message = g_string_new (NULL);
+	}
+	
+	if (missing_programs)
+	{
+		gchar *missing_progs;
+		missing_progs = anjuta_util_glist_strings_join (missing_programs,
+														", ");
+		g_string_append_printf (missing_message,
+								_("\nMissing programs: %s."), missing_progs);
+		g_free (missing_progs);
+		g_list_free (missing_programs);
+	}
+	
+	if (missing_packages)
+	{
+		gchar *missing_pkgs;
+		missing_pkgs = anjuta_util_glist_strings_join (missing_packages,
+													   ", ");
+		g_string_append_printf (missing_message,
+								_("\nMissing packages: %s."), missing_pkgs);
+		g_free (missing_pkgs);
+		g_list_free (missing_packages);
+	}
+	
+	if (missing_message)
+	{
+		GtkWidget *dialog, *detail_label, *expander;
+				
+		g_string_prepend (missing_message, _(
+		 "Some important programs or development packages required to build "
+		 "this project are missing. Please make sure they are "
+		 "installed properly before generating the project.\n"));
+		dialog =
+			gtk_message_dialog_new_with_markup (GTK_WINDOW (this->dialog),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												GTK_MESSAGE_WARNING,
+												GTK_BUTTONS_CLOSE,
+												"<b>%s</b>\n\n%s",
+												_("Missing components"),
+												missing_message->str);
+		detail_label = gtk_label_new (
+		  _("The missing programs are usually part of some distrubution "
+			"packages and can be searched in your Application Manager. "
+			"Similarly, the development packages are contained in special "
+			"packages that your distribution provide to allow development "
+			"of projects based on them. They usually end with -dev or "
+			"-devel suffix in package names and can be found by searching "
+			"in your Application Manager."));
+		gtk_label_set_line_wrap (GTK_LABEL (detail_label), TRUE);
+		gtk_widget_show (detail_label);
+		
+		expander = gtk_expander_new ("<b>Details</b>");
+		gtk_expander_set_use_markup (GTK_EXPANDER (expander), TRUE);
+		gtk_container_add (GTK_CONTAINER (expander), detail_label);
+		gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox),
+									 expander);
+		gtk_widget_show (expander);
+		
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		g_string_free (missing_message, TRUE);
+	}
+}
+
 static gboolean
 on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 {
@@ -671,6 +747,10 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 
 		/* Current is Select project page */
 		new_project = npw_header_get_filename (this->header);
+		
+		/* Check if necessary programs for this project is installed */
+		check_and_warn_missing (this);
+		
 		if (this->project_file != new_project)
 		{
 			/* Change project */

@@ -1,3 +1,40 @@
+2008-04-06  Naba Kumar  <naba@naba-desktop>
+
+	* libanjuta/anjuta-utils.c (anjuta_util_glist_strings_join):
+	* libanjuta/anjuta-utils.h:
+	* plugins/project-wizard/druid.c (check_and_warn_missing),
+	(on_druid_next):
+	* plugins/project-wizard/header.c (npw_header_free),
+	(npw_header_add_required_program),
+	(npw_header_add_required_package),
+	(npw_header_check_required_programs), (package_is_installed),
+	(npw_header_check_required_packages):
+	* plugins/project-wizard/header.h:
+	* plugins/project-wizard/parser.c (parse_tag),
+	(parse_header_start), (parse_header_text):
+	* plugins/project-wizard/templates/anjuta-plugin.wiz:
+	* plugins/project-wizard/templates/cpp.wiz:
+	* plugins/project-wizard/templates/django.wiz:
+	* plugins/project-wizard/templates/gcj.wiz:
+	* plugins/project-wizard/templates/gnome.wiz:
+	* plugins/project-wizard/templates/gtk.wiz:
+	* plugins/project-wizard/templates/gtkmm.wiz:
+	* plugins/project-wizard/templates/java.wiz:
+	* plugins/project-wizard/templates/minimal.wiz:
+	* plugins/project-wizard/templates/mkfile.wiz:
+	* plugins/project-wizard/templates/python.wiz:
+	* plugins/project-wizard/templates/sdl.wiz:
+	* plugins/project-wizard/templates/terminal.wiz:
+	* plugins/project-wizard/templates/wxwin.wiz:
+	* plugins/project-wizard/templates/xlib-dock.wiz:
+	* plugins/project-wizard/templates/xlib.wiz:
+
+	Added a check for vital programs and packages needed to create a
+	new project. A warning dialog is shown to user in project
+	wizard when he proceeds after selecting a project type.
+	Updated all project templates to cover vital programs and
+	packages to generate and build correctly.
+	
 2008-04-05  Naba Kumar  <naba@gnome.org>
 
 	patch from  surenspost@gmail.com:

@@ -3,6 +3,9 @@
 	<description>A generic C++ project</description>
 	<icon>cpp-logo.png</icon>
 	<category>C++</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

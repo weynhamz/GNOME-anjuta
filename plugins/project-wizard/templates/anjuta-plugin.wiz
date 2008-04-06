@@ -3,6 +3,10 @@
 	<description>Anjuta plugin project that uses libanjuta framework</description>
 	<icon>anjuta-plugin-logo.png</icon>
 	<category>C</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-package>libanjuta-1.0</required-package>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

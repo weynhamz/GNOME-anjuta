@@ -3,6 +3,12 @@
 	<description>A generic GNOME project</description>
 	<icon>gnome-logo.png</icon>
 	<category>C</category>
+	<required-program>automake</required-program>
+	<required-program>autoconf</required-program>
+	<required-program>make</required-program>
+	<required-package>libgnome-2.0 >= 2.14</required-package>
+	<required-package>libgnomeui-2.0 >= 2.14</required-package>	
+	<required-package>libglade-2.0 >= 2.6.0</required-package>	
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">

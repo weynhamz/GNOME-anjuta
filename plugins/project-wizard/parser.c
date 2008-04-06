@@ -43,6 +43,8 @@ typedef enum {
 	NPW_NAME_TAG,
 	NPW_DESCRIPTION_TAG,
 	NPW_CATEGORY_TAG,
+	NPW_REQUIRED_PROGRAM_TAG,
+	NPW_REQUIRED_PACKAGE_TAG,
 	NPW_ICON_TAG,
 	NPW_PAGE_TAG,
 	NPW_PROPERTY_TAG,
@@ -159,6 +161,14 @@ parse_tag (const char* name)
 	else if (strcmp ("category", name) == 0)
 	{
 		return NPW_CATEGORY_TAG;
+	}
+	else if (strcmp ("required-program", name) == 0)
+	{
+		return NPW_REQUIRED_PROGRAM_TAG;
+	}
+	else if (strcmp ("required-package", name) == 0)
+	{
+		return NPW_REQUIRED_PACKAGE_TAG;
 	}
 	else if (strcmp ("page", name) == 0)
 	{
@@ -386,6 +396,8 @@ parse_header_start (GMarkupParseContext* context,
 			case NPW_DESCRIPTION_TAG:
 			case NPW_ICON_TAG:
 			case NPW_CATEGORY_TAG:
+			case NPW_REQUIRED_PROGRAM_TAG:
+			case NPW_REQUIRED_PACKAGE_TAG:
 				known = TRUE;
 				break;
 			default:
@@ -516,6 +528,12 @@ parse_header_text (GMarkupParseContext* context,
 			{
 				parser_critical (parser->ctx, "Duplicated category tag");
 			}
+			break;
+		case NPW_REQUIRED_PROGRAM_TAG:
+			npw_header_add_required_program (parser->header, text);
+			break;
+		case NPW_REQUIRED_PACKAGE_TAG:
+			npw_header_add_required_package (parser->header, text);
 			break;
 		case NPW_PROJECT_WIZARD_TAG:
 			/* Nothing to do */
