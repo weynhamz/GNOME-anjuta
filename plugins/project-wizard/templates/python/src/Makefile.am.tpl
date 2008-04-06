@@ -3,10 +3,10 @@
 ## Created by Anjuta
 
 ## The main script
-bin_SCRIPTS = [+NameCLower+].py
+bin_SCRIPTS = [+NameHLower+].py
 
 ## Directory where .class files will be installed
-[+NameCLower+]dir = $(pythondir)/[+NameLower+]
+[+NameCLower+]dir = $(pythondir)/[+NameHLower+]
 
 [+NameCLower+]_PYTHON = \
-	[+NameCLower+].py
+	[+NameHLower+].py

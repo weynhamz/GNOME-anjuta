@@ -22,8 +22,9 @@
 	</property>
 	<property type="hidden" name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
-	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
-	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
+	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-substitute (string-upcase (get "Name")) " " "_"))+]"/>
+	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]"/>
+	<property type="hidden" name="NameHLower" default="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]"/>
 	<property type="hidden" name="HavePackage" default="1"/>
 	<property type="hidden" name="PackageModule1" default="gtkmm-2.4 >= 2.8 libglademm-2.4 >= 2.6"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
@@ -49,7 +50,7 @@
 		<file source="NEWS"/>
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
-		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+		<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
 		<file source="cvsignore" destination=".cvsignore"/>
 		<directory source="src">
 			<file source="cvsignore" destination=".cvsignore"/>
@@ -69,7 +70,7 @@
 	<directory source="gtkmm" destination="[+Destination+]">
 		<directory source="src">
 			<file source="main.cc"/>
-			<file source="project.glade" destination="[+NameLower+].glade"/>
+			<file source="project.glade" destination="[+NameHLower+].glade"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>
@@ -77,5 +78,5 @@
 
 <action>
 	<run command="sh -c 'cd [+Destination+] &amp;&amp; ./autogen.sh'"/>
-	<open file="[+Destination+]/[+NameLower+].anjuta"/>
+	<open file="[+Destination+]/[+NameHLower+].anjuta"/>
 </action>

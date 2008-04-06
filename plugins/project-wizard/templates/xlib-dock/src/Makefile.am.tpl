@@ -12,7 +12,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = [+NameLower+]
+bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
 	main.c \

@@ -3,8 +3,8 @@
 
 ## Created by Anjuta
 
-gladedir = $(datadir)/[+NameLower+]/glade
-glade_DATA = [+NameLower+].glade
+gladedir = $(datadir)/[+NameHLower+]/glade
+glade_DATA = [+NameHLower+].glade
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -16,7 +16,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = [+NameLower+]
+bin_PROGRAMS = [+NameCLower+]
 
 [+NameCLower+]_SOURCES = \
 	callbacks.c \

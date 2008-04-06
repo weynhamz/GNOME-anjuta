@@ -7,7 +7,7 @@
 ## Add classpaths and other flags here
 ## AM_GCJFLAGS=
 
-bin_PROGRAMS = [+NameLower+]
+bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
 	[+MainClass+].java

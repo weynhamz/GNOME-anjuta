@@ -14,7 +14,7 @@ AM_CFLAGS =\
 	 -g \
 	 $(WX_CPPFLAGS)
 
-bin_PROGRAMS = [+NameLower+]
+bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
 	main.cc

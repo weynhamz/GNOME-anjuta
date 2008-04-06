@@ -3,19 +3,19 @@
 [+IF (=(get "HasUI") "1")+]
 # Plugin UI file
 [+NameCLower+]_uidir = $(anjuta_ui_dir)
-[+NameCLower+]_ui_DATA =  [+NameLower+].ui
+[+NameCLower+]_ui_DATA =  [+NameHLower+].ui
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1")+]
 # Plugin Glade file
 [+NameCLower+]_gladedir = $(anjuta_glade_dir)
-[+NameCLower+]_glade_DATA =  [+NameLower+].glade
+[+NameCLower+]_glade_DATA =  [+NameHLower+].glade
 [+ENDIF+]
 # Plugin Icon file
 [+NameCLower+]_pixmapsdir = $(anjuta_image_dir)
-[+NameCLower+]_pixmaps_DATA = [+NameLower+].png
+[+NameCLower+]_pixmaps_DATA = [+NameHLower+].png
 
 # Plugin description file
-plugin_in_files = [+NameLower+].plugin.in
+plugin_in_files = [+NameHLower+].plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 [+NameCLower+]_plugindir = $(anjuta_plugin_dir)
@@ -45,7 +45,7 @@ AM_CPPFLAGS = \
 plugindir = $(anjuta_plugin_dir)
 
 # The plugin
-plugin_LTLIBRARIES = lib[+NameLower+].la
+plugin_LTLIBRARIES = lib[+NameHLower+].la
 
 # Plugin sources
 lib[+NameCLower+]_la_SOURCES = plugin.c plugin.h
