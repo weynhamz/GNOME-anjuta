@@ -1,3 +1,56 @@
+2008-04-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/gtkmm/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/gtkmm/src/main.cc,
+	plugins/project-wizard/templates/django.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/python/configure.ac.tpl,
+	plugins/project-wizard/templates/python/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/cpp.wiz,
+	plugins/project-wizard/templates/cpp/configure.ac.tpl,
+	plugins/project-wizard/templates/cpp/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/sdl.wiz,
+	plugins/project-wizard/templates/sdl/configure.ac.tpl,
+	plugins/project-wizard/templates/sdl/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/terminal/configure.ac.tpl,
+	plugins/project-wizard/templates/terminal/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/terminal/Makefile.am.tpl,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/gtk/src/main.c,
+	plugins/project-wizard/templates/gtk/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/minimal.wiz,
+	plugins/project-wizard/templates/minimal/configure.ac.tpl,
+	plugins/project-wizard/templates/minimal/Makefile.am.tpl,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/java/configure.ac.tpl,
+	plugins/project-wizard/templates/java/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/xlib.wiz,
+	plugins/project-wizard/templates/xlib/configure.ac.tpl,
+	plugins/project-wizard/templates/xlib/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/gcj/configure.ac.tpl,
+	plugins/project-wizard/templates/gcj/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/xlib-dock/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/wxwin/configure.ac.tpl,
+	plugins/project-wizard/templates/wxwin/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gnome/src/main.c,
+	plugins/project-wizard/templates/gnome/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/configure.ac.tpl,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.plugin.in,
+	plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/anjuta-plugin/po/POTFILES.in:
+	Fix bug #525999: Remove space in file and target names generated
+	by project wizard
+	Fix sample anjuta plugin: ianjuta_document_manager_get_current_editor
+	has been renamed ianjuta_document_manager_get_current_document
+
 2008-04-06  Naba Kumar  <naba@naba-desktop>
 
 	* libanjuta/anjuta-utils.c (anjuta_util_glist_strings_join):

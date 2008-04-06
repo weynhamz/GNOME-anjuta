@@ -21,8 +21,8 @@
 [+ENDIF+]
 
 /* For testing propose use the local (not installed) glade file */
-/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade" */
-#define GLADE_FILE "[+NameLower+].glade"
+/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/glade/[+NameHLower+].glade" */
+#define GLADE_FILE "[+NameHLower+].glade"
    
 int
 main (int argc, char *argv[])

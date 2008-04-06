@@ -12,7 +12,7 @@ AM_JAVACFLAGS =
 JAVAROOT = $(top_builddir)/src
 
 ## Directory where .class files will be installed
-[+NameCLower+]dir = $(libdir)/[+NameLower+]
+[+NameCLower+]dir = $(libdir)/[+NameHLower+]
 
 [+NameCLower+]_JAVA = \
 	[+MainClass+].java

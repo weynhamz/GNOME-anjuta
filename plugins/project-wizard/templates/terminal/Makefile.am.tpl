@@ -4,7 +4,7 @@
 
 SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 
-[+NameCLower+]docdir = ${prefix}/doc/[+NameLower+]
+[+NameCLower+]docdir = ${prefix}/doc/[+NameHLower+]
 [+NameCLower+]doc_DATA = \
 	README\
 	COPYING\

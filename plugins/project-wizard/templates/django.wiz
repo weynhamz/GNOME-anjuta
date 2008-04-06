@@ -10,18 +10,20 @@
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="myweb" summary="yes" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
+	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]"/>
+	<property type="hidden" name="NameHLower" default="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]"/>
 	
 </page>
 
 
 <content>
     <directory source="python" destination="[+Destination+]">
-		<file destination="[+Name+].anjuta" source="project.anjuta"/>
+		<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
     </directory>
 </content>
 
 <action>
-	<run command="sh -c 'cd [+Destination+] &amp;&amp; django-admin.py startproject [+Name+]'"/>
-	<open file="[+Destination+]/[+Name+].anjuta"/>
-	<open file="[+Destination+]/[+Name+]/settings.py"/>
+	<run command="sh -c 'cd [+Destination+] &amp;&amp; django-admin.py startproject [+NameHLower+]'"/>
+	<open file="[+Destination+]/[+NameHLower+].anjuta"/>
+	<open file="[+Destination+]/[+NameHLower+]/settings.py"/>
 </action>

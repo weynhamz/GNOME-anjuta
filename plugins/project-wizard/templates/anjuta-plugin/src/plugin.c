@@ -18,10 +18,10 @@
 #include "plugin.h"
 
 [+IF (=(get "HasUI") "1") +]
-#define UI_FILE ANJUTA_DATA_DIR"/ui/[+NameLower+].ui"
+#define UI_FILE ANJUTA_DATA_DIR"/ui/[+NameHLower+].ui"
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
-#define GLADE_FILE ANJUTA_DATA_DIR"/glade/[+NameLower+].glade"
+#define GLADE_FILE ANJUTA_DATA_DIR"/glade/[+NameHLower+].glade"
 [+ENDIF+]
 
 static gpointer parent_class;
@@ -38,7 +38,7 @@ on_sample_action_activate (GtkAction *action, [+PluginClass+] *plugin)
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
 									  "IAnjutaDocumentManager", NULL);
 	docman = IANJUTA_DOCUMENT_MANAGER (obj);
-	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	editor = IANJUTA_EDITOR (ianjuta_document_manager_get_current_document (docman, NULL));
 
 	/* Do whatever with plugin */
 	anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
@@ -78,7 +78,7 @@ static gboolean
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	[+NameCLower+]->action_group = 
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameLower+]",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameHLower+]",
 											_("Sample file operations"),
 											actions_file,
 											G_N_ELEMENTS (actions_file),
