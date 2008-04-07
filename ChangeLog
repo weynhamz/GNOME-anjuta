@@ -1,5 +1,15 @@
 2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/symbol-db/plugin.c (on_single_file_scan_end),
+	(on_importing_project_end), (project_root_added),
+	(symbol_db_activate), (symbol_db_deactivate):
+	* plugins/symbol-db/plugin.h:
+	
+	Give the symbol-db it's own progress bar because there are too many
+	interactions with the global status bar.
+
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/symbol-db/symbol-db-view-locals.c
 	(sdb_view_locals_create_new_store):
 	* plugins/symbol-db/symbol-db-view-search.c (sdb_view_search_init):

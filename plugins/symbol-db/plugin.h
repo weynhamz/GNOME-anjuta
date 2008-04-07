@@ -69,11 +69,13 @@ struct _SymbolDBPlugin{
 	/* global's one */
 	SymbolDBEngine *sdbe_globals;
 	
-	GtkWidget *dbv_notebook;          	/* symbol main window [gtk_notebook] */	
+	GtkWidget *dbv_main;				/* symbol main window [gtk_box] */
+	GtkWidget *dbv_notebook;          	/* main notebook */	
 	GtkWidget *scrolled_global; 		/* symbol view scrolledwindow for global
-										   symbols */	
+										   symbols */
 	GtkWidget *scrolled_locals;
-	GtkWidget *scrolled_search;	
+	GtkWidget *scrolled_search;
+	GtkWidget *progress_bar;			/* symbol db progress bar */
 	
 	GtkWidget *dbv_view_tree;        	/* symbol_db_view */
 	GtkWidget *dbv_view_tab_label;

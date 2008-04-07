@@ -666,25 +666,28 @@ static void
 on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 {	
 	AnjutaPlugin *plugin;
-	AnjutaStatus *status;	
 	SymbolDBPlugin *sdb_plugin;
 	gchar *message;
+	gdouble fraction = 0;
 	
 	plugin = ANJUTA_PLUGIN (data);
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
-		
-	status = anjuta_shell_get_status (plugin->shell, NULL);
-	
-	if (status == NULL)
-		return;
 	
 	sdb_plugin->files_count_done++;	
-	message = g_strdup_printf ("%d files scanned out of %d", 
+	message = g_strdup_printf (_("%d files scanned out of %d"), 
 							   sdb_plugin->files_count_done, sdb_plugin->files_count);
 	
 	DEBUG_PRINT ("on_single_file_scan_end (): %d out of %d", sdb_plugin->files_count_done, 
 				 sdb_plugin->files_count);
-	anjuta_status_progress_tick (status, NULL, message);
+	if (sdb_plugin->files_count > 0)
+	{
+		fraction =  (gdouble) sdb_plugin->files_count_done / 
+			(gdouble) sdb_plugin->files_count;
+	}
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar),
+								   fraction);
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), message);
+	gtk_widget_show (sdb_plugin->progress_bar);
 	g_free (message);
 }
 
@@ -692,7 +695,6 @@ static void
 on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
-	AnjutaStatus *status;
 	
 	g_return_if_fail (data != NULL);
 	
@@ -700,8 +702,7 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	
 	DEBUG_PRINT ("on_importing_project_end ()");
 
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (sdb_plugin)->shell, NULL);
-	anjuta_status_progress_reset (status);
+	gtk_widget_hide (sdb_plugin->progress_bar);
 	
 	/* re-enable signals receiving on local-view */
 	symbol_db_view_locals_recv_signals_from_engine (
@@ -952,7 +953,6 @@ static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
-	AnjutaStatus *status;
 	IAnjutaProjectManager *pm;
 	SymbolDBPlugin *sdb_plugin;
 	const gchar *root_uri;
@@ -984,9 +984,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				
 			lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
 											  sources_array_free);
-			
-			status = anjuta_shell_get_status (plugin->shell, NULL);
-			anjuta_status_progress_add_ticks (status, 1);
 
 			/* is it a fresh-new project? is it an imported project with 
 			 * no 'new' symbol-db database but the 'old' one symbol-browser? 
@@ -1041,8 +1038,10 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				/* Update the symbols */
 				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, root_dir);
 			}
-			anjuta_status_progress_tick (status, NULL, _("Populating symbols' db..."));
-			anjuta_status_progress_add_ticks (status, sdb_plugin->files_count);
+			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), 
+									   _("Populating symbols' db..."));
+			gtk_progress_bar_pulse (GTK_PROGRESS_BAR (sdb_plugin->progress_bar));
+			gtk_widget_show (sdb_plugin->progress_bar);
 			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe_project);
@@ -1137,7 +1136,16 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	
 	/* Create widgets */
+	symbol_db->dbv_main = gtk_vbox_new(FALSE, 5);
 	symbol_db->dbv_notebook = gtk_notebook_new();
+	symbol_db->progress_bar = gtk_progress_bar_new();
+	g_object_ref (symbol_db->progress_bar);
+	
+	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->dbv_notebook,
+						TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->progress_bar,
+						FALSE, FALSE, 0);
+	gtk_widget_show_all (symbol_db->dbv_main);
 	
 	/* Local symbols */
 	symbol_db->scrolled_locals = gtk_scrolled_window_new (NULL, NULL);
@@ -1228,7 +1236,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	/* Added widgets */
-	anjuta_shell_add_widget (plugin->shell, symbol_db->dbv_notebook,
+	anjuta_shell_add_widget (plugin->shell, symbol_db->dbv_main,
 							 "AnjutaSymbolBrowser", _("Symbols"),
 							 "symbol-db-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);	
@@ -1295,8 +1303,9 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->root_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->editor_watch_id, TRUE);
 	
-	/* Remove widgets: Widgets will be destroyed when dbv_notebook is removed */
-	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_notebook, NULL);
+	/* Remove widgets: Widgets will be destroyed when dbv_main is removed */
+	g_object_unref (sdb_plugin->progress_bar);
+	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_main, NULL);
 
 	sdb_plugin->root_watch_id = 0;
 	sdb_plugin->editor_watch_id = 0;
@@ -1309,6 +1318,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin->dbv_view_locals_tab_label = NULL;
 	sdb_plugin->dbv_view_tree_search = NULL;
 	sdb_plugin->dbv_view_search_tab_label = NULL;
+	sdb_plugin->progress_bar = NULL;
 	return TRUE;
 }
 
