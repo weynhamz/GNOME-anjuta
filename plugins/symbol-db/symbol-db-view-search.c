@@ -429,6 +429,9 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 	
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
 				    G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT));
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->model),
+										  COLUMN_NAME,
+										  GTK_SORT_ASCENDING);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (priv->hitlist), GTK_TREE_MODEL (priv->model));	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->hitlist), FALSE);

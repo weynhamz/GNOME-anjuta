@@ -1,5 +1,15 @@
 2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(sdb_view_locals_create_new_store):
+	* plugins/symbol-db/symbol-db-view-search.c (sdb_view_search_init):
+	* plugins/symbol-db/symbol-db-view.c (sdb_view_create_new_store),
+	(symbol_db_view_open):
+	
+	Sort symbol trees
+
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview.c (idocument_cut),
 	(idocument_copy), (idocument_paste):
 	Block insert-text signal on cut/copy/paste

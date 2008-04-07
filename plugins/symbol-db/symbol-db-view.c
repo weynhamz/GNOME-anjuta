@@ -1364,11 +1364,14 @@ symbol_db_view_row_collapsed (SymbolDBView *dbv, SymbolDBEngine *dbe,
 }
 
 static GtkTreeStore *
-sdb_view_locals_create_new_store ()
+sdb_view_create_new_store ()
 {
 	GtkTreeStore *store;
 	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, G_TYPE_INT);	
+				    G_TYPE_STRING, G_TYPE_INT);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+										  COLUMN_NAME,
+										  GTK_SORT_ASCENDING);
 	return store;
 }
 
@@ -1829,7 +1832,7 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	DEBUG_PRINT ("symbol_db_view_open ()");
 	symbol_db_view_clear_cache (dbv);
 	
-	store = sdb_view_locals_create_new_store ();
+	store = sdb_view_create_new_store ();
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store));
 	
 	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 

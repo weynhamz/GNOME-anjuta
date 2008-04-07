@@ -135,6 +135,9 @@ sdb_view_locals_create_new_store ()
 	GtkTreeStore *store;
 	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
 				    G_TYPE_STRING, G_TYPE_INT);	
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+										  COLUMN_NAME,
+										  GTK_SORT_ASCENDING);
 	return store;
 }
 
