@@ -61,7 +61,6 @@
 
 static gpointer parent_class;
 static gboolean need_symbols_update = FALSE;
-static gchar prev_char_added = ' ';
 static gint timeout_id = 0;
 static GTimer *timer = NULL;
 
@@ -243,14 +242,9 @@ on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 		g_timer_reset (timer);
 	}
 	
-	
-	/* try to force the update if a "." or a "->" is pressed */
-	if ((ch == '.') || (prev_char_added == '-' && ch == '>'))
-		on_editor_buffer_symbols_update_timeout (sdb_plugin);
-		
-	need_symbols_update = TRUE;
-	
-	prev_char_added = ch;
+	/* Update when the user enters a newline */
+	if (ch == '\n')	
+		need_symbols_update = TRUE;	
 }
 
 
@@ -689,8 +683,7 @@ on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 							   sdb_plugin->files_count_done, sdb_plugin->files_count);
 	
 	DEBUG_PRINT ("on_single_file_scan_end (): %d out of %d", sdb_plugin->files_count_done, 
-				 sdb_plugin->files_count);	
-
+				 sdb_plugin->files_count);
 	anjuta_status_progress_tick (status, NULL, message);
 	g_free (message);
 }
@@ -761,7 +754,7 @@ do_import_sources_after_abort (AnjutaPlugin *plugin, const gchar *root_dir,
 
 	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 										NULL);
-
+	
 	/* create array of languages */
 	languages_array = g_ptr_array_new ();
 	to_scan_array = g_ptr_array_new ();

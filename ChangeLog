@@ -1,3 +1,19 @@
+2008-04-07  Johannes Schmid  <jhsægnome.org>
+
+	* plugins/symbol-db/plugin.c (on_char_added),
+	(on_single_file_scan_end):
+	Only update buffer when a newline is inserted
+	
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_clear_caches),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_get_file_defined_id), (sdb_engine_populate_db_by_tags),
+	(sdb_engine_finalize), (symbol_db_engine_db_exists),
+	(symbol_db_engine_close_db), (symbol_db_engine_open_db),
+	(sdb_engine_add_new_sym_type), (sdb_engine_add_new_symbol),
+	Precompute file_defined_id to speed up population
+
 2008-04-06  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_scan_output),
