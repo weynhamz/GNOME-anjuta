@@ -1,3 +1,9 @@
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (idocument_cut),
+	(idocument_copy), (idocument_paste):
+	Block insert-text signal on cut/copy/paste (backport from trunk)
+
 2008-04-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/gtkmm.wiz,

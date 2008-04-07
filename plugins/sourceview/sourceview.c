@@ -1200,21 +1200,27 @@ static void
 idocument_cut(IAnjutaDocument* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	g_signal_handlers_block_by_func (sv->priv->document, on_insert_text, sv);
 	anjuta_view_cut_clipboard(sv->priv->view);
+	g_signal_handlers_unblock_by_func (sv->priv->document, on_insert_text, sv);
 }
 
 static void 
 idocument_copy(IAnjutaDocument* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	g_signal_handlers_block_by_func (sv->priv->document, on_insert_text, sv);
 	anjuta_view_copy_clipboard(sv->priv->view);
+	g_signal_handlers_unblock_by_func (sv->priv->document, on_insert_text, sv);
 }
 
 static void 
 idocument_paste(IAnjutaDocument* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	g_signal_handlers_block_by_func (sv->priv->document, on_insert_text, sv);
 	anjuta_view_paste_clipboard(sv->priv->view);
+	g_signal_handlers_unblock_by_func (sv->priv->document, on_insert_text, sv);
 }
 
 static void 
