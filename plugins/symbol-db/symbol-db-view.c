@@ -467,7 +467,7 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 	
 	g_return_if_fail (dbv != NULL);	
 	priv = dbv->priv;
-
+	
 	/* add to root if parent_symbol_id is <= 0 */
 	if (parent_symbol_id <= 0)
 	{

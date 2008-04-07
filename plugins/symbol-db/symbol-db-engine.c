@@ -581,12 +581,16 @@ sdb_engine_cache_lookup (GHashTable** hash_table, const gchar* lookup)
 											g_free,
 											NULL);
 	}
+	else
 	{
-		gpointer id = g_hash_table_lookup (*hash_table, 
-										   lookup);
-		if (id)
+		gpointer orig_key = NULL;
+		gpointer value = NULL;
+		if (g_hash_table_lookup_extended (*hash_table, 
+										  lookup,
+										  &orig_key,
+										  &value))
 		{
-			gint table_id = GPOINTER_TO_INT (id);
+			gint table_id = GPOINTER_TO_INT (value);
 			return table_id;
 		}
 	}
@@ -2774,8 +2778,11 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	if (kind_name == NULL)
 		return -1;
 
-	if ((table_id = sdb_engine_cache_lookup (&priv->kind_cache, kind_name) != -1))
+	table_id = sdb_engine_cache_lookup (&priv->kind_cache, kind_name);
+	if (table_id != -1)
+	{
 		return table_id;
+	}
 
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, kind_name);
@@ -2859,8 +2866,11 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		return -1;
 	}
 	
-	if ((table_id = sdb_engine_cache_lookup (&priv->access_cache, access) != -1))
+	table_id = sdb_engine_cache_lookup (&priv->access_cache, access);
+	if (table_id != -1)
+	{
 		return table_id;
+	}
 
 	
 	value = gda_value_new (G_TYPE_STRING);
@@ -2946,8 +2956,11 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		/* no implementation associated with current tag */
 		return -1;
 	}
-	if ((table_id = sdb_engine_cache_lookup (&priv->implementation_cache, implementation) != -1))
+	table_id = sdb_engine_cache_lookup (&priv->implementation_cache, implementation);
+	if (table_id != -1)
+	{
 		return table_id;
+	}
 	
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, implementation);
