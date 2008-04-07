@@ -1,3 +1,23 @@
+Anjuta 2.4.1 (07 Apr 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+
+Bugfixes:
+=========
+* Fixed #520761 - Weirz behavior with popup
+* Fixed #520415 - [PATCH] Problems in auto indentatation code
+* Fixed #521691 - Crash when click "Resolve Conflicts" without opened project
+* Fixed #520324 - Execute command is not overridable
+* Fixed #521847 - anjuta freezes when editing file
+* Fixed #525706 - Use gnome_vfs_get_slow_mime_type() to determine the
+   mime-type and try supertype instead no plugin for mime-type was found
+* Fixed #525999 - Remove space in file and target names generated
+   by project wizard
+* Fixed sample anjuta plugin
+* Block insert-text signal on cut/copy/paste
+
 Anjuta 2.4.0 (10 Mar 2008) -- Naba Kumar
 -----------------------------------------
 

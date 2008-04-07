@@ -1,3 +1,12 @@
+2008-04-06  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Bumped version 2.4.1
+	* NEWS: Updated.
+
+	patch from  surenspost@gmail.com:
+	* src/about.c: Fixed bug #523068 link in about window doesn't work.
+	(backported from trun)
+
 2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c (idocument_cut),
