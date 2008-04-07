@@ -1,4 +1,10 @@
-2008-04-07  Johannes Schmid  <jhsægnome.org>
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (idocument_cut),
+	(idocument_copy), (idocument_paste):
+	Block insert-text signal on cut/copy/paste
+
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-db/plugin.c (on_char_added),
 	(on_single_file_scan_end):
