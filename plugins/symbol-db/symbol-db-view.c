@@ -1561,6 +1561,7 @@ sdb_view_load_symbol_pixbufs ()
 	
 	/* special icon */
 	CREATE_SYM_ICON ("othersvars",   "Icons.16x16.Event");
+	CREATE_SYM_ICON ("globalglobal", "Icons.16x16.Event");
 }
 
 /**
@@ -1666,6 +1667,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	GPtrArray *filter_array;
 	GtkTreeRowReference *global_tree_row_ref;
 	GtkTreeIter global_child_iter;
+	GdkPixbuf *global_pixbuf;
 	
 	g_return_if_fail (dbv != NULL);
 	
@@ -1744,7 +1746,9 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	/*
 	 * Good. Add a 'Global' node to the store. 
 	 */
-	global_tree_row_ref = do_add_root_symbol_to_view (dbv, NULL, 
+	global_pixbuf = symbol_db_view_get_pixbuf ("global", "global");
+	
+	global_tree_row_ref = do_add_root_symbol_to_view (dbv, global_pixbuf, 
 											"Global", ROOT_GLOBAL);
 		
 	if (global_tree_row_ref == NULL)

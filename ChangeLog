@@ -1,3 +1,14 @@
+2008-04-08  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_global_members_filtered):
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_load_symbol_pixbufs),
+	(sdb_view_build_and_display_base_tree):
+	fixed global tab icons. Libgda could not understood the right fields, now it
+	does.
+
 2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c

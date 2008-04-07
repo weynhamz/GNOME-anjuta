@@ -5374,43 +5374,44 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 		sym_info & SYMINFO_FILE_IGNORE  ||
 		sym_info & SYMINFO_FILE_INCLUDE) 
 	{
-		info_data = g_string_append (info_data, ",file.file_path ");
+		info_data = g_string_append (info_data, ",file.file_path AS file_path ");
 		join_data = g_string_append (join_data, "LEFT JOIN file ON "
 				"symbol.file_defined_id = file.file_id ");
 	}
 
 	if (sym_info & SYMINFO_LANGUAGE)
 	{
-		info_data = g_string_append (info_data, ",language.language_name ");
+		info_data = g_string_append (info_data, ",language.language_name AS language_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN language ON "
 				"file.lang_id = language.language_id ");
 	}
 	
 	if (sym_info & SYMINFO_IMPLEMENTATION)
 	{
-		info_data = g_string_append (info_data, ",sym_implementation.implementation_name ");
+		info_data = g_string_append (info_data, ",sym_implementation.implementation_name AS "
+									 "implementation_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN sym_implementation ON "
 				"symbol.implementation_kind_id = sym_implementation.sym_impl_id ");
 	}
 	
 	if (sym_info & SYMINFO_ACCESS)
 	{
-		info_data = g_string_append (info_data, ",sym_access.access_name ");
+		info_data = g_string_append (info_data, ",sym_access.access_name AS access_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN sym_access ON "
 				"symbol.access_kind_id = sym_access.access_kind_id ");
 	}
 	
 	if (sym_info & SYMINFO_KIND)
 	{
-		info_data = g_string_append (info_data, ",sym_kind.kind_name ");
+		info_data = g_string_append (info_data, ",sym_kind.kind_name AS kind_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN sym_kind ON "
 				"symbol.kind_id = sym_kind.sym_kind_id ");
 	}
 	
 	if (sym_info & SYMINFO_TYPE || sym_info & SYMINFO_TYPE_NAME)
 	{
-		info_data = g_string_append (info_data, ",sym_type.type,"
-									 "sym_type.type_name ");
+		info_data = g_string_append (info_data, ",sym_type.type AS type, "
+									 "sym_type.type_name AS type_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN sym_type ON "
 				"symbol.type_id = sym_type.type_id ");
 	}
@@ -5419,14 +5420,14 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 		sym_info & SYMINFO_FILE_IGNORE  ||
 		sym_info & SYMINFO_FILE_INCLUDE)
 	{
-		info_data = g_string_append (info_data, ",project.project_name ");
+		info_data = g_string_append (info_data, ",project.project_name AS project_name ");
 		join_data = g_string_append (join_data, "LEFT JOIN project ON "
 				"file.prj_id = project.project_id ");
 	}	
 
 	if (sym_info & SYMINFO_FILE_IGNORE)
 	{
-		info_data = g_string_append (info_data, ",file_ignore.type AS file_ignore_type ");
+		info_data = g_string_append (info_data, ",file_ignore.type AS file_ignore_type");
 		join_data = g_string_append (join_data, "LEFT JOIN ext_ignore ON "
 				"ext_ignore.prj_id = project.project_id "
 				"LEFT JOIN file_ignore ON "
@@ -5670,9 +5671,10 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	
 	if (filter_kinds == NULL) 
 	{
-		query_str = g_strdup_printf ("SELECT symbol.symbol_id, "
-			"symbol.name, symbol.file_position, symbol.is_file_scope, "
-			"symbol.signature, sym_kind.kind_name %s FROM symbol "
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
+			"symbol.name AS name, symbol.file_position AS file_position, "
+			"symbol.is_file_scope AS is_file_scope, "
+			"symbol.signature AS signature, sym_kind.kind_name AS kind_name %s FROM symbol "
 				"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
 				"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
 						"%s %s %s", info_data->str, join_data->str,
@@ -5709,9 +5711,10 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		
 		}
 		
-		query_str = g_strdup_printf ("SELECT symbol.symbol_id, symbol.name, "
-			"symbol.file_position, "
-			"symbol.is_file_scope, symbol.signature, sym_kind.kind_name %s FROM symbol "
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
+			"symbol.name AS name, symbol.file_position AS file_position, "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+				"sym_kind.kind_name AS kind_name %s FROM symbol "
 				"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 				"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
 				"%s %s %s %s", info_data->str, join_data->str, 
@@ -5720,27 +5723,6 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	}
 	
 	DEBUG_PRINT ("symbol_db_engine_get_global_members_filtered query is %s", query_str);
-	
-/* FIXME once libgda has stabilized */	
-#if 0
-	GdaCommand *command;
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
-		  gda_data_model_get_n_rows (data) <= 0 ) 
-	{
-		gda_command_free (command);
-		g_free (query_str);
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
-		return NULL;			  
-	}
-
-//	gda_data_model_dump (data, stdout);
-	gda_command_free (command);	
-#else
 	
 	if (limit_free)
 		g_free (limit);
@@ -5758,8 +5740,9 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}
-//	gda_data_model_dump (data, stdout);
-#endif
+
+/*	gda_data_model_dump (data, stdout);*/
+	
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
