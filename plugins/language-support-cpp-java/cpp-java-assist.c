@@ -47,6 +47,7 @@ typedef struct
 {
 	gchar *name;
 	gboolean is_func;
+	IAnjutaSymbolType type;
 } CppJavaAssistTag;
 
 struct _CppJavaAssistPriv {
@@ -72,7 +73,8 @@ completion_compare (gconstpointer a, gconstpointer b)
 {
 	CppJavaAssistTag * tag_a = (CppJavaAssistTag*) a;
 	CppJavaAssistTag * tag_b = (CppJavaAssistTag*) b;
-	return strcmp (tag_a->name, tag_b->name);
+	return (strcmp (tag_a->name, tag_b->name) &&
+			tag_a->type == tag_b->type);
 }
 
 static void
@@ -137,31 +139,28 @@ static GCompletion*
 create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
 {
 	GCompletion *completion = g_completion_new (completion_function);
-	GHashTable *suggestions_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	GList* suggestions = NULL;
 	do
 	{
 		const gchar* name = ianjuta_symbol_get_name (IANJUTA_SYMBOL(iter), NULL);
 		if (name != NULL)
 		{
-			if (!g_hash_table_lookup (suggestions_hash, name))
-			{
-				CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
-				tag->name = g_strdup (name);
-				tag->is_func = (ianjuta_symbol_get_args (IANJUTA_SYMBOL (iter),
-													 NULL)
-								!= NULL);
-				g_hash_table_insert (suggestions_hash, (gchar*)name,
-									 (gchar*)name);
+			CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
+			tag->name = g_strdup (name);
+			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
+													 NULL);
+			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
+							tag->type == IANJUTA_SYMBOL_TYPE_METHOD ||
+							tag->type == IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG);
+			if (!g_list_find_custom (suggestions, tag, completion_compare))
 				suggestions = g_list_prepend (suggestions, tag);
-			}
+			else
+				g_free (tag);
 		}
 		else
 			break;
 	}
 	while (ianjuta_iterable_next (iter, NULL));
-	
-	g_hash_table_destroy (suggestions_hash);
 	
 	suggestions = g_list_sort (suggestions, completion_compare);
 	g_completion_add_items (completion, suggestions);
@@ -341,7 +340,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
-										IANJUTA_SYMBOL_FIELD_SIMPLE,
+										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										pre_word, TRUE, TRUE, NULL);
 	if (iter)
 	{

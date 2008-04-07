@@ -1,5 +1,14 @@
 2008-04-07  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(completion_compare), (create_completion),
+	(cpp_java_assist_create_word_completion_cache):
+	
+	Only show () for functions/methods and macros with arguments. Does not work
+	with symbol-db yet but fixes things for symbol-browser
+
+2008-04-07  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_cache_lookup),
 	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
 	(sdb_engine_add_new_sym_implementation):
