@@ -1,3 +1,9 @@
+2008-04-08  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_populate_db_by_tags):
+	Don't use transactions - uses only half of the time now!
+
 2008-04-08  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/symbol-db-engine.c

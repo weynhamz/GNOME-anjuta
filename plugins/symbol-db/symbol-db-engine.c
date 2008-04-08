@@ -1126,10 +1126,6 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		g_warning ("error in opening ctags file");
 	}
 
-	gda_connection_begin_transaction (priv->db_connection, NULL, 
-									  GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, 
-									  NULL);
-
 	if (sym_timer_DEBUG == NULL)
 		sym_timer_DEBUG = g_timer_new ();
 	else
@@ -1182,8 +1178,6 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	DEBUG_PRINT ("EMITTING single-file-scan-end");
 	/* notify listeners that another file has been scanned */
 	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
-	
-	gda_connection_commit_transaction (priv->db_connection, NULL, NULL);
 }
 
 static gpointer
