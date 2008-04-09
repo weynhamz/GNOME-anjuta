@@ -1,3 +1,8 @@
+2008-04-09  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_finalize):
+	Fixed crasher when deactivating symbol-db plugin
+
 2008-04-08  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine.c

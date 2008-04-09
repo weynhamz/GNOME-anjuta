@@ -1788,7 +1788,13 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);	
 	priv = dbe->priv;
-
+	
+	if (priv->timeout_trigger_handler > 0)
+		g_source_remove (priv->timeout_trigger_handler);
+	
+	if (priv->thread_monitor_handler > 0)
+		g_source_remove (priv->thread_monitor_handler);
+		
 	sdb_engine_disconnect_from_db (dbe);
 	sdb_engine_free_cached_queries (dbe);
 	
@@ -1840,27 +1846,18 @@ sdb_engine_finalize (GObject * object)
 	
 	if (priv->mutex)
 	{
-		/* Let's try that the mutex is not used... */
-		g_mutex_lock (priv->mutex);
-		g_mutex_unlock (priv->mutex);
 		g_mutex_free (priv->mutex);
 		priv->mutex = NULL;
 	}
-	
-	if (priv->timeout_trigger_handler > 0)
-		g_source_remove (priv->timeout_trigger_handler);
-	
-	if (priv->thread_monitor_handler > 0)
-		g_source_remove (priv->thread_monitor_handler);
-	
-	if (priv->signals_queue != NULL)
-		g_async_queue_unref (priv->signals_queue);
 	
 	if (priv->thread_list != NULL)
 		g_queue_free  (priv->thread_list);
 
 	if (priv->sym_type_conversion_hash)
 		g_hash_table_destroy (priv->sym_type_conversion_hash);
+	
+	if (priv->signals_queue != NULL)
+		g_async_queue_unref (priv->signals_queue);
 	
 	sdb_engine_clear_caches (dbe);
 	
