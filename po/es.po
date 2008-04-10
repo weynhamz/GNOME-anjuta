@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-06 12:09+0100\n"
+"POT-Creation-Date: 2008-04-10 08:43+0100\n"
 "PO-Revision-Date: 2008-04-10 09:41+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -245,14 +245,14 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:1164 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1167 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1165
+#: ../libanjuta/anjuta-launcher.c:1168
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -279,6 +279,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
+#: ../plugins/symbol-db/symbol-db-prefs.c:597
 msgid "Load"
 msgstr "Carga"
 
@@ -495,8 +496,10 @@ msgstr "_Descartar los cambios"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
-msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgid ""
+"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural ""
+"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
 "<b>Hay %d elemento con cambios sin guardar. ¿Desea guardar los cambios antes "
 "de cerrar?</b>"
@@ -2097,7 +2100,8 @@ msgstr "Información de archivos _objetivo"
 
 #: ../plugins/debug-manager/plugin.c:911
 msgid "Display information on the files the debugger is active with"
-msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr ""
+"Mostrar información de los archivos con los que el depurador está trabajando"
 
 #: ../plugins/debug-manager/plugin.c:917
 msgid "Info _Program"
@@ -2221,7 +2225,8 @@ msgstr "Operaciones de depuración"
 
 #: ../plugins/debug-manager/queue.c:545
 #, c-format
-msgid "Unable to find one debugger plugin supporting a target with %s mime type"
+msgid ""
+"Unable to find one debugger plugin supporting a target with %s mime type"
 msgstr ""
 "No se puede encontrar un complemento de depuración que soporte un objetivo "
 "con un tipo MIME %s"
@@ -2389,7 +2394,9 @@ msgstr "Comando"
 msgid ""
 "Some files are not saved. Do you want to save all them before starting the "
 "debugger?"
-msgstr "Algunos archivos no se guardaron. ¿Quiere guardarlos todos antes de iniciar el depurador?"
+msgstr ""
+"Algunos archivos no se guardaron. ¿Quiere guardarlos todos antes de iniciar "
+"el depurador?"
 
 #: ../plugins/debug-manager/start.c:717
 #, c-format
@@ -2834,7 +2841,8 @@ msgstr "Convertir EOL a mayoría de EOL"
 
 #: ../plugins/document-manager/plugin.c:208
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
+msgstr ""
+"Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
 
 #: ../plugins/document-manager/plugin.c:213
 msgid "_Select"
@@ -3657,7 +3665,8 @@ msgstr "No se pudo obtener la información del archivo"
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1350
 msgid "This file is too big. Unable to allocate memory."
-msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr ""
+"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1357
 msgid "Could not open file"
@@ -3879,6 +3888,7 @@ msgid "<b>Filter</b>"
 msgstr "<b>Filtro</b>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
 msgid "<b>Global</b>"
 msgstr "<b>Global</b>"
 
@@ -4091,7 +4101,8 @@ msgstr "No hay ningún ejecutable especificado.\n"
 
 #: ../plugins/gdb/debugger.c:938
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
+msgstr ""
+"Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
 #: ../plugins/gdb/debugger.c:947
 msgid "There was an error whilst launching the debugger.\n"
@@ -4193,7 +4204,8 @@ msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid "Failed to create fifo file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
 "Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
 "una terminal."
@@ -4324,7 +4336,8 @@ msgstr "detenido:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
-msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
+msgstr ""
+"Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
 #: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected todo item?"
@@ -4337,7 +4350,8 @@ msgstr "Eliminar"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
+msgstr ""
+"¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
@@ -4428,7 +4442,8 @@ msgstr "No se ha proporcionado ningún nombre de archivo."
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
+msgstr ""
+"Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
 #: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
@@ -4577,8 +4592,10 @@ msgstr "Notificación"
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] "Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
-msgstr[1] "Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
+msgstr[0] ""
+"Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
+msgstr[1] ""
+"Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5098,7 +5115,8 @@ msgstr "Mostrar todos los símbolos"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
-msgstr "Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
+msgstr ""
+"Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
@@ -5285,7 +5303,8 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
-msgstr "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
+msgstr ""
+"El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
 #: ../plugins/project-manager/plugin.c:709
 #, c-format
@@ -5537,9 +5556,9 @@ msgid ""
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
 msgstr ""
-"Se requieren algunos programas o paquetes de desarrollo importantes que faltan "
-"para construir este proyecto. Asegúrese de que están instalados adecuadamente "
-"antes de generar el proyecto.\n"
+"Se requieren algunos programas o paquetes de desarrollo importantes que "
+"faltan para construir este proyecto. Asegúrese de que están instalados "
+"adecuadamente antes de generar el proyecto.\n"
 
 #: ../plugins/project-wizard/druid.c:709
 msgid "Missing components"
@@ -5554,15 +5573,17 @@ msgid ""
 "suffix in package names and can be found by searching in your Application "
 "Manager."
 msgstr ""
-"Los programas faltantes generalmente son parte de alguna distribución de paquetes y "
-"se pueden buscar en su Gestor de aplicaciones. De forma similar, los paquetes de desarrollo "
-"están contenidos en paquetes especiales que su distribución proporciona para permitir "
-"el desarrollo de proyectos basados en ellos. Generalmente acaban con el sufijo -dev o -devel "
-"en el nombre del paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
+"Los programas faltantes generalmente son parte de alguna distribución de "
+"paquetes y se pueden buscar en su Gestor de aplicaciones. De forma similar, "
+"los paquetes de desarrollo están contenidos en paquetes especiales que su "
+"distribución proporciona para permitir el desarrollo de proyectos basados en "
+"ellos. Generalmente acaban con el sufijo -dev o -devel en el nombre del "
+"paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
 #: ../plugins/project-wizard/druid.c:916
 msgid "Unable to build project assistant user interface."
-msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
+msgstr ""
+"No se pudo construir la interfaz de usuario del asistente de proyectos."
 
 #: ../plugins/project-wizard/install.c:387
 msgid "New project has been created successfully."
@@ -5875,10 +5896,12 @@ msgstr "Usar libglade para el IU"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
+msgstr ""
+"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
+msgid ""
+"Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "Usar la biblioteca libglade-2.0 para cargar el archivo de interfaz glade al "
 "ejecutar"
@@ -6106,7 +6129,8 @@ msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
 #: ../plugins/search/plugin.c:204
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
 #: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
@@ -6940,6 +6964,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:789
+#: ../plugins/symbol-db/symbol-db-prefs.c:605
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
@@ -7038,6 +7063,31 @@ msgstr "Navegación de símbolos"
 #: ../plugins/symbol-browser/plugin.c:959
 msgid "Symbols"
 msgstr "Símbolos"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:560
+#: ../plugins/symbol-db/symbol-db-prefs.c:645
+#, fuzzy
+msgid "Symbol Database"
+msgstr "Símbolos"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
+#, fuzzy
+msgid "<b>Available API tags</b>"
+msgstr "<b>Etiquetas del API disponibles:</b>"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+#, fuzzy
+msgid "Choose Ctags executable"
+msgstr "Cargando ejecutable: "
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#, fuzzy
+msgid "Ctags executable:"
+msgstr "Cargando ejecutable: "
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+msgid "button"
+msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -7147,7 +7197,8 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:444
 msgid "Unable to build user interface for tool variable"
-msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
@@ -7187,7 +7238,8 @@ msgstr "Acelerador nuevo…"
 
 #: ../plugins/tools/editor.c:978
 msgid "Unable to build user interface for tool editor"
-msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: ../plugins/tools/execute.c:312
 #, c-format
@@ -7306,7 +7358,8 @@ msgid "Valgrind"
 msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
-msgid "No executable target selected for debugging with Valgrind. Please select one."
+msgid ""
+"No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
 "No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
 "Seleccione uno."
@@ -7514,7 +7567,8 @@ msgstr "Redondear tamaños de malloc a la siguiente palabra"
 
 #: ../plugins/valgrind/vggeneralprefs.c:222
 msgid "Trace any child processes forked off by the program being debugged"
-msgstr "Trazar cualquier proceso bifurcado por el programa que se está depurando"
+msgstr ""
+"Trazar cualquier proceso bifurcado por el programa que se está depurando"
 
 #: ../plugins/valgrind/vggeneralprefs.c:230
 msgid "Track open file descriptors"
@@ -7526,7 +7580,8 @@ msgstr "Añadir sello temporal a los mensajes de registro"
 
 #: ../plugins/valgrind/vggeneralprefs.c:246
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr "Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
+msgstr ""
+"Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
 
 #: ../plugins/valgrind/vggeneralprefs.c:254
 msgid "Suppressions File:"
@@ -7886,7 +7941,8 @@ msgstr "No abrir el último proyecto y los archivos al iniciar"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
+msgstr ""
+"Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
 
 #: ../src/main.c:314
 msgid "- Integrated Development Environment"
@@ -7918,7 +7974,8 @@ msgstr "Añadir «(» después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
-msgstr "Añadir un espacio después de la llamada de autocompletado de la función"
+msgstr ""
+"Añadir un espacio después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
@@ -8204,4 +8261,3 @@ msgstr "Cargador de archivos para cargar diferentes archivos"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Complemento de gestión de depuración."
-
