@@ -1,3 +1,33 @@
+2008-04-10  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c:
+	* plugin.c:
+	Check for ctags binary (#516123)
+
+2008-04-09  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_execute_non_select_sql), (sdb_engine_get_query_by_id),
+	(sdb_engine_get_query_parameters_list),
+	(sdb_engine_free_cached_queries),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_add_new_symbol), (sdb_engine_update_file),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_project_symbols):
+	GdaSet *plist is now used globally for every prepared statement.
+	It won't be created/unreffed at every query.
+
 2008-04-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_finalize):

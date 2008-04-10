@@ -113,6 +113,7 @@ select symbol_id_base, symbol.name from heritage
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
 #include "readtags.h"
@@ -132,7 +133,7 @@ select symbol_id_base, symbol.name from heritage
 // FIXME: detect it by prefs
 #define CTAGS_PATH		"/usr/bin/ctags"
 
-#define THREADS_MONITOR_TIMEOUT			50
+#define THREADS_MONITOR_TIMEOUT			10
 #define THREADS_MAX_CONCURRENT			15
 #define TRIGGER_SIGNALS_DELAY			100
 #define	TRIGGER_MAX_CLOSURE_RETRIES		50
@@ -197,6 +198,7 @@ typedef struct _query_node
 	query_type query_id;
 	gchar *query_str;
 	GdaStatement *stmt;
+	GdaSet *plist;
 
 } query_node;
 
@@ -213,13 +215,15 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "INSERT INTO workspace (workspace_name, analyse_time) "
 	 "VALUES (## /* name:'wsname' type:gchararray */,"
 	 "datetime ('now', 'localtime'))",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
 	 "SELECT workspace_id FROM workspace WHERE workspace_name = ## /* name:'wsname' "
 	 "type:gchararray */",
-	 NULL
+	 NULL,
+ 	 NULL			
 	},
 	/* -- project -- */
 	{
@@ -227,18 +231,21 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "INSERT INTO project (project_name, wrkspace_id, analyse_time) "
 	 "VALUES (## /* name:'prjname' type:gchararray */,"
 	 "## /* name:'wsid' type:gint */, datetime ('now', 'localtime'))",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
 	 "SELECT project_id FROM project WHERE project_name = ## /* name:'prjname' "
 	 "type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME,
 	 "UPDATE project SET analyse_time = datetime('now', 'localtime', '+10 seconds') WHERE "
 	 "project_name = ## /* name:'prjname' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- file -- */
@@ -248,18 +255,21 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "## /* name:'filepath' type:gchararray */, ## /* name:'prjid' "
 	 "type:gint */, ## /* name:'langid' type:gint */, "
 	 "datetime ('now', 'localtime'))",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
 	 "SELECT file_id FROM file WHERE file_path = ## /* name:'filepath' "
 	 "type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
 	 "SELECT * FROM file WHERE prj_id = (SELECT project_id FROM project "
 	 "WHERE project_name = ## /* name:'prjname' type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
@@ -270,12 +280,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 		"SELECT * FROM file JOIN project on project_id = prj_id WHERE "\
 		"project.name = ## / * name:'prjname' type:gchararray * /",
 */
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_UPDATE_FILE_ANALYSE_TIME,
 	 "UPDATE file SET analyse_time = datetime('now', 'localtime') WHERE "
 	 "file_path = ## /* name:'filepath' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	{
@@ -288,12 +300,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_LANGUAGE_NEW,
 	 "INSERT INTO language (language_name) VALUES (## /* name:'langname' "
 	 "type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
 	 "SELECT language_id FROM language WHERE language_name = ## /* name:'langname' "
 	 "type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- sym type -- */
@@ -301,6 +315,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_SYM_TYPE_NEW,
 	 "INSERT INTO sym_type (type, type_name) VALUES (## /* name:'type' "
 	 "type:gchararray */, ## /* name:'typename' type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
@@ -308,6 +323,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "SELECT type_id FROM sym_type WHERE type = ## /* name:'type' "
 	 "type:gchararray */ AND type_name = ## /* name:'typename' "
 	 "type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- sym kind -- */
@@ -315,12 +331,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_SYM_KIND_NEW,
 	 "INSERT INTO sym_kind (kind_name) VALUES(## /* name:'kindname' "
 	 "type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
 	 "SELECT sym_kind_id FROM sym_kind WHERE kind_name = ## /* "
 	 "name:'kindname' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- sym access -- */
@@ -328,12 +346,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_SYM_ACCESS_NEW,
 	 "INSERT INTO sym_access (access_name) VALUES(## /* name:'accesskind' "
 	 "type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_SYM_ACCESS_BY_UNIQUE_NAME,
 	 "SELECT access_kind_id FROM sym_access WHERE access_name = ## /* "
 	 "name:'accesskind' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- sym implementation -- */
@@ -341,12 +361,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_SYM_IMPLEMENTATION_NEW,
 	 "INSERT INTO sym_implementation (implementation_name) VALUES(## /* name:'implekind' "
 	 "type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
 	 "SELECT sym_impl_id FROM sym_implementation WHERE kind = ## /* "
 	 "name:'implekind' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	/* -- heritage -- */
@@ -354,6 +376,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_HERITAGE_NEW,
 	 "INSERT INTO heritage (symbol_id_base, symbol_id_derived) VALUES(## /* "
 	 "name:'symbase' type:gint */, ## /* name:'symderived' type:gint */)",
+	 NULL,
 	 NULL
 	},
 	/* -- scope -- */
@@ -361,12 +384,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 PREP_QUERY_SCOPE_NEW,
 	 "INSERT INTO scope (scope_name, type_id) VALUES(## /* name:'scope' "
 	 "type:gchararray */, ## /* name:'typeid' type:gint */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_SCOPE_ID,
 	 "SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
 	 "type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */",
+	 NULL,
 	 NULL
 	},
 	/* -- tmp heritage -- */
@@ -380,21 +405,25 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "type:gchararray */, ## /* name:'fenum' type:gchararray */, ## /* "
 	 "name:'funion' type:gchararray */, ## /* name:'fclass' type:gchararray "
 	 "*/, ## /* name:'fnamespace' type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
 	 "SELECT * FROM __tmp_heritage_scope",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
 	 "SELECT * FROM __tmp_heritage_scope WHERE field_inherits != ''",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
 	 "DELETE FROM __tmp_heritage_scope",
+	 NULL,
 	 NULL
 	},
 	/* -- symbol -- */
@@ -411,6 +440,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "/* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
 	 "## /* name:'implementationkindid' type:gint */, ## /* "
 	 "name:'updateflag' type:gint */)",
+	 NULL,
 	 NULL
 	},
 	{
@@ -419,6 +449,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "= sym_type.type_id WHERE sym_type.type = ## /* name:'tokenname' "
 	 "type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
 	 "type:gchararray */ LIMIT 1",
+	 NULL,
 	 NULL
 	},
 	{
@@ -426,6 +457,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
 	 "sym_type.type_id WHERE scope_id=0 AND sym_type.type='class' AND "
 	 "name = ## /* name:'klassname' type:gchararray */",
+	 NULL,
 	 NULL
 	},
 	{
@@ -435,12 +467,14 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "WHERE symbol.name = /* name:'klassname' type:gchararray */ AND "
 	 "scope.scope_name = /* name:'namespacename' type:gchararray */ AND "
 	 "sym_type.type='namespace'",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
 	 "UPDATE symbol SET scope_id = ## /* name:'scopeid' type:gint */ "
 	 "WHERE symbol_id = ## /* name:'symbolid' type:gint */",
+	 NULL,
 	 NULL
 	},
 	{
@@ -448,6 +482,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
 	 "type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' "
 	 "type:gint */ AND type_id = ## /* name:'typeid' type:gint */",
+	 NULL,
 	 NULL
 	},
 	{
@@ -462,6 +497,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "'implementationkindid' type:gint */, update_flag = ## /* name:"
 	 "'updateflag' type:gint */ WHERE symbol_id = ## /* name:'symbolid' type:"
 	 "gint */",
+	 NULL,
 	 NULL
 	},
 	{
@@ -469,6 +505,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file "
 	 "WHERE file_path = ## /* name:'filepath' type:gchararray */) "
 	 "AND update_flag = 0",
+	 NULL,
 	 NULL
 	},
 	{
@@ -476,17 +513,20 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "UPDATE symbol SET update_flag = 0 "
 	 "WHERE file_defined_id = (SELECT file_id FROM file WHERE "
 	 "file_path = ## /* name:'filepath' type:gchararray */)",
+	 NULL,
 	 NULL
 	},
 	/* -- tmp_removed -- */
 	{
 	 PREP_QUERY_GET_REMOVED_IDS,
 	 "SELECT symbol_removed_id FROM __tmp_removed",
+	 NULL,
 	 NULL
 	},
 	{
 	 PREP_QUERY_TMP_REMOVED_DELETE_ALL,
 	 "DELETE FROM __tmp_removed",
+	 NULL,
 	 NULL
 	}	  
 };
@@ -699,9 +739,6 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 	
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, stmt, 
 														 NULL, NULL, NULL);
-	if (nrows == -1) 
-    	DEBUG_PRINT ("NON SELECT error: %s\n", sql);
-
 	if (remain != NULL) {
 		/* may happen for example when sql is a file-content */
 		sdb_engine_execute_non_select_sql (dbe, remain);
@@ -715,6 +752,7 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
  * Use a proxy to return an already present or a fresh new prepared query 
  * from static 'query_list'. We should perform actions in the fastest way, because
  * these queries are time-critical.
+ * A GdaSet will also be populated once, avoiding so to create again later on.
  */
 static inline const GdaStatement *
 sdb_engine_get_query_by_id (SymbolDBEngine * dbe, query_type query_id)
@@ -732,15 +770,34 @@ sdb_engine_get_query_by_id (SymbolDBEngine * dbe, query_type query_id)
 
 	if (node->stmt == NULL)
 	{
-		DEBUG_PRINT ("generating new statement.... %d", query_id);
+		DEBUG_PRINT ("generating new statement.. %d", query_id);
 		/* create a new GdaStatement */
 		node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, node->query_str, NULL, 
 										 NULL);
+
+		if (gda_statement_get_parameters ((GdaStatement*)node->stmt, 
+										  &node->plist, NULL) == FALSE)
+		{
+			g_warning ("Error on getting parameters for %d", query_id);
+		}
 	}
 
 	return node->stmt;
 }
+
+/**
+ * Return a GdaSet of parameters calculated from the statement. It does not check
+ * if it's null. You *must* be sure to have called sdb_engine_get_query_by_id () first.
+ */
+static inline const GdaSet *
+sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, query_type query_id)
+{
+	query_node *node;
+	node = &query_list[query_id];
+	return node->plist;
+}
+
 
 /* DEPRECATED, REMOVED.
 static inline gint
@@ -776,8 +833,14 @@ sdb_engine_free_cached_queries (SymbolDBEngine * dbe)
 
 		if (node->stmt != NULL)
 		{
-			g_object_unref ((gpointer) node->stmt);
+			g_object_unref (node->stmt);
 			node->stmt = NULL;
+		}
+		
+		if (node->plist != NULL)
+		{
+			g_object_unref (node->plist);
+			node->plist = NULL;
 		}
 	}
 }
@@ -806,14 +869,14 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 }
 
 /**
- * @return -1 on error. Otherwise the id of tuple
+ * @return -1 on error. Otherwise the id of tuple.
  */
 static gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
 										gchar * param_key,
 										const GValue * param_value)
 {
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaDataModel *data_model;
@@ -830,17 +893,12 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("Error on getting parameters");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
 	
-	if ((param = gda_set_get_holder (plist, param_key)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
 				   "from pquery!\n");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, param_value);
@@ -848,14 +906,13 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
 	/* execute the query with parametes just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  plist, NULL);
+														  (GdaSet*)plist, NULL);
 		
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -864,7 +921,6 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
-	g_object_unref (plist);
 	return table_id;
 }
 
@@ -882,7 +938,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 										 gchar * param_key2,
 										 const GValue * value2)
 {
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaDataModel *data_model;
@@ -899,30 +955,24 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("Error on getting parameters");
-		return -1;
-	}
-
+	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
+	
 	/* look for and set the first parameter */
-	if ((param = gda_set_get_holder (plist, param_key1)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, value1);
 	
 	/* ...and the second one */
-	if ((param = gda_set_get_holder (plist, param_key2)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, value2);
@@ -930,14 +980,13 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 	/* execute the query with parametes just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  plist, NULL);
+														  (GdaSet*)plist, NULL);
 		
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -946,7 +995,6 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
-	g_object_unref (plist);
 	
 	return table_id;
 }
@@ -960,7 +1008,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
 										 gchar * param_key3,
 										 const GValue * value3)
 {
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaDataModel *data_model;
@@ -977,40 +1025,33 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("Error on getting parameters");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
 	
-	if ((param = gda_set_get_holder (plist, param_key1)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
 				   "from pquery!\n");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, value1);
 	
 
 	/* ...and the second one */
-	if ((param = gda_set_get_holder (plist, param_key2)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, value2);
 
 	/* ...and the third one */
-	if ((param = gda_set_get_holder (plist, param_key3)) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key3)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key3);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value (param, value3);
@@ -1018,14 +1059,13 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
 	/* execute the query with parametes just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  plist, NULL);
+														  (GdaSet*)plist, NULL);
 		
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -1034,7 +1074,6 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
-	g_object_unref (plist);
 	return table_id;
 }
 
@@ -1064,9 +1103,9 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 	}
 	
 	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-																   PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
-																   "filepath",
-																   value)) < 0)
+													PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
+													"filepath",
+													value)) < 0)
 	{	
 		/* if we arrive here there should be some sync problems between the filenames
 		 * in database and the ones in the ctags files. We trust in db's ones,
@@ -1557,6 +1596,10 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	g_return_val_if_fail (files_list != NULL, FALSE);
 	
 	if (files_list->len == 0)
+		return FALSE;
+	
+	/* Check if ctags is really installed */
+	if (!anjuta_util_prog_is_installed (CTAGS_PATH, TRUE))
 		return FALSE;
 	
 	/* start process in server mode */
@@ -2184,7 +2227,7 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
                         analyse_time DATE
                         );
 */
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
@@ -2201,17 +2244,11 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 		return FALSE;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("Error on getting parameters");
-		return FALSE;
-	}
-	
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_WORKSPACE_NEW);
 
-	if ((param = gda_set_get_holder (plist, "wsname")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
 		g_warning ("param is NULL from pquery!\n");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_holder_set_value_str (param, NULL, workspace_name);
@@ -2220,14 +2257,12 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 	GError *err = NULL;
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  plist, NULL, &err) == -1)
+														  (GdaSet*)plist, NULL, &err) == -1)
 	{		
 		DEBUG_PRINT ("Error: %s", err->message);
-		g_object_unref (plist);
 		return FALSE;
 	}
 
-	g_object_unref (plist);
 	return TRUE;
 }
 
@@ -2282,7 +2317,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       analyse_time DATE
                       );
 */
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GValue *value;
@@ -2344,25 +2379,19 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 		return FALSE;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("Error on getting parameters");
-		return FALSE;
-	}
-
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_PROJECT_NEW);	
+	
 	/* lookup parameters */
-	if ((param = gda_set_get_holder (plist, "prjname")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 	{
 		g_warning ("param prjname is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_holder_set_value_str (param, NULL, project);
 		
-	if ((param = gda_set_get_holder (plist, "wsid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsid")) == NULL)
 	{
 		g_warning ("param prjname is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	value = gda_value_new (G_TYPE_INT);
@@ -2373,16 +2402,13 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	GError *err = NULL;
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  plist, NULL, &err) == -1)
+														  (GdaSet*)plist, NULL, &err) == -1)
 	{		
 		DEBUG_PRINT ("Error: %s", err->message);
 		gda_value_free (value);
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_value_free (value);	
-	g_object_unref (plist);
-	
 	return TRUE;
 }
 
@@ -2412,7 +2438,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 						value)) < 0)
 	{
 		/* insert a new entry on db */
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted;
@@ -2424,16 +2450,11 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 			return FALSE;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return FALSE;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_LANGUAGE_NEW);
 
-		if ((param = gda_set_get_holder (plist, "langname")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "langname")) == NULL)
 		{
 			g_warning ("param langname is NULL from pquery!");
-			g_object_unref (plist);
 			return FALSE;
 		}
 		gda_holder_set_value_str (param, NULL, language);
@@ -2442,7 +2463,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
-														 plist, &last_inserted,
+														 (GdaSet*)plist, &last_inserted,
 														 &err) == -1)
 		{		
 			DEBUG_PRINT ("Error: %s", err->message);
@@ -2451,9 +2472,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 		else {
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
-		}
-		
-		g_object_unref (plist);
+		}		
 	}
 	gda_value_free (value);	
 	
@@ -2528,7 +2547,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 								   value)) < 0)
 	{
 		/* insert a new entry on db */
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GValue *value;
@@ -2542,27 +2561,21 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 			return FALSE;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return FALSE;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_FILE_NEW);
 		
 		/* filepath parameter */
-		if ((param = gda_set_get_holder (plist, "filepath")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
 		{
 			g_warning ("param langname is NULL from pquery!");
-			g_object_unref (plist);
 			return FALSE;
 		}
 		gda_holder_set_value_str (param, NULL, local_filepath + 
 								  strlen(priv->project_directory));
 
 		/* project id parameter */
-		if ((param = gda_set_get_holder (plist, "prjid")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 		{
 			g_warning ("param prjid is NULL from pquery!");
-			g_object_unref (plist);
 			return FALSE;
 		}
 		value = gda_value_new (G_TYPE_INT);
@@ -2570,10 +2583,9 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		gda_holder_set_value (param, value);
 
 		/* language id parameter */
-		if ((param = gda_set_get_holder (plist, "langid")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
 		{
 			g_warning ("param langid is NULL from pquery!");
-			g_object_unref (plist);
 			return FALSE;
 		}
 
@@ -2586,15 +2598,12 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
-														 plist, NULL,
+														 (GdaSet*)plist, NULL,
 														 &err) == -1)
 		{		
 			DEBUG_PRINT ("Error: %s", err->message);
-			g_object_unref (plist);
 			return FALSE;
 		}	
-		
-		g_object_unref (plist);
 	}
 	gda_value_free (value);
 	
@@ -2666,7 +2675,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	const gchar *type;
 	const gchar *type_name;
 	gint table_id;	
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted;
@@ -2686,26 +2695,20 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{		
-		g_warning ("par_list is NULL!\n");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_TYPE_NEW);
 
 	/* type parameter */
-	if ((param = gda_set_get_holder (plist, "type")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "type")) == NULL)
 	{
 		g_warning ("param type is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, type);
 
 	/* type_name parameter */
-	if ((param = gda_set_get_holder (plist, "typename")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
 	{
 		g_warning ("param typename is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, type_name);
@@ -2713,7 +2716,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, &last_inserted,
+													 (GdaSet*)plist, &last_inserted,
 													 NULL) == -1)
 	{
 		GValue *value1, *value2;
@@ -2734,7 +2737,6 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 
 		gda_value_free (value1);
 		gda_value_free (value2);
-		g_object_unref (plist);
 		return table_id;
 	}	
 	else 
@@ -2743,7 +2745,6 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		table_id = g_value_get_int (value);
 	}		
 	
-	g_object_unref (plist);
 	return table_id;
 }
 
@@ -2784,7 +2785,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 										"kindname",
 										value)) < 0)
 	{
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted;
@@ -2797,17 +2798,12 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 			return -1;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_KIND_NEW);
 		
 		/* kindname parameter */
-		if ((param = gda_set_get_holder (plist, "kindname")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "kindname")) == NULL)
 		{
 			g_warning ("param kindname is NULL from pquery!");
-			g_object_unref (plist);
 			return FALSE;
 		}
 		gda_holder_set_value_str (param, NULL, kind_name);
@@ -2817,7 +2813,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
-														 plist, &last_inserted,
+														 (GdaSet*)plist, &last_inserted,
 														 &err) == -1)
 		{		
 			table_id = -1;		
@@ -2827,7 +2823,6 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
 		}
-		g_object_unref (plist);
 	}
 	gda_value_free (value);
 	
@@ -2872,7 +2867,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 									"accesskind",
 									value)) < 0)
 	{
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted;
@@ -2886,17 +2881,12 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 			return -1;
 		}
 		
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_ACCESS_NEW);
 		
 		/* accesskind parameter */
-		if ((param = gda_set_get_holder (plist, "accesskind")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskind")) == NULL)
 		{			
 			g_warning ("param accesskind is NULL from pquery!");
-			g_object_unref (plist);
 			return -1;
 		}
 		gda_holder_set_value_str (param, NULL, access);
@@ -2905,7 +2895,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
-														 plist, &last_inserted,
+														 (GdaSet*)plist, &last_inserted,
 														 &err) == -1)
 		{		
 			table_id = -1;		
@@ -2914,9 +2904,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		{
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
-		}
-		
-		g_object_unref (plist);
+		}		
 	}
 	gda_value_free (value);	
 	sdb_engine_insert_cache (priv->access_cache, access, table_id);
@@ -2961,7 +2949,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 							"implekind",
 							value)) < 0)
 	{
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted;
@@ -2975,17 +2963,12 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 			return -1;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_IMPLEMENTATION_NEW);
 		
 		/* implekind parameter */
-		if ((param = gda_set_get_holder (plist, "implekind")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "implekind")) == NULL)
 		{			
 			g_warning ("param accesskind is NULL from pquery!");
-			g_object_unref (plist);
 			return -1;
 		}
 		gda_holder_set_value_str (param, NULL, implementation);
@@ -2994,7 +2977,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
-														 plist, &last_inserted,
+														 (GdaSet*)plist, &last_inserted,
 														 &err) == -1)
 		{		
 			table_id = -1;		
@@ -3004,7 +2987,6 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
 		}
-		g_object_unref (plist);
 	}
 	gda_value_free (value);	
 	sdb_engine_insert_cache (priv->implementation_cache, implementation, table_id);	
@@ -3022,7 +3004,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
                        PRIMARY KEY (symbol_id_base, symbol_id_derived)
                        );
 */
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GValue *value;
@@ -3040,17 +3022,12 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 		return;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{		
-		g_warning ("par_list is NULL!\n");
-		return;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_HERITAGE_NEW);
 		
 	/* symbase parameter */
-	if ((param = gda_set_get_holder (plist, "symbase")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbase")) == NULL)
 	{			
 		g_warning ("param accesskind is NULL from pquery!");
-		g_object_unref (plist);
 		return;
 	}
 	value = gda_value_new (G_TYPE_INT);
@@ -3058,10 +3035,9 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	gda_holder_set_value (param, value);
 
 	/* symderived id parameter */
-	if ((param = gda_set_get_holder (plist, "symderived")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "symderived")) == NULL)
 	{
 		g_warning ("param symderived is NULL from pquery!");
-		g_object_unref (plist);
 		return;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -3072,12 +3048,11 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, NULL,
+													 (GdaSet*)plist, NULL,
 													 NULL) == -1)
 	{		
 		g_warning ("Error adding heritage");
 	}	
-	g_object_unref (plist);
 }
 
 
@@ -3094,7 +3069,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
 */
 	const gchar *scope;
 	gint table_id;
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted;
@@ -3125,26 +3100,20 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{		
-		g_warning ("par_list is NULL!\n");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SCOPE_NEW);
 		
 	/* scope parameter */
-	if ((param = gda_set_get_holder (plist, "scope")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
 	{			
 		g_warning ("param scope is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, scope);
 
 	/* typeid parameter */
-	if ((param = gda_set_get_holder (plist, "typeid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
 	{
 		g_warning ("param typeid is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	value = gda_value_new (G_TYPE_INT);
@@ -3155,7 +3124,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, &last_inserted,
+													 (GdaSet*)plist, &last_inserted,
 													 NULL) == -1)
 	{
 		GValue *value1, *value2;
@@ -3187,7 +3156,6 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
 		table_id = g_value_get_int (value);
 	}	
 
-	g_object_unref (plist);
 	return table_id;
 }
 
@@ -3216,7 +3184,7 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 							field_namespace varchar(256)
 							);
 */
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted;
@@ -3293,17 +3261,12 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{		
-		g_warning ("par_list is NULL!\n");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe,PREP_QUERY_TMP_HERITAGE_NEW);
 		
 	/* symreferid parameter */
-	if ((param = gda_set_get_holder (plist, "symreferid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "symreferid")) == NULL)
 	{
 		g_warning ("param symreferid is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -3313,64 +3276,57 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 	gda_value_free (value);
 
 	/* finherits parameter */
-	if ((param = gda_set_get_holder (plist, "finherits")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "finherits")) == NULL)
 	{
 		g_warning ("param finherits is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_inherits);
 
 	/* fstruct parameter */
-	if ((param = gda_set_get_holder (plist, "fstruct")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fstruct")) == NULL)
 	{
 		g_warning ("param fstruct is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_struct);
 
 	/* ftyperef parameter */
-	if ((param = gda_set_get_holder (plist, "ftyperef")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "ftyperef")) == NULL)
 	{
 		g_warning ("param ftyperef is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_typeref);
 
 	/* fenum parameter */
-	if ((param = gda_set_get_holder (plist, "fenum")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fenum")) == NULL)
 	{
 		g_warning ("param fenum is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_enum);
 	
 	/* funion parameter */
-	if ((param = gda_set_get_holder (plist, "funion")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "funion")) == NULL)
 	{
 		g_warning ("param funion is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_union);
 	
 	/* fclass parameter */
-	if ((param = gda_set_get_holder (plist, "fclass")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fclass")) == NULL)
 	{
 		g_warning ("param fclass is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_class);
 
 	/* fnamespace parameter */
-	if ((param = gda_set_get_holder (plist, "fnamespace")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fnamespace")) == NULL)
 	{
 		g_warning ("param fnamespace is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, field_namespace);
@@ -3378,7 +3334,7 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, &last_inserted,
+													 (GdaSet*)plist, &last_inserted,
 													 NULL) == -1)
 	{
 		table_id = -1;
@@ -3390,7 +3346,6 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 		table_id = g_value_get_int (value);
 	}
 	
-	g_object_unref (plist);
 	return table_id;
 }
 
@@ -3410,7 +3365,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	gint tmp_str_splitted_length;
 	gchar *object_name = NULL;
 	gboolean free_token_name = FALSE;
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
@@ -3495,17 +3450,12 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		return -1;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{		
-		g_warning ("par_list is NULL!\n");
-		return -1;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID);
 
 	/* scopeid parameter */
-	if ((param = gda_set_get_holder (plist, "scopeid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)
 	{
 		g_warning ("param scopeid is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -3514,10 +3464,9 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	gda_holder_set_value (param, value);
 
 	/* symbolid parameter */
-	if ((param = gda_set_get_holder (plist, "symbolid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
 	{
 		g_warning ("param symbolid is NULL from pquery!");
-		g_object_unref (plist);
 		return -1;
 	}
 
@@ -3529,7 +3478,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	/* execute the query with parametes just set */
 	gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, NULL,
+													 (GdaSet*)plist, NULL,
 													 NULL);
 
 
@@ -3563,7 +3512,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
 	{
 		GValue *value;
-
+		
+		/* Avoid lookup */
+		g_mutex_unlock (dbe->priv->mutex);
+		g_mutex_lock (dbe->priv->mutex);
+		
 		if ((value =
 			 (GValue *) gda_data_model_get_value_at_col_name (data,
 															  "field_class",
@@ -3643,7 +3596,11 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 		gchar *item;
 		gchar **inherits_list;
 		gint j;
-
+		
+		/* Avoid lookup */
+		g_mutex_unlock (dbe->priv->mutex);
+		g_mutex_lock (dbe->priv->mutex);
+		
 		value = gda_data_model_get_value_at_col_name (data,
 													  "field_inherits", i);
 		inherits = g_value_get_string (value);
@@ -3951,7 +3908,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
                      );
 */
 	SymbolDBEnginePriv *priv;
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted;
@@ -4067,17 +4024,12 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 			return -1;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{		
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYMBOL_NEW);
 		
 		/* filedefid parameter */
-		if ((param = gda_set_get_holder (plist, "filedefid")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "filedefid")) == NULL)
 		{
 			g_warning ("param filedefid is NULL from pquery!");
-			g_object_unref (plist);
 			return -1;
 		}
 		value = gda_value_new (G_TYPE_INT);
@@ -4085,21 +4037,19 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 		gda_holder_set_value (param, value);
 
 		/* name parameter */
-		if ((param = gda_set_get_holder (plist, "name")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "name")) == NULL)
 		{
 			g_warning ("param name is NULL from pquery!");
 			gda_value_free (value);
-			g_object_unref (plist);
 			return -1;
 		}
 		gda_holder_set_value_str (param, NULL, name);
 
 		/* typeid parameter */
-		if ((param = gda_set_get_holder (plist, "typeid")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
 		{
 			g_warning ("param typeid is NULL from pquery!");
 			gda_value_free (value);
-			g_object_unref (plist);
 			return -1;			
 		}
 		gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4124,17 +4074,12 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 			return -1;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
-
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_SYMBOL_ALL);
+		
 		/* symbolid parameter */
-		if ((param = gda_set_get_holder (plist, "symbolid")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
 		{
 			g_warning ("param isfilescope is NULL from pquery!");
-			g_object_unref (plist);
 			return -1;
 		}
 
@@ -4146,11 +4091,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	/* common params */
 
 	/* fileposition parameter */
-	if ((param = gda_set_get_holder (plist, "fileposition")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fileposition")) == NULL)
 	{
 		g_warning ("param fileposition is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4159,11 +4103,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 
 	
 	/* isfilescope parameter */
-	if ((param = gda_set_get_holder (plist, "isfilescope")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "isfilescope")) == NULL)	
 	{
 		g_warning ("param isfilescope is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4171,21 +4114,19 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* signature parameter */
-	if ((param = gda_set_get_holder (plist, "signature")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "signature")) == NULL)	
 	{
 		g_warning ("param signature is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_holder_set_value_str (param, NULL, signature);
 
 	/* scopedefinitionid parameter */
-	if ((param = gda_set_get_holder (plist, "scopedefinitionid")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	
 	{
 		g_warning ("param scopedefinitionid is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4193,11 +4134,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* scopeid parameter */
-	if ((param = gda_set_get_holder (plist, "scopeid")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
 	{
 		g_warning ("param scopeid is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4205,11 +4145,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* kindid parameter */
-	if ((param = gda_set_get_holder (plist, "kindid")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "kindid")) == NULL)	
 	{
 		g_warning ("param kindid is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4217,11 +4156,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* accesskindid parameter */
-	if ((param = gda_set_get_holder (plist, "accesskindid")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskindid")) == NULL)	
 	{
 		g_warning ("param accesskindid is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4229,11 +4167,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* implementationkindid parameter */
-	if ((param = gda_set_get_holder (plist, "implementationkindid")) == NULL)	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "implementationkindid")) == NULL)	
 	{
 		g_warning ("param implementationkindid is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4241,11 +4178,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gda_holder_set_value (param, value);
 
 	/* updateflag parameter */
-	if ((param = gda_set_get_holder (plist, "updateflag")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "updateflag")) == NULL)
 	{
 		g_warning ("param updateflag is NULL from pquery!");
 		gda_value_free (value);
-		g_object_unref (plist);
 		return -1;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4257,7 +4193,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	gint nrows;
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, &last_inserted,
+													 (GdaSet*)plist, &last_inserted,
 													 NULL);
 	
 	if (sym_was_updated == FALSE)
@@ -4303,8 +4239,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	 */
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
-	
-	g_object_unref (plist);
 	
 	return table_id;
 }
@@ -4396,7 +4330,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 static gboolean
 sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 {
-	GdaSet *plist;
+	const GdaSet *plist1, *plist2, *plist3;
 	const GdaStatement *stmt1, *stmt2, *stmt3;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
@@ -4421,29 +4355,21 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		return FALSE;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt1, &plist, NULL) == FALSE)
-	{
-		g_warning ("par_list is NULL!\n");
-		return FALSE;
-	}
+	plist1 = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS);
 	
-	if ((param = gda_set_get_holder (plist, "filepath")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist1, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_holder_set_value_str (param, NULL, file_on_db);
 	
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt1, 
-														 plist, NULL, NULL);	
+														 (GdaSet*)plist1, NULL, NULL);	
 
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
 
-	/* stay ready for the next statement */
-	g_object_unref (plist);
-	
 	/* reset the update_flag to 0 */	
 	if ((stmt2 = sdb_engine_get_query_by_id (dbe, 
 									PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS)) == NULL)
@@ -4452,27 +4378,20 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		return FALSE;
 	}
 	
-	if (gda_statement_get_parameters ((GdaStatement*)stmt2, &plist, NULL) == FALSE)
-	{
-		g_warning ("par_list is NULL!\n");
-		return FALSE;
-	}
+	plist2 = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS);
 	
-	if ((param = gda_set_get_holder (plist, "filepath")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist2, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_holder_set_value_str (param, NULL, file_on_db);
 
 	
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt2, 
-														 plist, NULL, NULL);	
+														 (GdaSet*)plist2, NULL, NULL);	
 
-	/* ready for the last one */
-	g_object_unref (plist);
-	
+
 	/* last but not least, update the file analyse_time */
 	if ((stmt3 = sdb_engine_get_query_by_id (dbe,
 											 PREP_QUERY_UPDATE_FILE_ANALYSE_TIME))
@@ -4482,25 +4401,18 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		return FALSE;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt2, &plist, NULL) == FALSE)
-	{
-		g_warning ("par_list is NULL!\n");
-		return FALSE;
-	}
+	plist3 = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_FILE_ANALYSE_TIME);
 	
 	/* filepath parameter */
-	if ((param = gda_set_get_holder (plist, "filepath")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist3, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_holder_set_value_str (param, NULL, file_on_db);
 
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt3, 
-														 plist, NULL, NULL);
-	
-	g_object_unref (plist);
+														 (GdaSet*)plist3, NULL, NULL);	
 	return TRUE;
 }
 
@@ -4558,7 +4470,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	 */
 	if (update_data->update_prj_analyse_time == TRUE)
 	{
-		GdaSet *plist;
+		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 
@@ -4571,25 +4483,19 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 			return;
 		}
 
-		if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-		{
-			g_warning ("par_list is NULL!\n");
-			return;
-		}
-	
+		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME);
+			
 		/* prjname parameter */
-		if ((param = gda_set_get_holder (plist, "prjname")) == NULL)
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 		{
 			g_warning ("param prjname is NULL from pquery!");
-			g_object_unref (plist);
 			return;
 		}
 		gda_holder_set_value_str (param, NULL, update_data->project);
 	
 		gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
-													 plist, NULL, NULL);
-		g_object_unref (plist);
+													 (GdaSet*)plist, NULL, NULL);
 	}	
 	
 	/* free the GPtrArray. */
@@ -4773,7 +4679,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 gboolean
 symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project)
 {
-	GdaSet *plist;
+	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GValue *value;
@@ -4810,17 +4716,12 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		return FALSE;
 	}
 
-	if (gda_statement_get_parameters ((GdaStatement*)stmt, &plist, NULL) == FALSE)
-	{
-		g_warning ("par_list is NULL!\n");
-		return FALSE;
-	}
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID);
 
 	/* prjid parameter */
-	if ((param = gda_set_get_holder (plist, "prjid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 	{
 		g_warning ("param prjid is NULL from pquery!");
-		g_object_unref (plist);
 		return FALSE;
 	}
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -4960,7 +4861,6 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	
 	if (data_model)
 		g_object_unref (data_model);
-	g_object_unref (plist);
 	
 	if (files_to_scan->len > 0)
 	{

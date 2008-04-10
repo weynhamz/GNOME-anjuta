@@ -980,7 +980,8 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		{
 			gboolean needs_sources_scan = FALSE;
 			gboolean project_exist = FALSE;
-			GHashTable* lang_hash; 
+			GHashTable* lang_hash;
+			guint id;
 				
 			lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
 											  sources_array_free);
@@ -1040,11 +1041,12 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			}
 			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), 
 									   _("Populating symbols' db..."));
-			gtk_progress_bar_pulse (GTK_PROGRESS_BAR (sdb_plugin->progress_bar));
+			id = g_timeout_add (100, (GSourceFunc) gtk_progress_bar_pulse, sdb_plugin->progress_bar);
 			gtk_widget_show (sdb_plugin->progress_bar);
 			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe_project);
+			g_source_remove (id);
 
 			/* root dir */
 			sdb_plugin->project_root_dir = root_dir;
@@ -1111,7 +1113,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
 	/* Initialize gda library. */
-	gda_init ("AnjutaGda", NULL, 0, NULL);
+	gda_init (g_get_application_name(), NULL, 0, NULL);
 
 	register_stock_icons (plugin);
 
@@ -1247,6 +1249,9 @@ symbol_db_activate (AnjutaPlugin *plugin)
 									project_root_added,
 									project_root_removed, NULL);
 
+	
+	/* FIXME: get path from preferences */
+	anjuta_util_prog_is_installed ("ctags", TRUE);
 	
 	return TRUE;
 }
