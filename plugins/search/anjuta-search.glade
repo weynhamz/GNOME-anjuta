@@ -33,6 +33,7 @@
                         <signal name="changed" handler="on_search_action_changed"/>
                       </widget>
                       <packing>
+                        <property name="expand">False</property>
                         <property name="padding">5</property>
                       </packing>
                     </child>
@@ -50,6 +51,8 @@
                 </child>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="padding">5</property>
               </packing>
             </child>
@@ -75,36 +78,20 @@
                           <placeholder/>
                         </child>
                         <child>
-                          <widget class="GtkLabel" id="label.search">
+                          <widget class="GtkCheckButton" id="search.regex">
                             <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Search for:</property>
-                          </widget>
-                        </child>
-                        <child>
-                          <widget class="GtkComboBoxEntry" id="search.string.combo">
-                            <property name="visible">True</property>
-                            <signal name="changed" handler="on_search_expression_changed"/>
-                            <child internal-child="entry">
-                              <widget class="GtkEntry" id="comboboxentry-entry8">
-                                <signal name="activate" handler="on_search_expression_activate"/>
-                              </widget>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">_Regular expression</property>
+                            <property name="use_underline">True</property>
+                            <property name="response_id">0</property>
+                            <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_search_regex_toggled"/>
                           </widget>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label.replace">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Replace with:</property>
-                          </widget>
-                          <packing>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
+                            <property name="top_attach">2</property>
+                            <property name="bottom_attach">3</property>
                           </packing>
                         </child>
                         <child>
@@ -121,24 +108,42 @@
                             <property name="right_attach">3</property>
                             <property name="top_attach">1</property>
                             <property name="bottom_attach">2</property>
+                            <property name="y_options"></property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkCheckButton" id="search.regex">
+                          <widget class="GtkLabel" id="label.replace">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="label" translatable="yes">_Regular expression</property>
-                            <property name="use_underline">True</property>
-                            <property name="response_id">0</property>
-                            <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="on_search_regex_toggled"/>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Replace with:</property>
+                          </widget>
+                          <packing>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkComboBoxEntry" id="search.string.combo">
+                            <property name="visible">True</property>
+                            <signal name="changed" handler="on_search_expression_changed"/>
+                            <child internal-child="entry">
+                              <widget class="GtkEntry" id="comboboxentry-entry8">
+                                <signal name="activate" handler="on_search_expression_activate"/>
+                              </widget>
+                            </child>
                           </widget>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">3</property>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
+                            <property name="y_options"></property>
                           </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="label.search">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Search for:</property>
+                          </widget>
                         </child>
                       </widget>
                       <packing>
@@ -159,6 +164,8 @@
                 </child>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="padding">5</property>
                 <property name="position">1</property>
               </packing>
@@ -177,23 +184,10 @@
                     <property name="column_spacing">5</property>
                     <property name="row_spacing">2</property>
                     <child>
-                      <widget class="GtkCheckButton" id="search.ignore.case">
+                      <widget class="GtkCheckButton" id="replace.regex">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Case _insensitive</property>
-                        <property name="use_underline">True</property>
-                        <property name="response_id">0</property>
-                        <property name="draw_indicator">True</property>
-                      </widget>
-                      <packing>
-                        <property name="x_padding">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkCheckButton" id="search.match.word.start">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Match w_ord start</property>
+                        <property name="label" translatable="yes">E_xpand back refs</property>
                         <property name="use_underline">True</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
@@ -201,21 +195,23 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="x_padding">3</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="search.match.whole.word">
+                      <widget class="GtkCheckButton" id="search.greedy">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Match whole _words</property>
+                        <property name="label" translatable="yes">_Greedy matching</property>
                         <property name="use_underline">True</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="x_padding">3</property>
                       </packing>
                     </child>
@@ -237,25 +233,25 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="search.greedy">
+                      <widget class="GtkCheckButton" id="search.match.whole.word">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">_Greedy matching</property>
+                        <property name="label" translatable="yes">Match whole _words</property>
                         <property name="use_underline">True</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
                         <property name="x_padding">3</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="replace.regex">
+                      <widget class="GtkCheckButton" id="search.match.word.start">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">E_xpand back refs</property>
+                        <property name="label" translatable="yes">Match w_ord start</property>
                         <property name="use_underline">True</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
@@ -263,8 +259,19 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
+                        <property name="x_padding">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkCheckButton" id="search.ignore.case">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Case _insensitive</property>
+                        <property name="use_underline">True</property>
+                        <property name="response_id">0</property>
+                        <property name="draw_indicator">True</property>
+                      </widget>
+                      <packing>
                         <property name="x_padding">3</property>
                       </packing>
                     </child>
@@ -282,6 +289,8 @@
                 </child>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="padding">5</property>
                 <property name="position">2</property>
               </packing>
@@ -368,50 +377,86 @@
                               <placeholder/>
                             </child>
                             <child>
-                              <widget class="GtkCheckButton" id="search.dir.recursive">
+                              <widget class="GtkLabel" id="label32">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">Files named like:</property>
+                              </widget>
+                            </child>
+                            <child>
+                              <widget class="GtkLabel" id="label33">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">and/or not named like:</property>
+                              </widget>
+                              <packing>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkCheckButton" id="ignore.hidden.files">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="label" translatable="yes">Search recursively</property>
+                                <property name="label" translatable="yes">Ignore _hidden files</property>
                                 <property name="use_underline">True</property>
                                 <property name="response_id">0</property>
                                 <property name="draw_indicator">True</property>
                               </widget>
                               <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">5</property>
-                                <property name="bottom_attach">6</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
+                              <widget class="GtkLabel" id="label34">
                                 <property name="visible">True</property>
-                                <property name="items" translatable="yes">CVS intl po</property>
-                                <child internal-child="entry">
-                                  <widget class="GtkEntry" id="comboboxentry-entry12">
-                                  </widget>
-                                </child>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">In project directories like:</property>
                               </widget>
                               <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
+                                <property name="top_attach">3</property>
+                                <property name="bottom_attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkLabel" id="label35">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">and/or not named like:</property>
+                              </widget>
+                              <packing>
                                 <property name="top_attach">4</property>
                                 <property name="bottom_attach">5</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkComboBoxEntry" id="dir.filter.match.combo">
+                              <widget class="GtkCheckButton" id="ignore.hidden.dirs">
                                 <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="label" translatable="yes">Ignore hidden directories</property>
+                                <property name="use_underline">True</property>
+                                <property name="response_id">0</property>
+                                <property name="draw_indicator">True</property>
+                              </widget>
+                              <packing>
+                                <property name="top_attach">5</property>
+                                <property name="bottom_attach">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkComboBoxEntry" id="file.filter.match.combo">
+                                <property name="visible">True</property>
+                                <property name="items" translatable="yes">*\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp
+*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
                                 <child internal-child="entry">
-                                  <widget class="GtkEntry" id="comboboxentry-entry11">
+                                  <widget class="GtkEntry" id="comboboxentry-entry7">
                                   </widget>
                                 </child>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
                               </packing>
                             </child>
                             <child>
@@ -431,87 +476,51 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkComboBoxEntry" id="file.filter.match.combo">
+                              <widget class="GtkComboBoxEntry" id="dir.filter.match.combo">
                                 <property name="visible">True</property>
-                                <property name="items" translatable="yes">*\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp
-*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
                                 <child internal-child="entry">
-                                  <widget class="GtkEntry" id="comboboxentry-entry7">
+                                  <widget class="GtkEntry" id="comboboxentry-entry11">
                                   </widget>
                                 </child>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkCheckButton" id="ignore.hidden.dirs">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="label" translatable="yes">Ignore hidden directories</property>
-                                <property name="use_underline">True</property>
-                                <property name="response_id">0</property>
-                                <property name="draw_indicator">True</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">5</property>
-                                <property name="bottom_attach">6</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="label35">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">and/or not named like:</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">4</property>
-                                <property name="bottom_attach">5</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="label34">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">In project directories like:</property>
-                              </widget>
-                              <packing>
                                 <property name="top_attach">3</property>
                                 <property name="bottom_attach">4</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkCheckButton" id="ignore.hidden.files">
+                              <widget class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
+                                <property name="visible">True</property>
+                                <property name="items" translatable="yes">CVS intl po</property>
+                                <child internal-child="entry">
+                                  <widget class="GtkEntry" id="comboboxentry-entry12">
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">4</property>
+                                <property name="bottom_attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkCheckButton" id="search.dir.recursive">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="label" translatable="yes">Ignore _hidden files</property>
+                                <property name="label" translatable="yes">Search recursively</property>
                                 <property name="use_underline">True</property>
                                 <property name="response_id">0</property>
                                 <property name="draw_indicator">True</property>
                               </widget>
                               <packing>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">5</property>
+                                <property name="bottom_attach">6</property>
                               </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="label33">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">and/or not named like:</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="label32">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Files named like:</property>
-                              </widget>
                             </child>
                           </widget>
                         </child>

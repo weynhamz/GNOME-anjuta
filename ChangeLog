@@ -1,5 +1,10 @@
 2008-04-11  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/search/anjuta-search.glade:
+	Various small improvements to the dialog
+
+2008-04-11  Johannes Schmid  <jhs@gnome.org>
+
 	Patch from Ignacio Casal Quinteiro:
 	* plugins/file-loader/Makefile.am:
 	* plugins/file-loader/anjuta-recent-chooser-menu.c
