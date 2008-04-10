@@ -1,3 +1,115 @@
+2008-04-11  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from Ignacio Casal Quinteiro:
+	* plugins/file-loader/Makefile.am:
+	* plugins/file-loader/anjuta-recent-chooser-menu.c
+	(gtk_recent_chooser_iface_init),
+	(_anjuta_recent_chooser_install_properties),
+	(sort_recent_items_mru), (get_is_recent_filtered),
+	(_gtk_recent_chooser_get_items),
+	(anjuta_recent_chooser_menu_class_init),
+	(anjuta_recent_chooser_menu_init),
+	(anjuta_recent_chooser_menu_finalize),
+	(anjuta_recent_chooser_menu_dispose),
+	(anjuta_recent_chooser_menu_constructor),
+	(anjuta_recent_chooser_menu_set_property),
+	(anjuta_recent_chooser_menu_get_property),
+	(anjuta_recent_chooser_menu_set_current_uri),
+	(anjuta_recent_chooser_menu_get_current_uri),
+	(anjuta_recent_chooser_menu_select_uri),
+	(anjuta_recent_chooser_menu_unselect_uri),
+	(anjuta_recent_chooser_menu_select_all),
+	(anjuta_recent_chooser_menu_unselect_all),
+	(anjuta_recent_chooser_menu_set_sort_func),
+	(chooser_set_sort_type), (anjuta_recent_chooser_menu_get_items),
+	(anjuta_recent_chooser_menu_get_recent_manager),
+	(anjuta_recent_chooser_menu_add_filter),
+	(anjuta_recent_chooser_menu_remove_filter),
+	(anjuta_recent_chooser_menu_list_filters),
+	(anjuta_recent_chooser_menu_set_current_filter),
+	(escape_underscores), (anjuta_recent_chooser_menu_add_tip),
+	(anjuta_recent_chooser_menu_create_item),
+	(anjuta_recent_chooser_menu_insert_item),
+	(anjuta_recent_chooser_menu_dispose_items), (idle_populate_func),
+	(idle_populate_clean_up), (anjuta_recent_chooser_menu_populate),
+	(item_activate_cb), (manager_changed_cb), (set_recent_manager),
+	(get_icon_size_for_widget), (foreach_set_shot_tips),
+	(anjuta_recent_chooser_menu_set_show_tips),
+	(anjuta_recent_chooser_menu_new),
+	(anjuta_recent_chooser_menu_new_for_manager):
+	* plugins/file-loader/anjuta-recent-chooser-menu.h:
+	* plugins/file-loader/plugin.c (setup_recent_chooser_menu),
+	(activate_plugin), (dispose):
+	
+	Add separator to recent menu (#526932)
+
+	* plugins/search/Makefile.am:
+	* plugins/search/anjuta-search.glade:
+	* plugins/search/anjuta-search.ui:
+	* plugins/search/plugin.c (on_find1_activate),
+	(on_find_and_replace1_activate), (on_find_in_files1_activate),
+	(on_findnext1_activate), (on_findprevious1_activate),
+	(on_search_again_activate), (on_find_usage), (activate_plugin),
+	(deactivate_plugin), (dispose), (search_plugin_class_init):
+	* plugins/search/plugin.h:
+	* plugins/search/search-replace.c (anj_sr_execute),
+	(anj_sr_write_match_message), (on_message_clicked),
+	(anj_sr_set_search_string), (anj_sr_select_nearest),
+	(anj_sr_select_next), (anj_sr_select_previous),
+	(anj_sr_list_all_uses), (anj_sr_activate), (anj_sr_repeat),
+	(anj_sr_is_idle), (anj_sr_set_popdown_strings),
+	(anj_sr_set_popdown_map), (anj_sr_activate_combo_item),
+	(anj_sr_activate_combo_id_item), (anj_sr_set_action),
+	(anj_sr_set_target), (anj_sr_set_direction),
+	(anj_sr_get_direction), (anj_sr_get_combo_active_value),
+	(anj_sr_get_combo_id_active_value),
+	(anj_sr_conform_direction_change), (anj_sr_populate_value),
+	(anj_sr_reset_flags), (anj_sr_reset_replace_buttons),
+	(anj_sr_end_alert), (anj_sr_max_results_alert),
+	(anj_sr_total_results_alert), (anj_sr_show_replace),
+	(anj_sr_modify_button), (anj_sr_populate_data),
+	(anj_sr_show_replace_button), (anj_sr_enable_replace_button),
+	(anj_sr_get_default_uidata), (anj_sr_get_best_uidata),
+	(anj_sr_get_current_uidata), (anj_sr_set_dialog_searchdata),
+	(anj_sr_translate_dialog_strings), (anj_sr_create_dialog),
+	(anj_sr_present_dialog), (anj_sr_destroy_ui_data),
+	(anj_sr_find_in_list), (anj_sr_trim_list),
+	(anj_sr_update_search_combos), (anj_sr_update_replace_combos),
+	(anj_sr_populate_dialog), (anj_sr_interrupt_nicely),
+	(on_search_dialog_delete_event), (on_search_dialog_key_press),
+	(anj_sr_disconnect_set_toggle_connect),
+	(on_search_match_whole_word_toggled),
+	(on_search_match_whole_line_toggled),
+	(on_search_match_word_start_toggled), (on_search_regex_toggled),
+	(on_search_actions_no_limit_toggled), (anj_sr_revert_button),
+	(on_search_direction_changed), (on_search_action_changed),
+	(on_search_target_changed), (on_search_expression_changed),
+	(on_search_button_close_clicked), (on_search_button_stop_clicked),
+	(on_search_button_start_clicked),
+	(on_search_button_replace_clicked),
+	(on_search_expression_activate):
+	* plugins/search/search-replace.h:
+	* plugins/search/search-replace_backend.c (regex_backref),
+	(pcre_info_free), (pcre_info_new), (match_substr_free),
+	(match_info_free_subs), (editor_new_from_file_buffer),
+	(file_buffer_new_from_te), (file_buffer_new_from_uri),
+	(file_buffer_free), (file_buffer_get_byte_offset),
+	(file_buffer_get_char_offset), (file_buffer_get_char_offset_pair),
+	(file_buffer_find_lines), (file_buffer_freshen_lines),
+	(file_buffer_freshen_lines_from_pos), (file_buffer_line_for_pos),
+	(file_buffer_get_linetext_for_line), (save_file_buffer),
+	(replace_in_local_buffer), (get_search_files_list),
+	(get_project_files_list), (isawordchar), (extra_match),
+	(get_next_match), (create_search_entries), (clear_search_entries),
+	(search_get_default_data), (search_replace_data_new),
+	(clear_search_replace_instance), (search_replace_data_destroy),
+	(search_replace_init):
+	* plugins/search/search-replace_backend.h:
+	* plugins/search/search_preferences.c (removed):
+	* plugins/search/search_preferences.h (removed):
+	
+	Merged the UI changes from bug #511688 and simplified the search dialog
+
 2008-04-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine.c:

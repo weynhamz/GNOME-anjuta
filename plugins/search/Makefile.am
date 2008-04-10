@@ -50,9 +50,7 @@ libanjuta_search_la_SOURCES= \
 	search-replace.c \
 	search-replace.h \
 	search-replace_backend.c \
-	search-replace_backend.h \
-	search_preferences.c \
-	search_preferences.h
+	search-replace_backend.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

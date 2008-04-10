@@ -37,6 +37,7 @@
 
 #include "plugin.h"
 #include "dnd.h"
+#include "anjuta-recent-chooser-menu.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-loader-plugin.ui"
 
@@ -1117,25 +1118,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 }
 
-static gint
-sort_recent_menu (GtkRecentInfo *a, GtkRecentInfo *b, gpointer useless)
-{
-	const gchar *mime_a;
-	const gchar *mime_b;
-
-	mime_a = gtk_recent_info_get_mime_type (a);
-	mime_b = gtk_recent_info_get_mime_type (b);
-	
-	if (strcmp(mime_a, mime_b) == 0)
-		return 1;
-	else if (strcmp (mime_a, "application/x-anjuta") == 0)
-		return -1;
-	else if (strcmp (mime_b, "application/x-anjuta") == 0)
-		return 1;
-		
-	return 0;
-}
-
 static void
 setup_recent_chooser_menu (GtkRecentChooser* recent_menu, AnjutaFileLoaderPlugin* plugin)
 {
@@ -1143,9 +1125,7 @@ setup_recent_chooser_menu (GtkRecentChooser* recent_menu, AnjutaFileLoaderPlugin
 
 	gtk_recent_chooser_set_local_only (GTK_RECENT_CHOOSER (recent_menu), TRUE);
 	gtk_recent_chooser_set_show_icons (GTK_RECENT_CHOOSER (recent_menu), TRUE);
-	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (recent_menu), GTK_RECENT_SORT_CUSTOM);
-	gtk_recent_chooser_set_sort_func (GTK_RECENT_CHOOSER (recent_menu), sort_recent_menu, NULL, NULL);
-	g_object_set (recent_menu, "show-numbers", TRUE, NULL);
+	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (recent_menu), GTK_RECENT_SORT_MRU);
 	gtk_recent_chooser_set_limit (GTK_RECENT_CHOOSER (recent_menu), 20);
 
 	filter = gtk_recent_filter_new ();
@@ -1217,7 +1197,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Adding submenus */
-	recent_menu = gtk_recent_chooser_menu_new_for_manager (loader_plugin->recent_manager);
+	recent_menu = anjuta_recent_chooser_menu_new_for_manager (loader_plugin->recent_manager);
 	setup_recent_chooser_menu (GTK_RECENT_CHOOSER (recent_menu), loader_plugin);
 	widget = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
 					"/MenuMain/MenuFile/PlaceholderFileMenus/OpenRecent");
@@ -1285,7 +1265,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	AnjutaFileLoaderPlugin *plugin = ANJUTA_PLUGIN_FILE_LOADER (obj);
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 

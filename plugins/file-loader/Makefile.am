@@ -32,7 +32,9 @@ libanjuta_loader_la_SOURCES = \
 	plugin.c \
 	plugin.h \
 	dnd.c \
-	dnd.h
+	dnd.h \
+	anjuta-recent-chooser-menu.c \
+	anjuta-recent-chooser-menu.h
 
 libanjuta_loader_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
