@@ -77,6 +77,7 @@ plugins/editor/print.c
 plugins/editor/plugin.c
 plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
+plugins/file-loader/anjuta-recent-chooser-menu.c
 plugins/file-loader/plugin.c
 plugins/file-manager/file-manager.glade
 plugins/file-manager/file-model.c
@@ -147,8 +148,8 @@ plugins/project-wizard/templates/translatable-strings.h
 plugins/sample1/plugin.c
 plugins/search/anjuta-search.glade
 plugins/search/plugin.c
-plugins/search/search_preferences.c
 plugins/search/search-replace.c
+plugins/search/search-replace_backend.c
 plugins/sourceview/anjuta-document-saver.c
 plugins/sourceview/anjuta-document.c
 plugins/sourceview/anjuta-encodings.c
