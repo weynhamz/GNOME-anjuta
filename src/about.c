@@ -230,8 +230,6 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	{
 		authors_v = g_strsplit(authors, ",", -1);
 	}
-	/*dialog = gnome_about_new (name, VERSION, _("Anjuta plugin"), d,
-							  authors_v, NULL, NULL, pix);*/
 	dialog = gtk_about_dialog_new();
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), name);
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);

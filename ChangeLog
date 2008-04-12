@@ -1,3 +1,9 @@
+2008-04-13  Naba Kumar  <naba@naba-desktop>
+
+	* src/Makefile.am: Added libglade flags. patch from Marc Oude Kotte.
+	* src/about.c (on_about_plugin_activate): Removed dead code.
+	* src/main.c: Make smaller include.
+
 2008-04-12  Naba Kumar  <naba@naba-desktop>
 
 	* src/anjuta_cbs.c, src/getline.c, src/utilities.c,

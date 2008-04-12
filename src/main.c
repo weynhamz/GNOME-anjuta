@@ -28,7 +28,7 @@
 
 #include <sys/stat.h>
 
-#include <gnome.h>
+#include <libgnome/gnome-program.h>
 #include <gtk/gtkwindow.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/resources.h>

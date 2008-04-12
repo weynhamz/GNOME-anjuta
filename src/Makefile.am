@@ -18,6 +18,7 @@ anjuta_pixmaps_DATA = \
 AM_CPPFLAGS = \
 	$(GNOME_UI_CFLAGS)\
 	$(GDL_CFLAGS)\
+	$(GLADE_CFLAGS)\
 	-I$(top_srcdir)\
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -48,6 +49,7 @@ anjuta_SOURCES = \
 anjuta_LDADD =  \
 	$(GNOME_UI_LIBS) \
 	$(GDL_LIBS) \
+	$(GLADE_LIBS)\
 	$(top_builddir)/libanjuta/libanjuta.la
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
