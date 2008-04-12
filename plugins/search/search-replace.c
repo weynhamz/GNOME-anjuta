@@ -419,7 +419,7 @@ anj_sr_execute (SearchReplace *sr, gboolean dlg)
 
 	for (node = s->candidates; node != NULL; node = g_list_next (node))
 	{
-		FileBuffer *fb;
+		FileBuffer *fb = NULL;
 		SearchEntry *se;
 		gboolean fresh; 	/* file was opened for this search operation */
 

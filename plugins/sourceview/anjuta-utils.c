@@ -54,7 +54,8 @@
 #include "anjuta-utils.h"
 
 #include "anjuta-document.h"
-#include "anjuta-convert.h"
+
+#include <libanjuta/anjuta-convert.h>
 
 #define STDIN_DELAY_MICROSECONDS 100000
 

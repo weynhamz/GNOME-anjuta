@@ -2103,7 +2103,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		
 	anjuta_preferences_add_page (prefs,
 									gxml, "Documents", _("Documents"),  ICON_FILE);
-	anjuta_encodings_init (prefs, gxml);
 				
 	g_object_unref (G_OBJECT (gxml));
 }

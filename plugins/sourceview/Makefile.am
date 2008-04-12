@@ -66,10 +66,6 @@ libanjuta_sourceview_la_SOURCES = \
 	anjuta-document-saver.h \
 	anjuta-document.c \
 	anjuta-document.h \
-	anjuta-encodings.h \
-	anjuta-encodings.c \
-	anjuta-convert.h \
-	anjuta-convert.c \
 	anjuta-utils.h \
 	anjuta-utils.c \
 	sourceview-prefs.h \

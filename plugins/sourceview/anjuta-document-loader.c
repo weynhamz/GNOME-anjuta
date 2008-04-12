@@ -43,10 +43,12 @@
 #include <glib/gstdio.h>
 #include <libgnomevfs/gnome-vfs.h>
 
-#include "anjuta-encodings.h"
+#include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-convert.h>
+
 #include "anjuta-document-loader.h"
 #include "anjuta-marshal.h"
-#include "anjuta-convert.h"
+
 
 #define READ_CHUNK_SIZE 8192
 

@@ -31,6 +31,7 @@
 #include "tm_tagmanager.h"
 
 #include <libanjuta/anjuta-status.h>
+#include <libanjuta/anjuta-encodings.h>
 
 #define TEXT_EDITOR_FIND_SCOPE_WHOLE 1
 #define TEXT_EDITOR_FIND_SCOPE_CURRENT 2
@@ -88,7 +89,7 @@ struct _TextEditor
 	gboolean first_time_expose;
 
 	/* File encoding */
-	gchar *encoding;
+	const AnjutaEncoding *encoding;
 	
 	/* Popup menu widget */
 	GtkWidget *popup_menu;

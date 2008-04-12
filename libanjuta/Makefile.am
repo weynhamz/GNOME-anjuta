@@ -30,6 +30,7 @@ libanjuta_la_SOURCES= \
 	anjuta-shell.c \
 	anjuta-status.c \
 	anjuta-encodings.c \
+	anjuta-convert.c \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
@@ -97,6 +98,7 @@ libanjuta_include = \
 	anjuta-shell.h \
 	anjuta-status.h \
 	anjuta-encodings.h \
+	anjuta-convert.h \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
 	anjuta-plugin-manager.h \

@@ -41,7 +41,8 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 
-#include "anjuta-encodings.h"
+#include <libanjuta/anjuta-encodings.h>
+
 #include "anjuta-document.h"
 #include "anjuta-document-loader.h"
 #include "anjuta-document-saver.h"

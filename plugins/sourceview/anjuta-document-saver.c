@@ -43,10 +43,11 @@
 #include <glib/gfileutils.h>
 #include <libgnomevfs/gnome-vfs.h>
 
-#include "anjuta-encodings.h"
+#include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-convert.h>
+
 #include "anjuta-document-saver.h"
 #include "anjuta-marshal.h"
-#include "anjuta-convert.h"
 
 #define ANJUTA_DOCUMENT_SAVER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_DOCUMENT_SAVER, AnjutaDocumentSaverPrivate))
 

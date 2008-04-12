@@ -40,7 +40,8 @@
 #include <gtk/gtkmenu.h>
 #include <gtk/gtktextiter.h>
 #include <atk/atk.h>
-#include "anjuta-encodings.h"
+
+#include <libanjuta/anjuta-encodings.h>
 
 G_BEGIN_DECLS
 

@@ -43,9 +43,9 @@
 #include <glib.h>
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-encodings.h>
 
 #include "anjuta-view.h"
-#include "anjuta-encodings.h"
 #include "sourceview.h"
 #include "sourceview-private.h"
 #include "anjuta-marshal.h"

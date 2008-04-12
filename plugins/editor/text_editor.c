@@ -33,6 +33,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-convert.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -547,7 +548,6 @@ text_editor_finalize (GObject *obj)
 	TextEditor *te = TEXT_EDITOR (obj);
 	g_free (te->filename);
 	g_free (te->uri);
-	g_free (te->encoding);
 	g_free (te->force_hilite);
 	g_free (te->last_saved_content);
 	
@@ -1212,111 +1212,35 @@ determine_editor_mode(gchar* buffer, glong size)
 }
 
 static gchar *
-convert_to_utf8_from_charset (const gchar *content,
-							  gsize len,
-							  const gchar *charset)
-{
-	gchar *utf8_content = NULL;
-	GError *conv_error = NULL;
-	gchar* converted_contents = NULL;
-	gsize bytes_written;
-
-	g_return_val_if_fail (content != NULL, NULL);
-
-	/* DEBUG_PRINT ("Trying to convert from %s to UTF-8", charset); */
-
-	converted_contents = g_convert (content, len, "UTF-8",
-									charset, NULL, &bytes_written,
-									&conv_error); 
-						
-	if ((conv_error != NULL) || (converted_contents == NULL)  ||
-	    !g_utf8_validate (converted_contents, bytes_written, NULL))		
-	{
-		/* DEBUG_PRINT ("Couldn't convert from %s to UTF-8.", charset); */
-		
-		if (converted_contents != NULL)
-			g_free (converted_contents);
-
-		if (conv_error != NULL)
-		{
-			g_error_free (conv_error);
-			conv_error = NULL;
-		}
-
-		utf8_content = NULL;
-	} else {
-		/* DEBUG_PRINT ("Converted from %s to UTF-8.", charset); */
-		utf8_content = converted_contents;
-	}
-	return utf8_content;
-}
-
-static gchar *
 convert_to_utf8 (PropsID props, const gchar *content, gsize len,
-			     gchar **encoding_used)
+			     const AnjutaEncoding **encoding_used)
 {
-	GList *encodings = NULL;
-	GList *start;
-	const gchar *locale_charset;
-	GList *encoding_strings;
-	
-	g_return_val_if_fail (!g_utf8_validate (content, len, NULL), 
-			g_strndup (content, len < 0 ? strlen (content) : len));
+	GError* conv_error = NULL;
+	gchar* new_content;
+	gsize new_len;
 
-	encoding_strings = sci_prop_glist_from_data (props, SUPPORTED_ENCODINGS);
-	encodings = anjuta_encoding_get_encodings (encoding_strings);
-	anjuta_util_glist_strings_free (encoding_strings);
-	
-	if (g_get_charset (&locale_charset) == FALSE) 
+	new_content = anjuta_convert_to_utf8 (content, 
+										  len, 
+										  encoding_used,
+										  &new_len, 
+										  &conv_error);
+	if  (new_content == NULL)	
 	{
-		const AnjutaEncoding *locale_encoding;
-
-		/* not using a UTF-8 locale, so try converting
-		 * from that first */
-		if (locale_charset != NULL)
-		{
-			locale_encoding = anjuta_encoding_get_from_charset (locale_charset);
-			encodings = g_list_prepend (encodings,
-						(gpointer) locale_encoding);
-			/* DEBUG_PRINT ("Current charset = %s", locale_charset); */
-		}
+		/* Last change, let's try 8859-15 */
+		*encoding_used =  
+			anjuta_encoding_get_from_charset("ISO-8859-15");
+			
+		new_content = anjuta_convert_to_utf8 (content,
+											  len,
+											  encoding_used,
+											  &new_len,
+											  &conv_error);
 	}
-
-	start = encodings;
-
-	while (encodings != NULL) 
-	{
-		AnjutaEncoding *enc;
-		const gchar *charset;
-		gchar *utf8_content;
-
-		enc = (AnjutaEncoding *) encodings->data;
-
-		charset = anjuta_encoding_get_charset (enc);
-
-		/* DEBUG_PRINT ("Trying to convert %d bytes of data into UTF-8.", len); */
-		
-		fflush (stdout);
-		utf8_content = convert_to_utf8_from_charset (content, len, charset);
-
-		if (utf8_content != NULL) {
-			if (encoding_used != NULL)
-			{
-				if (*encoding_used != NULL)
-					g_free (*encoding_used);
-				
-				*encoding_used = g_strdup (charset);
-			}
-
-			return utf8_content;
-		}
-
-		encodings = encodings->next;
-	}
-
-	g_list_free (start);
 	
-	return NULL;
+	if (conv_error)
+		g_error_free (conv_error);
+	
+	return new_content;
 }
 
 static gboolean
@@ -1392,8 +1316,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	{
 		if (g_utf8_validate (buffer, nchars, NULL))
 		{
-			if (te->encoding)
-				g_free (te->encoding);
 			te->encoding = NULL;
 		}
 		else
@@ -1402,7 +1324,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	
 			converted_text = convert_to_utf8 (te->props_base,
 											  buffer, nchars, &te->encoding);
-
+			
 			if (converted_text == NULL)
 			{
 				/* bail out */
@@ -1460,19 +1382,22 @@ save_to_file (TextEditor *te, gchar * uri)
 		
 		size = strlen (data);
 		
-		/* Save according to the correct encoding */
-		if (anjuta_preferences_get_int (te->preferences,
-										SAVE_ENCODING_CURRENT_LOCALE))
+
+		/* Save in original encoding */
+		if ((te->encoding != NULL))
 		{
-			/* Save in current locate */
 			GError *conv_error = NULL;
 			gchar* converted_file_contents = NULL;
-
-			/* DEBUG_PRINT ("Using current locale's encoding"); */
-
-			converted_file_contents = g_locale_from_utf8 (data, -1, NULL,
-														  NULL, &conv_error);
-	
+			gsize new_len;
+			
+			/* DEBUG_PRINT ("Using encoding %s", te->encoding); */
+			
+			/* Try to convert it from UTF-8 to original encoding */
+			converted_file_contents = anjuta_convert_from_utf8 (data, -1, 
+																te->encoding,
+																&new_len,
+																&conv_error); 
+			
 			if (conv_error != NULL)
 			{
 				/* Conversion error */
@@ -1487,40 +1412,9 @@ save_to_file (TextEditor *te, gchar * uri)
 		}
 		else
 		{
-			/* Save in original encoding */
-			if ((te->encoding != NULL) &&
-				anjuta_preferences_get_int (te->preferences,
-											SAVE_ENCODING_ORIGINAL))
-			{
-				GError *conv_error = NULL;
-				gchar* converted_file_contents = NULL;
-	
-				/* DEBUG_PRINT ("Using encoding %s", te->encoding); */
-
-				/* Try to convert it from UTF-8 to original encoding */
-				converted_file_contents = g_convert (data, -1, 
-													 te->encoding,
-													 "UTF-8", NULL, NULL,
-													 &conv_error); 
-	
-				if (conv_error != NULL)
-				{
-					/* Conversion error */
-					g_error_free (conv_error);
-				}
-				else
-				{
-					g_free (data);
-					data = converted_file_contents;
-					size = strlen (converted_file_contents);
-				}
-			}
-			else
-			{
-				/* Save in utf-8 */
-				/* DEBUG_PRINT ("Using utf-8 encoding"); */
-			}				
-		}
+			/* Save in utf-8 */
+			/* DEBUG_PRINT ("Using utf-8 encoding"); */
+		}				
 		
 		/* Strip trailing spaces */
 		strip = anjuta_preferences_get_int (te->preferences,

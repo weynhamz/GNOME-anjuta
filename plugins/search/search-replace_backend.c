@@ -350,7 +350,7 @@ file_buffer_new_from_uri (SearchReplace *sr,
 	GnomeVFSFileSize nchars;
 	gchar *buffer;
 	gchar *converted;
-	gchar *encoding;
+	gchar *encoding = NULL;
 
 	g_return_val_if_fail (uri, NULL);
 

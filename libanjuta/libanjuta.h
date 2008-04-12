@@ -23,6 +23,7 @@
 /* FIXME: Update required */
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-convert.h>
 #include <libanjuta/anjuta-enum-types.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-marshal.h>

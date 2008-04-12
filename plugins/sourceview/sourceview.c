@@ -25,6 +25,7 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
@@ -53,7 +54,6 @@
 #include <gtksourceview/gtksourceiter.h>
 
 #include "config.h"
-#include "anjuta-encodings.h"
 #include "anjuta-document.h"
 #include "anjuta-view.h"
 

@@ -1,3 +1,33 @@
+2008-04-12  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/libanjuta.h:
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/text_editor.c (text_editor_finalize),
+	(convert_to_utf8), (load_from_file), (save_to_file):
+	* plugins/editor/text_editor.h:
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-convert.c:
+	* plugins/sourceview/anjuta-convert.h:
+	* plugins/sourceview/anjuta-document-loader.c:
+	* plugins/sourceview/anjuta-document-saver.c:
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-encodings.c:
+	* plugins/sourceview/anjuta-encodings.h:
+	* plugins/sourceview/anjuta-utils.c:
+	* plugins/sourceview/anjuta-utils.h:
+	* plugins/sourceview/anjuta-view.c:
+	* plugins/sourceview/sourceview.c:
+	
+	Move the encoding conversion infrastrcute to libanjuta and update all
+	users. Test all available encodings by default in scintilla editor
+	like sourceview is doing and removed encoding preferences
+
+	* plugins/search/search-replace_backend.c
+	(file_buffer_new_from_uri):
+	Fixed crasher
+
 2008-04-11  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/anjuta-search.glade:
