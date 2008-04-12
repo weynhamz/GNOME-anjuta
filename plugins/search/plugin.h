@@ -1,27 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * plugin.h
- * Copyright (C) 2000-2007 Naba Kumar <naba@gnome.org>
- *
- * This file is part of anjuta.
- * Anjuta is free software; you can redistribute it and/or modify
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
- * at your option) any later version.
- *
- * Anjuta is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
+ * GNU Library General Public License for more details.
+ * 
  * You should have received a copy of the GNU General Public License
- * along with anjuta; if not, contact the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-
-#ifndef _SEARCH_PLUGIN_H
-#define _SEARCH_PLUGIN_H
-
+ 
+ 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
@@ -39,18 +32,13 @@ extern GType search_plugin_get_type(GTypeModule *module);
 typedef struct _SearchPlugin SearchPlugin;
 typedef struct _SearchPluginClass SearchPluginClass;
 
-struct _SearchPlugin
-{
+struct _SearchPlugin{
 	AnjutaPlugin parent;
-
+	
 	gint uiid;
-	IAnjutaDocumentManager *docman;
-	/*SearchReplaceGUI *dialog_data;*/
+	IAnjutaDocumentManager* docman;
 };
 
-struct _SearchPluginClass
-{
+struct _SearchPluginClass{
 	AnjutaPluginClass parent_class;
 };
-
-#endif /* ndef _SEARCH_PLUGIN_H */

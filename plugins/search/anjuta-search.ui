@@ -3,7 +3,7 @@
 	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderEditMenus">
-			<placeholder name="PlaceholderEditSearchMenus">
+			<placeholder name="PlaceholderEditSearchMenus">			
 			<menu name="Search" action="ActionMenuEditSearch">
 				<placeholder name="PlaceholderQuickSearchMenu" />
 				<menuitem name="Find" action="ActionEditSearchFind"/>
@@ -11,20 +11,17 @@
 				<menuitem name="FindPrevious" action="ActionEditSearchFindPrevious"/>
 				<menuitem name="Replace" action="ActionEditSearchReplace"/>
 				<menuitem name="FindInFiles" action="ActionEditSearchInFiles"/>
-				<menuitem name="Repeat" action="ActionEditSearchAgain"/>
- 			</menu>
+			</menu>
 			</placeholder>
 			</placeholder>
 		</menu>
+		<placeholder name="PlaceholderGotoMenus">
+		<menu name="Goto" action="ActionMenuGoto">
+			<placeholder name="PlaceholderGotoOccurence">
+				<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
+				<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
+			</placeholder>
+		</menu>
+		</placeholder>
 	</menubar>
-	<popup name="PopupDocumentManager">
-		<placeholder name="PlaceholderFindUsage">
-			<menuitem name="ListAllUsage" action="ActionEditSearchUseInFiles" />
-		</placeholder>
-	</popup>
-	<popup name="DetachedPopupDocumentManager">
-		<placeholder name="PlaceholderFindUsage">
-			<menuitem name="ListAllUsage" action="ActionEditSearchUseInFiles" />
-		</placeholder>
-	</popup>
 </ui>

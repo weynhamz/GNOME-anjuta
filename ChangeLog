@@ -1,5 +1,62 @@
 2008-04-12  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/search/Makefile.am:
+	* plugins/search/anjuta-search.glade:
+	* plugins/search/anjuta-search.ui:
+	* plugins/search/plugin.c (find_incremental), (on_find1_activate),
+	(on_find_and_replace1_activate), (on_find_in_files1_activate),
+	(on_findnext1_activate), (on_findprevious1_activate),
+	(on_prev_occur), (on_next_occur), (activate_plugin),
+	(deactivate_plugin), (dispose), (finalize),
+	(search_plugin_class_init):
+	* plugins/search/plugin.h:
+	* plugins/search/search-replace.c (search_and_replace_init),
+	(search_and_replace), (write_message_pane), (on_message_clicked),
+	(save_not_opened_files), (replace_in_not_opened_files),
+	(search_replace_next_previous), (search_replace_next),
+	(search_replace_previous), (sr_get_gladewidget),
+	(search_set_popdown_strings), (search_set_popdown_map),
+	(search_select_item), (search_set_combo), (search_set_action),
+	(search_set_target), (search_set_direction),
+	(search_get_item_combo), (search_get_item_combo_name),
+	(search_direction_changed), (populate_value), (reset_flags),
+	(reset_flags_and_search_button), (search_start_over),
+	(search_end_alert), (max_results_alert), (nb_results_alert),
+	(search_show_replace), (modify_label_image_button),
+	(search_replace_populate), (show_jump_button),
+	(translate_dialog_strings), (create_dialog), (show_dialog),
+	(word_in_list), (list_max_items), (search_update_combos),
+	(replace_update_combos), (search_update_dialog),
+	(on_search_replace_delete_event),
+	(on_search_dialog_key_press_event),
+	(search_disconnect_set_toggle_connect),
+	(on_search_match_whole_word_toggled),
+	(on_search_match_whole_line_toggled),
+	(on_search_match_word_start_toggled), (on_search_regex_toggled),
+	(search_set_toggle_direction), (on_search_direction_changed),
+	(on_search_action_changed), (on_search_target_changed),
+	(on_search_expression_changed), (on_actions_no_limit_clicked),
+	(on_search_button_close_clicked), (on_search_button_stop_clicked),
+	(on_search_button_next_clicked), (search_replace_find_usage),
+	(on_search_button_jump_clicked), (on_search_expression_activate),
+	(on_search_full_buffer_toggled), (on_search_forward_toggled),
+	(on_search_backward_toggled), (on_setting_basic_search_toggled),
+	(basic_search_toggled), (anjuta_search_replace_activate):
+	* plugins/search/search-replace.h:
+	* plugins/search/search-replace_backend.c (pcre_info_free),
+	(pcre_info_new), (match_substr_free), (match_info_free),
+	(file_buffer_free), (file_buffer_new_from_te),
+	(file_buffer_new_from_path), (file_buffer_line_from_pos),
+	(file_match_line_from_pos), (create_search_files_list),
+	(get_project_file_list), (isawordchar), (extra_match),
+	(get_next_match), (create_search_entries), (regex_backref),
+	(clear_search_replace_instance), (clear_pcre),
+	(create_search_replace_instance):
+	* plugins/search/search-replace_backend.h:
+	Restored old search plugin - was a bad idea to merge this patch. Sorry!
+
+2008-04-12  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/Makefile.am:
 	* libanjuta/libanjuta.h:
 	* plugins/document-manager/anjuta-document-manager.glade:
