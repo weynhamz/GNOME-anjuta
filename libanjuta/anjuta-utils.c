@@ -47,8 +47,7 @@
 
 #include <glib/gi18n.h>
 #include <glib.h>
-
-#include <libgnome/gnome-util.h>
+#include <glib/gstdio.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
@@ -1405,5 +1404,34 @@ anjuta_util_help_display (GtkWindow   *parent,
 		return;
 	}
 	g_free (command);
+}
+
+/**
+ * anjuta_utils_get_user_config_dir:
+ *
+ * Returns a base directory in which to store user-specific application 
+ * configuration information such as user preferences and settings. 
+ *
+ * Return value: a new allocated string with the user config directory.
+ */
+gchar *
+anjuta_util_get_user_config_dir ()
+{
+	gchar *folder;
+	
+	folder =  g_build_filename (g_get_user_config_dir (), "anjuta", NULL);
+	
+	if (!g_file_test (folder, G_FILE_TEST_IS_DIR))
+	{
+		if (g_mkdir (folder, 755) == -1)
+		{
+			g_warning ("There was an error creating the Anjuta config directory");
+			g_free (folder);
+			
+			return NULL;
+		}
+	}
+
+	return folder;
 }
 

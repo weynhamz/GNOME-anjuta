@@ -22,7 +22,6 @@
 #define _ANJUTA_APP_H_
 
 #include <gmodule.h>
-#include <glade/glade.h>
 #include <gdl/gdl-dock-layout.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
@@ -43,7 +42,7 @@ typedef struct _AnjutaAppClass AnjutaAppClass;
 
 struct _AnjutaApp
 {
-	GnomeApp parent;
+	GtkWindow parent;
 	GtkWidget *toolbars_menu;
 	GtkWidget *view_menu;
 	GtkWidget *dock;
@@ -59,11 +58,15 @@ struct _AnjutaApp
 	AnjutaPreferences *preferences;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
+	
+	/* Bonobo */
+	GtkWidget *bonobo_dock;
+	BonoboDockLayout *bonobo_layout;
 };
 
 struct _AnjutaAppClass
 {
-	GnomeAppClass klass;
+	GtkWindowClass klass;
 };
 
 GType      anjuta_app_get_type (void);

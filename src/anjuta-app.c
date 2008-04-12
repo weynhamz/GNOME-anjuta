@@ -27,9 +27,9 @@
 #include <ctype.h>
 #include <sys/wait.h>
 
-#include <gnome.h>
+#include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>
-#include <glade/glade.h>
+#include <gtk/gtkwindow.h>
 
 #include <gdl/gdl-dock.h>
 #include <gdl/gdl-dock-bar.h>
@@ -50,11 +50,6 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
 #define ICON_FILE "anjuta-preferences-general-48.png"
-
-#define DOCK_PH_LEFT    "ph_left"
-#define DOCK_PH_RIGHT   "ph_right"
-#define DOCK_PH_TOP     "ph_top"
-#define DOCK_PH_BOTTOM  "ph_bottom"
 
 static void anjuta_app_layout_load (AnjutaApp *app,
 									const gchar *layout_filename,
@@ -113,6 +108,51 @@ on_toolbar_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 }
 	
 
+/*
+ * Accels
+ */
+static gchar *
+get_accel_file (void)
+{
+	gchar *anjuta_dir = NULL;
+	gchar *filename = NULL;
+
+	anjuta_dir = anjuta_util_get_user_config_dir ();
+
+	if (anjuta_dir != NULL)
+		filename = g_build_filename (anjuta_dir, "anjuta-accels", NULL);
+	
+	g_free (anjuta_dir);
+
+	return filename;
+}
+
+static void
+load_accels (void)
+{
+	gchar *filename;
+
+	filename = get_accel_file ();
+	if (filename != NULL)
+	{
+		gtk_accel_map_load (filename);
+		g_free (filename);
+	}
+}
+
+static void
+save_accels (void)
+{
+	gchar *filename;
+
+	filename = get_accel_file ();
+	if (filename != NULL)
+	{
+		gtk_accel_map_save (filename);
+		g_free (filename);
+	}
+}
+
 static void
 on_gdl_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 					  gpointer user_data)
@@ -140,7 +180,7 @@ on_gdl_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 		g_free (pr_style);
 	}
 	g_object_set (G_OBJECT(app->layout_manager->master), "switcher-style",
-					  style, NULL);
+				  style, NULL);
 }
 
 static void
@@ -193,9 +233,8 @@ on_layout_dirty_notify (GObject *object, GParamSpec *pspec, gpointer user_data)
 }
 
 static void
-on_layout_locked_notify (GdlDockMaster *master,
-                         GParamSpec    *pspec,
-                         AnjutaApp     *app)
+on_layout_locked_notify (GdlDockMaster *master, GParamSpec *pspec,
+						 AnjutaApp     *app)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
@@ -211,10 +250,45 @@ on_layout_locked_notify (GdlDockMaster *master,
 }
 
 static void
+layout_changed (GtkWidget *w, AnjutaApp *app)
+{
+	BonoboDockLayout *layout;
+	gchar *s;
+	
+	g_return_if_fail (ANJUTA_IS_APP (app));
+	g_return_if_fail (BONOBO_IS_DOCK (w));
+
+	layout = bonobo_dock_get_layout (BONOBO_DOCK (app->bonobo_dock));
+	s = bonobo_dock_layout_create_string (layout);
+	anjuta_preferences_set (app->preferences, "anjuta.bonobo.layout", s);
+	g_object_unref (G_OBJECT (layout));
+	g_free (s);
+}
+
+static void
+anjuta_app_add_dock_item (AnjutaApp *app, BonoboDockItem *item,
+						  BonoboDockPlacement placement, gint band_num,
+						  gint band_position, gint offset)
+{
+	if (app->bonobo_layout)
+		bonobo_dock_layout_add_item (app->bonobo_layout,
+									 BONOBO_DOCK_ITEM (item),
+									 placement, band_num, band_position,
+									 offset);
+	else
+		bonobo_dock_add_item (BONOBO_DOCK(app->bonobo_dock),
+							  BONOBO_DOCK_ITEM( item),
+							  placement, band_num, band_position, offset, FALSE);
+
+	g_signal_emit_by_name (app->bonobo_dock, "layout_changed", app);
+}
+
+
+static void
 on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 {
 	AnjutaApp *app;
-	BonoboDockItem *dock_item;
+	GtkWidget *dock_item;
 	const gchar *name;
 	gint band;
 	gint position;
@@ -240,28 +314,30 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 			 * a previously used name (even if the previous widget has
 			 * has be destroyed. Hence a unique_name is used by using a 
 			 * static counter */
-			DEBUG_PRINT ("Adding dock item %s band %d, offset %d, position %d", unique_name,
-						 band, offset, position);
-			
+			DEBUG_PRINT ("Adding dock item %s band %d, offset %d, position %d",
+						 unique_name, band, offset, position);
+
+			dock_item = bonobo_dock_item_new (unique_name,
+											  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
+											  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING);
+
+			gtk_container_add (GTK_CONTAINER (dock_item), widget);
+
 			/* Widget not yet added to the dock. Add it */
-			gnome_app_add_docked (GNOME_APP (app), widget,
-								  unique_name,
-								  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
-								  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING,
-								  BONOBO_DOCK_TOP, band, position, offset);
-									   									   
-			dock_item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
-														 unique_name);
-			g_object_set_data_full (G_OBJECT(dock_item), "unique_name", unique_name, g_free);
+			anjuta_app_add_dock_item (app, BONOBO_DOCK_ITEM (dock_item),
+									  BONOBO_DOCK_TOP, band, position, offset);
+
+			g_object_set_data_full (G_OBJECT(dock_item), "unique_name",
+									unique_name, g_free);
 			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
 			count++;
 		}
-		gtk_widget_show (GTK_WIDGET (dock_item));
+		gtk_widget_show (dock_item);
 		gtk_widget_show (GTK_BIN (dock_item)->child);
 	}
 	else if (dock_item)
 	{
-		gtk_widget_hide (GTK_WIDGET (dock_item));
+		gtk_widget_hide (dock_item);
 		gtk_widget_hide (GTK_BIN (dock_item)->child);
 	}
 }
@@ -282,8 +358,8 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 	
 	if (GTK_IS_MENU_BAR (widget))
 	{
-		gnome_app_set_menus (GNOME_APP (ui_container), GTK_MENU_BAR (widget));
-		gtk_widget_show (widget);
+		/* We don't need to manage GtkMenuBar widgets */
+		return;
 	}
 	else
 	{
@@ -392,7 +468,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 			gchar* band_key = g_strconcat (toolbarname, ".band", NULL);
 			gchar* position_key = g_strconcat (toolbarname, ".position", NULL);
 			gchar* offset_key = g_strconcat (toolbarname, ".offset", NULL);
-			GnomeApp* gnome_app = GNOME_APP(app);
 			
 			/* Save visibility */
 			g_object_get(G_OBJECT(dock_item), "visible", &visible, NULL);
@@ -400,23 +475,28 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 			g_free(key);
 			
 			/* Save toolbar position */
-			if (gnome_app->dock != NULL)
+			if (app->bonobo_dock != NULL)
 			{
 				guint band;
 				guint position;
 				guint offset;
 				BonoboDockPlacement placement;
-				gchar* unique_name = g_object_get_data(G_OBJECT(dock_item), "unique_name");
+				gchar* unique_name = g_object_get_data(G_OBJECT(dock_item),
+													   "unique_name");
 				
-				BonoboDockItem* item = bonobo_dock_get_item_by_name(BONOBO_DOCK(gnome_app->dock), 
-																  unique_name, &placement, 
-																   &band, &position, &offset);
+				BonoboDockItem* item = bonobo_dock_get_item_by_name(BONOBO_DOCK(app->bonobo_dock), 
+																	unique_name, &placement, 
+																	&band, &position, &offset);
 				g_return_if_fail(item != NULL);
 			
 				anjuta_preferences_set_int(pr, band_key, band);
 				anjuta_preferences_set_int(pr, position_key, position);
 				anjuta_preferences_set_int(pr, offset_key, offset);
 			}
+			
+			g_free (band_key);
+			g_free (position_key);
+			g_free (offset_key);
 		}
 		node = g_list_next(node);
 	}
@@ -489,13 +569,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
-on_accel_changed (GtkAccelGroup *accelgroup, guint arg1, GdkModifierType arg2,
-				  GClosure *arg3, AnjutaApp *app)
-{
-	gnome_accelerators_sync ();
-}
-
-static void
 anjuta_app_dispose (GObject *widget)
 {
 	AnjutaApp *app;
@@ -561,7 +634,8 @@ anjuta_app_dispose (GObject *widget)
 		g_object_unref (G_OBJECT (app->status));
 		app->status = NULL;
 	}
-	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
+
+	G_OBJECT_CLASS (parent_class)->dispose (widget);
 }
 
 static void
@@ -576,19 +650,20 @@ anjuta_app_finalize (GObject *widget)
 	gtk_widget_destroy (GTK_WIDGET (app->ui));
 	gtk_widget_destroy (GTK_WIDGET (app->preferences));
 	
-	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
+	G_OBJECT_CLASS (parent_class)->finalize (widget);
 }
 
 static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
-	GtkWidget *toolbar_menu, *about_menu;
+	GtkWidget *menubar, *toolbar_menu, *about_menu;
 	GtkWidget *view_menu, *hbox;
+	GtkWidget *main_box;
 	GtkWidget *dockbar;
-	GtkAccelGroup *accel_group;
 	GtkAction* action;
 	GList *plugins_dirs = NULL;
+	gchar *bonobo_string = NULL;
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
@@ -599,17 +674,30 @@ anjuta_app_instance_init (AnjutaApp *app)
 								   &size_hints, GDK_HINT_RESIZE_INC);
 	gtk_window_set_resizable (GTK_WINDOW (app), TRUE);
 	
-	gnome_app_enable_layout_config (GNOME_APP (app), FALSE);
-	
+	/*
+	 * Main box
+	 */
+	main_box = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (app), main_box);
+	gtk_widget_show (main_box);
+		
 	app->layout_manager = NULL;
 	
 	app->values = NULL;
 	app->widgets = NULL;
-
+	
+	/* Status bar */
+	app->status = ANJUTA_STATUS (anjuta_status_new ());
+	anjuta_status_set_title_window (app->status, GTK_WIDGET (app));
+	gtk_widget_show (GTK_WIDGET (app->status));
+	gtk_box_pack_end (GTK_BOX (main_box),
+					  GTK_WIDGET (app->status), FALSE, TRUE, 0);
+	g_object_ref (G_OBJECT (app->status));
+	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer)&app->status);
+	
 	/* configure dock */
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox);
-	gnome_app_set_contents (GNOME_APP (app), hbox);
 	app->dock = gdl_dock_new ();
 	gtk_widget_show (app->dock);
 	gtk_box_pack_end(GTK_BOX (hbox), app->dock, TRUE, TRUE, 0);
@@ -617,28 +705,17 @@ anjuta_app_instance_init (AnjutaApp *app)
 	dockbar = gdl_dock_bar_new (GDL_DOCK(app->dock));
 	gtk_widget_show (dockbar);
 	gtk_box_pack_start(GTK_BOX (hbox), dockbar, FALSE, FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (main_box), hbox, TRUE, TRUE, 0);
 	
 	app->layout_manager = gdl_dock_layout_new (GDL_DOCK (app->dock));
 	g_signal_connect (app->layout_manager, "notify::dirty",
 					  G_CALLBACK (on_layout_dirty_notify), app);
 	g_signal_connect (app->layout_manager->master, "notify::locked",
 					  G_CALLBACK (on_layout_locked_notify), app);
-	/* Status bar */
-	app->status = ANJUTA_STATUS (anjuta_status_new ());
-	anjuta_status_set_title_window (app->status, GTK_WIDGET (app));
-	gtk_widget_show (GTK_WIDGET (app->status));
-	gnome_app_set_statusbar (GNOME_APP (app), GTK_WIDGET (app->status));
-	g_object_ref (G_OBJECT (app->status));
-	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer)&app->status);
 	
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
 	
-	accel_group = anjuta_ui_get_accel_group (app->ui);
-	g_signal_connect (accel_group, "accel-changed",
-					  G_CALLBACK (on_accel_changed), app);
-	
-	gtk_window_add_accel_group (GTK_WINDOW (app), accel_group);
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
@@ -690,15 +767,47 @@ anjuta_app_instance_init (AnjutaApp *app)
 										G_N_ELEMENTS (menu_entries_help),
 										GETTEXT_PACKAGE, TRUE, app);
 
+	/* Bonobo stuff */	
+	app->bonobo_dock = bonobo_dock_new ();
+	gtk_widget_show (app->bonobo_dock);
+	
+	g_signal_connect (app->bonobo_dock, "layout_changed",
+					  G_CALLBACK (layout_changed), app);
+	
+	app->bonobo_layout = bonobo_dock_layout_new ();
+	
+	bonobo_string = anjuta_preferences_get (app->preferences, "anjuta.bonobo.layout");
+	if (bonobo_string)
+	{
+		bonobo_dock_layout_parse_string (app->bonobo_layout, bonobo_string);
+		g_free (bonobo_string);
+	}
+			    
+	bonobo_dock_add_from_layout (BONOBO_DOCK (app->bonobo_dock),
+								 app->bonobo_layout);
+						    
+	g_object_unref (app->bonobo_layout);
+	app->bonobo_layout = NULL;
+
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
-
-	/* Disable unavailible tutorials */
-	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpTutorial");
-	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
-	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpAdvancedTutorial");
-	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
-
+	
+	/* Adding accels group */
+	gtk_window_add_accel_group (GTK_WINDOW (app), 
+								gtk_ui_manager_get_accel_group (GTK_UI_MANAGER (app->ui)));
+	
+	/* create main menu */
+	menubar = gtk_ui_manager_get_widget (GTK_UI_MANAGER (app->ui),
+										 "/MenuMain");
+	gtk_box_pack_start (GTK_BOX (main_box), menubar, FALSE, FALSE, 0);
+	gtk_widget_show (menubar);
+	
+	/*
+	 * We have to add the dock after merging the ui
+	 */
+	gtk_box_pack_start (GTK_BOX (main_box), app->bonobo_dock,
+			    FALSE, FALSE, 0);
+	
 	/* create toolbar menus */
 	toolbar_menu =
 		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
@@ -713,7 +822,13 @@ anjuta_app_instance_init (AnjutaApp *app)
 	view_menu = 
 		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
 								  "/MenuMain/MenuView");
-	app->view_menu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (view_menu));
+	app->view_menu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (view_menu));	
+
+	/* Disable unavailible tutorials */
+	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpTutorial");
+	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
+	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpAdvancedTutorial");
+	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
 	
 	/* Create about plugins menu */
 	about_menu = 
@@ -727,6 +842,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_session_save), app);
 	g_signal_connect (G_OBJECT (app), "load_session",
 					  G_CALLBACK (on_session_load), app);
+	
+	/* Loading accels */
+	load_accels ();
 }
 
 static void
@@ -828,6 +946,9 @@ anjuta_app_layout_save (AnjutaApp *app, const gchar *filename,
 	gdl_dock_layout_save_layout (app->layout_manager, name);
 	if (!gdl_dock_layout_save_to_file (app->layout_manager, filename))
 		g_warning ("Saving dock layout to '%s' failed!", filename);
+		
+	/* This is a good place to save the accels too */
+	save_accels ();
 }
 
 static void
@@ -1279,6 +1400,6 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_profile_manager = anjuta_app_get_profile_manager;
 }
 
-ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);
+ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GTK_TYPE_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(anjuta_shell, ANJUTA_TYPE_SHELL);
 ANJUTA_TYPE_END;

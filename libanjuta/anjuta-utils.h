@@ -117,6 +117,8 @@ void anjuta_util_help_display (GtkWindow   *parent,
 							   const gchar *doc_id,
 							   const gchar *file_name);
 
+gchar *anjuta_util_get_user_config_dir ();
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

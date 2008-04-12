@@ -1,3 +1,11 @@
+2008-04-12  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* libanjuta/anjuta-utils.{ch}:
+	Added anjuta_utils_get_user_config_dir. This func is used
+	to get the user config directory.
+	* anjuta/anjuta-app.{ch}: Switched from GnomeApp to GtkWindow.
+
 2008-04-12  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/Makefile.am:
