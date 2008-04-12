@@ -1,5 +1,12 @@
 2008-04-12  Naba Kumar  <naba@naba-desktop>
 
+	* src/anjuta_cbs.c, src/getline.c, src/utilities.c,
+	src/utilities.h: Removed dead files.
+	* src/widget-registry.c, src/widget-registry.h: Removed more dead
+	files.
+
+2008-04-12  Naba Kumar  <naba@naba-desktop>
+
 	* src/action-callbacks.c: Removed unneeded gnome.h include.
 	* src/anjuta-app.c (on_toolbar_view_toggled): Removed outdated comment.
 
