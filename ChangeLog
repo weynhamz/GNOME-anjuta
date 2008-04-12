@@ -1,5 +1,13 @@
 2008-04-13  Naba Kumar  <naba@naba-desktop>
 
+	* libanjuta/anjuta-preferences.c (register_callbacks): Fixed a typo.
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	Do not enable brace autocompletion by defualt because it annoying for
+	fast typist (i.e. it's easier to type ending brace than move carat)
+	and it's currently broken for scintilla.
+
+2008-04-13  Naba Kumar  <naba@naba-desktop>
+
 	* src/Makefile.am: Added libglade flags. patch from Marc Oude Kotte.
 	* src/about.c (on_about_plugin_activate): Removed dead code.
 	* src/main.c: Make smaller include.

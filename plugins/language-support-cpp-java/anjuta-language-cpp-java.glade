@@ -27,16 +27,16 @@
                     <property name="column_spacing">5</property>
                     <property name="row_spacing">5</property>
                     <child>
-                      <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.cpp.indent.tab.indents">
+                      <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.cpp.indent.automatic">
+                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Pressing tab indents</property>
+                        <property name="label" translatable="yes">Enable smart indentation</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
                         <property name="x_options">GTK_FILL</property>
                         <property name="y_options"></property>
                       </packing>
@@ -58,16 +58,16 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.cpp.indent.automatic">
-                        <property name="visible">True</property>
+                      <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.cpp.indent.tab.indents">
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Enable smart indentation</property>
+                        <property name="label" translatable="yes">Pressing tab indents</property>
                         <property name="use_underline">True</property>
-                        <property name="xalign">0</property>
                         <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="x_options">GTK_FILL</property>
                         <property name="y_options"></property>
                       </packing>
@@ -95,26 +95,19 @@
                             <property name="column_spacing">5</property>
                             <property name="row_spacing">5</property>
                             <child>
-                              <widget class="GtkLabel" id="label123">
+                              <widget class="GtkSpinButton" id="preferences_spin:int:0:1:language.cpp.indent.brace.size">
                                 <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Statement indentation size in spaces:</property>
+                                <property name="can_focus">True</property>
+                                <property name="adjustment">0 0 100 1 10 10</property>
+                                <property name="climb_rate">1</property>
+                                <property name="numeric">True</property>
                               </widget>
                               <packing>
-                                <property name="x_options">GTK_FILL</property>
-                                <property name="y_options"></property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="label12353">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Brace indentation size in spaces:</property>
-                              </widget>
-                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
                                 <property name="top_attach">1</property>
                                 <property name="bottom_attach">2</property>
-                                <property name="x_options">GTK_FILL</property>
+                                <property name="x_options"></property>
                                 <property name="y_options"></property>
                               </packing>
                             </child>
@@ -134,19 +127,26 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkSpinButton" id="preferences_spin:int:0:1:language.cpp.indent.brace.size">
+                              <widget class="GtkLabel" id="label12353">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="adjustment">0 0 100 1 10 10</property>
-                                <property name="climb_rate">1</property>
-                                <property name="numeric">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">Brace indentation size in spaces:</property>
                               </widget>
                               <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
                                 <property name="top_attach">1</property>
                                 <property name="bottom_attach">2</property>
-                                <property name="x_options"></property>
+                                <property name="x_options">GTK_FILL</property>
+                                <property name="y_options"></property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkLabel" id="label123">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">Statement indentation size in spaces:</property>
+                              </widget>
+                              <packing>
+                                <property name="x_options">GTK_FILL</property>
                                 <property name="y_options"></property>
                               </packing>
                             </child>
@@ -291,7 +291,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.cpp.brace.autocompletion">
+                      <widget class="GtkCheckButton" id="preferences_toggle:bool:0:1:language.cpp.brace.autocompletion">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>

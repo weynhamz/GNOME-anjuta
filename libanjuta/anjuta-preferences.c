@@ -996,7 +996,10 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 	}
 	if (!gconf_valid_key (build_key (p->key), &key_error_msg))
 	{
-		g_warning ("Invalid key \"%s\": Error: \"%s\"", build_key (p->key),
+		g_warning ("Invalid key 	* src/Makefile.am: Added libglade flags. patch from Marc Oude Kotte.
+	* src/about.c (on_about_plugin_activate): Removed dead code.
+	* src/main.c: Make smaller include.
+"%s\": Error: \"%s\"", build_key (p->key),
 				   key_error_msg);
 		g_free (key_error_msg);
 	}
@@ -1296,7 +1299,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
  * anjuta_preferences_register_property_from_string:
  * @pr: a #AnjutaPreferences object
  * @object: Widget to register
- * @property_desc: Property description (see anjuta_preferences_add_pag())
+ * @property_desc: Property description (see anjuta_preferences_add_page())
  *
  * This registers only one widget. The widget could be shown elsewhere.
  * the property_description should be of the form described before.
