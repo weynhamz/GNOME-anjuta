@@ -8,8 +8,7 @@
   * the Free Software Foundation; either version 2 of the License, or
   * (at your option) any later version.
   * 
-  * T
-his program is distributed in the hope that it will be useful,
+  * This program is distributed in the hope that it will be useful,
   * but WITHOUT ANY WARRANTY; without even the implied warranty of
   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   * GNU General Public License for more details.
@@ -29,10 +28,6 @@ his program is distributed in the hope that it will be useful,
 #include <sched.h>
 #include <sys/wait.h>
 #include <errno.h>
-
-#include <gnome.h>
-
-#include <libgnomeui/gnome-window-icon.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
