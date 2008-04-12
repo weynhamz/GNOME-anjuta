@@ -1,6 +1,7 @@
 2008-04-12  Naba Kumar  <naba@naba-desktop>
 
 	* src/action-callbacks.c: Removed unneeded gnome.h include.
+	* src/anjuta-app.c (on_toolbar_view_toggled): Removed outdated comment.
 
 2008-04-12  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 

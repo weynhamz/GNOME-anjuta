@@ -310,10 +310,6 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 			static gint count;
 			gchar *unique_name = g_strdup_printf ("%s-%d", name, count);
 			
-			/* gnome_app_add_docked() does not allow adding a widget using
-			 * a previously used name (even if the previous widget has
-			 * has be destroyed. Hence a unique_name is used by using a 
-			 * static counter */
 			DEBUG_PRINT ("Adding dock item %s band %d, offset %d, position %d",
 						 unique_name, band, offset, position);
 
