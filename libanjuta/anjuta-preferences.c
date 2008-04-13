@@ -996,10 +996,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 	}
 	if (!gconf_valid_key (build_key (p->key), &key_error_msg))
 	{
-		g_warning ("Invalid key 	* src/Makefile.am: Added libglade flags. patch from Marc Oude Kotte.
-	* src/about.c (on_about_plugin_activate): Removed dead code.
-	* src/main.c: Make smaller include.
-"%s\": Error: \"%s\"", build_key (p->key),
+		g_warning ("Invalid key \"%s\": Error: \"%s\"", build_key (p->key),
 				   key_error_msg);
 		g_free (key_error_msg);
 	}

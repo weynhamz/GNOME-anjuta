@@ -1,3 +1,7 @@
+2008-04-13  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-preferences.c: Fixed a typo in the previous patch
+
 2008-04-13  Naba Kumar  <naba@naba-desktop>
 
 	* libanjuta/anjuta-preferences.c (register_callbacks): Fixed a typo.
