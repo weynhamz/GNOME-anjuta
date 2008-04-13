@@ -349,7 +349,7 @@ msgstr ""
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
-msgstr ""
+msgstr "נטען: "
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
@@ -1247,7 +1247,7 @@ msgstr "נתיב לפקודת \"cvs\""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
-msgstr ""
+msgstr "ספריית השורש של הפרוייקט:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
 msgid "Release tag:"
@@ -1902,7 +1902,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:415
 msgid "Loaded"
-msgstr ""
+msgstr "נטען"
 
 #: ../plugins/debug-manager/plugin.c:435
 msgid "Running..."
@@ -1914,7 +1914,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:502
 msgid "Unloaded"
-msgstr ""
+msgstr "הוסר"
 
 #: ../plugins/debug-manager/plugin.c:543
 #, c-format
@@ -2577,11 +2577,11 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:20
 msgid "Try to save in current locale's encoding"
-msgstr ""
+msgstr "נסה לשמור בקידוד שבשימוש המערכת"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:21
 msgid "Try to save in original encoding"
-msgstr ""
+msgstr "נסה לשמור בקידוד המקורי"
 
 #: ../plugins/document-manager/plugin.c:154
 msgid "_New"
@@ -3151,21 +3151,21 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:932
 msgid "OVR"
-msgstr "OVR"
+msgstr "‏OVR"
 
 #: ../plugins/document-manager/plugin.c:936
 msgid "INS"
-msgstr "INS"
+msgstr "‏INS"
 
 #: ../plugins/document-manager/plugin.c:938
 #: ../plugins/document-manager/plugin.c:952
 msgid "Zoom"
-msgstr ""
+msgstr "תקריב"
 
 #: ../plugins/document-manager/plugin.c:940
 #: ../plugins/document-manager/plugin.c:954
 msgid "Col"
-msgstr ""
+msgstr "עמודה"
 
 #: ../plugins/document-manager/plugin.c:941
 #: ../plugins/document-manager/plugin.c:955
@@ -3534,12 +3534,12 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1343
 msgid "Could not get file info"
-msgstr ""
+msgstr "לא ניתן לקבל מידע עבור הקובץ"
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1350
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
+msgstr "קובץ זה גדול מדיי. לא ניתן להקצות זיכרון."
 
 #: ../plugins/editor/text_editor.c:1357
 msgid "Could not open file"
@@ -3637,38 +3637,47 @@ msgstr "פרוייקטי Anjuta"
 #: ../plugins/file-loader/plugin.c:438
 msgid "C/C++ source files"
 msgstr ""
+"קבצי מקור של C/C++"
 
 #: ../plugins/file-loader/plugin.c:450
 msgid "C# source files"
 msgstr ""
+"קבצי מקור של #C"
 
 #: ../plugins/file-loader/plugin.c:456
 msgid "Java source files"
 msgstr ""
+"קבצי מקור של Java"
 
 #: ../plugins/file-loader/plugin.c:462
 msgid "Pascal source files"
 msgstr ""
+"קבצי מקור של Pascal"
 
 #: ../plugins/file-loader/plugin.c:467
 msgid "PHP source files"
 msgstr ""
+"קבצי מקור של PHP"
 
 #: ../plugins/file-loader/plugin.c:474
 msgid "Perl source files"
 msgstr ""
+"קבצי מקור של Perl"
 
 #: ../plugins/file-loader/plugin.c:480
 msgid "Python source files"
 msgstr ""
+"קבצי מקור של Python"
 
 #: ../plugins/file-loader/plugin.c:485
 msgid "Hyper text markup files"
 msgstr ""
+"קבצי HTML"
 
 #: ../plugins/file-loader/plugin.c:494
 msgid "Shell scripts files"
 msgstr ""
+"קבצי תסריט מעטפת"
 
 #: ../plugins/file-loader/plugin.c:499
 msgid "Makefiles"
@@ -3677,15 +3686,18 @@ msgstr "Makefiles"
 #: ../plugins/file-loader/plugin.c:505
 msgid "Lua files"
 msgstr ""
+"קבצי  Lua"
 
 #: ../plugins/file-loader/plugin.c:510
 msgid "Diff files"
 msgstr ""
+"קבצי Diff"
 
 #: ../plugins/file-loader/plugin.c:726
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr ""
+"נכשל בהפעלת תוסף: %s"
 
 #: ../plugins/file-loader/plugin.c:782
 msgid "_Open..."
@@ -3739,6 +3751,7 @@ msgstr ""
 #: ../plugins/file-manager/file-manager.glade.h:3
 msgid "Choose Directory to show if no project is open"
 msgstr ""
+"בחר ספרייה להצגה כאשר אין פרוייקט טעון"
 
 #: ../plugins/file-manager/file-manager.glade.h:4
 msgid "Do not show backup files"
@@ -3747,7 +3760,7 @@ msgstr "אל תציג קבצי גיבוי"
 #: ../plugins/file-manager/file-manager.glade.h:5
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr ""
-
+"אל תציג קבצים בינאריים (etc, .o, .la.)"
 #: ../plugins/file-manager/file-manager.glade.h:6
 msgid "Do not show hidden files"
 msgstr "אל תציג קבצים נסתרים"
@@ -3780,7 +3793,7 @@ msgstr "_רענן"
 
 #: ../plugins/file-manager/plugin.c:72
 msgid "Refresh file manager tree"
-msgstr ""
+msgstr "רענן את עץ מנהל הקבצים"
 
 #: ../plugins/file-manager/plugin.c:207
 msgid "File manager popup actions"
@@ -3792,11 +3805,11 @@ msgstr "קבצים"
 
 #: ../plugins/file-manager/plugin.c:363 ../plugins/file-manager/plugin.c:372
 msgid "File Manager"
-msgstr "nbvk ecmho"
+msgstr "מנהל הקבצים"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 msgid "<b>File Information</b>"
-msgstr ""
+msgstr "<b>מידע על הקובץ</b>"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:3
 msgid "Add License Information"
@@ -3842,6 +3855,7 @@ msgstr ""
 #: ../plugins/file-wizard/file.c:82
 msgid "C Source File"
 msgstr ""
+"קובץ מקור של C"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C/C++ Header File"
@@ -3850,26 +3864,32 @@ msgstr ""
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
 msgstr ""
+"קובץ מקור של ++C"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
 msgstr ""
+"קובץ מקור של #C"
 
 #: ../plugins/file-wizard/file.c:86
 msgid "Java Source File"
 msgstr ""
+"קובץ מקור של Java"
 
 #: ../plugins/file-wizard/file.c:87
 msgid "Perl Source File"
 msgstr ""
+"קובץ מקור של Perl"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Python Source File"
 msgstr ""
+"קובץ מקור של Python"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Shell Script File"
 msgstr ""
+"קובץ תסריט מעטפת"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Other"
@@ -4359,11 +4379,11 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:99
 msgid "Show category column"
-msgstr ""
+msgstr "הצג עמודת קטגוריה"
 
 #: ../plugins/gtodo/preferences.c:104
 msgid "Show priority column"
-msgstr ""
+msgstr "הצג עמודת עדיפות"
 
 #: ../plugins/gtodo/preferences.c:109
 msgid "Tooltips in list"
@@ -4551,7 +4571,7 @@ msgstr "הוסף/ערוך/הסר מקרואים"
 
 #: ../plugins/macro/plugin.c:115
 msgid "Macro operations"
-msgstr "פעולות מקרוצשב"
+msgstr "פעולות מקרו"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:1
 msgid "<b>Indicators</b>"
@@ -4827,15 +4847,15 @@ msgstr ""
 
 #: ../plugins/profiler/plugin.c:836 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
-msgstr ""
+msgstr "גרף קריאות"
 
 #: ../plugins/profiler/plugin.c:841
 msgid "Function Call Tree"
-msgstr ""
+msgstr "עץ קריאות של הפונקציה"
 
 #: ../plugins/profiler/plugin.c:848
 msgid "Function Call Chart"
-msgstr ""
+msgstr "טבלת קריאות של הפונקציה"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:1
 msgid "<b>Called By</b>"
@@ -4884,7 +4904,7 @@ msgstr "אל תציג פונקציות דטטיות"
 
 #: ../plugins/profiler/profiler.glade.h:10
 msgid "Do not show these symbols:"
-msgstr ""
+msgstr "אל תציג את סמלים אלה:"
 
 #: ../plugins/profiler/profiler.glade.h:11
 msgid ""
@@ -4983,7 +5003,7 @@ msgstr ""
 #: ../plugins/project-import/project-import.c:329
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
-msgstr ""
+msgstr "קובץ בשם \"%s\" כבר קיים. ברצונך להחליפו?"
 
 #: ../plugins/project-import/project-import.c:370
 #, c-format
@@ -4995,7 +5015,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:343
 #, c-format
 msgid "Failed to refresh project: %s"
-msgstr ""
+msgstr "נכשל ברענון הפרוייקט: %s"
 
 #: ../plugins/project-manager/plugin.c:366
 #: ../plugins/project-manager/plugin.c:748
@@ -5053,6 +5073,8 @@ msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
 msgstr ""
+"להסיר את קובץ המקור הבא מהפרוייקט?\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:595
 #, c-format
@@ -5061,6 +5083,9 @@ msgid ""
 "\n"
 "The source file will not be deleted from file system."
 msgstr ""
+"מקור: ‎%s\n"
+"\n"
+"קובץ המקור לא יימחק ממערכת הקבצים."
 
 #: ../plugins/project-manager/plugin.c:651
 #, c-format
@@ -5068,7 +5093,7 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
-"נכשל בהסרת '%s':\n"
+"נכשל בהסרת ‎'%s':\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:707
@@ -5091,7 +5116,7 @@ msgstr "_מאפיינים"
 
 #: ../plugins/project-manager/plugin.c:753
 msgid "Refresh project manager tree"
-msgstr ""
+msgstr "רענן את עץ מנהל הקבצים"
 
 #: ../plugins/project-manager/plugin.c:758
 msgid "Add _Group..."
@@ -5212,7 +5237,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Assistent"
-msgstr ""
+msgstr "אשף היישומים"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
@@ -5227,7 +5252,7 @@ msgstr "מידע בסיסי"
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
-msgstr "יעד:"
+msgstr "יעד:‎"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Enter the basic Project information"
@@ -5264,6 +5289,8 @@ msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
+"נא לאשר את המידע הבא:\n"
+"\n"
 
 #: ../plugins/project-wizard/druid.c:179
 msgid "Project Type: "
@@ -5285,6 +5312,7 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
+"הספרייה \"‎%s‏\" ‏אינה ריקה. יצירת הפרוייקט עלולה להכשל אם לא ניתן יהיה לכתוב לחלק מהקבצים. להמשיך?"
 
 #: ../plugins/project-wizard/druid.c:514
 #, c-format
@@ -5325,7 +5353,7 @@ msgstr "יוצר %s ... %s"
 
 #: ../plugins/project-wizard/install.c:544
 msgid "Executing: "
-msgstr ""
+msgstr "מריץ: "
 
 #: ../plugins/project-wizard/plugin.c:150
 msgid "New Project Assistent"
@@ -5346,10 +5374,11 @@ msgstr ""
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
 msgstr ""
+"הוסף תמיכה ב-++C:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
-msgstr ""
+msgstr "הוסף את מערכת gtk-doc:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "Add internationalization:"
@@ -5357,7 +5386,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "Add shared library support:"
-msgstr ""
+msgstr "הוסף תמיכה בספריות משותפות:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
@@ -5380,6 +5409,7 @@ msgstr "מידע בסיסי"
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr ""
+"רישיון הפצת תוכנה של Berkeley‏ (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid ""
@@ -7398,7 +7428,7 @@ msgstr "<b>מראה</b>"
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>Project Defaults</b>"
-msgstr "<b>ברירת המחדל של פרוייקט</b>"
+msgstr "<b>ברירות המחדל של הפרוייקט</b>"
 
 #: ../src/anjuta.glade.h:3
 msgid "<b>Session</b>"
@@ -7839,11 +7869,11 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
-msgstr ""
+msgstr "פרוייקט ממקורות קיימים"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 msgid "Project Import Assistent"
-msgstr ""
+msgstr "אשף יבוא הפרוייקטים"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
 msgid "An alternate editor based on GtkSourceview"
@@ -7867,7 +7897,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistent"
-msgstr ""
+msgstr "אשף הפרוייקטים"
 
 #: ../plugins/profiler/profiler.plugin.in.h:1
 msgid "Application performance profiler"
