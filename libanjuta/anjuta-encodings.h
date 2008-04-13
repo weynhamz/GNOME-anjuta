@@ -1,7 +1,8 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
 /*
  * anjuta-encodings.h
- * Copyright (C) 2002 Paolo Maggi 
+ * This file is part of anjuta
+ *
+ * Copyright (C) 2002-2005 Paolo Maggi 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,39 +21,42 @@
  */
  
 /*
- * Modified by the gedit Team, 2002. See the gedit AUTHORS file for a 
- * list of people on the gedit Team.  
- * See the gedit ChangeLog files for a list of changes. 
+ * Modified by the anjuta Team, 2002-2005. See the AUTHORS file for a 
+ * list of people on the anjuta Team.  
+ * See the ChangeLog files for a list of changes. 
+ *
+ * $Id$
  */
 
- /* Stolen from gedit - Naba */
- 
 #ifndef __ANJUTA_ENCODINGS_H__
 #define __ANJUTA_ENCODINGS_H__
 
 #include <glib.h>
-#include <libanjuta/anjuta-preferences.h>
-#include <glade/glade.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
 typedef struct _AnjutaEncoding AnjutaEncoding;
 
-const AnjutaEncoding* anjuta_encoding_get_from_charset (const gchar *charset);
-const AnjutaEncoding* anjuta_encoding_get_from_index (gint index);
+#define ANJUTA_TYPE_ENCODING     (anjuta_encoding_get_type ())
 
-gchar* anjuta_encoding_to_string (const AnjutaEncoding* enc);
-const gchar* anjuta_encoding_get_charset (const AnjutaEncoding* enc);
+GType              	 anjuta_encoding_get_type (void) G_GNUC_CONST;
 
-GList* anjuta_encoding_get_encodings (GList *encoding_strings);
+AnjutaEncoding		*anjuta_encoding_copy		 (const AnjutaEncoding *enc);
+void               	 anjuta_encoding_free		 (AnjutaEncoding       *enc);
 
-void anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml);
+const AnjutaEncoding	*anjuta_encoding_get_from_charset (const gchar         *charset);
+const AnjutaEncoding	*anjuta_encoding_get_from_index	 (gint                 index);
 
-/* Character encodings; preferences keys */
-#define SAVE_ENCODING_ORIGINAL            "save.encoding.original"
-#define SAVE_ENCODING_CURRENT_LOCALE      "save.encoding.current.locale"
-#define SUPPORTED_ENCODINGS               "supported.encodings"
+gchar 			*anjuta_encoding_to_string	 (const AnjutaEncoding *enc);
+
+const gchar		*anjuta_encoding_get_name	 (const AnjutaEncoding *enc);
+const gchar		*anjuta_encoding_get_charset	 (const AnjutaEncoding *enc);
+
+const AnjutaEncoding 	*anjuta_encoding_get_utf8	 (void);
+const AnjutaEncoding 	*anjuta_encoding_get_current	 (void);
 
 G_END_DECLS
 
 #endif  /* __ANJUTA_ENCODINGS_H__ */
+
