@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-10 08:43+0100\n"
-"PO-Revision-Date: 2008-04-10 09:41+0200\n"
+"POT-Creation-Date: 2008-04-11 05:44+0100\n"
+"PO-Revision-Date: 2008-04-13 14:07+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -496,10 +496,8 @@ msgstr "_Descartar los cambios"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
 "<b>Hay %d elemento con cambios sin guardar. ¿Desea guardar los cambios antes "
 "de cerrar?</b>"
@@ -924,7 +922,6 @@ msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
 #: ../plugins/build-basic-autotools/build-options.c:41
-#: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "Predeterminado"
@@ -1167,7 +1164,7 @@ msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
-#: ../plugins/search/anjuta-search.glade.h:3
+#: ../plugins/search/anjuta-search.glade.h:6
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:4
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "<b>Options</b>"
@@ -2100,8 +2097,7 @@ msgstr "Información de archivos _objetivo"
 
 #: ../plugins/debug-manager/plugin.c:911
 msgid "Display information on the files the debugger is active with"
-msgstr ""
-"Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
 
 #: ../plugins/debug-manager/plugin.c:917
 msgid "Info _Program"
@@ -2225,8 +2221,7 @@ msgstr "Operaciones de depuración"
 
 #: ../plugins/debug-manager/queue.c:545
 #, c-format
-msgid ""
-"Unable to find one debugger plugin supporting a target with %s mime type"
+msgid "Unable to find one debugger plugin supporting a target with %s mime type"
 msgstr ""
 "No se puede encontrar un complemento de depuración que soporte un objetivo "
 "con un tipo MIME %s"
@@ -2419,7 +2414,6 @@ msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
 #: ../plugins/debug-manager/start.c:1242
-#: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nombre"
 
@@ -2427,7 +2421,7 @@ msgstr "Nombre"
 msgid "Load Target to debug"
 msgstr "Cargar objetivo a depurar"
 
-#: ../plugins/debug-manager/start.c:1334 ../plugins/file-loader/plugin.c:435
+#: ../plugins/debug-manager/start.c:1334 ../plugins/file-loader/plugin.c:436
 msgid "All files"
 msgstr "Todos los archivos"
 
@@ -2568,12 +2562,7 @@ msgstr "Operaciones con ayuda"
 msgid "Books"
 msgstr "Libros"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1006
-#: ../plugins/search/search-replace.c:1673
-#: ../plugins/search/search-replace.c:1680
-#: ../plugins/search/search-replace.c:1692
-#: ../plugins/search/search-replace.c:2006
-#: ../plugins/symbol-browser/plugin.c:913
+#: ../plugins/devhelp/plugin.c:378 ../plugins/symbol-browser/plugin.c:913
 msgid "Search"
 msgstr "Buscar"
 
@@ -2605,8 +2594,8 @@ msgid "Close file"
 msgstr "Cerrar archivo"
 
 #: ../plugins/document-manager/anjuta-docman.c:422
-#: ../plugins/file-loader/plugin.c:529 ../plugins/file-loader/plugin.c:795
-#: ../plugins/file-loader/plugin.c:805 ../plugins/file-loader/plugin.c:818
+#: ../plugins/file-loader/plugin.c:530 ../plugins/file-loader/plugin.c:796
+#: ../plugins/file-loader/plugin.c:806 ../plugins/file-loader/plugin.c:819
 msgid "Open file"
 msgstr "Abre un archivo"
 
@@ -2625,8 +2614,10 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
+#. s,a,r,c are unavailable for mnemonic
 #: ../plugins/document-manager/anjuta-docman.c:528
-#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
+#: ../plugins/file-wizard/file.c:248 ../plugins/search/search-replace.c:2199
+#: ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -2841,8 +2832,7 @@ msgstr "Convertir EOL a mayoría de EOL"
 
 #: ../plugins/document-manager/plugin.c:208
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
+msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
 
 #: ../plugins/document-manager/plugin.c:213
 msgid "_Select"
@@ -2957,7 +2947,7 @@ msgstr "H_istórico siguiente"
 msgid "Goto next history"
 msgstr "Ir al histórico siguiente"
 
-#: ../plugins/document-manager/plugin.c:275 ../plugins/search/plugin.c:191
+#: ../plugins/document-manager/plugin.c:275 ../plugins/search/plugin.c:253
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -3665,8 +3655,7 @@ msgstr "No se pudo obtener la información del archivo"
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1350
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1357
 msgid "Could not open file"
@@ -3742,7 +3731,64 @@ msgstr ""
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores integrados para casos de fallo (más limitados)"
 
-#: ../plugins/file-loader/plugin.c:164
+#. we create a placeholder menuitem, to be used in case
+#. * the menu is empty. this placeholder will stay around
+#. * for the entire lifetime of the menu, and we just hide it
+#. * when it's not used. we have to do this, and do it here,
+#. * because we need a marker for the beginning of the recent
+#. * items list, so that we can insert the new items at the
+#. * right place when idly populating the menu in case the
+#. * user appended or prepended custom menu items to the
+#. * recent chooser menu widget.
+#.
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:519
+msgid "No items found"
+msgstr "No se encontraron elementos"
+
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:667
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:723
+#, c-format
+msgid "No recently used resource found with URI `%s'"
+msgstr "No se ha encontrado el recurso reciente con URI «%s»"
+
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:747
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:755
+#, c-format
+msgid "This function is not implemented for widgets of class '%s'"
+msgstr "Esta función no está implementada para los widgets de la clase «%s»"
+
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:934
+#, c-format
+msgid "Open '%s'"
+msgstr "Abrir «%s»"
+
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:964
+msgid "Unknown item"
+msgstr "Elementos desconocido"
+
+#. This is the label format that is used for the first 10 items
+#. * in a recent files menu. The %d is the number of the item,
+#. * the %s is the name of the item. Please keep the _ in front
+#. * of the number to give these menu items a mnemonic.
+#. *
+#. * Don't include the prefix "recent menu label|" in the translation.
+#.
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:977
+#, c-format
+msgid "recent menu label|_%d. %s"
+msgstr "_%d. %s"
+
+#. This is the format that is used for items in a recent files menu.
+#. * The %d is the number of the item, the %s is the name of the item.
+#. *
+#. * Don't include the prefix "recent menu label|" in the translation.
+#.
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:984
+#, c-format
+msgid "recent menu label|%d. %s"
+msgstr "%d. %s"
+
+#: ../plugins/file-loader/plugin.c:165
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3763,123 +3809,123 @@ msgstr ""
 "\n"
 "Quizá quiera intentar abrirlo con los siguientes complementos o aplicaciones."
 
-#: ../plugins/file-loader/plugin.c:184
+#: ../plugins/file-loader/plugin.c:185
 msgid "Open with:"
 msgstr "Abrir con:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:192
+#: ../plugins/file-loader/plugin.c:193
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Administrador de documentación"
 
-#: ../plugins/file-loader/plugin.c:440
+#: ../plugins/file-loader/plugin.c:441
 msgid "Anjuta Projects"
 msgstr "Proyectos de Anjuta"
 
-#: ../plugins/file-loader/plugin.c:446
+#: ../plugins/file-loader/plugin.c:447
 msgid "C/C++ source files"
 msgstr "Archivos de código fuente C/C++"
 
-#: ../plugins/file-loader/plugin.c:458
+#: ../plugins/file-loader/plugin.c:459
 msgid "C# source files"
 msgstr "Archivos de código fuente C#"
 
-#: ../plugins/file-loader/plugin.c:464
+#: ../plugins/file-loader/plugin.c:465
 msgid "Java source files"
 msgstr "Archivos de código fuente Java"
 
-#: ../plugins/file-loader/plugin.c:470
+#: ../plugins/file-loader/plugin.c:471
 msgid "Pascal source files"
 msgstr "Archivos de código fuente Pascal"
 
-#: ../plugins/file-loader/plugin.c:475
+#: ../plugins/file-loader/plugin.c:476
 msgid "PHP source files"
 msgstr "Archivos de código fuente PHP"
 
-#: ../plugins/file-loader/plugin.c:482
+#: ../plugins/file-loader/plugin.c:483
 msgid "Perl source files"
 msgstr "Archivos de código fuente Perl"
 
-#: ../plugins/file-loader/plugin.c:488
+#: ../plugins/file-loader/plugin.c:489
 msgid "Python source files"
 msgstr "Archivos de código fuente Python"
 
-#: ../plugins/file-loader/plugin.c:493
+#: ../plugins/file-loader/plugin.c:494
 msgid "Hyper text markup files"
 msgstr "Archivos de marcado de hipertexto"
 
-#: ../plugins/file-loader/plugin.c:502
+#: ../plugins/file-loader/plugin.c:503
 msgid "Shell scripts files"
 msgstr "Archivos script de shell"
 
-#: ../plugins/file-loader/plugin.c:507
+#: ../plugins/file-loader/plugin.c:508
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: ../plugins/file-loader/plugin.c:513
+#: ../plugins/file-loader/plugin.c:514
 msgid "Lua files"
 msgstr "Archivos lua"
 
-#: ../plugins/file-loader/plugin.c:518
+#: ../plugins/file-loader/plugin.c:519
 msgid "Diff files"
 msgstr "Archivos diff"
 
-#: ../plugins/file-loader/plugin.c:729
+#: ../plugins/file-loader/plugin.c:730
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Falló al activar el complemento: %s"
 
-#: ../plugins/file-loader/plugin.c:785
+#: ../plugins/file-loader/plugin.c:786
 msgid "_New"
 msgstr "_Nuevo"
 
-#: ../plugins/file-loader/plugin.c:787
+#: ../plugins/file-loader/plugin.c:788
 msgid "New empty file"
 msgstr "Archivo vacío nuevo"
 
-#: ../plugins/file-loader/plugin.c:793
+#: ../plugins/file-loader/plugin.c:794
 msgid "_Open..."
 msgstr "_Abrir…"
 
-#: ../plugins/file-loader/plugin.c:804 ../plugins/file-loader/plugin.c:817
+#: ../plugins/file-loader/plugin.c:805 ../plugins/file-loader/plugin.c:818
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../plugins/file-loader/plugin.c:811 ../plugins/file-loader/plugin.c:824
+#: ../plugins/file-loader/plugin.c:812 ../plugins/file-loader/plugin.c:825
 msgid "Open _With"
 msgstr "Abrir _con"
 
-#: ../plugins/file-loader/plugin.c:812 ../plugins/file-loader/plugin.c:825
+#: ../plugins/file-loader/plugin.c:813 ../plugins/file-loader/plugin.c:826
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1181 ../plugins/file-loader/plugin.c:1187
+#: ../plugins/file-loader/plugin.c:1161 ../plugins/file-loader/plugin.c:1167
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de archivos"
 
-#: ../plugins/file-loader/plugin.c:1191
+#: ../plugins/file-loader/plugin.c:1171
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/file-loader/plugin.c:1192
+#: ../plugins/file-loader/plugin.c:1172
 msgid "New file, project and project components."
 msgstr "Archivo proyecto o componentes de proyectos nuevos."
 
-#: ../plugins/file-loader/plugin.c:1200
+#: ../plugins/file-loader/plugin.c:1180
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1204
+#: ../plugins/file-loader/plugin.c:1184
 msgid "Open _Recent"
 msgstr "Abrir _recientes"
 
-#: ../plugins/file-loader/plugin.c:1205
+#: ../plugins/file-loader/plugin.c:1185
 msgid "Open recent file"
 msgstr "Abrir archivo reciente"
 
-#: ../plugins/file-loader/plugin.c:1213
+#: ../plugins/file-loader/plugin.c:1193
 msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
@@ -4101,8 +4147,7 @@ msgstr "No hay ningún ejecutable especificado.\n"
 
 #: ../plugins/gdb/debugger.c:938
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
+msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
 #: ../plugins/gdb/debugger.c:947
 msgid "There was an error whilst launching the debugger.\n"
@@ -4204,8 +4249,7 @@ msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid ""
-"Failed to create fifo file named %s. The program will run without a terminal."
+msgid "Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
 "Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
 "una terminal."
@@ -4336,8 +4380,7 @@ msgstr "detenido:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
-msgstr ""
-"Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
+msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
 #: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected todo item?"
@@ -4350,8 +4393,7 @@ msgstr "Eliminar"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
-"¿Seguro que quiere eliminar todos los elementos pendientes completados?"
+msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
@@ -4442,8 +4484,7 @@ msgstr "No se ha proporcionado ningún nombre de archivo."
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr ""
-"Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
+msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
 #: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
@@ -4592,10 +4633,8 @@ msgstr "Notificación"
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-"Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
-msgstr[1] ""
-"Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
+msgstr[0] "Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
+msgstr[1] "Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5115,8 +5154,7 @@ msgstr "Mostrar todos los símbolos"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
-msgstr ""
-"Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
+msgstr "Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
@@ -5303,8 +5341,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
-msgstr ""
-"El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
+msgstr "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
 #: ../plugins/project-manager/plugin.c:709
 #, c-format
@@ -5582,8 +5619,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:916
 msgid "Unable to build project assistant user interface."
-msgstr ""
-"No se pudo construir la interfaz de usuario del asistente de proyectos."
+msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
 
 #: ../plugins/project-wizard/install.c:387
 msgid "New project has been created successfully."
@@ -5896,12 +5932,10 @@ msgstr "Usar libglade para el IU"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr ""
-"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
+msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid ""
-"Use the libglade-2.0 library to load the glade interface file at runtime"
+msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "Usar la biblioteca libglade-2.0 para cargar el archivo de interfaz glade al "
 "ejecutar"
@@ -5949,322 +5983,287 @@ msgid "SamplePlugin"
 msgstr "Complemento de ejemplo"
 
 #: ../plugins/search/anjuta-search.glade.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Acciones</b>"
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
 
 #: ../plugins/search/anjuta-search.glade.h:2
-msgid "<b>File Filter</b>"
-msgstr "<b>Filtro de archivos</b>"
+msgid ""
+"*\\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
+"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
+"AUTHORS ChangeLog *.m4"
+msgstr ""
+"*\\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
+"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
+"AUTHORS ChangeLog *.m4"
 
 #: ../plugins/search/anjuta-search.glade.h:4
-msgid "<b>Parameters</b>"
-msgstr "<b>Parámetros</b>"
+msgid "<b>Action:</b>"
+msgstr "<b>Acción:</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:5
-msgid "<b>Scope</b>"
-msgstr "<b>Ámbito</b>"
+msgid "<b>Expression:</b>"
+msgstr "<b>Expresión:</b>"
 
-#. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.glade.h:7
-msgid "<b>Search variable</b>"
-msgstr "<b>Buscar variable</b>"
+msgid "<b>Scope:</b>"
+msgstr "<b>Ámbito:</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:8
-#: ../plugins/search/search-replace.c:93
-msgid "Backward"
-msgstr "Atrás"
+msgid "Anjuta - Find & Replace"
+msgstr "Anjuta - Buscar y reemplazar"
 
 #: ../plugins/search/anjuta-search.glade.h:9
-msgid "Basic Search & Replace"
-msgstr "Búsqueda y reemplazo básico"
+msgid "CVS intl po"
+msgstr "CVS intl po"
 
 #: ../plugins/search/anjuta-search.glade.h:10
-msgid "Case insensitive"
-msgstr "No distinguir capitalización"
+msgid "Case _insensitive"
+msgstr "No distinguir cap_italización"
 
 #: ../plugins/search/anjuta-search.glade.h:11
-msgid "Choose Directories:"
-msgstr "Elija directorios:"
+msgid "E_xpand back refs"
+msgstr "E_xpandir referencias hacia atrás"
 
 #: ../plugins/search/anjuta-search.glade.h:12
-msgid "Choose Files:"
-msgstr "Elija archivos:"
+msgid "F_rom start"
+msgstr "De_sde el comienzo"
 
 #: ../plugins/search/anjuta-search.glade.h:13
-msgid "Expand regex back references"
-msgstr "Expandir referencias hacia atrás en expr. reg."
+msgid "Files named like:"
+msgstr "Archivos de nombre como:"
 
 #: ../plugins/search/anjuta-search.glade.h:14
-msgid "Find & Replace"
-msgstr "Buscar y reemplazar"
+msgid "Ignore _hidden files"
+msgstr "Ignorar archivos _ocultos"
 
 #: ../plugins/search/anjuta-search.glade.h:15
-#: ../plugins/search/search-replace.c:92
-msgid "Forward"
-msgstr "Adelante"
-
-#. the order of these matters - it must match the order of the corresponding
-#. radio buttons on another page
-#: ../plugins/search/anjuta-search.glade.h:16
-#: ../plugins/search/search-replace.c:91
-msgid "Full Buffer"
-msgstr "Llenar búfer"
-
-#: ../plugins/search/anjuta-search.glade.h:17
-msgid "Greedy matching"
-msgstr "Coincidencia voraz"
-
-#: ../plugins/search/anjuta-search.glade.h:18
-msgid "Ignore Binary Files"
-msgstr "Ignorar archivos binarios"
-
-#: ../plugins/search/anjuta-search.glade.h:19
-msgid "Ignore Directories:"
-msgstr "Ignorar directorios:"
-
-#: ../plugins/search/anjuta-search.glade.h:20
-msgid "Ignore Files:"
-msgstr "Ignorar archivos:"
-
-#: ../plugins/search/anjuta-search.glade.h:21
-msgid "Ignore Hidden Directories"
+msgid "Ignore hidden directories"
 msgstr "Ignorar directorios ocultos"
 
+#: ../plugins/search/anjuta-search.glade.h:16
+msgid "In project directories like:"
+msgstr "En directorios de proyecto como:"
+
+#: ../plugins/search/anjuta-search.glade.h:17
+msgid "Match w_ord start"
+msgstr "Coincidir con el inicio de pa_labra"
+
+#: ../plugins/search/anjuta-search.glade.h:18
+msgid "Match whole _lines"
+msgstr "Coincide con _líneas completas"
+
+#: ../plugins/search/anjuta-search.glade.h:19
+msgid "Match whole _words"
+msgstr "Coincide con pala_bras completas"
+
+#: ../plugins/search/anjuta-search.glade.h:20
+msgid "Replace with:"
+msgstr "Reemplazar con:"
+
+#: ../plugins/search/anjuta-search.glade.h:21
+msgid "S_top after"
+msgstr "_Parar después de"
+
 #: ../plugins/search/anjuta-search.glade.h:22
-msgid "Ignore Hidden Files"
-msgstr "Ignorar archivos ocultos"
+msgid "Search for:"
+msgstr "Buscar:"
 
 #: ../plugins/search/anjuta-search.glade.h:23
-msgid "Match at start of word"
-msgstr "Coincide el inicio de palabra"
-
-#: ../plugins/search/anjuta-search.glade.h:24
-msgid "Match complete lines"
-msgstr "Coincide con líneas completas"
-
-#: ../plugins/search/anjuta-search.glade.h:25
-msgid "Match complete words"
-msgstr "Coincide con palabras completas"
-
-#: ../plugins/search/anjuta-search.glade.h:26
-msgid "Maximum Actions"
-msgstr "Acciones máximas"
-
-#: ../plugins/search/anjuta-search.glade.h:27
-msgid "Modify"
-msgstr "Modificar"
-
-#: ../plugins/search/anjuta-search.glade.h:28
-msgid "New Name:"
-msgstr "Nombre nuevo:"
-
-#: ../plugins/search/anjuta-search.glade.h:29
-msgid "No Limit"
-msgstr "Sin límite"
-
-#: ../plugins/search/anjuta-search.glade.h:30
-msgid "Regular Expression"
-msgstr "Expresión regular"
-
-#: ../plugins/search/anjuta-search.glade.h:31
-msgid "Replace With:"
-msgstr "Reemplazar por:"
-
-#: ../plugins/search/anjuta-search.glade.h:32
-msgid "Search Action:"
-msgstr "Acción de búsqueda:"
-
-#: ../plugins/search/anjuta-search.glade.h:33
-msgid "Search Direction:"
-msgstr "Dirección de búsqueda:"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.glade.h:35
-msgid "Search Expression"
-msgstr "Expresión de búsqueda"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.glade.h:37
-msgid "Search Expression:"
-msgstr "Expresión de búsqueda:"
-
-#: ../plugins/search/anjuta-search.glade.h:38
-msgid "Search In:"
-msgstr "Buscar en:"
-
-#: ../plugins/search/anjuta-search.glade.h:39
-msgid "Search Recursively"
+msgid "Search recursively"
 msgstr "Buscar recursivamente"
 
-#: ../plugins/search/anjuta-search.glade.h:40
-msgid "Search Target"
-msgstr "Buscar objetivo"
+#: ../plugins/search/anjuta-search.glade.h:24
+msgid "_All"
+msgstr "_Todo"
 
-#: ../plugins/search/anjuta-search.glade.h:41
-msgid "Setting"
-msgstr "Configuración"
+#: ../plugins/search/anjuta-search.glade.h:25
+msgid "_Backward"
+msgstr "Hacia _atrás"
 
-#: ../plugins/search/plugin.c:192
+#: ../plugins/search/anjuta-search.glade.h:26
+msgid "_Forward"
+msgstr "Hacia a_delante"
+
+#: ../plugins/search/anjuta-search.glade.h:27
+msgid "_Greedy matching"
+msgstr "Coincidencia _voraz"
+
+#: ../plugins/search/anjuta-search.glade.h:28
+msgid "_Regular expression"
+msgstr "Expresión _regular"
+
+#: ../plugins/search/anjuta-search.glade.h:29
+msgid "and/or not named like:"
+msgstr "y/o de nombre distinto a:"
+
+#: ../plugins/search/plugin.c:254
 msgid "_Find..."
 msgstr "_Buscar…"
 
-#: ../plugins/search/plugin.c:193
+#: ../plugins/search/plugin.c:255
 msgid "Search for a string or regular expression in the editor"
 msgstr "Buscar una cadena o expresión regular en el editor"
 
-#: ../plugins/search/plugin.c:195
+#: ../plugins/search/plugin.c:257
 msgid "Find _Next"
 msgstr "Buscar siguie_nte"
 
-#: ../plugins/search/plugin.c:196 ../plugins/search/plugin.c:200
-msgid "Repeat the last Find command"
-msgstr "Repetir la última búsqueda"
+#: ../plugins/search/plugin.c:258
+msgid "Find next match using the last-used search parameters"
+msgstr "Buscar la siguiente coincidencia usando los últimos parámetros de búsqueda"
 
-#: ../plugins/search/plugin.c:198
+#: ../plugins/search/plugin.c:260
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../plugins/search/plugin.c:202
+#: ../plugins/search/plugin.c:262
+msgid "Find previous match using the last-used search parameters"
+msgstr "Buscar la coincidencia anterior usando los últimos parámetros de búsqueda"
+
+#: ../plugins/search/plugin.c:264
 msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
-#: ../plugins/search/plugin.c:204
-msgid ""
-"Search for and replace a string or regular expression with another string"
+#: ../plugins/search/plugin.c:266
+msgid "Search for a string or regular expression and replace with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
-#: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
-msgid "Search and Replace"
-msgstr "Buscar y reemplazar"
+#: ../plugins/search/plugin.c:268
+msgid "Search/Replace _Again"
+msgstr "Buscar/reemplazar de _nuevo"
 
-#: ../plugins/search/plugin.c:209
+#: ../plugins/search/plugin.c:269
+msgid "Repeat last-used find or replace operation"
+msgstr "Repetir la última búsqueda u operación de reemplazo usada"
+
+#. { "ActionEditAdvancedSearch", GTK_STOCK_FIND, N_("Advanced Search And Replace"),
+#. NULL, N_("New advance search and replace stuff"),
+#. G_CALLBACK (on_find1_activate)},
+#.
+#: ../plugins/search/plugin.c:275
 msgid "Fin_d in Files..."
 msgstr "_Buscar en archivos…"
 
-#: ../plugins/search/plugin.c:210
+#: ../plugins/search/plugin.c:276
 msgid "Search for a string in multiple files or directories"
 msgstr "Buscar una cadena en múltiples archivos o directorios"
 
-#: ../plugins/search/plugin.c:213
-msgid "Ne_xt Occurrence"
-msgstr "Aparición _siguiente"
+#: ../plugins/search/plugin.c:278
+msgid "List all matches"
+msgstr "Listar todas las coincidencias"
 
-#: ../plugins/search/plugin.c:214
-msgid "Find the next occurrence of current word"
-msgstr "Buscar la siguiente aparición de la palabra actual"
+#: ../plugins/search/plugin.c:279
+msgid "List occurrences of current selection or word in all project files"
+msgstr "Lista de coincidencias de la selección actual o palabra en todos los archivos de proyecto"
 
-#: ../plugins/search/plugin.c:217
-msgid "Pre_vious Occurrence"
-msgstr "Aparición _anterior"
-
-#: ../plugins/search/plugin.c:218
-msgid "Find the previous occurrence of current word"
-msgstr "Busca la aparición anterior de la palabra actual"
-
-#: ../plugins/search/plugin.c:245
+#: ../plugins/search/plugin.c:321
 msgid "Searching..."
 msgstr "Buscando…"
 
-#: ../plugins/search/search_preferences.c:44
-msgid "Basic Search"
-msgstr "Búsqueda básica"
+#: ../plugins/search/search-replace.c:78
+msgid "Current file"
+msgstr "Archivo actual"
 
-#: ../plugins/search/search-replace.c:98
-msgid "Current Buffer"
-msgstr "Búfer actual"
-
-#: ../plugins/search/search-replace.c:99
-msgid "Current Selection"
+#: ../plugins/search/search-replace.c:79
+msgid "Current selection"
 msgstr "Selección actual"
 
-#: ../plugins/search/search-replace.c:100
-msgid "Current Block"
+#: ../plugins/search/search-replace.c:80
+msgid "Current block"
 msgstr "Bloque actual"
 
-#: ../plugins/search/search-replace.c:101
-msgid "Current Function"
+#: ../plugins/search/search-replace.c:81
+msgid "Current function"
 msgstr "Función actual"
 
-#: ../plugins/search/search-replace.c:102
-msgid "All Open Buffers"
-msgstr "Todos los búferes abiertos"
+#: ../plugins/search/search-replace.c:82
+msgid "All open files"
+msgstr "Todos los archivos abiertos"
 
-#: ../plugins/search/search-replace.c:103
-msgid "All Project Files"
+#: ../plugins/search/search-replace.c:83
+msgid "All project files"
 msgstr "Todos los archivos del proyecto"
 
-#. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:105
-msgid "Specify File Patterns"
-msgstr "Especificar los patrones de archivo"
+#. CHECKME is this for the "variable" widget in the glade UI ?
+#. {SR_VARIABLE, N_("These files ...")},
+#: ../plugins/search/search-replace.c:86
+msgid "Files like these ..."
+msgstr "Archivos como estos..."
 
-#: ../plugins/search/search-replace.c:110
-msgid "Select next match"
-msgstr "Seleccionar la siguiente coincidencia"
+#: ../plugins/search/search-replace.c:92
+msgid "Select nearest match"
+msgstr "Seleccionar la coincidencia más cercana"
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:93
 msgid "Bookmark all matched lines"
 msgstr "Marcar todas las líneas que hayan coincidido"
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:94
 msgid "Mark all matches"
 msgstr "Marcar todas las coincidencias"
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:95
+msgid "Clear all match-marks"
+msgstr "Limpiar todas las marcas de coincidencia"
+
+#: ../plugins/search/search-replace.c:96
 msgid "List matches in find pane"
 msgstr "Listar las coincidencias en el panel de búsqueda"
 
-#: ../plugins/search/search-replace.c:114
-msgid "Replace next match"
-msgstr "Reemplazar la siguiente coincidencia"
+#: ../plugins/search/search-replace.c:97
+msgid "Replace interactively"
+msgstr "Reemplazo interactivo"
 
-#: ../plugins/search/search-replace.c:115
+#: ../plugins/search/search-replace.c:98
 msgid "Replace all matches"
 msgstr "Reemplazar todas las coincidencias"
 
-#: ../plugins/search/search-replace.c:319
+#. warning prevention
+#: ../plugins/search/search-replace.c:374
 msgid "Find: "
 msgstr "Buscar: "
 
-#: ../plugins/search/search-replace.c:495
-msgid "Replace"
-msgstr "Reemplazar"
-
-#: ../plugins/search/search-replace.c:629
+#: ../plugins/search/search-replace.c:1079
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1009
-#: ../plugins/search/search-replace.c:1687
-msgid "Replace All"
-msgstr "Reemplazar todo"
-
-#: ../plugins/search/search-replace.c:1048
+#: ../plugins/search/search-replace.c:1869
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
 "el principio del documento?"
 
-#: ../plugins/search/search-replace.c:1068
+#: ../plugins/search/search-replace.c:1882
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1083
+#: ../plugins/search/search-replace.c:1897
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1096
+#: ../plugins/search/search-replace.c:1910
 #, c-format
-msgid "%d match has been replaced."
-msgid_plural "%d matches have been replaced."
-msgstr[0] "Se ha reemplazado %d coincidencia."
-msgstr[1] "Se han reemplazado %d coincidencias."
+msgid "%u matches have been replaced."
+msgstr "Se han reemplazado %u coincidencias."
 
-#: ../plugins/search/search-replace.c:1262
+#: ../plugins/search/search-replace.c:2189
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
+
+#: ../plugins/search/search-replace.c:2198
+msgid "S_earch"
+msgstr "_Buscar"
+
+#: ../plugins/search/search-replace.c:2200
+msgid "Repace _all"
+msgstr "Reemplazar _todo"
+
+#: ../plugins/search/search-replace_backend.c:438
+#, c-format
+msgid "UTF-8 conversion failed for %s: %s"
+msgstr "Falló la conversión a UTF-8 para %s: %s"
 
 #. bad bad luck...
 #: ../plugins/sourceview/anjuta-document-saver.c:521
@@ -7066,28 +7065,24 @@ msgstr "Símbolos"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:560
 #: ../plugins/symbol-db/symbol-db-prefs.c:645
-#, fuzzy
 msgid "Symbol Database"
-msgstr "Símbolos"
+msgstr "Base de datos de símbolos"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
-#, fuzzy
 msgid "<b>Available API tags</b>"
-msgstr "<b>Etiquetas del API disponibles:</b>"
+msgstr "<b>Etiquetas de la API disponibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-#, fuzzy
 msgid "Choose Ctags executable"
-msgstr "Cargando ejecutable: "
+msgstr "Seleccionar las Ctags ejecutables"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
-#, fuzzy
 msgid "Ctags executable:"
-msgstr "Cargando ejecutable: "
+msgstr "Ctags ejecutables:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "button"
-msgstr ""
+msgstr "botón"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -7197,8 +7192,7 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:444
 msgid "Unable to build user interface for tool variable"
-msgstr ""
-"No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
@@ -7238,8 +7232,7 @@ msgstr "Acelerador nuevo…"
 
 #: ../plugins/tools/editor.c:978
 msgid "Unable to build user interface for tool editor"
-msgstr ""
-"No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: ../plugins/tools/execute.c:312
 #, c-format
@@ -7358,8 +7351,7 @@ msgid "Valgrind"
 msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
-msgid ""
-"No executable target selected for debugging with Valgrind. Please select one."
+msgid "No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
 "No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
 "Seleccione uno."
@@ -7567,8 +7559,7 @@ msgstr "Redondear tamaños de malloc a la siguiente palabra"
 
 #: ../plugins/valgrind/vggeneralprefs.c:222
 msgid "Trace any child processes forked off by the program being debugged"
-msgstr ""
-"Trazar cualquier proceso bifurcado por el programa que se está depurando"
+msgstr "Trazar cualquier proceso bifurcado por el programa que se está depurando"
 
 #: ../plugins/valgrind/vggeneralprefs.c:230
 msgid "Track open file descriptors"
@@ -7580,8 +7571,7 @@ msgstr "Añadir sello temporal a los mensajes de registro"
 
 #: ../plugins/valgrind/vggeneralprefs.c:246
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
-"Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
+msgstr "Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
 
 #: ../plugins/valgrind/vggeneralprefs.c:254
 msgid "Suppressions File:"
@@ -7941,8 +7931,7 @@ msgstr "No abrir el último proyecto y los archivos al iniciar"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
-"Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
+msgstr "Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
 
 #: ../src/main.c:314
 msgid "- Integrated Development Environment"
@@ -7974,8 +7963,7 @@ msgstr "Añadir «(» después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
-msgstr ""
-"Añadir un espacio después de la llamada de autocompletado de la función"
+msgstr "Añadir un espacio después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
@@ -8261,3 +8249,4 @@ msgstr "Cargador de archivos para cargar diferentes archivos"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Complemento de gestión de depuración."
+
