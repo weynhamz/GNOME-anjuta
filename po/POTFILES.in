@@ -148,11 +148,11 @@ plugins/project-wizard/templates/translatable-strings.h
 plugins/sample1/plugin.c
 plugins/search/anjuta-search.glade
 plugins/search/plugin.c
+plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
 plugins/sourceview/anjuta-document-saver.c
 plugins/sourceview/anjuta-document.c
-plugins/sourceview/anjuta-encodings.c
 plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview-print.c
 plugins/sourceview/anjuta-editor-sourceview.glade
