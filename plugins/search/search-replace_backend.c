@@ -400,18 +400,18 @@ get_project_file_list(void)
 
 
 static gboolean
-isawordchar (int c)
+isawordchar (gunichar c)
 {
-	return (isalnum(c) || '_' == c);
+	return (g_unichar_isalnum(c) || '_' == c);
 }
 
 static gboolean
-extra_match (FileBuffer *fb, SearchExpression *s, gint match_len)
+extra_match (FileBuffer *fb, gchar* begin, gchar* end, SearchExpression *s)
 {
-	gchar b, e;
+	gunichar b, e;
 	
-	b = fb->buf[fb->pos-1];
-	e = fb->buf[fb->pos+match_len];
+	b = g_utf8_get_char (g_utf8_prev_char (begin));
+	e = g_utf8_get_char (end);
 	
 	if (s->whole_line)
 		if ((fb->pos == 0 || b == '\n' || b == '\r') &&
@@ -494,7 +494,6 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	{
 		/* Simple string search - this needs to be performance-tuned */
 		gboolean found;
-		gchar lc;
 		gint match_len;
 
 		match_len = strlen (s->search_str);
@@ -507,35 +506,45 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			/* Backward matching. */
 			if (s->ignore_case)
 			{
-				/* FIXME support encodings with > 1 byte per char */
-				lc = tolower (s->search_str[0]);
-				for (; fb->pos != -1; --fb->pos)
+				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+				gint len = g_utf8_strlen (s->search_str, -1);
+				gchar* search_caseless = g_utf8_casefold (s->search_str, len);
+				for (; fb->pos >= len; --fb->pos)
 				{
-					if (lc == tolower(fb->buf[fb->pos]))
+					gchar* current_caseless = g_utf8_casefold (current, len);
+					if (g_utf8_collate (current_caseless, search_caseless) == 0 &&
+						extra_match (fb, current, current + strlen (search_caseless),
+									 s))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos,
-						    match_len) && extra_match (fb, s, match_len))
-						{
-							found = TRUE;
-							break;
-						}
+						found = TRUE;
+						g_free (current_caseless);
+						break;
 					}
+					else
+						current = g_utf8_prev_char (current);
 				}
+				g_free (search_caseless);
 			}
 			else
 			{
-				for (; fb->pos != -1; --fb->pos)
+				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+				gint len = g_utf8_strlen (s->search_str, -1);
+				gchar* search_key = g_utf8_collate_key (s->search_str, len);
+				for (; fb->pos >= len; --fb->pos)
 				{
-					if (s->search_str[0] == fb->buf[fb->pos])
+					gchar* current_key = g_utf8_collate_key (current, len);
+					if (g_str_equal (current_key, search_key) &&
+						extra_match (fb, current, current + strlen (s->search_str),
+									 s))
 					{
-						if (0 == strncmp(s->search_str, fb->buf + fb->pos,
-						  	match_len) && extra_match (fb, s, match_len))
-						{
-							found = TRUE;
-							break;
-						}
+						found = TRUE;
+						g_free (current_key);
+						break;
 					}
+					else
+						current = g_utf8_prev_char (current);
 				}
+				g_free (search_key);
 			}
 		}
 		else
@@ -543,35 +552,47 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			/* Forward match */
 			if (s->ignore_case)
 			{
-				/* FIXME support encodings with > 1 byte per char */
-				lc = tolower (s->search_str[0]);
-				for (; fb->pos < fb->len; ++fb->pos)
+				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+				gint len = g_utf8_strlen (s->search_str, -1);
+				gchar* search_caseless = g_utf8_casefold (s->search_str, len);
+				gint buf_len = g_utf8_strlen (fb->buf, fb->len);
+				for (; fb->pos < buf_len; ++fb->pos)
 				{
-					if (lc == tolower(fb->buf[fb->pos]))
+					gchar* current_caseless = g_utf8_casefold (current, len);
+					if (g_utf8_collate (current_caseless, search_caseless) == 0 &&
+						extra_match (fb, current, current + strlen (search_caseless),
+									 s))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos,
-						    match_len) && extra_match (fb, s, match_len))
-						{
-							found = TRUE;
-							break;
-						}
+						found = TRUE;
+						g_free (current_caseless);
+						break;
 					}
+					else
+						current = g_utf8_next_char (current);
 				}
+				g_free (search_caseless);
 			}
 			else
 			{
-				for (; fb->pos < fb->len; ++fb->pos)
+				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+				gint len = g_utf8_strlen (s->search_str, -1);
+				gint buf_len = g_utf8_strlen (fb->buf, fb->len);
+				gchar* search_key = g_utf8_collate_key (s->search_str, len);
+				for (; fb->pos < buf_len; ++fb->pos)
 				{
-					if (s->search_str[0] == fb->buf[fb->pos])
+					gchar* current_key = g_utf8_collate_key (current, len);
+					if (g_str_equal (current_key, search_key) &&
+						extra_match (fb, current, current + strlen (s->search_str),
+									 s))
 					{
-						if (0 == strncmp(s->search_str, fb->buf + fb->pos,
-						    match_len) && extra_match (fb, s, match_len))
-						{
-							found = TRUE;
-							break;
-						}
+						found = TRUE;
+						g_free (current_key);
+						break;
 					}
+					else
+						current = g_utf8_next_char (current);
 				}
+				g_free (search_key);
 			}
 		}
 		if (found)

@@ -1,4 +1,13 @@
 2008-04-16  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/search/search-replace_backend.c (isawordchar),
+	(extra_match), (get_next_match):
+	
+	Make searching utf-8 aware. We still need to fix encodings for
+	search/replace in files as it is currently assumed they are utf-8 like
+	the editors.
+
+2008-04-16  Johannes Schmid  <jhs@gnome.org>
 	
 	Patch from Ignacio Casal Quinteiro:
 	* plugins/file-loader/anjuta-recent-chooser-menu.c
