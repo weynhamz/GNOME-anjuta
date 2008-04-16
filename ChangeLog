@@ -1,5 +1,14 @@
 2008-04-16  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Ignacio Casal Quinteiro:
+	* plugins/file-loader/anjuta-recent-chooser-menu.c
+	(_gtk_recent_chooser_get_items),
+	(anjuta_recent_chooser_menu_insert_item), (idle_populate_func),
+	(anjuta_recent_chooser_menu_populate):
+	Show 5 project and 15 file items in recent-chooser
+
+2008-04-16  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/search/search-replace_backend.c (isawordchar),
 	(extra_match), (get_next_match):
 	

@@ -69,6 +69,7 @@ struct _AnjutaRecentChooserMenuPrivate
   gulong populate_id;
   
   gint prj_pos;
+  gint max_files;
 };
 
 typedef enum {
@@ -305,7 +306,7 @@ _gtk_recent_chooser_get_items (GtkRecentChooser  *chooser,
   if (!items)
     return NULL;
 
-  limit = gtk_recent_chooser_get_limit (chooser);
+  limit = 100;
   if (limit == 0)
     return NULL;
 
@@ -1062,9 +1063,12 @@ anjuta_recent_chooser_menu_insert_item (AnjutaRecentChooserMenu *menu,
 
   if (anjuta_project)
   {
-    gtk_menu_shell_insert (GTK_MENU_SHELL (menu), menuitem,
-                         priv->prj_pos);
-    priv->prj_pos++;
+    if (priv->prj_pos != 5)
+    {
+      gtk_menu_shell_insert (GTK_MENU_SHELL (menu), menuitem,
+                             priv->prj_pos);
+      priv->prj_pos++;
+    }
   } 
   else gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   
@@ -1167,8 +1171,15 @@ idle_populate_func (gpointer data)
   if (strcmp (gtk_recent_info_get_mime_type (info), "application/x-anjuta") == 0)
     anjuta_recent_chooser_menu_insert_item (pdata->menu, item,
                                        pdata->displayed_items, TRUE);
-  else anjuta_recent_chooser_menu_insert_item (pdata->menu, item,
-                                       pdata->displayed_items, FALSE);
+  else
+  {
+    if (priv->max_files != 14)
+    { 
+      anjuta_recent_chooser_menu_insert_item (pdata->menu, item,
+                                              pdata->displayed_items, FALSE);
+	  priv->max_files++;  
+	}
+  }
   
   pdata->displayed_items += 1;
       
@@ -1240,6 +1251,7 @@ anjuta_recent_chooser_menu_populate (AnjutaRecentChooserMenu *menu)
 
   priv->icon_size = get_icon_size_for_widget (GTK_WIDGET (menu));
   priv->prj_pos = 0;
+  priv->max_files = 0;
   
   /* remove our menu items first and hide the placeholder */
   anjuta_recent_chooser_menu_dispose_items (menu);
