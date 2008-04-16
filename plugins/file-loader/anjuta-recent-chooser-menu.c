@@ -67,6 +67,8 @@ struct _AnjutaRecentChooserMenuPrivate
   gulong manager_changed_id;
 
   gulong populate_id;
+  
+  gint prj_pos;
 };
 
 typedef enum {
@@ -1030,7 +1032,6 @@ anjuta_recent_chooser_menu_insert_item (AnjutaRecentChooserMenu *menu,
 {
   AnjutaRecentChooserMenuPrivate *priv = menu->priv;
   gint real_position;
-  static gint anjuta_pos = 0;
 
   if (priv->first_recent_item_pos == -1)
     {
@@ -1054,7 +1055,7 @@ anjuta_recent_chooser_menu_insert_item (AnjutaRecentChooserMenu *menu,
 
       g_list_free (children);
       priv->first_recent_item_pos = real_position;
-      anjuta_pos = 0;
+      priv->prj_pos = 0;
     }
   else
     real_position = priv->first_recent_item_pos;
@@ -1062,8 +1063,8 @@ anjuta_recent_chooser_menu_insert_item (AnjutaRecentChooserMenu *menu,
   if (anjuta_project)
   {
     gtk_menu_shell_insert (GTK_MENU_SHELL (menu), menuitem,
-                         anjuta_pos);
-    anjuta_pos++;
+                         priv->prj_pos);
+    priv->prj_pos++;
   } 
   else gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   
@@ -1238,6 +1239,7 @@ anjuta_recent_chooser_menu_populate (AnjutaRecentChooserMenu *menu)
   pdata->placeholder = g_object_ref (priv->placeholder);
 
   priv->icon_size = get_icon_size_for_widget (GTK_WIDGET (menu));
+  priv->prj_pos = 0;
   
   /* remove our menu items first and hide the placeholder */
   anjuta_recent_chooser_menu_dispose_items (menu);

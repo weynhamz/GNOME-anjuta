@@ -165,11 +165,6 @@ atp_plugin_finalize (GObject *obj)
 
 /* finalize used to free object created with instance init is not used */
 
-
-static void test (GtkAction *action)
-{
-}
-
 static gboolean
 atp_plugin_activate (AnjutaPlugin *plugin)
 {
@@ -252,7 +247,7 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 	/* Load glade file */
 	atp_plugin->gxml = glade_xml_new (GLADE_FILE, "list_tools", NULL);
 	if (atp_plugin->gxml == NULL)
-		return FALSE;
+		return;
 
 	atp_tool_dialog_show(&atp_plugin->dialog, atp_plugin->gxml);
 

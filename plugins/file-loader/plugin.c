@@ -1145,6 +1145,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkActionGroup *group;
 	GtkWidget *widget;
 	GtkWidget* recent_menu;
+	GtkWidget* toolbar_menu;
 	
 	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
@@ -1181,9 +1182,8 @@ activate_plugin (AnjutaPlugin *plugin)
 				  "is-important", TRUE, NULL);
 
 	group = gtk_action_group_new ("ActionGroupLoaderRecent");
-	action = gtk_recent_action_new_for_manager ("ActionFileOpenRecent", _("Open _Recent"),
-												_("Open recent file"), NULL,
-												loader_plugin->recent_manager);
+	action = gtk_recent_action_new ("ActionFileOpenRecent", _("Open _Recent"),
+												_("Open recent file"), NULL);
 	g_object_set (action, "stock-id", GTK_STOCK_OPEN, NULL);
 	setup_recent_chooser_menu (GTK_RECENT_CHOOSER (action), loader_plugin);
 	g_signal_connect (action, "activate", G_CALLBACK (on_open_activate), loader_plugin);
@@ -1211,6 +1211,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	widget = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
 					"/ToolbarMain/PlaceholderFileToolbar/New");
 	gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (widget), on_create_submenu(loader_plugin));
+	
+	widget = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+					"/ToolbarMain/PlaceholderFileToolbar/Open");
+	toolbar_menu = anjuta_recent_chooser_menu_new_for_manager (loader_plugin->recent_manager);
+	setup_recent_chooser_menu (GTK_RECENT_CHOOSER (toolbar_menu), loader_plugin);
+	gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (widget),
+								   toolbar_menu);
 	
 	/* Install drag n drop handler */
 	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
