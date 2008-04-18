@@ -2596,15 +2596,17 @@ interface IAnjutaTerminal
 	/**
 	* ianjuta_terminal_execute_command:
 	* @obj: Self
-	* @directory: fixme
-	* @command: fixme
+	* @directory: Working directory
+	* @command: Command executed followed by arguments
+	* @environment: List of additional environment variables
 	* @err: Error propagation and reporting.
 	*
-	* fixme
+	* Run the command in a terminal, setting the working directory
+	* and environment variables.
 	* 
-	* Returns: fixme
+	* Returns: Process ID
 	*/
-	pid_t execute_command (const gchar* directory, const gchar *command);
+	pid_t execute_command (const gchar* directory, const gchar *command, gchar **environment);
 }
 
 /**

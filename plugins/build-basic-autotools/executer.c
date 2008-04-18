@@ -422,7 +422,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				
 			}
 
-			ianjuta_terminal_execute_command (term, dir, cmd, NULL);
+			ianjuta_terminal_execute_command (term, dir, cmd, NULL, NULL);
 		}
 		else
 		{

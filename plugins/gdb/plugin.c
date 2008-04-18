@@ -122,7 +122,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 
 	/* Launch terminal */
 	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
-	plugin->term_pid = ianjuta_terminal_execute_command (term, NULL, cmd, NULL);
+	plugin->term_pid = ianjuta_terminal_execute_command (term, NULL, cmd, NULL, NULL);
 	g_free (cmd);
 
 	if (plugin->term_pid > 0)

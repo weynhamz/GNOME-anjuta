@@ -1,3 +1,15 @@
+2008-04-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/terminal/terminal.c,
+	plugins/build-basic-autotools/executer.c,
+	plugins/gdb/plugin.c:
+	Add an env parameter in the IAnjutaTerminal interface allowing
+	to specify additional environment variables
+
+	* libanjuta/anjuta-launcher.c:
+	Add one initialization
+
 2008-04-16  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Ignacio Casal Quinteiro:

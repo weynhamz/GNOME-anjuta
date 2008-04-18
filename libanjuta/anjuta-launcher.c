@@ -194,6 +194,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->child_pid = 0;
 	obj->priv->child_status = -1;
 	obj->priv->child_has_terminated = TRUE;
+	obj->priv->source = 0;
 	
 	/* Synchronization in progress */
 	obj->priv->in_cleanup = FALSE;
@@ -253,15 +254,15 @@ anjuta_launcher_dispose (GObject *obj)
 	AnjutaLauncher *launcher = ANJUTA_LAUNCHER (obj);
 	if (anjuta_launcher_is_busy (launcher))
 	{
-		pid_t child_pid_save = launcher->priv->child_pid;
-		guint child_source = launcher->priv->source;
-		g_source_remove (child_source);
+		g_source_remove (launcher->priv->source);
+		launcher->priv->source = 0;
+		
 		anjuta_launcher_execution_done_cleanup (launcher, FALSE);
 		
 		/* We can not call anjuta_launcher_reset (launcher) to kill the
 		 * running child because launcher has been initialized in cleanup
 		 */
-		kill (child_pid_save, SIGTERM);
+		kill (launcher->priv->child_pid, SIGTERM);
 		launcher->priv->busy = FALSE;
 		
 	}

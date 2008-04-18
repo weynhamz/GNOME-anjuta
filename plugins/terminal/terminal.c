@@ -63,8 +63,6 @@
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-plugin.h>
 
-extern char **environ;
-
 extern GType terminal_plugin_get_type (GTypeModule *module);
 #define ANJUTA_PLUGIN_TERMINAL_TYPE         (terminal_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_TERMINAL(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_PLUGIN_TERMINAL_TYPE, TerminalPlugin))
@@ -315,45 +313,104 @@ use_default_profile_cb (GtkToggleButton *button,
 		gtk_widget_set_sensitive (term->pref_profile_combo, TRUE);
 }
 
-static char **
-get_child_environment (void)
+static const gchar *
+strncmpv (gchar **str_array, const gchar *str, gsize n)
 {
-	/* code from gnome-terminal, sort of. */
-	char **p;
-	int i;
-	char **retval;
+	if (str_array != NULL)
+	{
+		gchar **p;
+	
+		for (p = str_array; *p; p++)
+		{
+			if (strncmp (*p, str, n) == 0) return *p;
+		}
+	}
+	
+	return NULL;
+}
+
+static gchar **
+get_child_environment (gchar **environment)
+{
+	gchar **p;
+	gchar **new_env;
+	gchar **old_env;
+	gint i;
+	gsize len;
+	
 #define EXTRA_ENV_VARS 6
 
-	/* count env vars that are set */
-	for (p = environ; *p; p++);
+	/* Allocate space for new environment variables */
+	old_env = g_listenv ();
 
-	i = p - environ;
-	retval = g_new (char *, i + 1 + EXTRA_ENV_VARS);
+	len = old_env ? g_strv_length (old_env) : 0;
+	len += environment ? g_strv_length (environment) : 0;
+	len += EXTRA_ENV_VARS + 1;	
+	new_env = g_new (char *, len);
 
-	for (i = 0, p = environ; *p; p++) {
-		/* Strip all these out, we'll replace some of them */
+	/* Remove some environment variables, Move other in new_env */
+	i = 0;
+	for (p = old_env; *p; p++)
+	{
 		if ((strncmp (*p, "COLUMNS=", 8) == 0) ||
 		    (strncmp (*p, "LINES=", 6) == 0)   ||
 		    (strncmp (*p, "TERM=", 5) == 0)    ||
-		    (strncmp (*p, "GNOME_DESKTOP_ICON=", 19) == 0)) {
-			/* nothing: do not copy */
-		} else {
-			retval[i] = g_strdup (*p);
-			++i;
+		    (strncmp (*p, "GNOME_DESKTOP_ICON=", 19) == 0))
+		{
+			/* Remove some environment variables */
+			g_free (*p);
+		}
+		else 
+		{
+			const gchar *eq;
+
+			eq = strchr (*p, '=');
+			if (eq != NULL)
+			{
+				if (strncmpv (environment, *p, eq - *p + 1))
+				{
+					/* Remove variable in the list */
+					g_free (*p);
+				}
+				else
+				{
+					/* Valid environment variable */
+					new_env[i++] = *p;
+				}
+			}
+			else
+			{
+				/* Invalid environment variable */
+				g_free (*p);
+			}
 		}
 	}
+	g_free (old_env);	/* No need to use g_strfreev */
 
-	retval[i] = g_strdup ("TERM=xterm"); /* FIXME configurable later? */
-	++i;
+	/* Add TERM variable */
+	if (!strncmpv (environment, "TERM=", 5))
+	{
+		/* Add default terminal */
+		new_env[i++] = g_strdup ("TERM=xterm");
+	}
+	
+	/* Add all other environment variable from list */
+	if (environment)
+	{
+		for (p = environment; *p; p++)
+		{
+			new_env[i++] = g_strdup(*p);
+		}
+	}
+	
+	new_env[i] = NULL;
 
-	retval[i] = NULL;
-
-	return retval;
+	return new_env;
 }
 
 static pid_t
 terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
-				  const gchar *command)
+				  const gchar *command, gchar **environment)
 {
 	char **env, **args, **args_ptr;
 	GList *args_list, *args_list_ptr;
@@ -384,7 +441,7 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	
 	vte_terminal_reset (term, TRUE, TRUE);
 
-	env = get_child_environment ();
+	env = get_child_environment (environment);
 	
 	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
 														env, dir, 0, 0, 0);
@@ -418,7 +475,7 @@ terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
 		shell = "/bin/sh";
 		dir = "/";
 	}
-	terminal_execute (term_plugin, dir, shell);
+	terminal_execute (term_plugin, dir, shell, NULL);
 }
 
 static gboolean
@@ -685,7 +742,8 @@ terminal_plugin_class_init (GObjectClass *klass)
 static pid_t
 iterminal_execute_command (IAnjutaTerminal *terminal,
 						   const gchar *directory,
-						   const gchar *command, GError **err)
+						   const gchar *command,
+						   gchar **environment, GError **err)
 {
 	TerminalPlugin *plugin;
 	const gchar *dir;
@@ -697,7 +755,7 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 	else
 		dir = directory;
 	
-	return terminal_execute (plugin, directory, command);
+	return terminal_execute (plugin, directory, command, environment);
 }
 
 static void
