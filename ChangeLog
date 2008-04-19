@@ -1,3 +1,10 @@
+2008-04-19  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/search/search-replace_backend.c (isawordchar),
+	(extra_match), (get_next_match):
+	
+	Make searching utf-8 aware (#440637)
+
 === anjuta 2.4.1 ===
 
 2008-04-06  Naba Kumar  <naba@gnome.org>
