@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-11 05:44+0100\n"
-"PO-Revision-Date: 2008-04-13 14:07+0200\n"
+"POT-Creation-Date: 2008-04-14 21:06+0100\n"
+"PO-Revision-Date: 2008-04-19 12:28+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,184 +66,121 @@ msgstr "Falta el tipo definido por el complemento %s"
 msgid "plugin %s fails to register type %s"
 msgstr "el complemento %s ha fallado al registrar el tipo %s"
 
-#: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:166
-#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:248
-#: ../plugins/sourceview/anjuta-encodings.c:151
-#: ../plugins/sourceview/anjuta-encodings.c:177
-#: ../plugins/sourceview/anjuta-encodings.c:223
-#: ../plugins/sourceview/anjuta-encodings.c:266
-msgid "Western"
-msgstr "Occidental"
-
-#: ../libanjuta/anjuta-encodings.c:142 ../libanjuta/anjuta-encodings.c:209
-#: ../libanjuta/anjuta-encodings.c:244
-#: ../plugins/sourceview/anjuta-encodings.c:153
-#: ../plugins/sourceview/anjuta-encodings.c:225
-#: ../plugins/sourceview/anjuta-encodings.c:262
-msgid "Central European"
-msgstr "Centroeuropeo"
-
-#: ../libanjuta/anjuta-encodings.c:144
-#: ../plugins/sourceview/anjuta-encodings.c:155
-msgid "South European"
-msgstr "Sur de Europa"
-
-#: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:162
-#: ../libanjuta/anjuta-encodings.c:258
-#: ../plugins/sourceview/anjuta-encodings.c:157
-#: ../plugins/sourceview/anjuta-encodings.c:173
-#: ../plugins/sourceview/anjuta-encodings.c:276
-msgid "Baltic"
-msgstr "Báltico"
-
-#: ../libanjuta/anjuta-encodings.c:148 ../libanjuta/anjuta-encodings.c:211
-#: ../libanjuta/anjuta-encodings.c:224 ../libanjuta/anjuta-encodings.c:228
-#: ../libanjuta/anjuta-encodings.c:246
-#: ../plugins/sourceview/anjuta-encodings.c:159
-#: ../plugins/sourceview/anjuta-encodings.c:227
-#: ../plugins/sourceview/anjuta-encodings.c:240
-#: ../plugins/sourceview/anjuta-encodings.c:244
-#: ../plugins/sourceview/anjuta-encodings.c:246
-#: ../plugins/sourceview/anjuta-encodings.c:264
-msgid "Cyrillic"
-msgstr "Cirílico"
-
-#: ../libanjuta/anjuta-encodings.c:150 ../libanjuta/anjuta-encodings.c:217
-#: ../libanjuta/anjuta-encodings.c:256
-#: ../plugins/sourceview/anjuta-encodings.c:161
-#: ../plugins/sourceview/anjuta-encodings.c:233
-#: ../plugins/sourceview/anjuta-encodings.c:274
-msgid "Arabic"
-msgstr "Árabe"
-
-#: ../libanjuta/anjuta-encodings.c:152 ../libanjuta/anjuta-encodings.c:250
-#: ../plugins/sourceview/anjuta-encodings.c:163
-#: ../plugins/sourceview/anjuta-encodings.c:268
-msgid "Greek"
-msgstr "Griego"
-
-#: ../libanjuta/anjuta-encodings.c:154
-#: ../plugins/sourceview/anjuta-encodings.c:165
-msgid "Hebrew Visual"
-msgstr "Hebreo visual"
-
-#: ../libanjuta/anjuta-encodings.c:156 ../libanjuta/anjuta-encodings.c:215
-#: ../libanjuta/anjuta-encodings.c:254
-#: ../plugins/sourceview/anjuta-encodings.c:167
-#: ../plugins/sourceview/anjuta-encodings.c:231
-#: ../plugins/sourceview/anjuta-encodings.c:272
-msgid "Hebrew"
-msgstr "Hebreo"
-
-#: ../libanjuta/anjuta-encodings.c:158 ../libanjuta/anjuta-encodings.c:213
-#: ../libanjuta/anjuta-encodings.c:252
-#: ../plugins/sourceview/anjuta-encodings.c:169
-#: ../plugins/sourceview/anjuta-encodings.c:229
-#: ../plugins/sourceview/anjuta-encodings.c:270
-msgid "Turkish"
-msgstr "Turco"
-
-#: ../libanjuta/anjuta-encodings.c:160
-#: ../plugins/sourceview/anjuta-encodings.c:171
-msgid "Nordic"
-msgstr "Nórdico"
-
-#: ../libanjuta/anjuta-encodings.c:164
-#: ../plugins/sourceview/anjuta-encodings.c:175
-msgid "Celtic"
-msgstr "Celta"
-
-#: ../libanjuta/anjuta-encodings.c:168
-#: ../plugins/sourceview/anjuta-encodings.c:179
-msgid "Romanian"
-msgstr "Rumano"
-
-#: ../libanjuta/anjuta-encodings.c:171 ../libanjuta/anjuta-encodings.c:173
-#: ../libanjuta/anjuta-encodings.c:175 ../libanjuta/anjuta-encodings.c:177
-#: ../plugins/sourceview/anjuta-encodings.c:137
-#: ../plugins/sourceview/anjuta-encodings.c:182
-#: ../plugins/sourceview/anjuta-encodings.c:184
-#: ../plugins/sourceview/anjuta-encodings.c:186
-#: ../plugins/sourceview/anjuta-encodings.c:188
+#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
+#: ../libanjuta/anjuta-encodings.c:188
 msgid "Unicode"
 msgstr "Unicode"
 
-#: ../libanjuta/anjuta-encodings.c:180
-#: ../plugins/sourceview/anjuta-encodings.c:191
+#: ../libanjuta/anjuta-encodings.c:151 ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:223 ../libanjuta/anjuta-encodings.c:266
+msgid "Western"
+msgstr "Occidental"
+
+#: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
+#: ../libanjuta/anjuta-encodings.c:262
+msgid "Central European"
+msgstr "Centroeuropeo"
+
+#: ../libanjuta/anjuta-encodings.c:155
+msgid "South European"
+msgstr "Sur de Europa"
+
+#: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:276
+msgid "Baltic"
+msgstr "Báltico"
+
+#: ../libanjuta/anjuta-encodings.c:159 ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:240 ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:246 ../libanjuta/anjuta-encodings.c:264
+msgid "Cyrillic"
+msgstr "Cirílico"
+
+#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:233
+#: ../libanjuta/anjuta-encodings.c:274
+msgid "Arabic"
+msgstr "Árabe"
+
+#: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
+msgid "Greek"
+msgstr "Griego"
+
+#: ../libanjuta/anjuta-encodings.c:165
+msgid "Hebrew Visual"
+msgstr "Hebreo visual"
+
+#: ../libanjuta/anjuta-encodings.c:167 ../libanjuta/anjuta-encodings.c:231
+#: ../libanjuta/anjuta-encodings.c:272
+msgid "Hebrew"
+msgstr "Hebreo"
+
+#: ../libanjuta/anjuta-encodings.c:169 ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:270
+msgid "Turkish"
+msgstr "Turco"
+
+#: ../libanjuta/anjuta-encodings.c:171
+msgid "Nordic"
+msgstr "Nórdico"
+
+#: ../libanjuta/anjuta-encodings.c:175
+msgid "Celtic"
+msgstr "Celta"
+
+#: ../libanjuta/anjuta-encodings.c:179
+msgid "Romanian"
+msgstr "Rumano"
+
+#: ../libanjuta/anjuta-encodings.c:191
 msgid "Armenian"
 msgstr "Armenio"
 
-#: ../libanjuta/anjuta-encodings.c:182 ../libanjuta/anjuta-encodings.c:184
-#: ../libanjuta/anjuta-encodings.c:193
-#: ../plugins/sourceview/anjuta-encodings.c:193
-#: ../plugins/sourceview/anjuta-encodings.c:195
-#: ../plugins/sourceview/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:193 ../libanjuta/anjuta-encodings.c:195
+#: ../libanjuta/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "Chino tradicional"
 
-#: ../libanjuta/anjuta-encodings.c:186
-#: ../plugins/sourceview/anjuta-encodings.c:197
+#: ../libanjuta/anjuta-encodings.c:197
 msgid "Cyrillic/Russian"
 msgstr "Cirílico/Ruso"
 
-#: ../libanjuta/anjuta-encodings.c:189 ../libanjuta/anjuta-encodings.c:220
-#: ../libanjuta/anjuta-encodings.c:233
-#: ../plugins/sourceview/anjuta-encodings.c:200
-#: ../plugins/sourceview/anjuta-encodings.c:202
-#: ../plugins/sourceview/anjuta-encodings.c:204
-#: ../plugins/sourceview/anjuta-encodings.c:236
-#: ../plugins/sourceview/anjuta-encodings.c:251
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:204 ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:251
 msgid "Japanese"
 msgstr "Japonés"
 
-#: ../libanjuta/anjuta-encodings.c:191 ../libanjuta/anjuta-encodings.c:222
-#: ../libanjuta/anjuta-encodings.c:226 ../libanjuta/anjuta-encodings.c:239
-#: ../plugins/sourceview/anjuta-encodings.c:207
-#: ../plugins/sourceview/anjuta-encodings.c:238
-#: ../plugins/sourceview/anjuta-encodings.c:242
-#: ../plugins/sourceview/anjuta-encodings.c:257
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
 msgstr "Coreano"
 
-#: ../libanjuta/anjuta-encodings.c:196 ../libanjuta/anjuta-encodings.c:198
-#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:204
-#: ../plugins/sourceview/anjuta-encodings.c:212
-#: ../plugins/sourceview/anjuta-encodings.c:214
-#: ../plugins/sourceview/anjuta-encodings.c:216
-#: ../plugins/sourceview/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
+#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
 msgid "Chinese Simplified"
 msgstr "Chino simplificado"
 
-#: ../libanjuta/anjuta-encodings.c:202
-#: ../plugins/sourceview/anjuta-encodings.c:218
+#: ../libanjuta/anjuta-encodings.c:218
 msgid "Georgian"
 msgstr "Georgiano"
 
-#: ../libanjuta/anjuta-encodings.c:230
-#: ../plugins/sourceview/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:248
 msgid "Cyrillic/Ukrainian"
 msgstr "Cirílico/Ucraniano"
 
-#: ../libanjuta/anjuta-encodings.c:235 ../libanjuta/anjuta-encodings.c:241
-#: ../libanjuta/anjuta-encodings.c:260
-#: ../plugins/sourceview/anjuta-encodings.c:253
-#: ../plugins/sourceview/anjuta-encodings.c:259
-#: ../plugins/sourceview/anjuta-encodings.c:278
+#: ../libanjuta/anjuta-encodings.c:253 ../libanjuta/anjuta-encodings.c:259
+#: ../libanjuta/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "Vietnamita"
 
-#: ../libanjuta/anjuta-encodings.c:237
-#: ../plugins/sourceview/anjuta-encodings.c:255
+#: ../libanjuta/anjuta-encodings.c:255
 msgid "Thai"
 msgstr "Tailandés"
 
-#: ../libanjuta/anjuta-encodings.c:772
-msgid "Stock Encodings"
-msgstr "Codificaciones soportadas"
-
-#: ../libanjuta/anjuta-encodings.c:791
-msgid "Supported Encodings"
-msgstr "Codificaciones soportadas"
+#: ../libanjuta/anjuta-encodings.c:441
+msgid "Unknown"
+msgstr "Desconocido"
 
 #: ../libanjuta/anjuta-launcher.c:1167 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
@@ -288,7 +225,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:885
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:1002
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -465,7 +402,7 @@ msgstr "Categoría"
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:872
+#: ../src/anjuta-app.c:989
 msgid "General"
 msgstr "General"
 
@@ -528,21 +465,21 @@ msgstr "Distinguir mayúsculas"
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
-#: ../libanjuta/anjuta-utils.c:75
+#: ../libanjuta/anjuta-utils.c:74
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
 
-#: ../libanjuta/anjuta-utils.c:85
+#: ../libanjuta/anjuta-utils.c:84
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "No se puede crear el archivo: %s."
 
-#: ../libanjuta/anjuta-utils.c:121
+#: ../libanjuta/anjuta-utils.c:120
 msgid "Unable to complete file copy"
 msgstr "No se puede copiar el archivo"
 
-#: ../libanjuta/anjuta-utils.c:334
+#: ../libanjuta/anjuta-utils.c:333
 msgid ""
 "\n"
 "System: "
@@ -550,7 +487,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: ../libanjuta/anjuta-utils.c:472
+#: ../libanjuta/anjuta-utils.c:471
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -559,12 +496,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:821 ../libanjuta/anjuta-utils.c:825
+#: ../libanjuta/anjuta-utils.c:820 ../libanjuta/anjuta-utils.c:824
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1387
+#: ../libanjuta/anjuta-utils.c:1386
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -922,6 +859,7 @@ msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
 #: ../plugins/build-basic-autotools/build-options.c:41
+#: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "Predeterminado"
@@ -1164,7 +1102,7 @@ msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
-#: ../plugins/search/anjuta-search.glade.h:6
+#: ../plugins/search/anjuta-search.glade.h:3
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:4
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "<b>Options</b>"
@@ -2338,7 +2276,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:671
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:744
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Archivo"
@@ -2414,6 +2352,7 @@ msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
 #: ../plugins/debug-manager/start.c:1242
+#: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nombre"
 
@@ -2562,11 +2501,16 @@ msgstr "Operaciones con ayuda"
 msgid "Books"
 msgstr "Libros"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/symbol-browser/plugin.c:913
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1006
+#: ../plugins/search/search-replace.c:1673
+#: ../plugins/search/search-replace.c:1680
+#: ../plugins/search/search-replace.c:1692
+#: ../plugins/search/search-replace.c:2006
+#: ../plugins/symbol-browser/plugin.c:913
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:688
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:761
 msgid "Help"
 msgstr "Ayuda"
 
@@ -2584,7 +2528,7 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:275
-#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:216
+#: ../plugins/editor/text_editor.c:341 ../plugins/sourceview/sourceview.c:216
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2614,10 +2558,8 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#. s,a,r,c are unavailable for mnemonic
 #: ../plugins/document-manager/anjuta-docman.c:528
-#: ../plugins/file-wizard/file.c:248 ../plugins/search/search-replace.c:2199
-#: ../plugins/valgrind/plugin.c:383
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -2630,61 +2572,38 @@ msgid "<b>Editor tabs</b>"
 msgstr "<b>Solapas del editor</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:3
-msgid "<b>Encoding to use when saving files</b>"
-msgstr "<b>Codificación a usar al guardar archivos</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
-msgid "<b>Supported Encodings</b>"
-msgstr "<b>Codificaciones soportadas</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
-msgid "Always save in UTF-8 encoding (faster)"
-msgstr "Siempre guardar usando codificación UTF-8 (más rápido)"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1709
-#: ../plugins/document-manager/plugin.c:2105
-#: ../plugins/document-manager/plugin.c:2116
-msgid "Documents"
-msgstr "Documentos"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 msgid "Enable files autosave"
 msgstr "Activar autoguardado de archivos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
-msgid "Encodings"
-msgstr "Codificaciones"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 msgid "Position:"
 msgstr "Posición:"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 msgid "Save files interval in minutes"
 msgstr "Intervalo de guardado de archivos en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:12
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 msgid "Save session interval in minutes"
 msgstr "Intervalo de guardado de la sesión en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:13
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
 msgid "Sorted by most recent use"
 msgstr "Ordenadas por uso más reciente"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:14
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "Sorted in alphabetical order"
 msgstr "Ordenadas en orden alfabético"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:15
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "Sorted in opening order"
 msgstr "Ordenadas en orden de apertura"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:16
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid ""
 "Top\n"
@@ -2696,14 +2615,6 @@ msgstr ""
 "Inferior\n"
 "Izquierda\n"
 "Derecha"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:20
-msgid "Try to save in current locale's encoding"
-msgstr "Intentar guardar en la codificación de la región actual"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:21
-msgid "Try to save in original encoding"
-msgstr "Intentar guardar en la codificación original"
 
 #: ../plugins/document-manager/plugin.c:153
 msgid "_Save"
@@ -2947,7 +2858,7 @@ msgstr "H_istórico siguiente"
 msgid "Goto next history"
 msgstr "Ir al histórico siguiente"
 
-#: ../plugins/document-manager/plugin.c:275 ../plugins/search/plugin.c:253
+#: ../plugins/document-manager/plugin.c:275 ../plugins/search/plugin.c:191
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -3295,6 +3206,12 @@ msgstr "Falló el autoguardado para el archivo %s"
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
+#: ../plugins/document-manager/plugin.c:1709
+#: ../plugins/document-manager/plugin.c:2105
+#: ../plugins/document-manager/plugin.c:2115
+msgid "Documents"
+msgstr "Documentos"
+
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
@@ -3637,7 +3554,7 @@ msgstr "Vista previa de la impresión"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:202
+#: ../plugins/editor/text_editor.c:327 ../plugins/sourceview/sourceview.c:202
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3648,24 +3565,24 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1343
+#: ../plugins/editor/text_editor.c:1267
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
-#: ../plugins/editor/text_editor.c:1350
+#: ../plugins/editor/text_editor.c:1274
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1357
+#: ../plugins/editor/text_editor.c:1281
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../plugins/editor/text_editor.c:1365
+#: ../plugins/editor/text_editor.c:1289
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1411
+#: ../plugins/editor/text_editor.c:1333
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3675,11 +3592,11 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo esté soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1576
+#: ../plugins/editor/text_editor.c:1470
 msgid "Loading file..."
 msgstr "Cargando archivo…"
 
-#: ../plugins/editor/text_editor.c:1585
+#: ../plugins/editor/text_editor.c:1479
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3690,34 +3607,34 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1605
+#: ../plugins/editor/text_editor.c:1499
 msgid "File loaded successfully"
 msgstr "Archivo cargado correctamente"
 
-#: ../plugins/editor/text_editor.c:1626
+#: ../plugins/editor/text_editor.c:1520
 msgid "Saving file..."
 msgstr "Guardando archivo…"
 
-#: ../plugins/editor/text_editor.c:1638
+#: ../plugins/editor/text_editor.c:1532
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "No se puede guardar el archivo intermedio %s: %s"
 
-#: ../plugins/editor/text_editor.c:1686
+#: ../plugins/editor/text_editor.c:1580
 #, c-format
 msgid "Could not save file %s: %s."
 msgstr "No se puede guardar el archivo %s: %s."
 
-#: ../plugins/editor/text_editor.c:1699
+#: ../plugins/editor/text_editor.c:1593
 #, c-format
 msgid "Could not set file permissions %s: %s."
 msgstr "No se pudieron establecer los permisos del archivo %s: %s."
 
-#: ../plugins/editor/text_editor.c:1707
+#: ../plugins/editor/text_editor.c:1601
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: ../plugins/editor/text_editor.c:2072
+#: ../plugins/editor/text_editor.c:1966
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5983,302 +5900,332 @@ msgid "SamplePlugin"
 msgstr "Complemento de ejemplo"
 
 #: ../plugins/search/anjuta-search.glade.h:1
-msgid "*.so *.o *.a *.la"
-msgstr "*.so *.o *.a *.la"
+msgid "<b>Actions</b>"
+msgstr "<b>Acciones</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:2
-msgid ""
-"*\\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-msgstr ""
-"*\\.* *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
+msgid "<b>File Filter</b>"
+msgstr "<b>Filtro de archivo</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:4
-msgid "<b>Action:</b>"
-msgstr "<b>Acción:</b>"
+msgid "<b>Parameters</b>"
+msgstr "<b>Parámetros</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:5
-msgid "<b>Expression:</b>"
-msgstr "<b>Expresión:</b>"
+msgid "<b>Scope</b>"
+msgstr "<b>Ámbito</b>"
 
+#. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.glade.h:7
-msgid "<b>Scope:</b>"
-msgstr "<b>Ámbito:</b>"
+msgid "<b>Search variable</b>"
+msgstr "<b>Variable de búsqueda</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:8
-msgid "Anjuta - Find & Replace"
-msgstr "Anjuta - Buscar y reemplazar"
+#: ../plugins/search/search-replace.c:93
+msgid "Backward"
+msgstr "Hacia atrás"
 
 #: ../plugins/search/anjuta-search.glade.h:9
-msgid "CVS intl po"
-msgstr "CVS intl po"
+msgid "Basic Search & Replace"
+msgstr "Búsqueda y reemplazo básicos"
 
 #: ../plugins/search/anjuta-search.glade.h:10
-msgid "Case _insensitive"
-msgstr "No distinguir cap_italización"
+msgid "Case insensitive"
+msgstr "Distinguir capitalización"
 
 #: ../plugins/search/anjuta-search.glade.h:11
-msgid "E_xpand back refs"
-msgstr "E_xpandir referencias hacia atrás"
+msgid "Choose Directories:"
+msgstr "Elegir directorios:"
 
 #: ../plugins/search/anjuta-search.glade.h:12
-msgid "F_rom start"
-msgstr "De_sde el comienzo"
+msgid "Choose Files:"
+msgstr "Elegir archivos:"
 
 #: ../plugins/search/anjuta-search.glade.h:13
-msgid "Files named like:"
-msgstr "Archivos de nombre como:"
+msgid "Expand regex back references"
+msgstr "Expandir referencias hacia atrás de regex"
 
 #: ../plugins/search/anjuta-search.glade.h:14
-msgid "Ignore _hidden files"
-msgstr "Ignorar archivos _ocultos"
+msgid "Find & Replace"
+msgstr "Buscar y reemplazar"
 
 #: ../plugins/search/anjuta-search.glade.h:15
-msgid "Ignore hidden directories"
-msgstr "Ignorar directorios ocultos"
+#: ../plugins/search/search-replace.c:92
+msgid "Forward"
+msgstr "Hacia adelante"
 
+#. the order of these matters - it must match the order of the corresponding
+#. radio buttons on another page
 #: ../plugins/search/anjuta-search.glade.h:16
-msgid "In project directories like:"
-msgstr "En directorios de proyecto como:"
+#: ../plugins/search/search-replace.c:91
+msgid "Full Buffer"
+msgstr "Rellenar búfer"
 
 #: ../plugins/search/anjuta-search.glade.h:17
-msgid "Match w_ord start"
-msgstr "Coincidir con el inicio de pa_labra"
+msgid "Greedy matching"
+msgstr "Coincidencia voraz"
 
 #: ../plugins/search/anjuta-search.glade.h:18
-msgid "Match whole _lines"
-msgstr "Coincide con _líneas completas"
+msgid "Ignore Binary Files"
+msgstr "Ignorar archivos binarios"
 
 #: ../plugins/search/anjuta-search.glade.h:19
-msgid "Match whole _words"
-msgstr "Coincide con pala_bras completas"
+msgid "Ignore Directories:"
+msgstr "Ignorar directorios:"
 
 #: ../plugins/search/anjuta-search.glade.h:20
-msgid "Replace with:"
-msgstr "Reemplazar con:"
+msgid "Ignore Files:"
+msgstr "Ignorar archivos:"
 
 #: ../plugins/search/anjuta-search.glade.h:21
-msgid "S_top after"
-msgstr "_Parar después de"
+msgid "Ignore Hidden Directories"
+msgstr "Ignorar directorios ocultos"
 
 #: ../plugins/search/anjuta-search.glade.h:22
-msgid "Search for:"
-msgstr "Buscar:"
+msgid "Ignore Hidden Files"
+msgstr "Ignorar archivos ocultos"
 
 #: ../plugins/search/anjuta-search.glade.h:23
-msgid "Search recursively"
-msgstr "Buscar recursivamente"
+msgid "Match at start of word"
+msgstr "Coincidir con el inicio de palabra"
 
 #: ../plugins/search/anjuta-search.glade.h:24
-msgid "_All"
-msgstr "_Todo"
+msgid "Match complete lines"
+msgstr "Coincidir con líneas completas"
 
 #: ../plugins/search/anjuta-search.glade.h:25
-msgid "_Backward"
-msgstr "Hacia _atrás"
+msgid "Match complete words"
+msgstr "Coincidir con palabras completas"
 
 #: ../plugins/search/anjuta-search.glade.h:26
-msgid "_Forward"
-msgstr "Hacia a_delante"
+msgid "Maximum Actions"
+msgstr "Acciones máximas"
 
 #: ../plugins/search/anjuta-search.glade.h:27
-msgid "_Greedy matching"
-msgstr "Coincidencia _voraz"
+msgid "Modify"
+msgstr "Modificar"
 
 #: ../plugins/search/anjuta-search.glade.h:28
-msgid "_Regular expression"
-msgstr "Expresión _regular"
+msgid "New Name:"
+msgstr "Nombre nuevo:"
 
 #: ../plugins/search/anjuta-search.glade.h:29
-msgid "and/or not named like:"
-msgstr "y/o de nombre distinto a:"
+msgid "No Limit"
+msgstr "Sin límite"
 
-#: ../plugins/search/plugin.c:254
+#: ../plugins/search/anjuta-search.glade.h:30
+msgid "Regular Expression"
+msgstr "Expresión regular"
+
+#: ../plugins/search/anjuta-search.glade.h:31
+msgid "Replace With:"
+msgstr "Reemplazar con:"
+
+#: ../plugins/search/anjuta-search.glade.h:32
+msgid "Search Action:"
+msgstr "Acción de búsqueda:"
+
+#: ../plugins/search/anjuta-search.glade.h:33
+msgid "Search Direction:"
+msgstr "Dirección de búsqueda:"
+
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:35
+msgid "Search Expression"
+msgstr "Buscar expresión"
+
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:37
+msgid "Search Expression:"
+msgstr "Buscar expresión:"
+
+#: ../plugins/search/anjuta-search.glade.h:38
+msgid "Search In:"
+msgstr "Buscar en:"
+
+#: ../plugins/search/anjuta-search.glade.h:39
+msgid "Search Recursively"
+msgstr "Buscar recursivamente"
+
+#: ../plugins/search/anjuta-search.glade.h:40
+msgid "Search Target"
+msgstr "Buscar objetivo"
+
+#: ../plugins/search/anjuta-search.glade.h:41
+msgid "Setting"
+msgstr "Ajuste"
+
+#: ../plugins/search/plugin.c:192
 msgid "_Find..."
 msgstr "_Buscar…"
 
-#: ../plugins/search/plugin.c:255
+#: ../plugins/search/plugin.c:193
 msgid "Search for a string or regular expression in the editor"
 msgstr "Buscar una cadena o expresión regular en el editor"
 
-#: ../plugins/search/plugin.c:257
+#: ../plugins/search/plugin.c:195
 msgid "Find _Next"
 msgstr "Buscar siguie_nte"
 
-#: ../plugins/search/plugin.c:258
-msgid "Find next match using the last-used search parameters"
-msgstr "Buscar la siguiente coincidencia usando los últimos parámetros de búsqueda"
+#: ../plugins/search/plugin.c:196 ../plugins/search/plugin.c:200
+msgid "Repeat the last Find command"
+msgstr "Repetir el último comando de búsqueda"
 
-#: ../plugins/search/plugin.c:260
+#: ../plugins/search/plugin.c:198
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../plugins/search/plugin.c:262
-msgid "Find previous match using the last-used search parameters"
-msgstr "Buscar la coincidencia anterior usando los últimos parámetros de búsqueda"
-
-#: ../plugins/search/plugin.c:264
+#: ../plugins/search/plugin.c:202
 msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
-#: ../plugins/search/plugin.c:266
-msgid "Search for a string or regular expression and replace with another string"
+#: ../plugins/search/plugin.c:204
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
-#: ../plugins/search/plugin.c:268
-msgid "Search/Replace _Again"
-msgstr "Buscar/reemplazar de _nuevo"
+#: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
+msgid "Search and Replace"
+msgstr "Buscar y reemplazar"
 
-#: ../plugins/search/plugin.c:269
-msgid "Repeat last-used find or replace operation"
-msgstr "Repetir la última búsqueda u operación de reemplazo usada"
-
-#. { "ActionEditAdvancedSearch", GTK_STOCK_FIND, N_("Advanced Search And Replace"),
-#. NULL, N_("New advance search and replace stuff"),
-#. G_CALLBACK (on_find1_activate)},
-#.
-#: ../plugins/search/plugin.c:275
+#: ../plugins/search/plugin.c:209
 msgid "Fin_d in Files..."
 msgstr "_Buscar en archivos…"
 
-#: ../plugins/search/plugin.c:276
+#: ../plugins/search/plugin.c:210
 msgid "Search for a string in multiple files or directories"
 msgstr "Buscar una cadena en múltiples archivos o directorios"
 
-#: ../plugins/search/plugin.c:278
-msgid "List all matches"
-msgstr "Listar todas las coincidencias"
+#: ../plugins/search/plugin.c:213
+msgid "Ne_xt Occurrence"
+msgstr "_Siguiente coincidencia"
 
-#: ../plugins/search/plugin.c:279
-msgid "List occurrences of current selection or word in all project files"
-msgstr "Lista de coincidencias de la selección actual o palabra en todos los archivos de proyecto"
+#: ../plugins/search/plugin.c:214
+msgid "Find the next occurrence of current word"
+msgstr "Buscar la siguiente coincidencia de la palabra actual"
 
-#: ../plugins/search/plugin.c:321
+#: ../plugins/search/plugin.c:217
+msgid "Pre_vious Occurrence"
+msgstr "Coincidencia _anterior"
+
+#: ../plugins/search/plugin.c:218
+msgid "Find the previous occurrence of current word"
+msgstr "Buscar la coincidencia anterior de la palabra actual"
+
+#: ../plugins/search/plugin.c:245
 msgid "Searching..."
 msgstr "Buscando…"
 
-#: ../plugins/search/search-replace.c:78
-msgid "Current file"
-msgstr "Archivo actual"
+#: ../plugins/search/search_preferences.c:44
+msgid "Basic Search"
+msgstr "Búsqueda básica"
 
-#: ../plugins/search/search-replace.c:79
-msgid "Current selection"
+#: ../plugins/search/search-replace.c:98
+msgid "Current Buffer"
+msgstr "Búfer actual"
+
+#: ../plugins/search/search-replace.c:99
+msgid "Current Selection"
 msgstr "Selección actual"
 
-#: ../plugins/search/search-replace.c:80
-msgid "Current block"
+#: ../plugins/search/search-replace.c:100
+msgid "Current Block"
 msgstr "Bloque actual"
 
-#: ../plugins/search/search-replace.c:81
-msgid "Current function"
+#: ../plugins/search/search-replace.c:101
+msgid "Current Function"
 msgstr "Función actual"
 
-#: ../plugins/search/search-replace.c:82
-msgid "All open files"
-msgstr "Todos los archivos abiertos"
+#: ../plugins/search/search-replace.c:102
+msgid "All Open Buffers"
+msgstr "Todos los búferes abiertos"
 
-#: ../plugins/search/search-replace.c:83
-msgid "All project files"
+#: ../plugins/search/search-replace.c:103
+msgid "All Project Files"
 msgstr "Todos los archivos del proyecto"
 
-#. CHECKME is this for the "variable" widget in the glade UI ?
-#. {SR_VARIABLE, N_("These files ...")},
-#: ../plugins/search/search-replace.c:86
-msgid "Files like these ..."
-msgstr "Archivos como estos..."
+#. {SR_VARIABLE, N_("Specify File List")},
+#: ../plugins/search/search-replace.c:105
+msgid "Specify File Patterns"
+msgstr "Especificar patrones de archivo"
 
-#: ../plugins/search/search-replace.c:92
-msgid "Select nearest match"
-msgstr "Seleccionar la coincidencia más cercana"
+#: ../plugins/search/search-replace.c:110
+msgid "Select next match"
+msgstr "Seleccionar la siguiente coincidencia"
 
-#: ../plugins/search/search-replace.c:93
+#: ../plugins/search/search-replace.c:111
 msgid "Bookmark all matched lines"
 msgstr "Marcar todas las líneas que hayan coincidido"
 
-#: ../plugins/search/search-replace.c:94
+#: ../plugins/search/search-replace.c:112
 msgid "Mark all matches"
 msgstr "Marcar todas las coincidencias"
 
-#: ../plugins/search/search-replace.c:95
-msgid "Clear all match-marks"
-msgstr "Limpiar todas las marcas de coincidencia"
-
-#: ../plugins/search/search-replace.c:96
+#: ../plugins/search/search-replace.c:113
 msgid "List matches in find pane"
 msgstr "Listar las coincidencias en el panel de búsqueda"
 
-#: ../plugins/search/search-replace.c:97
-msgid "Replace interactively"
-msgstr "Reemplazo interactivo"
+#: ../plugins/search/search-replace.c:114
+msgid "Replace next match"
+msgstr "Reemplazar la siguiente coincidencia"
 
-#: ../plugins/search/search-replace.c:98
+#: ../plugins/search/search-replace.c:115
 msgid "Replace all matches"
 msgstr "Reemplazar todas las coincidencias"
 
-#. warning prevention
-#: ../plugins/search/search-replace.c:374
+#: ../plugins/search/search-replace.c:319
 msgid "Find: "
 msgstr "Buscar: "
 
-#: ../plugins/search/search-replace.c:1079
+#: ../plugins/search/search-replace.c:495
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: ../plugins/search/search-replace.c:629
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1869
+#: ../plugins/search/search-replace.c:1009
+#: ../plugins/search/search-replace.c:1687
+msgid "Replace All"
+msgstr "Reemplazar todo"
+
+#: ../plugins/search/search-replace.c:1048
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
 "el principio del documento?"
 
-#: ../plugins/search/search-replace.c:1882
+#: ../plugins/search/search-replace.c:1068
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1897
+#: ../plugins/search/search-replace.c:1083
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1910
+#: ../plugins/search/search-replace.c:1096
 #, c-format
-msgid "%u matches have been replaced."
-msgstr "Se han reemplazado %u coincidencias."
+msgid "%d match has been replaced."
+msgid_plural "%d matches have been replaced."
+msgstr[0] "Se ha reemplazado %d coincidencia."
+msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:2189
+#: ../plugins/search/search-replace.c:1262
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
-#: ../plugins/search/search-replace.c:2198
-msgid "S_earch"
-msgstr "_Buscar"
-
-#: ../plugins/search/search-replace.c:2200
-msgid "Repace _all"
-msgstr "Reemplazar _todo"
-
-#: ../plugins/search/search-replace_backend.c:438
-#, c-format
-msgid "UTF-8 conversion failed for %s: %s"
-msgstr "Falló la conversión a UTF-8 para %s: %s"
-
 #. bad bad luck...
-#: ../plugins/sourceview/anjuta-document-saver.c:521
+#: ../plugins/sourceview/anjuta-document-saver.c:522
 msgid "Could not obtain backup filename"
 msgstr "No se pudo obtener el nombre del archivo de respaldo"
 
-#: ../plugins/sourceview/anjuta-document.c:486
-#: ../plugins/sourceview/anjuta-document.c:567
+#: ../plugins/sourceview/anjuta-document.c:487
+#: ../plugins/sourceview/anjuta-document.c:568
 #, c-format
 msgid "Unsaved Document %d"
 msgstr "Documento no guardado %d"
-
-#: ../plugins/sourceview/anjuta-encodings.c:441
-msgid "Unknown"
-msgstr "Desconocido"
 
 #: ../plugins/sourceview/sourceview.c:333
 msgid "Loading"
@@ -7676,7 +7623,7 @@ msgstr "No ha establecido un archivo de supresiones en su configuración."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/about.c:239
+#: ../src/about.c:237
 msgid "Anjuta Plugin"
 msgstr "Complemento de Anjuta"
 
@@ -7882,23 +7829,23 @@ msgstr "Acerca de los com_plementos de Anjuta"
 msgid "About third party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
 
-#: ../src/anjuta-app.c:675
+#: ../src/anjuta-app.c:748
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:679 ../src/anjuta-app.c:684
+#: ../src/anjuta-app.c:752 ../src/anjuta-app.c:757
 msgid "View"
 msgstr "Vista"
 
-#: ../src/anjuta-app.c:883
+#: ../src/anjuta-app.c:1000
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:887
+#: ../src/anjuta-app.c:1004
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:959
+#: ../src/anjuta-app.c:1076
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
