@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-14 21:06+0100\n"
-"PO-Revision-Date: 2008-04-19 12:28+0200\n"
+"POT-Creation-Date: 2008-04-19 10:29+0000\n"
+"PO-Revision-Date: 2008-04-19 12:30+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,14 +182,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1167 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1168
+#: ../libanjuta/anjuta-launcher.c:1169
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -1023,7 +1023,7 @@ msgstr "Declaración e implementación en línea"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licencia:"
 
@@ -3658,28 +3658,28 @@ msgstr ""
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:519
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
 msgid "No items found"
 msgstr "No se encontraron elementos"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:667
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:723
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
 #, c-format
 msgid "No recently used resource found with URI `%s'"
 msgstr "No se ha encontrado el recurso reciente con URI «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:747
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:755
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Esta función no está implementada para los widgets de la clase «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:934
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #, c-format
 msgid "Open '%s'"
 msgstr "Abrir «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:964
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
 msgid "Unknown item"
 msgstr "Elementos desconocido"
 
@@ -3690,7 +3690,7 @@ msgstr "Elementos desconocido"
 #. *
 #. * Don't include the prefix "recent menu label|" in the translation.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:977
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:980
 #, c-format
 msgid "recent menu label|_%d. %s"
 msgstr "_%d. %s"
@@ -3700,7 +3700,7 @@ msgstr "_%d. %s"
 #. *
 #. * Don't include the prefix "recent menu label|" in the translation.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:984
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:987
 #, c-format
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
@@ -3817,28 +3817,28 @@ msgstr "Abrir _con"
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1161 ../plugins/file-loader/plugin.c:1167
+#: ../plugins/file-loader/plugin.c:1162 ../plugins/file-loader/plugin.c:1168
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de archivos"
 
-#: ../plugins/file-loader/plugin.c:1171
+#: ../plugins/file-loader/plugin.c:1172
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/file-loader/plugin.c:1172
+#: ../plugins/file-loader/plugin.c:1173
 msgid "New file, project and project components."
 msgstr "Archivo proyecto o componentes de proyectos nuevos."
 
-#: ../plugins/file-loader/plugin.c:1180
+#: ../plugins/file-loader/plugin.c:1181
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1184
+#: ../plugins/file-loader/plugin.c:1185
 msgid "Open _Recent"
 msgstr "Abrir _recientes"
 
-#: ../plugins/file-loader/plugin.c:1185
+#: ../plugins/file-loader/plugin.c:1186
 msgid "Open recent file"
 msgstr "Abrir archivo reciente"
 
@@ -4342,7 +4342,7 @@ msgid "Due date"
 msgstr "Fecha de vencimiento"
 
 #: ../plugins/gtodo/interface.c:227
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Summary"
 msgstr "Resumen"
 
@@ -5397,56 +5397,59 @@ msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>Seleccione el tipo de aplicación que desea desarrollar</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "Application Assistent"
+msgid "Application Assistant"
 msgstr "Asistente para aplicaciones"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
+msgid "Application Assistent"
+msgstr "Asistente para aplicaciones"
+
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 msgid "Basic Information"
 msgstr "Información básica"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Destino:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "Enter the basic Project information"
 msgstr "Introduzca la información básica del proyecto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Project Name:"
 msgstr "Nombre del proyecto:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
 msgid "Project Type"
 msgstr "Tipo de proyecto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid ""
-"The Application Assistent will generate a basic skeleton for a project, "
+"The Application Assistant will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"El asistente para Aplicaciones generará un esqueleto básico para un "
-"proyecto, incluyendo todos los archivos de compilación. Le preguntará "
-"detalles acerca de la estructura inicial para la aplicación. Responda las "
-"preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
-"valores más tarde."
+"El asistente para Aplicaciones generará un esqueleto básico para un proyecto, "
+"incluyendo todos los archivos de compilación. Le preguntará detalles acerca de la "
+"estructura inicial para la aplicación. Responda las preguntas cuidadosamente, ya que "
+"puede que no sea posible cambiar algunos valores más tarde."
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
 msgid "label"
 msgstr "etiqueta"
 
@@ -7043,8 +7046,8 @@ msgstr "Usar el perfil del terminal de Gnome:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar el perfil actualmente seleccionado en el terminal de Gnome"
 
-#: ../plugins/terminal/terminal.c:605 ../plugins/terminal/terminal.c:716
-#: ../plugins/terminal/terminal.c:732
+#: ../plugins/terminal/terminal.c:662 ../plugins/terminal/terminal.c:774
+#: ../plugins/terminal/terminal.c:790
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -7246,11 +7249,11 @@ msgstr "Error al cargar herramientas externas"
 msgid "Unable to open %s for writing"
 msgstr "No se puede abrir el archivo %s para escribir"
 
-#: ../plugins/tools/plugin.c:186
+#: ../plugins/tools/plugin.c:181
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
-#: ../plugins/tools/plugin.c:260 ../plugins/tools/anjuta-tools.plugin.in.h:1
+#: ../plugins/tools/plugin.c:255 ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "Herramientas"
 
@@ -8104,7 +8107,7 @@ msgid "Project From Existing Sources"
 msgstr "Proyecto desde fuentes existentes"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
-msgid "Project Import Assistent"
+msgid "Project Import Assistant"
 msgstr "Asistente de importación de proyectos"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
@@ -8130,7 +8133,7 @@ msgstr ""
 "sangrado, etc."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-msgid "Project Assistent"
+msgid "Project Assistant"
 msgstr "Asistente de proyectos"
 
 #: ../plugins/profiler/profiler.plugin.in.h:1
