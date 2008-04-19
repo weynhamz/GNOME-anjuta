@@ -32,8 +32,8 @@
 	<widget class="GnomeDruidPageEdge" id="start_page">
 	  <property name="visible">True</property>
 	  <property name="position">GNOME_EDGE_START</property>
-	  <property name="title" translatable="yes">Application Assistent</property>
-	  <property name="text" translatable="yes">The Application Assistent will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later.</property>
+	  <property name="title" translatable="yes">Application Assistant</property>
+	  <property name="text" translatable="yes">The Application Assistant will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later.</property>
 	  <property name="background_color">#3d3d8281b7b7</property>
 	  <property name="logo_background_color">#3d3d8280b7b7</property>
 	  <property name="textbox_color">#ffffffffffff</property>
