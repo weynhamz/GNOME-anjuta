@@ -1,3 +1,11 @@
+2008-04-17  Naba Kumar  <naba@naba-desktop>
+
+	* plugins/file-wizard/anjuta-file-wizard.plugin.in:
+	* plugins/project-import/anjuta-project-import.plugin.in:
+	* plugins/project-wizard/anjuta-project-wizard.glade:
+	* plugins/project-wizard/anjuta-project-wizard.plugin.in:
+	Fixed bug #528264 - New: Uses incorrect spelling "assistent"
+
 2008-04-20  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_dispose):
