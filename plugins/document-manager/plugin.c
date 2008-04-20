@@ -648,13 +648,13 @@ update_document_ui_disable_all (AnjutaPlugin *plugin)
 }
 
 static void
-update_document_ui_save_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
+update_document_ui_undo_items (AnjutaPlugin *plugin, IAnjutaDocument* doc)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditUndo");
 	g_object_set (G_OBJECT (action), "sensitive",
@@ -664,6 +664,15 @@ update_document_ui_save_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 								   "ActionEditRedo");
 	g_object_set (G_OBJECT (action), "sensitive",
 				  ianjuta_document_can_redo (doc, NULL), NULL);
+}
+
+static void
+update_document_ui_save_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
 								   "ActionFileSave");
@@ -964,8 +973,12 @@ on_document_update_ui (IAnjutaDocument *doc, DocmanPlugin *plugin)
 	IAnjutaDocument *curdoc;
 		
 	curdoc = anjuta_docman_get_current_document (ANJUTA_DOCMAN (plugin->docman));
+	update_document_ui_undo_items (plugin, curdoc);
+
 	if (IANJUTA_IS_EDITOR (curdoc) && curdoc == doc)
+	{
 		update_status (plugin, IANJUTA_EDITOR (curdoc));
+	}
 }
 
 /* Remove all instances of c from the string s. */

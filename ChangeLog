@@ -1,3 +1,11 @@
+2008-04-20  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/plugin.c
+	(update_document_ui_undo_items), (update_document_ui_save_items),
+	(on_document_update_ui):
+	* plugins/sourceview/sourceview.c (idocument_redo):
+	Bug #528705 – There is no Redo (from trunk)
+
 2008-04-19  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/search-replace_backend.c (isawordchar),
