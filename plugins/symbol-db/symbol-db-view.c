@@ -1667,7 +1667,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	GPtrArray *filter_array;
 	GtkTreeRowReference *global_tree_row_ref;
 	GtkTreeIter global_child_iter;
-	GdkPixbuf *global_pixbuf;
+	const GdkPixbuf *global_pixbuf;
 	
 	g_return_if_fail (dbv != NULL);
 	

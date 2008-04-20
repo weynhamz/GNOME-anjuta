@@ -794,11 +794,15 @@ anjuta_shell_session_load (AnjutaShell *shell, const gchar *session_directory,
 
 	session = anjuta_session_new (session_directory);
 	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
+						   ANJUTA_SESSION_PHASE_START, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
 						   ANJUTA_SESSION_PHASE_FIRST, session);
 	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
 						   ANJUTA_SESSION_PHASE_NORMAL, session);
 	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
 						   ANJUTA_SESSION_PHASE_LAST, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
+						   ANJUTA_SESSION_PHASE_END, session);
 	g_object_unref (session);
 
 	g_object_set_data (G_OBJECT (shell), "__session_loading", NULL);

@@ -92,6 +92,9 @@ struct _SymbolDBPlugin{
 	GObject *current_editor;
 	GHashTable *editor_connected;	
 	
+	/* In session loading? */
+	gboolean session_loading;
+	
 	gint files_count;
 	gint files_count_done;
 };

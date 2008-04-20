@@ -1180,6 +1180,7 @@ idocument_redo(IAnjutaDocument* edit, GError** ee)
 	if (idocument_can_redo(edit, NULL))	
 		gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
 	anjuta_view_scroll_to_cursor(sv->priv->view);
+	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv);
 }
 
 /* Grab focus */

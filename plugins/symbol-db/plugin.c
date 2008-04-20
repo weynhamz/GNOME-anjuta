@@ -304,8 +304,14 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	editor = g_value_get_object (value);	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	
-	DEBUG_PRINT ("value_removed_current_editor ()");
-		
+	if (sdb_plugin->session_loading)
+	{
+		DEBUG_PRINT ("session_loading");
+		return;
+	}
+	else
+		DEBUG_PRINT ("Updating symbols");
+	
 	if (!sdb_plugin->editor_connected)
 	{
 		sdb_plugin->editor_connected = g_hash_table_new_full (g_direct_hash,
@@ -336,7 +342,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_critical ("WARNING FIXME: bad file uri passed to symbol-db from editor. There's "
 				   "a trailing slash left. Please fix this at editor side");
 	}
-	 
+				
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 				 sdb_plugin->sdbe_project, local_path);
@@ -375,6 +381,42 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 								on_editor_buffer_symbols_update_timeout,
 								plugin);
 	need_symbols_update = FALSE;
+}
+
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
+				 SymbolDBPlugin *sdb_plugin)
+{
+	if (phase == ANJUTA_SESSION_PHASE_START)
+	{
+		sdb_plugin->session_loading = TRUE;
+		DEBUG_PRINT ("session_loading started");
+	}
+	else if (phase == ANJUTA_SESSION_PHASE_END)
+	{
+		IAnjutaDocumentManager* docman;
+		sdb_plugin->session_loading = FALSE;
+		DEBUG_PRINT ("session_loading finished");
+		
+		/* Show the symbols for the current editor */
+		docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+		if (docman)
+		{
+			IAnjutaDocument* cur_doc = 
+				ianjuta_document_manager_get_current_document (docman, NULL);
+			if (cur_doc)
+			{
+				GValue value = {0, };
+				g_value_init (&value, G_TYPE_OBJECT);
+				g_value_set_object (&value, cur_doc);
+				value_added_current_editor (ANJUTA_PLUGIN (sdb_plugin),
+											"document_manager_current_editor",
+											&value, NULL);
+				g_value_unset(&value);
+			}
+		}
+	}	
 }
 
 static void
@@ -1249,6 +1291,10 @@ symbol_db_activate (AnjutaPlugin *plugin)
 									project_root_added,
 									project_root_removed, NULL);
 
+	
+	/* Determine session state */
+	g_signal_connect (plugin->shell, "load_session", 
+					  G_CALLBACK (on_session_load), plugin);
 	
 	/* FIXME: get path from preferences */
 	anjuta_util_prog_is_installed ("ctags", TRUE);

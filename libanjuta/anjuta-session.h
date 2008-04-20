@@ -37,9 +37,11 @@ typedef struct _AnjutaSessionPriv AnjutaSessionPriv;
 
 typedef enum
 {
+	ANJUTA_SESSION_PHASE_START,
 	ANJUTA_SESSION_PHASE_FIRST,
 	ANJUTA_SESSION_PHASE_NORMAL,
-	ANJUTA_SESSION_PHASE_LAST
+	ANJUTA_SESSION_PHASE_LAST,
+	ANJUTA_SESSION_PHASE_END,
 } AnjutaSessionPhase;
 
 typedef struct {

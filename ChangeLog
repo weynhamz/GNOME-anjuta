@@ -1,3 +1,21 @@
+2008-04-20  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-session.h:
+	* libanjuta/anjuta-shell.c (anjuta_shell_session_load):
+	* plugins/symbol-db/plugin.c (value_added_current_editor),
+	(on_session_load), (symbol_db_activate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_build_and_display_base_tree):
+	Added new sessions states to avoid loading the local symbols before
+	the session is loaded (speeds up start-up).
+	
+	* plugins/document-manager/plugin.c
+	(update_document_ui_undo_items), (update_document_ui_save_items),
+	(on_document_update_ui):
+	* plugins/sourceview/sourceview.c (idocument_redo):
+	Fixed #528705 – There is no Redo
+
 2008-04-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl,
