@@ -1,5 +1,10 @@
 2008-04-20  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/anjuta-launcher.c (anjuta_launcher_dispose):
+	Fixed a condition where we kill our own process
+
+2008-04-20  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-session.h:
 	* libanjuta/anjuta-shell.c (anjuta_shell_session_load):
 	* plugins/symbol-db/plugin.c (value_added_current_editor),

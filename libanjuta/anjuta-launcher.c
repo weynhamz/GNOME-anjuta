@@ -259,10 +259,6 @@ anjuta_launcher_dispose (GObject *obj)
 		
 		anjuta_launcher_execution_done_cleanup (launcher, FALSE);
 		
-		/* We can not call anjuta_launcher_reset (launcher) to kill the
-		 * running child because launcher has been initialized in cleanup
-		 */
-		kill (launcher->priv->child_pid, SIGTERM);
 		launcher->priv->busy = FALSE;
 		
 	}
