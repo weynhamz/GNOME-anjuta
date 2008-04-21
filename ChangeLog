@@ -1,3 +1,10 @@
+2008-04-21  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	(on_editor_command_paste_activate):
+	#528693 – Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window
+  (there was an else missing...)
+
 2008-04-17  Naba Kumar  <naba@naba-desktop>
 
 	* plugins/file-wizard/anjuta-file-wizard.plugin.in:

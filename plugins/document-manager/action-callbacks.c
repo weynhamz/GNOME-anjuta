@@ -501,6 +501,7 @@ on_editor_command_paste_activate (GtkAction *action, gpointer user_data)
 	{
 		gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
 	}
+	else
 	{
 		if (widget	/* editor text is focused */
 			|| get_current_popup_active (user_data))
