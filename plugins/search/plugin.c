@@ -59,7 +59,7 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	se->word_start = FALSE;
 	se->no_limit = FALSE;
 	se->actions_max = 1;
-	se->re = NULL;
+	se->regex_info = NULL;
 
 	info = get_next_match(fb, dir, se);
 	

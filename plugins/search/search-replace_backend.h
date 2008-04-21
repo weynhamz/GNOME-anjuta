@@ -22,20 +22,8 @@ extern "C"
 {
 #endif
 
-#include <pcre.h>
-
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
-	
-	
-/* PCRE search compiled pattern and other info */
-typedef struct _PcreInfo
-{
-	gint ovec_count;;
-	gint *ovector;
-	pcre *re;
-	pcre_extra *extra;
-} PcreInfo;
 
 /* Search expression options */
 typedef struct _SearchExpression
@@ -49,7 +37,7 @@ typedef struct _SearchExpression
 	gboolean word_start;
 	gboolean no_limit;
 	gint actions_max;
-	PcreInfo *re;
+	GRegex* regex_info;
 } SearchExpression;
 
 
@@ -221,8 +209,6 @@ void match_info_free (MatchInfo *mi);
 void file_buffer_free (FileBuffer *fb);
 
 SearchReplace *create_search_replace_instance(IAnjutaDocumentManager *docman);
-
-void clear_pcre(void);
 
 #ifdef __cplusplus
 }

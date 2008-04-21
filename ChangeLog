@@ -1,5 +1,18 @@
 2008-04-21  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/search/plugin.c (find_incremental):
+	* plugins/search/search-replace.c (on_search_regex_toggled),
+	(on_search_button_next_clicked), (search_replace_find_usage):
+	* plugins/search/search-replace_backend.c (match_substr_free),
+	(file_buffer_new_from_path), (get_next_match),
+	(clear_search_replace_instance), (create_search_replace_instance):
+	* plugins/search/search-replace_backend.h:
+	
+	Use GRegex instead of pcre and convert files to utf-8 if necessary.
+	Rest of #440637
+
+2008-04-21  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/action-callbacks.c
 	(on_editor_command_paste_activate):
 	#528693 – Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window

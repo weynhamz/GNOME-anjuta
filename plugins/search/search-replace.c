@@ -1599,7 +1599,8 @@ void
 on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 {
 	static GladeWidgetId dependent_widgets[] = {
-		GREEDY, IGNORE_CASE, WHOLE_WORD, WHOLE_LINE, WORD_START
+		WHOLE_WORD, WHOLE_LINE, WORD_START,
+		SEARCH_BACKWARD, SEARCH_FULL_BUFFER
 	};
 	int i;
 	GtkWidget *dircombo = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
@@ -1792,7 +1793,11 @@ on_search_button_stop_clicked(GtkButton *button, gpointer user_data)
 void
 on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 {	
-	clear_pcre(); 	
+	if (sr->search.expr.regex_info)
+	{
+		g_regex_unref (sr->search.expr.regex_info);
+		sr->search.expr.regex_info = NULL;
+	}
 	search_replace_populate();
 
 	search_and_replace();
@@ -1815,7 +1820,7 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr.word_start = FALSE;
 	sr->search.expr.no_limit = TRUE;
 	sr->search.expr.actions_max = G_MAXINT;
-	sr->search.expr.re = NULL;
+	sr->search.expr.regex_info = NULL;
 		
 	g_object_get(G_OBJECT(sr->docman), "shell", &shell, NULL);
 	

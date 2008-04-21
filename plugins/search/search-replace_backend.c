@@ -45,6 +45,8 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -74,57 +76,9 @@ static SearchReplace *sr = NULL;
 
 void clear_search_replace_instance(void);
 
-
-static void
-pcre_info_free (PcreInfo *re)
-{
-	if (re)
-	{
-		if (re->re)
-			(*pcre_free)(re->re);
-		if (re->extra)
-			(*pcre_free)(re->extra);
-		if (re->ovector)
-			g_free(re->ovector);
-		g_free(re);
-	}
-}
-
-static PcreInfo *
-pcre_info_new (SearchExpression *s)
-{
-	PcreInfo *re;
-	int options = 0;
-	const char *err;
-	int err_offset;
-	int status;
-
-	g_return_val_if_fail(s && s->search_str, NULL);
-	re = g_new0(PcreInfo, 1);
-	if (s->ignore_case)
-		options |= PCRE_CASELESS;
-	if (!s->greedy)
-		options |= PCRE_UNGREEDY;
-	re->re = pcre_compile(s->search_str, options, &err, &err_offset, NULL);
-	if (NULL == re->re)
-	{
-		/* Compile failed - check error message */
-		g_warning("Regex compile failed! %s at position %d", err, err_offset);
-		pcre_info_free(re);
-		return NULL;
-	}
-	re->extra = pcre_study(re->re, 0, &err);
-	status = pcre_fullinfo(re->re, re->extra, PCRE_INFO_CAPTURECOUNT
-	  , &(re->ovec_count));
-	re->ovector = g_new0(int, 3 *(re->ovec_count + 1));
-	return re;
-}
-
-
 static void match_substr_free(MatchSubStr *ms)
 {
-	if (ms)
-		g_free(ms);
+	g_free(ms);
 }
 
 
@@ -265,6 +219,42 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 			}
 		}
 	}
+	if (!g_utf8_validate (fb->buf, fb->len, NULL))
+	{
+		const AnjutaEncoding *encoding_used = NULL;
+		gchar* converted_text;
+		guint converted_len;
+		converted_text = anjuta_convert_to_utf8 (fb->buf, 
+												 fb->len, 
+												 &encoding_used,
+												 &converted_len, 
+												 NULL);
+		if (converted_text == NULL)
+		{
+			/* Last change, let's try 8859-15 */
+			encoding_used =  
+				anjuta_encoding_get_from_charset("ISO-8859-15");
+			
+			converted_text = anjuta_convert_to_utf8 (fb->buf,
+												  fb->len,
+												  &encoding_used,
+												  &converted_len,
+												  NULL);
+		}
+		if (converted_text == NULL)
+		{
+			/* Give up */
+			file_buffer_free(fb);
+			return NULL;
+		}
+		else
+		{
+			g_free (fb->buf);
+			fb->buf = converted_text;
+			fb->len = converted_len;
+		}
+	}
+	
 	if (pos <= 0 || pos > fb->len)
 	{
 		fb->pos = 0;
@@ -446,48 +436,63 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	
 	if (s->regex)
 	{
-		/* Regular expression match */
-		int options = PCRE_NOTEMPTY;
-		int status;
-		if (NULL == s->re)
+		GMatchInfo* match_info;
+		if (s->regex_info == NULL)
 		{
-			if (NULL == (s->re = pcre_info_new(s)))
-				return NULL;
-		}
-		status = pcre_exec (s->re->re, s->re->extra, fb->buf, fb->len, fb->pos,
-							options, s->re->ovector, 3 * (s->re->ovec_count + 1));
-		if (0 == status)
-		{
-			/* ovector too small - this should never happen ! */
-			g_warning("BUG ! ovector found to be too small");
-			return NULL;
-		}
-		else if (0 > status && status != PCRE_ERROR_NOMATCH)
-		{
-			/* match error - again, this should never happen */
-			g_warning("PCRE Match error");
-			return NULL;
-		}
-		else if (PCRE_ERROR_NOMATCH != status)
-		{
-			mi = g_new0(MatchInfo, 1);
-			mi->pos = s->re->ovector[0];
-			mi->len = s->re->ovector[1] - s->re->ovector[0];
-			mi->line = file_buffer_line_from_pos(fb, mi->pos);
-			if (status > 1) /* Captured subexpressions */
+			GError* error = NULL;
+			GRegexCompileFlags compile_flags = 0;
+			GRegexMatchFlags match_flags = 0;
+		
+			match_flags |= G_REGEX_MATCH_NOTEMPTY;
+			if (s->ignore_case)
 			{
-				int i;
-				MatchSubStr *ms;
-				for (i=1; i < status; ++i)
-				{
-					ms = g_new0(MatchSubStr, 1);
-					ms->start = s->re->ovector[i * 2];
-					ms->len = s->re->ovector[i * 2 + 1] - ms->start;
-					mi->subs = g_list_prepend(mi->subs, ms);
-				}
-				mi->subs = g_list_reverse(mi->subs);
+				compile_flags |= G_REGEX_CASELESS;
 			}
-			fb->pos = s->re->ovector[1];
+			if (!s->greedy)
+			{
+				compile_flags |= G_REGEX_UNGREEDY;
+			}
+			s->regex_info = g_regex_new (s->search_str, compile_flags,
+										 match_flags, &error);
+			if (error)
+			{
+				anjuta_util_dialog_error (NULL, error->message);
+				g_error_free(error);
+				s->regex_info = NULL;
+				return NULL;
+			}
+		}
+
+		g_regex_match_full (s->regex_info, fb->buf, fb->len,
+					   g_utf8_offset_to_pointer (fb->buf, fb->pos) - fb->buf, 
+					   G_REGEX_MATCH_NOTEMPTY, &match_info, NULL);
+		
+		if (g_match_info_matches (match_info))
+		{
+			gint start;
+			gint end;
+			int i;
+			mi = g_new0(MatchInfo, 1);
+			if (g_match_info_fetch_pos (match_info, 0, &start, &end))
+			{
+				DEBUG_PRINT ("Regex: %d %d", start, end);
+				mi->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
+				mi->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - mi->pos;
+				mi->line = file_buffer_line_from_pos(fb, mi->pos);
+			}
+			for (i = 1; i < g_match_info_get_match_count(match_info); i++) /* Captured subexpressions */
+			{
+				MatchSubStr *ms;
+				ms = g_new0(MatchSubStr, 1);
+				if (g_match_info_fetch_pos (match_info, i, &start, &end))
+				{
+					ms->start = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
+					ms->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - ms->start;
+				}
+				mi->subs = g_list_prepend(mi->subs, ms);
+			}
+			mi->subs = g_list_reverse(mi->subs);
+			fb->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + end);
 		}
 	}
 	else
@@ -870,8 +875,11 @@ void
 clear_search_replace_instance(void)
 {
 	g_free (sr->search.expr.search_str);
-	g_free (sr->search.expr.re);
-	FREE_FN(pcre_info_free, sr->search.expr.re);
+	if (sr->search.expr.regex_info)
+	{
+		g_regex_unref (sr->search.expr.regex_info);
+		sr->search.expr.regex_info = NULL;
+	}
 	if (SR_FILES == sr->search.range.type)
 	{
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.match_files);
@@ -884,17 +892,15 @@ clear_search_replace_instance(void)
 	FREE_FN(anjuta_util_glist_strings_free, sr->replace.expr_history);
 }
 
-void
-clear_pcre(void)
-{
-	FREE_FN(pcre_info_free, sr->search.expr.re);
-}
-
 SearchReplace *
 create_search_replace_instance(IAnjutaDocumentManager *docman)
 {
-	if (NULL == sr) /* Create a new SearchReplace instance */
+	/* Create a new SearchReplace instance */
+	if (NULL == sr)
+	{
 		sr = g_new0(SearchReplace, 1);
+		sr->search.expr.regex_info = NULL;
+	}
 	else
 		clear_search_replace_instance ();
 	if (docman)
