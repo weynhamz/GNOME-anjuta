@@ -1,3 +1,10 @@
+2008-04-21  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	(on_editor_command_paste_activate):
+	#528693 – Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window
+  (from trunk)
+
 2008-04-20  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c
