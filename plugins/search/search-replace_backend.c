@@ -145,6 +145,9 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 	return fb;
 }
 
+/* Only use the first 500 chars for validating (yes, I feel lucky...) */
+#define MAX_VALIDATE 500
+
 FileBuffer *
 file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 {
@@ -219,7 +222,7 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 			}
 		}
 	}
-	if (!g_utf8_validate (fb->buf, fb->len, NULL))
+	if (!g_utf8_validate (fb->buf, MIN(MAX_VALIDATE, fb->len), NULL))
 	{
 		const AnjutaEncoding *encoding_used = NULL;
 		gchar* converted_text;

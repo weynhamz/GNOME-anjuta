@@ -1,3 +1,13 @@
+2008-04-22  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/search/search-replace.c (search_and_replace),
+	(on_message_view_destroyed):
+	Don't spit out two many warnings when the message view is destroyed
+	
+	* plugins/search/search-replace_backend.c
+	(file_buffer_new_from_path):
+	Only use first 500 characters for validation
+
 2008-04-21  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/plugin.c (find_incremental):

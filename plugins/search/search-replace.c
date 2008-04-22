@@ -228,6 +228,7 @@ static GladeWidget glade_widgets[] = {
 static void
 write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, MatchInfo *mi);
 static gboolean on_message_clicked (GObject* object, gchar* message, gpointer data);
+static void on_message_view_destroyed (gpointer unused, GObject* where_the_object_was);
 static void on_message_buffer_flush (IAnjutaMessageView *view, const gchar *one_line, gpointer data);
 static void save_not_opened_files(FileBuffer *fb);
 static gboolean replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str);
@@ -326,7 +327,6 @@ search_and_replace (void)
 		view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
 		if (view == NULL)	
 		{
-			// FIXME: Put a nice icon here:
 			view = ianjuta_message_manager_add_view(msgman, name,
 													GTK_STOCK_FIND_AND_REPLACE, NULL);	
 			g_return_if_fail(view != NULL);
@@ -334,6 +334,7 @@ search_and_replace (void)
 			                  G_CALLBACK (on_message_buffer_flush), NULL);
 			g_signal_connect (G_OBJECT(view), "message_clicked",
 			                  G_CALLBACK (on_message_clicked), NULL);
+			g_object_weak_ref (G_OBJECT(view), on_message_view_destroyed, NULL);
 		}
 		else
 			ianjuta_message_view_clear(view, NULL);
@@ -671,6 +672,12 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 	}
 	g_free(match_line);
 	ianjuta_message_view_buffer_append (view, buf, NULL);
+}
+
+static void
+on_message_view_destroyed (gpointer unused, GObject* where_the_object_was)
+{
+	end_activity = TRUE;
 }
 
 static void
