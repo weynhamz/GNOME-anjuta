@@ -483,6 +483,30 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		}
 	}
 
+	/* Check restricted property */
+	if (modified && !npw_property_is_valid_restriction (property))
+	{
+		if (data->next == TRUE)
+		{
+			NPWPropertyRestriction restriction = npw_property_get_restriction (property);
+			/* First error message */
+			data->next = FALSE;
+
+			switch (restriction)
+			{
+			case NPW_FILENAME_RESTRICTION:
+				/* Show error message. */
+				anjuta_util_dialog_error (data->parent,
+					_("Field \"%s\" must start with a letter, a digit or an underscore and contains only letters, digits, underscore, minus and dot. Please fix it."),
+					_(npw_property_get_label (property)));
+				break;
+			default:
+				break;
+			}
+		}
+		npw_property_remove_value (property);
+	}
+
 	/* Check exist property */
 	if (modified && (npw_property_get_exist_option (property) == NPW_FALSE))
 	{

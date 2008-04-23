@@ -58,6 +58,7 @@ struct _NPWPage
 
 struct _NPWProperty {
 	NPWPropertyType type;
+	NPWPropertyType restriction;
 	NPWPropertyOptions options;
 	gchar* label;
 	gchar* description;
@@ -84,6 +85,10 @@ static const gchar* NPWPropertyTypeString[] = {
 	"icon"
 };
 
+static const gchar* NPWPropertyRestrictionString[] = {
+	"filename"
+};
+
 /* Property object
  *---------------------------------------------------------------------------*/
 
@@ -103,18 +108,25 @@ npw_property_type_from_string (const gchar* type)
 	return NPW_UNKNOWN_PROPERTY;
 }
 
-#if 0
-static const gchar*
-npw_property_string_from_type (NPWPropertyType type)
+static NPWPropertyRestriction
+npw_property_restriction_from_string (const gchar* restriction)
 {
-	if ((type > 0) && (type < NPW_LAST_PROPERTY))
-	{
-		return NPWPropertyTypeString[type - 1];
-	}
 
-	return NULL;
+	if (restriction != NULL)
+	{
+		gint i;
+
+		for (i = 0; i < NPW_LAST_RESTRICTION; i++)
+		{
+			if (strcmp (NPWPropertyRestrictionString[i], restriction) == 0)
+			{
+				return (NPWPropertyRestriction)(i + 1);
+			}
+		}
+	}	
+
+	return NPW_NO_RESTRICTION;
 }
-#endif
 
 NPWProperty*
 npw_property_new (NPWPage* owner)
@@ -126,6 +138,7 @@ npw_property_new (NPWPage* owner)
 	this = g_chunk_new0(NPWProperty, owner->data_pool);
 	this->owner = owner;
 	this->type = NPW_UNKNOWN_PROPERTY;
+	this->restriction = NPW_NO_RESTRICTION;
 	this->item = NULL;
 	/* value is set to NULL */
 	g_node_append_data (owner->list, this);
@@ -167,6 +180,57 @@ NPWPropertyType
 npw_property_get_type (const NPWProperty* this)
 {
 	return this->type;
+}
+
+void
+npw_property_set_restriction (NPWProperty* this, NPWPropertyRestriction restriction)
+{
+	this->restriction = restriction;
+}
+
+void
+npw_property_set_string_restriction (NPWProperty* this, const gchar* restriction)
+{
+	npw_property_set_restriction (this, npw_property_restriction_from_string (restriction));
+}
+
+NPWPropertyRestriction
+npw_property_get_restriction (const NPWProperty* this)
+{
+	return this->restriction;
+}
+
+gboolean
+npw_property_is_valid_restriction (const NPWProperty* this)
+{
+	const gchar *value;
+
+	switch (this->restriction)
+	{
+	case NPW_FILENAME_RESTRICTION:
+		value = npw_property_get_value (this);
+
+		/* First character should be letters, digit or '_' */
+		if (value == NULL) return TRUE;
+		if (!isalnum (*value) && (*value != '_'))
+			return FALSE;
+
+		/* Following characters should be letters, digit or '_'
+		 * or '-' or '.' */
+		for (value++; *value != '\0'; value++)
+		{
+			if (!isalnum (*value)
+			    && (*value != '_')
+			    && (*value != '-')
+			    && (*value != '.'))
+				return FALSE;
+		}
+		break;
+	default:
+		break;
+	}
+
+	return TRUE;
 }
 
 void

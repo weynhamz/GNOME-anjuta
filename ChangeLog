@@ -1,3 +1,27 @@
+2008-04-23  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/templates/mkfile.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/django.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/cpp.wiz,
+	plugins/project-wizard/templates/sdl.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/minimal.wiz,
+	plugins/project-wizard/templates/xlib.wiz,
+	plugins/project-wizard/templates/gcj.wiz:
+	Add additional restriction on project name fix #529226
+
 2008-04-23  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

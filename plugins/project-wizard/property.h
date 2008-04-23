@@ -48,6 +48,14 @@ typedef enum {
 	NPW_LAST_PROPERTY
 } NPWPropertyType;
 
+/* You should update the NPWPropertyRestrictionString array in the .c file,
+ * after changing the NPWPropertyRestriction enum */
+typedef enum {
+	NPW_NO_RESTRICTION = 0,
+	NPW_FILENAME_RESTRICTION,
+	NPW_LAST_RESTRICTION
+} NPWPropertyRestriction;
+
 typedef enum {
 	NPW_MANDATORY_OPTION = 1 << 0,
 	NPW_SUMMARY_OPTION = 1 << 1,
@@ -68,6 +76,11 @@ void npw_property_free (NPWProperty* this);
 void npw_property_set_type (NPWProperty* this, NPWPropertyType type);
 void npw_property_set_string_type (NPWProperty* this, const gchar* type);
 NPWPropertyType npw_property_get_type (const NPWProperty* this);
+
+void npw_property_set_restriction (NPWProperty* this, NPWPropertyRestriction restriction);
+void npw_property_set_string_restriction (NPWProperty* this, const gchar* restriction);
+NPWPropertyRestriction npw_property_get_restriction (const NPWProperty* this);
+gboolean npw_property_is_valid_restriction (const NPWProperty* this);
 
 void npw_property_set_name (NPWProperty* this, const gchar* name);
 const gchar* npw_property_get_name (const NPWProperty* this);

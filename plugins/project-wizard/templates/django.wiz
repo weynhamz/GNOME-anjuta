@@ -7,7 +7,7 @@
 </project-wizard>
 
 <page name="basic" _label="Django Project information" _description="General Project Information">
-	<property type="string" name="Name" _label="Project Name:" _description="project name" default="myweb" summary="yes" mandatory="yes"/>
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="myweb" summary="yes" restriction="filename" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]"/>

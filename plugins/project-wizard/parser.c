@@ -66,6 +66,7 @@ typedef enum {
 	NPW_VALUE_ATTRIBUTE,
 	NPW_SUMMARY_ATTRIBUTE,
 	NPW_TYPE_ATTRIBUTE,
+	NPW_RESTRICTION_ATTRIBUTE,
 	NPW_MANDATORY_ATTRIBUTE,
 	NPW_EXIST_ATTRIBUTE,
 	NPW_EDITABLE_ATTRIBUTE,
@@ -234,6 +235,10 @@ parse_attribute (const char* name)
 	else if (strcmp ("type", name) == 0)
 	{
 		return NPW_TYPE_ATTRIBUTE;
+	}
+	else if (strcmp ("restriction", name) == 0)
+	{
+		return NPW_RESTRICTION_ATTRIBUTE;
 	}
 	else if (strcmp ("summary", name) == 0)
 	{
@@ -728,6 +733,9 @@ parse_property (NPWPageParser* this,
 		{
 		case NPW_TYPE_ATTRIBUTE:
 			npw_property_set_string_type (this->property, *values);
+			break;
+		case NPW_RESTRICTION_ATTRIBUTE:
+			npw_property_set_string_restriction (this->property, *values);
 			break;
 		case NPW_NAME_ATTRIBUTE:
 			npw_property_set_name (this->property, *values);

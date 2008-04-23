@@ -9,7 +9,7 @@
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">
-	<property type="string" name="Name" _label="Project Name:" _description="project name" default="xlib-dock-foobar" summary="yes" mandatory="yes"/>
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="xlib-dock-foobar" summary="yes" restriction="filename" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
