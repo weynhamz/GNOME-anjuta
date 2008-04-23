@@ -258,7 +258,7 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 static void
 ipreferences_unmerge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e)
 {
-	anjuta_preferences_remove_page (prefs, "Tools");
+	anjuta_preferences_remove_page (prefs, _("Tools"));
 }
 
 static void

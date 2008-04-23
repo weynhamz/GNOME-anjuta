@@ -1,3 +1,9 @@
+2008-04-23  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/tools/plugin.c:
+	Fix #529506: Uncorrect unloading tools plugin
+
 2008-04-22  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/search-replace.c (search_and_replace),
