@@ -78,25 +78,25 @@ struct _ATPUserTool
  *---------------------------------------------------------------------------*/
 
 ATPEnumType output_type_list[] = {
- {ATP_TOUT_SAME, "Same than output"},
- {ATP_TOUT_COMMON_PANE, "Existing message pane"},
- {ATP_TOUT_NEW_PANE, "New message pane"},
- {ATP_TOUT_NEW_BUFFER, "New buffer"},
- {ATP_TOUT_REPLACE_BUFFER, "Replace buffer"},
- {ATP_TOUT_INSERT_BUFFER, "Insert in buffer"},
- {ATP_TOUT_APPEND_BUFFER, "Append to buffer"},
- {ATP_TOUT_REPLACE_SELECTION, "Replace selection"},
- {ATP_TOUT_POPUP_DIALOG, "Popup dialog"},
- {ATP_TOUT_NULL, "Discard output"},
+ {ATP_TOUT_SAME, N_("Same than output")},
+ {ATP_TOUT_COMMON_PANE, N_("Existing message pane")},
+ {ATP_TOUT_NEW_PANE, N_("New message pane")},
+ {ATP_TOUT_NEW_BUFFER, N_("New buffer")},
+ {ATP_TOUT_REPLACE_BUFFER, N_("Replace buffer")},
+ {ATP_TOUT_INSERT_BUFFER, N_("Insert in buffer")},
+ {ATP_TOUT_APPEND_BUFFER, N_("Append to buffer")},
+ {ATP_TOUT_REPLACE_SELECTION, N_("Replace selection")},
+ {ATP_TOUT_POPUP_DIALOG, N_("Popup dialog")},
+ {ATP_TOUT_NULL, N_("Discard output")},
  {-1, NULL}
 };
 
 ATPEnumType input_type_list[] = {
- {ATP_TIN_NONE, "None"},
- {ATP_TIN_BUFFER, "Current buffer"},
- {ATP_TIN_SELECTION, "Current selection"},
- {ATP_TIN_STRING, "String"},
- {ATP_TIN_FILE, "File"},
+ {ATP_TIN_NONE, N_("None")},
+ {ATP_TIN_BUFFER, N_("Current buffer")},
+ {ATP_TIN_SELECTION, N_("Current selection")},
+ {ATP_TIN_STRING, N_("String")},
+ {ATP_TIN_FILE, N_("File")},
  {-1, NULL}
 };
 

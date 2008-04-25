@@ -1,3 +1,10 @@
+2008-04-25  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* po/POTFILES.in,
+	plugins/tools/tool.c:
+	Fix #529798: Mark additional strings for translation
+
 2008-04-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/druid.c,
