@@ -34,7 +34,6 @@
 #include "../readtags.h"
 
 static GdaConnection *db_connection = NULL;
-static GdaClient *gda_client = NULL;
 static gchar *data_source = NULL;
 static gchar *dsn_name;
 
@@ -101,27 +100,22 @@ add_new_files (SymbolDBEngine *dbe)
 static void
 get_parents (SymbolDBEngine *dbe)
 {
-#if 0	
+#if 1
 	gint i;
 	GPtrArray *scope_path;	
 	scope_path = g_ptr_array_new();	
 	g_ptr_array_add (scope_path, g_strdup("namespace"));
-	g_ptr_array_add (scope_path, g_strdup("Third"));
-	g_ptr_array_add (scope_path, g_strdup("namespace"));
-	g_ptr_array_add (scope_path, g_strdup("Fourth"));
+	g_ptr_array_add (scope_path, g_strdup("PesciosNamespace"));
 	g_ptr_array_add (scope_path, NULL);
 	
 	
 	SymbolDBEngineIterator *iterator =
-			symbol_db_engine_get_class_parents (dbe, "Fourth_2_class", scope_path);
+			symbol_db_engine_get_class_parents (dbe, "my_class", scope_path,
+												SYMINFO_SIMPLE |
+												SYMINFO_FILE_PATH |
+												SYMINFO_KIND);
 	
-	g_message ("Fourth_2_class parents:");
-	
-	dump_iterator (iterator);
-		
-	g_message ("YourClass parents:");
-	iterator =
-			symbol_db_engine_get_class_parents (dbe, "YourClass", NULL);
+	g_message ("my_class:");
 	
 	dump_iterator (iterator);
 #endif	
@@ -159,7 +153,7 @@ get_current_scope (SymbolDBEngine *dbe)
 	SymbolDBEngineIterator *iterator = 
 		symbol_db_engine_get_current_scope (dbe, 
 										"/plugins/symbol-browser/test-class.cpp", 
-										35);
+										35, SYMINFO_SIMPLE);
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
 	
@@ -316,7 +310,7 @@ main(int argc, char ** argv)
 
 #endif
 
-#if 1
+#if 0
 int main(int argc, char** argv)
 {
 	SymbolDBEngine *dbe_one;
@@ -721,4 +715,39 @@ int main(int argc, char** argv)
 }
 #endif
 
+
+#if 1
+int main(int argc, char** argv)
+{
+	SymbolDBEngine *dbe_one;
+	SymbolDBEngine *dbe_two;
+	tagFile *tag_file;
+	tagFileInfo tag_file_info;
+	tagEntry tag_entry; 
+	gint i;
+	
+	gnome_vfs_init ();
+    g_type_init();
+	gda_init ("Test db", "0.1", argc, argv);
+	
+	dbe_one = symbol_db_engine_new ();
+	dbe_two = symbol_db_engine_new ();
+	
+	gchar *prj_dir_one = "/home/pescio/Projects/entwickler-0.1";
+
+	g_message ("opening database ONE");
+	if (symbol_db_engine_open_db (dbe_one, prj_dir_one, prj_dir_one) == FALSE)
+		g_message ("error in opening db 1");
+	
+	g_message ("opening project ONE");
+	if (symbol_db_engine_add_new_project (dbe_one, NULL, "project_one") == FALSE)
+		g_message ("error in opening project 1");	
+
+	get_parents (dbe_one);
+	
+	g_message ("----------SECOND QUERY-------");
+	/* test gtree lookup stuff, get it for the second time */
+	get_parents (dbe_one);
+}
+#endif
 

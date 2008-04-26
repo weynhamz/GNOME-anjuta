@@ -1720,7 +1720,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 												symbol_name, curr_symbol_id);
 			if (curr_tree_row_ref == NULL)
 			{
-				continue;
+				continue;				
 			}		
 		
 			/* we'll fake the gpointer to store an int */

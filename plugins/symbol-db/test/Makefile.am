@@ -1,6 +1,7 @@
 
 bin_PROGRAMS = \
-	benchmark 
+	benchmark \
+	test_symbol_db
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -28,12 +29,7 @@ test_symbol_db_SOURCES = \
 	../symbol-db-engine-iterator-node.c \
 	../symbol-db-engine-iterator-node.h \
 	../symbol-db-view.h \
-	../symbol-db-view.c \
-	pkg.c \
-	pkg.h \
-	parse.c \
-	parse.h
- 
+	../symbol-db-view.c  
 
 test_symbol_db_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \

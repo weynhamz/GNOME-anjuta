@@ -11,7 +11,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       );
                     
 CREATE TABLE file_include (file_include_id integer PRIMARY KEY AUTOINCREMENT,
-                           type varchar (10) not null unique
+                           file_include_type varchar (10) not null unique
                            );
 
 CREATE TABLE ext_include (prj_id integer REFERENCES project (project_id),
@@ -20,7 +20,7 @@ CREATE TABLE ext_include (prj_id integer REFERENCES project (project_id),
                           );
                           
 CREATE TABLE file_ignore (file_ignore_id integer PRIMARY KEY AUTOINCREMENT,
-                          type varchar (10) unique                          
+                          file_ignore_type varchar (10) unique                          
                           );
 
 CREATE TABLE ext_ignore (prj_id integer REFERENCES project (project_id),
@@ -55,9 +55,9 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      );
                      
 CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
-                   type varchar (256) not null,
+                   type_type varchar (256) not null,
                    type_name varchar (256) not null,
-                   unique (type, type_name)
+                   unique (type_type, type_name)
                    );
 
 CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
@@ -108,9 +108,9 @@ CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
 
 CREATE INDEX file_idx_1 ON file (file_path);
 
-CREATE INDEX sym_type_idx_1 ON sym_type (type);
+CREATE INDEX sym_type_idx_1 ON sym_type (type_type);
 
-CREATE INDEX sym_type_idx_2 ON sym_type (type, type_name);
+CREATE INDEX sym_type_idx_2 ON sym_type (type_type, type_name);
 
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file
 FOR EACH ROW

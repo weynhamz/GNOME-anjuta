@@ -219,7 +219,7 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 	else if (sym_info & SYMINFO_TYPE)
 	{
 		value = gda_data_model_iter_get_value_for_field (priv->data_iter, 
-														 "type");
+														 "type_type");
 	}
 	else if (sym_info & SYMINFO_TYPE_NAME)
 	{

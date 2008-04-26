@@ -250,14 +250,16 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe);
  * Use this function to find symbols names by patterns like '%foo_func%'
  * that will return a family of my_foo_func_1, your_foo_func_2 etc
  * @name must not be NULL.
+ * @name must include the optional '%' character to have a wider match, e.g. "foo_func%"
  */
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
-									const gchar *name, SymExtraInfo sym_info);
+									const gchar *pattern, SymExtraInfo sym_info);
 
 /**
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
- * @param exact_match Should the pattern searched for an exact match?
+ *        Please provide a pattern with '%' if you also specify a exact_match = FALSE
+ * @param exact_match Should the pattern be searched for an exact match?
  * @param filter_kinds Can be NULL. In that case these filters will be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_search If TRUE only global public function will be searched. If false
@@ -297,7 +299,8 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, 
-									const gchar* filename, gulong line);
+									const gchar* filename, gulong line, 
+									 SymExtraInfo sym_info);
 
 
 /**
@@ -312,7 +315,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
  * Use this function to get global symbols only. I.e. private or file-only scoped symbols
  * will NOT be returned.
  * @param filter_kinds Can be NULL. In that case we'll return all the kinds of symbols found
- * at root level [global level].
+ * at root level [global level]. A maximum of 5 filter_kinds are admitted.
  * @param include_kinds Should we include in the result the filter_kinds or not?
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
  * 		If FALSE you can have as result more symbols with the same name but different
@@ -343,7 +346,8 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
-									const GPtrArray* scope_path, SymExtraInfo sym_info);
+									const GPtrArray* scope_path, 
+									SymExtraInfo sym_info);
 
 /**
  * Sometimes it's useful going to query just with ids [and so integers] to have
@@ -356,6 +360,12 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
 									gint results_offset,
 									SymExtraInfo sym_info);
 
+/**
+ * A filtered version of the symbol_db_engine_get_scope_members_by_symbol_id ().
+ * You can specify which kind of symbols to retrieve, and if include them or exclude.
+ * Kinds are 'namespace', 'class' etc.
+ * @param filter_kinds cannot be NULL.
+ */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
@@ -370,7 +380,8 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
-									gint sym_id, SymExtraInfo sym_info);
+									gint sym_id, 
+									SymExtraInfo sym_info);
 
 G_END_DECLS
 

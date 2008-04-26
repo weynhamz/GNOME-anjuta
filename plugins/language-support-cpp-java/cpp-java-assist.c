@@ -321,7 +321,7 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 			assist->priv->scope_context_cache = g_strdup (scope_context);
 			g_object_unref (iter);
 		}
-	}
+	} 
 	else if (g_str_equal (scope_operator, ".") ||
 			 g_str_equal (scope_operator, "->"))
 	{

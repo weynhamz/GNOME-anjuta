@@ -1,3 +1,66 @@
+2008-04-26  2008-04-25  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/document-manager/plugin.c (on_document_update_ui):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_get_symbol_extra_string):
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_statement_by_query_id), (gtree_compare_func),
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_dyn_child_query_node_destroy),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_free_cached_queries),
+	(sdb_engine_free_cached_dynamic_queries),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_populate_db_by_tags),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(sdb_engine_finalize), (symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_second_pass_do), (sdb_engine_add_new_symbol),
+	(sdb_engine_detects_removed_ids), (sdb_engine_update_file),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_get_full_local_path),
+	(symbol_db_engine_get_file_db_path),
+	(sdb_engine_walk_down_scope_path),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/tables.sql:
+	new dynamic prepared queries architecture. Now every query used in the
+	engine has its own compiled query in libgda-sqlite provider. This for speed
+	improvements, code cleaning and auto-escaping of string parameters. 
+	Lookup of dynamic queries takes care of sym_info parameters and of 
+	parameters passed to functions. The compiled GdaStatements are stored in an 
+	array of GTree (of GTree(s)). Some parameters, as the filter_kinds, 
+	are bounded at n = 5, to avoid a third level of indirection on the store-trees.
+
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/symbol-db/test/main.c (get_parents), (get_current_scope),
+	(main):
+	re-enabled test.
+
 2008-04-25  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

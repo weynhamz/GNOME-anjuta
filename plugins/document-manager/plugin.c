@@ -963,7 +963,7 @@ on_document_update_ui (IAnjutaDocument *doc, DocmanPlugin *plugin)
 	IAnjutaDocument *curdoc;
 		
 	curdoc = anjuta_docman_get_current_document (ANJUTA_DOCMAN (plugin->docman));
-	update_document_ui_undo_items (plugin, curdoc);
+	update_document_ui_undo_items (ANJUTA_PLUGIN(plugin), curdoc);
 
 	if (IANJUTA_IS_EDITOR (curdoc) && curdoc == doc)
 	{
