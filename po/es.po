@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-19 10:29+0000\n"
-"PO-Revision-Date: 2008-04-19 12:30+0200\n"
+"POT-Creation-Date: 2008-04-24 02:17+0000\n"
+"PO-Revision-Date: 2008-04-26 12:42+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,14 +182,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1164 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1169
+#: ../libanjuta/anjuta-launcher.c:1165
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -1070,7 +1070,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:908
+#: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:932
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -1669,7 +1669,7 @@ msgstr "Directorio de trabajo:"
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
-#: ../plugins/project-wizard/property.c:212
+#: ../plugins/project-wizard/property.c:276
 msgid "Yes"
 msgstr "Sí"
 
@@ -2193,8 +2193,8 @@ msgstr "Símbolos leídos"
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
 #: ../plugins/debug-manager/signals.c:221
-#: ../plugins/project-wizard/property.c:214
-#: ../plugins/project-wizard/property.c:227
+#: ../plugins/project-wizard/property.c:278
+#: ../plugins/project-wizard/property.c:291
 msgid "No"
 msgstr "No"
 
@@ -2283,8 +2283,8 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:929
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:938
+#: ../plugins/document-manager/plugin.c:952
 msgid "Line"
 msgstr "Línea"
 
@@ -2501,11 +2501,11 @@ msgstr "Operaciones con ayuda"
 msgid "Books"
 msgstr "Libros"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1006
-#: ../plugins/search/search-replace.c:1673
-#: ../plugins/search/search-replace.c:1680
-#: ../plugins/search/search-replace.c:1692
-#: ../plugins/search/search-replace.c:2006
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1013
+#: ../plugins/search/search-replace.c:1681
+#: ../plugins/search/search-replace.c:1688
+#: ../plugins/search/search-replace.c:1700
+#: ../plugins/search/search-replace.c:2018
 #: ../plugins/symbol-browser/plugin.c:913
 msgid "Search"
 msgstr "Buscar"
@@ -3168,47 +3168,47 @@ msgstr "Recargar"
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:922
+#: ../plugins/document-manager/plugin.c:931
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:926
+#: ../plugins/document-manager/plugin.c:935
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:928
-#: ../plugins/document-manager/plugin.c:942
+#: ../plugins/document-manager/plugin.c:937
+#: ../plugins/document-manager/plugin.c:951
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:930
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:939
+#: ../plugins/document-manager/plugin.c:953
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:931
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:954
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1012
+#: ../plugins/document-manager/plugin.c:1025
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1524
+#: ../plugins/document-manager/plugin.c:1537
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1538
+#: ../plugins/document-manager/plugin.c:1551
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
-#: ../plugins/document-manager/plugin.c:1709
-#: ../plugins/document-manager/plugin.c:2105
-#: ../plugins/document-manager/plugin.c:2115
+#: ../plugins/document-manager/plugin.c:1722
+#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:2128
 msgid "Documents"
 msgstr "Documentos"
 
@@ -5439,10 +5439,11 @@ msgid ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"El asistente para Aplicaciones generará un esqueleto básico para un proyecto, "
-"incluyendo todos los archivos de compilación. Le preguntará detalles acerca de la "
-"estructura inicial para la aplicación. Responda las preguntas cuidadosamente, ya que "
-"puede que no sea posible cambiar algunos valores más tarde."
+"El asistente para Aplicaciones generará un esqueleto básico para un "
+"proyecto, incluyendo todos los archivos de compilación. Le preguntará "
+"detalles acerca de la estructura inicial para la aplicación. Responda las "
+"preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
+"valores más tarde."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
@@ -5475,7 +5476,16 @@ msgstr "No se puede encontrar ninguna plantilla de proyecto en %s"
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "El campo «%s» es obligatorio. Introdúzcalo."
 
-#: ../plugins/project-wizard/druid.c:512
+#: ../plugins/project-wizard/druid.c:500
+#, c-format
+msgid ""
+"Field \"%s\" must start with a letter, a digit or an underscore and contains "
+"only letters, digits, underscore, minus and dot. Please fix it."
+msgstr ""
+"El campo «%s» debe comenzar por una letra, un dígito o un guión bajo, y contener sólo "
+"letras, dígitos, guión bajo, menos y punto. Arréglelo."
+
+#: ../plugins/project-wizard/druid.c:536
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -5484,12 +5494,12 @@ msgstr ""
 "El directorio «%s» no está vacío. La creación del proyecto podría fallar si "
 "algunos archivos no se pudiesen escribir. ¿Quiere continuar?"
 
-#: ../plugins/project-wizard/druid.c:514
+#: ../plugins/project-wizard/druid.c:538
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
-#: ../plugins/project-wizard/druid.c:679
+#: ../plugins/project-wizard/druid.c:703
 #, c-format
 msgid ""
 "\n"
@@ -5498,7 +5508,7 @@ msgstr ""
 "\n"
 "Faltan programas: %s"
 
-#: ../plugins/project-wizard/druid.c:690
+#: ../plugins/project-wizard/druid.c:714
 #, c-format
 msgid ""
 "\n"
@@ -5507,7 +5517,7 @@ msgstr ""
 "\n"
 "Faltan paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:700
+#: ../plugins/project-wizard/druid.c:724
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -5517,11 +5527,11 @@ msgstr ""
 "faltan para construir este proyecto. Asegúrese de que están instalados "
 "adecuadamente antes de generar el proyecto.\n"
 
-#: ../plugins/project-wizard/druid.c:709
+#: ../plugins/project-wizard/druid.c:733
 msgid "Missing components"
 msgstr "Faltan componentes"
 
-#: ../plugins/project-wizard/druid.c:712
+#: ../plugins/project-wizard/druid.c:736
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched in your Application Manager. Similarly, the development packages "
@@ -5537,7 +5547,7 @@ msgstr ""
 "ellos. Generalmente acaban con el sufijo -dev o -devel en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
-#: ../plugins/project-wizard/druid.c:916
+#: ../plugins/project-wizard/druid.c:940
 msgid "Unable to build project assistant user interface."
 msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
 
@@ -5577,15 +5587,15 @@ msgstr "Ejecutando: "
 msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
-#: ../plugins/project-wizard/property.c:248
+#: ../plugins/project-wizard/property.c:312
 msgid "Choose directory"
 msgstr "Elija un directorio"
 
-#: ../plugins/project-wizard/property.c:258
+#: ../plugins/project-wizard/property.c:322
 msgid "Choose file"
 msgstr "Elija un archivo"
 
-#: ../plugins/project-wizard/property.c:268
+#: ../plugins/project-wizard/property.c:332
 msgid "Icon choice"
 msgstr "Elección del icono"
 
@@ -6175,47 +6185,47 @@ msgstr "Reemplazar la siguiente coincidencia"
 msgid "Replace all matches"
 msgstr "Reemplazar todas las coincidencias"
 
-#: ../plugins/search/search-replace.c:319
+#: ../plugins/search/search-replace.c:320
 msgid "Find: "
 msgstr "Buscar: "
 
-#: ../plugins/search/search-replace.c:495
+#: ../plugins/search/search-replace.c:496
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/search/search-replace.c:629
+#: ../plugins/search/search-replace.c:630
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1009
-#: ../plugins/search/search-replace.c:1687
+#: ../plugins/search/search-replace.c:1016
+#: ../plugins/search/search-replace.c:1695
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: ../plugins/search/search-replace.c:1048
+#: ../plugins/search/search-replace.c:1055
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
 "el principio del documento?"
 
-#: ../plugins/search/search-replace.c:1068
+#: ../plugins/search/search-replace.c:1075
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1083
+#: ../plugins/search/search-replace.c:1090
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1096
+#: ../plugins/search/search-replace.c:1103
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1262
+#: ../plugins/search/search-replace.c:1269
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
@@ -7253,7 +7263,8 @@ msgstr "No se puede abrir el archivo %s para escribir"
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
-#: ../plugins/tools/plugin.c:255 ../plugins/tools/anjuta-tools.plugin.in.h:1
+#: ../plugins/tools/plugin.c:255 ../plugins/tools/plugin.c:261
+#: ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "Herramientas"
 
@@ -8007,11 +8018,11 @@ msgid "Provides document management capabilities."
 msgstr "Proporciona capacidades de gestión de documentos."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
-msgid "Anjuta File Assistent Plugin"
-msgstr "Complemento del asistente de archivos para Anjuta"
+msgid "Anjuta File Assistant Plugin"
+msgstr "Complemento del asistente de archivos de Anjuta"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-msgid "File Assistent"
+msgid "File Assistant"
 msgstr "Asistente de archivos"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
