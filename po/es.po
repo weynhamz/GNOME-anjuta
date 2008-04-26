@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-24 02:17+0000\n"
-"PO-Revision-Date: 2008-04-26 12:42+0200\n"
+"POT-Creation-Date: 2008-04-26 11:57+0000\n"
+"PO-Revision-Date: 2008-04-26 17:16+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2276,7 +2276,8 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:744
+#: ../plugins/debug-manager/threads.c:447 ../plugins/tools/tool.c:99
+#: ../src/anjuta-app.c:744
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Archivo"
@@ -5482,8 +5483,8 @@ msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
 "only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
-"El campo «%s» debe comenzar por una letra, un dígito o un guión bajo, y contener sólo "
-"letras, dígitos, guión bajo, menos y punto. Arréglelo."
+"El campo «%s» debe comenzar por una letra, un dígito o un guión bajo, y "
+"contener sólo letras, dígitos, guión bajo, menos y punto. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:536
 #, c-format
@@ -7271,6 +7272,62 @@ msgstr "Herramientas"
 #: ../plugins/tools/variable.c:487
 msgid "Command line parameters"
 msgstr "Parámetros del comando"
+
+#: ../plugins/tools/tool.c:81
+msgid "Same than output"
+msgstr "La misma que la salida"
+
+#: ../plugins/tools/tool.c:82
+msgid "Existing message pane"
+msgstr "Panel de mensajes existente"
+
+#: ../plugins/tools/tool.c:83
+msgid "New message pane"
+msgstr "Panel de mensajes nuevo"
+
+#: ../plugins/tools/tool.c:84
+msgid "New buffer"
+msgstr "Búfer nuevo"
+
+#: ../plugins/tools/tool.c:85
+msgid "Replace buffer"
+msgstr "Reemplazar búfer"
+
+#: ../plugins/tools/tool.c:86
+msgid "Insert in buffer"
+msgstr "Insertar en el búfer"
+
+#: ../plugins/tools/tool.c:87
+msgid "Append to buffer"
+msgstr "Añadir al búfer"
+
+#: ../plugins/tools/tool.c:88
+msgid "Replace selection"
+msgstr "Reemplazar selección"
+
+#: ../plugins/tools/tool.c:89
+msgid "Popup dialog"
+msgstr "Diálogo emergente"
+
+#: ../plugins/tools/tool.c:90
+msgid "Discard output"
+msgstr "Descartar la salida"
+
+#: ../plugins/tools/tool.c:95
+msgid "None"
+msgstr "Ninguna"
+
+#: ../plugins/tools/tool.c:96
+msgid "Current buffer"
+msgstr "Búfer actual"
+
+#: ../plugins/tools/tool.c:97
+msgid "Current selection"
+msgstr "Selección actual"
+
+#: ../plugins/tools/tool.c:98
+msgid "String"
+msgstr "Cadena"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:1
 msgid "<b>Program to test:</b>"
