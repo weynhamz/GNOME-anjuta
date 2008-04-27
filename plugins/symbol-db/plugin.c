@@ -1083,12 +1083,13 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			}
 			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), 
 									   _("Populating symbols' db..."));
-			id = g_timeout_add (100, (GSourceFunc) gtk_progress_bar_pulse, sdb_plugin->progress_bar);
+			id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, sdb_plugin->progress_bar);
 			gtk_widget_show (sdb_plugin->progress_bar);
 			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe_project);
 			g_source_remove (id);
+			gtk_widget_hide (sdb_plugin->progress_bar);
 
 			/* root dir */
 			sdb_plugin->project_root_dir = root_dir;

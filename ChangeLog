@@ -1,4 +1,16 @@
-2008-04-26  2008-04-25  Massimo Cora'  <maxcvs@email.it>
+2008-04-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/plugin.c:
+  Hide progress bar when things are done.
+
+2008-04-27  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	fixed typo on query.
+	
+2008-04-26  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/document-manager/plugin.c (on_document_update_ui):
 	* plugins/symbol-db/symbol-db-engine-iterator-node.c

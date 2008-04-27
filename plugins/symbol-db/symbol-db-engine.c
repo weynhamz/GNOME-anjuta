@@ -6376,7 +6376,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}	
-
+	
 	if (other_parameters & DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_LIMIT)
 	{	
 		GValue *value;
@@ -7152,7 +7152,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		/* fill info_data and join data with optional sql */
 		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 	
-		query_str = g_strdup_printf ("SELECT symbol.symbol_id, symbol.name, "
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
 			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
 			"%s FROM symbol "
@@ -7588,7 +7588,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			/* fill info_data and join data with optional sql */
 			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 
-			query_str = g_strdup_printf ("SELECT symbol.symbol_id, symbol.name, "
+			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 					"symbol.name AS name, symbol.file_position AS file_position, "
 					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
 					"sym_kind.kind_name AS kind_name "
@@ -7653,8 +7653,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 				}
 				filter_str = g_string_append (filter_str , ")");
 
-				query_str = g_strdup_printf ("SELECT symbol.symbol_id, symbol.name, "
-					"symbol.name AS name, symbol.file_position AS file_position, "
+				query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
+					"symbol.file_position AS file_position, "
 					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
 					"sym_kind.kind_name AS kind_name "
 						"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
