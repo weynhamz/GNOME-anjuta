@@ -7631,7 +7631,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			}
 
 			if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-					DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
+					DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
 					other_parameters)) == NULL)
 			{			
 				gint i;

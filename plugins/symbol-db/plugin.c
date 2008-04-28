@@ -1079,7 +1079,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				}
 
 				/* Update the symbols */
-				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, root_dir);
+				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, root_dir);				
 			}
 			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), 
 									   _("Populating symbols' db..."));
@@ -1425,6 +1425,8 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBEngine *dbe;
 	GPtrArray *filter_array;
+	gchar *pattern;
+	gboolean exact_match = !partial_name_match;
 
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
@@ -1440,14 +1442,21 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	else
 		filter_array = symbol_db_engine_fill_type_array (match_types);
 
+	if (exact_match == FALSE)
+		pattern = g_strdup_printf ("%s%%", match_name);
+	else
+		pattern = g_strdup_printf ("%s", match_name);
+	
 	iterator = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe,
-																	  match_name,
-																	  !partial_name_match,
+																	  pattern,
+																	  exact_match,
 																	  filter_array,
 																	  include_types,
 																	  global_search,
 																	  info_fields);
 
+	g_free (pattern);
+	
 	if (filter_array)
 	{
 		g_ptr_array_foreach (filter_array, (GFunc)g_free, NULL);

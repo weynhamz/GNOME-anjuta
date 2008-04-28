@@ -1,3 +1,10 @@
+2008-04-28  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c (isymbol_manager_search):
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	fixed partial pattern match accordingly with api.
+
 2008-04-28  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/symbol-db/plugin.c:
