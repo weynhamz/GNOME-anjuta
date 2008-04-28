@@ -746,7 +746,7 @@ debugger_set_working_directory (Debugger *debugger, const gchar *directory)
 }
 
 gboolean
-debugger_set_environment (Debugger *debugger, const GList *variables)
+debugger_set_environment (Debugger *debugger, gchar **variables)
 {
 	gchar *buff;
 	GList *node;
@@ -755,11 +755,14 @@ debugger_set_environment (Debugger *debugger, const GList *variables)
 
 	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
 
-	for (node = variables; node != NULL; node = g_list_next (node))
+	if (variables != NULL)
 	{
-		buff = g_strdup_printf("set environment %s", (const char *)node->data);
-		debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
-		g_free (buff);
+		for (; *variables != NULL; variables++)
+		{
+			buff = g_strdup_printf("set environment %s", *variables);
+			debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
+			g_free (buff);
+		}
 	}
 	
 	return TRUE;

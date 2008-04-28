@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+_Name=Run Program
+_Description=Allow to execute program without debugger.
+Location=anjuta-run-program:RunProgramPlugin
+Icon=anjuta-run-program-48.png

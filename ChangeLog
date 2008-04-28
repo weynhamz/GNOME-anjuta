@@ -1,5 +1,46 @@
 2008-04-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* configure.in,
+	po/POTFILES.in,
+	plugins/Makefile.am,
+	src/anjuta.ui,
+	(added) plugins/run-program/anjuta-run-program-48.png,
+	(added) plugins/run-program/anjuta-run-program.glade,
+	(added) plugins/run-program/anjuta-run-program.plugin.in,
+	(added) plugins/run-program/anjuta-run-program.ui,
+	(added) plugins/run-program/execute.c,
+	(added) plugins/run-program/execute.h,
+	(added) plugins/run-program/Makefile.am,
+	(added) plugins/run-program/parameters.c,
+	(added) plugins/run-program/parameters.h,
+	(added) plugins/run-program/plugin.c,
+	(added) plugins/run-program/plugin.h,
+	(added) plugins/run-program/utils.c,
+	(added) plugins/run-program/utils.h:
+	New run program plugin, includes a new dialog box to set
+	program arguments
+
+	* plugins/debug-manager/anjuta-debug-manager.plugin.in,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/start.c:
+	Update debugger plugin to use run program parameter dialog
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui:
+	Remove run program menu item
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h:
+	Use a gchar * null terminated array instead of a GList for
+	passing environment variables
+
+2008-04-28  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/terminal/terminal.c,
 	libanjuta/interfaces/libanjuta.idl:
 	Add a child-exited signal in the IAnjutaTerminal interface

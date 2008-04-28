@@ -360,7 +360,7 @@ idebugger_set_working_directory (IAnjutaDebugger *plugin, const gchar *directory
 }
 
 static gboolean
-idebugger_set_environment (IAnjutaDebugger *plugin, const GList *variables, GError **err)
+idebugger_set_environment (IAnjutaDebugger *plugin, gchar **variables, GError **err)
 {
 	GdbPlugin *self = ANJUTA_PLUGIN_GDB (plugin);
 

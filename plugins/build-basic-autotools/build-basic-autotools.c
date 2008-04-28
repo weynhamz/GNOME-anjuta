@@ -1167,12 +1167,6 @@ build_distribution_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 }
 
 static void
-build_execute_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
-{
-	execute_program (plugin, NULL);
-}
-
-static void
 build_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
@@ -1373,12 +1367,6 @@ static GtkActionEntry build_actions[] =
 		N_("Build _Tarball"), NULL,
 		N_("Build project tarball distribution"),
 		G_CALLBACK (build_distribution_project)
-	},
-	{
-		"ActionBuildExecute", NULL,
-		N_("_Execute Program..."), "F3",
-		N_("Execute program"),
-		G_CALLBACK (build_execute_project)
 	},
 	{
 		"ActionBuildBuildModule", GTK_STOCK_EXECUTE,

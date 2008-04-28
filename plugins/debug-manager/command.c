@@ -349,7 +349,7 @@ struct _DmaQueueCommand
 			gchar *name;
 			gchar *value;
 		} var;
-		GList *env;
+		gchar **env;
 		gchar *dir;
 	} data;
 	struct _DmaQueueCommand *next;
@@ -408,11 +408,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->data.dir = g_strdup (va_arg (args, gchar *));
 		break;
 	case SET_ENVIRONMENT_COMMAND:
-		for (list = va_arg (args, GList *); list != NULL; list = g_list_next (list))
-		{
-			cmd->data.env = g_list_prepend (cmd->data.env, g_strdup (list->data));
-		}
-		cmd->data.env = g_list_reverse (cmd->data.env);
+		cmd->data.env = g_strdupv (va_arg (args, gchar **));
 		break;
 	case START_COMMAND:
 		cmd->data.start.args = g_strdup (va_arg (args, gchar *));
@@ -656,7 +652,7 @@ dma_queue_set_working_directory(DmaDebuggerQueue *self, const gchar *directory)
 }
 
 gboolean
-dma_queue_set_environment(DmaDebuggerQueue *self, const GList *variables)
+dma_queue_set_environment(DmaDebuggerQueue *self, gchar **variables)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_SET_ENVIRONMENT_COMMAND, variables));
 }
@@ -1051,8 +1047,7 @@ dma_command_free (DmaQueueCommand *cmd)
 		if (cmd->data.dir) g_free (cmd->data.dir);
 		break;
 	case SET_ENVIRONMENT_COMMAND:
-        g_list_foreach (cmd->data.env, (GFunc)g_free, NULL);
-        g_list_free (cmd->data.env);
+		g_strfreev (cmd->data.env);
 		break;
 	case ATTACH_COMMAND:
         g_list_foreach (cmd->data.attach.dirs, (GFunc)g_free, NULL);

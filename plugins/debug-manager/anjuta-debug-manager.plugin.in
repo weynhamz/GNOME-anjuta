@@ -4,3 +4,4 @@ _Description=Debug Manager plugin.
 Location=anjuta-debug-manager:DebugManagerPlugin
 Icon=anjuta-debug-manager-plugin-48.png
 Interfaces=IAnjutaDebugManager
+Dependencies=anjuta-run-program:RunProgramPlugin

@@ -3144,7 +3144,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessfull, other FALSE.
 	*/
-	gboolean set_environment (const List<const gchar*> env);
+	gboolean set_environment (gchar **env);
 
 	/**
 	* ianjuta_debugger_start:

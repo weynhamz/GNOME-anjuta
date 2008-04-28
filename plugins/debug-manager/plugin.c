@@ -582,20 +582,7 @@ static void
 on_start_debug_activate (GtkAction* action, DebugManagerPlugin* this)
 {
 	enable_log_view (this, TRUE);
-	if (dma_run_target (this->start))
-	{
-		GtkAction *action;
-		action = gtk_action_group_get_action (this->start_group, "ActionDebuggerRestartTarget");
-		gtk_action_set_sensitive (action, TRUE);
-	}
-
-}
-
-static void
-on_restart_debug_activate (GtkAction* action, DebugManagerPlugin* this)
-{
-	enable_log_view (this, TRUE);
-	dma_rerun_target (this->start);
+	dma_run_target (this->start);
 }
 
 static void
@@ -846,25 +833,17 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerRunTarget",
 		NULL,
-		N_("Run Target..."),
+		N_("_Debug Program"),
 		"<shift>F12",
-		N_("load and start the target for debugging"),
+		N_("Start debugger and load the program"),
 		G_CALLBACK (on_start_debug_activate)
-	},
-	{
-		"ActionDebuggerRestartTarget",
-		NULL,
-		N_("Restart Target"),
-		NULL,
-		N_("restart the same target for debugging"),
-		G_CALLBACK (on_restart_debug_activate)
 	},
 	{
 		"ActionDebuggerAttachProcess",
 		"debugger-attach",
-		N_("_Attach to Process..."),
+		N_("_Debug Process..."),
 		NULL,
-		N_("Attach to a running program"),
+		N_("Start debugger and attach to a running program"),
 		G_CALLBACK (on_attach_to_project_action_activate)
 	},
 	{
@@ -1074,7 +1053,6 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
     static gboolean initialized = FALSE;
 	AnjutaUI *ui;
-	GtkAction *action;
 	
 	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
@@ -1149,10 +1127,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	/* Start debugger part */
 	this->start = dma_start_new (this);
 	
-
 	dma_plugin_debugger_stopped (this, 0);
-	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerRestartTarget");
-	gtk_action_set_sensitive (action, FALSE);
 	
 	/* Add watches */
 	this->project_watch_id = 

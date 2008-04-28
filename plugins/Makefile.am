@@ -32,7 +32,8 @@ SUBDIRS = . \
 	language-manager \
 	symbol-db \
 	symbol-browser \
-	sourceview
+	sourceview \
+	run-program
 
 # indent
 

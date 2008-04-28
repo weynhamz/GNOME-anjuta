@@ -109,7 +109,7 @@ void debugger_detach_process (Debugger *debugger);
 
 /* Environment */
 gboolean debugger_set_working_directory (Debugger *debugger, const gchar *directory);
-gboolean debugger_set_environment (Debugger *debugger, const GList *variables);
+gboolean debugger_set_environment (Debugger *debugger, gchar **variables);
 
 /* Execution */
 void debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop);
