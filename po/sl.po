@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-18 17:19+0000\n"
-"PO-Revision-Date: 2008-04-28 15:26+0100\n"
+"PO-Revision-Date: 2008-04-28 15:40+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1577,7 +1577,7 @@ msgstr "Vnesite naslov v osmiškem zapisu ali pa izberite ustreznega med podatki
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 msgid "Environment Variables:"
-msgstr ""
+msgstr "Okoljske spremenljivke:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
@@ -2600,7 +2600,7 @@ msgstr "<b>Samodejno shranjevanje</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:2
 msgid "<b>Editor tabs</b>"
-msgstr ""
+msgstr "<b>Zavihki urejevalnika</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:3
 msgid "Do not show tabs"
@@ -5704,7 +5704,7 @@ msgstr "Ime razreda vstavka"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin has menus or/and toolbars"
-msgstr "Vstavek ima menuje ali orodne vrstice"
+msgstr "Vstavek ima menije ali orodne vrstice"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Plugin interfaces to implement"
@@ -5808,7 +5808,7 @@ msgstr "Vrednosti za opazovanje"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Whether the plugin has menus or toolbars"
-msgstr "Ali ima vstavek menuje ali orodne vrstice"
+msgstr "Ali ima vstavek menije ali orodne vrstice"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
@@ -7243,7 +7243,7 @@ msgstr "Zamenjaj izbiro"
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr ""
+msgstr "Pojavno okno"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
@@ -7279,6 +7279,9 @@ msgid ""
 "Addrcheck\n"
 "Helgrind"
 msgstr ""
+"Memcheck\n"
+"Addrcheck\n"
+"Helgrind"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:7
 msgid "Select Tool:"
@@ -7319,7 +7322,7 @@ msgstr ""
 
 #: ../plugins/valgrind/plugin.c:403
 msgid "Open Valgrind log file"
-msgstr ""
+msgstr "Odpri Valgrind datoteko beleženja"
 
 #. Action name
 #. Stock icon, if any
@@ -7337,25 +7340,25 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:461
 msgid "_Kill Execution"
-msgstr ""
+msgstr "_Ubij izvajanje"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:469
 msgid "_Load Log"
-msgstr ""
+msgstr "_Naloži beležnico"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:477
 msgid "S_ave Log"
-msgstr ""
+msgstr "_Shrani beležnico"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:485
 msgid "Edit Rules"
-msgstr ""
+msgstr "Uredi pravila"
 
 #: ../plugins/valgrind/plugin.c:550
 msgid "Use Valgrind debug tool"
@@ -7619,15 +7622,15 @@ msgstr "Med nastavitvami ni nastavljenih pravil preprečevanja."
 
 #: ../src/about.c:185
 msgid "Copyright (c) Naba Kumar"
-msgstr ""
+msgstr "Avtorske pravice (c) Naba Kumar"
 
 #: ../src/about.c:237
 msgid "Anjuta Plugin"
-msgstr ""
+msgstr "Vstavek Anjute"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
-msgstr ""
+msgstr "Naložena seja ..."
 
 #: ../src/anjuta.glade.h:1
 msgid "<b>Appearance</b>"
@@ -7707,7 +7710,7 @@ msgstr "_Preferences"
 
 #: ../src/anjuta-actions.h:33
 msgid "Do you prefer coffee to tea? Check it out."
-msgstr ""
+msgstr "Ali imate raje kavo ali čaj? Preverite."
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
@@ -7747,23 +7750,23 @@ msgstr "_Uporabniški priročnik"
 
 #: ../src/anjuta-actions.h:61
 msgid "Anjuta user's manual"
-msgstr ""
+msgstr "Uporabniški priročnik Anjuta"
 
 #: ../src/anjuta-actions.h:64
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "Začetne funkcije"
 
 #: ../src/anjuta-actions.h:65
 msgid "Anjuta Kick start tutorial"
-msgstr ""
+msgstr "Anjuta začetne funkcije"
 
 #: ../src/anjuta-actions.h:68
 msgid "_Advanced tutorial"
-msgstr ""
+msgstr "_Napredne funkcije"
 
 #: ../src/anjuta-actions.h:69
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "Anjuta napredne funkcije"
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
@@ -7771,7 +7774,7 @@ msgstr "_Pogosto zastavljena vprašanja"
 
 #: ../src/anjuta-actions.h:73
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "Anjuta pogosto zastavljena vprašanja"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta _Home Page"
@@ -7795,7 +7798,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:85
 msgid "Submit a question for FAQs"
-msgstr ""
+msgstr "Pošlji vprašanje za FAQ"
 
 #: ../src/anjuta-actions.h:88
 msgid "_About"
@@ -7811,7 +7814,7 @@ msgstr "O zunanjih _vstavkih"
 
 #: ../src/anjuta-actions.h:93
 msgid "About third party Anjuta plugins"
-msgstr ""
+msgstr "O vstavkih Anjute tretjih oseb"
 
 #: ../src/anjuta-app.c:748
 msgid "Edit"
@@ -7847,7 +7850,7 @@ msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:78
 msgid "Do not show the splashscreen"
-msgstr ""
+msgstr "Ne prikaži pozdravnega okna"
 
 #: ../src/main.c:84
 msgid "Start a new instance and do not open the file in a existing"
@@ -7855,11 +7858,11 @@ msgstr ""
 
 #: ../src/main.c:90
 msgid "Do not open last session on startup"
-msgstr ""
+msgstr "Ob zagonu ne odpri zadnje seje"
 
 #: ../src/main.c:96
 msgid "Do not open last project and files on startup"
-msgstr ""
+msgstr "Ob zagonu ne odpri zadnje uporabljenih datotek in projektov"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
@@ -7883,7 +7886,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
 msgid "<b>Indentation parameters</b>"
-msgstr ""
+msgstr "<b>Parametri zamika</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "<b>Smart Indentation</b>"
@@ -7891,11 +7894,11 @@ msgstr "<b>Pametni zamik</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
-msgstr ""
+msgstr "Dodaj '(' za samodejnim izpisom klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
-msgstr ""
+msgstr "Dodaj presledek za samodejnim izpisom klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
@@ -7907,7 +7910,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
 msgid "Enable adaptive indentation"
-msgstr ""
+msgstr "Omogoči prilagodljivo zamikanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:11
 msgid "Enable code completion"
@@ -8005,7 +8008,7 @@ msgstr ""
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
-msgstr ""
+msgstr "Dedovanje razredov"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
 msgid "Glade File"
@@ -8029,7 +8032,7 @@ msgstr ""
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
-msgstr ""
+msgstr "Vstavi predhodno določene makroje v urejevalnik"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
@@ -8045,7 +8048,7 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
-msgstr ""
+msgstr "Uporabi zunanji program iz Anjute"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 msgid "Sample Plugin"
@@ -8057,11 +8060,11 @@ msgstr "Vzorčni vstavek za program Anjuta."
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
-msgstr ""
+msgstr "Izgradnja automake"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
-msgstr ""
+msgstr "Vstavek za osnovno izgradnjo autotools."
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
@@ -8069,11 +8072,11 @@ msgstr "Izvedi"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
-msgstr ""
+msgstr "Vstavek terminala za Anjuto"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr ""
+msgstr "Vstavek sistema nadzora različic"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
@@ -8081,11 +8084,11 @@ msgstr "CVS vstavek"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
-msgstr ""
+msgstr "Uvozi obstoječi autotools projekt v Anjuto"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
-msgstr ""
+msgstr "Projekt iz obstoječih virov"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 msgid "Project Import Assistant"
@@ -8093,7 +8096,7 @@ msgstr "Pomočnik uvoza projekta"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
 msgid "An alternate editor based on GtkSourceview"
-msgstr ""
+msgstr "Alternativni urejevalnik na osnovi GtkSourceview"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
 msgid "GtkSourceview editor"
@@ -8101,7 +8104,7 @@ msgstr "Urejevalnik GtkSourceview"
 
 #: ../plugins/editor/anjuta-editor.plugin.in.h:2
 msgid "Scintilla based component for editing files"
-msgstr ""
+msgstr "Enota Scintilla za urejanje datotek"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
