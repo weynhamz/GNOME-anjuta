@@ -1,3 +1,11 @@
+2008-04-28  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/terminal/terminal.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Add a child-exited signal in the IAnjutaTerminal interface
+	Remove environment variables merging, it is already done
+	in vte
+
 2008-04-28  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/plugin.c (isymbol_manager_search):

@@ -59,6 +59,7 @@
 
 #include <gconf/gconf-client.h>
 #include <vte/vte.h>
+#include <vte/reaper.h>
 #include <pwd.h>
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -313,106 +314,17 @@ use_default_profile_cb (GtkToggleButton *button,
 		gtk_widget_set_sensitive (term->pref_profile_combo, TRUE);
 }
 
-static const gchar *
-strncmpv (gchar **str_array, const gchar *str, gsize n)
+static void
+terminal_child_exited_cb (VteReaper *vtereaper, gint pid, gint status, TerminalPlugin *term_plugin)
 {
-	if (str_array != NULL)
-	{
-		gchar **p;
-	
-		for (p = str_array; *p; p++)
-		{
-			if (strncmp (*p, str, n) == 0) return *p;
-		}
-	}
-	
-	return NULL;
-}
-
-static gchar **
-get_child_environment (gchar **environment)
-{
-	gchar **p;
-	gchar **new_env;
-	gchar **old_env;
-	gint i;
-	gsize len;
-	
-#define EXTRA_ENV_VARS 6
-
-	/* Allocate space for new environment variables */
-	old_env = g_listenv ();
-
-	len = old_env ? g_strv_length (old_env) : 0;
-	len += environment ? g_strv_length (environment) : 0;
-	len += EXTRA_ENV_VARS + 1;	
-	new_env = g_new (char *, len);
-
-	/* Remove some environment variables, Move other in new_env */
-	i = 0;
-	for (p = old_env; *p; p++)
-	{
-		if ((strncmp (*p, "COLUMNS=", 8) == 0) ||
-		    (strncmp (*p, "LINES=", 6) == 0)   ||
-		    (strncmp (*p, "TERM=", 5) == 0)    ||
-		    (strncmp (*p, "GNOME_DESKTOP_ICON=", 19) == 0))
-		{
-			/* Remove some environment variables */
-			g_free (*p);
-		}
-		else 
-		{
-			const gchar *eq;
-
-			eq = strchr (*p, '=');
-			if (eq != NULL)
-			{
-				if (strncmpv (environment, *p, eq - *p + 1))
-				{
-					/* Remove variable in the list */
-					g_free (*p);
-				}
-				else
-				{
-					/* Valid environment variable */
-					new_env[i++] = *p;
-				}
-			}
-			else
-			{
-				/* Invalid environment variable */
-				g_free (*p);
-			}
-		}
-	}
-	g_free (old_env);	/* No need to use g_strfreev */
-
-	/* Add TERM variable */
-	if (!strncmpv (environment, "TERM=", 5))
-	{
-		/* Add default terminal */
-		new_env[i++] = g_strdup ("TERM=xterm");
-	}
-	
-	/* Add all other environment variable from list */
-	if (environment)
-	{
-		for (p = environment; *p; p++)
-		{
-			new_env[i++] = g_strdup(*p);
-		}
-	}
-	
-	new_env[i] = NULL;
-
-	return new_env;
+	g_signal_emit_by_name(term_plugin, "child-exited", pid, status);	
 }
 
 static pid_t
 terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 				  const gchar *command, gchar **environment)
 {
-	char **env, **args, **args_ptr;
+	char **args, **args_ptr;
 	GList *args_list, *args_list_ptr;
 	gchar *dir;
 	VteTerminal *term;
@@ -441,12 +353,11 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	
 	vte_terminal_reset (term, TRUE, TRUE);
 
-	env = get_child_environment (environment);
-	
 	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
-														env, dir, 0, 0, 0);
+														environment, dir, 0, 0, 0);
+	vte_reaper_add_child (term_plugin->child_pid);
+	
 	g_free (dir);
-	g_strfreev (env);
 	g_free (args);
 	g_list_foreach (args_list, (GFunc)g_free, NULL);
 	g_list_free (args_list);
@@ -601,6 +512,9 @@ terminal_create (TerminalPlugin *term_plugin)
 	g_signal_connect (G_OBJECT (term_plugin->term), "unrealize",
 					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
 #endif
+	g_signal_connect (vte_reaper_get(), "child-exited",
+					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
+	
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term_plugin->term)->adjustment));
 	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
 	

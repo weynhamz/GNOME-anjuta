@@ -2592,6 +2592,17 @@ interface IAnjutaFileManager
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>
+
+	/**
+	* IAnjutaDebugManager::child_exited:
+	* @obj: Self
+	* @pid: pid of terminated child
+	* @status: status of terminated child as returned by waitpid
+	*
+	* This signal is emitted when a child exit.
+	*/
+	void ::child_exited (gint pid, gint status);
+
 		
 	/**
 	* ianjuta_terminal_execute_command:
