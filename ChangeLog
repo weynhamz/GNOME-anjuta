@@ -1,3 +1,9 @@
+2008-04-29  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/patch/patch-plugin.c (get_project_uri), (patch_show_gui):
+	Use current project folder as default and added a file filter for
+	the patch file chooser.
+
 2008-04-28  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/symbol-db-view-search.c
@@ -28178,3 +28184,11 @@ attached the fix for the menu
 1999-12-27 Naba kumar  <naba@gnome.org>
 
 	Anjuta project started.
+
+		TRANSLATION STATISTICS
+		Total messages: 0
+
+	Translation status given in percentage.
++----------------------------------------------------------------------------+
+|  Po file  |            Language  | Translated |   Fuzzy   |   Untranslated |
++----------------------------------------------------------------------------+

@@ -49,12 +49,32 @@ patch_level_changed (GtkAdjustment *adj)
 	patch_level = (gint) adj->value;
 }
 
+static gchar* get_project_uri(PatchPlugin *plugin)
+{
+	GValue value = {0, };
+	gchar* uri;
+	GError* err = NULL;
+	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell,
+													"project_root_uri",
+													&value,
+													&err);
+	if (err)
+	{
+		g_error_free(err);
+		return NULL;
+	}
+	uri = g_value_dup_string (&value);
+	return uri;
+}
+  
 void
 patch_show_gui (PatchPlugin *plugin)
 {
 	GtkWidget* table;
 	GtkWidget* scale;
 	GtkAdjustment* adj;
+  gchar* uri = get_project_uri(plugin);
+  GtkFileFilter* filter;
 	
 	GladeXML* gxml;
 	
@@ -66,15 +86,36 @@ patch_show_gui (PatchPlugin *plugin)
 	table = glade_xml_get_widget(gxml, "patch_table");
 
 	plugin->file_chooser = gtk_file_chooser_button_new(_("File/Directory to patch"),
-											   GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+																										 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	
 	plugin->patch_chooser = gtk_file_chooser_button_new(_("Patch file"),
-											   GTK_FILE_CHOOSER_ACTION_OPEN);
-
+																											GTK_FILE_CHOOSER_ACTION_OPEN);
+	
+	if (uri)
+	{
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER(plugin->file_chooser),
+																						 uri);
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER(plugin->patch_chooser),
+																						 uri);
+	}
+	g_free(uri);
+	
 	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->file_chooser),
-											30);
+																					30);
 	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->patch_chooser),
-									30);
-
+																					30);
+	
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_add_pattern (filter, "*.diff");
+	gtk_file_filter_add_pattern (filter, "*.patch");
+	gtk_file_filter_set_name (filter, _("Patches"));  
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (plugin->patch_chooser),
+															 filter);
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_add_pattern (filter, "*");
+	gtk_file_filter_set_name (filter, _("All files"));  
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (plugin->patch_chooser),
+															 filter);
 	
 	gtk_table_attach_defaults(GTK_TABLE(table), plugin->file_chooser, 1, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), plugin->patch_chooser, 1, 2, 1, 2);
