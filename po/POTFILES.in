@@ -145,6 +145,7 @@ plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
 plugins/project-wizard/templates/translatable-strings.h
+plugins/run-program/anjuta-run-program.glade
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
@@ -256,3 +257,4 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/valgrind/anjuta-valgrind.plugin.in
 [type: gettext/ini]plugins/file-loader/anjuta-loader.plugin.in
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in
+[type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in

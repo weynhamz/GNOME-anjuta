@@ -1,5 +1,16 @@
 2008-04-29  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Yuriy Penkin:
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	* plugins/run-program/anjuta-run-program.glade:
+	* plugins/tools/anjuta-tools.glade:
+	530566 – Fix translation and POTFILES.in
+
+2008-04-29  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/patch/patch-plugin.c (get_project_uri), (patch_show_gui):
 	Use current project folder as default and added a file filter for
 	the patch file chooser.
