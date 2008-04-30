@@ -1,5 +1,11 @@
 2008-04-30  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/message-view/anjuta-message-manager.ui:
+	Put the menu items of the message-manager in the correct Goto menu
+
+2008-04-30  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-plugin-manager.c (anjuta_plugin_manager_select):
 	Allow markup in dialog description
 	
