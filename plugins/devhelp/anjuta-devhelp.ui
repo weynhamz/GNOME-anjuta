@@ -1,12 +1,14 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<placeholder name="PlaceholderGotoMenus">
+		<menu name="MenuView" action="ActionMenuView">
 			<menu name="Goto" action="ActionMenuGoto">
+				<placeholder name="PlaceholderGotoMenus">
 					<menuitem name="BackHelp" action="ActionDevhelpBack" />
 					<menuitem name="ForwardHelp" action="ActionDevhelpForward" />
+				</placeholder>
 			</menu>
-		</placeholder>
+		</menu>
 		<placeholder name="PlaceHolderHelpMenus" >
 			<menu name="MenuHelp" action="ActionMenuHelp" >
 				<placeholder name="PlaceHolderHelpDevel" >

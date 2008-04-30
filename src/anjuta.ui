@@ -34,7 +34,7 @@
 		<placeholder name="PlaceHolderDebugMenus"/>
 		<placeholder name="PlaceHolderToolMenus"/>
 		<placeholder name="PlaceHolderVersionControlMenus"/>
-		<placeholder name="PlaceHolderBookmarkMenus"/>
+		<placeholder name="PlaceHolderDocumentsMenus"/>
 		<placeholder name="PlaceHolderHelpMenus" >
 			<menu name="MenuHelp" action="ActionMenuHelp" >
 				<placeholder name="PlaceHolderHelpDevel" >

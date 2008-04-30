@@ -1054,3 +1054,25 @@ on_editor_remove_view_activate (GtkAction *action, gpointer user_data)
 	if (doc)
 		ianjuta_editor_view_remove_current (IANJUTA_EDITOR_VIEW (doc), NULL);
 }
+
+void on_next_document (GtkAction *action, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman),
+								   gtk_notebook_get_current_page (GTK_NOTEBOOK(docman)) + 1);
+}
+
+void on_previous_document (GtkAction *action, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman),
+								   gtk_notebook_get_current_page (GTK_NOTEBOOK(docman)) - 1);
+}

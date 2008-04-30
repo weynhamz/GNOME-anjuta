@@ -1,3 +1,27 @@
+2008-04-30  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/devhelp/anjuta-devhelp.ui:
+	* plugins/search/anjuta-search.ui:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* src/anjuta.ui:
+	Moved Goto menu into View to avoid cluttering the menubar and created
+	new Documents menu
+
+	* plugins/document-manager/action-callbacks.c (on_next_document),
+	(on_previous_document):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c (on_document_toggled),
+	(anjuta_docman_update_documents_menu_status),
+	(anjuta_docman_update_documents_menu),
+	(on_notebook_page_reordered), (anjuta_docman_page_init),
+	(anjuta_docman_new), (on_notebook_switch_page),
+	(anjuta_docman_add_document), (anjuta_docman_remove_document):
+	* plugins/document-manager/plugin.c:
+	
+	Show open documents in the "Documents" menu and add actions for next/prev
+	document like in gedit. Don't center menu items of notebook popup menu.
+	(Fixes bugs #453702 and #529528)
+
 2008-04-29  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Yuriy Penkin:

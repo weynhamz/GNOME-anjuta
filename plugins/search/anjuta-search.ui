@@ -15,13 +15,13 @@
 			</placeholder>
 			</placeholder>
 		</menu>
-		<placeholder name="PlaceholderGotoMenus">
-		<menu name="Goto" action="ActionMenuGoto">
-			<placeholder name="PlaceholderGotoOccurence">
-				<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
-				<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
-			</placeholder>
+		<menu name="MenuView" action="ActionMenuView">
+			<menu name="Goto" action="ActionMenuGoto">
+					<placeholder name="PlaceholderGotoOccurence">
+						<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
+						<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
+					</placeholder>
+			</menu>
 		</menu>
-		</placeholder>
 	</menubar>
 </ui>

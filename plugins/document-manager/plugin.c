@@ -393,6 +393,16 @@ static GtkActionEntry actions_bookmark[] = {
     G_CALLBACK (on_editor_command_bookmark_clear_activate)},
 };
 
+static GtkActionEntry actions_documents[] = {
+  {"ActionMenuDocuments", NULL, N_("_Documents"), NULL, NULL, NULL},
+  { "ActionDocumentsPrevious", GTK_STOCK_GO_BACK, N_("Previous Document"),
+	"<control><alt>Page_Up", N_("Switch to previous document"),
+    G_CALLBACK (on_previous_document)},
+  { "ActionDocumentsNext", GTK_STOCK_GO_FORWARD, N_("Next Document"),
+	"<control><alt>Page_Down", N_("Switch to next document"),
+    G_CALLBACK (on_next_document)},
+};
+
 struct ActionGroupInfo {
 	GtkActionEntry *group;
 	gint size;
@@ -420,7 +430,8 @@ static struct ActionGroupInfo action_groups[] = {
 	{ actions_style, G_N_ELEMENTS (actions_style), "ActionGroupEditorStyle", N_("Editor syntax highlighting styles") },
 	{ actions_format, G_N_ELEMENTS (actions_format), "ActionGroupEditorFormat", N_("Editor text formating") },
 	{ actions_bookmark, G_N_ELEMENTS (actions_bookmark), "ActionGroupEditorBookmark", N_("Editor bookmarks") },
-	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Simple searching") }
+	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Simple searching") },
+	{ actions_documents, G_N_ELEMENTS (actions_documents), "ActionGroupDocuments", N_("Documents") }
 };
 
 static struct ActionToggleGroupInfo action_toggle_groups[] = {

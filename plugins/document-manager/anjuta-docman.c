@@ -39,6 +39,8 @@
 #include "action-callbacks.h"
 #include "editor-tooltips.h"
 
+#define MENU_PLACEHOLDER "/MenuMain/PlaceHolderDocumentsMenus/Documents/PlaceholderDocuments"
+
 static gpointer parent_class;
 
 enum
@@ -68,11 +70,16 @@ struct _AnjutaDocmanPriv {
 	GtkWidget *popup_menu;	/* shared context-menu for main-notebook pages */
 	gboolean tab_pressed;	/* flag for deferred notebook page re-arrangement */
 	gboolean shutingdown;
+	
+	GSList* radio_group;
+	GtkActionGroup *documents_action_group;
+	gint documents_merge_id;
 };
 
 struct _AnjutaDocmanPage {
 	GtkWidget *widget;	/* notebook-page widget, a GTK_WIDGET (IAnjutaDocument*) */
 	GtkWidget *box;		/* notebook-tab-label parent widget */
+	GtkWidget *menu_box; /* notebook-tab-menu parent widget */
 	GtkWidget *close_image;
 	GtkWidget *close_button;
 	GtkWidget *mime_icon;
@@ -94,6 +101,133 @@ static void on_notebook_switch_page (GtkNotebook *notebook,
 static AnjutaDocmanPage *
 anjuta_docman_get_page_for_document (AnjutaDocman *docman,
 									IAnjutaDocument *doc);
+
+static void
+on_document_toggled (GtkAction* action,
+					 AnjutaDocman* docman)
+{
+	gint n;
+
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == FALSE)
+		return;
+
+	n = gtk_radio_action_get_current_value (GTK_RADIO_ACTION (action));
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), n);
+}
+
+static void
+anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
+{
+	AnjutaDocmanPriv *priv = docman->priv;
+	GtkUIManager* ui = GTK_UI_MANAGER (anjuta_shell_get_ui (ANJUTA_PLUGIN (priv->plugin)->shell,
+															NULL));
+	GtkAction* action;
+	gint n_pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
+	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
+	
+	action = gtk_ui_manager_get_action (ui, 
+										"/MenuMain/PlaceHolderDocumentsMenus/Documents/PreviousDocument");
+	g_object_set (action, "sensitive", current_page > 0, NULL);
+	action = gtk_ui_manager_get_action (ui, 
+										"/MenuMain/PlaceHolderDocumentsMenus/Documents/NextDocument");
+	g_object_set (action, "sensitive", (current_page + 1) < n_pages, NULL);	
+}
+
+static void
+anjuta_docman_update_documents_menu (AnjutaDocman* docman)
+{
+	AnjutaDocmanPriv *priv = docman->priv;
+	GtkUIManager* ui = GTK_UI_MANAGER (anjuta_shell_get_ui (ANJUTA_PLUGIN (priv->plugin)->shell,
+															NULL));
+	GList *actions, *l;
+	gint n, i;
+	guint id;
+	GSList *group = NULL;
+
+	g_return_if_fail (priv->documents_action_group != NULL);
+
+	if (priv->documents_merge_id != 0)
+		gtk_ui_manager_remove_ui (ui,
+					  priv->documents_merge_id);
+
+	actions = gtk_action_group_list_actions (priv->documents_action_group);
+	for (l = actions; l != NULL; l = l->next)
+	{
+		g_signal_handlers_disconnect_by_func (GTK_ACTION (l->data),
+						      G_CALLBACK (on_document_toggled),
+						      docman);
+ 		gtk_action_group_remove_action (priv->documents_action_group,
+						GTK_ACTION (l->data));
+	}
+	g_list_free (actions);
+
+	n = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
+
+	id = (n > 0) ? gtk_ui_manager_new_merge_id (ui) : 0;
+
+	for (i = 0; i < n; i++)
+	{
+		AnjutaDocmanPage* page;
+		GtkRadioAction *action;
+		gchar *action_name;
+		const gchar *tab_name;
+		gchar *accel;
+
+		page = anjuta_docman_get_page_for_document (docman,
+													IANJUTA_DOCUMENT (gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman), i)));
+
+		/* NOTE: the action is associated to the position of the tab in
+		 * the notebook not to the tab itself! This is needed to work
+		 * around the gtk+ bug #170727: gtk leaves around the accels
+		 * of the action. Since the accel depends on the tab position
+		 * the problem is worked around, action with the same name always
+		 * get the same accel.
+		 */
+		action_name = g_strdup_printf ("Tab_%d", i);
+		tab_name = gtk_label_get_label (GTK_LABEL (page->label));
+
+		/* alt + 1, 2, 3... 0 to switch to the first ten tabs */
+		accel = (i < 10) ? g_strdup_printf ("<alt>%d", (i + 1) % 10) : NULL;
+
+		action = gtk_radio_action_new (action_name,
+					       tab_name,
+					       NULL,
+					       NULL,
+					       i);
+
+		if (group != NULL)
+			gtk_radio_action_set_group (action, group);
+
+		/* note that group changes each time we add an action, so it must be updated */
+		group = gtk_radio_action_get_group (action);
+
+		gtk_action_group_add_action_with_accel (priv->documents_action_group,
+							GTK_ACTION (action),
+							accel);
+
+		g_signal_connect (action,
+				  "toggled",
+				  G_CALLBACK (on_document_toggled),
+				  docman);
+
+		gtk_ui_manager_add_ui (ui,
+				       id,
+				       MENU_PLACEHOLDER,
+				       action_name, action_name,
+				       GTK_UI_MANAGER_MENUITEM,
+				       FALSE);
+		
+		if (i == gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
+			gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+		
+		g_object_unref (action);
+
+		g_free (action_name);
+		g_free (accel);
+	}
+	anjuta_docman_update_documents_menu_status (docman);
+	priv->documents_merge_id = id;	
+}
 
 static void
 on_notebook_page_close_button_click (GtkButton* button,
@@ -185,6 +319,8 @@ on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 {
 	/* conform pagelist order */
 	g_idle_add ((GSourceFunc) anjuta_docman_sort_pagelist, docman);
+	
+	anjuta_docman_update_documents_menu(docman);
 }
 
 static gint
@@ -219,7 +355,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	GtkWidget *close_button;
 	GtkWidget *close_pixmap;
 	GtkWidget *label, *menu_label;
-	GtkWidget *box;
+	GtkWidget *box, *menu_box;
 	GtkWidget *event_hbox;
 	GtkWidget *event_box;
 #if !GTK_CHECK_VERSION (2,12,0)
@@ -260,8 +396,10 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_widget_show (label);
 
 	menu_label = gtk_label_new (filename);
+	gtk_misc_set_alignment (GTK_MISC (menu_label), 0.0, 0.5);
 	gtk_widget_show (menu_label);
-  	 
+	menu_box = gtk_hbox_new(FALSE, 2);
+	
 	color.red = 0;
 	color.green = 0;
 	color.blue = 0;
@@ -290,9 +428,11 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 		pixbuf = gdl_icons_get_uri_icon (icons, uuri);
 		if (pixbuf != NULL)
 		{
-			GtkWidget *image;
+			GtkWidget *image, *menu_image;
 			image = gtk_image_new_from_pixbuf (pixbuf);
+			menu_image = gtk_image_new_from_pixbuf (pixbuf);			
 			gtk_box_pack_start (GTK_BOX (event_hbox), image, FALSE, FALSE, 0);
+			gtk_box_pack_start (GTK_BOX (menu_box), menu_image, FALSE, FALSE, 0);
 			page->mime_icon = image;
 			g_object_unref (G_OBJECT (pixbuf));
 		}
@@ -331,6 +471,10 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	
 	/* show the widgets of the tab */
 	gtk_widget_show_all(box);
+	
+	/* menu box */
+	gtk_box_pack_start (GTK_BOX (menu_box), menu_label, TRUE, TRUE, 0);
+	gtk_widget_show_all (menu_box);
 
 	g_signal_connect (G_OBJECT (close_button), "clicked",
 					  G_CALLBACK (on_notebook_page_close_button_click),
@@ -353,6 +497,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	page->close_image = close_pixmap;
 	page->close_button = close_button;
 	page->label = label;
+	page->menu_box = menu_box;
 	page->menu_label = menu_label;
 
 	gtk_widget_show (page->widget);
@@ -704,8 +849,14 @@ anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
 	docman = gtk_widget_new (ANJUTA_TYPE_DOCMAN, NULL);
 	if (docman)
 	{
-		ANJUTA_DOCMAN (docman)->priv->plugin = plugin;
-		ANJUTA_DOCMAN (docman)->priv->preferences = pref;
+		AnjutaUI* ui;
+		AnjutaDocman* real_docman = ANJUTA_DOCMAN (docman);
+		real_docman->priv->plugin = plugin;
+		real_docman->priv->preferences = pref;
+		real_docman->priv->documents_action_group = gtk_action_group_new ("ActionGroupDocument");
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), real_docman->priv->documents_action_group, 0);
+		g_object_unref (real_docman->priv->documents_action_group);
 	}
 
 	return docman;
@@ -722,9 +873,27 @@ on_notebook_switch_page (GtkNotebook *notebook,
 	if (!docman->priv->shutingdown)
 	{
 		GtkWidget *page_widget;
+		gchar* action_name;
+		GtkAction* action;
 		
 		page_widget = gtk_notebook_get_nth_page (notebook, page_num);
 		anjuta_docman_set_current_document (docman, IANJUTA_DOCUMENT (page_widget));
+		
+		/* activate the right item in the documents menu */
+		action_name = g_strdup_printf ("Tab_%d", page_num);
+		action = gtk_action_group_get_action (docman->priv->documents_action_group,
+											  action_name);
+
+		/* sometimes the action doesn't exist yet, and the proper action
+		 * is set active during the documents list menu creation
+		 * CHECK: would it be nicer if active_tab was a property and we monitored the notify signal?
+		 */
+		if (action != NULL)
+			gtk_radio_action_set_current_value (GTK_RADIO_ACTION (action),
+												page_num);
+
+		g_free (action_name);
+		
 		/* TTimo: reorder so that the most recently used files are
 		 * at the beginning of the tab list
 		 */
@@ -735,6 +904,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		{
 			gtk_notebook_reorder_child (notebook, page_widget, 0);
 		}
+		anjuta_docman_update_documents_menu_status (docman);
 	}
 }
 
@@ -876,9 +1046,10 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	docman->priv->pages = g_list_prepend (docman->priv->pages, (gpointer)page);
 	
 	gtk_notebook_prepend_page_menu (GTK_NOTEBOOK (docman), page->widget,
-									page->box, page->menu_label);
-	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget, TRUE);
-
+									page->box, page->menu_box);
+	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget,
+									 TRUE);
+	
 	g_signal_connect (G_OBJECT (doc), "save_point",
 					  G_CALLBACK (on_document_save_point), docman);
 	g_signal_connect (G_OBJECT (doc), "destroy",
@@ -889,6 +1060,7 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_ADDED], 0, doc);
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
+	anjuta_docman_update_documents_menu (docman);
 }
 
 void
@@ -916,6 +1088,7 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		g_free (page);
 	}
+	anjuta_docman_update_documents_menu(docman);
 	g_object_unref (doc);
 }
 
