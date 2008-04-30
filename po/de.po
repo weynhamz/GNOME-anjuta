@@ -2442,7 +2442,7 @@ msgstr "_Gehe zu"
 
 #: ../plugins/devhelp/plugin.c:238
 msgid "Previous Help"
-msgstr "Letzter Hilfeeintrag"
+msgstr "Letzte Hilfe-Seite"
 
 #: ../plugins/devhelp/plugin.c:240
 msgid "Go to previous help page"
