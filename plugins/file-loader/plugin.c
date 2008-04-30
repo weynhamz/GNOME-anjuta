@@ -1357,11 +1357,16 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	
 	if (g_list_length (plugin_descs) > 1)
 	{
+		gchar* basename = g_path_get_basename (uri);
+		gchar* message = g_strdup_printf ("Please select a plugin to open <b>%s</b>.", 
+										 basename);
 		plugin =
 			anjuta_plugin_manager_select_and_activate (plugin_manager,
 													   "Open With",
-								"Please select a plugin to open this file.",
+													   message,
 													   plugin_descs);
+		g_free (basename);
+		g_free (message);
 	}
 	else if (g_list_length (plugin_descs) == 1)
 	{

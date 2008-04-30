@@ -1,5 +1,13 @@
 2008-04-30  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c (anjuta_plugin_manager_select):
+	Allow markup in dialog description
+	
+	* plugins/file-loader/plugin.c (iloader_load):
+	#523186 – Open With dialog should mention filename
+
+2008-04-30  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-status.c (anjuta_status_set_title):
 	* plugins/document-manager/anjuta-docman.c
 	(anjuta_docman_update_page_label):
@@ -28231,10 +28239,3 @@ attached the fix for the menu
 
 	Anjuta project started.
 
-		TRANSLATION STATISTICS
-		Total messages: 0
-
-	Translation status given in percentage.
-+----------------------------------------------------------------------------+
-|  Po file  |            Language  | Translated |   Fuzzy   |   Untranslated |
-+----------------------------------------------------------------------------+

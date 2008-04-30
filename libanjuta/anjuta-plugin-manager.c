@@ -1823,6 +1823,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 	gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
 
 	label = gtk_label_new (description);
+	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), label,
 						FALSE, FALSE, 5);
