@@ -1496,7 +1496,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *page_widget)
 	
 	if (!ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
 	{
-		dirty_char = NULL;
+		dirty_char = "";
 	}
 	else
 	{
@@ -1507,7 +1507,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *page_widget)
 	if (uri)
 	{
 		basename = g_path_get_basename (uri);
-		label = g_strconcat(basename, dirty_char, NULL);
+		label = g_strconcat(dirty_char, basename, NULL);
 		gtk_label_set_text (GTK_LABEL (page->label), label);
 		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
 		g_free (label);
@@ -1516,7 +1516,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *page_widget)
 	}
 	else if ((doc_filename = ianjuta_document_get_filename (doc, NULL)) != NULL)
 	{
-		label = g_strconcat (doc_filename, dirty_char, NULL);
+		label = g_strconcat (dirty_char, doc_filename, NULL);
 		gtk_label_set_text (GTK_LABEL (page->label), label);
 		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
 		g_free (label);

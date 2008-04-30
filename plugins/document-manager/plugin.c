@@ -470,12 +470,14 @@ update_title (DocmanPlugin* doc_plugin)
 		}
 		else
 			filename = NULL;
-	}
+	}		
 	else
 		filename = NULL;
+	
 	if (filename && doc_plugin->project_name)
 	{
 		gchar *display_filename = NULL;
+		const gchar *home = g_get_home_dir();
 		if (doc_plugin->project_path)
 		{
 			if (g_str_has_prefix (filename, doc_plugin->project_path))
@@ -484,9 +486,15 @@ update_title (DocmanPlugin* doc_plugin)
 				display_filename = filename + strlen (doc_plugin->project_path) + 1;
 			}
 		}
+		if (!display_filename && 
+			g_str_has_prefix (filename, home))
+		{
+			filename[strlen (home) - 1] = '~';
+			display_filename = filename + strlen (home) - 1;
+		}
 		if (!display_filename)
 			display_filename = filename;
-		title = g_strconcat (doc_plugin->project_name, " - ", display_filename, NULL);
+		title = g_strconcat (display_filename, " - ", doc_plugin->project_name, NULL);
 	}
 	else if (filename)
 	{
@@ -498,6 +506,14 @@ update_title (DocmanPlugin* doc_plugin)
 	}
 	else
 		title = NULL;
+	
+	if (title && doc && 
+		ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
+	{
+		gchar* dirty_title = g_strconcat ("*", title, NULL);
+		g_free(title);
+		title = dirty_title;
+	}
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (doc_plugin)->shell, NULL);
 	/* NULL title is ok */
@@ -864,6 +880,7 @@ on_document_update_save_ui (IAnjutaDocument *doc, gboolean entered,
 							AnjutaPlugin *plugin)
 {
 	update_document_ui_save_items (plugin, doc);
+	update_title(ANJUTA_PLUGIN_DOCMAN (plugin));
 }
 
 static void

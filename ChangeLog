@@ -1,5 +1,16 @@
 2008-04-30  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/anjuta-status.c (anjuta_status_set_title):
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_update_page_label):
+	* plugins/document-manager/plugin.c (update_title),
+	(on_document_update_save_ui):
+	
+	#530033 – Have window title like gedit
+	Also add the dirty char (*) at the beginning of the filename to match HIG
+
+2008-04-30  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/devhelp/anjuta-devhelp.ui:
 	* plugins/search/anjuta-search.ui:
 	* plugins/document-manager/anjuta-document-manager.ui:
