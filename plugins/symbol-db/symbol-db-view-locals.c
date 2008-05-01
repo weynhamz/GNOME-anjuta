@@ -1148,6 +1148,8 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 	
 	if (enable_status == TRUE) 
 	{
+		gtk_widget_set_sensitive (GTK_WIDGET (dbvl), TRUE);
+		
 		priv->recv_signals = TRUE;
 		/* connect some signals */
 		if (priv->insert_handler <= 0) 
@@ -1170,6 +1172,8 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 	}
 	else		/* disconnect them, if they were ever connected before */
 	{
+		gtk_widget_set_sensitive (GTK_WIDGET (dbvl), FALSE);
+		
 		priv->recv_signals = FALSE;
 		if (priv->insert_handler >= 0) 
 		{

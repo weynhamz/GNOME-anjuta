@@ -1,3 +1,33 @@
+2008-05-01  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c (on_single_file_scan_end):
+	set message 'Generating inheritances...' when doing sdb_engine_second_pass_do ()
+
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_cache_lookup),
+	(sdb_engine_init_caches), (sdb_engine_ctags_output_thread),
+	(sdb_engine_thread_monitor), (sdb_engine_init),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(symbol_db_engine_get_file_symbols):
+	fixed a population bug introduced with using of caches. It broke the kind
+	of symbol in some cases (e.g. returning of table_id = -1). 
+	Avoid lazy initialization and inlined the lookup functions to speed up the
+	thing.
+	Performances improvement in sdb_engine_second_pass_update_heritage () using
+	a prepared query (libgda parser now rulez!). Some fixes to the lock ()/unlock ()
+	logic in this part should avoid gui freezing, at least here it does not freeze.
+
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_recv_signals_from_engine):
+	* plugins/symbol-db/symbol-db-view.c
+	(symbol_db_view_recv_signals_from_engine):
+	greyed out trees while population is in place.
+
 2008-05-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* data/default.profile:

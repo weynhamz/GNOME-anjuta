@@ -716,7 +716,10 @@ on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	
 	sdb_plugin->files_count_done++;	
-	message = g_strdup_printf (_("%d files scanned out of %d"), 
+	if (sdb_plugin->files_count_done >= sdb_plugin->files_count)
+		message = g_strdup_printf (_("Generating inheritances..."));
+	else
+		message = g_strdup_printf (_("%d files scanned out of %d"), 
 							   sdb_plugin->files_count_done, sdb_plugin->files_count);
 	
 	DEBUG_PRINT ("on_single_file_scan_end (): %d out of %d", sdb_plugin->files_count_done, 

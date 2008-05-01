@@ -1779,9 +1779,10 @@ symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 
 	g_return_if_fail (dbv != NULL);
 	priv = dbv->priv;
-	
+				
 	if (enable_status == TRUE) 
 	{
+		gtk_widget_set_sensitive (GTK_WIDGET (dbv), TRUE);
 		/* connect some signals */
 		if (priv->insert_handler <= 0) 
 		{
@@ -1803,6 +1804,8 @@ symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	}
 	else		/* disconnect them, if they were ever connected before */
 	{
+		gtk_widget_set_sensitive (GTK_WIDGET (dbv), FALSE);
+		
 		if (priv->insert_handler >= 0) 
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
