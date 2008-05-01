@@ -44,4 +44,11 @@
                  attribute="Interfaces"
                  value="IAnjutaFileManager"/>
     </plugin>
+    <plugin name="Run Program"
+            url="http://anjuta.org/plugins/"
+            mandatory="no">
+		<require group="Anjuta Plugin"
+                 attribute="Location"
+                 value="anjuta-run-program:RunProgramPlugin"/>
+    </plugin>
 </anjuta>

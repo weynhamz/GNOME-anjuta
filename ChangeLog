@@ -1,3 +1,11 @@
+2008-05-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* data/default.profile:
+	Put the new run program plugin in the default plugin list
+
+	* plugins/run-program/execute.c:
+	Fix a crash when the program doesn't exist
+
 2008-04-30  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-document-manager.ui:

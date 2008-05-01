@@ -113,7 +113,7 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 {
 	gchar *target = NULL;
 	gchar *dir_uri = NULL;
-	const gchar *err_msg;
+	const gchar *err_msg = NULL;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
@@ -121,9 +121,7 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 	
 	if (target == NULL)
 	{
-		g_free (target);
-		g_free (dir_uri);
-		return FALSE;
+		err_msg = "";	/* No error message, just do nothing */
 	}
 	else if ((*local = gnome_vfs_get_local_path_from_uri (target)) == NULL)
 	{
@@ -142,8 +140,6 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 	}
 	else
 	{
-		g_free (target);
-		g_free (dir_uri);
 		target = *local;	
 
 		if (g_file_test (*local, G_FILE_TEST_EXISTS) == FALSE)
@@ -154,18 +150,16 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 		{
 			err_msg = _("Program '%s' does not have execution permission");
 		}
-		else
-		{
-			/* Return local executable */
-			return TRUE;
-		}
 	}
-			
-	anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), err_msg, target);
+	
+	if (err_msg && (*err_msg != '\0'))
+	{	
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), err_msg, target);
+	}
 	g_free (target);
 	g_free (dir_uri);
 	
-	return FALSE;
+	return err_msg == NULL;
 }
 
 static GPid
