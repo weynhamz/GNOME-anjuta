@@ -111,13 +111,19 @@ gchar* anjuta_util_escape_quotes(const gchar* str);
 gboolean anjuta_util_path_has_extension (const gchar *path, const gchar *ext);
 gchar* anjuta_util_get_real_path (const gchar *path);
 
+gchar* anjuta_util_uri_get_dirname (const gchar *uri);
+gchar* anjuta_util_replace_home_dir_with_tilde (const gchar *uri);
+gchar* anjuta_util_str_middle_truncate (const gchar *string,
+										 guint        truncate_length);
+
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
 
 void anjuta_util_help_display (GtkWindow   *parent,
 							   const gchar *doc_id,
 							   const gchar *file_name);
 
-gchar *anjuta_util_get_user_config_dir ();
+gchar *anjuta_util_get_user_config_dir (void);
+
 
 /* Temporarily copied here */
 

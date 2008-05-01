@@ -449,76 +449,70 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 #define VIEW_EOL                   "view.eol"
 #define VIEW_LINE_WRAP             "view.line.wrap"
 
+#define MAX_TITLE_LENGTH 80
+
+static gchar* 
+get_directory_display_name (DocmanPlugin* plugin,
+							const gchar* uri)
+{
+	gchar* dir;
+	gchar* display_uri = display_uri = gnome_vfs_format_uri_for_display (uri);
+	gchar* display_dir;
+	dir = anjuta_util_uri_get_dirname (display_uri);
+	
+	display_dir = anjuta_util_str_middle_truncate (dir, 
+												   MAX (20, MAX_TITLE_LENGTH));	
+	g_free (display_uri);
+	g_free (dir);
+	return display_dir;
+}
+
 static void
 update_title (DocmanPlugin* doc_plugin)
 {
 	IAnjutaDocument *doc;
 	AnjutaStatus *status;
-	gchar *filename;
 	gchar *title;
 
 	doc = anjuta_docman_get_current_document (ANJUTA_DOCMAN (doc_plugin->docman));
 
 	if (doc)
 	{
+		gchar* real_filename;
+		gchar *dir;
 		gchar *uri;
+		const gchar *filename;
+		filename = ianjuta_document_get_filename (doc, NULL);
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-		if (uri)
+		dir = get_directory_display_name (doc_plugin, uri);
+		g_free (uri);
+		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
 		{
-			filename = gnome_vfs_get_local_path_from_uri (uri);
-			g_free (uri);
+			gchar* dirty_name = g_strconcat ("*", filename, NULL);
+			real_filename = dirty_name;
 		}
 		else
-			filename = NULL;
-	}		
+			real_filename = g_strdup (filename);
+		
+		if (doc_plugin->project_name)
+		{
+			title = g_strdup_printf ("%s (%s) - %s", real_filename, dir, 
+									 doc_plugin->project_name);
+		}
+		else
+		{
+			title = g_strdup_printf ("%s (%s)", real_filename, dir);
+		}
+		g_free (real_filename);
+		g_free (dir);
+	}
 	else
-		filename = NULL;
-	
-	if (filename && doc_plugin->project_name)
-	{
-		gchar *display_filename = NULL;
-		const gchar *home = g_get_home_dir();
-		if (doc_plugin->project_path)
-		{
-			if (g_str_has_prefix (filename, doc_plugin->project_path))
-			{
-				/* the +1 is the '/' */
-				display_filename = filename + strlen (doc_plugin->project_path) + 1;
-			}
-		}
-		if (!display_filename && 
-			g_str_has_prefix (filename, home))
-		{
-			filename[strlen (home) - 1] = '~';
-			display_filename = filename + strlen (home) - 1;
-		}
-		if (!display_filename)
-			display_filename = filename;
-		title = g_strconcat (display_filename, " - ", doc_plugin->project_name, NULL);
-	}
-	else if (filename)
-	{
-		title = g_strdup (filename);
-	}
-	else if (doc_plugin->project_name)
 	{
 		title = g_strdup (doc_plugin->project_name);
 	}
-	else
-		title = NULL;
-	
-	if (title && doc && 
-		ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
-	{
-		gchar* dirty_title = g_strconcat ("*", title, NULL);
-		g_free(title);
-		title = dirty_title;
-	}
-	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (doc_plugin)->shell, NULL);
 	/* NULL title is ok */
 	anjuta_status_set_title (status, title);
-	g_free (filename);
 	g_free (title);
 }
 

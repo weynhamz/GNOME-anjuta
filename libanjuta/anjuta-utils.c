@@ -1435,3 +1435,121 @@ anjuta_util_get_user_config_dir ()
 	return folder;
 }
 
+/* The following functions are taken from gedit */
+
+/* Note that this function replace home dir with ~ */
+gchar *
+anjuta_util_uri_get_dirname (const gchar *uri)
+{
+	gchar *res;
+	gchar *str;
+
+	// CHECK: does it work with uri chaining? - Paolo
+	str = g_path_get_dirname (uri);
+	g_return_val_if_fail (str != NULL, ".");
+
+	if ((strlen (str) == 1) && (*str == '.'))
+	{
+		g_free (str);
+		
+		return NULL;
+	}
+
+	res = anjuta_util_replace_home_dir_with_tilde (str);
+
+	g_free (str);
+	
+	return res;
+}
+
+gchar*
+anjuta_util_replace_home_dir_with_tilde (const gchar *uri)
+{
+	gchar *tmp;
+	gchar *home;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
+	/* Note that g_get_home_dir returns a const string */
+	tmp = (gchar *)g_get_home_dir ();
+
+	if (tmp == NULL)
+		return g_strdup (uri);
+
+	home = g_filename_to_utf8 (tmp, -1, NULL, NULL, NULL);
+	if (home == NULL)
+		return g_strdup (uri);
+
+	if (strcmp (uri, home) == 0)
+	{
+		g_free (home);
+		
+		return g_strdup ("~");
+	}
+
+	tmp = home;
+	home = g_strdup_printf ("%s/", tmp);
+	g_free (tmp);
+
+	if (g_str_has_prefix (uri, home))
+	{
+		gchar *res;
+
+		res = g_strdup_printf ("~/%s", uri + strlen (home));
+
+		g_free (home);
+		
+		return res;		
+	}
+
+	g_free (home);
+
+	return g_strdup (uri);
+}
+
+gchar *
+anjuta_util_str_middle_truncate (const gchar *string,
+								  guint        truncate_length)
+{
+	GString     *truncated;
+	guint        length;
+	guint        n_chars;
+	guint        num_left_chars;
+	guint        right_offset;
+	guint        delimiter_length;
+	const gchar *delimiter = "\342\200\246";
+
+	g_return_val_if_fail (string != NULL, NULL);
+
+	length = strlen (string);
+
+	g_return_val_if_fail (g_utf8_validate (string, length, NULL), NULL);
+
+	/* It doesnt make sense to truncate strings to less than
+	 * the size of the delimiter plus 2 characters (one on each
+	 * side)
+	 */
+	delimiter_length = g_utf8_strlen (delimiter, -1);
+	if (truncate_length < (delimiter_length + 2)) {
+		return g_strdup (string);
+	}
+
+	n_chars = g_utf8_strlen (string, length);
+
+	/* Make sure the string is not already small enough. */
+	if (n_chars <= truncate_length) {
+		return g_strdup (string);
+	}
+
+	/* Find the 'middle' where the truncation will occur. */
+	num_left_chars = (truncate_length - delimiter_length) / 2;
+	right_offset = n_chars - truncate_length + num_left_chars + delimiter_length;
+
+	truncated = g_string_new_len (string,
+				      g_utf8_offset_to_pointer (string, num_left_chars) - string);
+	g_string_append (truncated, delimiter);
+	g_string_append (truncated, g_utf8_offset_to_pointer (string, right_offset));
+		
+	return g_string_free (truncated, FALSE);
+}
+

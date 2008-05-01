@@ -1,3 +1,15 @@
+2008-05-01  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-utils.c (anjuta_util_uri_get_dirname),
+	(anjuta_util_replace_home_dir_with_tilde),
+	(anjuta_util_str_middle_truncate):
+	* libanjuta/anjuta-utils.h:
+	Added some utility methods (derived from gedit)
+	
+	* plugins/document-manager/plugin.c (get_directory_display_name),
+	(update_title):
+	Really fix #530033 now
+
 2008-05-01  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/plugin.c (on_single_file_scan_end):
