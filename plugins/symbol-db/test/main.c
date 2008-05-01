@@ -728,7 +728,7 @@ int main(int argc, char** argv)
 	
 	gnome_vfs_init ();
     g_type_init();
-	gda_init ("Test db", "0.1", argc, argv);
+	gda_init ();
 	
 	dbe_one = symbol_db_engine_new ();
 	dbe_two = symbol_db_engine_new ();

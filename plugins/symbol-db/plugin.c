@@ -1159,7 +1159,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
 	/* Initialize gda library. */
-	gda_init (g_get_application_name(), NULL, 0, NULL);
+	gda_init ();
 
 	register_stock_icons (plugin);
 

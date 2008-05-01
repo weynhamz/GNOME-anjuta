@@ -1,3 +1,10 @@
+2008-05-01  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	* plugins/symbol-db/test/main.c (main):
+
+	Adapt to changes in recent libgda
+
 2008-05-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/run-program/execute.c:
