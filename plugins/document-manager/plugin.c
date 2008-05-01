@@ -496,12 +496,19 @@ update_title (DocmanPlugin* doc_plugin)
 		
 		if (doc_plugin->project_name)
 		{
-			title = g_strdup_printf ("%s (%s) - %s", real_filename, dir, 
-									 doc_plugin->project_name);
+			if (dir)
+				title = g_strdup_printf ("%s (%s) - %s", real_filename, dir, 
+										 doc_plugin->project_name);
+			else
+				title = g_strdup_printf ("%s - %s", real_filename, 
+										 doc_plugin->project_name);				
 		}
 		else
 		{
-			title = g_strdup_printf ("%s (%s)", real_filename, dir);
+			if (dir)
+				title = g_strdup_printf ("%s (%s)", real_filename, dir);
+			else
+				title = g_strdup_printf ("%s (%s)", real_filename, dir);				
 		}
 		g_free (real_filename);
 		g_free (dir);

@@ -1,5 +1,10 @@
 2008-05-01  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c (update_title):
+	Fixed bug broken titles for new files
+
+2008-05-01  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-utils.c (anjuta_util_uri_get_dirname),
 	(anjuta_util_replace_home_dir_with_tilde),
 	(anjuta_util_str_middle_truncate):
