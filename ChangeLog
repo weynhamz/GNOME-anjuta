@@ -1,3 +1,9 @@
+2008-05-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/run-program/execute.c:
+	Fix run plugin again, previous patch was causing a crash when
+	the program exist
+
 2008-05-01  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c (update_title):

@@ -111,37 +111,35 @@ on_child_terminated_signal (IAnjutaTerminal *term, GPid pid, gint status, gpoint
 static gboolean
 get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gchar **dir)
 {
-	gchar *target = NULL;
+	gchar *prog_uri = NULL;
 	gchar *dir_uri = NULL;
 	const gchar *err_msg = NULL;
+	const gchar *err_target;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
-					  RUN_PROGRAM_URI, G_TYPE_STRING, &target, NULL);
-	
-	if (target == NULL)
+					  RUN_PROGRAM_URI, G_TYPE_STRING, &prog_uri, NULL);
+	*local = NULL;
+	*dir = NULL;
+
+	if (prog_uri == NULL)
 	{
 		err_msg = "";	/* No error message, just do nothing */
 	}
-	else if ((*local = gnome_vfs_get_local_path_from_uri (target)) == NULL)
+	else if ((*local = gnome_vfs_get_local_path_from_uri (prog_uri)) == NULL)
 	{
 		/* Only local program are supported */
 		err_msg = _("Program '%s' is not a local file");
+		err_target = prog_uri;	
 	}
 	else if ((dir_uri != NULL) && ((*dir = gnome_vfs_get_local_path_from_uri (dir_uri)) == NULL))
 	{
-		gchar *tmp;	
 		/* Only local directory are supported */
 		err_msg = _("Program directory '%s' is not local");
-		tmp = target;
-		target = dir_uri;
-		dir_uri = tmp;
-		g_free (*local);
+		err_target = dir_uri;	
 	}
 	else
 	{
-		target = *local;	
-
 		if (g_file_test (*local, G_FILE_TEST_EXISTS) == FALSE)
 		{
 			err_msg = _("Program '%s' does not exists");
@@ -150,14 +148,22 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 		{
 			err_msg = _("Program '%s' does not have execution permission");
 		}
+		err_target = dir_uri;	
 	}
 	
 	if (err_msg && (*err_msg != '\0'))
 	{	
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), err_msg, target);
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), err_msg, err_target);
 	}
-	g_free (target);
+	g_free (prog_uri);
 	g_free (dir_uri);
+	if (err_msg != NULL)
+	{
+		g_free (*local);
+		*local = NULL;
+		g_free (*dir);
+		*dir = NULL;
+	}
 	
 	return err_msg == NULL;
 }
@@ -257,11 +263,14 @@ execute_without_terminal (RunProgramPlugin *plugin,
 	g_strfreev (old_env);
 	
 	/* Add new user variable */
-	for (p = env; *p; p++)
+	if (env)
 	{
-		new_env[i++] = g_strdup (*p);
+		for (p = env; *p; p++)
+		{
+			new_env[i++] = g_strdup (*p);
+		}	
+		new_env[i] = NULL;
 	}
-	new_env[i] = NULL;
 	
 	/* Run user program using in a shell */
 	user_shell = gnome_util_user_shell ();
