@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-18 17:19+0000\n"
-"PO-Revision-Date: 2008-04-28 15:40+0100\n"
+"PO-Revision-Date: 2008-05-01 14:08+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -217,7 +217,7 @@ msgid "execvp failed"
 msgstr "execvp napaka"
 
 #: ../libanjuta/anjuta-plugin.c:327
-#: ../libanjuta/anjuta-plugin-manager.c:2215
+#: ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta Shell"
 msgstr "Lupina Anjute"
 
@@ -243,7 +243,7 @@ msgid "Load"
 msgstr "Obremenjenost"
 
 #: ../libanjuta/anjuta-plugin-manager.c:912
-#: ../libanjuta/anjuta-plugin-manager.c:1850
+#: ../libanjuta/anjuta-plugin-manager.c:1851
 msgid "Available Plugins"
 msgstr "Razpoložljivi vstavki"
 
@@ -277,48 +277,48 @@ msgstr "Izbor vstavka za zagon"
 msgid "No plugin able to load other plugins in %s"
 msgstr "Ni vstavka, ki bi naložil druge vstavke v %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1869
+#: ../libanjuta/anjuta-plugin-manager.c:1870
 msgid "Remember this selection"
 msgstr "Zapomni si izbiro"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2196
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Profiles"
 msgstr "Profili"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Current stack of profiles"
 msgstr "Trenutni sklad profilov"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2202
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2203
+#: ../libanjuta/anjuta-plugin-manager.c:2204
 msgid "Currently available plugins found in plugin paths"
 msgstr "Trenutno dostopni vstavki najdeni na poti vskavkov"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2209
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Activated plugins"
 msgstr "Zagnani vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2210
+#: ../libanjuta/anjuta-plugin-manager.c:2211
 msgid "Currently activated plugins"
 msgstr "Trenutno dejavni vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2216
+#: ../libanjuta/anjuta-plugin-manager.c:2217
 msgid "Anjuta shell for which the plugins are"
 msgstr "Lupina anjute za katero so vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2224
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta Status"
 msgstr "Anjuta Stanje"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2225
+#: ../libanjuta/anjuta-plugin-manager.c:2226
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Stanje anjute za nalaganje in razlaganje vstavkov"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Loaded: "
 msgstr "Naloženo:"
 
@@ -434,7 +434,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "V primeru, da ne shranita, bodo izgubljene vse spremembe."
 
 #: ../libanjuta/anjuta-save-prompt.c:197
-#: ../plugins/document-manager/plugin.c:583
+#: ../plugins/document-manager/plugin.c:604
 msgid "Save"
 msgstr "Shrani"
 
@@ -565,6 +565,7 @@ msgid "<b>Select Program to run:</b>"
 msgstr "<b>Izbor programa za zagon:</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
+#: ../plugins/run-program/anjuta-run-program.glade.h:1
 msgid "Arguments:"
 msgstr "Argumenti:"
 
@@ -577,7 +578,7 @@ msgid "Install as root:"
 msgstr "Namesti kot skrbnik:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
-#: ../plugins/document-manager/anjuta-docman.c:311
+#: ../plugins/document-manager/anjuta-docman.c:451
 msgid "Path:"
 msgstr "Pot:"
 
@@ -593,14 +594,6 @@ msgstr "Izberi program"
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Use scratchbox"
 msgstr "Uporabi scratchbox"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
-msgid "gtk-apply"
-msgstr "gtk-apply"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
 
 #. The translations should match that of 'make' program
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:564
@@ -694,174 +687,166 @@ msgstr "Nastavi"
 msgid "Autogenerate"
 msgstr "Samodejno ustvarjanje"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1413
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1441
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1439
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1605
 msgid "_Build"
 msgstr "_Gradnja"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1337
 msgid "_Build Project"
 msgstr "Projekt _gradnje"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1338
 msgid "Build whole project"
 msgstr "Gradnja celotenega projekta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
 msgid "_Install Project"
 msgstr "_Projekt namestitve"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
 msgid "Install whole project"
 msgstr "Namestitev celotenega projekta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
 msgid "_Clean Project"
 msgstr "_Počisti projekt"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
 msgid "Clean whole project"
 msgstr "Počisti celoten projekt"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
 msgid "Run C_onfigure..."
 msgstr "Zagon nastavitve ..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
 msgid "Configure project"
 msgstr "Nastavitev projekta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
 msgid "Run _Autogenerate..."
 msgstr "Zagon _Autogenerate ..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
 msgid "Autogenerate project files"
 msgstr "Autogenerate datoteke projekta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
 msgid "Build _Tarball"
 msgstr "Izgradi _Tar paket"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
 msgid "Build project tarball distribution"
 msgstr "Izgradi distribucijski tar paket projekta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
-msgid "_Execute Program..."
-msgstr "_Izvedi program ..."
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
-msgid "Execute program"
-msgstr "Izvedi program"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
 msgid "_Build Module"
 msgstr "_Gradnja modula"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
 msgid "Build module associated with current file"
 msgstr "Izgradi modul v povezavi z trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
 msgid "_Install Module"
 msgstr "_Namestitev modula"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
 msgid "Install module associated with current file"
 msgstr "Namesti modul v povezavi s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1397
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
 msgid "_Clean Module"
 msgstr "_Počisti modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1398
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
 msgid "Clean module associated with current file"
 msgstr "Počisti modul povezan s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1403
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
 msgid "Co_mpile File"
 msgstr "Kodno _prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1404
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
 msgid "Compile current editor file"
 msgstr "Kodno prevedi trenutno urejevalno datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1405
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1433
 msgid "_Compile"
 msgstr "_Kodno prevajanje"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1406
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1434
 msgid "Compile file"
 msgstr "Kodno prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1440
 msgid "Build module"
 msgstr "Izgradi modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1457
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1621
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1609
 msgid "_Install"
 msgstr "_Namesti"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1430
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1458
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
 msgid "Install module"
 msgstr "Namesti modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1435
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1463
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
 msgid "_Clean"
 msgstr "_Počisti"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1436
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1464
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
 msgid "Clean module"
 msgstr "Počisti modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1629
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
 msgid "Co_mpile"
 msgstr "_Kodno prevedi"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1638
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Izgradi (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1645
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1633
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Namesti (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1652
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1640
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Počisti (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1659
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1647
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Kodno _prevedi (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
 msgid "Build commands"
 msgstr "Ukazi izgradnje"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2073
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2061
 msgid "Build popup commands"
 msgstr "Izgradi pojavne ukaze"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2375
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2395
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2363
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2383
 msgid "Build Autotools"
 msgstr "Izgradi autotools"
 
@@ -899,17 +884,21 @@ msgstr "Program"
 msgid "No file or project currently opened."
 msgstr "Ni odprte datoteke"
 
+#. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
+#: ../plugins/run-program/execute.c:129
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "Program '%s' ni lokalna datoteka"
 
 #: ../plugins/build-basic-autotools/executer.c:310
+#: ../plugins/run-program/execute.c:147
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "Program '%s' ne obstaja"
 
 #: ../plugins/build-basic-autotools/executer.c:318
+#: ../plugins/run-program/execute.c:151
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "Program '%s' nima dovoljenj za izvajanje"
@@ -1535,6 +1524,7 @@ msgid "Change Watch"
 msgstr "Spremeni opazovanje"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
+#: ../plugins/run-program/anjuta-run-program.glade.h:2
 msgid "Choose a working directory"
 msgstr "Izbor delavne mape"
 
@@ -1576,6 +1566,7 @@ msgid "Enter an address in hexadecimal or select one in the data"
 msgstr "Vnesite naslov v osmiškem zapisu ali pa izberite ustreznega med podatki."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
+#: ../plugins/run-program/anjuta-run-program.glade.h:3
 msgid "Environment Variables:"
 msgstr "Okoljske spremenljivke:"
 
@@ -1594,8 +1585,8 @@ msgid "Inspect/Evaluate"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/plugin.c:949
-#: ../plugins/debug-manager/plugin.c:1049
+#: ../plugins/debug-manager/plugin.c:928
+#: ../plugins/debug-manager/plugin.c:1028
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Signali jedra"
@@ -1633,6 +1624,7 @@ msgid "Program parameters"
 msgstr "Parametri programa"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
+#: ../plugins/run-program/anjuta-run-program.glade.h:6
 msgid "Run In Terminal"
 msgstr "Zaženi v _terminalu"
 
@@ -1681,6 +1673,7 @@ msgid "Stop:"
 msgstr "Ustavi:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
+#: ../plugins/run-program/anjuta-run-program.glade.h:7
 msgid "Working Directory:"
 msgstr "Delovna mapa:"
 
@@ -1744,16 +1737,6 @@ msgstr "_Odstrani vse"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:52
 msgid "_Value:"
 msgstr "_Vrednost:"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:53
-#: ../plugins/tools/anjuta-tools.glade.h:21
-msgid "gtk-add"
-msgstr "gtk-add"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:54
-#: ../plugins/tools/anjuta-tools.glade.h:25
-msgid "gtk-remove"
-msgstr "gtk-remove"
 
 #: ../plugins/debug-manager/breakpoints.c:1642
 msgid "Are you sure you want to delete all the breakpoints?"
@@ -1917,7 +1900,7 @@ msgstr "Spremenljivka"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:471
-#: ../plugins/debug-manager/start.c:1248
+#: ../plugins/run-program/parameters.c:729
 #: ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "Vrednost"
@@ -1988,197 +1971,189 @@ msgstr "Program je prejel signal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:833
+#: ../plugins/debug-manager/plugin.c:820
 #: ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "_Razhroščevanje"
 
-#: ../plugins/debug-manager/plugin.c:841
+#: ../plugins/debug-manager/plugin.c:828
 msgid "_Start Debugger"
 msgstr "_Zagon razhroščevalnika"
 
-#: ../plugins/debug-manager/plugin.c:849
-msgid "Run Target..."
-msgstr "Zaženi cilj ..."
+#: ../plugins/debug-manager/plugin.c:836
+msgid "_Debug Program"
+msgstr "_Razhroščevanje programa"
 
-#: ../plugins/debug-manager/plugin.c:851
-msgid "load and start the target for debugging"
-msgstr "naloži in zaženi cilj za razhroščevanje"
+#: ../plugins/debug-manager/plugin.c:838
+msgid "Start debugger and load the program"
+msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:857
-msgid "Restart Target"
-msgstr "Ponovni zagon cilja"
+#: ../plugins/debug-manager/plugin.c:844
+msgid "_Debug Process..."
+msgstr "_Razhroščevanje procesa"
 
-#: ../plugins/debug-manager/plugin.c:859
-msgid "restart the same target for debugging"
-msgstr "ponovno zaženi cilj za razhroščevanje"
+#: ../plugins/debug-manager/plugin.c:846
+msgid "Start debugger and attach to a running program"
+msgstr "Zaženi razhroščevalnik in ga pripni k zagnanemu programu"
 
-#: ../plugins/debug-manager/plugin.c:865
-msgid "_Attach to Process..."
-msgstr "_Pripni k procesu"
-
-#: ../plugins/debug-manager/plugin.c:867
-msgid "Attach to a running program"
-msgstr "Pripni k zagnanemu programu"
-
-#: ../plugins/debug-manager/plugin.c:873
+#: ../plugins/debug-manager/plugin.c:852
 msgid "Stop Debugger"
 msgstr "Zaustavi razhroščevalnik"
 
-#: ../plugins/debug-manager/plugin.c:875
+#: ../plugins/debug-manager/plugin.c:854
 msgid "Say goodbye to the debugger"
 msgstr "Poslovite se od razhroščevalnika"
 
-#: ../plugins/debug-manager/plugin.c:881
+#: ../plugins/debug-manager/plugin.c:860
 msgid "Add source paths..."
 msgstr "Dodaj poti vira ..."
 
-#: ../plugins/debug-manager/plugin.c:883
+#: ../plugins/debug-manager/plugin.c:862
 msgid "Add additional source paths"
 msgstr "Dodaj dodatne poti vira"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:893
-#: ../plugins/debug-manager/plugin.c:1001
+#: ../plugins/debug-manager/plugin.c:872
+#: ../plugins/debug-manager/plugin.c:980
 msgid "Debugger Command..."
 msgstr "Ukaz razhroščevanja ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:895
-#: ../plugins/debug-manager/plugin.c:1003
+#: ../plugins/debug-manager/plugin.c:874
+#: ../plugins/debug-manager/plugin.c:982
 msgid "Custom debugger command"
 msgstr "Razhroščevalni ukaz po meri"
 
-#: ../plugins/debug-manager/plugin.c:901
-#: ../plugins/debug-manager/plugin.c:1009
+#: ../plugins/debug-manager/plugin.c:880
+#: ../plugins/debug-manager/plugin.c:988
 msgid "_Info"
 msgstr "_Podrobnosti"
 
-#: ../plugins/debug-manager/plugin.c:909
+#: ../plugins/debug-manager/plugin.c:888
 msgid "Info _Target Files"
 msgstr "Podrobnosti _ciljnih datotek"
 
-#: ../plugins/debug-manager/plugin.c:911
+#: ../plugins/debug-manager/plugin.c:890
 msgid "Display information on the files the debugger is active with"
 msgstr "Prikaz podrobnosti datotek, na katerih je dejaven razhroščevalnik"
 
-#: ../plugins/debug-manager/plugin.c:917
+#: ../plugins/debug-manager/plugin.c:896
 msgid "Info _Program"
 msgstr "Podrobnosti _programa"
 
-#: ../plugins/debug-manager/plugin.c:919
+#: ../plugins/debug-manager/plugin.c:898
 msgid "Display information on the execution status of the program"
 msgstr "Prikaz podrobnosti stanja izvajanja programa"
 
-#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:904
 msgid "Info _Kernel User Struct"
 msgstr "Podrobnosti uporabniške strukture jedra"
 
-#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:906
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Prikaži podrobnosti uporabniške strukture jedra za trenutni podrejeni proces"
 
-#: ../plugins/debug-manager/plugin.c:941
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:920
+#: ../plugins/debug-manager/plugin.c:1020
 msgid "Shared Libraries"
 msgstr "Souporabljene knjižnice"
 
-#: ../plugins/debug-manager/plugin.c:943
-#: ../plugins/debug-manager/plugin.c:1043
+#: ../plugins/debug-manager/plugin.c:922
+#: ../plugins/debug-manager/plugin.c:1022
 msgid "Show shared libraries mappings"
 msgstr "Prikaži preslikave souporabljenih knjižnic"
 
-#: ../plugins/debug-manager/plugin.c:951
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:930
+#: ../plugins/debug-manager/plugin.c:1030
 msgid "Show kernel signals"
 msgstr "Prikaži signale jedra"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:961
+#: ../plugins/debug-manager/plugin.c:940
 msgid "Run/_Continue"
 msgstr "Zaženi/_nadaljuj"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:942
 msgid "Continue the execution of the program"
 msgstr "Nadaljuj z izvajanjem programa"
 
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:948
 msgid "Step _In"
 msgstr "_Vstopi"
 
-#: ../plugins/debug-manager/plugin.c:971
+#: ../plugins/debug-manager/plugin.c:950
 msgid "Single step into function"
 msgstr "Enojni vstop v funkcijo"
 
-#: ../plugins/debug-manager/plugin.c:977
+#: ../plugins/debug-manager/plugin.c:956
 msgid "Step O_ver"
 msgstr "_Prestopi"
 
-#: ../plugins/debug-manager/plugin.c:979
+#: ../plugins/debug-manager/plugin.c:958
 msgid "Single step over function"
 msgstr "Enojni prestop funkcije"
 
-#: ../plugins/debug-manager/plugin.c:985
+#: ../plugins/debug-manager/plugin.c:964
 msgid "Step _Out"
 msgstr "Izstopi"
 
-#: ../plugins/debug-manager/plugin.c:987
+#: ../plugins/debug-manager/plugin.c:966
 msgid "Single step out of the function"
 msgstr "Enojni izstop iz funkcije"
 
-#: ../plugins/debug-manager/plugin.c:993
+#: ../plugins/debug-manager/plugin.c:972
 msgid "_Run to Cursor"
 msgstr "_Zaženi na kazalnik"
 
-#: ../plugins/debug-manager/plugin.c:995
+#: ../plugins/debug-manager/plugin.c:974
 msgid "Run to the cursor"
 msgstr "Zaženi na kazalnik"
 
-#: ../plugins/debug-manager/plugin.c:1017
+#: ../plugins/debug-manager/plugin.c:996
 msgid "Info _Global Variables"
 msgstr "Podrobnosti _splošnik spremenljivk"
 
-#: ../plugins/debug-manager/plugin.c:1019
+#: ../plugins/debug-manager/plugin.c:998
 msgid "Display all global and static variables of the program"
 msgstr "Prikaži vse splošne in statične spremenljivke programa"
 
-#: ../plugins/debug-manager/plugin.c:1025
+#: ../plugins/debug-manager/plugin.c:1004
 msgid "Info _Current Frame"
 msgstr "Podrobnosti _trenutnega okvirja"
 
-#: ../plugins/debug-manager/plugin.c:1027
+#: ../plugins/debug-manager/plugin.c:1006
 msgid "Display information about the current frame of execution"
 msgstr "Prikaz podrobnosti o trenutnem okvirju izvedbe"
 
-#: ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:1012
 msgid "Info Function _Arguments"
 msgstr "Podrobnosti _argumentov funkcije"
 
-#: ../plugins/debug-manager/plugin.c:1035
+#: ../plugins/debug-manager/plugin.c:1014
 msgid "Display function arguments of the current frame"
 msgstr "Prikaži argumetne funkcije trenutnega okvirja"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:1040
 msgid "Pa_use Program"
 msgstr "_Premor program"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1063
+#: ../plugins/debug-manager/plugin.c:1042
 msgid "Pauses the execution of the program"
 msgstr "Premor izvajanja programa"
 
-#: ../plugins/debug-manager/plugin.c:1104
-#: ../plugins/debug-manager/plugin.c:1110
-#: ../plugins/debug-manager/plugin.c:1116
-#: ../plugins/debug-manager/plugin.c:1122
+#: ../plugins/debug-manager/plugin.c:1082
+#: ../plugins/debug-manager/plugin.c:1088
+#: ../plugins/debug-manager/plugin.c:1094
+#: ../plugins/debug-manager/plugin.c:1100
 msgid "Debugger operations"
 msgstr "Opravila razhroščevanja"
 
@@ -2309,8 +2284,8 @@ msgstr "Datoteka"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Line"
 msgstr "Črta"
 
@@ -2349,51 +2324,37 @@ msgstr "Čas"
 msgid "Command"
 msgstr "Ukaz"
 
-#: ../plugins/debug-manager/start.c:263
+#: ../plugins/debug-manager/start.c:254
 msgid "Some files are not saved. Do you want to save all them before starting the debugger?"
 msgstr ""
 
-#: ../plugins/debug-manager/start.c:717
+#: ../plugins/debug-manager/start.c:645
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Ni mogoče izvesti: %s."
 
-#: ../plugins/debug-manager/start.c:731
+#: ../plugins/debug-manager/start.c:659
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Ni mogoče odpreti datoteke: '%s\n"
 
-#: ../plugins/debug-manager/start.c:952
+#: ../plugins/debug-manager/start.c:892
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "Ni mogoče odpreti %s. Razhroščevalnika ni mogoče zagnati."
 
-#: ../plugins/debug-manager/start.c:1142
-#: ../plugins/debug-manager/start.c:1463
+#: ../plugins/debug-manager/start.c:1020
+#: ../plugins/run-program/parameters.c:611
 #, c-format
 msgid "Missing file %s"
 msgstr "Manjkajoča datoteka %s"
 
-#: ../plugins/debug-manager/start.c:1242
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Ime"
-
-#: ../plugins/debug-manager/start.c:1326
-msgid "Load Target to debug"
-msgstr "Nalaganje cilja za razhroščevanje"
-
-#: ../plugins/debug-manager/start.c:1334
-#: ../plugins/file-loader/plugin.c:436
-msgid "All files"
-msgstr "Vse datoteke"
-
-#: ../plugins/debug-manager/start.c:1484
+#: ../plugins/debug-manager/start.c:1041
 msgid "Path"
 msgstr "Pot"
 
-#: ../plugins/debug-manager/start.c:1532
-#: ../plugins/gdb/debugger.c:1682
+#: ../plugins/debug-manager/start.c:1089
+#: ../plugins/gdb/debugger.c:1685
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2561,12 +2522,12 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Ponovno naloži"
 
-#: ../plugins/document-manager/anjuta-docman.c:250
-#: ../plugins/document-manager/anjuta-docman.c:254
+#: ../plugins/document-manager/anjuta-docman.c:386
+#: ../plugins/document-manager/anjuta-docman.c:390
 msgid "Close file"
 msgstr "Zapri datoteko"
 
-#: ../plugins/document-manager/anjuta-docman.c:422
+#: ../plugins/document-manager/anjuta-docman.c:567
 #: ../plugins/file-loader/plugin.c:530
 #: ../plugins/file-loader/plugin.c:796
 #: ../plugins/file-loader/plugin.c:806
@@ -2574,12 +2535,12 @@ msgstr "Zapri datoteko"
 msgid "Open file"
 msgstr "Odpri datoteko"
 
-#: ../plugins/document-manager/anjuta-docman.c:441
+#: ../plugins/document-manager/anjuta-docman.c:586
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Shrani datoteko kot"
 
-#: ../plugins/document-manager/anjuta-docman.c:520
+#: ../plugins/document-manager/anjuta-docman.c:665
 #: ../plugins/file-wizard/file.c:240
 #: ../plugins/valgrind/plugin.c:375
 #, c-format
@@ -2588,7 +2549,7 @@ msgid ""
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 
-#: ../plugins/document-manager/anjuta-docman.c:528
+#: ../plugins/document-manager/anjuta-docman.c:673
 #: ../plugins/file-wizard/file.c:248
 #: ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
@@ -3141,110 +3102,131 @@ msgstr "Počisti _vse zaznamke"
 msgid "Clear bookmarks"
 msgstr "Počisti zaznamke"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:397
+msgid "_Documents"
+msgstr "_Dokumenti"
+
+#: ../plugins/document-manager/plugin.c:398
+msgid "Previous Document"
+msgstr "Predhodni Dokument"
+
+#: ../plugins/document-manager/plugin.c:399
+msgid "Switch to previous document"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:401
+msgid "Next Document"
+msgstr "Naslednji dokument"
+
+#: ../plugins/document-manager/plugin.c:402
+msgid "Switch to next document"
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:421
 msgid "Editor file operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:422
 msgid "Editor print operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:423
 msgid "Editor text transformation"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:424
 msgid "Editor text selection"
 msgstr ""
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:426
 msgid "Editor code commenting"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:427
 msgid "Editor navigations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:428
 msgid "Editor edit operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:429
 msgid "Editor zoom operations"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:430
 msgid "Editor syntax highlighting styles"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:431
 msgid "Editor text formating"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:432
 msgid "Editor bookmarks"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:433
 msgid "Simple searching"
 msgstr "Enostavno iskanje"
 
-#: ../plugins/document-manager/plugin.c:427
+#: ../plugins/document-manager/plugin.c:434
+#: ../plugins/document-manager/plugin.c:1744
+#: ../plugins/document-manager/plugin.c:2140
+#: ../plugins/document-manager/plugin.c:2150
+msgid "Documents"
+msgstr "Dokumenti"
+
+#: ../plugins/document-manager/plugin.c:438
 msgid "Editor view settings"
 msgstr "Nastavitve pogleda urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:587
+#: ../plugins/document-manager/plugin.c:608
 msgid "Reload"
 msgstr "Osveži"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:614
 msgid "Goto"
 msgstr "Pojdi na"
 
-#: ../plugins/document-manager/plugin.c:931
+#: ../plugins/document-manager/plugin.c:953
 msgid "OVR"
 msgstr "PREP"
 
-#: ../plugins/document-manager/plugin.c:935
+#: ../plugins/document-manager/plugin.c:957
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:937
-#: ../plugins/document-manager/plugin.c:951
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Zoom"
 msgstr "Povečava"
 
-#: ../plugins/document-manager/plugin.c:939
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:961
+#: ../plugins/document-manager/plugin.c:975
 msgid "Col"
 msgstr "Stolpec"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:962
+#: ../plugins/document-manager/plugin.c:976
 msgid "Mode"
 msgstr "Način"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1025
+#: ../plugins/document-manager/plugin.c:1047
 msgid "Automatic"
 msgstr "Samodejno"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1537
+#: ../plugins/document-manager/plugin.c:1559
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Neuspešno samodejno shranjevanje %s"
 
-#: ../plugins/document-manager/plugin.c:1551
+#: ../plugins/document-manager/plugin.c:1573
 msgid "Autosave completed"
 msgstr "Samodejno shranjevanje končano"
-
-#: ../plugins/document-manager/plugin.c:1722
-#: ../plugins/document-manager/plugin.c:2118
-#: ../plugins/document-manager/plugin.c:2128
-msgid "Documents"
-msgstr "Dokumenti"
 
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
@@ -3739,6 +3721,12 @@ msgstr "Odpri z:"
 msgid "Document Manager"
 msgstr "Upravljavec dokumentov"
 
+#: ../plugins/file-loader/plugin.c:436
+#: ../plugins/patch/patch-plugin.c:116
+#: ../plugins/run-program/parameters.c:319
+msgid "All files"
+msgstr "Vse datoteke"
+
 #: ../plugins/file-loader/plugin.c:441
 msgid "Anjuta Projects"
 msgstr "Anjuta projekti"
@@ -4033,6 +4021,7 @@ msgid "Enter a Hexa adress or select one in the data"
 msgstr "Vnesite hex naslov ali izberite enega med podatki"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:13
+#: ../plugins/run-program/plugin.c:231
 msgid "Execute Program"
 msgstr "Izvedi program"
 
@@ -4045,7 +4034,7 @@ msgid "_Pass:"
 msgstr "_Prehod:"
 
 #: ../plugins/gdb/debugger.c:685
-#: ../plugins/gdb/debugger.c:926
+#: ../plugins/gdb/debugger.c:929
 msgid "Loading Executable: "
 msgstr "nalaganje izvršljive datoteke: "
 
@@ -4053,7 +4042,7 @@ msgstr "nalaganje izvršljive datoteke: "
 msgid "Loading Core: "
 msgstr "Nalaganje jedra: "
 
-#: ../plugins/gdb/debugger.c:791
+#: ../plugins/gdb/debugger.c:794
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4061,101 +4050,101 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:920
+#: ../plugins/gdb/debugger.c:923
 msgid "Getting ready to start debugging session...\n"
 msgstr "Priprava na pričetek seje razhroščevanja ...\n"
 
-#: ../plugins/gdb/debugger.c:935
+#: ../plugins/gdb/debugger.c:938
 msgid "No executable specified.\n"
 msgstr "Ni določene izvršljive datoteke.\n"
 
-#: ../plugins/gdb/debugger.c:938
+#: ../plugins/gdb/debugger.c:941
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Odprite izvršljivo datoteko ali pripnite proces za začetek razhroščevanja.\n"
 
-#: ../plugins/gdb/debugger.c:947
+#: ../plugins/gdb/debugger.c:950
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Prišlo je do napake med zaganjanjem razhroščevalnika.\n"
 
-#: ../plugins/gdb/debugger.c:951
+#: ../plugins/gdb/debugger.c:954
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Prepričajte se, da je 'gdb' nameščen na sistemu.\n"
 
-#: ../plugins/gdb/debugger.c:1242
+#: ../plugins/gdb/debugger.c:1245
 msgid "Program exited normally\n"
 msgstr "Program zaključen po pričakovanjih\n"
 
-#: ../plugins/gdb/debugger.c:1253
+#: ../plugins/gdb/debugger.c:1256
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "Program zaključen z napako kode %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1268
+#: ../plugins/gdb/debugger.c:1271
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Zadetek prekinitvene točke številka %s\n"
 
-#: ../plugins/gdb/debugger.c:1277
+#: ../plugins/gdb/debugger.c:1280
 msgid "Function finished\n"
 msgstr "Funkcija končana\n"
 
-#: ../plugins/gdb/debugger.c:1283
+#: ../plugins/gdb/debugger.c:1286
 msgid "Stepping finished\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1289
+#: ../plugins/gdb/debugger.c:1292
 msgid "Location reached\n"
 msgstr "Mesto doseženo\n"
 
-#: ../plugins/gdb/debugger.c:1679
+#: ../plugins/gdb/debugger.c:1682
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1869
+#: ../plugins/gdb/debugger.c:1872
 msgid "Program attached\n"
 msgstr "Program pripet\n"
 
-#: ../plugins/gdb/debugger.c:1890
+#: ../plugins/gdb/debugger.c:1893
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Pripenjanje k procesu: %d ...\n"
 
-#: ../plugins/gdb/debugger.c:1916
+#: ../plugins/gdb/debugger.c:1919
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1933
+#: ../plugins/gdb/debugger.c:1936
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta ne mogre pripeti sama sebi."
 
-#: ../plugins/gdb/debugger.c:1983
+#: ../plugins/gdb/debugger.c:1986
 msgid "Program terminated\n"
 msgstr "Program zaključen\n"
 
-#: ../plugins/gdb/debugger.c:1998
+#: ../plugins/gdb/debugger.c:2001
 msgid "Program detached\n"
 msgstr "Program odklopljen\n"
 
-#: ../plugins/gdb/debugger.c:2018
+#: ../plugins/gdb/debugger.c:2021
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Odklapljanje procesa ...\n"
 
-#: ../plugins/gdb/debugger.c:2039
+#: ../plugins/gdb/debugger.c:2042
 msgid "Interrupting the process\n"
 msgstr "Prekinjanje procesa\n"
 
-#: ../plugins/gdb/debugger.c:3822
+#: ../plugins/gdb/debugger.c:3825
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Pošiljanje signala %s na proces: %d"
 
-#: ../plugins/gdb/debugger.c:3848
+#: ../plugins/gdb/debugger.c:3851
 msgid "Error whilst signaling the process."
 msgstr "Napaka med signaliziranjem procesa."
 
@@ -4814,36 +4803,40 @@ msgstr "Shrani sporočilo"
 msgid "Next/Previous Message"
 msgstr "Naslednje/predhodno sporočilo"
 
-#: ../plugins/patch/patch-plugin.c:68
+#: ../plugins/patch/patch-plugin.c:88
 msgid "File/Directory to patch"
 msgstr "Uveljavljanje popravkov mape ali datoteke"
 
-#: ../plugins/patch/patch-plugin.c:70
+#: ../plugins/patch/patch-plugin.c:91
 msgid "Patch file"
 msgstr "Uveljavi popravke datoteke"
 
-#: ../plugins/patch/patch-plugin.c:118
+#: ../plugins/patch/patch-plugin.c:111
+msgid "Patches"
+msgstr ""
+
+#: ../plugins/patch/patch-plugin.c:159
 msgid "Patch"
 msgstr "Uveljavi popravke"
 
-#: ../plugins/patch/patch-plugin.c:133
+#: ../plugins/patch/patch-plugin.c:174
 msgid "Please select the directory where the patch should be applied"
 msgstr "Prosim, izberite mapo, kjer naj bo uveljavljen programski popravek"
 
-#: ../plugins/patch/patch-plugin.c:144
+#: ../plugins/patch/patch-plugin.c:185
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Uveljavljanje popravka %s z %s\n"
 
-#: ../plugins/patch/patch-plugin.c:153
+#: ../plugins/patch/patch-plugin.c:194
 msgid "Patching...\n"
 msgstr "Uveljavljanje popravkov ...\n"
 
-#: ../plugins/patch/patch-plugin.c:168
+#: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Obstajajo nedokončane naloge. Prosim, počakajte dokler se ne končajo."
 
-#: ../plugins/patch/patch-plugin.c:210
+#: ../plugins/patch/patch-plugin.c:251
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -5817,6 +5810,67 @@ msgstr ""
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "project name"
 msgstr "ime projekta"
+
+#: ../plugins/run-program/anjuta-run-program.glade.h:4
+msgid "Program Parameters"
+msgstr "Parametri programa"
+
+#: ../plugins/run-program/anjuta-run-program.glade.h:5
+msgid "Program:"
+msgstr "Program:"
+
+#. Only local directory are supported
+#: ../plugins/run-program/execute.c:135
+#, c-format
+msgid "Program directory '%s' is not local"
+msgstr "Programska mapa '%s' ni krajevna mapa"
+
+#: ../plugins/run-program/parameters.c:311
+msgid "Load Target to run"
+msgstr "Nalaganje cilja za zagon"
+
+#: ../plugins/run-program/parameters.c:720
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Ime"
+
+#: ../plugins/run-program/plugin.c:188
+msgid ""
+"The program is running.\n"
+"Do you want to restart it?"
+msgstr ""
+"Program še vedno teče.\n"
+"Ali ga želite ponovno zagnati?"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/run-program/plugin.c:223
+msgid "_Run"
+msgstr "_Zaženi"
+
+#: ../plugins/run-program/plugin.c:233
+msgid "Run program without debugger"
+msgstr ""
+
+#: ../plugins/run-program/plugin.c:239
+msgid "Stop Program"
+msgstr "Zaustavi program"
+
+#: ../plugins/run-program/plugin.c:241
+msgid "Kill program"
+msgstr "Ubij program"
+
+#: ../plugins/run-program/plugin.c:247
+msgid "Program Parameters..."
+msgstr "Parametri programa ..."
+
+#: ../plugins/run-program/plugin.c:249
+msgid "Set current program, arguments and so on"
+msgstr ""
+
+#: ../plugins/run-program/plugin.c:274
+msgid "Run operations"
+msgstr "Zaženi opravila"
 
 #. Action name
 #. Stock icon, if any
@@ -6995,9 +7049,9 @@ msgstr ""
 msgid "Use currently selected profile in GNOME terminal"
 msgstr ""
 
-#: ../plugins/terminal/terminal.c:662
-#: ../plugins/terminal/terminal.c:774
-#: ../plugins/terminal/terminal.c:790
+#: ../plugins/terminal/terminal.c:576
+#: ../plugins/terminal/terminal.c:688
+#: ../plugins/terminal/terminal.c:704
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -7060,18 +7114,6 @@ msgstr "Delovna mapa:"
 #: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "_Variable..."
 msgstr "_Spremenljivka ..."
-
-#: ../plugins/tools/anjuta-tools.glade.h:22
-msgid "gtk-go-down"
-msgstr ""
-
-#: ../plugins/tools/anjuta-tools.glade.h:23
-msgid "gtk-go-up"
-msgstr ""
-
-#: ../plugins/tools/anjuta-tools.glade.h:24
-msgid "gtk-preferences"
-msgstr "gtk-preferences"
 
 #: ../plugins/tools/dialog.c:176
 #, c-format
@@ -7794,7 +7836,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:84
 msgid "Ask a _Question"
-msgstr ""
+msgstr "Zastavi _vprašanje"
 
 #: ../src/anjuta-actions.h:85
 msgid "Submit a question for FAQs"
@@ -7946,7 +7988,7 @@ msgstr "_Samodejno izpolnjevanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1721
 msgid "AutoComplete the current word"
-msgstr ""
+msgstr "Samodejno zaključevanje trenutne besede"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1727
 msgid "Auto Indent"
@@ -8028,7 +8070,7 @@ msgstr "Upravljavec nalog"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr ""
+msgstr "Vstavek Todo opravil za Anjuto."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
@@ -8044,7 +8086,7 @@ msgstr "Patch vstavek"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
 msgid "Patches files and directories."
-msgstr ""
+msgstr "Uporabi popravke datotek in map"
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
@@ -8181,4 +8223,12 @@ msgstr "Skript za nalaganje različnih datotek"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Vstavek upravljanja razhroščevanja"
+
+#: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
+msgid "Allow to execute program without debugger."
+msgstr "Dovoli zagon programa brez razhroščevalnika."
+
+#: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
+msgid "Run Program"
+msgstr "Zaženi program"
 
