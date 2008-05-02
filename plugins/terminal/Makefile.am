@@ -2,6 +2,10 @@
 terminal_gladedir = $(anjuta_glade_dir)
 terminal_glade_DATA = anjuta-terminal-plugin.glade
 
+# Plugin ui file
+terminal_uidir = $(anjuta_ui_dir)
+terminal_ui_DATA = anjuta-terminal-plugin.ui
+
 # Plugin Icon file
 terminal_pixmapsdir = $(anjuta_image_dir)
 terminal_pixmaps_DATA = \
@@ -47,4 +51,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(terminal_plugin_DATA) \
 	$(terminal_pixmaps_DATA) \
+	$(terminal_ui_DATA) \
 	$(terminal_glade_DATA)

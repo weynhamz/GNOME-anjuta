@@ -1,3 +1,10 @@
+2008-05-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* (added) plugins/terminal/anjuta-terminal-plugin.ui,
+	plugins/terminal/Makefile.am,
+	plugins/terminal/terminal.c:
+	Add a context menu with copy/paste in terminal plugin
+
 2008-05-02  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in: changed gnome-build requirement, bumped version to 2.5.0

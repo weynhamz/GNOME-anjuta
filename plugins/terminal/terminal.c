@@ -30,7 +30,7 @@
 
 #include <signal.h>
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal-plugin.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.glade"
 #define ICON_FILE "anjuta-terminal-plugin-48.png"
 
@@ -78,7 +78,9 @@ typedef struct _TerminalPluginClass TerminalPluginClass;
 struct _TerminalPlugin{
 	AnjutaPlugin parent;
 	
-	AnjutaUI *ui;
+	gint uiid;
+	GtkActionGroup *action_group;	
+	
 	AnjutaPreferences *prefs;
 	pid_t child_pid;
 	GtkWidget *term;
@@ -432,6 +434,28 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 	return FALSE;
 }
 
+static gboolean
+terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
+					  TerminalPlugin *term) 
+{
+	if (event->button == 3)
+	{
+		AnjutaUI *ui;
+		GtkMenu *popup;
+		GtkAction *action;
+
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(term)->shell, NULL);
+		popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupTerminal"));
+		action = gtk_action_group_get_action (term->action_group, "ActionCopyFromTerminal");
+		gtk_action_set_sensitive (action,vte_terminal_get_has_selection(VTE_TERMINAL(term->term)));
+		
+		gtk_menu_popup (popup, NULL, NULL, NULL, NULL,
+						event->button, event->time);
+	}
+	
+	return FALSE;
+}
+
 #if OLD_VTE == 1
 /* VTE has a terrible bug where it could crash when container is changed.
  * The problem has been traced in vte where its style-set handler does not
@@ -485,6 +509,38 @@ terminal_destroy_cb (GtkWidget *widget, TerminalPlugin *term)
 }
 
 static void
+on_terminal_copy_cb (GtkAction * action, TerminalPlugin *term)
+{
+	if (vte_terminal_get_has_selection(VTE_TERMINAL(term->term)))
+		vte_terminal_copy_clipboard(VTE_TERMINAL(term->term));
+}
+
+static void
+on_terminal_paste_cb (GtkAction * action, TerminalPlugin *term)
+{
+	vte_terminal_paste_clipboard(VTE_TERMINAL(term->term));
+}
+
+static GtkActionEntry actions_terminal[] = {
+	{
+		"ActionCopyFromTerminal", 	              /* Action name */
+		GTK_STOCK_COPY,                           /* Stock icon, if any */
+		N_("_Copy"),		                      /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                                     /* Tooltip */
+		G_CALLBACK (on_terminal_copy_cb)          /* action callback */
+	},
+	{
+		"ActionPasteInTerminal",
+		GTK_STOCK_PASTE,
+		N_("_Paste"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_terminal_paste_cb)
+	}
+};
+
+static void
 terminal_create (TerminalPlugin *term_plugin)
 {
 	GtkWidget *sb, *frame, *hbox;
@@ -504,8 +560,10 @@ terminal_create (TerminalPlugin *term_plugin)
 					  G_CALLBACK (terminal_init_cb), term_plugin);
 	g_signal_connect (G_OBJECT (term_plugin->term), "destroy",
 					  G_CALLBACK (terminal_destroy_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->term), "event",
+	g_signal_connect (G_OBJECT (term_plugin->term), "key-press-event",
 					  G_CALLBACK (terminal_keypress_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "button-press-event",
+					  G_CALLBACK (terminal_click_cb), term_plugin);
 #if OLD_VTE == 1
 	g_signal_connect (G_OBJECT (term_plugin->term), "realize",
 					  G_CALLBACK (terminal_realize_cb), term_plugin);
@@ -554,13 +612,22 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	TerminalPlugin *term_plugin;
 	static gboolean initialized = FALSE;
+	AnjutaUI *ui;
 	
 	DEBUG_PRINT ("TerminalPlugin: Activating Terminal plugin ...");
 	
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
-	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	term_plugin->widget_added_to_shell = FALSE;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	term_plugin->action_group = anjuta_ui_add_action_group_entries (ui,
+										"ActionGroupTerminal",
+										_("terminal operations"),
+										actions_terminal,
+										G_N_ELEMENTS (actions_terminal),
+										GETTEXT_PACKAGE, TRUE, term_plugin);
+	term_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
 	terminal_create (term_plugin);
 	
 	if (!initialized)
@@ -586,7 +653,17 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	TerminalPlugin *term_plugin;
+	AnjutaUI *ui;	
+	
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
+
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_unmerge (ui, term_plugin->uiid);	
+	if (term_plugin->action_group)
+	{
+		anjuta_ui_remove_action_group (ui, term_plugin->action_group);
+		term_plugin->action_group = NULL;
+	}
 	
 	prefs_finalize (term_plugin);
 
@@ -635,6 +712,8 @@ terminal_plugin_instance_init (GObject *obj)
 	plugin->gconf_notify_ids = NULL;
 	plugin->child_pid = 0;
 	plugin->pref_profile_combo = NULL;
+	plugin->uiid = 0;
+	plugin->action_group = NULL;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
 #endif
