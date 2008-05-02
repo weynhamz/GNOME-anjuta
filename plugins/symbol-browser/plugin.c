@@ -45,6 +45,7 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 #define ICON_FILE "anjuta-symbol-browser-plugin-48.png"
+#define SYMBOL_BROWSER_TAGS "symbol.browser.tags"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 
@@ -350,6 +351,8 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 	}
 }
 
+#define LOCAL_TAGS_DIR ".anjuta/tags"
+
 // add a new project
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -359,6 +362,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	const gchar *root_uri;
+	gchar* tags;
 
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	  
@@ -393,7 +397,28 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					  G_CALLBACK (on_project_element_added), sv_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sv_plugin);
-}
+	/* Load from project */
+	{
+		gchar* dirname = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+		GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
+		GList* node;
+		GString* str = g_string_new ("");
+		for (node = packages; node != NULL; node = g_list_next (node))
+		{
+			gchar* pathname = g_build_filename (dirname, node->data, NULL);
+			if (str->len)
+				g_string_append_c (str, ':');
+			g_string_append (str, pathname);
+			g_string_append (str, ".anjutatags.gz");
+			g_free (pathname);
+		}
+		g_list_foreach (packages, (GFunc) g_free, NULL);
+		g_list_free (packages);
+		anjuta_preferences_set (sv_plugin->prefs, SYMBOL_BROWSER_TAGS, str->str);
+		g_string_free (str, TRUE);
+		g_free (dirname);
+	}
+}	   
 
 static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,

@@ -2217,6 +2217,28 @@ iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err)
 	return GBF_IS_PROJECT (plugin->project);
 }
 
+static GList*
+iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	GList *modules = NULL;
+	GList *packages = NULL;
+	GList* node;
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+	
+	modules = gbf_project_get_config_modules (plugin->project, NULL);
+	for (node = modules; node != NULL; node = g_list_next (node))
+	{
+		GList* mod_pkgs = gbf_project_get_config_packages (plugin->project,
+														   node->data, NULL);
+		packages = g_list_concat (packages, mod_pkgs);
+	}
+	g_list_foreach (modules, (GFunc)g_free, NULL);
+	g_list_free (modules);
+	return packages;
+}
+
 static void
 iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 {
@@ -2233,6 +2255,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->add_target = iproject_manager_add_target;
 	iface->add_group = iproject_manager_add_group;
 	iface->is_open = iproject_manager_is_open;
+	iface->get_packages = iproject_manager_get_packages;
 }
 
 static void

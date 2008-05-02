@@ -2844,6 +2844,16 @@ interface IAnjutaProjectManager
 	* fixme
 	*/ 
 	gboolean is_open ();
+	
+	/*
+	 * ianjuta_project_manager_get_packages
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: the list of pkg-config packages that this projects
+	 * requires in it's configure.ac or NULL
+	 */
+	List<gchar*> get_packages();
 }
 
 /**

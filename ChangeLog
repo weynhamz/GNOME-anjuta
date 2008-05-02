@@ -1,3 +1,14 @@
+2008-05-02  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: changed gnome-build requirement, bumped version to 2.5.0
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/project-manager/plugin.c (iproject_manager_get_packages),
+	(iproject_manager_iface_init):
+	Add an interface method to access the pkg-config data from gnome-build.
+	
+	* plugins/symbol-browser/plugin.c (project_root_added):
+	Automatically load symbol from project configuration (proof-of-concept)
+
 2008-05-01  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/plugin.c (symbol_db_activate):

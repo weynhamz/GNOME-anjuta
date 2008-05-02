@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 4)
+m4_define(anjuta_minor_version, 5)
 m4_define(anjuta_micro_version,  0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 
@@ -41,7 +41,7 @@ PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
 LIBDEVHELP_REQUIRED=0.13
 GDL_REQUIRED=0.7.3
-GNOMEBUILD_REQUIRED=0.2.0
+GNOMEBUILD_REQUIRED=0.3.0
 GLADEUI_REQUIRED=3.2.0
 LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
