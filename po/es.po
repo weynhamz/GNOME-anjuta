@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 14:36+0000\n"
-"PO-Revision-Date: 2008-04-30 20:47+0200\n"
+"POT-Creation-Date: 2008-05-02 18:58+0000\n"
+"PO-Revision-Date: 2008-05-03 13:30+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -193,7 +193,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -221,7 +221,7 @@ msgid "Load"
 msgstr "Carga"
 
 #: ../libanjuta/anjuta-plugin-manager.c:912
-#: ../libanjuta/anjuta-plugin-manager.c:1850
+#: ../libanjuta/anjuta-plugin-manager.c:1851
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
@@ -261,50 +261,50 @@ msgstr "Seleccione un complemento para activar"
 msgid "No plugin able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1869
+#: ../libanjuta/anjuta-plugin-manager.c:1870
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2196
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2202
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2203
+#: ../libanjuta/anjuta-plugin-manager.c:2204
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2209
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2210
+#: ../libanjuta/anjuta-plugin-manager.c:2211
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2216
+#: ../libanjuta/anjuta-plugin-manager.c:2217
 msgid "Anjuta shell for which the plugins are"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2224
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2225
+#: ../libanjuta/anjuta-plugin-manager.c:2226
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Loaded: "
 msgstr "Cargado: "
 
@@ -419,7 +419,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:197
-#: ../plugins/document-manager/plugin.c:594
+#: ../plugins/document-manager/plugin.c:611
 msgid "Save"
 msgstr "Guardar"
 
@@ -878,19 +878,19 @@ msgstr "No hay archivo o proyecto abierto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:131
+#: ../plugins/run-program/execute.c:132
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "El programa «%s» no es un archivo local"
 
 #: ../plugins/build-basic-autotools/executer.c:310
-#: ../plugins/run-program/execute.c:151
+#: ../plugins/run-program/execute.c:145
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "El programa «%s» no existe"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:155
+#: ../plugins/run-program/execute.c:149
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "El programa «%s» no tiene permiso de ejecución"
@@ -1963,7 +1963,7 @@ msgstr "Iniciar el depurador y cargar el programa"
 
 #: ../plugins/debug-manager/plugin.c:844
 msgid "_Debug Process..."
-msgstr "_Depurar proceso..."
+msgstr "_Depurar proceso…"
 
 #: ../plugins/debug-manager/plugin.c:846
 msgid "Start debugger and attach to a running program"
@@ -2256,8 +2256,8 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:949
-#: ../plugins/document-manager/plugin.c:963
+#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:981
 msgid "Line"
 msgstr "Línea"
 
@@ -2410,7 +2410,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:253
-#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:262
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2467,7 +2467,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1688
 #: ../plugins/search/search-replace.c:1700
 #: ../plugins/search/search-replace.c:2018
-#: ../plugins/symbol-browser/plugin.c:913
+#: ../plugins/symbol-browser/plugin.c:938
 msgid "Search"
 msgstr "Buscar"
 
@@ -2890,7 +2890,9 @@ msgstr "C_ortar"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:308
+#. Action name
+#. Stock icon, if any
+#: ../plugins/document-manager/plugin.c:308 ../plugins/terminal/terminal.c:528
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Copy"
 msgstr "_Copiar"
@@ -2899,7 +2901,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:311 ../plugins/terminal/terminal.c:536
 #: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "_Paste"
 msgstr "_Pegar"
@@ -3138,9 +3140,9 @@ msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:434
-#: ../plugins/document-manager/plugin.c:1733
-#: ../plugins/document-manager/plugin.c:2129
-#: ../plugins/document-manager/plugin.c:2139
+#: ../plugins/document-manager/plugin.c:1751
+#: ../plugins/document-manager/plugin.c:2147
+#: ../plugins/document-manager/plugin.c:2157
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3148,49 +3150,49 @@ msgstr "Documentos"
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:598
+#: ../plugins/document-manager/plugin.c:615
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:604
+#: ../plugins/document-manager/plugin.c:621
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:942
+#: ../plugins/document-manager/plugin.c:960
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:964
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:948
-#: ../plugins/document-manager/plugin.c:962
+#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:980
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:968
+#: ../plugins/document-manager/plugin.c:982
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:969
+#: ../plugins/document-manager/plugin.c:983
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1036
+#: ../plugins/document-manager/plugin.c:1054
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1548
+#: ../plugins/document-manager/plugin.c:1566
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1562
+#: ../plugins/document-manager/plugin.c:1580
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -3880,7 +3882,7 @@ msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
 #: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
-#: ../plugins/symbol-browser/plugin.c:310
+#: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "_Refrescar"
 
@@ -5083,9 +5085,9 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
 msgstr ""
-"No se pudo encontrar un backend válido del proyecto para el directorio dado "
+"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
 "(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna del marco de compilación de Gnome."
+"más moderna del marco de compilación de GNOME."
 
 #.
 #. * Now we can't apply
@@ -5153,8 +5155,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
 "to the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura al directorio del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura al directorio del proyecto."
 
 #: ../plugins/project-manager/plugin.c:343
 #, c-format
@@ -5371,11 +5373,11 @@ msgstr "Acciones del administrador de proyectos"
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2351
+#: ../plugins/project-manager/plugin.c:2374
 msgid "Loaded Project... Initializing"
 msgstr "Proyecto cargado… Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2362
+#: ../plugins/project-manager/plugin.c:2385
 msgid "Loaded Project..."
 msgstr "Proyecto cargado…"
 
@@ -5892,7 +5894,7 @@ msgid "Program:"
 msgstr "Programa:"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:137
+#: ../plugins/run-program/execute.c:138
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "El directorio del programa «%s» no es local"
@@ -5934,7 +5936,7 @@ msgstr "Matar programa"
 
 #: ../plugins/run-program/plugin.c:247
 msgid "Program Parameters..."
-msgstr "Parámetros del programa..."
+msgstr "Parámetros del programa…"
 
 #: ../plugins/run-program/plugin.c:249
 msgid "Set current program, arguments and so on"
@@ -6258,8 +6260,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-"el principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
+"principio del documento?"
 
 #: ../plugins/search/search-replace.c:1075
 #, c-format
@@ -7007,71 +7009,71 @@ msgstr "Crear etiquetas del API"
 msgid "Update Global Tags"
 msgstr "Actualizar etiquetas globales"
 
-#: ../plugins/symbol-browser/plugin.c:266
+#: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
 msgstr "_Definición de etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:268
-#: ../plugins/symbol-browser/plugin.c:288
+#: ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/symbol-browser/plugin.c:289
 msgid "Goto symbol definition"
 msgstr "Ir a definición del símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:274
+#: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
 msgstr "Declaración de _etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:276
-#: ../plugins/symbol-browser/plugin.c:296
+#: ../plugins/symbol-browser/plugin.c:277
+#: ../plugins/symbol-browser/plugin.c:297
 msgid "Goto symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:286
+#: ../plugins/symbol-browser/plugin.c:287
 msgid "Goto _Definition"
 msgstr "_Definición goto"
 
-#: ../plugins/symbol-browser/plugin.c:294
+#: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto De_claration"
 msgstr "_Declaración goto"
 
-#: ../plugins/symbol-browser/plugin.c:302
+#: ../plugins/symbol-browser/plugin.c:303
 msgid "_Find Usage"
 msgstr "_Buscar uso"
 
-#: ../plugins/symbol-browser/plugin.c:304
+#: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
 msgstr "Buscar uso del símbolo en el proyecto"
 
-#: ../plugins/symbol-browser/plugin.c:312
+#: ../plugins/symbol-browser/plugin.c:313
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:381
+#: ../plugins/symbol-browser/plugin.c:385
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:872
+#: ../plugins/symbol-browser/plugin.c:897
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:892
+#: ../plugins/symbol-browser/plugin.c:917
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:961
 msgid "Symbol browser actions"
 msgstr "Acciones del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:943
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Symbol browser popup actions"
 msgstr "Acciones emergentes el explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:950
+#: ../plugins/symbol-browser/plugin.c:975
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:959
+#: ../plugins/symbol-browser/plugin.c:984
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -7102,14 +7104,18 @@ msgstr "<b>Opciones de terminal</b>"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
 msgid "Use GNOME terminal profile:"
-msgstr "Usar el perfil del terminal de Gnome:"
+msgstr "Usar el perfil del terminal de GNOME:"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
 msgid "Use currently selected profile in GNOME terminal"
-msgstr "Usar el perfil actualmente seleccionado en el terminal de Gnome"
+msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
 
-#: ../plugins/terminal/terminal.c:576 ../plugins/terminal/terminal.c:688
-#: ../plugins/terminal/terminal.c:704
+#: ../plugins/terminal/terminal.c:625
+msgid "terminal operations"
+msgstr "operaciones en la terminal"
+
+#: ../plugins/terminal/terminal.c:643 ../plugins/terminal/terminal.c:767
+#: ../plugins/terminal/terminal.c:783
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
