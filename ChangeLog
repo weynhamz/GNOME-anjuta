@@ -1,3 +1,10 @@
+2008-05-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/terminal/anjuta-terminal-plugin.glade,
+	plugins/terminal/terminal.c:
+	The terminal configuration default option doesn't work (#530031)
+	Combobox for terminal choose not working (#530032)
+
 2008-05-06  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c (on_session_save):

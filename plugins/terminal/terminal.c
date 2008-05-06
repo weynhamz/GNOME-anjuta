@@ -134,11 +134,12 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	char *text;
 	int value;
 	gboolean setting;
-	GdkColor color;
+	GdkColor color[2];
+	GdkColor* foreground;
+	GdkColor* background;
 	GtkWidget *vte;
 	gchar *profile;
 	AnjutaPreferences *pref;
-	GSList *profiles;
 	
 	pref = term->prefs;
 	vte = term->term;
@@ -147,43 +148,20 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	g_return_if_fail (client != NULL);
 	
 	/* Update the currently available list of terminal profiles */
-	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
-											  GCONF_VALUE_STRING, NULL);
-	if (profiles)
-	{
-		if (term->pref_profile_combo)
-		{
-			GList *list = NULL;
-			GSList *node = profiles;
-			while (node)
-			{
-				if (node->data)
-					list = g_list_append (list, node->data);
-				node = g_slist_next (node);
-			}
-			gtk_combo_set_popdown_strings (GTK_COMBO (term->pref_profile_combo),
-										   list);
-			g_list_free (list);
-		}
-		g_slist_foreach (profiles, (GFunc)g_free, NULL);
-		g_slist_free (profiles);
-	}
 	setting = anjuta_preferences_get_int (pref,
 										  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
 	if (setting)
 	{
 		/* Use the currently selected profile in gnome-terminal */
 		text = gconf_client_get_string (client, GCONF_DEFAULT_PROFILE, NULL);
-		if (!text)
-			text = g_strdup ("Default");
 	}
 	else
 	{
 		/* Otherwise use the user selected profile */
 		text = anjuta_preferences_get (pref, PREFS_TERMINAL_PROFILE);
-		if (!text)
-			text = g_strdup ("Default");
 	}
+	if (!text || (*text == '\0')) 
+			text = g_strdup ("Default");
 	profile = text;
 	
 	vte_terminal_set_mouse_autohide (VTE_TERMINAL (vte), TRUE);
@@ -197,8 +175,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	} else {
 		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
 	}
-	if (text && GTK_WIDGET (vte)->window)
-		vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
+	vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
 	g_free (text);
 	
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
@@ -254,18 +231,21 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	text = GET_PROFILE_STRING (GCONF_BACKGROUND_COLOR);
 	if (text)
 	{
-		gdk_color_parse (text, &color);
-		vte_terminal_set_color_background (VTE_TERMINAL (vte), &color);
+		gdk_color_parse (text, &color[0]);
 		g_free (text);
 	}
+	background = text ? &color[0] : NULL;
 	text = GET_PROFILE_STRING (GCONF_FOREGROUND_COLOR);
 	if (text)
 	{
-		gdk_color_parse (text, &color);
-		vte_terminal_set_color_foreground (VTE_TERMINAL (vte), &color);
-		vte_terminal_set_color_bold (VTE_TERMINAL (vte), &color);
+		gdk_color_parse (text, &color[1]);
 		g_free (text);
 	}
+	foreground = text ? &color[1] : NULL;
+	/* vte_terminal_set_colors works even if the terminal widget is not realized
+	 * which is not the case with vte_terminal_set_color_foreground and
+	 * vte_terminal_set_color_background */
+	vte_terminal_set_colors (VTE_TERMINAL (vte), foreground, background, NULL, 0);
 	g_free (profile);
 	g_object_unref (client);
 }
@@ -363,8 +343,6 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	g_free (args);
 	g_list_foreach (args_list, (GFunc)g_free, NULL);
 	g_list_free (args_list);
-	
-	preferences_changed (term_plugin->prefs, term_plugin);
 	
 	if (term_plugin->widget_added_to_shell)
 		anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
@@ -646,6 +624,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* terminal_focus_cb (term_plugin->term, NULL, term_plugin); */
 	term_plugin->widget_added_to_shell = TRUE;
 	initialized = TRUE;
+
+	/* Set all terminal preferences, at that time the terminal widget is
+	 * not realized, a few vte functions are not working. Another
+	 * possibility could be to call this when the widget is realized */
+	preferences_changed (term_plugin->prefs, term_plugin);
+	
 	return TRUE;
 }
 
@@ -758,19 +742,74 @@ iterminal_iface_init(IAnjutaTerminalIface *iface)
 }
 
 static void
+on_add_string_in_store (gpointer data, gpointer user_data)
+{
+	GtkListStore* model = (GtkListStore *)user_data;
+	GtkTreeIter iter;
+	
+	gtk_list_store_append (model, &iter);
+	gtk_list_store_set (model, &iter, 0, (const gchar *)data, -1);
+}
+
+static void
+on_concat_string (gpointer data, gpointer user_data)
+{
+	GString* str = (GString *)user_data;	
+	
+	if (str->len != 0)
+		g_string_append_c (str, ',');
+	g_string_append (str, data);
+}
+
+static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
+	GSList *profiles;
+	GConfClient *client;	
+	GString *default_value;
+	
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
 	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
 	anjuta_preferences_add_page (term_plugin->prefs, gxml,
 									"Terminal", _("Terminal"), ICON_FILE);
+	
 	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+
+	/* Update the currently available list of terminal profiles */
+	client = gconf_client_get_default ();
+	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
+									  GCONF_VALUE_STRING, NULL);
+	default_value = g_string_new (NULL);
+	if (profiles)
+	{
+		GtkListStore *store;
+			
+		store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (term_plugin->pref_profile_combo)));
+		
+		gtk_list_store_clear (store);
+		g_slist_foreach (profiles, on_add_string_in_store, store);
+		g_slist_foreach (profiles, on_concat_string, default_value);
+		g_slist_foreach (profiles, (GFunc)g_free, NULL);
+		g_slist_free (profiles);
+		
+	}
+	anjuta_preferences_register_property_raw (term_plugin->prefs,
+											  term_plugin->pref_profile_combo,
+											  PREFS_TERMINAL_PROFILE,
+											  default_value->str,
+											  1,
+											  ANJUTA_PROPERTY_OBJECT_TYPE_COMBO,
+											  ANJUTA_PROPERTY_DATA_TYPE_TEXT);
+	g_string_free (default_value, TRUE);
+		
 	term_plugin->pref_default_button =
 		glade_xml_get_widget (gxml,
 						"preferences_toggle:bool:1:0:terminal.default.profile");
+	use_default_profile_cb (GTK_TOGGLE_BUTTON (term_plugin->pref_default_button), term_plugin);
 	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
 						  G_CALLBACK (use_default_profile_cb), term_plugin);
+	
 	g_object_unref (gxml);
 }
 
