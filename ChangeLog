@@ -1,3 +1,12 @@
+2008-05-06  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/plugin.c (on_session_save):
+	Do not reverse list of file in save-session (#531445)
+	
+	* plugins/sourceview/anjuta-view.c
+	(anjuta_view_button_press_event):
+	Set line to mouse location when popup-menu is displayed (#530689)
+
 2008-05-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* (added) plugins/terminal/anjuta-terminal-plugin.ui,

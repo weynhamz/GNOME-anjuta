@@ -649,6 +649,24 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 	{
 		case 3: /* Right Button */
 		{
+			GtkTextBuffer* buffer = GTK_TEXT_BUFFER (view->priv->sv->priv->document);
+			if (!gtk_text_buffer_get_has_selection (buffer))
+			{
+				/* Move cursor to set breakpoints at correct line (#530689) */
+				GtkTextIter iter;
+				gint buffer_x, buffer_y;
+				GtkTextWindowType type =  gtk_text_view_get_window_type (GTK_TEXT_VIEW (view),
+																																 event->window);
+				gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (view),
+																							 type,
+																							 event->x,
+																							 event->y,
+																							 &buffer_x,
+																							 &buffer_y);
+				gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (view),
+																						&iter, buffer_x, buffer_y);
+				gtk_text_buffer_place_cursor (buffer, &iter);
+			}												 
 			gtk_menu_popup (GTK_MENU (view->priv->popup), NULL, NULL, NULL, NULL, 
                   event->button, event->time);
 			return TRUE;

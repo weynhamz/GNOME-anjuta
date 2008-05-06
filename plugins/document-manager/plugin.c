@@ -1398,8 +1398,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		return;
 
 	files = anjuta_session_get_string_list (session, "File Loader", "Files"); /* probably NULL */
-	if (files)
-		files = g_list_reverse (files);
 	/* buffers list is ordered last-opened to first-opened */
 	docwids = anjuta_docman_get_all_doc_widgets (ANJUTA_DOCMAN (plugin->docman));
 	if (docwids)
@@ -1429,7 +1427,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 	if (files)
 	{
-		files = g_list_reverse (files);
 		anjuta_session_set_string_list (session, "File Loader", "Files", files);
 		g_list_foreach (files, (GFunc)g_free, NULL);
 		g_list_free (files);
