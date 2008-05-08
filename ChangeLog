@@ -1,3 +1,22 @@
+2008-05-08  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from Eduardo Pérez Ureta <edpeur@gmail.com>
+
+	* plugins/project-wizard/templates/cpp/configure.ac.tpl:
+	* plugins/project-wizard/templates/gcj/configure.ac.tpl:
+	* plugins/project-wizard/templates/java/configure.ac.tpl:
+	* plugins/project-wizard/templates/minimal/autogen.sh:
+	* plugins/project-wizard/templates/minimal/configure.ac.tpl:
+	* plugins/project-wizard/templates/python/configure.ac.tpl:
+	* plugins/project-wizard/templates/sdl/configure.ac.tpl:
+	* plugins/project-wizard/templates/wxwin/configure.ac.tpl:
+	* plugins/project-wizard/templates/xlib/configure.ac.tpl:
+	
+	#531405 – AM_CONFIG_HEADER macro is obsolete
+	
+	project-wizard is creating new projects using the AM_CONFIG_HEADER obsolete macro:
+	http://www.gnu.org/software/automake/manual/automake.html#Obsolete-macros
+
 2008-05-07  Massimo Cora'  <maxcvs@email.it>
 
 	* libanjuta/interfaces/libanjuta.idl:
