@@ -4764,6 +4764,9 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	
 	sdb_engine_clear_caches (dbe);
 	
+	/* we need a reinitialization */
+	sdb_engine_init_caches (dbe);
+	
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
@@ -6263,6 +6266,8 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
  * You can specify which kind of symbols to retrieve, and if include them or exclude.
  * Kinds are 'namespace', 'class' etc.
  * @param filter_kinds cannot be NULL.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
  */
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_LIMIT					1
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_OFFSET				2
@@ -7528,14 +7533,18 @@ select * from symbol where scope_definition_id = (
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par.	 
  * @param sym_info Infos about symbols you want to know.
  */
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES					1
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO					2
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES				4
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO					8
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES				16
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO					32
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES			1
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO			2
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		4
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO			8
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES		16
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO			32
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					64
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					128
 
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
@@ -7544,6 +7553,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
 									gboolean global_search,
+									gint results_limit, 
+									gint results_offset,
 									SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
@@ -7557,6 +7568,10 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	const DynChildQueryNode *dyn_node;
 	GValue *value;
 	gint other_parameters;
+	gchar *limit = "";
+	gboolean limit_free = FALSE;
+	gchar *offset = "";
+	gboolean offset_free = FALSE;
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -7608,6 +7623,20 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO;
 	}
 	
+	if (results_limit > 0)
+	{
+		other_parameters |= DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT;
+		limit_free = TRUE;
+		limit = g_strdup_printf ("LIMIT ## /* name:'limit' type:gint */");
+	}
+	
+	if (results_offset > 0)
+	{
+		other_parameters |= DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET;
+		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");
+		offset_free = TRUE;
+	}
+	
 	if (filter_kinds == NULL) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
@@ -7632,8 +7661,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.name %s AND symbol.is_file_scope = "
-					"## /* name:'globalsearch' type:gint */", 
-				info_data->str, join_data->str, match_str);			
+					"## /* name:'globalsearch' type:gint */ %s %s", 
+				info_data->str, join_data->str, match_str, limit, offset);			
 
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
@@ -7697,9 +7726,9 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"sym_kind.kind_name AS kind_name "
 						"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 						"WHERE symbol.name %s AND symbol.is_file_scope = "
-						"## /* name:'globalsearch' type:gint */ %s GROUP BY symbol.name", 
+						"## /* name:'globalsearch' type:gint */ %s GROUP BY symbol.name %s %s", 
 				 		info_data->str, join_data->str, match_str, 
-				 		filter_str->str);
+				 		filter_str->str, limit, offset);
 
 				dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 							DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
@@ -7715,11 +7744,49 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		g_string_free (filter_str, TRUE);
 	}	
 	
+	if (limit_free)
+		g_free (limit);
+	
+	if (offset_free)
+		g_free (offset);
+
 	if (dyn_node == NULL)
 	{
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);
 		return NULL;
+	}
+	
+	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT)
+	{	
+		GValue *value;
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
+		{
+			if (priv->mutex)
+				g_mutex_unlock (priv->mutex);
+			return NULL;
+		}
+
+		value = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value, results_limit);	
+		gda_holder_set_value (param, value);
+		gda_value_free (value);
+	}
+
+	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET)
+	{	
+		GValue *value;
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
+		{
+			if (priv->mutex)
+				g_mutex_unlock (priv->mutex);
+			return NULL;
+		}
+
+		value = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value, results_offset);
+		gda_holder_set_value (param, value);
+		gda_value_free (value);
 	}
 	
 	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES ||

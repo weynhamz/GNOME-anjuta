@@ -1422,6 +1422,8 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						const gchar *match_name,
 						gboolean partial_name_match,
 						gboolean global_search,
+						gint results_limit,
+						gint results_offset,
 						GError **err)
 {
 	SymbolDBEngineIterator *iterator = NULL;
@@ -1456,6 +1458,8 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 																	  filter_array,
 																	  include_types,
 																	  global_search,
+																	  results_limit,
+																	  results_offset,
 																	  info_fields);
 
 	g_free (pattern);

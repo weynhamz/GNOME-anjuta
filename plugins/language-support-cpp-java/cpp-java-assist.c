@@ -335,13 +335,19 @@ static void
 cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 											  const gchar *pre_word)
 {
+	gint max_completions;
+	max_completions =
+		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+												 PREF_AUTOCOMPLETE_CHOICES,
+												 MAX_COMPLETIONS);
+	
 	cpp_java_assist_destroy_completion_cache (assist);
 	IAnjutaIterable* iter = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										pre_word, TRUE, TRUE, NULL);
+										pre_word, TRUE, TRUE, max_completions, -1, NULL);
 	if (iter)
 	{
 		assist->priv->completion_cache =
@@ -476,7 +482,13 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 							  IAnjutaIterable *position_iter)
 {
 	GList *tips = NULL;
+	gint max_completions;
 	
+	max_completions =
+		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+												 PREF_AUTOCOMPLETE_CHOICES,
+												 MAX_COMPLETIONS);
+
 	IAnjutaIterable* iter = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 									   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
@@ -485,7 +497,8 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 									   TRUE,
 									   IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context, FALSE, TRUE, NULL);
+									   call_context, FALSE, TRUE, max_completions,
+									   -1, NULL);
 	if (iter)
 	{
 		do

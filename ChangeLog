@@ -1,3 +1,20 @@
+2008-05-07  Massimo Cora'  <maxcvs@email.it>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/class-inheritance/class-inherit.c
+	(class_inheritance_show_dynamic_class_popup_menu):
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_show_calltip):
+	* plugins/profiler/gprof-view.c (gprof_view_show_symbol_in_editor):
+	* plugins/symbol-db/plugin.c (isymbol_manager_search):
+	* plugins/symbol-db/symbol-db-engine.c
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	add limit/offset keywords to search query. Adjusted APIs.
+	Fixed a minor bug with caches in the engine.
+
 2008-05-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/terminal/anjuta-terminal-plugin.glade,

@@ -264,6 +264,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par.
  * @param sym_info Infos about symbols you want to know.
  */
 SymbolDBEngineIterator *
@@ -273,6 +275,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
 									gboolean global_search,
+									gint results_limit, 
+									gint results_offset,
 									SymExtraInfo sym_info);
 
 
@@ -320,6 +324,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
  * 		If FALSE you can have as result more symbols with the same name but different
  * 		symbols id. See for example more namespaces declared on different files.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
@@ -352,6 +358,8 @@ symbol_db_engine_get_scope_members (SymbolDBEngine *dbe,
 /**
  * Sometimes it's useful going to query just with ids [and so integers] to have
  * a little speed improvement.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
@@ -365,6 +373,8 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
  * You can specify which kind of symbols to retrieve, and if include them or exclude.
  * Kinds are 'namespace', 'class' etc.
  * @param filter_kinds cannot be NULL.
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 

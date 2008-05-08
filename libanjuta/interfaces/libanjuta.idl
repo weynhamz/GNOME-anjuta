@@ -4481,13 +4481,15 @@ interface IAnjutaSymbolManager
 	* string match_name.
 	* @global_search: if TRUE it will search only for public/extern functions. 
 	* If FALSE it will search also for static/private functions.
+ 	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ 	* @results_offset Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.
 	* 
 	* Database query. Returned iterable must be unrefed after use.
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_search);
+	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_search, gint results_limit, gint results_offset);
 	
 	/**
 	* ianjuta_symbol_manager_get_members:
