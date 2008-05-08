@@ -1,4 +1,5 @@
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -8,19 +9,6 @@
 #include <libxml/tree.h>
 #include "libgtodo.h"
 #include <libgnomevfs/gnome-vfs.h>
-
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#include <locale.h>
-#define _(String) gettext (String)
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop (String)
-#  else
-#    define N_(String) (String)
-#  endif
-#else 
-#define _(String) String
-#endif
 
 #ifdef DEBUG
 short int debug = 1;
@@ -1165,7 +1153,7 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 gchar * gtodo_client_get_category_from_list(GTodoList *list)
 {
 	GTodoCategory * cat = list->list->data;
-	return cat->name;
+	return _(cat->name);
 }
 
 gint gtodo_client_get_category_id_from_list(GTodoList *list)

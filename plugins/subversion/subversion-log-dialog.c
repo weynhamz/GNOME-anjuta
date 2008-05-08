@@ -114,7 +114,7 @@ create_columns (LogData *data)
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_toggle_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_title (column, "Diff");
+	gtk_tree_view_column_set_title (column, _("Diff"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);
 	gtk_tree_view_column_add_attribute (column, renderer, "active", 
 										COL_DIFF_SELECTED);
@@ -127,7 +127,7 @@ create_columns (LogData *data)
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_title (column, "Author");
+	gtk_tree_view_column_set_title (column, _("Author"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", 
 										COL_AUTHOR);
@@ -136,7 +136,7 @@ create_columns (LogData *data)
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_title (column, "Date");
+	gtk_tree_view_column_set_title (column, _("Date"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", 
 										COL_DATE);
@@ -146,7 +146,7 @@ create_columns (LogData *data)
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_title (column, "Revision");
+	gtk_tree_view_column_set_title (column, _("Revision"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", 
 										COL_REVISION);
@@ -155,7 +155,7 @@ create_columns (LogData *data)
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_title (column, "Short Log");
+	gtk_tree_view_column_set_title (column, _("Short Log"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", 
 										COL_SHORT_LOG);

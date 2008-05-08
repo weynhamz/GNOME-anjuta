@@ -1,5 +1,14 @@
 2008-05-08  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Marc Lorber <lorber.marc@wanadoo.fr>
+
+	* plugins/gtodo/libgtodo.c (gtodo_client_get_category_from_list):
+	* plugins/subversion/subversion-log-dialog.c (create_columns):
+	
+	Fix translation issues (#530860 and #531411)
+
+2008-05-08  Johannes Schmid  <jhs@gnome.org>
+
 	Patch from Eduardo Pérez Ureta <edpeur@gmail.com>
 
 	* plugins/project-wizard/templates/cpp/configure.ac.tpl:
