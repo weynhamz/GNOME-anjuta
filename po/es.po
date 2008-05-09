@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-02 18:58+0000\n"
-"PO-Revision-Date: 2008-05-03 13:30+0200\n"
+"POT-Creation-Date: 2008-05-06 20:13+0000\n"
+"PO-Revision-Date: 2008-05-09 07:59+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -845,7 +845,6 @@ msgstr "Autotools de construcción"
 
 #: ../plugins/build-basic-autotools/build-options.c:41
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "Predeterminado"
 
@@ -2892,7 +2891,7 @@ msgstr "Corta el texto seleccionado al portapapeles"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:308 ../plugins/terminal/terminal.c:528
+#: ../plugins/document-manager/plugin.c:308 ../plugins/terminal/terminal.c:506
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Copy"
 msgstr "_Copiar"
@@ -2901,7 +2900,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:311 ../plugins/terminal/terminal.c:536
+#: ../plugins/document-manager/plugin.c:311 ../plugins/terminal/terminal.c:514
 #: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "_Paste"
 msgstr "_Pegar"
@@ -3140,9 +3139,9 @@ msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:434
-#: ../plugins/document-manager/plugin.c:1751
-#: ../plugins/document-manager/plugin.c:2147
-#: ../plugins/document-manager/plugin.c:2157
+#: ../plugins/document-manager/plugin.c:1748
+#: ../plugins/document-manager/plugin.c:2144
+#: ../plugins/document-manager/plugin.c:2154
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3187,12 +3186,12 @@ msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1563
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1577
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -7102,20 +7101,28 @@ msgstr "botón"
 msgid "<b>Terminal options</b>"
 msgstr "<b>Opciones de terminal</b>"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid ""
+"Default\n"
+"\n"
+msgstr ""
+"Predeterminado\n"
+"\n"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
 msgid "Use GNOME terminal profile:"
 msgstr "Usar el perfil del terminal de GNOME:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:6
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
 
-#: ../plugins/terminal/terminal.c:625
+#: ../plugins/terminal/terminal.c:603
 msgid "terminal operations"
 msgstr "operaciones en la terminal"
 
-#: ../plugins/terminal/terminal.c:643 ../plugins/terminal/terminal.c:767
-#: ../plugins/terminal/terminal.c:783
+#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:775
+#: ../plugins/terminal/terminal.c:822
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
