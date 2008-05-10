@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-06 20:13+0000\n"
-"PO-Revision-Date: 2008-05-09 07:59+0200\n"
+"POT-Creation-Date: 2008-05-10 09:40+0000\n"
+"PO-Revision-Date: 2008-05-10 15:15+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -904,17 +904,17 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "El ejecutable «%s» no está actualizado."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:162
+#: ../plugins/class-inheritance/class-inherit.c:164
 msgid "Fixed data-view"
 msgstr "Vista de datos fijos"
 
-#: ../plugins/class-inheritance/class-inherit.c:1002
+#: ../plugins/class-inheritance/class-inherit.c:1008
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
 msgid "Update"
 msgstr "Actualizar"
 
-#: ../plugins/class-inheritance/class-inherit.c:1003
+#: ../plugins/class-inheritance/class-inherit.c:1009
 msgid "Update the graph"
 msgstr "Actualizar la gráfica"
 
@@ -2466,7 +2466,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1688
 #: ../plugins/search/search-replace.c:1700
 #: ../plugins/search/search-replace.c:2018
-#: ../plugins/symbol-browser/plugin.c:938
+#: ../plugins/symbol-browser/plugin.c:941
 msgid "Search"
 msgstr "Buscar"
 
@@ -3931,7 +3931,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: ../plugins/macro/anjuta-macro.glade.h:6
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -4334,54 +4334,54 @@ msgstr "Fecha de vencimiento"
 msgid "Summary"
 msgstr "Resumen"
 
-#: ../plugins/gtodo/libgtodo.c:609
+#: ../plugins/gtodo/libgtodo.c:597
 #, c-format
 msgid "No permission to read the file."
 msgstr "Sin permiso para leer el archivo."
 
-#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:624 ../plugins/gtodo/libgtodo.c:634
 #, c-format
 msgid "Failed to parse xml structure"
 msgstr "Falló al analizar la estructura xml"
 
-#: ../plugins/gtodo/libgtodo.c:654
+#: ../plugins/gtodo/libgtodo.c:642
 #, c-format
 msgid "File is not a valid gtodo file"
 msgstr "El archivo no es un archivo gtodo válido"
 
-#: ../plugins/gtodo/libgtodo.c:666
+#: ../plugins/gtodo/libgtodo.c:654
 msgid "Personal"
 msgstr "Privado"
 
-#: ../plugins/gtodo/libgtodo.c:668
+#: ../plugins/gtodo/libgtodo.c:656
 msgid "Business"
 msgstr "Trabajo"
 
-#: ../plugins/gtodo/libgtodo.c:670
+#: ../plugins/gtodo/libgtodo.c:658
 msgid "Unfiled"
 msgstr "No archivado"
 
-#: ../plugins/gtodo/libgtodo.c:759
+#: ../plugins/gtodo/libgtodo.c:747
 #, c-format
 msgid "No Gtodo Client to save."
 msgstr "No hay un cliente GTodo para guardar."
 
-#: ../plugins/gtodo/libgtodo.c:778
+#: ../plugins/gtodo/libgtodo.c:766
 #, c-format
 msgid "Failed to delete %s."
 msgstr "Falló al borrar %s."
 
-#: ../plugins/gtodo/libgtodo.c:794
+#: ../plugins/gtodo/libgtodo.c:782
 #, c-format
 msgid "Failed to create/open file."
 msgstr "Falló al crear/abrir el archivo."
 
-#: ../plugins/gtodo/libgtodo.c:803
+#: ../plugins/gtodo/libgtodo.c:791
 #, c-format
 msgid "Failed to write data to file."
 msgstr "Falló al escribir los datos al archivo."
 
-#: ../plugins/gtodo/libgtodo.c:880
+#: ../plugins/gtodo/libgtodo.c:868
 #, c-format
 msgid "No filename supplied."
 msgstr "No se ha proporcionado ningún nombre de archivo."
@@ -6786,6 +6786,26 @@ msgstr "Introduzca una revisión."
 msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: Obteniendo Diff…"
 
+#: ../plugins/subversion/subversion-log-dialog.c:117
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/subversion/subversion-log-dialog.c:130
+msgid "Author"
+msgstr "Autor"
+
+#: ../plugins/subversion/subversion-log-dialog.c:139
+msgid "Date"
+msgstr "Fecha"
+
+#: ../plugins/subversion/subversion-log-dialog.c:149
+msgid "Revision"
+msgstr "Revisión"
+
+#: ../plugins/subversion/subversion-log-dialog.c:158
+msgid "Short Log"
+msgstr "Registro corto"
+
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
 msgstr "Subversion: Obteniendo el registro…"
@@ -7004,7 +7024,11 @@ msgstr "Añadir directorios en la lista para escrutar:"
 msgid "Create API tags"
 msgstr "Crear etiquetas del API"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+msgid "Load API tags from project configuration"
+msgstr "Cargar las etiquetas de la API desde la configuración del proyecto"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update Global Tags"
 msgstr "Actualizar etiquetas globales"
 
@@ -7051,28 +7075,28 @@ msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:897
+#: ../plugins/symbol-browser/plugin.c:900
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:917
+#: ../plugins/symbol-browser/plugin.c:920
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:961
+#: ../plugins/symbol-browser/plugin.c:964
 msgid "Symbol browser actions"
 msgstr "Acciones del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:968
+#: ../plugins/symbol-browser/plugin.c:971
 msgid "Symbol browser popup actions"
 msgstr "Acciones emergentes el explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:975
+#: ../plugins/symbol-browser/plugin.c:978
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:984
+#: ../plugins/symbol-browser/plugin.c:987
 msgid "Symbols"
 msgstr "Símbolos"
 
