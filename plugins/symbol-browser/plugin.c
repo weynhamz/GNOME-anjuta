@@ -398,6 +398,8 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sv_plugin);
 	/* Load from project */
+	if (anjuta_preferences_get_int (sv_plugin->prefs,
+											"symbol_browser.tags_auto_load"))
 	{
 		gchar* dirname = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
 		GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
@@ -417,6 +419,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		anjuta_preferences_set (sv_plugin->prefs, SYMBOL_BROWSER_TAGS, str->str);
 		g_string_free (str, TRUE);
 		g_free (dirname);
+		symbol_browser_load_global_tags (plugin);
 	}
 }	   
 
@@ -1113,6 +1116,8 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						const gchar *match_name,
 						gboolean partial_name_match,
 						gboolean global_search,
+						gint results_limit, /* unused */
+						gint results_offset, /* unused */
 						GError **err)
 {
 	const GPtrArray *tags_array;
@@ -1131,7 +1136,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		iter = anjuta_symbol_iter_new (tags_array);
 		return IANJUTA_ITERABLE (iter);
 	}
-	return NULL;
+	return NULL;	
 }
 
 static IAnjutaIterable*

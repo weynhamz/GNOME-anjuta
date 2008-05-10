@@ -1,3 +1,12 @@
+2008-05-10  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	* plugins/symbol-browser/plugin.c (project_root_added),
+	(isymbol_manager_search):
+	
+	Fixed global tags loading from project configuration and added a
+	configuration option
+
 2008-05-08  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Marc Lorber <lorber.marc@wanadoo.fr>
