@@ -368,9 +368,9 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	
 	
 	if (args && strlen (args) > 0)
-		cmd = g_strconcat (target, " ", args, NULL);
+		cmd = g_strconcat ("\"",target, "\" ", args, NULL);
 	else
-		cmd = g_strdup (target);
+		cmd = g_strconcat ("\"", target, "\"", NULL);
 
 	if (anjuta_preferences_get_int (prefs , PREF_USE_SB))
 	{

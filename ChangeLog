@@ -1,5 +1,10 @@
 2008-05-13  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/build-basic-autotools/executer.c:
+	Fix #532243 Execute Program with whitespace in the project path fails
+
+2008-05-13  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/debug_tree.c:
 	Fix #531623: Crash on updating non-existing watch
 
