@@ -35,7 +35,7 @@ int tm_source_file_tags(const tagEntryInfo *tag)
 }
 
 
-gboolean tm_buffer_parse(TMSourceFile *source_file, unsigned char* buf, int buf_size)
+static gboolean tm_buffer_parse(TMSourceFile *source_file, unsigned char* buf, int buf_size)
 {
 	const char *file_name;
 	gboolean status = TRUE;

@@ -1,3 +1,13 @@
+2008-05-13  Christian Kirbach  <Christian.Kirbach@googlemail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* tagmanager/tm_tag.c:
+	* tagmanager/test_tm_buffer.c:
+	* plugins/editor/scintilla/LexNsis.cxx:
+	* plugins/editor/aneditor.cxx:
+	* plugins/file-manager/file-view.c:
+	Fixed a bunch of compiler warnings
+
 2008-05-10  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:

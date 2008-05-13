@@ -375,9 +375,6 @@ file_view_set_property (GObject *object, guint prop_id, const GValue *value,
 static void
 file_view_finalize (GObject *object)
 {
-	AnjutaFileView* view = ANJUTA_FILE_VIEW (object);
-	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
-	
 	G_OBJECT_CLASS (file_view_parent_class)->finalize (object);
 }
 
@@ -385,7 +382,6 @@ static void
 file_view_class_init (AnjutaFileViewClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GtkTreeViewClass* parent_class = GTK_TREE_VIEW_CLASS (klass);
 	GtkWidgetClass* widget_class = GTK_WIDGET_CLASS (klass);
 	
 	g_type_class_add_private (klass, sizeof (AnjutaFileViewPrivate));
