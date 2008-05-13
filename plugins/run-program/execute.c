@@ -114,7 +114,7 @@ get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gch
 	gchar *prog_uri = NULL;
 	gchar *dir_uri = NULL;
 	const gchar *err_msg = NULL;
-	const gchar *err_target;
+	const gchar *err_target = NULL;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
@@ -306,6 +306,7 @@ gboolean
 run_plugin_run_program (RunProgramPlugin *plugin)
 {
 	gchar *target;
+	gchar *quote_target;
 	gchar *dir = NULL;
 	gchar *args = NULL;
 	gchar **env = NULL;
@@ -329,12 +330,16 @@ run_plugin_run_program (RunProgramPlugin *plugin)
 	if (dir == NULL)
 		dir = g_path_get_dirname (target);
 	
-	if (args && strlen (args) > 0)
-		cmd = g_strconcat (target, " ", args, NULL);
-	else
-		cmd = g_strdup (target);
-	g_free (args);
+	/* Quote target name */
+	quote_target = g_shell_quote (target);
 	g_free (target);
+	
+	if (args && strlen (args) > 0)
+		cmd = g_strconcat (quote_target, " ", args, NULL);
+	else
+		cmd = g_strdup (quote_target);
+	g_free (args);
+	g_free (quote_target);
 
 	/* Take care of scratchbox */
 	prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL);
