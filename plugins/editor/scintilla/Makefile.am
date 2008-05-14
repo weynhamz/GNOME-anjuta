@@ -67,7 +67,6 @@ libanjuta_scintilla_la_LIBADD = \
 	$(GTK_LIBS)
 
 noinst_PROGRAMS = test-scintilla
-test_scintilla_DEPENDENCIES = libanjuta-scintilla.la
 
 test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx

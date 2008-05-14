@@ -16,10 +16,10 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
-lib_LTLIBRARIES=libanjuta.la 
+lib_LTLIBRARIES = libanjuta.la 
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
+	interfaces/libanjuta-interfaces.la \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS)
 
@@ -76,11 +76,11 @@ if HAVE_PLUGIN_GLADE
 gladeanjutadir = $(libdir)/glade3/modules
 
 gladeanjuta_LTLIBRARIES = libgladeanjuta.la
-libgladeanjuta_la_DEPENDENCIES = libanjuta.la
 libgladeanjuta_la_SOURCES = anjuta-glade-catalog.c
 libgladeanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) -module -avoid-version
-libgladeanjuta_la_LIBADD = $(top_builddir)/libanjuta/libanjuta.la \
-						   $(GLADE_LIBS)
+libgladeanjuta_la_LIBADD = \
+	libanjuta.la \
+	$(GLADE_LIBS)
 
 # For now install in our own prefix
 # catalogdir = @GLADE_CATALOG_PATH@

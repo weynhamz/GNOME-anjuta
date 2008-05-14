@@ -1,3 +1,10 @@
+2008-05-14  Rémi Cardona  <remi@gentoo.org>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/editor/scintilla/Makefile.am,
+	libanjuta/Makefile.am:
+	Remove useless _DEPENDENCIES
+
 2008-05-13  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/run-program/execute.c:
