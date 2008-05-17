@@ -71,6 +71,6 @@
 </content>
 
 <action>
-	<run command="sh -c 'cd [+Destination+] &amp;&amp; ./autogen.sh'"/>
+	<run command="sh -c &quot;cd [+(raw-shell-str (get "Destination"))+] &amp;&amp; ./autogen.sh&quot;"/>
 	<open file="[+Destination+]/[+NameHLower+].anjuta"/>
 </action>

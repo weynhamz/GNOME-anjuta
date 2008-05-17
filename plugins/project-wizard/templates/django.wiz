@@ -23,7 +23,7 @@
 </content>
 
 <action>
-	<run command="sh -c 'cd [+Destination+] &amp;&amp; django-admin.py startproject [+NameHLower+]'"/>
+	<run command="sh -c &quot;cd [+(raw-shell-str (get "Destination"))+] &amp;&amp; django-admin.py startproject [+NameHLower+]&quot"/>
 	<open file="[+Destination+]/[+NameHLower+].anjuta"/>
 	<open file="[+Destination+]/[+NameHLower+]/settings.py"/>
 </action>
