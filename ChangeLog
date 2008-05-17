@@ -1,3 +1,9 @@
+2008-05-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* src/anjuta.glade,
+	libanjuta/anjuta-preferences.c:
+	Fix #531940: Can't change the default project directory
+
 2008-05-14  Rémi Cardona  <remi@gentoo.org>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

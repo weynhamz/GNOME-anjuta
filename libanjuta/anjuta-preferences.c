@@ -67,6 +67,7 @@
 
 #include <glade/glade-parser.h>
 #include <gconf/gconf-client.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
@@ -551,6 +552,7 @@ get_property_value_as_string (AnjutaProperty *prop)
 	gint  int_value;
 	gchar** values;
 	gchar *text_value = NULL;
+	gchar *uri;
 	
 	if (prop->custom)
 	{
@@ -619,8 +621,10 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-		text_value = gtk_file_chooser_get_current_folder (
-				GTK_FILE_CHOOSER (prop->object));
+		uri = gtk_file_chooser_get_uri (
+ 				GTK_FILE_CHOOSER (prop->object));
+		text_value = gnome_vfs_get_local_path_from_uri (uri);
+		g_free (uri);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
@@ -771,7 +775,27 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
 		if (value)
-			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), value);
+		{
+			gchar *old_folder;
+
+			/* When the user change the folder, the
+			 * current-folder-changed signal is emitted the
+			 * gconf key is updated and this function is called.
+			 * But setting the current folder here emits
+			 * the current-folder-changed signal too.
+			 * Moreover this signal is emitted asynchronously so
+			 * it is not possible to block it here.
+			 * 
+			 * The solution here is to update the widget only
+			 * if it is really needed.
+			 */
+			old_folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
+			if ((old_folder == NULL) || strcmp (old_folder, value))
+			{
+				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), value);
+			}
+			g_free (old_folder);
+		}
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		if (value)
