@@ -50,6 +50,7 @@ struct _AnjutaDesignDocumentClass
 struct _AnjutaDesignDocument
 {
 	GladeDesignView parent_instance;
+	gboolean is_project_added;
 };
 
 GType anjuta_design_document_get_type (void) G_GNUC_CONST;

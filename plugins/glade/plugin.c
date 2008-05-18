@@ -57,6 +57,27 @@ enum {
 	N_COLUMNS
 };
 
+static void 
+update_current_project (GtkComboBox *projects_combo,
+                        GladeProject* project)
+{	
+	GtkTreeIter iter;
+	GladeProject *cur_project;	
+	GtkTreeModel* model = gtk_combo_box_get_model (projects_combo);
+	
+	if (gtk_tree_model_get_iter_first (model, &iter))
+		do
+		{
+			gtk_tree_model_get (model, &iter, PROJECT_COL, &cur_project, -1);
+			if (project == cur_project)
+			{
+				gtk_combo_box_set_active_iter (projects_combo, &iter);
+				break;
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &iter));
+}
+
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -68,25 +89,12 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	{
 		AnjutaDesignDocument* view = ANJUTA_DESIGN_DOCUMENT(editor);
 		GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(view));
-		/* Update current project */
-		GtkTreeIter iter;
-		GtkTreeModel* model = 
-			gtk_combo_box_get_model (GTK_COMBO_BOX (glade_plugin->priv->projects_combo));
-		if (gtk_tree_model_get_iter_first (model, &iter))
+		if (!view->is_project_added)
 		{
-			do
-			{
-				GladeProject *cur_project;
-				gtk_tree_model_get (model, &iter, PROJECT_COL, &cur_project, -1);
-				if (project == cur_project)
-				{
-					gtk_combo_box_set_active_iter (GTK_COMBO_BOX (glade_plugin->priv->projects_combo), &iter);
-					glade_app_set_project(project);
-					break;
-				}
-			}
-			while (gtk_tree_model_iter_next (model, &iter));
+			glade_app_add_project (project);
+			view->is_project_added = TRUE;
 		}
+		glade_app_set_project (project);
 	}
 }
 
@@ -100,29 +108,12 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static void
 glade_update_ui (GladeApp *app, GladePlugin *plugin)
 {
-	GtkTreeModel *model;
-	GtkTreeIter iter;;
 	IAnjutaDocument* doc;
 	IAnjutaDocumentManager* docman = 
 		anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 								   IAnjutaDocumentManager, NULL);
 	
-	/* Update current project */
-	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
-	if (gtk_tree_model_get_iter_first (model, &iter))
-	{
-		do
-		{
-			GladeProject *project;
-			gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
-			if (project == glade_app_get_project ())
-			{
-				gtk_combo_box_set_active_iter (GTK_COMBO_BOX (plugin->priv->projects_combo), &iter);
-				break;
-			}
-		}
-		while (gtk_tree_model_iter_next (model, &iter));
-	}
+	update_current_project (GTK_COMBO_BOX (plugin->priv->projects_combo), glade_app_get_project ());
 	/* Emit IAnjutaDocument signal */	
 	doc = ianjuta_document_manager_get_current_document(docman, NULL);
 	if (doc && ANJUTA_IS_DESIGN_DOCUMENT(doc))
@@ -179,8 +170,6 @@ on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 	GladeProject *project;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	IAnjutaDocumentManager *docman;
-	GList *docwids, *node;
 
 	DEBUG_PRINT(__FUNCTION__);
 	
@@ -379,9 +368,7 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 					  G_CALLBACK (on_document_destroy), glade_plugin);
 	gtk_widget_show (view);
 	g_object_set_data (G_OBJECT (project), "design_view", view);
-	/* add document before adding project, cuz that changes the document */
 	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(view), NULL);
-	glade_app_add_project (project);
 }
 
 #if (GLADEUI_VERSION >= 330)
