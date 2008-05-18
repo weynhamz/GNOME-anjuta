@@ -1,3 +1,13 @@
+2008-05-19  Johannes Schmid  <jhs@gnome.org>
+
+  Patch from Pavel Kostyuchenko:
+	* plugins/glade/anjuta-design-document.h:
+	* plugins/glade/plugin.c (update_current_project),
+	(value_added_current_editor), (glade_update_ui),
+	(on_document_destroy), (glade_plugin_add_project):
+	
+	#532625 – Wrong consecution of functions calls when opening a glade file
+
 2008-05-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/terminal.wiz,
