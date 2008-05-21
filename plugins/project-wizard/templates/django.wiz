@@ -8,21 +8,19 @@
 <page name="basic" _label="Django Project information" _description="General Project Information">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="myweb" summary="yes" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
-	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
-	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]"/>
-	<property type="hidden" name="NameHLower" default="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]"/>
 	
 </page>
 
 
 <content>
     <directory source="python" destination="[+Destination+]">
-		<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
+		<file destination="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+].anjuta" source="project.anjuta"/>
     </directory>
 </content>
 
 <action>
-	<run command="sh -c &quot;cd [+(raw-shell-str (get "Destination"))+] &amp;&amp; django-admin.py startproject [+NameHLower+]&quot"/>
-	<open file="[+Destination+]/[+NameHLower+].anjuta"/>
-	<open file="[+Destination+]/[+NameHLower+]/settings.py"/>
+	<!-- It seems that Debian package uses django-admin instead of django-admin.py -->
+	<run command="sh -c &quot;cd [+(raw-shell-str (get "Destination"))+] &amp;&amp; if [ ''`which django-admin` != '' ]; then `which django-admin` startproject [+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]; else `which django-admin.py` startproject [+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]; fi;&quot;"/>
+	<open file="[+Destination+]/[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+].anjuta"/>
+	<open file="[+Destination+]/[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]/settings.py"/>
 </action>

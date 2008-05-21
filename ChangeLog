@@ -1,3 +1,9 @@
+2008-05-21  Michael Placentra <someone@michaelplacentra2.net>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/project-wizard/templates/django.wiz:
+	Fix #533758: django project creation fails
+
 2008-05-19  Johannes Schmid  <jhs@gnome.org>
 
   Patch from Pavel Kostyuchenko:
