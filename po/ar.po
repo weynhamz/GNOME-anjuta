@@ -1226,7 +1226,7 @@ msgid ""
 msgstr ""
 "محلي\n"
 "خارجي (rsh)\n"
-"خادم كلمة السر (pserver)\n"
+"خادوم كلمة السر (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
 msgid "Log message:"
@@ -6572,7 +6572,7 @@ msgstr "تحول إلى فرع/وسم"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
-msgstr "خادم الثقة"
+msgstr "خادوم الثقة"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Update file/directory"
