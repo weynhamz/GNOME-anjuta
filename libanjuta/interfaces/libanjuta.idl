@@ -545,6 +545,87 @@ interface IAnjutaIterable
 }
 
 /**
+ * SECTION:ianjuta-builder
+ * @title: IAnjutaBuilder
+ * @short_description: Implemented by plugins that can build
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-builder.h
+ * 
+ */
+interface IAnjutaBuilder
+{
+	#include <libanjuta/anjuta-error.h>
+	
+	/* Types */
+	enum Error
+	{
+		SUCCEED           =  0,
+		FAILED,
+		CANCELED	= 256,
+		ABORTED,
+		INTERRUPTED,
+		TERMINATED,
+		UNKNOWN_TARGET,
+		UNKNOWN_ERROR,
+		OTHER_ERROR
+	}
+
+	/**
+	* IAnjutaBuilder::command-finished:
+	* @obj: Self
+	* @err: Error if command fail
+	*
+	* This signal is emitted when a command with a non null command_id is
+	* finished. The command_id is used as detail argument when the signal
+	* is emitted so only the caller get the signal.
+	*/
+	void ::command_finished (GError *err);
+
+	/** 
+	* ianjuta_builder_is_built:
+	* @obj: Self
+	* @uri: target uri
+	* @command_id: Quark used to identify command, could be 0
+	* @err: Error propagation and reporting.
+	*
+	* Check if the corresponding target is up to date or not. This
+	* command doesn't display anything. If this command cannot be
+	* implemented, it is possible to return always TRUE.
+	*
+	* Returns: TRUE if the target is already built.
+	*/
+	gboolean is_built (const gchar *uri, GQuark command_id);
+
+	/** 
+	* ianjuta_builder_build:
+	* @obj: Self
+	* @uri: target uri
+	* @command_id: Quark used to identify command, could be 0
+	* @err: Error propagation and reporting.
+	*
+	* Build the specified target
+	*
+	* Returns: FALSE if there is an error.
+	*/
+	gboolean build (const gchar *uri, GQuark command_id);
+
+	/**
+	* ianjuta_builder_cancel:
+	* @obj: Self
+	* @command_id: Quark used to identify command
+	* @err: Error propagation and reporting.
+	* 
+	* Cancel specified command. The command-finished signal is
+	* emitted immediatly even if the real command will be
+	* cancelled a bit later.
+	*
+	* Returns: FALSE if there is an error.
+	*/
+	void cancel (GQuark command_id);
+}
+
+/**
  * SECTION:ianjuta-buildable
  * @title: IAnjutaBuildable
  * @short_description: Implemented by plugins that can build
@@ -565,6 +646,7 @@ interface IAnjutaBuildable
 		COMMAND_GENERATE,
 		COMMAND_CLEAN,
 		COMMAND_EXECUTE,
+		COMMAND_IS_BUILT,
 		N_COMMANDS
 	}
 	

@@ -1,3 +1,12 @@
+2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
+	libanjuta/interfaces/libanjuta.idl,
+	libanjuta/interfaces/anjuta-idl-compiler.pl:
+	New IAnjutaBuilder interface allowing to check if a target is up to
+	data and having a notification when the target is built
+
 2008-05-21  Michael Placentra <someone@michaelplacentra2.net>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
