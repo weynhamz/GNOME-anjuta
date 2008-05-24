@@ -38,7 +38,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-buildable.h>
+#include <libanjuta/interfaces/ianjuta-builder.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
@@ -127,6 +127,10 @@ struct _DmaStart
 
 	gboolean stop_at_beginning;
 	GList *source_dirs;
+	
+	GQuark build_id;
+	gchar *build_target;
+	gulong build_handle;
 };
 
 /* Widgets found in glade file
@@ -151,6 +155,8 @@ struct _DmaStart
 
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
+
+#define BUILD_TARGET	"DMA_BUILD_TARGET"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
@@ -230,61 +236,6 @@ free_source_directories (GList *dirs)
 {
 	g_list_foreach (dirs, (GFunc)g_free, NULL);
 	g_list_free (dirs);
-}
-
-static gboolean
-save_all_files_and_continue (AnjutaPlugin *plugin)
-{
-	IAnjutaDocumentManager *docman;
-	IAnjutaFileSavable* save;
-
-	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
-	
-    /* No document manager, so no file to save */
-	if (docman != NULL)
-    {
-    	save = IANJUTA_FILE_SAVABLE (docman);
-		if (save != NULL)
-		{
-			if (ianjuta_file_savable_is_dirty (save, NULL))
-			{
-				gboolean yes;
-				
-				yes = anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-					_("Some files are not saved. Do you want to save all them before starting the debugger?"));
-
-				if (yes)
-				{
-                	ianjuta_file_savable_save (save, NULL);
-				}
-				
-				return yes;
-			}
-		}
-	}
-	
-	return TRUE;
-}
-
-static gboolean
-build_target (AnjutaPlugin* plugin, const gchar *target_uri)
-{
-	IAnjutaBuildable *buildable;
-
-	buildable = anjuta_shell_get_interface (plugin->shell, IAnjutaBuildable, NULL);
-	if (buildable != NULL)
-	{
-		gchar *filename;
-		gchar *dirname;
-		
-		filename = gnome_vfs_get_local_path_from_uri (target_uri);
-		g_free (filename);
-		dirname = g_path_get_dirname (filename);
-		ianjuta_buildable_build (buildable, dirname, NULL);
-		g_free (dirname);
-	}
-	
-	return TRUE;
 }
 
 /* Callback for saving session
@@ -863,27 +814,49 @@ show_parameters_dialog (DmaStart *this)
 }
 
 static gboolean
-dma_start_load_uri (DmaStart *this, const gchar *target)
+start_target (DmaStart *this)
 {
-	GList *search_dirs;
-	GnomeVFSURI *vfs_uri;
-	gchar *mime_type;
-	gchar *filename;
+	gchar *dir_uri;
+	gchar *dir;
+	gchar **env;
+	gchar *args;
+	gboolean run_in_terminal;
 
-	if (!dma_quit_debugger (this)) return FALSE;
+	anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
+	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
+					  RUN_PROGRAM_ARGS, G_TYPE_STRING, &args,
+					  RUN_PROGRAM_ENV, G_TYPE_STRV, &env,
+					  RUN_PROGRAM_NEED_TERM, G_TYPE_BOOLEAN, &run_in_terminal,
+					  NULL);	
 	
-	vfs_uri = gnome_vfs_uri_new (target);
-		
-	g_return_val_if_fail (vfs_uri != NULL, TRUE);
-	
-	if (!gnome_vfs_uri_is_local (vfs_uri)) return FALSE;
-
-	if (save_all_files_and_continue (this->plugin))
+	if (dir_uri != NULL)
 	{
-		build_target (this->plugin, (const gchar *)target);
+		dir = gnome_vfs_get_local_path_from_uri (dir_uri);
+		g_free (dir_uri);
+	}
+	else
+	{
+		dir = NULL;
 	}
 	
-	search_dirs = get_source_directories (this->plugin);
+	dma_queue_set_working_directory (this->debugger, dir);
+	g_free (dir);
+	
+	dma_queue_set_environment (this->debugger, env);
+	g_strfreev (env);
+	
+	dma_queue_start (this->debugger, args, run_in_terminal, FALSE);
+	g_free (args);
+	
+	return TRUE;
+
+}
+
+static gboolean
+load_target (DmaStart *this, const gchar *target)
+{
+	gchar *mime_type;
+	gchar *filename;
 	
 	mime_type = gnome_vfs_get_mime_type ((const gchar *)target);
 	if (mime_type == NULL)
@@ -895,13 +868,108 @@ dma_start_load_uri (DmaStart *this, const gchar *target)
 	filename = gnome_vfs_get_local_path_from_uri (target);
 	
 	dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
-	
+
 	g_free (filename);
 	g_free (mime_type);
-	gnome_vfs_uri_unref (vfs_uri);
-	free_source_directories (search_dirs);
 
-	return TRUE;
+	return start_target (this);
+}
+
+static void
+on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+{
+	DmaStart *this = (DmaStart *)user_data;
+	
+	g_signal_handler_disconnect (builder, this->build_handle); 
+
+	if (err == NULL)
+	{
+		/* Up to date, start debugger */
+		load_target (this, this->build_target);
+	}
+	
+	g_free (this->build_target);
+	this->build_target = NULL;
+}
+
+static void
+on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+{
+	DmaStart *this = (DmaStart *)user_data;
+	
+	g_signal_handler_disconnect (builder, this->build_handle); 
+
+	if (err == NULL)
+	{
+		/* Up to date, start debugger */
+		load_target (this, this->build_target);
+	}
+	else if (err->code == IANJUTA_BUILDER_FAILED)
+	{
+		/* Target is not up to date */
+		this->build_handle = g_signal_connect (builder, "command-finished::" BUILD_TARGET, G_CALLBACK (on_build_finished), this);
+
+		/* Build target */
+		ianjuta_builder_build (builder, this->build_target, this->build_id, NULL);
+		return;
+	}
+	
+	g_free (this->build_target);
+	this->build_target = NULL;
+}
+
+static gboolean
+check_target (DmaStart *this, const gchar *target)
+{
+	IAnjutaBuilder *builder;
+
+	builder = anjuta_shell_get_interface (this->plugin->shell, IAnjutaBuilder, NULL);
+	if (builder != NULL)
+	{
+		if (this->build_target)
+		{
+			/* a build operation is currently running */
+			if (strcmp (this->build_target, target) == 0)
+			{
+				/* It is the same one, just ignore */
+				return TRUE;
+			}
+			else
+			{
+				/* Cancel old operation */
+				ianjuta_builder_cancel (builder, this->build_id, NULL);
+			}
+		}
+		
+		this->build_target = g_strdup (target);
+		if (this->build_id == 0)
+			this->build_id = g_quark_from_static_string(BUILD_TARGET);
+
+		this->build_handle = g_signal_connect (builder, "command-finished::" BUILD_TARGET, G_CALLBACK (on_is_built_finished), this);
+
+		/* Check if target is up to date */
+		return ianjuta_builder_is_built (builder, target, this->build_id, NULL);
+	}
+	else
+	{
+		/* Unable to build target, just launch debugger */
+		return load_target (this, target);
+	}	
+}
+
+static gboolean
+dma_start_load_and_start_uri (DmaStart *this, const gchar *target)
+{
+	GnomeVFSURI *vfs_uri;
+
+	if (!dma_quit_debugger (this)) return FALSE;
+	
+	vfs_uri = gnome_vfs_uri_new (target);
+	g_return_val_if_fail (vfs_uri != NULL, TRUE);
+	if (!gnome_vfs_uri_is_local (vfs_uri)) return FALSE;
+	gnome_vfs_uri_unref (vfs_uri);
+	
+	return check_target (this, target);
 }
 
 /* Add source dialog
@@ -1133,12 +1201,7 @@ dma_attach_to_process (DmaStart* this)
 gboolean
 dma_run_target (DmaStart *this)
 {
-	gchar *dir_uri;
-	gchar *dir;
 	gchar *target;
-	gchar **env;
-	gchar *args;
-	gboolean run_in_terminal;
 
 	anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
 	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target, NULL);	
@@ -1153,34 +1216,8 @@ dma_run_target (DmaStart *this)
 		if (target == NULL) return FALSE;
 	}
 	
-	if (!dma_start_load_uri (this, target)) return FALSE;
+	if (!dma_start_load_and_start_uri (this, target)) return FALSE;
 	g_free (target);
-
-	anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
-	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
-					  RUN_PROGRAM_ARGS, G_TYPE_STRING, &args,
-					  RUN_PROGRAM_ENV, G_TYPE_STRV, &env,
-					  RUN_PROGRAM_NEED_TERM, G_TYPE_BOOLEAN, &run_in_terminal,
-					  NULL);	
-	
-	if (dir_uri != NULL)
-	{
-		dir = gnome_vfs_get_local_path_from_uri (dir_uri);
-		g_free (dir_uri);
-	}
-	else
-	{
-		dir = NULL;
-	}
-	
-	dma_queue_set_working_directory (this->debugger, dir);
-	g_free (dir);
-	
-	dma_queue_set_environment (this->debugger, env);
-	g_strfreev (env);
-	
-	dma_queue_start (this->debugger, args, run_in_terminal, FALSE);
-	g_free (args);
 	
 	return TRUE;
 }
@@ -1198,6 +1235,8 @@ dma_start_new (DebugManagerPlugin *plugin)
 	self->plugin = ANJUTA_PLUGIN (plugin);
 	self->debugger = dma_debug_manager_get_queue (plugin);
 	self->source_dirs = NULL;
+	self->build_target = NULL;
+	self->build_id = 0;
 	
 	g_signal_connect (self->plugin->shell, "save-session",
 					  G_CALLBACK (on_session_save), self);

@@ -1,9 +1,14 @@
 2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/start.c:
+	Fix #378903: Use IAnjutaBuilder to always debug an up to date program
+
+2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/run-program/plugin.c,
 	plugins/run-program/execute.c,
 	plugins/run-program/plugin.h:
-	Use the IAnjutaBuilder to always run an up to date program
+	Use IAnjutaBuilder to always run an up to date program
 
 2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
