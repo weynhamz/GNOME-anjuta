@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-28 12:07+0100\n"
-"PO-Revision-Date: 2008-02-28 12:08+0100\n"
+"POT-Creation-Date: 2008-05-24 12:11+0200\n"
+"PO-Revision-Date: 2008-05-24 12:11+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -433,7 +433,7 @@ msgstr ""
 "No s'ha pogut llegir «%s»: falten els connectors obligatoris següents:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1432
+#: ../libanjuta/anjuta-preferences.c:1456
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -441,7 +441,7 @@ msgstr ""
 "Voleu retornar les preferències\n"
 "als valors predeterminats?"
 
-#: ../libanjuta/anjuta-preferences.c:1436
+#: ../libanjuta/anjuta-preferences.c:1460
 msgid "_Reset"
 msgstr "_Reinicia"
 
@@ -706,8 +706,8 @@ msgstr "Munta %d: %s"
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a "
-"aquest tipus de fitxer."
+"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a aquest "
+"tipus de fitxer."
 
 #. Configure = ./configure script
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
@@ -1039,7 +1039,7 @@ msgid "Member Functions/Variables"
 msgstr "Membre de funcions/variables"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:515
+#: ../plugins/glade/plugin.c:502
 msgid "Properties"
 msgstr "Propietats"
 
@@ -2268,8 +2268,8 @@ msgstr "Fitxer"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:939
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:962
 msgid "Line"
 msgstr "Línia"
 
@@ -2327,7 +2327,7 @@ msgstr "Falta el fitxer %s"
 msgid "Load Target to debug"
 msgstr "Carrega l'objectiu a depurar"
 
-#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:427
 msgid "All files"
 msgstr "Tots els fitxers"
 
@@ -2505,8 +2505,8 @@ msgid "Close file"
 msgstr "Tanca el fitxer"
 
 #: ../plugins/document-manager/anjuta-docman.c:422
-#: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
-#: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
+#: ../plugins/file-loader/plugin.c:521 ../plugins/file-loader/plugin.c:784
+#: ../plugins/file-loader/plugin.c:794 ../plugins/file-loader/plugin.c:807
 msgid "Open file"
 msgstr "Obre un fitxer"
 
@@ -2555,9 +2555,9 @@ msgid "Do not show tabs"
 msgstr "No mostris les pestanyes"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:1732
+#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:2131
 msgid "Documents"
 msgstr "Documents"
 
@@ -2888,7 +2888,7 @@ msgstr "Repeteix la cerca ràpida"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1642
 msgid "_Edit"
 msgstr "_Edita"
 
@@ -3169,7 +3169,7 @@ msgid "Editor view settings"
 msgstr "Configuració de la visualització de l'editor"
 
 #: ../plugins/document-manager/plugin.c:587
-#: ../plugins/file-loader/plugin.c:1127
+#: ../plugins/file-loader/plugin.c:1141
 msgid "New"
 msgstr "Nou"
 
@@ -3181,41 +3181,41 @@ msgstr "Torna a carregar"
 msgid "Goto"
 msgstr "Vés a"
 
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:941
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:945
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:961
 msgid "Zoom"
 msgstr "Ampliació"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:963
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:941
-#: ../plugins/document-manager/plugin.c:955
+#: ../plugins/document-manager/plugin.c:950
+#: ../plugins/document-manager/plugin.c:964
 msgid "Mode"
 msgstr "Mode"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1022
+#: ../plugins/document-manager/plugin.c:1035
 msgid "Automatic"
 msgstr "Automàtic"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1534
+#: ../plugins/document-manager/plugin.c:1547
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "No s'ha pogut desar automàticament el %s"
 
-#: ../plugins/document-manager/plugin.c:1548
+#: ../plugins/document-manager/plugin.c:1561
 msgid "Autosave completed"
 msgstr "S'ha completat el desat automàtic"
 
@@ -3656,7 +3656,7 @@ msgstr ""
 "Es poden produir comportaments incorrectes o inestabilitats.\n"
 "L'Anjuta farà servir les opcions predeterminades (més limitades)"
 
-#: ../plugins/file-loader/plugin.c:144
+#: ../plugins/file-loader/plugin.c:158
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3677,111 +3677,111 @@ msgstr ""
 "\n"
 "Podeu intentar obrir-lo amb els connectors o aplicacions següents."
 
-#: ../plugins/file-loader/plugin.c:164
+#: ../plugins/file-loader/plugin.c:178
 msgid "Open with:"
 msgstr "Obre amb:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:172
+#: ../plugins/file-loader/plugin.c:186
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Gestor de documents"
 
-#: ../plugins/file-loader/plugin.c:418
+#: ../plugins/file-loader/plugin.c:432
 msgid "Anjuta Projects"
 msgstr "Projectes de l'Anjuta"
 
-#: ../plugins/file-loader/plugin.c:424
+#: ../plugins/file-loader/plugin.c:438
 msgid "C/C++ source files"
 msgstr "Fitxers de codi C/C++"
 
-#: ../plugins/file-loader/plugin.c:436
+#: ../plugins/file-loader/plugin.c:450
 msgid "C# source files"
 msgstr "Fitxers de codi C#"
 
-#: ../plugins/file-loader/plugin.c:442
+#: ../plugins/file-loader/plugin.c:456
 msgid "Java source files"
 msgstr "Fitxers de codi Java"
 
-#: ../plugins/file-loader/plugin.c:448
+#: ../plugins/file-loader/plugin.c:462
 msgid "Pascal source files"
 msgstr "Fitxers de codi Pascal"
 
-#: ../plugins/file-loader/plugin.c:453
+#: ../plugins/file-loader/plugin.c:467
 msgid "PHP source files"
 msgstr "Fitxers de codi PHP"
 
-#: ../plugins/file-loader/plugin.c:460
+#: ../plugins/file-loader/plugin.c:474
 msgid "Perl source files"
 msgstr "Fitxers de codi Perl"
 
-#: ../plugins/file-loader/plugin.c:466
+#: ../plugins/file-loader/plugin.c:480
 msgid "Python source files"
 msgstr "Fitxers de codi Python"
 
-#: ../plugins/file-loader/plugin.c:471
+#: ../plugins/file-loader/plugin.c:485
 msgid "Hyper text markup files"
 msgstr "Fitxers HTML"
 
-#: ../plugins/file-loader/plugin.c:480
+#: ../plugins/file-loader/plugin.c:494
 msgid "Shell scripts files"
 msgstr "Fitxers d'script per al intèrpret d'ordres"
 
-#: ../plugins/file-loader/plugin.c:485
+#: ../plugins/file-loader/plugin.c:499
 msgid "Makefiles"
 msgstr "Fitxers makefile"
 
-#: ../plugins/file-loader/plugin.c:491
+#: ../plugins/file-loader/plugin.c:505
 msgid "Lua files"
 msgstr "Fitxers Lua"
 
-#: ../plugins/file-loader/plugin.c:496
+#: ../plugins/file-loader/plugin.c:510
 msgid "Diff files"
 msgstr "Fitxers de diferències"
 
-#: ../plugins/file-loader/plugin.c:712
+#: ../plugins/file-loader/plugin.c:726
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "No es pot activar el connector: %s"
 
-#: ../plugins/file-loader/plugin.c:768
+#: ../plugins/file-loader/plugin.c:782
 msgid "_Open..."
 msgstr "_Obre..."
 
-#: ../plugins/file-loader/plugin.c:779 ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:793 ../plugins/file-loader/plugin.c:806
 msgid "_Open"
 msgstr "_Obre"
 
-#: ../plugins/file-loader/plugin.c:786 ../plugins/file-loader/plugin.c:799
+#: ../plugins/file-loader/plugin.c:800 ../plugins/file-loader/plugin.c:813
 msgid "Open _With"
 msgstr "Obre a_mb"
 
-#: ../plugins/file-loader/plugin.c:787 ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:801 ../plugins/file-loader/plugin.c:814
 msgid "Open with"
 msgstr "Obre amb"
 
-#: ../plugins/file-loader/plugin.c:1115 ../plugins/file-loader/plugin.c:1121
+#: ../plugins/file-loader/plugin.c:1129 ../plugins/file-loader/plugin.c:1135
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Carregador de fitxer"
 
-#: ../plugins/file-loader/plugin.c:1128
+#: ../plugins/file-loader/plugin.c:1142
 msgid "New file, project and project components."
 msgstr "Fitxer, projecte i components del projecte nous."
 
-#: ../plugins/file-loader/plugin.c:1137
+#: ../plugins/file-loader/plugin.c:1151
 msgid "Open"
 msgstr "Obre"
 
-#: ../plugins/file-loader/plugin.c:1143
+#: ../plugins/file-loader/plugin.c:1157
 msgid "Open _Recent"
 msgstr "Ob_re'n un recent"
 
-#: ../plugins/file-loader/plugin.c:1144
+#: ../plugins/file-loader/plugin.c:1158
 msgid "Open recent file"
 msgstr "Obre un fitxer recent"
 
-#: ../plugins/file-loader/plugin.c:1154
+#: ../plugins/file-loader/plugin.c:1168
 msgid "Open recent files"
 msgstr "Obre fitxers recents"
 
@@ -4123,25 +4123,25 @@ msgstr "No es pot iniciar el terminal per a depurar."
 msgid "Debug"
 msgstr "Depura"
 
-#: ../plugins/glade/plugin.c:505
+#: ../plugins/glade/plugin.c:492
 msgid "Widgets"
 msgstr "Ginys"
 
-#: ../plugins/glade/plugin.c:510
+#: ../plugins/glade/plugin.c:497
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:655
+#: ../plugins/glade/plugin.c:642
 #, c-format
 msgid "Not local file: %s"
 msgstr "No és un fitxer local: %s"
 
-#: ../plugins/glade/plugin.c:706
+#: ../plugins/glade/plugin.c:693
 #, c-format
 msgid "Could not open %s"
 msgstr "No es pot obrir %s"
 
-#: ../plugins/glade/plugin.c:783
+#: ../plugins/glade/plugin.c:770
 msgid "Could not create a new glade project."
 msgstr "No es pot crear un projecte nou del Glade."
 
@@ -4695,7 +4695,7 @@ msgstr "Estil d'indicador de missatge d'avís:"
 msgid "Warnings:"
 msgstr "Avisos:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "Tanca totes les pestanyes de missatges"
 
@@ -6593,15 +6593,15 @@ msgstr "Copia..."
 msgid "Diff..."
 msgstr "Diferències..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Operacions del Subversion"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Operacions emergents del Subversion"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Registre del Subversion"
 
@@ -7596,6 +7596,10 @@ msgid "Dock switcher style: "
 msgstr "Estil del canviador acoblable: "
 
 #: ../src/anjuta.glade.h:12
+msgid "Select projects directory"
+msgstr "Seleccioneu el directori del projecte"
+
+#: ../src/anjuta.glade.h:13
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7818,8 +7822,7 @@ msgstr "<b>Sagnat intel·ligent</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
-msgstr ""
-"Afegeix «(» després de la crida de completa automàticament de la funció"
+msgstr "Afegeix «(» després de la crida de completa automàticament de la funció"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
@@ -7862,30 +7865,30 @@ msgstr "Sagnat intel·ligent"
 msgid "Statement indentation size in spaces:"
 msgstr "Mida del sagnat de la sentència en espais:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1648
 msgid "_AutoComplete"
 msgstr "Completa _automàticament"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1649
 msgid "AutoComplete the current word"
 msgstr "Completa automàticament la paraula actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1655
 msgid "Auto Indent"
 msgstr "Sagnat automàtic"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sagnat automàtic de la línia actual o selecció basada en la configuració del "
 "sagnat"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1698
 msgid "C++/Java Assistance"
 msgstr "Assistència per a C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1786
+#: ../plugins/language-support-cpp-java/plugin.c:1795
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8603,8 +8606,8 @@ msgstr "Connector del gestor de depuració."
 #~ "Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
 #~ "parameters by default)."
 #~ msgstr ""
-#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres "
-#~ "«-gnu» predeterminats)."
+#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres «-"
+#~ "gnu» predeterminats)."
 
 #~ msgid "Cuddle Else"
 #~ msgstr "Abraça els «else»"
@@ -8749,8 +8752,7 @@ msgstr "Connector del gestor de depuració."
 #~ msgid ""
 #~ "Prefer to break long lines before the boolean operators '&&' and '||'."
 #~ msgstr ""
-#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i "
-#~ "«||»."
+#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i «||»."
 
 #~ msgid "Procnames start lines"
 #~ msgstr "Línies inicials dels noms de procediments"
@@ -9198,8 +9200,8 @@ msgstr "Connector del gestor de depuració."
 #~ "Incremental search for '%s' failed. Press Enter or click Find to continue "
 #~ "searching at the top."
 #~ msgstr ""
-#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o "
-#~ "feu clic a Cerca per a continuar des del principi."
+#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o feu "
+#~ "clic a Cerca per a continuar des del principi."
 
 #~ msgid "Incremental search for '%s' (continued at top) failed."
 #~ msgstr "Ha fallat la cerca incremental per a «%s» (des del començament)."
@@ -9576,8 +9578,8 @@ msgstr "Connector del gestor de depuració."
 #~ "\n"
 #~ "Your changes will be lost if you don't save them.\n"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte "
-#~ "«%s» abans de tancar?</span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte «%"
+#~ "s» abans de tancar?</span>\n"
 #~ "\n"
 #~ "Els canvis es perdran si no els deseu.\n"
 
