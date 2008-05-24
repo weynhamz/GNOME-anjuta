@@ -62,6 +62,11 @@ struct _RunProgramPlugin
 	/* Child watches */
 	GList *child;
 	guint child_exited_connection;
+	
+	/* Build data */	
+	GQuark build_id;
+	gchar *build_uri;
+	gulong build_handle;
 };
 
 void run_plugin_update_shell_value (RunProgramPlugin *plugin);

@@ -28,6 +28,7 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
+#include <libanjuta/interfaces/ianjuta-builder.h>
 
 #include <libgnomevfs/gnome-vfs-utils.h>
 
@@ -39,6 +40,7 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
+#define RUN_BUILD_TARGET_QUARK_STRING	"RUN_PLUGIN_BUILD_TARGET"
 
 /*----------------------------------------------------------------------------
  * Type definitions
@@ -51,6 +53,70 @@ struct _RunProgramChild
 	gboolean use_signal;
 	gboolean terminated;
 };
+
+/* Helper functions
+ *---------------------------------------------------------------------------*/
+
+static gchar *
+get_local_executable (GtkWindow *parent, const gchar *uri)
+{
+	const gchar *err_msg = NULL;
+	gchar *local = NULL;
+
+	if (uri != NULL)
+	{
+		local = gnome_vfs_get_local_path_from_uri (uri);
+		if (local == NULL)
+		{
+			/* Only local program are supported */
+			err_msg = _("Program '%s' is not a local file");
+		}
+		else
+		{
+			if (g_file_test (local, G_FILE_TEST_EXISTS) == FALSE)
+			{
+				err_msg = _("Program '%s' does not exists");
+			}
+			else if (g_file_test (local, G_FILE_TEST_IS_EXECUTABLE) == FALSE)
+			{
+				err_msg = _("Program '%s' does not have execution permission");
+			}
+		}
+	}
+
+	if (err_msg)
+	{	
+		anjuta_util_dialog_error (parent, err_msg, local == NULL ? uri : local);
+		g_free (local);
+		local = NULL;
+	}
+	
+	return local;
+}
+
+static gchar *
+get_local_directory (GtkWindow *parent, const gchar *uri)
+{
+	const gchar *err_msg = NULL;
+	gchar *local = NULL;
+
+	if (uri != NULL)
+	{
+		local = gnome_vfs_get_local_path_from_uri (uri);
+		if (local == NULL)
+		{
+			/* Only local directory are supported */
+			err_msg = _("Program directory '%s' is not local");
+		}
+	}
+	
+	if (err_msg)
+	{
+		anjuta_util_dialog_error (parent, err_msg, uri);
+	}
+	
+	return local;
+}
 
 /* Private functions
  *---------------------------------------------------------------------------*/
@@ -101,71 +167,10 @@ on_child_terminated (GPid pid, gint status, gpointer user_data)
 	run_plugin_child_free (plugin, pid);
 }
 
-
 static void
 on_child_terminated_signal (IAnjutaTerminal *term, GPid pid, gint status, gpointer user_data)
 {
 	on_child_terminated (pid, status, user_data);
-}
-
-static gboolean
-get_local_executable_and_directory (RunProgramPlugin *plugin, gchar **local, gchar **dir)
-{
-	gchar *prog_uri = NULL;
-	gchar *dir_uri = NULL;
-	const gchar *err_msg = NULL;
-	const gchar *err_target = NULL;
-	
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-	 				  RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
-					  RUN_PROGRAM_URI, G_TYPE_STRING, &prog_uri, NULL);
-	*local = NULL;
-	*dir = NULL;
-
-	if (prog_uri == NULL)
-	{
-		err_msg = "";	/* No error message, just do nothing */
-	}
-	else if ((*local = gnome_vfs_get_local_path_from_uri (prog_uri)) == NULL)
-	{
-		/* Only local program are supported */
-		err_msg = _("Program '%s' is not a local file");
-		err_target = prog_uri;	
-	}
-	else if ((dir_uri != NULL) && ((*dir = gnome_vfs_get_local_path_from_uri (dir_uri)) == NULL))
-	{
-		/* Only local directory are supported */
-		err_msg = _("Program directory '%s' is not local");
-		err_target = dir_uri;	
-	}
-	else
-	{
-		if (g_file_test (*local, G_FILE_TEST_EXISTS) == FALSE)
-		{
-			err_msg = _("Program '%s' does not exists");
-		}
-		else if (g_file_test (*local, G_FILE_TEST_IS_EXECUTABLE) == FALSE)
-		{
-			err_msg = _("Program '%s' does not have execution permission");
-		}
-		err_target = dir_uri;	
-	}
-	
-	if (err_msg && (*err_msg != '\0'))
-	{	
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), err_msg, err_target);
-	}
-	g_free (prog_uri);
-	g_free (dir_uri);
-	if (err_msg != NULL)
-	{
-		g_free (*local);
-		*local = NULL;
-		g_free (*dir);
-		*dir = NULL;
-	}
-	
-	return err_msg == NULL;
 }
 
 static GPid
@@ -299,15 +304,13 @@ execute_without_terminal (RunProgramPlugin *plugin,
 	return pid;
 }
 
-/* Public functions
- *---------------------------------------------------------------------------*/
-
-gboolean
-run_plugin_run_program (RunProgramPlugin *plugin)
+static gboolean
+run_program (RunProgramPlugin *plugin)
 {
 	gchar *target;
 	gchar *quote_target;
 	gchar *dir = NULL;
+	gchar *dir_uri = NULL;
 	gchar *args = NULL;
 	gchar **env = NULL;
 	gchar *cmd;
@@ -315,8 +318,27 @@ run_plugin_run_program (RunProgramPlugin *plugin)
 	AnjutaPreferences *prefs;
 	GPid pid;
 	
-	if (!get_local_executable_and_directory (plugin, &target, &dir))
-		return FALSE;
+	target = get_local_executable (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+								plugin->build_uri);
+	g_free (plugin->build_uri);
+	plugin->build_uri = NULL;
+	if (target == NULL) return FALSE;
+
+	/* Get directory from shell */
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					RUN_PROGRAM_DIR, G_TYPE_STRING, &dir_uri,
+					NULL);
+	if (dir_uri != NULL)
+	{
+		dir = get_local_directory (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+									dir_uri);
+		g_free (dir_uri);
+		if (dir == NULL) return FALSE;
+	}
+	else
+	{
+		dir = g_path_get_dirname (target);
+	}
 	
 	/* Get other parameters from shell */
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
@@ -324,11 +346,6 @@ run_plugin_run_program (RunProgramPlugin *plugin)
 					RUN_PROGRAM_ENV, G_TYPE_STRV, &env,
 					RUN_PROGRAM_NEED_TERM, G_TYPE_BOOLEAN, &run_in_terminal,
 					NULL);
-	
-	/* TODO: Check if target is up to date */
-
-	if (dir == NULL)
-		dir = g_path_get_dirname (target);
 	
 	/* Quote target name */
 	quote_target = g_shell_quote (target);
@@ -383,6 +400,107 @@ run_plugin_run_program (RunProgramPlugin *plugin)
 	g_free (cmd);
 
 	return TRUE;
+}
+
+static void
+on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+{
+	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
+	
+	g_signal_handler_disconnect (builder, plugin->build_handle); 
+
+	if (err == NULL)
+	{
+		/* Up to date, run program */
+		run_program (plugin);
+	}
+	else
+	{
+		g_free (plugin->build_uri);
+		plugin->build_uri = NULL;
+	}
+}
+
+static void
+on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+{
+	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
+	
+	g_signal_handler_disconnect (builder, plugin->build_handle); 
+
+	if (err == NULL)
+	{
+		/* Up to date, run program */
+		run_program (plugin);
+	}
+	else if (err->code == IANJUTA_BUILDER_FAILED)
+	{
+		/* Target is not up to date */
+		plugin->build_handle = g_signal_connect (builder, "command-finished::" RUN_BUILD_TARGET_QUARK_STRING, G_CALLBACK (on_build_finished), plugin);
+
+		/* Build target */
+		ianjuta_builder_build (builder, plugin->build_uri, plugin->build_id, NULL);
+	}
+	else
+	{
+		g_free (plugin->build_uri);
+		plugin->build_uri = NULL;
+	}
+}
+
+static gboolean
+check_target (RunProgramPlugin *plugin)
+{
+	IAnjutaBuilder *builder;
+	gchar *prog_uri;
+
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  RUN_PROGRAM_URI, G_TYPE_STRING, &prog_uri, NULL);
+	
+	builder = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaBuilder, NULL);
+	if (builder != NULL)
+	{
+		if (plugin->build_uri)
+		{
+			/* a build operation is currently running */
+			if (strcmp (plugin->build_uri, prog_uri) == 0)
+			{
+				/* It is the same one, just ignore */
+				return TRUE;
+			}
+			else
+			{
+				/* Cancel old operation */
+				ianjuta_builder_cancel (builder, plugin->build_id, NULL);
+			}
+		}
+		
+		plugin->build_uri = prog_uri;
+		if (plugin->build_id == 0)
+			plugin->build_id = g_quark_from_static_string(RUN_BUILD_TARGET_QUARK_STRING);
+
+		plugin->build_handle = g_signal_connect (builder, "command-finished::" RUN_BUILD_TARGET_QUARK_STRING, G_CALLBACK (on_is_built_finished), plugin);
+
+		/* Check if target is up to date */
+		return ianjuta_builder_is_built (builder, plugin->build_uri, plugin->build_id, NULL);
+	}
+	else
+	{
+		plugin->build_uri = prog_uri;
+		
+		/* Unable to build target, just run it */
+		return run_program (plugin);
+	}	
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+gboolean
+run_plugin_run_program (RunProgramPlugin *plugin)
+{
+	/* Check if target is up to date */
+	return check_target (plugin);
 }
 
 gboolean
