@@ -1,3 +1,8 @@
+2008-05-25  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor_cbs.c:
+	Set line to mouse location when popup-menu is displayed (#530689)
+
 2008-05-25  James Liggett  <jrliggett@cox.net>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

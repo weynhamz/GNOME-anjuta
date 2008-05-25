@@ -73,14 +73,29 @@ gboolean
 on_text_editor_text_event (GtkWidget * widget,
 						   GdkEvent * event, gpointer user_data)
 {
+	TextEditor *te = TEXT_EDITOR (user_data);
 	GdkEventButton *bevent;
+
 	if (event->type != GDK_BUTTON_PRESS)
 		return FALSE;
 	if (((GdkEventButton *) event)->button != 3)
 		return FALSE;
+	if (!text_editor_has_selection (te))
+	{
+		/* Move cursor to set breakpoints at correct line (#530689) */
+		glong pos;
+		gint x = (gint)((GdkEventButton *) event)->x;
+		gint y = (gint)((GdkEventButton *) event)->y;
+
+		pos = scintilla_send_message (SCINTILLA (te->scintilla), SCI_POSITIONFROMPOINT, x, y);
+		if (pos >= 0)
+		{
+			scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS, pos, 0);
+		}
+	}
 	bevent = (GdkEventButton *) event;
 	bevent->button = 1;
-	gtk_menu_popup (GTK_MENU (TEXT_EDITOR (user_data)->popup_menu),
+	gtk_menu_popup (GTK_MENU (te->popup_menu),
 					NULL, NULL, NULL, NULL,
 					bevent->button, bevent->time);
 	return TRUE;
