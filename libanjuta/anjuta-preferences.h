@@ -215,6 +215,7 @@ gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
 
 /* Dialog methods */
 GtkWidget *anjuta_preferences_get_dialog (AnjutaPreferences *pr);
+gboolean anjuta_preferences_is_dialog_created (AnjutaPreferences *pr);
 
 /* Key notifications */
 guint anjuta_preferences_notify_add (AnjutaPreferences *pr,

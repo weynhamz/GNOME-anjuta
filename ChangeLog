@@ -1,3 +1,14 @@
+2008-05-25  Naba Kumar  <naba@naba-desktop>
+
+	Patch from: Pavel Kostyuchenko
+
+	* libanjuta/anjuta-preferences.c
+	(anjuta_preferences_is_dialog_created):
+	* libanjuta/anjuta-preferences.h:
+	* src/action-callbacks.c (on_set_preferences1_activate):
+	Fixed bug #532537 - Crash on closing Anjuta Preferences when it
+	open twice.
+
 2008-05-25  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor_cbs.c:

@@ -80,6 +80,11 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 
 	GtkWidget *preferences_dialog;
 	
+	if (anjuta_preferences_is_dialog_created (app->preferences))
+	{
+		gtk_window_present (GTK_WINDOW (anjuta_preferences_get_dialog (app->preferences)));
+		return;
+	}
 	preferences_dialog = anjuta_preferences_get_dialog (app->preferences);
 	
 	/* Install main application preferences */
