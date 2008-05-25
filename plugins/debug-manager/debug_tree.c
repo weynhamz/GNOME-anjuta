@@ -637,7 +637,7 @@ on_treeview_row_expanded       (GtkTreeView     *treeview,
 									 
 	gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);
 
-	if ((data != NULL) && (data->name != NULL))
+	if ((data != NULL) && (data->name != NULL) && (tree->debugger != NULL))
 	{
 		DmaVariablePacket *pack;
 					
@@ -647,10 +647,6 @@ on_treeview_row_expanded       (GtkTreeView     *treeview,
 						data->name,
 						(IAnjutaDebuggerCallback)gdb_var_list_children,
 						pack);
-	}
-	else
-	{
-		DEBUG_PRINT("Unexpected expand on undefined variable");
 	}
 								 
 	return;
@@ -699,7 +695,7 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 		DmaVariablePacket *tran;
 
 		gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &item, -1);
-		if ((item != NULL) && (item->name != NULL))
+		if ((item != NULL) && (item->name != NULL) && (tree->debugger != NULL))
 		{
 			/* Variable is valid */
 			dma_queue_assign_variable (tree->debugger, item->name, text);

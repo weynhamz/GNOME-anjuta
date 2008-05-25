@@ -1,3 +1,13 @@
+2008-05-25  basti  <pee@hiddenbox.de>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/debug-manager/debug_tree.c:
+	Fix a crash when changing a watch while debugger is stopped
+
+	* plugins/gdb/plugin.c,
+	plugins/gdb/anjuta-gdb.plugin.in:
+	Allow loading application/octet-stream mime type
+
 2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c:
