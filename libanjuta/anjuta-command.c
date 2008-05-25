@@ -24,6 +24,31 @@
 
 #include "anjuta-command.h"
 
+/**
+ * SECTION: anjuta-command
+ * @short_description: System for creating objects that provide a standard 
+ *					   interface to external components (libraries, processes,
+ *					   etc.) 
+ * @see_also: #AnjutaAsyncCommand
+ * @include libanjuta/anjuta-command.h
+ *
+ * #AnjutaCommand is the base class for objects that are designed to provide 
+ * a layer of abstraction between UI code and some other component, like a 
+ * library or child process. AnjutaCommand provides a simple and consistent
+ * interface for plugins to interact with these components without needing 
+ * to concern themselves with the exact details of how these components work.
+ * 
+ * To create command objects, plugins derive them from an #AnjutaCommand 
+ * subclass like #AnjutaAsyncCommand, which runs commands in another thread.
+ * These classes determine how ::run is called and how signals are emitted.
+ * ::run is responsible for actually doing the work of the command. It is the 
+ * responsiblity of the command object that does a certain task to implement 
+ * ::run to do its job. Everything else is normally implemented by its parent
+ * classes at this point
+ *
+ * For an example of how to use #AnjutaCommand, see the Subversion plugin.
+ */
+
 struct _AnjutaCommandPriv
 {
 	gchar *error_message;
@@ -75,6 +100,13 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->set_error_message = anjuta_command_set_error_message;
 	klass->get_error_message = anjuta_command_get_error_message;
 
+	/**
+	 * AnjutaCommand::data-arrived:
+	 * @command: Command
+	 * 
+	 * Notifies clients that the command has processed data that is ready to 
+	 * be used.
+	 */
 	anjuta_command_signals[DATA_ARRIVED] =
 		g_signal_new ("data-arrived",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -85,6 +117,14 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 		              G_TYPE_NONE, 
 					  0);
 
+	/**
+	 * AnjutaCommand::command-finished:
+	 * @command: Command
+	 * @return_code: The return code of the finished commmand
+	 *
+	 * Indicates that the command has completed. Clients should at least handle
+	 * this signal to unref the command object. 
+	 */
 	anjuta_command_signals[COMMAND_FINISHED] =
 		g_signal_new ("command-finished",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -96,24 +136,59 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 		              G_TYPE_UINT);
 }
 
+/**
+ * anjuta_command_start:
+ * @self: Command object to start
+ *
+ * Starts a command. Client code can handle data from the command by connecting
+ * to the ::data-arrived signal. 
+ *
+ * #AnjutaCommand subclasses should override this method to determine how they
+ * call ::run, which actually does the command's legwork. 
+ */
 void
 anjuta_command_start (AnjutaCommand *self)
 {
 	ANJUTA_COMMAND_GET_CLASS (self)->start (self);
 }
 
+
+/**
+ * anjuta_command_notify_data_arrived:
+ * @self: Command object.
+ * 
+ * Used by base classes derived from #AnjutaCommand to emit the ::data-arrived
+ * signal. This method should not be used by client code or #AnjutaCommand 
+ * objects that are not base classes. 
+ */
 void
 anjuta_command_notify_data_arrived (AnjutaCommand *self)
 {
 	ANJUTA_COMMAND_GET_CLASS (self)->notify_data_arrived (self);
 }
 
+/**
+ * anjuta_command_notify_complete:
+ * @self: Command object.
+ * 
+ * Used by base classes derived from #AnjutaCommand to emit the 
+ * ::command-finished signal. This method should not be used by client code or  
+ * #AnjutaCommand objects that are not base classes. 
+ */
 void
 anjuta_command_notify_complete (AnjutaCommand *self, guint return_code)
 {
 	ANJUTA_COMMAND_GET_CLASS (self)->notify_complete (self, return_code);
 }
 
+/**
+ * anjuta_command_set_error_message:
+ * @self: Command object.
+ * @error_message: Error message.
+ * 
+ * Command objects use this to set error messages when they encounter some kind
+ * of failure. 
+ */
 void
 anjuta_command_set_error_message (AnjutaCommand *self, gchar *error_message)
 {
@@ -123,6 +198,18 @@ anjuta_command_set_error_message (AnjutaCommand *self, gchar *error_message)
 	self->priv->error_message = g_strdup (error_message);
 }
 
+/**
+ * anjuta_command_get_error_message:
+ * @self: Command object.
+ * @error_message: Error message.
+ * 
+ * Get the error message from the command, if there is one. This method is 
+ * normally used from a ::command-finished handler to report errors to the user
+ * when a command finishes. 
+ *
+ * Return value: Error message string that must be freed when no longer needed.
+ * If no error is set, return %NULL.
+ */
 gchar *
 anjuta_command_get_error_message (AnjutaCommand *self)
 {

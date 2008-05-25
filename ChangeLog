@@ -1,3 +1,10 @@
+2008-05-25  James Liggett  <jrliggett@cox.net>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* libanjuta/anjuta-command.c,
+	libanjuta/anjuta-async-command.c:
+	Document AnjutaCommand and AnjutaAsyncCommand
+
 2008-05-25  basti  <pee@hiddenbox.de>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

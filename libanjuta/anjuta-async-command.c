@@ -27,6 +27,25 @@
 
 #include "anjuta-async-command.h"
 
+/**
+ * SECTION: anjuta-async-command
+ * @short_description: #AnjutaCommand subclass that serves as the base for 
+ *					   commands that need to run in another thread.
+ * @include: libanjuta/anjuta-async-command.h
+ *
+ * #AnjutaAsyncCommand provides a simple way for plugins to run tasks that 
+ * are synchronous and usually take several seconds or longer to execute in 
+ * another thread so that such tasks do no block Anjuta's user interface.
+ *
+ * #AnjutaAsyncCommand automatically runs and manages the thread when the 
+ * command starts, and destroys it when the command finishes. Aside from 
+ * locking protected data with anjuta_async_command_lock/unlock, clients, and
+ * even commands themselves need not even be concerned that their tasks are 
+ * rnning on another thread.
+ *
+ * For an example of how #AnjutaAsyncCommand is used, see the Subversion plugin.
+ */
+
 struct _AnjutaAsyncCommandPriv
 {
 	GMutex *mutex;
@@ -161,12 +180,24 @@ anjuta_async_command_get_error_message (AnjutaCommand *command)
 	return error_message;
 }
 
+/**
+ * anjuta_async_command_lock:
+ * @self: AnjutaAsyncCommand object.
+ *
+ * Locks the command's built-in mutex.
+ */
 void
 anjuta_async_command_lock (AnjutaAsyncCommand *self)
 {
 	g_mutex_lock (self->priv->mutex);
 }
 
+/**
+ * anjuta_async_command_unlock:
+ * @self: AnjutaAsyncCommand object.
+ *
+ * Unlocks the command's built-in mutex.
+ */
 void
 anjuta_async_command_unlock (AnjutaAsyncCommand *self)
 {
