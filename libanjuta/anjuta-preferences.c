@@ -1651,6 +1651,12 @@ anjuta_preferences_get_dialog (AnjutaPreferences *pr)
 	}
 }
 
+gboolean
+anjuta_preferences_is_dialog_created (AnjutaPreferences *pr)
+{
+	return pr->priv->prefs_dialog;
+}
+
 static void anjuta_preferences_class_init    (AnjutaPreferencesClass *class);
 static void anjuta_preferences_instance_init (AnjutaPreferences      *pr);
 
