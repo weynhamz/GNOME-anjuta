@@ -1,5 +1,11 @@
+2008-05-26  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated
+	* configure.in: Bumped version to 2.4.2
+
 2008-05-25  Naba Kumar  <naba@gnome.org>
 
+	Patch from Pavel Kostyuchenko:
 	* libanjuta/anjuta-preferences.c
 	(anjuta_preferences_is_dialog_created):
 	* libanjuta/anjuta-preferences.h:
@@ -21,7 +27,7 @@
 
 2008-05-19  Johannes Schmid  <jhs@gnome.org>
 
-  Patch from Pavel Kostyuchenko:
+	Patch from Pavel Kostyuchenko:
 	* plugins/glade/anjuta-design-document.h:
 	* plugins/glade/plugin.c (update_current_project),
 	(value_added_current_editor), (glade_update_ui),

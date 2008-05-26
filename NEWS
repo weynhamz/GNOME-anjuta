@@ -1,3 +1,24 @@
+Anjuta 2.4.2 (27 May 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+Translation updates: he, pt_BR, es, ca
+
+Bugfixes:
+=========
+* Fixed bug #440637: Make searching utf-8 aware
+* Fixed bug #528705: There is no Redo (from trunk)
+* Fixed bug #528693: Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window
+* Fixed bug #531623: Crash on updating non-existing watch
+* Fixed bug #532243: Execute Program with whitespace in the project path fails
+* Fixed bug #531940: Can't change the default project directory
+* Fixed bug #533346: Create project in path with spaces fails
+* Fixed bug #532625: Wrong consecution of functions calls when opening a glade file
+* Fixed bug #533758: django project creation fails
+* Fixed bug: crash when changing a watch while debugger is stopped
+* Fixed bug #532537: Crash on closing Anjuta Preferences when it open twice.
+
 Anjuta 2.4.1 (07 Apr 2008) -- Naba Kumar
 -----------------------------------------
 
