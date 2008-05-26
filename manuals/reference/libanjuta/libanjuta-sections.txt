@@ -700,6 +700,28 @@ IANJUTA_BUILDABLE_GET_IFACE
 </SECTION>
 
 <SECTION>
+<FILE>ianjuta-builder</FILE>
+IANJUTA_TYPE_BUILDER_ERROR
+IAnjutaBuilderError
+IANJUTA_BUILDER_ERROR
+IAnjutaBuilderHandle
+IAnjutaBuilderCallback
+IAnjutaBuilder
+IAnjutaBuilderIface
+ianjuta_builder_error_quark
+ianjuta_builder_get_type
+ianjuta_builder_build
+ianjuta_builder_cancel
+ianjuta_builder_is_built
+<SUBSECTION Standard>
+IANJUTA_BUILDER
+IANJUTA_IS_BUILDER
+IANJUTA_TYPE_BUILDER
+ianjuta_builder_error_get_type
+IANJUTA_BUILDER_GET_IFACE
+</SECTION>
+
+<SECTION>
 <FILE>ianjuta-debug-manager</FILE>
 IANJUTA_DEBUG_MANAGER_ERROR
 IAnjutaDebugManager

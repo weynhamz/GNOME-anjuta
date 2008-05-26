@@ -40,8 +40,6 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
-#define RUN_BUILD_TARGET_QUARK_STRING	"RUN_PLUGIN_BUILD_TARGET"
-
 /*----------------------------------------------------------------------------
  * Type definitions
  */
@@ -403,12 +401,10 @@ run_program (RunProgramPlugin *plugin)
 }
 
 static void
-on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+on_build_finished (GObject *builder, GError *err, gpointer user_data)
 {
 	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
 	
-	g_signal_handler_disconnect (builder, plugin->build_handle); 
-
 	if (err == NULL)
 	{
 		/* Up to date, run program */
@@ -422,12 +418,10 @@ on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
 }
 
 static void
-on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+on_is_built_finished (GObject *builder, GError *err, gpointer user_data)
 {
 	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
 	
-	g_signal_handler_disconnect (builder, plugin->build_handle); 
-
 	if (err == NULL)
 	{
 		/* Up to date, run program */
@@ -436,10 +430,7 @@ on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
 	else if (err->code == IANJUTA_BUILDER_FAILED)
 	{
 		/* Target is not up to date */
-		plugin->build_handle = g_signal_connect (builder, "command-finished::" RUN_BUILD_TARGET_QUARK_STRING, G_CALLBACK (on_build_finished), plugin);
-
-		/* Build target */
-		ianjuta_builder_build (builder, plugin->build_uri, plugin->build_id, NULL);
+		plugin->build_handle = ianjuta_builder_build (IANJUTA_BUILDER (builder), plugin->build_uri, on_build_finished, plugin, NULL);
 	}
 	else
 	{
@@ -471,18 +462,16 @@ check_target (RunProgramPlugin *plugin)
 			else
 			{
 				/* Cancel old operation */
-				ianjuta_builder_cancel (builder, plugin->build_id, NULL);
+				ianjuta_builder_cancel (builder, plugin->build_handle, NULL);
 			}
 		}
 		
 		plugin->build_uri = prog_uri;
-		if (plugin->build_id == 0)
-			plugin->build_id = g_quark_from_static_string(RUN_BUILD_TARGET_QUARK_STRING);
-
-		plugin->build_handle = g_signal_connect (builder, "command-finished::" RUN_BUILD_TARGET_QUARK_STRING, G_CALLBACK (on_is_built_finished), plugin);
 
 		/* Check if target is up to date */
-		return ianjuta_builder_is_built (builder, plugin->build_uri, plugin->build_id, NULL);
+		plugin->build_handle = ianjuta_builder_is_built (builder, plugin->build_uri, on_is_built_finished, plugin, NULL);
+
+		return plugin->build_handle != 0;
 	}
 	else
 	{

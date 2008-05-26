@@ -1,3 +1,17 @@
+2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/start.c,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/run-program/plugin.c,
+	plugins/run-program/execute.c,
+	plugins/run-program/plugin.h,
+	libanjuta/interfaces/libanjuta.idl,
+	libanjuta/interfaces/anjuta-idl-compiler.pl,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt:
+	Change the new IAnjutaBuilder interface to use callbacks
+	Add the documentation of IAnjutaBuilder
+
 2008-05-25  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Pavel Kostyuchenko

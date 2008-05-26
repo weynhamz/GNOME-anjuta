@@ -85,6 +85,7 @@
     <title>Plugin interfaces</title>
 	<xi:include href="xml/ianjuta-bookmark.xml"/>
 	<xi:include href="xml/ianjuta-buildable.xml"/>
+	<xi:include href="xml/ianjuta-builder.xml"/>
 	<xi:include href="xml/ianjuta-debugger.xml"/>
 	<xi:include href="xml/ianjuta-debugger-breakpoint.xml"/>
 	<xi:include href="xml/ianjuta-debugger-instruction.xml"/>

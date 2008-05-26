@@ -1313,7 +1313,7 @@ ${prefix}_base_init (${class}Iface* klass)
 			$answer .= "\t\t/* Signal */";
 			$answer .="\n\t\tg_signal_new (\"$signal\",
 			$macro_type,
-			G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (${class}Iface, $func),
 			NULL, NULL,
 			${marshaller});\n\n";

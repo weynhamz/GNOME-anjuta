@@ -128,9 +128,8 @@ struct _DmaStart
 	gboolean stop_at_beginning;
 	GList *source_dirs;
 	
-	GQuark build_id;
 	gchar *build_target;
-	gulong build_handle;
+	IAnjutaBuilderHandle build_handle;
 };
 
 /* Widgets found in glade file
@@ -155,8 +154,6 @@ struct _DmaStart
 
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
-
-#define BUILD_TARGET	"DMA_BUILD_TARGET"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
@@ -876,12 +873,10 @@ load_target (DmaStart *this, const gchar *target)
 }
 
 static void
-on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+on_build_finished (GObject *builder, GError *err, gpointer user_data)
 {
 	DmaStart *this = (DmaStart *)user_data;
 	
-	g_signal_handler_disconnect (builder, this->build_handle); 
-
 	if (err == NULL)
 	{
 		/* Up to date, start debugger */
@@ -893,12 +888,10 @@ on_build_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
 }
 
 static void
-on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
+on_is_built_finished (GObject *builder, GError *err, gpointer user_data)
 {
 	DmaStart *this = (DmaStart *)user_data;
 	
-	g_signal_handler_disconnect (builder, this->build_handle); 
-
 	if (err == NULL)
 	{
 		/* Up to date, start debugger */
@@ -907,10 +900,7 @@ on_is_built_finished (IAnjutaBuilder *builder, GError *err, gpointer user_data)
 	else if (err->code == IANJUTA_BUILDER_FAILED)
 	{
 		/* Target is not up to date */
-		this->build_handle = g_signal_connect (builder, "command-finished::" BUILD_TARGET, G_CALLBACK (on_build_finished), this);
-
-		/* Build target */
-		ianjuta_builder_build (builder, this->build_target, this->build_id, NULL);
+		this->build_handle = ianjuta_builder_build (IANJUTA_BUILDER (builder), this->build_target, on_build_finished, this, NULL);
 		return;
 	}
 	
@@ -937,18 +927,15 @@ check_target (DmaStart *this, const gchar *target)
 			else
 			{
 				/* Cancel old operation */
-				ianjuta_builder_cancel (builder, this->build_id, NULL);
+				ianjuta_builder_cancel (builder, this->build_handle, NULL);
 			}
 		}
 		
 		this->build_target = g_strdup (target);
-		if (this->build_id == 0)
-			this->build_id = g_quark_from_static_string(BUILD_TARGET);
-
-		this->build_handle = g_signal_connect (builder, "command-finished::" BUILD_TARGET, G_CALLBACK (on_is_built_finished), this);
 
 		/* Check if target is up to date */
-		return ianjuta_builder_is_built (builder, target, this->build_id, NULL);
+		this->build_handle = ianjuta_builder_is_built (builder, target, on_is_built_finished, this, NULL);
+		return this->build_handle != 0;
 	}
 	else
 	{
@@ -1236,7 +1223,6 @@ dma_start_new (DebugManagerPlugin *plugin)
 	self->debugger = dma_debug_manager_get_queue (plugin);
 	self->source_dirs = NULL;
 	self->build_target = NULL;
-	self->build_id = 0;
 	
 	g_signal_connect (self->plugin->shell, "save-session",
 					  G_CALLBACK (on_session_save), self);
