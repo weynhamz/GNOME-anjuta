@@ -1,5 +1,11 @@
 2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/reference/libanjuta/libanjuta-docs.sgml:
+	Forget this change to add AnjutaCommand and AnjutaAsyncCommand
+	in the documentation
+
+2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/start.c,
 	plugins/build-basic-autotools/build-basic-autotools.c,
 	plugins/run-program/plugin.c,
