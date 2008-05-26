@@ -11,7 +11,7 @@
 	* libanjuta/anjuta-preferences.h:
 	* src/action-callbacks.c (on_set_preferences1_activate):
 	Fixed bug #532537 - Crash on closing Anjuta Preferences when it
-	open twice.
+	open twice. (Backported from trunk)
 
 2008-05-25  basti  <pee@hiddenbox.de>
 
