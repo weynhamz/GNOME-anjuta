@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 13:58+0200\n"
-"PO-Revision-Date: 2008-04-30 14:07+0200\n"
+"POT-Creation-Date: 2008-05-27 12:16+0200\n"
+"PO-Revision-Date: 2008-05-27 12:19+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -190,7 +190,7 @@ msgstr "Non se pode executar o comando: \"%s\""
 msgid "execvp failed"
 msgstr "fallou execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -218,7 +218,7 @@ msgid "Load"
 msgstr "Cargar"
 
 #: ../libanjuta/anjuta-plugin-manager.c:912
-#: ../libanjuta/anjuta-plugin-manager.c:1850
+#: ../libanjuta/anjuta-plugin-manager.c:1851
 msgid "Available Plugins"
 msgstr "Complementos dispoñibles"
 
@@ -258,49 +258,49 @@ msgstr "Seleccione un complemento para activar"
 msgid "No plugin able to load other plugins in %s"
 msgstr "Non existe un complemento capaz de cargar outros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1869
+#: ../libanjuta/anjuta-plugin-manager.c:1870
 msgid "Remember this selection"
 msgstr "Lembrar esta selección"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2196
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Profiles"
 msgstr "Perfís"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Current stack of profiles"
 msgstr "Pila actual de perfís"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2202
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Available plugins"
 msgstr "Complementos dispoñibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2203
+#: ../libanjuta/anjuta-plugin-manager.c:2204
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos dispoñibles actualmente que se encontran na ruta de complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2209
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2210
+#: ../libanjuta/anjuta-plugin-manager.c:2211
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2216
+#: ../libanjuta/anjuta-plugin-manager.c:2217
 msgid "Anjuta shell for which the plugins are"
 msgstr "O shell de Anjuta que conterá os complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2224
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2225
+#: ../libanjuta/anjuta-plugin-manager.c:2226
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Estado de Anjuta a usar na activación e desactivación de complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Loaded: "
 msgstr "Cargado: "
 
@@ -376,7 +376,7 @@ msgstr ""
 "Fallou ao ler '%s': Faltan os seguintes complementos obrigatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1432
+#: ../libanjuta/anjuta-preferences.c:1456
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -384,7 +384,7 @@ msgstr ""
 "Está seguro de que quere reiniciar as preferencias\n"
 "aos seus valores predeterminados?"
 
-#: ../libanjuta/anjuta-preferences.c:1436
+#: ../libanjuta/anjuta-preferences.c:1460
 msgid "_Reset"
 msgstr "_Reiniciar"
 
@@ -415,7 +415,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Se non garda, perderanse tódolos cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:197
-#: ../plugins/document-manager/plugin.c:583
+#: ../plugins/document-manager/plugin.c:611
 msgid "Save"
 msgstr "Gardar"
 
@@ -567,7 +567,7 @@ msgid "Install as root:"
 msgstr "Instalar como root:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
-#: ../plugins/document-manager/anjuta-docman.c:311
+#: ../plugins/document-manager/anjuta-docman.c:451
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -584,85 +584,113 @@ msgstr "Seleccionar programa"
 msgid "Use scratchbox"
 msgstr "Usar scratchbox"
 
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:279
+msgid "Command aborted"
+msgstr "Comando abortado"
+
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:637
 #, c-format
 msgid "make[%d]: Entering directory '%s'"
 msgstr "make [%d]: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:638
 #, c-format
 msgid "make: Entering directory '%s'"
 msgstr "make: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:566
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:639
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entrando no directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:567
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:640
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entrando no directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:582
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:655
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando: %s"
 
 #. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:663
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr "make [%d]: Deixando o directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:664
 #, c-format
 msgid "make: Leaving directory '%s'"
 msgstr "make: Deixando o directorio '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:665
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Deixando o directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:593
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:666
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Deixando o directorio `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:609
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:682
 #, c-format
 msgid "Leaving: %s"
 msgstr "Deixando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:641
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:714
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:842
+#, c-format
+msgid "Command exited with status %d"
+msgstr "O comando saíu con estado %d"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:852
+#, c-format
+msgid "Command canceled by user"
+msgstr "Comando cancelado polo usuario"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:857
+#, c-format
+msgid "Command aborted by user"
+msgstr "Comando abortado polo usuario"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:862
+#, c-format
+msgid "Command terminated with signal %d"
+msgstr "Comando terminado con sinal %d"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:870
+msgid "Command terminated for an unknown reason"
+msgstr "Comando terminado cunha razón descoñecida"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:882
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total empregado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:768
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:887
 msgid "Completed unsuccessful\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:773
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:892
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:827
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:938
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construír %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1221
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
@@ -670,180 +698,179 @@ msgstr ""
 "este tipo de ficheiro."
 
 #. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1093
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1263
 msgid "Configure"
 msgstr "Configurar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1127
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1298
 msgid "Autogenerate"
 msgstr "Xerar automaticamente"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1439
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1605
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1514
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1582
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1610
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1620
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1786
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1337
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1518
 msgid "_Build Project"
 msgstr "_Construír proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1338
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1519
 msgid "Build whole project"
 msgstr "Construír o proxecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1524
 msgid "_Install Project"
 msgstr "_Instalar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1525
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1530
 msgid "_Clean Project"
 msgstr "_Limpar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1531
 msgid "Clean whole project"
 msgstr "Limpa todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1536
 msgid "Run C_onfigure..."
 msgstr "Executar C_onfiguración..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1537
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1542
 msgid "Run _Autogenerate..."
 msgstr "Executar _Autoxerar..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1543
 msgid "Autogenerate project files"
 msgstr "Auto-xerar os ficheiros do proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1548
 msgid "Build _Tarball"
 msgstr "Construír _paquete de distribución"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1549
 msgid "Build project tarball distribution"
 msgstr "Constrúe un paquete para a distribución do proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1554
 msgid "_Build Module"
 msgstr "_Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1555
 msgid "Build module associated with current file"
 msgstr "Constrúe o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1560
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1561
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1566
 msgid "_Clean Module"
 msgstr "_Limpar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1567
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1572
 msgid "Co_mpile File"
 msgstr "Co_mpilar ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1573
 msgid "Compile current editor file"
 msgstr "Compila o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1405
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1433
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1586
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1614
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1406
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1434
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1615
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1440
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1593
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1621
 msgid "Build module"
 msgstr "Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1609
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1598
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1790
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1599
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1627
 msgid "Install module"
 msgstr "Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1632
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1794
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1605
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1633
 msgid "Clean module"
 msgstr "Limpar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1798
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1807
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1633
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1814
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1640
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1821
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1647
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1828
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2235
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2061
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2242
 msgid "Build popup commands"
 msgstr "Comandos de construcción emerxentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2363
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2383
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2630
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2650
 msgid "Build Autotools"
 msgstr "Ferramentas automáticas de construción"
 
 #: ../plugins/build-basic-autotools/build-options.c:41
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "Por defecto"
 
@@ -876,19 +903,19 @@ msgstr "Non hai ficheiro ou proxecto aberto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:131
+#: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "O programa '%s' non é un ficheiro local"
 
 #: ../plugins/build-basic-autotools/executer.c:310
-#: ../plugins/run-program/execute.c:151
+#: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "O programa '%s' non existe"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:155
+#: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "O programa '%s' non ten permiso de execución"
@@ -903,17 +930,17 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "O executable '%s' non está actualizado."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:162
+#: ../plugins/class-inheritance/class-inherit.c:164
 msgid "Fixed data-view"
 msgstr "Vista de datos fixos"
 
-#: ../plugins/class-inheritance/class-inherit.c:1002
+#: ../plugins/class-inheritance/class-inherit.c:1008
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
 msgid "Update"
 msgstr "Actualizar"
 
-#: ../plugins/class-inheritance/class-inherit.c:1003
+#: ../plugins/class-inheritance/class-inherit.c:1009
 msgid "Update the graph"
 msgstr "Actualizar a gráfica"
 
@@ -1019,7 +1046,7 @@ msgid "Member Functions/Variables"
 msgstr "Funcións/Variables membro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:515
+#: ../plugins/glade/plugin.c:502
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -2253,8 +2280,8 @@ msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:981
 msgid "Line"
 msgstr "Liña"
 
@@ -2293,40 +2320,32 @@ msgstr "Tempo"
 msgid "Command"
 msgstr "Comando"
 
-#: ../plugins/debug-manager/start.c:254
-msgid ""
-"Some files are not saved. Do you want to save all them before starting the "
-"debugger?"
-msgstr ""
-"Algúns ficheiros non están gardados. Quere gardalos todos antes de iniciar o "
-"depurador?"
-
-#: ../plugins/debug-manager/start.c:645
+#: ../plugins/debug-manager/start.c:593
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Non se puido executar: %s"
 
-#: ../plugins/debug-manager/start.c:659
+#: ../plugins/debug-manager/start.c:607
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Non se puido abrir o ficheiro: %s\n"
 
-#: ../plugins/debug-manager/start.c:892
+#: ../plugins/debug-manager/start.c:862
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "Non se puido abrir %s. Non se pode iniciar o depurador."
 
-#: ../plugins/debug-manager/start.c:1020
+#: ../plugins/debug-manager/start.c:1075
 #: ../plugins/run-program/parameters.c:611
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta o ficheiro %s"
 
-#: ../plugins/debug-manager/start.c:1041
+#: ../plugins/debug-manager/start.c:1096
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1089 ../plugins/gdb/debugger.c:1685
+#: ../plugins/debug-manager/start.c:1144 ../plugins/gdb/debugger.c:1685
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2407,7 +2426,7 @@ msgid "Search Help:"
 msgstr "Buscar axuda:"
 
 #: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:253
-#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:262
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2464,7 +2483,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1688
 #: ../plugins/search/search-replace.c:1700
 #: ../plugins/search/search-replace.c:2018
-#: ../plugins/symbol-browser/plugin.c:913
+#: ../plugins/symbol-browser/plugin.c:941
 msgid "Search"
 msgstr "Buscar"
 
@@ -2490,23 +2509,23 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../plugins/document-manager/anjuta-docman.c:250
-#: ../plugins/document-manager/anjuta-docman.c:254
+#: ../plugins/document-manager/anjuta-docman.c:386
+#: ../plugins/document-manager/anjuta-docman.c:390
 msgid "Close file"
 msgstr "Pechar ficheiro"
 
-#: ../plugins/document-manager/anjuta-docman.c:422
+#: ../plugins/document-manager/anjuta-docman.c:567
 #: ../plugins/file-loader/plugin.c:530 ../plugins/file-loader/plugin.c:796
 #: ../plugins/file-loader/plugin.c:806 ../plugins/file-loader/plugin.c:819
 msgid "Open file"
 msgstr "Abrir ficheiro"
 
-#: ../plugins/document-manager/anjuta-docman.c:441
+#: ../plugins/document-manager/anjuta-docman.c:586
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Gardar ficheiro como"
 
-#: ../plugins/document-manager/anjuta-docman.c:520
+#: ../plugins/document-manager/anjuta-docman.c:665
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2516,7 +2535,7 @@ msgstr ""
 "O ficheiro '%s' xa existe.\n"
 "Quere remprazalo co que está tentando gardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:528
+#: ../plugins/document-manager/anjuta-docman.c:673
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Substituír"
@@ -2888,7 +2907,9 @@ msgstr "C_ortar"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Cortar o texto seleccionado do editor ao portapapeis"
 
-#: ../plugins/document-manager/plugin.c:308
+#. Action name
+#. Stock icon, if any
+#: ../plugins/document-manager/plugin.c:308 ../plugins/terminal/terminal.c:506
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Copy"
 msgstr "_Copiar"
@@ -2897,7 +2918,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia o texto seleccionado ao portapapeis"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:311 ../plugins/terminal/terminal.c:514
 #: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "_Paste"
 msgstr "_Pegar"
@@ -3066,110 +3087,131 @@ msgstr "_Limpar todos os marcadores"
 msgid "Clear bookmarks"
 msgstr "Limpar marcadores"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:397
+msgid "_Documents"
+msgstr "_Documentos"
+
+#: ../plugins/document-manager/plugin.c:398
+msgid "Previous Document"
+msgstr "Documento anterior"
+
+#: ../plugins/document-manager/plugin.c:399
+msgid "Switch to previous document"
+msgstr "Cambiar ao documento anterior"
+
+#: ../plugins/document-manager/plugin.c:401
+msgid "Next Document"
+msgstr "Seguinte documento"
+
+#: ../plugins/document-manager/plugin.c:402
+msgid "Switch to next document"
+msgstr "Cambiar ao documento seguinte"
+
+#: ../plugins/document-manager/plugin.c:421
 msgid "Editor file operations"
 msgstr "Operacións de edición de ficheiros"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:422
 msgid "Editor print operations"
 msgstr "Operacións de edicións de impresión"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:423
 msgid "Editor text transformation"
 msgstr "Transformación do editor de texto"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:424
 msgid "Editor text selection"
 msgstr "Selección do editor de texto"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:426
 msgid "Editor code commenting"
 msgstr "Comentarios do editor de código"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:427
 msgid "Editor navigations"
 msgstr "Navegación co editor"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:428
 msgid "Editor edit operations"
 msgstr "Operacións de edición do editor"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:429
 msgid "Editor zoom operations"
 msgstr "Operacións de ampliación do editor"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:430
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de resaltado de sintaxe do editor"
 
-#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:431
 msgid "Editor text formating"
 msgstr "Formatado do texto do editor"
 
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:432
 msgid "Editor bookmarks"
 msgstr "Marcadores do editor"
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:433
 msgid "Simple searching"
 msgstr "Busca simple"
 
-#: ../plugins/document-manager/plugin.c:427
+#: ../plugins/document-manager/plugin.c:434
+#: ../plugins/document-manager/plugin.c:1748
+#: ../plugins/document-manager/plugin.c:2144
+#: ../plugins/document-manager/plugin.c:2154
+msgid "Documents"
+msgstr "Documentos"
+
+#: ../plugins/document-manager/plugin.c:438
 msgid "Editor view settings"
 msgstr "Configuración da vista do editor"
 
-#: ../plugins/document-manager/plugin.c:587
+#: ../plugins/document-manager/plugin.c:615
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:621
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:931
+#: ../plugins/document-manager/plugin.c:960
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:935
+#: ../plugins/document-manager/plugin.c:964
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:937
-#: ../plugins/document-manager/plugin.c:951
+#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:980
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:939
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:968
+#: ../plugins/document-manager/plugin.c:982
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:969
+#: ../plugins/document-manager/plugin.c:983
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1025
+#: ../plugins/document-manager/plugin.c:1054
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1537
+#: ../plugins/document-manager/plugin.c:1563
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Fallou o gardado automático para %s"
 
-#: ../plugins/document-manager/plugin.c:1551
+#: ../plugins/document-manager/plugin.c:1577
 msgid "Autosave completed"
 msgstr "Gardado automático completado"
-
-#: ../plugins/document-manager/plugin.c:1722
-#: ../plugins/document-manager/plugin.c:2118
-#: ../plugins/document-manager/plugin.c:2128
-msgid "Documents"
-msgstr "Documentos"
 
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
@@ -3848,16 +3890,16 @@ msgstr "Cargando..."
 msgid "Filename"
 msgstr "Nome de ficheiro"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:396
 msgid "Base uri"
 msgstr "Uri base"
 
-#: ../plugins/file-manager/file-view.c:401
+#: ../plugins/file-manager/file-view.c:397
 msgid "Uri of the top-most path displayed"
 msgstr "Uri da ruta superior mostrada"
 
 #: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
-#: ../plugins/symbol-browser/plugin.c:310
+#: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "_Recargar"
 
@@ -3907,7 +3949,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: ../plugins/macro/anjuta-macro.glade.h:6
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nome:"
@@ -4141,25 +4183,25 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "Non se puido iniciar o terminal para depuración."
 
-#: ../plugins/glade/plugin.c:505
+#: ../plugins/glade/plugin.c:492
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:510
+#: ../plugins/glade/plugin.c:497
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:655
+#: ../plugins/glade/plugin.c:642
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ficheiro non local: %s"
 
-#: ../plugins/glade/plugin.c:706
+#: ../plugins/glade/plugin.c:693
 #, c-format
 msgid "Could not open %s"
 msgstr "Non se puido abrir %s"
 
-#: ../plugins/glade/plugin.c:783
+#: ../plugins/glade/plugin.c:770
 msgid "Could not create a new glade project."
 msgstr "Non se puido crear un novo proxecto glade."
 
@@ -4313,54 +4355,54 @@ msgstr "Data de vencemento"
 msgid "Summary"
 msgstr "Resumo"
 
-#: ../plugins/gtodo/libgtodo.c:609
+#: ../plugins/gtodo/libgtodo.c:597
 #, c-format
 msgid "No permission to read the file."
 msgstr "Sen permiso para ler o ficheiro"
 
-#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:624 ../plugins/gtodo/libgtodo.c:634
 #, c-format
 msgid "Failed to parse xml structure"
 msgstr "Fallou ao analizar a estrutura xml"
 
-#: ../plugins/gtodo/libgtodo.c:654
+#: ../plugins/gtodo/libgtodo.c:642
 #, c-format
 msgid "File is not a valid gtodo file"
 msgstr "O ficheiro non é un ficherio gtodo válido"
 
-#: ../plugins/gtodo/libgtodo.c:666
+#: ../plugins/gtodo/libgtodo.c:654
 msgid "Personal"
 msgstr "Persoal"
 
-#: ../plugins/gtodo/libgtodo.c:668
+#: ../plugins/gtodo/libgtodo.c:656
 msgid "Business"
 msgstr "Traballo"
 
-#: ../plugins/gtodo/libgtodo.c:670
+#: ../plugins/gtodo/libgtodo.c:658
 msgid "Unfiled"
 msgstr "Non arquivado"
 
-#: ../plugins/gtodo/libgtodo.c:759
+#: ../plugins/gtodo/libgtodo.c:747
 #, c-format
 msgid "No Gtodo Client to save."
 msgstr "Non hai un cliente Gtodo para gardar."
 
-#: ../plugins/gtodo/libgtodo.c:778
+#: ../plugins/gtodo/libgtodo.c:766
 #, c-format
 msgid "Failed to delete %s."
 msgstr "Fallou ao borrar %s."
 
-#: ../plugins/gtodo/libgtodo.c:794
+#: ../plugins/gtodo/libgtodo.c:782
 #, c-format
 msgid "Failed to create/open file."
 msgstr "Fallou ao crear/abrir o ficheiro."
 
-#: ../plugins/gtodo/libgtodo.c:803
+#: ../plugins/gtodo/libgtodo.c:791
 #, c-format
 msgid "Failed to write data to file."
 msgstr "Fallou ao escribir os datos ao ficheiro."
 
-#: ../plugins/gtodo/libgtodo.c:880
+#: ../plugins/gtodo/libgtodo.c:868
 #, c-format
 msgid "No filename supplied."
 msgstr "Nome de ficheiro non proporcionado."
@@ -5354,11 +5396,11 @@ msgstr "Accións do xestor de proxectos"
 msgid "Project manager popup actions"
 msgstr "Accións emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2351
+#: ../plugins/project-manager/plugin.c:2374
 msgid "Loaded Project... Initializing"
 msgstr "Proxecto cargado... Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2362
+#: ../plugins/project-manager/plugin.c:2385
 msgid "Loaded Project..."
 msgstr "Proxecto cargado..."
 
@@ -5869,7 +5911,7 @@ msgid "Program:"
 msgstr "Programa:"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:137
+#: ../plugins/run-program/execute.c:107
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "O directorio do programa '%s' non é local"
@@ -6765,6 +6807,27 @@ msgstr "Introduza unha revisión."
 msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: Obtendo diff..."
 
+#: ../plugins/subversion/subversion-log-dialog.c:117
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/subversion/subversion-log-dialog.c:130
+msgid "Author"
+msgstr "Autor"
+
+#: ../plugins/subversion/subversion-log-dialog.c:139
+msgid "Date"
+msgstr "Data"
+
+#: ../plugins/subversion/subversion-log-dialog.c:149
+msgid "Revision"
+msgstr "Revisión"
+
+#: ../plugins/subversion/subversion-log-dialog.c:158
+#, fuzzy
+msgid "Short Log"
+msgstr "_Mostrar rexistro"
+
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
 msgstr "Subversion: Obtendo rexistro..."
@@ -6983,75 +7046,79 @@ msgstr "Engadir directorios na lista para escanear:"
 msgid "Create API tags"
 msgstr "Crear etiquetas do API"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+msgid "Load API tags from project configuration"
+msgstr "Cargar as etiquetas API desde a configuración do proxecto"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update Global Tags"
 msgstr "Actualizar as etiquetas globais"
 
-#: ../plugins/symbol-browser/plugin.c:266
+#: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
 msgstr "_Definición de etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:268
-#: ../plugins/symbol-browser/plugin.c:288
+#: ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/symbol-browser/plugin.c:289
 msgid "Goto symbol definition"
 msgstr "Ir á definición do símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:274
+#: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
 msgstr "De_claración de etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:276
-#: ../plugins/symbol-browser/plugin.c:296
+#: ../plugins/symbol-browser/plugin.c:277
+#: ../plugins/symbol-browser/plugin.c:297
 msgid "Goto symbol declaration"
 msgstr "Ir a declaración de símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:286
+#: ../plugins/symbol-browser/plugin.c:287
 msgid "Goto _Definition"
 msgstr "_Definición goto"
 
-#: ../plugins/symbol-browser/plugin.c:294
+#: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto De_claration"
 msgstr "De_claración goto"
 
-#: ../plugins/symbol-browser/plugin.c:302
+#: ../plugins/symbol-browser/plugin.c:303
 msgid "_Find Usage"
 msgstr "_Buscar uso"
 
-#: ../plugins/symbol-browser/plugin.c:304
+#: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
 msgstr "Buscar uso do símbolo no proxecto"
 
-#: ../plugins/symbol-browser/plugin.c:312
+#: ../plugins/symbol-browser/plugin.c:313
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar a árbore do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:381
+#: ../plugins/symbol-browser/plugin.c:385
 msgid "Created symbols..."
 msgstr "Símbolos creados..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:872
+#: ../plugins/symbol-browser/plugin.c:900
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:892
+#: ../plugins/symbol-browser/plugin.c:920
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:964
 msgid "Symbol browser actions"
 msgstr "Accións do examinador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:943
+#: ../plugins/symbol-browser/plugin.c:971
 msgid "Symbol browser popup actions"
 msgstr "Accións emerxentes do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:950
+#: ../plugins/symbol-browser/plugin.c:978
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:959
+#: ../plugins/symbol-browser/plugin.c:987
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -7080,16 +7147,28 @@ msgstr "botón"
 msgid "<b>Terminal options</b>"
 msgstr "<b>Opcións de terminal</b>"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid ""
+"Default\n"
+"\n"
+msgstr ""
+"Por defecto\n"
+"\n"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
 msgid "Use GNOME terminal profile:"
 msgstr "Usar o perfil do terminal de Gnome:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:6
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar o perfil actualmente seleccionado no terminal de Gnome"
 
-#: ../plugins/terminal/terminal.c:576 ../plugins/terminal/terminal.c:688
-#: ../plugins/terminal/terminal.c:704
+#: ../plugins/terminal/terminal.c:603
+msgid "terminal operations"
+msgstr "operación de terminal"
+
+#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:775
+#: ../plugins/terminal/terminal.c:822
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -7777,6 +7856,10 @@ msgid "Dock switcher style:"
 msgstr "Estilo das anclaxes:"
 
 #: ../src/anjuta.glade.h:17
+msgid "Select projects directory"
+msgstr "Seleccionar directorio de proxectos"
+
+#: ../src/anjuta.glade.h:18
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7791,7 +7874,7 @@ msgstr ""
 "Separadores"
 
 #. translators: translate the same as in gnome-control-center
-#: ../src/anjuta.glade.h:23
+#: ../src/anjuta.glade.h:24
 msgid "Toolbar button labels:"
 msgstr "Etiquetas do botón da barra de ferramentas:"
 
@@ -8299,6 +8382,13 @@ msgstr "Permitir executar programa sen depurador."
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
 msgstr "Executar programa"
+
+#~ msgid ""
+#~ "Some files are not saved. Do you want to save all them before starting "
+#~ "the debugger?"
+#~ msgstr ""
+#~ "Algúns ficheiros non están gardados. Quere gardalos todos antes de "
+#~ "iniciar o depurador?"
 
 #~ msgid "gtk-apply"
 #~ msgstr "gtk-apply"
