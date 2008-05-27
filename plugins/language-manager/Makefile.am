@@ -39,6 +39,9 @@ liblanguage_manager_la_SOURCES = plugin.c plugin.h
 liblanguage_manager_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
+liblanguage_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(language_manager_plugin_DATA) \

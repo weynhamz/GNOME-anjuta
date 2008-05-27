@@ -8,6 +8,7 @@ AM_CPPFLAGS = \
 	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(GNOME_UI_CFLAGS) \
 	$(GCONF_CFLAGS) \
+	$(X11_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	-DEGG_COMPILATION \
 	-DEGG_GLADEDIR=\"$(gladefiledir)\" \
@@ -56,6 +57,7 @@ libanjuta_egg_la_SOURCES = \
 
 libanjuta_egg_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_egg_la_LIBADD = \
+	$(X11_LIBS) \
 	$(GNOME_VFS_MODULE_LIBS) \
 	$(GNOME_UI_LIBS) \
 	$(GCONF_LIBS)

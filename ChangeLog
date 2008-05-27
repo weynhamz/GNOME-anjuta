@@ -1,3 +1,11 @@
+2008-05-27  Johannes Schmid  <jhs@gnome.org>
+
+  Patch from  Frederic Crozat:
+	* configure.in:
+	* libegg/Makefile.am:
+	* plugins/language-manager/Makefile.am:
+	#535048 – Anjuta doesn't build when checking underlinking and overlinking
+
 2008-05-26  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated
