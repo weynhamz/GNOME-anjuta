@@ -1,3 +1,22 @@
+2008-05-27  basti  <pee@hiddenbox.de>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* scripts/anjuta_import.sh.in,
+	plugins/tools/scripts/prepare-changelog.pl,
+	global-tags/create_global_tags.sh.in:
+	Use sh instead of bash when possible
+
+	* plugins/sourceview/anjuta-document-saver.c,
+	plugins/sourceview/anjuta-document-loader.c:
+	Order of include matter on OpenBSD
+
+	* plugins/debug-manager/start.c:
+	ps syntax differ on *BSD
+
+	* libanjuta/anjuta-launcher.c:
+	Fix #527357: gdb plugin doesn't work under OpenBSD (do not clear
+	CREAD). Fix #528226: doesn't compiling on FreeBSD6.3
+
 2008-05-27  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-manager/Makefile.am:

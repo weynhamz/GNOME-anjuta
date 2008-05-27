@@ -36,13 +36,14 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#if !defined(__sun) && !defined(__NetBSD__)
-#  ifndef FREEBSD
-#    include <pty.h>
-#  else
-#    include <libutil.h>
-#  endif
+#if defined(__FreeBSD__)
+#  include <libutil.h>
+#elif defined(__OpenBSD__) || defined(__NetBSD__)
+#  include <util.h>
+#elif !defined(__sun)
+#  include <pty.h>
 #endif
+
 #include "anjuta-utils-priv.h"
 
 #include <assert.h>
@@ -65,11 +66,15 @@
 #define FILE_BUFFER_SIZE 1024
 #define FILE_INPUT_BUFFER_SIZE		1048576
 #ifndef __MAX_BAUD
-#ifdef __CYGWIN__
-#define __MAX_BAUD B256000
-#else
-#define __MAX_BAUD B460800
-#endif
+#  if defined(B460800)
+#    define __MAX_BAUX B460800
+#  elif defined(B307200)
+#    define __MAX_BAUX B307200
+#  elif defined(B256000)
+#    define __MAX_BAUX B256000
+#  else
+#    define __MAX_BAUX B230400
+#  endif
 #endif
 
 /*
@@ -1209,7 +1214,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	termios_flags.c_iflag |= IGNBRK | BRKINT | IMAXBEL | IXANY;
 	termios_flags.c_oflag &= ~OPOST;
 //	termios_flags.c_oflag |= 0;
-	termios_flags.c_cflag &= ~(CSTOPB | CREAD | PARENB | HUPCL);
+	termios_flags.c_cflag &= ~(CSTOPB | PARENB | HUPCL);
 	termios_flags.c_cflag |= CS8 | CLOCAL;
 
 	if (!launcher->priv->terminal_echo_on)

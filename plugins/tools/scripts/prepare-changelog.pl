@@ -116,7 +116,7 @@ else
 	$cached = "--cached";
       }
     print $tmphandle <<EOF;
-#!/bin/bash
+#!/bin/sh
 echo "Index: \$1"
 echo "==================================================================="
 diff -b \$2 \$5 || true

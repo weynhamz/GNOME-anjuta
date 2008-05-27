@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Shell script to automatically create an Anjuta 1.x project file
 # Copyright: Biswapesh Chattopadhyay (biswapesh_chatterjee@tcscal.co.in) 2001-2002

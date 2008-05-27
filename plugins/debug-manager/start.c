@@ -580,7 +580,11 @@ attach_process_update (AttachProcess * ap)
 		return;
 
 	tmp = anjuta_util_get_a_tmp_file ();
+#if defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__NetBSD__)
+	cmd = g_strconcat ("ps axw -o pid,user,lstart,args > ", tmp, NULL);
+#else
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
+#endif
 	shell = gnome_util_user_shell ();
 	ch_pid = fork ();
 	if (ch_pid == 0)
