@@ -1,3 +1,9 @@
+2008-05-27  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-manager/Makefile.am:
+	Merged patch from bug 
+	#535048 – Anjuta doesn't build when checking underlinking and overlinking
+
 2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/reference/libanjuta/libanjuta-docs.sgml:
