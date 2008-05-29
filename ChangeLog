@@ -6,6 +6,8 @@
 	* plugins/language-manager/Makefile.am:
 	#535048 – Anjuta doesn't build when checking underlinking and overlinking
 
+=== anjuta 2.4.2 ===
+
 2008-05-26  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated
