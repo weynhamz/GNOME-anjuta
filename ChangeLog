@@ -1,3 +1,9 @@
+2008-05-29  Arun Tejasvi Chaganty  <arunchaganty@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* manuals/reference/libanjuta/writing-plugins.sgml:
+	Fix #534175: Deprecated code in Plugin Tutorial
+
 2008-05-27  basti  <pee@hiddenbox.de>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
