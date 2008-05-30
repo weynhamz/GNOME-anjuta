@@ -1,3 +1,16 @@
+2008-05-30  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl,
+	libanjuta/interfaces/libanjuta.idl,
+	manuals/reference/libanjuta/libanjuta-sections.txt:
+	Keep comment for enum and structures
+	Declare class typedef first
+	Allow to document Anjuta shell variable using define
+	Add a documentation sample in IAnjutaProjectManager interface
+
+	* manuals/reference/libanjuta/writing-plugins.sgml:
+	Fix a detail in the previous patch
+
 2008-05-29  Arun Tejasvi Chaganty  <arunchaganty@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

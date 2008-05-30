@@ -261,6 +261,18 @@ while ($line = <INFILE>)
 		$linenum++;
 		next;
 	}
+	my $define_hr = {};
+	if (is_define($line, $define_hr))
+	{
+		die "Parse error at $idl_file:$linenum: Defines should only be in interface"
+			if (current_level(@level) ne "interface");
+		die "Parse error at $idl_file:$linenum: Class name expected"
+			if ($current_class eq "");
+		my $comments_in = get_comments();
+		compile_define($data_hr, $current_class, $comments_in, $define_hr);
+		$linenum++;
+		next;
+	}
 	if (is_block_end($line))
 	{
 		if (current_level(@level) eq "interface")
@@ -449,6 +461,19 @@ sub is_method
 	return 0;
 }
 
+sub is_define
+{
+	my ($line, $define_hr) = @_;
+	if ($line =~ /^\s*#define\s+([\w_][\w\d_]*)\s+(.*)\s*$/)
+	{
+		$define_hr->{'name'} = $1;
+		$define_hr->{'value'} = $2;
+		## print "Define: $line\n";
+		return 1;
+	}
+	return 0;
+}
+
 sub normalize_namespace
 {
 	my ($current_class, $text) = @_;
@@ -573,6 +598,20 @@ sub compile_inclues
 		}
 		$class_hr->{'__include'} = \@includes;
 	}	
+}
+
+sub compile_define
+{
+	my ($data_hr, $current_class, $comments, $define_hr) = @_;
+	my $class_hr = $data_hr->{$current_class};
+	if (!defined($class_hr->{"__defines"}))
+	{
+		$class_hr->{"__defines"} = [];
+	}
+	my $defines_lr = $class_hr->{'__defines'};
+		
+	$define_hr->{'__comments'} = $comments;
+	push (@$defines_lr, $define_hr);
 }
 
 sub compile_typedef
@@ -992,6 +1031,7 @@ sub generate_class
 	{
 		$answer .= "#include <$module_name/interfaces/$parent_include>\n";
 	}
+
 	$answer .=
 "
 G_BEGIN_DECLS
@@ -1022,12 +1062,36 @@ G_BEGIN_DECLS
 		$answer .= "\n";
 	}
 	
+	$answer .=
+"#define ${macro_name}_ERROR ${prefix}_error_quark()
+
+";
+
+	## Added defines;
+	my $defines_lr = $class_hr->{"__defines"};
+	if (defined ($defines_lr))
+	{
+		foreach my $d (@$defines_lr)
+		{
+			my $comments_out = $d->{'__comments'};
+			my $name = $d->{'name'};
+			my $value = $d->{'value'};
+			$answer .= "${comments_out}#define\t${macro_name}_${name}\t${value}\n\n";
+		}
+		$answer .= "\n";
+	}
+
+	$answer .=
+"typedef struct _$class $class;
+typedef struct _${class}Iface ${class}Iface;\n\n";
+
 	## Added enums;
 	if (defined ($enums_hr))
 	{
 		foreach my $e (sort keys %$enums_hr)
 		{
-			$answer .= "typedef enum {\n";
+			my $comments_out = $enums_hr->{$e}->{'__comments'};
+			$answer .= "${comments_out}typedef enum {\n";
 			foreach my $d (@{$enums_hr->{$e}->{"__data"}})
 			{
 				$answer .= "\t${macro_name}_$d\n";
@@ -1041,7 +1105,8 @@ G_BEGIN_DECLS
 	{
 		foreach my $s (sort keys %$structs_hr)
 		{
-			$answer .= "typedef struct _${class}$s ${class}$s;\n";
+			my $comments_out = $structs_hr->{$s}->{'__comments'};
+			$answer .= "${comments_out}typedef struct _${class}$s ${class}$s;\n";
 			$answer .= "struct _${class}$s {\n";
 			foreach my $d (@{$structs_hr->{$s}->{"__data"}})
 			{
@@ -1051,11 +1116,7 @@ G_BEGIN_DECLS
 			$answer .= "};\n\n";
 		}
 	}
-	
-	$answer .=
-"#define ${macro_name}_ERROR ${prefix}_error_quark()
 
-";
 	## Added Typedefs
 	my $typedefs_lr = $class_hr->{"__typedefs"};
 	if (defined ($typedefs_lr))
@@ -1069,9 +1130,7 @@ G_BEGIN_DECLS
 	}
 	
 	$answer .=
-"typedef struct _$class $class;
-typedef struct _${class}Iface ${class}Iface;
-
+"
 struct _${class}Iface {
 	$parent_iface g_iface;
 	

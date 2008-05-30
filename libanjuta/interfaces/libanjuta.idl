@@ -2710,6 +2710,20 @@ interface IAnjutaTerminal
  */
 interface IAnjutaProjectManager
 {
+	/**
+	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI
+	*
+	* Anjuta shell value set by project manager to the project root uri.
+	*/
+	#define PROJECT_ROOT_URI	"project_root_uri"
+
+	/**
+	* IANJUTA_PROJECT_MANAGER_CURRENT_URI
+	*
+	* Anjuta shell value set by project manager to the current uri.
+	*/
+	#define CURRENT_URI		"project_manager_current_uri"
+
 	enum ElementType
 	{
 		UNKNOWN,

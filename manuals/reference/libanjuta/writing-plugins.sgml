@@ -217,7 +217,7 @@ typedef struct {
 #include "hello-world.h"
 
 /* Parent class. Part of standard class definition */
-gpointer parent_class;
+static gpointer parent_class;
 			</programlisting>
 		</para>
 		<para>
