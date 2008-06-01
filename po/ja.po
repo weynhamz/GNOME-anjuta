@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta trunk\n"
+"Project-Id-Version: anjuta anjuta-2-4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-01 14:27+0900\n"
 "PO-Revision-Date: 2008-06-01 14:26+0900\n"
