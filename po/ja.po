@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-08 21:35+0900\n"
-"PO-Revision-Date: 2008-03-08 21:35+0900\n"
+"POT-Creation-Date: 2008-06-01 14:27+0900\n"
+"PO-Revision-Date: 2008-06-01 14:26+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -432,7 +432,7 @@ msgstr ""
 "'%s' の読み込みに失敗: 次の必須なプラグインが見つかりません:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1432
+#: ../libanjuta/anjuta-preferences.c:1456
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -440,7 +440,7 @@ msgstr ""
 "本当に現在の設定をリセットして、\n"
 "デフォルトの設定に戻してもよろしいですか？"
 
-#: ../libanjuta/anjuta-preferences.c:1436
+#: ../libanjuta/anjuta-preferences.c:1460
 msgid "_Reset"
 msgstr "リセット(_R)"
 
@@ -1034,7 +1034,7 @@ msgid "Member Functions/Variables"
 msgstr "メンバ関数/変数"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:515
+#: ../plugins/glade/plugin.c:502
 msgid "Properties"
 msgstr "プロパティ"
 
@@ -2259,8 +2259,8 @@ msgstr "ファイル"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:939
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:962
 msgid "Line"
 msgstr "行"
 
@@ -2318,7 +2318,7 @@ msgstr "%s というファイルはありません"
 msgid "Load Target to debug"
 msgstr "デバッグするターゲットの選択"
 
-#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1032 ../plugins/file-loader/plugin.c:427
 msgid "All files"
 msgstr "全てのファイル"
 
@@ -2496,8 +2496,8 @@ msgid "Close file"
 msgstr "ファイルを閉じる"
 
 #: ../plugins/document-manager/anjuta-docman.c:422
-#: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
-#: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
+#: ../plugins/file-loader/plugin.c:521 ../plugins/file-loader/plugin.c:784
+#: ../plugins/file-loader/plugin.c:794 ../plugins/file-loader/plugin.c:807
 msgid "Open file"
 msgstr "ファイルを開きます"
 
@@ -2546,9 +2546,9 @@ msgid "Do not show tabs"
 msgstr "表示しない"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:1732
+#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:2131
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -2884,7 +2884,7 @@ msgstr "クィック検索を再び実行します"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1642
 msgid "_Edit"
 msgstr "編集(_E)"
 
@@ -3165,7 +3165,7 @@ msgid "Editor view settings"
 msgstr "エディタの表示設定"
 
 #: ../plugins/document-manager/plugin.c:587
-#: ../plugins/file-loader/plugin.c:1127
+#: ../plugins/file-loader/plugin.c:1141
 msgid "New"
 msgstr "新規"
 
@@ -3177,41 +3177,41 @@ msgstr "再読み込み"
 msgid "Goto"
 msgstr "ジャンプ"
 
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:941
 msgid "OVR"
 msgstr "[上書き]"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:945
 msgid "INS"
 msgstr "[挿入]"
 
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:961
 msgid "Zoom"
 msgstr "拡大レベル"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:963
 msgid "Col"
 msgstr "桁"
 
-#: ../plugins/document-manager/plugin.c:941
-#: ../plugins/document-manager/plugin.c:955
+#: ../plugins/document-manager/plugin.c:950
+#: ../plugins/document-manager/plugin.c:964
 msgid "Mode"
 msgstr "モード"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1022
+#: ../plugins/document-manager/plugin.c:1035
 msgid "Automatic"
 msgstr "自動的に強調表示"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1534
+#: ../plugins/document-manager/plugin.c:1547
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s の自動保存に失敗しました"
 
-#: ../plugins/document-manager/plugin.c:1548
+#: ../plugins/document-manager/plugin.c:1561
 msgid "Autosave completed"
 msgstr "自動保存が完了しました"
 
@@ -3651,7 +3651,7 @@ msgstr ""
 "これは不適当な動作または不確定要素による結果かもしれません。\n"
 "Anjuta は (限定された) 設定でビルドするためにフォールバックします。"
 
-#: ../plugins/file-loader/plugin.c:144
+#: ../plugins/file-loader/plugin.c:158
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3672,111 +3672,111 @@ msgstr ""
 "\n"
 "次のプラグインまたはアプリで開いてみて下さい:"
 
-#: ../plugins/file-loader/plugin.c:164
+#: ../plugins/file-loader/plugin.c:178
 msgid "Open with:"
 msgstr "次で開く:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:172
+#: ../plugins/file-loader/plugin.c:186
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "ドキュメント・マネージャ"
 
-#: ../plugins/file-loader/plugin.c:418
+#: ../plugins/file-loader/plugin.c:432
 msgid "Anjuta Projects"
 msgstr "Anjuta プロジェクト"
 
-#: ../plugins/file-loader/plugin.c:424
+#: ../plugins/file-loader/plugin.c:438
 msgid "C/C++ source files"
 msgstr "C/C++ ソースファイル:"
 
-#: ../plugins/file-loader/plugin.c:436
+#: ../plugins/file-loader/plugin.c:450
 msgid "C# source files"
 msgstr "C# ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:442
+#: ../plugins/file-loader/plugin.c:456
 msgid "Java source files"
 msgstr "Java ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:448
+#: ../plugins/file-loader/plugin.c:462
 msgid "Pascal source files"
 msgstr "Pascal ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:453
+#: ../plugins/file-loader/plugin.c:467
 msgid "PHP source files"
 msgstr "PHP ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:460
+#: ../plugins/file-loader/plugin.c:474
 msgid "Perl source files"
 msgstr "Perl ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:466
+#: ../plugins/file-loader/plugin.c:480
 msgid "Python source files"
 msgstr "Python ソースファイル"
 
-#: ../plugins/file-loader/plugin.c:471
+#: ../plugins/file-loader/plugin.c:485
 msgid "Hyper text markup files"
 msgstr "HTML ファイル"
 
-#: ../plugins/file-loader/plugin.c:480
+#: ../plugins/file-loader/plugin.c:494
 msgid "Shell scripts files"
 msgstr "シェル・スクリプト"
 
-#: ../plugins/file-loader/plugin.c:485
+#: ../plugins/file-loader/plugin.c:499
 msgid "Makefiles"
 msgstr "Makefile"
 
-#: ../plugins/file-loader/plugin.c:491
+#: ../plugins/file-loader/plugin.c:505
 msgid "Lua files"
 msgstr "Lua ファイル"
 
-#: ../plugins/file-loader/plugin.c:496
+#: ../plugins/file-loader/plugin.c:510
 msgid "Diff files"
 msgstr "Diff ファイル"
 
-#: ../plugins/file-loader/plugin.c:712
+#: ../plugins/file-loader/plugin.c:726
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "プラグインの起動に失敗しました: %s"
 
-#: ../plugins/file-loader/plugin.c:768
+#: ../plugins/file-loader/plugin.c:782
 msgid "_Open..."
 msgstr "開く(_O)..."
 
-#: ../plugins/file-loader/plugin.c:779 ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:793 ../plugins/file-loader/plugin.c:806
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../plugins/file-loader/plugin.c:786 ../plugins/file-loader/plugin.c:799
+#: ../plugins/file-loader/plugin.c:800 ../plugins/file-loader/plugin.c:813
 msgid "Open _With"
 msgstr "次で開く(_W)"
 
-#: ../plugins/file-loader/plugin.c:787 ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:801 ../plugins/file-loader/plugin.c:814
 msgid "Open with"
 msgstr "別のアプリで開く"
 
-#: ../plugins/file-loader/plugin.c:1115 ../plugins/file-loader/plugin.c:1121
+#: ../plugins/file-loader/plugin.c:1129 ../plugins/file-loader/plugin.c:1135
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "フォルダの読み込み"
 
-#: ../plugins/file-loader/plugin.c:1128
+#: ../plugins/file-loader/plugin.c:1142
 msgid "New file, project and project components."
 msgstr "新しいファイルやプロジェクト、コンポーネントを生成します"
 
-#: ../plugins/file-loader/plugin.c:1137
+#: ../plugins/file-loader/plugin.c:1151
 msgid "Open"
 msgstr "開く"
 
-#: ../plugins/file-loader/plugin.c:1143
+#: ../plugins/file-loader/plugin.c:1157
 msgid "Open _Recent"
 msgstr "最近開いたファイル(_R)"
 
-#: ../plugins/file-loader/plugin.c:1144
+#: ../plugins/file-loader/plugin.c:1158
 msgid "Open recent file"
 msgstr "最近開いたファイルを読み込みます"
 
-#: ../plugins/file-loader/plugin.c:1154
+#: ../plugins/file-loader/plugin.c:1168
 msgid "Open recent files"
 msgstr "最近開いたファイルを読み込みます"
 
@@ -4115,25 +4115,25 @@ msgstr "デバッグ用の端末を起動できません。"
 msgid "Debug"
 msgstr "デバッグ"
 
-#: ../plugins/glade/plugin.c:505
+#: ../plugins/glade/plugin.c:492
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: ../plugins/glade/plugin.c:510
+#: ../plugins/glade/plugin.c:497
 msgid "Palette"
 msgstr "パレット"
 
-#: ../plugins/glade/plugin.c:655
+#: ../plugins/glade/plugin.c:642
 #, c-format
 msgid "Not local file: %s"
 msgstr "ローカルのファイルではありません: %s"
 
-#: ../plugins/glade/plugin.c:706
+#: ../plugins/glade/plugin.c:693
 #, c-format
 msgid "Could not open %s"
 msgstr "%s を開けませんでした"
 
-#: ../plugins/glade/plugin.c:783
+#: ../plugins/glade/plugin.c:770
 msgid "Could not create a new glade project."
 msgstr "新しい Glade プロジェクトを生成できませんでした"
 
@@ -6573,15 +6573,15 @@ msgstr "コピー..."
 msgid "Diff..."
 msgstr "差分..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Subversion の操作"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Subversion の操作"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Subversion のログ"
 
@@ -7519,7 +7519,7 @@ msgstr "Copyright (c) Naba Kumar"
 msgid "Anjuta Plugin"
 msgstr "Anjuta のプラグイン"
 
-#: ../src/action-callbacks.c:109
+#: ../src/action-callbacks.c:114
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -7569,6 +7569,10 @@ msgid "Dock switcher style: "
 msgstr "ドック切り替えボタンのスタイル: "
 
 #: ../src/anjuta.glade.h:12
+msgid "Select projects directory"
+msgstr "プロジェクト・フォルダの選択"
+
+#: ../src/anjuta.glade.h:13
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7825,28 +7829,28 @@ msgstr "スマート・インデント"
 msgid "Statement indentation size in spaces:"
 msgstr "文中のインデント (空白の数):"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1648
 msgid "_AutoComplete"
 msgstr "自動補完(_A)"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1649
 msgid "AutoComplete the current word"
 msgstr "選択している単語を自動補完します"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1655
 msgid "Auto Indent"
 msgstr "自動インデント"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "現在の行またはインデント設定に従った選択範囲をを自動インデントします"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1698
 msgid "C++/Java Assistance"
 msgstr "Ｃ++/Java 言語のアシスタンス"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1786
+#: ../plugins/language-support-cpp-java/plugin.c:1795
 msgid "C/C++/Java/Vala"
 msgstr "Ｃ/Ｃ++/Java/Vala"
 
