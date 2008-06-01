@@ -272,8 +272,8 @@ execute_without_terminal (RunProgramPlugin *plugin,
 		{
 			new_env[i++] = g_strdup (*p);
 		}	
-		new_env[i] = NULL;
 	}
+	new_env[i] = NULL;
 	
 	/* Run user program using in a shell */
 	user_shell = gnome_util_user_shell ();

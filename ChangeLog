@@ -1,3 +1,9 @@
+2008-06-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/run-program/execute.c:
+	Fix #536045: New run program plugin crash
+
 2008-05-30  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl,
