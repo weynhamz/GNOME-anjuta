@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-31 10:51+0200\n"
-"PO-Revision-Date: 2008-05-31 10:53+0200\n"
+"PO-Revision-Date: 2008-06-02 21:46+0200\n"
 "Last-Translator: Philipp Kerling <k.philipp@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -6553,7 +6553,7 @@ msgstr "Änderungen einchecken"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
-msgstr "Dateien/Verzeichnisse kopieren"
+msgstr "Dateien/Ordner kopieren"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Diff Selected Revisions"
@@ -6763,7 +6763,7 @@ msgstr "Dateien/Verzeichnisse kopieren …"
 #. short-cut
 #: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
 msgid "Copy files/folders in the repository"
-msgstr "Dateien/Verzeichnisse im Repository kopieren …"
+msgstr "Dateien/Ordner im Repository kopieren …"
 
 #. Action name
 #. Stock icon, if any
