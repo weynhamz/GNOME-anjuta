@@ -50,7 +50,6 @@
 #include "anjuta-utils.h"
 
 #include <gtksourceview/gtksourceiter.h>
-#include <pcre.h>
 
 #define ANJUTA_MAX_PATH_LEN  2048
 

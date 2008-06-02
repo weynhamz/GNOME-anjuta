@@ -28,7 +28,6 @@ search_ui_DATA = anjuta-search.ui
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PCRE_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
@@ -37,7 +36,6 @@ AM_CPPFLAGS = \
 libanjuta_search_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_search_la_LIBADD = \
-	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS) \

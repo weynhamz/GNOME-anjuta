@@ -24,7 +24,6 @@ sourceview_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PCRE_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(PLUGIN_SOURCEVIEW_CFLAGS) \
@@ -82,7 +81,6 @@ libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
-	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \

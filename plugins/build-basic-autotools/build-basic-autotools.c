@@ -20,7 +20,6 @@
 
 #include <config.h>
 #include <ctype.h>
-#include <pcre.h>
 
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
@@ -79,7 +78,7 @@ typedef struct
 	gchar *pattern;
 	int options;
 	gchar *replace;
-	pcre *regex;
+	GRegex *regex;
 } BuildPattern;
 
 typedef struct
@@ -424,8 +423,7 @@ static void
 build_regex_init ()
 {
 	GList *node;
-	const char *error;
-	int erroffset;
+	GError *error = NULL;
 
 	build_regex_load ();
 	if (!patterns_list)
@@ -441,15 +439,15 @@ build_regex_init ()
 		
 		pattern = node->data;
 		pattern->regex =
-			pcre_compile(
+			g_regex_new(
 			   pattern->pattern,
 			   pattern->options,
-			   &error,           /* for error message */
-			   &erroffset,       /* for error offset */
-			   NULL);            /* use default character tables */
-		if (pattern->regex == NULL) {
-			DEBUG_PRINT ("PCRE compilation failed: %s: regex \"%s\" at char %d",
-						pattern->pattern, error, erroffset);
+			   0,
+			   &error);           /* for error message */
+		if (error != NULL) {
+			DEBUG_PRINT ("GRegex compilation failed: pattern \"%s\": error %s",
+						pattern->pattern, error->message);
+			g_error_free (error);
 		}
 		node = g_list_next (node);
 	}
@@ -459,8 +457,8 @@ build_regex_init ()
 static gchar*
 build_get_summary (const gchar *details, BuildPattern* bp)
 {
-	int rc;
-	int ovector[30];
+	gboolean matched;
+	GMatchInfo *match_info;
 	const gchar *iter;
 	GString *ret;
 	gchar *final;
@@ -468,17 +466,13 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 	if (!bp || !bp->regex)
 		return NULL;
 	
-	rc = pcre_exec(
-			bp->regex,       /* result of pcre_compile() */
-			NULL,            /* we didn’t study the pattern */
-			details,         /* the subject string */
-			strlen (details),/* the length of the subject string */
-			0,               /* start at offset 0 in the subject */
-			bp->options,     /* default options */
-			ovector,         /* vector for substring information */
-			30);             /* number of elements in the vector */
+	matched = g_regex_match(
+			  bp->regex,       /* result of g_regex_new() */
+			  details,         /* the subject string */
+			  0,
+			  &match_info);
 	
-	if (rc < 0)
+	if (!matched)
 		return NULL;
 	
 	ret = g_string_new ("");
@@ -488,11 +482,15 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 		if (*iter == '\\' && isdigit(*(iter + 1)))
 		{
 			char temp[2] = {0, 0};
+			gint start_pos, end_pos;
 			
 			temp[0] = *(iter + 1);
 			int idx = atoi (temp);
-			ret = g_string_append_len (ret, details + ovector[2*idx],
-									   ovector[2*idx+1] - ovector[2*idx]);
+
+			g_match_info_fetch_pos (match_info, idx, &start_pos, &end_pos);
+
+			ret = g_string_append_len (ret, details + start_pos,
+									   end_pos - start_pos);
 			iter += 2;
 		}
 		else
@@ -507,6 +505,7 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 			ret = g_string_append_len (ret, start, end - start);
 		}
 	}
+	g_match_info_free (match_info);
 	
 	final = g_string_free (ret, FALSE);
 	if (strlen (final) <= 0) {

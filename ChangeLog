@@ -1,3 +1,21 @@
+2008-06-02  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/cvs-plugin/Makefile.am,
+	plugins/cvs-plugin/cvs-execute.c,
+	plugins/sourceview/anjuta-document.c,
+	plugins/sourceview/Makefile.am,
+	plugins/subversion/Makefile.am,
+	plugins/search/search-replace.h,
+	plugins/search/Makefile.am,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/Makefile.am,
+	plugins/editor/Makefile.am,
+	plugins/document-manager/Makefile.am,
+	plugins/macro/Makefile.am,
+	configure.in:
+	Fix #514620: Port anjuta to GRegex
+
 2008-06-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-marshal.list,

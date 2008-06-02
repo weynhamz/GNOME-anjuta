@@ -28,7 +28,6 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include <glade/glade.h>
-#include <pcre.h>
 
 #define CVS_ICON ""
 #define CVS_INFO_REGEXP "(cvs update:.|cvs server:.)"
@@ -48,39 +47,37 @@ on_cvs_mesg_format (IAnjutaMessageView *view, const gchar *line,
 					  AnjutaPlugin *plugin)
 {
 	IAnjutaMessageViewType type;
-	pcre *info, *err;
-	const gchar *err_buf;
-	int err_ptr, output[16];
+	GRegex *info, *err;
+	GError *error = NULL;
 	
 	g_return_if_fail (line != NULL);
 
 	/* Compile the regexps for message types. */
-	if (!(info = pcre_compile(CVS_INFO_REGEXP, 0, &err_buf, &err_ptr, NULL)))
+	info = g_regex_new (CVS_INFO_REGEXP, 0, 0, &error);
+	if (error != NULL)
 	{
-		g_free((gchar *) err_buf);
+		g_error_free (error);
 		return;
 	}
-	if (!(err = pcre_compile(CVS_ERR_REGEXP, 0, &err_buf, &err_ptr, NULL)))
+	err = g_regex_new (CVS_ERR_REGEXP, 0, 0, &error);
+	if (error != NULL)
 	{
-		g_free((gchar *) err_buf);
+		g_error_free (error);
 		return;
 	}		
 	
 	/* Match against type regexps to find the message type. */
-	if (pcre_exec(info, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
-	{
+	if (g_regex_match (info, line, 0, NULL))
 		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
-	}
-	else if (pcre_exec(err, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
-	{
+	else if (g_regex_match (info, line, 0, NULL))
 		type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
-	}
-	else type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+	else 
+		type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 
 	ianjuta_message_view_append (view, type, line, "", NULL);
 	
-	pcre_free(info);
-	pcre_free(err);
+	g_regex_unref (info);
+	g_regex_unref (err);
 }
 
 static void

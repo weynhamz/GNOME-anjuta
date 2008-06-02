@@ -7,7 +7,6 @@ extern "C"
 #endif
 
 #include <glib.h>
-#include <pcre.h>
 #include <glade/glade.h>
 
 typedef enum _GUIElementType

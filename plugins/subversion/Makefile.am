@@ -24,8 +24,7 @@ AM_CPPFLAGS= \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	$(SVN_CFLAGS) \
-	$(SVN_INCLUDE)\
-	$(PCRE_CFLAGS)
+	$(SVN_INCLUDE)
 
 plugindir = $(anjuta_plugin_dir)
 
@@ -35,7 +34,7 @@ libanjuta_subversion_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_subversion_la_LIBADD = \
 	$(GLADE_LIBS) $(GNOME_VFS_LIBS) \
-	$(LIBANJUTA_LIBS) $(PCRE_LIBS) $(SVN_LIB)
+	$(LIBANJUTA_LIBS) $(SVN_LIB)
 
 libanjuta_subversion_la_SOURCES = \
 	plugin.c \

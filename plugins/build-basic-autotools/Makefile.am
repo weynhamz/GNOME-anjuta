@@ -28,7 +28,6 @@ build_data_DATA = automake-c.filters
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PCRE_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
@@ -48,7 +47,6 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \
-	$(PCRE_LIBS) \
 	$(GLADE_LIBS) \
 	$(GNOME_LIBS) \
 	$(LIBANJUTA_LIBS)
