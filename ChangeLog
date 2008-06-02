@@ -1,3 +1,10 @@
+2008-06-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-marshal.list,
+	plugins/debug-manager/sexy-icon-entry.c:
+	Fix #536254: gtk_marshal_VOID__INT_INT shouldn't be used
+	Update sexy icon entry
+
 2008-06-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
