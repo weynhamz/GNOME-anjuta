@@ -1,3 +1,254 @@
+Anjuta 2.5.0 (02 June 2008) -- Naba Kumar
+-----------------------------------------
+
+Translations updates:
+=====================
+gl, zh_TW, el, ru, en_GB, es, he, de, cs, ar, fr
+
+Updates and bugfixes:
+=====================
+* Fix #514620: Port anjuta to GRegex
+* Fix #536254: gtk_marshal_VOID__INT_INT shouldn't be used
+* Update sexy icon entry
+* Fix #536045: New run program plugin crash
+* Keep comment for enum and structures
+* Declare class typedef first
+* Allow to document Anjuta shell variable using define
+* Add a documentation sample in IAnjutaProjectManager interface
+* Fix a detail in the previous patch
+* Fix #534175: Deprecated code in Plugin Tutorial
+* Use sh instead of bash when possible
+* Order of include matter on OpenBSD
+* ps syntax differ on *BSD
+* Fix #527357: gdb plugin doesn't work under OpenBSD (do not clear CREAD).
+* Fix #528226: doesn't compiling on FreeBSD6.3
+* #535048 – Anjuta doesn't build when checking underlinking and overlinking
+* Forget this change to add AnjutaCommand and AnjutaAsyncCommand
+  in the documentation
+* Change the new IAnjutaBuilder interface to use callbacks
+* Add the documentation of IAnjutaBuilder
+* Fixed bug #532537 - Crash on closing Anjuta Preferences when it
+  open twice.
+* Set line to mouse location when popup-menu is displayed (#530689)
+* Document AnjutaCommand and AnjutaAsyncCommand
+* Fix a crash when changing a watch while debugger is stopped
+* Allow loading application/octet-stream mime type
+* Fix #378903: Use IAnjutaBuilder to always debug an up to date program
+* Use IAnjutaBuilder to always run an up to date program
+* New IAnjutaBuilder interface allowing to check if a target is up to
+  data and having a notification when the target is built
+* Fix #533758: django project creation fails
+* #532625 – Wrong consecution of functions calls when opening a glade file
+* Fix #533346: Create project in path with spaces fails
+* Fix #531940: Can't change the default project directory
+* Remove useless _DEPENDENCIES
+* Fix #532243: Execute program with whitespace in the project path fails
+* Fix #531623: Crash on updating non-existing watch
+* Fixed a bunch of compiler warnings
+* Fixed global tags loading from project configuration and added a
+  configuration option
+* Fix translation issues (#530860 and #531411)
+* #531405 – AM_CONFIG_HEADER macro is obsolete
+* add limit/offset keywords to search query. Adjusted APIs.
+* Fixed a minor bug with caches in the engine.
+* The terminal configuration default option doesn't work (#530031)
+* Combobox for terminal choose not working (#530032)
+* Do not reverse list of file in save-session (#531445)
+* Set line to mouse location when popup-menu is displayed (#530689)
+* Add a context menu with copy/paste in terminal plugin
+* Add an interface method to access the pkg-config data from gnome-build.
+* Automatically load symbol from project configuration (proof-of-concept)
+* Adapt to changes in recent libgda for symbols-db
+* Fix run plugin again, previous patch was causing a crash when
+  the program exist
+* Fixed bug broken titles for new files
+* Added some utility methods (derived from gedit)
+* set message 'Generating inheritances...' when doing sdb_engine_second_pass_do ()
+* fixed a population bug introduced with using of caches. It broke the kind
+  of symbol in some cases (e.g. returning of table_id = -1). 
+* Avoid lazy initialization and inlined the lookup functions to speed up the
+  thing.
+* Performances improvement in sdb_engine_second_pass_update_heritage () using
+  a prepared query (libgda parser now rulez!). Some fixes to the lock ()/unlock ()
+  logic in this part should avoid gui freezing, at least here it does not freeze.
+* greyed out trees while population is in place.
+* Put the new run program plugin in the default plugin list
+* Fix a crash when the program doesn't exist
+* Put the menu items of the message-manager in the correct Goto menu
+* Allow markup in dialog description
+* #523186 – Open With dialog should mention filename
+* #530033 – Have window title like gedit
+* Also add the dirty char (*) at the beginning of the filename to match HIG
+* Moved Goto menu into View to avoid cluttering the menubar and created
+  new Documents menu
+* Show open documents in the "Documents" menu and add actions for next/prev
+  document like in gedit. Don't center menu items of notebook popup menu.
+  (Fixes bugs #453702 and #529528)
+* 530566 – Fix translation and POTFILES.in
+* Use current project folder as default and added a file filter for
+  the patch file chooser.
+* fixed search symbols to match "foo_symbol_%"
+* New run program plugin, includes a new dialog box to set
+  program arguments
+* Update debugger plugin to use run program parameter dialog
+* Remove run program menu item
+* Use a gchar * null terminated array instead of a GList for
+  passing environment variables
+* Add a child-exited signal in the IAnjutaTerminal interface
+  Remove environment variables merging, it is already done
+  in vte
+* fixed partial pattern match in symbols accordingly with api.
+* Hide progress bar when things are done in symbols db.
+* new dynamic prepared queries architecture. Now every query used in the
+  engine has its own compiled query in libgda-sqlite provider. This for speed
+  improvements, code cleaning and auto-escaping of string parameters. 
+* Lookup of dynamic queries takes care of sym_info parameters and of 
+  parameters passed to functions. The compiled GdaStatements are stored in an 
+  array of GTree (of GTree(s)). Some parameters, as the filter_kinds, 
+  are bounded at n = 5, to avoid a third level of indirection on the store-trees.
+* Fix #529798: Mark additional strings for translation
+* Add additional restriction on project name fix #529226
+* Fix #529506: Uncorrect unloading tools plugin
+* Don't spit out two many warnings when the message view is destroyed
+* Only use first 500 characters for validation
+* Use GRegex instead of pcre and convert files to utf-8 if necessary.
+  Rest of #440637
+* #528693 – Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window
+  (there was an else missing...)
+* Fixed bug #528264 - New: Uses incorrect spelling "assistent"
+* Fixed a condition where we kill our own process
+* Added new sessions states to avoid loading the local symbols before
+  the session is loaded (speeds up start-up).
+* Fixed #528705 – There is no Redo
+* Add an env parameter in the IAnjutaTerminal interface allowing
+  to specify additional environment variables
+* Show 5 project and 15 file items in recent-chooser
+* Make searching utf-8 aware. We still need to fix encodings for
+  search/replace in files as it is currently assumed they are utf-8 like
+  the editors.
+* Fix recent files in the toolbar
+* Do not enable brace autocompletion by defualt because it annoying for
+  fast typist (i.e. it's easier to type ending brace than move carat)
+  and it's currently broken for scintilla.
+* Removed dead files.
+* Added anjuta_utils_get_user_config_dir. This func is used
+  to get the user config directory.
+* Switched from GnomeApp to GtkWindow.
+* Move the encoding conversion infrastrcute to libanjuta and update all
+  users. Test all available encodings by default in scintilla editor
+  like sourceview is doing and removed encoding preferences
+* Fixed crasher
+* Various small improvements to the dialog
+* Add separator to recent menu (#526932)
+* Merged the UI changes from bug #511688 and simplified the search dialog
+* Check for ctags binary (#516123)
+* GdaSet *plist is now used globally for every prepared statement.
+  It won't be created/unreffed at every query.
+* Fixed crasher when deactivating symbol-db plugin
+* Don't use transactions - uses only half of the time now!
+* fixed global tab icons. Libgda could not understood the right fields, now it
+  does.
+* Only show () for functions/methods and macros with arguments. Does not work
+  with symbol-db yet but fixes things for symbol-browser
+* Fixed some issues with symbol caching
+* Give the symbol-db it's own progress bar because there are too many
+  interactions with the global status bar.
+* Sort symbol trees
+* Block insert-text signal on cut/copy/paste
+* Only update buffer when a newline is inserted
+* Precompute file_defined_id to speed up symbol population
+* Fixed some problems with binary streams needed by symbol-db
+* Use some caching to speed up symbol population
+* Exit properly when symbol scanning is over
+* Fix bug #525999: Remove space in file and target names generated
+  by project wizard
+* Fix sample anjuta plugin: ianjuta_document_manager_get_current_editor
+  has been renamed ianjuta_document_manager_get_current_document
+* Added a check for vital programs and packages needed to create a
+  new project. A warning dialog is shown to user in project
+  wizard when he proceeds after selecting a project type.
+  Updated all project templates to cover vital programs and
+  packages to generate and build correctly.
+* Fixed bug #523068 link in about window doesn't work.
+* Removed unused color management code
+* Added style chooser for sourceview editor (#522555)
+* Moved "New" action from document-manager to file-loader using 
+  IAnjutaDocumentManager interface. Reenabled pop-down menu for "New"-ToolItem.
+* Killed libegg (#349279)
+* Removed dead code and libegg from Makefiles
+* Removed symbol-browser toolbar which used libegg and was
+  buggy (#451588)
+* Port FileLoader to GtkRecent (#398984)
+* Merged changes from symbol-db branch
+* Use gnome_vfs_get_slow_mime_type()
+* Use gnome_vfs_get_slow_mime_type() to determine the mime-type and try
+  supertype instead no plugin for mime-type was found (#525706)
+* Fixed padding in preferences
+* #515854 – Move configuration into preferences
+* #470483 – Make toolbar type (icon/text/both) independet from GNOME settings
+* Improve start program dialog, allowing to specify working
+  directory and environment variables
+* Get rid of gnome_help_display_with_doc_id()
+* Fixed type 'assistent' to 'assistant'.
+* Ports anjuta-ui to gtk_cell_renderer_accel
+* Ported the GnomeDruid stuff to GtkAssistant an removed the glade
+  file because libglade doesn't have GtkAssistant support.
+* Avoid a crash when debugger stop on an error
+  Display an error message when debugger target is not found
+* Fixes 520076 – [PATCH] Add support for setting custom CFLAGS from the UI
+* Add API to set environment variables for the forked process
+* #520761 – Weirz behavior with popup
+* 520415 – [PATCH] Problems in auto indentatation code,
+* 520766 – Brace autocompletion (Patch from Ignacio Casal Quinteiro <nacho@gnome.org>)
+* 521691 – Crash when click "Resolve Conflicts" without opened project
+* 520324 – Execute command is not overridable
+* #521847 – anjuta freez when edit file
+* Removed all GNOME_CALL* calls in plugins.
+* Moved data/properties to plugins/editor/ and removed dead code from
+  Makefile.am files.
+
+Anjuta 2.4.2 (27 May 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+Translation updates: he, pt_BR, es, ca
+
+Bugfixes:
+=========
+* Fixed bug #440637: Make searching utf-8 aware
+* Fixed bug #528705: There is no Redo (from trunk)
+* Fixed bug #528693: Ctrl-F (Find) followed by Ctrl-V (Paste) pastes into main window
+* Fixed bug #531623: Crash on updating non-existing watch
+* Fixed bug #532243: Execute Program with whitespace in the project path fails
+* Fixed bug #531940: Can't change the default project directory
+* Fixed bug #533346: Create project in path with spaces fails
+* Fixed bug #532625: Wrong consecution of functions calls when opening a glade file
+* Fixed bug #533758: django project creation fails
+* Fixed bug: crash when changing a watch while debugger is stopped
+* Fixed bug #532537: Crash on closing Anjuta Preferences when it open twice.
+
+Anjuta 2.4.1 (07 Apr 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+Translation updates: el, zh_TW, zh_HK, ml, ru, en_GB and it
+
+Bugfixes:
+=========
+* Fixed #520761 - Weirz behavior with popup
+* Fixed #520415 - [PATCH] Problems in auto indentatation code
+* Fixed #521691 - Crash when click "Resolve Conflicts" without opened project
+* Fixed #520324 - Execute command is not overridable
+* Fixed #521847 - anjuta freezes when editing file
+* Fixed #525706 - Use gnome_vfs_get_slow_mime_type() to determine the
+   mime-type and try supertype instead no plugin for mime-type was found
+* Fixed #525999 - Remove space in file and target names generated
+   by project wizard
+* Fixed sample anjuta plugin
+* Block insert-text signal on cut/copy/paste
+
 Anjuta 2.4.0 (10 Mar 2008) -- Naba Kumar
 -----------------------------------------
 
