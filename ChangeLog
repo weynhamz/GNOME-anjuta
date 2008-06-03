@@ -1,3 +1,9 @@
+2008-06-03 Halton Huo <halton.huo@sun.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* libanjuta/anjuta-launcher.c:
+	Fix #536372: Write __MAX_BAUX instead of __MAX_BAUD
+
 === anjuta 2.5.0 ===
 
 2008-06-02  Naba Kumar  <naba@gnome.org>
