@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-03 03:17+0000\n"
-"PO-Revision-Date: 2008-06-04 23:08+0930\n"
+"PO-Revision-Date: 2008-06-05 18:50+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -692,7 +692,7 @@ msgstr "Hoàn tất mà không thành công\n"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:891
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
-msgstr "Hoàn tất thành công."
+msgstr "Hoàn tất thành công.\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:937
 #, c-format
