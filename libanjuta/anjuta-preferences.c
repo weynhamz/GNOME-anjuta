@@ -1104,7 +1104,10 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
 	g_return_val_if_fail (key != NULL, FALSE);
 	g_return_val_if_fail (strlen(key) > 0, FALSE);
-	
+	g_return_val_if_fail ((object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO) ||
+				((default_value != NULL) &&
+				 (*default_value != '\0')), FALSE);
+
 	p = g_new0 (AnjutaProperty, 1);
 	g_object_ref (object);
 	p->object = object;

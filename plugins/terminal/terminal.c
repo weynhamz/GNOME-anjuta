@@ -766,7 +766,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 {
 	GSList *profiles;
 	GConfClient *client;	
-	GString *default_value;
 	
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
@@ -775,16 +774,18 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 									"Terminal", _("Terminal"), ICON_FILE);
 	
 	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+	term_plugin->pref_default_button = glade_xml_get_widget (gxml, "preferences_toggle:bool:1:0:terminal.default.profile");
 
 	/* Update the currently available list of terminal profiles */
 	client = gconf_client_get_default ();
 	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
 									  GCONF_VALUE_STRING, NULL);
-	default_value = g_string_new (NULL);
 	if (profiles)
 	{
 		GtkListStore *store;
+		GString *default_value;
 			
+		default_value = g_string_new (NULL);
 		store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (term_plugin->pref_profile_combo)));
 		
 		gtk_list_store_clear (store);
@@ -793,22 +794,26 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		g_slist_foreach (profiles, (GFunc)g_free, NULL);
 		g_slist_free (profiles);
 		
-	}
-	anjuta_preferences_register_property_raw (term_plugin->prefs,
-											  term_plugin->pref_profile_combo,
-											  PREFS_TERMINAL_PROFILE,
-											  default_value->str,
-											  1,
-											  ANJUTA_PROPERTY_OBJECT_TYPE_COMBO,
-											  ANJUTA_PROPERTY_DATA_TYPE_TEXT);
-	g_string_free (default_value, TRUE);
+		anjuta_preferences_register_property_raw (term_plugin->prefs,
+												  term_plugin->pref_profile_combo,
+												  PREFS_TERMINAL_PROFILE,
+												  default_value->str,
+												  1,
+												  ANJUTA_PROPERTY_OBJECT_TYPE_COMBO,
+												  ANJUTA_PROPERTY_DATA_TYPE_TEXT);
+		g_string_free (default_value, TRUE);
 		
-	term_plugin->pref_default_button =
-		glade_xml_get_widget (gxml,
-						"preferences_toggle:bool:1:0:terminal.default.profile");
-	use_default_profile_cb (GTK_TOGGLE_BUTTON (term_plugin->pref_default_button), term_plugin);
-	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
+		use_default_profile_cb (GTK_TOGGLE_BUTTON (term_plugin->pref_default_button), term_plugin);
+		g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
 						  G_CALLBACK (use_default_profile_cb), term_plugin);
+	}
+	else
+	{
+		/* No profile, perhaps GNOME Terminal is not installed,
+		 * Remove selection */
+		gtk_widget_set_sensitive (term_plugin->pref_profile_combo, FALSE);
+		gtk_widget_set_sensitive (term_plugin->pref_default_button, FALSE);
+	}
 	
 	g_object_unref (gxml);
 }

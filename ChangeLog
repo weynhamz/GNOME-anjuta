@@ -1,3 +1,9 @@
+2008-06-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/terminal/terminal.c,
+	libanjuta/anjuta-preferences.c:
+	Fix a crash when GNOME Terminal is not installed
+
 2008-06-03 Halton Huo <halton.huo@sun.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
