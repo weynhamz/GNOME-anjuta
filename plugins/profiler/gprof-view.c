@@ -130,6 +130,7 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 													 symbol_name,
 													 FALSE,
 													 TRUE,
+													 FALSE,
 													 -1,
 													 -1,
 													 NULL);

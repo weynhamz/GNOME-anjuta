@@ -1421,27 +1421,24 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						IAnjutaSymbolField info_fields,
 						const gchar *match_name,
 						gboolean partial_name_match,
-						gboolean global_search,
+						gboolean global_symbols_search,
+						gboolean global_tags_search,
 						gint results_limit,
 						gint results_offset,
 						GError **err)
 {
 	SymbolDBEngineIterator *iterator = NULL;
 	SymbolDBPlugin *sdb_plugin;
-	SymbolDBEngine *dbe;
+	SymbolDBEngine *dbe_project;
+	SymbolDBEngine *dbe_globals;
 	GPtrArray *filter_array;
 	gchar *pattern;
 	gboolean exact_match = !partial_name_match;
 
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
-	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	dbe_project = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	dbe_globals = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 	
-	if (global_search == FALSE)
-	{
-		g_message ("isymbol_manager_search (): TODO: search provide only global searches for now");
-		return NULL;
-	}
-
 	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
 		filter_array = NULL;
 	else
@@ -1452,16 +1449,46 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	else
 		pattern = g_strdup_printf ("%s", match_name);
 	
-	iterator = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe,
+	/* should we lookup for project of system tags? */
+	if (global_tags_search == FALSE)
+	{
+		DEBUG_PRINT ("project_tags scan ");
+		/* get symbols from current opened project */
+		iterator = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe_project,
 																	  pattern,
 																	  exact_match,
 																	  filter_array,
 																	  include_types,
-																	  global_search,
+																	  global_symbols_search,
 																	  results_limit,
 																	  results_offset,
 																	  info_fields);
-
+	}
+	else	
+	{
+		/* global_tags scan */
+		/* the only parameters to change is the engine, dbe_globals */
+		DEBUG_PRINT ("global_tags scan ");
+		gint i;
+		
+		/* FIXME REMOVE ME */
+		for (i = 0; i < filter_array->len; i++)
+		{
+			DEBUG_PRINT ("filter%d = %s", i, g_ptr_array_index (filter_array, i));
+		}
+		
+		iterator = 
+			symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe_globals,
+															  pattern,
+															  exact_match,
+															  filter_array,
+															  include_types,
+															  global_symbols_search,
+															  results_limit,
+															  results_offset,
+															  info_fields);		
+	}
+	
 	g_free (pattern);
 	
 	if (filter_array)

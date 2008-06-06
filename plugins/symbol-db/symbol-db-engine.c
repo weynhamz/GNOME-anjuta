@@ -7531,7 +7531,7 @@ select * from symbol where scope_definition_id = (
  * @param exact_match Should the pattern be searched for an exact match?
  * @param filter_kinds Can be NULL. In that case these filters will be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
- * @param global_search If TRUE only global public function will be searched. If false
+ * @param global_symbols_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par.	 
@@ -7552,7 +7552,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									gboolean exact_match,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
-									gboolean global_search,
+									gboolean global_symbols_search,
 									gint results_limit, 
 									gint results_offset,
 									SymExtraInfo sym_info)
@@ -7612,7 +7612,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
 	}
 	
-	if (global_search == TRUE)
+	if (global_symbols_search == TRUE)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES;
@@ -7830,7 +7830,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	}
 
 	value = gda_value_new (G_TYPE_INT);
-	g_value_set_int (value, !global_search);	
+	g_value_set_int (value, !global_symbols_search);	
 	gda_holder_set_value (param, value);
 	gda_value_free (value);
 
@@ -7844,6 +7844,10 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	gda_holder_set_value_str (param, NULL, pattern);
 	
+
+	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+				 dyn_node->query_str);
+		
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 

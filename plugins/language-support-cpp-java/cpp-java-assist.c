@@ -135,10 +135,21 @@ is_word_character (gchar ch)
 	return FALSE;
 }	
 
+/**
+ * If mergeable is NULL than no merge will be made with iter elements, elsewhere
+ * mergeable will be returned with iter elements.
+ */
 static GCompletion*
-create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
-{
-	GCompletion *completion = g_completion_new (completion_function);
+create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
+				   GCompletion* mergeable)
+{	
+	GCompletion *completion;
+	
+	if (mergeable == NULL)
+		completion = g_completion_new (completion_function);
+	else
+		completion = mergeable;
+	
 	GList* suggestions = NULL;
 	do
 	{
@@ -336,25 +347,43 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 											  const gchar *pre_word)
 {
 	gint max_completions;
+	GCompletion *completion = NULL;
 	max_completions =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
 												 MAX_COMPLETIONS);
 	
 	cpp_java_assist_destroy_completion_cache (assist);
-	IAnjutaIterable* iter = 
+	IAnjutaIterable* iter_project = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										pre_word, TRUE, TRUE, max_completions, -1, NULL);
-	if (iter)
+										pre_word, TRUE, FALSE, FALSE, max_completions, -1, NULL);
+
+	IAnjutaIterable* iter_globals = 
+		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+										IANJUTA_SYMBOL_TYPE_MAX,
+									    TRUE,
+										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
+										pre_word, TRUE, TRUE, TRUE, max_completions, -1, NULL);
+	DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache ()");
+	if (iter_project) 
 	{
-		assist->priv->completion_cache =
-			create_completion (assist->priv->iassist, iter);
-		assist->priv->search_cache = g_strdup (pre_word);
-		g_object_unref (iter);
+		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 1");
+		completion = create_completion (assist->priv->iassist, iter_project, NULL);
+		g_object_unref (iter_project);
 	}
+	
+	if (iter_globals)
+	{
+		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 2");
+		completion = create_completion (assist->priv->iassist, iter_project, completion);
+		g_object_unref (iter_globals);		
+	}
+	
+	assist->priv->completion_cache = completion;
+	assist->priv->search_cache = g_strdup (pre_word);
 }
 
 static gboolean
@@ -495,10 +524,9 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_FUNCTION|
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									   TRUE,
-									   IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context, FALSE, TRUE, max_completions,
-									   -1, NULL);
+									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+									   call_context, FALSE, TRUE, TRUE,
+									   max_completions, -1, NULL);
 	if (iter)
 	{
 		do

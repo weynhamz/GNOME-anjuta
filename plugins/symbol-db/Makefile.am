@@ -74,7 +74,8 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(symbol_db_plugin_DATA) \
 	$(symbol_db_glade_DATA) \
-	$(symbol_db_pixmaps_DATA)
+	$(symbol_db_pixmaps_DATA) \
+	$(symbol_db_data_DATA)
 
 endif
 

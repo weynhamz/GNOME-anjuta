@@ -102,6 +102,7 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 													   nodedata->name,
 													   FALSE,
 													   TRUE,
+													   FALSE,
 													   -1,
 													   -1,
 													   NULL);
@@ -322,6 +323,7 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 													   node_name,
 													   FALSE,
 													   TRUE,
+													   FALSE,
 													   -1,
 													   -1,
 													   NULL);
@@ -469,6 +471,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 												   node->name,
 												   FALSE,
 												   TRUE,
+												   FALSE,
 												   -1,
 												   -1,
 												   NULL);
@@ -905,7 +908,7 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 	iter = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS, 
 										  TRUE,
 										  IANJUTA_SYMBOL_FIELD_SIMPLE,
-										  NULL, FALSE, TRUE, -1, -1, NULL);
+										  NULL, FALSE, TRUE, FALSE, -1, -1, NULL);
 	if (!iter)
 	{
 		DEBUG_PRINT ("class_inheritance_update_graph (): search returned no items.");

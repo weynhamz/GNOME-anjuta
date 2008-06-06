@@ -50,7 +50,6 @@ struct _SymbolDBPlugin{
 	AnjutaPreferences *prefs;
 	GtkListStore *prefs_list_store;
 	AnjutaLauncher *pkg_config_launcher;
-//	AnjutaLauncher *cflags_launcher;
 	
 	gint prefs_notify_id;
 	

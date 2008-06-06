@@ -1,3 +1,32 @@
+2008-06-07  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/Makefile.am:
+	Put tables.sql into distribution
+
+2008-06-07  Massimo Cora'  <maxcvs@email.it>
+
+  Reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/class-inheritance/class-inherit.c
+	(class_inheritance_show_dynamic_class_popup_menu),
+	(cls_inherit_add_node), (cls_inherit_draw_expanded_node),
+	(class_inheritance_update_graph):
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(create_completion),
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_show_calltip):
+	* plugins/profiler/gprof-view.c (gprof_view_show_symbol_in_editor):
+	* plugins/symbol-browser/plugin.c (isymbol_manager_search):
+	* plugins/symbol-db/plugin.c (isymbol_manager_search):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view.c (prepare_for_adding):
+	now search for symbols can be done also in global tags. Added a new parameter
+	to search function and adjusted dependencies on different plugins.
+
 2008-06-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/terminal/terminal.c,

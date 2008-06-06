@@ -4571,9 +4571,13 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @match_name: fixme
 	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
-	* string match_name.
-	* @global_search: if TRUE it will search only for public/extern functions. 
-	* If FALSE it will search also for static/private functions.
+	* 					string match_name.
+	* @global_symbols_search: if TRUE it will search only for public/extern functions. 
+	* 						If FALSE it will search also for static/private functions.
+	* @global_tags_search: If TRUE it'll search only for system tags, using pkg-config to retrieve installed packages
+	* infos. If FALSE only current project's symbols will be searched.
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
  	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  	* @results_offset Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.
@@ -4582,7 +4586,7 @@ interface IAnjutaSymbolManager
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_search, gint results_limit, gint results_offset);
+	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_symbols_search, gboolean global_tags_search, gint results_limit, gint results_offset);
 	
 	/**
 	* ianjuta_symbol_manager_get_members:

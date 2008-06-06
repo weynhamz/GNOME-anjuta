@@ -1115,7 +1115,8 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						IAnjutaSymbolField info_fields,
 						const gchar *match_name,
 						gboolean partial_name_match,
-						gboolean global_search,
+						gboolean global_symbols_search,
+						gboolean global_tags_search, /* unused */
 						gint results_limit, /* unused */
 						gint results_offset, /* unused */
 						GError **err)
@@ -1130,7 +1131,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		name = NULL;
 	
 	tags_array = tm_workspace_find (name, match_types, NULL,
-									partial_name_match, global_search);
+									partial_name_match, global_symbols_search);
 	if (tags_array && tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
