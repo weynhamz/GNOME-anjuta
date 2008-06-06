@@ -31,7 +31,6 @@ libanjuta_la_SOURCES= \
 	anjuta-status.c \
 	anjuta-encodings.c \
 	anjuta-convert.c \
-	anjuta-message-area.c \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
@@ -67,8 +66,7 @@ libanjuta_la_SOURCES= \
 	anjuta-command.c \
 	anjuta-command.h \
 	anjuta-async-command.c \
-	anjuta-async-command.h \
-	anjuta-message-area.h
+	anjuta-async-command.h
 
 if HAVE_PLUGIN_GLADE
 
@@ -101,7 +99,6 @@ libanjuta_include = \
 	anjuta-status.h \
 	anjuta-encodings.h \
 	anjuta-convert.h \
-	anjuta-message-area.h \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
 	anjuta-plugin-manager.h \

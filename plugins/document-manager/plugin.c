@@ -1917,17 +1917,6 @@ ianjuta_docman_set_current_document (IAnjutaDocumentManager *plugin,
 	anjuta_docman_set_current_document (docman, doc);
 }
 
-static void
-ianjuta_docman_set_message_area (IAnjutaDocumentManager *plugin,
-								 IAnjutaDocument *doc,
-								 GtkWidget *message_area,
-								 GError **e)
-{
-	AnjutaDocman *docman;
-	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_set_message_area (docman, doc, message_area);
-}
-
 static GList*
 ianjuta_docman_get_doc_widgets (IAnjutaDocumentManager *plugin, GError **e)
 {
@@ -2030,7 +2019,6 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->goto_uri_line_mark = ianjuta_docman_goto_uri_line_mark;
 	iface->remove_document = ianjuta_docman_remove_document;
 	iface->set_current_document = ianjuta_docman_set_current_document;
-	iface->set_message_area = ianjuta_docman_set_message_area;
 }
 
 /* Implement IAnjutaFile interface */

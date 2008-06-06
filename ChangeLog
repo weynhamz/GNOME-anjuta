@@ -9,43 +9,6 @@
 	* manuals/anjuta-manual/C/debugger.xml:
 	#536889 – anjuta doesn't pass "make check"
 
-2008-06-07  Johannes Schmid  <jhs@gnome.org>
-
-	Patch from:  Louis-Francis Ratté-Boulianne
-
-	* libanjuta/Makefile.am:
-	* libanjuta/anjuta-message-area.c (anjuta_message_area_finalize),
-	(get_response_data), (paint_message_area),
-	(anjuta_message_area_class_init), (style_set),
-	(anjuta_message_area_init), (get_response_for_widget),
-	(action_widget_activated), (anjuta_message_area_set_text),
-	(anjuta_message_area_set_image),
-	(anjuta_message_area_add_action_widget), (anjuta_message_area_new),
-	(anjuta_message_area_response), (anjuta_message_area_add_button),
-	(anjuta_message_area_add_button_with_stock_image):
-	* libanjuta/anjuta-message-area.h:
-	* libanjuta/interfaces/libanjuta.idl:
-	* plugins/document-manager/anjuta-docman.c
-	(anjuta_docman_update_documents_menu),
-	(on_notebook_page_close_button_click), (anjuta_docman_page_init),
-	(on_notebook_switch_page), (on_document_save_point),
-	(on_document_destroy), (anjuta_docman_remove_document),
-	(anjuta_docman_get_page_for_document),
-	(anjuta_docman_get_nth_page), (anjuta_docman_set_current_document),
-	(anjuta_docman_set_message_area), (anjuta_docman_get_uri),
-	(anjuta_docman_present_notebook_page),
-	(anjuta_docman_update_page_label),
-	(anjuta_docman_delete_all_markers),
-	(anjuta_docman_delete_all_indicators), (anjuta_docman_order_tabs),
-	(anjuta_docman_get_document_for_uri),
-	(anjuta_docman_get_all_doc_widgets):
-	* plugins/document-manager/anjuta-docman.h:
-	* plugins/document-manager/plugin.c:
-	* plugins/sourceview/sourceview.c (on_reload_dialog_response),
-	(on_sourceview_uri_changed_prompt):
-	
-	#530215 – Have a message area like gedit
-
 2008-06-07  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/symbol-db/Makefile.am:

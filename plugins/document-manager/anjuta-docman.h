@@ -75,9 +75,6 @@ GtkWidget *anjuta_docman_get_current_popup (AnjutaDocman *docman);
 
 void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
-void anjuta_docman_set_message_area (AnjutaDocman *docman, IAnjutaDocument *doc,
-									GtkWidget *message_area);
-
 IAnjutaEditor *anjuta_docman_goto_uri_line (AnjutaDocman *docman,
 											const gchar *uri,
 											gint lineno);
