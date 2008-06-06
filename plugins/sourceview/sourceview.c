@@ -26,6 +26,8 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-message-area.h>
+#include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
@@ -34,6 +36,7 @@
 #include <libanjuta/interfaces/ianjuta-print.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
@@ -161,7 +164,7 @@ static void on_cursor_moved(AnjutaDocument *widget,
 
 /* Callback for dialog below */
 static void 
-on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
+on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 {
 	if (res == GTK_RESPONSE_YES)
 	{
@@ -173,7 +176,7 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 		/* Set dirty */
 		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), TRUE);
 	}
-	gtk_widget_destroy (dlg);
+	gtk_widget_destroy (message_area);
 }
 
 /* Update Monitor on load/save */
@@ -193,42 +196,44 @@ sourceview_remove_monitor(Sourceview* sv)
 static gboolean
 on_sourceview_uri_changed_prompt (Sourceview* sv)
 {
-	GtkWidget *dlg;
-	GtkWidget *parent;
+	GtkWidget *message_area;
+	IAnjutaDocumentManager *docman;
+	IAnjutaDocument *doc;
+	AnjutaShell *shell;
 	gchar *buff;
+	
+	g_print ("OK\n");
 	
 	buff =
 		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than\n"
+						 ("The file '%s' on the disk is more recent than "
 						  "the current buffer.\nDo you want to reload it?"),
 						 ianjuta_document_get_filename(IANJUTA_DOCUMENT(sv), NULL));
-	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
-	
-	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
-								  GTK_DIALOG_DESTROY_WITH_PARENT,
-								  GTK_MESSAGE_WARNING,
-								  GTK_BUTTONS_NONE, buff);
-	gtk_dialog_add_button (GTK_DIALOG (dlg),
-						   GTK_STOCK_NO,
-						   GTK_RESPONSE_NO);
-	anjuta_util_dialog_add_button (GTK_DIALOG (dlg),
-								   _("_Reload"),
-								   GTK_STOCK_REFRESH,
-								   GTK_RESPONSE_YES);
+
+	shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+	docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+	if (!docman)
+  		return TRUE;
+  	doc = IANJUTA_DOCUMENT (sv);
+
+	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_REFRESH,
+									GTK_RESPONSE_YES);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+								    GTK_STOCK_CANCEL,
+									GTK_RESPONSE_NO);
 	g_free (buff);
 	
-	gtk_window_set_transient_for (GTK_WINDOW (dlg),
-								  GTK_WINDOW (parent));
-	
-	g_signal_connect (G_OBJECT(dlg), "response",
+	g_signal_connect (G_OBJECT(message_area), "response",
 					  G_CALLBACK (on_reload_dialog_response),
 					  sv);
-	gtk_widget_show (dlg);
 
-	g_signal_connect_swapped (G_OBJECT(dlg), "delete-event",
+	/*g_signal_connect_swapped (G_OBJECT(message_area), "delete-event",
 					  G_CALLBACK (gtk_widget_destroy),
-					  dlg);
+					  dlg);*/
+					  
+	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
 	
 	return FALSE;
 }

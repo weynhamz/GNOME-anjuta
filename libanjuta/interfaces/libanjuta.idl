@@ -2341,6 +2341,17 @@ interface IAnjutaDocumentManager
 	* Sets the given document as current document.
 	*/
 	void set_current_document (IAnjutaDocument *document);
+
+	/** 
+	* ianjuta_document_manager_set_message_area:
+	* @obj: Self
+	* @document: the document we change the message area.
+	* @message_area: the widget to use as the message area.
+	* @err: Error propagation and reporting.
+	* 
+	* Sets the message area for the given document.
+	*/
+	void set_message_area (IAnjutaDocument *document, GtkWidget *message_area);
 	
 	/**
 	* ianjuta_document_manager_get_doc_widgets:
