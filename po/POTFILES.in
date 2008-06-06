@@ -155,6 +155,7 @@ plugins/search/plugin.c
 plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
+plugins/search/file-buffer.c
 plugins/sourceview/anjuta-document-saver.c
 plugins/sourceview/anjuta-document.c
 plugins/sourceview/sourceview.c

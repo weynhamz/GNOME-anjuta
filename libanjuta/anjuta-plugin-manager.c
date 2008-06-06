@@ -731,7 +731,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				if (!anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_plugin)))
 				{
 					anjuta_util_dialog_info (GTK_WINDOW (priv->shell),
-								 "Plugin '%s' do not want to be deactivated",
+								 _("Plugin '%s' do not want to be deactivated"),
 								 anjuta_plugin_handle_get_name (plugin));
 				}
 			}
@@ -1209,7 +1209,7 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-	forget_button = gtk_button_new_with_label ("Forget selected plugin");
+	forget_button = gtk_button_new_with_label (_("Forget selected plugin"));
 	gtk_widget_set_sensitive (forget_button, FALSE);
 	gtk_box_pack_end (GTK_BOX (hbox), forget_button, FALSE, FALSE, 0);
 	

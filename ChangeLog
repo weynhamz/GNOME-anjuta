@@ -1,5 +1,16 @@
 2008-06-07  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Marc Lorber:
+	* libanjuta/anjuta-plugin-manager.c (plugin_set_update),
+	(anjuta_plugin_manager_get_remembered_plugins_page):
+	Add translation
+	
+	Patch from Arun Raghavan:
+	* manuals/anjuta-manual/C/debugger.xml:
+	#536889 – anjuta doesn't pass "make check"
+
+2008-06-07  Johannes Schmid  <jhs@gnome.org>
+
 	Patch from:  Louis-Francis Ratté-Boulianne
 
 	* libanjuta/Makefile.am:

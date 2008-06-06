@@ -1,3 +1,8 @@
+2008-06-07  Johannes Schmid  <jhs@gnome.org>
+
+	* POTFILES.in:
+	Fix make check
+
 2008-06-05   Clytie Siddall <clytie@riverland.net.au>
 
 	* vi.po: Updated Vietnamese translation.
