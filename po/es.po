@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-24 20:39+0000\n"
-"PO-Revision-Date: 2008-05-25 12:21+0200\n"
+"POT-Creation-Date: 2008-06-07 11:59+0000\n"
+"PO-Revision-Date: 2008-06-07 16:37+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,14 +182,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1164 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1165
+#: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -200,6 +200,11 @@ msgstr "Shell de Anjuta"
 #: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
 msgstr "El shell de Anjuta que contendrá el complemento"
+
+#: ../libanjuta/anjuta-plugin-manager.c:734
+#, c-format
+msgid "Plugin '%s' do not want to be deactivated"
+msgstr "El complemento «%s» no quiere ser desactivado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
@@ -243,6 +248,10 @@ msgstr ""
 "elegir uno de los muchos complementos convenientes. Quitar el complemento "
 "preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
 "diferente."
+
+#: ../libanjuta/anjuta-plugin-manager.c:1212
+msgid "Forget selected plugin"
+msgstr "Olvidar el complemento seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
@@ -380,7 +389,7 @@ msgstr ""
 "Falló al leer «%s»: Faltan los siguientes complementos obligatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1459
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -388,7 +397,7 @@ msgstr ""
 "¿Está seguro que desea reiniciar las preferencias\n"
 "a sus valores originales?"
 
-#: ../libanjuta/anjuta-preferences.c:1460
+#: ../libanjuta/anjuta-preferences.c:1463
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -653,7 +662,6 @@ msgid "Command exited with status %d"
 msgstr "El comando salió con estado %d"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:851
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1148
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado por el usuario"
@@ -693,7 +701,7 @@ msgstr "Completado correctamente\n"
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1227
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1220
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
@@ -701,174 +709,174 @@ msgstr ""
 "tipo de archivo."
 
 #. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1269
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1262
 msgid "Configure"
 msgstr "Configurar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1303
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1297
 msgid "Autogenerate"
 msgstr "Autogenerar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1519
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1587
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1597
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1615
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1791
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1513
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1581
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1609
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1619
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1785
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1523
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1517
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1524
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1518
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1529
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1523
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1530
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1524
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1535
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1529
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1536
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1530
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1541
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1535
 msgid "Run C_onfigure..."
 msgstr "Ejecutar _configure…"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1542
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1536
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1547
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1541
 msgid "Run _Autogenerate..."
 msgstr "Ejecutar _autogeneración…"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1548
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1542
 msgid "Autogenerate project files"
 msgstr "Autogenerar los archivos del proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1553
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1547
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1554
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1548
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1559
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1553
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1560
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1554
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1565
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1559
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1566
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1560
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1571
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1565
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1572
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1566
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1577
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1571
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1578
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1572
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1591
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1619
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1585
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1620
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1586
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1614
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1598
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1620
 msgid "Build module"
 msgstr "Construye un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1603
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1631
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1795
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1597
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1625
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1789
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1632
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1598
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
 msgid "Install module"
 msgstr "Instala un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1609
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1637
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1799
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1603
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1631
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1793
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1610
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1638
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1632
 msgid "Clean module"
 msgstr "Limpia un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1803
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1797
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1812
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1806
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1819
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1813
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1826
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1820
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1833
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1827
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2240
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2234
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2247
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2241
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2626
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2646
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2629
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2649
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
@@ -906,19 +914,19 @@ msgstr "No hay archivo o proyecto abierto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:72
+#: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "El programa «%s» no es un archivo local"
 
 #: ../plugins/build-basic-autotools/executer.c:310
-#: ../plugins/run-program/execute.c:78
+#: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "El programa «%s» no existe"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:82
+#: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "El programa «%s» no tiene permiso de ejecución"
@@ -933,17 +941,17 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "El ejecutable «%s» no está actualizado."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:164
+#: ../plugins/class-inheritance/class-inherit.c:165
 msgid "Fixed data-view"
 msgstr "Vista de datos fijos"
 
-#: ../plugins/class-inheritance/class-inherit.c:1008
+#: ../plugins/class-inheritance/class-inherit.c:1011
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
 msgid "Update"
 msgstr "Actualizar"
 
-#: ../plugins/class-inheritance/class-inherit.c:1009
+#: ../plugins/class-inheritance/class-inherit.c:1012
 msgid "Update the graph"
 msgstr "Actualizar la gráfica"
 
@@ -1370,23 +1378,23 @@ msgstr "Directorio"
 msgid "Are you sure that you do not want a log message?"
 msgstr "¿Seguro que no quiere un mensaje de registro?"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:128
+#: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
 msgstr "El comando CVS ha fallado. Mire arriba para los detalles"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:133
+#: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
 msgstr[0] "Comando CVS exitoso; Tiempo empleado: %ld segundo"
 msgstr[1] "Comando CVS exitoso; Tiempo empleado: %ld segundos"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:224
+#: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:232
-#: ../plugins/cvs-plugin/cvs-execute.c:236 ../plugins/cvs-plugin/plugin.c:489
+#: ../plugins/cvs-plugin/cvs-execute.c:229
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:489
 #: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "CVS"
@@ -2324,32 +2332,32 @@ msgstr "Tiempo"
 msgid "Command"
 msgstr "Comando"
 
-#: ../plugins/debug-manager/start.c:596
+#: ../plugins/debug-manager/start.c:597
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "No se puede ejecutar: %s."
 
-#: ../plugins/debug-manager/start.c:610
+#: ../plugins/debug-manager/start.c:611
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "No se puede abrir el archivo: %s\n"
 
-#: ../plugins/debug-manager/start.c:865
+#: ../plugins/debug-manager/start.c:866
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "No se puede abrir %s. El depurador no puede iniciarse."
 
-#: ../plugins/debug-manager/start.c:1088
+#: ../plugins/debug-manager/start.c:1079
 #: ../plugins/run-program/parameters.c:611
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
-#: ../plugins/debug-manager/start.c:1109
+#: ../plugins/debug-manager/start.c:1100
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1157 ../plugins/gdb/debugger.c:1685
+#: ../plugins/debug-manager/start.c:1148 ../plugins/gdb/debugger.c:1685
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -5914,7 +5922,7 @@ msgid "Program:"
 msgstr "Programa:"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:109
+#: ../plugins/run-program/execute.c:107
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "El directorio del programa «%s» no es local"
@@ -6308,8 +6316,8 @@ msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»
 msgid "Could not obtain backup filename"
 msgstr "No se pudo obtener el nombre del archivo de respaldo"
 
-#: ../plugins/sourceview/anjuta-document.c:487
-#: ../plugins/sourceview/anjuta-document.c:568
+#: ../plugins/sourceview/anjuta-document.c:486
+#: ../plugins/sourceview/anjuta-document.c:567
 #, c-format
 msgid "Unsaved Document %d"
 msgstr "Documento no guardado %d"
@@ -7166,8 +7174,8 @@ msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
 msgid "terminal operations"
 msgstr "operaciones en la terminal"
 
-#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:775
-#: ../plugins/terminal/terminal.c:822
+#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:774
+#: ../plugins/terminal/terminal.c:827
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
