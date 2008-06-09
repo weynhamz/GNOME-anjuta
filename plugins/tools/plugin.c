@@ -109,7 +109,6 @@ R7: Tool Storage
 struct _ATPPlugin {
 	AnjutaPlugin parent;
 	AnjutaPreferences *prefs;
-	GladeXML *gxml;
 	GtkActionGroup* action_group;
 	gint uiid;
 	ATPToolList list;
@@ -216,8 +215,6 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, this->uiid);
 
-	g_object_unref (this->gxml);
-
 	return TRUE;
 }
 
@@ -239,20 +236,22 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 {
 	/* Create the tools preferences page */
 	ATPPlugin* atp_plugin;
+	GladeXML *gxml;
 
 	atp_plugin = ANJUTA_PLUGIN_ATP (obj);
 	atp_plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(obj)->shell,
 														NULL);
 
 	/* Load glade file */
-	atp_plugin->gxml = glade_xml_new (GLADE_FILE, "list_tools", NULL);
-	if (atp_plugin->gxml == NULL)
+	gxml = glade_xml_new (GLADE_FILE, "list_tools", NULL);
+	if (gxml == NULL)
 		return;
 
-	atp_tool_dialog_show(&atp_plugin->dialog, atp_plugin->gxml);
+	atp_tool_dialog_show(&atp_plugin->dialog, gxml);
 
-	anjuta_preferences_add_page (atp_plugin->prefs, atp_plugin->gxml,
+	anjuta_preferences_add_page (atp_plugin->prefs, gxml,
 									"Tools", _("Tools"), ICON_FILE);
+	g_object_unref (gxml);
 }
 
 static void

@@ -1,3 +1,8 @@
+2008-06-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/plugin.c:
+	Fix #537134: critical warnings tools->plugin_deactivate
+
 2008-06-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-browser/plugin.c (project_root_removed):
