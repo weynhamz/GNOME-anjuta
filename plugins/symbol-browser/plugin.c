@@ -420,10 +420,12 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 										  sv_plugin);
 	
 	/* clear anjuta_symbol_search side */
-	anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
+	if (sv_plugin->ss)
+		anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
 
 	/* clear glist's sfiles */
-	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+	if (sv_plugin->sv_tree)
+		anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 
 	g_free (sv_plugin->project_root_uri);
 	sv_plugin->project_root_uri = NULL;
