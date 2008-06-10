@@ -83,6 +83,13 @@ typedef struct
 
 typedef struct
 {
+	gchar *pattern;
+	GRegex *regex;
+	GRegex *local_regex;
+} MessagePattern;
+
+typedef struct
+{
 	gchar *filename;
 	gint line;
 	IAnjutaIndicableIndicator indicator;
@@ -114,6 +121,24 @@ static gboolean directory_has_file (const gchar *dirname, const gchar *filename)
 
 static GList *patterns_list = NULL;
 
+/* The translations should match that of 'make' program. Both strings uses
+ * pearl regular expression
+ * 2 similar strings are used in order to parse the output of 2 different
+ * version of make if necessary. If you update one string, move the first
+ * string into the second slot and then replace the first string only. */
+static MessagePattern patterns_make_entering[] = {{N_("make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"), NULL, NULL},
+												{N_("make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"), NULL, NULL},
+												{NULL, NULL, NULL}};
+
+/* The translations should match that of 'make' program. Both strings uses
+ * pearl regular expression
+ * 2 similar strings are used in order to parse the output of 2 different
+ * version of make if necessary. If you update one string, move the first
+ * string into the second slot and then replace the first string only. */
+static MessagePattern patterns_make_leaving[] = {{N_("make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"), NULL, NULL},
+												{N_("make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"), NULL, NULL},
+												{NULL, NULL, NULL}};
+	
 /* Allow installation as root (#321455) */
 static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
@@ -420,11 +445,41 @@ build_regex_load ()
 }
 
 static void
+build_regex_init_message (MessagePattern *patterns)
+{
+	g_return_if_fail (patterns != NULL);
+	
+	if (patterns->regex != NULL)
+		return;		/* Already done */
+	
+	for (;patterns->pattern != NULL; patterns++)
+	{
+		/* Untranslated string */
+		patterns->regex = g_regex_new(
+			   patterns->pattern,
+			   0,
+			   0,
+			   NULL);
+		
+		/* Translated string */
+		patterns->local_regex = g_regex_new(
+			   _(patterns->pattern),
+			   0,
+			   0,
+			   NULL);
+	}
+}
+
+static void
 build_regex_init ()
 {
 	GList *node;
 	GError *error = NULL;
 
+	build_regex_init_message (patterns_make_entering);
+
+	build_regex_init_message (patterns_make_leaving);
+	
 	build_regex_load ();
 	if (!patterns_list)
 		return;
@@ -461,7 +516,7 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 	GMatchInfo *match_info;
 	const gchar *iter;
 	GString *ret;
-	gchar *final;
+	gchar *final = NULL;
 
 	if (!bp || !bp->regex)
 		return NULL;
@@ -472,46 +527,47 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 			  0,
 			  &match_info);
 	
-	if (!matched)
-		return NULL;
-	
-	ret = g_string_new ("");
-	iter = bp->replace;
-	while (*iter != '\0')
+	if (matched)
 	{
-		if (*iter == '\\' && isdigit(*(iter + 1)))
+		ret = g_string_new ("");
+		iter = bp->replace;
+		while (*iter != '\0')
 		{
-			char temp[2] = {0, 0};
-			gint start_pos, end_pos;
+			if (*iter == '\\' && isdigit(*(iter + 1)))
+			{
+				char temp[2] = {0, 0};
+				gint start_pos, end_pos;
 			
-			temp[0] = *(iter + 1);
-			int idx = atoi (temp);
+				temp[0] = *(iter + 1);
+				int idx = atoi (temp);
 
-			g_match_info_fetch_pos (match_info, idx, &start_pos, &end_pos);
+				g_match_info_fetch_pos (match_info, idx, &start_pos, &end_pos);
 
-			ret = g_string_append_len (ret, details + start_pos,
+				ret = g_string_append_len (ret, details + start_pos,
 									   end_pos - start_pos);
-			iter += 2;
+				iter += 2;
+			}
+			else
+			{
+				const gchar *start;
+				const gchar *end;
+			
+				start = iter;
+				iter = g_utf8_next_char (iter);
+				end = iter;
+			
+				ret = g_string_append_len (ret, start, end - start);
+			}
 		}
-		else
-		{
-			const gchar *start;
-			const gchar *end;
-			
-			start = iter;
-			iter = g_utf8_next_char (iter);
-			end = iter;
-			
-			ret = g_string_append_len (ret, start, end - start);
+	
+		final = g_string_free (ret, FALSE);
+		if (strlen (final) <= 0) {
+			g_free (final);
+			final = NULL;
 		}
 	}
 	g_match_info_free (match_info);
-	
-	final = g_string_free (ret, FALSE);
-	if (strlen (final) <= 0) {
-		g_free (final);
-		final = NULL;
-	}
+
 	return final;
 }
 
@@ -625,66 +681,85 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	gint dummy_int;
 	IAnjutaMessageViewType type;
 	GList *node;
-	gchar* dir = g_new0(gchar, 2048);
 	gchar *summary = NULL;
 	gchar *freeptr = NULL;
 	BasicAutotoolsPlugin *p = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin);
+	gboolean matched;
+	GMatchInfo *match_info;
+	MessagePattern *pat;
 	
 	g_return_if_fail (one_line != NULL);
-	
-	/* The translations should match that of 'make' program */
-	if ((sscanf (one_line, _("make[%d]: Entering directory '%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Entering directory '%s'"), dir) == 1) ||
-		(sscanf (one_line, _("make[%d]: Entering directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1) ||
-		(sscanf (one_line, "make[%d]: Entering directory '%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Entering directory '%s'", dir) == 1) ||
-		(sscanf (one_line, "make[%d]: Entering directory `%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Entering directory `%s'", dir) == 1))
+
+	/* Check if make enter a new directory */
+	matched = FALSE;
+	for (pat = patterns_make_entering; pat->pattern != NULL; pat++)
 	{
-		gchar* summary;
-		/* FIXME: Hack to remove the last ' */
-		gchar *idx = strchr (dir, '\'');
-		if (idx != NULL)
-		{
-			*idx = '\0';
-		}		
+		matched = g_regex_match(
+						pat->regex,
+				  		one_line,
+			  			0,
+			  			&match_info);
+		if (matched) break;
+		g_match_info_free (match_info);
+		matched = g_regex_match(
+						pat->local_regex,
+				  		one_line,
+			  			0,
+			  			&match_info);
+		if (matched) break;
+		g_match_info_free (match_info);
+	}
+	if (matched)
+	{
+		gchar *dir;
+		gchar *summary;
+	
+		dir = g_match_info_fetch (match_info, 2);
 		dir = get_real_directory(context, dir);
 		build_context_push_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Entering: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
 									 summary, one_line, NULL);
+		g_free (dir);
 		g_free(summary);
-
-		return;
+		g_match_info_free (match_info);
 	}
-	/* Translation for the following should match that of 'make' program */
-	if ((sscanf (one_line, _("make[%d]: Leaving directory '%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Leaving directory '%s'"), dir) == 1) ||
-		(sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1) ||
-		(sscanf (one_line, "make[%d]: Leaving directory '%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Leaving directory '%s'", dir) == 1) ||
-		(sscanf (one_line, "make[%d]: Leaving directory `%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Leaving directory `%s'", dir) == 1))
 
+	/* Check if make leave a directory */
+	matched = FALSE;
+	for (pat = patterns_make_leaving; pat->pattern != NULL; pat++)
 	{
-		gchar* summary;
-		/* FIXME: Hack to remove the last ' */
-		gchar *idx = strchr (dir, '\'');
-		if (idx != NULL)
-		{
-			*idx = '\0';
-		}
+		matched = g_regex_match(
+						pat->regex,
+				  		one_line,
+			  			0,
+			  			&match_info);
+		if (matched) break;
+		g_match_info_free (match_info);
+		matched = g_regex_match(
+						pat->local_regex,
+				  		one_line,
+			  			0,
+			  			&match_info);
+		if (matched) break;
+		g_match_info_free (match_info);
+	}
+	if (matched)
+	{
+		gchar *dir;
+		gchar *summary;
+		
+		dir = g_match_info_fetch (match_info, 2);
 		dir = get_real_directory(context, dir);
 		build_context_pop_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Leaving: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
 									 summary, one_line, NULL);
+		g_free (dir);
 		g_free(summary);
-		return;
+		g_match_info_free (match_info);
 	}
-	
+
 	/* Save freeptr so that we can free the copied string */
 	line = freeptr = g_strdup (one_line);
 
