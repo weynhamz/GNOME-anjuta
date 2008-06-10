@@ -276,7 +276,7 @@ execute_without_terminal (RunProgramPlugin *plugin,
 	new_env[i] = NULL;
 	
 	/* Run user program using in a shell */
-	user_shell = gnome_util_user_shell ();
+	user_shell = anjuta_util_user_shell ();
 	argv[0] = user_shell;
 	argv[1] = "-c";
 	argv[2] = cmd;

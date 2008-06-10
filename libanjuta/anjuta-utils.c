@@ -44,6 +44,9 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef G_OS_WIN32
+#include <pwd.h>
+#endif
 
 #include <glib/gi18n.h>
 #include <glib.h>
@@ -799,6 +802,74 @@ anjuta_util_create_dir (const gchar * d)
 	return TRUE;
 }
 
+/**
+ * anjuta_util_user_shell:
+ * 
+ * Retrieves the user's preferred shell.
+ * 
+ * Returns: A newly allocated string that is the path to the shell.
+ */
+/* copied from deprecated gnome_util_user_shell in libgnome */
+char *
+anjuta_util_user_shell (void)
+{
+#ifndef G_OS_WIN32
+	struct passwd *pw;
+	int i;
+	const char *shell;
+	const char shells [][14] = {
+		/* Note that on some systems shells can also
+		 * be installed in /usr/bin */
+		"/bin/bash", "/usr/bin/bash",
+		"/bin/zsh", "/usr/bin/zsh",
+		"/bin/tcsh", "/usr/bin/tcsh",
+		"/bin/ksh", "/usr/bin/ksh",
+		"/bin/csh", "/bin/sh"
+											};
+
+	if (geteuid () == getuid () &&
+	    getegid () == getgid ()) {
+		/* only in non-setuid */
+		if ((shell = g_getenv ("SHELL"))){
+			if (access (shell, X_OK) == 0) {
+				return g_strdup (shell);
+			}
+		}
+	}
+	pw = getpwuid(getuid());
+	if (pw && pw->pw_shell) {
+		if (access (pw->pw_shell, X_OK) == 0) {
+			return g_strdup (pw->pw_shell);
+		}
+	}
+
+	for (i = 0; i != G_N_ELEMENTS (shells); i++) {
+		if (access (shells [i], X_OK) == 0) {
+			return g_strdup (shells[i]);
+		}
+	}
+
+	/* If /bin/sh doesn't exist, your system is truly broken.  */
+	abort ();
+
+	/* Placate compiler.  */
+											return NULL;
+#else
+	/* g_find_program_in_path() always looks also in the Windows
+ 	 * and System32 directories, so it should always find either cmd.exe
+ 	 * or command.com.
+ 	 */
+	char *retval = g_find_program_in_path ("cmd.exe");
+
+	if (retval == NULL)
+		retval = g_find_program_in_path ("command.com");
+
+	g_assert (retval != NULL);
+
+	return retval;
+#endif
+}
+
 pid_t
 anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 {
@@ -807,7 +878,7 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 	
 	g_return_val_if_fail (command != NULL, -1);
 	
-	shell = gnome_util_user_shell ();
+	shell = anjuta_util_user_shell ();
 	pid = fork();
 	if (pid == 0)
 	{

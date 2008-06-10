@@ -1,5 +1,13 @@
 2008-06-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* libanjuta/anjuta-utils.c,
+	libanjuta/anjuta-utils.h,
+	plugins/debug-manager/start.c,
+	plugins/run-program/execute.c:
+	Copy libgnome deprecated gnome_util_user_shell into libanjuta
+
+2008-06-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/build-basic-autotools/build-basic-autotools.c:
 	Fix #534523: anjuta parses filenames from make wrong
 	GMatchInfo need to be freed even when regex fail in build_get_summary

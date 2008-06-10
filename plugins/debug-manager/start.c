@@ -45,8 +45,6 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 
-#include <gnome.h>
-
 #include <glade/glade-xml.h>
 
 #include <errno.h>
@@ -585,7 +583,7 @@ attach_process_update (AttachProcess * ap)
 #else
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
 #endif
-	shell = gnome_util_user_shell ();
+	shell = anjuta_util_user_shell ();
 	ch_pid = fork ();
 	if (ch_pid == 0)
 	{

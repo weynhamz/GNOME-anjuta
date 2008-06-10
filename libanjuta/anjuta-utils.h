@@ -104,6 +104,7 @@ GList * anjuta_util_update_string_list (GList *p_list, const gchar *p_str,
 										gint length);
 
 gboolean anjuta_util_create_dir (const gchar * d);
+char * anjuta_util_user_shell (void);
 pid_t anjuta_util_execute_shell (const gchar *dir, const gchar *command);
 
 gchar* anjuta_util_escape_quotes(const gchar* str);
