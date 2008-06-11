@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-19 01:47+0100\n"
+"POT-Creation-Date: 2008-06-11 22:22+0100\n"
 "PO-Revision-Date: 2008-03-08 18:29-0000\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -180,14 +180,14 @@ msgstr "تايلاندي"
 msgid "Unknown"
 msgstr "مجهول"
 
-#: ../libanjuta/anjuta-launcher.c:1164 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "لم يمكن تنفيذ الأمر: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1165
+#: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
 msgstr "فشل execvp"
 
@@ -198,6 +198,11 @@ msgstr "قشرة أنجوتا"
 #: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
 msgstr "قشرة أنجوتا التي ستحتوي الملحق"
+
+#: ../libanjuta/anjuta-plugin-manager.c:734
+#, c-format
+msgid "Plugin '%s' do not want to be deactivated"
+msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
@@ -238,6 +243,11 @@ msgid ""
 msgstr ""
 "هذه ملحقات منتقاة من قبلك عندما طلب منك أنجوتا اختيار أحد الملحقات المناسبة "
 "العديدة. إزالة الملحق المفضل سوف يجعل أنجوتا يطلب منك مجدداً اختيار ملحق آخر."
+
+#: ../libanjuta/anjuta-plugin-manager.c:1212
+#, fuzzy
+msgid "Forget selected plugin"
+msgstr "انتق ملحقاً"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
@@ -373,7 +383,7 @@ msgstr ""
 "فشلت قراءة '%s': الملحقات الإجبارية التالية مفقودة:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1459
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -381,7 +391,7 @@ msgstr ""
 "هل أنت متأكد أنك تريد إعادة ضبط التفضيلات\n"
 "على إعداداتها الافتراضية؟"
 
-#: ../libanjuta/anjuta-preferences.c:1460
+#: ../libanjuta/anjuta-preferences.c:1463
 msgid "_Reset"
 msgstr "إعادة ضب_ط"
 
@@ -464,21 +474,21 @@ msgstr "حساس"
 msgid "Shortcut"
 msgstr "أختصار"
 
-#: ../libanjuta/anjuta-utils.c:74
+#: ../libanjuta/anjuta-utils.c:77
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "تعذرت قراءة الملف: %s."
 
-#: ../libanjuta/anjuta-utils.c:84
+#: ../libanjuta/anjuta-utils.c:87
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "تعذر إنشاء الملف: %s."
 
-#: ../libanjuta/anjuta-utils.c:120
+#: ../libanjuta/anjuta-utils.c:123
 msgid "Unable to complete file copy"
 msgstr "تعذر إكمال نسخ الملف"
 
-#: ../libanjuta/anjuta-utils.c:333
+#: ../libanjuta/anjuta-utils.c:336
 msgid ""
 "\n"
 "System: "
@@ -486,7 +496,7 @@ msgstr ""
 "\n"
 "النظام: "
 
-#: ../libanjuta/anjuta-utils.c:471
+#: ../libanjuta/anjuta-utils.c:474
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -495,12 +505,12 @@ msgstr ""
 "الأداة %s غير مثبتة.\n"
 "رجاءً ثبّتها."
 
-#: ../libanjuta/anjuta-utils.c:820 ../libanjuta/anjuta-utils.c:824
+#: ../libanjuta/anjuta-utils.c:891 ../libanjuta/anjuta-utils.c:895
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "لا يمكن تشغيل الأمر: %s (باستخدام القشرة %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1386
+#: ../libanjuta/anjuta-utils.c:1457
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -587,260 +597,277 @@ msgstr "اختر برنامجا"
 msgid "Use scratchbox"
 msgstr "استخدم صندوق الخربشة"
 
-#. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:564
-#, c-format
-msgid "make[%d]: Entering directory '%s'"
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:129
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "صنع[%d]: دخول المجلد '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:565
-#, c-format
-msgid "make: Entering directory '%s'"
-msgstr "صنع: دخول المجلد '%s'"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:130
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
+msgstr "صنع[%d]: دخول المجلد '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:566
-#, c-format
-msgid "make[%d]: Entering directory `%s'"
-msgstr "صنع[%d]: دخول المجلد `%s'"
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:138
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
+msgstr "صنع[%d]: الخروج من المجلد '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:567
-#, c-format
-msgid "make: Entering directory `%s'"
-msgstr "صنع: دخول المجلد `%s'"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:139
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
+msgstr "صنع[%d]: الخروج من المجلد '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:582
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:303
+#, fuzzy
+msgid "Command aborted"
+msgstr "الأمر"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:720
 #, c-format
 msgid "Entering: %s"
 msgstr "دخول: %s"
 
-#. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
-#, c-format
-msgid "make[%d]: Leaving directory '%s'"
-msgstr "صنع[%d]: الخروج من المجلد '%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
-#, c-format
-msgid "make: Leaving directory '%s'"
-msgstr "صنع: الخروج من المجلد '%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
-#, c-format
-msgid "make[%d]: Leaving directory `%s'"
-msgstr "صنع[%d]: الخروج من المجلد `%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:593
-#, c-format
-msgid "make: Leaving directory `%s'"
-msgstr "صنع: الخروج من المجلد `%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:609
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:755
 #, c-format
 msgid "Leaving: %s"
 msgstr "الخروج من: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:641
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:788
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr "تحذير:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:916
+#, fuzzy, c-format
+msgid "Command exited with status %d"
+msgstr "اكتمل بلا نجاح برمز %d\n"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:926
+#, c-format
+msgid "Command canceled by user"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:931
+#, c-format
+msgid "Command aborted by user"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:936
+#, c-format
+msgid "Command terminated with signal %d"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:944
+msgid "Command terminated for an unknown reason"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:956
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "الوقت الكامل المستغرق: %lu ثانية\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:768
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:961
 msgid "Completed unsuccessful\n"
 msgstr "اكتمل... بغير نجاح\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:773
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:966
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
 msgstr "اكتمل... بنجاح\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:827
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 #, c-format
 msgid "Build %d: %s"
 msgstr "بناء %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1295
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr "لا يمكن تصريف \"%s\": لا يوجد قاعدة تصريف محددة لهذا النوع من الملفات."
 
 #. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1093
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1337
 #, fuzzy
 msgid "Configure"
 msgstr "إ_عداد"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1127
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1372
 #, fuzzy
 msgid "Autogenerate"
 msgstr "تشغيل الت_وليد التلقائي..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1429
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1439
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1605
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1588
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1656
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1666
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1684
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1694
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1860
 msgid "_Build"
 msgstr "ب_ناء"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1337
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
 msgid "_Build Project"
 msgstr "ب_ناء المشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1338
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1593
 msgid "Build whole project"
 msgstr "بناء المشروع كاملاً"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1598
 msgid "_Install Project"
 msgstr "ت_ثبيت المشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1344
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1599
 msgid "Install whole project"
 msgstr "تثبيت المشروع كاملاً"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1604
 msgid "_Clean Project"
 msgstr "تن_ظيف المشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1350
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1605
 msgid "Clean whole project"
 msgstr "تنظيف المشروع كاملاً"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1610
 msgid "Run C_onfigure..."
 msgstr "تشغيل الإ_عداد..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1356
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1611
 msgid "Configure project"
 msgstr "إعداد المشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1616
 msgid "Run _Autogenerate..."
 msgstr "تشغيل الت_وليد التلقائي..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
 msgid "Autogenerate project files"
 msgstr "توليد تلقائي لملفات المشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1622
 msgid "Build _Tarball"
 msgstr "بناء Tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1623
 msgid "Build project tarball distribution"
 msgstr "بناء توزيعة Tarball للمشروع"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1628
 msgid "_Build Module"
 msgstr "ب_ناء الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1629
 msgid "Build module associated with current file"
 msgstr "بناء الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1634
 msgid "_Install Module"
 msgstr "ت_ثبيت الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1635
 msgid "Install module associated with current file"
 msgstr "تثبيت الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1385
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1640
 msgid "_Clean Module"
 msgstr "تن_ظيف الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1641
 msgid "Clean module associated with current file"
 msgstr "تنظيف الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1391
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1646
 msgid "Co_mpile File"
 msgstr "ت_صريف الملف"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1647
 msgid "Compile current editor file"
 msgstr "تصريف ملف المحرر الحالي"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1405
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1433
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1660
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1688
 msgid "_Compile"
 msgstr "تص_ريف"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1406
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1434
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1661
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1689
 msgid "Compile file"
 msgstr "صرّف الملف"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1440
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1667
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1695
 msgid "Build module"
 msgstr "ابنِ الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1445
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1609
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1672
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1700
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1864
 msgid "_Install"
 msgstr "ثبّ_ت"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1446
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1673
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1701
 msgid "Install module"
 msgstr "ثبّت الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1423
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1451
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1678
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1706
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1868
 msgid "_Clean"
 msgstr "نظّ_ف"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1424
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1452
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1679
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1707
 msgid "Clean module"
 msgstr "نظّف الوحدة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1617
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1872
 msgid "Co_mpile"
 msgstr "ص_رّف"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1881
 #, c-format
 msgid "_Build (%s)"
 msgstr "_ابنِ (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1633
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1888
 #, c-format
 msgid "_Install (%s)"
 msgstr "_ثبّت (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1640
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1895
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_نظّف (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1647
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1902
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_صرّف (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2309
 msgid "Build commands"
 msgstr "ابن الأوامر"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2061
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2316
 msgid "Build popup commands"
 msgstr "ابن الأوامر المنبثقة"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2363
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2383
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2704
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2724
 msgid "Build Autotools"
 msgstr "ابنِ الأدوات الآلية"
 
@@ -879,19 +906,19 @@ msgstr "ما من ملف أو مشروع مفتوح حاليا."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:132
+#: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "البرنامج '%s' ليس ملفاً محلياً"
 
 #: ../plugins/build-basic-autotools/executer.c:310
-#: ../plugins/run-program/execute.c:145
+#: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "البرنامج `%s' غير موجود."
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:149
+#: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "البرنامج %s لا يملك صلاحيات تنفيذ"
@@ -906,17 +933,17 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "الملف التنفيذي '%s' ليس محدثاً."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:164
+#: ../plugins/class-inheritance/class-inherit.c:165
 msgid "Fixed data-view"
 msgstr "عرض بيانات ثابت"
 
-#: ../plugins/class-inheritance/class-inherit.c:1008
+#: ../plugins/class-inheritance/class-inherit.c:1011
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
 msgid "Update"
 msgstr "تحديثث"
 
-#: ../plugins/class-inheritance/class-inherit.c:1009
+#: ../plugins/class-inheritance/class-inherit.c:1012
 msgid "Update the graph"
 msgstr "حدّث الرسم البياني"
 
@@ -1342,11 +1369,11 @@ msgstr "المجلد"
 msgid "Are you sure that you do not want a log message?"
 msgstr "أمتأكد أنك لا تريد رسالة سجل؟"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:128
+#: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
 msgstr "فشل أمر CVS - انظر في الأعلى لتعرف التفاصيل"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:133
+#: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
@@ -1357,12 +1384,12 @@ msgstr[3] "نجح أمر CVS - الوقت المستغرق هو %ld ثوان."
 msgstr[4] "نجح أمر CVS - الوقت المستغرق هو %ld ثانية."
 msgstr[5] "نجح أمر CVS - الوقت المستغرق هو %ld ثانية."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:224
+#: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "أمر CVS قيد التشغيل - رجاءً انتظر حتى ينتهي!"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:232
-#: ../plugins/cvs-plugin/cvs-execute.c:236 ../plugins/cvs-plugin/plugin.c:489
+#: ../plugins/cvs-plugin/cvs-execute.c:229
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:489
 #: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "CVS"
@@ -2042,7 +2069,7 @@ msgstr "المكتبات المتشاركة"
 #: ../plugins/debug-manager/plugin.c:922
 #: ../plugins/debug-manager/plugin.c:1022
 msgid "Show shared libraries mappings"
-msgstr "أظهر تعيينات المكتبات المتشاركة"
+msgstr "أظهر إعدادات المكتبات المتشاركة"
 
 #: ../plugins/debug-manager/plugin.c:930
 #: ../plugins/debug-manager/plugin.c:1030
@@ -2285,55 +2312,49 @@ msgstr "المكدّس"
 msgid "Stack frame operations"
 msgstr "عمليات إطار المكدّس"
 
-#: ../plugins/debug-manager/start.c:100
+#: ../plugins/debug-manager/start.c:98
 msgid "Pid"
 msgstr "معرف العملية"
 
-#: ../plugins/debug-manager/start.c:100
+#: ../plugins/debug-manager/start.c:98
 msgid "User"
 msgstr "المستخدم"
 
-#: ../plugins/debug-manager/start.c:100
+#: ../plugins/debug-manager/start.c:98
 #: ../plugins/profiler/gprof-call-graph-view.c:344
 msgid "Time"
 msgstr "الوقت"
 
-#: ../plugins/debug-manager/start.c:100
+#: ../plugins/debug-manager/start.c:98
 msgid "Command"
 msgstr "الأمر"
 
-#: ../plugins/debug-manager/start.c:254
-msgid ""
-"Some files are not saved. Do you want to save all them before starting the "
-"debugger?"
-msgstr ""
-
-#: ../plugins/debug-manager/start.c:645
+#: ../plugins/debug-manager/start.c:595
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "تعذر تنفيذ: %s."
 
-#: ../plugins/debug-manager/start.c:659
+#: ../plugins/debug-manager/start.c:609
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "تعذر فتح الملف: %s\n"
 
-#: ../plugins/debug-manager/start.c:892
+#: ../plugins/debug-manager/start.c:864
 #, fuzzy, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "تعذر فتح %s للكتابة"
 
-#: ../plugins/debug-manager/start.c:1020
+#: ../plugins/debug-manager/start.c:1077
 #: ../plugins/run-program/parameters.c:611
 #, c-format
 msgid "Missing file %s"
 msgstr "الملف %s مفقود"
 
-#: ../plugins/debug-manager/start.c:1041
+#: ../plugins/debug-manager/start.c:1098
 msgid "Path"
 msgstr "المسار"
 
-#: ../plugins/debug-manager/start.c:1089 ../plugins/gdb/debugger.c:1685
+#: ../plugins/debug-manager/start.c:1146 ../plugins/gdb/debugger.c:1685
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2471,7 +2492,7 @@ msgstr "كتب"
 #: ../plugins/search/search-replace.c:1688
 #: ../plugins/search/search-replace.c:1700
 #: ../plugins/search/search-replace.c:2018
-#: ../plugins/symbol-browser/plugin.c:941
+#: ../plugins/symbol-browser/plugin.c:943
 msgid "Search"
 msgstr "ابحث"
 
@@ -4865,7 +4886,7 @@ msgstr "تشغيل جاف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:131
+#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "أد_وات"
 
@@ -5903,7 +5924,7 @@ msgid "Program:"
 msgstr "البرنامج"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:138
+#: ../plugins/run-program/execute.c:107
 #, fuzzy, c-format
 msgid "Program directory '%s' is not local"
 msgstr "البرنامج '%s' ليس ملفاً محلياً"
@@ -6306,8 +6327,8 @@ msgstr "تعذر بناء واجهة المستخدم للبحث والاستب�
 msgid "Could not obtain backup filename"
 msgstr "لم يمكن الحصول على اسم ملف النسخة الاحتياطية"
 
-#: ../plugins/sourceview/anjuta-document.c:487
-#: ../plugins/sourceview/anjuta-document.c:568
+#: ../plugins/sourceview/anjuta-document.c:486
+#: ../plugins/sourceview/anjuta-document.c:567
 #, c-format
 msgid "Unsaved Document %d"
 msgstr "مستند غير محفوظ %d"
@@ -7100,28 +7121,28 @@ msgid "Created symbols..."
 msgstr "أنشئت الرموز..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:900
+#: ../plugins/symbol-browser/plugin.c:902
 msgid "Local"
 msgstr "محلي"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:920
+#: ../plugins/symbol-browser/plugin.c:922
 msgid "Global"
 msgstr "عمومي"
 
-#: ../plugins/symbol-browser/plugin.c:964
+#: ../plugins/symbol-browser/plugin.c:966
 msgid "Symbol browser actions"
 msgstr "إجراءات مستعرض الرموز"
 
-#: ../plugins/symbol-browser/plugin.c:971
+#: ../plugins/symbol-browser/plugin.c:973
 msgid "Symbol browser popup actions"
 msgstr "إجراءات مستعرض الرموز المنبثقة"
 
-#: ../plugins/symbol-browser/plugin.c:978
+#: ../plugins/symbol-browser/plugin.c:980
 msgid "Symbol navigations"
 msgstr "تصفحات الرمز"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:989
 msgid "Symbols"
 msgstr "الرموز"
 
@@ -7174,8 +7195,8 @@ msgstr "استخدم ملف التعريف المنتقى حالياً في طر
 msgid "terminal operations"
 msgstr "عمليات المساعدة"
 
-#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:775
-#: ../plugins/terminal/terminal.c:822
+#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:774
+#: ../plugins/terminal/terminal.c:827
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "طرفيّة"
@@ -7366,11 +7387,11 @@ msgstr "خطأ عند تحميل الأدوات الخارجية"
 msgid "Unable to open %s for writing"
 msgstr "تعذر فتح %s للكتابة"
 
-#: ../plugins/tools/plugin.c:181
+#: ../plugins/tools/plugin.c:180
 msgid "Tool operations"
 msgstr "عمليات الأداة"
 
-#: ../plugins/tools/plugin.c:255 ../plugins/tools/plugin.c:261
+#: ../plugins/tools/plugin.c:253 ../plugins/tools/plugin.c:260
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "الأدوات"
@@ -8388,6 +8409,24 @@ msgstr ""
 #, fuzzy
 msgid "Run Program"
 msgstr "البرنامج"
+
+#~ msgid "make: Entering directory '%s'"
+#~ msgstr "صنع: دخول المجلد '%s'"
+
+#~ msgid "make[%d]: Entering directory `%s'"
+#~ msgstr "صنع[%d]: دخول المجلد `%s'"
+
+#~ msgid "make: Entering directory `%s'"
+#~ msgstr "صنع: دخول المجلد `%s'"
+
+#~ msgid "make: Leaving directory '%s'"
+#~ msgstr "صنع: الخروج من المجلد '%s'"
+
+#~ msgid "make[%d]: Leaving directory `%s'"
+#~ msgstr "صنع[%d]: الخروج من المجلد `%s'"
+
+#~ msgid "make: Leaving directory `%s'"
+#~ msgstr "صنع: الخروج من المجلد `%s'"
 
 #~ msgid "Stock Encodings"
 #~ msgstr "الترميزات المخزنة"
