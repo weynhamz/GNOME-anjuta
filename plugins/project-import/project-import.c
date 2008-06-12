@@ -234,6 +234,7 @@ create_import_page (ProjectImport *pi)
 	label = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label),
 			      _("<b>Enter the project name:</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (vbox1), label, FALSE, FALSE, 0);
 	
@@ -253,6 +254,7 @@ create_import_page (ProjectImport *pi)
 	label = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label),
 			      _("<b>Enter the base path of your project:</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (vbox2), label, FALSE, FALSE, 0);
 	

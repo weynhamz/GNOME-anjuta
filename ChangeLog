@@ -1,6 +1,12 @@
 2008-06-13  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
-	Reviewed by Naba Kumar  <naba@gnome.org>
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/project-import/project-import.c:
+	Changed label alignment to 0.0
+
+2008-06-13  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
 	* src/anjuta-app.c:
 	* libanjuta/anjuta-ui.{ch}:
 	Moved accels save/load funcs to anjuta-ui.
