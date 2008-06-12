@@ -1,5 +1,27 @@
 2008-06-12  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	 * libanjuta/interfaces/libanjuta.idl,
+	libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-plugin-manager.h:
+	Add new IAnjutaEnvironment interface
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
+	Remove scratchbox 1 support from build plugin
+	Use new IAnjutaEnvironment interface
+
+	* (added) plugins/scratchbox/plugin.c,
+	(added) plugins/scratchbox/plugin.h,
+	(added) plugins/scratchbox/anjuta-scratchbox.plugin.in,
+	(added) plugins/scratchbox/anjuta-scratchbox.glade,
+	(added) plugins/scratchbox/anjuta-scratchbox-48.png,
+	(added) plugins/scratchbox/Makefile.am,
+	plugins/Makefile.am,
+	configure.in:
+	Add new scratchbox 1 plugin implementing IAnjutaEnvironment
+
+2008-06-12  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* configure.in:
 	Fix #536375: libsocket not included cause build fail on Solaris
 

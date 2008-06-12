@@ -72,6 +72,8 @@ AnjutaPluginManager* anjuta_plugin_manager_new (GObject *shell,
 												GList* plugin_search_paths);
 
 /* Plugin activation, deactivation and retrival */
+gboolean anjuta_plugin_manager_is_active_plugin (AnjutaPluginManager *plugin_manager,
+								  const gchar *iface_name);
 GObject* anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 										   const gchar *iface_name);
 GObject* anjuta_plugin_manager_get_plugin_by_id (AnjutaPluginManager *plugin_manager,

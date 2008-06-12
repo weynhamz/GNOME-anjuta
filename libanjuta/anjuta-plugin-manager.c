@@ -1363,6 +1363,55 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 	return NULL;
 }
 
+static void
+on_is_active_plugins_foreach (gpointer key, gpointer data, gpointer user_data)
+{
+	AnjutaPluginHandle *handle = ANJUTA_PLUGIN_HANDLE (key);
+	gchar const **search_iface = (gchar const **)user_data;
+	
+	if (*search_iface != NULL)
+	{
+		GList *interfaces;
+		GList *found;
+			
+ 		interfaces = anjuta_plugin_handle_get_interfaces (handle);
+		
+		for (found = g_list_first (interfaces); found != NULL; found = g_list_next (found))
+		{
+		}
+		
+		found = g_list_find_custom (interfaces, *search_iface, (GCompareFunc)strcmp);
+		
+		if (found != NULL) *search_iface = NULL;
+	}
+}
+
+/**
+ * anjuta_plugin_manager_is_active_plugin:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * @iface_name: The interface implemented by the object to be found
+ * 
+ * Searches if a currently loaded plugins implements
+ * the given interface.
+ *
+ * Return value: True is the plugin is currently loaded.
+ */
+
+gboolean
+anjuta_plugin_manager_is_active_plugin (AnjutaPluginManager *plugin_manager,
+								  const gchar *iface_name)
+{
+	const gchar *search_iface = iface_name;
+
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), FALSE);
+	
+	g_hash_table_foreach (plugin_manager->priv->activated_plugins,
+						  on_is_active_plugins_foreach,
+						  &search_iface);
+	
+	return search_iface == NULL;
+}
+
 /**
  * anjuta_plugin_manager_get_plugin:
  * @plugin_manager: A #AnjutaPluginManager object

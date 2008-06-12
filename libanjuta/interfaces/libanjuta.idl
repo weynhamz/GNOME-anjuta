@@ -623,6 +623,51 @@ interface IAnjutaBuilder
 }
 
 /**
+ * SECTION:ianjuta-environment
+ * @title: IAnjutaEnvironment
+ * @short_description: Implemented by plugins doing cross compilation
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-environment.h
+ * 
+ */
+interface IAnjutaEnvironment
+{
+	/**
+	* ianjuta_environment_override:
+	* @obj: Self
+	* @dirp: a pointer on the working directory
+	* @argvp: a pointer on a NULL terminated string array
+	*     containing the command name in argv[0] and all
+	*    its argument
+	* @envp: a pointer on a NULL terminated string array
+	*    containing all additional environment variable
+	*    used by the command
+	* @err: Error propagation and reporting.
+	*
+	* Override a command to work in another build environment
+	*
+	* Returns: FALSE if there is an error.
+	*/
+	gboolean override (gchar **dir, gchar ***argv, gchar ***envp); 
+
+	/**
+	* ianjuta_environment_get_real_directory:
+	* @obj: Self
+	* @dir: A directory path in the environment
+	* @err: Error propagation and reporting.
+	*
+	* Convert a directory in the environment to a directory outside.
+	* It is useful when the environment use chroot. Take care that
+	* the input directory string is freed using g_free but and you need to
+	* free the output string when not needed.
+	*
+	* Returns: The directory path outside the environment
+	*/
+	gchar* get_real_directory (gchar *dir); 
+}
+
+/**
  * SECTION:ianjuta-buildable
  * @title: IAnjutaBuildable
  * @short_description: Implemented by plugins that can build

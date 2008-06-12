@@ -33,7 +33,8 @@ SUBDIRS = . \
 	symbol-db \
 	symbol-browser \
 	sourceview \
-	run-program
+	run-program \
+	scratchbox
 
 # indent
 

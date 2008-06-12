@@ -26,10 +26,12 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
+#include <libanjuta/interfaces/ianjuta-environment.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -48,13 +50,9 @@
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 #define PREF_INSTALL_ROOT "build.install.root"
 #define PREF_INSTALL_ROOT_COMMAND "build.install.root.command"
-#define PREF_USE_SB "build.use_scratchbox"
-#define PREF_SB_PATH "build.scratchbox.path"
 
 #define CHECK_BUTTON "preferences_toggle:bool:0:0:build.install.root"
 #define ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
-#define SB_CHECK "preferences_toggle:bool:0:0:build.use_scratchbox"
-#define SB_ENTRY "preferences_entry:text:/scratchbox:0:build.scratchbox.path"
 
 #define DEFAULT_COMMAND_COMPILE "make"
 #define DEFAULT_COMMAND_BUILD "make"
@@ -113,6 +111,9 @@ typedef struct
 	
 	/* Editors in which indicators have been updated */
 	GHashTable *indicators_updated_editors;
+	
+	/* Environment */
+	IAnjutaEnvironment *environment;
 } BuildContext;
 
 /* Declarations */
@@ -144,12 +145,6 @@ static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
 		gtk_widget_set_sensitive(entry, 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));
-}
-
-static void on_sb_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
-{
-	gtk_widget_set_sensitive(entry, 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));	
 }
 
 static gchar*
@@ -310,6 +305,12 @@ build_context_destroy_command (BuildContext *context)
 	{
 		g_object_unref (context->launcher);
 		context->launcher = NULL;
+	}
+	
+	if (context->environment)
+	{
+		g_object_unref (context->environment);
+		context->environment = NULL;
 	}
 	
 	g_free (context->command);
@@ -653,26 +654,6 @@ parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 	return FALSE;
 }
 
-static gchar* get_real_directory(BuildContext* context, gchar* dir)
-{
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (context->plugin->shell, NULL);
-	gchar* real_dir = dir;
-	if (anjuta_preferences_get_int (prefs, PREF_USE_SB))
-	{
-			gchar* username = getenv("USERNAME");
-			if (!username || strlen(username) == 0)
-				username = getenv("USER");
-			if (!username || strlen(username) == 0)
-				return real_dir;
-		
-		const gchar* sb_dir = anjuta_preferences_get(prefs, PREF_SB_PATH);
-		real_dir = g_strdup_printf("%s/users/%s%s", sb_dir, username, dir);
-		g_free(dir);
-		DEBUG_PRINT("sb_dir = %s", real_dir);
-	}
-	return real_dir;
-}
-
 static void
 on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 					  BuildContext *context)
@@ -715,7 +696,8 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		gchar *summary;
 	
 		dir = g_match_info_fetch (match_info, 2);
-		dir = get_real_directory(context, dir);
+		dir = context->environment ? ianjuta_environment_get_real_directory(context->environment, dir, NULL)
+								: dir;
 		build_context_push_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Entering: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
@@ -750,7 +732,8 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		gchar *summary;
 		
 		dir = g_match_info_fetch (match_info, 2);
-		dir = get_real_directory(context, dir);
+		dir = context->environment ? ianjuta_environment_get_real_directory(context->environment, dir, NULL)
+								: dir;
 		build_context_pop_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Leaving: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
@@ -1083,6 +1066,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		  IAnjutaBuilderCallback callback, gpointer user_data)
 {
 	BuildContext *context = NULL;
+	AnjutaPluginManager *plugin_manager;
 
 	if (with_view)
 	{
@@ -1096,6 +1080,25 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		context->plugin = ANJUTA_PLUGIN(plugin);
 	}
 		
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
+
+	if (context->environment != NULL)
+	{
+		g_object_unref (context->environment);
+	}
+	if (anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaEnvironment"))
+	{
+		IAnjutaEnvironment *env = IANJUTA_ENVIRONMENT (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
+					"IAnjutaEnvironment", NULL));
+		
+		g_object_ref (env);
+		context->environment = env;
+	}
+	else
+	{
+		context->environment = NULL;
+	}
+	
 	context->callback = callback;
 	context->user_data = user_data;
 	context->command = g_strdup (command);
@@ -1126,12 +1129,12 @@ save_all_files (AnjutaPlugin *plugin)
 	}
 }
 
-static void build_set_env (gpointer key, gpointer value, gpointer user_data)
+static void add_env_var (gpointer key, gpointer value, gpointer user_data)
 {
-	AnjutaLauncher* launcher = ANJUTA_LAUNCHER (user_data);
-	const gchar* name = key;
-	const gchar* env_value = value;
-	anjuta_launcher_set_env (launcher, name, env_value);
+	gchar ***var = (gchar ***)user_data;
+	
+	**var = g_strconcat (key, "=", value, NULL);
+	*var = (*var)++;
 }
 
 static BuildContext*
@@ -1142,33 +1145,60 @@ build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 			GError **err)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	gchar **argv;
+	gchar **envv;
+	gchar **var;
+	gchar *real_dir;
 	BuildContext *context;
-	gchar* real_command;
 	
 	g_return_val_if_fail (command != NULL, NULL);
 
-	if (save_file) 
-		save_all_files (ANJUTA_PLUGIN (plugin));
-	
-	context = build_get_context (bplugin, dir, with_view, command, callback, user_data);
-	
-	if (anjuta_preferences_get_int (prefs , PREF_USE_SB))
+	/* Store args and environment variables as string array */
+	if (!g_shell_parse_argv (command, NULL, &argv, NULL))
+		return NULL;
+
+	if (env)
 	{
-		const gchar* sb_path = anjuta_preferences_get(prefs, PREF_SB_PATH);
-		/* we need to skip the /scratchbox/users part, maybe could be done more clever */
-		const gchar* real_dir = strstr(dir, "/home");
-		real_command = g_strdup_printf("%s/login -d %s \"%s\"", sb_path,
-									  real_dir, command);
+		gchar **var;
+
+		envv = g_new0 (gchar*, g_hash_table_size (env) + 1);
+
+		var = envv;
+		g_hash_table_foreach (env, add_env_var, &var);
 	}
 	else
 	{
-		real_command = g_strdup(command);
+		envv = NULL;
 	}
 	
-	if (env)
+	real_dir = g_strdup (dir);
+	
+	if (save_file) 
+		save_all_files (ANJUTA_PLUGIN (plugin));
+
+	context = build_get_context (bplugin, dir, with_view, command, callback, user_data);
+
+	if (context->environment)
 	{
-		g_hash_table_foreach (env, build_set_env, context->launcher);
+		if (!ianjuta_environment_override (context->environment, &real_dir, &argv, &envv, NULL))
+		{
+			g_object_unref (context->environment);
+			context->environment = NULL;
+		}
+	}
+	
+	/* Set environment variable */
+	if (envv)
+	{
+		for (var = envv; *var != NULL; var++)
+		{
+			gchar *val = strchr (*var, '=');
+			
+			if (val != NULL) *val++ = '\0';
+			
+			anjuta_launcher_set_env (context->launcher, *var, val);
+		}
+		g_strfreev (envv);
 	}
 	
 	if (context->message_view)
@@ -1180,15 +1210,15 @@ build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 		ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	
-		anjuta_launcher_execute (context->launcher, real_command,
+		anjuta_launcher_execute_v (context->launcher, argv,
 								 on_build_mesg_arrived, context);
 	}
 	else
 	{
-		anjuta_launcher_execute (context->launcher, real_command,
+		anjuta_launcher_execute_v (context->launcher, argv,
 								 NULL, NULL);
 	}		
-	g_free(real_command);
+	g_strfreev (argv);
 	
 	return context;
 }
@@ -2686,20 +2716,14 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GtkWidget *root_check;
-	GtkWidget *sb_check;
 	GtkWidget *entry;
-	GtkWidget *sb_entry;
 		
 	/* Create the preferences page */
 	gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
 	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
-	sb_check = glade_xml_get_widget(gxml, SB_CHECK);
 	entry = glade_xml_get_widget(gxml, ENTRY);
-	sb_entry = glade_xml_get_widget(gxml, SB_ENTRY);
 	
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
-	g_signal_connect(G_OBJECT(sb_check), "toggled", G_CALLBACK(on_sb_check_toggled), sb_entry);
-	
 	
 	anjuta_preferences_add_page (prefs, gxml, "Build", _("Build Autotools"),  ICON_FILE);
 }
@@ -2708,18 +2732,12 @@ static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GtkWidget *root_check;
-	GtkWidget *sb_check;
 	GtkWidget *entry;
-	GtkWidget *sb_entry;
 
 	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
-	sb_check = glade_xml_get_widget(gxml, SB_CHECK);
 	entry = glade_xml_get_widget(gxml, ENTRY);
-	sb_entry = glade_xml_get_widget(gxml, SB_ENTRY);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_root_check_toggled), entry);
-	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
-		G_CALLBACK(on_sb_check_toggled), sb_entry);
 		
 	anjuta_preferences_remove_page(prefs, _("Build Autotools"));
 	
