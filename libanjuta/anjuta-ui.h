@@ -130,6 +130,11 @@ GtkWidget* anjuta_ui_get_accel_editor (AnjutaUI *ui);
 /* Dump the whole tree in STDOUT. Useful for debugging */
 void anjuta_ui_dump_tree (AnjutaUI *ui);
 
+/* Loading and saving accels */
+void anjuta_ui_load_accels (void);
+
+void anjuta_ui_save_accels (void);
+
 /* Convenience macros to register stock icons */
 #define BEGIN_REGISTER_ICON(plugin) \
 { \

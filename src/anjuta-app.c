@@ -38,6 +38,7 @@
 #include <bonobo/bonobo-dock-item.h>
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-plugin-manager.h>
@@ -104,52 +105,6 @@ on_toolbar_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 			gtk_toolbar_unset_style (GTK_TOOLBAR (node->data));
 			node = node->next;
 		}
-	}
-}
-	
-
-/*
- * Accels
- */
-static gchar *
-get_accel_file (void)
-{
-	gchar *anjuta_dir = NULL;
-	gchar *filename = NULL;
-
-	anjuta_dir = anjuta_util_get_user_config_dir ();
-
-	if (anjuta_dir != NULL)
-		filename = g_build_filename (anjuta_dir, "anjuta-accels", NULL);
-	
-	g_free (anjuta_dir);
-
-	return filename;
-}
-
-static void
-load_accels (void)
-{
-	gchar *filename;
-
-	filename = get_accel_file ();
-	if (filename != NULL)
-	{
-		gtk_accel_map_load (filename);
-		g_free (filename);
-	}
-}
-
-static void
-save_accels (void)
-{
-	gchar *filename;
-
-	filename = get_accel_file ();
-	if (filename != NULL)
-	{
-		gtk_accel_map_save (filename);
-		g_free (filename);
 	}
 }
 
@@ -840,7 +795,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_session_load), app);
 	
 	/* Loading accels */
-	load_accels ();
+	anjuta_ui_load_accels ();
 }
 
 static void
@@ -944,7 +899,7 @@ anjuta_app_layout_save (AnjutaApp *app, const gchar *filename,
 		g_warning ("Saving dock layout to '%s' failed!", filename);
 		
 	/* This is a good place to save the accels too */
-	save_accels ();
+	anjuta_ui_save_accels ();
 }
 
 static void

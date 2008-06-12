@@ -951,3 +951,48 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 	/* DEBUG_PRINT ("%s", ui_str); */
 	g_free (ui_str);
 }
+
+/*
+ * Accels
+ */
+static gchar *
+anjuta_ui_get_accel_file (void)
+{
+	gchar *anjuta_dir = NULL;
+	gchar *filename = NULL;
+
+	anjuta_dir = anjuta_util_get_user_config_dir ();
+
+	if (anjuta_dir != NULL)
+		filename = g_build_filename (anjuta_dir, "anjuta-accels", NULL);
+	
+	g_free (anjuta_dir);
+
+	return filename;
+}
+
+void
+anjuta_ui_load_accels (void)
+{
+	gchar *filename;
+
+	filename = anjuta_ui_get_accel_file ();
+	if (filename != NULL)
+	{
+		gtk_accel_map_load (filename);
+		g_free (filename);
+	}
+}
+
+void
+anjuta_ui_save_accels (void)
+{
+	gchar *filename;
+
+	filename = anjuta_ui_get_accel_file ();
+	if (filename != NULL)
+	{
+		gtk_accel_map_save (filename);
+		g_free (filename);
+	}
+}

@@ -1,3 +1,10 @@
+2008-06-13  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/anjuta-app.c:
+	* libanjuta/anjuta-ui.{ch}:
+	Moved accels save/load funcs to anjuta-ui.
+
 2008-06-12  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	 * libanjuta/interfaces/libanjuta.idl,
