@@ -1,3 +1,8 @@
+2008-06-12  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* configure.in:
+	Fix #536375: libsocket not included cause build fail on Solaris
+
 2008-06-12  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/project-manager/plugin.c (on_close_project_idle),

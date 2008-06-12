@@ -709,6 +709,9 @@ if test yes = "$have_st_ino"; then
 fi
 
 
+dnl Check for bind in libsocket (needed on Solaris)
+AC_CHECK_LIB(socket, bind)
+
 dnl Check for function forkpty in libutil
 AC_CHECK_LIB(util, forkpty)
 
