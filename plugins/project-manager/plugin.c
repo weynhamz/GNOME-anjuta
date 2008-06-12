@@ -169,6 +169,7 @@ static gboolean
 on_close_project_idle (gpointer plugin)
 {
 	project_manager_plugin_close (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin));
+	ANJUTA_PLUGIN_PROJECT_MANAGER(plugin)->close_project_idle = -1;
 	/* Self destruct */
 	anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 	
@@ -179,7 +180,7 @@ static void
 on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	if (plugin->project_uri)
-		g_idle_add (on_close_project_idle, plugin);
+		plugin->close_project_idle = g_idle_add (on_close_project_idle, plugin);
 }
 
 static GList *
@@ -1484,6 +1485,9 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 	
+	if (pm_plugin->close_project_idle > -1)
+		g_source_remove (pm_plugin->close_project_idle);
+
 	/* Close project if it's open */
 	if (pm_plugin->project_root_uri)
 		project_manager_plugin_close (pm_plugin);
@@ -1550,6 +1554,7 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->fm_current_uri = NULL;
 	plugin->current_editor_uri = NULL;
 	plugin->session_by_me = FALSE;
+	plugin->close_project_idle = -1;
 }
 
 static void

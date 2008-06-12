@@ -66,6 +66,9 @@ struct _ProjectManagerPlugin{
 	
 	/* Session flag */
 	gboolean session_by_me;
+
+	/* Idle callback id */
+	guint close_project_idle;
 };
 
 struct _ProjectManagerPluginClass{

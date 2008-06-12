@@ -1,3 +1,12 @@
+2008-06-12  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/project-manager/plugin.c (on_close_project_idle),
+	(on_close_project), (project_manager_plugin_deactivate_plugin),
+	(project_manager_plugin_instance_init):
+	* plugins/project-manager/plugin.h:
+	
+	Fixed a possible bug where the project-manager plugin is deactivated twice.
+
 2008-06-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-utils.c,
