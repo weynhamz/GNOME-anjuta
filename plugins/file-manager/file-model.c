@@ -23,14 +23,13 @@
  */
 
 #include "file-model.h"
-#include <gdl/gdl-icons.h>
 #include <glib/gi18n.h>
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
+#include <gtk/gtk.h>
 
 #define DIRECTORY_MIME_TYPE "x-directory/normal"
-#define DIRECTORY_OPEN "x-directory/open"
 #define ICON_SIZE 12
 
 enum
@@ -42,20 +41,6 @@ enum
 	PROP_FILTER_BACKUP
 };
 
-const gchar* binary_mime[] = {
-	"application/x-core",
-	"application/x-shared-library-la.xml",
-	"application/x-sharedlib.xml",
-	NULL
-};
-
-const gchar* binary_suffix[] = {
-	".lo",
-	".o",
-	".a",
-	NULL
-};
-
 typedef struct _FileModelPrivate FileModelPrivate;
 
 struct _FileModelPrivate
@@ -65,76 +50,14 @@ struct _FileModelPrivate
 	gboolean filter_hidden;
 	gboolean filter_backup;
 	
-	GdlIcons* icons;
-	
-	guint expand_idle_id;
-};
-
-typedef struct _FileModelIdleExpand FileModelIdleExpand;
-struct _FileModelIdleExpand
-{
-	FileModel* model;
-	GList* files;
-	GtkTreePath* path;
-	gchar* uri;
+	GCancellable* expand_cancel;
+	GtkTreeIter* expand_iter;
 };
 
 #define FILE_MODEL_GET_PRIVATE(o) \
 	(G_TYPE_INSTANCE_GET_PRIVATE((o), FILE_TYPE_MODEL, FileModelPrivate))
 
-G_DEFINE_TYPE (FileModel, file_model, GTK_TYPE_TREE_STORE);
-
-static gboolean
-file_model_filter_file (FileModel* model, GnomeVFSFileInfo* info)
-{
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
-	/* Ignore hidden files */
-	if (priv->filter_hidden && g_str_has_prefix (info->name, "."))
-	{
-		return TRUE;
-	}
-	/* Ignore backup files */
-	if (priv->filter_backup && (g_str_has_suffix (info->name, "~") ||
-		g_str_has_suffix (info->name, ".bak")))
-	{
-		return TRUE;
-	}
-	if (priv->filter_binary)
-	{
-		int i;
-		if (info->mime_type)
-		{
-			for (i = 0; binary_mime[i] != NULL; i++)
-			{
-				if (g_str_equal (info->mime_type, binary_mime[i]))
-					return TRUE;
-			}
-		}
-		for (i = 0; binary_suffix[i] != NULL; i++)
-		{
-			if (g_str_has_suffix (info->name, binary_suffix[i]))
-				return TRUE;
-		}
-	}
-	/* Be sure to ignore "." and ".." */
-	if (g_str_equal (info->name, ".") || g_str_equal (info->name, ".."))
-	{
-		return TRUE;
-	}
-	return FALSE;
-}
-
-static void
-file_model_cancel_expand_idle(FileModel* model)
-{
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
-	
-	if (priv->expand_idle_id)
-	{
-		g_source_remove (priv->expand_idle_id);
-		priv->expand_idle_id = 0;
-	}
-}
+G_DEFINE_TYPE (FileModel, file_model, GTK_TYPE_TREE_STORE)
 
 static void
 file_model_add_dummy (FileModel* model,
@@ -146,163 +69,156 @@ file_model_add_dummy (FileModel* model,
 	gtk_tree_store_append (store, &dummy, iter);
 	gtk_tree_store_set (store, &dummy, 
 					    COLUMN_FILENAME, _("Loading..."),
+						COLUMN_SORT, -1,
 					    -1);
 }
 
 static gboolean
-file_model_expand_idle (gpointer data)
+file_model_filter_file (FileModel* model,
+						GFileInfo* file_info)
 {
-	FileModelIdleExpand* expand = (FileModelIdleExpand*) data;
-	FileModel* model = expand->model;
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	GtkTreeStore* store = GTK_TREE_STORE (model);
-	GtkTreeIter parent;
 	
-	if (!gtk_tree_model_get_iter (GTK_TREE_MODEL(model), &parent, expand->path))
+	if (priv->filter_hidden && g_file_info_get_is_hidden(file_info))
 		return FALSE;
-	if (expand->files)
-	{
-		GList* file = expand->files;
-		GnomeVFSFileInfo* info = (GnomeVFSFileInfo*) file->data;
-		GtkTreeIter new_iter;
-		GdkPixbuf* pixbuf = NULL;
-		gboolean directory = FALSE;
-		
-		/* Set pointer to the next element */
-		expand->files = g_list_next (file);
-		
-		/* Ignore user-defined files */
-		if (file_model_filter_file (model, info))
-		{
-			return TRUE;
-		}
-		
-		/* Create file entry in tree */
-		const gchar* mime_type = gnome_vfs_file_info_get_mime_type (info);
-		gchar* uri = g_build_filename (expand->uri, info->name, NULL);
-		
-		if (mime_type)
-		  pixbuf = gdl_icons_get_mime_icon (priv->icons, mime_type);
-		
-		gtk_tree_store_append (store, &new_iter, &parent);
-		
-		if (mime_type && g_str_equal (mime_type, DIRECTORY_MIME_TYPE))
-		{
-			file_model_add_dummy (model, &new_iter);
-			if (!pixbuf)
-			  pixbuf = gdl_icons_get_mime_icon (priv->icons, DIRECTORY_MIME_TYPE);
-			directory = TRUE;
-		}
-		
-		gtk_tree_store_set (store, &new_iter, 
-						    COLUMN_FILENAME, info->name,
-						    COLUMN_URI, uri,
-						    COLUMN_PIXBUF, pixbuf,
-						    COLUMN_IS_DIR, directory,
-						    -1);
-		g_free (uri);
-		return TRUE;
-	}
-	else
-	{
-		GtkTreeIter dummy;
-		gnome_vfs_file_info_list_free (expand->files);
-		gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, &parent);
-		gtk_tree_store_remove (store, &dummy);
-		
-		g_free (expand->uri);
-		
-		priv->expand_idle_id = 0;
-		
+	else if (priv->filter_backup && g_file_info_get_is_backup(file_info))
 		return FALSE;
-	}
+	
+	return TRUE;
 }
 
-static int
-file_model_sort (gconstpointer a, gconstpointer b)
+static void
+file_model_expand_row_real(GObject* src_object, GAsyncResult* result,
+						   gpointer data)
 {
-	GnomeVFSFileInfo* info_a = (GnomeVFSFileInfo*) a;
-	GnomeVFSFileInfo* info_b = (GnomeVFSFileInfo*) b;
-	gboolean dir_a = (info_a->type  == GNOME_VFS_FILE_TYPE_DIRECTORY);
-	gboolean dir_b = (info_b->type  == GNOME_VFS_FILE_TYPE_DIRECTORY);
+	FileModel* model = FILE_MODEL(data);
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
+	GFile* dir = G_FILE(src_object);
+	GError* err = NULL;
+	GFileEnumerator* files = g_file_enumerate_children_finish(dir, result, &err);
+	GFileInfo* file_info;
+	GtkTreeIter dummy;
 	
-	if (dir_a == dir_b)
+	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))
 	{
-		return strcasecmp (info_a->name, info_b->name);
+		GtkTreeIter iter;
+		GtkTreeStore* store = GTK_TREE_STORE(model);
+		gboolean is_dir = FALSE;
+		const gchar** icon_names;
+		GtkIconInfo* icon_info;
+		GIcon* icon;
+		GdkPixbuf* pixbuf;
+		GFile* file;
+		
+		if (!file_model_filter_file (model, file_info))
+			continue;
+		
+		file = g_file_get_child (dir, g_file_info_get_name(file_info));
+		
+		icon = g_file_info_get_icon(file_info);
+		g_object_get (icon, "names", &icon_names, NULL);
+		icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+												icon_names,
+												ICON_SIZE,
+												GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+		gtk_icon_info_free(icon_info);
+		gtk_tree_store_append (store, &iter, priv->expand_iter);
+		
+		if (g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
+			is_dir = TRUE;
+		
+		gtk_tree_store_set (store, &iter, 
+							COLUMN_FILENAME, g_file_info_get_display_name(file_info),
+							COLUMN_FILE, file,
+							COLUMN_PIXBUF, pixbuf,
+							COLUMN_IS_DIR, is_dir,
+							COLUMN_SORT, g_file_info_get_sort_order(file_info),
+							-1);
+		if (is_dir)
+			file_model_add_dummy(model, &iter);
+		
+		g_object_unref (file);
+		g_object_unref (pixbuf);
 	}
-	else if (dir_a)
-	{
-		return -1;
-	}
-	else if (dir_b)
-	{
-		return 1;
-	}
-	else
-		return 0;
+	/* Remove dummy node */
+	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, priv->expand_iter);
+	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
+	
+	if (priv->expand_iter)
+		gtk_tree_iter_free(priv->expand_iter);
+	priv->expand_iter = NULL;
+	g_cancellable_reset(priv->expand_cancel);
+	g_object_unref(files);
 }
 
 static void
 file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 					    GtkTreePath* path, gpointer data)
 {
+	GtkTreeModel* sort_model = gtk_tree_view_get_model(tree_view);
 	FileModel* model = FILE_MODEL(data);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	gchar* uri;
-	GList* files = NULL;
+	GFile* dir;
+	GtkTreeIter real_iter;
 	
-	gtk_tree_model_get (GTK_TREE_MODEL(model), iter, COLUMN_URI, &uri, -1);
+	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+												   &real_iter, iter);
 	
-	if (gnome_vfs_directory_list_load (&files, uri,
-									   GNOME_VFS_FILE_INFO_GET_MIME_TYPE) ==
-		GNOME_VFS_OK)
-	{
-		files = g_list_sort (files, file_model_sort);
-		FileModelIdleExpand* expand = g_new0 (FileModelIdleExpand, 1);
-		expand->files = files;
-		expand->path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), iter);
-		expand->model = model;
-		expand->uri = uri;
-		
-		priv->expand_idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, 
-						 (GSourceFunc) file_model_expand_idle, 
-						 (gpointer) expand,
-						 (GDestroyNotify) g_free);
-		
-		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
-							COLUMN_PIXBUF, 
-							gdl_icons_get_mime_icon (priv->icons, DIRECTORY_OPEN),
-							-1);
-							
-	}
+	gtk_tree_model_get(GTK_TREE_MODEL(model), &real_iter,
+					   COLUMN_FILE, &dir, -1);
+	priv->expand_iter = gtk_tree_iter_copy(&real_iter);
+	
+	g_file_enumerate_children_async (dir,
+									 "standard::*",
+									 G_FILE_QUERY_INFO_NONE,
+									 G_PRIORITY_DEFAULT,
+									 priv->expand_cancel,
+									 file_model_expand_row_real,
+									 model);
 }
 
 static void
 file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 						 GtkTreePath* path, gpointer data)
 {
+	GtkTreeModel* sort_model = gtk_tree_view_get_model(tree_view);
 	FileModel* model = FILE_MODEL(data);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
 	GtkTreeIter child;
+	GtkTreeIter real_iter;
 	
-	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, iter))
+	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+												   &real_iter, iter);
+
+	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, &real_iter))
 	{
 		gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
 	}
-	file_model_add_dummy (model, iter);
-	gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
-						COLUMN_PIXBUF, 
-						gdl_icons_get_folder_icon (priv->icons),
-						-1);
+	file_model_add_dummy (model, &real_iter);
 }
 
+static void
+file_model_expand_cancelled(GObject* cancel, gpointer data)
+{
+	FileModel* model = FILE_MODEL(data);
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
+	
+	if (priv->expand_iter)
+		gtk_tree_iter_free(priv->expand_iter);
+	
+	priv->expand_iter = NULL;
+}
+	
 static void
 file_model_init (FileModel *object)
 {
 	FileModel* model = FILE_MODEL(object);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
 	
-	priv->icons = gdl_icons_new(ICON_SIZE);
+	priv->expand_cancel = g_cancellable_new();
+	g_signal_connect(priv->expand_cancel, "cancelled", G_CALLBACK(file_model_expand_cancelled),
+					 model);
+	priv->expand_iter = NULL;
 }
 
 static void
@@ -311,7 +227,8 @@ file_model_finalize (GObject *object)
 	FileModel* model = FILE_MODEL(object);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
 	
-	g_object_unref (G_OBJECT(priv->icons));
+	g_object_unref (priv->expand_cancel);
+	
 	G_OBJECT_CLASS (file_model_parent_class)->finalize (object);
 }
 
@@ -326,10 +243,10 @@ file_model_set_property (GObject *object, guint prop_id, const GValue *value, GP
 	{
 	case PROP_BASE_URI:
 		g_free (priv->base_uri);
-		priv->base_uri = g_strdup (g_value_get_string (value));
+		priv->base_uri = g_value_dup_string (value);
 		if (!priv->base_uri || !strlen (priv->base_uri))
 		{
-			priv->base_uri = gnome_vfs_get_uri_from_local_path("/");
+			priv->base_uri = g_strdup("file:///");
 		}
 		break;
 	case PROP_FILTER_BINARY:
@@ -372,6 +289,7 @@ file_model_get_property (GObject *object, guint prop_id, GValue *value, GParamSp
 		break;
 	}
 }
+
 
 static void
 file_model_class_init (FileModelClass *klass)
@@ -417,14 +335,13 @@ file_model_class_init (FileModelClass *klass)
 	
 }
 
-
 FileModel*
 file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
 {
 	GObject* model =
 		g_object_new (FILE_TYPE_MODEL, "base_uri", base_uri, NULL);
-	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING,
-		G_TYPE_BOOLEAN};
+	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_OBJECT,
+		G_TYPE_BOOLEAN, G_TYPE_INT};
 	
 	g_signal_connect (G_OBJECT (tree_view), "row-collapsed", 
 					  G_CALLBACK (file_model_row_collapsed), model);
@@ -443,38 +360,59 @@ file_model_refresh (FileModel* model)
 	GtkTreeStore* store = GTK_TREE_STORE (model);
 	GtkTreeIter iter;
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
-	gchar *path, *basename;
 	GdkPixbuf *pixbuf;
-
-	gtk_tree_store_clear (store);
-	path = gnome_vfs_get_local_path_from_uri (priv->base_uri);
-	if (!path)
-		return;
-
-	basename = g_path_get_basename (path);
-	pixbuf = gdl_icons_get_folder_icon (priv->icons);
+	GFile* base;
+	GFileInfo* base_info;
+	const gchar** icon_names;
+	GtkIconInfo* icon_info;
 	
-	file_model_cancel_expand_idle(model);
+	GIcon* icon;
+
+	g_cancellable_cancel(priv->expand_cancel);
+	g_cancellable_reset(priv->expand_cancel);
+	gtk_tree_store_clear (store);
+	
+	base = g_file_new_for_uri (priv->base_uri);
+	base_info = g_file_query_info (base, "standard::display-name,standard::icon",
+								  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	
+	if (!base_info)
+		return;
+	
+	icon = g_file_info_get_icon(base_info);
+	g_object_get (icon, "names", &icon_names, NULL);
+	icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+							  icon_names,
+							  ICON_SIZE,
+							  GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+	pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+	gtk_icon_info_free(icon_info);
+							  
 	
 	gtk_tree_store_append (store, &iter, NULL);
-	
 	gtk_tree_store_set (store, &iter, 
-						COLUMN_FILENAME, basename,
-						COLUMN_URI, priv->base_uri,
+						COLUMN_FILENAME, g_file_info_get_display_name(base_info),
+						COLUMN_FILE, base,
 						COLUMN_PIXBUF, pixbuf,
 						COLUMN_IS_DIR, TRUE,
+						COLUMN_SORT, 0,
 						-1);
-	g_free (basename);
-	g_free (path);
-	
 	file_model_add_dummy (model, &iter);
+
+	g_object_unref (pixbuf);
+	g_object_unref (base);
 }
 
 gchar*
 file_model_get_uri (FileModel* model, GtkTreeIter* iter)
 {
+	GFile* file;
 	gchar* uri;
-	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, COLUMN_URI, &uri, -1);
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, COLUMN_FILE, &file, -1);
+	
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
 	
 	return uri;
 }

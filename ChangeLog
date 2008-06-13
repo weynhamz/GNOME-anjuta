@@ -1,3 +1,19 @@
+2008-06-13  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in: Require gio-2.0 >= 2.16.0 (GNOME stable)
+	* plugins/file-manager/file-model.c (file_model_add_dummy),
+	(file_model_filter_file), (file_model_expand_row_real),
+	(file_model_row_expanded), (file_model_row_collapsed),
+	(file_model_expand_cancelled), (file_model_init),
+	(file_model_finalize), (file_model_set_property), (file_model_new),
+	(file_model_refresh), (file_model_get_uri):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.c (file_view_button_press_event),
+	(file_view_selection_changed), (file_view_sort_model),
+	(file_view_init):
+	* plugins/file-manager/plugin.c (on_gconf_notify):
+	Ported file-manager to gio
+
 2008-06-13  Naba Kumar  <naba@gnome.org>
 
 	* plugins/file-loader/plugin.c (setup_recent_chooser_menu):

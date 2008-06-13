@@ -167,9 +167,10 @@ on_gconf_notify(GConfClient *gclient, guint cnxn_id,
 				GConfEntry *entry, gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
-	GtkTreeModel* model = gtk_tree_view_get_model (GTK_TREE_VIEW (file_manager->fv));
+	GtkTreeModel* sort_model = gtk_tree_view_get_model (GTK_TREE_VIEW (file_manager->fv));
+	GtkTreeModel* file_model = gtk_tree_model_sort_get_model (GTK_TREE_MODEL_SORT(sort_model));
 	
-	g_object_set (G_OBJECT (model),
+	g_object_set (G_OBJECT (file_model),
 				  "filter_binary", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BINARY),
 				  "filter_hidden", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_HIDDEN),
 				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP), NULL);				  

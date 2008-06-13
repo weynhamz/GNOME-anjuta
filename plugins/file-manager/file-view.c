@@ -34,6 +34,8 @@
 #include <gtk/gtktreemodelsort.h>
 #include <gtk/gtkversion.h>
 
+#include <string.h>
+
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
 
@@ -178,18 +180,23 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 	GtkTreeIter selected;
 	gchar* uri;
 	gboolean is_dir;
-	GtkTreePath* path = NULL;
+	GtkTreePath* path = NULL;	
 	
 	GtkTreeSelection* selection = 
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	
 	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
 	{
-		path = gtk_tree_model_get_path (GTK_TREE_MODEL(priv->model), &selected);
-		gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &selected,
-							COLUMN_URI, &uri,
+		GtkTreeIter select_iter;
+		GtkTreeModel* sort_model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+													   &select_iter, &selected);
+		gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &select_iter,
 							COLUMN_IS_DIR, &is_dir,
 							-1);
+		uri = file_model_get_uri (priv->model, &select_iter);
+		
+		path = gtk_tree_model_get_path(sort_model, &selected);
 	}
 	else
 	{
@@ -237,9 +244,9 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 								   event->time);
 		}
 	}
-	if (path != NULL)
-		gtk_tree_path_free (path);
 	g_free (uri);
+	if (path)
+		gtk_tree_path_free(path);
 	return 	
 		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
 																	   event);
@@ -252,7 +259,11 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 	GtkTreeModel* model;
 	if (gtk_tree_selection_get_selected (selection, &model, &selected))
 	{
-		gchar* uri = file_model_get_uri (FILE_MODEL(model), &selected);
+		GtkTreeModel* file_model = gtk_tree_model_sort_get_model(GTK_TREE_MODEL_SORT(model));
+		GtkTreeIter real_selection;
+		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(model),
+												   &real_selection, &selected);
+		gchar* uri = file_model_get_uri (FILE_MODEL(file_model), &real_selection);
 		g_signal_emit_by_name (G_OBJECT (view), "current-uri-changed",
 							   uri, NULL);
 		g_free(uri);
@@ -292,7 +303,45 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 	return FALSE;
 }
 #endif
-		
+
+static int
+file_view_sort_model(GtkTreeModel* model, 
+					 GtkTreeIter* iter1, 
+					 GtkTreeIter* iter2,
+					 gpointer null)
+{
+	gint sort1, sort2;
+	gchar *filename1 = NULL, *filename2 = NULL;
+	gboolean is_dir1, is_dir2;
+	gint retval = 0;
+	
+	gtk_tree_model_get (model, iter1, 
+						COLUMN_FILENAME, &filename1,
+						COLUMN_SORT, &sort1,
+						COLUMN_IS_DIR, &is_dir1, -1);
+	gtk_tree_model_get (model, iter2, 
+						COLUMN_FILENAME, &filename2,
+						COLUMN_SORT, &sort2,
+						COLUMN_IS_DIR, &is_dir2, -1);
+	
+	if (sort1 != sort2)
+	{
+		retval = sort2 - sort1;
+	}
+	else if (is_dir1 != is_dir2)
+	{
+		retval = is_dir1 ? -1 : 1;
+	}
+	else if (filename1 && filename2)
+	{
+		retval = strcmp(filename1, filename2);
+	}
+	g_free(filename1);
+	g_free(filename2);
+	
+	return retval;
+}
+
 static void
 file_view_init (AnjutaFileView *object)
 {
@@ -300,12 +349,18 @@ file_view_init (AnjutaFileView *object)
 	GtkCellRenderer* renderer_pixbuf;
 	GtkTreeViewColumn* column;
 	GtkTreeSelection* selection;
+	GtkTreeModel* sort_model;
 	
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (object);
 	
 	priv->model = file_model_new (GTK_TREE_VIEW(object), NULL);
+	sort_model = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(priv->model));									  
 	
-	gtk_tree_view_set_model (GTK_TREE_VIEW (object), GTK_TREE_MODEL(priv->model));
+	gtk_tree_view_set_model (GTK_TREE_VIEW(object), sort_model);
+	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE(sort_model),
+											 file_view_sort_model,
+											 NULL,
+											 NULL);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
 	renderer_text = gtk_cell_renderer_text_new ();
