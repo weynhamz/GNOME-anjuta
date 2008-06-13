@@ -1,3 +1,33 @@
+2008-06-14   Louis-Francis Ratté-Boulianne  <louisfrancis.rb@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_update_documents_menu),
+	(on_notebook_page_close_button_click), (anjuta_docman_page_init),
+	(on_notebook_switch_page), (on_document_save_point),
+	(on_document_destroy), (anjuta_docman_remove_document),
+	(anjuta_docman_get_page_for_document),
+	(anjuta_docman_get_nth_page), (anjuta_docman_set_current_document),
+	(anjuta_docman_set_message_area), (anjuta_docman_get_uri),
+	(anjuta_docman_present_notebook_page),
+	(anjuta_docman_update_page_label),
+	(anjuta_docman_delete_all_markers),
+	(anjuta_docman_delete_all_indicators), (anjuta_docman_order_tabs),
+	(anjuta_docman_get_document_for_uri),
+	(anjuta_docman_get_all_doc_widgets):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/plugin.c:
+	* plugins/sourceview/sourceview.c (on_reload_dialog_response),
+	(on_sourceview_uri_changed_prompt):
+	
+	#530215 – Have a message area like gedit
+	
+	Commited with a trivial change to make sure it doesn't crash when a project is
+	closed.
+
 2008-06-13  Massimo Cora'  <maxcvs@email.it>
  
 	* plugins/project-manager/plugin.c (on_close_project_idle),
