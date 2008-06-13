@@ -34,6 +34,8 @@
 #include <gtk/gtktreemodelsort.h>
 #include <gtk/gtkversion.h>
 
+#include <gio/gio.h>
+
 #include <string.h>
 
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
@@ -52,7 +54,7 @@ struct _AnjutaFileViewPrivate
 	FileModel* model;
 	
 	GList* saved_paths;
-	guint refresh_idle_id;
+	GtkTreeRowReference* current_selection;
 };
 
 #define ANJUTA_FILE_VIEW_GET_PRIVATE(o) \
@@ -66,94 +68,28 @@ enum
 	PROP_END
 };
 
-static void
-file_view_cancel_refresh(AnjutaFileView* view)
-{
-	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE(view);
-	if (priv->refresh_idle_id)
-	{
-		GSource* source = g_main_context_find_source_by_id (g_main_context_default(),
-															priv->refresh_idle_id);
-		g_source_destroy (source);
-		priv->refresh_idle_id = 0;
-	}
-}
-
-static void
-file_view_on_file_clicked (GtkTreeViewColumn* column, AnjutaFileView* view)
-{
-	
-}
-
-static void
-file_view_save_expanded_row (GtkTreeView* tree_view, GtkTreePath* path,
-							 gpointer user_data)
-{
-	AnjutaFileView* view = ANJUTA_FILE_VIEW (tree_view);
-	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
-	priv->saved_paths = g_list_append (priv->saved_paths, 
-									   gtk_tree_path_to_string (path));
-}
-
-static void
-file_view_get_expanded_rows (AnjutaFileView* view)
-{
-	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
-	
-	priv->saved_paths = NULL;
-	gtk_tree_view_map_expanded_rows (GTK_TREE_VIEW (view),
-									 file_view_save_expanded_row,
-									 priv->saved_paths);
-}
-
-static gboolean
-file_view_expand_row_idle (gpointer user_data)
-{
-	AnjutaFileView* view = ANJUTA_FILE_VIEW (user_data);
-	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
-	
-	if (priv->saved_paths)
-	{
-		gchar* path_string = (gchar*) priv->saved_paths->data;
-		GtkTreePath* path = gtk_tree_path_new_from_string (path_string);
-		
-		gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
-		gtk_tree_path_free (path);
-		g_free (path_string);
-		priv->saved_paths = g_list_next (priv->saved_paths);
-		return TRUE;
-	}
-	else
-	{
-		g_list_free (priv->saved_paths);
-		priv->saved_paths = NULL;
-		priv->refresh_idle_id = 0;
-		return FALSE;
-	}	
-}
-
 void
-file_view_refresh (AnjutaFileView* view, gboolean remember_open)
+file_view_refresh (AnjutaFileView* view)
 {
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
 	GtkTreePath* tree_path;
-	
-	file_view_cancel_refresh(view);
-	
-	if (remember_open)
-	{
-		file_view_get_expanded_rows (view);
-	}
 	
 	file_model_refresh (priv->model);
 	
 	tree_path = gtk_tree_path_new_first ();
 	gtk_tree_view_expand_row (GTK_TREE_VIEW (view), tree_path, FALSE);
 	gtk_tree_path_free (tree_path);
-	if (remember_open)
-	{
-		priv->refresh_idle_id = g_idle_add (file_view_expand_row_idle, view);
-	}
+}
+
+void file_view_rename (AnjutaFileView* view)
+{
+	/* TODO */
+}
+
+gboolean file_view_can_rename (AnjutaFileView* view)
+{
+	/* TODO */
+	return FALSE;
 }
 
 gchar*
@@ -253,16 +189,82 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 }
 
 static void
+file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
+{
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	GtkTreeModel* file_model = GTK_TREE_MODEL (priv->model);
+	GFile* file;
+	GFileInfo* file_info;
+	gboolean is_dir;
+	
+	gtk_tree_model_get (file_model, iter, COLUMN_IS_DIR, &is_dir, -1);
+	if (!is_dir)
+	{
+		gchar* display;
+		gchar time_str[21];
+		gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, -1);
+		time_t time;
+		
+		file_info = g_file_query_info (file,
+									   "standard::*,time::changed",
+									   G_FILE_QUERY_INFO_NONE,
+									   NULL, NULL);
+		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
+		strftime(time_str, 20, "%x %X", localtime(&time));
+		
+		display = g_markup_printf_escaped("%s\n"
+										  "<small><tt>%s</tt></small>",
+										  g_file_info_get_display_name(file_info),
+										  time_str);
+		
+		gtk_tree_store_set (GTK_TREE_STORE(file_model), iter,
+							COLUMN_DISPLAY, display,
+							-1);
+		
+		g_object_unref (file_info);
+		g_free(display);
+	}
+
+}
+
+static void
 file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 {
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	GtkTreeModel* file_model = GTK_TREE_MODEL(priv->model);
 	GtkTreeIter selected;
-	GtkTreeModel* model;
+	GtkTreeModel* model = gtk_tree_view_get_model (GTK_TREE_VIEW(view));
+	
+	if (priv->current_selection)
+	{
+		GtkTreeIter iter;
+		GtkTreePath* path = gtk_tree_row_reference_get_path (priv->current_selection);
+		if (path && gtk_tree_model_get_iter (file_model, &iter, path))
+		{
+			gchar* filename;
+			gtk_tree_model_get (file_model, &iter, COLUMN_FILENAME, &filename, -1);
+			gtk_tree_store_set (GTK_TREE_STORE (file_model), &iter,
+								COLUMN_DISPLAY, filename, -1);
+			g_free(filename);
+			gtk_tree_path_free(path);
+		}
+		gtk_tree_row_reference_free(priv->current_selection);
+		priv->current_selection = NULL;
+	}
+	
 	if (gtk_tree_selection_get_selected (selection, &model, &selected))
 	{
-		GtkTreeModel* file_model = gtk_tree_model_sort_get_model(GTK_TREE_MODEL_SORT(model));
 		GtkTreeIter real_selection;
+		GtkTreePath* path;
 		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(model),
 												   &real_selection, &selected);
+		
+		path = gtk_tree_model_get_path(file_model, &real_selection);
+		priv->current_selection = gtk_tree_row_reference_new (file_model, path);
+		gtk_tree_path_free(path);
+		
+		file_view_show_extended_data (view, &real_selection);
+		
 		gchar* uri = file_model_get_uri (FILE_MODEL(file_model), &real_selection);
 		g_signal_emit_by_name (G_OBJECT (view), "current-uri-changed",
 							   uri, NULL);
@@ -353,6 +355,8 @@ file_view_init (AnjutaFileView *object)
 	
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (object);
 	
+	priv->current_selection = NULL;
+	
 	priv->model = file_model_new (GTK_TREE_VIEW(object), NULL);
 	sort_model = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(priv->model));									  
 	
@@ -372,11 +376,8 @@ file_view_init (AnjutaFileView *object)
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
 										 "pixbuf", COLUMN_PIXBUF, NULL);
 	gtk_tree_view_column_set_attributes (column, renderer_text,
-										 "text", COLUMN_FILENAME, NULL);
+										 "markup", COLUMN_DISPLAY, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
-	
-	g_signal_connect (G_OBJECT (column), "clicked", 
-					  G_CALLBACK (file_view_on_file_clicked), object);
 	
 	selection =
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (object));

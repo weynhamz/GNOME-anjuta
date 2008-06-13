@@ -5,6 +5,6 @@
 		<placeholder name="PlaceholderPopupFileBuild"/>
 		<placeholder name="PlaceholderPopupFileVCS"/>
 		<separator/>
-		<menuitem name="PopupFileManagerRefresh" action="ActionPopupFileManagerRefresh"/>
+		<menuitem name="PopupFileManagerRename" action="ActionPopupFileManagerRename"/>
 	</popup>
 </ui>

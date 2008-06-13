@@ -60,17 +60,17 @@ struct _ScrollPosition
 };
 
 static void
-on_file_manager_refresh (GtkAction* action, AnjutaFileManager* file_manager)
+on_file_manager_rename (GtkAction* action, AnjutaFileManager* file_manager)
 {	
-	file_view_refresh (file_manager->fv, TRUE);
+	file_view_rename (file_manager->fv);
 }
 
 static GtkActionEntry popup_actions[] = 
 {
 	{
-		"ActionPopupFileManagerRefresh", GTK_STOCK_REFRESH,
-		N_("_Refresh"), NULL, N_("Refresh file manager tree"),
-		G_CALLBACK (on_file_manager_refresh)
+		"ActionPopupFileManagerRename", NULL,
+		N_("_Rename"), NULL, N_("Rename file or directory"),
+		G_CALLBACK (on_file_manager_rename)
 	}
 };
 
@@ -96,13 +96,13 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	if (root_uri)
 	{
 		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
-		file_view_refresh (file_manager->fv, FALSE);
+		file_view_refresh (file_manager->fv);
 		file_manager->have_project = TRUE;
 	}
 	else
 	{
 		file_manager_set_default_uri (file_manager);
-		file_view_refresh (file_manager->fv, FALSE);
+		file_view_refresh (file_manager->fv);
 	}
 }
 
@@ -112,7 +112,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) plugin;
 	file_manager_set_default_uri (file_manager);
-	file_view_refresh (file_manager->fv, FALSE);
+	file_view_refresh (file_manager->fv);
 }
 
 static void
@@ -154,10 +154,16 @@ on_file_view_show_popup_menu (AnjutaFileView* view, const gchar* uri,
 							  guint32 time, AnjutaFileManager* file_manager)
 {
 	GtkWidget *popup;
+	GtkAction *rename;
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(file_manager)->shell, 
 										NULL);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 									   "/PopupFileManager");
+	rename = gtk_ui_manager_get_action (GTK_UI_MANAGER (ui),
+									   "ActionPopupFileManagerRename");
+	/* TODO */
+	gtk_action_set_visible (rename, FALSE);
+	
 	g_return_if_fail (GTK_IS_WIDGET (popup));
 	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, button, time);
 }
@@ -178,11 +184,11 @@ on_gconf_notify(GConfClient *gclient, guint cnxn_id,
 	if (!file_manager->have_project)
 	{
 		file_manager_set_default_uri (file_manager);
-		file_view_refresh (file_manager->fv, FALSE);
+		file_view_refresh (file_manager->fv);
 	}
 	else
 	{
-		file_view_refresh (file_manager->fv, TRUE);
+		file_view_refresh (file_manager->fv);
 	}
 	
 }
@@ -229,7 +235,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_file_view_current_uri_changed),
 					  file_manager);
 	file_manager_set_default_uri (file_manager);
-	file_view_refresh (file_manager->fv, FALSE);
+	file_view_refresh (file_manager->fv);
 	
 	gtk_container_add (GTK_CONTAINER (file_manager->sw), 
 					   GTK_WIDGET (file_manager->fv));

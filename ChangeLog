@@ -1,3 +1,25 @@
+2008-06-13  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-manager.ui:
+	* plugins/file-manager/file-model.c (file_model_filter_file),
+	(file_model_remove_file), (file_model_update_file),
+	(file_model_add_file), (on_file_model_changed),
+	(file_model_add_watch), (file_model_expand_row_real),
+	(file_model_row_collapsed), (file_model_new), (file_model_refresh):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.c (file_view_refresh),
+	(file_view_rename), (file_view_can_rename),
+	(file_view_show_extended_data), (file_view_selection_changed),
+	(file_view_init):
+	* plugins/file-manager/file-view.h:
+	* plugins/file-manager/plugin.c (on_file_manager_rename),
+	(project_root_added), (project_root_removed),
+	(on_file_view_show_popup_menu), (on_gconf_notify),
+	(file_manager_activate):
+	
+	Big code reorganization in file-manger plugin. No more refresh as it now
+	listens to file system changes and an extended selection view.
+
 2008-06-13  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in: Require gio-2.0 >= 2.16.0 (GNOME stable)

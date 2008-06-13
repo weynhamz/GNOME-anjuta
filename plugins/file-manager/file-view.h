@@ -64,11 +64,16 @@ GType file_view_get_type (void) G_GNUC_CONST;
 GtkWidget* file_view_new (void);
 
 void
-file_view_refresh(AnjutaFileView* view,
-				  gboolean remember_open);
+file_view_rename(AnjutaFileView* view);
+
+gboolean
+file_view_can_rename(AnjutaFileView* view);
 
 gchar*
 file_view_get_selected (AnjutaFileView* view);
+
+void
+file_view_refresh (AnjutaFileView* view);
 
 G_END_DECLS
 
