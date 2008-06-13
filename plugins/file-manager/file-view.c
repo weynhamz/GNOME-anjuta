@@ -284,7 +284,6 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 {
 	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
-	GtkTreeModel* model = GTK_TREE_MODEL (priv->model);
 	GtkTreePath* path;
 	GtkTreeIter iter;
 	
@@ -292,9 +291,13 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 								   x, y, &path, NULL, NULL, NULL);
 	if (path)
 	{
-		if (gtk_tree_model_get_iter (model, &iter, path))
+		GtkTreeModel* sort_model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+		if (gtk_tree_model_get_iter (sort_model, &iter, path))
 		{
-			gchar* filename = file_model_get_filename (priv->model, &iter);
+			GtkTreeIter real_iter;
+			gtk_tree_model_sort_convert_iter_to_child_iter (GTK_TREE_MODEL_SORT(sort_model),
+															&real_iter, &iter);										   
+			gchar* filename = file_model_get_filename (priv->model, &real_iter);
 			gtk_tooltip_set_markup (tooltip, filename);
 			g_free(filename);
 			gtk_tree_path_free (path);

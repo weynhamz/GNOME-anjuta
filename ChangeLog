@@ -1,5 +1,10 @@
 2008-06-13  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-view.c (file_view_query_tooltip):
+	Show correct tooltip
+
+2008-06-13  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/file-manager.ui:
 	* plugins/file-manager/file-model.c (file_model_filter_file),
 	(file_model_remove_file), (file_model_update_file),
