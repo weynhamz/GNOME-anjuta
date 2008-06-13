@@ -53,7 +53,6 @@ struct _AnjutaFileViewPrivate
 	
 	GList* saved_paths;
 	GtkTreeRowReference* current_selection;
-	GtkCellRenderer* renderer_display;
 };
 
 #define ANJUTA_FILE_VIEW_GET_PRIVATE(o) \
@@ -300,11 +299,10 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 	
 	filename = file_model_get_filename (FILE_MODEL (file_model), &real_iter);
 	gtk_tooltip_set_text (tooltip, filename);
-	gtk_tree_view_set_tooltip_cell (GTK_TREE_VIEW (view),
-									tooltip,
-									path,
-									NULL,
-									priv->renderer_display);
+	gtk_tree_view_set_tooltip_row (GTK_TREE_VIEW (view),
+								   tooltip,
+								   path);
+	
 	g_free (filename);
 	gtk_tree_path_free (path);
 	
@@ -353,6 +351,7 @@ static void
 file_view_init (AnjutaFileView *object)
 {
 	GtkCellRenderer* renderer_pixbuf;
+	GtkCellRenderer* renderer_display;
 	GtkTreeViewColumn* column;
 	GtkTreeSelection* selection;
 	GtkTreeModel* sort_model;
@@ -371,15 +370,15 @@ file_view_init (AnjutaFileView *object)
 											 NULL);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
-	priv->renderer_display = gtk_cell_renderer_text_new ();
+	renderer_display = gtk_cell_renderer_text_new ();
 	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Filename"));
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
-	gtk_tree_view_column_pack_start (column, priv->renderer_display, FALSE);
+	gtk_tree_view_column_pack_start (column, renderer_display, FALSE);
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
 										 "pixbuf", COLUMN_PIXBUF, NULL);
-	gtk_tree_view_column_set_attributes (column, priv->renderer_display,
+	gtk_tree_view_column_set_attributes (column, renderer_display,
 										 "markup", COLUMN_DISPLAY, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
 	

@@ -170,8 +170,6 @@ on_close_project_idle (gpointer plugin)
 {
 	project_manager_plugin_close (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin));
 	ANJUTA_PLUGIN_PROJECT_MANAGER(plugin)->close_project_idle = -1;
-	/* Self destruct */
-	anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 	
 	return FALSE;
 }
@@ -1484,9 +1482,11 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaProfileManager *profile_manager;
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
-	
+
 	if (pm_plugin->close_project_idle > -1)
+	{
 		g_source_remove (pm_plugin->close_project_idle);
+	}
 
 	/* Close project if it's open */
 	if (pm_plugin->project_root_uri)

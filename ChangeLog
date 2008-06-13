@@ -1,3 +1,9 @@
+2008-06-13  Massimo Cora'  <maxcvs@email.it>
+ 
+	* plugins/project-manager/plugin.c (on_close_project_idle),
+ 	(project_manager_plugin_deactivate_plugin):
+ 	removed a forced anjuta_plugin_deactivate () that caused a critical-warning. 
+
 2008-06-13  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-view.c (file_view_query_tooltip),
