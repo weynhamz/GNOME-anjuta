@@ -1,5 +1,11 @@
 2008-06-13  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-view.c (file_view_query_tooltip),
+	(file_view_init), (file_view_class_init):
+	Correct position for tooltips
+
+2008-06-13  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/file-view.c (file_view_query_tooltip):
 	Show correct tooltip
 

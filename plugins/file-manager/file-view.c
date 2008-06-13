@@ -41,9 +41,7 @@
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
 
-#if HAVE_TOOLTIP_API
-#	include <gtk/gtktooltip.h>
-#endif
+#include <gtk/gtktooltip.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -55,6 +53,7 @@ struct _AnjutaFileViewPrivate
 	
 	GList* saved_paths;
 	GtkTreeRowReference* current_selection;
+	GtkCellRenderer* renderer_display;
 };
 
 #define ANJUTA_FILE_VIEW_GET_PRIVATE(o) \
@@ -277,37 +276,40 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 	}
 }
 
-#if HAVE_TOOLTIP_API
 static gboolean
 file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 						 GtkTooltip* tooltip)
 {
 	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	GtkTreeModel* model_sort;
+	GtkTreeModel* file_model = GTK_TREE_MODEL (priv->model);
 	GtkTreePath* path;
 	GtkTreeIter iter;
+	GtkTreeIter real_iter;
+	gchar* filename;
 	
-	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view),
-								   x, y, &path, NULL, NULL, NULL);
-	if (path)
-	{
-		GtkTreeModel* sort_model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-		if (gtk_tree_model_get_iter (sort_model, &iter, path))
-		{
-			GtkTreeIter real_iter;
-			gtk_tree_model_sort_convert_iter_to_child_iter (GTK_TREE_MODEL_SORT(sort_model),
-															&real_iter, &iter);										   
-			gchar* filename = file_model_get_filename (priv->model, &real_iter);
-			gtk_tooltip_set_markup (tooltip, filename);
-			g_free(filename);
-			gtk_tree_path_free (path);
-			return TRUE;
-		}
-		gtk_tree_path_free (path);
-	}
-	return FALSE;
+	gtk_tree_view_get_tooltip_context (GTK_TREE_VIEW (view),
+									   &x, &y, keyboard,
+									   &model_sort,
+									   &path,
+									   &iter);
+	
+	gtk_tree_model_sort_convert_iter_to_child_iter (GTK_TREE_MODEL_SORT (model_sort),
+											&real_iter, &iter);
+	
+	filename = file_model_get_filename (FILE_MODEL (file_model), &real_iter);
+	gtk_tooltip_set_text (tooltip, filename);
+	gtk_tree_view_set_tooltip_cell (GTK_TREE_VIEW (view),
+									tooltip,
+									path,
+									NULL,
+									priv->renderer_display);
+	g_free (filename);
+	gtk_tree_path_free (path);
+	
+	return TRUE;
 }
-#endif
 
 static int
 file_view_sort_model(GtkTreeModel* model, 
@@ -350,7 +352,6 @@ file_view_sort_model(GtkTreeModel* model,
 static void
 file_view_init (AnjutaFileView *object)
 {
-	GtkCellRenderer* renderer_text;
 	GtkCellRenderer* renderer_pixbuf;
 	GtkTreeViewColumn* column;
 	GtkTreeSelection* selection;
@@ -370,15 +371,15 @@ file_view_init (AnjutaFileView *object)
 											 NULL);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
-	renderer_text = gtk_cell_renderer_text_new ();
+	priv->renderer_display = gtk_cell_renderer_text_new ();
 	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Filename"));
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
-	gtk_tree_view_column_pack_start (column, renderer_text, FALSE);
+	gtk_tree_view_column_pack_start (column, priv->renderer_display, FALSE);
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
 										 "pixbuf", COLUMN_PIXBUF, NULL);
-	gtk_tree_view_column_set_attributes (column, renderer_text,
+	gtk_tree_view_column_set_attributes (column, priv->renderer_display,
 										 "markup", COLUMN_DISPLAY, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
 	
@@ -389,9 +390,7 @@ file_view_init (AnjutaFileView *object)
 	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (object), FALSE);
 	
-#if HAVE_TOOLTIP_API
 	g_object_set (object, "has-tooltip", TRUE, NULL);
-#endif
 }
 
 static void
@@ -497,10 +496,7 @@ file_view_class_init (AnjutaFileViewClass *klass)
 	widget_class->button_press_event = file_view_button_press_event;
 	
 	/* Tooltips */
-#if HAVE_TOOLTIP_API
-	widget_class->query_tooltip = file_view_query_tooltip;
-#endif
-	
+	widget_class->query_tooltip = file_view_query_tooltip;	
 }
 
 GtkWidget*
