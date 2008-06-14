@@ -29,6 +29,8 @@
 
 #include <config.h>
 #include <gtk/gtkwindow.h>
+#include <gtk/gtkprogressbar.h>
+#include <gtk/gtkstatusbar.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -40,7 +42,14 @@ struct _AnjutaStatusPriv
 	gint busy_count;
 	GHashTable *widgets;
 	
+	/* Status bar */
+	GtkWidget *status_bar;
+	guint status_message;
+	guint push_message;
+	GList *push_values;
+	
 	/* Progress bar */
+	GtkWidget *progress_bar;
 	gint total_ticks;
 	gint current_ticks;
 	
@@ -68,7 +77,7 @@ static void
 anjuta_status_finalize (GObject *widget)
 {
 	g_free(ANJUTA_STATUS(widget)->priv);
-	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
+	G_OBJECT_CLASS (parent_class)->finalize (widget);
 }
 
 static void
@@ -98,6 +107,11 @@ anjuta_status_dispose (GObject *widget)
 		g_free (status->priv->splash_file);
 		status->priv->splash_file = NULL;
 	}
+	if (status->priv->push_values)
+	{
+		g_list_free (status->priv->push_values);
+		status->priv->push_values = NULL;
+	}
 	if (status->priv->widgets)
 	{
 		g_hash_table_foreach (status->priv->widgets,
@@ -111,13 +125,24 @@ anjuta_status_dispose (GObject *widget)
 						   (gpointer*)(gpointer)&status->priv->window);
 		status->priv->window = NULL;
 	}
-	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
+	G_OBJECT_CLASS (parent_class)->dispose (widget);
 }
 
 static void
 anjuta_status_instance_init (AnjutaStatus *status)
 {	
 	status->priv = g_new0 (AnjutaStatusPriv, 1);
+	status->priv->progress_bar = gtk_progress_bar_new ();
+	gtk_box_pack_start (GTK_BOX (status), status->priv->progress_bar, FALSE, TRUE, 0);
+	gtk_widget_show (status->priv->progress_bar);
+	status->priv->status_bar = gtk_statusbar_new ();
+	gtk_box_pack_start (GTK_BOX (status), status->priv->status_bar, TRUE, TRUE, 0);
+	gtk_widget_show (status->priv->status_bar);
+	status->priv->status_message = gtk_statusbar_get_context_id (GTK_STATUSBAR (status->priv->status_bar),
+																 "status-message");
+	status->priv->push_message = gtk_statusbar_get_context_id (GTK_STATUSBAR (status->priv->status_bar),
+															   "push-message");
+	status->priv->push_values = NULL;
 	status->priv->splash_file = NULL;
 	status->priv->splash_progress_position = 0;
 	status->priv->disable_splash = FALSE;
@@ -155,9 +180,7 @@ anjuta_status_new (void)
 {
 	GtkWidget *status;
 
-	status = GTK_WIDGET (g_object_new (ANJUTA_TYPE_STATUS,
-						 "has-progress", TRUE, "has-status", TRUE,
-						 "interactivity", GNOME_PREFERENCES_NEVER, NULL));
+	status = GTK_WIDGET (g_object_new (ANJUTA_TYPE_STATUS, NULL));
 	return status;
 }
 
@@ -173,7 +196,10 @@ anjuta_status_set (AnjutaStatus *status, const gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	gnome_appbar_set_status (GNOME_APPBAR (status), message);
+	gtk_statusbar_pop (GTK_STATUSBAR (status->priv->status_bar),
+					   status->priv->status_message);
+	gtk_statusbar_push (GTK_STATUSBAR (status->priv->status_bar),
+						status->priv->status_message, message);
 	g_free(message);
 }
 
@@ -182,6 +208,7 @@ anjuta_status_push (AnjutaStatus *status, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
+	guint value;
 
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (mesg != NULL);
@@ -189,8 +216,40 @@ anjuta_status_push (AnjutaStatus *status, const gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	gnome_appbar_push (GNOME_APPBAR (status), message);
+	
+	value = gtk_statusbar_push (GTK_STATUSBAR (status->priv->status_bar),
+								status->priv->push_message, message);
+	status->priv->push_values = g_list_prepend (status->priv->push_values,
+												GUINT_TO_POINTER (value));
 	g_free(message);
+}
+
+void
+anjuta_status_pop (AnjutaStatus *status)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	
+	gtk_statusbar_pop (GTK_STATUSBAR (status->priv->status_bar),
+					   status->priv->push_message);
+
+	status->priv->push_values = g_list_remove_link (status->priv->push_values,
+													status->priv->push_values);
+}
+
+void
+anjuta_status_clear_stack (AnjutaStatus *status)
+{
+	GList *l;
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	
+	for (l = status->priv->push_values; l != NULL; l = g_list_next (l))
+	{
+		guint value = GPOINTER_TO_UINT (l->data);
+		gtk_statusbar_remove (GTK_STATUSBAR (status->priv->status_bar),
+							  status->priv->push_message, value);
+	}
+	g_list_free (status->priv->push_values);
+	status->priv->push_values = NULL;
 }
 
 static void
@@ -296,7 +355,7 @@ anjuta_status_set_default (AnjutaStatus *status, const gchar *label,
 	str = g_string_new (NULL);
 	g_hash_table_foreach (status->priv->default_status_items, foreach_hash, str);
 	status_str = g_string_free (str, FALSE);
-	gnome_appbar_set_default (GNOME_APPBAR (status), status_str);
+	anjuta_status_set (status, status_str, NULL);
 	g_free (status_str);
 }
 
@@ -378,22 +437,17 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 		while (g_main_context_iteration(NULL, FALSE));
 	}
 	else
-	{
-		GtkProgressBar *progressbar;
-		GtkWidget *statusbar;
-		
-		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
-											  percentage);
-		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
-		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
-		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
-		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
-		if (GTK_WIDGET(progressbar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
-			gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
-		if (GTK_WIDGET(statusbar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
-			gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
+	{	
+		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
+									   percentage);
+		gtk_widget_queue_draw (GTK_WIDGET (status->priv->status_bar));
+		gtk_widget_queue_draw (GTK_WIDGET (status->priv->progress_bar));
+		if (GTK_WIDGET(status->priv->progress_bar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(status->priv->progress_bar)->window))
+			gdk_window_process_updates (GTK_WIDGET(status->priv->progress_bar)->window, TRUE);
+		if (GTK_WIDGET(status->priv->status_bar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(status->priv->status_bar)->window))
+			gdk_window_process_updates (GTK_WIDGET(status->priv->status_bar)->window, TRUE);
 	}
 }
 
@@ -403,8 +457,8 @@ anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text)
 	GtkProgressBar *progressbar;
 	GtkWidget *statusbar;
 	
-	progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
-	statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+	progressbar = GTK_PROGRESS_BAR (status->priv->progress_bar);
+	statusbar = status->priv->status_bar;
 	
 	if (text)
 		anjuta_status_set (status, "%s", text);
@@ -445,10 +499,10 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 		
 		if (text)
 			anjuta_status_set (status, "%s", text);
-		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
-											  percentage);
-		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
-		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
+									   percentage);
+		progressbar = GTK_PROGRESS_BAR (status->priv->progress_bar);
+		statusbar = status->priv->status_bar;
 		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
 		if (GTK_WIDGET(progressbar)->window != NULL &&
@@ -466,6 +520,7 @@ void
 anjuta_status_progress_reset (AnjutaStatus *status)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	
 	if (status->priv->splash)
 	{
 		gtk_widget_destroy (status->priv->splash);
@@ -473,8 +528,8 @@ anjuta_status_progress_reset (AnjutaStatus *status)
 	}
 	status->priv->current_ticks = 0;
 	status->priv->total_ticks = 0;
-	gnome_appbar_set_progress_percentage (GNOME_APPBAR (status), 0);
-	gnome_appbar_refresh (GNOME_APPBAR(status));
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar), 0);
+	anjuta_status_clear_stack (status);
 }
 
 static gboolean
@@ -525,5 +580,5 @@ anjuta_status_set_title (AnjutaStatus *status, const gchar *title)
 	}
 }
 
-ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GNOME_TYPE_APPBAR);
+ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GTK_TYPE_HBOX);
 ANJUTA_TYPE_END;

@@ -1,9 +1,17 @@
+2008-06-15  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-preferences.c: Fixed a compile warning.
+
 2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>
 	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:
 	Removed GNOME_CALL_PARENT.
 
+	* libanjuta/anjuta-status.ch:
+	Now it uses GtkProgressBar and GtkStatusbar instead of GnomeAppBar.
+	(with modifications)
+	
 2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>
