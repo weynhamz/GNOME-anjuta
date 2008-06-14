@@ -31,7 +31,7 @@
 #include <gtk/gtk.h>
 
 #include <libanjuta/resources.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include "utilities.h"
 #include "info.h"

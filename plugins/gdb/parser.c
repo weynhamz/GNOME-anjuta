@@ -28,7 +28,7 @@
 #include "parser.h"
 
 #include <stdlib.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <string.h>
 #include <ctype.h>
 #include <assert.h>

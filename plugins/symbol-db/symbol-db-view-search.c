@@ -40,7 +40,7 @@
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtktreeview.h>
 #include <gtk/gtktreeselection.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "symbol-db-view-search.h"

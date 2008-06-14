@@ -32,7 +32,7 @@
 
 #include "sexy-icon-entry.h"
 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include <gdk/gdkkeysyms.h>
 

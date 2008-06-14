@@ -1,3 +1,25 @@
+2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
+	* plugins/debug-manager/info.c:
+	* plugins/debug-manager/data_view.c:
+	* plugins/debug-manager/debug_tree.c:
+	* plugins/debug-manager/sparse_view.c:
+	* plugins/project-wizard/druid.c:
+	* plugins/project-wizard/property.c:
+	* plugins/valgrind/vggeneralprefs.c:
+	* plugins/valgrind/vgdefaultview.c:
+	* plugins/valgrind/vgrule-list.c:
+	* plugins/valgrind/process.c:
+	* plugins/valgrind/vgcachegrindprefs.c:
+	* plugins/valgrind/vgrule-editor.c:
+	* plugins/valgrind/vghelgrindprefs.c:
+	* plugins/valgrind/vgmemcheckprefs.c:
+	* plugins/valgrind/vgsearchbar.c:
+	* plugins/symbol-db/symbol-db-view-search.c:
+	* plugins/gdb/parser.c:
+	Using glib/gi18n.h instead of libgnome/gnome-i18n.h
+ 
 2008-06-14   Louis-Francis Ratté-Boulianne  <louisfrancis.rb@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
