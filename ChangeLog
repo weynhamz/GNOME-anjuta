@@ -1,6 +1,12 @@
 2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>
+	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:
+	Removed GNOME_CALL_PARENT.
+
+2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
 	* plugins/debug-manager/info.c:
 	* plugins/debug-manager/data_view.c:
 	* plugins/debug-manager/debug_tree.c:
@@ -19,7 +25,7 @@
 	* plugins/symbol-db/symbol-db-view-search.c:
 	* plugins/gdb/parser.c:
 	Using glib/gi18n.h instead of libgnome/gnome-i18n.h
- 
+
 2008-06-14   Louis-Francis Ratté-Boulianne  <louisfrancis.rb@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
