@@ -154,15 +154,15 @@ on_file_view_show_popup_menu (AnjutaFileView* view, const gchar* uri,
 							  guint32 time, AnjutaFileManager* file_manager)
 {
 	GtkWidget *popup;
-	GtkAction *rename;
+	GtkWidget *rename;
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(file_manager)->shell, 
 										NULL);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 									   "/PopupFileManager");
-	rename = gtk_ui_manager_get_action (GTK_UI_MANAGER (ui),
-									   "ActionPopupFileManagerRename");
+	rename = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+									   "/PopupFileManager/PopupFileManagerRename");
 	/* TODO */
-	gtk_action_set_visible (rename, FALSE);
+	gtk_widget_hide (rename);
 	
 	g_return_if_fail (GTK_IS_WIDGET (popup));
 	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, button, time);

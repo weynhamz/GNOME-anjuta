@@ -177,40 +177,40 @@ on_file_model_changed (GFileMonitor* monitor,
 					   gpointer data)
 {
 	GtkTreeRowReference* reference = (GtkTreeRowReference*)data;
-	FileModel* model = FILE_MODEL (gtk_tree_row_reference_get_model(reference));
+	FileModel* model;
 	GtkTreeIter iter;
 	GtkTreePath* path;
 	GtkTreeIter file_iter;
+	gboolean found = FALSE;
 	
-	path = gtk_tree_row_reference_get_path (reference);
-	if (!path)
-	{
+	if (!gtk_tree_row_reference_valid(reference))
 		return;
-	}
+	
+	model = FILE_MODEL(gtk_tree_row_reference_get_model (reference));
+	path = gtk_tree_row_reference_get_path (reference);
 	
 	gtk_tree_model_get_iter (GTK_TREE_MODEL(model), &iter, path);
 	gtk_tree_path_free (path);
-		
+
+	if (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &file_iter, &iter))
+	{
+		while (gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &file_iter))
+		{
+			GFile* model_file;
+			gtk_tree_model_get (GTK_TREE_MODEL(model), &file_iter,
+								COLUMN_FILE, &model_file, -1);
+			if (g_file_equal (model_file, file))
+			{
+				g_object_unref (model_file);
+				found = TRUE;
+				break;
+			}
+			g_object_unref (model_file);
+		}
+	}
 	if (event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ||
 		event_type == G_FILE_MONITOR_EVENT_DELETED)
 	{
-		gboolean found = FALSE;
-		if (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &file_iter, &iter))
-		{
-			while (gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &file_iter))
-			{
-				GFile* model_file;
-				gtk_tree_model_get (GTK_TREE_MODEL(model), &file_iter,
-									COLUMN_FILE, &model_file, -1);
-				if (g_file_equal (model_file, file))
-				{
-					g_object_unref (model_file);
-					found = TRUE;
-					break;
-				}
-				g_object_unref (model_file);
-			}
-		}
 		if (!found)
 			return;
 	}
@@ -218,19 +218,6 @@ on_file_model_changed (GFileMonitor* monitor,
 	switch (event_type)
 	{
 		case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
-		{
-			GFileInfo* file_info;
-			file_info = g_file_query_info (file,
-										   "standard::*",
-										   G_FILE_QUERY_INFO_NONE,
-										   NULL, NULL);
-			if (file_info)
-			{
-				file_model_update_file (model, &file_iter, file, file_info);
-				g_object_unref (file_info);
-			}
-			break;
-		}
 		case G_FILE_MONITOR_EVENT_CREATED:
 		{
 			GFileInfo* file_info;
@@ -240,7 +227,10 @@ on_file_model_changed (GFileMonitor* monitor,
 										   NULL, NULL);
 			if (file_info)
 			{
-				file_model_add_file (model, &iter, file, file_info);
+				if (!found)
+					file_model_add_file (model, &iter, file, file_info);
+				else
+					file_model_update_file (model, &file_iter, file, file_info);
 				g_object_unref (file_info);
 			}
 			break;

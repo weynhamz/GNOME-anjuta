@@ -194,7 +194,7 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 	GFile* file;
 	GFileInfo* file_info;
 	gboolean is_dir;
-	
+		
 	gtk_tree_model_get (file_model, iter, COLUMN_IS_DIR, &is_dir, -1);
 	if (!is_dir)
 	{
@@ -221,7 +221,6 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 		g_object_unref (file_info);
 		g_free(display);
 	}
-
 }
 
 static void
@@ -272,6 +271,7 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 		g_signal_emit_by_name (G_OBJECT (view), "current-uri-changed",
 							   NULL, NULL);
 	}
+	DEBUG_PRINT ("selection_changed");
 }
 
 static gboolean
@@ -287,11 +287,12 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 	GtkTreeIter real_iter;
 	gchar* filename;
 	
-	gtk_tree_view_get_tooltip_context (GTK_TREE_VIEW (view),
-									   &x, &y, keyboard,
-									   &model_sort,
-									   &path,
-									   &iter);
+	if (!gtk_tree_view_get_tooltip_context (GTK_TREE_VIEW (view),
+											&x, &y, keyboard,
+											&model_sort,
+											&path,
+											&iter))
+		return FALSE;
 	
 	gtk_tree_model_sort_convert_iter_to_child_iter (GTK_TREE_MODEL_SORT (model_sort),
 											&real_iter, &iter);
