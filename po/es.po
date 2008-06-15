@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-12 20:08+0000\n"
-"PO-Revision-Date: 2008-06-14 00:47+0200\n"
+"POT-Creation-Date: 2008-06-13 23:03+0000\n"
+"PO-Revision-Date: 2008-06-15 13:22+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:1002
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:957
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -411,7 +411,7 @@ msgstr "Categoría"
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:989
+#: ../src/anjuta-app.c:944
 msgid "General"
 msgstr "General"
 
@@ -2256,7 +2256,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:447 ../plugins/tools/tool.c:99
-#: ../src/anjuta-app.c:744
+#: ../src/anjuta-app.c:699
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Archivo"
@@ -2470,7 +2470,7 @@ msgstr "Libros"
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:761
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:716
 msgid "Help"
 msgstr "Ayuda"
 
@@ -2488,31 +2488,31 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:275
-#: ../plugins/editor/text_editor.c:341 ../plugins/sourceview/sourceview.c:216
+#: ../plugins/editor/text_editor.c:341
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../plugins/document-manager/anjuta-docman.c:386
-#: ../plugins/document-manager/anjuta-docman.c:390
+#: ../plugins/document-manager/anjuta-docman.c:388
+#: ../plugins/document-manager/anjuta-docman.c:392
 msgid "Close file"
 msgstr "Cerrar archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:451
+#: ../plugins/document-manager/anjuta-docman.c:453
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/document-manager/anjuta-docman.c:567
+#: ../plugins/document-manager/anjuta-docman.c:575
 #: ../plugins/file-loader/plugin.c:530 ../plugins/file-loader/plugin.c:796
 #: ../plugins/file-loader/plugin.c:806 ../plugins/file-loader/plugin.c:819
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:586
+#: ../plugins/document-manager/anjuta-docman.c:594
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:665
+#: ../plugins/document-manager/anjuta-docman.c:673
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2522,7 +2522,7 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:681
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplazar"
@@ -3144,8 +3144,8 @@ msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:434
 #: ../plugins/document-manager/plugin.c:1748
-#: ../plugins/document-manager/plugin.c:2144
-#: ../plugins/document-manager/plugin.c:2154
+#: ../plugins/document-manager/plugin.c:2156
+#: ../plugins/document-manager/plugin.c:2166
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3541,7 +3541,7 @@ msgstr "Vista previa de la impresión"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:327 ../plugins/sourceview/sourceview.c:202
+#: ../plugins/editor/text_editor.c:327
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3809,32 +3809,32 @@ msgstr "Abrir _con"
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1162 ../plugins/file-loader/plugin.c:1168
+#: ../plugins/file-loader/plugin.c:1163 ../plugins/file-loader/plugin.c:1169
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de archivos"
 
-#: ../plugins/file-loader/plugin.c:1172
+#: ../plugins/file-loader/plugin.c:1173
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/file-loader/plugin.c:1173
+#: ../plugins/file-loader/plugin.c:1174
 msgid "New file, project and project components."
 msgstr "Archivo proyecto o componentes de proyectos nuevos."
 
-#: ../plugins/file-loader/plugin.c:1181
+#: ../plugins/file-loader/plugin.c:1182
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1185
+#: ../plugins/file-loader/plugin.c:1186
 msgid "Open _Recent"
 msgstr "Abrir _recientes"
 
-#: ../plugins/file-loader/plugin.c:1186
+#: ../plugins/file-loader/plugin.c:1187
 msgid "Open recent file"
 msgstr "Abrir archivo reciente"
 
-#: ../plugins/file-loader/plugin.c:1193
+#: ../plugins/file-loader/plugin.c:1194
 msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
@@ -3867,41 +3867,40 @@ msgstr "No mostrar los archivos ocultos"
 msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:148
+#: ../plugins/file-manager/file-model.c:85
 #: ../plugins/symbol-browser/an_symbol_view.c:873
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:314
+#: ../plugins/file-manager/file-view.c:376
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/file-manager/file-view.c:396
+#: ../plugins/file-manager/file-view.c:453
 msgid "Base uri"
 msgstr "URI base"
 
-#: ../plugins/file-manager/file-view.c:397
+#: ../plugins/file-manager/file-view.c:454
 msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
-#: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:754
-#: ../plugins/symbol-browser/plugin.c:311
-msgid "_Refresh"
-msgstr "_Refrescar"
+#: ../plugins/file-manager/plugin.c:72
+msgid "_Rename"
+msgstr "_Renombrar"
 
 #: ../plugins/file-manager/plugin.c:72
-msgid "Refresh file manager tree"
-msgstr "Refrescar el árbol del administrador de archivos"
+msgid "Rename file or directory"
+msgstr "Renombrar el archivo o directorio"
 
-#: ../plugins/file-manager/plugin.c:207
+#: ../plugins/file-manager/plugin.c:214
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:240
+#: ../plugins/file-manager/plugin.c:247
 msgid "Files"
 msgstr "Archivos"
 
-#: ../plugins/file-manager/plugin.c:363 ../plugins/file-manager/plugin.c:372
+#: ../plugins/file-manager/plugin.c:370 ../plugins/file-manager/plugin.c:379
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -5122,23 +5121,23 @@ msgstr "Importar un proyecto"
 msgid "<b>Enter the project name:</b>"
 msgstr "<b>Introduzca el nombre del proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:255
+#: ../plugins/project-import/project-import.c:256
 msgid "<b>Enter the base path of your project:</b>"
 msgstr "<b>Introduzca la ruta base de su proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:259
+#: ../plugins/project-import/project-import.c:261
 msgid "Select project directory"
 msgstr "Seleccionar el directorio del proyecto"
 
-#: ../plugins/project-import/project-import.c:265
+#: ../plugins/project-import/project-import.c:267
 msgid "Project to Import"
 msgstr "Proyecto que importar"
 
-#: ../plugins/project-import/project-import.c:278
+#: ../plugins/project-import/project-import.c:280
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: ../plugins/project-import/project-import.c:415
+#: ../plugins/project-import/project-import.c:417
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -5147,12 +5146,12 @@ msgstr ""
 "plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
 "Anjuta está actualizada."
 
-#: ../plugins/project-import/project-import.c:438
+#: ../plugins/project-import/project-import.c:440
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/project-import.c:479
+#: ../plugins/project-import/project-import.c:481
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -5161,38 +5160,38 @@ msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
 "de escritura al directorio del proyecto."
 
-#: ../plugins/project-manager/plugin.c:344
+#: ../plugins/project-manager/plugin.c:342
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:367
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:365
+#: ../plugins/project-manager/plugin.c:747
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/plugin.c:382
-#: ../plugins/project-manager/plugin.c:474
+#: ../plugins/project-manager/plugin.c:380
+#: ../plugins/project-manager/plugin.c:472
 msgid "No properties available for this target"
 msgstr "Sin propiedades disponibles para este destino"
 
-#: ../plugins/project-manager/plugin.c:459
+#: ../plugins/project-manager/plugin.c:457
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/plugin.c:488
+#: ../plugins/project-manager/plugin.c:486
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/plugin.c:491
+#: ../plugins/project-manager/plugin.c:489
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../plugins/project-manager/plugin.c:503
+#: ../plugins/project-manager/plugin.c:501
 msgid "No properties available for this group"
 msgstr "Sin propiedades disponibles para este grupo"
 
-#: ../plugins/project-manager/plugin.c:587
+#: ../plugins/project-manager/plugin.c:585
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -5200,7 +5199,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente grupo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:588
+#: ../plugins/project-manager/plugin.c:586
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -5211,7 +5210,7 @@ msgstr ""
 "\n"
 "El grupo no se borrará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:591
+#: ../plugins/project-manager/plugin.c:589
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -5219,12 +5218,12 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo objetivo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:592
+#: ../plugins/project-manager/plugin.c:590
 #, c-format
 msgid "Target: %s"
 msgstr "Objetivo: %s"
 
-#: ../plugins/project-manager/plugin.c:595
+#: ../plugins/project-manager/plugin.c:593
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -5232,7 +5231,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo fuente del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:596
+#: ../plugins/project-manager/plugin.c:594
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -5243,7 +5242,7 @@ msgstr ""
 "\n"
 "El archivo fuente no se borrará del sistema."
 
-#: ../plugins/project-manager/plugin.c:652
+#: ../plugins/project-manager/plugin.c:650
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -5252,102 +5251,107 @@ msgstr ""
 "Falló al eliminar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:708
+#: ../plugins/project-manager/plugin.c:706
 msgid "The file you selected is a link and can't be added to the project"
 msgstr "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:710
+#: ../plugins/project-manager/plugin.c:708
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:745
+#: ../plugins/project-manager/plugin.c:743
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:749
-#: ../plugins/project-manager/plugin.c:783
+#: ../plugins/project-manager/plugin.c:747
+#: ../plugins/project-manager/plugin.c:781
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:754
+#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/symbol-browser/plugin.c:311
+msgid "_Refresh"
+msgstr "_Refrescar"
+
+#: ../plugins/project-manager/plugin.c:752
 msgid "Refresh project manager tree"
 msgstr "Refrescar el árbol del adm. de proyectos"
 
-#: ../plugins/project-manager/plugin.c:759
+#: ../plugins/project-manager/plugin.c:757
 msgid "Add _Group..."
 msgstr "Añadir _grupo…"
 
-#: ../plugins/project-manager/plugin.c:759
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:757
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add a group to project"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:762
 msgid "Add _Target..."
 msgstr "Añadir _objetivo…"
 
-#: ../plugins/project-manager/plugin.c:764
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:762
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add a target to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:769
+#: ../plugins/project-manager/plugin.c:767
 msgid "Add _Source File..."
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:769
-#: ../plugins/project-manager/plugin.c:788
-#: ../plugins/project-manager/plugin.c:803
+#: ../plugins/project-manager/plugin.c:767
+#: ../plugins/project-manager/plugin.c:786
+#: ../plugins/project-manager/plugin.c:801
 msgid "Add a source file to project"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:774
+#: ../plugins/project-manager/plugin.c:772
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:774
+#: ../plugins/project-manager/plugin.c:772
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:783
+#: ../plugins/project-manager/plugin.c:781
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:788
+#: ../plugins/project-manager/plugin.c:786
 msgid "_Add To Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add _Group"
 msgstr "Añadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add _Target"
 msgstr "Añadir _objetivo"
 
-#: ../plugins/project-manager/plugin.c:803
+#: ../plugins/project-manager/plugin.c:801
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:806
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:806
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1156
+#: ../plugins/project-manager/plugin.c:1154
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1164
+#: ../plugins/project-manager/plugin.c:1162
 msgid "Created project view..."
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1177
+#: ../plugins/project-manager/plugin.c:1175
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -5356,23 +5360,23 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1197
-#: ../plugins/project-manager/plugin.c:1272
-#: ../plugins/project-manager/plugin.c:1444
+#: ../plugins/project-manager/plugin.c:1195
+#: ../plugins/project-manager/plugin.c:1270
+#: ../plugins/project-manager/plugin.c:1442
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
 
-#: ../plugins/project-manager/plugin.c:1360
+#: ../plugins/project-manager/plugin.c:1358
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1423
+#: ../plugins/project-manager/plugin.c:1421
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1431
+#: ../plugins/project-manager/plugin.c:1429
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
@@ -6297,15 +6301,24 @@ msgstr "No se pudo obtener el nombre del archivo de respaldo"
 msgid "Unsaved Document %d"
 msgstr "Documento no guardado %d"
 
-#: ../plugins/sourceview/sourceview.c:333
+#: ../plugins/sourceview/sourceview.c:209
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+"El archivo «%s» en el disco es más reciente que el búfer actual.\n"
+"¿Desea recargarlo?"
+
+#: ../plugins/sourceview/sourceview.c:338
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:356
+#: ../plugins/sourceview/sourceview.c:361
 msgid "Saving..."
 msgstr "Guardando…"
 
-#: ../plugins/sourceview/sourceview.c:363
+#: ../plugins/sourceview/sourceview.c:368
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "Otra aplicación modificó el archivo %s. ¿Guardarlo de todas formas?"
@@ -7984,23 +7997,23 @@ msgstr "Acerca de los com_plementos de Anjuta"
 msgid "About third party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
 
-#: ../src/anjuta-app.c:748
+#: ../src/anjuta-app.c:703
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:752 ../src/anjuta-app.c:757
+#: ../src/anjuta-app.c:707 ../src/anjuta-app.c:712
 msgid "View"
 msgstr "Vista"
 
-#: ../src/anjuta-app.c:1000
+#: ../src/anjuta-app.c:955
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:1004
+#: ../src/anjuta-app.c:959
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:1076
+#: ../src/anjuta-app.c:1031
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
