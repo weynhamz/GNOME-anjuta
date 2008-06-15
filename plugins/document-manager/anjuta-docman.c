@@ -508,7 +508,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	page->menu_box = menu_box;
 	page->menu_label = menu_label;
 
-	gtk_widget_show (page->widget);
+	gtk_widget_show_all (page->widget);
 }
 
 static AnjutaDocmanPage *

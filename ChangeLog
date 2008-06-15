@@ -1,3 +1,8 @@
+2008-06-15  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Make sure that scintilla window is displayed
+
 2008-06-15  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c
