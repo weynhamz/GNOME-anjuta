@@ -199,7 +199,7 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 	if (!is_dir)
 	{
 		gchar* display;
-		gchar time_str[21];
+		gchar time_str[128];
 		gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, -1);
 		time_t time;
 		
@@ -208,8 +208,7 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 									   G_FILE_QUERY_INFO_NONE,
 									   NULL, NULL);
 		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
-		strftime(time_str, 20, "%x %X", localtime(&time));
-		
+		strftime(time_str, 127, "%x %X", localtime(&time));
 		display = g_markup_printf_escaped("%s\n"
 										  "<small><tt>%s</tt></small>",
 										  g_file_info_get_display_name(file_info),

@@ -1,5 +1,11 @@
 2008-06-15  Naba Kumar  <naba@gnome.org>
 
+	* plugins/file-manager/file-view.c (file_view_show_extended_data):
+	Fixed a crash on file selection. Gave enough buffer for the formated
+	time print.
+	
+2008-06-15  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/anjuta-preferences.c: Fixed a compile warning.
 
 2008-06-15  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
