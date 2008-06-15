@@ -1,5 +1,15 @@
 2008-06-15  Naba Kumar  <naba@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_set_current_document),
+	(anjuta_docman_goto_uri_line_mark):
+	* plugins/sourceview/sourceview.c (ieditor_goto_line):
+
+	Restore text focus on switching editor with ALT+X and
+	navigating from local-symbols view.
+	
+2008-06-15  Naba Kumar  <naba@gnome.org>
+
 	* plugins/file-manager/file-view.c (file_view_show_extended_data):
 	Fixed a crash on file selection. Gave enough buffer for the formated
 	time print.

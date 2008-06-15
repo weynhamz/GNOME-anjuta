@@ -806,6 +806,7 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 	{
 		anjuta_document_goto_line(sv->priv->document, LOCATION_TO_LINE (line));
 		anjuta_view_scroll_to_cursor(sv->priv->view);
+		gtk_widget_grab_focus (GTK_WIDGET (sv->priv->view));
 	}
 	else
 		sv->priv->goto_line = line;

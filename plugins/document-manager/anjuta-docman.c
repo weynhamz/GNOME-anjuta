@@ -1216,7 +1216,8 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 
 			gtk_widget_grab_focus (GTK_WIDGET (doc));
 			anjuta_docman_grab_text_focus (docman);
-
+			ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
+			
 			if (IANJUTA_IS_FILE (doc))
 			{
 				gchar *uri;
@@ -1415,7 +1416,11 @@ anjuta_docman_goto_uri_line_mark (AnjutaDocman *docman, const gchar *file_uri,
 									  IANJUTA_MARKABLE_LINEMARKER, NULL);
 			}
 		}
+	}
+	if (doc != NULL)
+	{
 		anjuta_docman_present_notebook_page (docman, doc);
+		ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
 	}
 
 	return te;
