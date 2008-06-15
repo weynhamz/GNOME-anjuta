@@ -1,3 +1,16 @@
+2008-06-15  Johannes Schmid  <jhs@gnome.org>
+	
+	* plugins/file-manager/file-model.c (on_file_model_changed):
+	Fixed file monitoring
+	
+	* plugins/file-manager/file-view.c (file_view_show_extended_data),
+	(file_view_selection_changed):
+	
+	Some code refactoring
+	
+	* plugins/file-manager/plugin.c (on_file_view_show_popup_menu):
+	Hide "rename" menu item for now
+
 2008-06-15  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/anjuta-docman.c:
@@ -55,7 +68,7 @@
 	* plugins/gdb/parser.c:
 	Using glib/gi18n.h instead of libgnome/gnome-i18n.h
 
-2008-06-14   Louis-Francis Ratté-Boulianne  <louisfrancis.rb@gmail.com>
+2008-06-14  Louis-Francis Ratté-Boulianne  <louisfrancis.rb@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
 
