@@ -411,7 +411,7 @@ static void
 set_indentation_param_emacs (CppJavaPlugin* plugin, const gchar *param,
 					   const gchar *value)
 {
-	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
+	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
 	if (strcasecmp (param, "indent-tabs-mode") == 0)
 	{
 		if (strcasecmp (value, "t") == 0)
@@ -443,7 +443,7 @@ static void
 set_indentation_param_vim (CppJavaPlugin* plugin, const gchar *param,
 					   const gchar *value)
 {
-	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
+	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
 	if (g_str_equal (param, "expandtab") ||
 		g_str_equal (param, "et"))
 	{
@@ -692,7 +692,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 		gchar *line_string = ianjuta_editor_get_text (editor, line_begin,
 														   line_end, NULL);
 		
-		DEBUG_PRINT ("line_string = '%s'", line_string);
+		//DEBUG_PRINT ("line_string = '%s'", line_string);
 		if (line_string)
 		{
 			idx = line_string;
@@ -712,7 +712,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	*/
 	current_pos = ianjuta_editor_get_position (editor, NULL);
 	carat_offset = ianjuta_iterable_diff (indent_position, current_pos, NULL);
-	DEBUG_PRINT ("carat offset is = %d", carat_offset);
+	//DEBUG_PRINT ("carat offset is = %d", carat_offset);
 	
 	/* Set new indentation */
 	if (indentation > 0)
@@ -730,7 +730,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 					ianjuta_editor_get_text (editor, line_begin,
 												  indent_position, NULL);
 				
-				DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
+				//DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
 				nchars_removed = g_utf8_strlen (old_indent_string, -1);
 			}
 			
@@ -1101,14 +1101,17 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			/* This is a forward reference, all lines below should have
 			 * increased indentation until the next statement has
 			 * a ':'
+			 * If current line indentation is zero, that we don't indent
 			 */
 			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
-			gboolean indent = FALSE;		
+			IAnjutaIterable* line_begin;
+			gboolean indent = FALSE;
+			gchar c;
 			
 			/* Is the last non-whitespace in line */
 			while (ianjuta_iterable_next (new_iter, NULL))
 			{
-				gchar c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+				c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
 													   0, NULL);
 				if (!isspace(c))
 					break;
@@ -1118,14 +1121,23 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 					break;
 				}
 			}
-			g_object_unref (new_iter);
+			line_begin = ianjuta_editor_get_line_begin_position(editor,
+																ianjuta_editor_get_line_from_position(editor, iter, NULL),
+																NULL);
+			c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (line_begin),
+														0, NULL);
 			if (indent)
 			{
 				*colon_indent = TRUE;
-				extra_indent += INDENT_SIZE;
 				if (*incomplete_statement == -1)
 					*incomplete_statement = 0;
 			}
+			if (indent && isspace(c))
+			{
+				extra_indent += INDENT_SIZE;
+			}
+			g_object_unref (new_iter);
+			g_object_unref (line_begin);
 		}	
 		else if (iter_is_newline (iter, point_ch))
 		{
@@ -1158,7 +1170,6 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	}
 	if (!line_indent && extra_indent)
 	{
-		DEBUG_PRINT ("Adding special indent");
 		line_indent += extra_indent;
 	}
 	g_object_unref (iter);
@@ -1237,9 +1248,9 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		/* If the last non-whitespace character in the line is ":" then
 		 * we remove the extra colon_indent
 		 */
-		end_iter = ianjuta_editor_get_line_end_position (editor, line, NULL);
 		gchar ch;
-		do
+		end_iter = ianjuta_editor_get_line_end_position (editor, line, NULL);
+		while (ianjuta_iterable_previous (end_iter, NULL))
 		{
 			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end_iter),
 											   0, NULL);
@@ -1248,8 +1259,9 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 				line_indent -= INDENT_SIZE;
 				break;
 			}
+			if (!isspace(ch) || iter_is_newline (end_iter, ch))
+				break;
 		}
-		while (isspace(ch) && ianjuta_iterable_previous (end_iter, NULL));
 		g_object_unref (end_iter);
 	}
 	
@@ -1385,10 +1397,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				}
 			}
 		}
-	}
-	else if (ch == ':')
-	{
-		should_auto_indent = TRUE;
 	}
 	if (should_auto_indent)
 	{
