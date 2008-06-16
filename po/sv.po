@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-07 18:21+0100\n"
-"PO-Revision-Date: 2008-03-09 01:27+0100\n"
+"POT-Creation-Date: 2008-06-16 22:52+0200\n"
+"PO-Revision-Date: 2008-06-16 22:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -449,7 +449,7 @@ msgstr ""
 "Misslyckades med att läsa \"%s\": Följande obligatoriska instick saknas:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1432
+#: ../libanjuta/anjuta-preferences.c:1456
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -457,7 +457,7 @@ msgstr ""
 "Är du säker på att du vill återställa inställningarna\n"
 "till deras standardalternativ?"
 
-#: ../libanjuta/anjuta-preferences.c:1436
+#: ../libanjuta/anjuta-preferences.c:1460
 msgid "_Reset"
 msgstr "_Återställ"
 
@@ -1049,7 +1049,7 @@ msgid "Member Functions/Variables"
 msgstr "Medlemsfunktioner/Variabler"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:515
+#: ../plugins/glade/plugin.c:502
 msgid "Properties"
 msgstr "Egenskaper"
 
@@ -2294,8 +2294,8 @@ msgstr "Fil"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:939
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:962
 msgid "Line"
 msgstr "Rad"
 
@@ -2355,7 +2355,7 @@ msgid "Load Target to debug"
 msgstr "Läs in mål att felsöka"
 
 #: ../plugins/debug-manager/start.c:1032
-#: ../plugins/file-loader/plugin.c:413
+#: ../plugins/file-loader/plugin.c:427
 msgid "All files"
 msgstr "Alla filer"
 
@@ -2506,7 +2506,7 @@ msgstr "Böcker"
 #: ../plugins/search/search-replace.c:1697
 #: ../plugins/search/search-replace.c:1709
 #: ../plugins/search/search-replace.c:2023
-#: ../plugins/symbol-browser/plugin.c:951
+#: ../plugins/symbol-browser/plugin.c:953
 msgid "Search"
 msgstr "Sök"
 
@@ -2540,10 +2540,10 @@ msgid "Close file"
 msgstr "Stäng fil"
 
 #: ../plugins/document-manager/anjuta-docman.c:422
-#: ../plugins/file-loader/plugin.c:507
-#: ../plugins/file-loader/plugin.c:770
-#: ../plugins/file-loader/plugin.c:780
-#: ../plugins/file-loader/plugin.c:793
+#: ../plugins/file-loader/plugin.c:521
+#: ../plugins/file-loader/plugin.c:784
+#: ../plugins/file-loader/plugin.c:794
+#: ../plugins/file-loader/plugin.c:807
 msgid "Open file"
 msgstr "Öppna fil"
 
@@ -2594,9 +2594,9 @@ msgid "Do not show tabs"
 msgstr "Visa inte flikar"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1719
-#: ../plugins/document-manager/plugin.c:2107
-#: ../plugins/document-manager/plugin.c:2118
+#: ../plugins/document-manager/plugin.c:1732
+#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:2131
 msgid "Documents"
 msgstr "Dokument"
 
@@ -2929,7 +2929,7 @@ msgstr "Upprepa snabbsökning"
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1596
+#: ../plugins/language-support-cpp-java/plugin.c:1650
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -3210,7 +3210,7 @@ msgid "Editor view settings"
 msgstr "Visningsinställningar för redigerare"
 
 #: ../plugins/document-manager/plugin.c:587
-#: ../plugins/file-loader/plugin.c:1127
+#: ../plugins/file-loader/plugin.c:1141
 msgid "New"
 msgstr "Ny"
 
@@ -3222,41 +3222,41 @@ msgstr "Läs om"
 msgid "Goto"
 msgstr "Gå till"
 
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:941
 msgid "OVR"
 msgstr "ÖVR"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:945
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:961
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:963
 msgid "Col"
 msgstr "Kol"
 
-#: ../plugins/document-manager/plugin.c:941
-#: ../plugins/document-manager/plugin.c:955
+#: ../plugins/document-manager/plugin.c:950
+#: ../plugins/document-manager/plugin.c:964
 msgid "Mode"
 msgstr "Läge"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1022
+#: ../plugins/document-manager/plugin.c:1035
 msgid "Automatic"
 msgstr "Automatisk"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1534
+#: ../plugins/document-manager/plugin.c:1547
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Automatisk sparning misslyckades för %s"
 
-#: ../plugins/document-manager/plugin.c:1548
+#: ../plugins/document-manager/plugin.c:1561
 msgid "Autosave completed"
 msgstr "Automatisk sparning färdig"
 
@@ -3689,7 +3689,7 @@ msgstr ""
 "Detta kan orsaka felaktigt beteende eller instabiliteter.\n"
 "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
 
-#: ../plugins/file-loader/plugin.c:144
+#: ../plugins/file-loader/plugin.c:158
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3709,115 +3709,115 @@ msgstr ""
 "\n"
 "Du kan välja att försöka öppna den med följande instick eller program."
 
-#: ../plugins/file-loader/plugin.c:164
+#: ../plugins/file-loader/plugin.c:178
 msgid "Open with:"
 msgstr "Öppna med:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:172
+#: ../plugins/file-loader/plugin.c:186
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Dokumenthanterare"
 
-#: ../plugins/file-loader/plugin.c:418
+#: ../plugins/file-loader/plugin.c:432
 msgid "Anjuta Projects"
 msgstr "Anjuta-projekt"
 
-#: ../plugins/file-loader/plugin.c:424
+#: ../plugins/file-loader/plugin.c:438
 msgid "C/C++ source files"
 msgstr "C/C++-källfiler"
 
-#: ../plugins/file-loader/plugin.c:436
+#: ../plugins/file-loader/plugin.c:450
 msgid "C# source files"
 msgstr "C#-källfiler"
 
-#: ../plugins/file-loader/plugin.c:442
+#: ../plugins/file-loader/plugin.c:456
 msgid "Java source files"
 msgstr "Java-källfiler"
 
-#: ../plugins/file-loader/plugin.c:448
+#: ../plugins/file-loader/plugin.c:462
 msgid "Pascal source files"
 msgstr "Pascal-källfiler"
 
-#: ../plugins/file-loader/plugin.c:453
+#: ../plugins/file-loader/plugin.c:467
 msgid "PHP source files"
 msgstr "PHP-källfiler"
 
-#: ../plugins/file-loader/plugin.c:460
+#: ../plugins/file-loader/plugin.c:474
 msgid "Perl source files"
 msgstr "Perl-källfiler"
 
-#: ../plugins/file-loader/plugin.c:466
+#: ../plugins/file-loader/plugin.c:480
 msgid "Python source files"
 msgstr "Python-källfiler"
 
-#: ../plugins/file-loader/plugin.c:471
+#: ../plugins/file-loader/plugin.c:485
 msgid "Hyper text markup files"
 msgstr "HTML-filer"
 
-#: ../plugins/file-loader/plugin.c:480
+#: ../plugins/file-loader/plugin.c:494
 msgid "Shell scripts files"
 msgstr "Skalskriptsfiler"
 
-#: ../plugins/file-loader/plugin.c:485
+#: ../plugins/file-loader/plugin.c:499
 msgid "Makefiles"
 msgstr "Makefiler"
 
-#: ../plugins/file-loader/plugin.c:491
+#: ../plugins/file-loader/plugin.c:505
 msgid "Lua files"
 msgstr "Lua-filer"
 
-#: ../plugins/file-loader/plugin.c:496
+#: ../plugins/file-loader/plugin.c:510
 msgid "Diff files"
 msgstr "Diff-filer"
 
-#: ../plugins/file-loader/plugin.c:712
+#: ../plugins/file-loader/plugin.c:726
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Misslyckades med att aktivera instick: %s"
 
-#: ../plugins/file-loader/plugin.c:768
+#: ../plugins/file-loader/plugin.c:782
 msgid "_Open..."
 msgstr "_Öppna..."
 
-#: ../plugins/file-loader/plugin.c:779
-#: ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:793
+#: ../plugins/file-loader/plugin.c:806
 msgid "_Open"
 msgstr "_Öppna"
 
-#: ../plugins/file-loader/plugin.c:786
-#: ../plugins/file-loader/plugin.c:799
+#: ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:813
 msgid "Open _With"
 msgstr "Öppna _med"
 
-#: ../plugins/file-loader/plugin.c:787
-#: ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:801
+#: ../plugins/file-loader/plugin.c:814
 msgid "Open with"
 msgstr "Öppna med"
 
-#: ../plugins/file-loader/plugin.c:1115
-#: ../plugins/file-loader/plugin.c:1121
+#: ../plugins/file-loader/plugin.c:1129
+#: ../plugins/file-loader/plugin.c:1135
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Filinläsare"
 
-#: ../plugins/file-loader/plugin.c:1128
+#: ../plugins/file-loader/plugin.c:1142
 msgid "New file, project and project components."
 msgstr "Ny fil, projekt och projektkomponenter."
 
-#: ../plugins/file-loader/plugin.c:1137
+#: ../plugins/file-loader/plugin.c:1151
 msgid "Open"
 msgstr "Öppna"
 
-#: ../plugins/file-loader/plugin.c:1143
+#: ../plugins/file-loader/plugin.c:1157
 msgid "Open _Recent"
 msgstr "Öppna _tidigare"
 
-#: ../plugins/file-loader/plugin.c:1144
+#: ../plugins/file-loader/plugin.c:1158
 msgid "Open recent file"
 msgstr "Öppna tidigare fil"
 
-#: ../plugins/file-loader/plugin.c:1154
+#: ../plugins/file-loader/plugin.c:1168
 msgid "Open recent files"
 msgstr "Öppna tidigare filer"
 
@@ -4153,25 +4153,25 @@ msgstr "Kan inte starta terminal för felsökning."
 msgid "Debug"
 msgstr "Felsök"
 
-#: ../plugins/glade/plugin.c:505
+#: ../plugins/glade/plugin.c:492
 msgid "Widgets"
 msgstr "Widgetar"
 
-#: ../plugins/glade/plugin.c:510
+#: ../plugins/glade/plugin.c:497
 msgid "Palette"
 msgstr "Palett"
 
-#: ../plugins/glade/plugin.c:655
+#: ../plugins/glade/plugin.c:642
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ingen lokal fil: %s"
 
-#: ../plugins/glade/plugin.c:706
+#: ../plugins/glade/plugin.c:693
 #, c-format
 msgid "Could not open %s"
 msgstr "Kunde inte öppna %s"
 
-#: ../plugins/glade/plugin.c:783
+#: ../plugins/glade/plugin.c:770
 msgid "Could not create a new glade project."
 msgstr "Kunde inte skapa ett nytt glade-projekt."
 
@@ -6587,15 +6587,15 @@ msgstr "Kopiera..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:439
+#: ../plugins/subversion/plugin.c:440
 msgid "Subversion operations"
 msgstr "Subversion-åtgärder"
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion popup operations"
 msgstr "Subversion popup-åtgärder"
 
-#: ../plugins/subversion/plugin.c:473
+#: ../plugins/subversion/plugin.c:474
 msgid "Subversion Log"
 msgstr "Subversion-logg"
 
@@ -6905,36 +6905,36 @@ msgid "Created symbols..."
 msgstr "Skapade symboler..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:910
+#: ../plugins/symbol-browser/plugin.c:912
 msgid "Local"
 msgstr "Lokala"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:930
+#: ../plugins/symbol-browser/plugin.c:932
 msgid "Global"
 msgstr "Allmänna"
 
-#: ../plugins/symbol-browser/plugin.c:974
+#: ../plugins/symbol-browser/plugin.c:976
 msgid "Symbol browser actions"
 msgstr "Åtgärder för symbolbläddrare"
 
-#: ../plugins/symbol-browser/plugin.c:981
+#: ../plugins/symbol-browser/plugin.c:983
 msgid "Symbol browser popup actions"
 msgstr "Popupåtgärder för symbolbläddrare"
 
-#: ../plugins/symbol-browser/plugin.c:990
+#: ../plugins/symbol-browser/plugin.c:992
 msgid "Goto symbol"
 msgstr "Gå till symbol"
 
-#: ../plugins/symbol-browser/plugin.c:991
+#: ../plugins/symbol-browser/plugin.c:993
 msgid "Select the symbol to go"
 msgstr "Välj symbolen att gå till"
 
-#: ../plugins/symbol-browser/plugin.c:1000
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "Symbolnavigering"
 
-#: ../plugins/symbol-browser/plugin.c:1009
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "Symboler"
 
@@ -7527,7 +7527,7 @@ msgstr "Copyright © Naba Kumar"
 msgid "Anjuta Plugin"
 msgstr "Anjuta-instick"
 
-#: ../src/action-callbacks.c:109
+#: ../src/action-callbacks.c:114
 msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
 msgstr "Kunde inte visa hjälp. Kontrollera att dokumentationspaketet för Anjuta är installerat. Det kan hämtas från http://anjuta.org"
 
@@ -7573,6 +7573,10 @@ msgid "Dock switcher style: "
 msgstr "Stil för dockväxlare:"
 
 #: ../src/anjuta.glade.h:12
+msgid "Select projects directory"
+msgstr "Välj projektkatalog"
+
+#: ../src/anjuta.glade.h:13
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7830,28 +7834,28 @@ msgstr "Smart indentering"
 msgid "Statement indentation size in spaces:"
 msgstr "Indenteringsstorlek för uttryck i blanksteg:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1602
+#: ../plugins/language-support-cpp-java/plugin.c:1656
 msgid "_AutoComplete"
 msgstr "_Automatisk komplettering"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1603
+#: ../plugins/language-support-cpp-java/plugin.c:1657
 msgid "AutoComplete the current word"
 msgstr "Komplettera det aktuella ordet automatiskt"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1609
+#: ../plugins/language-support-cpp-java/plugin.c:1663
 msgid "Auto Indent"
 msgstr "Automatisk indentering"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1610
+#: ../plugins/language-support-cpp-java/plugin.c:1664
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "Indentera automatiskt aktuell rad eller markering baserat på indenteringsinställningar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1652
+#: ../plugins/language-support-cpp-java/plugin.c:1706
 msgid "C++/Java Assistance"
 msgstr "C++/Java-assistans"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1740
-#: ../plugins/language-support-cpp-java/plugin.c:1749
+#: ../plugins/language-support-cpp-java/plugin.c:1794
+#: ../plugins/language-support-cpp-java/plugin.c:1803
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
