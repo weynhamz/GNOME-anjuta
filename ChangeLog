@@ -1,3 +1,12 @@
+2008-06-16  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c
+	(set_indentation_param_emacs), (set_indentation_param_vim),
+	(set_line_indentation), (get_line_indentation_base),
+	(get_line_auto_indentation), (on_editor_char_inserted_cpp):
+	
+	Fixed #528699 – Auto-indent ignores spaces-per-indent settings
+
 2008-06-15  Johannes Schmid  <jhs@gnome.org>
 	
 	* plugins/file-manager/file-model.c (on_file_model_changed):
