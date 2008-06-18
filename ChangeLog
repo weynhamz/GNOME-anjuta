@@ -1,3 +1,8 @@
+2008-06-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix #538798: UI selected tab document differs from real one
+
 2008-06-16  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c

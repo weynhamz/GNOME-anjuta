@@ -1147,7 +1147,23 @@ anjuta_docman_get_page_for_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 static AnjutaDocmanPage *
 anjuta_docman_get_nth_page (AnjutaDocman *docman, gint page_num)
 {
-	return g_list_nth_data (docman->priv->pages, page_num);
+	GtkWidget *widget;
+	GList *node;
+
+	widget = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman), page_num);
+	node = docman->priv->pages;
+	while (node)
+	{
+		AnjutaDocmanPage *page;
+
+		page = node->data;
+		g_assert (page);
+		if (page->widget == widget)
+			return page;
+		node = g_list_next (node);
+	}
+	
+	return NULL;
 }
 
 IAnjutaDocument *
