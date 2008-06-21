@@ -1,3 +1,13 @@
+2008-06-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix again #538798: UI selected tab document differs from real one
+	Remove automatic page reordering (annoying when sorting tab with
+	the same names)
+	Do not reselect page on page switch as the page number could have
+	changed just update document menu
+	Update document menu after reordering all documents
+
 2008-06-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/anjuta-docman.c:

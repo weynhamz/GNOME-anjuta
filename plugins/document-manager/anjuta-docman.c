@@ -97,7 +97,6 @@ static void anjuta_docman_order_tabs (AnjutaDocman *docman);
 static void anjuta_docman_update_page_label (AnjutaDocman *docman,
 											 IAnjutaDocument *doc);
 static void anjuta_docman_grab_text_focus (AnjutaDocman *docman);
-static gboolean anjuta_docman_sort_pagelist (AnjutaDocman *docman);
 static void on_notebook_switch_page (GtkNotebook *notebook,
 									 GtkNotebookPage *page,
 									 gint page_num, AnjutaDocman *docman);
@@ -129,6 +128,7 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 	GtkAction* action;
 	gint n_pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
 	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
+	gchar *action_name;
 	
 	action = gtk_ui_manager_get_action (ui, 
 										"/MenuMain/PlaceHolderDocumentsMenus/Documents/PreviousDocument");
@@ -136,6 +136,10 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 	action = gtk_ui_manager_get_action (ui, 
 										"/MenuMain/PlaceHolderDocumentsMenus/Documents/NextDocument");
 	g_object_set (action, "sensitive", (current_page + 1) < n_pages, NULL);	
+	action_name = g_strdup_printf ("Tab_%d", current_page);
+        action = gtk_action_group_get_action (docman->priv->documents_action_group, action_name);
+	g_free (action_name);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
 }
 
 static void
@@ -319,35 +323,7 @@ static void
 on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 							guint page_num, AnjutaDocman *docman)
 {
-	/* conform pagelist order */
-	g_idle_add ((GSourceFunc) anjuta_docman_sort_pagelist, docman);
-	
 	anjuta_docman_update_documents_menu(docman);
-}
-
-static gint
-anjuta_docman_compare_pages (AnjutaDocmanPage *a, AnjutaDocmanPage *b, AnjutaDocman *docman)
-{
-	gint pa, pb;
-	GtkNotebook *book;
-
-	book = GTK_NOTEBOOK (docman);
-	pa = gtk_notebook_page_num (book, a->widget);
-	pb = gtk_notebook_page_num (book, b->widget);
-	return ((pa < pb) ? 1:-1);
-}
-
-/* this is for idle or timer callback, as well as direct usage */
-static gboolean
-anjuta_docman_sort_pagelist (AnjutaDocman *docman)
-{
-	DEBUG_PRINT ("In function: anjuta_docman_sort_pagelist");
-	if (docman->priv->pages != NULL && g_list_next (docman->priv->pages) != NULL)
-		docman->priv->pages = g_list_sort_with_data (
-								docman->priv->pages,
-								(GCompareDataFunc) anjuta_docman_compare_pages,
-								docman);
-	return FALSE;
 }
 
 static void
@@ -881,26 +857,9 @@ on_notebook_switch_page (GtkNotebook *notebook,
 	if (!docman->priv->shutingdown)
 	{
 		AnjutaDocmanPage *page;
-		gchar* action_name;
-		GtkAction* action;
 		
 		page = anjuta_docman_get_nth_page (docman, page_num);
 		anjuta_docman_set_current_document (docman, page->doc);
-		
-		/* activate the right item in the documents menu */
-		action_name = g_strdup_printf ("Tab_%d", page_num);
-		action = gtk_action_group_get_action (docman->priv->documents_action_group,
-											  action_name);
-
-		/* sometimes the action doesn't exist yet, and the proper action
-		 * is set active during the documents list menu creation
-		 * CHECK: would it be nicer if active_tab was a property and we monitored the notify signal?
-		 */
-		if (action != NULL)
-			gtk_radio_action_set_current_value (GTK_RADIO_ACTION (action),
-												page_num);
-
-		g_free (action_name);
 		
 		/* TTimo: reorder so that the most recently used files are
 		 * at the beginning of the tab list
@@ -912,6 +871,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		{
 			gtk_notebook_reorder_child (notebook, page->widget, 0);
 		}
+		/* activate the right item in the documents menu */
 		anjuta_docman_update_documents_menu_status (docman);
 	}
 }
@@ -1707,14 +1667,6 @@ anjuta_docman_order_tabs (AnjutaDocman *docman)
 	node = docman->priv->pages;
 	for (i = 0; i < num_pages; i++)
 	{
-/*new0 NULL'ed things already
-		if((widget = gtk_notebook_get_nth_page (notebook, i)) == NULL)
-		{
-			tab_labels[i].m_label = NULL;
-			tab_labels[i].m_widget = NULL;
-		}
-		else
-*/
 		if (node != NULL && node->data != NULL)
 		{
 			page = node->data;
@@ -1733,8 +1685,7 @@ anjuta_docman_order_tabs (AnjutaDocman *docman)
 									  (gpointer) on_notebook_page_reordered,
 									  (gpointer) docman);
 	g_free (tab_labels);
-	/* adjust pagelist order */
-	g_idle_add ((GSourceFunc) anjuta_docman_sort_pagelist, docman);
+	anjuta_docman_update_documents_menu(docman);
 }
 
 
