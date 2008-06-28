@@ -1452,6 +1452,7 @@ search_update_dialog(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.no_limit);
 	widget = sr_get_gladewidget(ACTIONS_MAX)->widget;
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget), s->expr.actions_max);
+	gtk_widget_set_sensitive (widget, !s->expr.no_limit);
 	
 	widget = sr_get_gladewidget(REPLACE_REGEX)->widget;	
 	gtk_widget_set_sensitive(widget, sr->search.expr.regex);

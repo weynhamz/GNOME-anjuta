@@ -1,6 +1,12 @@
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
   Patch from Yuriy Penkin:
+	* plugins/search/search-replace.c (search_update_dialog):
+	#538906 – Enable state "Max actions" when "No limit" toggled
+
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
+  Patch from Yuriy Penkin:
 	* plugins/file-loader/plugin.c (on_session_load):
 	* plugins/macro/macro-dialog.c (macro_dialog_init):
 	* plugins/patch/patch-plugin.glade:
