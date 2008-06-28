@@ -22,7 +22,8 @@ file_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 # Include paths
 AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
-	$(GDL_CFLAGS) 
+	$(GDL_CFLAGS) \
+	$(GIO_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -46,7 +47,8 @@ libfile_manager_la_SOURCES = \
 # Plugin dependencies
 libfile_manager_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	$(GDL_LIBS) 
+	$(GDL_LIBS) \
+	$(GIO_LIBS)
 
 file-view-marshal.h: file-view-marshal.list
 	@GLIB_GENMARSHAL@ \

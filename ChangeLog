@@ -1,5 +1,13 @@
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
+  Patch from Yuriy Penkin:
+	* configure.in:
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/plugin.c (file_manager_set_default_uri):
+	#539726 – Completing port to GIO
+
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/file-model.c (file_model_row_expanded),
 	(file_model_init), (file_model_finalize), (file_model_refresh):
 	

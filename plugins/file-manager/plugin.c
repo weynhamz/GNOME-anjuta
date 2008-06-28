@@ -24,7 +24,7 @@
 
 #include <config.h>
 #include <glade/glade-xml.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
+#include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
@@ -77,11 +77,14 @@ static GtkActionEntry popup_actions[] =
 static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
-	gchar* uri = 
-		uri = gnome_vfs_get_uri_from_local_path(anjuta_preferences_get (file_manager->prefs, PREF_ROOT));
+	GFile *file;	
+
+	file = g_file_new_for_path (anjuta_preferences_get (file_manager->prefs, PREF_ROOT));
+	char *uri = g_file_get_uri (file);
 	g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
 	file_manager->have_project = FALSE;
 	g_free (uri);
+	g_object_unref (file);
 }
 
 static void
