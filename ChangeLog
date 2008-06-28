@@ -1,3 +1,13 @@
+2008-06-29  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(create_completion),
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_show_autocomplete):
+	* plugins/sourceview/sourceview.c (iassist_get_suggestions):
+	
+	#449620 – Implement autocompletion for gtksourceview editor
+
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
   Patch from Yuriy Penkin:

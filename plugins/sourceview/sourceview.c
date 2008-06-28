@@ -2000,12 +2000,42 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 	iface->set_language = ilanguage_set_language;
 }
 
+/* Maximal found autocompletition words */
+const gchar* AUTOCOMPLETE_REGEX = "\\s%s[\\w_*]*\\s";
 static GList*
 iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GError **err)
 {
-	/* Sourceview* sv = ANJUTA_SOURCEVIEW(iassist); */
-	/* We don't make own suggestions yet */
-	return NULL;
+	GList* words = NULL;
+	GError* error = NULL;
+	GMatchInfo *match_info;
+	gchar* text = ianjuta_editor_get_text_all (IANJUTA_EDITOR(iassist), NULL);
+	gchar* expr = g_strdup_printf (AUTOCOMPLETE_REGEX, context);
+	GRegex* regex = g_regex_new (expr, 0, 0, &error);
+	g_free(expr);
+	
+	if (error)
+	{
+		g_regex_unref(regex);
+		g_error_free(error);
+		return NULL;
+	}
+	
+	g_regex_match (regex, text, 0, &match_info);
+	while (g_match_info_matches (match_info))
+	{
+		gchar* word = g_match_info_fetch (match_info, 0);
+		g_strstrip(word);
+		if (strlen(word) <= 3 || g_str_equal (word, context) ||
+			g_list_find_custom (words, word, (GCompareFunc)strcmp) != NULL)
+			g_free(word);
+		else
+			words = g_list_prepend (words, word);
+		g_match_info_next (match_info, NULL);
+	}
+	g_match_info_free (match_info);
+	g_regex_unref (regex);
+	
+	return words;
 }
 
 static void

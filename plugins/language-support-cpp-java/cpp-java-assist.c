@@ -173,6 +173,8 @@ create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
 	}
 	while (ianjuta_iterable_next (iter, NULL));
 	
+	
+	
 	suggestions = g_list_sort (suggestions, completion_compare);
 	g_completion_add_items (completion, suggestions);
 	return completion;
@@ -348,6 +350,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 {
 	gint max_completions;
 	GCompletion *completion = NULL;
+	GList* editor_completions = NULL;
 	max_completions =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
@@ -378,8 +381,30 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 	if (iter_globals)
 	{
 		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 2");
-		completion = create_completion (assist->priv->iassist, iter_project, completion);
+		completion = create_completion (assist->priv->iassist, iter_globals, completion);
 		g_object_unref (iter_globals);		
+	}
+	
+	editor_completions = ianjuta_editor_assist_get_suggestions (assist->priv->iassist,
+																pre_word,
+																NULL);
+	if (editor_completions)
+	{
+		GList* tag_list = NULL;
+		GList* node;
+		for (node = editor_completions; node != NULL; node = g_list_next (node))
+		{
+			CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
+			tag->name = node->data;
+			tag->type = 0;
+			tag->is_func = FALSE;
+			tag_list = g_list_append (tag_list, tag);
+		}
+		if (!completion)
+			completion = g_completion_new(completion_function);
+		tag_list = g_list_sort (tag_list, completion_compare);
+		g_completion_add_items (completion, tag_list);		
+		g_list_free (editor_completions);
 	}
 	
 	assist->priv->completion_cache = completion;
@@ -419,8 +444,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 	 */
 	else if (!pre_word)
 		completion_list = assist->priv->completion_cache->items;
-	
-	/* If there is no cache and no pre_word, it means something else (?) */
+		
 	else
 		return FALSE;
 	
@@ -458,6 +482,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 										   NULL);
 			g_list_foreach (suggestions, (GFunc) g_free, NULL);
 			g_list_free (suggestions);
+			g_object_unref (position);
 			return TRUE;
 		}
 	}
