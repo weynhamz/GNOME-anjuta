@@ -8,7 +8,7 @@
 -->
 <glade-interface>
   <widget class="GtkDialog" id="patch_dialog">
-    <property name="title">Patch</property>
+    <property name="title" translatable="yes">Patch</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="vbox1">
@@ -54,7 +54,7 @@
                 <property name="yalign">0</property>
                 <property name="xpad">5</property>
                 <property name="ypad">5</property>
-                <property name="label">File/Directory to patch:</property>
+                <property name="label" translatable="yes">File/Directory to patch:</property>
               </widget>
             </child>
             <child>
@@ -63,7 +63,7 @@
                 <property name="yalign">0</property>
                 <property name="xpad">5</property>
                 <property name="ypad">5</property>
-                <property name="label">Patch file:</property>
+                <property name="label" translatable="yes">Patch file:</property>
               </widget>
               <packing>
                 <property name="top_attach">1</property>
@@ -76,7 +76,7 @@
                 <property name="yalign">0</property>
                 <property name="xpad">5</property>
                 <property name="ypad">5</property>
-                <property name="label">Patch level:</property>
+                <property name="label" translatable="yes">Patch level:</property>
               </widget>
               <packing>
                 <property name="top_attach">2</property>

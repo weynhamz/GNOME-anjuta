@@ -1,5 +1,13 @@
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
+  Patch from Yuriy Penkin:
+	* plugins/file-loader/plugin.c (on_session_load):
+	* plugins/macro/macro-dialog.c (macro_dialog_init):
+	* plugins/patch/patch-plugin.glade:
+	#538443 – Missing files in POTFILES.in
+
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
   Patch from  Ignacio Casal Quinteiro:
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_dispose),
 	(anjuta_launcher_finalize):

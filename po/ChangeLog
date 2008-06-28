@@ -1,3 +1,9 @@
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
+  Patch from Yuriy Penkin:
+	* POTFILES.in:
+  #538443 – Missing files in POTFILES.in
+
 2008-06-15  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation

@@ -261,7 +261,7 @@ macro_dialog_init (MacroDialog * dialog)
 	g_return_if_fail (dialog != NULL);
 
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
-	gtk_dialog_add_buttons (GTK_DIALOG (dialog), "Insert", OK,
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("Insert"), OK,
 				GTK_STOCK_CANCEL, CANCEL, NULL);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Insert macro"));

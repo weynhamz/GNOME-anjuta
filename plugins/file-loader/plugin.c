@@ -1082,7 +1082,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				if (strchr (filename, '#'))
 					*(strchr (filename, '#')) = '\0';
 				
-				label = g_strconcat ("Loaded: ", filename, NULL);
+				label = g_strconcat (_("Loaded:"), " ", filename, NULL);
 				
 				if (i == 0 && mime_type &&
 					strcmp (mime_type, "application/x-anjuta") == 0)
