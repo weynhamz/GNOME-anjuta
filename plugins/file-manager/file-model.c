@@ -49,9 +49,6 @@ struct _FileModelPrivate
 	gboolean filter_binary;
 	gboolean filter_hidden;
 	gboolean filter_backup;
-	
-	GCancellable* expand_cancel;
-	GtkTreeIter* expand_iter;
 };
 
 #define FILE_MODEL_GET_PRIVATE(o) \
@@ -273,72 +270,50 @@ file_model_add_watch (FileModel* model, GtkTreePath* path)
 }
 
 static void
-file_model_expand_row_real(GObject* src_object, GAsyncResult* result,
-						   gpointer data)
-{
-	FileModel* model = FILE_MODEL(data);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	GFile* dir = G_FILE(src_object);
-	GError* err = NULL;
-	GFileEnumerator* files = g_file_enumerate_children_finish(dir, result, &err);
-	GFileInfo* file_info;
-	GtkTreeIter dummy;
-	GtkTreePath* path;
-
-	if (!priv->expand_iter)
-	{
-		GtkTreeIter iter;
-		gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model),
-									   &iter);
-		priv->expand_iter = gtk_tree_iter_copy (&iter);
-	}
-	
-	path = gtk_tree_model_get_path (GTK_TREE_MODEL(model), priv->expand_iter);
-	
-	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))
-	{
-		GFile* file = g_file_get_child (dir, g_file_info_get_name(file_info));
-		file_model_add_file (model, priv->expand_iter, file, file_info);
-		g_object_unref (file);
-	}
-	/* Remove dummy node */
-	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, priv->expand_iter);
-	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
-
-	file_model_add_watch (model, path);
-	gtk_tree_path_free (path);
-		
-	if (priv->expand_iter)
-		gtk_tree_iter_free(priv->expand_iter);
-	priv->expand_iter = NULL;
-	g_cancellable_reset(priv->expand_cancel);
-	g_object_unref(files);
-}
-
-static void
 file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 					    GtkTreePath* path, gpointer data)
 {
 	GtkTreeModel* sort_model = gtk_tree_view_get_model(tree_view);
 	FileModel* model = FILE_MODEL(data);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
 	GFile* dir;
-	GtkTreeIter real_iter;
+	GtkTreeIter real_iter, dummy;
+	GtkTreePath* real_path;
+	GError* err = NULL;
+	GFileEnumerator* files;
+	GFileInfo* file_info;
 	
 	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
 												   &real_iter, iter);
 	
 	gtk_tree_model_get(GTK_TREE_MODEL(model), &real_iter,
 					   COLUMN_FILE, &dir, -1);
-	priv->expand_iter = gtk_tree_iter_copy(&real_iter);
 	
-	g_file_enumerate_children_async (dir,
-									 "standard::*",
-									 G_FILE_QUERY_INFO_NONE,
-									 G_PRIORITY_DEFAULT,
-									 priv->expand_cancel,
-									 file_model_expand_row_real,
-									 model);
+	files = g_file_enumerate_children (dir,
+									   "standard::*",
+									   G_FILE_QUERY_INFO_NONE,
+									   NULL, 
+									   &err);
+	if (err)
+	{
+		g_object_unref (dir);
+		return;
+	}	
+	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))
+	{
+		GFile* file = g_file_get_child (dir, g_file_info_get_name(file_info));
+		file_model_add_file (model, &real_iter, file, file_info);
+		g_object_unref (file);
+	}
+	/* Remove dummy node */
+	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, &real_iter);
+	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
+
+	real_path = gtk_tree_model_get_path (GTK_TREE_MODEL(model), &real_iter);
+	file_model_add_watch (model, real_path);
+	gtk_tree_path_free (real_path);
+		
+	g_object_unref(files);
+	g_object_unref(dir);
 }
 
 static void
@@ -362,37 +337,14 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 }
 
 static void
-file_model_expand_cancelled(GObject* cancel, gpointer data)
-{
-	FileModel* model = FILE_MODEL(data);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	
-	if (priv->expand_iter)
-		gtk_tree_iter_free(priv->expand_iter);
-	
-	priv->expand_iter = NULL;
-}
-	
-static void
 file_model_init (FileModel *object)
 {
-	FileModel* model = FILE_MODEL(object);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	
-	priv->expand_cancel = g_cancellable_new();
-	g_signal_connect(priv->expand_cancel, "cancelled", G_CALLBACK(file_model_expand_cancelled),
-					 model);
-	priv->expand_iter = NULL;
+
 }
 
 static void
 file_model_finalize (GObject *object)
-{
-	FileModel* model = FILE_MODEL(object);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
-	
-	g_object_unref (priv->expand_cancel);
-	
+{		
 	G_OBJECT_CLASS (file_model_parent_class)->finalize (object);
 }
 
@@ -527,8 +479,6 @@ file_model_refresh (FileModel* model)
 	GFile* base;
 	GFileInfo* base_info;
 	
-	g_cancellable_cancel(priv->expand_cancel);
-	g_cancellable_reset(priv->expand_cancel);
 	gtk_tree_store_clear (store);
 	
 	base = g_file_new_for_uri (priv->base_uri);
