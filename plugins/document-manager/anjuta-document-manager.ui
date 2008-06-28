@@ -110,6 +110,8 @@
 				<placeholder name="PlaceholderGotoOccurence" />
 				<separator />
 				<placeholder name="PlaceholderGotoMessages" />
+				<separator />
+				<placeholder name="PlaceholderGotoSymbol" />
 			</menu>
 		</menu>
 		<placeholder name="PlaceHolderDocumentsMenus">

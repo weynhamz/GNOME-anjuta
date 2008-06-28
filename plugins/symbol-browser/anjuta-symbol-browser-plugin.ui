@@ -1,12 +1,14 @@
 <!--*- xml -*-->
 <ui>
-	<menubar name="MenuMain">
-		<placeholder name="PlaceholderGotoMenus">
+  <menubar name="MenuMain">
+		<menu name="MenuView" action="ActionMenuView">
 			<menu name="Goto" action="ActionMenuGoto">
-					<menuitem name="TagDef" action="ActionSymbolBrowserGotoDef" />
-					<menuitem name="TagDecl" action="ActionSymbolBrowserGotoDecl" />
+					<placeholder name="PlaceholderGotoSymbol">
+					  <menuitem name="TagDef" action="ActionSymbolBrowserGotoDef" />
+					  <menuitem name="TagDecl" action="ActionSymbolBrowserGotoDecl" />
+					</placeholder>
 			</menu>
-		</placeholder>
+		</menu>
 	</menubar>
 	<popup name="PopupSymbolBrowser">
 		<menuitem name="GotoDef" action="ActionPopupSymbolBrowserGotoDef"/>

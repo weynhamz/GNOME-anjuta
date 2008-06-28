@@ -1,5 +1,15 @@
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_update_documents_menu_status):
+	Fixed a Gtk-Critical
+	
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.ui:
+	Show actions in correct Goto menu
+
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
   Patch from Yuriy Penkin:
 	* configure.in:
 	* plugins/file-manager/Makefile.am:

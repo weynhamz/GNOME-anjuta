@@ -139,7 +139,8 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 	action_name = g_strdup_printf ("Tab_%d", current_page);
         action = gtk_action_group_get_action (docman->priv->documents_action_group, action_name);
 	g_free (action_name);
-	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+	if (action)
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
 }
 
 static void
