@@ -77,10 +77,9 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtkcellrendereraccel.h>
 
-#include <libgnome/gnome-macros.h>
-
 #include "resources.h"
 #include "anjuta-ui.h"
+#include "anjuta-utils.h"
 #include "anjuta-debug.h"
 
 struct _AnjutaUIPrivate {
@@ -281,12 +280,8 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 		}
 	}
 }
-
-static void anjuta_ui_class_init (AnjutaUIClass *class);
-static void anjuta_ui_instance_init (AnjutaUI *ui);
-
-GNOME_CLASS_BOILERPLATE (AnjutaUI, anjuta_ui,
-						 GtkUIManager, GTK_TYPE_UI_MANAGER);
+						 
+G_DEFINE_TYPE(AnjutaUI, anjuta_ui, GTK_TYPE_UI_MANAGER)
 
 static void
 anjuta_ui_dispose (GObject *obj)
@@ -321,7 +316,7 @@ anjuta_ui_dispose (GObject *obj)
 		g_object_unref (G_OBJECT (ui->priv->icon_factory));
 		ui->priv->icon_factory = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (anjuta_ui_parent_class)->dispose (obj);
 }
 
 static void
@@ -329,22 +324,20 @@ anjuta_ui_finalize (GObject *obj)
 {
 	AnjutaUI *ui = ANJUTA_UI (obj);
 	g_free (ui->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (anjuta_ui_parent_class)->finalize (obj);
 }
 
 static void
 anjuta_ui_class_init (AnjutaUIClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
-
-	parent_class = g_type_class_peek_parent (class);
 	
 	object_class->dispose = anjuta_ui_dispose;
 	object_class->finalize = anjuta_ui_finalize;
 }
 
 static void
-anjuta_ui_instance_init (AnjutaUI *ui)
+anjuta_ui_init (AnjutaUI *ui)
 {
 	GtkTreeStore *store;
 	

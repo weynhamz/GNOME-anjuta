@@ -30,13 +30,7 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-#include <libgnome/gnome-macros.h>
-
 #include "cell-renderer-captioned-image.h"
-
-
-static void anjuta_cell_renderer_captioned_image_instance_init (AnjutaCellRendererCaptionedImage      *cell);
-static void anjuta_cell_renderer_captioned_image_class_init    (AnjutaCellRendererCaptionedImageClass *class);
 
 enum {
 	PROP_0,
@@ -47,10 +41,8 @@ enum {
 
 #define PAD 3
 #define SPACE 5
-
-GNOME_CLASS_BOILERPLATE (AnjutaCellRendererCaptionedImage,
-			 anjuta_cell_renderer_captioned_image,
-			 GtkCellRenderer, GTK_TYPE_CELL_RENDERER);
+			 
+G_DEFINE_TYPE(AnjutaCellRendererCaptionedImage, anjuta_cell_renderer_captioned_image, GTK_TYPE_CELL_RENDERER)
 
 static void
 anjuta_cell_renderer_captioned_image_get_property (GObject *object,
@@ -188,10 +180,18 @@ anjuta_cell_renderer_captioned_image_dispose (GObject *obj)
 	
 	g_object_unref (cell->image);
 	g_object_unref (cell->caption);
+	
+	G_OBJECT_CLASS (anjuta_cell_renderer_captioned_image_parent_class)->dispose (obj);
 }
 
 static void
-anjuta_cell_renderer_captioned_image_instance_init (AnjutaCellRendererCaptionedImage *cell)
+anjuta_cell_renderer_captioned_image_finalize (GObject *obj)
+{	
+	G_OBJECT_CLASS (anjuta_cell_renderer_captioned_image_parent_class)->finalize (obj);
+}
+
+static void
+anjuta_cell_renderer_captioned_image_init (AnjutaCellRendererCaptionedImage *cell)
 {
 	cell->image = gtk_cell_renderer_pixbuf_new ();
 	cell->caption = gtk_cell_renderer_text_new ();
@@ -203,9 +203,8 @@ anjuta_cell_renderer_captioned_image_class_init (AnjutaCellRendererCaptionedImag
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
 	GtkCellRendererClass *cell_class = GTK_CELL_RENDERER_CLASS (class);
 	
-	parent_class = g_type_class_peek_parent (class);
-	
 	object_class->dispose = anjuta_cell_renderer_captioned_image_dispose;
+	object_class->finalize = anjuta_cell_renderer_captioned_image_finalize;
 	
 	object_class->get_property = anjuta_cell_renderer_captioned_image_get_property;
 	object_class->set_property = anjuta_cell_renderer_captioned_image_set_property;

@@ -54,8 +54,6 @@
 #include <glib/gi18n.h>
 #include <glib.h>
 
-#include <libgnome/gnome-macros.h>
-
 #include "anjuta-utils.h"
 #include "anjuta-marshal.h"
 #include "resources.h"
@@ -267,7 +265,7 @@ anjuta_launcher_dispose (GObject *obj)
 		launcher->priv->busy = FALSE;
 		
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
@@ -280,7 +278,7 @@ anjuta_launcher_finalize (GObject *obj)
 	g_hash_table_destroy (launcher->priv->env);
 	
 	g_free (launcher->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

@@ -1,5 +1,25 @@
 2008-06-28  Johannes Schmid  <jhs@gnome.org>
 
+  Patch from  Ignacio Casal Quinteiro:
+	* libanjuta/anjuta-launcher.c (anjuta_launcher_dispose),
+	(anjuta_launcher_finalize):
+	* libanjuta/anjuta-ui.c (anjuta_ui_dispose), (anjuta_ui_finalize),
+	(anjuta_ui_class_init), (anjuta_ui_init):
+	* libanjuta/cell-renderer-captioned-image.c
+	(anjuta_cell_renderer_captioned_image_dispose),
+	(anjuta_cell_renderer_captioned_image_finalize),
+	(anjuta_cell_renderer_captioned_image_init),
+	(anjuta_cell_renderer_captioned_image_class_init):
+	* libanjuta/e-splash.c (e_splash_finalize), (e_splash_class_init),
+	(e_splash_init):
+	513156 – Get rid of libgnome(ui)
+	
+	* plugins/symbol-db/test/main.c (close_project),
+	(get_global_members):
+	Fixed build
+
+2008-06-28  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/anjuta-docman.c
 	(anjuta_docman_update_documents_menu_status):
 	Fixed a Gtk-Critical

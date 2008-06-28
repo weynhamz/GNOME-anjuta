@@ -36,7 +36,6 @@
 
 #include <libgnomecanvas/gnome-canvas-pixbuf.h>
 #include <libgnomecanvas/libgnomecanvas.h>
-#include <libgnome/gnome-macros.h>
 #include <gtk/gtk.h>
 
 #include "e-splash.h"
@@ -51,7 +50,7 @@ struct _ESplashPrivate {
 	gint progressbar_position;
 };
 
-GNOME_CLASS_BOILERPLATE (ESplash, e_splash, GtkWindow, GTK_TYPE_WINDOW);
+G_DEFINE_TYPE(ESplash, e_splash, GTK_TYPE_WINDOW)
 
 /* Layout constants.  These need to be changed if the splash changes.  */
 
@@ -77,18 +76,24 @@ impl_destroy (GtkObject *object)
 }
 
 static void
-e_splash_class_init (ESplashClass *klass)
-{
-	GtkObjectClass *object_class;
-
-	object_class = GTK_OBJECT_CLASS (klass);
-	object_class->destroy = impl_destroy;
-
-	parent_class = gtk_type_class (gtk_window_get_type ());
+e_splash_finalize (GObject *obj)
+{	
+	G_OBJECT_CLASS (e_splash_parent_class)->finalize (obj);
 }
 
 static void
-e_splash_instance_init (ESplash *splash)
+e_splash_class_init (ESplashClass *klass)
+{
+	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS (klass);;
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+	gtkobject_class->destroy = impl_destroy;
+	
+	object_class->finalize = e_splash_finalize;
+}
+
+static void
+e_splash_init (ESplash *splash)
 {
 	ESplashPrivate *priv;
 

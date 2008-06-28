@@ -76,7 +76,7 @@ static void
 close_project (SymbolDBEngine *dbe) 
 {
 	g_message ("closing project...");
-	symbol_db_engine_close_project (dbe, "foo_project");
+	//symbol_db_engine_close_project (dbe, "foo_project");
 	g_message ("...closed");
 }
 
@@ -168,7 +168,7 @@ get_global_members (SymbolDBEngine *dbe)
 		symbol_db_engine_get_global_members (dbe, 
 										"namespace", 
 										SYMINFO_SIMPLE, SYMINFO_TYPE);
-/*/
+/*
 	SymbolDBEngineIterator *iterator = 
 		symbol_db_engine_get_global_members (dbe, 
 										"namespace", 
@@ -178,11 +178,12 @@ get_global_members (SymbolDBEngine *dbe)
 										SYMINFO_SIMPLE | 
 										SYMINFO_KIND |
 										SYMINFO_ACCESS );
-//*/	
+
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
 	else
 		dump_iterator (iterator);
+*/
 }
 
 
