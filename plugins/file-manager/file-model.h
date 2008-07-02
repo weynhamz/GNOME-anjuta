@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include <gtk/gtktreestore.h>
 #include <gtk/gtktreeview.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -72,8 +73,8 @@ file_model_new (GtkTreeView* tree_view, const gchar* base_uri);
 void 
 file_model_refresh (FileModel* model);
 
-gchar*
-file_model_get_uri (FileModel* model, GtkTreeIter* iter);
+GFile*
+file_model_get_file (FileModel* model, GtkTreeIter* iter);
 
 gchar*
 file_model_get_filename (FileModel* model, GtkTreeIter* iter);

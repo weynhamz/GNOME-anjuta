@@ -26,8 +26,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
+#include <gio/gio.h>
 #include <gnome.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <errno.h>
 
 #include <libanjuta/resources.h>
@@ -360,18 +360,18 @@ on_text_editor_uri_changed_prompt (TextEditor *te)
 }
 
 static void
-on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
-							const gchar *monitor_uri,
-							const gchar *info_uri,
-							GnomeVFSMonitorEventType event_type,
+on_text_editor_uri_changed (GFileMonitor *monitor,
+							GFile *file,
+							GFile *other_file,
+							GFileMonitorEvent event_type,
 							gpointer user_data)
 {
 	TextEditor *te = TEXT_EDITOR (user_data);
 	
 	/* DEBUG_PRINT ("File changed!!!"); */
 	
-	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
-		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
+	if (!(event_type == G_FILE_MONITOR_EVENT_CHANGED ||
+		  event_type == G_FILE_MONITOR_EVENT_CREATED))
 		return;
 	
 	if (!anjuta_util_diff (te->uri, te->last_saved_content))
@@ -382,9 +382,6 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 		te->file_modified_widget = NULL;
 		return;
 	}
-	
-	if (strcmp (monitor_uri, info_uri) != 0)
-		return;
 	
 	/* If the file modified dialog is already shown, don't bother showing it
 	 * again.
@@ -405,23 +402,31 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 	if (te->monitor)
 	{
 		/* Shutdown existing monitor */
-		gnome_vfs_monitor_cancel (te->monitor);
+		g_file_monitor_cancel (te->monitor);
 		te->monitor = NULL;
 	}
 	if (te->uri && !disable_it)
 	{
-		GnomeVFSResult res;
+		GFile *gio_uri;
+		GError *error = NULL;
 		/* DEBUG_PRINT ("Setting up Monitor for %s", te->uri); */
-		res = gnome_vfs_monitor_add (&te->monitor, te->uri,
-									 GNOME_VFS_MONITOR_FILE,
-									 on_text_editor_uri_changed, te);
-		/*
-		if (res != GNOME_VFS_OK)
+
+		gio_uri = g_file_new_for_uri (te->uri);
+		te->monitor = g_file_monitor_file (gio_uri, 
+										G_FILE_MONITOR_NONE, 
+										NULL, 
+										&error);
+		g_signal_connect (te->monitor, "changed",
+				  G_CALLBACK (on_text_editor_uri_changed), te);
+		g_object_unref (gio_uri);
+		
+		if (error != NULL)
 		{
 			DEBUG_PRINT ("Error while setting up file monitor: %s",
-					   gnome_vfs_result_to_string (res));
+					   error->message);
+			g_error_free (error);
 		}
-		*/
+		
 	}
 }
 
@@ -441,21 +446,19 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 	else 
 		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	if (uri && strlen(uri) > 0)
-	{
-		GnomeVFSResult result;
-		GnomeVFSURI* vfs_uri;
-		GnomeVFSFileInfo info = {0,0};
-		
+	{	
 		new_file_count--;
 		if (te->filename)
 			g_free (te->filename);
 		if (te->uri)
 			g_free (te->uri);
-		vfs_uri = gnome_vfs_uri_new(uri);
-		result = gnome_vfs_get_file_info_uri(vfs_uri, &info, GNOME_VFS_SET_FILE_INFO_NONE);
-		gnome_vfs_uri_unref(vfs_uri); 
-		te->filename = g_strdup(info.name);
-		te->uri = g_strdup(uri);
+
+		GFile *gio_uri;
+		gio_uri = g_file_new_for_uri (uri);
+		te->filename = g_file_get_basename (gio_uri);
+		g_object_unref (gio_uri);
+
+		te->uri = g_strdup (uri);
 	}
 	
 	text_editor_prefs_init (te);
@@ -1105,12 +1108,12 @@ filter_chars_in_dos_mode(gchar *data_, size_t size )
 /*
  * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
  */
-static GnomeVFSResult
-save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
-						  GnomeVFSFileSize size)
+static gboolean
+save_filtered_in_dos_mode(GFileOutputStream* stream, gchar *data_,
+						  gsize size)
 {
-	GnomeVFSResult result;
-	size_t i, j;
+	gboolean result;
+	gsize i, j;
 	unsigned char *data;
 	unsigned char *tr_map;
 	int k;
@@ -1123,34 +1126,46 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 	  tr_map[tr_dos[k].c] = tr_dos[k].b;
 
 	data = (unsigned char*)data_;
-	i = 0; j = 0;
+	i = 0; 
+	j = 0;
 	while ( i < size )
 	{
-		if (data[i]>=128) {
+		if (data[i]>=128) 
+		{
 			/* convert dos-text */
 			if ( tr_map[data[i]] != 0 )
 			{	
-				GnomeVFSFileSize bytes_written;
-				result = gnome_vfs_write (vfs_write, &tr_map[data[i]], 1, &bytes_written);
+				gsize bytes_written;
+				result = g_output_stream_write_all (G_OUTPUT_STREAM (stream), 
+														&tr_map[data[i]], 1, 
+														&bytes_written, 
+														NULL, NULL);
+	
 				j += bytes_written;
 			}
 			else
 			{
 				/* char not found, skip transform */
-				GnomeVFSFileSize bytes_written;
-				result = gnome_vfs_write (vfs_write, &data[i], 1, &bytes_written);
+				gsize bytes_written;
+				result = g_output_stream_write_all (G_OUTPUT_STREAM (stream), 
+														&data[i], 1, 
+														&bytes_written, 
+														NULL, NULL);
 				j += bytes_written;
 			}
 			i++;
 		} 
 		else 
 		{
-			GnomeVFSFileSize bytes_written;
-			result = gnome_vfs_write (vfs_write, &data[i], 1, &bytes_written);
+			gsize bytes_written;
+			result = g_output_stream_write_all (G_OUTPUT_STREAM (stream), 
+														&data[i], 1, 
+														&bytes_written, 
+														NULL, NULL);
 			j += bytes_written;
 			i++;
 		}
-		if (result != GNOME_VFS_OK)
+		if (!result)
 			break;
 	}
 
@@ -1246,57 +1261,72 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 static gboolean
 load_from_file (TextEditor *te, gchar *uri, gchar **err)
 {
-	GnomeVFSURI* vfs_uri;
-	GnomeVFSHandle* vfs_read;
-	GnomeVFSResult result;
-	GnomeVFSFileInfo info;
-	GnomeVFSFileSize nchars;
+	GFile *gio_uri;
+	GFileInputStream *stream;
+	gboolean result;
+	GFileInfo *info;
+	gsize nchars;
 	gint dos_filter, editor_mode;
 	gchar *file_content = NULL;
 	gchar *buffer = NULL;
+	guint64 size; 
 
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CLEARALL,
 							0, 0);
-	vfs_uri = gnome_vfs_uri_new(uri);
-	result = gnome_vfs_get_file_info_uri (vfs_uri,
-										  &info,
-										  GNOME_VFS_FILE_INFO_DEFAULT |
-										  GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	if (result != GNOME_VFS_OK)
+	gio_uri = g_file_new_for_uri (uri);
+	info = g_file_query_info (gio_uri,
+								G_FILE_ATTRIBUTE_STANDARD_SIZE,
+								G_FILE_QUERY_INFO_NONE,
+								NULL,
+								NULL);
+
+	if (info == NULL)
 	{
 		*err = g_strdup (_("Could not get file info"));
+		g_object_unref (gio_uri);
+
 		return FALSE;
 	}
-	buffer = g_malloc (info.size + 1);
-	if (buffer == NULL && info.size != 0)
+	size = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+	g_object_unref (info);
+
+	buffer = g_malloc (size + 1);
+	if (buffer == NULL && size != 0)
 	{
 		/* DEBUG_PRINT ("This file is too big. Unable to allocate memory."); */
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
+		g_object_unref (gio_uri);
+
 		return FALSE;
 	}
 	
-	result = gnome_vfs_open_uri(&vfs_read, vfs_uri, GNOME_VFS_OPEN_READ); 
-	if (result != GNOME_VFS_OK)
+	stream = g_file_read (gio_uri, NULL, NULL);
+	if (stream == NULL)
 	{
 		*err = g_strdup (_("Could not open file"));		
+		g_object_unref (gio_uri);
+
 		return FALSE;
 	}
 	/* Crude way of loading, but faster */
- 	result = gnome_vfs_read (vfs_read, buffer, info.size, &nchars);
-	if (result != GNOME_VFS_OK && !(result == GNOME_VFS_ERROR_EOF && info.size == 0))
+	result = g_input_stream_read_all (G_INPUT_STREAM (stream), 
+										buffer, size, &nchars, NULL, NULL);
+	if (!result)
 	{
 		g_free(buffer);
 		*err = g_strdup (_("Error while reading from file"));
+		g_object_unref (gio_uri);
+
 		return FALSE;
 	}
 	
 	if (buffer)
 	{
-		buffer[info.size] = '\0';
+		buffer[size] = '\0';
 		file_content = g_strdup (buffer);
 	}
 	
-	if (info.size != nchars)
+	if (size != nchars)
 	{
 		/* DEBUG_PRINT ("File size and loaded size not matching"); */
 	}
@@ -1333,7 +1363,8 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
 								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
-				gnome_vfs_close(vfs_read);
+				g_object_unref (gio_uri);
+
 				return FALSE;
 			}
 			g_free (buffer);
@@ -1354,23 +1385,28 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	g_free (te->last_saved_content);
 	te->last_saved_content = file_content;
 	
-	gnome_vfs_close(vfs_read);
+	g_object_unref (gio_uri);
+
 	return TRUE;
 }
 
-static GnomeVFSResult
-save_to_file (TextEditor *te, gchar * uri)
+static gboolean
+save_to_file (TextEditor *te, gchar *uri, GError **error)
 {
-	GnomeVFSHandle* vfs_write;
-	GnomeVFSResult result;
-	GnomeVFSFileSize nchars, size;
+	GFileOutputStream *stream;
+	GFile *gio_uri;
+	gsize nchars, size;
 	gint strip;
 	gchar *data;
+	gboolean result;
 
-	result = gnome_vfs_create (&vfs_write, uri, GNOME_VFS_OPEN_WRITE,
-							   FALSE, 0664);
- 	if (result != GNOME_VFS_OK)
-		return result;
+	gio_uri = g_file_new_for_uri (uri);
+	stream = g_file_replace (gio_uri, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL);
+
+ 	if (stream == NULL)
+		return FALSE;
+
+	result = TRUE;
 	
 	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
 									 SCI_GETLENGTH, 0, 0);
@@ -1438,11 +1474,13 @@ save_to_file (TextEditor *te, gchar * uri)
 		if (editor_mode == SC_EOL_CRLF && dos_filter)
 		{
 			/* DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]"); */
-			size = save_filtered_in_dos_mode (vfs_write, data, size);
+			size = save_filtered_in_dos_mode (stream, data, size);
 		}
 		else
 		{
-			result = gnome_vfs_write(vfs_write, data, size, &nchars);
+			result = g_output_stream_write_all (G_OUTPUT_STREAM (stream), 
+														data, size, 
+														&nchars, NULL, error);
 		}
 	}
 	
@@ -1450,10 +1488,12 @@ save_to_file (TextEditor *te, gchar * uri)
 	g_free (te->last_saved_content);
 	te->last_saved_content = data;
 	
-	if (result == GNOME_VFS_OK)
-		result = gnome_vfs_close(vfs_write);
+	if (result)
+		result = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, error);
 	else
-		gnome_vfs_close (vfs_write);
+		g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+
+	g_object_unref (gio_uri);
 	
 	return result;
 }
@@ -1505,8 +1545,9 @@ text_editor_save_file (TextEditor * te, gboolean update)
 {
 	gboolean ret = FALSE;
 	gchar *save_uri;
-	GnomeVFSResult result;
+	gboolean result;
 	GtkWindow *parent;
+	GError *error = NULL;
 	
 	if (te == NULL)
 		return FALSE;
@@ -1521,91 +1562,93 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	text_editor_update_monitor (te, TRUE);
 	
 	save_uri = g_strconcat (te->uri, "~", NULL);
-	result = save_to_file (te, save_uri);
-	if (result != GNOME_VFS_OK)
+	result = save_to_file (te, save_uri, &error);
+	if (!result)
 	{
-		GList *sources = NULL;
-		GnomeVFSURI *vfs_uri;
+		GFile *gio_uri;
 		
 		text_editor_thaw (te);
 		anjuta_util_dialog_error (parent,
 								  _("Could not save intermediate file %s: %s"),
 								  save_uri,
-								  gnome_vfs_result_to_string (result));
+								  error->message);
 		
-		vfs_uri = gnome_vfs_uri_new (save_uri);
-		sources = g_list_append (sources, vfs_uri);
-		gnome_vfs_xfer_delete_list (sources, GNOME_VFS_XFER_ERROR_MODE_ABORT,
-									GNOME_VFS_XFER_DELETE_ITEMS |
-									GNOME_VFS_XFER_REMOVESOURCE, NULL, NULL);
-		g_list_free (sources);
-		gnome_vfs_uri_unref (vfs_uri);
+		gio_uri = g_file_new_for_uri (save_uri);
+		g_file_delete (gio_uri, NULL, NULL);
+		
+		g_object_unref (gio_uri);
+		g_error_free (error);
 	}
 	else
 	{
-		GnomeVFSURI *src_uri;
-		GnomeVFSURI *dest_uri;
-		GnomeVFSFileInfo info;
+		GFile *src_gio;
+		GFile *dest_gio;
+		GFileInfo *info;
 		gboolean have_info;
+		char *dest_uri;
+
+		dest_uri = te->uri; 
 		
-		src_uri = gnome_vfs_uri_new (save_uri);
-		dest_uri = gnome_vfs_uri_new (te->uri);
-	
 		/* have_info is FALSE on newly created file */	
-		have_info = gnome_vfs_get_file_info_uri (dest_uri,
-											  &info,
-											  GNOME_VFS_FILE_INFO_DEFAULT |
-											  GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK;
+		DEBUG_PRINT ("MY_TEST dest_uri: %s", dest_uri);
+
+		src_gio = g_file_new_for_uri (save_uri);
+		dest_gio = g_file_new_for_uri (te->uri);
+
+		have_info = g_file_query_exists (dest_gio, NULL);
 		if (have_info)
 		{
-			if (info.flags & GNOME_VFS_FILE_FLAGS_SYMLINK &&
-				info.valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SYMLINK_NAME)
+			info = g_file_info_new ();
+			g_file_info_set_name (info, dest_uri);
+			g_file_info_get_is_symlink (info);
 			{
-				gnome_vfs_uri_unref (dest_uri);
-				dest_uri = gnome_vfs_uri_new (info.symlink_name);
+				dest_uri = g_file_info_get_symlink_target (info);
+				g_object_unref (dest_gio);
+				dest_gio = g_file_new_for_uri (dest_uri);
 			}
+			g_object_unref (info);
 		}
+
 		/* Move 'file~' to 'file' */
-		result = gnome_vfs_xfer_uri (src_uri, dest_uri,
-									 GNOME_VFS_XFER_DELETE_ITEMS |
-									 GNOME_VFS_XFER_REMOVESOURCE,
-									 GNOME_VFS_XFER_ERROR_MODE_ABORT,
-									 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-									 NULL, NULL);
+		
+		result = g_file_move (src_gio, dest_gio, G_FILE_COPY_OVERWRITE, 
+								NULL, NULL, NULL, &error);
+
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
-		if (result != GNOME_VFS_OK)
+		if (!result)
 		{
 			anjuta_util_dialog_error (parent,
 				_("Could not save file %s: %s."),
 				te->uri,
-				gnome_vfs_result_to_string (result));
-		}
-		else
-		{
+				error->message);
+
 			if (have_info)
 			{
-				result = gnome_vfs_set_file_info_uri (dest_uri, &info,
-					GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
-				if (result != GNOME_VFS_OK)
+				if (error->code == G_IO_ERROR_PERMISSION_DENIED)
 				{
 					anjuta_util_dialog_warning (parent,
 						_("Could not set file permissions %s: %s."),
 						te->uri,
-						gnome_vfs_result_to_string (result));
+						error->message);
 				}
 			}
+			g_error_free (error);
+		}
+		else
+		{
 			scintilla_send_message (SCINTILLA (te->scintilla),
 									SCI_SETSAVEPOINT, 0, 0);
 			g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
 			anjuta_status (te->status, _("File saved successfully"), 5);
 			ret = TRUE;
 		}
-		gnome_vfs_uri_unref (src_uri);
-		gnome_vfs_uri_unref (dest_uri);
+		g_object_unref (src_gio);
+		g_object_unref (dest_gio);
 	}
 	text_editor_update_monitor (te, FALSE);
 	g_free (save_uri);
+
 	return ret;
 }
 
@@ -2674,23 +2717,19 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 
 /* IAnjutaFile implementation */
 
-static gchar*
-ifile_get_uri (IAnjutaFile *editor, GError **error)
+static GFile*
+ifile_get_file (IAnjutaFile *editor, GError **error)
 {
 	TextEditor *text_editor;
 	text_editor = TEXT_EDITOR(editor);
 	if (text_editor->uri)
-		return g_strdup (text_editor->uri);
-/*
-	else if (text_editor->filename)
-		return gnome_vfs_get_uri_from_local_path (text_editor->filename);
-*/
+		return g_file_new_for_uri (text_editor->uri);
 	else
 		return NULL;
 }
 
 static void
-ifile_open (IAnjutaFile *editor, const gchar* uri, GError **error)
+ifile_open (IAnjutaFile *editor, GFile* file, GError **error)
 {
 	/* Close current file and open new file in this editor */
 	TextEditor* text_editor;
@@ -2699,10 +2738,10 @@ ifile_open (IAnjutaFile *editor, const gchar* uri, GError **error)
 	/* Do nothing if current file is not saved */
 	if (!text_editor_is_saved (text_editor))
 		return;
-	text_editor->uri = g_strdup (uri);
+	text_editor->uri = g_file_get_uri (file);
 	
 	/* Remove path */
-	text_editor->filename = g_strdup (g_basename (uri));
+	text_editor->filename = g_file_get_basename (file);
 	text_editor_load_file (text_editor);
 }
 
@@ -2715,7 +2754,7 @@ isaveable_save (IAnjutaFileSavable* editor, GError** e)
 }
 
 static void
-isavable_save_as (IAnjutaFileSavable* editor, const gchar* filename, GError** e)
+isavable_save_as (IAnjutaFileSavable* editor, GFile* file, GError** e)
 {
 	const gchar *past_language;
 	const gchar *curr_language;
@@ -2725,9 +2764,9 @@ isavable_save_as (IAnjutaFileSavable* editor, const gchar* filename, GError** e)
 		ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (text_editor),
 											  NULL);
 	
-	text_editor->uri = g_strdup (filename);
+	text_editor->uri = g_file_get_uri (file);
 	/* Remove path */
-	text_editor->filename = g_path_get_basename (filename);
+	text_editor->filename = g_file_get_basename (file);
 	text_editor_save_file (text_editor, FALSE);
 	text_editor_set_hilite_type (text_editor, NULL);
 	text_editor_hilite (text_editor, FALSE);
@@ -2770,7 +2809,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 /* Implementation of the IAnjutaMarkable interface */
@@ -2848,27 +2887,6 @@ imarkable_iface_init (IAnjutaMarkableIface *iface)
 	iface->unmark = imarkable_unmark;
 	iface->is_marker_set = imarkable_is_marker_set;
 	iface->delete_all_markers = imarkable_delete_all_markers;
-}
-
-/* IAnjutaEditorFactory implementation */
-
-static IAnjutaEditor*
-itext_editor_factory_new_editor(IAnjutaEditorFactory* factory, 
-								const gchar* uri,
-								const gchar* filename, 
-								GError** error)
-{
-	TextEditor *current_editor = TEXT_EDITOR (factory);
-	GtkWidget* editor = text_editor_new (current_editor->status,
-										 current_editor->preferences,
-										 uri, filename);
-	return IANJUTA_EDITOR (editor);
-}
-
-static void
-itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
-{
-	iface->new_editor = itext_editor_factory_new_editor;
 }
 
 /* IAnjutaEditorConvert implementation */
@@ -3710,7 +3728,4 @@ ANJUTA_TYPE_ADD_INTERFACE(izoom, IANJUTA_TYPE_EDITOR_ZOOM);
 ANJUTA_TYPE_ADD_INTERFACE(igoto, IANJUTA_TYPE_EDITOR_GOTO);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
 ANJUTA_TYPE_ADD_INTERFACE(ihover, IANJUTA_TYPE_EDITOR_HOVER);
-
-/* FIXME: Is factory definition really required for editor class? */
-ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
 ANJUTA_TYPE_END;

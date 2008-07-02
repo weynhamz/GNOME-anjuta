@@ -168,8 +168,12 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 {
 	if (res == GTK_RESPONSE_YES)
 	{
+		gchar* uri = anjuta_document_get_uri(sv->priv->document);
+		GFile* file = g_file_new_for_uri (uri);
 		ianjuta_file_open(IANJUTA_FILE(sv),
-						  anjuta_document_get_uri(sv->priv->document), NULL);
+						  file, NULL);
+		g_object_unref (file);
+		g_free (uri);
 	}
 	else
 	{
@@ -594,7 +598,7 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 the file will be loaded in the buffer */
 
 Sourceview *
-sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
+sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 {
 	AnjutaShell* shell;
 	GtkAdjustment* v_adj;
@@ -649,17 +653,19 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv));
 	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
 	
-	if (uri != NULL && strlen(uri) > 0)
+	if (file != NULL)
 	{
-		ianjuta_file_open(IANJUTA_FILE(sv), uri, NULL);
+		ianjuta_file_open(IANJUTA_FILE(sv), file, NULL);
 	}
 	else if (filename != NULL && strlen(filename) > 0)
-		sv->priv->filename = g_strdup(filename);	
+		sv->priv->filename = g_strdup(filename);
 	
 	/* Create Higlight Tag */
 	sourceview_create_highligth_indic(sv);
 	
 	DEBUG_PRINT("============ Creating new editor =============");
+	
+	g_signal_emit_by_name (G_OBJECT(sv), "update-ui");
 	
 	return sv;
 }
@@ -668,23 +674,26 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 
 /* Open uri in Editor */
 static void
-ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
+ifile_open (IAnjutaFile* ifile, GFile* file, GError** e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
 	sourceview_remove_monitor(sv);
 	/* Hold a reference here to avoid a destroyed editor */
 	g_object_ref(G_OBJECT(sv));
-	anjuta_document_load(sv->priv->document, uri, NULL,
+	anjuta_document_load(sv->priv->document, g_file_get_uri (file), NULL,
 						 -1, FALSE);
 }
 
 /* Return the currently loaded uri */
 
-static gchar* 
-ifile_get_uri (IAnjutaFile* file, GError** e)
+static GFile*
+ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	return anjuta_document_get_uri(sv->priv->document);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
+	gchar* uri = anjuta_document_get_uri(sv->priv->document);
+	GFile* ret_file = g_file_new_for_uri (uri);
+	g_free (uri);
+	return ret_file;
 }
 
 /* IAnjutaFileSavable interface */
@@ -702,13 +711,13 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 
 /* Save file as */
 static void 
-ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
+ifile_savable_save_as (IAnjutaFileSavable* ifile, GFile* file, GError** e)
 {
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
-	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
 	sourceview_remove_monitor(sv);
-	/* TODO: Set correct encoding */
+	gchar* uri = g_file_get_uri (file);
 	gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER(sv->priv->document),
 								&start_iter, &end_iter);
 	g_free(sv->priv->last_saved_content);
@@ -723,6 +732,8 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 		g_free(sv->priv->filename);
 		sv->priv->filename = NULL;
 	}
+	
+	g_free (uri);
 }
 
 static void 
@@ -753,7 +764,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 /* IAnjutaEditor interface */

@@ -302,6 +302,8 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	IAnjutaEditor *ed;
 	gchar* val;
 	gchar* uri;
+	gchar* path;
+	GFile* file;
 	GError* err = NULL;
 
 	docman = anjuta_shell_get_interface (this->shell, IAnjutaDocumentManager, NULL);
@@ -324,8 +326,11 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 		val = g_strdup (ianjuta_document_get_filename (IANJUTA_DOCUMENT(ed), &err));
 		break;
 	case ATP_EDITOR_CURRENT_DIRECTORY:
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), &err);
-		val = remove_filename(get_path_from_uri(uri));
+		file = ianjuta_file_get_file (IANJUTA_FILE (ed), &err);
+		path = g_file_get_path (file);
+		val = remove_filename(path);
+		g_object_unref (file);
+		g_free(path);
 		break;
 	default:
 		g_return_val_if_reached (NULL);

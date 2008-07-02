@@ -119,27 +119,33 @@ void an_file_history_push (const gchar *uri, gint line)
 void an_file_history_back(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
+	GFile* file;
 
 	if (!(s_history && s_history->current && s_history->current->next))
 		return;
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_uri_line_mark (docman, h_file->uri,
+	file = g_file_new_for_uri (h_file->uri);
+	anjuta_docman_goto_file_line_mark (docman, file,
 									   h_file->line, FALSE);
+	g_object_unref (file);
 }
 
 void an_file_history_forward(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
+	GFile* file;
 
 	if (!(s_history && s_history->current && s_history->current->prev))
 		return;
 	
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_uri_line_mark(docman, h_file->uri,
+	file = g_file_new_for_uri (h_file->uri);
+	anjuta_docman_goto_file_line_mark(docman, file,
 									  h_file->line, FALSE);
+	g_object_unref (file);
 }
 
 void an_file_history_dump(void)

@@ -118,12 +118,15 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	
 	if (sdb_plugin->current_editor) 
 	{
+		GFile* file;
 		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
 		
 		buffer_size = ianjuta_editor_get_length (ed, NULL);
 		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
 				
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);		
+		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
+		uri = g_file_get_uri (file);
+		g_object_unref (file);
 	} 
 	else
 		return FALSE;
@@ -297,6 +300,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	gchar *uri;
+	GFile* file;
 	gchar *local_path;
 	GObject *editor;
 	SymbolDBPlugin *sdb_plugin;
@@ -323,12 +327,13 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	if (!IANJUTA_IS_EDITOR (editor))
 		return;
 	
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 	
-	if (uri == NULL)
+	if (file == NULL)
 		return;
 
-	local_path = gnome_vfs_get_local_path_from_uri (uri);
+	local_path = g_file_get_path (file);
+	uri = g_file_get_uri (file);
 	DEBUG_PRINT ("value_added_current_editor () gonna refresh local syms: local_path %s "
 				 "uri %s", local_path, uri);
 	if (local_path == NULL)
@@ -439,18 +444,18 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 {
-	gchar *uri;
-	IAnjutaFileLoader *loader;
+	IAnjutaDocumentManager *docman;
+	GFile* file;
 	
 	g_return_if_fail (filename != NULL);
 		
 	/* Go to file and line number */
-	loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager,
 										 NULL);
-		
-	uri = g_strdup_printf ("file://%s#%d", filename, lineno);
-	ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-	g_free (uri);
+	file = g_file_new_for_path (filename);
+	ianjuta_document_manager_goto_file_line (docman, file, lineno, NULL);
+	
+	g_object_unref (file);
 }
 
 
@@ -1280,7 +1285,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (symbol_db->dbv_notebook), 0);
 
 	symbol_db->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	/* Added widgets */
@@ -1291,7 +1296,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	/* set up project directory watch */
 	symbol_db->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 									project_root_added,
 									project_root_removed, NULL);
 

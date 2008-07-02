@@ -111,7 +111,7 @@ sourceview_plugin_class_init (GObjectClass *klass)
 
 static IAnjutaEditor*
 ieditor_factory_new_editor(IAnjutaEditorFactory* factory, 
-								const gchar* uri,
+								GFile* file,
 								const gchar* filename, 
 								GError** error)
 {
@@ -124,7 +124,7 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 	{
 		current_style = g_strdup (SOURCEVIEW_DEFAULT_STYLE);
 	}
-	sv = sourceview_new(uri, filename, plugin);
+	sv = sourceview_new(file, filename, plugin);
 	gtk_source_buffer_set_style_scheme (GTK_SOURCE_BUFFER (sv->priv->document),
 										gtk_source_style_scheme_manager_get_scheme (manager,
 																					current_style));

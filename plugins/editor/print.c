@@ -27,7 +27,6 @@
 #include <string.h>
 
 #include <gnome.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-job.h>
 #include <libgnomeprintui/gnome-print-dialog.h>

@@ -19,7 +19,6 @@
 */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
@@ -97,15 +96,17 @@ editor_plugin_class_init (GObjectClass *klass)
 
 static IAnjutaEditor*
 itext_editor_factory_new_editor(IAnjutaEditorFactory* factory, 
-								const gchar* uri,
+								GFile* file,
 								const gchar* filename, 
 								GError** error)
 {
 	AnjutaShell *shell = ANJUTA_PLUGIN (factory)->shell;
 	AnjutaPreferences *prefs = anjuta_shell_get_preferences (shell, NULL);
 	AnjutaStatus *status = anjuta_shell_get_status (shell, NULL);
+	gchar* uri = g_file_get_uri (file);
 	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new(status, prefs,
 														   uri, filename));
+	g_free(uri);
 	return editor;
 }
 

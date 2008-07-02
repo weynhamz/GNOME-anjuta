@@ -310,8 +310,8 @@ isymbol_get_extra_info_string (IAnjutaSymbol *isymbol, IAnjutaSymbolField sym_in
 	return symbol_db_engine_iterator_node_get_symbol_extra_string (s, sym_info);
 } 
 
-static const gchar*
-isymbol_get_uri (IAnjutaSymbol *isymbol, GError **err)
+static GFile*
+isymbol_get_file (IAnjutaSymbol *isymbol, GError **err)
 {
 	SymbolDBEngineIteratorNode *s;
 
@@ -320,11 +320,14 @@ isymbol_get_uri (IAnjutaSymbol *isymbol, GError **err)
 	if (s->priv->uri == NULL)
 	{
 		const gchar* file_path;
+		GFile* file;
 		file_path = symbol_db_engine_iterator_node_get_symbol_extra_string (s, 
 													SYMINFO_FILE_PATH);
-		s->priv->uri = gnome_vfs_get_uri_from_local_path (file_path);
+		file = g_file_new_for_path (file_path);
+		s->priv->uri = g_file_get_uri (file);
+		g_object_unref (file);
 	}
-	return s->priv->uri;
+	return g_file_new_for_uri (s->priv->uri);
 }
 
 static gulong
@@ -390,7 +393,7 @@ isymbol_get_sym_type (IAnjutaSymbol *isymbol, GError **err)
 static void
 isymbol_iface_init (IAnjutaSymbolIface *iface)
 {
-	iface->get_uri = isymbol_get_uri;
+	iface->get_file = isymbol_get_file;
 	iface->get_name = isymbol_get_name;	
 	iface->get_line = isymbol_get_line;
 	iface->get_sym_type = isymbol_get_sym_type;

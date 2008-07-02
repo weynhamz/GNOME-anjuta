@@ -36,6 +36,8 @@
 #include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
+#include <gio/gio.h>
+
 #include <stdarg.h>
 
 /* Contants defintion
@@ -1133,7 +1135,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	gboolean ret = FALSE;
 	DmaDebuggerCommandType type = cmd->type & COMMAND_MASK;
 	IAnjutaDebuggerCallback callback = cmd->callback == NULL ? NULL : dma_debugger_queue_command_callback;
-					 
+	GFile* file;
 	switch (type)
 	{
 	case EMPTY_COMMAND:
@@ -1170,7 +1172,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_run (debugger, err);	
 		break;
 	case RUN_TO_COMMAND:
-		ret = ianjuta_debugger_run_to (debugger, cmd->data.pos.file, cmd->data.pos.line, err);	
+		file = g_file_new_for_uri (cmd->data.pos.file);
+		ret = ianjuta_debugger_run_to (debugger, file, cmd->data.pos.line, err);
+		g_object_unref (file);
 		break;
 	case STEP_IN_COMMAND:
 		ret = ianjuta_debugger_step_in (debugger, err);	

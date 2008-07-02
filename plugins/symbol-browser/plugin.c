@@ -80,7 +80,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 {
-	gchar *uri;
+	GFile* file;
 	IAnjutaDocumentManager *docman;
 	
 	g_return_if_fail (filename != NULL);
@@ -89,9 +89,9 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager,
 										 NULL);
 		
-	uri = gnome_vfs_get_uri_from_local_path (filename);
-	ianjuta_document_manager_goto_uri_line (docman, uri, lineno, NULL);
-	g_free (uri);
+	file = g_file_new_for_path (filename);
+	ianjuta_document_manager_goto_file_line (docman, file, lineno, NULL);
+	g_object_unref (file);
 }
 
 static void
@@ -723,13 +723,16 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 {
 	AnjutaUI *ui;
 	gchar *uri;
+	GFile* file;
 	GObject *editor = sv_plugin->current_editor;
 	
 	if (!editor)
 		return;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
 	if (uri)
 	{
 		gchar *local_filename;
@@ -816,6 +819,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	gchar *uri;
 	GObject *editor;
 	SymbolBrowserPlugin *sv_plugin;
+	GFile* file;
 	
 	editor = g_value_get_object (value);
 	
@@ -834,7 +838,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	update_editor_symbol_model (sv_plugin);
 	
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
 	if (g_hash_table_lookup (sv_plugin->editor_connected, editor) == NULL)
 	{
 		g_object_weak_ref (G_OBJECT (editor),
@@ -992,11 +998,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* set up project directory watch */
 	sv_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 									project_root_added,
 									project_root_removed, NULL);
 	sv_plugin->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	return TRUE;

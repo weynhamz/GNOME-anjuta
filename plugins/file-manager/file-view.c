@@ -90,7 +90,7 @@ gboolean file_view_can_rename (AnjutaFileView* view)
 	return FALSE;
 }
 
-gchar*
+GFile*
 file_view_get_selected (AnjutaFileView* view)
 {
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
@@ -99,8 +99,8 @@ file_view_get_selected (AnjutaFileView* view)
 	GtkTreeIter selected;
 	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
 	{
-		gchar* uri = file_model_get_uri (priv->model, &selected);
-		return uri;
+		GFile* file = file_model_get_file (priv->model, &selected);
+		return file;
 	}
 	else
 		return NULL;
@@ -112,9 +112,9 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
 	GtkTreeIter selected;
-	gchar* uri;
 	gboolean is_dir;
-	GtkTreePath* path = NULL;	
+	GtkTreePath* path = NULL;
+	GFile* file;
 	
 	GtkTreeSelection* selection = 
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -128,13 +128,13 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 		gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &select_iter,
 							COLUMN_IS_DIR, &is_dir,
 							-1);
-		uri = file_model_get_uri (priv->model, &select_iter);
+		file = file_model_get_file (priv->model, &select_iter);
 		
 		path = gtk_tree_model_get_path(sort_model, &selected);
 	}
 	else
 	{
-		uri = NULL;
+		file = NULL;
 		is_dir = FALSE;
 	}
 		
@@ -163,7 +163,7 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 				{
 					g_signal_emit_by_name (G_OBJECT (view),
 										   "file-open",
-										   uri);
+										   file);
 				}
 			}
 			break;
@@ -172,13 +172,14 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 		{
 			g_signal_emit_by_name (G_OBJECT (view),
 								   "show-popup-menu",
-								   uri,
+								   file,
 								   is_dir,
 								   event->button,
 								   event->time);
 		}
 	}
-	g_free (uri);
+	if (file)
+		g_object_unref (file);
 	if (path)
 		gtk_tree_path_free(path);
 	return 	
@@ -252,6 +253,7 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 	{
 		GtkTreeIter real_selection;
 		GtkTreePath* path;
+		GFile* file;
 		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(model),
 												   &real_selection, &selected);
 		
@@ -261,14 +263,14 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 		
 		file_view_show_extended_data (view, &real_selection);
 		
-		gchar* uri = file_model_get_uri (FILE_MODEL(file_model), &real_selection);
-		g_signal_emit_by_name (G_OBJECT (view), "current-uri-changed",
-							   uri, NULL);
-		g_free(uri);
+		file = file_model_get_file(FILE_MODEL(file_model), &real_selection);
+		g_signal_emit_by_name (G_OBJECT (view), "current-file-changed",
+							   file, NULL);
+		g_object_unref (file);
 	}
 	else
 	{
-		g_signal_emit_by_name (G_OBJECT (view), "current-uri-changed",
+		g_signal_emit_by_name (G_OBJECT (view), "current-file-changed",
 							   NULL, NULL);
 	}
 	DEBUG_PRINT ("selection_changed");
@@ -461,21 +463,21 @@ file_view_class_init (AnjutaFileViewClass *klass)
 				  G_SIGNAL_RUN_LAST,
 				  G_STRUCT_OFFSET (AnjutaFileViewClass, file_open),
 				  NULL, NULL,
-				  g_cclosure_marshal_VOID__STRING,
+				  g_cclosure_marshal_VOID__OBJECT,
 				  G_TYPE_NONE,
 				  1,
-				  G_TYPE_STRING,
+				  G_TYPE_OBJECT,
 				  NULL);
 	
-	g_signal_new ("current-uri-changed",
+	g_signal_new ("current-file-changed",
 				  ANJUTA_TYPE_FILE_VIEW,
 				  G_SIGNAL_RUN_LAST,
 				  G_STRUCT_OFFSET (AnjutaFileViewClass, current_uri_changed),
 				  NULL, NULL,
-				  g_cclosure_marshal_VOID__STRING,
+				  g_cclosure_marshal_VOID__OBJECT,
 				  G_TYPE_NONE,
 				  1,
-				  G_TYPE_STRING,
+				  G_TYPE_OBJECT,
 				  NULL);
 	
 	g_signal_new ("show-popup-menu",
@@ -483,10 +485,10 @@ file_view_class_init (AnjutaFileViewClass *klass)
 				  G_SIGNAL_RUN_LAST,
 				  G_STRUCT_OFFSET (AnjutaFileViewClass, show_popup_menu),
 				  NULL, NULL,
-				  file_view_cclosure_marshal_VOID__STRING_BOOLEAN_INT_INT,
+				  file_view_cclosure_marshal_VOID__OBJECT_BOOLEAN_INT_INT,
 				  G_TYPE_NONE,
 				  4,
-				  G_TYPE_STRING,
+				  G_TYPE_OBJECT,
 				  G_TYPE_BOOLEAN,
 				  G_TYPE_INT,
 				  G_TYPE_INT,

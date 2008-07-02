@@ -565,7 +565,7 @@ valgrind_activate (AnjutaPlugin *plugin)
 	/* set up project directory watch */
 	valgrind->project_root_uri = NULL;
 	valgrind->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 									project_root_added,
 									project_root_removed, NULL);
 

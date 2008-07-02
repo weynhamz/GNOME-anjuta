@@ -24,6 +24,7 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
 #include "file.h"
@@ -80,7 +81,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* set up project directory watch */
 	w_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-													   "project_root_uri",
+													   IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 													   project_root_added,
 													   project_root_removed,
 													   NULL);

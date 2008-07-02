@@ -1,3 +1,149 @@
+2008-07-02  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+	* libanjuta/interfaces/libanjuta.idl:
+	Change (nearly) all interfaces to use GFile* instead of uris
+	Document all shell variables
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c
+	(on_build_mesg_parse), (value_added_fm_current_file),
+	(value_removed_fm_current_file), (value_added_pm_current_uri),
+	(value_added_project_root_uri), (value_added_current_editor),
+	(activate_plugin), (ifile_open), (ifile_get_file),
+	(ifile_iface_init), (ibuilder_is_built), (ibuilder_build):
+	* plugins/class-gen/plugin.c (activate_plugin),
+	(cg_plugin_generator_created_cb):
+	* plugins/class-inheritance/class-callbacks.c
+	(on_member_menuitem_clicked), (on_nodedata_expanded_event):
+	* plugins/class-inheritance/class-inherit.c
+	(class_inheritance_show_dynamic_class_popup_menu),
+	(cls_inherit_draw_expanded_node):
+	* plugins/class-inheritance/plugin.c (activate_plugin):
+	* plugins/cvs-plugin/plugin.c (value_added_fm_current_file),
+	(value_removed_fm_current_file), (value_added_current_editor),
+	(activate_plugin):
+	* plugins/debug-manager/breakpoints.c
+	(breakpoints_dbase_set_all_in_editor),
+	(breakpoints_dbase_add_breakpoint),
+	(breakpoints_dbase_edit_breakpoint),
+	(on_toggle_breakpoint_activate), (breakpoints_dbase_new):
+	* plugins/debug-manager/command.c (dma_command_run):
+	* plugins/debug-manager/plugin.c (set_program_counter),
+	(dma_plugin_location_changed), (on_run_to_cursor_action_activate),
+	(dma_plugin_activate):
+	* plugins/debug-manager/variable.c (on_program_stopped):
+	* plugins/devhelp/plugin.c (devhelp_activate):
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/action-callbacks.c
+	(on_close_file_activate), (on_reload_file_activate),
+	(get_swapped_filename), (on_swap_activate):
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_page_init), (on_open_filesel_response),
+	(anjuta_docman_save_document_as), (anjuta_docman_save_document),
+	(anjuta_docman_add_editor), (anjuta_docman_add_document),
+	(anjuta_docman_set_current_document),
+	(anjuta_docman_goto_file_line),
+	(anjuta_docman_goto_file_line_mark), (anjuta_docman_get_file),
+	(anjuta_docman_update_page_label),
+	(anjuta_docman_delete_all_indicators),
+	(anjuta_docman_save_file_if_modified), (anjuta_docman_reload_file),
+	(anjuta_docman_get_document_for_file):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/editor-tooltips.c:
+	* plugins/document-manager/editor-tooltips.h:
+	* plugins/document-manager/file_history.c (an_file_history_back),
+	(an_file_history_forward):
+	* plugins/document-manager/plugin.c (get_directory_display_name),
+	(update_title), (value_added_project_root_uri),
+	(on_document_changed), (on_session_save), (on_save_prompt),
+	(on_docman_auto_save):
+	* plugins/editor/Makefile.am:
+	* plugins/editor/plugin.c (itext_editor_factory_new_editor):
+	* plugins/editor/print.c:
+	* plugins/file-loader/plugin.c (open_with_dialog), (open_file),
+	(open_file_with), (value_added_fm_current_file),
+	(value_removed_fm_current_file), (dnd_dropped), (on_session_load),
+	(activate_plugin), (iloader_load):
+	* plugins/file-manager/file-model.c (file_model_update_file),
+	(file_model_get_file):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view-marshal.list:
+	* plugins/file-manager/file-view.c (file_view_get_selected),
+	(file_view_button_press_event), (file_view_selection_changed),
+	(file_view_class_init):
+	* plugins/file-manager/file-view.h:
+	* plugins/file-manager/plugin.c
+	(on_file_view_current_file_changed), (on_file_view_open_file),
+	(on_file_view_show_popup_menu), (file_manager_activate),
+	(ifile_manager_set_selected):
+	* plugins/file-wizard/file.c (on_new_file_okbutton_clicked):
+	* plugins/file-wizard/plugin.c (activate_plugin):
+	* plugins/gdb/plugin.c (idebugger_run_to):
+	* plugins/glade/anjuta-design-document.c (ifile_open),
+	(ifile_get_file), (ifile_iface_init):
+	* plugins/glade/plugin.c (value_added_current_editor),
+	(on_session_save), (activate_plugin), (ifile_open),
+	(ifile_get_file), (ifile_iface_init):
+	* plugins/gtodo/plugin.c (activate_plugin), (itodo_load):
+	* plugins/language-support-cpp-java/plugin.c
+	(cpp_java_plugin_activate_plugin):
+	* plugins/profiler/gprof-view.c (gprof_view_show_symbol_in_editor):
+	* plugins/profiler/plugin.c (register_stock_icons),
+	(profiler_activate), (ifile_open), (ifile_get_file),
+	(ifile_iface_init):
+	* plugins/project-import/plugin.c (ifile_open), (ifile_get_file),
+	(ifile_iface_init):
+	* plugins/project-import/project-import.c (on_import_apply):
+	* plugins/project-manager/plugin.c (confirm_removal),
+	(on_uri_activated), (on_treeview_selection_changed),
+	(value_added_fm_current_file), (value_removed_fm_current_file),
+	(value_added_current_editor), (project_manager_unload_gbf),
+	(project_manager_plugin_activate_plugin), (ifile_open),
+	(ifile_get_file), (ifile_iface_init):
+	* plugins/project-wizard/install.c (npw_open_action):
+	* plugins/search/search-replace.c (search_and_replace),
+	(on_message_clicked):
+	* plugins/search/search-replace_backend.c
+	(file_buffer_new_from_te), (file_buffer_new_from_path):
+	* plugins/sourceview/plugin.c (ieditor_factory_new_editor):
+	* plugins/sourceview/sourceview.c (on_reload_dialog_response),
+	(sourceview_new), (ifile_open), (ifile_get_file),
+	(ifile_savable_save_as), (ifile_iface_init):
+	* plugins/sourceview/sourceview.h:
+	* plugins/subversion/plugin.c (value_added_fm_current_file),
+	(value_removed_fm_current_file), (value_added_current_editor),
+	(activate_plugin):
+	* plugins/symbol-browser/an_symbol.c (isymbol_get_file),
+	(isymbol_iface_init):
+	* plugins/symbol-browser/plugin.c (goto_file_line),
+	(update_editor_symbol_model), (value_added_current_editor),
+	(activate_plugin):
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout),
+	(value_added_current_editor), (goto_file_line),
+	(symbol_db_activate):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(isymbol_get_file), (isymbol_iface_init):
+	* plugins/tools/editor.c (on_editor_response):
+	* plugins/tools/execute.c (on_message_buffer_click):
+	* plugins/tools/variable.c (atp_variable_get_editor_variable):
+	* plugins/valgrind/plugin.c (valgrind_activate):
+	* plugins/valgrind/vgdefaultview.c (custom_editor_cb):
+	* src/anjuta.c (anjuta_new):
+	* src/main.c (on_message_received), (main):
+
+	Adapt all plugins to the interface changes, port partly to gio
+
+	Patch from Yuriy Penkin:
+	* plugins/editor/text_editor.c (on_text_editor_uri_changed),
+	(text_editor_update_monitor), (text_editor_new),
+	(save_filtered_in_dos_mode), (load_from_file), (save_to_file),
+	(text_editor_save_file), (ifile_get_file), (ifile_open),
+	(isavable_save_as), (ifile_iface_init):
+	* plugins/editor/text_editor.h:
+	
+	#540731 - Port editor to gio
+
 2008-06-29  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c

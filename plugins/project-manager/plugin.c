@@ -26,6 +26,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/anjuta-profile-manager.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
@@ -600,8 +601,7 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 	full_mesg = g_strconcat (question, mesg, NULL);
 	answer =
 		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
-											 full_mesg, question,
-											 data->name);
+											 full_mesg, data->name);
 	g_free (full_mesg);
 	return answer;
 }
@@ -715,11 +715,13 @@ on_uri_activated (GtkWidget *widget, const gchar *uri,
 				  ProjectManagerPlugin *plugin)
 {
 	IAnjutaFileLoader *loader;
+	GFile* file = g_file_new_for_uri (uri);
 	
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaFileLoader, NULL);
 	if (loader)
-		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+		ianjuta_file_loader_load (loader, file, FALSE, NULL);
+	g_object_unref (file);
 }
 
 static void
@@ -961,14 +963,14 @@ finally:
 		g_value_init (value, G_TYPE_STRING);
 		g_value_set_string (value, selected_uri);
 		anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
-								"project_manager_current_uri",
+								IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								value, NULL);
 		g_signal_emit_by_name (G_OBJECT (plugin), "element_selected",
 							   selected_uri);
 		g_free (selected_uri);
 	} else {
 		anjuta_shell_remove_value (ANJUTA_PLUGIN(plugin)->shell,
-								   "project_manager_current_uri", NULL);
+								   IANJUTA_PROJECT_MANAGER_CURRENT_URI, NULL);
 	}
 }
 
@@ -1014,15 +1016,16 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
-value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	const gchar *uri;
+	gchar *uri;
 	ProjectManagerPlugin *pm_plugin;
 	
-	uri = g_value_get_string (value);
+	GFile* file = g_value_get_object (value);
+	uri = g_file_get_uri (file);
 
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -1034,10 +1037,11 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddToProject");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	g_free (uri);
 }
 
 static void
-value_removed_fm_current_uri (AnjutaPlugin *plugin,
+value_removed_fm_current_file (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	AnjutaUI *ui;
@@ -1062,6 +1066,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 {
 	GObject *editor;
 	ProjectManagerPlugin *pm_plugin;
+	GFile* file;
 	
 	editor = g_value_get_object (value);
 	if (!IANJUTA_IS_EDITOR(editor))
@@ -1071,8 +1076,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	if (pm_plugin->current_editor_uri)
 		g_free (pm_plugin->current_editor_uri);
-	pm_plugin->current_editor_uri =
-		ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	pm_plugin->current_editor_uri = g_file_get_uri (file);
+
 }
 
 static void
@@ -1226,8 +1232,10 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 					node = g_list_next(node);
 					continue;
 				}
-				gchar *editor_uri =
-					ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
+				GFile* editor_file = ianjuta_file_get_file (IANJUTA_FILE (node->data), NULL);
+				gchar *editor_uri = g_file_get_uri (editor_file);
+				g_object_unref (editor_file);
+					
 				
 				/* Only remove if it does not have unsaved data */
 				if (editor_uri && (!IANJUTA_IS_FILE_SAVABLE (node->data) ||
@@ -1454,11 +1462,11 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Add watches */
 	pm_plugin->fm_watch_id =
-		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
-								 value_added_fm_current_uri,
-								 value_removed_fm_current_uri, NULL);
+		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
+								 value_added_fm_current_file,
+								 value_removed_fm_current_file, NULL);
 	pm_plugin->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	/* Connect to save session */
@@ -2264,21 +2272,21 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 }
 
 static void
-ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
+ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 {
 	AnjutaProfile *profile;
 	AnjutaProfileManager *profile_manager;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
-	GnomeVFSURI *vfs_uri;
 	gchar *dirname, *dirname_tmp, *vfs_dir;
 	gchar *session_profile, *profile_name;
 	ProjectManagerPlugin *plugin;
 	GError *error = NULL;
+	gchar* uri = g_file_get_uri (file);
+	GnomeVFSURI* vfs_uri;
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
 	
-#if 1 /* Enable it now */
 	/* If there is already a project loaded, load in separate anjuta window */
 	if (plugin->project_root_uri)
 	{
@@ -2289,7 +2297,6 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
 		g_free (cmd);
 		return;
 	}
-#endif
 	
 	plugin_manager  =
 		anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (ifile)->shell, NULL);
@@ -2298,10 +2305,6 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
 	anjuta_status_progress_add_ticks (status, 2);
-#if 0	
-	/* Freeze shell */
-	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
-#endif
 	/* Prepare profile */
 	profile = anjuta_profile_new (PROJECT_PROFILE_NAME, plugin_manager);
 	
@@ -2378,26 +2381,19 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
 	anjuta_status_progress_tick (status, NULL,
 								 _("Loaded Project... Initializing"));
 	update_ui (plugin);
-#if 0
-	/* Thaw shell */
-	/* FIXME: The shell can not be thawed after the session is loaded,
-	 * because the layout is loaded in the session. If shell is not thawed
-	 * before that, the widgets on which layout is applied are not present
-	 * side the shell (freezing delays the widgets addition).
-	 */
-	anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
-#endif
+
 	anjuta_status_progress_tick (status, NULL, _("Loaded Project..."));
+	g_free (uri);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile *ifile, GError **e)
+static GFile*
+ifile_get_file (IAnjutaFile *ifile, GError **e)
 {
 	ProjectManagerPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
 	if (plugin->project_root_uri)
-		return g_strdup (plugin->project_root_uri);
+		return g_file_new_for_uri (plugin->project_root_uri);
 	else
 		return NULL;
 }
@@ -2406,7 +2402,7 @@ static void
 ifile_iface_init(IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);

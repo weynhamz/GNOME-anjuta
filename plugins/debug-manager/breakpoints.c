@@ -557,14 +557,14 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gchar *uri;
+	GFile* file;
 	
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (bd != NULL);
 	g_return_if_fail (bd->treeview != NULL);
 	
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
-	if (uri == NULL)
+	file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
+	if (file == NULL)
 		return;
 	
 	if (!IANJUTA_IS_MARKABLE (te))
@@ -577,6 +577,7 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 	
 	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
+		gchar* uri = g_file_get_uri (file);
 		do
 		{
 			BreakpointItem *bi;
@@ -595,8 +596,9 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 				breakpoints_dbase_set_in_editor (bd, bi);
 			}
 		} while (gtk_tree_model_iter_next (model, &iter));
+		g_free(uri);
 	}
-	g_free (uri);
+	g_object_unref(file);
 }
 
 static void
@@ -1008,9 +1010,11 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 	ed = dma_get_current_editor (ANJUTA_PLUGIN(bd->plugin));
 	if ((ed != NULL) && IANJUTA_IS_MARKABLE (ed))
 	{
-		gchar *uri;
+		GFile* file;
+		gchar* uri;
 		
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
+		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
+		uri = g_file_get_uri (file);
 		if ((uri != NULL) && (bi->uri != NULL) && (strcmp (uri, bi->uri) == 0))
 		{
 			bi->editor = ed;
@@ -1019,6 +1023,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 			breakpoints_dbase_connect_to_editor (bd, ed);			
 		}
 		g_free (uri);
+		g_object_unref (file);
 	}
 
 	if (bd->debugger != NULL)
@@ -1452,8 +1457,10 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		te = dma_get_current_editor (ANJUTA_PLUGIN(bd->plugin));
 		if (te != NULL)
 		{
-			uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+			GFile* file = ianjuta_file_get_file (IANJUTA_FILE(te), NULL);
+			uri = g_file_get_uri (file);
 			line = ianjuta_editor_get_lineno (te, NULL);
+			g_object_unref (file);
 		}
 		//NULL uri is ok here
 		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);
@@ -1593,16 +1600,20 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 {
 	IAnjutaEditor *te;
 	BreakpointItem *bi;
+	GFile* file;
 	gchar *uri;
 	guint line;
 
 	/* Get current editor and line */
 	te = dma_get_current_editor (ANJUTA_PLUGIN (bd->plugin));
 	if (te == NULL) return;       /* Missing editor */
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
-	if (uri == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */
+	file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
+	if (file == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */
 	line = ianjuta_editor_get_lineno (te, NULL);
-
+	
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
+	
 	/* Find corresponding breakpoint
 	 * Try to find right mark (it could have moved) first */
 	bi = breakpoints_dbase_find_breakpoint_from_mark (bd, te, line);
@@ -2007,7 +2018,7 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 	g_signal_connect_swapped (bd->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), bd);
 
 	bd->editor_watch = 
-		anjuta_plugin_add_watch (ANJUTA_PLUGIN(bd->plugin), "document_manager_current_editor",
+		anjuta_plugin_add_watch (ANJUTA_PLUGIN(bd->plugin), IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 on_added_current_editor,
 								 on_removed_current_editor, bd);
 						 

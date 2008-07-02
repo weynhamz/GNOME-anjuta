@@ -43,8 +43,6 @@ libanjuta_document_manager_la_SOURCES= \
 	action-callbacks.h\
 	file_history.c \
 	file_history.h \
-	editor-tooltips.c \
-	editor-tooltips.h \
 	search-box.h \
 	search-box.c
 	

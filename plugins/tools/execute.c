@@ -261,12 +261,13 @@ on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
 
 	if (parse_error_line (line, &filename, &lineno))
 	{
-		gchar *uri;
-		IAnjutaFileLoader *loader;
+		gchar *path;
+		GFile* file;
+		IAnjutaDocumentManager* docman;
 	
 		/* Go to file and line number */
-		loader = anjuta_shell_get_interface (this->execution->plugin->shell,
-											 IAnjutaFileLoader,
+		docman = anjuta_shell_get_interface (this->execution->plugin->shell,
+											 IAnjutaDocumentManager,
 											 NULL);
 		
 		/* Append current directory */
@@ -275,24 +276,24 @@ on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
 		{
 			if (*filename == '.')
 			{
-				uri = g_strdup_printf ("file://%s/%s#%d",
-									   this->execution->directory,
-									   filename + 1, lineno);
+				path = g_build_filename (this->execution->directory,
+									   filename + 1, NULL);
 			}
 			else
 			{
-				uri = g_strdup_printf ("file://%s/%s#%d",
-									   this->execution->directory,
-									   filename, lineno);
+				path = g_build_filename (this->execution->directory,
+									   filename, NULL);
 			}
 		}
 		else
 		{
-			uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+			path = g_strdup(filename);
 		}
 		g_free (filename);
-		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-		g_free (uri);
+		file = g_file_new_for_path (path);
+		ianjuta_document_manager_goto_file_line (docman, file, lineno, NULL);
+		g_free (path);
+		g_object_unref (file);
 	}
 }
 

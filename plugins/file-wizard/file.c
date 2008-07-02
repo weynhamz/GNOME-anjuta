@@ -288,6 +288,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		IAnjutaProjectManager *pm;
 		GnomeVFSHandle *vfs_write;
 		gchar* file_uri;
+		GFile* file;
 		
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
 										 IAnjutaProjectManager, NULL);
@@ -306,8 +307,10 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 			g_free (file_uri);
 			return FALSE;
 		}
-		ianjuta_file_open (IANJUTA_FILE (docman), file_uri, NULL);
+		file = g_file_new_for_uri (file_uri);
+		ianjuta_file_open (IANJUTA_FILE (docman), file, NULL);
 		g_free (file_uri);
+		g_object_unref (file);
 	}
 	else
 	{

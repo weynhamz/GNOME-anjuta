@@ -105,7 +105,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* set up project directory watch */
 	cg_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 									project_root_added,
 									project_root_removed, NULL);
 
@@ -322,8 +322,12 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 
 	if (cg_window_get_add_to_project (plugin->window))
 	{
-		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
-		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+		GFile* header = g_file_new_for_path (header_file);
+		GFile* source = g_file_new_for_path (source_file);
+		ianjuta_file_loader_load (loader, header, FALSE, NULL);
+		ianjuta_file_loader_load (loader, source, FALSE, NULL);
+		g_object_unref (header);
+		g_object_unref (source);
 	}
 	else
 	{

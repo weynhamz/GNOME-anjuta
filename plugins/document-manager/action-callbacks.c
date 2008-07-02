@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
 
@@ -185,18 +184,21 @@ on_close_file_activate (GtkAction *action, gpointer user_data)
 	{
 		GtkWidget *parent;
 		gchar *uri;
+		GFile* file;
 		AnjutaSavePrompt *save_prompt;
 		
 		parent = gtk_widget_get_toplevel (GTK_WIDGET (doc));
 		/* Prompt for unsaved data */
 		save_prompt = anjuta_save_prompt_new (GTK_WINDOW (parent));
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
+		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+		uri = g_file_get_uri (file);
 		/* NULL uri ok */
 		anjuta_save_prompt_add_item (save_prompt,
 									 ianjuta_document_get_filename (doc, NULL),
 									 uri, doc, on_save_prompt_save_editor,
 									 docman);
 		g_free (uri);
+		g_free (file);
 		
 		switch (gtk_dialog_run (GTK_DIALOG (save_prompt)))
 		{
@@ -279,13 +281,12 @@ on_reload_file_activate (GtkAction *action, gpointer user_data)
 									 GTK_RESPONSE_NO);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 	{
-		gchar* uri;
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-		if (uri)
+		GFile* file;
+		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+		if (file)
 		{
-			ianjuta_file_open (IANJUTA_FILE (doc), uri, NULL);
-			/* FIXME: anjuta_update_title (); */
-			g_free (uri);
+			ianjuta_file_open (IANJUTA_FILE (doc), file, NULL);
+			g_object_unref(file);
 		}
 	}
 	gtk_widget_destroy (dialog);
@@ -877,102 +878,10 @@ on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 }
 
 /* Gets the swapped (c/h) file names */
-static gchar*
-get_swapped_filename (const gchar* filename)
+static GFile*
+get_swapped_filename (GFile* file)
 {
-	size_t len;
-	gchar *newfname;
-	GnomeVFSURI *vfs_uri;
-
-	g_return_val_if_fail (filename != NULL, NULL);
-
-	len = strlen (filename);
-	newfname = g_malloc (len+5); /* to be on the safer side */
-	while (len)
-	{
-		if (filename[len] == '.')
-			break;
-		len--;
-	}
-	len++;
-	strcpy (newfname, filename);
-	if (strncasecmp (&filename[len], "h", 1) == 0)
-	{
-		strcpy (&newfname[len], "cc");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "cpp");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "cxx");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "c");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{ 
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-	}
-	else if (strncasecmp (&filename[len], "c", 1)==0 )
-	{
-		strcpy (&newfname[len], "h");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{ 
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "hh");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "hxx");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-		
-		strcpy (&newfname[len], "hpp");
-		vfs_uri = gnome_vfs_uri_new (newfname);
-		if (gnome_vfs_uri_exists (vfs_uri))
-		{
-			gnome_vfs_uri_unref (vfs_uri);
-			return newfname;
-		}
-		gnome_vfs_uri_unref (vfs_uri);
-	}
-	g_free (newfname);	
+	// TODO!
 	return NULL;
 }
 
@@ -988,18 +897,18 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 	doc = anjuta_docman_get_current_document (docman);
 	if (doc)
 	{
-		gchar *uri;
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-		if (uri)
+		GFile* file;
+		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);		
+		if (file)
 		{
-			gchar *newfname;
-			newfname = get_swapped_filename (uri);
-			g_free (uri);
-			if (newfname)
+			GFile* new_file;
+			new_file = get_swapped_filename (file);
+			if (new_file)
 			{
-				anjuta_docman_goto_uri_line (docman, newfname, -1);
-				g_free (newfname);
+				anjuta_docman_goto_file_line (docman, new_file, -1);
+				g_object_unref (new_file);
 			}
+			g_object_unref (file);
 		}
 	}
 }

@@ -110,29 +110,29 @@ anjuta_design_document_new (GladePlugin* glade_plugin, GladeProject* project)
 								   NULL));
 }
 
-static void ifile_open(IAnjutaFile* file, const gchar* uri, GError **e)
+static void ifile_open(IAnjutaFile* ifile, GFile* file, GError **e)
 {
-	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(file);
+	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(ifile);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
 	
-	ianjuta_file_open(IANJUTA_FILE(priv->glade_plugin), uri, e);
+	ianjuta_file_open(IANJUTA_FILE(priv->glade_plugin), file, e);
 }
 
-static gchar* ifile_get_uri(IAnjutaFile* file, GError **e)
+static GFile* ifile_get_file(IAnjutaFile* ifile, GError **e)
 {
-	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(file);
+	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(ifile);
 	
 	GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(self));
 	
 #if (GLADEUI_VERSION >= 330)
 	const gchar* path = glade_project_get_path(project);
 	if (path != NULL)
-		return gnome_vfs_get_uri_from_local_path(path);
+		return g_file_new_for_path (path);
 	else
 		return NULL;
 #else
 	if (project && project->path)
-		return gnome_vfs_get_uri_from_local_path(project->path);
+		return g_file_new_for_path (project->path);
 	else
 		return NULL;
 #endif
@@ -143,7 +143,7 @@ static void
 ifile_iface_init(IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
@@ -184,9 +184,9 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 	DEBUG_PRINT("Invalid use of ifile_savable_save!");
 }
 
-static void ifile_savable_save_as(IAnjutaFileSavable* file, const gchar* uri, GError **e)
+static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError **e)
 {
-	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(file);
+	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(ifile);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
 	
 	GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(self));
@@ -194,13 +194,13 @@ static void ifile_savable_save_as(IAnjutaFileSavable* file, const gchar* uri, GE
 	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
 		
 #if (GLADEUI_VERSION >= 330)
-	if (glade_project_save (project, gnome_vfs_get_local_path_from_uri(uri),
+	if (glade_project_save (project, g_file_get_path (file),
 								NULL)) 
 	{
 		anjuta_status_set (status, _("Glade project '%s' saved"),
 							   glade_project_get_name(project));
 #else	
-	if (glade_project_save (project, gnome_vfs_get_local_path_from_uri(uri), NULL)) 
+	if (glade_project_save (project, g_file_get_path (file), NULL)) 
 	{
 		anjuta_status_set (status, _("Glade project '%s' saved"),
 							   project->name);

@@ -100,11 +100,12 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 }
 
 static void
-ifile_open (IAnjutaFile *file, const gchar *uri, GError **err)
+ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 {
 	gchar *dir, *ext, *project_name;
 	ProjectImport* pi;
-	AnjutaProjectImportPlugin* plugin = ANJUTA_PLUGIN_PROJECT_IMPORT (file);
+	AnjutaProjectImportPlugin* plugin = ANJUTA_PLUGIN_PROJECT_IMPORT (ifile);
+	gchar* uri = g_file_get_uri (file);
 	
 	g_return_if_fail (uri != NULL && strlen (uri) > 0);
 	
@@ -117,10 +118,11 @@ ifile_open (IAnjutaFile *file, const gchar *uri, GError **err)
 	pi = project_import_new(ANJUTA_PLUGIN(plugin));
 	project_import_set_name (pi, project_name);
 	project_import_set_directory (pi, dir);
+	g_free (uri);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile *file, GError **err)
+static GFile*
+ifile_get_file (IAnjutaFile *file, GError **err)
 {
 	g_warning ("Unsupported operation");
 	return NULL;
@@ -130,7 +132,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 ANJUTA_PLUGIN_BEGIN (AnjutaProjectImportPlugin, project_import_plugin);

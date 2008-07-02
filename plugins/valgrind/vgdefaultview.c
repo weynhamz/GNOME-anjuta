@@ -40,7 +40,7 @@
 #include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "vgdefaultview.h"
 #include "vgrulepattern.h"
@@ -1108,7 +1108,7 @@ static void
 custom_editor_cb (GtkWidget *widget, gpointer user_data)
 {
 	VgDefaultView *view = user_data;
-	IAnjutaFileLoader *loader;
+	IAnjutaDocumentManager* docman;
 	GtkTreeSelection *selection;
 	VgErrorStack *stack = NULL;
 	GtkTreeModel *model;
@@ -1129,15 +1129,13 @@ custom_editor_cb (GtkWidget *widget, gpointer user_data)
 	DEBUG_PRINT ("got this path for file opening: %s and line %d", path, stack->info.src.lineno );
 	
 	/* Goto file line */
-	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (view->valgrind_plugin)->shell,
-									 IAnjutaFileLoader, NULL);
-	if (loader)
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (view->valgrind_plugin)->shell,
+									 IAnjutaDocumentManager, NULL);
+	if (docman)
 	{
-		gchar *uri;
-		uri = g_strdup_printf ("file:///%s#%d", path, stack->info.src.lineno);
-		
-		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-		g_free (uri);
+		GFile* file = g_file_new_for_path (path);
+		ianjuta_document_manager_goto_file_line (docman, file, stack->info.src.lineno, NULL);
+		g_object_unref (file);
 	}	
 	
 	g_free (path);

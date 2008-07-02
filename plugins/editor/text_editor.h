@@ -23,8 +23,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <gio/gio.h>
 #include <libanjuta/anjuta-preferences.h>
-#include <libgnomevfs/gnome-vfs-monitor.h>
 
 #include "aneditor.h"
 
@@ -62,7 +62,7 @@ struct _TextEditor
 	
 	gchar *filename;
 	gchar *uri;
-	GnomeVFSMonitorHandle *monitor;
+	GFileMonitor *monitor;
 	
 	AnjutaStatus *status;
 	
@@ -105,9 +105,9 @@ struct _TextEditor
 	 */
 	gchar *last_saved_content;
 	
-	/* When a file is saved, gnome-vfs also notifies changes to the file
+	/* When a file is saved, gio also notifies changes to the file
 	 * resulting in unneccessary processing. To avoid this, file modified
-	 * notifications from gnome-vfs are dampped for 1 sec. After the 1 sec
+	 * notifications from gio are dampped for 1 sec. After the 1 sec
 	 * timeout, if the file is still different, the user is notified.
 	 */
 	gint file_modified_timer;

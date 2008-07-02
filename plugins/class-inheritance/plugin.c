@@ -119,7 +119,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* set up project directory watch */
 	class_inheritance->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 									project_root_added,
 									project_root_removed, NULL);
 

@@ -26,6 +26,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
+#include <gio/gio.h>
 
 #include "plugin.h"
 
@@ -58,16 +59,16 @@ GtkWidget* anjuta_docman_new (DocmanPlugin *plugin, AnjutaPreferences *pref);
 
 void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 
-IAnjutaEditor *anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
-									  	const gchar *name);
+IAnjutaEditor *anjuta_docman_add_editor (AnjutaDocman *docman, GFile* file,
+										 const gchar *name);
 void anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
-								const gchar* uri);
+								 GFile* file);
 
 void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaDocument *anjuta_docman_get_current_document (AnjutaDocman *docman);
-IAnjutaDocument *anjuta_docman_get_document_for_uri (AnjutaDocman *docman,
-													  const gchar *file_uri);
+IAnjutaDocument *anjuta_docman_get_document_for_file (AnjutaDocman *docman,
+													  GFile* file);
 
 GtkWidget *anjuta_docman_get_current_focus_widget (AnjutaDocman *docman);
 
@@ -78,11 +79,11 @@ void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *
 void anjuta_docman_set_message_area (AnjutaDocman *docman, IAnjutaDocument *doc,
 									GtkWidget *message_area);
 
-IAnjutaEditor *anjuta_docman_goto_uri_line (AnjutaDocman *docman,
-											const gchar *uri,
+IAnjutaEditor *anjuta_docman_goto_file_line (AnjutaDocman *docman,
+											GFile* file,
 											gint lineno);
-IAnjutaEditor *anjuta_docman_goto_uri_line_mark (AnjutaDocman *docman,
-												const gchar *uri,
+IAnjutaEditor *anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
+												GFile* file,
 												gint lineno,
 												gboolean mark);
 void anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc);
@@ -91,12 +92,11 @@ void anjuta_docman_delete_all_markers (AnjutaDocman *docman, gint marker);
 void anjuta_docman_delete_all_indicators (AnjutaDocman *docman);
 
 void anjuta_docman_save_file_if_modified (AnjutaDocman *docman,
-										  const gchar *uri);
-void anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *uri);
+										  GFile* file);
+void anjuta_docman_reload_file (AnjutaDocman *docman, GFile* file);
 
-gboolean anjuta_docman_set_editor_properties (AnjutaDocman *docman);
 
-gchar *anjuta_docman_get_uri (AnjutaDocman *docman, const gchar *filename);
+GFile *anjuta_docman_get_file (AnjutaDocman *docman, const gchar *filename);
 
 GList *anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman);
 

@@ -19,12 +19,12 @@
 */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
 
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -453,10 +453,10 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 
 static gchar* 
 get_directory_display_name (DocmanPlugin* plugin,
-							const gchar* uri)
+							GFile* file)
 {
 	gchar* dir;
-	gchar* display_uri = display_uri = gnome_vfs_format_uri_for_display (uri);
+	gchar* display_uri = g_file_get_parse_name (file);
 	gchar* display_dir;
 	dir = anjuta_util_uri_get_dirname (display_uri);
 	
@@ -480,12 +480,19 @@ update_title (DocmanPlugin* doc_plugin)
 	{
 		gchar* real_filename;
 		gchar *dir;
-		gchar *uri;
 		const gchar *filename;
 		filename = ianjuta_document_get_filename (doc, NULL);
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-		dir = get_directory_display_name (doc_plugin, uri);
-		g_free (uri);
+		GFile* file;
+		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+		if (file)
+		{
+			dir = get_directory_display_name (doc_plugin, file);
+			g_object_unref (file);
+		}
+		else
+		{
+			dir = NULL;
+		}
 		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
 		{
 			gchar* dirty_name = g_strconcat ("*", filename, NULL);
@@ -542,16 +549,17 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
-		gchar* path = 
-			gnome_vfs_get_local_path_from_uri (root_uri);
+		GFile* file = g_file_new_for_uri (root_uri);
+		gchar* path = g_file_get_path (file);
 		
-		doc_plugin->project_name = g_path_get_basename(path);
+		doc_plugin->project_name = g_file_get_basename (file);
 		doc_plugin->project_path = path; 
 		
 		if (doc_plugin->project_name)
 		{
 			update_title (doc_plugin);
 		}
+		g_object_unref (file);
 	}
 }
 
@@ -1187,13 +1195,13 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 		g_value_init (&value, G_TYPE_OBJECT);
 		g_value_set_object (&value, doc);
 		anjuta_shell_add_value (plugin->shell,
-								"document_manager_current_editor",
+								IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								&value, NULL);
 		g_value_unset(&value);
 	}
 	else
 	{
-		anjuta_shell_remove_value (plugin->shell, "document_manager_current_editor",
+		anjuta_shell_remove_value (plugin->shell, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								   NULL);
 	}
 
@@ -1408,18 +1416,19 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 			if (IANJUTA_IS_EDITOR (node->data))
 			{
 				IAnjutaEditor *te;
-				gchar *te_uri;
+				GFile* file;
 
 				te = IANJUTA_EDITOR (node->data);
-				te_uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
-				if (te_uri)
+				file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
+				if (file)
 				{
 					gchar *uri;
+					gchar* file_uri = g_file_get_uri (file);
 					/* Save line locations also */
-					uri = g_strdup_printf ("%s#%d", te_uri,
+					uri = g_strdup_printf ("%s#%d", file_uri,
 										  ianjuta_editor_get_lineno (te, NULL));
 					files = g_list_prepend (files, uri);
-					g_free (te_uri);
+					g_free (file_uri);
 				}
 			}
 		}
@@ -1461,12 +1470,15 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 			{
 				const gchar *name;
 				gchar *uri;
+				GFile* file;
 			
 				name = ianjuta_document_get_filename (IANJUTA_DOCUMENT (editor), NULL);
-				uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+				file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+				uri = g_file_get_uri (file);
 				anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
 											 on_save_prompt_save_editor, plugin);
 				g_free (uri);
+				g_object_unref (file);
 			}
 		}
 		g_list_free (buffers);
@@ -1548,13 +1560,12 @@ on_docman_auto_save (gpointer data)
 			doc = IANJUTA_DOCUMENT (node->data);
 			if (ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
 			{
-				gchar *uri;
-				uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-				if (uri)
+				GFile* file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+				if (file)
 				{
 					GError *err = NULL;
+					g_object_unref (file);
 
-					g_free (uri);
 					ianjuta_file_savable_save (IANJUTA_FILE_SAVABLE (doc), &err);
 					if (err)
 					{
@@ -1748,7 +1759,8 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon", 
 							 ANJUTA_SHELL_PLACEMENT_CENTER, 
-							 TRUE, NULL); 
+							 TRUE, NULL);
+	anjuta_shell_present_widget (plugin->shell, dplugin->vbox, NULL); 
 		
 	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
@@ -1775,7 +1787,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_save_prompt), plugin);
 	
 	dplugin->project_watch_id =
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
 	dplugin->project_name = NULL;
@@ -1882,22 +1894,22 @@ docman_plugin_class_init (GObjectClass *klass)
 }
 
 /* Implement IAnjutaDocumentManager interfaces */
-static gchar*
-ianjuta_docman_get_uri (IAnjutaDocumentManager *plugin,
+static GFile*
+ianjuta_docman_get_file (IAnjutaDocumentManager *plugin,
 		const gchar *filename, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_get_uri (docman, filename);
+	return anjuta_docman_get_file (docman, filename);
 }
 
 static IAnjutaDocument*
-ianjuta_docman_get_document_for_uri (IAnjutaDocumentManager *plugin,
-		const gchar *file_uri, GError **e)
+ianjuta_docman_get_document_for_file (IAnjutaDocumentManager *plugin,
+		GFile* file, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_get_document_for_uri (docman, file_uri);
+	return anjuta_docman_get_document_for_file (docman, file);
 }
 
 static IAnjutaDocument*
@@ -1937,21 +1949,21 @@ ianjuta_docman_get_doc_widgets (IAnjutaDocumentManager *plugin, GError **e)
 }
 
 static IAnjutaEditor*
-ianjuta_docman_goto_uri_line (IAnjutaDocumentManager *plugin,
-							   const gchar *uri, gint linenum, GError **e)
+ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
+							   GFile* file, gint linenum, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_goto_uri_line (docman, uri, linenum);
+	return anjuta_docman_goto_file_line (docman, file, linenum);
 }
 
 static IAnjutaEditor*
-ianjuta_docman_goto_uri_line_mark (IAnjutaDocumentManager *plugin,
-		const gchar *uri, gint linenum, gboolean mark, GError **e)
+ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
+		GFile* file, gint linenum, gboolean mark, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_goto_uri_line_mark (docman, uri, linenum, mark);
+	return anjuta_docman_goto_file_line_mark (docman, file, linenum, mark);
 }
 
 /**
@@ -1965,7 +1977,7 @@ ianjuta_docman_goto_uri_line_mark (IAnjutaDocumentManager *plugin,
  */
 static IAnjutaEditor*
 ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
-						   const gchar *filename, const gchar *content,
+						   const gchar* filename, const gchar *content,
 						   GError **e)
 {
 	AnjutaDocman *docman;
@@ -2022,12 +2034,12 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->add_buffer = ianjuta_docman_add_buffer;
 	iface->add_document = ianjuta_docman_add_document;
-	iface->find_document_with_uri = ianjuta_docman_get_document_for_uri;
+	iface->find_document_with_file = ianjuta_docman_get_document_for_file;
 	iface->get_current_document = ianjuta_docman_get_current_document;
 	iface->get_doc_widgets = ianjuta_docman_get_doc_widgets;
-	iface->get_uri = ianjuta_docman_get_uri;
-	iface->goto_uri_line = ianjuta_docman_goto_uri_line;
-	iface->goto_uri_line_mark = ianjuta_docman_goto_uri_line_mark;
+	iface->get_file = ianjuta_docman_get_file;
+	iface->goto_file_line = ianjuta_docman_goto_file_line;
+	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
 	iface->remove_document = ianjuta_docman_remove_document;
 	iface->set_current_document = ianjuta_docman_set_current_document;
 	iface->set_message_area = ianjuta_docman_set_message_area;
@@ -2035,16 +2047,16 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 
 /* Implement IAnjutaFile interface */
 static void
-ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
+ifile_open (IAnjutaFile* plugin, GFile* file, GError** e)
 {
 	AnjutaDocman *docman;
 	
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_uri_line_mark (docman, uri, -1, FALSE);
+	anjuta_docman_goto_file_line (docman, file, -1);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile* plugin, GError** e)
+static GFile*
+ifile_get_file (IAnjutaFile* plugin, GError** e)
 {
 	AnjutaDocman *docman;
 	IAnjutaDocument *doc;
@@ -2052,11 +2064,7 @@ ifile_get_uri (IAnjutaFile* plugin, GError** e)
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
 	doc = anjuta_docman_get_current_document (docman);
 	if (doc != NULL)
-		return ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-/* bad to call this func with NULL arg
-	else if (ianjuta_document_get_filename (doc, NULL))
-		return gnome_vfs_get_uri_from_local_path (ianjuta_document_get_filename(editor, NULL));
-*/
+		return ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 	else
 		return NULL;
 }
@@ -2065,7 +2073,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 /* Implement IAnjutaFileSavable interface */	
@@ -2096,7 +2104,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 }
 
 static void
-isavable_save_as (IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
+isavable_save_as (IAnjutaFileSavable* plugin, GFile* file, GError** e)
 {
 	DEBUG_PRINT("save_as: Not implemented in DocmanPlugin");
 }

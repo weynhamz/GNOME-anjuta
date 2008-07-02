@@ -26,6 +26,8 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "plugin.h"
@@ -204,12 +206,12 @@ static GtkActionEntry popup_actions_subversion[] = {
 };
 
 static void
-value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
 	GtkAction *subversion_menu_action;
-	const gchar *uri;
+	gchar *uri;
 	GnomeVFSURI *subversion_uri = NULL;
 	gchar *subversion_text_uri = NULL;
 	gchar *subversion_dir;
@@ -217,9 +219,11 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	GnomeVFSDirectoryHandle* handle;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult result;
+	GFile* file;
 	
-	uri = g_value_get_string (value);
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	file = G_FILE(g_value_get_object (value));
+	uri = g_file_get_uri (file);
+	filename = g_file_get_path (file);
 	g_return_if_fail (filename != NULL);
 
 	Subversion *subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
@@ -270,10 +274,11 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_object_set (G_OBJECT (subversion_menu_action), "sensitive", FALSE, NULL);
 	}
 	g_free (subversion_dir);
+	g_free (uri);
 }
 
 static void
-value_removed_fm_current_uri (AnjutaPlugin *plugin,
+value_removed_fm_current_file (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	AnjutaUI *ui;
@@ -379,7 +384,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
-	gchar *uri;
+	GFile* file;
 	GObject *editor;
 	
 	editor = g_value_get_object (value);
@@ -394,16 +399,15 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_free (subversion->current_editor_filename);
 	subversion->current_editor_filename = NULL;
 	
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
-	if (uri)
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	if (file)
 	{
 		gchar *filename;
 		
-		filename = gnome_vfs_get_local_path_from_uri (uri);
-		g_return_if_fail (filename != NULL);
+		filename = g_file_get_path (file);
+		if (!filename)
+			return;
 		subversion->current_editor_filename = filename;
-		g_free (uri);
-		// update_module_ui (subversion);
 	}
 }
 
@@ -456,15 +460,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Add watches */
 	subversion->fm_watch_id = 
-		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
-								 value_added_fm_current_uri,
-								 value_removed_fm_current_uri, NULL);
+		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
+								 value_added_fm_current_file,
+								 value_removed_fm_current_file, NULL);
 	subversion->project_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
 	subversion->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	

@@ -189,10 +189,10 @@ hide_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
-set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gulong address)
+set_program_counter(DebugManagerPlugin *self, const gchar* filename, guint line, gulong address)
 {
 	IAnjutaDocumentManager *docman = NULL;
-	gchar *file_uri;
+	GFile* file;
 
 	/* Remove previous marker */
 	hide_program_counter_in_editor (self);
@@ -203,15 +203,15 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gul
 	}
 	self->pc_address = address;
 
-	if (file != NULL)
+	if (filename != NULL)
 	{
+		file = g_file_new_for_path (filename);
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (self)->shell, IAnjutaDocumentManager, NULL);
-		file_uri = gnome_vfs_get_uri_from_local_path(file);
 		if (docman)
 		{
 			IAnjutaEditor* editor;
 		
-			editor = ianjuta_document_manager_goto_uri_line(docman, file_uri, line, NULL);
+			editor = ianjuta_document_manager_goto_file_line(docman, file, line, NULL);
 		
 			if (editor != NULL)
 			{
@@ -221,7 +221,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gul
 				show_program_counter_in_editor (self);
 			}
 		}		
-		g_free (file_uri);
+		g_object_unref (file);
 	}
 }
 
@@ -570,7 +570,9 @@ dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gch
         docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
         if (docman)
         {
-			ianjuta_document_manager_goto_uri_line (docman, uri, line, NULL);
+			GFile* file = g_file_new_for_uri (uri);
+			ianjuta_document_manager_goto_file_line (docman, file, line, NULL);
+			g_object_unref (file);
         }
 	}
 }
@@ -671,23 +673,23 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 		else
 		{
 			IAnjutaEditor *editor;
-			gchar *uri;
-			gchar *file;
+			GFile* file;
+			gchar *filename;
 			gint line;
 
 			editor = dma_get_current_editor (ANJUTA_PLUGIN (plugin));
 			if (editor == NULL)
 				return;
-			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
-			if (uri == NULL)
+			file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+			if (file == NULL)
 				return;
 	
-			file = gnome_vfs_get_local_path_from_uri (uri);
+			filename = g_file_get_path (file);
 	
 			line = ianjuta_editor_get_lineno (editor, NULL);
-			dma_queue_run_to (plugin->queue, file, line);
-			g_free (uri);
-			g_free (file);
+			dma_queue_run_to (plugin->queue, filename, line);
+			g_free (filename);
+			g_object_unref (file);
 		}
 	}
 }
@@ -1131,11 +1133,11 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	
 	/* Add watches */
 	this->project_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
 	this->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 						 

@@ -128,6 +128,7 @@ file_model_update_file (FileModel* model,
 											GTK_ICON_LOOKUP_GENERIC_FALLBACK);
 	pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
 	gtk_icon_info_free(icon_info);
+	g_object_unref (icon);
 	
 	if (g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
 		is_dir = TRUE;
@@ -492,18 +493,14 @@ file_model_refresh (FileModel* model)
 	g_object_unref (base);
 }
 
-gchar*
-file_model_get_uri (FileModel* model, GtkTreeIter* iter)
+GFile*
+file_model_get_file (FileModel* model, GtkTreeIter* iter)
 {
 	GFile* file;
-	gchar* uri;
 	
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, COLUMN_FILE, &file, -1);
 	
-	uri = g_file_get_uri (file);
-	g_object_unref (file);
-	
-	return uri;
+	return file;
 }
 
 gchar*

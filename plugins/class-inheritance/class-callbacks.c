@@ -93,13 +93,13 @@ void
 on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
 {
 	NodeData *node;
-	const gchar *uri;
+	GFile* file;
 	gint line;
 	
 	node = (NodeData*)data;
-	uri = g_object_get_data (G_OBJECT (menuitem), "__uri");
+	file = g_object_get_data (G_OBJECT (menuitem), "__file");
 	line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "__line"));
-	if (uri)
+	if (file)
 	{
 		/* Goto uri line */
 		IAnjutaDocumentManager *dm;
@@ -107,7 +107,7 @@ on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
 										 IAnjutaDocumentManager, NULL);
 		if (dm)
 		{
-			ianjuta_document_manager_goto_uri_line (dm, uri, line, NULL);
+			ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
 		}
 	}
 }
@@ -144,18 +144,18 @@ on_nodedata_expanded_event (GnomeCanvasItem *item, GdkEvent *event, gpointer dat
 				}
 			else {		/* it's a class member. Take line && uri of definition 
 							 * and reach them */
-				const gchar* uri;
+				GFile* file;
 				gint line;
 				
-				uri = g_object_get_data (G_OBJECT (item), "__uri");
+				file = g_object_get_data (G_OBJECT (item), "__file");
 				line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "__line"));
-				if (uri) {
+				if (file) {
 					/* Goto uri line */
 					IAnjutaDocumentManager *dm;
 					dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											 	IAnjutaDocumentManager, NULL);
 					if (dm) {
-						ianjuta_document_manager_goto_uri_line (dm, uri, line, NULL);
+						ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
 					}
 				}
 			}

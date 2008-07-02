@@ -24,6 +24,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-todo.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 //#include <libgtodo/main.h>
 #include "main.h"
@@ -176,7 +177,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 	/* set up project directory watch */
 	gtodo_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-													"project_root_uri",
+													IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 													project_root_added,
 													project_root_removed, NULL);
 	hide_done = anjuta_ui_get_action (ui, "ActionGroupTodoViewOps",
@@ -256,10 +257,10 @@ gtodo_plugin_class_init (GObjectClass *klass)
 }
 
 static void
-itodo_load (IAnjutaTodo *profile, const gchar *filename, GError **err)
+itodo_load (IAnjutaTodo *profile, GFile* file, GError **err)
 {
-	g_return_if_fail (filename != NULL);
-	gtodo_client_load (cl, filename);
+	g_return_if_fail (file != NULL);
+	gtodo_client_load (cl, g_file_get_path (file));
 }
 
 static void

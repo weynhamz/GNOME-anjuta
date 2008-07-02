@@ -23,7 +23,7 @@ plugin_LTLIBRARIES = libanjuta-editor.la
 
 AM_CPPFLAGS = \
 	$(GNOME_PRINT_UI_CFLAGS) \
-	$(GNOME_VFS_CFLAGS) \
+	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SCINTILLA_CFLAGS) \
 	-I$(srcdir)/scintilla/include \
@@ -33,7 +33,7 @@ libanjuta_editor_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_editor_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SCINTILLA_LIBS) \
 	$(GLADE_LIBS) \

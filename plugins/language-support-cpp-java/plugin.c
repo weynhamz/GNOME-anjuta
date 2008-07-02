@@ -24,6 +24,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
@@ -1784,7 +1785,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	
 	lang_plugin->editor_watch_id = 
 		anjuta_plugin_add_watch (plugin,
-								 "document_manager_current_editor",
+								  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 plugin);

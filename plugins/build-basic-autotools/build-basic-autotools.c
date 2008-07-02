@@ -21,13 +21,14 @@
 #include <config.h>
 #include <ctype.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
@@ -859,7 +860,7 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 	if (parse_error_line (line, &filename, &lineno))
 	{
 		IAnjutaDocumentManager *docman;
-		gchar *uri;
+		GFile* file;
 		
 		/* Go to file and line number */
 		docman = anjuta_shell_get_interface (context->plugin->shell,
@@ -867,13 +868,10 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 											 NULL);
 		
 		/* Full path is detected from parse_error_line() */
-		uri = gnome_vfs_get_uri_from_local_path(filename);
-		g_free(filename);
-		if (uri)
-		{
-			ianjuta_document_manager_goto_uri_line_mark(docman, uri, lineno, TRUE, NULL);
-			g_free(uri);
-		}
+		file = g_file_new_for_path(filename);
+		
+		ianjuta_document_manager_goto_file_line_mark(docman, file, lineno, TRUE, NULL);
+		g_object_unref (file);
 	}
 }
 
@@ -2007,17 +2005,19 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
-value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	const gchar *uri;
-	gchar *dirname, *filename;
+	GFile* file;
+	GFileInfo* file_info;
+	gchar* filename;
+	gchar* dirname;
 	gboolean makefile_exists, is_dir;
 	
-	uri = g_value_get_string (value);
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	file = g_value_get_object (value);
+	filename = g_file_get_path (file);
 	g_return_if_fail (filename != NULL);
 
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
@@ -2027,7 +2027,9 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_free (ba_plugin->fm_current_filename);
 	ba_plugin->fm_current_filename = filename;
 	
-	is_dir = g_file_test (filename, G_FILE_TEST_IS_DIR);
+	file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE, 
+								   G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	is_dir = (g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY);
 	if (is_dir)
 		dirname = g_strdup (filename);
 	else
@@ -2049,7 +2051,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 }
 
 static void
-value_removed_fm_current_uri (AnjutaPlugin *plugin,
+value_removed_fm_current_file (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	AnjutaUI *ui;
@@ -2074,9 +2076,12 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	const gchar *uri;
 	gchar *dirname, *filename;
 	gboolean makefile_exists, is_dir;
+	GFile* file;
 	
 	uri = g_value_get_string (value);
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	file = g_file_new_for_uri (uri);
+	filename = g_file_get_path (file);
+	g_object_unref (file);
 	g_return_if_fail (filename != NULL);
 	
 	/*
@@ -2146,8 +2151,10 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
+		GFile* file = g_file_new_for_uri (root_uri);
 		bb_plugin->project_root_dir =
-			gnome_vfs_get_local_path_from_uri (root_uri);
+			g_file_get_path(file);
+		g_object_unref (file);
 		if (bb_plugin->project_root_dir)
 		{
 			update_project_ui (bb_plugin);
@@ -2253,7 +2260,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
-	gchar *uri;
+	GFile* file;
 	GObject *editor;
 	
 	editor = g_value_get_object (value);
@@ -2280,13 +2287,13 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 						  G_CALLBACK (on_editor_changed), plugin);
 	}
 	
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
-	if (uri)
+	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	if (file)
 	{
 		gchar *filename;
 		
-		filename = gnome_vfs_get_local_path_from_uri (uri);
-		g_free (uri);
+		filename = g_file_get_path(file);
+		g_object_unref (file);
 		g_return_if_fail (filename != NULL);
 		ba_plugin->current_editor_filename = filename;
 		update_module_ui (ba_plugin);
@@ -2355,19 +2362,19 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Add watches */
 	ba_plugin->fm_watch_id = 
-		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
-								 value_added_fm_current_uri,
-								 value_removed_fm_current_uri, NULL);
+		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
+								 value_added_fm_current_file,
+								 value_removed_fm_current_file, NULL);
 	ba_plugin->pm_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_manager_current_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								 value_added_pm_current_uri,
 								 value_removed_pm_current_uri, NULL);
 	ba_plugin->project_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
 	ba_plugin->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin,  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	initialized = TRUE;
@@ -2608,14 +2615,16 @@ ibuildable_iface_init (IAnjutaBuildableIface *iface)
 }
 
 static void
-ifile_open (IAnjutaFile *manager, const gchar *uri,
+ifile_open (IAnjutaFile *manager, GFile* file,
 			GError **err)
 {
+	gchar* uri = g_file_get_uri (file);
 	ianjuta_buildable_execute (IANJUTA_BUILDABLE (manager), uri, NULL);
+	g_free(file);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile *manager, GError **err)
+static GFile*
+ifile_get_file (IAnjutaFile *manager, GError **err)
 {
 	DEBUG_PRINT ("Unsupported operation");
 	return NULL;
@@ -2625,7 +2634,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 
@@ -2643,8 +2652,10 @@ ibuilder_is_built (IAnjutaBuilder *builder, const gchar *uri,
 	gchar *target;
 	gchar *dirname;
 	gchar *cmd;
+	GFile* file = g_file_new_for_uri (uri);
 	
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	filename = g_file_get_path (file);
+	g_object_unref (file);
 	if (filename == NULL) return NULL;
 	target = g_path_get_basename (filename);
 	dirname = g_path_get_dirname (filename);
@@ -2672,8 +2683,10 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	gchar *target;
 	gchar *dirname;
 	gchar *cmd;
+	GFile* file = g_file_new_for_uri (uri);
 
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	filename = g_file_get_path (file);
+	g_object_unref (file);
 	if (filename == NULL) return NULL;
 	target = g_path_get_basename (filename);
 	dirname = g_path_get_dirname (filename);

@@ -117,7 +117,6 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 {
 	IAnjutaIterable *symbol_iter;
 	IAnjutaSymbol *symbol;
-	const gchar *uri;
 	guint line;
 	
 	if (self->priv->symbol_manager &&
@@ -138,14 +137,16 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 		if (symbol_iter &&
 			ianjuta_iterable_get_length (symbol_iter, NULL) > 0)
 		{
+			GFile* file;
 			symbol = IANJUTA_SYMBOL (symbol_iter);
-			uri = ianjuta_symbol_get_uri (symbol, NULL);
+			file = ianjuta_symbol_get_file (symbol, NULL);
 			line = ianjuta_symbol_get_line (symbol, NULL);
 			
-			ianjuta_document_manager_goto_uri_line (self->priv->document_manager, 
-													 uri, line, NULL);
+			ianjuta_document_manager_goto_file_line (self->priv->document_manager, 
+													file, line, NULL);
 			
 			g_object_unref (symbol_iter);
+			g_object_unref (file);
 		}
 	}
 }

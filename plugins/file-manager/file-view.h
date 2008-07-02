@@ -26,6 +26,7 @@
 #define _FILE_VIEW_H_
 
 #include <gtk/gtktreeview.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -45,14 +46,14 @@ struct _AnjutaFileViewClass
 	
 	/* Signals */
 	void (*file_open) (AnjutaFileView* view,
-					   const gchar* uri);
+					   GFile* file);
 	void (*show_popup_menu) (AnjutaFileView* view,
-							 const gchar* uri,
+							 GFile* file,
 							 gboolean is_dir,
 							 guint button,
 							 guint32 time);
 	void (*current_uri_changed) (AnjutaFileView* view,
-								 const gchar* uri);
+								 GFile* file);
 };
 
 struct _AnjutaFileView
@@ -69,7 +70,7 @@ file_view_rename(AnjutaFileView* view);
 gboolean
 file_view_can_rename(AnjutaFileView* view);
 
-gchar*
+GFile*
 file_view_get_selected (AnjutaFileView* view);
 
 void

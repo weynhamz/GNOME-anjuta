@@ -33,6 +33,8 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
 #include "plugin.h"
@@ -257,7 +259,9 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 												 NULL);
 			if (docman)
 			{
-				ianjuta_file_open (IANJUTA_FILE (docman), uri, NULL);
+				GFile* file = g_file_new_for_uri (uri);
+				ianjuta_file_open (IANJUTA_FILE (docman), file, NULL);
+				g_object_unref (file);
 			}
 			else
 			{
@@ -283,8 +287,10 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 															location);
 				if (loaded_plugin)
 				{
-					ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
+					GFile* file = g_file_new_for_uri (uri);
+					ianjuta_file_open (IANJUTA_FILE (loaded_plugin), file, NULL);
 					set_recent_file (plugin, uri, mime_type);
+					g_object_unref (file);
 				}
 				else
 				{
@@ -354,6 +360,7 @@ open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 {
 	GnomeVFSURI *vfs_uri;	
 	gchar *dirname;
+	GFile* file;
 	
 	vfs_uri = gnome_vfs_uri_new (uri);
 	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
@@ -361,10 +368,14 @@ open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 	chdir (dirname);
 	g_free (dirname);
 	
+	file = g_file_new_for_uri (uri);
+	
 	/* FIXME: We have to manage the error to know if we have to remove the recent file
 	 */
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
-							  uri, FALSE, NULL);
+							  file, FALSE, NULL);
+	
+	g_object_unref (file);
 }
 
 typedef struct
@@ -721,8 +732,10 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 														location);
 			if (loaded_plugin)
 			{
-				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
+				GFile* file = g_file_new_for_uri (uri);
+				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), file, NULL);
 				set_recent_file (plugin, uri, mime_type);
+				g_object_unref (file);
 			}
 			else
 			{
@@ -922,16 +935,17 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 }
 						  
 static void
-value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
-	const gchar *uri;
+	gchar *uri;
 	AnjutaFileLoaderPlugin *fl_plugin;
 	GtkAction *action;
 	GtkWidget *parentmenu;
+	GFile* file = G_FILE (g_value_get_object (value));
 	
-	uri = g_value_get_string (value);
+	uri = g_file_get_uri (file);
 	g_return_if_fail (name != NULL);
 
 	fl_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
@@ -954,10 +968,12 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	if (!create_open_with_submenu (fl_plugin, parentmenu, uri,
 								   G_CALLBACK (fm_open_with), plugin))
 		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	
+	g_free (uri);
 }
 
 static void
-value_removed_fm_current_uri (AnjutaPlugin *plugin,
+value_removed_fm_current_file (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	AnjutaUI *ui;
@@ -1040,7 +1056,9 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 static void
 dnd_dropped (const gchar *uri, gpointer plugin)
 {
-	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
+	GFile* file = g_file_new_for_uri (uri);
+	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), file, FALSE, NULL);
+	g_object_unref (file);
 }
 
 static void
@@ -1093,16 +1111,18 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
 					*/
-					anjuta_status_progress_tick (status, NULL, label);
+					njuta_status_progress_tick (status, NULL, label);
 				}
 				else if (i != 0 &&
 						 (!mime_type ||
 						  strcmp (mime_type, "application/x-anjuta") != 0))
 				{
 					/* Then rest of the files */
+					GFile* file = g_file_new_for_uri (uri);
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
-											  uri, FALSE, NULL);
+											  file, FALSE, NULL);
 					anjuta_status_progress_tick (status, NULL, label);
+					g_object_unref (file);
 				}
 				g_free (filename);
 				g_free (label);
@@ -1227,11 +1247,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Add watches */
 	loader_plugin->fm_watch_id = 
-		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
-								 value_added_fm_current_uri,
-								 value_removed_fm_current_uri, NULL);
+		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
+								 value_added_fm_current_file,
+								 value_removed_fm_current_file, NULL);
 	loader_plugin->pm_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_manager_current_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								 value_added_pm_current_uri,
 								 value_removed_pm_current_uri, NULL);
 	
@@ -1306,7 +1326,7 @@ anjuta_file_loader_plugin_class_init (GObjectClass *klass)
 }
 
 static GObject*
-iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
+iloader_load (IAnjutaFileLoader *loader, GFile* file,
 			  gboolean read_only, GError **err)
 {
 	gchar *mime_type;
@@ -1316,6 +1336,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	AnjutaPluginManager *plugin_manager;
 	GList *plugin_descs = NULL;
 	GObject *plugin = NULL;	
+	gchar* uri = g_file_get_uri (file);
 	
 	g_return_val_if_fail (uri != NULL, NULL);
 	vfs_uri = gnome_vfs_uri_new (uri);
@@ -1387,7 +1408,9 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 		launch_in_default_application (ANJUTA_PLUGIN_FILE_LOADER (loader), mime_type, uri);
 	}
 	if (plugin)
-		ianjuta_file_open (IANJUTA_FILE(plugin), uri, NULL);
+	{
+		ianjuta_file_open (IANJUTA_FILE(plugin), file, NULL);
+	}
 	
 	set_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), new_uri, mime_type);
 	
@@ -1395,8 +1418,9 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 		g_list_free (plugin_descs);
 	g_free (mime_type);
 	g_free (new_uri);
+	g_free (uri);
 	anjuta_status_busy_pop (status);
-
+		
 	return plugin;
 }
 

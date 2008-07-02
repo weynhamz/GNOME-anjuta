@@ -554,7 +554,9 @@ npw_open_action (NPWInstall* this)
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->plugin)->shell, IAnjutaFileLoader, NULL);
 	if (loader)
 	{
-		ianjuta_file_loader_load (loader, npw_action_get_file (this->action), FALSE, NULL);
+		GFile* file = g_file_new_for_path (npw_action_get_file (this->action));
+		ianjuta_file_loader_load (loader, file, FALSE, NULL);
+		g_object_unref (file);
 
 		return TRUE;
 	}

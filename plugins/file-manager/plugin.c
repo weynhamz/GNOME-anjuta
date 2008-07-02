@@ -30,6 +30,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include "plugin.h"
 
@@ -119,41 +120,41 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 }
 
 static void
-on_file_view_current_uri_changed (AnjutaFileView* view, gchar* uri,
-								  AnjutaFileManager* file_manager)
+on_file_view_current_file_changed (AnjutaFileView* view, GFile* file,
+								   AnjutaFileManager* file_manager)
 {
-	if (uri)
+	if (file)
 	{
 		GValue* value;
 		value = g_new0 (GValue, 1);
-		g_value_init (value, G_TYPE_STRING);
-		g_value_take_string (value, uri);
+		g_value_init (value, G_TYPE_FILE);
+		g_value_set_object (value, file);
 		anjuta_shell_add_value (ANJUTA_PLUGIN (file_manager)->shell,
-								"file_manager_current_uri", value, NULL);
+								IANJUTA_FILE_MANAGER_SELECTED_FILE, value, NULL);
 	}
 	else
 	{
 		anjuta_shell_remove_value (ANJUTA_PLUGIN(file_manager)->shell,
-								   "file_manager_current_uri", NULL);		
+								   IANJUTA_FILE_MANAGER_SELECTED_FILE, NULL);		
 	}
 }
 
 static void
-on_file_view_open_file (AnjutaFileView* view, const char *uri,
+on_file_view_open_file (AnjutaFileView* view, GFile* file,
 						AnjutaFileManager* file_manager)
 {
 	IAnjutaFileLoader *loader;
-	g_return_if_fail (uri != NULL);
+	g_return_if_fail (file != NULL);
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (file_manager)->shell,
 										 IAnjutaFileLoader, NULL);
 	g_return_if_fail (loader != NULL);
 		
-	ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+	ianjuta_file_loader_load (loader, file, FALSE, NULL);
 }
 
 static void
-on_file_view_show_popup_menu (AnjutaFileView* view, const gchar* uri,
-							  gboolean is_dir,guint button,
+on_file_view_show_popup_menu (AnjutaFileView* view, GFile* file,
+							  gboolean is_dir, guint button,
 							  guint32 time, AnjutaFileManager* file_manager)
 {
 	GtkWidget *popup;
@@ -234,8 +235,8 @@ file_manager_activate (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_file_view_open_file), file_manager);
 	g_signal_connect (G_OBJECT(file_manager->fv), "show-popup-menu",
 					  G_CALLBACK (on_file_view_show_popup_menu), file_manager);
-	g_signal_connect (G_OBJECT(file_manager->fv), "current-uri-changed",
-					  G_CALLBACK (on_file_view_current_uri_changed),
+	g_signal_connect (G_OBJECT(file_manager->fv), "current-file-changed",
+					  G_CALLBACK (on_file_view_current_file_changed),
 					  file_manager);
 	file_manager_set_default_uri (file_manager);
 	file_view_refresh (file_manager->fv);
@@ -251,7 +252,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	
 	file_manager->root_watch_id =
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
+		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 project_root_added,
 								 project_root_removed, NULL);
 	
@@ -341,12 +342,12 @@ ifile_manager_set_root (IAnjutaFileManager *ifile_manager, const gchar *root,
 
 static void
 ifile_manager_set_selected (IAnjutaFileManager *file_manager,
-							const gchar *root, GError **err)
+							GFile* selected, GError **err)
 {
 	/* TODO */
 }
 
-static gchar*
+static GFile*
 ifile_manager_get_selected (IAnjutaFileManager *ifile_manager, GError **err)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) ifile_manager;

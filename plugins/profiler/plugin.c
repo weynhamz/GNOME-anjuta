@@ -763,19 +763,12 @@ static GtkActionEntry actions_file[] = {
 	}
 };
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -856,7 +849,7 @@ profiler_activate (AnjutaPlugin *plugin)
 							 ANJUTA_SHELL_PLACEMENT_CENTER,
 							 NULL);
 							 
-	profiler->project_watch_id = anjuta_plugin_add_watch (plugin, "project_root_uri", 
+	profiler->project_watch_id = anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, 
 										 				  project_root_added, 
 										 				  project_root_removed, NULL);
 										 				  
@@ -955,12 +948,14 @@ profiler_class_init (GObjectClass *klass)
 
 /* File open interface */
 static void
-ifile_open (IAnjutaFile *manager, const gchar *uri,
+ifile_open (IAnjutaFile *manager, GFile* file,
 			GError **err)
 {
 	Profiler *profiler;
 	
 	profiler = PROFILER (manager);
+	
+	gchar* uri = g_file_get_uri (file);
 	
 	profiler_set_target (profiler, uri);
 	
@@ -969,18 +964,18 @@ ifile_open (IAnjutaFile *manager, const gchar *uri,
 	 * balloon with the settings for a bunch of targets, espcially if this 
 	 * is a one-time operation. If previous settings don't exist, just use
 	 * the defaults. */
-	if (gprof_options_has_target (profiler->options,  (gchar *) uri))
-		gprof_options_set_target (profiler->options, (gchar *) uri);
+	if (gprof_options_has_target (profiler->options,  uri))
+		gprof_options_set_target (profiler->options, uri);
 	else
 		gprof_options_set_target (profiler->options, NULL);
 	
 	if (profiler_get_data (profiler))
 		gprof_view_manager_refresh_views (profiler->view_manager);
-	
+	g_free (file);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile *manager, GError **err)
+static GFile*
+ifile_get_file (IAnjutaFile *manager, GError **err)
 {
 	DEBUG_PRINT ("Unsupported operation");
 	return NULL;
@@ -990,7 +985,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 ANJUTA_PLUGIN_BEGIN (Profiler, profiler);

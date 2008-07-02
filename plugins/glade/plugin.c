@@ -82,7 +82,7 @@ static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
-	GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
+	//GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
 	GObject *editor;	
 	editor = g_value_get_object (value);
 	if (ANJUTA_IS_DESIGN_DOCUMENT(editor))
@@ -283,13 +283,14 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		{
 			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
 			{
-				gchar *uri;
-				uri = ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
-				if (uri != NULL)
+				GFile* file;
+				file = ianjuta_file_get_file (IANJUTA_FILE (node->data), NULL);
+				if (file != NULL)
 				{
-					files = g_list_prepend (files, uri);
+					files = g_list_prepend (files, g_file_get_uri (file));
 					/* uri is not freed here */
 				}
+				g_object_unref (file);
 			}
 		}
 		g_list_free (docwids);
@@ -508,7 +509,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Watch documents */
 	glade_plugin->priv->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	
@@ -620,7 +621,7 @@ gchar* glade_get_filename(GladePlugin *plugin)
 }
 
 static void
-ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
+ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 {
 	GladePluginPriv *priv;
 	GladeProject *project;
@@ -631,15 +632,17 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	GList* docwids, *node;
 	GList *glade_obj_node;
 	
-	g_return_if_fail (uri != NULL);
+	g_return_if_fail (file != NULL);
 	
 	priv = ANJUTA_PLUGIN_GLADE (ifile)->priv;
 	
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	filename = g_file_get_path (file);
 	if (!filename)
 	{
+		gchar* uri = g_file_get_parse_name(file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 								    _("Not local file: %s"), uri);
+		g_free (uri);
 		return;
 	}
 	
@@ -652,20 +655,18 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 		{
 			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
 			{
-				gchar *cur_uri;
-				cur_uri = ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
-				if (cur_uri)
+				GFile* cur_file;
+				cur_file = ianjuta_file_get_file (IANJUTA_FILE (node->data), NULL);
+				if (cur_file)
 				{
-					DEBUG_PRINT("%s = %s", uri, cur_uri);
-					if (g_str_equal (uri, cur_uri))
+					if (g_file_equal (file, cur_file))
 					{
 						ianjuta_document_manager_set_current_document (docman,
 							IANJUTA_DOCUMENT (node->data), NULL);
-						g_free (cur_uri);
-						g_list_free (docwids);
+						g_object_unref (file);
 						return;
 					}
-					g_free (cur_uri);
+					g_object_unref (file);
 				}
 			}
 		}
@@ -689,8 +690,10 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	g_free (filename);
 	if (!project)
 	{
+		gchar* name = g_file_get_parse_name (file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
-								    _("Could not open %s"), uri);
+								    _("Could not open %s"), name);
+		g_free (name);
 		return;
 	}
 	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
@@ -717,19 +720,17 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->view_box, NULL);
 }
 
-static gchar*
-ifile_get_uri (IAnjutaFile* file, GError** e)
+static GFile*
+ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
 #if (GLADEUI_VERSION >= 330)
 	const gchar* path = glade_project_get_path(glade_app_get_project());
-	if (path != NULL)
-		return gnome_vfs_get_uri_from_local_path(path);
-	else
-		return NULL;
+	GFile* file = g_file_new_for_path (path);
+	return file;
 #else
 	GladeProject* project = glade_app_get_project();
 	if (project && project->path)
-		return project->path;
+		return g_file_new_for_path(project->path);
 	else
 		return NULL;
 #endif
@@ -739,7 +740,7 @@ static void
 ifile_iface_init(IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_uri = ifile_get_uri;
+	iface->get_file = ifile_get_file;
 }
 
 static void

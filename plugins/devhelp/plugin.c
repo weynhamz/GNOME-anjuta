@@ -392,7 +392,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 	/* Add watches */
 	devhelp->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin,  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor,
 								 devhelp);

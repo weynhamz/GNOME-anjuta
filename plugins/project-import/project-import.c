@@ -152,8 +152,8 @@ on_import_apply (GtkAssistant *assistant, ProjectImport* pi)
 {
 	const gchar* name = gtk_entry_get_text (GTK_ENTRY(pi->import_name));
 	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(pi->import_path));
-	
 	gchar* project_file = g_strconcat (path, "/", name, ".", "anjuta", NULL);
+	GFile* file = g_file_new_for_path (project_file);
 	
 	IAnjutaFileLoader* loader;
 	
@@ -172,7 +172,7 @@ on_import_apply (GtkAssistant *assistant, ProjectImport* pi)
 		g_free (project_file);
 		return;
 	}
-	ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
+	ianjuta_file_loader_load (loader, file, FALSE, NULL);
 	g_free (project_file);
 	g_free (path);
 }

@@ -177,6 +177,7 @@ on_message_received (const char *message, gpointer    data)
 	gint i;
 	GdkDisplay *display;
 	GdkScreen *screen;
+	GList* file;
 
 	g_return_if_fail (message != NULL);
 
@@ -232,15 +233,16 @@ on_message_received (const char *message, gpointer    data)
 
 	/* execute the commands */
 
-	while (file_list != NULL)
+	for (file = file_list; file != NULL; file = g_list_next (file))
 	{
-		IAnjutaFileLoader* file =
+		IAnjutaFileLoader* loader =
 			anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-		gchar* uri = g_strdup_printf("%s:%d", (gchar*) file_list->data, line_position);
-		
-		ianjuta_file_loader_load(file, file_list->data, FALSE, NULL);
-		g_free(uri);
-		file_list = g_list_next(file_list);
+		GFile* gfile = g_file_new_for_uri(file->data);
+		if (gfile)
+		{
+			ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
+			g_object_unref (gfile);
+		}
 	}
 
 	/* free the file list and reset to default */
@@ -351,7 +353,7 @@ main (int argc, char *argv[])
 	if (connection != NULL)
 	{
 		if (!bacon_message_connection_get_is_server (connection) &&
-			 no_client ==FALSE) 
+			 no_client == FALSE) 
 		{
 			DEBUG_PRINT("Client");
 			send_bacon_message ();

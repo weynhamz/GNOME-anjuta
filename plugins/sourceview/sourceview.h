@@ -31,6 +31,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-plugin.h>
+#include <gio/gio.h>
 
 #define ANJUTA_TYPE_SOURCEVIEW         (sourceview_get_type ())
 #define ANJUTA_SOURCEVIEW(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_SOURCEVIEW, Sourceview))
@@ -53,6 +54,6 @@ typedef struct {
 } SourceviewClass;
 
 GType sourceview_get_type(void);
-Sourceview *sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin);
+Sourceview *sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin);
 
 #endif /* SOURCEVIEW_H */

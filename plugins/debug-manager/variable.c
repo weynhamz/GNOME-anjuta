@@ -36,6 +36,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 /* Constants
  *---------------------------------------------------------------------------*/
@@ -218,7 +219,7 @@ on_program_stopped (DmaVariableDBase *self)
 	if (self->editor_watch == -1)
 	{
 		/* set editor watch */
-		self->editor_watch = anjuta_plugin_add_watch (ANJUTA_PLUGIN(self->plugin), "document_manager_current_editor",
+		self->editor_watch = anjuta_plugin_add_watch (ANJUTA_PLUGIN(self->plugin), IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 on_added_current_editor, on_removed_current_editor, self);
 	}
 }

@@ -475,11 +475,13 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	/* Load project file */
 	if (project_file)
 	{
+		GFile* file = g_file_new_for_uri (project_file);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
-		ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
+		ianjuta_file_loader_load (loader, file, FALSE, NULL);
 		g_free (project_file);
+		g_object_unref (file);
 	}
 	anjuta_profile_manager_thaw (profile_manager, &error);
 	
