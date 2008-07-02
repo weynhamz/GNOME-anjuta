@@ -135,7 +135,6 @@ my $type_map = {
 	},
 	"GFile*" => {
 		"gtype" => "G_TYPE_OBJECT",
-		"assert" => "G_IS_FILE(__arg__)",
 		"fail_return" => "NULL"
 	}
 };

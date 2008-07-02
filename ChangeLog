@@ -1,6 +1,17 @@
 2008-07-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+	Allow NULL GFiles
+	
+	* plugins/file-loader/plugin.c (on_session_load):
+	Fixed typo
+	
+	* src/main.c (on_message_received):
+	Fixed loading of files from the command line
+
+2008-07-02  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
 	* libanjuta/interfaces/libanjuta.idl:
 	Change (nearly) all interfaces to use GFile* instead of uris
 	Document all shell variables

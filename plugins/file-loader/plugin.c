@@ -1111,7 +1111,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
 					*/
-					njuta_status_progress_tick (status, NULL, label);
+					anjuta_status_progress_tick (status, NULL, label);
 				}
 				else if (i != 0 &&
 						 (!mime_type ||

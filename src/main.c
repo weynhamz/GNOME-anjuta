@@ -237,7 +237,7 @@ on_message_received (const char *message, gpointer    data)
 	{
 		IAnjutaFileLoader* loader =
 			anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-		GFile* gfile = g_file_new_for_uri(file->data);
+		GFile* gfile = g_file_new_for_commandline_arg(file->data);
 		if (gfile)
 		{
 			ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
