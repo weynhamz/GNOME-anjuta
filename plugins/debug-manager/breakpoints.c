@@ -1588,9 +1588,8 @@ on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	if (valid)
 	{
 		BreakpointItem *bi;
-		GFile* file = g_file_new_for_uri (bi->uri);
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-		DEBUG_PRINT ("Uri: %s", bi->uri);
+		GFile* file = g_file_new_for_uri (bi->uri);
 		g_signal_emit_by_name (bd->plugin, "location-changed", bi->bp.address, file, bi->bp.line);
 		g_object_unref (file);
 	}

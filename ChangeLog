@@ -1,9 +1,5 @@
-2008-07-02  Johannes Schmid  <jhs@idefix>
+2008-07-02  Johannes Schmid  <jhs@gnome.org>
 
-	reviewed by: <delete if not using a buddy>
-
-	* libanjuta/interfaces/anjuta-idl-compiler.pl:
-	* libanjuta/interfaces/libanjuta.idl:
 	* plugins/debug-manager/breakpoints.c
 	(on_jump_to_breakpoint_activate):
 	* plugins/debug-manager/disassemble.c (on_location_changed):
@@ -11,7 +7,9 @@
 	(dma_plugin_activate):
 	* plugins/document-manager/anjuta-docman.c
 	(anjuta_docman_goto_file_line_mark):
-
+	
+	Fixed crash when double-clicking on a breakpoint.
+	
 2008-07-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:
