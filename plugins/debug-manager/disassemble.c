@@ -802,7 +802,7 @@ on_program_moved (DmaDisassemble *self, guint pid, guint tid, gulong address, co
 }
 
 static void
-on_location_changed (DmaDisassemble *self, gulong address, const gchar* uri, guint line)
+on_location_changed (DmaDisassemble *self, gulong address, GFile* file, guint line)
 {
 	dma_sparse_view_goto (self->view, address);
 }

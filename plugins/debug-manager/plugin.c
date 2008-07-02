@@ -560,19 +560,18 @@ dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const g
 /* Called when the user want to go to another location */
 
 static void
-dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gchar* uri, guint line)
+dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, GFile* file, guint line)
 {
 	/* Go to location in editor */
-	if (uri != NULL)
+	if (file != NULL)
 	{
 		IAnjutaDocumentManager *docman;
-
+		DEBUG_PRINT ("Plugin uri: %s", g_file_get_uri (file));
+		
         docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
         if (docman)
         {
-			GFile* file = g_file_new_for_uri (uri);
 			ianjuta_document_manager_goto_file_line (docman, file, line, NULL);
-			g_object_unref (file);
         }
 	}
 }
@@ -1075,7 +1074,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect (this, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
 	g_signal_connect (this, "program-moved", G_CALLBACK (dma_plugin_program_moved), this);
 	g_signal_connect (this, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
-	g_signal_connect (this, "location_changed", G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_connect (this, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
 	
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
