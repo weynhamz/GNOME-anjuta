@@ -324,10 +324,14 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 	GtkTreeModel* sort_model = gtk_tree_view_get_model(tree_view);
 	FileModel* model = FILE_MODEL(data);
 	GtkTreeIter child;
+	GtkTreeIter sort_iter;
 	GtkTreeIter real_iter;
 	
+	/* Iter might be invalid in some conditions */
+	gtk_tree_model_get_iter (sort_model, &sort_iter, path);
+	
 	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
-												   &real_iter, iter);
+												   &real_iter, &sort_iter);
 
 	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, &real_iter))
 	{

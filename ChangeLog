@@ -1,5 +1,12 @@
 2008-07-02  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	Corrected sigal argument
+	* plugins/file-manager/file-model.c (file_model_row_collapsed):
+	#538921 Duplicated folders
+
+2008-07-02  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c
 	(on_jump_to_breakpoint_activate):
 	* plugins/debug-manager/disassemble.c (on_location_changed):
