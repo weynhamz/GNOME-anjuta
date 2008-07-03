@@ -93,7 +93,6 @@ void on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data);
 void on_indent1_activate (GtkAction *action, gpointer user_data);
 
 void on_format_indent_style_clicked (GtkAction *action, gpointer user_data);
-void on_swap_activate (GtkAction *action, gpointer user_data);
 
 void on_editor_add_view_activate (GtkAction *action, gpointer user_data);
 void on_editor_remove_view_activate (GtkAction *action, gpointer user_data);

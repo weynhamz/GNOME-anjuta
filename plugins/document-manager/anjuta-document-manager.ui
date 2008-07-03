@@ -131,8 +131,6 @@
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />
 			<separator name="separator17" />
-			<toolitem name="Swap" action="ActionFileSwap" />
-			<separator name="separator18" />
 			<toolitem name="Print" action="ActionPrintFile" />
 		</placeholder>
 	</toolbar>
@@ -155,7 +153,6 @@
 		<menuitem name="Copy" action="ActionEditCopy" />
 		<menuitem name="Paste" action="ActionEditPaste" />
 		<separator name="separator26"/>
-		<menuitem name="Swap" action="ActionFileSwap" />
 		<menuitem name="Toggle" action="ActionBookmarkToggle" />
 		<menu name="Goto" action="ActionMenuGoto">
 				<separator name="separator27"/>

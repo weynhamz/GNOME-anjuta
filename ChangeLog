@@ -1,3 +1,22 @@
+2008-07-03  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/debug-manager/plugin.c (dma_plugin_location_changed):
+	Removed useless DEBUG_PRINTs
+	
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_goto_file_line_mark):
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c
+	(update_document_ui_interface_items), (register_stock_icons):
+	* plugins/language-support-cpp-java/anjuta-language-support-cpp-jav
+	a.ui:
+	* plugins/language-support-cpp-java/plugin.c (on_swap_activate),
+	(register_stock_icons):
+	Moved "Swap .c/.h" from document-manager to language-support where it
+	belongs and reimplemented it without gnome-vfs
+
 2008-07-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

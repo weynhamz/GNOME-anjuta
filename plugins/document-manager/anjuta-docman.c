@@ -1225,8 +1225,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 	const gchar* line_str;
 	GFile* real_file;
 	
-	DEBUG_PRINT ("Open uri: %s", uri);
-	
 	if ((line_str = strstr(uri, "#")) && line <= 0)
 	{
 		line = atoi (line_str + 1);

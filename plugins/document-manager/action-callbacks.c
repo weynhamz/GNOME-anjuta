@@ -877,42 +877,6 @@ on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 	}
 }
 
-/* Gets the swapped (c/h) file names */
-static GFile*
-get_swapped_filename (GFile* file)
-{
-	// TODO!
-	return NULL;
-}
-
-void
-on_swap_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-	AnjutaDocman *docman;
-	DocmanPlugin *plugin;
-
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	doc = anjuta_docman_get_current_document (docman);
-	if (doc)
-	{
-		GFile* file;
-		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);		
-		if (file)
-		{
-			GFile* new_file;
-			new_file = get_swapped_filename (file);
-			if (new_file)
-			{
-				anjuta_docman_goto_file_line (docman, new_file, -1);
-				g_object_unref (new_file);
-			}
-			g_object_unref (file);
-		}
-	}
-}
-
 void
 on_show_search (GtkAction *action, gpointer user_data)
 {

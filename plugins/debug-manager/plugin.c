@@ -566,8 +566,6 @@ dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, GFile* fi
 	if (file != NULL)
 	{
 		IAnjutaDocumentManager *docman;
-		DEBUG_PRINT ("Plugin uri: %s", g_file_get_uri (file));
-		
         docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
         if (docman)
         {

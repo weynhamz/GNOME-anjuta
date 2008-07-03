@@ -53,8 +53,6 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 #define ICON_FILE "anjuta-document-manager-plugin-48.png"
 
-/* Pixmaps */
-#define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle"
 #define ANJUTA_PIXMAP_BOOKMARK_FIRST      "anjuta-bookmark-first"
 #define ANJUTA_PIXMAP_BOOKMARK_PREV       "anjuta-bookmark-prev"
@@ -80,7 +78,6 @@
 
 
 /* Stock icons */
-#define ANJUTA_STOCK_SWAP                     "anjuta-swap"
 #define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
 #define ANJUTA_STOCK_FOLD_OPEN                "anjuta-fold-open"
 #define ANJUTA_STOCK_FOLD_CLOSE               "anjuta-fold-close"
@@ -167,9 +164,6 @@ static GtkActionEntry actions_file[] = {
   { "ActionFileReload", GTK_STOCK_REVERT_TO_SAVED, N_("Reload F_ile"), NULL,
 	N_("Reload current file"),
     G_CALLBACK (on_reload_file_activate)},
-  { "ActionFileSwap", ANJUTA_STOCK_SWAP, N_("Swap .h/.c"), NULL,
-	N_("Swap c header and source files"),
-    G_CALLBACK (on_swap_activate)},
   { "ActionMenuFileRecentFiles", NULL, N_("Recent _Files"),  NULL, NULL, NULL},	/* menu title */
 };
 
@@ -722,23 +716,6 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorStyle",
 								   "ActionMenuFormatStyle");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
-	
-	if (flag)
-	{
-		IAnjutaLanguage *language;
-		language = anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, NULL);
-		if (language)
-		{
-			/* Check if it is a C or C++ file */
-			const gchar *lang_name =
-				ianjuta_language_get_name_from_editor (language, IANJUTA_EDITOR_LANGUAGE (doc), NULL);
-			flag = (lang_name && (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++")));
-		}
-	}
-
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
-								   "ActionFileSwap");
-	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 
 	/* IAnjutaDocument */
 	flag = IANJUTA_IS_DOCUMENT (doc);
@@ -903,7 +880,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON (ICON_FILE, "editor-plugin-icon");
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
