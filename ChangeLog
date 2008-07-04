@@ -1,5 +1,10 @@
 2008-07-04  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	Remove "Monitor VFS" preference - it is always enabled
+
+2008-07-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/action-callbacks.c
 	(on_close_file_activate):
 	* plugins/document-manager/anjuta-docman.c:
