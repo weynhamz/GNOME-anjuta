@@ -424,8 +424,11 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 static void on_save_finish(SourceviewIO* sio, Sourceview* sv)
 {	
 	const gchar* lang;
+	GFile* file = sourceview_io_get_file(sio);
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
+	g_signal_emit_by_name(G_OBJECT(sv), "saved", file);
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
+	g_object_unref (file);
 	/* Autodetect language */
 	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);

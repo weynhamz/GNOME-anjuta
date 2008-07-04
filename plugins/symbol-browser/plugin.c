@@ -625,7 +625,7 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 }
 
 static void
-on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
+on_editor_saved (IAnjutaEditor *editor, GFile* file,
 				 SymbolBrowserPlugin *sv_plugin)
 {
 	const gchar *old_uri;
@@ -638,13 +638,18 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 	/* tags_update =
 		anjuta_preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
 	*/
+	
+	if (!file)
+		return;
+	
 	tags_update = TRUE;
 	if (tags_update)
 	{
 		gchar *local_filename;
+		gchar *saved_uri = g_file_get_uri (file);
 		
 		/* Verify that it's local file */
-		local_filename = gnome_vfs_get_local_path_from_uri (saved_uri);
+		local_filename = g_file_get_path (file);
 		g_return_if_fail (local_filename != NULL);
 		g_free (local_filename);
 		
@@ -674,6 +679,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 								 file_symbol_model);
 		sv_plugin->locals_line_number = 0;
 		on_editor_update_ui (editor, sv_plugin);
+		g_free (saved_uri);
 
 #if 0
 		/* FIXME: Re-hilite all editors on tags update */

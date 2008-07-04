@@ -1,5 +1,18 @@
 2008-07-04  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/debug-manager/breakpoints.c (on_editor_saved):
+	* plugins/symbol-browser/plugin.c (on_editor_saved):
+	* plugins/symbol-db/plugin.c (on_editor_saved):
+	Adapted to change in the "saved" signal of IAnjutaFile
+
+	* plugins/editor/text_editor.c (text_editor_save_file):
+	Fixed #541313 – Crash on saving file
+	
+	* plugins/sourceview/sourceview.c (on_save_finish):
+	Emit "saved" signal
+
+2008-07-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/anjuta-editor-sourceview.glade:
 	Remove "Monitor VFS" preference - it is always enabled
 

@@ -1049,31 +1049,31 @@ static struct {
 	unsigned char c; /* unix-char */
 	unsigned char b; /* dos-char */
 } tr_dos[]= {
-	{ 'ä', 0x84 },
-	{ 'Ä', 0x8e },
-	{ 'ß', 0xe1 },
-	{ 'ü', 0x81 },
-	{ 'Ü', 0x9a },
-	{ 'ö', 0x94 },
-	{ 'Ö', 0x99 },
-	{ 'é', 0x82 },
-	{ 'É', 0x90 },
-	{ 'è', 0x9a },
-	{ 'È', 0xd4 },
-	{ 'ê', 0x88 },
-	{ 'Ê', 0xd2 },
-	{ 'á', 0xa0 },
-	{ 'Á', 0xb5 },
-	{ 'à', 0x85 },
-	{ 'À', 0xb7 },
-	{ 'â', 0x83 },
-	{ 'Â', 0xb6 },
-	{ 'ú', 0xa3 },
-	{ 'Ú', 0xe9 },
-	{ 'ù', 0x97 },
-	{ 'Ù', 0xeb },
-	{ 'û', 0x96 },
-	{ 'Û', 0xea }
+	{ 'Ã¤', 0x84 },
+	{ 'Ã„', 0x8e },
+	{ 'ÃŸ', 0xe1 },
+	{ 'Ã¼', 0x81 },
+	{ 'Ãœ', 0x9a },
+	{ 'Ã¶', 0x94 },
+	{ 'Ã–', 0x99 },
+	{ 'Ã©', 0x82 },
+	{ 'Ã‰', 0x90 },
+	{ 'Ã¨', 0x9a },
+	{ 'Ãˆ', 0xd4 },
+	{ 'Ãª', 0x88 },
+	{ 'ÃŠ', 0xd2 },
+	{ 'Ã¡', 0xa0 },
+	{ 'Ã', 0xb5 },
+	{ 'Ã ', 0x85 },
+	{ 'Ã€', 0xb7 },
+	{ 'Ã¢', 0x83 },
+	{ 'Ã‚', 0xb6 },
+	{ 'Ãº', 0xa3 },
+	{ 'Ãš', 0xe9 },
+	{ 'Ã¹', 0x97 },
+	{ 'Ã™', 0xeb },
+	{ 'Ã»', 0x96 },
+	{ 'Ã›', 0xea }
 };
 
 /*
@@ -1543,11 +1543,9 @@ text_editor_load_file (TextEditor * te)
 gboolean
 text_editor_save_file (TextEditor * te, gboolean update)
 {
-	gboolean ret = FALSE;
-	gchar *save_uri;
-	gboolean result;
 	GtkWindow *parent;
 	GError *error = NULL;
+	gboolean ret = FALSE;
 	
 	if (te == NULL)
 		return FALSE;
@@ -1561,93 +1559,28 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	anjuta_status (te->status, _("Saving file..."), 5); 
 	text_editor_update_monitor (te, TRUE);
 	
-	save_uri = g_strconcat (te->uri, "~", NULL);
-	result = save_to_file (te, save_uri, &error);
-	if (!result)
-	{
-		GFile *gio_uri;
-		
+	if (!save_to_file (te, te->uri, &error))
+	{	
 		text_editor_thaw (te);
 		anjuta_util_dialog_error (parent,
 								  _("Could not save intermediate file %s: %s"),
-								  save_uri,
+								  te->uri,
 								  error->message);
-		
-		gio_uri = g_file_new_for_uri (save_uri);
-		g_file_delete (gio_uri, NULL, NULL);
-		
-		g_object_unref (gio_uri);
 		g_error_free (error);
 	}
 	else
 	{
-		GFile *src_gio;
-		GFile *dest_gio;
-		GFileInfo *info;
-		gboolean have_info;
-		char *dest_uri;
-
-		dest_uri = te->uri; 
-		
-		/* have_info is FALSE on newly created file */	
-		DEBUG_PRINT ("MY_TEST dest_uri: %s", dest_uri);
-
-		src_gio = g_file_new_for_uri (save_uri);
-		dest_gio = g_file_new_for_uri (te->uri);
-
-		have_info = g_file_query_exists (dest_gio, NULL);
-		if (have_info)
-		{
-			info = g_file_info_new ();
-			g_file_info_set_name (info, dest_uri);
-			g_file_info_get_is_symlink (info);
-			{
-				dest_uri = g_file_info_get_symlink_target (info);
-				g_object_unref (dest_gio);
-				dest_gio = g_file_new_for_uri (dest_uri);
-			}
-			g_object_unref (info);
-		}
-
-		/* Move 'file~' to 'file' */
-		
-		result = g_file_move (src_gio, dest_gio, G_FILE_COPY_OVERWRITE, 
-								NULL, NULL, NULL, &error);
-
+		GFile* file = g_file_new_for_uri (te->uri);
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
-		if (!result)
-		{
-			anjuta_util_dialog_error (parent,
-				_("Could not save file %s: %s."),
-				te->uri,
-				error->message);
-
-			if (have_info)
-			{
-				if (error->code == G_IO_ERROR_PERMISSION_DENIED)
-				{
-					anjuta_util_dialog_warning (parent,
-						_("Could not set file permissions %s: %s."),
-						te->uri,
-						error->message);
-				}
-			}
-			g_error_free (error);
-		}
-		else
-		{
-			scintilla_send_message (SCINTILLA (te->scintilla),
-									SCI_SETSAVEPOINT, 0, 0);
-			g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
-			anjuta_status (te->status, _("File saved successfully"), 5);
-			ret = TRUE;
-		}
-		g_object_unref (src_gio);
-		g_object_unref (dest_gio);
+		scintilla_send_message (SCINTILLA (te->scintilla),
+								SCI_SETSAVEPOINT, 0, 0);
+		g_signal_emit_by_name (G_OBJECT (te), "saved", file);
+		g_object_unref (file);
+		anjuta_status (te->status, _("File saved successfully"), 5);
+		ret = TRUE;
 	}
 	text_editor_update_monitor (te, FALSE);
-	g_free (save_uri);
 
 	return ret;
 }

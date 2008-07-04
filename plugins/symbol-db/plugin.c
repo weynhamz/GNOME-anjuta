@@ -247,17 +247,16 @@ on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 	
 	/* Update when the user enters a newline */
 	if (ch == '\n')	
-		need_symbols_update = TRUE;	
+		need_symbols_update = TRUE;
 }
 
 
 static void
-on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
+on_editor_saved (IAnjutaEditor *editor, GFile* file,
 				 SymbolDBPlugin *sdb_plugin)
 {
 	const gchar *old_uri;
-	gboolean tags_update;
-	
+	gboolean tags_update;	
 	/* FIXME: Do this only if automatic tags update is enabled */
 	/* tags_update =
 		anjuta_preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
@@ -265,11 +264,11 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 	tags_update = TRUE;
 	if (tags_update)
 	{
-		gchar *local_filename;
+		gchar *local_filename = g_file_get_path (file);
+		gchar *saved_uri = g_file_get_uri (file);
 		GPtrArray *files_array;
 
 		/* Verify that it's local file */
-		local_filename = gnome_vfs_get_local_path_from_uri (saved_uri);
 		g_return_if_fail (local_filename != NULL);
 
 		files_array = g_ptr_array_new();		
@@ -292,6 +291,8 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 							 g_strdup (saved_uri));
 
 		on_editor_update_ui (editor, sdb_plugin);
+		g_free (local_filename);
+		g_free (saved_uri);
 	}
 }
 

@@ -490,12 +490,18 @@ breakpoints_dbase_breakpoint_updated (BreakpointsDBase *bd, BreakpointItem *bi)
 }
 
 static void
-on_editor_saved (IAnjutaEditor *editor, const gchar* uri, BreakpointsDBase *bd)
+on_editor_saved (IAnjutaEditor *editor, GFile* file, BreakpointsDBase *bd)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model = GTK_TREE_MODEL (bd->model);
+	gchar* uri;
 	
 	g_return_if_fail (model != NULL);
+	
+	if (!file)
+		return;
+	uri = g_file_get_uri (file);
+	
 	/* Update breakpoint position */
 	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
@@ -518,6 +524,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar* uri, BreakpointsDBase *bd)
 			}	
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}
+	g_free (uri);
 }
 
 static void
