@@ -1077,7 +1077,13 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	if (pm_plugin->current_editor_uri)
 		g_free (pm_plugin->current_editor_uri);
 	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
-	pm_plugin->current_editor_uri = g_file_get_uri (file);
+	if (file)
+	{
+		pm_plugin->current_editor_uri = g_file_get_uri (file);
+		g_object_unref (file);
+	}
+	else
+		pm_plugin->current_editor_uri = NULL;
 
 }
 

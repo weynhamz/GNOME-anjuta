@@ -103,15 +103,6 @@ scroll_to_cursor_real (AnjutaView *view)
 }
 
 static void
-document_read_only_notify_handler (AnjutaDocument *document, 
-			           GParamSpec    *pspec,
-				   AnjutaView     *view)
-{
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (view), 
-				    !anjuta_document_get_readonly (document));
-}
-
-static void
 anjuta_view_set_property (GObject * object,
 			   guint property_id,
 			   const GValue * value, GParamSpec * pspec)
@@ -383,20 +374,10 @@ anjuta_view_new (Sourceview *sv)
 {
 	GtkWidget *view;
 
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (sv->priv->document), NULL);
-
 	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, NULL));
 	
 	gtk_text_view_set_buffer (GTK_TEXT_VIEW (view),
 				  GTK_TEXT_BUFFER (sv->priv->document));
-  		
-	g_signal_connect (sv->priv->document,
-			  "notify::read-only",
-			  G_CALLBACK (document_read_only_notify_handler),
-			  view);
-
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (view), 
-				    !anjuta_document_get_readonly (sv->priv->document));					  
 
 	gtk_widget_show_all (view);
 
@@ -422,8 +403,7 @@ anjuta_view_cut_clipboard (AnjutaView *view)
 	/* FIXME: what is default editability of a buffer? */
   	gtk_text_buffer_cut_clipboard (buffer,
   				       clipboard,
-				       !anjuta_document_get_readonly (
-				       		ANJUTA_DOCUMENT (buffer)));
+				       TRUE);
   	
 	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
 				      gtk_text_buffer_get_insert (buffer),
@@ -470,8 +450,7 @@ anjuta_view_paste_clipboard (AnjutaView *view)
   	gtk_text_buffer_paste_clipboard (buffer,
 					 clipboard,
 					 NULL,
-					 !anjuta_document_get_readonly (
-						ANJUTA_DOCUMENT (buffer)));
+					 TRUE);
 
 	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
 				      gtk_text_buffer_get_insert (buffer),
@@ -494,8 +473,7 @@ anjuta_view_delete_selection (AnjutaView *view)
 	/* FIXME: what is default editability of a buffer? */
 	gtk_text_buffer_delete_selection (buffer,
 					  TRUE,
-					  !anjuta_document_get_readonly (
-						ANJUTA_DOCUMENT (buffer)));
+					  TRUE);
 						
 	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
 				      gtk_text_buffer_get_insert (buffer),
@@ -569,11 +547,11 @@ anjuta_view_expose (GtkWidget      *widget,
                    GdkEventExpose *event)
 {
 	GtkTextView *text_view;
-	AnjutaDocument *doc;
+	GtkTextBuffer *doc;
 	
 	text_view = GTK_TEXT_VIEW (widget);
 	
-	doc = ANJUTA_DOCUMENT (gtk_text_view_get_buffer (text_view));
+	doc = gtk_text_view_get_buffer (text_view);
 	
 	if ((event->window == gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT)))
 	{

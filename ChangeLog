@@ -1,3 +1,50 @@
+2008-07-04  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	(on_close_file_activate):
+	* plugins/document-manager/anjuta-docman.c:
+	* plugins/project-manager/plugin.c (value_added_current_editor):
+	* plugins/symbol-browser/plugin.c (value_added_current_editor):
+	Fixed GFile* related stuff
+	
+	* plugins/file-manager/file-model.c (file_model_update_file):
+	Do not unref GIcon* as it is owned by GFileInfo*
+	
+	* plugins/sourceview/anjuta-document-loader.c:
+	* plugins/sourceview/anjuta-document-loader.h:
+	* plugins/sourceview/anjuta-document-saver.c:
+	* plugins/sourceview/anjuta-document-saver.h:
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/anjuta-utils.c:
+	* plugins/sourceview/anjuta-utils.h:
+	Deleted old (gedit) gnome-vfs stuff.
+	
+	* plugins/sourceview/sourceview.io.c
+	* plugins/sourceview/sourceview.io.h:
+	New helper class that takes care of file saving/loading
+	and is much smaller than the gnome-vfs stuff as many things are
+	handled by gio now.
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-view.c (anjuta_view_new),
+	(anjuta_view_cut_clipboard), (anjuta_view_paste_clipboard),
+	(anjuta_view_delete_selection), (anjuta_view_expose):
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c (sourceview_create_markers),
+	(sourceview_create_highligth_indic), (goto_line),
+	(on_document_modified_changed), (on_mark_set),
+	(on_reload_dialog_response), (on_file_changed), (on_open_failed),
+	(on_open_finish), (on_save_failed), (on_save_finish),
+	(sourceview_instance_init), (sourceview_dispose),
+	(sourceview_finalize), (sourceview_new), (ifile_open),
+	(ifile_get_file), (ifile_savable_save), (ifile_savable_save_as),
+	(ieditor_goto_line), (wordcharacters_contains),
+	(ieditor_get_current_word), (idocument_get_filename), (mark_real),
+	(autodetect_language), (ihover_iface_init):
+	Adapted to use the new IO class, clean up a bit
+
 2008-07-03  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/debug-manager/plugin.c (dma_plugin_location_changed):
@@ -8616,7 +8663,7 @@
 	Moved autocomplete() method away from IAnjutaEditorAssist into
 	a new deprecated IAnjutaEditorAutocomplete. This restores scintilla
 	autocomplete and does not crash with sourceview. Fixes Bug #449620
-	– The auto completion functionality not work. Also sets menuitem 
+	â The auto completion functionality not work. Also sets menuitem 
 	insensitive when hiding them.
 
 	* plugins/debug-manager/disassemble.c:
@@ -8678,7 +8725,7 @@
 	(on_profiling_options_button_clicked), (on_profiler_delete_data):
 	* plugins/profiler/profiler.glade: implements independent targets.
 	implements the ability to select arbitrary gmon.out files.
-	Fixes bug #403502 – User should also be allowed to select an
+	Fixes bug #403502 â User should also be allowed to select an
 	independent executable target.
 
 2007-06-20  Naba Kumar  <naba.kumar@gnome.org>
@@ -8708,7 +8755,7 @@
 	
 	* data/default.profile, plugins/message-view/plugin.c: Do not
 	restore session for messages.
-	Fixes bug #377461 – don't create new message window for each
+	Fixes bug #377461 â don't create new message window for each
 	build/find.
 
 	* plugins/profiler/plugin.c: Disconnect session signals on deactivate.
@@ -8717,10 +8764,10 @@
 2007-06-17  Naba Kumar  <naba@gnome.org>
 
 	* plugins/class-gen/anjuta-class-gen-plugin.glade: Do not translate
-	C keywords. Fixes bug #447655 – C keyword must NOT be localised.
+	C keywords. Fixes bug #447655 â C keyword must NOT be localised.
 
 	* plugins/file-loader/plugin.c: Fail on opening non existent files.
-	Bug #448034 – Anjuta crashes on starting (when the last project
+	Bug #448034 â Anjuta crashes on starting (when the last project
 	directory was deleted).
 
 	* plugins/document-manager/plugin.c: Set line markers for files
@@ -8731,7 +8778,7 @@
 
 	* plugins/sourceview/sourceview.glade: Set correct font
 	default value and use monospace instead of sans. Fixes
-	bug #448408 – crash in Anjuta IDE: Trying to change the
+	bug #448408 â crash in Anjuta IDE: Trying to change the
 	editor
 
 2007-06-16 Sebastien Granjoux <seb.sfo@free.fr>
@@ -8763,7 +8810,7 @@
 	if available for default font. Fixes bug #447304.
 
 	* plugins/sourceview/sourceview-prefs.c: Return value based
-	on right data type. Fixes Bug #438878 – Using gtksourceview editor
+	on right data type. Fixes Bug #438878 â Using gtksourceview editor
 	for the first time has black background
 	
 	* plugins/project-manager/plugin.c: Give a better error message

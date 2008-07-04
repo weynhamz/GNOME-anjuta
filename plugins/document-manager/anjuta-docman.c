@@ -30,9 +30,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 
 #include <gtk/gtkfilechooserdialog.h>
-#include <libgnomevfs/gnome-vfs.h>
-
-#include <gdl/gdl-icons.h>
 
 #include "anjuta-docman.h"
 #include "file_history.h"

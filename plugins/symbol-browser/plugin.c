@@ -839,8 +839,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	update_editor_symbol_model (sv_plugin);
 	
 	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
-	uri = g_file_get_uri (file);
-	g_object_unref (file);
+	uri = file ? g_file_get_uri (file) : NULL;
+	if (file)
+		g_object_unref (file);
 	if (g_hash_table_lookup (sv_plugin->editor_connected, editor) == NULL)
 	{
 		g_object_weak_ref (G_OBJECT (editor),

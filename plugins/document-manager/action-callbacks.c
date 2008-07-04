@@ -191,7 +191,13 @@ on_close_file_activate (GtkAction *action, gpointer user_data)
 		/* Prompt for unsaved data */
 		save_prompt = anjuta_save_prompt_new (GTK_WINDOW (parent));
 		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
-		uri = g_file_get_uri (file);
+		if (file)
+		{
+			uri = g_file_get_uri (file);
+			g_object_unref (file);
+		}
+		else
+			uri = NULL;
 		/* NULL uri ok */
 		anjuta_save_prompt_add_item (save_prompt,
 									 ianjuta_document_get_filename (doc, NULL),

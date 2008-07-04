@@ -59,14 +59,6 @@ libanjuta_sourceview_la_SOURCES = \
 	assist-window.c \
 	anjuta-view.h \
 	anjuta-view.c \
-	anjuta-document-loader.c \
-	anjuta-document-loader.h \
-	anjuta-document-saver.c \
-	anjuta-document-saver.h \
-	anjuta-document.c \
-	anjuta-document.h \
-	anjuta-utils.h \
-	anjuta-utils.c \
 	sourceview-prefs.h \
 	sourceview-prefs.c \
 	sourceview-private.h \
@@ -75,7 +67,9 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-print.h \
 	sourceview-print.c \
 	assist-tip.h \
-	assist-tip.c
+	assist-tip.c \
+	sourceview-io.h \
+	sourceview-io.c
 
 libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

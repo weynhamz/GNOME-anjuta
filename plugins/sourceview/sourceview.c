@@ -45,11 +45,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
 
-#include <libgnomevfs/gnome-vfs-init.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs.h>
-
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcelanguage.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
@@ -57,17 +52,15 @@
 #include <gtksourceview/gtksourceiter.h>
 
 #include "config.h"
-#include "anjuta-document.h"
 #include "anjuta-view.h"
 
 #include "sourceview.h"
+#include "sourceview-io.h"
 #include "sourceview-private.h"
 #include "sourceview-prefs.h"
 #include "sourceview-print.h"
 #include "sourceview-cell.h"
 #include "plugin.h"
-
-#define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 		 
 #define FORWARD 	0
 #define BACKWARD 	1
@@ -86,418 +79,11 @@ static void sourceview_dispose(GObject *object);
 
 static GObjectClass *parent_class = NULL;
 
-#if HAVE_TOOLTIP_API
 static gboolean on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 										  gboolean keyboard_tip, GtkTooltip *tooltip,
 										  gpointer data); 
-#endif
-static gboolean sourceview_add_monitor(Sourceview* sv);
 
-/* Callbacks */
-
-static void
-on_assist_window_destroyed (AssistWindow* window, Sourceview* sv)
-{
-	sv->priv->assist_win = NULL;
-}
-
-static void 
-on_assist_tip_destroyed (AssistTip* tip, Sourceview* sv)
-{
-	sv->priv->assist_tip = NULL;
-}
-
-static void 
-on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
-{
-	g_signal_emit_by_name(G_OBJECT(sv), "assist-chosen", num);
-}
-
-static void 
-on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
-{
-	if (sv->priv->assist_win)
-	{
-		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
-	}
-}
-
-static void on_insert_text (GtkTextBuffer* buffer, 
-							GtkTextIter* location,
-							char* text,
-							gint len,
-							Sourceview* sv)
-{
-	/* We only want ascii characters */
-	if (len > 1 || strlen(text) > 1)
-		return;
-	else
-	{
-		int offset = gtk_text_iter_get_offset (location);
-		SourceviewCell* cell = sourceview_cell_new (location, 
-													GTK_TEXT_VIEW(sv->priv->view));
-		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
-		g_signal_handlers_block_by_func (buffer, on_insert_text, sv);
-		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
-		g_signal_handlers_unblock_by_func (buffer, on_insert_text, sv);
-		/* Reset iterator */
-		gtk_text_buffer_get_iter_at_offset (buffer, location,
-											offset);
-	}
-}
-
-/* Called whenever the document is changed */
-static void on_document_modified_changed(AnjutaDocument* buffer, Sourceview* sv)
-{
-	/* Emit IAnjutaFileSavable signals */
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  !gtk_text_buffer_get_modified(GTK_TEXT_BUFFER(buffer)));
-}
-
-/* Called whenever the curser moves */
-static void on_cursor_moved(AnjutaDocument *widget,
-							 Sourceview* sv)
-{
-	/* Emit IAnjutaEditor signals */
-	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
-}
-
-/* Callback for dialog below */
-static void 
-on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
-{
-	if (res == GTK_RESPONSE_YES)
-	{
-		gchar* uri = anjuta_document_get_uri(sv->priv->document);
-		GFile* file = g_file_new_for_uri (uri);
-		ianjuta_file_open(IANJUTA_FILE(sv),
-						  file, NULL);
-		g_object_unref (file);
-		g_free (uri);
-	}
-	else
-	{
-		/* Set dirty */
-		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), TRUE);
-	}
-	gtk_widget_destroy (message_area);
-}
-
-/* Update Monitor on load/save */
-static void
-sourceview_remove_monitor(Sourceview* sv)
-{
-	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
-
-	if (monitor_enabled && sv->priv->monitor != NULL)
-	{
-		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
-		gnome_vfs_monitor_cancel(sv->priv->monitor);
-		sv->priv->monitor = NULL;
-	}
-}
-
-static gboolean
-on_sourceview_uri_changed_prompt (Sourceview* sv)
-{
-	GtkWidget *message_area;
-	IAnjutaDocumentManager *docman;
-	IAnjutaDocument *doc;
-	AnjutaShell *shell;
-	gchar *buff;
-	
-	g_print ("OK\n");
-	
-	buff =
-		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than "
-						  "the current buffer.\nDo you want to reload it?"),
-						 ianjuta_document_get_filename(IANJUTA_DOCUMENT(sv), NULL));
-
-	shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
-	docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-	if (!docman)
-  		return TRUE;
-  	doc = IANJUTA_DOCUMENT (sv);
-
-	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-									GTK_STOCK_REFRESH,
-									GTK_RESPONSE_YES);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-								    GTK_STOCK_CANCEL,
-									GTK_RESPONSE_NO);
-	g_free (buff);
-	
-	g_signal_connect (G_OBJECT(message_area), "response",
-					  G_CALLBACK (on_reload_dialog_response),
-					  sv);
-
-	/*g_signal_connect_swapped (G_OBJECT(message_area), "delete-event",
-					  G_CALLBACK (gtk_widget_destroy),
-					  dlg);*/
-					  
-	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
-	
-	return FALSE;
-}
-
-static void
-on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
-							const gchar *monitor_uri,
-							const gchar *info_uri,
-							GnomeVFSMonitorEventType event_type,
-							gpointer user_data)
-{
-	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
-	
-	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
-		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
-		return;
-	
-	if (!anjuta_util_diff (anjuta_document_get_uri(sv->priv->document), sv->priv->last_saved_content))
-	{
-		return;
-	}
-	
-	
-	if (strcmp (monitor_uri, info_uri) != 0)
-		return;
-	
-	on_sourceview_uri_changed_prompt(sv);	
-}
-
-static gboolean 
-sourceview_add_monitor(Sourceview* sv)
-{
-	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
-
-	if (monitor_enabled)
-	{
-		gchar* uri;
-		g_return_val_if_fail(sv->priv->monitor == NULL, FALSE);
-		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document));
-		uri = anjuta_document_get_uri(sv->priv->document);
-		gnome_vfs_monitor_add(&sv->priv->monitor, uri,
-							  GNOME_VFS_MONITOR_FILE,
-							  on_sourceview_uri_changed, sv);
-		g_free (uri);
-	}
-	return FALSE; /* for g_idle_add */
-}
-
-/* Called when document is loaded completly */
-static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
-{
-	const gchar *lang;
-	if (err)
-	{
-		anjuta_util_dialog_error(NULL,
-			 "Could not open file: %s", err->message);
-	}
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-    g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  TRUE);
-	
-	if (sv->priv->goto_line > 0)
-	{
-		anjuta_document_goto_line(doc, LOCATION_TO_LINE (sv->priv->goto_line));
-		sv->priv->goto_line = -1;
-	}
-	anjuta_view_scroll_to_cursor(sv->priv->view);
-	sv->priv->loading = FALSE;
-	
-	sourceview_add_monitor(sv);
-
-	/* Autodetect language */
-	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
-
-	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
-	g_signal_emit_by_name (sv, "language-changed", lang);
-	
-	/* Get rid of reference from ifile_open */
-	g_object_unref(G_OBJECT(sv));
-}
-
-/* Show nice progress bar */
-static void on_document_loading(AnjutaDocument    *document,
-					 GnomeVFSFileSize  size,
-					 GnomeVFSFileSize  total_size,
-					 Sourceview* sv)
-{
-	AnjutaShell* shell;
-	AnjutaStatus* status;
-
-	g_object_get(G_OBJECT(sv->priv->plugin), "shell", &shell, NULL);
-	status = anjuta_shell_get_status(shell, NULL);
-	
-	if (!sv->priv->loading)
-	{
-		gint procentage = 0;
-		if (size)
-			procentage = total_size/size;
-		anjuta_status_progress_add_ticks(status,procentage + 1);
-		sv->priv->loading = TRUE;
-	}
-	anjuta_status_progress_tick(status, NULL,  _("Loading"));
-}
-
-/* Show nice progress bar */
-static void on_document_saving(AnjutaDocument    *document,
-					 GnomeVFSFileSize  size,
-					 GnomeVFSFileSize  total_size,
-					 Sourceview* sv)
-{
-	AnjutaShell* shell;
-	AnjutaStatus* status;
-
-	g_object_get(G_OBJECT(sv->priv->plugin), "shell", &shell, NULL);
-	status = anjuta_shell_get_status(shell, NULL);
-	
-	if (!sv->priv->saving)
-	{
-		gint procentage = 0;
-		if (size)
-			procentage = total_size/size;
-		anjuta_status_progress_add_ticks(status,procentage + 1);
-		sv->priv->saving = TRUE;
-	}
-	anjuta_status_progress_tick(status, NULL, _("Saving..."));
-}
-
-static gboolean save_if_modified(AnjutaDocument* doc, GtkWindow* parent)
-{
-	GtkWidget* dialog = gtk_message_dialog_new(parent,
-    	GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, 
-    	_("The file %s was modified by another application. Save it anyway?"), anjuta_document_get_uri_for_display(doc));
-    int result = gtk_dialog_run(GTK_DIALOG(dialog));
-    gtk_widget_destroy(dialog);
-    switch (result)
-    {
-    	case GTK_RESPONSE_YES:
-    	{
-    		return TRUE;
-   		}
-   		default:
-   			return FALSE;
-   	}
-}
-
-/* Need to avoid crash when unref is done before add_monitor */
-static gboolean timeout_unref(Sourceview* sv)
-{
-	g_object_unref(G_OBJECT(sv));
-	return FALSE;
-}
-
-/* Called when document is saved completly */
-static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
-{
-	if (err)
-	{
-		switch(err->code)
-		{
-			case ANJUTA_DOCUMENT_ERROR_EXTERNALLY_MODIFIED:
-			{
-    			if (save_if_modified(doc, GTK_WINDOW(sv->priv->plugin->shell)))
-    			{
-    				anjuta_document_save(doc, ANJUTA_DOCUMENT_SAVE_IGNORE_MTIME);
-    			}
-    			break;
-			}
-			default:
-			{
-				anjuta_util_dialog_error(NULL,
-				 		"Could not save file %s: %s",anjuta_document_get_uri_for_display(doc),  err->message);
-				break;
-			}
-		}
-	}
-	else
-	{
-		const gchar* lang;
-		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-		g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
-		/* Set up 2 sec timer */
-		if (sv->priv->monitor_delay > 0)
- 			g_source_remove (sv->priv->monitor_delay);
-		sv->priv->monitor_delay = g_timeout_add (2000,
-							(GSourceFunc)sourceview_add_monitor, sv);
-		sv->priv->saving = FALSE;
-		/* Autodetect language */
-		ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
-		lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
-		g_signal_emit_by_name (sv, "language-changed", lang);
-	}
-	g_timeout_add(3000, (GSourceFunc)timeout_unref, sv);
-}
-
-static void 
-sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
-{
-	/* Hide assistance windows when scrolling vertically */
-
-	if (sv->priv->assist_win)
-		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_win));
-	if (sv->priv->assist_tip)
-		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
-}
-
-static void 
-sourceview_instance_init(Sourceview* sv)
-{
-	sv->priv = g_slice_new0 (SourceviewPrivate);
-}
-
-static void
-sourceview_class_init(SourceviewClass *klass)
-{
-	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	
-	parent_class = g_type_class_peek_parent(klass);
-	object_class->dispose = sourceview_dispose;
-	object_class->finalize = sourceview_finalize;
-	
-	/* Create signals here:
-	   sourceview_signals[SIGNAL_TYPE_EXAMPLE] = g_signal_new(...)
- 	*/
-}
-
-static void
-sourceview_dispose(GObject *object)
-{
-	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
-	GSList* node;
-	if (cobj->priv->assist_win)
-		on_assist_cancel(cobj->priv->assist_win, cobj);
-	if (cobj->priv->assist_tip)
-		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
-	
-	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
-	{
-		g_source_remove (GPOINTER_TO_UINT (node->data));
-	}
-	g_slist_free (cobj->priv->idle_sources);
-	
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
-sourceview_finalize(GObject *object)
-{
-	Sourceview *cobj;
-	cobj = ANJUTA_SOURCEVIEW(object);
-	
-	sourceview_remove_monitor(cobj);
-	sourceview_prefs_destroy(cobj);
-	
-	g_object_unref(cobj->priv->view);
-	
-	g_slice_free(SourceviewPrivate, cobj->priv);
-	G_OBJECT_CLASS(parent_class)->finalize(object);
-	DEBUG_PRINT("=========== finalise =============");
-}
-
+/* Utils */
 /* Sync with IANJUTA_MARKABLE_MARKER  */
 
 #define MARKER_PIXMAP_LINEMARKER "anjuta-linemark-16.png"
@@ -593,6 +179,357 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 									PANGO_UNDERLINE_ERROR, NULL);
 }
 
+static void
+goto_line (Sourceview* sv, gint line)
+{
+	GtkTextIter iter;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
+	
+	gtk_text_buffer_get_iter_at_line (buffer,
+									  &iter,
+									  line);
+	gtk_text_buffer_select_range (buffer, &iter, &iter);
+}
+
+/* Callbacks */
+
+static void
+on_assist_window_destroyed (AssistWindow* window, Sourceview* sv)
+{
+	sv->priv->assist_win = NULL;
+}
+
+static void 
+on_assist_tip_destroyed (AssistTip* tip, Sourceview* sv)
+{
+	sv->priv->assist_tip = NULL;
+}
+
+static void 
+on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "assist-chosen", num);
+}
+
+static void 
+on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
+{
+	if (sv->priv->assist_win)
+	{
+		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+	}
+}
+
+static void on_insert_text (GtkTextBuffer* buffer, 
+							GtkTextIter* location,
+							char* text,
+							gint len,
+							Sourceview* sv)
+{
+	/* We only want ascii characters */
+	if (len > 1 || strlen(text) > 1)
+		return;
+	else
+	{
+		int offset = gtk_text_iter_get_offset (location);
+		SourceviewCell* cell = sourceview_cell_new (location, 
+													GTK_TEXT_VIEW(sv->priv->view));
+		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
+		g_signal_handlers_block_by_func (buffer, on_insert_text, sv);
+		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
+		g_signal_handlers_unblock_by_func (buffer, on_insert_text, sv);
+		/* Reset iterator */
+		gtk_text_buffer_get_iter_at_offset (buffer, location,
+											offset);
+	}
+}
+
+/* Called whenever the document is changed */
+static void on_document_modified_changed(GtkTextBuffer* buffer, Sourceview* sv)
+{
+	/* Emit IAnjutaFileSavable signals */
+	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+						  !gtk_text_buffer_get_modified(buffer));
+}
+
+static void on_mark_set (GtkTextBuffer *buffer,
+						 GtkTextIter* location,
+						 GtkTextMark* mark,
+						 Sourceview* sv)
+{
+	/* Emit IAnjutaEditor signal */
+	if (mark == gtk_text_buffer_get_insert (buffer))
+		g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
+}
+
+/* Open / Save stuff */
+
+/* Callback for dialog below */
+static void 
+on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		GFile* file = sourceview_io_get_file (sv->priv->io);
+		ianjuta_file_open(IANJUTA_FILE(sv),
+						  file, NULL);
+		g_object_unref (file);
+	}
+	else
+	{
+		/* Set dirty */
+		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), TRUE);
+	}
+	gtk_widget_destroy (message_area);
+}
+
+static gboolean
+on_file_changed (SourceviewIO* sio, Sourceview* sv)
+{
+	GtkWidget *message_area;
+	IAnjutaDocumentManager *docman;
+	IAnjutaDocument *doc;
+	AnjutaShell *shell;
+	gchar *buff;
+	
+	gchar* filename = sourceview_io_get_filename (sio);
+	
+	buff =
+		g_strdup_printf (_
+						 ("The file '%s' on the disk is more recent than "
+						  "the current buffer.\nDo you want to reload it?"),
+						 filename);
+
+	g_free (filename);
+	
+	shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+	docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+	if (!docman)
+  		return TRUE;
+  	doc = IANJUTA_DOCUMENT (sv);
+
+	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_REFRESH,
+									GTK_RESPONSE_YES);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+								    GTK_STOCK_CANCEL,
+									GTK_RESPONSE_NO);
+	g_free (buff);
+	
+	g_signal_connect (G_OBJECT(message_area), "response",
+					  G_CALLBACK (on_reload_dialog_response),
+					  sv);
+
+	/*g_signal_connect_swapped (G_OBJECT(message_area), "delete-event",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dlg);*/
+					  
+	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
+	
+	return FALSE;
+}
+
+static void
+on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
+{
+	AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+	IAnjutaDocumentManager *docman = 
+		anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+	GtkWidget* message_area;
+	g_return_if_fail (docman != NULL);
+	
+	/* Could not open <filename>: <error message> */
+	gchar* message = g_strdup_printf (_("Could not open %s: %s"),
+									  sourceview_io_get_filename (sv->priv->io), 
+									  err->message);
+	message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_OK,
+									GTK_RESPONSE_OK);
+	g_free (message);
+	
+	g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+	
+	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
+											   message_area, NULL);
+	
+	sv->priv->loading = FALSE;
+	
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
+	
+	/* Get rid of reference from ifile_open */
+	g_object_unref(G_OBJECT(sv));
+}
+
+/* Called when document is loaded completly */
+static void 
+on_open_finish(SourceviewIO* io, Sourceview* sv)
+{
+	const gchar *lang;
+	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
+    g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+						  TRUE);
+	
+	sv->priv->loading = FALSE;
+	if (sv->priv->goto_line > 0)
+	{
+		goto_line (sv, sv->priv->goto_line);
+		sv->priv->goto_line = -1;
+	}
+	else
+		goto_line (sv, 0);
+	anjuta_view_scroll_to_cursor(sv->priv->view);
+	sv->priv->loading = FALSE;
+
+	/* Autodetect language */
+	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
+
+	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
+	g_signal_emit_by_name (sv, "language-changed", lang);
+
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
+	
+	/* Get rid of reference from ifile_open */
+	g_object_unref(G_OBJECT(sv));
+}
+
+static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
+{
+	AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+	IAnjutaDocumentManager *docman = 
+		anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+	GtkWidget* message_area;
+	g_return_if_fail (docman != NULL);
+	
+	/* Could not save <filename>: <error message> */
+	gchar* message = g_strdup_printf (_("Could not save %s: %s"),
+									  sourceview_io_get_filename (sio), 
+									  err->message);
+	message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_OK,
+									GTK_RESPONSE_OK);
+	g_free (message);
+	
+	g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+	
+	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
+											   message_area, NULL);
+	
+	g_object_unref (sv);
+}
+
+/* Called when document is saved completly */
+static void on_save_finish(SourceviewIO* sio, Sourceview* sv)
+{	
+	const gchar* lang;
+	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
+	g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
+	/* Autodetect language */
+	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
+	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
+	g_signal_emit_by_name (sv, "language-changed", lang);
+	g_object_unref (sv);
+}
+
+static void 
+sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
+{
+	/* Hide assistance windows when scrolling vertically */
+
+	if (sv->priv->assist_win)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_win));
+	if (sv->priv->assist_tip)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
+}
+
+/* Construction/Deconstruction */
+
+static void 
+sourceview_instance_init(Sourceview* sv)
+
+{	
+	sv->priv = g_slice_new0 (SourceviewPrivate);
+	sv->priv->io = sourceview_io_new (sv);
+	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
+	g_signal_connect (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
+					  sv);
+	g_signal_connect (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
+					  sv);
+	g_signal_connect (sv->priv->io, "save-finished", G_CALLBACK (on_save_finish),
+					  sv);
+	g_signal_connect (sv->priv->io, "save-failed", G_CALLBACK (on_save_failed),
+					  sv);
+	
+	/* Create buffer */
+	sv->priv->document = gtk_source_buffer_new(NULL);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed", 
+					 G_CALLBACK(on_document_modified_changed), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "mark-set", 
+					 G_CALLBACK(on_mark_set),sv);
+	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
+					  G_CALLBACK(on_insert_text), sv);
+					 
+	/* Create View instance */
+	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
+	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
+					  G_CALLBACK (on_sourceview_hover_over), sv);
+	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
+	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
+	
+	/* Create Markers */
+	sourceview_create_markers(sv);
+	/* Create Higlight Tag */
+	sourceview_create_highligth_indic(sv);
+}
+
+static void
+sourceview_class_init(SourceviewClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	
+	parent_class = g_type_class_peek_parent(klass);
+	object_class->dispose = sourceview_dispose;
+	object_class->finalize = sourceview_finalize;
+	
+	/* Create signals here:
+	   sourceview_signals[SIGNAL_TYPE_EXAMPLE] = g_signal_new(...)
+ 	*/
+}
+
+static void
+sourceview_dispose(GObject *object)
+{
+	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
+	GSList* node;
+	if (cobj->priv->assist_win)
+		on_assist_cancel(cobj->priv->assist_win, cobj);
+	if (cobj->priv->assist_tip)
+		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
+	g_object_unref (cobj->priv->io);
+	
+	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
+	{
+		g_source_remove (GPOINTER_TO_UINT (node->data));
+	}
+	g_slist_free (cobj->priv->idle_sources);
+
+	sourceview_prefs_destroy(cobj);
+	
+	G_OBJECT_CLASS (parent_class)->dispose (object);
+}
+
+static void
+sourceview_finalize(GObject *object)
+{
+	Sourceview *cobj;
+	cobj = ANJUTA_SOURCEVIEW(object);
+	
+	g_slice_free(SourceviewPrivate, cobj->priv);
+	G_OBJECT_CLASS(parent_class)->finalize(object);
+	DEBUG_PRINT("=========== finalise =============");
+}
 
 /* Create a new sourceview instance. If uri is valid,
 the file will be loaded in the buffer */
@@ -605,45 +542,12 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
-	/* Create buffer */
-	sv->priv->document = anjuta_document_new();
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed", 
-					 G_CALLBACK(on_document_modified_changed), sv);
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "cursor-moved", 
-					 G_CALLBACK(on_cursor_moved),sv);
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "loaded", 
-					 G_CALLBACK(on_document_loaded), sv);
-	g_signal_connect(G_OBJECT(sv->priv->document), "loading", 
-					 G_CALLBACK(on_document_loading), sv);				 
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "saved", 
-					 G_CALLBACK(on_document_saved), sv);
-	g_signal_connect(G_OBJECT(sv->priv->document), "saving", 
-					 G_CALLBACK(on_document_saving), sv);
-	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
-					  G_CALLBACK(on_insert_text), sv);
-					 
-	/* Create View instance */
-	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
-#if HAVE_TOOLTIP_API
-	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
-					  G_CALLBACK (on_sourceview_hover_over), sv);
-	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
-#endif
-	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
-	g_object_ref(sv->priv->view);
-	
-	/* VFS monitor */
-	sv->priv->last_saved_content = NULL;
-	
 	/* Apply Preferences */
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	sv->priv->prefs = anjuta_shell_get_preferences(shell, NULL);
 	sourceview_prefs_init(sv);
 	sv->priv->plugin = plugin;
 	
-	/* Create Markers */
-	sourceview_create_markers(sv);
-		
 	/* Add View */
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv),
 				      GTK_POLICY_AUTOMATIC,
@@ -658,11 +562,8 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 		ianjuta_file_open(IANJUTA_FILE(sv), file, NULL);
 	}
 	else if (filename != NULL && strlen(filename) > 0)
-		sv->priv->filename = g_strdup(filename);
-	
-	/* Create Higlight Tag */
-	sourceview_create_highligth_indic(sv);
-	
+		sourceview_io_set_filename (sv->priv->io, filename);
+		
 	DEBUG_PRINT("============ Creating new editor =============");
 	
 	g_signal_emit_by_name (G_OBJECT(sv), "update-ui");
@@ -677,11 +578,15 @@ static void
 ifile_open (IAnjutaFile* ifile, GFile* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
-	sourceview_remove_monitor(sv);
 	/* Hold a reference here to avoid a destroyed editor */
 	g_object_ref(G_OBJECT(sv));
-	anjuta_document_load(sv->priv->document, g_file_get_uri (file), NULL,
-						 -1, FALSE);
+	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(sv->priv->document),
+							  "",
+							  0);	
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view),
+								FALSE);
+	sv->priv->loading = TRUE;
+	sourceview_io_open (sv->priv->io, file);
 }
 
 /* Return the currently loaded uri */
@@ -690,10 +595,7 @@ static GFile*
 ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
-	gchar* uri = anjuta_document_get_uri(sv->priv->document);
-	GFile* ret_file = g_file_new_for_uri (uri);
-	g_free (uri);
-	return ret_file;
+	return sourceview_io_get_file (sv->priv->io);
 }
 
 /* IAnjutaFileSavable interface */
@@ -703,37 +605,19 @@ static void
 ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	sourceview_remove_monitor(sv);
 	
 	g_object_ref(G_OBJECT(sv));
-	anjuta_document_save(sv->priv->document, 0);
+	sourceview_io_save (sv->priv->io);
 }
 
 /* Save file as */
 static void 
 ifile_savable_save_as (IAnjutaFileSavable* ifile, GFile* file, GError** e)
 {
-	GtkTextIter start_iter;
-	GtkTextIter end_iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
-	sourceview_remove_monitor(sv);
-	gchar* uri = g_file_get_uri (file);
-	gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER(sv->priv->document),
-								&start_iter, &end_iter);
-	g_free(sv->priv->last_saved_content);
-	sv->priv->last_saved_content = gtk_text_buffer_get_slice (
-															  GTK_TEXT_BUFFER(sv->priv->document),
-															  &start_iter, &end_iter, TRUE);
+
 	g_object_ref(G_OBJECT(sv));
-	anjuta_document_save_as(sv->priv->document, 
-							uri, anjuta_encoding_get_current(), 0);
-	if (sv->priv->filename)
-	{
-		g_free(sv->priv->filename);
-		sv->priv->filename = NULL;
-	}
-	
-	g_free (uri);
+	sourceview_io_save_as (sv->priv->io, file);
 }
 
 static void 
@@ -815,7 +699,7 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 
 	if (!sv->priv->loading)
 	{
-		anjuta_document_goto_line(sv->priv->document, LOCATION_TO_LINE (line));
+		goto_line(sv, LOCATION_TO_LINE (line));
 		anjuta_view_scroll_to_cursor(sv->priv->view);
 		gtk_widget_grab_focus (GTK_WIDGET (sv->priv->view));
 	}
@@ -932,11 +816,63 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 	return length;
 }
 
+static gboolean
+wordcharacters_contains (gchar c)
+{
+	const gchar* wordcharacters =
+		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	gint pos;
+	
+	for (pos = 0; pos < strlen(wordcharacters); pos++)
+	{
+		if (wordcharacters[pos] == c)
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 /* Return word on cursor position */
 static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return anjuta_document_get_current_word(sv->priv->document, FALSE);
+	GtkTextIter begin;
+	GtkTextIter end;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	gchar* region;
+	gchar* word;
+	gint startword;
+	gint endword;
+	int cplen;
+	const int maxlength = 100;
+	
+	gtk_text_buffer_get_iter_at_mark (buffer, &begin, 
+									  gtk_text_buffer_get_insert(buffer));
+	gtk_text_buffer_get_iter_at_mark (buffer, &end, 
+									  gtk_text_buffer_get_insert(buffer));
+	startword = gtk_text_iter_get_line_offset (&begin);	
+	endword = gtk_text_iter_get_line_offset (&end);
+	
+	gtk_text_iter_set_line_offset (&begin, 0);
+	gtk_text_iter_forward_to_line_end (&end);
+	
+	region = gtk_text_buffer_get_text (buffer, &begin, &end, FALSE);
+	
+	while (startword> 0 && wordcharacters_contains(region[startword - 1]))
+		startword--;
+	while (region[endword] && wordcharacters_contains(region[endword]))
+		endword++;
+	if(startword == endword)
+		return NULL;
+	
+	region[endword] = '\0';
+	cplen = (maxlength < (endword-startword+1))?maxlength:(endword-startword+1);
+	word = g_strndup (region + startword, cplen);
+	
+	g_free(region);
+	
+	return word;
 }
 
 /* Insert text at position */
@@ -1210,9 +1146,7 @@ static void idocument_grab_focus (IAnjutaDocument *editor, GError **e)
 static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	if (sv->priv->filename == NULL)
-		sv->priv->filename = anjuta_document_get_short_name_for_display(sv->priv->document);
-	return sv->priv->filename;
+	return sourceview_io_get_filename (sv->priv->io);
 }
 
 static void 
@@ -1533,9 +1467,9 @@ static gboolean mark_real (gpointer data)
 	IAnjutaMarkableMarker marker = svmark->marker;
 	gchar* name;
 	
-	if (sv->priv->loading || sv->priv->saving)
+	if (sv->priv->loading)
 	{
-		/* Wait until loading/saving is finished */
+		/* Wait until loading is finished */
 		return TRUE;
 	}
 	
@@ -1906,20 +1840,14 @@ ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
 static const gchar*
 autodetect_language (Sourceview* sv)
 {
-	const gchar* uri = anjuta_document_get_uri (sv->priv->document);
-	const gchar* vfs_mime_type = gnome_vfs_get_slow_mime_type (uri);
 	GStrv languages;
 	GStrv cur_lang;
 	const gchar* detected_language = NULL;
 	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
 							&languages, NULL);
-	if (!vfs_mime_type)
-	{
-		vfs_mime_type = 
-			gnome_vfs_get_mime_type_for_name (ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv),
-																			 NULL));
-	}
-	if (!vfs_mime_type)
+	gchar* io_mime_type = sourceview_io_get_mime_type (sv->priv->io);
+	
+	if (!io_mime_type)
 		return NULL;
 	
 	for (cur_lang = languages; *cur_lang != NULL; cur_lang++)
@@ -1933,7 +1861,7 @@ autodetect_language (Sourceview* sv)
 		GStrv mime_type;
 		for (mime_type = mime_types; *mime_type != NULL; mime_type++)
 		{
-			if (g_str_equal (*mime_type, vfs_mime_type))
+			if (g_str_equal (*mime_type, io_mime_type))
 			{
 				detected_language = gtk_source_language_get_id (language);				
 				g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
@@ -1947,6 +1875,7 @@ autodetect_language (Sourceview* sv)
 	}
 	out:
 		g_strfreev(languages);
+		g_free (io_mime_type);
 	
 	return detected_language;
 }
@@ -2255,7 +2184,6 @@ isearch_iface_init(IAnjutaEditorSearchIface* iface)
 }
 
 /* IAnjutaHover */
-#if HAVE_TOOLTIP_API
 static void
 on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
 {
@@ -2318,7 +2246,6 @@ ihover_iface_init(IAnjutaEditorHoverIface* iface)
 {
 	iface->display = ihover_display;
 }
-#endif
 
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
@@ -2334,7 +2261,5 @@ ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
-#if HAVE_TOOLTIP_API
 ANJUTA_TYPE_ADD_INTERFACE(ihover, IANJUTA_TYPE_EDITOR_HOVER);
-#endif
 ANJUTA_TYPE_END;

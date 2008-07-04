@@ -18,11 +18,11 @@
 #define SOURCEVIEW_PRIVATE_H
 
 #include "anjuta-view.h"
-#include "anjuta-document.h"
 
 #include "assist-window.h"
 #include "assist-tip.h"
 #include "sourceview-cell.h"
+#include "sourceview-io.h"
 
 #include <libanjuta/anjuta-plugin.h>
 #include <glib.h>
@@ -32,20 +32,15 @@ struct SourceviewPrivate {
 	AnjutaView* view;
 	
 	/* GtkSourceBuffer */
-	AnjutaDocument* document;
-	
-	/* Filename */
-	gchar* filename;
+	GtkSourceBuffer* document;
 	
 	/* Highlight Tag */
 	GtkTextTag *important_indic;
 	GtkTextTag *warning_indic;
 	GtkTextTag *critical_indic;
 	
-	/* VFS Monitor */
-	GnomeVFSMonitorHandle* monitor;
-	gchar* last_saved_content;
-	gboolean monitor_delay;
+	/* IO */
+	SourceviewIO* io;
 	
 	/* Preferences */
 	AnjutaPreferences* prefs;
@@ -60,7 +55,6 @@ struct SourceviewPrivate {
 	
 	/* Goto line hack */
 	gboolean loading;
-	gboolean saving;
 	gint goto_line;
 	
 	/* Idle marking */

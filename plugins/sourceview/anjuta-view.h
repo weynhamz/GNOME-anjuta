@@ -33,7 +33,6 @@
 
 #include <gtk/gtk.h>
 
-#include "anjuta-document.h"
 #include "sourceview.h"
 #include <gtksourceview/gtksourceview.h>
 
@@ -74,7 +73,7 @@ struct _AnjutaViewClass
 {
 	GtkSourceViewClass parent_class;
 	
-	void (* char_added)  		(AnjutaDocument    *document,
+	void (* char_added)  		(GtkTextBuffer    *document,
 								 gint position,
 								 gchar character);
 };
