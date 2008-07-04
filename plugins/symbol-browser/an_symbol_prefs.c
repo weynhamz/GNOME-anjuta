@@ -485,7 +485,7 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		/* Execute anjuta-tags to create tags for the given files */
 		if ((pid = fork()) == 0)
 		{
-			execvp (g_build_filename (PACKAGE_DATA_DIR, "scripts",
+			execvp (g_build_filename (PACKAGE_LIB_DIR,
 									  "anjuta-tags", NULL), argv);
 			perror ("Could not execute anjuta-tags");
 		}

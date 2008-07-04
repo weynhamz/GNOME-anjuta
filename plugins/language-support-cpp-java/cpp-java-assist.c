@@ -363,7 +363,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										pre_word, TRUE, FALSE, FALSE, max_completions, -1, NULL);
-
+	
 	IAnjutaIterable* iter_globals = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
@@ -382,7 +382,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 	{
 		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 2");
 		completion = create_completion (assist->priv->iassist, iter_globals, completion);
-		g_object_unref (iter_globals);		
+		g_object_unref (iter_globals);
 	}
 	
 	editor_completions = ianjuta_editor_assist_get_suggestions (assist->priv->iassist,

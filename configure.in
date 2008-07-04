@@ -557,7 +557,7 @@ contains the function bfd_get_section_size_before_reloc])
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
+LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)

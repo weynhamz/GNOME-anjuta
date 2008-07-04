@@ -1,5 +1,16 @@
 2008-07-04  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from Arun Chaganty:
+	* configure.in:
+	* plugins/symbol-browser/an_symbol_prefs.c
+	(on_create_tags_clicked):
+	#515954 – create_global_tags.sh: wrong anjuta-tags path
+
+	* global-tags/create_global_tags.sh.in:
+	Use #!/bin/bash instead of #!/bin/sh as the script does not work with dash
+
+2008-07-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c (on_editor_saved):
 	* plugins/symbol-browser/plugin.c (on_editor_saved):
 	* plugins/symbol-db/plugin.c (on_editor_saved):
