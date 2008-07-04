@@ -419,7 +419,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		anjuta_preferences_set (sv_plugin->prefs, SYMBOL_BROWSER_TAGS, str->str);
 		g_string_free (str, TRUE);
 		g_free (dirname);
-		symbol_browser_load_global_tags (plugin);
 	}
 }	   
 
