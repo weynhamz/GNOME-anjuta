@@ -1002,6 +1002,8 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		if (page == docman->priv->cur_page)
 			docman->priv->cur_page = NULL;
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
+		if (!g_list_length (docman->priv->pages))
+				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
 		g_free (page);
 	}
 	anjuta_docman_update_documents_menu(docman);
@@ -1166,9 +1168,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		docman->priv->current_document = NULL;
 		docman->priv->cur_page = NULL;
 	}
-
-	if (doc == NULL || page != NULL)
-		g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, doc);
+	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, doc);
 }
 
 void

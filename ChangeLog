@@ -1,5 +1,19 @@
 2008-07-05  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/action-callbacks.c
+	(on_close_file_activate):
+	fixed memory corruption (thanks to yura_dev)
+	
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_remove_document),
+	(anjuta_docman_set_current_document):
+	#535173 – UI isn't updated on closing all documents
+	
+	* plugins/file-loader/plugin.c (create_file_open_dialog_gui):
+	#511762 – Multiple selection don't work well when hitting enter
+
+2008-07-05  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/interfaces/libanjuta.idl:
 	* plugins/document-manager/action-callbacks.c
 	(on_close_file_activate):
@@ -6394,7 +6408,7 @@
 	* plugins/document-manager/plugin.c: (ui_give_shorter_names),
 	(on_window_key_press_event), (on_gconf_notify_timer):
 	
-	484645 – patch to deal with docman FIXME etc
+	484645 â patch to deal with docman FIXME etc
 	
 	* plugins/editor/text_editor.c: (text_editor_set_indicator):
 	* plugins/search/search-replace.c: (search_and_replace),
@@ -6407,7 +6421,7 @@
 	(clear_search_replace_instance):
 	* plugins/search/search-replace_backend.h:
 	
-	#484573 – patch to correct various search-related issues
+	#484573 â patch to correct various search-related issues
 	
 	Thanks for the above patches to <tpgww@onepost.net>
 	
@@ -6437,8 +6451,8 @@
 	* plugins/search/search-replace.c:
 	* plugins/valgrind/preferences.c: (build_general_prefs):
 	
-	Fix #484379 – Contents of Makefile.am plugins and
-	#484419 – Improvement into translation
+	Fix #484379 â Contents of Makefile.am plugins and
+	#484419 â Improvement into translation
 
 2007-10-06  Johannes Schmid <jhs@gnome.org>
 
@@ -6484,9 +6498,9 @@
 	replace the crappy EggToolbar entries. Uses the new search interface and
 	it thus much faster and more reliable.
 	Fixes: 
-	Bug 357544 – incremental search should work consistently (or not at all) 
+	Bug 357544 â incremental search should work consistently (or not at all) 
 	when main toolbar is hidden
-	Bug 440637 – Search, don't work very well (partly for incremental search)
+	Bug 440637 â Search, don't work very well (partly for incremental search)
 	
 	* plugins/search/anjuta-search.ui:
 	* plugins/search/plugin.c: (activate_plugin):
@@ -18945,7 +18959,7 @@
 
  	* src/anjuta.c: Hide anjuta window before destruction.
  
-	Patch from Sébastien Granjoux  <seb.sfo@free.fr>:
+	Patch from SÃ©bastien Granjoux  <seb.sfo@free.fr>:
 	* configure.in, plugins/Makefile.am,
 	(removed) plugins/project-wizard/appwiz_page1.c,
 	(removed) plugins/project-wizard/appwiz_page2.c,
@@ -18984,7 +18998,7 @@
 	(added) plugins/project-wizard/property.c,
 	(added) plugins/project-wizard/property.h: Removed old application-wizard
 	codes and added new template based (autogen based) project wizard
-	implemented by Sébastien Granjoux  <seb.sfo@free.fr>
+	implemented by SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 2005-01-01  Johannes Schmid <jhs@cvs.gnome.org>
 
@@ -19013,7 +19027,7 @@
 
 2004-12-30  Naba Kumar  <naba@gnome.org>
 
-	patch from: Massimo Corà  <maxcvs@email.it>
+	patch from: Massimo CorÃ   <maxcvs@email.it>
 	* plugins/editor/aneditor.cxx: Highlights correct function
 	argument in recursive calltips.
 
@@ -19100,7 +19114,7 @@
 
 2004-12-20  Naba Kumar  <naba@gnome.org>
 
-	patch from: Massimo Corà  <maxcvs@email.it>
+	patch from: Massimo CorÃ   <maxcvs@email.it>
 	* plugins/editor/aneditor.cxx: Added recursive calltips.
 
 2004-12-20  Naba Kumar  <naba@gnome.org>

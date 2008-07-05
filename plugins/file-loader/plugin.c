@@ -546,6 +546,9 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 									NULL);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
+	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
+	gtk_window_set_destroy_with_parent (GTK_WINDOW(dialog), TRUE);
+	
 	setup_file_filters (GTK_FILE_CHOOSER (dialog));
 	
 	g_signal_connect(G_OBJECT(dialog), "response", 
