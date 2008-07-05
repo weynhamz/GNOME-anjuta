@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-13 23:03+0000\n"
-"PO-Revision-Date: 2008-06-15 13:22+0200\n"
+"POT-Creation-Date: 2008-06-28 19:36+0000\n"
+"PO-Revision-Date: 2008-07-04 15:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,14 +182,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1167 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1170
+#: ../libanjuta/anjuta-launcher.c:1168
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -458,19 +458,19 @@ msgstr ""
 "cerrar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:855
+#: ../libanjuta/anjuta-ui.c:848
 msgid "Action"
 msgstr "Acción"
 
-#: ../libanjuta/anjuta-ui.c:873
+#: ../libanjuta/anjuta-ui.c:866
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:884
+#: ../libanjuta/anjuta-ui.c:877
 msgid "Sensitive"
 msgstr "Distinguir mayúsculas"
 
-#: ../libanjuta/anjuta-ui.c:893
+#: ../libanjuta/anjuta-ui.c:886
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
@@ -518,19 +518,19 @@ msgstr ""
 "No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación "
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:219
+#: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
 msgstr "Texto"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:220
+#: ../libanjuta/cell-renderer-captioned-image.c:219
 msgid "Text to render"
 msgstr "Texto a renderizar"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:226
+#: ../libanjuta/cell-renderer-captioned-image.c:225
 msgid "Pixbuf Object"
 msgstr "Objeto Pixbuf"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:227
+#: ../libanjuta/cell-renderer-captioned-image.c:226
 msgid "The pixbuf to render."
 msgstr "El pixbuf a renderizar."
 
@@ -2492,27 +2492,27 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../plugins/document-manager/anjuta-docman.c:388
-#: ../plugins/document-manager/anjuta-docman.c:392
+#: ../plugins/document-manager/anjuta-docman.c:365
+#: ../plugins/document-manager/anjuta-docman.c:369
 msgid "Close file"
 msgstr "Cerrar archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:453
+#: ../plugins/document-manager/anjuta-docman.c:430
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/document-manager/anjuta-docman.c:575
+#: ../plugins/document-manager/anjuta-docman.c:552
 #: ../plugins/file-loader/plugin.c:530 ../plugins/file-loader/plugin.c:796
 #: ../plugins/file-loader/plugin.c:806 ../plugins/file-loader/plugin.c:819
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:594
+#: ../plugins/document-manager/anjuta-docman.c:571
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:650
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2522,7 +2522,7 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:681
+#: ../plugins/document-manager/anjuta-docman.c:658
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplazar"
@@ -2844,7 +2844,7 @@ msgstr "Repetir la búsqueda rápida"
 
 #: ../plugins/document-manager/plugin.c:285 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1714
+#: ../plugins/language-support-cpp-java/plugin.c:1722
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3809,6 +3809,10 @@ msgstr "Abrir _con"
 msgid "Open with"
 msgstr "Abrir con"
 
+#: ../plugins/file-loader/plugin.c:1085
+msgid "Loaded:"
+msgstr "Cargado:"
+
 #: ../plugins/file-loader/plugin.c:1163 ../plugins/file-loader/plugin.c:1169
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
@@ -3867,7 +3871,7 @@ msgstr "No mostrar los archivos ocultos"
 msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:85
+#: ../plugins/file-manager/file-model.c:82
 #: ../plugins/symbol-browser/an_symbol_view.c:873
 msgid "Loading..."
 msgstr "Cargando…"
@@ -3892,15 +3896,16 @@ msgstr "_Renombrar"
 msgid "Rename file or directory"
 msgstr "Renombrar el archivo o directorio"
 
-#: ../plugins/file-manager/plugin.c:214
+#: ../plugins/file-manager/plugin.c:217
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:247
+#: ../plugins/file-manager/plugin.c:250
 msgid "Files"
 msgstr "Archivos"
 
-#: ../plugins/file-manager/plugin.c:370 ../plugins/file-manager/plugin.c:379
+#: ../plugins/file-manager/plugin.c:373 ../plugins/file-manager/plugin.c:382
+#: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -4621,6 +4626,10 @@ msgstr "Macros de Anjuta"
 msgid "My macros"
 msgstr "Mis macros"
 
+#: ../plugins/macro/macro-dialog.c:264
+msgid "Insert"
+msgstr "Insertar"
+
 #: ../plugins/macro/macro-dialog.c:267
 msgid "Insert macro"
 msgstr "Insertar macro"
@@ -4799,7 +4808,7 @@ msgstr "Archivo parche"
 msgid "Patches"
 msgstr "Parches"
 
-#: ../plugins/patch/patch-plugin.c:159
+#: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
 msgstr "Parchear"
 
@@ -4834,6 +4843,18 @@ msgstr ""
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Dry run"
 msgstr "Ejecución en seco"
+
+#: ../plugins/patch/patch-plugin.glade.h:2
+msgid "File/Directory to patch:"
+msgstr "Archivo/Directorio para parchear:"
+
+#: ../plugins/patch/patch-plugin.glade.h:4
+msgid "Patch file:"
+msgstr "Archivo parche:"
+
+#: ../plugins/patch/patch-plugin.glade.h:5
+msgid "Patch level:"
+msgstr "Nivel del parche:"
 
 #. Action name
 #. Stock icon, if any
@@ -5973,6 +5994,24 @@ msgstr "Operaciones de archivo de ejemplo"
 msgid "SamplePlugin"
 msgstr "Complemento de ejemplo"
 
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:1
+msgid "<b>Scratchbox Options</b>\n"
+msgstr "<b>Opciones del Scratchbox</b>\n"
+
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:3
+msgid "Scratchbox directory:"
+msgstr "Directorio Scratchbox:"
+
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
+msgid "Sélectionner un dossier"
+msgstr "Seleccionar una carpeta"
+
+#: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
+msgid "Scratchbox"
+msgstr "Scratchbox"
+
+#. Public functions
+#. *---------------------------------------------------------------------------
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "<b>Actions</b>"
 msgstr "<b>Acciones</b>"
@@ -8120,30 +8159,30 @@ msgstr "Sangrado inteligente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1720
+#: ../plugins/language-support-cpp-java/plugin.c:1728
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1721
+#: ../plugins/language-support-cpp-java/plugin.c:1729
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1727
+#: ../plugins/language-support-cpp-java/plugin.c:1735
 msgid "Auto Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1728
+#: ../plugins/language-support-cpp-java/plugin.c:1736
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1770
+#: ../plugins/language-support-cpp-java/plugin.c:1778
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1858
-#: ../plugins/language-support-cpp-java/plugin.c:1867
+#: ../plugins/language-support-cpp-java/plugin.c:1866
+#: ../plugins/language-support-cpp-java/plugin.c:1875
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8178,6 +8217,10 @@ msgstr "Complemento del asistente de archivos de Anjuta"
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
 msgstr "Asistente de archivos"
+
+#: ../plugins/file-manager/file-manager.plugin.in.h:2
+msgid "File manager for project and single files"
+msgstr "Gestor de archivos para proyectos y archivos"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
@@ -8372,4 +8415,12 @@ msgstr "Permitir ejecutar el programa sin el depurador."
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
 msgstr "Ejecutar programa"
+
+#: ../plugins/language-manager/language-manager.plugin.in.h:1
+msgid "Language Manager"
+msgstr "Gestor de lenguajes"
+
+#: ../plugins/language-manager/language-manager.plugin.in.h:2
+msgid "Plugin to keep track of multiple programming languages"
+msgstr "Complemento para mantener el seguimiento de los múltiples lenguajes de programación"
 
