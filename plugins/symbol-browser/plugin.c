@@ -400,18 +400,23 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	/* Load from project */
 	if (anjuta_preferences_get_int (sv_plugin->prefs,
 											"symbol_browser.tags_auto_load"))
-	{
+	{		
+		gchar* pref_symbols = anjuta_preferences_get (sv_plugin->prefs, SYMBOL_BROWSER_TAGS);
 		gchar* dirname = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
 		GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
 		GList* node;
-		GString* str = g_string_new ("");
+		GString* str = g_string_new (pref_symbols);
+		g_free (pref_symbols);
 		for (node = packages; node != NULL; node = g_list_next (node))
 		{
 			gchar* pathname = g_build_filename (dirname, node->data, NULL);
-			if (str->len)
-				g_string_append_c (str, ':');
-			g_string_append (str, pathname);
-			g_string_append (str, ".anjutatags.gz");
+			if (!strstr (str->str, pathname))
+			{
+				if (str->len)
+					g_string_append_c (str, ':');
+				g_string_append (str, pathname);
+				g_string_append (str, ".anjutatags.gz");
+			}
 			g_free (pathname);
 		}
 		g_list_foreach (packages, (GFunc) g_free, NULL);

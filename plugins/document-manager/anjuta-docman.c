@@ -1372,6 +1372,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	GFile* file;
 	const gchar* doc_filename;
 	gchar* dirty_char;
+	gchar* read_only;
 	gchar* label;
 	
 	if (doc == NULL)
@@ -1389,12 +1390,20 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	{
 		dirty_char = "*";
 	}
+	if (ianjuta_file_savable_is_read_only (IANJUTA_FILE_SAVABLE (doc), NULL))
+	{
+		read_only = _("[read-only]");
+	}
+	else
+	{
+		read_only = "";
+	}
 	
 	file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 	if (file)
 	{
 		basename = g_file_get_basename (file);
-		label = g_strconcat(dirty_char, basename, NULL);
+		label = g_strconcat(dirty_char, basename, read_only, NULL);
 		gtk_label_set_text (GTK_LABEL (page->label), label);
 		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
 		g_free (label);
@@ -1403,7 +1412,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	}
 	else if ((doc_filename = ianjuta_document_get_filename (doc, NULL)) != NULL)
 	{
-		label = g_strconcat (dirty_char, doc_filename, NULL);
+		label = g_strconcat (dirty_char, doc_filename, read_only, NULL);
 		gtk_label_set_text (GTK_LABEL (page->label), label);
 		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
 		g_free (label);

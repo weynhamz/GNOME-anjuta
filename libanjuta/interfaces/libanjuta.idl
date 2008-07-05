@@ -131,6 +131,18 @@ interface IAnjutaFile
 		 * Return value: TRUE if dirty, FALSE otherwise.
 		 */
 		gboolean is_dirty ();
+		
+		/**
+		 * ianjuta_file_savable_is_read_only:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Return is the file is read-only
+		 *
+		 * Return value: TRUE if read-only, FALSE otherwise.
+		 */
+		gboolean is_read_only ();
+
 	}
 }
 

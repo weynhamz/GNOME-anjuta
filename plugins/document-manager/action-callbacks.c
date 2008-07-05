@@ -204,7 +204,7 @@ on_close_file_activate (GtkAction *action, gpointer user_data)
 									 uri, doc, on_save_prompt_save_editor,
 									 docman);
 		g_free (uri);
-		g_free (file);
+		g_object_unref (file);
 		
 		switch (gtk_dialog_run (GTK_DIALOG (save_prompt)))
 		{

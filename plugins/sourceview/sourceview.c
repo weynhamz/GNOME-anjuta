@@ -319,12 +319,7 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 	
 	g_signal_connect (G_OBJECT(message_area), "response",
 					  G_CALLBACK (on_reload_dialog_response),
-					  sv);
-
-	/*g_signal_connect_swapped (G_OBJECT(message_area), "delete-event",
-					  G_CALLBACK (gtk_widget_destroy),
-					  dlg);*/
-					  
+					  sv);					  
 	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
 	
 	return FALSE;
@@ -362,12 +357,60 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 	g_object_unref(G_OBJECT(sv));
 }
 
+static void
+on_read_only_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view),
+									TRUE);
+		sv->priv->read_only = FALSE;
+		g_signal_emit_by_name (sv, "save-point", TRUE);
+	}
+	gtk_widget_destroy (message_area);
+}
+
 /* Called when document is loaded completly */
 static void 
 on_open_finish(SourceviewIO* io, Sourceview* sv)
 {
 	const gchar *lang;
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
+	
+	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);		
+	
+	if (sourceview_io_get_read_only (io))
+	{
+		AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+		IAnjutaDocumentManager* docman = 
+			anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+		g_return_if_fail (docman != NULL);
+		IAnjutaDocument* doc = IANJUTA_DOCUMENT (sv);
+		gchar* filename = sourceview_io_get_filename (io);
+		gchar* buff = g_strdup_printf ("The file '%s' is read-only! Edit anyway?",
+									   filename);
+		GtkWidget* message_area;
+		g_free (filename);
+		
+		message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+										GTK_STOCK_YES,
+										GTK_RESPONSE_YES);
+		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+										GTK_STOCK_NO,
+										GTK_RESPONSE_NO);
+		g_free (buff);
+		
+		g_signal_connect (G_OBJECT(message_area), "response",
+						  G_CALLBACK (on_read_only_dialog_response),
+						  sv);
+		
+		sv->priv->read_only = TRUE;
+		
+		ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
+	}
+	else
+		gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
+
     g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
 	
@@ -387,8 +430,6 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
-
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
 	
 	/* Get rid of reference from ifile_open */
 	g_object_unref(G_OBJECT(sv));
@@ -426,6 +467,7 @@ static void on_save_finish(SourceviewIO* sio, Sourceview* sv)
 	const gchar* lang;
 	GFile* file = sourceview_io_get_file(sio);
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
+	sv->priv->read_only = FALSE;
 	g_signal_emit_by_name(G_OBJECT(sv), "saved", file);
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
 	g_object_unref (file);
@@ -638,6 +680,13 @@ ifile_savable_is_dirty (IAnjutaFileSavable* file, GError** e)
 	return gtk_text_buffer_get_modified(GTK_TEXT_BUFFER(sv->priv->document));
 }
 
+static gboolean
+ifile_savable_is_read_only (IAnjutaFileSavable* file, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (file);
+	return sv->priv->read_only;
+}
+
 static void
 isavable_iface_init (IAnjutaFileSavableIface *iface)
 {
@@ -645,6 +694,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 	iface->save_as = ifile_savable_save_as;
 	iface->set_dirty = ifile_savable_set_dirty;
 	iface->is_dirty = ifile_savable_is_dirty;
+	iface->is_read_only = ifile_savable_is_read_only;
 }
 
 static void
@@ -1156,6 +1206,7 @@ static void
 idocument_cut(IAnjutaDocument* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	
 	g_signal_handlers_block_by_func (sv->priv->document, on_insert_text, sv);
 	anjuta_view_cut_clipboard(sv->priv->view);
 	g_signal_handlers_unblock_by_func (sv->priv->document, on_insert_text, sv);

@@ -71,6 +71,7 @@ GFile* sourceview_io_get_file (SourceviewIO* sio);
 gchar* sourceview_io_get_filename (SourceviewIO* sio);
 void sourceview_io_set_filename (SourceviewIO* sio, const gchar* filename);
 gchar* sourceview_io_get_mime_type (SourceviewIO* sio);
+gboolean sourceview_io_get_read_only (SourceviewIO* sio);
 SourceviewIO* sourceview_io_new (Sourceview* sv);
 
 G_END_DECLS

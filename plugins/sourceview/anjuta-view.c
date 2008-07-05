@@ -397,6 +397,9 @@ anjuta_view_cut_clipboard (AnjutaView *view)
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	g_return_if_fail (buffer != NULL);
 
+	if (!gtk_text_view_get_editable (GTK_TEXT_VIEW(view)))
+		return;
+	
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (view),
 					      GDK_SELECTION_CLIPBOARD);
 

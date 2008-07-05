@@ -2728,6 +2728,12 @@ isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 	/* DEBUG_PRINT("set_dirty: Not implemented in EditorPlugin"); */
 }
 
+static gboolean
+isavable_is_read_only (IAnjutaFileSavable* savable, GError** e)
+{
+	/* FIXME */
+	return FALSE;
+}
 
 static void
 isavable_iface_init (IAnjutaFileSavableIface *iface)
@@ -2736,6 +2742,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 	iface->save_as = isavable_save_as;
 	iface->set_dirty = isavable_set_dirty;
 	iface->is_dirty = isavable_is_dirty;
+	iface->is_read_only = isavable_is_read_only;
 }
 
 static void

@@ -41,6 +41,7 @@ struct SourceviewPrivate {
 	
 	/* IO */
 	SourceviewIO* io;
+	gboolean read_only;
 	
 	/* Preferences */
 	AnjutaPreferences* prefs;

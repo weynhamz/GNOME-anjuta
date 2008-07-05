@@ -1,5 +1,30 @@
 2008-07-05  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c
+	(on_close_file_activate):
+	Fixed a crasher due to g_free vs. g_object_unref
+	
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_update_page_label):
+	* plugins/editor/text_editor.c (isavable_is_read_only),
+	(isavable_iface_init):
+	* plugins/glade/anjuta-design-document.c:
+	* plugins/sourceview/anjuta-view.c (anjuta_view_cut_clipboard):
+	* plugins/sourceview/sourceview-io.c (sourceview_io_get_read_only):
+	* plugins/sourceview/sourceview-io.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c (on_file_changed),
+	(on_read_only_dialog_response), (on_open_finish), (on_save_finish),
+	(ifile_savable_is_read_only), (isavable_iface_init),
+	(idocument_cut):
+	#357697 – readonly file can be edited
+	
+	* plugins/symbol-browser/plugin.c (project_root_added):
+	#539551 – AutoComplete doesn't work
+
+2008-07-05  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/Makefile.am:
 	#539551 – AutoComplete doesn't work
 
