@@ -742,7 +742,7 @@ static GObjectClass *parent_class = NULL;
 static void 
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 static gint
-sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
+sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id,
 						   gboolean sym_update);
 
@@ -1173,7 +1173,6 @@ sdb_engine_free_cached_dynamic_queries ()
 	}
 }
 
-
 static gboolean
 sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 {
@@ -1182,7 +1181,8 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
-	gda_connection_close (priv->db_connection);
+	if (priv->db_connection != NULL)
+		gda_connection_close (priv->db_connection);
 	priv->db_connection = NULL;
 
 	if (priv->sql_parser != NULL)
@@ -1528,7 +1528,6 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	DEBUG_PRINT ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
 
-	DEBUG_PRINT ("EMITTING single-file-scan-end");
 	/* notify listeners that another file has been scanned */
 	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
 }
@@ -1574,7 +1573,6 @@ sdb_engine_ctags_output_thread (gpointer data)
 			{
 				gint scan_flag;
 				gchar *real_file;
-				DEBUG_PRINT ("found marker!");
 		
 				/* set the length of the string parsed */
 				tmp_str_length = marker_ptr - chars_ptr;
@@ -1954,8 +1952,25 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	if (priv->shared_mem_file == 0)
 	{
 		gchar *temp_file;
-		temp_file = g_strdup_printf ("/anjuta-%d_%ld.tags", getpid (),
-							 time (NULL));
+		while (TRUE)
+		{
+			temp_file = g_strdup_printf ("/anjuta-%d_%ld.tags", getpid (),
+								 time (NULL));
+			gchar *test;
+			test = g_strconcat (SHARED_MEMORY_PREFIX, temp_file, NULL);
+			if (g_file_test (test, G_FILE_TEST_EXISTS) == TRUE)
+			{
+				DEBUG_PRINT ("file %s already exists... retrying", test);
+				g_free (test);
+				g_free (temp_file);
+				continue;
+			}
+			else
+			{
+				g_free (test);
+				break;
+			}
+		}
 
 		priv->shared_mem_str = temp_file;
 		
@@ -1974,8 +1989,6 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	
 	priv->scanning_status = TRUE;	
 
-	DEBUG_PRINT ("sdb_engine_scan_files_1 (): PUSHING files_list->len %d to scan", 
-				 files_list->len);
 	for (i = 0; i < files_list->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_list, i);
@@ -2314,11 +2327,15 @@ sdb_engine_get_type (void)
 }
 
 SymbolDBEngine *
-symbol_db_engine_new (void)
+symbol_db_engine_new ()
 {
 	SymbolDBEngine *sdbe;
+	SymbolDBEnginePriv *priv;
 
 	sdbe = g_object_new (SYMBOL_TYPE_DB_ENGINE, NULL);
+	
+	priv = sdbe->priv;
+	priv->mutex = g_mutex_new ();
 	return sdbe;
 }
 
@@ -2418,13 +2435,6 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 
 	sdb_engine_execute_non_select_sql (dbe, contents);
 	
-	/*
-	command = gda_command_new (contents, GDA_COMMAND_TYPE_SQL,
-							   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	gda_connection_execute_non_select_command (priv->db_connection, command,
-											   NULL, NULL);
-	gda_command_free (command);
-*/
 	g_free (contents);
 	return TRUE;
 }
@@ -2451,11 +2461,59 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 		g_free (tmp_file);
 		return FALSE;
 	}
-	
-	DEBUG_PRINT ("db %s does exist", tmp_file);	
-	g_free (tmp_file);
 
+	g_free (tmp_file);
 	return TRUE;
+}
+
+/**
+ * Check if a file is already present [and scanned] in db.
+ */
+gboolean
+symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
+{
+	SymbolDBEnginePriv *priv;
+	gchar *relative;
+	gint file_defined_id;
+	GValue *value;
+
+	g_return_val_if_fail (dbe != NULL, FALSE);
+	g_return_val_if_fail (abs_file_path != NULL, FALSE);
+	
+	priv = dbe->priv;
+
+	if (priv->mutex)
+	{
+		g_mutex_lock (priv->mutex);
+	}
+	
+	relative = symbol_db_engine_get_file_db_path (dbe, abs_file_path);
+	if (relative == NULL)
+	{
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
+		return FALSE;
+	}	
+	value = gda_value_new (G_TYPE_STRING);
+	g_value_set_string (value, relative);	
+
+	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
+													PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
+													"filepath",
+													value)) < 0)
+	{	
+		g_free (relative);
+		gda_value_free (value);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
+		return FALSE;	
+	}
+	
+	g_free (relative);
+	gda_value_free (value);
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
+	return TRUE;	
 }
 
 gboolean 
@@ -2598,7 +2656,8 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 				"prjname",
 				 value)) <= 0)
 	{
-		DEBUG_PRINT ("symbol_db_engine_open_project (): no project name found");
+		DEBUG_PRINT ("symbol_db_engine_project_exists (): no project named %s found",
+					 project_name);
 		gda_value_free (value);
 		return FALSE;
 	}
@@ -2649,7 +2708,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 				 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
 				 "wsname",
 				 value)) <= 0)
-		{
+		{ 
 			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
 			{
 				gda_value_free (value);
@@ -2708,12 +2767,10 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	gda_holder_set_value (param, value);
 		
 	/* execute the query with parametes just set */
-	GError *err = NULL;
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
-														  (GdaSet*)plist, NULL, &err) == -1)
+														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
-		DEBUG_PRINT ("Error: %s", err->message);
 		gda_value_free (value);
 		return FALSE;
 	}
@@ -2825,8 +2882,8 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	if (strstr (local_filepath, priv->project_directory) == NULL)
 		return FALSE;
 	
-	DEBUG_PRINT ("sdb_engine_add_new_file project_name %s local_filepath %s language %s",
-				 project_name, local_filepath, language);
+/*	DEBUG_PRINT ("sdb_engine_add_new_file project_name %s local_filepath %s language %s",
+				 project_name, local_filepath, language);*/
 	
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value, project_name);
@@ -2846,9 +2903,14 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	value = gda_value_new (G_TYPE_STRING);
 	/* we're gonna set the file relative to the project folder, not the full one.
 	 * e.g.: we have a file on disk: "/tmp/foo/src/file.c" and a db_directory located on
-	 * "/tmp/foo/". The entry on db will be "/src/file.c" 
+	 * "/tmp/foo/". The entry on db will be "src/file.c" 
 	 */
-	g_value_set_string (value, local_filepath + strlen (priv->project_directory));
+	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, local_filepath);
+	if (relative_path == NULL)
+	{
+		return FALSE;
+	}	
+	g_value_set_string (value, relative_path);	
 
 	if ((file_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 								   PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
@@ -2867,6 +2929,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 			== NULL)
 		{
 			g_warning ("query is null");
+			g_free (relative_path);
 			return FALSE;
 		}
 
@@ -2876,15 +2939,17 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
 		{
 			g_warning ("param langname is NULL from pquery!");
+			g_free (relative_path);			
 			return FALSE;
 		}
-		gda_holder_set_value_str (param, NULL, local_filepath + 
-								  strlen(priv->project_directory));
+		
+		gda_holder_set_value_str (param, NULL, relative_path);
 
 		/* project id parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 		{
 			g_warning ("param prjid is NULL from pquery!");
+			g_free (relative_path);
 			return FALSE;
 		}
 		value = gda_value_new (G_TYPE_INT);
@@ -2895,6 +2960,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
 		{
 			g_warning ("param langid is NULL from pquery!");
+			g_free (relative_path);
 			return FALSE;
 		}
 
@@ -2904,17 +2970,17 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		gda_value_free (value);
 
 		/* execute the query with parametes just set */
-		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, NULL,
-														 &err) == -1)
+														 NULL) == -1)
 		{		
-			DEBUG_PRINT ("Error: %s", err->message);
+			g_free (relative_path);
 			return FALSE;
 		}	
 	}
 	gda_value_free (value);
+	g_free (relative_path);
 	
 	return TRUE;
 } 
@@ -2924,11 +2990,13 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 								const gchar * project_name,
 								const GPtrArray * files_path, 
 								const GPtrArray * languages,
-								gboolean scan_symbols)
+								gboolean force_scan)
 {
 	gint i;
 	SymbolDBEnginePriv *priv;
-
+	GPtrArray * filtered_files_path;
+	GPtrArray * filtered_languages;
+	gboolean ret_code;
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
@@ -2937,42 +3005,57 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	g_return_val_if_fail (files_path->len > 0, FALSE);
 	g_return_val_if_fail (languages->len > 0, FALSE);
 
+	filtered_files_path = g_ptr_array_new ();
+	filtered_languages = g_ptr_array_new ();
+	
 	for (i = 0; i < files_path->len; i++)
 	{
-		gchar *node = (gchar *) g_ptr_array_index (files_path, i);
+		gchar *node_file = (gchar *) g_ptr_array_index (files_path, i);
 		gchar *node_lang = (gchar *) g_ptr_array_index (languages, i);
 		
 		/* test the existance of node file */
-		if (g_file_test (node, G_FILE_TEST_EXISTS) == FALSE)
+		if (g_file_test (node_file, G_FILE_TEST_EXISTS) == FALSE)
 		{
-			g_warning ("File %s does NOT exist", node);
+			g_warning ("File %s does NOT exist", node_file);
 			continue;
 		}
-			
-		if (sdb_engine_add_new_file (dbe, project_name, node, 
+		
+		if (force_scan == FALSE)
+		{
+			if (symbol_db_engine_file_exists (dbe, node_file) == TRUE)
+				/* we don't want to touch the already present file... within 
+				 * its symbols
+				 */
+				continue;
+		}
+		
+		if (sdb_engine_add_new_file (dbe, project_name, node_file, 
 									 node_lang) == FALSE)
 		{
 			g_warning ("Error processing file %s, db_directory %s, project_name %s, "
-					   "project_directory %s", node, 
+					   "project_directory %s", node_file, 
 					   priv->db_directory, project_name, priv->project_directory);
 			return FALSE;
 		}
+		
+		/* note: we don't use g_strdup () here because we'll free the filtered_files_path
+		 * before returning from this function.
+		 */
+		g_ptr_array_add (filtered_files_path, node_file);
 	}
 
 	/* perform the scan of files. It will spawn a fork() process with 
 	 * AnjutaLauncher and ctags in server mode. After the ctags cmd has been 
 	 * executed, the populating process'll take place.
 	 */
-
-	if (scan_symbols)
-		return sdb_engine_scan_files_1 (dbe, files_path, NULL, FALSE);
-	
-	return TRUE;
+	ret_code = sdb_engine_scan_files_1 (dbe, filtered_files_path, NULL, FALSE);
+	g_ptr_array_free (filtered_files_path, TRUE);
+	return ret_code;
 }
 
 
 static gint
-sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
+sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 /*
 	CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
@@ -3058,7 +3141,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 }
 
 static gint
-sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
+sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 /* 
 	CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
@@ -3141,7 +3224,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, tagEntry * tag_entry)
 }
 
 static gint
-sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
+sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 /* 
 	CREATE TABLE sym_access (access_kind_id integer PRIMARY KEY AUTOINCREMENT,
@@ -3227,7 +3310,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 
 static gint
 sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
-									   tagEntry * tag_entry)
+									   const tagEntry * tag_entry)
 {
 /*	
 	CREATE TABLE sym_implementation (sym_impl_id integer PRIMARY KEY AUTOINCREMENT,
@@ -3372,7 +3455,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 
 
 static gint
-sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
+sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 									 gint type_table_id)
 {
 /*
@@ -3483,7 +3566,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
  */
 static gint
 sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
-									   tagEntry * tag_entry,
+									   const tagEntry * tag_entry,
 									   gint symbol_referer_id)
 {
 /*
@@ -4213,7 +4296,7 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
  * fake_file is real_path of file on disk
  */
 static gint
-sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
+sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   gint file_defined_id,
 						   gboolean sym_update)
 {
@@ -5098,7 +5181,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 
 		/* build abs path. */
 		file_name = g_value_get_string (value);
-		if (priv->db_directory != NULL)
+		if (priv->project_directory != NULL)
 		{
 			/* FIXME */
 			abs_vfs_path = g_strdup_printf ("file://%s%s", priv->project_directory,
@@ -5252,17 +5335,23 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
-		
+
+		 /* FIXME remove DEBUG_PRINT */
 		DEBUG_PRINT ("processing updating for file [on disk] %s, "
 					 "passed to on_scan_update_buffer_end (): %s", 
 					 node, node + strlen (priv->db_directory));
 
-		/* will be emitted removed signals */
-		if (sdb_engine_update_file (dbe, node+ 
-									strlen (priv->db_directory)) == FALSE)
+		gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, node);
+		if (relative_path != NULL)
 		{
-			g_warning ("Error processing file %s", node);
-			return;
+			/* will be emitted removed signals */
+			if (sdb_engine_update_file (dbe, relative_path) == FALSE)
+			{
+				g_warning ("Error processing file %s", node);
+				g_free (relative_path);
+				return;
+			}
+			g_free (relative_path);
 		}
 		g_free (node);
 	}
@@ -5271,10 +5360,8 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 										  files_to_scan);
 
 	/* free the GPtrArray. */
-	DEBUG_PRINT ("free the files_to_scan");
 	g_ptr_array_free (files_to_scan, TRUE);
 	data = files_to_scan = NULL;
-	DEBUG_PRINT ("done");
 }
 
 /* Update symbols of a file by a memory-buffer to perform a real-time updating 
@@ -5311,10 +5398,15 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	/* obtain a GPtrArray with real_files on database */
 	for (i=0; i < real_files_list->len; i++) 
 	{
-		gchar *new_node = (gchar*)g_ptr_array_index (real_files_list, i) 
-								   + strlen (priv->db_directory);
-
-		g_ptr_array_add (real_files_on_db, g_strdup (new_node));
+		gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, 
+									g_ptr_array_index (real_files_list, i));
+		if (relative_path == NULL)
+		{
+			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
+					   "relative_path is NULL");
+			return FALSE;
+		}
+		g_ptr_array_add (real_files_on_db, relative_path);
 	}	
 	
 	/* create a temporary file for each buffer */
@@ -5361,8 +5453,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		
 		/* check if we already have an entry stored in the hash table, else
 		 * insert it 
-		 */
-		
+		 */		
 		if (g_hash_table_lookup (priv->garbage_shared_mem_files, shared_temp_file) 
 			== NULL)
 		{
@@ -5399,8 +5490,6 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		g_free (g_ptr_array_index (real_files_on_db, i));
 	
 	g_ptr_array_free (real_files_on_db, TRUE);
-	
-	
 	return TRUE;
 }
 
@@ -5425,7 +5514,7 @@ symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 	g_return_val_if_fail (dbe != NULL, NULL);
 	
 	priv = dbe->priv;
-	full_path = g_strdup_printf ("%s%s", priv->db_directory, file);
+	full_path = g_strdup_printf ("%s%s", priv->project_directory, file);
 	return full_path;	
 }
 
@@ -5442,12 +5531,12 @@ symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_
 	if (priv->db_directory == NULL)
 		return NULL;
 
-	if (strlen (priv->db_directory) >= strlen (full_local_file_path)) 
+	if (strlen (priv->project_directory) >= strlen (full_local_file_path)) 
 	{
 		return NULL;
 	}
 
-	tmp = full_local_file_path + strlen (priv->db_directory);
+	tmp = full_local_file_path + strlen (priv->project_directory);
 	relative_path = strdup (tmp);
 
 	return relative_path;
@@ -5617,7 +5706,7 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 		file_name = g_value_get_string (value);
 		if (priv->db_directory != NULL)
 		{
-			file_abs_path = g_strdup_printf ("%s%s", priv->db_directory,
+			file_abs_path = g_strdup_printf ("%s%s", priv->project_directory,
 										file_name);
 		}
 		g_ptr_array_add (files_to_scan, file_abs_path);
@@ -7035,16 +7124,17 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		return NULL;
 	}
 		
-	if (strlen (file_path) < strlen(priv->db_directory))
+	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, file_path);
+	if (relative_path == NULL)
 	{
-		DEBUG_PRINT ("strlen (file_path) < strlen(priv->db_directory)");
 		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+			g_mutex_unlock (priv->mutex);		
 		return NULL;
 	}
-
-	gda_holder_set_value_str (param, NULL, file_path + strlen(priv->db_directory));
-		
+	
+	gda_holder_set_value_str (param, NULL, relative_path);
+	g_free (relative_path);
+	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
@@ -7844,9 +7934,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	gda_holder_set_value_str (param, NULL, pattern);
 	
-
-	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
-				 dyn_node->query_str);
+/*	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+				 dyn_node->query_str);*/
 		
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 

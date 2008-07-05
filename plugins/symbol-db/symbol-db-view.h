@@ -28,7 +28,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include "symbol-db-engine.h"
-#include "plugin.h"
+
 
 G_BEGIN_DECLS
 

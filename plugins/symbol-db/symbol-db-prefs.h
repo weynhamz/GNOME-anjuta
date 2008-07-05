@@ -29,6 +29,7 @@
 
 void symbol_db_prefs_init (SymbolDBPlugin *plugin, AnjutaPreferences *prefs);
 void symbol_db_prefs_finalize (SymbolDBPlugin *plugin, AnjutaPreferences *prefs);
+
 /*
 void symbol_db_load_global_tags (gpointer plugin);
 */

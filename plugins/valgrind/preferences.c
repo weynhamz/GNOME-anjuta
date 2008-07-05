@@ -132,7 +132,7 @@ build_general_prefs ()
 
 	str_file = gconf_client_get_string (gconf, EXE_PATH, &err);
 
-	if (str_file == NULL || err != NULL) {
+	if (str_file == NULL || err != NULL || strlen (str_file) <= 0) {
 		str_file = g_strdup (VALGRIND_DEFAULT_BIN);
 	}
 	

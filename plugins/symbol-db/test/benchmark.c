@@ -45,7 +45,9 @@ static GPtrArray* get_files (const gchar* dir)
 static void 
 on_scan_end (SymbolDBEngine* engine, gpointer user_data)
 {
-  exit(0);
+	g_message ("on_scan_end  ()");
+	g_object_unref (engine);
+  	exit(0);
 }
 
 int main (int argc, char** argv)
@@ -67,8 +69,9 @@ int main (int argc, char** argv)
 	}
 	root_dir = argv[1];
 	
-  engine = symbol_db_engine_new ();
-  g_signal_connect (engine, "scan-end", G_CALLBACK (on_scan_end), NULL);
+	GMutex *mutex = g_mutex_new ();
+    engine = symbol_db_engine_new (mutex);
+    
   
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))
 	{
@@ -82,6 +85,7 @@ int main (int argc, char** argv)
 	for (i = 0; i < files->len; i++)
 		g_ptr_array_add (languages, "C");
 	
+	g_signal_connect (engine, "scan-end", G_CALLBACK (on_scan_end), NULL);
 	g_signal_connect (G_OBJECT (engine), "single-file-scan-end",
 		  G_CALLBACK (on_single_file_scan_end), files);
 	

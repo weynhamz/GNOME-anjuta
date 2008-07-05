@@ -94,7 +94,7 @@ add_new_files (SymbolDBEngine *dbe)
 	
 	files_array = g_ptr_array_new();	
 	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/libgda/providers/sqlite/sqlite-src/sqlite3.c"));	
-	symbol_db_engine_add_new_files (dbe, "foo_project", files_array, "C", TRUE);
+//	symbol_db_engine_add_new_files (dbe, "foo_project", files_array, "C", TRUE);
 }
 
 static void

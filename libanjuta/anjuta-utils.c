@@ -995,6 +995,7 @@ anjuta_util_parse_args_from_string (const gchar* string)
 	if (is_quote) {
 		g_warning ("Unclosed quotation encountered at the end of parsing");
 	}
+	g_free (buffer);
 	return args;
 }
 

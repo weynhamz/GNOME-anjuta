@@ -1,3 +1,74 @@
+2008-07-05  Massimo Cora'  <maxcvs@email.it>
+
+	* libanjuta/anjuta-utils.c (anjuta_util_parse_args_from_string):
+	fixed a little mem-leak.
+
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	* plugins/symbol-db/plugin.c (on_editor_update_ui),
+	(on_char_added), (on_project_element_added),
+	(on_project_element_removed), (on_system_scan_package_start),
+	(on_system_scan_package_end), (on_system_single_file_scan_end),
+	(on_project_single_file_scan_end), (on_importing_project_end),
+	(do_import_sources_after_abort), (do_import_sources),
+	(on_project_root_added), (on_project_root_removed),
+	(symbol_db_activate), (symbol_db_deactivate),
+	(symbol_db_instance_init), (isymbol_manager_search):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_disconnect_from_db), (sdb_engine_populate_db_by_tags),
+	(sdb_engine_ctags_output_thread), (sdb_engine_scan_files_1),
+	(symbol_db_engine_new), (sdb_engine_create_db_tables),
+	(symbol_db_engine_db_exists), (symbol_db_engine_file_exists),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_file),
+	(symbol_db_engine_add_new_files), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_add_new_symbol),
+	(symbol_db_engine_update_project_symbols),
+	(on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols),
+	(symbol_db_engine_get_full_local_path),
+	(symbol_db_engine_get_file_db_path),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c (destroy_parseable_data),
+	(on_listall_output), (on_listall_exit),
+	(on_tag_load_toggled_parseable_cb), (on_tag_load_toggled),
+	(symbol_db_prefs_init), (symbol_db_prefs_finalize):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	* plugins/symbol-db/symbol-db-system.c (destroy_single_scan_data),
+	(destroy_engine_scan_data), (sdb_system_init),
+	(sdb_system_finalize), (sdb_system_class_init),
+	(sdb_system_get_normalized_cflags),
+	(on_engine_package_single_file_scan_end), (symbol_db_system_new),
+	(symbol_db_system_is_package_parsed), (on_pkg_config_output),
+	(sdb_system_files_visit_dir), (prepare_files_to_be_scanned),
+	(on_engine_package_scan_end), (sdb_system_do_scan_package_1),
+	(sdb_system_do_scan_next_package),
+	(sdb_system_do_scan_new_package), (on_pkg_config_exit),
+	(symbol_db_system_scan_package),
+	(symbol_db_system_is_package_parseable):
+	* plugins/symbol-db/symbol-db-system.h:
+	* plugins/symbol-db/symbol-db-view.h:
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/symbol-db/test/benchmark.c (on_scan_end), (main):
+	* plugins/symbol-db/test/main.c (add_new_files):
+	brand-new system tags population system. It's still not completed. It crashes
+	with libgda svn 3174: probably there's some thread bug on this library and
+	must be fixed. The crash happens when system tags and project tags are scanned
+	concurrently. It's a random crash, so it's not possible to find a point.
+	Preferences page now support check-box toggle population. Anyway it's still
+	missing a save-on-session method... to be implemented soon.
+
+	* plugins/valgrind/preferences.c (build_general_prefs):
+	be sure to set the correct executable path.
+
 2008-07-05  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/run-program/execute.c (get_local_executable):

@@ -30,6 +30,7 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-engine-iterator.h"
 
+
 G_BEGIN_DECLS
 
 extern GType symbol_db_get_type (GTypeModule *module);
@@ -43,6 +44,9 @@ extern GType symbol_db_get_type (GTypeModule *module);
 
 typedef struct _SymbolDBPlugin SymbolDBPlugin;
 typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
+
+
+#include "symbol-db-system.h"
 
 struct _SymbolDBPlugin{
 	AnjutaPlugin parent;
@@ -67,6 +71,7 @@ struct _SymbolDBPlugin{
 	
 	/* global's one */
 	SymbolDBEngine *sdbe_globals;
+	SymbolDBSystem *sdbs;
 	
 	GtkWidget *dbv_main;				/* symbol main window [gtk_box] */
 	GtkWidget *dbv_notebook;          	/* main notebook */	
@@ -74,7 +79,8 @@ struct _SymbolDBPlugin{
 										   symbols */
 	GtkWidget *scrolled_locals;
 	GtkWidget *scrolled_search;
-	GtkWidget *progress_bar;			/* symbol db progress bar */
+	GtkWidget *progress_bar_project;			/* symbol db progress bar - project */
+	GtkWidget *progress_bar_system;				/* symbol db progress bar - system (globals) */
 	
 	GtkWidget *dbv_view_tree;        	/* symbol_db_view */
 	GtkWidget *dbv_view_tab_label;
@@ -94,13 +100,20 @@ struct _SymbolDBPlugin{
 	/* In session loading? */
 	gboolean session_loading;
 	
-	gint files_count;
-	gint files_count_done;
+	gint files_count_project;
+	gint files_count_project_done;
+	
+	gint files_count_system;
+	gint files_count_system_done;
+	gchar *current_scanned_package;
+	
+/*	GMutex* engine_mutex;*/
 };
 
 struct _SymbolDBPluginClass{
 	AnjutaPluginClass parent_class;
 };
+
 
 
 G_END_DECLS

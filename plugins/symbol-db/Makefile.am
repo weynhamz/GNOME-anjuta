@@ -1,6 +1,6 @@
 if HAVE_PLUGIN_SYMBOL_DB
 
-SUBDIRS = test
+#SUBDIRS = test
 
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql
@@ -54,10 +54,11 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
-    symbol-db-engine-iterator-node.h \
+    	symbol-db-engine-iterator-node.h \
 	symbol-db-engine-iterator-node.c \
 	symbol-db-prefs.c \
-	symbol-db-prefs.h
+	symbol-db-prefs.h  symbol-db-system.h \
+	symbol-db-system.c
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

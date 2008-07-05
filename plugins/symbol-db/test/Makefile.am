@@ -1,7 +1,7 @@
 
 bin_PROGRAMS = \
-	benchmark \
-	test_symbol_db
+	benchmark 
+	
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \

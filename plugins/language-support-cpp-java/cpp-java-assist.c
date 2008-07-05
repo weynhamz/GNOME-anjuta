@@ -300,7 +300,7 @@ cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist)
 	{
 		g_free (assist->priv->scope_context_cache);
 		assist->priv->scope_context_cache = NULL;
-	}
+	} 
 	if (assist->priv->completion_cache)
 	{
 		GList* items = assist->priv->completion_cache->items;

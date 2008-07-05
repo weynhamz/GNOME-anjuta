@@ -48,8 +48,8 @@ struct _SymbolDBEngineClass
 	GObjectClass parent_class;
 	
 	/* signals */
-	void (* single_file_scan_end) ();
-	void (* scan_end) ();
+	void (* single_file_scan_end) 	();
+	void (* scan_end) 				();
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);
 	void (* symbol_scope_updated)  	(gint symbol_id);	/* never emitted. */
@@ -82,7 +82,7 @@ typedef enum {
 GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 
-SymbolDBEngine* symbol_db_engine_new (void);
+SymbolDBEngine* symbol_db_engine_new ();
 
 
 /**
@@ -115,12 +115,17 @@ symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_db_path,
 gboolean 
 symbol_db_engine_close_db (SymbolDBEngine *dbe);
 
-
 /**
  * Check if the database already exists into the db_directory
  */
 gboolean
 symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * db_directory);
+
+/**
+ * Check if a file is already present [and scanned] in db.
+ */
+gboolean
+symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path);
 
 /** Add a new workspace to an opened database. */
 gboolean 
@@ -161,6 +166,8 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  *		  elments that files_path has. It should be populated like this: "C", "C++",
  *		  "Java"
  * 		  This is done to be uniform to the language-manager plugin.
+ * @param force_scan If FALSE a check on db will be done to see
+ *		  whether the file is already present or not.
  * @return true is insertion is successful.
  */
 gboolean 
@@ -168,7 +175,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
 								const gchar * project_name,
 							    const GPtrArray *files_path,
 								const GPtrArray *languages,
-								gboolean scan_symbols);
+								gboolean force_scan);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 
@@ -396,5 +403,4 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_ENGINE_H_ */
-
 

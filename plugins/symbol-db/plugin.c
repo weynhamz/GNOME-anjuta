@@ -57,6 +57,7 @@
 #define CHOOSER_WIDGET		"preferences_folder:text:/:0:symboldb.root"
 
 #define LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY 	"/.anjuta"
+#define PROJECT_GLOBALS		"/"
 
 
 static gpointer parent_class;
@@ -199,42 +200,12 @@ on_editor_update_ui (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin)
 	{
 		g_timer_reset (timer);
 	}
-	
-#if 0	
-	gint lineno = ianjuta_editor_get_lineno (editor, NULL);
-	
-	GtkTreeModel* model = anjuta_symbol_view_get_file_symbol_model
-							(ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree));
-	GtkTreeIter iter;
-	gboolean found = FALSE;
-	
-	if (sv_plugin->locals_line_number == lineno)
-		return;
-	sv_plugin->locals_line_number = lineno;
-	
-	if (!gtk_tree_model_get_iter_first (model, &iter))
-		return;
-	while (!found && lineno >= 0)
-	{
-		gtk_tree_model_get_iter_first (model, &iter);
-		do
-		{
-			found = iter_matches (sv_plugin, &iter, model, lineno);
-			if (found)
-				break;
-		}
-		while (gtk_tree_model_iter_next (model, &iter));
-		lineno--;
-	}
-#endif	
 }
 
 static void
 on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 			   SymbolDBPlugin *sdb_plugin)
 {
-	DEBUG_PRINT ("char added: %c [int %d]", ch, ch);
-	
 	if (timer == NULL)
 	{
 		/* creates and start a new timer. */
@@ -663,10 +634,6 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		g_ptr_array_add (files_array, filename);
 		g_ptr_array_add (languages_array, g_strdup (lang));
 		
-		DEBUG_PRINT ("gonna opening %s", 
-					 filename + strlen(sdb_plugin->project_root_dir) );
-		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
-		
 		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
 			sdb_plugin->project_opened, files_array, languages_array, TRUE);
 		
@@ -675,17 +642,16 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		
 		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (languages_array, TRUE);
-
 	}
 }
 
 static void
 on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
-							SymbolDBPlugin *sv_plugin)
+							SymbolDBPlugin *sdb_plugin)
 {
 	gchar *filename;
 	
-	if (!sv_plugin->project_root_uri)
+	if (!sdb_plugin->project_root_uri)
 		return;
 	
 	filename = gnome_vfs_get_local_path_from_uri (uri);
@@ -693,10 +659,10 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 	{
 		DEBUG_PRINT ("on_project_element_removed");
 		DEBUG_PRINT ("gonna removing %s", 
-					 filename + strlen(sv_plugin->project_root_dir));
-		DEBUG_PRINT ("project_root_dir %s", sv_plugin->project_root_dir );
-		symbol_db_engine_remove_file (sv_plugin->sdbe_project, 
-			sv_plugin->project_root_dir, filename);
+					 filename + strlen(sdb_plugin->project_root_dir));
+		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
+		symbol_db_engine_remove_file (sdb_plugin->sdbe_project, 
+			sdb_plugin->project_root_dir, filename);
 		
 		g_free (filename);
 	}
@@ -710,8 +676,80 @@ sources_array_free (gpointer data)
 	g_ptr_array_free (sources, TRUE);
 }
 
+
 static void
-on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
+on_system_scan_package_start (SymbolDBEngine *dbe, guint num_files, 
+							  const gchar *package, gpointer user_data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
+
+	sdb_plugin->files_count_system_done = 0;
+	sdb_plugin->files_count_system = num_files;	
+	
+	DEBUG_PRINT ("on_system_scan_package_start  () [%s]", package);
+	
+	/* show the global bar */
+	gtk_widget_show (sdb_plugin->progress_bar_system);
+	
+	if (sdb_plugin->current_scanned_package != NULL)
+		g_free (sdb_plugin->current_scanned_package);
+	sdb_plugin->current_scanned_package = g_strdup (package);
+}
+
+static void
+on_system_scan_package_end (SymbolDBEngine *dbe, const gchar *package, 
+							  gpointer user_data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
+	
+	DEBUG_PRINT ("on_system_scan_package_end () [%s]", package);
+	
+	/* hide the progress bar */
+	gtk_widget_hide (sdb_plugin->progress_bar_system);
+	
+	sdb_plugin->files_count_system_done = 0;
+	sdb_plugin->files_count_system = 0;
+}
+
+static void
+on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
+{
+	AnjutaPlugin *plugin;
+	SymbolDBPlugin *sdb_plugin;
+	gchar *message;
+	gdouble fraction = 0;
+	
+	plugin = ANJUTA_PLUGIN (data);
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
+
+	DEBUG_PRINT ("on_system_single_file_scan_end ()");
+	
+	sdb_plugin->files_count_system_done++;	
+	if (sdb_plugin->files_count_system_done >= sdb_plugin->files_count_system)
+		message = g_strdup_printf (_("%s: Generating inheritances..."), 
+								   sdb_plugin->current_scanned_package);
+	else
+		message = g_strdup_printf (_("%s: %d files scanned out of %d"), 
+							sdb_plugin->current_scanned_package,
+							sdb_plugin->files_count_system_done, 
+							sdb_plugin->files_count_system);
+
+	if (sdb_plugin->files_count_system > 0)
+	{
+		fraction =  (gdouble) sdb_plugin->files_count_system_done / 
+			(gdouble) sdb_plugin->files_count_system;
+	}
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system),
+								   fraction);
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system), message);
+	gtk_widget_show (sdb_plugin->progress_bar_system);
+	g_free (message);	
+}
+
+static void
+on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 {	
 	AnjutaPlugin *plugin;
 	SymbolDBPlugin *sdb_plugin;
@@ -721,24 +759,22 @@ on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	plugin = ANJUTA_PLUGIN (data);
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	
-	sdb_plugin->files_count_done++;	
-	if (sdb_plugin->files_count_done >= sdb_plugin->files_count)
+	sdb_plugin->files_count_project_done++;	
+	if (sdb_plugin->files_count_project_done >= sdb_plugin->files_count_project)
 		message = g_strdup_printf (_("Generating inheritances..."));
 	else
 		message = g_strdup_printf (_("%d files scanned out of %d"), 
-							   sdb_plugin->files_count_done, sdb_plugin->files_count);
+							   sdb_plugin->files_count_project_done, sdb_plugin->files_count_project);
 	
-	DEBUG_PRINT ("on_single_file_scan_end (): %d out of %d", sdb_plugin->files_count_done, 
-				 sdb_plugin->files_count);
-	if (sdb_plugin->files_count > 0)
+	if (sdb_plugin->files_count_project > 0)
 	{
-		fraction =  (gdouble) sdb_plugin->files_count_done / 
-			(gdouble) sdb_plugin->files_count;
+		fraction =  (gdouble) sdb_plugin->files_count_project_done / 
+			(gdouble) sdb_plugin->files_count_project;
 	}
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar),
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 								   fraction);
-	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), message);
-	gtk_widget_show (sdb_plugin->progress_bar);
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project), message);
+	gtk_widget_show (sdb_plugin->progress_bar_project);
 	g_free (message);
 }
 
@@ -753,7 +789,8 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	
 	DEBUG_PRINT ("on_importing_project_end ()");
 
-	gtk_widget_hide (sdb_plugin->progress_bar);
+	/* hide the progress bar */
+	gtk_widget_hide (sdb_plugin->progress_bar_project);
 	
 	/* re-enable signals receiving on local-view */
 	symbol_db_view_locals_recv_signals_from_engine (
@@ -768,13 +805,13 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project);
 	
 	/* disconnect this coz it's not important after the process of importing */
-	g_signal_handlers_disconnect_by_func (dbe, on_single_file_scan_end, data);																 
+	g_signal_handlers_disconnect_by_func (dbe, on_project_single_file_scan_end, data);																 
 	
 	/* disconnect it as we don't need it anymore. */
 	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);
 	
-	sdb_plugin->files_count_done = 0;
-	sdb_plugin->files_count = 0;
+	sdb_plugin->files_count_project_done = 0;
+	sdb_plugin->files_count_project = 0;	
 }
 
 /* we assume that sources_array has already unique elements */
@@ -846,7 +883,7 @@ do_import_sources_after_abort (AnjutaPlugin *plugin, const gchar *root_dir,
 			continue;
 		}
 					
-		sdb_plugin->files_count++;
+		sdb_plugin->files_count_project++;
 		g_ptr_array_add (languages_array, g_strdup (lang));					
 		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
 	}
@@ -855,7 +892,7 @@ do_import_sources_after_abort (AnjutaPlugin *plugin, const gchar *root_dir,
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
-		  G_CALLBACK (on_single_file_scan_end), plugin);
+		  G_CALLBACK (on_project_single_file_scan_end), plugin);
 	
 	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
 					sources_array, languages_array, TRUE);
@@ -973,7 +1010,7 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		if (!languages_array)
 			languages_array = g_ptr_array_new ();
 
-		sdb_plugin->files_count++;
+		sdb_plugin->files_count_project++;
 		g_ptr_array_add (sources_array, local_filename);
 		g_ptr_array_add (languages_array, g_strdup (lang));					
 	}
@@ -985,7 +1022,7 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
-		  G_CALLBACK (on_single_file_scan_end), plugin);
+		  G_CALLBACK (on_project_single_file_scan_end), plugin);
 	
 	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
 					sources_array, languages_array, TRUE);
@@ -1001,7 +1038,7 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 
 /* add a new project */
 static void
-project_root_added (AnjutaPlugin *plugin, const gchar *name,
+on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
 	IAnjutaProjectManager *pm;
@@ -1011,8 +1048,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaProjectManager, NULL);
-	
+									 IAnjutaProjectManager, NULL);	
 		
 	g_free (sdb_plugin->project_root_uri);
 	sdb_plugin->project_root_uri = NULL;
@@ -1090,15 +1126,16 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				/* Update the symbols */
 				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, root_dir);				
 			}
-			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar), 
+			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project), 
 									   _("Populating symbols' db..."));
-			id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, sdb_plugin->progress_bar);
-			gtk_widget_show (sdb_plugin->progress_bar);
+			id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
+							 sdb_plugin->progress_bar_project);
+			gtk_widget_show (sdb_plugin->progress_bar_project);
 			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe_project);
 			g_source_remove (id);
-			gtk_widget_hide (sdb_plugin->progress_bar);
+			gtk_widget_hide (sdb_plugin->progress_bar_project);
 
 			/* root dir */
 			sdb_plugin->project_root_dir = root_dir;
@@ -1113,10 +1150,29 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sdb_plugin);
+	
+	gtk_widget_hide (sdb_plugin->progress_bar_system);
+#if 0
+//FIXME libgda thread bug.	
+	/* system's packages management */
+	GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
+	GList *item = packages; 
+	while (item != NULL)
+	{
+		/* the function will take care of checking if the package is already 
+		 * scanned and present on db 
+		 */
+		DEBUG_PRINT ("ianjuta_project_manager_get_packages: package required: %s", 
+					 (gchar*)item->data);
+		symbol_db_system_scan_package (sdb_plugin->sdbs, item->data);
+				
+		item = item->next;
+	}
+#endif	
 }
 
 static void
-project_root_removed (AnjutaPlugin *plugin, const gchar *name,
+on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	IAnjutaProjectManager *pm;
@@ -1175,6 +1231,9 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db->prefs_list_store = NULL;
 	symbol_db->pkg_config_launcher = NULL;
 	symbol_db->project_opened = NULL;
+
+	/* create mutex. Without this libgda'll crash on multithread environment */
+/*	symbol_db->engine_mutex = g_mutex_new ();*/
 	
 	/* create SymbolDBEngine(s) */
 	symbol_db->sdbe_project = symbol_db_engine_new ();
@@ -1185,20 +1244,37 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	home_anjuta_dir = g_strdup_printf ("%s%s", g_get_home_dir(),
 									   LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY);
 	symbol_db_engine_open_db (symbol_db->sdbe_globals, 
-							  home_anjuta_dir, "/");
+							  home_anjuta_dir, 
+							  PROJECT_GLOBALS);
 	g_free (home_anjuta_dir);
 	
+	/* create the object that'll manage the globals population */
+	symbol_db->sdbs = symbol_db_system_new (symbol_db, symbol_db->sdbe_globals);
+
+	g_signal_connect (G_OBJECT (symbol_db->sdbs), "scan-package-start",
+					  G_CALLBACK (on_system_scan_package_start), plugin);	
+	
+	g_signal_connect (G_OBJECT (symbol_db->sdbs), "scan-package-end",
+					  G_CALLBACK (on_system_scan_package_end), plugin);	
+	
+	g_signal_connect (G_OBJECT (symbol_db->sdbs), "single-file-scan-end",
+					  G_CALLBACK (on_system_single_file_scan_end), plugin);	
 	
 	/* Create widgets */
 	symbol_db->dbv_main = gtk_vbox_new(FALSE, 5);
 	symbol_db->dbv_notebook = gtk_notebook_new();
-	symbol_db->progress_bar = gtk_progress_bar_new();
-	g_object_ref (symbol_db->progress_bar);
+	symbol_db->progress_bar_project = gtk_progress_bar_new();	
+	g_object_ref (symbol_db->progress_bar_project);
 	
+	symbol_db->progress_bar_system = gtk_progress_bar_new();
+	g_object_ref (symbol_db->progress_bar_system);
+		
 	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->dbv_notebook,
 						TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->progress_bar,
+	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->progress_bar_project,
 						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->progress_bar_system,
+						FALSE, FALSE, 0);	
 	gtk_widget_show_all (symbol_db->dbv_main);
 	
 	/* Local symbols */
@@ -1298,8 +1374,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* set up project directory watch */
 	symbol_db->root_watch_id = anjuta_plugin_add_watch (plugin,
 									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-									project_root_added,
-									project_root_removed, NULL);
+									on_project_root_added,
+									on_project_root_removed, NULL);
 
 	
 	/* Determine session state */
@@ -1323,6 +1399,11 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("SymbolDBPlugin: destroying engine ...");
 	g_object_unref (sdb_plugin->sdbe_project);
 	sdb_plugin->sdbe_project = NULL;
+
+	/* this must be done *bedore* destroying sdbe_globals */
+	g_object_unref (sdb_plugin->sdbs);
+	sdb_plugin->sdbs = NULL;
+	g_free (sdb_plugin->current_scanned_package);
 	
 	g_object_unref (sdb_plugin->sdbe_globals);
 	sdb_plugin->sdbe_globals = NULL;
@@ -1352,8 +1433,8 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	{
 		g_object_unref (sdb_plugin->pkg_config_launcher);
 		sdb_plugin->pkg_config_launcher = NULL;
-	}
-		
+	}	
+	
 	if (sdb_plugin->prefs_list_store)
 	{
 		g_object_unref (sdb_plugin->prefs_list_store);
@@ -1365,9 +1446,13 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->editor_watch_id, TRUE);
 	
 	/* Remove widgets: Widgets will be destroyed when dbv_main is removed */
-	g_object_unref (sdb_plugin->progress_bar);
+	g_object_unref (sdb_plugin->progress_bar_project);
+	g_object_unref (sdb_plugin->progress_bar_system);
 	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_main, NULL);
 
+	/* delete mutexes */
+/*	g_mutex_free (sdb_plugin->engine_mutex);*/
+	
 	sdb_plugin->root_watch_id = 0;
 	sdb_plugin->editor_watch_id = 0;
 	sdb_plugin->dbv_notebook = NULL;
@@ -1379,7 +1464,8 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin->dbv_view_locals_tab_label = NULL;
 	sdb_plugin->dbv_view_tree_search = NULL;
 	sdb_plugin->dbv_view_search_tab_label = NULL;
-	sdb_plugin->progress_bar = NULL;
+	sdb_plugin->progress_bar_project = NULL;
+	sdb_plugin->progress_bar_system = NULL;
 	return TRUE;
 }
 
@@ -1403,8 +1489,12 @@ symbol_db_instance_init (GObject *obj)
 {
 	SymbolDBPlugin *plugin = (SymbolDBPlugin*)obj;
 
-	plugin->files_count_done = 0;
-	plugin->files_count = 0;
+	plugin->files_count_project_done = 0;
+	plugin->files_count_project = 0;
+	
+	plugin->files_count_system_done = 0;
+	plugin->files_count_system = 0;	
+	plugin->current_scanned_package = NULL;
 }
 
 static void
@@ -1475,13 +1565,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		/* global_tags scan */
 		/* the only parameters to change is the engine, dbe_globals */
 		DEBUG_PRINT ("global_tags scan ");
-		gint i;
-		
-		/* FIXME REMOVE ME */
-		for (i = 0; i < filter_array->len; i++)
-		{
-			DEBUG_PRINT ("filter%d = %s", i, g_ptr_array_index (filter_array, i));
-		}
 		
 		iterator = 
 			symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe_globals,
