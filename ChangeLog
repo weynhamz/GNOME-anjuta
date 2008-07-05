@@ -1,3 +1,12 @@
+2008-07-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/start.c,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/run-program/plugin.c,
+	plugins/run-program/plugin.h:
+	Fix bug #538217: Run in terminal option isn't remembered
+	Fix bug: Debugger sources directories isn't remembered neither
+
 2008-07-04  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/symbol-browser/plugin.c (project_root_added):

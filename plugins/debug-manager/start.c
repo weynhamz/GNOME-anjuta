@@ -242,6 +242,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
+	anjuta_session_set_string_list (session, "Debugger", "Source directories", self->source_dirs);
 	anjuta_session_set_int (session, "Debugger", "Stop at beginning", self->stop_at_beginning + 1);
 }
 
@@ -251,6 +252,14 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
+
+	/* Initialize source_dirs */
+ 	if (self->source_dirs != NULL)
+	{		
+ 		g_list_foreach (self->source_dirs, (GFunc)g_free, NULL);
+ 		g_list_free (self->source_dirs);
+ 	}
+ 	self->source_dirs = anjuta_session_get_string_list (session, "Debugger", "Source directories");
 
 	stop_at_beginning = anjuta_session_get_int (session, "Debugger", "Stop at beginning");
 	if (stop_at_beginning == 0)

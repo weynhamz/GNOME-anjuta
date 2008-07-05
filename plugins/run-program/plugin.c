@@ -120,12 +120,11 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	anjuta_session_set_limited_string_list (session, "Debugger", "Program arguments", &self->recent_args);
-	anjuta_session_set_limited_string_list (session, "Debugger", "Program uri", &self->recent_target);
+	anjuta_session_set_limited_string_list (session, "Execution", "Program arguments", &self->recent_args);
+	anjuta_session_set_limited_string_list (session, "Execution", "Program uri", &self->recent_target);
 	anjuta_session_set_int (session, "Execution", "Run in terminal", self->run_in_terminal + 1);
-	anjuta_session_set_string_list (session, "Debugger", "Source directories", self->source_dirs);
-	anjuta_session_set_string_list (session, "Debugger", "Working directories", self->recent_dirs);
-	anjuta_session_set_strv (session, "Debugger", "Environment variables", self->environment_vars);
+	anjuta_session_set_string_list (session, "Execution", "Working directories", self->recent_dirs);
+	anjuta_session_set_strv (session, "Execution", "Environment variables", self->environment_vars);
 }
 
 static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, RunProgramPlugin *self)
@@ -140,14 +139,14 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
  		g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
  		g_list_free (self->recent_args);
  	}
- 	self->recent_args = anjuta_session_get_string_list (session, "Debugger", "Program arguments");
+ 	self->recent_args = anjuta_session_get_string_list (session, "Execution", "Program arguments");
 
  	if (self->recent_target != NULL)
  	{		
  		g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
  		g_list_free (self->recent_target);
  	}
- 	self->recent_target = anjuta_session_get_string_list (session, "Debugger", "Program uri");
+ 	self->recent_target = anjuta_session_get_string_list (session, "Execution", "Program uri");
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
 	run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
@@ -156,23 +155,15 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	else
 		self->run_in_terminal = run_in_terminal - 1;
 	
-	/* Initialize source_dirs */
- 	if (self->source_dirs != NULL)
- 	{		
- 		g_list_foreach (self->source_dirs, (GFunc)g_free, NULL);
- 		g_list_free (self->source_dirs);
- 	}
- 	self->source_dirs = anjuta_session_get_string_list (session, "Debugger", "Source directories");
-	
  	if (self->recent_dirs != NULL)
  	{		
  		g_list_foreach (self->recent_dirs, (GFunc)g_free, NULL);
  		g_list_free (self->recent_dirs);
  	}
- 	self->recent_dirs = anjuta_session_get_string_list (session, "Debugger", "Working directories");
+ 	self->recent_dirs = anjuta_session_get_string_list (session, "Execution", "Working directories");
 
 	g_strfreev (self->environment_vars);
- 	self->environment_vars = anjuta_session_get_strv (session, "Debugger", "Environment variables");
+ 	self->environment_vars = anjuta_session_get_strv (session, "Execution", "Environment variables");
 	
 	run_plugin_update_shell_value (self);
 }
@@ -313,7 +304,6 @@ run_plugin_instance_init (GObject *obj)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
 	
-	self->source_dirs = NULL;
 	self->recent_target = NULL;
 	self->recent_args = NULL;
 	self->recent_dirs = NULL;
@@ -343,8 +333,6 @@ run_plugin_finalize (GObject *obj)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
 	
-	g_list_foreach (self->source_dirs, (GFunc)g_free, NULL);
-	g_list_free (self->source_dirs);
 	g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
 	g_list_free (self->recent_target);
 	g_list_foreach (self->recent_args, (GFunc)g_free, NULL);

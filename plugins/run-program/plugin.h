@@ -53,7 +53,6 @@ struct _RunProgramPlugin
 	
 	/* Save data */
 	gboolean run_in_terminal;
- 	GList *source_dirs;
 	gchar **environment_vars;
 	GList *recent_target;
 	GList *recent_dirs;
