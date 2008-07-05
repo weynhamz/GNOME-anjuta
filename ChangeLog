@@ -1,5 +1,10 @@
 2008-07-05  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/Makefile.am:
+	#539551 – AutoComplete doesn't work
+
+2008-07-05  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/file-model.c (file_model_filter_file):
 	Fixed "Hide binary files"
 

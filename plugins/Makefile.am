@@ -41,5 +41,5 @@ SUBDIRS = . \
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left
 install-data-hook:
-	-rm -fr $(libdir)/anjuta/*
+	-rm -fr $(libdir)/anjuta/*.{so,a,plugin}
 
