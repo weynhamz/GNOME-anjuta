@@ -153,13 +153,13 @@ plugins/sample1/plugin.c
 plugins/scratchbox/anjuta-scratchbox.glade
 plugins/scratchbox/plugin.c
 plugins/search/anjuta-search.glade
+plugins/search/file-buffer.c
 plugins/search/plugin.c
 plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
-plugins/sourceview/anjuta-document-saver.c
-plugins/sourceview/anjuta-document.c
 plugins/sourceview/sourceview.c
+plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
 plugins/sourceview/anjuta-editor-sourceview.glade
 plugins/subversion/anjuta-subversion.glade

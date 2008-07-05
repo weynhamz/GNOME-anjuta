@@ -5255,7 +5255,7 @@ msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
 msgstr ""
-"Sind Sie sicher, dass das Unterverzeichnis »%s« aus der Projektdatenbank "
+"Sind Sie sicher, dass das folgendes Unterverzeichnis aus der Projektdatenbank "
 "entfernt werden soll?\n"
 "\n"
 
@@ -5275,7 +5275,7 @@ msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
 msgstr ""
-"Sind Sie sicher, dass das Ziel \"%s\" aus der Projektdatenbank entfernt "
+"Sind Sie sicher, dass das folgendes Ziel aus der Projektdatenbank entfernt "
 "werden soll?\n"
 "\n"
 
@@ -5289,7 +5289,7 @@ msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
 msgstr ""
-"Sind Sie sicher, dass die Quellcode-Datei %s aus der Projektdatenbank "
+"Sind Sie sicher, dass folgende Quell-Datei aus der Projektdatenbank "
 "entfernt werden soll?\n"
 "\n"
 
@@ -8552,16 +8552,16 @@ msgstr "Programm"
 #~ msgstr "Zu Symbol springen"
 
 #~ msgid "Select the symbol to go"
-#~ msgstr "Symbol, zu dem gesprungen werden soll, auswählen"
+#~ msgstr "Symbol, zu dem gesprungen werden soll, auswÃ€hlen"
 
 #~ msgid "Menu Items:"
-#~ msgstr "Menüeinträge:"
+#~ msgstr "MenÃŒeintrÃ€ge:"
 
 #~ msgid "User Tools"
 #~ msgstr "Benutzer-Werkzeuge"
 
 #~ msgid "Unable to build user interface for tool list"
-#~ msgstr "Konnte Benutzeroberfläche für Werkzeugliste nicht erstellen"
+#~ msgstr "Konnte BenutzeroberflÃ€che fÃŒr Werkzeugliste nicht erstellen"
 
 #~ msgid "Configure external tools"
 #~ msgstr "Externe Werkzeuge konfigurieren"
@@ -8572,8 +8572,8 @@ msgstr "Programm"
 #~ "b><b>There are %d items with unsaved changes. Save changes before closing?"
 #~ "</b>"
 #~ msgstr ""
-#~ "Es gibt %i geändertes Objekt. Soll es vor dem Schließen gespeichert "
-#~ "werden?Es gibt %i geänderte Objekte. Sollen sie vor dem Schließen "
+#~ "Es gibt %i geÃ€ndertes Objekt. Soll es vor dem SchlieÃen gespeichert "
+#~ "werden?Es gibt %i geÃ€nderte Objekte. Sollen sie vor dem SchlieÃen "
 #~ "gespeichert werden?"
 
 #~ msgid ""
@@ -8584,43 +8584,43 @@ msgstr "Programm"
 #~ msgstr "Die Anzeige von Minihilfen in der Aufgabenliste ist experimentell!"
 
 #~ msgid "Could not open file for writing"
-#~ msgstr "Datei konnte nicht zum Schreiben geöffnet werden"
+#~ msgstr "Datei konnte nicht zum Schreiben geÃ¶ffnet werden"
 
 #~ msgid ""
 #~ "The file '%s' already exists.\n"
 #~ "Do you want to replace it with the one you are saving?."
 #~ msgstr ""
 #~ "Die Datei \"%s\" existiert bereits.\n"
-#~ "Soll sie überschrieben werden?"
+#~ "Soll sie ÃŒberschrieben werden?"
 
 #~ msgid "..."
-#~ msgstr "…"
+#~ msgstr "âŠ"
 
 #~ msgid ""
 #~ "There are %d items with unsaved changes. Save changes before closing?"
 #~ msgstr ""
-#~ "%d Objekte wurden geändert. Sollen die Änderungen vor dem Schließen "
+#~ "%d Objekte wurden geÃ€ndert. Sollen die Ãnderungen vor dem SchlieÃen "
 #~ "gespeichert werden?"
 
 # -- sigh, i think shell == prompt in German --
 #~ msgid "Cannot execute command %s (using shell %s)\n"
 #~ msgstr ""
-#~ "Kommandozeile %s kann nicht mittels dem Prompt %s ausgeführt werden\n"
+#~ "Kommandozeile %s kann nicht mittels dem Prompt %s ausgefÃŒhrt werden\n"
 
 #~ msgid "Select execution program and args"
-#~ msgstr "Programm und Argumente auswählen"
+#~ msgstr "Programm und Argumente auswÃ€hlen"
 
 #~ msgid "C_lear All Breakpoints"
-#~ msgstr "Alle Haltepunkte l_öschen"
+#~ msgstr "Alle Haltepunkte l_Ã¶schen"
 
 #~ msgid "Delete all breakpoints"
-#~ msgstr "Alle Haltepunkte löschen"
+#~ msgstr "Alle Haltepunkte lÃ¶schen"
 
 #~ msgid "  Shared Object  "
 #~ msgstr " Gemeinsam verwendete Objekte"
 
 #~ msgid "Back"
-#~ msgstr "Zurück"
+#~ msgstr "ZurÃŒck"
 
 #~ msgid "Tag Definition"
 #~ msgstr "Symboldefinition"
@@ -8632,13 +8632,13 @@ msgstr "Programm"
 #~ msgstr "Vorh. Nachricht"
 
 #~ msgid "Next mesg"
-#~ msgstr "Nächste Nachricht"
+#~ msgstr "NÃ€chste Nachricht"
 
 #~ msgid "Prev bookmark"
 #~ msgstr "Vorheriges Lesezeichen"
 
 #~ msgid "Next bookmark"
-#~ msgstr "Nächstes Lesezeichen"
+#~ msgstr "NÃ€chstes Lesezeichen"
 
 #~ msgid "Toggle breakpoint"
 #~ msgstr "Haltepunkt an/aus"
@@ -8647,16 +8647,16 @@ msgstr "Programm"
 #~ msgstr "Einzelschritt"
 
 #~ msgid "Step over"
-#~ msgstr "Überspringen"
+#~ msgstr "Ãberspringen"
 
 #~ msgid "Step out"
 #~ msgstr "Herausspringen"
 
 #~ msgid "Run to cursor"
-#~ msgstr "Bis zum Cursor ausführen"
+#~ msgstr "Bis zum Cursor ausfÃŒhren"
 
 #~ msgid "Run/Continue"
-#~ msgstr "Ausführen/Weitermachen"
+#~ msgstr "AusfÃŒhren/Weitermachen"
 
 #~ msgid "Interrupt"
 #~ msgstr "Unterbrechen"
@@ -8674,7 +8674,7 @@ msgstr "Programm"
 #~ msgstr "Hilfen an/aus"
 
 #~ msgid "++Zoom"
-#~ msgstr "Ansicht vergrößern"
+#~ msgstr "Ansicht vergrÃ¶Ãern"
 
 #~ msgid "--Zoom"
 #~ msgstr "Ansicht verkleinern"
@@ -8686,7 +8686,7 @@ msgstr "Programm"
 #~ msgstr "Kopieren"
 
 #~ msgid "Paste"
-#~ msgstr "Einfügen"
+#~ msgstr "EinfÃŒgen"
 
 #~ msgid "Context Help"
 #~ msgstr "Kontexthilfe"
@@ -8716,19 +8716,19 @@ msgstr "Programm"
 #~ msgstr "<span weight=\"bold\">Optionen</span>"
 
 #~ msgid "New advance search And replace stuff"
-#~ msgstr "Neue erweiterte »Suchen und Ersetzen«-Funktionen"
+#~ msgstr "Neue erweiterte Â»Suchen und ErsetzenÂ«-Funktionen"
 
 #~ msgid "Populating symbols' db..."
-#~ msgstr "Erstelle Symbol-Datenbank …"
+#~ msgstr "Erstelle Symbol-Datenbank âŠ"
 
 #~ msgid "Anjuta Plugin User Interface"
-#~ msgstr "Anjuta-Komponenten-Benutzeroberfläche"
+#~ msgstr "Anjuta-Komponenten-BenutzeroberflÃ€che"
 
 #~ msgid "toggle"
 #~ msgstr "An/Aus"
 
 #~ msgid "<b>Program execution:</b>"
-#~ msgstr "<b>Programm-Ausführung</b>"
+#~ msgstr "<b>Programm-AusfÃŒhrung</b>"
 
 #~ msgid "User name"
 #~ msgstr "Benutzername"
@@ -8740,7 +8740,7 @@ msgstr "Programm"
 #~ msgstr "Projekt-Assistent"
 
 #~ msgid "Couldn't get file info %s : %s"
-#~ msgstr "Konnte Datei-Informationen für %s nicht abrufen: %s"
+#~ msgstr "Konnte Datei-Informationen fÃŒr %s nicht abrufen: %s"
 
 #~ msgid "Font "
 #~ msgstr "Schrift "
@@ -8762,16 +8762,16 @@ msgstr "Programm"
 #~ msgstr "Anjuta-Test-Shell beenden"
 
 #~ msgid "_Preferences..."
-#~ msgstr "_Einstellungen …"
+#~ msgstr "_Einstellungen âŠ"
 
 #~ msgid "Preferences"
 #~ msgstr "Einstellungen"
 
 #~ msgid "C_ustomize shortcuts"
-#~ msgstr "Tastenkürzel _bearbeiten"
+#~ msgstr "TastenkÃŒrzel _bearbeiten"
 
 #~ msgid "Customize shortcuts associated with menu items"
-#~ msgstr "Tastenkürzel für Menü-Einträge bearbeiten"
+#~ msgstr "TastenkÃŒrzel fÃŒr MenÃŒ-EintrÃ€ge bearbeiten"
 
 #, fuzzy
 #~ msgid "Anjuta test shell"
@@ -8796,10 +8796,10 @@ msgstr "Programm"
 
 #, fuzzy
 #~ msgid "Subversion: Diff file/directory"
-#~ msgstr "Bis zur Klammer auswählen"
+#~ msgstr "Bis zur Klammer auswÃ€hlen"
 
 #~ msgid "Subversion: Merge changes into working copy"
-#~ msgstr "Subversion: Änderungen in die Arbeitskopie einpflegen"
+#~ msgstr "Subversion: Ãnderungen in die Arbeitskopie einpflegen"
 
 #~ msgid "Subversion: Remove file/directory"
 #~ msgstr "Subversion: Datei/Verzeichnis entfernen"
@@ -8811,7 +8811,7 @@ msgstr "Programm"
 #~ msgstr "Subversion: Datei/Verzeichnis aktualisieren"
 
 #~ msgid "/View/Hide Items Without an End Date"
-#~ msgstr "/Einträge ohne Enddatum anzeigen/verbergen"
+#~ msgstr "/EintrÃ€ge ohne Enddatum anzeigen/verbergen"
 
 #~ msgid "Display flags"
 #~ msgstr "Anzeigeoptionen"
@@ -8824,7 +8824,7 @@ msgstr "Programm"
 
 #~ msgid "Lazy mode doesn't normalize entered date and time values"
 #~ msgstr ""
-#~ "Im »Faulen Modus« werden die eingebenen Datums- und Zeitwerte nicht "
+#~ "Im Â»Faulen ModusÂ« werden die eingebenen Datums- und Zeitwerte nicht "
 #~ "normalisiert"
 
 #~ msgid "Year"
@@ -8864,13 +8864,13 @@ msgstr "Programm"
 #~ msgstr "Angezeigte Sekunde"
 
 #~ msgid "Lower limit year"
-#~ msgstr "Untere Grenze für die Jahreszahl"
+#~ msgstr "Untere Grenze fÃŒr die Jahreszahl"
 
 #~ msgid "Year part of the lower date limit"
 #~ msgstr "Jahr der unteren Datumsgrenze"
 
 #~ msgid "Upper limit year"
-#~ msgstr "Obere Grenze für die Jahreszahl"
+#~ msgstr "Obere Grenze fÃŒr die Jahreszahl"
 
 #~ msgid "Year part of the upper date limit"
 #~ msgstr "Jahr der oberen Datumsgrenze"
