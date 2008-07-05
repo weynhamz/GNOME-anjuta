@@ -1,5 +1,10 @@
 2008-07-05  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/run-program/execute.c (get_local_executable):
+	500962 – Further icons
+
+2008-07-05  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/action-callbacks.c
 	(on_close_file_activate):
 	fixed memory corruption (thanks to yura_dev)
@@ -3622,7 +3627,7 @@
 	Fix bug #488519, remove critical warning (completion_cache == NULL
 	is valid)
 
-2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-01-19  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c:
 	Enable logging of gdb communication with an environment variable
@@ -3633,13 +3638,13 @@
 	(iiter_set_position), (iiter_get_position), (iiter_get_length): Use
 	editor native funtions to avoid round trips.
 
-2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-01-19  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor.c:
 	Fix a bug due to the previous patch: Unable to save new file in 
 	Scintilla
 
-2008-01-18  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-01-18  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/disassemble.c,
 	plugins/debug-manager/disassemble.h,
@@ -3734,7 +3739,7 @@
 	Fixes Bug #509510 - Check input of some dialogs to avoid termination
 	if user gives bad or no input
 
-2008-01-16  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-01-16  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/anjuta-docman.c:
 	Fix #507627 memory tab stay active on debugger stop
@@ -3743,7 +3748,7 @@
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-plugin-manager.c:
-	Fixed #508399 – When you enable a plugin, preferences don't show up
+	Fixed #508399 â When you enable a plugin, preferences don't show up
 
 2008-01-16  Rob Bradford  <rob@openedhand.com>
 
@@ -3767,26 +3772,26 @@
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
 	* src/anjuta.glade:
 	
-	Fixed #509875 – The "Update globale tags" button wording is incorrect
-	Fixed #509873 – Build Autotools Preferences has excessive padding
-	Fixed #509872 – General Information labels are incorrectly aligned
-	Fixed #509871 – General preferences has incorrect use of colons
+	Fixed #509875 â The "Update globale tags" button wording is incorrect
+	Fixed #509873 â Build Autotools Preferences has excessive padding
+	Fixed #509872 â General Information labels are incorrectly aligned
+	Fixed #509871 â General preferences has incorrect use of colons
 	
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-document-manager.glade:
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
 
-	Fixed #509865 – Incorrect padding in the Documents settings tabs
-	Fixed #509867 – Create button contents is mis-aligned
-	Fixed #509869 – "Add Directory" button is not HIG complient
+	Fixed #509865 â Incorrect padding in the Documents settings tabs
+	Fixed #509867 â Create button contents is mis-aligned
+	Fixed #509869 â "Add Directory" button is not HIG complient
 
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-preferences-dialog.c:
 	(anjuta_preferences_dialog_add_page):
 	
-	Fix #509864 – No initial section selected when opening the Preferences dialog
+	Fix #509864 â No initial section selected when opening the Preferences dialog
 
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
@@ -3832,7 +3837,7 @@
 
 2007-01-14 Tom <tpgww@onepost.net>
 
-	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+	reviewed by: SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/anjuta-docman.c:
 	Fix two memory leaks added by the previous patch

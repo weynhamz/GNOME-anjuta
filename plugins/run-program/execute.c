@@ -73,7 +73,7 @@ get_local_executable (GtkWindow *parent, const gchar *uri)
 		{
 			if (g_file_test (local, G_FILE_TEST_EXISTS) == FALSE)
 			{
-				err_msg = _("Program '%s' does not exists");
+				err_msg = _("Program '%s' does not exist");
 			}
 			else if (g_file_test (local, G_FILE_TEST_IS_EXECUTABLE) == FALSE)
 			{
