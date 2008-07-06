@@ -1,5 +1,5 @@
 
-SUBDIRS = minimal terminal cpp gtk anjuta-plugin gnome \
+SUBDIRS = minimal terminal cpp gtk anjuta-plugin anjuta-plugin-vala gnome \
 	gtkmm wxwin xlib xlib-dock gcj java \
 	python mkfile sdl
 
@@ -15,6 +15,7 @@ wizard_files_DATA = \
 	gtk.wiz \
 	gtk-logo.png \
 	anjuta-plugin.wiz \
+	anjuta-plugin-vala.wiz \
 	anjuta-plugin-logo.png \
 	gnome.wiz \
 	gnome-logo.png \

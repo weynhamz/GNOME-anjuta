@@ -3,6 +3,7 @@
     "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
 <!ENTITY AnjutaArchitecture SYSTEM "anjuta-architecture.sgml">
 <!ENTITY WritingPlugins SYSTEM "writing-plugins.sgml">
+<!ENTITY WritingPluginsInVala SYSTEM "writing-plugins-vala.sgml">
 <!ENTITY PluginDescriptionFile SYSTEM "plugin-description-file.sgml">
 <!ENTITY ProjectWizardFormat SYSTEM "project-wizard-format.sgml">
 ]>
@@ -43,6 +44,7 @@
 
   &AnjutaArchitecture;
   &WritingPlugins;
+  &WritingPluginsInVala;
   &PluginDescriptionFile;
   &ProjectWizardFormat;
 

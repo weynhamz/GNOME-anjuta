@@ -1286,6 +1286,30 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 	}
 }
 
+static void 
+update_button_labels (MessageView* view)
+{
+	gchar* temp;
+	
+	temp = g_strdup_printf(ngettext ("%d Message", "%d Messages", 
+									 view->privat->info_count),
+						   view->privat->info_count);
+	gtk_button_set_label (GTK_BUTTON (view->privat->info), temp);
+	g_free (temp);
+	temp = g_strdup_printf(ngettext ("%d Warning", "%d Warnings", 
+									 view->privat->warn_count),
+						   view->privat->warn_count);	
+	gtk_button_set_label (GTK_BUTTON (view->privat->warn), temp);
+	g_free (temp);
+	temp = g_strdup_printf(ngettext ("%d Error", "%d Errors", 
+									 view->privat->error_count),
+						   view->privat->error_count);	
+	gtk_button_set_label (GTK_BUTTON (view->privat->error), temp);
+	g_free (temp);
+	
+}
+
+
 static void
 imessage_view_append (IAnjutaMessageView *message_view,
 					  IAnjutaMessageViewType type,
@@ -1300,7 +1324,6 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	gchar *utf8_msg;
 	gchar *escaped_str;
 	gchar* stock_id = NULL;
-	gchar *temp;
 	
 	MessageView *view;
 	Message *message;
@@ -1318,36 +1341,28 @@ imessage_view_append (IAnjutaMessageView *message_view,
 		switch (message->type)
 		{
 			case IANJUTA_MESSAGE_VIEW_TYPE_INFO:
-				stock_id = GTK_STOCK_INFO;
 				view->privat->info_count++;
-				temp = g_strdup_printf(_("%d Messages"), view->privat->info_count);
-				gtk_button_set_label (GTK_BUTTON (view->privat->info), temp);
-				g_free (temp);
+				stock_id = GTK_STOCK_INFO;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
 				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.warning");
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
 				view->privat->warn_count++;
-				temp = g_strdup_printf(_("%d Warnings"), view->privat->warn_count);
-				gtk_button_set_label (GTK_BUTTON (view->privat->warn), temp);
 				stock_id = GTK_STOCK_DIALOG_WARNING;
-				g_free (temp);
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
 				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.error");
 				view->privat->error_count++;
-				temp = g_strdup_printf(_("%d Errors"), view->privat->error_count);
-				gtk_button_set_label (GTK_BUTTON (view->privat->error), temp);
 				stock_id = GTK_STOCK_STOP;
-				g_free (temp);
 				break;
 			default:
 				color = NULL;
 		}
 	}
-
+	update_button_labels (view);
+	
 	/* Add the message to the tree */
 	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_append (store, &iter);
@@ -1404,6 +1419,8 @@ imessage_view_clear (IAnjutaMessageView *message_view, GError **e)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->info), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->warn), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->error), TRUE);
+	
+	update_button_labels (view);
 	
 	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_clear (store);

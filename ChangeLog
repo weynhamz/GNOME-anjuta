@@ -1,3 +1,8 @@
+2008-07-07  Johannes Schmid  <jhs@idefix>
+
+	* plugins/message-view/message-view.c:
+	Use correct plural forms for buttons and update buttons on clear()
+
 2008-07-06  Johannes Schmid  <jhs@idefix>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c

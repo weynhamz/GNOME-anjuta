@@ -434,6 +434,17 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SYMBOL_DB, [test x$symboldb = xyes])
 
+dnl Check for Vala
+dnl -------------------------------------------------------------
+PKG_CHECK_MODULES(VALA, vala-1.0, [have_vala="yes"], [have_vala="no"])
+
+if test x$have_vala = xyes; then
+	vapidir=`pkg-config --variable=vapidir vala-1.0`
+	AC_SUBST(vapidir)
+fi
+
+AM_CONDITIONAL(HAVE_VALA, [test x$have_vala = xyes])
+
 dnl Valgrind plugin
 dnl check for libbfd
 dnl -------------------------------------------------------------
@@ -1102,6 +1113,9 @@ plugins/project-wizard/templates/gtk/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 plugins/project-wizard/templates/anjuta-plugin/po/Makefile
+plugins/project-wizard/templates/anjuta-plugin-vala/Makefile
+plugins/project-wizard/templates/anjuta-plugin-vala/src/Makefile
+plugins/project-wizard/templates/anjuta-plugin-vala/po/Makefile
 plugins/project-wizard/templates/gnome/Makefile
 plugins/project-wizard/templates/gnome/src/Makefile
 plugins/project-wizard/templates/gnome/po/Makefile
@@ -1201,9 +1215,14 @@ fi
 if [ test x$symboldb = xyes ]; then
         echo "Building new (unstable) Symbol-db plugin: ..............YES"
 else
-        echo "Building new (unstable) Symbol-db plugin: .......,,.....NO"
+        echo "Building new (unstable) Symbol-db plugin: ..............NO"
+fi
+if [ test x$have_vala = xyes]; then
+        echo "Building support for Vala plugins: .....................YES"
+else
+        echo "Building support for Vala plugins: .....................NO"
 fi
 echo "-------------------------------------------------------------------"
-echo "AM_CFLAGS = $AM_CFLAGS"
-echo "AM_CXXFLAGS = $AM_CXXFLAGS"
+#echo "AM_CFLAGS = $AM_CFLAGS"
+#echo "AM_CXXFLAGS = $AM_CXXFLAGS"
 

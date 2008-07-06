@@ -171,6 +171,10 @@ anjuta-enum-types.c: Makefile
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libanjuta-1.0.pc
 
+if HAVE_VALA
+vapi_DATA = libanjuta-1.0.vapi libanjuta-1.0.deps
+endif
+
 EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
