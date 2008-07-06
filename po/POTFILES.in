@@ -153,7 +153,6 @@ plugins/sample1/plugin.c
 plugins/scratchbox/anjuta-scratchbox.glade
 plugins/scratchbox/plugin.c
 plugins/search/anjuta-search.glade
-plugins/search/file-buffer.c
 plugins/search/plugin.c
 plugins/search/search_preferences.c
 plugins/search/search-replace.c
