@@ -32,12 +32,18 @@ struct _MessageViewPrivate
 	gchar *line_buffer;
 
 	GtkWidget *tree_view;
-
+	GtkTreeModel *model;
+	GtkTreeModel *filter;
+	
 	AnjutaPreferences* prefs;
 	GtkWidget *popup_menu;
 	
 	gint adj_chgd_hdlr;
 	
+	/* Messages filter buttons */
+	GtkWidget *info, *warn, *error;
+	guint info_count, warn_count, error_count;
+
 	/* Properties */
 	gchar *label;
 	gchar *pixmap;
@@ -83,6 +89,11 @@ static gpointer parent_class;
 
 static void prefs_init (MessageView *mview);
 static void prefs_finalize (MessageView *mview);
+
+static gboolean
+message_view_tree_view_filter (GtkTreeModel *model,
+							   GtkTreeIter  *iter,
+							   gpointer      data);
 
 /* Ask the user for an uri name */
 static gchar *
@@ -231,7 +242,7 @@ message_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard
 	GtkTreeModel *model;
 	MessageView* view = MESSAGE_VIEW(widget);
 	
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	model = view->privat->model;
 	
 	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
 		x, y, &path, NULL, NULL, NULL))
@@ -273,7 +284,7 @@ tooltip_get_display_text (MessageView *view)
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	model = view->privat->model;
 	
 	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
 		view->privat->tooltip_rect.x, view->privat->tooltip_rect.y,
@@ -543,6 +554,14 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 	return FALSE;
 }
 
+static void
+on_filter_buttons_toggled (GtkToggleButton *toggle, gpointer user_data) 
+{
+	MessageView *msgview = MESSAGE_VIEW (user_data);
+	
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (msgview->privat->filter));
+}
+
 static void 
 on_adjustment_changed (GtkAdjustment* adj, gpointer data)
 {
@@ -685,13 +704,15 @@ message_view_finalize (GObject *obj)
 static void
 message_view_instance_init (MessageView * self)
 {
+	GtkWidget *vbox;
+	GtkWidget *filter_buttons_box;
 	GtkWidget *scrolled_win;
 	GtkCellRenderer *renderer;
 	GtkCellRenderer *renderer_pixbuf;
 	GtkTreeViewColumn *column;
 	GtkTreeViewColumn *column_pixbuf;
 	GtkTreeSelection *select;
-	GtkListStore *model;
+	GtkListStore *model;	
 	GtkAdjustment* adj;
 
 	g_return_if_fail(self != NULL);
@@ -699,12 +720,71 @@ message_view_instance_init (MessageView * self)
 
 	/* Init private data */
 	self->privat->line_buffer = g_strdup("");
+	self->privat->info_count = 0;
+	self->privat->warn_count = 0;
+	self->privat->error_count = 0;
 
+	/* Create filter buttons */
+	vbox = gtk_hbox_new (FALSE, 0);
+	filter_buttons_box = gtk_vbox_new (FALSE, 1);
+	
+	self->privat->info = gtk_toggle_button_new_with_label (_("0 Messages"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->info), TRUE);
+	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->info), FALSE);
+	gtk_button_set_relief (GTK_BUTTON (self->privat->info), GTK_RELIEF_HALF);
+	gtk_button_set_image (GTK_BUTTON (self->privat->info), 
+						  gtk_image_new_from_stock (GTK_STOCK_INFO, 
+													GTK_ICON_SIZE_BUTTON));
+	gtk_widget_show (self->privat->info);
+	g_signal_connect (G_OBJECT (self->privat->info), "toggled",
+					  G_CALLBACK (on_filter_buttons_toggled), self);
+	
+	self->privat->warn = gtk_toggle_button_new_with_label (_("0 Warnings"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->warn), TRUE);
+	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->warn), FALSE);
+	gtk_button_set_relief (GTK_BUTTON (self->privat->warn), GTK_RELIEF_HALF);
+	/* FIXME: There is not GTK_STOCK_DIALOG_WARNING. */
+	gtk_button_set_image (GTK_BUTTON (self->privat->warn), 
+						  gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, 
+													GTK_ICON_SIZE_BUTTON));
+	gtk_widget_show (self->privat->warn);
+	g_signal_connect (G_OBJECT (self->privat->warn), "toggled",
+					  G_CALLBACK (on_filter_buttons_toggled), self);
+	
+	self->privat->error = gtk_toggle_button_new_with_label (_("0 Errors"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->error), TRUE);
+	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->error), FALSE);
+	gtk_button_set_relief (GTK_BUTTON (self->privat->error), GTK_RELIEF_HALF);
+	gtk_button_set_image (GTK_BUTTON (self->privat->error), 
+						  gtk_image_new_from_stock (GTK_STOCK_STOP, 
+													GTK_ICON_SIZE_BUTTON));
+	gtk_widget_show (self->privat->error);
+	g_signal_connect (G_OBJECT (self->privat->error), "toggled",
+					  G_CALLBACK (on_filter_buttons_toggled), self);
+	
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->info),
+						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->warn),
+						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->error),
+						FALSE, FALSE, 0);
+	
+	gtk_widget_show (filter_buttons_box);
+	
+	
 	/* Create the tree widget */
 	model = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
 								G_TYPE_STRING, MESSAGE_TYPE,  G_TYPE_STRING);
-	self->privat->tree_view =
-		gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
+	self->privat->model = GTK_TREE_MODEL (model);
+	
+	/* message filter */
+	self->privat->filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
+	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (self->privat->filter), 
+											message_view_tree_view_filter,
+											self, NULL);
+	
+	self->privat->tree_view = 
+		gtk_tree_view_new_with_model (GTK_TREE_MODEL (self->privat->filter));
 	gtk_widget_show (self->privat->tree_view);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW
 									   (self->privat->tree_view), FALSE);
@@ -754,7 +834,20 @@ message_view_instance_init (MessageView * self)
 					 G_CALLBACK(on_adjustment_value_changed), self);
 
 	/* Add it to the dockitem */
-	gtk_container_add (GTK_CONTAINER (self), scrolled_win);
+	if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_LTR) {
+		gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolled_win),
+							TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (filter_buttons_box),
+							FALSE, FALSE, 0);
+	} else {
+		gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (filter_buttons_box),
+							FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolled_win),
+							TRUE, TRUE, 0);
+	}
+	
+	gtk_widget_show (vbox);
+	gtk_container_add (GTK_CONTAINER (self), vbox);
 	
 	/* Connect signals */
 	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
@@ -767,7 +860,6 @@ message_view_instance_init (MessageView * self)
 #else
 	g_object_set (G_OBJECT(self), "has-tooltip", TRUE, NULL);
 #endif
-	g_object_unref (model);
 }
 
 static void
@@ -847,7 +939,7 @@ message_view_serialize (MessageView *view, AnjutaSerializer *serializer)
 		return FALSE;
 	
 	/* Serialize individual messages */
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	model = view->privat->model;
 	
 	if (!anjuta_serializer_write_int (serializer, "messages",
 									  gtk_tree_model_iter_n_children (model, NULL)))
@@ -887,7 +979,7 @@ message_view_deserialize (MessageView *view, AnjutaSerializer *serializer)
 		return FALSE;
 	
 	/* Create individual messages */
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	model = view->privat->model;
 	gtk_list_store_clear (GTK_LIST_STORE (model));
 	
 	if (!anjuta_serializer_read_int (serializer, "messages", &messages))
@@ -916,8 +1008,7 @@ void message_view_next(MessageView* view)
 	GtkTreeModel *model;
 	GtkTreeSelection *select;
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW
-					 (view->privat->tree_view));
+	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
 
@@ -961,8 +1052,7 @@ void message_view_previous(MessageView* view)
 	GtkTreeSelection *select;
 	GtkTreePath *path;
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW
-					 (view->privat->tree_view));
+	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
 	
@@ -1022,7 +1112,7 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 	}
 
 	/* Save all lines of message view */	
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	model = view->privat->model;
 
 	ok = TRUE;
 	gtk_tree_model_get_iter_first (model, &iter);
@@ -1088,8 +1178,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	gboolean success;
 	
 	color = anjuta_preferences_get (mview->privat->prefs, color_pref_key);
-	store = GTK_LIST_STORE (gtk_tree_view_get_model
-				(GTK_TREE_VIEW (mview->privat->tree_view)));
+	store = GTK_LIST_STORE (mview->privat->model);
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
 	while (success)
 	{
@@ -1211,6 +1300,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	gchar *utf8_msg;
 	gchar *escaped_str;
 	gchar* stock_id = NULL;
+	gchar *temp;
 	
 	MessageView *view;
 	Message *message;
@@ -1229,17 +1319,29 @@ imessage_view_append (IAnjutaMessageView *message_view,
 		{
 			case IANJUTA_MESSAGE_VIEW_TYPE_INFO:
 				stock_id = GTK_STOCK_INFO;
+				view->privat->info_count++;
+				temp = g_strdup_printf(_("%d Messages"), view->privat->info_count);
+				gtk_button_set_label (GTK_BUTTON (view->privat->info), temp);
+				g_free (temp);
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
 				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.warning");
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
+				view->privat->warn_count++;
+				temp = g_strdup_printf(_("%d Warnings"), view->privat->warn_count);
+				gtk_button_set_label (GTK_BUTTON (view->privat->warn), temp);
 				stock_id = GTK_STOCK_DIALOG_WARNING;
+				g_free (temp);
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
 				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.error");
+				view->privat->error_count++;
+				temp = g_strdup_printf(_("%d Errors"), view->privat->error_count);
+				gtk_button_set_label (GTK_BUTTON (view->privat->error), temp);
 				stock_id = GTK_STOCK_STOP;
+				g_free (temp);
 				break;
 			default:
 				color = NULL;
@@ -1247,8 +1349,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	}
 
 	/* Add the message to the tree */
-	store = GTK_LIST_STORE (gtk_tree_view_get_model
-				(GTK_TREE_VIEW (view->privat->tree_view)));
+	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_append (store, &iter);
 
 	/*
@@ -1296,8 +1397,15 @@ imessage_view_clear (IAnjutaMessageView *message_view, GError **e)
 	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
 	view = MESSAGE_VIEW (message_view);
 
-	store = GTK_LIST_STORE (gtk_tree_view_get_model
-				(GTK_TREE_VIEW (view->privat->tree_view)));
+	/* filter settings restart */
+	view->privat->info_count = 0;
+	view->privat->warn_count = 0;
+	view->privat->error_count = 0;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->info), TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->warn), TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->error), TRUE);
+	
+	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_clear (store);
 }
 
@@ -1386,8 +1494,7 @@ imessage_view_get_all_messages (IAnjutaMessageView * message_view,
 	g_return_val_if_fail (MESSAGE_IS_VIEW (message_view), NULL);
 	
 	view = MESSAGE_VIEW (message_view);
-	store = GTK_LIST_STORE (gtk_tree_view_get_model
-				(GTK_TREE_VIEW (view->privat->tree_view)));
+	store = GTK_LIST_STORE (view->privat->model);
 	
 	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
 	{
@@ -1412,6 +1519,27 @@ imessage_view_iface_init (IAnjutaMessageViewIface *iface)
 	iface->select_previous = imessage_view_select_previous;
 	iface->get_current_message = imessage_view_get_current_message;
 	iface->get_all_messages = imessage_view_get_all_messages;
+}
+
+static gboolean
+message_view_tree_view_filter (GtkTreeModel *model, GtkTreeIter  *iter,
+							   gpointer      data)
+{
+	Message *msg;
+	MessageView *msgview;
+	
+	msgview = MESSAGE_VIEW (data);
+	gtk_tree_model_get (msgview->privat->model, iter, COLUMN_MESSAGE, &msg, -1);
+
+	if (msg != NULL) {
+		if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_INFO) {
+			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->info));
+		} else if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_WARNING) {
+			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->warn));
+		} else if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_ERROR) {
+			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->error));
+		} else return TRUE;
+	} else return FALSE;
 }
 
 ANJUTA_TYPE_BEGIN(MessageView, message_view, GTK_TYPE_HBOX);

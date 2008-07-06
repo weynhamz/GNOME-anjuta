@@ -701,7 +701,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 								: dir;
 		build_context_push_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Entering: %s"), dir);
-		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, 
 									 summary, one_line, NULL);
 		g_free (dir);
 		g_free(summary);
@@ -737,7 +737,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 								: dir;
 		build_context_pop_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Leaving: %s"), dir);
-		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, 
 									 summary, one_line, NULL);
 		g_free (dir);
 		g_free(summary);

@@ -1,3 +1,14 @@
+2008-07-06  Johannes Schmid  <jhs@idefix>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c
+	(on_build_mesg_format):
+	Do not set MESSAGE_INFO on change directory messages
+
+2008-07-06  Juan Dapena Paz  <karion.siand@gmail.com>
+ 
+	* plugins/message-view/message-view.c:
+	Fixed #541689 – Filter buttons added
+
 2008-07-06  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Arun Chaganty
