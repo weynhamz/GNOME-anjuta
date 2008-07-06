@@ -1,0 +1,2 @@
+run the anjuta-gen-vapi.sh script in this directory after installing 
+anjuta to regenerate the Vala bindings.

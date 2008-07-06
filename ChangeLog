@@ -1,4 +1,52 @@
-2008-06-16  Abderrahim Kitouni  <a.kitouni@gmail.com>
+2008-07-07  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/libanjuta-1.0.deps:
+	* libanjuta/vapi-gen/README:
+	* libanjuta/vapi-gen/anjuta-gen-vapi.sh:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.deps:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.excludes:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.files:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.metadata:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.namespace:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.deps:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.excludes:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.files:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.metadata:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.namespace:
+	* manuals/reference/libanjuta/writing-plugins-vala.sgml:
+	* plugins/project-wizard/templates/anjuta-plugin-vala.wiz:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/Makefile.am:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/configure.ac.
+	tpl:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/po/Makefile.a
+	m:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/po/POTFILES.i
+	n:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/src/Makefile.
+	am:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/src/Makefile.
+	am.tpl:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/src/config.va
+	pi:
+	* plugins/project-wizard/templates/anjuta-plugin-vala/src/plugin.va
+	la:
+	* plugins/symbol-db/symbol-db-system.c (destroy_single_scan_data),
+	(destroy_engine_scan_data), (sdb_system_init),
+	(sdb_system_finalize), (sdb_system_class_init),
+	(sdb_system_get_normalized_cflags),
+	(on_engine_package_single_file_scan_end), (symbol_db_system_new),
+	(symbol_db_system_is_package_parsed), (on_pkg_config_output),
+	(sdb_system_files_visit_dir), (prepare_files_to_be_scanned),
+	(on_engine_package_scan_end), (sdb_system_do_scan_package_1),
+	(sdb_system_do_scan_next_package),
+	(sdb_system_do_scan_new_package), (on_pkg_config_exit),
+	(symbol_db_system_scan_package),
+	(symbol_db_system_is_package_parseable):
+	* plugins/symbol-db/symbol-db-system.h:
+	
+	Added various missing files to svn
+
+2008-07-07  Abderrahim Kitouni  <a.kitouni@gmail.com>
 
         * plugins/project-wizard/templates/anjuta-plugin-vala*:
         * configure.in, plugins/project-wizard/templates/Makefile.am:

@@ -1,0 +1,2 @@
+include/libanjuta-1.0/libanjuta/interfaces/libanjuta-interfaces.h
+include/libanjuta-1.0/libanjuta/interfaces/libanjuta-iface-marshallers.h
