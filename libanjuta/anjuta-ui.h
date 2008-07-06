@@ -34,6 +34,7 @@
  */
 #include <gtk/gtkaccelgroup.h>
 #include <gtk/gtkuimanager.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 

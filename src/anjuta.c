@@ -32,8 +32,7 @@
 #define ANJUTA_REMEMBERED_PLUGINS "anjuta.remembered.plugins"
 #define ANJUTA_SESSION_SKIP_LAST "anjuta.session.skip.last"
 #define ANJUTA_SESSION_SKIP_LAST_FILES "anjuta.session.skip.last.files"
-#define USER_SESSION_PATH_NEW (g_build_filename (g_get_home_dir (), ".anjuta", \
-												 "session", NULL))
+#define USER_SESSION_PATH_NEW (anjuta_util_get_user_cache_file_path ("session/", NULL))
 
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define USER_PROFILE_NAME "user"
@@ -337,8 +336,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	
 	/* Load user session profile */
 	profile_name = g_path_get_basename (DEFAULT_PROFILE);
-	session_profile = g_build_filename (g_get_home_dir(), ".anjuta",
-										profile_name, NULL);
+	session_profile = anjuta_util_get_user_cache_file_path (profile_name, NULL);
 	if (g_file_test (session_profile, G_FILE_TEST_EXISTS))
 	{
 		anjuta_profile_add_plugins_from_xml (profile, session_profile,

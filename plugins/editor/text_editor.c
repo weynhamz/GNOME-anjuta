@@ -1949,16 +1949,13 @@ text_editor_get_props ()
 	g_free (propfile);
 	g_free (propdir);
 
-	propdir = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX "/", NULL);
-	propfile = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX,
-								 "editor-style.properties", NULL);
+	propdir = anjuta_util_get_user_config_file_path ("scintilla/",NULL);
+	propfile = anjuta_util_get_user_config_file_path ("scintilla","editor-style.properties",NULL);
 	/* DEBUG_PRINT ("Reading file: %s", propfile); */
 	
 	/* Create user.properties file, if it doesn't exist */
 	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE) {
-		gchar* old_propfile = g_build_filename (g_get_home_dir(),
-												".anjuta"PREF_SUFFIX,
-												"session.properties", NULL);
+		gchar* old_propfile = anjuta_util_get_user_config_file_path ("scintilla", "session.properties", NULL);
 		if (g_file_test (old_propfile, G_FILE_TEST_EXISTS) == TRUE)
 			anjuta_util_copy_file (old_propfile, propfile, FALSE);
 		g_free (old_propfile);

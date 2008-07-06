@@ -642,9 +642,8 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 			}
 			name = atp_remove_mnemonic (command);
 			g_free (command);
-			command = g_build_filename (g_get_home_dir(),
-										LOCAL_ANJUTA_SCRIPT_DIRECTORY,
-										name, NULL);
+
+			command = anjuta_util_get_user_data_file_path ("scripts/", name, NULL);
 			g_free (name);
 
 			/* Find a new file name */
@@ -784,7 +783,9 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			GFile* file;
 
 			/* Check that default script directory exist */
-			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
+			data = anjuta_util_get_user_data_file_path ("scripts/", NULL);
+
+			// TODO: Replace with g_mkdir_with_parents
 			make_directory (data);
 			g_free (data);
 

@@ -793,12 +793,34 @@ anjuta_util_update_string_list (GList *p_list, const gchar *p_str, gint length)
 }
 
 gboolean
-anjuta_util_create_dir (const gchar * d)
+anjuta_util_create_dir (const gchar* path)
 {
-	if (g_file_test (d, G_FILE_TEST_IS_DIR))
-		return TRUE;
-	if (mkdir (d, 0755))
+	GFile *dir = g_file_new_for_path (path);
+	GError *err = NULL;
+
+	if (g_file_query_exists (dir, NULL))
+	{
+		GFileInfo *info = g_file_query_info (dir, 
+				G_FILE_ATTRIBUTE_STANDARD_TYPE, 
+				G_FILE_QUERY_INFO_NONE, 
+				NULL, NULL);
+		if (g_file_info_get_file_type (info) != G_FILE_TYPE_DIRECTORY)
+		{
+			g_message ("Warning: %s is a file. \n \
+					It is trying to be treated as a directory.",g_file_get_path (dir));
+			g_object_unref (dir);
+			return FALSE;
+		}
+		g_object_unref (info);
+	}
+	else if (!g_file_make_directory (dir, NULL, &err))
+	{
+		g_warning ("Error directory:\n %s", err->message);
+		g_object_unref (dir);
 		return FALSE;
+	}
+	g_object_unref (dir);
+
 	return TRUE;
 }
 
@@ -1026,6 +1048,7 @@ anjuta_util_escape_quotes(const gchar* str)
 	return buffer;
 }
 
+/* FIXME: Use gio instead */
 /* Diff the text contained in uri with text. Return true if files
 differ, FALSE if they are identical.
 FIXME: Find a better algorithm, this seems ineffective */
@@ -1478,35 +1501,6 @@ anjuta_util_help_display (GtkWindow   *parent,
 	g_free (command);
 }
 
-/**
- * anjuta_utils_get_user_config_dir:
- *
- * Returns a base directory in which to store user-specific application 
- * configuration information such as user preferences and settings. 
- *
- * Return value: a new allocated string with the user config directory.
- */
-gchar *
-anjuta_util_get_user_config_dir ()
-{
-	gchar *folder;
-	
-	folder =  g_build_filename (g_get_user_config_dir (), "anjuta", NULL);
-	
-	if (!g_file_test (folder, G_FILE_TEST_IS_DIR))
-	{
-		if (g_mkdir (folder, 755) == -1)
-		{
-			g_warning ("There was an error creating the Anjuta config directory");
-			g_free (folder);
-			
-			return NULL;
-		}
-	}
-
-	return folder;
-}
-
 /* The following functions are taken from gedit */
 
 /* Note that this function replace home dir with ~ */
@@ -1623,5 +1617,164 @@ anjuta_util_str_middle_truncate (const gchar *string,
 	g_string_append (truncated, g_utf8_offset_to_pointer (string, right_offset));
 		
 	return g_string_free (truncated, FALSE);
+}
+
+/* 
+ * Functions to implement XDG Base Directory Specification
+ * http://standards.freedesktop.org/basedir-spec/latest/index.html
+ * Use this to save any config/cache/data files
+ *
+ */
+
+static gchar*
+anjuta_util_construct_pathv (const gchar* str, va_list str_list) 
+{
+	GPtrArray *str_arr;
+	const gchar* tmp_str;
+	gchar* path;
+
+	str_arr = g_ptr_array_new();
+	g_ptr_array_add (str_arr, (gpointer) str);
+
+	/* Extract elements from va_list */
+	if (str != NULL)
+	{
+		while ((tmp_str = va_arg (str_list, const gchar*)) != NULL) 
+		{
+			g_ptr_array_add (str_arr, tmp_str);
+		}
+		va_end (str_list);
+	}
+	
+	/* Terminate the list */
+	g_ptr_array_add (str_arr, (gpointer) NULL);
+
+	path = g_build_filenamev ((gchar*) str_arr->pdata);
+	g_ptr_array_free (str_arr, TRUE);
+	
+	return path;
+}
+
+static GFile*
+anjuta_util_get_user_cache_filev (const gchar* path, va_list list)
+{
+	gchar *uri_str, *base_path, *dir;
+	GFile *uri;
+	const gchar anjuta_prefix[] = "anjuta";
+	base_path = g_build_filename (g_get_user_cache_dir(), anjuta_prefix, path, NULL);
+
+	uri_str = anjuta_util_construct_pathv (base_path, list);
+	g_free (base_path);
+
+	uri = g_file_new_for_path (uri_str);
+	dir = g_path_get_dirname (uri_str);
+	g_free(uri_str);
+	if (!anjuta_util_create_dir (dir)) return NULL;
+
+	return uri;
+}
+
+GFile*
+anjuta_util_get_user_cache_file (const gchar* path, ...)
+{
+	va_list list;
+	va_start (list, path);
+	return anjuta_util_get_user_cache_filev (path, list);
+}
+
+static GFile*
+anjuta_util_get_user_config_filev (const gchar* path, va_list list)
+{
+	gchar *uri_str, *base_path, *dir;
+	GFile *uri;
+	const gchar anjuta_prefix[] = "anjuta";
+	base_path = g_build_filename (g_get_user_config_dir(), anjuta_prefix, path, NULL);
+
+	uri_str = anjuta_util_construct_pathv (base_path, list);
+	g_free (base_path);
+
+	uri = g_file_new_for_path (uri_str);
+	dir = g_path_get_dirname (uri_str);
+	g_free(uri_str);
+	if (!anjuta_util_create_dir (dir)) return NULL;
+
+	return uri;
+}
+
+GFile*
+anjuta_util_get_user_config_file (const gchar* path, ...)
+{
+	va_list list;
+	va_start (list, path);
+	return anjuta_util_get_user_config_filev (path, list);
+}
+
+static GFile*
+anjuta_util_get_user_data_filev (const gchar* path, va_list list)
+{
+	gchar *uri_str, *base_path, *dir;
+	GFile *uri;
+	const gchar anjuta_prefix[] = "anjuta";
+	base_path = g_build_filename (g_get_user_data_dir(), anjuta_prefix, path, NULL);
+
+	uri_str = anjuta_util_construct_pathv (base_path, list);
+	g_free (base_path);
+
+	uri = g_file_new_for_path (uri_str);
+	dir = g_path_get_dirname (uri_str);
+	g_free(uri_str);
+	if (!anjuta_util_create_dir (dir)) return NULL;
+
+	return uri;
+}
+
+GFile*
+anjuta_util_get_user_data_file (const gchar* path, ...)
+{
+	va_list list;
+	va_start (list, path);
+	return anjuta_util_get_user_data_filev (path, list);
+}
+
+gchar*
+anjuta_util_get_user_cache_file_path (const gchar* path, ...)
+{
+	va_list list;
+	GFile *file;
+	gchar *file_path;
+	va_start (list, path);
+	file = anjuta_util_get_user_cache_filev (path, list);
+	file_path = g_file_get_path (file);
+	g_object_unref (file);
+
+	return file_path;
+}
+
+gchar*
+anjuta_util_get_user_config_file_path (const gchar* path, ...)
+{
+	va_list list;
+	GFile *file;
+	gchar *file_path; 
+	va_start (list, path);
+	file = anjuta_util_get_user_config_filev (path, list);
+	file_path = g_file_get_path (file);
+	g_object_unref (file);
+
+	return file_path;
+}
+
+gchar*
+anjuta_util_get_user_data_file_path (const gchar* path, ...)
+{
+	va_list list;
+	GFile *file;
+	gchar *file_path;;
+	va_start (list, path);
+	file = anjuta_util_get_user_data_filev (path, list);
+	file_path = g_file_get_path (file);
+	g_object_unref (file);
+
+	return file_path;
 }
 

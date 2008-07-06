@@ -22,6 +22,7 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -351,7 +352,7 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 	}
 }
 
-#define LOCAL_TAGS_DIR ".anjuta/tags"
+#define LOCAL_TAGS_SUBDIR "tags/"
 
 // add a new project
 static void
@@ -402,7 +403,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 											"symbol_browser.tags_auto_load"))
 	{		
 		gchar* pref_symbols = anjuta_preferences_get (sv_plugin->prefs, SYMBOL_BROWSER_TAGS);
-		gchar* dirname = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+		gchar* dirname = anjuta_util_get_user_cache_file_path (LOCAL_TAGS_SUBDIR,NULL);
 		GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
 		GList* node;
 		GString* str = g_string_new (pref_symbols);

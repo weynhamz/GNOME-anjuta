@@ -834,8 +834,7 @@ apply_styles (StyleEditor *se)
 	gchar *filename;
 	
 	sync_to_props (se);
-	filename = g_build_filename (g_get_home_dir (), ".anjuta",
-								 "editor-style.properties", NULL);
+	filename = anjuta_util_get_user_config_file_path ("scintilla","editor-style.properties",NULL);
 	ofile = fopen (filename, "w");
 	if (!ofile) {
 		DEBUG_PRINT ("Could not open %s for writing", filename);

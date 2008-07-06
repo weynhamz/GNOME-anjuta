@@ -35,6 +35,7 @@
 
 #include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include "vgrule-list.h"
 #include "vgmarshal.h"
@@ -692,7 +693,7 @@ vg_rule_list_add_rule (VgRuleList *list, const char *title, GtkWindow *parent, V
 		gconf = gconf_client_get_default ();
 		
 		// FIXME: hardcoded path
-		list->filename = g_strdup_printf ("%s/.anjuta/valgrind.supp", getenv ("HOME"));
+		list->filename = anjuta_util_get_user_config_file_path ("valgrind.supp", NULL);
 		gconf_client_set_string (gconf, SUPPRESSIONS_KEY, list->filename, NULL);
 		g_object_unref (gconf);
 	}

@@ -1,3 +1,35 @@
+2008-07-06  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from Arun Chaganty
+	* global-tags/create_global_tags.sh.in:
+	* libanjuta/anjuta-ui.c (anjuta_ui_get_accel_file):
+	* libanjuta/anjuta-ui.h:
+	* libanjuta/anjuta-utils.c (anjuta_util_create_dir):
+	* libanjuta/anjuta-utils.h:
+	* plugins/editor/style-editor.c (apply_styles):
+	* plugins/editor/text_editor.c (text_editor_get_props):
+	* plugins/macro/macro-db.c (get_user_macro_path):
+	* plugins/project-wizard/druid.c (npw_druid_fill_selection_page):
+	* plugins/symbol-browser/an_symbol_prefs.c (update_system_tags),
+	(update_system_tags_only_add), (create_store),
+	(on_create_tags_clicked), (on_add_tags_clicked),
+	(on_remove_tags_clicked), (on_update_global_clicked),
+	(symbol_browser_load_global_tags):
+	* plugins/symbol-browser/plugin.c (project_root_added):
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	* plugins/tools/editor.c (on_editor_script_toggle),
+	(on_editor_response):
+	* plugins/tools/fileop.c (atp_anjuta_tools_load),
+	(atp_anjuta_tools_save):
+	* plugins/tools/plugin.h:
+	* plugins/tools/variable.c (atp_variable_get_editor_variable):
+	* plugins/valgrind/vggeneralprefs.c (vg_general_prefs_init):
+	* plugins/valgrind/vgrule-list.c (vg_rule_list_add_rule):
+	* src/anjuta.c (anjuta_new):
+	(with some warning fixes)
+
+	#518594 – Get rid of .anjuta and follow fd.o specifications
+
 2008-07-06  Johannes Schmid  <jhs@idefix>
 
 	* configure.in:

@@ -22,13 +22,14 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <stdlib.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 
 #define PREDEFINED_MACRO_FILE PACKAGE_DATA_DIR"/macros.xml"
 
 static gchar *
 get_user_macro_path ()
 {
-	return g_strconcat (getenv ("HOME"), "/.anjuta/macros.xml", NULL);
+	return anjuta_util_get_user_data_file_path ("macro.xml", NULL);
 }
 				   
 static gboolean

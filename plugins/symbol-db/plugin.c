@@ -27,6 +27,7 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -56,7 +57,6 @@
 #define CTAGS_PATH			"/usr/bin/ctags"
 #define CHOOSER_WIDGET		"preferences_folder:text:/:0:symboldb.root"
 
-#define LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY 	"/.anjuta"
 #define PROJECT_GLOBALS		"/"
 
 
@@ -1216,7 +1216,7 @@ static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *symbol_db;
-	gchar *home_anjuta_dir;
+	gchar *anjuta_cache_path;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
@@ -1241,12 +1241,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* the globals one too */
 	symbol_db->sdbe_globals = symbol_db_engine_new ();
 	/* open it */
-	home_anjuta_dir = g_strdup_printf ("%s%s", g_get_home_dir(),
-									   LOCAL_ANJUTA_GLOBAL_DB_DIRECTORY);
+	anjuta_cache_path = anjuta_util_get_user_cache_file_path (".");
 	symbol_db_engine_open_db (symbol_db->sdbe_globals, 
-							  home_anjuta_dir, 
+							  anjuta_cache_path, 
 							  PROJECT_GLOBALS);
-	g_free (home_anjuta_dir);
+	g_free (anjuta_cache_path);
 	
 	/* create the object that'll manage the globals population */
 	symbol_db->sdbs = symbol_db_system_new (symbol_db, symbol_db->sdbe_globals);

@@ -28,14 +28,15 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include "an_symbol_prefs.h"
 #include "tm_tagmanager.h"
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 #define ICON_FILE "anjuta-symbol-browser-plugin-48.png"
-#define LOCAL_TAGS_DIR ".anjuta/tags"
-#define SYSTEM_TAGS_CACHE ".anjuta/system-tags.cache"
+#define LOCAL_TAGS_SUBDIR "tags/"
+#define SYSTEM_TAGS_CACHE "system-tags.cache"
 #define SYMBOL_BROWSER_TAGS "symbol.browser.tags"
 #define CREATE_GLOBAL_TAGS PACKAGE_DATA_DIR"/scripts/create_global_tags.sh"
 
@@ -52,7 +53,7 @@ update_system_tags (GList *tags_files)
 {
 	gchar *output_file;
 	
-	output_file = g_build_filename (g_get_home_dir (), SYSTEM_TAGS_CACHE, NULL);
+	output_file = anjuta_util_get_user_cache_file_path (SYSTEM_TAGS_CACHE, NULL);
 	
 	DEBUG_PRINT ("Recreating system tags cache: %s", output_file);
 	
@@ -73,7 +74,7 @@ update_system_tags_only_add (const gchar *tag_file)
 	GList *tags_files;
 	gchar *output_file;
 	
-	output_file = g_build_filename (g_get_home_dir (), SYSTEM_TAGS_CACHE, NULL);
+	output_file = anjuta_util_get_user_cache_file_path (SYSTEM_TAGS_CACHE, NULL);
 	
 	DEBUG_PRINT ("Recreating system tags cache: %s", output_file);
 	
@@ -170,7 +171,7 @@ create_store (AnjutaPreferences *prefs)
 	store = gtk_list_store_new (N_COLUMNS, G_TYPE_BOOLEAN, G_TYPE_STRING,
 								G_TYPE_STRING);
 	
-	local_tags_dir = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+	local_tags_dir = anjuta_util_get_user_cache_file_path (LOCAL_TAGS_SUBDIR, NULL);
 	tags_dirs = g_list_prepend (tags_dirs, local_tags_dir);
 	
 	/* Load the tags files */
@@ -437,10 +438,14 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		argv = g_new0 (gchar*, argc);
 		
 		argv[0] = g_strdup ("anjuta-tags");
-		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, name, NULL);
-		argv[1] = g_strconcat (tmp, ".anjutatags", NULL);
-		g_free (tmp);
-		
+
+		{
+			gchar *tmp = NULL;
+			tmp = anjuta_util_get_user_cache_file_path ("tags", name, NULL);
+			argv[1] = g_strconcat (tmp, ".anjutatags", NULL);
+			g_free (tmp);
+		}
+
 		argc = 2;
 		if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
 		{
@@ -473,13 +478,9 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		}
 		
 		/* Create local tags directory */
-		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
-		if ((pid = fork()) == 0)
-		{
-			execlp ("mkdir", "mkdir", "-p", tmp, NULL);
-			perror ("Could not execute mkdir");
-		}
-		waitpid (pid, NULL, 0);
+
+		tmp = anjuta_util_get_user_cache_file_path (LOCAL_TAGS_SUBDIR, NULL);
+
 		g_free (tmp);
 		
 		/* Execute anjuta-tags to create tags for the given files */
@@ -538,27 +539,20 @@ on_add_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 		gchar *tmp;
 		pid_t pid;
 		
-		/* Create local tags directory */
-		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
-		if ((pid = fork()) == 0)
-		{
-			execlp ("mkdir", "mkdir", "-p", tmp, NULL);
-			perror ("Could not execute mkdir");
-		}
-		waitpid (pid, NULL, 0);
-		g_free (tmp);
-		
 		uris = gtk_file_chooser_get_uris (GTK_FILE_CHOOSER (fileselection));
 		
 		node = uris;
 		while (node)
 		{
-			gchar *dest, *src, *basename;
+			gchar *dest, *src;
 			
 			src = node->data;
-			basename = g_path_get_basename (src);
-			dest = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, basename, NULL);
-			g_free (basename);
+			{
+				gchar *basename;
+				basename = g_path_get_basename (src);
+				dest = anjuta_util_get_user_cache_file_path ("tags", basename, NULL);
+				g_free (basename);
+			}
 			
 			/* Copy the tags file in local tags directory */
 			GnomeVFSURI* source_uri = gnome_vfs_uri_new(src);
@@ -612,8 +606,7 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 		if (tags_filename)
 		{
 			gchar *file_path, *path;
-			path = g_build_filename (g_get_home_dir(), LOCAL_TAGS_DIR,
-									 tags_filename, NULL);
+			path = anjuta_util_get_user_cache_file_path ("tags", tags_filename, NULL);
 			file_path = g_strconcat (path, ".anjutatags.gz", NULL);
 			
 			if (!g_file_test (file_path, G_FILE_TEST_EXISTS))
@@ -739,13 +732,7 @@ on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 		return; /* Already running */
 	
 	/* Create local tags directory */	
-	tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
-	if ((pid = fork()) == 0)
-	{
-		execlp ("mkdir", "mkdir", "-p", tmp, NULL);
-		perror ("Could not execute mkdir");
-	}
-	waitpid (pid, NULL, 0);
+	tmp = anjuta_util_get_user_cache_file_path (LOCAL_TAGS_SUBDIR,NULL);
 	g_free (tmp);
 	
 	plugin->launcher = anjuta_launcher_new ();
@@ -877,8 +864,7 @@ symbol_browser_load_global_tags (gpointer plugin)
 {
 	gchar *system_tags_path;
 	/* Load gloabal tags on gtk idle */
-	system_tags_path = g_build_filename (g_get_home_dir(), ".anjuta",
-										 "system-tags.cache", NULL);
+	system_tags_path = anjuta_util_get_user_cache_file_path (SYSTEM_TAGS_CACHE,NULL);
 	if (!tm_workspace_load_global_tags (system_tags_path))
 	{
 		g_message ("Added idle loop to create global tags");

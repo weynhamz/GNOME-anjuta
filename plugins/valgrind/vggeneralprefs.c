@@ -38,6 +38,7 @@
 #include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include "vggeneralprefs.h"
 
@@ -52,7 +53,7 @@
 #define RUN_LIBC_FREERES_KEY "/apps/anjuta/valgrind/general/run-libc-freeres"
 #define SUPPRESSIONS_KEY     "/apps/anjuta/valgrind/general/suppressions"
 
-#define SUPPRESSIONS_DEFAULT_FILE	".anjuta/valgrind.supp"
+#define SUPPRESSIONS_DEFAULT_FILE	"valgrind.supp"
 
 static void vg_general_prefs_class_init (VgGeneralPrefsClass *klass);
 static void vg_general_prefs_init (VgGeneralPrefs *prefs);
@@ -258,7 +259,7 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 	if (!(str_file = gconf_client_get_string (gconf, SUPPRESSIONS_KEY, &err)) || err != NULL) {
 		int fd;
 		
-		str_file = g_build_filename (g_get_home_dir (), SUPPRESSIONS_DEFAULT_FILE, NULL);
+		str_file = anjuta_util_get_user_config_file_path(SUPPRESSIONS_DEFAULT_FILE, NULL);
 		if ((fd = open (str_file, O_WRONLY | O_CREAT, 0666)) == -1) {
 			g_free (str_file);
 			str_file = NULL;

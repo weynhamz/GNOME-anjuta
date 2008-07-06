@@ -35,6 +35,7 @@
 #include "autogen.h"
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
 #include <gnome.h>
@@ -47,7 +48,9 @@
 /*---------------------------------------------------------------------------*/
 
 #define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR"/project"
-#define LOCAL_PROJECT_WIZARD_DIRECTORY "/.anjuta/project"
+/* Uncomment if you want to keep project wizards in a non-standard dir 
+#define LOCAL_PROJECT_WIZARD_DIRECTORY anjuta_utils_data_dir/projects/ 
+*/
 #define PIXMAP_APPWIZ_LOGO PACKAGE_DATA_DIR"/glade/applogo.png"
 #define PIXMAP_APPWIZ_WATERMARK PACKAGE_DATA_DIR"/glade/appwizard.png"
 
@@ -295,7 +298,11 @@ npw_druid_fill_selection_page (NPWDruid* this)
 
 	/* Fill list with all project in directory */
 	ok = npw_header_list_readdir (this->header_list, PROJECT_WIZARD_DIRECTORY);
+#ifdef LOCAL_PROJECT_WIZARD_DIRECTORY
 	local_dir = g_build_filename (g_get_home_dir(), LOCAL_PROJECT_WIZARD_DIRECTORY, NULL);
+#else
+	local_dir = anjuta_util_get_user_data_file_path ("projects/",NULL);
+#endif
 	ok = npw_header_list_readdir (this->header_list, local_dir) || ok;
 	g_free (local_dir);
 	if (!ok)

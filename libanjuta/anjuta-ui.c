@@ -951,17 +951,7 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 static gchar *
 anjuta_ui_get_accel_file (void)
 {
-	gchar *anjuta_dir = NULL;
-	gchar *filename = NULL;
-
-	anjuta_dir = anjuta_util_get_user_config_dir ();
-
-	if (anjuta_dir != NULL)
-		filename = g_build_filename (anjuta_dir, "anjuta-accels", NULL);
-	
-	g_free (anjuta_dir);
-
-	return filename;
+	return anjuta_util_get_user_config_file_path ("anjuta-accels", NULL);
 }
 
 void
@@ -989,3 +979,4 @@ anjuta_ui_save_accels (void)
 		g_free (filename);
 	}
 }
+

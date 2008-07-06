@@ -529,7 +529,7 @@ atp_anjuta_tools_load(ATPPlugin* plugin)
 	g_free (file_name);
 
 	/* Now, user tools */
-	file_name = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_TOOLS_DIRECTORY, TOOLS_FILE, NULL);
+	file_name = anjuta_util_get_user_data_file_path (TOOLS_FILE, NULL);
 	ok = atp_tool_list_load_from_file (atp_plugin_get_tool_list(plugin), file_name, ATP_TSTORE_LOCAL);
 	g_free (file_name);
 	if (!ok)
@@ -697,7 +697,7 @@ gboolean atp_anjuta_tools_save(ATPPlugin* plugin)
 	gboolean ok;
 
 	/* Save local tools */
-	file_name = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_TOOLS_DIRECTORY, TOOLS_FILE, NULL);
+	file_name = anjuta_util_get_user_data_file_path (TOOLS_FILE, NULL);
 	if (NULL == (f = fopen(file_name, "w")))
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),_("Unable to open %s for writing"), file_name);

@@ -57,7 +57,7 @@ CFLAGS=""
 
 echo "Generating System tags..."
 
-mkdir -p "$HOME/.anjuta/tags"
+mkdir -p "$XDG_CACHE_HOME/anjuta/tags/"
 
 # pkg-config libraries
 PKG_CONFIG=`which pkg-config 2>/dev/null`
@@ -92,11 +92,11 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
 		# echo $PKG_CFLAGS
 	    package=`basename "$pkg_file" '.pc'`
 	    # if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
-		echo "Creating tags file: $HOME/.anjuta/tags/$package.anjutatags.gz ..."
-		anjuta_tags "$HOME/.anjuta/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
+		echo "Creating tags file: $XDG_CACHE_HOME/anjuta/tags/$package.anjutatags.gz ..."
+		anjuta_tags "$XDG_CACHE_HOME/anjuta/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
 	    # fi
 	done
     done
 	echo "Done"
-    echo "This is just a timestamp" > $HOME/.anjuta/system-tags.cache
+    echo "This is just a timestamp" > $XDG_CACHE_HOME/anjuta/system-tags.cache
 fi

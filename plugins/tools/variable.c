@@ -301,7 +301,6 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *ed;
 	gchar* val;
-	gchar* uri;
 	gchar* path;
 	GFile* file;
 	GError* err = NULL;

@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <sys/types.h>
+#include <gio/gio.h>
 
 #include <libanjuta/anjuta-preferences.h>
 
@@ -123,8 +124,13 @@ void anjuta_util_help_display (GtkWindow   *parent,
 							   const gchar *doc_id,
 							   const gchar *file_name);
 
-gchar *anjuta_util_get_user_config_dir (void);
-
+/* XDG BaseDir specifcation functions */
+GFile* anjuta_util_get_user_data_file (const gchar* path, ...);
+GFile* anjuta_util_get_user_cache_file (const gchar* path, ...);
+GFile* anjuta_util_get_user_config_file (const gchar* path, ...);
+gchar* anjuta_util_get_user_data_file_path (const gchar* path, ...);
+gchar* anjuta_util_get_user_cache_file_path (const gchar* path, ...);
+gchar* anjuta_util_get_user_config_file_path (const gchar* path, ...);
 
 /* Temporarily copied here */
 
