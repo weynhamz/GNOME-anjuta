@@ -24,8 +24,6 @@ IT_PROG_INTLTOOL([0.35.0])
 
 [+IF (=(get "HavePackage") "1")+]
 PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
-AC_SUBST([+NameCUpper+]_CFLAGS)
-AC_SUBST([+NameCUpper+]_LIBS)
 [+ENDIF+]
 
 AC_OUTPUT([

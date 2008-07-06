@@ -1,3 +1,17 @@
+2008-07-06  Johannes Schmid  <jhs@idefix>
+
+	* configure.in:
+	* plugins/project-wizard/templates/anjuta-plugin/configure.ac.tpl:
+	* plugins/project-wizard/templates/cpp/configure.ac.tpl:
+	* plugins/project-wizard/templates/gcj/configure.ac.tpl:
+	* plugins/project-wizard/templates/java/configure.ac.tpl:
+	* plugins/project-wizard/templates/minimal/configure.ac.tpl:
+	* plugins/project-wizard/templates/python/configure.ac.tpl:
+	* plugins/project-wizard/templates/wxwin/configure.ac.tpl:
+	* plugins/project-wizard/templates/xlib/configure.ac.tpl:
+	
+	#475244 – AC_SUBST() not needed after PKG_CHECK_MODULES()
+
 2008-07-05  Massimo Cora'  <maxcvs@email.it>
 
 	* libanjuta/anjuta-utils.c (anjuta_util_parse_args_from_string):

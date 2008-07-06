@@ -34,8 +34,6 @@ AM_PROG_LIBTOOL
 [+ENDIF+]
 
 PKG_CHECK_MODULES(LIBANJUTA, [libanjuta-1.0])
-AC_SUBST(LIBANJUTA_CFLAGS)
-AC_SUBST(LIBANJUTA_LIBS)
 
 [+IF (=(get "HavePackage") "1")+]
 PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
