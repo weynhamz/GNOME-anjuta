@@ -1,3 +1,21 @@
+2008-06-16  Abderrahim Kitouni  <a.kitouni@gmail.com>
+
+        * plugins/project-wizard/templates/anjuta-plugin-vala*:
+        * configure.in, plugins/project-wizard/templates/Makefile.am:
+        Added a template for an Anjuta plugin in Vala.
+
+        * manuals/reference/libanjuta/writing-plugins-vala.sgml:
+        * manuals/reference/libanjuta/libanjuta-docs.sgml:
+        Added a little tutorial.
+
+        * libanjuta/anjuta-plugin-description.h, libanjuta/anjuta-session.h:
+        Removed two extra semicolons that gobject-introspection parser
+        didn't like.
+
+        * libanjuta/libanjuta-1.0.vapi, libanjuta/libanjuta-1.0.deps:
+        * libanjuta/Makefile.am, libanjuta/vapigen/*
+        Added Vala API bindings along with files needed to regenerate them.
+
 2008-07-07  Johannes Schmid  <jhs@idefix>
 
 	* plugins/message-view/message-view.c:
