@@ -82,7 +82,7 @@ typedef enum {
 GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 
-SymbolDBEngine* symbol_db_engine_new ();
+SymbolDBEngine* symbol_db_engine_new (void);
 
 
 /**

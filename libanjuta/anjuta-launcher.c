@@ -617,7 +617,6 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 					g_free (line);
 					break;
 				case GTK_RESPONSE_CANCEL:
-					anjuta_launcher_send_ptyin (launcher, "<canceled>\n");
 					anjuta_launcher_reset (launcher);
 					break;
 				default:

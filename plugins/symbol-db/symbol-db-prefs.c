@@ -323,8 +323,8 @@ symbol_db_prefs_init (SymbolDBPlugin *sdb_plugin, AnjutaPreferences *prefs)
 		ctags_value = g_strdup (CTAGS_PATH);
 	}
 	
-	DEBUG_PRINT ("trying to set ->%s<-", ctags_value);
-	if (gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (fchooser), ctags_value) 
+	DEBUG_PRINT ("trying to select ->%s<-", ctags_value);
+	if (gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (fchooser), ctags_value) 
 						== FALSE )
 	{
 		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");

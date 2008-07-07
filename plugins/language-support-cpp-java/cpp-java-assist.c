@@ -370,17 +370,17 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										pre_word, TRUE, TRUE, TRUE, max_completions, -1, NULL);
-	DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache ()");
+
 	if (iter_project) 
 	{
-		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 1");
+		DEBUG_PRINT ("length iter_project %d", ianjuta_iterable_get_length (iter_project, NULL));
 		completion = create_completion (assist->priv->iassist, iter_project, NULL);
 		g_object_unref (iter_project);
 	}
 	
 	if (iter_globals)
 	{
-		DEBUG_PRINT ("cpp_java_assist_create_word_completion_cache () 2");
+		DEBUG_PRINT ("length iter_globals %d", ianjuta_iterable_get_length (iter_globals, NULL));
 		completion = create_completion (assist->priv->iassist, iter_globals, completion);
 		g_object_unref (iter_globals);
 	}

@@ -262,8 +262,7 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 							 g_strdup (saved_uri));
 
 		on_editor_update_ui (editor, sdb_plugin);
-		g_free (local_filename);
-		g_free (saved_uri);
+		g_free (saved_uri);		
 	}
 }
 
@@ -1152,8 +1151,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					  G_CALLBACK (on_project_element_removed), sdb_plugin);
 	
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
-#if 0
-//FIXME libgda thread bug.	
+
 	/* system's packages management */
 	GList* packages = ianjuta_project_manager_get_packages (pm, NULL);
 	GList *item = packages; 
@@ -1168,7 +1166,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				
 		item = item->next;
 	}
-#endif	
 }
 
 static void
@@ -1545,38 +1542,20 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		pattern = g_strdup_printf ("%s", match_name);
 	
 	/* should we lookup for project of system tags? */
-	if (global_tags_search == FALSE)
-	{
-		DEBUG_PRINT ("project_tags scan ");
-		/* get symbols from current opened project */
-		iterator = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe_project,
-																	  pattern,
-																	  exact_match,
-																	  filter_array,
-																	  include_types,
-																	  global_symbols_search,
-																	  results_limit,
-																	  results_offset,
-																	  info_fields);
-	}
-	else	
-	{
-		/* global_tags scan */
-		/* the only parameters to change is the engine, dbe_globals */
-		DEBUG_PRINT ("global_tags scan ");
-		
-		iterator = 
-			symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe_globals,
-															  pattern,
-															  exact_match,
-															  filter_array,
-															  include_types,
-															  global_symbols_search,
-															  results_limit,
-															  results_offset,
-															  info_fields);		
-	}
-	
+	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
+					 exact_match, global_symbols_search);	
+	iterator = 
+		symbol_db_engine_find_symbol_by_name_pattern_filtered (
+					global_tags_search == FALSE ? dbe_project : dbe_globals, 
+					pattern,
+					exact_match,
+					filter_array,
+					include_types,
+					global_symbols_search,
+					results_limit,
+					results_offset,
+					info_fields);	
+	DEBUG_PRINT ("iterator length %d", ianjuta_iterable_get_length (iterator, NULL));
 	g_free (pattern);
 	
 	if (filter_array)

@@ -195,389 +195,25 @@ typedef enum
 	PREP_QUERY_TMP_REMOVED_DELETE_ALL,
 	PREP_QUERY_COUNT
 		
-} query_type;
+} static_query_type;
 
-
-typedef struct _query_node
+typedef struct _static_query_node
 {
-	query_type query_id;
-	gchar *query_str;
+	static_query_type query_id;
+	const gchar *query_str;
 	GdaStatement *stmt;
 	GdaSet *plist;
 
-} query_node;
+} static_query_node;
 
-
-/* *MUST* respect query_type enum order. */
-static query_node query_list[PREP_QUERY_COUNT] = {
-	/* -- workspace -- */
-	{
-	 PREP_QUERY_WORKSPACE_NEW,
-	 "INSERT INTO workspace (workspace_name, analyse_time) "
-	 "VALUES (## /* name:'wsname' type:gchararray */,"
-	 "datetime ('now', 'localtime'))",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
-	 "SELECT workspace_id FROM workspace WHERE workspace_name = ## /* name:'wsname' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
- 	 NULL			
-	},
-	/* -- project -- */
-	{
-	 PREP_QUERY_PROJECT_NEW,
-	 "INSERT INTO project (project_name, wrkspace_id, analyse_time) "
-	 "VALUES (## /* name:'prjname' type:gchararray */,"
-	 "## /* name:'wsid' type:gint */, datetime ('now', 'localtime'))",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
-	 "SELECT project_id FROM project WHERE project_name = ## /* name:'prjname' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME,
-	 "UPDATE project SET analyse_time = datetime('now', 'localtime', '+10 seconds') WHERE "
-	 "project_name = ## /* name:'prjname' type:gchararray */",
-	 NULL,
-	 NULL
-	},
-	/* -- file -- */
-	{
-	 PREP_QUERY_FILE_NEW,
-	 "INSERT INTO file (file_path, prj_id, lang_id, analyse_time) VALUES ("
-	 "## /* name:'filepath' type:gchararray */, ## /* name:'prjid' "
-	 "type:gint */, ## /* name:'langid' type:gint */, "
-	 "datetime ('now', 'localtime'))",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
-	 "SELECT file_id FROM file WHERE file_path = ## /* name:'filepath' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
-	 "SELECT * FROM file WHERE prj_id = (SELECT project_id FROM project "
-	 "WHERE project_name = ## /* name:'prjname' type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID,
-	 "SELECT file_id, file_path, prj_id, lang_id, analyse_time FROM file "
-	 "WHERE prj_id = ## /* name:'prjid' type:gint */",
-/*
-		"SELECT * FROM file JOIN project on project_id = prj_id WHERE "\
-		"project.name = ## / * name:'prjname' type:gchararray * /",
-*/
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_UPDATE_FILE_ANALYSE_TIME,
-	 "UPDATE file SET analyse_time = datetime('now', 'localtime') WHERE "
-	 "file_path = ## /* name:'filepath' type:gchararray */",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS,
-	 "SELECT file_id, file_path FROM file WHERE file_id NOT IN (SELECT file_defined_id FROM symbol)",
-	 NULL
-	},
-	/* -- language -- */
-	{
-	 PREP_QUERY_LANGUAGE_NEW,
-	 "INSERT INTO language (language_name) VALUES (## /* name:'langname' "
-	 "type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
-	 "SELECT language_id FROM language WHERE language_name = ## /* name:'langname' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	/* -- sym type -- */
-	{
-	 PREP_QUERY_SYM_TYPE_NEW,
-	 "INSERT INTO sym_type (type_type, type_name) VALUES (## /* name:'type' "
-	 "type:gchararray */, ## /* name:'typename' type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYM_TYPE_ID,
-	 "SELECT type_id FROM sym_type WHERE type_type = ## /* name:'type' "
-	 "type:gchararray */ AND type_name = ## /* name:'typename' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	/* -- sym kind -- */
-	{
-	 PREP_QUERY_SYM_KIND_NEW,
-	 "INSERT INTO sym_kind (kind_name) VALUES(## /* name:'kindname' "
-	 "type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
-	 "SELECT sym_kind_id FROM sym_kind WHERE kind_name = ## /* "
-	 "name:'kindname' type:gchararray */",
-	 NULL,
-	 NULL
-	},
-	/* -- sym access -- */
-	{
-	 PREP_QUERY_SYM_ACCESS_NEW,
-	 "INSERT INTO sym_access (access_name) VALUES(## /* name:'accesskind' "
-	 "type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYM_ACCESS_BY_UNIQUE_NAME,
-	 "SELECT access_kind_id FROM sym_access WHERE access_name = ## /* "
-	 "name:'accesskind' type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	/* -- sym implementation -- */
-	{
-	 PREP_QUERY_SYM_IMPLEMENTATION_NEW,
-	 "INSERT INTO sym_implementation (implementation_name) VALUES(## /* name:'implekind' "
-	 "type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
-	 "SELECT sym_impl_id FROM sym_implementation WHERE kind = ## /* "
-	 "name:'implekind' type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	/* -- heritage -- */
-	{
-	 PREP_QUERY_HERITAGE_NEW,
-	 "INSERT INTO heritage (symbol_id_base, symbol_id_derived) VALUES(## /* "
-	 "name:'symbase' type:gint */, ## /* name:'symderived' type:gint */)",
-	 NULL,
-	 NULL
-	},
-	/* -- scope -- */
-	{
-	 PREP_QUERY_SCOPE_NEW,
-	 "INSERT INTO scope (scope_name, type_id) VALUES(## /* name:'scope' "
-	 "type:gchararray */, ## /* name:'typeid' type:gint */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SCOPE_ID,
-	 "SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
-	 "type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE,
-	 "SELECT symbol.symbol_id, symbol.file_defined_id, "
-	 "symbol.file_position, symbol.scope_definition_id, symbol.scope_id "
-	 "FROM symbol WHERE symbol.scope_definition_id = ( "
-	 "SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = "
-	 "## /* name:'symid' type:gint */) "
-	 "AND symbol.scope_definition_id > 0", 
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID,
-	 "SELECT symbol.symbol_id, symbol.file_defined_id, "
-	 "symbol.file_position, symbol.scope_definition_id, symbol.scope_id "
-	 "FROM symbol JOIN file "
-	 "ON symbol.file_defined_id = file.file_id "
-	 "WHERE symbol.scope_definition_id = ( "
-	 "SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = "
-	 "## /* name:'symid' type:gint */) "
-	 "AND symbol.scope_definition_id > 0 "
-	 "AND file.file_path = ## /* name:'dbfile' type:gchararray */",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
-	 "SELECT symbol.scope_definition_id FROM symbol WHERE "
-	 "file_defined_id = (SELECT file_defined_id FROM symbol WHERE symbol_id = "
-	 "/* name:'scopedsymid' type:gint */) "
-	 "AND file_position < (SELECT file_position FROM symbol WHERE symbol_id = "
-	 "/* name:'scopedsymid' type:gint */) "
-	 "ORDER BY file_position DESC",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
-	 "SELECT scope_definition_id FROM symbol "
-	 "WHERE scope_id = /* name:'scopeid' type:gint */ AND scope_definition_id = ("
-	 	"SELECT scope.scope_id FROM scope "
-		"INNER JOIN sym_type ON scope.type_id = sym_type.type_id "
-		"WHERE sym_type.type_type = /* name:'symtype' type:gchararray */ "
-			"AND scope.scope_name = /* name:'scopename' type:gchararray */) LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	/* -- tmp heritage -- */
-	{
-	 PREP_QUERY_TMP_HERITAGE_NEW,
-	 "INSERT INTO __tmp_heritage_scope (symbol_referer_id, field_inherits, "
-	 "field_struct, field_typeref, field_enum, field_union, "
-	 "field_class, field_namespace) VALUES (## /* name:'symreferid' "
-	 "type:gint */, ## /* name:'finherits' type:gchararray */, ## /* "
-	 "name:'fstruct' type:gchararray */, ## /* name:'ftyperef' "
-	 "type:gchararray */, ## /* name:'fenum' type:gchararray */, ## /* "
-	 "name:'funion' type:gchararray */, ## /* name:'fclass' type:gchararray "
-	 "*/, ## /* name:'fnamespace' type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
-	 "SELECT * FROM __tmp_heritage_scope",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
-	 "SELECT * FROM __tmp_heritage_scope WHERE field_inherits != ''",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
-	 "DELETE FROM __tmp_heritage_scope",
-	 NULL,
-	 NULL
-	},
-	/* -- symbol -- */
-	{
-	 PREP_QUERY_SYMBOL_NEW,
-	 "INSERT INTO symbol (file_defined_id, name, file_position, "
-	 "is_file_scope, signature, scope_definition_id, scope_id, type_id, "
-	 "kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
-	 "## /* name:'filedefid' type:gint */, ## /* name:'name' "
-	 "type:gchararray */, ## /* name:'fileposition' type:gint */, ## /* "
-	 "name:'isfilescope' type:gint */, ## /* name:'signature' "
-	 "type:gchararray */,## /* name:'scopedefinitionid' type:gint */, ## "
-	 "/* name:'scopeid' type:gint */,## /* name:'typeid' type:gint */, ## "
-	 "/* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
-	 "## /* name:'implementationkindid' type:gint */, ## /* "
-	 "name:'updateflag' type:gint */)",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
-	 "SELECT scope_definition_id FROM symbol JOIN sym_type ON symbol.type_id "
-	 "= sym_type.type_id WHERE sym_type.type_type = ## /* name:'tokenname' "
-	 "type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
-	 "type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
-	 "SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
-	 "sym_type.type_id WHERE scope_id=0 AND sym_type.type_type='class' AND "
-	 "name = ## /* name:'klassname' type:gchararray */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
-	 "SELECT symbol_id FROM symbol JOIN scope ON symbol.scope_id = "
-	 "scope.scope_id JOIN sym_type ON scope.type_id = sym_type.type_id "
-	 "WHERE symbol.name = ## /* name:'klassname' type:gchararray */ AND "
-	 "scope.scope_name = ## /* name:'namespacename' type:gchararray */ AND "
-	 "sym_type.type_type = 'namespace' LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
-	 "UPDATE symbol SET scope_id = ## /* name:'scopeid' type:gint */ "
-	 "WHERE symbol_id = ## /* name:'symbolid' type:gint */",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
-	 "SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
-	 "type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' "
-	 "type:gint */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_UPDATE_SYMBOL_ALL,
-	 "UPDATE symbol SET is_file_scope = ## /* name:'isfilescope' type:gint "
-	 "*/, file_position = ## /* name:'fileposition' type:gint */, "
-	 "signature = ## /* name:'signature' type:gchararray */, "
-	 "scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, "
-	 "scope_id = ## /* name:'scopeid' type:gint */, kind_id = "
-	 "## /* name:'kindid' type:gint */, access_kind_id = ## /* name:"
-	 "'accesskindid' type:gint */, implementation_kind_id = ## /* name:"
-	 "'implementationkindid' type:gint */, update_flag = ## /* name:"
-	 "'updateflag' type:gint */ WHERE symbol_id = ## /* name:'symbolid' type:"
-	 "gint */",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
-	 "DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file "
-	 "WHERE file_path = ## /* name:'filepath' type:gchararray */) "
-	 "AND update_flag = 0",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
-	 "UPDATE symbol SET update_flag = 0 "
-	 "WHERE file_defined_id = (SELECT file_id FROM file WHERE "
-	 "file_path = ## /* name:'filepath' type:gchararray */)",
-	 NULL,
-	 NULL
-	},
-	/* -- tmp_removed -- */
-	{
-	 PREP_QUERY_GET_REMOVED_IDS,
-	 "SELECT symbol_removed_id FROM __tmp_removed",
-	 NULL,
-	 NULL
-	},
-	{
-	 PREP_QUERY_TMP_REMOVED_DELETE_ALL,
-	 "DELETE FROM __tmp_removed",
-	 NULL,
-	 NULL
-	}	  
-};
+#define STATIC_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gda_stmt) { \
+	static_query_node *q = g_new0 (static_query_node, 1); \
+	q->query_id = query_type; \
+	q->query_str = gda_stmt; \
+	q->stmt = NULL; \
+	q->plist = NULL; \
+	query_list_ptr [query_type] = q; \
+}
 
 
 typedef enum {
@@ -611,59 +247,13 @@ typedef struct _ChildDynQueryNode {
 	
 } DynChildQueryNode;
 
-/* *MUST* respect dyn_query_type enum order. */
-static dyn_query_node dyn_query_list [DYN_PREP_QUERY_COUNT] = {
-	{
-		DYN_PREP_QUERY_GET_CLASS_PARENTS,
-		NULL,
-		TRUE
-	},
-	{
-		DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED,
-		NULL,
-		TRUE
-	},
-	{
-		DYN_PREP_QUERY_GET_SCOPE_MEMBERS,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_GET_CURRENT_SCOPE,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_GET_FILE_SYMBOLS,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-		NULL,
-		FALSE
-	},
-	{
-		DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
-		NULL,
-		TRUE
-	},
-	{
-		DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
-		NULL,
-		TRUE
-	}
-};
+#define DYN_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gtree_child) { \
+	dyn_query_node *q = g_new0 (dyn_query_node, 1); \
+	q->dyn_query_id = query_type; \
+	q->sym_extra_info_gtree = NULL; \
+	q->has_gtree_child = gtree_child; \
+	query_list_ptr [query_type] = q; \
+}
 
 
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
@@ -720,6 +310,9 @@ struct _SymbolDBEnginePriv
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
 	GHashTable *implementation_cache;
+	
+	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
+	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
 };
 
 typedef struct _ThreadDataOutput {
@@ -904,9 +497,9 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
  * A GdaSet will also be populated once, avoiding so to create again later on.
  */
 static inline const GdaStatement *
-sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, query_type query_id)
+sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type query_id)
 {
-	query_node *node;
+	static_query_node *node;
 	SymbolDBEnginePriv *priv;
 
 	priv = dbe->priv;
@@ -915,7 +508,7 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, query_type query_id)
 	 * a connection established to db before using this function */
 	g_return_val_if_fail (priv->db_connection != NULL, NULL);
 	
-	node = &query_list[query_id];
+	node = priv->static_query_list[query_id];
 
 	if (node->stmt == NULL)
 	{
@@ -954,14 +547,8 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 
 	priv = dbe->priv;
 
-	node = &dyn_query_list[query_id];
+	node = priv->dyn_query_list[query_id];
 
-/*	DEBUG_PRINT ("sdb_engine_get_dyn_query_node_by_id (): query %d has_gtree_child %d"
-				 "other_parameters %d, sym_info %d", query_id, node->has_gtree_child,
-				 other_parameters, sym_info
-				 );
-	*/
-	
 	if (node->sym_extra_info_gtree == NULL) 
 	{
 		/* we didn't find any extra info symbol, nor it has been added before */
@@ -970,8 +557,6 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 	
 	if (node->has_gtree_child == FALSE) 
 	{
-/*		DEBUG_PRINT ("sdb_engine_get_dyn_query_node_by_id (): %d has_gtree_child FALSE",
-					 query_id);*/
 		/* use only sym_info as key, ignore other_parameters */
 		return g_tree_lookup (node->sym_extra_info_gtree, (gpointer)sym_info);
 	}
@@ -1024,7 +609,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 	 * a connection established to db before using this function */
 	g_return_val_if_fail (priv->db_connection != NULL, NULL);
 
-	node = &dyn_query_list[query_id];
+	node = priv->dyn_query_list[query_id];
 	
 	if (node->sym_extra_info_gtree == NULL) 
 	{
@@ -1120,10 +705,14 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
  * if it's null. You *must* be sure to have called sdb_engine_get_statement_by_query_id () first.
  */
 static inline const GdaSet *
-sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, query_type query_id)
+sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id)
 {
-	query_node *node;
-	node = &query_list[query_id];
+	SymbolDBEnginePriv *priv;
+	
+	priv = dbe->priv;
+	
+	static_query_node *node;
+	node = priv->static_query_list[query_id];
 	return node->plist;
 }
 
@@ -1132,22 +721,25 @@ sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, query_type query_id)
  * destroying SymbolDBEngine object.
  */
 static void
-sdb_engine_free_cached_queries ()
+sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 {
+	SymbolDBEnginePriv *priv;
 	gint i;
-	query_node *node;
+	static_query_node *node;
+	
+	priv = dbe->priv;
 
 	for (i = 0; i < PREP_QUERY_COUNT; i++)
 	{
-		node = &query_list[i];
+		node = priv->static_query_list[i];
 
-		if (node->stmt != NULL)
+		if (node != NULL && node->stmt != NULL)
 		{
 			g_object_unref (node->stmt);
 			node->stmt = NULL;
 		}
 		
-		if (node->plist != NULL)
+		if (node != NULL && node->plist != NULL)
 		{
 			g_object_unref (node->plist);
 			node->plist = NULL;
@@ -1156,16 +748,20 @@ sdb_engine_free_cached_queries ()
 }
 
 static void
-sdb_engine_free_cached_dynamic_queries ()
+sdb_engine_free_cached_dynamic_queries (SymbolDBEngine *dbe)
 {
+	SymbolDBEnginePriv *priv;
 	gint i;
 	dyn_query_node *node;
 
+	priv = dbe->priv;
+	
 	for (i = 0; i < DYN_PREP_QUERY_COUNT; i++)
 	{
-		node = &dyn_query_list[i];
+		node = priv->dyn_query_list[i];
 
-		if (node->sym_extra_info_gtree != NULL)
+		
+		if (node != NULL && node->sym_extra_info_gtree != NULL)
 		{
 			g_object_unref (node->sym_extra_info_gtree );
 			node->sym_extra_info_gtree = NULL;
@@ -1201,7 +797,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
  * @return -1 on error. Otherwise the id of tuple.
  */
 static gint
-sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
+sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										const GValue * param_value)
 {
@@ -1261,7 +857,8 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, query_type qtype,
  *
  */
 static gint
-sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
+sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, 
+										 static_query_type qtype,
 										 gchar * param_key1,
 										 const GValue * value1,
 										 gchar * param_key2,
@@ -1329,7 +926,8 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 }
 
 static gint
-sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
+sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, 
+										 static_query_type qtype,
 										 gchar * param_key1,
 										 const GValue * value1,
 										 gchar * param_key2,
@@ -2135,6 +1733,338 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	/* create Anjuta Launcher instance. It will be used for tags parsing. */
 	sdbe->priv->ctags_launcher = NULL;
+
+	/*
+	 * STATIC QUERY STRUCTURE INITIALIZE
+	 */
+	
+	/* -- workspace -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_WORKSPACE_NEW, 
+		"INSERT INTO workspace (workspace_name, analyse_time) "
+	 	"VALUES (## /* name:'wsname' type:gchararray */,"
+	 	"datetime ('now', 'localtime'))");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME, 
+	 	"SELECT workspace_id FROM workspace WHERE workspace_name = ## /* name:'wsname' "
+	 	"type:gchararray */ LIMIT 1");
+
+	/* -- project -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_PROJECT_NEW, 
+	 	"INSERT INTO project (project_name, wrkspace_id, analyse_time) "
+	 	"VALUES (## /* name:'prjname' type:gchararray */,"
+	 	"## /* name:'wsid' type:gint */, datetime ('now', 'localtime'))");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME, 
+	 	"SELECT project_id FROM project WHERE project_name = ## /* name:'prjname' "
+	 	"type:gchararray */ LIMIT 1");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME, 
+	 	"UPDATE project SET analyse_time = datetime('now', 'localtime', '+10 seconds') WHERE "
+	 	"project_name = ## /* name:'prjname' type:gchararray */");
+	
+	/* -- file -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_FILE_NEW, 
+	 	"INSERT INTO file (file_path, prj_id, lang_id, analyse_time) VALUES ("
+	 	"## /* name:'filepath' type:gchararray */, ## /* name:'prjid' "
+	 	"type:gint */, ## /* name:'langid' type:gint */, "
+	 	"datetime ('now', 'localtime'))");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME, 
+		"SELECT file_id FROM file WHERE file_path = ## /* name:'filepath' "
+	 	"type:gchararray */ LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
+		"SELECT * FROM file WHERE prj_id = (SELECT project_id FROM project "
+	 	"WHERE project_name = ## /* name:'prjname' type:gchararray */)");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID,
+		"SELECT file_id, file_path, prj_id, lang_id, analyse_time FROM file "
+	 	"WHERE prj_id = ## /* name:'prjid' type:gint */");
+/*
+		"SELECT * FROM file JOIN project on project_id = prj_id WHERE "\
+		"project.name = ## / * name:'prjname' type:gchararray * /",
+*/
+									
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_UPDATE_FILE_ANALYSE_TIME,
+		"UPDATE file SET analyse_time = datetime('now', 'localtime') WHERE "
+	 	"file_path = ## /* name:'filepath' type:gchararray */");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS,
+		"SELECT file_id, file_path FROM file WHERE file_id NOT IN "
+		"(SELECT file_defined_id FROM symbol)");
+	
+	/* -- language -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_LANGUAGE_NEW,
+		"INSERT INTO language (language_name) VALUES (## /* name:'langname' "
+	 	"type:gchararray */)");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
+	 	"SELECT language_id FROM language WHERE language_name = ## /* name:'langname' "
+	 	"type:gchararray */ LIMIT 1");
+	
+	/* -- sym type -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_SYM_TYPE_NEW,
+		"INSERT INTO sym_type (type_type, type_name) VALUES (## /* name:'type' "
+	 	"type:gchararray */, ## /* name:'typename' type:gchararray */)");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_SYM_TYPE_ID,
+	 	"SELECT type_id FROM sym_type WHERE type_type = ## /* name:'type' "
+	 	"type:gchararray */ AND type_name = ## /* name:'typename' "
+	 	"type:gchararray */ LIMIT 1");
+
+	/* -- sym kind -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_SYM_KIND_NEW,
+	 	"INSERT INTO sym_kind (kind_name) VALUES(## /* name:'kindname' "
+	 	"type:gchararray */)");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
+		"SELECT sym_kind_id FROM sym_kind WHERE kind_name = ## /* "
+	 	"name:'kindname' type:gchararray */");
+	
+	/* -- sym access -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_SYM_ACCESS_NEW,
+		"INSERT INTO sym_access (access_name) VALUES(## /* name:'accesskind' "
+	 	"type:gchararray */)");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_SYM_ACCESS_BY_UNIQUE_NAME,
+		"SELECT access_kind_id FROM sym_access WHERE access_name = ## /* "
+	 	"name:'accesskind' type:gchararray */ LIMIT 1");
+	
+	/* -- sym implementation -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+		 							PREP_QUERY_SYM_IMPLEMENTATION_NEW,
+	 	"INSERT INTO sym_implementation (implementation_name) VALUES(## /* name:'implekind' "
+	 	"type:gchararray */)");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
+	 	"SELECT sym_impl_id FROM sym_implementation WHERE kind = ## /* "
+	 	"name:'implekind' type:gchararray */ LIMIT 1");
+	
+	/* -- heritage -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_HERITAGE_NEW,
+	 	"INSERT INTO heritage (symbol_id_base, symbol_id_derived) VALUES(## /* "
+	 	"name:'symbase' type:gint */, ## /* name:'symderived' type:gint */)");	
+	
+	/* -- scope -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_SCOPE_NEW,
+	 	"INSERT INTO scope (scope_name, type_id) VALUES(## /* name:'scope' "
+	 	"type:gchararray */, ## /* name:'typeid' type:gint */)");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SCOPE_ID,
+	 	"SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
+	 	"type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE,
+	 	"SELECT symbol.symbol_id, symbol.file_defined_id, "
+	 	"symbol.file_position, symbol.scope_definition_id, symbol.scope_id "
+	 	"FROM symbol WHERE symbol.scope_definition_id = ( "
+	 	"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = "
+	 	"## /* name:'symid' type:gint */) "
+	 	"AND symbol.scope_definition_id > 0");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID,
+	 	"SELECT symbol.symbol_id, symbol.file_defined_id, "
+	 	"symbol.file_position, symbol.scope_definition_id, symbol.scope_id "
+	 	"FROM symbol JOIN file "
+	 	"ON symbol.file_defined_id = file.file_id "
+	 	"WHERE symbol.scope_definition_id = ( "
+	 	"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = "
+	 	"## /* name:'symid' type:gint */) "
+	 	"AND symbol.scope_definition_id > 0 "
+	 	"AND file.file_path = ## /* name:'dbfile' type:gchararray */");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
+	 	"SELECT symbol.scope_definition_id FROM symbol WHERE "
+	 	"file_defined_id = (SELECT file_defined_id FROM symbol WHERE symbol_id = "
+	 	"/* name:'scopedsymid' type:gint */) "
+	 	"AND file_position < (SELECT file_position FROM symbol WHERE symbol_id = "
+	 	"/* name:'scopedsymid' type:gint */) "
+	 	"ORDER BY file_position DESC");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
+	 	"SELECT scope_definition_id FROM symbol "
+	 	"WHERE scope_id = /* name:'scopeid' type:gint */ AND scope_definition_id = ("
+		 	"SELECT scope.scope_id FROM scope "
+			"INNER JOIN sym_type ON scope.type_id = sym_type.type_id "
+			"WHERE sym_type.type_type = /* name:'symtype' type:gchararray */ "
+				"AND scope.scope_name = /* name:'scopename' type:gchararray */) LIMIT 1");
+	
+	/* -- tmp heritage -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_TMP_HERITAGE_NEW,
+	 	"INSERT INTO __tmp_heritage_scope (symbol_referer_id, field_inherits, "
+	 	"field_struct, field_typeref, field_enum, field_union, "
+	 	"field_class, field_namespace) VALUES (## /* name:'symreferid' "
+	 	"type:gint */, ## /* name:'finherits' type:gchararray */, ## /* "
+	 	"name:'fstruct' type:gchararray */, ## /* name:'ftyperef' "
+	 	"type:gchararray */, ## /* name:'fenum' type:gchararray */, ## /* "
+	 	"name:'funion' type:gchararray */, ## /* name:'fclass' type:gchararray "
+	 	"*/, ## /* name:'fnamespace' type:gchararray */)");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
+	 	"SELECT * FROM __tmp_heritage_scope");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
+	 	"SELECT * FROM __tmp_heritage_scope WHERE field_inherits != ''");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
+	 	"DELETE FROM __tmp_heritage_scope");
+	
+	/* -- symbol -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_SYMBOL_NEW,
+	 	"INSERT INTO symbol (file_defined_id, name, file_position, "
+	 	"is_file_scope, signature, scope_definition_id, scope_id, type_id, "
+	 	"kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
+	 	"## /* name:'filedefid' type:gint */, ## /* name:'name' "
+	 	"type:gchararray */, ## /* name:'fileposition' type:gint */, ## /* "
+	 	"name:'isfilescope' type:gint */, ## /* name:'signature' "
+	 	"type:gchararray */,## /* name:'scopedefinitionid' type:gint */, ## "
+	 	"/* name:'scopeid' type:gint */,## /* name:'typeid' type:gint */, ## "
+	 	"/* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
+	 	"## /* name:'implementationkindid' type:gint */, ## /* "
+	 	"name:'updateflag' type:gint */)");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
+	 	"SELECT scope_definition_id FROM symbol JOIN sym_type ON symbol.type_id "
+	 	"= sym_type.type_id WHERE sym_type.type_type = ## /* name:'tokenname' "
+	 	"type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
+	 	"type:gchararray */ LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
+	 	"SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
+	 	"sym_type.type_id WHERE scope_id=0 AND sym_type.type_type='class' AND "
+	 	"name = ## /* name:'klassname' type:gchararray */ LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
+	 	"SELECT symbol_id FROM symbol JOIN scope ON symbol.scope_id = "
+	 	"scope.scope_id JOIN sym_type ON scope.type_id = sym_type.type_id "
+	 	"WHERE symbol.name = ## /* name:'klassname' type:gchararray */ AND "
+	 	"scope.scope_name = ## /* name:'namespacename' type:gchararray */ AND "
+	 	"sym_type.type_type = 'namespace' LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
+	 	"UPDATE symbol SET scope_id = ## /* name:'scopeid' type:gint */ "
+	 	"WHERE symbol_id = ## /* name:'symbolid' type:gint */");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
+	 	"SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
+	 	"type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' "
+	 	"type:gint */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_UPDATE_SYMBOL_ALL,
+	 	"UPDATE symbol SET is_file_scope = ## /* name:'isfilescope' type:gint "
+	 	"*/, file_position = ## /* name:'fileposition' type:gint */, "
+	 	"signature = ## /* name:'signature' type:gchararray */, "
+	 	"scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, "
+	 	"scope_id = ## /* name:'scopeid' type:gint */, kind_id = "
+	 	"## /* name:'kindid' type:gint */, access_kind_id = ## /* name:"
+	 	"'accesskindid' type:gint */, implementation_kind_id = ## /* name:"
+	 	"'implementationkindid' type:gint */, update_flag = ## /* name:"
+	 	"'updateflag' type:gint */ WHERE symbol_id = ## /* name:'symbolid' type:"
+	 	"gint */");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
+	 	"DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file "
+	 	"WHERE file_path = ## /* name:'filepath' type:gchararray */) "
+	 	"AND update_flag = 0");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
+	 	"UPDATE symbol SET update_flag = 0 "
+	 	"WHERE file_defined_id = (SELECT file_id FROM file WHERE "
+	 	"file_path = ## /* name:'filepath' type:gchararray */)");
+	
+	/* -- tmp_removed -- */
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_REMOVED_IDS,
+	 	"SELECT symbol_removed_id FROM __tmp_removed");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_TMP_REMOVED_DELETE_ALL,
+	 	"DELETE FROM __tmp_removed");
+
+	
+	/*
+	 * DYNAMIC QUERY STRUCTURE INITIALIZE
+	 */
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_CLASS_PARENTS,
+									TRUE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
+									FALSE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED,
+									TRUE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_SCOPE_MEMBERS,
+									FALSE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_CURRENT_SCOPE,				
+									FALSE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_GET_FILE_SYMBOLS,
+									FALSE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+								 	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
+									FALSE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+								 	DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
+									FALSE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,			
+									TRUE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
+									TRUE);
 	
 	/* init cache hashtables */
 	sdb_engine_init_caches (sdbe);
@@ -2162,8 +2092,8 @@ sdb_engine_finalize (GObject * object)
 		g_source_remove (priv->thread_monitor_handler);
 		
 	sdb_engine_disconnect_from_db (dbe);
-	sdb_engine_free_cached_queries ();
-	sdb_engine_free_cached_dynamic_queries ();
+	sdb_engine_free_cached_queries (dbe);
+	sdb_engine_free_cached_dynamic_queries (dbe);
 	
 	if (priv->scan_queue)
 	{
@@ -2327,7 +2257,7 @@ sdb_engine_get_type (void)
 }
 
 SymbolDBEngine *
-symbol_db_engine_new ()
+symbol_db_engine_new (void)
 {
 	SymbolDBEngine *sdbe;
 	SymbolDBEnginePriv *priv;
@@ -7918,7 +7848,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}
-
+DEBUG_PRINT ("SETTING globalsearch %d", !global_symbols_search);
 	value = gda_value_new (G_TYPE_INT);
 	g_value_set_int (value, !global_symbols_search);	
 	gda_holder_set_value (param, value);
@@ -7934,8 +7864,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	gda_holder_set_value_str (param, NULL, pattern);
 	
-/*	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
-				 dyn_node->query_str);*/
+	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+				 dyn_node->query_str);
 		
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 

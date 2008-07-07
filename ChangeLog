@@ -1,5 +1,48 @@
 2008-07-07  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/symbol-db/plugin.c:
+	Fixed a double-free
+
+2008-07-07  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache):
+	added some debugging info.
+
+	* plugins/symbol-db/plugin.c (on_project_root_added),
+	(isymbol_manager_search):
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_statement_by_query_id),
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_get_query_parameters_list),
+	(sdb_engine_free_cached_queries),
+	(sdb_engine_free_cached_dynamic_queries),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3), (sdb_engine_init),
+	(sdb_engine_finalize), (symbol_db_engine_new),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c (symbol_db_prefs_init):
+	* plugins/symbol-db/symbol-db-system.c (destroy_single_scan_data),
+	(destroy_engine_scan_data), (sdb_system_init),
+	(sdb_system_finalize), (sdb_system_class_init),
+	(sdb_system_get_normalized_cflags),
+	(on_engine_package_single_file_scan_end), (symbol_db_system_new),
+	(symbol_db_system_is_package_parsed), (on_pkg_config_output),
+	(sdb_system_files_visit_dir), (prepare_files_to_be_scanned),
+	(on_engine_package_scan_end), (sdb_system_do_scan_package_1),
+	(sdb_system_do_scan_next_package),
+	(sdb_system_do_scan_new_package), (on_pkg_config_exit),
+	(symbol_db_system_scan_package),
+	(symbol_db_system_is_package_parseable):
+	* plugins/symbol-db/symbol-db-system.h:
+	fixed threaded libgda stuff. It was the static prepared statement that broke
+	the thing.
+
+2008-07-07  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/libanjuta-1.0.deps:
 	* libanjuta/vapi-gen/README:
 	* libanjuta/vapi-gen/anjuta-gen-vapi.sh:
