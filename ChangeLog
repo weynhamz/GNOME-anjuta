@@ -1,5 +1,10 @@
 2008-07-07  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/libanjuta-1.0.vapi:
+	Added missing file
+	
+2008-07-07  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/symbol-db/plugin.c:
 	Fixed a double-free
 
