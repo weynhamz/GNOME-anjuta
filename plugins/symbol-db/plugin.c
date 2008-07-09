@@ -1531,19 +1531,33 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	dbe_project = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	dbe_globals = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
+	if (match_types & IANJUTA_SYMBOL_TYPE_MAX)
+	{
 		filter_array = NULL;
-	else
+	}
+	else 
+	{
 		filter_array = symbol_db_engine_fill_type_array (match_types);
+	}
 
+	/* DEBUG REMOVE ME *
+	gint i;
+	if (filter_array != NULL)
+		for (i=0; i < filter_array->len; i++) 
+		{
+			DEBUG_PRINT ("isymbol_manager_search (): search for type %s", 
+						 g_ptr_array_index (filter_array, i));
+		}
+	//*/
+	
 	if (exact_match == FALSE)
 		pattern = g_strdup_printf ("%s%%", match_name);
 	else
 		pattern = g_strdup_printf ("%s", match_name);
 	
 	/* should we lookup for project of system tags? */
-	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
-					 exact_match, global_symbols_search);	
+/*	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
+					 exact_match, global_symbols_search);	*/
 	iterator = 
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (
 					global_tags_search == FALSE ? dbe_project : dbe_globals, 
@@ -1555,7 +1569,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 					results_limit,
 					results_offset,
 					info_fields);	
-	DEBUG_PRINT ("iterator length %d", ianjuta_iterable_get_length (iterator, NULL));
 	g_free (pattern);
 	
 	if (filter_array)

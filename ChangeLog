@@ -1,3 +1,19 @@
+2008-07-07  Massimo Cora'  <maxcvs@email.it>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/symbol-db/plugin.c (isymbol_manager_search):
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	fixed global search. There were some bitwise problems in IAnjutaSymbolManager 
+	interface.
+
 2008-07-07  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/libanjuta-1.0.vapi:

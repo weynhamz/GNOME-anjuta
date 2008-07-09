@@ -4541,47 +4541,47 @@ interface IAnjutaSymbol
 	
 	enum Type
 	{
-		TYPE_UNDEF = 0,                // Unknown type
-		TYPE_CLASS = 1,                // Class declaration
-		TYPE_ENUM = 2,                 // Enum declaration 
-		TYPE_ENUMERATOR = 4,           // Enumerator value 
-		TYPE_FIELD = 8,                // Field (Java only) 
-		TYPE_FUNCTION = 16,            // Function definition 
-		TYPE_INTERFACE = 32,           // Interface (Java only) 
-		TYPE_MEMBER = 64,              // Member variable of class/struct 
-		TYPE_METHOD = 128,             // Class method (Java only) 
-		TYPE_NAMESPACE = 256,          // Namespace declaration 
-		TYPE_PACKAGE = 512,            // Package (Java only)
-		TYPE_PROTOTYPE = 1024,         // Function prototype 
-		TYPE_STRUCT = 2048,            // Struct declaration 
-		TYPE_TYPEDEF = 4096,           // Typedef 
-		TYPE_UNION = 8192,             // Union 
-		TYPE_VARIABLE = 16384,         // Variable 
-		TYPE_EXTERNVAR = 32768,        // Extern or forward declaration 
-		TYPE_MACRO = 65536,            //  Macro (without arguments) 
-		TYPE_MACRO_WITH_ARG = 131072,  // Parameterized macro 
-		TYPE_FILE = 262144,            // File (Pseudo tag) 
-		TYPE_OTHER = 524288,           // Other (non C/C++/Java tag) 
-		TYPE_MAX = 1048575             // Maximum value 
+		TYPE_UNDEF = 1,                // Unknown type
+		TYPE_CLASS = 2,                // Class declaration
+		TYPE_ENUM = 4,                 // Enum declaration 
+		TYPE_ENUMERATOR = 8,           // Enumerator value 
+		TYPE_FIELD = 16,               // Field (Java only) 
+		TYPE_FUNCTION = 32,            // Function definition 
+		TYPE_INTERFACE = 64,           // Interface (Java only) 
+		TYPE_MEMBER = 128,             // Member variable of class/struct 
+		TYPE_METHOD = 256,             // Class method (Java only) 
+		TYPE_NAMESPACE = 512,          // Namespace declaration 
+		TYPE_PACKAGE = 1024,           // Package (Java only)
+		TYPE_PROTOTYPE = 2048,         // Function prototype 
+		TYPE_STRUCT = 4096,            // Struct declaration 
+		TYPE_TYPEDEF = 8192,           // Typedef 
+		TYPE_UNION = 16384,            // Union 
+		TYPE_VARIABLE = 32768,         // Variable 
+		TYPE_EXTERNVAR = 65536,        // Extern or forward declaration 
+		TYPE_MACRO = 131072,           //  Macro (without arguments) 
+		TYPE_MACRO_WITH_ARG = 262144,  // Parameterized macro 
+		TYPE_FILE = 524288,            // File (Pseudo tag) 
+		TYPE_OTHER = 1048576,          // Other (non C/C++/Java tag) 
+		TYPE_MAX = 2097151             // Maximum value, means all known values.
 	}
 
 	/* Field masks -- used mainly to retrieve fields of a symbol */
 	enum Field
 	{
 
-		FIELD_SIMPLE = 0,				// With this field you will have name, line of declaration,
+		FIELD_SIMPLE = 1,				// With this field you will have name, line of declaration,
 										// is_file_scope and signature of the symbol 
-		FIELD_FILE_PATH = 1,
-		FIELD_IMPLEMENTATION = 2,
-		FIELD_ACCESS = 4,
-		FIELD_KIND = 8,
-		FIELD_TYPE = 16,
-		FIELD_TYPE_NAME = 32,
-		FIELD_LANGUAGE = 64,
-		FIELD_FILE_IGNORE = 128,
-		FIELD_FILE_INCLUDE = 256,
-		FIELD_PROJECT_NAME = 512,
-		FIELD_WORKSPACE_NAME = 1024
+		FIELD_FILE_PATH = 2,
+		FIELD_IMPLEMENTATION = 4,
+		FIELD_ACCESS = 8,
+		FIELD_KIND = 16,
+		FIELD_TYPE = 32,
+		FIELD_TYPE_NAME = 64,
+		FIELD_LANGUAGE = 128,
+		FIELD_FILE_IGNORE = 256,
+		FIELD_FILE_INCLUDE = 512,
+		FIELD_PROJECT_NAME = 1024,
+		FIELD_WORKSPACE_NAME = 2048
 	}
 	
 	/**
@@ -4656,7 +4656,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search:
 	* @obj: Self
-	* @match_types: If passed IANJUTA_TYPE_UNDEF the function will not perfom any filter.
+	* @match_types: If passed IANJUTA_TYPE_MAX the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @match_name: fixme

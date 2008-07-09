@@ -1966,7 +1966,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
 	 	"SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
-	 	"sym_type.type_id WHERE scope_id=0 AND sym_type.type_type='class' AND "
+	 	"sym_type.type_id AND symbol.scope_id = 0 WHERE AND sym_type.type_type='class' AND "
 	 	"name = ## /* name:'klassname' type:gchararray */ LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -5807,8 +5807,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	}
 
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -5950,8 +5949,7 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 
 	
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -6648,8 +6646,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		g_free (offset);
 
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -6812,8 +6809,7 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	}
 
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -6919,8 +6915,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	}
 	
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -7037,8 +7032,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	}
 
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -7233,8 +7227,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	}
 
 	if (dyn_node == NULL) 
-	{
-		DEBUG_PRINT ("dyn_node is NULL");
+	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
@@ -7848,7 +7841,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}
-DEBUG_PRINT ("SETTING globalsearch %d", !global_symbols_search);
+
 	value = gda_value_new (G_TYPE_INT);
 	g_value_set_int (value, !global_symbols_search);	
 	gda_holder_set_value (param, value);
@@ -7864,8 +7857,8 @@ DEBUG_PRINT ("SETTING globalsearch %d", !global_symbols_search);
 	
 	gda_holder_set_value_str (param, NULL, pattern);
 	
-	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
-				 dyn_node->query_str);
+/*	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+				 dyn_node->query_str);*/
 		
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 

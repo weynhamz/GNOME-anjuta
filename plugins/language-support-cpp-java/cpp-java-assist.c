@@ -336,7 +336,7 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 		}
 	} 
 	else if (g_str_equal (scope_operator, ".") ||
-			 g_str_equal (scope_operator, "->"))
+			 g_str_equal (scope_operator, "->"))	
 	{
 		/* TODO: Find the type of context by parsing the file somehow and
 		search for the member as it is done with the :: context */
@@ -359,7 +359,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 	cpp_java_assist_destroy_completion_cache (assist);
 	IAnjutaIterable* iter_project = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
-										IANJUTA_SYMBOL_TYPE_MAX,
+									    IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										pre_word, TRUE, FALSE, FALSE, max_completions, -1, NULL);

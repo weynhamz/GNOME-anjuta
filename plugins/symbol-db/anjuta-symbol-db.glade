@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.4 on Tue Jul  1 00:29:01 2008 -->
+<!--Generated with glade3 3.4.4 on Mon Jul  7 23:02:54 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -8,6 +8,7 @@
       <widget class="GtkVBox" id="symbol_prefs">
         <property name="visible">True</property>
         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+        <property name="spacing">1</property>
         <child>
           <widget class="GtkFrame" id="frame1">
             <property name="visible">True</property>
@@ -39,8 +40,8 @@
                       <widget class="GtkFileChooserButton" id="preferences_folder:text:/:0:symboldb.root">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="use_preview_label">False</property>
                         <property name="preview_widget_active">False</property>
+                        <property name="use_preview_label">False</property>
                         <property name="title" translatable="yes">Choose Ctags executable</property>
                       </widget>
                       <packing>
@@ -201,6 +202,7 @@
             </child>
           </widget>
           <packing>
+            <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">2</property>
           </packing>
