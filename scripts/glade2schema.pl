@@ -9,7 +9,9 @@ use XML::Parser;
 	"text" => "string",
 	"float" => "float",
 	"color" => "string",
-	"font" => "string"
+	"font" => "string",
+	"folder" => "string",
+	"file" => "string"
 );
 
 %boolean = (
@@ -34,7 +36,7 @@ sub StartTag {
 	my $key = shift;
 	if ($key =~ /widget/) {
 		my $k = $_{"id"};
-		if ($k =~ /(preferences_color|entry|font|spin|text|toggle|menu):(.*):(.*):(\d):(.*)/) {	
+		if ($k =~ /(preferences_color|entry|font|spin|text|toggle|menu|folder|file):(.*):(.*):(\d):(.*)/) {	
 			
 			my $type = $2;
 			my $default = $3;

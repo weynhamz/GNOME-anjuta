@@ -621,10 +621,7 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-		uri = gtk_file_chooser_get_uri (
- 				GTK_FILE_CHOOSER (prop->object));
-		text_value = gnome_vfs_get_local_path_from_uri (uri);
-		g_free (uri);
+		text_value = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));

@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include <glib.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/anjuta-plugin.h>
 #include "symbol-db-engine-iterator.h"
 
 G_BEGIN_DECLS
@@ -82,7 +83,7 @@ typedef enum {
 GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 
-SymbolDBEngine* symbol_db_engine_new (void);
+SymbolDBEngine* symbol_db_engine_new (AnjutaPlugin* plugin);
 
 
 /**

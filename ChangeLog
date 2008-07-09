@@ -1,3 +1,20 @@
+2008-07-09  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-preferences.c (get_property_value_as_string):
+	Get the file path from the file-chooser instead of the ui
+	
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_scan_files_1),
+	(symbol_db_engine_new):
+	* plugins/symbol-db/symbol-db-engine.h:
+	Fixed symbol-db prefs
+	
+	* scripts/glade2schema.pl:
+	Support for "folder" and "file" preferences
+	
+	* configure.in: Require latest libgda-4.0
+
 2008-07-07  Massimo Cora'  <maxcvs@email.it>
 
 	* libanjuta/interfaces/libanjuta.idl:

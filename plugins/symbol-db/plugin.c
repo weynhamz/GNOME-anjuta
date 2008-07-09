@@ -53,8 +53,6 @@
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
-#define CTAGS_PREFS_KEY		"ctags.executable"
-#define CTAGS_PATH			"/usr/bin/ctags"
 #define CHOOSER_WIDGET		"preferences_folder:text:/:0:symboldb.root"
 
 #define PROJECT_GLOBALS		"/"
@@ -1233,10 +1231,10 @@ symbol_db_activate (AnjutaPlugin *plugin)
 /*	symbol_db->engine_mutex = g_mutex_new ();*/
 	
 	/* create SymbolDBEngine(s) */
-	symbol_db->sdbe_project = symbol_db_engine_new ();
+	symbol_db->sdbe_project = symbol_db_engine_new (plugin);
 	
 	/* the globals one too */
-	symbol_db->sdbe_globals = symbol_db_engine_new ();
+	symbol_db->sdbe_globals = symbol_db_engine_new (plugin);
 	/* open it */
 	anjuta_cache_path = anjuta_util_get_user_cache_file_path (".");
 	symbol_db_engine_open_db (symbol_db->sdbe_globals, 
@@ -1377,10 +1375,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* Determine session state */
 	g_signal_connect (plugin->shell, "load_session", 
 					  G_CALLBACK (on_session_load), plugin);
-	
-	/* FIXME: get path from preferences */
-	anjuta_util_prog_is_installed ("ctags", TRUE);
-	
+		
 	return TRUE;
 }
 

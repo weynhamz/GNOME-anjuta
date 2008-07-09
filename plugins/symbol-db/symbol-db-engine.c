@@ -130,14 +130,13 @@ select symbol_id_base, symbol.name from heritage
 
 #define SHARED_MEMORY_PREFIX		"/dev/shm"
 
-// FIXME: detect it by prefs
-#define CTAGS_PATH		"/usr/bin/ctags"
-
 #define THREADS_MONITOR_TIMEOUT			10
 #define THREADS_MAX_CONCURRENT			15
 #define TRIGGER_SIGNALS_DELAY			100
 #define	TRIGGER_MAX_CLOSURE_RETRIES		50
 #define	THREAD_MAX_CLOSURE_RETRIES		20
+
+#define CTAGS_PREFS_KEY		"symboldb.ctags"
 
 enum {
 	DO_UPDATE_SYMS = 1,
@@ -274,6 +273,8 @@ static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 struct _SymbolDBEnginePriv
 {
+	AnjutaPlugin* plugin;
+	
 	GdaConnection *db_connection;
 	GdaSqlParser *sql_parser;
 	gchar *db_directory;
@@ -1494,6 +1495,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 {
 	SymbolDBEnginePriv *priv;
 	gint i;
+	gchar* ctags_path;
+	AnjutaPreferences* prefs;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (files_list != NULL, FALSE);
@@ -1502,8 +1505,14 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		return FALSE;
 	
 	/* Check if ctags is really installed */
-	if (!anjuta_util_prog_is_installed (CTAGS_PATH, TRUE))
+	prefs = anjuta_shell_get_preferences (dbe->priv->plugin->shell,
+										  NULL);
+	ctags_path = anjuta_preferences_get (prefs, CTAGS_PREFS_KEY); 
+	if (!anjuta_util_prog_is_installed (ctags_path, TRUE))
+	{
+		g_free (ctags_path);
 		return FALSE;
+	}
 	
 	/* start process in server mode */
 	priv = dbe->priv;
@@ -1511,6 +1520,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
 	{
 		g_warning ("no matched size between real_files_list and files_list");
+		g_free (ctags_path);
 		return FALSE;
 	}
 	
@@ -1530,13 +1540,14 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 
 		exe_string = g_strdup_printf ("%s --fields=afmiKlnsStz --c++-kinds=+p "
 								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
-								  CTAGS_PATH);
+								  ctags_path);
 		
 		anjuta_launcher_execute (priv->ctags_launcher,
 								 exe_string, sdb_engine_ctags_output_callback_1, 
 								 dbe);
 		g_free (exe_string);
 	}
+	g_free (ctags_path);
 	
 	/* what about the scan_queue? is it initialized? It will contain mainly 
 	 * ints that refers to the force_update status.
@@ -2257,7 +2268,7 @@ sdb_engine_get_type (void)
 }
 
 SymbolDBEngine *
-symbol_db_engine_new (void)
+symbol_db_engine_new (AnjutaPlugin* plugin)
 {
 	SymbolDBEngine *sdbe;
 	SymbolDBEnginePriv *priv;
@@ -2266,6 +2277,7 @@ symbol_db_engine_new (void)
 	
 	priv = sdbe->priv;
 	priv->mutex = g_mutex_new ();
+	priv->plugin = plugin;
 	return sdbe;
 }
 
