@@ -1,5 +1,13 @@
 2008-07-09  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_check):
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	Show all completions even when the editor makes own suggestions
+
+2008-07-09  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c (get_property_value_as_string):
 	Get the file path from the file-chooser instead of the ui
 	

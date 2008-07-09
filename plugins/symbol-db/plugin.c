@@ -1257,10 +1257,15 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* Create widgets */
 	symbol_db->dbv_main = gtk_vbox_new(FALSE, 5);
 	symbol_db->dbv_notebook = gtk_notebook_new();
-	symbol_db->progress_bar_project = gtk_progress_bar_new();	
+	symbol_db->progress_bar_project = gtk_progress_bar_new();
+	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(symbol_db->progress_bar_project),
+									PANGO_ELLIPSIZE_END);
 	g_object_ref (symbol_db->progress_bar_project);
 	
 	symbol_db->progress_bar_system = gtk_progress_bar_new();
+	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(symbol_db->progress_bar_system),
+									PANGO_ELLIPSIZE_END);
+	
 	g_object_ref (symbol_db->progress_bar_system);
 		
 	gtk_box_pack_start (GTK_BOX (symbol_db->dbv_main), symbol_db->dbv_notebook,

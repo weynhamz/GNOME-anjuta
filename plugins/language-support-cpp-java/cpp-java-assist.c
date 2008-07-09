@@ -59,6 +59,7 @@ struct _CppJavaAssistPriv {
 	gchar *search_cache;
 	gchar *scope_context_cache;
 	GCompletion *completion_cache;
+	gboolean editor_only;
 };
 
 static gchar*
@@ -351,6 +352,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 	gint max_completions;
 	GCompletion *completion = NULL;
 	GList* editor_completions = NULL;
+	assist->priv->editor_only = FALSE;
 	max_completions =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
@@ -398,10 +400,17 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 			tag->name = node->data;
 			tag->type = 0;
 			tag->is_func = FALSE;
-			tag_list = g_list_append (tag_list, tag);
+			if (completion && !g_list_find_custom (completion->items, tag, 
+												   completion_compare))
+				tag_list = g_list_append (tag_list, tag);
+			else
+				cpp_java_assist_tag_destroy (tag);
 		}
 		if (!completion)
+		{
 			completion = g_completion_new(completion_function);
+			assist->priv->editor_only = TRUE;
+		}
 		tag_list = g_list_sort (tag_list, completion_compare);
 		g_completion_add_items (completion, tag_list);		
 		g_list_free (editor_completions);
@@ -684,7 +693,8 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 		{
 			if (!assist->priv->search_cache ||
 				strncmp (assist->priv->search_cache,
-						 pre_word, strlen (assist->priv->search_cache)) != 0)
+						 pre_word, strlen (assist->priv->search_cache)) != 0 ||
+				assist->priv->editor_only)
 			{
 				cpp_java_assist_create_word_completion_cache (assist, pre_word);
 			}
@@ -722,6 +732,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	g_object_unref (iter_save);
 	g_free (pre_word);
 	g_free (scope_operator);
+	
 	return shown;
 }
 
