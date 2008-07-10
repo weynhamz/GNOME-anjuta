@@ -368,7 +368,7 @@ search_and_replace (void)
 		else /* if (SE_FILE == se->type) */
 			fb = file_buffer_new_from_path(se->path, NULL, -1, 0);
 
-		if (fb)
+		if (fb && fb->buf)
 		{		
 			fb->pos = se->start_pos;
 			offset = 0;
@@ -593,29 +593,15 @@ search_and_replace (void)
 				if (SA_SELECT == s->action ||
 					((SA_REPLACE == s->action || SA_REPLACEALL == s->action) && interactive))
 					break;
-			} // while
-/* NO - leave the current position unchanged when marking-all
-			if (nb_results > 0)
-			{
-				switch (s->action)
-				{
-					case SA_HIGHLIGHT:
-					case SA_BOOKMARK:
-						ianjuta_editor_goto_line (fb->te, found_line, NULL);
-					default:
-						break;
-				}
 			}
-*/
-		if (save_file)
-		{
+			if (save_file)
+			{
 				save_not_opened_files (fb);
-			save_file = FALSE;
+				save_file = FALSE;
+			}
+			
 		}
-		
-			file_buffer_free (fb);
-		}  // if (fb)
-
+		file_buffer_free (fb);
 		g_free (se->path);
 		g_free (se);
 
