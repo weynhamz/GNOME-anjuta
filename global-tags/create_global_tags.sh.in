@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z $XDG_CACHE_HOME ]
+then
+	XDG_CACHE_HOME="$HOME/.cache"
+fi
+
 function anjuta_tags {
 
     FILES=""

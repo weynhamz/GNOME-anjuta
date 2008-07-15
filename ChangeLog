@@ -1,5 +1,10 @@
 2008-07-15  Johannes Schmid  <jhs@gnome.org>
 
+	* global-tags/create_global_tags.sh.in:
+	Fixed #542838 – create_global_tags.sh is creating tags in root directory
+
+2008-07-15  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c (get_property_value_as_string):
 	Use get_filename() instead of get_current_folder(). Thanks to seb
 	for pointing out.
@@ -7795,19 +7800,19 @@
 	* plugins/profiler/gprof-function-call-tree-view.c:
 	(gprof_function_call_tree_view_create_columns):
 	
-	Fixed #466031 – Update of pieces of menus for Localization
+	Fixed #466031 â Update of pieces of menus for Localization
 
 2007-09-10  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-utils.c: (anjuta_util_parse_args_from_string):
-	Bug 343522 – anjuta: Unable to execute commands that use options.
+	Bug 343522 â anjuta: Unable to execute commands that use options.
 
 2007-09-09  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_update_page_label):
 	
-	Fixed #458034 – Method of indicating unsaved changes breaks convention
+	Fixed #458034 â Method of indicating unsaved changes breaks convention
 	
 	* plugins/document-manager/plugin.c: (update_title),
 	(value_added_project_root_uri), (value_removed_project_root_uri),
@@ -7816,7 +7821,7 @@
 	* plugins/project-manager/plugin.c: (on_profile_scoped),
 	(on_profile_descoped), (ifile_open):
 	
-	Fixed #427390 – Show path of item in currently focused editor window
+	Fixed #427390 â Show path of item in currently focused editor window
 
 2007-09-09  Johannes Schmid <jhs@gnome.org>
 
