@@ -1,3 +1,9 @@
+2008-07-15  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-preferences.c (get_property_value_as_string):
+	Use get_filename() instead of get_current_folder(). Thanks to seb
+	for pointing out.
+
 2008-07-15  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:

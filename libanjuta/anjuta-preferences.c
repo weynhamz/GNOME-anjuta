@@ -552,7 +552,6 @@ get_property_value_as_string (AnjutaProperty *prop)
 	gint  int_value;
 	gchar** values;
 	gchar *text_value = NULL;
-	gchar *uri;
 	
 	if (prop->custom)
 	{
@@ -621,8 +620,6 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-		text_value = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
-		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
 		break;
