@@ -1,3 +1,51 @@
+2008-07-15  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-utils.c (anjuta_util_prog_is_installed):
+	* libanjuta/anjuta-utils.h:
+	* libanjuta/libanjuta-1.0.deps:
+	* libanjuta/libanjuta-1.0.vapi:
+	* libanjuta/vapi-gen/README:
+	* libanjuta/vapi-gen/anjuta-gen-vapi.sh:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.deps:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.excludes:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.files:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.metadata:
+	* libanjuta/vapi-gen/libanjuta-interfaces/libanjuta-1.0.namespace:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.deps:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.excludes:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.files:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.metadata:
+	* libanjuta/vapi-gen/libanjuta/libanjuta-1.0.namespace:
+	
+	Remove vala bindings, they should go to the vala module instead
+
+2008-07-10  Massimo Cora'  <maxcvs@email.it>
+
+	* libanjuta/anjuta-utils.c (anjuta_util_prog_is_installed):
+	* libanjuta/anjuta-utils.h:
+	fixed definition const *gchar.
+
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	* plugins/symbol-db/plugin.c (symbol_db_activate),
+	(symbol_db_deactivate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engined_ctags_launcher_create), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (symbol_db_engine_set_ctags_path),
+	(symbol_db_engine_new), (sdb_engine_prepare_symbol_info_sql):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (symbol_db_prefs_init):
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_namespace_row_expanded), (sdb_view_global_row_expanded):
+	The engine will now check for a working (existing) ctags executable.
+	If not found a message will be displayed. It's now possible to switch 
+	ctags executable on the fly.
+	Fixed a crasher with dynamic queries (missing initialization)
+
 2008-07-10  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Yuriy Penkin

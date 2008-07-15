@@ -461,7 +461,7 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 }
 
 gboolean
-anjuta_util_prog_is_installed (gchar * prog, gboolean show)
+anjuta_util_prog_is_installed (const gchar * prog, gboolean show)
 {
 	gchar* prog_path = g_find_program_in_path (prog);
 	if (prog_path)
