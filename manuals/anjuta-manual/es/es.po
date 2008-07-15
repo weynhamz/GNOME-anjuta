@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-02-18 20:00+0000\n"
-"PO-Revision-Date: 2008-03-04 09:32+0100\n"
+"POT-Creation-Date: 2008-07-13 23:19+0000\n"
+"PO-Revision-Date: 2008-07-15 18:17+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1196,9 +1196,9 @@ msgstr ""
 "las etiquetas en los archivos. Todos los archivos C y C++ fuente y de "
 "cabeceras abiertos son analizados para sus etiquetas disponibles (una "
 "«etiqueta» se refiere a una definición de función, estructura, macro, etc.). "
-"Note que en este manual se usa «etiqueta» y «símbolo» como sinónimos, "
-"excepto al referirse al Examinador de etiquetas y al Examinador de símbolos, "
-"que tienen dos interfaces distintos."
+"Note que en este manual se usa «etiqueta» y «símbolo» como sinónimos, excepto "
+"al referirse al Examinador de etiquetas y al Examinador de símbolos, que "
+"tienen dos interfaces distintos."
 
 #: C/anjuta-manual.xml:413(title) C/anjuta-manual.xml:436(title)
 msgid "Tags toolbar"
@@ -1605,10 +1605,10 @@ msgstr ""
 "datos de proyecto separados y mantenidos por Anjuta, y todos los "
 "procesamientos de los proyectos se realizan directamente con la propia "
 "estructura del proyecto. Esto permite que el proyecto se mantenga o "
-"desarrolle fuera de Anjuta sin tener que realizar «portes» o «cambios» a "
-"otras plataformas. Ya que técnicamente los proyectos en Anjuta son "
-"simplemente proyectos automake, se puede desarrollar junto con otras "
-"plataformas, programas o herramientas sin ningún problema."
+"desarrolle fuera de Anjuta sin tener que realizar «portes» o «cambios» a otras "
+"plataformas. Ya que técnicamente los proyectos en Anjuta son simplemente "
+"proyectos automake, se puede desarrollar junto con otras plataformas, "
+"programas o herramientas sin ningún problema."
 
 #: C/anjuta-manual.xml:26(title)
 msgid "Creating a New Project"
@@ -2719,9 +2719,10 @@ msgid ""
 "details on these variables."
 msgstr ""
 "<emphasis>Bibliotecas:</emphasis> Establezca las bibliotecas de las que "
-"depende el objetivo. Generalmente son las variables de configuración $(module_LIBS). Para "
-"obtener más detalles acerca de estas variables, consulte los ajustes de las "
-"<link linkend=\"project-properties\">Propiedades del proyecto</link>."
+"depende el objetivo. Generalmente son las variables de configuración "
+"$(module_LIBS). Para obtener más detalles acerca de estas variables, "
+"consulte los ajustes de las <link linkend=\"project-properties\">Propiedades "
+"del proyecto</link>."
 
 #: C/anjuta-manual.xml:720(para)
 msgid ""
@@ -3297,19 +3298,19 @@ msgstr ""
 "El depurador siempre se inicia con un programa cargado. Hay dos formas de "
 "hacerlo: <placeholder-1/>"
 
-#: C/anjuta-manual.xml:52(listitem)
+#: C/anjuta-manual.xml:52(para)
 msgid "The program that you want to debug"
 msgstr "El programa que quiere depurar"
 
-#: C/anjuta-manual.xml:53(listitem)
+#: C/anjuta-manual.xml:53(para)
 msgid "The command line parameters"
 msgstr "Los parámetros de la línea de comandos"
 
-#: C/anjuta-manual.xml:54(listitem)
+#: C/anjuta-manual.xml:54(para)
 msgid "If you want a terminal or not (the Anjuta terminal plugin is used)"
 msgstr "Si quiere o no una terminal (se usa el complemento del terminal de Anjuta)"
 
-#: C/anjuta-manual.xml:55(listitem)
+#: C/anjuta-manual.xml:55(para)
 msgid "If you want to stop the program at the beginning or not"
 msgstr "Si quiere parar el programa al inicio o no"
 
@@ -3859,25 +3860,25 @@ msgstr ""
 msgid "Breakpoint add dialog"
 msgstr "Diálogo de adición de punto de parada"
 
-#: C/anjuta-manual.xml:408(para)
-msgid "File_name:Line_number"
-msgstr "Nombre_de_archivo:Número_de_línea"
-
-#: C/anjuta-manual.xml:409(para)
-msgid "Function_name"
-msgstr "Nombre_de_la_función"
-
-#: C/anjuta-manual.xml:410(para)
-msgid "File:Function_name"
-msgstr "Archivo:Nombre_de_la_función"
-
 #: C/anjuta-manual.xml:403(para)
 msgid ""
 "Enter the location at which to set the breakpoint. It has to be specified in "
-"one of the following formats: <placeholder-1/>"
+"one of the following formats:"
 msgstr ""
 "Introduzca la ubicación en la que quiere establecer el punto de parada. Se "
-"debe especificar en uno de los siguientes formatos: <placeholder-1/>"
+"debe especificar en uno de los siguientes formatos:"
+
+#: C/anjuta-manual.xml:409(para)
+msgid "File_name:Line_number"
+msgstr "Nombre_de_archivo:Número_de_línea"
+
+#: C/anjuta-manual.xml:410(para)
+msgid "Function_name"
+msgstr "Nombre_de_la_función"
+
+#: C/anjuta-manual.xml:411(para)
+msgid "File:Function_name"
+msgstr "Archivo:Nombre_de_la_función"
 
 #: C/anjuta-manual.xml:414(para)
 msgid ""
