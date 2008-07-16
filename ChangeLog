@@ -1,3 +1,8 @@
+2008-07-16  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Fixed documentation for
+	s/uri/file.
+
 2008-07-15  Johannes Schmid  <jhs@gnome.org>
 
 	* global-tags/create_global_tags.sh.in:

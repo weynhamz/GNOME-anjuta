@@ -41,18 +41,18 @@ interface IAnjutaFile
 	 * @file: file to open.
 	 * @err: Error propagation and reporting
 	 *
-	 * The implementor opens the given URI.
+	 * The implementor opens the given file.
 	 */
 	void open (GFile* file);
 	
 	/**
-	 * ianjuta_file_get_uri:
+	 * ianjuta_file_get_file:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
 	 * Returns the file that was opened with ianjuta_file_open().
 	 *
-	 * Return value: The last URI opened.
+	 * Return value: The last file opened.
 	 */
 	GFile* get_file ();
 	
@@ -102,7 +102,7 @@ interface IAnjutaFile
 		/**
 		 * ianjuta_file_savable_save_as:
 		 * @obj: Self
-		 * @uri: URI to save the content.
+		 * @file: File to save the content.
 		 * @err: Error propagation and reporting
 		 * 
 		 * Saves the content to a different File.
@@ -599,7 +599,7 @@ interface IAnjutaBuilder
 	* Check if the corresponding target is up to date or not. This
 	* command doesn't display anything. If this command cannot be
 	* implemented, it is possible to return always TRUE.
-	* When the command if finished, the callback function is called
+	* When the command is finished, the callback function is called
 	* if defined.
 	*
 	* Returns: non null command handle if succeed
@@ -2334,33 +2334,33 @@ interface IAnjutaDocumentManager
 	/**
 	* ianjuta_document_manager_get_file:
 	* @obj: Self
-	* @file: short filename
+	* @filename: short filename
 	* @err: Error propagation and reporting.
 	* 
-	* Given the short filename, finds the URI of the file, if the
+	* Given the short filename, finds the file of the filename, if the
 	* editor that has it loaded is found. If there is no editor that has
 	* this file opened, returns NULL.
 	* 
-	* Return value: the GFile for the given short name
+	* Return value: the GFile for the given short filename
 	*/
-	GFile* get_file (const gchar *file);
+	GFile* get_file (const gchar *filename);
 	
 	/**
 	* ianjuta_document_manager_find_document_with_file:
 	* @obj: Self
-	* @uri: the file uri.
+	* @file: The file to find.
 	* @err: Error propagation and reporting.
 	* 
-	* Finds the document that has the file with URI @uri loaded. Only
-	* the editor that matches the URI will be searched.
+	* Finds the document that has the file  loaded. Only
+	* the editor that matches the file will be searched.
 	* 
-	* Return value: the document that corresponds to given URI. NULL if
-	* there is no editor loaded with this URI.
+	* Return value: the document that corresponds to given file. NULL if
+	* there is no editor loaded with this file.
 	*/
 	IAnjutaDocument* find_document_with_file (GFile* file);
 	
 	/**
-	* ianjuta_document_manager_goto_uri_line:
+	* ianjuta_document_manager_goto_file_line:
 	* @obj: Self
 	* @file: file to go to.
 	* @lineno: the line number in the file to go to.
@@ -2703,7 +2703,7 @@ interface IAnjutaFileManager
 	/**
 	* IANJUTA_FILE_MANAGER_SELECTED_FILE
 	*
-	* Anjuta shell value set by file manager to the selected uri.
+	* Anjuta shell value set by file manager to the selected file.
 	*/
 	#define SELECTED_FILE		"file_manager_selected_file"
 	
@@ -3051,7 +3051,7 @@ interface IAnjutaTodo
 	/**
 	* ianjuta_to_do_load:
 	* @obj: Self
-	* @uri: fixme
+	* @file: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
@@ -4592,7 +4592,7 @@ interface IAnjutaSymbol
 	
 	/**
 	 * ianjuta_symbol_get_file:
-	 * The uri of the symbol
+	 * The file of the symbol
 	 */
 	GFile *get_file();
 	
