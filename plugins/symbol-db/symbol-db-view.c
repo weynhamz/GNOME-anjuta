@@ -976,7 +976,9 @@ sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 									TRUE,
 									-1,
 									-1,
-									SYMINFO_SIMPLE| SYMINFO_KIND| SYMINFO_ACCESS
+									SYMINFO_SIMPLE| 
+									SYMINFO_KIND| 
+									SYMINFO_ACCESS
 									);
 
 	g_ptr_array_free (filter_array, TRUE);
@@ -1024,10 +1026,6 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
-	filter_array = g_ptr_array_new ();
-	g_ptr_array_add (filter_array, "class");
-	g_ptr_array_add (filter_array, "struct");
-
 	DEBUG_PRINT ("sdb_view_global_row_expanded ()");
 	
 	/* check if there's another expanding idle_func running */
@@ -1036,11 +1034,16 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	{
 		return;
 	}
+
+	filter_array = g_ptr_array_new ();
+	g_ptr_array_add (filter_array, "class");
+	g_ptr_array_add (filter_array, "struct");
 	
 	/* check for the presence of namespaces. 
 	 * If that's the case then populate the root with a 'Global' node.
 	 */
-	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, TRUE, 
+	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, 
+													TRUE, 
 													TRUE, 
 													-1,
 													-1,

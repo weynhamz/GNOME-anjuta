@@ -101,6 +101,17 @@ gboolean
 symbol_db_system_scan_package (SymbolDBSystem *sdbs,
 							  const gchar * package_name);
 
+/**
+ * Scan global db for unscanned files.
+ * @warning @param files_to_scan_array Must not to be freed by caller. They'll be 
+ * freed inside this function. This for speed reasons.
+ * @warning @param languages_array Must not to be freed by caller. They'll be 
+ * freed inside this function. This for speed reasons.
+ */
+void 
+symbol_db_parse_aborted_package (SymbolDBSystem *sdbs, 
+								 GPtrArray *files_to_scan_array,
+								 GPtrArray *languages_array);
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_SYSTEM_H_ */

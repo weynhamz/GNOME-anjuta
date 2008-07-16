@@ -83,8 +83,19 @@ typedef enum {
 GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 
-SymbolDBEngine* symbol_db_engine_new (AnjutaPlugin* plugin);
+/**
+ * Create a new instance of an engine. 
+ * @param ctags_path is mandatory. No NULL value is accepted.
+ */
+SymbolDBEngine* 
+symbol_db_engine_new (const gchar * ctags_path);
 
+/**
+ * Set a new path for ctags executable.
+ */ 
+void 
+symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
+								  const gchar * ctags_path);
 
 /**
  * Be sure to check lock status with this function before calling
@@ -154,7 +165,8 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  * symbol_db_engine_open_db ().
  * @note if some file fails to enter the db the function will return without
  * processing the remaining files.
- * @param project_name something like 'foo_project', or 'helloworld_project'
+ * @param project_name something like 'foo_project', or 'helloworld_project'. Can be NULL,
+ *        for example when you're populating after abort.
  * @param project_directory something like the base path '/home/user/projects/foo_project/'
  *        Be sure not to exchange the db_directory with project_directory! they're different!
  * @param files_path requires full path to files on disk. Ctags itself requires that.
@@ -268,7 +280,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
  *        Please provide a pattern with '%' if you also specify a exact_match = FALSE
  * @param exact_match Should the pattern be searched for an exact match?
- * @param filter_kinds Can be NULL. In that case these filters will be taken into consideration.
+ * @param filter_kinds Can be NULL. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_symbols_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.

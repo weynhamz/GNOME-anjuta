@@ -136,8 +136,6 @@ select symbol_id_base, symbol.name from heritage
 #define	TRIGGER_MAX_CLOSURE_RETRIES		50
 #define	THREAD_MAX_CLOSURE_RETRIES		20
 
-#define CTAGS_PREFS_KEY		"symboldb.ctags"
-
 enum {
 	DO_UPDATE_SYMS = 1,
 	DO_UPDATE_SYMS_AND_EXIT,
@@ -246,12 +244,12 @@ typedef struct _ChildDynQueryNode {
 	
 } DynChildQueryNode;
 
-#define DYN_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gtree_child) { \
-	dyn_query_node *q = g_new0 (dyn_query_node, 1); \
-	q->dyn_query_id = query_type; \
-	q->sym_extra_info_gtree = NULL; \
-	q->has_gtree_child = gtree_child; \
-	query_list_ptr [query_type] = q; \
+#define DYN_QUERY_POPULATE_INIT_NODE(dquery_list_ptr, dquery_type, gtree_child) { \
+	dyn_query_node *dq = g_new0 (dyn_query_node, 1); \
+	dq->dyn_query_id = dquery_type; \
+	dq->sym_extra_info_gtree = NULL; \
+	dq->has_gtree_child = gtree_child; \
+	dquery_list_ptr [dquery_type] = dq; \
 }
 
 
@@ -273,7 +271,7 @@ static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 struct _SymbolDBEnginePriv
 {
-	AnjutaPlugin* plugin;
+	gchar *ctags_path;
 	
 	GdaConnection *db_connection;
 	GdaSqlParser *sql_parser;
@@ -550,7 +548,7 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 
 	node = priv->dyn_query_list[query_id];
 
-	if (node->sym_extra_info_gtree == NULL) 
+	if (node == NULL || node->sym_extra_info_gtree == NULL) 
 	{
 		/* we didn't find any extra info symbol, nor it has been added before */
 		return NULL;
@@ -611,6 +609,8 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 	g_return_val_if_fail (priv->db_connection != NULL, NULL);
 
 	node = priv->dyn_query_list[query_id];
+	
+	g_return_val_if_fail (node != NULL, NULL);
 	
 	if (node->sym_extra_info_gtree == NULL) 
 	{
@@ -1473,6 +1473,35 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 	DEBUG_PRINT ("ctags ended");
 }
 
+
+static inline void
+sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+	gchar *exe_string;
+		
+	priv = dbe->priv;
+	
+	DEBUG_PRINT ("creating anjuta_launcher");
+
+	priv->ctags_launcher = anjuta_launcher_new ();
+
+	anjuta_launcher_set_check_passwd_prompt (priv->ctags_launcher, FALSE);
+	anjuta_launcher_set_encoding (priv->ctags_launcher, NULL);
+		
+	g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
+						  G_CALLBACK (on_scan_files_end_1), NULL);
+
+	exe_string = g_strdup_printf ("%s --fields=afmiKlnsStz --c++-kinds=+p "
+								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
+								  priv->ctags_path);
+		
+	anjuta_launcher_execute (priv->ctags_launcher,
+								 exe_string, sdb_engine_ctags_output_callback_1, 
+								 dbe);
+	g_free (exe_string);
+}
+
 /* Scans with ctags and produce an output 'tags' file [shared memory file]
  * containing language symbols. This function will call ctags 
  * executale and then sdb_engine_populate_db_by_tags () when it'll detect some
@@ -1495,66 +1524,27 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 {
 	SymbolDBEnginePriv *priv;
 	gint i;
-	gchar* ctags_path;
-	AnjutaPreferences* prefs;
-	
+
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (files_list != NULL, FALSE);
 	
 	if (files_list->len == 0)
-		return FALSE;
-	
-	/* Check if ctags is really installed */
-	prefs = anjuta_shell_get_preferences (dbe->priv->plugin->shell,
-										  NULL);
-	ctags_path = anjuta_preferences_get (prefs, CTAGS_PREFS_KEY); 
-	if (!anjuta_util_prog_is_installed (ctags_path, TRUE))
-	{
-		g_free (ctags_path);
-		return FALSE;
-	}
+		return FALSE;	
 	
 	/* start process in server mode */
 	priv = dbe->priv;
 
 	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
 	{
-		g_warning ("no matched size between real_files_list and files_list");
-		g_free (ctags_path);
+		g_warning ("no matched size between real_files_list and files_list");		
 		return FALSE;
 	}
 	
 	/* if ctags_launcher isn't initialized, then do it now. */
+	/* lazy initialization */
 	if (priv->ctags_launcher == NULL) 
 	{
-		gchar *exe_string;
-		
-		DEBUG_PRINT ("creating anjuta_launcher");
-		priv->ctags_launcher = anjuta_launcher_new ();
-
-		anjuta_launcher_set_check_passwd_prompt (priv->ctags_launcher, FALSE);
-		anjuta_launcher_set_encoding (priv->ctags_launcher, NULL);
-		
-		g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
-						  G_CALLBACK (on_scan_files_end_1), NULL);
-
-		exe_string = g_strdup_printf ("%s --fields=afmiKlnsStz --c++-kinds=+p "
-								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
-								  ctags_path);
-		
-		anjuta_launcher_execute (priv->ctags_launcher,
-								 exe_string, sdb_engine_ctags_output_callback_1, 
-								 dbe);
-		g_free (exe_string);
-	}
-	g_free (ctags_path);
-	
-	/* what about the scan_queue? is it initialized? It will contain mainly 
-	 * ints that refers to the force_update status.
-	 */
-	if (priv->scan_queue == NULL)
-	{
-		priv->scan_queue = g_async_queue_new ();		
+		sdb_engine_ctags_launcher_create (dbe);
 	}
 	
 	/* create the shared memory file */
@@ -1742,9 +1732,17 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->garbage_shared_mem_files = g_hash_table_new_full (g_str_hash, g_str_equal, 
 													  g_free, NULL);	
 	
-	/* create Anjuta Launcher instance. It will be used for tags parsing. */
 	sdbe->priv->ctags_launcher = NULL;
 
+	/* set the ctags executable path to NULL */
+	sdbe->priv->ctags_path = NULL;
+
+	/* the scan_queue? It will contain mainly 
+	 * ints that refer to the force_update status.
+	 */
+	sdbe->priv->scan_queue = g_async_queue_new ();		
+
+	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
 	 */
@@ -1977,7 +1975,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
 	 	"SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
-	 	"sym_type.type_id AND symbol.scope_id = 0 WHERE AND sym_type.type_type='class' AND "
+	 	"sym_type.type_id AND symbol.scope_id = 0 WHERE sym_type.type_type='class' AND "
 	 	"name = ## /* name:'klassname' type:gchararray */ LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -2076,6 +2074,11 @@ sdb_engine_init (SymbolDBEngine * object)
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
 									TRUE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED,
+									TRUE);
+	
 	
 	/* init cache hashtables */
 	sdb_engine_init_caches (sdbe);
@@ -2147,9 +2150,10 @@ sdb_engine_finalize (GObject * object)
 	}
 	
 	if (priv->ctags_launcher)
-	{
+	{		
 		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
 		g_object_unref (priv->ctags_launcher);
+		priv->ctags_launcher = NULL;
 	}	
 	
 	if (priv->mutex)
@@ -2267,17 +2271,59 @@ sdb_engine_get_type (void)
 	return our_type;
 }
 
+void 
+symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
+{
+	SymbolDBEnginePriv *priv;
+
+	g_return_if_fail (dbe != NULL);
+	g_return_if_fail (ctags_path != NULL);
+	
+	priv = dbe->priv;
+	
+	/* Check if ctags is really installed */
+	if (!anjuta_util_prog_is_installed (ctags_path, TRUE))
+	{
+		g_warning ("symbol_db_engine_set_ctags_path (): Wrong path for ctags. Keeping "
+				   "the old value %s", priv->ctags_path);
+		return;
+	}	
+
+	/* free the old value */
+	g_free (priv->ctags_path);
+	
+	/* is anjutalauncher already created? */
+	if (priv->ctags_launcher != NULL)
+	{
+		anjuta_launcher_reset (priv->ctags_launcher);
+		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
+		g_object_unref (priv->ctags_launcher);
+		priv->ctags_launcher = NULL;
+
+		/* recreate it on the fly */
+		sdb_engine_ctags_launcher_create (dbe);
+	}	
+	
+	/* set the new one */
+	priv->ctags_path = g_strdup (ctags_path);	
+}
+
 SymbolDBEngine *
-symbol_db_engine_new (AnjutaPlugin* plugin)
+symbol_db_engine_new (const gchar * ctags_path)
 {
 	SymbolDBEngine *sdbe;
 	SymbolDBEnginePriv *priv;
+	
+	g_return_val_if_fail (ctags_path != NULL, NULL);
 
 	sdbe = g_object_new (SYMBOL_TYPE_DB_ENGINE, NULL);
 	
 	priv = sdbe->priv;
 	priv->mutex = g_mutex_new ();
-	priv->plugin = plugin;
+	
+	/* set the mandatory ctags_path */
+	symbol_db_engine_set_ctags_path (sdbe, ctags_path);
+		
 	return sdbe;
 }
 
@@ -2330,7 +2376,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	if (!GDA_IS_CONNECTION (priv->db_connection))
 	{
 		g_warning ("Could not open connection to %s\n", cnc_string);
-		return FALSE;
+		return FALSE;		
 	}
 
 	priv->sql_parser = gda_connection_create_parser (priv->db_connection);
@@ -2598,8 +2644,8 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 				"prjname",
 				 value)) <= 0)
 	{
-		DEBUG_PRINT ("symbol_db_engine_project_exists (): no project named %s found",
-					 project_name);
+/*		DEBUG_PRINT ("symbol_db_engine_project_exists (): no project named %s found",
+					 project_name);*/
 		gda_value_free (value);
 		return FALSE;
 	}
@@ -2943,7 +2989,6 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	priv = dbe->priv;
 
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
-	g_return_val_if_fail (project_name != NULL, FALSE);
 	g_return_val_if_fail (files_path->len > 0, FALSE);
 	g_return_val_if_fail (languages->len > 0, FALSE);
 
@@ -2971,7 +3016,8 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 				continue;
 		}
 		
-		if (sdb_engine_add_new_file (dbe, project_name, node_file, 
+		if (project_name != NULL && 
+			sdb_engine_add_new_file (dbe, project_name, node_file, 
 									 node_lang) == FALSE)
 		{
 			g_warning ("Error processing file %s, db_directory %s, project_name %s, "
@@ -5618,7 +5664,7 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 														  NULL, NULL);
 	
 	if (!GDA_IS_DATA_MODEL (data_model) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
+		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
@@ -5646,11 +5692,7 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 
 		/* build abs path. */
 		file_name = g_value_get_string (value);
-		if (priv->db_directory != NULL)
-		{
-			file_abs_path = g_strdup_printf ("%s%s", priv->project_directory,
-										file_name);
-		}
+		file_abs_path = symbol_db_engine_get_full_local_path (dbe, file_name);
 		g_ptr_array_add (files_to_scan, file_abs_path);
 	}
 
@@ -5743,15 +5785,6 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 				"LEFT JOIN file_include ON "
 				"ext_include.file_incl_id = file_include.file_include_id ");
 	}
-	
-/* TODO, or better.. TAKE A DECISION
-	if (sym_info & SYMINFO_WORKSPACE_NAME)
-	{
-		info_data = g_string_append (info_data, ",sym_access.access_name ");
-		join_data = g_string_append (info_data, "LEFT JOIN sym_kind ON "
-				"symbol.kind_id = sym_kind.sym_kind_id ");
-	}
-*/
 }
 
 
@@ -7554,7 +7587,7 @@ select * from symbol where scope_definition_id = (
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
  *        Please provide a pattern with '%' if you also specify a exact_match = FALSE
  * @param exact_match Should the pattern be searched for an exact match?
- * @param filter_kinds Can be NULL. In that case these filters will be taken into consideration.
+ * @param filter_kinds Can be NULL. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_symbols_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.

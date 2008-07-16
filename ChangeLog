@@ -1,3 +1,47 @@
+2008-07-14  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c (on_editor_destroy),
+	(on_session_save), (on_session_load), (on_project_element_removed),
+	(do_import_system_src_after_abort),
+	(do_import_project_src_after_abort), (do_import_sources),
+	(on_project_root_added), (symbol_db_activate),
+	(symbol_db_deactivate), (isymbol_manager_search), (g_list_compare),
+	(on_prefs_package_add), (on_prefs_package_remove),
+	(ipreferences_merge), (ipreferences_unmerge):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engined_ctags_launcher_create), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (sdb_engine_finalize),
+	(symbol_db_engine_set_ctags_path), (symbol_db_engine_new),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_files),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(sdb_engine_prepare_symbol_info_sql):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (on_listall_output),
+	(on_listall_exit), (on_tag_load_toggled_parseable_cb),
+	(on_tag_load_toggled), (sdb_prefs_init1), (sdb_prefs_init),
+	(sdb_prefs_finalize), (sdb_prefs_class_init),
+	(symbol_db_prefs_new):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	Rewritten symbol-db-prefs.[c|h]. SymbolDBPrefs is now an object. 
+	It's more usable/maintainable.
+	Session packages are now saved and reloaded at session-start time.
+	Code cleaning.
+
+	* plugins/symbol-db/symbol-db-system.c (destroy_engine_scan_data),
+	(sdb_system_do_engine_scan), (on_engine_package_scan_end),
+	(sdb_system_do_scan_package_1), (on_pkg_config_exit),
+	(symbol_db_system_scan_package), (symbol_db_parse_aborted_package):
+	* plugins/symbol-db/symbol-db-system.h:
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_namespace_row_expanded), (sdb_view_global_row_expanded):
+	Added 'continue global tags scan after abort' feature.
+	Code cleaning.
+
 2008-07-16  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Fixed documentation for

@@ -47,15 +47,15 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 
 
 #include "symbol-db-system.h"
+#include "symbol-db-prefs.h"
+
+/* a sort of 'default' value for ctags executable. User must have it installed */
+#define CTAGS_PATH			"/usr/bin/ctags"
 
 struct _SymbolDBPlugin{
 	AnjutaPlugin parent;
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
-	GtkListStore *prefs_list_store;
-	AnjutaLauncher *pkg_config_launcher;
-	
-	gint prefs_notify_id;
 	
 	/* project monitor */
 	guint root_watch_id;
@@ -71,27 +71,32 @@ struct _SymbolDBPlugin{
 	
 	/* global's one */
 	SymbolDBEngine *sdbe_globals;
+	
+	/* system's population object */
 	SymbolDBSystem *sdbs;
 	
-	GtkWidget *dbv_main;				/* symbol main window [gtk_box] */
-	GtkWidget *dbv_notebook;          	/* main notebook */	
-	GtkWidget *scrolled_global; 		/* symbol view scrolledwindow for global
-										   symbols */
+	/* preferences object */
+	SymbolDBPrefs *sdbp;
+	
+	GtkWidget *dbv_main;					/* symbol main window [gtk_box] */
+	GtkWidget *dbv_notebook;          		/* main notebook */	
+	GtkWidget *scrolled_global; 			/* symbol view scrolledwindow for global
+										   	symbols */
 	GtkWidget *scrolled_locals;
 	GtkWidget *scrolled_search;
-	GtkWidget *progress_bar_project;			/* symbol db progress bar - project */
-	GtkWidget *progress_bar_system;				/* symbol db progress bar - system (globals) */
+	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
+	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
-	GtkWidget *dbv_view_tree;        	/* symbol_db_view */
+	GtkWidget *dbv_view_tree;        		/* symbol_db_view */
 	GtkWidget *dbv_view_tab_label;
 	
-	GtkWidget *dbv_view_tree_locals;	/* local symbols */
+	GtkWidget *dbv_view_tree_locals;		/* local symbols */
 	GtkWidget *dbv_view_locals_tab_label;
 	
-	GtkWidget *dbv_view_tree_search;	/* search symbols */
+	GtkWidget *dbv_view_tree_search;		/* search symbols */
 	GtkWidget *dbv_view_search_tab_label;	
 	
-	GtkWidget *pref_tree_view; 			/* Preferences treeview */
+	GtkWidget *pref_tree_view; 				/* Preferences treeview */
 	
 	/* current editor */
 	GObject *current_editor;
@@ -106,8 +111,7 @@ struct _SymbolDBPlugin{
 	gint files_count_system;
 	gint files_count_system_done;
 	gchar *current_scanned_package;
-	
-/*	GMutex* engine_mutex;*/
+	GList *session_packages;
 };
 
 struct _SymbolDBPluginClass{
