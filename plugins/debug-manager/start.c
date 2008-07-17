@@ -884,7 +884,7 @@ load_target (DmaStart *this, const gchar *target)
 }
 
 static void
-on_build_finished (GObject *builder, GError *err, gpointer user_data)
+on_build_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err, gpointer user_data)
 {
 	DmaStart *this = (DmaStart *)user_data;
 	
@@ -899,7 +899,7 @@ on_build_finished (GObject *builder, GError *err, gpointer user_data)
 }
 
 static void
-on_is_built_finished (GObject *builder, GError *err, gpointer user_data)
+on_is_built_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err, gpointer user_data)
 {
 	DmaStart *this = (DmaStart *)user_data;
 	

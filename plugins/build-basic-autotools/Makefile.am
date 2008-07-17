@@ -43,12 +43,15 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 	executer.c \
 	executer.h \
 	build-options.c \
-	build-options.h
+	build-options.h \
+	configuration-list.c \
+	configuration-list.h
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \
 	$(GLADE_LIBS) \
 	$(GNOME_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

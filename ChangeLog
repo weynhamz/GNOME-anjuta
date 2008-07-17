@@ -1,3 +1,29 @@
+2008-07-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/build-options.c,
+	plugins/build-basic-autotools/build-options.h,
+	plugins/build-basic-autotools/Makefile.am,
+	(added) plugins/build-basic-autotools/configuration-list.c,
+	(added) plugins/build-basic-autotools/configuration-list.h:
+	Allow to build project outside source directory (fix #540782)
+
+	* plugins/project-manager/plugin.c:
+	Use IANJUTA_BUILDER_ROOT_URI as parent uri for all targets
+
+	* plugins/debug-manager/start.c,
+	plugins/project-wizard/autogen.c,
+	plugins/run-program/execute.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Add a handle argument to IAnjutaBuilder callback
+
+	* libanjuta/anjuta-launcher.c,
+	libanjuta/anjuta-launcher.h:
+	Set environment variables in anjuta_launcher_execute_v
+
 2008-07-14  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/plugin.c (on_editor_destroy),

@@ -21,6 +21,8 @@
 #include <config.h>
 #include <ctype.h>
 
+#include <glib/gstdio.h>
+#include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-utils.h>
@@ -60,9 +62,11 @@
 #define DEFAULT_COMMAND_IS_BUILT "make -q"
 #define DEFAULT_COMMAND_BUILD_TARBALL "make dist"
 #define DEFAULT_COMMAND_INSTALL "make install"
-#define DEFAULT_COMMAND_CONFIGURE "./configure"
-#define DEFAULT_COMMAND_GENERATE "./autogen.sh"
+#define DEFAULT_COMMAND_CONFIGURE "configure"
+#define DEFAULT_COMMAND_GENERATE "autogen.sh"
 #define DEFAULT_COMMAND_CLEAN "make clean"
+#define DEFAULT_COMMAND_DISTCLEAN "make distclean"
+#define DEFAULT_COMMAND_AUTORECONF "autoreconf -i --force"
 
 #define CHOOSE_COMMAND(plugin,command) \
 	((plugin->commands[(IANJUTA_BUILDABLE_COMMAND_##command)]) ? \
@@ -79,6 +83,14 @@ typedef struct
 	gchar *replace;
 	GRegex *regex;
 } BuildPattern;
+
+typedef struct
+{
+	gchar *project_dir;
+	gchar *build_dir;
+	gchar **argv;
+	GtkWindow *parent;
+} BuildLinkCommand;
 
 typedef struct
 {
@@ -100,7 +112,8 @@ typedef struct
 	AnjutaPlugin *plugin;
 	
 	AnjutaLauncher *launcher;
-	gchar *command;
+	gboolean used;
+	
 	IAnjutaBuilderCallback callback;
 	gpointer user_data;
 
@@ -140,7 +153,90 @@ static MessagePattern patterns_make_entering[] = {{N_("make(\\[\\d+\\])?:\\s+Ent
 static MessagePattern patterns_make_leaving[] = {{N_("make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"), NULL, NULL},
 												{N_("make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"), NULL, NULL},
 												{NULL, NULL, NULL}};
+
+/* Helper functions
+ *---------------------------------------------------------------------------*/
+
+static gchar **
+build_argv_command (const gchar *cmd_dir, const gchar *cmd, gchar **argv)
+{
+	gchar **new_cmd;
+	gchar **split_cmd;
+	guint split_len;
 	
+	split_cmd = g_strsplit (cmd, " ", 2);
+	split_len = g_strv_length (split_cmd);
+	
+	if (argv == NULL)
+	{
+		new_cmd = split_cmd;
+	}
+	else
+	{
+		guint argv_len;
+		
+		argv_len = g_strv_length (argv);
+		new_cmd = g_new (gchar *, split_len + argv_len + 1);
+		memcpy (new_cmd, split_cmd, split_len * sizeof (gchar *));
+		g_free (split_cmd);
+		memcpy (new_cmd + split_len, argv, (argv_len + 1) * sizeof (gchar *));
+		g_free (argv);
+	}
+	
+	if (cmd_dir != NULL)
+	{
+		gchar *cmd = new_cmd[0];
+		
+		new_cmd[0] = g_strconcat (cmd_dir, G_DIR_SEPARATOR_S, cmd, NULL);
+		g_free (cmd);
+	}
+	
+	return new_cmd;
+}
+
+static gchar **
+build_add_env_variable (gchar **envp, const gchar *name, const gchar *value)
+{
+	gchar **var;
+	guint len = 0;
+
+	if (envp != NULL)
+	{
+		/* Look for an already existing variable */
+		for (var = envp; *var != NULL; var++)
+		{
+			if (strcmp (*var, name) == 0)
+			{
+				/* Just update variable */
+				if (value == NULL)
+				{
+					*var[strlen(name)] = '\0';
+				}
+				else
+				{
+					g_free (*var);
+					*var = g_strconcat (name, "=", value, NULL);
+				}
+				
+				return envp;
+			}
+		}
+		len = var - envp;
+	}	
+	
+	/* Need to create a new variable */
+	var = g_new (gchar *, len + 2);
+	*var = g_strconcat (name, value == NULL ? NULL : "=", value, NULL);
+	if (envp != NULL)
+	{
+		memcpy (&var[1], envp, len * sizeof (gchar *));
+		g_free (envp);
+	}
+	var[len + 1] = NULL;
+	
+	return var;
+}
+
 /* Allow installation as root (#321455) */
 static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
@@ -289,6 +385,7 @@ build_context_get_dir (BuildContext *context, const gchar *key)
 static gboolean
 build_context_destroy_command (BuildContext *context)
 {
+	if (context->used) return FALSE;
 	if (context->callback)
 	{
 		GError *err;
@@ -297,7 +394,7 @@ build_context_destroy_command (BuildContext *context)
 		err = g_error_new_literal (ianjuta_builder_error_quark (),
 								   IANJUTA_BUILDER_ABORTED,
 								   _("Command aborted"));
-		context->callback (G_OBJECT (context->plugin), err, context->user_data);
+		context->callback (G_OBJECT (context->plugin), context, err, context->user_data);
 		g_error_free (err);
 		context->callback = NULL;
 	}
@@ -314,9 +411,6 @@ build_context_destroy_command (BuildContext *context)
 		context->environment = NULL;
 	}
 	
-	g_free (context->command);
-	context->command = NULL;
-
 	/* Empty context, remove from pool */
 	if (context->message_view == NULL)
 	{
@@ -387,8 +481,6 @@ static void
 build_context_reset (BuildContext *context)
 {
 	/* Reset context */
-	g_free (context->command);
-	context->command = NULL;
 	
 	ianjuta_message_view_clear (context->message_view, NULL);
 	
@@ -869,7 +961,6 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 		
 		/* Full path is detected from parse_error_line() */
 		file = g_file_new_for_path(filename);
-		
 		ianjuta_document_manager_goto_file_line_mark(docman, file, lineno, TRUE, NULL);
 		g_object_unref (file);
 	}
@@ -880,13 +971,11 @@ on_build_terminated (AnjutaLauncher *launcher,
 					 gint child_pid, gint status, gulong time_taken,
 					 BuildContext *context)
 {
-	g_signal_handlers_disconnect_by_func (context->launcher,
-										  G_CALLBACK (on_build_terminated),
-										  context);
-	
+	context->used = FALSE;
 	if (context->callback != NULL)
 	{
 		GError *err = NULL;
+		IAnjutaBuilderCallback callback;
 		
 		if (WIFEXITED (status))
 		{
@@ -924,10 +1013,16 @@ on_build_terminated (AnjutaLauncher *launcher,
 							   IANJUTA_BUILDER_TERMINATED,
 							   _("Command terminated for an unknown reason"));
 		}
-		
-		context->callback (G_OBJECT (context->plugin), err, context->user_data);	
+		callback = context->callback;	
 		context->callback = NULL;
+		callback (G_OBJECT (context->plugin), context, err, context->user_data);	
 	}
+	if (context->used)
+		return;	/* Another command is run */
+	
+	g_signal_handlers_disconnect_by_func (context->launcher,
+										  G_CALLBACK (on_build_terminated),
+										  context);
 	
 	/* Message view could have been destroyed before */
 	if (context->message_view)
@@ -1060,8 +1155,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	
 static BuildContext*
 build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
-		   gboolean with_view, const gchar *command,
-		  IAnjutaBuilderCallback callback, gpointer user_data)
+		   gboolean with_view)
 {
 	BuildContext *context = NULL;
 	AnjutaPluginManager *plugin_manager;
@@ -1097,14 +1191,13 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		context->environment = NULL;
 	}
 	
-	context->callback = callback;
-	context->user_data = user_data;
-	context->command = g_strdup (command);
+	context->callback = NULL;
 	context->launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
 	build_context_push_dir (context, "default", dir);
-	chdir (dir);
+	dir = g_strconcat (dir, "/", NULL);
+	g_chdir (dir);
 	
 	plugin->contexts_pool = g_list_append (plugin->contexts_pool, context);
 	
@@ -1127,98 +1220,99 @@ save_all_files (AnjutaPlugin *plugin)
 	}
 }
 
-static void add_env_var (gpointer key, gpointer value, gpointer user_data)
+static gboolean
+build_execute_command_in_context (BuildContext* context, const gchar *dir,
+					gchar *argv[],
+								  gchar *envp[],
+								  IAnjutaBuilderCallback callback, gpointer user_data,
+								  GError **err)
 {
-	gchar ***var = (gchar ***)user_data;
-	
-	**var = g_strconcat (key, "=", value, NULL);
-	*var = (*var)++;
-}
-
-static BuildContext*
-build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
-			const gchar *command,
-			gboolean save_file, gboolean with_view, GHashTable* env,
-			IAnjutaBuilderCallback callback, gpointer user_data,
-			GError **err)
-{
-	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
-	gchar **argv;
-	gchar **envv;
-	gchar **var;
 	gchar *real_dir;
-	BuildContext *context;
-	
-	g_return_val_if_fail (command != NULL, NULL);
 
-	/* Store args and environment variables as string array */
-	if (!g_shell_parse_argv (command, NULL, &argv, NULL))
-		return NULL;
+	g_return_val_if_fail (argv != NULL, FALSE);
 
-	if (env)
-	{
-		gchar **var;
-
-		envv = g_new0 (gchar*, g_hash_table_size (env) + 1);
-
-		var = envv;
-		g_hash_table_foreach (env, add_env_var, &var);
-	}
-	else
-	{
-		envv = NULL;
-	}
-	
 	real_dir = g_strdup (dir);
 	
-	if (save_file) 
-		save_all_files (ANJUTA_PLUGIN (plugin));
-
-	context = build_get_context (bplugin, dir, with_view, command, callback, user_data);
-
-	if (context->environment)
+	context->callback = callback;
+	context->user_data = user_data;
+	context->used = TRUE;
+	
+	/* Add current directory */
+	envp = build_add_env_variable (envp, "PWD", dir);
+	
+  	if (context->environment)
 	{
-		if (!ianjuta_environment_override (context->environment, &real_dir, &argv, &envv, NULL))
+		if (!ianjuta_environment_override (context->environment, &real_dir, &argv, &envp, NULL))
 		{
 			g_object_unref (context->environment);
 			context->environment = NULL;
 		}
 	}
 	
-	/* Set environment variable */
-	if (envv)
-	{
-		for (var = envv; *var != NULL; var++)
-		{
-			gchar *val = strchr (*var, '=');
-			
-			if (val != NULL) *val++ = '\0';
-			
-			anjuta_launcher_set_env (context->launcher, *var, val);
-		}
-		g_strfreev (envv);
-	}
-	
 	if (context->message_view)
 	{
+		gchar *command;
+		
+		command = g_strjoinv (" ", argv);
 		ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
 		ianjuta_message_view_buffer_append (context->message_view, dir, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 		ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
+		g_free (command);
 	
-		anjuta_launcher_execute_v (context->launcher, argv,
+		anjuta_launcher_execute_v (context->launcher, argv, envp,
 								 on_build_mesg_arrived, context);
 	}
 	else
 	{
-		anjuta_launcher_execute_v (context->launcher, argv,
+		anjuta_launcher_execute_v (context->launcher, argv, envp,
 								 NULL, NULL);
 	}		
-	g_strfreev (argv);
 	
-	return context;
+	return TRUE;
+}	
+
+static gchar *
+target_from_source (BasicAutotoolsPlugin *plugin, const gchar *target)
+{
+	if (strcmp (plugin->project_root_dir, plugin->project_build_dir) == 0)
+	{
+		return g_strdup (target);
+	}
+	else
+	{
+		return g_strconcat (plugin->project_build_dir, target + strlen (plugin->project_root_dir), NULL);
+	}
+}
+
+static BuildContext*
+build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
+			gchar *argv[],
+			gboolean save_file, gboolean with_view, gchar *envp[],
+			IAnjutaBuilderCallback callback, gpointer user_data,
+			GError **err)
+{
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
+	BuildContext *context;
+	
+	if (save_file) 
+		save_all_files (ANJUTA_PLUGIN (plugin));
+
+	context = build_get_context (bplugin, dir, with_view);
+
+	if (build_execute_command_in_context (context, dir, argv, envp, callback, user_data, NULL))
+	{
+		
+		return context;
+	}
+	else
+	{
+		build_context_destroy (context);
+		
+		return NULL;
+	}
 }
 
 
@@ -1226,7 +1320,18 @@ static gboolean
 build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 		   const gchar *command, gboolean save_file, GError **err)
 {
-	return build_execute_command_full (bplugin, dir, command, save_file, TRUE, NULL, NULL, NULL, NULL) != NULL;
+	gchar **argv;
+	gboolean ok;
+
+	/* Store args and environment variables as string array */
+	if (!g_shell_parse_argv (command, NULL, &argv, NULL))
+		return FALSE;
+	
+	ok = build_execute_command_full (bplugin, dir, argv, save_file, TRUE, NULL, NULL, NULL, NULL) != NULL;
+
+	g_strfreev (argv);
+
+	return ok;
 }
 
 static void
@@ -1256,8 +1361,9 @@ build_cancel_command (BasicAutotoolsPlugin* bplugin, BuildContext *context,
 static gboolean
 build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 {
-	gchar *file_basename;
-	gchar *file_dirname;
+	gchar *target;
+	gchar *target_basename;
+	gchar *target_dirname;
 	gchar *ext_ptr;
 	gboolean ret;
 	
@@ -1281,10 +1387,11 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 	
 	g_return_val_if_fail (file != NULL, FALSE);
 	ret = FALSE;
-	
-	file_basename = g_path_get_basename (file);
-	file_dirname = g_path_get_dirname (file);
-	ext_ptr = strrchr (file_basename, '.');
+
+	target = target_from_source (plugin, file);
+	target_basename = g_path_get_basename (target);
+	target_dirname = g_path_get_dirname (target);
+	ext_ptr = strrchr (target_basename, '.');
 	if (ext_ptr)
 	{
 		const gchar *new_ext;
@@ -1295,8 +1402,8 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 			
 			*ext_ptr = '\0';
 			command = g_strconcat (CHOOSE_COMMAND (plugin, COMPILE), " ",
-								   file_basename, new_ext, NULL);
-			build_execute_command (plugin, file_dirname, command, TRUE, NULL);
+								   target_basename, new_ext, NULL);
+			build_execute_command (plugin, target_dirname, command, TRUE, NULL);
 			g_free (command);
 			ret = TRUE;
 		}
@@ -1304,13 +1411,14 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 		/* If file has no extension, take it as target itself */
 		gchar *command;
 		command = g_strconcat (CHOOSE_COMMAND(plugin, COMPILE), " ",
-							   file_basename, NULL);
-		build_execute_command (plugin, file_dirname, command, TRUE, NULL);
+							   target_basename, NULL);
+		build_execute_command (plugin, target_dirname, command, TRUE, NULL);
 		g_free (command);
 		ret = TRUE;
 	}
-	g_free (file_basename);
-	g_free (file_dirname);
+	g_free (target_basename);
+	g_free (target_dirname);
+	g_free (target);
 	if (ret == FALSE)
 	{
 		/* FIXME: Prompt the user to create a Makefile with a wizard
@@ -1329,7 +1437,7 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 static void
 build_build_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_execute_command (plugin, plugin->project_root_dir,
+	build_execute_command (plugin, plugin->project_build_dir,
 						   CHOOSE_COMMAND (plugin, BUILD), TRUE, NULL);
 }
 
@@ -1340,7 +1448,7 @@ build_install_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	gchar* command = g_strdup_printf("%s %s", root,
 									 CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
-	build_execute_command (plugin, plugin->project_root_dir,
+	build_execute_command (plugin, plugin->project_build_dir,
 						   command, TRUE, NULL);
 	g_free(command);
 }
@@ -1348,94 +1456,225 @@ build_install_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 build_clean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_execute_command (plugin, plugin->project_root_dir,
+	build_execute_command (plugin, plugin->project_build_dir,
 						   CHOOSE_COMMAND (plugin, CLEAN), FALSE, NULL);
+}
+
+static void
+build_remove_build_dir (GObject *sender,
+						IAnjutaBuilderHandle context,
+						GError *error,
+						gpointer user_data)
+{
+	
+}
+
+static void
+build_distclean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	gchar **argv;
+
+	if (!g_shell_parse_argv (CHOOSE_COMMAND (plugin, DISTCLEAN), NULL, &argv, NULL))
+		return;
+	
+	build_execute_command_full (plugin, plugin->project_build_dir, argv, TRUE, TRUE, NULL, build_remove_build_dir, plugin, NULL);
+
+	g_strfreev (argv);
+}
+
+static void
+on_select_configuration (GtkRadioMenuItem *item, gpointer user_data)
+{
+	if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item)))
+	{
+		BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (user_data);
+		gchar *name;
+		GValue *value;
+		gchar *uri;	
+
+		name = g_object_get_data (G_OBJECT (item), "untranslated_name");
+
+		build_configuration_list_select (plugin->configurations, name);
+
+		value = g_new0 (GValue, 1);
+		g_value_init (value, G_TYPE_STRING);
+	
+		uri = build_configuration_list_get_build_uri (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
+		g_value_set_string (value, uri);
+		g_free (uri);
+	
+		anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);	
+	}
+}
+
+static void
+build_update_configuration_menu (BasicAutotoolsPlugin *plugin)
+{
+	GtkWidget *submenu = NULL;
+	BuildConfiguration *cfg;
+	BuildConfiguration *selected;
+	GSList *group = NULL;
+	
+	submenu = gtk_menu_new ();
+	selected = build_configuration_list_get_selected (plugin->configurations);
+	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
+	{
+		GtkWidget *item;
+		
+		item = gtk_radio_menu_item_new_with_mnemonic (group, build_configuration_get_translated_name (cfg));
+		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+		if (cfg == selected)
+		{
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item), TRUE);
+		}
+		g_object_set_data_full (G_OBJECT (item), "untranslated_name", g_strdup (build_configuration_get_name (cfg)), g_free);
+		g_signal_connect (G_OBJECT (item), "toggled", G_CALLBACK (on_select_configuration), plugin);
+		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
+	}
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (plugin->configuration_menu), submenu);
+	gtk_widget_show_all (submenu);
+}
+
+static void
+build_project_configured (GObject *sender,
+							IAnjutaBuilderHandle context,
+							GError *error,
+							gpointer user_data)
+{
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin *)sender;
+	GValue *value;
+	gchar *uri;
+	
+	value = g_new0 (GValue, 1);
+	g_value_init (value, G_TYPE_STRING);
+	
+	uri = build_configuration_list_get_build_uri (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
+	g_value_set_string (value, uri);
+	g_free (uri);
+	
+	anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);
+	
+	build_update_configuration_menu (plugin);
+}
+
+static void
+build_configure_project_after_autogen (GObject *sender,
+									   IAnjutaBuilderHandle context,
+									   GError *error,
+									   gpointer user_data)
+{
+	BuildLinkCommand *link = (BuildLinkCommand *)user_data;
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin *)sender;
+	
+	if (error == NULL)
+	{
+		struct stat conf_stat, log_stat;
+		gchar *filename;
+		
+		filename = g_build_filename (link->project_dir, "configure", NULL);
+		if (stat (filename, &conf_stat) != 0)
+		{
+			anjuta_util_dialog_error (link->parent, _("Can not configure project: Missing configure script in %s."), link->project_dir);
+		}
+		else
+		{
+			g_free (filename);
+			filename = g_build_filename (link->build_dir, "config.log", NULL);
+			stat (filename, &log_stat);
+			DEBUG_PRINT("log %d conf %d", log_stat.st_mtime, conf_stat.st_mtime);
+			if ((stat (filename, &log_stat) != 0) ||
+				(log_stat.st_mtime < conf_stat.st_mtime))
+			{
+				link->argv = build_argv_command (link->project_dir,
+												 CHOOSE_COMMAND (plugin, CONFIGURE),
+												 link->argv);
+				build_execute_command_in_context ((BuildContext *)context, link->build_dir, link->argv, 
+												  NULL, build_project_configured, NULL, NULL);
+			}
+		}
+		g_free (filename);
+	}
+	
+	g_free (link->project_dir);
+	g_free (link->build_dir);
+	g_strfreev (link->argv);
+	g_free (link);
 }
 
 static void
 build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	gint response;
 	GtkWindow *parent;
-	gchar *input = NULL;
-	GHashTable* build_options = NULL;
-	
-	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
-	/* Configure = ./configure script */
-	response = build_dialog_configure (parent, _("Configure"),
-									   &build_options, 
-									   plugin->configure_args, 
-									   &input);
-	if (response)
-	{
-		gchar *cmd;
-		if (input)
-		{
-			cmd = g_strdup_printf ("%s %s", CHOOSE_COMMAND (plugin, CONFIGURE),
-								   input);
-			g_free (plugin->configure_args);
-			plugin->configure_args = input;
-		}
-		else
-		{
-			cmd = g_strdup (CHOOSE_COMMAND (plugin, CONFIGURE));
-		}
-		build_execute_command_full (plugin, plugin->project_root_dir, 
-					   cmd, TRUE, TRUE, build_options,
-					   NULL, NULL, NULL);
-		g_free (cmd);
-		g_hash_table_destroy (build_options);
-	}
-}
+	gboolean run_autogen = FALSE;
+	const gchar *project_root;
+	GValue value = {0,};
 
-static void
-build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
-{
-	gint response;
-	GtkWindow *parent;
-	gchar *input = NULL;
-	GHashTable* build_options = NULL;
+	run_autogen = !directory_has_file (plugin->project_root_dir, "configure");
 	
+	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
+	project_root = g_value_get_string (&value);
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
-	response = build_dialog_configure (parent, _("Autogenerate"),
-									   &build_options, 
-									   plugin->configure_args, 
-									   &input);
-	if (response)
+	if (build_dialog_configure (parent, project_root, plugin->configurations, &run_autogen))
 	{
-		gboolean has_autogen = directory_has_file (plugin->project_root_dir,
-												   "autogen.sh");
-		gchar *cmd;
-		if (input)
+		BuildConfiguration *config;
+		gchar **argv;
+		GFile *build_file;
+		gchar *build_dir;
+		gchar *uri;
+
+		config = build_configuration_list_get_selected (plugin->configurations);
+		uri = build_configuration_list_get_build_uri (plugin->configurations, config);
+		build_file = g_file_new_for_uri (uri);
+		g_free (uri);
+		build_dir = g_file_get_path (build_file);
+		g_object_unref (build_file);
+		
+		IAnjutaBuilderCallback callback = NULL;
+		BuildLinkCommand* user_data = NULL;
+
+		if (run_autogen)
 		{
-			if (has_autogen)
-				cmd = g_strdup_printf ("%s %s",
-									   CHOOSE_COMMAND (plugin, GENERATE),
-									   input);
-			else /* FIXME: Get override command for this too */
-				cmd = g_strconcat ("autoreconf -i --force ", input, NULL);
-			g_free (plugin->configure_args);
-			plugin->configure_args = input;
+			gboolean has_autogen = directory_has_file (plugin->project_root_dir,
+													   "autogen.sh");
+			
+			gchar **args = g_strdupv (build_configuration_get_args (config));
+			argv = build_argv_command (plugin->project_root_dir,
+									   has_autogen ? CHOOSE_COMMAND (plugin, GENERATE) : CHOOSE_COMMAND (plugin, AUTORECONF),
+									   args);
+									   
+			
+			/* Plan to run configure afterward */
+			user_data = g_new (BuildLinkCommand, 1);
+			user_data->project_dir = g_strdup (plugin->project_root_dir);
+			user_data->build_dir = g_strdup (build_dir);
+		    /* Remove command name from argument array */
+			user_data->argv = g_strdupv (&argv[1]); 
+			user_data->parent = parent;
+		
+			callback = build_configure_project_after_autogen;
 		}
 		else
 		{
-			if (has_autogen)
-				cmd = g_strdup (CHOOSE_COMMAND (plugin, GENERATE));
-			else /* FIXME: Get override command for this too */
-				cmd = g_strdup ("autoreconf -i --force");
+			/* Run configure only */
+			gchar **args = g_strdupv (build_configuration_get_args (config));
+			
+			argv = build_argv_command (plugin->project_root_dir,
+									   CHOOSE_COMMAND (plugin, CONFIGURE),
+									   args);
+			callback = build_project_configured;
 		}
-		build_execute_command_full (plugin, plugin->project_root_dir, 
-					cmd, TRUE, TRUE, build_options,
-		 			NULL, NULL, NULL);
-		g_free (cmd);
-		g_hash_table_destroy (build_options);
+		build_execute_command_full (plugin, build_dir, 
+					   argv, TRUE, TRUE, NULL,
+					   callback, user_data, NULL);
+		g_strfreev (argv);
+		g_free (build_dir);
 	}
 }
 
 static void
 build_distribution_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_execute_command (plugin, plugin->project_root_dir,
+	build_execute_command (plugin, plugin->project_build_dir,
 			   CHOOSE_COMMAND (plugin, BUILD_TARBALL),
 			   FALSE, NULL);
 }
@@ -1444,9 +1683,12 @@ static void
 build_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
-	build_execute_command (plugin, dirname,
+	gchar *target = target_from_source (plugin, dirname);
+
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, BUILD),
 			   TRUE, NULL);
+	g_free (target);
 	g_free (dirname);
 }
 
@@ -1455,11 +1697,13 @@ build_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
 	gchar* root = get_root_install_command(plugin);
+	gchar *target = target_from_source (plugin, dirname);
 	gchar* command = g_strdup_printf ("%s %s", root,
 									  CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
-	build_execute_command (plugin, dirname, command, TRUE, NULL);
+	build_execute_command (plugin, target, command, TRUE, NULL);
 	g_free(command);
+	g_free (target);
 	g_free (dirname);
 }
 
@@ -1467,9 +1711,11 @@ static void
 build_clean_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
-	build_execute_command (plugin, dirname,
+	gchar *target = target_from_source (plugin, dirname);
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, CLEAN),
 			   FALSE, NULL);
+	g_free (target);
 	g_free (dirname);
 }
 
@@ -1496,6 +1742,7 @@ static void
 fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar *target;
 	
 	g_return_if_fail (plugin->fm_current_filename != NULL);
 	
@@ -1503,9 +1750,12 @@ fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir,
+	target = target_from_source (plugin, dir);
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, BUILD),
 			   TRUE, NULL);
+	g_free (target);
+	g_free (dir);
 }
 
 static void
@@ -1514,6 +1764,7 @@ fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	gchar *dir;
 	gchar* root; 
 	gchar* command; 
+	gchar *target;
 	
 	g_return_if_fail (plugin->fm_current_filename != NULL);
 	
@@ -1526,13 +1777,16 @@ fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	command = g_strdup_printf ("%s %s", root,
 							   CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
+	target = target_from_source (plugin, dir);
 	build_execute_command (plugin, dir, command, TRUE, NULL);
+	g_free (target);
 }
 
 static void
 fm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar *target;
 	
 	g_return_if_fail (plugin->fm_current_filename != NULL);
 	
@@ -1540,9 +1794,12 @@ fm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir,
+	
+	target = target_from_source (plugin, dir);
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, CLEAN),
 			   FALSE, NULL);
+	g_free (target);
 }
 
 /* Project manager context menu */
@@ -1559,6 +1816,7 @@ static void
 pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar *target;
 	
 	g_return_if_fail (plugin->pm_current_filename != NULL);
 	
@@ -1566,15 +1824,19 @@ pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir,
+	target = target_from_source (plugin, dir);
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, BUILD),
 			   TRUE, NULL);
+	g_free (target);
+	g_free (dir);
 }
 
 static void
 pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar *target;
 	gchar* root; 
 	gchar* command; 
 	
@@ -1589,14 +1851,18 @@ pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir, command, TRUE, NULL);
+	target = target_from_source (plugin, dir);
+	build_execute_command (plugin, target, command, TRUE, NULL);
 	g_free(command);
+	g_free (target);
+	g_free (dir);
 }
 
 static void
 pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar *target;
 	
 	g_return_if_fail (plugin->pm_current_filename != NULL);
 	
@@ -1604,9 +1870,12 @@ pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir,
+	target = target_from_source (plugin, dir);
+	build_execute_command (plugin, target,
 			   CHOOSE_COMMAND (plugin, CLEAN),
 			   FALSE, NULL);
+	g_free (dir);
+	g_free (target);
 }
 
 static GtkActionEntry build_actions[] = 
@@ -1635,15 +1904,9 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildConfigure", NULL,
-		N_("Run C_onfigure..."), NULL,
+		N_("C_onfigure Project..."), NULL,
 		N_("Configure project"),
 		G_CALLBACK (build_configure_project)
-	},
-	{
-		"ActionBuildAutogen", NULL,
-		N_("Run _Autogenerate..."), NULL,
-		N_("Autogenerate project files"),
-		G_CALLBACK (build_autogen_project)
 	},
 	{
 		"ActionBuildDistribution", NULL,
@@ -1674,6 +1937,18 @@ static GtkActionEntry build_actions[] =
 		N_("Co_mpile File"), "F9",
 		N_("Compile current editor file"),
 		G_CALLBACK (build_compile_file)
+	},
+	{
+		"ActionBuildSelectConfiguration", NULL,
+		N_("Select Configuration"), NULL,
+		N_("Select current configuration"),
+		NULL
+	},
+	{
+		"ActionBuildRemoveConfiguration", NULL,
+		N_("Remove Configuration"), NULL,
+		N_("Clean project (distclean) and remove configuration directory if possible"),
+		G_CALLBACK (build_distclean_project)
 	}
 };
 
@@ -1778,64 +2053,6 @@ directory_has_file (const gchar *dirname, const gchar *filename)
 	return exists;
 }
 
-static void
-update_project_ui (BasicAutotoolsPlugin *bb_plugin)
-{
-	AnjutaUI *ui;
-	GtkAction *action;
-	
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
-	
-	DEBUG_PRINT ("Updateing project UI");
-	
-	if (!bb_plugin->project_root_dir)
-	{
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildBuildProject");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildInstallProject");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildCleanProject");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildDistribution");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildConfigure");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildAutogen");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		return;
-	}
-	if (directory_has_makefile (bb_plugin->project_root_dir))
-	{
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildBuildProject");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildInstallProject");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildCleanProject");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildDistribution");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	}			
-	if (directory_has_file (bb_plugin->project_root_dir, "configure"))
-	{
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildConfigure");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	}
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-								   "ActionBuildAutogen");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-}
-
 static gchar*
 escape_label (const gchar *str)
 {
@@ -1871,102 +2088,150 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	gchar *dirname;
-	gchar *module;
-	gchar *filename;
+	gchar *filename= NULL;
+	gchar *module = NULL;
 	gchar *label;
+	gboolean has_makefile= FALSE;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	
-	DEBUG_PRINT ("Updateing module UI");
+	DEBUG_PRINT ("Updating module UI");
 	
-	if (!bb_plugin->current_editor_filename)
+	if (bb_plugin->current_editor_filename != NULL)
 	{
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildBuildModule");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE,
-					  "label", _("_Build"), NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildInstallModule");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE,
-					  "label", _("_Install"), NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildCleanModule");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE,
-					  "label", _("_Clean"), NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildCompileFile");
-		g_object_set (G_OBJECT (action), "sensitive", FALSE,
-					  "label", _("Co_mpile"), NULL);
-		return;
+		gchar *dirname;
+		gchar *build_dirname;
+
+		dirname = g_dirname (bb_plugin->current_editor_filename);
+		build_dirname = target_from_source (bb_plugin, dirname);
+		
+		module = escape_label (g_basename (dirname));
+		filename = escape_label (g_basename (bb_plugin->current_editor_filename));
+		has_makefile = directory_has_makefile (build_dirname);
+		g_free (build_dirname);
+		g_free (dirname);
 	}
+
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildBuildModule");
+	label = g_strdup_printf (module ? _("_Build (%s)") : _("_Build"), module);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
+					  "label", label, NULL);
+	g_free (label);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildInstallModule");
+	label = g_strdup_printf (module ? _("_Install (%s)") : _("_Install"), module);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
+					  "label", label, NULL);
+	g_free (label);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildCleanModule");
+	label = g_strdup_printf (module ? _("_Clean (%s)") : _("_Clean"), module);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
+					  "label", label, NULL);
+	g_free (label);
 	
-	dirname = g_dirname (bb_plugin->current_editor_filename);
-	module = escape_label (g_basename (dirname));
-	filename = escape_label (g_basename (bb_plugin->current_editor_filename));
-	if (directory_has_makefile (dirname))
-	{
-		label = g_strdup_printf (_("_Build (%s)"), module);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildBuildModule");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE,
-					  /*"label", label, */NULL);
-		g_free (label);
-		
-		label = g_strdup_printf (_("_Install (%s)"), module);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildInstallModule");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE,
-					  /* "label", label, */NULL);
-		g_free (label);
-		
-		label = g_strdup_printf (_("_Clean (%s)"), module);
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildCleanModule");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE,
-					  /* "label", label,*/ NULL);
-		g_free (label);
-	}
-	label = g_strdup_printf (_("Co_mpile (%s)"), filename);
+	
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCompileFile");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE,
-				  /* "label", label, */ NULL);
+	label = g_strdup_printf (filename ? _("Co_mpile (%s)") : _("Co_mpile"), filename);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
+					  "label", label, NULL);
 	g_free (label);
+	
 	g_free (module);
 	g_free (filename);
-	g_free (dirname);
+}
+
+static void
+update_project_ui (BasicAutotoolsPlugin *bb_plugin)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	gboolean has_makefile;
+	gboolean has_project;
+	
+	DEBUG_PRINT ("Updating project UI");
+	
+	has_project = bb_plugin->project_root_dir != NULL;
+	has_makefile = has_project && directory_has_makefile (bb_plugin->project_build_dir);
+
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildBuildProject");
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildInstallProject");
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildCleanProject");
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildDistribution");
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildConfigure");
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildSelectConfiguration");
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildRemoveConfiguration");
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	
+	update_module_ui (bb_plugin);
 }
 
 static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, BasicAutotoolsPlugin *plugin)
 {
+	GList *configurations;
+	BuildConfiguration *cfg;
+	const gchar *name;
+	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 	
-	if (plugin->configure_args)
-		anjuta_session_set_string (session, "Build",
-								   "Configure parameters",
-								   plugin->configure_args);
+	configurations = build_configuration_list_to_string_list (plugin->configurations);
+	anjuta_session_set_string_list (session, "Build",
+									"Configuration list",
+									configurations);
+	g_list_foreach (configurations, (GFunc)g_free, NULL);
+	g_list_free (configurations);
+	
+	cfg = build_configuration_list_get_selected (plugin->configurations);
+	if (cfg != NULL)
+	{
+		name = build_configuration_get_name (cfg);
+		anjuta_session_set_string (session, "Build", "Selected Configuration", name);
+	}
 }
 
 static void
 on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, BasicAutotoolsPlugin *plugin)
 {
-	gchar *configure_args;
+	GList *configurations;
+	gchar *selected;
 				
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 	
-	configure_args = anjuta_session_get_string (session, "Build",
-											  "Configure parameters");
-	if (configure_args)
-	{
-		g_free (plugin->configure_args);
-		plugin->configure_args = configure_args;
-	}
+	configurations = anjuta_session_get_string_list (session, "Build",
+											  "Configuration list");
+	
+	build_configuration_list_from_string_list (plugin->configurations, configurations);
+	g_list_foreach (configurations, (GFunc)g_free, NULL);
+	g_list_free (configurations);
+	
+	selected = anjuta_session_get_string (session, "Build", "Selected Configuration");
+	build_configuration_list_select (plugin->configurations, selected);
+	g_free (selected);
+
+	build_project_configured (G_OBJECT (plugin), NULL, NULL, NULL);
 }
 
 static void
@@ -2108,8 +2373,6 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	
-	DEBUG_PRINT ("Project added");
-	
 	g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
 	
@@ -2120,11 +2383,16 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		bb_plugin->project_root_dir =
 			g_file_get_path(file);
 		g_object_unref (file);
-		if (bb_plugin->project_root_dir)
-		{
-			update_project_ui (bb_plugin);
-		}
 	}
+	
+	build_configuration_list_set_project_uri (bb_plugin->configurations, root_uri);
+	
+	/* Export project build uri */
+	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
+							IANJUTA_BUILDER_ROOT_URI,
+							value, NULL);	
+	
+	update_project_ui (bb_plugin);
 }
 
 static void
@@ -2136,13 +2404,44 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	
 	g_free (bb_plugin->project_root_dir);
+	g_free (bb_plugin->project_build_dir);
 	g_free (bb_plugin->program_args);
-	g_free (bb_plugin->configure_args);
 	
 	bb_plugin->run_in_terminal = TRUE;
 	bb_plugin->program_args = NULL;
-	bb_plugin->configure_args = NULL;
+	bb_plugin->configurations = NULL;
+	bb_plugin->project_build_dir = NULL;
 	bb_plugin->project_root_dir = NULL;
+
+	build_configuration_list_set_project_uri (bb_plugin->configurations, NULL);
+	
+	/* Export project build uri */
+	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
+							   IANJUTA_BUILDER_ROOT_URI, NULL);
+	
+	update_project_ui (bb_plugin);
+}
+
+static void
+value_added_project_build_uri (AnjutaPlugin *plugin, const gchar *name,
+							  const GValue *value, gpointer user_data)
+{
+	BasicAutotoolsPlugin *bb_plugin;
+	const gchar *build_uri;
+
+	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
+	
+	g_free (bb_plugin->project_build_dir);
+	bb_plugin->project_build_dir = NULL;
+	
+	build_uri = g_value_get_string (value);
+	if (build_uri)
+	{
+		GFile* file = g_file_new_for_uri (build_uri);
+		bb_plugin->project_build_dir =
+			g_file_get_path(file);
+		g_object_unref (file);
+	}
 	update_project_ui (bb_plugin);
 }
 
@@ -2322,8 +2621,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add UI */
 	ba_plugin->build_merge_id = anjuta_ui_merge (ui, UI_FILE);
 
+	ba_plugin->configuration_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+                                        "/MenuMain/PlaceHolderBuildMenus/MenuBuild/SelectConfiguration");
 	update_project_ui (ba_plugin);
-	update_module_ui (ba_plugin);
 	
 	/* Add watches */
 	ba_plugin->fm_watch_id = 
@@ -2334,14 +2634,19 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								 value_added_pm_current_uri,
 								 value_removed_pm_current_uri, NULL);
-	ba_plugin->project_watch_id = 
+	ba_plugin->project_root_watch_id = 
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
+	ba_plugin->project_build_watch_id = 
+		anjuta_plugin_add_watch (plugin, IANJUTA_BUILDER_ROOT_URI,
+								 value_added_project_build_uri,
+								 NULL, NULL);
 	ba_plugin->editor_watch_id = 
 		anjuta_plugin_add_watch (plugin,  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
+	
 	initialized = TRUE;
 	return TRUE;
 }
@@ -2364,7 +2669,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, ba_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->pm_watch_id, TRUE);
-	anjuta_plugin_remove_watch (plugin, ba_plugin->project_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, ba_plugin->project_root_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, ba_plugin->project_build_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->editor_watch_id, TRUE);
 	
 	/* Remove UI */
@@ -2397,16 +2703,18 @@ finalize (GObject *obj)
 	g_free (ba_plugin->fm_current_filename);
 	g_free (ba_plugin->pm_current_filename);
 	g_free (ba_plugin->project_root_dir);
+	g_free (ba_plugin->project_build_dir);
 	g_free (ba_plugin->current_editor_filename);
 	g_free (ba_plugin->program_args);
-	g_free (ba_plugin->configure_args);
+	build_configuration_list_free (ba_plugin->configurations);
 	
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
+	ba_plugin->project_build_dir = NULL;
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->program_args = NULL;
-	ba_plugin->configure_args = NULL;
+	ba_plugin->configurations = NULL;
 	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -2423,10 +2731,11 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
+	ba_plugin->project_build_dir = NULL;
 	ba_plugin->current_editor = NULL;
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->contexts_pool = NULL;
-	ba_plugin->configure_args = NULL;
+	ba_plugin->configurations = build_configuration_list_new ();
 	ba_plugin->program_args = NULL;
 	ba_plugin->run_in_terminal = TRUE;
 	ba_plugin->last_exec_uri = NULL;
@@ -2614,24 +2923,23 @@ ibuilder_is_built (IAnjutaBuilder *builder, const gchar *uri,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
 	BuildContext *context;
 	gchar *filename;
-	gchar *target;
 	gchar *dirname;
-	gchar *cmd;
+	gchar **argv;
+	gchar **args = g_new0 (gchar *, 2);
 	GFile* file = g_file_new_for_uri (uri);
 	
 	filename = g_file_get_path (file);
 	g_object_unref (file);
 	if (filename == NULL) return NULL;
-	target = g_path_get_basename (filename);
+	args[0] = g_path_get_basename (filename);
 	dirname = g_path_get_dirname (filename);
 	g_free (filename);	
-	cmd = g_strconcat (CHOOSE_COMMAND (plugin, IS_BUILT), " ", target, NULL);
-	g_free (target);
+	argv = build_argv_command (NULL, CHOOSE_COMMAND (plugin, IS_BUILT), args);
 	
-	context = build_execute_command_full (plugin, dirname, cmd,
+	context = build_execute_command_full (plugin, dirname, argv,
 			       			TRUE, FALSE, NULL,
 			       			callback, user_data, err);
-	g_free (cmd);
+	g_strfreev (argv);
 	g_free (dirname);
 	
 	return (IAnjutaBuilderHandle)context;
@@ -2645,25 +2953,24 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
 	BuildContext *context;
 	gchar *filename;
-	gchar *target;
 	gchar *dirname;
-	gchar *cmd;
+	gchar **argv;
+	gchar **args = g_new0 (gchar *, 2);
 	GFile* file = g_file_new_for_uri (uri);
 
 	filename = g_file_get_path (file);
 	g_object_unref (file);
 	if (filename == NULL) return NULL;
-	target = g_path_get_basename (filename);
+	args[0] = g_path_get_basename (filename);
 	dirname = g_path_get_dirname (filename);
 	g_free (filename);	
-	cmd = g_strconcat (CHOOSE_COMMAND (plugin, BUILD), " ", target, NULL);
-	g_free (target);
+	argv = build_argv_command (NULL, CHOOSE_COMMAND (plugin, BUILD), args);
 
-	context = build_execute_command_full (plugin, dirname, cmd,
+	context = build_execute_command_full (plugin, dirname, argv,
 		       				TRUE, TRUE, NULL,
 						callback, user_data, err);
 
-	g_free (cmd);
+	g_strfreev (argv);
 	g_free (dirname);
 	
 	return (IAnjutaBuilderHandle)context;

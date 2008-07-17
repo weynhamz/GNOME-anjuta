@@ -27,6 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-builder.h>
 #include <libanjuta/anjuta-profile-manager.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
@@ -1307,7 +1308,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	
 	update_title (plugin, plugin->project_root_uri);
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
-							"project_root_uri",
+							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 							value, NULL);
 	
 	/* If profile scoped to "project", restore project session */
@@ -1353,7 +1354,7 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	
 	update_title (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin), NULL);
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
-							   "project_root_uri", NULL);
+						  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, NULL);
 }
 
 static void
@@ -1615,7 +1616,7 @@ uri_is_inside_project (ProjectManagerPlugin *plugin, const gchar *uri)
 }
 
 static gchar *
-get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
+get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id, const gchar *root)
 {
 	gchar *path, *ptr;
 	gchar *uri;
@@ -1638,7 +1639,7 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 	}
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-					  "project_root_uri", G_TYPE_STRING,
+					  root, G_TYPE_STRING,
 					  &project_root, NULL);
 	uri = g_build_filename (project_root, path, NULL);
 	/* DEBUG_PRINT ("Converting id: %s to %s", id, uri); */
@@ -1647,12 +1648,12 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 }
 
 static const gchar *
-get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri)
+get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri, const gchar *root)
 {
 	const gchar *project_root = NULL;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-					  "project_root_uri", G_TYPE_STRING,
+					  root, G_TYPE_STRING,
 					  &project_root, NULL);
 	if (project_root)
 	{
@@ -1680,7 +1681,7 @@ get_target_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
 	const gchar *rel_path;
 	gchar *test_id;
 	
-	rel_path = get_element_relative_path (plugin, uri);
+	rel_path = get_element_relative_path (plugin, uri, IANJUTA_BUILDER_ROOT_URI);
 	
 	if (!rel_path)
 		return NULL;
@@ -1728,11 +1729,11 @@ get_element_id_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
 	}
 	else if (get_uri_vfs_type (uri) | GNOME_VFS_FILE_TYPE_DIRECTORY)
 	{
-		id = g_strconcat (get_element_relative_path (plugin, uri), "/", NULL);
+		id = g_strconcat (get_element_relative_path (plugin, uri, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI), "/", NULL);
 	}
 	else
 	{
-		id = strdup (get_element_relative_path (plugin, uri));
+		id = strdup (get_element_relative_path (plugin, uri, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI));
 	}
 	return id;
 }
@@ -1818,7 +1819,8 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 			{
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
-												(const gchar *)node->data));
+												(const gchar *)node->data,
+												IANJUTA_BUILDER_ROOT_URI));
 				g_free (node->data);
 				node = node->next;
 			}
@@ -1834,7 +1836,8 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 			{
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
-												(const gchar *)node->data));
+												(const gchar *)node->data,
+										        IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI));
 				g_free (node->data);
 				node = node->next;
 			}
@@ -1947,7 +1950,8 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 				if (strcmp (t_type, type_node->data) == 0)
 				{
 					gchar *target_uri = get_element_uri_from_id (plugin,
-																 target_id);
+																 target_id,
+																 IANJUTA_BUILDER_ROOT_URI);
 					elements = g_list_prepend (elements, target_uri);
 				}
 			}
@@ -2022,7 +2026,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 										   GBF_TREE_NODE_TARGET);
 	if (data && data->type == GBF_TREE_NODE_TARGET)
 	{
-		uri = get_element_uri_from_id (plugin, data->id);
+		uri = get_element_uri_from_id (plugin, data->id, IANJUTA_BUILDER_ROOT_URI);
 		gbf_tree_data_free (data);
 		return uri;
 	}
@@ -2103,7 +2107,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	}
 	update_operation_end (plugin, TRUE);
 	
-	source_uri = get_element_uri_from_id(plugin, source_id);
+	source_uri = get_element_uri_from_id(plugin, source_id, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI);
 	g_free(source_id);
 	
 	return source_uri;
@@ -2160,7 +2164,8 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	{
 		source_uris = g_list_append (source_uris,
 									 get_element_uri_from_id (plugin,
-														  source_ids->data));
+														  source_ids->data,
+														  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI));
 		g_free (source_ids->data);
 		source_ids = g_list_next(source_ids);
 	}
@@ -2191,7 +2196,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 											 default_group_id,
 											 target_name_to_add);
 	update_operation_end (plugin, TRUE);
-	target_uri = get_element_uri_from_id (plugin, target_id);
+	target_uri = get_element_uri_from_id (plugin, target_id, IANJUTA_BUILDER_ROOT_URI);
 	g_free (target_id);
 	g_free (default_group_id);
 	return target_uri;
@@ -2220,7 +2225,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 										   default_group_id,
 										   group_name_to_add);
 	update_operation_end (plugin, TRUE);
-	group_uri = get_element_uri_from_id (plugin, group_id);
+	group_uri = get_element_uri_from_id (plugin, group_id, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI);
 	g_free (group_id);
 	g_free (default_group_id);
 	return group_uri;

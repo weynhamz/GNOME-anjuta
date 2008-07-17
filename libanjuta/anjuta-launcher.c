@@ -1089,43 +1089,15 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 	  launcher->priv->encoding = NULL;		
 }
 
-/**
- * anjuta_launcher_set_env:
- * @launcher: a #AnjutaLancher object.
- * @name: Name of the environment variable to set
- * @value: Value of the environment variable to set
- * 
- * Set an environment variable for the forked process
- *
- */ 
-void
-anjuta_launcher_set_env (AnjutaLauncher *launcher,
-						 const gchar *name,
-						 const gchar *value)
-{
-	g_return_if_fail (launcher && ANJUTA_IS_LAUNCHER(launcher));
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (value != NULL);
-	
-	g_hash_table_insert (launcher->priv->env,
-						 g_strdup(name),
-						 g_strdup(value));
-}
-
-static void
-anjuta_launcher_fork_setenv (const gchar* name, const gchar* value)
-{
-	setenv (name, value, TRUE);
-}
-
 static pid_t
-anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
+anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *const envp[])
 {
 	char *working_dir;
 	int pty_master_fd, md;
 	int stdout_pipe[2], stderr_pipe[2];
 	pid_t child_pid;
 	struct termios termios_flags;
+	gchar * const *env;
 	
 	working_dir = g_get_current_dir ();
 	
@@ -1158,10 +1130,26 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 			fcntl (stderr_pipe[1], F_SETFL, O_SYNC | md);
 		
 		/* Set up environment */
-		g_hash_table_foreach (launcher->priv->env,
-							  (GHFunc) anjuta_launcher_fork_setenv,
-							  NULL);
-		
+		if (envp != NULL)
+		{
+			GString *variable = g_string_new (NULL);
+			for (env = envp; *env != NULL; env++)
+			{
+				gchar *value = strchr (*env, '=');
+
+				if (value == NULL)
+				{
+					g_setenv (*env, NULL, TRUE);
+				}
+				else
+				{
+					g_string_truncate (variable, 0);
+					g_string_append_len (variable, *env, value - *env);
+					g_setenv (variable->str, value + 1, TRUE);
+				}
+			}
+		}
+	
 		execvp (args[0], args);
 		g_warning (_("Cannot execute command: \"%s\""), args[0]);
 		perror(_("execvp failed"));
@@ -1250,6 +1238,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
  * anjuta_launcher_execute_v:
  * @launcher: a #AnjutaLancher object.
  * @argv: Command args.
+ * @envp: Additional environment variable.
  * @callback: The callback for delivering output from the process.
  * @callback_data: Callback data for the above callback.
  * 
@@ -1260,6 +1249,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
  */
 gboolean
 anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
+						   gchar *const envp[],
 						   AnjutaLauncherOutputCallback callback,
 						   gpointer callback_data)
 {
@@ -1278,7 +1268,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
 	launcher->priv->callback_data = callback_data;
 	
 	/* On a fork error perform a cleanup and return */
-	if (anjuta_launcher_fork (launcher, argv) < 0)
+	if (anjuta_launcher_fork (launcher, argv, envp) < 0)
 	{
 		anjuta_launcher_initialize (launcher);
 		return FALSE;
@@ -1324,7 +1314,7 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 	}
 	*args_ptr = NULL;
 
-	ret = anjuta_launcher_execute_v (launcher, args, 
+	ret = anjuta_launcher_execute_v (launcher, args, NULL,
 		callback, callback_data);
 	g_free (args);
 	anjuta_util_glist_strings_free (args_list);

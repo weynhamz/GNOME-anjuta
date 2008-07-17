@@ -352,7 +352,7 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 	}
 	
 	this->busy = TRUE;
-	if (!anjuta_launcher_execute_v (this->launcher, args, on_autogen_output, this))
+	if (!anjuta_launcher_execute_v (this->launcher, args, NULL, on_autogen_output, this))
 	{
 		return FALSE;
 	}

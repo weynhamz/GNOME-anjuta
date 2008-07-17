@@ -586,7 +586,15 @@ interface IAnjutaBuilder
 
 	typedef gpointer Handle;
 
-	typedef void (*Callback) (GObject *sender, GError* err, gpointer user_data);
+	typedef void (*Callback) (GObject *sender, IAnjutaBuilderHandle command, GError* err, gpointer user_data);
+
+	/**
+	* IANJUTA_BUILDER_ROOT_URI
+	*
+	* Build directory uri. It is the same than the project_root_uri for
+	* in source build.
+	*/
+	#define ROOT_URI		"build_root_uri"
 
 	/** 
 	* ianjuta_builder_is_built:
@@ -702,6 +710,8 @@ interface IAnjutaBuildable
 		COMMAND_CLEAN,
 		COMMAND_EXECUTE,
 		COMMAND_IS_BUILT,
+		COMMAND_AUTORECONF,
+		COMMAND_DISTCLEAN,
 		N_COMMANDS
 	}
 	

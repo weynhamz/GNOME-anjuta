@@ -24,6 +24,8 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
 
+#include "configuration-list.h"
+
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
 
 extern GType basic_autotools_plugin_get_type (GTypeModule *module);
@@ -46,13 +48,15 @@ struct _BasicAutotoolsPlugin{
 	/* Watch IDs */
 	gint fm_watch_id;
 	gint pm_watch_id;
-	gint project_watch_id;
+	gint project_root_watch_id;
+	gint project_build_watch_id;
 	gint editor_watch_id;
 	
 	/* Watched values */
 	gchar *fm_current_filename;
 	gchar *pm_current_filename;
 	gchar *project_root_dir;
+	gchar *project_build_dir;
 	gchar *current_editor_filename;
 	IAnjutaEditor *current_editor;
 	
@@ -60,13 +64,13 @@ struct _BasicAutotoolsPlugin{
 	gint build_merge_id;
 	GtkActionGroup *build_action_group;
 	GtkActionGroup *build_popup_action_group;
+	GtkWidget *configuration_menu;
 	
 	/* commands overrides */
 	gchar *commands[IANJUTA_BUILDABLE_N_COMMANDS];
 	
 	/* Build parameters */
-	gchar *configure_args;
-	gchar *build_options;
+	BuildConfigurationList *configurations;
 	
 	/* Execution parameters */
 	gchar *program_args;
