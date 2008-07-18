@@ -2409,7 +2409,6 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	
 	bb_plugin->run_in_terminal = TRUE;
 	bb_plugin->program_args = NULL;
-	bb_plugin->configurations = NULL;
 	bb_plugin->project_build_dir = NULL;
 	bb_plugin->project_root_dir = NULL;
 

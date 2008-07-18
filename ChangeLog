@@ -1,3 +1,8 @@
+2008-07-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Fix crash on closing project due to the previous patch
+
 2008-07-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c,
