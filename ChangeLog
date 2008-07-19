@@ -1,3 +1,10 @@
+2008-07-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
+	Add more options for build command: parallel make, keep going on error
+	and keep message untranslated
+
 2008-07-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c:

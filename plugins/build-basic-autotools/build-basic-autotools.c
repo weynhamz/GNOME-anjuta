@@ -53,9 +53,17 @@
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 #define PREF_INSTALL_ROOT "build.install.root"
 #define PREF_INSTALL_ROOT_COMMAND "build.install.root.command"
+#define PREF_PARALLEL_MAKE "build.parallel.make"
+#define PREF_PARALLEL_MAKE_JOB "build.parallel.make.job"
+#define PREF_TRANSLATE_MESSAGE "build.translate.message"
+#define PREF_CONTINUE_ON_ERROR "build.continue.error"
 
-#define CHECK_BUTTON "preferences_toggle:bool:0:0:build.install.root"
-#define ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
+#define BUILD_PREFS_DIALOG "preferences_dialog_build"
+#define BUILD_PREFS_ROOT "preferences_build_container"
+#define INSTALL_ROOT_CHECK "preferences_toggle:bool:0:0:build.install.root"
+#define INSTALL_ROOT_ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
+#define PARALLEL_MAKE_CHECK "preferences_toggle:bool:0:0:build.parallel.make"
+#define PARALLEL_MAKE_SPIN "preferences_spin:int:1:0:build.parallel.make.job"
 
 #define DEFAULT_COMMAND_COMPILE "make"
 #define DEFAULT_COMMAND_BUILD "make"
@@ -237,6 +245,24 @@ build_add_env_variable (gchar **envp, const gchar *name, const gchar *value)
 	return var;
 }
 
+static gchar **
+build_add_arg (gchar **argv, const gchar *argument)
+{
+	gchar **new_argv;
+	guint len;
+
+	len = g_strv_length (argv);
+	
+	/* Need to create a new variable */
+	new_argv = g_new (gchar *, len + 2);
+	new_argv[0] = argv[0];
+	new_argv[1] = g_strdup (argument);
+	memcpy (&new_argv[2], &argv[1], len * sizeof (gchar *));
+	g_free (argv);
+	
+	return new_argv;
+}	
+	
 /* Allow installation as root (#321455) */
 static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
@@ -1228,7 +1254,7 @@ build_execute_command_in_context (BuildContext* context, const gchar *dir,
 								  GError **err)
 {
 	gchar *real_dir;
-
+	
 	g_return_val_if_fail (argv != NULL, FALSE);
 
 	real_dir = g_strdup (dir);
@@ -1296,15 +1322,40 @@ build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
 	BuildContext *context;
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	gboolean ok;
+	
 	
 	if (save_file) 
 		save_all_files (ANJUTA_PLUGIN (plugin));
 
 	context = build_get_context (bplugin, dir, with_view);
 
-	if (build_execute_command_in_context (context, dir, argv, envp, callback, user_data, NULL))
+	/* Send options to make */
+	if (strcmp (argv[0], "make") == 0)
 	{
+		if (!anjuta_preferences_get_int (prefs , PREF_TRANSLATE_MESSAGE))
+		{
+			envp = build_add_env_variable (envp, "LANGUAGE", "C");
+		}
+		if (anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE))
+		{
+			gchar *arg = g_strdup_printf ("-j%d", anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE_JOB));
+			argv = build_add_arg (argv, arg);
+			g_free (arg);
+		}
+		if (anjuta_preferences_get_int (prefs , PREF_CONTINUE_ON_ERROR))
+		{
+			argv = build_add_arg (argv, "-k");
+		}
 		
+	}
+	
+	ok = build_execute_command_in_context (context, dir, argv, envp, callback, user_data, NULL);
+	g_strfreev (argv);
+	
+	if (ok)
+	{
 		return context;
 	}
 	else
@@ -1328,8 +1379,6 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 		return FALSE;
 	
 	ok = build_execute_command_full (bplugin, dir, argv, save_file, TRUE, NULL, NULL, NULL, NULL) != NULL;
-
-	g_strfreev (argv);
 
 	return ok;
 }
@@ -1478,8 +1527,6 @@ build_distclean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		return;
 	
 	build_execute_command_full (plugin, plugin->project_build_dir, argv, TRUE, TRUE, NULL, build_remove_build_dir, plugin, NULL);
-
-	g_strfreev (argv);
 }
 
 static void
@@ -1580,8 +1627,6 @@ build_configure_project_after_autogen (GObject *sender,
 		{
 			g_free (filename);
 			filename = g_build_filename (link->build_dir, "config.log", NULL);
-			stat (filename, &log_stat);
-			DEBUG_PRINT("log %d conf %d", log_stat.st_mtime, conf_stat.st_mtime);
 			if ((stat (filename, &log_stat) != 0) ||
 				(log_stat.st_mtime < conf_stat.st_mtime))
 			{
@@ -1666,7 +1711,6 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		build_execute_command_full (plugin, build_dir, 
 					   argv, TRUE, TRUE, NULL,
 					   callback, user_data, NULL);
-		g_strfreev (argv);
 		g_free (build_dir);
 	}
 }
@@ -2938,7 +2982,6 @@ ibuilder_is_built (IAnjutaBuilder *builder, const gchar *uri,
 	context = build_execute_command_full (plugin, dirname, argv,
 			       			TRUE, FALSE, NULL,
 			       			callback, user_data, err);
-	g_strfreev (argv);
 	g_free (dirname);
 	
 	return (IAnjutaBuilderHandle)context;
@@ -2968,8 +3011,6 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	context = build_execute_command_full (plugin, dirname, argv,
 		       				TRUE, TRUE, NULL,
 						callback, user_data, err);
-
-	g_strfreev (argv);
 	g_free (dirname);
 	
 	return (IAnjutaBuilderHandle)context;
@@ -3003,13 +3044,17 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkWidget *entry;
 		
 	/* Create the preferences page */
-	gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
-	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
-	entry = glade_xml_get_widget(gxml, ENTRY);
-	
+	gxml = glade_xml_new (GLADE_FILE, BUILD_PREFS_DIALOG, NULL);
+	root_check = glade_xml_get_widget(gxml, INSTALL_ROOT_CHECK);
+	entry = glade_xml_get_widget(gxml, INSTALL_ROOT_ENTRY);
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
+	on_root_check_toggled (root_check, entry);
+	root_check = glade_xml_get_widget(gxml, PARALLEL_MAKE_CHECK);
+	entry = glade_xml_get_widget(gxml, PARALLEL_MAKE_SPIN);
+	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
+	on_root_check_toggled (root_check, entry);
 	
-	anjuta_preferences_add_page (prefs, gxml, "Build", _("Build Autotools"),  ICON_FILE);
+	anjuta_preferences_add_page (prefs, gxml, BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
 }
 
 static void
@@ -3018,8 +3063,12 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	GtkWidget *root_check;
 	GtkWidget *entry;
 
-	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
-	entry = glade_xml_get_widget(gxml, ENTRY);
+	root_check = glade_xml_get_widget(gxml, INSTALL_ROOT_CHECK);
+	entry = glade_xml_get_widget(gxml, INSTALL_ROOT_ENTRY);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
+		G_CALLBACK(on_root_check_toggled), entry);
+	root_check = glade_xml_get_widget(gxml, PARALLEL_MAKE_CHECK);
+	entry = glade_xml_get_widget(gxml, PARALLEL_MAKE_SPIN);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_root_check_toggled), entry);
 		
