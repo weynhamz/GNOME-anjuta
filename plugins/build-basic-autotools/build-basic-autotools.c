@@ -1303,7 +1303,9 @@ build_execute_command_in_context (BuildContext* context, const gchar *dir,
 static gchar *
 target_from_source (BasicAutotoolsPlugin *plugin, const gchar *target)
 {
-	if (strcmp (plugin->project_root_dir, plugin->project_build_dir) == 0)
+	if ((plugin->project_root_dir == NULL) || 
+		(plugin->project_build_dir == NULL) || 
+		(strcmp (plugin->project_root_dir, plugin->project_build_dir) == 0))
 	{
 		return g_strdup (target);
 	}
