@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-09 13:15+0000\n"
-"PO-Revision-Date: 2008-07-09 23:22+0200\n"
+"POT-Creation-Date: 2008-07-19 09:58+0000\n"
+"PO-Revision-Date: 2008-07-20 14:34+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,14 +182,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1166 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1167
+#: ../libanjuta/anjuta-launcher.c:1155
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -221,7 +221,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:356
+#: ../plugins/symbol-db/symbol-db-prefs.c:447
 msgid "Load"
 msgstr "Carga"
 
@@ -389,7 +389,7 @@ msgstr ""
 "Falló al leer «%s»: Faltan los siguientes complementos obligatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1453
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -397,7 +397,7 @@ msgstr ""
 "¿Está seguro que desea reiniciar las preferencias\n"
 "a sus valores originales?"
 
-#: ../libanjuta/anjuta-preferences.c:1460
+#: ../libanjuta/anjuta-preferences.c:1457
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -545,53 +545,85 @@ msgid "Could not find application pixmap file: %s"
 msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
-msgid "<b>Build Options:</b>"
-msgstr "<b>Opciones de construcción:</b>"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
 msgid "<b>Build</b>"
 msgstr "<b>Construir</b>"
 
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+msgid "<b>Configuration:</b>"
+msgstr "<b>Configuración:</b>"
+
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
-msgid "<b>Configure Options:</b>"
-msgstr "<b>Opciones de configuración:</b>"
+msgid "<b>Install</b>"
+msgstr "<b>Instalar</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+msgid "<b>Regenerate project</b>"
+msgstr "<b>Regenerar el proyecto</b>"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "<b>Select Program to run:</b>"
 msgstr "<b>Seleccionar programa que ejecutar:</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 #: ../plugins/run-program/anjuta-run-program.glade.h:1
 msgid "Arguments:"
 msgstr "Argumentos:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
-msgid "Highlight build message locations in editor"
-msgstr "Resalta las ubicaciones del mensaje de construcción en el editor"
-
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
+msgid "Build Directory:"
+msgstr "Directorio de construcción:"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
+msgid "Configure Options:"
+msgstr "Opciones de configuración:"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
+msgid "Configure Project"
+msgstr "Configurar el proyecto"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
+msgid "Continue on errors"
+msgstr "Continuar en errores"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
+msgid "Highlight message locations in editor"
+msgstr "Resaltar mensajes de ubicación en el editor"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Install as root:"
 msgstr "Instalar como root:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Ejecutar en un terminal"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
+msgid "Run several commands at a time:"
+msgstr "Ejecutar varios comandos al mismo tiempo:"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
 msgstr "Seleccione el programa"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:16
+msgid "Select a build directory"
+msgstr "Seleccionar un directorio de construcción"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:17
+msgid "Translate messages"
+msgstr "Traducir mensajes"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:131
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:152
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:132
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:153
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+'(.+)'"
 
@@ -600,274 +632,282 @@ msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:140
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:161
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:141
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:162
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:299
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:422
 msgid "Command aborted"
 msgstr "Comando abortado"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:703
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:821
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando en: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:739
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:857
 #, c-format
 msgid "Leaving: %s"
 msgstr "Dejando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:772
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:890
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:897
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 #, c-format
 msgid "Command exited with status %d"
 msgstr "El comando salió con estado %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:907
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1022
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado por el usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:912
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando abortado por el usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:917
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1032
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Comando terminado con la señal %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:925
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
 msgid "Command terminated for an unknown reason"
 msgstr "Comando terminado por razón desconocida"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:937
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tiempo total empleado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:942
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
 msgid "Completed unsuccessful\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:947
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:993
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1114
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1323
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1480
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
 "tipo de archivo."
 
-#. Configure = ./configure script
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1365
-msgid "Configure"
-msgstr "Configurar"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1624
+#, c-format
+msgid "Can not configure project: Missing configure script in %s."
+msgstr "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1400
-msgid "Autogenerate"
-msgstr "Autogenerar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1616
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1684
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1694
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1712
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1722
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1888
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1929
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2003
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2013
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2031
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
+#, c-format
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1620
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1933
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1621
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1934
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1626
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1939
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1627
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1940
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1632
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1945
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1633
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1946
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1638
-msgid "Run C_onfigure..."
-msgstr "Ejecutar _configure…"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1951
+msgid "C_onfigure Project..."
+msgstr "C_onfigurar el proyecto..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1639
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1952
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1644
-msgid "Run _Autogenerate..."
-msgstr "Ejecutar _autogeneración…"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1645
-msgid "Autogenerate project files"
-msgstr "Autogenerar los archivos del proyecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1650
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1957
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1651
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1958
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1656
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1963
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1657
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1964
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1662
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1969
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1663
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1970
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1668
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1975
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1669
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1976
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1674
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1981
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1675
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1982
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1688
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1716
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1987
+msgid "Select Configuration"
+msgstr "Seleccionar configuración"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1988
+msgid "Select current configuration"
+msgstr "Seleccionar la configuración actual"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1993
+msgid "Remove Configuration"
+msgstr "Quitar configuración"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1994
+msgid "Clean project (distclean) and remove configuration directory if possible"
+msgstr "Limpiar el proyecto (distclean) y eliminar el directorio de configuración si es posible"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2007
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1689
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1717
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2008
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1695
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1723
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2014
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
 msgid "Build module"
 msgstr "Construye un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1700
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1728
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1892
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2019
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
+#, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1701
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1729
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2020
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
 msgid "Install module"
 msgstr "Instala un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1706
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1734
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1896
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2025
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
+#, c-format
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1707
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1735
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2026
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
 msgid "Clean module"
 msgstr "Limpia un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1900
-msgid "Co_mpile"
-msgstr "Co_mpilar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1909
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1916
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1923
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1930
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2311
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
+#, c-format
+msgid "Co_mpile"
+msgstr "Co_mpilar"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2653
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2318
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2660
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2706
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2720
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3057
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3075
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
-#: ../plugins/build-basic-autotools/build-options.c:41
+#: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
 msgid "Default"
 msgstr "Predeterminado"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/build-basic-autotools/build-options.c:42
+#: ../plugins/build-basic-autotools/configuration-list.c:62
 #: ../plugins/gdb/utilities.c:295 ../plugins/profiler/plugin.c:727
 msgid "Debug"
 msgstr "Depurar"
 
-#: ../plugins/build-basic-autotools/build-options.c:43
+#: ../plugins/build-basic-autotools/configuration-list.c:63
 msgid "Profiling"
 msgstr "Perfilado"
 
-#: ../plugins/build-basic-autotools/build-options.c:44
+#: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Optimized"
 msgstr "Optimizado"
 
@@ -2460,11 +2500,11 @@ msgstr "Operaciones con ayuda"
 msgid "Books"
 msgstr "Libros"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1021
-#: ../plugins/search/search-replace.c:1690
-#: ../plugins/search/search-replace.c:1697
-#: ../plugins/search/search-replace.c:1709
-#: ../plugins/search/search-replace.c:2027
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1007
+#: ../plugins/search/search-replace.c:1676
+#: ../plugins/search/search-replace.c:1683
+#: ../plugins/search/search-replace.c:1695
+#: ../plugins/search/search-replace.c:2013
 #: ../plugins/symbol-browser/plugin.c:961
 msgid "Search"
 msgstr "Buscar"
@@ -5198,38 +5238,38 @@ msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
 "de escritura al directorio del proyecto."
 
-#: ../plugins/project-manager/plugin.c:343
+#: ../plugins/project-manager/plugin.c:344
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:366
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:367
+#: ../plugins/project-manager/plugin.c:750
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/plugin.c:381
-#: ../plugins/project-manager/plugin.c:473
+#: ../plugins/project-manager/plugin.c:382
+#: ../plugins/project-manager/plugin.c:474
 msgid "No properties available for this target"
 msgstr "Sin propiedades disponibles para este destino"
 
-#: ../plugins/project-manager/plugin.c:458
+#: ../plugins/project-manager/plugin.c:459
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/plugin.c:487
+#: ../plugins/project-manager/plugin.c:488
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/plugin.c:490
+#: ../plugins/project-manager/plugin.c:491
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../plugins/project-manager/plugin.c:502
+#: ../plugins/project-manager/plugin.c:503
 msgid "No properties available for this group"
 msgstr "Sin propiedades disponibles para este grupo"
 
-#: ../plugins/project-manager/plugin.c:586
+#: ../plugins/project-manager/plugin.c:587
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -5237,7 +5277,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente grupo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:587
+#: ../plugins/project-manager/plugin.c:588
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -5248,7 +5288,7 @@ msgstr ""
 "\n"
 "El grupo no se borrará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:591
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -5256,12 +5296,12 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo objetivo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:591
+#: ../plugins/project-manager/plugin.c:592
 #, c-format
 msgid "Target: %s"
 msgstr "Objetivo: %s"
 
-#: ../plugins/project-manager/plugin.c:594
+#: ../plugins/project-manager/plugin.c:595
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -5269,7 +5309,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo fuente del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:595
+#: ../plugins/project-manager/plugin.c:596
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -5280,7 +5320,7 @@ msgstr ""
 "\n"
 "El archivo fuente no se borrará del sistema."
 
-#: ../plugins/project-manager/plugin.c:650
+#: ../plugins/project-manager/plugin.c:651
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -5289,107 +5329,107 @@ msgstr ""
 "Falló al eliminar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:706
+#: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
 msgstr "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:708
+#: ../plugins/project-manager/plugin.c:709
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:745
+#: ../plugins/project-manager/plugin.c:746
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:749
-#: ../plugins/project-manager/plugin.c:783
+#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:784
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:754
+#: ../plugins/project-manager/plugin.c:755
 #: ../plugins/symbol-browser/plugin.c:312
 msgid "_Refresh"
 msgstr "_Refrescar"
 
-#: ../plugins/project-manager/plugin.c:754
+#: ../plugins/project-manager/plugin.c:755
 msgid "Refresh project manager tree"
 msgstr "Refrescar el árbol del adm. de proyectos"
 
-#: ../plugins/project-manager/plugin.c:759
+#: ../plugins/project-manager/plugin.c:760
 msgid "Add _Group..."
 msgstr "Añadir _grupo…"
 
-#: ../plugins/project-manager/plugin.c:759
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:794
 msgid "Add a group to project"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:765
 msgid "Add _Target..."
 msgstr "Añadir _objetivo…"
 
-#: ../plugins/project-manager/plugin.c:764
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:799
 msgid "Add a target to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:769
+#: ../plugins/project-manager/plugin.c:770
 msgid "Add _Source File..."
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:769
-#: ../plugins/project-manager/plugin.c:788
-#: ../plugins/project-manager/plugin.c:803
+#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:804
 msgid "Add a source file to project"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:774
+#: ../plugins/project-manager/plugin.c:775
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:774
+#: ../plugins/project-manager/plugin.c:775
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:783
+#: ../plugins/project-manager/plugin.c:784
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:788
+#: ../plugins/project-manager/plugin.c:789
 msgid "_Add To Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:794
 msgid "Add _Group"
 msgstr "Añadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:799
 msgid "Add _Target"
 msgstr "Añadir _objetivo"
 
-#: ../plugins/project-manager/plugin.c:803
+#: ../plugins/project-manager/plugin.c:804
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:809
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:809
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1166
+#: ../plugins/project-manager/plugin.c:1167
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1174
+#: ../plugins/project-manager/plugin.c:1175
 msgid "Created project view..."
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1187
+#: ../plugins/project-manager/plugin.c:1188
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -5398,31 +5438,31 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1207
-#: ../plugins/project-manager/plugin.c:1284
-#: ../plugins/project-manager/plugin.c:1456
+#: ../plugins/project-manager/plugin.c:1208
+#: ../plugins/project-manager/plugin.c:1285
+#: ../plugins/project-manager/plugin.c:1457
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
 
-#: ../plugins/project-manager/plugin.c:1372
+#: ../plugins/project-manager/plugin.c:1373
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1435
+#: ../plugins/project-manager/plugin.c:1436
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1443
+#: ../plugins/project-manager/plugin.c:1444
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2388
+#: ../plugins/project-manager/plugin.c:2393
 msgid "Loaded Project... Initializing"
 msgstr "Proyecto cargado… Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2391
+#: ../plugins/project-manager/plugin.c:2396
 msgid "Loaded Project..."
 msgstr "Proyecto cargado…"
 
@@ -6315,39 +6355,39 @@ msgstr "Buscar: "
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/search/search-replace.c:638
+#: ../plugins/search/search-replace.c:624
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1024
-#: ../plugins/search/search-replace.c:1704
+#: ../plugins/search/search-replace.c:1010
+#: ../plugins/search/search-replace.c:1690
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: ../plugins/search/search-replace.c:1063
+#: ../plugins/search/search-replace.c:1049
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
 "principio del documento?"
 
-#: ../plugins/search/search-replace.c:1083
+#: ../plugins/search/search-replace.c:1069
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1098
+#: ../plugins/search/search-replace.c:1084
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1111
+#: ../plugins/search/search-replace.c:1097
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1277
+#: ../plugins/search/search-replace.c:1263
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
@@ -6375,7 +6415,9 @@ msgstr "No se puede guardar %s: %s."
 #: ../plugins/sourceview/sourceview-io.c:245
 #, c-format
 msgid "Could not save file because filename not yet specified"
-msgstr "No se puede guardar el archivo porque el nombre de archivo aún no se ha especificado"
+msgstr ""
+"No se puede guardar el archivo porque el nombre de archivo aún no se ha "
+"especificado"
 
 #: ../plugins/sourceview/sourceview-io.c:457
 #, c-format
@@ -7068,7 +7110,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:364
+#: ../plugins/symbol-db/symbol-db-prefs.c:455
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
@@ -7172,14 +7214,18 @@ msgstr "Navegación de símbolos"
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:216
+#: ../plugins/symbol-db/symbol-db-prefs.c:281
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:317
-#: ../plugins/symbol-db/symbol-db-prefs.c:415
+#: ../plugins/symbol-db/symbol-db-prefs.c:378
+#: ../plugins/symbol-db/symbol-db-prefs.c:506
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
+
+#: ../plugins/symbol-db/symbol-db-system.c:755
+msgid "Resuming glb scan."
+msgstr "Resumiendo el escáner glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
