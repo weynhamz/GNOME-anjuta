@@ -165,6 +165,60 @@ static MessagePattern patterns_make_leaving[] = {{N_("make(\\[\\d+\\])?:\\s+Leav
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
+static gchar*
+build_shell_expand (const gchar *input)
+{
+	GString* expand;
+	
+	if (input == NULL) return NULL;
+	
+	expand = g_string_sized_new (strlen (input));
+	
+	for (; *input != '\0'; input++)
+	{
+		switch (*input)
+		{
+			case '$':
+			{
+				/* Variable expansion */
+				const gchar *end;
+				gint var_name_len;
+
+				end = input + 1;
+				while (isalnum (*end) || (*end == '_')) end++;
+				var_name_len = end - input - 1;
+				if (var_name_len > 0)
+				{
+					const gchar *value;
+					
+					g_string_append_len (expand, input + 1, var_name_len);
+					value = g_getenv (expand->str + expand->len - var_name_len);
+					g_string_truncate (expand, expand->len - var_name_len);
+					g_string_append (expand, value);
+					input = end - 1;
+					continue;
+				}
+				break;
+			}
+			case '~':
+			{
+				/* User home directory expansion */
+				if (isspace(input[1]) || (input[1] == G_DIR_SEPARATOR) || (input[1] == '\0'))
+				{
+					g_string_append (expand, g_get_home_dir());
+					continue;
+				}
+				break;
+			}
+			default:
+				break;
+		}
+		g_string_append_c (expand, *input);
+	}
+	
+	return g_string_free (expand, FALSE);
+}
+
 static gchar **
 build_argv_command (const gchar *cmd_dir, const gchar *cmd, gchar **argv)
 {
@@ -1326,7 +1380,7 @@ build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 	BuildContext *context;
 	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	gboolean ok;
-	
+	gchar **arg;
 	
 	if (save_file) 
 		save_all_files (ANJUTA_PLUGIN (plugin));
@@ -1350,7 +1404,16 @@ build_execute_command_full (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 		{
 			argv = build_add_arg (argv, "-k");
 		}
+	}
+	
+	/* Expand shell variable */
+	for (arg = argv; *arg != NULL; arg++)
+	{
+		gchar *old_arg;
 		
+		old_arg = *arg;
+		*arg = build_shell_expand (old_arg);
+		g_free (old_arg);
 	}
 	
 	ok = build_execute_command_in_context (context, dir, argv, envp, callback, user_data, NULL);
