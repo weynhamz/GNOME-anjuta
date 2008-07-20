@@ -28,5 +28,6 @@
 		<menuitem name="NextMessage" action="ActionMessageNext" />
 		<menuitem name="PrevMessage" action="ActionMessagePrev" />
 		<menuitem name="SaveMessage" action="ActionMessageSave" />
+		<placeholder name="PlaceholderPopupMessageView"/>
 	</popup>
 </ui>

@@ -4,6 +4,7 @@ _Description=Basic autotools build plugin.
 Location=anjuta-build-basic-autotools:BasicAutotoolsPlugin
 Icon=anjuta-build-basic-autotools-plugin-48.png
 Interfaces=IAnjutaBuilder,IAnjutaBuildable,IAnjutaFile
+Dependencies=anjuta-message-view:MessageViewPlugin
 
 [File Loader]
 _Title=Execute

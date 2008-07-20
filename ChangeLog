@@ -1,3 +1,11 @@
+2008-07-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/message-view/anjuta-message-manager.ui:
+	Fix #375640: Allow user to stop a build in progress
+
 2008-07-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c:

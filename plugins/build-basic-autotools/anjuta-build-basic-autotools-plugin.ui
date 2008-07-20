@@ -41,4 +41,10 @@
 			</menu>
 		</placeholder>
 	</popup>
+	<popup name="PopupMessageView">
+		<placeholder name="PlaceholderPopupMessageView">
+			<separator name="separator13"/>
+			<menuitem name="Cancel" action="ActionPopupMVBuildCancel" />
+		</placeholder>
+	</popup>
 </ui>

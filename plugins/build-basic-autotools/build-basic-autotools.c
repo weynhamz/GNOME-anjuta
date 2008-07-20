@@ -1924,6 +1924,42 @@ pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	g_free (target);
 }
 
+static void
+mv_cancel (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	IAnjutaMessageManager *msgman;
+		
+	msgman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaMessageManager,
+										 NULL);
+	
+	if (msgman != NULL)
+	{
+		IAnjutaMessageView *view;
+		
+		view = ianjuta_message_manager_get_current_view (msgman, NULL);
+		if (view != NULL)
+		{
+			GList *node;
+
+			for (node = g_list_first (plugin->contexts_pool); node != NULL; node = g_list_next (node))
+			{
+				BuildContext *context;
+				
+				context = (BuildContext *)node->data;
+				if (context->message_view == view)
+				{
+					if (context->launcher != NULL)
+					{
+						anjuta_launcher_signal (context->launcher, SIGTERM);
+					}
+					return;
+				}
+			}
+		}	
+	}	
+}
+
 static GtkActionEntry build_actions[] = 
 {
 	{
@@ -2055,6 +2091,12 @@ static GtkActionEntry build_popup_actions[] =
 		N_("_Clean"), NULL,
 		N_("Clean module"),
 		G_CALLBACK (pm_clean)
+	},
+	{
+		"ActionPopupMVBuildCancel", NULL,
+		N_("_Cancel command"), NULL,
+		N_("Cancel build command"),
+		G_CALLBACK (mv_cancel)
 	}
 };
 
