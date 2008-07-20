@@ -2242,13 +2242,15 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	gchar *filename= NULL;
 	gchar *module = NULL;
 	gchar *label;
+	gboolean has_file = FALSE;
 	gboolean has_makefile= FALSE;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	
 	DEBUG_PRINT ("Updating module UI");
-	
-	if (bb_plugin->current_editor_filename != NULL)
+
+	has_file = bb_plugin->current_editor_filename != NULL;
+	if (has_file)
 	{
 		gchar *dirname;
 		gchar *build_dirname;
@@ -2288,7 +2290,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCompileFile");
 	label = g_strdup_printf (filename ? _("Co_mpile (%s)") : _("Co_mpile"), filename);
-	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
+	g_object_set (G_OBJECT (action), "sensitive", has_file,
 					  "label", label, NULL);
 	g_free (label);
 	
