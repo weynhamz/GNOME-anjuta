@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-19 09:58+0000\n"
-"PO-Revision-Date: 2008-07-20 14:34+0200\n"
+"POT-Creation-Date: 2008-07-20 14:08+0000\n"
+"PO-Revision-Date: 2008-07-20 19:04+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -640,254 +640,264 @@ msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:422
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:476
 msgid "Command aborted"
 msgstr "Comando abortado"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:821
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:875
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando en: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:857
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:911
 #, c-format
 msgid "Leaving: %s"
 msgstr "Dejando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:890
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:944
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
 #, c-format
 msgid "Command exited with status %d"
 msgstr "El comando salió con estado %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1022
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1076
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado por el usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1081
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando abortado por el usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1032
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Comando terminado con la señal %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
 msgid "Command terminated for an unknown reason"
 msgstr "Comando terminado por razón desconocida"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1112
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tiempo total empleado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
 msgid "Completed unsuccessful\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1114
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1168
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1480
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1545
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
 "tipo de archivo."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1624
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1689
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1929
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2003
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2013
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2031
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2030
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2104
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2114
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2132
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2142
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2268
 #, c-format
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1933
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2034
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1934
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1939
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2040
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1940
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1945
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2046
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1946
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1951
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2052
 msgid "C_onfigure Project..."
 msgstr "C_onfigurar el proyecto..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1952
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1957
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2058
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1958
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2059
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1963
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2064
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1964
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2065
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1969
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2070
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1970
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2071
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1975
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2076
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1976
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2077
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1981
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2082
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1982
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2083
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1987
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2088
 msgid "Select Configuration"
 msgstr "Seleccionar configuración"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1988
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2089
 msgid "Select current configuration"
 msgstr "Seleccionar la configuración actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1993
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2094
 msgid "Remove Configuration"
 msgstr "Quitar configuración"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1994
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2095
 msgid "Clean project (distclean) and remove configuration directory if possible"
-msgstr "Limpiar el proyecto (distclean) y eliminar el directorio de configuración si es posible"
+msgstr ""
+"Limpiar el proyecto (distclean) y eliminar el directorio de configuración si "
+"es posible"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2007
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2108
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2136
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2008
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2109
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2137
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2014
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2115
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2143
 msgid "Build module"
-msgstr "Construye un módulo"
+msgstr "Construir un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2019
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2120
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2148
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2275
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2020
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2121
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2149
 msgid "Install module"
-msgstr "Instala un módulo"
+msgstr "Instalar un módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2025
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2126
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2154
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2282
 #, c-format
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2026
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2127
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2155
 msgid "Clean module"
-msgstr "Limpia un módulo"
+msgstr "Limpiar un módulo"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2160
+msgid "_Cancel command"
+msgstr "Comando _cancelar"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
+msgid "Cancel build command"
+msgstr "Comando cancelar construcción"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2268
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2275
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2282
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2290
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2290
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2653
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2760
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2660
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2767
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3057
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3075
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3164
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3182
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
