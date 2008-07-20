@@ -114,7 +114,7 @@ build_unescape_string (const gchar *escaped)
 
 		if (*escaped == '%')
 		{
-			*end++ = (g_ascii_xdigit_value (escaped[1]) << 4) | g_ascii_xdigit_value (escaped[0]);
+			*end++ = (g_ascii_xdigit_value (escaped[1]) << 4) | g_ascii_xdigit_value (escaped[2]);
 			escaped += 2;
 		}
 		else

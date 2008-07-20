@@ -1359,7 +1359,8 @@ target_from_source (BasicAutotoolsPlugin *plugin, const gchar *target)
 {
 	if ((plugin->project_root_dir == NULL) || 
 		(plugin->project_build_dir == NULL) || 
-		(strcmp (plugin->project_root_dir, plugin->project_build_dir) == 0))
+		(strcmp (plugin->project_root_dir, plugin->project_build_dir) == 0) ||
+		(strncmp (target, plugin->project_root_dir, strlen (plugin->project_root_dir)) != 0))
 	{
 		return g_strdup (target);
 	}
