@@ -265,25 +265,28 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	
 		cfg = build_configuration_list_select (dlg->config_list, name);
 		
-		args_str = g_string_new (NULL);
-		arg = build_configuration_get_args (cfg);
-		if (arg)
+		if (cfg != NULL)
 		{
-			for (; *arg != NULL; arg++)
+			args_str = g_string_new (NULL);
+			arg = build_configuration_get_args (cfg);
+			if (arg)
 			{
-				gchar *quoted_arg = g_shell_quote (*arg);
+				for (; *arg != NULL; arg++)
+				{
+					gchar *quoted_arg = g_shell_quote (*arg);
 						
-				g_string_append (args_str, quoted_arg);
-				g_free (quoted_arg);
-				g_string_append_c (args_str, ' ');
+					g_string_append (args_str, quoted_arg);
+					g_free (quoted_arg);
+					g_string_append_c (args_str, ' ');
+				}
 			}
-		}
-		gtk_entry_set_text (GTK_ENTRY (dlg->args), args_str->str);
-		g_string_free (args_str, TRUE);
+			gtk_entry_set_text (GTK_ENTRY (dlg->args), args_str->str);
+			g_string_free (args_str, TRUE);
 		
-		uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
-		build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
-		g_free (uri);
+			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
+			build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
+			g_free (uri);
+		}
 	}
 	g_free (name);
 }
@@ -359,7 +362,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		{
 			name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dlg.combo));
 		}
-		cfg = build_configuration_list_select (config_list, name);
+		cfg = build_configuration_list_create (config_list, name);
 		g_free (name);
 		
 		args = gtk_entry_get_text (GTK_ENTRY (dlg.args));

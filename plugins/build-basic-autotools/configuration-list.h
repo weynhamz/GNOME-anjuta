@@ -38,6 +38,7 @@ gint build_configuration_list_get_position (BuildConfigurationList *list, BuildC
 BuildConfiguration *build_configuration_next (BuildConfiguration *cfg);
 BuildConfiguration *build_configuration_list_get (BuildConfigurationList *list, const gchar *name);
 BuildConfiguration *build_configuration_list_select (BuildConfigurationList *list, const gchar *name);
+BuildConfiguration *build_configuration_list_create (BuildConfigurationList *list, const gchar *name);
 
 void build_configuration_list_set_project_uri (BuildConfigurationList *list, const gchar *uri);
 const gchar *build_configuration_get_translated_name (BuildConfiguration *cfg);

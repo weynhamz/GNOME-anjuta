@@ -127,236 +127,6 @@ build_unescape_string (const gchar *escaped)
 	return unesc;
 }
 
-#if 0
-
-/* Helper functions
- *---------------------------------------------------------------------------*/
-
-static void
-on_select_configuration (GtkComboBox *widget, gpointer user_data)
-{
-	BuildConfigureDialog *dlg = (BuildConfigureDialog *)user_data;
-	gchar *name;
-	
-	name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dlg->combo));
-	
-	if (*name == '\0')
-	{
-		/* Configuration name is mandatory disable Ok button */
-		gtk_widget_set_sensitive (dlg->ok, FALSE);
-	}
-	else
-	{
-		GList *node;
-		
-		gtk_widget_set_sensitive (dlg->ok, TRUE);
-		
-		for (node = dlg->config_list; node != NULL; node = g_list_next (node))
-		{
-			BuildConfiguration *cfg = (BuildConfiguration *)node->data;
-		
-			if (strcmp (name, cfg->name) == 0)
-			{
-				/* Find existing configuration */
-				if (cfg->args == NULL)
-				{
-					gtk_entry_set_text (GTK_ENTRY (dlg->args), "");
-				}
-				else
-				{
-					GString* args_str;
-					gchar **arg;
-				
-					args_str = g_string_new (NULL);
-					for (arg = cfg->args; *arg != NULL; arg++)
-					{
-						gchar *quoted_arg = g_shell_quote (*arg);
-						
-						g_string_append (args_str, quoted_arg);
-						g_free (quoted_arg);
-						g_string_append_c (args_str, ' ');
-					}
-					gtk_entry_set_text (GTK_ENTRY (dlg->args), args_str->str);
-					g_string_free (args_str, TRUE);
-				}
-
-				if (cfg->build_uri == NULL)
-				{
-					/* No build directory defined, use source directory */
-					gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), dlg->project_uri);
-				}
-				else
-				{
-					gchar *scheme;
-					
-					scheme = g_uri_parse_scheme (cfg->build_uri);
-					if (scheme)
-					{
-						/* Absolute directory */
-						g_free (scheme);
-						build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), cfg->build_uri);
-					}
-					else
-					{
-						GFile *dir;
-						GFile *build_dir;
-						gchar *build_uri;
-						
-						/* Relative directory */
-						dir = g_file_new_for_uri (dlg->project_uri);
-						build_dir = g_file_resolve_relative_path (dir,cfg->build_uri);
-						g_object_unref (dir);
-						build_uri = g_file_get_uri (build_dir);
-						g_object_unref (build_dir);
-						build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), build_uri);
-						g_free (build_uri);										
-					}
-					
-				}
-			}
-		}
-	}
-	g_free (name);
-}
-
-static void 
-fill_dialog (BuildConfigureDialog *dlg)
-{
-	GtkListStore* store = gtk_list_store_new(1, G_TYPE_STRING);
-	GList *node;
-	const DefaultBuildConfiguration *cfg;
-
-	/* Add default entry if missing */
-	for (cfg = default_config; cfg->name != NULL; cfg++)
-	{
-		for (node = g_list_first (dlg->config_list); node != NULL; node = g_list_next (node))
-		{
-			if (strcmp (((BuildConfiguration *)node->data)->name, cfg->name) == 0) break;
-		}
-		if (node == NULL)
-		{
-			/* Add configuration */
-			BuildConfiguration *new_cfg;
-			
-			new_cfg = g_new (BuildConfiguration, 1);
-			new_cfg->name = g_strdup (cfg->name);
-			new_cfg->build_uri = g_strdup (cfg->build_uri);
-			new_cfg->args = NULL;
-			if (cfg->args)
-			{
-				g_shell_parse_argv (cfg->args, NULL, &new_cfg->args, NULL);
-			}
-				
-			dlg->config_list = g_list_append (dlg->config_list, new_cfg);
-		}
-	}
-	
-	gtk_combo_box_set_model (GTK_COMBO_BOX(dlg->combo), GTK_TREE_MODEL(store));
-	gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (dlg->combo), 0);
-	
-	for (node = g_list_first (dlg->config_list); node != NULL; node = g_list_next (node))
-	{
-		GtkTreeIter iter;
-		
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set (store, &iter, 0, ((BuildConfiguration *)node->data)->name, -1);
-	}
-}
-
-static void
-save_configuration (BuildConfigureDialog *dlg)
-{
-	gchar *configuration;
-	GList *node;
-	BuildConfiguration *cfg;
-	gchar *uri;
-	
-	configuration = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dlg->combo));
-	
-	for (node = dlg->config_list; node != NULL; node = g_list_next (node))
-	{
-		cfg = (BuildConfiguration *)node->data;
-		
-		if (strcmp (configuration, cfg->name) == 0)
-		{
-			/* Move this configuration at the beginning */
-			dlg->config_list = g_list_remove_link (dlg->config_list, node);
-			dlg->config_list = g_list_concat (node, dlg->config_list);
-			g_free (configuration);
-			break;
-		}
-	}
-	if (node == NULL)
-	{
-		/* Create a new configuration */
-		dlg->config_list = g_list_prepend (dlg->config_list, g_new0 (BuildConfiguration, 1));
-		node = dlg->config_list;
-		cfg = (BuildConfiguration *)node->data;
-		cfg->name = configuration;
-	}
-	
-	g_strfreev (cfg->args);
-	cfg->args = NULL;
-	g_free (cfg->build_uri);
-	
-	g_shell_parse_argv (gtk_entry_get_text (GTK_ENTRY (dlg->args)), NULL, &cfg->args, NULL);
-	uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser));
-	cfg->build_uri = uri;
-}
-
-BuildConfiguration*
-build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, GList **config_list, gboolean *run_autogen)
-{
-	GladeXML* gxml;
-	BuildConfigureDialog dlg;
-	BuildConfiguration *cfg;
-
-	gint response;
-	
-	/* Get all dialog widgets */
-	gxml = glade_xml_new (GLADE_FILE, CONFIGURE_DIALOG, NULL);
-	dlg.win = glade_xml_get_widget (gxml, CONFIGURE_DIALOG);
-	dlg.combo = glade_xml_get_widget(gxml, CONFIGURATION_COMBO);
-	dlg.autogen = glade_xml_get_widget(gxml, RUN_AUTOGEN_CHECK);
-	dlg.build_dir_chooser = glade_xml_get_widget(gxml, BUILD_DIR_CHOOSER);
-	dlg.args = glade_xml_get_widget(gxml, CONFIGURE_ARGS_ENTRY);
-	dlg.ok = glade_xml_get_widget(gxml, OK_BUTTON);
-	g_object_unref (gxml);
-	
-	dlg.config_list = *config_list;
-	dlg.project_uri = project_root_uri;
-
-	/* Set run autogen option */	
-	if (*run_autogen) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dlg.autogen), TRUE);
-
-	g_signal_connect (dlg.combo, "changed", G_CALLBACK (on_select_configuration), &dlg);
-	
-	fill_dialog(&dlg);
-	gtk_combo_box_set_active (GTK_COMBO_BOX (dlg.combo), 0);	
-	
-	response = gtk_dialog_run (GTK_DIALOG (dlg.win));
-	
-	if (response == GTK_RESPONSE_OK)
-	{
-		save_configuration (&dlg);	
-		*config_list = dlg.config_list;
-		*run_autogen = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dlg.autogen));
-
-		cfg = build_configuration_copy ((BuildConfiguration *)dlg.config_list->data);
-		build_gtk_file_chooser_keep_folder (GTK_FILE_CHOOSER (dlg.build_dir_chooser), cfg->build_uri);		
-	}
-	else
-	{
-		cfg = NULL;
-	}
-	gtk_widget_destroy (GTK_WIDGET(dlg.win));
-
-	return cfg;
-}
-
-#endif
-
-
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -446,6 +216,29 @@ build_configuration_list_select (BuildConfigurationList *list, const gchar *name
 	BuildConfiguration *cfg = NULL;
 
 	if (name != NULL) cfg = build_configuration_list_get (list, name);
+	list->selected = cfg;
+	
+	return list->selected;
+}
+
+BuildConfiguration *
+build_configuration_list_create (BuildConfigurationList *list, const gchar *name)
+{
+	BuildConfiguration *cfg = NULL;
+	BuildConfiguration *prev;
+
+	if (name == NULL) return NULL;
+	
+	cfg = build_configuration_list_get (list, name);
+	if (cfg == NULL)
+	{
+		/* Add configuration */
+		cfg = g_new0 (BuildConfiguration, 1);
+		cfg->name = g_strdup (name);
+		for (prev = build_configuration_list_get_first (list); prev->next != NULL; prev = prev->next) ;
+		cfg->prev = prev;
+		prev->next = cfg;
+	}
 	list->selected = cfg;
 	
 	return list->selected;
