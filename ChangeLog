@@ -1,3 +1,30 @@
+2008-07-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/anjuta-plugin-vala.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/cpp.wiz,
+	plugins/project-wizard/templates/sdl.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/minimal.wiz,
+	plugins/project-wizard/templates/xlib.wiz,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/Makefile.am,
+	(added) plugins/project-wizard/templates/licenses/None,
+	(added) plugins/project-wizard/templates/licenses/GPL,
+	(added) plugins/project-wizard/templates/licenses/BSD,
+	(added) plugins/project-wizard/templates/licenses/LGPL,
+	plugins/project-wizard/templates/licenses/Makefile.am,
+	configure.in:
+	Fix #543978: GPL license shown in COPYING file irrespective of
+	which license selected
+
 2008-07-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c,

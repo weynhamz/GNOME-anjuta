@@ -1,7 +1,7 @@
 
 SUBDIRS = minimal terminal cpp gtk anjuta-plugin anjuta-plugin-vala gnome \
 	gtkmm wxwin xlib xlib-dock gcj java \
-	python mkfile sdl
+	python mkfile sdl licenses
 
 wizard_filesdir = $(anjuta_data_dir)/project
 wizard_files_DATA = \

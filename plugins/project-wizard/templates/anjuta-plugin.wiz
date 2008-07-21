@@ -106,6 +106,9 @@
 		</directory>
 		[+ENDIF+]
 	</directory>
+	<directory source="licenses" destination="[+Destination+]">
+		<file source="[+License+]" destination="COPYING"/>	
+	</directory>
 </content>
 
 <action>
