@@ -1,3 +1,10 @@
+2008-07-22  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix #544190: Crash double click on item in stack trace
+
 2008-07-21  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/terminal.wiz,

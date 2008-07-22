@@ -4424,14 +4424,14 @@ interface IAnjutaDebugManager
 	* IAnjutaDebugManager::location_changed:
 	* @obj: Self
 	* @address: program counter address, 0 when unknown
-	* @file: source file where is the program counter, NULL when unknown
+	* @uri: source file where is the program counter, NULL when unknown
 	* @line: line number if file name above is not NULL
 	* 
 	* This signal is emitted when the current location is changed. It is
 	* equal to the program location when the program stops but can be
 	* changed afterward by the user.
 	*/
-	void ::location_changed (gulong address, GFile* file, guint line);	
+	void ::location_changed (gulong address, const gchar* uri, guint line);	
 
 	/**
 	* IAnjutaDebugManager::signal_received:

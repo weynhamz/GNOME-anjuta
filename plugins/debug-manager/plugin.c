@@ -560,16 +560,18 @@ dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const g
 /* Called when the user want to go to another location */
 
 static void
-dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, GFile* file, guint line)
+dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gchar *uri, guint line)
 {
 	/* Go to location in editor */
-	if (file != NULL)
+	if (uri != NULL)
 	{
 		IAnjutaDocumentManager *docman;
         docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
         if (docman)
         {
+			GFile *file = g_file_new_for_uri (uri);
 			ianjuta_document_manager_goto_file_line (docman, file, line, NULL);
+			g_object_unref (file);
         }
 	}
 }
