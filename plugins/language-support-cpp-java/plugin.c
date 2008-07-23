@@ -915,9 +915,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			} while (ianjuta_iterable_previous (new_iter, NULL));
 			if (comment)
 			{
-				ianjuta_iterable_set_position (iter,
-											   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
-											   NULL);
+				ianjuta_iterable_assign (iter, new_iter, NULL);
+				ianjuta_iterable_previous (iter, NULL);
 				g_object_unref (new_iter);
 				continue;
 			}
@@ -996,9 +995,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 						}
 						if (possible_comment)
 						{
-							ianjuta_iterable_set_position (new_iter, 
-														   ianjuta_iterable_get_position (prev, NULL),
-														   NULL);
+							ianjuta_iterable_assign (new_iter, prev, NULL);
 							g_object_unref (prev);
 							g_object_unref (next);
 							continue;
@@ -1010,9 +1007,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			} while (ianjuta_iterable_previous (new_iter, NULL));
 			if (comment)
 			{
-				ianjuta_iterable_set_position (iter,
-											   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
-											   NULL);
+				ianjuta_iterable_assign (iter, new_iter, NULL);
+				ianjuta_iterable_previous (iter, NULL);
 				g_object_unref (new_iter);
 				continue;
 			}
