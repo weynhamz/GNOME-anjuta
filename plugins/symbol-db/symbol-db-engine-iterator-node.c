@@ -194,7 +194,7 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 	if (sym_info & SYMINFO_FILE_PATH)
 	{
 		value = gda_data_model_iter_get_value_for_field (priv->data_iter, 
-														 "file_path");
+														 "db_file_path");
 	}	
 	else if (sym_info & SYMINFO_LANGUAGE)
 	{

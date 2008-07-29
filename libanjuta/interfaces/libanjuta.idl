@@ -4669,6 +4669,7 @@ interface IAnjutaSymbolManager
 	* @match_types: If passed IANJUTA_TYPE_MAX the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @match_name: fixme
 	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
 	* 					string match_name.
@@ -4682,29 +4683,28 @@ interface IAnjutaSymbolManager
  	* @results_offset Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.
 	* 
-	* Database query. Returned iterable must be unrefed after use.
+	* Database query. The returned @IAnjutaIterable object must be unrefed after use.
 	* 
-	* Returns: fixme
 	*/
 	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_symbols_search, gboolean global_tags_search, gint results_limit, gint results_offset);
 	
 	/**
 	* ianjuta_symbol_manager_get_members:
 	* @obj: Self
-	* @symbol_name: fixme
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @global_search: fixme
 	* @err: Error propagation and reporting.
 	* 
-	* Database query. Returned iterable must be unrefed after use.
+	* Database query. The returned @IAnjutaIterable object must be unrefed after use.
 	* 
-	* Returns: fixme
 	*/
 	IAnjutaIterable* get_members (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
 	
 	/**
 	* ianjuta_symbol_manager_get_parents:
 	* @obj: Self
-	* @symbol_name: fixme
+	* @symbol: Symbol which you want to know the parent classes of.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
@@ -4712,6 +4712,56 @@ interface IAnjutaSymbolManager
 	* Returns: fixme
 	*/
 	IAnjutaIterable* get_class_parents (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
+
+	/**
+	* ianjuta_symbol_manager_get_scope: 
+	* @obj: Self
+	* @filename: full path of the file.
+	* @line line of @filename in which symbol exist.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @err: Error propagation and reporting.
+	* 
+	* Get the scope specified by the line of 
+    * the file. 
+	*
+	* Returns Iterator should contain just one element if the query is successful, 
+	* no element or NULL is returned if function went wrong.	
+	* 
+	*/
+	IAnjutaIterable* get_scope (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
+
+	/**
+	* ianjuta_symbol_manager_get_parent_scope: 
+	* @obj: Self
+	* @symbol: Symbol which you want to know the parent scope of.
+	* @filename: Can be NULL. Full path filename where to search for the parent scope symbol.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @err: Error propagation and reporting.
+	* 
+	* Find the parent scope given a symbol
+	* 
+	* The returned @IAnjutaIterable object should contain just one element if the 
+	* query is successful, 
+	* no element or NULL is returned if function went wrong.	
+	* The returned @IAnjutaIterable object must be unrefed after use.
+	*/	
+	IAnjutaIterable* get_parent_scope (IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
+
+	/**
+	* ianjuta_symbol_manager_get_symbol_more_info:
+	* @obj: Self
+	* @symbol symbol of which you want to know more infos about.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @err: Error propagation and reporting.	
+	*
+	* While at first sight this function may seem as useless, in a deeper inspection
+	* you can see that you can achieve speed improvements for example avoiding 
+	* to pass many info_fields requests to a search query, which itself could require
+	* complicated joins between engine tables, slowing down the thing.
+	* It's up to you to see which method is more performant.
+	*
+	*/	
+	IAnjutaIterable* get_symbol_more_info (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
 }
 
 /**

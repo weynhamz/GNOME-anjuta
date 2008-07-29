@@ -1572,7 +1572,7 @@ sdb_view_load_symbol_pixbufs ()
  * @return The pixbufs. It will initialize pixbufs first if they weren't before
  * @param node_access can be NULL.
  */
-const GdkPixbuf*
+inline const GdkPixbuf* 
 symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 {
 	gchar *search_node;

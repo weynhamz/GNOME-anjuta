@@ -863,6 +863,7 @@ static void
 do_import_system_src_after_abort (AnjutaPlugin *plugin, 
 								  const GPtrArray *sources_array)
 {
+#if 0	
 	SymbolDBPlugin *sdb_plugin;
 	GPtrArray* languages_array = NULL;
 	GPtrArray *to_scan_array = NULL;
@@ -914,13 +915,14 @@ do_import_system_src_after_abort (AnjutaPlugin *plugin,
 		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
 	}
 
-	symbol_db_parse_aborted_package (sdb_plugin->sdbs, 
+	symbol_db_system_parse_aborted_package (sdb_plugin->sdbs, 
 									 to_scan_array,
 									 languages_array);
 	
 	/* no need to free the GPtrArray, Huston. They'll be auto-destroyed in that
 	 * function 
 	 */
+#endif	
 }
 
 /* we assume that sources_array has already unique elements */
@@ -1031,7 +1033,7 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 										NULL);
 			
-	if (!lang_manager)
+	if (lang_manager == NULL)
 	{
 		g_critical ("LanguageManager not found");
 		return;
@@ -1040,6 +1042,12 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
 					   IANJUTA_PROJECT_MANAGER_SOURCE,
 					   NULL);
+	
+	if (prj_elements_list == NULL)
+	{
+		g_critical ("No sources found within this project");
+		return;
+	}
 	
 	/* to speed the things up we must avoid the dups */
 	check_unique_file = g_hash_table_new_full (g_str_hash, 
@@ -1686,6 +1694,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 					filter_array,
 					include_types,
 					global_symbols_search,
+					NULL,
 					results_limit,
 					results_offset,
 					info_fields);	
@@ -1752,12 +1761,93 @@ isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
 	return IANJUTA_ITERABLE (iterator);
 }
 
+static IAnjutaIterable*
+isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
+						   const gchar* filename,  
+						   gulong line,  
+						   IAnjutaSymbolField info_fields, 
+						   GError **err)
+{
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	
+	iterator = symbol_db_engine_get_current_scope (dbe, filename, line, info_fields);
+	
+	return IANJUTA_ITERABLE (iterator);
+}
+
+static IAnjutaIterable*
+isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
+								  IAnjutaSymbol *symbol, 
+								  const gchar *filename, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	SymbolDBEngineIteratorNode *node;
+	gint child_node_id, parent_node_id;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (symbol);
+	
+	child_node_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	
+	if (child_node_id <= 0)
+		return NULL;
+	
+	parent_node_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe,
+									child_node_id,
+									filename);
+
+	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, parent_node_id, 
+													   info_fields);
+	return IANJUTA_ITERABLE (iterator);
+}
+
+static IAnjutaIterable*
+isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
+								  IAnjutaSymbol *symbol, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	SymbolDBEngineIteratorNode *node;
+	gint node_id;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (symbol);
+	
+	node_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	
+	if (node_id <= 0)
+		return NULL;
+	
+	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, node_id, info_fields);	
+	
+	return IANJUTA_ITERABLE (iterator);
+}
+
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
 	iface->get_class_parents = isymbol_manager_get_class_parents;
+	iface->get_scope = isymbol_manager_get_scope;
+	iface->get_parent_scope = isymbol_manager_get_parent_scope;
+	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
 }
 
 static gint 

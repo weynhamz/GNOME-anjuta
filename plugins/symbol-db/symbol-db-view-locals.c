@@ -371,7 +371,7 @@ symbol_db_view_locals_new (void)
 	return GTK_WIDGET (g_object_new (SYMBOL_TYPE_DB_VIEW_LOCALS, NULL));
 }
 
-static GtkTreeRowReference *
+static inline GtkTreeRowReference *
 do_add_root_symbol_to_view (SymbolDBViewLocals *dbvl, const GdkPixbuf *pixbuf, 
 							const gchar* symbol_name, gint symbol_id)
 {

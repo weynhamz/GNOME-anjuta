@@ -363,7 +363,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	const gchar *root_uri;
-	gchar* tags;
 
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	  
@@ -636,7 +635,6 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 	const gchar *old_uri;
 	gboolean tags_update;
 	GtkTreeModel *file_symbol_model;
-	GtkAction *action;
 	AnjutaUI *ui;
 	
 	/* FIXME: Do this only if automatic tags update is enabled */
@@ -748,7 +746,6 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 	{
 		gchar *local_filename;
 		GtkTreeModel *file_symbol_model;
-		GtkAction *action;
 		
 		/* Verify that it's local file */
 		local_filename = gnome_vfs_get_local_path_from_uri (uri);
@@ -883,7 +880,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	AnjutaUI *ui;
 	SymbolBrowserPlugin *sv_plugin;
-	GtkAction *action;
 
 	/* let's remove the timeout for symbols refresh */
 	
@@ -1206,12 +1202,48 @@ isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
 	return NULL;
 }
 
+static IAnjutaIterable*
+isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
+						   const gchar* filename,  
+						   gulong line,  
+						   IAnjutaSymbolField info_fields, 
+						   GError **err)
+{
+	DEBUG_PRINT ("isymbol_manager_get_scope (): not implemented");
+	return NULL;
+}
+
+static IAnjutaIterable*
+isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
+								  IAnjutaSymbol *symbol, 
+								  const gchar *filename, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	DEBUG_PRINT ("isymbol_manager_get_parent_scope (): not implemented");
+	return NULL;	
+}
+
+
+static IAnjutaIterable*
+isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
+								  IAnjutaSymbol *symbol, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	DEBUG_PRINT ("isymbol_manager_get_symbol_more_info (): not implemented");
+	return NULL;
+}
+
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
 	iface->get_class_parents = isymbol_manager_get_class_parents;
+	iface->get_scope = isymbol_manager_get_scope;
+	iface->get_parent_scope = isymbol_manager_get_parent_scope;
+	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
 }
 
 static void

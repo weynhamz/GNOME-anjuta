@@ -735,7 +735,7 @@ symbol_db_system_is_package_parseable (SymbolDBSystem *sdbs,
 }
 
 void 
-symbol_db_parse_aborted_package (SymbolDBSystem *sdbs, 
+symbol_db_system_parse_aborted_package (SymbolDBSystem *sdbs, 
 								 GPtrArray *files_to_scan_array,
 								 GPtrArray *languages_array)
 {

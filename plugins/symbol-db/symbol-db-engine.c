@@ -184,6 +184,7 @@ typedef enum
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
 	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
+	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
 	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
 	PREP_QUERY_UPDATE_SYMBOL_ALL,
 	PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
@@ -333,6 +334,7 @@ static GObjectClass *parent_class = NULL;
 /* some forward declarations */
 static void 
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
+
 static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id,
@@ -797,7 +799,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 /**
  * @return -1 on error. Otherwise the id of tuple.
  */
-static gint
+static inline gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										const GValue * param_value)
@@ -857,7 +859,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
  * @return -1 on error. Otherwise the id of table
  *
  */
-static gint
+static inline gint
 sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -926,7 +928,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	return table_id;
 }
 
-static gint
+static inline gint
 sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -1474,7 +1476,7 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 }
 
 
-static inline void
+static void
 sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 {
 	SymbolDBEnginePriv *priv;
@@ -1988,7 +1990,16 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
-	 	"UPDATE symbol SET scope_id = ## /* name:'scopeid' type:gint */ "
+	 	"UPDATE symbol SET scope_id =  ## /* name:'scopeid' type:gint */ "
+	 	"WHERE symbol_id = ## /* name:'symbolid' type:gint */");
+	
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
+		"UPDATE symbol SET scope_id = (SELECT scope_definition_id FROM symbol "
+		"JOIN sym_type ON symbol.type_id "
+	 	"= sym_type.type_id WHERE sym_type.type_type = ## /* name:'tokenname' "
+	 	"type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
+	 	"type:gchararray */ LIMIT 1) "
 	 	"WHERE symbol_id = ## /* name:'symbolid' type:gint */");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -2013,7 +2024,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
 	 	"DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file "
-	 	"WHERE file_path = ## /* name:'filepath' type:gchararray */) "
+	 	"WHERE file.file_path = ## /* name:'filepath' type:gchararray */) "
 	 	"AND update_flag = 0");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -2986,8 +2997,11 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	GPtrArray * filtered_languages;
 	gboolean ret_code;
 	g_return_val_if_fail (dbe != NULL, FALSE);
+	g_return_val_if_fail (project_name != NULL, FALSE);
+	g_return_val_if_fail (files_path != NULL, FALSE);
+	g_return_val_if_fail (languages != NULL, FALSE);
 	priv = dbe->priv;
-
+	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (files_path->len > 0, FALSE);
 	g_return_val_if_fail (languages->len > 0, FALSE);
@@ -3042,7 +3056,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 }
 
 
-static gint
+static inline gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 /*
@@ -3442,7 +3456,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 }
 
 
-static gint
+static inline gint
 sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 									 gint type_table_id)
 {
@@ -3552,7 +3566,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
  *
  * @return the table_id of the inserted tuple. -1 on error.
  */
-static gint
+static inline gint
 sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry,
 									   gint symbol_referer_id)
@@ -3736,7 +3750,8 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 }
 
 /** Return the symbol_id of the changed symbol */
-static gint
+// FIXME: find a quicker way to handle the thing here.
+static inline gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   GdaDataModel * data, gint data_row,
 									   gchar * token_name,
@@ -3762,7 +3777,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	tmp_str = g_value_get_string (token_value);
 
 	/* we don't need empty strings */
-	if (strcmp (tmp_str, "") == 0)
+	if (strlen (tmp_str) <= 0)
 	{
 		return -1;
 	}
@@ -3800,7 +3815,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	value2 = gda_value_new (G_TYPE_STRING);
 	g_value_set_string (value2, object_name);
 
-	/* we're gonna access db. Lets lock here */
+	/* we're gonna access db. Let's lock here */
 	if (priv->mutex)
 		g_mutex_lock (priv->mutex);					
 	
@@ -3912,6 +3927,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	
 	priv = dbe->priv;
 
+	DEBUG_PRINT ("sdb_engine_second_pass_update_scope()");
 	/* temporary unlock. This function may take a while to be completed
 	 * so let other db-task to be executed, so that main thread
 	 * isn't locked up. 
@@ -3921,9 +3937,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);					
 	
+	DEBUG_PRINT ("processing %d rows", gda_data_model_get_n_rows (data));
+	
 	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
 	{
-		GValue *value;
+		GValue *value;		
 		
 		if ((value =
 			 (GValue *) gda_data_model_get_value_at_col_name (data,
@@ -3982,8 +4000,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 
 	/* relock */
 	if (priv->mutex)
-		g_mutex_lock (priv->mutex);					
-	
+		g_mutex_lock (priv->mutex);
 }
 
 
@@ -4001,7 +4018,8 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 	g_return_if_fail (dbe != NULL);
 	
 	priv = dbe->priv;
-
+	
+	DEBUG_PRINT ("sdb_engine_second_pass_update_heritage ()");
 	/* unlock */
 	if (priv->mutex)
 		g_mutex_unlock (dbe->priv->mutex);
@@ -4200,6 +4218,8 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 	SymbolDBEnginePriv *priv;
 
 	priv = dbe->priv;
+	
+	DEBUG_PRINT ("sdb_engine_second_pass_do()");
 	
 	/* prepare for scope second scan */
 	if ((stmt1 =
@@ -5714,7 +5734,7 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 		sym_info & SYMINFO_FILE_IGNORE  ||
 		sym_info & SYMINFO_FILE_INCLUDE) 
 	{
-		info_data = g_string_append (info_data, ",file.file_path AS file_path ");
+		info_data = g_string_append (info_data, ",file.file_path AS db_file_path ");
 		join_data = g_string_append (join_data, "LEFT JOIN file ON "
 				"symbol.file_defined_id = file.file_id ");
 	}
@@ -5838,9 +5858,6 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 				"WHERE heritage.symbol_id_derived = ## /* name:'childklassid' type:gint */", 
 						info_data->str, join_data->str);
 	
-		DEBUG_PRINT ("symbol_db_engine_get_class_parents_by_symbol_id query: %s", 
-					 query_str);
-		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
 						sym_info, 0,
@@ -6902,7 +6919,7 @@ es. scope_path = First, namespace, Second, namespace, NULL,
  * It will be possible to get the scope specified by the line of the file. 
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename, 
+symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local_file_path,
 									gulong line, SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
@@ -6913,15 +6930,25 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	GdaHolder *param;
 	GValue *value;
 	const DynChildQueryNode *dyn_node;
+	gchar *db_relative_file;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
+	
+	db_relative_file = symbol_db_engine_get_file_db_path (dbe, full_local_file_path);
+	if (db_relative_file == NULL)
+		return NULL;
+	
+	DEBUG_PRINT ("db_relative_file  %s", db_relative_file);
+	DEBUG_PRINT ("full_local_file_path %s", full_local_file_path);
 	
 	if (priv->mutex)
 	{
 		g_mutex_lock (priv->mutex);
 	}
 
+	sym_info = sym_info & ~SYMINFO_FILE_PATH;
+	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 		DYN_PREP_QUERY_GET_CURRENT_SCOPE, sym_info, 0)) == NULL)
 	{
@@ -6936,19 +6963,17 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 		/* fill info_data and join data with optional sql */
 		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 	
-		/* WARNING: probably there can be some problems with escaping file names here.
-	 	 * They should come already escaped as from project db.
-	 	 */
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-			"MIN(## /* name:'linenum' type:gint */ - symbol.file_position) "
-			"FROM symbol "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"%s FROM symbol "
 				"JOIN file ON file_defined_id = file_id "
-				"WHERE file.file_path = ## /* name:'filepath' type:gchararray */ "
-					"AND ## /* name:'linenum' type:gint */ - "
-					"symbol.file_position >= 0");
-
+				"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */ "
+					"AND symbol.file_position <= ## /* name:'linenum' type:gint */  "
+					"ORDER BY symbol.file_position DESC LIMIT 1", 
+									 info_data->str, join_data->str);
+/*		DEBUG_PRINT ("symbol_db_engine_get_current_scope () %s", query_str);*/
+		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_GET_CURRENT_SCOPE,
 						sym_info, 0,
@@ -6963,6 +6988,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	{		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
+		g_free (db_relative_file);
 		return NULL;
 	}
 	
@@ -6970,6 +6996,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	{
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
+		g_free (db_relative_file);
 		return NULL;
 	}
 		
@@ -6983,10 +7010,11 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	{
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);		
+		g_free (db_relative_file);
 		return NULL;
 	}
 		
-	gda_holder_set_value_str (param, NULL, filename);	
+	gda_holder_set_value_str (param, NULL, db_relative_file);
 	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
@@ -7001,11 +7029,15 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 		
 		if (priv->mutex)
 			g_mutex_unlock (priv->mutex);
+		g_free (db_relative_file);
 		return NULL;
 	}
 	
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
+	
+	g_free (db_relative_file);
+	
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash);
 }
@@ -7591,6 +7623,8 @@ select * from symbol where scope_definition_id = (
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_symbols_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.
+ * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
+ *        If yes then provide a GList, if no then pass NULL.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par.	 
  * @param sym_info Infos about symbols you want to know.
@@ -7604,6 +7638,7 @@ select * from symbol where scope_definition_id = (
 #define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					64
 #define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					128
 
+// FIXME handle session_projects
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
 									const gchar *pattern, 
@@ -7611,6 +7646,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
 									gboolean global_symbols_search,
+									GList *session_projects,
 									gint results_limit, 
 									gint results_offset,
 									SymExtraInfo sym_info)
@@ -7760,11 +7796,11 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					other_parameters)) == NULL)
 			{			
 				gint i;
-				/* info_data contains the stuff after SELECT and befor FROM */
+				/* info_data contains the stuff after SELECT and before FROM */
 				info_data = g_string_new ("");
 	
-				/* join_data contains the optionals joins to do to retrieve new data on other
-				 * tables.
+				/* join_data contains the optionals joins to do to retrieve new 
+				 * data on other tables.
 			 	 */
 				join_data = g_string_new ("");
 		

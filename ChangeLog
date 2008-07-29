@@ -1,3 +1,42 @@
+2008-07-19  Massimo Cora'  <maxcvs@email.it>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/symbol-browser/plugin.c (project_root_added),
+	(on_editor_saved), (update_editor_symbol_model),
+	(value_removed_current_editor), (isymbol_manager_get_scope),
+	(isymbol_manager_get_parent_scope),
+	(isymbol_manager_get_symbol_more_info),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/plugin.c (do_import_system_src_after_abort),
+	(do_import_sources), (isymbol_manager_search),
+	(isymbol_manager_get_scope), (isymbol_manager_get_parent_scope),
+	(isymbol_manager_get_symbol_more_info),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_get_symbol_extra_string):
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_init),
+	(symbol_db_engine_add_new_files),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_second_pass_do), (sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-system.c
+	(symbol_db_system_parse_aborted_package):
+	* plugins/symbol-db/symbol-db-system.h:
+	* plugins/symbol-db/symbol-db-view-locals.c:
+	* plugins/symbol-db/symbol-db-view.c:
+	* plugins/symbol-db/symbol-db-view.h:
+	* plugins/symbol-db/test/benchmark.c (main):
+
+  temporary disabled do_import_system_src_after_abort (). It needs more
+  performance tests.
+  Implemented some new methods for IAnjutaSymbolManager.  
+  More performances on population and displaying.
+
 2008-07-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/language-support-cpp-java/plugin.c:

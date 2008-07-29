@@ -284,6 +284,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param global_symbols_search If TRUE only global public function will be searched. If false
  *		  even private or static (for C language) will be searched.
+ * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
+ *        If yes then provide a GList, if no then pass NULL.	 
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par.
  * @param sym_info Infos about symbols you want to know.
@@ -295,6 +297,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
 									gboolean global_symbols_search,
+									GList *session_projects,													   
 									gint results_limit, 
 									gint results_offset,
 									SymExtraInfo sym_info);
@@ -318,12 +321,13 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 												 SymExtraInfo sym_info);
 
 /**
- * Return an iterator to the data retrieved from database. 
- * It will be possible to get the scope specified by the line of the file. 
+ * Get the scope specified by the line of the file. 
+ * Iterator should contain just one element if the query is successful, no element
+ * or NULL is returned if function went wrong.
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, 
-									const gchar* filename, gulong line, 
+									const gchar* full_local_file_path, gulong line, 
 									 SymExtraInfo sym_info);
 
 
@@ -366,7 +370,8 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
 									gint scoped_symbol_id,
 									const gchar* db_file);
 
-/** scope_path cannot be NULL.
+/** 
+ * scope_path cannot be NULL.
  * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
  * "scope2_name", NULL 
  */

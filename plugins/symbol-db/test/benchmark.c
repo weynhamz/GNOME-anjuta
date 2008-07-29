@@ -69,8 +69,7 @@ int main (int argc, char** argv)
 	}
 	root_dir = argv[1];
 	
-	GMutex *mutex = g_mutex_new ();
-    engine = symbol_db_engine_new (mutex);
+    engine = symbol_db_engine_new ("/usr/bin/ctags");
     
   
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))

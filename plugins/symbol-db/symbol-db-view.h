@@ -62,7 +62,7 @@ symbol_db_view_new (void);
 /* return the pixbufs. It will initialize pixbufs first if they weren't before
  * node_access: can be NULL.
  */
-const GdkPixbuf*
+inline const GdkPixbuf*
 symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access);
 
 void 
