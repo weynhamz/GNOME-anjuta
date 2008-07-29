@@ -757,7 +757,7 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 		gtk_widget_grab_focus (GTK_WIDGET (sv->priv->view));
 	}
 	else
-		sv->priv->goto_line = line;
+		sv->priv->goto_line = LOCATION_TO_LINE (line);
 }
 
 /* Scroll to position */

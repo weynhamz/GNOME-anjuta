@@ -1,3 +1,8 @@
+2008-07-29  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (ieditor_goto_line):
+	#544841 – Cursor set on a wrong line when I click
+
 2008-07-19  Massimo Cora'  <maxcvs@email.it>
 
 	* libanjuta/interfaces/libanjuta.idl:
