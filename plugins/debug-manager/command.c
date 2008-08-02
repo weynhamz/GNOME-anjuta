@@ -624,6 +624,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	}
+	va_end (args);
 
 	return cmd;
 }

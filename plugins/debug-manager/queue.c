@@ -37,8 +37,6 @@
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 
-#include <stdarg.h>
-
 /* Contants defintion
  *---------------------------------------------------------------------------*/
 

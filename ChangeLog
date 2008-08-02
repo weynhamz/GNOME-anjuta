@@ -1,3 +1,9 @@
+2008-08-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+ 	* plugins/debug-manager/command.c,
+	plugins/debug-manager/queue.c:
+	Small code cleaning
+
 2008-07-29  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c (ieditor_goto_line):
