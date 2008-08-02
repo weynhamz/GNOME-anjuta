@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-19 11:47+0200\n"
-"PO-Revision-Date: 2008-07-19 11:57+0200\n"
+"POT-Creation-Date: 2008-08-02 23:39+0200\n"
+"PO-Revision-Date: 2008-08-02 23:46+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -252,13 +252,13 @@ msgstr "Esquecer o complemento seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1497
-#: ../plugins/debug-manager/queue.c:558
+#: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1498
-#: ../plugins/debug-manager/queue.c:559
+#: ../plugins/debug-manager/queue.c:557
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -638,258 +638,266 @@ msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:422
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:476
 msgid "Command aborted"
 msgstr "Comando abortado"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:821
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:875
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:857
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:911
 #, c-format
 msgid "Leaving: %s"
 msgstr "Deixando: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:890
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:944
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
 #, c-format
 msgid "Command exited with status %d"
 msgstr "O comando saíu con estado %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1022
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1076
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado polo usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1081
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando abortado polo usuario"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1032
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Comando terminado con sinal %d"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
 msgid "Command terminated for an unknown reason"
 msgstr "Comando terminado cunha razón descoñecida"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1112
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total empregado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
 msgid "Completed unsuccessful\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1114
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1168
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construír %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1480
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1546
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non se pode compilar \"%s\": Non se definiu unha regra de compilación para "
 "este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1624
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1690
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "Non se pode configurar o proxecto: Falta o guión de configuración en %s."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1929
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2003
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2013
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2031
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2105
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2115
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2133
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2143
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
 #, c-format
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1933
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
 msgid "_Build Project"
 msgstr "_Construír proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1934
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
 msgid "Build whole project"
 msgstr "Construír o proxecto completo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1939
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
 msgid "_Install Project"
 msgstr "_Instalar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1940
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1945
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
 msgid "_Clean Project"
 msgstr "_Limpar proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1946
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
 msgid "Clean whole project"
 msgstr "Limpa todo o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1951
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
 msgid "C_onfigure Project..."
 msgstr "C:onfigurar o proxecto..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1952
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1957
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2059
 msgid "Build _Tarball"
 msgstr "Construír _paquete de distribución"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1958
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2060
 msgid "Build project tarball distribution"
 msgstr "Constrúe un paquete para a distribución do proxecto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1963
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2065
 msgid "_Build Module"
 msgstr "_Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1964
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
 msgid "Build module associated with current file"
 msgstr "Constrúe o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1969
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2071
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1970
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2072
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1975
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2077
 msgid "_Clean Module"
 msgstr "_Limpar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1976
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2078
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo asociado co ficheiro actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1981
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2083
 msgid "Co_mpile File"
 msgstr "Co_mpilar ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1982
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2084
 msgid "Compile current editor file"
 msgstr "Compila o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1987
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2089
 msgid "Select Configuration"
 msgstr "Seleccionar configuración"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1988
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2090
 msgid "Select current configuration"
 msgstr "Seleccionar a configuración actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1993
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2095
 msgid "Remove Configuration"
 msgstr "Eliminar configuración"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1994
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2096
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpar proxecto (distclean) e eliminar directorio de configuración se é "
 "posible"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2007
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2109
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2137
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2008
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2110
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2138
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2014
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2116
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2144
 msgid "Build module"
 msgstr "Construír módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2019
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2121
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2149
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2020
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2122
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2150
 msgid "Install module"
 msgstr "Instalar módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2025
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2127
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2155
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2026
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2128
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2156
 msgid "Clean module"
 msgstr "Limpar módulo"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
+msgid "_Cancel command"
+msgstr "_Cancelar comando"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2162
+msgid "Cancel build command"
+msgstr "Cancelar o comando de construción"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2168
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2175
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2183
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2653
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2763
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2660
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2770
 msgid "Build popup commands"
 msgstr "Comandos de construcción emerxentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3057
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3075
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3167
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:3185
 msgid "Build Autotools"
 msgstr "Ferramentas automáticas de construción"
 
@@ -1542,7 +1550,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades dos puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1967
+#: ../plugins/debug-manager/breakpoints.c:1965
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1618,13 +1626,13 @@ msgid "Inspect/Evaluate"
 msgstr "Inspeccionar/Evaluar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/plugin.c:927
-#: ../plugins/debug-manager/plugin.c:1027 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:929
+#: ../plugins/debug-manager/plugin.c:1029 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Sinais do núcleo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1894
+#: ../plugins/debug-manager/breakpoints.c:1892
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Ubicación"
@@ -1766,152 +1774,152 @@ msgstr "_Eliminar todo"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/breakpoints.c:1660
+#: ../plugins/debug-manager/breakpoints.c:1658
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Está seguro de que quere eliminar tódolos puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1757
+#: ../plugins/debug-manager/breakpoints.c:1755
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1763
 msgid "Toggle Breakpoint"
 msgstr "Alternar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1767
+#: ../plugins/debug-manager/breakpoints.c:1765
 msgid "Toggle breakpoint at the current location"
 msgstr "Conmutar punto de parada na localización actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Add Breakpoint..."
 msgstr "Engadir punto de parada..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1775
+#: ../plugins/debug-manager/breakpoints.c:1773
 msgid "Add a breakpoint"
 msgstr "Engadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Remove Breakpoint"
 msgstr "Eliminar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1783
+#: ../plugins/debug-manager/breakpoints.c:1781
 msgid "Remove a breakpoint"
 msgstr "Eliminar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Edit Breakpoint"
 msgstr "Editar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1791
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Edit breakpoint properties"
 msgstr "Editar as propiedades dos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1868
+#: ../plugins/debug-manager/breakpoints.c:1795
+#: ../plugins/debug-manager/breakpoints.c:1866
 msgid "Enable Breakpoint"
 msgstr "Activar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1799
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1797
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1803
 msgid "Disable All Breakpoints"
 msgstr "Desactivar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1807
+#: ../plugins/debug-manager/breakpoints.c:1805
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tódolos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "R_emove All Breakpoints"
 msgstr "_Eliminar todos os puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1815
+#: ../plugins/debug-manager/breakpoints.c:1813
 msgid "Remove all breakpoints"
 msgstr "Eliminar todos os puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1822
 msgid "Jump to Breakpoint"
 msgstr "Saltar ao punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1826
+#: ../plugins/debug-manager/breakpoints.c:1824
 msgid "Jump to breakpoint location"
 msgstr "Saltar ao punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1863
+#: ../plugins/debug-manager/breakpoints.c:1861
 msgid "Disable Breakpoint"
 msgstr "Desactivar tódolos puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1864
+#: ../plugins/debug-manager/breakpoints.c:1862
 msgid "Disable a breakpoint"
 msgstr "Desactivar un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1894
+#: ../plugins/debug-manager/breakpoints.c:1892
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:1894
+#: ../plugins/debug-manager/breakpoints.c:1892
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Enderezo"
 
-#: ../plugins/debug-manager/breakpoints.c:1894
+#: ../plugins/debug-manager/breakpoints.c:1892
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:1895
+#: ../plugins/debug-manager/breakpoints.c:1893
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:1895
+#: ../plugins/debug-manager/breakpoints.c:1893
 msgid "Pass count"
 msgstr "Contaxe de pasadas"
 
-#: ../plugins/debug-manager/breakpoints.c:1895
+#: ../plugins/debug-manager/breakpoints.c:1893
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1944
-#: ../plugins/debug-manager/breakpoints.c:1950
+#: ../plugins/debug-manager/breakpoints.c:1942
+#: ../plugins/debug-manager/breakpoints.c:1948
 msgid "Breakpoint operations"
 msgstr "Operacións de puntos de parada"
 
@@ -1993,189 +2001,189 @@ msgstr "O programa recibiu o sinal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:819 ../plugins/valgrind/plugin.c:437
+#: ../plugins/debug-manager/plugin.c:821 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: ../plugins/debug-manager/plugin.c:827
+#: ../plugins/debug-manager/plugin.c:829
 msgid "_Start Debugger"
 msgstr "_Iniciar depurador"
 
-#: ../plugins/debug-manager/plugin.c:835
+#: ../plugins/debug-manager/plugin.c:837
 msgid "_Debug Program"
 msgstr "_Depurar programa"
 
-#: ../plugins/debug-manager/plugin.c:837
+#: ../plugins/debug-manager/plugin.c:839
 msgid "Start debugger and load the program"
 msgstr "Iniciar o depurador e cargar o programa"
 
-#: ../plugins/debug-manager/plugin.c:843
+#: ../plugins/debug-manager/plugin.c:845
 msgid "_Debug Process..."
 msgstr "_Depurar proceso..."
 
-#: ../plugins/debug-manager/plugin.c:845
+#: ../plugins/debug-manager/plugin.c:847
 msgid "Start debugger and attach to a running program"
 msgstr "Iniciar o depurador e anexar a un programa en execución"
 
-#: ../plugins/debug-manager/plugin.c:851
+#: ../plugins/debug-manager/plugin.c:853
 msgid "Stop Debugger"
 msgstr "Deter depurador"
 
-#: ../plugins/debug-manager/plugin.c:853
+#: ../plugins/debug-manager/plugin.c:855
 msgid "Say goodbye to the debugger"
 msgstr "Despídase do depurador"
 
-#: ../plugins/debug-manager/plugin.c:859
+#: ../plugins/debug-manager/plugin.c:861
 msgid "Add source paths..."
 msgstr "Engadir rutas das fontes..."
 
-#: ../plugins/debug-manager/plugin.c:861
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Add additional source paths"
 msgstr "Engadir rutas adicionais de fontes"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:871 ../plugins/debug-manager/plugin.c:979
+#: ../plugins/debug-manager/plugin.c:873 ../plugins/debug-manager/plugin.c:981
 msgid "Debugger Command..."
 msgstr "Comando de depuración..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:873 ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:875 ../plugins/debug-manager/plugin.c:983
 msgid "Custom debugger command"
 msgstr "Comando personalizado de depuración"
 
-#: ../plugins/debug-manager/plugin.c:879 ../plugins/debug-manager/plugin.c:987
+#: ../plugins/debug-manager/plugin.c:881 ../plugins/debug-manager/plugin.c:989
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:887
+#: ../plugins/debug-manager/plugin.c:889
 msgid "Info _Target Files"
 msgstr "Información de ficheiros _obxectivo"
 
-#: ../plugins/debug-manager/plugin.c:889
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar información dos ficheiros cos que o depurador está traballando"
 
-#: ../plugins/debug-manager/plugin.c:895
+#: ../plugins/debug-manager/plugin.c:897
 msgid "Info _Program"
 msgstr "Información do _programa"
 
-#: ../plugins/debug-manager/plugin.c:897
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Display information on the execution status of the program"
 msgstr "Mostrar información sobre o estado da execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:903
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Info _Kernel User Struct"
 msgstr "Información do User Struct do _núcleo"
 
-#: ../plugins/debug-manager/plugin.c:905
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Mostrar o contido da 'struct user' do núcleo para o fillo actual"
 
-#: ../plugins/debug-manager/plugin.c:919
-#: ../plugins/debug-manager/plugin.c:1019
+#: ../plugins/debug-manager/plugin.c:921
+#: ../plugins/debug-manager/plugin.c:1021
 msgid "Shared Libraries"
 msgstr "Bibliotecas compartidas..."
 
-#: ../plugins/debug-manager/plugin.c:921
-#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Show shared libraries mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:929
-#: ../plugins/debug-manager/plugin.c:1029
+#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Show kernel signals"
 msgstr "Mostrar sinais do núcleo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:941
 msgid "Run/_Continue"
 msgstr "E_xecutar/Continuar"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:943
 msgid "Continue the execution of the program"
 msgstr "Continuar a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:949
 msgid "Step _In"
 msgstr "Avan_zar"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:951
 msgid "Single step into function"
 msgstr "Avanzar un paso na función"
 
-#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:957
 msgid "Step O_ver"
 msgstr "Avanzar _sobre"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Single step over function"
 msgstr "Avanzar ata chamada a función"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:965
 msgid "Step _Out"
 msgstr "Avanzar ao fi_nal"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Single step out of the function"
 msgstr "Avanzar ata o final da función actual"
 
-#: ../plugins/debug-manager/plugin.c:971
+#: ../plugins/debug-manager/plugin.c:973
 msgid "_Run to Cursor"
 msgstr "_Executar ata cursor"
 
-#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:975
 msgid "Run to the cursor"
 msgstr "Executar ata o cursor"
 
-#: ../plugins/debug-manager/plugin.c:995
+#: ../plugins/debug-manager/plugin.c:997
 msgid "Info _Global Variables"
 msgstr "Info das variables _globais"
 
-#: ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:999
 msgid "Display all global and static variables of the program"
 msgstr "Mostrar todas as variables globais e estáticas do programa"
 
-#: ../plugins/debug-manager/plugin.c:1003
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "Info _Current Frame"
 msgstr "Info do marco _actual"
 
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar información sobre o marco actual de execución"
 
-#: ../plugins/debug-manager/plugin.c:1011
+#: ../plugins/debug-manager/plugin.c:1013
 msgid "Info Function _Arguments"
 msgstr "Info dos _argumentos de función"
 
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Display function arguments of the current frame"
 msgstr "Mostrar os argumentos de función do marco actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Pa_use Program"
 msgstr "Pa_usar programa"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Pauses the execution of the program"
 msgstr "Pausa a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:1081
-#: ../plugins/debug-manager/plugin.c:1087
-#: ../plugins/debug-manager/plugin.c:1093
-#: ../plugins/debug-manager/plugin.c:1099
+#: ../plugins/debug-manager/plugin.c:1083
+#: ../plugins/debug-manager/plugin.c:1089
+#: ../plugins/debug-manager/plugin.c:1095
+#: ../plugins/debug-manager/plugin.c:1101
 msgid "Debugger operations"
 msgstr "Operacións de depuración"
 
-#: ../plugins/debug-manager/queue.c:545
+#: ../plugins/debug-manager/queue.c:543
 #, c-format
 msgid ""
 "Unable to find one debugger plugin supporting a target with %s mime type"
@@ -2506,7 +2514,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:961
+#: ../plugins/symbol-browser/plugin.c:957
 msgid "Search"
 msgstr "Buscar"
 
@@ -2880,7 +2888,7 @@ msgstr "Repetir busca rápida"
 
 #: ../plugins/document-manager/plugin.c:279 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1838
+#: ../plugins/language-support-cpp-java/plugin.c:1834
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -5626,6 +5634,12 @@ msgid ""
 "suffix in package names and can be found by searching in your Application "
 "Manager."
 msgstr ""
+"Os programas que faltan son normalmente parte de algúns paquetes de "
+"distribución e pódense buscar no seu xestor de aplicacións. De maneira "
+"similar, os paquetes de desenvolvemento están contidos en paquetes especiais "
+"que a súa distribución proporciona para permitirlle desenvolver proxectos "
+"baseados en eles. Xeralmente acaban co sufixo -dev ou -devel no nome do "
+"paquete e pódense encontrar buscando no seu xestor de aplicacións."
 
 #: ../plugins/project-wizard/druid.c:947
 msgid "Unable to build project assistant user interface."
@@ -6070,7 +6084,7 @@ msgstr "Directorio do Scratchbox:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
 msgid "Sélectionner un dossier"
-msgstr ""
+msgstr "Seleccionar un cartafol"
 
 #: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
 msgid "Scratchbox"
@@ -7189,33 +7203,33 @@ msgstr "Buscar uso do símbolo no proxecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar a árbore do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:386
+#: ../plugins/symbol-browser/plugin.c:385
 msgid "Created symbols..."
 msgstr "Símbolos creados..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:920
+#: ../plugins/symbol-browser/plugin.c:916
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:940
+#: ../plugins/symbol-browser/plugin.c:936
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:984
+#: ../plugins/symbol-browser/plugin.c:980
 msgid "Symbol browser actions"
 msgstr "Accións do examinador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:991
+#: ../plugins/symbol-browser/plugin.c:987
 msgid "Symbol browser popup actions"
 msgstr "Accións emerxentes do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:998
+#: ../plugins/symbol-browser/plugin.c:994
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1007
+#: ../plugins/symbol-browser/plugin.c:1003
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -8234,38 +8248,38 @@ msgstr "Sangrado intelixente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangrado en espazos:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1844
+#: ../plugins/language-support-cpp-java/plugin.c:1840
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1845
+#: ../plugins/language-support-cpp-java/plugin.c:1841
 msgid "AutoComplete the current word"
 msgstr "Autocompletar a palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1851
+#: ../plugins/language-support-cpp-java/plugin.c:1847
 msgid "Auto Indent"
 msgstr "Sangrado automático"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1852
+#: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña actual ou a selección baseándose nos axustes "
 "de sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1857
+#: ../plugins/language-support-cpp-java/plugin.c:1853
 msgid "Swap .h/.c"
 msgstr "Alternar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1858
+#: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "Swap c header and source files"
 msgstr "Alternar a cabeceira c e os ficheiros fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1901
+#: ../plugins/language-support-cpp-java/plugin.c:1897
 msgid "C++/Java Assistance"
 msgstr "Asistente C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1989
-#: ../plugins/language-support-cpp-java/plugin.c:1998
+#: ../plugins/language-support-cpp-java/plugin.c:1985
+#: ../plugins/language-support-cpp-java/plugin.c:1994
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
