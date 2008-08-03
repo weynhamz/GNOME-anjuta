@@ -603,7 +603,10 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 						break;
 					}
 					else
+					{
+						g_free (current_key);
 						current = g_utf8_next_char (current);
+					}
 				}
 				g_free (search_key);
 			}
