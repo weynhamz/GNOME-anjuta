@@ -1,3 +1,11 @@
+2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/libanjuta.h:
+	Add missing anjuta-message-area include
+
+	* libanjuta/anjuta-convert.h:
+	Rename GeditConvertError to AnjutaConvertError
+
 2008-08-03  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

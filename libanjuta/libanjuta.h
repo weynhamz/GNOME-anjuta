@@ -27,6 +27,7 @@
 #include <libanjuta/anjuta-enum-types.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/anjuta-message-area.h>
 #include <libanjuta/anjuta-plugin-description.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-plugin-manager.h>

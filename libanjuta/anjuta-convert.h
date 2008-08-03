@@ -36,7 +36,7 @@
 typedef enum 
 {
 	ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED = 1100
-} GeditConvertError;
+} AnjutaConvertError;
 
 #define ANJUTA_CONVERT_ERROR anjuta_convert_error_quark()
 GQuark anjuta_convert_error_quark (void);
