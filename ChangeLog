@@ -1,5 +1,10 @@
 2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/build-basic-autotools/program.c:
+	Fix crash on 64bits machine due to the previous change (thanks Ignacio)
+
+2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/gdb/plugin.c,
 	plugins/debug-manager/command.c,

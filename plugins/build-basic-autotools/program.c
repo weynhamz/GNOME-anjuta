@@ -105,8 +105,6 @@ build_strv_insert_before (gchar ***pstrv, gint pos)
 	gsize count;
 	gchar **strv = *pstrv;
 	
-	g_return_val_if_fail (pos >= 0, FALSE);
-	
 	if (strv == NULL)
 	{
 		/* First argument, allocate memory */
@@ -122,7 +120,7 @@ build_strv_insert_before (gchar ***pstrv, gint pos)
 		count = g_strv_length (strv);
 
 		new_strv = g_new (gchar *, count + 2);
-		if (pos < count)
+		if ((pos >= 0) && (pos < count))
 			memcpy (&new_strv[pos + 1], &strv[pos], sizeof (gchar *) * (count - pos));
 		else
 			pos = count;
@@ -278,7 +276,7 @@ build_program_add_env (BuildProgram *prog, const gchar *name, const gchar *value
 	if (found == -1)
 	{
 		/* Append variable */
-		*build_strv_insert_before (&prog->envp, G_MAXSSIZE) = name_and_value;
+		*build_strv_insert_before (&prog->envp, -1) = name_and_value;
 	}
 	else
 	{
