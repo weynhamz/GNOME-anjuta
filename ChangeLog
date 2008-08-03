@@ -1,3 +1,9 @@
+2008-08-03  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/scratchbox/anjuta-scrachbox.glade:
+	Fixed string.
+
 2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* (renamed) plugins/build-basic-autotools/plugin.c,
