@@ -579,7 +579,7 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 		self->support |= IANJUTA_IS_DEBUGGER_BREAKPOINT(self->debugger) ? HAS_BREAKPOINT : 0;
 		if (IANJUTA_IS_DEBUGGER_BREAKPOINT (self->debugger))
 		{
-			self->support |= ianjuta_debugger_breakpoint_implement (IANJUTA_DEBUGGER_BREAKPOINT (self->debugger), NULL) * HAS_BREAKPOINT * 2;
+			self->support |= ianjuta_debugger_breakpoint_implement_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (self->debugger), NULL) * HAS_BREAKPOINT * 2;
 		}			
 		/* Check if variable interface is available */
 		self->support |= IANJUTA_IS_DEBUGGER_VARIABLE(self->debugger) ? HAS_VARIABLE : 0;

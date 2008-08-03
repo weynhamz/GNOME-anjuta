@@ -3843,7 +3843,7 @@ interface IAnjutaDebugger
 		}
 
 		/**
-		* ianjuta_debugger_breakpoint_implement:
+		* ianjuta_debugger_breakpoint_implement_breakpoint:
 		* @obj: Self
 		* @err: Error propagation and reporting.
 		* 
@@ -3852,10 +3852,10 @@ interface IAnjutaDebugger
 		* Returns: A OR of IAnjutaDebuggerBreakpointMethod
 		* corresponding to all implemented optional methods.
 		*/
-		gint implement ();
+		gint implement_breakpoint ();
 		
 		/**
-		* ianjuta_debugger_breakpoint_set_at_line:
+		* ianjuta_debugger_breakpoint_set_breakpoint_at_line:
 		* @obj: Self
 		* @file: File containing the breakpoint
 		* @line: Line number where is the breakpoint
@@ -3868,11 +3868,11 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
 
 	
 		/**
-		* ianjuta_debugger_breakpoint_set_at_address:
+		* ianjuta_debugger_breakpoint_set_breakpoint_at_address:
 		* @obj: Self
 		* @address: Address of the breakpoint
 		* @callback: Callback to call when the breakpoint has been set
@@ -3885,10 +3885,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_at_address (gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_address (gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
 	
 		/**
-		* ianjuta_debugger_breakpoint_set_at_function:
+		* ianjuta_debugger_breakpoint_set_breakpoint_at_function:
 		* @obj: Self
 		* @file: File containing the breakpoint
 		* @function: Function name where the breakpoint is put
@@ -3902,10 +3902,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
 	
 		/**
-		* ianjuta_debugger_breakpoint_clear:
+		* ianjuta_debugger_breakpoint_clear_breakpoint:
 		* @obj: Self
 		* @id: Breakpoint identification number
 		* @callback: Callback to call when the breakpoint has been cleared
@@ -3918,10 +3918,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean clear (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean clear_breakpoint (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
-		* ianjuta_debugger_breakpoint_list:
+		* ianjuta_debugger_breakpoint_list_breakpoint:
 		* @obj: Self
 		* @callback: Callback to call with the list of breakpoints
 		* @user_data: User data that is passed back to the callback
@@ -3933,10 +3933,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean list (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_breakpoint (IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
-		* ianjuta_debugger_breakpoint_enable:
+		* ianjuta_debugger_breakpoint_enable_breakpoint:
 		* @obj: Self
 		* @id: Breakpoint identification number
 		* @enable: TRUE to enable the breakpoint, FALSE to disable it
@@ -3949,10 +3949,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean enable (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean enable_breakpoint (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
 	
 		/**
-		* ianjuta_debugger_breakpoint_ignore:
+		* ianjuta_debugger_breakpoint_ignore_breakpoint:
 		* @obj: Self
 		* @id: Breakpoint identification number
 		* @ignore: Number of time a breakpoint must be ignored
@@ -3966,10 +3966,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean ignore (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean ignore_breakpoint (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
 	
 		/**
-		* ianjuta_debugger_breakpoint_condition:
+		* ianjuta_debugger_breakpoint_condition_breakpoint:
 		* @obj: Self
 		* @id: Breakpoint identification number
 		* @condition: fixme
@@ -3984,7 +3984,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean condition (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean condition_breakpoint (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
 	}
 
 	/**
@@ -4126,7 +4126,7 @@ interface IAnjutaDebugger
 		}
 
 		/**
-		* ianjuta_debugger_register_list:
+		* ianjuta_debugger_register_list_register:
 		* @obj: Self
 		* @callback: Callback to call with the register list
 		* @user_data: User data that is passed back to the callback
@@ -4138,10 +4138,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_register (IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
-		* ianjuta_debugger_register_update:
+		* ianjuta_debugger_register_update_register:
 		* @obj: Self
 		* @callback: Callback call with the list of all modified registers
 		* @user_data: User data that is passed back to the callback
@@ -4153,10 +4153,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean update_register (IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
-		* ianjuta_debugger_register_write:
+		* ianjuta_debugger_register_write_register:
 		* @obj: Self
 		* @value: Modified register with a new value
 		* @err: Error propagation and reporting.
@@ -4165,7 +4165,7 @@ interface IAnjutaDebugger
 		*
 		* Returns: TRUE if the request succeed.
 		*/
-		gboolean write (Data *value);
+		gboolean write_register (Data *value);
 	}
 	
 	/**
@@ -4247,7 +4247,7 @@ interface IAnjutaDebugger
 		gboolean disassemble (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
-		* ianjuta_debugger_instruction_step_in:
+		* ianjuta_debugger_instruction_step_in_instruction:
 		* @obj: Self
 		* @err: Error propagation and reporting.
 		* 
@@ -4256,10 +4256,10 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean step_in ();
+		gboolean step_in_instruction ();
 	
 		/**
-		* ianjuta_debugger_instruction_step_over:
+		* ianjuta_debugger_instruction_step_over_instruction:
 		* @obj: Self
 		* @err: Error propagation and reporting.
 		* 
@@ -4269,7 +4269,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean step_over ();
+		gboolean step_over_instruction ();
 	
 		/**
 		* ianjuta_debugger_instruction_run_to_address:

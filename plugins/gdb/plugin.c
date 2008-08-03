@@ -897,15 +897,15 @@ idebugger_breakpoint_list (IAnjutaDebuggerBreakpoint *plugin, IAnjutaDebuggerCal
 static void
 idebugger_breakpoint_iface_init (IAnjutaDebuggerBreakpointIface *iface)
 {
-	iface->implement = idebugger_breakpoint_implement;
-	iface->set_at_line = idebugger_breakpoint_add_at_line;
-	iface->clear = idebugger_breakpoint_remove;
-	iface->list = idebugger_breakpoint_list;
-	iface->set_at_address = idebugger_breakpoint_add_at_address;
-	iface->set_at_function = idebugger_breakpoint_add_at_function;
-	iface->enable = idebugger_breakpoint_enable;
-	iface->ignore = idebugger_breakpoint_ignore;
-	iface->condition = idebugger_breakpoint_condition;
+	iface->implement_breakpoint = idebugger_breakpoint_implement;
+	iface->set_breakpoint_at_line = idebugger_breakpoint_add_at_line;
+	iface->clear_breakpoint = idebugger_breakpoint_remove;
+	iface->list_breakpoint = idebugger_breakpoint_list;
+	iface->set_breakpoint_at_address = idebugger_breakpoint_add_at_address;
+	iface->set_breakpoint_at_function = idebugger_breakpoint_add_at_function;
+	iface->enable_breakpoint = idebugger_breakpoint_enable;
+	iface->ignore_breakpoint = idebugger_breakpoint_ignore;
+	iface->condition_breakpoint = idebugger_breakpoint_condition;
 }
 
 /* Implementation of IAnjutaDebuggerRegister interface
@@ -944,9 +944,9 @@ idebugger_register_write (IAnjutaDebuggerRegister *plugin, IAnjutaDebuggerRegist
 static void
 idebugger_register_iface_init (IAnjutaDebuggerRegisterIface *iface)
 {
-	iface->list = idebugger_register_list;
-	iface->update = idebugger_register_update;
-	iface->write = idebugger_register_write;
+	iface->list_register = idebugger_register_list;
+	iface->update_register = idebugger_register_update;
+	iface->write_register = idebugger_register_write;
 }
 
 /* Implementation of IAnjutaDebuggerMemory interface
@@ -1015,8 +1015,8 @@ static void
 idebugger_instruction_iface_init (IAnjutaDebuggerInstructionIface *iface)
 {
 	iface->disassemble = idebugger_instruction_disassemble;
-	iface->step_in = idebugger_instruction_step_in;
-	iface->step_over = idebugger_instruction_step_over;
+	iface->step_in_instruction = idebugger_instruction_step_in;
+	iface->step_over_instruction = idebugger_instruction_step_over;
 	iface->run_to_address = idebugger_instruction_run_to_address;
 }
 
