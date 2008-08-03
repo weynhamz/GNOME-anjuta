@@ -35,7 +35,7 @@ struct  _BuildConfiguration
 {
 	gchar *name;
 	gchar *build_uri;
-	gchar **args;
+	gchar *args;
 	gboolean translate;
 	BuildConfiguration *next;
 	BuildConfiguration *prev;
@@ -139,7 +139,7 @@ build_configuration_list_free_list (BuildConfigurationList *list)
 	{
 		BuildConfiguration *next = cfg->next;
 		
-		if (cfg->args) g_strfreev (cfg->args);
+		if (cfg->args) g_free (cfg->args);
 		if (cfg->build_uri) g_free (cfg->build_uri);
 		if (cfg->name) g_free (cfg->name);
 		g_free (cfg);
@@ -322,7 +322,7 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 		}
 		if ((cfg->args == NULL) && (dcfg->args))
 		{
-				g_shell_parse_argv (dcfg->args, NULL, &cfg->args, NULL);
+				cfg->args = g_strdup (dcfg->args);
 		}
 	}	
 }
@@ -422,14 +422,11 @@ build_configuration_get_relative_build_uri (BuildConfiguration *cfg)
 void
 build_configuration_set_args (BuildConfiguration *cfg, const gchar *args)
 {
-	if (cfg->args) g_strfreev (cfg->args);
-	if (args != NULL)
-	{
-		g_shell_parse_argv (args, NULL, &cfg->args, NULL);
-	}
+	if (cfg->args) g_free (cfg->args);
+	cfg->args = args != NULL ? g_strdup (args) : NULL;
 }
 
-gchar **
+const gchar *
 build_configuration_get_args (BuildConfiguration *cfg)
 {
 	return cfg->args;

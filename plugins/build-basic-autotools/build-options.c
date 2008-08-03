@@ -257,8 +257,6 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	else
 	{
 		BuildConfiguration *cfg;
-		GString* args_str;
-		gchar **arg;
 		gchar *uri;
 		
 		gtk_widget_set_sensitive (dlg->ok, TRUE);
@@ -267,21 +265,7 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 		
 		if (cfg != NULL)
 		{
-			args_str = g_string_new (NULL);
-			arg = build_configuration_get_args (cfg);
-			if (arg)
-			{
-				for (; *arg != NULL; arg++)
-				{
-					gchar *quoted_arg = g_shell_quote (*arg);
-						
-					g_string_append (args_str, quoted_arg);
-					g_free (quoted_arg);
-					g_string_append_c (args_str, ' ');
-				}
-			}
-			gtk_entry_set_text (GTK_ENTRY (dlg->args), args_str->str);
-			g_string_free (args_str, TRUE);
+			gtk_entry_set_text (GTK_ENTRY (dlg->args), build_configuration_get_args (cfg));
 		
 			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
 			build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);

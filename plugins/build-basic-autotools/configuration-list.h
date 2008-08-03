@@ -47,6 +47,6 @@ gboolean build_configuration_list_set_build_uri (BuildConfigurationList *list, B
 gchar *build_configuration_list_get_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg);
 const gchar *build_configuration_get_relative_build_uri (BuildConfiguration *cfg);
 void build_configuration_set_args (BuildConfiguration *cfg, const gchar *args);
-gchar **build_configuration_get_args (BuildConfiguration *cfg);
+const gchar *build_configuration_get_args (BuildConfiguration *cfg);
 
 #endif /* CONFIGURATION_LIST_H */

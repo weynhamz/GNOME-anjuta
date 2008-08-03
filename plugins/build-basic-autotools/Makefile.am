@@ -38,14 +38,16 @@ plugin_LTLIBRARIES = libanjuta-build-basic-autotools.la
 
 # Plugin sources
 libanjuta_build_basic_autotools_la_SOURCES = \
-	build-basic-autotools.c \
-	build-basic-autotools.h \
+	plugin.c \
+	plugin.h \
 	executer.c \
 	executer.h \
 	build-options.c \
 	build-options.h \
 	configuration-list.c \
-	configuration-list.h
+	configuration-list.h \
+	program.c \
+	program.h
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \

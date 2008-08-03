@@ -1,3 +1,20 @@
+2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* (renamed) plugins/build-basic-autotools/plugin.c,
+	(removed) plugins/build-basic-autotools/build-basic-autotools.c,
+	(renamed) plugins/build-basic-autotools/plugin.h,
+	(removed) plugins/build-basic-autotools/build-basic-autotools.h,
+	(added) plugins/build-basic-autotools/program.c,
+	(added) plugins/build-basic-autotools/program.h,
+	plugins/build-basic-autotools/configuration-list.c,
+	plugins/build-basic-autotools/configuration-list.h,
+	plugins/build-basic-autotools/build-options.c,
+	plugins/build-basic-autotools/executer.h,
+	plugins/build-basic-autotools/Makefile.am:
+	Rename build-basic-autotools.{ch} to plugin.{ch}
+	Fix several memory leaks in build plugin
+	Keep all command data in one object
+
 2008-08-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
  	* plugins/debug-manager/command.c,

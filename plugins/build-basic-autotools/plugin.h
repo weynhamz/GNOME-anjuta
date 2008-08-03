@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    build-basic-autotools.h
+    plugin.h
     Copyright (C) 2000 Naba Kumar
 
     This program is free software; you can redistribute it and/or modify
@@ -18,8 +18,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __BUILD_BASIC_AUTOTOOLS_H__
-#define __BUILD_BASIC_AUTOTOOLS_H__
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>

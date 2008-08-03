@@ -19,7 +19,7 @@
 #ifndef _EXECUTE_H_
 #define _EXECUTE_H_
 
-#include "build-basic-autotools.h"
+#include "plugin.h"
 
 void execute_program (BasicAutotoolsPlugin* plugin,
 					  const gchar *pre_select_uri);
