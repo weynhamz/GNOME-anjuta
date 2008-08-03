@@ -806,7 +806,7 @@ msgstr "Limpa todo o proxecto"
 
 #: ../plugins/build-basic-autotools/plugin.c:2003
 msgid "C_onfigure Project..."
-msgstr "C:onfigurar o proxecto..."
+msgstr "C_onfigurar o proxecto..."
 
 #: ../plugins/build-basic-autotools/plugin.c:2004
 msgid "Configure project"
