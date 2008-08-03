@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-02 23:39+0200\n"
-"PO-Revision-Date: 2008-08-02 23:46+0200\n"
+"POT-Creation-Date: 2008-08-03 21:44+0200\n"
+"PO-Revision-Date: 2008-08-03 21:45+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -612,295 +612,6 @@ msgstr "Seleccionar un directorio de construción"
 msgid "Translate messages"
 msgstr "Traducir mensaxes"
 
-#. The translations should match that of 'make' program. Both strings uses
-#. * pearl regular expression
-#. * 2 similar strings are used in order to parse the output of 2 different
-#. * version of make if necessary. If you update one string, move the first
-#. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:152
-msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+directorio\\s+`(.+)'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:153
-msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+directorio\\s+'(.+)'"
-
-#. The translations should match that of 'make' program. Both strings uses
-#. * pearl regular expression
-#. * 2 similar strings are used in order to parse the output of 2 different
-#. * version of make if necessary. If you update one string, move the first
-#. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:161
-msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+`(.+)'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:162
-msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+'(.+)'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:476
-msgid "Command aborted"
-msgstr "Comando abortado"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:875
-#, c-format
-msgid "Entering: %s"
-msgstr "Entrando: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:911
-#, c-format
-msgid "Leaving: %s"
-msgstr "Deixando: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:944
-#: ../plugins/tools/execute.c:329
-msgid "warning:"
-msgstr "aviso:"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
-#, c-format
-msgid "Command exited with status %d"
-msgstr "O comando saíu con estado %d"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1076
-#, c-format
-msgid "Command canceled by user"
-msgstr "Comando cancelado polo usuario"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1081
-#, c-format
-msgid "Command aborted by user"
-msgstr "Comando abortado polo usuario"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
-#, c-format
-msgid "Command terminated with signal %d"
-msgstr "Comando terminado con sinal %d"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
-msgid "Command terminated for an unknown reason"
-msgstr "Comando terminado cunha razón descoñecida"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1112
-#, c-format
-msgid "Total time taken: %lu secs\n"
-msgstr "Tempo total empregado: %lu segundos\n"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
-msgid "Completed unsuccessful\n"
-msgstr "Completado incorrectamente\n"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
-#: ../plugins/tools/execute.c:514
-msgid "Completed successful\n"
-msgstr "Completado correctamente\n"
-
-#. Translators: the first number is the number of the build attemp,
-#. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1168
-#, c-format
-msgid "Build %d: %s"
-msgstr "Construír %d: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1546
-#, c-format
-msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr ""
-"Non se pode compilar \"%s\": Non se definiu unha regra de compilación para "
-"este tipo de ficheiro."
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1690
-#, c-format
-msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
-"Non se pode configurar o proxecto: Falta o guión de configuración en %s."
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2031
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2105
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2115
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2133
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2143
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
-#, c-format
-msgid "_Build"
-msgstr "_Construír"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
-msgid "_Build Project"
-msgstr "_Construír proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
-msgid "Build whole project"
-msgstr "Construír o proxecto completo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
-msgid "_Install Project"
-msgstr "_Instalar proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
-msgid "Install whole project"
-msgstr "Instalar todo o proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
-msgid "_Clean Project"
-msgstr "_Limpar proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
-msgid "Clean whole project"
-msgstr "Limpa todo o proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
-msgid "C_onfigure Project..."
-msgstr "C:onfigurar o proxecto..."
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
-msgid "Configure project"
-msgstr "Configurar o proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2059
-msgid "Build _Tarball"
-msgstr "Construír _paquete de distribución"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2060
-msgid "Build project tarball distribution"
-msgstr "Constrúe un paquete para a distribución do proxecto"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2065
-msgid "_Build Module"
-msgstr "_Construír módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
-msgid "Build module associated with current file"
-msgstr "Constrúe o módulo asociado co ficheiro actual"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2071
-msgid "_Install Module"
-msgstr "_Instalar módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2072
-msgid "Install module associated with current file"
-msgstr "Instala un módulo asociado co ficheiro actual"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2077
-msgid "_Clean Module"
-msgstr "_Limpar módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2078
-msgid "Clean module associated with current file"
-msgstr "Limpa o módulo asociado co ficheiro actual"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2083
-msgid "Co_mpile File"
-msgstr "Co_mpilar ficheiro"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2084
-msgid "Compile current editor file"
-msgstr "Compila o ficheiro actual do editor"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2089
-msgid "Select Configuration"
-msgstr "Seleccionar configuración"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2090
-msgid "Select current configuration"
-msgstr "Seleccionar a configuración actual"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2095
-msgid "Remove Configuration"
-msgstr "Eliminar configuración"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2096
-msgid ""
-"Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
-"Limpar proxecto (distclean) e eliminar directorio de configuración se é "
-"posible"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2109
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2137
-msgid "_Compile"
-msgstr "_Compilar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2110
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2138
-msgid "Compile file"
-msgstr "Compilar o ficheiro"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2116
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2144
-msgid "Build module"
-msgstr "Construír módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2121
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2149
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
-#, c-format
-msgid "_Install"
-msgstr "_Instalar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2122
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2150
-msgid "Install module"
-msgstr "Instalar módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2127
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2155
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
-#, c-format
-msgid "_Clean"
-msgstr "_Limpar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2128
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2156
-msgid "Clean module"
-msgstr "Limpar módulo"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
-msgid "_Cancel command"
-msgstr "_Cancelar comando"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2162
-msgid "Cancel build command"
-msgstr "Cancelar o comando de construción"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
-#, c-format
-msgid "_Build (%s)"
-msgstr "_Construír (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
-#, c-format
-msgid "_Install (%s)"
-msgstr "_Instalar (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
-#, c-format
-msgid "_Clean (%s)"
-msgstr "_Limpar (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
-#, c-format
-msgid "Co_mpile (%s)"
-msgstr "Co_mpilar (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
-#, c-format
-msgid "Co_mpile"
-msgstr "Co_mpilar"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2763
-msgid "Build commands"
-msgstr "Comandos de construcción"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2770
-msgid "Build popup commands"
-msgstr "Comandos de construcción emerxentes"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3167
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3185
-msgid "Build Autotools"
-msgstr "Ferramentas automáticas de construción"
-
 #: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
 msgid "Default"
@@ -959,6 +670,295 @@ msgstr "Non hai executable para este ficheiro."
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "O executable '%s' non está actualizado."
+
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:145
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+directorio\\s+`(.+)'"
+
+#: ../plugins/build-basic-autotools/plugin.c:146
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+directorio\\s+'(.+)'"
+
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:154
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+`(.+)'"
+
+#: ../plugins/build-basic-autotools/plugin.c:155
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+directorio\\s+'(.+)'"
+
+#: ../plugins/build-basic-autotools/plugin.c:701
+#, c-format
+msgid "Entering: %s"
+msgstr "Entrando: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:737
+#, c-format
+msgid "Leaving: %s"
+msgstr "Deixando: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:770
+#: ../plugins/tools/execute.c:329
+msgid "warning:"
+msgstr "aviso:"
+
+#: ../plugins/build-basic-autotools/plugin.c:891
+#, c-format
+msgid "Command exited with status %d"
+msgstr "O comando saíu con estado %d"
+
+#: ../plugins/build-basic-autotools/plugin.c:901
+#, c-format
+msgid "Command canceled by user"
+msgstr "Comando cancelado polo usuario"
+
+#: ../plugins/build-basic-autotools/plugin.c:906
+#, c-format
+msgid "Command aborted by user"
+msgstr "Comando abortado polo usuario"
+
+#: ../plugins/build-basic-autotools/plugin.c:911
+#, c-format
+msgid "Command terminated with signal %d"
+msgstr "Comando terminado con sinal %d"
+
+#: ../plugins/build-basic-autotools/plugin.c:919
+msgid "Command terminated for an unknown reason"
+msgstr "Comando terminado cunha razón descoñecida"
+
+#: ../plugins/build-basic-autotools/plugin.c:935
+#, c-format
+msgid "Total time taken: %lu secs\n"
+msgstr "Tempo total empregado: %lu segundos\n"
+
+#: ../plugins/build-basic-autotools/plugin.c:940
+msgid "Completed unsuccessful\n"
+msgstr "Completado incorrectamente\n"
+
+#: ../plugins/build-basic-autotools/plugin.c:945
+#: ../plugins/tools/execute.c:514
+msgid "Completed successful\n"
+msgstr "Completado correctamente\n"
+
+#. Translators: the first number is the number of the build attemp,
+#. the string is the directory where the build takes place
+#: ../plugins/build-basic-autotools/plugin.c:991
+#, c-format
+msgid "Build %d: %s"
+msgstr "Construír %d: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:1528
+#, c-format
+msgid "Can not compile \"%s\": No compile rule defined for this file type."
+msgstr ""
+"Non se pode compilar \"%s\": Non se definiu unha regra de compilación para "
+"este tipo de ficheiro."
+
+#: ../plugins/build-basic-autotools/plugin.c:1599
+#, c-format
+msgid "Can not configure project: Missing configure script in %s."
+msgstr ""
+"Non se pode configurar o proxecto: Falta o guión de configuración en %s."
+
+#: ../plugins/build-basic-autotools/plugin.c:1981
+#: ../plugins/build-basic-autotools/plugin.c:2055
+#: ../plugins/build-basic-autotools/plugin.c:2065
+#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2093
+#: ../plugins/build-basic-autotools/plugin.c:2221
+#, c-format
+msgid "_Build"
+msgstr "_Construír"
+
+#: ../plugins/build-basic-autotools/plugin.c:1985
+msgid "_Build Project"
+msgstr "_Construír proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1986
+msgid "Build whole project"
+msgstr "Construír o proxecto completo"
+
+#: ../plugins/build-basic-autotools/plugin.c:1991
+msgid "_Install Project"
+msgstr "_Instalar proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1992
+msgid "Install whole project"
+msgstr "Instalar todo o proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1997
+msgid "_Clean Project"
+msgstr "_Limpar proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1998
+msgid "Clean whole project"
+msgstr "Limpa todo o proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:2003
+msgid "C_onfigure Project..."
+msgstr "C:onfigurar o proxecto..."
+
+#: ../plugins/build-basic-autotools/plugin.c:2004
+msgid "Configure project"
+msgstr "Configurar o proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:2009
+msgid "Build _Tarball"
+msgstr "Construír _paquete de distribución"
+
+#: ../plugins/build-basic-autotools/plugin.c:2010
+msgid "Build project tarball distribution"
+msgstr "Constrúe un paquete para a distribución do proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:2015
+msgid "_Build Module"
+msgstr "_Construír módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2016
+msgid "Build module associated with current file"
+msgstr "Constrúe o módulo asociado co ficheiro actual"
+
+#: ../plugins/build-basic-autotools/plugin.c:2021
+msgid "_Install Module"
+msgstr "_Instalar módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2022
+msgid "Install module associated with current file"
+msgstr "Instala un módulo asociado co ficheiro actual"
+
+#: ../plugins/build-basic-autotools/plugin.c:2027
+msgid "_Clean Module"
+msgstr "_Limpar módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2028
+msgid "Clean module associated with current file"
+msgstr "Limpa o módulo asociado co ficheiro actual"
+
+#: ../plugins/build-basic-autotools/plugin.c:2033
+msgid "Co_mpile File"
+msgstr "Co_mpilar ficheiro"
+
+#: ../plugins/build-basic-autotools/plugin.c:2034
+msgid "Compile current editor file"
+msgstr "Compila o ficheiro actual do editor"
+
+#: ../plugins/build-basic-autotools/plugin.c:2039
+msgid "Select Configuration"
+msgstr "Seleccionar configuración"
+
+#: ../plugins/build-basic-autotools/plugin.c:2040
+msgid "Select current configuration"
+msgstr "Seleccionar a configuración actual"
+
+#: ../plugins/build-basic-autotools/plugin.c:2045
+msgid "Remove Configuration"
+msgstr "Eliminar configuración"
+
+#: ../plugins/build-basic-autotools/plugin.c:2046
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
+msgstr ""
+"Limpar proxecto (distclean) e eliminar directorio de configuración se é "
+"posible"
+
+#: ../plugins/build-basic-autotools/plugin.c:2059
+#: ../plugins/build-basic-autotools/plugin.c:2087
+msgid "_Compile"
+msgstr "_Compilar"
+
+#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2088
+msgid "Compile file"
+msgstr "Compilar o ficheiro"
+
+#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2094
+msgid "Build module"
+msgstr "Construír módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2071
+#: ../plugins/build-basic-autotools/plugin.c:2099
+#: ../plugins/build-basic-autotools/plugin.c:2228
+#, c-format
+msgid "_Install"
+msgstr "_Instalar"
+
+#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2100
+msgid "Install module"
+msgstr "Instalar módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2077
+#: ../plugins/build-basic-autotools/plugin.c:2105
+#: ../plugins/build-basic-autotools/plugin.c:2235
+#, c-format
+msgid "_Clean"
+msgstr "_Limpar"
+
+#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2106
+msgid "Clean module"
+msgstr "Limpar módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:2111
+msgid "_Cancel command"
+msgstr "_Cancelar comando"
+
+#: ../plugins/build-basic-autotools/plugin.c:2112
+msgid "Cancel build command"
+msgstr "Cancelar o comando de construción"
+
+#: ../plugins/build-basic-autotools/plugin.c:2221
+#, c-format
+msgid "_Build (%s)"
+msgstr "_Construír (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2228
+#, c-format
+msgid "_Install (%s)"
+msgstr "_Instalar (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2235
+#, c-format
+msgid "_Clean (%s)"
+msgstr "_Limpar (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2243
+#, c-format
+msgid "Co_mpile (%s)"
+msgstr "Co_mpilar (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2243
+#, c-format
+msgid "Co_mpile"
+msgstr "Co_mpilar"
+
+#: ../plugins/build-basic-autotools/plugin.c:2741
+msgid "Build commands"
+msgstr "Comandos de construcción"
+
+#: ../plugins/build-basic-autotools/plugin.c:2748
+msgid "Build popup commands"
+msgstr "Comandos de construcción emerxentes"
+
+#: ../plugins/build-basic-autotools/plugin.c:3111
+#: ../plugins/build-basic-autotools/plugin.c:3129
+msgid "Build Autotools"
+msgstr "Ferramentas automáticas de construción"
+
+#: ../plugins/build-basic-autotools/program.c:377
+msgid "Command aborted"
+msgstr "Comando abortado"
 
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:165
@@ -6083,8 +6083,8 @@ msgid "Scratchbox directory:"
 msgstr "Directorio do Scratchbox:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
-msgid "Sélectionner un dossier"
-msgstr "Seleccionar un cartafol"
+msgid "Select Scratchbox Folder"
+msgstr "Seleccionar cartafol de scratchbox"
 
 #: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
 msgid "Scratchbox"
@@ -8521,6 +8521,9 @@ msgstr "Xestor de linguas"
 msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para manter o seguimento das múltiples linguaxes de programación"
+
+#~ msgid "Sélectionner un dossier"
+#~ msgstr "Seleccionar un cartafol"
 
 #~ msgid "<b>Build Options:</b>"
 #~ msgstr "<b>Opcións de construción:</b>"

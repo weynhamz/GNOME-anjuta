@@ -24,10 +24,11 @@ libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
-plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c
+plugins/build-basic-autotools/plugin.c
+plugins/build-basic-autotools/program.c
 plugins/class-inheritance/class-inherit.c
 plugins/class-inheritance/plugin.c
 plugins/class-gen/anjuta-class-gen-plugin.glade
