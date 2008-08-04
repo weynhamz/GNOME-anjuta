@@ -128,6 +128,9 @@ typedef struct
 	
 	/* Environment */
 	IAnjutaEnvironment *environment;
+
+	/* Saved files */
+	gint file_saved;
 } BuildContext;
 
 /* Declarations */
@@ -1122,64 +1125,67 @@ save_all_files (AnjutaPlugin *plugin)
 	}
 }
 
-static gboolean
-build_execute_command_in_context (BuildContext* context, BuildProgram *prog,
-								  GError **err)
+static void
+build_set_command_in_context (BuildContext* context, BuildProgram *prog)
 {
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (context->plugin->shell, NULL);
-
 	if (context->program != NULL)
 		build_program_free (context->program);
 	context->program = prog;
 	context->used = TRUE;
+}
+
+static gboolean
+build_execute_command_in_context (BuildContext* context, GError **err)
+{
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (context->plugin->shell, NULL);
 	
 	/* Send options to make */
-	if (strcmp (build_program_get_basename (prog), "make") == 0)
+	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
 		if (!anjuta_preferences_get_int (prefs , PREF_TRANSLATE_MESSAGE))
 		{
-			build_program_add_env (prog, "LANGUAGE", "C");
+			build_program_add_env (context->program, "LANGUAGE", "C");
 		}
 		if (anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE))
 		{
 			gchar *arg = g_strdup_printf ("-j%d", anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE_JOB));
-			build_program_insert_arg (prog, 1, arg);
+			build_program_insert_arg (context->program, 1, arg);
 			g_free (arg);
 		}
 		if (anjuta_preferences_get_int (prefs , PREF_CONTINUE_ON_ERROR))
 		{
-			build_program_insert_arg (prog, 1, "-k");
+			build_program_insert_arg (context->program, 1, "-k");
 		}
 	}
 	
-	build_program_override (prog, context->environment);
+	build_program_override (context->program, context->environment);
 	
 	/* Add current directory */
-	build_program_add_env (prog, "PWD", prog->work_dir);
+	build_program_add_env (context->program, "PWD", context->program->work_dir);
 	
 	if (context->message_view)
 	{
 		gchar *command;
 		
-		command = g_strjoinv (" ", prog->argv);
+		command = g_strjoinv (" ", context->program->argv);
 		ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
-		ianjuta_message_view_buffer_append (context->message_view, prog->work_dir, NULL);
+		ianjuta_message_view_buffer_append (context->message_view, context->program->work_dir, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 		ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 		g_free (command);
 	
 		anjuta_launcher_execute_v (context->launcher,
-								   prog->argv,
-								   prog->envp,
+								   context->program->argv,
+								   context->program->envp,
 								   on_build_mesg_arrived, context);
 	}
 	else
 	{
 		anjuta_launcher_execute_v (context->launcher,
-								   prog->argv,
-								   prog->envp,
+								   context->program->argv,
+								   context->program->envp,
 								   NULL, NULL);
 	}		
 	
@@ -1211,7 +1217,8 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
 	
 	context = build_get_context (bplugin, prog->work_dir, with_view);
 
-	ok = build_execute_command_in_context (context, prog, err);
+	build_set_command_in_context (context, prog);
+	ok = build_execute_command_in_context (context, err);
 	
 	if (ok)
 	{
@@ -1225,30 +1232,61 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
 	}
 }
 
+static void
+build_delayed_execute_command (IAnjutaFileSavable *savable, GFile *file, gpointer user_data)
+{
+	BuildContext *context = (BuildContext *)user_data;
+
+	if (savable != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (savable, G_CALLBACK (build_delayed_execute_command), user_data); 
+		context->file_saved--;
+	}	
+	
+	if (context->file_saved == 0)
+	{
+		build_execute_command_in_context (context, NULL);
+	}
+}
+
 static BuildContext*
 build_save_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
 								gboolean with_view, GError **err)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
 	BuildContext *context;
-	gboolean ok;
-	
-	context = build_get_context (bplugin, prog->work_dir, with_view);
+	IAnjutaDocumentManager *docman;
 
-	save_all_files (ANJUTA_PLUGIN (plugin));
-	
-	ok = build_execute_command_in_context (context, prog, err);
-	
-	if (ok)
+	context = build_get_context (bplugin, prog->work_dir, with_view);
+	build_set_command_in_context (context, prog);
+	context->file_saved = 0;
+
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
+	/* No document manager, so no file to save */
+	if (docman != NULL)
 	{
-		return context;
+		GList *doc_list = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+		GList *node;
+
+		for (node = g_list_first (doc_list); node != NULL; node = g_list_next (node))
+		{
+			if (IANJUTA_IS_FILE_SAVABLE (node->data))
+			{
+				IAnjutaFileSavable* save = IANJUTA_FILE_SAVABLE (node->data);
+				if (ianjuta_file_savable_is_dirty (save, NULL))
+				{
+					context->file_saved++;
+					g_signal_connect (G_OBJECT (save), "saved", G_CALLBACK (build_delayed_execute_command), context);
+					ianjuta_file_savable_save (save, NULL);
+				}
+			}
+		}
+		g_list_free (doc_list);		
 	}
-	else
-	{
-		build_context_destroy (context);
-		
-		return NULL;
-	}
+	
+	build_delayed_execute_command (NULL, NULL, context);
+	
+	return context;
 }
 
 static void
@@ -1615,7 +1653,8 @@ build_configure_after_autogen (GObject *sender,
 													   (gchar *)user_data);
 				build_program_set_callback (prog, build_project_configured, NULL);
 		
-				build_execute_command_in_context ((BuildContext *)context, prog, NULL);
+				build_set_command_in_context (context, prog);
+				build_execute_command_in_context (context, NULL);
 			}
 		}
 		g_free (filename);

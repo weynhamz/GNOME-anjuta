@@ -1,3 +1,9 @@
+2008-08-04  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/sourceview/sourceview-io.c,
+	plugins/build-basic-autotools/plugin.c:
+	Fix #543149 Project doesn't rebuild when file is changed
+
 2008-08-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/program.c:

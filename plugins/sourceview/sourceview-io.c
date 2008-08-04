@@ -226,8 +226,8 @@ on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
 	else
 	{
 		set_display_name (sio);
-		g_signal_emit_by_name (sio, "save-finished");
 		g_output_stream_close(G_OUTPUT_STREAM (output_stream), NULL, NULL);
+		g_signal_emit_by_name (sio, "save-finished");
 		setup_monitor (sio);
 	}
 	g_free (sio->write_buffer);
