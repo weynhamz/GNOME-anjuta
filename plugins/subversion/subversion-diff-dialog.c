@@ -48,6 +48,8 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 	{
 		case GTK_RESPONSE_OK:
 		{
+			gchar *aux;
+
 			diff_path_entry = glade_xml_get_widget (data->gxml, 
 													"diff_path_entry");
 			diff_no_recursive_check = glade_xml_get_widget (data->gxml, 
@@ -69,8 +71,10 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
 			filename = get_filename_from_full_path ((gchar *) path);
-			editor_name = g_strdup_printf ("[Head/Working Copy] %s.diff", 
-										   filename);
+			
+			aux = g_strdup (_("[Head/Working Copy]"));
+			editor_name = g_strdup_printf ("%s %s.diff", aux, filename);
+			g_free (aux);
 			editor = ianjuta_document_manager_add_buffer(docman, editor_name, 
 														 "", NULL);
 			

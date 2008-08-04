@@ -1,3 +1,13 @@
+2008-07-10  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by Naba Kumar  <naba@gnome.org>:
+
+	* libanjuta/anjuta-vcs-status-tree-view.c:
+	* plugins/subversion/subversion-diff-dialog.c:
+	Marked string for translation.
+	* plugins/subversion/subversion-ui-utils.c:
+	Fixed memory leak.
+
 2008-08-04  Naba Kumar  <naba@gnome.org>
 
 	Patch from James Liggett:

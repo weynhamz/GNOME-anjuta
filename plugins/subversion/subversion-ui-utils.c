@@ -123,6 +123,8 @@ get_log_from_textview (GtkWidget* textview)
 /* #warning FIXME: Check for escape chars in log */
 	/* Fixed. -naba*/
 	escaped_log = anjuta_util_escape_quotes (log);
+	g_free (log);
+
 	return escaped_log;
 }
 
@@ -181,7 +183,6 @@ report_errors (AnjutaCommand *command, guint return_code)
 		
 		anjuta_util_dialog_error (NULL, message);
 		g_free (message);
-	}
 }
 
 static void
