@@ -1043,6 +1043,7 @@ tagmanager/include/Makefile
 global-tags/Makefile
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
+libanjuta/anjuta-version.h
 libanjuta/interfaces/Makefile
 src/Makefile
 pixmaps/Makefile
