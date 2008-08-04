@@ -58,6 +58,7 @@ enum
 {
 	DATA_ARRIVED,
 	COMMAND_FINISHED,
+	PROGRESS,
 
 	LAST_SIGNAL
 };
@@ -97,8 +98,10 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->start = NULL;
 	klass->notify_data_arrived = NULL;
 	klass->notify_complete = NULL;
+	klass->notify_progress = NULL;
 	klass->set_error_message = anjuta_command_set_error_message;
 	klass->get_error_message = anjuta_command_get_error_message;
+	klass->progress = NULL;
 
 	/**
 	 * AnjutaCommand::data-arrived:
@@ -134,6 +137,25 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 		              g_cclosure_marshal_VOID__UINT ,
 		              G_TYPE_NONE, 1,
 		              G_TYPE_UINT);
+	
+	
+	/**
+	 * AnjutaCommand::progress:
+	 * @command: Command
+	 * @progress: Fraction of the command's task that is complete, between 0.0
+	 *			  and 1.0, inclusive.
+	 *
+	 * Notifies clients of changes in progress during command execution. 
+	 */
+	anjuta_command_signals[PROGRESS] =
+		g_signal_new ("progress",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, progress),
+		              NULL, NULL,
+		              g_cclosure_marshal_VOID__FLOAT ,
+		              G_TYPE_NONE, 1,
+		              G_TYPE_FLOAT);
 }
 
 /**
@@ -179,6 +201,19 @@ void
 anjuta_command_notify_complete (AnjutaCommand *self, guint return_code)
 {
 	ANJUTA_COMMAND_GET_CLASS (self)->notify_complete (self, return_code);
+}
+
+/**
+ * anjuta_command_notify_progress:
+ * @self: Command object.
+ * 
+ * Emits the ::progress signal. Can be used by both base classes and 
+ * commands as needed. 
+ */
+void 
+anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress)
+{
+	ANJUTA_COMMAND_GET_CLASS (self)->notify_progress (self, progress);
 }
 
 /**

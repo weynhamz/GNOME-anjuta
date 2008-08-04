@@ -1,3 +1,478 @@
+2008-08-04  Naba Kumar  <naba@gnome.org>
+
+	Patch from James Liggett:
+
+	* configure.in:
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-async-command.c
+	(anjuta_async_command_notification_poll), (notify_progress),
+	(anjuta_async_command_class_init):
+	* libanjuta/anjuta-command.c (anjuta_command_class_init),
+	(anjuta_command_notify_progress):
+	* libanjuta/anjuta-command.h:
+	* libanjuta/anjuta-glade.xml:
+	* libanjuta/anjuta-status.c
+	(anjuta_status_progress_increment_ticks):
+	* libanjuta/anjuta-status.h:
+	* libanjuta/anjuta-sync-command.c (anjuta_sync_command_init),
+	(anjuta_sync_command_finalize), (start_command),
+	(notify_data_arrived), (notify_complete), (notify_progress),
+	(anjuta_sync_command_class_init):
+	* libanjuta/anjuta-sync-command.h:
+	* libanjuta/anjuta-vcs-status-tree-view.c
+	(anjuta_vcs_status_tree_view_add):
+	* libanjuta/anjuta-vcs-status-tree-view.h:
+	* plugins/Makefile.am:
+	* plugins/git/.deps/giggle-graph-renderer.Plo:
+	* plugins/git/.deps/git-add-command.Plo:
+	* plugins/git/.deps/git-add-dialog.Plo:
+	* plugins/git/.deps/git-add-remote-dialog.Plo:
+	* plugins/git/.deps/git-bisect-dialog.Plo:
+	* plugins/git/.deps/git-bisect-reset-command.Plo:
+	* plugins/git/.deps/git-bisect-start-command.Plo:
+	* plugins/git/.deps/git-bisect-state-command.Plo:
+	* plugins/git/.deps/git-branch-checkout-command.Plo:
+	* plugins/git/.deps/git-branch-combo-model.Plo:
+	* plugins/git/.deps/git-branch-create-command.Plo:
+	* plugins/git/.deps/git-branch-delete-command.Plo:
+	* plugins/git/.deps/git-branch-list-command.Plo:
+	* plugins/git/.deps/git-branch.Plo:
+	* plugins/git/.deps/git-checkout-files-command.Plo:
+	* plugins/git/.deps/git-checkout-files-dialog.Plo:
+	* plugins/git/.deps/git-command.Plo:
+	* plugins/git/.deps/git-commit-command.Plo:
+	* plugins/git/.deps/git-commit-dialog.Plo:
+	* plugins/git/.deps/git-create-branch-dialog.Plo:
+	* plugins/git/.deps/git-create-patch-series-dialog.Plo:
+	* plugins/git/.deps/git-create-tag-dialog.Plo:
+	* plugins/git/.deps/git-delete-branch-dialog.Plo:
+	* plugins/git/.deps/git-delete-remote-dialog.Plo:
+	* plugins/git/.deps/git-diff-command.Plo:
+	* plugins/git/.deps/git-diff-dialog.Plo:
+	* plugins/git/.deps/git-diff-tree-command.Plo:
+	* plugins/git/.deps/git-fetch-command.Plo:
+	* plugins/git/.deps/git-fetch-dialog.Plo:
+	* plugins/git/.deps/git-file-command.Plo:
+	* plugins/git/.deps/git-format-patch-command.Plo:
+	* plugins/git/.deps/git-ignore-command.Plo:
+	* plugins/git/.deps/git-ignore-dialog.Plo:
+	* plugins/git/.deps/git-log-command.Plo:
+	* plugins/git/.deps/git-log-dialog.Plo:
+	* plugins/git/.deps/git-log-message-command.Plo:
+	* plugins/git/.deps/git-merge-command.Plo:
+	* plugins/git/.deps/git-merge-dialog.Plo:
+	* plugins/git/.deps/git-pull-command.Plo:
+	* plugins/git/.deps/git-pull-dialog.Plo:
+	* plugins/git/.deps/git-raw-output-command.Plo:
+	* plugins/git/.deps/git-rebase-continue-command.Plo:
+	* plugins/git/.deps/git-rebase-dialog.Plo:
+	* plugins/git/.deps/git-rebase-start-command.Plo:
+	* plugins/git/.deps/git-ref-command.Plo:
+	* plugins/git/.deps/git-ref.Plo:
+	* plugins/git/.deps/git-remote-add-command.Plo:
+	* plugins/git/.deps/git-remote-delete-command.Plo:
+	* plugins/git/.deps/git-remote-list-command.Plo:
+	* plugins/git/.deps/git-remove-command.Plo:
+	* plugins/git/.deps/git-remove-dialog.Plo:
+	* plugins/git/.deps/git-reset-dialog.Plo:
+	* plugins/git/.deps/git-reset-files-command.Plo:
+	* plugins/git/.deps/git-reset-tree-command.Plo:
+	* plugins/git/.deps/git-resolve-dialog.Plo:
+	* plugins/git/.deps/git-revert-command.Plo:
+	* plugins/git/.deps/git-revert-dialog.Plo:
+	* plugins/git/.deps/git-revision.Plo:
+	* plugins/git/.deps/git-status-command.Plo:
+	* plugins/git/.deps/git-status.Plo:
+	* plugins/git/.deps/git-switch-dialog.Plo:
+	* plugins/git/.deps/git-tag-create-command.Plo:
+	* plugins/git/.deps/git-ui-utils.Plo:
+	* plugins/git/.deps/git-unstage-dialog.Plo:
+	* plugins/git/.deps/plugin.Plo:
+	* plugins/git/Makefile.am:
+	* plugins/git/anjuta-git.glade:
+	* plugins/git/anjuta-git.ui:
+	* plugins/git/giggle-graph-renderer.c
+	(giggle_graph_renderer_class_init), (giggle_graph_renderer_init),
+	(giggle_graph_renderer_finalize),
+	(giggle_graph_renderer_get_property),
+	(giggle_graph_renderer_set_property),
+	(giggle_graph_renderer_get_size), (giggle_graph_renderer_render),
+	(giggle_graph_renderer_new), (find_free_path),
+	(get_initial_status_foreach), (get_initial_status),
+	(free_paths_state),
+	(giggle_graph_renderer_calculate_revision_state),
+	(giggle_graph_renderer_validate_model):
+	* plugins/git/giggle-graph-renderer.h:
+	* plugins/git/git-add-command.c (git_add_command_init),
+	(git_add_command_finalize), (git_add_command_run),
+	(git_add_command_class_init), (git_add_command_new_path),
+	(git_add_command_new_list):
+	* plugins/git/git-add-command.h:
+	* plugins/git/git-add-dialog.c (on_add_command_finished),
+	(on_add_dialog_response), (add_dialog), (on_menu_git_add):
+	* plugins/git/git-add-dialog.h:
+	* plugins/git/git-add-remote-dialog.c
+	(on_remote_add_command_finished), (on_add_remote_dialog_response),
+	(add_remote_dialog), (on_menu_git_add_remote):
+	* plugins/git/git-add-remote-dialog.h:
+	* plugins/git/git-bisect-dialog.c
+	(on_bisect_start_dialog_response),
+	(on_bisect_start_revision_radio_toggled), (bisect_start_dialog),
+	(bisect_reset), (bisect_state), (update_bisect_menus),
+	(on_bisect_file_monitor_changed), (on_menu_git_bisect_start),
+	(on_menu_git_bisect_reset), (on_menu_git_bisect_good),
+	(on_menu_git_bisect_bad), (on_log_menu_git_bisect_good),
+	(on_log_menu_git_bisect_bad), (bisect_menus_init):
+	* plugins/git/git-bisect-dialog.h:
+	* plugins/git/git-bisect-reset-command.c
+	(git_bisect_reset_command_init),
+	(git_bisect_reset_command_finalize),
+	(git_bisect_reset_command_run),
+	(git_bisect_reset_command_class_init),
+	(git_bisect_reset_command_new):
+	* plugins/git/git-bisect-reset-command.h:
+	* plugins/git/git-bisect-start-command.c
+	(git_bisect_start_command_init),
+	(git_bisect_start_command_finalize),
+	(git_bisect_start_command_run),
+	(git_bisect_start_command_class_init),
+	(git_bisect_start_command_new):
+	* plugins/git/git-bisect-start-command.h:
+	* plugins/git/git-bisect-state-command.c
+	(git_bisect_state_command_init),
+	(git_bisect_state_command_finalize),
+	(git_bisect_state_command_run),
+	(git_bisect_state_command_class_init),
+	(git_bisect_state_command_new):
+	* plugins/git/git-bisect-state-command.h:
+	* plugins/git/git-branch-checkout-command.c
+	(git_branch_checkout_command_init),
+	(git_branch_checkout_command_finalize),
+	(git_branch_checkout_command_run),
+	(git_branch_checkout_command_class_init),
+	(git_branch_checkout_command_new):
+	* plugins/git/git-branch-checkout-command.h:
+	* plugins/git/git-branch-combo-model.c (git_branch_combo_data_new),
+	(git_branch_combo_data_free), (git_branch_combo_model_new),
+	(git_branch_combo_model_setup_widget),
+	(git_branch_combo_model_append),
+	(git_branch_combo_model_append_remote),
+	(git_branch_combo_model_get_branch):
+	* plugins/git/git-branch-combo-model.h:
+	* plugins/git/git-branch-create-command.c
+	(git_branch_create_command_init),
+	(git_branch_create_command_finalize),
+	(git_branch_create_command_run),
+	(git_branch_create_command_class_init),
+	(git_branch_create_command_new),
+	(git_branch_create_command_get_branch_name):
+	* plugins/git/git-branch-create-command.h:
+	* plugins/git/git-branch-delete-command.c
+	(git_branch_delete_command_init),
+	(git_branch_delete_command_finalize),
+	(git_branch_delete_command_run),
+	(git_branch_delete_command_class_init),
+	(git_branch_delete_command_new),
+	(git_branch_delete_command_get_branch_name):
+	* plugins/git/git-branch-delete-command.h:
+	* plugins/git/git-branch-list-command.c
+	(git_branch_list_command_init), (git_branch_list_command_finalize),
+	(git_branch_list_command_run),
+	(git_branch_list_command_handle_output),
+	(git_branch_list_command_class_init),
+	(git_branch_list_command_new),
+	(git_branch_list_command_get_output):
+	* plugins/git/git-branch-list-command.h:
+	* plugins/git/git-branch.c (git_branch_init),
+	(git_branch_finalize), (git_branch_class_init), (git_branch_new),
+	(git_branch_get_name), (git_branch_is_active):
+	* plugins/git/git-branch.h:
+	* plugins/git/git-checkout-files-command.c
+	(git_checkout_files_command_run),
+	(git_checkout_files_command_init),
+	(git_checkout_files_command_finalize),
+	(git_checkout_files_command_class_init),
+	(git_checkout_files_command_new):
+	* plugins/git/git-checkout-files-command.h:
+	* plugins/git/git-checkout-files-dialog.c
+	(on_checkout_files_command_finished),
+	(on_checkout_files_dialog_response), (checkout_files_dialog),
+	(on_menu_git_checkout_files):
+	* plugins/git/git-checkout-files-dialog.h:
+	* plugins/git/git-command.c
+	(git_command_multi_line_output_arrived), (split_lines),
+	(git_command_single_line_output_arrived), (git_command_launch),
+	(git_command_start), (git_command_error_handler),
+	(git_command_child_exited), (git_command_init),
+	(git_command_finalize), (git_command_set_property),
+	(git_command_get_property), (git_command_class_init),
+	(git_command_add_arg), (git_command_add_list_to_args),
+	(git_command_append_error), (git_command_push_info),
+	(git_command_get_info_queue), (git_command_send_output_to_info),
+	(git_command_copy_path_list), (git_command_free_path_list):
+	* plugins/git/git-command.h:
+	* plugins/git/git-commit-command.c (git_commit_command_run),
+	(git_commit_command_init), (git_commit_command_finalize),
+	(git_commit_command_class_init), (git_commit_command_new):
+	* plugins/git/git-commit-command.h:
+	* plugins/git/git-commit-dialog.c (on_commit_command_finished),
+	(on_commit_dialog_response), (select_all_files), (commit_dialog),
+	(on_menu_git_commit):
+	* plugins/git/git-commit-dialog.h:
+	* plugins/git/git-create-branch-dialog.c
+	(on_create_command_finished), (on_create_branch_dialog_response),
+	(on_branch_revision_radio_toggled), (create_branch_dialog),
+	(on_menu_git_create_branch), (on_log_menu_git_create_branch):
+	* plugins/git/git-create-branch-dialog.h:
+	* plugins/git/git-create-patch-series-dialog.c
+	(on_create_patch_series_dialog_response),
+	(create_patch_series_dialog), (on_menu_git_create_patch_series):
+	* plugins/git/git-create-patch-series-dialog.h:
+	* plugins/git/git-create-tag-dialog.c (on_create_command_finished),
+	(on_create_tag_dialog_response), (on_tag_revision_radio_toggled),
+	(on_tag_annotate_check_toggled), (create_tag_dialog),
+	(on_menu_git_create_tag), (on_log_menu_git_create_tag):
+	* plugins/git/git-create-tag-dialog.h:
+	* plugins/git/git-delete-branch-dialog.c
+	(on_delete_command_finished), (on_delete_branch_dialog_response),
+	(delete_branch_dialog), (on_menu_git_delete_branch):
+	* plugins/git/git-delete-branch-dialog.h:
+	* plugins/git/git-delete-remote-dialog.c
+	(on_delete_remote_dialog_response),
+	(on_remote_list_command_data_arrived),
+	(on_remote_list_command_finished), (delete_remote_dialog),
+	(on_menu_git_delete_remote):
+	* plugins/git/git-delete-remote-dialog.h:
+	* plugins/git/git-diff-command.c (git_diff_command_init),
+	(git_diff_command_finalize), (git_diff_command_run),
+	(git_diff_command_class_init), (git_diff_command_new):
+	* plugins/git/git-diff-command.h:
+	* plugins/git/git-diff-dialog.c (git_diff), (git_commit_diff),
+	(on_menu_git_diff), (on_log_menu_git_commit_diff):
+	* plugins/git/git-diff-dialog.h:
+	* plugins/git/git-diff-tree-command.c (git_diff_tree_command_init),
+	(git_diff_tree_command_finalize), (git_diff_tree_command_run),
+	(git_diff_tree_command_class_init), (git_diff_tree_command_new):
+	* plugins/git/git-diff-tree-command.h:
+	* plugins/git/git-fetch-command.c (git_fetch_command_init),
+	(git_fetch_command_finalize), (git_fetch_command_run),
+	(git_fetch_command_class_init), (git_fetch_command_new):
+	* plugins/git/git-fetch-command.h:
+	* plugins/git/git-fetch-dialog.c (on_fetch_command_finished),
+	(git_fetch), (on_menu_git_fetch):
+	* plugins/git/git-fetch-dialog.h:
+	* plugins/git/git-file-command.c (git_file_command_init),
+	(git_file_command_finalize), (git_file_command_set_property),
+	(git_file_command_get_property), (git_file_command_class_init):
+	* plugins/git/git-file-command.h:
+	* plugins/git/git-format-patch-command.c
+	(git_format_patch_command_init),
+	(git_format_patch_command_finalize),
+	(git_format_patch_command_run),
+	(git_format_patch_command_class_init),
+	(git_format_patch_command_new):
+	* plugins/git/git-format-patch-command.h:
+	* plugins/git/git-ignore-command.c (git_ignore_command_init),
+	(git_ignore_command_finalize), (git_ignore_command_run),
+	(git_ignore_command_class_init), (git_ignore_command_new_path),
+	(git_ignore_command_new_list):
+	* plugins/git/git-ignore-command.h:
+	* plugins/git/git-ignore-dialog.c (on_ignore_dialog_response),
+	(ignore_dialog), (on_menu_git_ignore):
+	* plugins/git/git-ignore-dialog.h:
+	* plugins/git/git-log-command.c (git_log_command_init),
+	(git_log_command_finalize), (git_log_command_run),
+	(git_log_command_handle_output), (git_log_command_class_init),
+	(git_log_command_new), (git_log_command_get_output_queue):
+	* plugins/git/git-log-command.h:
+	* plugins/git/git-log-dialog.c (author_cell_function),
+	(date_cell_function), (short_log_cell_function),
+	(ref_icon_cell_function), (create_columns),
+	(on_log_command_finished), (on_ref_command_finished),
+	(on_view_log_button_clicked), (on_log_vbox_destroy),
+	(on_log_message_command_finished),
+	(on_log_changes_view_row_selected),
+	(on_log_changes_view_query_tooltip),
+	(on_log_changes_view_button_press_event),
+	(on_log_filter_entry_changed), (on_log_filter_date_changed),
+	(on_log_filter_date_check_toggled),
+	(on_log_filter_clear_button_clicked), (setup_filters),
+	(git_log_window_create), (on_menu_git_log), (on_fm_subversion_log):
+	* plugins/git/git-log-dialog.h:
+	* plugins/git/git-log-message-command.c
+	(git_log_message_command_init), (git_log_message_command_finalize),
+	(git_log_message_command_run),
+	(git_log_message_command_handle_output),
+	(git_log_message_command_class_init),
+	(git_log_message_command_new),
+	(git_log_message_command_get_message):
+	* plugins/git/git-log-message-command.h:
+	* plugins/git/git-merge-command.c (git_merge_command_init),
+	(git_merge_command_finalize), (git_merge_command_run),
+	(git_merge_command_class_init), (git_merge_command_new):
+	* plugins/git/git-merge-command.h:
+	* plugins/git/git-merge-dialog.c (on_merge_command_finished),
+	(on_merge_dialog_response), (on_use_custom_log_check_toggled),
+	(merge_dialog), (on_menu_git_merge):
+	* plugins/git/git-merge-dialog.h:
+	* plugins/git/git-pull-command.c (git_pull_command_init),
+	(git_pull_command_finalize), (git_pull_command_run),
+	(git_pull_command_class_init), (git_pull_command_new):
+	* plugins/git/git-pull-command.h:
+	* plugins/git/git-pull-dialog.c (on_pull_command_finished),
+	(on_pull_dialog_response), (pull_dialog), (on_menu_git_pull):
+	* plugins/git/git-pull-dialog.h:
+	* plugins/git/git-raw-output-command.c
+	(git_raw_output_command_init), (git_raw_output_command_finalize),
+	(git_raw_output_command_handle_output),
+	(git_raw_output_command_class_init),
+	(git_raw_output_command_get_output):
+	* plugins/git/git-raw-output-command.h:
+	* plugins/git/git-rebase-continue-command.c
+	(git_rebase_continue_command_init),
+	(git_rebase_continue_command_finalize),
+	(git_rebase_continue_command_run),
+	(git_rebase_continue_command_class_init),
+	(git_rebase_continue_command_new):
+	* plugins/git/git-rebase-continue-command.h:
+	* plugins/git/git-rebase-dialog.c (on_rebase_dialog_response),
+	(rebase_dialog), (rebase_continue), (on_menu_git_rebase_start),
+	(on_menu_git_rebase_continue), (on_menu_git_rebase_skip),
+	(on_menu_git_rebase_abort):
+	* plugins/git/git-rebase-dialog.h:
+	* plugins/git/git-rebase-start-command.c
+	(git_rebase_start_command_init),
+	(git_rebase_start_command_finalize),
+	(git_rebase_start_command_run),
+	(git_rebase_start_command_class_init),
+	(git_rebase_start_command_new):
+	* plugins/git/git-rebase-start-command.h:
+	* plugins/git/git-ref-command.c (free_refs_list),
+	(git_ref_command_init), (git_ref_command_finalize),
+	(git_ref_command_run), (git_ref_command_insert_ref),
+	(git_ref_command_handle_output), (git_ref_command_class_init),
+	(git_ref_command_new), (git_ref_command_get_refs):
+	* plugins/git/git-ref-command.h:
+	* plugins/git/git-ref.c (git_ref_init), (git_ref_finalize),
+	(git_ref_class_init), (git_ref_new), (git_ref_get_name),
+	(git_ref_get_ref_type):
+	* plugins/git/git-ref.h:
+	* plugins/git/git-remote-add-command.c
+	(git_remote_add_command_init), (git_remote_add_command_finalize),
+	(git_remote_add_command_run), (git_remote_add_command_class_init),
+	(git_remote_add_command_new),
+	(git_remote_add_command_get_branch_name):
+	* plugins/git/git-remote-add-command.h:
+	* plugins/git/git-remote-delete-command.c
+	(git_remote_delete_command_init),
+	(git_remote_delete_command_finalize),
+	(git_remote_delete_command_run),
+	(git_remote_delete_command_class_init),
+	(git_remote_delete_command_new):
+	* plugins/git/git-remote-delete-command.h:
+	* plugins/git/git-remote-list-command.c
+	(git_remote_list_command_init), (git_remote_list_command_finalize),
+	(git_remote_list_command_run),
+	(git_remote_list_command_class_init),
+	(git_remote_list_command_new):
+	* plugins/git/git-remote-list-command.h:
+	* plugins/git/git-remove-command.c (git_remove_command_init),
+	(git_remove_command_finalize), (git_remove_command_run),
+	(git_remove_command_class_init), (git_remove_command_new_path),
+	(git_remove_command_new_list):
+	* plugins/git/git-remove-command.h:
+	* plugins/git/git-remove-dialog.c (on_remove_command_finished),
+	(on_remove_dialog_response), (remove_dialog), (on_menu_git_remove):
+	* plugins/git/git-remove-dialog.h:
+	* plugins/git/git-reset-dialog.c (on_reset_dialog_response),
+	(on_reset_revision_radio_toggled), (reset_dialog),
+	(on_menu_git_reset), (on_log_menu_git_reset):
+	* plugins/git/git-reset-dialog.h:
+	* plugins/git/git-reset-files-command.c
+	(git_reset_files_command_run), (git_reset_files_command_init),
+	(git_reset_files_command_finalize),
+	(git_reset_files_command_class_init),
+	(git_reset_files_command_new):
+	* plugins/git/git-reset-files-command.h:
+	* plugins/git/git-reset-tree-command.c
+	(git_reset_tree_command_run), (git_reset_tree_command_init),
+	(git_reset_tree_command_finalize),
+	(git_reset_tree_command_class_init), (git_reset_tree_command_new):
+	* plugins/git/git-reset-tree-command.h:
+	* plugins/git/git-resolve-dialog.c (on_add_command_finished),
+	(on_resolve_dialog_response), (resolve_dialog),
+	(on_menu_git_resolve):
+	* plugins/git/git-resolve-dialog.h:
+	* plugins/git/git-revert-command.c (git_revert_command_init),
+	(git_revert_command_finalize), (git_revert_command_run),
+	(git_revert_command_class_init), (git_revert_command_new):
+	* plugins/git/git-revert-command.h:
+	* plugins/git/git-revert-dialog.c (on_revert_dialog_response),
+	(revert_dialog), (on_menu_git_revert), (on_log_menu_git_revert):
+	* plugins/git/git-revert-dialog.h:
+	* plugins/git/git-revision.c (git_revision_init),
+	(git_revision_finalize), (git_revision_class_init),
+	(git_revision_new), (git_revision_set_sha), (git_revision_get_sha),
+	(git_revision_get_short_sha), (git_revision_set_author),
+	(git_revision_get_author), (git_revision_set_short_log),
+	(git_revision_get_short_log), (git_revision_get_time_format),
+	(git_revision_set_date), (git_revision_get_formatted_date),
+	(git_revision_add_child), (git_revision_get_children),
+	(git_revision_set_has_parents), (git_revision_has_parents):
+	* plugins/git/git-revision.h:
+	* plugins/git/git-status-command.c (git_status_command_run),
+	(git_status_command_handle_output), (git_status_command_init),
+	(git_status_command_finalize), (git_status_command_class_init),
+	(git_status_command_new), (git_status_command_get_status_queue):
+	* plugins/git/git-status-command.h:
+	* plugins/git/git-status.c (git_status_init),
+	(git_status_finalize), (git_status_class_init), (git_status_new),
+	(git_status_get_path), (git_status_get_vcs_status):
+	* plugins/git/git-status.h:
+	* plugins/git/git-switch-dialog.c (on_checkout_command_finished),
+	(on_switch_dialog_response), (switch_dialog), (on_menu_git_switch):
+	* plugins/git/git-switch-dialog.h:
+	* plugins/git/git-tag-create-command.c
+	(git_tag_create_command_init), (git_tag_create_command_finalize),
+	(git_tag_create_command_run), (git_tag_create_command_class_init),
+	(git_tag_create_command_new),
+	(git_tag_create_command_get_tag_name):
+	* plugins/git/git-tag-create-command.h:
+	* plugins/git/git-ui-utils.c (git_ui_data_new), (git_ui_data_free),
+	(git_progress_data_new), (git_progress_data_free),
+	(on_message_view_destroy), (git_create_message_view),
+	(git_check_input), (git_get_log_from_textview),
+	(status_pulse_timer), (pulse_timer), (on_pulse_timer_destroyed),
+	(git_status_bar_progress_pulse),
+	(git_clear_status_bar_progress_pulse), (git_report_errors),
+	(stop_pulse_timer), (git_pulse_progress_bar),
+	(git_get_filename_from_full_path), (git_get_relative_path),
+	(on_git_command_finished), (on_git_status_command_data_arrived),
+	(on_git_command_info_arrived), (on_git_command_progress),
+	(on_git_list_branch_command_data_arrived),
+	(on_git_list_branch_command_finished),
+	(git_select_all_status_items), (git_clear_all_status_selections),
+	(git_init_whole_project), (on_git_whole_project_toggled),
+	(git_send_raw_command_output_to_editor),
+	(on_git_diff_command_finished),
+	(git_stop_status_bar_progress_pulse),
+	(git_hide_pulse_progress_bar),
+	(git_disconnect_data_arrived_signals),
+	(git_cancel_data_arrived_signal_disconnect):
+	* plugins/git/git-ui-utils.h:
+	* plugins/git/git-unstage-dialog.c
+	(on_reset_files_command_finished), (on_unstage_dialog_response),
+	(unstage_dialog), (on_menu_git_unstage):
+	* plugins/git/git-unstage-dialog.h:
+	* plugins/git/git.plugin.in:
+	* plugins/git/plugin.c (on_project_root_added),
+	(on_project_root_removed), (on_editor_added), (on_editor_removed),
+	(git_activate_plugin), (git_deactivate_plugin), (git_finalize),
+	(git_dispose), (git_instance_init), (git_class_init):
+	* plugins/git/plugin.h:
+
+	Bug #529270 - GSoc: Git Plugin, alpha release 3.
+	
 2008-08-04  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/sourceview/sourceview-io.c,

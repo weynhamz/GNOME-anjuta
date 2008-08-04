@@ -49,8 +49,12 @@ struct _AnjutaCommandClass
 	void (*start) (AnjutaCommand *self);
 	void (*notify_data_arrived) (AnjutaCommand *self);
 	void (*notify_complete) (AnjutaCommand *self, guint return_code);
+	void (*notify_progress) (AnjutaCommand *self, gfloat progress);
 	void (*set_error_message) (AnjutaCommand *self, gchar *error_message);
 	gchar * (*get_error_message) (AnjutaCommand *self);
+	
+	/* Signals */
+	void (*progress) (AnjutaCommand *command, gfloat progress);
 
 };
 
@@ -66,6 +70,7 @@ GType anjuta_command_get_type (void) G_GNUC_CONST;
 void anjuta_command_start (AnjutaCommand *self);
 void anjuta_command_notify_data_arrived (AnjutaCommand *self);
 void anjuta_command_notify_complete (AnjutaCommand *self, guint return_code);
+void anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress);
 
 void anjuta_command_set_error_message (AnjutaCommand *self, gchar *error_message);
 gchar *anjuta_command_get_error_message (AnjutaCommand *self);

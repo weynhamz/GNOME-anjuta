@@ -52,6 +52,8 @@ struct _AnjutaAsyncCommandPriv
 	guint return_code;
 	gboolean complete;
 	gboolean new_data_arrived;
+	gboolean progress_changed;
+	gfloat progress;
 };
 
 G_DEFINE_TYPE (AnjutaAsyncCommand, anjuta_async_command, ANJUTA_TYPE_COMMAND);
@@ -92,6 +94,12 @@ anjuta_async_command_notification_poll (AnjutaCommand *command)
 		g_signal_emit_by_name (command, "data-arrived");
 		g_mutex_unlock (self->priv->mutex);
 		self->priv->new_data_arrived = FALSE;
+	}
+	
+	if (self->priv->progress_changed)
+	{
+		g_signal_emit_by_name (command, "progress", self->priv->progress);
+		self->priv->progress_changed = FALSE;
 	}
 	
 	if (self->priv->complete)
@@ -146,6 +154,17 @@ notify_complete (AnjutaCommand *command, guint return_code)
 }
 
 static void
+notify_progress (AnjutaCommand *command, gfloat progress)
+{
+	AnjutaAsyncCommand *self;
+	
+	self = ANJUTA_ASYNC_COMMAND (command);
+	
+	self->priv->progress_changed = TRUE;
+	self->priv->progress = progress;
+}
+
+static void
 anjuta_async_command_class_init (AnjutaAsyncCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -156,6 +175,7 @@ anjuta_async_command_class_init (AnjutaAsyncCommandClass *klass)
 	parent_class->start = start_command;
 	parent_class->notify_data_arrived = notify_data_arrived;
 	parent_class->notify_complete = notify_complete;
+	parent_class->notify_progress = notify_progress;
 }
 
 void

@@ -1089,6 +1089,7 @@ plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
 plugins/subversion/Makefile
+plugins/git/Makefile
 plugins/sourceview/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile

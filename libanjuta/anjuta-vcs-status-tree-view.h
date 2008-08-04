@@ -70,6 +70,7 @@ typedef enum
 	ANJUTA_VCS_STATUS_DELETED = 1 << 2,
 	ANJUTA_VCS_STATUS_CONFLICTED = 1 << 3,
 	ANJUTA_VCS_STATUS_MISSING = 1 << 4,
+	ANJUTA_VCS_STATUS_UNVERSIONED = 1 << 5
 } AnjutaVcsStatus;
 
 GType anjuta_vcs_status_tree_view_get_type (void) G_GNUC_CONST;

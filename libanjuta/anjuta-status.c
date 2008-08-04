@@ -517,6 +517,40 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 }
 
 void
+anjuta_status_progress_increment_ticks (AnjutaStatus *status, gint ticks,
+										const gchar *text)
+{
+	gfloat percentage;
+		
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (status->priv->total_ticks != 0);
+	
+	status->priv->current_ticks += ticks;
+	percentage = ((gfloat)status->priv->current_ticks)/status->priv->total_ticks;
+	
+	GtkProgressBar *progressbar;
+	GtkWidget *statusbar;
+	
+	if (text)
+		anjuta_status_set (status, "%s", text);
+	gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
+										  percentage);
+	progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
+	statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+	gtk_widget_queue_draw (GTK_WIDGET (statusbar));
+	gtk_widget_queue_draw (GTK_WIDGET (progressbar));
+	if (GTK_WIDGET(progressbar)->window != NULL &&
+		GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
+		gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
+	if (GTK_WIDGET(statusbar)->window != NULL &&
+		GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
+		gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
+	
+	if (status->priv->current_ticks >= status->priv->total_ticks)
+		anjuta_status_progress_reset (status);
+}
+
+void
 anjuta_status_progress_reset (AnjutaStatus *status)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));

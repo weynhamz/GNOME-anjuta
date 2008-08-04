@@ -289,25 +289,29 @@ anjuta_vcs_status_tree_view_add (AnjutaVcsStatusTreeView *self, gchar *path,
 			case ANJUTA_VCS_STATUS_MODIFIED:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									"Modified", -1);
-			break;
+				break;
 			case ANJUTA_VCS_STATUS_ADDED:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									"Added", -1);
-			break;
+				break;
 			case ANJUTA_VCS_STATUS_DELETED:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									"Deleted", -1);
-			break;
+				break;
 			case ANJUTA_VCS_STATUS_CONFLICTED:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									"Conflicted", -1);
-			break;
+				break;
 			case ANJUTA_VCS_STATUS_MISSING:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									"Missing", -1);
-			break;
+				break;
+			case ANJUTA_VCS_STATUS_UNVERSIONED:
+				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
+									"Unversioned", -1);
+				break;
 			case ANJUTA_VCS_STATUS_NONE:
-				default:
+			default:
 				break;
 			
 		}

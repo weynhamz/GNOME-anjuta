@@ -15,6 +15,7 @@
 						<value id="ANJUTA_VCS_STATUS_DELETED" name="Deleted" />
 						<value id="ANJUTA_VCS_STATUS_CONFLICTED" name="Conflicted" />
 						<value id="ANJUTA_VCS_STATUS_MISSING" name="Missing" />
+						<value id="ANJUTA_VCS_STATUS_UNVERSIONED" name="Unversioned" />
 					</displayable-values>
 				</property>
 			</properties>

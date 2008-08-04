@@ -74,6 +74,8 @@ void anjuta_status_disable_splash (AnjutaStatus *status,
 void anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks);
 void anjuta_status_progress_tick (AnjutaStatus *status,
 								  GdkPixbuf *icon, const gchar *text);
+void anjuta_status_progress_increment_ticks (AnjutaStatus *status, gint ticks,
+											 const gchar *text);
 void anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text);
 void anjuta_status_progress_reset (AnjutaStatus *status);
 

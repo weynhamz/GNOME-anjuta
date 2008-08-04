@@ -68,6 +68,8 @@ libanjuta_la_SOURCES= \
 	anjuta-command.h \
 	anjuta-async-command.c \
 	anjuta-async-command.h \
+	anjuta-sync-command.c \
+	anjuta-sync-command.h
 	anjuta-message-area.h
 
 if HAVE_PLUGIN_GLADE
@@ -121,7 +123,8 @@ libanjuta_include = \
 	resources.h \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-command.h \
-	anjuta-async-command.h
+	anjuta-async-command.h \
+	anjuta-sync-command.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
