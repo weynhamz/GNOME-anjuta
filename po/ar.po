@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-29 02:07+0100\n"
+"POT-Creation-Date: 2008-08-06 09:14+0100\n"
 "PO-Revision-Date: 2008-03-08 18:29-0000\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -251,13 +251,13 @@ msgstr "انتق ملحقًا"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1497
-#: ../plugins/debug-manager/queue.c:558
+#: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "انتق ملحقًا"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1498
-#: ../plugins/debug-manager/queue.c:559
+#: ../plugins/debug-manager/queue.c:557
 msgid "Please select a plugin to activate"
 msgstr "رجاء اختر ملحقًا لتنشيطه"
 
@@ -391,7 +391,9 @@ msgstr ""
 "هل أنت متأكد أنك تريد إعادة ضبط التفضيلات\n"
 "على إعداداتها الافتراضية؟"
 
-#: ../libanjuta/anjuta-preferences.c:1457
+#. Action name
+#. Stock icon, if any
+#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:192
 msgid "_Reset"
 msgstr "إعادة ضب_ط"
 
@@ -518,6 +520,36 @@ msgstr ""
 "تعذر عرض المساعدة. رجاءً تأكد أن حزمة وثائق أنجوتا مثبّتة. يمكن تحميلها من "
 "http://anjuta.org"
 
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:292
+#, fuzzy
+msgid "Modified"
+msgstr "تم تغيير: %s"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:296
+#, fuzzy
+msgid "Added"
+msgstr "إضافة"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:300
+#, fuzzy
+msgid "Deleted"
+msgstr "احذف"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:304
+#, fuzzy
+msgid "Conflicted"
+msgstr "حصل تناقض: %s"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:308
+#, fuzzy
+msgid "Missing"
+msgstr "مفقود: %s"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:312
+#, fuzzy
+msgid "Unversioned"
+msgstr "تحته خط"
+
 #: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
 msgstr "نص"
@@ -624,301 +656,6 @@ msgstr "اختر المجلد"
 msgid "Translate messages"
 msgstr "اقطع الرسائل الطويلة"
 
-#. The translations should match that of 'make' program. Both strings uses
-#. * pearl regular expression
-#. * 2 similar strings are used in order to parse the output of 2 different
-#. * version of make if necessary. If you update one string, move the first
-#. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:152
-#, fuzzy
-msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "صنع[%d]: دخول المجلد '%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:153
-#, fuzzy
-msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "صنع[%d]: دخول المجلد '%s'"
-
-#. The translations should match that of 'make' program. Both strings uses
-#. * pearl regular expression
-#. * 2 similar strings are used in order to parse the output of 2 different
-#. * version of make if necessary. If you update one string, move the first
-#. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:161
-#, fuzzy
-msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "صنع[%d]: الخروج من المجلد '%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:162
-#, fuzzy
-msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "صنع[%d]: الخروج من المجلد '%s'"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:476
-#, fuzzy
-msgid "Command aborted"
-msgstr "الأمر"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:875
-#, c-format
-msgid "Entering: %s"
-msgstr "دخول: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:911
-#, c-format
-msgid "Leaving: %s"
-msgstr "الخروج من: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:944
-#: ../plugins/tools/execute.c:329
-msgid "warning:"
-msgstr "تحذير:"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
-#, fuzzy, c-format
-msgid "Command exited with status %d"
-msgstr "اكتمل بلا نجاح برمز %d\n"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1076
-#, c-format
-msgid "Command canceled by user"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1081
-#, c-format
-msgid "Command aborted by user"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
-#, c-format
-msgid "Command terminated with signal %d"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
-msgid "Command terminated for an unknown reason"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1112
-#, c-format
-msgid "Total time taken: %lu secs\n"
-msgstr "الوقت الكامل المستغرق: %lu ثانية\n"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
-msgid "Completed unsuccessful\n"
-msgstr "اكتمل... بغير نجاح\n"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
-#: ../plugins/tools/execute.c:514
-msgid "Completed successful\n"
-msgstr "اكتمل... بنجاح\n"
-
-#. Translators: the first number is the number of the build attemp,
-#. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1168
-#, c-format
-msgid "Build %d: %s"
-msgstr "بناء %d: %s"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1546
-#, c-format
-msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr "لا يمكن تصريف \"%s\": لا يوجد قاعدة تصريف محددة لهذا النوع من الملفات."
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1690
-#, c-format
-msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2031
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2105
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2115
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2133
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2143
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
-#, c-format
-msgid "_Build"
-msgstr "ب_ناء"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2035
-msgid "_Build Project"
-msgstr "ب_ناء المشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
-msgid "Build whole project"
-msgstr "بناء المشروع كاملًا"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2041
-msgid "_Install Project"
-msgstr "ت_ثبيت المشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2042
-msgid "Install whole project"
-msgstr "تثبيت المشروع كاملًا"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2047
-msgid "_Clean Project"
-msgstr "تن_ظيف المشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2048
-msgid "Clean whole project"
-msgstr "تنظيف المشروع كاملًا"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2053
-#, fuzzy
-msgid "C_onfigure Project..."
-msgstr "إعداد المشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2054
-msgid "Configure project"
-msgstr "إعداد المشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2059
-msgid "Build _Tarball"
-msgstr "بناء Tarball"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2060
-msgid "Build project tarball distribution"
-msgstr "بناء توزيعة Tarball للمشروع"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2065
-msgid "_Build Module"
-msgstr "ب_ناء الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2066
-msgid "Build module associated with current file"
-msgstr "بناء الوحدة المرتبطة مع الملف الحالي"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2071
-msgid "_Install Module"
-msgstr "ت_ثبيت الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2072
-msgid "Install module associated with current file"
-msgstr "تثبيت الوحدة المرتبطة مع الملف الحالي"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2077
-msgid "_Clean Module"
-msgstr "تن_ظيف الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2078
-msgid "Clean module associated with current file"
-msgstr "تنظيف الوحدة المرتبطة مع الملف الحالي"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2083
-msgid "Co_mpile File"
-msgstr "ت_صريف الملف"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2084
-msgid "Compile current editor file"
-msgstr "تصريف ملف المحرر الحالي"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2089
-#, fuzzy
-msgid "Select Configuration"
-msgstr "معلومات"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2090
-#, fuzzy
-msgid "Select current configuration"
-msgstr "اضبط الإطار الحالي"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2095
-#, fuzzy
-msgid "Remove Configuration"
-msgstr "معلومات"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2096
-msgid ""
-"Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2109
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2137
-msgid "_Compile"
-msgstr "تص_ريف"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2110
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2138
-msgid "Compile file"
-msgstr "صرّف الملف"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2116
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2144
-msgid "Build module"
-msgstr "ابنِ الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2121
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2149
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
-#, c-format
-msgid "_Install"
-msgstr "ثبّ_ت"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2122
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2150
-msgid "Install module"
-msgstr "ثبّت الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2127
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2155
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
-#, c-format
-msgid "_Clean"
-msgstr "نظّ_ف"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2128
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2156
-msgid "Clean module"
-msgstr "نظّف الوحدة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2161
-#, fuzzy
-msgid "_Cancel command"
-msgstr "الأمر"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2162
-#, fuzzy
-msgid "Cancel build command"
-msgstr "ابن الأوامر"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2271
-#, c-format
-msgid "_Build (%s)"
-msgstr "_ابنِ (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2278
-#, c-format
-msgid "_Install (%s)"
-msgstr "_ثبّت (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2285
-#, c-format
-msgid "_Clean (%s)"
-msgstr "_نظّف (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
-#, c-format
-msgid "Co_mpile (%s)"
-msgstr "_صرّف (%s)"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2293
-#, c-format
-msgid "Co_mpile"
-msgstr "ص_رّف"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2763
-msgid "Build commands"
-msgstr "ابن الأوامر"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2770
-msgid "Build popup commands"
-msgstr "ابن الأوامر المنبثقة"
-
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3167
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:3185
-msgid "Build Autotools"
-msgstr "ابنِ الأدوات الآلية"
-
 #: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
 msgid "Default"
@@ -978,6 +715,301 @@ msgstr "لا ملف تنفيذي لهذا الملف."
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "الملف التنفيذي '%s' ليس محدثًا."
+
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:148
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
+msgstr "صنع[%d]: دخول المجلد '%s'"
+
+#: ../plugins/build-basic-autotools/plugin.c:149
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
+msgstr "صنع[%d]: دخول المجلد '%s'"
+
+#. The translations should match that of 'make' program. Both strings uses
+#. * pearl regular expression
+#. * 2 similar strings are used in order to parse the output of 2 different
+#. * version of make if necessary. If you update one string, move the first
+#. * string into the second slot and then replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:157
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
+msgstr "صنع[%d]: الخروج من المجلد '%s'"
+
+#: ../plugins/build-basic-autotools/plugin.c:158
+#, fuzzy
+msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
+msgstr "صنع[%d]: الخروج من المجلد '%s'"
+
+#: ../plugins/build-basic-autotools/plugin.c:704
+#, c-format
+msgid "Entering: %s"
+msgstr "دخول: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:740
+#, c-format
+msgid "Leaving: %s"
+msgstr "الخروج من: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:773
+#: ../plugins/tools/execute.c:329
+msgid "warning:"
+msgstr "تحذير:"
+
+#: ../plugins/build-basic-autotools/plugin.c:894
+#, fuzzy, c-format
+msgid "Command exited with status %d"
+msgstr "اكتمل بلا نجاح برمز %d\n"
+
+#: ../plugins/build-basic-autotools/plugin.c:904
+#, c-format
+msgid "Command canceled by user"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:909
+#, c-format
+msgid "Command aborted by user"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:914
+#, c-format
+msgid "Command terminated with signal %d"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:922
+msgid "Command terminated for an unknown reason"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:938
+#, c-format
+msgid "Total time taken: %lu secs\n"
+msgstr "الوقت الكامل المستغرق: %lu ثانية\n"
+
+#: ../plugins/build-basic-autotools/plugin.c:943
+msgid "Completed unsuccessful\n"
+msgstr "اكتمل... بغير نجاح\n"
+
+#: ../plugins/build-basic-autotools/plugin.c:948
+#: ../plugins/tools/execute.c:514
+msgid "Completed successful\n"
+msgstr "اكتمل... بنجاح\n"
+
+#. Translators: the first number is the number of the build attemp,
+#. the string is the directory where the build takes place
+#: ../plugins/build-basic-autotools/plugin.c:994
+#, c-format
+msgid "Build %d: %s"
+msgstr "بناء %d: %s"
+
+#: ../plugins/build-basic-autotools/plugin.c:1566
+#, c-format
+msgid "Can not compile \"%s\": No compile rule defined for this file type."
+msgstr "لا يمكن تصريف \"%s\": لا يوجد قاعدة تصريف محددة لهذا النوع من الملفات."
+
+#: ../plugins/build-basic-autotools/plugin.c:1637
+#, c-format
+msgid "Can not configure project: Missing configure script in %s."
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:2020
+#: ../plugins/build-basic-autotools/plugin.c:2094
+#: ../plugins/build-basic-autotools/plugin.c:2104
+#: ../plugins/build-basic-autotools/plugin.c:2122
+#: ../plugins/build-basic-autotools/plugin.c:2132
+#: ../plugins/build-basic-autotools/plugin.c:2260
+#, c-format
+msgid "_Build"
+msgstr "ب_ناء"
+
+#: ../plugins/build-basic-autotools/plugin.c:2024
+msgid "_Build Project"
+msgstr "ب_ناء المشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2025
+msgid "Build whole project"
+msgstr "بناء المشروع كاملًا"
+
+#: ../plugins/build-basic-autotools/plugin.c:2030
+msgid "_Install Project"
+msgstr "ت_ثبيت المشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2031
+msgid "Install whole project"
+msgstr "تثبيت المشروع كاملًا"
+
+#: ../plugins/build-basic-autotools/plugin.c:2036
+msgid "_Clean Project"
+msgstr "تن_ظيف المشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2037
+msgid "Clean whole project"
+msgstr "تنظيف المشروع كاملًا"
+
+#: ../plugins/build-basic-autotools/plugin.c:2042
+#, fuzzy
+msgid "C_onfigure Project..."
+msgstr "إعداد المشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2043
+msgid "Configure project"
+msgstr "إعداد المشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2048
+msgid "Build _Tarball"
+msgstr "بناء Tarball"
+
+#: ../plugins/build-basic-autotools/plugin.c:2049
+msgid "Build project tarball distribution"
+msgstr "بناء توزيعة Tarball للمشروع"
+
+#: ../plugins/build-basic-autotools/plugin.c:2054
+msgid "_Build Module"
+msgstr "ب_ناء الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2055
+msgid "Build module associated with current file"
+msgstr "بناء الوحدة المرتبطة مع الملف الحالي"
+
+#: ../plugins/build-basic-autotools/plugin.c:2060
+msgid "_Install Module"
+msgstr "ت_ثبيت الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2061
+msgid "Install module associated with current file"
+msgstr "تثبيت الوحدة المرتبطة مع الملف الحالي"
+
+#: ../plugins/build-basic-autotools/plugin.c:2066
+msgid "_Clean Module"
+msgstr "تن_ظيف الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2067
+msgid "Clean module associated with current file"
+msgstr "تنظيف الوحدة المرتبطة مع الملف الحالي"
+
+#: ../plugins/build-basic-autotools/plugin.c:2072
+msgid "Co_mpile File"
+msgstr "ت_صريف الملف"
+
+#: ../plugins/build-basic-autotools/plugin.c:2073
+msgid "Compile current editor file"
+msgstr "تصريف ملف المحرر الحالي"
+
+#: ../plugins/build-basic-autotools/plugin.c:2078
+#, fuzzy
+msgid "Select Configuration"
+msgstr "معلومات"
+
+#: ../plugins/build-basic-autotools/plugin.c:2079
+#, fuzzy
+msgid "Select current configuration"
+msgstr "اضبط الإطار الحالي"
+
+#: ../plugins/build-basic-autotools/plugin.c:2084
+#, fuzzy
+msgid "Remove Configuration"
+msgstr "معلومات"
+
+#: ../plugins/build-basic-autotools/plugin.c:2085
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
+msgstr ""
+
+#: ../plugins/build-basic-autotools/plugin.c:2098
+#: ../plugins/build-basic-autotools/plugin.c:2126
+msgid "_Compile"
+msgstr "تص_ريف"
+
+#: ../plugins/build-basic-autotools/plugin.c:2099
+#: ../plugins/build-basic-autotools/plugin.c:2127
+msgid "Compile file"
+msgstr "صرّف الملف"
+
+#: ../plugins/build-basic-autotools/plugin.c:2105
+#: ../plugins/build-basic-autotools/plugin.c:2133
+msgid "Build module"
+msgstr "ابنِ الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2110
+#: ../plugins/build-basic-autotools/plugin.c:2138
+#: ../plugins/build-basic-autotools/plugin.c:2267
+#, c-format
+msgid "_Install"
+msgstr "ثبّ_ت"
+
+#: ../plugins/build-basic-autotools/plugin.c:2111
+#: ../plugins/build-basic-autotools/plugin.c:2139
+msgid "Install module"
+msgstr "ثبّت الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2116
+#: ../plugins/build-basic-autotools/plugin.c:2144
+#: ../plugins/build-basic-autotools/plugin.c:2274
+#, c-format
+msgid "_Clean"
+msgstr "نظّ_ف"
+
+#: ../plugins/build-basic-autotools/plugin.c:2117
+#: ../plugins/build-basic-autotools/plugin.c:2145
+msgid "Clean module"
+msgstr "نظّف الوحدة"
+
+#: ../plugins/build-basic-autotools/plugin.c:2150
+#, fuzzy
+msgid "_Cancel command"
+msgstr "الأمر"
+
+#: ../plugins/build-basic-autotools/plugin.c:2151
+#, fuzzy
+msgid "Cancel build command"
+msgstr "ابن الأوامر"
+
+#: ../plugins/build-basic-autotools/plugin.c:2260
+#, c-format
+msgid "_Build (%s)"
+msgstr "_ابنِ (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2267
+#, c-format
+msgid "_Install (%s)"
+msgstr "_ثبّت (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2274
+#, c-format
+msgid "_Clean (%s)"
+msgstr "_نظّف (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2282
+#, c-format
+msgid "Co_mpile (%s)"
+msgstr "_صرّف (%s)"
+
+#: ../plugins/build-basic-autotools/plugin.c:2282
+#, c-format
+msgid "Co_mpile"
+msgstr "ص_رّف"
+
+#: ../plugins/build-basic-autotools/plugin.c:2780
+msgid "Build commands"
+msgstr "ابن الأوامر"
+
+#: ../plugins/build-basic-autotools/plugin.c:2787
+msgid "Build popup commands"
+msgstr "ابن الأوامر المنبثقة"
+
+#: ../plugins/build-basic-autotools/plugin.c:3150
+#: ../plugins/build-basic-autotools/plugin.c:3168
+msgid "Build Autotools"
+msgstr "ابنِ الأدوات الآلية"
+
+#: ../plugins/build-basic-autotools/program.c:375
+#, fuzzy
+msgid "Command aborted"
+msgstr "الأمر"
 
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:165
@@ -1160,6 +1192,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>تفاصيل الوحدة:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
+#: ../plugins/git/anjuta-git.glade.h:15
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options:</b>"
 msgstr "<b>خيارات:</b>"
@@ -1366,6 +1399,7 @@ msgid "Vendor tag:"
 msgstr "وسم البائع:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/git/anjuta-git.glade.h:82
 #: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "المشروع الكامل"
@@ -1388,6 +1422,9 @@ msgid "Unable to delete file"
 msgstr "تعذر حذف الملف"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
+#: ../plugins/git/git-commit-dialog.c:68
+#: ../plugins/git/git-create-tag-dialog.c:127
+#: ../plugins/git/git-merge-dialog.c:80
 #: ../plugins/subversion/subversion-commit-dialog.c:70
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "أمتأكد أنك لا تريد رسالة سجل؟"
@@ -2210,7 +2247,7 @@ msgstr "يوقف تنفيذ البرنامج مؤقتًا"
 msgid "Debugger operations"
 msgstr "عمليات المنقح"
 
-#: ../plugins/debug-manager/queue.c:545
+#: ../plugins/debug-manager/queue.c:543
 #, c-format
 msgid ""
 "Unable to find one debugger plugin supporting a target with %s mime type"
@@ -2230,10 +2267,12 @@ msgid "Shared Object"
 msgstr "كائن متشارك"
 
 #: ../plugins/debug-manager/sharedlib.c:187
+#: ../plugins/git/anjuta-git.glade.h:53
 msgid "From"
 msgstr "منن"
 
 #: ../plugins/debug-manager/sharedlib.c:191
+#: ../plugins/git/anjuta-git.glade.h:77
 msgid "To"
 msgstr "إلى"
 
@@ -2539,7 +2578,7 @@ msgstr "كتب"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:961
+#: ../plugins/symbol-browser/plugin.c:957
 msgid "Search"
 msgstr "ابحث"
 
@@ -4239,6 +4278,780 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "لا يمكن بدء الطرفية للتنقيح."
 
+#: ../plugins/git/anjuta-git.glade.h:1
+#, fuzzy
+msgid "<b>Bad revision:</b>"
+msgstr "<b>إنهاء المراحعة:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:2
+#, fuzzy
+msgid "<b>Branch name:</b>"
+msgstr "<b> فرع/وَسْم URL:  </b>"
+
+#: ../plugins/git/anjuta-git.glade.h:3
+#, fuzzy
+msgid "<b>Branch to delete:</b>"
+msgstr "<b>البرنامج الذي سيُختبر</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:4
+#, fuzzy
+msgid "<b>Branch to switch to:</b>"
+msgstr "<b>البرنامج الذي سيُختبر</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:5
+#, fuzzy
+msgid "<b>Branch:</b>"
+msgstr "<b> فرع/وَسْم URL:  </b>"
+
+#: ../plugins/git/anjuta-git.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
+msgid "<b>Changes:</b>"
+msgstr "<b>التغييرات:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:7
+#, fuzzy
+msgid "<b>Commit to revert:</b>"
+msgstr "<b>البرنامج الذي سيُختبر</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:8
+#, fuzzy
+msgid "<b>Filters</b>"
+msgstr "<b>ترشيح</b>>"
+
+#: ../plugins/git/anjuta-git.glade.h:9
+#, fuzzy
+msgid "<b>Folder to create patches in:</b>"
+msgstr "<b>ملف أو مجلد لإيجاد الفرق فيه:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:10
+#, fuzzy
+msgid "<b>Generate patches relative to:</b>"
+msgstr "<b>خصائص الفئة العامة</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:11
+#, fuzzy
+msgid "<b>Good revision:</b>"
+msgstr "<b>إنهاء المراحعة:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
+msgid "<b>Log Message:</b>"
+msgstr "<b>رسالة السجل:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:13
+#, fuzzy
+msgid "<b>Log message:</b>"
+msgstr "<b>رسالة السجل:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:14
+#, fuzzy
+msgid "<b>Mode:</b>"
+msgstr "<b>مِاكرو:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:16
+msgid "<b>Remote branch to rebase from:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:17
+#, fuzzy
+msgid "<b>Remote to delete:</b>"
+msgstr "<b>اختر التغييرات التي ستُعكس</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:18
+#, fuzzy
+msgid "<b>Repository to pull from:</b>"
+msgstr "<b>المستودع: </b>"
+
+#: ../plugins/git/anjuta-git.glade.h:19
+#, fuzzy
+msgid "<b>Reset to:</b>"
+msgstr "<b>المراجعة:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
+msgid "<b>Revision:</b>"
+msgstr "<b>المراجعة:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:21
+#, fuzzy
+msgid "<b>Select Files to Check Out:</b>"
+msgstr "<b>اختر الملفات للايداع:/b>"
+
+#: ../plugins/git/anjuta-git.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
+msgid "<b>Select Files to Commit:</b>"
+msgstr "<b>اختر الملفات للايداع:/b>"
+
+#: ../plugins/git/anjuta-git.glade.h:23
+#, fuzzy
+msgid "<b>Select Files to Ignore:</b>"
+msgstr "<b>اختر الملفات للايداع:/b>"
+
+#: ../plugins/git/anjuta-git.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "<b>Select Files to Mark as Resolved:</b>"
+msgstr "<b>اختر الملفات لتحديدها كمحلولة</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:25
+#, fuzzy
+msgid "<b>Select Files to Unstage:</b>"
+msgstr "<b>اختر الملفات للايداع:/b>"
+
+#: ../plugins/git/anjuta-git.glade.h:26
+#, fuzzy
+msgid "<b>Select file to add:</b>"
+msgstr "<b>اختر الملفات للايداع:/b>"
+
+#: ../plugins/git/anjuta-git.glade.h:27
+#, fuzzy
+msgid "<b>Select file to remove:</b>"
+msgstr "<b>اختر الملفات لتحديدها كمحلولة</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:28
+#, fuzzy
+msgid "<b>Tag name:</b>"
+msgstr "<b>التغييرات:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:29
+#, fuzzy
+msgid "<b>URL:</b>"
+msgstr "<b>الخط:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:30
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
+msgid "<b>View the Log for File/Folder:</b>"
+msgstr "<b> ابحث في السجل عن الملف/المجلد:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:31
+#, fuzzy
+msgid "Add File"
+msgstr "ملف"
+
+#: ../plugins/git/anjuta-git.glade.h:32
+#, fuzzy
+msgid "Add Remote Branch"
+msgstr "أزِل المراقب"
+
+#: ../plugins/git/anjuta-git.glade.h:33
+msgid "Add signed off by line"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:34
+msgid "Annotate this tag"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:35
+msgid "Append fetch data"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:36
+#, fuzzy
+msgid "Author/Grep"
+msgstr "المؤلف:"
+
+#: ../plugins/git/anjuta-git.glade.h:37
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "Author:"
+msgstr "المؤلف:"
+
+#: ../plugins/git/anjuta-git.glade.h:38
+msgid "Branch must be fully merged"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:39
+#, fuzzy
+msgid "Check Out Files"
+msgstr "الملفات الحد_يثة"
+
+#: ../plugins/git/anjuta-git.glade.h:40
+msgid "Check out the branch after it is created"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
+msgid "Commit Changes"
+msgstr "أدِعْ التغييرات"
+
+#: ../plugins/git/anjuta-git.glade.h:42
+msgid "Commit on fast-forward merges"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:43
+#, fuzzy
+msgid "Create Branch"
+msgstr "إنشاء"
+
+#: ../plugins/git/anjuta-git.glade.h:44
+#, fuzzy
+msgid "Create Tag"
+msgstr "إنشاء"
+
+#: ../plugins/git/anjuta-git.glade.h:45
+#, fuzzy
+msgid "Create patch series"
+msgstr "أنشئ قائمة مهمات"
+
+#: ../plugins/git/anjuta-git.glade.h:46
+#: ../plugins/subversion/subversion-log-dialog.c:139
+#, fuzzy
+msgid "Date"
+msgstr "لا تاريخ"
+
+#: ../plugins/git/anjuta-git.glade.h:47
+#, fuzzy
+msgid "Delete Branch"
+msgstr "احذف البيانات"
+
+#: ../plugins/git/anjuta-git.glade.h:48
+#, fuzzy
+msgid "Delete Remote Branch"
+msgstr "حدّد إلى الحاصر_ة"
+
+#: ../plugins/git/anjuta-git.glade.h:49
+#, fuzzy
+msgid "Do not commit"
+msgstr "لا تظهر التبويبات"
+
+#: ../plugins/git/anjuta-git.glade.h:50
+#, fuzzy
+msgid "Do not follow tags"
+msgstr "لا تظهر التبويبات"
+
+#: ../plugins/git/anjuta-git.glade.h:51
+msgid "Fetch remote branches after creation"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
+msgid "Force"
+msgstr "إجبار"
+
+#: ../plugins/git/anjuta-git.glade.h:54
+#, fuzzy
+msgid "From:"
+msgstr "منن"
+
+#: ../plugins/git/anjuta-git.glade.h:55
+#, fuzzy
+msgid "Grep:"
+msgstr "يوناني"
+
+#: ../plugins/git/anjuta-git.glade.h:56
+msgid "Hard"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:57
+#, fuzzy
+msgid "Head"
+msgstr "ترويسة_c"
+
+#: ../plugins/git/anjuta-git.glade.h:58
+#, fuzzy
+msgid "Ignore Files"
+msgstr "تجاهل الملفات:"
+
+#: ../plugins/git/anjuta-git.glade.h:59
+#, fuzzy
+msgid "Merge"
+msgstr "ادمَجْ..."
+
+#: ../plugins/git/anjuta-git.glade.h:60
+msgid "Mixed"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:61
+#, fuzzy
+msgid "Previous commit"
+msgstr "الإيجاد الساب_ق"
+
+#: ../plugins/git/anjuta-git.glade.h:62
+msgid "Pull"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:63
+#, fuzzy
+msgid "Rebase"
+msgstr "الإصدار"
+
+#: ../plugins/git/anjuta-git.glade.h:64
+#, fuzzy
+msgid "Remove File"
+msgstr "أزل الكل"
+
+#: ../plugins/git/anjuta-git.glade.h:65
+#, fuzzy
+msgid "Reset Tree"
+msgstr "استرجاع"
+
+#: ../plugins/git/anjuta-git.glade.h:66
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
+msgid "Retrieving status..."
+msgstr "جار استخراج الحالة..."
+
+#: ../plugins/git/anjuta-git.glade.h:67
+#, fuzzy
+msgid "Revert Commit"
+msgstr "ارتداد"
+
+#: ../plugins/git/anjuta-git.glade.h:68
+#, fuzzy
+msgid "Revision/Tag:"
+msgstr "المراجعة:"
+
+#: ../plugins/git/anjuta-git.glade.h:69
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Revision:"
+msgstr "المراجعة:"
+
+#: ../plugins/git/anjuta-git.glade.h:70
+#, fuzzy
+msgid "Select A Folder"
+msgstr "حدّد الك_ل"
+
+#: ../plugins/git/anjuta-git.glade.h:71
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
+msgid "Set Conflicts as Resolved"
+msgstr "تعيين النزاعات على أنها حُلَّت"
+
+#: ../plugins/git/anjuta-git.glade.h:72
+msgid "Soft"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:73
+msgid "Squash"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:74
+#, fuzzy
+msgid "Switch to Another Branch"
+msgstr "حَوِّلْ إلى فرع/وسم..."
+
+#: ../plugins/git/anjuta-git.glade.h:75
+#, fuzzy
+msgid "Tag/Commit"
+msgstr "أر_سِل"
+
+#: ../plugins/git/anjuta-git.glade.h:76
+msgid "This commit concludes a failed merge (use -i)"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:78
+#, fuzzy
+msgid "To:"
+msgstr "إلى"
+
+#: ../plugins/git/anjuta-git.glade.h:79
+#, fuzzy
+msgid "Unstage Files"
+msgstr "معلومات ملفات ال_هدف"
+
+#: ../plugins/git/anjuta-git.glade.h:80
+#, fuzzy
+msgid "Use a custom log message"
+msgstr "أضِف أختام الوقت لتسجيل الرسائل"
+
+#: ../plugins/git/anjuta-git.glade.h:81
+#, fuzzy
+msgid "View log"
+msgstr "عرض السجل"
+
+#: ../plugins/git/anjuta-git.glade.h:83
+#, fuzzy
+msgid "gtk-cancel"
+msgstr "gtk-close"
+
+#: ../plugins/git/anjuta-git.glade.h:84
+#, fuzzy
+msgid "gtk-clear"
+msgstr "gtk-close"
+
+#: ../plugins/git/anjuta-git.glade.h:85
+#, fuzzy
+msgid "gtk-ok"
+msgstr "gtk-redo"
+
+#: ../plugins/git/git-add-dialog.c:36
+msgid "Git: File staged for add."
+msgstr ""
+
+#: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
+#, fuzzy
+msgid "Please select a file."
+msgstr "رجاء أدخل اسم الملف!"
+
+#: ../plugins/git/git-add-remote-dialog.c:41
+#, c-format
+msgid "Git: Added remote branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-add-remote-dialog.c:81
+#: ../plugins/git/git-create-branch-dialog.c:98
+#, fuzzy
+msgid "Please enter a branch name."
+msgstr "رجاء أدخل عنوان ويب الفرع/وسم."
+
+#: ../plugins/git/git-add-remote-dialog.c:91
+#, fuzzy
+msgid "Please enter a URL."
+msgstr "رجاء أدخل مسارا."
+
+#: ../plugins/git/git-add-remote-dialog.c:111
+#: ../plugins/git/git-fetch-dialog.c:54
+#, fuzzy
+msgid "Git: Fetching..."
+msgstr "جارٍ الترقيع...\n"
+
+#: ../plugins/git/git-bisect-dialog.c:54
+#: ../plugins/git/git-create-branch-dialog.c:89
+#: ../plugins/git/git-create-tag-dialog.c:99
+#: ../plugins/git/git-reset-dialog.c:57 ../plugins/git/git-revert-dialog.c:46
+#: ../plugins/subversion/subversion-copy-dialog.c:207
+#: ../plugins/subversion/subversion-switch-dialog.c:120
+msgid "Please enter a revision."
+msgstr "رجاء أدخل اسم المراجعة."
+
+#: ../plugins/git/git-checkout-files-dialog.c:36
+msgid "Git: Files checked out."
+msgstr ""
+
+#: ../plugins/git/git-commit-dialog.c:36
+#, fuzzy
+msgid "Git: Commit complete."
+msgstr "Subversion: تم الايداع."
+
+#: ../plugins/git/git-create-branch-dialog.c:41
+#, c-format
+msgid "Git: Created branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-create-tag-dialog.c:41
+#, c-format
+msgid "Git: Created tag \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-create-tag-dialog.c:108
+#, fuzzy
+msgid "Please enter a tag name."
+msgstr "رجاء أدخل اسم الملف!"
+
+#: ../plugins/git/git-delete-branch-dialog.c:41
+#, c-format
+msgid "Git: Deleted branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-fetch-dialog.c:40
+#, fuzzy
+msgid "Git: Fetch complete."
+msgstr "انتهى البحث"
+
+#: ../plugins/git/git-log-dialog.c:276
+#, fuzzy
+msgid "Git: Retrieving log..."
+msgstr "Subversion: جارٍ سحب السجل..."
+
+#: ../plugins/git/git-log-dialog.c:433
+#, fuzzy, c-format
+msgid "<b>Branch:</b> %s"
+msgstr "<b> فرع/وَسْم URL:  </b>"
+
+#: ../plugins/git/git-log-dialog.c:438
+#, fuzzy, c-format
+msgid "<b>Tag:</b> %s"
+msgstr "<b>التغييرات:</b>"
+
+#: ../plugins/git/git-log-dialog.c:443
+#, fuzzy, c-format
+msgid "<b>Remote:</b> %s"
+msgstr "<b>الخط:</b>"
+
+#: ../plugins/git/git-merge-dialog.c:36
+#, fuzzy
+msgid "Git: Merge complete."
+msgstr "Subversion: تم الدمج."
+
+#: ../plugins/git/git-pull-dialog.c:36
+#, fuzzy
+msgid "Git: Pull complete."
+msgstr "الحالة مكتملة"
+
+#: ../plugins/git/git-pull-dialog.c:77
+#, fuzzy
+msgid "Please enter the URL of the repository to pull from."
+msgstr "رجاء أدخل مراجعة النهاية."
+
+#: ../plugins/git/git-rebase-dialog.c:49
+msgid "Git: Rebasing"
+msgstr ""
+
+#: ../plugins/git/git-remove-dialog.c:36
+#, fuzzy
+msgid "Git: File removed."
+msgstr "Subversion: ملف مسحوب."
+
+#: ../plugins/git/git-resolve-dialog.c:36
+#, fuzzy
+msgid "Git: Resolve complete."
+msgstr "Subversion: تم الحل."
+
+#: ../plugins/git/git-switch-dialog.c:36
+msgid "Git: Branch checkout complete."
+msgstr ""
+
+#: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+msgid "Git"
+msgstr ""
+
+#: ../plugins/git/git-ui-utils.c:438
+#, fuzzy
+msgid "Git: Diff complete."
+msgstr "Subversion: تم ايجاد الفروق."
+
+#: ../plugins/git/git-unstage-dialog.c:36
+msgid "Git: Files unstaged."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:56
+#, fuzzy
+msgid "_Git"
+msgstr "ا_ذهب إلى"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:64 ../plugins/subversion/plugin.c:78
+msgid "_Commit..."
+msgstr "أرسِ_ل..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:72
+#, fuzzy
+msgid "_Fetch"
+msgstr "_صِل"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:80
+#, fuzzy
+msgid "_Rebase"
+msgstr "إعادة ضب_ط"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:88 ../plugins/git/plugin.c:184
+#, fuzzy
+msgid "_Start..."
+msgstr "ا_طبع..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:96
+#, fuzzy
+msgid "_Continue"
+msgstr "شغّل/أ_كمل"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:104
+#, fuzzy
+msgid "_Skip"
+msgstr "تجاوز"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:112
+#, fuzzy
+msgid "_Abort"
+msgstr "ح_ول"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:120
+msgid "_Pull..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:128
+#, fuzzy
+msgid "_Unstage files..."
+msgstr "جارٍ حفظ الملف..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:136
+msgid "_Check out files..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:144
+#, fuzzy
+msgid "_Resolve conflicts..."
+msgstr "_حُلَّ التناقضات..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:152
+#, fuzzy
+msgid "Create patch series..."
+msgstr "أنشئ عرض المشروع..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:160 ../plugins/git/plugin.c:349
+#, fuzzy
+msgid "_Reset tree..."
+msgstr "أ_عكس..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:168 ../plugins/git/plugin.c:357
+#, fuzzy
+msgid "_Revert commit..."
+msgstr "أ_عكس..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
+#, fuzzy
+msgid "_Bisect"
+msgstr "إعادة ضب_ط"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:200
+#, fuzzy
+msgid "_Good"
+msgstr "ا_ذهب إلى"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:208
+#, fuzzy
+msgid "_Bad"
+msgstr "ب_ناء"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:216
+#, fuzzy
+msgid "_View log..."
+msgstr "_أظهر السجل..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:224 ../plugins/git/plugin.c:289
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
+msgid "_Add..."
+msgstr "أ_ضِف"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:232 ../plugins/subversion/plugin.c:70
+#: ../plugins/subversion/plugin.c:177
+msgid "_Remove..."
+msgstr "أ_زل..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:240
+#, fuzzy
+msgid "_Ignore..."
+msgstr "أ_زل..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:249 ../plugins/git/plugin.c:333
+#, fuzzy
+msgid "_Create branch..."
+msgstr "أنشئت الرموز..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:257
+msgid "_Delete branch..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:265
+#, fuzzy
+msgid "_Switch to another branch..."
+msgstr "حَوِّلْ إلى فرع/وسم..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:273
+#, fuzzy
+msgid "_Merge..."
+msgstr "ادمَجْ..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:281
+#, fuzzy
+msgid "_Remote branches"
+msgstr "أزِل المراقب"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:297
+#, fuzzy
+msgid "_Delete..."
+msgstr "احذف"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:305 ../plugins/git/plugin.c:341
+#, fuzzy
+msgid "_Create tag..."
+msgstr "أنشئ وسوم API"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:313
+#, fuzzy
+msgid "_Diff uncommitted changes"
+msgstr "_تجاهل التغييرات"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:325
+msgid "_Show commit diff"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:373
+#, fuzzy
+msgid "_Set good revision"
+msgstr "استخدم المراجعة"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:381
+#, fuzzy
+msgid "_Set bad revision"
+msgstr "استخدم المراجعة"
+
+#: ../plugins/git/plugin.c:496
+#, fuzzy
+msgid "Git operations"
+msgstr "عمليات المراقبة"
+
+#: ../plugins/git/plugin.c:501
+#, fuzzy
+msgid "Git log operations"
+msgstr "عمليات ملف المحرر"
+
+#: ../plugins/git/plugin.c:529
+#, fuzzy
+msgid "Git Log"
+msgstr "عرض السجل"
+
 #: ../plugins/glade/plugin.c:493
 msgid "Widgets"
 msgstr "عناصر الواجهة"
@@ -5563,11 +6376,6 @@ msgstr "مرشد التطبيقات"
 msgid "Application Assistent"
 msgstr "مرشد التطبيقات"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
-msgid "Author:"
-msgstr "المؤلف:"
-
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 msgid "Basic Information"
 msgstr "المعلومات الأساسية"
@@ -6134,8 +6942,9 @@ msgid "Scratchbox directory:"
 msgstr "اختر المجلد"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
-msgid "Sélectionner un dossier"
-msgstr ""
+#, fuzzy
+msgid "Select Scratchbox Folder"
+msgstr "اختر المجلد"
 
 #: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
 #, fuzzy
@@ -6573,10 +7382,6 @@ msgstr "لُفَّ الأسطر الطويلة لتُناسب الصفحة"
 msgid "<b>Branch/Tag URL:</b>"
 msgstr "<b> فرع/وَسْم URL:  </b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
-msgid "<b>Changes:</b>"
-msgstr "<b>التغييرات:</b>"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>End Revision:</b>"
 msgstr "<b>إنهاء المراحعة:</b>"
@@ -6593,14 +7398,6 @@ msgstr "<b>ملف/URL للإزالة:</b>"
 msgid "<b>First Path:</b>"
 msgstr "<b>المسار الأول:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
-msgid "<b>Log Message:</b>"
-msgstr "<b>رسالة السجل:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
-msgid "<b>Revision:</b>"
-msgstr "<b>المراجعة:</b>"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "<b>Second Path:</b>"
 msgstr "<b>المسار الثاني:</b>"
@@ -6608,14 +7405,6 @@ msgstr "<b>المسار الثاني:</b>"
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
 msgstr "<b>اختر التغييرات التي ستُعكس</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
-msgid "<b>Select Files to Commit:</b>"
-msgstr "<b>اختر الملفات للايداع:/b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
-msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr "<b>اختر الملفات لتحديدها كمحلولة</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
@@ -6629,10 +7418,6 @@ msgstr "<b>ابدأ المراجعة:</b>"
 msgid "<b>Subversion Options</b>"
 msgstr "<b>خيارات Subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
-msgid "<b>View the Log for File/Folder:</b>"
-msgstr "<b> ابحث في السجل عن الملف/المجلد:</b>"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "<b>Working Copy Path:</b>"
 msgstr "<b>مسار نسخة العمل:</b>"
@@ -6640,10 +7425,6 @@ msgstr "<b>مسار نسخة العمل:</b>"
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
 msgstr "أضِف ملفًا/مجلدًا"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
-msgid "Commit Changes"
-msgstr "أدِعْ التغييرات"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
@@ -6660,10 +7441,6 @@ msgstr "جد الفرق في ملف/مجلد"
 #: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
 msgstr "جـِد الفرق مع السابق"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:32
-msgid "Force"
-msgstr "إجبار"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
@@ -6705,25 +7482,13 @@ msgstr "رأس المستودع"
 msgid "Repository authorization"
 msgstr "تصريح المستودع"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
-msgid "Retrieving status..."
-msgstr "جار استخراج الحالة..."
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Revert Changes"
 msgstr "تراجع عن التغييرات"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
-msgid "Revision:"
-msgstr "المراجعة:"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Save open files before diffing"
 msgstr "احفظ الملفات المفتوحة قبل ايجاد الفرق "
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
-msgid "Set Conflicts as Resolved"
-msgstr "تعيين النزاعات على أنها حُلَّت"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
@@ -6775,35 +7540,17 @@ msgstr "realm"
 msgid "_Subversion"
 msgstr "_Subversion"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
-msgid "_Add..."
-msgstr "أ_ضِف"
-
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:64 ../plugins/subversion/plugin.c:171
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "أضف ملفًا/مجلدًا جديدًا إلى شجرة Subversion"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
-msgid "_Remove..."
-msgstr "أ_زل..."
-
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:72 ../plugins/subversion/plugin.c:179
 msgid "Remove a file/directory from Subversion tree"
 msgstr "أزل ملفًا/مجلدًا من شجرة Subversion"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:78
-msgid "_Commit..."
-msgstr "أرسِ_ل..."
 
 #. Display label
 #. short-cut
@@ -6936,7 +7683,7 @@ msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: الملف سيُضاف عند الايداع المقبل. "
 
 #: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-diff-dialog.c:66
 #: ../plugins/subversion/subversion-remove-dialog.c:98
 #: ../plugins/subversion/subversion-update-dialog.c:66
 msgid "Please enter a path."
@@ -6962,12 +7709,12 @@ msgstr "رجاء أدخل مسارا للمصدر."
 msgid "Please enter a destination path."
 msgstr "رجاء أدخل مسارا للمقصد."
 
-#: ../plugins/subversion/subversion-copy-dialog.c:207
-#: ../plugins/subversion/subversion-switch-dialog.c:120
-msgid "Please enter a revision."
-msgstr "رجاء أدخل اسم المراجعة."
+#: ../plugins/subversion/subversion-diff-dialog.c:75
+#, fuzzy
+msgid "[Head/Working Copy]"
+msgstr "نسخة العمل "
 
-#: ../plugins/subversion/subversion-diff-dialog.c:86
+#: ../plugins/subversion/subversion-diff-dialog.c:90
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
@@ -6982,11 +7729,6 @@ msgstr "جد الفروق"
 #, fuzzy
 msgid "Author"
 msgstr "المؤلف:"
-
-#: ../plugins/subversion/subversion-log-dialog.c:139
-#, fuzzy
-msgid "Date"
-msgstr "لا تاريخ"
 
 #: ../plugins/subversion/subversion-log-dialog.c:149
 #, fuzzy
@@ -7061,7 +7803,7 @@ msgstr "رجاء أدخل عنوان ويب الفرع/وسم."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:342
+#: ../plugins/subversion/subversion-ui-utils.c:343
 msgid "Subversion: Diff complete."
 msgstr "Subversion: تم ايجاد الفروق."
 
@@ -7262,33 +8004,33 @@ msgstr "جـِد استخدام الرمز في المشروع"
 msgid "Refresh symbol browser tree"
 msgstr "أنعش الرمز في شجرة المستعرض"
 
-#: ../plugins/symbol-browser/plugin.c:386
+#: ../plugins/symbol-browser/plugin.c:385
 msgid "Created symbols..."
 msgstr "أنشئت الرموز..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:920
+#: ../plugins/symbol-browser/plugin.c:916
 msgid "Local"
 msgstr "محلي"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:940
+#: ../plugins/symbol-browser/plugin.c:936
 msgid "Global"
 msgstr "عمومي"
 
-#: ../plugins/symbol-browser/plugin.c:984
+#: ../plugins/symbol-browser/plugin.c:980
 msgid "Symbol browser actions"
 msgstr "إجراءات مستعرض الرموز"
 
-#: ../plugins/symbol-browser/plugin.c:991
+#: ../plugins/symbol-browser/plugin.c:987
 msgid "Symbol browser popup actions"
 msgstr "إجراءات مستعرض الرموز المنبثقة"
 
-#: ../plugins/symbol-browser/plugin.c:998
+#: ../plugins/symbol-browser/plugin.c:994
 msgid "Symbol navigations"
 msgstr "تصفحات الرمز"
 
-#: ../plugins/symbol-browser/plugin.c:1007
+#: ../plugins/symbol-browser/plugin.c:1003
 msgid "Symbols"
 msgstr "الرموز"
 
@@ -8768,17 +9510,11 @@ msgstr ""
 #~ msgid "gtk-add"
 #~ msgstr "gtk-add"
 
-#~ msgid "gtk-close"
-#~ msgstr "gtk-close"
-
 #~ msgid "gtk-go-down"
 #~ msgstr "gtk-go-down"
 
 #~ msgid "gtk-go-up"
 #~ msgstr "جتك-إلى الأعلى"
-
-#~ msgid "gtk-redo"
-#~ msgstr "gtk-redo"
 
 #~ msgid "gtk-remove"
 #~ msgstr "gtk-remove"
@@ -9506,9 +10242,6 @@ msgstr ""
 #~ msgid "Ext."
 #~ msgstr "امتداد"
 
-#~ msgid "Header_c"
-#~ msgstr "ترويسة_c"
-
 #~ msgid "Header_cpp"
 #~ msgstr "ترويسة_cpp"
 
@@ -9726,20 +10459,8 @@ msgstr ""
 #~ msgid "svn.diff"
 #~ msgstr "svn.diff"
 
-#~ msgid "Add"
-#~ msgstr "إضافة"
-
-#~ msgid "Restore"
-#~ msgstr "استرجاع"
-
-#~ msgid "Revert"
-#~ msgstr "ارتداد"
-
 #~ msgid "Revert failed"
 #~ msgstr "فشل الارتداد"
-
-#~ msgid "Skip"
-#~ msgstr "تجاوز"
 
 #~ msgid "Update delete"
 #~ msgstr "تحديث حذف"
@@ -9752,9 +10473,6 @@ msgstr ""
 
 #~ msgid "Update external"
 #~ msgstr "التحديث خارجي"
-
-#~ msgid "Status completed"
-#~ msgstr "الحالة مكتملة"
 
 #~ msgid "Status external"
 #~ msgstr "الحالة خارجية"
