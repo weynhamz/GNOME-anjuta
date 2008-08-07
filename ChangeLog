@@ -4,6 +4,7 @@
 	* libanjuta/anjuta-version.h.in: Rename ANJUTA_*_VERSION
 	to LIBANJUTA_*_VERSION and ANJUTA_VERSION* to LIBANJUTA_VERSION*
 	to avoid conflict with ones defined in config.h
+	* plugins/subversion/subversion-ui-utils.c: Fixed a build break.
 
 2008-08-03  Rob Bradford  <rob@robster.org.uk>
 

@@ -183,6 +183,7 @@ report_errors (AnjutaCommand *command, guint return_code)
 		
 		anjuta_util_dialog_error (NULL, message);
 		g_free (message);
+	}
 }
 
 static void
