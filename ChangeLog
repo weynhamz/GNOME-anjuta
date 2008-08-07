@@ -1,6 +1,9 @@
 2008-08-07  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Disable scintilla plugin by default
+	* libanjuta/anjuta-version.h.in: Rename ANJUTA_*_VERSION
+	to LIBANJUTA_*_VERSION and ANJUTA_VERSION* to LIBANJUTA_VERSION*
+	to avoid conflict with ones defined in config.h
 
 2008-08-03  Rob Bradford  <rob@robster.org.uk>
 
