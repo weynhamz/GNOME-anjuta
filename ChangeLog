@@ -1,3 +1,7 @@
+2008-08-07  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Disable scintilla plugin by default
+
 2008-08-03  Rob Bradford  <rob@robster.org.uk>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
