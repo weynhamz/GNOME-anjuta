@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-05 22:40+0000\n"
-"PO-Revision-Date: 2008-08-07 12:15+0200\n"
+"POT-Creation-Date: 2008-08-07 16:17+0000\n"
+"PO-Revision-Date: 2008-08-08 20:59+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -444,10 +444,8 @@ msgstr "_Descartar los cambios"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
 "<b>Hay %d elemento con cambios sin guardar. ¿Desea guardar los cambios antes "
 "de cerrar?</b>"
@@ -797,8 +795,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1637
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
-"No se puede configurar el proyecto: Falta el script de configuración en %s."
+msgstr "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2020
 #: ../plugins/build-basic-autotools/plugin.c:2094
@@ -895,8 +892,7 @@ msgid "Remove Configuration"
 msgstr "Quitar configuración"
 
 #: ../plugins/build-basic-autotools/plugin.c:2085
-msgid ""
-"Clean project (distclean) and remove configuration directory if possible"
+msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpiar el proyecto (distclean) y eliminar el directorio de configuración si "
 "es posible"
@@ -2098,8 +2094,7 @@ msgstr "Información de archivos _objetivo"
 
 #: ../plugins/debug-manager/plugin.c:891
 msgid "Display information on the files the debugger is active with"
-msgstr ""
-"Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
 
 #: ../plugins/debug-manager/plugin.c:897
 msgid "Info _Program"
@@ -2223,8 +2218,7 @@ msgstr "Operaciones de depuración"
 
 #: ../plugins/debug-manager/queue.c:543
 #, c-format
-msgid ""
-"Unable to find one debugger plugin supporting a target with %s mime type"
+msgid "Unable to find one debugger plugin supporting a target with %s mime type"
 msgstr ""
 "No se puede encontrar un complemento de depuración que soporte un objetivo "
 "con un tipo MIME %s"
@@ -2790,8 +2784,7 @@ msgstr "Convertir EOL a mayoría de EOL"
 
 #: ../plugins/document-manager/plugin.c:202
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
+msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
 
 #: ../plugins/document-manager/plugin.c:207
 msgid "_Select"
@@ -3643,8 +3636,7 @@ msgstr "No se pudo obtener la información del archivo"
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1297
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1306
 msgid "Could not open file"
@@ -4135,8 +4127,7 @@ msgstr "No hay ningún ejecutable especificado.\n"
 
 #: ../plugins/gdb/debugger.c:941
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
+msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
 #: ../plugins/gdb/debugger.c:950
 msgid "There was an error whilst launching the debugger.\n"
@@ -4238,8 +4229,7 @@ msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid ""
-"Failed to create fifo file named %s. The program will run without a terminal."
+msgid "Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
 "Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
 "una terminal."
@@ -4250,11 +4240,11 @@ msgstr "No se pudo iniciar el terminal para depurar."
 
 #: ../plugins/git/anjuta-git.glade.h:1
 msgid "<b>Bad revision:</b>"
-msgstr "   Revisión errónea:</b>                    <b>"
+msgstr "<b>Revisión errónea:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:2
 msgid "<b>Branch name:</b>"
-msgstr "   Nombre de la rama:</b>                            <b>"
+msgstr "   Nombre de la rama:</b>                                                     <b>"
 
 #: ../plugins/git/anjuta-git.glade.h:3
 msgid "<b>Branch to delete:</b>"
@@ -4311,14 +4301,12 @@ msgid "<b>Remote branch to rebase from:</b>"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:17
-#, fuzzy
 msgid "<b>Remote to delete:</b>"
-msgstr "<b>Seleccione los cambios que revertir:</b>"
+msgstr "   Remota que borrar:</b>                                                                 <b>"
 
 #: ../plugins/git/anjuta-git.glade.h:18
-#, fuzzy
 msgid "<b>Repository to pull from:</b>"
-msgstr "<b>Repositorio:</b>"
+msgstr "<b>Repositorio desde el que actualizar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
 msgid "<b>Reset to:</b>"
@@ -4330,9 +4318,8 @@ msgid "<b>Revision:</b>"
 msgstr "<b>Revisión:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:21
-#, fuzzy
 msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>Seleccione archivos para subir:</b>"
+msgstr "<b>Seleccione archivos para descargar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
@@ -4349,9 +4336,8 @@ msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
-#, fuzzy
 msgid "<b>Select Files to Unstage:</b>"
-msgstr "<b>Seleccione archivos para subir:</b>"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
@@ -4379,9 +4365,8 @@ msgid "Add File"
 msgstr "Añadir archivo"
 
 #: ../plugins/git/anjuta-git.glade.h:32
-#, fuzzy
 msgid "Add Remote Branch"
-msgstr "Eliminar vigilancia"
+msgstr "Añadir rama remota"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
@@ -4396,9 +4381,8 @@ msgid "Append fetch data"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:36
-#, fuzzy
 msgid "Author/Grep"
-msgstr "Autor"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
@@ -4411,9 +4395,8 @@ msgid "Branch must be fully merged"
 msgstr "La rama debe estar completamente mezclada"
 
 #: ../plugins/git/anjuta-git.glade.h:39
-#, fuzzy
 msgid "Check Out Files"
-msgstr "_Archivos recientes"
+msgstr "Descargar archivos"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 msgid "Check out the branch after it is created"
@@ -4475,9 +4458,8 @@ msgid "From:"
 msgstr "De:"
 
 #: ../plugins/git/anjuta-git.glade.h:55
-#, fuzzy
 msgid "Grep:"
-msgstr "Griego"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:56
 msgid "Hard"
@@ -4508,9 +4490,8 @@ msgid "Pull"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:63
-#, fuzzy
 msgid "Rebase"
-msgstr "Publicación"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4565,16 +4546,15 @@ msgstr "Etiqueta/Commit"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
+msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
 msgstr "Para:"
 
 #: ../plugins/git/anjuta-git.glade.h:79
-#, fuzzy
 msgid "Unstage Files"
-msgstr "Información de archivos _objetivo"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:80
 msgid "Use a custom log message"
@@ -4634,22 +4614,21 @@ msgstr "Introduzca una revisión."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr ""
+msgstr "Git: Archivos descargados."
 
 #: ../plugins/git/git-commit-dialog.c:36
-#, fuzzy
 msgid "Git: Commit complete."
-msgstr "Subversion: Carga completada."
+msgstr "Git: Commit completo."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
 msgid "Git: Created branch \"%s\"."
-msgstr ""
+msgstr "Git: Rama «%s» creada."
 
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
 msgid "Git: Created tag \"%s\"."
-msgstr ""
+msgstr "Git: Etiqueta «%s» creada."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
@@ -4658,7 +4637,7 @@ msgstr "Introduzca un nombre de etiqueta."
 #: ../plugins/git/git-delete-branch-dialog.c:41
 #, c-format
 msgid "Git: Deleted branch \"%s\"."
-msgstr ""
+msgstr "Git: Rama «%s» borrada."
 
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
@@ -4689,39 +4668,35 @@ msgstr "Git: Mezcla completada."
 
 #: ../plugins/git/git-pull-dialog.c:36
 msgid "Git: Pull complete."
-msgstr ""
+msgstr "Git: Carga completa"
 
 #: ../plugins/git/git-pull-dialog.c:77
-#, fuzzy
 msgid "Please enter the URL of the repository to pull from."
-msgstr "Introduzca la revisión final."
+msgstr ""
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
 msgstr ""
 
 #: ../plugins/git/git-remove-dialog.c:36
-#, fuzzy
 msgid "Git: File removed."
-msgstr "Subversion: Archivo obtenido."
+msgstr "Git: Archivo borrado."
 
 #: ../plugins/git/git-resolve-dialog.c:36
-#, fuzzy
 msgid "Git: Resolve complete."
-msgstr "Subversion: Resolución completada."
+msgstr "Git: Resolución completada."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
-msgstr ""
+msgstr "Git: Descarga de rama completa."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 msgid "Git"
 msgstr "Git"
 
 #: ../plugins/git/git-ui-utils.c:438
-#, fuzzy
 msgid "Git: Diff complete."
-msgstr "Subversion: Diff completado."
+msgstr "Git: Diff completado."
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
@@ -4748,9 +4723,8 @@ msgstr "_Obtener"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:80
-#, fuzzy
 msgid "_Rebase"
-msgstr "_Restablecer"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -4780,20 +4754,19 @@ msgstr "_Abortar"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:120
 msgid "_Pull..."
-msgstr ""
+msgstr "Ca_rgar..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:128
-#, fuzzy
 msgid "_Unstage files..."
-msgstr "Guardando archivo…"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:136
 msgid "_Check out files..."
-msgstr ""
+msgstr "_Descargar archivos..."
 
 #. Action name
 #. Stock icon, if any
@@ -4810,9 +4783,8 @@ msgstr "Crear serie de parches…"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:160 ../plugins/git/plugin.c:349
-#, fuzzy
 msgid "_Reset tree..."
-msgstr "_Revertir…"
+msgstr "_Restablecer árbol..."
 
 #. Action name
 #. Stock icon, if any
@@ -4823,9 +4795,8 @@ msgstr "_Revertir commit…"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
-#, fuzzy
 msgid "_Bisect"
-msgstr "_Restablecer"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5065,8 +5036,7 @@ msgstr "detenido:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
-msgstr ""
-"Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
+msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
 #: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected todo item?"
@@ -5079,8 +5049,7 @@ msgstr "Eliminar"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
-"¿Seguro que quiere eliminar todos los elementos pendientes completados?"
+msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
@@ -5171,8 +5140,7 @@ msgstr "No se ha proporcionado ningún nombre de archivo."
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr ""
-"Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
+msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
 #: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
@@ -5321,10 +5289,8 @@ msgstr "Notificación"
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-"Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
-msgstr[1] ""
-"Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
+msgstr[0] "Permitir a los elementos pendientes notificarme cuando venzan en %i minuto"
+msgstr[1] "Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5897,8 +5863,7 @@ msgstr "Mostrar todos los símbolos"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
-msgstr ""
-"Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
+msgstr "Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
@@ -6085,8 +6050,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
-msgstr ""
-"El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
+msgstr "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
 #: ../plugins/project-manager/plugin.c:709
 #, c-format
@@ -6377,8 +6341,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:947
 msgid "Unable to build project assistant user interface."
-msgstr ""
-"No se pudo construir la interfaz de usuario del asistente de proyectos."
+msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
 
 #: ../plugins/project-wizard/install.c:387
 msgid "New project has been created successfully."
@@ -6691,12 +6654,10 @@ msgstr "Usar libglade para el IU"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr ""
-"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
+msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid ""
-"Use the libglade-2.0 library to load the glade interface file at runtime"
+msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "Usar la biblioteca libglade-2.0 para cargar el archivo de interfaz glade al "
 "ejecutar"
@@ -7008,8 +6969,7 @@ msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
 #: ../plugins/search/plugin.c:204
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
 #: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
@@ -7582,9 +7542,8 @@ msgid "Please enter a destination path."
 msgstr "Introduzca una ruta de destino."
 
 #: ../plugins/subversion/subversion-diff-dialog.c:75
-#, fuzzy
 msgid "[Head/Working Copy]"
-msgstr "Copia de trabajo"
+msgstr "[Head/Copia de trabajo]"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:90
 #: ../plugins/subversion/subversion-log-dialog.c:417
@@ -8039,8 +7998,7 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:444
 msgid "Unable to build user interface for tool variable"
-msgstr ""
-"No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
@@ -8080,8 +8038,7 @@ msgstr "Acelerador nuevo…"
 
 #: ../plugins/tools/editor.c:979
 msgid "Unable to build user interface for tool editor"
-msgstr ""
-"No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: ../plugins/tools/execute.c:313
 #, c-format
@@ -8257,8 +8214,7 @@ msgid "Valgrind"
 msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
-msgid ""
-"No executable target selected for debugging with Valgrind. Please select one."
+msgid "No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
 "No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
 "Seleccione uno."
@@ -8466,8 +8422,7 @@ msgstr "Redondear tamaños de malloc a la siguiente palabra"
 
 #: ../plugins/valgrind/vggeneralprefs.c:223
 msgid "Trace any child processes forked off by the program being debugged"
-msgstr ""
-"Trazar cualquier proceso bifurcado por el programa que se está depurando"
+msgstr "Trazar cualquier proceso bifurcado por el programa que se está depurando"
 
 #: ../plugins/valgrind/vggeneralprefs.c:231
 msgid "Track open file descriptors"
@@ -8479,8 +8434,7 @@ msgstr "Añadir sello temporal a los mensajes de registro"
 
 #: ../plugins/valgrind/vggeneralprefs.c:247
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
-"Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
+msgstr "Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
 
 #: ../plugins/valgrind/vggeneralprefs.c:255
 msgid "Suppressions File:"
@@ -8844,8 +8798,7 @@ msgstr "No abrir el último proyecto y los archivos al iniciar"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
-"Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
+msgstr "Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
 
 #: ../src/main.c:316
 msgid "- Integrated Development Environment"
@@ -8877,8 +8830,7 @@ msgstr "Añadir «(» después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
-msgstr ""
-"Añadir un espacio después de la llamada de autocompletado de la función"
+msgstr "Añadir un espacio después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
@@ -9194,3 +9146,4 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
