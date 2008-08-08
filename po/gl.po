@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-05 15:14+0200\n"
-"PO-Revision-Date: 2008-08-05 15:25+0200\n"
+"POT-Creation-Date: 2008-08-08 17:02+0200\n"
+"PO-Revision-Date: 2008-08-08 17:11+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -4241,9 +4241,8 @@ msgid "Cannot start terminal for debugging."
 msgstr "Non se puido iniciar o terminal para depuración."
 
 #: ../plugins/git/anjuta-git.glade.h:1
-#, fuzzy
 msgid "<b>Bad revision:</b>"
-msgstr "<b>Fin de revisión:</b>"
+msgstr "<b>Revisión errónea:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:2
 msgid "<b>Branch name:</b>"
@@ -4254,9 +4253,8 @@ msgid "<b>Branch to delete:</b>"
 msgstr "<b>Rama a eliminar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:4
-#, fuzzy
 msgid "<b>Branch to switch to:</b>"
-msgstr "<b>Programa a probar:</b>"
+msgstr "<b>Rama á que cambiar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:5
 msgid "<b>Branch:</b>"
@@ -4277,18 +4275,16 @@ msgid "<b>Filters</b>"
 msgstr "<b>Filtros</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:9
-#, fuzzy
 msgid "<b>Folder to create patches in:</b>"
-msgstr "<b>Ficheiro ou directorio para facer un diff:</b>"
+msgstr "<b>Cartafol onde crear os parches:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:10
 msgid "<b>Generate patches relative to:</b>"
 msgstr "<b>Xerar os parches relativos a:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:11
-#, fuzzy
 msgid "<b>Good revision:</b>"
-msgstr "<b>Fin de revisión:</b>"
+msgstr "<b>Revisión boa:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:12
 #: ../plugins/subversion/anjuta-subversion.glade.h:7
@@ -4337,9 +4333,8 @@ msgid "<b>Select Files to Commit:</b>"
 msgstr "<b>Seleccione os ficheiros para enviar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:23
-#, fuzzy
 msgid "<b>Select Files to Ignore:</b>"
-msgstr "<b>Seleccione os ficheiros para enviar:</b>"
+msgstr "<b>Seleccione os ficheiros para ignorar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:24
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
@@ -4405,7 +4400,7 @@ msgstr "Autor:"
 
 #: ../plugins/git/anjuta-git.glade.h:38
 msgid "Branch must be fully merged"
-msgstr ""
+msgstr "A rama debe estar completamente combinada"
 
 #: ../plugins/git/anjuta-git.glade.h:39
 #, fuzzy
@@ -4414,7 +4409,7 @@ msgstr "_Ficheiros recentes"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 msgid "Check out the branch after it is created"
-msgstr ""
+msgstr "Obter a rama despois de que se creara"
 
 #: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
@@ -4460,7 +4455,7 @@ msgstr "Non seguir etiquetas"
 
 #: ../plugins/git/anjuta-git.glade.h:51
 msgid "Fetch remote branches after creation"
-msgstr ""
+msgstr "Obter ramas remotas despois de crealas"
 
 #: ../plugins/git/anjuta-git.glade.h:52
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
@@ -4482,7 +4477,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:57
 msgid "Head"
-msgstr ""
+msgstr "Cabeceira"
 
 #: ../plugins/git/anjuta-git.glade.h:58
 msgid "Ignore Files"
@@ -4494,7 +4489,7 @@ msgstr "Combinar"
 
 #: ../plugins/git/anjuta-git.glade.h:60
 msgid "Mixed"
-msgstr ""
+msgstr "Mesturado"
 
 #: ../plugins/git/anjuta-git.glade.h:61
 #, fuzzy
@@ -4606,7 +4601,7 @@ msgstr "Seleccione un ficheiro."
 #: ../plugins/git/git-add-remote-dialog.c:41
 #, c-format
 msgid "Git: Added remote branch \"%s\"."
-msgstr ""
+msgstr "Git: Rama remota \"%s\" engadida."
 
 #: ../plugins/git/git-add-remote-dialog.c:81
 #: ../plugins/git/git-create-branch-dialog.c:98
@@ -4619,9 +4614,8 @@ msgstr "Introduza unha URL."
 
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
-#, fuzzy
 msgid "Git: Fetching..."
-msgstr "Parcheando...\n"
+msgstr "Git: Obtendo..."
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-create-branch-dialog.c:89
@@ -4661,9 +4655,8 @@ msgid "Git: Deleted branch \"%s\"."
 msgstr "Git: Rama eliminada \"%s\"."
 
 #: ../plugins/git/git-fetch-dialog.c:40
-#, fuzzy
 msgid "Git: Fetch complete."
-msgstr "Completar busca"
+msgstr "Git: Obtención completada."
 
 #: ../plugins/git/git-log-dialog.c:276
 msgid "Git: Retrieving log..."
@@ -4740,9 +4733,8 @@ msgstr "E_fectuar..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:72
-#, fuzzy
 msgid "_Fetch"
-msgstr "_Adxuntar"
+msgstr "_Obter"
 
 #. Action name
 #. Stock icon, if any
@@ -4829,16 +4821,14 @@ msgstr "_Reiniciar"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:200
-#, fuzzy
 msgid "_Good"
-msgstr "_Ir a"
+msgstr "_Boa"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:208
-#, fuzzy
 msgid "_Bad"
-msgstr "_Construír"
+msgstr "_Mala"
 
 #. Action name
 #. Stock icon, if any
@@ -4911,9 +4901,8 @@ msgstr "_Crear etiqueta..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:313
-#, fuzzy
 msgid "_Diff uncommitted changes"
-msgstr "_Descartar cambios"
+msgstr "Facer _diferencias dos cambios sen subir"
 
 #. Action name
 #. Stock icon, if any
@@ -4924,16 +4913,14 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:373
-#, fuzzy
 msgid "_Set good revision"
-msgstr "Usar revisión: "
+msgstr "E_stablecer como revisión boa"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:381
-#, fuzzy
 msgid "_Set bad revision"
-msgstr "Usar revisión: "
+msgstr "E_stablecer como revisión mala"
 
 #: ../plugins/git/plugin.c:496
 msgid "Git operations"
@@ -7670,7 +7657,7 @@ msgstr "Introduza a URL da rama/etiqueta."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:343
+#: ../plugins/subversion/subversion-ui-utils.c:344
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
