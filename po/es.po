@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-07 16:17+0000\n"
-"PO-Revision-Date: 2008-08-08 20:59+0200\n"
+"POT-Creation-Date: 2008-08-08 19:00+0000\n"
+"PO-Revision-Date: 2008-08-10 14:49+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4244,7 +4244,9 @@ msgstr "<b>Revisión errónea:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:2
 msgid "<b>Branch name:</b>"
-msgstr "   Nombre de la rama:</b>                                                     <b>"
+msgstr ""
+"   Nombre de la rama:</"
+"b>                                                     <b>"
 
 #: ../plugins/git/anjuta-git.glade.h:3
 msgid "<b>Branch to delete:</b>"
@@ -4302,7 +4304,9 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:17
 msgid "<b>Remote to delete:</b>"
-msgstr "   Remota que borrar:</b>                                                                 <b>"
+msgstr ""
+"   Remota que borrar:</"
+"b>                                                                 <b>"
 
 #: ../plugins/git/anjuta-git.glade.h:18
 msgid "<b>Repository to pull from:</b>"
@@ -4319,7 +4323,7 @@ msgstr "<b>Revisión:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:21
 msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>Seleccione archivos para descargar:</b>"
+msgstr "<b>Seleccione archivos para descargar (checkout):</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
@@ -4396,11 +4400,11 @@ msgstr "La rama debe estar completamente mezclada"
 
 #: ../plugins/git/anjuta-git.glade.h:39
 msgid "Check Out Files"
-msgstr "Descargar archivos"
+msgstr "Descargar (checkout) archivos"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 msgid "Check out the branch after it is created"
-msgstr "Obtener la rama después de que se haya creado"
+msgstr "Descargar (checkout) la rama después de que se haya creado"
 
 #: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
@@ -4487,7 +4491,7 @@ msgstr "Commit anterior"
 
 #: ../plugins/git/anjuta-git.glade.h:62
 msgid "Pull"
-msgstr ""
+msgstr "Descargar"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 msgid "Rebase"
@@ -4614,7 +4618,7 @@ msgstr "Introduzca una revisión."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr "Git: Archivos descargados."
+msgstr "Git: Archivos descargados (checkout)."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
@@ -4672,7 +4676,7 @@ msgstr "Git: Carga completa"
 
 #: ../plugins/git/git-pull-dialog.c:77
 msgid "Please enter the URL of the repository to pull from."
-msgstr ""
+msgstr "Introduzca el URL del repositorio del que descargar."
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
@@ -4688,7 +4692,7 @@ msgstr "Git: Resolución completada."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
-msgstr "Git: Descarga de rama completa."
+msgstr "Git: Descarga (checkout) de rama completa."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 msgid "Git"
@@ -4766,7 +4770,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:136
 msgid "_Check out files..."
-msgstr "_Descargar archivos..."
+msgstr "_Descargar (checkout) archivos..."
 
 #. Action name
 #. Stock icon, if any
@@ -4796,7 +4800,7 @@ msgstr "_Revertir commit…"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
 msgid "_Bisect"
-msgstr ""
+msgstr "_Vivisección (bisect)"
 
 #. Action name
 #. Stock icon, if any
@@ -7630,7 +7634,7 @@ msgstr "Introduzca una URL de rama/etiqueta."
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:343
+#: ../plugins/subversion/subversion-ui-utils.c:344
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
