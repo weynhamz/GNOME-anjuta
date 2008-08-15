@@ -69,6 +69,9 @@ struct _ProjectManagerPlugin{
 
 	/* Idle callback id */
 	guint close_project_idle;
+	
+	/* List of non modal properties dialog */
+	GList* prop_dialogs;
 };
 
 struct _ProjectManagerPluginClass{

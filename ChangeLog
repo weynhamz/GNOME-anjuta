@@ -1,3 +1,10 @@
+2008-08-15  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h:
+	Fix #493818 Close project with opened target properties dialog opened
+	crash Anjuta
+
 2008-08-15  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:

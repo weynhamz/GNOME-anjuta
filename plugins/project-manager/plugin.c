@@ -43,6 +43,22 @@
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define PROJECT_PROFILE_NAME "project"
 
+typedef struct _PmPropertiesDialogInfo PmPropertiesDialogInfo;
+
+typedef enum _PmPropertiesType
+{
+	PM_PROJECT_PROPERTIES,
+	PM_TARGET_PROPERTIES,
+	PM_GROUP_PROPERTIES
+} PmPropertiesType;
+
+struct _PmPropertiesDialogInfo
+{
+	PmPropertiesType type;
+	const gchar* id;
+	GtkWidget* dialog;
+};
+
 static gpointer parent_class;
 
 static gboolean uri_is_inside_project (ProjectManagerPlugin *plugin,
@@ -324,6 +340,128 @@ update_operation_begin (ProjectManagerPlugin *plugin)
 										  NULL);
 }
 
+/* Properties dialogs functions
+ *---------------------------------------------------------------------------*/
+
+static void
+properties_dialog_info_free (PmPropertiesDialogInfo *info)
+{
+	gtk_widget_destroy (info->dialog);
+	g_free (info);
+}
+
+static gint
+compare_properties_widget (PmPropertiesDialogInfo *info, GtkWidget *widget)
+{
+	return info->dialog == widget ? 0 : 1;
+}
+
+static gint
+compare_properties_id (PmPropertiesDialogInfo *info, PmPropertiesDialogInfo *info1)
+{
+	/* project properties have a NULL id */
+	return (info->type == info1->type) &&
+			((info1->id == NULL) ||
+			 ((info->id != NULL) &&
+			  (strcmp(info->id, info1->id) == 0))) ? 0 : 1;
+}
+
+static void
+on_properties_dialog_response (GtkDialog *win,
+							   gint id,
+							   ProjectManagerPlugin *plugin)
+{
+	GList *prop;
+	
+	prop = g_list_find_custom (plugin->prop_dialogs,
+							   win,
+							   (GCompareFunc)compare_properties_widget);
+	if (prop != NULL)
+	{
+		properties_dialog_info_free ((PmPropertiesDialogInfo *)prop->data);
+		plugin->prop_dialogs = g_list_delete_link (plugin->prop_dialogs, prop);
+	}
+}
+
+/* Display properties dialog. These dialogs are not modal, so keep a list of
+ * them to be able to destroy them if the project is closed. This list is
+ * useful to put the dialog at the top if the same target is selected while
+ * the corresponding dialog already exist instead of creating two times the
+ * same dialog */
+
+static void
+project_manager_show_properties_dialog (ProjectManagerPlugin *plugin,
+										PmPropertiesType type,
+										const gchar *id)
+{
+	PmPropertiesDialogInfo info;
+	GList* prop;
+		
+	info.type = type;
+	info.id = id; 
+	prop = g_list_find_custom (plugin->prop_dialogs,
+							   &info,
+							   (GCompareFunc)compare_properties_id);
+	if (prop != NULL)
+	{
+		/* Show already existing dialog */
+
+		gtk_window_present (GTK_WINDOW (((PmPropertiesDialogInfo *)prop->data)->dialog));
+	}
+	else
+	{
+		/* Create new dialog */
+		GtkWidget *win;
+		GtkWidget *properties = NULL;
+		const char* title = NULL;
+		
+		switch (type)
+		{
+			case PM_PROJECT_PROPERTIES:
+				properties = gbf_project_configure (plugin->project, NULL);
+				title = _("Project properties");
+				break;
+			case PM_TARGET_PROPERTIES:		
+				properties = gbf_project_configure_target (plugin->project,
+														   id, NULL);
+				title = _("Target properties");
+				break;
+			case PM_GROUP_PROPERTIES:
+				properties = gbf_project_configure_group (plugin->project,
+														   id, NULL);
+				title = _("Group properties");
+				break;
+		}
+			
+		if (properties)
+		{
+			win = gtk_dialog_new_with_buttons (title,
+									   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+									   GTK_DIALOG_DESTROY_WITH_PARENT,
+									   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
+			info.dialog = win;
+			plugin->prop_dialogs = g_list_prepend (plugin->prop_dialogs, g_memdup (&info, sizeof (info)));
+			g_signal_connect (win, "response",
+							  G_CALLBACK (on_properties_dialog_response),
+							  plugin);
+			
+			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
+							   properties);
+			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
+			gtk_widget_show (win);
+		}
+		else
+		{
+			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+							 _("No properties available for this target"));
+		}
+	}	
+}
+
+
+/* GUI callbacks
+ *---------------------------------------------------------------------------*/
+
 static gboolean
 on_refresh_idle (gpointer user_data)
 {
@@ -359,28 +497,7 @@ on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *win, *properties;
-	
-	properties = gbf_project_configure (plugin->project, NULL);
-	if (properties)
-	{
-		win = gtk_dialog_new_with_buttons (_("Project properties"),
-									GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-									GTK_DIALOG_DESTROY_WITH_PARENT,
-									GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
-		g_signal_connect_swapped (win, "response",
-								  G_CALLBACK (gtk_widget_destroy), win);
-		
-		gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
-						   properties);
-		gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
-		gtk_widget_show (win);
-	}
-	else
-	{
-		anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								 _("No properties available for this target"));
-	}
+	project_manager_show_properties_dialog (plugin, PM_PROJECT_PROPERTIES, NULL); 
 }
 
 static void
@@ -443,67 +560,23 @@ static void
 on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GbfTreeData *data;
-	const gchar *selected_target;
-	GtkWidget *properties, *win;
 	
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_TARGET);
-	selected_target = NULL;
 	if (data)
 	{
-		selected_target = data->id;
-		properties = gbf_project_configure_target (plugin->project,
-												   selected_target, NULL);
-		if (properties)
-		{
-			win = gtk_dialog_new_with_buttons (_("Target properties"),
-								   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								   GTK_DIALOG_DESTROY_WITH_PARENT,
-								   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
-			g_signal_connect_swapped (win, "response",
-									  G_CALLBACK (gtk_widget_destroy), win);
-			
-			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
-							   properties);
-			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
-			gtk_widget_show (win);
-		}
-		else
-		{
-			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								 _("No properties available for this target"));
-		}
+		project_manager_show_properties_dialog (plugin, PM_TARGET_PROPERTIES, data->id);
 		return;
 	}
+		
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
-	selected_target = NULL;
 	if (data)
 	{
-		selected_target = data->id;
-		properties = gbf_project_configure_group (plugin->project,
-												  selected_target, NULL);
-		if (properties)
-		{
-			win = gtk_dialog_new_with_buttons (_("Group properties"),
-								   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								   GTK_DIALOG_DESTROY_WITH_PARENT,
-								   _("Close"), GTK_RESPONSE_CANCEL, NULL);
-			g_signal_connect_swapped (win, "response",
-									  G_CALLBACK (gtk_widget_destroy), win);
-			
-			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
-							   properties);
-			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
-			gtk_widget_show (win);
-		}
-		else
-		{
-			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								 _("No properties available for this group"));
-		}
+		project_manager_show_properties_dialog (plugin, PM_GROUP_PROPERTIES, data->id);
 		return;
 	}
+	
 	/* FIXME: */
 }
 
@@ -1275,6 +1348,11 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 				g_list_free (to_remove);
 		}
 		
+		/* Remove remaining properties dialogs */
+		g_list_foreach (pm_plugin->prop_dialogs, (GFunc)properties_dialog_info_free, NULL);
+		g_list_free (pm_plugin->prop_dialogs);
+		pm_plugin->prop_dialogs = NULL;
+		
 		/* Release project */
 		g_object_unref (pm_plugin->project);
 		pm_plugin->project = NULL;
@@ -1428,6 +1506,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	pm_plugin->scrolledwindow = scrolled_window;
 	pm_plugin->view = view;
 	pm_plugin->model = model;
+	pm_plugin->prop_dialogs = NULL;
 	
 	/* Action groups */
 	pm_plugin->pm_action_group = 
@@ -2008,6 +2087,8 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+	if (plugin->project == NULL) return NULL;
+	
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
 	
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
