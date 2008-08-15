@@ -184,4 +184,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(git_plugin_DATA) \
 	$(git_ui_DATA) \
+	$(git_glade_DATA) \
 	$(git_pixmaps_DATA)

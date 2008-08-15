@@ -47,6 +47,9 @@
 #include "program.h"
 
 #include <sys/wait.h>
+#if defined(__FreeBSD__)
+#include <sys/signal.h>
+#endif
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
@@ -826,10 +829,6 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		g_free (start_str);
 		g_free (mid_str);
 		g_free (dummy_fn);
-	}
-	else if (strstr (line, ": ") != NULL)
-	{
-		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
 	}
 	
 	node = patterns_list;

@@ -27,7 +27,7 @@
 
 #include <glib-object.h>
 #include <string.h>
-#include <wait.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <libanjuta/anjuta-sync-command.h>

@@ -35,6 +35,7 @@ libanjuta_scratchbox_la_LIBADD = \
 # Plugin sources
 libanjuta_scratchbox_la_SOURCES = \
 	plugin.c
+	plugin.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

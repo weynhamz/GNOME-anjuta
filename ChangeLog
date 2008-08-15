@@ -1,3 +1,14 @@
+2008-08-15  Johannes Schmid  <jhs@gnome.org>
+
+	Patch by Koop Mast <kwm@freebsd.org>
+
+	* plugins/build-basic-autotools/plugin.c (on_build_mesg_format):
+	* plugins/scratchbox/Makefile.am:
+	* plugins/git/git-command.h:
+	* plugins/git/Makefile.am:
+	#546620 – Build- and make dist fixes
+	(with some small changes)
+
 2008-08-15  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
