@@ -1,5 +1,13 @@
 2008-08-15  Johannes Schmid  <jhs@gnome.org>
 
+	* configure.in:
+	* plugins/sourceview/sourceview.c (on_open_failed),
+	(on_save_failed):
+	Use a fallback dialog if the document was not added to the document-manager
+	yet (#545557 – Crash pressing on message view)
+
+2008-08-15  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/editor/text_editor.c: save in correct encoding (fixes build warnings)
 	* plugins/sourceview/sourceview-io.c (sourceview_io_init),
 	(sourceview_io_save_as), (append_buffer):

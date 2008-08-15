@@ -339,26 +339,37 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 	AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
 	IAnjutaDocumentManager *docman = 
 		anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-	GtkWidget* message_area;
 	g_return_if_fail (docman != NULL);
+	GList* documents = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	GtkWidget* message_area;
 	
 	/* Could not open <filename>: <error message> */
 	gchar* message = g_strdup_printf (_("Could not open %s: %s"),
 									  sourceview_io_get_filename (sv->priv->io), 
 									  err->message);
-	message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-									GTK_STOCK_OK,
-									GTK_RESPONSE_OK);
+	
+	if (g_list_find (documents, sv))
+	{
+		message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_ERROR);
+		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+										GTK_STOCK_OK,
+										GTK_RESPONSE_OK);
+		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+		
+		ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
+												   message_area, NULL);
+	}
+	else
+	{
+		GtkWidget* dialog = gtk_message_dialog_new (NULL, 0,
+													GTK_MESSAGE_ERROR,
+													GTK_BUTTONS_OK,
+													message);
+		g_signal_connect (dialog, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+	}
 	g_free (message);
-	
-	g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
-	
-	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
-											   message_area, NULL);
-	
 	sv->priv->loading = FALSE;
-	
 	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
 	
 	/* Get rid of reference from ifile_open */
@@ -448,23 +459,36 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 	AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
 	IAnjutaDocumentManager *docman = 
 		anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-	GtkWidget* message_area;
 	g_return_if_fail (docman != NULL);
+	GList* documents = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	GtkWidget* message_area;
 	
-	/* Could not save <filename>: <error message> */
+	/* Could not open <filename>: <error message> */
 	gchar* message = g_strdup_printf (_("Could not save %s: %s"),
-									  sourceview_io_get_filename (sio), 
+									  sourceview_io_get_filename (sv->priv->io), 
 									  err->message);
-	message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-									GTK_STOCK_OK,
-									GTK_RESPONSE_OK);
+	
+	if (g_list_find (documents, sv))
+	{
+		message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_ERROR);
+		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+										GTK_STOCK_OK,
+										GTK_RESPONSE_OK);
+		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+		
+		ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
+												   message_area, NULL);
+	}
+	else
+	{
+		GtkWidget* dialog = gtk_message_dialog_new (NULL, 0,
+													GTK_MESSAGE_ERROR,
+													GTK_BUTTONS_OK,
+													message);
+		g_signal_connect (dialog, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+	}
 	g_free (message);
-	
-	g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
-	
-	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
-											   message_area, NULL);
 	
 	g_object_unref (sv);
 }

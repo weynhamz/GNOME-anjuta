@@ -436,17 +436,6 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SYMBOL_DB, [test x$symboldb = xyes])
 
-dnl Check for Vala
-dnl -------------------------------------------------------------
-PKG_CHECK_MODULES(VALA, vala-1.0, [have_vala="yes"], [have_vala="no"])
-
-if test x$have_vala = xyes; then
-	vapidir=`pkg-config --variable=vapidir vala-1.0`
-	AC_SUBST(vapidir)
-fi
-
-AM_CONDITIONAL(HAVE_VALA, [test x$have_vala = xyes])
-
 dnl Valgrind plugin
 dnl check for libbfd
 dnl -------------------------------------------------------------
