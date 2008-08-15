@@ -1,5 +1,13 @@
 2008-08-15  Yuriy Penkin <yuriy.penkin@gmail.com>
 
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-browser/an_symbol.c (isymbol_get_file):
+	#545673 – A bug in isymbol_get_file function
+	Use g_file_new_for_uri() instead of g_file_new_for_path
+
+2008-08-15  Yuriy Penkin <yuriy.penkin@gmail.com>
+
 	* plugins/subversion/svn-diff-command.c (get_full_str),
 	(svn_diff_command_run):
 	#542432 – Svn diff doesn't work correctly

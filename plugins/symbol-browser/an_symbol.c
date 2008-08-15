@@ -222,7 +222,7 @@ isymbol_get_file (IAnjutaSymbol *isymbol, GError **err)
 		s->priv->uri = g_file_get_uri (file);
 		g_object_unref (file);
 	}
-	return g_file_new_for_path (s->priv->uri);
+	return g_file_new_for_uri (s->priv->uri);
 }
 
 static gulong
