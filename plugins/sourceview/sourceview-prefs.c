@@ -40,6 +40,8 @@ static AnjutaPreferences* prefs = NULL;
 #define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
 #define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
+#define VISIBLE_SPACES             "sourceview.spaces.visible"
+
 #define FONT_THEME "sourceview.font.use_theme"
 #define FONT "sourceview.font"
 #define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
@@ -61,6 +63,18 @@ get_bool(GConfEntry* entry)
 		return gconf_value_get_bool (value);
 	else
 		return gconf_value_get_int(value);
+}
+
+static void
+on_gconf_notify_visible_spaces (GConfClient *gclient, guint cnxn_id,
+																GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean visible = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW(sv->priv->view), 
+																	 visible ? GTK_SOURCE_DRAW_SPACES_ALL : 0);
 }
 
 static void
@@ -290,7 +304,9 @@ sourceview_prefs_init(Sourceview* sv)
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
 																						get_key(sv, RIGHTMARGIN_POSITION));
 	
-	
+	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view),
+																	 get_key (sv, VISIBLE_SPACES));
+		
 	init_fonts(sv);
 	
 	/* Register gconf notifications */
@@ -306,7 +322,7 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_gconf_notify_right_margin_position);
 	REGISTER_NOTIFY (FONT_THEME, on_gconf_notify_font_theme);
 	REGISTER_NOTIFY (FONT, on_gconf_notify_font);	
-	
+	REGISTER_NOTIFY (VISIBLE_SPACES, on_gconf_notify_visible_spaces);		
 }
 
 void sourceview_prefs_destroy(Sourceview* sv)

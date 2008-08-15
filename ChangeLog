@@ -1,3 +1,12 @@
+2008-08-15  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: Bump gtksourceview requirement to 2.3.1
+	
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/sourceview-prefs.c
+	(on_gconf_notify_visible_spaces), (sourceview_prefs_init):
+	Add a preference for the new visible whitespace feature of gtksourceview
+
 2008-08-07  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Disable scintilla plugin by default
