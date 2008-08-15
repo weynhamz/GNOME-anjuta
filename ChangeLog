@@ -1,5 +1,16 @@
 2008-08-15  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/editor/text_editor.c: save in correct encoding (fixes build warnings)
+	* plugins/sourceview/sourceview-io.c (sourceview_io_init),
+	(sourceview_io_save_as), (append_buffer):
+	* plugins/sourceview/sourceview-io.h:
+	* plugins/sourceview/sourceview.c (on_overwrite_toggled),
+	(sourceview_instance_init):
+	- #420279 – INS and OVR do not immediately change in status bar
+	- Save files in their original encoding
+
+2008-08-15  Johannes Schmid  <jhs@gnome.org>
+
 	Patch by Koop Mast <kwm@freebsd.org>
 
 	* plugins/build-basic-autotools/plugin.c (on_build_mesg_format):

@@ -252,6 +252,14 @@ static void on_document_modified_changed(GtkTextBuffer* buffer, Sourceview* sv)
 						  !gtk_text_buffer_get_modified(buffer));
 }
 
+/* Update document status */
+static void on_overwrite_toggled (GtkTextView* view,
+								  Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
+}
+
+
 static void on_mark_set (GtkTextBuffer *buffer,
 						 GtkTextIter* location,
 						 GtkTextMark* mark,
@@ -518,6 +526,8 @@ sourceview_instance_init(Sourceview* sv)
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
+	g_signal_connect_after (G_OBJECT(sv->priv->view), "toggle-overwrite", 
+					  G_CALLBACK(on_overwrite_toggled), sv);
 	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
 					  G_CALLBACK (on_sourceview_hover_over), sv);
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);

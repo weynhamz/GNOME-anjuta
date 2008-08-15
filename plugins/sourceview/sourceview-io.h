@@ -22,6 +22,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <libanjuta/anjuta-encodings.h>
 #include "sourceview.h"
 
 G_BEGIN_DECLS
@@ -60,6 +61,8 @@ struct _SourceviewIO
 	GCancellable* cancel;
 	GFileMonitor* monitor;
 	guint monitor_idle;
+	
+	const AnjutaEncoding* last_encoding;
 };
 
 GType sourceview_io_get_type (void) G_GNUC_CONST;

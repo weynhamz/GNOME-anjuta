@@ -54,6 +54,7 @@ sourceview_io_init (SourceviewIO *object)
 	object->write_buffer = NULL;
 	object->cancel = g_cancellable_new();
 	object->monitor = NULL;
+	object->last_encoding = NULL;
 }
 
 static void
@@ -280,8 +281,30 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 			}
 		}
 	}
-	sio->write_buffer = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
-													 NULL);
+	
+	if (sio->last_encoding == NULL)
+	{
+		sio->write_buffer = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
+														 NULL);
+	}
+	else
+	{
+		GError* err = NULL;
+		gchar* buffer_text = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
+														  NULL);
+		sio->write_buffer = anjuta_convert_from_utf8 (buffer_text,
+													  -1,
+													  sio->last_encoding,
+													  NULL,
+													  &err);
+		g_free (buffer_text);
+		if (err != NULL)
+		{
+			g_signal_emit_by_name (sio, "save-failed", err);
+			g_error_free(err);
+			return;
+		}
+	}
 	g_cancellable_reset (sio->cancel);
 	g_output_stream_write_async (G_OUTPUT_STREAM (output_stream),
 								 sio->write_buffer,
@@ -358,6 +381,7 @@ append_buffer (SourceviewIO* sio, gsize size)
 			g_cancellable_cancel (sio->cancel);
 			return;
 		}
+		sio->last_encoding = enc;
 		insert_text_in_document (sio, converted_text, new_len);
 		g_free (converted_text);
 	}
