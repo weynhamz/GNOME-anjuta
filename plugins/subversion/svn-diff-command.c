@@ -68,6 +68,36 @@ svn_diff_command_finalize (GObject *object)
 	G_OBJECT_CLASS (svn_diff_command_parent_class)->finalize (object);
 }
 
+static gboolean
+get_full_str (apr_file_t *diff_file, gchar **line)
+{
+	apr_size_t read_size = 1;	
+	gint buf_size = 2;
+	gint cur_size = 0;
+	gchar buf;
+
+	*line = g_new (gchar, buf_size);	
+	while (apr_file_read (diff_file, &buf, &read_size) != APR_EOF)
+	{		
+		(*line)[cur_size] = buf;
+  		cur_size++;
+		
+		if (cur_size >= buf_size)
+		{
+			gchar *new_line = g_renew (gchar, *line, buf_size * 2);
+			buf_size *= 2;
+			*line = new_line;
+		}
+
+		if (buf == '\n')
+		{
+			(*line)[cur_size] = 0;
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static guint 
 svn_diff_command_run (AnjutaCommand *command)
 {
@@ -78,7 +108,6 @@ svn_diff_command_run (AnjutaCommand *command)
 	apr_array_header_t *options;
 	apr_file_t *diff_file;
 	gchar file_template[] = "anjuta-svn-diffXXXXXX";
-	apr_size_t read_size;
 	gchar *line;
 	svn_error_t *error;
 	apr_status_t apr_error;
@@ -142,35 +171,26 @@ svn_diff_command_run (AnjutaCommand *command)
 	offset = 0;
 	apr_file_seek (diff_file, APR_SET, &offset);
 	
-	while (apr_file_eof (diff_file) != APR_EOF)
+	while (get_full_str (diff_file, &line))
 	{
-		read_size = 80;
-		line = g_new0 (gchar, (read_size + 1));
+		anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (command));
 		
-		apr_error = apr_file_read (diff_file, line, &read_size);
-
-		if (strlen (line))
-		{
-			anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (command));
-			
-			/* Make sure that we only output UTF-8. We could have done this by
-			 * passing in "UTF-8" for header encoding to the diff API, but there
-			 * is the possiblity that an external diff program could be used, in
-			 * which case that arguement wouldn't do anything. As a workaround,
-			 * have the internal diff system return things in the system 
-			 * charset, and make the (hopefully safe) assumption that any 
-			 * external diff program also outputs in the current locale. */
-			g_queue_push_tail (self->priv->output, 
-							   g_locale_to_utf8 (line, read_size, NULL, NULL,
-												 NULL));
-			anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (command));
-			
-			g_free (line);
-			
-			anjuta_command_notify_data_arrived (command);
-		}
-	}
-	
+		/* Make sure that we only output UTF-8. We could have done this by
+		 * passing in "UTF-8" for header encoding to the diff API, but there
+		 * is the possiblity that an external diff program could be used, in
+		 * which case that arguement wouldn't do anything. As a workaround,
+		 * have the internal diff system return things in the system 
+		 * charset, and make the (hopefully safe) assumption that any 
+		 * external diff program also outputs in the current locale. */
+		g_queue_push_tail (self->priv->output, 
+						   g_locale_to_utf8 (line, -1, NULL, NULL,
+											 NULL));
+		anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (command));
+		
+		g_free (line);
+		
+		anjuta_command_notify_data_arrived (command);
+	}	
 	apr_file_close (diff_file);
 	
 	return 0;

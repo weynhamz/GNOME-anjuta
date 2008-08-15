@@ -1,3 +1,10 @@
+2008-08-15  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/subversion/svn-diff-command.c (get_full_str),
+	(svn_diff_command_run):
+	#542432 – Svn diff doesn't work correctly
+	Convert the output of svn diff from localce to utf-8
+
 2008-08-05  Rob Bradford  <rob@openedhand.com>
  
 	* libanjuta/Makefile.am:
