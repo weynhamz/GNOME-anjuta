@@ -1,3 +1,9 @@
+2008-08-05  Rob Bradford  <rob@openedhand.com>
+ 
+	* libanjuta/Makefile.am:
+	pull GIO into the libraries that libanjuta links against. 
+	(Bug #546394)
+
 2008-08-15  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in: Bump gtksourceview requirement to 2.3.1
@@ -1806,7 +1812,7 @@
 	
 	Patch from Arun Raghavan:
 	* manuals/anjuta-manual/C/debugger.xml:
-	#536889 – anjuta doesn't pass "make check"
+	#536889 â anjuta doesn't pass "make check"
 
 2008-06-07  Johannes Schmid <jhs@gnome.org>
 
@@ -1837,7 +1843,7 @@
 	now search for symbols can be done also in global tags. Added a new parameter
 	to search function and adjusted dependencies on different plugins.
 
-2008-06-05  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-06-05  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/terminal/terminal.c,
 	libanjuta/anjuta-preferences.c:
@@ -1845,7 +1851,7 @@
 
 2008-06-03 Halton Huo <halton.huo@sun.com>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* libanjuta/anjuta-launcher.c:
 	Fix #536372: Write __MAX_BAUX instead of __MAX_BAUD
 
@@ -1857,7 +1863,7 @@
 	
 2008-06-02  Yuriy Penkin <yuriy.penkin@gmail.com>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* plugins/cvs-plugin/Makefile.am,
 	plugins/cvs-plugin/cvs-execute.c,
 	plugins/sourceview/anjuta-document.c,
@@ -1873,7 +1879,7 @@
 	configure.in:
 	Fix #514620: Port anjuta to GRegex
 
-2008-06-02  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-06-02  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-marshal.list,
 	plugins/debug-manager/sexy-icon-entry.c:
@@ -1882,11 +1888,11 @@
 
 2008-06-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* plugins/run-program/execute.c:
 	Fix #536045: New run program plugin crash
 
-2008-05-30  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-30  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl,
 	libanjuta/interfaces/libanjuta.idl,
@@ -1901,13 +1907,13 @@
 
 2008-05-29  Arun Tejasvi Chaganty  <arunchaganty@gmail.com>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* manuals/reference/libanjuta/writing-plugins.sgml:
 	Fix #534175: Deprecated code in Plugin Tutorial
 
 2008-05-27  basti  <pee@hiddenbox.de>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* scripts/anjuta_import.sh.in,
 	plugins/tools/scripts/prepare-changelog.pl,
 	global-tags/create_global_tags.sh.in:
@@ -1928,15 +1934,15 @@
 
 	* plugins/language-manager/Makefile.am:
 	Merged patch from bug 
-	#535048 – Anjuta doesn't build when checking underlinking and overlinking
+	#535048 â Anjuta doesn't build when checking underlinking and overlinking
 
-2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-26  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/reference/libanjuta/libanjuta-docs.sgml:
 	Forget this change to add AnjutaCommand and AnjutaAsyncCommand
 	in the documentation
 
-2008-05-26  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-26  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c,
 	plugins/build-basic-autotools/build-basic-autotools.c,
@@ -1961,21 +1967,21 @@
 	Fixed bug #532537 - Crash on closing Anjuta Preferences when it
 	open twice.
 
-2008-05-25  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-25  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor_cbs.c:
 	Set line to mouse location when popup-menu is displayed (#530689)
 
 2008-05-25  James Liggett  <jrliggett@cox.net>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* libanjuta/anjuta-command.c,
 	libanjuta/anjuta-async-command.c:
 	Document AnjutaCommand and AnjutaAsyncCommand
 
 2008-05-25  basti  <pee@hiddenbox.de>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* plugins/debug-manager/debug_tree.c:
 	Fix a crash when changing a watch while debugger is stopped
 
@@ -1983,19 +1989,19 @@
 	plugins/gdb/anjuta-gdb.plugin.in:
 	Allow loading application/octet-stream mime type
 
-2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-24  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c:
 	Fix #378903: Use IAnjutaBuilder to always debug an up to date program
 
-2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-24  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/run-program/plugin.c,
 	plugins/run-program/execute.c,
 	plugins/run-program/plugin.h:
 	Use IAnjutaBuilder to always run an up to date program
 
-2008-05-24  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-24  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c,
 	plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
@@ -2006,7 +2012,7 @@
 
 2008-05-21  Michael Placentra <someone@michaelplacentra2.net>
 
-	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	Reviewed by SÃ©bastien Granjoux <seb.sfo@free.fr>:
 	* plugins/project-wizard/templates/django.wiz:
 	Fix #533758: django project creation fails
 
@@ -2018,9 +2024,9 @@
 	(value_added_current_editor), (glade_update_ui),
 	(on_document_destroy), (glade_plugin_add_project):
 	
-	#532625 – Wrong consecution of functions calls when opening a glade file
+	#532625 â Wrong consecution of functions calls when opening a glade file
 
-2008-05-17  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-17  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/terminal.wiz,
 	plugins/project-wizard/templates/xlib-dock.wiz,
@@ -2039,13 +2045,13 @@
 	plugins/project-wizard/templates/gcj.wiz:
 	Fix #533346: Create project in path with spaces fails
 
-2008-05-17  Sébastien Granjoux  <seb.sfo@free.fr>
+2008-05-17  SÃ©bastien Granjoux  <seb.sfo@free.fr>
 
 	* src/anjuta.glade,
 	libanjuta/anjuta-preferences.c:
 	Fix #531940: Can't change the default project directory
 
-2008-05-14  Rémi Cardona  <remi@gentoo.org>
+2008-05-14  RÃ©mi Cardona  <remi@gentoo.org>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
 	* plugins/editor/scintilla/Makefile.am,

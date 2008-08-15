@@ -21,7 +21,8 @@ libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
 	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS)
+	$(GLADE_LIBS) \
+	$(GIO_LIBS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
