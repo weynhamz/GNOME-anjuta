@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-08 17:02+0200\n"
-"PO-Revision-Date: 2008-08-08 17:11+0200\n"
+"POT-Creation-Date: 2008-08-15 11:26+0200\n"
+"PO-Revision-Date: 2008-08-15 11:30+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -4447,7 +4447,7 @@ msgstr "Eliminar rama remota"
 
 #: ../plugins/git/anjuta-git.glade.h:49
 msgid "Do not commit"
-msgstr ""
+msgstr "Non facer commit"
 
 #: ../plugins/git/anjuta-git.glade.h:50
 msgid "Do not follow tags"
@@ -4492,13 +4492,12 @@ msgid "Mixed"
 msgstr "Mesturado"
 
 #: ../plugins/git/anjuta-git.glade.h:61
-#, fuzzy
 msgid "Previous commit"
-msgstr "Documento anterior"
+msgstr "Commit anterior"
 
 #: ../plugins/git/anjuta-git.glade.h:62
 msgid "Pull"
-msgstr ""
+msgstr "Pull"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 #, fuzzy
@@ -4547,7 +4546,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
-msgstr ""
+msgstr "Squash"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 msgid "Switch to Another Branch"
@@ -4555,11 +4554,11 @@ msgstr "Cambiar a outra rama"
 
 #: ../plugins/git/anjuta-git.glade.h:75
 msgid "Tag/Commit"
-msgstr ""
+msgstr "Etiqueta/Commit"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
+msgstr "Este commit finaliza cunha combinación fallida (use -i)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
@@ -4643,7 +4642,7 @@ msgstr ""
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
 msgid "Git: Created tag \"%s\"."
-msgstr ""
+msgstr "Git: Etiqueta creada \"%s\"."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
@@ -4771,7 +4770,7 @@ msgstr "_Abortar"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:120
 msgid "_Pull..."
-msgstr ""
+msgstr "_Pull..."
 
 #. Action name
 #. Stock icon, if any
@@ -4908,7 +4907,7 @@ msgstr "Facer _diferencias dos cambios sen subir"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:325
 msgid "_Show commit diff"
-msgstr ""
+msgstr "_Mostrar o diff do commit"
 
 #. Action name
 #. Stock icon, if any
@@ -7234,6 +7233,10 @@ msgid "Use theme font"
 msgstr "Usar fonte do tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
+msgid "Visible whitespaces"
+msgstr "Espazos en branco visibles"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Axustar as liñas longas paa que collan no papel"
 
