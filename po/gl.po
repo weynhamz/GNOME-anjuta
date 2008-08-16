@@ -3788,7 +3788,7 @@ msgstr "Abrir con:"
 #: ../plugins/file-loader/plugin.c:195
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
-msgstr "Xestor de documentación"
+msgstr "Xestor de documentos"
 
 #: ../plugins/file-loader/plugin.c:447 ../plugins/patch/patch-plugin.c:116
 #: ../plugins/run-program/parameters.c:319
