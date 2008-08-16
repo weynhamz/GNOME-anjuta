@@ -1,5 +1,13 @@
 2008-08-16  Johannes Schmid  <jhs@gnome.org>
 
+	* src/anjuta-app.c (on_add_merge_widget),
+	(anjuta_app_instance_init):
+	545624 – Toolbar broken
+	It was caused by not using the bonobo-toolbar in a correct way after
+	switching from GnomeApp to GtkWindow
+
+2008-08-16  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/message-view/plugin.c (activate_plugin),
 	(ianjuta_msgman_add_view):
 	Do not show an empty message pane on startup but create the widget on demand.

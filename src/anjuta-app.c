@@ -205,22 +205,6 @@ on_layout_locked_notify (GdlDockMaster *master, GParamSpec *pspec,
 }
 
 static void
-layout_changed (GtkWidget *w, AnjutaApp *app)
-{
-	BonoboDockLayout *layout;
-	gchar *s;
-	
-	g_return_if_fail (ANJUTA_IS_APP (app));
-	g_return_if_fail (BONOBO_IS_DOCK (w));
-
-	layout = bonobo_dock_get_layout (BONOBO_DOCK (app->bonobo_dock));
-	s = bonobo_dock_layout_create_string (layout);
-	anjuta_preferences_set (app->preferences, "anjuta.bonobo.layout", s);
-	g_object_unref (G_OBJECT (layout));
-	g_free (s);
-}
-
-static void
 anjuta_app_add_dock_item (AnjutaApp *app, BonoboDockItem *item,
 						  BonoboDockPlacement placement, gint band_num,
 						  gint band_position, gint offset)
@@ -344,14 +328,12 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		offset_key = g_strconcat (toolbarname, ".offset", NULL);		
 		band = anjuta_preferences_get_int_with_default(pr, band_key, -1);
 		position = anjuta_preferences_get_int_with_default(pr, position_key, 0);
-		offset = anjuta_preferences_get_int_with_default(pr, offset_key, 0);		
-		/* Without these check you might see odd results */
-		if (band < 1)
-			band = count + 1;
+		offset = anjuta_preferences_get_int_with_default(pr, offset_key, 0);
 		g_object_set_data(G_OBJECT(widget), "position", GINT_TO_POINTER(position));
 		g_object_set_data(G_OBJECT(widget), "offset", GINT_TO_POINTER(offset));
 		g_object_set_data (G_OBJECT (widget), "band",
 						   GINT_TO_POINTER(band));
+		
 		g_free(offset_key);
 		g_free(position_key);
 		g_free(band_key);
@@ -614,7 +596,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *dockbar;
 	GtkAction* action;
 	GList *plugins_dirs = NULL;
-	gchar *bonobo_string = NULL;
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
@@ -656,7 +637,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	dockbar = gdl_dock_bar_new (GDL_DOCK(app->dock));
 	gtk_widget_show (dockbar);
 	gtk_box_pack_start(GTK_BOX (hbox), dockbar, FALSE, FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (main_box), hbox, TRUE, TRUE, 0);
 	
 	app->layout_manager = gdl_dock_layout_new (GDL_DOCK (app->dock));
 	g_signal_connect (app->layout_manager, "notify::dirty",
@@ -722,18 +702,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->bonobo_dock = bonobo_dock_new ();
 	gtk_widget_show (app->bonobo_dock);
 	
-	g_signal_connect (app->bonobo_dock, "layout_changed",
-					  G_CALLBACK (layout_changed), app);
-	
-	app->bonobo_layout = bonobo_dock_layout_new ();
-	
-	bonobo_string = anjuta_preferences_get (app->preferences, "anjuta.bonobo.layout");
-	if (bonobo_string)
-	{
-		bonobo_dock_layout_parse_string (app->bonobo_layout, bonobo_string);
-		g_free (bonobo_string);
-	}
-			    
+	app->bonobo_layout = bonobo_dock_layout_new ();   
 	bonobo_dock_add_from_layout (BONOBO_DOCK (app->bonobo_dock),
 								 app->bonobo_layout);
 						    
@@ -757,7 +726,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	 * We have to add the dock after merging the ui
 	 */
 	gtk_box_pack_start (GTK_BOX (main_box), app->bonobo_dock,
-			    FALSE, FALSE, 0);
+			    TRUE, TRUE, 0);
+	bonobo_dock_set_client_area (BONOBO_DOCK (app->bonobo_dock), hbox);
 	
 	/* create toolbar menus */
 	toolbar_menu =
