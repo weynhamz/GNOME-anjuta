@@ -340,7 +340,7 @@ static void insert_text_in_document(SourceviewIO* sio, const gchar* text, gsize 
 	gtk_source_buffer_end_not_undoable_action (document);
 }
 
-static void
+static gboolean
 append_buffer (SourceviewIO* sio, gsize size)
 {
 	/* Text is utf-8 - good */
@@ -374,17 +374,18 @@ append_buffer (SourceviewIO* sio, gsize size)
 		}
 		if (converted_text == NULL)
 		{
-			g_return_if_fail (conv_error != NULL);
+			g_return_val_if_fail (conv_error != NULL, FALSE);
 			
 			g_signal_emit_by_name (sio, "open-failed", conv_error);
 			g_error_free (conv_error);
 			g_cancellable_cancel (sio->cancel);
-			return;
+			return FALSE;
 		}
 		sio->last_encoding = enc;
 		insert_text_in_document (sio, converted_text, new_len);
 		g_free (converted_text);
 	}
+	return TRUE;
 }
 
 static void
@@ -392,22 +393,26 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	GInputStream* input_stream = G_INPUT_STREAM(input);
-	gsize bytes_read;
+	static gsize bytes_read = 0;
+	gsize current_bytes = 0;
 	GError* err = NULL;
 	
-	bytes_read = g_input_stream_read_finish (input_stream, result, &err);
+	current_bytes = g_input_stream_read_finish (input_stream, result, &err);
+	bytes_read += current_bytes;
 	if (err)
 	{
 		g_signal_emit_by_name (sio, "open-failed", err);
 		g_error_free (err);
 		g_object_unref (input_stream);
+		g_free (sio->read_buffer);
+		sio->read_buffer = 0;
 		return;
 	}
-	append_buffer (sio, bytes_read);
-	if (bytes_read == READ_SIZE)
+	if (current_bytes == READ_SIZE)
 	{
+		sio->read_buffer = g_realloc (sio->read_buffer, bytes_read + READ_SIZE);
 		g_input_stream_read_async (G_INPUT_STREAM (input_stream),
-								   sio->read_buffer,
+								   sio->read_buffer + bytes_read,
 								   READ_SIZE,
 								   G_PRIORITY_LOW,
 								   sio->cancel,
@@ -417,7 +422,9 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	}
 	else
 	{
-		g_signal_emit_by_name (sio, "open-finished");
+		if (append_buffer (sio, bytes_read))
+			g_signal_emit_by_name (sio, "open-finished");
+		bytes_read = 0;
 		g_object_unref (input_stream);
 		setup_monitor (sio);
 		g_free (sio->read_buffer);
@@ -446,7 +453,7 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 		g_error_free (err);
 		return;
 	}
-	sio->read_buffer = g_new(gchar, READ_SIZE);
+	sio->read_buffer = g_realloc (sio->read_buffer, READ_SIZE);
 	g_input_stream_read_async (G_INPUT_STREAM (input_stream),
 							   sio->read_buffer,
 							   READ_SIZE,

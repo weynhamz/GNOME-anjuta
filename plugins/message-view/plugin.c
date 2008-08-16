@@ -211,10 +211,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_set (G_OBJECT (action_next), "sensitive", FALSE, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", FALSE, NULL);
 	
-	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
-							 "AnjutaMessageView", _("Messages"),
-							 "message-manager-plugin-icon",
-							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 #if 0
 	/* Connect to save and load session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
@@ -303,6 +299,13 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	MessageView* message_view;
 	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
+	if (g_list_length (anjuta_msgman_get_all_views(ANJUTA_MSGMAN(msgman))) == 0)
+	{
+		anjuta_shell_add_widget (shell, msgman,
+							 "AnjutaMessageView", _("Messages"),
+							 "message-manager-plugin-icon",
+							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+	}
 	anjuta_shell_present_widget(shell, msgman, NULL);
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
 	return IANJUTA_MESSAGE_VIEW (message_view);
