@@ -119,6 +119,15 @@ destroy_engine_scan_data (EngineScanData *es_data)
 	g_free (es_data);
 }
 
+static void
+on_engine_package_single_file_scan_end (SymbolDBEngine *dbe, gpointer user_data)
+{
+	SymbolDBSystem *sdbs;
+	
+	sdbs = SYMBOL_DB_SYSTEM (user_data);
+	
+	g_signal_emit (sdbs, signals[SINGLE_FILE_SCAN_END], 0);
+}
 
 static void
 sdb_system_init (SymbolDBSystem *object)
@@ -160,7 +169,11 @@ sdb_system_finalize (GObject *object)
 	priv->sscan_queue = NULL;	
 	
 	/* FIXME: missing engine queue */
-	/* FIXME: disconnect signals */
+	/* disconnect signals */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->sdbe_globals),
+									  on_engine_package_single_file_scan_end,
+									  sdbs);
+	
 	
 	
 	G_OBJECT_CLASS (sdb_system_parent_class)->finalize (object);
@@ -242,15 +255,6 @@ sdb_system_get_normalized_cflags (const gchar *chars)
 	return good_flags;
 }
 
-static void
-on_engine_package_single_file_scan_end (SymbolDBEngine *dbe, gpointer user_data)
-{
-	SymbolDBSystem *sdbs;
-	
-	sdbs = SYMBOL_DB_SYSTEM (user_data);
-	
-	g_signal_emit (sdbs, signals[SINGLE_FILE_SCAN_END], 0);
-}
 
 SymbolDBSystem *
 symbol_db_system_new (SymbolDBPlugin *sdb_plugin,
@@ -437,7 +441,8 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	GPtrArray *languages_array;
 	
 	priv = sdbs->priv;
-			
+
+	/* will be disconnected automatically when callback is called. */
 	g_signal_connect (G_OBJECT (priv->sdbe_globals), "scan-end",
  			G_CALLBACK (on_engine_package_scan_end), es_data);
 
@@ -649,6 +654,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 		else
 		{
 			/* push the tail to signal a 'working engine' */
+			DEBUG_PRINT ("scanning with engine queue %s", es_data->package_name);
 			g_queue_push_tail (priv->engine_queue, es_data);
 			
 			sdb_system_do_engine_scan (sdbs, es_data);

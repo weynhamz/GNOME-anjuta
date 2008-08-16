@@ -1,3 +1,44 @@
+2008-08-16  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c (on_system_scan_package_start),
+	(do_import_system_src_after_abort), (on_project_root_added),
+	(symbol_db_activate), (symbol_db_deactivate),
+	(isymbol_manager_search):
+	disconnected signals and re-enabled do_import_system_src_after_abort ().
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_free_cached_queries),
+	(sdb_engine_free_cached_dynamic_queries),
+	(sdb_engine_disconnect_from_db), (sdb_engine_init),
+	(symbol_db_engine_new), (symbol_db_engine_open_db),
+	(symbol_db_engine_add_new_files),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	test: removed mutex (actually set it to NULL). Libgda rev 3186 have
+	sqlite 3.6.0beta compiled inside, which has thread support. More: GdaLockable
+	interface has been written and implemented for GdaConnection and GdaSqlParser.
+	Actually symbol-db-engine works without mutexes, but before removing all the 
+	code associated this need some more wide tests.
+	Completed implementation of searching symbols through session-enabled packages.
+	A new feature on dynamic queries permits to filter up to 255 symbol kinds
+	and up to 255 session packages. Was used a internal integer mapping.
+
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-system.c
+	(on_engine_package_single_file_scan_end), (sdb_system_finalize),
+	(sdb_system_do_engine_scan), (on_pkg_config_exit):
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(sdb_view_locals_create_new_store):
+	* plugins/symbol-db/symbol-db-view-locals.h:
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_dispose):
+	disconnected signals
+
 2008-08-15  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-manager/plugin.c,

@@ -693,7 +693,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			  			0,
 			  			&match_info);
 		if (matched) break;
-		g_match_info_free (match_info);
+		g_match_info_free (match_info);			
 	}
 	if (matched)
 	{

@@ -169,6 +169,8 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  *        for example when you're populating after abort.
  * @param project_directory something like the base path '/home/user/projects/foo_project/'
  *        Be sure not to exchange the db_directory with project_directory! they're different!
+ *        It can be NULL but ONLY if you're doing an 'import_after_abort' scan, i.e.
+ *        files entries have already a connection with the parent project.
  * @param files_path requires full path to files on disk. Ctags itself requires that.
  *        it must be something like "/home/path/to/my/foo/file.xyz". Also it requires
  *		  a language string to represent the file.

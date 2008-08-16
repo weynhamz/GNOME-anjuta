@@ -230,7 +230,28 @@ typedef enum {
 		
 } dyn_query_type;
 
-
+/**
+ * dyn_query_node's possible structures
+ *
+ *           sym_extra_info_gtree          with has_gtree_child = FALSE
+ *                   |
+ *       ... +-------+-------+ ...
+ *           |       |       |    <========  keys = sym_info
+ *         CDQN    CDQN    CDQN              values = ChildDynQueryNode
+ *
+ *
+ *
+ *           sym_extra_info_gtree          with has_gtree_child = TRUE
+ *                   |
+ *       ... +-------+-------+ ...
+ *           |       |       |    <========  keys = sym_info, values = GTree
+ *         GTree    GTree   GTree            
+ *         / | \     |       |    <========  keys = other_parameters, values = ChildDynQueryNode
+ *        /  |  \   ...     ...   
+ *     CDQN CDQN CDQN
+ *
+ *
+ */
 typedef struct _dyn_query_node {
 	dyn_query_type dyn_query_id;
 	GTree * sym_extra_info_gtree;
@@ -339,7 +360,6 @@ static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id,
 						   gboolean sym_update);
-
 
 static inline gint
 sdb_engine_cache_lookup (GHashTable* hash_table, const gchar* lookup)
@@ -563,16 +583,15 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 	}
 	else {
 		GTree *child_gtree;
-
+		DynChildQueryNode *result;
+		
 		child_gtree = g_tree_lookup (node->sym_extra_info_gtree, (gpointer)sym_info);
-		if (child_gtree == NULL) {			
-			DEBUG_PRINT ("child_gtree is null");
+		if (child_gtree == NULL) 
+		{			
 			return NULL;
 		}
 		
-		DynChildQueryNode *result;
-		result = g_tree_lookup (child_gtree, (gpointer)other_parameters);
-		
+		result = g_tree_lookup (child_gtree, (gpointer)other_parameters);		
 		return result;
 	}
 }
@@ -627,7 +646,8 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		}
 		else
 		{
-			node->sym_extra_info_gtree = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+			node->sym_extra_info_gtree = 
+					g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 (GDestroyNotify)g_tree_destroy);
@@ -663,7 +683,8 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		/* return it */
 		return dyn_node;
 	}
-	else {
+	else 
+	{
 		/* ok, this is a slightly more complex case */
 		GTree *child_gtree;
 		DynChildQueryNode *dyn_node;
@@ -699,8 +720,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		
 		/* return it */
 		return dyn_node;		
-	}
-	
+	}	
 }
 
 /**
@@ -747,6 +767,10 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 			g_object_unref (node->plist);
 			node->plist = NULL;
 		}
+		
+		/* last but not the least free the node itself */
+		g_free (node);
+		priv->static_query_list[i] = NULL;
 	}
 }
 
@@ -762,13 +786,16 @@ sdb_engine_free_cached_dynamic_queries (SymbolDBEngine *dbe)
 	for (i = 0; i < DYN_PREP_QUERY_COUNT; i++)
 	{
 		node = priv->dyn_query_list[i];
-
 		
 		if (node != NULL && node->sym_extra_info_gtree != NULL)
-		{
-			g_object_unref (node->sym_extra_info_gtree );
+		{	
+			g_tree_destroy (node->sym_extra_info_gtree);			
 			node->sym_extra_info_gtree = NULL;
 		}		
+		
+		/* last but not the least free the node itself */
+		g_free (node);
+		priv->dyn_query_list[i] = NULL;		
 	}
 }
 
@@ -786,6 +813,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 
 	if (priv->sql_parser != NULL)
 		g_object_unref (priv->sql_parser);
+	priv->sql_parser = NULL;
 	
 	g_free (priv->db_directory);
 	priv->db_directory = NULL;
@@ -1914,19 +1942,19 @@ sdb_engine_init (SymbolDBEngine * object)
 	 								PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
 	 	"SELECT symbol.scope_definition_id FROM symbol WHERE "
 	 	"file_defined_id = (SELECT file_defined_id FROM symbol WHERE symbol_id = "
-	 	"/* name:'scopedsymid' type:gint */) "
+	 	"## /* name:'scopedsymid' type:gint */) "
 	 	"AND file_position < (SELECT file_position FROM symbol WHERE symbol_id = "
-	 	"/* name:'scopedsymid' type:gint */) "
+	 	"## /* name:'scopedsymid' type:gint */) "
 	 	"ORDER BY file_position DESC");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
 	 	"SELECT scope_definition_id FROM symbol "
-	 	"WHERE scope_id = /* name:'scopeid' type:gint */ AND scope_definition_id = ("
+	 	"WHERE scope_id = ## /* name:'scopeid' type:gint */ AND scope_definition_id = ("
 		 	"SELECT scope.scope_id FROM scope "
 			"INNER JOIN sym_type ON scope.type_id = sym_type.type_id "
-			"WHERE sym_type.type_type = /* name:'symtype' type:gchararray */ "
-				"AND scope.scope_name = /* name:'scopename' type:gchararray */) LIMIT 1");
+			"WHERE sym_type.type_type = ## /* name:'symtype' type:gchararray */ "
+				"AND scope.scope_name = ## /* name:'scopename' type:gchararray */) LIMIT 1");
 	
 	/* -- tmp heritage -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -2109,13 +2137,13 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
-	
+
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 	
 	if (priv->thread_monitor_handler > 0)
-		g_source_remove (priv->thread_monitor_handler);
-		
+		g_source_remove (priv->thread_monitor_handler);		
+	
 	sdb_engine_disconnect_from_db (dbe);
 	sdb_engine_free_cached_queries (dbe);
 	sdb_engine_free_cached_dynamic_queries (dbe);
@@ -2330,8 +2358,12 @@ symbol_db_engine_new (const gchar * ctags_path)
 	sdbe = g_object_new (SYMBOL_TYPE_DB_ENGINE, NULL);
 	
 	priv = sdbe->priv;
-	priv->mutex = g_mutex_new ();
+	// FIXME
+	//priv->mutex = g_mutex_new ();
+	// FIXME	
+	priv->mutex = NULL;
 	
+
 	/* set the mandatory ctags_path */
 	symbol_db_engine_set_ctags_path (sdbe, ctags_path);
 		
@@ -2537,6 +2569,9 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	gboolean needs_tables_creation = FALSE;
 	gchar *cnc_string;
 
+	DEBUG_PRINT ("SymbolDBEngine: opening project %s with base dir %s", 
+				 prj_directory, base_db_path);
+	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (base_db_path != NULL, FALSE);
 
@@ -2562,15 +2597,6 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
 								ANJUTA_DB_FILE);
 
-/*	
-	FIXME: do we really need to save the datasource? 
-	if (gda_config_save_data_source (base_db_path, "SQLite",
-									 cnc_string, "Anjuta Project",
-									 "", "", FALSE) == FALSE)
-	{
-		return FALSE;
-	}
-*/
 	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to database...");
 	sdb_engine_connect_to_db (dbe, cnc_string);
 
@@ -2996,8 +3022,9 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	GPtrArray * filtered_files_path;
 	GPtrArray * filtered_languages;
 	gboolean ret_code;
+	
 	g_return_val_if_fail (dbe != NULL, FALSE);
-	g_return_val_if_fail (project_name != NULL, FALSE);
+/*	g_return_val_if_fail (project_name != NULL, FALSE);*/
 	g_return_val_if_fail (files_path != NULL, FALSE);
 	g_return_val_if_fail (languages != NULL, FALSE);
 	priv = dbe->priv;
@@ -6066,20 +6093,27 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 
 
 /**
- * A maximum of 5 filter_kinds are admitted.
+ * Personalized GTree mapping:
+ * Considering that a gint on a x86 is 4 bytes: we'll reserve:
+ * 3 bytes to map the main parameters.
+ * 1 byte is for filter_kinds number, so you'll be able to filter up to 255 parameters.
+ * |--------------------------------|-------------|
+ *        main parameters [3 bytes]  extra [1 byte]
  */
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_LIMIT					1
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_OFFSET				2
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_GROUP_YES				4
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_GROUP_NO				8
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES 	16
-#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO	 	32
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_LIMIT					0x0100
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_OFFSET				0x0200
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_GROUP_YES				0x0400
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_GROUP_NO				0x0800
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES 	0x1000
+#define DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO	 	0x2000
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
 									const GPtrArray *filter_kinds,
-									gboolean include_kinds, gboolean group_them,
-									gint results_limit, gint results_offset,
+									gboolean include_kinds, 
+									gboolean group_them,
+									gint results_limit, 
+									gint results_offset,
 								 	SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
@@ -6137,7 +6171,10 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		offset_free = TRUE;
 	}
 	
-	if (filter_kinds == NULL) 
+	/* test if user gave an array with more than 255 filter_kinds. In that case
+	 * we'll not be able to save/handle it, so consider it as a NULL array 
+	 */
+	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 					DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
@@ -6175,28 +6212,25 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	}
 	else
 	{
-		filter_str = g_string_new ("");
-		/* build filter string */
-		gint i;
 		if (include_kinds == TRUE)
 		{
 			other_parameters |= 
 				DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES;
-			filter_str = g_string_append (filter_str , 
-				"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");
 		}
 		else
 		{
 			other_parameters |= 
 				DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO;
-			filter_str = g_string_append (filter_str , 
-				"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
 		}
-			
+		
+		/* set the number of parameters in the less important byte */
+		other_parameters |= filter_kinds->len;
+		
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 				DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
 				other_parameters)) == NULL)
-		{			
+		{		
+			gint i;
 			/* info_data contains the stuff after SELECT and befor FROM */
 			info_data = g_string_new ("");
 	
@@ -6208,13 +6242,27 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			/* fill info_data and join data with optional sql */
 			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);				
 
-			for (i = 1; i < 5; i++)
+			/* prepare the dynamic filter string before the final query */
+			filter_str = g_string_new ("");
+			
+			if (include_kinds == TRUE)
+			{				
+				filter_str = g_string_append (filter_str , 
+					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");
+			}
+			else
+			{
+				filter_str = g_string_append (filter_str , 
+					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
+			}
+			
+			for (i = 1; i < filter_kinds->len; i++)
 			{				
 				g_string_append_printf (filter_str , 
 						",## /* name:'filter%d' type:gchararray */", i);
 			}
 			filter_str = g_string_append (filter_str , ")");
-		
+			
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
@@ -6229,13 +6277,12 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 						sym_info, other_parameters,
 						query_str);
 				
-			g_free (query_str);				
+			g_free (query_str);
 			g_string_free (join_data, TRUE);
-			g_string_free (info_data, TRUE);				
-		}			
-		g_string_free (filter_str, TRUE);
-	}
-	
+			g_string_free (info_data, TRUE);
+			g_string_free (filter_str, TRUE);
+		}
+	}	
 	
 	if (limit_free)
 		g_free (limit);
@@ -6286,36 +6333,15 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	if (other_parameters & DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES ||
 		other_parameters & DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
-		/* bad hardcode but it saves strings alloc/dealloc. */
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter0");
-		if (filter_kinds->len > 0)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter1");
-		if (filter_kinds->len > 1)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 1));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter2");
-		if (filter_kinds->len > 2)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 2));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter3");
-		if (filter_kinds->len > 3)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 3));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-		
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter4");
-		if (filter_kinds->len > 4)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 4));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));		
-	}
-	
+		gint i;
+		for (i = 0; i < filter_kinds->len; i++)
+		{
+			gchar *curr_str = g_strdup_printf ("filter%d", i);
+			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, i));
+			g_free (curr_str);
+		}
+	}	
 
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
@@ -6347,11 +6373,19 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
  * @param filter_kinds cannot be NULL.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
+ *
+ *
+ * Personalized GTree mapping:
+ * Considering that a gint on a x86 is 4 bytes: we'll reserve:
+ * 3 bytes to map the main parameters.
+ * 1 byte is for filter_kinds number, so you'll be able to filter up to 255 parameters.
+ * |--------------------------------|-------------|
+ *        main parameters [3 bytes]  extra [1 byte] 
  */
-#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_LIMIT					1
-#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_OFFSET				2
-#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		4
-#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO		8
+#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_LIMIT					0x0100
+#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_OFFSET				0x0200
+#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		0x0400
+#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO		0x0800
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
@@ -6412,30 +6446,35 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 		other_parameters |=
 			DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_OFFSET;
 	}
-	
-	filter_str = g_string_new ("");
+		
 	/* build filter string */
-	gint i;
 	if (include_kinds == TRUE)
 	{
 		other_parameters |= 
 			DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES;
-		filter_str = g_string_append (filter_str , 
-			"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
 	}
 	else
 	{
 		other_parameters |= 
 			DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO;
-		filter_str = g_string_append (filter_str , 
-			"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
 	}
-
+	
+	/* we'll take into consideration the number of filter_kinds only it the number
+	 * is fillable in a byte.
+	 */
+	if (filter_kinds != NULL && filter_kinds->len < 255 
+		&& filter_kinds->len > 0)
+	{		
+		/* set the number of parameters in the less important byte */
+		other_parameters |= filter_kinds->len;	
+	}
 	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 				DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED, sym_info, 
 				other_parameters)) == NULL)
-	{
+	{	
+		gint i;		
+		
 		/* info_data contains the stuff after SELECT and befor FROM */
 		info_data = g_string_new ("");
 	
@@ -6446,14 +6485,26 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 			
 		/* fill info_data and join data with optional sql */
 		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+
+		filter_str = g_string_new ("");
+		if (include_kinds == TRUE)
+		{			
+			filter_str = g_string_append (filter_str , 
+				"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");
+		}
+		else
+		{
+			filter_str = g_string_append (filter_str , 
+				"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
+		}
 		
-		for (i = 1; i < 5; i++)
+		for (i = 1; i < filter_kinds->len; i++)
 		{				
 			g_string_append_printf (filter_str , 
 					",## /* name:'filter%d' type:gchararray */", i);
 		}
 		filter_str = g_string_append (filter_str , ")");
-	
+		
 		/* ok, beware that we use an 'alias hack' to accomplish compatibility with 
 	 	 * sdb_engine_prepare_symbol_info_sql () function. In particular we called
 	 	 * the first joining table 'a', the second one 'symbol', where there is the info we
@@ -6479,9 +6530,8 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 		g_free (query_str);
 		g_string_free (join_data, TRUE);
 		g_string_free (info_data, TRUE);
-	}
-	
-	g_string_free (filter_str, TRUE);	
+		g_string_free (filter_str, TRUE);
+	}	
 	
 	if (limit_free)
 		g_free (limit);
@@ -6533,36 +6583,15 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 		other_parameters & 
 			DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
-		/* bad hardcode but it saves strings alloc/dealloc. */
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter0");
-		if (filter_kinds->len > 0)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter1");
-		if (filter_kinds->len > 1)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 1));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter2");
-		if (filter_kinds->len > 2)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 2));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter3");
-		if (filter_kinds->len > 3)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 3));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-		
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter4");
-		if (filter_kinds->len > 4)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 4));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));		
+		gint i;
+		for (i = 0; i < filter_kinds->len; i++)
+		{
+			gchar *curr_str = g_strdup_printf ("filter%d", i);
+			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, i));
+			g_free (curr_str);
+		}
 	}	
-
 
 	GValue *value;
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "scopeparentsymid")) == NULL)
@@ -7048,7 +7077,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
-									const gchar *file_path, SymExtraInfo sym_info)
+								   const gchar *file_path, 
+								   SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
@@ -7518,7 +7548,7 @@ select * from symbol where scope_definition_id = (
 		
 		/* step 2 */
 		if ((stmt2 = sdb_engine_get_statement_by_query_id (dbe, 
-					PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE)) == NULL)
+					PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID)) == NULL)
 		{
 			if (priv->mutex)
 				g_mutex_unlock (priv->mutex);
@@ -7526,7 +7556,7 @@ select * from symbol where scope_definition_id = (
 		}
 
 		plist = sdb_engine_get_query_parameters_list (dbe, 
-						PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE);		
+						PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID);		
 
 		/* scoped symbol id */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedsymid")) == NULL)
@@ -7628,17 +7658,24 @@ select * from symbol where scope_definition_id = (
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par.	 
  * @param sym_info Infos about symbols you want to know.
+ *
+ * Personalized GTree mapping:
+ * Considering that a gint on a x86 is 4 bytes: we'll reserve:
+ * 2 bytes to map the main parameters.
+ * 1 byte is for session number.
+ * 1 byte is for filter_kinds number, so you'll be able to filter up to 255 parameters.
+ * |--------------------------|-------------|-------------|
+ *   main parameters [2 bytes]  sessions [1]   filter [1]
  */
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES			1
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO			2
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		4
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO			8
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES		16
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO			32
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					64
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					128
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES			0x010000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO			0x020000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		0x040000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO			0x080000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES		0x100000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO			0x200000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					0x400000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					0x800000
 
-// FIXME handle session_projects
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
 									const gchar *pattern, 
@@ -7730,13 +7767,31 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");
 		offset_free = TRUE;
 	}
+
+	if (session_projects != NULL)
+	{
+		gint list_length = g_list_length (session_projects);
+		if (list_length < 255 && list_length > 0) 
+		{		
+			/* shift the bits. We want to put the result on the third byte */
+			list_length <<= 8;
+			other_parameters |= list_length;
+		}
+		else 
+		{
+			g_warning ("symbol_db_engine_find_symbol_by_name_pattern_filtered (): "
+				"session_projects has 0 length.");						   
+		}
+	}
 	
-	if (filter_kinds == NULL) 
+	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 			DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
 														 other_parameters)) == NULL)
 		{
+			gint i;
+			GString *filter_projects;
 			/* info_data contains the stuff after SELECT and befor FROM */
 			info_data = g_string_new ("");
 	
@@ -7744,10 +7799,28 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			 * tables.
 		 	 */
 			join_data = g_string_new ("");
-
 		
 			/* fill info_data and join data with optional sql */
 			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+			
+			/* build session projects filter string */
+			filter_projects = g_string_new ("");
+			if (session_projects != NULL)
+			{
+				filter_projects = g_string_append (filter_projects,
+				"AND symbol.file_defined_id IN "
+				"(SELECT file.file_id FROM file JOIN project ON file.prj_id = "
+					"project.project_id WHERE project.project_name IN ( "
+					"## /* name:'prj_filter0' type:gchararray */");
+				
+				for (i = 1; i < g_list_length (session_projects); i++)
+				{				
+					g_string_append_printf (filter_projects, 
+						",## /* name:'prj_filter%d' type:gchararray */", i);
+				}				
+			}
+			filter_projects = g_string_append (filter_projects, "))");
+			
 
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 					"symbol.name AS name, symbol.file_position AS file_position, "
@@ -7755,8 +7828,9 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.name %s AND symbol.is_file_scope = "
-					"## /* name:'globalsearch' type:gint */ %s %s", 
-				info_data->str, join_data->str, match_str, limit, offset);			
+					"## /* name:'globalsearch' type:gint */ %s %s %s", 
+				info_data->str, join_data->str, match_str, filter_projects->str, 
+										 limit, offset);			
 
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
@@ -7766,77 +7840,104 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			g_free (query_str);
 			g_string_free (info_data, TRUE);
 			g_string_free (join_data, TRUE);
+			g_string_free (filter_projects, TRUE);
 		}
 	}
 	else
-	{
-		filter_str = g_string_new ("");
-		/* build filter string */
-		if (filter_kinds->len > 0)
+	{		
+		if (include_kinds == TRUE)
 		{
+			other_parameters |= 
+				DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES;
+		}
+		else
+		{
+			other_parameters |= 
+				DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO;
+		}
+
+		/* set the number of parameters in the less important byte */
+		other_parameters |= filter_kinds->len;
+		
+		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
+				DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
+				other_parameters)) == NULL)
+		{					
+			gint i;
+			GString *filter_projects;
+			
+			/* info_data contains the stuff after SELECT and before FROM */
+			info_data = g_string_new ("");
+
+			/* join_data contains the optionals joins to do to retrieve new 
+			 * data on other tables.
+		 	 */
+			join_data = g_string_new ("");
+	
+			/* fill info_data and join data with optional sql */
+			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+			/* prepare the dynamic filter string before the final query */
+			filter_str = g_string_new ("");
+		
 			if (include_kinds == TRUE)
-			{
-				other_parameters |= 
-					DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES;
-				
-				filter_str = g_string_append (filter_str, 
-					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");
+			{				
+				filter_str = g_string_append (filter_str , 
+					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
 			}
 			else
 			{
-				other_parameters |= 
-					DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO;
-				
-				filter_str = g_string_append (filter_str, 
+				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
-			}
-
-			if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-					DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
-					other_parameters)) == NULL)
-			{			
-				gint i;
-				/* info_data contains the stuff after SELECT and before FROM */
-				info_data = g_string_new ("");
-	
-				/* join_data contains the optionals joins to do to retrieve new 
-				 * data on other tables.
-			 	 */
-				join_data = g_string_new ("");
-		
-				/* fill info_data and join data with optional sql */
-				sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+			}				
 				
-				for (i = 1; i < 5; i++)
-				{				
-					g_string_append_printf (filter_str , 
-							",## /* name:'filter%d' type:gchararray */", i);
-				}
-				filter_str = g_string_append (filter_str , ")");
-
-				query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
-					"symbol.file_position AS file_position, "
-					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-					"sym_kind.kind_name AS kind_name "
-						"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
-						"WHERE symbol.name %s AND symbol.is_file_scope = "
-						"## /* name:'globalsearch' type:gint */ %s GROUP BY symbol.name %s %s", 
-				 		info_data->str, join_data->str, match_str, 
-				 		filter_str->str, limit, offset);
-
-				dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
-							DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
-							sym_info, other_parameters,
-							query_str);
-
-				g_free (query_str);
-				g_string_free (info_data, TRUE);
-				g_string_free (join_data, TRUE);				
+			for (i = 1; i < filter_kinds->len; i++)
+			{				
+				g_string_append_printf (filter_str , 
+						",## /* name:'filter%d' type:gchararray */", i);
 			}
-		}
+			filter_str = g_string_append (filter_str , ")");
 
-		g_string_free (filter_str, TRUE);
-	}	
+			
+			/* build session projects filter string */
+			filter_projects = g_string_new ("");
+			if (session_projects != NULL)
+			{
+				filter_projects = g_string_append (filter_projects,
+				"AND symbol.file_defined_id IN "
+				"(SELECT file.file_id FROM file JOIN project ON file.prj_id = "
+					"project.project_id WHERE project.project_name IN ( "
+					"## /* name:'prj_filter0' type:gchararray */");
+				
+				for (i = 1; i < g_list_length (session_projects); i++)
+				{				
+					g_string_append_printf (filter_projects, 
+						",## /* name:'prj_filter%d' type:gchararray */", i);
+				}				
+			}
+			filter_projects = g_string_append (filter_projects, "))");
+			
+			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
+				"symbol.file_position AS file_position, "
+				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+				"sym_kind.kind_name AS kind_name "
+					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
+					"WHERE symbol.name %s AND symbol.is_file_scope = "
+					"## /* name:'globalsearch' type:gint */ %s %s GROUP BY symbol.name %s %s", 
+			 		info_data->str, join_data->str, match_str, 
+			 		filter_str->str, filter_projects->str, limit, offset);
+			
+			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
+						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
+						sym_info, other_parameters,
+						query_str);
+			g_free (query_str);
+			g_string_free (info_data, TRUE);
+			g_string_free (join_data, TRUE);				
+			g_string_free (filter_str, TRUE);
+			g_string_free (filter_projects, TRUE);
+		}
+	}
+	
 	
 	if (limit_free)
 		g_free (limit);
@@ -7883,39 +7984,38 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		gda_value_free (value);
 	}
 	
+	/* fill parameters for filter kinds */
 	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES ||
 		other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
-		/* bad hardcode but it saves strings alloc/dealloc. */
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter0");
-		if (filter_kinds->len > 0)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter1");
-		if (filter_kinds->len > 1)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 1));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter2");
-		if (filter_kinds->len > 2)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 2));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter3");
-		if (filter_kinds->len > 3)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 3));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));
-		
-		param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filter4");
-		if (filter_kinds->len > 4)
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 4));
-		else
-			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, 0));		
+		gint i;
+		for (i = 0; i < filter_kinds->len; i++)
+		{
+			gchar *curr_str = g_strdup_printf ("filter%d", i);
+			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			gda_holder_set_value_str (param, NULL, g_ptr_array_index (filter_kinds, i));
+			g_free (curr_str);
+		}
 	}
 
+	/* fill parameters for filter projects (packages) */
+	if (session_projects != NULL)
+	{
+		gint i = 0;
+		GList *item;
+		item = session_projects;
+		while (item != NULL)
+		{
+			gchar *curr_str = g_strdup_printf ("prj_filter%d", i);
+			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			gda_holder_set_value_str (param, NULL, item->data);
+			g_free (curr_str);
+			
+			item = item->next;
+			i++;
+		}
+	}
+	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "globalsearch")) == NULL)
 	{
 		if (priv->mutex)
@@ -7938,7 +8038,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	gda_holder_set_value_str (param, NULL, pattern);
 	
-/*	DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+	/*DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
 				 dyn_node->query_str);*/
 		
 	/* execute the query with parametes just set */

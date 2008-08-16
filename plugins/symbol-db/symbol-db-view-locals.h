@@ -58,7 +58,7 @@ GType symbol_db_view_locals_get_type (void) G_GNUC_CONST;
 GtkWidget *
 symbol_db_view_locals_new (void);
 
-/*
+/**
  * filepath: db-relative file path, e.g. /src/file.c
  */
 void
@@ -76,7 +76,6 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 void
 symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, 
 							SymbolDBEngine *dbe, gboolean enable_status);
-
 
 /**
  * Clear cache like GTree(s) and GtkTreeStore(s).

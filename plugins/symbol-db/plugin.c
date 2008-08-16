@@ -736,7 +736,6 @@ on_system_scan_package_start (SymbolDBEngine *dbe, guint num_files,
 	
 	/* show the global bar */
 	gtk_widget_show (sdb_plugin->progress_bar_system);
-	
 	if (sdb_plugin->current_scanned_package != NULL)
 		g_free (sdb_plugin->current_scanned_package);
 	sdb_plugin->current_scanned_package = g_strdup (package);
@@ -863,7 +862,6 @@ static void
 do_import_system_src_after_abort (AnjutaPlugin *plugin, 
 								  const GPtrArray *sources_array)
 {
-#if 0	
 	SymbolDBPlugin *sdb_plugin;
 	GPtrArray* languages_array = NULL;
 	GPtrArray *to_scan_array = NULL;
@@ -922,7 +920,6 @@ do_import_system_src_after_abort (AnjutaPlugin *plugin,
 	/* no need to free the GPtrArray, Huston. They'll be auto-destroyed in that
 	 * function 
 	 */
-#endif	
 }
 
 /* we assume that sources_array has already unique elements */
@@ -1168,6 +1165,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		/* FIXME: where's the project name itself? */
 		DEBUG_PRINT ("FIXME: where's the project name itself? ");
 		sdb_plugin->project_opened = g_strdup (root_dir);
+		DEBUG_PRINT ("FIXME: setting project opened to  %s", root_dir);
 		
 		if (root_dir)
 		{
@@ -1367,11 +1365,22 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 */
 	symbol_db->session_packages = NULL;
 	
+	DEBUG_PRINT ("SymbolDBPlugin: Initializing engines with %s", ctags_path);
 	/* create SymbolDBEngine(s) */
 	symbol_db->sdbe_project = symbol_db_engine_new (ctags_path);
-	
+	if (symbol_db->sdbe_project == NULL)
+	{		
+		g_critical ("sdbe_project == NULL");
+		return FALSE;
+	}
+		
 	/* the globals one too */
 	symbol_db->sdbe_globals = symbol_db_engine_new (ctags_path);
+	if (symbol_db->sdbe_globals == NULL)
+	{		
+		g_critical ("sdbe_globals == NULL");
+		return FALSE;
+	}
 	
 	g_free (ctags_path);
 	
@@ -1538,14 +1547,63 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	DEBUG_PRINT ("SymbolDBPlugin: Dectivating SymbolDBPlugin plugin ...");
-	DEBUG_PRINT ("SymbolDBPlugin: destroying engine ...");
-	g_object_unref (sdb_plugin->sdbe_project);
+	
+	/* disconnect some signals */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
+									  on_local_treeview_row_activated,
+									  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_search),
+									  on_treesearch_symbol_selected_event,
+									  plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  on_session_load,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  on_session_save,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
+										  on_global_treeview_row_activated,
+										  plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
+										  on_global_treeview_row_expanded,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
+										  on_global_treeview_row_collapsed,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
+										  on_local_treeview_row_activated,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
+										  on_system_scan_package_start,
+										  plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
+										  on_system_scan_package_end,
+										  plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),										  
+										  on_system_single_file_scan_end,
+										  plugin);
+
+	/* destroy objects */
+	if (sdb_plugin->sdbe_project)
+		g_object_unref (sdb_plugin->sdbe_project);
 	sdb_plugin->sdbe_project = NULL;
 
 	/* this must be done *bedore* destroying sdbe_globals */
 	g_object_unref (sdb_plugin->sdbs);
 	sdb_plugin->sdbs = NULL;
+	
 	g_free (sdb_plugin->current_scanned_package);
+	sdb_plugin->current_scanned_package = NULL;
 	
 	g_object_unref (sdb_plugin->sdbe_globals);
 	sdb_plugin->sdbe_globals = NULL;
@@ -1559,15 +1617,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 		g_list_free (sdb_plugin->session_packages);
 		sdb_plugin->session_packages = NULL;
 	}
-	
-	/* disconnect some signals */
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
-									  on_local_treeview_row_activated,
-									  plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_search),
-									  on_treesearch_symbol_selected_event,
-									  plugin);
 	
 	/* Ensure all editor cached info are released */
 	if (sdb_plugin->editor_connected)
@@ -1694,7 +1743,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 					filter_array,
 					include_types,
 					global_symbols_search,
-					NULL,
+					global_tags_search == FALSE ? NULL : sdb_plugin->session_packages,
 					results_limit,
 					results_offset,
 					info_fields);	

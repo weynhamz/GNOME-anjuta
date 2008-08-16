@@ -517,6 +517,31 @@ sdb_view_search_dispose (GObject * obj)
 	SymbolDBViewSearchPriv *priv = search->priv;
 	
 	DEBUG_PRINT("Destroying symbolsearch");
+
+	if (priv->entry)
+		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
+						  G_CALLBACK (sdb_view_search_on_entry_key_press_event),
+						  search);
+	
+	if (priv->hitlist)
+		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->hitlist),
+						  G_CALLBACK (sdb_view_search_on_tree_row_activate),
+						  search);
+
+	if (priv->entry)
+		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
+						  G_CALLBACK (sdb_view_search_on_entry_changed),
+						  search);
+	
+	if (priv->entry)
+		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
+						  G_CALLBACK (sdb_view_search_on_entry_activated),
+						  search);
+
+	if (priv->entry)
+		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
+						  G_CALLBACK (sdb_view_search_on_entry_text_inserted),
+						  search);
 	
 	/* anjuta_symbol_view's dispose should manage it's freeing */
 	if (priv->model)
