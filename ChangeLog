@@ -1,3 +1,9 @@
+2008-08-18  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/search/search-replace_backend.c (get_next_match):
+	Use uf8_strlen instead of strlen to avoid selection problem with
+	non-ASCII search strings (see #440637 comment 15)
+
 2008-08-16  Massimo Cora'  <maxcvs@email.it>
 
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_send_ptyin):

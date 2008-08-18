@@ -509,7 +509,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 		gboolean found;
 		gint match_len;
 
-		match_len = strlen (s->search_str);
+		match_len = g_utf8_strlen (s->search_str, -1);
 		if (match_len == 0)
 			return NULL;
 
@@ -614,15 +614,10 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 		if (found)
 		{
 			mi = g_new0 (MatchInfo, 1);	//better to abort than silently fail to report match ?
-//			mi = g_try_new0 (MatchInfo, 1);
-//			if (mi)
-//			{
-				mi->pos = fb->pos;
-				mi->len = match_len;
-				mi->line = file_buffer_line_from_pos (fb, fb->pos);
-//			}
-//			else
-//				WARN USER ABOUT MEMORY ERROR
+			mi->pos = fb->pos;
+			mi->len = match_len;
+			mi->line = file_buffer_line_from_pos (fb, fb->pos);
+			
 			if (direction == SD_BACKWARD)
 				fb->pos -= match_len;
 			else
