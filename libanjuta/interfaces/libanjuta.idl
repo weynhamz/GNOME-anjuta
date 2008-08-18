@@ -4595,6 +4595,13 @@ interface IAnjutaSymbol
 	}
 	
 	/**
+	 * An unique identifier for the symbol: pay attention that when engine re-parse
+	 * the files this id may change.
+	 * @return 0 on error.
+	 */
+	gint get_id ();
+	
+	/**
 	* ianjuta_symbol_get_name:
 	* The name of the symbol
 	*/
@@ -4645,8 +4652,7 @@ interface IAnjutaSymbol
 	 * You *need* a symbol with FIELD_ACCESS | FIELD_KIND enabled attribute. e.g. use 
 	 * ianjuta_symbol_manager_search passing FIELD_ACCESS | FIELD_KIND as info_fields.
 	 */
-	const GdkPixbuf *get_icon ();
-	
+	const GdkPixbuf *get_icon ();	
 }
 
 /**
@@ -4698,7 +4704,7 @@ interface IAnjutaSymbolManager
 	* Database query. The returned @IAnjutaIterable object must be unrefed after use.
 	* 
 	*/
-	IAnjutaIterable* get_members (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
+	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
 	
 	/**
 	* ianjuta_symbol_manager_get_parents:
@@ -4711,7 +4717,7 @@ interface IAnjutaSymbolManager
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* get_class_parents (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
+	IAnjutaIterable* get_class_parents (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
 
 	/**
 	* ianjuta_symbol_manager_get_scope: 
@@ -4745,7 +4751,7 @@ interface IAnjutaSymbolManager
 	* no element or NULL is returned if function went wrong.	
 	* The returned @IAnjutaIterable object must be unrefed after use.
 	*/	
-	IAnjutaIterable* get_parent_scope (IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
+	IAnjutaIterable* get_parent_scope (const IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
 
 	/**
 	* ianjuta_symbol_manager_get_symbol_more_info:
@@ -4761,7 +4767,19 @@ interface IAnjutaSymbolManager
 	* It's up to you to see which method is more performant.
 	*
 	*/	
-	IAnjutaIterable* get_symbol_more_info (IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
+	IAnjutaIterable* get_symbol_more_info (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
+	
+	/**
+	* ianjuta_symbol_manager_get_symbol_by_id:
+	* @obj: Self
+	* @symbol_id unique id of the symbol you want to know about.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @return NULL on error.
+	*
+	* A symbol is identified by an unique id. If you have its id you can also 
+	* have its object IAnjutaSymbol.
+	*/
+	IAnjutaSymbol* get_symbol_by_id (gint symbol_id, IAnjutaSymbolField info_fields);
 }
 
 /**

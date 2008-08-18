@@ -53,7 +53,7 @@ struct _SymbolDBEngineClass
 	void (* scan_end) 				();
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);
-	void (* symbol_scope_updated)  	(gint symbol_id);	/* never emitted. */
+	void (* symbol_scope_updated)  	(gint symbol_id);	
 	void (* symbol_removed)  		(gint symbol_id);
 };
 

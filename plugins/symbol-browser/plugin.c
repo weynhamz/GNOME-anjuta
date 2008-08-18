@@ -1158,7 +1158,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
-							 IAnjutaSymbol *symbol, 
+							 const IAnjutaSymbol *symbol, 
 							 IAnjutaSymbolField info_fields,
 							 gboolean global_search,
 							 GError **err)
@@ -1183,7 +1183,7 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
-							 IAnjutaSymbol *symbol,
+							 const IAnjutaSymbol *symbol,
 							 IAnjutaSymbolField info_fields,
 							 GError **err)
 {
@@ -1215,7 +1215,7 @@ isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
-								  IAnjutaSymbol *symbol, 
+								  const IAnjutaSymbol *symbol, 
 								  const gchar *filename, 
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
@@ -1227,12 +1227,22 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
-								  IAnjutaSymbol *symbol, 
+								  const IAnjutaSymbol *symbol, 
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
 {
 	DEBUG_PRINT ("isymbol_manager_get_symbol_more_info (): not implemented");
 	return NULL;
+}
+
+static IAnjutaSymbol*
+isymbol_manager_get_symbol_by_id (IAnjutaSymbolManager *sm,
+								  gint symbol_id, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	DEBUG_PRINT ("isymbol_manager_get_symbol_by_id  (): not implemented");
+	return NULL;	
 }
 
 static void
@@ -1244,6 +1254,7 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_scope = isymbol_manager_get_scope;
 	iface->get_parent_scope = isymbol_manager_get_parent_scope;
 	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
+	iface->get_symbol_by_id = isymbol_manager_get_symbol_by_id;
 }
 
 static void

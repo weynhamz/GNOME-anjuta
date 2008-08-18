@@ -102,6 +102,8 @@ CREATE INDEX symbol_idx_1 ON symbol (name);
 
 CREATE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
 
+CREATE INDEX symbol_idx_3 ON symbol (name, file_defined_id, type_id);
+
 CREATE INDEX scope_idx_1 ON scope (scope_name);
 
 CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
@@ -115,14 +117,15 @@ CREATE INDEX sym_type_idx_2 ON sym_type (type_type, type_name);
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file
 FOR EACH ROW
 BEGIN
-    DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file WHERE file_path = old.file_path);
+    DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file WHERE file_path=old.file_path);
 END;
 
 CREATE TRIGGER delete_symbol_trg BEFORE DELETE ON symbol
 FOR EACH ROW
 BEGIN
     DELETE FROM scope WHERE scope.scope_id=old.scope_definition_id;
-    DELETE FROM sym_type WHERE sym_type.type_id=old.type_id;
+    DELETE FROM sym_type WHERE sym_type.type_id=old.type_id AND (SELECT COUNT(*) 
+					FROM symbol WHERE symbol.type_id=old.type_id) <= 1;
     UPDATE symbol SET scope_id='-1' WHERE symbol.scope_id=old.scope_definition_id AND symbol.scope_id > 0;
     INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;

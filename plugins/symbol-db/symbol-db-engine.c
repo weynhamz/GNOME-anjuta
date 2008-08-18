@@ -161,7 +161,7 @@ typedef enum
 	PREP_QUERY_LANGUAGE_NEW,
 	PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
 	PREP_QUERY_SYM_TYPE_NEW,
-	PREP_QUERY_GET_SYM_TYPE_ID,
+	PREP_QUERY_GET_SYM_TYPE_ID,	
 	PREP_QUERY_SYM_KIND_NEW,
 	PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
 	PREP_QUERY_SYM_ACCESS_NEW,
@@ -186,6 +186,8 @@ typedef enum
 	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
 	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
 	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
+	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
+	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
 	PREP_QUERY_UPDATE_SYMBOL_ALL,
 	PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
 	PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
@@ -302,6 +304,7 @@ struct _SymbolDBEnginePriv
 
 	GAsyncQueue *scan_queue;	
 	GAsyncQueue *updated_symbols_id;
+	GAsyncQueue *updated_scope_symbols_id;
 	GAsyncQueue *inserted_symbols_id;
 	
 	gchar *shared_mem_str;
@@ -309,11 +312,10 @@ struct _SymbolDBEnginePriv
 	gint shared_mem_fd;
 	AnjutaLauncher *ctags_launcher;
 	gboolean scanning_status;
-	gboolean force_sym_update;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
-	GQueue* thread_list;
+	GQueue* thread_list_data;
 	
 	gboolean thread_status;
 	gint concurrent_threads;
@@ -330,7 +332,9 @@ struct _SymbolDBEnginePriv
 	/* Caches */
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
-	GHashTable *implementation_cache;
+	GHashTable *implementation_cache;	
+	
+	GTree *file_symbols_cache;
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
 	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
@@ -397,6 +401,7 @@ sdb_engine_clear_caches (SymbolDBEngine* dbe)
 		g_hash_table_destroy (priv->access_cache);	
 	if (priv->implementation_cache)
 		g_hash_table_destroy (priv->implementation_cache);
+	
 	priv->kind_cache = NULL;
 	priv->access_cache = NULL;
 	priv->implementation_cache = NULL;
@@ -419,7 +424,7 @@ sdb_engine_init_caches (SymbolDBEngine* dbe)
 	priv->implementation_cache = g_hash_table_new_full (g_str_hash,
 											g_str_equal,
 											g_free,
-											NULL);
+											NULL);	
 }
 
 
@@ -529,7 +534,8 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 	 * a connection established to db before using this function */
 	g_return_val_if_fail (priv->db_connection != NULL, NULL);
 	
-	node = priv->static_query_list[query_id];
+	if ((node = priv->static_query_list[query_id]) == NULL)
+		return NULL;
 
 	if (node->stmt == NULL)
 	{
@@ -1035,6 +1041,94 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	return table_id;
 }
 
+static inline gint
+sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe, 
+										 static_query_type qtype,
+										 gchar * param_key1,
+										 const GValue * value1,
+										 gchar * param_key2,
+										 const GValue * value2,
+										 gchar * param_key3,
+										 const GValue * value3,
+										 gchar * param_key4,
+										 const GValue * value4)
+{
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GdaDataModel *data_model;
+	const GValue *num;
+	gint table_id;
+	SymbolDBEnginePriv *priv;
+	
+	priv = dbe->priv;
+
+	/* get prepared query */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
+	{
+		g_warning ("Query is null");
+		return -1;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
+	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+				   "from pquery!\n");
+		return -1;
+	}
+	gda_holder_set_value (param, value1);
+	
+
+	/* ...and the second one */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
+				   "param is NULL from pquery!");
+		return -1;
+	}
+	gda_holder_set_value (param, value2);
+
+	/* ...and the third one */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key3)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
+				   "param is NULL from pquery!");
+		return -1;
+	}
+	gda_holder_set_value (param, value3);
+		
+	/* ...and the fourth one */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key4)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
+				   "param is NULL from pquery!");
+		return -1;
+	}
+	gda_holder_set_value (param, value4);
+			
+	/* execute the query with parametes just set */
+	data_model = gda_connection_statement_execute_select (priv->db_connection, 
+														  (GdaStatement*)stmt, 
+														  (GdaSet*)plist, NULL);
+		
+	if (!GDA_IS_DATA_MODEL (data_model) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
+	{
+		if (data_model != NULL)
+			g_object_unref (data_model);
+		return -1;
+	}
+
+	/* get and parse the results. */
+	num = gda_data_model_get_value_at (GDA_DATA_MODEL (data_model), 0, 0);
+
+	table_id = g_value_get_int (num);
+	g_object_unref (data_model);
+	return table_id;
+}
+
 static int
 sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 								const gchar* base_prj_path,
@@ -1043,7 +1137,7 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 {
 	GValue* value = gda_value_new (G_TYPE_STRING);
 	gint file_defined_id = 0;
-	if (base_prj_path != NULL)
+	if (base_prj_path != NULL && g_str_has_prefix (tag_entry->file, base_prj_path))
 	{
 		/* in this case fake_file will be ignored. */
 		
@@ -1080,6 +1174,33 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 	return file_defined_id;
 }
 
+static
+gboolean sdb_engine_udpated_scope_gtree_populate (gpointer key,
+                                                  gpointer value,
+                                                  gpointer data)
+{
+	SymbolDBEnginePriv *priv;
+	SymbolDBEngine * dbe = data;
+	priv = dbe->priv;
+
+	GList *list;
+	list = value;
+	if (g_list_length  (list) > 1)
+	{
+		GList *item = list;
+		while (item != NULL)
+		{
+			g_async_queue_push (priv->updated_scope_symbols_id, 
+								(gpointer) item->data);
+			item = item->next;
+		}
+	}
+	
+	/* proceed with a freeing of the values */
+	g_list_free (list);
+	return FALSE;
+}
+
 static GTimer *sym_timer_DEBUG  = NULL;
 
 /**
@@ -1109,11 +1230,6 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	g_return_if_fail (priv->db_connection != NULL);
 	g_return_if_fail (fd != NULL);
 
-	if (priv->updated_symbols_id == NULL)
-		priv->updated_symbols_id = g_async_queue_new ();
-	
-	if (priv->inserted_symbols_id == NULL)
-		priv->inserted_symbols_id = g_async_queue_new ();
 	
 	DEBUG_PRINT ("sdb_engine_populate_db_by_tags ()");
 	if ((tag_file = tagsOpen_1 (fd, &tag_file_info)) == NULL)
@@ -1126,6 +1242,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	else
 		g_timer_reset (sym_timer_DEBUG);
 	gint tags_total_DEBUG = 0;
+	
 	while (tagsNext (tag_file, &tag_entry) != TagFailure)
 	{
 		gint file_defined_id = 0;
@@ -1144,21 +1261,39 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 															  &tag_entry);
 			file_defined_id_cache = file_defined_id;
 			g_free (tag_entry_file_cache);
-			tag_entry_file_cache = g_strdup(tag_entry.file);
+			tag_entry_file_cache = g_strdup (tag_entry.file);
 		}
+		/* insert or update a symbol */
 		sdb_engine_add_new_symbol (dbe, &tag_entry, file_defined_id,
 								   force_sym_update);
 		
 		tags_total_DEBUG ++;
 	}
 	g_free (tag_entry_file_cache);
+
+	if (force_sym_update == TRUE)
+	{
 	
+		/* any scope_updated symbols to the releative queue */
+		g_tree_foreach (priv->file_symbols_cache, 
+					sdb_engine_udpated_scope_gtree_populate, dbe);
+		/* destroying the tree and recreating it should be faster than removing each
+		 * balanced item inside it */
+		g_tree_destroy (priv->file_symbols_cache);
+		priv->file_symbols_cache = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 NULL);
+	}
+
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
 	DEBUG_PRINT ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
 
 	/* notify listeners that another file has been scanned */
 	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
+	
+	/* we've done with tag_file but we don't need to tagsClose (tag_file); */	
 }
 
 static gpointer
@@ -1286,6 +1421,17 @@ sdb_engine_ctags_output_thread (gpointer data)
 						g_async_queue_unlock (priv->signals_queue);
 					}
 
+					while ((tmp_updated = (int)
+							g_async_queue_try_pop (priv->updated_scope_symbols_id)) > 0)
+					{
+						g_async_queue_lock (priv->signals_queue);
+						g_async_queue_push_unlocked (priv->signals_queue, (gpointer)
+													 (SYMBOL_SCOPE_UPDATED + 1));
+						g_async_queue_push_unlocked (priv->signals_queue, 
+													 (gpointer) tmp_updated);
+						g_async_queue_unlock (priv->signals_queue);
+					}
+					
 					
 					/* emit signal. The end of files-group can be cannot be
 					 * determined by the caller. This is the only way.
@@ -1319,6 +1465,7 @@ sdb_engine_ctags_output_thread (gpointer data)
 
 	priv->thread_status = FALSE;
 	priv->concurrent_threads--;
+	
 	/* unlock */
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
@@ -1394,7 +1541,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	
 	if (priv->thread_status == FALSE &&
 		priv->trigger_closure_retries > TRIGGER_MAX_CLOSURE_RETRIES &&
-		g_queue_get_length (priv->thread_list) <= 0 &&
+		g_queue_get_length (priv->thread_list_data) <= 0 &&
 		priv->thread_monitor_handler <= 0)
 	{
 		DEBUG_PRINT ("removing signals trigger");
@@ -1423,7 +1570,7 @@ sdb_engine_thread_monitor (gpointer data)
 		return TRUE;
 	}
 	
-	output = g_queue_pop_head (priv->thread_list);
+	output = g_queue_pop_head (priv->thread_list_data);
  
 	if (output != NULL)
 	{
@@ -1438,7 +1585,7 @@ sdb_engine_thread_monitor (gpointer data)
 	}
 
 	if (priv->thread_closure_retries > THREAD_MAX_CLOSURE_RETRIES &&
-		g_queue_get_length (priv->thread_list) <= 0)
+		g_queue_get_length (priv->thread_list_data) <= 0)
 	{
 		DEBUG_PRINT ("removing thread monitor");
 		/* remove the thread monitor */
@@ -1468,10 +1615,10 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	output->chars = g_strdup (chars);
 	output->user_data = user_data;
 
-	if (priv->thread_list == NULL)
-		priv->thread_list = g_queue_new ();
+	if (priv->thread_list_data == NULL)
+		priv->thread_list_data = g_queue_new ();
 	
-	g_queue_push_tail (priv->thread_list, output);
+	g_queue_push_tail (priv->thread_list_data, output);
 
 	/* thread monitor */
 	if (priv->thread_monitor_handler <= 0)
@@ -1640,7 +1787,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 				/* yes */
 				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS_AND_EXIT);
 			}
-			else {
+			else 
+			{
 				/* no */
 				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS);
 			}
@@ -1772,6 +1920,12 @@ sdb_engine_init (SymbolDBEngine * object)
 	 */
 	sdbe->priv->scan_queue = g_async_queue_new ();		
 
+	/* some signals queues */
+	sdbe->priv->signals_queue = g_async_queue_new ();
+	sdbe->priv->updated_symbols_id = g_async_queue_new ();
+	sdbe->priv->updated_scope_symbols_id = g_async_queue_new ();
+	sdbe->priv->inserted_symbols_id = g_async_queue_new ();
+	
 	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
@@ -2033,8 +2187,23 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
 	 	"SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
+	 	"type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' " 
+	 	"type:gint */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1");	
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
+	 	"SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
 	 	"type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' "
-	 	"type:gint */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1");
+	 	"type:gint */ AND file_position = ## /* name:'filepos' type:gint */ "
+		"AND type_id = ## /* name:'typeid' type:gint */ AND "
+		"update_flag = 0 LIMIT 1");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+	 								PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
+	 	"SELECT symbol_id FROM symbol WHERE name = ## /* name:'symname' "
+	 	"type:gchararray */ AND file_defined_id =  ## /* name:'filedefid' "
+	 	"type:gint */ AND type_id = ## /* name:'typeid' type:gint */ AND "
+		"update_flag = 0 LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_ALL,
@@ -2121,6 +2290,11 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	/* init cache hashtables */
 	sdb_engine_init_caches (sdbe);
+	
+	sdbe->priv->file_symbols_cache = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 NULL);
 }
 
 static void
@@ -2138,11 +2312,27 @@ sdb_engine_finalize (GObject * object)
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
 
+	if (priv->ctags_launcher)
+	{		
+		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
+		g_object_unref (priv->ctags_launcher);
+		priv->ctags_launcher = NULL;
+	}	
+
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 	
 	if (priv->thread_monitor_handler > 0)
-		g_source_remove (priv->thread_monitor_handler);		
+		g_source_remove (priv->thread_monitor_handler);
+	
+	if (priv->mutex)
+	{
+		g_mutex_free (priv->mutex);
+		priv->mutex = NULL;
+	}
+	
+	if (priv->thread_list_data != NULL)
+		g_queue_free  (priv->thread_list_data);
 	
 	sdb_engine_disconnect_from_db (dbe);
 	sdb_engine_free_cached_queries (dbe);
@@ -2160,6 +2350,12 @@ sdb_engine_finalize (GObject * object)
 		priv->updated_symbols_id = NULL;
 	}	
 
+	if (priv->updated_scope_symbols_id)
+	{
+		g_async_queue_unref (priv->updated_scope_symbols_id);
+		priv->updated_scope_symbols_id = NULL;
+	}	
+	
 	if (priv->inserted_symbols_id)
 	{
 		g_async_queue_unref (priv->inserted_symbols_id);
@@ -2188,29 +2384,16 @@ sdb_engine_finalize (GObject * object)
 		g_hash_table_destroy (priv->garbage_shared_mem_files);
 	}
 	
-	if (priv->ctags_launcher)
-	{		
-		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
-		g_object_unref (priv->ctags_launcher);
-		priv->ctags_launcher = NULL;
-	}	
-	
-	if (priv->mutex)
-	{
-		g_mutex_free (priv->mutex);
-		priv->mutex = NULL;
-	}
-	
-	if (priv->thread_list != NULL)
-		g_queue_free  (priv->thread_list);
 
 	if (priv->sym_type_conversion_hash)
 		g_hash_table_destroy (priv->sym_type_conversion_hash);
 	
-	if (priv->signals_queue != NULL)
+	if (priv->signals_queue)
 		g_async_queue_unref (priv->signals_queue);
 	
 	sdb_engine_clear_caches (dbe);
+
+	g_tree_destroy (priv->file_symbols_cache);
 	
 	g_free (priv);
 	
@@ -2359,9 +2542,9 @@ symbol_db_engine_new (const gchar * ctags_path)
 	
 	priv = sdbe->priv;
 	// FIXME
-	//priv->mutex = g_mutex_new ();
+	priv->mutex = g_mutex_new ();
 	// FIXME	
-	priv->mutex = NULL;
+	//priv->mutex = NULL;
 	
 
 	/* set the mandatory ctags_path */
@@ -2394,10 +2577,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	SymbolDBEnginePriv *priv;
 
 	g_return_val_if_fail (dbe != NULL, FALSE);
-	priv = dbe->priv;
-
-	priv->mutex = g_mutex_new ();
-	priv->signals_queue = g_async_queue_new ();
+	priv = dbe->priv;	
 	
 	if (priv->db_connection != NULL)
 	{
@@ -3089,7 +3269,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 /*
 	CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
                    type_type varchar (256) not null ,
-                   type_name varchar (256) not null ,
+                   type_name varchar (256) not null
                    unique (type_type, type_name)
                    );
 */
@@ -3157,7 +3337,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		}
 
 		gda_value_free (value1);
-		gda_value_free (value2);
+		gda_value_free (value2);		
+		
 		return table_id;
 	}	
 	else 
@@ -4358,7 +4539,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	GdaSet *last_inserted;
 	const gchar *tmp_str;
 	gint table_id, symbol_id;
-	char* name;
+	const gchar* name;
 	gint file_position = 0;
 	gint is_file_scope = 0;
 	gchar signature[256];
@@ -4368,10 +4549,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint kind_id = 0;
 	gint access_kind_id = 0;
 	gint implementation_kind_id = 0;
-	GValue *value, *value1, *value2, *value3;
+	GValue *value, *value1, *value2, *value3, *value4;
 	gboolean sym_was_updated = FALSE;
 	gint update_flag;
-
+		
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
 
@@ -4389,7 +4570,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		g_warning ("tag_entry->name too big for database");
 		return -1;
 	}
-	name = g_strdup (tag_entry->name);
+	name = tag_entry->name;
 	file_position = tag_entry->address.lineNumber;
 	is_file_scope = tag_entry->fileScope;
 
@@ -4438,27 +4619,68 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 *     also scope_ids and other things.
 	 */
 
-	value1 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value1, name);
+	
+	if (update_flag == FALSE)
+	{
+		/* FIXME: are we sure to force this to -1? */
+		symbol_id = -1;
+	}
+	else 
+	{
+		GList *sym_list;
+		value1 = gda_value_new (G_TYPE_STRING);
+		g_value_set_string (value1, name);
 
-	value2 = gda_value_new (G_TYPE_INT);
-	g_value_set_int (value2, file_defined_id);
+		value2 = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value2, file_defined_id);
 
-	value3 = gda_value_new (G_TYPE_INT);
-	g_value_set_int (value3, type_id);
+		value3 = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value3, type_id);
+		
+		value4 = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value4, file_position);
 
-	if ((symbol_id = sdb_engine_get_tuple_id_by_unique_name3 (dbe,
-								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
+		sym_list = g_tree_lookup (priv->file_symbols_cache, (gpointer)type_id);
+		
+		symbol_id = sdb_engine_get_tuple_id_by_unique_name4 (dbe,
+								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
 								  "symname", value1,
 								  "filedefid",value2,
-								  "typeid", value3)) <= 0)
-	{
-		/* case 2 and 3 */
-		sym_was_updated = FALSE;
+								  "typeid", value3,
+								  "filepos", value4);
+		
+		/* no luck, retry widely */
+		if (symbol_id <= 0)
+		{
+			symbol_id = sdb_engine_get_tuple_id_by_unique_name3 (dbe,
+								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
+								  "symname", value1,
+								  "filedefid",value2,
+								  "typeid", value3);			
+		}
+
+		if (symbol_id > 0) {
+			/* attach to list the value of symbol: when this will have parsed all its
+			 * symbols we'll be ready to check the lists with more than an element:
+			 * those for sure will have an high probability for an updated scope.
+			 */
+			sym_list = g_list_prepend (sym_list, (gpointer) symbol_id);
+			g_tree_insert (priv->file_symbols_cache, (gpointer)type_id, 
+							   sym_list);
+		}
 		
 		gda_value_free (value1);
 		gda_value_free (value2);
-		gda_value_free (value3);
+		gda_value_free (value3);		
+		gda_value_free (value4);
+	}
+		 
+
+	/* ok then, parse the symbol id value */
+	if (symbol_id <= 0)
+	{
+		/* case 2 and 3 */
+		sym_was_updated = FALSE;
 
 		/* create specific query for a fresh new symbol */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYMBOL_NEW))
@@ -4504,10 +4726,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	{
 		/* case 1 */
 		sym_was_updated = TRUE;
-		
-		gda_value_free (value1);
-		gda_value_free (value2);
-		gda_value_free (value3);
 
 		/* create specific query for a fresh new symbol */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
@@ -4665,11 +4883,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		{
 			table_id = symbol_id;
 						
-			/* This is a wrong place to emit the symbol-updated signal. Infact
-		  	 * db is in a inconsistent state, e.g. inheritance references are still
-		  	 * *not* calculated.
-			 * So add the symbol id into a queue that will be parsed once and emitted.
-			 */
 			g_async_queue_push (priv->updated_symbols_id, (gpointer) table_id);
 		}
 		else 
@@ -4678,6 +4891,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		}
 	}	
 
+	
 	/* before returning the table_id we have to fill some infoz on temporary tables
 	 * so that in a second pass we can parse also the heritage and scope fields.
 	 */
@@ -5365,17 +5579,9 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 	priv = dbe->priv;
 	files_to_scan = (GPtrArray *) data;
 
-	DEBUG_PRINT ("files_to_scan->len %d", files_to_scan->len);
-
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
-
-		 /* FIXME remove DEBUG_PRINT */
-		DEBUG_PRINT ("processing updating for file [on disk] %s, "
-					 "passed to on_scan_update_buffer_end (): %s", 
-					 node, node + strlen (priv->db_directory));
-
 		gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, node);
 		if (relative_path != NULL)
 		{
@@ -5514,9 +5720,6 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	/* let's free the temp_files array */
 	for (i=0; i < temp_files->len; i++)
 		g_free (g_ptr_array_index (temp_files, i));
-	
-	/* FIXME TODO remove temp files! look at task for details */
-	
 	
 	g_ptr_array_free (temp_files, TRUE);
 	
@@ -5877,7 +6080,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 		/* fill info_data and join data with optional sql */
 		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 	
-		query_str = g_strdup_printf("SELECT symbol.symbol_id,AS symbol_id "
+		query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
 				"%s FROM heritage "
@@ -5901,6 +6104,9 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 			g_mutex_unlock (priv->mutex);		
 		return NULL;
 	}
+
+	/*DEBUG_PRINT ("symbol_db_engine_get_class_parents_by_symbol_id () query_str is: %s",
+					dyn_node->query_str);*/
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "childklassid")) == NULL)
 	{
@@ -6788,6 +6994,9 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	g_value_set_int (value, scope_parent_symbol_id);
 	gda_holder_set_value (param, value);
 	gda_value_free (value);	
+	
+	/*DEBUG_PRINT ("symbol_db_engine_get_scope_members_by_symbol_id (): %s", 
+				 dyn_node->query_str);*/
 	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
@@ -7818,9 +8027,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					g_string_append_printf (filter_projects, 
 						",## /* name:'prj_filter%d' type:gchararray */", i);
 				}				
+				filter_projects = g_string_append (filter_projects, "))");
 			}
-			filter_projects = g_string_append (filter_projects, "))");
-			
 
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 					"symbol.name AS name, symbol.file_position AS file_position, "
@@ -7883,20 +8091,24 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			{				
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
+				for (i = 1; i < filter_kinds->len; i++)
+				{				
+					g_string_append_printf (filter_str , 
+							",## /* name:'filter%d' type:gchararray */", i);
+				}
+				filter_str = g_string_append (filter_str , ")");				
 			}
 			else
 			{
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
-			}				
-				
-			for (i = 1; i < filter_kinds->len; i++)
-			{				
-				g_string_append_printf (filter_str , 
-						",## /* name:'filter%d' type:gchararray */", i);
+				for (i = 1; i < filter_kinds->len; i++)
+				{				
+					g_string_append_printf (filter_str , 
+							",## /* name:'filter%d' type:gchararray */", i);
+				}
+				filter_str = g_string_append (filter_str , ")");				
 			}
-			filter_str = g_string_append (filter_str , ")");
-
 			
 			/* build session projects filter string */
 			filter_projects = g_string_new ("");
@@ -7913,8 +8125,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					g_string_append_printf (filter_projects, 
 						",## /* name:'prj_filter%d' type:gchararray */", i);
 				}				
-			}
-			filter_projects = g_string_append (filter_projects, "))");
+				filter_projects = g_string_append (filter_projects, "))");
+			}			
 			
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
 				"symbol.file_position AS file_position, "

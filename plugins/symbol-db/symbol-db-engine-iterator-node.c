@@ -390,9 +390,20 @@ isymbol_get_sym_type (IAnjutaSymbol *isymbol, GError **err)
 	return type;
 }
 
+static gint
+isymbol_get_id (IAnjutaSymbol *isymbol, GError **err)
+{
+	SymbolDBEngineIteratorNode *s;
+
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR (isymbol), 0);
+	s = SYMBOL_DB_ENGINE_ITERATOR_NODE (isymbol);
+	return symbol_db_engine_iterator_node_get_symbol_id (s);
+}
+
 static void
 isymbol_iface_init (IAnjutaSymbolIface *iface)
 {
+	iface->get_id = isymbol_get_id;
 	iface->get_file = isymbol_get_file;
 	iface->get_name = isymbol_get_name;	
 	iface->get_line = isymbol_get_line;

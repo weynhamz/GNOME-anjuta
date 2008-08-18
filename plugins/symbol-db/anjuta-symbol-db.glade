@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.4 on Wed Jul  9 23:45:46 2008 -->
+<!--Generated with glade3 3.4.4 on Tue Aug  5 00:24:54 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -21,32 +21,54 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="left_padding">12</property>
                 <child>
-                  <widget class="GtkHBox" id="hbox1">
+                  <widget class="GtkVBox" id="vbox1">
                     <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <child>
-                      <widget class="GtkLabel" id="label2">
+                      <widget class="GtkHBox" id="hbox1">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Ctags executable:</property>
+                        <child>
+                          <widget class="GtkLabel" id="label2">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Ctags executable:</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="padding">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkFileChooserButton" id="preferences_file:text:/usr/bin/ctags:0:symboldb.ctags">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="preview_widget_active">False</property>
+                            <property name="use_preview_label">False</property>
+                            <property name="title" translatable="yes">Choose ctags executable</property>
+                          </widget>
+                          <packing>
+                            <property name="padding">5</property>
+                            <property name="pack_type">GTK_PACK_END</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="padding">5</property>
-                      </packing>
                     </child>
                     <child>
-                      <widget class="GtkFileChooserButton" id="preferences_file:text:/usr/bin/ctags:0:symboldb.ctags">
+                      <widget class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="preview_widget_active">False</property>
-                        <property name="use_preview_label">False</property>
-                        <property name="title" translatable="yes">Choose ctags executable</property>
+                        <child>
+                          <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">Automatically scan project's packages</property>
+                            <property name="response_id">0</property>
+                            <property name="draw_indicator">True</property>
+                          </widget>
+                        </child>
                       </widget>
                       <packing>
-                        <property name="padding">5</property>
-                        <property name="pack_type">GTK_PACK_END</property>
                         <property name="position">1</property>
                       </packing>
                     </child>

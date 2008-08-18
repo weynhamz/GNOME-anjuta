@@ -53,9 +53,7 @@
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
-#define CHOOSER_WIDGET		"preferences_folder:text:/:0:symboldb.root"
 #define PROJECT_GLOBALS		"/"
-#define CTAGS_PREFS_KEY		"symboldb.ctags"
 #define SESSION_SECTION		"SymbolDB"
 #define SESSION_KEY			"SystemPackages"
 
@@ -388,11 +386,18 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		
 		if (session_packages == NULL)
 		{
-			GList *project_default_packages = 
-				ianjuta_project_manager_get_packages (pm, NULL);
+			/* hey, does user want to import system sources for this project? */
+			gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+														  PROJECT_AUTOSCAN);
+			/* letting session_packages to NULL won't start the population */
+			if (automatic_scan == TRUE)
+			{
+				GList *project_default_packages = 
+					ianjuta_project_manager_get_packages (pm, NULL);
 			
-			/* take the project's defaults */
-			to_scan_packages = project_default_packages;
+				/* take the project's defaults */
+				to_scan_packages = project_default_packages;
+			}
 		}
 		else
 		{
@@ -826,6 +831,8 @@ static void
 on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
+	GFile* file;
+	gchar *local_path;
 	
 	g_return_if_fail (data != NULL);
 	
@@ -846,16 +853,47 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 								 sdb_plugin->sdbe_project, TRUE);
 	
 	/* re-active global symbols */
-	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project);
+	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+						 sdb_plugin->sdbe_project);
 	
 	/* disconnect this coz it's not important after the process of importing */
-	g_signal_handlers_disconnect_by_func (dbe, on_project_single_file_scan_end, data);																 
+	g_signal_handlers_disconnect_by_func (dbe, on_project_single_file_scan_end, 
+										  data);																 
 	
 	/* disconnect it as we don't need it anymore. */
 	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);
 	
 	sdb_plugin->files_count_project_done = 0;
 	sdb_plugin->files_count_project = 0;	
+
+
+	/* ok, enable local symbols view */
+	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
+		return;
+	
+	file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor), 
+								  NULL);
+	
+	if (file == NULL)
+		return;
+
+	local_path = g_file_get_path (file);
+	if (local_path == NULL)
+	{
+		g_critical ("FIXME local_path == NULL");
+		return;
+	}
+	
+	if (strstr (local_path, "//") != NULL)
+	{
+		g_critical ("WARNING FIXME: bad file uri passed to symbol-db from editor. There's "
+				   "a trailing slash left. Please fix this at editor side");
+	}
+				
+	symbol_db_view_locals_update_list (
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
+				 sdb_plugin->sdbe_project, local_path);	
+	g_free (local_path);
 }
 
 static void
@@ -1274,21 +1312,22 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	
 	/* hide it. Default */
-	/* system tags thing */
+	/* system tags thing: we'll import after abort even if the preferences says not
+	 * to automatically scan the packages.
+	 */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 
 	GPtrArray *sys_src_array = NULL;
-
 	sys_src_array = 
 		symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_globals);
 
 	if (sys_src_array != NULL && sys_src_array->len > 0) 
 	{
 		do_import_system_src_after_abort (plugin, sys_src_array);
-					
+				
 		g_ptr_array_foreach (sys_src_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (sys_src_array, TRUE);
-	}
+	}	
 }
 
 static void
@@ -1718,23 +1757,42 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	dbe_project = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	dbe_globals = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MAX)
+	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
 	{
 		filter_array = NULL;
+		DEBUG_PRINT ("filter_array is NULL");
 	}
 	else 
 	{
 		filter_array = symbol_db_engine_fill_type_array (match_types);
+		DEBUG_PRINT ("filter_array filled with %d kinds", filter_array->len);
 	}
 
 	if (exact_match == FALSE)
-		pattern = g_strdup_printf ("%s%%", match_name);
+		pattern = g_strdup_printf ("%s%%", match_name == NULL ? "" : match_name);
 	else
-		pattern = g_strdup_printf ("%s", match_name);
+	{
+		if (match_name == NULL)
+			pattern = NULL;
+		else
+			pattern = g_strdup_printf ("%s", match_name);
+	}
 	
 	/* should we lookup for project of system tags? */
-/*	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
-					 exact_match, global_symbols_search);	*/
+	//*/
+	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
+					 exact_match, global_symbols_search);
+	{
+		gint i;
+		if (filter_array)
+			for (i = 0; i < filter_array->len; i++)
+			{
+				DEBUG_PRINT ("filter_array for type [%d] %s", i, 
+							 (gchar*)g_ptr_array_index (filter_array,
+							i));
+			}
+	}
+	//*/
 	iterator = 
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (
 					global_tags_search == FALSE ? dbe_project : dbe_globals, 
@@ -1759,7 +1817,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
-							 IAnjutaSymbol *symbol, 
+							 const IAnjutaSymbol *symbol, 
 							 IAnjutaSymbolField info_fields,
 							 gboolean global_search,
 							 GError **err)
@@ -1787,7 +1845,7 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_class_parents (IAnjutaSymbolManager *sm,
-							 IAnjutaSymbol *symbol,
+							 const IAnjutaSymbol *symbol,
 							 IAnjutaSymbolField info_fields,
 							 GError **err)
 {
@@ -1831,7 +1889,7 @@ isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
-								  IAnjutaSymbol *symbol, 
+								  const IAnjutaSymbol *symbol, 
 								  const gchar *filename, 
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
@@ -1863,7 +1921,7 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
-								  IAnjutaSymbol *symbol, 
+								  const IAnjutaSymbol *symbol, 
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
 {
@@ -1888,6 +1946,31 @@ isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
 	return IANJUTA_ITERABLE (iterator);
 }
 
+static IAnjutaSymbol*
+isymbol_manager_get_symbol_by_id (IAnjutaSymbolManager *sm,
+								  gint symbol_id, 
+								  IAnjutaSymbolField info_fields,
+								  GError **err)
+{
+	SymbolDBEngineIteratorNode *node;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+
+	g_return_val_if_fail (symbol_id > 0, NULL);
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+
+	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
+													   info_fields);	
+	
+	if (iterator == NULL)
+		return NULL;
+	
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+	return IANJUTA_SYMBOL (node);	
+}
+
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
@@ -1897,6 +1980,7 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_scope = isymbol_manager_get_scope;
 	iface->get_parent_scope = isymbol_manager_get_parent_scope;
 	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
+	iface->get_symbol_by_id = isymbol_manager_get_symbol_by_id;
 }
 
 static gint 

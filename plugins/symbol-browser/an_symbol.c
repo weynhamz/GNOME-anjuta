@@ -96,6 +96,8 @@ void
 anjuta_symbol_set_tag (AnjutaSymbol *symbol, const TMTag *tm_tag)
 {
 	g_return_if_fail (ANJUTA_IS_SYMBOL (symbol));
+	g_return_if_fail (tm_tag != NULL);
+	
 	symbol->priv->tm_tag = NULL;
 	if (symbol->priv->uri)
 	{
@@ -260,9 +262,17 @@ isymbol_get_icon (IAnjutaSymbol *isymbol, GError **err)
 	return anjuta_symbol_info_get_pixbuf (node_type);
 }
 
+static gint
+isymbol_get_id (IAnjutaSymbol *isymbol, GError **err)
+{
+	g_message ("unimplemented");
+	return 0;
+}
+
 static void
 isymbol_iface_init (IAnjutaSymbolIface *iface)
 {
+	iface->get_id = isymbol_get_id;
 	iface->get_file = isymbol_get_file;
 	iface->get_name = isymbol_get_name;	
 	iface->get_line = isymbol_get_line;

@@ -423,7 +423,11 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 	gsize bytes_written;
 	GError *err = NULL;
 	
-	if (!input_str || strlen (input_str) == 0) return;
+	g_return_if_fail (launcher);
+	g_return_if_fail (input_str);
+	
+	if (strlen (input_str) == 0) 
+		return;
 
 	do
 	{	

@@ -39,6 +39,11 @@ typedef struct _SymbolDBPrefsPriv SymbolDBPrefsPriv;
 #include "plugin.h"
 #include "symbol-db-system.h"
 
+
+#define CTAGS_PREFS_KEY		"preferences_file:text:/usr/bin/ctags:0:symboldb.ctags"
+#define PROJECT_AUTOSCAN	"preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs"
+
+
 struct _SymbolDBPrefsClass
 {
 	GObjectClass parent_class;

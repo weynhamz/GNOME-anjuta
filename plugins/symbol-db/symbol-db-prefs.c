@@ -37,11 +37,8 @@
 #define GLADE_ROOT "symbol_prefs"
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
-#define CTAGS_PREFS_KEY		"ctags.executable"
-#define CHOOSER_WIDGET		"preferences_file:text:/usr/bin/ctags:0:symboldb.ctags"
 
-enum
-{
+enum {
 	COLUMN_LOAD,
 	COLUMN_NAME,
 	COLUMN_MAX
@@ -107,7 +104,7 @@ on_prefs_executable_changed (GtkFileChooser *chooser,
 	if (new_file != NULL) 
 	{
 		GtkWidget *fchooser;
-		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CHOOSER_WIDGET);	
+		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);	
 		gtk_widget_set_sensitive (fchooser, TRUE);
 		
 		anjuta_preferences_set (priv->prefs, CTAGS_PREFS_KEY,
@@ -360,15 +357,33 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 }
 
 static void
+on_check_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
+{
+	SymbolDBPrefsPriv *priv;	
+	gboolean check_button_value;
+	priv = sdbp->priv;
+	GtkWidget *check_button;
+	
+	check_button = glade_xml_get_widget (priv->prefs_gxml, PROJECT_AUTOSCAN);
+
+	check_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button));
+	DEBUG_PRINT ("on_check_button_toggled ()");
+	anjuta_preferences_set_int (priv->prefs, PROJECT_AUTOSCAN, check_button_value);
+
+}
+
+static void
 sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 {
 	SymbolDBPrefsPriv *priv;
 	GtkWidget *fchooser;
+	GtkWidget *check_button;
+	gboolean check_button_value;
 	gchar *ctags_value;
 
 	priv = sdbp->priv;
 
-	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CHOOSER_WIDGET);
+	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);
 	/* we will reactivate it after the listall has been finished */
 	gtk_widget_set_sensitive (fchooser, FALSE);
 			
@@ -397,6 +412,13 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 												CTAGS_PREFS_KEY, 
 											   on_gconf_notify_prefs, 
 											   priv->prefs, NULL);		
+
+	
+	check_button = glade_xml_get_widget (priv->prefs_gxml, PROJECT_AUTOSCAN);
+	g_signal_connect (G_OBJECT (check_button), "toggled", 
+					  G_CALLBACK (on_check_button_toggled), sdbp);
+	check_button_value = anjuta_preferences_get_int (priv->prefs, PROJECT_AUTOSCAN);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), check_button_value);
 	
 	g_free (ctags_value);
 }

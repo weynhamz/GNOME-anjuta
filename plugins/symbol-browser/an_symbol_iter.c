@@ -96,6 +96,10 @@ static gboolean
 isymbol_iter_first (IAnjutaIterable *iterable, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return FALSE;
 	
 	si->priv->current_pos = 0;
 	if (si->priv->tm_tags_array->len <= 0)
@@ -114,6 +118,13 @@ static gboolean
 isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return FALSE;
+	
+	DEBUG_PRINT ("si->priv->tm_tags_array->len %d", si->priv->tm_tags_array->len);
+	DEBUG_PRINT ("si->priv->current_pos %d", si->priv->current_pos);
 	
 	if (si->priv->current_pos >= (si->priv->tm_tags_array->len - 1))
 	{
@@ -122,7 +133,7 @@ isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
 		return FALSE;
 	}
 	si->priv->current_pos++;
-	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	/*g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
 	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
 						si->priv->tm_tags_array->pdata[si->priv->current_pos]);
 	return TRUE;
@@ -132,6 +143,10 @@ static gboolean
 isymbol_iter_previous (IAnjutaIterable *iterable, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return FALSE;
 	
 	if (si->priv->current_pos <= 0)
 	{
@@ -170,6 +185,11 @@ isymbol_iter_foreach (IAnjutaIterable *iterable, GFunc callback,
 					  gpointer user_data, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_if_fail (iterable != NULL);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return;
+	
 	gint saved_pos = si->priv->current_pos;
 	
 	isymbol_iter_first (iterable, NULL);
@@ -183,6 +203,11 @@ isymbol_iter_set_position (IAnjutaIterable *iterable,
 						   gint position, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return FALSE;
+	
 	if (position < 0)
 		return FALSE;
 	if (position > (si->priv->tm_tags_array->len - 1))
@@ -198,6 +223,11 @@ static gint
 isymbol_iter_get_position (IAnjutaIterable *iterable, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
+	if (si->priv->tm_tags_array->len <= 0)
+		return -1;
+	
 	return si->priv->current_pos;
 }
 
@@ -205,6 +235,8 @@ static gint
 isymbol_iter_get_length (IAnjutaIterable *iterable, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	g_return_val_if_fail (iterable != NULL, FALSE);
+	
 	return si->priv->tm_tags_array->len;
 }
 
