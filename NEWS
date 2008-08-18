@@ -1,3 +1,106 @@
+Anjuta 2.5.0 (18 August 2008)
+------------------------------
+
+* Fix #536372: Write __MAX_BAUX instead of __MAX_BAUD
+* Fix a crash when GNOME Terminal is not installed
+* now search for symbols can be done also in global tags. Added a new parameter
+	to search function and adjusted dependencies on different plugins.
+* Put tables.sql into distribution
+* Fix #536889 anjuta doesn't pass "make check"
+* Fixed #537398 – crash in Anjuta IDE: Closed project
+* Fix #537134: critical warnings tools->plugin_deactivate
+* Fix #534523: anjuta parses filenames from make wrong
+  GMatchInfo need to be freed even when regex fail in build_get_summary
+* Fixed a possible bug where the project-manager plugin is deactivated twice.
+* Fix #536375: libsocket not included cause build fail on Solaris
+* Add new scratchbox 1 plugin implementing IAnjutaEnvironment
+* Enabled tooltips for recent files to identify full paths.
+* Ported file-manager to gio
+* Fix #530215 – Have a message area like gedit
+* Using glib/gi18n.h instead of libgnome/gnome-i18n.h
+* Fixed a crash on file selection. Gave enough buffer for the formated
+  time print.
+* Restore text focus on switching editor with ALT+X and
+  navigating from local-symbols view.
+* Fixed #528699 – Auto-indent ignores spaces-per-indent settings
+* Fix #538798: UI selected tab document differs from real one
+* Fix again #538798: UI selected tab document differs from real one
+* Fix #538921 – Duplicated folders
+* Fix #539726 – Completing port to GIO
+* Fix #513156 – Get rid of libgnome(ui)
+* Fix #538443 – Missing files in POTFILES.in
+* Fix #538906 – Enable state "Max actions" when "No limit" toggled
+* Fix #449620 – Implement autocompletion for gtksourceview editor
+* Fix #540731 - Port editor to gio
+* Fixed loading of files from the command line
+* Fixed crash when double-clicking on a breakpoint.
+* Change (nearly) all interfaces to use GFile* instead of uris
+  Document all shell variables
+* Fixed #541313 – Crash on saving file
+* Fix #515954 – create_global_tags.sh: wrong anjuta-tags path
+* Fixed global tags loading
+* Fix bug #538217: Run in terminal option isn't remembered
+* Fix bug: Debugger sources directories isn't remembered neither
+* Fixed "Hide binary files"
+* Fix #539551 – AutoComplete doesn't work
+* Fix #539551 – AutoComplete doesn't work
+* Fix #357697 – readonly file can be edited
+* Fix #511762 – Multiple selection don't work well when hitting enter
+* Fix #535173 – UI isn't updated on closing all documents
+* Fix #500962 – Further icons
+* Fix #475244 – AC_SUBST() not needed after PKG_CHECK_MODULES()
+* Fix #518594 – Get rid of .anjuta and follow fd.o specifications
+* Fixed #541689 – Filter buttons added
+* Fixed symbol-db plugin for threaded libgda calls
+* Show all completions even when the editor makes own suggestions
+* #541941 – Crash on searching with regular expression
+* Fixed #542838 – create_global_tags.sh is creating tags in root directory
+* Added 'continue global tags scan after abort' feature.
+* Allow to build project outside source directory (fix #540782)
+* Fix crash on closing project due to the previous patch
+* Add more options for build command: parallel make, keep going on error
+  and keep message untranslated
+* Fix another crash on closing project with a file outside project
+* Fix #375640: Allow user to stop a build in progress
+* Fix #534566: expand shell variable in configure parameters
+* Fix #543889: Crash typing in configuration field
+* Fix #522825: Opening files from shell disable build->compile menu
+* Fix configuration name not displayed, error when compiling target
+  outside project
+* Fix #543978: GPL license shown in COPYING file irrespective of
+  which license selected
+* Fix #544190: Crash double click on item in stack trace
+* Fix #530630: Scintilla hand up after hit return
+* Fix #544841 – Cursor set on a wrong line when I click
+* Fix several memory leaks in build plugin
+* Keep all command data in one object
+* Fix #544495: Memory leak
+* Avoid using the same function name in interfaces implemented
+  by the same object to avoid trouble with bindings
+* Fix crash on 64bits machine due to the previous change (thanks Ignacio)
+* Fix #543149 Project doesn't rebuild when file is changed
+* Bug #529270 - GSoc: Git Plugin, alpha release 3.
+* Add header file to expose libanjuta versioning information.
+* Add a preference for the new visible whitespace feature of gtksourceview
+* Pull GIO into the libraries that libanjuta links against. (Bug #546394)
+* Fix #542432 – Svn diff doesn't work correctly
+  Convert the output of svn diff from localce to utf-8
+* Fix #545673 – A bug in isymbol_get_file function
+  Use g_file_new_for_uri() instead of g_file_new_for_path
+* Fix #546620 – Build- and make dist fixes (with some small changes)
+* Fix #420279 – INS and OVR do not immediately change in status bar
+* Save files in their original encoding
+* Use a fallback dialog if the document was not added to the document-manager
+  yet (#545557 – Crash pressing on message view)
+* Fix #493818 Close project with opened target properties dialog opened
+  crash Anjuta
+* 545624 – Toolbar broken
+* Lots of improvements to symbol-db
+* Use uf8_strlen instead of strlen to avoid selection problem with
+  non-ASCII search strings (see #440637 comment 15)
+* New git plugin (Anjuta GSoC project)
+
+
 Anjuta 2.5.0 (02 June 2008) -- Naba Kumar
 -----------------------------------------
 
