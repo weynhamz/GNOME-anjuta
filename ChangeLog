@@ -1,7 +1,10 @@
+=== anjuta 2.5.90 ===
+
 2008-08-18  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated for release
 	* configure.in: Updated version to 2.5.90
+	* configure.in: Fixed make distcheck
 
 2008-08-18  Johannes Schmid  <jhs@gnome.org>
 
