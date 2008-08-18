@@ -1,4 +1,4 @@
-Anjuta 2.5.0 (18 August 2008)
+Anjuta 2.5.90 (18 August 2008)
 ------------------------------
 
 * Fix #536372: Write __MAX_BAUX instead of __MAX_BAUD
@@ -309,6 +309,8 @@ Updates and bugfixes:
 * Removed all GNOME_CALL* calls in plugins.
 * Moved data/properties to plugins/editor/ and removed dead code from
   Makefile.am files.
+* Translations updates: ar, be@latin, de, es, fi, gl, he, mk,
+  oc, pt, ru, th, vi
 
 Anjuta 2.4.2 (27 May 2008) -- Naba Kumar
 -----------------------------------------

@@ -1,7 +1,8 @@
 2008-08-18  Naba Kumar  <naba@gnome.org>
 
-	* NEWS: Updated for release 2.5.1
-	
+	* NEWS: Updated for release
+	* configure.in: Updated version to 2.5.90
+
 2008-08-18  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/search-replace_backend.c (get_next_match):
