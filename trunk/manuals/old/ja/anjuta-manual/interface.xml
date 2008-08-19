@@ -1,0 +1,162 @@
+<chapter id="familiar">
+  <title>Anjuta に慣れてみよう</title>
+ <!-- ============= Getting Familiar: Menus  ============-->
+  <sect1 id="launch">
+   <title>Anjuta の起動</title>
+   <para><application>Anjuta</application> を起動するには、GNOME <guimenu>メイン・メニュー</guimenu> を開きます。<application>Anjuta</application> は <guisubmenu>開発ツール</guisubmenu> サブメニューの中にあります。
+   </para>
+    <figure id="anjutaicon">
+      <title>Anjuta 起動メニュー</title>
+	  <screenshot>
+      <screeninfo>開発ツール・サブメニュー上の Anjuta アプリケーション起動アイコン</screeninfo>
+       <graphic fileref="figures/devt_menu.png" format="PNG" srccredit="andyp"></graphic>
+      </screenshot>
+    </figure>
+   <para>
+   起動するには <application>Anjuta</application> アイコンをクリックします。すると IDE (<emphasis>Integrated Development Environment</emphasis>: 統合開発環境) が開きます。
+   </para>
+  </sect1>
+  <sect1 id="menu">
+   <title>メニュー</title>
+   <para>
+   <application>Anjuta</application> メイン・ウィンドウの一番上にあるのはメニューバーです。ほとんど全ての機能は該当するメニュー・アイテムを利用することにより実現可能です。これらの機能はその種類に応じてグループ化されています。例えば、ファイルに関する操作は <guisubmenu>ファイル</guisubmenu> メニューの中にまとまっています。
+   </para>
+    
+    <para>
+     メニューバーは取り外しが可能です。メニューバーの左側にあるハンドルをドラッグすると、メインウィンドウから取り外せます。一度、取り外すと独立したフローティング・ウィンドウになります。
+    </para>
+	
+    <figure id="menubar">
+      <title>メニューバー</title>
+	  <screenshot>
+      <screeninfo>Anjuta メニューバー</screeninfo>
+       <graphic fileref="figures/menu_main.png" format="PNG" srccredit="andyp"></graphic>
+      </screenshot>
+    </figure>
+    
+    <para>
+     ほとんどのメニューとサブメニューは取り外しが可能です。取り外しバー (メニュー・アイテムの一番上にある破線部分) をクリックしてみて下さい。一度、メニューを取り外すと独立したウィンドウになります。
+    </para>
+        
+    <figure id="file-menu-detach">
+      <title>ファイル・メニュー (取り外し後)</title>
+      <screenshot>
+      <screeninfo>ファイル・メニュー (取り外し後)</screeninfo>
+       <graphic fileref="figures/menu_detached.png" format="PNG" srccredit="andyp"></graphic>
+      </screenshot>
+    </figure>
+	
+   <para>
+    たくさんのメニュー・オプションはショートカット・キーが利用できます。全てのショートカット・キーは該当するメニュー・アイテムの右横に表示されます。利用可能なショートカット・キー一覧については (このセクション: FIXME!) を参照下さい。
+   </para>
+	
+  </sect1>
+
+  <sect1 id="toolbars">
+   <title>ツールバー</title>
+   <para>
+    よく利用する操作はツールバーから利用することができます。メインウィンドウにはデフォルトで５つのツールバーがあります。
+   </para>
+   
+   <para>
+    <itemizedlist>
+     <listitem><para><interface>メイン・ツールバー</interface> - ファイル関連と編集関連の機能</para></listitem>
+     <listitem><para><interface>拡張ツールバー</interface> - プロジェクト関連とビルド関連の機能</para></listitem>
+     <listitem><para><interface>デバッグ・ツールバー</interface> - デバッガの制御</para></listitem>
+     <listitem><para><interface>ブラウザ・ツールバー</interface> - ブックマークや関数タグの参照</para></listitem>
+     <listitem><para><interface>書式ツールバー</interface> - 一般的なテキストとソースコードの書式に関連する機能</para></listitem>
+    </itemizedlist>
+   </para>
+ 
+    <figure id="toolbar-detach">
+	<title>メイン・ツールバー (取り外し後)</title>
+     <screenshot>
+     <screeninfo>メイン・ツールバー (取り外し後)</screeninfo>
+	  <graphic fileref="figures/toolbar_main.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+ 
+   <para>
+    ツールバーのボタンの上にマウスカーソルをおいて見て下さい。すると、そのボタンの機能に関する説明がツールチップとして表示されます。
+   </para>
+   
+   <para>
+    ツールバーにはドロップダウン形式のボックスがいくつかあります。これらについては後ほど説明します。
+   </para>
+ 
+  </sect1>
+
+  <sect1 id="main-win">
+   <title>メイン・ウィンドウ</title>
+   <para>
+
+    メイン・ウィンドウの中には、貴方が何かを始める前に慣れておくべき三つのフレームがあります (とは言いながらも、フレームのいくつかは <application>Anjuta</application>) 起動時には表示されていませんが)。次のフレームがあります:
+   </para>
+   
+   <para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       <interface>編集ウィンドウ</interface>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <interface>プロジェクト・ウィンドウ</interface>
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <interface>メッセージ・ウィンドウ</interface>
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   
+   <para>
+     左側にあるフレームは <interface>プロジェクト・ウィンドウ</interface> で、右側にあるのは <interface>編集ウィンドウ</interface> で、一番下にあるフレームは <interface>メッセージ・ウィンドウ</interface> です。
+   </para>
+   <para> 
+     <interface>プロジェクト・ウィンドウ</interface> と <interface>メッセージ・ウィンドウ</interface> は、メイン・ウインドウの中にドッキング (組み込む) 代わりに、別のウィンドウとして取り外すことができます。<guibutton>取り外し</guibutton> ボタンをクリックすると、それらのフレームを取り外すことができます (各フレームには取り外しボタンがついています: 取り外しアイコンがついた小さなボタンです)。同様に <guibutton>隠す</guibutton> ボタン (赤十字のような小さなボタン) をクリックすると、各フレームを隠すことができます。メニュー・アイテムの <menuchoice><guisubmenu>表示</guisubmenu><guimenuitem>プロジェクト一覧</guimenuitem></menuchoice> と <menuchoice><guisubmenu>表示</guisubmenu><guimenuitem>メッセージ</guimenuitem></menuchoice> を選択するか、もしくは該当するツールバーのボタンをクリックすることで、いつでも表示することが可能です。
+   </para>
+   
+   <para>
+    <orderedlist>
+     <listitem>
+      <para>
+       <interface>編集ウィンドウ</interface> はメインウィンドウの一部になっているので、取り外したり隠したりすることはできません。しかしながら <interface>編集ウィンドウ</interface> の中でページとして表示されている個人ドキュメントはいつでも取り外すことができます。<interface>編集ウィンドウ</interface> はある時点で有効なドキュメントを一つ表示しています (複数のファイルが開かれている場合)。全てのファイルに対する操作は、この有効なドキュメントに対して適用されます。ページタブをクリックすると、他のページに表示を切り替えることもできます。ページタブの上で右クリックし、そこで表示されるポップアップ・メニューの中からドキュメントを選択することにより同様の操作が行えます。これは特に、たくさんのファイルを開いた時に便利ですが、全てのファイルがページタブの領域には表示されません。
+	   </para>
+	 </listitem>
+     <listitem>
+      <para>
+       プロジェクトを開いている場合、<interface>プロジェクト・ウィンドウ</interface> には各プロジェクト・ファイルがツリー形式で表示されます。一方で、通常 <interface>プロジェクト・ウィンドウ</interface> は閉じています。
+<interface>プロジェクト・ウィンドウ</interface> の中にあるアイテムをダブル・クリックすると、該当するファイルが開きます。
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+      <interface>メッセージ・ウィンドウ</interface> は外部コマンドが実行された時に、全てのメッセージ (<filename>標準出力</filename> と <filename>標準エラー出力</filename> の両方) を一覧化して表示します。通常 <interface>メッセージ・ウィンドウ</interface> は閉じていますが、ファイルまたはプロジェクトがコンパイルされたり、セッションをデバッグしたり、検索する (その他の多くの操作を含む) といった状況で外部コマンドが実行されると、自動的に開きます。さらに必要な場合には、<application>Anjuta</application> メッセージも追加して表示します。
+      </para>
+      <para>
+      メッセージの表示色が意味するものは重要です。標準的な前景色 (通常は黒) で表示されるメッセージは、一般のメッセージを表します。青色のメッセージは、エラーメッセージまたはそれに関する情報といった重要な意味を表します。赤色のメッセージは、<emphasis>ホット・リンク</emphasis> を表しています。この赤色のメッセージをダブル・クリックすると、メッセージの中で指定された特定のファイルの特定の行番号にジャンプします。
+      </para>
+      <para>
+例えば、バグを含んだファイルをコンパイルすると、エラー内容とエラーが発生した場所を示した赤色のメッセージが表示されます。このメッセージをダブル・クリックすると、ファイルが開き、問題がある行が強調表示されます。
+	  </para>
+     </listitem>
+    </orderedlist>
+   </para>
+   <tip>
+   <title>追加情報</title>
+   <para>
+    ３つのフレームの全ては、サイズ変更と取り外しが可能です。それらを取り外して、端の部分 (ハンドル) をドラッグしながら調節してみて下さい。取り外すには、各フレームの上端にある <guibutton>取り外し</guibutton> ボタンをクリックしてみて下さい。
+   </para>
+   </tip>
+   <note>
+   <title>注記</title>
+   <para>
+   <application>Anjuta</application> を終了すると、ウィンドウのサイズやウィンドウの表示位置を含む全ての設定が自動的に保存されます。セッション管理は未だ開発途中なので、ドキュメントを保存せずに <application>Anjuta</application> を終了しないで下さい。<application>Anjuta</application> は終了時に、保存されていないドキュメントが開かれていると警告メッセージを表示します。
+   </para>
+   </note>
+  </sect1>
+ </chapter>

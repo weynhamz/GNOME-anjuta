@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+_Name=Project Assistant
+_Description=Project Assistant
+Location=anjuta-project-wizard:NPWPlugin
+Icon=anjuta-project-wizard-plugin-48.png
+Interfaces=IAnjutaWizard
+UserActivatable=no
+
+[Wizard]
+_Title=Project

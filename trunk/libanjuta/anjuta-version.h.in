@@ -1,0 +1,93 @@
+/* anjuta-version.h - Anjuta versioning information
+ * 
+ * Based on json-version from json-glib
+ * Authored by Emmanuele Bassi <ebassi@o-hand.com>
+ * Adapted for Anjuta by Rob Bradford <rob@o-hand.com>
+ * Copyright (C) 2007  OpenedHand Ltd.
+ *
+ * You may redistribute it and/or modify it under the terms of the
+ * GNU General Public License, as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ * 
+ * anjuta is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ */
+
+#ifndef _LIBANJUTA_VERSION_H_
+#define _LIBANJUTA_VERSION_H_
+
+/**
+ * SECTION:anjuta-version
+ * @short_description: Anjuta version checking
+ *
+ * Anjuta provides macros to check the version of the library
+ * at compile-time
+ */
+
+/**
+ * LIBANJUTA_MAJOR_VERSION:
+ *
+ * Anjuta major version component (e.g. 1 if %LIBANJUTA_VERSION is 1.2.3)
+ */
+#define LIBANJUTA_MAJOR_VERSION			(@LIBANJUTA_MAJOR_VERSION@)
+
+/**
+ * LIBANJUTA_MINOR_VERSION:
+ *
+ * Anjuta minor version component (e.g. 2 if %LIBANJUTA_VERSION is 1.2.3)
+ */
+#define LIBANJUTA_MINOR_VERSION			(@LIBANJUTA_MINOR_VERSION@)
+
+/**
+ * LIBANJUTA_MICRO_VERSION:
+ *
+ * Anjuta micro version component (e.g. 3 if %LIBANJUTA_VERSION is 1.2.3)
+ */
+#define LIBANJUTA_MICRO_VERSION			(@LIBANJUTA_MICRO_VERSION@)
+
+/**
+ * LIBANJUTA_VERSION
+ *
+ * Anjuta version.
+ */
+#define LIBANJUTA_VERSION					(@LIBANJUTA_VERSION@)
+
+/**
+ * LIBANJUTA_VERSION_S:
+ *
+ * Anjuta version, encoded as a string, useful for printing and
+ * concatenation.
+ */
+#define LIBANJUTA_VERSION_S				"@LIBANJUTA_VERSION@"
+
+/**
+ * LIBANJUTA_VERSION_HEX:
+ *
+ * Anjuta version, encoded as an hexadecimal number, useful for
+ * integer comparisons.
+ */
+#define LIBANJUTA_VERSION_HEX				(LIBANJUTA_MAJOR_VERSION << 24 | \
+										 LIBANJUTA_MINOR_VERSION << 16 | \
+										 LIBANJUTA_MICRO_VERSION << 8)
+
+/**
+ * ANJUTA_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Compile-time version checking. Evaluates to %TRUE if the version
+ * of Anjuta is greater than the required one.
+ */
+#define ANJUTA_CHECK_VERSION(major,minor,micro)		\
+		(LIBANJUTA_MAJOR_VERSION > (major) || 										\
+		(LIBANJUTA_MAJOR_VERSION == (major) && LIBANJUTA_MINOR_VERSION > (minor)) ||	\
+		(LIBANJUTA_MAJOR_VERSION == (major) && LIBANJUTA_MINOR_VERSION == (minor) &&	\
+		 LIBANJUTA_MICRO_VERSION >= (micro)))
+
+#endif /* _LIBANJUTA_VERSION_H_ */
+

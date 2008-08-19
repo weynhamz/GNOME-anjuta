@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   width="48"
+   height="48"
+   version="1.0"
+   sodipodi:docbase="/home/maker/icons/anjuta-new2/plugins"
+   sodipodi:docname="anjuta-subversion.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/maker/icons/anjuta-new2/plugins/anjuta-subversion-plugin-48.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     inkscape:cy="17.930276"
+     inkscape:cx="20.066234"
+     inkscape:zoom="1"
+     inkscape:window-height="945"
+     inkscape:window-width="1078"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     width="48px"
+     height="48px"
+     showgrid="true"
+     inkscape:window-x="128"
+     inkscape:window-y="32"
+     inkscape:current-layer="svg2" />
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2171"
+     width="48"
+     height="36"
+     x="0"
+     y="6"
+     rx="0"
+     ry="0.057870265" />
+  <path
+     style="fill:#729fcf"
+     d="M 0,42 C 0.26116381,41.73772 17.765827,38.771219 24.914831,36.890435 C 39.124375,33.152136 46.205996,30.311992 48,28.816736 L 48,42 L 0,42 z M 0.0625,27.437881 C 2.8922952,27.709491 20.190481,26.229339 26.837741,25.784317 C 37.375759,25.078814 41.404369,26.189621 36.369411,28.703683 C 32.893834,30.439112 17.708175,35.004829 0,38.678132 L 0.0625,27.437881 z M 15.540724,16.778724 C 23.239368,14.150952 40.75547,9.7388283 48,8.5704352 L 48,20.075763 C 44.099976,19.780137 41.665228,19.83774 34.872977,20.116333 C 27.837209,20.404912 18.976223,21.041051 13.449245,21.419042 C 5.7942948,22.047202 8.3085162,18.924576 15.540724,16.778724 z M 0,6 L 43.67093,6 C 26.112975,8.6657276 6.5517078,14.998167 0,18.888619 L 0,6 z "
+     id="path2169"
+     sodipodi:nodetypes="csccccsscccccscccccc" />
+  <path
+     style="opacity:0.45;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.99999994;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 1.4999999,15.5 L 1.4999999,7.5000008 L 28.499999,7.5000008 L 28.499999,7.5000008"
+     id="path4101" />
+  <path
+     id="path5072"
+     d="M 46.499999,31.499999 L 46.499999,40.499998 L 16.499999,40.499998 L 16.499999,40.499998"
+     style="opacity:0.45;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</svg>

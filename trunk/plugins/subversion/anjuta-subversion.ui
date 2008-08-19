@@ -1,0 +1,38 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderVersionControlMenus">
+		<menu name="MenuSubversion" action="ActionMenuSubversion">
+			<placeholder name="PlaceholderSubversionMenus">	
+				<menuitem name="Update..." action="ActionSubversionUpdate" />
+				<menuitem name="Commit..." action="ActionSubversionCommit" />
+				<menuitem name="Revert..." action="ActionSubversionRevert" />
+				<menuitem name="Resolve Conflicts..." action="ActionSubversionResolve" />
+				<separator name="separator1"/>
+				<menuitem name="View Log..." action="ActionSubversionLog" />
+				<separator name="separator3" />
+				<menuitem name="Copy Files/Folders..." action="ActionSubversionCopy" />
+				<menuitem name="Switch to a Branch/Tag..." action="ActionSubversionSwitch" />	
+				<menuitem name="Merge..." action="ActionSubversionMerge" />
+				<separator name="separator4" />			
+				<menuitem name="Add..." action="ActionSubversionAdd" />
+				<menuitem name="Remove..." action="ActionSubversionRemove" />
+				<separator name="separator2"/>
+				<menuitem name="Diff" action="ActionSubversionDiff" />
+			</placeholder>
+		</menu>
+		</placeholder>
+	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileVCS">
+			<menu name="PopupFileSubversion" action="ActionPopupSubversion">
+				<menuitem name="Update..." action="ActionPopupSubversionUpdate" />
+				<menuitem name="Add..." action="ActionPopupSubversionAdd" />
+				<menuitem name="Remove..." action="ActionPopupSubversionRemove" />
+				<menuitem name="Copy..." action="ActionPopupSubversionCopy" />
+				<menuitem name="View Log..." action="ActionPopupSubversionLog" />
+				<menuitem name="Diff..." action="ActionPopupSubversionDiff" />
+			</menu>
+		</placeholder>
+	</popup>
+</ui>

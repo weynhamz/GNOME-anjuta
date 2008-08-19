@@ -1,0 +1,27 @@
+<project-wizard>
+	<name>Django Project</name>
+	<description>Python webproject using Django Web Framework</description>
+	<icon>django-logo.png</icon>
+	<category>Python</category>
+	<required-program>django-admin.py</required-program>
+</project-wizard>
+
+<page name="basic" _label="Django Project information" _description="General Project Information">
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="myweb" summary="yes" restriction="filename" mandatory="yes"/>
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
+	
+</page>
+
+
+<content>
+    <directory source="python" destination="[+Destination+]">
+		<file destination="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+].anjuta" source="project.anjuta"/>
+    </directory>
+</content>
+
+<action>
+	<!-- It seems that Debian package uses django-admin instead of django-admin.py -->
+	<run command="sh -c &quot;cd [+(raw-shell-str (get "Destination"))+] &amp;&amp; if [ ''`which django-admin` != '' ]; then `which django-admin` startproject [+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]; else `which django-admin.py` startproject [+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]; fi;&quot;"/>
+	<open file="[+Destination+]/[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+].anjuta"/>
+	<open file="[+Destination+]/[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]/settings.py"/>
+</action>

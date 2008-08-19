@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY AnjutaArchitecture SYSTEM "anjuta-architecture.sgml">
+<!ENTITY WritingPlugins SYSTEM "writing-plugins.sgml">
+<!ENTITY WritingPluginsInVala SYSTEM "writing-plugins-vala.sgml">
+<!ENTITY PluginDescriptionFile SYSTEM "plugin-description-file.sgml">
+<!ENTITY ProjectWizardFormat SYSTEM "project-wizard-format.sgml">
+]>
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+  <bookinfo>
+    <authorgroup>
+      <author>
+	<firstname>Naba</firstname>
+	<surname>Kumar</surname>
+	<authorblurb>
+	  <para>
+	    <email>naba@gnome.org</email>
+	  </para>
+	</authorblurb>
+      </author>
+    </authorgroup>
+    <copyright>
+      <year>2004</year>
+      <holder>Naba Kumar</holder>
+    </copyright>
+    <title>Anjuta Developers Reference Manual</title>
+    <abstract>
+      <para>
+	  	libanjuta is Anjuta IDE framework for developing Anjuta plugins.
+      </para>
+    </abstract>
+
+    <legalnotice>
+      <para>
+		This document may be distributed subject to the terms and
+        conditions set forth in the Open Publication License, v1.0 or
+        later (the latest version is presently available at <ulink
+        url=" http://www.opencontent.org/openpub/"
+        type="http">http://www.opencontent.org/openpub/</ulink> )
+      </para>
+    </legalnotice>
+  </bookinfo>
+
+  &AnjutaArchitecture;
+  &WritingPlugins;
+  &WritingPluginsInVala;
+  &PluginDescriptionFile;
+  &ProjectWizardFormat;
+
+  <chapter id="libanjuta-api">
+    <title>libanjuta API</title>
+    <xi:include href="xml/anjuta-shell.xml"/>
+    <xi:include href="xml/anjuta-preferences.xml"/>
+    <xi:include href="xml/anjuta-preferences-dialog.xml"/>
+    <xi:include href="xml/anjuta-ui.xml"/>
+    <xi:include href="xml/anjuta-status.xml"/>
+    <xi:include href="xml/anjuta-plugin.xml"/>
+    <xi:include href="xml/anjuta-plugin-description.xml"/>
+    <xi:include href="xml/anjuta-plugin-handle.xml"/>
+    <xi:include href="xml/anjuta-plugin-manager.xml"/>
+    <xi:include href="xml/anjuta-profile.xml"/>
+    <xi:include href="xml/anjuta-profile-manager.xml"/>
+    <xi:include href="xml/anjuta-launcher.xml"/>
+    <xi:include href="xml/anjuta-save-prompt.xml"/>
+    <xi:include href="xml/anjuta-serializer.xml"/>
+    <xi:include href="xml/anjuta-session.xml"/>
+    <xi:include href="xml/anjuta-utils.xml"/>
+    <xi:include href="xml/anjuta-marshal.xml"/>
+    <xi:include href="xml/anjuta-enum-types.xml"/>
+    <xi:include href="xml/resources.xml"/>
+    <xi:include href="xml/anjuta-encodings.xml"/>
+    <xi:include href="xml/anjuta-debug.xml"/>
+    <xi:include href="xml/anjuta-error.xml"/>
+    <xi:include href="xml/anjuta-command.xml"/>
+    <xi:include href="xml/anjuta-async-command.xml"/>
+  </chapter>
+  
+  <chapter id="libanjuta-internal-api">
+    <title>libanjuta internal API</title>
+    <xi:include href="xml/anjuta-c-plugin-factory.xml"/>
+    <xi:include href="xml/anjuta-c-module.xml"/>
+    <xi:include href="xml/anjuta-utils-priv.xml"/>
+    <xi:include href="xml/e-splash.xml"/>
+    <xi:include href="xml/cell-renderer-captioned-image.xml"/>
+  </chapter>
+
+  <chapter id="plugin-interfaces">
+    <title>Plugin interfaces</title>
+	<xi:include href="xml/ianjuta-bookmark.xml"/>
+	<xi:include href="xml/ianjuta-buildable.xml"/>
+	<xi:include href="xml/ianjuta-builder.xml"/>
+	<xi:include href="xml/ianjuta-debugger.xml"/>
+	<xi:include href="xml/ianjuta-debugger-breakpoint.xml"/>
+	<xi:include href="xml/ianjuta-debugger-instruction.xml"/>
+	<xi:include href="xml/ianjuta-debugger-memory.xml"/>
+	<xi:include href="xml/ianjuta-debugger-register.xml"/>
+	<xi:include href="xml/ianjuta-debugger-variable.xml"/>
+	<xi:include href="xml/ianjuta-debug-manager.xml"/>
+	<xi:include href="xml/ianjuta-document.xml"/>
+	<xi:include href="xml/ianjuta-document-manager.xml"/>
+	<xi:include href="xml/ianjuta-editor-assist.xml"/>
+	<xi:include href="xml/ianjuta-editor-cell.xml"/>
+	<xi:include href="xml/ianjuta-editor-cell-style.xml"/>
+	<xi:include href="xml/ianjuta-editor-comment.xml"/>
+	<xi:include href="xml/ianjuta-editor-convert.xml"/>
+	<xi:include href="xml/ianjuta-editor-factory.xml"/>
+	<xi:include href="xml/ianjuta-editor-folds.xml"/>
+	<xi:include href="xml/ianjuta-editor-goto.xml"/>
+	<xi:include href="xml/ianjuta-editor.xml"/>
+	<xi:include href="xml/ianjuta-editor-hover.xml"/>
+	<xi:include href="xml/ianjuta-editor-language.xml"/>
+	<xi:include href="xml/ianjuta-editor-line-mode.xml"/>
+	<xi:include href="xml/ianjuta-editor-search.xml"/>
+	<xi:include href="xml/ianjuta-editor-selection.xml"/>
+	<xi:include href="xml/ianjuta-editor-view.xml"/>
+	<xi:include href="xml/ianjuta-editor-zoom.xml"/>
+	<xi:include href="xml/ianjuta-file.xml"/>
+	<xi:include href="xml/ianjuta-file-loader.xml"/>
+	<xi:include href="xml/ianjuta-file-manager.xml"/>
+	<xi:include href="xml/ianjuta-file-savable.xml"/>
+	<xi:include href="xml/ianjuta-help.xml"/>
+	<xi:include href="xml/ianjuta-indicable.xml"/>
+	<xi:include href="xml/ianjuta-iterable.xml"/>
+	<xi:include href="xml/ianjuta-iterable-tree.xml"/>
+	<xi:include href="xml/ianjuta-language.xml"/>
+	<xi:include href="xml/ianjuta-language-support.xml"/>
+	<xi:include href="xml/ianjuta-loader.xml"/>
+	<xi:include href="xml/ianjuta-macro.xml"/>
+	<xi:include href="xml/ianjuta-markable.xml"/>
+	<xi:include href="xml/ianjuta-message-manager.xml"/>
+	<xi:include href="xml/ianjuta-message-view.xml"/>
+	<xi:include href="xml/ianjuta-preferences.xml"/>
+	<xi:include href="xml/ianjuta-print.xml"/>
+	<xi:include href="xml/ianjuta-plugin-factory.xml"/>
+	<xi:include href="xml/ianjuta-plugin-loader.xml"/>
+	<xi:include href="xml/ianjuta-project-manager.xml"/>
+	<xi:include href="xml/ianjuta-stream.xml"/>
+	<xi:include href="xml/ianjuta-stream-loader.xml"/>
+	<xi:include href="xml/ianjuta-stream-savable.xml"/>
+	<xi:include href="xml/ianjuta-symbol.xml"/>
+	<xi:include href="xml/ianjuta-symbol-manager.xml"/>
+	<xi:include href="xml/ianjuta-terminal.xml"/>
+	<xi:include href="xml/ianjuta-todo.xml"/>
+	<xi:include href="xml/ianjuta-variable-debugger.xml"/>
+	<xi:include href="xml/ianjuta-vcs.xml"/>
+	<xi:include href="xml/ianjuta-wizard.xml"/>
+    <xi:include href="xml/libanjuta-iface-marshallers.xml"/>
+  </chapter>
+
+  <chapter id="object-hierarchy">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+</book>

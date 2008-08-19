@@ -1,0 +1,7 @@
+<!--*- xml -*-->
+<ui>
+	<popup name="PopupTerminal">
+		<menuitem name="Copy" action="ActionCopyFromTerminal" />
+		<menuitem name="Paste" action="ActionPasteInTerminal" />
+	</popup>
+</ui>

@@ -1,0 +1,182 @@
+<chapter id="familiar">
+  <title>Getting Familiar with Anjuta</title>
+ <!-- ============= Getting Familiar: Menus  ============-->
+  <sect1 id="menu-and-shortcuts">
+   <title>Menus and shortcuts</title>
+   <para>
+   At the top of the <application>Anjuta</application> main window is the menubar. 
+   Almost all of the functions are available by activating the appropriate 
+   menu item. The functions have been grouped according to their type. For 
+   example, the file operations have been grouped into 
+   the <guisubmenu>File</guisubmenu> menu.
+   </para>
+	
+    <figure id="menubar">
+      <title>Menubar</title>
+	  <screenshot>
+      <screeninfo>Anjuta menubar</screeninfo>
+       <graphic fileref="figures/menubar.png" format="PNG" srccredit="jhs"></graphic>
+      </screenshot>
+    </figure>
+    
+    <para>
+     Most of the menus and submenus can be detached. Click on the detach bar 
+	 (the dashed line just above the first menu item). Once the menu is 
+	 detached, it will become an independent window.
+    </para>
+        
+    <figure id="file-menu">
+      <title>File menu</title>
+      <screenshot>
+      <screeninfo>File menu</screeninfo>
+       <graphic fileref="figures/file_menu.png" format="PNG" srccredit="jhs"></graphic>
+      </screenshot>
+    </figure>
+	
+   <para>
+    Shortcut keys are available for many of the menu options. All of the shortcut 
+	keys are shown alongside the corresponding menu items. A useful reference to 
+	the shortcut keys which are not directly attached with the menu is also available
+	in the next section. Some useful shortcuts are listed here.
+   </para>
+	
+   <para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       <emphasis>Switch Editor page:</emphasis> CTRL-TAB (forward) and CTRL-SHIFT-TAB (backward) -- The pages could
+	   also be switched by right clicking on the notebook tabs and selecting an editor tab
+	   (useful when all the tabs in the editor are not visible at once). Some desktop configuration
+	   may already have these shortcut keys assigned. In that case, you will need to reconfigure them
+	   (not in anjuta, because they are fixed) if you want to avail these shortcuts.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	   <emphasis>Context Help:</emphasis> SHIFT-F1 -- Keep the cursor on the word (for example, the
+	   function name) for which you want to get the API help and press the shortcut. Context help
+	   only works if you have <application>DevHelp</application> installed. If you do not have
+	   <application>DevHelp</application> installed, the context help menu and toolbar button
+	   will be inactive. You can get it from <application>DevHelp</application>
+	   website. You will also have to install the related <application>DevHelp</application> books.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	  <emphasis>Auto complete:</emphasis> CTRL-ENTER -- Press the shortcut with the cursor placed
+	  at the end of incomplete word and a list of words matching the remaining part will appear.
+	  Scroll and select the right word from the list if you find one.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	  <emphasis>More shortcuts:</emphasis> Look for the shortcut keys displayed on right side
+	  of the menu item labels. They could also be changed as explained in the tip below.
+      </para>
+     </listitem>
+    </itemizedlist>
+   <tip>
+   <title>Customize shortcuts</title>
+   <para>
+   You can change the default shortcuts by using  <menuchoice><guisubmenu>Edit</guisubmenu>
+	   <guimenuitem>Preferences</guimenuitem></menuchoice> and selecting the <interface>
+	   Shortcuts</interface> tab.
+   </para>
+   </tip>
+   </para>
+  </sect1>
+
+<!-- ============= Getting Familiar: Main window  ============-->
+  <sect1 id="main-win">
+   <title>Main Window</title>
+   <para>
+    In the main window, there are several views which can be reordered by
+	dragging on their title bars. They can also be minimized by clicking on the
+    minimize buttons on the left of title bars.
+   </para>
+
+   <para>
+    <orderedlist>
+     <listitem>
+      <para>
+       The <interface>Documents window</interface> 
+	   will have one document active at a time (if there are any files opened). All 
+	   of the file commands will apply to this active document. You can switch to 
+	   any page by clicking on the page tab. You can do the same by right-clicking 
+	   on the page tabs and choosing the document from the pop-up menu that will 
+	   appear. This is especially useful when you have a lot of files opened, but not 
+	   all of them are visible in the page tab area.
+	   </para>
+	 </listitem>
+     <listitem>
+      <para>
+       The <interface>Project window</interface> shows a tree of the project files if 
+	   you have a project opened. Otherwise, the <interface>Project window</interface> 
+	   is usually hidden. Double-clicking on any item in the 
+	   <interface>Project window</interface> will open that file.
+      </para>
+     </listitem>
+      <listitem>
+      <para>
+       The <interface>Files window</interface> shows a file tree. If no project is open, the file
+       tree usually points to the file system root but you can change it in the preferences. If a project is 
+       open it shows all files inside the project. Double clicking opens a file in the appropriate application
+       as configured in the gnome mime preferences. Right click opens a popup-menu which gives you
+       choices how to open the file. 
+      </para>
+     </listitem>
+      <listitem>
+      <para>
+       The <interface>Symbols window</interface> shows shows a tree of available symbols in the project
+       generated from ctags parser. Double clicking opens an editor window with the corresponding file
+       and line.
+      </para>
+      <para>
+      There is also a <interface>Search tab</interface> in the Symbols window where you can search for
+      symbols.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+      The <interface>Message window</interface> will list all the messages (both 
+	  <filename>stdout</filename> and <filename>stderr</filename> outputs) when an external 
+	  command is executed. The <interface>Message window</interface> is usually hidden, but 
+	  appears as soon as an external command is executed, such as during file or project 
+	  compilation, debugging sessions, searches, and many other operations. 
+	  <application>Anjuta</application> also adds its own messages here when necessary.
+      </para>
+      <para>
+	  The colors used to display the messages are important. Messages 
+	  displayed in the standard foreground color (usually Black) are normal 
+	  messages. Those displayed in Blue are important messages such as errors or 
+	  other information. Messages shown in Red are <emphasis>Hot Linked</emphasis>. 
+	  Double-clicking on such a message will take you to the particular file and 
+	  line number specified in the message.
+      </para>
+      <para>
+      For example, when you compile a file which contains bugs, some red 
+	  messages will appear showing what the problems are, and where they occur. 
+	  Double-clicking on such messages will open the file and highlight the 
+	  line containing the error.
+	  </para>
+     </listitem>
+     <listitem>
+      <para>
+       The <interface>Terminal window</interface> is a terminal emulation where you can type commands
+       just like in the gnome-terminal.
+      </para>
+     </listitem>
+    </orderedlist>
+   </para>
+   <note>
+   <title>Session management</title>
+   <para>
+   All of the settings, including the window sizes and window positions, are 
+   saved when you exit <application>Anjuta</application>. Session management is still 
+   under development, so you should not exit <application>Anjuta</application> with 
+   any unsaved documents. <application>Anjuta</application> will display a warning 
+   if you try to exit with unsaved documents still open.
+   </para>
+   </note>
+  </sect1>
+ </chapter>

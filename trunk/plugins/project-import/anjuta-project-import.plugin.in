@@ -1,0 +1,13 @@
+[Anjuta Plugin]
+_Name=Project Import Assistant
+_Description=Import an existing autotools project to anjuta
+Location=anjuta-project-import:AnjutaProjectImportPlugin
+Icon=anjuta-project-import-plugin-48.png
+UserActivatable=no
+Interfaces=IAnjutaWizard,IAnjutaFile
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta-old
+
+[Wizard]
+_Title=Project From Existing Sources

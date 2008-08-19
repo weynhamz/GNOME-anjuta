@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Macro Plugin
+_Description=Insert predefined macros into Editor
+Location=anjuta-macro:MacroPlugin
+Icon=anjuta-macro.png
+Interfaces=IAnjutaMacro

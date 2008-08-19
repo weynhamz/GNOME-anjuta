@@ -1,0 +1,30 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuView" action="ActionMenuView">
+			<menu name="Goto" action="ActionMenuGoto">
+				<placeholder name="PlaceholderGotoMenus">
+					<menuitem name="BackHelp" action="ActionDevhelpBack" />
+					<menuitem name="ForwardHelp" action="ActionDevhelpForward" />
+				</placeholder>
+			</menu>
+		</menu>
+		<placeholder name="PlaceHolderHelpMenus" >
+			<menu name="MenuHelp" action="ActionMenuHelp" >
+				<placeholder name="PlaceHolderHelpDevel" >
+					<separator name="separator6" />
+					<menuitem name="Api" action="ActionHelpApi" />
+					<menuitem name="Context" action="ActionHelpContext" />
+					<menuitem name="Search" action="ActionHelpSearch" />
+				</placeholder>
+			</menu>
+		</placeholder>
+	</menubar>
+	<toolbar name="ToolbarMain">
+	</toolbar>
+	<toolbar name="ToolbarBrowser">		
+		<toolitem name="Context" action="ActionHelpContext" />
+		<toolitem name="BackHelp" action="ActionDevhelpBack" />
+		<toolitem name="ForwardHelp" action="ActionDevhelpForward" />
+	</toolbar>
+</ui>

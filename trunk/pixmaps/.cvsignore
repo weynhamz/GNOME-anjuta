@@ -1,0 +1,8 @@
+Makefile
+Makefile.in
+*~
+*.bak
+.*swp
+.xvpics
+.thumbnails
+.nautilus-metafile.xml

@@ -1,0 +1,7 @@
+[Anjuta Plugin]
+Location=language-manager:LanguageManager
+Icon=anjuta-language-manager-plugin-48.png
+_Name=Language Manager
+_Description=Plugin to keep track of multiple programming languages
+Interfaces=IAnjutaLanguage
+UserActivatable=no

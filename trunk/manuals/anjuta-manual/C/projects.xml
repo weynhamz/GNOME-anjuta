@@ -1,0 +1,1007 @@
+<!-- ============= Project management ====================== -->
+ <chapter id="project-management">
+  <title>Project Management</title>
+  
+  <para>
+  Anjuta has a powerful Project Manager plugin which can open most
+  <ulink type="info" url="info:automake">automake/autoconf</ulink> based projects.
+  It might fail on some
+  oddly configured projects, but as long as the project is done by using
+  automake/autoconf in a typical way, it should work.
+  </para>
+
+  <para>
+  The neat thing is that it does not store any project information beyond what
+  is already available in project structure. That is, there is no separate
+  project data maintained by Anjuta and all project processing are done
+  directly within the project structure. This allows the project to be
+  maintained or developed outside Anjuta without having to so-called
+  'porting' or 'switching' to a new platform. Since technically Anjuta
+  projects are just automake projects, mixed development of it (Anjuta and
+  non-Anjuta users) or switching back and forth between Anjuta and other
+  tools is quite possible without any hindrance.
+  </para>
+
+  <sect1 id="new-project">
+   <title>Creating a New Project</title>
+   <sect2 id="new-project-from-template">
+   <title>New project from template</title>
+   <para>
+   The project wizard plugin uses a powerful template processing engine
+   called <application>autogen</application>. All new projects are created from
+   templates that
+   are written in <application>autogen</application> syntax. Project wizard
+   lets you create new
+   projects from a selection of project templates. The selection includes
+   simple generic, flat (no subdirectory), gtk+, gnome, java, python
+   projects and more. New templates can be easily downloaded and
+   installed since they are just a collection of text files.
+   </para>
+
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu>
+    <guimenuitem>Project &hellip;</guimenuitem></menuchoice>
+    to start the application wizard.
+    Read the <interface>first page</interface> carefully. Click on 
+	<guibutton>Next</guibutton> to proceed.
+   </para>
+   <para>
+    Select the type of application you want to create in the
+    <interface>second page</interface>.
+    Click on <guibutton>Next</guibutton> to proceed.   
+   </para>
+
+   <para>
+    On the next pages, enter all necessary
+    details for your project. You can change these settings later also, but
+    it is advisable to put them right in first run to maintain the project's
+    integrity.
+    White spaces or any non-alphanumeric characters, except 
+    underscore (_) and dash (-), are not allowed in many of the entry boxes 
+	that would follow (except perhaps the
+    <guilabel>Author</guilabel> text box).
+	</para>
+
+   <para>
+    You can also specify whether your  
+    project will have <emphasis>internationalization support</emphasis> 
+    using <application>gettext</application> (read the
+    <ulink type="info" url="info:gettext">gettext info page</ulink> for 
+	more details). This gives your project multilingual support for 
+	different regional languages such as English, French, Dutch etc..
+    The rest of the options are for setting whether the GNU copyright 
+	statement should appear in the comments at the top of each file, and 
+	enabling GNOME desktop menu information if necessary. Shared library
+    support allows adding shared library modules later in the project. If
+    you plan to have libraries in your project, it would be good to enable.
+    Depending on the project type that is being created, there would be
+    other information requested.
+   </para>
+
+   <para>
+    The final step is to verify the information you have just supplied.
+	Click on <guibutton>Finish</guibutton> to start generating the project.
+   </para>
+
+   <para>
+    Once project generation is over, you can try it out by 
+    building the project and executing it.
+   </para>
+  </sect2>
+   <sect2 id="importing-project">
+    <title>Importing Projects</title>
+    <para>
+     The import project feature is used to import an already existing project and convert it into
+     <application>anjuta</application> project. Activate the import project wizard from
+     <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu>
+	<guimenuitem>Project from existing sources</guimenuitem></menuchoice>
+     and follow instructions dictated by the wizard. Once the project is imported, it could be
+     opened in <application>anjuta</application> subsequently just like any other <application>
+     anjuta</application> project.
+    </para>
+	<note>
+	<para>
+	The import project features only works if your existing project is
+    using <ulink type="info" url="info:automake">autoconf/automake</ulink> and,
+    to a very limited extend, plain makefiles.
+	</para>
+	</note>
+   </sect2>
+  </sect1>
+  
+  <sect1 id="load-save-projects">
+   <title>Loading and Saving Projects</title>
+   <sect2 id="loading-project">
+    <title>Loading Projects</title>
+    <para>
+     To open a project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu>
+	 <guimenuitem>Open &hellip;</guimenuitem></menuchoice>.
+     Select the project file (<filename>*.anjuta</filename>) in the dialog 
+	 and click <guibutton>OK</guibutton>.
+    </para> 
+
+    <para>
+     If the project has recently been opened, then you will find it listed in the 
+     menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent</guisubmenu></menuchoice>. 
+	 Choose the project file from the list, and the project will be opened. 
+    </para>
+    <para>
+     As soon as a project is opened, <application>Anjuta</application> will enter 
+	 <emphasis>Project mode</emphasis>. There are three panes in the project window. The
+     first is the project pane and lists the project files organized in file types. The second
+     is the symbol browser, which has already been discussed in section <emphasis>Symbol
+     Browser and tags Browser</emphasis>. The third pane is the file view of the project and
+     is more or less similar to a mini file-manager. In file view, all the files present
+     in the project tree is visible. Right clicking on these files will pop up the file
+     <guimenu>Operation menu</guimenu>.
+    </para>
+    <para>
+     If the project is also a CVS tree, then corresponding file revision numbers are also
+     listing on the right of file names in the file view pane.
+    </para>
+   </sect2>
+   <sect2 id="saving-project">
+    <title>Saving Projects</title>
+    <para>
+    The project is automatically saved when you close because all changes are made
+	directly in the project structure.
+    </para>
+   </sect2>
+  </sect1>
+
+  <sect1 id="projects-structure">
+  <title>Project structure</title>
+  <para>
+   Here is the <interface>Project window</interface> with the  
+   the <guimenu>Operation menu</guimenu>
+   (accessible by clicking on the right mouse button). 
+   <figure id="project-window">
+    <title>Project window</title>
+    <screenshot>
+     <screeninfo>The Project window</screeninfo>
+     <graphic fileref="figures/project-window.png" format="PNG" srccredit="jhs"></graphic>
+    </screenshot>
+   </figure>
+  </para>
+  <para>
+  <interface>Project window</interface> lists the project in standard
+  <ulink type="info" url="info:automake"><application>automake</application></ulink>
+  hierarchy organized
+  into groups of targets. <emphasis>Groups</emphasis> correspond to
+  directories in your project and <emphasis>targets</emphasis>
+  correspond to normal <application>automake</application> targets (not to be confused
+  with make targets). <interface>Project window</interface> actually
+  has two parts; one part
+  (lower one) shows complete project hierarchy and the other part (upper one)
+  lists important targets directly. Important targets constitute executable
+  and library targets -- making them very accessible in from the view.
+  This is particularly useful in big projects where the hierarchy
+  could be deep and hard to navigate from the tree alone. Targets are, in
+  turn, composed of source files.
+  </para>
+
+  <para>
+  <itemizedlist>
+   <listitem>
+    <para>
+      <emphasis>Groups</emphasis> are used to logically organize targets.
+      A project can contain any number of groups. Each group can have sub-groups
+      as well as targets. In automake projects, groups are just sub-directories
+      in the project. The top level group is called root and is always "/".
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      <emphasis>Targets</emphasis> are the build targets in project, such as
+      programs (executable binaries), scripts, libraries, miscellaneous data
+      etc. Not all target types are built from sources, but exist just to
+      organize the sources and therefore may not exist physically (e.g.
+      Miscellaneous data target).
+      Targets exist under groups. See <link linkend="adding-target">"Adding targets"</link> for
+      full list of available target types.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      <emphasis>Source files</emphasis> are the files used to build the targets
+      or just to be part of it. They exist only under targets. Many target types
+      expect certain type of source files (e.g. programs and libraries target
+      types), but some can accept any file (e.g. Miscellaneous data target).
+    </para>
+   </listitem>
+  </itemizedlist>
+  </para>
+
+  <para>
+  Each of the project groups and targets is configurable in standard
+  <application>automake</application> way. You can set complier and linker
+  flags directly for each target, or set configure variables. Groups allow
+  setting installation destinations for its targets.
+  </para>
+
+  <para>
+  Just like file manager, project manager view also has convenience actions
+  (accessible from the <guimenu>Operation menu</guimenu>) for the source
+  files and targets.
+  </para>
+
+  <para>
+   Many command-line tools are available to maintain and manage a project, 
+   and each tool has its own specific rules and capabilities.
+   <application>Anjuta</application> tries to automate most of the common
+   operations using plugins. However, you might occasionally still need
+   to do them manually.
+  </para>
+  
+  <para>
+   It is possible to make use of other tools or hand edit the project
+   files simultaneously. It doesn't matter if the project is loaded in
+   <application>Anjuta</application> or not. <application>Anjuta</application>
+   would update itself with any external changes made to project.
+  </para>
+  </sect1>
+ 
+  <sect1 id="groups-and-targets">
+   <title>Groups and targets</title>
+
+   <sect2 id="adding-groups">
+    <title>Adding Groups</title>
+    <para>
+     To add a new group (a directory in automake based projects):
+        <itemizedlist>
+         <listitem>
+           <para>
+           Select <menuchoice><guisubmenu>Project</guisubmenu>
+	   <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
+           add a new group would popup. 
+           </para>
+         </listitem>
+         <listitem>
+           <para>Select the group under which to add new group.</para>
+         </listitem>
+         <listitem>
+            <para>Give a name of the new group and click Ok.</para>
+         </listitem>
+        </itemizedlist>
+     With automake projects,
+     a new directory with the given name would be created under the parent
+     group's directory.
+    </para>
+    <para>
+     New group can also be added from the <guimenu>Operation menu</guimenu>
+     in <interface>Project window</interface> by
+     selecting <guimenuitem>Add Group</guimenuitem>. First select the group
+     under which to add the group in <interface>Project window</interface>.
+    </para>
+   </sect2>
+
+   <sect2 id="removing-group">
+    <title>Removing Groups</title>
+    <para>
+    To remove a group:
+    <itemizedlist>
+     <listitem>
+       <para>Select the target in <interface>Project Manager view</interface>.</para>
+     </listitem>
+     <listitem>
+       <para>Select <guimenuitem>Remove</guimenuitem> from the
+       <guimenu>Operation menu</guimenu>.</para>
+     </listitem>
+    </itemizedlist>
+      The target and sources associated
+      with the group will also be removed from the project (they are not
+      deleted from the file system, though. You can still add them later).
+    </para>
+   </sect2>
+
+   <sect2 id="adding-target">
+    <title>Adding Targets</title>
+    <para>
+     To add a new target:
+     <itemizedlist>
+      <listitem>
+       <para>Select <menuchoice><guisubmenu>Project</guisubmenu>
+       <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
+       add a new target would popup.</para>
+     </listitem>
+     <listitem>
+      <para>Select the group under which to add the target.</para>
+     </listitem>
+     <listitem>
+      <para>Select the target type.</para>
+     </listitem>
+     <listitem>
+      <para>Give a name of the new target and click Ok.</para>
+     </listitem>
+    </itemizedlist>
+    </para>
+    <para>
+     New target can also be added from the <guimenu>Operation menu</guimenu>
+     in <interface>Project window</interface> by
+     selecting <guimenuitem>Add target</guimenuitem>. First select the group
+     under which to add the target in <interface>Project window</interface>.
+    </para>
+    <para>
+     Target names usually require some standard prefix and suffix, depending
+     on the type of target. Anjuta would warn if the name is not valid and
+     may give an example of a name.
+    </para>
+    <para>
+     There are several target types for automake project. They are:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <emphasis>Program</emphasis> target type is for executable binaries. Select
+       this if you want to add an executable to the project. By default, all program
+       targets would be installed in standard executable directory, e.g.
+       /usr/bin or /usr/local/bin. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Shared Library</emphasis> target type is for shared or dynamic libraries.
+       Select this if you are adding a shared library to the project. By default, all
+       shared libraries are installed in standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Static Library</emphasis> target type is for static library.
+       Select this if you are adding a static library to the project. By default,
+       all static libraries are installed in standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Java module</emphasis> target type is for java module. Select
+       this if you are grouping java sources into a module. You need to provide
+       an installation directory for this target where the .class files will
+       be installed. It can be set in group properties of the group where this
+       target belongs.
+      </para>
+      <note>
+       <para>
+         There can really be only one java module in a group. This is a
+         restriction put by automake. Please read automake info page for more
+         details.
+       </para>
+      </note>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Python module</emphasis> target type is for python module. Select
+       this if you are grouping python sources into a module. You need to provide
+       an installation directory for this target where the sources will
+       be installed. It can be set in group properties of the group where this
+       target belongs.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Scripts</emphasis> target is to group scripts. They will be
+        installed in standard executable directory.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Miscellaneous Data</emphasis> target type is to group
+        simple files in the project. An installation directory needs to be
+        specified in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Header Files</emphasis> target type is to group C/C++
+        header files that need to be installed in system (for example as part
+        of library API). For header files that do not need to be installed,
+        make them part of the Program target along with the sources. They will
+        be installed in standard include directory unless installation path
+        is specified in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Man documentation</emphasis> and <emphasis>Info documentation</emphasis>
+        target types are for grouping man and info documentation respectively.
+        By default, they will be installed in standard installation directories.
+      </para>
+     </listitem>
+    </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="removing-target">
+    <title>Removing Targets</title>
+    <para>
+      To remove a target:
+      <itemizedlist>
+       <listitem>
+        <para>Select the target in <interface>Project Manager view</interface></para>
+       </listitem>
+       <listitem>
+        <para>Select <guimenuitem>Remove</guimenuitem> from the
+        <guimenu>Operation menu</guimenu>.</para>
+       </listitem>
+      </itemizedlist>
+      The sources associated with the targets
+      will also be removed from the project (they are not deleted from the
+      file system, though).
+    </para>
+   </sect2>
+  </sect1>
+
+  <sect1 id="adding-removing-sources">
+   <title>Adding and Removing Files</title>
+   <sect2 id="adding-sources">
+    <title>Adding Source Files</title>
+    <para>
+     Select menu item <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Source File</guimenuitem></menuchoice>.
+	From the dialog, select the target to which the file should be added and
+    the file itself. You can add multiple files at once. To do that, select
+    multiple files from the file selection dialog using either SHIFT or CONTROL
+    key. Then click <guibutton>Add</guibutton> button to finally add the
+    files in project.
+    </para>
+    <para>
+    By default, current editor file would be preselected for addition in the
+    dialog. Other convenient way to add a file is to select it in
+    <interface>File Manager</interface> and choosing
+    <guimenuitem>Add to project</guimenuitem> from the
+    <guimenu>Operation menu</guimenu>.	
+    </para>
+    <para>
+     If the file you choose has already been added to the project, then
+     <application>Anjuta</application> will not add it again. 
+     It will also give you a warning that the file is already added.
+    </para>
+    <para>
+     If the file you choose is not in the project directory, you will be asked
+     to confirm that you wish to copy the file into the target's directory.
+     <application>Anjuta</application> cannot add files which are 
+	 outside of target's directory.
+    </para>
+   </sect2>
+   <sect2 id="removing-sources">
+    <title>Removing Source Files</title>
+    <para>
+     To remove a file from the project, select the file you want to remove
+     from the <interface>Project window</interface>, right-click to open the 
+	 <guimenu>Operation menu</guimenu> and choose 
+	 <guimenuitem>Remove</guimenuitem>.
+    </para>
+    <para>
+     A confirmation dialog will appear, and the file will be removed from the 
+	 project.
+    </para>
+    <important>
+     <title>The file is not deleted!</title>
+     <para>
+     The file is not deleted from the filesystem. It still exists, and you can
+     add it back again later if you so wish. The file is only removed from the project 
+	 listing, and will not take part in any of the project operations such as compiling, 
+	 building, distribution etc..
+     </para>
+     </important>
+   </sect2>
+  </sect1>
+  
+  <sect1 id="project-config">
+   <title>Project Configuration</title>
+   <para>
+    Project configuration involves setting the correct build flags for
+    targets, groups and project itself. You can set these flags in their
+    respective properties dialog.
+   </para>
+
+   <para>
+    You can freely use autoconf and automake variables that are automatically
+    set for the project during configuration. Apart from these automatically
+    set variables, you can also defined your own variables in
+    <link linkend="project-properties">Project Properties</link> use them in
+    properties. This will make it easy to update flags later, especially when
+    the variable is used in several targets.
+   </para>
+
+   <para>
+    Some of the many common variables are listed here. For full list of them
+    see <ulink url="info:automake">automake info documentation</ulink>.
+
+     <itemizedlist>
+      <listitem>
+       <para>
+         <emphasis>$(prefix)</emphasis>: The installation prefix. The project
+         is installed under various sub-directories under this prefix. By default
+         it is /usr/local.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(bindir)</emphasis>: The installation directory for
+         executable binaries. All your executable and scripts targets would
+         be installed in this directory. By default, it is $(prefix)/bin.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(libdir)</emphasis>: The installation directory for
+         libraries. All your library targets (both shared and static) would
+         be installed in this directory or a subdirectory below it.
+         By default, it is $(prefix)/lib.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(module_CFLAGS)</emphasis> and $(module_LIBS): These
+         flags are set by configure for the packages that your project
+         depends on. The packages used by the project are set in
+         <link linkend="project-properties">Project Properties</link>. 'module'
+         is the packages group that you give in project properties.
+       </para>
+      </listitem>
+     </itemizedlist>
+
+   </para>
+
+
+   <sect2 id="project-properties">
+    <title>Project properties</title>
+    <para>
+    Project properties dialog can be only brought by
+    choosing <menuchoice><guisubmenu>Project</guisubmenu>
+    <guimenuitem>Properties</guimenuitem></menuchoice>. You can:
+    <itemizedlist>
+     <listitem>
+      <para>
+      Set project name, version and URL in <guibutton>General</guibutton> page.
+      Configure variables can also be use in these fields. The URL is the
+      bug report URL for the project.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+      Add and remove dependencies for your project in
+      <guibutton>Packages</guibutton> page. See below for details.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+      Create more configure variables in <guibutton>Variables</guibutton> page
+      to use in group and target properties.
+      </para>
+     </listitem>
+    </itemizedlist>
+    </para>
+    <para>
+    Dependencies
+    are external packages that the project uses and hence required
+    to build it. Only packages installed using
+    <ulink url="info:pkg-config">pkg-config</ulink>
+    can be added from this interface. For others, the configure.ac file can
+    be edited manually.
+    <figure>
+       <title>Project properties dialog</title>
+       <screenshot>
+	   <screeninfo>Project properties dialog</screeninfo>
+        <graphic fileref="figures/project_info.png" format="PNG" srccredit="jhs"></graphic>
+       </screenshot>
+     </figure>
+   </para>
+   <para>
+    External package dependencies are grouped into <emphasis>modules</emphasis>,
+    so that their combined build flags can be conveniently added to different
+    targets. <emphasis>Modules</emphasis> are just arbitrary names given to
+    group the packages and can be named anything (only alphanumeric and _ are
+    allowed in module name). Usually, they follow the name of
+    targets they would be use in. Consequently, for small projects with single 
+    targets, just one module to hold all dependencies is enough.
+   </para>
+   <para>
+    Each package exports a set of <emphasis>compiler flags</emphasis>
+    and <emphasis>libraries</emphasis>. They are aggregated together for
+    all packages under a module and configure variables
+    <emphasis>$(module_CFLAGS)</emphasis> and
+    <emphasis>$(module_LIBS)</emphasis> are defined. These variables can then
+    be used in <link linkend="group-properties">Group properties</link>
+    and <link linkend="target-properties">Target properties</link>.
+   </para>
+   <para>
+    To add a package dependency:
+    <itemizedlist>
+     <listitem>
+      <para>
+      Select <menuchoice><guisubmenu>Project</guisubmenu>
+      <guimenuitem>Properties</guimenuitem></menuchoice> to bring up project
+      properties dialog.
+      </para>
+     </listitem>
+     <listitem>
+      <para>Select the tab <guibutton>Packages</guibutton> to bring up packages
+      page.</para>
+     </listitem>
+     <listitem>
+      <para>
+      Select the <emphasis>module</emphasis> to add the package to. If there
+      is no module created yet or there is no appropriate module, create one
+      by clicking <guibutton>Add module</guibutton>. Give a sensible name to the
+      module, preferably in UPPERCASE to match with rest of configure variables
+      (only use alphanumeric and '_' characters) and press <keycap>Enter</keycap>
+      to create it.
+      </para>
+     </listitem>
+     <listitem>
+      <para>Click <guibutton>Add Package</guibutton> to bring up package selection dialog.</para>
+     </listitem>
+     <listitem>
+      <para>Select the package to add and click <guibutton>Add</guibutton>.</para>
+     </listitem>
+     <listitem>
+      <para>Click <guibutton>Close</guibutton> to close the properties dialog.</para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   </sect2>
+
+   <sect2 id="group-properties">
+    <title>Group properties</title>
+    <para>
+    To set group properties, select
+    it in the <interface>Project window</interface> and active it. You can also
+    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
+    <guimenuitem>Properties</guimenuitem></menuchoice>
+    </para>
+
+    <para>
+         <emphasis>Group Properties</emphasis> set to a group applies to all
+         the targets under it. So any compiler or linker flags set there would
+         be automatically be part of all the targets in it (in addition the
+         targets individual properties). Following flags are available in group
+         properties.
+
+		   <itemizedlist>
+		    <listitem>
+		     <para>
+                <emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables
+                and other include directories for your c and c++ targets.
+                You need to provide the full include options of the compiler
+                here, e.g. -I/usr/include/blah. The include paths will be use
+                to find the include files in your source files. You can also
+                add other sort of compiler flags here, but they are preferred
+                to be set in their respective compiler flags properties
+                (see below).
+             </para>
+             <para>
+                Usually your configure script would also make some automatically
+                determined compiler flags. The variables usually end with
+                _CFLAGS, e.g $(PACKAGE_CFLAGS). They are also set here.
+                See setting
+                <link linkend="project-properties">Project properties</link>
+                for more details on these variables.
+             </para>
+           </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                flags here. There are different fields for different compiler
+                categories. Flags that can be set here depend on the actual
+                compiler used. The default compiler use for c/c++ is gcc/g++
+                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                documentation</ulink> for more details.
+             </para>
+           </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Install directories</emphasis>: Targets in the group
+                that require installation directories would each get a field
+                to enter the installation directory. Set their installation
+                directories as relative to one of the many automake
+                directory variables, such as $(prefix), $(bindir), $(libdir),
+                $(datadir) etc.
+             </para>
+           </listitem>
+          </itemizedlist>
+
+    </para>
+   </sect2>
+
+   <sect2 id="target-properties">
+    <title>Target properties</title>
+    <para>
+    To set target properties, select
+    it in the <interface>Project window</interface> and active it. You can also
+    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
+    <guimenuitem>Properties</guimenuitem></menuchoice>
+    </para>
+
+    <para>
+         <emphasis>Target Properties</emphasis> set to a target applies to that
+         target. So any compiler or linker flags set there would
+         be just part of it (in addition the its group properties).
+         Following flags are available in target properties.
+
+		   <itemizedlist>
+		    <listitem>
+		     <para>
+                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                flags here. There are different fields for different compiler
+                categories. Flags that can be set here depend on the actual
+                compiler used. The default compiler use for c/c++ is gcc/g++
+                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                documentation</ulink> for more details.
+             </para>
+            </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Linker flags</emphasis>: Set linker flags that should
+                be used when linking the target. It applies only to Program
+                and library targets. See <ulink url="info:ld">ld info documentation</ulink>
+                for available linker options.
+             </para>
+            </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Libraries</emphasis>: Set the libraries that the
+                target depends on. Usually they are the $(module_LIBS)
+                configure variables. See setting
+                <link linkend="project-properties">Project properties</link>
+                for more details on these variables.
+             </para>
+           </listitem>
+          </itemizedlist>
+
+    </para>
+   </sect2>
+  </sect1>
+  
+  <sect1 id="project-build">
+   <title>Compiling and Building</title>
+   <sect2 id="project-basics">
+    <title>Overview</title>
+    <para>
+     An executable for a project is generated in two steps:
+    </para>
+    <para>
+     <orderedlist>
+      <listitem><para>Compiling</para></listitem>
+      <listitem><para>Linking</para></listitem>
+     </orderedlist>
+    </para>
+    <para>
+     These steps are collectively known as <emphasis>Building</emphasis>. Some other
+     steps may also be involved in the build process, but for the sake of
+     simplicity, we will only look at these two steps.
+    </para>
+    <para>
+     <emphasis>Compiling</emphasis> is the step in which object files are generated from 
+	 their corresponding source files. For instance, a source file <filename>hello.c</filename>
+	 will generate <filename>hello.o</filename> after compilation. Usually you do not need 
+	 to worry about these object files &mdash; just think of them as intermediate files 
+	 involved in creating the final executable.
+    </para>
+    <para>
+     Once the object files (<filename>*.o</filename> files) are ready, they are all linked 
+	 together (along with any libraries) to generate the final executable. This step is 
+     called <emphasis>Linking</emphasis>.
+    </para>
+   </sect2>
+   <sect2 id="compiling-project">
+    <title>Compiling the source</title>
+    <para>
+     In a project, the individual source files can be compiled separately into objects 
+	 (<filename>*.o</filename> files). Although you do not have to worry about these object 
+	 files, sometimes it is handy to compile a file first (for example, to make sure there are 
+	 no syntax errors). Building a whole project can take a lot of time, especially in the case of 
+	 larger and more complex applications. Therefore, you will probably go through a series of 
+	 edit-compile-edit-compile-.... loops while a developing the project.
+    </para>
+    <para>
+     To compile a file, choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+     <guimenuitem>Compile</guimenuitem></menuchoice> or  press <keycap>F11</keycap>.
+     This will compile the active file.
+    </para>
+   </sect2>
+   <sect2 id="building-exec">
+    <title>Building an executable</title>
+    <para>
+     <application>Anjuta</application> has no separate link command, simply because 
+	 it is not necessary. The build process will compile all the source files and link them together 
+	 along with the libraries. The build command will note recompile those files which are 
+	 already up-to-date (this is called the <emphasis>dependency check</emphasis>). 
+     If you have already compiled all of the files individually, then the only thing the build 
+	 step performs is the link. If you have already built the project and no dependent file has been 
+     modified, even the link stage will be skipped.
+    </para>
+    <para>
+     So how exactly does the dependency check influence the project development? 
+     If you have modified a file, then all of the source files that depend on the modified 
+	 file are recompiled. All files (not only the object files and executable) in the 
+     project are checked for these dependencies during the build process. If it is found that 
+	 a particular file is dependent on some other file which has been modified, then that file 
+	 will be re-generated.
+    </para>
+    <para>
+     Since you have now got a rough understanding of the value of the dependency check, can 
+	 you imagine how your life (as a programmer) would be if it had not been there? If you 
+	 cannot answer just yet, then will find out when you start developing big projects!
+    </para>
+    <para>
+     <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build</guimenuitem></menuchoice> 
+	 will build all of the files in the <filename class="directory">src</filename> (source) 
+	 directory, and generate the executable. <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Build Project</guimenuitem></menuchoice> will build 
+	 the whole project &mdash; all of the subdirectories (including 
+	 <filename class="directory">src</filename>), are built recursively.
+    </para>
+   </sect2>
+   <sect2 id="build-dist">
+    <title>Creating a distribution package</title>
+    <para>
+     To build the tarball distribution of the project choose <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Build Tarball</guimenuitem></menuchoice>. This will create a 
+	 tarball (<filename>*.tar.gz</filename>) and put it in the top level project directory. 
+	 Copy the file to a safe place for distribution.
+    </para>
+   </sect2>
+   <sect2 id="build-install">
+    <title>Install</title>
+    <para>
+     Choosing the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Install</guimenuitem></menuchoice> will install the generated 
+	 application on your system. 
+    </para>
+	<note>
+	 <title>System wide installation</title>
+	 <para>
+	 You must be logged in as root to perform a system-wide install. Also note that for a GNOME 
+     application to use the pixmaps in the project, it must be installed as a system-wide 
+	 application. Otherwise, when the application is executed in your project, there will be 
+	 lots of &quot;pixmap not found&quot; errors. You can configure anjuta to use <command>sudo</command>
+	or <command>su</command> before installing the project in the build preferences.
+	 </para>
+	</note>
+   </sect2>
+   <sect2 id="configure">
+    <title>Configure</title>
+    <para>
+     To run the <filename>configure</filename> script found in the top level project directory, 
+	 choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Run Configure&hellip;</guimenuitem></menuchoice>. The script will determine the system
+     configuration and create some of the files required to perform a build (such as 
+	 <filename>Makefile</filename> and <filename>config.h</filename>). This is necessary because 
+	 the application may depend on specific configuration of some of these options.
+	</para> 
+	<important>
+	 <title>When to run configure</title>
+	<para>
+     Until you run <filename>configure</filename>, you cannot start building the 
+	 project.
+    </para>
+	</important>
+    <para>
+     The <filename>configure</filename> script is (usually) run only once at the beginning of 
+	 the first build process &mdash; for example, just after you have extracted a source tarball 
+	 of a project distribution. After that, configuration is automatically handled by the 
+	 subsequent build processes. If you have used the <emphasis>Application Wizard</emphasis> 
+	 to create the application, then you will not need to run <filename>configure</filename> 
+	 separately: the wizard will run it as a part of the project generation process.
+    </para>
+    <para>
+     You can also supply additional options to the configuration script. After choosing the 
+	 <guimenuitem>Run Configure&hellip;</guimenuitem> menu item, a dialog will appear to prompt for additional 
+	 options.
+    </para>
+     <figure>
+       <title>Configure options dialog</title>
+       <screenshot>
+	   <screeninfo>Configure options dialog</screeninfo>
+        <graphic fileref="figures/configure_dlg.png" format="PNG" srccredit="jhs"></graphic>
+       </screenshot>
+     </figure>
+    <para>
+     Enter any options (or leave it blank to accept the defaults) and click 
+	 <guibutton>OK</guibutton>. To find out the options available to the 
+	 <filename>configure</filename> script, enter <userinput>--help</userinput> 
+	 in the option entry box and click <guibutton>OK</guibutton>. The options will be displayed 
+	 in the <interface>Message window</interface>.
+    </para>
+    <para>
+     There is no requirement to run <filename>configure</filename> only once. It can be 
+	 run at any time, usually when the configuration options need to be changed. One thing to 
+	 note is that, if the <filename>config.h</filename> file in the top level directory is 
+	 changed, running <filename>configure</filename> again will not overwrite it.
+    </para>
+   </sect2>
+   <sect2 id="auto-generation">
+    <title>Auto generate</title>
+    <para>
+     Auto generation consists of two steps: running <application>automake</application> and 
+	 then running <application>autoconf</application>. If an executable 
+	 <filename>autogen.sh</filename> script is found in the top level project 
+	 directory, this file will be executed instead of the two steps.
+     Like <emphasis>configuration</emphasis>, auto generation is automatically handled 
+	 by the build process. It can also be run in cases where it is difficult to configure 
+	 the project (such as lots of errors reported due to mis-synchronization after modifying 
+	 lots of build files). 
+	</para>
+	<note>
+	<title>When to run autogen.sh</title>
+	<para> 
+	 Unlike configuration, auto generation does not need to be run even 
+	 once &mdash; in fact, it does not need to be run at all! The option is available because it 
+	 can be handy in some circumstances.
+    </para>
+	</note>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Run Autogenerate&hellip;</guimenuitem></menuchoice> to auto generate the project.
+    </para>
+    <para>
+     Read the info pages of <ulink type="info" url="info:automake"><application>automake</application></ulink> 
+	 and <ulink type="info" url="info:autoconf"><application>autoconf</application></ulink> for more 
+	 details on how these tools work.
+    </para>
+   </sect2>
+   <sect2 id="build-clean">
+    <title>Clean</title>
+    <para>
+     This option cleans the project and leaves it in a state that requires 
+	 <guimenuitem>Build Project</guimenuitem> to be performed. It deletes all of the 
+	 files generated by the build process, including all object files 
+	 (<filename>*.o</filename> files) and the executable(s) in the 
+	 <filename class="directory">src</filename> directory (and other directories). 
+    </para>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Clean</guimenuitem></menuchoice> to clean the project.
+    </para>
+   </sect2>
+   <sect2 id="build-cleanall">
+    <title>Clean Project</title>
+    <para>
+     There is not a great deal to say about <guimenuitem>Clean Project</guimenuitem> (which might 
+	 also be called <emphasis>Clean distribution</emphasis>, or <emphasis>clean dist</emphasis> 
+	 for short). It cleans the project and leaves it in a state that requires 
+	 <guimenuitem>Run Configure&hellip;</guimenuitem> and <guimenuitem>Build Project</guimenuitem> to be 
+	 performed. It deletes all of the files generated by the build processes, including all the
+     object files (<filename>*.o</filename> files), executable(s) and Makefiles. In other 
+	 words, it leaves the project as though it has just been extracted from a distribution 
+	 tarball.
+    </para>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Clean Project</guimenuitem></menuchoice> to completely clean the project.
+    </para>
+   </sect2>
+  </sect1>
+ <sect1 id="executing-program">
+ <title>Executing program</title>
+   <para>
+    Once an executable is ready after the build, you can execute it by choosing the menu item
+    <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, 
+    or pressing <keycap>F3</keycap>. You can specify which executable you want to use in case your project
+    provides more than one and specify command line arguments. 
+   </para>
+   <note>
+   <title>Dependencies</title>
+   <para>
+    Unlike the build stage, execution doesn't check for dependencies 
+	(at least for the time being). In other words, it does not check if the 
+	executable is up-to-date before it executes the program. 
+	So, <emphasis>you must take care of that yourself.</emphasis>
+   </para>
+   </note>
+   <para>
+  </para>
+  <figure id="params">
+   <title>Choose executable and set program parameters</title>
+   <screenshot>
+   <screeninfo>Setting program parameters</screeninfo>
+    <graphic fileref="figures/arguments.png" format="PNG" srccredit="jhs"></graphic>
+   </screenshot>
+  </figure>
+ </sect1>
+ </chapter>

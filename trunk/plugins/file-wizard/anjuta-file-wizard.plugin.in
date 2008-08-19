@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+_Name=File Assistant
+_Description=Anjuta File Assistant Plugin
+Location=anjuta-file-wizard:AnjutaFileWizardPlugin
+Icon=anjuta-file-wizard-plugin.png
+Interfaces=IAnjutaWizard
+UserActivatable=no
+
+[Wizard]
+_Title=File

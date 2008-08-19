@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+_Name=Document Manager
+_Description=Provides document management capabilities.
+Location=anjuta-document-manager:DocmanPlugin
+Version=0.1
+Icon=anjuta-document-manager-plugin-48.png
+Interfaces=IAnjutaDocumentManager,IAnjutaFile,IAnjutaFileSavable
+UserActivatable=no
+
+[File Loader]
+SupportedMimeTypes=text/*,text/source,application/x-perl,application/x-python,application/x-shellscript,application/x-php,application/x-java,application/x-javascript,application/x-ruby,application/x-m4,application/x-reject,application/xml,application/xslt+xml,text/html,application/javascript,application/x-glade

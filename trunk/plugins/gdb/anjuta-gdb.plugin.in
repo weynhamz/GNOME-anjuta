@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+_Name=Gdb
+_Description=Gdb plugin.
+Location=anjuta-gdb:GdbPlugin
+Icon=anjuta-gdb.plugin.png
+UserActivatable=no
+Interfaces=IAnjutaDebugger
+
+[File Loader]
+SupportedMimeTypes=application/x-executable,application/octet-stream,application/x-core,application/x-shellscript

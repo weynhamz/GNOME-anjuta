@@ -1,0 +1,78 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderVersionControlMenus">
+		<menu name="MenuGit" action="ActionMenuGit">
+			<placeholder name="PlaceholderGitMenus">
+				<menuitem name="Commit..." action="ActionGitCommit" />
+				<menuitem name="Fetch" action="ActionGitFetch" />
+				<placeholder name="PlaceholderRebaseMenu">
+					<menu name="Rebase" action="ActionMenuGitRebase">
+						<menuitem name="Start..." action="ActionGitRebaseStart" />
+						<separator name="rebase_separator1" />
+						<menuitem name="Continue" action="ActionGitRebaseContinue" />
+						<menuitem name="Skip" action="ActionGitRebaseSkip" />
+						<menuitem name="Abort" action="ActionGitRebaseAbort" />
+					</menu>
+				</placeholder>
+				<menuitem name="Pull..." action="ActionGitPull" />
+				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
+				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
+				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
+				<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
+				<separator name="separator1" />
+				<menuitem name="Reset tree..." action="ActionGitReset" />
+				<menuitem name="Revert commit..." action="ActionGitRevert" />
+				<separator name="separator2" />
+				<placeholder name="PlaceholderBisectMenu">
+					<menu name="Bisect" action="ActionMenuGitBisect">
+						<menuitem name="Start..." action="ActionGitBisectStart" />
+						<menuitem name="Reset" action="ActionGitBisectReset" />
+						<separator name="bisect_separator1" />
+						<menuitem name="Good" action="ActionGitBisectGood" />
+						<menuitem name="Bad" action="ActionGitBisectBad" />
+					</menu>
+				</placeholder>
+				<separator name="separator3" />
+				<menuitem name="View log..." action="ActionGitLog" />
+				<separator name="separator4" />
+				<menuitem name="Add..." action="ActionGitAdd" />
+				<menuitem name="Remove..." action="ActionGitRemove" />
+				<menuitem name="Ignore..." action="ActionGitIgnore" />
+				<separator name="separator5" />
+				<menuitem name="Create branch..." action="ActionGitCreateBranch" />
+				<menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
+				<menuitem name="Switch to another branch..." action="ActionGitSwitch" />
+				<menuitem name="Merge..." action="ActionGitMerge" />
+				<placeholder name="PlaceholderRemoteMenu">
+					<menu name="Remote branches" action="ActionMenuGitRemoteBranches">
+						<menuitem name="Add..." action="ActionGitRemoteAdd" />
+						<menuitem name="Delete..." action="ActionGitRemoteDelete" />
+					</menu>
+				</placeholder>
+				<separator name="separator6" />
+				<menuitem name="Create tag..." action="ActionGitCreateTag" />
+				<separator name="separator7" />
+				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+			</placeholder>
+		</menu>
+		</placeholder>
+	</menubar>
+	
+	<popup name="PopupLog">
+		<menuitem name="Commit diff" action="ActionGitLogCommitDiff" />
+		<separator name="log_separator1" />
+		<menuitem name="Create branch..." action="ActionGitLogCreateBranch" />
+		<menuitem name="Create tag..." action="ActionGitLogCreateTag" />
+		<separator name ="log_separator2" />
+		<menuitem name="Reset tree..." action="ActionGitLogReset" />
+		<menuitem name="Revert commit..." action="ActionGitLogRevert" />
+		<separator name="log_separator3" />
+		<placeholder name="PlaceholderLogBisectMenu">
+			<menu name="Bisect" action="ActionMenuGitLogBisect">
+				<menuitem name="Set good revision" action="ActionGitLogBisectGood" />
+				<menuitem name="Set bad revision" action="ActionGitLogBisectBad" />
+			</menu>
+		</placeholder>
+	</popup>
+</ui>

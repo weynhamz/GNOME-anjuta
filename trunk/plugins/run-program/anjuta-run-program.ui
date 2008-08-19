@@ -1,0 +1,18 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderRunMenus">
+			<menu name="MenuRun" action="ActionMenuRun">
+				<placeholder name="PlaceHolderRunCommands">
+					<menuitem name="RunProgram" action="ActionRunProgram" />
+				</placeholder>
+				<separator name="separator2"/>
+				<placeholder name="PlaceHolderStopCommands">
+					<menuitem name="StopProgram" action="ActionStopProgram" />
+				</placeholder>
+				<separator name="separator1"/>
+				<menuitem name="ProgramParameters" action="ActionProgramParameters" />
+			</menu>
+		</placeholder>
+	</menubar>
+</ui>

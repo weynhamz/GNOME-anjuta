@@ -1,0 +1,27 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderEditMenus">
+			<placeholder name="PlaceholderEditSearchMenus">			
+			<menu name="Search" action="ActionMenuEditSearch">
+				<placeholder name="PlaceholderQuickSearchMenu" />
+				<menuitem name="Find" action="ActionEditSearchFind"/>
+				<menuitem name="FindNext" action="ActionEditSearchFindNext"/>
+				<menuitem name="FindPrevious" action="ActionEditSearchFindPrevious"/>
+				<menuitem name="Replace" action="ActionEditSearchReplace"/>
+				<menuitem name="FindInFiles" action="ActionEditSearchInFiles"/>
+			</menu>
+			</placeholder>
+			</placeholder>
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+			<menu name="Goto" action="ActionMenuGoto">
+					<placeholder name="PlaceholderGotoOccurence">
+						<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
+						<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
+					</placeholder>
+			</menu>
+		</menu>
+	</menubar>
+</ui>
