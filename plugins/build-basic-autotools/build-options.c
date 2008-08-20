@@ -67,7 +67,7 @@ typedef struct _BuildMissingDirectory BuildMissingDirectory;
 struct _BuildMissingDirectory
 {
 	gsize exist;
-	gchar* uri;
+	gchar uri[1];
 };
 
 
@@ -178,7 +178,7 @@ build_gtk_file_chooser_create_and_set_current_folder_uri (GtkFileChooser *choose
 		gsize len;
 
 		len = strlen (uri);
-		dir = (BuildMissingDirectory *)g_new (char, sizeof (BuildMissingDirectory) + len + 1);
+		dir = (BuildMissingDirectory *)g_new (char, sizeof (BuildMissingDirectory) + len);
 		
 		memcpy (dir->uri, uri, len + 1);
 		last = g_file_get_uri (parent);

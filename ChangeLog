@@ -1,3 +1,8 @@
+2008-08-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-options.c:
+	#548622 – sun cc can not compile build-options.c
+
 2008-08-20  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:
