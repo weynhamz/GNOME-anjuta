@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-18 16:39+0000\n"
-"PO-Revision-Date: 2008-08-18 18:50+0200\n"
+"POT-Creation-Date: 2008-08-18 16:53+0000\n"
+"PO-Revision-Date: 2008-08-20 18:45+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1188,7 +1188,7 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
-"<b>Por favor, tenga en cuenta lo siguiente: </b>\n"
+"<b>Tenga en cuenta lo siguiente: </b>\n"
 "\n"
 "Al pulsar en Aceptar se borrará el archivo del disco y del CVS. Por supuesto "
 "el archivo no será eliminado del CVS antes de que realice un CVS commit. "
@@ -3652,8 +3652,8 @@ msgid ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
-" El archivo no parece ser un archivo de texto o la codificación del archivo  "
-"no está soportada. Verifique que la codificación del archivo esté soportada  "
+"El archivo no parece ser un archivo de texto o la codificación del archivo "
+"no está soportada. Verifique que la codificación del archivo esté soportada "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
 #: ../plugins/editor/text_editor.c:1510
@@ -4244,9 +4244,7 @@ msgstr "<b>Revisión errónea:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:2
 msgid "<b>Branch name:</b>"
-msgstr ""
-"   Nombre de la rama:</"
-"b>                                                     <b>"
+msgstr "<b>Nombre de la rama:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:3
 msgid "<b>Branch to delete:</b>"
@@ -4300,13 +4298,11 @@ msgstr "<b>Modo:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr ""
+msgstr "<b>Rama remota que utilizar como base:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
 msgid "<b>Remote to delete:</b>"
-msgstr ""
-"   Remota que borrar:</"
-"b>                                                                 <b>"
+msgstr "<b>Remota que borrar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:18
 msgid "<b>Repository to pull from:</b>"
@@ -4341,7 +4337,7 @@ msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
 msgid "<b>Select Files to Unstage:</b>"
-msgstr ""
+msgstr "<b>Seleccionar los archivos sobre los que realizar «unstage»:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
@@ -4374,7 +4370,7 @@ msgstr "Añadir rama remota"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Añadir la línea «asignado por»"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
@@ -4382,7 +4378,7 @@ msgstr "Anotar esta etiqueta"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
-msgstr ""
+msgstr "Añadir fecha de obtención"
 
 #: ../plugins/git/anjuta-git.glade.h:36
 msgid "Author/Grep"
@@ -4463,11 +4459,11 @@ msgstr "De:"
 
 #: ../plugins/git/anjuta-git.glade.h:55
 msgid "Grep:"
-msgstr ""
+msgstr "Grep:"
 
 #: ../plugins/git/anjuta-git.glade.h:56
 msgid "Hard"
-msgstr ""
+msgstr "Duro"
 
 #: ../plugins/git/anjuta-git.glade.h:57
 msgid "Head"
@@ -4495,7 +4491,7 @@ msgstr "Descargar (pull)"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 msgid "Rebase"
-msgstr ""
+msgstr "Ajustar a base (rebase)"
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4534,11 +4530,11 @@ msgstr "Establecer conflictos como resueltos"
 
 #: ../plugins/git/anjuta-git.glade.h:72
 msgid "Soft"
-msgstr ""
+msgstr "Blando"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
-msgstr ""
+msgstr "Aplastar (squash)"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 msgid "Switch to Another Branch"
@@ -4558,7 +4554,7 @@ msgstr "Para:"
 
 #: ../plugins/git/anjuta-git.glade.h:79
 msgid "Unstage Files"
-msgstr ""
+msgstr "Realizar «unstage» de archivos"
 
 #: ../plugins/git/anjuta-git.glade.h:80
 msgid "Use a custom log message"
@@ -4582,7 +4578,7 @@ msgstr "gtk-ok"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
-msgstr ""
+msgstr "Git: Archivo «staged» que añadir."
 
 #: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
 msgid "Please select a file."
@@ -4680,7 +4676,7 @@ msgstr "Introduzca el URL del repositorio del que descargar."
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
-msgstr ""
+msgstr "Git: Ajustar a una base"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4704,7 +4700,7 @@ msgstr "Git: Diff completado."
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
-msgstr ""
+msgstr "Git: Archivos «unstaged»"
 
 #. Action name
 #. Stock icon, if any
@@ -4728,7 +4724,7 @@ msgstr "_Obtener"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:80
 msgid "_Rebase"
-msgstr ""
+msgstr "Ajustar a _base"
 
 #. Action name
 #. Stock icon, if any
@@ -4764,7 +4760,7 @@ msgstr "Ca_rgar (pull)..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:128
 msgid "_Unstage files..."
-msgstr ""
+msgstr "Realizar «unstage» de archivos"
 
 #. Action name
 #. Stock icon, if any
@@ -5061,7 +5057,7 @@ msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
 msgstr ""
-"¿Seguro que desea eliminar todos los elementos pendientes completados en la  "
+"¿Seguro que desea eliminar todos los elementos pendientes completados en la "
 "categoría «%s» del proyecto?"
 
 #: ../plugins/gtodo/export.c:21
@@ -5159,8 +5155,8 @@ msgstr "<Categoría nueva (%d)>"
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] "El elemento siguiente caduca en  %i minutos:"
-msgstr[1] "El elemento siguiente caduca en  %i minutos:"
+msgstr[0] "El elemento siguiente caduca en %i minutos:"
+msgstr[1] "El elemento siguiente caduca en %i minutos:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
@@ -8001,7 +7997,7 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:444
 msgid "Unable to build user interface for tool variable"
-msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr "No se pudo construir el interfaz de usuario para la herramienta de variable"
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
