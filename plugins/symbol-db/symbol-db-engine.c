@@ -1242,10 +1242,14 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	else
 		g_timer_reset (sym_timer_DEBUG);
 	gint tags_total_DEBUG = 0;
-	
+	tag_entry.file = NULL;
 	while (tagsNext (tag_file, &tag_entry) != TagFailure)
 	{
 		gint file_defined_id = 0;
+		if (tag_entry.file == NULL)
+		{
+			continue;
+		}
 		if (file_defined_id_cache > 0)
 		{
 			if (g_str_equal (tag_entry.file, tag_entry_file_cache))
@@ -1268,6 +1272,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 								   force_sym_update);
 		
 		tags_total_DEBUG ++;
+		tag_entry.file = NULL;
 	}
 	g_free (tag_entry_file_cache);
 

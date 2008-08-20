@@ -1,3 +1,9 @@
+2008-08-20  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_populate_db_by_tags):
+	Fixed a crasher in symbol-db due to use of uninitialised memory
+
 === anjuta 2.5.90 ===
 
 2008-08-18  Naba Kumar  <naba@gnome.org>
