@@ -67,7 +67,7 @@ typedef struct _BuildMissingDirectory BuildMissingDirectory;
 struct _BuildMissingDirectory
 {
 	gsize exist;
-	gchar uri[0];
+	gchar* uri;
 };
 
 

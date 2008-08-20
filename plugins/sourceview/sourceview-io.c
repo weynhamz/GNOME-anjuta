@@ -398,7 +398,6 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	GError* err = NULL;
 	
 	current_bytes = g_input_stream_read_finish (input_stream, result, &err);
-	bytes_read += current_bytes;
 	if (err)
 	{
 		g_signal_emit_by_name (sio, "open-failed", err);
@@ -408,6 +407,8 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 		sio->read_buffer = 0;
 		return;
 	}
+	
+	bytes_read += current_bytes;
 	if (current_bytes == READ_SIZE)
 	{
 		sio->read_buffer = g_realloc (sio->read_buffer, bytes_read + READ_SIZE);

@@ -1,5 +1,15 @@
 2008-08-20  Johannes Schmid  <jhs@gnome.org>
 
+	* configure.in:
+	* manuals/reference/libanjuta/writing-plugins-vala.sgml:
+	* manuals/reference/libanjuta/libanjuta-docs.sgml:
+	Removed Vala leftovers (#548629)
+
+	* plugins/build-basic-autotools/build-options.c:
+	#548622 – sun cc can not compile build-options.c
+
+2008-08-20  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/symbol-db/symbol-db-engine.c
 	(sdb_engine_populate_db_by_tags):
 	Fixed a crasher in symbol-db due to use of uninitialised memory

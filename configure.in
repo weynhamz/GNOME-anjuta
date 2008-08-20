@@ -1210,11 +1210,6 @@ if [ test x$symboldb = xyes ]; then
 else
         echo "Building new (unstable) Symbol-db plugin: ..............NO"
 fi
-if [ test x$have_vala = xyes]; then
-        echo "Building support for Vala plugins: .....................YES"
-else
-        echo "Building support for Vala plugins: .....................NO"
-fi
 echo "-------------------------------------------------------------------"
 #echo "AM_CFLAGS = $AM_CFLAGS"
 #echo "AM_CXXFLAGS = $AM_CXXFLAGS"
