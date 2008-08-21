@@ -1,5 +1,13 @@
 2008-08-21  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/anjuta-manual/C/debugger.xml,
+	(deleted) manuals/anjuta-manual/C/figures/arguments.png,
+	manuals/anjuta-manual/C/projects.xml,
+	manuals/anjuta-manual/Makefile.am:
+	Update debugger documentation
+
+2008-08-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/command.c,
 	plugins/gdb/plugin.c,
 	libanjuta/interfaces/libanjuta.idl:

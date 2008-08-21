@@ -8,7 +8,6 @@ DOC_ENTITIES = legal.xml debugger.xml introduction.xml  projects.xml \
 DOC_AM_CPPFLAGS =
 DOC_FIGURES = figures/add_edit_macro.png \
               figures/anjuta-in-action.png \
-              figures/arguments.png \
               figures/attach.png\
               figures/brk_add.png\
               figures/brk_dlg.png\
