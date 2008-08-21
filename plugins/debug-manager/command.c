@@ -1173,9 +1173,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_run (debugger, err);	
 		break;
 	case RUN_TO_COMMAND:
-		file = g_file_new_for_uri (cmd->data.pos.file);
-		ret = ianjuta_debugger_run_to (debugger, file, cmd->data.pos.line, err);
-		g_object_unref (file);
+		ret = ianjuta_debugger_run_to (debugger, cmd->data.pos.file, cmd->data.pos.line, err);
 		break;
 	case STEP_IN_COMMAND:
 		ret = ianjuta_debugger_step_in (debugger, err);	

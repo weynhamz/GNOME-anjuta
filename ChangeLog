@@ -1,3 +1,18 @@
+2008-08-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/command.c,
+	plugins/gdb/plugin.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Keep const gchar* instead of GFile in debugger interface
+
+	* libanjuta/libanjuta.h,
+	libanjuta/Makefile.am:
+	All public libanjuta header files should be included in libanjuta.h
+	Install anjuta-version.h too
+
+	* (removed) libanjuta/libanjuta-2.0.pc:
+	Fix #546109 - Spurious libanjuta-2.0.pc file
+
 2008-08-21  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/message-view/plugin.c (activate_plugin),

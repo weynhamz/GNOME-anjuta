@@ -463,13 +463,12 @@ idebugger_step_over (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
-idebugger_run_to (IAnjutaDebugger *plugin, GFile* file,
+idebugger_run_to (IAnjutaDebugger *plugin, const gchar* file,
 						   gint line, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	gchar* path = g_file_get_path (file);
 	
-	debugger_run_to_position (this->debugger, path, line);
+	debugger_run_to_position (this->debugger, file, line);
 
 	return TRUE;
 }

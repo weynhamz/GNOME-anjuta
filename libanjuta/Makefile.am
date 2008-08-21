@@ -125,7 +125,8 @@ libanjuta_include = \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-command.h \
 	anjuta-async-command.h \
-	anjuta-sync-command.h
+	anjuta-sync-command.h \
+	anjuta-version.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

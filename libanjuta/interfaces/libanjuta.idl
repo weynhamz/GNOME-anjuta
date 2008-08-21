@@ -3449,7 +3449,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean run_to (GFile* file, gint line);
+	gboolean run_to (const gchar* file, gint line);
 	
 	/**
 	* ianjuta_debugger_exit:
