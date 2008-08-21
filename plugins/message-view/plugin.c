@@ -219,6 +219,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_load), plugin);
 #endif
 	initialized = TRUE;
+	mv_plugin->widget_shown = FALSE;
 	return TRUE;
 }
 
@@ -241,7 +242,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  plugin);
 #endif
 	/* Widget is destroyed as soon as it is removed */
-	anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);
+	if (mplugin->widget_shown)
+		anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);
 	anjuta_ui_unmerge (ui, mplugin->uiid);
 	anjuta_ui_remove_action_group (ui, mplugin->action_group);
 	
@@ -305,6 +307,7 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+		ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown = TRUE;
 	}
 	anjuta_shell_present_widget(shell, msgman, NULL);
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);

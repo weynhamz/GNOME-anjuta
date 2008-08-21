@@ -1,3 +1,10 @@
+2008-08-21  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/message-view/plugin.c (activate_plugin),
+	(deactivate_plugin), (ianjuta_msgman_add_view):
+	* plugins/message-view/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_finalize):
+
 2008-08-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-options.c:

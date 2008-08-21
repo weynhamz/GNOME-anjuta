@@ -36,6 +36,8 @@ struct _MessageViewPlugin {
 	GtkWidget* msgman;
 	GtkActionGroup *action_group;
 	gint uiid;
+	
+	gboolean widget_shown;
 };
 
 struct _MessageViewPluginClass {

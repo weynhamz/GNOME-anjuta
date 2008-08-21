@@ -363,7 +363,7 @@ append_buffer (SourceviewIO* sio, gsize size)
 												 &conv_error);
 		if  (converted_text == NULL)	
 		{
-			/* Last change, let's try 8859-15 */
+			/* Last chance, let's try 8859-15 */
 			enc = anjuta_encoding_get_from_charset( "ISO-8859-15");
 			
 			converted_text = anjuta_convert_to_utf8 (sio->read_buffer,

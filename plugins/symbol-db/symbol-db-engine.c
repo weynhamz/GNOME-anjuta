@@ -2323,19 +2323,22 @@ sdb_engine_finalize (GObject * object)
 		g_object_unref (priv->ctags_launcher);
 		priv->ctags_launcher = NULL;
 	}	
+	
+	if (priv->mutex)
+	{
+		while (priv->concurrent_threads > 0)
+			;
+		g_mutex_free (priv->mutex);
+		priv->mutex = NULL;
+	}
 
+	
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 	
 	if (priv->thread_monitor_handler > 0)
 		g_source_remove (priv->thread_monitor_handler);
-	
-	if (priv->mutex)
-	{
-		g_mutex_free (priv->mutex);
-		priv->mutex = NULL;
-	}
-	
+		
 	if (priv->thread_list_data != NULL)
 		g_queue_free  (priv->thread_list_data);
 	
