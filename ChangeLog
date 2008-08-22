@@ -1,3 +1,11 @@
+2008-08-22  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/projects.xml,
+	manuals/anjuta-manual/C/anjuta-manual.xml,
+	(added) manuals/anjuta-manual/C/build.xml,
+	manuals/anjuta-manual/Makefile.am:
+	Update build documentation
+
 2008-08-21  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml,

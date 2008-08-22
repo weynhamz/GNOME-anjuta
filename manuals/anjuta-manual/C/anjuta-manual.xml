@@ -7,6 +7,7 @@
   <!ENTITY interface SYSTEM "interface.xml">
   <!ENTITY fileoperations SYSTEM "fileoperations.xml">
   <!ENTITY projects SYSTEM "projects.xml">
+  <!ENTITY build SYSTEM "build.xml">
   <!ENTITY debugger SYSTEM "debugger.xml">
   <!ENTITY preferences SYSTEM "preferences.xml">
   <!ENTITY tools SYSTEM "tools.xml">
@@ -96,6 +97,8 @@
  &fileoperations;
  <!-- Project Management -->
  &projects;
+ <!-- Build -->
+ &build;
  <!-- Debugging -->
  &debugger;
  <!-- Preferences -->
