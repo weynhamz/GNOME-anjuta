@@ -311,7 +311,7 @@ static GtkActionEntry actions_edit[] = {
 #else
 	GTK_STOCK_CLEAR
 #endif
-	, N_("_Clear"), "Delete",
+	, N_("_Clear"), NULL,
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
 };
