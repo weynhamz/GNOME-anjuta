@@ -1,10 +1,11 @@
 # translation of anjuta.help.HEAD.po to Español
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-08-21 15:54+0000\n"
-"PO-Revision-Date: 2008-08-22 10:11+0200\n"
+"POT-Creation-Date: 2008-08-22 16:05+0000\n"
+"PO-Revision-Date: 2008-08-23 13:19+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,67 +14,67 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: C/anjuta-manual.xml:25(title)
+#: C/anjuta-manual.xml:26(title)
 msgid "Anjuta IDE Manual"
 msgstr "Manual del EID Anjuta"
 
-#: C/anjuta-manual.xml:26(edition)
+#: C/anjuta-manual.xml:27(edition)
 msgid "v1.0.0"
 msgstr "v1.0.0"
 
-#: C/anjuta-manual.xml:28(para)
+#: C/anjuta-manual.xml:29(para)
 msgid "Manual for the Anjuta IDE"
 msgstr "Manual para el  EID Anjuta"
 
-#: C/anjuta-manual.xml:32(firstname)
+#: C/anjuta-manual.xml:33(firstname)
 msgid "Naba"
 msgstr "Naba"
 
-#: C/anjuta-manual.xml:33(surname)
+#: C/anjuta-manual.xml:34(surname)
 msgid "Kumar"
 msgstr "Kumar"
 
-#: C/anjuta-manual.xml:36(firstname)
+#: C/anjuta-manual.xml:37(firstname)
 msgid "Andy"
 msgstr "Andy"
 
-#: C/anjuta-manual.xml:37(surname)
+#: C/anjuta-manual.xml:38(surname)
 msgid "Piper"
 msgstr "Piper"
 
-#: C/anjuta-manual.xml:40(firstname)
+#: C/anjuta-manual.xml:41(firstname)
 msgid "Biswapesh"
 msgstr "Biswapesh"
 
-#: C/anjuta-manual.xml:41(surname)
+#: C/anjuta-manual.xml:42(surname)
 msgid "Chattopadhyayr"
 msgstr "Chattopadhyayr"
 
-#: C/anjuta-manual.xml:44(firstname)
+#: C/anjuta-manual.xml:45(firstname)
 msgid "Johannes"
 msgstr "Johannes"
 
-#: C/anjuta-manual.xml:45(surname)
+#: C/anjuta-manual.xml:46(surname)
 msgid "Schmid"
 msgstr "Schmid"
 
-#: C/anjuta-manual.xml:49(year)
+#: C/anjuta-manual.xml:50(year)
 msgid "2001-2002"
 msgstr "2001-2002"
 
-#: C/anjuta-manual.xml:50(year)
+#: C/anjuta-manual.xml:51(year)
 msgid "2006"
 msgstr "2006"
 
-#: C/anjuta-manual.xml:51(holder)
+#: C/anjuta-manual.xml:52(holder)
 msgid "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
 msgstr "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
 
-#: C/anjuta-manual.xml:52(holder)
+#: C/anjuta-manual.xml:53(holder)
 msgid "Johannes Schmid"
 msgstr "Johannes Schmid"
 
-#: C/anjuta-manual.xml:56(para)
+#: C/anjuta-manual.xml:57(para)
 msgid ""
 "Permission is granted to copy, distribute and/or modify this document under "
 "the terms of the <citetitle>GNU Free Documentation License</citetitle>, "
@@ -94,7 +95,7 @@ msgstr ""
 "org\">página web</ulink> o escribiendo a: Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, EE. UU."
 
-#: C/anjuta-manual.xml:68(para)
+#: C/anjuta-manual.xml:69(para)
 msgid ""
 "Many of the names used by companies to distinguish their products and "
 "services are claimed as trademarks. Where those names appear in any GNOME "
@@ -108,19 +109,19 @@ msgstr ""
 "proyecto de documentación las reconozcan dichas marcas comerciales, dichos "
 "nombres se imprimen en mayúsculas o iniciales mayúsculas."
 
-#: C/anjuta-manual.xml:79(revnumber)
+#: C/anjuta-manual.xml:80(revnumber)
 msgid "Anjuta Manual 2.1.0"
 msgstr "Manual de Anjuta 2.1.0"
 
-#: C/anjuta-manual.xml:80(date)
+#: C/anjuta-manual.xml:81(date)
 msgid "2007"
 msgstr "2007"
 
-#: C/anjuta-manual.xml:82(para)
+#: C/anjuta-manual.xml:83(para)
 msgid "Johannes Schmid<email>jhs@gnome.org</email>"
 msgstr "Johannes Schmid<email>jhs@gnome.org</email>"
 
-#: C/anjuta-manual.xml:84(para)
+#: C/anjuta-manual.xml:85(para)
 msgid "Anjuta Team"
 msgstr "Equipo de Anjuta"
 
@@ -2742,67 +2743,324 @@ msgstr ""
 "de grupo). Las siguientes opciones están disponibles en las propiedades del "
 "objetivo. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:761(title)
-msgid "Compiling and Building"
+#: C/anjuta-manual.xml:3(title)
+msgid "Building"
+msgstr "Construir"
+
+#: C/anjuta-manual.xml:4(para)
+msgid ""
+"Anjuta handles autotools projects. It is able to cope with other kinds of "
+"project like projects using a user written makefile but the current build "
+"interface is targeted at autotools projects. Some knowledge of them is "
+"useful to better understand the way a project is built."
+msgstr ""
+"Anjuta gestiona proyectos de autotools. Es capaz de gestionar otros tipos de "
+"proyectos como los escritos para makefile pero la interfaz actual de "
+"construcción está pensada para proyectos de autotools. Es útil tener cierto "
+"conocimiento acerca de ellos para entender mejor cómo se construye un "
+"proyecto."
+
+#: C/anjuta-manual.xml:10(para)
+msgid "An autotools project is built in three steps:"
+msgstr "Un proyecto de autotools se construye en tres pasos:"
+
+#: C/anjuta-manual.xml:15(para)
+msgid "Generate"
+msgstr "Generar"
+
+#: C/anjuta-manual.xml:16(para)
+msgid "Configure"
+msgstr "Configurar"
+
+#: C/anjuta-manual.xml:17(para)
+msgid "Build"
+msgstr "Construir"
+
+#: C/anjuta-manual.xml:20(para)
+msgid ""
+"<emphasis>Build</emphasis> is the main step in which all target files are "
+"generated from the source files. It can be divided in two sub phases: "
+"<emphasis>Compile</emphasis> and <emphasis>Link</emphasis>. In "
+"<emphasis>Compile</emphasis> phase each object file is generated from its "
+"corresponding source file. For instance, a source file <filename>hello.c</"
+"filename> will generate <filename>hello.o</filename> after compilation. "
+"Usually you do not need to worry about these object files — just think of "
+"them as intermediate files. In <emphasis>Link</emphasis> phase, all object "
+"files and libraries are linked together to create the final executable. Some "
+"programming languages do not need a <emphasis>Compile</emphasis> and a "
+"<emphasis>Link</emphasis> phase. Moreover the <emphasis>Build</emphasis> "
+"step is used to generate other files, like documentation which don't need "
+"such phases."
+msgstr ""
+"<emphasis>Construir</emphasis> es el paso principal en el que se generan "
+"todos los archivos objeto del código fuente. Se puede dividir en dos "
+"subfases: <emphasis>Compilar</emphasis> y <emphasis>Enlazar</emphasis>. En "
+"la fase <emphasis>Compilar</emphasis> se genera cada archivo objeto de su "
+"correspondiente archivo fuente. Por ejemplo, un archivo fuente "
+"<filename>hola.c</filename> generará <filename>hola.o</filename> después de "
+"compilarlo. Generalmente no tiene que preocuparse por estos archivos; "
+"simplemente piense en ellos como archivos intermedios. En la fase "
+"<emphasis>Enlazar</emphasis> se enlazan todos los archivos objetos y "
+"bibliotecas juntos para crear el ejecutable final. Algunos lenguajes de "
+"programación no necesitan la fase <emphasis>Compilar</emphasis> y "
+"<emphasis>Enlazar</emphasis>. Además, el paso <emphasis>Construir</emphasis> "
+"se usa para generar otros archivos, como la documentación que no necesita "
+"tales fases."
+
+#: C/anjuta-manual.xml:34(para)
+msgid ""
+"<emphasis>Configure</emphasis> is the step in which the sources tree is "
+"adjusted to your system. autotools projects can be built on a wide range of "
+"systems using different compilers and having different library functions. "
+"This step runs a script named <filename>configure</filename> that will check "
+"for various characteristics of your system and create some of the files "
+"required to perform a build (such as <filename>Makefile</filename> and "
+"<filename>config.h</filename>). This step is used to select build options "
+"too, for instance, disable optimization to make debugging easier or disable "
+"some experimental part of a program."
+msgstr ""
+"<emphasis>Configure</emphasis> es el paso en el que se ajusta el árbol de "
+"los fuentes a su sistema. Los proyectos de autotools se pueden construir en "
+"una gran variedad de sistemas usando diferentes compiladores y usando "
+"diferentes funciones de bibliotecas. Este paso ejecuta el script "
+"<filename>configure</filename> que comprobará varias características de su "
+"sistema y creará algunos de los archivos necesarios para realizar la "
+"construcción (tales como <filename>Makefile</filename> y <filename>config.h</"
+"filename>). Este paso también se usa para seleccionar opciones de "
+"construcción, por ejemplo, desactivar la optimización para hacer más fácil "
+"la depuración o desactivar alguna parte experimental de un programa."
+
+#: C/anjuta-manual.xml:46(para)
+msgid ""
+"<emphasis>Generate</emphasis> is the step in which the <filename>configure</"
+"filename> script and other related files are created. The "
+"<filename>configure</filename> script used above needs to run on various "
+"systems and checks a lots of things. It is quite difficult to write it by "
+"hand. Moreover the autotools stuff enforces some rules to organize a project "
+"like some mandatory files: <filename>NEWS</filename> or <filename>COPYING</"
+"filename>. It includes several tools to check and create all necessary files "
+"from simpler files written by the developper like <filename>configure.in</"
+"filename> (or <filename>configure.ac</filename>) and <filename>Makefile.am</"
+"filename>. All these tools are commonly run from a script named "
+"<filename>autogen.sh</filename> in the project directory. This step is "
+"useful only for a developer (someone modifying the source files), as the "
+"<filename>configure</filename> script depends only on the sources files, it "
+"is distributed within the project package. Note that, the makefiles created "
+"by configure included some rules to automatically regenerate the project "
+"when needed, so it often not needed to rerun it directly."
+msgstr ""
+"<emphasis>Generar</emphasis> es el paso en el que se crea el script "
+"<filename>configure</filename> y otros archivos relacionados. El script "
+"<filename>configure</filename> se usa para ejecutar varias comprobaciones "
+"del sistema sobre muchos elementos. Es muy difícil escribirlo a mano. Es "
+"más, el conjunto de autotools tiene unas reglas para organizar un proyecto, "
+"como algunos archivos obligatorios: <filename>NEWS</filename> o "
+"<filename>COPYING</filename>. Incluye varias herramientas para crear todos "
+"los archivos necesarios desde archivos más simples escritos por el "
+"desarrollador tales como <filename>configure.in</filename> (o "
+"<filename>configure.ac</filename>) y <filename>Makefile.am</filename>. Todas "
+"estas herramientas se ejecutan comúnmente en el directorio del proyecto "
+"desde el script <filename>autogen.sh</filename>. Este paso es útil sólo para "
+"un desarrollador (alguien que modifique los archivos fuente), ya que el "
+"script <filename>configure</filename> sólo depende de los archivos fuente, "
+"se distribuye con el paquete del proyecto. Note que los archivos makefile "
+"creados por configure incluyen algunas reglas para regenerar el proyecto "
+"automáticamente cuando sea necesario, de tal forma que no es necesario "
+"ejecutarlo directamente muy a menudo."
+
+#: C/anjuta-manual.xml:65(para)
+msgid ""
+"Read the info pages of <ulink type=\"info\" url=\"info:automake"
+"\"><application>automake</application></ulink> and <ulink type=\"info\" url="
+"\"info:autoconf\"><application>autoconf</application></ulink> for more "
+"details on how these tools work."
+msgstr ""
+"Para obtener más detalles acerca de cómo funcionan éstas herramientas, lea "
+"las páginas de información acerca de <ulink type=\"info\" url=\"info:automake"
+"\"><application>automake</application></ulink> y <ulink type=\"info\" url="
+"\"info:autoconf\"><application>autoconf</application></ulink>."
+
+#: C/anjuta-manual.xml:75(title)
+msgid "Generate and Configure"
+msgstr "Generar y configurar"
+
+#: C/anjuta-manual.xml:77(title)
+msgid "Configure a project"
+msgstr "Configurar un proyecto"
+
+#: C/anjuta-manual.xml:78(para)
+msgid ""
+"You need to run this step before being able to build your project. This is "
+"usually run only once at the beginning of the first build process — for "
+"example, just after you have extracted a source tarball of a project "
+"distribution. After that, configuration is automatically handled by the "
+"subsequent build processes. If you have used the <emphasis>Application "
+"Wizard</emphasis> to create the application, then you will not need to run "
+"this separately: the wizard will run it as a part of the project generation "
+"process."
+msgstr ""
+"Debe ejecutar este script antes de poder construir su proyecto. Esto "
+"generalmente se ejecuta una sola vez en el comienzo del primer proceso de "
+"construcción; por ejemplo, justo después de extraer el tarball de los "
+"fuentes del proyecto de una distribución. Después de eso, la configuración "
+"se gestiona automáticamente por los procesos de construcción subsecuentes. "
+"Si ha usado el <emphasis>Asistente de configuración</emphasis> para crear la "
+"aplicación, entonces no necesitará ejecutarlo de forma separada: el "
+"asistente lo ejecutará como parte del proceso de generación del proyecto."
+
+#: C/anjuta-manual.xml:88(para)
+msgid ""
+"There is no requirement to run this only once. It can be run at any time, "
+"usually when the configuration options need to be changed. One thing to note "
+"is that, if the <filename>config.h</filename> file in the top level "
+"directory is changed, running <filename>configure</filename> again will not "
+"overwrite it."
+msgstr ""
+"No existe ningún requerimiento para ejecutarlo una sola vez. Se puede "
+"ejecutar en cualquier momento, generalmente cuando se necesitan cambiar las "
+"opciones de configuración. Algo que notar es que si el archivo "
+"<filename>config.h</filename> del directorio del nivel superior se cambia, "
+"ejecutar <filename>configure</filename> de nuevo no lo sobreescribirá."
+
+#: C/anjuta-manual.xml:100(para)
+msgid "If you want to run the generate step or not"
+msgstr "Si quiere ejecutar el paso de generación o no"
+
+#: C/anjuta-manual.xml:101(para)
+msgid ""
+"It needs to be run once at the beginning of the project then it is "
+"automatically handled by the build process. You can force to run it by "
+"checking the check box <interface>Regenerate project</interface> in cases "
+"you encounter some difficulties while building the projects (such as lots of "
+"errors reported due to mis-synchronization after modifying lots of build "
+"files)."
+msgstr ""
+"Debe ejecutarse una vez al comienzo del proyecto, después se gestiona "
+"automáticamente por el proceso de construcción. Puede forzar su ejecución "
+"seleccionando la casilla de verificación <interface>Regenerar el proyecto</"
+"interface> en caso de que encuentre alguna dificultad al construir los "
+"proyectos (tal como multitud de errores debidos a faltas de sincronización "
+"después de modificar muchos archivos de construcción)."
+
+#: C/anjuta-manual.xml:109(para)
+msgid "The configuration name"
+msgstr "El nombre de configuración"
+
+#: C/anjuta-manual.xml:110(para)
+msgid ""
+"This name is used to refer to each configuration. Some configurations "
+"(Default, Debug, Optimized) are already defined by default. One "
+"configuration includes a build directory and some configuration options."
+msgstr ""
+"Este nombre se usa para referirse a cada configuración. Algunas "
+"configuraciones (Predeterminada, Depuración, Optimizada) ya están definidas "
+"de forma predeterminada. Una configuración incluye un directorio de "
+"construcción y algunas opciones de configuración."
+
+#: C/anjuta-manual.xml:116(para)
+msgid "The build directory"
+msgstr "El directorio de construcción"
+
+#: C/anjuta-manual.xml:117(para)
+msgid ""
+"This is the build directory name. In the Default configuration, it is the "
+"same directory than the source directory but autotools support to build in a "
+"different directory."
+msgstr ""
+"Éste es el nombre del directorio de construcción. En la configuración "
+"predeterminada es el mismo directorio que el directorio de fuentes pero "
+"autotools soportan la construcción en un directorio distinto."
+
+#: C/anjuta-manual.xml:122(para)
+msgid ""
+"Each configuration must have a different build directory and if one "
+"configuration uses the source directory, you cannot have other "
+"configurations at the same time. You need to run "
+"<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Remove Configuration</"
+"guimenuitem></menuchoice> on the configuration using the source directory "
+"before adding a new configuration."
+msgstr ""
+"Cada configuración debe tener un directorio de construcción diferente y si "
+"una configuración usa el directorio fuente, entonces no puede tener otras "
+"configuraciones al mismo tiempo. Debe ejecutar "
+"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Quitar "
+"configuración</guimenuitem></menuchoice> en las otras configuraciones que "
+"usen el directorio fuente antes de añadir una configuración nueva."
+
+#: C/anjuta-manual.xml:130(para)
+msgid "Configure options"
+msgstr "Opciones de configuración"
+
+#: C/anjuta-manual.xml:131(para)
+msgid ""
+"These options are passed to the <filename>configure</filename> script. Some "
+"are standard like prefix, CFLAGS, … some depends on the project. You can get "
+"a list of allowed configuration option by running the <filename>configure</"
+"filename> script with --help argument."
+msgstr ""
+"Estas opciones se pasan al script <filename>configure</filename>. Algunas "
+"son prefijos estándar, CFLAGS, ... algunas dependen del proyecto. Puede "
+"obtener una lista completa de las opciones de configuración permitidas "
+"ejecutando el script <filename>configure</filename> con el argumento --help."
+
+#: C/anjuta-manual.xml:94(para)
+msgid ""
+"Both generate and configure steps are launched with a single menu item: "
+"<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Configure Project…</"
+"guimenuitem></menuchoice>. This menu item brings a dialog where you can "
+"choose: <placeholder-1/>"
+msgstr ""
+"Tanto los pasos de generación como de configuración se lanzan con un sólo "
+"elemento del menú: <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Configurar el proyecto...</guimenuitem></"
+"menuchoice>. Este elemento del menú muestra un diálogo donde puede escoger: "
+"<placeholder-1/>"
+
+#: C/anjuta-manual.xml:141(title)
+msgid "Select a configuration"
+msgstr "Seleccionar una configuración"
+
+#: C/anjuta-manual.xml:142(para)
+msgid ""
+"If you have created different configurations, you can select which one is "
+"active by selecting it in <menuchoice><guisubmenu>Build</"
+"guisubmenu><guimenuitem>Select Configuration</guimenuitem></menuchoice>"
+msgstr ""
+"Si creó diferentes configuraciones puede seleccionar cuál es la activa "
+"seleccionándolo en <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Seleccionar configuración</guimenuitem></menuchoice>."
+
+#: C/anjuta-manual.xml:149(title)
+msgid "Clean a configuration"
+msgstr "Limpiar la configuración"
+
+#: C/anjuta-manual.xml:150(para)
+msgid ""
+"To clean the project and leave it in a state that requires to rerun the "
+"configure step, you have to choose <menuchoice><guisubmenu>Build</"
+"guisubmenu><guimenuitem>Remove Configuration</guimenuitem></menuchoice>. It "
+"run \"make distclean\" and deletes more files than <guimenuitem>Clean "
+"Project</guimenuitem>. In other words, it leaves the project as though it "
+"has just been extracted from a distribution tarball. Note that it does not "
+"remove the configuration directory itself but you can do it."
+msgstr ""
+"Para limpiar un proyecto y dejarlo en un estado que requiera volver al paso "
+"de configuración debe elegir <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Quitar configuración</guimenuitem></menuchoice>. "
+"Ejecutará «make distclean» y borra más archivos que <guimenuitem>Limpiar "
+"proyecto</guimenuitem>. En otras palabras, deja el proyecto como si se "
+"acabase de extraer del paquete tarball de la distribución. Note que no quita "
+"el directorio de configuración en sí, pero puede hacerlo usted mismo."
+
+#: C/anjuta-manual.xml:167(title)
+msgid "Compile and Build"
 msgstr "Compilar y construir"
 
-#: C/anjuta-manual.xml:763(title)
-msgid "Overview"
-msgstr "Vista general"
+#: C/anjuta-manual.xml:169(title)
+msgid "Compiling a file"
+msgstr "Compilar un archivo"
 
-#: C/anjuta-manual.xml:764(para)
-msgid "An executable for a project is generated in two steps:"
-msgstr "Para un proyecto un ejecutable se genera en dos pasos:"
-
-#: C/anjuta-manual.xml:769(para)
-msgid "Compiling"
-msgstr "Compilar"
-
-#: C/anjuta-manual.xml:770(para)
-msgid "Linking"
-msgstr "Enlazar"
-
-#: C/anjuta-manual.xml:773(para)
-msgid ""
-"These steps are collectively known as <emphasis>Building</emphasis>. Some "
-"other steps may also be involved in the build process, but for the sake of "
-"simplicity, we will only look at these two steps."
-msgstr ""
-"Estos pases se conocen en conjunto como la <emphasis>construcción</"
-"emphasis>. Puede que algunos otros pasos estén involucrados en el proceso, "
-"pero para hacerlo más sencillo sólo se revisarán éstos dos."
-
-#: C/anjuta-manual.xml:778(para)
-msgid ""
-"<emphasis>Compiling</emphasis> is the step in which object files are "
-"generated from their corresponding source files. For instance, a source file "
-"<filename>hello.c</filename> will generate <filename>hello.o</filename> "
-"after compilation. Usually you do not need to worry about these object files "
-"— just think of them as intermediate files involved in creating the final "
-"executable."
-msgstr ""
-"<emphasis>Compilar</emphasis> es el paso en el que se generan los archivos "
-"objeto desde sus correspondientes archivos fuente. Por ejemplo, un archivo "
-"fuente <filename>hola.c</filename> generará <filename>hola.o</filename> tras "
-"su compilación. Generalmente no necesita preocuparse acerca de esos archivos "
-"objeto; simplemente piense en ellos como archivos intermedios involucrados "
-"en la creación del ejecutable final."
-
-#: C/anjuta-manual.xml:785(para)
-msgid ""
-"Once the object files (<filename>*.o</filename> files) are ready, they are "
-"all linked together (along with any libraries) to generate the final "
-"executable. This step is called <emphasis>Linking</emphasis>."
-msgstr ""
-"Uva vez que los archivos objeto (<filename>*.o</filename>) están listos, se "
-"enlazan todos juntos (junto con cualquier biblioteca) para generar el "
-"ejecutable final. Este paso se llama <emphasis>enlazado</emphasis>."
-
-#: C/anjuta-manual.xml:792(title)
-msgid "Compiling the source"
-msgstr "Compilar los fuentes"
-
-#: C/anjuta-manual.xml:793(para)
+#: C/anjuta-manual.xml:170(para)
 msgid ""
 "In a project, the individual source files can be compiled separately into "
 "objects (<filename>*.o</filename> files). Although you do not have to worry "
@@ -2810,7 +3068,7 @@ msgid ""
 "example, to make sure there are no syntax errors). Building a whole project "
 "can take a lot of time, especially in the case of larger and more complex "
 "applications. Therefore, you will probably go through a series of edit-"
-"compile-edit-compile-.... loops while a developing the project."
+"compile-edit-compile-.... loops while developing a project."
 msgstr ""
 "En un proyecto los archivos fuente individuales se pueden compilar "
 "separadamente en objetos (archivos <filename>*.o</filename>). Aunque no debe "
@@ -2821,7 +3079,7 @@ msgstr ""
 "series de bucles edición-compilación-edición-compilación... mientras esté "
 "desarrollando el proyecto."
 
-#: C/anjuta-manual.xml:801(para)
+#: C/anjuta-manual.xml:178(para)
 msgid ""
 "To compile a file, choose the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice> or press "
@@ -2832,11 +3090,11 @@ msgstr ""
 "guimenuitem></menuchoice> o pulse <keycap>F11</keycap>. Esto compilará el "
 "archivo activo."
 
-#: C/anjuta-manual.xml:808(title)
+#: C/anjuta-manual.xml:186(title)
 msgid "Building an executable"
 msgstr "Construir un ejecutable"
 
-#: C/anjuta-manual.xml:809(para)
+#: C/anjuta-manual.xml:187(para)
 msgid ""
 "<application>Anjuta</application> has no separate link command, simply "
 "because it is not necessary. The build process will compile all the source "
@@ -2857,7 +3115,7 @@ msgstr ""
 "proyecto y no se ha modificado ningún archivo dependiente, también se "
 "evitará el proceso de enlazado."
 
-#: C/anjuta-manual.xml:818(para)
+#: C/anjuta-manual.xml:196(para)
 msgid ""
 "So how exactly does the dependency check influence the project development? "
 "If you have modified a file, then all of the source files that depend on the "
@@ -2874,7 +3132,7 @@ msgstr ""
 "que un archivo en particular depende de algún otro archivo que se ha "
 "modificado, entonces ese archivo se regenerará."
 
-#: C/anjuta-manual.xml:826(para)
+#: C/anjuta-manual.xml:204(para)
 msgid ""
 "Since you have now got a rough understanding of the value of the dependency "
 "check, can you imagine how your life (as a programmer) would be if it had "
@@ -2886,29 +3144,35 @@ msgstr ""
 "estuviese allí? Si aún no puede responder, entonces lo descubrirá cuando "
 "comience a desarrollar proyectos."
 
-#: C/anjuta-manual.xml:831(para)
+#: C/anjuta-manual.xml:209(para)
 msgid ""
 "<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build</guimenuitem></"
-"menuchoice> will build all of the files in the <filename class=\"directory"
-"\">src</filename> (source) directory, and generate the executable. "
-"<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build Project</"
-"guimenuitem></menuchoice> will build the whole project — all of the "
-"subdirectories (including <filename class=\"directory\">src</filename>), are "
-"built recursively."
+"menuchoice> will build all of the files in the directory of the currently "
+"active file."
 msgstr ""
 "<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir</"
-"guimenuitem></menuchoice> construirá todos los archivos en el directorio "
-"<filename class=\"directory\">src</filename> y generará el ejecutable. "
+"guimenuitem></menuchoice> construirá todos los archivos en el directorio del "
+"archivo actualmente activo."
+
+#: C/anjuta-manual.xml:213(para)
+msgid ""
+"<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build Project</"
+"guimenuitem></menuchoice> will build the whole project — all of the "
+"subdirectories are built recursively."
+msgstr ""
 "<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir "
 "proyecto</guimenuitem></menuchoice> construirá el proyecto entero; se "
-"construyen recursivamente todos los subdirectorios (incluyendo <filename "
-"class=\"directory\">src</filename>)."
+"construyen todos los directorios recursivamente."
 
-#: C/anjuta-manual.xml:841(title)
+#: C/anjuta-manual.xml:225(title)
+msgid "Other operations"
+msgstr "Otras operaciones"
+
+#: C/anjuta-manual.xml:227(title)
 msgid "Creating a distribution package"
 msgstr "Crear un paquete de distribución"
 
-#: C/anjuta-manual.xml:842(para)
+#: C/anjuta-manual.xml:228(para)
 msgid ""
 "To build the tarball distribution of the project choose "
 "<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build Tarball</"
@@ -2922,11 +3186,11 @@ msgstr ""
 "gz</filename>) y lo pondrá en el nivel superior del directorio del proyecto. "
 "Copie el archivo a un lugar seguro para su distribución."
 
-#: C/anjuta-manual.xml:850(title)
-msgid "Install"
-msgstr "Instalación"
+#: C/anjuta-manual.xml:236(title)
+msgid "Installing a project"
+msgstr "Instalar un proyecto"
 
-#: C/anjuta-manual.xml:851(para)
+#: C/anjuta-manual.xml:237(para)
 msgid ""
 "Choosing the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install the "
@@ -2936,11 +3200,11 @@ msgstr ""
 "guisubmenu><guimenuitem>Instalar</guimenuitem></menuchoice> instalará la "
 "aplicación generada en su sistema."
 
-#: C/anjuta-manual.xml:857(title)
+#: C/anjuta-manual.xml:243(title)
 msgid "System wide installation"
 msgstr "Instalación amplia en el sistema"
 
-#: C/anjuta-manual.xml:858(para)
+#: C/anjuta-manual.xml:244(para)
 msgid ""
 "You must be logged in as root to perform a system-wide install. Also note "
 "that for a GNOME application to use the pixmaps in the project, it must be "
@@ -2957,230 +3221,39 @@ msgstr ""
 "que use <command>sudo</command> o <command>su</command> antes de instalar el "
 "proyecto, en las preferencias de construcción."
 
-#: C/anjuta-manual.xml:868(title)
-msgid "Configure"
-msgstr "Configurar"
-
-#: C/anjuta-manual.xml:869(para)
-msgid ""
-"To run the <filename>configure</filename> script found in the top level "
-"project directory, choose the menu item <menuchoice><guisubmenu>Build</"
-"guisubmenu><guimenuitem>Run Configure…</guimenuitem></menuchoice>. The "
-"script will determine the system configuration and create some of the files "
-"required to perform a build (such as <filename>Makefile</filename> and "
-"<filename>config.h</filename>). This is necessary because the application "
-"may depend on specific configuration of some of these options."
-msgstr ""
-"Para ejecutar el script <filename>configure</filename> ubicado en el nivel "
-"superior del directorio del proyecto, elija el elemento del menú "
-"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Ejecutar "
-"configure...</guimenuitem></menuchoice>. El script determinará la "
-"configuración del sistema y creará algunos de los archivos necesarios para "
-"realizar una construcción (tales como el <filename>makefile</filename> y "
-"<filename>config.h</filename>). Esto es necesario porque la aplicación puede "
-"depender de una configuración específica de algunas de esas opciones."
-
-#: C/anjuta-manual.xml:878(title)
-msgid "When to run configure"
-msgstr "Cuando ejecutar configure"
-
-#: C/anjuta-manual.xml:879(para)
-msgid ""
-"Until you run <filename>configure</filename>, you cannot start building the "
-"project."
-msgstr ""
-"Hasta que no ejecute <filename>configure</filename> no podrá iniciar la "
-"construcción del proyecto."
-
-#: C/anjuta-manual.xml:884(para)
-msgid ""
-"The <filename>configure</filename> script is (usually) run only once at the "
-"beginning of the first build process — for example, just after you have "
-"extracted a source tarball of a project distribution. After that, "
-"configuration is automatically handled by the subsequent build processes. If "
-"you have used the <emphasis>Application Wizard</emphasis> to create the "
-"application, then you will not need to run <filename>configure</filename> "
-"separately: the wizard will run it as a part of the project generation "
-"process."
-msgstr ""
-"El script <filename>configure</filename> generalmente se ejecuta una sola "
-"vez al comienzo del proceso de construcción; por ejemplo, cuando ha extraído "
-"los fuentes de un archivador de la distribución de un proyecto. Después de "
-"eso, la configuración se gestiona automáticamente por los procesos de "
-"construcción subsecuentes. Si ha usado el <emphasis>Asistente de "
-"configuración</emphasis> para crear la aplicación, entonces no necesitará "
-"ejecutar <filename>configure</filename> de forma separada: el asistente lo "
-"ejecutará como parte del proceso de generación del proyecto."
-
-#: C/anjuta-manual.xml:892(para)
-msgid ""
-"You can also supply additional options to the configuration script. After "
-"choosing the <guimenuitem>Run Configure…</guimenuitem> menu item, a dialog "
-"will appear to prompt for additional options."
-msgstr ""
-"También puede proporcionar opciones adicionales al script de configuración. "
-"Después de elegir el elemento del menú <guimenuitem>Ejecutar configure...</"
-"guimenuitem> se mostrará un diálogo preguntándole opciones adicionales."
-
-#: C/anjuta-manual.xml:898(title) C/anjuta-manual.xml:900(screeninfo)
-msgid "Configure options dialog"
-msgstr "Diálogo de opciones de configuración"
-
-#: C/anjuta-manual.xml:904(para)
-msgid ""
-"Enter any options (or leave it blank to accept the defaults) and click "
-"<guibutton>OK</guibutton>. To find out the options available to the "
-"<filename>configure</filename> script, enter <userinput>--help</userinput> "
-"in the option entry box and click <guibutton>OK</guibutton>. The options "
-"will be displayed in the <interface>Message window</interface>."
-msgstr ""
-"Introduzca cualquier opción (o déjelo vacío para aceptar las "
-"predeterminadas) y pulse <guibutton>Aceptar</guibutton>. Para encontrar las "
-"opciones disponibles para el script <filename>configure</filename>, "
-"introduzca <userinput>--help</userinput> en la caja de texto de entrada y "
-"pulse <guibutton>Aceptar</guibutton>. Se mostrarán las opciones en la "
-"<interface>ventana de mensaje</interface>."
-
-#: C/anjuta-manual.xml:911(para)
-msgid ""
-"There is no requirement to run <filename>configure</filename> only once. It "
-"can be run at any time, usually when the configuration options need to be "
-"changed. One thing to note is that, if the <filename>config.h</filename> "
-"file in the top level directory is changed, running <filename>configure</"
-"filename> again will not overwrite it."
-msgstr ""
-"No existe ningún requerimiento para ejecutar <filename>configure</filename> "
-"una sola vez. Se puede ejecutar en cualquier momento, generalmente cuando se "
-"necesitan cambiar las opciones de configuración. Algo que notar es que si el "
-"archivo <filename>config.h</filename> del directorio del nivel superior se "
-"cambia, ejecutar <filename>configure</filename> de nuevo no lo "
-"sobreescribirá."
-
-#: C/anjuta-manual.xml:919(title)
-msgid "Auto generate"
-msgstr "Autogenerar"
-
-#: C/anjuta-manual.xml:920(para)
-msgid ""
-"Auto generation consists of two steps: running <application>automake</"
-"application> and then running <application>autoconf</application>. If an "
-"executable <filename>autogen.sh</filename> script is found in the top level "
-"project directory, this file will be executed instead of the two steps. Like "
-"<emphasis>configuration</emphasis>, auto generation is automatically handled "
-"by the build process. It can also be run in cases where it is difficult to "
-"configure the project (such as lots of errors reported due to mis-"
-"synchronization after modifying lots of build files)."
-msgstr ""
-"La autogeneración consiste en dos pasos: ejecutar <application>automake</"
-"application> y después ejecutar <application>autoconf</application>. Si se "
-"encuentra un script ejecutable <filename>autogen.sh</filename> en el nivel "
-"superior del directorio del proyecto, entonces se ejecutará este archivo en "
-"lugar de realizar los dos pasos. Al igual que la <emphasis>configuración</"
-"emphasis>, la autogeneración se gestiona automáticamente por el proceso de "
-"construcción. También se puede ejecutar en casos donde es difícil configurar "
-"el proyecto (tales como montones de errores debidos a una falta de "
-"sincronización después de modificar muchos archivos de construcción)."
-
-#: C/anjuta-manual.xml:931(title)
-msgid "When to run autogen.sh"
-msgstr "Cuando ejecutar autogen.sh"
-
-#: C/anjuta-manual.xml:932(para)
-msgid ""
-"Unlike configuration, auto generation does not need to be run even once — in "
-"fact, it does not need to be run at all! The option is available because it "
-"can be handy in some circumstances."
-msgstr ""
-"A diferencia de la configuración la autogeneración no necesita ejecutarse ni "
-"siquiera una vez; de hecho, no es necesario ejecutarla. La opción está "
-"disponible porque puede ser útil en algunas circunstancias."
-
-#: C/anjuta-manual.xml:938(para)
-msgid ""
-"Choose the menu item <menuchoice><guisubmenu>Build</"
-"guisubmenu><guimenuitem>Run Autogenerate…</guimenuitem></menuchoice> to auto "
-"generate the project."
-msgstr ""
-"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Ejecutar autogeneración...</guimenuitem></"
-"menuchoice> para autogenerar el proyecto."
-
-#: C/anjuta-manual.xml:942(para)
-msgid ""
-"Read the info pages of <ulink type=\"info\" url=\"info:automake"
-"\"><application>automake</application></ulink> and <ulink type=\"info\" url="
-"\"info:autoconf\"><application>autoconf</application></ulink> for more "
-"details on how these tools work."
-msgstr ""
-"Para obtener más detalles acerca de cómo funcionan éstas herramientas, lea "
-"las páginas de información acerca de <ulink type=\"info\" url=\"info:automake"
-"\"><application>automake</application></ulink> y <ulink type=\"info\" url="
-"\"info:autoconf\"><application>autoconf</application></ulink>."
-
-#: C/anjuta-manual.xml:949(title)
-msgid "Clean"
+#: C/anjuta-manual.xml:254(title)
+msgid "Cleaning"
 msgstr "Limpiar"
 
-#: C/anjuta-manual.xml:950(para)
+#: C/anjuta-manual.xml:255(para)
 msgid ""
-"This option cleans the project and leaves it in a state that requires "
-"<guimenuitem>Build Project</guimenuitem> to be performed. It deletes all of "
-"the files generated by the build process, including all object files "
-"(<filename>*.o</filename> files) and the executable(s) in the <filename "
-"class=\"directory\">src</filename> directory (and other directories)."
+"This deletes all of the files generated by the build process, including all "
+"object files (<filename>*.o</filename> files) and the executable(s). It can "
+"be applied on one directory or the whole project."
 msgstr ""
-"Esta opción limpia el proyecto y lo deja en el estado que requiere "
-"<guimenuitem>Construir proyecto</guimenuitem> para que se pueda realizar. "
-"Borra todos los archivos generados por el proceso de construcción, "
-"incluyendo los archivos objeto (archivos <filename>*.o</filename>) y los "
-"ejecutables en el directorio <filename class=\"directory\">src</filename> (y "
-"otros directorios)."
+"Borra todos los archivos generados por el proceso, incluyendo los archivos "
+"objeto (archivos <filename>*.o</filename>) y los ejecutables. Se puede "
+"aplicar sobre un directorio o sobre el proyecto entero."
 
-#: C/anjuta-manual.xml:957(para)
+#: C/anjuta-manual.xml:260(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Build</"
-"guisubmenu><guimenuitem>Clean</guimenuitem></menuchoice> to clean the "
-"project."
-msgstr ""
-"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Limpiar</guimenuitem></menuchoice> para limpiar el "
-"proyecto."
-
-#: C/anjuta-manual.xml:963(title)
-msgid "Clean Project"
-msgstr "Limpiar proyecto"
-
-#: C/anjuta-manual.xml:964(para)
-msgid ""
-"There is not a great deal to say about <guimenuitem>Clean Project</"
-"guimenuitem> (which might also be called <emphasis>Clean distribution</"
-"emphasis>, or <emphasis>clean dist</emphasis> for short). It cleans the "
-"project and leaves it in a state that requires <guimenuitem>Run Configure…</"
-"guimenuitem> and <guimenuitem>Build Project</guimenuitem> to be performed. "
-"It deletes all of the files generated by the build processes, including all "
-"the object files (<filename>*.o</filename> files), executable(s) and "
-"Makefiles. In other words, it leaves the project as though it has just been "
-"extracted from a distribution tarball."
-msgstr ""
-"No hay mucho que decir acerca de <guimenuitem>Limpiar proyecto</guimenuitem> "
-"(también se puede llamar <emphasis>Limpiar distribución</emphasis> o "
-"<emphasis>limpiar dist</emphasis>). Limpia el proyecto y lo deja en el "
-"estado que requieren <guimenuitem>Ejecutar configure...</guimenuitem> y "
-"<guimenuitem>Construir proyecto</guimenuitem> para llevarse a cabo. Borra "
-"todos los archivos generados por el proceso de construcción, incluyendo "
-"todos los archivos objeto (archivos<filename>*.o</filename>), ejecutables y "
-"Makefile. En otras palabras, deja el proyecto como si se acabase de extraer "
-"de un paquete de distribución."
-
-#: C/anjuta-manual.xml:974(para)
-msgid ""
-"Choose the menu item <menuchoice><guisubmenu>Build</"
-"guisubmenu><guimenuitem>Clean Project</guimenuitem></menuchoice> to "
-"completely clean the project."
+"guisubmenu><guimenuitem>Clean Project</guimenuitem></menuchoice> to clean "
+"all the project files."
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
 "guisubmenu><guimenuitem>Limpiar proyecto</guimenuitem></menuchoice> para "
-"limpiar completamente el proyecto."
+"limpiar todos los archivos del proyecto."
+
+#: C/anjuta-manual.xml:265(para)
+msgid ""
+"Choose the menu item <menuchoice><guisubmenu>Build</"
+"guisubmenu><guimenuitem>Clean</guimenuitem></menuchoice> to clean only the "
+"directory of the current active file."
+msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Limpiar</guimenuitem></menuchoice> para limpiar sólo "
+"el directorio del actual archivo activo."
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Debugging"
@@ -5046,82 +5119,4 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
-msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008."
-
-#~ msgid "Executing program"
-#~ msgstr "Ejecutar un programa"
-
-#~ msgid ""
-#~ "Once an executable is ready after the build, you can execute it by "
-#~ "choosing the menu item <menuchoice><guisubmenu>Build</"
-#~ "guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, or pressing "
-#~ "<keycap>F3</keycap>. You can specify which executable you want to use in "
-#~ "case your project provides more than one and specify command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Una vez que un ejecutable está preparado después de la construcción puede "
-#~ "ejecutarlo eligiendo el elemento del menú "
-#~ "<menuchoice><guisubmenu>Construcción</guisubmenu><guimenuitem>Ejecutar</"
-#~ "guimenuitem></menuchoice> o pulsando <keycap>F3</keycap>. Puede "
-#~ "especificar qué ejecutable quiere usar en el caso de que su proyecto "
-#~ "proporcione más de uno, así como especificar argumentos para la línea de "
-#~ "comandos."
-
-#~ msgid "Dependencies"
-#~ msgstr "Dependencias"
-
-#~ msgid ""
-#~ "Unlike the build stage, execution doesn't check for dependencies (at "
-#~ "least for the time being). In other words, it does not check if the "
-#~ "executable is up-to-date before it executes the program. So, "
-#~ "<emphasis>you must take care of that yourself.</emphasis>"
-#~ msgstr ""
-#~ "A diferencia de la fase de construcción, la ejecución no comprueba las "
-#~ "dependencias (al menos no de momento). En otras palabras, no comprueba si "
-#~ "el ejecutable está actualizado antes de ejecutar el programa. De tal "
-#~ "forma que <emphasis>debe hacerlo usted mismo</emphasis>."
-
-#~ msgid "Choose executable and set program parameters"
-#~ msgstr "Elija el ejecutable y establezca los parámetros del programa"
-
-#~ msgid "Setting program parameters"
-#~ msgstr "Establecer los parámetros del programa"
-
-#~ msgid "If you want to stop the program at the beginning or not"
-#~ msgstr "Si quiere parar el programa al inicio o no"
-
-#~ msgid ""
-#~ "Choose the menu item <menuchoice><guisubmenu>Debug</"
-#~ "guisubmenu><guimenuitem>Run Target…</guimenuitem></menuchoice> to display "
-#~ "a dialog box where you can select: <placeholder-1/>"
-#~ msgstr ""
-#~ "Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
-#~ "guisubmenu><guimenuitem>Ejecutar objetivo…</guimenuitem></menuchoice> "
-#~ "para mostrar la una caja de diálogo donde puede seleccionar: <placeholder-"
-#~ "1/>"
-
-#~ msgid ""
-#~ "When you have set everything you can click on <guibutton>Execute</"
-#~ "guibutton> to start the debugger, load your program and stop at its "
-#~ "beginning if requested."
-#~ msgstr ""
-#~ "Cuando haya establecido todo puede pulsar <guibutton>Ejecutar</guibutton> "
-#~ "para iniciar el depurador, cargue su programa y párelo al inicio si lo "
-#~ "desea."
-
-#~ msgid "Restarting an executable"
-#~ msgstr "Reiniciar un ejecutable"
-
-#~ msgid ""
-#~ "After running an executable at least one time, you can choose the menu "
-#~ "item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Restart "
-#~ "Target</guimenuitem></menuchoice> to restart your program. It is just a "
-#~ "shortcut that will stop the debugger if it is currently running and "
-#~ "restart it with the last executable without displaying the start dialog."
-#~ msgstr ""
-#~ "Después de ejecutar un ejecutable al menos una vez puede elegir el "
-#~ "elemento del menú <menuchoice><guisubmenu>Depurar</"
-#~ "guisubmenu><guimenuitem>Reiniciar objetivo</guimenuitem></menuchoice> "
-#~ "para reiniciar su programa. Sólo es un atajo que parará el depurador si "
-#~ "se está ejecutando y lo reiniciará con el último ejecutable sin mostrar "
-#~ "el diálogo de inicio."
+msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008"
