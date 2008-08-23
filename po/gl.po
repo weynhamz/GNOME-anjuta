@@ -6,16 +6,23 @@
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2007.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-15 14:05+0200\n"
-"PO-Revision-Date: 2008-08-15 14:06+0200\n"
-"Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
+"POT-Creation-Date: 2008-08-23 19:07+0200\n"
+"PO-Revision-Date: 2008-08-23 19:14+0200\n"
+"Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type:  text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -179,14 +186,14 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Non se pode executar o comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1155
+#: ../libanjuta/anjuta-launcher.c:1159
 msgid "execvp failed"
 msgstr "fallou execvp"
 
@@ -218,7 +225,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:447
+#: ../plugins/symbol-db/symbol-db-prefs.c:469
 msgid "Load"
 msgstr "Cargar"
 
@@ -227,7 +234,7 @@ msgstr "Cargar"
 msgid "Available Plugins"
 msgstr "Complementos dispoñibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:957
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:927
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -409,7 +416,7 @@ msgstr "Categoría"
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:944
+#: ../src/anjuta-app.c:914
 msgid "General"
 msgstr "Xeral"
 
@@ -2337,7 +2344,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:447 ../plugins/tools/tool.c:99
-#: ../src/anjuta-app.c:699
+#: ../src/anjuta-app.c:679
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Ficheiro"
@@ -2551,7 +2558,7 @@ msgstr "Libros"
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:716
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:696
 msgid "Help"
 msgstr "Axuda"
 
@@ -4266,9 +4273,8 @@ msgid "<b>Changes:</b>"
 msgstr "<b>Cambios:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:7
-#, fuzzy
 msgid "<b>Commit to revert:</b>"
-msgstr "<b>Programa a probar:</b>"
+msgstr "<b>Commit a revertir:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:8
 msgid "<b>Filters</b>"
@@ -4301,17 +4307,15 @@ msgstr "<b>Modo:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr ""
+msgstr "<b>Rama remota a usar como base:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
-#, fuzzy
 msgid "<b>Remote to delete:</b>"
-msgstr "<b>Seleccione os cambios a restaurar:</b>"
+msgstr "<b>Remota a eliminar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:18
-#, fuzzy
 msgid "<b>Repository to pull from:</b>"
-msgstr "<b>Repositorio:</b>"
+msgstr "<b>Repositorio do que actualizar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
 msgid "<b>Reset to:</b>"
@@ -4323,9 +4327,8 @@ msgid "<b>Revision:</b>"
 msgstr "<b>Revisión:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:21
-#, fuzzy
 msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>Seleccione os ficheiros para enviar:</b>"
+msgstr "<b>Seleccione ficheiros para facer checkout:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
@@ -4342,9 +4345,8 @@ msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Seleccione ficheiros para marcar como resoltos:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
-#, fuzzy
 msgid "<b>Select Files to Unstage:</b>"
-msgstr "<b>Seleccione os ficheiros para enviar:</b>"
+msgstr "<b>Seleccione os ficheiros sobre os que facer Unstage:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
@@ -4377,7 +4379,7 @@ msgstr "Engadir rama remota"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Engadir a liña asinado por"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
@@ -4385,12 +4387,11 @@ msgstr "Anotar esta etiqueta"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
-msgstr ""
+msgstr "Engadir datos de obtención"
 
 #: ../plugins/git/anjuta-git.glade.h:36
-#, fuzzy
 msgid "Author/Grep"
-msgstr "Autor"
+msgstr "Autor/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
@@ -4403,9 +4404,8 @@ msgid "Branch must be fully merged"
 msgstr "A rama debe estar completamente combinada"
 
 #: ../plugins/git/anjuta-git.glade.h:39
-#, fuzzy
 msgid "Check Out Files"
-msgstr "_Ficheiros recentes"
+msgstr "Facer checkout de ficheiros"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 msgid "Check out the branch after it is created"
@@ -4467,13 +4467,12 @@ msgid "From:"
 msgstr "De:"
 
 #: ../plugins/git/anjuta-git.glade.h:55
-#, fuzzy
 msgid "Grep:"
-msgstr "Grego"
+msgstr "Grep:"
 
 #: ../plugins/git/anjuta-git.glade.h:56
 msgid "Hard"
-msgstr ""
+msgstr "Duro"
 
 #: ../plugins/git/anjuta-git.glade.h:57
 msgid "Head"
@@ -4500,9 +4499,8 @@ msgid "Pull"
 msgstr "Pull"
 
 #: ../plugins/git/anjuta-git.glade.h:63
-#, fuzzy
 msgid "Rebase"
-msgstr "Publicación"
+msgstr "Rebase"
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4518,9 +4516,8 @@ msgid "Retrieving status..."
 msgstr "Obtendo estado..."
 
 #: ../plugins/git/anjuta-git.glade.h:67
-#, fuzzy
 msgid "Revert Commit"
-msgstr "E_fectuar"
+msgstr "Revertir commit"
 
 #: ../plugins/git/anjuta-git.glade.h:68
 msgid "Revision/Tag:"
@@ -4542,7 +4539,7 @@ msgstr "Establecer os conflitos como solucionados"
 
 #: ../plugins/git/anjuta-git.glade.h:72
 msgid "Soft"
-msgstr ""
+msgstr "Brando"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
@@ -4565,9 +4562,8 @@ msgid "To:"
 msgstr "Para:"
 
 #: ../plugins/git/anjuta-git.glade.h:79
-#, fuzzy
 msgid "Unstage Files"
-msgstr "Información de ficheiros _obxectivo"
+msgstr "Facer unstage de ficheiros"
 
 #: ../plugins/git/anjuta-git.glade.h:80
 msgid "Use a custom log message"
@@ -4591,7 +4587,7 @@ msgstr "gtk-ok"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
-msgstr ""
+msgstr "Git: Ficheiro staged a engadir"
 
 #: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
 msgid "Please select a file."
@@ -4627,17 +4623,16 @@ msgstr "Introduza unha revisión."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr ""
+msgstr "Git: Ficheiros descargados (checkout)."
 
 #: ../plugins/git/git-commit-dialog.c:36
-#, fuzzy
 msgid "Git: Commit complete."
-msgstr "Subversion: Envío completado."
+msgstr "Git: Commit completo."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
 msgid "Git: Created branch \"%s\"."
-msgstr ""
+msgstr "Git: Rama \"%s\" creada."
 
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
@@ -4682,16 +4677,15 @@ msgstr "Git: Combinación completada."
 
 #: ../plugins/git/git-pull-dialog.c:36
 msgid "Git: Pull complete."
-msgstr ""
+msgstr "Git: Pull completo."
 
 #: ../plugins/git/git-pull-dialog.c:77
-#, fuzzy
 msgid "Please enter the URL of the repository to pull from."
-msgstr "Introduza a revisión final."
+msgstr "Introduza a URL do repositorio do que facer pull."
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
-msgstr ""
+msgstr "Git: Axustar a unha base"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4703,7 +4697,7 @@ msgstr "Git: Resolución completada."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
-msgstr ""
+msgstr "Git: Checkout de rama completo."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 msgid "Git"
@@ -4715,7 +4709,7 @@ msgstr "Git: Diff completado."
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
-msgstr ""
+msgstr "Git: Ficheiros \"unstaged\"."
 
 #. Action name
 #. Stock icon, if any
@@ -4738,9 +4732,8 @@ msgstr "_Obter"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:80
-#, fuzzy
 msgid "_Rebase"
-msgstr "_Reiniciar"
+msgstr "_Rebase"
 
 #. Action name
 #. Stock icon, if any
@@ -4775,15 +4768,14 @@ msgstr "_Pull..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:128
-#, fuzzy
 msgid "_Unstage files..."
-msgstr "Gardando ficheiro..."
+msgstr "Facer _unstage de ficheiros..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:136
 msgid "_Check out files..."
-msgstr ""
+msgstr "_Facer checkout de ficheiros..."
 
 #. Action name
 #. Stock icon, if any
@@ -4806,16 +4798,14 @@ msgstr "_Reiniciar árbore..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:168 ../plugins/git/plugin.c:357
-#, fuzzy
 msgid "_Revert commit..."
-msgstr "_Restaurar..."
+msgstr "_Revertir commit..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
-#, fuzzy
 msgid "_Bisect"
-msgstr "_Reiniciar"
+msgstr "_Bisect"
 
 #. Action name
 #. Stock icon, if any
@@ -5535,8 +5525,8 @@ msgid "Icon"
 msgstr "Icona"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:215 ../plugins/message-view/plugin.c:393
-#: ../plugins/message-view/plugin.c:405
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "Mensaxes"
 
@@ -5656,17 +5646,17 @@ msgstr "Nivel de parche:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_Ferramentas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "_Parchear..."
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "Parchear ficheiros/directorios"
 
@@ -5979,38 +5969,29 @@ msgstr ""
 "O ficheiro \"%s\" non se pode escribir: %s. Comprobe que ten acceso de "
 "escritura ao directorio do proxecto."
 
-#: ../plugins/project-manager/plugin.c:344
+#: ../plugins/project-manager/plugin.c:422
+#: ../plugins/project-manager/plugin.c:823
+msgid "Project properties"
+msgstr "Propiedades do proxecto"
+
+#: ../plugins/project-manager/plugin.c:427
+msgid "Target properties"
+msgstr "Propiedades do destino"
+
+#: ../plugins/project-manager/plugin.c:432
+msgid "Group properties"
+msgstr "Propiedades do grupo"
+
+#: ../plugins/project-manager/plugin.c:456
+msgid "No properties available for this target"
+msgstr "Sen propiedades dispoñibles para este destino"
+
+#: ../plugins/project-manager/plugin.c:482
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Fallou ao refrescar o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:367
-#: ../plugins/project-manager/plugin.c:750
-msgid "Project properties"
-msgstr "Propiedades do proxecto"
-
-#: ../plugins/project-manager/plugin.c:382
-#: ../plugins/project-manager/plugin.c:474
-msgid "No properties available for this target"
-msgstr "Sen propiedades dispoñibles para este destino"
-
-#: ../plugins/project-manager/plugin.c:459
-msgid "Target properties"
-msgstr "Propiedades do destino"
-
-#: ../plugins/project-manager/plugin.c:488
-msgid "Group properties"
-msgstr "Propiedades do grupo"
-
-#: ../plugins/project-manager/plugin.c:491
-msgid "Close"
-msgstr "Pechar"
-
-#: ../plugins/project-manager/plugin.c:503
-msgid "No properties available for this group"
-msgstr "Sen propiedades dispoñibles para este grupo"
-
-#: ../plugins/project-manager/plugin.c:587
+#: ../plugins/project-manager/plugin.c:660
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -6018,7 +5999,7 @@ msgstr ""
 "Está seguro de que quere eliminar o seguinte grupo do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:588
+#: ../plugins/project-manager/plugin.c:661
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -6029,7 +6010,7 @@ msgstr ""
 "\n"
 "O grupo non será borrado do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:591
+#: ../plugins/project-manager/plugin.c:664
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -6037,12 +6018,12 @@ msgstr ""
 "Está seguro de que quere eliminar o seguinte obxectivo do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:592
+#: ../plugins/project-manager/plugin.c:665
 #, c-format
 msgid "Target: %s"
 msgstr "Obxectivo: %s"
 
-#: ../plugins/project-manager/plugin.c:595
+#: ../plugins/project-manager/plugin.c:668
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -6050,7 +6031,7 @@ msgstr ""
 "Está seguro de que quere eliminar o seguinte ficheiro fonte do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:596
+#: ../plugins/project-manager/plugin.c:669
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -6061,7 +6042,7 @@ msgstr ""
 "\n"
 "O ficheiro fonte non será borrado do sistema."
 
-#: ../plugins/project-manager/plugin.c:651
+#: ../plugins/project-manager/plugin.c:724
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6070,108 +6051,108 @@ msgstr ""
 "Fallou ao eliminar '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:707
+#: ../plugins/project-manager/plugin.c:780
 msgid "The file you selected is a link and can't be added to the project"
 msgstr ""
 "O ficheiro que seleccionou é unha ligazón e non se pode engadir ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:709
+#: ../plugins/project-manager/plugin.c:782
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Fallou ao obter a URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:746
+#: ../plugins/project-manager/plugin.c:819
 msgid "_Project"
 msgstr "_Proxecto"
 
-#: ../plugins/project-manager/plugin.c:750
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:823
+#: ../plugins/project-manager/plugin.c:857
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 #: ../plugins/symbol-browser/plugin.c:312
 msgid "_Refresh"
 msgstr "_Recargar"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 msgid "Refresh project manager tree"
 msgstr "Refrescar a árbore do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:833
 msgid "Add _Group..."
 msgstr "Engadir _grupo..."
 
-#: ../plugins/project-manager/plugin.c:760
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add a group to project"
 msgstr "Engadir un grupo ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:838
 msgid "Add _Target..."
 msgstr "Engadir _obxectivo..."
 
-#: ../plugins/project-manager/plugin.c:765
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:838
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add a target to project"
 msgstr "Engadir un obxectivo ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:843
 msgid "Add _Source File..."
 msgstr "Engadir ficheiro _fonte..."
 
-#: ../plugins/project-manager/plugin.c:770
-#: ../plugins/project-manager/plugin.c:789
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:843
+#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add a source file to project"
 msgstr "Engadir un ficheiro fonte ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close Pro_ject"
 msgstr "Pechar pro_xecto"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close project"
 msgstr "Pechar proxecto"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:857
 msgid "Properties of group/target/source"
 msgstr "Propiedades do grupo/obxectivo/fonte"
 
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:862
 msgid "_Add To Project"
 msgstr "_Engadir ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add _Group"
 msgstr "Engadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add _Target"
 msgstr "Engadir _obxectivo"
 
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add _Source File"
 msgstr "Engadir ficheiro _fonte"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Re_move"
 msgstr "E_liminar"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Remove from project"
 msgstr "Eliminar do proxecto"
 
-#: ../plugins/project-manager/plugin.c:1167
+#: ../plugins/project-manager/plugin.c:1240
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1175
+#: ../plugins/project-manager/plugin.c:1248
 msgid "Created project view..."
 msgstr "Visor de proxecto creado..."
 
-#: ../plugins/project-manager/plugin.c:1188
+#: ../plugins/project-manager/plugin.c:1261
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6180,31 +6161,31 @@ msgstr ""
 "Fallou ao analizar o proxecto (o proxecto está aberto, pero non haberá "
 "ningunha vista de proxecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1208
-#: ../plugins/project-manager/plugin.c:1285
-#: ../plugins/project-manager/plugin.c:1457
+#: ../plugins/project-manager/plugin.c:1281
+#: ../plugins/project-manager/plugin.c:1363
+#: ../plugins/project-manager/plugin.c:1536
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proxecto"
 
-#: ../plugins/project-manager/plugin.c:1373
+#: ../plugins/project-manager/plugin.c:1451
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Erro pechando o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1436
+#: ../plugins/project-manager/plugin.c:1515
 msgid "Project manager actions"
 msgstr "Accións do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:1444
+#: ../plugins/project-manager/plugin.c:1523
 msgid "Project manager popup actions"
 msgstr "Accións emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2393
+#: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
 msgstr "Proxecto cargado... Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2396
+#: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
 msgstr "Proxecto cargado..."
 
@@ -7159,7 +7140,7 @@ msgstr ""
 "Non se puido gardar o ficheiro porque aínda non se especificou un nome de "
 "ficheiro"
 
-#: ../plugins/sourceview/sourceview-io.c:481
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "Ficheiro novo %d"
@@ -7787,7 +7768,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:455
+#: ../plugins/symbol-db/symbol-db-prefs.c:477
 msgid "API Tags"
 msgstr "Etiquetas do API"
 
@@ -7891,16 +7872,16 @@ msgstr "Navegación de símbolos"
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:281
+#: ../plugins/symbol-db/symbol-db-prefs.c:278
 msgid "Package is not parseable"
 msgstr "O paquete non se pode analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:378
-#: ../plugins/symbol-db/symbol-db-prefs.c:506
+#: ../plugins/symbol-db/symbol-db-prefs.c:393
+#: ../plugins/symbol-db/symbol-db-prefs.c:528
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
-#: ../plugins/symbol-db/symbol-db-system.c:755
+#: ../plugins/symbol-db/symbol-db-system.c:761
 msgid "Resuming glb scan."
 msgstr "Continuando a análise glb."
 
@@ -7909,14 +7890,18 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas do API dispoñibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+msgid "Automatically scan project's packages"
+msgstr "Analizar automaticamente os paquetes do proxecto"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "Checking if package is parseable..."
 msgstr "Comprobando se se pode analizar o paquete..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Choose ctags executable"
 msgstr "Escoller executable de ctags"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Ctags executable:"
 msgstr "Executable de Ctags:"
 
@@ -8782,23 +8767,23 @@ msgstr "Acerca dos _complementos externos"
 msgid "About third party Anjuta plugins"
 msgstr "Acerca dos complementos de terceiros"
 
-#: ../src/anjuta-app.c:703
+#: ../src/anjuta-app.c:683
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:707 ../src/anjuta-app.c:712
+#: ../src/anjuta-app.c:687 ../src/anjuta-app.c:692
 msgid "View"
 msgstr "Ver"
 
-#: ../src/anjuta-app.c:955
+#: ../src/anjuta-app.c:925
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:959
+#: ../src/anjuta-app.c:929
 msgid "Shortcuts"
 msgstr "Atallos"
 
-#: ../src/anjuta-app.c:1031
+#: ../src/anjuta-app.c:1001
 #, c-format
 msgid "Value doesn't exist"
 msgstr "O valor non existe"
@@ -9179,6 +9164,12 @@ msgstr "Xestor de linguas"
 msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para manter o seguimento das múltiples linguaxes de programación"
+
+#~ msgid "Close"
+#~ msgstr "Pechar"
+
+#~ msgid "No properties available for this group"
+#~ msgstr "Sen propiedades dispoñibles para este grupo"
 
 #~ msgid "Sélectionner un dossier"
 #~ msgstr "Seleccionar un cartafol"
