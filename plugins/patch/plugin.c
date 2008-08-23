@@ -25,7 +25,6 @@
 #include "patch-plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-patch.ui"
-#define ICON_FILE_48 "anjuta-patch-plugin-48.png"
 
 static gpointer parent_class;
 
@@ -85,7 +84,7 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 	
 	/* Register icon */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON (ICON_FILE_48, "patch-plugin-icon");
+	REGISTER_ICON (ICON_FILE, "patch-plugin-icon");
 	END_REGISTER_ICON;
 
 

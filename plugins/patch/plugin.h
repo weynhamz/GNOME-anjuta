@@ -23,7 +23,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
-#define ICON_FILE "anjuta-patch-plugin.png"
+#define ICON_FILE "anjuta-patch-plugin-48.png"
 
 extern GType patch_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_PATCH         (patch_plugin_get_type (NULL))

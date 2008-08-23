@@ -1,3 +1,11 @@
+2008-08-23  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/patch/plugin.c,
+	plugins/patch/plugin.h:
+	Fix #549105 Patch plugin icon not loaded
+
 2008-08-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/plugin.c:
