@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-23 19:07+0200\n"
-"PO-Revision-Date: 2008-08-23 19:14+0200\n"
+"PO-Revision-Date: 2008-08-24 18:02+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -4418,7 +4418,7 @@ msgstr "Enviar cambios"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Commit ao combinar en modo rápido"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Create Branch"
