@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-20 17:20+0000\n"
-"PO-Revision-Date: 2008-08-24 19:25+0200\n"
+"POT-Creation-Date: 2008-08-18 16:53+0000\n"
+"PO-Revision-Date: 2008-08-24 20:48+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2507,7 +2507,7 @@ msgstr "Ayuda anterior"
 
 #: ../plugins/devhelp/plugin.c:240
 msgid "Go to previous help page"
-msgstr "Ir a mensaje la página de ayuda anterior"
+msgstr "Ir a la página de ayuda anterior"
 
 #: ../plugins/devhelp/plugin.c:246
 msgid "Next Help"
@@ -2515,7 +2515,7 @@ msgstr "Siguiente ayuda"
 
 #: ../plugins/devhelp/plugin.c:248
 msgid "Go to next help page"
-msgstr "Ir a la página de ayuda siguiente"
+msgstr "Ir a la siguiente página de ayuda"
 
 #: ../plugins/devhelp/plugin.c:255
 msgid "_API Reference"
@@ -6504,3 +6504,2672 @@ msgstr ""
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Icon File:"
 msgstr "Archivo del icono:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
+msgid "Icon file for the plugin"
+msgstr "Icono para el complemento"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
+msgid "Implement plugin interfaces"
+msgstr "Implementar interfaces de complementos"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
+msgid "Interface implemented by the plugin"
+msgstr "Interfaz implementado por el complemento"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
+msgid "Interface:"
+msgstr "Interfaz:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
+msgid "License"
+msgstr "Licencia"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
+msgid "Main Class:"
+msgstr "Clase principal:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
+msgid "Main class"
+msgstr "Clase principal"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Mininum SDL version required"
+msgstr "Versión inferior de SDL requerida"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
+msgid "Name of the value to watch"
+msgstr "Nombre del valor a vigilar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
+msgid "No license"
+msgstr "Sin licencia"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
+msgid "Options for project build system"
+msgstr "Opciones para el sistema de construcción del proyecto"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "Plugin Class Name:"
+msgstr "Nombre de la clase del complemento:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "Plugin Dependencies:"
+msgstr "Dependencias del complemento:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "Plugin Description:"
+msgstr "Descripción del complemento:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
+msgid "Plugin Title:"
+msgstr "Título del complemento:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
+msgid "Plugin class name"
+msgstr "Nombre de la clase del complemento"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Plugin has menus or/and toolbars"
+msgstr "El complemento tiene menús y/o barras de herramientas"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Plugin interfaces to implement"
+msgstr "Interfaces del complemento para implementar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Project directory, output file etc."
+msgstr "Directorio del proyecto, archivo de salida, etc."
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Project directory:"
+msgstr "Directorio del proyecto:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
+msgstr ""
+"El nombre del proyecto no debe contener espacios porque será el nombre del "
+"proyecto objetivo (ejecutable, biblioteca, etc.)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
+msgid "Project name:"
+msgstr "Nombre del proyecto:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
+msgid "Project options"
+msgstr "Opciones del proyecto"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
+msgid "Require Package:"
+msgstr "Requiere el paquete:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Require SDL version:"
+msgstr "Requiere la versión de SDL:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
+msgid "Require SDL_gfx library"
+msgstr "Requiere la versión de la biblioteca SDL_gfx"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
+msgid "Require SDL_gfx:"
+msgstr "Requiere la versión de SDL_gfx:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
+msgid "Require SDL_image library"
+msgstr "Requiere la versión de la biblioteca SDL_image"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
+msgid "Require SDL_image:"
+msgstr "Requiere la versión de SDL_image:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
+msgid "Require SDL_mixer library"
+msgstr "Requiere la versión de la biblioteca SDL_mixer"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
+msgid "Require SDL_mixer:"
+msgstr "Requiere la versión de SDL_mixer:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Require SDL_net library"
+msgstr "Requiere la versión de la biblioteca SDL_net"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Require SDL_net:"
+msgstr "Requiere la versión de SDL_net:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
+msgid "Require SDL_ttf library"
+msgstr "Requiere la versión de la biblioteca SDL_ttf"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
+msgid "Require SDL_ttf:"
+msgstr "Requiere la versión de SDL_ttf:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
+msgid "Select code license"
+msgstr "Seleccionar la licencia del código"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
+msgid "Shell values to watch"
+msgstr "Valores del Shell a vigilar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
+msgid "Use libglade for the UI"
+msgstr "Usar libglade para el IU"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
+msgid "Use pkg-config to add library support from other packages"
+msgstr ""
+"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
+msgid ""
+"Use the libglade-2.0 library to load the glade interface file at runtime"
+msgstr ""
+"Usar la biblioteca libglade-2.0 para cargar el archivo de interfaz glade al "
+"ejecutar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
+msgid "Value Name:"
+msgstr "Nombre del valor:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
+msgid "Values to watch"
+msgstr "Valores a vigilar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
+msgid "Whether the plugin has menus or toolbars"
+msgstr "Indica si el complemento tiene menús o barras de herramientas"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr ""
+"gtk-doc se usa para compilar la documentación de la API para las clases "
+"basadas en GObject"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
+msgid "project name"
+msgstr "nombre del proyecto"
+
+#: ../plugins/run-program/anjuta-run-program.glade.h:4
+msgid "Program Parameters"
+msgstr "Parámetros del programa"
+
+#: ../plugins/run-program/anjuta-run-program.glade.h:5
+msgid "Program:"
+msgstr "Programa:"
+
+#: ../plugins/run-program/execute.c:76
+#, c-format
+msgid "Program '%s' does not exist"
+msgstr "El programa «%s» no existe"
+
+#. Only local directory are supported
+#: ../plugins/run-program/execute.c:107
+#, c-format
+msgid "Program directory '%s' is not local"
+msgstr "El directorio del programa «%s» no es local"
+
+#: ../plugins/run-program/parameters.c:311
+msgid "Load Target to run"
+msgstr "Cargar objetivo que ejecutar"
+
+#: ../plugins/run-program/parameters.c:720
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Nombre"
+
+#: ../plugins/run-program/plugin.c:179
+msgid ""
+"The program is running.\n"
+"Do you want to restart it?"
+msgstr ""
+"El programa se está ejecutando.\n"
+"¿Quiere reiniciarlo?"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/run-program/plugin.c:214
+msgid "_Run"
+msgstr "_Ejecutar"
+
+#: ../plugins/run-program/plugin.c:224
+msgid "Run program without debugger"
+msgstr "Ejecutar el programa sin el depurador"
+
+#: ../plugins/run-program/plugin.c:230
+msgid "Stop Program"
+msgstr "Parar programa"
+
+#: ../plugins/run-program/plugin.c:232
+msgid "Kill program"
+msgstr "Matar programa"
+
+#: ../plugins/run-program/plugin.c:238
+msgid "Program Parameters..."
+msgstr "Parámetros del programa…"
+
+#: ../plugins/run-program/plugin.c:240
+msgid "Set current program, arguments and so on"
+msgstr "Establecer el programa actual, los argumentos y demás"
+
+#: ../plugins/run-program/plugin.c:265
+msgid "Run operations"
+msgstr "Ejecutar operaciones"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/sample1/plugin.c:56
+msgid "_Sample action"
+msgstr "Acción de _ejemplo"
+
+#. Display label
+#. short-cut
+#: ../plugins/sample1/plugin.c:58
+msgid "Sample action"
+msgstr "Acción de ejemplo"
+
+#: ../plugins/sample1/plugin.c:79
+msgid "Sample file operations"
+msgstr "Operaciones de archivo de ejemplo"
+
+#: ../plugins/sample1/plugin.c:85
+msgid "SamplePlugin"
+msgstr "Complemento de ejemplo"
+
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:1
+msgid "<b>Scratchbox Options</b>\n"
+msgstr "<b>Opciones del Scratchbox</b>\n"
+
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:3
+msgid "Scratchbox directory:"
+msgstr "Directorio Scratchbox:"
+
+#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
+msgid "Select Scratchbox Folder"
+msgstr "Seleccionar el directorio Scratchbox"
+
+#: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
+msgid "Scratchbox"
+msgstr "Scratchbox"
+
+#. Public functions
+#. *---------------------------------------------------------------------------
+#: ../plugins/search/anjuta-search.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>Acciones</b>"
+
+#: ../plugins/search/anjuta-search.glade.h:2
+msgid "<b>File Filter</b>"
+msgstr "<b>Filtro de archivo</b>"
+
+#: ../plugins/search/anjuta-search.glade.h:4
+msgid "<b>Parameters</b>"
+msgstr "<b>Parámetros</b>"
+
+#: ../plugins/search/anjuta-search.glade.h:5
+msgid "<b>Scope</b>"
+msgstr "<b>Ámbito</b>"
+
+#. User can select variables that contain lists of files, so this is a combined noun
+#: ../plugins/search/anjuta-search.glade.h:7
+msgid "<b>Search variable</b>"
+msgstr "<b>Variable de búsqueda</b>"
+
+#: ../plugins/search/anjuta-search.glade.h:8
+#: ../plugins/search/search-replace.c:93
+msgid "Backward"
+msgstr "Hacia atrás"
+
+#: ../plugins/search/anjuta-search.glade.h:9
+msgid "Basic Search & Replace"
+msgstr "Búsqueda y reemplazo básicos"
+
+#: ../plugins/search/anjuta-search.glade.h:10
+msgid "Case insensitive"
+msgstr "Distinguir capitalización"
+
+#: ../plugins/search/anjuta-search.glade.h:11
+msgid "Choose Directories:"
+msgstr "Elegir directorios:"
+
+#: ../plugins/search/anjuta-search.glade.h:12
+msgid "Choose Files:"
+msgstr "Elegir archivos:"
+
+#: ../plugins/search/anjuta-search.glade.h:13
+msgid "Expand regex back references"
+msgstr "Expandir referencias hacia atrás de regex"
+
+#: ../plugins/search/anjuta-search.glade.h:14
+msgid "Find & Replace"
+msgstr "Buscar y reemplazar"
+
+#: ../plugins/search/anjuta-search.glade.h:15
+#: ../plugins/search/search-replace.c:92
+msgid "Forward"
+msgstr "Hacia adelante"
+
+#. the order of these matters - it must match the order of the corresponding
+#. radio buttons on another page
+#: ../plugins/search/anjuta-search.glade.h:16
+#: ../plugins/search/search-replace.c:91
+msgid "Full Buffer"
+msgstr "Rellenar búfer"
+
+#: ../plugins/search/anjuta-search.glade.h:17
+msgid "Greedy matching"
+msgstr "Coincidencia voraz"
+
+#: ../plugins/search/anjuta-search.glade.h:18
+msgid "Ignore Binary Files"
+msgstr "Ignorar archivos binarios"
+
+#: ../plugins/search/anjuta-search.glade.h:19
+msgid "Ignore Directories:"
+msgstr "Ignorar directorios:"
+
+#: ../plugins/search/anjuta-search.glade.h:20
+msgid "Ignore Files:"
+msgstr "Ignorar archivos:"
+
+#: ../plugins/search/anjuta-search.glade.h:21
+msgid "Ignore Hidden Directories"
+msgstr "Ignorar directorios ocultos"
+
+#: ../plugins/search/anjuta-search.glade.h:22
+msgid "Ignore Hidden Files"
+msgstr "Ignorar archivos ocultos"
+
+#: ../plugins/search/anjuta-search.glade.h:23
+msgid "Match at start of word"
+msgstr "Coincidir con el inicio de palabra"
+
+#: ../plugins/search/anjuta-search.glade.h:24
+msgid "Match complete lines"
+msgstr "Coincidir con líneas completas"
+
+#: ../plugins/search/anjuta-search.glade.h:25
+msgid "Match complete words"
+msgstr "Coincidir con palabras completas"
+
+#: ../plugins/search/anjuta-search.glade.h:26
+msgid "Maximum Actions"
+msgstr "Acciones máximas"
+
+#: ../plugins/search/anjuta-search.glade.h:27
+msgid "Modify"
+msgstr "Modificar"
+
+#: ../plugins/search/anjuta-search.glade.h:28
+msgid "New Name:"
+msgstr "Nombre nuevo:"
+
+#: ../plugins/search/anjuta-search.glade.h:29
+msgid "No Limit"
+msgstr "Sin límite"
+
+#: ../plugins/search/anjuta-search.glade.h:30
+msgid "Regular Expression"
+msgstr "Expresión regular"
+
+#: ../plugins/search/anjuta-search.glade.h:31
+msgid "Replace With:"
+msgstr "Reemplazar con:"
+
+#: ../plugins/search/anjuta-search.glade.h:32
+msgid "Search Action:"
+msgstr "Acción de búsqueda:"
+
+#: ../plugins/search/anjuta-search.glade.h:33
+msgid "Search Direction:"
+msgstr "Dirección de búsqueda:"
+
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:35
+msgid "Search Expression"
+msgstr "Buscar expresión"
+
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:37
+msgid "Search Expression:"
+msgstr "Buscar expresión:"
+
+#: ../plugins/search/anjuta-search.glade.h:38
+msgid "Search In:"
+msgstr "Buscar en:"
+
+#: ../plugins/search/anjuta-search.glade.h:39
+msgid "Search Recursively"
+msgstr "Buscar recursivamente"
+
+#: ../plugins/search/anjuta-search.glade.h:40
+msgid "Search Target"
+msgstr "Buscar objetivo"
+
+#: ../plugins/search/anjuta-search.glade.h:41
+msgid "Setting"
+msgstr "Ajuste"
+
+#: ../plugins/search/plugin.c:192
+msgid "_Find..."
+msgstr "_Buscar…"
+
+#: ../plugins/search/plugin.c:193
+msgid "Search for a string or regular expression in the editor"
+msgstr "Buscar una cadena o expresión regular en el editor"
+
+#: ../plugins/search/plugin.c:195
+msgid "Find _Next"
+msgstr "Buscar siguie_nte"
+
+#: ../plugins/search/plugin.c:196 ../plugins/search/plugin.c:200
+msgid "Repeat the last Find command"
+msgstr "Repetir el último comando de búsqueda"
+
+#: ../plugins/search/plugin.c:198
+msgid "Find _Previous"
+msgstr "Buscar _anterior"
+
+#: ../plugins/search/plugin.c:202
+msgid "Find and R_eplace..."
+msgstr "Buscar y _reemplazar…"
+
+#: ../plugins/search/plugin.c:204
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
+
+#: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
+msgid "Search and Replace"
+msgstr "Buscar y reemplazar"
+
+#: ../plugins/search/plugin.c:209
+msgid "Fin_d in Files..."
+msgstr "_Buscar en archivos…"
+
+#: ../plugins/search/plugin.c:210
+msgid "Search for a string in multiple files or directories"
+msgstr "Buscar una cadena en múltiples archivos o directorios"
+
+#: ../plugins/search/plugin.c:213
+msgid "Ne_xt Occurrence"
+msgstr "_Siguiente coincidencia"
+
+#: ../plugins/search/plugin.c:214
+msgid "Find the next occurrence of current word"
+msgstr "Buscar la siguiente coincidencia de la palabra actual"
+
+#: ../plugins/search/plugin.c:217
+msgid "Pre_vious Occurrence"
+msgstr "Coincidencia _anterior"
+
+#: ../plugins/search/plugin.c:218
+msgid "Find the previous occurrence of current word"
+msgstr "Buscar la coincidencia anterior de la palabra actual"
+
+#: ../plugins/search/plugin.c:245
+msgid "Searching..."
+msgstr "Buscando…"
+
+#: ../plugins/search/search_preferences.c:44
+msgid "Basic Search"
+msgstr "Búsqueda básica"
+
+#: ../plugins/search/search-replace.c:98
+msgid "Current Buffer"
+msgstr "Búfer actual"
+
+#: ../plugins/search/search-replace.c:99
+msgid "Current Selection"
+msgstr "Selección actual"
+
+#: ../plugins/search/search-replace.c:100
+msgid "Current Block"
+msgstr "Bloque actual"
+
+#: ../plugins/search/search-replace.c:101
+msgid "Current Function"
+msgstr "Función actual"
+
+#: ../plugins/search/search-replace.c:102
+msgid "All Open Buffers"
+msgstr "Todos los búferes abiertos"
+
+#: ../plugins/search/search-replace.c:103
+msgid "All Project Files"
+msgstr "Todos los archivos del proyecto"
+
+#. {SR_VARIABLE, N_("Specify File List")},
+#: ../plugins/search/search-replace.c:105
+msgid "Specify File Patterns"
+msgstr "Especificar patrones de archivo"
+
+#: ../plugins/search/search-replace.c:110
+msgid "Select next match"
+msgstr "Seleccionar la siguiente coincidencia"
+
+#: ../plugins/search/search-replace.c:111
+msgid "Bookmark all matched lines"
+msgstr "Marcar todas las líneas que hayan coincidido"
+
+#: ../plugins/search/search-replace.c:112
+msgid "Mark all matches"
+msgstr "Marcar todas las coincidencias"
+
+#: ../plugins/search/search-replace.c:113
+msgid "List matches in find pane"
+msgstr "Listar las coincidencias en el panel de búsqueda"
+
+#: ../plugins/search/search-replace.c:114
+msgid "Replace next match"
+msgstr "Reemplazar la siguiente coincidencia"
+
+#: ../plugins/search/search-replace.c:115
+msgid "Replace all matches"
+msgstr "Reemplazar todas las coincidencias"
+
+#: ../plugins/search/search-replace.c:320
+msgid "Find: "
+msgstr "Buscar: "
+
+#: ../plugins/search/search-replace.c:504
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: ../plugins/search/search-replace.c:624
+msgid "Search complete"
+msgstr "Búsqueda completada"
+
+#: ../plugins/search/search-replace.c:1010
+#: ../plugins/search/search-replace.c:1690
+msgid "Replace All"
+msgstr "Reemplazar todo"
+
+#: ../plugins/search/search-replace.c:1049
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr ""
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
+"principio del documento?"
+
+#: ../plugins/search/search-replace.c:1069
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr "No se ha encontrado ninguna coincidencia con «%s»."
+
+#: ../plugins/search/search-replace.c:1084
+msgid "The maximum number of results has been reached."
+msgstr "Se ha alcanzado el máximo número de resultados."
+
+#: ../plugins/search/search-replace.c:1097
+#, c-format
+msgid "%d match has been replaced."
+msgid_plural "%d matches have been replaced."
+msgstr[0] "Se ha reemplazado %d coincidencia."
+msgstr[1] "Se han reemplazado %d coincidencias."
+
+#: ../plugins/search/search-replace.c:1263
+msgid "Unable to build user interface for Search And Replace"
+msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
+
+#: ../plugins/sourceview/sourceview.c:307
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+"El archivo «%s» en el disco es más reciente que el búfer actual.\n"
+"¿Desea recargarlo?"
+
+#. Could not open <filename>: <error message>
+#: ../plugins/sourceview/sourceview.c:347
+#, c-format
+msgid "Could not open %s: %s"
+msgstr "No se pudo abrir %s: %s"
+
+#. Could not open <filename>: <error message>
+#: ../plugins/sourceview/sourceview.c:467
+#, c-format
+msgid "Could not save %s: %s"
+msgstr "No se puede guardar %s: %s."
+
+#: ../plugins/sourceview/sourceview-io.c:246
+#, c-format
+msgid "Could not save file because filename not yet specified"
+msgstr ""
+"No se puede guardar el archivo porque el nombre de archivo aún no se ha "
+"especificado"
+
+#: ../plugins/sourceview/sourceview-io.c:488
+#, c-format
+msgid "New file %d"
+msgstr "Archivo nuevo %d"
+
+#: ../plugins/sourceview/sourceview-print.c:47
+msgid "Preparing pages for printing"
+msgstr "Preparando páginas para imprimir"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
+msgid "<b>Color scheme:</b>"
+msgstr "<b>Esquema de colores:</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:2
+msgid "<b>Font:</b>"
+msgstr "<b>Tipografía:</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:3
+msgid "<b>Indentation and auto-format options</b>"
+msgstr "<b>Opciones de sangría y autoformato</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:6
+msgid "<b>View</b>"
+msgstr "<b>Ver</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
+msgid "Font"
+msgstr "Tipografía"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
+msgid "Highlight current line"
+msgstr "Resaltar línea actual"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
+msgid "Highlight matching brackets"
+msgstr "Resaltar corchetes coincidentes"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
+msgid "Highlight syntax"
+msgstr "Resaltar sintaxis"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
+msgid "Print Linenumbers"
+msgstr "Imprimir números de línea"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:14
+msgid "Print page footer"
+msgstr "Imprimir pie de página"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:15
+msgid "Print page header"
+msgstr "Imprimir cabeceras de página"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
+msgid "Right margin position in characters"
+msgstr "Posición del margen derecho en caracteres"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
+msgid "Show line numbers"
+msgstr "Mostrar números de línea"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
+msgid "Show marks"
+msgstr "Mostrar las marcas"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
+msgid "Show right margin"
+msgstr "Mostrar el margen derecho"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
+msgid "Use theme font"
+msgstr "Usar tipografía del tema"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
+msgid "Visible whitespaces"
+msgstr "Espacios en blanco visibles"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
+msgid "Wrap long lines to fit on paper"
+msgstr "Ajustar las líneas largas para que quepan en el papel"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
+msgid "<b>Branch/Tag URL:</b>"
+msgstr "<b>URL de la rama/etiqueta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
+msgid "<b>End Revision:</b>"
+msgstr "<b>Revisión de fin:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
+msgid "<b>File or directory to diff:</b>"
+msgstr "<b>Archivo o directorio para hacer un diff:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
+msgid "<b>File/URL to Remove:</b>"
+msgstr "<b>Archivo/URL que eliminar:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
+msgid "<b>First Path:</b>"
+msgstr "<b>Primera ruta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "<b>Second Path:</b>"
+msgstr "<b>Segunda ruta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "<b>Select Changes to Revert:</b>"
+msgstr "<b>Seleccione los cambios que revertir:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "<b>Source/Destination Paths:</b>"
+msgstr "<b>Rutas de origen/destino:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
+msgid "<b>Start Revision:</b>"
+msgstr "<b>Revisión de inicio:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
+msgid "<b>Subversion Options</b>"
+msgstr "<b>Opciones de subversion</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
+msgid "<b>Working Copy Path:</b>"
+msgstr "<b>Ruta a la copia de trabajo:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
+msgid "Add file/directory"
+msgstr "Añadir archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "Copy files/folders"
+msgstr "Copiar archivos/carpetas"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
+msgid "Diff Selected Revisions"
+msgstr "Diff de las revisiones seleccionadas"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
+msgid "Diff file/directory"
+msgstr "Diferencias del archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
+msgid "Diff to Previous"
+msgstr "Diff con la anterior"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:33
+msgid "Ignore ancestry"
+msgstr "Ignorar ancestros"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:34
+msgid "Merge changes into working copy"
+msgstr "Mezclar los cambios en la copia de trabajo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:35
+msgid "Other Revision:"
+msgstr "Otra revisión:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:37
+msgid "Realm:"
+msgstr "Reino:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:38
+msgid "Recurse"
+msgstr "Recursivo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
+msgid "Remember Password"
+msgstr "Recordar contraseña"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
+msgid "Remember this decision"
+msgstr "Recordar esta decisión"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
+msgid "Remove file/directory"
+msgstr "Eliminar archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
+msgid "Repository Head"
+msgstr "Repositorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
+msgid "Repository authorization"
+msgstr "Autorización del repositorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
+msgid "Revert Changes"
+msgstr "Revertir cambios"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
+msgid "Save open files before diffing"
+msgstr "Guardar los archivos abiertos antes de hacer el diff"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
+msgid "Source:"
+msgstr "Origen:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
+msgid "Subversion Preferences"
+msgstr "Preferencias de Subversion"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
+msgid "Switch to branch/tag"
+msgstr "Cambiar a una rama/etiqueta"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
+msgid "Trust server"
+msgstr "Confiar en el servidor"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
+msgid "Update file/directory"
+msgstr "Actualizar archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
+msgid "Use first path"
+msgstr "Usar la primera ruta"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
+msgid "View Log"
+msgstr "Ver el registro"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
+msgid "View Selected Revision"
+msgstr "Ver la revisión seleccionada"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
+msgid "Whole Project"
+msgstr "Proyecto completo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
+msgid "Working Copy"
+msgstr "Copia de trabajo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
+msgid "realm"
+msgstr "reino"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:54 ../plugins/subversion/plugin.c:153
+msgid "_Subversion"
+msgstr "_Subversion"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:64 ../plugins/subversion/plugin.c:171
+msgid "Add a new file/directory to the Subversion tree"
+msgstr "Añadir un archivo/directorio nuevo al árbol Subversion"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:72 ../plugins/subversion/plugin.c:179
+msgid "Remove a file/directory from Subversion tree"
+msgstr "Eliminar un archivo/directorio del árbol Subversion"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:80
+msgid "Commit your changes to the Subversion tree"
+msgstr "Efectuar sus cambios al árbol Subversion"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:86
+msgid "_Revert..."
+msgstr "_Revertir…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:88
+msgid "Revert changes to your working copy."
+msgstr "Revertir los cambios a su copia de trabajo."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:94
+msgid "_Resolve Conflicts..."
+msgstr "_Resolver conflictos…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:96
+msgid "Resolve conflicts in your working copy."
+msgstr "Resolver conflictos en su copia de trabajo."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
+msgid "_Update..."
+msgstr "_Actualizar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:104 ../plugins/subversion/plugin.c:163
+msgid "Sync your local copy with the Subversion tree"
+msgstr "Sincronizar su copia local con el árbol Subversion"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:110
+msgid "Copy Files/Folders..."
+msgstr "Copiar archivos/carpetas…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:112 ../plugins/subversion/plugin.c:195
+msgid "Copy files/folders in the repository"
+msgstr "Copiar archivos/carpetas en el repositorio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:118
+msgid "Switch to a Branch/Tag..."
+msgstr "Cambiar a una rama/etiqueta…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:120
+msgid "Switch your local copy to a branch or tag in the repository"
+msgstr "Cambiar su copia local por una rama o etiqueta del repositorio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:126
+msgid "Merge..."
+msgstr "Mezclar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:128
+msgid "Merge changes into your working copy"
+msgstr "Mezclar los cambios en su copia de trabajo"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
+msgid "_View Log..."
+msgstr "_Ver el registro…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:136 ../plugins/subversion/plugin.c:187
+msgid "View file history"
+msgstr "Ver el histórico del archivo"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:142
+msgid "_Diff..."
+msgstr "_Diff…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:144 ../plugins/subversion/plugin.c:203
+msgid "Diff local tree with repository"
+msgstr "Diff del árbol local con el repositorio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:193
+msgid "Copy..."
+msgstr "Copiar…"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:201
+msgid "Diff..."
+msgstr "Diff…"
+
+#: ../plugins/subversion/plugin.c:444
+msgid "Subversion operations"
+msgstr "Operaciones de Subversion"
+
+#: ../plugins/subversion/plugin.c:450
+msgid "Subversion popup operations"
+msgstr "Operaciones emergentes de Subversion"
+
+#: ../plugins/subversion/plugin.c:478
+msgid "Subversion Log"
+msgstr "Registro de Subversion"
+
+#: ../plugins/subversion/subversion-add-dialog.c:39
+msgid "Subversion: File will be added on next commit."
+msgstr "Subversion: El archivo se añadirá en la siguiente operación."
+
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "Introduzca una ruta."
+
+#: ../plugins/subversion/subversion-commit-dialog.c:39
+msgid "Subversion: Commit complete."
+msgstr "Subversion: Carga completada."
+
+#: ../plugins/subversion/subversion-commit-dialog.c:93
+msgid "Subversion: Committing changes to the repository..."
+msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:138
+msgid "Subversion: Copy complete."
+msgstr "Subversion: Copia completada."
+
+#: ../plugins/subversion/subversion-copy-dialog.c:184
+msgid "Please enter a source path."
+msgstr "Introduzca una ruta de origen."
+
+#: ../plugins/subversion/subversion-copy-dialog.c:190
+msgid "Please enter a destination path."
+msgstr "Introduzca una ruta de destino."
+
+#: ../plugins/subversion/subversion-diff-dialog.c:75
+msgid "[Head/Working Copy]"
+msgstr "[Head/Copia de trabajo]"
+
+#: ../plugins/subversion/subversion-diff-dialog.c:90
+#: ../plugins/subversion/subversion-log-dialog.c:417
+#: ../plugins/subversion/subversion-log-dialog.c:481
+msgid "Subversion: Retrieving diff..."
+msgstr "Subversion: Obteniendo Diff…"
+
+#: ../plugins/subversion/subversion-log-dialog.c:117
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/subversion/subversion-log-dialog.c:130
+msgid "Author"
+msgstr "Autor"
+
+#: ../plugins/subversion/subversion-log-dialog.c:149
+msgid "Revision"
+msgstr "Revisión"
+
+#: ../plugins/subversion/subversion-log-dialog.c:158
+msgid "Short Log"
+msgstr "Registro corto"
+
+#: ../plugins/subversion/subversion-log-dialog.c:255
+msgid "Subversion: Retrieving log..."
+msgstr "Subversion: Obteniendo el registro…"
+
+#: ../plugins/subversion/subversion-log-dialog.c:301
+msgid "Subversion: File retrieved."
+msgstr "Subversion: Archivo obtenido."
+
+#: ../plugins/subversion/subversion-log-dialog.c:343
+msgid "Subversion: Retrieving file..."
+msgstr "Subversion: Obteniendo archivo…"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:36
+msgid "Subversion: Merge complete."
+msgstr "Subversion: Mezcla completada."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:93
+msgid "Please enter the first path."
+msgstr "Introduzca la primera ruta."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:99
+msgid "Please enter the second path."
+msgstr "Introduzca la segunda ruta."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:105
+#: ../plugins/subversion/subversion-switch-dialog.c:100
+msgid "Please enter a working copy path."
+msgstr "Introduzca una ruta de la copia de trabajo."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:119
+msgid "Please enter the start revision."
+msgstr "Introduzca la revisión inicial."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:134
+msgid "Please enter the end revision."
+msgstr "Introduzca la revisión final."
+
+#: ../plugins/subversion/subversion-remove-dialog.c:39
+msgid "Subversion: File will be removed on next commit."
+msgstr "Subversion: El archivo se eliminará en la siguiente operación."
+
+#: ../plugins/subversion/subversion-resolve-dialog.c:36
+msgid "Subversion: Resolve complete."
+msgstr "Subversion: Resolución completada."
+
+#: ../plugins/subversion/subversion-revert-dialog.c:36
+msgid "Subversion: Revert complete."
+msgstr "Subversion: Reversión completada."
+
+#: ../plugins/subversion/subversion-switch-dialog.c:58
+msgid "Subversion: Switch complete."
+msgstr "Subversion: Cambio completado."
+
+#: ../plugins/subversion/subversion-switch-dialog.c:106
+msgid "Please enter a branch/tag URL."
+msgstr "Introduzca una URL de rama/etiqueta."
+
+#: ../plugins/subversion/subversion-ui-utils.c:64
+#: ../plugins/subversion/subversion-ui-utils.c:69
+#: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
+msgid "Subversion"
+msgstr "Subversión"
+
+#: ../plugins/subversion/subversion-ui-utils.c:344
+msgid "Subversion: Diff complete."
+msgstr "Subversion: Diff completado."
+
+#: ../plugins/subversion/subversion-update-dialog.c:39
+msgid "Subversion: Update complete."
+msgstr "Subversion: Actualización completada."
+
+#: ../plugins/subversion/svn-command.c:144
+#: ../plugins/subversion/svn-command.c:200
+msgid "Authentication canceled"
+msgstr "Autenticación cancelada"
+
+#: ../plugins/subversion/svn-command.c:173
+msgid "Hostname: "
+msgstr "Servidor: "
+
+#: ../plugins/subversion/svn-command.c:174
+msgid "Fingerprint: "
+msgstr "Huella: "
+
+#: ../plugins/subversion/svn-command.c:175
+msgid "Valid from: "
+msgstr "Válido desde: "
+
+#: ../plugins/subversion/svn-command.c:176
+msgid "Valid until: "
+msgstr "Válido hasta: "
+
+#: ../plugins/subversion/svn-command.c:177
+msgid "Issuer DN: "
+msgstr "ND del emisor: "
+
+#: ../plugins/subversion/svn-command.c:178
+msgid "DER certificate: "
+msgstr "Certificado DER: "
+
+#: ../plugins/subversion/svn-command.c:325
+#: ../plugins/subversion/svn-command.c:341
+#, c-format
+msgid "Deleted: %s"
+msgstr "Borrados: %s"
+
+#: ../plugins/subversion/svn-command.c:328
+#: ../plugins/subversion/svn-command.c:347
+#, c-format
+msgid "Added: %s"
+msgstr "Añadidos: %s"
+
+#: ../plugins/subversion/svn-command.c:338
+#, c-format
+msgid "Resolved: %s"
+msgstr "Resueltos: %s"
+
+#: ../plugins/subversion/svn-command.c:344
+#, c-format
+msgid "Updated: %s"
+msgstr "Actualizados: %s"
+
+#: ../plugins/subversion/svn-command.c:350
+#, c-format
+msgid "Externally Updated: %s"
+msgstr "Actualizados externamente: %s"
+
+#: ../plugins/subversion/svn-command.c:384
+#, c-format
+msgid "Modified: %s"
+msgstr "Modificados: %s"
+
+#: ../plugins/subversion/svn-command.c:387
+#, c-format
+msgid "Merged: %s"
+msgstr "Mezclados: %s"
+
+#: ../plugins/subversion/svn-command.c:390
+#, c-format
+msgid "Conflicted: %s"
+msgstr "Con conflictos: %s"
+
+#: ../plugins/subversion/svn-command.c:394
+#, c-format
+msgid "Missing: %s"
+msgstr "Faltan: %s"
+
+#: ../plugins/subversion/svn-command.c:397
+#, c-format
+msgid "Obstructed: %s"
+msgstr "Obstruídos: %s"
+
+#: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
+#: ../plugins/symbol-browser/an_symbol_view.c:569
+msgid "Symbol"
+msgstr "Símbolo"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:327
+#: ../plugins/symbol-browser/an_symbol_prefs.c:523
+msgid "Select directory"
+msgstr "Seleccionar directorio"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:392
+msgid "Directories to scan"
+msgstr "Directorios que escrutar"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:432
+msgid "Please enter a name and at least one directory."
+msgstr "Seleccione un nombre y al menos un directorio."
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:532
+msgid "Anjuta tags files"
+msgstr "Archivos de etiquetas de Anjuta"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:667
+#, c-format
+msgid "Scanning package: %s"
+msgstr "Escaneando el paquete: %s"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:722
+msgid "Completed system tags generation"
+msgstr "Se completó la generación de etiquetas del sistema"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:757
+#: ../plugins/symbol-browser/an_symbol_prefs.c:851
+#: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:1
+msgid "Symbol Browser"
+msgstr "Examinador de símbolos"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:776
+#: ../plugins/symbol-db/symbol-db-prefs.c:477
+msgid "API Tags"
+msgstr "Etiquetas del API"
+
+#: ../plugins/symbol-browser/an_symbol_view.c:204
+msgid "No file details"
+msgstr "Sin detalles de los archivos"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
+msgid "<b>Available API tags:</b>"
+msgstr "<b>Etiquetas del API disponibles:</b>"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
+msgid "<b>Create API tags:</b>"
+msgstr "<b>Crear etiquetas del API:</b>"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+msgid "Add Directory"
+msgstr "Añadir directorio"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
+msgid "Add directories in the list to scan:"
+msgstr "Añadir directorios en la lista para escrutar:"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
+msgid "Create API tags"
+msgstr "Crear etiquetas del API"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+msgid "Load API tags from project configuration"
+msgstr "Cargar las etiquetas de la API desde la configuración del proyecto"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
+msgid "Update Global Tags"
+msgstr "Actualizar etiquetas globales"
+
+#: ../plugins/symbol-browser/plugin.c:268
+msgid "Tag _Definition"
+msgstr "_Definición de etiqueta"
+
+#: ../plugins/symbol-browser/plugin.c:270
+#: ../plugins/symbol-browser/plugin.c:290
+msgid "Goto symbol definition"
+msgstr "Ir a definición del símbolo"
+
+#: ../plugins/symbol-browser/plugin.c:276
+msgid "Tag De_claration"
+msgstr "Declaración de _etiqueta"
+
+#: ../plugins/symbol-browser/plugin.c:278
+#: ../plugins/symbol-browser/plugin.c:298
+msgid "Goto symbol declaration"
+msgstr "Ir a declaración del símbolo"
+
+#: ../plugins/symbol-browser/plugin.c:288
+msgid "Goto _Definition"
+msgstr "_Definición goto"
+
+#: ../plugins/symbol-browser/plugin.c:296
+msgid "Goto De_claration"
+msgstr "_Declaración goto"
+
+#: ../plugins/symbol-browser/plugin.c:304
+msgid "_Find Usage"
+msgstr "_Buscar uso"
+
+#: ../plugins/symbol-browser/plugin.c:306
+msgid "Find usage of symbol in project"
+msgstr "Buscar uso del símbolo en el proyecto"
+
+#: ../plugins/symbol-browser/plugin.c:314
+msgid "Refresh symbol browser tree"
+msgstr "Refrescar el árbol del explorador de símbolos"
+
+#: ../plugins/symbol-browser/plugin.c:385
+msgid "Created symbols..."
+msgstr "Símbolos creados…"
+
+#. Local symbols of the file
+#: ../plugins/symbol-browser/plugin.c:916
+msgid "Local"
+msgstr "Local"
+
+#. Global project-wide symbols
+#: ../plugins/symbol-browser/plugin.c:936
+msgid "Global"
+msgstr "Global"
+
+#: ../plugins/symbol-browser/plugin.c:980
+msgid "Symbol browser actions"
+msgstr "Acciones del explorador de símbolos"
+
+#: ../plugins/symbol-browser/plugin.c:987
+msgid "Symbol browser popup actions"
+msgstr "Acciones emergentes el explorador de símbolos"
+
+#: ../plugins/symbol-browser/plugin.c:994
+msgid "Symbol navigations"
+msgstr "Navegación de símbolos"
+
+#: ../plugins/symbol-browser/plugin.c:1003
+msgid "Symbols"
+msgstr "Símbolos"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:278
+msgid "Package is not parseable"
+msgstr "El paquete no se puede analizar"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:393
+#: ../plugins/symbol-db/symbol-db-prefs.c:528
+msgid "Symbol Database"
+msgstr "Base de datos de símbolos"
+
+#: ../plugins/symbol-db/symbol-db-system.c:761
+msgid "Resuming glb scan."
+msgstr "Resumiendo el escáner glb."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
+msgid "<b>Available API tags</b>"
+msgstr "<b>Etiquetas de la API disponibles</b>"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+msgid "Automatically scan project's packages"
+msgstr "Analizar automáticamente los paquetes del proyecto"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Checking if package is parseable..."
+msgstr "Comprobando si el paquete se puede analizar…"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+msgid "Choose ctags executable"
+msgstr "Seleccionar las ctags ejecutables"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+msgid "Ctags executable:"
+msgstr "Ctags ejecutables:"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
+msgid "<b>Terminal options</b>"
+msgstr "<b>Opciones de terminal</b>"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid ""
+"Default\n"
+"\n"
+msgstr ""
+"Predeterminado\n"
+"\n"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
+msgid "Use GNOME terminal profile:"
+msgstr "Usar el perfil del terminal de GNOME:"
+
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:6
+msgid "Use currently selected profile in GNOME terminal"
+msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
+
+#: ../plugins/terminal/terminal.c:603
+msgid "terminal operations"
+msgstr "operaciones en la terminal"
+
+#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:774
+#: ../plugins/terminal/terminal.c:827
+#: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
+msgid "Terminal"
+msgstr "Terminal"
+
+#: ../plugins/tools/anjuta-tools.glade.h:1
+msgid "<b>Tools</b>"
+msgstr "<b>Herramientas</b>"
+
+#: ../plugins/tools/anjuta-tools.glade.h:2
+msgid "Command:"
+msgstr "Comando:"
+
+#: ../plugins/tools/anjuta-tools.glade.h:3
+msgid "Edit as script"
+msgstr "Editar como script"
+
+#: ../plugins/tools/anjuta-tools.glade.h:4
+msgid "Edit command as script in Anjuta on close"
+msgstr "Editar comando como script de Anjuta al cerrar"
+
+#: ../plugins/tools/anjuta-tools.glade.h:7
+msgid "Parameters:"
+msgstr "Parámetros:"
+
+#: ../plugins/tools/anjuta-tools.glade.h:9
+msgid "Save all files"
+msgstr "Guardar todos los archivos"
+
+#: ../plugins/tools/anjuta-tools.glade.h:10
+msgid "Short cut:"
+msgstr "Tecla rápida:"
+
+#. This is the Unix stderr, see http://en.wikipedia.org/wiki/Standard_streams
+#: ../plugins/tools/anjuta-tools.glade.h:12
+msgid "Standard error:"
+msgstr "Error estándar:"
+
+#. This is the Unix stdin. See http://en.wikipedia.org/wiki/Standard_streams
+#: ../plugins/tools/anjuta-tools.glade.h:14
+msgid "Standard input:"
+msgstr "Entrada estándar:"
+
+#. This is the standard Unis stdout, see http://en.wikipedia.org/wiki/Standard_streams
+#: ../plugins/tools/anjuta-tools.glade.h:16
+msgid "Standard output:"
+msgstr "Salida estándar:"
+
+#: ../plugins/tools/anjuta-tools.glade.h:17
+msgid "Tool Editor"
+msgstr "Editor de herramientas"
+
+#: ../plugins/tools/anjuta-tools.glade.h:18
+msgid "Variable list"
+msgstr "Lista de variables"
+
+#: ../plugins/tools/anjuta-tools.glade.h:19
+msgid "Working directory:"
+msgstr "Directorio de trabajo:"
+
+#: ../plugins/tools/anjuta-tools.glade.h:20
+msgid "_Variable..."
+msgstr "_Variable…"
+
+#: ../plugins/tools/dialog.c:176
+#, c-format
+msgid "Are you sure you want to delete the '%s' tool?"
+msgstr "¿Está seguro de querer borrar la herramienta «%s»?"
+
+#: ../plugins/tools/dialog.c:335
+msgid "Tool"
+msgstr "Herramienta"
+
+#: ../plugins/tools/editor.c:305
+msgid "ask at runtime"
+msgstr "preguntar en tiempo de ejecución"
+
+#: ../plugins/tools/editor.c:310
+msgid "undefined"
+msgstr "indefinido"
+
+#: ../plugins/tools/editor.c:444
+msgid "Unable to build user interface for tool variable"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la herramienta de variable"
+
+#: ../plugins/tools/editor.c:460
+msgid "Meaning"
+msgstr "Significado"
+
+#: ../plugins/tools/editor.c:535
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: ../plugins/tools/editor.c:697
+msgid "You must provide a tool name!"
+msgstr "Debe proporcionar un nombre de herramienta."
+
+#: ../plugins/tools/editor.c:705
+msgid "You must provide a tool command!"
+msgstr "Debe proporcionar un comando de herramienta."
+
+#: ../plugins/tools/editor.c:713
+msgid "A tool with the same name already exists!"
+msgstr "Ya existe una herramienta con el mismo nombre."
+
+#: ../plugins/tools/editor.c:730
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
+msgstr ""
+"La combinación ya se usa en otro componente de Anjuta. ¿Quiere conservarlo "
+"de todas formas?"
+
+#: ../plugins/tools/editor.c:818
+msgid "Unable to edit script"
+msgstr "No se puede editar el script"
+
+#: ../plugins/tools/editor.c:954
+msgid "New accelerator..."
+msgstr "Acelerador nuevo…"
+
+#: ../plugins/tools/editor.c:979
+msgid "Unable to build user interface for tool editor"
+msgstr ""
+"No se pudo construir el interfaz de usuario para el editor de herramientas"
+
+#: ../plugins/tools/execute.c:313
+#, c-format
+msgid "Opening %s"
+msgstr "Abriendo %s"
+
+#: ../plugins/tools/execute.c:334
+msgid "error:"
+msgstr "error:"
+
+#. This is append to the tool name to give something
+#. * like "My tools (output)". It's used to name the message
+#. * pane where the output of the tool is send to
+#.
+#: ../plugins/tools/execute.c:408
+msgid "(output)"
+msgstr "(salida)"
+
+#. This is append to the tool name to give something
+#. * like "My tools (error)". It's used to name the message
+#. * pane where the errors of the tool is send to
+#.
+#: ../plugins/tools/execute.c:416
+msgid "(error)"
+msgstr "(error)"
+
+#: ../plugins/tools/execute.c:467
+msgid "Running command: "
+msgstr "Comando en ejecución: "
+
+#: ../plugins/tools/execute.c:507
+#, c-format
+msgid "Completed unsuccessful with status code %d\n"
+msgstr "Completado incorrectamente con el código de estado %d\n"
+
+#: ../plugins/tools/execute.c:627
+msgid "Unable to create a buffer, command aborted"
+msgstr "No se puede crear un búfer, comando abortado"
+
+#: ../plugins/tools/execute.c:639
+msgid "No document currently open, command aborted"
+msgstr "Actualmente no hay ningún documento abierto, comando abortado"
+
+#: ../plugins/tools/execute.c:1017
+#, c-format
+msgid "Unable to open input file %s, command aborted"
+msgstr "No se puede abrir el archivo de entrada %s, comando abortado"
+
+#: ../plugins/tools/fileop.c:248
+msgid "Missing tool name"
+msgstr "Falta el nombre de la herramienta"
+
+#: ../plugins/tools/fileop.c:258
+#, c-format
+msgid "Unexpected element \"%s\""
+msgstr "Elemento inesperado «%s»"
+
+#: ../plugins/tools/fileop.c:537
+msgid "Error when loading external tools"
+msgstr "Error al cargar herramientas externas"
+
+#: ../plugins/tools/fileop.c:703
+#, c-format
+msgid "Unable to open %s for writing"
+msgstr "No se puede abrir el archivo %s para escribir"
+
+#: ../plugins/tools/plugin.c:180
+msgid "Tool operations"
+msgstr "Operaciones con herramientas"
+
+#: ../plugins/tools/plugin.c:253 ../plugins/tools/plugin.c:260
+#: ../plugins/tools/anjuta-tools.plugin.in.h:1
+msgid "Tools"
+msgstr "Herramientas"
+
+#: ../plugins/tools/variable.c:491
+msgid "Command line parameters"
+msgstr "Parámetros del comando"
+
+#: ../plugins/tools/tool.c:81
+msgid "Same than output"
+msgstr "La misma que la salida"
+
+#: ../plugins/tools/tool.c:82
+msgid "Existing message pane"
+msgstr "Panel de mensajes existente"
+
+#: ../plugins/tools/tool.c:83
+msgid "New message pane"
+msgstr "Panel de mensajes nuevo"
+
+#: ../plugins/tools/tool.c:84
+msgid "New buffer"
+msgstr "Búfer nuevo"
+
+#: ../plugins/tools/tool.c:85
+msgid "Replace buffer"
+msgstr "Reemplazar búfer"
+
+#: ../plugins/tools/tool.c:86
+msgid "Insert in buffer"
+msgstr "Insertar en el búfer"
+
+#: ../plugins/tools/tool.c:87
+msgid "Append to buffer"
+msgstr "Añadir al búfer"
+
+#: ../plugins/tools/tool.c:88
+msgid "Replace selection"
+msgstr "Reemplazar selección"
+
+#: ../plugins/tools/tool.c:89
+msgid "Popup dialog"
+msgstr "Diálogo emergente"
+
+#: ../plugins/tools/tool.c:90
+msgid "Discard output"
+msgstr "Descartar la salida"
+
+#: ../plugins/tools/tool.c:95
+msgid "None"
+msgstr "Ninguna"
+
+#: ../plugins/tools/tool.c:96
+msgid "Current buffer"
+msgstr "Búfer actual"
+
+#: ../plugins/tools/tool.c:97
+msgid "Current selection"
+msgstr "Selección actual"
+
+#: ../plugins/tools/tool.c:98
+msgid "String"
+msgstr "Cadena"
+
+#: ../plugins/valgrind/anjuta-valgrind.glade.h:1
+msgid "<b>Program to test:</b>"
+msgstr "<b>Programa a probar:</b>"
+
+#: ../plugins/valgrind/anjuta-valgrind.glade.h:2
+msgid "<b>Valgrind</b>"
+msgstr "<b>Valgrind</b>"
+
+#: ../plugins/valgrind/anjuta-valgrind.glade.h:3
+msgid ""
+"Memcheck\n"
+"Addrcheck\n"
+"Helgrind"
+msgstr ""
+"Memcheck\n"
+"Addrcheck\n"
+"Helgrind"
+
+#: ../plugins/valgrind/anjuta-valgrind.glade.h:7
+msgid "Select Tool:"
+msgstr "Herramienta de selección:"
+
+#: ../plugins/valgrind/anjuta-valgrind.glade.h:8
+msgid "Select Valgrind Target"
+msgstr "Seleccione el objetivo Valgrind"
+
+#: ../plugins/valgrind/plugin.c:137
+msgid "Options"
+msgstr "Opciones"
+
+#: ../plugins/valgrind/plugin.c:250
+msgid "Select debugging target"
+msgstr "Seleccione el objetivo de depuración"
+
+#: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
+#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:670
+msgid "Valgrind"
+msgstr "Valgrind"
+
+#: ../plugins/valgrind/plugin.c:332
+msgid ""
+"No executable target selected for debugging with Valgrind. Please select one."
+msgstr ""
+"No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
+"Seleccione uno."
+
+#: ../plugins/valgrind/plugin.c:341
+msgid ""
+"There aren't any available executable targets for this project.\n"
+"Please create one first."
+msgstr ""
+"No hay ningún objetivo ejecutable disponible para este proyecto.\n"
+"Cree uno primero."
+
+#: ../plugins/valgrind/plugin.c:353
+msgid "Choose file where to save Valgrind log"
+msgstr "Elija el archivo donde guardar el registro de Valgrind"
+
+#: ../plugins/valgrind/plugin.c:403
+msgid "Open Valgrind log file"
+msgstr "Abrir archivo de registros Valgrind"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:445
+msgid "_Valgrind"
+msgstr "_Valgrind"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:453
+msgid "_Select Tool and Run..."
+msgstr "_Seleccionar herramienta y ejecutar…"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:461
+msgid "_Kill Execution"
+msgstr "_Matar ejecución"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:469
+msgid "_Load Log"
+msgstr "_Cargar registro"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:477
+msgid "S_ave Log"
+msgstr "Guardar _registro"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/valgrind/plugin.c:485
+msgid "Edit Rules"
+msgstr "Editar reglas"
+
+#: ../plugins/valgrind/plugin.c:550
+msgid "Use Valgrind debug tool"
+msgstr "Usar herramienta de depuración Valgrind"
+
+#: ../plugins/valgrind/preferences.c:123
+msgid "<b>Valgrind general preferences</b>"
+msgstr "<b>Preferencias generales de Valgrind</b>"
+
+#: ../plugins/valgrind/preferences.c:129
+msgid "Valgrind binary file path:"
+msgstr "Ruta al binario Valgrind:"
+
+#: ../plugins/valgrind/preferences.c:143
+msgid "Choose Valgrind Binary File Path..."
+msgstr "Elija la ruta al archivo binario Valgrind…"
+
+#: ../plugins/valgrind/preferences.c:162
+msgid "Preview"
+msgstr "Vista previa"
+
+#: ../plugins/valgrind/preferences.c:175
+msgid "lines above and below the target line."
+msgstr "líneas arriba y abajo de la línea objetivo."
+
+#: ../plugins/valgrind/process.c:55
+#, c-format
+msgid "Failed to create pipe to '%s': %s"
+msgstr "Falló al crear el pipe a «%s»: %s"
+
+#: ../plugins/valgrind/process.c:110
+#, c-format
+msgid "Failed to create child process '%s': %s"
+msgstr "Falló al cargar el proceso hijo «%s»: %s"
+
+#: ../plugins/valgrind/vgactions.c:168
+msgid "Reached the end of the input file or error in parsing valgrind output."
+msgstr ""
+"Se llegó al final del archivo de entrada o un error al analizar la salida de "
+"valgrind."
+
+#: ../plugins/valgrind/vgactions.c:177
+msgid "Process exited."
+msgstr "El proceso salió."
+
+#: ../plugins/valgrind/vgactions.c:197
+msgid "Could not get the right valgrind-binary gconf key:"
+msgstr "No se puedo obtener la clave gconf correcta del binario de valgrind:"
+
+#: ../plugins/valgrind/vgactions.c:205
+#, c-format
+msgid ""
+"Valgrind binary [%s] does not exist. Please check the preferences or install "
+"Valgrind package."
+msgstr ""
+"El binario Valgrind [%s] no existe. Compruebe las preferencias o instale el "
+"paquete Valgrind."
+
+#: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
+msgid "Could not get the right pipe for the process."
+msgstr "No se puedo obtener el conducto correcto para el proceso."
+
+#: ../plugins/valgrind/vgcachegrindprefs.c:197
+#, c-format
+msgid ""
+"Invalid syntax in settings '%s'.\n"
+"Please enter a value of the form \"<integer>,<integer>,<integer>\"."
+msgstr ""
+"Sintaxis inválida en la configuración de «%s».\n"
+"Introduzca un valor en la forma \"<integer>,<integer>,<integer>\"."
+
+#: ../plugins/valgrind/vgcachegrindprefs.c:234
+msgid "Override default settings"
+msgstr "Tomar precedencia sobre la configuración predeterminada"
+
+#. This is the format of the preference, simply translate the words
+#. * inside the <>
+#: ../plugins/valgrind/vgcachegrindprefs.c:246
+msgid "Enter <size>,<assoc>,<line_size>:"
+msgstr "Introduzca <size>,<assoc>,<line_size>:"
+
+#: ../plugins/valgrind/vgcachegrindprefs.c:280
+msgid "Cachegrind"
+msgstr "Cachegrind"
+
+#: ../plugins/valgrind/vgdefaultview.c:190
+msgid "Error contains"
+msgstr "El error contiene"
+
+#: ../plugins/valgrind/vgdefaultview.c:191
+msgid "Function contains"
+msgstr "La función contiene"
+
+#: ../plugins/valgrind/vgdefaultview.c:192
+msgid "Object contains"
+msgstr "El objeto contiene"
+
+#: ../plugins/valgrind/vgdefaultview.c:193
+msgid "Source filename contains"
+msgstr "El nombre del fuente contiene"
+
+#: ../plugins/valgrind/vgdefaultview.c:230
+#, c-format
+msgid "Invalid regular expression: '%s': %s"
+msgstr "Expresión regular inválida: «%s»: %s"
+
+#. FIXME: we should really get this title from somewhere else?
+#: ../plugins/valgrind/vgdefaultview.c:758
+msgid "Valgrind Suppression Rules"
+msgstr "Reglas de supresión Valgrind"
+
+#. FIXME: we should really get this title from somewhere else?
+#: ../plugins/valgrind/vgdefaultview.c:1103
+#: ../plugins/valgrind/vgrule-list.c:135
+msgid "Valgrind Suppression"
+msgstr "Supresión Valgrind"
+
+#: ../plugins/valgrind/vgdefaultview.c:1151
+msgid "Cu_t"
+msgstr "Cor_tar"
+
+#: ../plugins/valgrind/vgdefaultview.c:1155
+msgid "Suppress"
+msgstr "Supresión"
+
+#: ../plugins/valgrind/vgdefaultview.c:1157
+msgid "Edit in Custom Editor"
+msgstr "Editar en un editor personalizado"
+
+#. demangle = decode C++ name encoding
+#: ../plugins/valgrind/vggeneralprefs.c:180
+msgid "Demangle C++ symbol names"
+msgstr "Desrevolver los nombres de símbolos C++"
+
+#: ../plugins/valgrind/vggeneralprefs.c:188
+msgid "Show"
+msgstr "Mostrar"
+
+#: ../plugins/valgrind/vggeneralprefs.c:200
+msgid "callers in stack trace"
+msgstr "llamadores en una traza de pila"
+
+#: ../plugins/valgrind/vggeneralprefs.c:207
+msgid "Stop showing errors if there are too many"
+msgstr "Parar de mostrar errores si hay demasiados"
+
+#: ../plugins/valgrind/vggeneralprefs.c:215
+msgid "Round malloc sizes to next word"
+msgstr "Redondear tamaños de malloc a la siguiente palabra"
+
+#: ../plugins/valgrind/vggeneralprefs.c:223
+msgid "Trace any child processes forked off by the program being debugged"
+msgstr ""
+"Trazar cualquier proceso bifurcado por el programa que se está depurando"
+
+#: ../plugins/valgrind/vggeneralprefs.c:231
+msgid "Track open file descriptors"
+msgstr "Seguimiento de descriptores de archivos abiertos"
+
+#: ../plugins/valgrind/vggeneralprefs.c:239
+msgid "Add time stamps to log messages"
+msgstr "Añadir sello temporal a los mensajes de registro"
+
+#: ../plugins/valgrind/vggeneralprefs.c:247
+msgid "Call __libc_freeres() at exit before checking for memory leaks"
+msgstr ""
+"Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
+
+#: ../plugins/valgrind/vggeneralprefs.c:255
+msgid "Suppressions File:"
+msgstr "Archivo de supresiones:"
+
+#: ../plugins/valgrind/vggeneralprefs.c:275
+msgid "Choose Valgrind Suppressions File..."
+msgstr "Elija el archivos de supresiones Valgrind…"
+
+#: ../plugins/valgrind/vghelgrindprefs.c:165
+msgid "Helgrind"
+msgstr "Helgrind"
+
+#: ../plugins/valgrind/vghelgrindprefs.c:170
+msgid "Assume thread stacks are used privately"
+msgstr "Asumir que las pilas del hilo se usan de forma privada"
+
+#: ../plugins/valgrind/vghelgrindprefs.c:179
+msgid "Show location of last word access on error:"
+msgstr "Mostrar la ubicación del acceso de la última palabra en el error:"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:189
+msgid "Memcheck"
+msgstr "Comprobación de memoria"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:194
+msgid "Memory leaks"
+msgstr "Pérdidas de memoria"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:199
+msgid "Leak check:"
+msgstr "Comprobación de pérdida:"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:210
+msgid "Show reachable blocks in leak check"
+msgstr "Mostrar bloques accesibles en la comprobación de pérdidas"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:218
+msgid "Leak resolution:"
+msgstr "Resolución de pérdidas:"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:236
+msgid "Keep up to"
+msgstr "Mantener hasta"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:248
+msgid "bytes in the queue after being free()'d"
+msgstr "bytes en la cola después de aplicarles free()"
+
+#: ../plugins/valgrind/vgmemcheckprefs.c:255
+msgid "Work around bugs generated by gcc 2.96"
+msgstr "Solucionar errores producidos por gcc 2.96"
+
+#: ../plugins/valgrind/vgrule-editor.c:197
+msgid "Grow"
+msgstr "Agrandar"
+
+#: ../plugins/valgrind/vgrule-editor.c:201
+msgid "Shrink"
+msgstr "Encoger"
+
+#: ../plugins/valgrind/vgrule-editor.c:227
+msgid "Rule name:"
+msgstr "Nombre de la regla:"
+
+#: ../plugins/valgrind/vgrule-editor.c:237
+msgid "Suppress messages of type:"
+msgstr "Suprimir mensajes del tipo:"
+
+#: ../plugins/valgrind/vgrule-editor.c:247
+msgid "Suppress when using:"
+msgstr "Suprimir al usar:"
+
+#: ../plugins/valgrind/vgrule-editor.c:260
+msgid "System call:"
+msgstr "Llamada al sistema:"
+
+#: ../plugins/valgrind/vgrule-editor.c:271
+msgid "Call chain:"
+msgstr "Cadena de llamadas:"
+
+#: ../plugins/valgrind/vgrule-editor.c:529
+#: ../plugins/valgrind/vgrule-editor.c:544
+#, c-format
+msgid "Error saving to suppression file '%s': %s"
+msgstr "Error al guardar en el archivo de supresión «%s»: %s"
+
+#: ../plugins/valgrind/vgrule-list.c:177 ../plugins/valgrind/vgrule-list.c:246
+msgid "You have forgotten to name your suppression rule."
+msgstr "Ha olvidado nombrar su regla de supresión."
+
+#: ../plugins/valgrind/vgrule-list.c:651
+#, c-format
+msgid "Cannot save suppression rules: %s"
+msgstr "No se pueden guardar las reglas de supresión: %s"
+
+#: ../plugins/valgrind/vgrule-list.c:653
+msgid "You have not set a suppressions file in your settings."
+msgstr "No ha establecido un archivo de supresiones en su configuración."
+
+#: ../src/about.c:185
+msgid "Copyright (c) Naba Kumar"
+msgstr "Copyright © Naba Kumar"
+
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "Complemento de Anjuta"
+
+#: ../src/anjuta.c:495
+msgid "Loaded Session..."
+msgstr "Sesión cargada…"
+
+#: ../src/anjuta.glade.h:1
+msgid "<b>Appearance</b>"
+msgstr "<b>Apariencia</b>"
+
+#: ../src/anjuta.glade.h:2
+msgid "<b>Project Defaults</b>"
+msgstr "<b>Valores predeterminados del proyecto</b>"
+
+#: ../src/anjuta.glade.h:3
+msgid "<b>Session</b>"
+msgstr "<b>Sesión</b>"
+
+#: ../src/anjuta.glade.h:4
+msgid ""
+"Default\n"
+"Text below icons\n"
+"Text beside icons\n"
+"Icons only\n"
+"Text only"
+msgstr ""
+"Predeterminado\n"
+"Texto debajo de los iconos\n"
+"Texto junto a los iconos\n"
+"Sólo iconos\n"
+"Sólo texto"
+
+#: ../src/anjuta.glade.h:9
+msgid "Default project directory:"
+msgstr "Directorio de proyecto predeterminado:"
+
+#: ../src/anjuta.glade.h:10
+msgid "Developer email address:"
+msgstr "Correo-e del desarrollador:"
+
+#: ../src/anjuta.glade.h:11
+msgid "Developer name:"
+msgstr "Nombre del desarrollador:"
+
+#: ../src/anjuta.glade.h:12
+msgid "Do not load last project and files on startup"
+msgstr "No cargar el último proyecto y los archivos al iniciar"
+
+#: ../src/anjuta.glade.h:13
+msgid "Do not load last session on startup"
+msgstr "No cargar la última sesión al iniciar"
+
+#. Style of the buttons/tabs used to select docked windows in anjuta
+#: ../src/anjuta.glade.h:15
+msgid "Dock switcher style:"
+msgstr "Estilo de los anclajes:"
+
+#: ../src/anjuta.glade.h:17
+msgid "Select projects directory"
+msgstr "Seleccionar el directorio de proyectos"
+
+#: ../src/anjuta.glade.h:18
+msgid ""
+"Text\n"
+"Icons\n"
+"Text + Icons\n"
+"Gnome toolbar setting\n"
+"Tabs"
+msgstr ""
+"Texto\n"
+"Iconos\n"
+"Texto e iconos\n"
+"Ajustes de la barra de herramientas de GNOME\n"
+"Solapas"
+
+#. translators: translate the same as in gnome-control-center
+#: ../src/anjuta.glade.h:24
+msgid "Toolbar button labels:"
+msgstr "Etiquetas de los botones de la barra de herramientas:"
+
+#: ../src/anjuta-actions.h:23
+msgid "_File"
+msgstr "_Archivo"
+
+#: ../src/anjuta-actions.h:24
+msgid "_Quit"
+msgstr "_Salir"
+
+#: ../src/anjuta-actions.h:25
+msgid "Quit Anjuta IDE"
+msgstr "Salir del IDE Anjuta"
+
+#: ../src/anjuta-actions.h:32
+msgid "_Preferences"
+msgstr "Prefere_ncias"
+
+#: ../src/anjuta-actions.h:33
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr "¿Prefieres té o café? Descúbralo."
+
+#: ../src/anjuta-actions.h:40
+msgid "_Reset Dock Layout"
+msgstr "_Restaurar distribución del empotrable"
+
+#: ../src/anjuta-actions.h:41
+msgid "Reset the widgets docking layout to default"
+msgstr "Restaura la distribución de los widgets a la predeterminada"
+
+#: ../src/anjuta-actions.h:43
+msgid "_Toolbars"
+msgstr "Herramien_tas"
+
+#: ../src/anjuta-actions.h:48
+msgid "_Full Screen"
+msgstr "Pantalla _completa"
+
+#: ../src/anjuta-actions.h:49
+msgid "Toggle fullscreen mode"
+msgstr "Cambiar a modo a pantalla completa"
+
+#: ../src/anjuta-actions.h:52
+msgid "_Lock Dock Layout"
+msgstr "_Bloquear distribución del empotrable"
+
+#: ../src/anjuta-actions.h:53
+msgid "Lock the current dock layout so that widgets cannot be moved"
+msgstr ""
+"Bloquea la distribución del empotrable actual de manera que los widgets no "
+"se puedan mover"
+
+#: ../src/anjuta-actions.h:58
+msgid "_Help"
+msgstr "Ay_uda"
+
+#: ../src/anjuta-actions.h:60
+msgid "_User's Manual"
+msgstr "Manual del _usuario"
+
+#: ../src/anjuta-actions.h:61
+msgid "Anjuta user's manual"
+msgstr "Manual del usuario de Anjuta"
+
+#: ../src/anjuta-actions.h:64
+msgid "Kick start _tutorial"
+msgstr "_Cursillo acelerado"
+
+#: ../src/anjuta-actions.h:65
+msgid "Anjuta Kick start tutorial"
+msgstr "Cursillo de acelerado de Anjuta"
+
+#: ../src/anjuta-actions.h:68
+msgid "_Advanced tutorial"
+msgstr "Cursillo _avanzado"
+
+#: ../src/anjuta-actions.h:69
+msgid "Anjuta advanced tutorial"
+msgstr "Cursillo avanzado de Anjuta"
+
+#: ../src/anjuta-actions.h:72
+msgid "_Frequently Asked Questions"
+msgstr "Preguntas _frecuentes"
+
+#: ../src/anjuta-actions.h:73
+msgid "Anjuta frequently asked questions"
+msgstr "Preguntas frecuentes sobre Anjuta"
+
+#: ../src/anjuta-actions.h:76
+msgid "Anjuta _Home Page"
+msgstr "Página _web de Anjuta"
+
+#: ../src/anjuta-actions.h:77
+msgid "Online documentation and resources"
+msgstr "Documentación en línea e información"
+
+#: ../src/anjuta-actions.h:80
+msgid "Report _Bugs/Patches/Requests"
+msgstr "Informar de _Fallos/Parches/Peticiones"
+
+#: ../src/anjuta-actions.h:81
+msgid "Submit a bug report, patch or feature request for Anjuta"
+msgstr ""
+"Envíe un informe de fallos, parche o una petición de una característica "
+"nueva para Anjuta"
+
+#: ../src/anjuta-actions.h:84
+msgid "Ask a _Question"
+msgstr "_Preguntar"
+
+#: ../src/anjuta-actions.h:85
+msgid "Submit a question for FAQs"
+msgstr "Enviar preguntas para las P+F (Preguntas más frecuentes)"
+
+#: ../src/anjuta-actions.h:88
+msgid "_About"
+msgstr "A_cerca de"
+
+#: ../src/anjuta-actions.h:89
+msgid "About Anjuta"
+msgstr "Acerca de Anjuta"
+
+#: ../src/anjuta-actions.h:92
+msgid "About External _Plugins"
+msgstr "Acerca de los com_plementos de Anjuta"
+
+#: ../src/anjuta-actions.h:93
+msgid "About third party Anjuta plugins"
+msgstr "Acerca de los complementos de terceros"
+
+#: ../src/anjuta-app.c:683
+msgid "Edit"
+msgstr "Editar"
+
+#: ../src/anjuta-app.c:687 ../src/anjuta-app.c:692
+msgid "View"
+msgstr "Vista"
+
+#: ../src/anjuta-app.c:925
+msgid "Installed plugins"
+msgstr "Complementos instalados"
+
+#: ../src/anjuta-app.c:929
+msgid "Shortcuts"
+msgstr "Combinaciones de teclas"
+
+#: ../src/anjuta-app.c:1001
+#, c-format
+msgid "Value doesn't exist"
+msgstr "El valor no existe"
+
+#: ../src/main.c:70
+msgid "Specify the size and location of the main window"
+msgstr "Especificar el tamaño y ubicación de la ventana principal"
+
+#. This is the format you can specify the size andposition
+#. * of the window on command line
+#: ../src/main.c:73
+msgid "WIDTHxHEIGHT+XOFF+YOFF"
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
+
+#: ../src/main.c:78
+msgid "Do not show the splashscreen"
+msgstr "No mostrar la pantalla de inicio"
+
+#: ../src/main.c:84
+msgid "Start a new instance and do not open the file in a existing"
+msgstr "Iniciar una instancia nueva y no abrir el archivo en la existente"
+
+#: ../src/main.c:90
+msgid "Do not open last session on startup"
+msgstr "No abrir la última sesión al iniciar"
+
+#: ../src/main.c:96
+msgid "Do not open last project and files on startup"
+msgstr "No abrir el último proyecto y los archivos al iniciar"
+
+#: ../src/main.c:102
+msgid "Shutdown anjuta properly releasing all resources (for debugging)"
+msgstr ""
+"Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
+
+#: ../src/main.c:316
+msgid "- Integrated Development Environment"
+msgstr "- Entorno Integrado de Desarrollo"
+
+#: ../src/main.c:381
+msgid "Anjuta"
+msgstr "Anjuta"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
+msgid "<b>Autocompletion (C/C++/Java only)</b>"
+msgstr "<b>Autocompletado (sólo C/C++/Java)</b>"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
+msgid "<b>Calltips</b>"
+msgstr "<b>Consejos de llamada</b>"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
+msgid "<b>Indentation parameters</b>"
+msgstr "<b>Parámetros de la sangría</b>"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
+msgid "<b>Smart Indentation</b>"
+msgstr "<b>Sangrado inteligente</b>"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
+msgid "Add '(' after function call autocompletion"
+msgstr "Añadir «(» después de la llamada de autocompletado de la función"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
+msgid "Add a space after function call autocompletion"
+msgstr ""
+"Añadir un espacio después de la llamada de autocompletado de la función"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
+msgid "Autocomplete"
+msgstr "Autocompletar"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
+msgid "Brace indentation size in spaces:"
+msgstr "Tamaño de la sangría de la llave en espacios:"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
+msgid "Enable adaptive indentation"
+msgstr "Activar sangría adaptativa"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:11
+msgid "Enable code completion"
+msgstr "Activar completado del código"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
+msgid "Enable smart brace completion"
+msgstr "Activar completado inteligente de llaves"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
+msgid "Enable smart indentation"
+msgstr "Activar sangría inteligente"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
+msgid "Pressing tab indents"
+msgstr "Sangrar al pulsar el tabulador"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
+msgid "Show calltips"
+msgstr "Mostrar consejos de llamada"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
+msgid "Smart Indentation"
+msgstr "Sangrado inteligente"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
+msgid "Statement indentation size in spaces:"
+msgstr "Tamaño de sangría en espacios:"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1840
+msgid "_AutoComplete"
+msgstr "_Autocompletar"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1841
+msgid "AutoComplete the current word"
+msgstr "Autocompletar la palabra actual"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1847
+msgid "Auto Indent"
+msgstr "Sangría automática"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1848
+msgid "Auto indent current line or selection based on indentation settings"
+msgstr ""
+"Auto sangrar la línea actual o la selección basándose en los ajustes de "
+"sangrado"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1853
+msgid "Swap .h/.c"
+msgstr "Intercambiar .h/.c"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1854
+msgid "Swap c header and source files"
+msgstr "Intercambia la cabecera c y el archivo fuente"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1897
+msgid "C++/Java Assistance"
+msgstr "Asistencia para C++/Java"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1985
+#: ../plugins/language-support-cpp-java/plugin.c:1994
+msgid "C/C++/Java/Vala"
+msgstr "C/C++/Java/Vala"
+
+#: ../plugins/sourceview/plugin.c:230 ../plugins/sourceview/plugin.c:268
+msgid "GtkSourceView Editor"
+msgstr "Editor GtkSourceView"
+
+#: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
+msgid "Gdb"
+msgstr "Gdb"
+
+#: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
+msgid "Gdb plugin."
+msgstr "Complemento Gdb."
+
+#: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
+msgid "API Help"
+msgstr "Ayuda"
+
+#: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
+msgid "Devhelp Plugin for Anjuta."
+msgstr "Complemento Devhelp para Anjuta."
+
+#: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
+msgid "Provides document management capabilities."
+msgstr "Proporciona capacidades de gestión de documentos."
+
+#: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
+msgid "Anjuta File Assistant Plugin"
+msgstr "Complemento del asistente de archivos de Anjuta"
+
+#: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
+msgid "File Assistant"
+msgstr "Asistente de archivos"
+
+#: ../plugins/file-manager/file-manager.plugin.in.h:2
+msgid "File manager for project and single files"
+msgstr "Gestor de archivos para proyectos y archivos"
+
+#: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
+msgid "A Subversion client plugin based on libsvn"
+msgstr "Un complemento de Subversion basado en libsvn"
+
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
+msgid "A graph painter for the inheritance of the classes."
+msgstr "Un dibujador de gráficas para la herencia de las clases."
+
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
+msgid "Class Inheritance"
+msgstr "Herencia de la clase"
+
+#: ../plugins/glade/anjuta-glade.plugin.in.h:1
+msgid "Glade File"
+msgstr "Archivo glade"
+
+#: ../plugins/glade/anjuta-glade.plugin.in.h:2
+msgid "Glade Plugin for Anjuta."
+msgstr "Complemento de Glade para Anjuta."
+
+#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+msgid "Glade interface designer"
+msgstr "Diseñador de interfaces Glade"
+
+#: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:1
+msgid "Task Manager"
+msgstr "Administrador de tareas"
+
+#: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
+msgid "Todo Plugin for Anjuta."
+msgstr "Complemento de PorHacer (ToDo) para Anjuta."
+
+#: ../plugins/macro/anjuta-macro.plugin.in.h:1
+msgid "Insert predefined macros into Editor"
+msgstr "Insertar macros predefinidos en el editor"
+
+#: ../plugins/macro/anjuta-macro.plugin.in.h:2
+msgid "Macro Plugin"
+msgstr "Complemento de macros"
+
+#: ../plugins/patch/anjuta-patch.plugin.in.h:1
+msgid "Patch Plugin"
+msgstr "Complemento de parches"
+
+#: ../plugins/patch/anjuta-patch.plugin.in.h:2
+msgid "Patches files and directories."
+msgstr "Parchea archivos y directorios."
+
+#: ../plugins/tools/anjuta-tools.plugin.in.h:2
+msgid "Use external program from Anjuta"
+msgstr "Usar un programa externo desde Anjuta"
+
+#: ../plugins/sample1/anjuta-sample.plugin.in.h:1
+msgid "Sample Plugin"
+msgstr "Complemento de ejemplo"
+
+#: ../plugins/sample1/anjuta-sample.plugin.in.h:2
+msgid "Sample Plugin for Anjuta."
+msgstr "Complemento de ejemplo para Anjuta."
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
+msgid "Automake Build"
+msgstr "Construcción con automake"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
+msgid "Basic autotools build plugin."
+msgstr "Complemento básico para la construcción con autotools."
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
+msgid "Execute"
+msgstr "Ejecutar"
+
+#: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
+msgid "Terminal Plugin for Anjuta."
+msgstr "Complemento de terminal para Anjuta."
+
+#: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
+msgid "A version control system plugin"
+msgstr "Un complemento de cvs"
+
+#: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
+msgid "CVS Plugin"
+msgstr "Complemento CVS"
+
+#: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
+msgid "Import an existing autotools project to anjuta"
+msgstr "Importar un proyecto de autotools existente en Anjuta"
+
+#: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
+msgid "Project From Existing Sources"
+msgstr "Proyecto desde fuentes existentes"
+
+#: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
+msgid "Project Import Assistant"
+msgstr "Asistente de importación de proyectos"
+
+#: ../plugins/sourceview/sourceview.plugin.in.h:1
+msgid "An alternate editor based on GtkSourceview"
+msgstr "Un editor alternativo basado en GtkSourceview"
+
+#: ../plugins/sourceview/sourceview.plugin.in.h:2
+msgid "GtkSourceview editor"
+msgstr "Editor GtkSourceview"
+
+#: ../plugins/editor/anjuta-editor.plugin.in.h:2
+msgid "Scintilla based component for editing files"
+msgstr "Componente basado en Scintilla para editar archivos"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
+msgid "C++ and Java support Plugin"
+msgstr "Complemento de soporte para C++ y Java"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
+msgid "C++ and Java support plugin for code completion, auto indentation etc."
+msgstr ""
+"Complemento de soporte para C++ y Java para completado de código, auto "
+"sangrado, etc."
+
+#: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
+msgid "Project Assistant"
+msgstr "Asistente de proyectos"
+
+#: ../plugins/profiler/profiler.plugin.in.h:1
+msgid "Application performance profiler"
+msgstr "Perfilador de rendimiento de la aplicación"
+
+#: ../plugins/profiler/profiler.plugin.in.h:2
+msgid "Profile"
+msgstr "Perfil"
+
+#: ../plugins/search/anjuta-search.plugin.in.h:1
+msgid "Component for searching"
+msgstr "Componente para buscar"
+
+#: ../plugins/search/anjuta-search.plugin.in.h:2
+msgid "Searching"
+msgstr "Buscando"
+
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
+msgid "Anjuta Class Generator Plugin"
+msgstr "Complemento generador de clases para Anjuta"
+
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
+msgid "C++/GObject Class"
+msgstr "Clase C++/GObject"
+
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Generador de clases"
+
+#: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
+msgid "Project Manager"
+msgstr "Gestor de proyectos"
+
+#: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:2
+msgid "Project Manager Plugin for Anjuta."
+msgstr "Complemento de gestor de proyectos para Anjuta."
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:2
+msgid "Symbol Browser Plugin for Anjuta."
+msgstr "Complemento examinador de símbolos para Anjuta."
+
+#: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
+msgid "Manages messages from external apps"
+msgstr "Gestiona mensajes de aplicaciones externas"
+
+#: ../plugins/message-view/anjuta-message-manager.plugin.in.h:2
+msgid "Message Manager"
+msgstr "Gestor de mensajes"
+
+#: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
+msgid "Powerful debugging tool."
+msgstr "Potente herramienta de depuración."
+
+#: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:2
+msgid "Valgrind Plugin"
+msgstr "Complemento Valgrind"
+
+#: ../plugins/file-loader/anjuta-loader.plugin.in.h:2
+msgid "File loader to load different files"
+msgstr "Cargador de archivos para cargar diferentes archivos"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
+msgid "Debug Manager plugin."
+msgstr "Complemento de gestión de depuración."
+
+#: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
+msgid "Allow to execute program without debugger."
+msgstr "Permitir ejecutar el programa sin el depurador."
+
+#: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
+msgid "Run Program"
+msgstr "Ejecutar programa"
+
+#: ../plugins/language-manager/language-manager.plugin.in.h:1
+msgid "Language Manager"
+msgstr "Gestor de lenguajes"
+
+#: ../plugins/language-manager/language-manager.plugin.in.h:2
+msgid "Plugin to keep track of multiple programming languages"
+msgstr ""
+"Complemento para mantener el seguimiento de los múltiples lenguajes de "
+"programación"
