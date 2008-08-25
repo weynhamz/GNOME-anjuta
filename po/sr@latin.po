@@ -744,9 +744,9 @@ msgid ""
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
 msgstr ""
-"Otpočnite sa novim projektom. Čarobnjak za izradu programa će vas voditi "
-"kroz to stvaranje. Sa čarobnjakom za izradu programa, moći ćete da izradite "
-"okvir različitih tipova projekata."
+"Otpočnite sa novim projektom. Čarobnjak za izradu programa će vas voditi kroz "
+"to stvaranje. Sa čarobnjakom za izradu programa, moći ćete da izradite okvir "
+"različitih tipova projekata."
 
 #: ../anjuta.glade.h:151
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
@@ -5215,8 +5215,7 @@ msgstr "Dodaj CVS datum ključnu reč (datum i vreme CVS izmene)"
 #, fuzzy
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
 msgstr ""
-"Dodaj CVS zaglavlje ključnu reč ( puna putanja, revizija, datum, autor, "
-"stanje)"
+"Dodaj CVS zaglavlje ključnu reč ( puna putanja, revizija, datum, autor, stanje)"
 
 #: ../plugins/file-wizard/plugin.c:100
 msgid "_Id"
