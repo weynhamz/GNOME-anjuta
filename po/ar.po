@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-18 12:21+0100\n"
+"POT-Creation-Date: 2008-08-26 14:42+0100\n"
 "PO-Revision-Date: 2008-08-15 11:57+0300\n"
 "Last-Translator: Usama Akkad <uak@aya.sy>\n"
 "Language-Team: Arabic\n"
@@ -219,7 +219,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:469
+#: ../plugins/symbol-db/symbol-db-prefs.c:492
 msgid "Load"
 msgstr "تحميل"
 
@@ -2550,7 +2550,7 @@ msgstr "كتب"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "ابحث"
 
@@ -5560,8 +5560,8 @@ msgid "Icon"
 msgstr "أيقونة"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:305 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:408
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "رسائل"
 
@@ -5693,17 +5693,17 @@ msgstr "مستوى الرقعة:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "أد_وات"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "تر_قيع..."
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "ملفات/مجلدات الترقيع"
 
@@ -7166,7 +7166,7 @@ msgstr "تعذر حفظ %s: %s"
 msgid "Could not save file because filename not yet specified"
 msgstr "تعذر الحفظ لعدم تخصيص اسم بعد"
 
-#: ../plugins/sourceview/sourceview-io.c:488
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "ملف جديد %d"
@@ -7795,7 +7795,7 @@ msgid "Symbol Browser"
 msgstr "مستعرض الرموز"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:477
+#: ../plugins/symbol-db/symbol-db-prefs.c:500
 msgid "API Tags"
 msgstr "وسوم API"
 
@@ -7874,38 +7874,38 @@ msgid "Created symbols..."
 msgstr "أنشئت الرموز..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
 msgstr "محلي"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
 msgstr "عمومي"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr "إجراءات مستعرض الرموز"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr "إجراءات مستعرض الرموز المنبثقة"
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "تصفحات الرمز"
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "الرموز"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:278
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 #, fuzzy
 msgid "Package is not parseable"
 msgstr "الحزمة غير قابلة للحل"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:393
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:411
+#: ../plugins/symbol-db/symbol-db-prefs.c:551
 msgid "Symbol Database"
 msgstr "قاعدة بيانات الرموز"
 
@@ -7919,21 +7919,29 @@ msgstr "<b>وسوم API المتوفرة</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 #, fuzzy
-msgid "Automatically scan project's packages"
+msgid "Automatically scan projetc's packages."
 msgstr "أنعِش عرض بيانات ملف التعريف تلقائيًا"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 #, fuzzy
 msgid "Checking if package is parseable..."
 msgstr "التقصي عن امكانية حل الحزمة..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
 msgstr "اختر ctags تنفيذي"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Ctags تنفيذية:"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel global/project scan of symbols."
+msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
