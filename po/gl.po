@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-23 19:07+0200\n"
-"PO-Revision-Date: 2008-08-24 18:02+0200\n"
+"POT-Creation-Date: 2008-08-26 14:55+0200\n"
+"PO-Revision-Date: 2008-08-26 14:56+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:469
+#: ../plugins/symbol-db/symbol-db-prefs.c:492
 msgid "Load"
 msgstr "Cargar"
 
@@ -2554,7 +2554,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "Buscar"
 
@@ -7768,7 +7768,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:477
+#: ../plugins/symbol-db/symbol-db-prefs.c:500
 msgid "API Tags"
 msgstr "Etiquetas do API"
 
@@ -7847,37 +7847,37 @@ msgid "Created symbols..."
 msgstr "Símbolos creados..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr "Accións do examinador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr "Accións emerxentes do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:278
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 msgid "Package is not parseable"
 msgstr "O paquete non se pode analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:393
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:411
+#: ../plugins/symbol-db/symbol-db-prefs.c:551
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
@@ -7890,20 +7890,28 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas do API dispoñibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-msgid "Automatically scan project's packages"
-msgstr "Analizar automaticamente os paquetes do proxecto"
+msgid "Automatically scan projetc's packages."
+msgstr "Analizar automaticamente os paquetes do proxecto."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr "Actualizar automaticamente os símbolos sen gardar o ficheiro."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
 msgstr "Comprobando se se pode analizar o paquete..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
 msgstr "Escoller executable de ctags"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Executable de Ctags:"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel global/project scan of symbols."
+msgstr "Análise paralelo global/proxecto de símbolos."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
