@@ -1,3 +1,56 @@
+2008-08-23  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-browser/plugin.c (on_editor_destroy),
+	(deactivate_plugin):
+	fix #522032
+
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	added two checkboxes: one is for parallel scan control, the other is for
+	the buffer updating control.
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout), (on_editor_destroy),
+	(on_editor_update_ui), (on_char_added), (on_editor_saved),
+	(value_added_current_editor), (on_session_load),
+	(value_removed_current_editor), (on_importing_project_end),
+	(do_import_system_src_after_abort),
+	(do_import_project_src_after_abort), (do_import_project_sources),
+	(on_received_project_import_end), (on_project_root_added),
+	(on_project_root_removed), (symbol_db_activate),
+	(symbol_db_deactivate), (symbol_db_class_init),
+	(on_prefs_buffer_update_toggled), (ipreferences_merge):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.h:
+	* plugins/symbol-db/symbol-db-engine-iterator.c:
+	* plugins/symbol-db/symbol-db-engine-iterator.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_thread_monitor), (sdb_engine_ctags_output_callback_1),
+	(on_scan_files_end_1), (sdb_engine_init),
+	(sdb_engine_unref_removed_launchers),
+	(sdb_engine_terminate_threads), (sdb_engine_finalize),
+	(symbol_db_engine_set_ctags_path), (symbol_db_engine_close_db):
+	* plugins/symbol-db/symbol-db-engine.h:
+	fix #548606 now engine exits cleanly even if it's in scanning mode.
+	It still remains the libgda bug anyway, bug #545979.
+	Fixed bug #522032 also for symbol-db.
+
+	* plugins/symbol-db/symbol-db-prefs.c (on_update_button_toggled),
+	(sdb_prefs_init1), (sdb_prefs_class_init):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	* plugins/symbol-db/symbol-db-view-locals.c (sdb_view_locals_init),
+	(do_add_root_symbol_to_view), (do_add_child_symbol_to_view),
+	(on_scan_end), (on_symbol_removed), (on_symbol_scope_updated),
+	(on_symbol_inserted), (symbol_db_view_locals_display_nothing),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-locals.h:
+	* plugins/symbol-db/symbol-db-view-search.c:
+	* plugins/symbol-db/symbol-db-view-search.h:
+	* plugins/symbol-db/symbol-db-view.c:
+	* plugins/symbol-db/symbol-db-view.h:
+	headers update.
+
 2008-08-26  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

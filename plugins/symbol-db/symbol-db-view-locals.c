@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
- * Copyright (C) Massimo Cora' 2007 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * anjuta is free software.
  * 
@@ -78,6 +78,7 @@ struct _SymbolDBViewLocalsPriv {
 	GTree *waiting_for;	
 	GQueue *symbols_inserted_ids;
 
+	gboolean display_nothing;
 	gboolean recv_signals;
 	GHashTable *files_view_status;
 };
@@ -272,8 +273,8 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	priv->insertion_idle_handler = 0;
 	priv->files_view_status = g_hash_table_new_full (g_str_hash, 
 								g_str_equal, g_free, (GDestroyNotify)file_view_status_destroy);
-
 	priv->recv_signals = FALSE;
+	priv->display_nothing = FALSE;
 
 	/* initially set it to NULL */
 	store = NULL;
@@ -389,7 +390,10 @@ do_add_root_symbol_to_view (SymbolDBViewLocals *dbvl, const GdkPixbuf *pixbuf,
 	priv = dbvl->priv;	
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
- 	
+
+	if (store == NULL)
+		return NULL;
+	
 	gtk_tree_store_append (store, &child_iter, NULL);			
 	gtk_tree_store_set (store, &child_iter,
 		COLUMN_PIXBUF, pixbuf,
@@ -423,6 +427,9 @@ do_add_child_symbol_to_view (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 
+	if (store == NULL)
+		return NULL;
+	
 	/* look up the row ref in the hashtable, then get its associated gtktreeiter */
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)parent_symbol_id);
 	
@@ -1002,6 +1009,11 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
+	if (priv->display_nothing)
+	{
+		return;
+	}
+	
 	tdata = g_new (TraverseData, 1);
 	tdata->dbvl = dbvl;
 	tdata->dbe = dbe;
@@ -1067,7 +1079,6 @@ do_recurse_subtree_and_remove (SymbolDBViewLocals *dbvl,
 static void 
 on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 {
-	GtkTreeStore *store;
 	SymbolDBViewLocals *dbvl;
 	SymbolDBViewLocalsPriv *priv;
     GtkTreeIter  iter;	
@@ -1078,8 +1089,11 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));		
-
+	if (priv->display_nothing)
+	{
+		return;
+	}
+	
 	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
@@ -1094,7 +1108,6 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 static void
 on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 {
-	GtkTreeStore *store;
 	SymbolDBViewLocals *dbvl;
 	SymbolDBViewLocalsPriv *priv;
     GtkTreeIter  iter;	
@@ -1105,20 +1118,22 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));		
-
+	if (priv->display_nothing)
+	{
+		return;
+	}
+	
 	DEBUG_PRINT ("on_symbol_scope_updated () -local- %d", symbol_id);
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
 		return;
 	}
-#if 1
+
 	do_recurse_subtree_and_remove (dbvl, &iter);	
 	
 	/* save the symbol_id to be added in the queue and just return */
 	g_queue_push_head (priv->symbols_inserted_ids, (gpointer)symbol_id);	
-#endif	
 }
 
 static void 
@@ -1131,6 +1146,11 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 
 	g_return_if_fail (dbvl != NULL);	
 	priv = dbvl->priv;	
+
+	if (priv->display_nothing)
+	{
+		return;
+	}
 	
 	/* save the symbol_id to be added in the queue and just return */
 	g_queue_push_head (priv->symbols_inserted_ids, (gpointer)symbol_id);
@@ -1245,6 +1265,28 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 }
 
 void
+symbol_db_view_locals_display_nothing (SymbolDBViewLocals *dbvl, 
+									   gboolean display_nothing)
+{
+	SymbolDBViewLocalsPriv *priv;
+	
+	g_return_if_fail (dbvl != NULL);
+	
+	priv = dbvl->priv;
+	
+	if (display_nothing == TRUE)
+	{
+		priv->display_nothing = TRUE;
+	
+		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), NULL);	
+	}
+	else 
+	{
+		priv->display_nothing = FALSE;
+	}
+}
+
+void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
 							  const gchar* filepath)
 {
@@ -1260,6 +1302,8 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 
 	priv = dbvl->priv;
 
+	DEBUG_PRINT ("symbol_db_view_locals_update_list () %s", filepath);
+	
 	/* we're not interested in giving user an updated gtktreestore if recv signals
 	 * is false. In that case we can have a project importing...
 	 */
@@ -1399,9 +1443,10 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		
 		/* Removes all rows from tree_store */
 		gtk_tree_store_clear (store);
-		iterator = symbol_db_engine_get_file_symbols (dbe, filepath, SYMINFO_SIMPLE |
-												  	SYMINFO_ACCESS |
-													SYMINFO_KIND);		
+		iterator = symbol_db_engine_get_file_symbols (dbe, filepath, 
+													  	SYMINFO_SIMPLE |
+												  		SYMINFO_ACCESS |
+														SYMINFO_KIND);		
 	 	
 		if (iterator != NULL)
 		{

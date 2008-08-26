@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
- * Copyright (C) Massimo Cora' 2007 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * anjuta is free software.
  * 
@@ -280,6 +280,7 @@ typedef struct _ChildDynQueryNode {
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
+/* signals */
 enum
 {
 	SINGLE_FILE_SCAN_END,
@@ -311,7 +312,11 @@ struct _SymbolDBEnginePriv
 	FILE *shared_mem_file;
 	gint shared_mem_fd;
 	AnjutaLauncher *ctags_launcher;
+	GList *removed_launchers;
 	gboolean scanning_status;
+	gboolean shutting_down;
+	GMutex *shutting_mutex;
+	GCond *shutting_cond;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
@@ -1243,6 +1248,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		g_timer_reset (sym_timer_DEBUG);
 	gint tags_total_DEBUG = 0;
 	tag_entry.file = NULL;
+
 	while (tagsNext (tag_file, &tag_entry) != TagFailure)
 	{
 		gint file_defined_id = 0;
@@ -1469,11 +1475,14 @@ sdb_engine_ctags_output_thread (gpointer data)
 	}
 
 	priv->thread_status = FALSE;
-	priv->concurrent_threads--;
+	priv->concurrent_threads--;	
 	
 	/* unlock */
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
+
+	/* notify waiters that we've finished another thread */
+	g_cond_signal (priv->shutting_cond);
 	
 	g_free (chars);
 	g_free (output);
@@ -1569,9 +1578,24 @@ sdb_engine_thread_monitor (gpointer data)
 	g_return_val_if_fail (data != NULL, FALSE);
 	
 	priv = dbe->priv;
+	
+	if (priv->shutting_mutex)
+		g_mutex_lock (priv->shutting_mutex);
+	
+	if (priv->shutting_down == TRUE)
+	{
+		DEBUG_PRINT ("SymbolDBEngine is shutting down: removing thread monitor");
+		/* remove the thread monitor */
+		g_source_remove (priv->thread_monitor_handler);
+		priv->thread_monitor_handler = 0;
+		g_mutex_unlock (priv->shutting_mutex);
+		return FALSE;
+	}
 		
-	if (priv->concurrent_threads > THREADS_MAX_CONCURRENT) {
+	if (priv->concurrent_threads > THREADS_MAX_CONCURRENT) 
+	{
 		/* monitor acted here. There are plenty threads already working. */
+		g_mutex_unlock (priv->shutting_mutex);
 		return TRUE;
 	}
 	
@@ -1596,9 +1620,11 @@ sdb_engine_thread_monitor (gpointer data)
 		/* remove the thread monitor */
 		g_source_remove (priv->thread_monitor_handler);
 		priv->thread_monitor_handler = 0;
+		g_mutex_unlock (priv->shutting_mutex);
 		return FALSE;
 	}
 	
+	g_mutex_unlock (priv->shutting_mutex);
 	/* recall this monitor */
 	return TRUE;	
 }
@@ -1615,6 +1641,9 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	g_return_if_fail (user_data != NULL);
 	
 	priv = dbe->priv;	
+	
+	if (priv->shutting_down == TRUE)
+		return;
 	
 	output  = g_new0 (ThreadDataOutput, 1);
 	output->chars = g_strdup (chars);
@@ -1652,7 +1681,7 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 				   int exit_status, gulong time_taken_in_seconds,
 				   gpointer data)
 {
-	DEBUG_PRINT ("ctags ended");
+	DEBUG_PRINT ("***** ctags ended *****");
 }
 
 
@@ -1916,6 +1945,10 @@ sdb_engine_init (SymbolDBEngine * object)
 													  g_free, NULL);	
 	
 	sdbe->priv->ctags_launcher = NULL;
+	sdbe->priv->removed_launchers = NULL;
+	sdbe->priv->shutting_down = FALSE;
+	sdbe->priv->shutting_mutex = g_mutex_new ();
+	sdbe->priv->shutting_cond = g_cond_new ();
 
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
@@ -2308,6 +2341,33 @@ sdb_engine_unlink_shared_files (gpointer key, gpointer value, gpointer user_data
 	shm_unlink (key);
 }
 
+static void 
+sdb_engine_unref_removed_launchers (gpointer data, gpointer user_data)
+{
+	g_object_unref (data);
+}
+
+static void
+sdb_engine_terminate_threads (SymbolDBEngine *dbe)
+{
+	SymbolDBEnginePriv *priv;	
+	
+	priv = dbe->priv;
+	
+	priv->shutting_down = TRUE;
+
+	/* get a lock to share with the monitor */
+	g_mutex_lock (priv->shutting_mutex);	
+	
+	while (priv->concurrent_threads > 0)
+	{		
+		/* wait for the thread to notify us that it has just finished its execution */
+		g_cond_wait (priv->shutting_cond, priv->shutting_mutex);
+	}	
+	
+	g_mutex_unlock (priv->shutting_mutex);
+}
+
 static void
 sdb_engine_finalize (GObject * object)
 {
@@ -2316,22 +2376,29 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
-
+	
+	/* we're shutting down the plugin. Let the threads finish their work... */
+	sdb_engine_terminate_threads (dbe);
+	
 	if (priv->ctags_launcher)
-	{		
-		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
+	{
 		g_object_unref (priv->ctags_launcher);
 		priv->ctags_launcher = NULL;
-	}	
+	}		
+	
+	if (priv->removed_launchers)
+	{
+		g_list_foreach (priv->removed_launchers, 
+						sdb_engine_unref_removed_launchers, NULL);
+		g_list_free (priv->removed_launchers);
+		priv->removed_launchers = NULL;
+	}
 	
 	if (priv->mutex)
 	{
-		while (priv->concurrent_threads > 0)
-			;
 		g_mutex_free (priv->mutex);
 		priv->mutex = NULL;
 	}
-
 	
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
@@ -2402,6 +2469,9 @@ sdb_engine_finalize (GObject * object)
 	sdb_engine_clear_caches (dbe);
 
 	g_tree_destroy (priv->file_symbols_cache);
+
+	g_mutex_free (priv->shutting_mutex);
+	priv->shutting_mutex = NULL;	
 	
 	g_free (priv);
 	
@@ -2518,6 +2588,11 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 				   "the old value %s", priv->ctags_path);
 		return;
 	}	
+	
+	/* have we already got it? */
+	if (priv->ctags_path != NULL && 
+		strcmp (priv->ctags_path, ctags_path) == 0)
+		return;
 
 	/* free the old value */
 	g_free (priv->ctags_path);
@@ -2525,13 +2600,14 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 	/* is anjutalauncher already created? */
 	if (priv->ctags_launcher != NULL)
 	{
-		anjuta_launcher_reset (priv->ctags_launcher);
-		anjuta_launcher_signal (priv->ctags_launcher, SIGINT);
-		g_object_unref (priv->ctags_launcher);
-		priv->ctags_launcher = NULL;
+		AnjutaLauncher *tmp;
+		tmp = priv->ctags_launcher;
 
 		/* recreate it on the fly */
 		sdb_engine_ctags_launcher_create (dbe);
+
+		/* keep the launcher alive to avoid crashes */
+		priv->removed_launchers = g_list_prepend (priv->removed_launchers, tmp);
 	}	
 	
 	/* set the new one */
@@ -2743,6 +2819,10 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	
 	priv = dbe->priv;
+	
+	/* terminate threads, if ever they're running... */
+	sdb_engine_terminate_threads (dbe);
+	
 	return sdb_engine_disconnect_from_db (dbe);
 }
 

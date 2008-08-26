@@ -3,7 +3,7 @@
  * anjuta
  * Copyright (C) 2001-2003 CodeFactory AB
  * Copyright (C) 2001-2003 Mikael Hallendal <micke@imendio.com>
- * Copyright (C) 2005-2007 Massimo Corà <maxcvs@email.it>
+ * Copyright (C) 2005-2008 Massimo Corà <maxcvs@email.it>
  * 
  * anjuta is free software.
  * 

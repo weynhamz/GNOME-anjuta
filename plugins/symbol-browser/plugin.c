@@ -626,6 +626,14 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 											   uri);
 	}
 	g_hash_table_remove (sv_plugin->editor_connected, G_OBJECT (editor));
+	
+	/* was it the last file loaded? */
+	if (g_hash_table_size (sv_plugin->editor_connected) <= 0)
+	{
+		DEBUG_PRINT ("displaying nothing...");
+		gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
+									 NULL);
+	}	
 }
 
 static void
@@ -1022,6 +1030,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	SymbolBrowserPlugin *sv_plugin;
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	
+	DEBUG_PRINT ("SymbolBrowserPlugin: Dectivating Symbol Manager plugin...");
+	
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
 	{
@@ -1032,6 +1042,15 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		g_hash_table_destroy (sv_plugin->editor_connected);
 		sv_plugin->editor_connected = NULL;
 	}
+
+	/* clear anjuta_symbol_search side */
+	if (sv_plugin->ss)
+		anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
+
+	/* clear glist's sfiles */
+	if (sv_plugin->sv_tree)
+		anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sv_plugin->root_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);

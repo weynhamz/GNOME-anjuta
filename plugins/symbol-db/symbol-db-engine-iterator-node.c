@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
- * Copyright (C) Massimo Cora' 2007 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * anjuta is free software.
  * 

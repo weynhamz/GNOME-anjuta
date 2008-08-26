@@ -48,6 +48,7 @@ enum
 {
 	PACKAGE_ADD,
 	PACKAGE_REMOVE,
+	BUFFER_UPDATE_TOGGLED,
 	LAST_SIGNAL
 };
 
@@ -373,11 +374,28 @@ on_check_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
 }
 
 static void
+on_update_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
+{
+	SymbolDBPrefsPriv *priv;	
+	gboolean update_button_value;
+	priv = sdbp->priv;
+	GtkWidget *update_button;
+	
+	update_button = glade_xml_get_widget (priv->prefs_gxml, BUFFER_AUTOSCAN);
+
+	update_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (update_button));
+	DEBUG_PRINT ("on_update_button_toggled ()");
+	anjuta_preferences_set_int (priv->prefs, BUFFER_AUTOSCAN, update_button_value);	
+
+	g_signal_emit (sdbp, signals[BUFFER_UPDATE_TOGGLED], 0, update_button_value);
+}
+
+static void
 sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 {
 	SymbolDBPrefsPriv *priv;
 	GtkWidget *fchooser;
-	GtkWidget *check_button;
+	GtkWidget *check_button, *update_button;
 	gboolean check_button_value;
 	gchar *ctags_value;
 
@@ -419,6 +437,11 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 					  G_CALLBACK (on_check_button_toggled), sdbp);
 	check_button_value = anjuta_preferences_get_int (priv->prefs, PROJECT_AUTOSCAN);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), check_button_value);
+
+	update_button = glade_xml_get_widget (priv->prefs_gxml, BUFFER_AUTOSCAN);
+	g_signal_connect (G_OBJECT (update_button), "toggled", 
+					  G_CALLBACK (on_update_button_toggled), sdbp);	
+	
 	
 	g_free (ctags_value);
 }
@@ -574,6 +597,16 @@ sdb_prefs_class_init (SymbolDBPrefsClass *klass)
 						g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 
 						1,
 						G_TYPE_STRING);	
+	
+	signals[BUFFER_UPDATE_TOGGLED]
+		= g_signal_new ("buffer-update-toggled",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBPrefsClass, buffer_update_toggled),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__UINT, G_TYPE_NONE, 
+						1,
+						G_TYPE_UINT);	
 	
 	object_class->finalize = sdb_prefs_finalize;
 }

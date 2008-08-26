@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.4 on Tue Aug  5 00:24:54 2008 -->
+<!--Generated with glade3 3.4.4 on Wed Aug 20 23:49:57 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -62,7 +62,7 @@
                           <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="label" translatable="yes">Automatically scan project's packages</property>
+                            <property name="label" translatable="yes">Automatically scan projetc's packages.</property>
                             <property name="response_id">0</property>
                             <property name="draw_indicator">True</property>
                           </widget>
@@ -70,6 +70,41 @@
                       </widget>
                       <packing>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkHBox" id="hbox4">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.parallel_scan">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">Parallel global/project scan of symbols.</property>
+                            <property name="response_id">0</property>
+                            <property name="draw_indicator">True</property>
+                          </widget>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkHBox" id="hbox5">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.buffer_update">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">Automatically update symbols without saving file.</property>
+                            <property name="response_id">0</property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                          </widget>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                   </widget>

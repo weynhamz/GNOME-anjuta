@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * plugin.h
- * Copyright (C) Massimo Cora' 2007 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * plugin.h is free software.
  * 
@@ -61,6 +61,9 @@ struct _SymbolDBPlugin{
 	guint root_watch_id;
 	 
 	/* editor monitor */
+	guint buf_update_timeout_id;
+	gboolean need_symbols_update;
+	GTimer *update_timer;
 	guint editor_watch_id;
 	gchar *project_root_uri;
 	gchar *project_root_dir;
@@ -87,7 +90,7 @@ struct _SymbolDBPlugin{
 	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
-	GtkWidget *dbv_view_tree;        		/* symbol_db_view */
+	GtkWidget *dbv_view_tree;        		/* symbol_db_view globals */
 	GtkWidget *dbv_view_tab_label;
 	
 	GtkWidget *dbv_view_tree_locals;		/* local symbols */
@@ -116,6 +119,11 @@ struct _SymbolDBPlugin{
 
 struct _SymbolDBPluginClass{
 	AnjutaPluginClass parent_class;
+	
+	/* signals */
+	void (* project_import_end) 	();
+	void (* globals_import_end) 	();
+	
 };
 
 

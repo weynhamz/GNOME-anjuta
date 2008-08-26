@@ -42,16 +42,17 @@ typedef struct _SymbolDBPrefsPriv SymbolDBPrefsPriv;
 
 #define CTAGS_PREFS_KEY		"preferences_file:text:/usr/bin/ctags:0:symboldb.ctags"
 #define PROJECT_AUTOSCAN	"preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs"
-
+#define PARALLEL_SCAN		"preferences_toggle:bool:1:1:symboldb.parallel_scan"
+#define BUFFER_AUTOSCAN		"preferences_toggle:bool:1:1:symboldb.buffer_update"
 
 struct _SymbolDBPrefsClass
 {
 	GObjectClass parent_class;
 	
 	/* signals */
-	void (* package_add) 		(const gchar *package);
-	void (* package_remove)		(const gchar *package);
-	
+	void (* package_add) 			(const gchar *package);
+	void (* package_remove)			(const gchar *package);
+	void (* buffer_update_toggled)	(guint value);
 };
 
 struct _SymbolDBPrefs

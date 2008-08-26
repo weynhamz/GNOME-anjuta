@@ -83,6 +83,13 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 void 
 symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl);
 
+/**
+ * Display no items in local-tree
+ **/
+void
+symbol_db_view_locals_display_nothing (SymbolDBViewLocals *dbvl, 
+									   gboolean display_nothing);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_VIEW_LOCALS_H_ */

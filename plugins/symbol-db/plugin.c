@@ -58,9 +58,16 @@
 #define SESSION_KEY			"SystemPackages"
 
 static gpointer parent_class;
-static gboolean need_symbols_update = FALSE;
-static gint timeout_id = 0;
-static GTimer *timer = NULL;
+
+/* signals */
+enum
+{
+	PROJECT_IMPORT_END,
+	GLOBALS_IMPORT_END,
+	LAST_SIGNAL
+};
+
+static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
@@ -97,10 +104,10 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	/* check the timer. If it's elapsed enought time since the last time the user
 	 * typed in something, than proceed with updating, elsewhere don't do nothing 
 	 */
-	if (timer == NULL)
+	if (sdb_plugin->update_timer == NULL)
 		return TRUE;
 	
-	seconds_elapsed = g_timer_elapsed (timer, NULL);
+	seconds_elapsed = g_timer_elapsed (sdb_plugin->update_timer, NULL);
 	
 	/* DEBUG_PRINT ("seconds_elapsed  %f", seconds_elapsed ); */
 	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
@@ -109,7 +116,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		
 	 /* we won't proceed with the updating of the symbols if we didn't type in 
 	 	anything */
-	 if (!need_symbols_update)
+	 if (sdb_plugin->need_symbols_update == FALSE)
 	 	return TRUE;
 	
 	DEBUG_PRINT ("on_editor_buffer_symbols_update_timeout()");
@@ -159,7 +166,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	
 	g_free (current_buffer);  
 
-	need_symbols_update = FALSE;
+	sdb_plugin->need_symbols_update = FALSE;
 
 	return TRUE;
 }
@@ -170,43 +177,38 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	const gchar *uri;
 	DEBUG_PRINT ("on_editor_destroy ()");
 	if (!sdb_plugin->editor_connected || !sdb_plugin->dbv_view_tree)
+	{
+		DEBUG_PRINT ("on_editor_destroy (): returning....");
 		return;
+	}
 	
 	uri = g_hash_table_lookup (sdb_plugin->editor_connected, G_OBJECT (editor));
 	g_hash_table_remove (sdb_plugin->editor_connected, G_OBJECT (editor));
+	
+	/* was it the last file loaded? */
+	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
+	{
+		DEBUG_PRINT ("displaying nothing...");
+		symbol_db_view_locals_display_nothing (
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), TRUE);
+	}
 }
 
 static void
 on_editor_update_ui (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin) 
 {
-	if (timer == NULL)
-	{
-		/* creates and start a new timer. */
-		timer = g_timer_new ();
-	}
-	else 
-	{
-		g_timer_reset (timer);
-	}
+	g_timer_reset (sdb_plugin->update_timer);
 }
 
 static void
 on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 			   SymbolDBPlugin *sdb_plugin)
 {
-	if (timer == NULL)
-	{
-		/* creates and start a new timer. */
-		timer = g_timer_new ();
-	}
-	else 
-	{
-		g_timer_reset (timer);
-	}
+	g_timer_reset (sdb_plugin->update_timer);
 	
 	/* Update when the user enters a newline */
 	if (ch == '\n')	
-		need_symbols_update = TRUE;
+		sdb_plugin->need_symbols_update = TRUE;
 }
 
 
@@ -215,12 +217,10 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 				 SymbolDBPlugin *sdb_plugin)
 {
 	const gchar *old_uri;
-	gboolean tags_update;	
-	/* FIXME: Do this only if automatic tags update is enabled */
-	/* tags_update =
-		anjuta_preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
-	*/
-	tags_update = TRUE;
+	gboolean tags_update;
+	
+	tags_update = TRUE;		
+	
 	if (tags_update)
 	{
 		gchar *local_filename = g_file_get_path (file);
@@ -249,8 +249,11 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 		g_hash_table_insert (sdb_plugin->editor_connected, editor,
 							 g_strdup (saved_uri));
 
+		/* if we saved it we shouldn't update a second time */
+		sdb_plugin->need_symbols_update = FALSE;			
+			
 		on_editor_update_ui (editor, sdb_plugin);
-		g_free (saved_uri);		
+		g_free (saved_uri);
 	}
 }
 
@@ -259,6 +262,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	gchar *uri;
+	gboolean tags_update;
 	GFile* file;
 	gchar *local_path;
 	GObject *editor;
@@ -266,6 +270,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
+	
+	/* we have an editor added, so let locals to display something */
+	symbol_db_view_locals_display_nothing (
+			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), FALSE);
+
 	
 	if (sdb_plugin->session_loading)
 	{
@@ -341,10 +350,14 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	g_free (local_path);
 	
 	/* add a default timeout to the updating of buffer symbols */	
-	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+	tags_update = anjuta_preferences_get_int (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+				
+	if (tags_update)
+		sdb_plugin->buf_update_timeout_id = 
+				g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
 								on_editor_buffer_symbols_update_timeout,
 								plugin);
-	need_symbols_update = FALSE;
+	sdb_plugin->need_symbols_update = FALSE;
 }
 
 static void
@@ -374,15 +387,15 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	
 	if (phase == ANJUTA_SESSION_PHASE_START)
 	{
-		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
-					 anjuta_session_get_session_directory (session));
-		sdb_plugin->session_loading = TRUE;
-
 		GList *session_packages = anjuta_session_get_string_list (session, 
 														SESSION_SECTION, 
 														SESSION_KEY);
 		
 		GList *to_scan_packages = NULL;
+	
+		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
+					 anjuta_session_get_session_directory (session));
+		sdb_plugin->session_loading = TRUE;
 		
 		if (session_packages == NULL)
 		{
@@ -404,19 +417,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 			to_scan_packages = session_packages;
 		}
 
-		/* system's packages management */				
-		GList *item = to_scan_packages; 
-		while (item != NULL)
-		{
-			/* the function will take care of checking if the package is already 
-		 	 * scanned and present on db 
-		 	 */
-			DEBUG_PRINT ("ianjuta_project_manager_get_packages: package required: %s", 
-					 (gchar*)item->data);
-			symbol_db_system_scan_package (sdb_plugin->sdbs, item->data);
-				
-			item = item->next;
-		}
 		
 		sdb_plugin->session_packages = to_scan_packages;
 		
@@ -632,15 +632,17 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	if (!IANJUTA_IS_EDITOR (data))
 		return;
 	
+	sdb_plugin = (SymbolDBPlugin *) plugin;
+	
 	DEBUG_PRINT ("value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
-	g_source_remove (timeout_id);
-	need_symbols_update = FALSE;
+	g_source_remove (sdb_plugin->buf_update_timeout_id);
+	sdb_plugin->buf_update_timeout_id = 0;
+	sdb_plugin->need_symbols_update = FALSE;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	sdb_plugin->current_editor = NULL;
 }
-
 
 static void
 on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
@@ -866,6 +868,9 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	sdb_plugin->files_count_project_done = 0;
 	sdb_plugin->files_count_project = 0;	
 
+	DEBUG_PRINT ("emitting signals[PROJECT_IMPORT_END]");
+	/* emit signal. */
+	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);	
 
 	/* ok, enable local symbols view */
 	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
@@ -897,16 +902,16 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 }
 
 static void
-do_import_system_src_after_abort (AnjutaPlugin *plugin, 
+do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 								  const GPtrArray *sources_array)
 {
-	SymbolDBPlugin *sdb_plugin;
+	AnjutaPlugin *plugin;
 	GPtrArray* languages_array = NULL;
 	GPtrArray *to_scan_array = NULL;
 	IAnjutaLanguage* lang_manager;
 	gint i;
 	
-	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);			
+	plugin = ANJUTA_PLUGIN (sdb_plugin);
 
 	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 										NULL);
@@ -1035,10 +1040,13 @@ do_import_project_src_after_abort (AnjutaPlugin *plugin,
 	
 	g_ptr_array_foreach (to_scan_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (to_scan_array, TRUE);
+	
+	/* signal */
+	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);
 }
 
 static void
-do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm, 
+do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm, 
 				   const gchar *root_dir)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -1176,6 +1184,39 @@ do_import_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_ptr_array_free (languages_array, TRUE);	
 }
 
+static  void
+on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
+{
+	DEBUG_PRINT ("on_received_project_import_end ()");
+	/* system's packages management */				
+	GList *item = sdb_plugin->session_packages; 
+	while (item != NULL)
+	{
+		/* the function will take care of checking if the package is already 
+	 	 * scanned and present on db 
+	 	 */
+		DEBUG_PRINT ("ianjuta_project_manager_get_packages: package required: %s", 
+				 (gchar*)item->data);
+		symbol_db_system_scan_package (sdb_plugin->sdbs, item->data);
+				
+		item = item->next;
+	}
+	
+
+	/* the resume thing */
+	GPtrArray *sys_src_array = NULL;
+	sys_src_array = 
+		symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_globals);
+
+	if (sys_src_array != NULL && sys_src_array->len > 0) 
+	{
+		do_import_system_src_after_abort (sdb_plugin, sys_src_array);
+			
+		g_ptr_array_foreach (sys_src_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (sys_src_array, TRUE);
+	}	
+}
+
 /* add a new project */
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -1187,6 +1228,38 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
+	/*
+	 *   The Globals thing
+	 */
+	
+	/* hide it. Default */
+	/* system tags thing: we'll import after abort even if the preferences says not
+	 * to automatically scan the packages.
+	 */
+	gtk_widget_hide (sdb_plugin->progress_bar_system);
+	
+	/* get preferences about the parallel scan */
+	gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+														 PARALLEL_SCAN); 
+	
+	if (parallel_scan == TRUE)
+	{
+		DEBUG_PRINT ("go with parallel scan");
+		/* we simulate a project-import-end signal received */
+		on_received_project_import_end (sdb_plugin, sdb_plugin);		
+	}
+	else
+	{
+		DEBUG_PRINT ("connect to a project-import-end signal");
+		g_signal_connect (G_OBJECT (sdb_plugin), 
+						"project-import-end", 
+						  G_CALLBACK (on_received_project_import_end), 
+						  sdb_plugin);
+	}
+		
+	/*
+	 *   The Project thing
+	 */
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);	
 		
@@ -1221,7 +1294,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, 
 											root_dir) == FALSE)
 			{
-				DEBUG_PRINT ("Symbol-DB: project did not exist");
+				DEBUG_PRINT ("Symbol-DB: project does not exist");
 				needs_sources_scan = TRUE;
 				project_exist = FALSE;
 			}
@@ -1234,7 +1307,9 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			DEBUG_PRINT ("opening db %s and project_dir %s", root_dir, root_dir);
 			if (symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
 										  root_dir) == FALSE)
+			{
 				g_error ("Symbol-DB: error in opening db");
+			}
 
 			/* if project did not exist add a new project */
 			if (project_exist == FALSE)
@@ -1249,11 +1324,10 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			if (needs_sources_scan == TRUE)
 			{
 				DEBUG_PRINT ("Symbol-DB: importing sources...");
-				do_import_sources (plugin, pm, root_dir);				
+				do_import_project_sources (plugin, pm, root_dir);
 			}
-			else	/* no import needed. */
-			{								
-				/* we may have aborted the scan of sources ..*/
+			else	/* no import needed. But we may have aborted the scan of sources ..*/
+			{
 				GPtrArray *sources_array = NULL;
 				
 				sources_array = 
@@ -1308,26 +1382,9 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_signal_connect (G_OBJECT (pm), "element_added",
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
-					  G_CALLBACK (on_project_element_removed), sdb_plugin);
-	
-	
-	/* hide it. Default */
-	/* system tags thing: we'll import after abort even if the preferences says not
-	 * to automatically scan the packages.
-	 */
-	gtk_widget_hide (sdb_plugin->progress_bar_system);
+					  G_CALLBACK (on_project_element_removed), sdb_plugin);	
 
-	GPtrArray *sys_src_array = NULL;
-	sys_src_array = 
-		symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_globals);
-
-	if (sys_src_array != NULL && sys_src_array->len > 0) 
-	{
-		do_import_system_src_after_abort (plugin, sys_src_array);
-				
-		g_ptr_array_foreach (sys_src_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (sys_src_array, TRUE);
-	}	
+	
 }
 
 static void
@@ -1362,6 +1419,9 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	/* don't forget to close the project */
 	symbol_db_engine_close_db (sdb_plugin->sdbe_project);
+	
+	/* and the globals one */
+	symbol_db_engine_close_db (sdb_plugin->sdbe_globals);
 
 	g_free (sdb_plugin->project_root_uri);
 	g_free (sdb_plugin->project_root_dir);
@@ -1403,6 +1463,12 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 * preferences for the session about global-system packages 
 	 */
 	symbol_db->session_packages = NULL;
+	
+	symbol_db->buf_update_timeout_id = 0;
+	symbol_db->need_symbols_update = FALSE;
+	/* creates and start a new timer. */
+	symbol_db->update_timer = g_timer_new ();
+
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Initializing engines with %s", ctags_path);
 	/* create SymbolDBEngine(s) */
@@ -1631,6 +1697,12 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),										  
 										  on_system_single_file_scan_end,
 										  plugin);
+	
+	if (sdb_plugin->update_timer)
+	{
+		g_timer_destroy (sdb_plugin->update_timer);
+		sdb_plugin->update_timer = NULL;
+	}
 
 	/* destroy objects */
 	if (sdb_plugin->sdbe_project)
@@ -1724,12 +1796,29 @@ symbol_db_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	parent_class = g_type_class_peek_parent (klass);
 
 	plugin_class->activate = symbol_db_activate;
 	plugin_class->deactivate = symbol_db_deactivate;
 	klass->finalize = symbol_db_finalize;
 	klass->dispose = symbol_db_dispose;
+	
+	signals[PROJECT_IMPORT_END]
+		= g_signal_new ("project-import-end",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBPluginClass, project_import_end),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	
+	signals[GLOBALS_IMPORT_END]
+		= g_signal_new ("globals-import-end",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBPluginClass, globals_import_end),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);	
 }
 
 static IAnjutaIterable*
@@ -2030,6 +2119,33 @@ on_prefs_package_remove (SymbolDBPrefs *sdbp, const gchar *package,
 }
 
 static void
+on_prefs_buffer_update_toggled (SymbolDBPrefs *sdbp, guint value, 
+							  gpointer user_data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	DEBUG_PRINT ("on_prefs_buffer_update_toggled () %d", value);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
+	
+	if (value == FALSE)
+	{
+		if (sdb_plugin->buf_update_timeout_id)
+			g_source_remove (sdb_plugin->buf_update_timeout_id);
+		sdb_plugin->buf_update_timeout_id = 0;	
+	}
+	else 
+	{
+		if (sdb_plugin->buf_update_timeout_id == 0)
+			sdb_plugin->buf_update_timeout_id = 
+				g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+								on_editor_buffer_symbols_update_timeout,
+								sdb_plugin);			
+		
+	}
+	
+}
+
+static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	DEBUG_PRINT ("SymbolDB: ipreferences_merge");	
@@ -2052,6 +2168,9 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		g_signal_connect (G_OBJECT (sdb_plugin->sdbp), "package-remove",
 						  G_CALLBACK (on_prefs_package_remove),
 						  sdb_plugin);		
+		g_signal_connect (G_OBJECT (sdb_plugin->sdbp), "buffer-update-toggled",
+						  G_CALLBACK (on_prefs_buffer_update_toggled),
+						  sdb_plugin);				
 	}
 }
 
