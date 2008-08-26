@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-18 16:53+0000\n"
-"PO-Revision-Date: 2008-08-24 20:48+0200\n"
+"POT-Creation-Date: 2008-08-26 11:32+0000\n"
+"PO-Revision-Date: 2008-08-27 00:09+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:469
+#: ../plugins/symbol-db/symbol-db-prefs.c:492
 msgid "Load"
 msgstr "Carga"
 
@@ -2554,7 +2554,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "Buscar"
 
@@ -5528,8 +5528,8 @@ msgid "Icon"
 msgstr "Icono"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:305 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:408
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -5649,17 +5649,17 @@ msgstr "Nivel del parche:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_Herramientas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "_Parchear…"
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "Parcheararchivos/directorios"
 
@@ -7145,7 +7145,7 @@ msgstr ""
 "No se puede guardar el archivo porque el nombre de archivo aún no se ha "
 "especificado"
 
-#: ../plugins/sourceview/sourceview-io.c:488
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "Archivo nuevo %d"
@@ -7773,7 +7773,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:477
+#: ../plugins/symbol-db/symbol-db-prefs.c:500
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
@@ -7852,63 +7852,71 @@ msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr "Acciones del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr "Acciones emergentes el explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:278
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:393
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:411
+#: ../plugins/symbol-db/symbol-db-prefs.c:551
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
 #: ../plugins/symbol-db/symbol-db-system.c:761
 msgid "Resuming glb scan."
-msgstr "Resumiendo el escáner glb."
+msgstr "Resumiendo el análisis glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas de la API disponibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-msgid "Automatically scan project's packages"
-msgstr "Analizar automáticamente los paquetes del proyecto"
+msgid "Automatically scan projetc's packages."
+msgstr "Analizar automáticamente los paquetes del proyecto."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr "Actualizar automáticamente los símbolos sin guardar el archivo."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
 msgstr "Comprobando si el paquete se puede analizar…"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
 msgstr "Seleccionar las ctags ejecutables"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Ctags ejecutables:"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel global/project scan of symbols."
+msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
