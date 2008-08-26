@@ -1,3 +1,10 @@
+2008-08-26  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-browser/plugin.c (update_editor_symbol_model):
+	#549405 – There are warnings when I create a new file
+
 2008-08-23  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
@@ -48,7 +55,10 @@
 	* plugins/message-view/plugin.c (activate_plugin),
 	(deactivate_plugin), (ianjuta_msgman_add_view):
 	* plugins/message-view/plugin.h:
+	Fixed critical on plugin deactivation
+
 	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_finalize):
+	Do not free mutex because that crashes 50% of the time.
 
 2008-08-20  Sébastien Granjoux  <seb.sfo@free.fr>
 

@@ -740,10 +740,10 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
 	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
-	uri = g_file_get_uri (file);
-	g_object_unref (file);
-	if (uri)
+	if (file)
 	{
+		uri = g_file_get_uri (file);
+		g_object_unref (file);
 		gchar *local_filename;
 		GtkTreeModel *file_symbol_model;
 		
