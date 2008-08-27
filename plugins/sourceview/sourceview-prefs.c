@@ -305,7 +305,7 @@ sourceview_prefs_init(Sourceview* sv)
 																						get_key(sv, RIGHTMARGIN_POSITION));
 	
 	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view),
-																	 get_key (sv, VISIBLE_SPACES));
+																	 get_key (sv, VISIBLE_SPACES) ? GTK_SOURCE_DRAW_SPACES_ALL : 0);
 		
 	init_fonts(sv);
 	

@@ -329,10 +329,9 @@ static void insert_text_in_document(SourceviewIO* sio, const gchar* text, gsize 
 	gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (sio->sv->priv->document));
 
 	/* Insert text in the buffer */
-	ianjuta_editor_append (IANJUTA_EDITOR(sio->sv), 
-						   text,
-						   len,
-						   NULL);
+	gtk_text_buffer_set_text (GTK_TEXT_BUFFER (document), 
+							  text,
+							  len);
 
 	gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (document),
 				      FALSE);
