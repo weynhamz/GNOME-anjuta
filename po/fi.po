@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 14:19+0300\n"
-"PO-Revision-Date: 2006-08-14 14:10+0300\n"
+"POT-Creation-Date: 2008-08-27 12:27+0300\n"
+"PO-Revision-Date: 2008-08-27 12:00+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -176,14 +176,14 @@ msgstr "thai"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Komentoa ei voi suorittaa: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1155
+#: ../libanjuta/anjuta-launcher.c:1159
 msgid "execvp failed"
 msgstr "execvp epäonnistui"
 
@@ -214,7 +214,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:447
+#: ../plugins/symbol-db/symbol-db-prefs.c:492
 msgid "Load"
 msgstr "Lataa"
 
@@ -223,7 +223,7 @@ msgstr "Lataa"
 msgid "Available Plugins"
 msgstr "Saatavilla olevat liitännäiset"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:957
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:927
 msgid "Preferred plugins"
 msgstr "Suositut liitännäiset"
 
@@ -405,7 +405,7 @@ msgstr "Luokka"
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:944
+#: ../src/anjuta-app.c:914
 msgid "General"
 msgstr "Yleisasetukset"
 
@@ -620,7 +620,7 @@ msgstr "Suorita päätteessä"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
 msgid "Run several commands at a time:"
-msgstr ""
+msgstr "Suorita useita komentoja kerralla:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
@@ -652,7 +652,7 @@ msgstr "Profilointi"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Optimized"
-msgstr ""
+msgstr "Optimoitu"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 msgid "No executables in this project!"
@@ -698,283 +698,280 @@ msgstr "Ohjelma \"%s\" ei ole ajan tasalla."
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:148
-#, fuzzy
+#: ../plugins/build-basic-autotools/plugin.c:151
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make[%d]: Siirrytään hakemistoon \"%s\""
+msgstr "make(\\[\\d+\\])?:\\s+Siirrytään\\s+kansioon\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:149
-#, fuzzy
+#: ../plugins/build-basic-autotools/plugin.c:152
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "make[%d]: Siirrytään hakemistoon \"%s\""
+msgstr "make(\\[\\d+\\])?:\\s+Siirrytään\\s+kansioon\\s+'(.+)'"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:157
-#, fuzzy
+#: ../plugins/build-basic-autotools/plugin.c:160
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make[%d]: Poistutaan hakemistosta \"%s\""
+msgstr "make(\\[\\d+\\])?:\\s+Poistutaan\\s+kansiosta\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:158
-#, fuzzy
+#: ../plugins/build-basic-autotools/plugin.c:161
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make[%d]: Poistutaan hakemistosta \"%s\""
+msgstr "make(\\[\\d+\\])?:\\s+Poistutaan\\s+kansiosta\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:704
+#: ../plugins/build-basic-autotools/plugin.c:707
 #, c-format
 msgid "Entering: %s"
 msgstr "Siirrytään: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:740
+#: ../plugins/build-basic-autotools/plugin.c:743
 #, c-format
 msgid "Leaving: %s"
 msgstr "Poistutaan: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:773
+#: ../plugins/build-basic-autotools/plugin.c:776
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "varoitus:"
 
-#: ../plugins/build-basic-autotools/plugin.c:894
+#: ../plugins/build-basic-autotools/plugin.c:893
 #, c-format
 msgid "Command exited with status %d"
 msgstr "Komento valmistui epäonnistuen tilakoodilla %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:904
+#: ../plugins/build-basic-autotools/plugin.c:903
 #, c-format
 msgid "Command canceled by user"
 msgstr "Käyttäjä pysäytti komennon"
 
-#: ../plugins/build-basic-autotools/plugin.c:909
+#: ../plugins/build-basic-autotools/plugin.c:908
 #, c-format
 msgid "Command aborted by user"
 msgstr "Käyttäjä keskeytti komennon"
 
-#: ../plugins/build-basic-autotools/plugin.c:914
+#: ../plugins/build-basic-autotools/plugin.c:913
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Komento keskeytyi tilakoodilla %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:922
+#: ../plugins/build-basic-autotools/plugin.c:921
 msgid "Command terminated for an unknown reason"
-msgstr ""
+msgstr "Komento keskeytyi tuntemattomasta syystä"
 
-#: ../plugins/build-basic-autotools/plugin.c:938
+#: ../plugins/build-basic-autotools/plugin.c:937
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Aikaa kului yhteensä: %lu sekuntia\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:943
+#: ../plugins/build-basic-autotools/plugin.c:942
 msgid "Completed unsuccessful\n"
 msgstr "Valmistui ... epäonnistuneesti\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:948
+#: ../plugins/build-basic-autotools/plugin.c:947
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
 msgstr "Valmistui ... onnistuneesti\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:994
+#: ../plugins/build-basic-autotools/plugin.c:993
 #, c-format
 msgid "Build %d: %s"
 msgstr "Kooste %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1566
+#: ../plugins/build-basic-autotools/plugin.c:1565
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Kohdetta \"%s\" ei voi kääntää: tiedostotyypille ei ole määritelty sääntöjä."
 
-#: ../plugins/build-basic-autotools/plugin.c:1637
+#: ../plugins/build-basic-autotools/plugin.c:1636
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
+msgstr "Projektia ei voi määritellä. Configure-skripti puuttuu kohteesta %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2020
-#: ../plugins/build-basic-autotools/plugin.c:2094
-#: ../plugins/build-basic-autotools/plugin.c:2104
-#: ../plugins/build-basic-autotools/plugin.c:2122
-#: ../plugins/build-basic-autotools/plugin.c:2132
-#: ../plugins/build-basic-autotools/plugin.c:2260
+#: ../plugins/build-basic-autotools/plugin.c:2019
+#: ../plugins/build-basic-autotools/plugin.c:2093
+#: ../plugins/build-basic-autotools/plugin.c:2103
+#: ../plugins/build-basic-autotools/plugin.c:2121
+#: ../plugins/build-basic-autotools/plugin.c:2131
+#: ../plugins/build-basic-autotools/plugin.c:2259
 #, c-format
 msgid "_Build"
 msgstr "_Koosta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2024
+#: ../plugins/build-basic-autotools/plugin.c:2023
 msgid "_Build Project"
 msgstr "_Koosta projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2025
+#: ../plugins/build-basic-autotools/plugin.c:2024
 msgid "Build whole project"
 msgstr "Koosta koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2030
+#: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Install Project"
 msgstr "_Asenna projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2031
+#: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Install whole project"
 msgstr "Asenna koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2036
+#: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Clean Project"
 msgstr "_Puhdista projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2037
+#: ../plugins/build-basic-autotools/plugin.c:2036
 msgid "Clean whole project"
 msgstr "Puhdista koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2042
+#: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
 msgstr "_Määrittele projekti..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2043
+#: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
 msgstr "Määrittele projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2048
+#: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "Build _Tarball"
 msgstr "Koosta_tar-paketti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2049
+#: ../plugins/build-basic-autotools/plugin.c:2048
 msgid "Build project tarball distribution"
 msgstr "Koosta projektista tar-paketti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2054
+#: ../plugins/build-basic-autotools/plugin.c:2053
 msgid "_Build Module"
 msgstr "_Koosta moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2055
+#: ../plugins/build-basic-autotools/plugin.c:2054
 msgid "Build module associated with current file"
 msgstr "Koosta nykyiseen tiedostoon liittyvä moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2059
 msgid "_Install Module"
 msgstr "_Asenna moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2061
+#: ../plugins/build-basic-autotools/plugin.c:2060
 msgid "Install module associated with current file"
 msgstr "Asenna nykyiseen tiedostoon liittyvä moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2065
 msgid "_Clean Module"
 msgstr "_Siivoa moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2067
+#: ../plugins/build-basic-autotools/plugin.c:2066
 msgid "Clean module associated with current file"
 msgstr "Siivoa pois nykyiseen tiedostoon liittyvä moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2071
 msgid "Co_mpile File"
 msgstr "_Käännä tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2073
+#: ../plugins/build-basic-autotools/plugin.c:2072
 msgid "Compile current editor file"
 msgstr "Käännä nykyinen muokkaimen tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2077
 msgid "Select Configuration"
 msgstr "Valitse määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2079
+#: ../plugins/build-basic-autotools/plugin.c:2078
 msgid "Select current configuration"
 msgstr "Valitse nykyinen määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2084
+#: ../plugins/build-basic-autotools/plugin.c:2083
 msgid "Remove Configuration"
 msgstr "Poista määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2085
+#: ../plugins/build-basic-autotools/plugin.c:2084
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
+"Siivoa project (distclean) ja poista asetuskansio, jos mahdollista"
 
-#: ../plugins/build-basic-autotools/plugin.c:2098
-#: ../plugins/build-basic-autotools/plugin.c:2126
+#: ../plugins/build-basic-autotools/plugin.c:2097
+#: ../plugins/build-basic-autotools/plugin.c:2125
 msgid "_Compile"
 msgstr "_Käännä"
 
-#: ../plugins/build-basic-autotools/plugin.c:2099
-#: ../plugins/build-basic-autotools/plugin.c:2127
+#: ../plugins/build-basic-autotools/plugin.c:2098
+#: ../plugins/build-basic-autotools/plugin.c:2126
 msgid "Compile file"
 msgstr "Käännä tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2105
-#: ../plugins/build-basic-autotools/plugin.c:2133
+#: ../plugins/build-basic-autotools/plugin.c:2104
+#: ../plugins/build-basic-autotools/plugin.c:2132
 msgid "Build module"
 msgstr "Koosta moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2110
-#: ../plugins/build-basic-autotools/plugin.c:2138
-#: ../plugins/build-basic-autotools/plugin.c:2267
+#: ../plugins/build-basic-autotools/plugin.c:2109
+#: ../plugins/build-basic-autotools/plugin.c:2137
+#: ../plugins/build-basic-autotools/plugin.c:2266
 #, c-format
 msgid "_Install"
 msgstr "_Asenna"
 
-#: ../plugins/build-basic-autotools/plugin.c:2111
-#: ../plugins/build-basic-autotools/plugin.c:2139
+#: ../plugins/build-basic-autotools/plugin.c:2110
+#: ../plugins/build-basic-autotools/plugin.c:2138
 msgid "Install module"
 msgstr "Asenna moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2116
-#: ../plugins/build-basic-autotools/plugin.c:2144
-#: ../plugins/build-basic-autotools/plugin.c:2274
+#: ../plugins/build-basic-autotools/plugin.c:2115
+#: ../plugins/build-basic-autotools/plugin.c:2143
+#: ../plugins/build-basic-autotools/plugin.c:2273
 #, c-format
 msgid "_Clean"
 msgstr "_Siivoa"
 
-#: ../plugins/build-basic-autotools/plugin.c:2117
-#: ../plugins/build-basic-autotools/plugin.c:2145
+#: ../plugins/build-basic-autotools/plugin.c:2116
+#: ../plugins/build-basic-autotools/plugin.c:2144
 msgid "Clean module"
 msgstr "Siivoa moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2150
+#: ../plugins/build-basic-autotools/plugin.c:2149
 msgid "_Cancel command"
 msgstr "_Peru komento"
 
-#: ../plugins/build-basic-autotools/plugin.c:2151
+#: ../plugins/build-basic-autotools/plugin.c:2150
 msgid "Cancel build command"
 msgstr "Peru koostamiskomento"
 
-#: ../plugins/build-basic-autotools/plugin.c:2260
+#: ../plugins/build-basic-autotools/plugin.c:2259
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Koosta (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2267
+#: ../plugins/build-basic-autotools/plugin.c:2266
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Asenna (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2274
+#: ../plugins/build-basic-autotools/plugin.c:2273
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Siivoa (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2282
+#: ../plugins/build-basic-autotools/plugin.c:2281
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Kää_nnä (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2282
+#: ../plugins/build-basic-autotools/plugin.c:2281
 #, c-format
 msgid "Co_mpile"
 msgstr "_Käännä"
 
-#: ../plugins/build-basic-autotools/plugin.c:2780
+#: ../plugins/build-basic-autotools/plugin.c:2779
 msgid "Build commands"
 msgstr "Koostamiskomennot"
 
-#: ../plugins/build-basic-autotools/plugin.c:2787
+#: ../plugins/build-basic-autotools/plugin.c:2786
 msgid "Build popup commands"
 msgstr "Koosta ponnahdusikkunan komennot"
 
-#: ../plugins/build-basic-autotools/plugin.c:3150
-#: ../plugins/build-basic-autotools/plugin.c:3168
+#: ../plugins/build-basic-autotools/plugin.c:3149
+#: ../plugins/build-basic-autotools/plugin.c:3167
 msgid "Build Autotools"
 msgstr "Koosta Autotoolsit"
 
@@ -2334,7 +2331,7 @@ msgstr "Kehys"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:447 ../plugins/tools/tool.c:99
-#: ../src/anjuta-app.c:699
+#: ../src/anjuta-app.c:679
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Tiedosto"
@@ -2544,11 +2541,11 @@ msgstr "Kirjat"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "Etsi"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:716
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:696
 msgid "Help"
 msgstr "Ohje"
 
@@ -3744,7 +3741,7 @@ msgstr "Tuntematon kohde"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:980
 #, c-format
 msgid "recent menu label|_%d. %s"
-msgstr ""
+msgstr "_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
@@ -3754,10 +3751,10 @@ msgstr ""
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:987
 #, c-format
 msgid "recent menu label|%d. %s"
-msgstr ""
+msgstr "%d. %s"
 
 #: ../plugins/file-loader/plugin.c:167
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
@@ -3768,9 +3765,9 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
-"<b>Tiedostoa \"%s\" ei voi avata.</b>\n"
+"<b>Kohdetta \"%s\" ei voi avata.</b>\n"
 "\n"
-"Liitännäistä, toimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi ei ole "
+"Liitännäistä, oletustoimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi ei ole "
 "määritelty.\n"
 "\n"
 "MIME-tyyppi: %s.\n"
@@ -4274,9 +4271,8 @@ msgid "<b>Folder to create patches in:</b>"
 msgstr "<b>Kansio johon paikat luodaan:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:10
-#, fuzzy
 msgid "<b>Generate patches relative to:</b>"
-msgstr "<b>Yleiset luokan ominaisuudet</b>"
+msgstr "<b>Luo paikat suhteessa kansioon:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:11
 msgid "<b>Good revision:</b>"
@@ -4377,7 +4373,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
-msgstr ""
+msgstr "Lisää noutotiedot"
 
 #: ../plugins/git/anjuta-git.glade.h:36
 msgid "Author/Grep"
@@ -4391,7 +4387,7 @@ msgstr "Tekijä:"
 
 #: ../plugins/git/anjuta-git.glade.h:38
 msgid "Branch must be fully merged"
-msgstr ""
+msgstr "Haaran täytyy olla täysin yhdistetty"
 
 #: ../plugins/git/anjuta-git.glade.h:39
 msgid "Check Out Files"
@@ -4399,7 +4395,7 @@ msgstr "Hae viimeisimmät tiedostot"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 msgid "Check out the branch after it is created"
-msgstr ""
+msgstr "Hae haaran viimeisimmät tiedostot luonnin jälkeen"
 
 #: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
@@ -4445,7 +4441,7 @@ msgstr "Älä seuraa tageja"
 
 #: ../plugins/git/anjuta-git.glade.h:51
 msgid "Fetch remote branches after creation"
-msgstr ""
+msgstr "Nouda etähaara luonnin jälkeen"
 
 #: ../plugins/git/anjuta-git.glade.h:52
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
@@ -4462,7 +4458,7 @@ msgstr "Grep:"
 
 #: ../plugins/git/anjuta-git.glade.h:56
 msgid "Hard"
-msgstr ""
+msgstr "Kova"
 
 #: ../plugins/git/anjuta-git.glade.h:57
 msgid "Head"
@@ -4478,7 +4474,7 @@ msgstr "Yhdistä"
 
 #: ../plugins/git/anjuta-git.glade.h:60
 msgid "Mixed"
-msgstr ""
+msgstr "Sekoitettu"
 
 #: ../plugins/git/anjuta-git.glade.h:61
 msgid "Previous commit"
@@ -4489,9 +4485,8 @@ msgid "Pull"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:63
-#, fuzzy
 msgid "Rebase"
-msgstr "Julkaisu"
+msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4530,7 +4525,7 @@ msgstr "Aseta ristiriidat selvitetyiksi"
 
 #: ../plugins/git/anjuta-git.glade.h:72
 msgid "Soft"
-msgstr ""
+msgstr "Pehmeä"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
@@ -4542,11 +4537,11 @@ msgstr "Vaihda toiseen haaraan"
 
 #: ../plugins/git/anjuta-git.glade.h:75
 msgid "Tag/Commit"
-msgstr ""
+msgstr "Tagi/toteuta"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
+msgstr "Tämä toteutus saattaa epäonnistuneen yhdistämisen valmiiksi (käytä -i:tä)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
@@ -4587,7 +4582,7 @@ msgstr "Valitse tiedosto."
 #: ../plugins/git/git-add-remote-dialog.c:41
 #, c-format
 msgid "Git: Added remote branch \"%s\"."
-msgstr ""
+msgstr "Git: Lisättiin etähaara \"%s\"."
 
 #: ../plugins/git/git-add-remote-dialog.c:81
 #: ../plugins/git/git-create-branch-dialog.c:98
@@ -4614,7 +4609,7 @@ msgstr "Anna revisio."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr ""
+msgstr "Git: tiedostot noudettu."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
@@ -4623,7 +4618,7 @@ msgstr "Git: toimitus valmis."
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
 msgid "Git: Created branch \"%s\"."
-msgstr ""
+msgstr "Git: Luotiin haara \"%s\"."
 
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
@@ -4668,7 +4663,7 @@ msgstr "Git: Yhdistäminen valmistui."
 
 #: ../plugins/git/git-pull-dialog.c:36
 msgid "Git: Pull complete."
-msgstr ""
+msgstr "Git: Tuonti valmistui."
 
 #: ../plugins/git/git-pull-dialog.c:77
 msgid "Please enter the URL of the repository to pull from."
@@ -4688,7 +4683,7 @@ msgstr "Git: selvitys valmistui."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
-msgstr ""
+msgstr "Git: Haaran tuonti valmistui."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 msgid "Git"
@@ -4760,13 +4755,13 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:128
 msgid "_Unstage files..."
-msgstr "Tallennetaan tiedostoa..."
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:136
 msgid "_Check out files..."
-msgstr ""
+msgstr "_Nouda tiedostoja..."
 
 #. Action name
 #. Stock icon, if any
@@ -4846,7 +4841,7 @@ msgstr "_Luo haara..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:257
 msgid "_Delete branch..."
-msgstr ""
+msgstr "_Poista haara..."
 
 #. Action name
 #. Stock icon, if any
@@ -4888,7 +4883,7 @@ msgstr "_Vertaa toteuttamattomia muutoksia"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:325
 msgid "_Show commit diff"
-msgstr ""
+msgstr "_Näytä toteutetut erot"
 
 #. Action name
 #. Stock icon, if any
@@ -5512,8 +5507,8 @@ msgid "Icon"
 msgstr "Kuvake"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:215 ../plugins/message-view/plugin.c:393
-#: ../plugins/message-view/plugin.c:405
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "Viestit"
 
@@ -5633,17 +5628,17 @@ msgstr "Paikkataso:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_Työkalut"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "_Paikkaus..."
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "Paikkaa tiedostoja tai kansioita"
 
@@ -5892,7 +5887,7 @@ msgstr ""
 #.
 #: ../plugins/project-import/project-import.c:123
 msgid "Please, fix the configuration"
-msgstr ""
+msgstr "Ole hyvä ja korjaa asetukset"
 
 #: ../plugins/project-import/project-import.c:130
 #, c-format
@@ -5955,38 +5950,29 @@ msgstr ""
 "Tiedostoa \"%s\" ei voi kirjoittaa: %s. Tarkista kirjoitusoikeutesi "
 "projektikansioon."
 
-#: ../plugins/project-manager/plugin.c:344
+#: ../plugins/project-manager/plugin.c:422
+#: ../plugins/project-manager/plugin.c:823
+msgid "Project properties"
+msgstr "Projektin ominaisuudet"
+
+#: ../plugins/project-manager/plugin.c:427
+msgid "Target properties"
+msgstr "Kohteen ominaisuudet"
+
+#: ../plugins/project-manager/plugin.c:432
+msgid "Group properties"
+msgstr "Ryhmän ominaisuudet"
+
+#: ../plugins/project-manager/plugin.c:456
+msgid "No properties available for this target"
+msgstr "Tälle kohteelle ei ole saatavilla ominaisuuksia"
+
+#: ../plugins/project-manager/plugin.c:482
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Projektia ei voitu päivittää: %s"
 
-#: ../plugins/project-manager/plugin.c:367
-#: ../plugins/project-manager/plugin.c:750
-msgid "Project properties"
-msgstr "Projektin ominaisuudet"
-
-#: ../plugins/project-manager/plugin.c:382
-#: ../plugins/project-manager/plugin.c:474
-msgid "No properties available for this target"
-msgstr "Tälle kohteelle ei ole saatavilla ominaisuuksia"
-
-#: ../plugins/project-manager/plugin.c:459
-msgid "Target properties"
-msgstr "Kohteen ominaisuudet"
-
-#: ../plugins/project-manager/plugin.c:488
-msgid "Group properties"
-msgstr "Ryhmän ominaisuudet"
-
-#: ../plugins/project-manager/plugin.c:491
-msgid "Close"
-msgstr "Sulje"
-
-#: ../plugins/project-manager/plugin.c:503
-msgid "No properties available for this group"
-msgstr "Tälle ryhmälle ei ole saatavilla ominaisuuksia"
-
-#: ../plugins/project-manager/plugin.c:587
+#: ../plugins/project-manager/plugin.c:660
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -5994,7 +5980,7 @@ msgstr ""
 "Haluatko varmasti poistaa seuraavan ryhmän projektista?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:588
+#: ../plugins/project-manager/plugin.c:661
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -6005,7 +5991,7 @@ msgstr ""
 "\n"
 "Ryhmää ei poisteta tiedostojärjestelmästä."
 
-#: ../plugins/project-manager/plugin.c:591
+#: ../plugins/project-manager/plugin.c:664
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -6013,12 +5999,12 @@ msgstr ""
 "Haluatko varmasti poistaa seuraavan kohteen projektista?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:592
+#: ../plugins/project-manager/plugin.c:665
 #, c-format
 msgid "Target: %s"
 msgstr "Kohde: %s"
 
-#: ../plugins/project-manager/plugin.c:595
+#: ../plugins/project-manager/plugin.c:668
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -6026,7 +6012,7 @@ msgstr ""
 "Haluatko varmasti poistaa seuraavan lähdekooditiedoston projektista?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:596
+#: ../plugins/project-manager/plugin.c:669
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -6037,7 +6023,7 @@ msgstr ""
 "\n"
 "Lähetiedostoa ei poisteta tiedostojärjestelmästä."
 
-#: ../plugins/project-manager/plugin.c:651
+#: ../plugins/project-manager/plugin.c:724
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6046,107 +6032,107 @@ msgstr ""
 "Kohdetta \"%s\" ei voitu poistaa:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:707
+#: ../plugins/project-manager/plugin.c:780
 msgid "The file you selected is a link and can't be added to the project"
 msgstr "Valitsemasi tiedosto on linkki eikä sitä voi lisätä projektiin"
 
-#: ../plugins/project-manager/plugin.c:709
+#: ../plugins/project-manager/plugin.c:782
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Kohteen %s URI-tietoja ei voitu hakea: %s"
 
-#: ../plugins/project-manager/plugin.c:746
+#: ../plugins/project-manager/plugin.c:819
 msgid "_Project"
 msgstr "_Projekti"
 
-#: ../plugins/project-manager/plugin.c:750
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:823
+#: ../plugins/project-manager/plugin.c:857
 msgid "_Properties"
 msgstr "_Ominaisuudet"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 #: ../plugins/symbol-browser/plugin.c:312
 msgid "_Refresh"
 msgstr "_Päivitä"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 msgid "Refresh project manager tree"
 msgstr "Päivitä projektinhallinnan puu"
 
-#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:833
 msgid "Add _Group..."
 msgstr "Lisää _ryhmä..."
 
-#: ../plugins/project-manager/plugin.c:760
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add a group to project"
 msgstr "Lisää ryhmä projektiin"
 
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:838
 msgid "Add _Target..."
 msgstr "Lisää _kohde..."
 
-#: ../plugins/project-manager/plugin.c:765
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:838
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add a target to project"
 msgstr "Lisää kohde projektiin"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:843
 msgid "Add _Source File..."
 msgstr "Lisää _lähdekooditiedosto..."
 
-#: ../plugins/project-manager/plugin.c:770
-#: ../plugins/project-manager/plugin.c:789
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:843
+#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add a source file to project"
 msgstr "Lisää lähdekooditiedosto projektiin"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close Pro_ject"
 msgstr "Sulje pro_jekti"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close project"
 msgstr "Sulje projekti"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:857
 msgid "Properties of group/target/source"
 msgstr "Ryhmän, kohteen tai lähteen ominaisuudet"
 
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:862
 msgid "_Add To Project"
 msgstr "_Lisää projektiin"
 
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add _Group"
 msgstr "Lisää _ryhmä"
 
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add _Target"
 msgstr "Lisää _kohde"
 
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add _Source File"
 msgstr "Lisää _lähdekooditiedosto"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Re_move"
 msgstr "_Poista"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Remove from project"
 msgstr "Poista projektista"
 
-#: ../plugins/project-manager/plugin.c:1167
+#: ../plugins/project-manager/plugin.c:1240
 #, c-format
 msgid "Loading project: %s"
 msgstr "Ladataan porjektia: %s"
 
-#: ../plugins/project-manager/plugin.c:1175
+#: ../plugins/project-manager/plugin.c:1248
 msgid "Created project view..."
 msgstr "Projektinäkymä luotu..."
 
-#: ../plugins/project-manager/plugin.c:1188
+#: ../plugins/project-manager/plugin.c:1261
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6155,31 +6141,31 @@ msgstr ""
 "Projektia %s ei voitu lukea (projekti on avattu, mutta projekti ei tule "
 "näkymään): %s\n"
 
-#: ../plugins/project-manager/plugin.c:1208
-#: ../plugins/project-manager/plugin.c:1285
-#: ../plugins/project-manager/plugin.c:1457
+#: ../plugins/project-manager/plugin.c:1281
+#: ../plugins/project-manager/plugin.c:1363
+#: ../plugins/project-manager/plugin.c:1536
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projekti"
 
-#: ../plugins/project-manager/plugin.c:1373
+#: ../plugins/project-manager/plugin.c:1451
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Virhe suljettaessa porjektia: %s"
 
-#: ../plugins/project-manager/plugin.c:1436
+#: ../plugins/project-manager/plugin.c:1515
 msgid "Project manager actions"
 msgstr "Projektinhallinan toiminnot"
 
-#: ../plugins/project-manager/plugin.c:1444
+#: ../plugins/project-manager/plugin.c:1523
 msgid "Project manager popup actions"
 msgstr "Projektinhallinnan ponnahdusikkunan toiminnot"
 
-#: ../plugins/project-manager/plugin.c:2393
+#: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
 msgstr "Ladataan projektia.. alustetaan"
 
-#: ../plugins/project-manager/plugin.c:2396
+#: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
 msgstr "Ladattiin projekti..."
 
@@ -6223,7 +6209,6 @@ msgid "Project Type"
 msgstr "Projektin tyyppi"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
-#, fuzzy
 msgid ""
 "The Application Assistant will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
@@ -6231,8 +6216,8 @@ msgid ""
 "may not be possible to change some of the settings later."
 msgstr ""
 "Sovellusapulainen luo projektille yksinkertaisen rungon, joka sisältää "
-"tarvittavat käännöstiedostot. Apulainen kysyy projektin alustavan rakenteen "
-"yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain asetuksista "
+"tarvittavat koontitiedostot. Apulainen kysyy projektin alustavan rakenteen "
+"yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain tiedoista "
 "ei voi muuttaa jälkikäteen."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
@@ -6272,6 +6257,9 @@ msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
 "only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
+"Kentän \"%s\" täytyy alkaa kirjaimella, numerolla tai alaviivalla ja se saa "
+"sisältää vain kirjaimia, numeroita, alaviivoja, viivoja ja pisteitä. Korjaa "
+"kentän arvo."
 
 #: ../plugins/project-wizard/druid.c:543
 #, c-format
@@ -6311,6 +6299,9 @@ msgid ""
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
 msgstr ""
+"Joitain tärkeitä ohjelmia tai kehitystyökalujen paketteja, jotka tämän "
+"projektin koostaminen vaatii, puuttuu. Varmista, että vaaditut paketit "
+"on asennettu ennen kuin yrität koostaa projektia.\n"
 
 #: ../plugins/project-wizard/druid.c:740
 msgid "Missing components"
@@ -6325,6 +6316,12 @@ msgid ""
 "suffix in package names and can be found by searching in your Application "
 "Manager."
 msgstr ""
+"Puuttuvat ohjelmat löytyvät yleensä jostain ohjelmalevityksen paketista "
+"ja voit etsiä niitä paketinhallinnan avulla. Kehityspaketit ovat usein "
+"erillisissä paketeissa, jotka ohjelmalevitys tarjoaa asennettavaksi kun "
+"halutaan kehittää niitä vaativia projekteja. Pakettien pääte on useimmiten "
+"-dev tai -devel, liitettynä paketin tavalliseeen nimeen ja voit löytää ne "
+"paketinhallinnan avulla."
 
 #: ../plugins/project-wizard/druid.c:947
 msgid "Unable to build project assistant user interface."
@@ -6730,7 +6727,7 @@ msgstr "Aseta ohjelma, valitsimet ja niin edelleen"
 
 #: ../plugins/run-program/plugin.c:265
 msgid "Run operations"
-msgstr ""
+msgstr "Suorita toimintoja"
 
 #. Action name
 #. Stock icon, if any
@@ -7087,7 +7084,7 @@ msgstr[1] "korvattiin %d osumaa."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Haun ja korvauksen käyttöliittymää ei voitu luoda"
 
-#: ../plugins/sourceview/sourceview.c:299
+#: ../plugins/sourceview/sourceview.c:307
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
@@ -7097,23 +7094,23 @@ msgstr ""
 "Ladataanko tiedosto levyltä?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:338
+#: ../plugins/sourceview/sourceview.c:347
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Tiedostoa %s ei voitu avata: %s"
 
-#. Could not save <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:447
+#. Could not open <filename>: <error message>
+#: ../plugins/sourceview/sourceview.c:467
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Tiedostoa %s ei voitu tallentaa: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:245
+#: ../plugins/sourceview/sourceview-io.c:246
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Tiedostoa ei voitu tallentaa koska tiedostonimeä ei ole vielä valittu"
 
-#: ../plugins/sourceview/sourceview-io.c:457
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "Uusi tiedosto %d"
@@ -7187,6 +7184,10 @@ msgid "Use theme font"
 msgstr "Käytä teeman kirjasinta"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
+msgid "Visible whitespaces"
+msgstr "Näytä tyhjeet"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Rivitä pitkät rivit paperille"
 
@@ -7737,7 +7738,7 @@ msgid "Symbol Browser"
 msgstr "Symboliselain"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:455
+#: ../plugins/symbol-db/symbol-db-prefs.c:500
 msgid "API Tags"
 msgstr "API-tagit"
 
@@ -7767,7 +7768,7 @@ msgstr "Luo API-tagit"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 msgid "Load API tags from project configuration"
-msgstr ""
+msgstr "Lataa API-tagit projektin määrittelystä"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update Global Tags"
@@ -7816,59 +7817,71 @@ msgid "Created symbols..."
 msgstr "Luodut symbolit..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
 msgstr "Paikallinen"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
 msgstr "Yhteinen"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr "Symboliselaimen toiminnot"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr "Symboliselaimen ponnahdusikkunan toiminnot"
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "Symbolien navigointi"
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "Symbolit"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:281
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 msgid "Package is not parseable"
 msgstr "Pakettia ei voi tulkita"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:378
-#: ../plugins/symbol-db/symbol-db-prefs.c:506
+#: ../plugins/symbol-db/symbol-db-prefs.c:411
+#: ../plugins/symbol-db/symbol-db-prefs.c:551
 msgid "Symbol Database"
 msgstr "Symbolikanta"
 
-#: ../plugins/symbol-db/symbol-db-system.c:755
+#: ../plugins/symbol-db/symbol-db-system.c:761
 msgid "Resuming glb scan."
-msgstr ""
+msgstr "Jatketaan glb-etsintää"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
 msgstr "<b>Saatavilla olevat API-tagit</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+msgid "Automatically scan projetc's packages."
+msgstr "Etsi projektin paketeista automaattisesti."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr "Pävitä symbolit automaattisesti tallentamatta tiedostoa."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
 msgstr "Tarkistetaan voiko pakettia tulkita..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
 msgstr "Valitse ctags-komento"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Ctags-komento:"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel global/project scan of symbols."
+msgstr "Symbolien rinnakkainen etsintä kaikkialta tai projektista."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8120,7 +8133,7 @@ msgstr "Korvaa puskuri"
 
 #: ../plugins/tools/tool.c:86
 msgid "Insert in buffer"
-msgstr ""
+msgstr "Liitä puskuriin"
 
 #: ../plugins/tools/tool.c:87
 msgid "Append to buffer"
@@ -8132,7 +8145,7 @@ msgstr "Korvaa valinta"
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr ""
+msgstr "Ponnahdusikkuna"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
@@ -8547,6 +8560,11 @@ msgid ""
 "Icons only\n"
 "Text only"
 msgstr ""
+"Oletus\n"
+"Teksti kuvakkeiden alla\n"
+"Teksti kuvakkeiden vierellä\n"
+"Vain kuvakkeet\n"
+"Vain teksti"
 
 #: ../src/anjuta.glade.h:9
 msgid "Default project directory:"
@@ -8594,7 +8612,7 @@ msgstr ""
 #. translators: translate the same as in gnome-control-center
 #: ../src/anjuta.glade.h:24
 msgid "Toolbar button labels:"
-msgstr ""
+msgstr "Työkalupalkin nappien otsakkeet"
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
@@ -8720,23 +8738,23 @@ msgstr "Tietoja ulkoisista _liitännäisistä"
 msgid "About third party Anjuta plugins"
 msgstr "Tietoja kolmannen osapuolen anjuta-liitännäisistä"
 
-#: ../src/anjuta-app.c:703
+#: ../src/anjuta-app.c:683
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: ../src/anjuta-app.c:707 ../src/anjuta-app.c:712
+#: ../src/anjuta-app.c:687 ../src/anjuta-app.c:692
 msgid "View"
 msgstr "Näytä"
 
-#: ../src/anjuta-app.c:955
+#: ../src/anjuta-app.c:925
 msgid "Installed plugins"
 msgstr "Asennetut liitännäiset"
 
-#: ../src/anjuta-app.c:959
+#: ../src/anjuta-app.c:929
 msgid "Shortcuts"
 msgstr "Pikanäppäimet"
 
-#: ../src/anjuta-app.c:1031
+#: ../src/anjuta-app.c:1001
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Arvoa ei ole olemassa"
@@ -9102,7 +9120,7 @@ msgstr "Vianetsinnän hallintaliitännäinen."
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
-msgstr ""
+msgstr "Salli ohjelman suoritus ilman debuggeria."
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
@@ -9114,5 +9132,10 @@ msgstr "Kielten hallinta"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
-msgstr ""
+msgstr "Liitännäinen, jolla voi pitää kirjaa useista ohjelmointikielistä"
 
+#~ msgid "Close"
+#~ msgstr "Sulje"
+
+#~ msgid "No properties available for this group"
+#~ msgstr "Tälle ryhmälle ei ole saatavilla ominaisuuksia"
