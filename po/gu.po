@@ -1,14 +1,14 @@
-# translation of anjuta.HEAD.po to Gujarati
+# translation of anjuta.HEAD.gu.po to Gujarati
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sweta Kothari <swkothar@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: anjuta.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 09:48+0000\n"
-"PO-Revision-Date: 2008-08-27 18:08+0530\n"
+"POT-Creation-Date: 2008-08-28 03:27+0000\n"
+"PO-Revision-Date: 2008-08-28 18:31+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -359,7 +359,7 @@ msgstr ""
 #: ../libanjuta/anjuta-profile.c:755
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "%s: '%s' માંથી તેને સ્થાપિત કરો\n"
 
 #: ../libanjuta/anjuta-profile.c:763
 #, c-format
@@ -378,12 +378,12 @@ msgstr ""
 #. Stock icon, if any
 #: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:192
 msgid "_Reset"
-msgstr ""
+msgstr "પુન:સુયોજિત કરો (_R)"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:101
 #: ../plugins/gtodo/interface.c:220 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
-msgstr ""
+msgstr "વર્ગ"
 
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:144
@@ -392,19 +392,19 @@ msgstr ""
 #: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
 #: ../src/anjuta-app.c:914
 msgid "General"
-msgstr ""
+msgstr "સામાન્ય"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:242
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "Anjuta પસંદગીઓ"
 
 #: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
-msgstr ""
+msgstr "સંગ્રહ કરવા માટે વસ્તુઓને પસંદ કરો"
 
 #: ../libanjuta/anjuta-save-prompt.c:190
 msgid "If you do not save, all your changes will be lost."
-msgstr ""
+msgstr "જો તમે સંગ્રહ નહિ કરો તો, બધા તમારા બદલાવો ગુમ થઇ જશે."
 
 #: ../libanjuta/anjuta-save-prompt.c:197
 #: ../plugins/document-manager/plugin.c:613
@@ -417,7 +417,7 @@ msgstr "વસ્તુ"
 
 #: ../libanjuta/anjuta-save-prompt.c:210
 msgid "_Discard changes"
-msgstr ""
+msgstr "બદલાવોને કાઢા નાંખો (_D)"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
@@ -639,19 +639,19 @@ msgstr "પ્રક્રિયા"
 
 #: ../plugins/build-basic-autotools/executer.c:255
 msgid "No file or project currently opened."
-msgstr ""
+msgstr "ફાઇલ અથવા પ્રોજેક્ટ હાલમાં ખોલેલાં નથી."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
 #: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr ""
+msgstr "પ્રક્રિયા '%s' એ સ્થાનીય ફાઇલ નથી"
 
 #: ../plugins/build-basic-autotools/executer.c:310
 #, c-format
 msgid "Program '%s' does not exists"
-msgstr ""
+msgstr "પ્રક્રિયા '%s' અસ્તિત્વ ધરાવતી નથી"
 
 #: ../plugins/build-basic-autotools/executer.c:318
 #: ../plugins/run-program/execute.c:80
@@ -697,12 +697,12 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:707
 #, c-format
 msgid "Entering: %s"
-msgstr ""
+msgstr "દાખલ થઇ રહ્યા છે: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:743
 #, c-format
 msgid "Leaving: %s"
-msgstr ""
+msgstr "છોડી રહ્યા છે: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:776
 #: ../plugins/tools/execute.c:329
@@ -752,7 +752,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:993
 #, c-format
 msgid "Build %d: %s"
-msgstr ""
+msgstr "બિલ્ડ %d: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:1565
 #, c-format
@@ -972,11 +972,11 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 msgid "<b>Class Elements</b>"
-msgstr ""
+msgstr "<b>વર્ગ ઘટકો</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
 msgid "<b>General Class Properties</b>"
-msgstr ""
+msgstr "<b>સામાન્ય વર્ગ ગુણધર્મો</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
 msgid "Add to Project"
@@ -1000,7 +1000,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid "Author/Date/Time"
-msgstr ""
+msgstr "લેખક/તારીખ/સમય"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "Base Class Inheritance:"
@@ -1120,7 +1120,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 msgid "<b>CVS Options</b>"
-msgstr ""
+msgstr "<b>CVS વિકલ્પો</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "<b>Module Details:</b>"
@@ -1274,7 +1274,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 #: ../plugins/subversion/anjuta-subversion.glade.h:36
 msgid "Password:"
-msgstr ""
+msgstr "પાસવર્ડ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
@@ -1318,7 +1318,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Username:"
-msgstr ""
+msgstr "વપરાશકર્તાનામ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
@@ -1715,7 +1715,7 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
-msgstr ""
+msgstr "શરત (_C):"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
 #: ../plugins/gdb/anjuta-gdb.glade.h:32
@@ -1749,7 +1749,7 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:50
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
-msgstr ""
+msgstr "બધુ દૂર કરો (_R)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:52
 msgid "_Value:"
@@ -1885,11 +1885,11 @@ msgstr ""
 #: ../plugins/debug-manager/breakpoints.c:1892
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
-msgstr ""
+msgstr "પ્રકાર"
 
 #: ../plugins/debug-manager/breakpoints.c:1893
 msgid "Condition"
-msgstr ""
+msgstr "શરત"
 
 #: ../plugins/debug-manager/breakpoints.c:1893
 msgid "Pass count"
@@ -1926,7 +1926,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 msgid "Information"
-msgstr ""
+msgstr "જાણકારી"
 
 #: ../plugins/debug-manager/info.c:127
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:48
@@ -2203,7 +2203,7 @@ msgstr ""
 #: ../plugins/project-wizard/property.c:278
 #: ../plugins/project-wizard/property.c:291
 msgid "No"
-msgstr ""
+msgstr "ના"
 
 #: ../plugins/debug-manager/signals.c:260
 msgid "Modify Signal"
@@ -2219,7 +2219,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/signals.c:332
 msgid "Signal"
-msgstr ""
+msgstr "સંકેત"
 
 #: ../plugins/debug-manager/signals.c:336
 msgid "Stop"
@@ -2235,7 +2235,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/signals.c:348
 msgid "Description"
-msgstr ""
+msgstr "વર્ણન"
 
 #: ../plugins/debug-manager/signals.c:467
 msgid " Stop: "
@@ -2406,15 +2406,15 @@ msgstr ""
 
 #: ../plugins/debug-manager/watch.c:409
 msgid "Change Value"
-msgstr ""
+msgstr "કિંમતને બદલો"
 
 #: ../plugins/debug-manager/watch.c:417
 msgid "Update all"
-msgstr ""
+msgstr "બધુ સુધારો"
 
 #: ../plugins/debug-manager/watch.c:425
 msgid "Remove all"
-msgstr ""
+msgstr "બધાને દૂર કરો"
 
 #. Action name
 #. Stock icon, if any
@@ -2449,7 +2449,7 @@ msgstr ""
 
 #: ../plugins/devhelp/plugin.c:246
 msgid "Next Help"
-msgstr ""
+msgstr "પછીની મદદ"
 
 #: ../plugins/devhelp/plugin.c:248
 msgid "Go to next help page"
@@ -2518,22 +2518,22 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-docman.c:357
 msgid "Close file"
-msgstr ""
+msgstr "ફાઇલને બંધ કરો"
 
 #: ../plugins/document-manager/anjuta-docman.c:433
 msgid "Path:"
-msgstr ""
+msgstr "પાથ:"
 
 #: ../plugins/document-manager/anjuta-docman.c:554
 #: ../plugins/file-loader/plugin.c:541 ../plugins/file-loader/plugin.c:812
 #: ../plugins/file-loader/plugin.c:822 ../plugins/file-loader/plugin.c:835
 msgid "Open file"
-msgstr ""
+msgstr "ફાઇલને ખોલો"
 
 #: ../plugins/document-manager/anjuta-docman.c:573
 #: ../plugins/message-view/message-view.c:105
 msgid "Save file as"
-msgstr ""
+msgstr "આ રીતે ફાઇલને સંગ્રહ કરો"
 
 #: ../plugins/document-manager/anjuta-docman.c:654
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
@@ -2603,15 +2603,15 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:150
 msgid "_Save"
-msgstr ""
+msgstr "સંગ્રહો (_S)"
 
 #: ../plugins/document-manager/plugin.c:151
 msgid "Save current file"
-msgstr ""
+msgstr "હાલની ફાઇલનો સંગ્રહ કરો"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Save _As..."
-msgstr ""
+msgstr "આ રીતે સંગ્રહો (_A)..."
 
 #: ../plugins/document-manager/plugin.c:153
 msgid "Save the current file with a different name"
@@ -2619,7 +2619,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:155
 msgid "Save A_ll"
-msgstr ""
+msgstr "બધાનો સંગ્રહ કરો (_l)"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save all currently open files, except new files"
@@ -2627,43 +2627,43 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:158
 msgid "_Close File"
-msgstr ""
+msgstr "ફાઇલને બંધ કરો (_C)"
 
 #: ../plugins/document-manager/plugin.c:159
 msgid "Close current file"
-msgstr ""
+msgstr "હાલની ફાઇલને બંધ કરો"
 
 #: ../plugins/document-manager/plugin.c:161
 msgid "Close All"
-msgstr ""
+msgstr "બધુ બંધ કરો"
 
 #: ../plugins/document-manager/plugin.c:162
 msgid "Close all files"
-msgstr ""
+msgstr "બધી ફાઇલોને બંધ કરો"
 
 #: ../plugins/document-manager/plugin.c:164
 msgid "Reload F_ile"
-msgstr ""
+msgstr "ફાઇલને પુન:લોડ કરો (_i)"
 
 #: ../plugins/document-manager/plugin.c:165
 msgid "Reload current file"
-msgstr ""
+msgstr "હાલની ફાઇલને પુન:લોડ કરો"
 
 #: ../plugins/document-manager/plugin.c:167
 msgid "Recent _Files"
-msgstr ""
+msgstr "તાજેતરની ફાઇલો (_F)"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "_Print..."
-msgstr ""
+msgstr "છાપો (_P)..."
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "Print the current file"
-msgstr ""
+msgstr "હાલની ફાઇલને છાપો"
 
 #: ../plugins/document-manager/plugin.c:179
 msgid "_Print Preview"
-msgstr ""
+msgstr "પૂર્વદર્શનને છાપો (_P)"
 
 #: ../plugins/document-manager/plugin.c:180
 msgid "Preview the current file in print-format"
@@ -2864,7 +2864,7 @@ msgstr ""
 #. menu title
 #: ../plugins/document-manager/plugin.c:280
 msgid "_Editor"
-msgstr ""
+msgstr "સંપાદક (_E)"
 
 #: ../plugins/document-manager/plugin.c:287
 msgid "_Add Editor View"
@@ -2911,7 +2911,7 @@ msgstr ""
 #: ../plugins/document-manager/plugin.c:302 ../plugins/terminal/terminal.c:506
 #: ../plugins/valgrind/vgdefaultview.c:1152
 msgid "_Copy"
-msgstr ""
+msgstr "નકલ કરો (_C)"
 
 #: ../plugins/document-manager/plugin.c:303
 msgid "Copy the selected text to the clipboard"
@@ -2920,7 +2920,7 @@ msgstr ""
 #: ../plugins/document-manager/plugin.c:305 ../plugins/terminal/terminal.c:514
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Paste"
-msgstr ""
+msgstr "ચોંટાડો (_P)"
 
 #: ../plugins/document-manager/plugin.c:306
 msgid "Paste the content of clipboard at the current position"
@@ -3036,7 +3036,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:369
 msgid "Bookmar_k"
-msgstr ""
+msgstr "બુકમાર્ક (_k)"
 
 #: ../plugins/document-manager/plugin.c:370
 msgid "_Toggle Bookmark"
@@ -3088,11 +3088,11 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:391
 msgid "_Documents"
-msgstr ""
+msgstr "દસ્તાવેજો (_D)"
 
 #: ../plugins/document-manager/plugin.c:392
 msgid "Previous Document"
-msgstr ""
+msgstr "પહેલાનું દસ્તાવેજ"
 
 #: ../plugins/document-manager/plugin.c:393
 msgid "Switch to previous document"
@@ -3100,7 +3100,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:395
 msgid "Next Document"
-msgstr ""
+msgstr "પછીનું દસ્તાવેજ"
 
 #: ../plugins/document-manager/plugin.c:396
 msgid "Switch to next document"
@@ -3160,7 +3160,7 @@ msgstr ""
 #: ../plugins/document-manager/plugin.c:2140
 #: ../plugins/document-manager/plugin.c:2150
 msgid "Documents"
-msgstr ""
+msgstr "દસ્તાવેજો"
 
 #: ../plugins/document-manager/plugin.c:432
 msgid "Editor view settings"
@@ -3180,7 +3180,7 @@ msgstr "OVR"
 
 #: ../plugins/document-manager/plugin.c:948
 msgid "INS"
-msgstr ""
+msgstr "INS"
 
 #: ../plugins/document-manager/plugin.c:950
 #: ../plugins/document-manager/plugin.c:964
@@ -3190,7 +3190,7 @@ msgstr ""
 #: ../plugins/document-manager/plugin.c:952
 #: ../plugins/document-manager/plugin.c:966
 msgid "Col"
-msgstr ""
+msgstr "Col"
 
 #: ../plugins/document-manager/plugin.c:953
 #: ../plugins/document-manager/plugin.c:967
@@ -3915,15 +3915,15 @@ msgstr ""
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
-msgstr ""
+msgstr "નામ:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 msgid "New File"
-msgstr ""
+msgstr "નવી ફાઇલ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "Type:"
-msgstr ""
+msgstr "પ્રકાર:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Use Template for the Header file"
@@ -3931,49 +3931,49 @@ msgstr ""
 
 #: ../plugins/file-wizard/file.c:82
 msgid "C Source File"
-msgstr ""
+msgstr "C સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C/C++ Header File"
-msgstr ""
+msgstr "C/C++ હેડર ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
-msgstr ""
+msgstr "C++ સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
-msgstr ""
+msgstr "C# સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:86
 msgid "Java Source File"
-msgstr ""
+msgstr "Java સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:87
 msgid "Perl Source File"
-msgstr ""
+msgstr "Perl સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Python Source File"
-msgstr ""
+msgstr "Python સ્ત્રોત ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Shell Script File"
-msgstr ""
+msgstr "Shell સ્ક્રિપ્ટ ફાઇલ"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Other"
-msgstr ""
+msgstr "બીજા"
 
 #: ../plugins/file-wizard/file.c:107
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "General Public License (GPL)"
-msgstr ""
+msgstr "General Public License (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Lesser General Public License (LGPL)"
-msgstr ""
+msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/file-wizard/file.c:176
 msgid "Unable to build user interface for New File"
@@ -4248,7 +4248,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:29
 msgid "<b>URL:</b>"
-msgstr ""
+msgstr "<b>URL:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:30
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
@@ -4257,7 +4257,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:31
 msgid "Add File"
-msgstr ""
+msgstr "ફાઇલને ઉમેરો"
 
 #: ../plugins/git/anjuta-git.glade.h:32
 msgid "Add Remote Branch"
@@ -4283,7 +4283,7 @@ msgstr ""
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "Author:"
-msgstr ""
+msgstr "લેખક:"
 
 #: ../plugins/git/anjuta-git.glade.h:38
 msgid "Branch must be fully merged"
@@ -4321,7 +4321,7 @@ msgstr ""
 #: ../plugins/git/anjuta-git.glade.h:46
 #: ../plugins/subversion/subversion-log-dialog.c:139
 msgid "Date"
-msgstr ""
+msgstr "તારીખ"
 
 #: ../plugins/git/anjuta-git.glade.h:47
 msgid "Delete Branch"
@@ -4587,7 +4587,7 @@ msgstr ""
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: ../plugins/git/git-ui-utils.c:438
 msgid "Git: Diff complete."
@@ -4601,7 +4601,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:56
 msgid "_Git"
-msgstr ""
+msgstr "Git (_G)"
 
 #. Action name
 #. Stock icon, if any
@@ -4729,7 +4729,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:240
 msgid "_Ignore..."
-msgstr ""
+msgstr "અવગણો (_I)..."
 
 #. Action name
 #. Stock icon, if any
@@ -4922,7 +4922,7 @@ msgstr ""
 #: ../plugins/gtodo/add_edit_item.c:328 ../plugins/gtodo/add_edit_item.c:329
 #, c-format
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 #: ../plugins/gtodo/add_edit_item.c:292 ../plugins/gtodo/add_edit_item.c:335
 #: ../plugins/gtodo/add_edit_item.c:444
@@ -4963,7 +4963,7 @@ msgstr ""
 
 #: ../plugins/gtodo/interface.c:142
 msgid "All"
-msgstr ""
+msgstr "બધુ"
 
 #: ../plugins/gtodo/interface.c:206
 msgid "Priority"
@@ -5168,7 +5168,7 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:183
 msgid "days."
-msgstr ""
+msgstr "દિવસો."
 
 #: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
@@ -5199,7 +5199,7 @@ msgstr ""
 
 #: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
-msgstr ""
+msgstr "તારીખ નથી"
 
 #: ../plugins/gtodo/tray-icon.c:22
 msgid "/_New"
@@ -5264,7 +5264,7 @@ msgstr ""
 
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
-msgstr ""
+msgstr "દાખલ કરો"
 
 #: ../plugins/macro/macro-dialog.c:267
 msgid "Insert macro"
@@ -5334,7 +5334,7 @@ msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:5
 msgid "Errors:"
-msgstr ""
+msgstr "ભૂલો:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:6
 msgid "Normal message indicator style:"
@@ -5372,7 +5372,7 @@ msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:22
 msgid "Warnings:"
-msgstr ""
+msgstr "ચેતવણીઓ:"
 
 #: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
@@ -5386,25 +5386,25 @@ msgstr ""
 
 #: ../plugins/message-view/message-view.c:731
 msgid "0 Messages"
-msgstr ""
+msgstr "૦ સંદેશાઓ"
 
 #: ../plugins/message-view/message-view.c:742
 msgid "0 Warnings"
-msgstr ""
+msgstr "૦ ચેતવણીઓ"
 
 #: ../plugins/message-view/message-view.c:754
 msgid "0 Errors"
-msgstr ""
+msgstr "૦ ભૂલો"
 
 #: ../plugins/message-view/message-view.c:795
 msgid "Icon"
-msgstr ""
+msgstr "આઇકોન"
 
 #: ../plugins/message-view/message-view.c:808
 #: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
 #: ../plugins/message-view/plugin.c:411
 msgid "Messages"
-msgstr ""
+msgstr "સંદેશાઓ"
 
 #: ../plugins/message-view/message-view.c:1164
 #, c-format
@@ -5415,8 +5415,8 @@ msgstr ""
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d સંદેશ"
+msgstr[1] "%d સંદેશાઓ"
 
 #: ../plugins/message-view/message-view.c:1299
 #, c-format
@@ -5555,7 +5555,7 @@ msgstr ""
 #: ../plugins/profiler/gprof-call-graph-view.c:414
 #: ../plugins/profiler/gprof-call-graph-view.c:426
 msgid "Children"
-msgstr ""
+msgstr "બાળકો"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:439
 #: ../plugins/profiler/gprof-call-graph-view.c:449
@@ -5709,7 +5709,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
 msgid "Options..."
-msgstr ""
+msgstr "વિકલ્પો..."
 
 #: ../plugins/profiler/profiler.glade.h:17
 msgid "Profiling Options"
@@ -5733,7 +5733,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:22
 msgid "Show all symbols"
-msgstr ""
+msgstr "બધા સંકેતોને બતાવો"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
@@ -5945,11 +5945,11 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:848
 msgid "Close Pro_ject"
-msgstr ""
+msgstr "પ્રોજેક્ટને બંધ કરો (_j)"
 
 #: ../plugins/project-manager/plugin.c:848
 msgid "Close project"
-msgstr ""
+msgstr "પ્રોજેક્ટને બંધ કરો"
 
 #: ../plugins/project-manager/plugin.c:857
 msgid "Properties of group/target/source"
@@ -5957,23 +5957,23 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:862
 msgid "_Add To Project"
-msgstr ""
+msgstr "પ્રોજેક્ટને ઉમેરો (_A)"
 
 #: ../plugins/project-manager/plugin.c:867
 msgid "Add _Group"
-msgstr ""
+msgstr "જૂથ ને ઉમેરો (_G)"
 
 #: ../plugins/project-manager/plugin.c:872
 msgid "Add _Target"
-msgstr ""
+msgstr "લક્ષ્યને ઉમેરો (_T)"
 
 #: ../plugins/project-manager/plugin.c:877
 msgid "Add _Source File"
-msgstr ""
+msgstr "સ્ત્રોત ફાઇલને ઉમેરો (_S)"
 
 #: ../plugins/project-manager/plugin.c:882
 msgid "Re_move"
-msgstr ""
+msgstr "દૂર કરો (_m)"
 
 #: ../plugins/project-manager/plugin.c:882
 msgid "Remove from project"
@@ -6073,11 +6073,11 @@ msgstr ""
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Version:"
-msgstr ""
+msgstr "આવૃત્તિ:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
 msgid "label"
-msgstr ""
+msgstr "લેબલ"
 
 #: ../plugins/project-wizard/druid.c:180
 msgid ""
@@ -6087,7 +6087,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:182
 msgid "Project Type: "
-msgstr ""
+msgstr "પ્રોજેક્ટ નો પ્રકાર: "
 
 #: ../plugins/project-wizard/druid.c:310
 #, c-format
@@ -6508,7 +6508,7 @@ msgstr ""
 #: ../plugins/run-program/parameters.c:720
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
-msgstr ""
+msgstr "નામ"
 
 #: ../plugins/run-program/plugin.c:179
 msgid ""
@@ -6692,7 +6692,7 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:28
 msgid "New Name:"
-msgstr ""
+msgstr "નવુ નામ:"
 
 #: ../plugins/search/anjuta-search.glade.h:29
 msgid "No Limit"
@@ -6923,7 +6923,7 @@ msgstr ""
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview-io.c:489
+#: ../plugins/sourceview/sourceview-io.c:488
 #, c-format
 msgid "New file %d"
 msgstr ""
@@ -6938,7 +6938,7 @@ msgstr ""
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:2
 msgid "<b>Font:</b>"
-msgstr ""
+msgstr "<b>ફોન્ટ:</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:3
 msgid "<b>Indentation and auto-format options</b>"
@@ -6950,7 +6950,7 @@ msgstr ""
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
 msgid "Font"
-msgstr ""
+msgstr "ફોન્ટ"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
 msgid "Highlight current line"
@@ -7742,11 +7742,11 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
-msgstr ""
+msgstr "પરિમાણો:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:9
 msgid "Save all files"
-msgstr ""
+msgstr "બધી ફાઇલોનો સંગ્રહ કરો"
 
 #: ../plugins/tools/anjuta-tools.glade.h:10
 msgid "Short cut:"
@@ -7769,7 +7769,7 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Tool Editor"
-msgstr ""
+msgstr "સાધન સંપાદક"
 
 #: ../plugins/tools/anjuta-tools.glade.h:18
 msgid "Variable list"
@@ -7781,7 +7781,7 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "_Variable..."
-msgstr ""
+msgstr "ચલ(_V)..."
 
 #: ../plugins/tools/dialog.c:176
 #, c-format
@@ -7790,7 +7790,7 @@ msgstr ""
 
 #: ../plugins/tools/dialog.c:335
 msgid "Tool"
-msgstr ""
+msgstr "સાધન"
 
 #: ../plugins/tools/editor.c:305
 msgid "ask at runtime"
@@ -8581,7 +8581,7 @@ msgstr ""
 
 #: ../src/main.c:381
 msgid "Anjuta"
-msgstr ""
+msgstr "Anjuta"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
