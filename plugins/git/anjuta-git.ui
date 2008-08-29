@@ -61,6 +61,7 @@
 	
 	<popup name="PopupLog">
 		<menuitem name="Commit diff" action="ActionGitLogCommitDiff" />
+		<menuitem name="View Selected Revision" action="ActionGitLogViewRevision" />
 		<separator name="log_separator1" />
 		<menuitem name="Create branch..." action="ActionGitLogCreateBranch" />
 		<menuitem name="Create tag..." action="ActionGitLogCreateTag" />
@@ -72,6 +73,16 @@
 			<menu name="Bisect" action="ActionMenuGitLogBisect">
 				<menuitem name="Set good revision" action="ActionGitLogBisectGood" />
 				<menuitem name="Set bad revision" action="ActionGitLogBisectBad" />
+			</menu>
+		</placeholder>
+	</popup>
+	
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileVCS">
+			<menu name="MenuGitFM" action="ActionMenuGitFM">
+				<menuitem name="View log..." action="ActionGitFMLog" />
+				<menuitem name="Add..." action="ActionGitFMAdd" />
+				<menuitem name="Remove..." action="ActionGitFMRemove" />
 			</menu>
 		</placeholder>
 	</popup>

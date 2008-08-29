@@ -1,3 +1,87 @@
+2008-08-29  Naba Kumar  <naba@gnome.org>
+
+	Patch from: James Liggett  <jrliggett@cox.net>
+
+	* plugins/git/Makefile.am:
+	* plugins/git/anjuta-git.glade:
+	* plugins/git/anjuta-git.ui:
+	* plugins/git/git-add-command.c:
+	* plugins/git/git-add-command.h:
+	* plugins/git/git-add-dialog.c (on_fm_git_add):
+	* plugins/git/git-add-dialog.h:
+	* plugins/git/git-branch-checkout-command.c:
+	* plugins/git/git-branch-checkout-command.h:
+	* plugins/git/git-branch-list-command.c:
+	* plugins/git/git-branch-list-command.h:
+	* plugins/git/git-branch.c:
+	* plugins/git/git-branch.h:
+	* plugins/git/git-cat-blob-command.c (git_cat_blob_command_init),
+	(git_cat_blob_command_finalize), (git_cat_blob_command_run),
+	(git_cat_blob_command_class_init), (git_cat_blob_command_new):
+	* plugins/git/git-cat-blob-command.h:
+	* plugins/git/git-cat-file-menu.c (on_cat_command_finished),
+	(on_list_tree_command_finished), (git_cat_file),
+	(on_log_menu_git_cat_file), (git_cat_file_menu_set_sensitive):
+	* plugins/git/git-cat-file-menu.h:
+	* plugins/git/git-fetch-command.c:
+	* plugins/git/git-fetch-command.h:
+	* plugins/git/git-file-command.c:
+	* plugins/git/git-file-command.h:
+	* plugins/git/git-ignore-command.c:
+	* plugins/git/git-ignore-command.h:
+	* plugins/git/git-list-tree-command.c (git_list_tree_command_init),
+	(git_list_tree_command_finalize), (git_list_tree_command_run),
+	(git_list_tree_command_handle_output),
+	(git_list_tree_command_class_init), (git_list_tree_command_new),
+	(git_list_tree_command_get_blobs):
+	* plugins/git/git-list-tree-command.h:
+	* plugins/git/git-log-command.c (git_log_command_finalize),
+	(git_log_command_run), (git_log_command_new):
+	* plugins/git/git-log-command.h:
+	* plugins/git/git-log-dialog.c (on_log_command_finished),
+	(on_ref_command_finished), (on_log_view_button_clicked),
+	(git_log_window_create), (on_fm_git_log), (git_log_get_path):
+	* plugins/git/git-log-dialog.h:
+	* plugins/git/git-log-message-command.c:
+	* plugins/git/git-log-message-command.h:
+	* plugins/git/git-merge-command.c:
+	* plugins/git/git-merge-command.h:
+	* plugins/git/git-pull-command.c:
+	* plugins/git/git-pull-command.h:
+	* plugins/git/git-remove-command.c:
+	* plugins/git/git-remove-command.h:
+	* plugins/git/git-remove-dialog.c (on_fm_git_remove):
+	* plugins/git/git-remove-dialog.h:
+	* plugins/git/git-revert-command.c:
+	* plugins/git/git-revert-command.h:
+	* plugins/git/git-revision.c:
+	* plugins/git/git-revision.h:
+	* plugins/git/plugin.c (on_project_root_added),
+	(on_project_root_removed), (on_fm_file_added),
+	(on_fm_file_removed), (git_activate_plugin),
+	(git_deactivate_plugin):
+	* plugins/git/plugin.h:
+	* plugins/language-support-cpp-java/plugin.c
+	(on_editor_char_inserted_cpp):
+
+	GSoC Git plugin: Beta 1 completes the agreed-upon feature set in
+	the proposal. Specifically, this patch adds:
+
+	- Support for viewing logs of individual files or folders
+	- Support for viewing files at any revision (or "blobs" as git calls them)
+	- File manager integration for log viewing and adding and removing files
+
+	This release also fixes some minor bugs:
+
+	- Fixes problems with input checking, error dialogs, and widget
+	focusing when user doesn't enter a path in the log viewer when
+	not viewing the log of the whole project
+	- Memory leak fixes
+	- Copyright header fixes 
+
+	It's finally done!! :-)
+	http://bugzilla.gnome.org/show_bug.cgi?id=529270
+
 2008-08-23  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-browser/plugin.c (on_editor_destroy),

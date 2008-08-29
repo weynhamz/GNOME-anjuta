@@ -171,7 +171,13 @@ libanjuta_git_la_SOURCES = \
 	git-pull-command.c \
 	git-pull-command.h \
 	git-pull-dialog.c \
-	git-pull-dialog.h
+	git-pull-dialog.h \
+	git-list-tree-command.c \
+	git-list-tree-command.h \
+	git-cat-blob-command.c \
+	git-cat-blob-command.h \
+	git-cat-file-menu.c \
+	git-cat-file-menu.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

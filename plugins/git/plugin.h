@@ -28,6 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -51,11 +52,13 @@ struct _Git
 	gint uiid;
 	gchar *project_root_directory;
 	gchar *current_editor_filename;
+	gchar *current_fm_filename;
 	IAnjutaMessageView *message_view;
 	
 	/* Watches */
 	gint project_root_watch_id;
 	gint editor_watch_id;
+	gint fm_watch_id;
 	
 	GtkWidget *log_viewer;
 	GtkWidget *log_popup_menu;

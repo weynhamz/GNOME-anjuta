@@ -62,7 +62,7 @@ void git_pulse_progress_bar (GtkProgressBar *progress_bar);
 void git_report_errors (AnjutaCommand *command, guint return_code);
 gchar *git_get_filename_from_full_path (gchar *path);
 const gchar *git_get_relative_path (const gchar *path, 
-								const gchar *working_directory);
+									const gchar *working_directory);
 
 /* Stock signal handlers */
 void on_git_command_finished (AnjutaCommand *command, guint return_code, 

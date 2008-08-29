@@ -29,5 +29,6 @@
 #include "git-ui-utils.h"
 
 void on_menu_git_add (GtkAction *action, Git *plugin);
+void on_fm_git_add (GtkAction *action, Git *plugin);
 
 #endif

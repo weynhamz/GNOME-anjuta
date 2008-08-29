@@ -23,6 +23,7 @@
  */
 
 #include "git-log-dialog.h"
+#include "git-cat-file-menu.h"
 
 enum
 {
@@ -197,25 +198,19 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 						 LogData *data)
 {
 	GtkWidget *log_changes_view;
-	GtkTreeViewColumn *graph_column;
 	GQueue *queue;
 	GtkTreeIter iter;
 	GitRevision *revision;
 	
+	if (return_code != 0)
+	{
+		git_report_errors (command, return_code);
+		g_object_unref (command);
+		
+		return;
+	}
+	
 	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
-	
-	/* If the user is using any filters, hide the graph column, because
-	 * we can't be assured that the graph will be correct with filtered output
-	 * and Giggle's graph renderer doesn't seem to be written to handle this 
-	 * case, so it might crash when rendering. FIXME: look into improving it;
-	 * qgit can handle this somewhat, maybe look there? */
-	graph_column = gtk_tree_view_get_column (GTK_TREE_VIEW (log_changes_view),
-											 1);
-	
-	if (g_hash_table_size (data->filters) > 0)
-		gtk_tree_view_column_set_visible (graph_column, FALSE);
-	else
-		gtk_tree_view_column_set_visible (graph_column, TRUE);
 	
 	g_object_ref (data->list_store);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_changes_view), NULL);
@@ -245,6 +240,10 @@ static void
 on_ref_command_finished (AnjutaCommand *command, guint return_code, 
 						 LogData *data)
 {
+	gchar *path;
+	const gchar *relative_path;
+	GtkWidget *log_changes_view;
+	GtkTreeViewColumn *graph_column;
 	gchar *author;
 	gchar *grep;
 	gchar *since_date;
@@ -253,6 +252,35 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	gchar *until_commit;
 	GitLogCommand *log_command;
 	gint pulse_timer_id;
+	
+	path = g_object_get_data (G_OBJECT (command), "path");
+	relative_path = NULL;
+	
+	if (return_code != 0)
+	{
+		git_report_errors (command, return_code);
+		g_object_unref (command);
+		
+		return;
+	}
+	
+	if (path)
+	{
+		relative_path = git_get_relative_path (path, 
+											   data->plugin->project_root_directory);
+	}
+	
+	/* If the user is using any filters or getting the log of an individual,
+	 * file or folder, hide the graph column, because we can't be assured that  
+	 * the graph will be correct in these cases */
+	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	graph_column = gtk_tree_view_get_column (GTK_TREE_VIEW (log_changes_view),
+											 1);
+	
+	if (g_hash_table_size (data->filters) > 0 || path)
+		gtk_tree_view_column_set_visible (graph_column, FALSE);
+	else
+		gtk_tree_view_column_set_visible (graph_column, TRUE);
 	
 	/* Get the filter data */
 	author = g_hash_table_lookup (data->filters, "author");
@@ -267,6 +295,7 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	
 	data->refs = git_ref_command_get_refs (GIT_REF_COMMAND (command));
 	log_command = git_log_command_new (data->plugin->project_root_directory,
+									   relative_path,
 									   author, grep, since_date, until_date,
 									   since_commit, until_commit);
 	
@@ -290,15 +319,58 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 }
 
 static void
-on_view_log_button_clicked (GtkButton *button, LogData *data)
+on_log_view_button_clicked (GtkButton *button, LogData *data)
 {
+	gchar *path;
+	AnjutaShell *shell;
+	GtkWidget *log_whole_project_check;
+	GtkWidget *log_path_entry;
 	GitRefCommand *ref_command;
+	
+	path = NULL;
+	
+	log_whole_project_check = glade_xml_get_widget (data->gxml,
+													"log_whole_project_check");
+	
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (log_whole_project_check)))
+	{
+		log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
+		path = gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
+		
+		/* Log widget belongs to the shell at this point. */
+		shell = ANJUTA_PLUGIN (data->plugin)->shell;
+		
+		if (!git_check_input (GTK_WIDGET (shell), log_path_entry, path, 
+							  _("Please enter a path.")))
+		{
+			g_free (path);
+			return;
+		}
+		
+		/* Don't allow the user to try to view revisions of directories */
+		git_cat_file_menu_set_sensitive (data->plugin, 
+										 !g_file_test (path, 
+													   G_FILE_TEST_IS_DIR));
+	}
+	else
+	{
+		/* Users can't get individual files if they're viewing the whole 
+		 * project log. */
+		git_cat_file_menu_set_sensitive (data->plugin, FALSE);
+	}
 	
 	ref_command = git_ref_command_new (data->plugin->project_root_directory);
 	
 	g_signal_connect (G_OBJECT (ref_command), "command-finished",
 					  G_CALLBACK (on_ref_command_finished),
 					  data);
+	
+	
+	/* Attach path to this command so it can be passed to the log command. */
+	g_object_set_data_full (G_OBJECT (ref_command), "path", 
+							g_strdup (path), g_free);
+	
+	g_free (path);
 	
 	anjuta_command_start (ANJUTA_COMMAND (ref_command));
 }
@@ -695,9 +767,9 @@ git_log_window_create (Git *plugin)
 	GtkWidget *log_window;
 	GtkWidget *log_vbox;
 	GtkWidget *log_changes_view;
-	GtkWidget *view_log_button;
-	GtkWidget *whole_project_check;
-	GtkWidget *path_entry;
+	GtkWidget *log_view_button;
+	GtkWidget *log_whole_project_check;
+	GtkWidget *log_path_entry;
 	GtkTreeSelection *selection;
 	
 	data = g_new0 (LogData, 1);
@@ -710,11 +782,11 @@ git_log_window_create (Git *plugin)
 	log_window = glade_xml_get_widget (data->gxml, "log_window");
 	log_vbox = glade_xml_get_widget (data->gxml, "log_vbox");
 	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
-	whole_project_check = glade_xml_get_widget (data->gxml, 
-												"whole_project_check");
-	path_entry = glade_xml_get_widget (data->gxml, "path_entry");
-	view_log_button = glade_xml_get_widget (data->gxml, 
-											"view_log_button");
+	log_whole_project_check = glade_xml_get_widget (data->gxml, 
+													"log_whole_project_check");
+	log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
+	log_view_button = glade_xml_get_widget (data->gxml, 
+											"log_view_button");
 	
 	g_object_set_data (G_OBJECT (log_vbox), "log-data", data);
 	
@@ -728,13 +800,13 @@ git_log_window_create (Git *plugin)
 					  plugin);
 	
 	
-	g_signal_connect (G_OBJECT (view_log_button), "clicked",
-					  G_CALLBACK (on_view_log_button_clicked),
+	g_signal_connect (G_OBJECT (log_view_button), "clicked",
+					  G_CALLBACK (on_log_view_button_clicked),
 					  data);
 	
-	g_object_set_data (G_OBJECT (whole_project_check), "file-entry",
-					   path_entry);
-	g_signal_connect (G_OBJECT (whole_project_check), "toggled",
+	g_object_set_data (G_OBJECT (log_whole_project_check), "file-entry",
+					   log_path_entry);
+	g_signal_connect (G_OBJECT (log_whole_project_check), "toggled",
 					  G_CALLBACK (on_git_whole_project_toggled), plugin);
 	
 	data->list_store = gtk_list_store_new (NUM_COLS,
@@ -745,6 +817,8 @@ git_log_window_create (Git *plugin)
 	gtk_tree_selection_set_select_function (selection, 
 											(GtkTreeSelectionFunc) on_log_changes_view_row_selected,
 											data, NULL);
+	
+	git_cat_file_menu_set_sensitive (plugin, FALSE);
 	
 	g_signal_connect (G_OBJECT (log_vbox), "destroy",
 					  G_CALLBACK (on_log_vbox_destroy), 
@@ -764,23 +838,27 @@ on_menu_git_log (GtkAction *action, Git *plugin)
 								 plugin->log_viewer, NULL);
 }
 
-/* TODO: Enable when FM support is implemented */
-#if 0
 void
-on_fm_subversion_log (GtkAction *action, Git *plugin)
+on_fm_git_log (GtkAction *action, Git *plugin)
 {
-	GtkWidget *path_text_entry;
+	LogData *data;
+	GtkWidget *log_path_entry;
+	GtkWidget *log_whole_project_check;
 	
-	path_text_entry = glade_xml_get_widget (plugin->log_gxml, 
-											"path_text_entry");
+	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
+	log_path_entry = glade_xml_get_widget (data->gxml, 
+										   "log_path_entry");
+	log_whole_project_check = glade_xml_get_widget (data->gxml,
+													"log_whole_project_check");
 	
-	gtk_entry_set_text (GTK_ENTRY path_entry), 
-						plugin->fm_current_filename);
+	gtk_entry_set_text (GTK_ENTRY (log_path_entry), 
+						plugin->current_fm_filename);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (log_whole_project_check),
+								  FALSE);
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell, 
 								 plugin->log_viewer, NULL);
 }
-#endif
 
 void
 git_log_window_clear (Git *plugin)
@@ -818,4 +896,16 @@ git_log_get_selected_revision (Git *plugin)
 	gtk_tree_model_get (model, &iter, COL_REVISION, &revision, -1);
 	
 	return revision;
+}
+
+gchar *
+git_log_get_path (Git *plugin)
+{
+	LogData *data;
+	GtkWidget *log_path_entry;
+	
+	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
+	log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
+	
+	return gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
 }

@@ -1347,7 +1347,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	IAnjutaEditorAttribute attrib;
 	IAnjutaIterable *iter;
 	gboolean should_auto_indent = FALSE;
-	static GString *stack = NULL;
 
 	iter = ianjuta_iterable_clone (insert_pos, NULL);
 	
@@ -1417,34 +1416,50 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	
 	if (anjuta_preferences_get_int (plugin->prefs, PREF_BRACE_AUTOCOMPLETION))
 	{
-		if (!stack)
-			stack = g_string_new ("");
-	
 		if (ch == '[' || ch == '(')
 		{
-			ianjuta_iterable_next (iter, NULL);
-		
-			switch (ch)
+			gchar *prev_char;
+			IAnjutaIterable *previous;
+			
+			previous = ianjuta_iterable_clone (iter, NULL);
+			ianjuta_iterable_previous (previous, NULL);
+			prev_char = ianjuta_editor_get_text (editor, previous, iter, NULL);
+			
+			/* If the previous char is a ' we don't have to autocomplete */
+			if (*prev_char != '\'')
 			{
-				case '[': ianjuta_editor_insert (editor, iter,
-												 "]", 1, NULL);
-						  g_string_prepend_c (stack, ']');
-						  break;
-				case '(': ianjuta_editor_insert (editor, iter,
-												 ")", 1, NULL);
-						  g_string_prepend_c (stack, ')');
-						  break;
-				default: break;
-			}
+				ianjuta_iterable_next (iter, NULL);
+		
+				switch (ch)
+				{
+					case '[': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+							  ianjuta_editor_insert (editor, iter,
+													 "]", 1, NULL);
+							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+							  break;
+					case '(': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+							  ianjuta_editor_insert (editor, iter,
+													 ")", 1, NULL);
+							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+							  break;
+					default: break;
+				}
 
-			ianjuta_iterable_previous (iter, NULL);
-			ianjuta_editor_goto_position (editor, iter, NULL);
+				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+				ianjuta_iterable_previous (iter, NULL);
+				ianjuta_editor_goto_position (editor, iter, NULL);
+				ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+			}
+			g_object_unref (previous);
 		}
-		else if (ch == ']' || ch == ')' || ch == '"')
+		else if (ch == ']' || ch == ')' || ch == '"' || ch == '\'')
 		{
-			gchar *str = stack->str;
-			gchar *next_char;
-			IAnjutaIterable *end;
+			gchar *prev_char;
+			IAnjutaIterable *previous;
+			
+			previous = ianjuta_iterable_clone (iter, NULL);
+			ianjuta_iterable_previous (previous, NULL);
+			prev_char = ianjuta_editor_get_text (editor, previous, iter, NULL);
 
 			/* First iter*/
 			ianjuta_iterable_next (iter, NULL);
@@ -1453,34 +1468,33 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			 * If the character is " we have to decide if we need insert
 			 * another " or we have to skip the character
 			 */
-			if (ch == '"' && *str != '"')
+			if (ch == '"' || ch == '\'')
 			{
-				ianjuta_editor_insert (editor, iter,
-									 "\"", 1, NULL);
-				g_string_prepend_c (stack, '"');
-			
-				ianjuta_iterable_previous (iter, NULL);
-				ianjuta_editor_goto_position (editor, iter, NULL);
+				/*
+				 * Now we have to detect if we want to manage " as a char
+				 */
+				if (*prev_char != '\'' && *prev_char != '\\')
+				{
+					gchar *c;
+					
+					if (ch == '"')
+						c = g_strdup ("\"");
+					else c = g_strdup ("'");
+					
+					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+					ianjuta_editor_insert (editor, iter, c, 1, NULL);
+
+					ianjuta_iterable_previous (iter, NULL);
+					ianjuta_editor_goto_position (editor, iter, NULL);
+					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);	
+					
+					g_free (c);
+				}
+				g_object_unref (previous);
 				g_object_unref (iter);
 				return;
 			}
-		
-			/* End iter*/
-			end = ianjuta_iterable_clone (iter, NULL);
-			ianjuta_iterable_next (end, NULL);
-		
-			next_char = ianjuta_editor_get_text (editor, iter, end, NULL);
-		
-			if (ch == *str && ch == *next_char)
-			{
-				g_string_erase (stack, 0, 1);
-				ianjuta_editor_erase (editor, iter, end, NULL);
-			}
-			else {
-				g_string_free (stack, TRUE);
-				stack = g_string_new ("");
-			}
-			g_object_unref (end);
+			g_object_unref (previous);
 		}
 	}
 	g_object_unref (iter);

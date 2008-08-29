@@ -1,22 +1,22 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * git-command-test
+ * anjuta
  * Copyright (C) James Liggett 2008 <jrliggett@cox.net>
  * 
- * git-command-test is free software.
+ * anjuta is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * git-command-test is distributed in the hope that it will be useful,
+ * anjuta is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with git-command-test.  If not, write to:
+ * along with anjuta.  If not, write to:
  * 	The Free Software Foundation, Inc.,
  * 	51 Franklin Street, Fifth Floor
  * 	Boston, MA  02110-1301, USA.
@@ -57,6 +57,7 @@ struct _GitLogCommand
 
 GType git_log_command_get_type (void) G_GNUC_CONST;
 GitLogCommand *git_log_command_new (const gchar *working_directory,
+									const gchar *path,
 									const gchar *author,
 									const gchar *grep,
 									const gchar *since_date,

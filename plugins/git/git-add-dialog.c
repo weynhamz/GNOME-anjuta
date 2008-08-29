@@ -118,3 +118,9 @@ on_menu_git_add (GtkAction *action, Git *plugin)
 {
 	add_dialog (plugin, plugin->current_editor_filename);
 }
+
+void
+on_fm_git_add (GtkAction *action, Git *plugin)
+{
+	add_dialog (plugin, plugin->current_fm_filename);
+}

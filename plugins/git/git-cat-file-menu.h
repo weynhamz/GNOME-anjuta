@@ -22,13 +22,15 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#ifndef _GIT_REMOVE_DIALOG_H
-#define _GIT_REMOVE_DIALOG_H
+#ifndef _GIT_CAT_FILE_MENU_H
+#define _GIT_CAT_FILE_MENU_H
 
-#include "git-remove-command.h"
+#include "git-list-tree-command.h"
+#include "git-cat-blob-command.h"
+#include "git-log-dialog.h"
 #include "git-ui-utils.h"
 
-void on_menu_git_remove (GtkAction *action, Git *plugin);
-void on_fm_git_remove (GtkAction *action, Git *plugin);
+void on_log_menu_git_cat_file (GtkAction *action, Git *plugin); 
+void git_cat_file_menu_set_sensitive (Git *plugin, gboolean sensitive);
 
 #endif

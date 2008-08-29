@@ -117,3 +117,9 @@ on_menu_git_remove (GtkAction *action, Git *plugin)
 {
 	remove_dialog (plugin, plugin->current_editor_filename);
 }
+
+void
+on_fm_git_remove (GtkAction *action, Git *plugin)
+{
+	remove_dialog (plugin, plugin->current_fm_filename);
+}

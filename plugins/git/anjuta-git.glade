@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Jul 21 18:21:23 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Jul 30 14:11:17 2008 -->
 <glade-interface>
   <requires lib="gnome"/>
   <requires lib="anjuta"/>
@@ -1641,20 +1641,21 @@
                         <property name="visible">True</property>
                         <property name="spacing">2</property>
                         <child>
-                          <widget class="GnomeFileEntry" id="path_entry">
+                          <widget class="GnomeFileEntry" id="fileentry1">
                             <property name="visible">True</property>
-                            <property name="sensitive">False</property>
                             <property name="spacing">4</property>
+                            <property name="use_filechooser">True</property>
                             <child internal-child="entry">
-                              <widget class="GtkEntry" id="path_text_entry">
+                              <widget class="GtkEntry" id="log_path_entry">
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                               </widget>
                             </child>
                           </widget>
                         </child>
                         <child>
-                          <widget class="GtkButton" id="view_log_button">
+                          <widget class="GtkButton" id="log_view_button">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -1694,7 +1695,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="whole_project_check">
+                      <widget class="GtkCheckButton" id="log_whole_project_check">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="label" translatable="yes">Whole project</property>

@@ -43,6 +43,7 @@
 #include "git-delete-remote-dialog.h"
 #include "git-create-patch-series-dialog.h"
 #include "git-pull-dialog.h"
+#include "git-cat-file-menu.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.ui"
 
@@ -328,6 +329,14 @@ static GtkActionEntry actions_log[] =
 		G_CALLBACK (on_log_menu_git_commit_diff)    /* action callback */
 	},
 	{
+		"ActionGitLogViewRevision",                       /* Action name */
+		GTK_STOCK_FIND,                            /* Stock icon, if any */
+		N_("_View selected revision"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_log_menu_git_cat_file)    /* action callback */
+	},
+	{
 		"ActionGitLogCreateBranch",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
 		N_("_Create branch..."),                     /* Display label */
@@ -385,6 +394,42 @@ static GtkActionEntry actions_log[] =
 	}
 };
 
+static GtkActionEntry actions_fm[] =
+{
+	{
+		"ActionMenuGitFM",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Git"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitFMLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_View log..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_fm_git_log)    /* action callback */
+	},
+	{
+		"ActionGitFMAdd",                       /* Action name */
+		GTK_STOCK_ADD,                            /* Stock icon, if any */
+		N_("_Add..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_fm_git_add)    /* action callback */
+	},
+	{
+		"ActionGitFMRemove",                       /* Action name */
+		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
+		N_("_Remove..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_fm_git_remove)    /* action callback */
+	}
+};
+
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name, 
 					   const GValue *value, gpointer user_data)
@@ -394,6 +439,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	GFile *file;
 	AnjutaUI *ui;
 	GtkAction *git_menu_action;
+	GtkAction *git_fm_menu_action;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	
@@ -407,8 +453,12 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	git_menu_action = anjuta_ui_get_action (ui, 
 											"ActionGroupGit",
 											"ActionMenuGit");
+	git_fm_menu_action = anjuta_ui_get_action (ui, 
+											   "ActionGroupGitFM",
+											   "ActionMenuGitFM");
 	
 	gtk_action_set_sensitive (git_menu_action, TRUE);
+	gtk_action_set_sensitive (git_fm_menu_action, TRUE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, TRUE);
 	
 	g_free (project_root_uri);
@@ -420,7 +470,9 @@ static void
 on_project_root_removed (AnjutaPlugin *plugin, const gchar *name, 
 						 gpointer user_data)
 {
+	AnjutaUI *ui;
 	GtkAction *git_menu_action;
+	GtkAction *git_fm_menu_action;
 	Git *git_plugin;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
@@ -428,12 +480,17 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
 	
-	git_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
-																 NULL), 
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	git_menu_action = anjuta_ui_get_action (ui, 
 											"ActionGroupGit",
 											"ActionMenuGit");
+	git_fm_menu_action = anjuta_ui_get_action (ui, 
+												"ActionGroupGitFM",
+												"ActionMenuGitFM");
 	
 	gtk_action_set_sensitive (git_menu_action, FALSE);
+	gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE);
 	git_log_window_clear (git_plugin);
 	
@@ -479,12 +536,39 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name, gpointer user_data)
 	git_plugin->current_editor_filename = NULL;
 }
 
+static void
+on_fm_file_added (AnjutaPlugin *plugin, const char *name,
+				  const GValue *value, gpointer data)
+{
+	Git *git_plugin;
+	GFile *file;
+	
+	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+	
+	g_free (git_plugin->current_fm_filename);
+	
+	file = G_FILE (g_value_get_object (value));
+	git_plugin->current_fm_filename = g_file_get_path (file);
+}
+
+static void
+on_fm_file_removed (AnjutaPlugin *plugin, const char *name, gpointer data)
+{
+	Git *git_plugin;
+	
+	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+	
+	g_free (git_plugin->current_fm_filename);
+	git_plugin->current_fm_filename = NULL;
+}
+
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	Git *git_plugin;
 	GtkAction *git_menu_action;
+	GtkAction *git_fm_menu_action;
 	
 	DEBUG_PRINT ("Git: Activating Git plugin ...");
 	
@@ -502,11 +586,16 @@ git_activate_plugin (AnjutaPlugin *plugin)
 										actions_log,
 										G_N_ELEMENTS (actions_log),
 										GETTEXT_PACKAGE, TRUE, plugin);
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitFM",
+										_("Git FM operations"),
+										actions_fm,
+										G_N_ELEMENTS (actions_fm),
+										GETTEXT_PACKAGE, TRUE, plugin);
 										
 	git_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	git_plugin->log_popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-													   "/PopupLog");
+															"/PopupLog");
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -520,6 +609,12 @@ git_activate_plugin (AnjutaPlugin *plugin)
 														   on_editor_added,
 														   on_editor_removed,
 														   NULL);
+	
+	git_plugin->fm_watch_id = anjuta_plugin_add_watch (plugin,
+													   IANJUTA_FILE_MANAGER_SELECTED_FILE,
+													   on_fm_file_added,
+													   on_fm_file_removed,
+													   NULL);
 	
 	/* Log viewer */
 	git_plugin->log_viewer = git_log_window_create (git_plugin);
@@ -540,10 +635,15 @@ git_activate_plugin (AnjutaPlugin *plugin)
 																 NULL), 
 											"ActionGroupGit",
 											"ActionMenuGit");
+	git_fm_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
+																	NULL), 
+											   "ActionGroupGitFM",
+											   "ActionMenuGitFM");
 	
 	if (!git_plugin->project_root_directory)
 	{
 		gtk_action_set_sensitive (git_menu_action, FALSE);
+		gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 		gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE); 
 	}
 	
@@ -564,6 +664,12 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 								TRUE);
 	anjuta_plugin_remove_watch (plugin, git_plugin->editor_watch_id,
 								TRUE);
+	anjuta_plugin_remove_watch (plugin, git_plugin->fm_watch_id,
+								TRUE);
+	
+	g_free (git_plugin->project_root_directory);
+	g_free (git_plugin->current_editor_filename);
+	g_free (git_plugin->current_fm_filename);
 	
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->log_viewer, NULL);
 	gtk_widget_destroy (git_plugin->log_popup_menu);

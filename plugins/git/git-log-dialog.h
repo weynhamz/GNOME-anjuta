@@ -32,14 +32,11 @@
 #include "giggle-graph-renderer.h"
 
 void on_menu_git_log (GtkAction* action, Git *plugin);
-
-/* TODO: Enable when FM support is implemented */
-#if 0
 void on_fm_git_log (GtkAction *action, Git *plugin);
-#endif
 
 GtkWidget *git_log_window_create (Git *plugin);
 void git_log_window_clear (Git *plugin);
 GitRevision *git_log_get_selected_revision (Git *plugin);
+gchar *git_log_get_path (Git *plugin);
 
 #endif
