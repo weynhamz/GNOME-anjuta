@@ -1,8 +1,8 @@
 # Finnish translation for Anjuta.
 # Copyright © 2005-2006 Lauri Nurmi.
-# Copyright @ 2008 Free Software Foundation Inc.
+# Copyright © 2008 Free Software Foundation Inc.
 # This file is distributed under the same license as the Anjuta package.
-# Lauri Nurmi <lanurmi@iki.fi>, 2005 - 2006.
+# Lauri Nurmi <lanurmi@iki.fi>, 2005 - 2006, 2008.
 # Ilkka Tuohela <hile@iki.fi>, 2008.
 #
 msgid ""
@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 12:27+0300\n"
-"PO-Revision-Date: 2008-08-27 12:00+0300\n"
-"Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
+"PO-Revision-Date: 2008-08-29 20:44+0300\n"
+"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,7 +181,7 @@ msgstr "Tuntematon"
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr "Komentoa ei voi suorittaa: \"%s\""
+msgstr "Komentoa ei voi suorittaa: ”%s”"
 
 #: ../libanjuta/anjuta-launcher.c:1159
 msgid "execvp failed"
@@ -198,7 +198,7 @@ msgstr "Anjutan tulkki, joka sisältää liitännäisen"
 #: ../libanjuta/anjuta-plugin-manager.c:734
 #, c-format
 msgid "Plugin '%s' do not want to be deactivated"
-msgstr "Liitännäinen \"%s\" ei suostu aktivoitumaan"
+msgstr "Liitännäinen ”%s” ei suostu aktivoitumaan"
 
 #: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
@@ -237,8 +237,8 @@ msgid ""
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
-"Nämä ovat liitännäiset, jotka valittiin anjutan kysyessä valitsemaan yhden "
-"useista sopivista liitännäisistä. Oletusliitännisen poisto sallii anjutan "
+"Nämä ovat liitännäiset, jotka valittiin Anjutan kysyessä valitsemaan yhden "
+"useista sopivista liitännäisistä. Oletusliitännisen poisto sallii Anjutan "
 "kysyä oletusliitännäistä uudestaan."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1212
@@ -301,7 +301,7 @@ msgstr "Anjutan tila"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2275
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "Liitännäisiä ladattaessa ja poistettaessa käytettävä anjutan tila"
+msgstr "Liitännäisiä ladattaessa ja poistettaessa käytettävä Anjutan tila"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2434
@@ -344,7 +344,7 @@ msgstr "URI, johon profiilin XML-tiedosto synkronoidaan"
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
 msgid "Failed to read '%s': %s"
-msgstr "Tiedostoa \"%s\" ei voi lukea: %s."
+msgstr "Tiedostoa ”%s” ei voi lukea: %s."
 
 #: ../libanjuta/anjuta-profile.c:526
 #, c-format
@@ -354,7 +354,7 @@ msgstr "Ei lukuoikeuksia: %s"
 #: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
 msgid "Failed to read '%s': XML parse error"
-msgstr "Kohdetta \"%s\" ei voitu lukea: XML-tulkintavirhe"
+msgstr "Kohdetta ”%s” ei voitu lukea: XML-tulkintavirhe"
 
 #: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
@@ -362,14 +362,14 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
 "profile."
 msgstr ""
-"Kohdetta \"%s\" ei voitu lukea: XML-tulkintavirhe, virheellinen tai "
-"vaurioitunut anjutan liitännäisten profiili."
+"Kohdetta ”%s” ei voitu lukea: XML-tulkintavirhe, virheellinen tai "
+"vaurioitunut Anjutan liitännäisten profiili."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:755
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr "%s: asenna osoitteesta \"%s\"\n"
+msgstr "%s: asenna osoitteesta ”%s”\n"
 
 #: ../libanjuta/anjuta-profile.c:763
 #, c-format
@@ -377,7 +377,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Kohdetta \"%s\" ei voitu lukea: seuraavat pakolliset liitännäiset "
+"Kohdetta ”%s” ei voitu lukea: seuraavat pakolliset liitännäiset "
 "puuttuvat:\n"
 "%s"
 
@@ -498,7 +498,7 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
-"Apuohjelmaa \"%s\" ei ole asennettu.\n"
+"Apuohjelmaa ”%s” ei ole asennettu.\n"
 "Ole hyvä ja asenna se."
 
 #: ../libanjuta/anjuta-utils.c:913 ../libanjuta/anjuta-utils.c:917
@@ -511,7 +511,7 @@ msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
-"Ohjetta ei voi näyttää. Tarkista, että anjutan dokumentaatiopaketti on "
+"Ohjetta ei voi näyttää. Tarkista, että Anjutan dokumentaatiopaketti on "
 "asennettu. Voi noutaa sen osoitteesta http://anjuta.org"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:292
@@ -671,18 +671,18 @@ msgstr "Yhtään projektin tiedostoa ei ole nyt auki."
 #: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr "Ohjelma \"%s\" ei ole paikallinen tiedosto"
+msgstr "Ohjelma ”%s” ei ole paikallinen tiedosto"
 
 #: ../plugins/build-basic-autotools/executer.c:310
 #, c-format
 msgid "Program '%s' does not exists"
-msgstr "Ohjelmaa \"%s\" ei löydy"
+msgstr "Ohjelmaa ”%s” ei löydy"
 
 #: ../plugins/build-basic-autotools/executer.c:318
 #: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr "Ohjelmalla \"%s\" ei ole suoritusoikeuksia"
+msgstr "Ohjelmalla ”%s” ei ole suoritusoikeuksia"
 
 #: ../plugins/build-basic-autotools/executer.c:350
 msgid "No executable for this file."
@@ -691,7 +691,7 @@ msgstr "Tälle tiedostolle ei löydy suoritettavaa."
 #: ../plugins/build-basic-autotools/executer.c:356
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr "Ohjelma \"%s\" ei ole ajan tasalla."
+msgstr "Ohjelma ”%s” ei ole ajan tasalla."
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -783,7 +783,7 @@ msgstr "Kooste %d: %s"
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"Kohdetta \"%s\" ei voi kääntää: tiedostotyypille ei ole määritelty sääntöjä."
+"Kohdetta ”%s” ei voi kääntää: tiedostotyypille ei ole määritelty sääntöjä."
 
 #: ../plugins/build-basic-autotools/plugin.c:1636
 #, c-format
@@ -802,7 +802,7 @@ msgstr "_Koosta"
 
 #: ../plugins/build-basic-autotools/plugin.c:2023
 msgid "_Build Project"
-msgstr "_Koosta projekti"
+msgstr "Koosta _projekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2024
 msgid "Build whole project"
@@ -810,7 +810,7 @@ msgstr "Koosta koko projekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Install Project"
-msgstr "_Asenna projekti"
+msgstr "Asenna p_rojekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Install whole project"
@@ -818,7 +818,7 @@ msgstr "Asenna koko projekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Clean Project"
-msgstr "_Puhdista projekti"
+msgstr "P_uhdista projekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2036
 msgid "Clean whole project"
@@ -834,7 +834,7 @@ msgstr "Määrittele projekti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "Build _Tarball"
-msgstr "Koosta_tar-paketti"
+msgstr "Koosta _tar-paketti"
 
 #: ../plugins/build-basic-autotools/plugin.c:2048
 msgid "Build project tarball distribution"
@@ -858,7 +858,7 @@ msgstr "Asenna nykyiseen tiedostoon liittyvä moduli"
 
 #: ../plugins/build-basic-autotools/plugin.c:2065
 msgid "_Clean Module"
-msgstr "_Siivoa moduuli"
+msgstr "Sii_voa moduuli"
 
 #: ../plugins/build-basic-autotools/plugin.c:2066
 msgid "Clean module associated with current file"
@@ -893,7 +893,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:2097
 #: ../plugins/build-basic-autotools/plugin.c:2125
 msgid "_Compile"
-msgstr "_Käännä"
+msgstr "K_äännä"
 
 #: ../plugins/build-basic-autotools/plugin.c:2098
 #: ../plugins/build-basic-autotools/plugin.c:2126
@@ -1319,7 +1319,7 @@ msgstr "Salasana:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
-msgstr "Polku \"cvs\"-komentoon"
+msgstr "Polku ”cvs”-komentoon"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
@@ -2105,7 +2105,7 @@ msgstr "Tietoja _ytimen käyttäjärakenteesta"
 #: ../plugins/debug-manager/plugin.c:907
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
-"Näytä nykyisen lapsiprosessin \"struct user\"-rakenteen sisältö ytimessä"
+"Näytä nykyisen lapsiprosessin ”struct user”-rakenteen sisältö ytimessä"
 
 #: ../plugins/debug-manager/plugin.c:921
 #: ../plugins/debug-manager/plugin.c:1021
@@ -2391,7 +2391,7 @@ msgstr "Tiedostoa ei voi avata: %s\n"
 #: ../plugins/debug-manager/start.c:873
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
-msgstr "Kohdetta \"%s\" ei voi avata. Debuggeri ei voi käynnistyä."
+msgstr "Kohdetta ”%s” ei voi avata. Debuggeri ei voi käynnistyä."
 
 #: ../plugins/debug-manager/start.c:1086
 #: ../plugins/run-program/parameters.c:611
@@ -2559,8 +2559,8 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Haluatko varmasti ladata tiedoston \"%s\" uudestaan?\n"
-"Kaikki siihen tehdyt muutokset hukataan."
+"Haluatko varmasti ladata tiedoston ”%s” uudestaan?\n"
+"Kaikki siihen tehdyt muutokset menetetään."
 
 #: ../plugins/document-manager/action-callbacks.c:282
 #: ../plugins/editor/text_editor.c:341
@@ -2593,7 +2593,7 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
-"Tiedosto \"%s\" on jo olemassa.\n"
+"Tiedosto ”%s” on jo olemassa.\n"
 "Haluatko korvata sen nyt tallennettavalla tiedostolla?"
 
 #: ../plugins/document-manager/anjuta-docman.c:663
@@ -2676,7 +2676,7 @@ msgstr "Tallenna nykyinen tiedosto toisella nimellä"
 
 #: ../plugins/document-manager/plugin.c:155
 msgid "Save A_ll"
-msgstr "Tallenna k_aikki"
+msgstr "Tallenna ka_ikki"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save all currently open files, except new files"
@@ -2700,7 +2700,7 @@ msgstr "Sulje kaikki tiedostot"
 
 #: ../plugins/document-manager/plugin.c:164
 msgid "Reload F_ile"
-msgstr "Lataa t_iedosto uudestaan"
+msgstr "Lataa tiedosto uu_destaan"
 
 #: ../plugins/document-manager/plugin.c:165
 msgid "Reload current file"
@@ -2712,7 +2712,7 @@ msgstr "_Viimeisimmät tiedostot"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "_Print..."
-msgstr "_Tulosta..."
+msgstr "Tul_osta..."
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "Print the current file"
@@ -2795,7 +2795,7 @@ msgstr "Valitse kaikki teksti muokkaimessa"
 
 #: ../plugins/document-manager/plugin.c:217
 msgid "Select to _Brace"
-msgstr "Valitse _aaltosulkuihin"
+msgstr "Valitse aal_tosulkuihin"
 
 #: ../plugins/document-manager/plugin.c:218
 msgid "Select the text in the matching braces"
@@ -2995,7 +2995,7 @@ msgstr "Poista valittu teksti muokkaimesta"
 
 #: ../plugins/document-manager/plugin.c:320
 msgid "_Line Number Margin"
-msgstr "_Rivinumeron marginaali"
+msgstr "Rivin_umeron marginaali"
 
 #: ../plugins/document-manager/plugin.c:321
 msgid "Show/Hide line numbers"
@@ -3019,7 +3019,7 @@ msgstr "Näytä tai piilota koodin laskostuksen marginaali"
 
 #: ../plugins/document-manager/plugin.c:329
 msgid "_Indentation Guides"
-msgstr "Sisennysohjaimet"
+msgstr "Sisennys_ohjaimet"
 
 #: ../plugins/document-manager/plugin.c:330
 msgid "Show/Hide indentation guides"
@@ -3035,7 +3035,7 @@ msgstr "Näytä tai piilota tyhjeet"
 
 #: ../plugins/document-manager/plugin.c:335
 msgid "_Line End Characters"
-msgstr "_Rivin loppumerkit"
+msgstr "Rivin l_oppumerkit"
 
 #: ../plugins/document-manager/plugin.c:336
 msgid "Show/Hide line end characters"
@@ -3265,7 +3265,7 @@ msgstr "Automaattinen"
 #: ../plugins/document-manager/plugin.c:1550
 #, c-format
 msgid "Autosave failed for %s"
-msgstr "Tiedoston \"%s\" automaattitallennus epäonnistui"
+msgstr "Tiedoston ”%s” automaattitallennus epäonnistui"
 
 #: ../plugins/document-manager/plugin.c:1564
 msgid "Autosave completed"
@@ -3274,7 +3274,7 @@ msgstr "Automaattitallennus valmistui"
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
-msgstr "Tekstiä \"%s\" haettiin loppuun asti ja jatkettiin alusta."
+msgstr "Tekstiä ”%s” haettiin loppuun asti ja jatkettiin alusta."
 
 #: ../plugins/document-manager/search-box.c:391
 #, c-format
@@ -3282,7 +3282,7 @@ msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
 msgstr ""
-"Tekstiä \"%s\" haettiin loppuun asti ja jatkettiin alusta, mutta yhtään "
+"Tekstiä ”%s” haettiin loppuun asti ja jatkettiin alusta, mutta yhtään "
 "uutta osumaa ei löytynyt."
 
 #: ../plugins/document-manager/search-box.c:448
@@ -3620,7 +3620,7 @@ msgid ""
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"Levyllä oleva tiedosto \"%s\" on uudempi kuin\n"
+"Levyllä oleva tiedosto ”%s” on uudempi kuin\n"
 "nykyinen puskuri.\n"
 "Ladataanko tiedosto levyltä?"
 
@@ -3714,18 +3714,18 @@ msgstr "Ei tuloksia"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
 #, c-format
 msgid "No recently used resource found with URI `%s'"
-msgstr "Äskettäin käytettyjä resursseja ei löytynyt URI:sta \"%s\""
+msgstr "Äskettäin käytettyjä resursseja ei löytynyt URI:sta ”%s”"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr "Tätä funktiota ei ole toteutettu luokan \"%s\" elementeille"
+msgstr "Tätä funktiota ei ole toteutettu luokan ”%s” elementeille"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #, c-format
 msgid "Open '%s'"
-msgstr "Avaa \"%s\""
+msgstr "Avaa ”%s”"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
 msgid "Unknown item"
@@ -3765,7 +3765,7 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
-"<b>Kohdetta \"%s\" ei voi avata.</b>\n"
+"<b>Kohdetta ”%s” ei voi avata.</b>\n"
 "\n"
 "Liitännäistä, oletustoimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi ei ole "
 "määritelty.\n"
@@ -4110,7 +4110,7 @@ msgid ""
 msgstr ""
 "Kohdetta ei löydy: %s.\n"
 "Vianetsintätyökalua ei voi alustaa.\n"
-"Tarkista, että anjuta on asennettu oikein."
+"Tarkista, että Anjuta on asennettu oikein."
 
 #: ../plugins/gdb/debugger.c:923
 msgid "Getting ready to start debugging session...\n"
@@ -4131,7 +4131,7 @@ msgstr "Tapahtui virhe käynnistettäessä vianetsintätyökalua.\n"
 
 #: ../plugins/gdb/debugger.c:954
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr "Varmista että \"gdb\" on asennettuna järjestelmässä.\n"
+msgstr "Varmista että ”gdb” on asennettuna järjestelmässä.\n"
 
 #: ../plugins/gdb/debugger.c:1245
 msgid "Program exited normally\n"
@@ -4582,7 +4582,7 @@ msgstr "Valitse tiedosto."
 #: ../plugins/git/git-add-remote-dialog.c:41
 #, c-format
 msgid "Git: Added remote branch \"%s\"."
-msgstr "Git: Lisättiin etähaara \"%s\"."
+msgstr "Git: Lisättiin etähaara ”%s”."
 
 #: ../plugins/git/git-add-remote-dialog.c:81
 #: ../plugins/git/git-create-branch-dialog.c:98
@@ -4618,12 +4618,12 @@ msgstr "Git: toimitus valmis."
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
 msgid "Git: Created branch \"%s\"."
-msgstr "Git: Luotiin haara \"%s\"."
+msgstr "Git: Luotiin haara ”%s”."
 
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
 msgid "Git: Created tag \"%s\"."
-msgstr "Git: Luotiin tagi \"%s\""
+msgstr "Git: Luotiin tagi ”%s”"
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
@@ -4632,7 +4632,7 @@ msgstr "Anna tagin nimi!"
 #: ../plugins/git/git-delete-branch-dialog.c:41
 #, c-format
 msgid "Git: Deleted branch \"%s\"."
-msgstr "Git: Poistettiin haara \"%s\"."
+msgstr "Git: Poistettiin haara ”%s”."
 
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
@@ -4937,7 +4937,7 @@ msgstr "Uutta glade-projektia ei voitu luoda."
 #: ../plugins/glade/anjuta-design-document.c:205
 #, c-format
 msgid "Glade project '%s' saved"
-msgstr "Glade-projekti \"%s\" tallennettu"
+msgstr "Glade-projekti ”%s” tallennettu"
 
 #: ../plugins/glade/anjuta-design-document.c:180
 #: ../plugins/glade/anjuta-design-document.c:213
@@ -5052,7 +5052,7 @@ msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
 msgstr ""
-"Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät luokasta \"%s\"?"
+"Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät luokasta ”%s”?"
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
@@ -5134,7 +5134,7 @@ msgstr "Tiedostonimeä ei annettu"
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Kun poistat luokan \"%s\", kaikki siellä olleet kohdat hukataan"
+msgstr "Kun poistat luokan ”%s”, kaikki siellä olleet kohdat hukataan"
 
 #: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
@@ -5215,15 +5215,15 @@ msgstr "Käyttöliittymä"
 
 #: ../plugins/gtodo/preferences.c:91
 msgid "Show due date column"
-msgstr "Näytä \"eräpäivä\"-sarake"
+msgstr "Näytä ”eräpäivä”-sarake"
 
 #: ../plugins/gtodo/preferences.c:99
 msgid "Show category column"
-msgstr "Näytä \"luokka\"-sarake"
+msgstr "Näytä ”luokka”-sarake"
 
 #: ../plugins/gtodo/preferences.c:104
 msgid "Show priority column"
-msgstr "Näytä \"tärkeys\"-sarake"
+msgstr "Näytä ”tärkeys”-sarake"
 
 #: ../plugins/gtodo/preferences.c:109
 msgid "Tooltips in list"
@@ -5902,7 +5902,7 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:189
 msgid "This assistant will import an existing project into Anjuta."
-msgstr "Tämä apulainen tuo aikaisemman projektin anjutaan."
+msgstr "Tämä apulainen tuo aikaisemman projektin Anjutaan."
 
 #: ../plugins/project-import/project-import.c:194
 msgid "Import Project"
@@ -5910,11 +5910,11 @@ msgstr "Tuo projekti"
 
 #: ../plugins/project-import/project-import.c:236
 msgid "<b>Enter the project name:</b>"
-msgstr "<b>Anna projektisi nimi:</b>"
+msgstr "<b>Anna projektin nimi:</b>"
 
 #: ../plugins/project-import/project-import.c:256
 msgid "<b>Enter the base path of your project:</b>"
-msgstr "<b>Anna projektisi juuripolku:</b>"
+msgstr "<b>Anna projektin juuripolku:</b>"
 
 #: ../plugins/project-import/project-import.c:261
 msgid "Select project directory"
@@ -5934,12 +5934,12 @@ msgid ""
 "template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
 "Projektitiedostoa ei voitu luoda. Sopivaa projektin mallia ei löydy. "
-"Tarkista, että anjutan versiosi on ajan tasalla."
+"Tarkista, että Anjutan versiosi on ajan tasalla."
 
 #: ../plugins/project-import/project-import.c:440
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
-msgstr "Tiedosto \"%s\" on jo olemassa. Haluatko korvata sen?"
+msgstr "Tiedosto ”%s” on jo olemassa. Haluatko korvata sen?"
 
 #: ../plugins/project-import/project-import.c:481
 #, c-format
@@ -5947,7 +5947,7 @@ msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
 "to the project directory."
 msgstr ""
-"Tiedostoa \"%s\" ei voi kirjoittaa: %s. Tarkista kirjoitusoikeutesi "
+"Tiedostoa ”%s” ei voi kirjoittaa: %s. Tarkista kirjoitusoikeutesi "
 "projektikansioon."
 
 #: ../plugins/project-manager/plugin.c:422
@@ -6029,7 +6029,7 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
-"Kohdetta \"%s\" ei voitu poistaa:\n"
+"Kohdetta ”%s” ei voitu poistaa:\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:780
@@ -6249,7 +6249,7 @@ msgstr "Projektimalleja ei löytynyt kohteesta %s"
 #: ../plugins/project-wizard/druid.c:486
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
-msgstr "\"%s\"-kenttä on pakollinen. Syötä siihen arvo."
+msgstr "”%s”-kenttä on pakollinen. Syötä siihen arvo."
 
 #: ../plugins/project-wizard/druid.c:507
 #, c-format
@@ -6257,7 +6257,7 @@ msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
 "only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
-"Kentän \"%s\" täytyy alkaa kirjaimella, numerolla tai alaviivalla ja se saa "
+"Kentän ”%s” täytyy alkaa kirjaimella, numerolla tai alaviivalla ja se saa "
 "sisältää vain kirjaimia, numeroita, alaviivoja, viivoja ja pisteitä. Korjaa "
 "kentän arvo."
 
@@ -6267,13 +6267,13 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"Kansi \"%s\" ei ole tyhjä. Projektin luonti voi epäonnistua, jos joitain "
+"Kansi ”%s” ei ole tyhjä. Projektin luonti voi epäonnistua, jos joitain "
 "tiedostoja ei voi kirjoittaa. Haluatko silti jatkaa?"
 
 #: ../plugins/project-wizard/druid.c:545
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr "Tiedosto \"%s\" on jo olemassa. Haluatko korvata sen?"
+msgstr "Tiedosto ”%s” on jo olemassa. Haluatko korvata sen?"
 
 #: ../plugins/project-wizard/druid.c:710
 #, c-format
@@ -6470,7 +6470,7 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Anna projektisi vaatiman paketin nimi. Voit myös kertoa vaaditun paketin "
-"version, esimerkiksi \"libgnomeui-2.0\" tai \"libgnomeui-2.0 >= 2.2.0\"."
+"version, esimerkiksi ”libgnomeui-2.0” tai ”libgnomeui-2.0 >= 2.2.0”."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Icon File:"
@@ -6674,13 +6674,13 @@ msgstr "Ohjelma:"
 #: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exist"
-msgstr "Ohjelma \"%s\" ei ole olemassa"
+msgstr "Ohjelmaa ”%s” ei ole olemassa"
 
 #. Only local directory are supported
 #: ../plugins/run-program/execute.c:107
 #, c-format
 msgid "Program directory '%s' is not local"
-msgstr "Ohjelman kansio \"%s\" ei ole paikallinen"
+msgstr "Ohjelman kansio ”%s” ei ole paikallinen"
 
 #: ../plugins/run-program/parameters.c:311
 msgid "Load Target to run"
@@ -7062,12 +7062,12 @@ msgstr "_Korvaa kaikki"
 #: ../plugins/search/search-replace.c:1049
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "Osumaa haulle \"%s\" ei löytynyt. Jatketaanko tiedoston alusta?"
+msgstr "Osumaa haulle ”%s” ei löytynyt. Jatketaanko tiedoston alusta?"
 
 #: ../plugins/search/search-replace.c:1069
 #, c-format
 msgid "The match \"%s\" was not found."
-msgstr "Osumaa haulle \"%s\" ei löytynyt."
+msgstr "Osumaa haulle ”%s” ei löytynyt."
 
 #: ../plugins/search/search-replace.c:1084
 msgid "The maximum number of results has been reached."
@@ -7090,7 +7090,7 @@ msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"Levyllä oleva tiedosto \"%s\" on uudempi kuin nykyinen puskuri.\n"
+"Levyllä oleva tiedosto ”%s” on uudempi kuin nykyinen puskuri.\n"
 "Ladataanko tiedosto levyltä?"
 
 #. Could not open <filename>: <error message>
@@ -7785,7 +7785,7 @@ msgstr "Siirry symbolin määrittelyyn"
 
 #: ../plugins/symbol-browser/plugin.c:276
 msgid "Tag De_claration"
-msgstr "Tagin _esittely"
+msgstr "Tagin esi_ttely"
 
 #: ../plugins/symbol-browser/plugin.c:278
 #: ../plugins/symbol-browser/plugin.c:298
@@ -7927,7 +7927,7 @@ msgstr "Muokkaa skriptiä"
 
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Edit command as script in Anjuta on close"
-msgstr "Muokkaa komentoa skriptinä anjutassa suljettaessa"
+msgstr "Muokkaa komentoa skriptinä Anjutassa suljettaessa"
 
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
@@ -7975,7 +7975,7 @@ msgstr "_Muuttuja..."
 #: ../plugins/tools/dialog.c:176
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr "Haluatko varmasti poistaa työkalun \"%s\"?"
+msgstr "Haluatko varmasti poistaa työkalun ”%s”?"
 
 #: ../plugins/tools/dialog.c:335
 msgid "Tool"
@@ -8018,7 +8018,7 @@ msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
 msgstr ""
-"Pikanäppäintä käytetään jo toisen anjutan osan kanssa. Haluatko silti "
+"Pikanäppäintä käytetään jo toisen Anjutan osan kanssa. Haluatko silti "
 "säilyttää sen?"
 
 #: ../plugins/tools/editor.c:818
@@ -8087,7 +8087,7 @@ msgstr "Työkalun nimi puuttuu"
 #: ../plugins/tools/fileop.c:258
 #, c-format
 msgid "Unexpected element \"%s\""
-msgstr "Odottamaton elementti \"%s\""
+msgstr "Odottamaton elementti ”%s”"
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
@@ -8096,7 +8096,7 @@ msgstr "Virhe ladattaessa ulkoisia työkaluja"
 #: ../plugins/tools/fileop.c:703
 #, c-format
 msgid "Unable to open %s for writing"
-msgstr "Kohdetta \"%s\" ei voi avata kirjoitettavaksi"
+msgstr "Kohdetta ”%s” ei voi avata kirjoitettavaksi"
 
 #: ../plugins/tools/plugin.c:180
 msgid "Tool operations"
@@ -8292,12 +8292,12 @@ msgstr "riviä kohderivin ylä- ja alapuolella."
 #: ../plugins/valgrind/process.c:55
 #, c-format
 msgid "Failed to create pipe to '%s': %s"
-msgstr "Putkea kohteeseen \"%s\" ei voi luoda: %s"
+msgstr "Putkea kohteeseen ”%s” ei voi luoda: %s"
 
 #: ../plugins/valgrind/process.c:110
 #, c-format
 msgid "Failed to create child process '%s': %s"
-msgstr "Lapsiprosessia \"%s\" ei voi luoda: %s"
+msgstr "Lapsiprosessia ”%s” ei voi luoda: %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
@@ -8331,8 +8331,8 @@ msgid ""
 "Invalid syntax in settings '%s'.\n"
 "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
 msgstr ""
-"Virheellinen syntaksi asetuksessa \"%s\":\n"
-"Syötä arvo muodossa \"<kokonaisluku>,<kokonaisluku>,<kokonaisluku>\"."
+"Virheellinen syntaksi asetuksessa ”%s”:\n"
+"Syötä arvo muodossa ”<kokonaisluku>,<kokonaisluku>,<kokonaisluku>”."
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:234
 msgid "Override default settings"
@@ -8367,18 +8367,18 @@ msgstr "Lähdetiedoston nimi sisältää"
 #: ../plugins/valgrind/vgdefaultview.c:230
 #, c-format
 msgid "Invalid regular expression: '%s': %s"
-msgstr "Virheellinen säännöllinen lauseke: \"%s\": %s"
+msgstr "Virheellinen säännöllinen lauseke: ”%s”: %s"
 
 #. FIXME: we should really get this title from somewhere else?
 #: ../plugins/valgrind/vgdefaultview.c:758
 msgid "Valgrind Suppression Rules"
-msgstr "Valgrindin rajoitus-säännöt"
+msgstr "Valgrindin vaiennussäännöt"
 
 #. FIXME: we should really get this title from somewhere else?
 #: ../plugins/valgrind/vgdefaultview.c:1103
 #: ../plugins/valgrind/vgrule-list.c:135
 msgid "Valgrind Suppression"
-msgstr "Valgrindin rajoitus"
+msgstr "Valgrindin vaiennus"
 
 #: ../plugins/valgrind/vgdefaultview.c:1151
 msgid "Cu_t"
@@ -8513,7 +8513,7 @@ msgstr "Kutsuketju:"
 #: ../plugins/valgrind/vgrule-editor.c:544
 #, c-format
 msgid "Error saving to suppression file '%s': %s"
-msgstr "Virhe tallennettaessa rajoitustiedostoa \"%s\": %s"
+msgstr "Virhe tallennettaessa rajoitustiedostoa ”%s”: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:177 ../plugins/valgrind/vgrule-list.c:246
 msgid "You have forgotten to name your suppression rule."
@@ -8680,7 +8680,7 @@ msgstr "_Aloitusohjeita"
 
 #: ../src/anjuta-actions.h:65
 msgid "Anjuta Kick start tutorial"
-msgstr "Ohjeita anjutan käytön aloittamiseen"
+msgstr "Ohjeita Anjutan käytön aloittamiseen"
 
 #: ../src/anjuta-actions.h:68
 msgid "_Advanced tutorial"
@@ -8688,7 +8688,7 @@ msgstr "Ohjeita _kokeneille"
 
 #: ../src/anjuta-actions.h:69
 msgid "Anjuta advanced tutorial"
-msgstr "Ohjeita anjutan käytöstä kokeneille käyttöjille"
+msgstr "Ohjeita Anjutan käytöstä kokeneille käyttöjille"
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
@@ -8700,7 +8700,7 @@ msgstr "Anjutasta usein esitettyjä kysymyksiä"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta _Home Page"
-msgstr "Anjutan _kotisivu"
+msgstr "Anjutan k_otisivu"
 
 #: ../src/anjuta-actions.h:77
 msgid "Online documentation and resources"
@@ -8712,7 +8712,7 @@ msgstr "Raportoi _vikoja, paikkoja ja toiveita"
 
 #: ../src/anjuta-actions.h:81
 msgid "Submit a bug report, patch or feature request for Anjuta"
-msgstr "Lähetä vikaraportti, korjaus tai ominaisuustoive anjutasta"
+msgstr "Lähetä vikaraportti, korjaus tai ominaisuustoive Anjutasta"
 
 #: ../src/anjuta-actions.h:84
 msgid "Ask a _Question"
@@ -8736,7 +8736,7 @@ msgstr "Tietoja ulkoisista _liitännäisistä"
 
 #: ../src/anjuta-actions.h:93
 msgid "About third party Anjuta plugins"
-msgstr "Tietoja kolmannen osapuolen anjuta-liitännäisistä"
+msgstr "Tietoja kolmannen osapuolen Anjuta-liitännäisistä"
 
 #: ../src/anjuta-app.c:683
 msgid "Edit"
@@ -8788,7 +8788,7 @@ msgstr "Älä lataa viimeisintä projektia ja tiedostoja käynnistettäessä"
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr ""
-"Sammuttaa anjutan kokonaan, vapauttaen kaikki resurssit (vianetsintää varten)"
+"Sammuttaa Anjutan kokonaan, vapauttaen kaikki resurssit (vianetsintää varten)"
 
 #: ../src/main.c:316
 msgid "- Integrated Development Environment"
@@ -8800,7 +8800,7 @@ msgstr "Anjuta"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr "<b>Automaattitäydennys (vain C,C++ ja java)</b>"
+msgstr "<b>Automaattitäydennys (vain C,C++ ja Java)</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
 msgid "<b>Calltips</b>"
@@ -8816,7 +8816,7 @@ msgstr "<b>Älykäs sisennys</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
-msgstr "Lisää \"(\" funktiokutsun jälkeen automaattisesti"
+msgstr "Lisää ”(” funktiokutsun jälkeen automaattisesti"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
@@ -8890,7 +8890,7 @@ msgstr "Vaihda C:n otsikko- ja lähdekooditiedoston välillä"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1897
 msgid "C++/Java Assistance"
-msgstr "C++- ja java-apulainen"
+msgstr "C++- ja Java-apulainen"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1985
 #: ../plugins/language-support-cpp-java/plugin.c:1994
@@ -8963,7 +8963,7 @@ msgstr "Tehtävien hallinta"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr "Tehtävien hallintaohjelma anjutalle."
+msgstr "Tehtävien hallintaohjelma Anjutalle."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
@@ -8983,7 +8983,7 @@ msgstr "Paikkaa tiedostoja ja kansioita."
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
-msgstr "Käytä ulkoisia ohjelmia anjutasta"
+msgstr "Käytä ulkoisia ohjelmia Anjutasta"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 msgid "Sample Plugin"
@@ -9019,7 +9019,7 @@ msgstr "CVS-liitännäinen"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
-msgstr "Autotools-projektien tuonti anjutaan"
+msgstr "Autotools-projektien tuonti Anjutaan"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
@@ -9048,7 +9048,7 @@ msgstr "C++- ja Java-tuen liitännäinen"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
 msgstr ""
-"C++- ja java-tuen liitännäinen koodin täydentämiseen, sisentämiseen jne."
+"C++- ja Java-tuen liitännäinen koodin täydentämiseen, sisentämiseen jne."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
