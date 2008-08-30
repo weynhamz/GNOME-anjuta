@@ -97,6 +97,7 @@ plugins/git/anjuta-git.glade
 plugins/git/git-add-dialog.c
 plugins/git/git-add-remote-dialog.c
 plugins/git/git-bisect-dialog.c
+plugins/git/git-cat-file-menu.c
 plugins/git/git-checkout-files-dialog.c
 plugins/git/git-commit-dialog.c
 plugins/git/git-create-branch-dialog.c
