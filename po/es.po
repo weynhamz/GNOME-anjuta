@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-29 15:07+0000\n"
-"PO-Revision-Date: 2008-08-29 20:09+0200\n"
+"POT-Creation-Date: 2008-08-30 16:21+0000\n"
+"PO-Revision-Date: 2008-08-31 11:57+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4419,7 +4419,7 @@ msgstr "Efectuar cambios"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Commit al mezclar en modo rápido"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Create Branch"
@@ -4621,6 +4621,10 @@ msgstr "Git: Obteniendo…"
 #: ../plugins/subversion/subversion-switch-dialog.c:120
 msgid "Please enter a revision."
 msgstr "Introduzca una revisión."
+
+#: ../plugins/git/git-cat-file-menu.c:36
+msgid "Git: File retrieved."
+msgstr "Git: Archivo recuperado."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
@@ -4936,9 +4940,8 @@ msgid "Git log operations"
 msgstr "Operaciones de registro de Git"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
-msgstr "Operaciones de Git"
+msgstr "Operaciones FM de Git"
 
 #: ../plugins/git/plugin.c:624
 msgid "Git Log"
