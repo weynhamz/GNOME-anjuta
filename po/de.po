@@ -5616,8 +5616,8 @@ msgstr[1] "%d Nachrichten"
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
-msgstr[0] "0 Warnungen"
-msgstr[1] "0 Warnungen"
+msgstr[0] "%d Warnungen"
+msgstr[1] "%d Warnungen"
 
 #: ../plugins/message-view/message-view.c:1304
 #, c-format
