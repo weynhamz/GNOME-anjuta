@@ -70,6 +70,8 @@ struct _GdbPluginClass
 /* Terminal functions
  *---------------------------------------------------------------------------*/
 
+#define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
+
 static void
 gdb_plugin_stop_terminal (GdbPlugin* plugin)
 {
@@ -85,24 +87,13 @@ static gchar*
 gdb_plugin_start_terminal (GdbPlugin* plugin)
 {
 	gchar *file, *cmd;
-       	gchar *tty = NULL;
+	gchar *tty = NULL;
 	IAnjutaTerminal *term;
 
 	DEBUG_PRINT ("In function: gdb_plugin_start_terminal() previous pid %d", plugin->term_pid);
 
 	/* Close previous terminal if needed */
 	gdb_plugin_stop_terminal (plugin);
-
-	/* Get terminal plugin */	
-	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);
-	if (term == NULL)
-	{
-
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-					  _("Anjuta terminal plugin is not installed. The program will be run without a terminal."));
-
-		return NULL;
-	}
 
 	/* Check if anjuta launcher is here */
 	if (anjuta_util_prog_is_installed ("anjuta_launcher", TRUE) == FALSE)
@@ -122,8 +113,59 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 
 	/* Launch terminal */
 	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
-	plugin->term_pid = ianjuta_terminal_execute_command (term, NULL, cmd, NULL, NULL);
-	g_free (cmd);
+	
+	/* Get terminal plugin */	
+	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);
+	if (term == NULL)
+	{
+		/* Use gnome terminal or another user defined one */
+		AnjutaPreferences *pref;
+		gchar *term_cmd;
+		gchar **argv;
+		
+		pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		term_cmd = anjuta_preferences_get (pref, PREF_TERMINAL_COMMAND);
+		if (!term_cmd)
+		{
+			term_cmd = g_strdup ("gnome-terminal --disable-factory -e %s");
+		}
+		if (g_shell_parse_argv (term_cmd, NULL, &argv, NULL))
+		{
+			GPid gpid;
+			gchar **arg;
+			
+			/* Replace %s by command */
+			for (arg = argv; *arg != NULL; arg++)
+			{
+				if (strcmp(*arg, "%s") == 0)
+				{
+					g_free (*arg);
+					*arg = cmd;
+				}
+			}
+			
+			if (g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &gpid, NULL))
+			{
+				plugin->term_pid = gpid;
+			}
+			else
+			{
+				plugin->term_pid = -1;
+			}
+			g_strfreev (argv);
+		}
+		else
+		{
+			plugin->term_pid = -1;
+		}
+		g_free (term_cmd);
+	}
+	else
+	{
+		/* Use Anjuta terminal plugin */
+		plugin->term_pid = ianjuta_terminal_execute_command (term, NULL, cmd, NULL, NULL);
+		g_free (cmd);
+	}
 
 	if (plugin->term_pid > 0)
 	{

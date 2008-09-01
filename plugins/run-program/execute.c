@@ -40,6 +40,8 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
+#define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
+
 /*----------------------------------------------------------------------------
  * Type definitions
  */
@@ -157,71 +159,10 @@ run_plugin_child_free (RunProgramPlugin *plugin, GPid pid)
 	run_plugin_update_menu_sensitivity (plugin);
 }
 
-static void
-on_child_terminated (GPid pid, gint status, gpointer user_data)
+/* Merge some environment variable in env with current environment */
+static gchar **
+merge_environment_variable (gchar ** env)
 {
-	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
-	
-	run_plugin_child_free (plugin, pid);
-}
-
-static void
-on_child_terminated_signal (IAnjutaTerminal *term, GPid pid, gint status, gpointer user_data)
-{
-	on_child_terminated (pid, status, user_data);
-}
-
-static GPid
-execute_with_terminal (RunProgramPlugin *plugin,
-					   const gchar *dir, const gchar *cmd, gchar **env)
-{
-	IAnjutaTerminal *term;
-	GPid pid = 0;
-		
-	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										   IAnjutaTerminal, NULL);
-	if (term)
-	{
-		gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
-		gchar *new_cmd;
-		RunProgramChild *child;
-	
-		if (launcher_path != NULL)
-		{
-			new_cmd = g_strconcat ("anjuta_launcher ", cmd, NULL);
-			g_free (launcher_path);
-		}
-		else
-		{
-			DEBUG_PRINT("Missing anjuta_launcher");
-			new_cmd = g_strdup (cmd);
-		}
-
-		if (plugin->child_exited_connection == 0)
-		{
-			g_signal_connect (term, "child-exited", G_CALLBACK (on_child_terminated_signal), plugin);
-		}
-		plugin->child_exited_connection++;
-		child = g_new0 (RunProgramChild, 1);
-		child->use_signal = TRUE;
-		plugin->child = g_list_prepend (plugin->child, child);
-		
-		pid = ianjuta_terminal_execute_command (term, dir, new_cmd, env, NULL);
-		child->pid = pid;
-		g_free (new_cmd);
-	}
-	
-	return pid;
-}
-
-static GPid
-execute_without_terminal (RunProgramPlugin *plugin,
-					   const gchar *dir, gchar *cmd, gchar **env)
-{
-	char *user_shell;
-	char * argv[4];
-	GPid pid;
-	RunProgramChild *child;
 	gsize len;
 	gchar **new_env;
 	gchar **old_env;
@@ -274,6 +215,120 @@ execute_without_terminal (RunProgramPlugin *plugin,
 		}	
 	}
 	new_env[i] = NULL;
+
+	return new_env;
+}
+
+static void
+on_child_terminated (GPid pid, gint status, gpointer user_data)
+{
+	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
+	
+	run_plugin_child_free (plugin, pid);
+}
+
+static void
+on_child_terminated_signal (IAnjutaTerminal *term, GPid pid, gint status, gpointer user_data)
+{
+	on_child_terminated (pid, status, user_data);
+}
+
+static GPid
+execute_with_terminal (RunProgramPlugin *plugin,
+					   const gchar *dir, const gchar *cmd, gchar **env)
+{
+	IAnjutaTerminal *term;
+	GPid pid = -1;
+	gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
+	gchar *new_cmd;
+	RunProgramChild *child;
+	
+	if (launcher_path != NULL)
+	{
+		new_cmd = g_strconcat ("anjuta_launcher ", cmd, NULL);
+		g_free (launcher_path);
+	}
+	else
+	{
+		DEBUG_PRINT("Missing anjuta_launcher");
+		new_cmd = g_strdup (cmd);
+	}
+
+	child = g_new0 (RunProgramChild, 1);
+	plugin->child = g_list_prepend (plugin->child, child);
+
+	/* Get terminal plugin */	
+	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);
+	if (term == NULL)
+	{
+		/* Use gnome terminal or another user defined one */
+		AnjutaPreferences *pref;
+		gchar *term_cmd;
+		gchar **argv;
+		
+		pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		term_cmd = anjuta_preferences_get (pref, PREF_TERMINAL_COMMAND);
+		if (!term_cmd)
+		{
+			term_cmd = g_strdup ("gnome-terminal --disable-factory -e %s");
+		}
+		if (g_shell_parse_argv (term_cmd, NULL, &argv, NULL))
+		{
+			gchar **arg;
+			gchar **new_env;
+			
+			/* Replace %s by command */
+			for (arg = argv; *arg != NULL; arg++)
+			{
+				if (strcmp(*arg, "%s") == 0)
+				{
+					g_free (*arg);
+					*arg = new_cmd;
+				}
+			}
+
+			/* Create environment variable array with new user variable */
+			new_env = merge_environment_variable (env);
+			
+			if (g_spawn_async (dir, argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+								NULL, NULL, &pid, NULL))
+			{
+				child->source = g_child_watch_add (pid, on_child_terminated, plugin);
+			}
+			g_strfreev (argv);
+		}
+		g_free (term_cmd);
+	}
+	else
+	{
+		/* Use Anjuta terminal plugin */
+		if (plugin->child_exited_connection == 0)
+		{
+			g_signal_connect (term, "child-exited", G_CALLBACK (on_child_terminated_signal), plugin);
+		}
+		plugin->child_exited_connection++;
+		child->use_signal = TRUE;
+	
+		pid = ianjuta_terminal_execute_command (term, dir, new_cmd, env, NULL);
+		g_free (new_cmd);
+	}
+	child->pid = pid;
+	
+	return pid;
+}
+
+static GPid
+execute_without_terminal (RunProgramPlugin *plugin,
+					   const gchar *dir, gchar *cmd, gchar **env)
+{
+	char *user_shell;
+	char * argv[4];
+	GPid pid;
+	RunProgramChild *child;
+	gchar **new_env;
+
+	/* Create environment variable array with new user variable */
+	new_env = merge_environment_variable (env);
 	
 	/* Run user program using in a shell */
 	user_shell = anjuta_util_user_shell ();
@@ -285,7 +340,7 @@ execute_without_terminal (RunProgramPlugin *plugin,
 	child = g_new0 (RunProgramChild, 1);
 	plugin->child = g_list_prepend (plugin->child, child);
 	
-	if (g_spawn_async_with_pipes (dir, argv, new_env, G_SPAWN_DO_NOT_REAP_CHILD,
+	if (g_spawn_async_with_pipes (dir, argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
 									NULL, NULL, &pid, NULL, NULL, NULL, NULL))
 	{
 		child->pid = pid;
