@@ -1,3 +1,42 @@
+Anjuta 2.23.91 (1 September 2008) -- Naba Kumar
+-------------------------------------------------
+
+Translations updates:
+=====================
+mr, sq, es, gl, sr@Latin, ar, fi, gu, sv, de
+
+New:
+====
+* GSoC Git plugin completed: Beta 1 completes the agreed-upon feature set in
+  the proposal.
+* Symbol-DB plugin maturing.
+
+Updates and fixes:
+==================
+* Fixed a crasher in symbol-db due to use of uninitialised memory
+* Fixed bug #548622 – sun cc can not compile build-options.c
+* Do not free mutex in symbol-db because that crashes 50% of the time.
+* Fixed critical on plugin deactivation of message-view plugin
+* Fixed bug #546109 - Spurious libanjuta-2.0.pc file
+* Install anjuta-version.h
+* Keep const gchar* instead of GFile in debugger interface
+* Updated debugger documentation
+* Updated build documentation
+* when terminal window is active (remove shortcut)
+* Fixed bug #548646 Delete key press is routed to editor window
+* Fixed bug #549105 Patch plugin icon not loaded
+* Fixed bug #549405 – There are warnings when I create a new file
+* Fixed bug #548606 now engine exits cleanly even if it's in scanning mode.
+  It still remains the libgda bug anyway, bug #545979.
+* Fixed bug #522032 also for symbol-db.
+* Added two checkboxes: one is for parallel scan control, the other is for
+  the buffer updating control.
+* GSoC Git plugin: Beta 1 completes the agreed-upon feature set in
+  the proposal.
+* Fixed bug #548984 – Use AC_HELP_STRING macro
+* Use gnome-terminal if terminal plugin is missing
+
+
 Anjuta 2.5.90 (18 August 2008) -- Johannes Schmid
 -------------------------------------------------
 
