@@ -1,3 +1,9 @@
+2008-09-01  Johannes Schmid  <jhs@idefix>
+
+	Patch from  Mikel Olasagasti <hey_neken@mundurat.net>
+	* configure.in:
+	#548984 – Use AC_HELP_STRING macro
+
 2008-08-29  Naba Kumar  <naba@gnome.org>
 
 	Patch from: James Liggett  <jrliggett@cox.net>

@@ -112,7 +112,7 @@ AM_CXXFLAGS="$AM_CXXFLAGS $WARN_CXXFLAGS"
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
-  [  --enable-debug           Enable debug messages],
+  AC_HELP_STRING([--enable-debug],[Enable debug messages]),
   AM_CFLAGS="$AM_CFLAGS -DDEBUG"
   AM_CXXFLAGS="$AM_CXXFLAGS -DDEBUG")
 AC_SUBST(AM_CFLAGS)
@@ -125,7 +125,7 @@ AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
 dnl Disable deprecated APIs
 AC_ARG_ENABLE(deprecated,
-  [  --disable-deprecated     Disable deprecated APIs],
+  AC_HELP_STRING([--disable-deprecated],[Disable deprecated APIs]),
   [ if test "$enableval" = "no"; then
     DEPRECATED_FLAGS="-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED -DBONOBO_DISABLE_DEPRECATED -DBONOBO_UI_DISABLE_DEPRECATED"
   fi ],
@@ -134,7 +134,7 @@ AC_SUBST(DEPRECATED_FLAGS)
 
 dnl Enable versioned user preferences directory
 AC_ARG_WITH(pref-suffix,
-  [  --with-pref-suffix=VALUE Suffix to add to user preferences dir.],
+  AC_HELP_STRING([--with-pref-suffix=VALUE],[Suffix to add to user preferences dir.]),
   PREF_SUFFIX="$withval")
 
 AC_SUBST(PREF_SUFFIX)
@@ -217,7 +217,7 @@ dnl Check for Devhelp
 dnl -----------------
 
 AC_ARG_ENABLE(plugin-devhelp,
-  [  --disable-plugin-devhelp        Disable devhelp plugin support in Anjuta.],
+  AC_HELP_STRING([--disable-plugin-devhelp],[Disable devhelp plugin support in Anjuta.]),
   [ if test "$enableval" = "no"; then
        user_disabled_devhelp=1
     fi ],
@@ -267,7 +267,7 @@ dnl Check for Glade3
 dnl ---------------------
 
 AC_ARG_ENABLE(plugin-glade,
-  [  --disable-plugin-glade        Disable glade plugin support in Anjuta.],
+  AC_HELP_STRING([--disable-plugin-glade],[Disable glade plugin support in Anjuta.]),
   [ if test "$enableval" = "no"; then
        user_disabled_glade=1
     fi ],
@@ -314,7 +314,7 @@ dnl (other than /usr or /usr/local or the current installation prefix),
 dnl following pkgconfig check will fail.
 dnl --------------------------------------------------------------------------
 AC_ARG_ENABLE(graphviz,
-	[ --disable-graphviz		Disable GraphViz support in Anjuta], 
+	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]), 
 	[ if test "$enableval" = "no"; then
 		user_disabled_graphviz=1
 	  fi ],
@@ -363,7 +363,7 @@ dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
-	[ --disable-plugin-sourceview	Disable gtksourceview based editor in Anjuta], 
+	AC_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]), 
 	[ if test "$enableval" = "no"; then
 		user_disabled_sourceview=1
 	  fi ],
@@ -390,7 +390,7 @@ dnl Scintilla Editor
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-scintilla,
-	[ --enable-plugin-scintilla	Enable Scintilla based editor in Anjuta], 
+	AC_HELP_STRING([--enable-plugin-scintilla],[Enable Scintilla based editor in Anjuta]), 
 	[ if test "$enableval" = "yes"; then
 		user_enabled_scintilla=1
 	  fi ],
@@ -415,7 +415,7 @@ dnl Build symbol-db only if we have gda
 dnl -------------------------------------------------------------
 user_disabled_symboldb=1
 AC_ARG_ENABLE(plugin-symbol-db,
-	[ --enable-plugin-symbol-db	Enable experimental symbol-db plugin], 
+	AC_HELP_STRING([--enable-plugin-symbol-db],[Enable experimental symbol-db plugin]), 
 	[ if test "$enableval" = "yes"; then
 		user_disabled_symboldb=0
 	  fi ],
@@ -441,7 +441,7 @@ dnl check for libbfd
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-valgrind,
-	[ --disable-plugin-valgrind	Disable Valgrind plugin], 
+	AC_HELP_STRING([--disable-plugin-valgrind],[Disable Valgrind plugin]), 
 	[ if test "$enableval" = "no"; then
 		user_disabled_valgrind=1
 	  fi ],
@@ -804,7 +804,7 @@ dnl  **********************************************************
 
 AC_MSG_CHECKING(for Subversion svn-config)
 AC_ARG_WITH(subversion-dir,
-		[  --with-subversion-dir=DIR           where Subversion is installed ],
+		AC_HELP_STRING([--with-subversion-dir=DIR],[Where Subversion is installed ]),
 		[
 				SVNCONFIG="$withval/bin/svn-config"
 		])
@@ -883,7 +883,7 @@ dnl FIXME: This should actually be done by subversion and not by us.
 dnl ******************************************************************
 
 AC_ARG_ENABLE(plugin-subversion,
-  [  --disable-plugin-subversion        Disable subversion support in Anjuta.],
+  AC_HELP_STRING([--disable-plugin-subversion],[Disable subversion support in Anjuta.]),
   [ if test "$enableval" = "no"; then
         user_disabled_subversion=1
     fi ],
@@ -905,8 +905,7 @@ if test -n "$SVN_INCLUDE" ; then
 	
 	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config/ apr-1-config "
 	AC_ARG_WITH(apr-config,
-	[[  --with-apr-config=FILE    Use the given path to apr-config when determining
-								APR configuration; defaults to "apr-config"]],
+	AC_HELP_STRING([--with-apr-config=FILE],[Use the given path to apr-config when determining APR configuration; defaults to "apr-config"]),
 	[
 	if test "$withval" != "yes" -a "$withval" != ""; then
 	  APR_CONFIGS=$withval
@@ -937,8 +936,7 @@ if test -n "$SVN_INCLUDE" ; then
 	
 	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config apu-1-config"
 	AC_ARG_WITH(apu-config,
-	[[  --with-apu-config=FILE    Use the given path to apu-config when determining
-								APR util configuration; defaults to "apu-config"]],
+	AC_HELP_STRING([--with-apu-config=FILE],[Use the given path to apu-config when determining APR util configuration; defaults to "apu-config"]),
 	[
 		if test "$withval" != "yes" -a "$withval" != ""; then
 			APU_CONFIGS=$withval
@@ -971,8 +969,7 @@ if test -n "$SVN_INCLUDE" ; then
 
 	NEON_CONFIGS="neon-config"
 	AC_ARG_WITH(neon-config,
-	[[  --with-neon-config=FILE    Use the given path to neon-config when determining
-								Neon configuration; defaults to "neon-config"]],
+	AC_HELP_STRING([--with-neon-config=FILE],[Use the given path to neon-config when determining Neon configuration; defaults to "neon-config"]),
 	[
 		if test "$withval" != "yes" -a "$withval" != ""; then
 			NEON_CONFIGS=$withval
