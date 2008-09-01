@@ -1401,7 +1401,7 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 	gboolean result;
 
 	gio_uri = g_file_new_for_uri (uri);
-	stream = g_file_replace (gio_uri, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL);
+	stream = g_file_replace (gio_uri, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
 
  	if (stream == NULL)
 		return FALSE;
@@ -1562,6 +1562,8 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	if (!save_to_file (te, te->uri, &error))
 	{	
 		text_editor_thaw (te);
+		g_return_val_if_fail (error != NULL, FALSE);
+		
 		anjuta_util_dialog_error (parent,
 								  _("Could not save intermediate file %s: %s"),
 								  te->uri,

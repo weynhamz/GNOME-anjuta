@@ -1,3 +1,8 @@
+2008-09-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor.c:
+	Fix #549950 - crash while saving a file
+
 === anjuta 2.23.91 ===
 
 2008-09-01  Naba Kumar  <naba@gnome.org>
