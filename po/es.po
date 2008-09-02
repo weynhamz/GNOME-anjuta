@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-30 16:21+0000\n"
-"PO-Revision-Date: 2008-08-31 11:57+0200\n"
+"POT-Creation-Date: 2008-09-02 07:05+0000\n"
+"PO-Revision-Date: 2008-09-02 11:18+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:492
+#: ../plugins/symbol-db/symbol-db-prefs.c:514
 msgid "Load"
 msgstr "Carga"
 
@@ -254,7 +254,7 @@ msgid "Forget selected plugin"
 msgstr "Olvidar el complemento seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
@@ -348,6 +348,10 @@ msgstr "URI de sincronización"
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the profile xml"
 msgstr "URI para sincronizar el perfil xml"
+
+#: ../libanjuta/anjuta-profile.c:471
+msgid "Please select a plugin from the list"
+msgstr "Seleccione un complemento de la lista"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -676,7 +680,7 @@ msgstr "No hay archivo o proyecto abierto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "El programa «%s» no es un archivo local"
@@ -687,7 +691,7 @@ msgid "Program '%s' does not exists"
 msgstr "El programa «%s» no existe"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "El programa «%s» no tiene permiso de ejecución"
@@ -3687,16 +3691,16 @@ msgstr "Archivo cargado correctamente"
 msgid "Saving file..."
 msgstr "Guardando archivo…"
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "No se puede guardar el archivo intermedio %s: %s"
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3766,6 +3770,17 @@ msgstr "_%d. %s"
 #, c-format
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
+
+#: ../plugins/file-loader/plugin.c:113
+#, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr ""
+"No se pudo abrir «%s».\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -4228,15 +4243,7 @@ msgstr "Enviar la señal %s al proceso: %d"
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr ""
-"El complemento del terminal de Anjuta no está instalado. El programa se "
-"ejecutará sin una terminal."
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
@@ -4244,7 +4251,7 @@ msgstr ""
 "Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
 "una terminal."
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
@@ -4574,18 +4581,6 @@ msgstr "Usar un mensaje de registro personalizado"
 msgid "View log"
 msgstr "Ver el registro"
 
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
-
-#: ../plugins/git/anjuta-git.glade.h:84
-msgid "gtk-clear"
-msgstr "gtk-clear"
-
-#: ../plugins/git/anjuta-git.glade.h:85
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
 msgstr "Git: Archivo «staged» que añadir."
@@ -4713,6 +4708,7 @@ msgid "Git: Branch checkout complete."
 msgstr "Git: Descarga (checkout) de rama completa."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -5407,6 +5403,17 @@ msgstr "Macros de Anjuta"
 msgid "My macros"
 msgstr "Mis macros"
 
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
+"Nombre:\t\t %s\n"
+"Categoría:\t %s\n"
+"Atajo:\t\t %c\n"
+
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
 msgstr "Insertar"
@@ -5639,6 +5646,10 @@ msgstr "Parcheando %s usando %s\n"
 msgid "Patching...\n"
 msgstr "Parcheando…\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+msgid "Patching..."
+msgstr "Parcheando…"
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Hay trabajos no finalizados, espere hasta que estén terminados."
@@ -5652,6 +5663,10 @@ msgstr ""
 "El parcheado falló.\n"
 "Revise los mensajes de fallo.\n"
 "Examine y quite cualquier archivo rechazado.\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+msgid "Patching complete"
+msgstr "Aplicación del parche completado"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6726,13 +6741,13 @@ msgstr "Parámetros del programa"
 msgid "Program:"
 msgstr "Programa:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "El programa «%s» no existe"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "El directorio del programa «%s» no es local"
@@ -7789,7 +7804,7 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:500
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
@@ -7897,8 +7912,9 @@ msgstr "Símbolos"
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:411
-#: ../plugins/symbol-db/symbol-db-prefs.c:551
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
@@ -7931,7 +7947,7 @@ msgid "Ctags executable:"
 msgstr "Ctags ejecutables:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
-msgid "Parallel global/project scan of symbols."
+msgid "Parallel scan of project and global symbols."
 msgstr "Análisis paralelo de símbolos global y del proyecto."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
@@ -8970,6 +8986,10 @@ msgstr "Gdb"
 msgid "Gdb plugin."
 msgstr "Complemento Gdb."
 
+#: ../plugins/git/git.plugin.in.h:2
+msgid "Git version control"
+msgstr "Control de versiones Git"
+
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
 msgstr "Ayuda"
@@ -9156,6 +9176,10 @@ msgstr "Complemento de gestor de proyectos para Anjuta."
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Complemento examinador de símbolos para Anjuta."
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "Complemento de base de datos de símbolos para Anjuta (inestable)"
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "Gestiona mensajes de aplicaciones externas"
@@ -9197,3 +9221,19 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr ""
+#~ "El complemento del terminal de Anjuta no está instalado. El programa se "
+#~ "ejecutará sin una terminal."
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-clear"
+#~ msgstr "gtk-clear"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
