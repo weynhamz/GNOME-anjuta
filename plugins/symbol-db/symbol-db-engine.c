@@ -612,7 +612,7 @@ static void
 sdb_engine_dyn_child_query_node_destroy (gpointer data)
 {
 	DynChildQueryNode *node_to_destroy;
-	
+
 	node_to_destroy = (DynChildQueryNode *)data;
 
 	g_free (node_to_destroy->query_str);
@@ -765,16 +765,19 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 
 	for (i = 0; i < PREP_QUERY_COUNT; i++)
 	{
+/*DEBUG_PRINT ("sdb_engine_free_cached_queries START %d", i);*/
 		node = priv->static_query_list[i];
 
 		if (node != NULL && node->stmt != NULL)
 		{
+			/*DEBUG_PRINT ("sdb_engine_free_cached_queries stmt %d", i);*/
 			g_object_unref (node->stmt);
 			node->stmt = NULL;
 		}
 		
 		if (node != NULL && node->plist != NULL)
 		{
+			/*DEBUG_PRINT ("sdb_engine_free_cached_queries plist %d", i);*/
 			g_object_unref (node->plist);
 			node->plist = NULL;
 		}
@@ -782,6 +785,7 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 		/* last but not the least free the node itself */
 		g_free (node);
 		priv->static_query_list[i] = NULL;
+/*DEBUG_PRINT ("sdb_engine_free_cached_queries END %d", i);		*/
 	}
 }
 
@@ -1147,16 +1151,16 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 		/* in this case fake_file will be ignored. */
 		
 		/* we expect here an absolute path */
-		g_value_set_string (value,
+		g_value_set_static_string (value,
 							tag_entry->file + strlen (base_prj_path) );
 	}
 	else
 	{
 		/* check whether the fake_file can substitute the tag_entry->file one */
 		if (fake_file_on_db == NULL)
-			g_value_set_string (value, tag_entry->file);
+			g_value_set_static_string (value, tag_entry->file);
 		else
-			g_value_set_string (value, fake_file_on_db);
+			g_value_set_static_string (value, fake_file_on_db);
 	}
 	
 	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -1304,7 +1308,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	/* notify listeners that another file has been scanned */
 	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
 	
-	/* we've done with tag_file but we don't need to tagsClose (tag_file); */	
+	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
 
 static gpointer
@@ -2400,6 +2404,12 @@ sdb_engine_finalize (GObject * object)
 		priv->mutex = NULL;
 	}
 	
+	if (priv->shutting_cond)
+	{
+		g_cond_free (priv->shutting_cond);
+		priv->shutting_cond = NULL;
+	}
+	
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 	
@@ -2628,7 +2638,7 @@ symbol_db_engine_new (const gchar * ctags_path)
 	// FIXME
 	priv->mutex = g_mutex_new ();
 	// FIXME	
-	//priv->mutex = NULL;
+//	priv->mutex = NULL;
 	
 
 	/* set the mandatory ctags_path */
@@ -2790,7 +2800,7 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 		return FALSE;
 	}	
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, relative);	
+	g_value_set_static_string (value, relative);	
 
 	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 													PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
@@ -2941,7 +2951,7 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, project_name);
+	g_value_set_static_string (value, project_name);
 
 	/* test the existence of the project in db */
 	if ((prj_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -2995,7 +3005,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 		
 		DEBUG_PRINT ("adding default workspace... '%s'", workspace_name);
 		value = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value, workspace_name);
+		g_value_set_static_string (value, workspace_name);
 		
 		if ((wks_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 				 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
@@ -3018,7 +3028,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	}
 
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, workspace_name);
+	g_value_set_static_string (value, workspace_name);
 
 	/* get workspace id */
 	if ((wks_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -3088,7 +3098,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 	priv = dbe->priv;
 	
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, language);
+	g_value_set_static_string (value, language);
 
 	/* check for an already existing table with language "name". */
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -3179,7 +3189,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 				 project_name, local_filepath, language);*/
 	
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, project_name);
+	g_value_set_static_string (value, project_name);
 
 	/* check for an already existing table with project "project". */
 	if ((project_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -3203,7 +3213,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	{
 		return FALSE;
 	}	
-	g_value_set_string (value, relative_path);	
+	g_value_set_static_string (value, relative_path);	
 
 	if ((file_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 								   PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
@@ -3411,10 +3421,10 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		GValue *value1, *value2;
 
 		value1 = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value1, type);
+		g_value_set_static_string (value1, type);
 
 		value2 = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value2, type_name);
+		g_value_set_static_string (value2, type_name);
 
 		if ((table_id = sdb_engine_get_tuple_id_by_unique_name2 (dbe,
 													 PREP_QUERY_GET_SYM_TYPE_ID,
@@ -3467,7 +3477,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	}
 
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, kind_name);
+	g_value_set_static_string (value, kind_name);
 		
 	
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -3551,7 +3561,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 	
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, access);
+	g_value_set_static_string (value, access);
 
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 									PREP_QUERY_GET_SYM_ACCESS_BY_UNIQUE_NAME,
@@ -3635,7 +3645,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 	}
 	
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, implementation);
+	g_value_set_static_string (value, implementation);
 
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 							PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
@@ -3829,7 +3839,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 */		
 		/* let's check for an already present scope table with scope and type_id infos. */
 		value1 = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value1, scope);
+		g_value_set_static_string (value1, scope);
 
 		value2 = gda_value_new (G_TYPE_INT);
 		g_value_set_int (value2, type_table_id);
@@ -4106,10 +4116,10 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	g_strfreev (tmp_str_splitted);
 
 	value1 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value1, token_name);
+	g_value_set_static_string (value1, token_name);
 
 	value2 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value2, object_name);
+	g_value_set_static_string (value2, object_name);
 
 	/* we're gonna access db. Let's lock here */
 	if (priv->mutex)
@@ -4430,7 +4440,7 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 				GValue *value1;
 
 				value1 = gda_value_new (G_TYPE_STRING);
-				g_value_set_string (value1, klass_name);
+				g_value_set_static_string (value1, klass_name);
 				
 				if ((base_klass_id =
 					 sdb_engine_get_tuple_id_by_unique_name (dbe,
@@ -4453,10 +4463,10 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 				GValue *value2;
 
 				value1 = gda_value_new (G_TYPE_STRING);
-				g_value_set_string (value1, klass_name);
+				g_value_set_static_string (value1, klass_name);
 
 				value2 = gda_value_new (G_TYPE_STRING);
-				g_value_set_string (value2, namespace_name);
+				g_value_set_static_string (value2, namespace_name);
 
 				DEBUG_PRINT ("value1 : %s value2 : %s", klass_name, namespace_name);
 				if ((base_klass_id =
@@ -4717,7 +4727,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	{
 		GList *sym_list;
 		value1 = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value1, name);
+		g_value_set_static_string (value1, name);
 
 		value2 = gda_value_new (G_TYPE_INT);
 		g_value_set_int (value2, file_defined_id);
@@ -5444,7 +5454,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	priv = dbe->priv;
 
 	value = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value, project);
+	g_value_set_static_string (value, project);
 
 	/* get project id */
 	if ((project_id = sdb_engine_get_tuple_id_by_unique_name (dbe,

@@ -1,3 +1,28 @@
+2008-08-30  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	fix bug #549518
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_free_cached_queries), (sdb_engine_get_file_defined_id),
+	(sdb_engine_finalize), (symbol_db_engine_new),
+	(symbol_db_engine_file_exists), (symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_add_new_symbol),
+	(symbol_db_engine_update_project_symbols):
+	* plugins/symbol-db/symbol-db-prefs.c (on_autoscan_button_toggled),
+	(on_parallel_button_toggled), (sdb_prefs_init1):
+	fixed on_parallel signal and preferences saving.
+	used g_value_set_static_string () which is quicker than its brother
+	g_value_set_string ().
+	
+	* configure.in: Require libgda 3.99.4
+
 2008-09-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor.c:
