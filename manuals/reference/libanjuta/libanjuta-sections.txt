@@ -605,6 +605,41 @@ ANJUTA_C_PLUGIN_FACTORY_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>anjuta-message-area</FILE>
+AnjutaMessageAreaPrivate
+<TITLE>AnjutaMessageArea</TITLE>
+AnjutaMessageArea
+anjuta_message_area_new
+anjuta_message_area_set_text
+anjuta_message_area_set_image
+anjuta_message_area_add_button
+anjuta_message_area_add_button_with_stock_image
+anjuta_message_area_response
+<SUBSECTION Standard>
+ANJUTA_MESSAGE_AREA
+ANJUTA_IS_MESSAGE_AREA
+ANJUTA_TYPE_MESSAGE_AREA
+anjuta_message_area_get_type
+ANJUTA_MESSAGE_AREA_CLASS
+ANJUTA_IS_MESSAGE_AREA_CLASS
+ANJUTA_MESSAGE_AREA_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>anjuta-sync-command</FILE>
+<TITLE>AnjutaSyncCommand</TITLE>
+AnjutaSyncCommand
+<SUBSECTION Standard>
+ANJUTA_SYNC_COMMAND
+ANJUTA_IS_SYNC_COMMAND
+ANJUTA_TYPE_SYNC_COMMAND
+anjuta_sync_command_get_type
+ANJUTA_SYNC_COMMAND_CLASS
+ANJUTA_IS_SYNC_COMMAND_CLASS
+ANJUTA_SYNC_COMMAND_GET_CLASS
+</SECTION>
+
+<SECTION>
 <FILE>ianjuta-editor</FILE>
 IANJUTA_TYPE_EDITOR_ATTRIBUTE
 IANJUTA_TYPE_EDITOR_ERROR

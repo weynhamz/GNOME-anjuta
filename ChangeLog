@@ -1,3 +1,12 @@
+2008-08-28  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-message-area.c,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt:
+	Added documentation.
+
 2008-09-02  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

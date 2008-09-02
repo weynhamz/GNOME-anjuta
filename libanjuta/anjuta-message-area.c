@@ -258,6 +258,13 @@ action_widget_activated (GtkWidget *widget, AnjutaMessageArea *message_area)
 	anjuta_message_area_response (message_area, response_id);
 }
 
+/**
+ * anjuta_message_area_set_text:
+ * @message_area: an #AnjutaMessageArea
+ * @text: the text to set in the message area
+ *
+ * Sets the visualized text of the #AnjutaMessageArea.
+ */
 void
 anjuta_message_area_set_text (AnjutaMessageArea *message_area,
                               const gchar *text)
@@ -272,6 +279,13 @@ anjuta_message_area_set_text (AnjutaMessageArea *message_area,
 	}
 }
 
+/**
+ * anjuta_message_area_set_image:
+ * @message_area: an #AnjutaMessageArea
+ * @icon_stock_id: a stock image ID
+ *
+ * Sets the visualized icon of the #AnjutaMessageArea.
+ */
 void
 anjuta_message_area_set_image (AnjutaMessageArea *message_area,
                                const gchar *icon_stock_id)
@@ -315,6 +329,13 @@ anjuta_message_area_add_action_widget (AnjutaMessageArea *message_area,
 	                             0);
 }
 
+/**
+ * anjuta_message_area_new:
+ * 
+ * Creates a new #AnjutaMessageArea object.
+ * 
+ * Returns: a new #AnjutaMessageArea object
+ */
 GtkWidget *
 anjuta_message_area_new (const gchar    *text,
                          const gchar    *icon_stock_id)
@@ -327,6 +348,14 @@ anjuta_message_area_new (const gchar    *text,
 	
 	return GTK_WIDGET (message_area);
 }
+
+/**
+ * anjuta_message_area_response:
+ * @message_area: an #AnjutaMessageArea
+ * @response_id: a response ID
+ *
+ * Emits the 'response' signal with the given @response_id.
+ */
 void
 anjuta_message_area_response (AnjutaMessageArea *message_area,
 							  gint			   response_id)
@@ -339,6 +368,19 @@ anjuta_message_area_response (AnjutaMessageArea *message_area,
 				   response_id);
 }
 
+/**
+ * anjuta_message_area_add_button:
+ * @message_area: an #AnjutaMessageArea
+ * @button_text: text of button, or stock ID
+ * @response_id: response ID for the button
+ * 
+ * Adds a button with the given text (or a stock button, if button_text is a stock ID)
+ * and sets things up so that clicking the button will emit the "response" signal
+ * with the given response_id. The button is appended to the end of the message area's
+ * action area. The button widget is returned, but usually you don't need it.
+ *
+ * Returns: the button widget that was added
+ */
 GtkWidget*
 anjuta_message_area_add_button (AnjutaMessageArea *message_area,
 								const gchar       *button_text,
@@ -362,6 +404,15 @@ anjuta_message_area_add_button (AnjutaMessageArea *message_area,
 	return button;
 }
 
+/**
+ * anjuta_message_area_add_button_with_stock_image:
+ * @message_area: an #AnjutaMessageArea
+ * @text: the text to visualize in the button
+ * @stock_id: the stock ID of the button
+ * @response_id: a response ID
+ *
+ * Same as anjuta_message_area_add_button() but with a specific icon.
+ */
 GtkWidget *
 anjuta_message_area_add_button_with_stock_image (AnjutaMessageArea *message_area,
                                                  const gchar	   *text,
