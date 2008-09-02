@@ -38,9 +38,12 @@ static AnjutaPreferences* prefs = NULL;
 #define VIEW_LINENUMBERS           "margin.linenumber.visible"
 #define VIEW_MARKS                 "margin.marker.visible"
 #define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
+#define VIEW_WHITE_SPACES          "view.whitespace"
+#define VIEW_EOL                   "view.eol"
+#define VIEW_LINE_WRAP             "view.line.wrap"
 #define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
-#define VISIBLE_SPACES             "sourceview.spaces.visible"
+
 
 #define FONT_THEME "sourceview.font.use_theme"
 #define FONT "sourceview.font"
@@ -66,15 +69,53 @@ get_bool(GConfEntry* entry)
 }
 
 static void
-on_gconf_notify_visible_spaces (GConfClient *gclient, guint cnxn_id,
-																GConfEntry *entry, gpointer user_data)
+on_gconf_notify_view_spaces (GConfClient *gclient, guint cnxn_id,
+														 GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean visible = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
+	GtkSourceDrawSpacesFlags flags = 
+		gtk_source_view_get_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view));
 	
+	if (visible)
+		flags |= (GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
+	else
+		flags &= ~(GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
+		
 	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW(sv->priv->view), 
-																	 visible ? GTK_SOURCE_DRAW_SPACES_ALL : 0);
+																	 flags);
+}
+
+static void
+on_gconf_notify_view_eols (GConfClient *gclient, guint cnxn_id,
+													 GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean visible = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	GtkSourceDrawSpacesFlags flags = 
+		gtk_source_view_get_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view));
+	
+	if (visible)
+		flags |= GTK_SOURCE_DRAW_SPACES_NEWLINE;
+	else
+		flags &= ~GTK_SOURCE_DRAW_SPACES_NEWLINE;
+		
+	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW(sv->priv->view), 
+																	 flags);
+}
+
+static void
+on_gconf_notify_line_wrap (GConfClient *gclient, guint cnxn_id,
+													 GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean line_wrap = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
+															 line_wrap ? GTK_WRAP_WORD : GTK_WRAP_NONE);
 }
 
 static void
@@ -282,6 +323,7 @@ void
 sourceview_prefs_init(Sourceview* sv)
 {
 	guint notify_id;
+	GtkSourceDrawSpacesFlags flags = 0;
 	
 	prefs = sv->priv->prefs;
 	
@@ -303,10 +345,18 @@ sourceview_prefs_init(Sourceview* sv)
 																				get_key(sv, VIEW_RIGHTMARGIN));
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
 																						get_key(sv, RIGHTMARGIN_POSITION));
+	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
+															 get_key (sv, VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
+
+	
+	if (get_key (sv, VIEW_WHITE_SPACES))
+		flags |= (GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
+	if (get_key (sv, VIEW_EOL))
+		flags |= GTK_SOURCE_DRAW_SPACES_NEWLINE;
 	
 	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view),
-																	 get_key (sv, VISIBLE_SPACES) ? GTK_SOURCE_DRAW_SPACES_ALL : 0);
-		
+																	 flags);
+	
 	init_fonts(sv);
 	
 	/* Register gconf notifications */
@@ -319,10 +369,12 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (VIEW_MARKS, on_gconf_notify_view_marks);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS, on_gconf_notify_view_linenums);
 	REGISTER_NOTIFY (VIEW_RIGHTMARGIN, on_gconf_notify_view_right_margin);
+	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_gconf_notify_view_spaces);		
+	REGISTER_NOTIFY (VIEW_EOL, on_gconf_notify_view_eols);		  
+	REGISTER_NOTIFY (VIEW_LINE_WRAP, on_gconf_notify_line_wrap);		  
 	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_gconf_notify_right_margin_position);
 	REGISTER_NOTIFY (FONT_THEME, on_gconf_notify_font_theme);
 	REGISTER_NOTIFY (FONT, on_gconf_notify_font);	
-	REGISTER_NOTIFY (VISIBLE_SPACES, on_gconf_notify_visible_spaces);		
 }
 
 void sourceview_prefs_destroy(Sourceview* sv)

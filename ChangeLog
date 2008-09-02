@@ -1,5 +1,18 @@
 2008-09-02  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c
+	(update_document_ui_interface_items):
+	Do not show "Indentation Guides" menuitem for sourceview
+	
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/sourceview-prefs.c
+	(on_gconf_notify_view_spaces), (on_gconf_notify_view_eols),
+	(on_gconf_notify_line_wrap), (sourceview_prefs_init):
+	Use the View->Editor->* menu items for view spaces, view eol and
+	line wrap (new) option instead of the preferences.
+
+2008-09-02  Johannes Schmid  <jhs@gnome.org>
+
 	* configure.in:
 	* plugins/symbol-browser/an_symbol_view.c
   Do not depend on gdl-gnome anymore  

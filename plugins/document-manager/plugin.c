@@ -785,6 +785,13 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionViewEditorRemoveView");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+
+	/* Actually this does not really belong here but it would be annoying to
+	 * add another interface for it
+	 */
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorView",
+								   "ActionViewEditorGuides");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorFolds */
 	flag = IANJUTA_IS_EDITOR_FOLDS (doc);
