@@ -134,7 +134,7 @@ svn_remove_command_class_init (SvnRemoveCommandClass *klass)
 }
 
 SvnRemoveCommand *
-svn_remove_command_new (gchar *path, gchar *log_message, gboolean force)
+svn_remove_command_new (const gchar *path, const gchar *log_message, gboolean force)
 {
 	SvnRemoveCommand *self;
 	

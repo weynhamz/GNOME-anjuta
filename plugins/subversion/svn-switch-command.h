@@ -59,8 +59,8 @@ enum
 };
 
 GType svn_switch_command_get_type (void) G_GNUC_CONST;
-SvnSwitchCommand * svn_switch_command_new (gchar *working_copy_path, 
-										   gchar *branch_url, glong revision, 
+SvnSwitchCommand * svn_switch_command_new (const gchar *working_copy_path, 
+										   const gchar *branch_url, glong revision, 
 										   gboolean recursive);
 void svn_switch_command_destroy (SvnSwitchCommand *self);
 

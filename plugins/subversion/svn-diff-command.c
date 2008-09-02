@@ -110,7 +110,6 @@ svn_diff_command_run (AnjutaCommand *command)
 	gchar file_template[] = "anjuta-svn-diffXXXXXX";
 	gchar *line;
 	svn_error_t *error;
-	apr_status_t apr_error;
 	apr_off_t offset;
 	
 	self = SVN_DIFF_COMMAND (command);
@@ -208,7 +207,7 @@ svn_diff_command_class_init (SvnDiffCommandClass *klass)
 }
 
 SvnDiffCommand *
-svn_diff_command_new (gchar *path, glong revision1, glong revision2, 
+svn_diff_command_new (const gchar *path, glong revision1, glong revision2, 
 					  gboolean recursive)
 {
 	SvnDiffCommand *self;

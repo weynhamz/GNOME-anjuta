@@ -121,11 +121,11 @@ svn_merge_command_class_init (SvnMergeCommandClass *klass)
 }
 
 SvnMergeCommand *
-svn_merge_command_new (gchar *path1, 
-					   gchar *path2, 
+svn_merge_command_new (const gchar *path1, 
+					   const gchar *path2, 
 					   glong start_revision, 
 					   glong end_revision, 
-					   gchar *target_path, 
+					   const gchar *target_path, 
 					   gboolean recursive, 
 					   gboolean ignore_ancestry, 
 					   gboolean force, 

@@ -109,7 +109,7 @@ svn_switch_command_class_init (SvnSwitchCommandClass *klass)
 }
 
 SvnSwitchCommand *
-svn_switch_command_new (gchar *working_copy_path, gchar *branch_url, 
+svn_switch_command_new (const gchar *working_copy_path, const gchar *branch_url, 
 						glong revision, gboolean recursive)
 {
 	SvnSwitchCommand *self;

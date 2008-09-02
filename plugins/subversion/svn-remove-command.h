@@ -57,7 +57,7 @@ struct _SvnRemoveCommand
 };
 
 GType svn_remove_command_get_type (void) G_GNUC_CONST;
-SvnRemoveCommand * svn_remove_command_new (gchar *path, gchar *log_message, 
+SvnRemoveCommand * svn_remove_command_new (const gchar *path, const gchar *log_message, 
 										   gboolean force);
 void svn_remove_command_destroy (SvnRemoveCommand *self);
 gchar *svn_remove_command_get_path (SvnRemoveCommand *self);

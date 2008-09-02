@@ -1,3 +1,31 @@
+2008-08-20  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+ 
+  * plugins/subversion/svn-copy-command.h:
+  * plugins/subversion/svn-copy-command.c:
+  * plugins/subversion/svn-commit-command.c:
+  * plugins/subversion/svn-commit-command.h:
+  * plugins/subversion/svn-status-command.c:
+  * plugins/subversion/svn-status-command.h:
+  * plugins/subversion/svn-cat-command.c:
+  * plugins/subversion/svn-cat-command.h:
+  * plugins/subversion/svn-log-command.c:
+  * plugins/subversion/svn-log-command.h:
+  * plugins/subversion/svn-update-command.c:
+  * plugins/subversion/svn-update-command.h:
+  * plugins/subversion/svn-add-command.c:
+  * plugins/subversion/svn-add-command.h:
+  * plugins/subversion/svn-remove-command.c:
+  * plugins/subversion/svn-remove-command.h:
+  * plugins/subversion/svn-command.c:
+  * plugins/subversion/svn-command.h:
+  * plugins/subversion/svn-switch-command.h:
+  * plugins/subversion/svn-switch-command.c:
+  * plugins/subversion/svn-merge-command.c:
+  * plugins/subversion/svn-merge-command.h:
+  * plugins/subversion/svn-diff-command.c:
+  * plugins/subversion/svn-diff-command.h:
+  Added const attribute. (#548649)
+
 2008-09-02  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>

@@ -170,7 +170,7 @@ svn_log_command_class_init (SvnLogCommandClass *klass)
 }
 
 SvnLogCommand *
-svn_log_command_new (gchar *path)
+svn_log_command_new (const gchar *path)
 {
 	SvnLogCommand *self;
 	

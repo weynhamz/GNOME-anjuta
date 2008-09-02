@@ -142,8 +142,8 @@ svn_copy_command_class_init (SvnCopyCommandClass *klass)
 }
 
 SvnCopyCommand *
-svn_copy_command_new (gchar *source_path, glong source_revision, 
-					  gchar *dest_path, gchar *log_message)
+svn_copy_command_new (const gchar *source_path, glong source_revision, 
+					  const gchar *dest_path, const gchar *log_message)
 {
 	SvnCopyCommand *self;
 	

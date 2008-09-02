@@ -56,7 +56,7 @@ struct _SvnLogCommand
 };
 
 GType svn_log_command_get_type (void) G_GNUC_CONST;
-SvnLogCommand *svn_log_command_new (gchar *path);
+SvnLogCommand *svn_log_command_new (const gchar *path);
 void svn_log_command_destroy (SvnLogCommand *self);
 GQueue *svn_log_command_get_entry_queue (SvnLogCommand *self);
 
