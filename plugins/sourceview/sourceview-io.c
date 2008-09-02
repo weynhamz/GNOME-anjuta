@@ -364,7 +364,7 @@ append_buffer (SourceviewIO* sio, gsize size)
 		{
 			/* Last chance, let's try 8859-15 */
 			enc = anjuta_encoding_get_from_charset( "ISO-8859-15");
-			
+			conv_error = NULL;
 			converted_text = anjuta_convert_to_utf8 (sio->read_buffer,
 													 size,
 													 &enc,
@@ -408,7 +408,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	}
 	
 	bytes_read += current_bytes;
-	if (current_bytes == READ_SIZE)
+	if (current_bytes > 0)
 	{
 		sio->read_buffer = g_realloc (sio->read_buffer, bytes_read + READ_SIZE);
 		g_input_stream_read_async (G_INPUT_STREAM (input_stream),

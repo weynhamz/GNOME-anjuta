@@ -22,9 +22,11 @@
 #include <config.h>
 #endif
 
-#include <gdl/gdl-icons.h>
 #include <libanjuta/resources.h>
 #include "an_symbol_info.h"
+#include <gio/gio.h>
+
+#define ICON_SIZE 16
 
 static AnjutaSymbolInfo* symbol_info_dup (const AnjutaSymbolInfo *from);
 static void symbol_info_free (AnjutaSymbolInfo *sfile);
@@ -252,7 +254,6 @@ anjuta_symbol_info_get_root_type (SVNodeType type)
 	}
 }
 
-static GdlIcons *icon_set = NULL;
 static GdkPixbuf **sv_symbol_pixbufs = NULL;
 
 #define CREATE_SV_ICON(N, F) \
@@ -267,10 +268,6 @@ sv_load_symbol_pixbufs (void)
 
 	if (sv_symbol_pixbufs)
 		return;
-
-	if (icon_set == NULL)
-		icon_set = gdl_icons_new (16);
-
 	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
 
 	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
@@ -290,10 +287,16 @@ sv_load_symbol_pixbufs (void)
 	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
 	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
 	
-	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
-							    "application/directory-normal");
-	sv_symbol_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
-							    "application/directory-normal");
+	sv_symbol_pixbufs[sv_cfolder_t] = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+																GTK_STOCK_DIRECTORY,
+																ICON_SIZE,
+																GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+																NULL);
+	sv_symbol_pixbufs[sv_ofolder_t] = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+																GTK_STOCK_DIRECTORY,
+																ICON_SIZE,
+																GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+																NULL);
 	sv_symbol_pixbufs[sv_max_t] = NULL;
 }
 

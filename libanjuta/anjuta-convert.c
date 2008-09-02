@@ -71,7 +71,7 @@ anjuta_convert_to_utf8_from_charset (const gchar  *content,
 		}
 		else	
 			g_set_error (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE,
-				     "The file you are trying to open contains an invalid byte sequence.");
+				     _("The file you are trying to open contains an invalid byte sequence."));
 		
 			return NULL;	
 	}
@@ -108,7 +108,7 @@ anjuta_convert_to_utf8_from_charset (const gchar  *content,
 		else
 		{	
 			g_set_error (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE,
-				     "The file you are trying to open contains an invalid byte sequence.");
+				     _("The file you are trying to open contains an invalid byte sequence."));
 		}	
 	} 
 	else 
@@ -165,8 +165,8 @@ anjuta_convert_to_utf8 (const gchar          *content,
 		{
 			g_set_error (error, ANJUTA_CONVERT_ERROR, 
 				     ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED,
-			 	     "anjuta was not able to automatically determine "
-				     "the encoding of the file you want to open.");
+			 	     _("anjuta was not able to automatically determine "
+				     "the encoding of the file you want to open."));
 			return NULL;
 		}
 
@@ -204,8 +204,8 @@ anjuta_convert_to_utf8 (const gchar          *content,
 		{
 			g_set_error (error, ANJUTA_CONVERT_ERROR,
 				     ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED,
-			 	     "anjuta was not able to automatically determine "
-				     "the encoding of the file you want to open.");
+			 	     _("anjuta was not able to automatically determine "
+				     "the encoding of the file you want to open."));
 		}
 
 		g_slist_free (start);

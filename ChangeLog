@@ -1,3 +1,21 @@
+2008-09-02  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in:
+	* plugins/symbol-browser/an_symbol_view.c
+  Do not depend on gdl-gnome anymore  
+  
+	* libanjuta/anjuta-convert.c (anjuta_convert_to_utf8_from_charset),
+	(anjuta_convert_to_utf8):
+	Marked two strings for translation
+	
+	* plugins/sourceview/sourceview-io.c (append_buffer),
+	(on_read_finished):
+	Fixed file loading bug
+	
+	* plugins/symbol-browser/an_symbol_info.c (sv_load_symbol_pixbufs):
+	(on_symbol_view_row_expanded):
+	Fixed Gtk-Criticals
+
 2008-08-20  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
  
   * plugins/subversion/svn-copy-command.h:

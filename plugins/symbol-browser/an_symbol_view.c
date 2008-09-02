@@ -36,6 +36,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
 #include <tm_tagmanager.h>
+#include <tm_symbol.h>
 #include "an_symbol_view.h"
 #include "an_symbol_info.h"
 #include "an_symbol_prefs.h"
@@ -456,7 +457,6 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 		/* Symbol has been created, no need to create them again */
 		if (sym)
 		{
-			g_object_unref (sym);
 			return;
 		}
 	}
@@ -489,7 +489,6 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 	if (sym)
 	{
 		anjuta_symbol_view_add_children (sv, sym, store, iter);
-		g_object_unref (sym);
 	}
 
 	/* Delete the referenced rows */
