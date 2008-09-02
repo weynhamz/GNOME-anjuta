@@ -3043,7 +3043,7 @@ ifile_open (IAnjutaFile *manager, GFile* file,
 {
 	gchar* uri = g_file_get_uri (file);
 	ianjuta_buildable_execute (IANJUTA_BUILDABLE (manager), uri, NULL);
-	g_free(file);
+	g_free(uri);
 }
 
 static GFile*

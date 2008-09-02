@@ -1,3 +1,10 @@
+2008-09-02  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/plugin.c:
+	Fix #550470 - Crash: Executing file through popup menu
+
 2008-09-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c
