@@ -110,7 +110,7 @@ launch_application_failure (AnjutaFileLoaderPlugin *plugin,
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	anjuta_util_dialog_error (GTK_WINDOW (parent),
-							  "Can not open \"%s\".\n\n%s",
+							  _("Can not open \"%s\".\n\n%s"),
 							  g_basename (uri), errmsg);
 }
 

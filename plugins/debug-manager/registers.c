@@ -461,14 +461,14 @@ create_cpu_registers_gui (CpuRegisters *self)
 					     GTK_SELECTION_SINGLE);
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes (N_("Register"),
+	column = gtk_tree_view_column_new_with_attributes (_("Register"),
 												renderer, "text", NAME_COLUMN, NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (self->treeview, column);
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set(renderer, "editable", TRUE, NULL);	
 	g_signal_connect(renderer, "edited", (GCallback) on_cpu_registers_changed, self);
-	column = gtk_tree_view_column_new_with_attributes (N_("Value"),
+	column = gtk_tree_view_column_new_with_attributes (_("Value"),
 												renderer, NULL);
 	gtk_tree_view_column_set_cell_data_func (column, renderer,
 											 cpu_registers_value_cell_data_func,

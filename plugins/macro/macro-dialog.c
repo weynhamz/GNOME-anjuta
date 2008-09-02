@@ -138,8 +138,8 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 				    MACRO_PREDEFINED, &predefined, -1);
 		if (!is_category)
 		{
-			details = g_strdup_printf ("Name:\t %s\n"
-						   "Category:\t %s\nShortcut:\t %c\n",
+			details = g_strdup_printf (_("Name:\t %s\n"
+						   "Category:\t %s\nShortcut:\t %c\n"),
 						   name, category, shortcut);
 			/* Keep pango happy */
 			details_utf8 = g_utf8_normalize (details, -1,

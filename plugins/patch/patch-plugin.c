@@ -201,7 +201,7 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 		anjuta_launcher_execute (p_plugin->launcher, command->str,
 								 (AnjutaLauncherOutputCallback)on_msg_arrived, p_plugin);
 		p_plugin->executing = TRUE;
-		gtk_label_set_text(GTK_LABEL(p_plugin->output_label), "Patching...");
+		gtk_label_set_text(GTK_LABEL(p_plugin->output_label), _("Patching..."));
 		gtk_widget_set_sensitive(p_plugin->patch_button, FALSE);
 	}
 	else
@@ -254,7 +254,7 @@ on_patch_terminated (AnjutaLauncher *launcher,
 	}
 	else
 	{
-		gtk_label_set_text(GTK_LABEL(plugin->output_label), "Patching complete");
+		gtk_label_set_text(GTK_LABEL(plugin->output_label), _("Patching complete"));
 		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(plugin->dry_run_check)))
 		{
 			gtk_widget_hide (plugin->dialog);

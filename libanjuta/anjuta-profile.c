@@ -467,8 +467,8 @@ anjuta_profile_select_plugins (AnjutaProfile *profile,
 		{
 			AnjutaPluginDescription* d;
 			d = anjuta_plugin_manager_select (priv->plugin_manager,
-											  "Select a plugin",
-											  "Please select a plugin from the list",
+											  _("Select a plugin"),
+											  _("Please select a plugin from the list"),
 											  descs);
 			if (d)
 				selected_plugins = g_list_prepend (selected_plugins, d);

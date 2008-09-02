@@ -1,3 +1,17 @@
+2008-09-02  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-profile.c (anjuta_profile_select_plugins):
+	* plugins/debug-manager/registers.c (create_cpu_registers_gui):
+	* plugins/file-loader/plugin.c (launch_application_failure):
+	* plugins/git/anjuta-git.glade:
+	* plugins/macro/macro-dialog.c (on_macro_selection_changed):
+	* plugins/patch/patch-plugin.c (on_ok_clicked),
+	(on_patch_terminated):
+	
+	Remove some "gtk-*" strings from translation and add some missing stings
+
 2008-08-30  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/anjuta-symbol-db.glade:
