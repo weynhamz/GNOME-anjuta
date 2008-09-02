@@ -24,6 +24,24 @@
 
 #include "anjuta-sync-command.h"
 
+/**
+ * SECTION: anjuta-sync-command
+ * @short_description: #AnjutaCommand subclass that serves as the base for 
+ *					   commands that run synchronously.
+ * @include: libanjuta/anjuta-sync-command.h
+ *
+ * #AnjutaSyncCommand allows plugins to abstract the work of tasks that do not
+ * need to be run in another thread. This class can provide a base for 
+ * abstratraction between client code and asynchronous facilities such as
+ * #AnjutaLauncher or GIO, and is especially useful when complicated tasks
+ * are being performed. 
+ *
+ * #AnjutaSyncCommand simply calls ::run directly from ::start, and emits the 
+ * command-finished signal as soon as it returns. 
+ *
+ * For an example of how #AnjutaSyncCommand is used, see the Git plugin.
+ */
+
 G_DEFINE_TYPE (AnjutaSyncCommand, anjuta_sync_command, ANJUTA_TYPE_COMMAND);
 
 static void

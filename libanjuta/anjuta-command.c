@@ -29,7 +29,7 @@
  * @short_description: System for creating objects that provide a standard 
  *					   interface to external components (libraries, processes,
  *					   etc.) 
- * @see_also: #AnjutaAsyncCommand
+ * @see_also: #AnjutaAsyncCommand, #AnjutaSyncCommand
  * @include libanjuta/anjuta-command.h
  *
  * #AnjutaCommand is the base class for objects that are designed to provide 
@@ -39,14 +39,17 @@
  * to concern themselves with the exact details of how these components work.
  * 
  * To create command objects, plugins derive them from an #AnjutaCommand 
- * subclass like #AnjutaAsyncCommand, which runs commands in another thread.
+ * subclass like #AnjutaAsyncCommand, which runs commands in another thread or 
+ * #AnjutaSyncCommand, which runs commands synchronously.
+ *
  * These classes determine how ::run is called and how signals are emitted.
  * ::run is responsible for actually doing the work of the command. It is the 
  * responsiblity of the command object that does a certain task to implement 
  * ::run to do its job. Everything else is normally implemented by its parent
  * classes at this point
  *
- * For an example of how to use #AnjutaCommand, see the Subversion plugin.
+ * For an example of how to use #AnjutaCommand, see the Subversion and Git 
+ * plugins.
  */
 
 struct _AnjutaCommandPriv
@@ -180,8 +183,8 @@ anjuta_command_start (AnjutaCommand *self)
  * @self: Command object.
  * 
  * Used by base classes derived from #AnjutaCommand to emit the ::data-arrived
- * signal. This method should not be used by client code or #AnjutaCommand 
- * objects that are not base classes. 
+ * signal. This method should be used by both base command classes and
+ * non-base classes as appropriate. 
  */
 void
 anjuta_command_notify_data_arrived (AnjutaCommand *self)
