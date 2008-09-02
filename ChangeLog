@@ -2,6 +2,14 @@
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/git/git-command.c:
+	Fix #550322 - Newlines should be placed at the end of error messages
+	lines
+
+2008-09-02  James Liggett  <jrliggett@cox.net>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* libanjuta/anjuta-sync-command.c,
 	libanjuta/anjuta-command.c,
 	manuals/reference/libanjuta/libanjuta-docs.sgml:

@@ -239,6 +239,9 @@ git_command_error_handler (GitCommand *self, const gchar *output)
 		error = g_match_info_fetch (match_info, 1);
 		g_match_info_free (match_info);
 		
+		if (strlen (self->priv->error_string->str) > 0)
+			g_string_append_c (self->priv->error_string, '\n');
+		
 		g_string_append (self->priv->error_string, error);
 		g_free (error);
 	}
