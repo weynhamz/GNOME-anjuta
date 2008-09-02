@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-30 18:20+0200\n"
-"PO-Revision-Date: 2008-08-30 18:20+0200\n"
+"POT-Creation-Date: 2008-09-02 19:05+0200\n"
+"PO-Revision-Date: 2008-09-02 19:08+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:492
+#: ../plugins/symbol-db/symbol-db-prefs.c:514
 msgid "Load"
 msgstr "Cargar"
 
@@ -258,7 +258,7 @@ msgid "Forget selected plugin"
 msgstr "Esquecer o complemento seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
@@ -351,6 +351,10 @@ msgstr "URI de sincronización"
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the profile xml"
 msgstr "URI para sincronizar o perfil xml"
+
+#: ../libanjuta/anjuta-profile.c:471
+msgid "Please select a plugin from the list"
+msgstr "Seleccione un complemento da lista"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -679,7 +683,7 @@ msgstr "Non hai ficheiro ou proxecto aberto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "O programa '%s' non é un ficheiro local"
@@ -690,7 +694,7 @@ msgid "Program '%s' does not exists"
 msgstr "O programa '%s' non existe"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "O programa '%s' non ten permiso de execución"
@@ -2351,8 +2355,8 @@ msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "Liña"
 
@@ -3227,9 +3231,9 @@ msgid "Simple searching"
 msgstr "Busca simple"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
-#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:1742
+#: ../plugins/document-manager/plugin.c:2147
+#: ../plugins/document-manager/plugin.c:2157
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3245,41 +3249,41 @@ msgstr "Recargar"
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1557
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Fallou o gardado automático para %s"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1571
 msgid "Autosave completed"
 msgstr "Gardado automático completado"
 
@@ -3687,16 +3691,16 @@ msgstr "Ficheiro cargado correctamente"
 msgid "Saving file..."
 msgstr "Gardando ficheiro..."
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "Non se puido gardar o ficheiro intermedio %s: %s."
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "Ficheiro gardado correctamente"
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3765,6 +3769,17 @@ msgstr "_%d. %s"
 #, c-format
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
+
+#: ../plugins/file-loader/plugin.c:113
+#, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr ""
+"Non se pode abrir \"%s\".\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -3946,7 +3961,7 @@ msgid "Root directory if no project is open:"
 msgstr "Directorio raíz se non hai ningún proxecto aberto:"
 
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "Cargando..."
 
@@ -4227,15 +4242,7 @@ msgstr "Enviando sinal %s ao proceso: %d"
 msgid "Error whilst signaling the process."
 msgstr "Erro ao enviar o sinal ao proceso."
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr ""
-"O complemento do terminal de Anjuta non está instalado. O programa "
-"executarase sen unha terminal."
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
@@ -4243,7 +4250,7 @@ msgstr ""
 "Erro ao crear o ficheiro fifo de nome %s. O programa executarase sen unha "
 "terminal."
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "Non se puido iniciar o terminal para depuración."
 
@@ -4573,18 +4580,6 @@ msgstr "Usar unha mensaxe de rexistro personalizada"
 msgid "View log"
 msgstr "Ver rexistro"
 
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
-
-#: ../plugins/git/anjuta-git.glade.h:84
-msgid "gtk-clear"
-msgstr "gtk-clear"
-
-#: ../plugins/git/anjuta-git.glade.h:85
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
 msgstr "Git: Ficheiro staged a engadir"
@@ -4712,6 +4707,7 @@ msgid "Git: Branch checkout complete."
 msgstr "Git: Checkout de rama completo."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -5404,6 +5400,17 @@ msgstr "Macros de Anjuta"
 msgid "My macros"
 msgstr "Miñas macros"
 
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
+"Nome:\t %s\n"
+"Categoría: %s\n"
+"Atallo:\t %c\n"
+
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
 msgstr "Inserir"
@@ -5527,7 +5534,7 @@ msgstr "Pechar todos os separadores de mensaxes"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "Sen detalles das mensaxes"
 
@@ -5636,6 +5643,10 @@ msgstr "Parcheando %s usando %s\n"
 msgid "Patching...\n"
 msgstr "Parcheando...\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+msgid "Patching..."
+msgstr "Parcheando..."
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Hai traballos non finalizados, agarde ata que estén rematados."
@@ -5649,6 +5660,10 @@ msgstr ""
 "Fallou o parcheado.\n"
 "Revise as mensaxes de fallo.\n"
 "Examine e elimine calquer ficheiro rechazado.\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+msgid "Patching complete"
+msgstr "Parcheado completo"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6721,13 +6736,13 @@ msgstr "Parámetros do programa"
 msgid "Program:"
 msgstr "Programa:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "O programa '%s' non existe"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "O directorio do programa '%s' non é local"
@@ -7237,10 +7252,6 @@ msgid "Use theme font"
 msgstr "Usar fonte do tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
-msgid "Visible whitespaces"
-msgstr "Espazos en branco visibles"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Axustar as liñas longas paa que collan no papel"
 
@@ -7747,7 +7758,7 @@ msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7784,11 +7795,11 @@ msgid "Symbol Browser"
 msgstr "Examinador de símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:500
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 msgid "API Tags"
 msgstr "Etiquetas do API"
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
 msgstr "Sen detalles do ficheiro"
 
@@ -7892,8 +7903,9 @@ msgstr "Símbolos"
 msgid "Package is not parseable"
 msgstr "O paquete non se pode analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:411
-#: ../plugins/symbol-db/symbol-db-prefs.c:551
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
@@ -7926,8 +7938,8 @@ msgid "Ctags executable:"
 msgstr "Executable de Ctags:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
-msgid "Parallel global/project scan of symbols."
-msgstr "Análise paralelo global/proxecto de símbolos."
+msgid "Parallel scan of project and global symbols."
+msgstr "Análise paralelo de símbolos de proxecto e globais."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8962,6 +8974,10 @@ msgstr "Gdb"
 msgid "Gdb plugin."
 msgstr "Complemento gdb."
 
+#: ../plugins/git/git.plugin.in.h:2
+msgid "Git version control"
+msgstr "Control de versións Git"
+
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
 msgstr "Axuda de API"
@@ -9148,6 +9164,10 @@ msgstr "Complemento xestor de proxectos para Anjuta."
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Complemento examinador de símbolos para Anjuta."
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "Complemento de base de datos de símbolos para Anjuta (inestable)."
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "Xestiona mensaxes de aplicacións externas"
@@ -9188,6 +9208,25 @@ msgstr "Xestor de linguas"
 msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para manter o seguimento das múltiples linguaxes de programación"
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr ""
+#~ "O complemento do terminal de Anjuta non está instalado. O programa "
+#~ "executarase sen unha terminal."
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-clear"
+#~ msgstr "gtk-clear"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
+
+#~ msgid "Visible whitespaces"
+#~ msgstr "Espazos en branco visibles"
 
 #~ msgid "Close"
 #~ msgstr "Pechar"
