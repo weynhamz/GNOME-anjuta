@@ -1,3 +1,8 @@
+2008-09-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor.c:
+	Fix #549857 - goto-line does not provide a mark on left side of editor
+
 2008-09-03  Johannes Schmid  <jhs@gnome.org>
 
 	* AUTHORS:

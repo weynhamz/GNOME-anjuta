@@ -2106,6 +2106,7 @@ static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
 	text_editor_goto_line (TEXT_EDITOR (editor), lineno, FALSE, TRUE);
+	gtk_widget_grab_focus (TEXT_EDITOR (editor)->scintilla);
 }
 
 static void
