@@ -1,3 +1,13 @@
+2008-09-03  Johannes Schmid  <jhs@gnome.org>
+
+	* AUTHORS:
+	* plugins/symbol-browser/images/*
+	* plugins/symbol-browser/an_symbol_info.c (sv_load_symbol_pixbufs):
+	* plugins/symbol-db/symbol-db-view.c:
+	Imported new symbol icons from MonoDevelop. The old one (originally in
+	SharpDevelop are very close to the Visual Studio icons which could cause
+	problems. The new icons are Tango icons and are MIT/X11 licensed.
+
 2008-09-02  James Liggett  <jrliggett@cox.net>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

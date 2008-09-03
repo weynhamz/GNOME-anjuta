@@ -23,7 +23,6 @@
  */
 
 #include <glib.h>
-#include <gdl/gdl-icons.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
@@ -1522,50 +1521,50 @@ sdb_view_load_symbol_pixbufs ()
 
 	pixbufs_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
-	CREATE_SYM_ICON ("class",             "Icons.16x16.Class");	
-	CREATE_SYM_ICON ("enum",     	  	  "Icons.16x16.Enum");		
-	CREATE_SYM_ICON ("enumerator",     	  "Icons.16x16.Enum");	
-	CREATE_SYM_ICON ("function",          "Icons.16x16.Method");	
-	CREATE_SYM_ICON ("interface",         "Icons.16x16.Interface");	
-	CREATE_SYM_ICON ("macro",             "Icons.16x16.Field");	
-	CREATE_SYM_ICON ("namespace",         "Icons.16x16.NameSpace");
-	CREATE_SYM_ICON ("none",              "Icons.16x16.Literal");
-	CREATE_SYM_ICON ("struct",            "Icons.16x16.ProtectedStruct");
-	CREATE_SYM_ICON ("typedef",           "Icons.16x16.Reference");
-	CREATE_SYM_ICON ("union",             "Icons.16x16.PrivateStruct");
-	CREATE_SYM_ICON ("variable",          "Icons.16x16.Literal");
-	CREATE_SYM_ICON ("prototype",         "Icons.16x16.Interface");	
+	CREATE_SYM_ICON ("class",             "element-class-16.png");	
+	CREATE_SYM_ICON ("enum",     	  	  "element-enumeration-16.png");		
+	CREATE_SYM_ICON ("enumerator",     	  "element-enumeration-16.png");	
+	CREATE_SYM_ICON ("function",          "element-method-16.png");	
+	CREATE_SYM_ICON ("interface",         "element-interface-16.png");	
+	CREATE_SYM_ICON ("macro",             "element-event-16.png");	
+	CREATE_SYM_ICON ("namespace",         "element-namespace-16.png");
+	CREATE_SYM_ICON ("none",              "element-literal-16.png");
+	CREATE_SYM_ICON ("struct",            "element-structure-16.png");
+	CREATE_SYM_ICON ("typedef",           "element-literal-16.png");
+	CREATE_SYM_ICON ("union",             "element-structure-16.png");
+	CREATE_SYM_ICON ("variable",          "element-literal-16.png");
+	CREATE_SYM_ICON ("prototype",         "element-interface-16.png");	
 	
-	CREATE_SYM_ICON ("privateclass",      "Icons.16x16.PrivateClass");
-	CREATE_SYM_ICON ("privateenum",   	  "Icons.16x16.PrivateEnum");
-	CREATE_SYM_ICON ("privatefield",   	  "Icons.16x16.PrivateField");
-	CREATE_SYM_ICON ("privatefunction",   "Icons.16x16.PrivateMethod");
-	CREATE_SYM_ICON ("privateinterface",  "Icons.16x16.PrivateInterface");	
-	CREATE_SYM_ICON ("privatemember",     "Icons.16x16.PrivateProperty");	
-	CREATE_SYM_ICON ("privatemethod",     "Icons.16x16.PrivateMethod");
-	CREATE_SYM_ICON ("privateproperty",   "Icons.16x16.PrivateProperty");
-	CREATE_SYM_ICON ("privatestruct",     "Icons.16x16.PrivateStruct");
-	CREATE_SYM_ICON ("privateprototype",  "Icons.16x16.PrivateInterface");
+	CREATE_SYM_ICON ("privateclass",      "element-class-16.png");
+	CREATE_SYM_ICON ("privateenum",   	  "element-enumeration-16.png");
+	CREATE_SYM_ICON ("privatefield",   	  "element-event-16.png");
+	CREATE_SYM_ICON ("privatefunction",   "element-method-16.png");
+	CREATE_SYM_ICON ("privateinterface",  "element-interface-16.png");	
+	CREATE_SYM_ICON ("privatemember",     "element-property-16.png");	
+	CREATE_SYM_ICON ("privatemethod",     "element-method-16.png");
+	CREATE_SYM_ICON ("privateproperty",   "element-property-16.png");
+	CREATE_SYM_ICON ("privatestruct",     "element-structure-16.png");
+	CREATE_SYM_ICON ("privateprototype",  "element-interface-16.png");
 
-	CREATE_SYM_ICON ("protectedclass",    "Icons.16x16.ProtectedClass");	
-	CREATE_SYM_ICON ("protectedenum",     "Icons.16x16.ProtectedEnum");
-	CREATE_SYM_ICON ("protectedfield",    "Icons.16x16.ProtectedField");	
-	CREATE_SYM_ICON ("protectedmember",   "Icons.16x16.ProtectedProperty");
-	CREATE_SYM_ICON ("protectedmethod",   "Icons.16x16.ProtectedMethod");
-	CREATE_SYM_ICON ("protectedproperty", "Icons.16x16.ProtectedProperty");
-	CREATE_SYM_ICON ("publicprototype",   "Icons.16x16.ProtectedInterface");
+	CREATE_SYM_ICON ("protectedclass",    "element-class-16.png");	
+	CREATE_SYM_ICON ("protectedenum",     "element-enumeration-16.png");
+	CREATE_SYM_ICON ("protectedfield",    "element-event-16.png");	
+	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
+	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
+	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
 	
-	CREATE_SYM_ICON ("publicclass",    	  "Icons.16x16.Class");	
-	CREATE_SYM_ICON ("publicenum",    	  "Icons.16x16.Enum");	
-	CREATE_SYM_ICON ("publicfunction",    "Icons.16x16.Method");
-	CREATE_SYM_ICON ("publicmember",      "Icons.16x16.Method");
-	CREATE_SYM_ICON ("publicproperty",    "Icons.16x16.Property");
-	CREATE_SYM_ICON ("publicstruct",      "Icons.16x16.Struct");
-	CREATE_SYM_ICON ("publicprototype",   "Icons.16x16.Interface");
+	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
+	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
+	CREATE_SYM_ICON ("publicfunction",    "element-method-16.png");
+	CREATE_SYM_ICON ("publicmember",      "element-method-16.png");
+	CREATE_SYM_ICON ("publicproperty",    "element-property-16.png");
+	CREATE_SYM_ICON ("publicstruct",      "element-structure-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
 	
 	/* special icon */
-	CREATE_SYM_ICON ("othersvars",   "Icons.16x16.Event");
-	CREATE_SYM_ICON ("globalglobal", "Icons.16x16.Event");
+	CREATE_SYM_ICON ("othersvars",   "element-event-16.png");
+	CREATE_SYM_ICON ("globalglobal", "element-event-16.png");
 }
 
 /**

@@ -270,22 +270,22 @@ sv_load_symbol_pixbufs (void)
 		return;
 	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
 
-	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_namespace_t,         "Icons.16x16.NameSpace");
-	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
-	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
-	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
-	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
-	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
-	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
-	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
-	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
-	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
-	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
-	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
-	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
-	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
+	CREATE_SV_ICON (sv_none_t,              "element-literal-16.png");
+	CREATE_SV_ICON (sv_namespace_t,         "element-namespace-16.png");
+	CREATE_SV_ICON (sv_class_t,             "element-class-16.png");
+	CREATE_SV_ICON (sv_struct_t,            "element-structure-16.png");
+	CREATE_SV_ICON (sv_union_t,             "element-structure-16.png");
+	CREATE_SV_ICON (sv_typedef_t,           "element-literal-16.png");
+	CREATE_SV_ICON (sv_function_t,          "element-method-16.png");
+	CREATE_SV_ICON (sv_variable_t,          "element-literal-16.png");
+	CREATE_SV_ICON (sv_enumerator_t,        "element-enumeration-16.png");
+	CREATE_SV_ICON (sv_macro_t,             "element-event-16.png");
+	CREATE_SV_ICON (sv_private_func_t,      "element-method-16.png");
+	CREATE_SV_ICON (sv_private_var_t,       "element-literal-16.png");
+	CREATE_SV_ICON (sv_protected_func_t,    "element-method-16.png");
+	CREATE_SV_ICON (sv_protected_var_t,     "element-literal-16.png");
+	CREATE_SV_ICON (sv_public_func_t,       "element-method-16.png");
+	CREATE_SV_ICON (sv_public_var_t,        "element-literal-16.png");
 	
 	sv_symbol_pixbufs[sv_cfolder_t] = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
 																GTK_STOCK_DIRECTORY,

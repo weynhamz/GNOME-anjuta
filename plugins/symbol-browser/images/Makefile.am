@@ -1,45 +1,15 @@
 # Plugin pixmap files
 symbol_browser_iconsdir = $(anjuta_image_dir)
 symbol_browser_icons_DATA = \
-	Icons.16x16.Class\
-	Icons.16x16.Event\
-	Icons.16x16.Enum\
-	Icons.16x16.Field\
-	Icons.16x16.Struct\
-	Icons.16x16.Property\
-	Icons.16x16.FormsDesigner.BringToFront\
-	Icons.16x16.FormsDesigner.SendToBack\
-	Icons.16x16.Interface\
-	Icons.16x16.InternalClass\
-	Icons.16x16.InternalDelegate\
-	Icons.16x16.InternalEnum\
-	Icons.16x16.InternalEvent\
-	Icons.16x16.InternalField\
-	Icons.16x16.InternalInterface\
-	Icons.16x16.InternalMethod\
-	Icons.16x16.InternalProperty\
-	Icons.16x16.InternalStruct\
-	Icons.16x16.Literal\
-	Icons.16x16.Method\
-	Icons.16x16.NameSpace\
-	Icons.16x16.PrivateClass\
-	Icons.16x16.PrivateDelegate\
-	Icons.16x16.PrivateEnum\
-	Icons.16x16.PrivateEvent\
-	Icons.16x16.PrivateField\
-	Icons.16x16.PrivateInterface\
-	Icons.16x16.PrivateMethod\
-	Icons.16x16.PrivateProperty\
-	Icons.16x16.PrivateStruct\
-	Icons.16x16.ProtectedClass\
-	Icons.16x16.ProtectedDelegate\
-	Icons.16x16.ProtectedEnum\
-	Icons.16x16.ProtectedEvent\
-	Icons.16x16.ProtectedField\
-	Icons.16x16.ProtectedInterface\
-	Icons.16x16.ProtectedMethod\
-	Icons.16x16.ProtectedProperty\
-	Icons.16x16.ProtectedStruct\
-	Icons.16x16.Reference
-
+	element-literal-16.png \
+	element-class-16.png \
+	element-delegate-16.png \
+	element-enumeration-16.png \
+	element-event-16.png \
+	element-field-16.png \
+	element-interface-16.png \
+	element-method-16.png \
+	element-namespace-16.png \
+	element-property-16.png \
+	element-structure-16.png
 EXTRA_DIST = $(symbol_browser_icons_DATA)
