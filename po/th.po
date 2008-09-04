@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-04 16:27+0700\n"
-"PO-Revision-Date: 2008-08-08 17:21+0700\n"
+"POT-Creation-Date: 2008-09-04 20:40+0700\n"
+"PO-Revision-Date: 2008-09-04 20:51+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -175,14 +175,14 @@ msgstr "ไทย"
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
-#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "ไม่สามารถเรียกคำสั่ง: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1155
+#: ../libanjuta/anjuta-launcher.c:1159
 msgid "execvp failed"
 msgstr "execvp ล้มเหลว"
 
@@ -197,7 +197,7 @@ msgstr "เชลล์แอนจูตาที่จะบรรจุปล
 #: ../libanjuta/anjuta-plugin-manager.c:734
 #, c-format
 msgid "Plugin '%s' do not want to be deactivated"
-msgstr ""
+msgstr "ปลั๊กอิน '%s' ไม่ต้องการปิดการทำงาน"
 
 #: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
@@ -213,7 +213,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:447
+#: ../plugins/symbol-db/symbol-db-prefs.c:514
 msgid "Load"
 msgstr "โหลด"
 
@@ -222,7 +222,7 @@ msgstr "โหลด"
 msgid "Available Plugins"
 msgstr "ปลั๊กอินที่มีอยู่"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:957
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:927
 msgid "Preferred plugins"
 msgstr "ปลั๊กอินที่เลือกใช้"
 
@@ -236,15 +236,15 @@ msgid ""
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
-"ปลั๊กอินเหล่านี้เป็นปลั๊กอินที่คุณเลือกไว้ เมื่อแอนจูตาถามให้เลือกปลั๊กอินที่เหมาะสม "
-"ถ้าลบปลั๊กอินที่เลือกใช้ แอนจูตาจะถามคุณอีก เพื่อให้เลือกปลั๊กอินอื่น"
+"ปลั๊กอินเหล่านี้เป็นปลั๊กอินที่คุณเลือกไว้ เมื่อแอนจูตาถามให้เลือกปลั๊กอินที่เหมาะสม ถ้าลบปลั๊กอินที่เลือกใช้ "
+"แอนจูตาจะถามคุณอีก เพื่อให้เลือกปลั๊กอินอื่น"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1212
 msgid "Forget selected plugin"
 msgstr "ล้างการเลือกปลั๊กอิน"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "เลือกปลั๊กอิน"
@@ -270,7 +270,7 @@ msgstr "โพรไฟล์"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2247
 msgid "Current stack of profiles"
-msgstr ""
+msgstr "สแต็กเก็บชุดโพรไฟล์ปัจจุบัน"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2252
 msgid "Available plugins"
@@ -290,7 +290,7 @@ msgstr "ปลั๊กอินปัจจุบันที่ทำงาน
 
 #: ../libanjuta/anjuta-plugin-manager.c:2266
 msgid "Anjuta shell for which the plugins are"
-msgstr ""
+msgstr "เชลล์แอนจูตาที่ปลั๊กอินนี้ทำงานด้วย"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2274
 msgid "Anjuta Status"
@@ -337,6 +337,10 @@ msgstr ""
 msgid "URI to sync the profile xml"
 msgstr ""
 
+#: ../libanjuta/anjuta-profile.c:471
+msgid "Please select a plugin from the list"
+msgstr "กรุณาเลือกปลั๊กอินจากรายชื่อ"
+
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
@@ -351,7 +355,7 @@ msgstr "ไม่มีสิทธิ์อ่านสำหรับ: %s"
 #: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
 msgid "Failed to read '%s': XML parse error"
-msgstr ""
+msgstr "อ่าน '%s' ไม่สำเร็จ: เกิดข้อผิดพลาดในการแจง XML"
 
 #: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
@@ -359,6 +363,8 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
 "profile."
 msgstr ""
+"อ่าน '%s' ไม่สำเร็จ: เกิดข้อผิดพลาดในการแจง XML "
+"โพรไพล์ของปลั๊กอินแอนจูตาไม่ถูกต้องหรือเสียหาย"
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:755
@@ -372,15 +378,18 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
+"อ่าน '%s' ไม่สำเร็จ: ขาดปลั๊กอินที่จำเป็นต่อไปนี้:\n"
+"%s"
 
 #: ../libanjuta/anjuta-preferences.c:1453
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
-msgstr ""
-"ยืนยันว่าต้องการล้างค่าปรับแต่งเป็นค่าตั้งปริยายหรือไม่?"
+msgstr "ยืนยันว่าต้องการล้างค่าปรับแต่งเป็นค่าปริยายหรือไม่?"
 
-#: ../libanjuta/anjuta-preferences.c:1457
+#. Action name
+#. Stock icon, if any
+#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:193
 msgid "_Reset"
 msgstr "_ล้างค่า"
 
@@ -394,7 +403,7 @@ msgstr "ประเภท"
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:944
+#: ../src/anjuta-app.c:914
 msgid "General"
 msgstr "ทั่วไป"
 
@@ -430,20 +439,20 @@ msgid ""
 msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
-msgstr[1] ""
+"<b>มี %d รายการที่ไม่ได้บันทึกการเปลี่ยแปลง จะบันทึกการเปลี่ยนแปลงก่อนปิดหรือไม่?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr ""
+msgstr "มีรายการที่ไม่ได้บันทึกการเปลี่ยนแปลง จะบันทึกการเปลี่ยแปลงก่อนปิดหรือไม่?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: ../libanjuta/anjuta-ui.c:848
 msgid "Action"
-msgstr ""
+msgstr "การกระทำ"
 
 #: ../libanjuta/anjuta-ui.c:866
 msgid "Visible"
-msgstr ""
+msgstr "มองเห็น"
 
 #: ../libanjuta/anjuta-ui.c:877
 msgid "Sensitive"
@@ -487,13 +496,39 @@ msgstr ""
 #: ../libanjuta/anjuta-utils.c:913 ../libanjuta/anjuta-utils.c:917
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr ""
+msgstr "ไม่สามารถเรียกคำสั่ง: %s (โดยใช้เชลล์ %s)\n"
 
 #: ../libanjuta/anjuta-utils.c:1481
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
+"ไม่สามารถแสดงวิธีใช้ กรุณาตรวจสอบให้แน่ใจว่าได้ติดตั้งแพกเกจเอกสารของแอนจูตา "
+"ซึ่งดาวน์โหลดได้จาก http://anjuta.org"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:292
+msgid "Modified"
+msgstr "มีการเปลี่ยนแปลง"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:296
+msgid "Added"
+msgstr "เพิ่ม"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:300
+msgid "Deleted"
+msgstr "ลบ"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:304
+msgid "Conflicted"
+msgstr "ขัดแย้ง"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:308
+msgid "Missing"
+msgstr "สูญหาย"
+
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:312
+msgid "Unversioned"
+msgstr "ไม่มีการติดตามรุ่น"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
@@ -501,7 +536,7 @@ msgstr "ข้อความ"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:219
 msgid "Text to render"
-msgstr ""
+msgstr "ข้อความที่จะวาด"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:225
 msgid "Pixbuf Object"
@@ -509,7 +544,7 @@ msgstr "อ็อบเจกต์ Pixbuf"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:226
 msgid "The pixbuf to render."
-msgstr ""
+msgstr "pixbuf ที่จะวาด"
 
 #: ../libanjuta/resources.c:63
 #, c-format
@@ -519,7 +554,7 @@ msgstr "ไม่พบวิดเจ็ต: %s"
 #: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr ""
+msgstr "ไม่พบแฟ้ม pixmap ของโปรแกรม: %s"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 msgid "<b>Build</b>"
@@ -560,11 +595,11 @@ msgstr "ตั้งค่าโครงการ"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Continue on errors"
-msgstr ""
+msgstr "ทำต่อไปถึงแม้จะมีข้อผิดพลาด"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 msgid "Highlight message locations in editor"
-msgstr ""
+msgstr "เน้นตำแหน่งที่เกี่ยวกับข้อความในเครื่องมือแก้ไข"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Install as root:"
@@ -577,7 +612,7 @@ msgstr "เรียกในเทอร์มินัล"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
 msgid "Run several commands at a time:"
-msgstr ""
+msgstr "เรียกหลายคำสั่งขนานกัน:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
@@ -608,12 +643,13 @@ msgid "Profiling"
 msgstr "การวัดประสิทธิภาพ"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
+#, fuzzy
 msgid "Optimized"
-msgstr ""
+msgstr "ปรับแต่งแล้ว"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 msgid "No executables in this project!"
-msgstr ""
+msgstr "ไม่มีแฟ้มโปรแกรมในโครงการนี้!"
 
 #: ../plugins/build-basic-autotools/executer.c:154
 msgid "Program"
@@ -625,308 +661,308 @@ msgstr "ไม่มีแฟ้มหรือโครงการเปิด
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr ""
+msgstr "โปรแกรม '%s' ไม่ใช่แฟ้มในเครื่อง"
 
 #: ../plugins/build-basic-autotools/executer.c:310
 #, c-format
 msgid "Program '%s' does not exists"
-msgstr ""
+msgstr "โปรแกรม '%s' ไม่มีอยู่"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr ""
+msgstr "โปรแกรม '%s' ไม่ได้กำหนดสิทธิ์ไว้ให้เรียกทำงานได้"
 
 #: ../plugins/build-basic-autotools/executer.c:350
 msgid "No executable for this file."
-msgstr ""
+msgstr "ไม่มีแฟ้มโปรแกรมสำหรับแฟ้มนี้"
 
 #: ../plugins/build-basic-autotools/executer.c:356
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr ""
+msgstr "แฟ้มโปรแกรม '%s' ยังไม่ปรับตามข้อมูลล่าสุด"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:145
+#: ../plugins/build-basic-autotools/plugin.c:151
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:146
+#: ../plugins/build-basic-autotools/plugin.c:152
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:154
+#: ../plugins/build-basic-autotools/plugin.c:160
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:155
+#: ../plugins/build-basic-autotools/plugin.c:161
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:701
+#: ../plugins/build-basic-autotools/plugin.c:707
 #, c-format
 msgid "Entering: %s"
-msgstr ""
+msgstr "กำลังเข้าสู่: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:737
+#: ../plugins/build-basic-autotools/plugin.c:743
 #, c-format
 msgid "Leaving: %s"
-msgstr ""
+msgstr "กำลังออกจาก: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:770
+#: ../plugins/build-basic-autotools/plugin.c:776
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "คำเตือน:"
 
-#: ../plugins/build-basic-autotools/plugin.c:891
+#: ../plugins/build-basic-autotools/plugin.c:893
 #, c-format
 msgid "Command exited with status %d"
-msgstr ""
+msgstr "คำสั่งจบการทำงานด้วยสถานะ %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:901
+#: ../plugins/build-basic-autotools/plugin.c:903
 #, c-format
 msgid "Command canceled by user"
-msgstr ""
+msgstr "คำสั่งถูกยกเลิกโดยผู้ใช้"
 
-#: ../plugins/build-basic-autotools/plugin.c:906
+#: ../plugins/build-basic-autotools/plugin.c:908
 #, c-format
 msgid "Command aborted by user"
-msgstr ""
+msgstr "คำสั่งถูกเลิกทำโดยผู้ใช้"
 
-#: ../plugins/build-basic-autotools/plugin.c:911
+#: ../plugins/build-basic-autotools/plugin.c:913
 #, c-format
 msgid "Command terminated with signal %d"
-msgstr ""
+msgstr "คำสั่งถูกทำให้หยุดโดยสัญญาณ %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:919
+#: ../plugins/build-basic-autotools/plugin.c:921
 msgid "Command terminated for an unknown reason"
-msgstr ""
+msgstr "คำสั่งถูกทำให้หยุดโดยไม่ทราบเหตุผล"
 
-#: ../plugins/build-basic-autotools/plugin.c:935
+#: ../plugins/build-basic-autotools/plugin.c:937
 #, c-format
 msgid "Total time taken: %lu secs\n"
-msgstr ""
+msgstr "เวลาที่ใช้ทั้งหมด: %lu วินาที\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:940
+#: ../plugins/build-basic-autotools/plugin.c:942
 msgid "Completed unsuccessful\n"
-msgstr ""
+msgstr "ไม่สำเร็จ\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:945
+#: ../plugins/build-basic-autotools/plugin.c:947
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
-msgstr ""
+msgstr "สำเร็จ\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:991
+#: ../plugins/build-basic-autotools/plugin.c:993
 #, c-format
 msgid "Build %d: %s"
 msgstr "การประกอบสร้าง %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1528
+#: ../plugins/build-basic-autotools/plugin.c:1565
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr ""
+msgstr "ไม่สามารถคอมไพล์ \"%s\": ไม่ได้กำหนดกฎคอมไพล์ไว้สำหรับแฟ้มชนิดนี้"
 
-#: ../plugins/build-basic-autotools/plugin.c:1599
+#: ../plugins/build-basic-autotools/plugin.c:1636
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
+msgstr "ไม่สามารถตั้งค่าโครงการ: ขาดสคริปต์ตั้งค่าใน %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1981
-#: ../plugins/build-basic-autotools/plugin.c:2055
-#: ../plugins/build-basic-autotools/plugin.c:2065
-#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2019
 #: ../plugins/build-basic-autotools/plugin.c:2093
-#: ../plugins/build-basic-autotools/plugin.c:2221
+#: ../plugins/build-basic-autotools/plugin.c:2103
+#: ../plugins/build-basic-autotools/plugin.c:2121
+#: ../plugins/build-basic-autotools/plugin.c:2131
+#: ../plugins/build-basic-autotools/plugin.c:2259
 #, c-format
 msgid "_Build"
 msgstr "ประกอบ_สร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1985
+#: ../plugins/build-basic-autotools/plugin.c:2023
 msgid "_Build Project"
 msgstr "ประกอบ_สร้างโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1986
+#: ../plugins/build-basic-autotools/plugin.c:2024
 msgid "Build whole project"
 msgstr "ประกอบสร้างทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1991
+#: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Install Project"
 msgstr "_ติดตั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1992
+#: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Install whole project"
 msgstr "ติดตั้งทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1997
+#: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Clean Project"
 msgstr "เ_ก็บกวาดโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1998
+#: ../plugins/build-basic-autotools/plugin.c:2036
 msgid "Clean whole project"
 msgstr "เก็บกวาดทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2003
+#: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
 msgstr "_ตั้งค่าโครงการ..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2004
+#: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
 msgstr "ตั้งค่าโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2009
+#: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "Build _Tarball"
-msgstr ""
+msgstr "ประกอบสร้างแฟ้ม_ทาร์"
 
-#: ../plugins/build-basic-autotools/plugin.c:2010
+#: ../plugins/build-basic-autotools/plugin.c:2048
 msgid "Build project tarball distribution"
-msgstr ""
+msgstr "ประกอบสร้างแฟ้มทาร์แจกจ่ายของโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2015
+#: ../plugins/build-basic-autotools/plugin.c:2053
 msgid "_Build Module"
 msgstr "ประกอบ_สร้างมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2016
+#: ../plugins/build-basic-autotools/plugin.c:2054
 msgid "Build module associated with current file"
 msgstr "ประกอบสร้างมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:2021
+#: ../plugins/build-basic-autotools/plugin.c:2059
 msgid "_Install Module"
 msgstr "_ติดตั้งมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2022
+#: ../plugins/build-basic-autotools/plugin.c:2060
 msgid "Install module associated with current file"
 msgstr "ติดตั้งมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:2027
+#: ../plugins/build-basic-autotools/plugin.c:2065
 msgid "_Clean Module"
 msgstr "เ_ก็บกวาดมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2028
+#: ../plugins/build-basic-autotools/plugin.c:2066
 msgid "Clean module associated with current file"
 msgstr "เก็บกวาดมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:2033
+#: ../plugins/build-basic-autotools/plugin.c:2071
 msgid "Co_mpile File"
 msgstr "คอ_มไพล์แฟ้ม"
 
-#: ../plugins/build-basic-autotools/plugin.c:2034
+#: ../plugins/build-basic-autotools/plugin.c:2072
 msgid "Compile current editor file"
 msgstr "คอมไพล์แฟ้มปัจจุบันที่เปิดอยู่ในเครื่องมือแก้ไขข้อความ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2039
+#: ../plugins/build-basic-autotools/plugin.c:2077
 msgid "Select Configuration"
 msgstr "เลือกค่าตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2040
+#: ../plugins/build-basic-autotools/plugin.c:2078
 msgid "Select current configuration"
 msgstr "เลือกค่าตั้งปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:2045
+#: ../plugins/build-basic-autotools/plugin.c:2083
 msgid "Remove Configuration"
-msgstr ""
+msgstr "ลบค่าตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2046
+#: ../plugins/build-basic-autotools/plugin.c:2084
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
+msgstr "ล้างโครงการ (distclean) และลบไดเรกทอรีค่าตั้ง ถ้าเป็นไปเป็นได้"
 
-#: ../plugins/build-basic-autotools/plugin.c:2059
-#: ../plugins/build-basic-autotools/plugin.c:2087
+#: ../plugins/build-basic-autotools/plugin.c:2097
+#: ../plugins/build-basic-autotools/plugin.c:2125
 msgid "_Compile"
 msgstr "_คอมไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
-#: ../plugins/build-basic-autotools/plugin.c:2088
+#: ../plugins/build-basic-autotools/plugin.c:2098
+#: ../plugins/build-basic-autotools/plugin.c:2126
 msgid "Compile file"
 msgstr "คอมไพล์แฟ้ม"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
-#: ../plugins/build-basic-autotools/plugin.c:2094
+#: ../plugins/build-basic-autotools/plugin.c:2104
+#: ../plugins/build-basic-autotools/plugin.c:2132
 msgid "Build module"
 msgstr "ประกอบสร้างมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2071
-#: ../plugins/build-basic-autotools/plugin.c:2099
-#: ../plugins/build-basic-autotools/plugin.c:2228
+#: ../plugins/build-basic-autotools/plugin.c:2109
+#: ../plugins/build-basic-autotools/plugin.c:2137
+#: ../plugins/build-basic-autotools/plugin.c:2266
 #, c-format
 msgid "_Install"
 msgstr "_ติดตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
-#: ../plugins/build-basic-autotools/plugin.c:2100
+#: ../plugins/build-basic-autotools/plugin.c:2110
+#: ../plugins/build-basic-autotools/plugin.c:2138
 msgid "Install module"
 msgstr "ติดตั้งมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2077
-#: ../plugins/build-basic-autotools/plugin.c:2105
-#: ../plugins/build-basic-autotools/plugin.c:2235
+#: ../plugins/build-basic-autotools/plugin.c:2115
+#: ../plugins/build-basic-autotools/plugin.c:2143
+#: ../plugins/build-basic-autotools/plugin.c:2273
 #, c-format
 msgid "_Clean"
 msgstr "เ_ก็บกวาด"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
-#: ../plugins/build-basic-autotools/plugin.c:2106
+#: ../plugins/build-basic-autotools/plugin.c:2116
+#: ../plugins/build-basic-autotools/plugin.c:2144
 msgid "Clean module"
 msgstr "เก็บกวาดมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:2111
+#: ../plugins/build-basic-autotools/plugin.c:2149
 msgid "_Cancel command"
 msgstr "_ยกเลิกคำสั่ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2112
+#: ../plugins/build-basic-autotools/plugin.c:2150
 msgid "Cancel build command"
 msgstr "ยกเลิกคำสั่งประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2221
+#: ../plugins/build-basic-autotools/plugin.c:2259
 #, c-format
 msgid "_Build (%s)"
 msgstr "ประกอบ_สร้าง (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2228
+#: ../plugins/build-basic-autotools/plugin.c:2266
 #, c-format
 msgid "_Install (%s)"
 msgstr "_ติดตั้ง (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2235
+#: ../plugins/build-basic-autotools/plugin.c:2273
 #, c-format
 msgid "_Clean (%s)"
 msgstr "เ_ก็บกวาด (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2243
+#: ../plugins/build-basic-autotools/plugin.c:2281
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "คอ_มไพล์ (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2243
+#: ../plugins/build-basic-autotools/plugin.c:2281
 #, c-format
 msgid "Co_mpile"
 msgstr "คอ_มไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:2741
+#: ../plugins/build-basic-autotools/plugin.c:2779
 msgid "Build commands"
 msgstr "คำสั่งประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2748
+#: ../plugins/build-basic-autotools/plugin.c:2786
 msgid "Build popup commands"
 msgstr "คำสั่งผุดขึ้นสำหรับประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:3111
-#: ../plugins/build-basic-autotools/plugin.c:3129
+#: ../plugins/build-basic-autotools/plugin.c:3149
+#: ../plugins/build-basic-autotools/plugin.c:3167
 msgid "Build Autotools"
 msgstr "เครื่องมืออัตโนมัติสำหรับประกอบสร้าง"
 
@@ -987,7 +1023,7 @@ msgstr "ผู้เขียน/วันที่/เวลา"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "Base Class Inheritance:"
-msgstr ""
+msgstr "การสืบทอดคลาสพื้นฐาน:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Base Class:"
@@ -995,7 +1031,7 @@ msgstr "คลาสพื้นฐาน:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Class Function Prefix:"
-msgstr ""
+msgstr "คำนำหน้าฟังก์ชันคลาส:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
 msgid "Class Name:"
@@ -1012,11 +1048,11 @@ msgstr "สร้าง"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "GObject Class\t"
-msgstr ""
+msgstr "คลาส GObject\t"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "GObject Prefix and Type:"
-msgstr ""
+msgstr "คำนำหน้าและชนิด GObject:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
 msgid ""
@@ -1024,6 +1060,9 @@ msgid ""
 "Lesser General Public License (LGPL)\n"
 "No License"
 msgstr ""
+"สัญญาอนุญาตสาธารณะทั่วไปกนู (GPL)\n"
+"สัญญาอนุญาตสาธารณะทั่วไปแบบผ่อนปรนกนู (LGPL)\n"
+"ไม่มีสัญญาอนุญาต"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
@@ -1035,7 +1074,7 @@ msgstr "แฟ้มส่วนหัว:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "การประกาศและตัวฟังก์ชัน inline"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
@@ -1045,7 +1084,7 @@ msgstr "สัญญาอนุญาต:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Member Functions/Variables"
-msgstr ""
+msgstr "ฟังก์ชัน/ตัวแปรสมาชิก"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 #: ../plugins/glade/plugin.c:503
@@ -1062,20 +1101,20 @@ msgstr "แฟ้มซอร์ส:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "ส่วนต้นของแฟ้มซอร์ส/แฟ้มส่วนหัว:"
 
 #: ../plugins/class-gen/generator.c:132
 #, c-format
 msgid "Header or source file has not been created"
-msgstr ""
+msgstr "แฟ้มส่วนหัวหรือแฟ้มซอร์สยังไม่ถูกสร้าง"
 
 #: ../plugins/class-gen/generator.c:294
 msgid "Autogen template used for the header file"
-msgstr ""
+msgstr "แม่แบบ autogen ที่ใช้สำหรับแฟ้มส่วนหัว"
 
 #: ../plugins/class-gen/generator.c:302
 msgid "Autogen template used for the implementation file"
-msgstr ""
+msgstr "แม่แบบ autogen ที่ใช้สำหรับแฟ้ม implementation"
 
 #: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
 msgid "File to which the processed template will be written"
@@ -1084,22 +1123,24 @@ msgstr ""
 #: ../plugins/class-gen/generator.c:402
 #, c-format
 msgid "Failed to write autogen definition file"
-msgstr ""
+msgstr "เขียนแฟ้มข้อกำหนดของ autogen ไม่สำเร็จ"
 
 #: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:939
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
 msgstr ""
+"หา autogen รุ่น 5 ไม่พบ กรุณาติดตั้งแพกเกจ autogen คุณสามารถดาวน์โหลดได้ที่ http://"
+"autogen.sourceforge.net"
 
 #: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:417
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr ""
+msgstr "เรียก autogen ไม่สำเร็จ: %s"
 
 #: ../plugins/class-gen/window.c:816
 msgid "XML description of the user interface"
-msgstr ""
+msgstr "คำอธิบาย XML ของส่วนติดต่อผู้ใช้"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 msgid "<b>CVS Options</b>"
@@ -1110,6 +1151,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>รายละเอียดมอดูล:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
+#: ../plugins/git/anjuta-git.glade.h:15
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options:</b>"
 msgstr "<b>ตัวเลือก:</b>"
@@ -1232,7 +1274,7 @@ msgstr "ลบไดเรกทอรีว่าง"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:30
 msgid "Do not act recursively"
-msgstr ""
+msgstr "ไม่ทำในไดเรกทอรีย่อย"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "File is binary"
@@ -1240,7 +1282,7 @@ msgstr "แฟ้มเป็นไบนารี"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Ignore .cvsrc file (recommended)"
-msgstr ""
+msgstr "ไม่สนใจแฟ้ม .cvsrc (แนะนำ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid ""
@@ -1264,7 +1306,7 @@ msgstr "รหัสผ่าน:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
-msgstr ""
+msgstr "พาธคำสั่ง \"cvs\""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
@@ -1311,6 +1353,7 @@ msgid "Vendor tag:"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/git/anjuta-git.glade.h:82
 #: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "ทั้งโครงการ"
@@ -1333,6 +1376,9 @@ msgid "Unable to delete file"
 msgstr "ลบแฟ้มไม่ได้"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
+#: ../plugins/git/git-commit-dialog.c:68
+#: ../plugins/git/git-create-tag-dialog.c:127
+#: ../plugins/git/git-merge-dialog.c:80
 #: ../plugins/subversion/subversion-commit-dialog.c:70
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "ยืนยันว่าต้องการส่งข้อความปูมที่ว่างเปล่าหรือไม่?"
@@ -1363,18 +1409,17 @@ msgstr "ยืนยันว่าไม่ต้องการบันทึ
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
-msgstr ""
+msgstr "คำสั่ง CVS ล้มเหลว - ดูรายละเอียดข้างบน"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "คำสั่ง CVS ทำงานเสร็จ! - ใช้เวลา: %ld วินาที"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running - please wait until it finishes!"
-msgstr ""
+msgstr "คำสั่ง CVS กำลังทำงาน - กรุณารอจนกว่าจะเสร็จ!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:492
@@ -1421,8 +1466,9 @@ msgstr ""
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:73 ../plugins/cvs-plugin/plugin.c:132
+#, fuzzy
 msgid "Commit your changes to the CVS tree"
-msgstr ""
+msgstr "Commit การเปลี่ยนแปลงของคุณไปยัง CVS tree"
 
 #. Action name
 #. Stock icon, if any
@@ -1430,25 +1476,25 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:51
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
-msgstr ""
+msgstr "_ปรับข้อมูล"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:81 ../plugins/cvs-plugin/plugin.c:140
 msgid "Sync your local copy with the CVS tree"
-msgstr ""
+msgstr "ปรับข้อมูลในเครื่องของคุณให้ตรงกับ CVS tree"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "_Diff"
-msgstr ""
+msgstr "_Diff"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:89 ../plugins/cvs-plugin/plugin.c:148
 msgid "Show differences between your local copy and the tree"
-msgstr ""
+msgstr "แสดงความแตกต่างระหว่างข้อมูลในเครื่องของคุณกับ tree"
 
 #. Action name
 #. Stock icon, if any
@@ -1488,11 +1534,11 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/plugin.c:353
 msgid "CVS operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับ CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:359
 msgid "CVS popup operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับ CVS ในเมนูผุดขึ้น"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
 msgid "<b>Debugger:</b>"
@@ -1500,12 +1546,12 @@ msgstr "<b>โปรแกรมดีบั๊ก:</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
 msgid "Add Watch"
-msgstr ""
+msgstr "เพิ่มการเฝ้าดู"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:3
 #: ../plugins/gdb/anjuta-gdb.glade.h:2
 msgid "Attach to process"
-msgstr ""
+msgstr "แนบกับโพรเซส"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
 #: ../plugins/gdb/anjuta-gdb.glade.h:3
@@ -1525,7 +1571,7 @@ msgstr "เรจิสเตอร์ของ CPU"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:7
 msgid "Change Watch"
-msgstr ""
+msgstr "เปลี่ยนการเฝ้าดู"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
 #: ../plugins/run-program/anjuta-run-program.glade.h:2
@@ -1572,27 +1618,27 @@ msgstr "ป้อนแอดเดรสเป็นเลขฐานสิบ
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 #: ../plugins/run-program/anjuta-run-program.glade.h:3
 msgid "Environment Variables:"
-msgstr ""
+msgstr "ตัวแปรสภาพแวดล้อม:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
-msgstr ""
+msgstr "ซ่อนพารา_มิเตอร์โพรเซส"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
-msgstr ""
+msgstr "ตรวจสอบ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
 msgid "Inspect/Evaluate"
-msgstr ""
+msgstr "ตรวจสอบ/ประมวลผล"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
 #: ../plugins/debug-manager/plugin.c:929
 #: ../plugins/debug-manager/plugin.c:1029 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
-msgstr ""
+msgstr "สัญญาณเคอร์เนล"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
 #: ../plugins/debug-manager/breakpoints.c:1892
@@ -1657,7 +1703,7 @@ msgstr "สัญญาณ:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Source Directories"
-msgstr ""
+msgstr "ไดเรกทอรีซอร์ส"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
 msgid "Start Debugger"
@@ -1665,7 +1711,7 @@ msgstr "เรียกโปรแกรมดีบั๊ก"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 msgid "Stop at beginning"
-msgstr ""
+msgstr "หยุดที่ต้นโปรแกรม"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
@@ -1688,7 +1734,7 @@ msgstr "ใช่"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
 #: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
-msgstr ""
+msgstr "แ_นบ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
 msgid "_Automatic update"
@@ -1726,7 +1772,7 @@ msgstr "_จำนวนครั้งที่ผ่าน:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:49
 #: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
-msgstr ""
+msgstr "โ_พรเซสที่จะแนบเข้า:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:50
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
@@ -1919,7 +1965,7 @@ msgstr "บรรทัด"
 #. This is the list of local variables.
 #: ../plugins/debug-manager/locals.c:107
 msgid "Locals"
-msgstr ""
+msgstr "ตัวแปรเฉพาะที่"
 
 #: ../plugins/debug-manager/plugin.c:312
 msgid "Debugger Log"
@@ -1986,7 +2032,7 @@ msgstr "ดีบั๊กโ_พรเซส..."
 
 #: ../plugins/debug-manager/plugin.c:847
 msgid "Start debugger and attach to a running program"
-msgstr ""
+msgstr "เริ่มโปรแกรมดีบั๊กและแนบกับโปรแกรมที่กำลังทำงาน"
 
 #: ../plugins/debug-manager/plugin.c:853
 msgid "Stop Debugger"
@@ -2014,7 +2060,7 @@ msgstr "คำสั่งโปรแกรมดีบั๊ก..."
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:875 ../plugins/debug-manager/plugin.c:983
 msgid "Custom debugger command"
-msgstr ""
+msgstr "คำสั่งโปรแกรมดีบั๊กแบบกำหนดเอง"
 
 #: ../plugins/debug-manager/plugin.c:881 ../plugins/debug-manager/plugin.c:989
 msgid "_Info"
@@ -2026,7 +2072,7 @@ msgstr "ข้อมูลแฟ้มปลาย_ทาง"
 
 #: ../plugins/debug-manager/plugin.c:891
 msgid "Display information on the files the debugger is active with"
-msgstr ""
+msgstr "แสดงข้อมูลของแฟ้มที่โปรแกรมดีบั๊กกำลังทำงานด้วย"
 
 #: ../plugins/debug-manager/plugin.c:897
 msgid "Info _Program"
@@ -2057,7 +2103,7 @@ msgstr ""
 #: ../plugins/debug-manager/plugin.c:931
 #: ../plugins/debug-manager/plugin.c:1031
 msgid "Show kernel signals"
-msgstr ""
+msgstr "แสดงสัญญาณเคอร์เนล"
 
 #. Action name
 #. Stock icon, if any
@@ -2073,35 +2119,35 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:949
 msgid "Step _In"
-msgstr ""
+msgstr "ก้าวเ_ข้า"
 
 #: ../plugins/debug-manager/plugin.c:951
 msgid "Single step into function"
-msgstr ""
+msgstr "ทำหนึ่งขั้นเข้าในฟังก์ชัน"
 
 #: ../plugins/debug-manager/plugin.c:957
 msgid "Step O_ver"
-msgstr ""
+msgstr "ก้าวข้า_ม"
 
 #: ../plugins/debug-manager/plugin.c:959
 msgid "Single step over function"
-msgstr ""
+msgstr "ทำหนึ่งขั้นข้ามฟังก์ชัน"
 
 #: ../plugins/debug-manager/plugin.c:965
 msgid "Step _Out"
-msgstr ""
+msgstr "ก้าว_ออก"
 
 #: ../plugins/debug-manager/plugin.c:967
 msgid "Single step out of the function"
-msgstr ""
+msgstr "ทำหนึ่งขั้นออกจากฟังก์ชัน"
 
 #: ../plugins/debug-manager/plugin.c:973
 msgid "_Run to Cursor"
-msgstr ""
+msgstr "_ทำถึงเคอร์เซอร์"
 
 #: ../plugins/debug-manager/plugin.c:975
 msgid "Run to the cursor"
-msgstr ""
+msgstr "ทำจนถึงเคอร์เซอร์"
 
 #: ../plugins/debug-manager/plugin.c:997
 msgid "Info _Global Variables"
@@ -2150,7 +2196,7 @@ msgstr "การกระทำเกี่ยวกับโปรแกรม
 #, c-format
 msgid ""
 "Unable to find one debugger plugin supporting a target with %s mime type"
-msgstr ""
+msgstr "ไม่พบปลั๊กอินดีบั๊กที่รองรับเป้าหมายที่เป็นชนิด mime %s"
 
 #: ../plugins/debug-manager/registers.c:464
 msgid "Register"
@@ -2166,10 +2212,12 @@ msgid "Shared Object"
 msgstr "อ็อบเจกต์ใช้ร่วม"
 
 #: ../plugins/debug-manager/sharedlib.c:187
+#: ../plugins/git/anjuta-git.glade.h:53
 msgid "From"
 msgstr "จาก"
 
 #: ../plugins/debug-manager/sharedlib.c:191
+#: ../plugins/git/anjuta-git.glade.h:77
 msgid "To"
 msgstr "ถึง"
 
@@ -2196,7 +2244,7 @@ msgstr "ส่งไปที่โพรเซส"
 
 #: ../plugins/debug-manager/signals.c:309
 msgid "Kernel signals"
-msgstr ""
+msgstr "สัญญาณเคอร์เนล"
 
 #: ../plugins/debug-manager/signals.c:332
 msgid "Signal"
@@ -2236,17 +2284,17 @@ msgstr "จะแสดงเลขบรรทัดหรือไม่"
 
 #: ../plugins/debug-manager/sparse_view.c:1203
 msgid "Show Line Markers"
-msgstr ""
+msgstr "แสดงเครื่องหมายกำกับบรรทัด"
 
 #: ../plugins/debug-manager/sparse_view.c:1204
 msgid "Whether to display line marker pixbufs"
-msgstr ""
+msgstr "จะแสดงรูปเครื่องหมายกำกับบรรทัดหรือไม่"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/stack_trace.c:551
 msgid "Set current frame"
-msgstr ""
+msgstr "กำหนดเฟรมปัจจุบัน"
 
 #: ../plugins/debug-manager/stack_trace.c:559
 #: ../plugins/debug-manager/threads.c:386
@@ -2265,15 +2313,15 @@ msgstr "เฟรม"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:447 ../plugins/tools/tool.c:99
-#: ../src/anjuta-app.c:699
+#: ../src/anjuta-app.c:679
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "แฟ้ม"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "บรรทัด"
 
@@ -2293,7 +2341,7 @@ msgstr "สแต็ก"
 
 #: ../plugins/debug-manager/stack_trace.c:767
 msgid "Stack frame operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับเฟรมของสแต็ก"
 
 #: ../plugins/debug-manager/start.c:98
 msgid "Pid"
@@ -2315,7 +2363,7 @@ msgstr "คำสั่ง"
 #: ../plugins/debug-manager/start.c:604
 #, c-format
 msgid "Unable to execute: %s."
-msgstr ""
+msgstr "ไม่สามารถเรียกทำงาน: %s"
 
 #: ../plugins/debug-manager/start.c:618
 #, c-format
@@ -2349,7 +2397,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/debug-manager/threads.c:378
 msgid "Set current thread"
-msgstr ""
+msgstr "กำหนดเธรดปัจจุบัน"
 
 #: ../plugins/debug-manager/threads.c:432
 msgid "Id"
@@ -2367,29 +2415,29 @@ msgstr "การกระทำเกี่ยวกับเธรด"
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:377
 msgid "Ins_pect/Evaluate..."
-msgstr ""
+msgstr "ตรวจ_สอบ/ประมวลผล..."
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/watch.c:379
 msgid "Inspect or evaluate an expression or variable"
-msgstr ""
+msgstr "ตรวจสอบหรือประมวลผลนิพจน์หรือตัวแปร"
 
 #: ../plugins/debug-manager/watch.c:385
 msgid "Add Watch..."
-msgstr ""
+msgstr "เพิ่มการเฝ้าดู..."
 
 #: ../plugins/debug-manager/watch.c:393
 msgid "Remove Watch"
-msgstr ""
+msgstr "ลบการเฝ้าดู"
 
 #: ../plugins/debug-manager/watch.c:401
 msgid "Update Watch"
-msgstr ""
+msgstr "ปรับข้อมูลการเฝ้าดู"
 
 #: ../plugins/debug-manager/watch.c:409
 msgid "Change Value"
-msgstr ""
+msgstr "เปลี่ยนค่า"
 
 #: ../plugins/debug-manager/watch.c:417
 msgid "Update all"
@@ -2407,11 +2455,11 @@ msgstr "ปรับข้อมูลอัตโนมัติ"
 
 #: ../plugins/debug-manager/watch.c:462 ../plugins/debug-manager/watch.c:468
 msgid "Watch operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับการเผ้าดู"
 
 #: ../plugins/debug-manager/watch.c:540
 msgid "Watches"
-msgstr ""
+msgstr "เฝ้าดู"
 
 #: ../plugins/devhelp/plugin.c:209
 msgid "Search Help:"
@@ -2475,11 +2523,11 @@ msgstr "หนังสือ"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "ค้นหา"
 
-#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:716
+#: ../plugins/devhelp/plugin.c:383 ../src/anjuta-app.c:696
 msgid "Help"
 msgstr "วิธีใช้"
 
@@ -2537,7 +2585,7 @@ msgstr "แ_ทนที่"
 
 #: ../plugins/document-manager/anjuta-docman.c:1395
 msgid "[read-only]"
-msgstr ""
+msgstr "[อ่านอย่างเดียว]"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:1
 msgid "<b>Autosave</b>"
@@ -2848,7 +2896,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:279 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1834
+#: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
@@ -2935,11 +2983,11 @@ msgstr "แสดง/ซ่อนเลขบรรทัด"
 
 #: ../plugins/document-manager/plugin.c:323
 msgid "_Marker Margin"
-msgstr ""
+msgstr "ขอบเ_ครื่องหมาย"
 
 #: ../plugins/document-manager/plugin.c:324
 msgid "Show/Hide marker margin"
-msgstr ""
+msgstr "แสดง/ซ่อนขอบสำหรับทำเครื่องหมาย"
 
 #: ../plugins/document-manager/plugin.c:326
 msgid "_Code Fold Margin"
@@ -2999,31 +3047,31 @@ msgstr "แสดงย่อ: ลดขนาดตัวอักษร"
 
 #: ../plugins/document-manager/plugin.c:353
 msgid "_Highlight Mode"
-msgstr ""
+msgstr "โหมดเ_น้น"
 
 #: ../plugins/document-manager/plugin.c:357
 msgid "_Close All Folds"
-msgstr ""
+msgstr "ปิ_ดทุกพับ"
 
 #: ../plugins/document-manager/plugin.c:358
 msgid "Close all code folds in the editor"
-msgstr ""
+msgstr "ปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:360
 msgid "_Open All Folds"
-msgstr ""
+msgstr "_เปิดทุกพับ"
 
 #: ../plugins/document-manager/plugin.c:361
 msgid "Open all code folds in the editor"
-msgstr ""
+msgstr "เปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:363
 msgid "_Toggle Current Fold"
-msgstr ""
+msgstr "_สลับพับปัจจุบัน"
 
 #: ../plugins/document-manager/plugin.c:364
 msgid "Toggle current code fold in the editor"
-msgstr ""
+msgstr "สลับการปิด/เปิดโค้ดที่พับปัจจุบันในเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:369
 msgid "Bookmar_k"
@@ -3099,32 +3147,32 @@ msgstr "ย้ายไปเอกสารถัดไป"
 
 #: ../plugins/document-manager/plugin.c:415
 msgid "Editor file operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับแฟ้มของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:416
 msgid "Editor print operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับการพิมพ์ของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:417
 msgid "Editor text transformation"
-msgstr ""
+msgstr "การแปลงข้อความของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:418
 msgid "Editor text selection"
-msgstr ""
+msgstr "การเลือกข้อความของเครื่องมือแก้ไข"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
 #: ../plugins/document-manager/plugin.c:420
 msgid "Editor code commenting"
-msgstr ""
+msgstr "การแสดงคำอธิบายโค้ดของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:421
 msgid "Editor navigations"
-msgstr ""
+msgstr "การท่องดูของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:422
 msgid "Editor edit operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับการแก้ไขของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:423
 msgid "Editor zoom operations"
@@ -3132,30 +3180,30 @@ msgstr "การทำงานแสดงย่อ-ขยายของเ�
 
 #: ../plugins/document-manager/plugin.c:424
 msgid "Editor syntax highlighting styles"
-msgstr ""
+msgstr "รูปแบบการเน้นไวยากรณ์ของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:425
 msgid "Editor text formating"
-msgstr ""
+msgstr "การจัดรูปแบบข้อความของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:426
 msgid "Editor bookmarks"
-msgstr ""
+msgstr "ที่คั่นหน้าของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:427
 msgid "Simple searching"
-msgstr ""
+msgstr "การค้นหาแบบง่าย"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
-#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:1742
+#: ../plugins/document-manager/plugin.c:2147
+#: ../plugins/document-manager/plugin.c:2157
 msgid "Documents"
 msgstr "เอกสาร"
 
 #: ../plugins/document-manager/plugin.c:432
 msgid "Editor view settings"
-msgstr ""
+msgstr "ค่าตั้งมุมมองของเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:617
 msgid "Reload"
@@ -3165,55 +3213,55 @@ msgstr "เรียกใหม่"
 msgid "Goto"
 msgstr "ไปยัง"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "ทับ"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "แทรก"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "แสดงย่อ-ขยาย"
 
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "คอลัมน์"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "โหมด"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1557
 #, c-format
 msgid "Autosave failed for %s"
-msgstr ""
+msgstr "บันทึก %s โดยอัตโนมัติไม่สำเร็จ"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1571
 msgid "Autosave completed"
 msgstr "บันทึกอัตโนมัติเรียบร้อย"
 
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
-msgstr ""
+msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม"
 
 #: ../plugins/document-manager/search-box.c:391
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
-msgstr ""
+msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม แต่ไม่พบข้อความที่ตรง"
 
 #: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
@@ -3229,11 +3277,11 @@ msgstr "<b>การร่นย่อหน้าแบบธรรมดา</b
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:3
 msgid "<b>Code folding</b>"
-msgstr ""
+msgstr "<b>การพับโค้ด</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:4
 msgid "<b>Highlight style</b>"
-msgstr ""
+msgstr "<b>รูปแบบการเน้น</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:5
 msgid "<b>Misc options</b>"
@@ -3337,23 +3385,23 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:30
 msgid "Enable HTML tags folding"
-msgstr ""
+msgstr "เปิดใช้งานการพับแท็ก HTML"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:31
 msgid "Enable automatic indentation"
-msgstr ""
+msgstr "เปิดใช้งานการร่นย่อหน้าอัตโนมัติ"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:32
 msgid "Enable braces check"
-msgstr ""
+msgstr "เปิดใช้งานการตรวจสอบวงเล็บ"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:33
 msgid "Enable code folding"
-msgstr ""
+msgstr "เปิดใช้งานการพับโค้ด"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:34
 msgid "Enable comments folding"
-msgstr ""
+msgstr "เปิดใช้งานการพับคำอธิบาย"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:35
 msgid "Enable line wrap"
@@ -3361,19 +3409,19 @@ msgstr "เปิดใช้การตัดบรรทัด"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:36
 msgid "Enable python comments folding"
-msgstr ""
+msgstr "เปิดใช้งานการพับคำอธิบายของไพธอน"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:37
 msgid "Enable python quoted strings folding"
-msgstr ""
+msgstr "เปิดใช้งานการพับข้อความในคำพูดของไพธอน"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:38
 msgid "Filter extraneous characters in DOS mode"
-msgstr ""
+msgstr "กรองอักขระส่วนเกินในโหมด DOS"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
 msgid "Fold style:"
-msgstr ""
+msgstr "รูปแบบการพับ:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:40
 msgid "Font:"
@@ -3389,16 +3437,16 @@ msgstr "สีข้อความ:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:43
 msgid "Indent closing braces"
-msgstr ""
+msgstr "ร่นย่อหน้าวงเล็บปีกกาปิด"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:44
 msgid "Indent opening braces"
-msgstr ""
+msgstr "ร่นย่อหน้าวงเล็บปีกกาเปิด"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:45
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 msgid "Indentation size in spaces:"
-msgstr ""
+msgstr "ร่นย่อหน้าเป็นจำนวนช่องว่าง:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:46
 msgid "Italic"
@@ -3406,7 +3454,7 @@ msgstr "เอียง"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:47
 msgid "Line numbers margin width in pixels"
-msgstr ""
+msgstr "ความกว้างของขอบหมายเลขบรรทัดเป็นพิกเซล"
 
 #. If the user presses enter, the indentation of the current line will automatically be added to the next line
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:50
@@ -3415,15 +3463,15 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
-msgstr ""
+msgstr "แสดงขอบพับ"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
-msgstr ""
+msgstr "แสดงขอบหมายเลขบรรทัด"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
 msgid "Margin Marker visible"
-msgstr ""
+msgstr "แสดงขอบเครื่องหมาย"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
@@ -3456,7 +3504,7 @@ msgstr "การพิมพ์"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Select highlight style to edit:"
-msgstr ""
+msgstr "เลือกรูปแบบการเน้นที่จะแก้ไข:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
 msgid "Selection background:"
@@ -3537,7 +3585,7 @@ msgstr "ตัวอย่างก่อนพิมพ์"
 #: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
-msgstr ""
+msgstr "เครื่องมือแก้ไข Scintilla"
 
 #: ../plugins/editor/text_editor.c:327
 #, c-format
@@ -3572,6 +3620,9 @@ msgid ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
+"แฟ้มนี้ไม่ใช่แฟ้มข้อความหรือใช้รหัสอักขระที่ไม่รองรับ "
+"กรุณาตรวจสอบว่ารหัสอักขระของแฟ้มอยู่ในรายชื่อรหัสอักขระที่รองรับหรือไม่ ถ้าไม่อยู่ "
+"ให้เพิ่มจากค่าปรับแต่ง"
 
 #: ../plugins/editor/text_editor.c:1510
 msgid "Loading file..."
@@ -3584,6 +3635,9 @@ msgid ""
 "\n"
 "Details: %s"
 msgstr ""
+"ไม่สามารถโหลดแฟ้ม: %s\n"
+"\n"
+"รายละเอียด: %s"
 
 #: ../plugins/editor/text_editor.c:1539
 msgid "File loaded successfully"
@@ -3593,16 +3647,16 @@ msgstr "โหลดแฟ้มเรียบร้อยแล้ว"
 msgid "Saving file..."
 msgstr "กำลังบันทึกแฟ้ม..."
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
-msgstr ""
+msgstr "ไม่สามารถบันทึกแฟ้มชั่วคราว %s: %s"
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "บันทึกแฟ้มเสร็จแล้ว"
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3610,6 +3664,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"ไม่สามารถโหลดค่าปริยายส่วนกลางและแฟ้มค่าตั้ง:\n"
+"%s\n"
+"ซึ่งอาจทำให้โปรแกรมทำงานผิดเพี้ยนหรือไม่เสถียร\n"
+"แอนจูตาจะถอยกลับไปที่ค่าตั้งที่กำหนดไว้ในตัว (ซึ่งมีความสามารถจำกัด)"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3623,7 +3681,7 @@ msgstr ""
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
 msgid "No items found"
-msgstr ""
+msgstr "ไม่พบรายการ"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
@@ -3635,7 +3693,7 @@ msgstr ""
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr ""
+msgstr "ฟังก์ชันนี้ยังไม่ทำสำหรับวิดเจ็ตของคลาส '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #, c-format
@@ -3668,6 +3726,17 @@ msgstr "_%d. %s"
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
 
+#: ../plugins/file-loader/plugin.c:113
+#, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr ""
+"ไม่สามารถเปิด \"%s\"\n"
+"\n"
+"%s"
+
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
 msgid ""
@@ -3680,6 +3749,13 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
+"<b>ไม่สามารถเปิด \"%s\"</b>\n"
+"\n"
+"ไม่มีปลั๊กอิน การกระทำปริยาย หรือโปรแกรมที่กำหนดให้ใช้เปิดแฟ้มชนิดนี้\n"
+"\n"
+"ชนิด MIME: %s\n"
+"\n"
+"คุณอาจจะลองเปิดแฟ้มดังกล่าวได้ โดยใช้ปลั๊กอินหรือโปรแกรมต่อไปนี้"
 
 #: ../plugins/file-loader/plugin.c:187
 msgid "Open with:"
@@ -3751,7 +3827,7 @@ msgstr "แฟ้ม Diff"
 #: ../plugins/file-loader/plugin.c:746
 #, c-format
 msgid "Failed to activate plugin: %s"
-msgstr ""
+msgstr "เรียกใช้งานปลั๊กอินไม่สำเร็จ: %s"
 
 #: ../plugins/file-loader/plugin.c:802
 msgid "_New"
@@ -3840,7 +3916,7 @@ msgid "Root directory if no project is open:"
 msgstr "ไดเรกทอรีรากถ้าไม่มีโครงการเปิดอยู่:"
 
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "กำลังโหลด..."
 
@@ -3961,12 +4037,12 @@ msgstr "อื่น ๆ"
 #: ../plugins/file-wizard/file.c:107
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "General Public License (GPL)"
-msgstr "General Public License (GPL)"
+msgstr "สัญญาอนุญาตสาธารณะทั่วไปกนู (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Lesser General Public License (LGPL)"
-msgstr "Lesser General Public License (LGPL)"
+msgstr "สัญญาอนุญาตสาธารณะทั่วไปแบบผ่อนปรนกนู (LGPL)"
 
 #: ../plugins/file-wizard/file.c:176
 msgid "Unable to build user interface for New File"
@@ -3999,11 +4075,11 @@ msgstr "_ผ่าน:"
 
 #: ../plugins/gdb/debugger.c:685 ../plugins/gdb/debugger.c:929
 msgid "Loading Executable: "
-msgstr ""
+msgstr "กำลังโหลดแฟ้มโปรแกรม: "
 
 #: ../plugins/gdb/debugger.c:715
 msgid "Loading Core: "
-msgstr ""
+msgstr "กำลังโหลด Core: "
 
 #: ../plugins/gdb/debugger.c:794
 #, c-format
@@ -4022,11 +4098,11 @@ msgstr "กำลังเตรียมพร้อมสำหรับกา
 
 #: ../plugins/gdb/debugger.c:938
 msgid "No executable specified.\n"
-msgstr ""
+msgstr "ไม่ได้ระบุแฟ้มโปรแกรม\n"
 
 #: ../plugins/gdb/debugger.c:941
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
+msgstr "เปิดโปรแกรมหรือแนบกับโพรเซสเพื่อเริ่มดีบั๊ก\n"
 
 #: ../plugins/gdb/debugger.c:950
 msgid "There was an error whilst launching the debugger.\n"
@@ -4038,12 +4114,12 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1245
 msgid "Program exited normally\n"
-msgstr ""
+msgstr "โปรแกรมจบตามปกติ\n"
 
 #: ../plugins/gdb/debugger.c:1256
 #, c-format
 msgid "Program exited with error code %s\n"
-msgstr ""
+msgstr "โปรแกรมจบด้วยรหัสข้อผิดพลาด %s\n"
 
 #. The program has reached one breakpoint and will stop
 #: ../plugins/gdb/debugger.c:1271
@@ -4068,25 +4144,29 @@ msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
+"โปรแกรมถูกแนบอยู่\n"
+"คุณต้องการหยุดโปรแกรมดีบั๊กหรือไม่?"
 
 #: ../plugins/gdb/debugger.c:1872
 msgid "Program attached\n"
-msgstr ""
+msgstr "โปรแกรมถูกแนบแล้ว\n"
 
 #: ../plugins/gdb/debugger.c:1893
 #, c-format
 msgid "Attaching to process: %d...\n"
-msgstr ""
+msgstr "กำลังแนบกับโพรเซส: %d...\n"
 
 #: ../plugins/gdb/debugger.c:1919
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
+"มีโพรเซสกำลังทำงานอยู่\n"
+"คุณต้องการหยุดโพรเซสดังกล่าว และแนบเข้ากับโพรเซสใหม่หรือไม่?"
 
 #: ../plugins/gdb/debugger.c:1936
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "แอนจูตาไม่สามารถแนบกับตัวเองได้"
 
 #: ../plugins/gdb/debugger.c:1986
 msgid "Program terminated\n"
@@ -4114,21 +4194,703 @@ msgstr "กำลังส่งสัญญาณ %s ไปที่โพร�
 msgid "Error whilst signaling the process."
 msgstr "เกิดข้อผิดพลาดขณะส่งสัญญาณไปที่โพรเซส"
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr "ปลั๊กอินเทอร์มินัลของแอนจูตายังไม่ติดตั้ง โปรแกรมจะทำงานโดยไม่ใช้เทอร์มินัล"
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
 msgstr "สร้างแฟ้ม fifo ชื่อ %s ไม่สำเร็จ โปรแกรมจะทำงานโดยไม่ใช้เทอร์มินัล"
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "ไม่สามารถเริ่มเทอร์มินัลสำหรับดีบั๊ก"
+
+#: ../plugins/git/anjuta-git.glade.h:1
+msgid "<b>Bad revision:</b>"
+msgstr "<b>ฉบับแก้ไขที่เสียหาย:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:2
+msgid "<b>Branch name:</b>"
+msgstr "<b>ชื่อแขนง:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:3
+msgid "<b>Branch to delete:</b>"
+msgstr "<b>แขนงที่จะลบ:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:4
+msgid "<b>Branch to switch to:</b>"
+msgstr "<b>แขนงที่จะสลับไป:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:5
+msgid "<b>Branch:</b>"
+msgstr "<b>แขนง:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
+msgid "<b>Changes:</b>"
+msgstr "<b>การเปลี่ยนแปลง:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:7
+msgid "<b>Commit to revert:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:8
+msgid "<b>Filters</b>"
+msgstr "<b>ตัวกรอง</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:9
+msgid "<b>Folder to create patches in:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:10
+msgid "<b>Generate patches relative to:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:11
+msgid "<b>Good revision:</b>"
+msgstr "<b>ฉบับแก้ไขที่ดี:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
+msgid "<b>Log Message:</b>"
+msgstr "<b>ข้อความปูม:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:13
+msgid "<b>Log message:</b>"
+msgstr "<b>ข้อความปูม:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:14
+msgid "<b>Mode:</b>"
+msgstr "<b>โหมด:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:16
+msgid "<b>Remote branch to rebase from:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:17
+msgid "<b>Remote to delete:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:18
+msgid "<b>Repository to pull from:</b>"
+msgstr "<b>คลังที่จะ pull:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:19
+msgid "<b>Reset to:</b>"
+msgstr "<b>ล้างข้อมูลเป็น:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
+msgid "<b>Revision:</b>"
+msgstr "<b>ฉบับแก้ไข:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:21
+msgid "<b>Select Files to Check Out:</b>"
+msgstr "<b>เลือกแฟ้มที่จะ Check Out:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
+msgid "<b>Select Files to Commit:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:23
+msgid "<b>Select Files to Ignore:</b>"
+msgstr "<b>เลือกแฟ้มที่จะละเลย:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "<b>Select Files to Mark as Resolved:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:25
+msgid "<b>Select Files to Unstage:</b>"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:26
+msgid "<b>Select file to add:</b>"
+msgstr "<b>เลือกแฟ้มที่จะเพิ่ม:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:27
+msgid "<b>Select file to remove:</b>"
+msgstr "<b>เลือกแฟ้มที่ลบ:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:28
+msgid "<b>Tag name:</b>"
+msgstr "<b>ชื่อแท็ก:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:29
+msgid "<b>URL:</b>"
+msgstr "<b>URL:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:30
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
+msgid "<b>View the Log for File/Folder:</b>"
+msgstr "<b>ดูปูมของแฟ้ม/โฟลเดอร์:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:31
+msgid "Add File"
+msgstr "เพิ่มแฟ้ม"
+
+#: ../plugins/git/anjuta-git.glade.h:32
+msgid "Add Remote Branch"
+msgstr "เพิ่มแขนงที่แม่ข่าย"
+
+#: ../plugins/git/anjuta-git.glade.h:33
+msgid "Add signed off by line"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:34
+msgid "Annotate this tag"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:35
+msgid "Append fetch data"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:36
+msgid "Author/Grep"
+msgstr "ผู้เขียน/Grep"
+
+#: ../plugins/git/anjuta-git.glade.h:37
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "Author:"
+msgstr "ผู้เขียน:"
+
+#: ../plugins/git/anjuta-git.glade.h:38
+msgid "Branch must be fully merged"
+msgstr "แขนงจะต้องผสานหมด"
+
+#: ../plugins/git/anjuta-git.glade.h:39
+msgid "Check Out Files"
+msgstr "Check Out แฟ้ม"
+
+#: ../plugins/git/anjuta-git.glade.h:40
+msgid "Check out the branch after it is created"
+msgstr "Check out แขนงหลังจากสร้างเสร็จ"
+
+#: ../plugins/git/anjuta-git.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
+msgid "Commit Changes"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:42
+msgid "Commit on fast-forward merges"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:43
+msgid "Create Branch"
+msgstr "สร้างแขนง"
+
+#: ../plugins/git/anjuta-git.glade.h:44
+msgid "Create Tag"
+msgstr "สร้างแท็ก"
+
+#: ../plugins/git/anjuta-git.glade.h:45
+msgid "Create patch series"
+msgstr "สร้างชุดลำดับแพตช์"
+
+#: ../plugins/git/anjuta-git.glade.h:46
+#: ../plugins/subversion/subversion-log-dialog.c:139
+msgid "Date"
+msgstr "วันที่"
+
+#: ../plugins/git/anjuta-git.glade.h:47
+msgid "Delete Branch"
+msgstr "ลบแขนง"
+
+#: ../plugins/git/anjuta-git.glade.h:48
+msgid "Delete Remote Branch"
+msgstr "ลบแขนงที่แม่ข่าย"
+
+#: ../plugins/git/anjuta-git.glade.h:49
+msgid "Do not commit"
+msgstr "ไม่ commit"
+
+#: ../plugins/git/anjuta-git.glade.h:50
+msgid "Do not follow tags"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:51
+msgid "Fetch remote branches after creation"
+msgstr "Fetch แขนงจากแม่ข่ายหลังจากสร้างเสร็จ"
+
+#: ../plugins/git/anjuta-git.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
+msgid "Force"
+msgstr "บังคับ"
+
+#: ../plugins/git/anjuta-git.glade.h:54
+msgid "From:"
+msgstr "จาก:"
+
+#: ../plugins/git/anjuta-git.glade.h:55
+msgid "Grep:"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:56
+msgid "Hard"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:57
+msgid "Head"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:58
+msgid "Ignore Files"
+msgstr "ละเลยแฟ้ม"
+
+#: ../plugins/git/anjuta-git.glade.h:59
+msgid "Merge"
+msgstr "ผสาน"
+
+#: ../plugins/git/anjuta-git.glade.h:60
+msgid "Mixed"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:61
+msgid "Previous commit"
+msgstr "Commit ก่อนหน้า"
+
+#: ../plugins/git/anjuta-git.glade.h:62
+msgid "Pull"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:63
+msgid "Rebase"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:64
+msgid "Remove File"
+msgstr "ลบแฟ้ม"
+
+#: ../plugins/git/anjuta-git.glade.h:65
+msgid "Reset Tree"
+msgstr "ล้างข้อมูล Tree"
+
+#: ../plugins/git/anjuta-git.glade.h:66
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
+msgid "Retrieving status..."
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:67
+msgid "Revert Commit"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:68
+msgid "Revision/Tag:"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:69
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Revision:"
+msgstr "ฉบับแก้ไข:"
+
+#: ../plugins/git/anjuta-git.glade.h:70
+msgid "Select A Folder"
+msgstr "เลือกโฟลเดอร์"
+
+#: ../plugins/git/anjuta-git.glade.h:71
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
+msgid "Set Conflicts as Resolved"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:72
+msgid "Soft"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:73
+msgid "Squash"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:74
+msgid "Switch to Another Branch"
+msgstr "สลับไปแขนงอื่น"
+
+#: ../plugins/git/anjuta-git.glade.h:75
+msgid "Tag/Commit"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:76
+msgid "This commit concludes a failed merge (use -i)"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:78
+msgid "To:"
+msgstr "ถึง:"
+
+#: ../plugins/git/anjuta-git.glade.h:79
+msgid "Unstage Files"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.glade.h:80
+msgid "Use a custom log message"
+msgstr "กำหนดข้อความปูมเอง"
+
+#: ../plugins/git/anjuta-git.glade.h:81
+msgid "View log"
+msgstr "ดูปูม"
+
+#: ../plugins/git/git-add-dialog.c:36
+msgid "Git: File staged for add."
+msgstr ""
+
+#: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
+msgid "Please select a file."
+msgstr "กรุณาเลือกแฟ้ม"
+
+#: ../plugins/git/git-add-remote-dialog.c:41
+#, c-format
+msgid "Git: Added remote branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-add-remote-dialog.c:81
+#: ../plugins/git/git-create-branch-dialog.c:98
+msgid "Please enter a branch name."
+msgstr "กรุณาป้อนชื่อแขนง"
+
+#: ../plugins/git/git-add-remote-dialog.c:91
+msgid "Please enter a URL."
+msgstr "กรุณาป้อน URL"
+
+#: ../plugins/git/git-add-remote-dialog.c:111
+#: ../plugins/git/git-fetch-dialog.c:54
+msgid "Git: Fetching..."
+msgstr ""
+
+#: ../plugins/git/git-bisect-dialog.c:54
+#: ../plugins/git/git-create-branch-dialog.c:89
+#: ../plugins/git/git-create-tag-dialog.c:99
+#: ../plugins/git/git-reset-dialog.c:57 ../plugins/git/git-revert-dialog.c:46
+#: ../plugins/subversion/subversion-copy-dialog.c:207
+#: ../plugins/subversion/subversion-switch-dialog.c:120
+msgid "Please enter a revision."
+msgstr "กรุณาป้อนฉบับแก้ไข"
+
+#: ../plugins/git/git-cat-file-menu.c:36
+msgid "Git: File retrieved."
+msgstr ""
+
+#: ../plugins/git/git-checkout-files-dialog.c:36
+msgid "Git: Files checked out."
+msgstr ""
+
+#: ../plugins/git/git-commit-dialog.c:36
+msgid "Git: Commit complete."
+msgstr ""
+
+#: ../plugins/git/git-create-branch-dialog.c:41
+#, c-format
+msgid "Git: Created branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-create-tag-dialog.c:41
+#, c-format
+msgid "Git: Created tag \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-create-tag-dialog.c:108
+msgid "Please enter a tag name."
+msgstr "กรุณาป้อนชื่อแท็ก"
+
+#: ../plugins/git/git-delete-branch-dialog.c:41
+#, c-format
+msgid "Git: Deleted branch \"%s\"."
+msgstr ""
+
+#: ../plugins/git/git-fetch-dialog.c:40
+msgid "Git: Fetch complete."
+msgstr ""
+
+#: ../plugins/git/git-log-dialog.c:305
+msgid "Git: Retrieving log..."
+msgstr ""
+
+#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "กรุณาป้อนพาธ"
+
+#: ../plugins/git/git-log-dialog.c:505
+#, c-format
+msgid "<b>Branch:</b> %s"
+msgstr "<b>แขนง:</b> %s"
+
+#: ../plugins/git/git-log-dialog.c:510
+#, c-format
+msgid "<b>Tag:</b> %s"
+msgstr "<b>แท็ก:</b> %s"
+
+#: ../plugins/git/git-log-dialog.c:515
+#, c-format
+msgid "<b>Remote:</b> %s"
+msgstr "<b>ที่แม่ข่าย:</b> %s"
+
+#: ../plugins/git/git-merge-dialog.c:36
+msgid "Git: Merge complete."
+msgstr "Git: ผสานเรียบร้อย"
+
+#: ../plugins/git/git-pull-dialog.c:36
+msgid "Git: Pull complete."
+msgstr ""
+
+#: ../plugins/git/git-pull-dialog.c:77
+msgid "Please enter the URL of the repository to pull from."
+msgstr "กรุณาป้อน URL ของคลังที่จะ pull"
+
+#: ../plugins/git/git-rebase-dialog.c:49
+msgid "Git: Rebasing"
+msgstr ""
+
+#: ../plugins/git/git-remove-dialog.c:36
+msgid "Git: File removed."
+msgstr ""
+
+#: ../plugins/git/git-resolve-dialog.c:36
+msgid "Git: Resolve complete."
+msgstr ""
+
+#: ../plugins/git/git-switch-dialog.c:36
+msgid "Git: Branch checkout complete."
+msgstr ""
+
+#: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
+msgid "Git"
+msgstr ""
+
+#: ../plugins/git/git-ui-utils.c:438
+msgid "Git: Diff complete."
+msgstr ""
+
+#: ../plugins/git/git-unstage-dialog.c:36
+msgid "Git: Files unstaged."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
+msgid "_Git"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
+msgid "_Commit..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:73
+msgid "_Fetch"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:81
+msgid "_Rebase"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
+msgid "_Start..."
+msgstr "_เริ่ม..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:97
+msgid "_Continue"
+msgstr "ทำ_ต่อไป"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:105
+msgid "_Skip"
+msgstr "_ข้าม"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:113
+msgid "_Abort"
+msgstr "เ_ลิกทำ"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:121
+msgid "_Pull..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:129
+msgid "_Unstage files..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:137
+msgid "_Check out files..."
+msgstr "_Check out แฟ้ม..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:145
+msgid "_Resolve conflicts..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:153
+msgid "Create patch series..."
+msgstr "สร้างชุดลำดับแพตช์..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
+msgid "_Reset tree..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
+msgid "_Revert commit..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
+msgid "_Bisect"
+msgstr "แ_บ่งทีละครึ่ง"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:201
+msgid "_Good"
+msgstr "_ดี"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:209
+msgid "_Bad"
+msgstr "เ_สีย"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
+msgid "_View log..."
+msgstr "_ดูปูม..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
+#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
+#: ../plugins/subversion/plugin.c:169
+msgid "_Add..."
+msgstr "เ_พิ่ม..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
+msgid "_Remove..."
+msgstr "_ลบ..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:241
+msgid "_Ignore..."
+msgstr "_ละเลย..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
+msgid "_Create branch..."
+msgstr "_สร้างแขนง..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:258
+msgid "_Delete branch..."
+msgstr "_ลบแขนง..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:266
+msgid "_Switch to another branch..."
+msgstr "_สลับไปแขนงอื่น..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:274
+msgid "_Merge..."
+msgstr "_ผสาน..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:282
+msgid "_Remote branches"
+msgstr "แขนง_ที่แม่ข่าย"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:298
+msgid "_Delete..."
+msgstr "_ลบ..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
+msgid "_Create tag..."
+msgstr "สร้างแ_ท็ก..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:314
+msgid "_Diff uncommitted changes"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:326
+msgid "_Show commit diff"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:334
+msgid "_View selected revision"
+msgstr "แ_สดงฉบับแก้ไขที่เลือก"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:382
+msgid "_Set good revision"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:390
+msgid "_Set bad revision"
+msgstr ""
+
+#: ../plugins/git/plugin.c:580
+msgid "Git operations"
+msgstr ""
+
+#: ../plugins/git/plugin.c:585
+msgid "Git log operations"
+msgstr ""
+
+#: ../plugins/git/plugin.c:590
+msgid "Git FM operations"
+msgstr ""
+
+#: ../plugins/git/plugin.c:624
+msgid "Git Log"
+msgstr ""
 
 #: ../plugins/glade/plugin.c:493
 msgid "Widgets"
@@ -4136,12 +4898,12 @@ msgstr "วิดเจ็ต"
 
 #: ../plugins/glade/plugin.c:498
 msgid "Palette"
-msgstr ""
+msgstr "จานสี"
 
 #: ../plugins/glade/plugin.c:644
 #, c-format
 msgid "Not local file: %s"
-msgstr ""
+msgstr "ไม่ใช่แฟ้มในเครื่อง: %s"
 
 #: ../plugins/glade/plugin.c:695
 #, c-format
@@ -4167,7 +4929,7 @@ msgstr "ชื่อแฟ้ม glade ไม่ถูกต้อง"
 
 #: ../plugins/gtodo/add_edit_item.c:91
 msgid "You need to select a to do item before you can edit it"
-msgstr ""
+msgstr "คุณต้องเลือกรายการ todo ก่อนจะแก้ไข"
 
 #: ../plugins/gtodo/add_edit_item.c:110
 msgid "Add Item"
@@ -4265,14 +5027,14 @@ msgstr "ลบ"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
+msgstr "ยืนยันว่าต้องการลบรายการ todo ทั้งหมดที่เสร็จสิ้นแล้วหรือไม่?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
 msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
-msgstr ""
+msgstr "ยืนยันว่าต้องการลบรายการ todo ทั้งหมดที่เสร็จสิ้นแล้วในประเภท \"%s\" หรือไม่?"
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
@@ -4307,7 +5069,7 @@ msgstr "ไม่มีสิทธิ์อ่านแฟ้ม"
 #: ../plugins/gtodo/libgtodo.c:624 ../plugins/gtodo/libgtodo.c:634
 #, c-format
 msgid "Failed to parse xml structure"
-msgstr ""
+msgstr "แจงโครงสร้าง XML ไม่สำเร็จ"
 
 #: ../plugins/gtodo/libgtodo.c:642
 #, c-format
@@ -4369,12 +5131,11 @@ msgstr "<ประเภทใหม่ (%d)>"
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "รายการต่อไปนี้จะถึงกำหนดใน %i นาที:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
-msgstr ""
+msgstr "รายการต่อไปนี้ถึงกำหนดแล้ว:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:116
@@ -4387,27 +5148,27 @@ msgstr "_งาน"
 
 #: ../plugins/gtodo/plugin.c:74
 msgid "Hide _Completed Items"
-msgstr ""
+msgstr "ซ่อน_รายการที่เสร็จสิ้นแล้ว"
 
 #: ../plugins/gtodo/plugin.c:76
 msgid "Hide completed todo items"
-msgstr ""
+msgstr "ซ่อนรายการ todo ที่เสร็จสิ้นแล้ว"
 
 #: ../plugins/gtodo/plugin.c:83
 msgid "Hide Items Past _Due Date"
-msgstr ""
+msgstr "ซ่อนรายการที่_พ้นวันกำหนดเสร็จ"
 
 #: ../plugins/gtodo/plugin.c:85
 msgid "Hide items that are past due date"
-msgstr ""
+msgstr "ซ่อนรายการที่พ้นวันกำหนดเสร็จ"
 
 #: ../plugins/gtodo/plugin.c:92
 msgid "Hide Items Without _End Date"
-msgstr ""
+msgstr "ซ่อนรายการที่ไม่กำหนดวันเ_สร็จ"
 
 #: ../plugins/gtodo/plugin.c:94
 msgid "Hide items without an end date"
-msgstr ""
+msgstr "ซ่อนรายการที่ไม่กำหนดวันเสร็จ"
 
 #: ../plugins/gtodo/plugin.c:163
 msgid "Tasks manager"
@@ -4435,15 +5196,15 @@ msgstr "ส่วนติตต่อ"
 
 #: ../plugins/gtodo/preferences.c:91
 msgid "Show due date column"
-msgstr ""
+msgstr "แสดงคอลัมน์วันกำหนดเสร็จ"
 
 #: ../plugins/gtodo/preferences.c:99
 msgid "Show category column"
-msgstr ""
+msgstr "แสดงคอลัมน์หมวด"
 
 #: ../plugins/gtodo/preferences.c:104
 msgid "Show priority column"
-msgstr ""
+msgstr "แสดงคอลัมน์ระดับความสำคัญ"
 
 #: ../plugins/gtodo/preferences.c:109
 msgid "Tooltips in list"
@@ -4451,7 +5212,7 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:120 ../plugins/gtodo/preferences.c:122
 msgid "Show in main window"
-msgstr ""
+msgstr "แสดงในหน้าต่างหลัก"
 
 #: ../plugins/gtodo/preferences.c:133 ../plugins/gtodo/preferences.c:135
 msgid "Highlight"
@@ -4460,20 +5221,19 @@ msgstr "เน้น"
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
 msgid "Items that are due today"
-msgstr ""
+msgstr "รายการที่ถึงกำหนดวันนี้"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:151
 msgid "Items that are past due"
-msgstr ""
+msgstr "รายการที่พ้นกำหนด"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "รายการที่ถึงกำหนดใน %i วันข้างหน้า"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -4481,11 +5241,11 @@ msgstr "อื่นๆ"
 
 #: ../plugins/gtodo/preferences.c:174
 msgid "Auto purge completed items"
-msgstr ""
+msgstr "ล้างรายการที่เสร็จสิ้นแล้วโดยอัตโนมัติ"
 
 #: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
-msgstr ""
+msgstr "ล้างรายการหลังจาก"
 
 #: ../plugins/gtodo/preferences.c:183
 msgid "days."
@@ -4493,22 +5253,21 @@ msgstr "วัน"
 
 #: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
-msgstr ""
+msgstr "ล้างอัตโนมัติ"
 
 #: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
-msgstr ""
+msgstr "การแจ้งเตือน"
 
 #: ../plugins/gtodo/preferences.c:219
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ให้แจ้งเตือนรายการ todo เมื่อจะถึงกำหนดใน %i นาที"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
-msgstr ""
+msgstr "แสดงไอคอนถาดแจ้งเตือน"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -4569,11 +5328,11 @@ msgstr "ปุ่มลัด:"
 
 #: ../plugins/macro/macro-actions.c:126
 msgid "Press macro shortcut..."
-msgstr ""
+msgstr "กดปุ่มลัดแมโคร..."
 
 #: ../plugins/macro/macro-actions.c:133
 msgid "Press shortcut"
-msgstr ""
+msgstr "กดปุ่มลัด"
 
 #: ../plugins/macro/macro-db.c:255
 msgid "Anjuta macros"
@@ -4582,6 +5341,14 @@ msgstr "แมโครของแอนจูตา"
 #: ../plugins/macro/macro-db.c:259
 msgid "My macros"
 msgstr "แมโครของฉัน"
+
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
 
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
@@ -4663,11 +5430,11 @@ msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
 msgid "Number of first characters to show:"
-msgstr ""
+msgstr "จำนวนของอักขระต้นข้อความที่แสดง:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
 msgid "Number of last characters to show:"
-msgstr ""
+msgstr "จำนวนของอักขระท้ายข้อความที่แสดง:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
 msgid "Tabs position:"
@@ -4675,7 +5442,7 @@ msgstr "ตำแหน่งแท็บ:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 msgid "Truncate long messages"
-msgstr ""
+msgstr "ตัดข้อความที่ยาว"
 
 #. Error/Warning indication style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:16
@@ -4701,7 +5468,7 @@ msgstr "ปิดแท็บข้อความทั้งหมด"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "ไม่มีรายละเอียดข้อความ"
 
@@ -4722,8 +5489,8 @@ msgid "Icon"
 msgstr "ไอคอน"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:215 ../plugins/message-view/plugin.c:393
-#: ../plugins/message-view/plugin.c:405
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "ข้อความ"
 
@@ -4807,9 +5574,13 @@ msgstr "กำลังแพตช์ %s โดยใช้ %s\n"
 msgid "Patching...\n"
 msgstr "กำลังแพตช์...\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+msgid "Patching..."
+msgstr "กำลังแพตช์..."
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
-msgstr ""
+msgstr "มีงานที่ยังไม่เสร็จ กรุณารอจนกว่าจะเสร็จเรียบร้อย"
 
 #: ../plugins/patch/patch-plugin.c:251
 msgid ""
@@ -4820,6 +5591,10 @@ msgstr ""
 "แพตช์ไม่สำเร็จ\n"
 "กรุณาตรวจทานข้อผิดพลาด\n"
 "ตรวจและลบแฟ้มที่ถูกดีดออก\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+msgid "Patching complete"
+msgstr "แพตช์เรียบร้อย"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -4840,17 +5615,17 @@ msgstr "ความลึกของการแพตช์:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "เ_ครื่องมือ"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "แ_พตซ์..."
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "แพตช์แฟ้ม/ไดเรกทอรี"
 
@@ -4936,13 +5711,13 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:743
 msgid "Select Target..."
-msgstr ""
+msgstr "เลือกเป้าหมาย..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:751
 msgid "Refresh"
-msgstr ""
+msgstr "ปรับแสดง"
 
 #. Action name
 #. Stock icon, if any
@@ -5005,7 +5780,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Browse..."
-msgstr ""
+msgstr "เรียกดู..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
@@ -5013,11 +5788,11 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
-msgstr ""
+msgstr "ไม่แสดงฟังก์ชันสแตติก"
 
 #: ../plugins/profiler/profiler.glade.h:10
 msgid "Do not show these symbols:"
-msgstr ""
+msgstr "ไม่แสดงสัญลักษณ์เหล่านี้:"
 
 #: ../plugins/profiler/profiler.glade.h:11
 msgid ""
@@ -5046,7 +5821,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
-msgstr ""
+msgstr "เลือกเป้าหมายอื่น..."
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
@@ -5054,7 +5829,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:22
 msgid "Show all symbols"
-msgstr ""
+msgstr "แสดงสัญลักษณ์ทั้งหมด"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
@@ -5062,7 +5837,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
-msgstr ""
+msgstr "แสดงสัญลักษณ์เหล่านี้เท่านั้น:"
 
 #: ../plugins/profiler/profiler.glade.h:25
 msgid "Show uncalled functions"
@@ -5085,7 +5860,7 @@ msgstr ""
 #.
 #: ../plugins/project-import/project-import.c:123
 msgid "Please, fix the configuration"
-msgstr ""
+msgstr "กรุณาแก้ไขค่าตั้ง"
 
 #: ../plugins/project-import/project-import.c:130
 #, c-format
@@ -5131,6 +5906,8 @@ msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
+"สร้างแฟ้มโครงการไม่สำเร็จ ไม่สามารถหาแม่แบบโครงการที่จะใช้ได้ "
+"กรุณาตรวจสอบให้แน่ใจว่ารุ่นของแอนจูตาเป็นรุ่นใหม่พอ"
 
 #: ../plugins/project-import/project-import.c:440
 #, c-format
@@ -5144,38 +5921,29 @@ msgid ""
 "to the project directory."
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:344
-#, c-format
-msgid "Failed to refresh project: %s"
-msgstr ""
-
-#: ../plugins/project-manager/plugin.c:367
-#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:422
+#: ../plugins/project-manager/plugin.c:823
 msgid "Project properties"
 msgstr "คุณสมบัติโครงการ"
 
-#: ../plugins/project-manager/plugin.c:382
-#: ../plugins/project-manager/plugin.c:474
-msgid "No properties available for this target"
-msgstr ""
-
-#: ../plugins/project-manager/plugin.c:459
+#: ../plugins/project-manager/plugin.c:427
 msgid "Target properties"
 msgstr "คุณสมบัติเป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:488
+#: ../plugins/project-manager/plugin.c:432
 msgid "Group properties"
 msgstr "คุณสมบัติกลุ่ม"
 
-#: ../plugins/project-manager/plugin.c:491
-msgid "Close"
-msgstr "ปิด"
+#: ../plugins/project-manager/plugin.c:456
+msgid "No properties available for this target"
+msgstr ""
 
-#: ../plugins/project-manager/plugin.c:503
-msgid "No properties available for this group"
-msgstr "ไม่มีคุณสมบัติสำหรับกลุ่มนี้"
+#: ../plugins/project-manager/plugin.c:482
+#, c-format
+msgid "Failed to refresh project: %s"
+msgstr "ปรับข้อมูลโครงการไม่สำเร็จ: %s"
 
-#: ../plugins/project-manager/plugin.c:587
+#: ../plugins/project-manager/plugin.c:660
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -5183,15 +5951,18 @@ msgstr ""
 "ยืนยันว่าต้องการลบกลุ่มต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:588
+#: ../plugins/project-manager/plugin.c:661
 #, c-format
 msgid ""
 "Group: %s\n"
 "\n"
 "The group will not be deleted from file system."
 msgstr ""
+"กลุ่ม: %s\n"
+"\n"
+"กลุ่มนี้จะไม่ถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:591
+#: ../plugins/project-manager/plugin.c:664
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -5199,12 +5970,12 @@ msgstr ""
 "ยืนยันว่าต้องการลบเป้าหมายต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:592
+#: ../plugins/project-manager/plugin.c:665
 #, c-format
 msgid "Target: %s"
-msgstr ""
+msgstr "เป้าหมาย: %s"
 
-#: ../plugins/project-manager/plugin.c:595
+#: ../plugins/project-manager/plugin.c:668
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -5212,7 +5983,7 @@ msgstr ""
 "ยืนยันว่าต้องการลบแฟ้มซอร์สต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:596
+#: ../plugins/project-manager/plugin.c:669
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -5220,7 +5991,7 @@ msgid ""
 "The source file will not be deleted from file system."
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:651
+#: ../plugins/project-manager/plugin.c:724
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -5229,140 +6000,140 @@ msgstr ""
 "ไม่สามารถลบ '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:707
+#: ../plugins/project-manager/plugin.c:780
 msgid "The file you selected is a link and can't be added to the project"
 msgstr "แฟ้มที่คุณเลือกเป็นลิงก์และไม่สามารถเพิ่มเข้าในโครงการได้"
 
-#: ../plugins/project-manager/plugin.c:709
+#: ../plugins/project-manager/plugin.c:782
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "ไม่สามารถดึงข้อมูล URI ของ %s: %s"
 
-#: ../plugins/project-manager/plugin.c:746
+#: ../plugins/project-manager/plugin.c:819
 msgid "_Project"
 msgstr "โ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:750
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:823
+#: ../plugins/project-manager/plugin.c:857
 msgid "_Properties"
 msgstr "คุณ_สมบัติ"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 #: ../plugins/symbol-browser/plugin.c:312
 msgid "_Refresh"
-msgstr ""
+msgstr "ปรับแ_สดง"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:828
 msgid "Refresh project manager tree"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:833
 msgid "Add _Group..."
 msgstr "เพิ่ม_กลุ่ม..."
 
-#: ../plugins/project-manager/plugin.c:760
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add a group to project"
 msgstr "เพิ่มกลุ่มเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:838
 msgid "Add _Target..."
 msgstr "เพิ่มเ_ป้าหมาย..."
 
-#: ../plugins/project-manager/plugin.c:765
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:838
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add a target to project"
 msgstr "เพิ่มเป้าหมายเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:843
 msgid "Add _Source File..."
 msgstr "เพิ่มแฟ้มซอร์_ส..."
 
-#: ../plugins/project-manager/plugin.c:770
-#: ../plugins/project-manager/plugin.c:789
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:843
+#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add a source file to project"
 msgstr "เพิ่มแฟ้มซอร์สเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close Pro_ject"
 msgstr "ปิดโ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:848
 msgid "Close project"
 msgstr "ปิดโครงการ"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:857
 msgid "Properties of group/target/source"
 msgstr "คุณสมบัติของกลุ่ม/เป้าหมาย/ซอร์ส"
 
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:862
 msgid "_Add To Project"
 msgstr "เ_พิ่มเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:867
 msgid "Add _Group"
 msgstr "เพิ่มกลุ่ม"
 
-#: ../plugins/project-manager/plugin.c:799
+#: ../plugins/project-manager/plugin.c:872
 msgid "Add _Target"
 msgstr "เพิ่มเ_ป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:804
+#: ../plugins/project-manager/plugin.c:877
 msgid "Add _Source File"
 msgstr "เพิ่มแฟ้มซอร์_ส"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Re_move"
 msgstr "เ_อาออก"
 
-#: ../plugins/project-manager/plugin.c:809
+#: ../plugins/project-manager/plugin.c:882
 msgid "Remove from project"
 msgstr "ลบออกจากโครงการ"
 
-#: ../plugins/project-manager/plugin.c:1167
+#: ../plugins/project-manager/plugin.c:1240
 #, c-format
 msgid "Loading project: %s"
 msgstr "กำลังโหลดโครงการ: %s"
 
-#: ../plugins/project-manager/plugin.c:1175
+#: ../plugins/project-manager/plugin.c:1248
 msgid "Created project view..."
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1188
+#: ../plugins/project-manager/plugin.c:1261
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
-msgstr ""
+msgstr "แจงโครงการไม่สำเร็จ (โครงการถูกเปิดอยู่ แต่จะไม่แสดงโครงการ) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1208
-#: ../plugins/project-manager/plugin.c:1285
-#: ../plugins/project-manager/plugin.c:1457
+#: ../plugins/project-manager/plugin.c:1281
+#: ../plugins/project-manager/plugin.c:1363
+#: ../plugins/project-manager/plugin.c:1536
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "โครงการ"
 
-#: ../plugins/project-manager/plugin.c:1373
+#: ../plugins/project-manager/plugin.c:1451
 #, c-format
 msgid "Error closing project: %s"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1436
+#: ../plugins/project-manager/plugin.c:1515
 msgid "Project manager actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1444
+#: ../plugins/project-manager/plugin.c:1523
 msgid "Project manager popup actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2393
+#: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
-msgstr ""
+msgstr "โหลดโครงการแล้ว... กำลังเตรียมการเบื้องต้น"
 
-#: ../plugins/project-manager/plugin.c:2396
+#: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
-msgstr ""
+msgstr "โหลดโครงการแล้ว..."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
@@ -5370,7 +6141,7 @@ msgstr "<b>คำอธิบายโครงการ:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
-msgstr ""
+msgstr "<b>เลือกชนิดโปรแกรมที่จะพัฒนา</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Assistant"
@@ -5380,11 +6151,6 @@ msgstr ""
 msgid "Application Assistent"
 msgstr ""
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
-msgid "Author:"
-msgstr "ผู้เขียน:"
-
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 msgid "Basic Information"
 msgstr "ข้อมูลเบื้องต้น"
@@ -5393,7 +6159,7 @@ msgstr "ข้อมูลเบื้องต้น"
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
-msgstr ""
+msgstr "ปลายทาง:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "Enter the basic Project information"
@@ -5440,12 +6206,12 @@ msgstr "ชนิดโครงการ:"
 #: ../plugins/project-wizard/druid.c:310
 #, c-format
 msgid "Unable to find any project template in %s"
-msgstr ""
+msgstr "ไม่พบแม่แบบโครงการใดใน %s"
 
 #: ../plugins/project-wizard/druid.c:486
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
-msgstr ""
+msgstr "เขตข้อมูล \"%s\" เป็นข้อมูลจำเป็น กรุณากรอกข้อมูลด้วย"
 
 #: ../plugins/project-wizard/druid.c:507
 #, c-format
@@ -5453,6 +6219,8 @@ msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
 "only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
+"เขตข้อมูล \"%s\" ต้องขึ้นต้นด้วยตัวอักษร ตัวเลข หรือขีดล่าง และใช้ตัวอักษร ตัวเลข ขีดล่าง "
+"เครื่องหมายลบ และจุดได้เท่านั้น กรุณาแก้ไข"
 
 #: ../plugins/project-wizard/druid.c:543
 #, c-format
@@ -5460,13 +6228,13 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"ไดเรกทอรี \"%s\" ไม่ว่าง การสร้างโครงการจะล้มเหลวถ้าเขียนบางแฟ้มไม่ได้ "
+"ไดเรกทอรี \"%s\" ไม่ว่าง การสร้างโครงการอาจไม่สำเร็จถ้าเขียนบางแฟ้มไม่ได้ "
 "คุณต้องการทำต่อไปหรือไม่?"
 
 #: ../plugins/project-wizard/druid.c:545
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr ""
+msgstr "แฟ้ม \"%s\" มีอยู่แล้ว ต้องการเขียนทับหรือไม่?"
 
 #: ../plugins/project-wizard/druid.c:710
 #, c-format
@@ -5595,7 +6363,7 @@ msgstr "ข้อมูลเบื้องต้น"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr ""
+msgstr "สัญญาอนุญาตแจกจ่ายซอฟต์แวร์เบิร์กลีย์ (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid ""
@@ -5637,7 +6405,7 @@ msgstr "ที่อยู่อีเมล:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
-msgstr ""
+msgstr "GCJ จำเป็นต้องรู้ว่าคลาสใดบรรจุฟังก์ชัน main()"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "General Project Information"
@@ -5688,7 +6456,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Name of the value to watch"
-msgstr ""
+msgstr "ชื่อของค่าที่เฝ้าดู"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "No license"
@@ -5739,7 +6507,7 @@ msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
-"ชื่อโครงจะต้องไม่มีช่องว่าง เพราะจะใช้เป็นชื่อของแฟ้มปลายทางที่จะประกอบสร้างในโครงการ (เช่น "
+"ชื่อโครงการจะต้องไม่มีช่องว่าง เพราะจะใช้เป็นชื่อของเป้าหมายการประกอบสร้างในโครงการ (เช่น "
 "แฟ้มโปรแกรม, ไลบรารี ฯลฯ)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
@@ -5808,11 +6576,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Use libglade for the UI"
-msgstr ""
+msgstr "ใช้ libglade สำหรับ UI"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr ""
+msgstr "ใช้ pkg-config เพิ่มการรองรับไลบารีจากแพกเกจอื่น"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid ""
@@ -5825,7 +6593,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Values to watch"
-msgstr ""
+msgstr "ค่าที่จะเฝ้าดู"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Whether the plugin has menus or toolbars"
@@ -5847,13 +6615,13 @@ msgstr "พารามิเตอร์ของโปรแกรม"
 msgid "Program:"
 msgstr "โปรแกรม:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
-msgstr ""
+msgstr "โปรแกรม '%s' ไม่มีอยู่"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr ""
@@ -6011,23 +6779,23 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
-msgstr ""
+msgstr "ละเลยแฟ้มไบนารี"
 
 #: ../plugins/search/anjuta-search.glade.h:19
 msgid "Ignore Directories:"
-msgstr ""
+msgstr "ละเลยไดเรกทอรี:"
 
 #: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Files:"
-msgstr ""
+msgstr "ละเลยแฟ้ม:"
 
 #: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Directories"
-msgstr ""
+msgstr "ละเลยไดเรกทอรีซ่อน"
 
 #: ../plugins/search/anjuta-search.glade.h:22
 msgid "Ignore Hidden Files"
-msgstr ""
+msgstr "ละเลยแฟ้มซ่อน"
 
 #: ../plugins/search/anjuta-search.glade.h:23
 msgid "Match at start of word"
@@ -6067,7 +6835,7 @@ msgstr "แทนที่ด้วย:"
 
 #: ../plugins/search/anjuta-search.glade.h:32
 msgid "Search Action:"
-msgstr ""
+msgstr "การกระทำขณะค้นหา:"
 
 #: ../plugins/search/anjuta-search.glade.h:33
 msgid "Search Direction:"
@@ -6089,7 +6857,7 @@ msgstr "ค้นหาใน:"
 
 #: ../plugins/search/anjuta-search.glade.h:39
 msgid "Search Recursively"
-msgstr ""
+msgstr "ค้นหาในไดเรกทอรีย่อยด้วย"
 
 #: ../plugins/search/anjuta-search.glade.h:40
 msgid "Search Target"
@@ -6259,7 +7027,7 @@ msgstr[1] ""
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview.c:299
+#: ../plugins/sourceview/sourceview.c:307
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
@@ -6269,23 +7037,23 @@ msgstr ""
 "คุณต้องการเรียกใหม่หรือไม่?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:338
+#: ../plugins/sourceview/sourceview.c:347
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "ไม่สามารถเปิด %s: %s"
 
-#. Could not save <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:447
+#. Could not open <filename>: <error message>
+#: ../plugins/sourceview/sourceview.c:467
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "ไม่สามารถบันทึก %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:245
+#: ../plugins/sourceview/sourceview-io.c:246
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview-io.c:457
+#: ../plugins/sourceview/sourceview-io.c:488
 #, c-format
 msgid "New file %d"
 msgstr "แฟ้มใหม่ %d"
@@ -6316,15 +7084,15 @@ msgstr "แบบอักษร"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
 msgid "Highlight current line"
-msgstr ""
+msgstr "เน้นบรรทัดปัจจุบัน"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
 msgid "Highlight matching brackets"
-msgstr ""
+msgstr "เน้นวงเล็บที่เข้าคู่"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
 msgid "Highlight syntax"
-msgstr ""
+msgstr "เน้นไวยากรณ์"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
 msgid "Print Linenumbers"
@@ -6356,7 +7124,7 @@ msgstr "แสดงกั้นหน้าขวา"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
 msgid "Use theme font"
-msgstr ""
+msgstr "ใช้แบบอักษรของธีม"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
 msgid "Wrap long lines to fit on paper"
@@ -6366,17 +7134,13 @@ msgstr "ตัดบรรทัดยาวให้พอดีหน้าก
 msgid "<b>Branch/Tag URL:</b>"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
-msgid "<b>Changes:</b>"
-msgstr "<b>การเปลี่ยนแปลง:</b>"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>End Revision:</b>"
-msgstr ""
+msgstr "<b>ฉบับแก้ไขสุดท้าย:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "<b>File or directory to diff:</b>"
-msgstr ""
+msgstr "<b>แฟ้มหรือไดเรกทอรีที่จะ diff:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "<b>File/URL to Remove:</b>"
@@ -6384,14 +7148,6 @@ msgstr "<b>แฟ้ม/URL ที่จะลบ:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "<b>First Path:</b>"
-msgstr ""
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
-msgid "<b>Log Message:</b>"
-msgstr "<b>ข้อความปูม:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
-msgid "<b>Revision:</b>"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:11
@@ -6402,29 +7158,17 @@ msgstr ""
 msgid "<b>Select Changes to Revert:</b>"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
-msgid "<b>Select Files to Commit:</b>"
-msgstr ""
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
-msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr ""
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "<b>Start Revision:</b>"
-msgstr ""
+msgstr "<b>ฉบับแก้ไขเริ่มต้น:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "<b>Subversion Options</b>"
 msgstr "<b>ตัวเลือกสำหรับรุ่นย่อย</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
-msgid "<b>View the Log for File/Folder:</b>"
-msgstr "<b>ดูปูมของแฟ้ม/โฟลเดอร์:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "<b>Working Copy Path:</b>"
@@ -6433,10 +7177,6 @@ msgstr ""
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
 msgstr "เพิ่มแฟ้ม/ไดเรกทอรี"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
-msgid "Commit Changes"
-msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
@@ -6448,15 +7188,11 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:28
 msgid "Diff file/directory"
-msgstr ""
+msgstr "Diff แฟ้ม/ไดเรกทอรี"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
-msgstr ""
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:32
-msgid "Force"
-msgstr ""
+msgstr "Diff กับฉบับก่อนหน้า"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
@@ -6468,7 +7204,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
-msgstr ""
+msgstr "ฉบับแก้ไขอื่นๆ:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
@@ -6498,25 +7234,13 @@ msgstr ""
 msgid "Repository authorization"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
-msgid "Retrieving status..."
-msgstr ""
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Revert Changes"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
-msgid "Revision:"
-msgstr ""
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Save open files before diffing"
-msgstr ""
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
-msgid "Set Conflicts as Resolved"
-msgstr ""
+msgstr "บันทึกแฟ้มที่เปิดก่อน diff"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
@@ -6552,7 +7276,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "Whole Project"
-msgstr ""
+msgstr "ทั้งโครงการ"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
@@ -6568,35 +7292,17 @@ msgstr ""
 msgid "_Subversion"
 msgstr "_Subversion"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
-msgid "_Add..."
-msgstr "เ_พิ่ม..."
-
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:64 ../plugins/subversion/plugin.c:171
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "เพิ่มแฟ้ม/ไดเรกทอรีใหม่ใน subversion tree"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
-msgid "_Remove..."
-msgstr "_ลบ..."
-
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:72 ../plugins/subversion/plugin.c:179
 msgid "Remove a file/directory from Subversion tree"
 msgstr "ลบแฟ้ม/ไดเรกทอรีออกจาก subversion tree"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/subversion/plugin.c:78
-msgid "_Commit..."
-msgstr ""
 
 #. Display label
 #. short-cut
@@ -6668,13 +7374,13 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:126
 msgid "Merge..."
-msgstr ""
+msgstr "ผสาน..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:128
 msgid "Merge changes into your working copy"
-msgstr ""
+msgstr "ผสานการเปลี่ยนแปลงเข้าในสำเนาชุดที่คุณทำงาน"
 
 #. Action name
 #. Stock icon, if any
@@ -6728,13 +7434,6 @@ msgstr ""
 msgid "Subversion: File will be added on next commit."
 msgstr ""
 
-#: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:64
-#: ../plugins/subversion/subversion-remove-dialog.c:98
-#: ../plugins/subversion/subversion-update-dialog.c:66
-msgid "Please enter a path."
-msgstr ""
-
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr ""
@@ -6755,12 +7454,11 @@ msgstr ""
 msgid "Please enter a destination path."
 msgstr ""
 
-#: ../plugins/subversion/subversion-copy-dialog.c:207
-#: ../plugins/subversion/subversion-switch-dialog.c:120
-msgid "Please enter a revision."
+#: ../plugins/subversion/subversion-diff-dialog.c:75
+msgid "[Head/Working Copy]"
 msgstr ""
 
-#: ../plugins/subversion/subversion-diff-dialog.c:86
+#: ../plugins/subversion/subversion-diff-dialog.c:90
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
@@ -6773,10 +7471,6 @@ msgstr ""
 #: ../plugins/subversion/subversion-log-dialog.c:130
 msgid "Author"
 msgstr "ผู้เขียน"
-
-#: ../plugins/subversion/subversion-log-dialog.c:139
-msgid "Date"
-msgstr "วันที่"
 
 #: ../plugins/subversion/subversion-log-dialog.c:149
 msgid "Revision"
@@ -6847,9 +7541,9 @@ msgstr ""
 #: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
-msgstr ""
+msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:342
+#: ../plugins/subversion/subversion-ui-utils.c:344
 msgid "Subversion: Diff complete."
 msgstr ""
 
@@ -6939,7 +7633,7 @@ msgid "Obstructed: %s"
 msgstr "ถูกกีดขวาง: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "สัญลักษณ์"
 
@@ -6976,13 +7670,13 @@ msgid "Symbol Browser"
 msgstr ""
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:455
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 msgid "API Tags"
 msgstr ""
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
-msgstr ""
+msgstr "ไม่มีรายละเอียดแฟ้ม"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
@@ -7006,7 +7700,7 @@ msgstr ""
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 msgid "Load API tags from project configuration"
-msgstr ""
+msgstr "โหลดแท็ก API จากค่าตั้งโครงการ"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update Global Tags"
@@ -7055,41 +7749,42 @@ msgid "Created symbols..."
 msgstr ""
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
-msgstr ""
+msgstr "เฉพาะที่"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
-msgstr ""
+msgstr "ส่วนกลาง"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:281
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 msgid "Package is not parseable"
-msgstr ""
+msgstr "แพกเกจไม่สามารถแจงได้"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:378
-#: ../plugins/symbol-db/symbol-db-prefs.c:506
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "ฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/symbol-db-system.c:755
+#: ../plugins/symbol-db/symbol-db-system.c:761
 msgid "Resuming glb scan."
 msgstr ""
 
@@ -7098,15 +7793,27 @@ msgid "<b>Available API tags</b>"
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-msgid "Checking if package is parseable..."
+msgid "Automatically scan projetc's packages."
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
-msgid "Choose ctags executable"
+msgid "Automatically update symbols without saving file."
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+msgid "Checking if package is parseable..."
+msgstr "กำลังตรวจสอบว่าแพกเกจสามารถแจงได้หรือไม่..."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+msgid "Choose ctags executable"
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel scan of project and global symbols."
 msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
@@ -7255,7 +7962,7 @@ msgstr ""
 
 #: ../plugins/tools/editor.c:979
 msgid "Unable to build user interface for tool editor"
-msgstr ""
+msgstr "ไม่สามารถสร้างส่วนติดต่อผู้ใช้สำหรับเครื่องมือแก้ไขเครื่องมือ"
 
 #: ../plugins/tools/execute.c:313
 #, c-format
@@ -7264,7 +7971,7 @@ msgstr "กำลังเปิด %s"
 
 #: ../plugins/tools/execute.c:334
 msgid "error:"
-msgstr ""
+msgstr "ข้อผิดพลาด:"
 
 #. This is append to the tool name to give something
 #. * like "My tools (output)". It's used to name the message
@@ -7324,7 +8031,7 @@ msgstr ""
 
 #: ../plugins/tools/plugin.c:180
 msgid "Tool operations"
-msgstr ""
+msgstr "การกระทำเกี่ยวกับเครื่องมือ"
 
 #: ../plugins/tools/plugin.c:253 ../plugins/tools/plugin.c:260
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
@@ -7349,7 +8056,7 @@ msgstr "ช่องข้อความใหม่"
 
 #: ../plugins/tools/tool.c:84
 msgid "New buffer"
-msgstr ""
+msgstr "บัฟเฟอร์ใหม่"
 
 #: ../plugins/tools/tool.c:85
 msgid "Replace buffer"
@@ -7357,7 +8064,7 @@ msgstr "แทนที่บัฟเฟอร์"
 
 #: ../plugins/tools/tool.c:86
 msgid "Insert in buffer"
-msgstr ""
+msgstr "แทรกในบัฟเฟอร์"
 
 #: ../plugins/tools/tool.c:87
 msgid "Append to buffer"
@@ -7369,7 +8076,7 @@ msgstr "แทนที่สิ่งที่เลือก"
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr ""
+msgstr "กล่องโต้ตอบผุดขึ้น"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
@@ -7393,7 +8100,7 @@ msgstr "สายอักขระ"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:1
 msgid "<b>Program to test:</b>"
-msgstr ""
+msgstr "<b>โปรแกรมที่จะทดสอบ:</b>"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:2
 msgid "<b>Valgrind</b>"
@@ -7522,7 +8229,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
-msgstr ""
+msgstr "โพรเซสจบแล้ว"
 
 #: ../plugins/valgrind/vgactions.c:197
 msgid "Could not get the right valgrind-binary gconf key:"
@@ -7553,8 +8260,9 @@ msgstr ""
 #. This is the format of the preference, simply translate the words
 #. * inside the <>
 #: ../plugins/valgrind/vgcachegrindprefs.c:246
+#, fuzzy
 msgid "Enter <size>,<assoc>,<line_size>:"
-msgstr ""
+msgstr "ป้อน <size>,<assoc>,<line_size>:"
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:280
 msgid "Cachegrind"
@@ -7639,7 +8347,7 @@ msgstr "เพิ่มบันทึกเวลาลงในปูมข้
 
 #: ../plugins/valgrind/vggeneralprefs.c:247
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
+msgstr "เรียก __libc_freeres() ขณะจบ ก่อนที่จะตรวจสอบหน่วยความจำรั่ว"
 
 #: ../plugins/valgrind/vggeneralprefs.c:255
 msgid "Suppressions File:"
@@ -7695,11 +8403,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
-msgstr ""
+msgstr "ขยาย"
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr ""
+msgstr "หด"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 msgid "Rule name:"
@@ -7878,19 +8586,19 @@ msgstr "คู่มือผู้ใช้แอนจูตา"
 
 #: ../src/anjuta-actions.h:64
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "_บทเรียนเบื้องต้น"
 
 #: ../src/anjuta-actions.h:65
 msgid "Anjuta Kick start tutorial"
-msgstr ""
+msgstr "บทเรียนเบื้องต้นของแอนจูตา"
 
 #: ../src/anjuta-actions.h:68
 msgid "_Advanced tutorial"
-msgstr ""
+msgstr "บทเรียน_ระดับสูง"
 
 #: ../src/anjuta-actions.h:69
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "บทเรียนระดับสูงของแอนจูตา"
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
@@ -7918,11 +8626,11 @@ msgstr "ส่งรายงานข้อบกพร่อง แพตช�
 
 #: ../src/anjuta-actions.h:84
 msgid "Ask a _Question"
-msgstr ""
+msgstr "_ถามคำถาม"
 
 #: ../src/anjuta-actions.h:85
 msgid "Submit a question for FAQs"
-msgstr ""
+msgstr "ส่งคำถามสำหรับ FAQs"
 
 #: ../src/anjuta-actions.h:88
 msgid "_About"
@@ -7940,26 +8648,26 @@ msgstr "เกี่ยวกับปลั๊กอินภาย_นอก"
 msgid "About third party Anjuta plugins"
 msgstr "เกี่ยวกับปลั๊กอิน third party ของแอนจูตา"
 
-#: ../src/anjuta-app.c:703
+#: ../src/anjuta-app.c:683
 msgid "Edit"
 msgstr "แก้ไข"
 
-#: ../src/anjuta-app.c:707 ../src/anjuta-app.c:712
+#: ../src/anjuta-app.c:687 ../src/anjuta-app.c:692
 msgid "View"
 msgstr "มุมมอง"
 
-#: ../src/anjuta-app.c:955
+#: ../src/anjuta-app.c:925
 msgid "Installed plugins"
 msgstr "ปลั๊กอินที่ติดตั้งไว้"
 
-#: ../src/anjuta-app.c:959
+#: ../src/anjuta-app.c:929
 msgid "Shortcuts"
 msgstr "ปุ่มลัด"
 
-#: ../src/anjuta-app.c:1031
+#: ../src/anjuta-app.c:1001
 #, c-format
 msgid "Value doesn't exist"
-msgstr ""
+msgstr "ค่าที่ไม่มีอยู่"
 
 #: ../src/main.c:70
 msgid "Specify the size and location of the main window"
@@ -7969,7 +8677,7 @@ msgstr "ระบุขนาดและตำแหน่งของหน้
 #. * of the window on command line
 #: ../src/main.c:73
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr ""
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:78
 msgid "Do not show the splashscreen"
@@ -8063,36 +8771,36 @@ msgstr ""
 msgid "Statement indentation size in spaces:"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1840
+#: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
 msgstr "เ_ติมเต็มคำอัตโนมัติ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1841
+#: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
 msgstr "เติมเต็มคำปัจจุบันโดยอัตโนมัติ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1847
+#: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "Auto Indent"
 msgstr "ร่นย่อหน้าอัตโนมัติ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1848
+#: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "ร่นบรรทัดปัจจุบันหรือข้อความที่เลือกโดยอัตโนมัต ขึ้นอยู่กับค่าตั้งการร่นย่อหน้า"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1853
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1854
+#: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1897
+#: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1985
-#: ../plugins/language-support-cpp-java/plugin.c:1994
+#: ../plugins/language-support-cpp-java/plugin.c:1999
+#: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8107,6 +8815,10 @@ msgstr "Gdb"
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
 msgstr "ปลั๊กอิน Gdb"
+
+#: ../plugins/git/git.plugin.in.h:2
+msgid "Git version control"
+msgstr ""
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -8142,7 +8854,7 @@ msgstr ""
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
-msgstr ""
+msgstr "การสืบทอดของคลาส"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
 msgid "Glade File"
@@ -8292,6 +9004,10 @@ msgstr "ปลั๊กอินเครื่องมือจัดการ
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "ปลั๊กอินท่องดูสัญลักษณ์สำหรับแอนจูตา"
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "ปลั๊กอินฐานข้อมูลสัญลักษณ์สำหรับแอนจูตา (ไม่เสถียร)"
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "จัดการข้อความจากโปรแกรมภายนอก"
@@ -8302,7 +9018,7 @@ msgstr "เครื่องมือจัดการข้อความ"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
 msgid "Powerful debugging tool."
-msgstr ""
+msgstr "เครื่องมือดีบั๊กที่มีประโยชน์"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:2
 msgid "Valgrind Plugin"
@@ -8318,7 +9034,7 @@ msgstr "ปลั๊กอินจัดการการดีบั๊ก"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
-msgstr ""
+msgstr "ช่วยเรียกโปรแกรมทำงานโดยไม่ใช้โปรแกรมดีบั๊ก"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
@@ -8331,6 +9047,26 @@ msgstr "เครื่องมือจัดการภาษา"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr "ปลั๊กอินเทอร์มินัลของแอนจูตายังไม่ติดตั้ง โปรแกรมจะทำงานโดยไม่ใช้เทอร์มินัล"
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-clear"
+#~ msgstr "gtk-clear"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
+
+#~ msgid "Close"
+#~ msgstr "ปิด"
+
+#~ msgid "No properties available for this group"
+#~ msgstr "ไม่มีคุณสมบัติสำหรับกลุ่มนี้"
 
 #~ msgid "Stock Encodings"
 #~ msgstr "คลังการเข้ารหัส"
