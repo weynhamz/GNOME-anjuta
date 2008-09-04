@@ -4,6 +4,7 @@
 anjuta.desktop.in.in
 libanjuta/anjuta-c-module.c
 libanjuta/anjuta-c-plugin-factory.c
+libanjuta/anjuta-convert.c
 libanjuta/anjuta-encodings.c
 libanjuta/anjuta-launcher.c
 libanjuta/anjuta-plugin.c

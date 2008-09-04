@@ -1,3 +1,8 @@
+2008-09-04  Johannes Schmid  <jhs@gnome.org>
+
+	* POTFILES.in:
+	Added libanjuta/anjuta-convert.c
+
 2008-09-04  Sweta Kothari  <swkothar@redhat.com>
 
 	* gu.po: Committed Gujarati Translation.
