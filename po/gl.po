@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-02 19:05+0200\n"
-"PO-Revision-Date: 2008-09-02 19:08+0200\n"
+"POT-Creation-Date: 2008-09-05 12:25+0200\n"
+"PO-Revision-Date: 2008-09-05 12:26+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,21 @@ msgstr "Falta o tipo definido polo complemento %s"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "o complemento %s fallou ao rexistrar o tipo %s"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr ""
+"O ficheiro que está tentando abrir contén unha secuencia de bytes inválida."
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"anjuta non puido determinar automaticamente a codificación do ficheiro que "
+"quere abrir."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
