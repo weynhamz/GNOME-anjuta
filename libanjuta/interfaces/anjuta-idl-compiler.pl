@@ -1178,6 +1178,7 @@ struct _${class}Iface {
 	$answer .=
 "
 };
+
 ";
 	# Enum GType prototypes.
 	if (defined ($enums_hr))

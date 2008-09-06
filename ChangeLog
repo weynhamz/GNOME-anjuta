@@ -1,3 +1,18 @@
+2008-09-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types,
+	libanjuta/interfaces/libanjuta.idl,
+	libanjuta/interfaces/anjuta-idl-compiler.pl,
+	libanjuta/anjuta-plugin-description.h,
+	libanjuta/anjuta-command.c,
+	libanjuta/anjuta-preferences.c,
+	libanjuta/anjuta-preferences-dialog.c,
+	libanjuta/anjuta-ui.c:
+	Fix libanjuta API documentation
+
 2008-09-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor.c:

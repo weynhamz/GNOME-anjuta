@@ -670,7 +670,7 @@ interface IAnjutaEnvironment
 	*
 	* Returns: FALSE if there is an error.
 	*/
-	gboolean override (gchar **dir, gchar ***argv, gchar ***envp); 
+	gboolean override (gchar **dirp, gchar ***argvp, gchar ***envp); 
 
 	/**
 	* ianjuta_environment_get_real_directory:
@@ -691,9 +691,12 @@ interface IAnjutaEnvironment
 /**
  * SECTION:ianjuta-buildable
  * @title: IAnjutaBuildable
- * @short_description: Implemented by plugins that can build
+ * @short_description: Implemented by plugins that can build. This interface
+ * will be replaced by #IAnjutaBuilder (for build functions) and 
+ * #IAnjutaEnvironment for ianjuta_buildable_set_command,
+ * ianjuta_buildable_reset_command and ianjuta_buildable_get_command.
  * @see_also: 
- * @stability: Unstable
+ * @stability: Obsolete
  * @include: libanjuta/interfaces/ianjuta-buildable.h
  * 
  */
@@ -853,7 +856,7 @@ interface IAnjutaLoader
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* Returns all plugins supporting loader interface.
+	* Returns: all plugins supporting loader interface.
 	*/
 	List<AnjutaPlugin*> find_plugins ();
 	
@@ -981,7 +984,7 @@ interface IAnjutaDocument
 	 *
 	 * Can the editor undo the last operation?
 	 *
-	 * Returns true if editor can undo, else FALSE
+	 * Returns: TRUE if editor can undo, else FALSE
 	 */
 	gboolean can_undo();
 	
@@ -992,7 +995,7 @@ interface IAnjutaDocument
 	 *
 	 * Can the editor redo the last operation?
 	 *
-	 * Returns true if editor can redo, else FALSE
+	 * Returns: TRUE if editor can redo, else FALSE
 	 */
 	gboolean can_redo ();
 	
@@ -1470,7 +1473,7 @@ interface IAnjutaEditor
 	 *
 	 * Gets the iter positioned at the start of the editor buffer.
 	 *
-	 * Retrun value: Cell iter set to the begining of the editor.
+	 * Return value: Cell iter set to the begining of the editor.
 	 */
 	IAnjutaIterable* get_start_position ();
 	
@@ -1543,8 +1546,7 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
-		 * Gets start position of selection text. If there is no selection,
-		 * returns -1.
+		 * Gets start position of selection text.
 		 *
 		 * Return: Start of selection or NULL if there is no selection.
 		 */
@@ -1558,7 +1560,7 @@ interface IAnjutaEditor
 		 * Get end position of selection. If there is no selection, returns
 		 * NULL.
 		 * 
-		 * Return: End of selection or NULL if there is no selection.
+		 * Returns: End of selection or NULL if there is no selection.
 		 */
 		IAnjutaIterable* get_end ();
 
@@ -1776,6 +1778,7 @@ interface IAnjutaEditor
 		/* IAnjutaEdiotrAssist::assist_chosen:
 		 * @obj: self
 		 * @selection: The selection index
+		 * @err: Error propagation and reporting
 		 *
 		 * User's selection from the choices. It is the index of the choice
 		 * presented with ianjuta_editor_assist_suggest().
@@ -1797,7 +1800,8 @@ interface IAnjutaEditor
 		 */
 		void suggest (List<const gchar*> choices, IAnjutaIterable *position, int char_alignment);
 		
-		/** ianjuta_editor_assist_hide_suggestions
+		/**
+		 * ianjuta_editor_assist_hide_suggestions:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -1840,13 +1844,12 @@ interface IAnjutaEditor
 		 *
 		 * Usually the editor might have some suggestions to make
 		 * for a context. For example in a simple word completion context.
+		 * The list of suggestion returned is allocated dynamically. The whole
+		 * list, including the the strings should be freed when done.
 		 * If the editor has no suggestions to make, it returns NULL.
 		 * 
-		 * Returns: A list of suggestions for the given context or NULL
+		 * Returns: A list of dynamically allocated strings for the given context or NULL
 		 * if there is nothing to suggest.
-		 * 
-		 * Returns: A list of dynamically allocated strings. The whole
-		 * list, including the the strings should be freed when done.
 		 */
 		List<const gchar*> get_suggestions (const gchar *context);
 	}
@@ -1921,8 +1924,8 @@ interface IAnjutaEditor
 		/**
 		 * ianjuta_editor_language_set_language:
 		 * @obj: Self
+		 * @language: Language
 		 * @err: Error propagation and reporting
-		 * @lang: Language
 		 *
 		 * Force the editor to use a given language
 		 *
@@ -2158,7 +2161,7 @@ interface IAnjutaEditorCell
 	 * string is returned that is the multibyte unicode character.
 	 * NULL is returned if the cell does not have any character.
 	 * 
-	 * Retruns: a newly created string representing the cell's unicode
+	 * Returns: a newly created string representing the cell's unicode
 	 * character.
 	 */
 	gchar *get_character ();
@@ -2189,7 +2192,7 @@ interface IAnjutaEditorCell
 	 * involved in ianjuta_editor_cell_get_character(), this function
 	 * is mainly useful for fast iteration (such as copying data).
 	 * 
-	 * Retruns: a byte character.
+	 * Returns: a byte character.
 	 */
 	gchar get_char (gint char_index);
 	
@@ -2998,7 +3001,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	List<const gchar*> add_sources (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
+	List<const gchar*> add_sources (List<const gchar*> source_uris_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_target:
@@ -3301,7 +3304,6 @@ interface IAnjutaDebugger
 	* @file: fixme
 	* @mime_type: fixme
 	* @source_search_directories: fixme
-	* @terminal: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
@@ -3615,7 +3617,6 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_info_target:
 	* @obj: Self
-	* @funx: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -3706,7 +3707,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_set_thread:
 	* @obj: Self
-	* @frame: fixme
+	* @thread: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
@@ -3774,8 +3775,6 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
-	*
-	* Returns: fixme
 	*/
 	void enable_log (IAnjutaMessageView *log);
 
@@ -3785,8 +3784,6 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
-	*
-	* Returns: fixme
 	*/
 	void disable_log ();
 
@@ -3876,7 +3873,7 @@ interface IAnjutaDebugger
 		* @obj: Self
 		* @address: Address of the breakpoint
 		* @callback: Callback to call when the breakpoint has been set
-		* @user_date: User data that is passed back to the callback
+		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
 		* Set a breakpoint at the specified address.
@@ -4595,62 +4592,100 @@ interface IAnjutaSymbol
 	}
 	
 	/**
+	 * ianjuta_symbol_get_id:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
 	 * An unique identifier for the symbol: pay attention that when engine re-parse
 	 * the files this id may change.
-	 * @return 0 on error.
+	 *
+	 * Returns: 0 on error.
 	 */
 	gint get_id ();
 	
 	/**
-	* ianjuta_symbol_get_name:
-	* The name of the symbol
-	*/
+	 * ianjuta_symbol_get_name:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: The name of the symbol
+	 */
 	const gchar *get_name ();
 	
 	/**
 	 * ianjuta_symbol_get_file:
-	 * The file of the symbol
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: The file of the symbol
 	 */
 	GFile *get_file();
 	
 	/**
-	* ianjuta_symbol_get_line:
-	* Line of the file in which the symbol is declared.
-	*/	
+	 * ianjuta_symbol_get_line:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: Line of the file in which the symbol is declared.a
+	 */	
 	gulong get_line ();	
 
 	/**
-	* ianjuta_symbol_is_local:
-	* Is the symbol a static (private) one?
-	*/	
+	 * ianjuta_symbol_is_local:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Is the symbol a static (private) one?
+	 *
+	 * Returns: TRUE if the symbol is local
+	 */	
 	gboolean is_local ();
 	
 	/**
-	* ianjuta_symbol_get_args:
-	* If symbol is a function then this will return a string with the args.
-	*/	
+	 *ianjuta_symbol_get_args:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+ 	 *
+	 * If symbol is a function then this will return a string with the args.
+	 *
+	 * Returns: args as string or NULL
+	 */	
 	const gchar *get_args ();
 
 	/**
 	 * ianjuta_symbol_get_sym_type:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
 	 * You can obtain an IAnjutaSymbolType of the symbol.
 	 * To have a string representation see ianjuta_symbol_get_extra_info_string ().
 	 * You *need* a symbol with FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
 	 * passing FIELD_TYPE as info_fields.
+	 *
+	 * Returns: a #IAnjutaSymbolType
 	 */
 	Type get_sym_type ();
 	
 	/** 
-	* ianjuta_symbol_get_extra_info_string:
- 	* @sym_info: Just one FIELD_* per time. It is NOT possible to pass something like
-	* FIELD_1 | FIELD_2 | ...
- 	*/
+	 * ianjuta_symbol_get_extra_info_string:
+	 * @obj: Self
+ 	 * @sym_info: Just one FIELD_* per time. It is NOT possible to pass something like
+	 * FIELD_1 | FIELD_2 | ...
+	 * @err: Error propagation and reporting.
+	 *
+ 	 */
 	const gchar *get_extra_info_string (Field sym_info);
 
 	/** 
-	 * Pixbuf icon representing the symbol. 
+	 * ianjuta_symbol_get_icon:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
 	 * You *need* a symbol with FIELD_ACCESS | FIELD_KIND enabled attribute. e.g. use 
 	 * ianjuta_symbol_manager_search passing FIELD_ACCESS | FIELD_KIND as info_fields.
+	 *
+	 * Returns: a Pixbuf icon representing the symbol. 
 	 */
 	const GdkPixbuf *get_icon ();	
 }
@@ -4731,8 +4766,9 @@ interface IAnjutaSymbolManager
     * the file. 
 	*
 	* Returns Iterator should contain just one element if the query is successful, 
-	* no element or NULL is returned if function went wrong.	
-	* 
+	* no element or NULL is returned if function went wrong.
+	*
+	* Returns: an iterator
 	*/
 	IAnjutaIterable* get_scope (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
 
@@ -4891,7 +4927,7 @@ interface IAnjutaPluginFactory
 	 *	double colon following location) is missing in .plugin file
 	 * @IANJUTA_PLUGIN_FACTORY_MISSING_MODULE: Module file name not found,
 	 *	plugin module is probably not installed
-	 * @IANJUTA_PLUGIN_FACTORY_UNLOADABLE_MODULE: Module file cannot be
+	 * @IANJUTA_PLUGIN_FACTORY_INVALID_MODULE: Module file cannot be
 	 *	loaded, not a shared library perhaps
 	 * @IANJUTA_PLUGIN_FACTORY_MISSING_FUNCTION: Module does not contain
 	 *	registration function, library is not an anjuta plugin or

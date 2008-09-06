@@ -42,7 +42,7 @@ CFILE_GLOB=$(top_srcdir)/libanjuta/*.c $(top_srcdir)/libanjuta/interfaces/*.c
 
 # Header files to ignore when scanning.
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
-IGNORE_HFILES=egg* glue* e-*
+IGNORE_HFILES=
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png

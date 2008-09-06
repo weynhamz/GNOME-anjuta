@@ -239,7 +239,6 @@ anjuta_command_set_error_message (AnjutaCommand *self, gchar *error_message)
 /**
  * anjuta_command_get_error_message:
  * @self: Command object.
- * @error_message: Error message.
  * 
  * Get the error message from the command, if there is one. This method is 
  * normally used from a ::command-finished handler to report errors to the user

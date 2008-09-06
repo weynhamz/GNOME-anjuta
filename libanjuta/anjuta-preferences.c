@@ -1809,7 +1809,7 @@ anjuta_preferences_get_prefix (AnjutaPreferences *pr)
  * @pr: A #AnjutaPreferences object.
  * @dir: Directory to checkfor.
  *
- * Returns TRUE if dir exists.
+ * Return value: TRUE if dir exists.
  */
 #ifdef __GNUC__
 inline

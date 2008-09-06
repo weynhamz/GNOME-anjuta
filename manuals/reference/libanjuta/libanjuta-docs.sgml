@@ -73,7 +73,10 @@
     <xi:include href="xml/anjuta-command.xml"/>
     <xi:include href="xml/anjuta-sync-command.xml"/>
     <xi:include href="xml/anjuta-async-command.xml"/>
+    <xi:include href="xml/anjuta-vcs-status-tree-view.xml"/>
     <xi:include href="xml/anjuta-message-area.xml"/>
+    <xi:include href="xml/anjuta-convert.xml"/>
+    <xi:include href="xml/anjuta-version.xml"/>
   </chapter>
   
   <chapter id="libanjuta-internal-api">
@@ -99,6 +102,7 @@
 	<xi:include href="xml/ianjuta-debug-manager.xml"/>
 	<xi:include href="xml/ianjuta-document.xml"/>
 	<xi:include href="xml/ianjuta-document-manager.xml"/>
+	<xi:include href="xml/ianjuta-editor.xml"/>
 	<xi:include href="xml/ianjuta-editor-assist.xml"/>
 	<xi:include href="xml/ianjuta-editor-cell.xml"/>
 	<xi:include href="xml/ianjuta-editor-cell-style.xml"/>
@@ -107,7 +111,6 @@
 	<xi:include href="xml/ianjuta-editor-factory.xml"/>
 	<xi:include href="xml/ianjuta-editor-folds.xml"/>
 	<xi:include href="xml/ianjuta-editor-goto.xml"/>
-	<xi:include href="xml/ianjuta-editor.xml"/>
 	<xi:include href="xml/ianjuta-editor-hover.xml"/>
 	<xi:include href="xml/ianjuta-editor-language.xml"/>
 	<xi:include href="xml/ianjuta-editor-line-mode.xml"/>
@@ -115,6 +118,7 @@
 	<xi:include href="xml/ianjuta-editor-selection.xml"/>
 	<xi:include href="xml/ianjuta-editor-view.xml"/>
 	<xi:include href="xml/ianjuta-editor-zoom.xml"/>
+	<xi:include href="xml/ianjuta-environment.xml"/>
 	<xi:include href="xml/ianjuta-file.xml"/>
 	<xi:include href="xml/ianjuta-file-loader.xml"/>
 	<xi:include href="xml/ianjuta-file-manager.xml"/>
@@ -130,10 +134,9 @@
 	<xi:include href="xml/ianjuta-markable.xml"/>
 	<xi:include href="xml/ianjuta-message-manager.xml"/>
 	<xi:include href="xml/ianjuta-message-view.xml"/>
+	<xi:include href="xml/ianjuta-plugin-factory.xml"/>
 	<xi:include href="xml/ianjuta-preferences.xml"/>
 	<xi:include href="xml/ianjuta-print.xml"/>
-	<xi:include href="xml/ianjuta-plugin-factory.xml"/>
-	<xi:include href="xml/ianjuta-plugin-loader.xml"/>
 	<xi:include href="xml/ianjuta-project-manager.xml"/>
 	<xi:include href="xml/ianjuta-stream.xml"/>
 	<xi:include href="xml/ianjuta-stream-loader.xml"/>
@@ -142,7 +145,6 @@
 	<xi:include href="xml/ianjuta-symbol-manager.xml"/>
 	<xi:include href="xml/ianjuta-terminal.xml"/>
 	<xi:include href="xml/ianjuta-todo.xml"/>
-	<xi:include href="xml/ianjuta-variable-debugger.xml"/>
 	<xi:include href="xml/ianjuta-vcs.xml"/>
 	<xi:include href="xml/ianjuta-wizard.xml"/>
     <xi:include href="xml/libanjuta-iface-marshallers.xml"/>

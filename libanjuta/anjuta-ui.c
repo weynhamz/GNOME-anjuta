@@ -664,11 +664,12 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
  * @ui: This #AnjutaUI object
  * @action_group_name: Group name.
  * @action_name: Action name.
- * returns: A #GtkAction object
  *
  * Returns the action object with the name @action_name in @action_group_name.
  * Note that it will be only sucessully returned if the group has been added
  * using methods in #AnjutaUI.
+ *
+ * Returns: A #GtkAction object
  */
 GtkAction*
 anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
@@ -808,9 +809,10 @@ anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 /**
  * anjuta_ui_get_accel_group:
  * @ui: A #AnjutaUI object.
- * returns: A #GtkAccelGroup object.
  *
  * Returns the #GtkAccelGroup object associated with this UI manager.
+ *
+ * Returns: A #GtkAccelGroup object.
  */
 GtkAccelGroup*
 anjuta_ui_get_accel_group (AnjutaUI *ui)
@@ -822,12 +824,11 @@ anjuta_ui_get_accel_group (AnjutaUI *ui)
 /**
  * anjuta_ui_get_accel_editor:
  * @ui: A #AnjutaUI object.
- * returns: A #GtkWidget object.
  *
  * Creates an accel editor widget and returns it. It should be added to
  * container and displayed to users.
  *
- * Returns a #GtkWidget containing the editor.
+ * Returns: a #GtkWidget containing the editor.
  */
 GtkWidget *
 anjuta_ui_get_accel_editor (AnjutaUI *ui)
