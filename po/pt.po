@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-17 00:09+0100\n"
-"PO-Revision-Date: 2008-08-17 01:00+0000\n"
+"POT-Creation-Date: 2008-09-07 18:03+0100\n"
+"PO-Revision-Date: 2008-09-07 18:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,20 @@ msgstr "Falta o tipo definido pelo plugin %s"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "plugin %s falhou o registo do tipo %s"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr "O ficheiro que está a tentar abrir contém uma sequência inválida de bytes."
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"O anjuta foi incapaz de determinar automaticamente a codificação do ficheiro "
+"que deseja abrir."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -174,14 +188,14 @@ msgstr "Tailandês"
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Incapaz de executar o comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1155
+#: ../libanjuta/anjuta-launcher.c:1159
 msgid "execvp failed"
 msgstr "Falha no execvp"
 
@@ -213,7 +227,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:447
+#: ../plugins/symbol-db/symbol-db-prefs.c:514
 msgid "Load"
 msgstr "Ler"
 
@@ -246,7 +260,7 @@ msgid "Forget selected plugin"
 msgstr "Esquecer o plugin seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Seleccione um plugin"
@@ -339,6 +353,10 @@ msgstr "URI de Sincronização"
 msgid "URI to sync the profile xml"
 msgstr "URI para sincronizar o xml de perfil"
 
+#: ../libanjuta/anjuta-profile.c:471
+msgid "Please select a plugin from the list"
+msgstr "Seleccione um plugin da lista"
+
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
@@ -389,7 +407,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:192
+#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:193
 msgid "_Reset"
 msgstr "_Reiniciar"
 
@@ -452,19 +470,19 @@ msgstr ""
 "fechar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "Acção"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "Visível"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "Sensível"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "Atalho"
 
@@ -666,7 +684,7 @@ msgstr "Nenhum ficheiro ou projecto actualmente aberto."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "A aplicação '%s' não é um ficheiro local"
@@ -677,7 +695,7 @@ msgid "Program '%s' does not exists"
 msgstr "A aplicação '%s' não existe."
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "A aplicação '%s' não possui permissões de execução"
@@ -2339,8 +2357,8 @@ msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "Linha de Código"
 
@@ -2542,7 +2560,7 @@ msgstr "Livros"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:957
+#: ../plugins/symbol-browser/plugin.c:965
 msgid "Search"
 msgstr "Procurar"
 
@@ -2917,7 +2935,7 @@ msgstr "Repetir a procura rápida"
 
 #: ../plugins/document-manager/plugin.c:279 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1834
+#: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3216,9 +3234,9 @@ msgid "Simple searching"
 msgstr "Procura simples"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
-#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:1742
+#: ../plugins/document-manager/plugin.c:2147
+#: ../plugins/document-manager/plugin.c:2157
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3234,42 +3252,42 @@ msgstr "Reler"
 msgid "Goto"
 msgstr "Ir para"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "SOBR"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "Zoom"
 
 # 48x48/emblems/emblem-cool.icon.in.h:1
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1557
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Gravação automática falho para %s"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1571
 msgid "Autosave completed"
 msgstr "Gravação automática terminada"
 
@@ -3676,16 +3694,16 @@ msgstr "Ficheiro lido com sucesso"
 msgid "Saving file..."
 msgstr "A gravar o ficheiro..."
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "Incapaz de gravar o ficheiro intermédio %s: %s"
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "Ficheiro gravado com sucesso"
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3754,6 +3772,17 @@ msgstr "_%d. %s"
 #, c-format
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
+
+#: ../plugins/file-loader/plugin.c:113
+#, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr ""
+"Incapaz de abrir \"%s\".\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -3936,7 +3965,7 @@ msgid "Root directory if no project is open:"
 msgstr "Directório raiz caso não esteja nenhum projecto aberto:"
 
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "A Ler..."
 
@@ -4216,15 +4245,7 @@ msgstr "A enviar o sinal %s para o processo: %d"
 msgid "Error whilst signaling the process."
 msgstr "Erro ao sinalizar o processo."
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr ""
-"O plugin de consola do Anjuta não está instalado. A aplicação irá ser "
-"executada sem uma consola."
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
@@ -4232,7 +4253,7 @@ msgstr ""
 "Falha ao criar um ficheiro fifo denominado %s. A aplicação irá ser executada "
 "sem uma consola."
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "Incapaz de iniciar uma consola para depuração."
 
@@ -4562,18 +4583,6 @@ msgstr "Utilizar uma mensagem de registo personalizada"
 msgid "View log"
 msgstr "Visualizar o registo"
 
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "gtk-cancel"
-msgstr "gtk-cancelar"
-
-#: ../plugins/git/anjuta-git.glade.h:84
-msgid "gtk-clear"
-msgstr "gtk-limpar"
-
-#: ../plugins/git/anjuta-git.glade.h:85
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
 msgstr "Git: Ficheiro 'staged' para adicionar."
@@ -4610,6 +4619,10 @@ msgstr "Git: A obter..."
 msgid "Please enter a revision."
 msgstr "Introduza uma revisão."
 
+#: ../plugins/git/git-cat-file-menu.c:36
+msgid "Git: File retrieved."
+msgstr "Git: Ficheiro obtido."
+
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
 msgstr "Git: Ficheiros obtidos."
@@ -4641,21 +4654,29 @@ msgstr "Git: Ramo \"%s\" apagado."
 msgid "Git: Fetch complete."
 msgstr "Git: Obtenção terminada."
 
-#: ../plugins/git/git-log-dialog.c:276
+#: ../plugins/git/git-log-dialog.c:305
 msgid "Git: Retrieving log..."
 msgstr "Git: A obter o registo..."
 
-#: ../plugins/git/git-log-dialog.c:433
+#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "Introduza um caminho."
+
+#: ../plugins/git/git-log-dialog.c:505
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Ramo:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:438
+#: ../plugins/git/git-log-dialog.c:510
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Etiqueta:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:443
+#: ../plugins/git/git-log-dialog.c:515
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
@@ -4689,6 +4710,7 @@ msgid "Git: Branch checkout complete."
 msgstr "Git: Obtenção de ramo terminada."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -4702,213 +4724,224 @@ msgstr "Git: Ficheiros 'unstaged'."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:56
+#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:64 ../plugins/subversion/plugin.c:78
+#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
 msgid "_Commit..."
 msgstr "_Persistir..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:72
+#: ../plugins/git/plugin.c:73
 msgid "_Fetch"
 msgstr "_Obter"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:80
+#: ../plugins/git/plugin.c:81
 msgid "_Rebase"
 msgstr "_Ajustar a Base"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:88 ../plugins/git/plugin.c:184
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
 msgid "_Start..."
 msgstr "_Iniciar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:96
+#: ../plugins/git/plugin.c:97
 msgid "_Continue"
 msgstr "_Continuar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:104
+#: ../plugins/git/plugin.c:105
 msgid "_Skip"
 msgstr "_Saltar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:112
+#: ../plugins/git/plugin.c:113
 msgid "_Abort"
 msgstr "_Abortar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:120
+#: ../plugins/git/plugin.c:121
 msgid "_Pull..."
 msgstr "_Puxar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:128
+#: ../plugins/git/plugin.c:129
 msgid "_Unstage files..."
 msgstr "_Relizar 'unstage' de ficheiros..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:136
+#: ../plugins/git/plugin.c:137
 msgid "_Check out files..."
 msgstr "_Obter ficheiros..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:144
+#: ../plugins/git/plugin.c:145
 msgid "_Resolve conflicts..."
 msgstr "_Resolver conflitos..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:152
+#: ../plugins/git/plugin.c:153
 msgid "Create patch series..."
 msgstr "Criar conjunto de diferenças..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:160 ../plugins/git/plugin.c:349
+#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
 msgid "_Reset tree..."
 msgstr "_Repor a árvore..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:168 ../plugins/git/plugin.c:357
+#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
 msgid "_Revert commit..."
 msgstr "_Reverter persistência..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
+#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
 msgid "_Bisect"
 msgstr "_Dissecar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:200
+#: ../plugins/git/plugin.c:201
 msgid "_Good"
 msgstr "_Bom"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:208
+#: ../plugins/git/plugin.c:209
 msgid "_Bad"
 msgstr "_Mau"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:216
+#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
 msgid "_View log..."
 msgstr "_Visualizar registo..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:224 ../plugins/git/plugin.c:289
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
+#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
+#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
+#: ../plugins/subversion/plugin.c:169
 msgid "_Add..."
 msgstr "_Adicionar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:232 ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "_Remove..."
 msgstr "_Remover..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:240
+#: ../plugins/git/plugin.c:241
 msgid "_Ignore..."
 msgstr "_Ignorar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:249 ../plugins/git/plugin.c:333
+#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
 msgid "_Create branch..."
 msgstr "_Criar ramo..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:257
+#: ../plugins/git/plugin.c:258
 msgid "_Delete branch..."
 msgstr "_Apagar ramo..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:265
+#: ../plugins/git/plugin.c:266
 msgid "_Switch to another branch..."
 msgstr "Alternar para _outro ramo..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:273
+#: ../plugins/git/plugin.c:274
 msgid "_Merge..."
 msgstr "_Juntar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:281
+#: ../plugins/git/plugin.c:282
 msgid "_Remote branches"
 msgstr "_Ramos remotos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:297
+#: ../plugins/git/plugin.c:298
 msgid "_Delete..."
 msgstr "_Apagar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:305 ../plugins/git/plugin.c:341
+#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
 msgid "_Create tag..."
 msgstr "_Criar etiqueta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:313
+#: ../plugins/git/plugin.c:314
 msgid "_Diff uncommitted changes"
 msgstr "_Diferença das alterações por persistir"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:325
+#: ../plugins/git/plugin.c:326
 msgid "_Show commit diff"
 msgstr "_Apresentar diferenças da persistência"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:373
+#: ../plugins/git/plugin.c:334
+msgid "_View selected revision"
+msgstr "_Visualizar a revisão seleccionada"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:382
 msgid "_Set good revision"
 msgstr "_Definir a revisão boa"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:381
+#: ../plugins/git/plugin.c:390
 msgid "_Set bad revision"
 msgstr "_Definir a revisão má"
 
-#: ../plugins/git/plugin.c:496
+#: ../plugins/git/plugin.c:580
 msgid "Git operations"
 msgstr "Operações git"
 
-#: ../plugins/git/plugin.c:501
+#: ../plugins/git/plugin.c:585
 msgid "Git log operations"
 msgstr "Operações de registo git"
 
-#: ../plugins/git/plugin.c:529
+#: ../plugins/git/plugin.c:590
+msgid "Git FM operations"
+msgstr "Operações git FM"
+
+#: ../plugins/git/plugin.c:624
 msgid "Git Log"
 msgstr "Registo Git"
 
@@ -5371,6 +5404,17 @@ msgstr "Macros do Anjuta"
 msgid "My macros"
 msgstr "As minhas macros"
 
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
+"Nome:\t %s\n"
+"Categoria:\t %s\n"
+"Atalho:\t %c\n"
+
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
 msgstr "Inserir"
@@ -5494,7 +5538,7 @@ msgstr "Fechar todos os separadores de mensagens"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "Nenhum detalhe de mensagem"
 
@@ -5515,8 +5559,8 @@ msgid "Icon"
 msgstr "Ícone"
 
 #: ../plugins/message-view/message-view.c:808
-#: ../plugins/message-view/plugin.c:305 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:408
+#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "Mensagens"
 
@@ -5603,6 +5647,10 @@ msgstr "A aplicar o patch em %s utilizando %s\n"
 msgid "Patching...\n"
 msgstr "A aplicar o patch...\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+msgid "Patching..."
+msgstr "A aplicar o patch..."
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Existem processos por terminar, aguarde até que terminem."
@@ -5616,6 +5664,10 @@ msgstr ""
 "Falha ao aplicar o patch.\n"
 "Consulte as mensagens de erro.\n"
 "Examine e remova os ficheiros de rejeição.\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+msgid "Patching complete"
+msgstr "Aplicação de patch terminada"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -5636,17 +5688,17 @@ msgstr "Nível de patch:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_Ferramentas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:63
+#: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
 msgstr "Aplicar _Patch..."
 
-#: ../plugins/patch/plugin.c:94
+#: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
 msgstr "Aplicar patch sobre ficheiros/directórios"
 
@@ -6690,13 +6742,13 @@ msgstr "Parâmetros da Aplicação"
 msgid "Program:"
 msgstr "Aplicação:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "A aplicação '%s' não existe"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "O directório da aplicação '%s' não é local"
@@ -7208,10 +7260,6 @@ msgid "Use theme font"
 msgstr "Utilizar a fonte do tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
-msgid "Visible whitespaces"
-msgstr "Espaço em branco visíveis"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Quebrar as linhas extensas para caberem no papel"
 
@@ -7519,13 +7567,6 @@ msgstr "Registo do Subversion"
 msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: O ficheiro será adicionado na próxima persistência."
 
-#: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:66
-#: ../plugins/subversion/subversion-remove-dialog.c:98
-#: ../plugins/subversion/subversion-update-dialog.c:66
-msgid "Please enter a path."
-msgstr "Introduza um caminho."
-
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: Persistência terminada."
@@ -7725,7 +7766,7 @@ msgid "Obstructed: %s"
 msgstr "Obstruído: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7762,11 +7803,11 @@ msgid "Symbol Browser"
 msgstr "Navegador de Símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:455
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 msgid "API Tags"
 msgstr "Etiquetas de API"
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
 msgstr "Nenhuns detalhes de ficheiro"
 
@@ -7841,37 +7882,38 @@ msgid "Created symbols..."
 msgstr "Símbolos criados..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:916
+#: ../plugins/symbol-browser/plugin.c:924
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:936
+#: ../plugins/symbol-browser/plugin.c:944
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:980
+#: ../plugins/symbol-browser/plugin.c:988
 msgid "Symbol browser actions"
 msgstr "Acções do navegador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:987
+#: ../plugins/symbol-browser/plugin.c:995
 msgid "Symbol browser popup actions"
 msgstr "Acções do menu de contexto do navegador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1002
 msgid "Symbol navigations"
 msgstr "Navegação de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1003
+#: ../plugins/symbol-browser/plugin.c:1011
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:281
+#: ../plugins/symbol-db/symbol-db-prefs.c:279
 msgid "Package is not parseable"
 msgstr "Pacote não é processável"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:378
-#: ../plugins/symbol-db/symbol-db-prefs.c:506
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de Dados de Símbolos"
 
@@ -7884,16 +7926,28 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas de API disponíveis</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+msgid "Automatically scan projetc's packages."
+msgstr "Analisar automaticamente os pacotes do projecto."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr "Actualizar automaticamente os símbolos sem gravar o ficheiro."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
 msgstr "A verificar se o pacote é processável..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
 msgstr "Seleccione o executável ctags"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Executável ctags:"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+msgid "Parallel scan of project and global symbols."
+msgstr "Análise paralela do projecto e de símbolos globais."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8884,38 +8938,38 @@ msgstr "Indentação Inteligente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamanho da indentação da linha em espaços:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1840
+#: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
 msgstr "Completar _Automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1841
+#: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
 msgstr "Completar automaticamente a palavra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1847
+#: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "Auto Indent"
 msgstr "Indentar Automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1848
+#: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Indentar automaticamente a linha ou selecção actual baseada nas definições "
 "de indentação"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1853
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
 msgstr "Alternar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1854
+#: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
 msgstr "Alternar entre o ficheiro de código e o de header"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1897
+#: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
 msgstr "Assistência C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1985
-#: ../plugins/language-support-cpp-java/plugin.c:1994
+#: ../plugins/language-support-cpp-java/plugin.c:1999
+#: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8930,6 +8984,10 @@ msgstr "Gdb"
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
 msgstr "Plugin gdb."
+
+#: ../plugins/git/git.plugin.in.h:2
+msgid "Git version control"
+msgstr "Controlo de versões git"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9117,6 +9175,10 @@ msgstr "Plugin de Gestão de Projectos para o Anjuta."
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Plugin de Navegação de Símbolos para o Anjuta."
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "Plugin de Base de Dados de Símbolos para o Anjuta (instável)."
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "Gere mensagens de aplicações externas"
@@ -9156,6 +9218,25 @@ msgstr "Gestor de Linguagens"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Plugin para gerir múltiplas linguagens de programação"
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr ""
+#~ "O plugin de consola do Anjuta não está instalado. A aplicação irá ser "
+#~ "executada sem uma consola."
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancelar"
+
+#~ msgid "gtk-clear"
+#~ msgstr "gtk-limpar"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
+
+#~ msgid "Visible whitespaces"
+#~ msgstr "Espaço em branco visíveis"
 
 #~ msgid "Close"
 #~ msgstr "Fechar"
