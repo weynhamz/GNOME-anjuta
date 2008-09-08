@@ -998,7 +998,13 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	if (page)
 	{
 		gtk_container_remove (GTK_CONTAINER (page->widget), GTK_WIDGET(doc));
+		g_signal_handlers_block_by_func (G_OBJECT (docman),
+										(gpointer) on_notebook_switch_page,
+										(gpointer) docman);
 		gtk_container_remove (GTK_CONTAINER (docman), page->widget);
+		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
+										  (gpointer) on_notebook_switch_page,
+										  (gpointer) docman);
 		if (page == docman->priv->cur_page)
 			docman->priv->cur_page = NULL;
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);

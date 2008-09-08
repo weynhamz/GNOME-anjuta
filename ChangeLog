@@ -1,3 +1,8 @@
+2008-09-08  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix #551261 Crash when closing a moved editor
+
 2008-09-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/reference/libanjuta/libanjuta-docs.sgml,
