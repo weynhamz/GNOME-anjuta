@@ -1152,6 +1152,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *cons
 					g_setenv (variable->str, value + 1, TRUE);
 				}
 			}
+			g_string_free (variable, TRUE);
 		}
 	
 		execvp (args[0], args);
