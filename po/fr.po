@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-06 12:14+0200\n"
-"PO-Revision-Date: 2008-09-06 15:29+0200\n"
+"PO-Revision-Date: 2008-09-09 22:57+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -5401,7 +5401,7 @@ msgstr "<b>Détails des macros :</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro text:</b>"
-msgstr "<b>Texte de la macro :<b>"
+msgstr "<b>Texte de la macro :</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:3
 msgid "<b>Macros:</b>"
