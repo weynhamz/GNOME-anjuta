@@ -61,6 +61,7 @@ struct _SourceviewIO
 	GCancellable* cancel;
 	GFileMonitor* monitor;
 	guint monitor_idle;
+	gssize bytes_read;
 	
 	const AnjutaEncoding* last_encoding;
 };

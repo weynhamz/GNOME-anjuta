@@ -55,6 +55,7 @@ sourceview_io_init (SourceviewIO *object)
 	object->cancel = g_cancellable_new();
 	object->monitor = NULL;
 	object->last_encoding = NULL;
+	object->bytes_read = 0;
 }
 
 static void
@@ -392,7 +393,6 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	GInputStream* input_stream = G_INPUT_STREAM(input);
-	static gsize bytes_read = 0;
 	gsize current_bytes = 0;
 	GError* err = NULL;
 	
@@ -403,16 +403,17 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 		g_error_free (err);
 		g_object_unref (input_stream);
 		g_free (sio->read_buffer);
-		sio->read_buffer = 0;
+		sio->read_buffer = NULL;
+		sio->bytes_read = 0;
 		return;
 	}
 	
-	bytes_read += current_bytes;
-	if (current_bytes > 0)
+	sio->bytes_read += current_bytes;
+	if (current_bytes != 0)
 	{
-		sio->read_buffer = g_realloc (sio->read_buffer, bytes_read + READ_SIZE);
+		sio->read_buffer = g_realloc (sio->read_buffer, sio->bytes_read + READ_SIZE);
 		g_input_stream_read_async (G_INPUT_STREAM (input_stream),
-								   sio->read_buffer + bytes_read,
+								   sio->read_buffer + sio->bytes_read,
 								   READ_SIZE,
 								   G_PRIORITY_LOW,
 								   sio->cancel,
@@ -422,9 +423,9 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	}
 	else
 	{
-		if (append_buffer (sio, bytes_read))
+		if (append_buffer (sio, sio->bytes_read))
 			g_signal_emit_by_name (sio, "open-finished");
-		bytes_read = 0;
+		sio->bytes_read = 0;
 		g_object_unref (input_stream);
 		setup_monitor (sio);
 		g_free (sio->read_buffer);

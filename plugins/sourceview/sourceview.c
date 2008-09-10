@@ -364,7 +364,7 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 		GtkWidget* dialog = gtk_message_dialog_new (NULL, 0,
 													GTK_MESSAGE_ERROR,
 													GTK_BUTTONS_OK,
-													message);
+													"%s", message);
 		g_signal_connect (dialog, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 		gtk_dialog_run (GTK_DIALOG (dialog));
 	}
@@ -484,7 +484,7 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 		GtkWidget* dialog = gtk_message_dialog_new (NULL, 0,
 													GTK_MESSAGE_ERROR,
 													GTK_BUTTONS_OK,
-													message);
+													"%s", message);
 		g_signal_connect (dialog, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 		gtk_dialog_run (GTK_DIALOG (dialog));
 	}

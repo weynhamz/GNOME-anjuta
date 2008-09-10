@@ -1,3 +1,15 @@
+2008-09-10  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview-io.c (sourceview_io_init),
+	(on_read_finished):
+	* plugins/sourceview/sourceview-io.h:
+	Fixed a problem with async file loading. (Remember never to use
+	static variables in method that could be used by different objects...)
+	
+	* plugins/sourceview/sourceview.c (on_open_failed),
+	(on_save_failed):
+	Fixed some (new) warnings
+
 2008-09-09  Rob Bradford  <rob@linux.intel.com>
 
 	* libanjuta/anjuta-launcher.c (anjuta_launcher_fork):
