@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-04 08:18+0000\n"
-"PO-Revision-Date: 2008-09-09 23:08+0200\n"
+"PO-Revision-Date: 2008-09-10 22:27+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -840,7 +840,7 @@ msgstr "A teljes projekt tisztítása"
 
 #: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
-msgstr "Projekt k_onfigurálása..."
+msgstr "Projekt k_onfigurálása…"
 
 #: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
@@ -1838,7 +1838,7 @@ msgstr "Töréspont ki/be a jelenlegi helyen"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Add Breakpoint..."
-msgstr "Töréspont hozzáadása..."
+msgstr "Töréspont hozzáadása…"
 
 #. Display label
 #. short-cut
@@ -2017,7 +2017,7 @@ msgstr "Betöltve"
 
 #: ../plugins/debug-manager/plugin.c:435
 msgid "Running..."
-msgstr "Fut..."
+msgstr "Fut…"
 
 #: ../plugins/debug-manager/plugin.c:457
 msgid "Stopped"
@@ -2057,7 +2057,7 @@ msgstr "Hibakereső indítása és a program betöltése"
 
 #: ../plugins/debug-manager/plugin.c:845
 msgid "_Debug Process..."
-msgstr "_Folyamat hibakeresése..."
+msgstr "_Folyamat hibakeresése…"
 
 #: ../plugins/debug-manager/plugin.c:847
 msgid "Start debugger and attach to a running program"
@@ -2073,7 +2073,7 @@ msgstr "Búcsú a hibakeresőtől"
 
 #: ../plugins/debug-manager/plugin.c:861
 msgid "Add source paths..."
-msgstr "Forrásútvonalak hozzáadása..."
+msgstr "Forrásútvonalak hozzáadása…"
 
 #: ../plugins/debug-manager/plugin.c:863
 msgid "Add additional source paths"
@@ -2083,7 +2083,7 @@ msgstr "További forrásútvonalak hozzáadása"
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:873 ../plugins/debug-manager/plugin.c:981
 msgid "Debugger Command..."
-msgstr "Hibakereső parancs..."
+msgstr "Hibakereső parancs…"
 
 #. Display label
 #. short-cut
@@ -2445,7 +2445,7 @@ msgstr "Szálműveletek"
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:377
 msgid "Ins_pect/Evaluate..."
-msgstr "Vizs_gálat/Kiértékelés..."
+msgstr "Vizs_gálat/Kiértékelés…"
 
 #. Display label
 #. short-cut
@@ -2455,7 +2455,7 @@ msgstr "Egy kifejezés vagy változó vizsgálata/kiértékelése"
 
 #: ../plugins/debug-manager/watch.c:385
 msgid "Add Watch..."
-msgstr "Megfigyelő hozzáadása..."
+msgstr "Megfigyelő hozzáadása…"
 
 #: ../plugins/debug-manager/watch.c:393
 msgid "Remove Watch"
@@ -2680,7 +2680,7 @@ msgstr "Jelenlegi fájl mentése"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Save _As..."
-msgstr "Men_tés másként..."
+msgstr "Men_tés másként…"
 
 #: ../plugins/document-manager/plugin.c:153
 msgid "Save the current file with a different name"
@@ -2724,7 +2724,7 @@ msgstr "_Legutóbbi fájlok"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "_Print..."
-msgstr "_Nyomtatás..."
+msgstr "_Nyomtatás…"
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "Print the current file"
@@ -2860,7 +2860,7 @@ msgstr "A kijelölt szöveg folyamatos megjegyzés"
 #. menu title
 #: ../plugins/document-manager/plugin.c:248
 msgid "_Line Number..."
-msgstr "_Sorszám..."
+msgstr "_Sorszám…"
 
 #: ../plugins/document-manager/plugin.c:249
 msgid "Go to a particular line in the editor"
@@ -3614,7 +3614,7 @@ msgstr "Fájl: %s"
 
 #: ../plugins/editor/print.c:871 ../plugins/editor/print.c:883
 msgid "Printing..."
-msgstr "Nyomtatás..."
+msgstr "Nyomtatás…"
 
 #: ../plugins/editor/print.c:1066
 msgid "Print Preview"
@@ -3664,7 +3664,7 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1510
 msgid "Loading file..."
-msgstr "Fájl betöltése..."
+msgstr "Fájl betöltése…"
 
 #: ../plugins/editor/text_editor.c:1519
 #, c-format
@@ -3683,7 +3683,7 @@ msgstr "A fájl sikeresen betöltve"
 
 #: ../plugins/editor/text_editor.c:1559
 msgid "Saving file..."
-msgstr "Fájl mentése..."
+msgstr "Fájl mentése…"
 
 #: ../plugins/editor/text_editor.c:1568
 #, c-format
@@ -3878,7 +3878,7 @@ msgstr "Új üres fájl"
 
 #: ../plugins/file-loader/plugin.c:810
 msgid "_Open..."
-msgstr "_Megnyitás..."
+msgstr "_Megnyitás…"
 
 #: ../plugins/file-loader/plugin.c:821 ../plugins/file-loader/plugin.c:834
 msgid "_Open"
@@ -3957,7 +3957,7 @@ msgstr "Gyökérkönyvtár, ha nincs megnyitva projekt:"
 #: ../plugins/file-manager/file-model.c:103
 #: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
-msgstr "Betöltés..."
+msgstr "Betöltés…"
 
 #: ../plugins/file-manager/file-view.c:378
 msgid "Filename"
@@ -4135,7 +4135,7 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:923
 msgid "Getting ready to start debugging session...\n"
-msgstr "Felkészülés a hibakeresés megkezdésére...\n"
+msgstr "Felkészülés a hibakeresés megkezdésére…\n"
 
 #: ../plugins/gdb/debugger.c:938
 msgid "No executable specified.\n"
@@ -4197,7 +4197,7 @@ msgstr "A program csatlakoztatva\n"
 #: ../plugins/gdb/debugger.c:1893
 #, c-format
 msgid "Attaching to process: %d...\n"
-msgstr "Kapcsolódás folyamathoz: %d...\n"
+msgstr "Kapcsolódás folyamathoz: %d…\n"
 
 #: ../plugins/gdb/debugger.c:1919
 msgid ""
@@ -4222,7 +4222,7 @@ msgstr "A program leválasztva\n"
 #: ../plugins/gdb/debugger.c:2021
 #, c-format
 msgid "Detaching the process...\n"
-msgstr "Leválás a folyamatról...\n"
+msgstr "Leválás a folyamatról…\n"
 
 #: ../plugins/gdb/debugger.c:2042
 msgid "Interrupting the process\n"
@@ -4518,7 +4518,7 @@ msgstr "Fa visszaállítása"
 #: ../plugins/git/anjuta-git.glade.h:66
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
-msgstr "Állapot lekérése..."
+msgstr "Állapot lekérése…"
 
 #: ../plugins/git/anjuta-git.glade.h:67
 msgid "Revert Commit"
@@ -4603,7 +4603,7 @@ msgstr "Adjon meg egy URL-címet."
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
 msgid "Git: Fetching..."
-msgstr "Git: Lekérés..."
+msgstr "Git: Lekérés…"
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-create-branch-dialog.c:89
@@ -4651,7 +4651,7 @@ msgstr "Git: A lekérés kész."
 
 #: ../plugins/git/git-log-dialog.c:305
 msgid "Git: Retrieving log..."
-msgstr "Git: Napló lekérése..."
+msgstr "Git: Napló lekérése…"
 
 #: ../plugins/git/git-log-dialog.c:344
 #: ../plugins/subversion/subversion-add-dialog.c:63
@@ -4727,7 +4727,7 @@ msgstr "_Git"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
 msgid "_Commit..."
-msgstr "_Véglegesítés..."
+msgstr "_Véglegesítés…"
 
 #. Action name
 #. Stock icon, if any
@@ -4745,7 +4745,7 @@ msgstr "_Rebase"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
 msgid "_Start..."
-msgstr "_Indítás..."
+msgstr "_Indítás…"
 
 #. Action name
 #. Stock icon, if any
@@ -4769,43 +4769,43 @@ msgstr "_Megszakítás"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:121
 msgid "_Pull..."
-msgstr "_Pull..."
+msgstr "_Pull…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:129
 msgid "_Unstage files..."
-msgstr "Fájlok viss_zaállítása..."
+msgstr "Fájlok viss_zaállítása…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:137
 msgid "_Check out files..."
-msgstr "Fájlok l_ekérése..."
+msgstr "Fájlok l_ekérése…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:145
 msgid "_Resolve conflicts..."
-msgstr "Ütközések fel_oldása..."
+msgstr "Ütközések fel_oldása…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:153
 msgid "Create patch series..."
-msgstr "Foltsorozat létrehozása..."
+msgstr "Foltsorozat létrehozása…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
 msgid "_Reset tree..."
-msgstr "F_a visszaállítása..."
+msgstr "F_a visszaállítása…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
 msgid "_Revert commit..."
-msgstr "Vé_glegesítés visszavonása..."
+msgstr "Vé_glegesítés visszavonása…"
 
 #. Action name
 #. Stock icon, if any
@@ -4829,7 +4829,7 @@ msgstr "_Rossz"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
 msgid "_View log..."
-msgstr "_Napló megjelenítése..."
+msgstr "_Napló megjelenítése…"
 
 #. Action name
 #. Stock icon, if any
@@ -4837,44 +4837,44 @@ msgstr "_Napló megjelenítése..."
 #: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
 #: ../plugins/subversion/plugin.c:169
 msgid "_Add..."
-msgstr "Hozzá_adás..."
+msgstr "Hozzá_adás…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
 #: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "_Remove..."
-msgstr "_Eltávolítás..."
+msgstr "_Eltávolítás…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:241
 msgid "_Ignore..."
-msgstr "_Mellőzés..."
+msgstr "_Mellőzés…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
 msgid "_Create branch..."
-msgstr "Ág létre_hozása..."
+msgstr "Ág létre_hozása…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:258
 msgid "_Delete branch..."
-msgstr "Ág _törlése..."
+msgstr "Ág _törlése…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:266
 msgid "_Switch to another branch..."
-msgstr "Váltás _másik ágra..."
+msgstr "Váltás _másik ágra…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:274
 msgid "_Merge..."
-msgstr "_Egyesítés..."
+msgstr "_Egyesítés…"
 
 #. Action name
 #. Stock icon, if any
@@ -4886,13 +4886,13 @@ msgstr "Táv_oli ágak"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:298
 msgid "_Delete..."
-msgstr "_Törlés..."
+msgstr "_Törlés…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
 msgid "_Create tag..."
-msgstr "_Címke létrehozása..."
+msgstr "_Címke létrehozása…"
 
 #. Action name
 #. Stock icon, if any
@@ -5373,7 +5373,7 @@ msgstr "<b>Makrók:</b>"
 
 #: ../plugins/macro/anjuta-macro.glade.h:5
 msgid "Edit..."
-msgstr "Szerkesztés..."
+msgstr "Szerkesztés…"
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
 msgid "Shortcut:"
@@ -5381,7 +5381,7 @@ msgstr "Gyorsbillentyű:"
 
 #: ../plugins/macro/macro-actions.c:126
 msgid "Press macro shortcut..."
-msgstr "Nyomja meg a makró gyorsbillentyűjét..."
+msgstr "Nyomja meg a makró gyorsbillentyűjét…"
 
 #: ../plugins/macro/macro-actions.c:133
 msgid "Press shortcut"
@@ -5434,7 +5434,7 @@ msgstr "Makrók"
 
 #: ../plugins/macro/plugin.c:41
 msgid "_Insert Macro..."
-msgstr "Makró _beszúrása..."
+msgstr "Makró _beszúrása…"
 
 #: ../plugins/macro/plugin.c:43
 msgid "Insert a macro using a shortcut"
@@ -5442,7 +5442,7 @@ msgstr "Makró beszúrása gyorsbillentyű használatával"
 
 #: ../plugins/macro/plugin.c:48
 msgid "_Add Macro..."
-msgstr "Makró hozzá_adása..."
+msgstr "Makró hozzá_adása…"
 
 #: ../plugins/macro/plugin.c:50
 msgid "Add a macro"
@@ -5450,7 +5450,7 @@ msgstr "Egy makró hozzáadása"
 
 #: ../plugins/macro/plugin.c:55
 msgid "Macros..."
-msgstr "Makrók..."
+msgstr "Makrók…"
 
 #: ../plugins/macro/plugin.c:57
 msgid "Add/Edit/Remove macros"
@@ -5636,11 +5636,11 @@ msgstr "%s foltozása %s felhasználásával\n"
 
 #: ../plugins/patch/patch-plugin.c:194
 msgid "Patching...\n"
-msgstr "Foltozás...\n"
+msgstr "Foltozás…\n"
 
 #: ../plugins/patch/patch-plugin.c:204
 msgid "Patching..."
-msgstr "Foltozás..."
+msgstr "Foltozás…"
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5687,7 +5687,7 @@ msgstr "_Eszközök"
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:62
 msgid "_Patch..."
-msgstr "_Folt..."
+msgstr "_Folt…"
 
 #: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
@@ -5782,7 +5782,7 @@ msgstr "Profilozó"
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:743
 msgid "Select Target..."
-msgstr "Cél kiválasztása..."
+msgstr "Cél kiválasztása…"
 
 #. Action name
 #. Stock icon, if any
@@ -5851,7 +5851,7 @@ msgstr "A profiladatok megjelenítésének automatikus frissítése"
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Browse..."
-msgstr "Tallózás..."
+msgstr "Tallózás…"
 
 # fixme: jobb kifejezést!
 #: ../plugins/profiler/profiler.glade.h:8
@@ -5881,7 +5881,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
 msgid "Options..."
-msgstr "Beállítások..."
+msgstr "Beállítások…"
 
 #: ../plugins/profiler/profiler.glade.h:17
 msgid "Profiling Options"
@@ -5898,7 +5898,7 @@ msgstr "Idő kiterjesztése csak ezekhez a szimbólumokhoz:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
-msgstr "Másik cél válasszon..."
+msgstr "Másik cél válasszon…"
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
@@ -6114,7 +6114,7 @@ msgstr "Projektkezelő-fa frissítése"
 
 #: ../plugins/project-manager/plugin.c:833
 msgid "Add _Group..."
-msgstr "_Csoport hozzáadása..."
+msgstr "_Csoport hozzáadása…"
 
 #: ../plugins/project-manager/plugin.c:833
 #: ../plugins/project-manager/plugin.c:867
@@ -6123,7 +6123,7 @@ msgstr "Egy csoport hozzáadása a projekthez"
 
 #: ../plugins/project-manager/plugin.c:838
 msgid "Add _Target..."
-msgstr "Cé_l hozzáadása..."
+msgstr "Cé_l hozzáadása…"
 
 #: ../plugins/project-manager/plugin.c:838
 #: ../plugins/project-manager/plugin.c:872
@@ -6132,7 +6132,7 @@ msgstr "Egy cél hozzáadása a projekthez"
 
 #: ../plugins/project-manager/plugin.c:843
 msgid "Add _Source File..."
-msgstr "_Forrásfájl hozzáadása..."
+msgstr "_Forrásfájl hozzáadása…"
 
 #: ../plugins/project-manager/plugin.c:843
 #: ../plugins/project-manager/plugin.c:862
@@ -6183,7 +6183,7 @@ msgstr "Projekt betöltése: %s"
 
 #: ../plugins/project-manager/plugin.c:1248
 msgid "Created project view..."
-msgstr "Projektnézet létrehozva..."
+msgstr "Projektnézet létrehozva…"
 
 #: ../plugins/project-manager/plugin.c:1261
 #, c-format
@@ -6216,11 +6216,11 @@ msgstr "Projektkezelő felbukkanó műveletek"
 
 #: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
-msgstr "Projekt betöltve... Inicializálás"
+msgstr "Projekt betöltve… Inicializálás"
 
 #: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
-msgstr "Projekt betöltve..."
+msgstr "Projekt betöltve…"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
@@ -6395,17 +6395,17 @@ msgstr "%s átugrása: a fájl már létezik"
 #: ../plugins/project-wizard/install.c:481
 #, c-format
 msgid "Creating %s ... Fail to create directory"
-msgstr "%s létrehozása... A könyvtár létrehozása meghiúsult"
+msgstr "%s létrehozása… A könyvtár létrehozása meghiúsult"
 
 #: ../plugins/project-wizard/install.c:497
 #, c-format
 msgid "Creating %s (using AutoGen)... %s"
-msgstr "%s létrehozása (az AutoGennel)... %s"
+msgstr "%s létrehozása (az AutoGennel)… %s"
 
 #: ../plugins/project-wizard/install.c:502
 #, c-format
 msgid "Creating %s ... %s"
-msgstr "%s létrehozása... %s"
+msgstr "%s létrehozása… %s"
 
 #: ../plugins/project-wizard/install.c:544
 msgid "Executing: "
@@ -6776,7 +6776,7 @@ msgstr "Program kilövése"
 
 #: ../plugins/run-program/plugin.c:238
 msgid "Program Parameters..."
-msgstr "Program paraméterei..."
+msgstr "Program paraméterei…"
 
 #: ../plugins/run-program/plugin.c:240
 msgid "Set current program, arguments and so on"
@@ -6982,7 +6982,7 @@ msgstr "Beállítás"
 
 #: ../plugins/search/plugin.c:192
 msgid "_Find..."
-msgstr "_Keresés..."
+msgstr "_Keresés…"
 
 #: ../plugins/search/plugin.c:193
 msgid "Search for a string or regular expression in the editor"
@@ -7002,7 +7002,7 @@ msgstr "_Előző találat"
 
 #: ../plugins/search/plugin.c:202
 msgid "Find and R_eplace..."
-msgstr "Keresés és _csere..."
+msgstr "Keresés és _csere…"
 
 #: ../plugins/search/plugin.c:204
 msgid "Search for and replace a string or regular expression with another string"
@@ -7016,7 +7016,7 @@ msgstr "Keresés és csere"
 
 #: ../plugins/search/plugin.c:209
 msgid "Fin_d in Files..."
-msgstr "Keresés _fájlokban..."
+msgstr "Keresés _fájlokban…"
 
 #: ../plugins/search/plugin.c:210
 msgid "Search for a string in multiple files or directories"
@@ -7040,7 +7040,7 @@ msgstr "Keresse a jelenlegi kifejezés előző előfordulását"
 
 #: ../plugins/search/plugin.c:245
 msgid "Searching..."
-msgstr "Keresés..."
+msgstr "Keresés…"
 
 #: ../plugins/search/search_preferences.c:44
 msgid "Basic Search"
@@ -7428,7 +7428,7 @@ msgstr "Változtatások érvényesítése a Subversion fában"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:86
 msgid "_Revert..."
-msgstr "_Visszavonás..."
+msgstr "_Visszavonás…"
 
 #. Display label
 #. short-cut
@@ -7440,7 +7440,7 @@ msgstr "A munkapéldány változtatásainak visszavonása."
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:94
 msgid "_Resolve Conflicts..."
-msgstr "Ütközések _feloldása..."
+msgstr "Ütközések _feloldása…"
 
 #. Display label
 #. short-cut
@@ -7452,7 +7452,7 @@ msgstr "A munkapéldány ütközéseinek feloldása."
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "_Update..."
-msgstr "_Frissítés..."
+msgstr "_Frissítés…"
 
 #. Display label
 #. short-cut
@@ -7464,7 +7464,7 @@ msgstr "A helyi másolat szinkronizálása a Subversion fával"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:110
 msgid "Copy Files/Folders..."
-msgstr "Fájlok/mappák másolása..."
+msgstr "Fájlok/mappák másolása…"
 
 #. Display label
 #. short-cut
@@ -7476,7 +7476,7 @@ msgstr "Fájlok/mappák másolása a tárolóban"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch to a Branch/Tag..."
-msgstr "Váltás ágra/címkére..."
+msgstr "Váltás ágra/címkére…"
 
 #. Display label
 #. short-cut
@@ -7488,7 +7488,7 @@ msgstr "A helyi példány átváltása a tároló egy ágára vagy címkéjére"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:126
 msgid "Merge..."
-msgstr "Egyesítés..."
+msgstr "Egyesítés…"
 
 #. Display label
 #. short-cut
@@ -7500,7 +7500,7 @@ msgstr "Változtatások egyesítése a munkapéldányba"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
 msgid "_View Log..."
-msgstr "_Napló megjelenítése..."
+msgstr "_Napló megjelenítése…"
 
 #. Display label
 #. short-cut
@@ -7512,7 +7512,7 @@ msgstr "Fájl előzményeinek megjelenítése"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:142
 msgid "_Diff..."
-msgstr "Eltérés (_diff)..."
+msgstr "Eltérés (_diff)…"
 
 #. Display label
 #. short-cut
@@ -7524,13 +7524,13 @@ msgstr "Helyi fa diffelése a tárolóval"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:193
 msgid "Copy..."
-msgstr "Másolás..."
+msgstr "Másolás…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:201
 msgid "Diff..."
-msgstr "Diff..."
+msgstr "Diff…"
 
 #: ../plugins/subversion/plugin.c:444
 msgid "Subversion operations"
@@ -7554,7 +7554,7 @@ msgstr "Subversion: A véglegesítés kész."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
 msgid "Subversion: Committing changes to the repository..."
-msgstr "Subversion: Változtatások véglegesítése a tárolóba..."
+msgstr "Subversion: Változtatások véglegesítése a tárolóba…"
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
@@ -7576,7 +7576,7 @@ msgstr "[Head/Munkapéldány]"
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
-msgstr "Subversion: Diff lekérése..."
+msgstr "Subversion: Diff lekérése…"
 
 #: ../plugins/subversion/subversion-log-dialog.c:117
 msgid "Diff"
@@ -7596,7 +7596,7 @@ msgstr "Rövid napló"
 
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
-msgstr "Subversion: Napló lekérése..."
+msgstr "Subversion: Napló lekérése…"
 
 #: ../plugins/subversion/subversion-log-dialog.c:301
 msgid "Subversion: File retrieved."
@@ -7604,7 +7604,7 @@ msgstr "Subversion: Fájl lekérve."
 
 #: ../plugins/subversion/subversion-log-dialog.c:343
 msgid "Subversion: Retrieving file..."
-msgstr "Subversion: Fájl lekérése..."
+msgstr "Subversion: Fájl lekérése…"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:36
 msgid "Subversion: Merge complete."
@@ -7860,7 +7860,7 @@ msgstr "Szimbólumböngésző-fa frissítése"
 
 #: ../plugins/symbol-browser/plugin.c:385
 msgid "Created symbols..."
-msgstr "Szimbólumok létrehozva..."
+msgstr "Szimbólumok létrehozva…"
 
 #. Local symbols of the file
 #: ../plugins/symbol-browser/plugin.c:924
@@ -7916,7 +7916,7 @@ msgstr "Szimbólumok automatikus frissítése a fájl mentése nélkül."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
-msgstr "A csomag elemezhetőségének ellenőrzése..."
+msgstr "A csomag elemezhetőségének ellenőrzése…"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Choose ctags executable"
@@ -8017,7 +8017,7 @@ msgstr "Munkakönyvtár:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "_Variable..."
-msgstr "_Változó..."
+msgstr "_Változó…"
 
 #: ../plugins/tools/dialog.c:176
 #, c-format
@@ -8074,7 +8074,7 @@ msgstr "Nem lehet szerkeszteni a parancsfájlt"
 
 #: ../plugins/tools/editor.c:954
 msgid "New accelerator..."
-msgstr "Új gyorsbillentyű..."
+msgstr "Új gyorsbillentyű…"
 
 #: ../plugins/tools/editor.c:979
 msgid "Unable to build user interface for tool editor"
@@ -8285,7 +8285,7 @@ msgstr "_Valgrind"
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:453
 msgid "_Select Tool and Run..."
-msgstr "Eszköz _kiválasztása és futtatás..."
+msgstr "Eszköz _kiválasztása és futtatás…"
 
 #. Action name
 #. Stock icon, if any
@@ -8325,7 +8325,7 @@ msgstr "A Valgrind bináris fájl útvonala:"
 
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
-msgstr "Valgrind bináris fájl útvonalának kiválasztása..."
+msgstr "Valgrind bináris fájl útvonalának kiválasztása…"
 
 #: ../plugins/valgrind/preferences.c:162
 msgid "Preview"
@@ -8482,7 +8482,7 @@ msgstr "Elnyomások fájlja:"
 
 #: ../plugins/valgrind/vggeneralprefs.c:275
 msgid "Choose Valgrind Suppressions File..."
-msgstr "Válasszon ki egy Valgrind elnyomásfájlt..."
+msgstr "Válasszon ki egy Valgrind elnyomásfájlt…"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:165
 msgid "Helgrind"
@@ -8585,7 +8585,7 @@ msgstr "Anjuta bővítmény"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
-msgstr "Munkamenet betöltve..."
+msgstr "Munkamenet betöltve…"
 
 #: ../src/anjuta.glade.h:1
 msgid "<b>Appearance</b>"
@@ -9200,7 +9200,7 @@ msgid "Supported Encodings"
 msgstr "Támogatott kódolások"
 
 msgid "Run _Autogenerate..."
-msgstr "_Autogenerate futtatása..."
+msgstr "_Autogenerate futtatása…"
 
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Fájlok mentéséhez használt kódolás</b>"
