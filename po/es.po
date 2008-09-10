@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-02 07:05+0000\n"
-"PO-Revision-Date: 2008-09-02 11:18+0200\n"
+"POT-Creation-Date: 2008-09-04 08:18+0000\n"
+"PO-Revision-Date: 2008-09-10 20:12+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -65,6 +65,21 @@ msgstr "Falta el tipo definido por el complemento %s"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "el complemento %s ha fallado al registrar el tipo %s"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr ""
+"El archivo que está intentando abrir contiene una cadena de byte no válida."
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"Anjuta no pudo determinar automáticamente la codificación del archivo que "
+"quiere abrir."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -2355,8 +2370,8 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "Línea"
 
@@ -3231,9 +3246,9 @@ msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
-#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:1742
+#: ../plugins/document-manager/plugin.c:2147
+#: ../plugins/document-manager/plugin.c:2157
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3249,41 +3264,41 @@ msgstr "Recargar"
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1557
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1571
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -3962,7 +3977,7 @@ msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -5537,7 +5552,7 @@ msgstr "Cerrar todas las solapas de mensajes"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "Sin detalles de los mensajes"
 
@@ -7257,10 +7272,6 @@ msgid "Use theme font"
 msgstr "Usar tipografía del tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
-msgid "Visible whitespaces"
-msgstr "Espacios en blanco visibles"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Ajustar las líneas largas para que quepan en el papel"
 
@@ -7767,7 +7778,7 @@ msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7808,7 +7819,7 @@ msgstr "Examinador de símbolos"
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
 msgstr "Sin detalles de los archivos"
 
@@ -9221,6 +9232,9 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
+#~ msgid "Visible whitespaces"
+#~ msgstr "Espacios en blanco visibles"
 
 #~ msgid ""
 #~ "Anjuta terminal plugin is not installed. The program will be run without "
