@@ -33,28 +33,28 @@
  *
  * Anjuta major version component (e.g. 1 if %LIBANJUTA_VERSION is 1.2.3)
  */
-#define LIBANJUTA_MAJOR_VERSION			(@LIBANJUTA_MAJOR_VERSION@)
+#define LIBANJUTA_MAJOR_VERSION			(@ANJUTA_MAJOR_VERSION@)
 
 /**
  * LIBANJUTA_MINOR_VERSION:
  *
  * Anjuta minor version component (e.g. 2 if %LIBANJUTA_VERSION is 1.2.3)
  */
-#define LIBANJUTA_MINOR_VERSION			(@LIBANJUTA_MINOR_VERSION@)
+#define LIBANJUTA_MINOR_VERSION			(@ANJUTA_MINOR_VERSION@)
 
 /**
  * LIBANJUTA_MICRO_VERSION:
  *
  * Anjuta micro version component (e.g. 3 if %LIBANJUTA_VERSION is 1.2.3)
  */
-#define LIBANJUTA_MICRO_VERSION			(@LIBANJUTA_MICRO_VERSION@)
+#define LIBANJUTA_MICRO_VERSION			(@ANJUTA_MICRO_VERSION@)
 
 /**
  * LIBANJUTA_VERSION
  *
  * Anjuta version.
  */
-#define LIBANJUTA_VERSION					(@LIBANJUTA_VERSION@)
+#define LIBANJUTA_VERSION					(@ANJUTA_VERSION@)
 
 /**
  * LIBANJUTA_VERSION_S:
@@ -62,7 +62,7 @@
  * Anjuta version, encoded as a string, useful for printing and
  * concatenation.
  */
-#define LIBANJUTA_VERSION_S				"@LIBANJUTA_VERSION@"
+#define LIBANJUTA_VERSION_S				"@ANJUTA_VERSION@"
 
 /**
  * LIBANJUTA_VERSION_HEX:

@@ -1,3 +1,9 @@
+2008-09-10  Rob Bradford  <rob@linux.intel.com>
+
+	* libanjuta/anjuta-version.h.in:
+	* configure.in:
+	Fix #551684: Wrong AC substitutions in anjuta-version.h.
+
 2008-09-10  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-io.c (sourceview_io_init),
