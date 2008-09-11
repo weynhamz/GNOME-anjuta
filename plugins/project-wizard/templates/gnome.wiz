@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>GNOME</name>
-	<description>A generic GNOME project</description>
+	<_name>GNOME</_name>
+	<_description>A generic GNOME project</_description>
 	<icon>gnome-logo.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

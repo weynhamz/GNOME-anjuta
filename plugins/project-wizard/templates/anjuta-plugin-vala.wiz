@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Anjuta Plugin</name>
-	<description>Anjuta plugin project that uses libanjuta framework</description>
+	<_name>Anjuta Plugin</_name>
+	<_description>Anjuta plugin project that uses libanjuta framework</_description>
 	<icon>anjuta-plugin-logo.png</icon>
 	<category>Vala</category>
 	<required-program>automake</required-program>

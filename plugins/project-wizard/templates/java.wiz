@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Generic java (automake)</name>
-	<description>A generic java project using automake project management</description>
+	<_name>Generic java (automake)</_name>
+	<_description>A generic java project using automake project management</_description>
 	<icon>java-logo.png</icon>
 	<category>Java</category>
 	<required-program>automake</required-program>

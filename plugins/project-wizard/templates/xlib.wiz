@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Xlib</name>
-	<description>A generic Xlib project</description>
+	<_name>Xlib</_name>
+	<_description>A generic Xlib project</_description>
 	<icon>xlib-logo.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

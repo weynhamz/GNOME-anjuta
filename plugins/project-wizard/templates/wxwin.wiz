@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Wx Widgets</name>
-	<description>A generic wx Widgets project</description>
+	<_name>Wx Widgets</_name>
+	<_description>A generic wx Widgets project</_description>
 	<icon>wxwin-logo.png</icon>
 	<category>C++</category>
 	<required-program>automake</required-program>

@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>GTK+</name>
-	<description>A generic GTK+ project</description>
+	<_name>GTK+</_name>
+	<_description>A generic GTK+ project</_description>
 	<icon>gtk-logo.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

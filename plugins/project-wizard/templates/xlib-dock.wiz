@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Xlib dock</name>
-	<description>A generic Xlib dock applet</description>
+	<_name>Xlib dock</_name>
+	<_description>A generic Xlib dock applet</_description>
 	<icon>xlib-logo.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

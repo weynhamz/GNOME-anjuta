@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Generic C++</name>
-	<description>A generic C++ project</description>
+	<_name>Generic C++</_name>
+	<_description>A generic C++ project</_description>
 	<icon>cpp-logo.png</icon>
 	<category>C++</category>
 	<required-program>automake</required-program>

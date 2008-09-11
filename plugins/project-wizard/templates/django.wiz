@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Django Project</name>
-	<description>Python webproject using Django Web Framework</description>
+	<_name>Django Project</_name>
+	<_description>Python webproject using Django Web Framework</_description>
 	<icon>django-logo.png</icon>
 	<category>Python</category>
 	<required-program>django-admin.py</required-program>

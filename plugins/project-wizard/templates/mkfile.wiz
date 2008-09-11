@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Makefile project</name>
-	<description>Makefile-based project</description>
+	<_name>Makefile project</_name>
+	<_description>Makefile-based project</_description>
 	<icon>mkfile-logo.png</icon>
 	<category>C</category>
 	<required-program>make</required-program>

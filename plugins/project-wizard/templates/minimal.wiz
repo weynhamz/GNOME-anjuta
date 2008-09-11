@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Generic (Minimal)</name>
-	<description>A generic minimal and flat project </description>
+	<_name>Generic (Minimal)</_name>
+	<_description>A generic minimal and flat project </_description>
 	<icon>terminal-logo.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

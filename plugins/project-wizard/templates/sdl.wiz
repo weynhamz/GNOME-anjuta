@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>SDL</name>
-	<description>A sample SDL project</description>
+	<_name>SDL</_name>
+	<_description>A sample SDL project</_description>
 	<icon>appwiz_sdl.png</icon>
 	<category>C</category>
 	<required-program>automake</required-program>

@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>GTKmm</name>
-	<description>A generic GTKmm (C++) project</description>
+	<_name>GTKmm</_name>
+	<_description>A generic GTKmm (C++) project</_description>
 	<icon>gtkmm-logo.png</icon>
 	<category>C++</category>
 	<required-program>automake</required-program>

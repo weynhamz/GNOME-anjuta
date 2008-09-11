@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Generic python (automake)</name>
-	<description>A generic python project using automake project management</description>
+	<_name>Generic python (automake)</_name>
+	<_description>A generic python project using automake project management</_description>
 	<icon>python-logo.png</icon>
 	<category>Python</category>
 	<required-program>automake</required-program>

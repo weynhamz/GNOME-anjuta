@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Generic gcj compiled java</name>
-	<description>A generic natively compiled java project using the GNU Java Compiler (gcj)</description>
+	<_name>Generic gcj compiled java</_name>
+	<_description>A generic natively compiled java project using the GNU Java Compiler (gcj)</_description>
 	<icon>gcj-logo.png</icon>
 	<category>Java</category>
 	<required-program>automake</required-program>
