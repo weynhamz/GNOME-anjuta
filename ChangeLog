@@ -1,3 +1,8 @@
+2008-09-03  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+ 
+  * configure.ac:
+  Improved subversion detection (#550628)
+
 2008-09-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/macro/macro-dialog.c:

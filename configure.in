@@ -48,7 +48,10 @@ GNOMEBUILD_REQUIRED=0.3.0
 GLADEUI_REQUIRED=3.2.0
 LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
-SUBVERSION_REQUIRED=1.0.2
+SVN_MAJOR=1
+SVN_MINOR=4
+SVN_PATCH=0
+SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 GTKSOURCEVIEW_REQUIRED=2.3.1
 GTKSOURCEVIEW_GNOME_REQUIRED=2.14
 GTKSOURCEVIEW_GTK_REQUIRED=2.10
@@ -905,94 +908,52 @@ if test -n "$SVN_INCLUDE" ; then
 	dnl ------------------------------------
 	dnl APR. Required by subversion (devel)
 	dnl ------------------------------------
-	
-	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config/ apr-1-config "
-	AC_ARG_WITH(apr-config,
-	AC_HELP_STRING([--with-apr-config=FILE],[Use the given path to apr-config when determining APR configuration; defaults to "apr-config"]),
-	[
-	if test "$withval" != "yes" -a "$withval" != ""; then
-	  APR_CONFIGS=$withval
-	fi
-	])
-	AC_MSG_CHECKING([for APR])
-	APR_CONFIG=""
-	for VALUE in $APR_CONFIGS ; do
-			if $VALUE --cflags > /dev/null 2>&1 ; then
-					APR_CONFIG=$VALUE
-					break
-			fi
-	done
-	test $VALUE && APR_CONFIG=$VALUE
-	if test $APR_CONFIG ; then
-		AC_MSG_RESULT([found])
-		APR_CFLAGS="`$APR_CONFIG --cflags` `$APR_CONFIG --cppflags`"
-		APR_INCLUDE="`$APR_CONFIG --includes`"
-		APR_LIBS="`$APR_CONFIG --link-ld --libs`"
-	else
-		AC_MSG_RESULT([not found])
-		dnl AC_MSG_ERROR([APR is required. Try --with-apr-config.])
+	have_atr=no
+	PKG_CHECK_MODULES(APR,                            \
+		apr-1, have_apr=yes, have_apr=no)
+	if test x"$have_apr" = "xno"; then
+		SVN_INCLUDE=""
 	fi
 	
 	dnl -----------------------------------------
 	dnl APR util. Required by subversion (devel)
 	dnl------------------------------------------
-	
-	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config apu-1-config"
-	AC_ARG_WITH(apu-config,
-	AC_HELP_STRING([--with-apu-config=FILE],[Use the given path to apu-config when determining APR util configuration; defaults to "apu-config"]),
-	[
-		if test "$withval" != "yes" -a "$withval" != ""; then
-			APU_CONFIGS=$withval
-		fi
-	])
-	AC_MSG_CHECKING([for APR util])
-	APU_CONFIG=""
-	for VALUE in $APU_CONFIGS ; do
-			if $VALUE --includes > /dev/null 2>&1 ; then
-					APU_CONFIG=$VALUE
-					break
-			fi
-	done
-	if test $APU_CONFIG ; then
-		AC_MSG_RESULT([found])
-		APR_INCLUDE="$APR_INCLUDE `$APU_CONFIG --includes`"
-		APR_LIBS="$APR_LIBS `$APU_CONFIG --link-ld --libs`"
-	else
-		AC_MSG_RESULT([not found])
+	have_atr_util=no
+	PKG_CHECK_MODULES(APR_UTILS,                            \
+		apr-util-1, have_apr_util=yes, have_apr_util=no)
+	if test x"$have_apr_util" = "xno"; then
+		SVN_INCLUDE=""
 	fi
 	
 	dnl -----------------------------------------
 	dnl NEON. Required by subversion (devel)
 	dnl------------------------------------------
-
-	dnl Check for neon. It is required by subversion libs, but for
-	dnl for some strange reason it's not in it's dependencies.
-	dnl subversion plugin will be disabled if neon (devel) is not
-	dnl installed, even if subversion (devel) is installed.
-
-	NEON_CONFIGS="neon-config"
-	AC_ARG_WITH(neon-config,
-	AC_HELP_STRING([--with-neon-config=FILE],[Use the given path to neon-config when determining Neon configuration; defaults to "neon-config"]),
-	[
-		if test "$withval" != "yes" -a "$withval" != ""; then
-			NEON_CONFIGS=$withval
-		fi
-	])
-	AC_MSG_CHECKING([for Neon])
-	NEON_CONFIG=""
-	for VALUE in $NEON_CONFIGS ; do
-			if $VALUE --cflags > /dev/null 2>&1 ; then
-					NEON_CONFIG=$VALUE
-					break
-			fi
-	done
-	if test $NEON_CONFIG ; then
-		AC_MSG_RESULT([found])
-	else
-		AC_MSG_RESULT([not found])
+	have_neon=no
+	PKG_CHECK_MODULES(NEON,                            \
+                neon, have_neon=yes, have_neon=no)
+        if test x"$have_neon" = "xno"; then
 		SVN_INCLUDE=""
-		SVN_LIB=""
 	fi
+
+	dnl Make sure our SVN version is high enough
+	dnl Eww, eww, eww, this is dirty
+	AC_MSG_CHECKING([for subversion >= $SUBVERSION_REQUIRED])
+	AC_LANG(C)
+	dnl Temporarily set CFLAGS so that include dirs are found
+	CFLAGS_TMP=$CFLAGS
+	CFLAGS="-I$SVN_INCLUDE $APR_CFLAGS"
+	AC_COMPILE_IFELSE(
+		[AC_LANG_PROGRAM([[#include <svn_version.h>]],
+			[[
+				#if (SVN_VER_MAJOR < $SVN_MAJOR) || (SVN_VER_MINOR < $SVN_MINOR) || (SVN_VER_PATCH < $SVN_PATCH)
+				#	error "Version too low"
+				#endif
+			]])], AC_MSG_RESULT(yes), have_svn_version=no)
+	if test x"$have_svn_version" = "xno"; then
+		AC_MSG_RESULT(no)
+		SVN_INCLUDE=""
+	fi
+	CFLAGS=$CFLAGS_TMP
 fi
 
 dnl ------------------------------------------
@@ -1000,7 +961,7 @@ dnl Finally prepare subversion build flags
 dnl ------------------------------------------
 
 if test -n "$SVN_INCLUDE" ; then
-	SVN_INCLUDE="-I$SVN_INCLUDE $APR_INCLUDE"
+	SVN_INCLUDE="-I$SVN_INCLUDE"
 	if test x != "x$SVN_LIB" ; then
 	    SVN_LIB="-L$SVN_LIB $APR_LIBS -lsvn_client-1 -lsvn_subr-1"
 	else
