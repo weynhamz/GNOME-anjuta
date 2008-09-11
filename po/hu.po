@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-04 08:18+0000\n"
-"PO-Revision-Date: 2008-09-10 22:27+0200\n"
+"POT-Creation-Date: 2008-09-11 18:00+0000\n"
+"PO-Revision-Date: 2008-09-11 22:29+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,9 @@ msgstr "A megnyitni próbált fájl érvénytelen bájtsorozatot tartalmaz."
 msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr "Az Anjuta nem tudta automatikusan meghatározni a megnyitni kívánt fájl kódolását."
+msgstr ""
+"Az Anjuta nem tudta automatikusan meghatározni a megnyitni kívánt fájl "
+"kódolását."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -189,14 +191,14 @@ msgstr "Thai"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Nem hajtható végre a parancs: „%s”"
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr "az execvp meghiúsult"
 
@@ -468,19 +470,19 @@ msgstr ""
 "előtt?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "Művelet"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "Látható"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "Érzékeny"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "Gyorsbillentyű"
 
@@ -2613,7 +2615,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Csere"
 
-#: ../plugins/document-manager/anjuta-docman.c:1395
+#: ../plugins/document-manager/anjuta-docman.c:1401
 msgid "[read-only]"
 msgstr "[írásvédett]"
 
@@ -4076,12 +4078,12 @@ msgid "Other"
 msgstr "Egyéb"
 
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -4399,7 +4401,7 @@ msgstr "Szerző/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "Szerző:"
 
@@ -6243,7 +6245,7 @@ msgid "Basic Information"
 msgstr "Alapvető információk"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Cél:"
@@ -6253,7 +6255,7 @@ msgid "Enter the basic Project information"
 msgstr "Adja meg a projekt alapvető információt"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "Projektnév:"
 
@@ -6274,7 +6276,7 @@ msgstr ""
 "adja meg, mivel néhány beállítás lehet, hogy a későbbiekben nem módosítható."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "Verzió:"
 
@@ -6428,30 +6430,82 @@ msgid "Icon choice"
 msgstr "Ikonválasztás"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "A generic C++ project"
+msgstr "Általános C++ projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic GNOME project"
+msgstr "Általános GNOME projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr "Általános GTK+ projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "Általános GTKmm (C++) projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "Általános Xlib dokkprojekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "Általános Xlib projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr "Általános Java projekt automake projektkezeléssel"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
+msgstr "Általános minimális, egyszerű projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr "Általános, natívan fordított, a GNU Java Compilert (gcj) használó Java projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "Általános projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr "Általános Python projekt automake projektkezeléssel"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "Általános wxWidgets projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "Minta SDL projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "C++ támogatás:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "A gtk-doc rendszer használata:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "Nemzetköziség támogatása:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "Megosztott programkönyvtárak támogatása:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr "Támogatást ad megosztott programkönyvtárak felépítéséhez a projektben"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
@@ -6459,15 +6513,24 @@ msgstr ""
 "Támogatást ad a nemzetköziséghez, így a projekt lefordítható különböző "
 "nyelvekre"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "Anjuta bővítmény"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr "A libanjuta keretrendszert használó Anjuta bővítményprojekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
 msgstr "Alapvető információk"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley Software Distribution licenc (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6476,47 +6539,87 @@ msgstr ""
 "függ. Ez lehet az elsődleges felület neve vagy bővítmények helye "
 "(programkönyvtár:osztály)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr "Külső csomagok beállítása"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr "Külső csomagok beállítása:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr "Sablon Glade felületfájl előállítása"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr "Glade felülettervező fájl létrehozása"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr "A bővítmény leírásának megjelenítése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr "A bővítmény nevének megjelenítése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Django Project"
+msgstr "Django projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
 msgstr "Django projektinformációk"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "E-mail cím:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "A GCJ-nek tudnia kell, melyik osztály tartalmazza a main() függvényt"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Általános projektinformációk"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Generic"
+msgstr "Általános"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Generic (Minimal)"
+msgstr "Általános (minimális)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Generic C++"
+msgstr "Általános C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Generic gcj compiled java"
+msgstr "Általános gcj-vel fordított Java"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Generic java (automake)"
+msgstr "Általános Java (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Generic python (automake)"
+msgstr "Általános python (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -6526,91 +6629,99 @@ msgstr ""
 "szükséges verzióját is, mint például 'libgnomeui-2.0' vagy 'libgnomeui-2.0 "
 ">= 2.2.0'"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
 msgstr "Ikonfájl:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Icon file for the plugin"
 msgstr "A bővítmény ikonfájlja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Implement plugin interfaces"
 msgstr "Megvalósított bővítményfelület"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Interface implemented by the plugin"
 msgstr "A bővítmény által megvalósított felület"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Interface:"
 msgstr "Felület:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "License"
 msgstr "Licenc"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Main Class:"
 msgstr "Fő osztály:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Main class"
 msgstr "Fő osztály"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Makefile project"
+msgstr "Makefile projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Makefile-based project"
+msgstr "Makefile-alapú projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
 msgstr "Az SDL minimálisan szükséges verziója"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Name of the value to watch"
 msgstr "A megfigyelendő érték neve"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "No license"
 msgstr "Nincs licenc"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Options for project build system"
 msgstr "A projektet felépítő rendszer beállításai"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Plugin Class Name:"
 msgstr "Bővítményosztály neve:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Plugin Dependencies:"
 msgstr "Bővítmény függőségei:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Plugin Description:"
 msgstr "Bővítmény leírása:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Plugin Title:"
 msgstr "Bővítmény neve:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin class name"
 msgstr "Bővítményosztály neve"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin has menus or/and toolbars"
 msgstr "A bővítménynek menüi és/vagy eszköztárai vannak"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
 msgstr "Megvalósítandó bővítményfelületek"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
 msgstr "Projektkönyvtár, kimeneti fájl, stb."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Project directory:"
 msgstr "Projektkönyvtár:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -6618,105 +6729,125 @@ msgstr ""
 "A projekt neve nem tartalmazhat szóközöket, mivel az a projekt felépítési "
 "céljának (végrehajtható fájl, programkönyvtár, stb) neve lesz."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "Projekt neve:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "Projektbeállítások"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr "Python webprojekt a Django webes keretrendszer használatával"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr "Csomag megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr "Szükséges SDL verzió:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr "SDL_gfx programkönyvtár megkövetelése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr "SDL_gfx megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr "SDL_image programkönyvtár megkövetelése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr "SDL_image megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr "SDL_mixer programkönyvtár megkövetelése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr "SDL_mixer megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr "SDL_net programkönyvtár megkövetelése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr "SDL_net megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr "SDL_ttf programkönyvtár megkövetelése"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr "SDL_ttf megkövetelése:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr "Válassza ki a kód licencét"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr "Megfigyelendő parancsértelmező-értékek"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr "A libglade használata a felhasználói felülethez"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 "A pkg-config segítségével más csomagokból származó támogató "
 "programkönyvtárakat vehet fel"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "A libglade-2.0 programkönyvtár használata a Glade felületfájl futás közbeni "
 "betöltésére"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr "Érték neve:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr "Megfigyelendő értékek"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr "A bővítménynek vannak-e menüi vagy eszköztárai"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "Wx Widgets"
+msgstr "WxWidgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr "Xlib dokk"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "A gtk-doc segítségével GObject alapú osztályok API dokumentációi készíthetők "
 "el"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
 msgstr "projekt neve"
 
@@ -7162,12 +7293,12 @@ msgstr "%s nem nyitható meg: %s"
 msgid "Could not save %s: %s"
 msgstr "%s nem menthető: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:246
+#: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "A fájl nem menthető, mivel még nem adott meg fájlnevet"
 
-#: ../plugins/sourceview/sourceview-io.c:488
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "%d. új fájl"
@@ -8579,10 +8710,6 @@ msgstr "Nem állított be elnyomási fájlt a beállításokban."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr "Anjuta bővítmény"
-
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "Munkamenet betöltve…"
@@ -9192,37 +9319,4 @@ msgstr "Nyelvkezelő"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Több programozási nyelvet követő bővítmény"
-
-msgid "Stock Encodings"
-msgstr "Alap kódolások"
-
-msgid "Supported Encodings"
-msgstr "Támogatott kódolások"
-
-msgid "Run _Autogenerate..."
-msgstr "_Autogenerate futtatása…"
-
-msgid "<b>Encoding to use when saving files</b>"
-msgstr "<b>Fájlok mentéséhez használt kódolás</b>"
-
-msgid "Always save in UTF-8 encoding (faster)"
-msgstr "Mindig mentsen UTF-8 kódolással (gyorsabb)"
-
-msgid "Encodings"
-msgstr "Kódolások"
-
-msgid "Try to save in current locale's encoding"
-msgstr "Próbálja menteni a jelenlegi helyi kódolás szerint"
-
-msgid "Try to save in original encoding"
-msgstr "Próbálja menteni a fájl eredeti kódolása szerint"
-
-msgid "The file %s was modified by another application. Save it anyway?"
-msgstr "A(z) %s fájlt egy másik alkalmazás módosított. Mindenképp menti?"
-
-msgid "Enable VFS file monitoring"
-msgstr "VFS fájlmegfigyelés engedélyezése"
-
-msgid "Menu Items:"
-msgstr "Menüelemek:"
 
