@@ -1,7 +1,14 @@
+2008-09-10  Rob Bradford  <rob@robster.org.uk>
+
+	* libanjuta/anjuta-status.c (anjuta_status_dispose),
+	anjuta_status_instance_init), (anjuta_status_progress_add_ticks):
+	Fix #529468: Use weak pointers to avoid acting on widgets that have
+	been destroyed.
+
 2008-09-03  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
  
-  * configure.ac:
-  Improved subversion detection (#550628)
+	* configure.ac:
+	Improved subversion detection (#550628)
 
 2008-09-11  Sébastien Granjoux  <seb.sfo@free.fr>
 

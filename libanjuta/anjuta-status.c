@@ -125,6 +125,21 @@ anjuta_status_dispose (GObject *widget)
 						   (gpointer*)(gpointer)&status->priv->window);
 		status->priv->window = NULL;
 	}
+	if (status->priv->progress_bar)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (status->priv->progress_bar), 
+							(gpointer)&status->priv->progress_bar);
+		gtk_widget_destroy (status->priv->progress_bar);
+		status->priv->progress_bar = NULL;
+	}
+	if (status->priv->status_bar)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (status->priv->status_bar), 
+							(gpointer)&status->priv->status_bar);
+		gtk_widget_destroy (status->priv->status_bar);
+		status->priv->status_bar = NULL;
+	}
+
 	G_OBJECT_CLASS (parent_class)->dispose (widget);
 }
 
@@ -135,9 +150,13 @@ anjuta_status_instance_init (AnjutaStatus *status)
 	status->priv->progress_bar = gtk_progress_bar_new ();
 	gtk_box_pack_start (GTK_BOX (status), status->priv->progress_bar, FALSE, TRUE, 0);
 	gtk_widget_show (status->priv->progress_bar);
+	g_object_add_weak_pointer (G_OBJECT (status->priv->progress_bar),
+							   (gpointer)&status->priv->progress_bar);
 	status->priv->status_bar = gtk_statusbar_new ();
 	gtk_box_pack_start (GTK_BOX (status), status->priv->status_bar, TRUE, TRUE, 0);
 	gtk_widget_show (status->priv->status_bar);
+	g_object_add_weak_pointer (G_OBJECT(status->priv->status_bar), 
+							   (gpointer)&status->priv->status_bar);
 	status->priv->status_message = gtk_statusbar_get_context_id (GTK_STATUSBAR (status->priv->status_bar),
 																 "status-message");
 	status->priv->push_message = gtk_statusbar_get_context_id (GTK_STATUSBAR (status->priv->status_bar),
@@ -438,16 +457,19 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 	}
 	else
 	{	
-		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
-									   percentage);
-		gtk_widget_queue_draw (GTK_WIDGET (status->priv->status_bar));
-		gtk_widget_queue_draw (GTK_WIDGET (status->priv->progress_bar));
-		if (GTK_WIDGET(status->priv->progress_bar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(status->priv->progress_bar)->window))
-			gdk_window_process_updates (GTK_WIDGET(status->priv->progress_bar)->window, TRUE);
-		if (GTK_WIDGET(status->priv->status_bar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(status->priv->status_bar)->window))
-			gdk_window_process_updates (GTK_WIDGET(status->priv->status_bar)->window, TRUE);
+		if (status->priv->progress_bar && status->priv->status_bar)
+		{
+			gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
+										   percentage);
+			gtk_widget_queue_draw (GTK_WIDGET (status->priv->status_bar));
+			gtk_widget_queue_draw (GTK_WIDGET (status->priv->progress_bar));
+			if (GTK_WIDGET(status->priv->progress_bar)->window != NULL &&
+				GDK_IS_WINDOW(GTK_WIDGET(status->priv->progress_bar)->window))
+				gdk_window_process_updates (GTK_WIDGET(status->priv->progress_bar)->window, TRUE);
+			if (GTK_WIDGET(status->priv->status_bar)->window != NULL &&
+				GDK_IS_WINDOW(GTK_WIDGET(status->priv->status_bar)->window))
+				gdk_window_process_updates (GTK_WIDGET(status->priv->status_bar)->window, TRUE);
+		}
 	}
 }
 

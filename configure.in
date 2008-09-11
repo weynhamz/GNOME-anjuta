@@ -963,11 +963,11 @@ dnl ------------------------------------------
 if test -n "$SVN_INCLUDE" ; then
 	SVN_INCLUDE="-I$SVN_INCLUDE"
 	if test x != "x$SVN_LIB" ; then
-	    SVN_LIB="-L$SVN_LIB $APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	    SVN_LIB="-L$SVN_LIB $APR_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
 	else
-	    SVN_LIB="$APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	    SVN_LIB="$APR_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
 	fi
-	SVN_CFLAGS="$APR_CFLAGS"
+	SVN_CFLAGS="$APR_CFLAGS $NEON_CFLAGS"
 fi
 
 AM_CONDITIONAL(BUILD_SVN, [test -n "$SVN_INCLUDE"])
