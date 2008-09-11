@@ -280,10 +280,9 @@ expand_macro(MacroPlugin * plugin, gchar *txt, gint *offset)
 {
 	gchar *ptr = txt;
 	gchar *c = txt;
-	gchar *buffer = "";
+	GString *buffer = g_string_new_len (NULL, strlen(txt));
 	gchar *begin;
 	gchar *keyword;
-	gchar *buf = NULL;
 	gchar *expand = NULL;
 	gboolean found_curs = FALSE;
 	
@@ -302,16 +301,15 @@ expand_macro(MacroPlugin * plugin, gchar *txt, gint *offset)
 				
 					if (expand_keyword(plugin, keyword, &expand))
 					{
-						buf = g_strndup(ptr, begin - ptr);
-						buffer = g_strconcat(buffer, buf, expand, NULL);
+						g_string_append_len (buffer, ptr, begin - ptr);
+						g_string_append (buffer, expand);
 						g_free(expand);
 					}
 					else
 					{
-						buf = g_strndup(ptr, c - ptr + 1);
-						buffer = g_strconcat(buffer, buf, NULL);
+						g_string_append_len (buffer, ptr, c - ptr + 1);
 					}
-					g_free(buf);
+					g_free (keyword);
 			        ptr = c + 1;
 			       break;
 				}	
@@ -322,17 +320,13 @@ expand_macro(MacroPlugin * plugin, gchar *txt, gint *offset)
 		else if ( !found_curs && *c=='|' )		
 		{
 			found_curs = TRUE;
-			buf = g_strndup(ptr, c - ptr);
-
-			buffer = g_strconcat(buffer, buf, NULL);
-			*offset = strlen(buffer);
+			g_string_append_len (buffer, ptr, c - ptr);
+			*offset = buffer->len;
 			ptr = c + 1;	
 		}    
 		c++;
 	}
-    buf = g_strndup(ptr, c - ptr);
-    buffer = g_strconcat(buffer, buf, NULL);
+	g_string_append_len (buffer, ptr, c - ptr);
 	
-    g_free(buf);
-    return buffer;
+    return g_string_free (buffer, FALSE);
 }

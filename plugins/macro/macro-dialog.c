@@ -323,6 +323,8 @@ macro_dialog_new (MacroPlugin * plugin)
 	
 	g_signal_connect (G_OBJECT (dialog), "response",
 			  G_CALLBACK (on_dialog_response), plugin);
+	g_signal_connect (G_OBJECT(dialog), "delete-event",
+			G_CALLBACK(gtk_widget_hide_on_delete), NULL);	
 	g_signal_connect(G_OBJECT(dialog), "key-press-event",
 			G_CALLBACK(on_macro_dialog_key_press_event), plugin);
 	

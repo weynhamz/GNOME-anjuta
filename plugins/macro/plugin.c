@@ -21,6 +21,7 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.ui"
 #define ICON_FILE "anjuta-macro.png"
@@ -120,7 +121,7 @@ activate_plugin (AnjutaPlugin * plugin)
 
 	macro_plugin->editor_watch_id =
 		anjuta_plugin_add_watch (plugin,
-					 "document_manager_current_editor",
+					 IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 					 value_added_current_editor,
 					 value_removed_current_editor, NULL);
 					 

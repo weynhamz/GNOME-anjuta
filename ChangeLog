@@ -1,5 +1,18 @@
 2008-09-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/macro/macro-dialog.c:
+	Fix a bug (dialog will never be displayed again) when closing
+	macro dialog with close button
+
+	* plugins/macro/plugin.c:
+	Use correct variable to track current editor
+
+	* plugins/macro/macro-util.c,
+	plugins/macro/macro-db.c:
+	Fix some memory leaks 
+
+2008-09-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/project-wizard/templates/anjuta-plugin.wiz,
 	plugins/project-wizard/templates/anjuta-plugin-vala.wiz,
 	plugins/project-wizard/templates/cpp.wiz,

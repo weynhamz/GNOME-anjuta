@@ -432,15 +432,16 @@ gchar* macro_db_get_macro(MacroPlugin * plugin, MacroDB * db, GtkTreeIter* iter,
 		
 	gchar *text;
 	gboolean is_category;
+	gchar *buffer = NULL;
+	
 	gtk_tree_model_get (macro_db_get_model(db), iter,
 						MACRO_TEXT, &text,
 						MACRO_IS_CATEGORY, &is_category, -1);
-	if (is_category)
-		return NULL;
-	else
+	if (!is_category)
 	{
-		gchar* buffer = expand_macro(plugin, text, offset);
-		g_free (text);
-		return buffer;
+		buffer = expand_macro(plugin, text, offset);
 	}
+	g_free (text);
+	
+	return buffer;
 }
