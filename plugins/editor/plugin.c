@@ -103,7 +103,8 @@ itext_editor_factory_new_editor(IAnjutaEditorFactory* factory,
 	AnjutaShell *shell = ANJUTA_PLUGIN (factory)->shell;
 	AnjutaPreferences *prefs = anjuta_shell_get_preferences (shell, NULL);
 	AnjutaStatus *status = anjuta_shell_get_status (shell, NULL);
-	gchar* uri = g_file_get_uri (file);
+	/* file can be NULL, if we open a buffer, not a file */
+	gchar* uri = file ? g_file_get_uri (file) : NULL;
 	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new(status, prefs,
 														   uri, filename));
 	g_free(uri);

@@ -811,7 +811,10 @@ on_editor_update_ui (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 	if (sv_plugin->locals_line_number == lineno)
 		return;
 	sv_plugin->locals_line_number = lineno;
-	
+
+	if (model == NULL);
+		return;
+
 	if (!gtk_tree_model_get_iter_first (model, &iter))
 		return;
 	while (!found && lineno >= 0)

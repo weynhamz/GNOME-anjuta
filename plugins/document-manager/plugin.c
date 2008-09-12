@@ -1452,16 +1452,19 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 			if (ianjuta_file_savable_is_dirty (editor, NULL))
 			{
 				const gchar *name;
-				gchar *uri;
+				gchar *uri = NULL;
 				GFile* file;
 			
 				name = ianjuta_document_get_filename (IANJUTA_DOCUMENT (editor), NULL);
 				file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
-				uri = g_file_get_uri (file);
+				if (file)
+				{
+					uri = g_file_get_uri (file);
+					g_object_unref (file);
+				}
 				anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
 											 on_save_prompt_save_editor, plugin);
 				g_free (uri);
-				g_object_unref (file);
 			}
 		}
 		g_list_free (buffers);

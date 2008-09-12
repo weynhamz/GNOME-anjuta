@@ -1018,10 +1018,14 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 	if ((ed != NULL) && IANJUTA_IS_MARKABLE (ed))
 	{
 		GFile* file;
-		gchar* uri;
+		gchar* uri = NULL;
 		
 		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
-		uri = g_file_get_uri (file);
+		if (file)
+		{
+			uri = g_file_get_uri (file);
+			g_object_unref (file);
+		}
 		if ((uri != NULL) && (bi->uri != NULL) && (strcmp (uri, bi->uri) == 0))
 		{
 			bi->editor = ed;
@@ -1030,7 +1034,6 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 			breakpoints_dbase_connect_to_editor (bd, ed);			
 		}
 		g_free (uri);
-		g_object_unref (file);
 	}
 
 	if (bd->debugger != NULL)
@@ -1465,9 +1468,12 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		if (te != NULL)
 		{
 			GFile* file = ianjuta_file_get_file (IANJUTA_FILE(te), NULL);
-			uri = g_file_get_uri (file);
-			line = ianjuta_editor_get_lineno (te, NULL);
-			g_object_unref (file);
+			if (file != NULL)
+			{
+				uri = g_file_get_uri (file);
+				line = ianjuta_editor_get_lineno (te, NULL);
+				g_object_unref (file);
+			}
 		}
 		//NULL uri is ok here
 		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);

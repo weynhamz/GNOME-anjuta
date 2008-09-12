@@ -260,7 +260,7 @@ indent_plugin_activate_plugin (AnjutaPlugin *plugin)
 	indent_plugin->idt = indent_init(prefs);
 	
 	indent_plugin->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	indent_plugin->current_editor = NULL;
