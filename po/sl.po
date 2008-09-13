@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-04 08:18+0000\n"
-"PO-Revision-Date: 2008-09-08 14:37+0100\n"
+"POT-Creation-Date: 2008-09-11 18:00+0000\n"
+"PO-Revision-Date: 2008-09-12 13:11+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "vstavek %s ni ustrezno registriral vrste %s"
 #: ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr ""
+msgstr "Datoteka, ki jo želite odpreti, vsebuje neveljavno bitno zaporedje."
 
 #: ../libanjuta/anjuta-convert.c:168
 #: ../libanjuta/anjuta-convert.c:207
@@ -214,7 +214,7 @@ msgstr "Tajsko"
 msgid "Unknown"
 msgstr "Neznano"
 
-#: ../libanjuta/anjuta-launcher.c:1158
+#: ../libanjuta/anjuta-launcher.c:1159
 #: ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276
 #: ../plugins/devhelp/plugin.c:542
@@ -224,7 +224,7 @@ msgstr "Neznano"
 msgid "Cannot execute command: \"%s\""
 msgstr "Ni mogoče izvesti ukaza: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr "execvp napaka"
 
@@ -378,9 +378,8 @@ msgid "URI to sync the profile xml"
 msgstr "URI za usklajevanje xml profila"
 
 #: ../libanjuta/anjuta-profile.c:471
-#, fuzzy
 msgid "Please select a plugin from the list"
-msgstr "Izbor vstavka za zagon"
+msgstr "Prosim, izberite vstavek s seznama"
 
 #: ../libanjuta/anjuta-profile.c:512
 #: ../libanjuta/anjuta-profile.c:535
@@ -491,19 +490,19 @@ msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "Odprt je predmet s spremenjeno vsebino. Ali ga želite shraniti?</b>"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "Dejanje"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "Vidno"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "Občutljivo"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "Bližnjica"
 
@@ -643,7 +642,7 @@ msgstr "Nastavitve projekta"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Continue on errors"
-msgstr ""
+msgstr "Nadaljuj kljub napakam"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 #, fuzzy
@@ -2677,10 +2676,9 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: ../plugins/document-manager/anjuta-docman.c:1395
-#, fuzzy
+#: ../plugins/document-manager/anjuta-docman.c:1401
 msgid "[read-only]"
-msgstr " (samo za branje)"
+msgstr "[(samo za branje]"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:1
 msgid "<b>Autosave</b>"
@@ -4117,12 +4115,12 @@ msgid "Other"
 msgstr "Ostalo"
 
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "Splošna javna licenca (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lažja splošna javna licenca (LGPL)"
 
@@ -4448,7 +4446,7 @@ msgstr "Avtor:"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "Avtor:"
 
@@ -4531,12 +4529,10 @@ msgid "Grep:"
 msgstr "Grep:"
 
 #: ../plugins/git/anjuta-git.glade.h:56
-#, fuzzy
 msgid "Hard"
 msgstr "Težko"
 
 #: ../plugins/git/anjuta-git.glade.h:57
-#, fuzzy
 msgid "Head"
 msgstr "Glava"
 
@@ -4546,18 +4542,16 @@ msgid "Ignore Files"
 msgstr "Prezri datoteke:"
 
 #: ../plugins/git/anjuta-git.glade.h:59
-#, fuzzy
 msgid "Merge"
-msgstr "&Združi"
+msgstr "Združi"
 
 #: ../plugins/git/anjuta-git.glade.h:60
 msgid "Mixed"
-msgstr ""
+msgstr "Mešano"
 
 #: ../plugins/git/anjuta-git.glade.h:61
-#, fuzzy
 msgid "Previous commit"
-msgstr "Predhodni Dokument"
+msgstr "Predhodna objava"
 
 #: ../plugins/git/anjuta-git.glade.h:62
 msgid "Pull"
@@ -4569,9 +4563,8 @@ msgid "Rebase"
 msgstr "Objava"
 
 #: ../plugins/git/anjuta-git.glade.h:64
-#, fuzzy
 msgid "Remove File"
-msgstr "Odstrani vse"
+msgstr "Odstrani datoteko"
 
 #: ../plugins/git/anjuta-git.glade.h:65
 #, fuzzy
@@ -4753,9 +4746,9 @@ msgid "<b>Tag:</b> %s"
 msgstr "<b>Oznaka:</b> %s"
 
 #: ../plugins/git/git-log-dialog.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Remote:</b> %s"
-msgstr "Oddaljeno"
+msgstr "<b>Oddaljeno:</b> %s"
 
 #: ../plugins/git/git-merge-dialog.c:36
 #, fuzzy
@@ -4820,9 +4813,8 @@ msgstr "_Potrditev ..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:73
-#, fuzzy
 msgid "_Fetch"
-msgstr "_Pripni"
+msgstr "_Pridobi"
 
 #. Action name
 #. Stock icon, if any
@@ -4835,30 +4827,26 @@ msgstr "_Počisti"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:89
 #: ../plugins/git/plugin.c:185
-#, fuzzy
 msgid "_Start..."
-msgstr "Začetek:"
+msgstr "_Začni ..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:97
-#, fuzzy
 msgid "_Continue"
 msgstr "_Nadaljuj"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:105
-#, fuzzy
 msgid "_Skip"
 msgstr "Pre_skoči"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:113
-#, fuzzy
 msgid "_Abort"
-msgstr "Prekini"
+msgstr "_Prekliči"
 
 #. Action name
 #. Stock icon, if any
@@ -4896,47 +4884,41 @@ msgstr "Ustvarjenj pogled projekta ..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:161
 #: ../plugins/git/plugin.c:358
-#, fuzzy
 msgid "_Reset tree..."
-msgstr "_Povrni ..."
+msgstr "_Ponovno nastavi strukturo ..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:169
 #: ../plugins/git/plugin.c:366
-#, fuzzy
 msgid "_Revert commit..."
-msgstr "_Povrni ..."
+msgstr "_Povrni objavo..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:177
 #: ../plugins/git/plugin.c:374
-#, fuzzy
 msgid "_Bisect"
-msgstr "_Počisti"
+msgstr "_Razdeli"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:201
-#, fuzzy
 msgid "_Good"
-msgstr "V REDU"
+msgstr "_Dobro"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:209
-#, fuzzy
 msgid "_Bad"
-msgstr "SLABO"
+msgstr "_Slabo"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:217
 #: ../plugins/git/plugin.c:410
-#, fuzzy
 msgid "_View log..."
-msgstr "Pogled beležnice"
+msgstr "_Pogled beležnice ..."
 
 #. Action name
 #. Stock icon, if any
@@ -4960,9 +4942,8 @@ msgstr "_Odstrani ..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:241
-#, fuzzy
 msgid "_Ignore..."
-msgstr "Prezri"
+msgstr "_Prezri ..."
 
 #. Action name
 #. Stock icon, if any
@@ -5007,9 +4988,8 @@ msgstr "_Izbriši ..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:306
 #: ../plugins/git/plugin.c:350
-#, fuzzy
 msgid "_Create tag..."
-msgstr "Ustvari API oznake"
+msgstr "_Ustvari oznako ..."
 
 #. Action name
 #. Stock icon, if any
@@ -5045,24 +5025,20 @@ msgid "_Set bad revision"
 msgstr "Uporabi revizijo: "
 
 #: ../plugins/git/plugin.c:580
-#, fuzzy
 msgid "Git operations"
-msgstr "Opravila opazovanja"
+msgstr "GIT opravila"
 
 #: ../plugins/git/plugin.c:585
-#, fuzzy
 msgid "Git log operations"
-msgstr "Opravila pomoči"
+msgstr "GIT opravila beleženja"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
-msgstr "Opravila opazovanja"
+msgstr "GIT FM opravila"
 
 #: ../plugins/git/plugin.c:624
-#, fuzzy
 msgid "Git Log"
-msgstr "Pogled beležnice"
+msgstr "GIT beleženje"
 
 #: ../plugins/glade/plugin.c:493
 msgid "Widgets"
@@ -5706,31 +5682,31 @@ msgid "Error writing %s"
 msgstr "Napaka med pisanjem %s"
 
 #: ../plugins/message-view/message-view.c:1294
-#, fuzzy, c-format
+#, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
-msgstr[0] "Sporočil:"
-msgstr[1] "Sporočila"
-msgstr[2] "Sporočila"
-msgstr[3] "Sporočila"
+msgstr[0] "%d sporočil"
+msgstr[1] "%d sporočilo"
+msgstr[2] "%d sporočili"
+msgstr[3] "%d sporočila"
 
 #: ../plugins/message-view/message-view.c:1299
-#, fuzzy, c-format
+#, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
-msgstr[0] "Opozorilo: %1"
-msgstr[1] "Opozorila:"
-msgstr[2] "Opozorila:"
-msgstr[3] "Opozorila:"
+msgstr[0] "%d opozoril"
+msgstr[1] "%d opozorilo"
+msgstr[2] "%d opozorili"
+msgstr[3] "%d opozorila"
 
 #: ../plugins/message-view/message-view.c:1304
-#, fuzzy, c-format
+#, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
-msgstr[0] "I/O napaka"
-msgstr[1] "Napake:"
-msgstr[2] "Napake:"
-msgstr[3] "Napake:"
+msgstr[0] "%d napak"
+msgstr[1] "%d napaka"
+msgstr[2] "%d napaki"
+msgstr[3] "%d napake"
 
 #: ../plugins/message-view/plugin.c:70
 msgid "_Next Message"
@@ -5791,9 +5767,8 @@ msgid "Patching...\n"
 msgstr "Uveljavljanje popravkov ...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
-#, fuzzy
 msgid "Patching..."
-msgstr "Uveljavljanje popravkov ...\n"
+msgstr "Uveljavljanje popravkov ..."
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5810,9 +5785,8 @@ msgstr ""
 "Preverite in odstranite zavrnjene datoteke.\n"
 
 #: ../plugins/patch/patch-plugin.c:257
-#, fuzzy
 msgid "Patching complete"
-msgstr "Iskanje je končano."
+msgstr "Uveljavljanje popravkov je končano"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -5820,19 +5794,16 @@ msgid "Dry run"
 msgstr ""
 
 #: ../plugins/patch/patch-plugin.glade.h:2
-#, fuzzy
 msgid "File/Directory to patch:"
-msgstr "Uveljavljanje popravkov mape ali datoteke"
+msgstr "Popravkov map in datotek:"
 
 #: ../plugins/patch/patch-plugin.glade.h:4
-#, fuzzy
 msgid "Patch file:"
-msgstr "Uveljavi popravke datoteke"
+msgstr "Datoteka s popravki"
 
 #: ../plugins/patch/patch-plugin.glade.h:5
-#, fuzzy
 msgid "Patch level:"
-msgstr "Uveljavi popravke datoteke"
+msgstr "Raven popravkov"
 
 #. Action name
 #. Stock icon, if any
@@ -6367,7 +6338,7 @@ msgid "Basic Information"
 msgstr "Osnovne podrobnosti"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Cilj:"
@@ -6377,7 +6348,7 @@ msgid "Enter the basic Project information"
 msgstr "Vnesite osnovne podrobnosti projekta"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "Ime projekta:"
 
@@ -6390,7 +6361,7 @@ msgid "The Application Assistant will generate a basic skeleton for a project, i
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "Različica:"
 
@@ -6518,270 +6489,399 @@ msgid "Icon choice"
 msgstr "Izbira ikone"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-msgid "Add C++ support:"
-msgstr "Dodaj C++ podporo"
+msgid "A generic C++ project"
+msgstr "Splošni C++ projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
-msgid "Add gtk-doc system:"
-msgstr "Dodaj gtk-doc sistem"
+msgid "A generic GNOME project"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "Add internationalization:"
+msgid "A generic GTK+ project"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
-msgid "Add shared library support:"
-msgstr "Dodaj podporo souporabe knjižnic"
+msgid "A generic GTKmm (C++) project"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
-msgid "Adds C++ support to the project so that C++ source files can be built"
+msgid "A generic Xlib dock applet"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
-msgid "Adds support for building shared libraries in your project"
+msgid "A generic Xlib project"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-msgid "Adds support for internationalization so that your project can have translations in different languages"
+msgid "A generic java project using automake project management"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-msgid "Basic information"
-msgstr "Osnovne podrobnosti"
+msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-msgid "Berkeley Software Distribution License (BSD)"
-msgstr "Berkeley programska licenca razširjanja (BSD)"
+msgid "A generic project"
+msgstr "Splošni projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
-msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgid "A generic python project using automake project management"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "Primer SDL projekta"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
+msgid "Add C++ support:"
+msgstr "Dodaj C++ podporo"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
+msgid "Add gtk-doc system:"
+msgstr "Dodaj gtk-doc sistem"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
+msgid "Add internationalization:"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
+msgid "Add shared library support:"
+msgstr "Dodaj podporo souporabe knjižnic"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
+msgid "Adds C++ support to the project so that C++ source files can be built"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
+msgid "Adds support for building shared libraries in your project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
+msgid "Adds support for internationalization so that your project can have translations in different languages"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "Vstavek Anjute"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
+msgid "Basic information"
+msgstr "Osnovne podrobnosti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
+msgid "Berkeley Software Distribution License (BSD)"
+msgstr "Berkeley programska licenca razširjanja (BSD)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
+msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr "Nastavitev zunanjih paketov"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr "Nastavitev zunanjih paketov:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr "Ustvari glade vmesniško datoteko"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr "Prikaži opis vstavka"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr "Prikaži naslov vstavka"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Django Project"
+msgstr "Django projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
 msgstr "Podrobnosti Django projekta"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "Elektronski naslov:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Splošne podrobnosti porjekta"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
-msgid "Icon File:"
-msgstr "Datoteka ikone:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
-msgid "Icon file for the plugin"
-msgstr "Datoteka ikone za vstavek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
-msgid "Implement plugin interfaces"
-msgstr "Vključevanje vmesnikov vstavkov"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
-msgid "Interface implemented by the plugin"
-msgstr "Vključevanje vmesnikov preko vstavkov"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
-msgid "Interface:"
-msgstr "Vmesnik:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
-msgid "License"
-msgstr "Licenca"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
-msgid "Main Class:"
-msgstr "Glavni razred:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
-msgid "Main class"
-msgstr "Glavni razred"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
-msgid "Mininum SDL version required"
-msgstr "Najmanjša dovoljena SLD različica"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
-msgid "Name of the value to watch"
-msgstr "Ime vrednosti za opazovanje"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
-msgid "No license"
-msgstr "Ni licence"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
-msgid "Options for project build system"
-msgstr "Možnosti za sistem izgradnje projekta"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
-msgid "Plugin Class Name:"
-msgstr "Ime razreda vstavka:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
-msgid "Plugin Dependencies:"
-msgstr "Odvisnosti vstavkov:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
-msgid "Plugin Description:"
-msgstr "Opis vstavka:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
-msgid "Plugin Title:"
-msgstr "Naslov vstavka:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
-msgid "Plugin class name"
-msgstr "Ime razreda vstavka"
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
-msgid "Plugin has menus or/and toolbars"
-msgstr "Vstavek ima menije ali orodne vrstice"
+msgid "Generic"
+msgstr "Splošno"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
-msgid "Plugin interfaces to implement"
-msgstr "Vmesnik vstavka za vključitev"
+msgid "Generic (Minimal)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Generic C++"
+msgstr "Splošni C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
-msgid "Project directory, output file etc."
-msgstr "Projektna mapa, odvodna datoteka ..."
+msgid "Generic gcj compiled java"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
-msgid "Project directory:"
-msgstr "Mapa projekta:"
+msgid "Generic java (automake)"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgid "Generic python (automake)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
+msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
+msgid "Icon File:"
+msgstr "Datoteka ikone:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
+msgid "Icon file for the plugin"
+msgstr "Datoteka ikone za vstavek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Implement plugin interfaces"
+msgstr "Vključevanje vmesnikov vstavkov"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
+msgid "Interface implemented by the plugin"
+msgstr "Vključevanje vmesnikov preko vstavkov"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
+msgid "Interface:"
+msgstr "Vmesnik:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
+msgid "License"
+msgstr "Licenca"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
+msgid "Main Class:"
+msgstr "Glavni razred:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
+msgid "Main class"
+msgstr "Glavni razred"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Makefile project"
+msgstr "Makefile projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Makefile-based project"
+msgstr "Projekt z Makefile osnovo"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
+msgid "Mininum SDL version required"
+msgstr "Najmanjša dovoljena SLD različica"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
+msgid "Name of the value to watch"
+msgstr "Ime vrednosti za opazovanje"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
+msgid "No license"
+msgstr "Ni licence"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
+msgid "Options for project build system"
+msgstr "Možnosti za sistem izgradnje projekta"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
+msgid "Plugin Class Name:"
+msgstr "Ime razreda vstavka:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
+msgid "Plugin Dependencies:"
+msgstr "Odvisnosti vstavkov:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
+msgid "Plugin Description:"
+msgstr "Opis vstavka:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
+msgid "Plugin Title:"
+msgstr "Naslov vstavka:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
+msgid "Plugin class name"
+msgstr "Ime razreda vstavka"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
+msgid "Plugin has menus or/and toolbars"
+msgstr "Vstavek ima menije ali orodne vrstice"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
+msgid "Plugin interfaces to implement"
+msgstr "Vmesnik vstavka za vključitev"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
+msgid "Project directory, output file etc."
+msgstr "Projektna mapa, odvodna datoteka ..."
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
+msgid "Project directory:"
+msgstr "Mapa projekta:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
+msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "Ime projekta:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "Možnosti projekta"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr "Zahtevani paketi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr "Zahtvana SDL različica:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr "Zahtevana SDL_gfx knjižnica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr "Zahtevan SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr "Zahtevana SDL_image knjižnica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr "Zahtevan SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr "Zahtevana SDL_mixer knjižnica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr "Zahtevan SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr "Zahtevana SDL_net knjižnica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr "Zahtevan SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr "Zahtevana SDL_ttf knjižnica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr "Zahtevan SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr "Izbor licence kode"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr "Vrednosti lupine za opazovanje"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr "Uporabi libglade za uporabniški vmesnik"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr "Ime vrednosti:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr "Vrednosti za opazovanje"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Ali ima vstavek menije ali orodne vrstice"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "Wx Widgets"
+msgstr "Wx Gradniki"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr "Xlib dock"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
 msgstr "ime projekta"
 
@@ -6794,7 +6894,7 @@ msgid "Program:"
 msgstr "Program:"
 
 #: ../plugins/run-program/execute.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Program '%s' does not exist"
 msgstr "Program '%s' ne obstaja"
 
@@ -6872,14 +6972,12 @@ msgid "SamplePlugin"
 msgstr "PrimerVstavka"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:1
-#, fuzzy
 msgid "<b>Scratchbox Options</b>\n"
-msgstr "<b>Scratchbox možnosti</b>"
+msgstr "<b>Scratchbox možnosti</b>\n"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:3
-#, fuzzy
 msgid "Scratchbox directory:"
-msgstr "Izberite imenik"
+msgstr "Scratchbox mapa:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
 msgid "Select Scratchbox Folder"
@@ -6887,9 +6985,8 @@ msgstr ""
 
 #: ../plugins/scratchbox/plugin.c:191
 #: ../plugins/scratchbox/plugin.c:201
-#, fuzzy
 msgid "Scratchbox"
-msgstr "Uporabi scratchbox"
+msgstr "Scratchbox"
 
 #. Public functions
 #. *---------------------------------------------------------------------------
@@ -7221,25 +7318,25 @@ msgstr ""
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:347
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open %s: %s"
-msgstr "Nisem mogel odpreti"
+msgstr "Ni mogoče odpreti %s: %s"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:246
-#, fuzzy, c-format
+#: ../plugins/sourceview/sourceview-io.c:247
+#, c-format
 msgid "Could not save file because filename not yet specified"
-msgstr "Ni mogoče shraniti vmesne datoteke %s: %s."
+msgstr "Ni mogoče shraniti datoteke, ker ime datoteke še ni določeno"
 
-#: ../plugins/sourceview/sourceview-io.c:488
-#, fuzzy, c-format
+#: ../plugins/sourceview/sourceview-io.c:489
+#, c-format
 msgid "New file %d"
-msgstr "Nova datoteka"
+msgstr "Nova datoteka %d"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
@@ -7379,11 +7476,11 @@ msgstr "Primerjaj vsebino predhodne"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
-msgstr ""
+msgstr "Prezri povezave"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Merge changes into working copy"
-msgstr ""
+msgstr "Združi spremembe v delujočo različico"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
@@ -7439,7 +7536,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
-msgstr ""
+msgstr "Zaupaj strežniku"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Update file/directory"
@@ -7447,7 +7544,7 @@ msgstr "Posodobi datoteko/mapo"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
-msgstr ""
+msgstr "Uporabi prvo pot"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
@@ -7463,7 +7560,7 @@ msgstr "Celoten projekt"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
-msgstr ""
+msgstr "Delovna različica"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "realm"
@@ -7583,7 +7680,7 @@ msgstr "_ Pogled beležnice ..."
 #: ../plugins/subversion/plugin.c:136
 #: ../plugins/subversion/plugin.c:187
 msgid "View file history"
-msgstr ""
+msgstr "Preglej zgodovino datoteke"
 
 #. Action name
 #. Stock icon, if any
@@ -7657,7 +7754,6 @@ msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: prenašanje primerjav ..."
 
 #: ../plugins/subversion/subversion-log-dialog.c:117
-#, fuzzy
 msgid "Diff"
 msgstr "Diff"
 
@@ -7670,9 +7766,8 @@ msgid "Revision"
 msgstr "Revizija:"
 
 #: ../plugins/subversion/subversion-log-dialog.c:158
-#, fuzzy
 msgid "Short Log"
-msgstr "_Prikaži beleženje"
+msgstr "Kratko beleženje"
 
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
@@ -7846,7 +7941,7 @@ msgstr ""
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:532
 msgid "Anjuta tags files"
-msgstr ""
+msgstr "Anjuta označi datoteke"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:667
 #, c-format
@@ -7870,7 +7965,7 @@ msgstr "API oznake"
 
 #: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
-msgstr ""
+msgstr "Ni podrobnosti datoteke"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
@@ -7901,8 +7996,9 @@ msgid "Update Global Tags"
 msgstr "Po_sodobi splošne oznake"
 
 #: ../plugins/symbol-browser/plugin.c:268
+#, fuzzy
 msgid "Tag _Definition"
-msgstr ""
+msgstr "Določilo _oznake"
 
 #: ../plugins/symbol-browser/plugin.c:270
 #: ../plugins/symbol-browser/plugin.c:290
@@ -7999,9 +8095,8 @@ msgid "Checking if package is parseable..."
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-#, fuzzy
 msgid "Choose ctags executable"
-msgstr "IZbor Ctag izvršljivih datotek:"
+msgstr "Izbor Ctag izvršljivih datotek"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
@@ -8013,14 +8108,15 @@ msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
-msgstr ""
+msgstr "<b>Terminalske možnosti</b>"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
-#, fuzzy
 msgid ""
 "Default\n"
 "\n"
-msgstr "Privzeto:"
+msgstr ""
+"Privzeto\n"
+"\n"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
 msgid "Use GNOME terminal profile:"
@@ -8031,9 +8127,8 @@ msgid "Use currently selected profile in GNOME terminal"
 msgstr ""
 
 #: ../plugins/terminal/terminal.c:603
-#, fuzzy
 msgid "terminal operations"
-msgstr "Opravila pomoči"
+msgstr "terminalska opravila"
 
 #: ../plugins/terminal/terminal.c:621
 #: ../plugins/terminal/terminal.c:774
@@ -8052,7 +8147,7 @@ msgstr "Ukaz:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit as script"
-msgstr ""
+msgstr "Uredi kot skript"
 
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Edit command as script in Anjuta on close"
@@ -8132,11 +8227,11 @@ msgstr "Neomogočeno"
 
 #: ../plugins/tools/editor.c:697
 msgid "You must provide a tool name!"
-msgstr ""
+msgstr "Določiti morate ime orodja!"
 
 #: ../plugins/tools/editor.c:705
 msgid "You must provide a tool command!"
-msgstr ""
+msgstr "Določiti morate ukaz orodja!"
 
 #: ../plugins/tools/editor.c:713
 msgid "A tool with the same name already exists!"
@@ -8652,10 +8747,6 @@ msgstr "Med nastavitvami ni nastavljenih pravil preprečevanja."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Avtorske pravice (c) Naba Kumar"
 
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr "Vstavek Anjute"
-
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "Naložena seja ..."
@@ -8707,9 +8798,8 @@ msgid "Dock switcher style:"
 msgstr ""
 
 #: ../src/anjuta.glade.h:17
-#, fuzzy
 msgid "Select projects directory"
-msgstr "Izbor mape projekta"
+msgstr "Izberiter mapo projektov"
 
 #: ../src/anjuta.glade.h:18
 msgid ""
@@ -9020,9 +9110,8 @@ msgid "Gdb plugin."
 msgstr "Gdb vstavek."
 
 #: ../plugins/git/git.plugin.in.h:2
-#, fuzzy
 msgid "Git version control"
-msgstr "Vstavek sistema nadzora različic"
+msgstr "Nadzor različic GIT"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9045,9 +9134,8 @@ msgid "File Assistant"
 msgstr "Pomočnik datotek"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:2
-#, fuzzy
 msgid "File manager for project and single files"
-msgstr "Skript za nalaganje različnih datotek"
+msgstr "Upravljalnik projektnih in kodnih  datotek"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
@@ -9210,9 +9298,8 @@ msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Vstavek Anjute za brskanje po simbolih."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-#, fuzzy
 msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "Vstavek Anjute za brskanje po simbolih."
+msgstr "Vstavek Anjute za brskanje po simbolih (nepodprto)."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9247,9 +9334,8 @@ msgid "Run Program"
 msgstr "Zaženi program"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:1
-#, fuzzy
 msgid "Language Manager"
-msgstr "Upravljalnik sporočil"
+msgstr "Upravljalnik jezikov"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
@@ -9275,8 +9361,6 @@ msgstr ""
 #~ msgstr "Zagon nastavitve ..."
 #~ msgid "Run _Autogenerate..."
 #~ msgstr "Zagon _Autogenerate ..."
-#~ msgid "Autogenerate project files"
-#~ msgstr "Autogenerate datoteke projekta"
 #~ msgid "Could not set file permissions %s: %s."
 #~ msgstr "Ni mogoče določiti dovoljen %s: %s."
 #~ msgid "Refresh file manager tree"
