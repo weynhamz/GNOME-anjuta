@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-06 12:14+0200\n"
-"PO-Revision-Date: 2008-09-09 22:57+0200\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2008-09-13 11:34+0200\n"
+"PO-Revision-Date: 2008-09-13 11:31+0200\n"
+"Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,10 +70,13 @@ msgid "plugin %s fails to register type %s"
 msgstr "le greffon %s a échoué lors de l'enregistrement du type %s"
 
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr "Le fichier que vous tentez d'ouvrir contient une suite d'octets non valide."
+msgstr ""
+"Le fichier que vous tentez d'ouvrir contient une suite d'octets non valide."
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
 msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
@@ -197,14 +200,14 @@ msgstr "Thaï"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Impossible d'exécuter la commande « %s »."
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr "execvp a échoué"
 
@@ -483,19 +486,19 @@ msgstr ""
 "enregistrer avant de fermer ?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "Action"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "Sensible"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "Raccourci"
 
@@ -732,11 +735,13 @@ msgstr "L'exécutable « %s » n'est pas à jour."
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:151
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+entrant\\s+dans\\s+le\\s+répertoire\\s+«\\s+(.+)\\s+»"
+msgstr ""
+"make(\\[\\d+\\])?:\\s+entrant\\s+dans\\s+le\\s+répertoire\\s+«\\s+(.+)\\s+»"
 
 #: ../plugins/build-basic-autotools/plugin.c:152
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+entrant\\s+dans\\s+le\\s+répertoire\\s+«\\s+(.+)\\s+»"
+msgstr ""
+"make(\\[\\d+\\])?:\\s+entrant\\s+dans\\s+le\\s+répertoire\\s+«\\s+(.+)\\s+»"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -815,7 +820,7 @@ msgstr "Construction n°%d : %s"
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"Impossible de compiler « %s » : aucune règle de compilation n'est définie "
+"Impossible de compiler « %s » : aucune règle de compilation n'est définie "
 "pour ce type de fichier."
 
 #: ../plugins/build-basic-autotools/plugin.c:1636
@@ -1175,9 +1180,8 @@ msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
 msgstr ""
-"Impossible de trouver AutoGen version 5. Veuillez installer le paquet. "
-"Vous pouvez le télécharger sur le site officiel http://autogen.sourceforge."
-"net."
+"Impossible de trouver AutoGen version 5. Veuillez installer le paquet. Vous "
+"pouvez le télécharger sur le site officiel http://autogen.sourceforge.net."
 
 #: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:417
 #, c-format
@@ -1612,7 +1616,7 @@ msgid "Breakpoint properties"
 msgstr "Propriétés des points d'arrêt"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1965
+#: ../plugins/debug-manager/breakpoints.c:1971
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Points d'arrêt"
@@ -1695,7 +1699,7 @@ msgid "Kernel Signals"
 msgstr "Signaux du noyau"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Emplacement"
@@ -1837,152 +1841,152 @@ msgstr "_Tout supprimer"
 msgid "_Value:"
 msgstr "_Valeur :"
 
-#: ../plugins/debug-manager/breakpoints.c:1658
+#: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Voulez-vous vraiment supprimer tous les points d'arrêts ?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1755
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "_Breakpoints"
 msgstr "_Points d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1763
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Toggle Breakpoint"
 msgstr "Basculer le point d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Toggle breakpoint at the current location"
 msgstr "Basculer le point d'arrêt à la position actuelle"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1777
 msgid "Add Breakpoint..."
 msgstr "Ajouter un point d'arrêt..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Add a breakpoint"
 msgstr "Ajoute un point d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Remove Breakpoint"
 msgstr "Enlever le point d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Remove a breakpoint"
 msgstr "Enlève un point d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Edit Breakpoint"
 msgstr "Modifier le point d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Edit breakpoint properties"
 msgstr "Modifie les propriétés du point d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
-#: ../plugins/debug-manager/breakpoints.c:1866
+#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Enable Breakpoint"
 msgstr "Activer les points d'arrêts"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1867
+#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Enable a breakpoint"
 msgstr "Active un point d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1809
 msgid "Disable All Breakpoints"
 msgstr "Désactiver tous les points d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "Deactivate all breakpoints"
 msgstr "Désactive tous les points d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1817
 msgid "R_emove All Breakpoints"
 msgstr "_Enlever tous les points d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Remove all breakpoints"
 msgstr "Enlève tous les points d'arrêt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1822
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Jump to Breakpoint"
 msgstr "Aller au point d'arrêt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Jump to breakpoint location"
 msgstr "Va jusqu'au point d'arrêt"
 
-#: ../plugins/debug-manager/breakpoints.c:1861
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Disable Breakpoint"
 msgstr "Désactiver un point d'arrêt"
 
-#: ../plugins/debug-manager/breakpoints.c:1862
+#: ../plugins/debug-manager/breakpoints.c:1868
 msgid "Disable a breakpoint"
 msgstr "Désactive un point d'arrêt"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "Activé"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Adresse"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Type"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Condition"
 msgstr "Condition"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Pass count"
 msgstr "Nombre de passes"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "State"
 msgstr "État"
 
-#: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Breakpoint operations"
 msgstr "Opérations de point d'arrêt"
 
@@ -2580,7 +2584,7 @@ msgstr "Livres"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Search"
 msgstr "Rechercher"
 
@@ -2640,7 +2644,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Remplacer"
 
-#: ../plugins/document-manager/anjuta-docman.c:1395
+#: ../plugins/document-manager/anjuta-docman.c:1401
 msgid "[read-only]"
 msgstr "[lecture seule]"
 
@@ -3255,9 +3259,9 @@ msgid "Simple searching"
 msgstr "Recherche simple"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1742
-#: ../plugins/document-manager/plugin.c:2147
-#: ../plugins/document-manager/plugin.c:2157
+#: ../plugins/document-manager/plugin.c:1745
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2160
 msgid "Documents"
 msgstr "Documents"
 
@@ -3302,12 +3306,12 @@ msgid "Automatic"
 msgstr "Automatique"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1557
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "L'enregistrement automatique a échoué pour %s"
 
-#: ../plugins/document-manager/plugin.c:1571
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr "Enregistrement automatique terminé"
 
@@ -3648,7 +3652,7 @@ msgstr "Impression..."
 msgid "Print Preview"
 msgstr "Aperçu avant impression"
 
-#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
+#: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "Éditeur Scintilla"
@@ -4108,12 +4112,12 @@ msgstr "Autre"
 
 # cf. http://www.gnu.org/licenses/licenses.fr.html
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "Licence publique générale (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "Licence publique générale amoindrie (LGPL)"
 
@@ -4132,7 +4136,8 @@ msgstr "Paramètres de la ligne de commande"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:12
 msgid "Enter a Hexa adress or select one in the data"
-msgstr "Saisissez une adresse hexadécimale ou choisissez-en une dans les données"
+msgstr ""
+"Saisissez une adresse hexadécimale ou choisissez-en une dans les données"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:13 ../plugins/run-program/plugin.c:222
 msgid "Execute Program"
@@ -4428,7 +4433,7 @@ msgstr "Auteur/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "Auteur :"
 
@@ -5464,35 +5469,35 @@ msgstr "%Y-%m-%d"
 msgid "%Y"
 msgstr "%Y"
 
-#: ../plugins/macro/plugin.c:34
+#: ../plugins/macro/plugin.c:35
 msgid "Macros"
 msgstr "Macros"
 
-#: ../plugins/macro/plugin.c:41
+#: ../plugins/macro/plugin.c:42
 msgid "_Insert Macro..."
 msgstr "_Insérer une macro..."
 
-#: ../plugins/macro/plugin.c:43
+#: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
 msgstr "Insère une macro en utilisant un raccourci clavier"
 
-#: ../plugins/macro/plugin.c:48
+#: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
 msgstr "_Ajouter une macro..."
 
-#: ../plugins/macro/plugin.c:50
+#: ../plugins/macro/plugin.c:51
 msgid "Add a macro"
 msgstr "Ajoute une macro"
 
-#: ../plugins/macro/plugin.c:55
+#: ../plugins/macro/plugin.c:56
 msgid "Macros..."
 msgstr "Macros..."
 
-#: ../plugins/macro/plugin.c:57
+#: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
 msgstr "Ajoute, modifie ou supprime des macros"
 
-#: ../plugins/macro/plugin.c:115
+#: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
 msgstr "Opérations de macro"
 
@@ -6285,7 +6290,7 @@ msgid "Basic Information"
 msgstr "Informations générales"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Destination :"
@@ -6295,7 +6300,7 @@ msgid "Enter the basic Project information"
 msgstr "Saisissez les informations élémentaires du projet"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "Nom du projet :"
 
@@ -6316,7 +6321,7 @@ msgstr ""
 "aux questions car certaines réponses sont irréversibles."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "Version :"
 
@@ -6473,34 +6478,89 @@ msgid "Icon choice"
 msgstr "Choix d'une icône"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "A generic C++ project"
+msgstr "Un projet générique C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic GNOME project"
+msgstr "Un projet générique GNOME"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr "Un projet générique GTK"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "Un projet générique GTKmm (C++)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "Un applet ancrable générique Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "Un projet générique Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr "Un projet générique java utilisant la gestion de projet par automake"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
+msgstr "Un projet générique plat et minimaliste"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+"Un projet générique java compilé nativement en utilisant le compilateur Java "
+"GNU (gcj)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "Un projet générique"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr "Un projet générique python utilisant la gestion de projet par automake"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "Un projet générique wx Widgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "Un exemple de projet SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "Ajouter la prise en charge du C++ :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "Ajouter le système « gtk-doc »"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "Ajouter l'internationalisation :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "Ajouter la prise en charge des bibliothèques partagées :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 "Ajoute la prise en charge du C++ au projet afin que les fichiers sources C++ "
 "puissent être compilés"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 "Ajoute la prise en charge de la compilation des bibliothèques partagées au "
 "projet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
@@ -6508,15 +6568,24 @@ msgstr ""
 "Ajoute la prise en charge de l'internationalisation au projet afin qu'il "
 "puisse être traduit dans différentes langues"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "Greffon Anjuta"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr "Projet de greffon Anjuta qui utilise l'architecture libanjuta"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
 msgstr "Informations générales"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licence « Berkeley Software Distribution » (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6525,47 +6594,87 @@ msgstr ""
 "greffon peut être soit un nom d'interface primaire, soit l'emplacement du "
 "greffon (bibliothèque:classe)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr "Configuration des paquets externes"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr "Configuration des paquets externes :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr "Créer un fichier pour le modèle d'interface glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr "Créer le fichier d'interface glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr "Afficher la description du greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr "Afficher le titre du greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Django Project"
+msgstr "Projet Django"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
 msgstr "Informations sur le projet Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "Adresse électronique :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "GCJ a besoin de connaître la classe contenant la fonction main()"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Informations générales du projet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Generic"
+msgstr "Générique"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Generic (Minimal)"
+msgstr "Générique (minimal)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Generic C++"
+msgstr "C++ générique"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Generic gcj compiled java"
+msgstr "Java générique compilé avec gcj"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Generic java (automake)"
+msgstr "Java générique (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Generic python (automake)"
+msgstr "Python générique (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -6575,91 +6684,99 @@ msgstr ""
 "préciser la version requise. Par exemple, « libgnomeui-2.0 » ou bien "
 "« libgnomeui-2.0 >= 2.2.0 »"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
 msgstr "Fichier icône :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Icon file for the plugin"
 msgstr "Fichier icône utilisé pour le greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Implement plugin interfaces"
 msgstr "Implémente les interfaces du greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Interface implemented by the plugin"
 msgstr "Interface implémentée par le greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Interface:"
 msgstr "Interface :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "License"
 msgstr "Licence"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Main Class:"
 msgstr "Classe principale :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Main class"
 msgstr "Classe principale"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Makefile project"
+msgstr "Projet Makefile"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Makefile-based project"
+msgstr "Projet basé sur Makefile"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
 msgstr "Version minimale nécessaire de SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Name of the value to watch"
 msgstr "Nom de la variable à observer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "No license"
 msgstr "Aucune licence"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Options for project build system"
 msgstr "Options de l'outil de construction de projet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Plugin Class Name:"
 msgstr "Nom de la classe du greffon :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Plugin Dependencies:"
 msgstr "Dépendances du greffon :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Plugin Description:"
 msgstr "Description du greffon :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Plugin Title:"
 msgstr "Titre du greffon :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin class name"
 msgstr "Nom de la classe du greffon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin has menus or/and toolbars"
 msgstr "Le greffon possède des menus et/ou des barres d'outils"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
 msgstr "Interfaces du greffon à implémenter"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
 msgstr "Répertoire du projet, fichier de sortie, etc."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Project directory:"
 msgstr "Répertoire du projet :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -6668,106 +6785,126 @@ msgstr ""
 "nom de cible pour la construction du projet (les exécutables, les "
 "bibliothèques, etc.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "Nom du projet :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "Options du projet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr "Projet web Python utilisant l'architecture web Django"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr "Nécessite le paquet :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr "Nécessite la version SDL :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr "Nécessite la bibliothèque SDL_gfx"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr "Nécessite SDL_gfx :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr "Nécessite la bibliothèque SDL_image"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr "Nécessite SDL_image :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr "Nécessite la bibliothèque SDL_mixer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr "Nécessite SDL_mixer :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr "Nécessite la bibliothèque SDL_net"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr "Nécessite SDL_net :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr "Nécessite la bibliothèque SDL_ttf"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr "Nécessite SDL_ttf :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr "Choisissez la licence du code"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr "Valeurs du « shell » à observer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr "Utiliser libglade pour l'interface graphique"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 "Utiliser pkg-config pour ajouter la prise en charge de bibliothèques issues "
 "d'autres paquets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid ""
 "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "Utiliser la bibliothèque libglade-2.0 pour charger les fichiers d'interface "
 "Glade à l'exécution"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr "Nom de la valeur :"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr "Valeurs à observer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indique si le greffon a des menus ou des barres d'outils"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "Wx Widgets"
+msgstr "Wx Widgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr "Dock Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "gtk-doc est utilisé pour compiler la documentation des API des classes "
 "basées sur GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
 msgstr "nom du projet"
 
@@ -7216,14 +7353,14 @@ msgstr "Impossible d'ouvrir %s : %s"
 msgid "Could not save %s: %s"
 msgstr "Impossible d'enregistrer %s : %s"
 
-#: ../plugins/sourceview/sourceview-io.c:246
+#: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 "Impossible d'enregistrer le fichier car le nom de celui-ci n'a pas été "
 "renseigné"
 
-#: ../plugins/sourceview/sourceview-io.c:488
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr "Nouveau fichier %d"
@@ -7921,28 +8058,28 @@ msgid "Created symbols..."
 msgstr "Symboles créés..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:924
+#: ../plugins/symbol-browser/plugin.c:927
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:944
+#: ../plugins/symbol-browser/plugin.c:947
 msgid "Global"
 msgstr "Général"
 
-#: ../plugins/symbol-browser/plugin.c:988
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Symbol browser actions"
 msgstr "Actions du navigateur de symboles"
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:998
 msgid "Symbol browser popup actions"
 msgstr "Actions contextuelles du navigateur de symboles"
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1005
 msgid "Symbol navigations"
 msgstr "Navigations par symbole"
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1014
 msgid "Symbols"
 msgstr "Symboles"
 
@@ -8643,10 +8780,6 @@ msgstr "Vous n'avez pas défini de fichier de suppressions dans vos paramètres.
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr "Greffon Anjuta"
-
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "Session chargée..."
@@ -9263,4 +9396,3 @@ msgstr "Gestionnaire de langages"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Greffon pour garder une trace de plusieurs langages de programmation"
-
