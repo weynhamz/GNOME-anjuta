@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-26 14:42+0100\n"
+"POT-Creation-Date: 2008-09-14 11:07+0100\n"
 "PO-Revision-Date: 2008-08-15 11:57+0300\n"
 "Last-Translator: Usama Akkad <uak@aya.sy>\n"
 "Language-Team: Arabic\n"
@@ -64,6 +64,18 @@ msgstr "نوع غير موجود معرف من الملحق %s"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "الملحق %s فشل في تسجيل النوع %s"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr ""
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -181,14 +193,14 @@ msgstr "تايلاندي"
 msgid "Unknown"
 msgstr "مجهول"
 
-#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "لم يمكن تنفيذ الأمر: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr "فشل execvp"
 
@@ -219,7 +231,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:492
+#: ../plugins/symbol-db/symbol-db-prefs.c:514
 msgid "Load"
 msgstr "تحميل"
 
@@ -250,7 +262,7 @@ msgid "Forget selected plugin"
 msgstr "انسى الإضافة المختارة"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "انتق ملحقًا"
@@ -343,6 +355,11 @@ msgstr "محدد موقع المزامنة"
 msgid "URI to sync the profile xml"
 msgstr "محدد الموقع لمزامنة ملف التعريف ال xml"
 
+#: ../libanjuta/anjuta-profile.c:471
+#, fuzzy
+msgid "Please select a plugin from the list"
+msgstr "رجاء اختر ملحقًا لتنشيطه"
+
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
@@ -393,7 +410,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:192
+#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:193
 msgid "_Reset"
 msgstr "إعادة ضب_ط"
 
@@ -460,19 +477,19 @@ msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "هناك عنصر واحد بتغييراتٍ غير محفوظة. هل تريد حفظ التغييرات قبل الإغلاق؟"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "إجراء"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "مرئي"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "حساس"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "أختصار"
 
@@ -677,7 +694,7 @@ msgstr "ما من ملف أو مشروع مفتوح حاليا."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "البرنامج '%s' ليس ملفًا محليًا"
@@ -688,7 +705,7 @@ msgid "Program '%s' does not exists"
 msgstr "البرنامج `%s' غير موجود."
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "البرنامج %s لا يملك صلاحيات تنفيذ"
@@ -1585,7 +1602,7 @@ msgid "Breakpoint properties"
 msgstr "خصائص نقاط التوقف"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1965
+#: ../plugins/debug-manager/breakpoints.c:1971
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "نقاط التوقف"
@@ -1667,7 +1684,7 @@ msgid "Kernel Signals"
 msgstr "إشارات النواة"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "الموقع"
@@ -1810,152 +1827,152 @@ msgstr "إ_زالة الكل"
 msgid "_Value:"
 msgstr "ال_قيمة:"
 
-#: ../plugins/debug-manager/breakpoints.c:1658
+#: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "أمتأكد أنك ترغب في حذف كل نقاط التوقف؟"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1755
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "_Breakpoints"
 msgstr "نق_اط التوقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1763
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Toggle Breakpoint"
 msgstr "تبديل نقطة التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Toggle breakpoint at the current location"
 msgstr "بدّل نقطة التوقف في الموقع الحالي"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1777
 msgid "Add Breakpoint..."
 msgstr "أضف نقطة توقف..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Add a breakpoint"
 msgstr "إضافة نقطة توقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Remove Breakpoint"
 msgstr "أزل نقطة التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Remove a breakpoint"
 msgstr "إزالة نقطة توقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Edit Breakpoint"
 msgstr "حرر نقطة التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Edit breakpoint properties"
 msgstr "حرر خصائص نقطة التوقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
-#: ../plugins/debug-manager/breakpoints.c:1866
+#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Enable Breakpoint"
 msgstr "فعّل نقطة التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1867
+#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Enable a breakpoint"
 msgstr "فعّل نقطة توقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1809
 msgid "Disable All Breakpoints"
 msgstr "عطّل كل نقاط التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "Deactivate all breakpoints"
 msgstr "أخمِد كل نقاط التوقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1817
 msgid "R_emove All Breakpoints"
 msgstr "ا_حذف كل نقاط التوقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Remove all breakpoints"
 msgstr "احذف كل نقاط التوقف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1822
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Jump to Breakpoint"
 msgstr "اقفز إلى نقطة توقف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Jump to breakpoint location"
 msgstr "اقفز إلى موقع نقطة توقف"
 
-#: ../plugins/debug-manager/breakpoints.c:1861
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Disable Breakpoint"
 msgstr "عطّل كل نقاط الانقطاع"
 
-#: ../plugins/debug-manager/breakpoints.c:1862
+#: ../plugins/debug-manager/breakpoints.c:1868
 msgid "Disable a breakpoint"
 msgstr "عطِّل نقطة الانقطاع"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "مفعّل"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "عنوان"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "نوع"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Condition"
 msgstr "شرط"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Pass count"
 msgstr "عَدُّ التمرير"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "State"
 msgstr "حالة"
 
-#: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Breakpoint operations"
 msgstr "عمليات نقاط التوقف"
 
@@ -2347,8 +2364,8 @@ msgstr "ملف"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "سطر"
 
@@ -2550,7 +2567,7 @@ msgstr "كتب"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Search"
 msgstr "ابحث"
 
@@ -2610,7 +2627,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "ا_ستبدال"
 
-#: ../plugins/document-manager/anjuta-docman.c:1395
+#: ../plugins/document-manager/anjuta-docman.c:1401
 msgid "[read-only]"
 msgstr "[للقراءة-فقط]"
 
@@ -2923,7 +2940,7 @@ msgstr "أَعِدْ البحث السريع"
 
 #: ../plugins/document-manager/plugin.c:279 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1834
+#: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "_Edit"
 msgstr "ح_رّر"
 
@@ -3228,9 +3245,9 @@ msgstr "البحث البسيط"
 # #-#-#-#-#  gnome-icon-theme.gnome-2-18.ar.po (gnome-icon-theme.gnome-2-16.ar)  #-#-#-#-#
 # 48x48/emblems/emblem-documents.icon.in.h:1
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
+#: ../plugins/document-manager/plugin.c:1745
 #: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2160
 msgid "Documents"
 msgstr "المستندات"
 
@@ -3246,41 +3263,41 @@ msgstr "أعد التحميل"
 msgid "Goto"
 msgstr "اذهب إلى"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "OVR"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "تحجيم"
 
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "عمود"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "نمط"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "تلقائي"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "تعذر الحفظ الآلي لـ %s"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr "اكتمل الحفظ الآلي"
 
@@ -3621,7 +3638,7 @@ msgstr "جارٍ الطباعة..."
 msgid "Print Preview"
 msgstr "معاينة الطباعة"
 
-#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
+#: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "محرر Scintilla"
@@ -3686,16 +3703,16 @@ msgstr "حُمّل الملف بنجاح."
 msgid "Saving file..."
 msgstr "جارٍ حفظ الملف..."
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "تعذر حفظ الملف الوسيط %s: %s"
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "حُفظ الملف بنجاح."
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3764,6 +3781,14 @@ msgstr "لصاقة قائمة الملفات الحديثة|_%d. %s"
 #, fuzzy, c-format
 msgid "recent menu label|%d. %s"
 msgstr "لصاقة قائمة الملفات الحديثة|%d. %s"
+
+#: ../plugins/file-loader/plugin.c:113
+#, fuzzy, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr " لا يمكن فتح %s: %s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -3944,7 +3969,7 @@ msgid "Root directory if no project is open:"
 msgstr "مجلد الجذر إن لم يكن أي مشروع مفتوحا:"
 
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "جارٍ التحميل..."
 
@@ -4065,12 +4090,12 @@ msgid "Other"
 msgstr "أخرى"
 
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "رخصة جنو العامة (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "رخصة جنو الأقل عمومية (LGPL)"
 
@@ -4224,13 +4249,7 @@ msgstr "جارٍ إرسال الإشارة %s إلى العملية: %d"
 msgid "Error whilst signaling the process."
 msgstr "حدث خطأ أثناء إرسال الإشارة إلى العملية."
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr "ملحق طرفية أنجوتا غير مُثبت. البرنامج سيُشَغل بدون طرفية."
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
@@ -4238,7 +4257,7 @@ msgstr ""
 "فشل في إنشاء ملف من نوع الداخل أولا خارج أولا المسمى %s. سيُشَغل البرنامج من "
 "دون طرفية."
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "لا يمكن بدء الطرفية للتنقيح."
 
@@ -4400,7 +4419,7 @@ msgstr "مؤلف/جلب"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "المؤلف:"
 
@@ -4587,19 +4606,6 @@ msgstr "استخدم رسالة سجل مخصصة"
 msgid "View log"
 msgstr "اعرض السجل"
 
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "gtk-cancel"
-msgstr "إلغ-gtk"
-
-#: ../plugins/git/anjuta-git.glade.h:84
-msgid "gtk-clear"
-msgstr "امسح-gtk"
-
-#: ../plugins/git/anjuta-git.glade.h:85
-#, fuzzy
-msgid "gtk-ok"
-msgstr "وافق-gtk"
-
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
 msgstr "Git: وُضع الملف للإضافة."
@@ -4636,6 +4642,11 @@ msgstr "Git:الجلب..."
 msgid "Please enter a revision."
 msgstr "رجاء أدخل اسم المراجعة."
 
+#: ../plugins/git/git-cat-file-menu.c:36
+#, fuzzy
+msgid "Git: File retrieved."
+msgstr "Git: حُذف الملف."
+
 #: ../plugins/git/git-checkout-files-dialog.c:36
 #, fuzzy
 msgid "Git: Files checked out."
@@ -4669,21 +4680,29 @@ msgstr "Git: الفرع المحذوف \"%s\"."
 msgid "Git: Fetch complete."
 msgstr "Git: تم الجلب."
 
-#: ../plugins/git/git-log-dialog.c:276
+#: ../plugins/git/git-log-dialog.c:305
 msgid "Git: Retrieving log..."
 msgstr "Git: استرجاع السجل..."
 
-#: ../plugins/git/git-log-dialog.c:433
+#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "رجاء أدخل مسارا."
+
+#: ../plugins/git/git-log-dialog.c:505
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>الفرع:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:438
+#: ../plugins/git/git-log-dialog.c:510
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>الوسم:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:443
+#: ../plugins/git/git-log-dialog.c:515
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>بعيد:</b> %s"
@@ -4718,6 +4737,7 @@ msgid "Git: Branch checkout complete."
 msgstr "Git: تم تقصي الفروع."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -4732,214 +4752,227 @@ msgstr "Git: ابعدت الملفات."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:56
+#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:64 ../plugins/subversion/plugin.c:78
+#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
 msgid "_Commit..."
 msgstr "أرسِ_ل..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:72
+#: ../plugins/git/plugin.c:73
 msgid "_Fetch"
 msgstr "_اجلب"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:80
+#: ../plugins/git/plugin.c:81
 msgid "_Rebase"
 msgstr "Gإعادة ضب_ط"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:88 ../plugins/git/plugin.c:184
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
 msgid "_Start..."
 msgstr "ا_بدأ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:96
+#: ../plugins/git/plugin.c:97
 msgid "_Continue"
 msgstr "_تابع"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:104
+#: ../plugins/git/plugin.c:105
 msgid "_Skip"
 msgstr "_تجاوز"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:112
+#: ../plugins/git/plugin.c:113
 msgid "_Abort"
 msgstr "ا_جهض"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:120
+#: ../plugins/git/plugin.c:121
 msgid "_Pull..."
 msgstr "_اسحب..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:128
+#: ../plugins/git/plugin.c:129
 #, fuzzy
 msgid "_Unstage files..."
 msgstr "إ_بعاد الملفات..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:136
+#: ../plugins/git/plugin.c:137
 msgid "_Check out files..."
 msgstr "ت_قصى الملفات..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:144
+#: ../plugins/git/plugin.c:145
 msgid "_Resolve conflicts..."
 msgstr "_حُل التناقضات..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:152
+#: ../plugins/git/plugin.c:153
 msgid "Create patch series..."
 msgstr "أنشئ سلسلة رقع..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:160 ../plugins/git/plugin.c:349
+#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
 msgid "_Reset tree..."
 msgstr "أ_عد الشجرة..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:168 ../plugins/git/plugin.c:357
+#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
 msgid "_Revert commit..."
 msgstr "ا_رجاع الارسال..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
+#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
 msgid "_Bisect"
 msgstr "ا_شطر"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:200
+#: ../plugins/git/plugin.c:201
 msgid "_Good"
 msgstr "_جيد"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:208
+#: ../plugins/git/plugin.c:209
 msgid "_Bad"
 msgstr "_سيئ"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:216
+#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
 msgid "_View log..."
 msgstr "أ_ظهر السجل..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:224 ../plugins/git/plugin.c:289
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
+#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
+#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
+#: ../plugins/subversion/plugin.c:169
 msgid "_Add..."
 msgstr "أ_ضِف"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:232 ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "_Remove..."
 msgstr "أ_زل..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:240
+#: ../plugins/git/plugin.c:241
 msgid "_Ignore..."
 msgstr "ت_جاهل..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:249 ../plugins/git/plugin.c:333
+#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
 msgid "_Create branch..."
 msgstr "أ_نشأ فرعا..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:257
+#: ../plugins/git/plugin.c:258
 msgid "_Delete branch..."
 msgstr "إ_حذف فرعا..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:265
+#: ../plugins/git/plugin.c:266
 msgid "_Switch to another branch..."
 msgstr "_بدل إلى فرع آخر..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:273
+#: ../plugins/git/plugin.c:274
 msgid "_Merge..."
 msgstr "ا_دمج..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:281
+#: ../plugins/git/plugin.c:282
 msgid "_Remote branches"
 msgstr "ال_فروع البعيدة"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:297
+#: ../plugins/git/plugin.c:298
 msgid "_Delete..."
 msgstr "_إحذف..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:305 ../plugins/git/plugin.c:341
+#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
 msgid "_Create tag..."
 msgstr "_أنشئ وسما..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:313
+#: ../plugins/git/plugin.c:314
 msgid "_Diff uncommitted changes"
 msgstr "_قارن التغييرات غير المرسلة"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:325
+#: ../plugins/git/plugin.c:326
 msgid "_Show commit diff"
 msgstr "إ_عرض فروق المرسلات"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:373
+#: ../plugins/git/plugin.c:334
+#, fuzzy
+msgid "_View selected revision"
+msgstr "أضهر المراجعة المنتقاة"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:382
 msgid "_Set good revision"
 msgstr "_اعدّ كمراجعة جيدة"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:381
+#: ../plugins/git/plugin.c:390
 msgid "_Set bad revision"
 msgstr "_اعدّ كمراجعة سيئة"
 
-#: ../plugins/git/plugin.c:496
+#: ../plugins/git/plugin.c:580
 msgid "Git operations"
 msgstr "عمليات Git"
 
-#: ../plugins/git/plugin.c:501
+#: ../plugins/git/plugin.c:585
 msgid "Git log operations"
 msgstr "سجل عمليات Git"
 
-#: ../plugins/git/plugin.c:529
+#: ../plugins/git/plugin.c:590
+#, fuzzy
+msgid "Git FM operations"
+msgstr "عمليات Git"
+
+#: ../plugins/git/plugin.c:624
 msgid "Git Log"
 msgstr "سجل Git"
 
@@ -5416,6 +5449,14 @@ msgstr "الماكرو في أنجوتا"
 msgid "My macros"
 msgstr "الماكرو خاصتي"
 
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
+
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
 msgstr "أدرج"
@@ -5438,35 +5479,35 @@ msgstr "%Y-%m-%d"
 msgid "%Y"
 msgstr "%Y"
 
-#: ../plugins/macro/plugin.c:34
+#: ../plugins/macro/plugin.c:35
 msgid "Macros"
 msgstr "الماكرو"
 
-#: ../plugins/macro/plugin.c:41
+#: ../plugins/macro/plugin.c:42
 msgid "_Insert Macro..."
 msgstr "أ_دخِل ماكرو..."
 
-#: ../plugins/macro/plugin.c:43
+#: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
 msgstr "أدخِل ماكرو باستخدام اختصار"
 
-#: ../plugins/macro/plugin.c:48
+#: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
 msgstr "أ_ضف ماكرو..."
 
-#: ../plugins/macro/plugin.c:50
+#: ../plugins/macro/plugin.c:51
 msgid "Add a macro"
 msgstr "أضف ماكرو"
 
-#: ../plugins/macro/plugin.c:55
+#: ../plugins/macro/plugin.c:56
 msgid "Macros..."
 msgstr "ماكرو..."
 
-#: ../plugins/macro/plugin.c:57
+#: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
 msgstr "أضف/حرّر/أزل ماكرو"
 
-#: ../plugins/macro/plugin.c:115
+#: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
 msgstr "عمليات الماكرو"
 
@@ -5539,7 +5580,7 @@ msgstr "أغلق كل تبويبات الرسائل"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "لا تفاصيل عن الرسالة"
 
@@ -5660,6 +5701,11 @@ msgstr "جارٍ ترقيع %s باستخدام %s\n"
 msgid "Patching...\n"
 msgstr "جارٍ الترقيع...\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+#, fuzzy
+msgid "Patching..."
+msgstr "جارٍ الترقيع...\n"
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "هناك أعمال غير منتهية، رجاءً انتظر حتى تنتهي."
@@ -5673,6 +5719,11 @@ msgstr ""
 "فشل الترقيع.\n"
 "رجاءً راجع رسائل الفشل.\n"
 "افحص وأزل أي ملفات مرفوضة.\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+#, fuzzy
+msgid "Patching complete"
+msgstr "انتهى البحث"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6250,7 +6301,7 @@ msgid "Basic Information"
 msgstr "المعلومات الأساسية"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "الوجهة:"
@@ -6260,7 +6311,7 @@ msgid "Enter the basic Project information"
 msgstr "أدخِل معلومات المشروع الأساسية"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "اسم المشروع:"
 
@@ -6280,7 +6331,7 @@ msgstr ""
 "ممكنا تغيير بعض الإعدادات لاحقا."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "النسخة:"
 
@@ -6431,44 +6482,109 @@ msgid "Icon choice"
 msgstr "اختيار الأيقونات"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
+#, fuzzy
+msgid "A generic C++ project"
+msgstr "أضف مجموعة إلى مشروع"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic GNOME project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#, fuzzy
+msgid "A generic project"
+msgstr "أضف إلى المشروع"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#, fuzzy
+msgid "A sample SDL project"
+msgstr "أضف مجموعة إلى مشروع"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "أضف دعم C++:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "أضف نظام gtk-doc"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "أضف تعدد اللغات:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "أضف دعم المكتبات المتشاركة:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "أضف دعم سي++ إلى المشروع لكي يمكن بناء ملفات مصدر سي++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr "أضف دعم المكتبات المتشاركة في مشروعك"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr "أضف دعم تعدد اللغات لكي يمكن لمشروعك أن يُترجم إلى لغات مختلفة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "ملحق أنجوتا"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
 msgstr "المعلومات الأساسية"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "رخصة توزيعة برامج بيركيلي (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6476,47 +6592,90 @@ msgstr ""
 "مفصولة بفاصلة، ملحقات أخرى يعتمد عليها هذا الملحق. يمكنها أن تكون إما اسم "
 "واجهة أولية أو موقع ملحق (المكتبة:الفئة)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr "إعداد الحزمات الخارجية"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr "إعداد الحزمات الخارجية:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr "أنشئ قالب ملف واجهة glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr "أنشئ ملف واجهة glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr "اعرض وصف الملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr "أظهر عنوان الملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#, fuzzy
+msgid "Django Project"
+msgstr "تن_ظيف المشروع"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
 msgstr "معلومات مشروع Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "عنوان البريد الإلكتروني:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "يحتاج GCJ أن يعلم أي فئة تحتوي الدالة main()"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "معلومات المشروع العامة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#, fuzzy
+msgid "Generic"
+msgstr "عام"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Generic (Minimal)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#, fuzzy
+msgid "Generic C++"
+msgstr "فئة C++ العميمة"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Generic gcj compiled java"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Generic java (automake)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Generic python (automake)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -6525,91 +6684,101 @@ msgstr ""
 "أعطِ الحزمة اسمًا يتطلبه مشروعك. قد تلاحظ أيضًا النسخة المطلوبة من الحزمة. "
 "كمثال، 'libgnomeui-2.0' أو 'libgnomeui-2.0 >= 2.2.0'"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
 msgstr "ملف الأيقونة:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Icon file for the plugin"
 msgstr "ملف الأيقونة للملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Implement plugin interfaces"
 msgstr "طبّق واجهات الملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Interface implemented by the plugin"
 msgstr "الواجهة المطبقة من قبل الملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Interface:"
 msgstr "الواجهة:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "License"
 msgstr "الرخصة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Main Class:"
 msgstr "الفئة الرئيسية:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Main class"
 msgstr "الفئة الرئيسية"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#, fuzzy
+msgid "Makefile project"
+msgstr "المشروع الكامل"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#, fuzzy
+msgid "Makefile-based project"
+msgstr "أغلق المشروع"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
 msgstr "نسخة SDL الأدنى المطلوبة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Name of the value to watch"
 msgstr "اسم القيمة التي تريد مراقبتها"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "No license"
 msgstr "لا رخصة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Options for project build system"
 msgstr "خيارات لنظام بناء المشروع"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Plugin Class Name:"
 msgstr "اسم فئة الملحق:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Plugin Dependencies:"
 msgstr "اعتماديات الملحق:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Plugin Description:"
 msgstr "وصف الملحق:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Plugin Title:"
 msgstr "عنوان الملحق:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin class name"
 msgstr "اسم فئة الملحق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin has menus or/and toolbars"
 msgstr "لدى الملحق قوائم و/أو أشرطة أدوات"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
 msgstr "واجهات الملحق التي ستـُطبّق"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
 msgstr "مجلد المشروع، ملف الخرج، إلخ."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Project directory:"
 msgstr "مجلد المشروع:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -6617,100 +6786,121 @@ msgstr ""
 "اسم المشروع يجب ألا يحتوي فراغات، لأنه سيكون اسم هدف بناء المشروع (تنفيذي، "
 "مكتبة، إلخ)."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "اسم المشروع:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "خيارات المشروع"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr "يتطلب الحزمة:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr "يتطلب نسخة SDL:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr "يتطلب مكتبة SDL_gfx"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr "يتطلب SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr "يتطلب مكتبة SDL_image"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr "يتطلب SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr "يتطلب مكتبة SDL_mixer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr "يتطلب SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr "يتطلب مكتبة SDL_net"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr "يتطلب SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr "يتطلب مكتبة SDL_ttf"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr "يتطلب SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr "اختر رخصة الشيفرة"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr "قٍيَم القشرة التي تريد مراقبتها"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr "استعمل libglade لواجهة المستخدم"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr "استخدم pkg-config لإضافة دعم المكتبات من حزمات أخرى"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid ""
 "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr "استخدم مكتبة libglade-2.0 لتحميل glade أثناء زمن التشغيل"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr "اسم القيمة:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr "القيم التي ستـُراقب"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr "فيما إذا كان الملحق لديه قوائم أو أشرطة أدوات"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+#, fuzzy
+msgid "Wx Widgets"
+msgstr "عناصر الواجهة"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr "gtk-doc يُستخدم لتصريف وثائق API للفئات المبنية على GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
 msgstr "اسم المشروع"
 
@@ -6723,13 +6913,13 @@ msgstr "ثوابت البرنامج"
 msgid "Program:"
 msgstr "البرنامج:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "البرنامج '%s' غير موجود"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "دليل البرنامج '%s' ليس محليا"
@@ -7161,7 +7351,7 @@ msgstr " لا يمكن فتح %s: %s"
 msgid "Could not save %s: %s"
 msgstr "تعذر حفظ %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:246
+#: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "تعذر الحفظ لعدم تخصيص اسم بعد"
@@ -7240,11 +7430,6 @@ msgid "Use theme font"
 msgstr "استخدم خط السمة"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
-#, fuzzy
-msgid "Visible whitespaces"
-msgstr "عرض المساحات البيضاء"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "لُفَّ الأسطر الطويلة لتُناسب الصفحة"
 
@@ -7552,13 +7737,6 @@ msgstr " سجل Subversion"
 msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: الملف سيُضاف عند الايداع المقبل. "
 
-#: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:66
-#: ../plugins/subversion/subversion-remove-dialog.c:98
-#: ../plugins/subversion/subversion-update-dialog.c:66
-msgid "Please enter a path."
-msgstr "رجاء أدخل مسارا."
-
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: تم الايداع."
@@ -7758,7 +7936,7 @@ msgid "Obstructed: %s"
 msgstr "معرقل: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "رمز"
 
@@ -7795,11 +7973,11 @@ msgid "Symbol Browser"
 msgstr "مستعرض الرموز"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:500
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 msgid "API Tags"
 msgstr "وسوم API"
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
 msgstr "لا تفاصيل للملف"
 
@@ -7874,28 +8052,28 @@ msgid "Created symbols..."
 msgstr "أنشئت الرموز..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:924
+#: ../plugins/symbol-browser/plugin.c:927
 msgid "Local"
 msgstr "محلي"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:944
+#: ../plugins/symbol-browser/plugin.c:947
 msgid "Global"
 msgstr "عمومي"
 
-#: ../plugins/symbol-browser/plugin.c:988
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Symbol browser actions"
 msgstr "إجراءات مستعرض الرموز"
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:998
 msgid "Symbol browser popup actions"
 msgstr "إجراءات مستعرض الرموز المنبثقة"
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1005
 msgid "Symbol navigations"
 msgstr "تصفحات الرمز"
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1014
 msgid "Symbols"
 msgstr "الرموز"
 
@@ -7904,8 +8082,9 @@ msgstr "الرموز"
 msgid "Package is not parseable"
 msgstr "الحزمة غير قابلة للحل"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:411
-#: ../plugins/symbol-db/symbol-db-prefs.c:551
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "قاعدة بيانات الرموز"
 
@@ -7940,7 +8119,7 @@ msgid "Ctags executable:"
 msgstr "Ctags تنفيذية:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
-msgid "Parallel global/project scan of symbols."
+msgid "Parallel scan of project and global symbols."
 msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
@@ -8592,10 +8771,6 @@ msgstr "لم تـُعِدّ ملف الإزالات في إعداداتك."
 msgid "Copyright (c) Naba Kumar"
 msgstr "حقوق النسخ (c) محفوظة لـ Naba Kumar"
 
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr "ملحق أنجوتا"
-
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "جلسة محمّلة..."
@@ -8921,36 +9096,36 @@ msgstr "الإزاحة الذكية"
 msgid "Statement indentation size in spaces:"
 msgstr "حجم إزاحة البيانات بالمسافات:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1840
+#: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
 msgstr "تكملة تلقا_ئية"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1841
+#: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
 msgstr "أكمل الكلمة الحالية تلقائيًا"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1847
+#: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "Auto Indent"
 msgstr "إزاحة آليةًا"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1848
+#: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "أزح السطر الحالي أو الانتقاء آليًا بناءً على إعدادات الإزاحة"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1853
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
 msgstr "تبديل .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1854
+#: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
 msgstr "بدّل بين ترويسة c وملفات المصدر"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1897
+#: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
 msgstr "مساعدة سي++/جافا"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1985
-#: ../plugins/language-support-cpp-java/plugin.c:1994
+#: ../plugins/language-support-cpp-java/plugin.c:1999
+#: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/جافا/Vala"
 
@@ -8965,6 +9140,11 @@ msgstr "Gdb"
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
 msgstr "ملحق Gdb."
+
+#: ../plugins/git/git.plugin.in.h:2
+#, fuzzy
+msgid "Git version control"
+msgstr "ملحق نظام التحكم بالنسخة"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9152,6 +9332,11 @@ msgstr "ملحق مدير المشاريع لأنجوتا."
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "ملحق مستعرض الرموز لأنجوتا."
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+#, fuzzy
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "ملحق مستعرض الرموز لأنجوتا."
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "يدير الرسائل القادمة من التطبيقات الخارجية"
@@ -9191,6 +9376,25 @@ msgstr "مدير اللغة"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "ملحق لمتابعة لغات برمجة متعددة"
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr "ملحق طرفية أنجوتا غير مُثبت. البرنامج سيُشَغل بدون طرفية."
+
+#~ msgid "gtk-cancel"
+#~ msgstr "إلغ-gtk"
+
+#~ msgid "gtk-clear"
+#~ msgstr "امسح-gtk"
+
+#, fuzzy
+#~ msgid "gtk-ok"
+#~ msgstr "وافق-gtk"
+
+#, fuzzy
+#~ msgid "Visible whitespaces"
+#~ msgstr "عرض المساحات البيضاء"
 
 #~ msgid "Close"
 #~ msgstr "أغلق"
