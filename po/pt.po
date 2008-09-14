@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 00:43+0100\n"
-"PO-Revision-Date: 2008-09-12 00:50+0000\n"
+"POT-Creation-Date: 2008-09-14 23:03+0100\n"
+"PO-Revision-Date: 2008-09-14 23:05+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:514
+#: ../plugins/symbol-db/symbol-db-prefs.c:527
 msgid "Load"
 msgstr "Ler"
 
@@ -1594,7 +1594,7 @@ msgid "Breakpoint properties"
 msgstr "Propriedades do ponto de paragem"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1965
+#: ../plugins/debug-manager/breakpoints.c:1971
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Pontos de Paragem"
@@ -1676,7 +1676,7 @@ msgid "Kernel Signals"
 msgstr "Sinais de Kernel"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Localização"
@@ -1818,152 +1818,152 @@ msgstr "_Remover todos"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/breakpoints.c:1658
+#: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Tem a certeza de que deseja apagar todos os pontos de paragem?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1755
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "_Breakpoints"
 msgstr "_Pontos de Paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1763
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Toggle Breakpoint"
 msgstr "Alternar os Pontos de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Toggle breakpoint at the current location"
 msgstr "Alternar um ponto de paragem na localização actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1777
 msgid "Add Breakpoint..."
 msgstr "Adicionar um Ponto de Paragem..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Add a breakpoint"
 msgstr "Adicionar um ponto de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Remove Breakpoint"
 msgstr "Remover um Ponto de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Remove a breakpoint"
 msgstr "Remover um ponto de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Edit Breakpoint"
 msgstr "Editar um Ponto de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Edit breakpoint properties"
 msgstr "Editar as propriedades de um ponto de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
-#: ../plugins/debug-manager/breakpoints.c:1866
+#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Enable Breakpoint"
 msgstr "Activar um Ponto de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1867
+#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Enable a breakpoint"
 msgstr "Activar um ponto de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1809
 msgid "Disable All Breakpoints"
 msgstr "Desactivar Todos os Pontos de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos os pontos de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1817
 msgid "R_emove All Breakpoints"
 msgstr "R_emover Todos os Pontos de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Remove all breakpoints"
 msgstr "Remover todos os pontos de paragem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1822
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Jump to Breakpoint"
 msgstr "Ir Para o Ponto de Paragem"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Jump to breakpoint location"
 msgstr "Ir para a localização do ponto de paragem"
 
-#: ../plugins/debug-manager/breakpoints.c:1861
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Disable Breakpoint"
 msgstr "Desactivar o Ponto de Paragem"
 
-#: ../plugins/debug-manager/breakpoints.c:1862
+#: ../plugins/debug-manager/breakpoints.c:1868
 msgid "Disable a breakpoint"
 msgstr "Desactivar um ponto de paragem"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "Activo"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Endereço"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Condition"
 msgstr "Condição"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Pass count"
 msgstr "Contagem de passagens"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Breakpoint operations"
 msgstr "Operações de ponto de paragem"
 
@@ -2561,7 +2561,7 @@ msgstr "Livros"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Search"
 msgstr "Procurar"
 
@@ -3235,9 +3235,9 @@ msgid "Simple searching"
 msgstr "Procura simples"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1742
-#: ../plugins/document-manager/plugin.c:2147
-#: ../plugins/document-manager/plugin.c:2157
+#: ../plugins/document-manager/plugin.c:1745
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2160
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3283,12 +3283,12 @@ msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1557
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Gravação automática falho para %s"
 
-#: ../plugins/document-manager/plugin.c:1571
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr "Gravação automática terminada"
 
@@ -3629,7 +3629,7 @@ msgstr "A imprimir..."
 msgid "Print Preview"
 msgstr "Antever a Impressão"
 
-#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
+#: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
@@ -3940,7 +3940,7 @@ msgid "<b>Filter</b>"
 msgstr "<b>Filtro</b>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "<b>Global</b>"
 msgstr "<b>Global</b>"
 
@@ -6466,7 +6466,8 @@ msgstr "Um projecto Xlib genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
-msgstr "Um projecto java genérico utilizando o automake para a gestão de projecto"
+msgstr ""
+"Um projecto java genérico utilizando o automake para a gestão de projecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project "
@@ -6476,7 +6477,8 @@ msgstr "Um projecto genérico minimalista"
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
-"Um projecto java genérico compilado nativamente utilizando o Compilador Java GNU (gcj)"
+"Um projecto java genérico compilado nativamente utilizando o Compilador Java "
+"GNU (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
@@ -6484,7 +6486,8 @@ msgstr "Um projecto genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
-msgstr "Um projecto python genérico utilizando o automake para a gestão de projecto"
+msgstr ""
+"Um projecto python genérico utilizando o automake para a gestão de projecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
@@ -7935,7 +7938,7 @@ msgid "Symbol Browser"
 msgstr "Navegador de Símbolos"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:522
+#: ../plugins/symbol-db/symbol-db-prefs.c:535
 msgid "API Tags"
 msgstr "Etiquetas de API"
 
@@ -8014,28 +8017,28 @@ msgid "Created symbols..."
 msgstr "Símbolos criados..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:924
+#: ../plugins/symbol-browser/plugin.c:927
 msgid "Local"
 msgstr "Local"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:944
+#: ../plugins/symbol-browser/plugin.c:947
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:988
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Symbol browser actions"
 msgstr "Acções do navegador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:998
 msgid "Symbol browser popup actions"
 msgstr "Acções do menu de contexto do navegador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1005
 msgid "Symbol navigations"
 msgstr "Navegação de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1014
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -8044,7 +8047,7 @@ msgid "Package is not parseable"
 msgstr "Pacote não é processável"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:426
-#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db-prefs.c:586
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de Dados de Símbolos"
@@ -8054,30 +8057,34 @@ msgid "Resuming glb scan."
 msgstr "A retomar a procura glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
+msgid ""
+"/usr/bin/ctags\n"
+"/usr/local/bin/ctags"
+msgstr ""
+"/usr/bin/ctags\n"
+"/usr/local/bin/ctags"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas de API disponíveis</b>"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Automatically scan projetc's packages."
 msgstr "Analisar automaticamente os pacotes do projecto."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Automatically update symbols without saving file."
 msgstr "Actualizar automaticamente os símbolos sem gravar o ficheiro."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Checking if package is parseable..."
 msgstr "A verificar se o pacote é processável..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Choose ctags executable"
-msgstr "Seleccione o executável ctags"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
 msgid "Ctags executable:"
 msgstr "Executável ctags:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:9
 msgid "Parallel scan of project and global symbols."
 msgstr "Análise paralela do projecto e de símbolos globais."
 
@@ -9346,6 +9353,9 @@ msgstr "Gestor de Linguagens"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Plugin para gerir múltiplas linguagens de programação"
+
+#~ msgid "Choose ctags executable"
+#~ msgstr "Seleccione o executável ctags"
 
 #~ msgid ""
 #~ "Anjuta terminal plugin is not installed. The program will be run without "
