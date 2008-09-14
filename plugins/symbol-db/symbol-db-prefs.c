@@ -89,24 +89,26 @@ destroy_parseable_data (ParseableData *pdata)
 G_DEFINE_TYPE (SymbolDBPrefs, sdb_prefs, G_TYPE_OBJECT);
 
 static void 
-on_prefs_executable_changed (GtkFileChooser *chooser,
+on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
                              gpointer user_data)
 {
-	gchar *new_file;
+	const gchar *new_file;
 	SymbolDBPrefs *sdbp;
 	SymbolDBPrefsPriv *priv;
 	
 	sdbp = SYMBOL_DB_PREFS (user_data);
 	priv = sdbp->priv;
 	
-	new_file = gtk_file_chooser_get_filename (chooser);
+/*	new_file = gtk_file_chooser_get_filename (chooser);*/
+	new_file = gtk_entry_get_text  (GTK_ENTRY (chooser));
+		
 	DEBUG_PRINT ("on_prefs_executable_changed (): new executable selected %s", 
 				 new_file);
 	if (new_file != NULL) 
 	{
 		GtkWidget *fchooser;
 		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);	
-		gtk_widget_set_sensitive (fchooser, TRUE);
+		/*gtk_widget_set_sensitive (fchooser, TRUE);*/
 		
 		anjuta_preferences_set (priv->prefs, CTAGS_PREFS_KEY,
 							new_file);
@@ -115,8 +117,6 @@ on_prefs_executable_changed (GtkFileChooser *chooser,
 		symbol_db_engine_set_ctags_path (priv->sdbe_project, new_file);
 		symbol_db_engine_set_ctags_path (priv->sdbe_globals, new_file);
 	}
-	
-	g_free (new_file);
 }
 
 static void
@@ -418,7 +418,7 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 
 	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);
 	/* we will reactivate it after the listall has been finished */
-	gtk_widget_set_sensitive (fchooser, FALSE);
+	/*gtk_widget_set_sensitive (fchooser, FALSE);*/
 			
 	anjuta_preferences_add_page (priv->prefs, 
 								 priv->prefs_gxml, 
@@ -434,12 +434,25 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 	}
 	
 	DEBUG_PRINT ("select ->%s<-", ctags_value);	
+	
+	/*
+	 * GtkFileChooser support disabled here because it was too slow.
+	 * Bug #551384 has been filed. Let's see what happens...
+	 * 
+	 */
+	
+#if 0
 	/* FIXME: wtf?! */
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (fchooser), ctags_value);
 	gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (fchooser), ctags_value);
 	
 	g_signal_connect (G_OBJECT (fchooser), "selection-changed",
 					  G_CALLBACK (on_prefs_executable_changed), sdbp);
+#endif
+	
+	g_signal_connect (G_OBJECT (fchooser), "changed",
+					  G_CALLBACK (on_prefs_executable_changed), sdbp);	
+	
 
 	priv->prefs_notify_id = anjuta_preferences_notify_add (priv->prefs, 
 												CTAGS_PREFS_KEY, 
@@ -492,7 +505,7 @@ sdb_prefs_init (SymbolDBPrefs *object)
 		/* Create the preferences page */
 		priv->prefs_gxml = glade_xml_new (GLADE_FILE, GLADE_ROOT, NULL);	
 	}		
-	
+
 	/* init GtkListStore */
 	if (priv->prefs_list_store == NULL) 
 	{

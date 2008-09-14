@@ -118,9 +118,9 @@ symbol_db_engine_iterator_node_get_symbol_name (SymbolDBEngineIteratorNode *dbin
 	
 	g_return_val_if_fail (dbin != NULL, NULL);
 	priv = dbin->priv;
-	
+
 	value = gda_data_model_iter_get_value_at (priv->data_iter, 1);
-	
+
 	return value != NULL && G_VALUE_HOLDS_STRING (value)
 		? g_value_get_string (value) : NULL;
 }
@@ -263,10 +263,9 @@ void
 symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,
 										 const GdaDataModelIter *data)
 {
-	g_return_if_fail (dbin != NULL);
-	g_return_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR_NODE (dbin));
-	
 	SymbolDBEngineIteratorNodePriv *priv;
+	g_return_if_fail (dbin != NULL);
+	g_return_if_fail (data != NULL);
 	
 	priv = dbin->priv;
 	priv->data_iter = GDA_DATA_MODEL_ITER (data);

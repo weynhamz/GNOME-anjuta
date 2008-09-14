@@ -196,7 +196,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
  * Update symbols of the whole project. It scans all file symbols etc. 
  * If force is true then update forcely all the files.
  */
-gboolean 
+gboolean
 symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project);
 
 
@@ -204,6 +204,10 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 gboolean 
 symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project, 
 							  const gchar* file);
+
+void
+symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
+							  const GPtrArray * files);
 
 /**
  * Update symbols of saved files. 
@@ -419,6 +423,16 @@ SymbolDBEngineIterator *
 symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
 									gint sym_id, 
 									SymExtraInfo sym_info);
+
+/**
+ * Gets the files of a project.
+ * @param project_name name of project you want to know the files of.
+ *        It can be NULL. In that case all the files will be returned.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe, 
+									const gchar *project_name,
+								 	SymExtraInfo sym_info);
 
 G_END_DECLS
 

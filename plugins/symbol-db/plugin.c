@@ -22,6 +22,7 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -68,6 +69,12 @@ enum
 };
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
+
+static gint 
+g_list_compare (gconstpointer a, gconstpointer b)
+{
+	return strcmp ((const gchar*)a, (const gchar*)b);
+}
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
@@ -440,7 +447,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				g_value_init (&value, G_TYPE_OBJECT);
 				g_value_set_object (&value, cur_doc);
 				value_added_current_editor (ANJUTA_PLUGIN (sdb_plugin),
-											"document_manager_current_editor",
+											"document_manager_current_document",
 											&value, NULL);
 				g_value_unset(&value);
 			}
@@ -1217,6 +1224,145 @@ on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
 	}	
 }
 
+#if 0
+static void
+do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
+{
+	GList * prj_elements_list;
+	IAnjutaProjectManager *pm;
+	gboolean parsed = NULL;
+	GPtrArray *to_remove_files = NULL;
+	
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaProjectManager, NULL);	
+
+	prj_elements_list = ianjuta_project_manager_get_elements (pm,
+		   IANJUTA_PROJECT_MANAGER_SOURCE,
+		   NULL);				
+	
+	/* some files may have added/removed editing Makefile.am while
+	 * Anjuta was offline. Check this case too.
+	 */
+	SymbolDBEngineIterator *it = 
+		symbol_db_engine_get_files_for_project (sdb_plugin->sdbe_project, 
+												NULL,
+												SYMINFO_FILE_PATH);
+	
+	/* files eventually removed to the project with Anjuta offline */
+	to_remove_files = NULL;
+	
+	/* something between O(n^2) and O(n log n). Totally inefficient,
+	 * in particular for big-sized projects. Are we really sure we want 
+	 * this? The only hope is that both the lists come ordered.
+	 */
+	if (it != NULL && symbol_db_engine_iterator_get_n_items (it) > 0)
+	{
+		parsed = TRUE;
+		do {
+			SymbolDBEngineIteratorNode *dbin;
+			GList *link;
+			gchar *full_path;
+			gchar *full_uri;
+		
+			dbin = (SymbolDBEngineIteratorNode *) it;
+			
+			const gchar * db_file = 
+				symbol_db_engine_iterator_node_get_symbol_extra_string (dbin,
+													SYMINFO_FILE_PATH);
+			full_path = symbol_db_engine_get_full_local_path (sdb_plugin->sdbe_project,
+												  db_file);
+			full_uri = gnome_vfs_get_uri_from_local_path (full_path);
+			
+			if ((link = g_list_find_custom (prj_elements_list, full_uri,
+									g_list_compare)) == NULL) 
+			{
+				if (to_remove_files == NULL)
+					to_remove_files = g_ptr_array_new ();
+				
+				DEBUG_PRINT ("to_remove_files, added %s", full_path);
+				g_ptr_array_add (to_remove_files, full_path);						
+				/* no need to free full_path now */				
+			} 
+			else
+			{
+				/* go and remove the entry from the project_entries, so 
+				 * to skip an iteration next time */
+				prj_elements_list = g_list_delete_link (prj_elements_list, 
+												   link);
+				DEBUG_PRINT ("deleted, removed %s. Still length %d", full_path,
+							 g_list_length (prj_elements_list));
+				g_free (full_path);
+			}
+			g_free (full_uri);
+		} while (symbol_db_engine_iterator_move_next (it));
+	}	
+				
+	/* good, in prj_elements_list we'll have the files to add 
+	 * from project */
+	if (to_remove_files != NULL)
+	{		
+		DEBUG_PRINT ("if (to_remove_files != NULL)");
+		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
+									   sdb_plugin->project_opened,
+									   to_remove_files);
+		g_ptr_array_foreach (to_remove_files, (GFunc)g_free, NULL);
+		g_ptr_array_free (to_remove_files, TRUE);
+		to_remove_files = NULL;
+	}
+	
+	/* add those left files */
+	if (prj_elements_list != NULL && it != NULL && parsed == TRUE)
+	{
+		DEBUG_PRINT ("if (prj_elements_list != NULL)");
+		GPtrArray *to_add_files = g_ptr_array_new ();
+		GPtrArray *languages_array = g_ptr_array_new();
+		GList *item = prj_elements_list;														
+		IAnjutaLanguage* lang_manager;	
+	
+		lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(sdb_plugin)->shell, 
+										IAnjutaLanguage, NULL);	
+	
+		while (item != NULL)
+		{					
+			const gchar* lang;
+			gchar *full_path;
+			IAnjutaLanguageId lang_id;	
+			const gchar *file_mime;
+
+			full_path = gnome_vfs_get_local_path_from_uri (item->data);			
+			file_mime = gnome_vfs_get_mime_type_for_name (full_path);
+			lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+								file_mime, NULL);								
+			/* No supported language... */
+			if (!lang_id)
+			{
+				g_free (full_path);
+				continue;
+			}						
+			lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
+			g_ptr_array_add (languages_array, g_strdup (lang));
+			
+
+			g_ptr_array_add (to_add_files, full_path);
+				
+			item = item->next;
+		}
+			
+		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project,
+						sdb_plugin->project_opened,
+						to_add_files,
+						languages_array,
+						TRUE);					
+			
+		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (languages_array, TRUE);
+			
+		g_ptr_array_foreach (to_add_files, (GFunc)g_free, NULL);
+		g_ptr_array_free (to_add_files, TRUE);	
+	}
+}
+#endif
+
 /* add a new project */
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -1244,13 +1390,11 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	if (parallel_scan == TRUE)
 	{
-		DEBUG_PRINT ("go with parallel scan");
 		/* we simulate a project-import-end signal received */
 		on_received_project_import_end (sdb_plugin, sdb_plugin);		
 	}
 	else
 	{
-		DEBUG_PRINT ("connect to a project-import-end signal");
 		g_signal_connect (G_OBJECT (sdb_plugin), 
 						"project-import-end", 
 						  G_CALLBACK (on_received_project_import_end), 
@@ -1320,22 +1464,29 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 												  sdb_plugin->project_opened);
 			}
 
-			/* we need an import */
+			/*
+			 * we need an initial import 
+			 */
 			if (needs_sources_scan == TRUE)
 			{
 				DEBUG_PRINT ("Symbol-DB: importing sources...");
 				do_import_project_sources (plugin, pm, root_dir);
 			}
-			else	/* no import needed. But we may have aborted the scan of sources ..*/
+			else	
 			{
+				/*
+				 * no import needed. But we may have aborted the scan of sources ..
+				 */
+				
 				GPtrArray *sources_array = NULL;
 				
 				sources_array = 
 					symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
 
 				if (sources_array != NULL && sources_array->len > 0) 
-				{					
-					/* if we're importing first shut off the signal receiving.
+				{
+					/* 
+					 * if we're importing first shut off the signal receiving.
 	 				 * We'll re-enable that on scan-end 
 	 				 */
 					symbol_db_view_locals_recv_signals_from_engine (																
@@ -1355,6 +1506,12 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					g_ptr_array_free (sources_array, TRUE);
 				}
 
+				
+				/* check for offline changes */
+				/* FIXME */
+				/*do_check_offline_files_changed (sdb_plugin);*/
+				
+				
 				/* Update the symbols */
 				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, 
 														 root_dir);				
@@ -2072,11 +2229,6 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_symbol_by_id = isymbol_manager_get_symbol_by_id;
 }
 
-static gint 
-g_list_compare (gconstpointer a, gconstpointer b)
-{
-	return strcmp ((const gchar*)a, (const gchar*)b);
-}
 
 static void
 on_prefs_package_add (SymbolDBPrefs *sdbp, const gchar *package, 

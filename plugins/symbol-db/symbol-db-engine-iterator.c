@@ -86,14 +86,13 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 	SymbolDBEngineIteratorPriv *priv;
 	
 	g_return_val_if_fail (model != NULL, NULL);
-	
+
 	dbi = g_object_new (SYMBOL_TYPE_DB_ENGINE_ITERATOR, NULL);
-	
 	priv = dbi->priv;
 	
 	priv->data_model = model;
-	priv->data_iter = gda_data_model_create_iter (model);
-	
+	priv->data_iter = gda_data_model_create_iter (model);	
+
 	/* because gda_data_model_get_n_rows () could be cpu-intensive, we'll 
 	 * proxy this value, e.g. it's calculated if it is really needed */
 	priv->total_rows = -1; 
@@ -101,17 +100,17 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 	/* to avoid calling everytime this function when we want to use the IteratorNode,
 	 * just do it now.
 	 */
-	symbol_db_engine_iterator_first (dbi);
-	
+	if (symbol_db_engine_iterator_first (dbi) == FALSE)
+	{
+		g_warning ("symbol_db_engine_iterator_new (): cannot set iter to first row");
+	}
+
 	/* set the data_iter on the base class */
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
 											 priv->data_iter);
-	
+
 	symbol_db_engine_iterator_node_set_conversion_hash (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
 														sym_type_conversion_hash);
-	
-	
-	ianjuta_iterable_first (IANJUTA_ITERABLE (dbi), NULL);
 	return dbi;
 }
 

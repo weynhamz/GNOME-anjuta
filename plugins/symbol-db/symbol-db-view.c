@@ -1581,6 +1581,9 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 		sdb_view_load_symbol_pixbufs ();
 	}
 	
+	/*DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
+				 node_type, node_access);*/
+	
 	g_return_val_if_fail (node_type != NULL, NULL);
 
 	/* is there a better/quicker method to retrieve pixbufs? */
@@ -1710,7 +1713,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 
 			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
-
+			
 			pixbuf = symbol_db_view_get_pixbuf (
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND),

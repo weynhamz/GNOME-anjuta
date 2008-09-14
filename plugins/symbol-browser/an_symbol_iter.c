@@ -123,8 +123,8 @@ isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
 	if (si->priv->tm_tags_array->len <= 0)
 		return FALSE;
 	
-	DEBUG_PRINT ("si->priv->tm_tags_array->len %d", si->priv->tm_tags_array->len);
-	DEBUG_PRINT ("si->priv->current_pos %d", si->priv->current_pos);
+	/*DEBUG_PRINT ("si->priv->tm_tags_array->len %d", si->priv->tm_tags_array->len);
+	DEBUG_PRINT ("si->priv->current_pos %d", si->priv->current_pos);*/
 	
 	if (si->priv->current_pos >= (si->priv->tm_tags_array->len - 1))
 	{

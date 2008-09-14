@@ -1,3 +1,65 @@
+2008-09-14  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-browser/an_symbol_iter.c (isymbol_iter_next):
+	removed some debug messages.
+
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	converted the GtkFileChooser into GtkComboBoxEntry because of bug #551384.
+
+	* plugins/symbol-db/plugin.c (g_list_compare), (on_session_load),
+	(do_check_offline_files_changed), (on_project_root_added):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_set_data):
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(symbol_db_engine_iterator_new):
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_cache_lookup),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_get_tuple_id_by_unique_name4),
+	(sdb_engine_ctags_output_callback_1), (sdb_engine_init),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_add_new_symbol), (sdb_engine_detects_removed_ids),
+	(sdb_engine_update_file), (on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file), (symbol_db_engine_remove_files),
+	(sdb_engine_walk_down_scope_path),
+	(symbol_db_engine_get_files_with_zero_symbols),
+	(sdb_engine_prepare_file_info_sql),
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered),
+	(symbol_db_engine_get_files_for_project):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (sdb_prefs_init1):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view.c (symbol_db_view_get_pixbuf):
+	ported to libgda-svn 3204. Still some bugs due to libgda remain but
+	they are being squashed.
+
 2008-09-12  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/symbol-browser/plugin.c,
