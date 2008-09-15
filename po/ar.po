@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-14 11:07+0100\n"
+"POT-Creation-Date: 2008-09-15 10:30+0100\n"
 "PO-Revision-Date: 2008-08-15 11:57+0300\n"
 "Last-Translator: Usama Akkad <uak@aya.sy>\n"
 "Language-Team: Arabic\n"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:514
+#: ../plugins/symbol-db/symbol-db-prefs.c:527
 msgid "Load"
 msgstr "تحميل"
 
@@ -3944,7 +3944,7 @@ msgid "<b>Filter</b>"
 msgstr "<b>ترشيح</b>>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "<b>Global</b>"
 msgstr "<b>عمومي</b>"
 
@@ -7973,7 +7973,7 @@ msgid "Symbol Browser"
 msgstr "مستعرض الرموز"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:522
+#: ../plugins/symbol-db/symbol-db-prefs.c:535
 msgid "API Tags"
 msgstr "وسوم API"
 
@@ -8083,7 +8083,7 @@ msgid "Package is not parseable"
 msgstr "الحزمة غير قابلة للحل"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:426
-#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db-prefs.c:586
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "قاعدة بيانات الرموز"
@@ -8093,32 +8093,34 @@ msgid "Resuming glb scan."
 msgstr "متابعة فحص glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
+msgid ""
+"/usr/bin/ctags\n"
+"/usr/local/bin/ctags"
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "<b>Available API tags</b>"
 msgstr "<b>وسوم API المتوفرة</b>"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 #, fuzzy
 msgid "Automatically scan projetc's packages."
 msgstr "أنعِش عرض بيانات ملف التعريف تلقائيًا"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Automatically update symbols without saving file."
 msgstr ""
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 #, fuzzy
 msgid "Checking if package is parseable..."
 msgstr "التقصي عن امكانية حل الحزمة..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Choose ctags executable"
-msgstr "اختر ctags تنفيذي"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
 msgid "Ctags executable:"
 msgstr "Ctags تنفيذية:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:9
 msgid "Parallel scan of project and global symbols."
 msgstr ""
 
@@ -9376,6 +9378,9 @@ msgstr "مدير اللغة"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "ملحق لمتابعة لغات برمجة متعددة"
+
+#~ msgid "Choose ctags executable"
+#~ msgstr "اختر ctags تنفيذي"
 
 #~ msgid ""
 #~ "Anjuta terminal plugin is not installed. The program will be run without "
