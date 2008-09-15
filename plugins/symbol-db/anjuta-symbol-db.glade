@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.4 on Fri Sep 12 22:16:51 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Sep 15 12:25:14 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -42,8 +42,6 @@
                         <child>
                           <widget class="GtkComboBoxEntry" id="comboboxentry1">
                             <property name="visible">True</property>
-                            <property name="items" translatable="yes">/usr/bin/ctags
-/usr/local/bin/ctags</property>
                             <child internal-child="entry">
                               <widget class="GtkEntry" id="preferences_entry:text:/usr/bin/ctags:0:symboldb.ctags">
                                 <property name="visible">True</property>

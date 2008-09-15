@@ -131,7 +131,7 @@ select symbol_id_base, symbol.name from heritage
 #define SHARED_MEMORY_PREFIX		"/dev/shm"
 
 #define THREADS_MONITOR_TIMEOUT			10
-#define THREADS_MAX_CONCURRENT			15
+#define THREADS_MAX_CONCURRENT			3
 #define TRIGGER_SIGNALS_DELAY			100
 #define	TRIGGER_MAX_CLOSURE_RETRIES		50
 #define	THREAD_MAX_CLOSURE_RETRIES		20
