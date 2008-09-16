@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-16 00:09+0200\n"
-"PO-Revision-Date: 2008-09-15 23:29+0200\n"
+"POT-Creation-Date: 2008-09-17 01:20+0200\n"
+"PO-Revision-Date: 2008-09-17 00:33+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "el connector %s no ha pogut registrar el tipus %s"
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr ""
+msgstr "El fitxer que intenteu obrir conté una seqüència de bytes no vàlida."
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
@@ -70,6 +70,8 @@ msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
 msgstr ""
+"l'Anjuta no ha pogut determinar automàticament la codificació del fitxer que "
+"voleu obrir."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -353,9 +355,8 @@ msgid "URI to sync the profile xml"
 msgstr "URI per a sincronitzar el perfil xml"
 
 #: ../libanjuta/anjuta-profile.c:471
-#, fuzzy
 msgid "Please select a plugin from the list"
-msgstr "Seleccioneu un connector per a activar"
+msgstr "Seleccioneu un connector de la llista"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -3774,14 +3775,15 @@ msgstr "%d. %s"
 
 # Projecte_Mandrake [tm-mandrake.po]
 #: ../plugins/file-loader/plugin.c:113
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can not open \"%s\".\n"
 "\n"
 "%s"
 msgstr ""
-"No es pot obrir: %s\n"
-"&s"
+"No es pot obrir «%s».\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -4622,9 +4624,8 @@ msgid "Please enter a revision."
 msgstr "Introduïu una revisió."
 
 #: ../plugins/git/git-cat-file-menu.c:36
-#, fuzzy
 msgid "Git: File retrieved."
-msgstr "Git: s'ha suprimit el fitxer."
+msgstr "Git: s'ha obtingut el fitxer."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
@@ -4917,9 +4918,8 @@ msgstr "_Mostra la diferència de la publicació"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:334
-#, fuzzy
 msgid "_View selected revision"
-msgstr "Visualitza la revisió seleccionada"
+msgstr "_Visualitza la revisió seleccionada"
 
 #. Action name
 #. Stock icon, if any
@@ -4942,9 +4942,8 @@ msgid "Git log operations"
 msgstr "Operacions del registre del Git"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
-msgstr "Operacions del Git"
+msgstr "Operacions FM del Git"
 
 #: ../plugins/git/plugin.c:624
 msgid "Git Log"
@@ -5415,6 +5414,9 @@ msgid ""
 "Category:\t %s\n"
 "Shortcut:\t %c\n"
 msgstr ""
+"Nom:\t %s\n"
+"Categoria:\t %s\n"
+"Drecera:\t %c\n"
 
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
@@ -5649,9 +5651,8 @@ msgid "Patching...\n"
 msgstr "S'està aplicant un pedaç...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
-#, fuzzy
 msgid "Patching..."
-msgstr "S'està aplicant un pedaç...\n"
+msgstr "S'està aplicant un pedaç..."
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5668,9 +5669,8 @@ msgstr ""
 "Examineu i suprimiu els fitxers rebutjats.\n"
 
 #: ../plugins/patch/patch-plugin.c:257
-#, fuzzy
 msgid "Patching complete"
-msgstr "S'ha completat la cerca"
+msgstr "S'ha completat l'aplicació del pedaç"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6444,60 +6444,61 @@ msgid "Icon choice"
 msgstr "Selecció de la icona"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#, fuzzy
 msgid "A generic C++ project"
-msgstr "Afegeix un grup al projecte"
+msgstr "Un projecte genèric de C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "A generic GNOME project"
-msgstr ""
+msgstr "Un projecte genèric de GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
-msgstr ""
+msgstr "Un projecte genèric de GTK+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
-msgstr ""
+msgstr "Un projecte genèric de GTKmm (C++)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "Una miniaplicació genèrica d'acoblador Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
-msgstr ""
+msgstr "Un projecte genèric d'Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
 msgstr ""
+"Un projecte genèric de Java utilitzant la gestió de projectes de l'automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project "
-msgstr ""
+msgstr "Un projecte genèric mínim i pla "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
+"Un projecte genèric compilat en Java nadiu utilitzant el compilador de Java "
+"de GNU (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-#, fuzzy
 msgid "A generic project"
-msgstr "Genera automàticament els fitxers de projecte"
+msgstr "Un projecte genèric"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
 msgstr ""
+"Un projecte genèric de Python utilitzant la gestió de projectes de l'automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
-msgstr ""
+msgstr "Un projecte genèric de wx Widgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "A sample SDL project"
-msgstr "Afegeix un grup al projecte"
+msgstr "Un projecte de mostra SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
@@ -6542,6 +6543,7 @@ msgstr "Connector de l'Anjuta"
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr ""
+"Projecte de connector de l'Anjuta que utilitza l'entorn de treball libanjuta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
@@ -6585,9 +6587,8 @@ msgid "Display title of the plugin"
 msgstr "Mostra el títol del connector"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
-#, fuzzy
 msgid "Django Project"
-msgstr "Neteja el proje_cte"
+msgstr "Projecte Django"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
@@ -6603,45 +6604,43 @@ msgstr "El GCJ necessita saber quina classe conté la funció main()"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "GTKmm"
-msgstr ""
+msgstr "GTKmm"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Informació general del projecte"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
-#, fuzzy
 msgid "Generic"
-msgstr "General"
+msgstr "Genèric"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Generic (Minimal)"
-msgstr ""
+msgstr "Genèric (mínim)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
-#, fuzzy
 msgid "Generic C++"
-msgstr "Classe genèrica C++"
+msgstr "C++ genèric"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "Java genèric compilat amb gcj"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic java (automake)"
-msgstr ""
+msgstr "Java genèric (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic python (automake)"
-msgstr ""
+msgstr "Python genèric (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
@@ -6686,14 +6685,12 @@ msgid "Main class"
 msgstr "Classe principal"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
-#, fuzzy
 msgid "Makefile project"
-msgstr "Desa el projecte glade"
+msgstr "Projecte makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
-#, fuzzy
 msgid "Makefile-based project"
-msgstr "Desa el projecte glade"
+msgstr "Projecte basat en el makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
@@ -6765,7 +6762,7 @@ msgstr "Opcions del projecte"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Python webproject using Django Web Framework"
-msgstr ""
+msgstr "Projecte web Python que utilitza l'entorn de treball web Django"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
@@ -6817,7 +6814,7 @@ msgstr "Necessita la SDL_ttf:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
@@ -6857,17 +6854,16 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "Si el connector té menú o barres d'eines"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:101
-#, fuzzy
 msgid "Wx Widgets"
-msgstr "Ginys"
+msgstr "Wx Widgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Xlib"
-msgstr ""
+msgstr "Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Xlib dock"
-msgstr ""
+msgstr "Acoblador Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
@@ -7325,7 +7321,7 @@ msgstr "No es pot desar %s: %s"
 #: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
-msgstr "No es pot desar el fitxer perquè no se n'ha especificat el nom"
+msgstr "No es pot desar el fitxer perquè encara no se n'ha especificat el nom"
 
 #: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
@@ -8067,13 +8063,12 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetes de l'API disponibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-#, fuzzy
 msgid "Automatically scan projetc's packages."
-msgstr "Escaneja automàticament els paquets del projecte"
+msgstr "Escaneja automàticament els paquets del projecte."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "Automatically update symbols without saving file."
-msgstr ""
+msgstr "Actualitza automàticament els símbols sense desar el fitxer."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
@@ -8085,7 +8080,7 @@ msgstr "Fitxer executable del ctags:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
-msgstr ""
+msgstr "Escaneja en paral·lel el projecte i els símbols globals."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -9124,9 +9119,8 @@ msgid "Gdb plugin."
 msgstr "Connector Gdb."
 
 #: ../plugins/git/git.plugin.in.h:2
-#, fuzzy
 msgid "Git version control"
-msgstr "Connector d'un sistema de control de versions"
+msgstr "Control de versions Git"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9315,9 +9309,8 @@ msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Connector del navegador de símbols per a l'Anjuta."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-#, fuzzy
 msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "Connector del navegador de símbols per a l'Anjuta."
+msgstr "Connector de la base de dades de símbols per a l'Anjuta (inestable)."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
