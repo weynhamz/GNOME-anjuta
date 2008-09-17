@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-15 10:30+0100\n"
-"PO-Revision-Date: 2008-08-15 11:57+0300\n"
+"POT-Creation-Date: 2008-09-17 23:44+0100\n"
+"PO-Revision-Date: 2008-09-17 16:57+0300\n"
 "Last-Translator: Usama Akkad <uak@aya.sy>\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr ""
+msgstr "لم يتمكن أنجوتا من تقرير ما نوع ترميز الملف الذي تريد فتحه."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -356,9 +356,8 @@ msgid "URI to sync the profile xml"
 msgstr "محدد الموقع لمزامنة ملف التعريف ال xml"
 
 #: ../libanjuta/anjuta-profile.c:471
-#, fuzzy
 msgid "Please select a plugin from the list"
-msgstr "رجاء اختر ملحقًا لتنشيطه"
+msgstr "رجاء اختر ملحقا من القائمة"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -592,9 +591,8 @@ msgid "<b>Build</b>"
 msgstr "<b>بناء</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
-#, fuzzy
 msgid "<b>Configuration:</b>"
-msgstr "<b>إعدادات:</b>"
+msgstr "<b>التشكيل:</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Install</b>"
@@ -622,9 +620,8 @@ msgid "Configure Options:"
 msgstr "خيارات الاعداد:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
-#, fuzzy
 msgid "Configure Project"
-msgstr "اعدّ المشروع"
+msgstr "شكّل المشروع"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Continue on errors"
@@ -674,7 +671,7 @@ msgstr "تنقيح"
 #: ../plugins/build-basic-autotools/configuration-list.c:63
 #, fuzzy
 msgid "Profiling"
-msgstr "التعريف"
+msgstr "اللاحة"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Optimized"
@@ -776,9 +773,9 @@ msgid "Command aborted by user"
 msgstr "الامر اجهض من قبل المستخدم"
 
 #: ../plugins/build-basic-autotools/plugin.c:913
-#, fuzzy, c-format
+#, c-format
 msgid "Command terminated with signal %d"
-msgstr "اُنهي الامر بالاشارة %d"
+msgstr "أُنهي الامر بالاشارة %d"
 
 #: ../plugins/build-basic-autotools/plugin.c:921
 msgid "Command terminated for an unknown reason"
@@ -910,10 +907,9 @@ msgid "Remove Configuration"
 msgstr "أزل الإعدادات"
 
 #: ../plugins/build-basic-autotools/plugin.c:2084
-#, fuzzy
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
-msgstr "امسح المشروع (مسح نهائي) و أزل دليل الاعدادات إن أمكن"
+msgstr "امسح المشروع (مسح نهائي) و أزل دليل التشكيل إن أمكن"
 
 #: ../plugins/build-basic-autotools/plugin.c:2097
 #: ../plugins/build-basic-autotools/plugin.c:2125
@@ -3770,7 +3766,7 @@ msgstr "عنصر مجهول"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:980
 #, fuzzy, c-format
 msgid "recent menu label|_%d. %s"
-msgstr "لصاقة قائمة الملفات الحديثة|_%d. %s"
+msgstr "لصاقة قائمة الأخيرة|_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
@@ -3778,17 +3774,20 @@ msgstr "لصاقة قائمة الملفات الحديثة|_%d. %s"
 #. * Don't include the prefix "recent menu label|" in the translation.
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:987
-#, fuzzy, c-format
+#, c-format
 msgid "recent menu label|%d. %s"
-msgstr "لصاقة قائمة الملفات الحديثة|%d. %s"
+msgstr "لصاقة قائمة الأخيرة|%d. %s"
 
 #: ../plugins/file-loader/plugin.c:113
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can not open \"%s\".\n"
 "\n"
 "%s"
-msgstr " لا يمكن فتح %s: %s"
+msgstr ""
+"لا يمكن فتح \"%s\".\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -3944,7 +3943,7 @@ msgid "<b>Filter</b>"
 msgstr "<b>ترشيح</b>>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
 msgid "<b>Global</b>"
 msgstr "<b>عمومي</b>"
 
@@ -4288,9 +4287,8 @@ msgid "<b>Changes:</b>"
 msgstr "<b>التغييرات:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:7
-#, fuzzy
 msgid "<b>Commit to revert:</b>"
-msgstr "<b>ارسله للارجاع</b>"
+msgstr "<b>أودعه للارجاع:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:8
 msgid "<b>Filters</b>"
@@ -4337,9 +4335,8 @@ msgid "<b>Repository to pull from:</b>"
 msgstr "<b> المستودع للسحب منه: </b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
-#, fuzzy
 msgid "<b>Reset to:</b>"
-msgstr "<b>اعد إلى:</b>"
+msgstr "<b>صفّر إلى:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:20
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
@@ -4400,7 +4397,7 @@ msgstr "أضف فرعا بعيدا"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
-msgstr ""
+msgstr "أضف تأشير مُزال بالسطر"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 #, fuzzy
@@ -4408,9 +4405,8 @@ msgid "Annotate this tag"
 msgstr "علق على هذا الوسم"
 
 #: ../plugins/git/anjuta-git.glade.h:35
-#, fuzzy
 msgid "Append fetch data"
-msgstr "الحق بيانات الجلب"
+msgstr "ألحق بيانات الجلب"
 
 #: ../plugins/git/anjuta-git.glade.h:36
 #, fuzzy
@@ -4495,7 +4491,7 @@ msgstr "من:"
 #: ../plugins/git/anjuta-git.glade.h:55
 #, fuzzy
 msgid "Grep:"
-msgstr "جلب:يوناني"
+msgstr "جلب:"
 
 #: ../plugins/git/anjuta-git.glade.h:56
 msgid "Hard"
@@ -4518,9 +4514,8 @@ msgid "Mixed"
 msgstr "مختلط"
 
 #: ../plugins/git/anjuta-git.glade.h:61
-#, fuzzy
 msgid "Previous commit"
-msgstr "الارسال السابق"
+msgstr "الإيداع السابق"
 
 #: ../plugins/git/anjuta-git.glade.h:62
 msgid "Pull"
@@ -4546,7 +4541,7 @@ msgstr "جار استخراج الحالة..."
 #: ../plugins/git/anjuta-git.glade.h:67
 #, fuzzy
 msgid "Revert Commit"
-msgstr "ارجع الارسال"
+msgstr "ارجع الإيداع"
 
 #: ../plugins/git/anjuta-git.glade.h:68
 #, fuzzy
@@ -4585,9 +4580,8 @@ msgid "Tag/Commit"
 msgstr "الوسم/الارسال"
 
 #: ../plugins/git/anjuta-git.glade.h:76
-#, fuzzy
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "هذا الارسال يستنتج دمجا فاشلا (استخدم -i)"
+msgstr "هذا الايداع يستنتج دمجا فاشلا (استخدم -i)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
@@ -4596,7 +4590,7 @@ msgstr "إلى:"
 #: ../plugins/git/anjuta-git.glade.h:79
 #, fuzzy
 msgid "Unstage Files"
-msgstr "ملف الإبعاد"
+msgstr "ملفات الإبعاد"
 
 #: ../plugins/git/anjuta-git.glade.h:80
 msgid "Use a custom log message"
@@ -4643,14 +4637,12 @@ msgid "Please enter a revision."
 msgstr "رجاء أدخل اسم المراجعة."
 
 #: ../plugins/git/git-cat-file-menu.c:36
-#, fuzzy
 msgid "Git: File retrieved."
-msgstr "Git: حُذف الملف."
+msgstr "Git: جُلب الملف."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
-#, fuzzy
 msgid "Git: Files checked out."
-msgstr "Git: تُقصي عن الملفات."
+msgstr "Git: تُحقق عن الملفات."
 
 #: ../plugins/git/git-commit-dialog.c:36
 #, fuzzy
@@ -4658,14 +4650,14 @@ msgid "Git: Commit complete."
 msgstr "Subversion: تم الايداع."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Git: Created branch \"%s\"."
-msgstr "Git: الفرع المنشأ \"%s\"."
+msgstr "Git: الفرع المُنشأ \"%s\"."
 
 #: ../plugins/git/git-create-tag-dialog.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Git: Created tag \"%s\"."
-msgstr "Git: الوسم المنشأ \"%s\"."
+msgstr "Git: الوسم المُنشأ \"%s\"."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
@@ -4943,9 +4935,8 @@ msgstr "إ_عرض فروق المرسلات"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:334
-#, fuzzy
 msgid "_View selected revision"
-msgstr "أضهر المراجعة المنتقاة"
+msgstr "ا_عرض المراجعة المنتقاة"
 
 #. Action name
 #. Stock icon, if any
@@ -4968,9 +4959,8 @@ msgid "Git log operations"
 msgstr "سجل عمليات Git"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
-msgstr "عمليات Git"
+msgstr "عمليات Git FM"
 
 #: ../plugins/git/plugin.c:624
 msgid "Git Log"
@@ -5456,6 +5446,9 @@ msgid ""
 "Category:\t %s\n"
 "Shortcut:\t %c\n"
 msgstr ""
+"الاسم:\t %s\n"
+"الفئة:\t %s\n"
+"الاختصار:\t %c\n"
 
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
@@ -5702,9 +5695,8 @@ msgid "Patching...\n"
 msgstr "جارٍ الترقيع...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
-#, fuzzy
 msgid "Patching..."
-msgstr "جارٍ الترقيع...\n"
+msgstr " الترقيع..n"
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5721,9 +5713,8 @@ msgstr ""
 "افحص وأزل أي ملفات مرفوضة.\n"
 
 #: ../plugins/patch/patch-plugin.c:257
-#, fuzzy
 msgid "Patching complete"
-msgstr "انتهى البحث"
+msgstr "تم الترقيع"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6482,60 +6473,61 @@ msgid "Icon choice"
 msgstr "اختيار الأيقونات"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#, fuzzy
 msgid "A generic C++ project"
-msgstr "أضف مجموعة إلى مشروع"
+msgstr "مشروع C++ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "A generic GNOME project"
-msgstr ""
+msgstr "مشروع GNOME عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
-msgstr ""
+msgstr "مشروع GTK+ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
+#, fuzzy
 msgid "A generic GTKmm (C++) project"
-msgstr ""
+msgstr "مشروع GTKmm (C++) عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "ارساء عام لبريمج Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
-msgstr ""
+msgstr "مشروع Xlib عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
+#, fuzzy
 msgid "A generic java project using automake project management"
-msgstr ""
+msgstr "مشروع جافا عام بإستخدام إدارة مشروع automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
+#, fuzzy
 msgid "A generic minimal and flat project "
-msgstr ""
+msgstr "مشروع مصغر و مسطح عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr ""
+msgstr "مشروع جافا مصنّف أصلا بإستخدام مصنّف غنو للجافا )gcj("
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-#, fuzzy
 msgid "A generic project"
-msgstr "أضف إلى المشروع"
+msgstr "مشروع عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
+#, fuzzy
 msgid "A generic python project using automake project management"
-msgstr ""
+msgstr "مشروع بايثون عام بإستخدام إدارة مشروع automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
-msgstr ""
+msgstr "مشروع wx Widgets عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "A sample SDL project"
-msgstr "أضف مجموعة إلى مشروع"
+msgstr "مشروع SDL بسيط"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
@@ -6574,7 +6566,7 @@ msgstr "ملحق أنجوتا"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr ""
+msgstr "مشروع ملحق أنجوتا يستخدم إطار libanjuta "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
@@ -6617,9 +6609,8 @@ msgid "Display title of the plugin"
 msgstr "أظهر عنوان الملحق"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
-#, fuzzy
 msgid "Django Project"
-msgstr "تن_ظيف المشروع"
+msgstr "مشروع Django"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
@@ -6635,15 +6626,15 @@ msgstr "يحتاج GCJ أن يعلم أي فئة تحتوي الدالة main()"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "GNOME"
-msgstr ""
+msgstr "غنوم"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "GTKmm"
-msgstr ""
+msgstr "GTKmm"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
@@ -6656,24 +6647,23 @@ msgstr "عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Generic (Minimal)"
-msgstr ""
+msgstr "عام (مصغر)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
-#, fuzzy
 msgid "Generic C++"
-msgstr "فئة C++ العميمة"
+msgstr "C++ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "جافا المصنفة ب gcj عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic java (automake)"
-msgstr ""
+msgstr "جافا عام (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic python (automake)"
-msgstr ""
+msgstr "بايثون عام (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
@@ -6717,14 +6707,12 @@ msgid "Main class"
 msgstr "الفئة الرئيسية"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
-#, fuzzy
 msgid "Makefile project"
-msgstr "المشروع الكامل"
+msgstr "مشروع Makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
-#, fuzzy
 msgid "Makefile-based project"
-msgstr "أغلق المشروع"
+msgstr "مشروع يعتمد على Makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
@@ -6796,7 +6784,7 @@ msgstr "خيارات المشروع"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Python webproject using Django Web Framework"
-msgstr ""
+msgstr "مشروع webproject لبايثون باستخدام إطار Django للوب"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
@@ -6848,7 +6836,7 @@ msgstr "يتطلب SDL_ttf:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
@@ -6884,17 +6872,16 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "فيما إذا كان الملحق لديه قوائم أو أشرطة أدوات"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:101
-#, fuzzy
 msgid "Wx Widgets"
-msgstr "عناصر الواجهة"
+msgstr "Wx Widgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Xlib"
-msgstr ""
+msgstr "Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Xlib dock"
-msgstr ""
+msgstr "إرساء Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
@@ -6905,9 +6892,8 @@ msgid "project name"
 msgstr "اسم المشروع"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:4
-#, fuzzy
 msgid "Program Parameters"
-msgstr "ثوابت البرنامج"
+msgstr "معامل البرنامج"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:5
 msgid "Program:"
@@ -6960,9 +6946,8 @@ msgid "Kill program"
 msgstr "اقتل البرنامج"
 
 #: ../plugins/run-program/plugin.c:238
-#, fuzzy
 msgid "Program Parameters..."
-msgstr "ثوابت البرنامج..."
+msgstr "معامل البرنامج..."
 
 #: ../plugins/run-program/plugin.c:240
 msgid "Set current program, arguments and so on"
@@ -8078,9 +8063,8 @@ msgid "Symbols"
 msgstr "الرموز"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:279
-#, fuzzy
 msgid "Package is not parseable"
-msgstr "الحزمة غير قابلة للحل"
+msgstr "الحزمة لا تقبل للتحليل"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:426
 #: ../plugins/symbol-db/symbol-db-prefs.c:586
@@ -8093,36 +8077,28 @@ msgid "Resuming glb scan."
 msgstr "متابعة فحص glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
-msgid ""
-"/usr/bin/ctags\n"
-"/usr/local/bin/ctags"
-msgstr ""
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "<b>Available API tags</b>"
 msgstr "<b>وسوم API المتوفرة</b>"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
-#, fuzzy
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "Automatically scan projetc's packages."
-msgstr "أنعِش عرض بيانات ملف التعريف تلقائيًا"
+msgstr "افحص حزم المشروع آليا."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+msgid "Automatically update symbols without saving file."
+msgstr "حدّث الرموز آليا دون حفظ ملف."
+
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+msgid "Checking if package is parseable..."
+msgstr "التحقق عن امكانية تحليل الحزمة..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Automatically update symbols without saving file."
-msgstr ""
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
-#, fuzzy
-msgid "Checking if package is parseable..."
-msgstr "التقصي عن امكانية حل الحزمة..."
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
 msgid "Ctags executable:"
 msgstr "Ctags تنفيذية:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:9
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
-msgstr ""
+msgstr "فحص بالتوازي للمشروع و للرموز العمومية."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8355,7 +8331,7 @@ msgstr "وسائط سطر الأوامر"
 #: ../plugins/tools/tool.c:81
 #, fuzzy
 msgid "Same than output"
-msgstr "مثل الخرجاسي:"
+msgstr "مثل الخرج"
 
 #: ../plugins/tools/tool.c:82
 msgid "Existing message pane"
@@ -9144,9 +9120,8 @@ msgid "Gdb plugin."
 msgstr "ملحق Gdb."
 
 #: ../plugins/git/git.plugin.in.h:2
-#, fuzzy
 msgid "Git version control"
-msgstr "ملحق نظام التحكم بالنسخة"
+msgstr "التحكم بإصدار Git"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9335,9 +9310,8 @@ msgid "Symbol Browser Plugin for Anjuta."
 msgstr "ملحق مستعرض الرموز لأنجوتا."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-#, fuzzy
 msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "ملحق مستعرض الرموز لأنجوتا."
+msgstr "ملحق قاعدة بيانات الرموز لأنجوتا (غير مستقر)."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9378,31 +9352,3 @@ msgstr "مدير اللغة"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "ملحق لمتابعة لغات برمجة متعددة"
-
-#~ msgid "Choose ctags executable"
-#~ msgstr "اختر ctags تنفيذي"
-
-#~ msgid ""
-#~ "Anjuta terminal plugin is not installed. The program will be run without "
-#~ "a terminal."
-#~ msgstr "ملحق طرفية أنجوتا غير مُثبت. البرنامج سيُشَغل بدون طرفية."
-
-#~ msgid "gtk-cancel"
-#~ msgstr "إلغ-gtk"
-
-#~ msgid "gtk-clear"
-#~ msgstr "امسح-gtk"
-
-#, fuzzy
-#~ msgid "gtk-ok"
-#~ msgstr "وافق-gtk"
-
-#, fuzzy
-#~ msgid "Visible whitespaces"
-#~ msgstr "عرض المساحات البيضاء"
-
-#~ msgid "Close"
-#~ msgstr "أغلق"
-
-#~ msgid "No properties available for this group"
-#~ msgstr "لا خصائص متاحة لهذه المجموعة"
