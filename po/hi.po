@@ -1,20 +1,22 @@
-# translation of anjuta.HEAD.po to Hindi
+# translation of anjuta.HEAD.hi.po to Hindi
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Rajesh Ranjan <rranjan@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: anjuta.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 03:20+0000\n"
-"PO-Revision-Date: 2008-09-09 16:17+0530\n"
+"POT-Creation-Date: 2008-09-15 10:26+0000\n"
+"PO-Revision-Date: 2008-09-18 18:32+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"\n"
+"\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -187,20 +189,20 @@ msgstr "थाई"
 msgid "Unknown"
 msgstr "अज्ञात"
 
-#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr ""
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2265
 msgid "Anjuta Shell"
-msgstr ""
+msgstr "Anjuta शेल"
 
 #: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
@@ -222,18 +224,18 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:514
+#: ../plugins/symbol-db/symbol-db-prefs.c:527
 msgid "Load"
 msgstr "लोड"
 
 #: ../libanjuta/anjuta-plugin-manager.c:912
 #: ../libanjuta/anjuta-plugin-manager.c:1900
 msgid "Available Plugins"
-msgstr ""
+msgstr "मौजूद प्लगिन"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:927
 msgid "Preferred plugins"
-msgstr ""
+msgstr "वरीय प्लगिन"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1139
 msgid "Only show user activatable plugins"
@@ -254,7 +256,7 @@ msgstr ""
 #: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
-msgstr ""
+msgstr "प्लगिन चुनें"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1498
@@ -269,11 +271,11 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1919
 msgid "Remember this selection"
-msgstr ""
+msgstr "यह चयन याद रखें"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2246
 msgid "Profiles"
-msgstr "प्रोफ़ाइल्स"
+msgstr "प्रोफ़ाइल"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2247
 msgid "Current stack of profiles"
@@ -281,7 +283,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2252
 msgid "Available plugins"
-msgstr ""
+msgstr "मौजूद प्लगिन"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2253
 msgid "Currently available plugins found in plugin paths"
@@ -289,11 +291,11 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2259
 msgid "Activated plugins"
-msgstr ""
+msgstr "सक्रिय प्लगिन"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2260
 msgid "Currently activated plugins"
-msgstr ""
+msgstr "अभी सक्रिय प्लगिन"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2266
 msgid "Anjuta shell for which the plugins are"
@@ -301,7 +303,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2274
 msgid "Anjuta Status"
-msgstr ""
+msgstr "Anjuta स्थिति"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2275
 msgid "Anjuta status to use in loading and unloading of plugins"
@@ -310,7 +312,7 @@ msgstr ""
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2434
 msgid "Loaded: "
-msgstr ""
+msgstr "लोड किया: "
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
@@ -330,7 +332,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
-msgstr ""
+msgstr "प्रोफाइल प्लगिन"
 
 #: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
@@ -338,7 +340,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-profile.c:240
 msgid "Synchronization URI"
-msgstr ""
+msgstr "तुल्यकालन URI"
 
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the profile xml"
@@ -352,12 +354,12 @@ msgstr ""
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
 msgid "Failed to read '%s': %s"
-msgstr ""
+msgstr "पढ़ने में विफल '%s': %s"
 
 #: ../libanjuta/anjuta-profile.c:526
 #, c-format
 msgid "No read permission for: %s"
-msgstr ""
+msgstr "No read permission for: %s"
 
 #: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
@@ -412,7 +414,7 @@ msgstr "सामान्य"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:242
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "Anjuta वरीयता"
 
 #: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
@@ -433,7 +435,7 @@ msgstr "वस्तु"
 
 #: ../libanjuta/anjuta-save-prompt.c:210
 msgid "_Discard changes"
-msgstr ""
+msgstr "बदलाव त्यागें (_D)"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 #, c-format
@@ -482,6 +484,8 @@ msgid ""
 "\n"
 "System: "
 msgstr ""
+"\n"
+"सिस्टम: "
 
 #: ../libanjuta/anjuta-utils.c:474
 #, c-format
@@ -515,7 +519,7 @@ msgstr "मिटाया"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:304
 msgid "Conflicted"
-msgstr ""
+msgstr "विरोधी"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
 msgid "Missing"
@@ -523,7 +527,7 @@ msgstr "अनुपस्थित"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
 msgid "Unversioned"
-msgstr ""
+msgstr "गैर संस्करण"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
@@ -535,16 +539,16 @@ msgstr "रैण्डर करने के लिए पाठ"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:225
 msgid "Pixbuf Object"
-msgstr ""
+msgstr "Pixbuf वस्तु"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:226
 msgid "The pixbuf to render."
-msgstr ""
+msgstr "रेंडर के लिए पिक्सबफ"
 
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "विजेट नहीं मिला: %s"
 
 #: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
@@ -553,23 +557,23 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 msgid "<b>Build</b>"
-msgstr ""
+msgstr "<b>बिल्ड</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
 msgid "<b>Configuration:</b>"
-msgstr ""
+msgstr "<b>बिन्यास:</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Install</b>"
-msgstr ""
+msgstr "<b>संस्थापित</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "<b>Regenerate project</b>"
-msgstr ""
+msgstr "<b>प्रोजेक्ट फिर जेनरेट करें</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "<b>Select Program to run:</b>"
-msgstr ""
+msgstr "<b>चलाने के लिए प्रोग्राम चुनें:</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 #: ../plugins/run-program/anjuta-run-program.glade.h:1
@@ -578,19 +582,19 @@ msgstr "आर्गुमेंट्सः"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 msgid "Build Directory:"
-msgstr ""
+msgstr "निर्देशिका बिल्ड करें:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 msgid "Configure Options:"
-msgstr ""
+msgstr "विन्यास विकल्प:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Configure Project"
-msgstr ""
+msgstr "प्रोजेक्ट विन्यस्त करें"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Continue on errors"
-msgstr ""
+msgstr "त्रुटि पर जारी रखें"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 msgid "Highlight message locations in editor"
@@ -598,28 +602,28 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Install as root:"
-msgstr ""
+msgstr "बतौर रूट संस्थापित करें:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
-msgstr ""
+msgstr "टर्मिनल में चलाएँ"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
 msgid "Run several commands at a time:"
-msgstr ""
+msgstr "कई कमांड एक साथ चलाएँ:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
-msgstr ""
+msgstr "प्रोग्राम चुनें"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:16
 msgid "Select a build directory"
-msgstr ""
+msgstr "बिल्ड निर्देशिका चुनें"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:17
 msgid "Translate messages"
-msgstr ""
+msgstr "संदेश अनुवाद करें"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
@@ -635,7 +639,7 @@ msgstr "दोषसुधार"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:63
 msgid "Profiling"
-msgstr ""
+msgstr "प्रोफाइलिंग"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Optimized"
@@ -687,11 +691,11 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:151
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:152
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -700,26 +704,26 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:160
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:161
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:707
 #, c-format
 msgid "Entering: %s"
-msgstr ""
+msgstr "दाखिल हो रहा है: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:743
 #, c-format
 msgid "Leaving: %s"
-msgstr ""
+msgstr "छोड़ रहा है: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:776
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
-msgstr ""
+msgstr "चेतावनी:"
 
 #: ../plugins/build-basic-autotools/plugin.c:893
 #, c-format
@@ -729,7 +733,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:903
 #, c-format
 msgid "Command canceled by user"
-msgstr ""
+msgstr "उपयोक्ता द्वारा कमांड रद्द"
 
 #: ../plugins/build-basic-autotools/plugin.c:908
 #, c-format
@@ -757,14 +761,14 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:947
 #: ../plugins/tools/execute.c:514
 msgid "Completed successful\n"
-msgstr ""
+msgstr "सफलतापूर्वक पूर्ण\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
 #: ../plugins/build-basic-autotools/plugin.c:993
 #, c-format
 msgid "Build %d: %s"
-msgstr ""
+msgstr "बिल्ड %d: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:1565
 #, c-format
@@ -784,43 +788,43 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:2259
 #, c-format
 msgid "_Build"
-msgstr ""
+msgstr "बिल्ड (_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2023
 msgid "_Build Project"
-msgstr ""
+msgstr "प्रोजेक्ट बिल्ड करें (_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2024
 msgid "Build whole project"
-msgstr ""
+msgstr "पूरा प्रोजेक्ट बिल्ड करें"
 
 #: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Install Project"
-msgstr ""
+msgstr "प्रोजेक्ट संस्थापित करें (_I)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Install whole project"
-msgstr ""
+msgstr "पूरा प्रोजेक्ट संस्थापित करें"
 
 #: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Clean Project"
-msgstr ""
+msgstr "प्रोजेक्ट साफ करें (_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2036
 msgid "Clean whole project"
-msgstr ""
+msgstr "पूरा प्रोजेक्ट साफ करें"
 
 #: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
-msgstr ""
+msgstr "प्रोजेक्ट विन्यस्त करें (_o)..."
 
 #: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
-msgstr ""
+msgstr "प्रोजेक्ट विन्यस्त करें"
 
 #: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "Build _Tarball"
-msgstr ""
+msgstr "टारबाल बिल्ड करें (_T)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2048
 msgid "Build project tarball distribution"
@@ -1543,7 +1547,7 @@ msgid "Breakpoint properties"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1965
+#: ../plugins/debug-manager/breakpoints.c:1971
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "खण्डन बिन्दु"
@@ -1625,7 +1629,7 @@ msgid "Kernel Signals"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "स्थान"
@@ -1767,152 +1771,152 @@ msgstr ""
 msgid "_Value:"
 msgstr "मान (_V):"
 
-#: ../plugins/debug-manager/breakpoints.c:1658
+#: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1755
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "_Breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1763
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Toggle Breakpoint"
 msgstr "ब्रेकपाइन्ट टॉगल करें"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Toggle breakpoint at the current location"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1777
 msgid "Add Breakpoint..."
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Add a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Remove Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Remove a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Edit Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Edit breakpoint properties"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
-#: ../plugins/debug-manager/breakpoints.c:1866
+#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Enable Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1867
+#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Enable a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1809
 msgid "Disable All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "Deactivate all breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1817
 msgid "R_emove All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Remove all breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1822
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Jump to Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Jump to breakpoint location"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1861
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Disable Breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1862
+#: ../plugins/debug-manager/breakpoints.c:1868
 msgid "Disable a breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "सक्षम"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "पता"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "क़िस्म"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Condition"
 msgstr "स्थिति"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Pass count"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "State"
 msgstr "स्थिति"
 
-#: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Breakpoint operations"
 msgstr ""
 
@@ -2504,7 +2508,7 @@ msgstr ""
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Search"
 msgstr "ढूंढें"
 
@@ -3168,9 +3172,9 @@ msgid "Simple searching"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1742
-#: ../plugins/document-manager/plugin.c:2147
-#: ../plugins/document-manager/plugin.c:2157
+#: ../plugins/document-manager/plugin.c:1745
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2160
 msgid "Documents"
 msgstr "दस्तावेज़"
 
@@ -3215,12 +3219,12 @@ msgid "Automatic"
 msgstr "स्वचालित"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1557
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:1571
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr ""
 
@@ -3555,7 +3559,7 @@ msgstr "छापा जा रहा है..."
 msgid "Print Preview"
 msgstr "छपाई नमूना"
 
-#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
+#: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr ""
@@ -3986,12 +3990,12 @@ msgid "Other"
 msgstr "अन्य"
 
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr ""
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr ""
 
@@ -4295,7 +4299,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "लेखकः"
 
@@ -5318,35 +5322,35 @@ msgstr ""
 msgid "%Y"
 msgstr ""
 
-#: ../plugins/macro/plugin.c:34
+#: ../plugins/macro/plugin.c:35
 msgid "Macros"
 msgstr "मेक्रोज़"
 
-#: ../plugins/macro/plugin.c:41
+#: ../plugins/macro/plugin.c:42
 msgid "_Insert Macro..."
 msgstr ""
 
-#: ../plugins/macro/plugin.c:43
+#: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
 msgstr ""
 
-#: ../plugins/macro/plugin.c:48
+#: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
 msgstr "मेक्रो जोड़ें (_A)..."
 
-#: ../plugins/macro/plugin.c:50
+#: ../plugins/macro/plugin.c:51
 msgid "Add a macro"
 msgstr ""
 
-#: ../plugins/macro/plugin.c:55
+#: ../plugins/macro/plugin.c:56
 msgid "Macros..."
 msgstr ""
 
-#: ../plugins/macro/plugin.c:57
+#: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
 msgstr ""
 
-#: ../plugins/macro/plugin.c:115
+#: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
 msgstr ""
 
@@ -5468,7 +5472,7 @@ msgstr[1] ""
 
 #: ../plugins/message-view/plugin.c:70
 msgid "_Next Message"
-msgstr ""
+msgstr "अगला संदेश (_N)"
 
 #: ../plugins/message-view/plugin.c:71
 msgid "Next message"
@@ -5476,7 +5480,7 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:74
 msgid "_Previous Message"
-msgstr ""
+msgstr "पूर्व संदेश (_P)"
 
 #: ../plugins/message-view/plugin.c:75
 msgid "Previous message"
@@ -5488,7 +5492,7 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:79
 msgid "Save message"
-msgstr ""
+msgstr "संदेश सहेजें"
 
 #: ../plugins/message-view/plugin.c:197
 msgid "Next/Previous Message"
@@ -5581,7 +5585,7 @@ msgstr ""
 #: ../plugins/profiler/gprof-flat-profile-view.c:56
 #: ../plugins/profiler/gprof-function-call-tree-view.c:60
 msgid "Function Name"
-msgstr ""
+msgstr "फंक्शन नाम"
 
 #. Total amount of time spent in this function, excluding those it calla.
 #. * This is the same as the "Seconds" field in the flat profile.
@@ -6086,7 +6090,7 @@ msgid "Basic Information"
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "गंतव्य:"
@@ -6096,7 +6100,7 @@ msgid "Enter the basic Project information"
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr ""
 
@@ -6113,7 +6117,7 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "संस्करणः"
 
@@ -6241,292 +6245,421 @@ msgstr ""
 
 #: ../plugins/project-wizard/property.c:322
 msgid "Choose file"
-msgstr ""
+msgstr "फाइल चुनें"
 
 #: ../plugins/project-wizard/property.c:332
 msgid "Icon choice"
-msgstr ""
+msgstr "प्रतीक पसंद"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-msgid "Add C++ support:"
-msgstr ""
+msgid "A generic C++ project"
+msgstr "जेनेरिक C++ प्रोजेक्ट"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
-msgid "Add gtk-doc system:"
-msgstr ""
+msgid "A generic GNOME project"
+msgstr "जेनेरिक GNOME प्रोजेक्ट"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "Add internationalization:"
-msgstr ""
+msgid "A generic GTK+ project"
+msgstr "जेनेरिक GTK+ प्रोजेक्ट"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "जेनेरिक C++ प्रोजेक्ट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "जेनेरिक Xlib डाक एप्लेट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "जेनेरिक Xlib प्रोजेक्ट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "जेनेरिक प्रोजेक्ट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "जेनेरिक wx विजेट प्रोजेक्ट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "नमूना SDL प्रोजेक्ट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
+msgid "Add C++ support:"
+msgstr "C++ समर्थन जोड़ें:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
+msgid "Add gtk-doc system:"
+msgstr "gtk-doc सिस्टम जोड़ें:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
+msgid "Add internationalization:"
+msgstr "अंतराष्ट्रीयकरण जोड़ें:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "अंजुता प्लगिन"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
-msgstr ""
+msgstr "बेसिक सूचना"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr ""
+msgstr "Berkeley Software Distribution License (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
-msgid "Django Project information"
-msgstr ""
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Django Project"
+msgstr "जैंगो परियोजना"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
+msgid "Django Project information"
+msgstr "जैंगो परियोजना सूचना"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "ई-मेल पताः"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
-msgid "General Project Information"
-msgstr ""
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr "गनोम"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr "जीटीके+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
+msgid "General Project Information"
+msgstr "सामान्य प्रोजेक्ट सूचना"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Generic"
+msgstr "जेनेरिक"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Generic (Minimal)"
+msgstr "जेनेरिक (Minimal)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Generic C++"
+msgstr "Generic C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Generic gcj compiled java"
+msgstr "Generic gcj compiled java"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Generic java (automake)"
+msgstr "Generic java (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Generic python (automake)"
+msgstr "Generic python (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
 msgstr "आइकन फाइल:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Icon file for the plugin"
-msgstr ""
+msgstr "प्लगिन के लिए प्रतीक फाइल"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Implement plugin interfaces"
-msgstr ""
+msgstr "प्लगिन अंतरफलक लागू करें"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Interface implemented by the plugin"
-msgstr ""
+msgstr "प्लगिन के द्वारा लागू अंतरफलक"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Interface:"
 msgstr "इंटरफेसः"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "License"
-msgstr ""
+msgstr "लाइसेंस"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Main Class:"
-msgstr ""
+msgstr "मुख्य वर्ग:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Main class"
-msgstr ""
+msgstr "मुख्य वर्ग"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Makefile project"
+msgstr "मेकफाइल परियोजना"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Makefile-based project"
+msgstr "मेकफाइल आधारित परियोजना"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Name of the value to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "No license"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Options for project build system"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Plugin Class Name:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Plugin Dependencies:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Plugin Description:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Plugin Title:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin class name"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin has menus or/and toolbars"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Project directory:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "परियोजना नाम:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "परियोजना विकल्प "
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "Wx Widgets"
+msgstr "Wx विजेट"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr "Xlib dock"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
-msgstr ""
+msgstr "प्रोजेक्ट नाम"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:4
 msgid "Program Parameters"
-msgstr ""
+msgstr "प्रोग्राम पैरामीटर"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:5
 msgid "Program:"
@@ -6545,7 +6678,7 @@ msgstr ""
 
 #: ../plugins/run-program/parameters.c:311
 msgid "Load Target to run"
-msgstr ""
+msgstr "चलाने के लिए लक्ष्य लोड करें"
 
 #: ../plugins/run-program/parameters.c:720
 #: ../plugins/search/search_preferences.c:534
@@ -6570,15 +6703,15 @@ msgstr ""
 
 #: ../plugins/run-program/plugin.c:230
 msgid "Stop Program"
-msgstr ""
+msgstr "प्रोग्राम रोकें"
 
 #: ../plugins/run-program/plugin.c:232
 msgid "Kill program"
-msgstr ""
+msgstr "प्रोग्राम चलाएँ"
 
 #: ../plugins/run-program/plugin.c:238
 msgid "Program Parameters..."
-msgstr ""
+msgstr "प्रोग्राम पैरामीटर..."
 
 #: ../plugins/run-program/plugin.c:240
 msgid "Set current program, arguments and so on"
@@ -6586,31 +6719,31 @@ msgstr ""
 
 #: ../plugins/run-program/plugin.c:265
 msgid "Run operations"
-msgstr ""
+msgstr "आपरेशन चलाएँ"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/sample1/plugin.c:56
 msgid "_Sample action"
-msgstr ""
+msgstr "नमूना क्रिया (_S)"
 
 #. Display label
 #. short-cut
 #: ../plugins/sample1/plugin.c:58
 msgid "Sample action"
-msgstr ""
+msgstr "नमूना क्रिया"
 
 #: ../plugins/sample1/plugin.c:79
 msgid "Sample file operations"
-msgstr ""
+msgstr "नमूना फाइल आपरेशन"
 
 #: ../plugins/sample1/plugin.c:85
 msgid "SamplePlugin"
-msgstr ""
+msgstr "SamplePlugin"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:1
 msgid "<b>Scratchbox Options</b>\n"
-msgstr ""
+msgstr "<b>स्क्रैचबाक्स विकल्प</b>\n"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:3
 msgid "Scratchbox directory:"
@@ -6622,13 +6755,13 @@ msgstr ""
 
 #: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
 msgid "Scratchbox"
-msgstr ""
+msgstr "Scratchbox"
 
 #. Public functions
 #. *---------------------------------------------------------------------------
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "<b>Actions</b>"
-msgstr ""
+msgstr "<b>क्रिया</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:2
 msgid "<b>File Filter</b>"
@@ -6960,12 +7093,12 @@ msgstr ""
 msgid "Could not save %s: %s"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview-io.c:246
+#: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview-io.c:488
+#: ../plugins/sourceview/sourceview-io.c:489
 #, c-format
 msgid "New file %d"
 msgstr ""
@@ -7582,7 +7715,7 @@ msgid "Symbol Browser"
 msgstr ""
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:522
+#: ../plugins/symbol-db/symbol-db-prefs.c:535
 msgid "API Tags"
 msgstr ""
 
@@ -7661,28 +7794,28 @@ msgid "Created symbols..."
 msgstr ""
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:924
+#: ../plugins/symbol-browser/plugin.c:927
 msgid "Local"
 msgstr "स्थानीय"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:944
+#: ../plugins/symbol-browser/plugin.c:947
 msgid "Global"
 msgstr "वैश्विक"
 
-#: ../plugins/symbol-browser/plugin.c:988
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Symbol browser actions"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:998
 msgid "Symbol browser popup actions"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1005
 msgid "Symbol navigations"
 msgstr ""
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1014
 msgid "Symbols"
 msgstr "संकेत"
 
@@ -7691,7 +7824,7 @@ msgid "Package is not parseable"
 msgstr ""
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:426
-#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db-prefs.c:586
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr ""
@@ -7717,14 +7850,10 @@ msgid "Checking if package is parseable..."
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Choose ctags executable"
-msgstr ""
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr ""
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
 msgstr ""
 
@@ -7986,11 +8115,11 @@ msgstr ""
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr ""
+msgstr "पॉपअप संवाद"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
-msgstr ""
+msgstr "आउटपुट छोड़ें"
 
 #: ../plugins/tools/tool.c:95
 msgid "None"
@@ -7998,7 +8127,7 @@ msgstr "कुछ नहीं"
 
 #: ../plugins/tools/tool.c:96
 msgid "Current buffer"
-msgstr ""
+msgstr "मौजूदा बफर"
 
 #: ../plugins/tools/tool.c:97
 msgid "Current selection"
@@ -8010,11 +8139,11 @@ msgstr "स्ट्रिंग"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:1
 msgid "<b>Program to test:</b>"
-msgstr ""
+msgstr "<b>जाँचने के लिए प्रोग्राम:</b>"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:2
 msgid "<b>Valgrind</b>"
-msgstr ""
+msgstr "<b>Valgrind</b>"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:3
 msgid ""
@@ -8022,10 +8151,13 @@ msgid ""
 "Addrcheck\n"
 "Helgrind"
 msgstr ""
+"Memcheck\n"
+"Addrcheck\n"
+"Helgrind"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:7
 msgid "Select Tool:"
-msgstr ""
+msgstr "औजार चुनें:"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:8
 msgid "Select Valgrind Target"
@@ -8066,7 +8198,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:445
 msgid "_Valgrind"
-msgstr ""
+msgstr "_Valgrind"
 
 #. Action name
 #. Stock icon, if any
@@ -8078,25 +8210,25 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:461
 msgid "_Kill Execution"
-msgstr ""
+msgstr "चलाना खत्म करें (_K)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:469
 msgid "_Load Log"
-msgstr ""
+msgstr "लाग लोड करें (_L)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:477
 msgid "S_ave Log"
-msgstr ""
+msgstr "लाग सहेजें (_a)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:485
 msgid "Edit Rules"
-msgstr ""
+msgstr "नियम संपादित करें"
 
 #: ../plugins/valgrind/plugin.c:550
 msgid "Use Valgrind debug tool"
@@ -8138,7 +8270,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
-msgstr ""
+msgstr "प्रक्रिया बाहर."
 
 #: ../plugins/valgrind/vgactions.c:197
 msgid "Could not get the right valgrind-binary gconf key:"
@@ -8170,15 +8302,15 @@ msgstr ""
 #. * inside the <>
 #: ../plugins/valgrind/vgcachegrindprefs.c:246
 msgid "Enter <size>,<assoc>,<line_size>:"
-msgstr ""
+msgstr "<size>,<assoc>,<line_size> दाखिल करें:"
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:280
 msgid "Cachegrind"
-msgstr ""
+msgstr "Cachegrind"
 
 #: ../plugins/valgrind/vgdefaultview.c:190
 msgid "Error contains"
-msgstr ""
+msgstr "त्रुटि में शामिल है"
 
 #: ../plugins/valgrind/vgdefaultview.c:191
 msgid "Function contains"
@@ -8214,7 +8346,7 @@ msgstr "काटें (_t)"
 
 #: ../plugins/valgrind/vgdefaultview.c:1155
 msgid "Suppress"
-msgstr ""
+msgstr "दबाएँ"
 
 #: ../plugins/valgrind/vgdefaultview.c:1157
 msgid "Edit in Custom Editor"
@@ -8267,7 +8399,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vghelgrindprefs.c:165
 msgid "Helgrind"
-msgstr ""
+msgstr "Helgrind"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:170
 msgid "Assume thread stacks are used privately"
@@ -8283,11 +8415,11 @@ msgstr "मेमोरीजांच"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:194
 msgid "Memory leaks"
-msgstr ""
+msgstr "स्मृति रिसाव"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:199
 msgid "Leak check:"
-msgstr ""
+msgstr "लीक चेक:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:210
 msgid "Show reachable blocks in leak check"
@@ -8295,11 +8427,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
 msgid "Leak resolution:"
-msgstr ""
+msgstr "लीक विभेदन:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
-msgstr ""
+msgstr "यहां तक रखें"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
@@ -8319,7 +8451,7 @@ msgstr "सिकोड़ें"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 msgid "Rule name:"
-msgstr ""
+msgstr "नियम नाम:"
 
 #: ../plugins/valgrind/vgrule-editor.c:237
 msgid "Suppress messages of type:"
@@ -8331,11 +8463,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:260
 msgid "System call:"
-msgstr ""
+msgstr "सिस्टम काल:"
 
 #: ../plugins/valgrind/vgrule-editor.c:271
 msgid "Call chain:"
-msgstr ""
+msgstr "काल चेन:"
 
 #: ../plugins/valgrind/vgrule-editor.c:529
 #: ../plugins/valgrind/vgrule-editor.c:544
@@ -8358,15 +8490,11 @@ msgstr ""
 
 #: ../src/about.c:185
 msgid "Copyright (c) Naba Kumar"
-msgstr ""
-
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr ""
+msgstr "Copyright (c) Naba Kumar"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
-msgstr ""
+msgstr "लोड किया सत्र..."
 
 #: ../src/anjuta.glade.h:1
 msgid "<b>Appearance</b>"
@@ -8374,11 +8502,11 @@ msgstr "<b>प्रकटन</b>"
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>परियोजना तयशुदा</b>"
 
 #: ../src/anjuta.glade.h:3
 msgid "<b>Session</b>"
-msgstr ""
+msgstr "<b>सत्र</b>"
 
 #: ../src/anjuta.glade.h:4
 msgid ""
@@ -8388,18 +8516,23 @@ msgid ""
 "Icons only\n"
 "Text only"
 msgstr ""
+"Default\n"
+"Text below icons\n"
+"Text beside icons\n"
+"Icons only\n"
+"Text only"
 
 #: ../src/anjuta.glade.h:9
 msgid "Default project directory:"
-msgstr ""
+msgstr "मूलभूत प्रोजेक्ट निर्देशिका:"
 
 #: ../src/anjuta.glade.h:10
 msgid "Developer email address:"
-msgstr ""
+msgstr "डेवलेपर ईमेल पता:"
 
 #: ../src/anjuta.glade.h:11
 msgid "Developer name:"
-msgstr ""
+msgstr "डेवलेपर नाम:"
 
 #: ../src/anjuta.glade.h:12
 msgid "Do not load last project and files on startup"
@@ -8426,6 +8559,11 @@ msgid ""
 "Gnome toolbar setting\n"
 "Tabs"
 msgstr ""
+"Text\n"
+"Icons\n"
+"Text + Icons\n"
+"Gnome toolbar setting\n"
+"Tabs"
 
 #. translators: translate the same as in gnome-control-center
 #: ../src/anjuta.glade.h:24
@@ -8506,19 +8644,19 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:69
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "Anjuta advanced tutorial"
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "बार बार पूछे जाने वाले प्रश्न (_F)"
 
 #: ../src/anjuta-actions.h:73
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "अंजुटा बार बार पूछे जाने वाले प्रश्न"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta _Home Page"
-msgstr ""
+msgstr "Anjuta घर पेज (_H)"
 
 #: ../src/anjuta-actions.h:77
 msgid "Online documentation and resources"
@@ -8546,7 +8684,7 @@ msgstr "के बारे में (_A)"
 
 #: ../src/anjuta-actions.h:89
 msgid "About Anjuta"
-msgstr ""
+msgstr "Anjuta परिचय"
 
 #: ../src/anjuta-actions.h:92
 msgid "About External _Plugins"
@@ -8566,7 +8704,7 @@ msgstr "दृश्य"
 
 #: ../src/anjuta-app.c:925
 msgid "Installed plugins"
-msgstr ""
+msgstr "संस्थापित प्लगिन"
 
 #: ../src/anjuta-app.c:929
 msgid "Shortcuts"
@@ -8585,7 +8723,7 @@ msgstr ""
 #. * of the window on command line
 #: ../src/main.c:73
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr ""
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:78
 msgid "Do not show the splashscreen"
@@ -8609,27 +8747,27 @@ msgstr ""
 
 #: ../src/main.c:316
 msgid "- Integrated Development Environment"
-msgstr ""
+msgstr "- Integrated Development Environment"
 
 #: ../src/main.c:381
 msgid "Anjuta"
-msgstr ""
+msgstr "Anjuta"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr ""
+msgstr "<b>स्वतःपूर्ण (C/C++/Java केवल)</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
 msgid "<b>Calltips</b>"
-msgstr ""
+msgstr "<b>कालटिप्स</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
 msgid "<b>Indentation parameters</b>"
-msgstr ""
+msgstr "<b>हाशिया पैरामीटर</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "<b>Smart Indentation</b>"
-msgstr ""
+msgstr "<b>स्मार्ट हाशिया</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
@@ -8641,7 +8779,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Autocomplete"
-msgstr ""
+msgstr "स्वतःपूर्ण"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
 msgid "Brace indentation size in spaces:"
@@ -8649,11 +8787,11 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
 msgid "Enable adaptive indentation"
-msgstr ""
+msgstr "एडाप्टिव हाशिया सक्रिय करें"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:11
 msgid "Enable code completion"
-msgstr ""
+msgstr "कोड समाप्ति सक्रिय करें"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
 msgid "Enable smart brace completion"
@@ -8661,19 +8799,19 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
 msgid "Enable smart indentation"
-msgstr ""
+msgstr "स्मार्ट हाशिया सक्रिय करें"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
 msgid "Pressing tab indents"
-msgstr ""
+msgstr "टैब हाशिया दबा रहा है"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
 msgid "Show calltips"
-msgstr ""
+msgstr "कालटिप्स दिखाएँ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
 msgid "Smart Indentation"
-msgstr ""
+msgstr "स्मार्ट हाशिया"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
 msgid "Statement indentation size in spaces:"
@@ -8681,7 +8819,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
-msgstr ""
+msgstr "स्वतः पूर्ण (_A)"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
@@ -8697,7 +8835,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
-msgstr ""
+msgstr "Swap .h/.c"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
@@ -8705,36 +8843,36 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
-msgstr ""
+msgstr "C++/Java Assistance"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1999
 #: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
-msgstr ""
+msgstr "C/C++/Java/Vala"
 
 #: ../plugins/sourceview/plugin.c:230 ../plugins/sourceview/plugin.c:268
 msgid "GtkSourceView Editor"
-msgstr ""
+msgstr "GtkSourceView Editor"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
 msgid "Gdb"
-msgstr ""
+msgstr "Gdb"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
-msgstr ""
+msgstr "Gdb प्लगिन."
 
 #: ../plugins/git/git.plugin.in.h:2
 msgid "Git version control"
-msgstr ""
+msgstr "Git संस्करण नियंत्रण"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
-msgstr ""
+msgstr "API मद"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr ""
+msgstr "अंजुटा के लिए डेव वहेल्प प्लगिन"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
@@ -8742,11 +8880,11 @@ msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
-msgstr ""
+msgstr "Anjuta फाइल सहायक प्लगिन"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
-msgstr ""
+msgstr "फाइल सहायक"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:2
 msgid "File manager for project and single files"
@@ -8762,27 +8900,27 @@ msgstr ""
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
-msgstr ""
+msgstr "वर्ग इंहेरीटेंस"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
 msgid "Glade File"
-msgstr ""
+msgstr "ग्लेड फाइल"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
-msgstr ""
+msgstr "Anjuta के लिए ग्लेड प्लगिन"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
 msgid "Glade interface designer"
-msgstr ""
+msgstr "ग्लेड अतंरफलक डिजायनर"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:1
 msgid "Task Manager"
-msgstr ""
+msgstr "कार्य प्रबंधक"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr ""
+msgstr "Anjut के लिए टूडू प्लगिन"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
@@ -8790,11 +8928,11 @@ msgstr ""
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
-msgstr ""
+msgstr "मैक्रो प्लगिन"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
-msgstr ""
+msgstr "पैच प्लगिन"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
 msgid "Patches files and directories."
@@ -8806,15 +8944,15 @@ msgstr ""
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 msgid "Sample Plugin"
-msgstr ""
+msgstr "नमूना प्लगिन"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:2
 msgid "Sample Plugin for Anjuta."
-msgstr ""
+msgstr "Anjuta के लिए नमूना प्लगिन."
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
-msgstr ""
+msgstr "आटोमेक बिल्ड"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
@@ -8826,15 +8964,15 @@ msgstr "चलाएँ"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
-msgstr ""
+msgstr "अंजुता के लिए टर्मिनल प्लगिन"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr ""
+msgstr "संस्करण नियंत्रण सिस्टम प्लगिन"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
-msgstr ""
+msgstr "CVS प्लगिन"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
@@ -8846,7 +8984,7 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 msgid "Project Import Assistant"
-msgstr ""
+msgstr "प्रोजेक्ट इंपोर्ट सहायक"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
 msgid "An alternate editor based on GtkSourceview"
@@ -8854,7 +8992,7 @@ msgstr ""
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
 msgid "GtkSourceview editor"
-msgstr ""
+msgstr "GtkSourceview संपादक"
 
 #: ../plugins/editor/anjuta-editor.plugin.in.h:2
 msgid "Scintilla based component for editing files"
@@ -8862,7 +9000,7 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
-msgstr ""
+msgstr "C++ और जावा सपोर्ट प्लगिन"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
@@ -8870,7 +9008,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
-msgstr ""
+msgstr "प्रोजेक्ट सहायक"
 
 #: ../plugins/profiler/profiler.plugin.in.h:1
 msgid "Application performance profiler"
@@ -8882,7 +9020,7 @@ msgstr "प्रोफाइल"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
 msgid "Component for searching"
-msgstr ""
+msgstr "खोज रहा है घटक के लिए"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
@@ -8890,15 +9028,15 @@ msgstr "ढूंढा जा रहा है"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
-msgstr ""
+msgstr "Anjuta वर्ग जनक प्लगिन"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
-msgstr ""
+msgstr "C++/GObject Class"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
-msgstr ""
+msgstr "वर्ग जनक"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
@@ -8922,15 +9060,15 @@ msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:2
 msgid "Message Manager"
-msgstr ""
+msgstr "संदेश प्रबंधक"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
 msgid "Powerful debugging tool."
-msgstr ""
+msgstr "शक्तिशाली डिबगिंग औजार"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:2
 msgid "Valgrind Plugin"
-msgstr ""
+msgstr "वालग्रिंड प्लगिन"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:2
 msgid "File loader to load different files"
@@ -8938,7 +9076,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
-msgstr ""
+msgstr "मैनेजर प्लगिन डिबग करें"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
@@ -8946,11 +9084,11 @@ msgstr ""
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
-msgstr ""
+msgstr "प्रोग्राम चलाएं"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:1
 msgid "Language Manager"
-msgstr ""
+msgstr "भाषा प्रबंधक"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
