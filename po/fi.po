@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 12:27+0300\n"
+"POT-Creation-Date: 2008-09-18 13:54+0300\n"
 "PO-Revision-Date: 2008-08-29 20:44+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -59,6 +59,20 @@ msgstr "Liitännäinen %s määritteli puuttuvan tyypin"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "liitännäinen %s ei voinut rekisteröidä tyyppiä %s"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr "Tiedosto jota yrität avata sisältää virheellisen tavuvirran."
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"anjuta ei voinut selvittää avattavan tiedoston merkistökoodausta "
+"automaattisesti."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -176,14 +190,14 @@ msgstr "thai"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../libanjuta/anjuta-launcher.c:1158 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/devhelp/plugin.c:542
 #: ../plugins/devhelp/plugin.c:551 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Komentoa ei voi suorittaa: ”%s”"
 
-#: ../libanjuta/anjuta-launcher.c:1159
+#: ../libanjuta/anjuta-launcher.c:1160
 msgid "execvp failed"
 msgstr "execvp epäonnistui"
 
@@ -214,7 +228,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:492
+#: ../plugins/symbol-db/symbol-db-prefs.c:527
 msgid "Load"
 msgstr "Lataa"
 
@@ -246,7 +260,7 @@ msgid "Forget selected plugin"
 msgstr "Unohda valittu liitännäinen"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Valitse liitännäinen"
@@ -340,6 +354,10 @@ msgstr "Synkronointi-URI"
 msgid "URI to sync the profile xml"
 msgstr "URI, johon profiilin XML-tiedosto synkronoidaan"
 
+#: ../libanjuta/anjuta-profile.c:471
+msgid "Please select a plugin from the list"
+msgstr "Valitse liitännäinen luettelosta"
+
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
@@ -377,8 +395,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Kohdetta ”%s” ei voitu lukea: seuraavat pakolliset liitännäiset "
-"puuttuvat:\n"
+"Kohdetta ”%s” ei voitu lukea: seuraavat pakolliset liitännäiset puuttuvat:\n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences.c:1453
@@ -391,7 +408,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:192
+#: ../libanjuta/anjuta-preferences.c:1457 ../plugins/git/plugin.c:193
 msgid "_Reset"
 msgstr "_Tyhjennä"
 
@@ -454,19 +471,19 @@ msgstr ""
 "sulkemista?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:848
+#: ../libanjuta/anjuta-ui.c:849
 msgid "Action"
 msgstr "Toiminto"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:867
 msgid "Visible"
 msgstr "Näkyvissä"
 
-#: ../libanjuta/anjuta-ui.c:877
+#: ../libanjuta/anjuta-ui.c:878
 msgid "Sensitive"
 msgstr "Herkkyys"
 
-#: ../libanjuta/anjuta-ui.c:886
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Shortcut"
 msgstr "Pikanäppäin"
 
@@ -668,7 +685,7 @@ msgstr "Yhtään projektin tiedostoa ei ole nyt auki."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:72
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "Ohjelma ”%s” ei ole paikallinen tiedosto"
@@ -679,7 +696,7 @@ msgid "Program '%s' does not exists"
 msgstr "Ohjelmaa ”%s” ei löydy"
 
 #: ../plugins/build-basic-autotools/executer.c:318
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:82
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "Ohjelmalla ”%s” ei ole suoritusoikeuksia"
@@ -887,8 +904,7 @@ msgstr "Poista määrittely"
 #: ../plugins/build-basic-autotools/plugin.c:2084
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
-"Siivoa project (distclean) ja poista asetuskansio, jos mahdollista"
+msgstr "Siivoa project (distclean) ja poista asetuskansio, jos mahdollista"
 
 #: ../plugins/build-basic-autotools/plugin.c:2097
 #: ../plugins/build-basic-autotools/plugin.c:2125
@@ -1075,7 +1091,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
-msgstr "Yleinen C++-luokka"
+msgstr "Tavallinen C++-luokka"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Header File:"
@@ -1575,7 +1591,7 @@ msgid "Breakpoint properties"
 msgstr "Keskeytyspisteen ominaisuudet"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1965
+#: ../plugins/debug-manager/breakpoints.c:1971
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Keskeytyspisteet"
@@ -1657,7 +1673,7 @@ msgid "Kernel Signals"
 msgstr "Ytimen signaalit"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Sijainti"
@@ -1799,152 +1815,152 @@ msgstr "_Poista kaikki"
 msgid "_Value:"
 msgstr "_Arvo:"
 
-#: ../plugins/debug-manager/breakpoints.c:1658
+#: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Haluatko varmasti poistaa kaikki keskeytyspisteet?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1755
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "_Breakpoints"
 msgstr "_Keskeytyspisteet"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1763
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Toggle Breakpoint"
 msgstr "Käytetäänkö keskeytyspistettä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1765
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Toggle breakpoint at the current location"
 msgstr "Valitse käytetäänkö tätä keskeytyspistettä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1777
 msgid "Add Breakpoint..."
 msgstr "_Lisää keskeytyspiste..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1773
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Add a breakpoint"
 msgstr "Lisää keskeytyspiste"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Remove Breakpoint"
 msgstr "Poista keskeytyspiste"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Remove a breakpoint"
 msgstr "Poista keskeytyspiste"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Edit Breakpoint"
 msgstr "Muokkaa keskeytyspistettä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Edit breakpoint properties"
 msgstr "Muokkaa keskeytyspisteen ominaisuuksia"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
-#: ../plugins/debug-manager/breakpoints.c:1866
+#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Enable Breakpoint"
 msgstr "Ota keskeytyspiste käyttöön"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
-#: ../plugins/debug-manager/breakpoints.c:1867
+#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Enable a breakpoint"
 msgstr "Ota keskeytyspiste käyttöön"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1809
 msgid "Disable All Breakpoints"
 msgstr "Poista kaikki keskeytyspisteet käytöstä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1811
 msgid "Deactivate all breakpoints"
 msgstr "Poista kaikki keskeytyspisteet käytöstä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1817
 msgid "R_emove All Breakpoints"
 msgstr "Poista k_aikki keskeytyspisteet"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Remove all breakpoints"
 msgstr "Poista kaikki keskeytyspisteet"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1822
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Jump to Breakpoint"
 msgstr "Siirry keskeytyspisteeseen"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1824
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Jump to breakpoint location"
 msgstr "Siirry keskeytyspisteen sijaintiin"
 
-#: ../plugins/debug-manager/breakpoints.c:1861
+#: ../plugins/debug-manager/breakpoints.c:1867
 msgid "Disable Breakpoint"
 msgstr "Poista keskeytyspiste käytöstä"
 
-#: ../plugins/debug-manager/breakpoints.c:1862
+#: ../plugins/debug-manager/breakpoints.c:1868
 msgid "Disable a breakpoint"
 msgstr "Poista keskeytyspiste käytöstä"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Enabled"
 msgstr "Käytössä"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Osoite"
 
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1898
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tyyppi"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Condition"
 msgstr "Ehto"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "Pass count"
 msgstr "Ohituskerrat"
 
-#: ../plugins/debug-manager/breakpoints.c:1893
+#: ../plugins/debug-manager/breakpoints.c:1899
 msgid "State"
 msgstr "Tila"
 
-#: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Breakpoint operations"
 msgstr "Keskeytyspisteiden toiminnot"
 
@@ -2104,8 +2120,7 @@ msgstr "Tietoja _ytimen käyttäjärakenteesta"
 
 #: ../plugins/debug-manager/plugin.c:907
 msgid "Display the contents of kernel 'struct user' for current child"
-msgstr ""
-"Näytä nykyisen lapsiprosessin ”struct user”-rakenteen sisältö ytimessä"
+msgstr "Näytä nykyisen lapsiprosessin ”struct user”-rakenteen sisältö ytimessä"
 
 #: ../plugins/debug-manager/plugin.c:921
 #: ../plugins/debug-manager/plugin.c:1021
@@ -2338,8 +2353,8 @@ msgstr "Tiedosto"
 
 #: ../plugins/debug-manager/stack_trace.c:639
 #: ../plugins/debug-manager/threads.c:456
-#: ../plugins/document-manager/plugin.c:951
-#: ../plugins/document-manager/plugin.c:965
+#: ../plugins/document-manager/plugin.c:958
+#: ../plugins/document-manager/plugin.c:972
 msgid "Line"
 msgstr "Rivi"
 
@@ -2541,7 +2556,7 @@ msgstr "Kirjat"
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
 #: ../plugins/search/search-replace.c:2013
-#: ../plugins/symbol-browser/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:968
 msgid "Search"
 msgstr "Etsi"
 
@@ -2601,7 +2616,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Korvaa"
 
-#: ../plugins/document-manager/anjuta-docman.c:1395
+#: ../plugins/document-manager/anjuta-docman.c:1401
 msgid "[read-only]"
 msgstr "[vain-luku]"
 
@@ -2916,7 +2931,7 @@ msgstr "Toista pikahaku"
 
 #: ../plugins/document-manager/plugin.c:279 ../plugins/gtodo/interface.c:164
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1834
+#: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -3215,9 +3230,9 @@ msgid "Simple searching"
 msgstr "Yksinkertainen haku"
 
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1735
-#: ../plugins/document-manager/plugin.c:2140
+#: ../plugins/document-manager/plugin.c:1745
 #: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2160
 msgid "Documents"
 msgstr "Asiakirjat"
 
@@ -3233,41 +3248,41 @@ msgstr "Lataa uudestaan"
 msgid "Goto"
 msgstr "Siirry"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:951
 msgid "OVR"
 msgstr "YLI"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:955
 msgid "INS"
 msgstr "LIS"
 
-#: ../plugins/document-manager/plugin.c:950
-#: ../plugins/document-manager/plugin.c:964
+#: ../plugins/document-manager/plugin.c:957
+#: ../plugins/document-manager/plugin.c:971
 msgid "Zoom"
 msgstr "Suurennos"
 
-#: ../plugins/document-manager/plugin.c:952
-#: ../plugins/document-manager/plugin.c:966
+#: ../plugins/document-manager/plugin.c:959
+#: ../plugins/document-manager/plugin.c:973
 msgid "Col"
 msgstr "Sarake"
 
-#: ../plugins/document-manager/plugin.c:953
-#: ../plugins/document-manager/plugin.c:967
+#: ../plugins/document-manager/plugin.c:960
+#: ../plugins/document-manager/plugin.c:974
 msgid "Mode"
 msgstr "Tila"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1038
+#: ../plugins/document-manager/plugin.c:1045
 msgid "Automatic"
 msgstr "Automaattinen"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Tiedoston ”%s” automaattitallennus epäonnistui"
 
-#: ../plugins/document-manager/plugin.c:1564
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr "Automaattitallennus valmistui"
 
@@ -3282,8 +3297,8 @@ msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
 msgstr ""
-"Tekstiä ”%s” haettiin loppuun asti ja jatkettiin alusta, mutta yhtään "
-"uutta osumaa ei löytynyt."
+"Tekstiä ”%s” haettiin loppuun asti ja jatkettiin alusta, mutta yhtään uutta "
+"osumaa ei löytynyt."
 
 #: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
@@ -3608,7 +3623,7 @@ msgstr "Tulostetaan..."
 msgid "Print Preview"
 msgstr "Tulostuksen esikatselu"
 
-#: ../plugins/editor/plugin.c:129 ../plugins/editor/plugin.c:141
+#: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
 msgid "Scintilla Editor"
 msgstr "Scintilla-muokkain"
@@ -3674,16 +3689,16 @@ msgstr "Tiedosto ladattu onnistuneesti"
 msgid "Saving file..."
 msgstr "Tallennetaan tiedostoa..."
 
-#: ../plugins/editor/text_editor.c:1566
+#: ../plugins/editor/text_editor.c:1568
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "Väliaikaistiedostoa %s ei voitu tallentaa: %s"
 
-#: ../plugins/editor/text_editor.c:1580
+#: ../plugins/editor/text_editor.c:1582
 msgid "File saved successfully"
 msgstr "Tiedosto tallennettu onnistuneesti"
 
-#: ../plugins/editor/text_editor.c:1942
+#: ../plugins/editor/text_editor.c:1944
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3753,6 +3768,16 @@ msgstr "_%d. %s"
 msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
 
+#: ../plugins/file-loader/plugin.c:113
+#, c-format
+msgid ""
+"Can not open \"%s\".\n"
+"\n"
+"%s"
+msgstr "Kohdetta \"%s\" ei voi avata.\n"
+"\n"
+"%s"
+
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
 msgid ""
@@ -3767,8 +3792,8 @@ msgid ""
 msgstr ""
 "<b>Kohdetta ”%s” ei voi avata.</b>\n"
 "\n"
-"Liitännäistä, oletustoimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi ei ole "
-"määritelty.\n"
+"Liitännäistä, oletustoimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi "
+"ei ole määritelty.\n"
 "\n"
 "MIME-tyyppi: %s.\n"
 "\n"
@@ -3934,7 +3959,7 @@ msgstr "Juurikansio, jos projektia ei ole avattu:"
 
 # judezmo, juutalaisespanja
 #: ../plugins/file-manager/file-model.c:103
-#: ../plugins/symbol-browser/an_symbol_view.c:873
+#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "Ladataan..."
 
@@ -4055,12 +4080,12 @@ msgid "Other"
 msgstr "Muu"
 
 #: ../plugins/file-wizard/file.c:107
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -4215,21 +4240,13 @@ msgstr "Lähetetään signaali %s prosessille: %d"
 msgid "Error whilst signaling the process."
 msgstr "Virhe signaloitaessa prosessia."
 
-#: ../plugins/gdb/plugin.c:102
-msgid ""
-"Anjuta terminal plugin is not installed. The program will be run without a "
-"terminal."
-msgstr ""
-"Anjuta pääteliitännäistä ei ole asennettu. Ohjelma suoritetaan ilman "
-"päätettä."
-
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:108
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
 msgstr "FIF-tiedostoa %s ei voitu luoda. Ohjelma suoritetaan ilman päätettä."
 
-#: ../plugins/gdb/plugin.c:152
+#: ../plugins/gdb/plugin.c:194
 msgid "Cannot start terminal for debugging."
 msgstr "Päätettä ei voi käynnistää vianetsintää varten."
 
@@ -4381,7 +4398,7 @@ msgstr "Tekijä/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "Tekijä:"
 
@@ -4541,7 +4558,8 @@ msgstr "Tagi/toteuta"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "Tämä toteutus saattaa epäonnistuneen yhdistämisen valmiiksi (käytä -i:tä)"
+msgstr ""
+"Tämä toteutus saattaa epäonnistuneen yhdistämisen valmiiksi (käytä -i:tä)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
@@ -4558,18 +4576,6 @@ msgstr "Käytä omaa lokiviestiä"
 #: ../plugins/git/anjuta-git.glade.h:81
 msgid "View log"
 msgstr "Näytä loki"
-
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
-
-#: ../plugins/git/anjuta-git.glade.h:84
-msgid "gtk-clear"
-msgstr "gtk-clear"
-
-#: ../plugins/git/anjuta-git.glade.h:85
-msgid "gtk-ok"
-msgstr "gtk-ok"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
@@ -4607,6 +4613,10 @@ msgstr "Git: Noudetaan..."
 msgid "Please enter a revision."
 msgstr "Anna revisio."
 
+#: ../plugins/git/git-cat-file-menu.c:36
+msgid "Git: File retrieved."
+msgstr "Git: Tiedosto noudettu."
+
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
 msgstr "Git: tiedostot noudettu."
@@ -4638,21 +4648,29 @@ msgstr "Git: Poistettiin haara ”%s”."
 msgid "Git: Fetch complete."
 msgstr "Git: Haku valmistui."
 
-#: ../plugins/git/git-log-dialog.c:276
+#: ../plugins/git/git-log-dialog.c:305
 msgid "Git: Retrieving log..."
 msgstr "Git: Noudetaan lokia..."
 
-#: ../plugins/git/git-log-dialog.c:433
+#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "Anna polku."
+
+#: ../plugins/git/git-log-dialog.c:505
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Haara:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:438
+#: ../plugins/git/git-log-dialog.c:510
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Merkintä:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:443
+#: ../plugins/git/git-log-dialog.c:515
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Etä:</b> %s"
@@ -4686,6 +4704,7 @@ msgid "Git: Branch checkout complete."
 msgstr "Git: Haaran tuonti valmistui."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -4699,213 +4718,224 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:56
+#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:64 ../plugins/subversion/plugin.c:78
+#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
 msgid "_Commit..."
 msgstr "_Toimita"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:72
+#: ../plugins/git/plugin.c:73
 msgid "_Fetch"
 msgstr "_Nouda"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:80
+#: ../plugins/git/plugin.c:81
 msgid "_Rebase"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:88 ../plugins/git/plugin.c:184
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
 msgid "_Start..."
 msgstr "_Käynnistä..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:96
+#: ../plugins/git/plugin.c:97
 msgid "_Continue"
 msgstr "_Jatka"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:104
+#: ../plugins/git/plugin.c:105
 msgid "_Skip"
 msgstr "_Ohita"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:112
+#: ../plugins/git/plugin.c:113
 msgid "_Abort"
 msgstr "_Keskeytä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:120
+#: ../plugins/git/plugin.c:121
 msgid "_Pull..."
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:128
+#: ../plugins/git/plugin.c:129
 msgid "_Unstage files..."
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:136
+#: ../plugins/git/plugin.c:137
 msgid "_Check out files..."
 msgstr "_Nouda tiedostoja..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:144
+#: ../plugins/git/plugin.c:145
 msgid "_Resolve conflicts..."
 msgstr "_Selvitä ristiriidat..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:152
+#: ../plugins/git/plugin.c:153
 msgid "Create patch series..."
 msgstr "Luo paikkasarja..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:160 ../plugins/git/plugin.c:349
+#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
 msgid "_Reset tree..."
 msgstr "_Nollaa puu..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:168 ../plugins/git/plugin.c:357
+#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
 msgid "_Revert commit..."
 msgstr "Pe_ru toimitus..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:176 ../plugins/git/plugin.c:365
+#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
 msgid "_Bisect"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:200
+#: ../plugins/git/plugin.c:201
 msgid "_Good"
 msgstr "_Hyvä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:208
+#: ../plugins/git/plugin.c:209
 msgid "_Bad"
 msgstr "_Huono"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:216
+#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
 msgid "_View log..."
 msgstr "_Näytä loki..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:224 ../plugins/git/plugin.c:289
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
+#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
+#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
+#: ../plugins/subversion/plugin.c:169
 msgid "_Add..."
 msgstr "_Lisää..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:232 ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "_Remove..."
 msgstr "_Poista..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:240
+#: ../plugins/git/plugin.c:241
 msgid "_Ignore..."
 msgstr "Älä huomioi..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:249 ../plugins/git/plugin.c:333
+#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
 msgid "_Create branch..."
 msgstr "_Luo haara..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:257
+#: ../plugins/git/plugin.c:258
 msgid "_Delete branch..."
 msgstr "_Poista haara..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:265
+#: ../plugins/git/plugin.c:266
 msgid "_Switch to another branch..."
 msgstr "_Siirry toiseen haaraan..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:273
+#: ../plugins/git/plugin.c:274
 msgid "_Merge..."
 msgstr "_Yhdistä..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:281
+#: ../plugins/git/plugin.c:282
 msgid "_Remote branches"
 msgstr "_Etähaarat"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:297
+#: ../plugins/git/plugin.c:298
 msgid "_Delete..."
 msgstr "_Poista..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:305 ../plugins/git/plugin.c:341
+#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
 msgid "_Create tag..."
 msgstr "_Luo tagi"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:313
+#: ../plugins/git/plugin.c:314
 msgid "_Diff uncommitted changes"
 msgstr "_Vertaa toteuttamattomia muutoksia"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:325
+#: ../plugins/git/plugin.c:326
 msgid "_Show commit diff"
 msgstr "_Näytä toteutetut erot"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:373
+#: ../plugins/git/plugin.c:334
+msgid "_View selected revision"
+msgstr "_Näytä valittu revisio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:382
 msgid "_Set good revision"
 msgstr "A_seta hyvä revisio"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:381
+#: ../plugins/git/plugin.c:390
 msgid "_Set bad revision"
 msgstr "A_seta huono revisio"
 
-#: ../plugins/git/plugin.c:496
+#: ../plugins/git/plugin.c:580
 msgid "Git operations"
 msgstr "Git-toiminnot"
 
-#: ../plugins/git/plugin.c:501
+#: ../plugins/git/plugin.c:585
 msgid "Git log operations"
 msgstr "Gitin lokitoiminnot"
 
-#: ../plugins/git/plugin.c:529
+#: ../plugins/git/plugin.c:590
+msgid "Git FM operations"
+msgstr "Git FM -toiminnot"
+
+#: ../plugins/git/plugin.c:624
 msgid "Git Log"
 msgstr "Git-loki"
 
@@ -5363,6 +5393,17 @@ msgstr "Anjutan makrot"
 msgid "My macros"
 msgstr "Omat makrot"
 
+#: ../plugins/macro/macro-dialog.c:141
+#, c-format
+msgid ""
+"Name:\t %s\n"
+"Category:\t %s\n"
+"Shortcut:\t %c\n"
+msgstr ""
+"Nimi:\t %s\n"
+"Luokka::\t %s\n"
+"Oikotie:\t %c\n"
+
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
 msgstr "Lisää"
@@ -5385,35 +5426,35 @@ msgstr "%Y-%m-%d"
 msgid "%Y"
 msgstr "%Y"
 
-#: ../plugins/macro/plugin.c:34
+#: ../plugins/macro/plugin.c:35
 msgid "Macros"
 msgstr "Makrot"
 
-#: ../plugins/macro/plugin.c:41
+#: ../plugins/macro/plugin.c:42
 msgid "_Insert Macro..."
 msgstr "_Liitä makro..."
 
-#: ../plugins/macro/plugin.c:43
+#: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
 msgstr "Lisää makro pikanäppäimellä"
 
-#: ../plugins/macro/plugin.c:48
+#: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
 msgstr "_Lisää makro..."
 
-#: ../plugins/macro/plugin.c:50
+#: ../plugins/macro/plugin.c:51
 msgid "Add a macro"
 msgstr "Lisää makro"
 
-#: ../plugins/macro/plugin.c:55
+#: ../plugins/macro/plugin.c:56
 msgid "Macros..."
 msgstr "Makrot..."
 
-#: ../plugins/macro/plugin.c:57
+#: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
 msgstr "Lisää, muokkaa tai poista makroja"
 
-#: ../plugins/macro/plugin.c:115
+#: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
 msgstr "Makrotoiminnot"
 
@@ -5486,7 +5527,7 @@ msgstr "Sulje kaikki viestivälilehdet"
 
 #: ../plugins/message-view/message-view.c:326
 #: ../plugins/message-view/message-view.c:360
-#: ../plugins/symbol-browser/an_symbol_view.c:170
+#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "Ei viestit yksityiskohtia"
 
@@ -5595,6 +5636,10 @@ msgstr "Paikataan %s käyttäen %s\n"
 msgid "Patching...\n"
 msgstr "Paikataan...\n"
 
+#: ../plugins/patch/patch-plugin.c:204
+msgid "Patching..."
+msgstr "Paikataan..."
+
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Toimintoja on vielä kesken, odota että ne valmistuvat."
@@ -5608,6 +5653,10 @@ msgstr ""
 "Paikkaus epäonnistui.\n"
 "Tarkista syntyneet virheviestit,\n"
 "tutki ja poista hylätyt tiedostot.\n"
+
+#: ../plugins/patch/patch-plugin.c:257
+msgid "Patching complete"
+msgstr "Paikkaus valmistui"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -6190,7 +6239,7 @@ msgid "Basic Information"
 msgstr "Perustiedot"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Kohde:"
@@ -6200,7 +6249,7 @@ msgid "Enter the basic Project information"
 msgstr "Anna projektin perustiedot"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "Projektin nimi:"
 
@@ -6217,11 +6266,11 @@ msgid ""
 msgstr ""
 "Sovellusapulainen luo projektille yksinkertaisen rungon, joka sisältää "
 "tarvittavat koontitiedostot. Apulainen kysyy projektin alustavan rakenteen "
-"yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain tiedoista "
-"ei voi muuttaa jälkikäteen."
+"yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain tiedoista ei "
+"voi muuttaa jälkikäteen."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "Versio:"
 
@@ -6300,8 +6349,8 @@ msgid ""
 "generating the project.\n"
 msgstr ""
 "Joitain tärkeitä ohjelmia tai kehitystyökalujen paketteja, jotka tämän "
-"projektin koostaminen vaatii, puuttuu. Varmista, että vaaditut paketit "
-"on asennettu ennen kuin yrität koostaa projektia.\n"
+"projektin koostaminen vaatii, puuttuu. Varmista, että vaaditut paketit on "
+"asennettu ennen kuin yrität koostaa projektia.\n"
 
 #: ../plugins/project-wizard/druid.c:740
 msgid "Missing components"
@@ -6316,11 +6365,11 @@ msgid ""
 "suffix in package names and can be found by searching in your Application "
 "Manager."
 msgstr ""
-"Puuttuvat ohjelmat löytyvät yleensä jostain ohjelmalevityksen paketista "
-"ja voit etsiä niitä paketinhallinnan avulla. Kehityspaketit ovat usein "
+"Puuttuvat ohjelmat löytyvät yleensä jostain ohjelmalevityksen paketista ja "
+"voit etsiä niitä paketinhallinnan avulla. Kehityspaketit ovat usein "
 "erillisissä paketeissa, jotka ohjelmalevitys tarjoaa asennettavaksi kun "
-"halutaan kehittää niitä vaativia projekteja. Pakettien pääte on useimmiten "
-"-dev tai -devel, liitettynä paketin tavalliseeen nimeen ja voit löytää ne "
+"halutaan kehittää niitä vaativia projekteja. Pakettien pääte on useimmiten -"
+"dev tai -devel, liitettynä paketin tavalliseeen nimeen ja voit löytää ne "
 "paketinhallinnan avulla."
 
 #: ../plugins/project-wizard/druid.c:947
@@ -6376,45 +6425,109 @@ msgid "Icon choice"
 msgstr "Kuvakkeen valinta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "A generic C++ project"
+msgstr "Tavallinen C++-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic GNOME project"
+msgstr "Tavallinen Gnome-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr "Tavallinen GTK+-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "Tavallinen GTKmm (C++) -projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "Tavallinen Xlib-telakan sovelma"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "Tavallinen Xlib-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr "Tavallinen java-projekti käyttäen automake-projektinhallintaa"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project "
+msgstr "Tavallinen minimaalinen ja yksinkertainen projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+"Tavallinen natiivikoodiksi käännetty java-projekti käyttäen GNU "
+"Java-kääntäjää (gcj)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "Tavallinen projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr "Tavallinen python-projekti käyttäen automake-projektinhallintaa"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "Tavallinen Wx Widgets -projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "SDL-esimerkkiprojekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "Lisää C++-tuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "Lisä gtk-doc -järjestelmä:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "Lisää kotoistamistuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "Lisää jaettujen tiedostojen tuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "Lisää C++-tuen projektiin, jolloin C++-tiedostoja voidaan kääntää"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr "Lisää projektiin tuen jaettujen kirjastojen kääntämiselle"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
 "Lisää tuen kotoistamiselle, jolloin projekti voidaan kääntää eri kielille"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../src/about.c:237
+msgid "Anjuta Plugin"
+msgstr "Anjutan liitännäinen"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr "Anjutan liitännäisprojekti käyttäen libanjuta-järjestelmää"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
 msgstr "Perustiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley Software Distribution License (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6423,47 +6536,87 @@ msgstr ""
 "Luettelo voi olla joko käyttöliittymän ensisijainen nimi tai liitännäisen "
 "sijainti (kirjasto:luokka)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
 msgstr "Määrittele ulkoiset paketit"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
 msgstr "Määrittele ulkoiset paketit:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
 msgstr "Luo glade-käyttöliittymätiedosto mallista"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create glade interface file"
 msgstr "Luo glade-käyttöliittymätiedosto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Display description of the plugin"
 msgstr "Näytä liitännäisen kuvaus"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Display title of the plugin"
 msgstr "näytä liitännäisen otsikko"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Django Project"
+msgstr "Django-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
 msgstr "Django-projektin tiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
 msgstr "Sähköpostiosoite:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "GCJ:n täytyy tietää mikä luokka sisältää main()-funktion"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "GNOME"
+msgstr "Gnome"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Projektin perustiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Generic"
+msgstr "Tavallinen"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "Generic (Minimal)"
+msgstr "Tavallinen (minimaalinen)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Generic C++"
+msgstr "Tavallinen C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Generic gcj compiled java"
+msgstr "Tavallinen gcj-käännetty java"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Generic java (automake)"
+msgstr "Tavallinen java (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Generic python (automake)"
+msgstr "Tavallinen python (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -6472,91 +6625,99 @@ msgstr ""
 "Anna projektisi vaatiman paketin nimi. Voit myös kertoa vaaditun paketin "
 "version, esimerkiksi ”libgnomeui-2.0” tai ”libgnomeui-2.0 >= 2.2.0”."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
 msgstr "Kuvaketiedosto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Icon file for the plugin"
 msgstr "Liitännäisen kuvaketiedosto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Implement plugin interfaces"
 msgstr "Toteuta liitännisten rajapinnat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Interface implemented by the plugin"
 msgstr "Liitännäisen toteuttama liittymä"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Interface:"
 msgstr "Liittymä:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "License"
 msgstr "Lisenssi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Main Class:"
 msgstr "Pääluokka:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Main class"
 msgstr "Pääluokka"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Makefile project"
+msgstr "Makefile-projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Makefile-based project"
+msgstr "Makefile-pohjainen projekti"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
 msgstr "Pienin vaadittu SDL-versio"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Name of the value to watch"
 msgstr "Tarkkailtavan arvon nimi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "No license"
 msgstr "Ei lisenssiä"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Options for project build system"
 msgstr "Projektin rakennusjärjestelmän valitsimet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Plugin Class Name:"
 msgstr "Liitännäisluokan nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Plugin Dependencies:"
 msgstr "Liitännäisen riippuvuudet:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Plugin Description:"
 msgstr "Liitännäisen kuvaus:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Plugin Title:"
 msgstr "Liitännäisen otsikko:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin class name"
 msgstr "Liitännäisluokan nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin has menus or/and toolbars"
 msgstr "Liitännäisellä on valikoita tai työkalupalkkeja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
 msgstr "Toteutettavat liitännäisen liitynnät"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
 msgstr "Projektihakemisto, tulostiedosto jne."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Project directory:"
 msgstr "Projektikansio:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -6564,102 +6725,122 @@ msgstr ""
 "Projektin nimi ei saa sisältää välilyöntejä, koska siitä muodostetaan "
 "projektin koontikohteen nimi (suoritettava ohjelma, kirjasto jne.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
 msgstr "Projektin nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project options"
 msgstr "Projektin valinnat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Python webproject using Django Web Framework"
+msgstr "Python www-projekti käyttäen django-kirjastoja"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
 msgstr "Vaadi paketti:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Require SDL version:"
 msgstr "Vaadi SDL-versio:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Require SDL_gfx library"
 msgstr "Vaadi SDL_gfx-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Require SDL_gfx:"
 msgstr "Vaadi SDL-gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require SDL_image library"
 msgstr "Vaadi SDL_image-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL_image:"
 msgstr "Vaadi SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_mixer library"
 msgstr "Vaadi SDL_mixer-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_mixer:"
 msgstr "Vaadi SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_net library"
 msgstr "Vaadi SDL_net-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_net:"
 msgstr "Vaadi SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_ttf library"
 msgstr "Vaadi SDL_ttf-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_ttf:"
 msgstr "Vaadi SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
 msgstr "Valitse lähdekoodin lisenssi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
 msgstr "Tarkkailtavat ympäristömuuttujat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Use libglade for the UI"
 msgstr "Käytä libglade:a käyttöliittymälle"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Käytä pkg-config:iaa muiden pakettien kirjastojen lisäämiseen"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid ""
 "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
 "Käytä libglade-2.0-kirjastoa lataamaan glade-käyttöliittymä suoritettaessa"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
 msgstr "Arvon nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
 msgstr "Tarkkailtavat arvot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Onko liitännäisellä valikoita tai työkalupalkkeja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "Wx Widgets"
+msgstr "Wx Widgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Xlib dock"
+msgstr "Xlib-telakka"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "GObject-pohjaisten luokkien API-dokumentaatio luodaan gtk-doc:in avulla"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
 msgstr "projektin nimi"
 
@@ -6671,13 +6852,13 @@ msgstr "Ohjelman valitsimet"
 msgid "Program:"
 msgstr "Ohjelma:"
 
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:78
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "Ohjelmaa ”%s” ei ole olemassa"
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:109
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "Ohjelman kansio ”%s” ei ole paikallinen"
@@ -7105,7 +7286,7 @@ msgstr "Tiedostoa %s ei voitu avata: %s"
 msgid "Could not save %s: %s"
 msgstr "Tiedostoa %s ei voitu tallentaa: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:246
+#: ../plugins/sourceview/sourceview-io.c:247
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Tiedostoa ei voitu tallentaa koska tiedostonimeä ei ole vielä valittu"
@@ -7184,10 +7365,6 @@ msgid "Use theme font"
 msgstr "Käytä teeman kirjasinta"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
-msgid "Visible whitespaces"
-msgstr "Näytä tyhjeet"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr "Rivitä pitkät rivit paperille"
 
@@ -7495,13 +7672,6 @@ msgstr "Subversionin loki"
 msgid "Subversion: File will be added on next commit."
 msgstr "Tiedosto lisätään seuraavan toimituksen yhteydessä."
 
-#: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:66
-#: ../plugins/subversion/subversion-remove-dialog.c:98
-#: ../plugins/subversion/subversion-update-dialog.c:66
-msgid "Please enter a path."
-msgstr "Anna polku."
-
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: toimitus valmis."
@@ -7701,7 +7871,7 @@ msgid "Obstructed: %s"
 msgstr "Estetty: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:569
+#: ../plugins/symbol-browser/an_symbol_view.c:568
 msgid "Symbol"
 msgstr "Symboli"
 
@@ -7738,11 +7908,11 @@ msgid "Symbol Browser"
 msgstr "Symboliselain"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:500
+#: ../plugins/symbol-db/symbol-db-prefs.c:535
 msgid "API Tags"
 msgstr "API-tagit"
 
-#: ../plugins/symbol-browser/an_symbol_view.c:204
+#: ../plugins/symbol-browser/an_symbol_view.c:205
 msgid "No file details"
 msgstr "Ei tiedoston yksityiskohtia"
 
@@ -7817,28 +7987,28 @@ msgid "Created symbols..."
 msgstr "Luodut symbolit..."
 
 #. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:924
+#: ../plugins/symbol-browser/plugin.c:927
 msgid "Local"
 msgstr "Paikallinen"
 
 #. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:944
+#: ../plugins/symbol-browser/plugin.c:947
 msgid "Global"
 msgstr "Yhteinen"
 
-#: ../plugins/symbol-browser/plugin.c:988
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Symbol browser actions"
 msgstr "Symboliselaimen toiminnot"
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:998
 msgid "Symbol browser popup actions"
 msgstr "Symboliselaimen ponnahdusikkunan toiminnot"
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1005
 msgid "Symbol navigations"
 msgstr "Symbolien navigointi"
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1014
 msgid "Symbols"
 msgstr "Symbolit"
 
@@ -7846,8 +8016,9 @@ msgstr "Symbolit"
 msgid "Package is not parseable"
 msgstr "Pakettia ei voi tulkita"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:411
-#: ../plugins/symbol-db/symbol-db-prefs.c:551
+#: ../plugins/symbol-db/symbol-db-prefs.c:426
+#: ../plugins/symbol-db/symbol-db-prefs.c:586
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Symbolikanta"
 
@@ -7872,16 +8043,12 @@ msgid "Checking if package is parseable..."
 msgstr "Tarkistetaan voiko pakettia tulkita..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Choose ctags executable"
-msgstr "Valitse ctags-komento"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Ctags-komento:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
-msgid "Parallel global/project scan of symbols."
-msgstr "Symbolien rinnakkainen etsintä kaikkialta tai projektista."
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
+msgid "Parallel scan of project and global symbols."
+msgstr "Symbolien rinnakkainen etsintä projektista ja muualta."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8532,10 +8699,6 @@ msgstr "Et ole asettanut rajoitustiedostoa asetuksista."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Tekijänoikeus © Naba Kumar"
 
-#: ../src/about.c:237
-msgid "Anjuta Plugin"
-msgstr "Anjutan liitännäinen"
-
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "Ladattiin istunto..."
@@ -8862,38 +9025,38 @@ msgstr "Älykäs sisennys"
 msgid "Statement indentation size in spaces:"
 msgstr "Lausekkeen sisennyksen koko välilyönteinä:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1840
+#: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
 msgstr "_Automaattitäydennys"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1841
+#: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
 msgstr "Täydennä tämänhetkinen sana automaattisesti"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1847
+#: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "Auto Indent"
 msgstr "Automaattisisennys"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1848
+#: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sisennä tämänhetkinen rivi tai valinta automaattisesti sisennysasetuksetn "
 "mukaisesti"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1853
+#: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
 msgstr "Vaihda .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1854
+#: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
 msgstr "Vaihda C:n otsikko- ja lähdekooditiedoston välillä"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1897
+#: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
 msgstr "C++- ja Java-apulainen"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1985
-#: ../plugins/language-support-cpp-java/plugin.c:1994
+#: ../plugins/language-support-cpp-java/plugin.c:1999
+#: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8908,6 +9071,10 @@ msgstr "Gdb"
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb plugin."
 msgstr "Gdb-liitännäinen."
+
+#: ../plugins/git/git.plugin.in.h:2
+msgid "Git version control"
+msgstr "Git-versionhallinta"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9094,6 +9261,10 @@ msgstr "Anjutan projektihallinta."
 msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Anjutan symboliselain."
 
+#: ../plugins/symbol-db/symbol-db.plugin.in.h:2
+msgid "Symbol Database Plugin for Anjuta (unstable)."
+msgstr "Anjutan symbolitietokannan liitännäinen (epävakaa)."
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "Hallitsee viestejä ulkoisilta ohjelmilta"
@@ -9133,6 +9304,28 @@ msgstr "Kielten hallinta"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Liitännäinen, jolla voi pitää kirjaa useista ohjelmointikielistä"
+
+#~ msgid ""
+#~ "Anjuta terminal plugin is not installed. The program will be run without "
+#~ "a terminal."
+#~ msgstr ""
+#~ "Anjuta pääteliitännäistä ei ole asennettu. Ohjelma suoritetaan ilman "
+#~ "päätettä."
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-clear"
+#~ msgstr "gtk-clear"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
+
+#~ msgid "Visible whitespaces"
+#~ msgstr "Näytä tyhjeet"
+
+#~ msgid "Choose ctags executable"
+#~ msgstr "Valitse ctags-komento"
 
 #~ msgid "Close"
 #~ msgstr "Sulje"
