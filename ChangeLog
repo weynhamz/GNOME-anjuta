@@ -1,3 +1,8 @@
+2008-09-20  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-ui-utils.c (get_log_from_textview):
+	Don't escape quotation characters (i.e. ', ") in commit logs.
+
 2008-09-14  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-browser/an_symbol_iter.c (isymbol_iter_next):

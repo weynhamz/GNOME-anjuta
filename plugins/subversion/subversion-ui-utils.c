@@ -114,18 +114,13 @@ get_log_from_textview (GtkWidget* textview)
 	gchar* log;
 	GtkTextBuffer* textbuf;
 	GtkTextIter iterbegin, iterend;
-	gchar* escaped_log;
 	
-	textbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
-	gtk_text_buffer_get_start_iter(textbuf, &iterbegin);
-	gtk_text_buffer_get_end_iter(textbuf, &iterend) ;
-	log = gtk_text_buffer_get_text(textbuf, &iterbegin, &iterend, FALSE);
-/* #warning FIXME: Check for escape chars in log */
-	/* Fixed. -naba*/
-	escaped_log = anjuta_util_escape_quotes (log);
-	g_free (log);
-
-	return escaped_log;
+	textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
+	gtk_text_buffer_get_start_iter (textbuf, &iterbegin);
+	gtk_text_buffer_get_end_iter (textbuf, &iterend);
+	log = gtk_text_buffer_get_text (textbuf, &iterbegin, &iterend, FALSE);
+	
+	return log;
 }
 
 static gboolean
