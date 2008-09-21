@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-21 11:26+0200\n"
-"PO-Revision-Date: 2008-09-21 12:23+0200\n"
+"PO-Revision-Date: 2008-09-21 18:53+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4436,9 +4436,8 @@ msgid "Annotate this tag"
 msgstr "Diese Marke kommentieren"
 
 #: ../plugins/git/anjuta-git.glade.h:35
-#, fuzzy
 msgid "Append fetch data"
-msgstr "Ausgecheckte Differenzen anhängen"
+msgstr "Ausgelesene Daten anhängen"
 
 #: ../plugins/git/anjuta-git.glade.h:36
 msgid "Author/Grep"
@@ -7781,7 +7780,7 @@ msgstr "Bitte einen Zielpfad eingeben."
 
 #: ../plugins/subversion/subversion-diff-dialog.c:75
 msgid "[Head/Working Copy]"
-msgstr "[Arbeitskopie]"
+msgstr "[Bestand/Arbeitskopie]"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:90
 #: ../plugins/subversion/subversion-log-dialog.c:417
@@ -8400,7 +8399,7 @@ msgstr "Auswahl ersetzen"
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr "Einblenddialog"
+msgstr "Kontextmenu"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
@@ -8420,7 +8419,7 @@ msgstr "Aktuelle Auswahl"
 
 #: ../plugins/tools/tool.c:98
 msgid "String"
-msgstr "Text"
+msgstr "Zeichenkette"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:1
 msgid "<b>Program to test:</b>"
