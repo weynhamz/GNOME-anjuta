@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-11 18:00+0000\n"
-"PO-Revision-Date: 2008-09-11 22:29+0200\n"
+"PO-Revision-Date: 2008-09-21 13:04+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -4132,7 +4132,7 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 "A(z) %s nem található.\n"
-"A hibakereső nem inicializálható.\n"
+"A hibakereső nem készíthető elő.\n"
 "Győződjön meg, hogy az Anjuta megfelelően van telepítve."
 
 #: ../plugins/gdb/debugger.c:923
@@ -5932,10 +5932,7 @@ msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
-msgstr ""
-"Nem található érvényes projekt háttér az adott könyvtárhoz (%s). Kérem "
-"válasszon egy másik könyvtárat vagy próbáljon a Gnome Build Framework egy "
-"újabb verziójára frissíteni."
+msgstr "Nem található érvényes projekt-háttérprogram az adott könyvtárhoz (%s). Válasszon másik könyvtárat, vagy próbáljon a Gnome Build Framework újabb verziójára frissíteni."
 
 #.
 #. * Now we can't apply
@@ -6218,7 +6215,7 @@ msgstr "Projektkezelő felbukkanó műveletek"
 
 #: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
-msgstr "Projekt betöltve… Inicializálás"
+msgstr "Projekt betöltve… Előkészítés"
 
 #: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
