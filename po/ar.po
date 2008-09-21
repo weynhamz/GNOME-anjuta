@@ -1,21 +1,23 @@
-# translation of anjuta.HEAD.po to Arabic
+# translation of anjuta.HEAD.ar.po to Arabic
 # Automatically generated, 2007.
 # Djihed Afifi <djihed@gmail.com>, 2007.
 # Anas Husseini <linux.anas@gmail.com>, 2007.
 # Usama Akkad <uak@aya.sy>, 2008.
+# OsamaKhalid <OsamaK.WFM@gmail.com>, 2008.
 # Arabic translations for THIS package.
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as THIS package.
 # Djihed Afifi <djihed@gmail.com> 2008.
 # Abou Manal <aboumanal@gmail.com> 2008.
+# OsamaKhalid <OsamaK.WFM@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: anjuta.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-17 23:44+0100\n"
-"PO-Revision-Date: 2008-09-17 16:57+0300\n"
-"Last-Translator: Usama Akkad <uak@aya.sy>\n"
-"Language-Team: Arabic\n"
+"POT-Creation-Date: 2008-09-21 12:52+0100\n"
+"PO-Revision-Date: 2008-09-20 02:17+0300\n"
+"Last-Translator: OsamaKhalid <OsamaK.WFM@gmail.com>\n"
+"Language-Team: Arabic <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,11 +31,11 @@ msgstr "بيئة تطوير أنجوتا"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
-msgstr "طوّر برنامجًا في بيئة التطوير المتكامل"
+msgstr "طوّر برمجياتٍ في بيئة تطوير متكاملة"
 
 #: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:343
 msgid "Integrated Development Environment"
-msgstr "بيئة التطوير المتكامل"
+msgstr "بيئة التطوير المتكاملة"
 
 #: ../libanjuta/anjuta-c-module.c:203
 #, c-format
@@ -43,7 +45,7 @@ msgstr "تعذر إيجاد وظيفة وحدة الملحق %s"
 #: ../libanjuta/anjuta-c-module.c:213
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr "تعذر إيجاد وظيفة تسجبل الملحق %s في الوحدة %s"
+msgstr "تعذر إيجاد دالّة تسجيل الملحق %s في الوحدة %s"
 
 #: ../libanjuta/anjuta-c-module.c:219
 #, c-format
@@ -53,12 +55,12 @@ msgstr "خطأ مجهول في الوحدة %s"
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
-msgstr "موقع الملحق غير موجود %s"
+msgstr "موقع الملحق مفقود %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:141
 #, c-format
 msgid "Missing type defined by plugin %s"
-msgstr "نوع غير موجود معرف من الملحق %s"
+msgstr "نوع مفقود معرف بواسطة الملحق %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:149
 #, c-format
@@ -68,14 +70,14 @@ msgstr "الملحق %s فشل في تسجيل النوع %s"
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr ""
+msgstr "الملف الذي تحاول فتح يحتوي تعاقب بايت غير صحيح."
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
 msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr "لم يتمكن أنجوتا من تقرير ما نوع ترميز الملف الذي تريد فتحه."
+msgstr "لم يتمكن أنجوتا من تقرير نوع ترميز الملف الذي تريد فتحه آليا."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -259,19 +261,19 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1212
 msgid "Forget selected plugin"
-msgstr "انسى الإضافة المختارة"
+msgstr "انسَ الملحق المختار"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
-msgstr "انتق ملحقًا"
+msgstr "انتقِ ملحقًا"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1498
 #: ../plugins/debug-manager/queue.c:557
 msgid "Please select a plugin to activate"
-msgstr "رجاء اختر ملحقًا لتنشيطه"
+msgstr "رجاء انتقِ ملحقًا لتنشيطه"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
@@ -316,7 +318,7 @@ msgstr "حالة أنجوتا"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2275
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "حالة أنجوتا التي تـُستخدم لتحميل وإلغاء تحميل الملحقات"
+msgstr "حالة أنجوتا التي تُستخدم لتحميل وإلغاء تحميل الملحقات"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2434
@@ -357,7 +359,7 @@ msgstr "محدد الموقع لمزامنة ملف التعريف ال xml"
 
 #: ../libanjuta/anjuta-profile.c:471
 msgid "Please select a plugin from the list"
-msgstr "رجاء اختر ملحقا من القائمة"
+msgstr "رجاء انتقِ ملحقا من القائمة"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -433,7 +435,7 @@ msgstr "تفضيلات أنجوتا"
 
 #: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
-msgstr "اختر العناصر لحفظها:"
+msgstr "انتقِ العناصر لحفظها:"
 
 #: ../libanjuta/anjuta-save-prompt.c:190
 msgid "If you do not save, all your changes will be lost."
@@ -550,7 +552,7 @@ msgstr "محذوفة"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:304
 msgid "Conflicted"
-msgstr "متعارضة"
+msgstr "متضاربة"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
 msgid "Missing"
@@ -617,11 +619,11 @@ msgstr "دليل البناء:ا"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 msgid "Configure Options:"
-msgstr "خيارات الاعداد:"
+msgstr "خيارات الضبط:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Configure Project"
-msgstr "شكّل المشروع"
+msgstr "ضبط المشروع"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Continue on errors"
@@ -646,11 +648,11 @@ msgstr "شغل عدة أوامر في و قت واحد:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
-msgstr "اختر برنامجا"
+msgstr "انتقِ برنامجا"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:16
 msgid "Select a build directory"
-msgstr "اختر مجلد للبناء"
+msgstr "انتقِ مجلد للبناء"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:17
 msgid "Translate messages"
@@ -669,9 +671,8 @@ msgid "Debug"
 msgstr "تنقيح"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:63
-#, fuzzy
 msgid "Profiling"
-msgstr "اللاحة"
+msgstr "تعرفة"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Optimized"
@@ -687,7 +688,7 @@ msgstr "البرنامج"
 
 #: ../plugins/build-basic-autotools/executer.c:255
 msgid "No file or project currently opened."
-msgstr "ما من ملف أو مشروع مفتوح حاليا."
+msgstr "لا ملف أو مشروع مفتوح حاليا."
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:295
@@ -810,7 +811,7 @@ msgstr "لا يمكن تصريف \"%s\": لا يوجد قاعدة تصريف م�
 #: ../plugins/build-basic-autotools/plugin.c:1636
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
-msgstr "تعذر اعداد المشروع: سكربت اعداد مفقودة في %s."
+msgstr "تعذر ضبط المشروع: نص ضبط مفقود في %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2019
 #: ../plugins/build-basic-autotools/plugin.c:2093
@@ -848,11 +849,11 @@ msgstr "تنظيف المشروع كاملًا"
 
 #: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
-msgstr "أ_عدّ المشروع..."
+msgstr "ض_بط المشروع..."
 
 #: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
-msgstr "إعداد المشروع"
+msgstr "ضبط المشروع"
 
 #: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "Build _Tarball"
@@ -896,11 +897,11 @@ msgstr "تصريف ملف المحرر الحالي"
 
 #: ../plugins/build-basic-autotools/plugin.c:2077
 msgid "Select Configuration"
-msgstr "اختر الإعدادات"
+msgstr "انتقِ الإعدادات"
 
 #: ../plugins/build-basic-autotools/plugin.c:2078
 msgid "Select current configuration"
-msgstr "اختر الاعدادات الحالية"
+msgstr "انتقِ الإعدادات الحالية"
 
 #: ../plugins/build-basic-autotools/plugin.c:2083
 msgid "Remove Configuration"
@@ -1096,7 +1097,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
-msgstr "فئة C++ العميمة"
+msgstr "فئة سي++ العميمة"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Header File:"
@@ -1204,8 +1205,8 @@ msgid ""
 msgstr ""
 "<b>رجاءً لاحظ: </b>\n"
 "\n"
-"النقر على موافق سوف يمحو الملف من القرص ومن CVS. بالطبع لن يُحذف الملف من CVS "
-"قبل أن تستخدم CVS Commit. <b>لقد تم إنذارك!</b>"
+"النقر على موافق سوف يحذف الملف من القرص ومن سي في إس. بالطبع لن يُحذف الملف  "
+"من سي في إس قبل أن تستخدم CVS Commit. <b>لقد تم إنذارك!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
@@ -1237,7 +1238,7 @@ msgstr "CVS: استورد"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Log file/directory"
-msgstr " CVS: سجّل ملفًا/مجلدًا"
+msgstr "CVS: سجّل ملفًا/مجلدًا"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Remove file/directory"
@@ -1652,7 +1653,7 @@ msgstr "تفعيل الك_ل"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr "أدخل عنوانًا ست عشريًا أو اختر واحدًا في البيانات"
+msgstr "أدخل عنوانًا ست عشريًا أو انتقِ واحدًا في البيانات"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 #: ../plugins/run-program/anjuta-run-program.glade.h:3
@@ -1721,7 +1722,7 @@ msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 msgid "Select one directory"
-msgstr "اختر مجلدا واحدا"
+msgstr "انتقِ مجلدا واحدا"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
 #: ../plugins/debug-manager/signals.c:423 ../plugins/gdb/anjuta-gdb.glade.h:24
@@ -1759,9 +1760,8 @@ msgstr "أوقف:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
 #: ../plugins/run-program/anjuta-run-program.glade.h:7
-#, fuzzy
 msgid "Working Directory:"
-msgstr "مجلد العمل:"
+msgstr "دليل العمل:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
 #: ../plugins/debug-manager/signals.c:193
@@ -2582,7 +2582,7 @@ msgid ""
 "Any unsaved changes will be lost."
 msgstr ""
 "أمتأكّد أنك تريد إعادة تحميل %s؟\n"
-"أي تعديلات غير محفوظة سوف تـُفقد."
+"أي تعديلات غير محفوظة سوف تُفقد."
 
 #: ../plugins/document-manager/action-callbacks.c:282
 #: ../plugins/editor/text_editor.c:341
@@ -2831,7 +2831,7 @@ msgstr "حدّد كتلة الشيفرة الحالية"
 
 #: ../plugins/document-manager/plugin.c:226
 msgid "Co_mment"
-msgstr "_علـّق"
+msgstr "_علّق"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
@@ -3300,7 +3300,7 @@ msgstr "اكتمل الحفظ الآلي"
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
-msgstr "البحث عن \"%s\" وصل إلى نهاية المطاف واستـُكمل من الأعلى."
+msgstr "البحث عن \"%s\" وصل إلى نهاية المطاف واستُكمل من الأعلى."
 
 #: ../plugins/document-manager/search-box.c:391
 #, c-format
@@ -3308,7 +3308,7 @@ msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
 msgstr ""
-"البحث عن \"%s\" وصل إلى نهاية المطاف واستـُكمل من الأعلى ولكن لم يُعثر على أي "
+"البحث عن \"%s\" وصل إلى نهاية المطاف واستُكمل من الأعلى ولكن لم يُعثر على أي "
 "تطابق جديد."
 
 #: ../plugins/document-manager/search-box.c:448
@@ -3556,7 +3556,7 @@ msgstr "طباعة"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Select highlight style to edit:"
-msgstr "اختر أسلوب الإبراز لتحريره:"
+msgstr "انتقِ أسلوب الإبراز لتحريره:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
 msgid "Selection background:"
@@ -3628,7 +3628,7 @@ msgstr "الملف: %s"
 
 #: ../plugins/editor/print.c:871 ../plugins/editor/print.c:883
 msgid "Printing..."
-msgstr "جارٍ الطباعة..."
+msgstr "طباعة..."
 
 #: ../plugins/editor/print.c:1066
 msgid "Print Preview"
@@ -3678,7 +3678,7 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1510
 msgid "Loading file..."
-msgstr "جارٍ تحميل الملف..."
+msgstr "تحميل الملف..."
 
 #: ../plugins/editor/text_editor.c:1519
 #, c-format
@@ -3693,11 +3693,11 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1539
 msgid "File loaded successfully"
-msgstr "حُمّل الملف بنجاح."
+msgstr "حُمّل الملف بنجاح"
 
 #: ../plugins/editor/text_editor.c:1559
 msgid "Saving file..."
-msgstr "جارٍ حفظ الملف..."
+msgstr "حفظ الملف..."
 
 #: ../plugins/editor/text_editor.c:1568
 #, c-format
@@ -3764,9 +3764,9 @@ msgstr "عنصر مجهول"
 #. * Don't include the prefix "recent menu label|" in the translation.
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "recent menu label|_%d. %s"
-msgstr "لصاقة قائمة الأخيرة|_%d. %s"
+msgstr "_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
@@ -3776,7 +3776,7 @@ msgstr "لصاقة قائمة الأخيرة|_%d. %s"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:987
 #, c-format
 msgid "recent menu label|%d. %s"
-msgstr "لصاقة قائمة الأخيرة|%d. %s"
+msgstr "%d. %s"
 
 #: ../plugins/file-loader/plugin.c:113
 #, c-format
@@ -3803,7 +3803,7 @@ msgid ""
 msgstr ""
 "<b>لا يمكن فتح \"%s\"</b>.\n"
 "\n"
-"لا يوجد ملحق, ولا إجراء افتراضي, او تطبيق معدّ للتعامل مع نوع الملفات هذا.\n"
+"لا يوجد ملحق, ولا إجراء افتراضي, أو تطبيق مضبوط للتعامل مع نوع الملفات هذا.\n"
 "\n"
 "نوع المبهم: %s.\n"
 "\n"
@@ -3830,11 +3830,11 @@ msgstr "مشاريع أنجوتا"
 
 #: ../plugins/file-loader/plugin.c:458
 msgid "C/C++ source files"
-msgstr "ملفات مصدر C/C++"
+msgstr "ملفات مصدر سي/سي++"
 
 #: ../plugins/file-loader/plugin.c:470
 msgid "C# source files"
-msgstr "ملفات مصدر C#"
+msgstr "ملفات مصدر سي#"
 
 #: ../plugins/file-loader/plugin.c:476
 msgid "Java source files"
@@ -3846,7 +3846,7 @@ msgstr "ملفات مصدر باسكال"
 
 #: ../plugins/file-loader/plugin.c:487
 msgid "PHP source files"
-msgstr "ملفات مصدر PHP"
+msgstr "ملفات مصدر بي إتش بي"
 
 #: ../plugins/file-loader/plugin.c:494
 msgid "Perl source files"
@@ -3858,11 +3858,11 @@ msgstr "ملفات مصدر بايثون"
 
 #: ../plugins/file-loader/plugin.c:505
 msgid "Hyper text markup files"
-msgstr "ملفات HTML"
+msgstr "ملفات إتش تي إم إل"
 
 #: ../plugins/file-loader/plugin.c:514
 msgid "Shell scripts files"
-msgstr "ملفات سكربتات القشرة"
+msgstr "ملفات نصوص القشرة"
 
 #: ../plugins/file-loader/plugin.c:519
 msgid "Makefiles"
@@ -3874,7 +3874,7 @@ msgstr "ملفات Lua"
 
 #: ../plugins/file-loader/plugin.c:530
 msgid "Diff files"
-msgstr "ملفات الفروق Diff"
+msgstr "ملفات الفروق"
 
 #: ../plugins/file-loader/plugin.c:746
 #, c-format
@@ -3907,12 +3907,12 @@ msgstr "افتح باستخدام"
 
 #: ../plugins/file-loader/plugin.c:1106
 msgid "Loaded:"
-msgstr "محمل: "
+msgstr "مُحمَّل: "
 
 #: ../plugins/file-loader/plugin.c:1186 ../plugins/file-loader/plugin.c:1192
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
-msgstr "محمّل الملف"
+msgstr "محمِّل الملف"
 
 #: ../plugins/file-loader/plugin.c:1196
 msgid "New"
@@ -3920,7 +3920,7 @@ msgstr "جديد"
 
 #: ../plugins/file-loader/plugin.c:1197
 msgid "New file, project and project components."
-msgstr "الملف الجديد والمشروع ومكونات المشروع."
+msgstr "ملف جديد، ومشروع ومكونات مشروع."
 
 #: ../plugins/file-loader/plugin.c:1205
 msgid "Open"
@@ -3970,7 +3970,7 @@ msgstr "مجلد الجذر إن لم يكن أي مشروع مفتوحا:"
 #: ../plugins/file-manager/file-model.c:103
 #: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
-msgstr "جارٍ التحميل..."
+msgstr "تحميل..."
 
 #: ../plugins/file-manager/file-view.c:378
 msgid "Filename"
@@ -3990,7 +3990,7 @@ msgstr "أ_عد التسمية"
 
 #: ../plugins/file-manager/plugin.c:73
 msgid "Rename file or directory"
-msgstr "أعد تسمية ملف او دليل"
+msgstr "أعد تسمية ملف أو دليل"
 
 #: ../plugins/file-manager/plugin.c:218
 msgid "File manager popup actions"
@@ -4054,19 +4054,19 @@ msgstr "استخدم القالب لملف الترويسة"
 
 #: ../plugins/file-wizard/file.c:82
 msgid "C Source File"
-msgstr "ملف مصدر C"
+msgstr "ملف مصدر سي"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C/C++ Header File"
-msgstr "ملف ترويسة C - C++"
+msgstr "ملف ترويسة سي - سي++"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
-msgstr "ملف مصدر C++"
+msgstr "ملف مصدر سي++"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
-msgstr "ملف مصدر C#"
+msgstr "ملف مصدر سي#"
 
 #: ../plugins/file-wizard/file.c:86
 msgid "Java Source File"
@@ -4082,7 +4082,7 @@ msgstr "ملف مصدر بايثون"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Shell Script File"
-msgstr "ملف سكربت قشرة"
+msgstr "ملف نص قشرة"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Other"
@@ -4091,12 +4091,12 @@ msgstr "أخرى"
 #: ../plugins/file-wizard/file.c:107
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
-msgstr "رخصة جنو العامة (GPL)"
+msgstr "رخصة جنو العامة (جي بي إل)"
 
 #: ../plugins/file-wizard/file.c:108
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
-msgstr "رخصة جنو الأقل عمومية (LGPL)"
+msgstr "رخصة جنو الصغرى عمومية (إل جي بي إل)"
 
 #: ../plugins/file-wizard/file.c:176
 msgid "Unable to build user interface for New File"
@@ -4113,7 +4113,7 @@ msgstr "وسائط سطر الأوامر"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:12
 msgid "Enter a Hexa adress or select one in the data"
-msgstr "أدخل عنوانًا ست عشريًا أو اختر واحدًا في البيانات"
+msgstr "أدخل عنوانًا ست عشريًا أو انتقِ واحدًا في البيانات"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:13 ../plugins/run-program/plugin.c:222
 msgid "Execute Program"
@@ -4129,11 +4129,11 @@ msgstr "المر_ور:"
 
 #: ../plugins/gdb/debugger.c:685 ../plugins/gdb/debugger.c:929
 msgid "Loading Executable: "
-msgstr "جارٍ تحميل الملف التنفيذي:"
+msgstr "تحميل الملف التنفيذي:"
 
 #: ../plugins/gdb/debugger.c:715
 msgid "Loading Core: "
-msgstr "جارٍ تحميل القلب:"
+msgstr "تحميل اللُّب:"
 
 #: ../plugins/gdb/debugger.c:794
 #, c-format
@@ -4208,7 +4208,7 @@ msgstr "وُصل البرنامج\n"
 #: ../plugins/gdb/debugger.c:1893
 #, c-format
 msgid "Attaching to process: %d...\n"
-msgstr "جارٍ الوصل إلى العملية: %d...\n"
+msgstr "وصل إلى العملية: %d...\n"
 
 #: ../plugins/gdb/debugger.c:1919
 msgid ""
@@ -4228,21 +4228,21 @@ msgstr "انتهى البرنامج\n"
 
 #: ../plugins/gdb/debugger.c:2001
 msgid "Program detached\n"
-msgstr "فـُصل البرنامج\n"
+msgstr "فُصل البرنامج\n"
 
 #: ../plugins/gdb/debugger.c:2021
 #, c-format
 msgid "Detaching the process...\n"
-msgstr "جارٍ فصل العملية...\n"
+msgstr "فصل العملية...\n"
 
 #: ../plugins/gdb/debugger.c:2042
 msgid "Interrupting the process\n"
-msgstr "جارٍ مقاطعة العملية\n"
+msgstr "مقاطعة العملية\n"
 
 #: ../plugins/gdb/debugger.c:3825
 #, c-format
 msgid "Sending signal %s to the process: %d"
-msgstr "جارٍ إرسال الإشارة %s إلى العملية: %d"
+msgstr "إرسال الإشارة %s إلى العملية: %d"
 
 #: ../plugins/gdb/debugger.c:3851
 msgid "Error whilst signaling the process."
@@ -4261,7 +4261,6 @@ msgid "Cannot start terminal for debugging."
 msgstr "لا يمكن بدء الطرفية للتنقيح."
 
 #: ../plugins/git/anjuta-git.glade.h:1
-#, fuzzy
 msgid "<b>Bad revision:</b>"
 msgstr "<b>مراجعة سيئة:</b>"
 
@@ -4303,7 +4302,6 @@ msgid "<b>Generate patches relative to:</b>"
 msgstr "<b>ولّد رقعا متعلقة بـ:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:11
-#, fuzzy
 msgid "<b>Good revision:</b>"
 msgstr "<b>مراجعة جيدة:</b>"
 
@@ -4313,18 +4311,16 @@ msgid "<b>Log Message:</b>"
 msgstr "<b>رسالة السجل:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:13
-#, fuzzy
 msgid "<b>Log message:</b>"
-msgstr "<b>رسالة السجل:</b>"
+msgstr "<b>رسالة سجل:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:14
 msgid "<b>Mode:</b>"
 msgstr "<b>الوضع:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
-#, fuzzy
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr "<b>الفرع البعيد للتأسيس منه:</b>"
+msgstr "<b>الفرع البعيد لإعادة التأسيس منه:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
 msgid "<b>Remote to delete:</b>"
@@ -4345,34 +4341,33 @@ msgstr "<b>المراجعة:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:21
 msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>اختر ملفات لتقصيها :</b>"
+msgstr "<b>انتقِ ملفات لتقصيها:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
-msgstr "<b>اختر الملفات للايداع:/b>"
+msgstr "<b>انتقِ الملفات للإيداع:/b>"
 
 #: ../plugins/git/anjuta-git.glade.h:23
 msgid "<b>Select Files to Ignore:</b>"
-msgstr "<b>اختر ملفات لتجهاهلها:</b>"
+msgstr "<b>انتقِ ملفات لتجهاهلها:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:24
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr "<b>اختر الملفات لتحديدها كمحلولة:</b>"
+msgstr "<b>انتقِ الملفات لتحديدها كمحلولة:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
-#, fuzzy
 msgid "<b>Select Files to Unstage:</b>"
-msgstr "<b>اختر ملفات للابعاد:/b>"
+msgstr "<b>انتقِ ملفات للإبعاد:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
-msgstr "<b>اختر ملفا لإضافته:</b>"
+msgstr "<b>انتقِ ملفا لإضافته:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:27
 msgid "<b>Select file to remove:</b>"
-msgstr "<b>اختر ملفا للحذف:</b>"
+msgstr "<b>انتقِ ملفا للحذف:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:28
 msgid "<b>Tag name:</b>"
@@ -4400,9 +4395,8 @@ msgid "Add signed off by line"
 msgstr "أضف تأشير مُزال بالسطر"
 
 #: ../plugins/git/anjuta-git.glade.h:34
-#, fuzzy
 msgid "Annotate this tag"
-msgstr "علق على هذا الوسم"
+msgstr "علق هذا الوسم"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
@@ -4434,12 +4428,11 @@ msgstr "تقصى الفرع بعد إنشاءه"
 #: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Commit Changes"
-msgstr "أدِعْ التغييرات"
+msgstr "أودع التغييرات"
 
 #: ../plugins/git/anjuta-git.glade.h:42
-#, fuzzy
 msgid "Commit on fast-forward merges"
-msgstr "ارسل عند دمج التمرير السريع "
+msgstr "أودع عند دمج التمريرات السريع "
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Create Branch"
@@ -4467,9 +4460,8 @@ msgid "Delete Remote Branch"
 msgstr "احذف الفرع البعيد"
 
 #: ../plugins/git/anjuta-git.glade.h:49
-#, fuzzy
 msgid "Do not commit"
-msgstr "لا ترسل"
+msgstr "لا تودع"
 
 #: ../plugins/git/anjuta-git.glade.h:50
 msgid "Do not follow tags"
@@ -4536,15 +4528,13 @@ msgstr "اعد ضبط الشجرة"
 #: ../plugins/git/anjuta-git.glade.h:66
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
-msgstr "جار استخراج الحالة..."
+msgstr "استخراج الحالة..."
 
 #: ../plugins/git/anjuta-git.glade.h:67
-#, fuzzy
 msgid "Revert Commit"
 msgstr "ارجع الإيداع"
 
 #: ../plugins/git/anjuta-git.glade.h:68
-#, fuzzy
 msgid "Revision/Tag:"
 msgstr "المراجعة/الوسم:"
 
@@ -4555,40 +4545,38 @@ msgstr "المراجعة:"
 
 #: ../plugins/git/anjuta-git.glade.h:70
 msgid "Select A Folder"
-msgstr "اختر مجلدا"
+msgstr "انتقِ مجلدا"
 
 #: ../plugins/git/anjuta-git.glade.h:71
 #: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
-msgstr "تعيين النزاعات على أنها حُلَّت"
+msgstr "تعيين التضاربات كمحلولة"
 
 #: ../plugins/git/anjuta-git.glade.h:72
 msgid "Soft"
 msgstr "ناعم"
 
 #: ../plugins/git/anjuta-git.glade.h:73
-#, fuzzy
 msgid "Squash"
-msgstr "تهشيم"
+msgstr "هرس"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 msgid "Switch to Another Branch"
-msgstr "بدل إلى فرع آخرم..."
+msgstr "بدل إلى فرع آخر"
 
 #: ../plugins/git/anjuta-git.glade.h:75
 msgid "Tag/Commit"
-msgstr "الوسم/الارسال"
+msgstr "الوسم/الإيداع"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "هذا الايداع يستنتج دمجا فاشلا (استخدم -i)"
+msgstr "هذا الإيداع يستنتج دمجا فاشلا (استخدم -i)"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
 msgstr "إلى:"
 
 #: ../plugins/git/anjuta-git.glade.h:79
-#, fuzzy
 msgid "Unstage Files"
 msgstr "ملفات الإبعاد"
 
@@ -4606,7 +4594,7 @@ msgstr "Git: وُضع الملف للإضافة."
 
 #: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
 msgid "Please select a file."
-msgstr "اختر ملفا"
+msgstr "رجاءً انتق ملفا."
 
 #: ../plugins/git/git-add-remote-dialog.c:41
 #, c-format
@@ -4616,11 +4604,11 @@ msgstr "Git: الفرع البعيد المضاف \"%s\"."
 #: ../plugins/git/git-add-remote-dialog.c:81
 #: ../plugins/git/git-create-branch-dialog.c:98
 msgid "Please enter a branch name."
-msgstr "أدخل اسما للفرع."
+msgstr "رجاءً أدخل اسما للفرع."
 
 #: ../plugins/git/git-add-remote-dialog.c:91
 msgid "Please enter a URL."
-msgstr "أدخل عنوانا."
+msgstr "رجاءً أدخل عنوانا."
 
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
@@ -4634,7 +4622,7 @@ msgstr "Git:الجلب..."
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:120
 msgid "Please enter a revision."
-msgstr "رجاء أدخل اسم المراجعة."
+msgstr "رجاءً أدخل اسم المراجعة."
 
 #: ../plugins/git/git-cat-file-menu.c:36
 msgid "Git: File retrieved."
@@ -4645,9 +4633,8 @@ msgid "Git: Files checked out."
 msgstr "Git: تُحقق عن الملفات."
 
 #: ../plugins/git/git-commit-dialog.c:36
-#, fuzzy
 msgid "Git: Commit complete."
-msgstr "Subversion: تم الايداع."
+msgstr "Git: اكتمل الإيداع."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
@@ -4661,7 +4648,7 @@ msgstr "Git: الوسم المُنشأ \"%s\"."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
-msgstr "ادخل اسم الوسم."
+msgstr "رجاءً ادخل اسم الوسم."
 
 #: ../plugins/git/git-delete-branch-dialog.c:41
 #, c-format
@@ -4682,7 +4669,7 @@ msgstr "Git: استرجاع السجل..."
 #: ../plugins/subversion/subversion-remove-dialog.c:98
 #: ../plugins/subversion/subversion-update-dialog.c:66
 msgid "Please enter a path."
-msgstr "رجاء أدخل مسارا."
+msgstr "رجاءً أدخل مسارا."
 
 #: ../plugins/git/git-log-dialog.c:505
 #, c-format
@@ -4712,9 +4699,8 @@ msgid "Please enter the URL of the repository to pull from."
 msgstr "أدخل عناوين المستودعات للسحب منها."
 
 #: ../plugins/git/git-rebase-dialog.c:49
-#, fuzzy
 msgid "Git: Rebasing"
-msgstr "Git: إعادة التأسيس"
+msgstr "Git: إعادة تأسيس"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4734,7 +4720,6 @@ msgid "Git"
 msgstr "Git"
 
 #: ../plugins/git/git-ui-utils.c:438
-#, fuzzy
 msgid "Git: Diff complete."
 msgstr "Git: تمت المقارنة."
 
@@ -4752,7 +4737,7 @@ msgstr "_Git"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:78
 msgid "_Commit..."
-msgstr "أرسِ_ل..."
+msgstr "أو_دع..."
 
 #. Action name
 #. Stock icon, if any
@@ -4799,9 +4784,8 @@ msgstr "_اسحب..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:129
-#, fuzzy
 msgid "_Unstage files..."
-msgstr "إ_بعاد الملفات..."
+msgstr "إ_بعاد ملفات..."
 
 #. Action name
 #. Stock icon, if any
@@ -4863,7 +4847,7 @@ msgstr "أ_ظهر السجل..."
 #: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:62
 #: ../plugins/subversion/plugin.c:169
 msgid "_Add..."
-msgstr "أ_ضِف"
+msgstr "أ_ضِف..."
 
 #. Action name
 #. Stock icon, if any
@@ -5343,7 +5327,7 @@ msgstr "إنهاء تلقائي للاستحقاق"
 
 #: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
-msgstr "تنبيه"
+msgstr "إشعار"
 
 #: ../plugins/gtodo/preferences.c:219
 #, c-format
@@ -5683,20 +5667,20 @@ msgstr "ترقيع"
 
 #: ../plugins/patch/patch-plugin.c:174
 msgid "Please select the directory where the patch should be applied"
-msgstr "رجاءً اختر المجلد حيث ستطبق الرقعة"
+msgstr "رجاءً انتقِ المجلد حيث ستطبق الرقعة"
 
 #: ../plugins/patch/patch-plugin.c:185
 #, c-format
 msgid "Patching %s using %s\n"
-msgstr "جارٍ ترقيع %s باستخدام %s\n"
+msgstr "ترقيع %s باستخدام %s\n"
 
 #: ../plugins/patch/patch-plugin.c:194
 msgid "Patching...\n"
-msgstr "جارٍ الترقيع...\n"
+msgstr "ترقيع...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
 msgid "Patching..."
-msgstr " الترقيع..n"
+msgstr "ترقيع..."
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5824,7 +5808,7 @@ msgid ""
 msgstr ""
 "هذا الهدف لا يملك أي بيانات ملف تعريف.\n"
 "\n"
-"رجاءً تأكد أن الهدف مصرّف مع دعم لملف التعريف وأنه قد شـُغّل مرة واحدة على الأقل."
+"رجاءً تأكد أن الهدف مصرّف مع دعم لملف التعريف وأنه قد شُغّل مرة واحدة على الأقل."
 
 #. Action name
 #. Stock icon, if any
@@ -5837,7 +5821,7 @@ msgstr "ملف التعريف"
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:743
 msgid "Select Target..."
-msgstr "اختر الهدف..."
+msgstr "انتقِ الهدف..."
 
 #. Action name
 #. Stock icon, if any
@@ -5889,7 +5873,7 @@ msgstr "<b>بيانات ملفات التعريف</b>"
 
 #: ../plugins/profiler/profiler.glade.h:2
 msgid "<b>Select Target to Profile</b>"
-msgstr "<b>اختر الهدف إلى ملف التعريف</b>"
+msgstr "<b>انتقِ الهدف إلى ملف التعريف</b>"
 
 #: ../plugins/profiler/profiler.glade.h:3
 msgid "<b>Symbols</b>"
@@ -5950,11 +5934,11 @@ msgstr "انشر الوقت لهذه الرموز فقط:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
-msgstr "اختر هدفًا آخر..."
+msgstr "انتقِ هدفًا آخر..."
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
-msgstr "اختر هدف ملف التعريف"
+msgstr "انتقِ هدف ملف التعريف"
 
 #: ../plugins/profiler/profiler.glade.h:22
 msgid "Show all symbols"
@@ -5983,7 +5967,7 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
 msgstr ""
-"لم يمكن إيجاد منتهى خلفي لمشروع صالح للمجلد المعطى (%s). رجاءً اختر مجلدًا "
+"لم يمكن إيجاد منتهى خلفي لمشروع صالح للمجلد المعطى (%s). رجاءً انتقِ مجلدًا "
 "مختلفًا أو حاول التحديث إلى نسخة أحدث من هيكل بناء جنوم."
 
 #.
@@ -6093,7 +6077,7 @@ msgid ""
 msgstr ""
 "مجموعة %s\n"
 "\n"
-"لن تـُحذف المجموعة من نظام الملفات."
+"لن تُحذف المجموعة من نظام الملفات."
 
 #: ../plugins/project-manager/plugin.c:664
 msgid ""
@@ -6230,7 +6214,7 @@ msgstr "أزل من المشروع"
 #: ../plugins/project-manager/plugin.c:1240
 #, c-format
 msgid "Loading project: %s"
-msgstr "جارٍ تحميل المشروع: %s"
+msgstr "تحميل المشروع: %s"
 
 #: ../plugins/project-manager/plugin.c:1248
 msgid "Created project view..."
@@ -6265,7 +6249,7 @@ msgstr "إجراءات مدير المشروع المنبثقة"
 
 #: ../plugins/project-manager/plugin.c:2474
 msgid "Loaded Project... Initializing"
-msgstr "حُمّل المشروع... جارٍ البدء"
+msgstr "حُمّل المشروع... البدء"
 
 #: ../plugins/project-manager/plugin.c:2477
 msgid "Loaded Project..."
@@ -6277,7 +6261,7 @@ msgstr "<b>وصف المشروع:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
-msgstr "<b>اختر نوع التطبيق الذي تريد تطويره</b>"
+msgstr "<b>انتقِ نوع التطبيق الذي تريد تطويره</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Assistant"
@@ -6358,8 +6342,8 @@ msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
 "only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
-"الحقل \"%s\" يجب ان يبدأ بحرف, او رقم او علامة تحت السطر و يحوي فقط أحرفا أو "
-"أرقاما او علامة تحت السطر أو إشارة طرح أو نقطة. رجاء أصلحه."
+"الحقل \"%s\" يجب ان يبدأ بحرف, أو رقم أو علامة تحت السطر و يحوي فقط أحرفا أو "
+"أرقاما أو علامة تحت السطر أو إشارة طرح أو نقطة. رجاء أصلحه."
 
 #: ../plugins/project-wizard/druid.c:543
 #, c-format
@@ -6399,7 +6383,7 @@ msgid ""
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
 msgstr ""
-"بعض البرامج المهمة او حزم التطوير المطلوبة لبناء هذا المشروع مفقودة. تأكد من "
+"بعض البرامج المهمة أو حزم التطوير المطلوبة لبناء هذا المشروع مفقودة. تأكد من "
 "تثبتها جيدا قبل توليد المشروع. \n"
 
 #: ../plugins/project-wizard/druid.c:740
@@ -6435,26 +6419,26 @@ msgstr "فشل إنشاء المشروع الجديد."
 #: ../plugins/project-wizard/install.c:440
 #, c-format
 msgid "Skipping %s: file already exists"
-msgstr "جارٍ تجاوز %s: الملف موجود مسبقًا"
+msgstr "تجاوز %s: الملف موجود مسبقًا"
 
 #: ../plugins/project-wizard/install.c:481
 #, c-format
 msgid "Creating %s ... Fail to create directory"
-msgstr "جارٍ إنشاء %s ... فشل إنشاء المجلد"
+msgstr "إنشاء %s ... فشل إنشاء المجلد"
 
 #: ../plugins/project-wizard/install.c:497
 #, c-format
 msgid "Creating %s (using AutoGen)... %s"
-msgstr "جارٍ إنشاء %s (باستخدام AutoGen)... %s"
+msgstr "إنشاء %s (باستخدام AutoGen)... %s"
 
 #: ../plugins/project-wizard/install.c:502
 #, c-format
 msgid "Creating %s ... %s"
-msgstr "جارٍ إنشاء %s ... %s"
+msgstr "إنشاء %s ... %s"
 
 #: ../plugins/project-wizard/install.c:544
 msgid "Executing: "
-msgstr "جارٍ تنفيذ:"
+msgstr "تنفيذ:"
 
 #: ../plugins/project-wizard/plugin.c:157
 msgid "New Project Assistant"
@@ -6474,52 +6458,48 @@ msgstr "اختيار الأيقونات"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "A generic C++ project"
-msgstr "مشروع C++ عام"
+msgstr "مشروع سي++ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "A generic GNOME project"
-msgstr "مشروع GNOME عام"
+msgstr "مشروع جنوم عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
-msgstr "مشروع GTK+ عام"
+msgstr "مشروع جتك+ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
-#, fuzzy
 msgid "A generic GTKmm (C++) project"
-msgstr "مشروع GTKmm (C++) عام"
+msgstr "مشروع جتكمم (سي++) عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr "ارساء عام لبريمج Xlib"
+msgstr "إرساء عام لبريمج إكسلب"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
-msgstr "مشروع Xlib عام"
+msgstr "مشروع إكسلب عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-#, fuzzy
 msgid "A generic java project using automake project management"
-msgstr "مشروع جافا عام بإستخدام إدارة مشروع automake"
+msgstr "مشروع جافا عام باستخدام إدارة مشروع أوتوميك"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
-#, fuzzy
 msgid "A generic minimal and flat project "
-msgstr "مشروع مصغر و مسطح عام"
+msgstr "مشروع مصغر و سطح عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr "مشروع جافا مصنّف أصلا بإستخدام مصنّف غنو للجافا )gcj("
+msgstr "مشروع جافا مصرّف أصلا باستخدام مصنّف جنو للجافا (جي سي جي)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
 msgstr "مشروع عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
-#, fuzzy
 msgid "A generic python project using automake project management"
-msgstr "مشروع بايثون عام بإستخدام إدارة مشروع automake"
+msgstr "مشروع بايثون عام باستخدام إدارة مشروع أوتوميك"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
@@ -6531,7 +6511,7 @@ msgstr "مشروع SDL بسيط"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
-msgstr "أضف دعم C++:"
+msgstr "أضف دعم سي++:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
@@ -6574,7 +6554,7 @@ msgstr "المعلومات الأساسية"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr "رخصة توزيعة برامج بيركيلي (BSD)"
+msgstr "رخصة توزيعة برامج بيركيلي (بي إس دي)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid ""
@@ -6586,11 +6566,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
-msgstr "إعداد الحزمات الخارجية"
+msgstr "ضبط الحزمات الخارجية"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages:"
-msgstr "إعداد الحزمات الخارجية:"
+msgstr "ضبط الحزمات الخارجية:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Create a template glade interface file"
@@ -6610,11 +6590,11 @@ msgstr "أظهر عنوان الملحق"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Django Project"
-msgstr "مشروع Django"
+msgstr "مشروع دجانغو"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
-msgstr "معلومات مشروع Django"
+msgstr "معلومات مشروع دجانغو"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Email address:"
@@ -6626,22 +6606,21 @@ msgstr "يحتاج GCJ أن يعلم أي فئة تحتوي الدالة main()"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "GNOME"
-msgstr "غنوم"
+msgstr "جنوم"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "GTK+"
-msgstr "GTK+"
+msgstr "جتك+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "GTKmm"
-msgstr "GTKmm"
+msgstr "جتكمم"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "معلومات المشروع العامة"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
-#, fuzzy
 msgid "Generic"
 msgstr "عام"
 
@@ -6651,7 +6630,7 @@ msgstr "عام (مصغر)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Generic C++"
-msgstr "C++ عام"
+msgstr "سي++ عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Generic gcj compiled java"
@@ -6659,11 +6638,11 @@ msgstr "جافا المصنفة ب gcj عام"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic java (automake)"
-msgstr "جافا عام (automake)"
+msgstr "جافا عام (أوتوميك)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic python (automake)"
-msgstr "بايثون عام (automake)"
+msgstr "بايثون عام (أوتوميك)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
@@ -6756,7 +6735,7 @@ msgstr "لدى الملحق قوائم و/أو أشرطة أدوات"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin interfaces to implement"
-msgstr "واجهات الملحق التي ستـُطبّق"
+msgstr "واجهات الملحق التي ستُطبّق"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Project directory, output file etc."
@@ -6840,7 +6819,7 @@ msgstr "SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
-msgstr "اختر رخصة الشيفرة"
+msgstr "انتقِ رخصة الشيفرة"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Shell values to watch"
@@ -6865,7 +6844,7 @@ msgstr "اسم القيمة:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Values to watch"
-msgstr "القيم التي ستـُراقب"
+msgstr "القيم التي ستُراقب"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Whether the plugin has menus or toolbars"
@@ -6987,7 +6966,7 @@ msgstr "دليل صندوق الخربشة:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
 msgid "Select Scratchbox Folder"
-msgstr "اختر مجلد صندوق الخربشة"
+msgstr "انتقِ مجلد صندوق الخربشة"
 
 #: ../plugins/scratchbox/plugin.c:191 ../plugins/scratchbox/plugin.c:201
 msgid "Scratchbox"
@@ -7161,7 +7140,7 @@ msgstr "ابحث عن نص أو تعبير اعتيادي في المحرر"
 
 #: ../plugins/search/plugin.c:195
 msgid "Find _Next"
-msgstr "جـِد ال_تالي"
+msgstr "جِد ال_تالي"
 
 #: ../plugins/search/plugin.c:196 ../plugins/search/plugin.c:200
 msgid "Repeat the last Find command"
@@ -7169,7 +7148,7 @@ msgstr "أعِد آخر أمر بحث"
 
 #: ../plugins/search/plugin.c:198
 msgid "Find _Previous"
-msgstr "جـِد ال_سابق"
+msgstr "جِد ال_سابق"
 
 #: ../plugins/search/plugin.c:202
 msgid "Find and R_eplace..."
@@ -7198,7 +7177,7 @@ msgstr "الإيجاد التال_ي"
 
 #: ../plugins/search/plugin.c:214
 msgid "Find the next occurrence of current word"
-msgstr "جـِد المرة التالية التي تظهر فيها الكلمة"
+msgstr "جِد المرة التالية التي تظهر فيها الكلمة"
 
 #: ../plugins/search/plugin.c:217
 msgid "Pre_vious Occurrence"
@@ -7206,11 +7185,11 @@ msgstr "الإيجاد الساب_ق"
 
 #: ../plugins/search/plugin.c:218
 msgid "Find the previous occurrence of current word"
-msgstr "جـِد المرة السابقة التي ظهرت فيها الكلمة"
+msgstr "جِد المرة السابقة التي ظهرت فيها الكلمة"
 
 #: ../plugins/search/plugin.c:245
 msgid "Searching..."
-msgstr "جارٍ البحث..."
+msgstr "بحث..."
 
 #: ../plugins/search/search_preferences.c:44
 msgid "Basic Search"
@@ -7247,7 +7226,7 @@ msgstr "حدّد نماذج الملفات"
 
 #: ../plugins/search/search-replace.c:110
 msgid "Select next match"
-msgstr "اختر التطابق التالي"
+msgstr "انتقِ التطابق التالي"
 
 #: ../plugins/search/search-replace.c:111
 msgid "Bookmark all matched lines"
@@ -7305,7 +7284,7 @@ msgstr "بُلغ الحد الأقصى لعدد النتائج."
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "لم يستـبدل أي تطابق."
-msgstr[1] "استـُبدل تطابق واحد."
+msgstr[1] "استُبدل تطابق واحد."
 msgstr[2] "استـُبدل تطابقان"
 msgstr[3] "استـُبدل %d تطابقات."
 msgstr[4] "استـُبدل %d تطابق."
@@ -7328,7 +7307,7 @@ msgstr ""
 #: ../plugins/sourceview/sourceview.c:347
 #, c-format
 msgid "Could not open %s: %s"
-msgstr " لا يمكن فتح %s: %s"
+msgstr "لا يمكن فتح %s: %s"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:467
@@ -7348,7 +7327,7 @@ msgstr "ملف جديد %d"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr "جار تحضير الأوراق للطبع"
+msgstr "تحضير الصفحات للطباعة"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Color scheme:</b>"
@@ -7444,7 +7423,7 @@ msgstr "<b>المسار الثاني:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
-msgstr "<b>اختر التغييرات التي ستُعكس</b>"
+msgstr "<b>انتقِ التغييرات التي ستُعكس</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
@@ -7480,7 +7459,7 @@ msgstr "جد الفرق في ملف/مجلد"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
-msgstr "جـِد الفرق مع السابق"
+msgstr "جِد الفرق مع السابق"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
@@ -7512,7 +7491,7 @@ msgstr "تذكّر هذا القرار"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Remove file/directory"
-msgstr " أزل ملفًا/مجلدًا"
+msgstr "أزل ملفًا/مجلدًا"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Repository Head"
@@ -7602,7 +7581,7 @@ msgstr "أرسِل تغييراتك إلى شجرة Subversion"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:86
 msgid "_Revert..."
-msgstr "أ_عكس..."
+msgstr "ا_عكس..."
 
 #. Display label
 #. short-cut
@@ -7686,13 +7665,13 @@ msgstr "إظهار تاريخ الملف"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:142
 msgid "_Diff..."
-msgstr "_جـِد الفروق..."
+msgstr "_جِد الفروق..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:144 ../plugins/subversion/plugin.c:203
 msgid "Diff local tree with repository"
-msgstr "جـِد الفروق بين الشجرة المحلية والمستودع"
+msgstr "جِد الفروق بين الشجرة المحلية والمستودع"
 
 #. Action name
 #. Stock icon, if any
@@ -7704,7 +7683,7 @@ msgstr "انسخ..."
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:201
 msgid "Diff..."
-msgstr "جـِد الفروق..."
+msgstr "جِد الفروق..."
 
 #: ../plugins/subversion/plugin.c:444
 msgid "Subversion operations"
@@ -7716,19 +7695,19 @@ msgstr "عمليات Subversion المنبثقة"
 
 #: ../plugins/subversion/plugin.c:478
 msgid "Subversion Log"
-msgstr " سجل Subversion"
+msgstr "سجل Subversion"
 
 #: ../plugins/subversion/subversion-add-dialog.c:39
 msgid "Subversion: File will be added on next commit."
-msgstr "Subversion: الملف سيُضاف عند الايداع المقبل. "
+msgstr "Subversion: الملف سيُضاف عند الإيداع المقبل. "
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
-msgstr "Subversion: تم الايداع."
+msgstr "Subversion: تم الإيداع."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
 msgid "Subversion: Committing changes to the repository..."
-msgstr "Subversion: جارٍ ايداع التغييرات في المستودع..."
+msgstr "Subversion: إيداع التغييرات في المستودع..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
@@ -7750,7 +7729,7 @@ msgstr "[نسخة رأس/عمل]"
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
-msgstr "Subversion: جارٍ سحب ملف الفرق..."
+msgstr "Subversion: سحب ملف الفرق..."
 
 #: ../plugins/subversion/subversion-log-dialog.c:117
 msgid "Diff"
@@ -7770,7 +7749,7 @@ msgstr "سجل مختصر"
 
 #: ../plugins/subversion/subversion-log-dialog.c:255
 msgid "Subversion: Retrieving log..."
-msgstr "Subversion: جارٍ سحب السجل..."
+msgstr "Subversion: سحب السجل..."
 
 #: ../plugins/subversion/subversion-log-dialog.c:301
 msgid "Subversion: File retrieved."
@@ -7778,7 +7757,7 @@ msgstr "Subversion: ملف مسحوب."
 
 #: ../plugins/subversion/subversion-log-dialog.c:343
 msgid "Subversion: Retrieving file..."
-msgstr "Subversion: جارٍ سحب الملف..."
+msgstr "Subversion: سحب الملف..."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:36
 msgid "Subversion: Merge complete."
@@ -7807,7 +7786,7 @@ msgstr "رجاء أدخل مراجعة النهاية."
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
-msgstr "Subversion: الملف سيُزال عند الايداع المقبل."
+msgstr "Subversion: الملف سيُزال عند الإيداع المقبل."
 
 #: ../plugins/subversion/subversion-resolve-dialog.c:36
 msgid "Subversion: Resolve complete."
@@ -7831,7 +7810,7 @@ msgstr "رجاء أدخل عنوان ويب الفرع/وسم."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: تم ايجاد الفروق."
 
@@ -7928,11 +7907,11 @@ msgstr "رمز"
 #: ../plugins/symbol-browser/an_symbol_prefs.c:327
 #: ../plugins/symbol-browser/an_symbol_prefs.c:523
 msgid "Select directory"
-msgstr "اختر المجلد"
+msgstr "انتقِ المجلد"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:392
 msgid "Directories to scan"
-msgstr "المجلدات التي ستـُمسح"
+msgstr "المجلدات التي ستُمسح"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:432
 msgid "Please enter a name and at least one directory."
@@ -7945,7 +7924,7 @@ msgstr "ملفات وسوم أنجوتا"
 #: ../plugins/symbol-browser/an_symbol_prefs.c:667
 #, c-format
 msgid "Scanning package: %s"
-msgstr "جارٍ مسح الحزمة: %s"
+msgstr "مسح الحزمة: %s"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:722
 msgid "Completed system tags generation"
@@ -8026,7 +8005,7 @@ msgstr "بح_ث الاستخدام"
 
 #: ../plugins/symbol-browser/plugin.c:306
 msgid "Find usage of symbol in project"
-msgstr "جـِد استخدام الرمز في المشروع"
+msgstr "جِد استخدام الرمز في المشروع"
 
 #: ../plugins/symbol-browser/plugin.c:314
 msgid "Refresh symbol browser tree"
@@ -8140,7 +8119,7 @@ msgstr "الأمر:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit as script"
-msgstr "حرّر كسكربت"
+msgstr "حرّر كنص برمجي"
 
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Edit command as script in Anjuta on close"
@@ -8240,7 +8219,7 @@ msgstr ""
 
 #: ../plugins/tools/editor.c:818
 msgid "Unable to edit script"
-msgstr "تعذر تحرير السكربت"
+msgstr "تعذر تحرير النص البرمجي"
 
 #: ../plugins/tools/editor.c:954
 msgid "New accelerator..."
@@ -8253,7 +8232,7 @@ msgstr "تعذر بناء واجهة المستخدم لمحرر الأدوات"
 #: ../plugins/tools/execute.c:313
 #, c-format
 msgid "Opening %s"
-msgstr "جارٍ فتح %s"
+msgstr "فتح %s"
 
 #: ../plugins/tools/execute.c:334
 msgid "error:"
@@ -8277,7 +8256,7 @@ msgstr "(خطأ)"
 
 #: ../plugins/tools/execute.c:467
 msgid "Running command: "
-msgstr "جارٍ تشغيل الأمر:"
+msgstr "تشغيل الأمر:"
 
 #: ../plugins/tools/execute.c:507
 #, c-format
@@ -8329,7 +8308,6 @@ msgid "Command line parameters"
 msgstr "وسائط سطر الأوامر"
 
 #: ../plugins/tools/tool.c:81
-#, fuzzy
 msgid "Same than output"
 msgstr "مثل الخرج"
 
@@ -8362,16 +8340,14 @@ msgid "Replace selection"
 msgstr "أبدل المحدد"
 
 #: ../plugins/tools/tool.c:89
-#, fuzzy
 msgid "Popup dialog"
-msgstr "المربع المنبثق"
+msgstr "حوار منبثق"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
 msgstr "أهمل الخرج"
 
 #: ../plugins/tools/tool.c:95
-#, fuzzy
 msgid "None"
 msgstr "لا شيء"
 
@@ -8380,9 +8356,8 @@ msgid "Current buffer"
 msgstr "ذاكرة الصون الحالية"
 
 #: ../plugins/tools/tool.c:97
-#, fuzzy
 msgid "Current selection"
-msgstr "الاختيار الحالي"
+msgstr "الانتقاء الحالي"
 
 #: ../plugins/tools/tool.c:98
 msgid "String"
@@ -8408,11 +8383,11 @@ msgstr ""
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:7
 msgid "Select Tool:"
-msgstr "اختر الأداة:"
+msgstr "انتقِ الأداة:"
 
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:8
 msgid "Select Valgrind Target"
-msgstr "اختر هدف Valgrind"
+msgstr "انتقِ هدف Valgrind"
 
 #: ../plugins/valgrind/plugin.c:137
 msgid "Options"
@@ -8420,7 +8395,7 @@ msgstr "خيارات"
 
 #: ../plugins/valgrind/plugin.c:250
 msgid "Select debugging target"
-msgstr "اختر هدف التنقيح"
+msgstr "انتقِ هدف التنقيح"
 
 #: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
 #: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:670
@@ -8430,7 +8405,7 @@ msgstr "Valgrind"
 #: ../plugins/valgrind/plugin.c:332
 msgid ""
 "No executable target selected for debugging with Valgrind. Please select one."
-msgstr "لم يُختر هدف تنفيذي للتنقيح بـ Valgrind. رجاءً اختر واحدًا."
+msgstr "لم يُنتقى هدف تنفيذي للتنقيح بـ Valgrind. رجاءً انتقِ واحدًا."
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
@@ -8458,7 +8433,7 @@ msgstr "_Valgrind"
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:453
 msgid "_Select Tool and Run..."
-msgstr "اختر أداة وشغّل..."
+msgstr "ان_تقِ أداة وشغّل..."
 
 #. Action name
 #. Stock icon, if any
@@ -8660,7 +8635,7 @@ msgstr "Helgrind"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:170
 msgid "Assume thread stacks are used privately"
-msgstr "افترض أن مكدسات التشعبات تـُستخدم بخصوصية"
+msgstr "افترض أن مكدسات التشعبات تُستخدم بخصوصية"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
@@ -8743,7 +8718,7 @@ msgstr "لا يمكن حفظ قواعد الإزالة: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:653
 msgid "You have not set a suppressions file in your settings."
-msgstr "لم تـُعِدّ ملف الإزالات في إعداداتك."
+msgstr "لم تُعِدّ ملف الإزالات في إعداداتك."
 
 #: ../src/about.c:185
 msgid "Copyright (c) Naba Kumar"
@@ -8921,7 +8896,7 @@ msgstr "الوثائق والموارد على الخط"
 
 #: ../src/anjuta-actions.h:80
 msgid "Report _Bugs/Patches/Requests"
-msgstr "بلـّغ عن _علل/رقعات/طلبات"
+msgstr "بلّغ عن _علل/رقعات/طلبات"
 
 #: ../src/anjuta-actions.h:81
 msgid "Submit a bug report, patch or feature request for Anjuta"
@@ -9012,7 +8987,7 @@ msgstr "أنجوتا"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr "<b>التكملة الآلية (فقط لِ C/C++/جافا )</b>"
+msgstr "<b>التكملة الآلية (فقط لِ سي/سي++/جافا )</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
 msgid "<b>Calltips</b>"
@@ -9080,11 +9055,11 @@ msgstr "تكملة تلقا_ئية"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "AutoComplete the current word"
-msgstr "أكمل الكلمة الحالية تلقائيًا"
+msgstr "أكمل تلقائيًا الكلمة الحالية"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "Auto Indent"
-msgstr "إزاحة آليةًا"
+msgstr "إزاحة آلية"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
@@ -9096,7 +9071,7 @@ msgstr "تبديل .h/.c"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Swap c header and source files"
-msgstr "بدّل بين ترويسة c وملفات المصدر"
+msgstr "بدّل بين ترويسةسي وملفات المصدر"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1911
 msgid "C++/Java Assistance"
@@ -9105,7 +9080,7 @@ msgstr "مساعدة سي++/جافا"
 #: ../plugins/language-support-cpp-java/plugin.c:1999
 #: ../plugins/language-support-cpp-java/plugin.c:2008
 msgid "C/C++/Java/Vala"
-msgstr "C/C++/جافا/Vala"
+msgstr "سء/سي++/جافا/فالا"
 
 #: ../plugins/sourceview/plugin.c:230 ../plugins/sourceview/plugin.c:268
 msgid "GtkSourceView Editor"
@@ -9125,7 +9100,7 @@ msgstr "التحكم بإصدار Git"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
-msgstr "مساعدة API"
+msgstr "مساعدة واجهة برمجة التطبيقات"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
@@ -9140,7 +9115,6 @@ msgid "Anjuta File Assistant Plugin"
 msgstr "ملحق مساعد ملف أنجوتا"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#, fuzzy
 msgid "File Assistant"
 msgstr "مساعد الملف"
 
@@ -9258,14 +9232,13 @@ msgstr "مكوّن مبني على Scintilla لتحرير الملفات"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
-msgstr "ملحق دعم C++ وجافا"
+msgstr "ملحق دعم سي++ وجافا"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
-msgstr "ملحق دعم C++ وجافا لتكملة الشيفرة، والإزاحة الآلية، إلخ."
+msgstr "ملحق دعم سي++ وجافا لتكملة الشيفرة، والإزاحة الآلية، إلخ."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#, fuzzy
 msgid "Project Assistant"
 msgstr "مساعد المشروع"
 
@@ -9283,7 +9256,7 @@ msgstr "مكوّن من أجل البحث"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
-msgstr "جارٍ البحث"
+msgstr "بحث"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
@@ -9291,7 +9264,7 @@ msgstr "ملحق مولد فئات أنجوتا"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
-msgstr "فئة C++/GObject"
+msgstr "فئة سي++/جي أوبجكت"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
@@ -9339,7 +9312,7 @@ msgstr "ملحق مدير التنقيح."
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
-msgstr "إسمح تنفيذ البرامج بلا منقح."
+msgstr "اسمح تنفيذ البرامج بلا منقح."
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
