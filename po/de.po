@@ -24,10 +24,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-13 20:09+0200\n"
-"PO-Revision-Date: 2008-09-13 22:13+0200\n"
+"POT-Creation-Date: 2008-09-21 11:26+0200\n"
+"PO-Revision-Date: 2008-09-21 12:23+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -245,7 +245,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:768
-#: ../plugins/symbol-db/symbol-db-prefs.c:514
+#: ../plugins/symbol-db/symbol-db-prefs.c:527
 msgid "Load"
 msgstr "Laden"
 
@@ -4429,20 +4429,20 @@ msgstr "Entfernten Zweig hinzufügen"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Gegenzeichnung hinzufügen"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
 msgstr "Diese Marke kommentieren"
 
 #: ../plugins/git/anjuta-git.glade.h:35
+#, fuzzy
 msgid "Append fetch data"
-msgstr ""
+msgstr "Ausgecheckte Differenzen anhängen"
 
 #: ../plugins/git/anjuta-git.glade.h:36
-#, fuzzy
 msgid "Author/Grep"
-msgstr "Autor"
+msgstr "Autor (regulärer Ausdruck)"
 
 #: ../plugins/git/anjuta-git.glade.h:37
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
@@ -4982,17 +4982,14 @@ msgid "_Set bad revision"
 msgstr "Schlechte Revision _setzen: "
 
 #: ../plugins/git/plugin.c:580
-#, fuzzy
 msgid "Git operations"
 msgstr "Vorgänge von Git"
 
 #: ../plugins/git/plugin.c:585
-#, fuzzy
 msgid "Git log operations"
 msgstr "Änderungsvorgänge von Git"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
 msgstr "FM-Vorgänge von Git"
 
@@ -7783,9 +7780,8 @@ msgid "Please enter a destination path."
 msgstr "Bitte einen Zielpfad eingeben."
 
 #: ../plugins/subversion/subversion-diff-dialog.c:75
-#, fuzzy
 msgid "[Head/Working Copy]"
-msgstr "Arbeitskopie"
+msgstr "[Arbeitskopie]"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:90
 #: ../plugins/subversion/subversion-log-dialog.c:417
@@ -7872,7 +7868,7 @@ msgstr "Bitte eine Zweig/Tag-URL angeben."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Erhalten der Unterschiede abgeschlossen."
 
@@ -7999,7 +7995,7 @@ msgid "Symbol Browser"
 msgstr "Symbol-Browser"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:776
-#: ../plugins/symbol-db/symbol-db-prefs.c:522
+#: ../plugins/symbol-db/symbol-db-prefs.c:535
 msgid "API Tags"
 msgstr "API-Tags"
 
@@ -8108,7 +8104,7 @@ msgid "Package is not parseable"
 msgstr "Paket ist nicht lesbar"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:426
-#: ../plugins/symbol-db/symbol-db-prefs.c:573
+#: ../plugins/symbol-db/symbol-db-prefs.c:586
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Symboldatenbank"
@@ -8134,14 +8130,10 @@ msgid "Checking if package is parseable..."
 msgstr "Lesbarkeit des Pakets wird überprüft"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
-msgid "Choose ctags executable"
-msgstr "Ausführbare Datei wählen"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Ctags executable:"
 msgstr "Ausführbare Datei:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
 msgstr "Paralleles Durchsuchen des Projekts und globaler Symbole"
 
@@ -8371,7 +8363,7 @@ msgstr "Werkzeuge"
 
 #: ../plugins/tools/variable.c:491
 msgid "Command line parameters"
-msgstr "Kommandozeilen-Argumente"
+msgstr "Befehlszeilenargumente"
 
 #: ../plugins/tools/tool.c:81
 #, fuzzy
@@ -8407,7 +8399,6 @@ msgid "Replace selection"
 msgstr "Auswahl ersetzen"
 
 #: ../plugins/tools/tool.c:89
-#, fuzzy
 msgid "Popup dialog"
 msgstr "Einblenddialog"
 
@@ -8416,7 +8407,6 @@ msgid "Discard output"
 msgstr "Ausgabe verwerfen"
 
 #: ../plugins/tools/tool.c:95
-#, fuzzy
 msgid "None"
 msgstr "Kein"
 
@@ -8429,7 +8419,6 @@ msgid "Current selection"
 msgstr "Aktuelle Auswahl"
 
 #: ../plugins/tools/tool.c:98
-#, fuzzy
 msgid "String"
 msgstr "Text"
 
@@ -8853,9 +8842,8 @@ msgstr "Die letzte Sitzung beim Start nicht laden"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:15
-#, fuzzy
 msgid "Dock switcher style:"
-msgstr "Stil der Dock-Wechsel-Knöpfe:"
+msgstr "Stil der Dock-Wechselknöpfe:"
 
 #: ../src/anjuta.glade.h:17
 msgid "Select projects directory"
@@ -9412,6 +9400,9 @@ msgstr "Sprachverwaltung"
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "Komponente zur Handhabung mehrerer Programmiersprachen"
+
+#~ msgid "Choose ctags executable"
+#~ msgstr "Ausführbare Datei wählen"
 
 #~ msgid ""
 #~ "Anjuta terminal plugin is not installed. The program will be run without "
