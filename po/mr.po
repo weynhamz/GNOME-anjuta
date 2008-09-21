@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-15 10:26+0000\n"
-"PO-Revision-Date: 2008-09-18 22:18+0530\n"
+"PO-Revision-Date: 2008-09-21 13:47+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
@@ -1078,7 +1078,7 @@ msgstr "हेड्डर फाइल:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "घोषणा व लागूकरण अंतर्भूतीय करा"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
@@ -1945,7 +1945,7 @@ msgstr "ब्रेकपॉईन्ट कार्यपद्धती"
 #: ../plugins/debug-manager/data_view.c:383
 #: ../plugins/debug-manager/sparse_view.c:491
 msgid "_Goto address"
-msgstr "पत्ताकडे जा (_G)"
+msgstr "पत्ता कडे जा (_G)"
 
 #: ../plugins/debug-manager/debug_tree.c:126 ../plugins/tools/editor.c:457
 msgid "Variable"
@@ -1959,7 +1959,7 @@ msgstr "मुल्य"
 
 #: ../plugins/debug-manager/disassemble.c:852
 msgid "Disassembly"
-msgstr ""
+msgstr "डिस्अस्सेम्बली"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 msgid "Information"
@@ -2128,35 +2128,35 @@ msgstr "कार्यक्रमास कार्यरत राहू द
 
 #: ../plugins/debug-manager/plugin.c:949
 msgid "Step _In"
-msgstr ""
+msgstr "स्टेप् इन (_I)"
 
 #: ../plugins/debug-manager/plugin.c:951
 msgid "Single step into function"
-msgstr ""
+msgstr "कार्यपद्धतीत प्रवेश करा"
 
 #: ../plugins/debug-manager/plugin.c:957
 msgid "Step O_ver"
-msgstr ""
+msgstr "स्टेप् ओवर (_v)"
 
 #: ../plugins/debug-manager/plugin.c:959
 msgid "Single step over function"
-msgstr ""
+msgstr "कार्यपद्धती स्तब्ध करा"
 
 #: ../plugins/debug-manager/plugin.c:965
 msgid "Step _Out"
-msgstr ""
+msgstr "स्टेप् आउट (_O)"
 
 #: ../plugins/debug-manager/plugin.c:967
 msgid "Single step out of the function"
-msgstr ""
+msgstr "कार्यपद्धती पासून बाहेर पडा"
 
 #: ../plugins/debug-manager/plugin.c:973
 msgid "_Run to Cursor"
-msgstr ""
+msgstr "पाठ्य अंतर्भूतीत स्थानावर या (_R)"
 
 #: ../plugins/debug-manager/plugin.c:975
 msgid "Run to the cursor"
-msgstr ""
+msgstr "पाठ्य अंतर्भूतीत स्थानावर या"
 
 #: ../plugins/debug-manager/plugin.c:997
 msgid "Info _Global Variables"
@@ -2805,21 +2805,21 @@ msgstr "टिपण्णी (_m)"
 #. such as '//' or '#') and comments a block of lines.
 #: ../plugins/document-manager/plugin.c:229
 msgid "_Block Comment/Uncomment"
-msgstr "टिपण्णी करा/टिपण्णी काढून टाका ब्लॉक (_B)"
+msgstr "ब्लॉक टिपण्णी करा/टिपण्णी वगळा (_B)"
 
 #: ../plugins/document-manager/plugin.c:230
 msgid "Block comment the selected text"
-msgstr "निवडेलेले पाठ्य यास टिपण्णी ब्लॉक बनवा"
+msgstr "ब्लॉक टिपण्णी करण्यासाठीचे निवडलेले पाठ्य"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
 #: ../plugins/document-manager/plugin.c:234
 msgid "Bo_x Comment/Uncomment"
-msgstr ""
+msgstr "बॉक्स् टिपण्णी करा/टिपण्णी वगळा (_x)"
 
 #: ../plugins/document-manager/plugin.c:235
 msgid "Box comment the selected text"
-msgstr ""
+msgstr "बॉक्स् टिपण्णी करण्यासाठीचे निवडलेले पाठ्य"
 
 #. Stream comment: Uses 'stream comment' (comment that affects a stream of
 #. characters -- has start and end comment code) and comments any code from
@@ -2827,11 +2827,11 @@ msgstr ""
 #. lines).
 #: ../plugins/document-manager/plugin.c:241
 msgid "_Stream Comment/Uncomment"
-msgstr ""
+msgstr "स्ट्रिम् टिपण्णी करा/टिपण्णी वगळा (_S)"
 
 #: ../plugins/document-manager/plugin.c:242
 msgid "Stream comment the selected text"
-msgstr "निवडलेले पाठ्य"
+msgstr "स्ट्रिम् टिपण्णी करण्यासाठीचे निवडलेले पाठ्य"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:248
@@ -3375,12 +3375,12 @@ msgstr "सिंटॅक्स उठावदारीकरण अकार�
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:25
 msgid "Draw line below folded lines"
-msgstr "फोल्ड केलेले ओळीं खाली ओळी रेखाटा"
+msgstr "फोल्ड केलेल्या ओळीच्या खाली रेष रेखाटा"
 
 #. Column where a vertical line will be drawn to indicate that lines should not be longer
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
 msgid "Edge column"
-msgstr ""
+msgstr "रेष स्तंभ"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:28
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
@@ -5471,6 +5471,11 @@ msgid ""
 "Diagonal\n"
 "Strike-Out"
 msgstr ""
+"अधोरेखन-आडवे\n"
+"अधोरेखन-लहरी\n"
+"अधोरेखन-TT\n"
+"तिरपे\n"
+"खोडा"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
@@ -5615,12 +5620,12 @@ msgstr ""
 
 #: ../plugins/patch/patch-plugin.c:257
 msgid "Patching complete"
-msgstr "पॅच क्रीया पूर्ण"
+msgstr "पॅच पूर्ण झाले"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Dry run"
-msgstr ""
+msgstr "चालवून पहा"
 
 #: ../plugins/patch/patch-plugin.glade.h:2
 msgid "File/Directory to patch:"
@@ -5864,7 +5869,7 @@ msgstr "सर्व बोधचिन्ह निवडा"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
-msgstr ""
+msgstr "असे कार्यपद्धती दर्शवा ज्यांना कॉल दणे शक्य होते परंतु कॉल दिले गेले नाही"
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
@@ -5885,6 +5890,8 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
 msgstr ""
+"प्रविष्ट संचयीका (%s) करीता वैध प्रकल्प बॅकएन्ड आढळले नाही. कृपया अन्य संचयीका निवडा, किंवा "
+"Gnome Build Framework च्या अलिकडील आवृत्तीशी सुधारीत करा."
 
 #.
 #. * Now we can't apply
@@ -6212,7 +6219,7 @@ msgid ""
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
-msgstr ""
+msgstr "अनुप्रयोग सहाय्यक प्रकल्प करीता बिल्ड् फाइल समाविष्टीत, मुळ प्रारूप बनवेल. ते अनुप्रयोग करीता प्रारंभीक रचनाच्या तपशील करीता विचारेल. संयोजना एकदा स्थापीत केल्यावर भविष्यात बदलवू न शकल्यामुळे, कृपया विचारलेल्या प्रश्नांची लक्षपूर्वक उत्तर द्या."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:99
@@ -6287,7 +6294,7 @@ msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
-msgstr ""
+msgstr "हा प्रकल्प बिल्ड् करण्याकरीता आवश्यक महत्वाचे कार्यक्रम किंवा हेव्हलप्मेंट संकुल आढळले नाही. कृपया प्रकल्प बनविण्यापूर्वी ते योग्यरित्या प्रतिष्ठापीत आहे याची खात्री करा.\n"
 
 #: ../plugins/project-wizard/druid.c:740
 msgid "Missing components"
@@ -6301,7 +6308,7 @@ msgid ""
 "development of projects based on them. They usually end with -dev or -devel "
 "suffix in package names and can be found by searching in your Application "
 "Manager."
-msgstr ""
+msgstr "न आढळलेले कार्यक्रम सहसा काहिक वितरण संकुल चे भाग असते व अनुप्रयोग व्यवस्थापक द्वारे शोधले जाऊ शकते. तसेच, डेव्हलप्मेंट संकुल वितरण अंतर्गतच विशेष संकुल मध्ये संकुल आधारीत प्रकल्प निर्माण करण्याकरीता समाविष्टीत असतात. त्यांचे संकुल नाव सहसा -dev किंवा -devel असे असते व अनुप्रयोग व्यवस्थापक अंतर्गत शोधल्यास आढळते."
 
 #: ../plugins/project-wizard/druid.c:947
 msgid "Unable to build project assistant user interface."
@@ -6545,7 +6552,7 @@ msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
+msgstr "प्रकल्प द्वारे आवश्यक संकुल नाव प्रविष्ट करा. तुम्ही संकुल करीता आवश्यक आवृत्ती देखिल प्रविष्ट करू शकता. उदाहरण, 'libgnomeui-2.0' किंवा 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
