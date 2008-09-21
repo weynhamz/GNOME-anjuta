@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-15 10:26+0000\n"
-"PO-Revision-Date: 2008-09-20 16:40+0100\n"
+"PO-Revision-Date: 2008-09-21 09:04+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -275,7 +275,7 @@ msgstr "Prikaži le vstavke, ki jih lahko zažene uporabnik"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1186
 msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
-msgstr ""
+msgstr "To so vstavki, ki ste jih izbrali, ko ve program spraševal, katere vstavke želite vključiti v program. Po tem, ko odstranite vse vstavke, vas bo program znova opozoril, da izberete tiste, ki jih želite imeti."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1212
 msgid "Forget selected plugin"
@@ -544,7 +544,7 @@ msgstr "Ni mogoče izvesti ukaza: %s (uporaba lupine %s)\n"
 
 #: ../libanjuta/anjuta-utils.c:1481
 msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
-msgstr ""
+msgstr "Ni mogoče prikazati pomoči. Prepričajte se, da je paket z dokumentacijo nameščen. Lahko ga prenesete s spletne strani http://anjuta.org."
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:292
 msgid "Modified"
@@ -568,7 +568,7 @@ msgstr "Manjkajoče"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
 msgid "Unversioned"
-msgstr ""
+msgstr "Brez določene različice"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
@@ -821,7 +821,7 @@ msgstr "Ni mogoče kodno prevesti \"%s\": Ni določenega pravila prevajanja za t
 #: ../plugins/build-basic-autotools/plugin.c:1636
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
-msgstr ""
+msgstr "Ni mogoče nastaviti projekta: Manjka nastavitveni skript v %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2019
 #: ../plugins/build-basic-autotools/plugin.c:2093
@@ -919,7 +919,7 @@ msgstr "Odstrani nastavitve"
 
 #: ../plugins/build-basic-autotools/plugin.c:2084
 msgid "Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
+msgstr "Počisti projekt (distclean) in odstrani namestitveno mapo, če je to mogoče"
 
 #: ../plugins/build-basic-autotools/plugin.c:2097
 #: ../plugins/build-basic-autotools/plugin.c:2125
@@ -1368,6 +1368,8 @@ msgid ""
 "Standard diff\n"
 "Patch-Style diff"
 msgstr ""
+"Običajna primerjava\n"
+"Primerjava popravkov"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
@@ -2352,11 +2354,11 @@ msgstr "Ali naj bodo prikazane številke vrstic"
 
 #: ../plugins/debug-manager/sparse_view.c:1203
 msgid "Show Line Markers"
-msgstr "Prikaži zaznamovalce vrstic"
+msgstr "Prikaži zaznamovanja vrstic"
 
 #: ../plugins/debug-manager/sparse_view.c:1204
 msgid "Whether to display line marker pixbufs"
-msgstr "Ali naj bodo prikazane označevalne pike ob vrsticah"
+msgstr "Ali naj bodo prikazane zaznamovalne pike ob vrsticah"
 
 #. Action name
 #. Stock icon, if any
@@ -2886,11 +2888,11 @@ msgstr "Dodaj opombo trenutno izbranemu besedilu"
 #. some decorations, to give an appearance of box.
 #: ../plugins/document-manager/plugin.c:234
 msgid "Bo_x Comment/Uncomment"
-msgstr ""
+msgstr "Preklop opombe v _okvirju"
 
 #: ../plugins/document-manager/plugin.c:235
 msgid "Box comment the selected text"
-msgstr ""
+msgstr "Ustvari opombe zajete v okvirju iz izbranega besedila"
 
 #. Stream comment: Uses 'stream comment' (comment that affects a stream of
 #. characters -- has start and end comment code) and comments any code from
@@ -2898,11 +2900,11 @@ msgstr ""
 #. lines).
 #: ../plugins/document-manager/plugin.c:241
 msgid "_Stream Comment/Uncomment"
-msgstr ""
+msgstr "Preklop opombe _pretoka"
 
 #: ../plugins/document-manager/plugin.c:242
 msgid "Stream comment the selected text"
-msgstr ""
+msgstr "Ustvari opombe pretoka iz izbranega besedila"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:248
@@ -3047,7 +3049,7 @@ msgstr "_Prilepi"
 
 #: ../plugins/document-manager/plugin.c:306
 msgid "Paste the content of clipboard at the current position"
-msgstr ""
+msgstr "Prilepi vsebino odložišča na trenutno mesto"
 
 #: ../plugins/document-manager/plugin.c:314
 msgid "_Clear"
@@ -3067,11 +3069,11 @@ msgstr "Preklopi prikaz številk vrstic"
 
 #: ../plugins/document-manager/plugin.c:323
 msgid "_Marker Margin"
-msgstr "Rob _označb"
+msgstr "Rob _zaznamovanj"
 
 #: ../plugins/document-manager/plugin.c:324
 msgid "Show/Hide marker margin"
-msgstr "Preklopi prikaz robu označb"
+msgstr "Preklopi prikaz robu zaznamovanj"
 
 #: ../plugins/document-manager/plugin.c:326
 msgid "_Code Fold Margin"
@@ -3463,7 +3465,7 @@ msgstr "Urejevalnik"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:29
 msgid "Editor caret (cursor) width in pixels"
-msgstr ""
+msgstr "Urejanje širine kazalnika v točkah"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:30
 msgid "Enable HTML tags folding"
@@ -3495,11 +3497,11 @@ msgstr "Omogoči zvijanje python opomb"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:37
 msgid "Enable python quoted strings folding"
-msgstr ""
+msgstr "Omogoči zvijanje python kode v narekovajih"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:38
 msgid "Filter extraneous characters in DOS mode"
-msgstr ""
+msgstr "Filtriraj zunanje znake v DOS načinu"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
 msgid "Fold style:"
@@ -3545,15 +3547,15 @@ msgstr "Ohrani predhodno zamikanje"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
-msgstr ""
+msgstr "Viden rob zvijanja kode"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
-msgstr ""
+msgstr "Viden rob oštevilčenja vrstic"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
 msgid "Margin Marker visible"
-msgstr ""
+msgstr "Viden rob zaznamovanja"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
@@ -3570,6 +3572,10 @@ msgid ""
 "Circular\n"
 "Squares"
 msgstr ""
+"Plus/minus\n"
+"Puščice\n"
+"Krožci\n"
+"Kvadratki"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
 msgid "Pressing backspace un-indents"
@@ -3641,7 +3647,7 @@ msgstr "Prikaži presledke zamika"
 #. Next bookmark at the end of the file will jump to the first bookmark from the beginning
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:77
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Zakroži iskanje zaznamkov"
 
 #: ../plugins/editor/print.c:481
 msgid "No file to print!"
@@ -3678,6 +3684,9 @@ msgid ""
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
+"Datoteka '%s' na disku je novejša kot\n"
+"trenutna v medpomnilniku.\n"
+"Ali želite datoteko ponovno naložiti?"
 
 #: ../plugins/editor/text_editor.c:1285
 msgid "Could not get file info"
@@ -3698,7 +3707,7 @@ msgstr "Napaka med branjem iz datoteke"
 
 #: ../plugins/editor/text_editor.c:1363
 msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
-msgstr ""
+msgstr "Datoteka ni videti kot običajna besedilna datoteka ali pa ni podprto kodiranje. Prosim, preverite ali je kodni nabor ustrezen in sovpada s seznamom. V primeru, da ne sovpada, ga dodajte med lastnostmi."
 
 #: ../plugins/editor/text_editor.c:1510
 msgid "Loading file..."
@@ -3740,6 +3749,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Ni mogoče naložiti splošnih lastnosti in nastavitvenih datotek:\n"
+"%s.\n"
+"Napaka se lahko pojavi kadar program ne deluje stabilno.\n"
+"Program Anjuta bo povrnil prvotne privzete in omejene nastavitve."
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -4242,6 +4255,8 @@ msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
+"Proces že teče.\n"
+"Ali želite trenutni proces zaključiti in pripeti nov proces?"
 
 #: ../plugins/gdb/debugger.c:1936
 msgid "Anjuta is unable to attach to itself."
@@ -4414,7 +4429,7 @@ msgstr "Dodaj oddaljeno vejo"
 
 #: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Dodaj odpis po vrsticah"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
@@ -5272,7 +5287,7 @@ msgstr "Skrij predmete po _zaključnem datumu"
 
 #: ../plugins/gtodo/plugin.c:85
 msgid "Hide items that are past due date"
-msgstr ""
+msgstr "Skrij predmete katerih čas zaključka je pretekel"
 
 #: ../plugins/gtodo/plugin.c:92
 msgid "Hide Items Without _End Date"
@@ -5336,22 +5351,22 @@ msgstr "Poudari"
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
 msgid "Items that are due today"
-msgstr ""
+msgstr "Predmeti katerih čas zaključka preteče danes"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:151
 msgid "Items that are past due"
-msgstr ""
+msgstr "Predmeti katerih čas zaključka je že pretkel"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Predmeti katerih čas zaključka preteče v %i dneh."
+msgstr[1] "Predmeti katerih čas zaključka preteče v %i dnevu."
+msgstr[2] "Predmeti katerih čas zaključka preteče v %i dneh."
+msgstr[3] "Predmeti katerih čas zaključka preteče v %i dneh."
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -5359,7 +5374,7 @@ msgstr "Razno"
 
 #: ../plugins/gtodo/preferences.c:174
 msgid "Auto purge completed items"
-msgstr ""
+msgstr "Samodejno počisti zaključene predmete"
 
 #: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
@@ -5383,10 +5398,10 @@ msgstr "Obvestilo"
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Dovoli nalogam obveščanje, kadar manjka do časa zaključka še %i minut."
+msgstr[1] "Dovoli nalogam obveščanje, kadar manjka do časa zaključka še %i minuta."
+msgstr[2] "Dovoli nalogam obveščanje, kadar manjka do časa zaključka še %i minuti."
+msgstr[3] "Dovoli nalogam obveščanje, kadar manjka do časa zaključka še %i minute."
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5509,7 +5524,7 @@ msgstr "_Vstavi makro ..."
 
 #: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
-msgstr ""
+msgstr "Vstavite makro z uporabo bližnjice"
 
 #: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
@@ -5830,6 +5845,9 @@ msgid ""
 "\n"
 "Please check the path to this target's profiling data file."
 msgstr ""
+"Ni mogoče pridobiti podatkov profila.\n"
+"\n"
+"Prosim, preverite ali pot do datoteke profila cilja."
 
 #: ../plugins/profiler/plugin.c:284
 msgid ""
@@ -5837,6 +5855,9 @@ msgid ""
 "\n"
 "Please ensure that the target is complied with profiling support and that it is run at least once."
 msgstr ""
+"Cilj nima ustreznih podatkov profila.\n"
+"\n"
+"Prepričajte se, da je cilj izgrajen s podporo profilov in da je zagnan vsaj enkrat."
 
 #. Action name
 #. Stock icon, if any
@@ -5924,7 +5945,7 @@ msgstr "Prebrskaj ..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgstr "Ne razširjaj časa za te simbole:"
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
@@ -5941,6 +5962,10 @@ msgid ""
 "For information on symbol specifications, see section \n"
 "4.5 of the gprof info page. "
 msgstr ""
+"Vnesite eno določilo simbola na vrstico.\n"
+"\n"
+"Za več podrobnosti o določilih simbolov, si oglejte\n"
+"poglavje 4.5 dokumentacije gprof. "
 
 #: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
@@ -5953,11 +5978,11 @@ msgstr "Možnosti profiliranja"
 
 #: ../plugins/profiler/profiler.glade.h:18
 msgid "Propagate time for all symbols"
-msgstr ""
+msgstr "Razširjaj čas za vse simbole"
 
 #: ../plugins/profiler/profiler.glade.h:19
 msgid "Propagate time for only these symbols:"
-msgstr ""
+msgstr "Razširjaj čas le za te simbole:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
@@ -7588,7 +7613,7 @@ msgstr "Kopiraj datoteke/mape ..."
 #: ../plugins/subversion/plugin.c:112
 #: ../plugins/subversion/plugin.c:195
 msgid "Copy files/folders in the repository"
-msgstr ""
+msgstr "Kopiraj datoteke in mape v repozitorij"
 
 #. Action name
 #. Stock icon, if any
@@ -7612,7 +7637,7 @@ msgstr "Združi ..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:128
 msgid "Merge changes into your working copy"
-msgstr ""
+msgstr "Združi spremembe v delovno različico"
 
 #. Action name
 #. Stock icon, if any
@@ -7927,7 +7952,7 @@ msgstr "Dodaj mapo"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
-msgstr ""
+msgstr "Dodajte mape na seznam za skeniranje:"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Create API tags"
