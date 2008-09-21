@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-21 11:26+0200\n"
-"PO-Revision-Date: 2008-09-21 18:53+0200\n"
+"PO-Revision-Date: 2008-09-21 19:31+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -8399,7 +8399,7 @@ msgstr "Auswahl ersetzen"
 
 #: ../plugins/tools/tool.c:89
 msgid "Popup dialog"
-msgstr "Kontextmenu"
+msgstr "Dialog anzeigen"
 
 #: ../plugins/tools/tool.c:90
 msgid "Discard output"
