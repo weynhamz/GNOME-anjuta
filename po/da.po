@@ -15,7 +15,7 @@
 #
 # Versionsstyringsbegreber
 #   reset -> nulstil
-#   revert -> gendan
+#   revert -> forkast
 #   commit -> integrér.  Betydningen varierer mellem programmerne, så det er meget svært at finde en fælles oversættelse, og mange af strengene har kodehenvisninger fra flere versionsstyringsmoduler.  I visse tilfælde involverer commit kun lokale operationer, og kan dermed ikke oversættes til "indsend" (eller lignende), men "integrér" dækker enhver mulighed idet ordet selv rummer plads til fortolkning.
 #   rebase -> flyt forgreningspunkt (se manual for git-rebase)
 #   stage -> føj til indeks (se manual for git-add)
@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-20 22:00+0200\n"
-"PO-Revision-Date: 2008-09-15 22:42+0200\n"
+"POT-Creation-Date: 2008-09-22 03:12+0200\n"
+"PO-Revision-Date: 2008-09-22 02:48+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr "modulet %s registrerer ikke typen %s"
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr ""
+msgstr "Filen du forsøger at åbne, indeholder en ugyldig bytesekvens."
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
@@ -91,6 +91,8 @@ msgid ""
 "anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
 msgstr ""
+"anjuta kunne ikke automatisk bestemme kodningen af den fil, du ønsker at "
+"åbne."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -373,9 +375,8 @@ msgid "URI to sync the profile xml"
 msgstr "URI til synkronisering af profil-xml"
 
 #: ../libanjuta/anjuta-profile.c:471
-#, fuzzy
 msgid "Please select a plugin from the list"
-msgstr "Vælg et modul at aktivere"
+msgstr "Vælg venligst et modul fra listen"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
@@ -3794,12 +3795,15 @@ msgid "recent menu label|%d. %s"
 msgstr "%d. %s"
 
 #: ../plugins/file-loader/plugin.c:113
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can not open \"%s\".\n"
 "\n"
 "%s"
-msgstr "Kunne ikke åbne %s: %s"
+msgstr ""
+"Kan ikke åbne \"%s\":\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:167
 #, c-format
@@ -4301,9 +4305,8 @@ msgid "<b>Changes:</b>"
 msgstr "<b>Ændringer:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:7
-#, fuzzy
 msgid "<b>Commit to revert:</b>"
-msgstr "<b>Commit at gendanne (revert):</b>"
+msgstr "<b>Integration at forkaste:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:8
 msgid "<b>Filters</b>"
@@ -4546,9 +4549,8 @@ msgid "Retrieving status..."
 msgstr "Henter status..."
 
 #: ../plugins/git/anjuta-git.glade.h:67
-#, fuzzy
 msgid "Revert Commit"
-msgstr "Gendan commit"
+msgstr "Forkast integration"
 
 #: ../plugins/git/anjuta-git.glade.h:68
 msgid "Revision/Tag:"
@@ -4581,9 +4583,8 @@ msgid "Switch to Another Branch"
 msgstr "Skift til en anden gren"
 
 #: ../plugins/git/anjuta-git.glade.h:75
-#, fuzzy
 msgid "Tag/Commit"
-msgstr "Mærke/Commit"
+msgstr "Mærk/Integrér"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "This commit concludes a failed merge (use -i)"
@@ -4642,9 +4643,8 @@ msgid "Please enter a revision."
 msgstr "Indtast venligst en revision."
 
 #: ../plugins/git/git-cat-file-menu.c:36
-#, fuzzy
 msgid "Git: File retrieved."
-msgstr "Git: Filen fjernet."
+msgstr "Git: Filen blev hentet."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
@@ -4833,9 +4833,8 @@ msgstr "_Nulstil træ..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
-#, fuzzy
 msgid "_Revert commit..."
-msgstr "_Gendan commit..."
+msgstr "_Forkast integration..."
 
 # En kommando der bruger bisektion til at finde ud af hvilken revision der introducerede en bestemt fejl
 #. Action name
@@ -4940,9 +4939,8 @@ msgstr "_Vis integrations-diff"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:334
-#, fuzzy
 msgid "_View selected revision"
-msgstr "Vis valgte revision"
+msgstr "_Vis valgte revision"
 
 #. Action name
 #. Stock icon, if any
@@ -4965,9 +4963,8 @@ msgid "Git log operations"
 msgstr "Git-loggeoperationer"
 
 #: ../plugins/git/plugin.c:590
-#, fuzzy
 msgid "Git FM operations"
-msgstr "Git-operationer"
+msgstr "Git-FM-operationer"
 
 #: ../plugins/git/plugin.c:624
 msgid "Git Log"
@@ -5435,6 +5432,9 @@ msgid ""
 "Category:\t %s\n"
 "Shortcut:\t %c\n"
 msgstr ""
+"Navn:\t %s\n"
+"Kategori:\t %s\n"
+"Genvej:\t %c\n"
 
 #
 #: ../plugins/macro/macro-dialog.c:264
@@ -5670,9 +5670,8 @@ msgid "Patching...\n"
 msgstr "Patcher...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
-#, fuzzy
 msgid "Patching..."
-msgstr "Patcher...\n"
+msgstr "Patcher..."
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -5689,9 +5688,8 @@ msgstr ""
 "Undersøg og fjern eventuelle kasserede filer.\n"
 
 #: ../plugins/patch/patch-plugin.c:257
-#, fuzzy
 msgid "Patching complete"
-msgstr "Søgning fuldendt"
+msgstr "Patchning fuldendt"
 
 # Dansk ord?
 #: ../plugins/patch/patch-plugin.glade.h:1
@@ -6463,63 +6461,57 @@ msgid "Icon choice"
 msgstr "Ikonvalg"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#, fuzzy
 msgid "A generic C++ project"
-msgstr "Autogenererer projektet: "
+msgstr "Et generisk C++-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
-#, fuzzy
 msgid "A generic GNOME project"
-msgstr "Autogenererer projektet: "
+msgstr "Et generisk GNOME-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-#, fuzzy
 msgid "A generic GTK+ project"
-msgstr "Autogenererer projektet: "
+msgstr "Et generisk GTK+-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
-msgstr ""
+msgstr "Et generisk GTKmm-projekt (C++)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "Et generisk Xlib-dokpanelprogram"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
-#, fuzzy
 msgid "A generic Xlib project"
-msgstr "Autogenererer projektet: "
+msgstr "Et generisk Xlib-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
-msgstr ""
+msgstr "Et generisk javaprojekt, der bruger automake-projekthåndtering"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project "
-msgstr ""
+msgstr "Et generisk minimalt og fladt projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr ""
+msgstr "Et generisk kompileret javaprojekt, der bruger GNUs javakompiler (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-#, fuzzy
 msgid "A generic project"
-msgstr "Autogenererer projektet: "
+msgstr "Et generisk projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
-msgstr ""
+msgstr "Et generisk Pythonprojekt, der bruger automake-projekthåndtering"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
-msgstr ""
+msgstr "Et generisk wx Widgets-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "A sample SDL project"
-msgstr "Tilføj en gruppe til projektet"
+msgstr "Eksempel på SDL-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
@@ -6562,7 +6554,7 @@ msgstr "Anjuta-modul"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr ""
+msgstr "Anjuta-modulprojekt som bruger libanjuta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
@@ -6605,9 +6597,8 @@ msgid "Display title of the plugin"
 msgstr "Vis titel for modulet"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
-#, fuzzy
 msgid "Django Project"
-msgstr "_Rens projekt"
+msgstr "Django-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Django Project information"
@@ -6623,45 +6614,43 @@ msgstr "GCJ skal vide hvilken klasse, der indeholder main()-funktionen"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "GTK+"
-msgstr ""
+msgstr "GTK+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "GTKmm"
-msgstr ""
+msgstr "GTKmm"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "General Project Information"
 msgstr "Generel projektinformation"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
-#, fuzzy
 msgid "Generic"
-msgstr "Generelt"
+msgstr "Generisk"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Generic (Minimal)"
-msgstr ""
+msgstr "Generisk (Minimal)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
-#, fuzzy
 msgid "Generic C++"
-msgstr "Generisk C++-klasse"
+msgstr "Generisk C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "Generisk gcj-kompileret java"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic java (automake)"
-msgstr ""
+msgstr "Generisk java (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic python (automake)"
-msgstr ""
+msgstr "Generisk python (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid ""
@@ -6706,14 +6695,12 @@ msgid "Main class"
 msgstr "Main-klasse"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
-#, fuzzy
 msgid "Makefile project"
-msgstr "Hele projektet"
+msgstr "Makefil-projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
-#, fuzzy
 msgid "Makefile-based project"
-msgstr "Luk projektet"
+msgstr "Makefilsbaseret projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Mininum SDL version required"
@@ -6785,7 +6772,7 @@ msgstr "Projektindstillinger"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Python webproject using Django Web Framework"
-msgstr ""
+msgstr "Python-webprojekt, der bruger Django"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
@@ -6837,7 +6824,7 @@ msgstr "Forudsæt SDL_tff:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Select code license"
@@ -6876,17 +6863,16 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "Om modulet har menuer eller værktøjsbjælker"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:101
-#, fuzzy
 msgid "Wx Widgets"
-msgstr "Kontroller"
+msgstr "Wx Widgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Xlib"
-msgstr ""
+msgstr "Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Xlib dock"
-msgstr ""
+msgstr "Xlib-dok"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
@@ -7449,7 +7435,7 @@ msgstr "<b>Anden sti:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
-msgstr "<b>Vælg ændringer at gendanne (revert):</b>"
+msgstr "<b>Vælg ændringer at forkaste (revert):</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
@@ -7838,7 +7824,7 @@ msgstr "Indtast venligst en gren/mærke-URL."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff fuldført."
 
@@ -8089,13 +8075,12 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Tilgængelige API-mærker</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-#, fuzzy
 msgid "Automatically scan projetc's packages."
-msgstr "Scan automatisk projektets pakker"
+msgstr "Skan automatisk projektets pakker."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "Automatically update symbols without saving file."
-msgstr ""
+msgstr "Opdatér automatisk symboler uden at gemme filen."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
@@ -8107,7 +8092,7 @@ msgstr "Eksekverbar fil til ctags:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
-msgstr ""
+msgstr "Parallel skanning af projekt og globale symboler."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8814,7 +8799,7 @@ msgstr "Hent ikke sidste session ved opstart"
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:15
 msgid "Dock switcher style:"
-msgstr "Dokskifterstil: "
+msgstr "Dokskifterstil:"
 
 #: ../src/anjuta.glade.h:17
 msgid "Select projects directory"
@@ -9135,9 +9120,8 @@ msgid "Gdb plugin."
 msgstr "Gdb-modul."
 
 #: ../plugins/git/git.plugin.in.h:2
-#, fuzzy
 msgid "Git version control"
-msgstr "Et modul til versionsstyring"
+msgstr "Git-versionsstyring"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
@@ -9326,9 +9310,8 @@ msgid "Symbol Browser Plugin for Anjuta."
 msgstr "Symbolviser-modul til Anjuta."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-#, fuzzy
 msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "Symbolviser-modul til Anjuta."
+msgstr "Symboldatabase-modul til Anjuta (ustabil)."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
