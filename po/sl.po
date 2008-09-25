@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-15 10:26+0000\n"
-"PO-Revision-Date: 2008-09-21 09:04+0100\n"
+"PO-Revision-Date: 2008-09-25 19:08+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -208,11 +208,11 @@ msgstr "Vietnamski"
 
 #: ../libanjuta/anjuta-encodings.c:255
 msgid "Thai"
-msgstr "Tajsko"
+msgstr "Tajski"
 
 #: ../libanjuta/anjuta-encodings.c:441
 msgid "Unknown"
-msgstr "Neznano"
+msgstr "Neznani"
 
 #: ../libanjuta/anjuta-launcher.c:1159
 #: ../libanjuta/resources.c:267
@@ -839,7 +839,7 @@ msgstr "Projekt _gradnje"
 
 #: ../plugins/build-basic-autotools/plugin.c:2024
 msgid "Build whole project"
-msgstr "Gradnja celotenega projekta"
+msgstr "Gradnja celotnega projekta"
 
 #: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Install Project"
@@ -847,7 +847,7 @@ msgstr "_Projekt namestitve"
 
 #: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Install whole project"
-msgstr "Namestitev celotenega projekta"
+msgstr "Namestitev celotnega projekta"
 
 #: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Clean Project"
@@ -1013,7 +1013,7 @@ msgstr "Ukaz preklican"
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:165
 msgid "Fixed data-view"
-msgstr ""
+msgstr "Določen podatkovni pogled"
 
 #: ../plugins/class-inheritance/class-inherit.c:1011
 #: ../plugins/debug-manager/sharedlib.c:130
@@ -1106,7 +1106,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Generic C++ Class"
-msgstr "Osnovni C++ razred"
+msgstr "Izvorni C++ razred"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Header File:"
@@ -2028,7 +2028,7 @@ msgstr "Vrstice"
 #. This is the list of local variables.
 #: ../plugins/debug-manager/locals.c:107
 msgid "Locals"
-msgstr ""
+msgstr "Izbrane spremenljivke"
 
 #: ../plugins/debug-manager/plugin.c:312
 msgid "Debugger Log"
@@ -4227,7 +4227,7 @@ msgstr "Funkcija končana\n"
 
 #: ../plugins/gdb/debugger.c:1286
 msgid "Stepping finished\n"
-msgstr ""
+msgstr "Koračenje končano\n"
 
 #: ../plugins/gdb/debugger.c:1292
 msgid "Location reached\n"
@@ -4357,7 +4357,7 @@ msgstr "<b>Način:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr ""
+msgstr "<b>Oddaljena veja za ponovno vzpostavitev izhodišča:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
 msgid "<b>Remote to delete:</b>"
@@ -4433,7 +4433,7 @@ msgstr "Dodaj odpis po vrsticah"
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
-msgstr ""
+msgstr "Označi značko"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
@@ -4468,7 +4468,7 @@ msgstr "Objavi spremembe"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Objavi ob hitrem združevanju"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Create Branch"
@@ -4550,7 +4550,7 @@ msgstr "Prenos z združevanjem"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 msgid "Rebase"
-msgstr "Ponovno vzpostavi"
+msgstr "Postavi izhodišče"
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4593,7 +4593,7 @@ msgstr "Mehko"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
-msgstr ""
+msgstr "Squash"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 msgid "Switch to Another Branch"
@@ -4737,7 +4737,7 @@ msgstr "Prosim, vnesite naslov URL repozitorija s katerega se podatki prenašajo
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
-msgstr ""
+msgstr "Git: Postavljanje izhodišča"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4789,7 +4789,7 @@ msgstr "_Pridobi"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:81
 msgid "_Rebase"
-msgstr ""
+msgstr "_Postavi izhodišče"
 
 #. Action name
 #. Stock icon, if any
@@ -5210,7 +5210,7 @@ msgstr "Služba"
 
 #: ../plugins/gtodo/libgtodo.c:658
 msgid "Unfiled"
-msgstr ""
+msgstr "Nezapolnjeno"
 
 #: ../plugins/gtodo/libgtodo.c:747
 #, c-format
@@ -5595,6 +5595,11 @@ msgid ""
 "Diagonal\n"
 "Strike-Out"
 msgstr ""
+"Podčrtano-prosto\n"
+"Podčrtano-vijuga\n"
+"Podčrtano-TT\n"
+"Diagonala\n"
+"Odčrtano"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
@@ -6015,7 +6020,7 @@ msgstr "Uporaba datoteke s podatki profila:"
 #: ../plugins/project-import/project-import.c:102
 #, c-format
 msgid "Could not find a valid project backend for the directory given (%s). Please select a different directory, or try upgrading to a newer version of the Gnome Build Framework."
-msgstr ""
+msgstr "Ni mogoče najti hrbtenice projekta za mapo (%s). Prosim, izberite drugo mapo ali pa poskusite posodobiti na novejšo različico Gnome Build."
 
 #.
 #. * Now we can't apply
@@ -6065,7 +6070,7 @@ msgstr "Potrdjevanje"
 
 #: ../plugins/project-import/project-import.c:417
 msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up to date."
-msgstr ""
+msgstr "Ustvarjanje projektne datoteke ni uspelo. Ni mogoče najti ustrezne predloge projekta. Prepričajte se, da uporabljate zadnjo različico programa Anjuta."
 
 #: ../plugins/project-import/project-import.c:440
 #, c-format
@@ -6329,7 +6334,7 @@ msgstr "Vrsta projekta"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid "The Application Assistant will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
-msgstr ""
+msgstr "Pomočnik programov bo ustvaril osnovi skelet projekta vključno z ustreznimi datotekami za prevajanje. Poslušajte čim bolj natančno odgovoriti na naslednja vprašanja, saj nekaterih sprememb ni mogoče narediti kasneje."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:99
@@ -6365,12 +6370,12 @@ msgstr "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 #: ../plugins/project-wizard/druid.c:507
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit or an underscore and contains only letters, digits, underscore, minus and dot. Please fix it."
-msgstr ""
+msgstr "Polje \"%s\" se mora začeti s črko, številko ali pa vezajem in sme vsebovati le črke, številke, vezaje, znak minus in piko. Prosim, popravite ime."
 
 #: ../plugins/project-wizard/druid.c:543
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
-msgstr ""
+msgstr "Mapa \"%s\" ni prazna. Ustvarjanje projekta se ustavi v primeru, da nekaterih datotek ni mogoče prepisati. Ali želite nadaljevati?"
 
 #: ../plugins/project-wizard/druid.c:545
 #, c-format
@@ -6397,7 +6402,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:731
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
-msgstr ""
+msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
 #: ../plugins/project-wizard/druid.c:740
 msgid "Missing components"
@@ -6405,7 +6410,7 @@ msgstr "Manjkajoče enote"
 
 #: ../plugins/project-wizard/druid.c:743
 msgid "The missing programs are usually part of some distrubution packages and can be searched in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provide to allow development of projects based on them. They usually end with -dev or -devel suffix in package names and can be found by searching in your Application Manager."
-msgstr ""
+msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno, paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo končnice -dev ali -devel in imena paketov. Najdete jih lahko v upravljalniku programov."
 
 #: ../plugins/project-wizard/druid.c:947
 msgid "Unable to build project assistant user interface."
@@ -6461,7 +6466,7 @@ msgstr "Izbira ikone"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "A generic C++ project"
-msgstr "Splošni C++ projekt"
+msgstr "Izvorni C++ projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "A generic GNOME project"
@@ -6477,7 +6482,7 @@ msgstr "Izvorni GTKmm (C++) projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "Izvorni Xlib aplet sidra"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
@@ -6485,23 +6490,23 @@ msgstr "Izvorni Xlib projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
-msgstr ""
+msgstr "Izvorni java projekt, ki uporablja automake upravljanje"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project "
-msgstr ""
+msgstr "Izvorni minimal in falt projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr ""
+msgstr "Izvorni kodno prevedeni java projekt, ki uporablja GNU Java prevajalec (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
-msgstr "Splošni projekt"
+msgstr "Izvorni projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
-msgstr ""
+msgstr "Izvorni projekt python, ki uporablja automake upravljanje"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
@@ -6529,15 +6534,15 @@ msgstr "Dodaj podporo souporabe knjižnic"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr ""
+msgstr "Doda C++ podporo projektu, da je mogoče izgraditi tudi C++ datoteke"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
-msgstr ""
+msgstr "Doda podporo za izgradnjo deljenih knjižnic projekta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "Adds support for internationalization so that your project can have translations in different languages"
-msgstr ""
+msgstr "Doda podporo za mednarodno jezikovno prilagoditev (i18n), da bo mogoče projekt prevesti v druge jezike."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 #: ../src/about.c:237
@@ -6546,7 +6551,7 @@ msgstr "Vstavek Anjute"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr ""
+msgstr "Projekt Anjuta vstavkov ki uporabljajo libanjuta okvir"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Basic information"
@@ -6558,7 +6563,7 @@ msgstr "Berkeley programska licenca razširjanja (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
-msgstr ""
+msgstr "Z vejico ločeni vstavki od katerih so odvisni drugi vstavki. To je lahko osnovno ime vmesnika ali mesto vstavka (knjižnica:razred)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Configure external packages"
@@ -6598,7 +6603,7 @@ msgstr "Elektronski naslov:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "GCJ needs to know which class contains the main() function"
-msgstr ""
+msgstr "Program GCJ mora vedeti kateri razred vsebuje glavno ( main() ) funkcijo"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "GNOME"
@@ -6618,7 +6623,7 @@ msgstr "Splošne podrobnosti porjekta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Generic"
-msgstr "Splošno"
+msgstr "Izvorno"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Generic (Minimal)"
@@ -6626,11 +6631,11 @@ msgstr "Izvorno (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Generic C++"
-msgstr "Splošni C++"
+msgstr "Izvorni C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "Izvorno gcj kodno prevedena java"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic java (automake)"
@@ -6642,7 +6647,7 @@ msgstr "Izvorni Python (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
+msgstr "Določite ime paketa, ki ga projekt zahteva. Lahko tudi omenite katera različica paketa je zahtevana. Primer, 'libgnomeui-2.0' ali 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Icon File:"
@@ -6738,7 +6743,7 @@ msgstr "Mapa projekta:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
-msgstr ""
+msgstr "Ime projekta ne sme vsebovati presledkov, ker bo to tudi ime cilja izgradnje projekta (izvedljiva datoteka, knjižnica in podobno)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project name:"
@@ -6750,7 +6755,7 @@ msgstr "Možnosti projekta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Python webproject using Django Web Framework"
-msgstr ""
+msgstr "Spletni projekt Python z Django spletnim okvirjem"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Require Package:"
@@ -6822,7 +6827,7 @@ msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
-msgstr ""
+msgstr "Uporabi libglade-2.0 knjižnice za nalaganje datoteke vmesnika glade ob zagonu"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Value Name:"
@@ -6850,7 +6855,7 @@ msgstr "Xlib dock"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr ""
+msgstr "gtk-doc se uporablja za kodno prevajanje API dokumentacije za GObject razrede"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "project name"
@@ -7025,7 +7030,7 @@ msgstr "Polni medpomnilnik"
 
 #: ../plugins/search/anjuta-search.glade.h:17
 msgid "Greedy matching"
-msgstr ""
+msgstr "Pohlepno parjenje"
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
@@ -7286,6 +7291,8 @@ msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
+"Datoteka '%s' na disku je novejša kot trenutna v medpomnilniku.\n"
+"Ali želite datoteko ponovno naložiti?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:347
@@ -7574,7 +7581,7 @@ msgstr "_Povrni ..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:88
 msgid "Revert changes to your working copy."
-msgstr ""
+msgstr "Združi spremembe v delovno različico."
 
 #. Action name
 #. Stock icon, if any
@@ -7625,7 +7632,7 @@ msgstr "Preklopi na oznako/vejo ..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:120
 msgid "Switch your local copy to a branch or tag in the repository"
-msgstr ""
+msgstr "Preklopi lokalno kopijo veje ali oznake v repozitroij"
 
 #. Action name
 #. Stock icon, if any
@@ -7890,7 +7897,7 @@ msgstr "Manjkajoče: %s"
 #: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Obstructed: %s"
-msgstr ""
+msgstr "Ovirano: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:568
@@ -7921,7 +7928,7 @@ msgstr "Skeniranje paketa: %s"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:722
 msgid "Completed system tags generation"
-msgstr ""
+msgstr "Zaključeno ustvarjanje sistemskih oznak"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:757
 #: ../plugins/symbol-browser/an_symbol_prefs.c:851
@@ -7960,7 +7967,7 @@ msgstr "Ustvari API oznake"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 msgid "Load API tags from project configuration"
-msgstr ""
+msgstr "Naloži API oznake iz nastavitev projekta"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update Global Tags"
@@ -8054,15 +8061,15 @@ msgstr "<b>API oznake na voljo</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "Automatically scan projetc's packages."
-msgstr ""
+msgstr "Samodejno skeniraj pakete projekta"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "Automatically update symbols without saving file."
-msgstr ""
+msgstr "Samodejno posodobi simbole brez shranjevanja datoteke."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
-msgstr ""
+msgstr "Preverjanje, če je paket mogoče razčleniti"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Ctags executable:"
@@ -8070,7 +8077,7 @@ msgstr "Ctag izvršljive datoteke: "
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
-msgstr ""
+msgstr "Vzporedno skeniranje projekta in splošnih simbolov."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8090,7 +8097,7 @@ msgstr "Uporabi GNOME terminalni profil:"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:6
 msgid "Use currently selected profile in GNOME terminal"
-msgstr ""
+msgstr "Uporabi trenutno izbran profil GNOME terminala"
 
 #: ../plugins/terminal/terminal.c:603
 msgid "terminal operations"
@@ -8117,7 +8124,7 @@ msgstr "Uredi kot skript"
 
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Edit command as script in Anjuta on close"
-msgstr ""
+msgstr "Uredi ukaz kot skript v Anjuti ob zapiranju"
 
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
@@ -8185,7 +8192,7 @@ msgstr "Ni mogoče izgraditi uporabniškega vmesnika za spremenljivke orodja"
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
-msgstr ""
+msgstr "Pomen"
 
 #: ../plugins/tools/editor.c:535
 msgid "Disabled"
@@ -8205,7 +8212,7 @@ msgstr "Orodje z enakim imenom že obstaja!"
 
 #: ../plugins/tools/editor.c:730
 msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
-msgstr ""
+msgstr "Tipkovna bližnjica je že v uporabi pri drugem dejanju Anjute. Ali jo vseeno želite obdržati?"
 
 #: ../plugins/tools/editor.c:818
 msgid "Unable to edit script"
@@ -8397,13 +8404,15 @@ msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
 msgid "No executable target selected for debugging with Valgrind. Please select one."
-msgstr ""
+msgstr "Ni izbranega izvedljivega cilja za razhroščevanje z valgrind vstavkom. Prosim, izberite enega."
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
 "There aren't any available executable targets for this project.\n"
 "Please create one first."
 msgstr ""
+"Na voljo ni prostih izvedljivih ciljev projekta.\n"
+"Prosim, najprej enega ustvarite."
 
 #: ../plugins/valgrind/plugin.c:353
 msgid "Choose file where to save Valgrind log"
@@ -8485,7 +8494,7 @@ msgstr "Napaka pri ustvarjanju podrejenega procesa '%s': %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
-msgstr ""
+msgstr "Dosežen konec vhodne datoteke ali pa je prišlo do napake med razčlenjevanjem valgrind odvoda."
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
@@ -8498,12 +8507,12 @@ msgstr "Ni mogoče pridobiti ustreznega valgrind-binary gconf ključa:"
 #: ../plugins/valgrind/vgactions.c:205
 #, c-format
 msgid "Valgrind binary [%s] does not exist. Please check the preferences or install Valgrind package."
-msgstr ""
+msgstr "Valgrind binarna datoteka [%s] ne obstaja. Prosim, preverite lastnosti in namestite paket Valgrind."
 
 #: ../plugins/valgrind/vgactions.c:241
 #: ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
-msgstr ""
+msgstr "Ni mogoče dobiti ustrezne cevi procesa."
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:197
 #, c-format
@@ -8591,7 +8600,7 @@ msgstr "Prekini prikazovanje napak, če je teh preveč"
 
 #: ../plugins/valgrind/vggeneralprefs.c:215
 msgid "Round malloc sizes to next word"
-msgstr ""
+msgstr "Zaokroži malloc velikosti do naslednje besede"
 
 #: ../plugins/valgrind/vggeneralprefs.c:223
 msgid "Trace any child processes forked off by the program being debugged"
@@ -8607,7 +8616,7 @@ msgstr "Dodaj časovni žig sporočilom dnevnika"
 
 #: ../plugins/valgrind/vggeneralprefs.c:247
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
+msgstr "Call __libc_freeres() ob izhodu pred rpeverjanjem puščanja spomina"
 
 #: ../plugins/valgrind/vggeneralprefs.c:255
 msgid "Suppressions File:"
@@ -8627,7 +8636,7 @@ msgstr "Predvidi, da so niti skladov uporabljene zasebno"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
-msgstr ""
+msgstr "Pokaži mesto zadnjega dostopa pred napako:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:189
 msgid "Memcheck"
@@ -8643,7 +8652,7 @@ msgstr "Preverjanje uhajanja:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:210
 msgid "Show reachable blocks in leak check"
-msgstr ""
+msgstr "Prikaži dosegljive bloke med preverjanjem puščanja"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
 msgid "Leak resolution:"
@@ -8655,7 +8664,7 @@ msgstr "Ohrani na"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
-msgstr ""
+msgstr "bajti v vrsti po sprostitvi"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
@@ -8817,7 +8826,7 @@ msgstr "_Povrni razporeditev sidrišča"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr ""
+msgstr "Povrni razporeditev sidranja gradnikov na privzeto vrednost"
 
 #: ../src/anjuta-actions.h:43
 msgid "_Toolbars"
@@ -8837,7 +8846,7 @@ msgstr "_Zakleni razporeditev sidrišča"
 
 #: ../src/anjuta-actions.h:53
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr ""
+msgstr "Zakleni trenutno razporeditev sidrišča, da gradnikov ni mogoče premikati"
 
 #: ../src/anjuta-actions.h:58
 msgid "_Help"
@@ -8889,7 +8898,7 @@ msgstr "Poročanje o _hroščih popravkih in željah"
 
 #: ../src/anjuta-actions.h:81
 msgid "Submit a bug report, patch or feature request for Anjuta"
-msgstr ""
+msgstr "Pošlji poročilo o napaki, popravke ali želje za program Anjuta"
 
 #: ../src/anjuta-actions.h:84
 msgid "Ask a _Question"
@@ -8953,7 +8962,7 @@ msgstr "Ne prikaži pozdravnega okna"
 
 #: ../src/main.c:84
 msgid "Start a new instance and do not open the file in a existing"
-msgstr ""
+msgstr "Zaženi novo okno programa in ne odpri datoteke v obstoječem"
 
 #: ../src/main.c:90
 msgid "Do not open last session on startup"
@@ -9005,7 +9014,7 @@ msgstr "Samodejno izpolnjevanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
 msgid "Brace indentation size in spaces:"
-msgstr ""
+msgstr "Velikost zamikanja oklepajev v presledkih:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
 msgid "Enable adaptive indentation"
@@ -9037,7 +9046,7 @@ msgstr "Pametno zamikanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
 msgid "Statement indentation size in spaces:"
-msgstr ""
+msgstr "Velikost zamikanja stavkov v presledkih:"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1854
 msgid "_AutoComplete"
@@ -9053,7 +9062,7 @@ msgstr "Samodejno zamikanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "Auto indent current line or selection based on indentation settings"
-msgstr ""
+msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1867
 msgid "Swap .h/.c"
@@ -9099,7 +9108,7 @@ msgstr "Vstavek Anjute za Devhelp"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
-msgstr ""
+msgstr "Omogoča možnosti urejanja dokumentov"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
@@ -9119,7 +9128,7 @@ msgstr "Vstavek odjemalca Subversion na osnovi libsvn"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
 msgid "A graph painter for the inheritance of the classes."
-msgstr ""
+msgstr "Risalec za podedovane lastnosti razredov"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
@@ -9315,7 +9324,7 @@ msgstr "Upravljalnik jezikov"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
-msgstr ""
+msgstr "Vstavek za sledenje več programskim jezikom"
 
 #~ msgid "Choose ctags executable"
 #~ msgstr "Izbor Ctag izvršljivih datotek"
