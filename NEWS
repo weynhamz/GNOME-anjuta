@@ -1,3 +1,27 @@
+Anjuta 2.24.0 (22 September 2008) -- Johannes Schmid
+
+Translations updates:
+====================
+he, da, de, nb, ar, hu, mr, pt_BR, cs, da, sr, gl, th, ja, hi, nl, fi, ca, es, pt, en_GB, it, sv, fr, zh_CN, sq, gl, th, gu, tr
+
+Updates and fixes:
+- New version of symbol-db plugin beta
+- Fix warnings, some documents could have no associated file
+- Fix #529468: Use weak pointers to avoid acting on widgets that have
+  been destroyed.
+- Fix #551574 Project names and descriptions are not translatable
+- Fix #551684: Wrong AC substitutions in anjuta-version.h.
+- Fixed a problem with async file loading.
+- Fix libanjuta API documentation
+- Imported new symbol icons from MonoDevelop.
+- Fix #550322 - Newlines should be placed at the end of error messages
+  lines
+- Fix #550470 - Crash: Executing file through popup menu
+- Use the View->Editor->* menu items for view spaces, view eol and
+  line wrap (new) option instead of the preferences.
+- Fix #549950 - crash while saving a file
+
+
 Anjuta 2.23.91 (1 September 2008) -- Naba Kumar
 -------------------------------------------------
 
