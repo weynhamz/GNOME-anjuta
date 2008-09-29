@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-18 13:54+0300\n"
-"PO-Revision-Date: 2008-09-18 13:00+0300\n"
+"POT-Creation-Date: 2008-09-29 06:49+0300\n"
+"PO-Revision-Date: 2008-09-29 06:30+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -3774,7 +3774,8 @@ msgid ""
 "Can not open \"%s\".\n"
 "\n"
 "%s"
-msgstr "Kohdetta \"%s\" ei voi avata.\n"
+msgstr ""
+"Kohdetta \"%s\" ei voi avata.\n"
 "\n"
 "%s"
 
@@ -4310,7 +4311,7 @@ msgstr "<b>Tila:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr ""
+msgstr "<b>Etähaara, jonka juureen siirretään:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
 msgid "<b>Remote to delete:</b>"
@@ -4349,7 +4350,7 @@ msgstr "<b>Valitse selvitettäväksi merkittävät tiedostot:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
 msgid "<b>Select Files to Unstage:</b>"
-msgstr ""
+msgstr "<b>Valitse vaiheesta poistettavat tiedostot</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
@@ -4386,7 +4387,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Annotate this tag"
-msgstr ""
+msgstr "Lisää huomautus merkinnälle"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Append fetch data"
@@ -4421,7 +4422,7 @@ msgstr "Toimita muutokset"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Toteuta pikakelatut yhdistämiset"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Create Branch"
@@ -4499,11 +4500,11 @@ msgstr "Edellinen toimitus"
 
 #: ../plugins/git/anjuta-git.glade.h:62
 msgid "Pull"
-msgstr ""
+msgstr "Vedä"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 msgid "Rebase"
-msgstr ""
+msgstr "Siirrä juuri"
 
 #: ../plugins/git/anjuta-git.glade.h:64
 msgid "Remove File"
@@ -4546,7 +4547,7 @@ msgstr "Pehmeä"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Squash"
-msgstr ""
+msgstr "Litistä"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 msgid "Switch to Another Branch"
@@ -4563,11 +4564,11 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "To:"
-msgstr ""
+msgstr "Kohteeseen:"
 
 #: ../plugins/git/anjuta-git.glade.h:79
 msgid "Unstage Files"
-msgstr ""
+msgstr "Poista tiedostoja vaiheesta"
 
 #: ../plugins/git/anjuta-git.glade.h:80
 msgid "Use a custom log message"
@@ -4579,7 +4580,7 @@ msgstr "Näytä loki"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
-msgstr ""
+msgstr "Git: tiedosto asetettu lisättäväksi."
 
 #: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
 msgid "Please select a file."
@@ -4689,7 +4690,7 @@ msgstr "Anna URL noudettavaan versiosäilöön."
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
-msgstr ""
+msgstr "Git: siirretään juurta"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4714,7 +4715,7 @@ msgstr "Git: Vertailu valmis."
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
-msgstr ""
+msgstr "Git: Tiedostot peruttu vaiheesta."
 
 #. Action name
 #. Stock icon, if any
@@ -4738,7 +4739,7 @@ msgstr "_Nouda"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:81
 msgid "_Rebase"
-msgstr ""
+msgstr "_Siirrä juuri"
 
 #. Action name
 #. Stock icon, if any
@@ -4768,13 +4769,13 @@ msgstr "_Keskeytä"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:121
 msgid "_Pull..."
-msgstr ""
+msgstr "_Vedä..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:129
 msgid "_Unstage files..."
-msgstr ""
+msgstr "_Peru tiedostoja vaiheesta..."
 
 #. Action name
 #. Stock icon, if any
@@ -4810,7 +4811,7 @@ msgstr "Pe_ru toimitus..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
 msgid "_Bisect"
-msgstr ""
+msgstr "_Jaa"
 
 #. Action name
 #. Stock icon, if any
@@ -6460,8 +6461,8 @@ msgstr "Tavallinen minimaalinen ja yksinkertainen projekti"
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
-"Tavallinen natiivikoodiksi käännetty java-projekti käyttäen GNU "
-"Java-kääntäjää (gcj)"
+"Tavallinen natiivikoodiksi käännetty java-projekti käyttäen GNU Java-"
+"kääntäjää (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
@@ -7781,7 +7782,7 @@ msgstr "Anna haaran tai tagin URL."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Vertailu valmis."
 
