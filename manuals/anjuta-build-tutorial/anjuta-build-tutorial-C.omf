@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<omf>
+  <resource>
+    <creator>opincon@wanadoo.fr (Olivier Pinçon)</creator>
+    <creator>(Sébastien Granjoux)</creator>
+    <maintainer>(Sébastien Granjoux)</maintainer>
+    <title>Anjuta Build Tutorial</title>
+    <date>2008-09-29</date>
+    <version identifier="0.2" date="2008-29-09" description=""/>
+    <subject category="GNOME|Development"/>
+    <description>
+      This document is an build tutorial for Anjuta.
+    </description>
+    <type>manual</type>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="anjuta-build-tutorial.xml"/>
+    <language code="C"/>
+    <relation seriesid="0e3fe6e2-8034-11d8-970e-88acdebde305"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Naba Kumar"/>
+  </resource>
+</omf>

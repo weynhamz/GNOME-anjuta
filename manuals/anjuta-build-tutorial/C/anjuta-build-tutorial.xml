@@ -1,0 +1,1808 @@
+<?xml version="1.0"?>
+<!DOCTYPE manual PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" >
+
+<!-- "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [ 
+  <!ENTITY date "March 2004">
+  <!ENTITY app "anjuta"> -->
+<!-- =============Document Header ============================= -->
+<book id="index">
+ <bookinfo>
+  <title>Anjuta build tutorial</title>
+  <edition>v0.2</edition>
+
+  <copyright>
+   <year>2004</year>
+   <holder>Olivier Pinçon</holder>
+  </copyright>
+  <copyright>
+   <year>2008</year>
+   <holder>Sébastien Granjoux</holder>
+  </copyright>
+
+<!-- translators: uncomment this:
+  <copyright>
+   <year>2001</year>
+   <holder>ME-THE-TRANSLATOR </holder>
+  </copyright>
+-->
+  
+  <legalnotice>
+   <para>
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the <citetitle>GNU Free Documentation
+     License</citetitle>, Version 1.1 or any later version published
+     by the Free Software Foundation with no Invariant Sections, no
+     Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy
+     of the <citetitle>GNU Free Documentation License</citetitle> from
+     the Free Software Foundation by visiting <ulink type="http"
+     url="http://www.fsf.org">their Web site</ulink> or by writing to:
+     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+     Boston, MA 02110-1301, USA.
+   </para>
+   <para>
+     Many of the names used by companies to distinguish their products and
+     services are claimed as trademarks. Where those names appear in any
+     GNOME documentation, and those trademarks are made aware to the members
+     of the GNOME Documentation Project, the names have been printed in caps
+     or initial caps.
+   </para>
+  </legalnotice>
+
+  <!-- this is the version of manual, not application --> 
+  <releaseinfo>
+   This is version 0.2 of <application>Anjuta</application> build tutorial
+  </releaseinfo>
+ </bookinfo>
+ <!-- Document Body -->
+ <!-- Introduction -->
+<chapter id="intro">
+	<title>Introduction</title>
+	<para>
+		If you come from the Windows world, when you first launched <application>Anjuta</application>,
+		 you can told yourself : "Hey, that looks like MS Visual C++, as I know it pretty well,
+		understanding <application>Anjuta</application> will be a piece of cake.".
+		<application>Anjuta</application> looks like <application>Microsoft Visual Studio</application>
+		or <application>Borland's C++ Builder</application>.
+		but it has some significative differences essentially in its build system.
+	</para>
+	<para>
+		If you are starting programming directly on GNU/Linux, you have probably already heard
+		of the <application>Autotools</application>. They are a major and probably a bit
+		intimidating part of the development environment.
+	</para>
+	<para>
+		The goal of <application>Anjuta</application> is to make it easier to use the already
+		existing development tools. <application>Anjuta</application> main build system uses
+		the standard Linux build system: <application>Autotools</application>.
+		This tutorial is an updated version of the <application>Anjuta</application> advanced
+		tutorial from Olivier Pinçon.
+		It explains how the build system is working without <application>Anjuta</application>
+		and how to use it within <application>Anjuta</application>.
+		It assumes that you have only a basic understanding of C or C++ and have been written using
+		<application>Anjuta 2.6 (September 2008)</application>.
+	</para>
+	<para>
+		If you find errors, need more explanations or have any idea for improvements on this tutorial
+		or <application>Anjuta</application> in general, you can:
+		<itemizedlist>
+			<listitem>
+				Fill a bug in <ulink url="http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta">
+				<application>Anjuta</application> bugzilla database</ulink>. 
+			</listitem>
+			<listitem>
+				Send a message to <application>Anjuta</application> developer mailing list
+				<email>anjuta-devel@lists.sourceforge.net</email>
+			</listitem>
+			<listitem>
+				Join <application>Anjuta</application> IRC channel
+				<ulink url="irc://irc.gnome.org/anjuta">#anjuta on irc.gnome.org</ulink>
+			</listitem>
+		</itemizedlist>
+	</para>
+</chapter>
+
+ <!-- Build -->
+<chapter id="build">
+	<title>Building a project</title>
+	<para>
+		This chapter explains how to build a program starting from the most basic tool: the
+		compiler. This order is important to understand how is it working because
+		each tool adds a new layer on top of the previous ones.
+	</para>
+	<sect1 id="build-gcc"> 
+		<title>Using <application>GCC</application></title>
+		<para>
+			Here is a typical command to generate an executable from C source files
+			using <application>GCC</application>:			
+		</para>
+		<screen>
+<prompt>$</prompt><userinput>gcc -g -Wall -I/usr/include/libxml2/libxml -lxml2 main.c aux.c -o tut_prog</userinput></screen>
+		<para>
+			This command tells <application>GCC</application> to compile the source files main.c and aux.c, and
+			produce a binary called 'tut_prog' (this stands for 'tutorial program').
+			The various switches have the following meaning :
+		</para>
+		<variablelist spacing="compact">
+			<varlistentry>
+			<term><parameter>-g</parameter></term>
+			<listitem>
+				tells <application>GCC</application> to include debug information into the binary.
+			</listitem>
+			</varlistentry>			
+			<varlistentry>
+			<term><parameter>-Wall</parameter></term>
+			<listitem>Warning all : print every warning. This switch is used by the C compiler only.</listitem>
+			</varlistentry>			
+			<varlistentry>
+			<term><parameter>-Idir <replaceable>dir</replaceable></parameter></term>
+			<listitem>Look for included header files (like in #include &lt;myheader.h&gt;) in directory
+				<replaceable>dir</replaceable>.
+				This switch is used by the C preprocessor only.</listitem>
+			</varlistentry>			
+			<varlistentry>
+			<term><parameter>-llib <replaceable>lib</replaceable></parameter></term>
+			<listitem>
+				Link to library <replaceable>lib</replaceable>; here <application>libxml2</application>,
+				used by the linker.
+			</listitem>
+			</varlistentry>			
+		</variablelist>			
+		<para>
+			In fact, <application>GCC</application> does not do the compilation itself. 
+			It gets all arguments from the user and calls other programs passing them
+			the needed arguments with some default one to do the four stages
+			involved in the compilation.
+		</para>			
+		<figure>
+			<title><application>GCC</application> compilation stage</title>
+			<imageobject>
+				<imagedata fileref="figures/compilation-stages.png" format="PNG"></imagedata>			
+			</imageobject>
+		</figure>
+		<sect2 id="build-gcc-cpp"> 
+			<title>Preprocessor</title>
+			<para>
+				Each C source file goes through the preprocessor, named
+				<application>cpp</application>.	In this stage, all include files
+				and macros are expanded to get preprocessed C source code. The resulting
+				file .i is rarely generated but it could be interesting to see how complex
+				macros are expanded. You can do this by calling <application>cpp</application>
+				directly or using the <userinput>-E</userinput> switch of
+				<application>GCC</application>. The later option is better as it allows to run
+				the preprocessor with all default options.
+			</para>
+		</sect2>		
+		<sect2 id="build-gcc-cc"> 
+			<title>Compiler</title>
+			<para>
+				In this stage each file is compiled into assembler code. The compiler
+				depends on the language of the source file, C here.
+				It is a complex program because there is not a one to one
+				correspondence between C instructions and assembler instructions.
+				By example, requesting the fastest
+				or the smallest program	will generate different sequences of assembler
+				instructions. The assembler is the language of your computer, the most common
+				one is called x86.
+				The output is a, human readable, assembler source file ending with '.s'.
+				Like the preprocessor output, the assembler code is not normally written
+				on the hard disk. You can stop the compilation at this stage to look at it
+				by running <application>GCC</application> with the <userinput>-S</userinput>
+				switch.
+			</para>
+		</sect2>		
+		<sect2 id="build-gcc-as"> 
+			<title>Assembler</title>
+			<para>
+				In this stage each file is assembled: the assembler code is transformed to
+				an object file with .o extension. It is much easier than the compilation
+				as each assembler instruction corresponds to an unique code. The object file
+				contains additional information for debugging or linking the program.
+				The object file is a binary format, called ELF on recent Linux machine,
+				you need to use special program to look
+				in it like <application>objdump</application>.
+				It is possible to write directly assembler code and assemble it using the
+				assembler ,<application>as</application>, or <application>GCC</application>
+				if your source file has a .s extension.
+				These object files are commonly written on your hard disk because it depends
+				only of theirs corresponding C source file (with all files included).
+				If you modify only one source file, you need to regenerate only the
+				corresponding object file. You can stop at this stage, without linking by
+				using <userinput>-c</userinput> switch with <application>GCC</application>.
+			</para>
+		</sect2>		
+		<sect2 id="build-gcc-ld"> 
+			<title>Linker</title>
+			<para>
+				This stage is used to combine all the object files and libraries into one
+				executable file. The result is a binary file in a format close to the object
+				file, on Linux it is even the same format.
+			</para>
+		</sect2>		
+	</sect1>
+	<sect1 id="build-make"> 
+		<title>Using <application>make</application></title>
+		<para>
+			When a program is composed of lots of sources files, it is much faster
+			to keep the object files and recompile each source files only when needed.
+			This can be automated using <application>make</application>.
+			It executes a program written in a makefile, normally named
+			<filename>Makefile</filename>. A sample makefile for 
+			the previous tutorial program could be :
+		</para>
+		<example>
+			<title>A simple Makefile file</title>
+			<programlisting>
+CC=gcc 	# the C compiler is gcc
+CFLAGS=-g -Wall -I/usr/include/libxml2
+LIBS=-lxml2					
+				
+tut_prog: main.o aux.o   # what we need to have 'tut_prog'...
+	$(CC) $(LIBS) main.o aux.o -o tut_prog # ...and how to get it from the ingredients.
+					
+main.o: main.c
+	$(CC) -c $(CFLAGS) main.c
+					
+aux.o: aux.c
+	$(CC) -c $(CFLAGS) aux.c</programlisting>
+		</example>
+		<para>
+			Makefiles are a kind of program but instead of writing what should be done
+			sequentially to get the result, you define some rules and
+			<application>make</application> uses these rules in whatever order
+			to achieve the result.
+		</para>
+		<sect2 id="build-make-vars"> 
+			<title>Variables</title>
+			<para>
+				Like in any programming language, you can define variables in a make
+				file. All variables contains a string or a list of strings
+				separated by whitespace. A variable is defined using the following syntax:
+				<replaceable>name</replaceable>=<replaceable>value</replaceable>.
+				You can get its value by writing $(<replaceable>name</replaceable>) or
+				${<replaceable>name</replaceable>}.
+				In the sample above, three variables are defined CC, CFLAGS and LIBS.
+			</para>
+			<para>
+				Variables can be redefined when calling <application>make</application>
+				in the command line or using values from environment.
+				Moreover <application>make</application> includes
+				some default rules using predefined variables. Here is a list of
+				the most common ones:
+			<variablelist>
+				<varlistentry>
+				<term><envar>CC</envar></term>
+				<listitem>Program for compiling C programs, default 'cc'</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CXX</envar></term>
+				<listitem>Program for compiling C++ programs, default 'g++'</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CPP</envar></term>
+				<listitem>Program for running C preprocessor, default '$(CC) -E'</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>FC</envar></term>
+				<listitem>Program for running Fortran compiler, default 'f77'</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>RM</envar></term>
+				<listitem>Command to remove a file, default 'rm -f'</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CFLAGS</envar></term>
+				<listitem>Extra flags for the C compiler</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CXXFLAGS</envar></term>
+				<listitem>Extra flags for the C++ compiler</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CPPFLAGS</envar></term>
+				<listitem>Extra flags for the C++ compiler</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>CXXFLAGS</envar></term>
+				<listitem>Extra flags for the C preprocessor</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>FFLAGS</envar></term>
+				<listitem>Extra flags for the Fortran compiler</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><envar>LDFLAGS</envar></term>
+				<listitem>Extra flags for the linker</listitem>
+				</varlistentry>
+			</variablelist>
+			</para>
+		</sect2>
+		<sect2 id="build-make-rules"> 
+			<title>Rules</title>
+			<para>
+				The basic syntax for make rules is:
+			</para>
+			<programlisting>
+<replaceable>target</replaceable>: <replaceable>prerequisites</replaceable>
+	<replaceable>commands</replaceable>
+	<replaceable>&hellip;</replaceable></programlisting>
+			<para>
+				The <replaceable>target</replaceable> and the 
+				<replaceable>prerequisites</replaceable> are normally files but they could be
+				actions. 
+				The rule is interpreted as in order to make the target or update
+				it if it is older than its prerequisites, you need
+				to make all prerequisites and then run all commands.
+			<para>
+			</para>
+				<application>make</application> starts with the first target of the
+				makefile or the one given in the command line and looks for a rule.
+				If this rules has no prerequisites, the associated commands are run
+				and that's all. Else before running the commands, for each prerequisite,
+				<application>make</application> looks for a rule having it as target and
+				repeats the same process.
+			</para>
+			<para>
+				In the sample above, if you run <userinput>make</userinput> or
+				<userinput>make tut_prog</userinput>. <application>make</application>
+				does the following:
+				<programlisting>
+Search a rule with tut_prog as target
+Found with prerequisites main.o aux.o
+	Search a rule with main.o as target
+	Found with prequisite main.c
+		Search a rule with main.c as target
+		Not found (main.c is a source file)
+	If main.o does not exist or is older than main.c
+		Compile main.c, do not link (-c switch)
+	Search a rule with aux.o as target
+	Found with prequisite aux.c
+		Search a rule with aux.c as target
+		Not found (aux.c is a source file)
+	If aux.o does not exist or is older than aux.c
+		Compile aux.c, do not link (-c switch)
+If tut_prog is older than main.o or aux.o
+	Link main.o, aux.o and libxml2</programlisting>
+			</para>
+			<para>
+				Like for variables, several target names are commonly defined:
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term><parameter>all</parameter></term>
+				<listitem>Do everything</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>check</parameter></term>
+				<listitem>Perform some self test after building the program</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>clean</parameter></term>
+				<listitem>Delete all files created by <application>make</application></listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>distclean</parameter></term>
+				<listitem>Delete more files than clean, could delete the Makefile itself</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>dist</parameter></term>
+				<listitem>Create a distribution package, a compressed tarball by example</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>install</parameter></term>
+				<listitem>Install target created by <application>make</application>,
+					need to be run as root to install in system directories</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>uninstall</parameter></term>
+				<listitem>Remove files installed by <application>make</application></listitem>
+				</varlistentry>
+			</variablelist>
+			<note>
+				Programs compiled from sources are installed by default in <filename class="directory">
+				/usr/local</filename>.
+				If you want to install (or uninstall) a program in such system directory, you normally
+				need to log as root using <userinput>su</userinput> or 				
+				<userinput>sudo</userinput> before running <userinput>make install</userinput>.
+			</note>
+		</sect2>
+	</sect1>
+	<sect1 id="build-autotools"> 
+		<title>Using <application>Autotools</application></title>
+		<para>
+			If you want to build your program on another system, using
+			<application>make</application> only could be quite difficult. The C compiler
+			could be different. Some common C functions could be missing, have another name,
+			declared in a different header and so on. This can be handled by enabling
+			difference piece of code in your sources using preprocessor directive #if, #ifdef
+			and others. But the user will have to define himself all these tuning
+			which is not easy as there is a lots of systems with a lots of variations.
+		</para>
+		<para>
+			Free softwares are mainly distributed as sources. It is crucial to be
+			able to recompile them on various system without much technical knowledge.
+			<application>Autotools</application> is designed to solve this and you
+			probably have already use it using the magic combination <userinput>
+			"./configure; make; make install"</userinput>.
+			You may have noticed that many files are involved in this build process;
+			globally all that stuff seems very complicated.
+			So what's happening when you compile such software ?
+		</para>
+		<sect2 id="build-autotools-inputs"> 
+			<title>Input files</title>
+			<para>
+				An <application>Autotools</application> project comes at least with 						
+				a configure script, named <filename>configure</filename>, and a
+				makefile template named <filename>Makefile.in</filename>. There is
+				normally, one <filename>Makefile.in</filename> in each directory
+				of the project. There are several other files used by an
+				<application>Autotools</application> project but they are not
+				stricly necessary or are generated automatically.
+			</para>
+			<tip>
+				If you look inside these files, you will see that they are quite complex.
+				Do not worry, these files are generated by <application>Autotools</application>
+				from other templates easier to write as explained in <xref linkend="create-autotools"/>.
+				For the moment, we do not care, we consider these files exist as it is the case
+				when you get a source package.
+			</tip>
+		</sect2>
+		<sect2 id="build-autotools-configure"> 
+			<title>Configure</title>
+			<para>
+				In fact, you don't need <application>Autotools</application> to build an
+				autotools package, <application>configure</application> is a shell script
+				running on the most basic shell: <filename>sh</filename>.
+				It probes your system checking each characteristic and writes
+				makefiles from the templates.
+			</para>
+			<important>
+				In order to build a project using a library, you need more information about it,
+				so additional files. For a library used in a C program, you need the
+				corresponding header files. This has to be installed on your system and is
+				typically found in a so called development package. By example for the
+				library <application>libxml2</application>, there are two packages:
+				<itemizedlist>
+					<listitem><filename>libxml2</filename> necessary to run a program
+						using it and installed automatically as a dependency of such
+						program.
+					</listitem>
+					<listitem>
+						<filename>libxml2-devel</filename> necessary to build a program
+						using it. If you don't have it <application>configure</application>
+						will display an error message.
+					</listitem>
+				</itemizedlist>
+			</important>
+			<figure>
+				<title>Configure process</title>
+				<imageobject>
+					<imagedata fileref="figures/configure-process.png" format="PNG"></imagedata>			
+				</imageobject>
+			</figure>
+			<para>
+				<application>configure</application> creates all files in the directory where it is
+				called. This directory is the <emphasis>build directory</emphasis>. If you run it from
+				the source directory, using <userinput><emphasis>./</emphasis>configure</userinput>,
+				the build directory will be the same.
+			</para>
+			<para>
+				<application>configure</application> accepts several options in the command line.
+				They are used to install the files in different directories, to disable some parts of the
+				project in order to get a smaller executable or if you haven't one needed library or force
+				a value for some <application>make</application> variable (see <xref linkend="build-make-vars" />).
+				You can	get a list of them by running <userinput>configure --help</userinput>.
+				Here is	a list of the most common ones:
+				
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term><parameter>--enable-maintainer-mode</parameter></term>
+				<listitem>Add extra rules useful when modifying the project source code</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>--help</parameter></term>
+				<listitem>List all available options</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>--host <replaceable>host</replaceable></parameter></term>
+				<listitem>Compile to run on another system (cross compilation)</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><parameter>--prefix <replaceable>dir</replaceable></parameter></term>
+				<listitem>Select the root directory for installing the project, default /usr/local</listitem>
+				</varlistentry>
+			</variablelist>
+			<note>
+				<application>configure</application> generates a few additional files which
+				are less important. <filename>config.log</filename> is a log file useful
+				when something goes wrong to get more details. <filename>config.status</filename>
+				is another shell script, it can be run to restore the current configuration.
+				<filename>config.h</filename> is a header file generated like <filename>Makefile</filename>
+				from a template <filename>config.h.in</filename> if it exists.
+			</note>
+		</sect2>
+		<sect2 id="build-autotools-make"> 
+			<title><application>make</application></title>
+			<para>
+				The makefiles generated by <application>configure</application> are quite
+				complex but are standard makefiles. They define all standard targets needed
+				by GNU standard.
+			</para>
+			<itemizedlist>
+				<listitem>
+				<userinput>make</userinput> or <userinput>make all</userinput> builds the program.
+				</listitem>				
+				<listitem>
+				<userinput>make install</userinput> installs the program.
+				</listitem>				
+				<listitem>
+				<userinput>make distclean</userinput> removes all files generated by
+				<application>configure</application>, to let the project in the state
+				it was when unpacking the distribution package.
+				</listitem>				
+			</itemizedlist>
+		</sect2>
+	</sect1>	
+	<sect1 id="build-anjuta"> 
+		<title>Using <application>Anjuta</application></title>
+		<para>
+			Now, we will see the <application>Anjuta</application> interface allowing you to run all these commands
+			without using the command line.
+		</para>
+		<sect2 id="build-anjuta-configure"> 
+			<title>Configure</title>
+			<para>
+				As <application>Anjuta</application> is using <application>Autotools</application>,
+				the first step is similar, you need to run configure.
+				Select <menuchoice><guisubmenu>Build</guisubmenu>
+				<guimenuitem>Configure Project&hellip;</guimenuitem></menuchoice>, to get the
+				following dialog:
+			</para>
+			<figure>
+				<title>Configure dialog</title>
+				<screenshot>
+					<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/configure-dialog.png" format="PNG"/>
+					</imageobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>
+				The <guilabel>Regenerate project</guilabel> checkbox will not be described
+				now as it is related to project creation (see in <xref linkend="create-autotools-generate"/>).
+			</para>
+			<para>
+				The <guilabel>Configuration</guilabel> field is an user name used to reference
+				this particular configuration to switch between different ones later. For 
+				<application>Anjuta</application> each configuration corresponds to one build
+				directory and a set of configure options. <application>Anjuta</application> already
+				provides some default configurations that you can select here.
+			<note>
+				It is recommended to use the Debug configuration for debugging. It will
+				compile your program with all optimizations disabled.
+				When optimizations are enabled, some variables and functions are removed,
+				you will not be able to see them with the debugger. Moreover some lines in
+				your source code are re-ordered, so some steps will go backward.
+			</note>
+			</para>
+			<para>
+				The <guilabel>Build Directory</guilabel> field allow to select the directory
+				used to build the project. It must be different for each configuration.
+			</para>
+			<important>
+				If you build the project in the source directory (leaving the 
+				<guilabel>Build Directory</guilabel> field empty), you cannot create a new
+				configuration. It is a limitation of <application>Autotools</application>.
+				You need to select <menuchoice><guisubmenu>Build</guisubmenu>
+				<guimenuitem>Remove Configuration</guimenuitem></menuchoice> that will run
+				<userinput>make distclean</userinput> in the source directory first.
+			</important>
+			<para>
+				The <guilabel>Configure Options</guilabel> field allow passing different options
+				to the configure script.
+			</para>
+			<para>
+				Clicking on <guibutton>Execute</guibutton> will run the configure script. All
+				the output will appears in the message view of <application>Anjuta</application>.
+				If the script runs without error, it will enable all other entries in the
+				<guisubmenu>Build</guisubmenu> menu.
+			</para>
+		</sect2>
+		<sect2 id="build-anjuta-menu"> 
+			<title>Menu items</title>
+			<para>
+				The build operations in <application>Anjuta</application>, rely on 
+				<application>make</application> only like <application>Autotools</application>.
+				It is working for non <application>Autotools</application> project too.
+				The compile command is even working with only a C source file because
+				<application>make</application> has some builtin rules to compile them.
+				Here is the correspondence between the <application>Anjuta</application> menu
+				item and <application>make</application> commands.
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Compile</guimenu></menuchoice></term>
+				<listitem>make <replaceable>current_file</replaceable></listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Build</guimenu></menuchoice></term>
+				<listitem>cd <userinput>current_file_directory</userinput>; make</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Build Project</guimenu></menuchoice></term>
+				<listitem>cd <userinput>project_directory</userinput>; make</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Build Tarball</guimenu></menuchoice></term>
+				<listitem>cd <userinput>project_directory</userinput>; make dist</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Install</guimenu></menuchoice></term>
+				<listitem>cd <userinput>current_file_directory</userinput>; make install</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Install Project</guimenu></menuchoice></term>
+				<listitem>cd <userinput>project_directory</userinput>; make install</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Clean</guimenu></menuchoice></term>
+				<listitem>cd <userinput>current_file_directory</userinput>; make clean</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Clean Project</guimenu></menuchoice></term>
+				<listitem>cd <userinput>project_directory</userinput>; make clean</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term><menuchoice><guisubmenu>Build</guisubmenu><guimenu>Remove Configuration</guimenu></menuchoice></term>
+				<listitem>cd <userinput>project_directory</userinput>; make distclean</listitem>
+				</varlistentry>
+			</variablelist>
+			<para>
+				The last menu entry not described above ,<menuchoice><guisubmenu>Build</guisubmenu>
+				<guimenuitem>Select Configuration</guimenuitem></menuchoice>, allows you
+				to switch easily between different configurations and so between different build
+				directories.
+			</para>
+		</sect2>
+		<sect2 id="build-anjuta-options"> 
+			<title>Options</title>
+			<para>
+				A few common build options are available in the preferences page that you can	
+				get by selecting <menuchoice><guisubmenu>Edit</guisubmenu>
+				<guimenuitem>Preferences</guimenuitem><guimenuitem>Build autotools</guimenuitem>
+				</menuchoice>.
+			</para>
+			<figure>
+				<title>Build preferences</title>
+				<screenshot>
+					<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/build_preferences.png" format="PNG"/>
+					</imageobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+		</sect2>
+	</sect1>	
+	
+</chapter>
+
+
+ <!-- Create -->
+<chapter id="create">
+	<title>Creating a project</title>
+	<para>
+		This chapter explains how to create a new project.
+		Like the previous, it starts with <application>Autotools</application>
+		before looking at <application>Anjuta</application>.
+	</para>
+	<sect1 id="create-autotools"> 
+		<title>Using <application>Autotools</application></title>
+		<para>
+			In the first chapter, we have not really used the <application>Autotools</application>.
+			It is not need to compile a project from the sources. But all files in the build process
+			are not written by hand but generated from templates using <application>Autotools</application>.
+		</para>
+		<para>
+			<application>Autotools</application> is composed of 
+			several tools: <filename>aclocal</filename>, <filename>autoconf</filename>,
+			<filename>automake</filename> and other that we will not see here,
+			belonging to two packages: <application>Automake</application> and
+			<application>Autoconf</application>.
+		</para>
+		<itemizedlist>
+			<listitem>
+			<application>Autoconf</application> is used to generate the configure script, from
+			a template named <filename>configure.ac</filename>. The configure script
+			will check all characteristics of the host system and generate the makefiles from
+			Makefile.in templates.
+			</listitem>
+			<listitem>
+			<application>Automake</application> is used to generate complete Makefile.in
+			templates, following GNU standards from very simple Makefile.am templates.
+			</listitem>
+		</itemizedlist>
+		<figure>
+			<title><application>Autotools</application> process</title>
+			<imageobject>
+				<imagedata fileref="figures/autotools-process.png" format="PNG"></imagedata>			
+			</imageobject>
+		</figure>
+		<para>
+			Now let's see a minimal example to start grasping the relationships between the various
+			files.
+		</para>
+		<sect2 id="create-autotools-source"> 
+			<title>Write sources</title>
+			<orderedlist>
+			<listitem>	
+				Create an empty directory called <filename>tut_prog</filename> and enter in it.
+			</listitem>
+			<listitem>
+				In this new directory, create a new file named <filename>main.c</filename> 
+				containing:
+			</listitem>
+			</orderedlist>	
+			<example>
+				<title>main.c:</title>
+				<programlisting role="C">
+<![CDATA[#include <stdio.h> ]]>
+	
+int main()
+{
+	printf("Hello world!\n");
+	return 0;
+}</programlisting>
+			</example>
+		</sect2>
+		<sect2 id="create-autotools-autoconf"> 
+			<title>Run <application>Autoconf</application></title>
+			<orderedlist continuation="continues">
+			<listitem>	
+				Write the following in a file named <filename>configure.ac</filename>:
+			</listitem>
+			</orderedlist>	
+			<example>
+				<title>minimal configure.ac:</title>
+				<programlisting>
+AC_INIT([Tutorial Program], 1.0)
+AM_INIT_AUTOMAKE
+AC_PROG_CC
+AC_CONFIG_FILES(Makefile)
+AC_OUTPUT</programlisting>
+			</example>
+			<note>
+				The configure template script could be named <filename>configure.in</filename>.
+				It is the name used in older version (before 2001) of <application>Autoconf</application>.
+				Nevertheless, it is recommended to use <filename>configure.ac</filename> because the 
+				<filename>.in</filename> extension
+				is already used by files processed by <application>configure</application> and
+				generated by <application>Automake</application>: 
+				<filename>Makefile.in</filename> and <application>autoheader</application>:
+				<filename>config.h.in</filename>.
+			</note>
+			<para>
+				AC_INIT, AM_INIT_AUTOMAKE, etc... are <application>M4</application> macros. 
+				<application>M4</application> is a macro expanding software
+				used by <application>Autotools</application>; we don't need to know about it. When 
+				<application>Autoconf</application> will process
+				this configure.in, the macros will be expanded and we will get a fresh huge configure script.
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term>AC_INIT</term>
+				<listitem>
+				<para>
+					Is the first mandatory macro. We need to indicate
+					the name of the project and its version.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AM_INIT_AUTOMAKE</term>
+				<listitem>
+				<para>
+					Initialize environment for <application>Automake</application>.
+					It is needed in all projects using <application>Automake</application>.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_PROG_CC</term>
+				<listitem>
+				<para>
+					Determine the C compiler to use.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_CONFIG_FILES</term>
+				<listitem>
+				<para>
+					Create each file by copying the corresponding template file (with .in extension)
+					and substituting the output variable values.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_OUTPUT</term>
+				<listitem>
+				<para>
+					Marks the end of the configure template.
+				</para>
+				</listitem>
+				</varlistentry>
+			</variablelist>
+			<note>
+				The use of some macros has changed between different versions of <application>Autoconf</application>:
+				<itemizedlist>
+					<listitem>
+						The package name and version was defined as arguments of 
+						AM_INIT_AUTOMAKE instead of AC_INIT.
+					</listitem>
+					<listitem>
+						AC_OUTPUT was getting the list of generated files instead of
+						using the additional macro AC_CONFIG_FILES.
+					</listitem>
+				</itemizedlist>
+			</note>
+			<para>
+				<application>Autoconf</application> only knows its own macros but read additional
+				ones in a file named <filename>aclocal.m4</filename>. These macros are used to
+				extend <application>Autoconf</application>, it includes <application>Automake</application>
+				macro (starting with AM_) and other third party macros.
+				For instance, if you develop a library called foo, you might want to write an AC_CHECK_FOR_FOO
+				macro so that developers using your library can check for its presence using
+				<application>Autoconf</application>.
+			</para>
+			<para>
+				<application>aclocal</application> scans <filename>configure.ac</filename> and 
+				create an <filename>aclocal.m4</filename> file which contains the macros mentioned
+				in <filename>configure.ac</filename>.
+				<application>aclocal</application> is part of the <application>Automake</application>
+				package and search by default in <application>Automake</application> macros and
+				in a system path typically <filename>/usr/share/aclocal</filename>.
+			</para>
+			<orderedlist continuation="continues">
+			<listitem>	
+				Launch <userinput>aclocal</userinput>. It will create a new file named
+				<filename>aclocal.m4</filename> in the current directory.
+			</listitem>
+			<listitem>	
+				Launch <userinput>autoconf</userinput>. It will create the configure
+				script <filename>configure</filename>.
+			</listitem>
+			</orderedlist> 
+			<tip>
+				On my system, I actually get an extra directory called <filename>autom4te.cache</filename>.
+				That is for <application>Autoconf</application> internal purposes. You do not need
+				to care about it.
+			</tip>
+		</sect2>
+		<sect2 id="create-autotools-automake"> 
+			<title>Run <application>Automake</application></title>
+			<orderedlist continuation="continues">
+			<listitem>	
+				Write the following in a file named <filename>Makefile.am</filename>:
+			</listitem>
+			</orderedlist>	
+			<example>
+				<title>minimal Makefile.am:</title>
+				<programlisting>
+bin_PROGRAMS = tut_prog			
+tut_prog_SOURCES = main.c</programlisting>
+			</example>
+			<para>
+				In Makefile.am are the very essential data needed to build the project:
+				the target program, called tut_prog, will be put in a $prefix/bin/ directory;
+				to build it we need main.c. Note that we don't specify <emphasis>how</emphasis>
+				that will be built: <application>Automake</application> will figure it out.
+				We haven't even mentioned the compiler in this pre-makefile.
+			</para>
+			<para>
+				Makefile.am will be processed by <application>Automake</application>;
+				the result will be a Makefile.in.
+				This Makefile.in is close to being a real makefile, but it contains variable names which
+				will be replaced when the configure script will run, resulting in a real makefile
+				(called Makefile). For instance, <filename>configure</filename> will write in the
+				final Makefile what compiler
+				to use (it is the compiler it found using the AC_PROG_CC macro).
+			</para>
+			<orderedlist continuation="continues">
+			<listitem>	
+				Run the command <userinput>automake --add-missing --foreign</userinput>. It will create
+				a new file named <filename>Makefile.in</filename> as expected. Moreover, due to the
+				switch <parameter>--add-missing</parameter> you get a few
+				links to scripts necessary for building the project: 
+				<filename>depcomp</filename>, <filename>install.sh</filename> and <filename>missing</filename>.
+				The other option <parameter>--foreign</parameter> tells to 
+				<application>Automake</application> that you don't want to follow GNU standard and you
+				don't need mandatory documentation files: <filename>INSTALL</filename>,
+				<filename>NEWS</filename>, <filename>README</filename>, <filename>AUTHORS</filename>,
+				<filename>ChangeLog</filename> and <filename>COPYING</filename>. I have used it here
+				to keep the number of created file to a minimum but else it is a good idea to
+				provide these files, you can start with empty files.
+			</listitem>
+			</orderedlist>	
+		</sect2>
+		<sect2 id="create-autotools-build"> 
+			<title>Build project</title>
+			<orderedlist continuation="continues">
+			<listitem>	
+				Run now the new configure script: <userinput>./configure</userinput>. You get
+				the following output and it create the makefile for your program.
+			<screen>
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking for gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of gcc... gcc3
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: executing depfiles commands</screen>
+			</listitem>
+			<listitem>
+				Run now <userinput>make</userinput>, to build your program. You get the following
+				output and a new tut_prog executable
+			<screen>
+gcc -DPACKAGE_NAME=\"Tutorial\ Program\" -DPACKAGE_TARNAME=\"tutorial-program\"   \
+        -DPACKAGE_VERSION=\"1.0\" -DPACKAGE_STRING=\"Tutorial\ Program\ 1.0\"     \
+        -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"tutorial-program\" -DVERSION=\"1.0\" \
+        -I.     -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o main.c
+main.c: In function ‘main’:
+main.c:5: warning: return type of ‘main’ is not ‘int’
+mv -f .deps/main.Tpo .deps/main.Po
+gcc  -g -O2   -o tut_prog main.o</screen>
+			</listitem>
+			<listitem>
+				Now, if you can write in <filename>/usr/local/bin</filename>, run
+				<userinput>make install</userinput> to install your program. Else you need to
+				log as root before or use <application>sudo</application> and run 
+				<userinput>sudo make install</userinput>.
+				You should get.
+			<screen>
+make[1]: Entering directory `/home/seb/Projects/Tutorial'
+test -z "/usr/local/bin" || /bin/mkdir -p "/usr/local/bin"
+  /usr/bin/install -c 'tut_prog' '/usr/local/bin/tut_prog'
+make[1]: Nothing to be done for `install-data-am'.
+make[1]: Leaving directory `/home/seb/Projects/Tutorial'</screen>
+			<para>
+				Then, if <filename>/user/local/bin</filename> is in your path, you can run
+				your program from everywhere.
+			</para>
+			</listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="create-autotools-clean"> 
+			<title>Clean project</title>
+			<orderedlist continuation="continues">
+			<listitem>
+				The program is installed, so you can clean the build directory running
+				<userinput>make clean</userinput>. It removes all object files and the
+				program but not the makefiles.
+				<screen>
+test -z "tut_prog" || rm -f tut_prog
+rm -f *.o</screen>
+				<para>
+				You can still run the program installed in <filename>/user/local/bin</filename>.
+				</para>
+			</listitem>
+			<listitem>
+				To remove the installed program, run <userinput>make uninstall</userinput>.
+				Like for the installation, you need to use have the writing right in the
+				directory or use <application>su</application> or <application>sudo</application>.
+				<screen>
+rm -f '/usr/local/bin/tut_prog'</screen>
+			</listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="create-autotools-generate">
+			<title>Generate project</title>
+			<para>
+				Running <userinput>aclocal</userinput>, <userinput>automake</userinput> and 
+				<userinput>autoconf</userinput> one by one is fine for a tutorial to
+				understand exactly what's happen. But, for a real work, it's a bit tedious
+				especially because there are other tools those could be needed like
+				<userinput>autoheader</userinput>, <userinput>autopoint</userinput> 
+				or <userinput>libtoolize</userinput>. After creating the project, the
+				makefiles generated by <application>configure</application> should take
+				care of regenerating <filename>configure</filename> and all
+				<filename>Makefile.in</filename>. Anyway, this lets a room for improvement
+				and there are even two responses to this:
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term>autoreconf</term>
+				<listitem>
+					It is another tool part of the <application>Autoconf</application> package
+					which is running all scripts in the right order. To start a new project, you
+					can just run <userinput>autoreconf --install</userinput> and it will call
+					all necessary commands.
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>autogen.sh</term>
+				<listitem>
+					It is a script not part of <application>Autotools</application>, that it doing
+					the same thing. There is one named <filename>gnome-autogen.sh</filename> which
+					comes with GNOME common development package but other project can write their
+					own ones.
+				</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	<sect1 id="create-anjuta"> 
+		<title>Using <application>Anjuta</application></title>
+		<para>
+			Creating a project with <application>Anjuta</application> need just a few clicks but then we will
+			take a look at the created files.
+		</para>
+		<sect2 id="create-anjuta-new"> 
+			<title>Create a new project</title>
+			<orderedlist>
+			<listitem>
+				Click on <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu>
+				<guimenuitem>Project</guimenuitem></menuchoice>. The new project assistant
+				appears.
+			</listitem>
+			<listitem>
+				Click on <guibutton>Forward</guibutton>. The project selection page appears:
+				<figure>
+					<title>Project selection page</title>
+					<screenshot>
+						<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/new-project-select.png" format="PNG"/>
+						</imageobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+			</listitem>
+			<listitem>
+				Select <guilabel>Generic (minimal)</guilabel> project in the <guilabel>C</guilabel> page.
+			</listitem>
+			<listitem>
+				Click on <guibutton>Forward</guibutton>.
+				<figure>
+					<title>Project basic information page</title>
+					<screenshot>
+						<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/new-project-basic.png" format="PNG"/>
+						</imageobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+				<para>
+				Change <guilabel>Project Name</guilabel> to <userinput>tutprog</userinput>, the
+				project name should contains only alpha numeric characters or underscore.
+				Fill the remaining field.
+				</para>
+			</listitem>
+			<listitem>
+				Click on <guilabel>Forward</guilabel>.	
+				<figure>
+					<title>Project options page</title>
+					<screenshot>
+						<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/new-project-options.png" format="PNG"/>
+						</imageobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+				<para>
+				Click on <guilabel>Destination</guilabel> and create a new directory named tutprog
+				for your new project. You need to avoid space in the directory name. Then, keep
+				all other options to their default value to get a minimal project.
+				</para>
+			</listitem>
+			<listitem>
+				Click on <guibutton>Forward</guibutton>.
+				<figure>
+					<title>Project summary page</title>
+					<screenshot>
+						<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/new-project-summary.png" format="PNG"/>
+						</imageobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+				<para>
+				This is the final page of the assistant, check that everything is right.
+				</para>
+			</listitem>
+			<listitem>
+				Click on <guibutton>Forward</guibutton>. <application>Anjuta</application> will
+				create all needed files and directories, in the message window,
+				you will see the following:
+				<figure>
+					<title>Project creation messages</title>
+					<screenshot>
+						<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/new-project-message.png" format="PNG"/>
+						</imageobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+				<para>
+				Then, autogen.sh is called and run the configure script. Finally <application>Anjuta</application>
+				open the new project.
+				You can directly build the project, as the main source contains a few lines of C and configure
+				has been run.
+				</para>
+			</listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="create-anjuta-configure"> 
+			<title>Looking at configure.ac</title>
+			<example>
+				<title><application>Anjuta</application> minimal configure.ac:</title>
+				<programlisting>
+dnl Process this file with autoconf to produce a configure script.
+dnl Created by Anjuta application wizard.
+
+AC_INIT(tutprog, 0.1)
+
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+AC_CONFIG_HEADERS([config.h])
+AM_MAINTAINER_MODE
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+AC_OUTPUT([
+Makefile
+])</programlisting>
+			</example>
+			<para>
+				It is still quite simple with a bit more macros. Let's look at all
+				unknown ones:
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term>dnl</term>
+				<listitem>
+				<para>
+					It is not a macros, just the marker to start a comment in
+					<application>M4</application>, the language used to write <filename>configure.ac</filename>.
+					It is like '#' is scripts or '//' in C++.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AM_INIT_AUTOMAKE</term>
+				<listitem>
+				<para>
+					The AC_INIT macro uses the new form with package and version but
+					AM_INIT_AUTOMAKE keeps the old one. It is not needed anymore.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_CONFIG_HEADERS</term>
+				<listitem>
+				<para>
+					This tells <application>Autoconf</application> to pass all defines in a
+					file named <filename>config.h</filename>
+					instead of using several -Dxxxx flags on the command line (see 
+					<xref linkend="create-autotools-build"/>). It is easier when there are lots
+					of them. A file named <filename>config.h.in</filename> is created automatically
+					from the <filename>configure.ac</filename> using <application>autoheader</application>.
+					Then <filename>config.h</filename> is created automatically like makefiles by
+					<application>configure</application>. So it is painless for the developer.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AM_MAINTAINER_MODE</term>
+				<listitem>
+				<para>
+					By default the makefiles created by <application>Automake</application> have rules to rerun
+					<application>Automake</application> or <application>Autoconf</application>
+					when needed: if <filename>configure.ac</filename> or <filename>Makefile.am</filename>
+					are modified. By using this macro, you disable this feature. So 
+					<filename>configure.ac</filename> and all <filename>Makefile.am</filename> will
+					never be erased, even if you get a problem with the date of some files which 
+					could be better for an user, someone compiling the project without modifying it. A 
+					developer, someone modifying the project, needs these rules and has to
+					run configure with --enable-maintainer-mode to keep those.
+					The real interest of this macro is debatable.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_ISC_POSIX</term>
+				<listitem>
+				<para>
+					A bit obscure feature, adding one options to support posix compatibility on
+					some targets.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AM_PROG_CC_STDC</term>
+				<listitem>
+				<para>
+					Try to add an option to the C compiler in order to make it run as ANSI C.
+					I suppose that really few compiler need this, as ANSI C is really basic
+					nowadays. Moreover, this option is now implemented by AC_PROG_CC so it is not
+					needed anymore.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_HEADER_STDC</term>
+				<listitem>
+				<para>
+					Check for some standard C header files. Most C compilers provide this
+					now, so it's not really needed.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AC_OUTPUT</term>
+				<listitem>
+				<para>
+					This is the old form of the AC_OUTPUT, where you specify all output files
+					instead of using AC_CONFIG_FILES.
+				</para>
+				</listitem>
+				</varlistentry>
+			</variablelist>			
+		</sect2>
+		<sect2 id="create-anjuta-makefile"> 
+			<title>Looking at Makefile.am</title>
+			<example>
+				<title><application>Anjuta</application> minimal Makefile.am:</title>
+				<programlisting>## Process this file with automake to produce Makefile.in
+## Created by Anjuta
+
+AM_CPPFLAGS = \
+        -DPACKAGE_DATA_DIR=\""$(datadir)"\"
+
+AM_CFLAGS =\
+         -Wall\
+         -g
+
+bin_PROGRAMS = tutprog
+
+tutprog_SOURCES = \
+        main.c
+
+tutprog_LDFLAGS =
+
+tutprog_LDADD =</programlisting>
+			</example>
+			<para>
+				Not much things in the <filename>Makefile.am</filename> neither:
+			</para>
+			<variablelist>
+				<varlistentry>
+				<term>AM_CPPFLAGS</term>
+				<listitem>
+				<para>
+					It is used to give additional flags to the C preprocessor. Here
+					it defines an additional PACKAGE_DATA_DIR constant set by
+					<application>configure</application>
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>AM_CFLAGS</term>
+				<listitem>
+				<para>
+					It defines some additional flags for the C compiler: all
+					warning and add debugging information that we have already
+					seen at the beginning of this tutorial (see <xref linkend="build-gcc"/>)
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>tutprog_LDFLAGS</term>
+				<listitem>
+				<para>
+					It adds a places where you can put additional linker options for
+					the tutprog program.
+				</para>
+				</listitem>
+				</varlistentry>
+				<varlistentry>
+				<term>tutprog_LDADD</term>
+				<listitem>
+				<para>
+					It adds a places where you can put additional libraries for
+					the tutprog program.
+				</para>
+				</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+</chapter>
+
+<!-- Add library -->
+<chapter id="library">
+	<title>Adding a library</title>
+	<para>
+		This chapter explains how to add a new library to a project. It
+		starts with <application>Autotools</application> before looking at <application>Anjuta</application>.
+	</para>
+	<sect1 id="library-autotools"> 
+		<title>Using <application>Autotools</application></title>
+		<para>
+			Adding a new library in a autotools project could be more or less
+			easy depending on how the library is packaged. To take an example,
+			imagine that we want to read an xml file using <application>libxml2</application>
+			(see its <ulink type="http" url="www.xmlsoft.org">homepage at www.xmlsoft.org</ulink>)
+		</para>
+		<orderedlist>
+		<listitem>	
+			Open the old tutorial project and replace <filename>main.c</filename> by the
+			following.
+			<example>
+				<title>main.c using <application>libxml2</application>:</title>
+				<programlisting role="C">
+#include &lt;libxml/parser.h&gt;			
+#include &lt;stdio.h&gt;
+			
+int main()
+{				
+	xmlDocPtr doc;                                                                                                                  
+	doc = xmlParseFile ("testfile.xml");
+
+	if (doc == NULL) {
+		printf ("Document not parsed successfully. \n");
+		return -1;
+	}
+	else {
+		printf ("Document parsed successfully.\n");
+		xmlFreeDoc(doc);
+		return 0;
+	}
+}</programlisting>
+			</example>
+		</listitem>
+		</orderedlist>
+		<para>
+			Our goal is now to compile it and make it work correctly. For that purpose, we must
+			tell <application>GCC</application> two things: where to find libxml/parser.h
+			(that is to say, give <application>GCC</application>
+			the right include path) and what library (i.e. shared object) it should link
+			our project against. There are several ways to do that, I will start with the easiest.
+		</para>
+		<sect2 id="library-autotools-pkgconfig"> 
+			<title>With pkg-config</title>
+			<para>
+				<application>pkg-config</application> is tools for developers
+				providing a unified interface for querying installed libraries
+				with their version and all options needed to compile and link it.
+				It comes with an <application>Autoconf</application> macro
+				named PKG_CHECK_MODULES allowing to check the existence of
+				the library and set all necessary flags. 
+			</para>
+			<orderedlist>
+			<listitem>
+				Add the following line in <filename>configure.ac</filename>.
+				<programlisting>PKG_CHECK_MODULES(XML, libxml-2.0 >= 2.4)</programlisting>
+				<para>	
+				This macro will check the existence of <application>libxml2</application> with a version higher or
+				equal to 2.4 and create 2 variable XML_CFLAGS and XML_LIBS containing
+				respectively, the flags for the C compiler and the linker. <userinput>XML</userinput> is
+				an user defined name. <userinput>libxml-2.0</userinput> is the name of the library. You can
+				run <userinput>pkg-config --list-all</userinput> to get a list of
+				all installed libraries.
+				</para>
+			</listitem>
+			<listitem>
+				Add the following lines in <filename>Makefile.am</filename>.
+				<programlisting>tut_prog_CPPFLAGS = $(XML_CFLAGS)
+tut_prog_LDFLAGS= $(XML_LIBS)</programlisting>
+				<para>	
+				This will use the options found by <application>configure</application>
+				when the macro PKG_CHECK_MODULES is executed for compiling your program.
+				</para>
+			</listitem>
+			<listitem>
+				That's all. You can run <userinput>make</userinput> again.
+			<screen>
+cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run aclocal-1.10 
+cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run automake-1.10 --foreign 
+cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run autoconf
+/bin/sh ./config.status --recheck
+running CONFIG_SHELL=/bin/sh /bin/sh ./configure  --enable-maintainer-mode  --no-create --no-recursion
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether to enable maintainer-specific portions of Makefiles... yes
+checking for style of include used by make... GNU
+checking for gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking dependency style of gcc... gcc3
+checking for library containing strerror... none required
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking dependency style of gcc... (cached) gcc3
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking dependency style of gcc... (cached) gcc3
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for XML... yes
+configure: creating ./config.status
+ /bin/sh ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+config.status: config.h is unchanged
+config.status: executing depfiles commands
+cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run autoheader
+rm -f stamp-h1
+touch config.h.in
+cd . &amp;&amp; /bin/sh ./config.status config.h
+config.status: creating config.h
+config.status: config.h is unchanged
+make  all-am
+make[1]: Entering directory `/home/seb/Projects/tutprog'
+gcc -DHAVE_CONFIG_H -I.  -DPACKAGE_DATA_DIR=\""/usr/local/share"\" -I/usr/include/libxml2  \
+        -Wall -g -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o main.c
+mv -f .deps/main.Tpo .deps/main.Po
+gcc -Wall -g -g -O2   -o tutprog main.o -lxml2   
+make[1]: Leaving directory `/home/seb/Projects/tutprog'</screen>
+				<para>
+					There is no need to rerun <application>Autoconf</application> or
+					<application>Automake</application> because the Makefile generated
+					by it already contains some rules to do it.			
+				</para>
+			</listitem> 
+			</orderedlist>
+			<tip>
+				When installed, each library supporting pkg-config copy a small text file,
+				with .pc extension, in a system directory; normally 
+				<filename>/usr/lib/pkgconfig</filename>. If you install a library from
+				source it will be by default in <filename>/usr/local/lib/pkgconfig</filename>.
+				You can ask <application>pkg-config</application> to search in this
+				directory too, by defining the environment variable <userinput>
+				PKG_CONFIG_PATH=/usr/local/lib/pkgconfig</userinput>.
+			</tip>
+		</sect2>
+		<sect2 id="library-autotools-m4"> 
+			<title>With an <application>Autoconf</application> macro</title>
+			<para>
+				If the library does not support <application>pkg-config</application>: it does not
+				appear in the list returned by <userinput>pkg-config --list-all</userinput>.
+				You need a <application>Autoconf</application> macro:
+				<itemizedlist>
+				<listitem>
+					Check if the library author shipped a <application>M4</application> macro, and use
+					it if present. It is a text file named like the library with a .m4 extension
+					often installed in <filename>/usr/share/aclocal</filename>.
+				</listitem>
+				<listitem>
+					If your library is a basic one, it might be checked
+					by the standard <application>Autoconf</application> macros (see the list 
+					<ulink type="http" url="http://sources.redhat.com/autobook/autobook/autobook_283.html#SEC283">
+					here</ulink>).
+				</listitem>
+				<listitem>Perhaps the <application>M4</application> macro you need has already be programmed by someone
+					else. Look at the contributions <ulink type="http" url="http://www.gnu.org/software/ac-archive/">here</ulink>.
+				</listitem>
+				<listitem>
+					If all that fail, go deeper in <application>M4</application>, make your own macro, and
+					donate it to the library's author !
+				</listitem>
+				</itemizedlist>			
+			</para>
+			<para>
+				When, you have this macro, you can copy it in <filename>/usr/share/aclocal</filename>, so
+				<application>aclocal</application> will find it. Then, you just need to look in the
+				macro file to see how to use it. <application>libxml2</application> installs
+				a macro named AM_PATH_XML2 which is in <filename>/usr/share/aclocal/libxml.m4</filename>.
+			</para>
+			<orderedlist>
+			<listitem>
+				Add the following line in <filename>configure.ac</filename>.
+				<programlisting>AM_PATH_XML2(2.4.0)</programlisting>
+				<para>	
+				This macro will check the existence of the library with a version higher or
+				equal to 2.4 and create 2 variable XML_CPPFLAGS and XML_LIBS containing
+				respectively, the flags for the C compiler and the linker. You get these
+				information from the comments in the macro file.
+				</para>
+			</listitem>
+			<listitem>
+				Add the following lines in <filename>Makefile.am</filename>.
+				<programlisting>tut_prog_CPPFLAGS = $(XML_CPPFLAGS)
+tut_prog_LDFLAGS= $(XML_LIBS)</programlisting>
+				<para>	
+				This will use the options found by configure for compiling your program. Note that
+				the macro defined XML_CPPFLAGS instead of XML_CFLAGS with <application>pkg-config</application>.
+				Using CPPFLAGS makes more sense, because these flags are used by the C preprocessor,
+				most of the time only to setup the path of the include files.
+				</para>
+			</listitem>
+			<listitem>
+				That's all. You can run <userinput>make</userinput> again. The generated
+				<filename>Makefile</filename> is almost the same.
+			</listitem>
+			</orderedlist>
+		</sect2>	
+		<sect2 id="library-autotools-lame"> 
+			<title>With hardcoded library path</title>
+			<para>
+				It is the approach one could naturally have: let's give <application>GCC</application> the stuff
+				it needs directly ! On my system, <filename>libxml/parser.h</filename>
+				is in <filename classs="directory">/usr/include/libxml2</filename>, and
+				the shared object is 'libxml.so', located in <filename>/usr/lib</filename>.
+				(I will assume it's all the same for you).
+			</para>
+			<orderedlist>
+			<listitem>
+				Add the following lines in <filename>Makefile.am</filename>.
+				<programlisting>tut_prog_CPPFLAGS = -I /usr/include/libxml2
+tut_prog_LDFLAGS= -lxml2</programlisting>
+				<para>
+				There is no need to change <filename>configure.ac</filename> because you don't
+				check anything and just assume that all host system will have the right
+				library in the same place than you.
+				</para>
+			</listitem>
+			<listitem>
+				You can run <userinput>make</userinput> and it should work if you have the same
+				system than me.
+			<screen>
+ cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run automake-1.10 --foreign  Makefile
+ cd . &amp;&amp; /bin/sh ./config.status Makefile depfiles
+config.status: creating Makefile
+config.status: executing depfiles commands
+make  all-am
+make[1]: Entering directory `/home/seb/Projects/tutprog'
+gcc -DHAVE_CONFIG_H -I.  -DPACKAGE_DATA_DIR=\""/usr/local/share"\" -I /usr/include/libxml2  \
+    -Wall -g -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o main.c
+mv -f .deps/main.Tpo .deps/main.Po
+gcc -Wall -g -g -O2   -o tutprog main.o -lxml2 
+make[1]: Leaving directory `/home/seb/Projects/tutprog'</screen>
+			</listitem>
+			</orderedlist>
+			<para>
+				I have described this here to show that it is possible to do
+				simple thing using <application>Autotools</application>. But this
+				approach has several drawbacks:
+				<itemizedlist>
+					<listitem>
+						It is not portable to various linuxes: perhaps on other
+						distribution the include path is different.					
+					</listitem>
+					<listitem>
+						If the next versions of libxml have different paths,
+						or different needed libraries, we will need to update the project.
+					</listitem>
+					<listitem>
+						We don't test whether the system of the packager/user has
+						the library.
+					</listitem>
+					<listitem>
+						We cannot check the version of the <application>libxml2</application> we use.
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+	</sect1>
+	<sect1 id="library-anjuta"> 
+		<title>Using <application>Anjuta</application></title>
+		<para>
+			With <application>Anjuta</application> adding a library supporting
+			<application>pkg-config</application> can be almost done without the keyboard.
+		</para>
+		<sect2 id="library-anjuta-pkgconfig"> 
+			<title>With pkg-config</title>
+			<orderedlist>
+			<listitem>
+				Open the file <filename>main.c</filename> of the <application>Anjuta</application>
+				project created in the previous chapter. Replace it with the following text:
+				<example>
+				<title>main.c using <application>libxml2</application>:</title>
+				<programlisting role="C">
+#include &lt;libxml/parser.h&gt;			
+#include &lt;stdio.h&gt;
+			
+int main()
+{				
+	xmlDocPtr doc;                                                                                                                  
+	doc = xmlParseFile ("testfile.xml");
+
+	if (doc == NULL) {
+		printf ("Document not parsed successfully. \n");
+		return -1;
+	}
+	else {
+		printf ("Document parsed successfully.\n");
+		xmlFreeDoc(doc);
+		return 0;
+	}
+}</programlisting>
+				</example>
+			</listitem>
+			<listitem>
+				Select <menuchoice><guisubmenu>Project</guisubmenu>
+				<guimenuitem>Properties</guimenuitem><guilabel>Packages</guilabel></menuchoice>, to get the
+				package properties dialog.
+			</listitem>
+			<listitem>
+				Click on <guibutton>Add module</guibutton> button and Enter a name
+				in the <guilabel>Module/Package</guilabel> column, "XML" by example.
+			</listitem>
+			<listitem>
+				Click on <guibutton>Add Package</guibutton> button that should be enabled
+				now. You get the a dialog where you can select the library that you want to
+				use. This dialog list all libraries supporting <application>pkg-config</application>.
+				Select <userinput>libxml-2.0</userinput>. Then click on <guibutton>Add</guibutton> button.
+			</listitem>
+			<listitem>
+				<para>
+				The package properties dialog should look like the following:
+				</para>
+				<figure>
+					<title>Project package properties dialog</title>
+					<screenshot>
+					<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/library-add-pkgconfig.png" format="PNG"/>
+					</imageobject>
+					</mediaobject>
+					</screenshot>
+				</figure>
+				<para>
+				The module XML contains one library named libxml-2.0. You can define a minimum version
+				required by clicking in the version column and writing <userinput>>= 2.4</userinput>.
+				All this operation add the necessary lines in the file <filename>configure.ac</filename>.
+				</para>
+			</listitem>
+			<listitem>
+				Close the dialog and select <menuchoice><guisubmenu>Project</guisubmenu>
+				<guimenuitem>Refresh</guimenuitem></menuchoice>. This should not be needed but is
+				necessary with the current version of <application>Anjuta</application>.
+				This bug has already been reported (#541694) and will be fixed soon 
+			</listitem>
+			<listitem>
+				In the project view, select the project target tutprog and click on right button to
+				get a context menu and select Properties. You will get the target properties dialog.
+			</listitem>
+			<listitem>
+				<para>
+				This dialog will list all modules available in your project, just check the XML
+				module. This will modify the file <filename>Makefile.am</filename> to use the
+				right library.
+				</para>
+				<figure>
+					<title>Target properties dialog</title>
+					<screenshot>
+					<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/library-add-properties.png" format="PNG"/>
+					</imageobject>
+					</mediaobject>
+					</screenshot>
+				</figure>
+			</listitem>
+			<listitem>
+				Click on <guibutton>Close</guibutton> and that's all. You can select
+				<menuchoice><guisubmenu>Build</guisubmenu>
+				<guimenuitem>Build</guimenuitem></menuchoice> to rebuild your project.
+			</listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="library-anjuta-pkgconfig"> 
+			<title>Without pkg-config</title>
+			<para>
+				<application>Anjuta</application> has no real support for library not
+				using <application>pkg-config</application>.
+				You need to edit the <filename>configure.ac</filename> directly to add all necessary
+				macros. For passing flags to each target you can select the
+			 	<guibutton>Advanced</guibutton> button in the target properties dialog.
+			</para>
+		</sect2>
+	</sect1>
+</chapter>
+
+<!-- Resources -->
+<chapter id="resources">
+	<title>Resources</title>
+	<para> Here are some links to reference documents dealing with <application>Autotools</application>
+	 in general and <application>Autoconf</application> and <application>Automake</application> in particular.
+	</para>
+				
+	<variablelist>
+		<varlistentry>
+			<term>English</term>
+
+			<listitem>First, you can take a look at the
+				<ulink type="http" url="http://www.gnu.org/software/autoconf/manual/autoconf.html">
+				Autoconf</ulink>,
+				<ulink type="http" url="http://www.gnu.org/software/automake/manual/automake.html">
+				Automake</ulink>,
+				<ulink type="http" url="http://www.gnu.org/software/libtool/manual/libtool.html">
+				Libtool</ulink>,
+				<ulink type="http" url="http://www.gnu.org/software/make/manual/make.html">
+				make</ulink> and
+				<ulink type="http" url="http://www.gnu.org/software/m4/manual/m4.html">
+				M4</ulink>
+				 manuals.
+			</listitem>
+
+			<listitem>
+				The <ulink type="http" url="http://sources.redhat.com/autobook/autobook/autobook_toc.html">
+				Autobook</ulink> explains in details how the <application>Autotools</application> work.
+			</listitem>
+
+			<listitem>
+				Amongst the various GNU development tools you are told about,
+				<ulink type="http" url="http://autotoolset.sourceforge.net/tutorial.html">					
+				here</ulink> are <application>Autoconf</application> and <application>Automake</application>.
+			</listitem>
+
+			<listitem>
+				<ulink url="http://www.lrde.epita.fr/~adl/autotools.html">Here</ulink>
+				and <ulink url="http://seul.org/docs/autotut/">here</ulink>
+				are two other tutorials about <application>Autotools</application>.
+ 			</listitem>
+
+		</varlistentry>
+		<varlistentry>
+			<term>French</term>
+			<listitem><para><ulink type="http" url="http://www.infres.enst.fr/~dax/polys/configure/slide1.html">
+				Here</ulink> are some slides by a teacher from Ecole Nationale Supérieure des Télecoms
+				about the <application>Autotools</application>.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>Japanese</term>				
+			<listitem>
+			<ulink type="http" url="http://larse-gtk.hp.infoseek.co.jp/automake.html">
+			A tutorial about <application>Autoconf</application> and <application>Automake</application>
+			</ulink>.</listitem>
+		</varlistentry>
+	</variablelist>
+	<tip>
+		This tutorial uses <application>Autoconf 2.61 (November 2006)</application> and
+		<application>Automake 1.10.1 (January 2008)</application>.
+		Some of these documentations uses older versions. the syntaxes could have changed quite a bit.
+		These old syntaxes usually still work and are used in old project.
+		It is useful to know them but it is a bad idea to use them in a new project.
+	</tip>
+</chapter>
+</book>

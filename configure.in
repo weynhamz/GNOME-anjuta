@@ -1106,6 +1106,7 @@ manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
 manuals/anjuta-manual/Makefile
 manuals/anjuta-faqs/Makefile
+manuals/anjuta-build-tutorial/Makefile
 mime/Makefile
 ])
 echo " "

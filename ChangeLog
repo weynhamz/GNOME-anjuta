@@ -1,3 +1,33 @@
+2008-09-29  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* configure.in,
+	manuals/Makefile.am,
+	(added) manuals/anjuta-build-tutorial/anjuta-build-tutorial-C.omf,
+	(added) manuals/anjuta-build-tutorial/Makefile.am,
+	(added) manuals/anjuta-build-tutorial/C/anjuta-build-tutorial.xml,
+	(added) manuals/anjuta-build-tutorial/C/autotools-process.dia,
+	(added) manuals/anjuta-build-tutorial/C/configure-process.dia,
+	(added) manuals/anjuta-build-tutorial/C/compilation-stages.dia,
+	(added) manuals/anjuta-build-tutorial/C/figures/new-project-basic.png,
+	(added) manuals/anjuta-build-tutorial/C/figures/configure-process.png,
+	(added) manuals/anjuta-build-tutorial/C/figures/configure-dialog.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/new-project-message.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/library-add-pkgconfig.png,
+	(added) manuals/anjuta-build-tutorial/C/figures/build_preferences.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/compilation-stages.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/library-add-properties.png,
+	(added) manuals/anjuta-build-tutorial/C/figures/autotools-process.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/new-project-options.png,
+	(added)
+	manuals/anjuta-build-tutorial/C/figures/new-project-summary.png,
+	manuals/anjuta-build-tutorial/C/figures/new-project-select.png:
+	Update and improve old Anjuta Advanced Tutorial
+
 2008-09-26  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in: Post release version bump to 2.25.0
