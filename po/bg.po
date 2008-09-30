@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta gnome-2-24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-28 20:55+0300\n"
-"PO-Revision-Date: 2008-09-28 20:46+0300\n"
+"POT-Creation-Date: 2008-09-30 18:03+0300\n"
+"PO-Revision-Date: 2008-09-30 18:03+0300\n"
 "Last-Translator: Yavor Doganov <yavor@gnu.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -9035,7 +9035,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:58
 msgid "_Help"
-msgstr "_Помощ"
+msgstr "Помо_щ"
 
 #: ../src/anjuta-actions.h:60
 #, fuzzy
