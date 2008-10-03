@@ -1,3 +1,10 @@
+2008-10-03  James Liggett  <jrliggett@cox.net>
+
+	* plugins/profiler/plugin.c (ifile_open):
+	Fix a wrong g_free call.
+	
+	Spotted by Yuriy Penkin <yuriy.penkin@gmail.com>
+
 2008-10-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/run-program/parameters.c:

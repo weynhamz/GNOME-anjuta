@@ -971,7 +971,8 @@ ifile_open (IAnjutaFile *manager, GFile* file,
 	
 	if (profiler_get_data (profiler))
 		gprof_view_manager_refresh_views (profiler->view_manager);
-	g_free (file);
+	
+	g_free (uri);
 }
 
 static GFile*
