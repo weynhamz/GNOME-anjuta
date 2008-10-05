@@ -117,7 +117,8 @@ svn_switch_command_new (const gchar *working_copy_path, const gchar *branch_url,
 	self = g_object_new (SVN_TYPE_SWITCH_COMMAND, NULL);
 	self->priv->working_copy_path = svn_command_make_canonical_path (SVN_COMMAND (self),
 																	 working_copy_path);
-	self->priv->branch_url = g_strdup (branch_url);
+	self->priv->branch_url = svn_command_make_canonical_path (SVN_COMMAND (self),
+															  branch_url);
 	self->priv->revision = revision;
 	self->priv->recursive = recursive;
 	
