@@ -1,8 +1,7 @@
-2008-10-04  James Liggett  <jim@James>
-
-	reviewed by: <delete if not using a buddy>
+2008-10-04  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/svn-switch-command.c (svn_switch_command_new):
+	Make sure the repository URL given to the switch command is canonicalized.
 
 2008-10-03  James Liggett  <jrliggett@cox.net>
 
