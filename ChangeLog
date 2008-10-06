@@ -1,3 +1,9 @@
+2008-10-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-options.c:
+	Fix #554337 Set uri instead of current_folder_uri
+	Fix a warning when there is no arguments
+
 2008-10-06  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-loader/plugin.c (on_session_load):

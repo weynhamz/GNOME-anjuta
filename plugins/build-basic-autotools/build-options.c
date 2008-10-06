@@ -163,7 +163,7 @@ on_build_missing_directory_destroyed (BuildMissingDirectory* dir)
 /* If the folder is missing created it before setting it */
 
 static gboolean
-build_gtk_file_chooser_create_and_set_current_folder_uri (GtkFileChooser *chooser, const gchar *uri)
+build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar *uri)
 {
 	GFile *dir;
 	GError *error = NULL;
@@ -197,8 +197,9 @@ build_gtk_file_chooser_create_and_set_current_folder_uri (GtkFileChooser *choose
 		g_error_free (error);
 	}
 	g_object_unref (dir);
-	
-	return gtk_file_chooser_set_current_folder_uri (chooser, uri);
+
+	gtk_file_chooser_set_current_folder_uri (chooser, uri);
+	return gtk_file_chooser_set_uri (chooser, uri);
 }
 
 /* Do not delete the automatically created folder */
@@ -265,10 +266,13 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 		
 		if (cfg != NULL)
 		{
-			gtk_entry_set_text (GTK_ENTRY (dlg->args), build_configuration_get_args (cfg));
+			const gchar *args;
+
+			args = build_configuration_get_args (cfg); 
+			gtk_entry_set_text (GTK_ENTRY (dlg->args), args == NULL ? "" : args);
 		
 			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
-			build_gtk_file_chooser_create_and_set_current_folder_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
+			build_gtk_file_chooser_create_and_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
 			g_free (uri);
 		}
 	}
