@@ -372,20 +372,20 @@ build_configuration_list_set_build_uri (BuildConfigurationList *list, BuildConfi
 	GFile *root;
 	GFile *build;
 	gchar *rel_uri;
+	gboolean ok;
 	
+	g_free (cfg->build_uri);
 	root = g_file_new_for_uri (list->project_root_uri);
 	build = g_file_new_for_uri (build_uri);
 	
 	rel_uri = g_file_get_relative_path (root, build);
-	if (rel_uri)
-	{
-		g_free (cfg->build_uri);
-		cfg->build_uri = rel_uri;
-	}
+	/* rel_uri could be NULL if root == build */
+	cfg->build_uri = rel_uri;
+	ok = (rel_uri != NULL) || g_file_equal (root, build);
 	g_object_unref (root);
 	g_object_unref (build);
-	
-	return rel_uri != NULL;
+
+	return ok;
 }
 
 gchar *
