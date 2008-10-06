@@ -1082,10 +1082,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	files = anjuta_session_get_string_list (session, "File Loader", "Files");
 	if (!files)
 		return;
-	
-	status = anjuta_shell_get_status (shell, NULL);
-	anjuta_status_progress_add_ticks (status, g_list_length(files));
-	
+		
 	/* Open project files first and then regular files */
 	for (i = 0; i < 2; i++)
 	{
@@ -1114,7 +1111,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
 					*/
-					anjuta_status_progress_tick (status, NULL, label);
 				}
 				else if (i != 0 &&
 						 (!mime_type ||
@@ -1124,7 +1120,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					GFile* file = g_file_new_for_uri (uri);
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  file, FALSE, NULL);
-					anjuta_status_progress_tick (status, NULL, label);
 					g_object_unref (file);
 				}
 				g_free (filename);

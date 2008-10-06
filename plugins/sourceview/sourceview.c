@@ -226,6 +226,8 @@ static void on_insert_text (GtkTextBuffer* buffer,
 							gint len,
 							Sourceview* sv)
 {
+	/* Update the status bar */
+	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");	
 	/* We only want ascii characters */
 	if (len > 1 || strlen(text) > 1)
 		return;
@@ -268,6 +270,12 @@ static void on_mark_set (GtkTextBuffer *buffer,
 	/* Emit IAnjutaEditor signal */
 	if (mark == gtk_text_buffer_get_insert (buffer))
 		g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
+}
+
+static void on_backspace (GtkTextView* view,
+						  Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
 }
 
 /* Open / Save stuff */
@@ -554,6 +562,8 @@ sourceview_instance_init(Sourceview* sv)
 					  G_CALLBACK(on_overwrite_toggled), sv);
 	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
 					  G_CALLBACK (on_sourceview_hover_over), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->view), "backspace", 
+					 G_CALLBACK(on_backspace),sv);
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 	
