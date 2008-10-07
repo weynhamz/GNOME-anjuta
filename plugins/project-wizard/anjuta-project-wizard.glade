@@ -6,7 +6,7 @@
 
 <widget class="GtkWindow" id="druid_window">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Application Assistent</property>
+  <property name="title" translatable="yes">Application Assistant</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>

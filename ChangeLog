@@ -1,3 +1,8 @@
+2008-10-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/anjuta-project-wizard.glade:
+	Fix #555453 Application Assistant title misspelled
+
 2008-10-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/configuration-list.c:
