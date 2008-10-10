@@ -62,7 +62,7 @@
                           <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="label" translatable="yes">Automatically scan projetc's packages.</property>
+                            <property name="label" translatable="yes">Automatically scan project's packages.</property>
                             <property name="response_id">0</property>
                             <property name="draw_indicator">True</property>
                           </widget>

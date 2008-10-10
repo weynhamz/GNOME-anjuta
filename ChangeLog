@@ -1,5 +1,11 @@
 2008-10-10  Johannes Schmid  <jhs@gnome.org>
 
+	Patch from: Lucas Lommer
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	#553041 – Misspelled word in anjuta, ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+
+2008-10-10  Johannes Schmid  <jhs@gnome.org>
+
 	* configure.in:
 	* libanjuta/Makefile.am:
 	* src/Makefile.am:
@@ -7,7 +13,7 @@
 	
 	Ignacio Casal Quinteiro  <nacho.resa@gmail.com>:
 	* src/about.c (about_box_new):
-	523609 – PATCH: Using a deprecated func in about.c
+	#523609 – PATCH: Using a deprecated func in about.c
 
 2008-10-10  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
  
