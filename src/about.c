@@ -32,9 +32,9 @@
 #define MAX_CAR 256
 #define MAX_CREDIT 500
 
-const gchar *authors[MAX_CREDIT];
-const gchar *documenters[MAX_CREDIT];
-gchar *translators;
+static const gchar *authors[MAX_CREDIT];
+static const gchar *documenters[MAX_CREDIT];
+static gchar *translators;
 
 
 static gchar*
@@ -179,7 +179,7 @@ about_box_new ()
 									NULL);
 	
 	dialog = gtk_about_dialog_new();
-	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
+	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
 		_("Copyright (c) Naba Kumar"));

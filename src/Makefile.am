@@ -16,7 +16,8 @@ anjuta_pixmaps_DATA = \
 	anjuta-preferences-general-48.png
 
 AM_CPPFLAGS = \
-	$(GNOME_UI_CFLAGS)\
+	$(GNOME_CFLAGS)\
+	$(GCONF_CFLAGS)\
 	$(GDL_CFLAGS)\
 	$(GLADE_CFLAGS)\
 	-I$(top_srcdir)\
@@ -47,7 +48,8 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	$(GNOME_UI_LIBS) \
+	$(GNOME_LIBS) \
+	$(GCONF_LIBS) \
 	$(GDL_LIBS) \
 	$(GLADE_LIBS)\
 	$(top_builddir)/libanjuta/libanjuta.la

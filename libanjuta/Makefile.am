@@ -4,10 +4,9 @@ SUBDIRS = interfaces
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(GNOME_UI_CFLAGS) \
+	$(GNOME_CFLAGS) \
 	$(GLADE_CFLAGS) \
 	$(LIBXML_CFLAGS) \
-	$(GNOMEVFS_CFAGS) \
 	-I$(top_srcdir) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
@@ -20,9 +19,9 @@ lib_LTLIBRARIES = libanjuta.la
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
-	$(GNOME_UI_LIBS) \
+	$(GNOME_LIBS) \
 	$(GLADE_LIBS) \
-	$(GIO_LIBS)
+	$(GLIB_LIBS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
