@@ -555,10 +555,10 @@ anjuta_status_progress_increment_ticks (AnjutaStatus *status, gint ticks,
 	
 	if (text)
 		anjuta_status_set (status, "%s", text);
-	gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
-										  percentage);
-	progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
-	statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
+									   percentage);
+	progressbar = GTK_PROGRESS_BAR (status->priv->progress_bar);
+	statusbar = status->priv->status_bar;
 	gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 	gtk_widget_queue_draw (GTK_WIDGET (progressbar));
 	if (GTK_WIDGET(progressbar)->window != NULL &&

@@ -32,6 +32,7 @@
 #include <config.h>
 
 #include <string.h>
+#include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkliststore.h>
@@ -42,7 +43,6 @@
 #include <gtk/gtktreeselection.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include <libgnome/gnome-macros.h>
 
 #include <cell-renderer-captioned-image.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
