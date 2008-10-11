@@ -1,0 +1,15 @@
+
+# Contact info submission
+
+url: anjuta.org
+site_owner: Naba Kumar <kh_naba@yahoo.com>
+address1: 
+address2: 
+city: 
+state: 
+country: 
+postal_code: 
+phone_number: 
+display_email: 
+site_name: 
+site_description: Anjuta C/C   Integrated Development Enviroment for GNU/Linux systems.
