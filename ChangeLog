@@ -1,6 +1,7 @@
 2008-10-11  Naba Kumar  <naba@gnome.org>
 
 	* www/*: Added anjuta website
+	* www/htdocs/screenshots/screenshots.database: Fixed file paths.
 
 2008-10-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
