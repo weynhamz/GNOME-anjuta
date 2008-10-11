@@ -63,7 +63,7 @@ libanjuta_scintilla_la_SOURCES =\
 	$(LEXER_SRCS)
 
 libanjuta_scintilla_la_LIBADD = \
-	$(GTHREAD_LIBS) \
+	$(GLIB_LIBS) \
 	$(GTK_LIBS)
 
 noinst_PROGRAMS = test-scintilla

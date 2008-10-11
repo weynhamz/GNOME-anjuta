@@ -1,3 +1,10 @@
+2008-10-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* configure.in,
+	plugins/editor/scintilla/Makefile.am,
+	plugins/editor/Makefile.am:
+	Allow to compile scintilla after the last clean up
+
 2008-10-10  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from: Lucas Lommer

@@ -160,7 +160,7 @@ PKG_CHECK_MODULES(ORBIT, ORBit-2.0 >= $ORBIT_REQUIRED)
 
 PKG_CHECK_MODULES(GLADE, libglade-2.0 >= $LIBGLADE_REQUIRED)
 
-PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED libgnomeui-2.0 >= $GNOME_REQUIRED gnome-vfs-2.0 >= $GNOME_REQUIRED libgnomecanvas-2.0 >= $GNOME_REQUIRED gnome-vfs-module-2.0 >= $GNOME_REQUIRED)
+PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED libgnomeui-2.0 >= $GNOME_REQUIRED gnome-vfs-2.0 >= $GNOME_REQUIRED libgnomecanvas-2.0 >= $GNOME_REQUIRED gnome-vfs-module-2.0 >= $GNOME_REQUIRED libgnomeprint-2.2 >= $GNOME_REQUIRED libgnomeprintui-2.2 >= $GNOME_REQUIRED)
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
 
@@ -366,12 +366,7 @@ if test "$user_enabled_scintilla" = 0; then
 	scintilla="no"
 else
 	AC_MSG_RESULT(no)
-
-	PKG_CHECK_MODULES(PLUGIN_SCINTILLA,
-		[libgnomeprint-2.2 >= $GNOME_PRINT_REQUIRED,
-		 libgnomeprintui-2.2 >= $GNOME_PRINT_UI_REQUIRED],
-		[scintilla="yes"],
-		[scintilla="no"])
+	scintilla="yes"
 fi
 AM_CONDITIONAL(HAVE_PLUGIN_SCINTILLA, [test x$scintilla = xyes])
 
@@ -1122,7 +1117,6 @@ if [ test x$scintilla = xyes ]; then
         echo "Building Scintilla based editor: .......................YES"
 else
         echo "Building Scintilla based editor: .......................NO"
-	echo "         Requires libgnomeprintui2.2-dev"
 fi
 
 if [ test x$symboldb = xyes ]; then

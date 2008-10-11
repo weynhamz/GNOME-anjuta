@@ -22,20 +22,20 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-editor.la
 
 AM_CPPFLAGS = \
-	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	$(PLUGIN_SCINTILLA_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(GNOME_CFLAGS) \
 	-I$(srcdir)/scintilla/include \
 	-I$(top_srcdir)/tagmanager/include
 
 libanjuta_editor_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_editor_la_LIBADD = \
-	$(GNOME_PRINT_UI_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_SCINTILLA_LIBS) \
+	$(GTK_LIBS) \
+	$(GNOME_LIBS) \
 	$(GLADE_LIBS) \
 	scintilla/libanjuta-scintilla.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
