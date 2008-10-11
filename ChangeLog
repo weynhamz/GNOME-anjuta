@@ -1,3 +1,13 @@
+2008-10-11  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Created new IAnjutaVcs interface
+	
+	* plugins/class-gen/plugin.c (cg_plugin_add_to_repository):
+	Adapted to new interface
+	* plugins/cvs-plugin/plugin.c:
+	Removed old interface
+
 2008-10-11  Naba Kumar  <naba@gnome.org>
 
 	* www/*: Added anjuta website

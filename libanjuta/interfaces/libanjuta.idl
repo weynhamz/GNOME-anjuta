@@ -4464,50 +4464,126 @@ interface IAnjutaDebugManager
  */
 interface IAnjutaVcs
 {
+	#include <gio/gio.h>
+
+  /**
+	 * IAnjutaVcsError:
+	 * @IANJUTA_VCS_UNKNOWN_ERROR: Unkown error
+ 	 *
+ 	 * These enumeration is used to specify errors.
+	 */
+	enum Error
+	{
+	  UNKOWN_ERROR
+	}
+
+  /**
+	 * IAnjutaVcsStatus:
+	 * @IANJUTA_VCS_STATUS_NONE: File has unknown status
+	 * @IANJUTA_VCS_STATUS_MODIFIED: File was modified locally
+	 * @IANJUTA_VCS_STATUS_CONFLICT: File has unresolved conflict
+	 * @IANJUTA_VCS_STATUS_OUTDATED: File is not up-to-date
+	 * @IANJUTA_VCS_STATUS_LOCKED: File is locked
+	 * @IANJUTA_VCS_STATUS_ADDED: File was added
+	 * @IANJUTA_VCS_STATUS_DELETED: File was deleted
+	 * @IANJUTA_VCS_STATUS_IGNORED: File is ignored by VCS system
+ 	 *
+ 	 * These enumeration is used to specify the status of a file. A file can
+ 	 * have multiple status flags assigned (MODIFIED and CONFLICT, for example)
+	 */
+	enum Status
+	{
+	  STATUS_NONE = 0x00,
+	  STATUS_MODIFIED = 0x01,
+	  STATUS_CONFLICT = 0x02,
+	  STATUS_OUTDATED = 0x04,
+	  STATUS_LOCKED = 0x08,
+	  STATUS_ADDED = 0x10,
+	  STATUS_DELETED = 0x20,	  
+	  STATUS_IGNORED = 0x40	  
+	}
+
 	/**
 	 * ianjuta_vcs_add:
-	 * @filename: String with the filename
+	 * @files: List of GFiles* to add
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Add filename to the cvs repositry.
+	 * Add filename to the vcs repositry.
 	 */
-	void add(const gchar* filename);
+	void add(List<GFile*> files);
 	
 	/**
 	 * ianjuta_cvs_remove:
-	 * @filename: String with the filename
+	 * @files: List of GFiles* to remove
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Remove filename to the cvs repositry. Note that the file
-	 * is not removed physicly. This function will fail if the file
-	 * still exists on disc.
+	 * Remove filename to the vcs repositry.
 	 */
-	void remove(const gchar* filename);
+	void remove(List<GFile*> files);
 	
 	/**
 	 * ianjuta_vcs_update:
-	 * @filename: String with the filename
-	 * @recurse: TRUE to recurse into subdirectories
+	 * @file: GFile* to update
+	 * @recurse: TRUE to recurse into subdirectories (if file is a directory)
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Update filename with the cvs repositry.
+	 * Update filename with the vcs repositry.
 	 */
-	void update(const gchar* filename, gboolean recurse);
+	void update(GFile* file, gboolean recurse);
 	
+	typedef void (*StatusCallback) (GFile* file, IAnjutaVcsStatus status, gpointer user_data);
+  
+  /**
+   * ianjuta_vcs_query_status:
+   * @obj: Self
+   * @files: List of GFiles* to query
+   * @callback: callback to call when data for a particular file is available
+   * @user_data: Userdata passed to callback
+   * @err: Error propagation and reporting
+   *
+   * Querys the status of the files asyncronously and calls callback once the data
+   * is available. On error, -1 is returned and err is set.
+   *
+   * Returns: Id to cancel this query
+   */
+  gint query_status (List<GFile*> files, StatusCallback callback, gpointer user_data);
+  
+  /**
+   * ianjuta_vcs_query_status_cancel:
+   * @obj: Self
+   * @id: Id of the query to cancel
+   * @err: Error propagation and reporting
+   *
+   * Cancels a query when the data is no longer needed
+   */
+  void query_status_cancel (gint id);
+   
+  typedef void (*DiffCallback) (GFile* file, IAnjutaVcsStatus status, const gchar* diff, gpointer user_data);
+   /**
+    * ianjuta_vcs_diff:
+    * @obj: Self
+    * @file: GFile* to diff
+    * @err: Error propagation and reporting
+    *
+    * Asyncronous request for a unified diff between the repository and the file. callback
+    * will be called when the information is available.
+    *
+    * Returns: Id to cancel the request
+    */
+  gint ianjuta_vcs_diff(GFile* file, DiffCallback callback, gpointer user_data);
+
 	/**
-	 * ianjuta_vcs_commit:
-	 * @filename: String with the filename
-	 * @log: The log message for the commit or ""
-	 * @recurse: TRUE to recurse into subdirectories
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Commit changes in filename to the cvs repositry.
-	 */
-	void commit(const gchar* filename, const gchar* log, gboolean recurse);	
+   * ianjuta_vcs_diff_cancel:
+   * @obj: Self
+   * @id: Id of the query to cancel
+   * @err: Error propagation and reporting
+   *
+   * Cancels a query when the data is no longer needed
+   */
+   void ianjuta_vcs_diff_cancel (gint id);
 }
 
 /**

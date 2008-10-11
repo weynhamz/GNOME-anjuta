@@ -446,43 +446,6 @@ cvs_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
-/* Interface */
-
-static void
-ianjuta_cvs_add (IAnjutaVcs *obj, const gchar* filename, 
-	GError **err)
-{
-	anjuta_cvs_add(ANJUTA_PLUGIN(obj), filename, FALSE, err);
-}
-	
-static void
-ianjuta_cvs_commit (IAnjutaVcs *obj, const gchar* filename, const gchar* log, 
-						 gboolean recurse, GError **err)
-{
-	anjuta_cvs_commit (ANJUTA_PLUGIN(obj), filename, log, "", recurse, err);
-}
-
-static void
-ianjuta_cvs_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
-{
-	anjuta_cvs_remove (ANJUTA_PLUGIN(obj), filename, err);
-}
-
-
-static void
-ianjuta_cvs_update (IAnjutaVcs *obj, const gchar* filename, gboolean recurse, GError **err)
-{
-	anjuta_cvs_update(ANJUTA_PLUGIN(obj), filename, recurse, FALSE, TRUE, FALSE,"", err);}
-
-static void
-ianjuta_vcs_iface_init (IAnjutaVcsIface *iface)
-{
-	iface->add = ianjuta_cvs_add;
-	iface->remove = ianjuta_cvs_remove;
-	iface->update = ianjuta_cvs_update;
-	iface->commit = ianjuta_cvs_commit;	
-}
-
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
@@ -507,7 +470,6 @@ ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (CVSPlugin, cvs_plugin);
-ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_vcs, IANJUTA_TYPE_VCS);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
