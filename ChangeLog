@@ -1,3 +1,17 @@
+2008-10-12  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(symbol_db_engine_iterator_first),
+	(symbol_db_engine_iterator_last),
+	(symbol_db_engine_iterator_set_position):
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_finalize),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_get_files_with_zero_symbols):
+	support libgda svn rev #3238, aka libgda-3.99.6.
+
 2008-10-11  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

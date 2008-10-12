@@ -2425,7 +2425,8 @@ sdb_engine_finalize (GObject * object)
 	if (priv->thread_list_data != NULL)
 		g_queue_free  (priv->thread_list_data);
 	
-	sdb_engine_disconnect_from_db (dbe);
+
+	sdb_engine_disconnect_from_db (dbe);	
 	sdb_engine_free_cached_queries (dbe);
 	sdb_engine_free_cached_dynamic_queries (dbe);
 	
@@ -4158,8 +4159,9 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	/* if we reach this point we should have a good scope_id.
 	 * Go on with symbol updating.
 	 */
-	value_id2 = gda_data_model_get_value_at_column (data, "symbol_referer_id",
-													  data_row, NULL);
+	value_id2 = gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "symbol_referer_id"), 
+											 data_row, NULL);
 	symbol_referer_id = g_value_get_int (value_id2);
 	
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
@@ -4257,8 +4259,8 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 		GValue *value;		
 		
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_class",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_class"),
 															  i, NULL)) != NULL)
 		{
 			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "class",
@@ -4266,8 +4268,8 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 		}
 
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_struct",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data,"field_struct"),
 															  i, NULL)) != NULL)
 		{
 			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "struct",
@@ -4275,8 +4277,8 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 		}
 
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_typeref",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_typeref"),
 															  i, NULL)) != NULL)
 		{
 			/* this is a "typedef", not a "typeref". */
@@ -4285,16 +4287,16 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 		}
 
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_enum",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_enum"),
 															  i, NULL)) != NULL)
 		{
 			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "enum", value);
 		}
 
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_union",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_union"),
 															  i, NULL)) != NULL)
 		{
 			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "union",
@@ -4302,8 +4304,8 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 		}
 
 		if ((value =
-			 (GValue *) gda_data_model_get_value_at_column (data,
-															  "field_namespace",
+			 (GValue *) gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_namespace"),
 															  i, NULL)) != NULL)
 		{
 			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "namespace",
@@ -4345,8 +4347,9 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 		gchar **inherits_list;
 		gint j;
 		
-		value = gda_data_model_get_value_at_column (data,
-													  "field_inherits", i, NULL);
+		value = gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_inherits"), i, 
+											 NULL);
 		inherits = g_value_get_string (value);
 
 		/* there can be multiple inheritance. Check that. */
@@ -4397,8 +4400,9 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 				gint tmp_namespace_length;
 
 				namespace_value =
-					gda_data_model_get_value_at_column (data,
-														  "field_namespace", i, NULL);
+					gda_data_model_get_value_at (data, 
+						gda_data_model_get_column_index(data, "field_namespace"),
+												 i, NULL);
 				tmp_namespace = g_value_get_string (namespace_value);
 				if (tmp_namespace != NULL)
 				{
@@ -5527,8 +5531,10 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		GnomeVFSHandle *handle;
 
 		if ((value =
-			 gda_data_model_get_value_at_column (data_model,
-												   "db_file_path", i, NULL)) == NULL)
+			 gda_data_model_get_value_at (data_model, 
+						gda_data_model_get_column_index(data_model,
+												   "db_file_path"), 
+										  i, NULL)) == NULL)
 		{
 			continue;
 		}
@@ -5578,9 +5584,9 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 			continue;
 		}
 
-		if ((value1 =
-		gda_data_model_get_value_at_column (data_model,
-												   "analyse_time", i, NULL)) == NULL)
+		if ((value1 = gda_data_model_get_value_at (data_model, 
+						gda_data_model_get_column_index(data_model,
+												   "analyse_time"), i, NULL)) == NULL)
 		{
 			continue;
 		}
@@ -6059,8 +6065,9 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 		gchar *file_abs_path = NULL;
 
 		if ((value =
-			 gda_data_model_get_value_at_column (data_model,
-												   "db_file_path", i, NULL)) == NULL)
+			 gda_data_model_get_value_at (data_model, 
+						gda_data_model_get_column_index(data_model, "db_file_path"),
+										  i, NULL)) == NULL)
 		{
 			continue;
 		}
