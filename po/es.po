@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-14 21:08+0000\n"
-"PO-Revision-Date: 2008-09-15 06:46+0200\n"
+"POT-Creation-Date: 2008-10-10 10:06+0000\n"
+"PO-Revision-Date: 2008-10-12 22:20+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1117,7 +1117,7 @@ msgstr "Declaración e implementación en línea"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "License:"
 msgstr "Licencia:"
 
@@ -1989,7 +1989,7 @@ msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:471
-#: ../plugins/run-program/parameters.c:729 ../plugins/tools/editor.c:463
+#: ../plugins/run-program/parameters.c:731 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "Valor"
 
@@ -3914,36 +3914,36 @@ msgstr "Abrir _con"
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1106
+#: ../plugins/file-loader/plugin.c:1103
 msgid "Loaded:"
 msgstr "Cargado:"
 
-#: ../plugins/file-loader/plugin.c:1186 ../plugins/file-loader/plugin.c:1192
+#: ../plugins/file-loader/plugin.c:1181 ../plugins/file-loader/plugin.c:1187
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de archivos"
 
-#: ../plugins/file-loader/plugin.c:1196
+#: ../plugins/file-loader/plugin.c:1191
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/file-loader/plugin.c:1197
+#: ../plugins/file-loader/plugin.c:1192
 msgid "New file, project and project components."
 msgstr "Archivo proyecto o componentes de proyectos nuevos."
 
-#: ../plugins/file-loader/plugin.c:1205
+#: ../plugins/file-loader/plugin.c:1200
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1209
+#: ../plugins/file-loader/plugin.c:1204
 msgid "Open _Recent"
 msgstr "Abrir _recientes"
 
-#: ../plugins/file-loader/plugin.c:1210
+#: ../plugins/file-loader/plugin.c:1205
 msgid "Open recent file"
 msgstr "Abrir archivo reciente"
 
-#: ../plugins/file-loader/plugin.c:1217
+#: ../plugins/file-loader/plugin.c:1212
 msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
@@ -3952,7 +3952,7 @@ msgid "<b>Filter</b>"
 msgstr "<b>Filtro</b>"
 
 #: ../plugins/file-manager/file-manager.glade.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
 msgid "<b>Global</b>"
 msgstr "<b>Global</b>"
 
@@ -4417,7 +4417,7 @@ msgid "Author/Grep"
 msgstr "Autor/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:37
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Author:"
 msgstr "Autor:"
@@ -5127,7 +5127,7 @@ msgid "Due date"
 msgstr "Fecha de vencimiento"
 
 #: ../plugins/gtodo/interface.c:227
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
 msgid "Summary"
 msgstr "Resumen"
 
@@ -6258,34 +6258,30 @@ msgstr "<b>Seleccione el tipo de aplicación que desea desarrollar</b>"
 msgid "Application Assistant"
 msgstr "Asistente para aplicaciones"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
-msgid "Application Assistent"
-msgstr "Asistente para aplicaciones"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
 msgstr "Información básica"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Destino:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Enter the basic Project information"
 msgstr "Introduzca la información básica del proyecto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Project Name:"
 msgstr "Nombre del proyecto:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Type"
 msgstr "Tipo de proyecto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid ""
 "The Application Assistant will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
@@ -6298,12 +6294,12 @@ msgstr ""
 "preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
 "valores más tarde."
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
 msgstr "etiqueta"
 
@@ -6904,7 +6900,7 @@ msgstr "El directorio del programa «%s» no es local"
 msgid "Load Target to run"
 msgstr "Cargar objetivo que ejecutar"
 
-#: ../plugins/run-program/parameters.c:720
+#: ../plugins/run-program/parameters.c:722
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nombre"
@@ -7303,7 +7299,7 @@ msgstr[1] "Se han reemplazado %d coincidencias."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
-#: ../plugins/sourceview/sourceview.c:307
+#: ../plugins/sourceview/sourceview.c:315
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
@@ -7313,13 +7309,13 @@ msgstr ""
 "¿Desea recargarlo?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:347
+#: ../plugins/sourceview/sourceview.c:355
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "No se pudo abrir %s: %s"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:467
+#: ../plugins/sourceview/sourceview.c:475
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
@@ -7821,7 +7817,7 @@ msgstr "Introduzca una URL de rama/etiqueta."
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
@@ -8067,34 +8063,26 @@ msgid "Resuming glb scan."
 msgstr "Resumiendo el análisis glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
-msgid ""
-"/usr/bin/ctags\n"
-"/usr/local/bin/ctags"
-msgstr ""
-"/usr/bin/ctags\n"
-"/usr/local/bin/ctags"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
 msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas de la API disponibles</b>"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
-msgid "Automatically scan projetc's packages."
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+msgid "Automatically scan project's packages."
 msgstr "Analizar automáticamente los paquetes del proyecto."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
 msgid "Automatically update symbols without saving file."
 msgstr "Actualizar automáticamente los símbolos sin guardar el archivo."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
 msgstr "Comprobando si el paquete se puede analizar…"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Ctags executable:"
 msgstr "Ctags ejecutables:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:9
+#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols."
 msgstr "Análisis paralelo de símbolos global y del proyecto."
 
@@ -9365,6 +9353,16 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
+#~ msgid "Application Assistent"
+#~ msgstr "Asistente para aplicaciones"
+
+#~ msgid ""
+#~ "/usr/bin/ctags\n"
+#~ "/usr/local/bin/ctags"
+#~ msgstr ""
+#~ "/usr/bin/ctags\n"
+#~ "/usr/local/bin/ctags"
 
 #~ msgid "Choose ctags executable"
 #~ msgstr "Seleccionar las ctags ejecutables"
