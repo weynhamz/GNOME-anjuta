@@ -1,5 +1,13 @@
 2008-10-14  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/reference/libanjuta/debugger-states.dia,
+	manuals/reference/libanjuta/debugger-states.png,
+	manuals/reference/libanjuta/Makefile.am,
+	libanjuta/interfaces/libanjuta.idl:
+	Add a drawing to document debugger interface
+
+2008-10-14  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/plugin.c,
 	libanjuta/interfaces/libanjuta.idl:
 	Add some functions to control debug manager

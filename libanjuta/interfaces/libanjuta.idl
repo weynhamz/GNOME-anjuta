@@ -3098,10 +3098,25 @@ interface IAnjutaWizard
  * SECTION:ianjuta-debugger
  * @title: IAnjutaDebugger
  * @short_description: Debugger interface
- * @see_also:
+ * @see_also: #IAnjutaDebugManager
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-debugger.h
- *	
+ *
+ * This interface is implemented by debugger backends, by example the gdb
+ * backend. It is used by the debug manager plugin which provides the
+ * graphical interface and a simple wrapper: #IAnjutaDebugManager.
+ *
+ * The debugger is in one on these 5 states and emit a signal to the debug
+ * manager when it changes. Here is figure showing all transitions and
+ * the signal emitted. 
+ * <figure id="debugger-states">
+ *	<mediaobject>
+ *		<imageobject>
+ *			<imagedata fileref="debugger-states.png" format="PNG"/>
+ *		</imageobject>
+ *	</mediaobject>
+ * </figure>
+ * 
  */
 interface IAnjutaDebugger
 {
