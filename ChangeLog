@@ -1,5 +1,11 @@
 2008-10-14  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/plugin.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Add some functions to control debug manager
+
+2008-10-14  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/start.h,
 	plugins/debug-manager/anjuta-debug-manager.ui,
 	plugins/debug-manager/plugin.c,

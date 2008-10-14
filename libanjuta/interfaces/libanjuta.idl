@@ -4467,6 +4467,42 @@ interface IAnjutaDebugManager
 	* new breakpoint and deleted breakpoint.
 	*/
 	void ::breakpoint_changed (IAnjutaDebuggerBreakpointItem *breakpoint);
+	
+	/**
+	* ianjuta_debug_manager_start:
+	* @obj: Self
+	* @uri: uri of the target
+	* @err: Error propagation and reporting.
+	* 
+	* Start the debugger of the given uri
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
+	gboolean start (const gchar *uri);
+
+   /**
+	* ianjuta_debug_manager_start_remote:
+	* @obj: Self
+	* @server: server (IP address:port)
+	* @uri: uri of the local target
+	* @err: Error propagation and reporting.
+	* 
+	* Start the debugger of the given uri
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
+	gboolean start_remote (const gchar *server, const gchar *uri);
+
+	/**
+	* ianjuta_debug_manager_quit:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Quit the debugger, can wait until the debugger is ready.
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
+	gboolean quit ();
 }
 
 /**

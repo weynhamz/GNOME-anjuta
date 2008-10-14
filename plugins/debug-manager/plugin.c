@@ -1318,9 +1318,36 @@ dma_plugin_class_init (GObjectClass* klass)
 /* Implementation of IAnjutaDebugManager interface
  *---------------------------------------------------------------------------*/
 
+static gboolean
+idebug_manager_start (IAnjutaDebugManager *plugin, const gchar *uri, GError **err)
+{
+	DebugManagerPlugin *self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+
+	return dma_run_target (self->start, uri);
+}
+
+static gboolean
+idebug_manager_start_remote (IAnjutaDebugManager *plugin, const gchar *server, const gchar *uri, GError **err)
+{
+	DebugManagerPlugin *self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+
+	return dma_run_remote_target (self->start, server, uri);
+}
+
+static gboolean
+idebug_manager_quit (IAnjutaDebugManager *plugin, GError **err)
+{
+	DebugManagerPlugin *self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+
+	return dma_quit_debugger (self->start);
+}
+
 static void
 idebug_manager_iface_init (IAnjutaDebugManagerIface *iface)
 {
+	iface->start = idebug_manager_start;
+	iface->start_remote = idebug_manager_start_remote;
+	iface->quit = idebug_manager_quit;
 }
 
 ANJUTA_PLUGIN_BEGIN (DebugManagerPlugin, dma_plugin);
