@@ -112,7 +112,7 @@ gboolean debugger_set_working_directory (Debugger *debugger, const gchar *direct
 gboolean debugger_set_environment (Debugger *debugger, gchar **variables);
 
 /* Execution */
-void debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop);
+void debugger_start_program (Debugger *debugger, const gchar *server, const gchar* args, const gchar* tty, gboolean stop);
 void debugger_stop_program (Debugger *debugger);
 void debugger_restart_program (Debugger *debugger);
 void debugger_interrupt (Debugger *debugger);

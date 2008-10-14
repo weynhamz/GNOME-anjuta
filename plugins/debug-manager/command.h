@@ -63,6 +63,7 @@ gboolean dma_queue_set_working_directory (DmaDebuggerQueue *self, const gchar *d
 gboolean dma_queue_set_environment (DmaDebuggerQueue *self, gchar **variables);
 gboolean dma_queue_attach (DmaDebuggerQueue *self, pid_t pid, const GList *search_dirs);
 gboolean dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal, gboolean stop);
+gboolean dma_queue_connect (DmaDebuggerQueue *self, const gchar *server, const gchar *args, gboolean terminal, gboolean stop);
 gboolean dma_queue_unload (DmaDebuggerQueue *self);
 gboolean dma_queue_quit (DmaDebuggerQueue *self);
 gboolean dma_queue_abort (DmaDebuggerQueue *self);

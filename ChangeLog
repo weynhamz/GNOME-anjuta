@@ -1,3 +1,18 @@
+2008-10-14  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/start.h,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/start.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix #503764: Implement remote debugging using gdbserver
+
 2008-10-14  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

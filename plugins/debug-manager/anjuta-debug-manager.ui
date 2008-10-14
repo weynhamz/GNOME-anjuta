@@ -42,6 +42,7 @@
 				<placeholder name="PlaceHolderRunCommands">
 					<menuitem name="RunTarget" action="ActionDebuggerRunTarget" />
 					<menuitem name="AttachProcess" action="ActionDebuggerAttachProcess" />
+					<menuitem name="DebugRemote" action="ActionDebuggerDebugRemote"/>
 				</placeholder>
 				<placeholder name="PlaceHolderStopCommands">
 					<menuitem name="Stop" action="ActionDebuggerStop" />

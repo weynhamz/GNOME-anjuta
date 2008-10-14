@@ -583,7 +583,7 @@ static void
 on_start_debug_activate (GtkAction* action, DebugManagerPlugin* this)
 {
 	enable_log_view (this, TRUE);
-	dma_run_target (this->start);
+	dma_run_target (this->start, NULL);
 }
 
 static void
@@ -591,6 +591,14 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* thi
 {
 	enable_log_view (this, TRUE);
 	dma_attach_to_process (this->start);
+}
+
+static void
+on_start_remote_debug_action_activate (GtkAction* action, DebugManagerPlugin* this)
+{
+	/* Returns true if user clicked "Connect" */
+	enable_log_view (this, TRUE);
+	dma_run_remote_target (this->start, NULL, NULL);
 }
 
 static void
@@ -848,6 +856,14 @@ static GtkActionEntry actions_start[] =
 		G_CALLBACK (on_attach_to_project_action_activate)
 	},
 	{
+		"ActionDebuggerDebugRemote",
+		"debugger-remote-target",
+		N_("Debug _Remote Target..."),
+		NULL,
+		N_("Connect to a remote debugging target"),
+		G_CALLBACK (on_start_remote_debug_action_activate),
+	},
+	{
 		"ActionDebuggerStop",
 		GTK_STOCK_STOP,
 		N_("Stop Debugger"), 
@@ -1054,6 +1070,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
     static gboolean initialized = FALSE;
 	AnjutaUI *ui;
+	GtkAction *action;
 	
 	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
@@ -1207,7 +1224,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)(gpointer)&this->view);
         this->view = NULL;
 	}
-	
+
 	return TRUE;
 }
 

@@ -32,7 +32,8 @@ void dma_start_free (DmaStart *this);
 
 void dma_add_source_path (DmaStart *self);
 void dma_attach_to_process (DmaStart *this);
-gboolean dma_run_target (DmaStart *this);
+gboolean dma_run_target (DmaStart *this, const gchar* target);
+gboolean dma_run_remote_target (DmaStart *this, const gchar *remote, const gchar *target);
 gboolean dma_rerun_target (DmaStart *this);
 gboolean dma_quit_debugger (DmaStart *this);
 

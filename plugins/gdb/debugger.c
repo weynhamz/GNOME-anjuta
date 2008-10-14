@@ -88,6 +88,7 @@ struct _DebuggerPriv
 	gboolean prog_is_running;
 	gboolean prog_is_attached;
 	gboolean prog_is_loaded;
+	gboolean prog_is_remote; /* Whether we are debugging a remote target */
 	gboolean debugger_is_started;
 	guint debugger_is_busy;
 	gint post_execution_flag;
@@ -106,6 +107,7 @@ struct _DebuggerPriv
 	gboolean starting;
 	gboolean terminating;
 	gboolean loading;
+	gchar *remote_server;
 	
 	/* GDB command queue */
 	GList *cmd_queqe;
@@ -204,6 +206,8 @@ const static GdbMessageCode GdbErrorMessage[] =
 	IANJUTA_DEBUGGER_UNABLE_TO_OPEN_FILE},
 	{"No executable file specified.",
 	IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND},
+	{"*: Connection refused.",
+	IANJUTA_DEBUGGER_UNABLE_TO_CONNECT},
 	{NULL, 0}};
 
 static guint
@@ -213,9 +217,7 @@ gdb_match_error(const gchar *message)
 
 	for (msg = GdbErrorMessage; msg->msg != NULL; msg++)
 	{
-		gsize len = strlen (msg->msg);
-		
-		if (memcmp (msg->msg, message, len) == 0)
+		if (g_pattern_match_simple(msg->msg, message))
 		{
 			return msg->code;
 		}
@@ -266,6 +268,8 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->terminating = FALSE;
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->command_output_sent = FALSE;
+	debugger->priv->prog_is_remote = FALSE;
+	debugger->priv->remote_server = NULL;
 
 	debugger->priv->current_cmd.cmd = NULL;
 	debugger->priv->current_cmd.parser = NULL;
@@ -749,7 +753,6 @@ gboolean
 debugger_set_environment (Debugger *debugger, gchar **variables)
 {
 	gchar *buff;
-	GList *node;
 
 	DEBUG_PRINT ("In function: set_environment()");
 
@@ -760,7 +763,7 @@ debugger_set_environment (Debugger *debugger, gchar **variables)
 		for (; *variables != NULL; variables++)
 		{
 			buff = g_strdup_printf("set environment %s", *variables);
-			debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
+			debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL); 
 			g_free (buff);
 		}
 	}
@@ -1498,10 +1501,12 @@ debugger_stdo_flush (Debugger *debugger)
 		error = gdb_parse_error (debugger, val);
 
 		/* Trap state error */
-		if ((error != NULL) && (error->code == IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND))
+		if ((error != NULL) && ((error->code == IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND) ||
+								(error->code == IANJUTA_DEBUGGER_UNABLE_TO_CONNECT)))
 		{
 			debugger->priv->prog_is_running = FALSE;
 			debugger->priv->prog_is_attached = FALSE;
+			debugger->priv->prog_is_remote = FALSE;
 			debugger->priv->prog_is_loaded = FALSE;
 		}
 
@@ -1635,8 +1640,10 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->prog_is_attached = FALSE;
 	debugger->priv->prog_is_loaded = FALSE;
+	debugger->priv->prog_is_remote = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
+
 	if (!debugger->priv->terminating)
 	{
 		err = g_error_new  (IANJUTA_DEBUGGER_ERROR,
@@ -1735,8 +1742,10 @@ debugger_abort (Debugger *debugger)
 	debugger->priv->prog_is_attached = FALSE;
 	debugger->priv->inferior_pid = 0;
 	debugger->priv->prog_is_loaded = FALSE;
+	debugger->priv->prog_is_remote = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->debugger_is_started = FALSE;
+
 	if (debugger->priv->instance != NULL)
 	{
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", NULL);
@@ -1823,8 +1832,50 @@ debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 	}		
 }
 
+static void
+debugger_is_connected (Debugger *debugger, const GDBMIValue *mi_results,
+								const GList *cli_results, GError *error)
+{
+	g_return_if_fail (debugger->priv->remote_server != NULL);
+	
+	if (error != NULL)
+	{
+		gchar *msg;
+		gboolean retry;
+		
+		msg = g_strdup_printf(_("Unable to connect to remote target, %s.\n Do you want to try again ?"),
+							  error->message);
+		retry = anjuta_util_dialog_boolean_question (debugger->priv->parent_win, msg);
+		g_free (msg);
+		if (retry)
+		{
+			gchar *cmd;
+			
+			cmd = g_strconcat ("-target-select remote ", debugger->priv->remote_server, NULL);
+			debugger_queue_command (debugger, cmd, FALSE, FALSE, debugger_is_connected, NULL, NULL);
+			g_free (cmd);
+		}
+	}
+	else
+	{
+		if (debugger->priv->output_callback)
+		{
+			debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
+										 _("Debugger connected\n"),
+										 debugger->priv->output_user_data);
+		}
+		debugger->priv->prog_is_remote = TRUE;
+		debugger->priv->prog_is_running = TRUE;
+		/* It is not really a shared lib event, but it allows to restart
+	 	* the program after setting breakpoints. It is better to restart
+	 	* it because we don't have the normal stop frame that tell where
+	 	* the program is stopped */
+		debugger->priv->solib_event = TRUE;
+	}
+}
+
 void
-debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop)
+debugger_start_program (Debugger *debugger, const gchar *remote, const gchar* args, const gchar* tty, gboolean stop)
 {
 	gchar *cmd;
 
@@ -1833,6 +1884,7 @@ debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty,
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == FALSE);
 
+	
 	/* Without a terminal, the output of the debugged program
 	 * are lost */
 	if (tty)
@@ -1854,11 +1906,25 @@ debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty,
 		g_free (cmd);
 	}
 
-	debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
-	
-	/* Get pid of program on next stop */
-	debugger_queue_command (debugger, "info program", FALSE, FALSE, debugger_info_program_finish, NULL, NULL);
-	debugger->priv->post_execution_flag = DEBUGGER_NONE;
+	/* If we are remote then we have to just continue here since we always
+	 * get stopped as part of the remote target setup.
+	 */
+	g_free (debugger->priv->remote_server);
+	if (remote != NULL)
+	{
+		debugger->priv->remote_server = g_strdup (remote);
+		cmd = g_strconcat ("-target-select remote ", remote, NULL);
+		debugger_queue_command (debugger, cmd, FALSE, FALSE, debugger_is_connected, NULL, NULL);
+		g_free (cmd);
+	}
+	else
+	{
+		debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
+		
+		/* Get pid of program on next stop */
+		debugger_queue_command (debugger, "info program", FALSE, FALSE, debugger_info_program_finish, NULL, NULL);
+		debugger->priv->post_execution_flag = DEBUGGER_NONE;
+	}
 }
 
 static void
@@ -3780,6 +3846,7 @@ debugger_finalize (GObject *obj)
 	g_string_free (debugger->priv->stdo_line, TRUE);
 	g_string_free (debugger->priv->stdo_acc, TRUE);
 	g_string_free (debugger->priv->stde_line, TRUE);
+	g_free (debugger->priv->remote_server);
 	g_free (debugger->priv);
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }

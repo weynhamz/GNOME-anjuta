@@ -125,6 +125,8 @@ struct _DmaStart
 
 	gboolean stop_at_beginning;
 	GList *source_dirs;
+
+	gchar *remote_debugger;
 	
 	gchar *build_target;
 	IAnjutaBuilderHandle build_handle;
@@ -140,6 +142,15 @@ struct _DmaStart
 #define REMOVE_BUTTON "remove_button"
 #define UP_BUTTON "up_button"
 #define DOWN_BUTTON "down_button"
+
+#define REMOTE_DEBUG_DIALOG "remote_dialog"
+#define TCPIP_ADDRESS_ENTRY "tcpip_address_entry"
+#define TCPIP_PORT_ENTRY "tcpip_port_entry"
+#define TCPIP_RADIO "tcpip_radio"
+#define TCPIP_CONTAINER "tcpip_container"
+#define SERIAL_PORT_ENTRY "serial_port_entry"
+#define SERIAL_RADIO "serial_radio"
+#define SERIAL_CONTAINER "serial_container"
 
 /* Constants
  *---------------------------------------------------------------------------*/
@@ -244,6 +255,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 
 	anjuta_session_set_string_list (session, "Debugger", "Source directories", self->source_dirs);
 	anjuta_session_set_int (session, "Debugger", "Stop at beginning", self->stop_at_beginning + 1);
+	anjuta_session_set_string (session, "Debugger", "Remote target", self->remote_debugger);
 }
 
 static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *self)
@@ -266,6 +278,9 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 		self->stop_at_beginning = TRUE;	/* Default value */
 	else
 		self->stop_at_beginning = stop_at_beginning - 1;
+	
+	g_free (self->remote_debugger);
+	self->remote_debugger = anjuta_session_get_string (session, "Debugger", "Remote target");
 }
 
 /* Attach to process private functions
@@ -822,7 +837,7 @@ show_parameters_dialog (DmaStart *this)
 }
 
 static gboolean
-start_target (DmaStart *this)
+start_remote_target (DmaStart *this, const gchar *target)
 {
 	gchar *dir_uri;
 	gchar *dir;
@@ -853,11 +868,24 @@ start_target (DmaStart *this)
 	dma_queue_set_environment (this->debugger, env);
 	g_strfreev (env);
 	
-	dma_queue_start (this->debugger, args, run_in_terminal, FALSE);
+	if (target == NULL)
+	{
+		dma_queue_start (this->debugger, args, run_in_terminal, FALSE);
+	}
+	else
+	{
+		dma_queue_connect (this->debugger, target, args, run_in_terminal, FALSE);
+	}
 	g_free (args);
 	
 	return TRUE;
 
+}
+
+static gboolean
+start_target (DmaStart *this)
+{
+	return start_remote_target (this, NULL);
 }
 
 static gboolean
@@ -880,7 +908,7 @@ load_target (DmaStart *this, const gchar *target)
 	g_free (filename);
 	g_free (mime_type);
 
-	return start_target (this);
+	return TRUE;
 }
 
 static void
@@ -892,6 +920,7 @@ on_build_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err, g
 	{
 		/* Up to date, start debugger */
 		load_target (this, this->build_target);
+		start_target (this);
 	}
 	
 	g_free (this->build_target);
@@ -907,6 +936,7 @@ on_is_built_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err
 	{
 		/* Up to date, start debugger */
 		load_target (this, this->build_target);
+		start_target (this);
 	}
 	else if (err->code == IANJUTA_BUILDER_FAILED)
 	{
@@ -951,7 +981,7 @@ check_target (DmaStart *this, const gchar *target)
 	else
 	{
 		/* Unable to build target, just launch debugger */
-		return load_target (this, target);
+		return load_target (this, target) && start_target (this);
 	}	
 }
 
@@ -969,6 +999,109 @@ dma_start_load_and_start_uri (DmaStart *this, const gchar *target)
 	
 	return check_target (this, target);
 }
+
+/* Remote target dialog
+ *---------------------------------------------------------------------------*/
+
+static void on_radio_toggled(GtkWidget* toggle_button, GtkWidget* container)
+{
+	gtk_widget_set_sensitive(container, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));
+}
+
+static gboolean
+show_remote_dialog (DmaStart *this)
+{
+	GladeXML *gxml;
+	GtkWindow *parent;
+	GtkWidget *dialog;
+	GtkEntry *tcpip_address_entry;
+	GtkEntry *tcpip_port_entry;
+	GtkEntry *serial_port_entry;
+	GtkToggleButton *serial_radio;
+	GtkToggleButton *tcpip_radio;
+	GtkWidget *container;
+	
+	gint res;
+
+	parent = GTK_WINDOW (this->plugin->shell);
+	gxml = glade_xml_new (GLADE_FILE, REMOTE_DEBUG_DIALOG, NULL);
+	if (gxml == NULL)
+	{
+		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+		return FALSE;
+	}
+
+	/* Fetch out the widget we care about for now */
+	dialog = glade_xml_get_widget (gxml, REMOTE_DEBUG_DIALOG);
+	tcpip_address_entry = GTK_ENTRY (glade_xml_get_widget (gxml, TCPIP_ADDRESS_ENTRY));
+	tcpip_port_entry = GTK_ENTRY (glade_xml_get_widget (gxml, TCPIP_PORT_ENTRY));
+	serial_port_entry = GTK_ENTRY (glade_xml_get_widget (gxml, SERIAL_PORT_ENTRY));
+	tcpip_radio = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, TCPIP_RADIO));
+	serial_radio = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, SERIAL_RADIO));
+	
+	/* Connect signals */	
+	container = glade_xml_get_widget (gxml, TCPIP_CONTAINER);
+	g_signal_connect (G_OBJECT (tcpip_radio), "toggled", G_CALLBACK (on_radio_toggled), container);
+	container = glade_xml_get_widget (gxml, SERIAL_CONTAINER);
+	g_signal_connect (G_OBJECT (serial_radio), "toggled", G_CALLBACK (on_radio_toggled), container);	
+	g_object_unref (gxml);
+
+	/* Populate the remote target */
+	if (this->remote_debugger)
+	{
+		if (strncmp(this->remote_debugger, "tcp:", 4) == 0)
+		{
+			gchar *port = strrchr (this->remote_debugger, ':');
+			
+			if (port != NULL)
+			{
+				gtk_entry_set_text (GTK_ENTRY (tcpip_port_entry), port + 1);
+				*port = '\0';
+			}
+			gtk_entry_set_text (GTK_ENTRY (tcpip_address_entry), this->remote_debugger + 4);
+			if (port != NULL) *port = ':';
+			gtk_toggle_button_set_active (tcpip_radio, TRUE);
+			gtk_toggle_button_set_active (serial_radio, FALSE);
+		}
+		else if (strncmp(this->remote_debugger,"serial:", 7) == 0)
+		{
+			gtk_entry_set_text (GTK_ENTRY (serial_port_entry), this->remote_debugger + 7);
+			gtk_toggle_button_set_active (serial_radio, TRUE);
+			gtk_toggle_button_set_active (tcpip_radio, FALSE);
+		}
+	}
+
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+	
+	if (res == GTK_RESPONSE_APPLY || res == GTK_RESPONSE_ACCEPT)
+	{
+		/* Save these settings */
+		g_free (this->remote_debugger);
+		if (gtk_toggle_button_get_active (serial_radio))
+		{
+			this->remote_debugger = g_strconcat ("serial:",
+				gtk_entry_get_text (serial_port_entry),
+				NULL);
+		}
+		else
+		{
+			this->remote_debugger = g_strconcat ("tcp:",
+				gtk_entry_get_text (tcpip_address_entry),
+				":",
+				gtk_entry_get_text (tcpip_port_entry),
+				NULL);
+		}
+	}
+	gtk_widget_destroy (dialog);
+
+	if (res == GTK_RESPONSE_ACCEPT)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 
 /* Add source dialog
  *---------------------------------------------------------------------------*/
@@ -1197,27 +1330,68 @@ dma_attach_to_process (DmaStart* this)
 }
 
 gboolean
-dma_run_target (DmaStart *this)
+dma_run_target (DmaStart *this, const gchar *target)
 {
-	gchar *target;
+	gchar *target_uri = NULL;
 
-	anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
-	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target, NULL);	
+	if (target == NULL)
+	{
+		anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
+	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target_uri, NULL);	
+		target = target_uri;
+	}
 	
 	if (target == NULL)
 	{
 		/* Launch parameter dialog to get a target name */
 		show_parameters_dialog (this);
 		anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
-	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target, NULL);
+	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target_uri, NULL);
 		/* No target set by user */
-		if (target == NULL) return FALSE;
+		if (target_uri == NULL) return FALSE;
+		target = target_uri;
 	}
 	
 	if (!dma_start_load_and_start_uri (this, target)) return FALSE;
-	g_free (target);
+	g_free (target_uri);
 	
 	return TRUE;
+}
+
+gboolean
+dma_run_remote_target (DmaStart *this, const gchar *remote, const gchar *target)
+{
+	gchar *target_uri;
+
+	if (target == NULL)
+	{
+		anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
+		 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target_uri, NULL);	
+		target = target_uri;
+	}
+	
+	if (target == NULL)
+	{
+		/* Launch parameter dialog to get a target name */
+		show_parameters_dialog (this);
+		anjuta_shell_get (ANJUTA_PLUGIN (this->plugin)->shell,
+	 				  RUN_PROGRAM_URI, G_TYPE_STRING, &target_uri, NULL);
+		/* No target set by user */
+		if (target_uri == NULL) return FALSE;
+		target = target_uri;
+	}
+	
+	if (remote == NULL)
+	{
+		if (!show_remote_dialog (this)) return FALSE;
+		remote = this->remote_debugger;		
+		if (remote == NULL) return FALSE;
+	}
+
+	if (!load_target (this, target)) return FALSE;
+	g_free (target_uri);
+	
+	return start_remote_target (this, remote);
 }
 
 /* Constructor & Destructor

@@ -62,9 +62,10 @@ typedef enum
 	SET_ENVIRONMENT_COMMAND,
 	UNLOAD_COMMAND,         /* Program loaded */
 	START_COMMAND,         
+	CONNECT_COMMAND,         
 	BREAK_LINE_COMMAND,		  /* Program loaded - Program stopped */
-	BREAK_FUNCTION_COMMAND,
-	BREAK_ADDRESS_COMMAND,	/* 0x10 */
+	BREAK_FUNCTION_COMMAND,  /* 0x10 */
+	BREAK_ADDRESS_COMMAND,
 	ENABLE_BREAK_COMMAND,
 	IGNORE_BREAK_COMMAND,
 	CONDITION_BREAK_COMMAND,
@@ -79,8 +80,8 @@ typedef enum
 	STEP_OUT_COMMAND,
 	RUN_COMMAND,		
 	RUN_TO_COMMAND,
-	STEPI_IN_COMMAND,
-	STEPI_OVER_COMMAND,			/* 0x20 */
+	STEPI_IN_COMMAND,			/* 0x20 */
+	STEPI_OVER_COMMAND,
 	RUN_TO_ADDRESS_COMMAND,
 	EXIT_COMMAND,
 	HANDLE_SIGNAL_COMMAND,
@@ -95,8 +96,8 @@ typedef enum
 	INFO_VARIABLES_COMMAND,
 	SET_FRAME_COMMAND,
 	LIST_FRAME_COMMAND,
-	UPDATE_REGISTER_COMMAND,
-	WRITE_REGISTER_COMMAND,		/* 0x30 */
+	UPDATE_REGISTER_COMMAND,	/* 0x30 */
+	WRITE_REGISTER_COMMAND,
 	EVALUATE_COMMAND,
 	INSPECT_COMMAND,
 	PRINT_COMMAND,
@@ -149,6 +150,9 @@ typedef enum
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
 	DMA_START_COMMAND =
 		START_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_CONNECT_COMMAND =
+		CONNECT_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
 	DMA_BREAK_LINE_COMMAND =
 		BREAK_LINE_COMMAND |
@@ -299,6 +303,7 @@ struct _DmaQueueCommand
 			GList *dirs;
 		} load;
 		struct {
+			gchar *server;
 			gchar *args;
 			gboolean terminal;
 			gboolean stop;
@@ -413,6 +418,12 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->data.env = g_strdupv (va_arg (args, gchar **));
 		break;
 	case START_COMMAND:
+		cmd->data.start.args = g_strdup (va_arg (args, gchar *));
+		cmd->data.start.terminal = va_arg (args, gboolean);
+		cmd->data.start.stop = va_arg (args, gboolean);
+	    break;
+	case CONNECT_COMMAND:
+		cmd->data.start.server = g_strdup (va_arg (args, gchar *));
 		cmd->data.start.args = g_strdup (va_arg (args, gchar *));
 		cmd->data.start.terminal = va_arg (args, gboolean);
 		cmd->data.start.stop = va_arg (args, gboolean);
@@ -664,6 +675,12 @@ gboolean
 dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal, gboolean stop)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_START_COMMAND, args, terminal, stop));
+}
+
+gboolean
+dma_queue_connect (DmaDebuggerQueue *self, const gchar *server, const gchar *args, gboolean terminal, gboolean stop)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_CONNECT_COMMAND, server, args, terminal, stop));
 }
 
 gboolean
@@ -1038,6 +1055,8 @@ dma_command_free (DmaQueueCommand *cmd)
 		if (cmd->data.watch.value != NULL) g_free (cmd->data.watch.value);
 		break;
 	case START_COMMAND:
+	case CONNECT_COMMAND:
+		if (cmd->data.start.server) g_free (cmd->data.start.server);
 		if (cmd->data.start.args) g_free (cmd->data.start.args);
 		break;
 	case LOAD_COMMAND:
@@ -1168,6 +1187,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		break;
 	case START_COMMAND:
 		ret = ianjuta_debugger_start (debugger, cmd->data.start.args, cmd->data.start.terminal, cmd->data.start.stop, err);
+	    break;
+	case CONNECT_COMMAND:
+		ret = ianjuta_debugger_connect (debugger, cmd->data.start.server, cmd->data.start.args, cmd->data.start.terminal, cmd->data.start.stop, err);
 	    break;
 	case RUN_COMMAND:
 		ret = ianjuta_debugger_run (debugger, err);	
@@ -1359,6 +1381,7 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case QUIT_COMMAND:
 	case ABORT_COMMAND:
 	case START_COMMAND:
+	case CONNECT_COMMAND:
 	case SET_WORKING_DIRECTORY_COMMAND:
 	case SET_ENVIRONMENT_COMMAND:	
 	case RUN_COMMAND:

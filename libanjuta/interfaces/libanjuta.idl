@@ -3098,10 +3098,10 @@ interface IAnjutaWizard
  * SECTION:ianjuta-debugger
  * @title: IAnjutaDebugger
  * @short_description: Debugger interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-debugger.h
- * 
+ *	
  */
 interface IAnjutaDebugger
 {
@@ -3130,6 +3130,7 @@ interface IAnjutaDebugger
 		UNABLE_TO_FIND_DEBUGGER,
 		ALREADY_DONE,
 		PROGRAM_NOT_FOUND,
+		UNABLE_TO_CONNECT,
 		UNKNOWN_ERROR,
 		OTHER_ERROR
 	}
@@ -3362,7 +3363,22 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean start (const gchar *args, gboolean terminal, gboolean stop);
-	
+
+	/**
+	* ianjuta_debugger_connect:
+	* @obj: Self
+	* @server: remote server
+	* @args: command line argument of the program
+	* @terminal: TRUE if the program need a terminal
+	* @stop: TRUE if program is stopped at the beginning
+	* @err: Error propagation and reporting
+	*
+	* Connect to a remote debugger and run program
+	*
+	* Returns: TRUE if sucessfull, otherwise FALSE.
+	*/
+	gboolean connect (const gchar *server, const gchar *args, gboolean terminal, gboolean stop);
+
 	/**
 	* ianjuta_debugger_unload:
 	* @obj: Self

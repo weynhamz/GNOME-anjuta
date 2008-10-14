@@ -432,7 +432,20 @@ idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean termin
 	gchar *tty;
 
 	tty = terminal ? gdb_plugin_start_terminal (this) : NULL;
-	debugger_start_program (this->debugger, argument, tty, stop);
+	debugger_start_program (this->debugger, NULL, argument, tty, stop);
+	g_free (tty);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_connect (IAnjutaDebugger *plugin, const gchar *server, const gchar *argument, gboolean terminal, gboolean stop, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *tty;
+
+	tty = terminal ? gdb_plugin_start_terminal (this) : NULL;
+	debugger_start_program (this->debugger, server, argument, tty, stop);
 	g_free (tty);
 
 	return TRUE;
@@ -799,6 +812,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->set_working_directory = idebugger_set_working_directory;
 	iface->set_environment = idebugger_set_environment;
 	iface->start = idebugger_start;
+	iface->connect = idebugger_connect;
 	iface->unload = idebugger_unload;
 	iface->quit = idebugger_quit;
 	iface->abort = idebugger_abort;
