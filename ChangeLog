@@ -1,3 +1,21 @@
+2008-10-14  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: Use correct libgda version (3.99.6)
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-vcs-status-tree-view.h:
+	* libanjuta/anjuta-vcs-status.h (added):
+	* libanjuta/interfaces/libanjuta.idl:
+	Updated IAnjutaVCS to use GCancellable and move AnjutaVcsStatus
+	enum to it's own file.
+
+	* plugins/document-manager/anjuta-docman.c
+	(on_notebook_page_close_button_click), (on_document_destroy),
+	(anjuta_docman_remove_document), (anjuta_docman_get_current_page),
+	(anjuta_docman_get_current_document),
+	(anjuta_docman_set_current_document):
+	Always dynamically obtain the current document (#556053)
+
 2008-10-12  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-iterator.c

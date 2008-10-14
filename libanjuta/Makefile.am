@@ -60,6 +60,7 @@ libanjuta_la_SOURCES= \
 	e-splash.c \
 	anjuta-error.c \
 	anjuta-error.h \
+	anjuta-vcs-status.h
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-widgets.c \
@@ -122,6 +123,7 @@ libanjuta_include = \
 	anjuta-error.h \
 	resources.h \
 	anjuta-vcs-status-tree-view.h \
+	anjuta-vcs-status.h \
 	anjuta-command.h \
 	anjuta-async-command.h \
 	anjuta-sync-command.h \
@@ -129,7 +131,8 @@ libanjuta_include = \
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjuta-enum-types.h
+	anjuta-enum-types.h \
+	anjuta-vcs-status.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 

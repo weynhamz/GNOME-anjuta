@@ -45,7 +45,7 @@ SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 GTKSOURCEVIEW_REQUIRED=2.4.0
 BINUTILS_REQUIRED=2.15.92
 LIBWNCK_REQUIRED=2.12
-GDA_REQUIRED=3.99.4
+GDA_REQUIRED=3.99.6
 
 dnl LIBGTODO_REQUIRED=0.15
 
@@ -990,6 +990,7 @@ plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/symbol-browser/images/Makefile
 plugins/symbol-db/Makefile
+plugins/symbol-db/test/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile

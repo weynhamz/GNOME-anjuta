@@ -4465,6 +4465,7 @@ interface IAnjutaDebugManager
 interface IAnjutaVcs
 {
 	#include <gio/gio.h>
+	#include <libanjuta/anjuta-vcs-status.h>
 
   /**
 	 * IAnjutaVcsError:
@@ -4475,32 +4476,6 @@ interface IAnjutaVcs
 	enum Error
 	{
 	  UNKOWN_ERROR
-	}
-
-  /**
-	 * IAnjutaVcsStatus:
-	 * @IANJUTA_VCS_STATUS_NONE: File has unknown status
-	 * @IANJUTA_VCS_STATUS_MODIFIED: File was modified locally
-	 * @IANJUTA_VCS_STATUS_CONFLICT: File has unresolved conflict
-	 * @IANJUTA_VCS_STATUS_OUTDATED: File is not up-to-date
-	 * @IANJUTA_VCS_STATUS_LOCKED: File is locked
-	 * @IANJUTA_VCS_STATUS_ADDED: File was added
-	 * @IANJUTA_VCS_STATUS_DELETED: File was deleted
-	 * @IANJUTA_VCS_STATUS_IGNORED: File is ignored by VCS system
- 	 *
- 	 * These enumeration is used to specify the status of a file. A file can
- 	 * have multiple status flags assigned (MODIFIED and CONFLICT, for example)
-	 */
-	enum Status
-	{
-	  STATUS_NONE = 0x00,
-	  STATUS_MODIFIED = 0x01,
-	  STATUS_CONFLICT = 0x02,
-	  STATUS_OUTDATED = 0x04,
-	  STATUS_LOCKED = 0x08,
-	  STATUS_ADDED = 0x10,
-	  STATUS_DELETED = 0x20,	  
-	  STATUS_IGNORED = 0x40	  
 	}
 
 	/**
@@ -4534,7 +4509,7 @@ interface IAnjutaVcs
 	 */
 	void update(GFile* file, gboolean recurse);
 	
-	typedef void (*StatusCallback) (GFile* file, IAnjutaVcsStatus status, gpointer user_data);
+	typedef void (*StatusCallback) (GFile* file, AnjutaVcsStatus status, gpointer user_data);
   
   /**
    * ianjuta_vcs_query_status:
@@ -4542,30 +4517,21 @@ interface IAnjutaVcs
    * @files: List of GFiles* to query
    * @callback: callback to call when data for a particular file is available
    * @user_data: Userdata passed to callback
+   * @cancel: A #GCancellable object to cancel the operation
    * @err: Error propagation and reporting
    *
    * Querys the status of the files asyncronously and calls callback once the data
    * is available. On error, -1 is returned and err is set.
    *
-   * Returns: Id to cancel this query
    */
-  gint query_status (List<GFile*> files, StatusCallback callback, gpointer user_data);
-  
-  /**
-   * ianjuta_vcs_query_status_cancel:
-   * @obj: Self
-   * @id: Id of the query to cancel
-   * @err: Error propagation and reporting
-   *
-   * Cancels a query when the data is no longer needed
-   */
-  void query_status_cancel (gint id);
-   
-  typedef void (*DiffCallback) (GFile* file, IAnjutaVcsStatus status, const gchar* diff, gpointer user_data);
+  void query_status (List<GFile*> files, StatusCallback callback, gpointer user_data, GCancellable* cancel);
+     
+  typedef void (*DiffCallback) (GFile* file, AnjutaVcsStatus status, const gchar* diff, gpointer user_data);
    /**
     * ianjuta_vcs_diff:
     * @obj: Self
     * @file: GFile* to diff
+    * @cancel: A #GCancellable object to cancel the operation
     * @err: Error propagation and reporting
     *
     * Asyncronous request for a unified diff between the repository and the file. callback
@@ -4573,17 +4539,7 @@ interface IAnjutaVcs
     *
     * Returns: Id to cancel the request
     */
-  gint ianjuta_vcs_diff(GFile* file, DiffCallback callback, gpointer user_data);
-
-	/**
-   * ianjuta_vcs_diff_cancel:
-   * @obj: Self
-   * @id: Id of the query to cancel
-   * @err: Error propagation and reporting
-   *
-   * Cancels a query when the data is no longer needed
-   */
-   void ianjuta_vcs_diff_cancel (gint id);
+  void ianjuta_vcs_diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel);
 }
 
 /**

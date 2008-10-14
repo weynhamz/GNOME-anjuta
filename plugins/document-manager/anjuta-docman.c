@@ -59,8 +59,6 @@ struct _AnjutaDocmanPriv {
 	DocmanPlugin *plugin;
 	AnjutaPreferences *preferences;
 	GList *pages;		/* list of AnjutaDocmanPage's */
-	AnjutaDocmanPage *cur_page;
-	IAnjutaDocument *current_document; /* normally == IANJUTA_DOCUMENT (cur_page->doc) */
 	
 	GtkWidget *fileselection;
 	
@@ -101,6 +99,9 @@ anjuta_docman_get_page_for_document (AnjutaDocman *docman,
 									IAnjutaDocument *doc);
 static AnjutaDocmanPage *
 anjuta_docman_get_nth_page (AnjutaDocman *docman, gint page_num);
+
+static AnjutaDocmanPage *
+anjuta_docman_get_current_page (AnjutaDocman *docman);
 
 static void
 on_document_toggled (GtkAction* action,
@@ -240,7 +241,7 @@ on_notebook_page_close_button_click (GtkButton* button,
 {
 	AnjutaDocmanPage *page;
 
-	page = docman->priv->cur_page;
+	page = anjuta_docman_get_current_page (docman);
 	if (page == NULL || page->close_button != GTK_WIDGET (button))
 	{
 		/* the close function works only on the current document */
@@ -907,8 +908,6 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 	
 	if (!docman->priv->shutingdown)
 	{
-		if (page == docman->priv->cur_page)
-			docman->priv->cur_page = NULL;
 		if (GTK_NOTEBOOK (docman)->children == NULL)
 			anjuta_docman_set_current_document (docman, NULL);
 		else
@@ -977,7 +976,6 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	
 	g_object_ref (doc);
 	
-	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_ADDED], 0, doc);
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 	anjuta_docman_update_documents_menu (docman);
@@ -1005,11 +1003,9 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
 										  (gpointer) on_notebook_switch_page,
 										  (gpointer) docman);
-		if (page == docman->priv->cur_page)
-			docman->priv->cur_page = NULL;
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		if (!g_list_length (docman->priv->pages))
-				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
+				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);			
 		g_free (page);
 	}
 	anjuta_docman_update_documents_menu(docman);
@@ -1086,10 +1082,22 @@ anjuta_docman_get_nth_page (AnjutaDocman *docman, gint page_num)
 	return NULL;
 }
 
+static AnjutaDocmanPage*
+anjuta_docman_get_current_page (AnjutaDocman* docman)
+{
+	AnjutaDocmanPage* page = anjuta_docman_get_nth_page (docman,
+														 gtk_notebook_get_current_page(GTK_NOTEBOOK(docman)));
+	return page;
+}
+
 IAnjutaDocument *
 anjuta_docman_get_current_document (AnjutaDocman *docman)
 {
-	return docman->priv->current_document;
+	AnjutaDocmanPage* page = anjuta_docman_get_current_page (docman);
+	if (page)
+		return page->doc;
+	else
+		return NULL;
 }
 
 void
@@ -1098,9 +1106,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	AnjutaDocmanPage *page;
 	IAnjutaDocument *defdoc;
 
-	defdoc = docman->priv->current_document;
-	if (defdoc == doc)
-		return;
+	defdoc = anjuta_docman_get_current_document(docman);
 
 	if (doc != NULL)
 	{
@@ -1113,7 +1119,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			if (defdoc != NULL)
 			{
 				AnjutaDocmanPage *oldpage;
-				oldpage = docman->priv->cur_page;
+				oldpage = anjuta_docman_get_page_for_document (docman, defdoc);
 				if (oldpage)
 				{
 					oldpage->is_current = FALSE;
@@ -1125,9 +1131,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 					}
 				}
 			}
-
-			docman->priv->current_document = doc;
-			docman->priv->cur_page = page;
 
 			page->is_current = TRUE;
 			if (page->close_button != NULL)
@@ -1159,7 +1162,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	{
 		if (defdoc != NULL)
 		{
-			page = docman->priv->cur_page;
+			page = anjuta_docman_get_current_page (docman);
 			if (page)
 			{
 				page->is_current = FALSE;
@@ -1171,8 +1174,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 				}
 			}
 		}
-		docman->priv->current_document = NULL;
-		docman->priv->cur_page = NULL;
 	}
 	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, doc);
 }
