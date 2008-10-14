@@ -4514,7 +4514,7 @@ interface IAnjutaVcs
   /**
    * ianjuta_vcs_query_status:
    * @obj: Self
-   * @files: List of GFiles* to query
+   * @file: GFile* to query
    * @callback: callback to call when data for a particular file is available
    * @user_data: Userdata passed to callback
    * @cancel: A #GCancellable object to cancel the operation
@@ -4524,7 +4524,7 @@ interface IAnjutaVcs
    * is available. On error, -1 is returned and err is set.
    *
    */
-  void query_status (List<GFile*> files, StatusCallback callback, gpointer user_data, GCancellable* cancel);
+  void query_status (GFile* file, StatusCallback callback, gpointer user_data, GCancellable* cancel);
      
   typedef void (*DiffCallback) (GFile* file, AnjutaVcsStatus status, const gchar* diff, gpointer user_data);
    /**

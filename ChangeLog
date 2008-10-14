@@ -1,5 +1,10 @@
 2008-10-14  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl:
+		Query should only use a single GFile* not a list
+
+2008-10-14  Johannes Schmid  <jhs@gnome.org>
+
 	* configure.in: Use correct libgda version (3.99.6)
 
 	* libanjuta/Makefile.am:
