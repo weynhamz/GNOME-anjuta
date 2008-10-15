@@ -60,7 +60,7 @@ libanjuta_la_SOURCES= \
 	e-splash.c \
 	anjuta-error.c \
 	anjuta-error.h \
-	anjuta-vcs-status.h
+	anjuta-vcs-status.h \
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-widgets.c \
