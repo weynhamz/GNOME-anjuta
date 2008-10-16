@@ -1739,7 +1739,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 				g_warning ("sdb_view_build_and_display_base_tree (): something "
 						   "went wrong");
 				continue;
-			}
+			} 
 			/* add a dummy child */
 			sdb_view_do_add_hidden_dummy_child (dbv, dbe,
 						&child_iter, curr_symbol_id, FALSE);

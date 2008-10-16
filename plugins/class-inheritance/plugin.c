@@ -75,7 +75,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	class_inheritance_clean_canvas (ci_plugin);
 
 	/* destroy and re-initialize the hashtable */
-	class_inheritance_hash_table_clear	(ci_plugin);
+	class_inheritance_gtree_clear (ci_plugin);
 	
 	if (ci_plugin->top_dir)
 		g_free(ci_plugin->top_dir);
@@ -137,9 +137,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* clean up the canvas [e.g. destroys it's elements */
 	class_inheritance_clean_canvas (class_inheritance);
 	
-	/* destroy the nodestatus hash table */
+	/* destroy the nodestatus gtree */
 	if (class_inheritance->expansion_node_list) {
-		g_hash_table_destroy (class_inheritance->expansion_node_list);
+		g_tree_destroy (class_inheritance->expansion_node_list);
 		class_inheritance->expansion_node_list = NULL;
 	}
 	

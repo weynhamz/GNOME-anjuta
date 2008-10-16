@@ -86,6 +86,10 @@ void
 symbol_db_engine_iterator_node_set_conversion_hash (SymbolDBEngineIteratorNode *dbin,
 										 const GHashTable *sym_type_conversion_hash);
 
+void
+symbol_db_engine_iterator_node_set_prj_directory (SymbolDBEngineIteratorNode *dbin,
+										const gchar *prj_directory);
+
 SymbolDBEngineIteratorNode *
 symbol_db_engine_iterator_node_new (const GdaDataModelIter *data);
 

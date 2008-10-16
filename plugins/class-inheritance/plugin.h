@@ -54,7 +54,7 @@ struct _AnjutaClassInheritance {
 	GList *drawable_list;   		/* GnomeCanvasItem* list. Edges, arrows and texts */
 	GList *node_list;					/* NodeData* list */
 
-	GHashTable *expansion_node_list;	/* expansion_status for the nodes */
+	GTree *expansion_node_list;	/* expansion_status for the nodes */
 
 	/* graphviz stuff */	
 	GVC_t *gvc;

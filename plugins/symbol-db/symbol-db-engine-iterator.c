@@ -80,7 +80,8 @@ sdb_engine_iterator_class_init (SymbolDBEngineIteratorClass *klass)
 
 SymbolDBEngineIterator *
 symbol_db_engine_iterator_new (GdaDataModel *model, 
-							   const GHashTable *sym_type_conversion_hash)
+							   const GHashTable *sym_type_conversion_hash,
+							   const gchar *prj_directory)
 {
 	SymbolDBEngineIterator *dbi;
 	SymbolDBEngineIteratorPriv *priv;
@@ -111,6 +112,9 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 
 	symbol_db_engine_iterator_node_set_conversion_hash (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
 														sym_type_conversion_hash);
+	
+	symbol_db_engine_iterator_node_set_prj_directory (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
+													  prj_directory);
 	return dbi;
 }
 
@@ -127,7 +131,6 @@ symbol_db_engine_iterator_first (SymbolDBEngineIterator *dbi)
 	
 	return gda_data_model_iter_move_at_row (priv->data_iter, 0);
 }
-
 
 gboolean
 symbol_db_engine_iterator_move_next (SymbolDBEngineIterator *dbi)
@@ -241,9 +244,6 @@ isymbol_iter_first (IAnjutaIterable *iterable, GError **err)
 
 	if (symbol_db_engine_iterator_first (dbi) == FALSE) 
 	{
-		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
-										 NULL);
-		
 		return FALSE;
 	}
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
@@ -262,9 +262,6 @@ isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
 
 	if (symbol_db_engine_iterator_move_next (dbi) == FALSE)
 	{
-		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
-										 NULL);
-		
 		return FALSE;
 	}
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
@@ -284,9 +281,6 @@ isymbol_iter_previous (IAnjutaIterable *iterable, GError **err)
 
 	if (symbol_db_engine_iterator_move_prev (dbi) == FALSE)
 	{
-		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
-										 NULL);
-		
 		return FALSE;
 	}
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
@@ -306,9 +300,6 @@ isymbol_iter_last (IAnjutaIterable *iterable, GError **err)
 
 	if (symbol_db_engine_iterator_last (dbi) == FALSE)
 	{
-		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
-										 NULL);
-		
 		return FALSE;
 	}
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
@@ -342,9 +333,6 @@ isymbol_iter_set_position (IAnjutaIterable *iterable,
 
 	if (symbol_db_engine_iterator_set_position (dbi, position) == FALSE)
 	{
-		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
-										 NULL);
-		
 		return FALSE;
 	}
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),

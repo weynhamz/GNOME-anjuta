@@ -20,6 +20,8 @@
 #ifndef _CLASS_INHERIT_H
 #define _CLASS_INHERIT_H
 
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+
 #include "plugin.h"
 
 G_BEGIN_DECLS
@@ -29,20 +31,25 @@ G_BEGIN_DECLS
 #define NODE_SHOW_ALL_MEMBERS_STR			N_("Show all members...")
 #define NODE_SHOW_NORMAL_VIEW_STR			N_("Normal view")
 
+
+
+
 typedef struct _NodeData {
-	GnomeCanvasItem *canvas_item;  /* item itself */
-	gchar *name;                   /* the name of the class */
-	gchar *sub_item;					 /* case of an expanded node */
-	gboolean anchored;             /* should it be anchored [e.g. paint all the 
-	                                * data to the graph?]
-	                                */
+	GnomeCanvasItem *canvas_item;  	/* item itself */
+	gint klass_id;					/* unique class identifier */
+	gchar *sub_item;			   	/* case of an expanded node */
+	gboolean anchored;             	/* should it be anchored [e.g. paint all the 
+	                                 * data to the graph?]
+	                                 */
 	GtkWidget *menu;
 	AnjutaClassInheritance *plugin;
 } NodeData;
 
-typedef struct _NodeExpansionStatus {
-	gchar *name;
+
+typedef struct _NodeExpansionStatus {	
+	gint klass_id;
 	gint expansion_status;
+	
 } NodeExpansionStatus;
 
 
@@ -52,13 +59,20 @@ enum {
 	NODE_FULL_EXPANDED
 };
 
-	
+
+gchar *
+class_inheritance_create_agnode_key_name (const IAnjutaSymbol* symbol);
+
+IAnjutaSymbol *
+class_inheritance_get_symbol_from_agnode_key_name (AnjutaClassInheritance *plugin,
+												   const gchar *key);
+
 void class_inheritance_base_gui_init (AnjutaClassInheritance *plugin);
 void class_inheritance_update_graph (AnjutaClassInheritance *plugin);
 void class_inheritance_clean_canvas (AnjutaClassInheritance *plugin);
 void class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 										   NodeData* nodedata);
-void class_inheritance_hash_table_clear (AnjutaClassInheritance *plugin);
+void class_inheritance_gtree_clear (AnjutaClassInheritance *plugin);
 
 G_END_DECLS
  

@@ -58,7 +58,8 @@ GType sdb_engine_iterator_get_type (void) /*G_GNUC_CONST*/;
 
 SymbolDBEngineIterator *
 symbol_db_engine_iterator_new (GdaDataModel *model, 
-							   const GHashTable *sym_type_conversion_hash);
+							   const GHashTable *sym_type_conversion_hash,
+							   const gchar *prj_directory);
 
 gboolean
 symbol_db_engine_iterator_first (SymbolDBEngineIterator *dbi);

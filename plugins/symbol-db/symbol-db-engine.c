@@ -6326,7 +6326,8 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);	
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 
@@ -6479,7 +6480,8 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);
 }
 
 
@@ -6756,7 +6758,8 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 
@@ -7019,7 +7022,8 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);	
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 /**
@@ -7190,7 +7194,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
-		
+	
+	/*gda_data_model_dump (data, stdout);*/
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
 	{
@@ -7205,7 +7210,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 /** 
@@ -7337,7 +7343,8 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 /**
@@ -7465,7 +7472,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	g_free (db_relative_file);
 	
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 
@@ -7582,7 +7590,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 
@@ -7669,7 +7678,8 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 
@@ -7765,7 +7775,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 /** 
@@ -8460,7 +8471,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }
 
 /**
@@ -8568,10 +8580,10 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
 		
-	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): query_str is %s",
+/*	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): query_str is %s",
 				 dyn_node->query_str);
 	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): data dump \n");
-	gda_data_model_dump (data, stdout);
+	gda_data_model_dump (data, stdout);*/
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
@@ -8587,5 +8599,6 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash);	
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
 }

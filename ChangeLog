@@ -1,3 +1,50 @@
+2008-10-16  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/class-inheritance/class-callbacks.c
+	(on_toggled_menuitem_clicked), (on_member_menuitem_clicked),
+	(on_nodedata_expanded_event):
+	* plugins/class-inheritance/class-inherit.c
+	(cls_inherit_nodestatus_destroy), (gtree_compare_func),
+	(class_inheritance_create_agnode_key_name),
+	(class_inheritance_get_symbol_from_agnode_key_name),
+	(class_inheritance_show_dynamic_class_popup_menu),
+	(cls_inherit_nodedata_destroy), (cls_inherit_add_node),
+	(cls_inherit_add_edge), (cls_inherit_draw_expanded_node),
+	(cls_inherit_draw_single_node), (cls_inherit_draw_graph),
+	(class_inheritance_update_graph), (class_inheritance_gtree_clear),
+	(class_inheritance_base_gui_init):
+	* plugins/class-inheritance/class-inherit.h:
+	* plugins/class-inheritance/plugin.c (project_root_removed),
+	(deactivate_plugin):
+	* plugins/class-inheritance/plugin.h:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_new),
+	(sdb_engine_iterator_node_instance_init),
+	(sdb_engine_iterator_node_finalize),
+	(symbol_db_engine_iterator_node_get_symbol_extra_string),
+	(symbol_db_engine_iterator_node_set_prj_directory):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.h:
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(symbol_db_engine_iterator_new), (isymbol_iter_first),
+	(isymbol_iter_next), (isymbol_iter_previous), (isymbol_iter_last),
+	(isymbol_iter_set_position):
+	* plugins/symbol-db/symbol-db-engine-iterator.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered),
+	(symbol_db_engine_get_files_for_project):
+	* plugins/symbol-db/symbol-db-engine.h:
+	fixed bug #544292 and adjusted some things on symbol-db iterators.
+
 2008-10-15  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:

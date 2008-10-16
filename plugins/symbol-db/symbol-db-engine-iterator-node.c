@@ -35,7 +35,14 @@ struct _SymbolDBEngineIteratorNodePriv
 {
 	GdaDataModelIter *data_iter;	
 	const GHashTable *sym_type_conversion_hash;
+	gchar *project_directory;
 	gchar *uri;
+	
+	/* we'll store returned gchar* (build filepaths) here so that user can use them
+	 * as far as SymbolEngineIteratorNode exists making sure that the pointers
+	 * do not break in memory.
+	 */
+	GList *file_paths;
 };
 
 static GObjectClass* parent_class = NULL;
@@ -48,6 +55,8 @@ symbol_db_engine_iterator_node_new (const GdaDataModelIter *data)
 	s = g_object_new (SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE, NULL);
 	s->priv->data_iter = (GdaDataModelIter *)data;
 	s->priv->uri = NULL;
+	s->priv->project_directory = NULL;
+	s->priv->file_paths = NULL;
 	
 	return s;
 }
@@ -62,6 +71,8 @@ sdb_engine_iterator_node_instance_init (SymbolDBEngineIteratorNode *object)
 	sdbin->priv = g_new0 (SymbolDBEngineIteratorNodePriv, 1);
 	sdbin->priv->sym_type_conversion_hash = NULL;
 	sdbin->priv->uri = NULL;
+	sdbin->priv->project_directory = NULL;
+	sdbin->priv->file_paths = NULL;
 }
 
 static void
@@ -72,9 +83,13 @@ sdb_engine_iterator_node_finalize (GObject *object)
 	
 	dbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);	
 	priv = dbin->priv;
-	if (priv->uri)
-		g_free (priv->uri);
+	g_free (priv->uri);
+	g_free (priv->project_directory);
 
+	/* free the paths. From this moment the pointers eventually returned become invalid */
+	if (priv->file_paths)
+		g_list_foreach (priv->file_paths, (GFunc)g_free, NULL);
+	
 	g_free (priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -187,6 +202,7 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 {
 	SymbolDBEngineIteratorNodePriv *priv;
 	const GValue *value = NULL;
+	gchar *filepath = NULL;
 	
 	g_return_val_if_fail (dbin != NULL, NULL);
 	priv = dbin->priv;
@@ -195,6 +211,14 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 	{
 		value = gda_data_model_iter_get_value_for_field (priv->data_iter, 
 														 "db_file_path");
+		/* build the absolute file path */
+		if (value != NULL && G_VALUE_HOLDS_STRING (value) && 
+			priv->project_directory != NULL)
+		{
+			filepath = g_strconcat (priv->project_directory, 
+									g_value_get_string (value),
+									NULL);
+		}
 	}	
 	else if (sym_info & SYMINFO_LANGUAGE)
 	{
@@ -242,6 +266,13 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 														 "file_include_type");
 	}
 
+	if (filepath != NULL) 
+	{
+		/* add a reference to GList */
+		priv->file_paths = g_list_prepend (priv->file_paths, filepath);
+		return filepath;
+	}
+	
 	return value != NULL && G_VALUE_HOLDS_STRING (value)
 		? g_value_get_string (value) : NULL;
 }
@@ -274,6 +305,21 @@ symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,
 		g_free (priv->uri);
 		priv->uri = NULL;
 	}
+}
+
+void
+symbol_db_engine_iterator_node_set_prj_directory (SymbolDBEngineIteratorNode *dbin,
+										const gchar *prj_directory)
+{
+	SymbolDBEngineIteratorNodePriv *priv;
+	g_return_if_fail (dbin != NULL);
+	
+	priv = dbin->priv;
+	/* save a dup of the passed prj_directory: we'll need it in case user requests
+	 * a file path: db'll return only a relative path.
+	 */
+	priv->project_directory = g_strdup (prj_directory);
+
 }
 
 /* IAnjutaSymbol implementation */

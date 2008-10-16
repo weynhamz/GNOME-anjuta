@@ -59,10 +59,63 @@ for the nodes that are gone. In case remove them.
 
 static void
 cls_inherit_nodestatus_destroy (NodeExpansionStatus *node) {
-	if (node->name)
-		g_free (node->name);
-	
 	g_free (node);
+}
+
+static gint
+gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	return (gint)a - (gint)b;
+}
+
+gchar *
+class_inheritance_create_agnode_key_name (const IAnjutaSymbol* symbol)
+{
+	const gchar *node_sym_name;
+	gint node_sym_id;
+	gchar *graph_node_name;
+	
+	g_return_val_if_fail (symbol != NULL, NULL);
+	
+	
+	/* begin the key of a Agnode only a char, we should provide some hack
+	 * to make sure that each node can be different fom each other, even if it has
+	 * the same name as another node
+	 *
+	 * Let's concatenate the IAnjutaSymbol id with its name in such form:
+	 * 'id:name'.
+	 */
+	node_sym_name = ianjuta_symbol_get_name (IANJUTA_SYMBOL (symbol), NULL);
+	node_sym_id = ianjuta_symbol_get_id (IANJUTA_SYMBOL (symbol), NULL);
+	graph_node_name = g_strdup_printf ("%d:%s", node_sym_id, node_sym_name);
+
+	return graph_node_name;
+}
+
+IAnjutaSymbol *
+class_inheritance_get_symbol_from_agnode_key_name (AnjutaClassInheritance *plugin,
+												   const gchar *key)
+{
+	IAnjutaSymbol * symbol;
+	IAnjutaSymbolManager *sm;
+	
+	gchar **res = g_strsplit (key, ":", -1);
+	gint sym_id = atoi (res[0]);
+	
+
+	g_return_val_if_fail (plugin != NULL, NULL);
+
+	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+									 IAnjutaSymbolManager, NULL);
+	
+	symbol = ianjuta_symbol_manager_get_symbol_by_id (sm,
+													sym_id,
+													IANJUTA_SYMBOL_FIELD_SIMPLE,
+													NULL);	
+	
+	g_strfreev (res);
+	
+	return symbol;
 }
 
 void
@@ -71,7 +124,7 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 {
 	GtkWidget *item, *image;
 	GtkWidget *checkitem, *separator;
-	
+		
 	/* Destroy the old menu before creating a new one */
 	if (nodedata->menu)
 	{
@@ -79,49 +132,35 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 	}
 		
 	nodedata->menu = gtk_menu_new();
-	if (nodedata->name && strlen (nodedata->name))
+	if (nodedata->klass_id > 0)
 	{
 		IAnjutaSymbolManager *sm;
-		IAnjutaIterable *iter_searched;
 		IAnjutaIterable *iter;
 		IAnjutaSymbol *symbol_searched;
 		sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (nodedata->plugin)->shell,
 										 IAnjutaSymbolManager, NULL);
 		if (sm == NULL)
 			return;
-		
-		/* we cannot pass a simple 'name' to get_members () interface. That
-		 * wouldn't be enought to identify uniquely the symbol itself.
-		 * Think for example at two namespaces with two classes with the same
-		 * name... Anyway the situation here wasn't better even before. The problem
-		 * persists and to be solved it's needed a re-engineering of class-inherit.
-		 */
-		iter_searched = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS,
-													   TRUE,
-													   IANJUTA_SYMBOL_FIELD_SIMPLE,
-													   nodedata->name,
-													   FALSE,
-													   TRUE,
-													   FALSE,
-													   -1,
-													   -1,
-													   NULL);
-		
-		if (iter_searched == NULL)
-			return;
-		
-		symbol_searched = IANJUTA_SYMBOL (iter_searched);
+
+		symbol_searched = ianjuta_symbol_manager_get_symbol_by_id (sm, 
+												 nodedata->klass_id,
+												 IANJUTA_SYMBOL_FIELD_SIMPLE,
+												 NULL);
+												 
 		iter = ianjuta_symbol_manager_get_members (sm, symbol_searched,
-												   IANJUTA_SYMBOL_FIELD_SIMPLE,
+												   IANJUTA_SYMBOL_FIELD_SIMPLE |
+												   IANJUTA_SYMBOL_FIELD_TYPE |
+												   IANJUTA_SYMBOL_FIELD_ACCESS |
+												   IANJUTA_SYMBOL_FIELD_FILE_PATH,
 												   FALSE, NULL);
 		if (iter && ianjuta_iterable_get_length (iter, NULL) > 0)
-		{
-			IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
+		{	
 			do
 			{
 				const gchar *name, *file;
 				const GdkPixbuf *pixbuf;
-				gint line;
+				gint line;		
+				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
 				
 				name = ianjuta_symbol_get_name (symbol, NULL);
 				pixbuf = ianjuta_symbol_get_icon (symbol, NULL);
@@ -136,7 +175,7 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 				
 				if (file)
 				{
-					g_object_set_data_full (G_OBJECT (item), "__file_path",
+					g_object_set_data_full (G_OBJECT (item), "__filepath",
 											g_strdup (file), g_free);
 					g_object_set_data (G_OBJECT (item), "__line",
 									   GINT_TO_POINTER (line));
@@ -151,12 +190,7 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 		if (iter)  
 		{
 			g_object_unref (iter);
-		}
-		if (iter_searched)
-		{
-			g_object_unref (iter_searched);
-		}
-			
+		}			
 	}
 	
 	
@@ -220,12 +254,6 @@ cls_inherit_graph_cleanup (AnjutaClassInheritance *plugin)
 static void
 cls_inherit_nodedata_destroy (NodeData *node_data)
 {
-	if (node_data->name)
-	{
-		g_free (node_data->name);
-		node_data->name = NULL;
-	}
-	
 	if (node_data->canvas_item)
 	{
 		gtk_object_destroy (GTK_OBJECT (node_data->canvas_item));
@@ -276,25 +304,41 @@ class_inheritance_clean_canvas (AnjutaClassInheritance *plugin)
  * that we can build the label of the node with the class-data.
  */
 static gboolean
-cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
+cls_inherit_add_node (AnjutaClassInheritance *plugin, const IAnjutaSymbol *node_sym)
 {
-	Agnode_t *node;
+	Agnode_t *graph_node;
 	Agsym_t *sym;
 	NodeExpansionStatus *node_status;
+	const gchar *node_sym_name;
+	gint node_sym_id;
+	gchar *graph_node_name;
+	
 	
 	/* if graph isn't initialized, init it */
 	if (!plugin->graph)
 		cls_inherit_graph_init (plugin, _(DEFAULT_GRAPH_NAME));
 	
+	node_sym_name = ianjuta_symbol_get_name (IANJUTA_SYMBOL (node_sym), NULL);
+	node_sym_id = ianjuta_symbol_get_id (IANJUTA_SYMBOL (node_sym), NULL);
+
+	/* get an unique char key for an agnode */
+	graph_node_name = class_inheritance_create_agnode_key_name (node_sym);
+		
 	/* let's add the node to the graph */
-	if ((node = agnode (plugin->graph, (gchar*)node_name)) == NULL)
+	if ((graph_node = agnode (plugin->graph, 
+							  graph_node_name)) == NULL)
+	{
+		g_free (graph_node_name);
 		return FALSE;
+	}
+	g_free (graph_node_name);
 	
-	/* check for the node in the hash_table */
+	/* check for the node in the gtree */
 	if ( (node_status = 
-				(NodeExpansionStatus*)g_hash_table_lookup 
-				(plugin->expansion_node_list, node_name)) != NULL && 
-				node_status->expansion_status != NODE_NOT_EXPANDED) {
+				(NodeExpansionStatus*)g_tree_lookup (plugin->expansion_node_list, 
+					GINT_TO_POINTER (node_sym_id))) != NULL && 
+				node_status->expansion_status != NODE_NOT_EXPANDED) 
+	{
 		GString *label;
 		gint max_label_items = 0;
 		gint real_items_length = 0;
@@ -302,51 +346,37 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 
 		if (!(sym = agfindattr(plugin->graph->proto->n, "shape")))
 			sym = agnodeattr(plugin->graph, "shape", "");
-		agxset(node, sym->index, "record");
+		agxset (graph_node, sym->index, "record");
 		
 		if (!(sym = agfindattr(plugin->graph->proto->n, "label")))
 			sym = agnodeattr(plugin->graph, "label", "");
 		
 		label = g_string_new ("");
-		g_string_printf (label, "{%s", node_name);
+		g_string_printf (label, "{%s", node_sym_name);
 		
 		sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaSymbolManager, NULL);
 		if (sm)
 		{
 			IAnjutaIterable *iter;
-			IAnjutaIterable *iter_searched;
-			IAnjutaSymbol *symbol_searched;
-			iter_searched = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS,
-													   TRUE,
-													   IANJUTA_SYMBOL_FIELD_SIMPLE,
-													   node_name,
-													   FALSE,
-													   TRUE,
-													   FALSE,
-													   -1,
-													   -1,
-													   NULL);
-		
-			if (iter_searched == NULL) {
-				g_string_free (label, TRUE);
-				return FALSE;
-			}
-		
-			symbol_searched = IANJUTA_SYMBOL (iter_searched);
 			
-			iter = ianjuta_symbol_manager_get_members (sm, symbol_searched,
-													   IANJUTA_SYMBOL_FIELD_SIMPLE,
-													   FALSE, NULL);
+			/* get members from the passed symbol node */
+			iter = ianjuta_symbol_manager_get_members (sm, node_sym,
+													IANJUTA_SYMBOL_FIELD_SIMPLE|
+												   	IANJUTA_SYMBOL_FIELD_TYPE |
+												   	IANJUTA_SYMBOL_FIELD_ACCESS,													   
+													FALSE, NULL);
 			real_items_length = ianjuta_iterable_get_length (iter, NULL);
 
 			/* set the max number of items to draw */
 			if (real_items_length <= NODE_HALF_DISPLAY_ELEM_NUM || 
-						node_status->expansion_status == NODE_FULL_EXPANDED) {
+						node_status->expansion_status == NODE_FULL_EXPANDED) 
+			{
 				max_label_items = real_items_length;
 				node_status->expansion_status = NODE_FULL_EXPANDED;
 			}
-			else {
+			else 
+			{
 				max_label_items = NODE_HALF_DISPLAY_ELEM_NUM;
 			}
 
@@ -365,10 +395,7 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 				} while (ianjuta_iterable_next (iter, NULL) && i < max_label_items);
 			}
 			if (iter)
-				g_object_unref (iter);
-			
-			if (iter_searched)
-				g_object_unref (iter_searched);
+				g_object_unref (iter);			
 		}
 		
 		if (node_status->expansion_status == NODE_HALF_EXPANDED &&
@@ -377,38 +404,38 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 		}
 		
 		g_string_append_printf (label, "|%s }", NODE_SHOW_NORMAL_VIEW_STR);
-		agxset(node, sym->index, label->str);
+		agxset(graph_node, sym->index, label->str);
 		
 		g_string_free (label, TRUE);
 	}
 	else {	/* the node isn't in an expansion status. 
-				 * Go on setting a regular one */
+			 * Go on setting a regular one */
 
 		/* Set an attribute - in this case one that affects the visible rendering */
 		if (!(sym = agfindattr(plugin->graph->proto->n, "shape")))
 			sym = agnodeattr(plugin->graph, "shape", "");
-		agxset(node, sym->index, "box");
+		agxset(graph_node, sym->index, "box");
 		
 		if (!(sym = agfindattr(plugin->graph->proto->n, "label")))
 			sym = agnodeattr(plugin->graph, "label", "");
-		agxset(node, sym->index, node->name);		
+		agxset(graph_node, sym->index, graph_node->name);		
 	}
 
 	/* set the font */
 	if (!(sym = agfindattr(plugin->graph->proto->n, "fontname")))
 		sym = agnodeattr(plugin->graph, "fontname", "");
-	agxset(node, sym->index, "Courier new");
+	agxset(graph_node, sym->index, "Courier new");
 
 	/* set the font-size */	
 	if (!(sym = agfindattr(plugin->graph->proto->n, "fontsize")))
 		sym = agnodeattr(plugin->graph, "fontsize", "");
 	/* hack: set canvas_text_fontsize + 4 points or text would oversize the block */
 	/* add some more points for icons 16x16 space */
-	agxset(node, sym->index, "17");
+	agxset(graph_node, sym->index, "17");
 
 	if (!(sym = agfindattr(plugin->graph->proto->n, "ratio")))
 		sym = agnodeattr(plugin->graph, "ratio", "");
-	agxset(node, sym->index, "expand");	
+	agxset(graph_node, sym->index, "expand");	
 
 	return TRUE;
 }
@@ -418,11 +445,12 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
  */
 static gboolean
 cls_inherit_add_edge (AnjutaClassInheritance *plugin,
-					  const gchar* node_from,
-					  const gchar* node_to)
+					  const IAnjutaSymbol *node_sym_from,
+					  const IAnjutaSymbol *node_sym_to)
 {
 	Agedge_t *edge;
 	Agnode_t *n_from, *n_to;
+	gchar *from_key, *to_key;
 
 	/* if we hadn't initialized out graph we return FALSE. Edges require
 	 * two nodes
@@ -430,12 +458,23 @@ cls_inherit_add_edge (AnjutaClassInheritance *plugin,
 	if (!plugin->graph)
 		return FALSE;
 	
-	if ((n_from = agfindnode (plugin->graph, (gchar*)node_from)) == NULL)
-		return FALSE;
+	from_key = class_inheritance_create_agnode_key_name (node_sym_from);
 	
-	if ((n_to = agfindnode (plugin->graph, (gchar*)node_to)) == NULL)
+	if ((n_from = agfindnode (plugin->graph, from_key)) == NULL)
+	{	
+		g_free (from_key);
 		return FALSE;
+	}
+	g_free (from_key);
 	
+	to_key = class_inheritance_create_agnode_key_name (node_sym_to);
+	if ((n_to = agfindnode (plugin->graph, to_key)) == NULL)
+	{
+		g_free (to_key);
+		return FALSE;
+	}
+	g_free (to_key);
+		
 	if ((edge = agedge (plugin->graph, n_from, n_to)) == NULL)
 		return FALSE;
 	
@@ -444,72 +483,75 @@ cls_inherit_add_edge (AnjutaClassInheritance *plugin,
 
 
 /*----------------------------------------------------------------------------
- * Draw an expanded node. Function simplify cls_inherit_draw_graph().
+ * Draw an expanded node. Function which simplifies cls_inherit_draw_graph().
  */
 static void
-cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node, 
-					point* node_pos, gdouble node_width, gdouble node_height) {
+cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *graph_node, 
+					point* node_pos, gdouble node_width, gdouble node_height) 
+{
 	GnomeCanvasItem *item;
-	NodeData *node_data;
 	NodeExpansionStatus *node_status;
+	NodeData *node_data;
 	gint expansion_status;
 	gint i, j;
 	IAnjutaSymbolManager *sm;
 	IAnjutaIterable *symbol_iter = NULL;
+	IAnjutaSymbol *node_sym;
+	gint node_sym_id;
 	
 	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaSymbolManager, NULL);
-	if (!sm) {
-		return;
-	}
+	if (!sm) 
+		return;	
 						
-	IAnjutaIterable *iter_searched;
-	IAnjutaSymbol *symbol_searched;
-	iter_searched = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS,
-												   TRUE,
-												   IANJUTA_SYMBOL_FIELD_SIMPLE,
-												   node->name,
-												   FALSE,
-												   TRUE,
-												   FALSE,
-												   -1,
-												   -1,
-												   NULL);
-		
-	if (iter_searched == NULL) {
-		return;
-	}
-		
-	symbol_searched = IANJUTA_SYMBOL (iter_searched);
-						
-	symbol_iter = ianjuta_symbol_manager_get_members (sm, symbol_searched,
-													  IANJUTA_SYMBOL_FIELD_SIMPLE,
-													  FALSE, NULL);
-						
+	node_sym = class_inheritance_get_symbol_from_agnode_key_name (plugin,
+												graph_node->name);		
+	
+	node_sym_id = ianjuta_symbol_get_id (node_sym, NULL);
+	symbol_iter = ianjuta_symbol_manager_get_members (sm, node_sym,
+													IANJUTA_SYMBOL_FIELD_SIMPLE |
+												   	IANJUTA_SYMBOL_FIELD_TYPE |
+												   	IANJUTA_SYMBOL_FIELD_ACCESS |
+													IANJUTA_SYMBOL_FIELD_FILE_PATH,
+													FALSE, NULL);
+
+	g_object_unref (node_sym);
+	
 	/* we need to know which label to draw, wether only the "show all" or just 
 	 * the "normal view" */
 	if ( (node_status = 
-				(NodeExpansionStatus*)g_hash_table_lookup 
-				(plugin->expansion_node_list, node->name)) == NULL) {
+				(NodeExpansionStatus*)g_tree_lookup 
+				(plugin->expansion_node_list, GINT_TO_POINTER (node_sym_id))) == NULL) 
+	{
 		expansion_status = NODE_NOT_EXPANDED;
 	}
 	else
 		expansion_status = node_status->expansion_status;
 
-	for (i=0; i < NODE_NUM_FIELDS (node); i++ ) {
-		for (j=0; j < NODE_NTH_FIELD (node,i)->n_flds; j++ ) {
+	for (i=0; i < NODE_NUM_FIELDS (graph_node); i++ ) 
+	{
+		for (j=0; j < NODE_NTH_FIELD (graph_node, i)->n_flds; j++ ) 
+		{
+			IAnjutaSymbol *symbol;
+			gint symbol_id;
 			gint y1, y2;			
-			y1 = NODE_LOWER_LEFT(node,i,j).y;
-			y2 = NODE_UPPER_RIGHT(node,i,j).y;
+			y1 = NODE_LOWER_LEFT (graph_node, i, j).y;
+			y2 = NODE_UPPER_RIGHT(graph_node, i, j).y;
 
 			node_data = g_new0 (NodeData, 1);
+			
+			symbol = class_inheritance_get_symbol_from_agnode_key_name (plugin, 
+															graph_node->name);
+			
+			symbol_id = ianjuta_symbol_get_id (symbol, NULL);
+			g_object_unref (symbol);
 
 			/* set the plugin reference */
 			node_data->plugin = plugin;
 			node_data->anchored = TRUE;
-			node_data->name = g_strdup (node->name);
+			node_data->klass_id = symbol_id;
 
-			node_data->sub_item = g_strdup (NODE_NTH_TEXT (node,i,j));
+			node_data->sub_item = g_strdup (NODE_NTH_TEXT (graph_node,i,j));
 			
 			node_data->canvas_item =
 			gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
@@ -540,7 +582,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 			item = gnome_canvas_item_new (gnome_canvas_root
 										  (GNOME_CANVAS (plugin->canvas)),
 										  gnome_canvas_text_get_type (),
-										  "text", NODE_NTH_TEXT (node,i,j),
+										  "text", NODE_NTH_TEXT (graph_node, i, j),
 										  "font", NODE_FONT_DEFAULT,
 										  "justification", GTK_JUSTIFY_CENTER,
 										  "style", PANGO_STYLE_ITALIC,
@@ -556,7 +598,8 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 									  	  NULL);
 			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
 			
-			if (j == 0) {		/* the Class' name case: make it bold */
+			if (j == 0) 		/* the Class' name case: make it bold */
+			{				
 				gnome_canvas_item_set (item, 
 							"weight", PANGO_WEIGHT_BOLD, 
 							"style", PANGO_STYLE_NORMAL,
@@ -564,8 +607,10 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 				continue;
 			}
 			else					/* we need to draw the last 2 elements differently */
+			{
 				if (expansion_status == NODE_HALF_EXPANDED && 
-					j > (NODE_NTH_FIELD (node,i)->n_flds -3)) {
+					j > (NODE_NTH_FIELD (graph_node, i)->n_flds -3)) 
+				{
 					gnome_canvas_item_set (item, 
 								"weight", PANGO_WEIGHT_HEAVY, 
 								"style", PANGO_STYLE_NORMAL,
@@ -573,23 +618,29 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 					continue;
 				}
 				else				/* only the last one. Usually "Normal view" */
+				{
 					if (expansion_status == NODE_FULL_EXPANDED && 
-						j > (NODE_NTH_FIELD (node,i)->n_flds -2)) {
+						j > (NODE_NTH_FIELD (graph_node, i)->n_flds -2)) 
+					{
 						gnome_canvas_item_set (item, 
 									"weight", PANGO_WEIGHT_HEAVY,
 									"style", PANGO_STYLE_NORMAL,
 									NULL);
 						continue;
 					}
-					
+				}
+			}
+			
 			/* go on with the icons */
-			if (symbol_iter && ianjuta_iterable_get_length (symbol_iter, NULL) > 0) {
+			if (symbol_iter && ianjuta_iterable_get_length (symbol_iter, NULL) > 0) 
+			{
 				const GdkPixbuf *pixbuf;
-				GFile* file;
+				GFile* gfile;
+				gchar *file;
 				gint line;
 				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (symbol_iter);
 
-				file = ianjuta_symbol_get_file (symbol, NULL);
+				gfile = ianjuta_symbol_get_file (symbol, NULL);
 				line = ianjuta_symbol_get_line (symbol, NULL);
 				pixbuf = ianjuta_symbol_get_icon (symbol, NULL);
 				
@@ -607,24 +658,26 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 
 				/* set now the object properties on node_data. We still have a 
 				 * reference to it so we can access its canvas_item */
-				if (file) {
-					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__file",
+				if (gfile) 
+				{
+					file = g_file_get_path (gfile);
+					
+					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__filepath",
 											file, g_object_unref);
 					g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
 									   GINT_TO_POINTER (line));
+					
+					/* no need to free 'file'. It'll be freed when object'll be unreffed */
 				}
 			}
 			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
 			ianjuta_iterable_next (symbol_iter, NULL);
-		}
+		} /*- for */
 	}
 	
 	if (symbol_iter)
 		g_object_unref (symbol_iter);
 	
-	if (iter_searched)
-		g_object_unref (iter_searched);
-						
 	/* make the outline bounds */
 	item =
 	gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
@@ -646,20 +699,28 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 }
 
 static void
-cls_inherit_draw_single_node (AnjutaClassInheritance *plugin, Agnode_t *node, 
-					point *node_pos, gdouble node_width, gdouble node_height) {
+cls_inherit_draw_single_node (AnjutaClassInheritance *plugin, Agnode_t *graph_node, 
+					point *node_pos, gdouble node_width, gdouble node_height) 
+{
 	NodeData *node_data;
 	GnomeCanvasItem *item;
 	gdouble text_width_value;
+	IAnjutaSymbol *node_sym;
+	const gchar* node_sym_name;
 
-	node_data = g_new0 (NodeData, 1);
-		
+	node_sym = class_inheritance_get_symbol_from_agnode_key_name (plugin,
+															graph_node->name);
+	node_sym_name = ianjuta_symbol_get_name (node_sym, NULL);
+	node_data = g_new0 (NodeData, 1);		
+						
 	/* set the plugin reference */
 	node_data->plugin = plugin;
 	node_data->anchored = FALSE;
-	node_data->name = g_strdup (node->name);
+	node_data->klass_id = ianjuta_symbol_get_id (IANJUTA_SYMBOL (node_sym), NULL);
 	node_data->sub_item = NULL;
 		
+	g_object_unref (node_sym);
+	
 	node_data->canvas_item =
 	gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
 						   gnome_canvas_rect_get_type (),
@@ -688,7 +749,7 @@ cls_inherit_draw_single_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 	item = gnome_canvas_item_new (gnome_canvas_root
 								  (GNOME_CANVAS (plugin->canvas)),
 								  gnome_canvas_text_get_type (),
-								  "text", node->name,
+								  "text", node_sym_name,
 								  "font", NODE_FONT_DEFAULT,
 								  "justification", GTK_JUSTIFY_CENTER,
 								  "anchor", GTK_ANCHOR_CENTER,
@@ -721,7 +782,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	gint num_nodes;
 	gdouble max_canvas_size_x, max_canvas_size_y;
 	GnomeCanvasItem *item;
-	Agnode_t *node;
+	Agnode_t *graph_node;
 	Agedge_t *edge;
 	
 	if (plugin->graph == NULL)
@@ -733,7 +794,6 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	
 	/* compiles nodes/edges informations, such as positions, coordinates etc */
 	gvLayout (plugin->gvc, plugin->graph, "dot");
-	//dot_layout (plugin->graph);
 	
 	/* set the size of the canvas. We need this to set the scrolling.. */
 	max_canvas_size_x = max_canvas_size_y = CANVAS_MIN_SIZE;
@@ -749,27 +809,30 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	}
 		
 	/* first of all draw the nodes */
-	for (node = agfstnode (plugin->graph); node;
-		 node = agnxtnode (plugin->graph, node))
+	for (graph_node = agfstnode (plugin->graph); graph_node; 
+		 graph_node = agnxtnode (plugin->graph, graph_node))
 	{
 		gdouble node_width;
 		gdouble node_height;
 		point node_pos;
 		
 		/* get some infos from the node */
-		node_pos = ND_coord_i(node);
-		node_width = ND_width (node);
-		node_height = ND_height (node);
+		node_pos = ND_coord_i(graph_node);
+		node_width = ND_width (graph_node);
+		node_height = ND_height (graph_node);
 
-		if (strcmp ("record", ND_shape (node)->name) == 0 ) {
-			cls_inherit_draw_expanded_node (plugin, node, &node_pos, node_width, node_height);
+		if (strcmp ("record", ND_shape (graph_node)->name) == 0 ) 
+		{
+			cls_inherit_draw_expanded_node (plugin, graph_node, &node_pos, node_width, 
+											node_height);
 		}
 		else			/* it's a normal single node */
-			cls_inherit_draw_single_node (plugin, node, &node_pos, node_width, node_height);
+			cls_inherit_draw_single_node (plugin, graph_node, &node_pos, node_width, 
+										  node_height);
 
 		/* --- edges --- */
-		for (edge = agfstedge (plugin->graph, node); edge;
-			 edge = agnxtedge (plugin->graph, edge, node))
+		for (edge = agfstedge (plugin->graph, graph_node); edge;
+			 edge = agnxtedge (plugin->graph, edge, graph_node))
 		{
 			GnomeCanvasPathDef *path_def;
  			gint i;
@@ -854,7 +917,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 			}
 			
 			/* draw the path_def */
-         item = gnome_canvas_item_new (gnome_canvas_root
+         	item = gnome_canvas_item_new (gnome_canvas_root
 									   (GNOME_CANVAS (plugin->canvas)), 
 									   gnome_canvas_bpath_get_type(),
 									   "bpath", path_def,
@@ -892,8 +955,9 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 	IAnjutaSymbolManager *sm;
 	IAnjutaIterable *iter;
 	IAnjutaSymbol *symbol;
-	GList *classes, *node;
-	GHashTable *class_parents;
+	GList *node;
+	GTree *klass_parents;
+	GList *klasses_list;
 
 	g_return_if_fail (plugin != NULL);
 
@@ -904,20 +968,23 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 									 IAnjutaSymbolManager, NULL);
 	if (!sm)
 		return;
-	
+
+	/* Get all classes */	
 	iter = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS, 
 										  TRUE,
 										  IANJUTA_SYMBOL_FIELD_SIMPLE,
-										  NULL, FALSE, TRUE, FALSE, -1, -1, NULL);
+										  NULL, TRUE, TRUE, FALSE, -1, -1, NULL);
 	if (!iter)
 	{
 		DEBUG_PRINT ("class_inheritance_update_graph (): search returned no items.");
 		return;
 	}
 	
+	/*
 	DEBUG_PRINT ("Number of classes found = %d",
 				 ianjuta_iterable_get_length (iter, NULL));	
-/*	
+
+
 	do {
 		const gchar *class_name;
 		symbol = IANJUTA_SYMBOL (iter);
@@ -925,7 +992,8 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 		DEBUG_PRINT ("=======> %s", class_name);
 	}
 	while (ianjuta_iterable_next (iter, NULL) == TRUE);
-*/	
+	*/	
+	
 	ianjuta_iterable_first (iter, NULL);
 	if (ianjuta_iterable_get_length (iter, NULL) <= 0)
 	{
@@ -933,75 +1001,95 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 		return;
 	}
 	
-	/* Get all classes */
-	classes = NULL;
-	class_parents = g_hash_table_new_full (g_str_hash, g_str_equal,
-										   g_free, g_object_unref);
-	do {
-		const gchar *class_name, *old_parents;
-		IAnjutaIterable *parents;
+	/* initialize the glist and the gtree where to store the klass_ids */
+	klasses_list = NULL;
+	klass_parents = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 g_object_unref);
 
+	do 
+	{
+		gint klass_id;
+		IAnjutaIterable *parents;
+     
+		/* a symbol representing a class */
 		symbol = IANJUTA_SYMBOL (iter);
-		
+
 		/* get parents of the current class */
 		parents = ianjuta_symbol_manager_get_class_parents (sm, symbol, 
 															IANJUTA_SYMBOL_FIELD_SIMPLE, 
 															NULL);
 
+		/* if no parents are found then continue */
 		if (parents == NULL || ianjuta_iterable_get_length (parents, NULL) <= 0)
 		{
-			DEBUG_PRINT ("continuing 1...");
+			/*DEBUG_PRINT ("ClassInheritance: no parents found for class %s",
+						 ianjuta_symbol_get_name (symbol, NULL));*/
 			continue;
 		}
-		
-		class_name = ianjuta_symbol_get_name (symbol, NULL);
-		
-		if ((old_parents = g_hash_table_lookup (class_parents, class_name)))
+
+		if ((klass_id = ianjuta_symbol_get_id (symbol, NULL)) <= 0)
+		{
+			/*DEBUG_PRINT ("ClassInheritance: klass_id cannot be <= 0");*/
+			continue;
+		}
+
+		if (g_tree_lookup (klass_parents, GINT_TO_POINTER (klass_id)) != NULL)
 		{
 			/* we already have a class inserted with that name */
-			DEBUG_PRINT ("continuing 2...");
 			continue;
-		}
+		}	
 		
-		DEBUG_PRINT ("parsed %s", class_name);
-		/* insert into the hash table a class name together with the associated parents */
-		g_hash_table_insert (class_parents, g_strdup (class_name), parents);
-		classes = g_list_prepend (classes, g_strdup (class_name));
+		/* insert into the gtree a class name id together with the associated parents */
+		g_tree_insert (klass_parents, GINT_TO_POINTER (klass_id), parents);
+
+		klasses_list = g_list_prepend (klasses_list, GINT_TO_POINTER (klass_id));
+
 	} while (ianjuta_iterable_next (iter, NULL) == TRUE);
-	
-	classes = g_list_reverse (classes);
-	
-	/* we don't need the iter anymore */
-	g_object_unref (iter);
-	
+
+	klasses_list = g_list_reverse (klasses_list);
+
+	/* we don't need the classes iter anymore */
+	if (iter != NULL)
+		g_object_unref (iter);
+	else
+		return;
+
 	/* For all classes get their parents */
-	node = classes;
+	node = klasses_list;
 	while (node)
 	{
-		const gchar *class_name;
+		gint klass_id;
 		IAnjutaIterable *parents;
-				
-		class_name = node->data;
-		parents = g_hash_table_lookup (class_parents, class_name);
+		IAnjutaSymbol *klass_symbol;
+
+		klass_id = GPOINTER_TO_INT (node->data);
+		parents = g_tree_lookup (klass_parents, GINT_TO_POINTER (klass_id));
+		klass_symbol = ianjuta_symbol_manager_get_symbol_by_id (sm,
+													klass_id,
+													IANJUTA_SYMBOL_FIELD_SIMPLE,
+													NULL);
 		
-		do {
-			IAnjutaSymbol *symbol;
-			symbol = IANJUTA_SYMBOL (parents);
-			const gchar *parent_name;
+		do 
+		{
+			IAnjutaSymbol *parent_symbol;
+			parent_symbol = IANJUTA_SYMBOL (parents);
 			
-			parent_name = ianjuta_symbol_get_name (symbol, NULL);
-			
-			cls_inherit_add_node (plugin, class_name);
-			cls_inherit_add_node (plugin, parent_name);
-			cls_inherit_add_edge (plugin, parent_name, class_name);
+			cls_inherit_add_node (plugin, klass_symbol);
+			cls_inherit_add_node (plugin, parent_symbol);
+			cls_inherit_add_edge (plugin, parent_symbol, klass_symbol);			
 		} while (ianjuta_iterable_next (parents, NULL) == TRUE);
 
+		/* we don't need it anymore */
+		g_object_unref (klass_symbol);
+		
 		/* parse next deriver class in the glist */
 		node = g_list_next (node);
 	}
-	g_list_foreach (classes, (GFunc)g_free, NULL);
-	g_list_free (classes);
-	g_hash_table_destroy (class_parents);
+
+	g_list_free (klasses_list);
+	g_tree_destroy (klass_parents);
 	cls_inherit_draw_graph (plugin);
 }
 
@@ -1022,18 +1110,19 @@ static GnomeUIInfo canvas_menu_uiinfo[] = {
 };
 
 void 
-class_inheritance_hash_table_clear (AnjutaClassInheritance *plugin) {
+class_inheritance_gtree_clear (AnjutaClassInheritance *plugin) {
 	
 	if (plugin->expansion_node_list == NULL)
 		return;
 	
 	/* destroy the nodestatus hash table */
-	g_hash_table_destroy (plugin->expansion_node_list);
+	g_tree_destroy (plugin->expansion_node_list);
 	
 	/* reinitialize the table */
-	plugin->expansion_node_list = g_hash_table_new_full (g_str_hash, 
-												g_str_equal, g_free, 
-												(GDestroyNotify)cls_inherit_nodestatus_destroy);	
+	plugin->expansion_node_list = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+								NULL,
+								NULL, 
+								(GDestroyNotify)cls_inherit_nodestatus_destroy);	
 }
 
 void
@@ -1043,8 +1132,8 @@ class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
 
 	s_window = gtk_scrolled_window_new (NULL, NULL);
 	plugin->canvas = gnome_canvas_new_aa ();
-	//gtk_widget_modify_bg (plugin->canvas, GTK_STATE_NORMAL,
-	//					  &plugin->canvas->style->base[GTK_STATE_NORMAL]);
+	/*gtk_widget_modify_bg (plugin->canvas, GTK_STATE_NORMAL,
+						  &plugin->canvas->style->base[GTK_STATE_NORMAL]);*/
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (s_window),
 									GTK_POLICY_AUTOMATIC, 
 									GTK_POLICY_AUTOMATIC);
@@ -1079,9 +1168,11 @@ class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
 	plugin->drawable_list = NULL;
 	plugin->node_list = NULL;
 	
-	plugin->expansion_node_list = g_hash_table_new_full (g_str_hash, 
-												g_str_equal, g_free, 
-												(GDestroyNotify)cls_inherit_nodestatus_destroy);
+	plugin->expansion_node_list = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 (GDestroyNotify)cls_inherit_nodestatus_destroy);
+											
 
 	/* menu create */
 	plugin->menu = gtk_menu_new ();

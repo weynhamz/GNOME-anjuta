@@ -17,6 +17,7 @@
  */
 
 #include <glib.h>
+#include <gio/gio.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
@@ -58,31 +59,33 @@ on_toggled_menuitem_clicked (GtkCheckMenuItem *checkmenuitem,
 {
 	NodeData *node;
 	node = (NodeData*)data;
-	
-	if (node->name == NULL || g_str_equal (node->name, ""))
-		return;
 		
-	if (node->anchored) {
+	if (node->anchored) 
+	{
 		node->anchored = FALSE;
 		
 		/* remove the key from the hash table, if present */
-		if (g_hash_table_lookup (node->plugin->expansion_node_list, node->name)) {
-			g_hash_table_remove (node->plugin->expansion_node_list, node->name);
+		if (g_tree_lookup (node->plugin->expansion_node_list, 
+						   GINT_TO_POINTER (node->klass_id))) 
+		{
+			g_tree_remove (node->plugin->expansion_node_list, 
+						   GINT_TO_POINTER (node->klass_id));
 		}
 	}
-	else {
+	else 
+	{
 		NodeExpansionStatus *node_status;
 		node->anchored = TRUE;
 		
 		node_status = g_new0 (NodeExpansionStatus, 1);
-		node_status->name = g_strdup (node->name);
+		node_status->klass_id = node->klass_id;
 		/* set to half. This will display at least NODE_HALF_DISPLAY_ELEM_NUM.
 		 * User will decide whether to show all elements or not. */
 		node_status->expansion_status = NODE_HALF_EXPANDED;
 		
 		/* insert the class name to the hash_table */
-		g_hash_table_insert (node->plugin->expansion_node_list, 
-							g_strdup (node->name), 
+		g_tree_insert (node->plugin->expansion_node_list, 
+							GINT_TO_POINTER (node->klass_id), 
 							node_status);
 	}
 	
@@ -92,23 +95,31 @@ on_toggled_menuitem_clicked (GtkCheckMenuItem *checkmenuitem,
 void
 on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
 {
-	NodeData *node;
-	GFile* file;
+	NodeData *node;	
+	const gchar *file;
 	gint line;
 	
 	node = (NodeData*)data;
-	file = g_object_get_data (G_OBJECT (menuitem), "__file");
-	line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "__line"));
+	file = g_object_get_data (G_OBJECT (menuitem), "__filepath");
+	line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "__line"));	
+
+	DEBUG_PRINT ("got uri %s [%d]", file, line);
+	
 	if (file)
 	{
+		GFile* gfile;
+		gfile = g_file_new_for_path (file);
 		/* Goto uri line */
 		IAnjutaDocumentManager *dm;
 		dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (node->plugin)->shell,
 										 IAnjutaDocumentManager, NULL);
 		if (dm)
 		{
-			ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
+			ianjuta_document_manager_goto_file_line (dm, gfile, line, NULL);
 		}
+
+		if (gfile)
+			g_object_unref (gfile);
 	}
 }
 
@@ -128,35 +139,49 @@ on_nodedata_expanded_event (GnomeCanvasItem *item, GdkEvent *event, gpointer dat
 	case GDK_BUTTON_PRESS:		/* single click */
 		if (event->button.button == 1) {
 			NodeExpansionStatus *node_status;
-			if ( (node_status = (NodeExpansionStatus*)g_hash_table_lookup (plugin->expansion_node_list, 
-																				nodedata->name)) == NULL) {
+			if ( (node_status = 
+				  (NodeExpansionStatus*)g_tree_lookup (plugin->expansion_node_list, 
+												GINT_TO_POINTER (nodedata->klass_id))) 
+				== NULL) 
+			{
 				break;
 			}
-			else				
-				if (strcmp (nodedata->sub_item, NODE_SHOW_ALL_MEMBERS_STR) == 0) {
+			else if (strcmp (nodedata->sub_item, NODE_SHOW_ALL_MEMBERS_STR) == 0) 
+			{
 					node_status->expansion_status = NODE_FULL_EXPANDED;
 					class_inheritance_update_graph (plugin);
-				}
-			else
-				if (strcmp (nodedata->sub_item, NODE_SHOW_NORMAL_VIEW_STR) == 0) {
-					g_hash_table_remove (plugin->expansion_node_list, nodedata->name);
+			}			
+			else if (strcmp (nodedata->sub_item, NODE_SHOW_NORMAL_VIEW_STR) == 0) 
+			{
+					g_tree_remove (plugin->expansion_node_list, 
+								   GINT_TO_POINTER (nodedata->klass_id));
 					class_inheritance_update_graph (plugin);
-				}
-			else {		/* it's a class member. Take line && uri of definition 
-							 * and reach them */
-				GFile* file;
+			}
+			else 		/* it's a class member. Take line && uri of definition */
+			{			/* and reach them */
+				const gchar *file;
 				gint line;
 				
-				file = g_object_get_data (G_OBJECT (item), "__file");
-				line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "__line"));
-				if (file) {
+				file = g_object_get_data (G_OBJECT (item), "__filepath");
+				line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "__line"));				
+								
+				if (file) 
+				{
+					GFile* gfile;
+					
+					gfile = g_file_new_for_path (file);
+					
 					/* Goto uri line */
 					IAnjutaDocumentManager *dm;
 					dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											 	IAnjutaDocumentManager, NULL);
-					if (dm) {
-						ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
+					if (dm) 
+					{
+						ianjuta_document_manager_goto_file_line (dm, gfile, line, NULL);
 					}
+					
+					if (gfile)
+						g_object_unref (gfile);
 				}
 			}
 		}
