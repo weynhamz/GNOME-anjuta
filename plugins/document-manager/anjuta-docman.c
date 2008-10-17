@@ -866,8 +866,13 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		AnjutaDocmanPage *page;
 		
 		page = anjuta_docman_get_nth_page (docman, page_num);
+		g_signal_handlers_block_by_func (G_OBJECT (docman),
+										 (gpointer) on_notebook_switch_page,
+										 (gpointer) docman);
 		anjuta_docman_set_current_document (docman, page->doc);
-		
+		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
+										   (gpointer) on_notebook_switch_page,
+										   (gpointer) docman);			
 		/* TTimo: reorder so that the most recently used files are
 		 * at the beginning of the tab list
 		 */
@@ -880,6 +885,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		}
 		/* activate the right item in the documents menu */
 		anjuta_docman_update_documents_menu_status (docman);
+		g_signal_emit_by_name (G_OBJECT (docman), "document-changed", page->doc);	
 	}
 }
 
@@ -979,6 +985,7 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 	anjuta_docman_update_documents_menu (docman);
+	g_signal_emit_by_name (docman, "document-added", doc);
 }
 
 void
@@ -991,21 +998,15 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 
 	if (!doc)
 		return;
-
+	
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	if (page)
 	{
 		gtk_container_remove (GTK_CONTAINER (page->widget), GTK_WIDGET(doc));
-		g_signal_handlers_block_by_func (G_OBJECT (docman),
-										(gpointer) on_notebook_switch_page,
-										(gpointer) docman);
 		gtk_container_remove (GTK_CONTAINER (docman), page->widget);
-		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
-										  (gpointer) on_notebook_switch_page,
-										  (gpointer) docman);
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		if (!g_list_length (docman->priv->pages))
-				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);			
+				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
 		g_free (page);
 	}
 	anjuta_docman_update_documents_menu(docman);
@@ -1141,13 +1142,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			}
 			page_num = gtk_notebook_page_num (GTK_NOTEBOOK (docman),
 											  page->widget);
-			g_signal_handlers_block_by_func (G_OBJECT (docman),
-											(gpointer) on_notebook_switch_page,
-											(gpointer) docman);
 			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), page_num);
-			g_signal_handlers_unblock_by_func (G_OBJECT (docman),
-											  (gpointer) on_notebook_switch_page,
-											  (gpointer) docman);
 
 			if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
 											EDITOR_TABS_ORDERING))
@@ -1175,7 +1170,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			}
 		}
 	}
-	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, doc);
 }
 
 void

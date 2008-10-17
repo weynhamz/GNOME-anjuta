@@ -1,3 +1,10 @@
+2008-10-17  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c
+	(on_notebook_switch_page), (anjuta_docman_add_document),
+	(anjuta_docman_set_current_document):
+	#556053 – closing file tabs disable 'save button'
+
 2008-10-16  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/class-inheritance/class-callbacks.c
