@@ -908,9 +908,9 @@ on_is_built_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err
 		/* Up to date, start debugger */
 		load_target (this, this->build_target);
 	}
-	else if (err->code == IANJUTA_BUILDER_FAILED)
+	else
 	{
-		/* Target is not up to date */
+		/* Target is not up to date or an error happens with make -q */
 		this->build_handle = ianjuta_builder_build (IANJUTA_BUILDER (builder), this->build_target, on_build_finished, this, NULL);
 		return;
 	}

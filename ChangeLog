@@ -1,3 +1,10 @@
+2008-10-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/start.c,
+	plugins/build-basic-autotools/plugin.c:
+	Debugger was unable to start if build and source directory are
+	different
+
 2008-10-04  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/svn-switch-command.c (svn_switch_command_new):

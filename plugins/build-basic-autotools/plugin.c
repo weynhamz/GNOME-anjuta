@@ -1364,10 +1364,8 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, const gchar *filename,
 	gchar *target;
 	BuildProgram *prog;
 	
-		
-	src_dir = g_path_get_dirname (filename);
-	build_dir = build_dir_from_source (plugin, src_dir);
-	g_free (src_dir);
+	/* the file of this command is a target, no need to use source directory */		
+	build_dir = g_path_get_dirname (filename);
 	target = g_path_get_basename (filename);
 
 	prog = build_program_new_with_command (build_dir,
