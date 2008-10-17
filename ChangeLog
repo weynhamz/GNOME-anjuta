@@ -1,3 +1,10 @@
+2008-10-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/start.c,
+	plugins/build-basic-autotools/plugin.c:
+	Debugger was unable to start if build and source directory are
+	different
+
 2008-10-17  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c
