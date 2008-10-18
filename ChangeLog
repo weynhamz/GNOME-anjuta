@@ -1,3 +1,10 @@
+2008-10-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-manager/plugin.c,
+	plugins/file-wizard/file.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix #545668 - new file are not added correctly to the project
+
 2008-10-18  Johannes Schmid  <jhs@idefix>
 
 	* plugins/document-manager/anjuta-docman.c
