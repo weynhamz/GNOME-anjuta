@@ -80,6 +80,7 @@ struct _AnjutaDocmanPage {
 	GtkWidget *close_image;
 	GtkWidget *close_button;
 	GtkWidget *mime_icon;
+	GtkWidget *menu_icon;
 	GtkWidget *label;
 	GtkWidget *menu_label;	/* notebook page-switch menu-label */
 	gboolean is_current;
@@ -134,7 +135,7 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 										"/MenuMain/PlaceHolderDocumentsMenus/Documents/NextDocument");
 	g_object_set (action, "sensitive", (current_page + 1) < n_pages, NULL);	
 	action_name = g_strdup_printf ("Tab_%d", current_page);
-        action = gtk_action_group_get_action (docman->priv->documents_action_group, action_name);
+	action = gtk_action_group_get_action (docman->priv->documents_action_group, action_name);
 	g_free (action_name);
 	if (action)
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
@@ -324,6 +325,47 @@ on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 	anjuta_docman_update_documents_menu(docman);
 }
 
+static GdkPixbuf* 
+anjuta_docman_get_pixbuf_for_file (GFile* file)
+{
+	/* add a nice mime-type icon if we can */
+	const gchar** icon_names;
+	GtkIconInfo* icon_info;
+	GIcon* icon;
+	GdkPixbuf* pixbuf;
+	GFileInfo* file_info;
+	GError* err = NULL;
+	
+	g_return_val_if_fail (file != NULL, NULL);
+	
+	file_info = g_file_query_info (file,
+								   "standard::*",
+								   G_FILE_QUERY_INFO_NONE,
+								   NULL,
+								   &err);
+	if (err)
+		DEBUG_PRINT ("GFile-Error %s", err->message);
+	
+	if (file_info != NULL)
+	{
+		icon = g_file_info_get_icon (file_info);
+		g_object_get (icon, "names", &icon_names, NULL);
+		icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+												icon_names,
+												GTK_ICON_SIZE_MENU,
+												GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+		gtk_icon_info_free(icon_info);
+		g_object_unref (icon);
+		
+		if (pixbuf != NULL)
+		{
+			return pixbuf;
+		}
+	}
+	return NULL;
+}
+
 static void
 anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 						 GFile* file, AnjutaDocmanPage *page)
@@ -385,46 +427,18 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 	event_hbox = gtk_hbox_new (FALSE, 2);	
 	
+	page->menu_icon = gtk_image_new();
+	page->mime_icon = gtk_image_new();
+	gtk_box_pack_start (GTK_BOX (event_hbox), page->mime_icon, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (menu_box), page->menu_icon, FALSE, FALSE, 0);	
 	if (file != NULL)
 	{
-		/* add a nice mime-type icon if we can */
-		const gchar** icon_names;
-		GtkIconInfo* icon_info;
-		GIcon* icon;
-		GdkPixbuf* pixbuf;
-		GFileInfo* file_info;
-		GError* err = NULL;
-		
-		file_info = g_file_query_info (file,
-									   "standard::*",
-									   G_FILE_QUERY_INFO_NONE,
-									   NULL,
-									   &err);
-		if (err)
-			DEBUG_PRINT ("GFile-Error %s", err->message);
-		
-		if (file_info != NULL)
+		GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
+		if (pixbuf != NULL)
 		{
-			icon = g_file_info_get_icon (file_info);
-			g_object_get (icon, "names", &icon_names, NULL);
-			icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
-													icon_names,
-													GTK_ICON_SIZE_MENU,
-													GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-			pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
-			gtk_icon_info_free(icon_info);
-			g_object_unref (icon);
-			
-			if (pixbuf != NULL)
-			{
-				GtkWidget *image, *menu_image;
-				image = gtk_image_new_from_pixbuf (pixbuf);
-				menu_image = gtk_image_new_from_pixbuf (pixbuf);			
-				gtk_box_pack_start (GTK_BOX (event_hbox), image, FALSE, FALSE, 0);
-				gtk_box_pack_start (GTK_BOX (menu_box), menu_image, FALSE, FALSE, 0);
-				page->mime_icon = image;
-				g_object_unref (G_OBJECT (pixbuf));
-			}
+			gtk_image_set_from_pixbuf (GTK_IMAGE (page->menu_icon), pixbuf);
+			gtk_image_set_from_pixbuf (GTK_IMAGE (page->mime_icon), pixbuf);
+			g_object_unref (pixbuf);
 		}
 		ruri = g_file_get_parse_name (file);
 		if (ruri != NULL)
@@ -682,7 +696,21 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 	gtk_widget_destroy (dialog);
 	g_free (uri);
+	
+	if (file_saved)
+	{
+		/* Update mime icons */
+		AnjutaDocmanPage* page = anjuta_docman_get_page_for_document (docman, doc);
+		GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
+		if (pixbuf)
+		{
+			gtk_image_set_from_pixbuf (GTK_IMAGE(page->menu_icon), pixbuf);
+			gtk_image_set_from_pixbuf (GTK_IMAGE(page->mime_icon), pixbuf);
+			g_object_unref (pixbuf);
+		}
+	}
 	g_object_unref (file);
+
 	return file_saved;
 }
 

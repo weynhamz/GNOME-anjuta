@@ -1,3 +1,10 @@
+2008-10-18  Johannes Schmid  <jhs@idefix>
+
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_get_pixbuf_for_file), (anjuta_docman_page_init),
+	(anjuta_docman_save_document_as):
+	Fixed #545668 – file's icon not correctly updated on tabs-right-click
+
 2008-10-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c,
