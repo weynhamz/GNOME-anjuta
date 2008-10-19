@@ -31,10 +31,8 @@
 #include <string.h>
 #include <time.h>
 
-#include <gnome.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -222,41 +220,6 @@ on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 	return TRUE;
 }
 
-static gboolean
-confirm_file_overwrite (AnjutaPlugin* plugin, const gchar *uri)
-{
-	GnomeVFSURI *vfs_uri;
-	gboolean ret = TRUE;
-	
-	vfs_uri = gnome_vfs_uri_new (uri);
-	if (gnome_vfs_uri_exists (vfs_uri))
-	{
-		GtkWidget *dialog;
-		gint res;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_NONE,
-										 _("The file '%s' already exists.\n"
-										   "Do you want to replace it with the "
-										   "one you are saving?"),
-										 uri);
-		gtk_dialog_add_button (GTK_DIALOG(dialog),
-							   GTK_STOCK_CANCEL,
-							   GTK_RESPONSE_CANCEL);
-		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
-								  _("_Replace"),
-								  GTK_STOCK_REFRESH,
-								  GTK_RESPONSE_YES);
-		res = gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
-		if (res != GTK_RESPONSE_YES)
-			ret = FALSE;
-	}
-	gnome_vfs_uri_unref (vfs_uri);
-	return ret;
-}
-
 gboolean
 on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 			                 gboolean user_data)
@@ -281,12 +244,18 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		                       IAnjutaMacro, NULL);
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
 	name = gtk_entry_get_text(GTK_ENTRY(entry));
+
+	if (name && strlen (name) > 0)
+		te = ianjuta_document_manager_add_buffer (docman, name, NULL, NULL);
+	else
+		te = ianjuta_document_manager_add_buffer (docman, "", NULL, NULL);
+	if (te == NULL)
+		return FALSE;
 	
 	if (nfg->plugin->top_dir &&
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
 	{
 		IAnjutaProjectManager *pm;
-		GnomeVFSHandle *vfs_write;
 		gchar* file_uri;
 		GFile* file;
 		
@@ -294,32 +263,15 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 										 IAnjutaProjectManager, NULL);
 		g_return_val_if_fail (pm != NULL, FALSE);
 		
-		file_uri = ianjuta_project_manager_add_source (pm, name, "", NULL);
+		file_uri = ianjuta_project_manager_add_source (pm, name, NULL, NULL);
 		if (!file_uri)
 			return FALSE;
-		
+	
 		/* Create empty file */
-		if (!confirm_file_overwrite (ANJUTA_PLUGIN (nfg->plugin), file_uri) ||
-			gnome_vfs_create (&vfs_write, file_uri, GNOME_VFS_OPEN_WRITE,
-							  FALSE, 0664) != GNOME_VFS_OK ||
-			gnome_vfs_close(vfs_write) != GNOME_VFS_OK)
-		{
-			g_free (file_uri);
-			return FALSE;
-		}
 		file = g_file_new_for_uri (file_uri);
-		ianjuta_file_open (IANJUTA_FILE (docman), file, NULL);
-		g_free (file_uri);
+		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), file, NULL);
 		g_object_unref (file);
-	}
-	else
-	{
-		if (name && strlen (name) > 0)
-			te = ianjuta_document_manager_add_buffer (docman, name, "", NULL);
-		else
-			te = ianjuta_document_manager_add_buffer (docman, "", "", NULL);
-		if (te == NULL)
-			return FALSE;
+		g_free (file_uri);
 	}
 	
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);

@@ -1,3 +1,26 @@
+2008-10-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-manager/plugin.c,
+	plugins/file-wizard/file.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix #545668 - new file are not added correctly to the project
+
+2008-10-18  Johannes Schmid  <jhs@gnome.org>
+
+	applied by: Sébastien Granjoux  <seb.sfo@free.fr>
+	* plugins/document-manager/anjuta-docman.c
+	(anjuta_docman_get_pixbuf_for_file), (anjuta_docman_page_init),
+	(anjuta_docman_save_document_as):
+	Fixed #545668 – file's icon not correctly updated on tabs-right-click
+	#556053 – closing file tabs disable 'save button'
+
+	* plugins/file-loader/plugin.c (on_session_load):
+	Do not show status ticks for async file loading
+	
+	* plugins/sourceview/sourceview.c (on_insert_text), (on_backspace),
+	(sourceview_instance_init):
+	#554684 – Cursor column number is not updated when typing text
+
 2008-10-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c,

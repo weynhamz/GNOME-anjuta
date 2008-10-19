@@ -1708,13 +1708,14 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id, const gc
 	ptr = strrchr (path, ':');
 	if (ptr)
 	{
+		*ptr = '\0';
 		if (ptr[1] == '/')
 		{
 			 /* ID is source ID, extract source uri */
-			ptr = strrchr (ptr, ':');
-			return g_strdup (ptr+1);
+			uri = strrchr (path, ':');		/* keep uri scheme */
+			*ptr = ':';
+			return g_strdup (uri+1);
 		}
-		*ptr = '\0';
 	}
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
@@ -2161,10 +2162,17 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
 
 	update_operation_begin (plugin);
-	default_location_type =
-		ianjuta_project_manager_get_element_type (project_manager,
-												  default_location_uri, NULL);
-	location_id = get_element_id_from_uri (plugin, default_location_uri);
+	if (default_location_uri == NULL)
+	{
+		default_location_type = IANJUTA_PROJECT_MANAGER_UNKNOWN;
+	}
+	else
+	{
+		default_location_type =
+			ianjuta_project_manager_get_element_type (project_manager,
+													  default_location_uri, NULL);
+		location_id = get_element_id_from_uri (plugin, default_location_uri);
+	}
 	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
 	{
 		source_id = gbf_project_util_add_source (plugin->model,

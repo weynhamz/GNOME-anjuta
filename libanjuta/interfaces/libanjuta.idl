@@ -2978,8 +2978,8 @@ interface IAnjutaProjectManager
 	/**
 	* ianjuta_project_manager_add_source:
 	* @obj: Self
-	* @source_uri_to_add: fixme
-	* @default_location_uri: fixme
+	* @source_uri_to_add: Target name or uri
+	* @default_location_uri: Default source location or NULL if don't care
 	* @err: Error propagation and reporting.
 	*
 	* Prompt the user to add a file to the project. If the user selects
