@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-21 12:52+0100\n"
+"POT-Creation-Date: 2008-10-19 12:04+0100\n"
 "PO-Revision-Date: 2008-09-20 02:17+0300\n"
 "Last-Translator: OsamaKhalid <OsamaK.WFM@gmail.com>\n"
 "Language-Team: Arabic <en@li.org>\n"
@@ -803,197 +803,197 @@ msgstr "اكتمل... بنجاح\n"
 msgid "Build %d: %s"
 msgstr "بناء %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1565
+#: ../plugins/build-basic-autotools/plugin.c:1563
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr "لا يمكن تصريف \"%s\": لا يوجد قاعدة تصريف محددة لهذا النوع من الملفات."
 
-#: ../plugins/build-basic-autotools/plugin.c:1636
+#: ../plugins/build-basic-autotools/plugin.c:1634
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr "تعذر ضبط المشروع: نص ضبط مفقود في %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2019
-#: ../plugins/build-basic-autotools/plugin.c:2093
-#: ../plugins/build-basic-autotools/plugin.c:2103
-#: ../plugins/build-basic-autotools/plugin.c:2121
-#: ../plugins/build-basic-autotools/plugin.c:2131
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2017
+#: ../plugins/build-basic-autotools/plugin.c:2091
+#: ../plugins/build-basic-autotools/plugin.c:2101
+#: ../plugins/build-basic-autotools/plugin.c:2119
+#: ../plugins/build-basic-autotools/plugin.c:2129
+#: ../plugins/build-basic-autotools/plugin.c:2257
 #, c-format
 msgid "_Build"
 msgstr "ب_ناء"
 
-#: ../plugins/build-basic-autotools/plugin.c:2023
+#: ../plugins/build-basic-autotools/plugin.c:2021
 msgid "_Build Project"
 msgstr "ب_ناء المشروع"
 
-#: ../plugins/build-basic-autotools/plugin.c:2024
+#: ../plugins/build-basic-autotools/plugin.c:2022
 msgid "Build whole project"
 msgstr "بناء المشروع كاملًا"
 
-#: ../plugins/build-basic-autotools/plugin.c:2029
+#: ../plugins/build-basic-autotools/plugin.c:2027
 msgid "_Install Project"
 msgstr "ت_ثبيت المشروع"
 
-#: ../plugins/build-basic-autotools/plugin.c:2030
+#: ../plugins/build-basic-autotools/plugin.c:2028
 msgid "Install whole project"
 msgstr "تثبيت المشروع كاملًا"
 
-#: ../plugins/build-basic-autotools/plugin.c:2035
+#: ../plugins/build-basic-autotools/plugin.c:2033
 msgid "_Clean Project"
 msgstr "تن_ظيف المشروع"
 
-#: ../plugins/build-basic-autotools/plugin.c:2036
+#: ../plugins/build-basic-autotools/plugin.c:2034
 msgid "Clean whole project"
 msgstr "تنظيف المشروع كاملًا"
 
-#: ../plugins/build-basic-autotools/plugin.c:2041
+#: ../plugins/build-basic-autotools/plugin.c:2039
 msgid "C_onfigure Project..."
 msgstr "ض_بط المشروع..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2042
+#: ../plugins/build-basic-autotools/plugin.c:2040
 msgid "Configure project"
 msgstr "ضبط المشروع"
 
-#: ../plugins/build-basic-autotools/plugin.c:2047
+#: ../plugins/build-basic-autotools/plugin.c:2045
 msgid "Build _Tarball"
 msgstr "بناء Tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2048
+#: ../plugins/build-basic-autotools/plugin.c:2046
 msgid "Build project tarball distribution"
 msgstr "بناء توزيعة Tarball للمشروع"
 
-#: ../plugins/build-basic-autotools/plugin.c:2053
+#: ../plugins/build-basic-autotools/plugin.c:2051
 msgid "_Build Module"
 msgstr "ب_ناء الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2054
+#: ../plugins/build-basic-autotools/plugin.c:2052
 msgid "Build module associated with current file"
 msgstr "بناء الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/plugin.c:2059
+#: ../plugins/build-basic-autotools/plugin.c:2057
 msgid "_Install Module"
 msgstr "ت_ثبيت الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2058
 msgid "Install module associated with current file"
 msgstr "تثبيت الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/plugin.c:2065
+#: ../plugins/build-basic-autotools/plugin.c:2063
 msgid "_Clean Module"
 msgstr "تن_ظيف الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2064
 msgid "Clean module associated with current file"
 msgstr "تنظيف الوحدة المرتبطة مع الملف الحالي"
 
-#: ../plugins/build-basic-autotools/plugin.c:2071
+#: ../plugins/build-basic-autotools/plugin.c:2069
 msgid "Co_mpile File"
 msgstr "ت_صريف الملف"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2070
 msgid "Compile current editor file"
 msgstr "تصريف ملف المحرر الحالي"
 
-#: ../plugins/build-basic-autotools/plugin.c:2077
+#: ../plugins/build-basic-autotools/plugin.c:2075
 msgid "Select Configuration"
 msgstr "انتقِ الإعدادات"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2076
 msgid "Select current configuration"
 msgstr "انتقِ الإعدادات الحالية"
 
-#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2081
 msgid "Remove Configuration"
 msgstr "أزل الإعدادات"
 
-#: ../plugins/build-basic-autotools/plugin.c:2084
+#: ../plugins/build-basic-autotools/plugin.c:2082
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "امسح المشروع (مسح نهائي) و أزل دليل التشكيل إن أمكن"
 
-#: ../plugins/build-basic-autotools/plugin.c:2097
-#: ../plugins/build-basic-autotools/plugin.c:2125
+#: ../plugins/build-basic-autotools/plugin.c:2095
+#: ../plugins/build-basic-autotools/plugin.c:2123
 msgid "_Compile"
 msgstr "تص_ريف"
 
-#: ../plugins/build-basic-autotools/plugin.c:2098
-#: ../plugins/build-basic-autotools/plugin.c:2126
+#: ../plugins/build-basic-autotools/plugin.c:2096
+#: ../plugins/build-basic-autotools/plugin.c:2124
 msgid "Compile file"
 msgstr "صرّف الملف"
 
-#: ../plugins/build-basic-autotools/plugin.c:2104
-#: ../plugins/build-basic-autotools/plugin.c:2132
+#: ../plugins/build-basic-autotools/plugin.c:2102
+#: ../plugins/build-basic-autotools/plugin.c:2130
 msgid "Build module"
 msgstr "ابنِ الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2109
-#: ../plugins/build-basic-autotools/plugin.c:2137
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2107
+#: ../plugins/build-basic-autotools/plugin.c:2135
+#: ../plugins/build-basic-autotools/plugin.c:2264
 #, c-format
 msgid "_Install"
 msgstr "ثبّ_ت"
 
-#: ../plugins/build-basic-autotools/plugin.c:2110
-#: ../plugins/build-basic-autotools/plugin.c:2138
+#: ../plugins/build-basic-autotools/plugin.c:2108
+#: ../plugins/build-basic-autotools/plugin.c:2136
 msgid "Install module"
 msgstr "ثبّت الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2115
-#: ../plugins/build-basic-autotools/plugin.c:2143
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2113
+#: ../plugins/build-basic-autotools/plugin.c:2141
+#: ../plugins/build-basic-autotools/plugin.c:2271
 #, c-format
 msgid "_Clean"
 msgstr "نظّ_ف"
 
-#: ../plugins/build-basic-autotools/plugin.c:2116
-#: ../plugins/build-basic-autotools/plugin.c:2144
+#: ../plugins/build-basic-autotools/plugin.c:2114
+#: ../plugins/build-basic-autotools/plugin.c:2142
 msgid "Clean module"
 msgstr "نظّف الوحدة"
 
-#: ../plugins/build-basic-autotools/plugin.c:2149
+#: ../plugins/build-basic-autotools/plugin.c:2147
 msgid "_Cancel command"
 msgstr "أ_لغ الامر"
 
-#: ../plugins/build-basic-autotools/plugin.c:2150
+#: ../plugins/build-basic-autotools/plugin.c:2148
 msgid "Cancel build command"
 msgstr "ألغ أمر البناء"
 
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2257
 #, c-format
 msgid "_Build (%s)"
 msgstr "_ابنِ (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2264
 #, c-format
 msgid "_Install (%s)"
 msgstr "_ثبّت (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2271
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_نظّف (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2279
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_صرّف (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2279
 #, c-format
 msgid "Co_mpile"
 msgstr "ص_رّف"
 
-#: ../plugins/build-basic-autotools/plugin.c:2779
+#: ../plugins/build-basic-autotools/plugin.c:2777
 msgid "Build commands"
 msgstr "ابن الأوامر"
 
-#: ../plugins/build-basic-autotools/plugin.c:2786
+#: ../plugins/build-basic-autotools/plugin.c:2784
 msgid "Build popup commands"
 msgstr "ابن الأوامر المنبثقة"
 
-#: ../plugins/build-basic-autotools/plugin.c:3149
-#: ../plugins/build-basic-autotools/plugin.c:3167
+#: ../plugins/build-basic-autotools/plugin.c:3147
+#: ../plugins/build-basic-autotools/plugin.c:3165
 msgid "Build Autotools"
 msgstr "ابنِ الأدوات الآلية"
 
@@ -1984,7 +1984,7 @@ msgstr "المتغير"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:471
-#: ../plugins/run-program/parameters.c:729 ../plugins/tools/editor.c:463
+#: ../plugins/run-program/parameters.c:731 ../plugins/tools/editor.c:463
 msgid "Value"
 msgstr "القيمة"
 
@@ -2589,27 +2589,27 @@ msgstr ""
 msgid "_Reload"
 msgstr "أ_عد التحميل"
 
-#: ../plugins/document-manager/anjuta-docman.c:357
+#: ../plugins/document-manager/anjuta-docman.c:400
 msgid "Close file"
 msgstr "أغلق الملف"
 
-#: ../plugins/document-manager/anjuta-docman.c:433
+#: ../plugins/document-manager/anjuta-docman.c:448
 msgid "Path:"
 msgstr "المسار:"
 
-#: ../plugins/document-manager/anjuta-docman.c:554
+#: ../plugins/document-manager/anjuta-docman.c:569
 #: ../plugins/file-loader/plugin.c:541 ../plugins/file-loader/plugin.c:812
 #: ../plugins/file-loader/plugin.c:822 ../plugins/file-loader/plugin.c:835
 msgid "Open file"
 msgstr "افتح ملفًا"
 
-#: ../plugins/document-manager/anjuta-docman.c:573
+#: ../plugins/document-manager/anjuta-docman.c:588
 #: ../plugins/message-view/message-view.c:105
 msgid "Save file as"
 msgstr "احفظ الملف كـ"
 
-#: ../plugins/document-manager/anjuta-docman.c:654
-#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
+#: ../plugins/document-manager/anjuta-docman.c:669
+#: ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2618,12 +2618,12 @@ msgstr ""
 "الملف %s موجود مسبقًا.\n"
 "هل تريد إبدال الملف الذي تريد حفظه مكانه؟"
 
-#: ../plugins/document-manager/anjuta-docman.c:663
-#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
+#: ../plugins/document-manager/anjuta-docman.c:678
+#: ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "ا_ستبدال"
 
-#: ../plugins/document-manager/anjuta-docman.c:1401
+#: ../plugins/document-manager/anjuta-docman.c:1424
 msgid "[read-only]"
 msgstr "[للقراءة-فقط]"
 
@@ -3905,36 +3905,36 @@ msgstr "افتح باست_خدام"
 msgid "Open with"
 msgstr "افتح باستخدام"
 
-#: ../plugins/file-loader/plugin.c:1106
+#: ../plugins/file-loader/plugin.c:1103
 msgid "Loaded:"
 msgstr "مُحمَّل: "
 
-#: ../plugins/file-loader/plugin.c:1186 ../plugins/file-loader/plugin.c:1192
+#: ../plugins/file-loader/plugin.c:1181 ../plugins/file-loader/plugin.c:1187
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "محمِّل الملف"
 
-#: ../plugins/file-loader/plugin.c:1196
+#: ../plugins/file-loader/plugin.c:1191
 msgid "New"
 msgstr "جديد"
 
-#: ../plugins/file-loader/plugin.c:1197
+#: ../plugins/file-loader/plugin.c:1192
 msgid "New file, project and project components."
 msgstr "ملف جديد، ومشروع ومكونات مشروع."
 
-#: ../plugins/file-loader/plugin.c:1205
+#: ../plugins/file-loader/plugin.c:1200
 msgid "Open"
 msgstr "افتح"
 
-#: ../plugins/file-loader/plugin.c:1209
+#: ../plugins/file-loader/plugin.c:1204
 msgid "Open _Recent"
 msgstr "افتح الأح_دث"
 
-#: ../plugins/file-loader/plugin.c:1210
+#: ../plugins/file-loader/plugin.c:1205
 msgid "Open recent file"
 msgstr "افتح الملف الأحدث"
 
-#: ../plugins/file-loader/plugin.c:1217
+#: ../plugins/file-loader/plugin.c:1212
 msgid "Open recent files"
 msgstr "افتح الملفات الأحدث"
 
@@ -4052,53 +4052,53 @@ msgstr "النوع:"
 msgid "Use Template for the Header file"
 msgstr "استخدم القالب لملف الترويسة"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:80
 msgid "C Source File"
 msgstr "ملف مصدر سي"
 
-#: ../plugins/file-wizard/file.c:83
+#: ../plugins/file-wizard/file.c:81
 msgid "C/C++ Header File"
 msgstr "ملف ترويسة سي - سي++"
 
-#: ../plugins/file-wizard/file.c:84
+#: ../plugins/file-wizard/file.c:82
 msgid "C++ Source File"
 msgstr "ملف مصدر سي++"
 
-#: ../plugins/file-wizard/file.c:85
+#: ../plugins/file-wizard/file.c:83
 msgid "C# Source File"
 msgstr "ملف مصدر سي#"
 
-#: ../plugins/file-wizard/file.c:86
+#: ../plugins/file-wizard/file.c:84
 msgid "Java Source File"
 msgstr "ملف مصدر جافا"
 
-#: ../plugins/file-wizard/file.c:87
+#: ../plugins/file-wizard/file.c:85
 msgid "Perl Source File"
 msgstr "ملف مصدر بيرل"
 
-#: ../plugins/file-wizard/file.c:88
+#: ../plugins/file-wizard/file.c:86
 msgid "Python Source File"
 msgstr "ملف مصدر بايثون"
 
-#: ../plugins/file-wizard/file.c:89
+#: ../plugins/file-wizard/file.c:87
 msgid "Shell Script File"
 msgstr "ملف نص قشرة"
 
-#: ../plugins/file-wizard/file.c:90
+#: ../plugins/file-wizard/file.c:88
 msgid "Other"
 msgstr "أخرى"
 
-#: ../plugins/file-wizard/file.c:107
+#: ../plugins/file-wizard/file.c:105
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "General Public License (GPL)"
 msgstr "رخصة جنو العامة (جي بي إل)"
 
-#: ../plugins/file-wizard/file.c:108
+#: ../plugins/file-wizard/file.c:106
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Lesser General Public License (LGPL)"
 msgstr "رخصة جنو الصغرى عمومية (إل جي بي إل)"
 
-#: ../plugins/file-wizard/file.c:176
+#: ../plugins/file-wizard/file.c:174
 msgid "Unable to build user interface for New File"
 msgstr "تعذر بناء واجهة المستخدم للملف الجديد"
 
@@ -6247,11 +6247,11 @@ msgstr "إجراءات مدير المشروع"
 msgid "Project manager popup actions"
 msgstr "إجراءات مدير المشروع المنبثقة"
 
-#: ../plugins/project-manager/plugin.c:2474
+#: ../plugins/project-manager/plugin.c:2482
 msgid "Loaded Project... Initializing"
 msgstr "حُمّل المشروع... البدء"
 
-#: ../plugins/project-manager/plugin.c:2477
+#: ../plugins/project-manager/plugin.c:2485
 msgid "Loaded Project..."
 msgstr "حُمّل المشروع..."
 
@@ -6893,7 +6893,7 @@ msgstr "دليل البرنامج '%s' ليس محليا"
 msgid "Load Target to run"
 msgstr "حمّل الهدف لتشغيله"
 
-#: ../plugins/run-program/parameters.c:720
+#: ../plugins/run-program/parameters.c:722
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "الاسم"
@@ -7294,7 +7294,7 @@ msgstr[5] "استـُبدل %d تطابق."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "تعذر بناء واجهة المستخدم للبحث والاستبدال"
 
-#: ../plugins/sourceview/sourceview.c:307
+#: ../plugins/sourceview/sourceview.c:315
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
@@ -7304,13 +7304,13 @@ msgstr ""
 "هل تريد اعادة تحميله؟"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:347
+#: ../plugins/sourceview/sourceview.c:355
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "لا يمكن فتح %s: %s"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:467
+#: ../plugins/sourceview/sourceview.c:475
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "تعذر حفظ %s: %s"
