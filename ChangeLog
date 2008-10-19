@@ -1,3 +1,8 @@
+2008-10-19  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: Bumped version to 2.24.1
+	* NEWS: Updated
+
 2008-10-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-manager/plugin.c,

@@ -1,3 +1,18 @@
+Anjuta 2.24.1 (19 October 2008) -- Johannes Schmid
+
+Translations updates:
+====================
+ar, de, ru, bg, fi, pl, he, da
+
+Updates and fixes:
+- Fix #545668 - new file are not added correctly to the project
+- Fixed #545668 – file's icon not correctly updated on tabs-right-click
+- Fixed #556053 – closing file tabs disable 'save button'
+- Fixed #554684 – Cursor column number is not updated when typing text
+- Debugger was unable to start if build and source directory are different
+- Subversion: Make sure the repository URL given to the switch command is canonicalized.
+- Fix #554337 could not find glade file while executing a program
+
 Anjuta 2.24.0 (22 September 2008) -- Johannes Schmid
 
 Translations updates:
