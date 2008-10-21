@@ -89,30 +89,23 @@ NewfileType new_file_type[] = {
 };
 
 
-typedef enum _Lsc
-{
-	GPL,
-	LGPL
-} Lsc;
-
 typedef struct _NewlicenseType
 {
 	gchar *name;
-	Lsc type;
+	const gchar* type;
 } NewlicenseType;
 
 NewlicenseType new_license_type[] = {
-	{N_("General Public License (GPL)"), GPL},
-	{N_("Lesser General Public License (LGPL)"), LGPL}
+	{N_("General Public License (GPL)"), "GPL"},
+	{N_("Lesser General Public License (LGPL)"), "LGPL"},
+	{N_("BSD Public License"), "BSD"}
 };
 
 static NewFileGUI *nfg = NULL;
 
 
 static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
-static void insert_notice_gpl (IAnjutaMacro* macro, gint comment_type);
-static void insert_notice_lgpl (IAnjutaMacro* macro, gint comment_type);
-static void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
+static void insert_notice(IAnjutaMacro* macro, const gchar* license_type, gint comment_type);
 static void insert_header(IAnjutaMacro* macro, gint source_type);
 
 void
@@ -229,7 +222,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	GtkWidget *optionmenu;
 	const gchar *name;
 	gint sel;
-	gint license_type;
+	const gchar* license_type;
 	gint comment_type;
 	gint source_type;
 	IAnjutaDocumentManager *docman;
@@ -372,61 +365,32 @@ on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data)
 	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
 	gtk_widget_set_sensitive(widget, gtk_toggle_button_get_active(button));
 }
- 
-static void
-insert_notice_gpl (IAnjutaMacro* macro, gint comment_type)
-{
-	switch (comment_type)
-	{
-		case CMT_C:
-			ianjuta_macro_insert(macro, "/* GPL */", NULL);
-			break;
-		case CMT_CPP:
-			ianjuta_macro_insert(macro, "// GPL", NULL);;
-			break;
-		case CMT_P:
-			ianjuta_macro_insert(macro, "# GPL", NULL);;
-			break;
-		default:
-			ianjuta_macro_insert(macro, "/* GPL */", NULL);;
-			break;
-	}
-}
 
 static void
-insert_notice_lgpl (IAnjutaMacro* macro, gint comment_type)
+insert_notice(IAnjutaMacro* macro, const gchar* license_type, gint comment_type)
 {
+	const gchar *template;
+	gchar *name;
+
 	switch (comment_type)
 	{
 		case CMT_C:
-			ianjuta_macro_insert(macro, "/* LGPL */", NULL);
+			template = "/* %s */";
 			break;
 		case CMT_CPP:
-			ianjuta_macro_insert(macro, "// LGPL", NULL);;
+			template = "// %s";
 			break;
 		case CMT_P:
-			ianjuta_macro_insert(macro, "# LGPL", NULL);;
+			template = "# %s";
 			break;
 		default:
-			ianjuta_macro_insert(macro, "/* LGPL */", NULL);;
+			template = "/* %s */";
 			break;
 	}
-}
-static void
-insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type)
-{
-	switch (license_type)
-	{
-		case GPL:
-			insert_notice_gpl(macro, comment_type);
-			break;
-		case LGPL :
-			insert_notice_lgpl(macro, comment_type);
-			break;
-		default:
-			;
-			break;
-	}	
+
+	name = g_strdup_printf(template, license_type);
+	ianjuta_macro_insert(macro, name, NULL);
+	g_free (name);
 }
 
 static void
