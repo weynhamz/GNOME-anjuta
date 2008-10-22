@@ -31,3 +31,10 @@ bin_PROGRAMS = [+NameHLower+]
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
 EXTRA_DIST = $(glade_DATA)
+
+[+IF (=(get "HaveGlade") "1")+]
+# Remove glade directory on uninstall
+uninstall-local:
+	-rm -r $(gladedir)
+	-rm -r $(datadir)/[+NameHLower+]
+[+ENDIF+]

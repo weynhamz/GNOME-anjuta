@@ -23,3 +23,6 @@ dist-hook:
 		fi \
 	done
 
+# Remove doc directory on uninstall
+uninstall-local:
+	-rm -r $([+NameCLower+]docdir)
