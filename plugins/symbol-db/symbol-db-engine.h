@@ -221,6 +221,8 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project
 /**
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
+ * real_files_list: full path on disk to 'real file' to update. e.g.
+ * /home/foouser/fooproject/src/main.c. They'll be freed inside this function. 
  */
 gboolean
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,

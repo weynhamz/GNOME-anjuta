@@ -1,3 +1,18 @@
+2008-10-25  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout),
+	(on_project_element_added), (on_project_element_removed),
+	(do_import_system_src_after_abort),
+	(do_import_project_src_after_abort), (do_import_project_sources),
+	(on_project_root_added):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c:
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_update_project_symbols):
+	* plugins/symbol-db/symbol-db-engine.h:
+	ported to GIO. The only file that remains out is symbol-db-system.c: it'll fixed
+	as soon as my distrib'll give out gnome 2.24 (glib 2.18)
+
 2008-10-25  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c (on_row_expanded_async),

@@ -109,7 +109,7 @@ select symbol_id_base, symbol.name from heritage
 #include <fcntl.h>           /* For O_* constants */
 #include <string.h>
 
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
@@ -5461,8 +5461,12 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	SymbolDBEnginePriv *priv;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
-	g_return_val_if_fail (project != NULL, FALSE);
+	
 	priv = dbe->priv;
+	
+	g_return_val_if_fail (project != NULL, FALSE);
+	g_return_val_if_fail (priv->project_directory != NULL, FALSE);
+	
 
 	value = gda_value_new (G_TYPE_STRING);
 	g_value_set_static_string (value, project);
@@ -5523,12 +5527,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	{
 		const GValue *value, *value1;
 		const gchar *file_name;
-		gchar *file_abs_path;
+		gchar *file_abs_path = NULL;
 		struct tm filetm;
 		time_t db_file_time;
 		gchar *date_string;
-		gchar *abs_vfs_path;
-		GnomeVFSHandle *handle;
+		GFile *gfile;
+		GFileInfo* gfile_info;
+		GFileInputStream* gfile_is;
 
 		if ((value =
 			 gda_data_model_get_value_at (data_model, 
@@ -5543,44 +5548,33 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		file_name = g_value_get_string (value);
 		if (priv->project_directory != NULL)
 		{
-			/* FIXME */
-			abs_vfs_path = g_strdup_printf ("file://%s%s", priv->project_directory,
-										file_name);
 			file_abs_path = g_strdup_printf ("%s%s", priv->project_directory,
 										file_name);
 		}
-		else
-		{
-			/* FIXME */
-			abs_vfs_path = g_strdup_printf ("file://%s", file_name);
-			file_abs_path = g_strdup (file_name);
-		}
 
-		GnomeVFSURI *uri = gnome_vfs_uri_new (abs_vfs_path);
-		GnomeVFSFileInfo *file_info = gnome_vfs_file_info_new ();
-
+		gfile = g_file_new_for_path (file_abs_path);
+		if (gfile == NULL)
+			continue;
+		
+		gfile_is = g_file_read (gfile, NULL, NULL);
 		/* retrieve data/time info */
-		if (gnome_vfs_open_uri (&handle, uri,
-								GNOME_VFS_OPEN_READ | GNOME_VFS_OPEN_RANDOM) !=
-			GNOME_VFS_OK)
+		if (gfile_is == NULL)
 		{
-			g_message ("could not open URI %s", abs_vfs_path);
-			gnome_vfs_uri_unref (uri);
-			gnome_vfs_file_info_unref (file_info);
-			g_free (abs_vfs_path);
+			g_message ("could not open path %s", file_abs_path);
 			g_free (file_abs_path);
+			g_object_unref (gfile);
 			continue;
 		}
+		g_object_unref (gfile_is);
+				
+		gfile_info = g_file_query_info (gfile, "*", G_FILE_QUERY_INFO_NONE,
+										NULL, NULL);
 
-		if (gnome_vfs_get_file_info_from_handle (handle, file_info,
-												 GNOME_VFS_FILE_INFO_DEFAULT) !=
-			GNOME_VFS_OK)
+		if (gfile_info == NULL)
 		{
 			g_message ("cannot get file info from handle");
-			gnome_vfs_close (handle);
-			gnome_vfs_uri_unref (uri);
-			gnome_vfs_file_info_unref (file_info);
 			g_free (file_abs_path);
+			g_object_unref (gfile);
 			continue;
 		}
 
@@ -5616,19 +5610,15 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		/* subtract one hour to the db_file_time. */
 		db_file_time = mktime (&filetm) /*- 3600*/;
 
-		if (difftime (db_file_time, file_info->mtime) < 0)
+		
+		if (difftime (db_file_time, g_file_info_get_attribute_uint32 (gfile_info, 
+										  G_FILE_ATTRIBUTE_TIME_MODIFIED)) < 0)
 		{
-/*			g_message ("FILES TO BE UPDATED ===> : %s [diff time %f] date string is %s", 
-					   file_name, difftime (db_file_time, file_info->mtime),
-					   date_string);
-*/			
 			g_ptr_array_add (files_to_scan, file_abs_path);
 		}
 		
-		gnome_vfs_close (handle);
-		gnome_vfs_uri_unref (uri);
-		gnome_vfs_file_info_unref (file_info);
-		g_free (abs_vfs_path);
+		g_object_unref (gfile_info);
+		g_object_unref (gfile);
 		/* no need to free file_abs_path, it's been added to files_to_scan */
 	}
 	
@@ -5739,7 +5729,7 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 /* Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
  * real_files_list: full path on disk to 'real file' to update. e.g.
- * /home/foouser/fooproject/src/main.c
+ * /home/foouser/fooproject/src/main.c. They'll be freed inside this function.
  */
 gboolean
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,

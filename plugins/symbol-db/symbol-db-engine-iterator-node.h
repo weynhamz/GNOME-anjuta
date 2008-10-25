@@ -53,7 +53,7 @@ struct _SymbolDBEngineIteratorNodeClass
 	GObjectClass parent_class;
 };
 
-
+ 
 GType sdb_engine_iterator_node_get_type (void) G_GNUC_CONST;
 
 gint

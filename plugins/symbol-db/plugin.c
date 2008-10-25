@@ -24,8 +24,7 @@
 
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
@@ -98,8 +97,8 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	IAnjutaEditor *ed;
 	gchar *current_buffer = NULL;
 	gint buffer_size = 0;
-	gchar *uri = NULL;
 	gdouble seconds_elapsed;
+	GFile* file;
 	
 	g_return_val_if_fail (user_data != NULL, FALSE);
 	
@@ -130,28 +129,23 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	
 	if (sdb_plugin->current_editor) 
 	{
-		GFile* file;
 		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
 		
 		buffer_size = ianjuta_editor_get_length (ed, NULL);
 		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
 				
 		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
-		uri = g_file_get_uri (file);
-		g_object_unref (file);
 	} 
 	else
 		return FALSE;
 	
-	if (uri) 
+	if (file) 
 	{
-		DEBUG_PRINT ("uri for buffer updating: %s", uri);
-		
 		GPtrArray *real_files_list;
 		GPtrArray *text_buffers;
 		GPtrArray *buffer_sizes;
 								
-		gchar * local_path = gnome_vfs_get_local_path_from_uri (uri);
+		gchar * local_path = g_file_get_path (file);
 
 		real_files_list = g_ptr_array_new ();
 		g_ptr_array_add (real_files_list, local_path);
@@ -166,12 +160,11 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 												sdb_plugin->project_opened,
 												real_files_list,
 												text_buffers,
-												buffer_sizes);
-												
-		g_free (uri);
+												buffer_sizes);												
 	}
 	
 	g_free (current_buffer);  
+	g_object_unref (file);
 
 	sdb_plugin->need_symbols_update = FALSE;
 
@@ -655,7 +648,8 @@ static void
 on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 						  SymbolDBPlugin *sdb_plugin)
 {
-	gchar *filename;
+	GFile *gfile = NULL;
+	GFileInfo *gfile_info = NULL;
 	IAnjutaLanguage* lang_manager;
 	
 	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
@@ -668,15 +662,32 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	
 	DEBUG_PRINT ("on_project_element_added");
 	
-	filename = gnome_vfs_get_local_path_from_uri (uri);
-	if (filename)
+	gfile = g_file_new_for_uri (uri);	
+	
+	if (gfile)
 	{
+		gchar *filename;
 		GPtrArray *files_array;
 		GPtrArray *languages_array;
 		const gchar* file_mime;
 		IAnjutaLanguageId lang_id;
 		const gchar* lang;
-		file_mime = gnome_vfs_get_mime_type_for_name (filename);
+		
+		gfile_info = g_file_query_info (gfile, 
+										"*", 
+										G_FILE_QUERY_INFO_NONE,
+										NULL,
+										NULL);
+		if (gfile_info == NULL)
+		{
+			g_object_unref (gfile);
+			return;
+		}
+		
+		file_mime = g_file_info_get_attribute_string (gfile_info,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
+		
+		DEBUG_PRINT ("got mime %s", file_mime);
 		
 		lang_id = ianjuta_language_get_from_mime_type (lang_manager, file_mime, 
 													   NULL);
@@ -684,7 +695,8 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		/* No supported language... */
 		if (!lang_id)
 		{
-			g_free (filename);
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);
 			return;
 		}
 		
@@ -692,18 +704,25 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		files_array = g_ptr_array_new();
 		languages_array = g_ptr_array_new();
 		
+		filename = g_file_get_path (gfile);
+		
 		g_ptr_array_add (files_array, filename);
 		g_ptr_array_add (languages_array, g_strdup (lang));
 		
 		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
 			sdb_plugin->project_opened, files_array, languages_array, TRUE);
 		
-		g_free (filename);
 		g_ptr_array_free (files_array, TRUE);
 		
 		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (languages_array, TRUE);
 	}
+	
+	if (gfile)
+		g_object_unref (gfile);
+	
+	if (gfile_info)
+		g_object_unref (gfile_info);
 }
 
 static void
@@ -711,11 +730,14 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 							SymbolDBPlugin *sdb_plugin)
 {
 	gchar *filename;
+	GFile *gfile;
 	
 	if (!sdb_plugin->project_root_uri)
 		return;
 	
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	gfile = g_file_new_for_uri (uri);
+	filename = g_file_get_path (gfile);
+
 	if (filename)
 	{
 		DEBUG_PRINT ("on_project_element_removed");
@@ -725,6 +747,8 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 		
 		g_free (filename);
 	}
+	
+	g_object_unref (gfile);
 }
 
 static void
@@ -939,28 +963,57 @@ do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 		const gchar *file_mime;
 		const gchar *lang;
 		const gchar *local_filename;
+		GFile *gfile;
+		GFileInfo *gfile_info;
 		IAnjutaLanguageId lang_id;
 		
 		local_filename = g_ptr_array_index (sources_array, i);
 		
 		if (local_filename == NULL)
 			continue;
-		file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
+		
+		gfile = g_file_new_for_path (local_filename);
+		if (gfile == NULL)
+			continue;
+		
+		gfile_info = g_file_query_info (gfile, 
+										"*", 
+										G_FILE_QUERY_INFO_NONE,
+										NULL,
+										NULL);
+		if (gfile_info == NULL)
+		{
+			g_object_unref (gfile);
+			continue;
+		}
+		
+		file_mime = g_file_info_get_attribute_string (gfile_info,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
 					
 		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
 													 file_mime, NULL);
 					
-		if (!lang_id)		
+		if (!lang_id)
+		{
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);
 			continue;
+		}
 						
 		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
 
 		/* test its existence */
-		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 		
+		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE)
+		{
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);			
 			continue;		
+		}
 					
 		g_ptr_array_add (languages_array, g_strdup (lang));					
 		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
+		g_object_unref (gfile);
+		g_object_unref (gfile_info);		
 	}
 
 	symbol_db_system_parse_aborted_package (sdb_plugin->sdbs, 
@@ -1004,19 +1057,40 @@ do_import_project_src_after_abort (AnjutaPlugin *plugin,
 		const gchar *file_mime;
 		const gchar *lang;
 		const gchar *local_filename;
+		GFile *gfile;
+		GFileInfo *gfile_info;
 		IAnjutaLanguageId lang_id;
 		
 		local_filename = g_ptr_array_index (sources_array, i);
 		
 		if (local_filename == NULL)
 			continue;
-		file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
+		
+		gfile = g_file_new_for_path (local_filename);
+		if (gfile == NULL)
+			continue;
+		
+		gfile_info = g_file_query_info (gfile, 
+										"*", 
+										G_FILE_QUERY_INFO_NONE,
+										NULL,
+										NULL);
+		if (gfile_info == NULL)
+		{
+			g_object_unref (gfile);
+			continue;
+		}
+		
+		file_mime = g_file_info_get_attribute_string (gfile_info,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
 					
 		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
 													 file_mime, NULL);
 					
 		if (!lang_id)
 		{
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);			
 			continue;
 		}
 				
@@ -1025,12 +1099,16 @@ do_import_project_src_after_abort (AnjutaPlugin *plugin,
 		/* test its existence */
 		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
 		{
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);			
 			continue;
 		}
 					
 		sdb_plugin->files_count_project++;
 		g_ptr_array_add (languages_array, g_strdup (lang));					
 		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
+		g_object_unref (gfile);
+		g_object_unref (gfile_info);		
 	}
 			
 	/* connect to receive signals on single file scan complete. We'll
@@ -1113,13 +1191,28 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		const gchar *file_mime;
 		const gchar *lang;
 		IAnjutaLanguageId lang_id;
-					
-		local_filename = 
-			gnome_vfs_get_local_path_from_uri (g_list_nth_data (
+		GFile *gfile = NULL;
+		GFileInfo *gfile_info;
+		
+		gfile = g_file_new_for_uri (g_list_nth_data (
 											prj_elements_list, i));
-					
-		if (local_filename == NULL)
+		if (gfile == NULL)
+		{
 			continue;
+		}
+		
+				
+		local_filename = g_file_get_path (gfile);
+/*		DEBUG_PRINT ("local_filename %s [was %s]", local_filename, g_list_nth_data (
+										prj_elements_list, i));*/
+					
+		if (local_filename == NULL || 
+			g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE)
+		{
+			if (gfile)
+				g_object_unref (gfile);
+			continue;
+		}
 					
 		/* check if it's already present in the list. This avoids
 		 * duplicates.
@@ -1136,9 +1229,28 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 			/* you're a dup! we don't want you */
 			g_free (local_filename);
 			continue;
+		}					
+		
+		if (gfile == NULL)
+		{
+			g_free (local_filename);
+			continue;
 		}
-					
-		file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
+		
+		gfile_info = g_file_query_info (gfile, 
+										"*", 
+										G_FILE_QUERY_INFO_NONE,
+										NULL,
+										NULL);
+		if (gfile_info == NULL)
+		{
+			g_free (local_filename);
+			g_object_unref (gfile);
+			continue;
+		}
+		
+		file_mime = g_file_info_get_attribute_string (gfile_info,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
 					
 		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
 													 file_mime, NULL);
@@ -1146,18 +1258,13 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		if (!lang_id)
 		{
 			g_free (local_filename);
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);
 			continue;
 		}
-				
+			
 		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
-		DEBUG_PRINT ("Language of %s is %s", local_filename, file_mime);
-		/* test its existence */
-		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
-		{
-			g_free (local_filename);
-			continue;
-		}
-					
+
 		if (!sources_array)
 			sources_array = g_ptr_array_new ();
 					
@@ -1167,6 +1274,8 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		sdb_plugin->files_count_project++;
 		g_ptr_array_add (sources_array, local_filename);
 		g_ptr_array_add (languages_array, g_strdup (lang));					
+		g_object_unref (gfile);
+		g_object_unref (gfile_info);		
 	}
 			
 	DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
@@ -1178,9 +1287,12 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
 		  G_CALLBACK (on_project_single_file_scan_end), plugin);
 	
-	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
-									sdb_plugin->project_opened,
-					sources_array, languages_array, TRUE);
+	if (sources_array == NULL || languages_array == NULL)
+		g_warning ("source or language arrays are NULL. Could not import project's files.");
+	else
+		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
+										sdb_plugin->project_opened,
+						sources_array, languages_array, TRUE);
 				
 	g_hash_table_unref (check_unique_file);
 				
@@ -1413,9 +1525,15 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	if (root_uri)
 	{
-		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
+		gchar *root_dir;
+		GFile *gfile;
+		gfile = g_file_new_for_uri (root_uri);
+		
+		root_dir = g_file_get_path (gfile);
 		DEBUG_PRINT ("Symbol-DB: added project root_dir %s, name %s", root_dir, 
 					 name);
+		
+		g_object_unref (gfile);
 		
 		/* FIXME: where's the project name itself? */
 		DEBUG_PRINT ("FIXME: where's the project name itself? ");
@@ -1476,8 +1594,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			{
 				/*
 				 * no import needed. But we may have aborted the scan of sources ..
-				 */
-				
+				 */				
 				GPtrArray *sources_array = NULL;
 				
 				sources_array = 

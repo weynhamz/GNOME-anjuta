@@ -25,7 +25,6 @@
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include "symbol-db-engine-iterator-node.h"
 #include "symbol-db-engine.h"
