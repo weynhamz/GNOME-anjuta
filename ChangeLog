@@ -1,3 +1,11 @@
+2008-10-25  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-model.c (on_row_expanded_async),
+	(file_model_row_expanded), (file_model_row_collapsed):
+	Made file-manager completely async.
+	* plugins/file-manager/file-view.c (file_view_button_press_event):
+	Some improvements for #555759
+
 2008-10-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/terminal/Makefile.am.tpl,

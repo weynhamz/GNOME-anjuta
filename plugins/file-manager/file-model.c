@@ -50,6 +50,7 @@ enum
 };
 
 typedef struct _FileModelPrivate FileModelPrivate;
+typedef struct _FileModelAsyncData FileModelAsyncData;
 
 struct _FileModelPrivate
 {
@@ -57,6 +58,12 @@ struct _FileModelPrivate
 	gboolean filter_binary;
 	gboolean filter_hidden;
 	gboolean filter_backup;
+};
+
+struct _FileModelAsyncData
+{
+	FileModel* model;
+	GtkTreeRowReference* reference;
 };
 
 #define FILE_MODEL_GET_PRIVATE(o) \
@@ -291,17 +298,72 @@ file_model_add_watch (FileModel* model, GtkTreePath* path)
 }
 
 static void
+on_row_expanded_async (GObject* source_object,
+					   GAsyncResult* result,
+					   gpointer user_data)
+{
+	FileModelAsyncData* data = user_data;
+	GFile* dir = G_FILE (source_object);
+	GFileEnumerator* files;
+	GError* err = NULL;
+	GtkTreeIter real_iter;
+	GtkTreeIter dummy;
+	GtkTreeRowReference* ref = data->reference;
+	GtkTreePath* path;
+	FileModel* model = data->model;
+	GFileInfo* file_info;
+	
+	files = g_file_enumerate_children_finish (dir, result, &err);	
+	path = gtk_tree_row_reference_get_path (ref);
+	
+	if (!path)
+	{
+		gtk_tree_row_reference_free (ref);
+		g_object_unref (dir);
+		g_object_unref (files);
+		return;
+	}
+	
+	if (err)
+	{
+		g_object_unref (dir);
+		DEBUG_PRINT ("GIO-Error: %s", err->message);
+		g_error_free (err);
+		// TODO: Collapse row
+		return;
+	}
+	
+	gtk_tree_model_get_iter (GTK_TREE_MODEL(data->model), &real_iter, path);
+	
+	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))
+	{
+		GFile* file = g_file_get_child (dir, g_file_info_get_name(file_info));
+		file_model_add_file (data->model, &real_iter, file, file_info);
+		g_object_unref (file);
+	}
+	/* Remove dummy node */
+	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, &real_iter);
+	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
+
+	file_model_add_watch (model, path);
+	gtk_tree_path_free (path);
+	gtk_tree_row_reference_free (ref);
+	g_object_unref(files);
+	g_object_unref(dir);
+}
+
+static void
 file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
-					    GtkTreePath* path, gpointer data)
+					    GtkTreePath* path, gpointer user_data)
 {
 	GtkTreeModel* sort_model = gtk_tree_view_get_model(tree_view);
-	FileModel* model = FILE_MODEL(data);
+	FileModel* model = FILE_MODEL(user_data);
 	GFile* dir;
-	GtkTreeIter real_iter, dummy;
+	GtkTreeIter real_iter;
+	GCancellable* cancel = g_cancellable_new ();
 	GtkTreePath* real_path;
-	GError* err = NULL;
-	GFileEnumerator* files;
-	GFileInfo* file_info;
+	
+	DEBUG_PRINT (__FUNCTION__);
 	
 	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
 												   &real_iter, iter);
@@ -309,32 +371,23 @@ file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 	gtk_tree_model_get(GTK_TREE_MODEL(model), &real_iter,
 					   COLUMN_FILE, &dir, -1);
 	
-	files = g_file_enumerate_children (dir,
-									   "standard::*",
-									   G_FILE_QUERY_INFO_NONE,
-									   NULL, 
-									   &err);
-	if (err)
-	{
-		g_object_unref (dir);
-		return;
-	}	
-	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))
-	{
-		GFile* file = g_file_get_child (dir, g_file_info_get_name(file_info));
-		file_model_add_file (model, &real_iter, file, file_info);
-		g_object_unref (file);
-	}
-	/* Remove dummy node */
-	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, &real_iter);
-	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
-
-	real_path = gtk_tree_model_get_path (GTK_TREE_MODEL(model), &real_iter);
-	file_model_add_watch (model, real_path);
+	FileModelAsyncData* data = g_new0 (FileModelAsyncData, 1);
+	data->model = model;
+	real_path = gtk_tree_model_get_path (GTK_TREE_MODEL (model),
+									&real_iter);
+	data->reference = gtk_tree_row_reference_new (GTK_TREE_MODEL (model),
+												  real_path);
 	gtk_tree_path_free (real_path);
-		
-	g_object_unref(files);
-	g_object_unref(dir);
+	
+	g_object_set_data (G_OBJECT(dir), "_cancel", cancel);
+	
+	g_file_enumerate_children_async (dir,
+									 "standard::*",
+									 G_FILE_QUERY_INFO_NONE,
+									 G_PRIORITY_LOW,
+									 cancel,
+									 on_row_expanded_async,
+									 data);
 }
 
 static void
@@ -346,13 +399,22 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 	GtkTreeIter child;
 	GtkTreeIter sort_iter;
 	GtkTreeIter real_iter;
+	GFile* dir;
+	GCancellable* cancel;
 	
 	/* Iter might be invalid in some conditions */
 	gtk_tree_model_get_iter (sort_model, &sort_iter, path);
 	
 	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
 												   &real_iter, &sort_iter);
-
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), &real_iter, 
+						COLUMN_FILE, &dir, -1);
+	
+	cancel = g_object_get_data (G_OBJECT(dir), "_cancel");
+	g_cancellable_cancel (cancel);
+	g_object_unref (cancel);
+	
 	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, &real_iter))
 	{
 		file_model_remove_file (model, &child);

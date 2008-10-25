@@ -115,6 +115,11 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 	gboolean is_dir;
 	GtkTreePath* path = NULL;
 	GFile* file;
+	gboolean retval = 	
+		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
+																	   event);	
+	
+	DEBUG_PRINT (__FUNCTION__);
 	
 	GtkTreeSelection* selection = 
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -176,15 +181,15 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 								   is_dir,
 								   event->button,
 								   event->time);
+			break;
 		}
 	}
 	if (file)
 		g_object_unref (file);
 	if (path)
 		gtk_tree_path_free(path);
-	return 	
-		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
-																	   event);
+	
+	return retval;
 }
 
 static void
