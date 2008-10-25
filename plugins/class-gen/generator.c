@@ -70,7 +70,7 @@ cg_generator_make_absolute (const gchar *path)
 	gchar *current_dir;
 	gchar *abs_path;
 
-	/* TODO: Use gnome-vfs stuff here? */
+	/* TODO: Use gio stuff here? */
 	if (g_path_is_absolute (path))
 	{
 		abs_path = g_strdup (path);

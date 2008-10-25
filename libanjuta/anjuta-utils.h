@@ -119,6 +119,7 @@ gchar* anjuta_util_str_middle_truncate (const gchar *string,
 										 guint        truncate_length);
 
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
+gchar* anjuta_util_get_local_path_from_uri (const gchar *uri);
 
 void anjuta_util_help_display (GtkWindow   *parent,
 							   const gchar *doc_id,

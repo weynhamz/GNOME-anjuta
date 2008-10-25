@@ -1,6 +1,22 @@
-2008-10-25  Johannes Schmid  <jhs@idefix>
+2008-10-25  Johannes Schmid  <jhs@gnome.org>
 
-	Patch by: Jens Georg
+	Patch by: Jens Georg <mail@jensge.org>
+
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	* plugins/build-basic-autotools/executer.c
+	(get_program_parameters), (execute_program):
+	* plugins/build-basic-autotools/plugin.c
+	(value_added_pm_current_uri), (ibuilder_is_built),
+	(ibuilder_build):
+	* plugins/class-gen/generator.c (cg_generator_make_absolute):
+	* plugins/class-gen/plugin.c (project_root_added):
+	
+	#511589 – Anjuta uses GNOME-VFS
+
+2008-10-25  Johannes Schmid  <jhs@gnome.org>
+
+	Patch by: Jens Georg <mail@jensge.org>
 
 	* plugins/file-loader/plugin.c (launch_application_failure),
 	(get_supertype_from_mime_type), (get_available_plugins_for_mime),

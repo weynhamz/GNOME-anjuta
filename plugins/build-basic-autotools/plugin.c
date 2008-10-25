@@ -2474,12 +2474,9 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	const gchar *uri;
 	gchar *dirname, *filename;
 	gboolean makefile_exists, is_dir;
-	GFile* file;
 	
 	uri = g_value_get_string (value);
-	file = g_file_new_for_uri (uri);
-	filename = g_file_get_path (file);
-	g_object_unref (file);
+	filename = anjuta_util_get_local_path_from_uri (uri);
 	g_return_if_fail (filename != NULL);
 	
 	/*
@@ -3070,11 +3067,8 @@ ibuilder_is_built (IAnjutaBuilder *builder, const gchar *uri,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
 	BuildContext *context;
 	gchar *filename;
-	GFile* file;
 
-	file = g_file_new_for_uri (uri);
-	filename = g_file_get_path (file);
-	g_object_unref (file);
+	filename = anjuta_util_get_local_path_from_uri (uri);
 	if (filename == NULL) return NULL;
 	
 	context = build_is_file_built (plugin, filename, callback, user_data, err);
@@ -3092,11 +3086,8 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
 	BuildContext *context;
 	gchar *filename;
-	GFile* file;
 	
-	file = g_file_new_for_uri (uri);
-	filename = g_file_get_path (file);
-	g_object_unref (file);
+	filename = anjuta_util_get_local_path_from_uri (uri);
 	if (filename == NULL) return NULL;
 	
 	context = build_build_file_or_dir (plugin, filename, callback, user_data, err);

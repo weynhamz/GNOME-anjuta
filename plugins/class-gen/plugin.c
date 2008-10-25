@@ -19,7 +19,6 @@
 
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
@@ -54,7 +53,7 @@ project_root_added (AnjutaPlugin *plugin,
 	
 	if (root_uri)
 	{
-		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
+		gchar *root_dir = anjuta_util_get_local_path_from_uri (root_uri);
 		if (root_dir)
 			cg_plugin->top_dir = g_strdup(root_dir);
 		else

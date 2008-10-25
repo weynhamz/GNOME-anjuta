@@ -1149,6 +1149,19 @@ anjuta_util_get_uri_mime_type (const gchar *uri)
 	return mime_type;
 }
 
+gchar *
+anjuta_util_get_local_path_from_uri (const gchar *uri)
+{
+	GFile *file;
+	gchar *local_path;
+
+	file = g_file_new_for_uri (uri);
+	local_path = g_file_get_path (file);
+	g_object_unref (file);
+
+	return local_path;
+}
+
 #ifndef HAVE_LIBUTIL
 #include <grp.h>
 

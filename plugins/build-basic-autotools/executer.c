@@ -26,7 +26,6 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
@@ -114,7 +113,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 			gchar *local_path;
 			const gchar *rel_path;
 		
-			local_path = gnome_vfs_get_local_path_from_uri ((gchar*)node->data);
+			local_path = anjuta_util_get_local_path_from_uri ((gchar *)node->data);
 			if (local_path == NULL)
 			{
 				g_free (node->data);
@@ -287,7 +286,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		/* Check if target is local */
 		gchar *local_uri;
 		
-		local_uri = gnome_vfs_get_local_path_from_uri (target);
+		local_uri = anjuta_util_get_local_path_from_uri (target);
 		if (local_uri == NULL)
 		{
 			error_condition = TRUE;
@@ -332,7 +331,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "current_editor",
 						  G_TYPE_OBJECT, &te, NULL);
 		
-		filename = gnome_vfs_get_local_path_from_uri (target);
+		filename = anjuta_util_get_local_path_from_uri (target);
 		prog = NULL;
 		prog = g_strdup (filename);
 		temp = g_strrstr (prog, ".");
