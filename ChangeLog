@@ -1,3 +1,16 @@
+2008-10-25  Johannes Schmid  <jhs@idefix>
+
+	Patch by: Jens Georg
+
+	* plugins/file-loader/plugin.c (launch_application_failure),
+	(get_supertype_from_mime_type), (get_available_plugins_for_mime),
+	(open_with_dialog), (launch_in_default_application), (open_file),
+	(on_open_recent_file_idle), (on_open_recent_file),
+	(open_file_with), (create_open_with_submenu),
+	(hide_fragment_identifier), (iloader_load):
+	
+	#511589 – Anjuta uses GNOME-VFS
+
 2008-10-25  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c

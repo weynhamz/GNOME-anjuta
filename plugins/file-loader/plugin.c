@@ -19,10 +19,6 @@
 */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-mime.h>
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
 
 #include <glib/gi18n.h>
 
@@ -101,17 +97,32 @@ set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 static void
 launch_application_failure (AnjutaFileLoaderPlugin *plugin,
 							const gchar *uri,
-							GnomeVFSResult result)
+							const gchar *errmsg)
 {
-	const gchar *errmsg;
 	GtkWidget *parent;
 	
-	errmsg = gnome_vfs_result_to_string (result);
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	anjuta_util_dialog_error (GTK_WINDOW (parent),
 							  _("Can not open \"%s\".\n\n%s"),
 							  g_basename (uri), errmsg);
+}
+
+static gchar *
+get_supertype_from_mime_type (const gchar *mime_type)
+{
+	gchar *supertype;
+	gchar *delim;
+	gchar *retval;
+	
+	supertype = g_strdup (mime_type);
+	delim = strchr (supertype, '/');
+	g_return_val_if_fail (delim != NULL, supertype);
+
+	*delim = '\0';
+	retval = g_strconcat (supertype, "/*", NULL);
+	g_free(supertype);
+	return retval;
 }
 
 static GList *
@@ -134,7 +145,7 @@ get_available_plugins_for_mime (AnjutaFileLoaderPlugin* plugin,
 												NULL);
 	if (!plugin_descs);
 	{
-		gchar* supertype = gnome_vfs_get_supertype_from_mime_type (mime_type);
+		gchar* supertype = get_supertype_from_mime_type (mime_type);
 		plugin_descs = anjuta_plugin_manager_query (plugin_manager,
 												"Anjuta Plugin",
 												"Interfaces", "IAnjutaFile",
@@ -155,7 +166,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	GList *plugin_descs, *snode;
 	GList *mime_apps, *node;
 	GtkWidget *menu, *menuitem;
-	GnomeVFSMimeApplication *mime_app;
+	GAppInfo *mime_app;
 	
 	GtkWidget *dialog, *parent, *hbox, *label;
 	GtkWidget *options;
@@ -227,7 +238,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	}
 	
 	/* Open with application menu items */
-	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
+	mime_apps = g_app_info_get_all_for_type (mime_type);
 	if (mime_apps)
 	{
 		/* Separator */
@@ -237,9 +248,13 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	node = mime_apps;
 	while (node)
 	{
-		mime_app = (GnomeVFSMimeApplication *)(node->data);
-		menuitem = gtk_menu_item_new_with_label (mime_app->name);
-		gtk_menu_append (menu, menuitem);
+		mime_app = (GAppInfo *)(node->data);
+		if (g_app_info_should_show (mime_app))
+		{
+			menuitem = gtk_menu_item_new_with_label (
+					g_app_info_get_name (mime_app));
+			gtk_menu_append (menu, menuitem);
+		}
 		node = g_list_next (node);
 	}
 	
@@ -304,20 +319,26 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 		else
 		{
 			GList *uris = NULL;
-			GnomeVFSResult res;
+			GError *error = NULL;
 			
 			option -= (g_list_length (plugin_descs) + 2);
 			mime_app = g_list_nth_data (mime_apps, option);
 			uris = g_list_prepend (uris, (gpointer)uri);
-			res = gnome_vfs_mime_application_launch (mime_app, uris);
-			if (res != GNOME_VFS_OK)
-				launch_application_failure (plugin, uri, res);
+			g_app_info_launch_uris(mime_app, uris, NULL, &error);
+			if (error)
+			{
+				launch_application_failure (plugin, uri, error->message);
+				g_error_free (error);
+			}
 			else
+			{
 				set_recent_file (plugin, uri, mime_type);
+			}
 			g_list_free (uris);
 		}
 	}
-	gnome_vfs_mime_application_list_free (mime_apps);
+	g_list_foreach (mime_apps, (GFunc) g_object_unref, NULL);
+	g_list_free (mime_apps);
 	if (plugin_descs)
 		g_list_free (plugin_descs);
 	gtk_widget_destroy (dialog);
@@ -327,48 +348,38 @@ static gboolean
 launch_in_default_application (AnjutaFileLoaderPlugin *plugin,
 							   const gchar *mime_type, const gchar *uri)
 {
-	GnomeVFSMimeAction *action;
+	GAppInfo *appinfo;
 	GList *uris = NULL;
-	gboolean ret;
-	
+
 	uris = g_list_prepend (uris, (gpointer)uri);
-	
-	ret = TRUE;
-	action = gnome_vfs_mime_get_default_action (mime_type);
-	if (!action || gnome_vfs_mime_action_launch (action, uris) != GNOME_VFS_OK)
+
+	appinfo = g_app_info_get_default_for_type (mime_type, TRUE);
+	if (appinfo)
 	{
-		GnomeVFSMimeApplication *app;
-		GnomeVFSResult res;
-		app = gnome_vfs_mime_get_default_application (mime_type);
-		if (!app ||
-			(res =
-				gnome_vfs_mime_application_launch (app, uris)) != GNOME_VFS_OK)
+		if (!g_app_info_launch_uris (appinfo, uris, NULL, NULL))
 		{
 			open_with_dialog (plugin, uri, mime_type);
 		}
-		if (app)
-			gnome_vfs_mime_application_free (app);
+		g_object_unref (G_OBJECT (appinfo));
 	}
-	if (action)
-		gnome_vfs_mime_action_free (action);
 	g_list_free (uris);
-	return ret;
+	return TRUE;
 }
 
 static void
 open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 {
-	GnomeVFSURI *vfs_uri;	
 	gchar *dirname;
+	gchar *path;
 	GFile* file;
 	
-	vfs_uri = gnome_vfs_uri_new (uri);
-	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
-	gnome_vfs_uri_unref (vfs_uri);
+	file = g_file_new_for_uri (uri);
+	path = g_file_get_path (file);
+	dirname = g_path_get_dirname (uri);
 	chdir (dirname);
+	g_free (path);
 	g_free (dirname);
 	
-	file = g_file_new_for_uri (uri);
 	
 	/* FIXME: We have to manage the error to know if we have to remove the recent file
 	 */
@@ -382,14 +393,14 @@ typedef struct
 {
 	AnjutaFileLoaderPlugin *plugin;
 	const gchar *uri;
-} RecentIdelOpenData;
+} RecentIdleOpenData;
 
 static gboolean
 on_open_recent_file_idle (gpointer data)
 {
-	RecentIdelOpenData *rdata;
+	RecentIdleOpenData *rdata;
 	
-	rdata = (RecentIdelOpenData*)data;
+	rdata = (RecentIdleOpenData*)data;
 	open_file (rdata->plugin, rdata->uri);
 	g_free (rdata);
 	return FALSE;
@@ -399,17 +410,14 @@ static gboolean
 on_open_recent_file (GtkRecentChooser *chooser, AnjutaFileLoaderPlugin *plugin)
 {
 	const gchar *uri;
-	GnomeVFSURI *vfs_uri;
 	gboolean ret = TRUE;
-	RecentIdelOpenData *rdata;
+	RecentIdleOpenData *rdata;
 	
 	uri = gtk_recent_chooser_get_current_uri (chooser);
-	vfs_uri = gnome_vfs_uri_new (uri);
-	rdata = g_new0 (RecentIdelOpenData, 1);
+	rdata = g_new0 (RecentIdleOpenData, 1);
 	rdata->plugin = plugin;
 	rdata->uri = uri;
 	g_idle_add (on_open_recent_file_idle, rdata);
-	gnome_vfs_uri_unref (vfs_uri);
 
 	return ret;
 }
@@ -704,7 +712,7 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 				const gchar *uri)
 {
 	GList *mime_apps;
-	GnomeVFSMimeApplication *mime_app;
+	GAppInfo *mime_app;
 	gchar *mime_type;
 	gint idx;
 	AnjutaPluginDescription *desc;
@@ -716,7 +724,7 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
 													  NULL);
 	mime_type = anjuta_util_get_uri_mime_type (uri);
-	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
+	mime_apps = g_app_info_get_all_for_type (mime_type);
 	
 	/* Open with plugin */
 	if (desc)
@@ -752,18 +760,21 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 	else
 	{
 		GList *uris = NULL;
-		GnomeVFSResult res;
+		GError *error = NULL;
 		
 		mime_app = g_list_nth_data (mime_apps, idx);
 		uris = g_list_prepend (uris, (gpointer)uri);
-		res = gnome_vfs_mime_application_launch (mime_app, uris);
-		if (res != GNOME_VFS_OK)
-			launch_application_failure (plugin, uri, res);
+		g_app_info_launch_uris (mime_app, uris, NULL, &error);
+		if (error)
+		{
+			launch_application_failure (plugin, uri, error->message);
+			g_error_free (error);
+		}
 		else
 			set_recent_file (plugin, uri, mime_type);
 		g_list_free (uris);
 	}
-	gnome_vfs_mime_application_list_free (mime_apps);
+	g_list_free (mime_apps);
 	g_free (mime_type);
 }
 
@@ -849,7 +860,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 						  gpointer callback_data)
 {
 	GList *mime_apps, *node;
-	GnomeVFSMimeApplication *mime_app;
+	GAppInfo *mime_app;
 	GList *plugin_descs, *snode;
 	GtkWidget *menu, *menuitem;
 	gchar *mime_type;
@@ -902,7 +913,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	}
 	
 	/* Open with applications */
-	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
+	mime_apps = g_app_info_get_all_for_type (mime_type);
 	if (idx > 0 && mime_apps)
 	{
 		menuitem = gtk_menu_item_new ();
@@ -914,12 +925,15 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	node = mime_apps;
 	while (node)
 	{
-		mime_app = (GnomeVFSMimeApplication *)(node->data);
-		menuitem = gtk_menu_item_new_with_label (mime_app->name);
-		g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
-		g_signal_connect (G_OBJECT (menuitem), "activate",
-						  G_CALLBACK (callback), callback_data);
-		gtk_menu_append (menu, menuitem);
+		mime_app = (GAppInfo *)(node->data);
+		if (g_app_info_should_show (mime_app))
+		{
+			menuitem = gtk_menu_item_new_with_label ( g_app_info_get_name (mime_app));
+			g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
+			g_signal_connect (G_OBJECT (menuitem), "activate",
+							  G_CALLBACK (callback), callback_data);
+			gtk_menu_append (menu, menuitem);
+		}
 		node = g_list_next (node);
 		idx++;
 	}
@@ -930,7 +944,8 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	else
 		ret = TRUE;
 	
-	gnome_vfs_mime_application_list_free (mime_apps);
+	g_list_foreach (mime_apps, (GFunc) g_object_unref, NULL);
+	g_list_free (mime_apps);
 	if (plugin_descs)
 		g_list_free (plugin_descs);
 	
@@ -1323,39 +1338,51 @@ anjuta_file_loader_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
+static gchar*
+hide_fragment_identifier (const gchar *uri)
+{
+	gchar *new_uri;
+
+	new_uri = g_strdup (uri);
+	if (strchr (new_uri, '#'))
+		*(strchr (new_uri, '#')) = '\0';
+
+	return new_uri;
+}
+
 static GObject*
 iloader_load (IAnjutaFileLoader *loader, GFile* file,
 			  gboolean read_only, GError **err)
 {
 	gchar *mime_type;
 	gchar *new_uri;
-	GnomeVFSURI* vfs_uri;
 	AnjutaStatus *status;
 	AnjutaPluginManager *plugin_manager;
 	GList *plugin_descs = NULL;
 	GObject *plugin = NULL;	
-	gchar* uri = g_file_get_uri (file);
+	gchar *uri = g_file_get_uri (file);
 	
 	g_return_val_if_fail (uri != NULL, NULL);
-	vfs_uri = gnome_vfs_uri_new (uri);
+
+	new_uri = hide_fragment_identifier (uri);
+	GFile *file2 = g_file_new_for_uri (new_uri);
 	
-	if (!gnome_vfs_uri_exists (vfs_uri))
+	if (!g_file_query_exists (file2, NULL))
 	{
 		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
-									uri, GNOME_VFS_ERROR_NOT_FOUND);
-		gnome_vfs_uri_unref (vfs_uri);
+									uri, _("File not found"));
+		g_object_unref (G_OBJECT (file2));
 		return NULL;
 	}
+	g_object_unref (G_OBJECT (file2));
 	
-	new_uri = gnome_vfs_uri_to_string (vfs_uri,
-									   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
+	new_uri = hide_fragment_identifier (uri);
 	mime_type = anjuta_util_get_uri_mime_type (new_uri);
-	gnome_vfs_uri_unref (vfs_uri);
 	
 	if (mime_type == NULL)
 	{
 		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
-									new_uri, GNOME_VFS_ERROR_NOT_FOUND);
+									new_uri, _("File not found"));
 		g_free (new_uri);
 		return NULL;
 	}
