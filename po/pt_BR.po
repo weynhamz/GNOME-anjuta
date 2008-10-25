@@ -16,14 +16,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-15 10:26+0000\n"
+"POT-Creation-Date: 2008-09-27 03:18+0000\n"
 "PO-Revision-Date: 2008-09-14 21:45-0300\n"
 "Last-Translator: Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -405,7 +405,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Não foi possível ler \"%s\": Os seguintes plug-ins necessários estão "
+"Não foi possível ler \"%s\": Os seguintes plug-ins obrigatórios estão "
 "faltando:\n"
 "%s"
 
@@ -3078,19 +3078,19 @@ msgstr "Exibe/Oculta a quebra de linha"
 
 #: ../plugins/document-manager/plugin.c:344
 msgid "Zoom In"
-msgstr "Aproximar"
+msgstr "Ampliar"
 
 #: ../plugins/document-manager/plugin.c:345
 msgid "Zoom in: Increase font size"
-msgstr "Aproximar: Aumenta o tamanho da fonte"
+msgstr "Ampliar: Aumenta o tamanho da fonte"
 
 #: ../plugins/document-manager/plugin.c:347
 msgid "Zoom Out"
-msgstr "Afastar"
+msgstr "Reduzir"
 
 #: ../plugins/document-manager/plugin.c:348
 msgid "Zoom out: Decrease font size"
-msgstr "Afastar: Diminuir o tamanho do fonte"
+msgstr "Reduzir: Diminuir o tamanho do fonte"
 
 #: ../plugins/document-manager/plugin.c:353
 msgid "_Highlight Mode"
@@ -6351,7 +6351,7 @@ msgstr ""
 #: ../plugins/project-wizard/druid.c:545
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr "O arquivo \"%s\" já existe. Você deseja substituí-lo?"
+msgstr "O arquivo \"%s\" já existe. Você deseja sobrescrevê-lo?"
 
 #: ../plugins/project-wizard/druid.c:710
 #, c-format
@@ -7824,7 +7824,7 @@ msgstr "Digite uma URL de ramificação/tag."
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:344
+#: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff terminado."
 
