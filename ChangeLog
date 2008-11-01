@@ -1,3 +1,10 @@
+2008-11-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	* libanjuta/anjuta-debug.h:
+	Added DEBUG_PRINTF macro.
+	
+	Fixes bug #558788
+
 2008-10-25  Johannes Schmid  <jhs@gnome.org>
 
 	Patch by: Jens Georg <mail@jensge.org>

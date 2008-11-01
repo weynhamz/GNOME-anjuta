@@ -44,4 +44,16 @@
 #  define DEBUG_PRINT(...)
 #endif
 
+/**
+ * DEBUG_PRINTF:
+ * 
+ * Equivalent to g_debug() showing the FILE, the LINE and the FUNC,
+ * except it has only effect when DEBUG is defined. Used for printing debug messages.
+ */
+#if defined (DEBUG) && defined (__GNUCC__)
+#  define DEBUG_PRINTF(format, ...) g_debug ("%s:%d (%s)" format, __FILE__, __LINE__, G_STRFUNC, __VA_ARGS__)
+#else
+#  define DEBUG_PRINTF(...)
+#endif
+
 #endif
