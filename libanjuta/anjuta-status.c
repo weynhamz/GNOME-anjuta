@@ -512,7 +512,6 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 	if (status->priv->splash)
 	{
 		e_splash_set (E_SPLASH(status->priv->splash), icon, text, NULL, percentage);
-		while (g_main_context_iteration(NULL, FALSE));
 	}
 	else
 	{
