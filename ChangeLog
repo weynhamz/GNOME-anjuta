@@ -1,3 +1,8 @@
+2008-11-02  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-loader/plugin.c (iloader_load):
+	Fix localisation (from Marc Lorber)
+
 2008-11-02  Jens Georg  <mail@jensge.org>
 
 	* plugins/cvs-plugin/cvs-callbacks.c (on_cvs_remove_response)

@@ -181,6 +181,8 @@ create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
 	return completion;
 }
 
+#define SCOPE_BRACE_JUMP_LIMIT 50
+
 static gchar*
 cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 								   const gchar *scope_operator,
@@ -196,14 +198,27 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 	
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	
-	while (ch && is_scope_context_character (ch))
+	while (ch)
 	{
-		scope_chars_found = TRUE;
+		if (is_scope_context_character (ch))
+		{
+			scope_chars_found = TRUE;
+		}
+		else if (ch == ')')
+		{
+			if (!cpp_java_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
+			{
+				out_of_range = TRUE;
+				break;
+			}
+		}
+		else
+			break;
 		if (!ianjuta_iterable_previous (iter, NULL))
 		{
 			out_of_range = TRUE;
 			break;
-		}
+		}		
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	}
 	if (scope_chars_found)
@@ -320,29 +335,90 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 											   const gchar *scope_operator,
 											   const gchar *scope_context)
 {
-	DEBUG_PRINT ("TODO: cpp_java_assist_create_scope_completion_cache ()");
-#if 0	
+	DEBUG_PRINT ("scope context: %s", scope_context);
 	cpp_java_assist_destroy_completion_cache (assist);
 	if (g_str_equal (scope_operator, "::"))
 	{
-		IAnjutaIterable* iter = 
-			ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
-												scope_context, TRUE, NULL);
-		if (iter)
+		/* Go through the possible namespace (Gnome::Glade, for example) */
+		GStrv contexts = g_strsplit (scope_context, "::", -1);
+		gint cur_context = 0;
+		if (contexts[0] != NULL)
 		{
-			assist->priv->completion_cache =
-				create_completion (assist->priv->iassist, iter);
-			assist->priv->scope_context_cache = g_strdup (scope_context);
-			g_object_unref (iter);
+			DEBUG_PRINT ("Scope[%d] = %s", cur_context, contexts[0]);
+			IAnjutaIterable* symbol = 
+				ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+											   IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_NAMESPACE,
+											   TRUE,
+											   IANJUTA_SYMBOL_FIELD_SIMPLE,
+											   contexts[0],
+											   FALSE,
+											   TRUE,
+											   TRUE,
+											   1,
+											   -1,
+											   NULL);
+			if (symbol && ianjuta_iterable_get_length(symbol, NULL))
+			{
+				while (contexts[++cur_context] != NULL)
+				{							
+					DEBUG_PRINT ("Scope[%d] = %s", cur_context, contexts[0]);
+					IAnjutaIterable* members = 
+						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
+														   IANJUTA_SYMBOL(symbol),
+														   IANJUTA_SYMBOL_FIELD_SIMPLE,
+														   TRUE, NULL);
+					if (members && ianjuta_iterable_get_length (members, NULL))
+					{
+						gboolean found = FALSE;
+						do
+						{
+							if (g_str_equal (ianjuta_symbol_get_name (IANJUTA_SYMBOL(members),
+																	  NULL),
+											 contexts[cur_context]))
+							{
+								g_object_unref (symbol);
+								symbol = members;
+								found = TRUE;
+								break;
+							}
+						}
+						while (ianjuta_iterable_next (members, NULL));
+						if (found)
+							continue;
+						else
+						{
+							g_object_unref (symbol);
+							symbol = NULL;
+							break;
+						}
+					}
+				}
+				if (symbol)
+				{
+					IAnjutaIterable* members = 
+						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
+														   IANJUTA_SYMBOL(symbol),
+														   IANJUTA_SYMBOL_FIELD_SIMPLE,
+														   TRUE, NULL);
+					if (members)
+					{
+						assist->priv->completion_cache =
+							create_completion (assist->priv->iassist, members, NULL);
+						assist->priv->scope_context_cache = g_strdup (scope_context);
+						g_object_unref (members);
+					}
+					g_object_unref (symbol);
+				}
+			}
 		}
-	} 
+		g_strfreev(contexts);
+	}
 	else if (g_str_equal (scope_operator, ".") ||
 			 g_str_equal (scope_operator, "->"))	
 	{
 		/* TODO: Find the type of context by parsing the file somehow and
 		search for the member as it is done with the :: context */
-	}
-#endif	
+	}	
 }
 
 static void
