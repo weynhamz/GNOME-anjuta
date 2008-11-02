@@ -148,7 +148,7 @@ create_columns (LogData *data)
 	gtk_tree_view_column_pack_start (column, data->graph_renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, data->graph_renderer, 
 										"revision", COL_REVISION);
-	gtk_tree_view_column_set_title (column, "Graph");
+	gtk_tree_view_column_set_title (column, _("Graph"));
 	
 	/* Short log */
 	column = gtk_tree_view_column_new ();
@@ -163,7 +163,7 @@ create_columns (LogData *data)
 	gtk_tree_view_column_set_cell_data_func (column, renderer,
 											 (GtkTreeCellDataFunc) short_log_cell_function,
 											 NULL, NULL);
-	gtk_tree_view_column_set_title (column, "Short log");
+	gtk_tree_view_column_set_title (column, _("Short log"));
 	
 	/* Author */
 	column = gtk_tree_view_column_new ();
@@ -174,7 +174,7 @@ create_columns (LogData *data)
 	gtk_tree_view_column_set_cell_data_func (column, renderer,
 											 (GtkTreeCellDataFunc) author_cell_function,
 											 NULL, NULL);
-	gtk_tree_view_column_set_title (column, "Author");
+	gtk_tree_view_column_set_title (column, _("Author"));
 	
 	/* Date */
 	column = gtk_tree_view_column_new ();
@@ -185,7 +185,7 @@ create_columns (LogData *data)
 	gtk_tree_view_column_set_cell_data_func (column, renderer,
 											 (GtkTreeCellDataFunc) date_cell_function,
 											 NULL, NULL);
-	gtk_tree_view_column_set_title (column, "Date");
+	gtk_tree_view_column_set_title (column, _("Date"));
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_changes_view),
 							 GTK_TREE_MODEL (data->list_store));
