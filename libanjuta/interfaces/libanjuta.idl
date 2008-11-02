@@ -208,6 +208,16 @@ interface IAnjutaMarkable
 		INVALID_LOCATION
 	}
 
+  /**
+   * IAnjutaMarkableMarker:
+   * @IANJUTA_MARKABLE_LINEMARKER: Mark a particular line
+   * @IANJUTA_MARKABLE_BOOKMARK: A bookmark
+   * @IANJUTA_MARKABLE_BREAKPOINT_DISABLED: a disabled breakpoint
+   * @IANJUTA_MARKABLE_BREAKPOINT_ENABLED: a enabled breakpoint
+   * @IANJUTA_MARKABLE_PROGRAM_COUNTER: Marks the program counter position
+   *
+   * This enumeration is used to specify the pixmap used for the marker
+   */
 	enum Marker
 	{
 		LINEMARKER,
@@ -216,7 +226,14 @@ interface IAnjutaMarkable
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
 	}
-
+  /**
+	 * IAnjutaMarkable::marker-clicked:
+	 * @obj: Self
+	 * @double_click: whether the marker was double clicked
+	 * @location: location of the clicked marker
+	 * 
+	 * The signal is emitted when the user clicks on a marker
+	 */
 	void ::marker_clicked (gboolean double_click, gint location);
 
 	/**
@@ -298,6 +315,16 @@ interface IAnjutaMarkable
 interface IAnjutaIndicable
 {
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
+	
+	/**
+   * IAnjutaIndicableIndicator:
+   * @IANJUTA_INDICABLE_NONE: No indicator
+   * @IANJUTA_INDICABLE_IMPORTANT: Important indicator
+   * @IANJUTA_INDICABLE_WARNING: Warning indicator   
+   * @IANJUTA_INDICABLE_CRITICAL: Critical indicator   
+   *
+   * This enumeration is used to specify the appearance of the indicator
+   */
 	enum Indicator
 	{
 		NONE,
@@ -305,8 +332,28 @@ interface IAnjutaIndicable
 		WARNING,
 		CRITICAL
 	}
-	
+
+ /**
+	* ianjuta_indicable_set:
+	* @obj: Self
+	* @begin_location: Location where the indication should start
+	* @end_location: Location where the indication should end
+	* @indicator: the indicator to use
+	* @err: Error propagation and reporting
+	*
+	* Set an indicator
+	*
+	*/	
 	void set (IAnjutaIterable *begin_location, IAnjutaIterable *end_location, Indicator indicator);
+	
+ /**
+	* ianjuta_indicable_clear:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	*
+	* Clear all indicators
+	*
+	*/		
 	void clear ();
 }
 
@@ -570,7 +617,20 @@ interface IAnjutaBuilder
 {
 	#include <libanjuta/anjuta-error.h>
 
-	/* Types */
+	/**
+   * IAnjutaBuilderError:
+   * @IANJUTA_BUILDER_SUCCEED: Build succeeded
+   * @IANJUTA_BUILDER_FAILED: Build failed
+   * @IANJUTA_BUILDER_CANCELED: Build was canceld
+   * @IANJUTA_BUILDER_ABORTED: Build aborted
+   * @IANJUTA_BUILDER_INTERRUPTED: Build interruped
+   * @IANJUTA_BUILDER_TERMINATED: Build interruped   
+   * @IANJUTA_BUILDER_UNKNOWN_TARGET: The specified target is unknown
+   * @IANJUTA_BUILDER_UNKNOWN_ERROR: Unknown Error
+   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))   
+   *
+   * Possible build errors
+   */	 
 	enum Error
 	{
 		SUCCEED           =  0,
@@ -702,6 +762,23 @@ interface IAnjutaEnvironment
  */
 interface IAnjutaBuildable
 {
+
+	/**
+   * IAnjutaBuildableCommand:
+   * @IANJUTA_BUILDABLE_COMMAND_COMPILE: Compile source
+   * @IANJUTA_BUILDABLE_COMMAND_BUILD: Build file (normally using make)
+   * @IANJUTA_BUILDABLE_COMMAND_BUILD_TARBALL: make dist
+   * @IANJUTA_BUILDABLE_COMMAND_INSTALL: make install
+   * @IANJUTA_BUILDABLE_COMMAND_CONFIGURE: ./configure
+   * @IANJUTA_BUILDABLE_COMMAND_GENERATE: ./autogen.sh
+   * @IANJUTA_BUILDABLE_COMMAND_CLEAN: make clean
+   * @IANJUTA_BUILDABLE_COMMAND_EXECUTE: ./hello
+   * @IANJUTA_BUILDABLE_COMMAND_IS_BUILT: check whether object files are up-to-date      
+   * @IANJUTA_BUILDABLE_COMMAND_DISTCLEAN: make distclean
+   * @IANJUTA_BUILDABLE_N_COMMANDS: size of enum
+   *
+   * The enumeration is used to speficy the disered build operation
+   */	 
 	enum Command
 	{
 		COMMAND_COMPILE,
@@ -826,10 +903,10 @@ interface IAnjutaHelp
 	/**
 	* ianjuta_help_search:
 	* @obj: Self
-	* @query: fixme
+	* @query: string to search in the help
 	* @err: Error propagation and reporting
 	* 
-	* fixme
+	* Search for string @query in the help and display the result
 	*/
 	void search (const gchar *query);
 }
@@ -957,7 +1034,7 @@ interface IAnjutaLoader
 interface IAnjutaDocument
 {
 	/**
-	 * IAnjutaDocument::update_ui:
+	 * IAnjutaDocument::update-ui:
 	 * @obj: Self
 	 * 
 	 * This signal is emitted when the document assumes the UI must be updated
@@ -1100,7 +1177,16 @@ interface IAnjutaEditor
 	{
 		DOESNT_EXIST
 	}
-	
+  /**
+   * IAnjutaEditorAttribute:
+   * @IANJUTA_EDITOR_TEXT: Normal text
+   * @IANJUTA_EDITOR_KEYWORD: A keyword of the programming language   
+   * @IANJUTA_EDITOR_COMMENT: A comment
+   * @IANJUTA_EDITOR_STRING: A string
+   *
+   * This enumeration is used to specify the type of text. Note that not all
+   * editors implement this.
+   */
 	enum Attribute
 	{
 		TEXT,
@@ -1110,7 +1196,7 @@ interface IAnjutaEditor
 	}
 	
 	/**
-	 * IAnjutaEditor::char_added:
+	 * IAnjutaEditor::char-added:
 	 * @position: The iter position where @ch is added.
 	 * @ch: The character that has been added.
 	 * @obj: Self
@@ -1713,6 +1799,15 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorLineMode
 	{
+	/**
+   * IAnjutaEditorLineModeType:
+   * @IANJUTA_EDITOR_LINE_MODE_LF: Line-Feed (Unix)
+   * @IANJUTA_EDITOR_LINE_MODE_CR: Carat return (Max)
+   * @IANJUTA_EDITOR_LINE_MODE_CRLF: Caret return + line-feed (Windows)   
+   *
+   * This enumeration is used to specify the type of text. Note that not all
+   * editors implement this.
+   */
 		enum Type
 		{
 			LF,
@@ -1866,10 +1961,34 @@ interface IAnjutaEditor
 	interface IAnjutaEditorHover
 	{
 	  #include <libanjuta/interfaces/ianjuta-iterable.h>
-	
+	  
+	  /* IAnjutaEditorAssist::hover-over:
+		 * @obj: self
+		 * @position: IAnjutaEditorCell specifying the position the mouse is over
+		 *
+		 * The mouse is held for a moment over @position. This can be used to show
+		 * all tooltip.
+		 */
 		void ::hover_over (GObject* position);
+
+	  /* IAnjutaEditorAssist::hover-leave
+		 * @obj: self
+		 * @position: IAnjutaEditorCell specifying the position the mouse was over
+		 *
+		 * User moved the mouse away - can be used to clean up things done in 
+		 * #IAnjutaEditorHover::hover-over
+		 */
 		void ::hover_leave (GObject* position);
 		
+		/**
+		 * ianjuta_editor_hover_display:
+		 * @obj: Self
+		 * @info: String to display
+		 * @err: Error propagation and reporting
+		 *
+     * Show @info as tooltip
+		 *
+		 */
 		void display (IAnjutaIterable* position, const gchar *info);
 	}
 	
@@ -1884,6 +2003,12 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorLanguage
 	{
+	  /* IAnjutaEditorLanguage::language-changed:
+		 * @obj: self
+		 * @language: new language
+		 *
+		 * the language of the editor changed to @language
+		 */
 		void ::language_changed (const gchar *language);
 		
 		/**
@@ -1904,7 +2029,7 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
-		 * FIXME
+		 * Get a list of languages the editor can highlight
 		 *
 		 */
 
@@ -2501,6 +2626,15 @@ interface IAnjutaDocumentManager
  */
 interface IAnjutaMessageView
 {
+  /**
+   * IAnjutaMessageViewType:
+   * @IANJUTA_MESSAGE_VIEW_TYPE_NORMAL: Normal message
+   * @IANJUTA_MESSAGE_VIEW_TYPE_INFO: Info message (highlighed)
+   * @IANJUTA_MESSAGE_VIEW_TYPE_ERROR: Error message
+   * @IANJUTA_MESSAGE_VIEW_TYPE_WARNING: Warning message
+   *
+   * Speficy the type ot the message added to the message view
+   */
 	enum Type
 	{
 		TYPE_NORMAL,
@@ -2510,44 +2644,43 @@ interface IAnjutaMessageView
 	}
 	
 	/**
-	* IAnjutaMessageView::message_clicked:
+	* IAnjutaMessageView::message-clicked:
 	* @obj: Self
-	* @message: fixme
-	* @err: Error propagation and reporting.
+	* @message: text of the clicked message
 	*
-	* fixme
+	* Emitted when the user clicks on a message
 	*/
 	void ::message_clicked (const gchar *message);
 	
 	/** 
-	* IAnjutaMessageView::buffer_flushed:
+	* IAnjutaMessageView::buffer-flushed:
 	* @obj: Self
-	* @line: fixme
-	* @err: Error propagation and reporting.
+	* @line: the current line
 	* 
-	* fixme
+	* Emitted when #ianjuta_message_view_buffer_append found a newline
 	*/
 	void ::buffer_flushed (const gchar *line);
 	
 	/**
 	* ianjuta_message_view_buffer_append:
 	* @obj: Self
-	* @text: fixme
+	* @text: text to show as message
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
-	*/
+	* Appends the text in buffer. Flushes the buffer where a newline is found.
+  * by emiiting buffer_flushed signal. The string is expected to be utf8.
+  */
 	void buffer_append (const gchar *text);
 	
 	/**
 	* ianjuta_message_view_append:
 	* @obj: Self
-	* @type: fixme
-	* @summary: fixme
-	* @details: fixme
+	* @type: type of the message
+	* @summary: summary of the message
+	* @details: details of the message
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Append the message with summary displayed and details displayed as tooltip
 	*/
 	void append (Type type, const gchar *summary, const gchar *details);
 	
@@ -2556,7 +2689,7 @@ interface IAnjutaMessageView
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Clear all messages in buffer
 	*/
 	void clear ();
 	
@@ -2565,7 +2698,7 @@ interface IAnjutaMessageView
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Select next message (of type INFO, WARNING or ERROR)
 	*/
 	void select_next ();
 	
@@ -2574,7 +2707,7 @@ interface IAnjutaMessageView
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Select previous message
 	*/
 	void select_previous ();
 	
@@ -2583,7 +2716,7 @@ interface IAnjutaMessageView
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the currently selected message
 	*/
 	const gchar* get_current_message ();
 	
@@ -2592,7 +2725,7 @@ interface IAnjutaMessageView
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get a list of all messages. The list has to be freed
 	*/
 	List<const gchar*> get_all_messages ();
 }
@@ -2721,7 +2854,7 @@ interface IAnjutaFileManager
 	#define SELECTED_FILE		"file_manager_selected_file"
 	
 	/**
-	* IAnjutaFileManager::section_changed:
+	* IAnjutaFileManager::section-changed:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
@@ -3089,7 +3222,7 @@ interface IAnjutaWizard
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Called when the wizard should start after some user action
 	*/
 	void activate();
 }
@@ -4556,7 +4689,7 @@ interface IAnjutaVcs
 	void add(List<GFile*> files);
 	
 	/**
-	 * ianjuta_cvs_remove:
+	 * ianjuta_vcs_remove:
 	 * @files: List of GFiles* to remove
 	 * @obj: Self
 	 * @err: Error propagation and reporting
@@ -4606,7 +4739,7 @@ interface IAnjutaVcs
     *
     * Returns: Id to cancel the request
     */
-  void ianjuta_vcs_diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel);
+  void diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel);
 }
 
 /**

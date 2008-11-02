@@ -19,15 +19,15 @@
 
 /**
  * IAnjutaVcsStatus:
- * @IANJUTA_VCS_STATUS_NONE: File has unknown status
- * @IANJUTA_VCS_STATUS_MODIFIED: File was modified locally
- * @IANJUTA_VCS_STATUS_ADDED: File was added
- * @IANJUTA_VCS_STATUS_DELETED: File was deleted
- * @IANJUTA_VCS_STATUS_CONFLICTED: File has unresolved conflict
- * @IANJUTA_VCS_STATUS_OUTDATED: File is not up-to-date
- * @IANJUTA_VCS_STATUS_LOCKED: File is locked
- * @IANJUTA_VCS_STATUS_MISSING: File is missing 
- * @IANJUTA_VCS_STATUS_UNVERSIONED: File is ignored by VCS system
+ * @ANJUTA_VCS_STATUS_NONE: File has unknown status
+ * @ANJUTA_VCS_STATUS_MODIFIED: File was modified locally
+ * @ANJUTA_VCS_STATUS_ADDED: File was added
+ * @ANJUTA_VCS_STATUS_DELETED: File was deleted
+ * @ANJUTA_VCS_STATUS_CONFLICTED: File has unresolved conflict
+ * @ANJUTA_VCS_STATUS_OUTDATED: File is not up-to-date
+ * @ANJUTA_VCS_STATUS_LOCKED: File is locked
+ * @ANJUTA_VCS_STATUS_MISSING: File is missing 
+ * @ANJUTA_VCS_STATUS_UNVERSIONED: File is ignored by VCS system
  *
  * This enumeration is used to specify the status of a file. A file can
  * have multiple status flags assigned (MODIFIED and CONFLICT, for example)

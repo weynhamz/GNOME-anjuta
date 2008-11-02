@@ -1728,7 +1728,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	if (ctags_path == NULL) 
 	{
-		g_warning ("ctags is not in preferences. Trying a default one %s", 
+		DEBUG_PRINT ("ctags is not in preferences. Trying a default one %s", 
 				   CTAGS_PATH);
 		ctags_path = g_strdup (CTAGS_PATH);
 	}

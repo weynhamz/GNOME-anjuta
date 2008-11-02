@@ -1360,6 +1360,7 @@ ${prefix}_base_init (${class}Iface* klass)
 	foreach my $m (sort keys %$class_hr)
 	{
 		next if ($m =~ /^__/);
+		my $comments_out = $class_hr->{$m}->{'__comments'};
 		my $func = $class_hr->{$m}->{'function'};
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
@@ -1374,8 +1375,9 @@ ${prefix}_base_init (${class}Iface* klass)
 			$signal =~ s/_/-/g;
 			
 			my $marshaller = construct_marshaller($rettype, $args);
-			$answer .= "\t\t/* Signal */";
-			$answer .="\n\t\tg_signal_new (\"$signal\",
+			$comments_out =~ s/\n/\n\t\t/g;
+			$answer .= "\n\t\t$comments_out";
+			$answer .="g_signal_new (\"$signal\",
 			$macro_type,
 			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (${class}Iface, $func),

@@ -1,3 +1,18 @@
+2008-11-02  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-vcs-status.h:
+	Fixed docs
+	
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+	Corrected generation of signal documentation
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	* manuals/reference/libanjuta/libanjuta-sections.txt:
+	Added documentation
+
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	Don't use g_warning for debug messages
+
 2008-11-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* libanjuta/anjuta-debug.h:

@@ -1721,9 +1721,9 @@ IAnjutaVcs
 IAnjutaVcsIface
 ianjuta_vcs_error_quark
 ianjuta_vcs_add
-ianjuta_vcs_commit
 ianjuta_vcs_remove
 ianjuta_vcs_update
+ianjuta_vcs_diff
 <SUBSECTION Standard>
 IANJUTA_VCS
 IANJUTA_IS_VCS
