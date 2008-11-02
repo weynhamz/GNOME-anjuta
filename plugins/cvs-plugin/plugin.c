@@ -18,9 +18,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs.h>
-
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
@@ -172,18 +169,12 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 {
 	AnjutaUI *ui;
 	GtkAction *cvs_menu_action;
-	gchar *uri;
-	GnomeVFSURI *cvs_uri = NULL;
-	gchar *cvs_text_uri = NULL;
-	gchar *cvs_dir;
 	gchar *filename;
-	GnomeVFSDirectoryHandle* handle;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
+	GFileType type;
+	GFile *cvs_dir;
 	
 	GFile* file = G_FILE (g_value_get_object (value));
-	uri = g_file_get_uri (file);
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	filename = g_file_get_path (file);
 	g_return_if_fail (filename != NULL);
 
 	CVSPlugin *cvs_plugin = ANJUTA_PLUGIN_CVS (plugin);
@@ -198,38 +189,39 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	
 	/* If a directory is selected we check if it contains a "CVS" directory,
 	if it is a file we check if it's directory contains a "CVS" directory */
-	result = gnome_vfs_get_file_info(uri, &info, 
-		GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result == GNOME_VFS_OK)
+
+	type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
+	if (type == GNOME_VFS_FILE_TYPE_DIRECTORY)
 	{
-		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+		cvs_dir = g_file_get_child (file, "CVS");
+	}
+	
+	else
+	{
+		GFile *parent;
+
+		parent = g_file_get_parent (file);
+		if (parent != NULL)
 		{
-			cvs_dir = g_strconcat(uri, "/CVS", NULL);
+			cvs_dir = g_file_get_child (parent, "CVS"); 
+			g_object_unref (G_OBJECT (parent));
 		}
-		
 		else
 		{
-			cvs_uri = gnome_vfs_uri_new (uri);
-			cvs_text_uri = gnome_vfs_uri_extract_dirname(cvs_uri);
-			cvs_dir = g_strconcat(cvs_text_uri, "/CVS", NULL);
-			g_free(cvs_text_uri);
-			gnome_vfs_uri_unref(cvs_uri);
-		}	
-	}
-	else
-		return; /* Strange... */
-	if (gnome_vfs_directory_open(&handle, cvs_dir, 
-		GNOME_VFS_FILE_INFO_DEFAULT) == GNOME_VFS_OK) 
+			cvs_dir = g_file_new_for_path ("/CVS");
+		}
+	}	
+
+	type = g_file_query_file_type (cvs_dir, G_FILE_QUERY_INFO_NONE, NULL);
+	if (type == G_FILE_TYPE_DIRECTORY)
 	{
-		
 		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", TRUE, NULL);
 	}
 	else
 	{
 		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", FALSE, NULL);
 	}
-	g_free (cvs_dir);
-	g_free (uri);
+	g_object_unref (cvs_dir);
 }
 
 static void
@@ -270,7 +262,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	if (root_uri)
 	{
 		bb_plugin->project_root_dir =
-			gnome_vfs_get_local_path_from_uri (root_uri);
+			anjuta_util_get_local_path_from_uri (root_uri);
 		if (bb_plugin->project_root_dir)
 		{
 			// update_project_ui (bb_plugin);

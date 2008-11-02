@@ -24,7 +24,6 @@
 #include "cvs-callbacks.h"
 
 #include "glade/glade.h"
-#include <libgnomevfs/gnome-vfs.h>
 #include "libgen.h"
 
 #include <libanjuta/anjuta-preferences.h>

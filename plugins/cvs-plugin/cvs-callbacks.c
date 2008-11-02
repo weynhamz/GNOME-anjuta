@@ -19,7 +19,6 @@
 #include "cvs-execute.h"
 #include "cvs-interface.h"
 #include "glade/glade.h"
-#include <libgnomevfs/gnome-vfs.h>
 
 static gchar* get_log_from_textview(GtkWidget* textview)
 {
@@ -133,6 +132,8 @@ on_cvs_add_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	GFile* file;
+
 	if (is_busy(data->plugin, dialog))
 		return;
 	
@@ -145,9 +146,9 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 		
 		if (!check_filename(dialog, filename))
 			break;
-		
-		if (gnome_vfs_unlink(gtk_entry_get_text(GTK_ENTRY(fileentry)))
-			!= GNOME_VFS_OK)
+
+		file = g_file_new_for_uri(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		if (!g_file_delete(file, NULL, NULL))
 		{
 			anjuta_util_dialog_error
 				(GTK_WINDOW(dialog),_("Unable to delete file"), NULL);
@@ -155,6 +156,7 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 			cvs_data_free(data);
 			break;
 		}
+		g_object_unref(G_OBJECT(file));
 	
 		anjuta_cvs_remove(ANJUTA_PLUGIN(data->plugin), filename, NULL);
 		gtk_widget_destroy (GTK_WIDGET(dialog));

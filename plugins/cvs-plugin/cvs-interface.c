@@ -18,7 +18,6 @@
 #include <libanjuta/anjuta-debug.h>
 
 
-#include <libgnomevfs/gnome-vfs.h>
 #include "cvs-execute.h"
 #include "cvs-callbacks.h"
 #include "cvs-interface.h"
@@ -87,19 +86,15 @@ static void add_option(gboolean value, GString* options, const gchar* argument)
 
 static gboolean is_directory(const gchar* filename)
 {
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
+	GFile* file;
+	GFileType type;
 
-	result = gnome_vfs_get_file_info(filename, &info, GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result == GNOME_VFS_OK)
-	{
-		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-			return TRUE;
-		else
-			return FALSE;
-	}
-	else
-		return FALSE;
+	// FIXME check if filename can only be local file here
+	file = g_file_new_for_path(filename);
+	type = g_file_query_file_type(file, G_FILE_QUERY_INFO_NONE, NULL);
+	g_object_unref(G_OBJECT(file));
+	
+	return type == G_FILE_TYPE_DIRECTORY ? TRUE : FALSE;
 }
 
 void anjuta_cvs_add (AnjutaPlugin *obj, const gchar* filename, 

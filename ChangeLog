@@ -1,3 +1,14 @@
+2008-11-02  Jens Georg  <mail@jensge.org>
+
+	* plugins/cvs-plugin/cvs-callbacks.c (on_cvs_remove_response)
+	* plugins/cvs-plugin/cvs-actions.c
+	* plugins/cvs-plugin/cvs-interface.c (is_directory)
+	* plugins/cvs-plugin/cvs-execute.c (on_cvs_mesg_parse)
+	* plugins/cvs-plugin/plugin.c (value_added_fm_current_file), 
+	(value_added_project_root_uri)
+
+	#511589 – Anjuta uses GNOME-VFS
+
 2008-11-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-vcs-status.h:
