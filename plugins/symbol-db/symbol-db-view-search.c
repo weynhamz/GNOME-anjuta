@@ -107,7 +107,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 	/* let's clean up rows from store model */
 	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
 	g_completion_clear_items (priv->completion);
-
+	
 	gtk_tree_store_clear (GTK_TREE_STORE (store));
 
 	if (strlen (string))
@@ -144,11 +144,10 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 				if (sym_name)
 				{
 					/* get the full file path instead of a database-oriented one. */
-					gchar *file_path = 
-						symbol_db_engine_get_full_local_path (priv->sdbe, 
-							symbol_db_engine_iterator_node_get_symbol_extra_string (
-									iter_node, SYMINFO_FILE_PATH));
-					
+					const gchar *file_path = 
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+									iter_node, SYMINFO_FILE_PATH);
+								
 					/* add a new iter */
 					gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
 					
@@ -169,8 +168,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 							-1);
 					
 					completion_list = g_list_prepend (completion_list,
-							g_strdup (sym_name));
-					g_free (file_path);
+							g_strdup (sym_name));					
 				}
 
 				symbol_db_engine_iterator_move_next (iterator);
