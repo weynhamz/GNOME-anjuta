@@ -1,3 +1,13 @@
+2008-11-03  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/anjuta-debug.h:
+	Fixed some mistakes from revision 4366. Properly detect GCC. 
+	Modify DEBUG_PRINT macro to use g_debug instead of g_message, and print the
+	file name, line number, and function that the macro was called from. 
+	Implements changes discussed with Ignacio and Johannes.
+	
+	Properly fixes bug #558788
+
 2008-11-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-status.h:

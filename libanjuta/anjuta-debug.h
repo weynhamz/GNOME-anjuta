@@ -35,10 +35,16 @@
  * DEBUG_PRINT:
  * 
  * Equivalent to g_debug() showing the FILE, the LINE and the FUNC,
- * except it has only effect when DEBUG is defined. Used for printing debug messages.
+ * except it has only effect when DEBUG is defined. Used for printing debug 
+ * messages.
  */
-#if defined (DEBUG) && defined (__GNUCC__)
-#  define DEBUG_PRINT(format, ...) g_debug ("%s:%d (%s)" format, __FILE__, __LINE__, G_STRFUNC, __VA_ARGS__)
+#if defined (DEBUG) && defined (__GNUC__) && __GNUC__ >= 3
+#  define DEBUG_PRINT(...)  do \
+							{ \
+						    	g_debug ("%s:%d (%s)",  __FILE__, __LINE__, \
+									 	 G_STRFUNC); \
+								g_debug (__VA_ARGS__); \
+							} while (0) 
 #else
 #  define DEBUG_PRINT(...)
 #endif
