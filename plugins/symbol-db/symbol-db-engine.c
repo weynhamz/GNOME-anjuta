@@ -2987,7 +2987,8 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
 								ANJUTA_DB_FILE);
 
-	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to database...");
+	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to "
+				 "database with %s...", cnc_string);
 	sdb_engine_connect_to_db (dbe, cnc_string);
 
 	if (needs_tables_creation == TRUE)

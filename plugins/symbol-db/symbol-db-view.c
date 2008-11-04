@@ -1634,7 +1634,7 @@ symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	if (store)
 	{
 		gint symbol_id;
-		const gchar* relative_file;
+		const gchar* file;
 		SymbolDBEngineIteratorNode *node;
 		
 		gtk_tree_model_get (GTK_TREE_MODEL
@@ -1652,10 +1652,9 @@ symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		if (node != NULL) 
 		{
 			*OUT_line = symbol_db_engine_iterator_node_get_symbol_file_pos (node);
-			relative_file = 
-				symbol_db_engine_iterator_node_get_symbol_extra_string (node,
+			file = symbol_db_engine_iterator_node_get_symbol_extra_string (node,
 															SYMINFO_FILE_PATH);
-			*OUT_file = symbol_db_engine_get_full_local_path (dbe, relative_file);
+			*OUT_file = g_strdup (file);
 			return TRUE;
 		}		
 	}

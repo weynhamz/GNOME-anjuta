@@ -5,8 +5,6 @@
 #include <gtk/gtk.h>
 #include <libgnomevfs/gnome-vfs.h>
 
-#define BASE_PATH "/home/pescio/svnroot/anjuta/plugins/symbol-db"
-
 static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 {
 	static int i = 0;
@@ -60,6 +58,7 @@ int main (int argc, char** argv)
 	
   gtk_init(&argc, &argv);
   g_thread_init (NULL);
+	gda_init ();
 	gnome_vfs_init();
 	
 	if (argc != 2)
@@ -71,13 +70,14 @@ int main (int argc, char** argv)
 	
     engine = symbol_db_engine_new ("/usr/bin/ctags");
     
+	
   
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))
 	{
 		g_message ("Could not open database: %s", root_dir);
-		return 1;
+		return -1;
 	}
-	
+
 	symbol_db_engine_add_new_project (engine, NULL, root_dir);
 			
 	files = get_files (root_dir);

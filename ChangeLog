@@ -1,3 +1,13 @@
+2008-11-04  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c (symbol_db_engine_open_db):
+	* plugins/symbol-db/symbol-db-view.c
+	(symbol_db_view_get_file_and_line):
+	fixed bug #559252
+
+	* plugins/symbol-db/test/benchmark.c (main):
+	added gda_init () otherwise the benchmark was crashing.
+
 2008-11-03  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine.c
