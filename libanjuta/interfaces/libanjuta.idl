@@ -4953,10 +4953,15 @@ interface IAnjutaSymbol
 	/** 
 	 * ianjuta_symbol_get_extra_info_string:
 	 * @obj: Self
- 	 * @sym_info: Just one FIELD_* per time. It is NOT possible to pass something like
-	 * FIELD_1 | FIELD_2 | ...
+ 	 * @sym_info: Just one IANJUTA_SYMBOL_FIELD_* per time. It is NOT possible to pass something like
+	 * FIELD_1 | FIELD_2 | ....
+	 * Note: You will not have anything passing IANJUTA_SYMBOL_FIELD_SIMPLE, just a NULL value.
+	 * 
 	 * @err: Error propagation and reporting.
 	 *
+	 * Returns: a string representation of the field required. For instance passing
+	 * IANJUTA_SYMBOL_FIELD_FILE_PATH you'll have a const gchar* representing the absolute file path, 
+	 * passing IANJUTA_SYMBOL_FIELD_ACCESS the access attribute, as "public", "private", etc.
  	 */
 	const gchar *get_extra_info_string (Field sym_info);
 

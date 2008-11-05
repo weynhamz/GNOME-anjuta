@@ -1,6 +1,11 @@
 2008-11-05  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
+	added missing doc for ianjuta_symbol_get_extra_info_string ()
+
+2008-11-05  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
 	fixed bug #558952.
 
 2008-11-05  Sébastien Granjoux  <seb.sfo@free.fr>
