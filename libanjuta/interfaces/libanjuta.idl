@@ -4778,38 +4778,88 @@ interface IAnjutaSymbol
 	#include <gdk/gdkpixbuf.h>
 	#include <gio/gio.h>
 	
-	enum Type
+	/** 
+	 * IAnjutaSymbolType:
+	 *
+	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type
+	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
+	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration 
+	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value 
+	 * @IANJUTA_SYMBOL_TYPE_FIELD: Field (Java only) 
+	 * @IANJUTA_SYMBOL_TYPE_FUNCTION: Function definition 
+	 * @IANJUTA_SYMBOL_TYPE_INTERFACE: Interface (Java only) 
+	 * @IANJUTA_SYMBOL_TYPE_MEMBER: Member variable of class/struct 
+	 * @IANJUTA_SYMBOL_TYPE_METHOD: Class method (Java only) 
+	 * @IANJUTA_SYMBOL_TYPE_NAMESPACE: Namespace declaration 
+	 * @IANJUTA_SYMBOL_TYPE_PACKAGE: Package (Java only)
+	 * @IANJUTA_SYMBOL_TYPE_PROTOTYPE: Function prototype 
+	 * @IANJUTA_SYMBOL_TYPE_STRUCT: Struct declaration 
+	 * @IANJUTA_SYMBOL_TYPE_TYPEDEF: Typedef 
+	 * @IANJUTA_SYMBOL_TYPE_UNION: Union 
+	 * @IANJUTA_SYMBOL_TYPE_VARIABLE: Variable 
+	 * @IANJUTA_SYMBOL_TYPE_EXTERNVAR: Extern or forward declaration 
+	 * @IANJUTA_SYMBOL_TYPE_MACRO: Macro (without arguments) 
+	 * @IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG: Parameterized macro 
+	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
+	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
+	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values.
+	 */                   
+	enum Type               
 	{
-		TYPE_UNDEF = 1,                // Unknown type
-		TYPE_CLASS = 2,                // Class declaration
-		TYPE_ENUM = 4,                 // Enum declaration 
-		TYPE_ENUMERATOR = 8,           // Enumerator value 
-		TYPE_FIELD = 16,               // Field (Java only) 
-		TYPE_FUNCTION = 32,            // Function definition 
-		TYPE_INTERFACE = 64,           // Interface (Java only) 
-		TYPE_MEMBER = 128,             // Member variable of class/struct 
-		TYPE_METHOD = 256,             // Class method (Java only) 
-		TYPE_NAMESPACE = 512,          // Namespace declaration 
-		TYPE_PACKAGE = 1024,           // Package (Java only)
-		TYPE_PROTOTYPE = 2048,         // Function prototype 
-		TYPE_STRUCT = 4096,            // Struct declaration 
-		TYPE_TYPEDEF = 8192,           // Typedef 
-		TYPE_UNION = 16384,            // Union 
-		TYPE_VARIABLE = 32768,         // Variable 
-		TYPE_EXTERNVAR = 65536,        // Extern or forward declaration 
-		TYPE_MACRO = 131072,           //  Macro (without arguments) 
-		TYPE_MACRO_WITH_ARG = 262144,  // Parameterized macro 
-		TYPE_FILE = 524288,            // File (Pseudo tag) 
-		TYPE_OTHER = 1048576,          // Other (non C/C++/Java tag) 
-		TYPE_MAX = 2097151             // Maximum value, means all known values.
+		TYPE_UNDEF = 1,                
+		TYPE_CLASS = 2,                
+		TYPE_ENUM = 4,                 
+		TYPE_ENUMERATOR = 8,           
+		TYPE_FIELD = 16,               
+		TYPE_FUNCTION = 32,            
+		TYPE_INTERFACE = 64,           
+		TYPE_MEMBER = 128,             
+		TYPE_METHOD = 256,             
+		TYPE_NAMESPACE = 512,          
+		TYPE_PACKAGE = 1024,           
+		TYPE_PROTOTYPE = 2048,         
+		TYPE_STRUCT = 4096,            
+		TYPE_TYPEDEF = 8192,           
+		TYPE_UNION = 16384,            
+		TYPE_VARIABLE = 32768,         
+		TYPE_EXTERNVAR = 65536,        
+		TYPE_MACRO = 131072,           
+		TYPE_MACRO_WITH_ARG = 262144,  
+		TYPE_FILE = 524288,            
+		TYPE_OTHER = 1048576,          
+		TYPE_MAX = 2097151             
 	}
 
-	/* Field masks -- used mainly to retrieve fields of a symbol */
+	/** 
+	 * IAnjutaSymbolField: Field masks. Used mainly to retrieve the fields of a symbol
+	 * throught the call to ianjuta_symbol_get_extra_info_string () or the various
+	 * ianjuta_symbol_manager_* () functions.
+	 *
+	 * @IANJUTA_SYMBOL_FIELD_SIMPLE: With this field you will have name, line of declaration,
+	 *                               is_file_scope and signature of the symbol.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: The path to the file. It's obtained using something like
+	 *									g_strconcat ("/home/user/project_dir/", 
+	 *									"src/db/realative/path/file.c");
+	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: implementation attribute of a symbol. It may be
+	 *										"pure virtual", "virtual", etc.
+	 * @IANJUTA_SYMBOL_FIELD_ACCESS: access attribute of a symbol. It may be "public", "private" etc.
+	 * @IANJUTA_SYMBOL_FIELD_KIND: kind attribute of a symbol. "enumerator", "namespace", "class" are
+	 *							  some examples.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE: type attribute of a symbol. Use this field in conjunction with
+	 *						#IANJUTA_SYMBOL_FIELD_TYPE_NAME as the query would retrieve both
+	 *						attributes in a quicker way.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE_NAME: type_name attribute of a symbol. If a type could be
+	 *									"class" then its type_name may be "MyFooClass" etc.
+	 * @IANJUTA_SYMBOL_FIELD_LANGUAGE: the language of the symbol, e.g. "C", "Java", etc.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_IGNORE: field mainly ignored.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_INCLUDE: field mainly ignored.
+	 * @IANJUTA_SYMBOL_FIELD_PROJECT_NAME: the project this symbol belongs to.
+	 * @IANJUTA_SYMBOL_FIELD_WORKSPACE_NAME: the workspace this symbol belongs to.
+	 */
 	enum Field
 	{
 
-		FIELD_SIMPLE = 1,				// With this field you will have name, line of declaration,
-										// is_file_scope and signature of the symbol 
+		FIELD_SIMPLE = 1,														
 		FIELD_FILE_PATH = 2,
 		FIELD_IMPLEMENTATION = 4,
 		FIELD_ACCESS = 8,
@@ -4831,7 +4881,7 @@ interface IAnjutaSymbol
 	 * An unique identifier for the symbol: pay attention that when engine re-parse
 	 * the files this id may change.
 	 *
-	 * Returns: 0 on error.
+	 * Returns: 0 on error, otherwise the id of the symbol mapped in the db.
 	 */
 	gint get_id ();
 	
@@ -4849,7 +4899,7 @@ interface IAnjutaSymbol
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: The file of the symbol
+	 * Returns: The file where the symbol is declared in.
 	 */
 	GFile *get_file();
 	
@@ -4858,7 +4908,7 @@ interface IAnjutaSymbol
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: Line of the file in which the symbol is declared.a
+	 * Returns: Line of the file the symbol is declared in.
 	 */	
 	gulong get_line ();	
 
@@ -4869,7 +4919,7 @@ interface IAnjutaSymbol
 	 *
 	 * Is the symbol a static (private) one?
 	 *
-	 * Returns: TRUE if the symbol is local
+	 * Returns: TRUE if the symbol is local (private, etc), FALSE elsewhere.
 	 */	
 	gboolean is_local ();
 	
@@ -4879,9 +4929,10 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
  	 *
-	 * If symbol is a function then this will return a string with the args.
+	 * If symbol is has a kind of "function" then this will return a string with the args of the
+	 * function itself.
 	 *
-	 * Returns: args as string or NULL
+	 * Returns: args as const string or NULL
 	 */	
 	const gchar *get_args ();
 
@@ -4892,8 +4943,8 @@ interface IAnjutaSymbol
 	 *
 	 * You can obtain an IAnjutaSymbolType of the symbol.
 	 * To have a string representation see ianjuta_symbol_get_extra_info_string ().
-	 * You *need* a symbol with FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
-	 * passing FIELD_TYPE as info_fields.
+	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
+	 * passing #IANJUTA_SYMBOL_FIELD_TYPE as info_fields.
 	 *
 	 * Returns: a #IAnjutaSymbolType
 	 */
@@ -4914,8 +4965,10 @@ interface IAnjutaSymbol
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You *need* a symbol with FIELD_ACCESS | FIELD_KIND enabled attribute. e.g. use 
-	 * ianjuta_symbol_manager_search passing FIELD_ACCESS | FIELD_KIND as info_fields.
+	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_ACCESS | 
+	 * #IANJUTA_SYMBOL_FIELD_KIND enabled attribute. e.g. use 
+	 * ianjuta_symbol_manager_search passing #IANJUTA_SYMBOL_FIELD_ACCESS | 
+	 * #IANJUTA_SYMBOL_FIELD_KIND as info_fields.
 	 *
 	 * Returns: a Pixbuf icon representing the symbol. 
 	 */
@@ -4939,7 +4992,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search:
 	* @obj: Self
-	* @match_types: If passed IANJUTA_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -4954,9 +5007,11 @@ interface IAnjutaSymbolManager
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
  	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  	* @results_offset Skip results_offset results. -1 If you don't want to use this par.	 
-	* @err: Error propagation and reporting.
+	* @err: Error propagation and reporting.	 
 	* 
-	* Database query. The returned @IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* 
+	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
 	*/
 	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_symbols_search, gboolean global_tags_search, gint results_limit, gint results_offset);
@@ -4968,7 +5023,9 @@ interface IAnjutaSymbolManager
 	* @global_search: fixme
 	* @err: Error propagation and reporting.
 	* 
-	* Database query. The returned @IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	*	 
+	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.	
 	* 
 	*/
 	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
@@ -4980,9 +5037,10 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
 	* 
-	* Returns: fixme
+	* Returns: if the passed symbol is a class then this function tries to catch its parents.
+	*
 	*/
 	IAnjutaIterable* get_class_parents (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
 
@@ -4993,14 +5051,13 @@ interface IAnjutaSymbolManager
 	* @line line of @filename in which symbol exist.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
-	* 
-	* Get the scope specified by the line of 
-    * the file. 
 	*
-	* Returns Iterator should contain just one element if the query is successful, 
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.	 
+	* It gets the scope specified by the line of the file. 
+	*
+	* Returns: The returned iterator should contain just one element if the query is successful, 
 	* no element or NULL is returned if function went wrong.
 	*
-	* Returns: an iterator
 	*/
 	IAnjutaIterable* get_scope (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
 
@@ -5011,13 +5068,13 @@ interface IAnjutaSymbolManager
 	* @filename: Can be NULL. Full path filename where to search for the parent scope symbol.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
-	* 
+	*
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
 	* Find the parent scope given a symbol
 	* 
-	* The returned @IAnjutaIterable object should contain just one element if the 
-	* query is successful, 
-	* no element or NULL is returned if function went wrong.	
-	* The returned @IAnjutaIterable object must be unrefed after use.
+	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
+	* query is successful, no element or NULL is returned if function went wrong.	
+	* The returned #IAnjutaIterable object must be unrefed after use.
 	*/	
 	IAnjutaIterable* get_parent_scope (const IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
 
@@ -5028,11 +5085,16 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.	
 	*
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
 	* While at first sight this function may seem as useless, in a deeper inspection
 	* you can see that you can achieve speed improvements for example avoiding 
 	* to pass many info_fields requests to a search query, which itself could require
-	* complicated joins between engine tables, slowing down the thing.
+	* complicated joins between the db tables, slowing down the thing.
 	* It's up to you to see which method is more performant.
+	*
+	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
+	* query is successful, no element or NULL is returned if function went wrong.	
+	* The returned #IAnjutaIterable object must be unrefed after use.
 	*
 	*/	
 	IAnjutaIterable* get_symbol_more_info (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
@@ -5044,8 +5106,13 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @return NULL on error.
 	*
+	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
 	* A symbol is identified by an unique id. If you have its id you can also 
-	* have its object IAnjutaSymbol.
+	* have its object IAnjutaSymbol.	 
+	*
+	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
+	* query is successful, no element or NULL is returned if function went wrong.	
+	* The returned #IAnjutaIterable object must be unrefed after use.	 
 	*/
 	IAnjutaSymbol* get_symbol_by_id (gint symbol_id, IAnjutaSymbolField info_fields);
 }
