@@ -1,3 +1,31 @@
+2008-11-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* (added) plugins/project-wizard/templates/m4/as-ac-expand.m4,
+	(added) plugins/project-wizard/templates/m4/Makefile.am,
+	(added) plugins/project-wizard/templates/gnome-applet.wiz,
+	(added) plugins/project-wizard/templates/gnome-applet/configure.ac.tpl,
+	(added) plugins/project-wizard/templates/gnome-applet/HACKING,
+	(added) plugins/project-wizard/templates/gnome-applet/Makefile.am.tpl,
+	(added) plugins/project-wizard/templates/gnome-applet/Makefile.am,
+	(added) plugins/project-wizard/templates/gnome-applet/autogen.sh,
+	(added) plugins/project-wizard/templates/gnome-applet/src/main.c,
+	(added) plugins/project-wizard/templates/gnome-applet/src/Makefile.am.tpl,
+	(added) plugins/project-wizard/templates/gnome-applet/src/GNOME_Applet.server.in.in,
+	(added) plugins/project-wizard/templates/gnome-applet/src/Makefile.am,
+	(added) plugins/project-wizard/templates/gnome-applet/po/Makefile.am,
+	(added) plugins/project-wizard/templates/gnome-applet/po/POTFILES.in,
+	plugins/project-wizard/templates/translatable-strings.h,
+	plugins/project-wizard/templates/Makefile.am,
+	configure.in:
+	Fix #544583 Add support for gnome applet projects
+
+	* plugins/project-wizard/templates/terminal/Makefile.am.tpl:
+	intltool helper scripts are missing in packages created by project
+	wizard
+
+	* plugins/project-wizard/property.c:
+	Fix #556147 Provide valid default directory for project
+
 2008-11-04  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine.c (symbol_db_engine_open_db):

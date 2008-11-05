@@ -1,0 +1,33 @@
+Some tips for hacking/debugging the applets:
+
+1) The Panel Applet Writer's Reference Manual, including the PanelApplet
+   library documentation, can be found at 
+   http://developer.gnome.org/doc/API/2.0/panel-applet/libpanel-applet.html,
+   or in gnome-panel/doc/reference/panel-applet (source). It is not
+   completely up to date, but it covers the basics of writing an applet.
+
+2) Look at the other applet implementations. One of the simpler applets is
+   the fish applet, which lives in gnome-panel/applets/fish.
+
+3) Read the article about debugging GNOME Applets at 
+   http://www.davyd.id.au/articles/debugging-gnome-applets.shtml.
+   This article also contains a list of common considerations when developing
+   applets. Please, please read this article, it covers everything you're
+   likely to need to know. If you find anything is missing, then contact
+   the maintainers.
+
+4) Be weary of static, global variables if you plan to allow the user
+   to be able to add multiple instances of the applet. Each instance will
+   share the static varible. This is described in the debugging article, under
+   "Other considerations".
+
+5) You'd probably want to run the applets from CVS, without nescessarily doing
+   the same with all of GNOME. To do this, install the applets from CVS to a
+   different prefix than the rest of GNOME, and change your bonobo servers 
+   directory to $prefix/lib/bonobo/servers. You'll find the config file by
+   running "bonobo-activation-sysconf --config-file-path". Add the directory to
+   as an <item> at the top of <searchpath>. Log out, run bonobo-slay and make
+   sure no bonobo processes are running. When you log in again, your applets
+   should be running from the new prefix.
+   Running single applets from CVS is described further in Davyd's debugging
+   article.

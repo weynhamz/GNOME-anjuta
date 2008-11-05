@@ -35,6 +35,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -278,9 +279,48 @@ cb_boolean_button_toggled (GtkButton *button, gpointer data)
 		gtk_button_set_label (button, _("No"));
 }
 
+static void
+cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
+{
+	GtkWidget *dialog;
+	
+	switch (prop->type)
+	{
+	case NPW_DIRECTORY_PROPERTY:
+		dialog = gtk_file_chooser_dialog_new (_("Select directory"),
+												 GTK_WINDOW (gtk_widget_get_ancestor (prop->widget, GTK_TYPE_WINDOW)),
+												 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+												 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      							 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				      							 NULL);
+		break;
+	case NPW_FILE_PROPERTY:
+		dialog = gtk_file_chooser_dialog_new (_("Select file"),
+												 GTK_WINDOW (gtk_widget_get_ancestor (prop->widget, GTK_TYPE_WINDOW)),
+												 GTK_FILE_CHOOSER_ACTION_SAVE,
+												 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      							 GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+				      							 NULL);
+		break;
+	default:
+		g_return_if_reached ();
+	}
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+  	{
+    	char *filename;
+
+    	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		gtk_entry_set_text (GTK_ENTRY (prop->widget), filename);
+    	g_free (filename);
+  	}
+	gtk_widget_destroy (dialog);
+}
+
 GtkWidget*
 npw_property_create_widget (NPWProperty* this)
 {
+	GtkWidget* widget = NULL;
 	GtkWidget* entry;
 	const gchar* value;
 
@@ -309,23 +349,42 @@ npw_property_create_widget (NPWProperty* this)
 		if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
 		break;
 	case NPW_DIRECTORY_PROPERTY:
-		entry = gtk_file_chooser_button_new (_("Choose directory"),
-											 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
-		if (value)
-		{
-			gchar* uri = gnome_vfs_make_uri_from_input (value);
-			gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
-			g_free (uri);
-		}
-		break;
 	case NPW_FILE_PROPERTY:
-		entry = gtk_file_chooser_button_new (_("Choose file"),
-											 GTK_FILE_CHOOSER_ACTION_OPEN);
-		if (value) 
+		if ((this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
 		{
-			gchar* uri = gnome_vfs_make_uri_from_input (value);
-			gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
-			g_free (uri);
+			GtkWidget *button;
+			
+			// Use an entry box and a browse button as GtkFileChooserButton
+			// allow to select only existing file
+			widget = gtk_hbox_new (FALSE, 3);
+			
+			entry = gtk_entry_new ();
+			if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
+			gtk_container_add (GTK_CONTAINER (widget), entry);
+			
+			button = gtk_button_new_from_stock (GTK_STOCK_OPEN);
+			g_signal_connect (button, "clicked", G_CALLBACK (cb_browse_button_clicked), this);
+			gtk_container_add (GTK_CONTAINER (widget), button);
+			gtk_box_set_child_packing (GTK_BOX (widget), button, FALSE, TRUE, 0, GTK_PACK_END);
+		}
+		else
+		{
+			if (this->type == NPW_DIRECTORY_PROPERTY)
+			{
+				entry = gtk_file_chooser_button_new (_("Choose directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+			}
+			else
+			{
+				entry = gtk_file_chooser_button_new (_("Choose file"),
+												 GTK_FILE_CHOOSER_ACTION_OPEN);
+			}
+				
+			if (value)
+			{
+				gchar* uri = gnome_vfs_make_uri_from_input (value);
+				gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
+				g_free (uri);
+			}
 		}
 		break;
 	case NPW_ICON_PROPERTY:
@@ -358,8 +417,9 @@ npw_property_create_widget (NPWProperty* this)
 		return NULL;
 	}
 	this->widget = entry;
+	
 
-	return entry;
+	return widget == NULL ? entry : widget;
 }
 
 void
@@ -430,8 +490,16 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 	case NPW_FILE_PROPERTY:
-		alloc_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (this->widget));
-		value = alloc_value;
+		if ((this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
+		{
+			/* a GtkEntry is used in this case*/
+			value = gtk_entry_get_text (GTK_ENTRY (this->widget));
+		}
+		else
+		{
+			alloc_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (this->widget));
+			value = alloc_value;
+		}
 		break;
 	case NPW_ICON_PROPERTY:
 		alloc_value = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (this->widget));

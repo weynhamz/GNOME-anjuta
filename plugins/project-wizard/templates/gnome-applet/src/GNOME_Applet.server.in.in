@@ -1,0 +1,22 @@
+[+ autogen5 template +]
+<oaf_info>
+	<oaf_server iid="OAFIID:[+Name+]Applet_Factory" type="exe" location="@LIBEXECDIR@/[+NameHLower+]">
+		<oaf_attribute name="repo_ids" type="stringv">
+			<item value="IDL:Bonobo/GenericFactory:1.0"/>
+			<item value="IDL:Bonobo/Unknown:1.0"/>
+		</oaf_attribute>
+		<oaf_attribute name="name" type="string" value="[+Title+] applet Factory"/>
+		<oaf_attribute name="description" type="string" value="[+Description+]"/>
+	</oaf_server>
+
+	<oaf_server iid="OAFIID:[+Name+]Applet" type="factory" location="OAFIID:[+Name+]Applet_Factory">
+		<oaf_attribute name="repo_ids" type="stringv">
+			<item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+			<item value="IDL:Bonobo/Control:1.0"/>
+			<item value="IDL:Bonobo/Unknown:1.0"/>
+		</oaf_attribute>
+		<oaf_attribute name="name" type="string" value="[+Title+]"/>
+		<oaf_attribute name="description" type="string" value="GNOME applet created by Anjuta"/>
+		<oaf_attribute name="panel:icon" type="string" value="[+Icon+]"/>
+	</oaf_server>
+</oaf_info>

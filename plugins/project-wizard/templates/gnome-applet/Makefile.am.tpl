@@ -4,6 +4,8 @@
 
 SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 
+ACLOCAL_AMFLAGS = -I m4
+
 [+NameCLower+]docdir = ${prefix}/doc/[+NameHLower+]
 [+NameCLower+]doc_DATA = \
 	README\
@@ -29,6 +31,7 @@ DISTCLEANFILES = intltool-extract \
 EXTRA_DIST = $([+NameCLower+]doc_DATA)
 [+ENDIF+]
 
+
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
 	for specfile in *.spec; do \
@@ -37,6 +40,3 @@ dist-hook:
 		fi \
 	done
 
-# Remove doc directory on uninstall
-uninstall-local:
-	-rm -r $([+NameCLower+]docdir)
