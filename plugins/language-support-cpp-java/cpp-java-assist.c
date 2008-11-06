@@ -435,37 +435,37 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
 												 MAX_COMPLETIONS);
 	
 	cpp_java_assist_destroy_completion_cache (assist);
+	
 	IAnjutaIterable* iter_project = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 									    IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										pre_word, TRUE, FALSE, FALSE, max_completions, -1, NULL);
+										pre_word, TRUE, TRUE, FALSE, -1, -1, NULL);
 	
 	IAnjutaIterable* iter_globals = 
 		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
 										IANJUTA_SYMBOL_TYPE_MAX,
 									    TRUE,
 										IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										pre_word, TRUE, TRUE, TRUE, max_completions, -1, NULL);
+										pre_word, TRUE, TRUE, TRUE, -1, -1, NULL);
 
 	if (iter_project) 
 	{
-		DEBUG_PRINT ("length iter_project %d", ianjuta_iterable_get_length (iter_project, NULL));
 		completion = create_completion (assist->priv->iassist, iter_project, NULL);
 		g_object_unref (iter_project);
 	}
 	
 	if (iter_globals)
 	{
-		DEBUG_PRINT ("length iter_globals %d", ianjuta_iterable_get_length (iter_globals, NULL));
+		
 		completion = create_completion (assist->priv->iassist, iter_globals, completion);
 		g_object_unref (iter_globals);
 	}
 	
-	editor_completions = ianjuta_editor_assist_get_suggestions (assist->priv->iassist,
-																pre_word,
-																NULL);
+		editor_completions = ianjuta_editor_assist_get_suggestions (assist->priv->iassist,
+																	pre_word,
+																	NULL);
 	if (editor_completions)
 	{
 		GList* tag_list = NULL;
@@ -704,6 +704,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	IAnjutaIterable *iter, *iter_save;
 	IAnjutaEditorAttribute attribute;
 	gchar *pre_word = NULL, *scope_operator = NULL;
+	GTimer* timer = g_timer_new ();
 	
 	//DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
 	//DEBUG_PRINT ("Calltips enable is: %d", calltips);
@@ -716,7 +717,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	iter = ianjuta_editor_get_position (editor, NULL);
 	ianjuta_iterable_previous (iter, NULL);
 	iter_save = ianjuta_iterable_clone (iter, NULL);
-	
+		
 	attribute = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
 												   NULL);
 	/*
@@ -729,18 +730,18 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	}
 	*/
 	
-	//DEBUG_PRINT ("assist init: %f", g_timer_elapsed (timer, NULL));
+	DEBUG_PRINT ("assist init: %f", g_timer_elapsed (timer, NULL));
 	
 	if (autocomplete)
 	{
 		pre_word = cpp_java_assist_get_pre_word (editor, iter);
-		//DEBUG_PRINT ("assist pre word: %f", g_timer_elapsed (timer, NULL));
+		DEBUG_PRINT ("assist pre word: %f", g_timer_elapsed (timer, NULL));
 		
 		scope_operator = cpp_java_assist_get_scope_operator (editor, iter);
-		//DEBUG_PRINT ("assist scope operator: %f", g_timer_elapsed (timer, NULL));
+		DEBUG_PRINT ("assist scope operator: %f", g_timer_elapsed (timer, NULL));
 		
-		//DEBUG_PRINT ("Pre word: %s", pre_word);
-		//DEBUG_PRINT ("Scope op: %s", scope_operator);
+		DEBUG_PRINT ("Pre word: %s", pre_word);
+		DEBUG_PRINT ("Scope op: %s", scope_operator);
 		
 		if (scope_operator)
 		{
@@ -768,9 +769,8 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 		else if (pre_word && strlen (pre_word) > 3)
 		{
 			if (!assist->priv->search_cache ||
-				strncmp (assist->priv->search_cache,
-						 pre_word, strlen (assist->priv->search_cache)) != 0 ||
-				assist->priv->editor_only)
+				!g_str_has_prefix (pre_word,
+						 assist->priv->search_cache) || assist->priv->editor_only)
 			{
 				cpp_java_assist_create_word_completion_cache (assist, pre_word);
 			}
@@ -781,7 +781,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
 													NULL);
 		}
-		//DEBUG_PRINT ("assist autocomplete: %f", g_timer_elapsed (timer, NULL));
+		DEBUG_PRINT ("assist autocomplete: %f", g_timer_elapsed (timer, NULL));
 	}
 	if (calltips)
 	{
@@ -790,7 +790,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			gint offset;
 			gchar *call_context =
 				cpp_java_assist_get_calltip_context (assist, iter, &offset);
-			//DEBUG_PRINT ("get calltip context: %f", g_timer_elapsed (timer, NULL));
+			DEBUG_PRINT ("get calltip context: %f", g_timer_elapsed (timer, NULL));
 			if (call_context)
 			{
 				shown = cpp_java_assist_show_calltip (assist, call_context,
@@ -802,12 +802,14 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			}
 			g_free (call_context);
 		}
-		//DEBUG_PRINT ("assist calltip: %f", g_timer_elapsed (timer, NULL));
+		DEBUG_PRINT ("assist calltip: %f", g_timer_elapsed (timer, NULL));
 	}
+	
 	g_object_unref (iter);
 	g_object_unref (iter_save);
 	g_free (pre_word);
 	g_free (scope_operator);
+	g_timer_destroy (timer);
 	
 	return shown;
 }

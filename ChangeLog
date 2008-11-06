@@ -1,3 +1,13 @@
+2008-11-06  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_check):
+	Worked on #558933
+	
+	* plugins/tools/tool.c:
+	Fixed #558315 – Ambiguous message
+
 2008-11-05  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
