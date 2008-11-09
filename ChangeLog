@@ -1,3 +1,10 @@
+2008-11-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* anjuta.anjuta,
+	plugins/project-wizard/templates/minimal/project.anjuta,
+	plugins/project-wizard/templates/terminal/project.anjuta:
+	Fix #559800 - Missing debugger menu
+
 2008-11-06  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c

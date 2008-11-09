@@ -39,6 +39,6 @@
             mandatory="no">
 		<require group="Anjuta Plugin"
                  attribute="Interfaces"
-                 value="IAnjutaDebuggerManager"/>
+                 value="IAnjutaDebugManager"/>
 	</plugin>
 </anjuta>
