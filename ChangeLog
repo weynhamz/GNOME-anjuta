@@ -1,5 +1,10 @@
 2008-11-09  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	Added missing doc for IAnjutaDebugger
+
+2008-11-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* anjuta.anjuta,
 	plugins/project-wizard/templates/minimal/project.anjuta,
 	plugins/project-wizard/templates/terminal/project.anjuta:

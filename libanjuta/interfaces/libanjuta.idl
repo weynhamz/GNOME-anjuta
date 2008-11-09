@@ -2906,7 +2906,7 @@ interface IAnjutaTerminal
 	#include <sys/types.h>
 
 	/**
-	* IAnjutaDebugManager::child_exited:
+	* IAnjutaTerminal::child_exited:
 	* @obj: Self
 	* @pid: pid of terminated child
 	* @status: status of terminated child as returned by waitpid
@@ -3335,7 +3335,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::debugger_started:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the debugger is started.
 	*/
 	void ::debugger_started ();
 
@@ -3344,7 +3344,8 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* This signal is emitted when the debugger is stopped. The error
+	* parameters allow to check it has run correctly.
 	*/
 	void ::debugger_stopped (GError *err);
 
@@ -3352,7 +3353,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::program_loaded:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when a program is loaded.
 	*/
 	void ::program_loaded ();
 
@@ -3360,7 +3361,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::program_running:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program is running.
 	*/
 	void ::program_running ();
 
@@ -3368,7 +3369,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::program_stopped:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program is interrupted.
 	*/
 	void ::program_stopped ();	
 
@@ -3376,7 +3377,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::program_exited:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program exits.
 	*/
 	void ::program_exited ();
 
@@ -3384,7 +3385,8 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::sharedlib_event:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program load a new shared
+	* library.
 	*/
 	void ::sharedlib_event ();
 
@@ -3406,10 +3408,10 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::frame_changed:
 	* @obj: Self
-	* @frame: fixme
-	* @thread: thread
+	* @frame: frame number
+	* @thread: thread number
 	* 
-	* fixme
+	* This signal is emitted when the current frame changes.
 	*/
 	void ::frame_changed (guint frame, gint thread);	
 
@@ -3419,16 +3421,17 @@ interface IAnjutaDebugger
 	* @name: Signal name
 	* @description: Signal description
 	* 
-	* fixme
+	* This signal is emitted when the program received a unix signal.
 	*/
 	void ::signal_received (const gchar* name, const gchar* description);	
 
 	/**
 	* IAnjutaDebugger::debugger_ready:
 	* @obj: Self
-	* @status: fixme
+	* @state: debugger status
 	* 
-	* fixme
+	* This signal is emitted when the debugger is ready to execute
+	* a new command.
 	*/
 	void ::debugger_ready (State state);
 
@@ -3438,9 +3441,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the current state of the debugger
 	*
-	* Returns: fixme
+	* Returns: The current debugger state.
 	*/
 	State get_state ();	
 
@@ -3450,12 +3453,13 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_load:
 	* @obj: Self
-	* @file: fixme
-	* @mime_type: fixme
-	* @source_search_directories: fixme
+	* @file: filename
+	* @mime_type: mime type of the file
+	* @source_search_directories: List of directories to search for
+	*			      source files.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Load a program in the debugger.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -3464,11 +3468,12 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_attach:
 	* @obj: Self
-	* @pid: fixme
-	* @source_search_directories: fixme
+	* @pid: pid of the process to debug
+	* @source_search_directories: List of directories to search for
+	*			      source files.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Attach to an already running process.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -3532,9 +3537,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Unload a program.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessfull, otherwise FALSE.
 	*/
 	gboolean unload ();
 	
@@ -3556,7 +3561,7 @@ interface IAnjutaDebugger
 	* 
 	* Quit the debugger as fast as possible.
 	*
-	* Returns: TRUE if sucessful, other FALSE.
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean abort ();
 	
@@ -3565,9 +3570,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Run the program currently loaded.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean run ();
 	
@@ -3576,9 +3581,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Execute a single C instruction of the program currently loaded.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_in ();
 	
@@ -3587,9 +3592,10 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Execute one C instruction, without entering in procedure, of
+	* the program currently loaded.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_over ();
 	
@@ -3598,22 +3604,24 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Execute the currently loaded program until it goes out of the
+	* current procedure.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_out ();
 	
 	/**
 	* ianjuta_debugger_run_to:
 	* @obj: Self
-	* @file: fixme
-	* @line: fixme
+	* @file: target file name
+	* @line: target line in file
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Execute the currently loaded program until it reachs the target
+	* line.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean run_to (const gchar* file, gint line);
 	
@@ -3622,9 +3630,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Exit from the currently loaded program.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean exit ();
 	
@@ -3633,9 +3641,9 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Interrupt the program currently running.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean interrupt ();
 
@@ -3644,175 +3652,176 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_inspect:
 	* @obj: Self
-	* @name: fixme
-	* @callback: fixme
-	* @user_data: fixme
+	* @name: variable name
+	* @callback: Callback to call with variable value
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get back the value of the named variable.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean inspect (const gchar* name, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_evaluate:
 	* @obj: Self
-	* @name: fixme
-	* @value: fixme
-	* @callback: fixme
-	* @user_data: fixme
+	* @name: variable name
+	* @value: new variable value
+	* @callback: Callback to call when the variable has been modified
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Change the value of a variable in the current program.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean evaluate (const gchar* name, const gchar* value, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_print:
 	* @obj: Self
-	* @variable: fixme
-	* @callback: fixme
-	* @user_data: fixme
+	* @name: variable name
+	* @callback: Callback to call with variable value
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Display value of a variable, like inspect.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean print (const gchar *variable, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_local:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call with list of local variable
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the list of local variables
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_local (Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_argument:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call with list of arguments
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the list of arguments
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_argument (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_signal:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call with list of arguments
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some informatin about a signal
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_signal (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_sharedlib:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call with list of arguments
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get information about shared libraries.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_sharedlib (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_handle_signal:
 	* @obj: Self
-	* @name: fixme
-	* @stop: fixme
-	* @print: fixme
-	* @ignore: fixme
+	* @name: signal name
+	* @stop: TRUE if we need to stop signal
+	* @print: TRUE if we display a message when the signal is emitted
+	* @ignore: TRUE if we ignore the signal
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* It defines how to handle signal received by the program.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean handle_signal (const gchar *name, gboolean stop, gboolean print, gboolean ignore);
 	
 	/**
 	* ianjuta_debugger_info_frame:
 	* @obj: Self
-	* @frame: fixme
-	* @callback: fixme
-	* @user_data: fixme
+	* @frame: frame number, the top frame has the number 0
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some information about the one stack frame.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_frame (guint frame, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_args:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some informatin about a current functin arguments.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_args (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_target:
 	* @obj: Self
-	* @user_data: fixme
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get back some information about the target
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_target (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_program:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some informatin about a current program.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_program (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_udot:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some informatin about OS structures.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_udot (Callback callback, gpointer user_data);
 	
@@ -3820,125 +3829,131 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_info_variables:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some informatin about variables.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_variables (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_frame:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a list of frame
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the list of frames.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_frame (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_frame:
 	* @obj: Self
-	* @frame: fixme
+	* @frame: frame number 
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Set the current frame.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean set_frame (guint frame);
 
 	/**
 	* ianjuta_debugger_list_thread:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a list of thread
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the list of threads.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_thread (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_thread:
 	* @obj: Self
-	* @thread: fixme
+	* @thread: thread number
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Set the current thread.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean set_thread (gint thread);
 
 	/**
-	* ianjuta_debugger_info_threads:
+	* ianjuta_debugger_info_thread:
 	* @obj: Self
-	* @thread: fixme
-	* @callback: fixme
-	* @user_data: fixme
+	* @thread: thread number
+	* @callback: Callback to call getting a string with all information
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get some information about current threads.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_thread (gint thread, Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_register:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call getting a list of registers
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the list of registers.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_register (Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_send_command:
 	* @obj: Self
-	* @command: fixme
+	* @command: command
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Send a command directly to the debugger. Warning, changing the
+	* debugger states, by sending a run command by example, will
+	* probably gives some troubles in the debug manager.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean send_command (const gchar *command);
 
 	/**
 	* ianjuta_debugger_callback:
 	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
+	* @callback: Callback to call
+	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* All commands are executed asynchronously and give back information
+	* with callbacks. It is difficult to know when a command is really
+	* executed. But as all commands are executed in order, you can use
+	* this command to get a call back when all previous commands have
+	* been executed.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean callback (Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_enable_log:
 	* @obj: Self
-	* @log: fixme
+	* @log: MessageView used by log
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Log all debuggers commands, mainly useful for debugging.
 	*/
 	void enable_log (IAnjutaMessageView *log);
 
@@ -3947,7 +3962,7 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Disable debugger log.
 	*/
 	void disable_log ();
 
@@ -4133,7 +4148,7 @@ interface IAnjutaDebugger
 		* ianjuta_debugger_breakpoint_condition_breakpoint:
 		* @obj: Self
 		* @id: Breakpoint identification number
-		* @condition: fixme
+		* @condition: expression that has to be true
 		* @callback: Callback to call when the breakpoint has been changed
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
