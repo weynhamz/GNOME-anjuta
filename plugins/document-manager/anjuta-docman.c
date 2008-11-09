@@ -1317,16 +1317,16 @@ anjuta_docman_get_file (AnjutaDocman *docman, const gchar *fn)
 	gchar *fname;
 	
 	g_return_val_if_fail (fn, NULL);
-	real_path = anjuta_util_get_real_path (fn);
 	
 	/* If it is full and absolute path, there is no need to 
 	go further, even if the file is not found*/
-	if (fn[0] == '/')
+	if (g_path_is_absolute(fn))
 	{
 		return g_file_new_for_path (fn);
 	}
 	
 	/* First, check if we can get the file straightaway */
+	real_path = anjuta_util_get_real_path (fn);
 	if (g_file_test (real_path, G_FILE_TEST_IS_REGULAR))
 	{
 		return g_file_new_for_path (real_path);
@@ -1589,37 +1589,67 @@ anjuta_docman_order_tabs (AnjutaDocman *docman)
 IAnjutaDocument *
 anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 {
+	IAnjutaDocument *file_doc = NULL;
 	GList *node;
+	gchar *path;
+	gchar *local_real_path = NULL;
 	
 	g_return_val_if_fail (file != NULL, NULL);
 
-	if (file)
+	
+	path = g_file_get_path (file);
+	if (path)
 	{
-		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+		local_real_path = anjuta_util_get_real_path (path);
+		g_free (path);
+	}
+	
+	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+	{
+		AnjutaDocmanPage *page;
+		GFile* doc_file;
+							
+		page = (AnjutaDocmanPage *) node->data;
+
+		if (page && page->widget && IANJUTA_IS_DOCUMENT (page->doc))
 		{
-			AnjutaDocmanPage *page;
-			page = (AnjutaDocmanPage *) node->data;
-
-			if (page && page->widget && IANJUTA_IS_DOCUMENT (page->doc))
+			IAnjutaDocument *doc;
+				
+			doc = page->doc;
+			doc_file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+			if (doc_file)
 			{
-				IAnjutaDocument *doc;
-				GFile* doc_file;
-
-				doc = page->doc;
-				doc_file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
-				if (doc_file)
+					
+				/* Try exact match first */
+				if (g_file_equal (file, doc_file))
 				{
-					if (g_file_equal (file, doc_file))
-					{
-						g_object_unref (doc_file);
-						return doc;
-					}
 					g_object_unref (doc_file);
+					file_doc = doc;
+					break;
 				}
+					
+				/* Try a local file alias */
+				if ((file_doc == NULL) && (local_real_path))
+				{
+					gchar *path = g_file_get_path (doc_file);
+					if (path)
+					{
+						gchar *doc_real_path = anjuta_util_get_real_path (path);
+						g_free (path);
+						if ((strcmp (doc_real_path, local_real_path) == 0))
+						{
+							file_doc = doc;
+						}
+						g_free (doc_real_path);
+					}
+				}
+				g_object_unref (doc_file);
 			}
 		}
 	}
-	return NULL;
+	g_free (local_real_path);
+
+	return file_doc;
 }
 
 GList*
