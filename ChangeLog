@@ -1,3 +1,10 @@
+2008-11-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* anjuta.anjuta,
+	plugins/project-wizard/templates/minimal/project.anjuta,
+	plugins/project-wizard/templates/terminal/project.anjuta:
+	Fix #559800 - Missing debugger menu
+
 2008-10-19  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in: Bumped version to 2.24.1
