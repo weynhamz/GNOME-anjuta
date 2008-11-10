@@ -18,7 +18,6 @@
  */
 
 #include "project-import.h"
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -383,11 +382,15 @@ project_import_set_name (ProjectImport *pi, const gchar *name)
 void
 project_import_set_directory (ProjectImport *pi, const gchar *directory)
 {
+	GFile* file;
+
 	g_return_if_fail (IS_PROJECT_IMPORT (pi));
 	g_return_if_fail (directory != NULL);
 	
-	gchar* uri = gnome_vfs_make_uri_from_input (directory);
+	file = g_file_parse_name (directory);
+	gchar* uri = g_file_get_uri (file);
 	gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (pi->import_path), uri);
+	g_object_unref (G_OBJECT (file));
 	g_free (uri);
 }
 
@@ -398,11 +401,11 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	and check which plugins are really needed but for now we just
 	take a default project file. */
 	
-	GnomeVFSURI* source_uri;
+	GFile* source_file;
 	if (!strcmp (pi->backend_id, "gbf-am:GbfAmProject"))
-		source_uri = gnome_vfs_uri_new(AM_PROJECT_FILE);
+		source_file = g_file_new_for_path (AM_PROJECT_FILE);
 	else if (!strcmp (pi->backend_id, "gbf-mkfile:GbfMkfileProject"))
-		source_uri = gnome_vfs_uri_new(MKFILE_PROJECT_FILE);
+		source_file = g_file_new_for_path (MKFILE_PROJECT_FILE);
 	else
 	{
 		/* We shouldn't get here, unless someone has upgraded their GBF */
@@ -424,65 +427,66 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 		return FALSE;
 	}
 	
-	GnomeVFSURI* dest_uri = gnome_vfs_uri_new(prjfile);
-	
-	GnomeVFSResult error = gnome_vfs_xfer_uri (source_uri,
-						dest_uri,
-						GNOME_VFS_XFER_DEFAULT,
-						GNOME_VFS_XFER_ERROR_MODE_ABORT,
-						GNOME_VFS_XFER_OVERWRITE_MODE_ABORT,
-						NULL,
-						NULL);
-	/* Handle already existing file */
-	if (error == GNOME_VFS_ERROR_FILE_EXISTS)
-	{       
-		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->assistant),
-				_("A file named \"%s\" already exists. "
-				  "Do you want to replace it?"), prjfile))
+	GFile* dest_file = g_file_parse_name (prjfile);
+	GError* error = NULL;
+
+	if (!g_file_copy (source_file, dest_file, 
+			G_FILE_COPY_NONE,
+			NULL,
+			NULL,
+			NULL,
+			&error))
+	{
+		if (error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
 		{
-			error = gnome_vfs_xfer_uri (source_uri,
-					dest_uri,
-					GNOME_VFS_XFER_DEFAULT,
-					GNOME_VFS_XFER_ERROR_MODE_ABORT,
-					GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-					NULL,
-					NULL);
+			if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->assistant),
+					_("A file named \"%s\" already exists. "
+					  "Do you want to replace it?"), prjfile))
+			{
+				g_error_free (error);
+				error = NULL;
+				g_file_copy (source_file, dest_file,
+						G_FILE_COPY_OVERWRITE,
+						NULL,
+						NULL,
+						NULL,
+						&error);
+			}
 		}
 	}
-	
-	/* Update file time if possible */
-	if (error == GNOME_VFS_OK)
+
+	g_object_unref (source_file);
+
+	if (!error)
 	{
-		GnomeVFSFileInfo *file_info;
+		time_t ctime = time(NULL);
+		GFileInfo* file_info = g_file_info_new();
+		g_file_info_set_attribute_uint64(file_info, 
+				"time::modified",
+				ctime);
+		g_file_info_set_attribute_uint64(file_info, 
+				"time::created",
+				ctime);
+		g_file_info_set_attribute_uint64(file_info, 
+				"time::access",
+				ctime);
+		g_file_set_attributes_from_info (dest_file, 
+				file_info,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
 
-		file_info = gnome_vfs_file_info_new ();
-		file_info->ctime = time (NULL);
-		file_info->mtime = file_info->ctime;
-		file_info->atime = file_info->ctime;
-
-		gnome_vfs_set_file_info_uri (dest_uri,
-					     file_info,
-				   	     GNOME_VFS_SET_FILE_INFO_TIME);
-
-		gnome_vfs_file_info_unref (file_info);
+		g_object_unref (G_OBJECT(file_info));
+		g_object_unref (dest_file);
 	}
-
-	gnome_vfs_uri_unref (source_uri);
-	gnome_vfs_uri_unref (dest_uri);
-
-	switch (error)
+	else
 	{
-	case GNOME_VFS_OK:
-		break;
-	case GNOME_VFS_ERROR_FILE_EXISTS:
-		return FALSE;
-	default:
-		anjuta_util_dialog_error (GTK_WINDOW (pi->assistant),
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN(pi->plugin)->shell),
 				_("A file named \"%s\" cannot be written: %s.  "
 				  "Check if you have write access to the project directory."),
-				  prjfile, gnome_vfs_result_to_string (error));
-
+				  prjfile, error->message);
+		g_object_unref (dest_file);
 		return FALSE;
+
 	}
 
 	return TRUE;
