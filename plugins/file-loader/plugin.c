@@ -1183,7 +1183,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
-	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Activating File Loader plugin...");
+	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Activating File Loader plugin...");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -1282,7 +1282,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
-	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin...");
+	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Deactivating File Loader plugin...");
 	
 	/* Disconnect session */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),

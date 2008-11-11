@@ -533,7 +533,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	doc_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
-	DEBUG_PRINT ("Project added");
+	DEBUG_PRINT ("%s", "Project added");
 	
 	
 	g_free (doc_plugin->project_name);
@@ -565,7 +565,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	doc_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
-	DEBUG_PRINT ("Project removed");
+	DEBUG_PRINT ("%s", "Project removed");
 	
 	g_free (doc_plugin->project_name);
 	doc_plugin->project_name = NULL;
@@ -1159,7 +1159,7 @@ unload_unused_support_plugins (DocmanPlugin* docman_plugin,
 		AnjutaPlugin* plugin = ANJUTA_PLUGIN (node->data);
 		if (!g_list_find (needed_plugins, plugin))
 		{
-			DEBUG_PRINT ("Unloading plugin");
+			DEBUG_PRINT ("%s", "Unloading plugin");
 			anjuta_plugin_deactivate (plugin);
 		}
 	}
@@ -1197,7 +1197,7 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 		if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
 		{
-			DEBUG_PRINT("Beginning language support");
+			DEBUG_PRINT("%s", "Beginning language support");
 			AnjutaPluginManager *plugin_manager;
 			IAnjutaLanguage *lang_manager;
 			GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
@@ -1216,7 +1216,7 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 															  NULL);
 			if (!language)
 			{
-				DEBUG_PRINT ("Unloading all language support plugins");
+				DEBUG_PRINT ("%s", "Unloading all language support plugins");
 				/* Unload all language support plugins */
 				/* Copy the list because the "deactivate"-signal handler modifies
 				 * the original list */
@@ -1674,7 +1674,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	GList *actions, *act;
 	
-	DEBUG_PRINT ("DocmanPlugin: Activating document manager plugin...");
+	DEBUG_PRINT ("%s", "DocmanPlugin: Activating document manager plugin...");
 	
 	dplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	dplugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -1793,7 +1793,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaStatus *status;
 	GList *node;
 	
-	DEBUG_PRINT ("DocmanPlugin: Deactivating document manager plugin...");
+	DEBUG_PRINT ("%s", "DocmanPlugin: Deactivating document manager plugin...");
 	
 	eplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 
@@ -2092,7 +2092,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_save_as (IAnjutaFileSavable* plugin, GFile* file, GError** e)
 {
-	DEBUG_PRINT("save_as: Not implemented in DocmanPlugin");
+	DEBUG_PRINT("%s", "save_as: Not implemented in DocmanPlugin");
 }
 
 static gboolean
@@ -2126,7 +2126,7 @@ isavable_is_dirty (IAnjutaFileSavable* plugin, GError **e)
 static void
 isavable_set_dirty(IAnjutaFileSavable* plugin, gboolean dirty, GError** e)
 {
-	DEBUG_PRINT("set_dirty: Not implemented in DocmanPlugin");
+	DEBUG_PRINT("%s", "set_dirty: Not implemented in DocmanPlugin");
 }
 
 static void

@@ -63,7 +63,7 @@ on_font_check_toggled(GtkToggleButton* button, GladeXML* gxml)
 static gboolean
 sourceview_plugin_activate (AnjutaPlugin *plugin)
 {	
-	DEBUG_PRINT ("SourceviewPlugin: Activating SourceviewPlugin plugin ...");
+	DEBUG_PRINT ("%s", "SourceviewPlugin: Activating SourceviewPlugin plugin ...");
 
 	return TRUE;
 }
@@ -71,7 +71,7 @@ sourceview_plugin_activate (AnjutaPlugin *plugin)
 static gboolean
 sourceview_plugin_deactivate (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("SourceviewPlugin: Dectivating SourceviewPlugin plugin ...");
+	DEBUG_PRINT ("%s", "SourceviewPlugin: Dectivating SourceviewPlugin plugin ...");
 	
 	return TRUE;
 }

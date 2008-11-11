@@ -309,7 +309,7 @@ project_import_finalize(GObject *object)
 	ProjectImport *cobj;
 	cobj = PROJECT_IMPORT(object);
 	
-	DEBUG_PRINT ("Finalizing ProjectImport object");
+	DEBUG_PRINT ("%s", "Finalizing ProjectImport object");
 	
 	if (cobj->backend_id)
 		g_free(cobj->backend_id);

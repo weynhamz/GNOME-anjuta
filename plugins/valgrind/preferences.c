@@ -137,14 +137,14 @@ build_general_prefs ()
 	}
 	
 	if (!g_path_is_absolute(str_file))
-		DEBUG_PRINT("Not absolute");
+		DEBUG_PRINT("%s", "Not absolute");
 	
 	widget = 
 		gtk_file_chooser_button_new (_("Choose Valgrind Binary File Path..."), 
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 								
 	if ( gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (widget), str_file) == FALSE )
-		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
+		DEBUG_PRINT ("%s", "error: could not select file uri with gtk_file_chooser_select_filename ()");
 		
 	g_free (str_file);
 

@@ -355,7 +355,7 @@ main (int argc, char *argv[])
 		if (!bacon_message_connection_get_is_server (connection) &&
 			 no_client == FALSE) 
 		{
-			DEBUG_PRINT("Client");
+			DEBUG_PRINT("%s", "Client");
 			send_bacon_message ();
 
 			/* we never popup a window... tell startup-notification
@@ -369,7 +369,7 @@ main (int argc, char *argv[])
 		}
 		else 
 		{
-			DEBUG_PRINT("Server");
+			DEBUG_PRINT("%s", "Server");
 			bacon_message_connection_set_callback (connection,
 							       on_message_received,
 							       NULL);

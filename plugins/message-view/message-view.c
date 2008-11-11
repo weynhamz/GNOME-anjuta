@@ -125,7 +125,7 @@ static Message*
 message_new (IAnjutaMessageViewType type, const gchar *summary,
 			 const gchar *details)
 {
-	/* DEBUG_PRINT ("Creating message"); */
+	/* DEBUG_PRINT ("%s", "Creating message"); */
 	Message *message = g_new0 (Message, 1);
 	message->type = type;
 	if (summary)
@@ -144,7 +144,7 @@ message_copy (const Message *src)
 static void
 message_free (Message *message)
 {
-	/* DEBUG_PRINT ("Freeing message"); */
+	/* DEBUG_PRINT ("%s", "Freeing message"); */
 	g_free (message->summary);
 	g_free (message->details);
 	g_free (message);

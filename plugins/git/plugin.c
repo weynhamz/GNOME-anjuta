@@ -570,7 +570,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	
-	DEBUG_PRINT ("Git: Activating Git plugin ...");
+	DEBUG_PRINT ("%s", "Git: Activating Git plugin ...");
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -658,7 +658,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	
-	DEBUG_PRINT ("Git: Dectivating Git plugin ...");
+	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin ...");
 	anjuta_ui_unmerge (ui, git_plugin->uiid);
 	anjuta_plugin_remove_watch (plugin, git_plugin->project_root_watch_id, 
 								TRUE);

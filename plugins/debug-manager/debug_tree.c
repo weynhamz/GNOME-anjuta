@@ -972,7 +972,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var,
 			}
 			else
 			{
-				DEBUG_PRINT("YOu shouldn't read this, debug_tree_add_watch");
+				DEBUG_PRINT("%s", "You shouldn't read this, debug_tree_add_watch");
 				if (var->value == NULL)
 				{
 					/* Get value */

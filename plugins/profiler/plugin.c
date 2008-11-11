@@ -790,7 +790,7 @@ profiler_activate (AnjutaPlugin *plugin)
 	IAnjutaSymbolManager *symbol_manager;
 	IAnjutaDocumentManager *document_manager;
 	
-	DEBUG_PRINT ("Profiler: Activating Profiler plugin ...");
+	DEBUG_PRINT ("%s", "Profiler: Activating Profiler plugin ...");
 	profiler = PROFILER (plugin);
 
 	/* Add all UI actions and merge UI */
@@ -872,7 +872,7 @@ profiler_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	Profiler *profiler;
 	
-	DEBUG_PRINT ("Profiler: Dectivating Profiler plugin ...");
+	DEBUG_PRINT ("%s", "Profiler: Dectivating Profiler plugin ...");
 
 	/* Disconnect session save/load */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell), 
@@ -978,7 +978,7 @@ ifile_open (IAnjutaFile *manager, GFile* file,
 static GFile*
 ifile_get_file (IAnjutaFile *manager, GError **err)
 {
-	DEBUG_PRINT ("Unsupported operation");
+	DEBUG_PRINT ("%s", "Unsupported operation");
 	return NULL;
 }
 

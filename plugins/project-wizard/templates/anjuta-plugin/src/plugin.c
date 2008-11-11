@@ -71,7 +71,7 @@ static gboolean
 [+ENDIF+]
 	[+PluginClass+] *[+NameCLower+];
 	
-	DEBUG_PRINT ("[+PluginClass+]: Activating [+PluginClass+] plugin ...");
+	DEBUG_PRINT ("%s", "[+PluginClass+]: Activating [+PluginClass+] plugin ...");
 	[+NameCLower+] = ([+PluginClass+]*) plugin;
 [+IF (=(get "HasUI") "1") +]
 	/* Add all UI actions and merge UI */
@@ -105,7 +105,7 @@ static gboolean
 [+IF (=(get "HasUI") "1") +]
 	AnjutaUI *ui;
 [+ENDIF+]
-	DEBUG_PRINT ("[+PluginClass+]: Dectivating [+PluginClass+] plugin ...");
+	DEBUG_PRINT ("%s", "[+PluginClass+]: Dectivating [+PluginClass+] plugin ...");
 [+IF (=(get "HasGladeFile") "1") +]
 	anjuta_shell_remove_widget (plugin->shell, (([+PluginClass+]*)plugin)->widget,
 								NULL);

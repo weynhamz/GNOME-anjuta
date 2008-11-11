@@ -319,7 +319,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 										  "ActionGroupSubversion",
 										  "ActionSubversionResolve");
 	
-	DEBUG_PRINT ("Project added");
+	DEBUG_PRINT ("%s", "Project added");
 	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
@@ -433,7 +433,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *revert_action;
 	GtkAction *resolve_action;
 	
-	DEBUG_PRINT ("Subversion: Activating Subversion plugin ...");
+	DEBUG_PRINT ("%s", "Subversion: Activating Subversion plugin ...");
 	subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -510,7 +510,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	Subversion *subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	DEBUG_PRINT ("Subversion: Dectivating Subversion plugin ...");
+	DEBUG_PRINT ("%s", "Subversion: Dectivating Subversion plugin ...");
 	anjuta_plugin_remove_watch (plugin, subversion->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->project_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->editor_watch_id, TRUE);

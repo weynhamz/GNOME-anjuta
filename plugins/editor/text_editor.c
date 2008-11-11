@@ -181,13 +181,13 @@ initialize_markers (TextEditor* te, GtkWidget *scintilla)
 static void
 on_scintila_already_destroyed (gpointer te, GObject *obj)
 {
-	/* DEBUG_PRINT ("Scintilla object has been destroyed"); */
+	/* DEBUG_PRINT ("%s", "Scintilla object has been destroyed"); */
 }
 
 static void
 on_te_already_destroyed (gpointer te, GObject *obj)
 {
-	/* DEBUG_PRINT ("TextEditor object has been destroyed"); */
+	/* DEBUG_PRINT ("%s", "TextEditor object has been destroyed"); */
 }
 #endif
 
@@ -312,7 +312,7 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, TextEditor *te)
 	}
 	gtk_widget_destroy (dlg);
 	te->file_modified_widget = NULL;
-	/* DEBUG_PRINT ("File modified dialog responded"); */
+	/* DEBUG_PRINT ("%s", "File modified dialog responded"); */
 }
 
 static gboolean
@@ -368,7 +368,7 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 {
 	TextEditor *te = TEXT_EDITOR (user_data);
 	
-	/* DEBUG_PRINT ("File changed!!!"); */
+	/* DEBUG_PRINT ("%s", "File changed!!!"); */
 	
 	if (!(event_type == G_FILE_MONITOR_EVENT_CHANGED ||
 		  event_type == G_FILE_MONITOR_EVENT_CREATED))
@@ -409,7 +409,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 	{
 		GFile *gio_uri;
 		GError *error = NULL;
-		/* DEBUG_PRINT ("Setting up Monitor for %s", te->uri); */
+		/* DEBUG_PRINT ("%s", "Setting up Monitor for %s", te->uri); */
 
 		gio_uri = g_file_new_for_uri (te->uri);
 		te->monitor = g_file_monitor_file (gio_uri, 
@@ -422,7 +422,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 		
 		if (error != NULL)
 		{
-			DEBUG_PRINT ("Error while setting up file monitor: %s",
+			DEBUG_PRINT ("%s", "Error while setting up file monitor: %s",
 					   error->message);
 			g_error_free (error);
 		}
@@ -479,7 +479,7 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 	
 	/* Apply font zoom separately */
 	zoom_factor = anjuta_preferences_get_int (te->preferences, TEXT_ZOOM_FACTOR);
-	/* DEBUG_PRINT ("Initializing zoom factor to: %d", zoom_factor); */
+	/* DEBUG_PRINT ("%s", "Initializing zoom factor to: %d", zoom_factor); */
 	text_editor_set_zoom_factor (te, zoom_factor);
 	
 #ifdef DEBUG

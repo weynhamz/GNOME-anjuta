@@ -776,7 +776,7 @@ search_replace_next_previous(SearchDirection dir)
 	}	
 	else
 	{
-		DEBUG_PRINT ("sr null\n");
+		DEBUG_PRINT ("%s", "sr null\n");
 	}
 }
 

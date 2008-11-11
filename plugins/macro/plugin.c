@@ -105,7 +105,7 @@ activate_plugin (AnjutaPlugin * plugin)
 	AnjutaUI *ui;
 	MacroPlugin *macro_plugin;
 
-	DEBUG_PRINT ("MacroPlugin: Activating Macro plugin...");
+	DEBUG_PRINT ("%s", "MacroPlugin: Activating Macro plugin...");
 
 	macro_plugin = ANJUTA_PLUGIN_MACRO (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -135,7 +135,7 @@ deactivate_plugin (AnjutaPlugin * plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
-	DEBUG_PRINT ("MacroPlugin: Deactivating Macro plugin...");
+	DEBUG_PRINT ("%s", "MacroPlugin: Deactivating Macro plugin...");
 
 	anjuta_plugin_remove_watch (plugin,
 								ANJUTA_PLUGIN_MACRO (plugin)->editor_watch_id,

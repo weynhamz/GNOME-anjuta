@@ -75,7 +75,7 @@ struct _GdbPluginClass
 static void
 gdb_plugin_stop_terminal (GdbPlugin* plugin)
 {
-	DEBUG_PRINT ("In function: gdb_plugin_stop_terminal()");
+	DEBUG_PRINT ("%s", "In function: gdb_plugin_stop_terminal()");
 
 	if (plugin->term_pid > 0) {
 		kill (plugin->term_pid, SIGTERM);
@@ -240,7 +240,7 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
 	/* GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin); */
 
-	DEBUG_PRINT ("GDB: Activating Gdb plugin...");
+	DEBUG_PRINT ("%s", "GDB: Activating Gdb plugin...");
 
 	return TRUE;
 }
@@ -250,7 +250,7 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
-	DEBUG_PRINT ("GDB: Deactivating Gdb plugin...");
+	DEBUG_PRINT ("%s", "GDB: Deactivating Gdb plugin...");
 
 	if (this->debugger != NULL)
 	{
@@ -458,7 +458,7 @@ idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 
 	if (!debugger_stop (this->debugger))
 	{
-		DEBUG_PRINT ("set error");
+		DEBUG_PRINT ("%s", "set error");
 		g_set_error (err, IANJUTA_DEBUGGER_ERROR, IANJUTA_DEBUGGER_CANCEL, "Command cancelled by user");
 
 		return FALSE;
@@ -474,7 +474,7 @@ idebugger_abort (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
-	DEBUG_PRINT ("idebugger abort\n");
+	DEBUG_PRINT ("%s", "idebugger abort\n");
 	if (!debugger_abort (this->debugger))
 	{
 		g_set_error (err, IANJUTA_DEBUGGER_ERROR, IANJUTA_DEBUGGER_CANCEL, "Command cancelled by user");

@@ -251,7 +251,7 @@ run_plugin_activate (AnjutaPlugin *plugin)
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (plugin);
 	AnjutaUI *ui;
 	
-	DEBUG_PRINT ("Run Program Plugin: Activating plugin...");
+	DEBUG_PRINT ("%s", "Run Program Plugin: Activating plugin...");
 
 	/* Connect to session signal */
 	g_signal_connect (plugin->shell, "save-session",
@@ -279,7 +279,7 @@ run_plugin_deactivate (AnjutaPlugin *plugin)
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (plugin);
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("Run Program Plugin: Deactivating plugin...");
+	DEBUG_PRINT ("%s", "Run Program Plugin: Deactivating plugin...");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, self->action_group);

@@ -120,7 +120,7 @@ static void
 on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 					 GtkWidget *ui_container)
 {
-	DEBUG_PRINT ("Adding UI item...");
+	DEBUG_PRINT ("%s", "Adding UI item...");
 	gtk_box_pack_start (GTK_BOX ((ANJUTA_TEST_SHELL (ui_container))->box),
 						 widget, FALSE, FALSE, 0);
 }

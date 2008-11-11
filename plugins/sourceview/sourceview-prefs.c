@@ -381,7 +381,7 @@ void sourceview_prefs_destroy(Sourceview* sv)
 {
 	AnjutaPreferences* prefs = sv->priv->prefs;
 	GList* id;
-	DEBUG_PRINT("Destroying preferences");
+	DEBUG_PRINT("%s", "Destroying preferences");
 	for (id = sv->priv->gconf_notify_ids; id != NULL; id = id->next)
 	{
 		anjuta_preferences_notify_remove(prefs,GPOINTER_TO_UINT(id->data));

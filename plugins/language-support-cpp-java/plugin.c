@@ -1897,7 +1897,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
 	
-	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activating plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaLanguageCppJavaPlugin: Activating plugin ...");
 
 	if (!initialized)
 	{
@@ -1942,7 +1942,7 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	
 	lang_plugin->action_group = NULL;
 	lang_plugin->uiid = 0;
-	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Deactivated plugin.");
+	DEBUG_PRINT ("%s", "AnjutaLanguageCppJavaPlugin: Deactivated plugin.");
 	return TRUE;
 }
 

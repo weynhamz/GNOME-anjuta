@@ -39,12 +39,7 @@
  * messages.
  */
 #if defined (DEBUG) && defined (__GNUC__) && __GNUC__ >= 3
-#  define DEBUG_PRINT(...)  do \
-							{ \
-						    	g_debug ("%s:%d (%s)",  __FILE__, __LINE__, \
-									 	 G_STRFUNC); \
-								g_debug (__VA_ARGS__); \
-							} while (0) 
+#  define DEBUG_PRINT(format, ...) g_debug ("%s:%d (%s) " format, __FILE__, __LINE__, G_STRFUNC, __VA_ARGS__)
 #else
 #  define DEBUG_PRINT(...)
 #endif

@@ -102,7 +102,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaClassInheritance *class_inheritance;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("AnjutaClassInheritance: Activating plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaClassInheritance: Activating plugin ...");
 	
 	register_stock_icons (plugin);
 	
@@ -129,7 +129,7 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("AnjutaClassInheritance: Dectivating plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaClassInheritance: Dectivating plugin ...");
 	AnjutaClassInheritance* class_inheritance;
 	class_inheritance = ANJUTA_PLUGIN_CLASS_INHERITANCE (plugin);
 

@@ -281,7 +281,7 @@ static void
 on_merge_widget_destroy (GtkWidget *merge_widget, GtkWidget *menuitem)
 {
 	toolbars = g_list_remove (toolbars, merge_widget);
-	DEBUG_PRINT ("Destroying menuitem for toolbar widget");
+	DEBUG_PRINT ("%s", "Destroying menuitem for toolbar widget");
 	gtk_widget_destroy (menuitem);
 }
 
@@ -289,7 +289,7 @@ static void
 on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 					 GtkWidget *ui_container)
 {
-	DEBUG_PRINT ("Adding UI item ...");
+	DEBUG_PRINT ("%s", "Adding UI item ...");
 	
 	if (GTK_IS_MENU_BAR (widget))
 	{
@@ -600,7 +600,7 @@ anjuta_app_instance_init (AnjutaApp *app)
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
 	
-	DEBUG_PRINT ("Initializing Anjuta...");
+	DEBUG_PRINT ("%s", "Initializing Anjuta...");
 	
 	gtk_window_set_geometry_hints (GTK_WINDOW (app), GTK_WIDGET (app),
 								   &size_hints, GDK_HINT_RESIZE_INC);
@@ -1047,7 +1047,7 @@ remove_from_widgets_hash (gpointer name, gpointer hash_widget, gpointer widget)
 static void
 on_widget_destroy (GtkWidget *widget, AnjutaApp *app)
 {
-	DEBUG_PRINT ("Widget about to be destroyed");
+	DEBUG_PRINT ("%s", "Widget about to be destroyed");
 	g_hash_table_foreach_remove (app->widgets, remove_from_widgets_hash,
 								 widget);
 }
@@ -1083,7 +1083,7 @@ on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 	if (g_hash_table_foreach_remove (app->widgets,
 									 remove_from_widgets_hash,
 									 widget)){
-		DEBUG_PRINT ("Widget removed from container");
+		DEBUG_PRINT ("%s", "Widget removed from container");
 	}
 }
 
@@ -1094,7 +1094,7 @@ on_widget_removed_from_hash (gpointer widget)
 	GtkWidget *menuitem;
 	GdlDockItem *dockitem;
 	
-	DEBUG_PRINT ("Removing widget from hash");
+	DEBUG_PRINT ("%s", "Removing widget from hash");
 	
 	app = g_object_get_data (G_OBJECT (widget), "app-object");
 	dockitem = g_object_get_data (G_OBJECT (widget), "dockitem");

@@ -61,7 +61,7 @@ static void on_server_type_changed(GtkComboBox* combo, GladeXML* gxml)
 			gtk_widget_set_sensitive(password, TRUE);
 			break;
 		default:
-			DEBUG_PRINT("Unknown CVS server type");
+			DEBUG_PRINT("%s", "Unknown CVS server type");
 	}
 }
 

@@ -184,7 +184,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	MessageViewPlugin *mv_plugin;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("MessageViewPlugin: Activating MessageView plugin ...");
+	DEBUG_PRINT ("%s", "MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
 	
 	if (!initialized)
@@ -229,7 +229,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	MessageViewPlugin *mplugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	DEBUG_PRINT ("MessageViewPlugin: Dectivating message view plugin ...");
+	DEBUG_PRINT ("%s", "MessageViewPlugin: Dectivating message view plugin ...");
 	
 	mplugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
 #if 0

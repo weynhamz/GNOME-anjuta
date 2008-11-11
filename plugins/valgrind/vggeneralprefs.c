@@ -276,7 +276,7 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 
 	if ( gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (widget), str_file) == FALSE )
-		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
+		DEBUG_PRINT ("%s", "error: could not select file uri with gtk_file_chooser_select_filename ()");
 	
 	/* grab every change in file selection */
 	g_signal_connect (widget, "selection-changed", G_CALLBACK (file_entry_changed), SUPPRESSIONS_KEY);

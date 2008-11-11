@@ -1193,7 +1193,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	if (pm_plugin->project != NULL)
 			g_object_unref (pm_plugin->project);
 	
-	DEBUG_PRINT ("initializing gbf backend...\n");
+	DEBUG_PRINT ("%s", "initializing gbf backend...\n");
 	gbf_backend_init ();
 	for (l = gbf_backend_get_backends (); l; l = l->next) {
 		backend = l->data;
@@ -1224,7 +1224,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 		return;
 	}
 	
-	DEBUG_PRINT ("Creating new gbf project\n");
+	DEBUG_PRINT ("%s", "Creating new gbf project\n");
 	
 	/* pm_plugin->project = gbf_backend_new_project (backend->id); */
 	if (!pm_plugin->project)
@@ -1374,7 +1374,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
 		return;
 	
-	DEBUG_PRINT ("Project profile loaded; Restoring project session");
+	DEBUG_PRINT ("%s", "Project profile loaded; Restoring project session");
 	
 	/* Load gbf project */
 	project_manager_load_gbf (plugin);
@@ -1414,7 +1414,7 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
 		return;
 	
-	DEBUG_PRINT ("Project profile descoped; Saving project session");
+	DEBUG_PRINT ("%s", "Project profile descoped; Saving project session");
 	
 	/* Save current project session */
 	g_return_if_fail (plugin->project_root_uri != NULL);
@@ -1465,7 +1465,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* GladeXML *gxml; */
 	ProjectManagerPlugin *pm_plugin;
 	
-	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin...");
+	DEBUG_PRINT ("%s", "ProjectManagerPlugin: Activating Project Manager plugin...");
 	
 	if (!initialized)
 		register_stock_icons (plugin);

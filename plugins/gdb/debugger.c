@@ -252,7 +252,7 @@ debugger_initialize (Debugger *debugger)
 {
 	const gchar* anjuta_log;
 	
-	DEBUG_PRINT ("In function: debugger_init()");
+	DEBUG_PRINT ("%s", "In function: debugger_init()");
 
 	debugger->priv = g_new0 (DebuggerPriv, 1);
 	
@@ -520,7 +520,7 @@ debugger_get_state (Debugger *debugger)
 static void
 debugger_clear_buffers (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_clear_buffers()");
+	DEBUG_PRINT ("%s", "In function: debugger_clear_buffers()");
 
 	/* Clear the output line buffer */
 	g_string_assign (debugger->priv->stdo_line, "");
@@ -541,7 +541,7 @@ debugger_queue_get_next_command (Debugger *debugger)
 {
 	DebuggerCommand *dc;
 
-	DEBUG_PRINT ("In function: debugger_get_next_command()");
+	DEBUG_PRINT ("%s", "In function: debugger_get_next_command()");
 	
 	if (debugger->priv->cmd_queqe)
 	{
@@ -558,7 +558,7 @@ debugger_queue_set_next_command (Debugger *debugger)
 {
 	DebuggerCommand *dc;
 
-	DEBUG_PRINT ("In function: debugger_set_next_command()");
+	DEBUG_PRINT ("%s", "In function: debugger_set_next_command()");
 	
 	dc = debugger_queue_get_next_command (debugger);
 	if (!dc)
@@ -614,7 +614,7 @@ debugger_queue_clear (Debugger *debugger)
 {
 	GList *node;
 
-	DEBUG_PRINT ("In function: debugger_queue_clear()");
+	DEBUG_PRINT ("%s", "In function: debugger_queue_clear()");
 	
 	node = debugger->priv->cmd_queqe;
 	while (node)
@@ -652,7 +652,7 @@ debugger_execute_command (Debugger *debugger, const gchar *command)
 static void
 debugger_queue_execute_command (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_queue_execute_command()");
+	DEBUG_PRINT ("%s", "In function: debugger_queue_execute_command()");
 
 	if (!debugger->priv->debugger_is_busy &&
 		!debugger->priv->starting &&
@@ -668,7 +668,7 @@ static void
 debugger_load_executable_finish (Debugger *debugger, const GDBMIValue *mi_results,
 								const GList *cli_results, GError *error)
 {
-	DEBUG_PRINT ("Program loaded");
+	DEBUG_PRINT ("%s", "Program loaded");
 	debugger->priv->prog_is_loaded = TRUE;
 	
 	g_signal_emit_by_name (debugger->priv->instance, "program-loaded");
@@ -738,7 +738,7 @@ debugger_set_working_directory (Debugger *debugger, const gchar *directory)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: set_working_directory()");
+	DEBUG_PRINT ("%s", "In function: set_working_directory()");
 	
 	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
 
@@ -754,7 +754,7 @@ debugger_set_environment (Debugger *debugger, gchar **variables)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: set_environment()");
+	DEBUG_PRINT ("%s", "In function: set_environment()");
 
 	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
 
@@ -1003,7 +1003,7 @@ on_gdb_output_arrived (AnjutaLauncher *launcher,
 					   const gchar *chars, gpointer data)
 {
 	Debugger *debugger = DEBUGGER (data);
-	DEBUG_PRINT ("on gdb output arrived");
+	DEBUG_PRINT ("%s", "on gdb output arrived");
 
 	/* Do not emit signal when the debugger is destroyed */
 	if (debugger->priv->instance == NULL) return;
@@ -1029,11 +1029,11 @@ debugger_handle_post_execution (Debugger *debugger)
 		case DEBUGGER_NONE:
 			break;
 		case DEBUGGER_EXIT:
-			DEBUG_PRINT ("debugger stop in handle post execution\n");
+			DEBUG_PRINT ("%s", "debugger stop in handle post execution\n");
 			debugger_stop (debugger);
 			break;
 		case DEBUGGER_RERUN_PROGRAM:
-			DEBUG_PRINT ("debugger run in handle post execution\n");
+			DEBUG_PRINT ("%s", "debugger run in handle post execution\n");
 			debugger_run (debugger);
 			break;
 		default:
@@ -1318,7 +1318,7 @@ debugger_parse_stopped (Debugger *debugger)
 			debugger->priv->current_cmd.parser (debugger, val,
 												debugger->priv->cli_lines, FALSE);
 			debugger->priv->command_output_sent = TRUE;
-			DEBUG_PRINT ("In function: Sending output...");
+			DEBUG_PRINT ("%s", "In function: Sending output...");
 		}
 		
 		if (val)
@@ -1568,7 +1568,7 @@ debugger_stdo_flush (Debugger *debugger)
 				debugger->priv->current_cmd.parser (debugger, val,
 										  debugger->priv->cli_lines, FALSE);
 				debugger->priv->command_output_sent = TRUE;
-				DEBUG_PRINT ("In function: Sending output...");
+				DEBUG_PRINT ("%s", "In function: Sending output...");
 			}
 			else /* if (val) */
 			{
@@ -1626,7 +1626,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 										  G_CALLBACK (on_gdb_terminated),
 										  debugger);
 	
-	DEBUG_PRINT ("In function: gdb_terminated()");
+	DEBUG_PRINT ("%s", "In function: gdb_terminated()");
 	
 	/* Clear the command queue & Buffer */
 	debugger_clear_buffers (debugger);
@@ -1662,7 +1662,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 static void
 debugger_stop_real (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_stop_real()");
+	DEBUG_PRINT ("%s", "In function: debugger_stop_real()");
 	
 	/* if program is attached - detach from it before quiting */
 	if (debugger->priv->prog_is_attached == TRUE)
@@ -1717,7 +1717,7 @@ debugger_stop (Debugger *debugger)
 gboolean
 debugger_abort (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_abort()");
+	DEBUG_PRINT ("%s", "In function: debugger_abort()");
 
 	/* Stop inferior */	
 	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
@@ -1815,7 +1815,7 @@ static void
 debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 								const GList *cli_results, GError *error)
 {
-	DEBUG_PRINT ("In function: debugger_info_program()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_program()");
 
 	/* Hack: find message string giving inferior pid */
 	while (cli_results != NULL)
@@ -1879,7 +1879,7 @@ debugger_start_program (Debugger *debugger, const gchar *remote, const gchar* ar
 {
 	gchar *cmd;
 
-	DEBUG_PRINT ("In function: debugger_start_program()");
+	DEBUG_PRINT ("%s", "In function: debugger_start_program()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == FALSE);
@@ -1931,7 +1931,7 @@ static void
 debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results,
 								const GList *cli_results, GError *error)
 {
-	DEBUG_PRINT ("Program attach finished");
+	DEBUG_PRINT ("%s", "Program attach finished");
 	if (debugger->priv->output_callback)
 	{
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
@@ -1952,7 +1952,7 @@ debugger_attach_process_real (Debugger *debugger, pid_t pid)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_attach_process_real()");
+	DEBUG_PRINT ("%s", "In function: debugger_attach_process_real()");
 
 	if (debugger->priv->output_callback)
 	{	
@@ -1972,7 +1972,7 @@ debugger_attach_process_real (Debugger *debugger, pid_t pid)
 void
 debugger_attach_process (Debugger *debugger, pid_t pid)
 {
-	DEBUG_PRINT ("In function: debugger_attach_process()");
+	DEBUG_PRINT ("%s", "In function: debugger_attach_process()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	
@@ -2009,7 +2009,7 @@ debugger_attach_process (Debugger *debugger, pid_t pid)
 void
 debugger_restart_program (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_restart_program()");
+	DEBUG_PRINT ("%s", "In function: debugger_restart_program()");
 	
 	g_return_if_fail (debugger->priv->prog_is_attached == FALSE);
 
@@ -2030,7 +2030,7 @@ debugger_restart_program (Debugger *debugger)
 void
 debugger_stop_program (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_stop_program()");
+	DEBUG_PRINT ("%s", "In function: debugger_stop_program()");
 	
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
 	
@@ -2060,7 +2060,7 @@ static void
 debugger_detach_process_finish (Debugger *debugger, const GDBMIValue *mi_results,
 								const GList *cli_results, GError *error)
 {
-	DEBUG_PRINT ("Program detach finished");
+	DEBUG_PRINT ("%s", "Program detach finished");
 	if (debugger->priv->output_callback)
 	{
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
@@ -2078,7 +2078,7 @@ debugger_detach_process (Debugger *debugger)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_detach_process()");
+	DEBUG_PRINT ("%s", "In function: debugger_detach_process()");
 
 	g_return_if_fail (debugger->priv->prog_is_attached == TRUE);
 
@@ -2097,7 +2097,7 @@ debugger_detach_process (Debugger *debugger)
 void
 debugger_interrupt (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_interrupt()");
+	DEBUG_PRINT ("%s", "In function: debugger_interrupt()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2125,7 +2125,7 @@ debugger_interrupt (Debugger *debugger)
 void
 debugger_run (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_run()");
+	DEBUG_PRINT ("%s", "In function: debugger_run()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2137,7 +2137,7 @@ debugger_run (Debugger *debugger)
 void
 debugger_step_in (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_step_in()");
+	DEBUG_PRINT ("%s", "In function: debugger_step_in()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2148,7 +2148,7 @@ debugger_step_in (Debugger *debugger)
 void
 debugger_step_over (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_step_over()");
+	DEBUG_PRINT ("%s", "In function: debugger_step_over()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2159,7 +2159,7 @@ debugger_step_over (Debugger *debugger)
 void
 debugger_step_out (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_step_out()");
+	DEBUG_PRINT ("%s", "In function: debugger_step_out()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2170,7 +2170,7 @@ debugger_step_out (Debugger *debugger)
 void
 debugger_stepi_in (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_step_in()");
+	DEBUG_PRINT ("%s", "In function: debugger_step_in()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2181,7 +2181,7 @@ debugger_stepi_in (Debugger *debugger)
 void
 debugger_stepi_over (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_step_over()");
+	DEBUG_PRINT ("%s", "In function: debugger_step_over()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2194,7 +2194,7 @@ debugger_run_to_location (Debugger *debugger, const gchar *loc)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_run_to_location()");
+	DEBUG_PRINT ("%s", "In function: debugger_run_to_location()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2210,7 +2210,7 @@ debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 	gchar *buff;
 	gchar *quoted_file;
 
-	DEBUG_PRINT ("In function: debugger_run_to_position()");
+	DEBUG_PRINT ("%s", "In function: debugger_run_to_position()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2228,7 +2228,7 @@ debugger_run_to_address (Debugger *debugger, gulong address)
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_run_to_address()");
+	DEBUG_PRINT ("%s", "In function: debugger_run_to_address()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
@@ -2354,7 +2354,7 @@ debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint li
 	gchar *buff;
 	gchar *quoted_file;
 
-	DEBUG_PRINT ("In function: debugger_add_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_add_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2371,7 +2371,7 @@ debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, cons
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_add_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_add_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2385,7 +2385,7 @@ debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaD
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_add_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_add_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2400,7 +2400,7 @@ debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnju
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_enable_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_enable_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2414,7 +2414,7 @@ debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaD
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_ignore_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_ignore_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2428,7 +2428,7 @@ debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar *condit
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_ignore_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_ignore_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2455,7 +2455,7 @@ debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerCallbac
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_delete_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_delete_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2518,7 +2518,7 @@ debugger_list_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_result
 void
 debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_list_breakpoint()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2564,7 +2564,7 @@ debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerCallba
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_print()");
+	DEBUG_PRINT ("%s", "In function: debugger_print()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2593,7 +2593,7 @@ void
 debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
-	DEBUG_PRINT ("In function: debugger_add_watch()");
+	DEBUG_PRINT ("%s", "In function: debugger_add_watch()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2662,7 +2662,7 @@ void
 debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
-	DEBUG_PRINT ("In function: debugger_list_local()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_local()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2718,7 +2718,7 @@ debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback callback, gp
 {
 	gchar *buff;
 
-	DEBUG_PRINT ("In function: debugger_list_argument()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_argument()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2743,7 +2743,7 @@ debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerCallback ca
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_info_frame()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_frame()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2762,7 +2762,7 @@ debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerCallback ca
 void
 debugger_info_signal (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_signal()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_signal()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2774,7 +2774,7 @@ debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerCallback callback, g
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_info_sharedlib()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_sharedlib()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2785,7 +2785,7 @@ debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerCallback callback, g
 void
 debugger_info_args (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_args()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_args()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2795,7 +2795,7 @@ debugger_info_args (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoint
 void
 debugger_info_target (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_target()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_target()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2805,7 +2805,7 @@ debugger_info_target (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoi
 void
 debugger_info_program (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_program()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_program()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2815,7 +2815,7 @@ debugger_info_program (Debugger *debugger, IAnjutaDebuggerCallback callback, gpo
 void
 debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_udot()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_udot()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2825,7 +2825,7 @@ debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoint
 void
 debugger_info_variables (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_info_variables()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_variables()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -2911,7 +2911,7 @@ debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnju
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_inspect_memory()");
+	DEBUG_PRINT ("%s", "In function: debugger_inspect_memory()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3009,7 +3009,7 @@ debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaD
 	gchar *buff;
 	gulong end;
 	
-	DEBUG_PRINT ("In function: debugger_disassemble()");
+	DEBUG_PRINT ("%s", "In function: debugger_disassemble()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3188,7 +3188,7 @@ debugger_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, const G
 void
 debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_list_frame()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_frame()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3224,7 +3224,7 @@ debugger_set_thread (Debugger *debugger, gint thread)
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_set_thread()");
+	DEBUG_PRINT ("%s", "In function: debugger_set_thread()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3283,7 +3283,7 @@ debugger_list_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 void
 debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_list_thread()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_thread()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3328,18 +3328,18 @@ debugger_info_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 		frame = gdbmi_value_hash_lookup (mi_results, "stack");
 		if (frame == NULL) break;
 
-		DEBUG_PRINT("get stack");
+		DEBUG_PRINT("%s", "get stack");
 
 		frame = gdbmi_value_list_get_nth (frame, 0);
 		if (frame == NULL) break;
 
-		DEBUG_PRINT("get nth element");
+		DEBUG_PRINT("%s", "get nth element");
 
 		/*frame = gdbmi_value_hash_lookup (frame, "frame");
 		DEBUG_PRINT("get frame %p", frame);
 		if (frame == NULL) break;*/
 
-		DEBUG_PRINT("get frame");
+		DEBUG_PRINT("%s", "get frame");
 
 		top = &top_frame;
 		top->thread = debugger->priv->current_thread;
@@ -3360,7 +3360,7 @@ debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback c
 	gchar *buff;
 	guint orig_thread;
 
-	DEBUG_PRINT ("In function: debugger_info_thread()");
+	DEBUG_PRINT ("%s", "In function: debugger_info_thread()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3475,7 +3475,7 @@ debugger_register_value_finish (Debugger *debugger, const GDBMIValue *mi_results
 void
 debugger_list_register (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_list_register()");
+	DEBUG_PRINT ("%s", "In function: debugger_list_register()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3485,7 +3485,7 @@ debugger_list_register (Debugger *debugger, IAnjutaDebuggerCallback callback, gp
 void
 debugger_update_register (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: debugger_update_register()");
+	DEBUG_PRINT ("%s", "In function: debugger_update_register()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3497,7 +3497,7 @@ debugger_write_register (Debugger *debugger, const gchar *name, const gchar *val
 {
 	gchar *buf;
 
-	DEBUG_PRINT ("In function: debugger_write_register()");
+	DEBUG_PRINT ("%s", "In function: debugger_write_register()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3521,7 +3521,7 @@ debugger_set_frame (Debugger *debugger, guint frame)
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: debugger_set_frame()");
+	DEBUG_PRINT ("%s", "In function: debugger_set_frame()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3545,7 +3545,7 @@ debugger_delete_variable (Debugger *debugger, const gchar* name)
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: delete_variable()");
+	DEBUG_PRINT ("%s", "In function: delete_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3579,7 +3579,7 @@ debugger_evaluate_variable (Debugger *debugger, const gchar* name, IAnjutaDebugg
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: evaluate_variable()");
+	DEBUG_PRINT ("%s", "In function: evaluate_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3593,7 +3593,7 @@ debugger_assign_variable (Debugger *debugger, const gchar* name, const gchar *va
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: assign_variable()");
+	DEBUG_PRINT ("%s", "In function: assign_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3666,7 +3666,7 @@ void debugger_list_variable_children (Debugger *debugger, const gchar* name, IAn
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: list_variable_children()");
+	DEBUG_PRINT ("%s", "In function: list_variable_children()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3704,7 +3704,7 @@ void debugger_create_variable (Debugger *debugger, const gchar* name, IAnjutaDeb
 {
 	gchar *buff;
 	
-	DEBUG_PRINT ("In function: create_variable()");
+	DEBUG_PRINT ("%s", "In function: create_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3777,7 +3777,7 @@ gdb_var_update (Debugger *debugger,
 
 void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	DEBUG_PRINT ("In function: update_variable()");
+	DEBUG_PRINT ("%s", "In function: update_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
@@ -3815,7 +3815,7 @@ debugger_dispose (GObject *obj)
 {
 	Debugger *debugger = DEBUGGER (obj);
 	
-	DEBUG_PRINT ("In function: debugger_shutdown()");
+	DEBUG_PRINT ("%s", "In function: debugger_shutdown()");
 
 	/* Do not emit signal when the debugger is destroyed */
 	debugger->priv->instance = NULL;
@@ -3859,7 +3859,7 @@ debugger_class_init (DebuggerClass * klass)
 	g_return_if_fail (klass != NULL);
 	object_class = G_OBJECT_CLASS (klass);
 	
-	DEBUG_PRINT ("Initializing debugger class");
+	DEBUG_PRINT ("%s", "Initializing debugger class");
 	
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->dispose = debugger_dispose;
@@ -3875,7 +3875,7 @@ debugger_signal (const gchar *sig, gboolean show_msg)
 	gchar *buff;
 	gchar *cmd;
 
-	DEBUG_PRINT ("In function: debugger_signal()");
+	DEBUG_PRINT ("%s", "In function: debugger_signal()");
 	
 	if (debugger_is_active () == FALSE)
 		return;
@@ -3883,7 +3883,7 @@ debugger_signal (const gchar *sig, gboolean show_msg)
 		return;
 	if (debugger.child_pid < 1)
 	{
-		DEBUG_PRINT ("Not sending signal - pid not known\n");
+		DEBUG_PRINT ("%s", "Not sending signal - pid not known\n");
 		return;
 	}
 

@@ -123,7 +123,7 @@ static void
 on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
-	DEBUG_PRINT ("on_gconf_notify_prefs ()");
+	DEBUG_PRINT ("%s", "on_gconf_notify_prefs ()");
 }
 
 static gint 
@@ -192,7 +192,7 @@ on_listall_exit (AnjutaLauncher * launcher, int child_pid,
 	priv = sdbp->priv;
 	store = priv->prefs_list_store;
 	
-	DEBUG_PRINT ("on_listall_exit ()");
+	DEBUG_PRINT ("%s", "on_listall_exit ()");
 
 	g_signal_handlers_disconnect_by_func (launcher, on_listall_exit,
 										  user_data);	
@@ -329,7 +329,7 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 	
 	priv = sdbp->priv;
 	
-	DEBUG_PRINT ("on_tag_load_toggled ()");
+	DEBUG_PRINT ("%s", "on_tag_load_toggled ()");
 	
 	store = priv->prefs_list_store;
 	path = gtk_tree_path_new_from_string (path_str);
@@ -368,7 +368,7 @@ on_autoscan_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
 	check_button = glade_xml_get_widget (priv->prefs_gxml, PROJECT_AUTOSCAN);
 
 	check_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button));
-	DEBUG_PRINT ("on_check_button_toggled ()");
+	DEBUG_PRINT ("%s", "on_check_button_toggled ()");
 	anjuta_preferences_set_int (priv->prefs, PROJECT_AUTOSCAN, check_button_value);
 
 }
@@ -384,7 +384,7 @@ on_update_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
 	update_button = glade_xml_get_widget (priv->prefs_gxml, BUFFER_AUTOSCAN);
 
 	update_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (update_button));
-	DEBUG_PRINT ("on_update_button_toggled ()");
+	DEBUG_PRINT ("%s", "on_update_button_toggled ()");
 	anjuta_preferences_set_int (priv->prefs, BUFFER_AUTOSCAN, update_button_value);	
 
 	g_signal_emit (sdbp, signals[BUFFER_UPDATE_TOGGLED], 0, update_button_value);
@@ -401,7 +401,7 @@ on_parallel_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
 	parallel_button = glade_xml_get_widget (priv->prefs_gxml, PARALLEL_SCAN);
 
 	parallel_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (parallel_button));
-	DEBUG_PRINT ("on_parallel_button_toggled ()");
+	DEBUG_PRINT ("%s", "on_parallel_button_toggled ()");
 	anjuta_preferences_set_int (priv->prefs, PARALLEL_SCAN, parallel_button_value);	
 }
 
@@ -498,7 +498,7 @@ sdb_prefs_init (SymbolDBPrefs *object)
 	
 	priv->pkg_list = NULL;
 	
-	DEBUG_PRINT ("symbol_db_prefs_init ()");
+	DEBUG_PRINT ("%s", "symbol_db_prefs_init ()");
 	
 	if (priv->prefs_gxml == NULL)
 	{
@@ -580,7 +580,7 @@ sdb_prefs_finalize (GObject *object)
 	sdbp = SYMBOL_DB_PREFS (object);
 	priv = sdbp->priv;
 	
-	DEBUG_PRINT ("symbol_db_prefs_finalize ()");
+	DEBUG_PRINT ("%s", "symbol_db_prefs_finalize ()");
 	
 	anjuta_preferences_notify_remove(priv->prefs, priv->prefs_notify_id);
 	anjuta_preferences_remove_page(priv->prefs, _("Symbol Database"));

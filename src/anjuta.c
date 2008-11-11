@@ -48,7 +48,7 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	AnjutaSavePrompt *save_prompt;
 	gchar *remembered_plugins;
 	
-	DEBUG_PRINT ("AnjutaApp delete event");
+	DEBUG_PRINT ("%s", "AnjutaApp delete event");
 	
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app), NULL);
 	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (app), NULL);
@@ -109,7 +109,7 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 static void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
-	DEBUG_PRINT ("AnjutaApp destroy event");
+	DEBUG_PRINT ("%s", "AnjutaApp destroy event");
 	
 	gtk_widget_hide (w);
 	gtk_main_quit ();
@@ -125,7 +125,7 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	gchar *argv[] = { "rm",	"-rf", NULL};
 	const gchar *prefix;
 	
-	DEBUG_PRINT ("Going to save session...");
+	DEBUG_PRINT ("%s", "Going to save session...");
 
 	prefix = gnome_client_get_config_prefix (client);
 	argv[2] = gnome_config_get_real_path (prefix);
@@ -167,7 +167,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	if (strcmp (anjuta_profile_get_name (profile), USER_PROFILE_NAME) != 0)
 		return;
 	
-	DEBUG_PRINT ("User profile loaded; Restoring user session");
+	DEBUG_PRINT ("%s", "User profile loaded; Restoring user session");
 	
 	/* If profile scoped to "user", restore user session */
 	if (system_restore_session)
@@ -210,7 +210,7 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	if (strcmp (anjuta_profile_get_name (profile), USER_PROFILE_NAME) != 0)
 		return;
 	
-	DEBUG_PRINT ("User profile descoped; Saving user session");
+	DEBUG_PRINT ("%s", "User profile descoped; Saving user session");
 	
 	/* If profile descoped from is "user", save user session */
 	session_dir = USER_SESSION_PATH_NEW;

@@ -168,7 +168,7 @@ sdb_view_locals_get_iter_from_row_ref (SymbolDBViewLocals *dbvl,
 	path = gtk_tree_row_reference_get_path (row_ref);
 	if (path == NULL) 
 	{
-		/*DEBUG_PRINT ("sdb_view_locals_get_iter_from_row_ref (): path is null, something "
+		/*DEBUG_PRINT ("%s", "sdb_view_locals_get_iter_from_row_ref (): path is null, something "
 					 "went wrong ?!");*/
 		return FALSE;
 	}
@@ -195,7 +195,7 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 	
 	priv = dbvl->priv;
 		
-	/*DEBUG_PRINT ("symbol_db_view_locals_clear_cache ()");*/
+	/*DEBUG_PRINT ("%s", "symbol_db_view_locals_clear_cache ()");*/
 	/* check whether we already have the view status saved on hash table or not.
 	 * If we saved that then don't remove it, or there may be a memory leak
 	 */	
@@ -257,7 +257,7 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	
 	g_return_if_fail (dbvl != NULL);
 
-	DEBUG_PRINT ("sdb_view_locals_init  ()");
+	DEBUG_PRINT ("%s", "sdb_view_locals_init  ()");
 	dbvl->priv = g_new0 (SymbolDBViewLocalsPriv, 1);		
 	priv = dbvl->priv;
 		
@@ -323,7 +323,7 @@ sdb_view_locals_finalize (GObject *object)
 	locals = SYMBOL_DB_VIEW_LOCALS (object);
 	priv = locals->priv;
 
-	/*DEBUG_PRINT ("finalizing symbol_db_view_locals ()");*/
+	/*DEBUG_PRINT ("%s", "finalizing symbol_db_view_locals ()");*/
 
 	symbol_db_view_locals_clear_cache (locals);
 	g_hash_table_destroy (priv->files_view_status);
@@ -600,7 +600,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 	if (slist == NULL) 
 	{
 		/* nothing waiting for us */
-		/*DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
+		/*DEBUG_PRINT ("%s", "trigger_on_symbol_inserted (): no children waiting for us...");*/
 		return;
 	}
 	else {
@@ -1018,7 +1018,7 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	tdata->dbvl = dbvl;
 	tdata->dbe = dbe;
 	
-	/*DEBUG_PRINT ("locals: on_scan_end");*/
+	/*DEBUG_PRINT ("%s", "locals: on_scan_end");*/
 	if (priv->symbols_inserted_ids != NULL)
 	{
 		if (g_queue_get_length (priv->symbols_inserted_ids) > 0) 
@@ -1353,7 +1353,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 				fss->waiting_for = priv->waiting_for;
 				fss->symbols_inserted_ids = priv->symbols_inserted_ids;
 				
-				/*DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+				/*DEBUG_PRINT ("%s", "symbol_db_view_locals_update_list (): "
 					"g_hash_table_insert ");*/
 				/* insert it */
 				g_hash_table_insert (priv->files_view_status, 
@@ -1374,7 +1374,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		symbol_db_engine_get_file_db_path (dbe, filepath);
 	if (priv->current_db_file == NULL) 
 	{
-		/*DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+		/*DEBUG_PRINT ("%s", "symbol_db_view_locals_update_list (): "
 					 "Warning: priv->current_db_file is NULL");*/
 		return;
 	}
@@ -1403,7 +1403,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		/* with this set there's no need to re-retrieve the symbols from db,
 		 * speeding up the things.
 		 */
-		/*DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+		/*DEBUG_PRINT ("%s", "symbol_db_view_locals_update_list (): "
 					 "setting gtk_tree_view_set_model to the saved one");*/
 		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
 		
@@ -1437,7 +1437,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		
 		priv->symbols_inserted_ids = g_queue_new ();
 
-		/*DEBUG_PRINT ("symbol_db_view_locals_update_list (): creating new store"); */
+		/*DEBUG_PRINT ("%s", "symbol_db_view_locals_update_list (): creating new store"); */
 		store = sdb_view_locals_create_new_store ();
 		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
 		

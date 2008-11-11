@@ -350,7 +350,7 @@ destroy_tm_hash_value (gpointer data)
 		if (tm_file->parent ==
 		    TM_WORK_OBJECT (sv->priv->tm_workspace))
 		{
-			DEBUG_PRINT ("Removing tm_file");
+			DEBUG_PRINT ("%s", "Removing tm_file");
 			tm_workspace_remove_object (tm_file, TRUE);
 		}
 	}
@@ -372,7 +372,7 @@ on_remove_project_tm_files (gpointer key, gpointer val, gpointer data)
 	if (tm_file &&
 		TM_WORK_OBJECT (tm_file)->parent == sv->priv->tm_project)
 	{
-		DEBUG_PRINT ("Removing tm_file");
+		DEBUG_PRINT ("%s", "Removing tm_file");
 		if (sv->priv->file_symbol_model == val)
 			sv->priv->file_symbol_model = NULL;
 		return TRUE;
@@ -444,7 +444,7 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 	
 	if (sv->priv->symbols_need_update)
 	{
-		DEBUG_PRINT ("Update required requested");
+		DEBUG_PRINT ("%s", "Update required requested");
 		g_idle_add (on_symbol_view_refresh_idle, sv);
 		return;
 	}
@@ -715,7 +715,7 @@ anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
 		return;
 	tm_project_add_file (TM_PROJECT (sv->priv->tm_project), filename, TRUE);
 	
-	DEBUG_PRINT ("Project changed: Flagging refresh required");
+	DEBUG_PRINT ("%s", "Project changed: Flagging refresh required");
 	
 	sv->priv->symbols_need_update = TRUE;
 /*
@@ -746,7 +746,7 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 		tm_project_remove_object (TM_PROJECT (sv->priv->tm_project),
 								  source_file);
 		
-		DEBUG_PRINT ("Project changed: Flagging refresh required");
+		DEBUG_PRINT ("%s", "Project changed: Flagging refresh required");
 		
 		sv->priv->symbols_need_update = TRUE;
 /*		for (node = app->text_editor_list; node; node = g_list_next(node))
@@ -780,7 +780,7 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	
 	if (sv->priv->tm_workspace == NULL ||
 		sv->priv->tm_project == NULL ) {
-		DEBUG_PRINT ("workspace or project are null");
+		DEBUG_PRINT ("%s", "workspace or project are null");
 		return;
 	}
 	
@@ -789,7 +789,7 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 								  (sv->priv->tm_workspace),
 								  filename, FALSE);
 	if (tm_file == NULL) {
-		DEBUG_PRINT ("tm_file is null");
+		DEBUG_PRINT ("%s", "tm_file is null");
 		return;
 	}	
 	
@@ -905,7 +905,7 @@ anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv)
 	
 	sv->priv->symbols_need_update = FALSE;
 	
-	DEBUG_PRINT ("Populating symbol view: Creating symbol view...");
+	DEBUG_PRINT ("%s", "Populating symbol view: Creating symbol view...");
 	
 	if (!sv->priv->symbols->info.children
 	    || (0 == sv->priv->symbols->info.children->len))
@@ -933,14 +933,14 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (root_dir != NULL);
 	
-	DEBUG_PRINT ("Populating symbol view: Loading tag database...");
+	DEBUG_PRINT ("%s", "Populating symbol view: Loading tag database...");
 
 	/* make sure we clear anjuta_symbol_view from previous data */
 	anjuta_symbol_view_clear (sv);
 	
 	sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, FALSE);
 	
-	DEBUG_PRINT ("Populating symbol view: Creating symbol tree...");
+	DEBUG_PRINT ("%s", "Populating symbol view: Creating symbol tree...");
 	
 	if (sv->priv->tm_project &&
 	    sv->priv->tm_project->tags_array &&
@@ -954,7 +954,7 @@ static void
 anjuta_symbol_view_finalize (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
-	DEBUG_PRINT ("Finalizing symbolview widget");
+	DEBUG_PRINT ("%s", "Finalizing symbolview widget");
 	
 	anjuta_symbol_view_clear (sv);
 	
@@ -1272,7 +1272,7 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 			if (sv->priv->tm_project &&
 				TM_WORK_OBJECT (tm_file)->parent == sv->priv->tm_project)
 			{
-				DEBUG_PRINT ("Project changed: Flagging refresh required");
+				DEBUG_PRINT ("%s", "Project changed: Flagging refresh required");
 				sv->priv->symbols_need_update = TRUE;
 			}
 		}

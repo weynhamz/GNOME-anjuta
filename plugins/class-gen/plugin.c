@@ -82,7 +82,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	
-	DEBUG_PRINT ("AnjutaClassGenPlugin: Activating ClassGen plugin...");
+	DEBUG_PRINT ("%s", "AnjutaClassGenPlugin: Activating ClassGen plugin...");
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	cg_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
@@ -116,7 +116,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
-	DEBUG_PRINT ("AnjutaClassGenPlugin: Deactivating ClassGen plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaClassGenPlugin: Deactivating ClassGen plugin ...");
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, cg_plugin->root_watch_id, TRUE);

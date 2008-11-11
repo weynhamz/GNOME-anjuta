@@ -116,7 +116,7 @@ an_symbol_search_dispose (GObject * obj)
 	AnjutaSymbolSearch *search = ANJUTA_SYMBOL_SEARCH (obj);
 	AnjutaSymbolSearchPriv *priv = search->priv;
 	
-	DEBUG_PRINT("Destroying symbolsearch");
+	DEBUG_PRINT("%s", "Destroying symbolsearch");
 	
 	/* anjuta_symbol_view's dispose should manage it's freeing */
 	if (priv->model)
@@ -142,7 +142,7 @@ an_symbol_search_finalize (GObject * obj)
 	AnjutaSymbolSearch *search = ANJUTA_SYMBOL_SEARCH (obj);
 	AnjutaSymbolSearchPriv *priv = search->priv;
 
-	DEBUG_PRINT ("Finalizing symbolsearch widget");
+	DEBUG_PRINT ("%s", "Finalizing symbolsearch widget");
 	
 	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
 	g_completion_free (priv->completion);
@@ -334,7 +334,7 @@ an_symbol_search_on_tree_row_activate (GtkTreeView * view,
 	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
 	{
 		DEBUG_PRINT
-			("an_symbol_search_on_tree_row_activate: error getting selected row");
+			("%s", "an_symbol_search_on_tree_row_activate: error getting selected row");
 		return FALSE;
 	}
 
@@ -358,10 +358,10 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 
 	priv = search->priv;
 
-	DEBUG_PRINT ("key_press event");
+	DEBUG_PRINT ("%s", "key_press event");
 	if (event->keyval == GDK_Tab)
 	{
-		DEBUG_PRINT ("tab key pressed");
+		DEBUG_PRINT ("%s", "tab key pressed");
 		if (event->state & GDK_CONTROL_MASK)
 		{
 			gtk_widget_grab_focus (priv->hitlist);
@@ -381,7 +381,7 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 		AnjutaSymbolInfo *sym;
 		gchar *name;
 
-		DEBUG_PRINT("enter key pressed: getting the first entry found");
+		DEBUG_PRINT("%s", "enter key pressed: getting the first entry found");
 
 		/* Get the first entry found. */
 		if (gtk_tree_model_get_iter_first
@@ -423,7 +423,7 @@ an_symbol_search_on_entry_changed (GtkEntry * entry,
 
 	priv = search->priv;
 
-	DEBUG_PRINT("Entry changed");
+	DEBUG_PRINT("%s", "Entry changed");
 
 	if (!priv->idle_filter)
 	{

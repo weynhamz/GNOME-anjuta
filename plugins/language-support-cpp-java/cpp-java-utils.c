@@ -35,7 +35,7 @@ cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint l
 	g_return_val_if_fail (point_ch == ')' || point_ch == ']' ||
 						  point_ch == '}', FALSE);
 	
-	/* DEBUG_PRINT ("Matching brace being"); */
+	/* DEBUG_PRINT ("%s", "Matching brace being"); */
 	/* Push brace */
 	g_string_prepend_c (braces_stack, point_ch);
 	
@@ -52,7 +52,7 @@ cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint l
 		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
 			continue;
 		
-		/* DEBUG_PRINT ("point ch = %c", point_ch); */
+		/* DEBUG_PRINT ("%s", "point ch = %c", point_ch); */
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
@@ -69,10 +69,10 @@ cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint l
 		/* Bail out if there is no more in stack */
 		if (braces_stack->str[0] == '\0')
 		{
-			/* DEBUG_PRINT ("Matching brace end -- found"); */
+			/* DEBUG_PRINT ("%s", "Matching brace end -- found"); */
 			return TRUE;
 		}
 	}
-	/* DEBUG_PRINT ("Matching brace end -- not found"); */
+	/* DEBUG_PRINT ("%s", "Matching brace end -- not found"); */
 	return FALSE;
 }

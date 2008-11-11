@@ -288,7 +288,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	g_return_if_fail (klass != NULL);
 	object_class = (GObjectClass *) klass;
 	
-	/* DEBUG_PRINT ("Initializing launcher class"); */
+	/* DEBUG_PRINT ("%s", "Initializing launcher class"); */
 	
 	parent_class = g_type_class_peek_parent (klass);
 
@@ -513,7 +513,7 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 	else if (launcher->priv->stdout_is_done &&
 			 launcher->priv->stderr_is_done)
 	{
-		/* DEBUG_PRINT ("Child has't exited yet waiting for 200ms"); */
+		/* DEBUG_PRINT ("%s", "Child has't exited yet waiting for 200ms"); */
 		if (launcher->priv->completion_check_timeout >= 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
@@ -798,7 +798,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-		DEBUG_PRINT ("launcher.c: STDOUT pipe closed");
+		DEBUG_PRINT ("%s", "launcher.c: STDOUT pipe closed");
 		launcher->priv->stdout_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -853,7 +853,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-		DEBUG_PRINT ("launcher.c: STDERR pipe closed");
+		DEBUG_PRINT ("%s", "launcher.c: STDERR pipe closed");
 		launcher->priv->stderr_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -920,7 +920,7 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 	/* Do not hook up for G_IO_HUP */
 	if (condition & G_IO_ERR)
 	{
-		DEBUG_PRINT ("launcher.c: PTY pipe error!");
+		DEBUG_PRINT ("%s", "launcher.c: PTY pipe error!");
 		ret = FALSE;
 	}
 	return ret;
@@ -1027,7 +1027,7 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 		return TRUE;
 	if (launcher->priv->child_has_terminated == FALSE)
 	{
-		/* DEBUG_PRINT ("launcher: We missed the exit of the child"); */
+		/* DEBUG_PRINT ("%s", "launcher: We missed the exit of the child"); */
 	}
 	launcher->priv->completion_check_timeout = -1;
 	anjuta_launcher_execution_done_cleanup (launcher, TRUE);

@@ -363,7 +363,7 @@ file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 	GCancellable* cancel = g_cancellable_new ();
 	GtkTreePath* real_path;
 	
-	DEBUG_PRINT (__FUNCTION__);
+	DEBUG_PRINT ("%s", "row_expanded");
 	
 	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
 												   &real_iter, iter);

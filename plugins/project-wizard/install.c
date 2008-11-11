@@ -289,7 +289,7 @@ on_install_end_action (gpointer data)
 		}
 		if (this->action == NULL)
 		{
-			DEBUG_PRINT ("Project wizard done");
+			DEBUG_PRINT ("%s", "Project wizard done");
 			/* The wizard could have been deactivated when loading the new
 			 * project. Hence, the following check.
 			 */

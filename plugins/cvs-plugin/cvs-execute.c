@@ -116,7 +116,7 @@ on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid, gint status,
 				   gulong time_taken, CVSPlugin *plugin)
 {
 	g_return_if_fail (plugin != NULL);
-	/* DEBUG_PRINT ("Shuting down cvs message view"); */
+	/* DEBUG_PRINT ("%s", "Shuting down cvs message view"); */
 	
 	if (status != 0)
 	{

@@ -331,7 +331,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	}	
 #endif
 
-	DEBUG_PRINT ("AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
 	devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
 
 	/* Add all UI actions and merge UI */
@@ -406,7 +406,7 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
 
-	DEBUG_PRINT ("AnjutaDevhelp: Dectivating AnjutaDevhelp plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaDevhelp: Dectivating AnjutaDevhelp plugin ...");
 
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);

@@ -152,7 +152,7 @@ collect_cycle (AnjutaPluginManager *plugin_manager,
 			if (dep == base_plugin)
 			{
 				*cycle = g_list_prepend (NULL, dep);
-				/* DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep)); */
+				/* DEBUG_PRINT ("%s", anjuta_plugin_handle_get_name (dep)); */
 				return TRUE;
 			}
 			else
@@ -160,7 +160,7 @@ collect_cycle (AnjutaPluginManager *plugin_manager,
 				if (collect_cycle (plugin_manager, base_plugin, dep, cycle))
 				{
 					*cycle = g_list_prepend (*cycle, dep);
-					/* DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep)); */
+					/* DEBUG_PRINT ("%s", anjuta_plugin_handle_get_name (dep)); */
 					return TRUE;
 				}
 			}

@@ -416,7 +416,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				}
 				else
 				{
-					DEBUG_PRINT("Missing anjuta_launcher");
+					DEBUG_PRINT("%s", "Missing anjuta_launcher");
 				}
 				
 			}
@@ -425,7 +425,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		}
 		else
 		{
-			DEBUG_PRINT ("No installed terminal plugin found");
+			DEBUG_PRINT ("%s", "No installed terminal plugin found");
 			gnome_execute_shell (dir, cmd);
 		}
 	}

@@ -588,7 +588,7 @@ sdb_system_do_scan_new_package (SymbolDBSystem *sdbs,
 		/* there's something already working... being this function called in a 
 		 * single-threaded fashion we can put the the next parameter on the queue 
 		 */
-		DEBUG_PRINT ("pushed on queue for later scanning");
+		DEBUG_PRINT ("%s", "pushed on queue for later scanning");
 		g_queue_push_tail (priv->sscan_queue, ss_data);
 		return;
 	}
@@ -626,7 +626,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 	 */
 	if (ss_data->parseable_cb != NULL)
 	{
-		DEBUG_PRINT ("on_pkg_config_exit parseable activated");
+		DEBUG_PRINT ("%s", "on_pkg_config_exit parseable activated");
 		ss_data->parseable_cb (sdbs, cflags == NULL ? FALSE : TRUE, 
 							   ss_data->parseable_data);
 	}

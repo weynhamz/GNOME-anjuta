@@ -215,7 +215,7 @@ sdb_view_search_on_entry_changed (GtkEntry * entry,
 
 	priv = search->priv;
 
-	DEBUG_PRINT("Entry changed");
+	DEBUG_PRINT("%s", "Entry changed");
 
 	if (!priv->idle_filter)
 	{
@@ -265,7 +265,7 @@ sdb_view_search_on_tree_row_activate (GtkTreeView * view,
 	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
 	{
 		DEBUG_PRINT
-			("sdb_view_search_on_tree_row_activate: error getting selected row");
+			("%s", "sdb_view_search_on_tree_row_activate: error getting selected row");
 		return FALSE;
 	}
 
@@ -298,10 +298,10 @@ sdb_view_search_on_entry_key_press_event (GtkEntry * entry,
 
 	priv = search->priv;
 
-	DEBUG_PRINT ("key_press event");
+	DEBUG_PRINT ("%s", "key_press event");
 	if (event->keyval == GDK_Tab)
 	{
-		DEBUG_PRINT ("tab key pressed");
+		DEBUG_PRINT ("%s", "tab key pressed");
 		if (event->state & GDK_CONTROL_MASK)
 		{
 			gtk_widget_grab_focus (priv->hitlist);
@@ -322,7 +322,7 @@ sdb_view_search_on_entry_key_press_event (GtkEntry * entry,
 		gint line;
 		gchar *file;
 
-		DEBUG_PRINT("enter key pressed: getting the first entry found");
+		DEBUG_PRINT("%s", "enter key pressed: getting the first entry found");
 
 		/* Get the first entry found. */
 		if (gtk_tree_model_get_iter_first
@@ -514,7 +514,7 @@ sdb_view_search_dispose (GObject * obj)
 	SymbolDBViewSearch *search = SYMBOL_DB_VIEW_SEARCH (obj);
 	SymbolDBViewSearchPriv *priv = search->priv;
 	
-	DEBUG_PRINT("Destroying symbolsearch");
+	DEBUG_PRINT("%s", "Destroying symbolsearch");
 
 	if (priv->entry)
 		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
@@ -565,7 +565,7 @@ sdb_view_search_finalize (GObject * obj)
 	SymbolDBViewSearch *search = SYMBOL_DB_VIEW_SEARCH (obj);
 	SymbolDBViewSearchPriv *priv = search->priv;
 
-	DEBUG_PRINT ("Finalizing symbolsearch widget");
+	DEBUG_PRINT ("%s", "Finalizing symbolsearch widget");
 	
 	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
 	g_completion_free (priv->completion);

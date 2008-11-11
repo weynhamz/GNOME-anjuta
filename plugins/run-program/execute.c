@@ -250,7 +250,7 @@ execute_with_terminal (RunProgramPlugin *plugin,
 	}
 	else
 	{
-		DEBUG_PRINT("Missing anjuta_launcher");
+		DEBUG_PRINT("%s", "Missing anjuta_launcher");
 		new_cmd = g_strdup (cmd);
 	}
 

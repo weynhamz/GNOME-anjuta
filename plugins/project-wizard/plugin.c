@@ -76,14 +76,14 @@ npw_plugin_finalize (GObject *obj)
 static gboolean
 npw_plugin_activate (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("Project Wizard Plugin: Activating project wizard plugin...");
+	DEBUG_PRINT ("%s", "Project Wizard Plugin: Activating project wizard plugin...");
 	return TRUE;
 }
 
 static gboolean
 npw_plugin_deactivate (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("Project Wizard Plugin: Deactivating project wizard plugin...");
+	DEBUG_PRINT ("%s", "Project Wizard Plugin: Deactivating project wizard plugin...");
 	return TRUE;
 }
 

@@ -630,7 +630,7 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 	/* was it the last file loaded? */
 	if (g_hash_table_size (sv_plugin->editor_connected) <= 0)
 	{
-		DEBUG_PRINT ("displaying nothing...");
+		DEBUG_PRINT ("%s", "displaying nothing...");
 		gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
 									 NULL);
 	}	
@@ -905,7 +905,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkActionGroup *group;
 	SymbolBrowserPlugin *sv_plugin;
 	
-	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin...");
+	DEBUG_PRINT ("%s", "SymbolBrowserPlugin: Activating Symbol Manager plugin...");
 	
 	register_stock_icons (plugin);
 	
@@ -1033,7 +1033,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	SymbolBrowserPlugin *sv_plugin;
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	
-	DEBUG_PRINT ("SymbolBrowserPlugin: Dectivating Symbol Manager plugin...");
+	DEBUG_PRINT ("%s", "SymbolBrowserPlugin: Dectivating Symbol Manager plugin...");
 	
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
@@ -1231,7 +1231,7 @@ isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
 						   IAnjutaSymbolField info_fields, 
 						   GError **err)
 {
-	DEBUG_PRINT ("isymbol_manager_get_scope (): not implemented");
+	DEBUG_PRINT ("%s", "isymbol_manager_get_scope (): not implemented");
 	return NULL;
 }
 
@@ -1242,7 +1242,7 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
 {
-	DEBUG_PRINT ("isymbol_manager_get_parent_scope (): not implemented");
+	DEBUG_PRINT ("%s", "isymbol_manager_get_parent_scope (): not implemented");
 	return NULL;	
 }
 
@@ -1253,7 +1253,7 @@ isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
 {
-	DEBUG_PRINT ("isymbol_manager_get_symbol_more_info (): not implemented");
+	DEBUG_PRINT ("%s", "isymbol_manager_get_symbol_more_info (): not implemented");
 	return NULL;
 }
 
@@ -1263,7 +1263,7 @@ isymbol_manager_get_symbol_by_id (IAnjutaSymbolManager *sm,
 								  IAnjutaSymbolField info_fields,
 								  GError **err)
 {
-	DEBUG_PRINT ("isymbol_manager_get_symbol_by_id  (): not implemented");
+	DEBUG_PRINT ("%s", "isymbol_manager_get_symbol_by_id  (): not implemented");
 	return NULL;	
 }
 

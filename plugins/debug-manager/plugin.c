@@ -368,7 +368,7 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	GtkAction *action;
 	AnjutaStatus* status;
 
-	DEBUG_PRINT ("DMA: dma_plugin_debugger_started");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_debugger_started");
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	
@@ -394,7 +394,7 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	AnjutaUI *ui;
 	AnjutaStatus* status;
 
-	DEBUG_PRINT ("DMA: dma_plugin_program_loaded");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_loaded");
 	
 	if (this->sharedlibs == NULL)
 	{
@@ -423,7 +423,7 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	AnjutaUI *ui;
 	AnjutaStatus* status;
 
-	DEBUG_PRINT ("DMA: dma_plugin_program_running");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_running");
 	
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
@@ -445,7 +445,7 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	AnjutaUI *ui;
 	AnjutaStatus* status;
 	
-	DEBUG_PRINT ("DMA: dma_plugin_program_broken");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_broken");
 	
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
@@ -474,7 +474,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	AnjutaUI *ui;
 	AnjutaStatus* status;
 
-	DEBUG_PRINT ("DMA: dma_plugin_program_unload");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_unload");
 	
 	if (this->sharedlibs != NULL)
 	{
@@ -511,7 +511,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 	GtkAction *action;
 	AnjutaStatus* state;
 
-	DEBUG_PRINT ("DMA: dma_plugin_debugger_stopped");
+	DEBUG_PRINT ("%s", "DMA: dma_plugin_debugger_stopped");
 
 	dma_plugin_program_unload (self);
 	
@@ -1072,7 +1072,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	AnjutaUI *ui;
 	GtkAction *action;
 	
-	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
+	DEBUG_PRINT ("%s", "DebugManagerPlugin: Activating Debug Manager plugin...");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 	
     if (!initialized)
@@ -1170,7 +1170,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("DebugManagerPlugin: Deactivating Debug Manager plugin...");
+	DEBUG_PRINT ("%s", "DebugManagerPlugin: Deactivating Debug Manager plugin...");
 
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 

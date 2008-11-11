@@ -67,7 +67,7 @@ sample_plugin_activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	SamplePlugin *sample_plugin;
 	
-	DEBUG_PRINT ("SamplePlugin: Activating Sample plugin ...");
+	DEBUG_PRINT ("%s", "SamplePlugin: Activating Sample plugin ...");
 	sample_plugin = ANJUTA_PLUGIN_SAMPLE (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -91,7 +91,7 @@ static gboolean
 sample_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	DEBUG_PRINT ("SamplePlugin: Dectivating Sample plugin ...");
+	DEBUG_PRINT ("%s", "SamplePlugin: Dectivating Sample plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, ANJUTA_PLUGIN_SAMPLE (plugin)->widget,
 								NULL);
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_SAMPLE (plugin)->uiid);

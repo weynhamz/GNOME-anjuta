@@ -592,7 +592,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	AnjutaUI *ui;
 	
-	DEBUG_PRINT ("TerminalPlugin: Activating Terminal plugin ...");
+	DEBUG_PRINT ("%s", "TerminalPlugin: Activating Terminal plugin ...");
 	
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);

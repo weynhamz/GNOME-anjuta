@@ -1041,7 +1041,7 @@ tm_workspace_find_namespace_members (const GPtrArray * file_tags, const char *na
 			find_namespace_members_tags (global, tags, langJava,
 									 new_name, filename);
 /*/						 
-			DEBUG_PRINT ("returning these");
+			DEBUG_PRINT ("%s", "returning these");
   		    gint i;
 			for (i=0; i < tags->len; i++) {
 				TMTag *cur_tag;

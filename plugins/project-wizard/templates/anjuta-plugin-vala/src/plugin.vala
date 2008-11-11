@@ -55,7 +55,7 @@ public class [+PluginClass+] : Plugin {
 [+ENDIF+]
 	public override bool activate () {
 
-		//DEBUG_PRINT ("[+PluginClass+]: Activating [+PluginClass+] plugin ...");
+		//DEBUG_PRINT ("%s", "[+PluginClass+]: Activating [+PluginClass+] plugin ...");
 [+IF (=(get "HasUI") "1") +]
 		/* Add all UI actions and merge UI */
 		var ui = shell.get_ui ();
@@ -77,7 +77,7 @@ public class [+PluginClass+] : Plugin {
 	}
 
 	public override bool deactivate () {
-		//DEBUG_PRINT ("[+PluginClass+]: Dectivating [+PluginClass+] plugin ...");
+		//DEBUG_PRINT ("%s", "[+PluginClass+]: Dectivating [+PluginClass+] plugin ...");
 [+IF (=(get "HasGladeFile") "1") +]
 		shell.remove_widget (widget);
 [+ENDIF+][+IF (=(get "HasUI") "1") +]

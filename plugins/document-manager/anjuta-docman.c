@@ -747,7 +747,7 @@ anjuta_docman_dispose (GObject *obj)
 	docman = ANJUTA_DOCMAN (obj);
 	docman->priv->shutingdown = TRUE;
 	
-	DEBUG_PRINT ("Disposing AnjutaDocman object");
+	DEBUG_PRINT ("%s", "Disposing AnjutaDocman object");
 	if (docman->priv->popup_menu)
 	{
 		gtk_widget_destroy (docman->priv->popup_menu);
@@ -782,7 +782,7 @@ anjuta_docman_finalize (GObject *obj)
 {
 	AnjutaDocman *docman;
 	
-	DEBUG_PRINT ("Finalising AnjutaDocman object");
+	DEBUG_PRINT ("%s", "Finalising AnjutaDocman object");
 	docman = ANJUTA_DOCMAN (obj);
 	if (docman->priv)
 	{

@@ -181,7 +181,7 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 		}
 		return;
 	}
-	DEBUG_PRINT("Invalid use of ifile_savable_save!");
+	DEBUG_PRINT("%s", "Invalid use of ifile_savable_save!");
 }
 
 static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError **e)

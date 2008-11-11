@@ -204,7 +204,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 	AnjutaFileManager *file_manager;
 	gint notify_id;
 	
-	DEBUG_PRINT ("AnjutaFileManager: Activating AnjutaFileManager plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaFileManager: Activating AnjutaFileManager plugin ...");
 	file_manager = (AnjutaFileManager*) plugin;
 
 	file_manager->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -272,7 +272,7 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaFileManager *file_manager;
 
-	DEBUG_PRINT ("AnjutaFileManager: Dectivating AnjutaFileManager plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaFileManager: Dectivating AnjutaFileManager plugin ...");
 	
 	file_manager = (AnjutaFileManager*) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);

@@ -271,7 +271,7 @@ build_context_pop_dir (BuildContext *context, const gchar *key,
 	
 	if (strcmp (top_dir, dir) != 0)
 	{
-		DEBUG_PRINT("Directory stack misaligned!!");
+		DEBUG_PRINT("%s", "Directory stack misaligned!!");
 	}
 	g_free (top_dir);
 	if (dir_stack)
@@ -963,7 +963,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 static void
 on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 {
-	DEBUG_PRINT ("Destroying build context");
+	DEBUG_PRINT ("%s", "Destroying build context");
 	context->message_view = NULL;
 	
 	build_context_destroy_view (context);
@@ -2234,7 +2234,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	
-	DEBUG_PRINT ("Updating module UI");
+	DEBUG_PRINT ("%s", "Updating module UI");
 
 	has_file = bb_plugin->current_editor_filename != NULL;
 	if (has_file)
@@ -2293,7 +2293,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	gboolean has_makefile;
 	gboolean has_project;
 	
-	DEBUG_PRINT ("Updating project UI");
+	DEBUG_PRINT ("%s", "Updating project UI");
 	
 	has_project = bb_plugin->project_root_dir != NULL;
 	has_makefile = has_project && directory_has_makefile (bb_plugin->project_build_dir);
@@ -3044,7 +3044,7 @@ ifile_open (IAnjutaFile *manager, GFile* file,
 static GFile*
 ifile_get_file (IAnjutaFile *manager, GError **err)
 {
-	DEBUG_PRINT ("Unsupported operation");
+	DEBUG_PRINT ("%s", "Unsupported operation");
 	return NULL;
 }
 

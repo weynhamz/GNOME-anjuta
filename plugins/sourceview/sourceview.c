@@ -617,7 +617,7 @@ sourceview_finalize(GObject *object)
 	
 	g_slice_free(SourceviewPrivate, cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
-	DEBUG_PRINT("=========== finalise =============");
+	DEBUG_PRINT("%s", "=========== finalise =============");
 }
 
 /* Create a new sourceview instance. If uri is valid,
@@ -653,7 +653,7 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	else if (filename != NULL && strlen(filename) > 0)
 		sourceview_io_set_filename (sv->priv->io, filename);
 		
-	DEBUG_PRINT("============ Creating new editor =============");
+	DEBUG_PRINT("%s", "============ Creating new editor =============");
 	
 	g_signal_emit_by_name (G_OBJECT(sv), "update-ui");
 	

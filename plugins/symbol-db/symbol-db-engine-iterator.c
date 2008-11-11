@@ -368,14 +368,14 @@ isymbol_iter_get_length (IAnjutaIterable *iterable, GError **err)
 static IAnjutaIterable *
 isymbol_iter_clone (IAnjutaIterable *iter, GError **e)
 {
-	DEBUG_PRINT ("isymbol_iter_clone  () UNIMPLEMENTED");
+	DEBUG_PRINT ("%s", "isymbol_iter_clone  () UNIMPLEMENTED");
 	return NULL;
 }
 
 static void
 isymbol_iter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
 {
-	DEBUG_PRINT ("isymbol_iter_assign () UNIMPLEMENTED");
+	DEBUG_PRINT ("%s", "isymbol_iter_assign () UNIMPLEMENTED");
 }
 
 

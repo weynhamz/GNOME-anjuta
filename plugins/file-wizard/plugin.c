@@ -74,7 +74,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaFileWizardPlugin *w_plugin;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("AnjutaFileWizardPlugin: Activating File wizard plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaFileWizardPlugin: Activating File wizard plugin ...");
 	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
 	w_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	

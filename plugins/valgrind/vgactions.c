@@ -164,7 +164,7 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 	priv = actions->priv;
 
 	if ((condition & G_IO_IN) && vg_tool_view_step (VG_TOOL_VIEW (priv->view)) <= 0) {
-		DEBUG_PRINT ("child program exited or error in GIOChannel [IO_IN], killing");
+		DEBUG_PRINT ("%s", "child program exited or error in GIOChannel [IO_IN], killing");
 		anjuta_util_dialog_info (NULL, _("Reached the end of the input file or error "
 								"in parsing valgrind output."));
 		vg_actions_kill (actions);
@@ -173,7 +173,7 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 	}
 
 	if (condition & G_IO_HUP) {
-		DEBUG_PRINT ("child program exited or error in GIOChannel [IO_HUP], killing");
+		DEBUG_PRINT ("%s", "child program exited or error in GIOChannel [IO_HUP], killing");
 		anjuta_util_dialog_info (NULL, _("Process exited."));
 		vg_actions_kill (actions);
 		priv->watch_id = 0;

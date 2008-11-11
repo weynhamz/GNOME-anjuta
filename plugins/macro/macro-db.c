@@ -164,7 +164,7 @@ fill_predefined (GtkTreeStore * tree_store, GtkTreeIter * iter_pre)
 	if (parse_xml_file (&doc, &cur, PREDEFINED_MACRO_FILE))
 		read_macros (doc, cur, tree_store, iter_pre, TRUE);
 	else
-		DEBUG_PRINT ("Could not read predefined macros!");
+		DEBUG_PRINT ("%s", "Could not read predefined macros!");
 }
 
 static void
@@ -177,7 +177,7 @@ fill_userdefined (GtkTreeStore * tree_store, GtkTreeIter * iter_user)
 	if (parse_xml_file (&doc, &cur, user_file))
 		read_macros (doc, cur, tree_store, iter_user, FALSE);
 	else
-		DEBUG_PRINT ("Could not read predefined macros!");
+		DEBUG_PRINT ("%s", "Could not read predefined macros!");
 	g_free (user_file);
 }
 
@@ -217,7 +217,7 @@ static gpointer parent_class;
 static void
 macro_db_dispose (GObject * db)
 {
-	DEBUG_PRINT ("Disposing MacroDB");
+	DEBUG_PRINT ("%s", "Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
 	G_OBJECT_CLASS (parent_class)->dispose (db);
 }
@@ -225,7 +225,7 @@ macro_db_dispose (GObject * db)
 static void
 macro_db_finalize (GObject * db)
 {
-	DEBUG_PRINT ("Disposing MacroDB");
+	DEBUG_PRINT ("%s", "Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
 	G_OBJECT_CLASS (parent_class)->finalize (db);
 }

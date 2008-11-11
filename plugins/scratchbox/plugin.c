@@ -83,7 +83,7 @@ scratchbox_plugin_activate (AnjutaPlugin *plugin)
 {
 	ScratchboxPlugin *self = ANJUTA_PLUGIN_SCRATCHBOX (plugin);
 	
-	DEBUG_PRINT ("Scratchbox 1 Plugin: Activating plugin...");
+	DEBUG_PRINT ("%s", "Scratchbox 1 Plugin: Activating plugin...");
 
 	/* Connect to session signal */
 	g_signal_connect (plugin->shell, "save-session",
@@ -99,7 +99,7 @@ scratchbox_plugin_deactivate (AnjutaPlugin *plugin)
 {
 	ScratchboxPlugin *self = ANJUTA_PLUGIN_SCRATCHBOX (plugin);
 
-	DEBUG_PRINT ("Scratchbox 1 Plugin: Deactivating plugin...");
+	DEBUG_PRINT ("%s", "Scratchbox 1 Plugin: Deactivating plugin...");
 	
 	g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_save), self);
     g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_load), self);

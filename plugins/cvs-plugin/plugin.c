@@ -252,7 +252,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	bb_plugin = ANJUTA_PLUGIN_CVS (plugin);
 	
-	DEBUG_PRINT ("Project added");
+	DEBUG_PRINT ("%s", "Project added");
 	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
@@ -334,7 +334,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	CVSPlugin *cvs_plugin;
 	
-	DEBUG_PRINT ("CVSPlugin: Activating CVS plugin ...");
+	DEBUG_PRINT ("%s", "CVSPlugin: Activating CVS plugin ...");
 	cvs_plugin = ANJUTA_PLUGIN_CVS (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -377,7 +377,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	CVSPlugin *cvs_plugin;
 	
-	DEBUG_PRINT ("CVSPlugin: Dectivating CVS plugin ...");
+	DEBUG_PRINT ("%s", "CVSPlugin: Dectivating CVS plugin ...");
 	
 	cvs_plugin = ANJUTA_PLUGIN_CVS (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);

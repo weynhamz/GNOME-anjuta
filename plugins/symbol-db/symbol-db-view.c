@@ -108,7 +108,7 @@ sdb_view_get_iter_from_row_ref (SymbolDBView *dbv, GtkTreeRowReference *row_ref,
 	path = gtk_tree_row_reference_get_path (row_ref);
 	if (path == NULL) 
 	{
-		DEBUG_PRINT ("sdb_view_get_iter_from_row_ref (): path is null, something "
+		DEBUG_PRINT ("%s", "sdb_view_get_iter_from_row_ref (): path is null, something "
 					 "went wrong ?!");
 		return FALSE;
 	}
@@ -324,7 +324,7 @@ trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id)
 	if (slist == NULL) 
 	{
 		/* nothing waiting for us */
-		/*DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
+		/*DEBUG_PRINT ("%s", "trigger_on_symbol_inserted (): no children waiting for us...");*/
 		return;
 	}
 	else {
@@ -819,7 +819,7 @@ sdb_view_row_expanded_idle_destroy (gpointer data)
 	
 	g_return_if_fail (data != NULL);
 	node_expand = data;	
-	DEBUG_PRINT ("sdb_view_global_row_expanded_idle_destroy ()");
+	DEBUG_PRINT ("%s", "sdb_view_global_row_expanded_idle_destroy ()");
 	dbv = node_expand->dbv;
 	dbe = node_expand->dbe;
 	
@@ -955,7 +955,7 @@ sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 	
-	DEBUG_PRINT ("sdb_view_namespace_row_expanded ");
+	DEBUG_PRINT ("%s", "sdb_view_namespace_row_expanded ");
 
 	/* check if there's another expanding idle_func running */
 	node = g_tree_lookup (priv->expanding_gfunc_ids, (gpointer)expanded_symbol_id);
@@ -1025,7 +1025,7 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
-	DEBUG_PRINT ("sdb_view_global_row_expanded ()");
+	DEBUG_PRINT ("%s", "sdb_view_global_row_expanded ()");
 	
 	/* check if there's another expanding idle_func running */
 	node = g_tree_lookup (priv->expanding_gfunc_ids, (gpointer)expanded_symbol_id);
@@ -1096,7 +1096,7 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	positive_symbol_expanded = -expanded_symbol_id;
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 	
-	DEBUG_PRINT ("sdb_view_vars_row_expanded ()");
+	DEBUG_PRINT ("%s", "sdb_view_vars_row_expanded ()");
 
 	/* check if there's another expanding idle_func running */
 	node = g_tree_lookup (priv->expanding_gfunc_ids, (gpointer)expanded_symbol_id);
@@ -1450,7 +1450,7 @@ sdb_view_finalize (GObject *object)
 	SymbolDBView *view = SYMBOL_DB_VIEW (object);
 	SymbolDBViewPriv *priv = view->priv;
 
-	DEBUG_PRINT ("finalizing symbol_db_view ()");
+	DEBUG_PRINT ("%s", "finalizing symbol_db_view ()");
 	
 	symbol_db_view_clear_cache (view);
 	
@@ -1841,7 +1841,7 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	
 	priv = dbv->priv;
 
-	DEBUG_PRINT ("symbol_db_view_open ()");
+	DEBUG_PRINT ("%s", "symbol_db_view_open ()");
 	symbol_db_view_clear_cache (dbv);
 	
 	store = sdb_view_create_new_store ();

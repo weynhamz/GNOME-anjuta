@@ -536,7 +536,7 @@ valgrind_activate (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	AnjutaValgrindPlugin *valgrind;
 	
-	DEBUG_PRINT ("AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
 	valgrind = ANJUTA_PLUGIN_VALGRIND (plugin);
 
 	if (!initialized) {
@@ -590,7 +590,7 @@ valgrind_deactivate (AnjutaPlugin *plugin)
 	
 	valgrind = ANJUTA_PLUGIN_VALGRIND (plugin);
 	
-	DEBUG_PRINT ("AnjutaValgrindPlugin: Dectivating AnjutaValgrindPlugin plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaValgrindPlugin: Dectivating AnjutaValgrindPlugin plugin ...");
 
 	if ( valgrind->valgrind_displayed ) {
 		valgrind->valgrind_displayed = FALSE;

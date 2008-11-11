@@ -628,7 +628,7 @@ npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
 static gboolean
 on_druid_cancel (GtkWidget* window, NPWDruid* druid)
 {
-	DEBUG_PRINT ("Project wizard canceled");
+	DEBUG_PRINT ("%s", "Project wizard canceled");
 	anjuta_plugin_deactivate (ANJUTA_PLUGIN (druid->plugin));
 	npw_druid_free (druid);
 
@@ -638,7 +638,7 @@ on_druid_cancel (GtkWidget* window, NPWDruid* druid)
 static gboolean
 on_druid_delete (GtkWidget* window, GdkEvent* event, NPWDruid* druid)
 {
-	DEBUG_PRINT ("Project wizard canceled");
+	DEBUG_PRINT ("%s", "Project wizard canceled");
 	anjuta_plugin_deactivate (ANJUTA_PLUGIN (druid->plugin));
 	npw_druid_free (druid);
 

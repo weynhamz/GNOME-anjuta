@@ -37,7 +37,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaProjectImportPlugin *iplugin;
 	
-	DEBUG_PRINT ("AnjutaProjectImportPlugin: Activating Project Import Plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaProjectImportPlugin: Activating Project Import Plugin ...");
 	
 	iplugin = ANJUTA_PLUGIN_PROJECT_IMPORT (plugin);
 	iplugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);

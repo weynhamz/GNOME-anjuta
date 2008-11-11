@@ -176,7 +176,7 @@ anjuta_shell_thaw (AnjutaShell *shell, GError **error)
 	if (freeze_count <= 0)
 	{
 		/* Add all pending widgets */
-		/* DEBUG_PRINT ("Thawing shell ..."); */
+		/* DEBUG_PRINT ("%s", "Thawing shell ..."); */
 		
 		GQueue *queue;
 		queue = g_object_get_data (G_OBJECT (shell), "__widget_queue");
@@ -787,7 +787,7 @@ anjuta_shell_session_load (AnjutaShell *shell, const gchar *session_directory,
 	/* Do not allow multiple session loadings at once. Could be a trouble */
 	if (g_object_get_data (G_OBJECT (shell), "__session_loading"))
 	{
-		/* DEBUG_PRINT ("A session load is requested in the middle of another!!"); */
+		/* DEBUG_PRINT ("%s", "A session load is requested in the middle of another!!"); */
 		return;
 	}
 	g_object_set_data (G_OBJECT (shell), "__session_loading", "1");

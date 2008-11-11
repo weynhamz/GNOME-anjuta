@@ -609,7 +609,7 @@ anjuta_print_new_page (PrintJobInfo *pji)
 	
 	gnome_print_showpage (pji->pc);
 	
-	DEBUG_PRINT ("Printing new page...");
+	DEBUG_PRINT ("%s", "Printing new page...");
 	
 	pji->current_page++;
 	sprintf(page, "%d", pji->current_page);

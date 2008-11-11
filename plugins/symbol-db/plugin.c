@@ -125,7 +125,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	 if (sdb_plugin->need_symbols_update == FALSE)
 	 	return TRUE;
 	
-	DEBUG_PRINT ("on_editor_buffer_symbols_update_timeout()");
+	DEBUG_PRINT ("%s", "on_editor_buffer_symbols_update_timeout()");
 	
 	if (sdb_plugin->current_editor) 
 	{
@@ -175,10 +175,10 @@ static void
 on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
-	DEBUG_PRINT ("on_editor_destroy ()");
+	DEBUG_PRINT ("%s", "on_editor_destroy ()");
 	if (!sdb_plugin->editor_connected || !sdb_plugin->dbv_view_tree)
 	{
-		DEBUG_PRINT ("on_editor_destroy (): returning....");
+		DEBUG_PRINT ("%s", "on_editor_destroy (): returning....");
 		return;
 	}
 	
@@ -188,7 +188,7 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	/* was it the last file loaded? */
 	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
 	{
-		DEBUG_PRINT ("displaying nothing...");
+		DEBUG_PRINT ("%s", "displaying nothing...");
 		symbol_db_view_locals_display_nothing (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), TRUE);
 	}
@@ -278,11 +278,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	if (sdb_plugin->session_loading)
 	{
-		DEBUG_PRINT ("session_loading");
+		DEBUG_PRINT ("%s", "session_loading");
 		return;
 	}
 	else
-		DEBUG_PRINT ("Updating symbols");
+		DEBUG_PRINT ("%s", "Updating symbols");
 	
 	if (!sdb_plugin->editor_connected)
 	{
@@ -368,7 +368,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	DEBUG_PRINT ("SymbolDB: session_save");
+	DEBUG_PRINT ("%s", "SymbolDB: session_save");
 
 	anjuta_session_set_string_list (session, 
 									SESSION_SECTION, 
@@ -426,7 +426,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	{
 		IAnjutaDocumentManager* docman;
 		sdb_plugin->session_loading = FALSE;
-		DEBUG_PRINT ("SymbolDB: session_loading finished");
+		DEBUG_PRINT ("%s", "SymbolDB: session_loading finished");
 		
 		/* Show the symbols for the current editor */
 		docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
@@ -570,7 +570,7 @@ on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 
-	DEBUG_PRINT ("on_local_treeview_row_activated ()");
+	DEBUG_PRINT ("%s", "on_local_treeview_row_activated ()");
 	selection = gtk_tree_view_get_selection (view);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
 	{
@@ -588,7 +588,7 @@ on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	
-	DEBUG_PRINT ("on_global_treeview_row_activated ()");
+	DEBUG_PRINT ("%s", "on_global_treeview_row_activated ()");
 	selection = gtk_tree_view_get_selection (view);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
 	{
@@ -604,7 +604,7 @@ on_global_treeview_row_expanded (GtkTreeView *tree_view,
                                     GtkTreePath *path,
                                     SymbolDBPlugin *user_data)
 {
-	DEBUG_PRINT ("on_global_treeview_row_expanded ()");
+	DEBUG_PRINT ("%s", "on_global_treeview_row_expanded ()");
 
 	symbol_db_view_row_expanded (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
 								user_data->sdbe_project, iter);
@@ -616,7 +616,7 @@ on_global_treeview_row_collapsed (GtkTreeView *tree_view,
                                     GtkTreePath *path,
                                     SymbolDBPlugin *user_data)
 {
-	DEBUG_PRINT ("on_global_treeview_row_collapsed ()");
+	DEBUG_PRINT ("%s", "on_global_treeview_row_collapsed ()");
 	
 	symbol_db_view_row_collapsed (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
 								user_data->sdbe_project, iter);
@@ -634,7 +634,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	
 	sdb_plugin = (SymbolDBPlugin *) plugin;
 	
-	DEBUG_PRINT ("value_removed_current_editor ()");
+	DEBUG_PRINT ("%s", "value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
 	g_source_remove (sdb_plugin->buf_update_timeout_id);
 	sdb_plugin->buf_update_timeout_id = 0;
@@ -660,7 +660,7 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	
 	g_return_if_fail (lang_manager != NULL);
 	
-	DEBUG_PRINT ("on_project_element_added");
+	DEBUG_PRINT ("%s", "on_project_element_added");
 	
 	gfile = g_file_new_for_uri (uri);	
 	
@@ -740,7 +740,7 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 
 	if (filename)
 	{
-		DEBUG_PRINT ("on_project_element_removed");
+		DEBUG_PRINT ("%s", "on_project_element_removed");
 		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
 		symbol_db_engine_remove_file (sdb_plugin->sdbe_project, 
 			sdb_plugin->project_root_dir, filename);
@@ -806,7 +806,7 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	plugin = ANJUTA_PLUGIN (data);
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
-	DEBUG_PRINT ("on_system_single_file_scan_end ()");
+	DEBUG_PRINT ("%s", "on_system_single_file_scan_end ()");
 	
 	sdb_plugin->files_count_system_done++;	
 	if (sdb_plugin->files_count_system_done >= sdb_plugin->files_count_system)
@@ -871,7 +871,7 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);
 	
-	DEBUG_PRINT ("on_importing_project_end ()");
+	DEBUG_PRINT ("%s", "on_importing_project_end ()");
 
 	/* hide the progress bar */
 	gtk_widget_hide (sdb_plugin->progress_bar_project);
@@ -899,7 +899,7 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	sdb_plugin->files_count_project_done = 0;
 	sdb_plugin->files_count_project = 0;	
 
-	DEBUG_PRINT ("emitting signals[PROJECT_IMPORT_END]");
+	DEBUG_PRINT ("%s", "emitting signals[PROJECT_IMPORT_END]");
 	/* emit signal. */
 	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);	
 
@@ -1181,7 +1181,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	check_unique_file = g_hash_table_new_full (g_str_hash, 
 						g_str_equal, g_free, g_free);
 
-	DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	DEBUG_PRINT ("%s", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
 					 g_list_length (prj_elements_list));
 				
@@ -1306,7 +1306,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 static  void
 on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
 {
-	DEBUG_PRINT ("on_received_project_import_end ()");
+	DEBUG_PRINT ("%s", "on_received_project_import_end ()");
 	/* system's packages management */				
 	GList *item = sdb_plugin->session_packages; 
 	while (item != NULL)
@@ -1413,7 +1413,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	 * from project */
 	if (to_remove_files != NULL)
 	{		
-		DEBUG_PRINT ("if (to_remove_files != NULL)");
+		DEBUG_PRINT ("%s", "if (to_remove_files != NULL)");
 		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
 									   sdb_plugin->project_opened,
 									   to_remove_files);
@@ -1425,7 +1425,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	/* add those left files */
 	if (prj_elements_list != NULL && it != NULL && parsed == TRUE)
 	{
-		DEBUG_PRINT ("if (prj_elements_list != NULL)");
+		DEBUG_PRINT ("%s", "if (prj_elements_list != NULL)");
 		GPtrArray *to_add_files = g_ptr_array_new ();
 		GPtrArray *languages_array = g_ptr_array_new();
 		GList *item = prj_elements_list;														
@@ -1536,7 +1536,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		g_object_unref (gfile);
 		
 		/* FIXME: where's the project name itself? */
-		DEBUG_PRINT ("FIXME: where's the project name itself? ");
+		DEBUG_PRINT ("%s", "FIXME: where's the project name itself? ");
 		sdb_plugin->project_opened = g_strdup (root_dir);
 		DEBUG_PRINT ("FIXME: setting project opened to  %s", root_dir);
 		
@@ -1556,7 +1556,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, 
 											root_dir) == FALSE)
 			{
-				DEBUG_PRINT ("Symbol-DB: project does not exist");
+				DEBUG_PRINT ("%s", "Symbol-DB: project does not exist");
 				needs_sources_scan = TRUE;
 				project_exist = FALSE;
 			}
@@ -1576,7 +1576,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			/* if project did not exist add a new project */
 			if (project_exist == FALSE)
 			{
-				DEBUG_PRINT ("Symbol-DB: creating new project.");
+				DEBUG_PRINT ("%s", "Symbol-DB: creating new project.");
 				symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
 												  NULL,	/* still no workspace logic */
 												  sdb_plugin->project_opened);
@@ -1587,7 +1587,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			 */
 			if (needs_sources_scan == TRUE)
 			{
-				DEBUG_PRINT ("Symbol-DB: importing sources...");
+				DEBUG_PRINT ("%s", "Symbol-DB: importing sources...");
 				do_import_project_sources (plugin, pm, root_dir);
 			}
 			else	
@@ -1669,7 +1669,7 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	SymbolDBPlugin *sdb_plugin;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
-	DEBUG_PRINT ("project_root_removed ()");
+	DEBUG_PRINT ("%s", "project_root_removed ()");
 	/* Disconnect events from project manager */
 	
 	/* FIXME: There should be a way to ensure that this project manager
@@ -1712,7 +1712,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gchar *anjuta_cache_path;
 	gchar *ctags_path;
 	
-	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
+	DEBUG_PRINT ("%s", "SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
 	/* Initialize gda library. */
 	gda_init ();
@@ -1925,7 +1925,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
-	DEBUG_PRINT ("SymbolDBPlugin: Dectivating SymbolDBPlugin plugin ...");
+	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin ...");
 	
 	/* disconnect some signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
@@ -2040,7 +2040,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 static void
 symbol_db_finalize (GObject *obj)
 {
-	DEBUG_PRINT ("Symbol-DB finalize");
+	DEBUG_PRINT ("%s", "Symbol-DB finalize");
 	/* Finalization codes here */
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -2123,7 +2123,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
 	{
 		filter_array = NULL;
-		DEBUG_PRINT ("filter_array is NULL");
+		DEBUG_PRINT ("%s", "filter_array is NULL");
 	}
 	else 
 	{
@@ -2355,7 +2355,7 @@ on_prefs_package_add (SymbolDBPrefs *sdbp, const gchar *package,
 	
 	g_return_if_fail (package != NULL);
 	
-	DEBUG_PRINT ("on_prefs_package_add");
+	DEBUG_PRINT ("%s", "on_prefs_package_add");
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 	
@@ -2374,7 +2374,7 @@ on_prefs_package_remove (SymbolDBPrefs *sdbp, const gchar *package,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 	
 	GList *item;
-	DEBUG_PRINT ("on_prefs_package_remove");	
+	DEBUG_PRINT ("%s", "on_prefs_package_remove");	
 	if ((item = g_list_find_custom (sdb_plugin->session_packages, package, 
 							g_list_compare)) != NULL)
 	{
@@ -2417,7 +2417,7 @@ on_prefs_buffer_update_toggled (SymbolDBPrefs *sdbp, guint value,
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	DEBUG_PRINT ("SymbolDB: ipreferences_merge");	
+	DEBUG_PRINT ("%s", "SymbolDB: ipreferences_merge");	
 	SymbolDBPlugin *sdb_plugin;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (ipref);
@@ -2460,7 +2460,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 static void
 ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 {
-	DEBUG_PRINT ("SymbolDB: ipreferences_iface_init");	
+	DEBUG_PRINT ("%s", "SymbolDB: ipreferences_iface_init");	
 	iface->merge = ipreferences_merge;
 	iface->unmerge = ipreferences_unmerge;	
 }

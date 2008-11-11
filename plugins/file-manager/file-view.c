@@ -119,7 +119,7 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
 																	   event);	
 	
-	DEBUG_PRINT (__FUNCTION__);
+	DEBUG_PRINT ("%s", "Button pressed");
 	
 	GtkTreeSelection* selection = 
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -278,7 +278,7 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 		g_signal_emit_by_name (G_OBJECT (view), "current-file-changed",
 							   NULL, NULL);
 	}
-	DEBUG_PRINT ("selection_changed");
+	DEBUG_PRINT ("%s", "selection_changed");
 }
 
 static gboolean

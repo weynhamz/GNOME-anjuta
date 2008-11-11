@@ -80,7 +80,7 @@ load_languages (LanguageManager* language_manager)
 	
 	if (!g_str_equal (root->name, "languages"))
 	{
-		DEBUG_PRINT ("Invalid languages.xml file");
+		DEBUG_PRINT ("%s", "Invalid languages.xml file");
 	}
 	
 	for (cur_node = root->children; cur_node != NULL; cur_node = cur_node->next)
@@ -135,7 +135,7 @@ language_manager_activate (AnjutaPlugin *plugin)
 {
 	LanguageManager *language_manager;
 	
-	DEBUG_PRINT ("LanguageManager: Activating LanguageManager plugin ...");
+	DEBUG_PRINT ("%s", "LanguageManager: Activating LanguageManager plugin ...");
 	language_manager = (LanguageManager*) plugin;
 	
 	load_languages(language_manager);
@@ -146,7 +146,7 @@ language_manager_activate (AnjutaPlugin *plugin)
 static gboolean
 language_manager_deactivate (AnjutaPlugin *plugin)
 {	
-	DEBUG_PRINT ("LanguageManager: Dectivating LanguageManager plugin ...");
+	DEBUG_PRINT ("%s", "LanguageManager: Dectivating LanguageManager plugin ...");
 	
 	return TRUE;
 }

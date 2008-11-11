@@ -758,7 +758,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		
 		dyn_node->query_str = g_strdup (sql);
 		
-		DEBUG_PRINT ("inserting direct child into main_gtree");
+		DEBUG_PRINT ("%s", "inserting direct child into main_gtree");
 		/* insert it into gtree, thanks */
 		g_tree_insert (node->sym_extra_info_gtree, (gpointer)sym_info, dyn_node);
 		
@@ -1318,7 +1318,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	g_return_if_fail (fd != NULL);
 
 	
-	DEBUG_PRINT ("sdb_engine_populate_db_by_tags ()");
+	DEBUG_PRINT ("%s", "sdb_engine_populate_db_by_tags ()");
 	if ((tag_file = tagsOpen_1 (fd, &tag_file_info)) == NULL)
 	{
 		g_warning ("error in opening ctags file");
@@ -1476,7 +1476,7 @@ sdb_engine_ctags_output_thread (gpointer data)
 					gint tmp_updated;
 
 					/* proceed with second passes */
-					DEBUG_PRINT ("FOUND end-of-group-files marker."
+					DEBUG_PRINT ("%s", "FOUND end-of-group-files marker."
 								 "go on with sdb_engine_second_pass_do ()");
 					
 					chars_ptr += len_marker;
@@ -1529,7 +1529,7 @@ sdb_engine_ctags_output_thread (gpointer data)
 					/* emit signal. The end of files-group can be cannot be
 					 * determined by the caller. This is the only way.
 					 */
-					DEBUG_PRINT ("EMITTING scan-end");
+					DEBUG_PRINT ("%s", "EMITTING scan-end");
 					g_async_queue_push (priv->signals_queue, (gpointer)(SCAN_END + 1));
 				}
 				
@@ -1553,7 +1553,7 @@ sdb_engine_ctags_output_thread (gpointer data)
 	}
 	else 
 	{
-		DEBUG_PRINT ("no len_chars > len_marker");
+		DEBUG_PRINT ("%s", "no len_chars > len_marker");
 	}
 
 	priv->thread_status = FALSE;
@@ -1583,7 +1583,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	
 	priv = dbe->priv;
 		
-/*	DEBUG_PRINT ("signals trigger");*/
+/*	DEBUG_PRINT ("%s", "signals trigger");*/
 	if (g_async_queue_length (priv->signals_queue) > 0)
 	{
 		gpointer tmp;
@@ -1640,7 +1640,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		g_queue_get_length (priv->thread_list_data) <= 0 &&
 		priv->thread_monitor_handler <= 0)
 	{
-		DEBUG_PRINT ("removing signals trigger");
+		DEBUG_PRINT ("%s", "removing signals trigger");
 		/* remove the trigger coz we don't need it anymore... */
 		g_source_remove (priv->timeout_trigger_handler);
 		priv->timeout_trigger_handler = 0;
@@ -1666,7 +1666,7 @@ sdb_engine_thread_monitor (gpointer data)
 	
 	if (priv->shutting_down == TRUE)
 	{
-		DEBUG_PRINT ("SymbolDBEngine is shutting down: removing thread monitor");
+		DEBUG_PRINT ("%s", "SymbolDBEngine is shutting down: removing thread monitor");
 		/* remove the thread monitor */
 		g_source_remove (priv->thread_monitor_handler);
 		priv->thread_monitor_handler = 0;
@@ -1698,7 +1698,7 @@ sdb_engine_thread_monitor (gpointer data)
 	if (priv->thread_closure_retries > THREAD_MAX_CLOSURE_RETRIES &&
 		g_queue_get_length (priv->thread_list_data) <= 0)
 	{
-		DEBUG_PRINT ("removing thread monitor");
+		DEBUG_PRINT ("%s", "removing thread monitor");
 		/* remove the thread monitor */
 		g_source_remove (priv->thread_monitor_handler);
 		priv->thread_monitor_handler = 0;
@@ -1760,7 +1760,7 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 				   int exit_status, gulong time_taken_in_seconds,
 				   gpointer data)
 {
-	DEBUG_PRINT ("***** ctags ended *****");
+	DEBUG_PRINT ("%s", "***** ctags ended *****");
 }
 
 
@@ -1772,7 +1772,7 @@ sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 		
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("creating anjuta_launcher");
+	DEBUG_PRINT ("%s", "creating anjuta_launcher");
 
 	priv->ctags_launcher = anjuta_launcher_new ();
 
@@ -2993,7 +2993,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	if (needs_tables_creation == TRUE)
 	{
-		DEBUG_PRINT ("symbol_db_engine_open_db (): creating tables: it needs tables...");
+		DEBUG_PRINT ("%s", "symbol_db_engine_open_db (): creating tables: it needs tables...");
 		sdb_engine_create_db_tables (dbe, TABLES_SQL);
 	}
 
@@ -3129,7 +3129,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
 			{
 				MP_RETURN_OBJ_STR (priv, value);
-				DEBUG_PRINT ("Project cannot be added because a default workspace "
+				DEBUG_PRINT ("%s", "Project cannot be added because a default workspace "
 							 "cannot be created");
 				return FALSE;
 			}
@@ -3150,7 +3150,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 				 "wsname",
 				 value)) <= 0)
 	{
-		DEBUG_PRINT ("symbol_db_engine_add_new_project (): no workspace id");
+		DEBUG_PRINT ("%s", "symbol_db_engine_add_new_project (): no workspace id");
 		MP_RETURN_OBJ_STR (priv, value);
 		return FALSE;
 	}
@@ -3321,7 +3321,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, local_filepath);
 	if (relative_path == NULL)
 	{
-		DEBUG_PRINT ("relative_path == NULL");
+		DEBUG_PRINT ("%s", "relative_path == NULL");
 		MP_RETURN_OBJ_STR(priv, value);
 		return FALSE;
 	}	
@@ -4355,7 +4355,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	
 	priv = dbe->priv;
 
-	DEBUG_PRINT ("sdb_engine_second_pass_update_scope()");
+	DEBUG_PRINT ("%s", "sdb_engine_second_pass_update_scope()");
 	
 	/* temporary unlock. This function may take a while to be completed
 	 * so let other db-task to be executed, so that main thread
@@ -4448,7 +4448,7 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 	
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("sdb_engine_second_pass_update_heritage ()");
+	DEBUG_PRINT ("%s", "sdb_engine_second_pass_update_heritage ()");
 	/* unlock */
 	if (priv->mutex)
 		g_mutex_unlock (dbe->priv->mutex);
@@ -4650,7 +4650,7 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("sdb_engine_second_pass_do()");
+	DEBUG_PRINT ("%s", "sdb_engine_second_pass_do()");
 	
 	/* prepare for scope second scan */
 	if ((stmt1 =
@@ -5138,7 +5138,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 	{
 		if ((num_rows = gda_data_model_get_n_rows (data_model)) <= 0)
 		{
-			DEBUG_PRINT ("sdb_engine_detects_removed_ids (): nothing to remove");
+			DEBUG_PRINT ("%s", "sdb_engine_detects_removed_ids (): nothing to remove");
 			g_object_unref (data_model);
 			return;
 		}
@@ -5158,7 +5158,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		val = gda_data_model_get_value_at (data_model, 0, i, NULL);
 		tmp = g_value_get_int (val);
 	
-		DEBUG_PRINT ("EMITTING symbol-removed");
+		DEBUG_PRINT ("%s", "EMITTING symbol-removed");
 		g_async_queue_push (priv->signals_queue, (gpointer)(SYMBOL_REMOVED + 1));
 		g_async_queue_push (priv->signals_queue, (gpointer)tmp);
 	}
@@ -5288,7 +5288,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	GPtrArray *files_to_scan;
 	gint i;
 
-	DEBUG_PRINT ("on_scan_update_files_symbols_end  ();");
+	DEBUG_PRINT ("%s", "on_scan_update_files_symbols_end  ();");
 
 	g_return_if_fail (dbe != NULL);
 	g_return_if_fail (update_data != NULL);
@@ -5513,7 +5513,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	
 	priv = dbe->priv;
 
-	DEBUG_PRINT ("symbol_db_engine_update_files_symbols ()");
+	DEBUG_PRINT ("%s", "symbol_db_engine_update_files_symbols ()");
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
 
@@ -5844,7 +5844,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	g_return_val_if_fail (text_buffers != NULL, FALSE);
 	g_return_val_if_fail (buffer_sizes != NULL, FALSE);
 	
-	DEBUG_PRINT ("symbol_db_engine_update_buffer_symbols ()");
+	DEBUG_PRINT ("%s", "symbol_db_engine_update_buffer_symbols ()");
 
 	temp_files = g_ptr_array_new();	
 	real_files_on_db = g_ptr_array_new();
@@ -8625,7 +8625,7 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 		
 /*	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): query_str is %s",
 				 dyn_node->query_str);
-	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): data dump \n");
+	DEBUG_PRINT ("%s", "symbol_db_engine_get_files_for_project (): data dump \n");
 	gda_data_model_dump (data, stdout);*/
 	
 	if (!GDA_IS_DATA_MODEL (data) ||

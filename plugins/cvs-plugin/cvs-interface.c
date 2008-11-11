@@ -332,7 +332,7 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 		}
 		default:
 		{
-			DEBUG_PRINT("Invalid cvs server type!");
+			DEBUG_PRINT("%s", "Invalid cvs server type!");
 			g_string_free (options, TRUE);
 			return;
 		}

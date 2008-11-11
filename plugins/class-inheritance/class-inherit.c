@@ -788,7 +788,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	if (plugin->graph == NULL)
 		return;
 	
-	DEBUG_PRINT ("======== going to draw graph ========");
+	DEBUG_PRINT ("%s", "======== going to draw graph ========");
 	num_nodes = agnnodes (plugin->graph);	
 	g_return_if_fail (num_nodes > 0);
 	
@@ -976,7 +976,7 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 										  NULL, TRUE, TRUE, FALSE, -1, -1, NULL);
 	if (!iter)
 	{
-		DEBUG_PRINT ("class_inheritance_update_graph (): search returned no items.");
+		DEBUG_PRINT ("%s", "class_inheritance_update_graph (): search returned no items.");
 		return;
 	}
 	
@@ -1031,7 +1031,7 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 
 		if ((klass_id = ianjuta_symbol_get_id (symbol, NULL)) <= 0)
 		{
-			/*DEBUG_PRINT ("ClassInheritance: klass_id cannot be <= 0");*/
+			/*DEBUG_PRINT ("%s", "ClassInheritance: klass_id cannot be <= 0");*/
 			continue;
 		}
 

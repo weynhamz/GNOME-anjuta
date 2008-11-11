@@ -171,7 +171,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	GtkAction *action;
 	
-	DEBUG_PRINT ("Tools Plugin: Activating tools plugin...");
+	DEBUG_PRINT ("%s", "Tools Plugin: Activating tools plugin...");
 
 	/* Add all our actions */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -204,7 +204,7 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 	ATPPlugin *this = ANJUTA_PLUGIN_ATP (plugin);
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("Tools Plugin: Deactivating tools plugin...");
+	DEBUG_PRINT ("%s", "Tools Plugin: Deactivating tools plugin...");
 
 	atp_tool_list_deactivate (&this->list);	
 	atp_context_list_destroy (&this->context);

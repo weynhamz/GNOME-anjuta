@@ -49,7 +49,7 @@ on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
 	{
 		if (aneditor_get_widget (GPOINTER_TO_INT (node->data)) == scintilla)
 		{
-			DEBUG_PRINT ("Switching editor view ...");
+			DEBUG_PRINT ("%s", "Switching editor view ...");
 			te->editor_id = GPOINTER_TO_INT (node->data);
 			te->scintilla = aneditor_get_widget (te->editor_id);
 			break;

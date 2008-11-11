@@ -1,3 +1,255 @@
+2008-11-10  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by: James Liggett <jrliggett@cox.net>:
+
+	* libanjuta/anjuta-debug.h:
+	* libanjuta/anjuta-launcher.c (anjuta_launcher_class_init),
+	(anjuta_launcher_synchronize), (anjuta_launcher_scan_output),
+	(anjuta_launcher_scan_error), (anjuta_launcher_scan_pty),
+	(anjuta_launcher_check_for_execution_done):
+	* libanjuta/anjuta-plugin-manager.c (collect_cycle):
+	* libanjuta/anjuta-shell.c (anjuta_shell_thaw),
+	(anjuta_shell_session_load):
+	* plugins/build-basic-autotools/executer.c (execute_program):
+	* plugins/build-basic-autotools/plugin.c (build_context_pop_dir),
+	(on_message_view_destroyed), (update_module_ui),
+	(update_project_ui), (ifile_get_file):
+	* plugins/class-gen/plugin.c (activate_plugin),
+	(deactivate_plugin):
+	* plugins/class-inheritance/class-inherit.c
+	(cls_inherit_draw_graph), (class_inheritance_update_graph):
+	* plugins/class-inheritance/plugin.c (activate_plugin),
+	(deactivate_plugin):
+	* plugins/cvs-plugin/cvs-actions.c (on_server_type_changed):
+	* plugins/cvs-plugin/cvs-execute.c (on_cvs_terminated):
+	* plugins/cvs-plugin/cvs-interface.c (anjuta_cvs_import):
+	* plugins/cvs-plugin/plugin.c (value_added_project_root_uri),
+	(activate_plugin), (deactivate_plugin):
+	* plugins/debug-manager/debug_tree.c (debug_tree_add_watch):
+	* plugins/debug-manager/plugin.c (dma_plugin_debugger_started),
+	(dma_plugin_program_loaded), (dma_plugin_program_running),
+	(dma_plugin_program_stopped), (dma_plugin_program_unload),
+	(dma_plugin_debugger_stopped), (dma_plugin_activate),
+	(dma_plugin_deactivate):
+	* plugins/debug-manager/queue.c
+	(dma_queue_emit_debugger_state_change),
+	(dma_debugger_queue_execute), (on_dma_debugger_started),
+	(on_dma_program_loaded), (on_dma_program_running),
+	(on_dma_program_stopped), (on_dma_program_exited),
+	(on_dma_program_moved), (on_dma_frame_changed),
+	(on_dma_signal_received), (on_dma_sharedlib_event):
+	* plugins/devhelp/plugin.c (devhelp_activate),
+	(devhelp_deactivate):
+	* plugins/document-manager/anjuta-docman.c (anjuta_docman_dispose),
+	(anjuta_docman_finalize):
+	* plugins/document-manager/plugin.c (value_added_project_root_uri),
+	(value_removed_project_root_uri), (unload_unused_support_plugins),
+	(on_document_changed):
+	* plugins/editor/print.c (anjuta_print_new_page):
+	* plugins/editor/text_editor.c (on_scintila_already_destroyed),
+	(on_te_already_destroyed), (on_reload_dialog_response),
+	(on_text_editor_uri_changed), (text_editor_update_monitor),
+	(text_editor_new):
+	* plugins/editor/text_editor_cbs.c
+	(on_text_editor_scintilla_focus_in):
+	* plugins/file-loader/plugin.c (activate_plugin),
+	(deactivate_plugin):
+	* plugins/file-manager/file-model.c (file_model_row_expanded):
+	* plugins/file-manager/file-view.c (file_view_button_press_event),
+	(file_view_selection_changed):
+	* plugins/file-manager/plugin.c (file_manager_activate),
+	(file_manager_deactivate):
+	* plugins/file-wizard/plugin.c (activate_plugin):
+	* plugins/gdb/debugger.c (debugger_initialize),
+	(debugger_clear_buffers), (debugger_queue_get_next_command),
+	(debugger_queue_set_next_command), (debugger_queue_clear),
+	(debugger_queue_execute_command),
+	(debugger_load_executable_finish),
+	(debugger_set_working_directory), (debugger_set_environment),
+	(on_gdb_output_arrived), (debugger_handle_post_execution),
+	(debugger_parse_stopped), (debugger_stdo_flush),
+	(on_gdb_terminated), (debugger_stop_real), (debugger_abort),
+	(debugger_info_program_finish), (debugger_start_program),
+	(debugger_attach_process_finish), (debugger_attach_process_real),
+	(debugger_attach_process), (debugger_restart_program),
+	(debugger_stop_program), (debugger_detach_process_finish),
+	(debugger_detach_process), (debugger_interrupt), (debugger_run),
+	(debugger_step_in), (debugger_step_over), (debugger_step_out),
+	(debugger_stepi_in), (debugger_stepi_over),
+	(debugger_run_to_location), (debugger_run_to_position),
+	(debugger_run_to_address), (debugger_add_breakpoint_at_line),
+	(debugger_add_breakpoint_at_function),
+	(debugger_add_breakpoint_at_address), (debugger_enable_breakpoint),
+	(debugger_ignore_breakpoint), (debugger_condition_breakpoint),
+	(debugger_remove_breakpoint), (debugger_list_breakpoint),
+	(debugger_print), (debugger_evaluate), (debugger_list_local),
+	(debugger_list_argument), (debugger_info_frame),
+	(debugger_info_signal), (debugger_info_sharedlib),
+	(debugger_info_args), (debugger_info_target),
+	(debugger_info_program), (debugger_info_udot),
+	(debugger_info_variables), (debugger_inspect_memory),
+	(debugger_disassemble), (debugger_list_frame),
+	(debugger_set_thread), (debugger_list_thread),
+	(debugger_info_thread_finish), (debugger_info_thread),
+	(debugger_list_register), (debugger_update_register),
+	(debugger_write_register), (debugger_set_frame),
+	(debugger_delete_variable), (debugger_evaluate_variable),
+	(debugger_assign_variable), (debugger_list_variable_children),
+	(debugger_create_variable), (debugger_update_variable),
+	(debugger_dispose), (debugger_class_init), (debugger_signal):
+	* plugins/gdb/plugin.c (gdb_plugin_stop_terminal),
+	(gdb_plugin_activate_plugin), (gdb_plugin_deactivate_plugin),
+	(idebugger_quit), (idebugger_abort):
+	* plugins/git/plugin.c (git_activate_plugin),
+	(git_deactivate_plugin):
+	* plugins/glade/anjuta-design-document.c:
+	* plugins/glade/plugin.c (on_document_destroy), (activate_plugin),
+	(deactivate_plugin), (glade_plugin_instance_init):
+	* plugins/gtodo/plugin.c (activate_plugin), (deactivate_plugin):
+	* plugins/language-manager/plugin.c (load_languages),
+	(language_manager_activate), (language_manager_deactivate):
+	* plugins/language-support-cpp-java/cpp-java-utils.c
+	(cpp_java_util_jump_to_matching_brace):
+	* plugins/language-support-cpp-java/plugin.c
+	(cpp_java_plugin_activate_plugin),
+	(cpp_java_plugin_deactivate_plugin):
+	* plugins/macro/macro-db.c (fill_predefined), (fill_userdefined),
+	(macro_db_dispose), (macro_db_finalize):
+	* plugins/macro/plugin.c (activate_plugin), (deactivate_plugin):
+	* plugins/message-view/message-view.c (message_new),
+	(message_free):
+	* plugins/message-view/plugin.c (activate_plugin),
+	(deactivate_plugin):
+	* plugins/patch/plugin.c (patch_plugin_activate),
+	(patch_plugin_deactivate):
+	* plugins/profiler/plugin.c (profiler_activate),
+	(profiler_deactivate), (ifile_get_file):
+	* plugins/project-import/plugin.c (activate_plugin):
+	* plugins/project-import/project-import.c
+	(project_import_finalize):
+	* plugins/project-manager/plugin.c (project_manager_load_gbf),
+	(on_profile_scoped), (on_profile_descoped),
+	(project_manager_plugin_activate_plugin):
+	* plugins/project-wizard/druid.c (on_druid_cancel),
+	(on_druid_delete):
+	* plugins/project-wizard/install.c (on_install_end_action):
+	* plugins/project-wizard/plugin.c (npw_plugin_activate),
+	(npw_plugin_deactivate):
+	* plugins/project-wizard/templates/anjuta-plugin-vala/src/plugin.va
+	la:
+	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
+	(_activate), (_deactivate):
+	* plugins/run-program/execute.c (execute_with_terminal):
+	* plugins/run-program/plugin.c (run_plugin_activate),
+	(run_plugin_deactivate):
+	* plugins/sample1/plugin.c (sample_plugin_activate_plugin),
+	(sample_plugin_deactivate_plugin):
+	* plugins/scratchbox/plugin.c (scratchbox_plugin_activate),
+	(scratchbox_plugin_deactivate):
+	* plugins/search/search-replace.c (search_replace_next_previous):
+	* plugins/sourceview/plugin.c (sourceview_plugin_activate),
+	(sourceview_plugin_deactivate):
+	* plugins/sourceview/sourceview-prefs.c (sourceview_prefs_destroy):
+	* plugins/sourceview/sourceview.c (sourceview_finalize),
+	(sourceview_new):
+	* plugins/subversion/plugin.c (value_added_project_root_uri),
+	(activate_plugin), (deactivate_plugin):
+	* plugins/symbol-browser/an_symbol_search.c
+	(an_symbol_search_dispose), (an_symbol_search_finalize),
+	(an_symbol_search_on_tree_row_activate),
+	(an_symbol_search_on_entry_key_press_event),
+	(an_symbol_search_on_entry_changed):
+	* plugins/symbol-browser/an_symbol_view.c (destroy_tm_hash_value),
+	(on_remove_project_tm_files), (on_symbol_view_row_expanded),
+	(anjuta_symbol_view_add_source),
+	(anjuta_symbol_view_remove_source),
+	(anjuta_symbol_view_update_source_from_buffer),
+	(anjuta_symbol_view_refresh_tree), (anjuta_symbol_view_open),
+	(anjuta_symbol_view_finalize),
+	(anjuta_symbol_view_workspace_add_file):
+	* plugins/symbol-browser/plugin.c (on_editor_destroy),
+	(activate_plugin), (deactivate_plugin),
+	(isymbol_manager_get_scope), (isymbol_manager_get_parent_scope),
+	(isymbol_manager_get_symbol_more_info),
+	(isymbol_manager_get_symbol_by_id):
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout), (on_editor_destroy),
+	(value_added_current_editor), (on_session_save), (on_session_load),
+	(on_local_treeview_row_activated),
+	(on_global_treeview_row_activated),
+	(on_global_treeview_row_expanded),
+	(on_global_treeview_row_collapsed), (value_removed_current_editor),
+	(on_project_element_added), (on_project_element_removed),
+	(on_system_single_file_scan_end), (on_importing_project_end),
+	(do_import_project_sources), (on_received_project_import_end),
+	(do_check_offline_files_changed), (on_project_root_added),
+	(on_project_root_removed), (symbol_db_activate),
+	(symbol_db_deactivate), (symbol_db_finalize),
+	(isymbol_manager_search), (on_prefs_package_add),
+	(on_prefs_package_remove), (ipreferences_merge),
+	(ipreferences_iface_init):
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(isymbol_iter_clone), (isymbol_iter_assign):
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(on_scan_files_end_1), (sdb_engine_ctags_launcher_create),
+	(symbol_db_engine_open_db), (symbol_db_engine_add_new_project),
+	(sdb_engine_add_new_file), (sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_second_pass_do), (sdb_engine_detects_removed_ids),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_buffer_symbols),
+	(symbol_db_engine_get_files_for_project):
+	* plugins/symbol-db/symbol-db-prefs.c (on_gconf_notify_prefs),
+	(on_listall_exit), (on_tag_load_toggled),
+	(on_autoscan_button_toggled), (on_update_button_toggled),
+	(on_parallel_button_toggled), (sdb_prefs_init),
+	(sdb_prefs_finalize):
+	* plugins/symbol-db/symbol-db-system.c
+	(sdb_system_do_scan_new_package), (on_pkg_config_exit):
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(sdb_view_locals_get_iter_from_row_ref),
+	(symbol_db_view_locals_clear_cache), (sdb_view_locals_init),
+	(sdb_view_locals_finalize), (trigger_on_symbol_inserted),
+	(on_scan_end), (symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_on_entry_changed),
+	(sdb_view_search_on_tree_row_activate),
+	(sdb_view_search_on_entry_key_press_event),
+	(sdb_view_search_dispose), (sdb_view_search_finalize):
+	* plugins/symbol-db/symbol-db-view.c
+	(sdb_view_get_iter_from_row_ref), (trigger_on_symbol_inserted),
+	(sdb_view_row_expanded_idle_destroy),
+	(sdb_view_namespace_row_expanded), (sdb_view_global_row_expanded),
+	(sdb_view_vars_row_expanded), (sdb_view_finalize),
+	(symbol_db_view_open):
+	* plugins/terminal/terminal.c (activate_plugin):
+	* plugins/tools/plugin.c (atp_plugin_activate),
+	(atp_plugin_deactivate):
+	* plugins/valgrind/plugin.c (valgrind_activate),
+	(valgrind_deactivate):
+	* plugins/valgrind/preferences.c (build_general_prefs):
+	* plugins/valgrind/vgactions.c (io_ready_cb):
+	* plugins/valgrind/vggeneralprefs.c (vg_general_prefs_init):
+	* src/anjuta-app.c (on_merge_widget_destroy),
+	(on_add_merge_widget), (anjuta_app_instance_init),
+	(on_widget_destroy), (on_widget_remove),
+	(on_widget_removed_from_hash):
+	* src/anjuta.c (on_anjuta_delete_event), (on_anjuta_destroy),
+	(on_anjuta_session_save_yourself), (on_profile_scoped),
+	(on_profile_descoped):
+	* src/main.c (main):
+	* src/shell.c (on_add_merge_widget):
+	* tagmanager/tm_workspace.c (tm_workspace_find_namespace_members):
+	
+	Modify DEBUG_PRINT to print everything on one line, and use proper format
+	strings. 
+	
+	#558788 – Improving debugging
+
 2008-11-03  Jens Georg  <mail@jensge.org>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

@@ -230,35 +230,35 @@ dma_queue_emit_debugger_state_change (DmaDebuggerQueue *self, IAnjutaDebuggerSta
 		/* Do nothing */
 		break;
 	case DEBUGGER_STOPPED_SIGNAL:
-		DEBUG_PRINT("** emit debugger-stopped **");
+		DEBUG_PRINT("%s", "** emit debugger-stopped **");
 		g_signal_emit_by_name (self->plugin, "debugger-stopped", err);
 		break;
 	case DEBUGGER_STARTED_SIGNAL:
-		DEBUG_PRINT("** emit debugger-started **");
+		DEBUG_PRINT("%s", "** emit debugger-started **");
 		g_signal_emit_by_name (self->plugin, "debugger-started");
 		break;
 	case PROGRAM_LOADED_SIGNAL:
-		DEBUG_PRINT("** emit program-loaded **");
+		DEBUG_PRINT("%s", "** emit program-loaded **");
 		g_signal_emit_by_name (self->plugin, "program-loaded");
 		break;
 	case PROGRAM_UNLOADED_SIGNAL:
-		DEBUG_PRINT("** emit program-unloaded **");
+		DEBUG_PRINT("%s", "** emit program-unloaded **");
 		g_signal_emit_by_name (self->plugin, "program-unloaded");
 		break;
 	case PROGRAM_STARTED_SIGNAL:
-		DEBUG_PRINT("** emit program-started **");
+		DEBUG_PRINT("%s", "** emit program-started **");
 		g_signal_emit_by_name (self->plugin, "program-started");
 		break;
 	case PROGRAM_EXITED_SIGNAL:
-		DEBUG_PRINT("** emit program-exited **");
+		DEBUG_PRINT("%s", "** emit program-exited **");
 		g_signal_emit_by_name (self->plugin, "program-exited");
 		break;
 	case PROGRAM_STOPPED_SIGNAL:
-		DEBUG_PRINT("** emit program-stopped **");
+		DEBUG_PRINT("%s", "** emit program-stopped **");
 		g_signal_emit_by_name (self->plugin, "program-stopped");
 		break;
 	case PROGRAM_RUNNING_SIGNAL:
-		DEBUG_PRINT("** emit program-running **");
+		DEBUG_PRINT("%s", "** emit program-running **");
 		g_signal_emit_by_name (self->plugin, "program-running");
 		break;
 	}
@@ -400,7 +400,7 @@ dma_debugger_queue_complete (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 static void
 dma_debugger_queue_execute (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT("debugger_queue_execute");
+	DEBUG_PRINT("%s", "debugger_queue_execute");
 
 	/* Check if debugger is connected to a debugger backend */
 	g_return_if_fail (self->debugger != NULL);
@@ -610,7 +610,7 @@ on_dma_debugger_ready (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 static void
 on_dma_debugger_started (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: receive debugger started");
+	DEBUG_PRINT ("%s", "From debugger: receive debugger started");
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
 }
 
@@ -630,35 +630,35 @@ on_dma_debugger_stopped (DmaDebuggerQueue *self, GError *err)
 static void
 on_dma_program_loaded (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: receive program loaded");
+	DEBUG_PRINT ("%s", "From debugger: receive program loaded");
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
 }
 
 static void
 on_dma_program_running (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: debugger_program_running");
+	DEBUG_PRINT ("%s", "From debugger: debugger_program_running");
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_RUNNING, NULL);
 }
 
 static void
 on_dma_program_stopped (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: receive program stopped");
+	DEBUG_PRINT ("%s", "From debugger: receive program stopped");
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED, NULL);
 }
 
 static void
 on_dma_program_exited (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: receive program exited");
+	DEBUG_PRINT ("%s", "From debugger: receive program exited");
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
 }
 
 static void
 on_dma_program_moved (DmaDebuggerQueue *self, guint pid, gint tid, gulong address, const gchar* src_path, guint line)
 {
-	DEBUG_PRINT ("From debugger: program moved");
+	DEBUG_PRINT ("%s", "From debugger: program moved");
 	self->prepend_command++;
 	g_signal_emit_by_name (self->plugin, "program-moved", pid, tid, address, src_path, line);
 	self->prepend_command--;
@@ -667,7 +667,7 @@ on_dma_program_moved (DmaDebuggerQueue *self, guint pid, gint tid, gulong addres
 static void
 on_dma_frame_changed (DmaDebuggerQueue *self, guint frame, gint thread)
 {
-	DEBUG_PRINT ("From debugger: frame changed");
+	DEBUG_PRINT ("%s", "From debugger: frame changed");
 	self->prepend_command++;
 	g_signal_emit_by_name (self->plugin, "frame-changed", frame, thread);
 	self->prepend_command--;
@@ -676,7 +676,7 @@ on_dma_frame_changed (DmaDebuggerQueue *self, guint frame, gint thread)
 static void
 on_dma_signal_received (DmaDebuggerQueue *self, const gchar* name, const gchar* description)
 {
-	DEBUG_PRINT ("From debugger: signal received");
+	DEBUG_PRINT ("%s", "From debugger: signal received");
 	self->prepend_command++;
 	g_signal_emit_by_name (self->plugin, "signal-received", name, description);
 	self->prepend_command--;
@@ -685,7 +685,7 @@ on_dma_signal_received (DmaDebuggerQueue *self, const gchar* name, const gchar* 
 static void
 on_dma_sharedlib_event (DmaDebuggerQueue *self)
 {
-	DEBUG_PRINT ("From debugger: shared lib event");
+	DEBUG_PRINT ("%s", "From debugger: shared lib event");
 	self->stop_on_sharedlib = TRUE;
 	dma_debugger_queue_complete (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
 	self->prepend_command++;

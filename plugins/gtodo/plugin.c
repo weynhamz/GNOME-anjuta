@@ -143,7 +143,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction* hide_done;
 	static gboolean initialized;
 	
-	DEBUG_PRINT ("GTodoPlugin: Activating Task manager plugin ...");
+	DEBUG_PRINT ("%s", "GTodoPlugin: Activating Task manager plugin ...");
 	gtodo_plugin = ANJUTA_PLUGIN_GTODO (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -203,7 +203,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	GTodoPlugin *gplugin = ANJUTA_PLUGIN_GTODO (plugin);
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	DEBUG_PRINT ("GTodoPlugin: Dectivating Tasks manager plugin ...");
+	DEBUG_PRINT ("%s", "GTodoPlugin: Dectivating Tasks manager plugin ...");
 	
 	anjuta_plugin_remove_watch (plugin, gplugin->root_watch_id, TRUE);
 	
