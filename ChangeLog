@@ -1,3 +1,15 @@
+2008-11-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-profile.c,
+	libanjuta/anjuta-profile.h,
+	libanjuta/anjuta-profile-manager.c,
+	libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-plugin-manager.h,
+	src/anjuta.c,
+	plugins/project-manager/plugin.c:
+	Fix #307886 - Activated plugins not remembered the first time
+	Replace gnome-vfs by gio
+
 2008-11-10  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	reviewed by: James Liggett <jrliggett@cox.net>:

@@ -2379,7 +2379,8 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
 	gchar *dirname, *dirname_tmp, *vfs_dir;
-	gchar *session_profile, *profile_name;
+	gchar *session_profile_path, *profile_name;
+	GFile *session_profile;
 	ProjectManagerPlugin *plugin;
 	GError *error = NULL;
 	gchar* uri = g_file_get_uri (file);
@@ -2409,7 +2410,8 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	profile = anjuta_profile_new (PROJECT_PROFILE_NAME, plugin_manager);
 	
 	/* System default profile */
-	anjuta_profile_add_plugins_from_xml (profile, DEFAULT_PROFILE,
+	session_profile = g_file_new_for_uri (DEFAULT_PROFILE);
+	anjuta_profile_add_plugins_from_xml (profile, session_profile,
 										 TRUE, &error);
 	if (error)
 	{
@@ -2418,9 +2420,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 		g_error_free (error);
 		error = NULL;
 	}
+	g_object_unref (session_profile);
 	
 	/* Project default profile */
-	anjuta_profile_add_plugins_from_xml (profile, uri, TRUE, &error);
+	session_profile = g_file_new_for_uri (uri);
+	anjuta_profile_add_plugins_from_xml (profile, session_profile, TRUE, &error);
 	if (error)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
@@ -2428,6 +2432,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 		g_error_free (error);
 		error = NULL;
 	}
+	g_object_unref (session_profile);
 	
 	/* Project session profile */
 	vfs_uri = gnome_vfs_uri_new (uri);
@@ -2439,11 +2444,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	profile_name = g_path_get_basename (DEFAULT_PROFILE);
 	gnome_vfs_uri_unref (vfs_uri);
 	
-	session_profile = g_build_filename (dirname, ".anjuta",
+	session_profile_path = g_build_filename (dirname, ".anjuta",
 										profile_name, NULL);
-	DEBUG_PRINT ("Loading project session profile: %s", session_profile);
-
-	if (g_file_test (session_profile, G_FILE_TEST_EXISTS))
+	DEBUG_PRINT ("Loading project session profile: %s", session_profile_path);
+	session_profile = g_file_new_for_path (session_profile_path);
+	if (g_file_query_exists (session_profile, NULL))
 	{
 		anjuta_profile_add_plugins_from_xml (profile, session_profile,
 											 FALSE, &error);
@@ -2455,8 +2460,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 			error = NULL;
 		}
 	}
-	anjuta_profile_set_sync_uri (profile, session_profile); 
-	g_free (session_profile);
+	anjuta_profile_set_sync_file (profile, session_profile); 
+	g_object_unref (session_profile);
+	g_free (session_profile_path);
 	g_free (profile_name);
 	
 	/* Set project uri */

@@ -1649,30 +1649,24 @@ anjuta_plugin_manager_unload_plugin (AnjutaPluginManager *plugin_manager,
 }
 
 GList*
-anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
-							 const gchar *section_name,
-							 const gchar *attribute_name,
-							 const gchar *attribute_value,
-							 ...)
+anjuta_plugin_manager_list_query (AnjutaPluginManager *plugin_manager,
+							 GList *secs,
+							 GList *anames,
+							 GList *avalues)
 {
 	AnjutaPluginManagerPriv *priv;
-	va_list var_args;
-	GList *secs = NULL;
-	GList *anames = NULL;
-	GList *avalues = NULL;
-	const gchar *sec = section_name;
-	const gchar *aname = attribute_name;
-	const gchar *avalue = attribute_value;
 	GList *selected_plugins = NULL;
+	const gchar *sec;
+	const gchar *aname;
+	const gchar *avalue;
 	GList *available;
-	
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), NULL);
 	
 	priv = plugin_manager->priv;
 	available = priv->available_plugins;
 	
-	if (section_name == NULL)
+	if (secs == NULL)
 	{
 		/* If no query is given, select all plugins */
 		while (available)
@@ -1686,38 +1680,9 @@ anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
 		return g_list_reverse (selected_plugins);
 	}
 	
-	g_return_val_if_fail (section_name != NULL, NULL);
-	g_return_val_if_fail (attribute_name != NULL, NULL);
-	g_return_val_if_fail (attribute_value != NULL, NULL);
-	
-	secs = g_list_prepend (secs, g_strdup (section_name));
-	anames = g_list_prepend (anames, g_strdup (attribute_name));
-	avalues = g_list_prepend (avalues, g_strdup (attribute_value));
-	
-	va_start (var_args, attribute_value);
-	while (sec)
-	{
-		sec = va_arg (var_args, const gchar *);
-		if (sec)
-		{
-			aname = va_arg (var_args, const gchar *);
-			if (aname)
-			{
-				avalue = va_arg (var_args, const gchar *);
-				if (avalue)
-				{
-					secs = g_list_prepend (secs, g_strdup (sec));
-					anames = g_list_prepend (anames, g_strdup (aname));
-					avalues = g_list_prepend (avalues, g_strdup (avalue));
-				}
-			}
-		}
-	}
-	va_end (var_args);
-	
-	secs = g_list_reverse (secs);
-	anames = g_list_reverse (anames);
-	avalues = g_list_reverse (avalues);
+	g_return_val_if_fail (secs != NULL, NULL);
+	g_return_val_if_fail (anames != NULL, NULL);
+	g_return_val_if_fail (avalues != NULL, NULL);
 	
 	while (available)
 	{
@@ -1807,11 +1772,77 @@ anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
 		}
 		available = g_list_next (available);
 	}
+	
+	return g_list_reverse (selected_plugins);
+}
+
+GList*
+anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
+							 const gchar *section_name,
+							 const gchar *attribute_name,
+							 const gchar *attribute_value,
+							 ...)
+{
+	va_list var_args;
+	GList *secs = NULL;
+	GList *anames = NULL;
+	GList *avalues = NULL;
+	const gchar *sec;
+	const gchar *aname;
+	const gchar *avalue;
+	GList *selected_plugins;
+	
+	
+	if (section_name == NULL)
+	{
+		/* If no query is given, select all plugins */
+		return anjuta_plugin_manager_list_query (plugin_manager, NULL, NULL, NULL);
+	}
+	
+	g_return_val_if_fail (section_name != NULL, NULL);
+	g_return_val_if_fail (attribute_name != NULL, NULL);
+	g_return_val_if_fail (attribute_value != NULL, NULL);
+	
+	secs = g_list_prepend (secs, g_strdup (section_name));
+	anames = g_list_prepend (anames, g_strdup (attribute_name));
+	avalues = g_list_prepend (avalues, g_strdup (attribute_value));
+	
+	va_start (var_args, attribute_value);
+	do
+	{
+		sec = va_arg (var_args, const gchar *);
+		if (sec)
+		{
+			aname = va_arg (var_args, const gchar *);
+			if (aname)
+			{
+				avalue = va_arg (var_args, const gchar *);
+				if (avalue)
+				{
+					secs = g_list_prepend (secs, g_strdup (sec));
+					anames = g_list_prepend (anames, g_strdup (aname));
+					avalues = g_list_prepend (avalues, g_strdup (avalue));
+				}
+			}
+		}
+	}
+	while (sec);
+	va_end (var_args);
+	
+	secs = g_list_reverse (secs);
+	anames = g_list_reverse (anames);
+	avalues = g_list_reverse (avalues);
+	
+	selected_plugins = anjuta_plugin_manager_list_query (plugin_manager,
+														 secs,
+														 anames,
+														 avalues);
+	
 	anjuta_util_glist_strings_free (secs);
 	anjuta_util_glist_strings_free (anames);
 	anjuta_util_glist_strings_free (avalues);
 	
-	return g_list_reverse (selected_plugins);
+	return selected_plugins;
 }
 
 enum {

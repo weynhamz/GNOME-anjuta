@@ -30,7 +30,6 @@
 #include <string.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-marshal.h>

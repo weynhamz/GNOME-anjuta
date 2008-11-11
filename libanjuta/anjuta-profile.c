@@ -32,7 +32,6 @@
 #include <string.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include "anjuta-profile.h"
 #include "anjuta-marshal.h"
@@ -44,7 +43,7 @@ enum
 	PROP_PLUGIN_MANAGER,
 	PROP_PROFILE_NAME,
 	PROP_PROFILE_PLUGINS,
-	PROP_SYNC_URI,
+	PROP_SYNC_FILE,
 };
 
 enum
@@ -62,7 +61,7 @@ struct _AnjutaProfilePriv
 	GList *plugins;
 	GHashTable *plugins_hash;
 	GHashTable *plugins_to_exclude_from_sync;
-	gchar *sync_uri;
+	GFile *sync_file;
 };
 
 static GObjectClass* parent_class = NULL;
@@ -129,11 +128,10 @@ anjuta_profile_set_property (GObject *object, guint prop_id,
 		else
 			priv->plugins = NULL;
 		break;
-	case PROP_SYNC_URI:
-		g_free (priv->sync_uri);
-		priv->sync_uri = NULL;
-		if (g_value_get_string (value) != NULL)
-			priv->sync_uri = g_value_dup_string (value);
+	case PROP_SYNC_FILE:
+		if (priv->sync_file)
+				g_object_unref (priv->sync_file);
+		priv->sync_file = g_value_dup_object (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -160,8 +158,8 @@ anjuta_profile_get_property (GObject *object, guint prop_id,
 	case PROP_PROFILE_PLUGINS:
 		g_value_set_pointer (value, priv->plugins);
 		break;
-	case PROP_SYNC_URI:
-		g_value_set_string (value, priv->sync_uri);
+	case PROP_SYNC_FILE:
+		g_value_set_object (value, priv->sync_file);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -235,13 +233,14 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 											  G_PARAM_WRITABLE |
 											  G_PARAM_CONSTRUCT));
 	g_object_class_install_property (object_class,
-	                                 PROP_SYNC_URI,
-	                                 g_param_spec_string ("sync-uri",
-											  _("Synchronization URI"),
-											  _("URI to sync the profile xml"),
-											  NULL,
+	                                 PROP_SYNC_FILE,
+	                                 g_param_spec_object ("sync-file",
+											  _("Synchronization file"),
+											  _("File to sync the profile xml"),
+											  G_TYPE_FILE,
 											  G_PARAM_READABLE |
-											  G_PARAM_WRITABLE));
+											  G_PARAM_WRITABLE |
+											  G_PARAM_CONSTRUCT));
 
 	profile_signals[PLUGIN_ADDED] =
 		g_signal_new ("plugin-added",
@@ -372,80 +371,6 @@ anjuta_profile_get_plugins (AnjutaProfile *profile)
 	return priv->plugins;
 }
 
-/* Profile processing */
-/* Returns a list of matching plugins */
-static GList*
-anjuta_profile_query_plugins (AnjutaProfile *profile,
-							  GList *groups, GList *attribs,
-							  GList *values)
-{
-	gchar *sec[5];
-	gchar *att[5];
-	gchar *val[5];
-	GList *sec_node, *att_node, *val_node;
-	gint length, i;
-	AnjutaProfilePriv *priv;
-
-	priv = profile->priv;
-	
-	/* FIXME: How to call a variable arguments function dynamically !! */
-	length = g_list_length (groups);
-	
-	g_return_val_if_fail ((length > 0 && length <= 5), NULL);
-	
-	i = 0;
-	sec_node = groups;
-	att_node = attribs;
-	val_node = values;
-	while (sec_node)
-	{
-		sec[i] = sec_node->data;
-		att[i] = att_node->data;
-		val[i] = val_node->data;
-		
-		sec_node = g_list_next (sec_node);
-		att_node = g_list_next (att_node);
-		val_node = g_list_next (val_node);
-		i++;
-	}
-	
-	switch (length)
-	{
-	case 1:
-		return anjuta_plugin_manager_query (priv->plugin_manager,
-											sec[0], att[0], val[0], NULL);
-	case 2:
-		return anjuta_plugin_manager_query (priv->plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											NULL);
-	case 3:
-		return anjuta_plugin_manager_query (priv->plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											NULL);
-	case 4:
-		return anjuta_plugin_manager_query (priv->plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											sec[3], att[3], val[3],
-											NULL);
-	case 5:
-		return anjuta_plugin_manager_query (priv->plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											sec[3], att[3], val[3],
-											sec[4], att[4], val[4],
-											NULL);
-	default:
-		g_warning ("FIXME: How to call a variable args function dynamically !!");
-	}
-	return NULL;
-}
-
 static GList*
 anjuta_profile_select_plugins (AnjutaProfile *profile,
 							   GList *descs_list)
@@ -478,272 +403,179 @@ anjuta_profile_select_plugins (AnjutaProfile *profile,
 	return g_list_reverse (selected_plugins);
 }
 
-gboolean
-anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
-									 const gchar* profile_xml_uri,
-									 gboolean exclude_from_sync,
-									 GError **error)
+static GList *
+anjuta_profile_read_plugins_from_xml (AnjutaProfile *profile,
+									  GFile *file,
+									  GError **error)
 {
-	AnjutaProfilePriv *priv;
+	gchar *read_buf;
+	gsize size;
 	xmlDocPtr xml_doc;
-	xmlNodePtr xml_root, xml_node;
-	GnomeVFSHandle *handle;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
-	int perm, read;
 	GList *descs_list = NULL;
-	GList *selected_plugins = NULL;
 	GList *not_found_names = NULL;
 	GList *not_found_urls = NULL;
-	gboolean err = FALSE;
-	gchar *read_buf = NULL;
-	g_return_val_if_fail (ANJUTA_IS_PROFILE (profile), FALSE);
-	priv = profile->priv;
-	
-	result = gnome_vfs_get_file_info (profile_xml_uri, &info,
-									  GNOME_VFS_FILE_INFO_DEFAULT |
-									  GNOME_VFS_FILE_INFO_GET_ACCESS_RIGHTS);
+	gboolean parse_error;
 
-	/* If I got the info to check it out */
-	if(result != GNOME_VFS_OK )
+	/* Read xml file */
+	if (!g_file_load_contents (file, NULL, &read_buf, &size, NULL, error))
 	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': %s"),
-					 profile_xml_uri,
-					 gnome_vfs_result_to_string (result));
-		return FALSE;
+		return NULL;
 	}
 	
-	/* FIXME: Fix this bit masking */
-	perm = (info.permissions-(int)(info.permissions/65536)*65536);
-	read = (int)(perm/256);
+	/* Parse xml file */
+	parse_error = TRUE;
+	xml_doc = xmlParseMemory (read_buf, size);
+	g_free (read_buf);
+	if (xml_doc != NULL)
+	{
+		xmlNodePtr xml_root;
+		
+		xml_root = xmlDocGetRootElement(xml_doc);
+		if (xml_root &&
+			(xml_root->name) &&
+			xmlStrEqual(xml_root->name, (const xmlChar *)"anjuta"))
+		{
+			xmlNodePtr xml_node;
 
-	if(read == 0)
-	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("No read permission for: %s"),
-					 profile_xml_uri);
-		return FALSE;
-	}
-	if((result = gnome_vfs_open (&handle, profile_xml_uri,
-								 GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
-	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': %s"),
-					 profile_xml_uri,
-					 gnome_vfs_result_to_string (result));
-		return FALSE;
-	}
-	read_buf = g_new0(char, info.size + 1);
+			parse_error = FALSE;
+			for (xml_node = xml_root->xmlChildrenNode; xml_node; xml_node = xml_node->next)
+			{
+				GList *groups = NULL;
+				GList *attribs = NULL;
+				GList *values = NULL;
+				xmlChar *name, *url, *mandatory_text;
+				xmlNodePtr xml_require_node;
+				gboolean mandatory;
+
+				if (!xml_node->name ||
+					!xmlStrEqual (xml_node->name, (const xmlChar*)"plugin"))
+				{
+					continue;
+				}
 	
-	result = gnome_vfs_read (handle, read_buf, info.size, NULL);
-	if(!(result == GNOME_VFS_OK || result == GNOME_VFS_ERROR_EOF))
-	{
-		g_free (read_buf);
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': %s"),
-					 profile_xml_uri,
-					 gnome_vfs_result_to_string (result));
-		return FALSE;
-	}
-	gnome_vfs_close (handle);
-	xml_doc = xmlParseMemory (read_buf, info.size);
-	g_free(read_buf);
-	if(xml_doc == NULL)
-	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': XML parse error"),
-					 profile_xml_uri);
-		return FALSE;
-	}
-	
-	xml_root = xmlDocGetRootElement(xml_doc);
-	if(xml_root == NULL)
-	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': XML parse error"),
-					 profile_xml_uri);
+				name = xmlGetProp (xml_node, (const xmlChar*)"name");
+				url = xmlGetProp (xml_node, (const xmlChar*)"url");
+		
+				/* Ensure that both name is given */
+				if (!name)
+				{
+					g_warning ("XML error: Plugin name should be present in plugin tag");
+					parse_error = TRUE;
+					break;
+				}
+				if (!url)
+					url = xmlCharStrdup ("http://anjuta.org/plugins/");
+									 
+				/* Check if the plugin is mandatory */
+				mandatory_text = xmlGetProp (xml_node, (const xmlChar*)"mandatory");
+				mandatory = mandatory_text && (xmlStrcasecmp (mandatory_text, (const xmlChar *)"yes") == 0);
+				xmlFree(mandatory_text);
+										 
+				/* For all plugin attribute conditions */
+				for (xml_require_node = xml_node->xmlChildrenNode;
+			 		xml_require_node;
+			 		xml_require_node = xml_require_node->next)
+				{
+					xmlChar *group;
+					xmlChar *attrib;
+					xmlChar *value;
+		
+					if (!xml_require_node->name ||
+						!xmlStrEqual (xml_require_node->name,
+									  (const xmlChar*)"require"))
+					{
+						continue;
+					}
+					group = xmlGetProp (xml_require_node,
+										(const xmlChar *)"group");
+					attrib = xmlGetProp(xml_require_node,
+										(const xmlChar *)"attribute");
+					value = xmlGetProp(xml_require_node,
+									   (const xmlChar *)"value");
+			
+					if (group && attrib && value)
+					{
+						groups = g_list_prepend (groups, group);
+						attribs = g_list_prepend (attribs, attrib);
+						values = g_list_prepend (values, value);
+					}
+					else
+					{
+						if (group) xmlFree (group);
+						if (attrib) xmlFree (attrib);
+						if (value) xmlFree (value);
+						parse_error = TRUE;
+						g_warning ("XML parse error: group, attribute and value should be defined in require");
+						break;
+					}
+				}
+
+				if (!parse_error)
+				{
+					if (g_list_length (groups) == 0)
+					{
+						parse_error = TRUE;
+						g_warning ("XML Error: No attributes to match given");
+					}
+					else
+					{
+						GList *plugin_descs;
+						
+						plugin_descs =
+							anjuta_plugin_manager_list_query (profile->priv->plugin_manager,
+															  groups,
+															  attribs,
+															  values);
+						if (plugin_descs)
+						{
+							descs_list = g_list_prepend (descs_list, plugin_descs);
+						}
+						else if (mandatory)
+						{
+							not_found_names = g_list_prepend (not_found_names, g_strdup ((const gchar *)name));
+							not_found_urls = g_list_prepend (not_found_urls, g_strdup ((const gchar *)url));
+						}
+					}
+				}
+				g_list_foreach (groups, (GFunc)xmlFree, NULL);
+				g_list_foreach (attribs, (GFunc)xmlFree, NULL);
+				g_list_foreach (values, (GFunc)xmlFree, NULL);
+				g_list_free (groups);
+				g_list_free (attribs);
+				g_list_free (values);
+				xmlFree (name);
+				xmlFree (url);
+			}
+		}
 		xmlFreeDoc(xml_doc);
-		return FALSE;
 	}
 	
-	if(!xml_root->name ||
-	   !xmlStrEqual(xml_root->name, (const xmlChar *)"anjuta"))
+	if (parse_error)
 	{
+		/* Error during parsing */
+		gchar *uri = g_file_get_uri (file);
+
 		g_set_error (error, ANJUTA_PROFILE_ERROR,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
 					 _("Failed to read '%s': XML parse error. "
 					   "Invalid or corrupted anjuta plugins profile."),
-					 profile_xml_uri);
-		xmlFreeDoc(xml_doc);
-		return FALSE;
-	}
-	
-	error = FALSE;
-	descs_list = NULL;
-	not_found_names = NULL;
-	not_found_urls = NULL;
-	
-	xml_node = xml_root->xmlChildrenNode;
-	while (xml_node && !error)
-	{
-		GList *groups = NULL;
-		GList *attribs = NULL;
-		GList *values = NULL;
-		GList *plugin_descs;
-		gchar *name, *url, *mandatory_text;
-		xmlNodePtr xml_require_node;
-		gboolean mandatory;
-
-		if (!xml_node->name ||
-			!xmlStrEqual (xml_node->name, (const xmlChar*)"plugin"))
-		{
-			xml_node = xml_node->next;
-			continue;
-		}
+			 		uri);
+		g_free (uri);
 		
-		name = (gchar*) xmlGetProp (xml_node, (const xmlChar*)"name");
-		url = (gchar*) xmlGetProp (xml_node, (const xmlChar*)"url");
-		
-		/* Ensure that both name is given */
-		if (!name)
-		{
-			g_warning ("XML error: Plugin name should be present in plugin tag");
-			err = TRUE;
-			break;
-		}
-		if (!url)
-			url = g_strdup ("http://anjuta.org/plugins/");
-		
-		/* Check if the plugin is mandatory */
-		mandatory_text = (gchar*) xmlGetProp (xml_node,
-											  (const xmlChar*)"mandatory");
-		if (mandatory_text && strcasecmp (mandatory_text, "yes") == 0)
-			mandatory = TRUE;
-		else
-			mandatory = FALSE;
-		xmlFree(mandatory_text);
-		
-		/* For all plugin attribute conditions */
-		xml_require_node = xml_node->xmlChildrenNode;
-		while (xml_require_node && !error)
-		{
-			gchar *group;
-			gchar *attrib;
-			gchar *value;
-			
-			if (!xml_require_node->name ||
-				!xmlStrEqual (xml_require_node->name,
-							  (const xmlChar*)"require"))
-			{
-				xml_require_node = xml_require_node->next;
-				continue;
-			}
-			group = (gchar*) xmlGetProp (xml_require_node,
-										 (const xmlChar *)"group");
-			attrib = (gchar*) xmlGetProp(xml_require_node,
-										 (const xmlChar *)"attribute");
-			value = (gchar*) xmlGetProp(xml_require_node,
-										(const xmlChar *)"value");
-			
-			if (group && attrib && value)
-			{
-				groups = g_list_prepend (groups, group);
-				attribs = g_list_prepend (attribs, attrib);
-				values = g_list_prepend (values, value);
-			}
-			else
-			{
-				if (group) xmlFree (group);
-				if (attrib) xmlFree (attrib);
-				if (value) xmlFree (value);
-				err = TRUE;
-				g_warning ("XML parse error: group, attribute and value should be defined in require");
-				break;
-			}
-			xml_require_node = xml_require_node->next;
-		}
-		if (error)
-		{
-			g_list_foreach (groups, (GFunc)xmlFree, NULL);
-			g_list_foreach (attribs, (GFunc)xmlFree, NULL);
-			g_list_foreach (values, (GFunc)xmlFree, NULL);
-			g_list_free (groups);
-			g_list_free (attribs);
-			g_list_free (values);
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		if (g_list_length (groups) == 0)
-		{
-			err = TRUE;
-			g_warning ("XML Error: No attributes to match given");
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		if (g_list_length (groups) > 5)
-		{
-			err = TRUE;
-			g_warning ("XML Error: Maximum 5 attributes can be given (FIXME)");
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		plugin_descs = anjuta_profile_query_plugins (profile,
-													 groups, attribs,
-													 values);
-		if (plugin_descs)
-		{
-			descs_list = g_list_prepend (descs_list, plugin_descs);
-			xmlFree (name);
-			xmlFree (url);
-		}
-		else if (mandatory)
-		{
-			not_found_names = g_list_prepend (not_found_names, name);
-			not_found_urls = g_list_prepend (not_found_urls, url);
-		}
-		else
-		{
-			xmlFree (name);
-			xmlFree (url);
-		}
-		xml_node = xml_node->next;
-	}
-	if (error)
-	{
-		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
 		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
-		g_list_free (not_found_names);
-		g_list_free (not_found_urls);
 		g_list_free (descs_list);
-		
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': XML parse error. "
-					   "Invalid or corrupted anjuta plugins profile."),
-					 profile_xml_uri);
-		xmlFreeDoc(xml_doc);
-		return FALSE;
+		descs_list = NULL;
 	}
-	if (not_found_names)
+	else if (not_found_names)
 	{
 		/*
-		 * FIXME: Present a nice dialog box to promt the user to download
-		 * the plugin from corresponding URLs, install them and proceed.
-		 */
+	 	* FIXME: Present a nice dialog box to promt the user to download
+		* the plugin from corresponding URLs, install them and proceed.
+ 		*/	
 		GList *node_name, *node_url;
 		GString *mesg = g_string_new ("");
-		
+		gchar *uri = g_file_get_uri (file);
+			
 		not_found_names = g_list_reverse (not_found_names);
 		not_found_urls = g_list_reverse (not_found_urls);
 		
@@ -761,22 +593,39 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		g_set_error (error, ANJUTA_PROFILE_ERROR,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
 					 _("Failed to read '%s': Following mandatory plugins are missing:\n%s"),
-					 profile_xml_uri, mesg->str);
+					 uri, mesg->str);
+		g_free (uri);
 		g_string_free (mesg, TRUE);
 		
-		/* FIXME: It should not return like this ... */
-		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
 		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
-		g_list_free (not_found_names);
-		g_list_free (not_found_urls);
 		g_list_free (descs_list);
-		
-		xmlFreeDoc(xml_doc);
-		return FALSE;
+		descs_list = NULL;
 	}
+	g_list_foreach (not_found_names, (GFunc)g_free, NULL);
+	g_list_free (not_found_names);
+	g_list_foreach (not_found_urls, (GFunc)g_free, NULL);
+	g_list_free (not_found_urls);
+
+	return descs_list;
+}
+
+gboolean
+anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
+									 GFile* profile_xml_file,
+									 gboolean exclude_from_sync,
+									 GError **error)
+{
+	AnjutaProfilePriv *priv;
+	GList *descs_list = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PROFILE (profile), FALSE);
+	
+	priv = profile->priv;
+	descs_list = anjuta_profile_read_plugins_from_xml (profile, profile_xml_file, error);
+	
 	if (descs_list)
 	{
+		GList *selected_plugins = NULL;
 		GList *node;
 		
 		/* Now everything okay. Select the plugins */
@@ -806,8 +655,8 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		}
 		g_list_free (selected_plugins);
 	}
-	xmlFreeDoc(xml_doc);
-	return TRUE;
+	
+	return descs_list != NULL;
 }
 
 gchar*
@@ -884,50 +733,54 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 }
 
 void
-anjuta_profile_set_sync_uri (AnjutaProfile *profile, const gchar *sync_uri)
+anjuta_profile_set_sync_file (AnjutaProfile *profile, GFile *sync_file)
 {
 	AnjutaProfilePriv *priv;
 	
 	g_return_if_fail (ANJUTA_IS_PROFILE (profile));
+	
 	priv = profile->priv;
-	g_free (priv->sync_uri);
-	priv->sync_uri = NULL;
-	if (sync_uri)
-		priv->sync_uri = g_strdup (sync_uri);
+	
+	if (priv->sync_file)
+		g_object_unref (priv->sync_file);
+	priv->sync_file = sync_file;
+	if (priv->sync_file);
+		g_object_ref (priv->sync_file);
 }
 
 gboolean
 anjuta_profile_sync (AnjutaProfile *profile, GError **error)
 {
-	GnomeVFSHandle* vfs_write;
-	GnomeVFSResult result;
-	GnomeVFSFileSize nchars;
+	gboolean ok;
 	gchar *xml_buffer;
 	AnjutaProfilePriv *priv;
+	GError* file_error = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PROFILE (profile), FALSE);
 	priv = profile->priv;
 	
-	if (!priv->sync_uri)
+	if (!priv->sync_file)
 		return FALSE;
 	
 	xml_buffer = anjuta_profile_to_xml (profile);
-	result = gnome_vfs_create (&vfs_write, priv->sync_uri,
-							   GNOME_VFS_OPEN_WRITE,
-							   FALSE, 0664);
- 	if (result == GNOME_VFS_OK)
+	ok = g_file_replace_contents (priv->sync_file, xml_buffer, strlen(xml_buffer),
+								  NULL, FALSE, G_FILE_CREATE_NONE,
+								  NULL, NULL, &file_error);
+	if (!ok && g_error_matches (file_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
 	{
-		result = gnome_vfs_write (vfs_write, xml_buffer, strlen (xml_buffer),
-								  &nchars);
-		gnome_vfs_close (vfs_write);
-	}
-
-	if (result != GNOME_VFS_OK)
-	{
-		g_set_error (error, ANJUTA_PROFILE_ERROR,
-					 ANJUTA_PROFILE_ERROR_URI_WRITE_FAILED,
-					 "%s", gnome_vfs_result_to_string (result));
+		/* Try to create parent directory */
+		GFile* parent = g_file_get_parent (priv->sync_file);
+		if (g_file_make_directory (parent, NULL, NULL))
+		{
+			g_clear_error (&file_error);
+			ok = g_file_replace_contents (priv->sync_file, xml_buffer, strlen(xml_buffer),
+										  NULL, FALSE, G_FILE_CREATE_NONE,
+										  NULL, NULL, &file_error);
+		}
+		g_object_unref (parent);
 	}
 	g_free (xml_buffer);
-	return (result == GNOME_VFS_OK);
+	if (file_error != NULL) g_propagate_error (error, file_error);
+	
+	return ok;
 }

@@ -22,6 +22,7 @@
 #define _ANJUTA_PROFILE_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <libanjuta/anjuta-plugin-description.h>
 #include <libanjuta/anjuta-plugin-manager.h>
 
@@ -74,7 +75,7 @@ void anjuta_profile_add_plugin (AnjutaProfile *profile,
 void anjuta_profile_remove_plugin (AnjutaProfile *profile,
 								   AnjutaPluginDescription *plugin);
 gboolean anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
-											  const gchar* profile_xml_uri,
+											  GFile* profile_xml_file,
 											  gboolean exclude_from_sync,
 											  GError **error);
 gboolean anjuta_profile_has_plugin (AnjutaProfile *profile,
@@ -82,8 +83,8 @@ gboolean anjuta_profile_has_plugin (AnjutaProfile *profile,
 GList* anjuta_profile_get_plugins (AnjutaProfile *profile);
 
 gchar* anjuta_profile_to_xml (AnjutaProfile *profile);
-void anjuta_profile_set_sync_uri (AnjutaProfile *profile,
-								  const gchar *sync_uri);
+void anjuta_profile_set_sync_file (AnjutaProfile *profile,
+								  GFile *sync_file);
 gboolean anjuta_profile_sync (AnjutaProfile *profile, GError **error);
 
 G_END_DECLS

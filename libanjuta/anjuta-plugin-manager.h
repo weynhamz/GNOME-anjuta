@@ -92,10 +92,14 @@ GtkWidget* anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManage
 /* Plugin queries based on meta-data */
 /* Returns a list of plugin Descriptions */
 GList* anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
-									const gchar *section_name,
-									const gchar *attribute_name,
-									const gchar *attribute_value,
+									const gchar *section_names,
+									const gchar *attribute_names,
+									const gchar *attribute_values,
 									...);
+GList* anjuta_plugin_manager_list_query (AnjutaPluginManager *plugin_manager,
+										 GList *section_names,
+										 GList *attribute_names,
+										 GList *attribute_values);
 
 /* Returns the plugin description that has been selected from the list */
 AnjutaPluginDescription* anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
