@@ -100,12 +100,12 @@ get_propset(PropsID pi)
   PropSetFile* p;
   if(pi < 0 || (guint)pi >= g_list_length(anjuta_propset))
   {
-  	DEBUG_PRINT("Invalid PropSetFile handle");
+  	DEBUG_PRINT("%s", "Invalid PropSetFile handle");
   	return NULL;
   }
   p = (PropSetFile*)g_list_nth_data(anjuta_propset, pi);
   if (p == NULL)
-  	DEBUG_PRINT("Trying to access already destroyed PropSetFile object");
+  	DEBUG_PRINT("%s", "Trying to access already destroyed PropSetFile object");
   return p;
 }
 
@@ -124,7 +124,7 @@ sci_prop_set_new(void)
    handle = g_list_length(anjuta_propset);
    if (length == handle)
    {
-   	DEBUG_PRINT("Unable to create PropSetFile Object");
+   	DEBUG_PRINT("%s", "Unable to create PropSetFile Object");
    	return -1;
    }
    return handle-1;

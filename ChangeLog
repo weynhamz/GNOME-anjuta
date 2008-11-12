@@ -1,3 +1,8 @@
+2008-11-12  James Liggett  <jrliggett@cox.net>
+
+	* plugins/editor/properties.cxx:
+	Fix some DEBUG_PRINT compile problems in the Scintilla plugin.
+
 2008-11-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-profile.c,
