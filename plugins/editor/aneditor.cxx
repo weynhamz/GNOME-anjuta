@@ -3033,13 +3033,13 @@ aneditor_get(AnEditorID id)
 	AnEditor* ed;
 	if(id >= g_list_length(editors))
 	{
-		DEBUG_PRINT("Invalid AnEditorID supplied");
+		DEBUG_PRINT("%s", "Invalid AnEditorID supplied");
 		return NULL;
 	}
 	ed = (AnEditor*)g_list_nth_data(editors, (guint)id);
 	if(!ed)
 	{
-		DEBUG_PRINT("Trying to use already destroyed AnEditor Object");
+		DEBUG_PRINT("%s", "Trying to use already destroyed AnEditor Object");
 		return NULL;
 	}
 	return ed;
@@ -3051,7 +3051,7 @@ aneditor_new(gpointer propset)
   AnEditor* ed = new AnEditor((PropSetFile*)propset);
   if (!ed)
   {
-     DEBUG_PRINT("Memory allocation error.");
+     DEBUG_PRINT("%s", "Memory allocation error.");
      return ANE_ID_INVALID;
   }
   g_signal_connect(ed->GetID(), "focus_in_event", 

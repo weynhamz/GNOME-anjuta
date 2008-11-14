@@ -1293,7 +1293,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	buffer = g_malloc (size + 1);
 	if (buffer == NULL && size != 0)
 	{
-		/* DEBUG_PRINT ("This file is too big. Unable to allocate memory."); */
+		/* DEBUG_PRINT ("%s", "This file is too big. Unable to allocate memory."); */
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		g_object_unref (gio_uri);
 

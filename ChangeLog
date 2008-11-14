@@ -1,3 +1,10 @@
+2008-11-13  James Liggett  <jim@James>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/text_editor.c (load_from_file):
+
 2008-11-12  James Liggett  <jrliggett@cox.net>
 
 	* plugins/editor/properties.cxx:
