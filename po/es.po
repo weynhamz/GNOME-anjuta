@@ -10,9 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-07 00:14+0100\n"
-"PO-Revision-Date: 2008-11-08 19:42+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&amp;component=general\n"
+"POT-Creation-Date: 2008-11-11 20:07+0000\n"
+"PO-Revision-Date: 2008-11-14 21:01+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +209,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2265
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2296
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -241,7 +242,7 @@ msgid "Load"
 msgstr "Carga"
 
 #: ../libanjuta/anjuta-plugin-manager.c:912
-#: ../libanjuta/anjuta-plugin-manager.c:1900
+#: ../libanjuta/anjuta-plugin-manager.c:1931
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
@@ -269,7 +270,7 @@ msgid "Forget selected plugin"
 msgstr "Olvidar el complemento seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
-#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:470
+#: ../libanjuta/anjuta-plugin-manager.c:1497 ../libanjuta/anjuta-profile.c:395
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
@@ -285,106 +286,90 @@ msgstr "Seleccione un complemento para activar"
 msgid "No plugin able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1919
+#: ../libanjuta/anjuta-plugin-manager.c:1950
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2246
+#: ../libanjuta/anjuta-plugin-manager.c:2277
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2247
+#: ../libanjuta/anjuta-plugin-manager.c:2278
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2252
+#: ../libanjuta/anjuta-plugin-manager.c:2283
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2253
+#: ../libanjuta/anjuta-plugin-manager.c:2284
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2259
+#: ../libanjuta/anjuta-plugin-manager.c:2290
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2260
+#: ../libanjuta/anjuta-plugin-manager.c:2291
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2266
+#: ../libanjuta/anjuta-plugin-manager.c:2297
 msgid "Anjuta shell for which the plugins are"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2274
+#: ../libanjuta/anjuta-plugin-manager.c:2305
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2275
+#: ../libanjuta/anjuta-plugin-manager.c:2306
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2434
+#: ../libanjuta/anjuta-plugin-manager.c:2465
 msgid "Loaded: "
 msgstr "Cargado: "
 
-#: ../libanjuta/anjuta-profile.c:214
+#: ../libanjuta/anjuta-profile.c:212
 msgid "Plugin Manager"
 msgstr "Gestor de complementos"
 
-#: ../libanjuta/anjuta-profile.c:215
+#: ../libanjuta/anjuta-profile.c:213
 msgid "The plugin manager to use for resolving plugins"
 msgstr "El gestor de complementos a usar para resolver los complementos"
 
-#: ../libanjuta/anjuta-profile.c:223
+#: ../libanjuta/anjuta-profile.c:221
 msgid "Profile Name"
 msgstr "Nombre del perfil"
 
-#: ../libanjuta/anjuta-profile.c:224
+#: ../libanjuta/anjuta-profile.c:222
 msgid "Name of the plugin profile"
 msgstr "Nombre del perfil del complemento"
 
-#: ../libanjuta/anjuta-profile.c:232
+#: ../libanjuta/anjuta-profile.c:230
 msgid "Profile Plugins"
 msgstr "Complementos del perfil"
 
-#: ../libanjuta/anjuta-profile.c:233
+#: ../libanjuta/anjuta-profile.c:231
 msgid "List of plugins for this profile"
 msgstr "Lista de los complementos para este perfil"
 
-#: ../libanjuta/anjuta-profile.c:240
-msgid "Synchronization URI"
-msgstr "URI de sincronización"
+#: ../libanjuta/anjuta-profile.c:238
+msgid "Synchronization file"
+msgstr "Archivo de sincronización"
 
-#: ../libanjuta/anjuta-profile.c:241
-msgid "URI to sync the profile xml"
-msgstr "URI para sincronizar el perfil xml"
+#: ../libanjuta/anjuta-profile.c:239
+msgid "File to sync the profile xml"
+msgstr "Archivo en el que sincronizar el xml del perfil"
 
-#: ../libanjuta/anjuta-profile.c:471
+#: ../libanjuta/anjuta-profile.c:396
 msgid "Please select a plugin from the list"
 msgstr "Seleccione un complemento de la lista"
 
-#: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
-#: ../libanjuta/anjuta-profile.c:548
-#, c-format
-msgid "Failed to read '%s': %s"
-msgstr "Falló al leer «%s»: %s"
-
-#: ../libanjuta/anjuta-profile.c:526
-#, c-format
-msgid "No read permission for: %s"
-msgstr "No hay permiso de lectura para: %s"
-
-#: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
-#, c-format
-msgid "Failed to read '%s': XML parse error"
-msgstr "Fallo al leer «%s»: Error de análisis XML"
-
-#: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
+#: ../libanjuta/anjuta-profile.c:560
 #, c-format
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
@@ -394,12 +379,12 @@ msgstr ""
 "inválido o corrupto."
 
 #. <Pluginname>: Install it from <some location on the web>
-#: ../libanjuta/anjuta-profile.c:755
+#: ../libanjuta/anjuta-profile.c:587
 #, c-format
 msgid "%s: Install it from '%s'\n"
 msgstr "%s: Instálelo de «%s»\n"
 
-#: ../libanjuta/anjuta-profile.c:763
+#: ../libanjuta/anjuta-profile.c:595
 #, c-format
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
@@ -1024,7 +1009,7 @@ msgstr "Actualizar"
 msgid "Update the graph"
 msgstr "Actualizar la gráfica"
 
-#: ../plugins/class-inheritance/plugin.c:115
+#: ../plugins/class-inheritance/plugin.c:114
 msgid "Inheritance Graph"
 msgstr "Gráfico de herencia"
 
@@ -6003,7 +5988,7 @@ msgstr "Mostrar funciones no llamadas"
 msgid "Use this profiling data file:"
 msgstr "Usar este archivo de perfilado de datos:"
 
-#: ../plugins/project-import/project-import.c:102
+#: ../plugins/project-import/project-import.c:101
 #, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
@@ -6017,11 +6002,11 @@ msgstr ""
 #.
 #. * Now we can't apply
 #.
-#: ../plugins/project-import/project-import.c:123
+#: ../plugins/project-import/project-import.c:122
 msgid "Please, fix the configuration"
 msgstr "Arregle la configuración"
 
-#: ../plugins/project-import/project-import.c:130
+#: ../plugins/project-import/project-import.c:129
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -6032,35 +6017,35 @@ msgstr ""
 "Tipo de proyecto: %s\n"
 "Ruta del proyecto: %s\n"
 
-#: ../plugins/project-import/project-import.c:189
+#: ../plugins/project-import/project-import.c:188
 msgid "This assistant will import an existing project into Anjuta."
 msgstr "Este asistente importará en Anjuta un proyecto ya existente."
 
-#: ../plugins/project-import/project-import.c:194
+#: ../plugins/project-import/project-import.c:193
 msgid "Import Project"
 msgstr "Importar un proyecto"
 
-#: ../plugins/project-import/project-import.c:236
+#: ../plugins/project-import/project-import.c:235
 msgid "<b>Enter the project name:</b>"
 msgstr "<b>Introduzca el nombre del proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:256
+#: ../plugins/project-import/project-import.c:255
 msgid "<b>Enter the base path of your project:</b>"
 msgstr "<b>Introduzca la ruta base de su proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:261
+#: ../plugins/project-import/project-import.c:260
 msgid "Select project directory"
 msgstr "Seleccionar el directorio del proyecto"
 
-#: ../plugins/project-import/project-import.c:267
+#: ../plugins/project-import/project-import.c:266
 msgid "Project to Import"
 msgstr "Proyecto que importar"
 
-#: ../plugins/project-import/project-import.c:280
+#: ../plugins/project-import/project-import.c:279
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: ../plugins/project-import/project-import.c:417
+#: ../plugins/project-import/project-import.c:420
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -6069,12 +6054,12 @@ msgstr ""
 "plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
 "Anjuta está actualizada."
 
-#: ../plugins/project-import/project-import.c:440
+#: ../plugins/project-import/project-import.c:443
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/project-import.c:481
+#: ../plugins/project-import/project-import.c:484
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -6295,11 +6280,11 @@ msgstr "Acciones del administrador de proyectos"
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2482
+#: ../plugins/project-manager/plugin.c:2488
 msgid "Loaded Project... Initializing"
 msgstr "Proyecto cargado… Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2485
+#: ../plugins/project-manager/plugin.c:2491
 msgid "Loaded Project..."
 msgstr "Proyecto cargado…"
 
@@ -8835,7 +8820,7 @@ msgstr "No ha establecido un archivo de supresiones en su configuración."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/anjuta.c:495
+#: ../src/anjuta.c:497
 msgid "Loaded Session..."
 msgstr "Sesión cargada…"
 
@@ -9448,6 +9433,15 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
+#~ msgid "Failed to read '%s': %s"
+#~ msgstr "Falló al leer «%s»: %s"
+
+#~ msgid "No read permission for: %s"
+#~ msgstr "No hay permiso de lectura para: %s"
+
+#~ msgid "Failed to read '%s': XML parse error"
+#~ msgstr "Fallo al leer «%s»: Error de análisis XML"
 
 #~ msgid "Command Line Parameters:"
 #~ msgstr "Parámetros del comando:"
