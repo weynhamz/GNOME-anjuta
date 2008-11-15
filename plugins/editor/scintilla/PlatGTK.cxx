@@ -31,10 +31,6 @@
    with gdk_string_extents. */
 #define FAST_WAY
 
-#ifdef G_OS_WIN32
-#define snprintf _snprintf
-#endif
-
 #if GTK_MAJOR_VERSION >= 2
 #define USE_PANGO 1
 #include "Converter.h"
@@ -572,7 +568,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 			                        faceName, sizeof(faceName),
 			                        charset, sizeof(charset));
 
-			snprintf(fontspec,
+			g_snprintf(fontspec,
 			         sizeof(fontspec) - 1,
 			         spec,
 			         foundary, faceName,
@@ -588,7 +584,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 				strncat(fontset, fontspec, remaining - 1);
 				remaining -= strlen(fontset);
 
-				snprintf(fontspec,
+				g_snprintf(fontspec,
 				         sizeof(fontspec) - 1,
 				         ",%s%s%s-o-*-*-*-%0d-*-*-*-*-%s",
 				         foundary, faceName,
@@ -623,7 +619,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	                        faceName, sizeof(faceName),
 	                        charset, sizeof(charset));
 
-	snprintf(fontspec,
+	g_snprintf(fontspec,
 	         sizeof(fontspec) - 1,
 	         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
 	         foundary, faceName,
@@ -634,7 +630,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	newid = LoadFontOrSet(fontspec, characterSet);
 	if (!newid) {
 		// some fonts have oblique, not italic
-		snprintf(fontspec,
+		g_snprintf(fontspec,
 		         sizeof(fontspec) - 1,
 		         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
 		         foundary, faceName,
@@ -645,7 +641,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		newid = LoadFontOrSet(fontspec, characterSet);
 	}
 	if (!newid) {
-		snprintf(fontspec,
+		g_snprintf(fontspec,
 		         sizeof(fontspec) - 1,
 		         "-*-*-*-*-*-*-*-%0d-*-*-*-*-%s",
 		         size * 10,
@@ -745,7 +741,7 @@ const char *CharacterSetID(int characterSet) {
 	case SC_CHARSET_ANSI:
 		return "";
 	case SC_CHARSET_DEFAULT:
-		return "LATIN1";
+		return "ISO-8859-1";
 	case SC_CHARSET_BALTIC:
 		return "ISO-8859-13";
 	case SC_CHARSET_CHINESEBIG5:
@@ -1053,7 +1049,7 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int , ColourAllocated , int , Co
 #else
 void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated fill, int alphaFill,
 		ColourAllocated outline, int alphaOutline, int flags) {
-	if (gc && drawable) {
+	if (gc && drawable && rc.Width() > 0) {
 		int width = rc.Width();
 		int height = rc.Height();
 		// Ensure not distorted too much by corners when small
@@ -1075,22 +1071,22 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated 
 		guint32 valOutline = *(reinterpret_cast<guint32 *>(pixVal));
 		guint32 *pixels = reinterpret_cast<guint32 *>(gdk_pixbuf_get_pixels(pixalpha));
 		int stride = gdk_pixbuf_get_rowstride(pixalpha) / 4;
-		for (int y=0; y<height; y++) {
-			for (int x=0; x<width; x++) {
-				if ((x==0) || (x==width-1) || (y == 0) || (y == height-1)) {
-					pixels[y*stride+x] = valOutline;
+		for (int yr=0; yr<height; yr++) {
+			for (int xr=0; xr<width; xr++) {
+				if ((xr==0) || (xr==width-1) || (yr == 0) || (yr == height-1)) {
+					pixels[yr*stride+xr] = valOutline;
 				} else {
-					pixels[y*stride+x] = valFill;
+					pixels[yr*stride+xr] = valFill;
 				}
 			}
 		}
 		for (int c=0;c<cornerSize; c++) {
-			for (int x=0;x<c+1; x++) {
-				AllFour(pixels, stride, width, height, x, c-x, valEmpty);
+			for (int xr=0;xr<c+1; xr++) {
+				AllFour(pixels, stride, width, height, xr, c-xr, valEmpty);
 			}
 		}
-		for (int x=1;x<cornerSize; x++) {
-			AllFour(pixels, stride, width, height, x, cornerSize-x, valOutline);
+		for (int xr=1;xr<cornerSize; xr++) {
+			AllFour(pixels, stride, width, height, xr, cornerSize-xr, valOutline);
 		}
 
 		// Draw with alpha
@@ -1250,7 +1246,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
                                  ColourAllocated fore) {
 	PenColour(fore);
 	if (gc && drawable) {
-		int x = rc.left;
+		int xText = rc.left;
 #ifdef USE_PANGO
 		if (PFont(font_)->pfd) {
 			char *utfForm = 0;
@@ -1275,7 +1271,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 			}
 			pango_layout_set_font_description(layout, PFont(font_)->pfd);
 			PangoLayoutLine *pll = pango_layout_get_line(layout,0);
-			gdk_draw_layout_line(drawable, gc, x, ybase, pll);
+			gdk_draw_layout_line(drawable, gc, xText, ybase, pll);
 			if (useGFree) {
 				g_free(utfForm);
 			} else {
@@ -1293,7 +1289,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
-				wclen = UCS2FromUTF8(s, len,
+				wclen = UTF16FromUTF8(s, len,
 					static_cast<wchar_t *>(static_cast<void *>(wctext)), maxLengthTextRun - 1);
 			} else {	// dbcs, so convert using current locale
 				char sMeasure[maxLengthTextRun];
@@ -1306,13 +1302,13 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				draw8bit = false;
 				wctext[wclen] = L'\0';
 				GdkWChar *wcp = wctext;
-				while ((wclen > 0) && (x < maxCoordinate)) {
+				while ((wclen > 0) && (xText < maxCoordinate)) {
 					int lenDraw = Platform::Minimum(wclen, segmentLength);
 					gdk_draw_text_wc(drawable, PFont(font_)->pfont, gc,
-							 x, ybase, wcp, lenDraw);
+							 xText, ybase, wcp, lenDraw);
 					wclen -= lenDraw;
 					if (wclen > 0) {	// Avoid next calculation if possible as may be expensive
-						x += gdk_text_width_wc(PFont(font_)->pfont,
+						xText += gdk_text_width_wc(PFont(font_)->pfont,
 								       wcp, lenDraw);
 					}
 					wcp += lenDraw;
@@ -1320,13 +1316,13 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 			}
 		}
 		if (draw8bit) {
-			while ((len > 0) && (x < maxCoordinate)) {
+			while ((len > 0) && (xText < maxCoordinate)) {
 				int lenDraw = Platform::Minimum(len, segmentLength);
 				gdk_draw_text(drawable, PFont(font_)->pfont, gc,
-				              x, ybase, s, lenDraw);
+				              xText, ybase, s, lenDraw);
 				len -= lenDraw;
 				if (len > 0) {	// Avoid next calculation if possible as may be expensive
-					x += gdk_text_width(PFont(font_)->pfont, s, lenDraw);
+					xText += gdk_text_width(PFont(font_)->pfont, s, lenDraw);
 				}
 				s += lenDraw;
 			}
@@ -1383,8 +1379,15 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
 					int position = PANGO_PIXELS(pos.x);
 					int curIndex = pango_layout_iter_get_index(iter);
+					int places = curIndex - i;
+					int distance = position - positions[i-1];
 					while (i < curIndex) {
-						positions[i++] = position;
+						// Evenly distribute space among bytes of this cluster.
+						// Would be better to find number of characters and then
+						// divide evenly between characters with each byte of a character
+						// being at the same position.
+						positions[i] = position - (curIndex - 1 - i) * distance / places;
+						i++;
 					}
 				}
 				while (i < lenPositions)
@@ -1436,12 +1439,25 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						utfForm = UTF8FromLatin1(s, len);
 					}
 					pango_layout_set_text(layout, utfForm, len);
-					int i = 0;
 					PangoLayoutIter *iter = pango_layout_get_iter(layout);
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
+					int i = 0;
+					int positionStart = 0;
+					int clusterStart = 0;
+					// Each Latin1 input character may take 1 or 2 bytes in UTF-8
+					// and groups of up to 3 may be represented as ligatures.
 					while (pango_layout_iter_next_cluster(iter)) {
 						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-						positions[i++] = PANGO_PIXELS(pos.x);
+						int position = PANGO_PIXELS(pos.x);
+						int distance = position - positionStart;
+						int clusterEnd = pango_layout_iter_get_index(iter);
+						int ligatureLength = g_utf8_strlen(utfForm + clusterStart, clusterEnd - clusterStart);
+						PLATFORM_ASSERT(ligatureLength > 0 && ligatureLength <= 3);
+						for (int charInLig=0; charInLig<ligatureLength; charInLig++) {
+							positions[i++] = position - (ligatureLength - 1 - charInLig) * distance / ligatureLength;
+						}
+						positionStart = position;
+						clusterStart = clusterEnd;
 					}
 					while (i < lenPositions)
 						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
@@ -1468,7 +1484,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
-				wclen = UCS2FromUTF8(s, len,
+				wclen = UTF16FromUTF8(s, len,
 					static_cast<wchar_t *>(static_cast<void *>(wctext)), maxLengthTextRun - 1);
 			} else {	// dbcsMode, so convert using current locale
 				char sDraw[maxLengthTextRun];
@@ -1554,7 +1570,7 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 #endif
 		if (et == UTF8) {
 			GdkWChar wctext[maxLengthTextRun];
-			size_t wclen = UCS2FromUTF8(s, len, static_cast<wchar_t *>(static_cast<void *>(wctext)),
+			size_t wclen = UTF16FromUTF8(s, len, static_cast<wchar_t *>(static_cast<void *>(wctext)),
 				sizeof(wctext) / sizeof(GdkWChar) - 1);
 			wctext[wclen] = L'\0';
 			return gdk_text_width_wc(PFont(font_)->pfont, wctext, wclen);
@@ -1854,6 +1870,34 @@ void Window::SetTitle(const char *s) {
 	gtk_window_set_title(GTK_WINDOW(id), s);
 }
 
+/* Returns rectangle of monitor pt is on, both rect and pt are in Window's
+   gdk window coordinates */
+PRectangle Window::GetMonitorRect(Point pt) {
+	gint x_offset, y_offset;
+	pt = pt;
+
+	gdk_window_get_origin(PWidget(id)->window, &x_offset, &y_offset);
+
+// gtk 2.2+
+#if GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 2)
+	{
+		GdkScreen* screen;
+		gint monitor_num;
+		GdkRectangle rect;
+
+		screen = gtk_widget_get_screen(PWidget(id));
+		monitor_num = gdk_screen_get_monitor_at_point(screen, pt.x + x_offset, pt.y + y_offset);
+		gdk_screen_get_monitor_geometry(screen, monitor_num, &rect);
+		rect.x -= x_offset;
+		rect.y -= y_offset;
+		return PRectangle(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
+	}
+#else
+	return PRectangle(-x_offset, -y_offset, (-x_offset) + gdk_screen_width(),
+	                  (-y_offset) + gdk_screen_height());
+#endif
+}
+
 struct ListImage {
 	const char *xpm_data;
 #if GTK_MAJOR_VERSION < 2
@@ -1941,7 +1985,7 @@ public:
 		doubleClickAction = action;
 		doubleClickActionData = data;
 	}
-	virtual void SetList(const char* list, char separator, char typesep);
+	virtual void SetList(const char *listText, char separator, char typesep);
 };
 
 ListBox *ListBox::Allocate() {
@@ -2283,7 +2327,7 @@ void ListBoxX::Select(int n) {
 		return;
 	}
 
-	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n);
+	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n) != FALSE;
 	if (valid) {
 		gtk_tree_selection_select_iter(selection, &iter);
 
@@ -2356,7 +2400,7 @@ int ListBoxX::Find(const char *prefix) {
 	GtkTreeIter iter;
 	GtkTreeModel *model =
 		gtk_tree_view_get_model(GTK_TREE_VIEW(list));
-	bool valid = gtk_tree_model_get_iter_first(model, &iter);
+	bool valid = gtk_tree_model_get_iter_first(model, &iter) != FALSE;
 	int i = 0;
 	while(valid) {
 		gchar *s;
@@ -2364,7 +2408,7 @@ int ListBoxX::Find(const char *prefix) {
 		if (s && (0 == strncmp(prefix, s, strlen(prefix)))) {
 			return i;
 		}
-		valid = gtk_tree_model_iter_next(model, &iter);
+		valid = gtk_tree_model_iter_next(model, &iter) != FALSE;
 		i++;
 	}
 #endif
@@ -2388,7 +2432,7 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 #else
 	GtkTreeIter iter;
 	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
-	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n);
+	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n) != FALSE;
 	if (valid) {
 		gtk_tree_model_get(model, &iter, TEXT_COLUMN, &text, -1);
 	}
@@ -2446,12 +2490,12 @@ void ListBoxX::ClearRegisteredImages() {
 	xset.Clear();
 }
 
-void ListBoxX::SetList(const char* list, char separator, char typesep) {
+void ListBoxX::SetList(const char *listText, char separator, char typesep) {
 	Clear();
-	int count = strlen(list) + 1;
+	int count = strlen(listText) + 1;
 	char *words = new char[count];
 	if (words) {
-		memcpy(words, list, count);
+		memcpy(words, listText, count);
 		char *startword = words;
 		char *numword = NULL;
 		int i = 0;
@@ -2609,7 +2653,7 @@ bool Platform::MouseButtonBounce() {
 }
 
 void Platform::DebugDisplay(const char *s) {
-	printf("%s", s);
+	fprintf(stderr, "%s", s);
 }
 
 bool Platform::IsKeyDown(int) {

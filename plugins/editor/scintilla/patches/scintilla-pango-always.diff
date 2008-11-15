@@ -1,6 +1,6 @@
 --- scintilla-new/gtk/PlatGTK.cxx	2004-10-03 18:22:16.000000000 +0530
 +++ scintilla/PlatGTK.cxx	2005-01-18 22:05:31.000000000 +0530
-@@ -493,16 +493,16 @@
+@@ -509,16 +509,16 @@
  	charset[0] = '\0';
  
  #ifdef USE_PANGO

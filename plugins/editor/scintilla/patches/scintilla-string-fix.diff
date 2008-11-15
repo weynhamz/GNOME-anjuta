@@ -1,15 +1,15 @@
 --- scintilla-new/include/SString.h	2004-04-24 17:52:29.000000000 +0530
 +++ scintilla/include/SString.h	2005-01-18 22:15:35.000000000 +0530
-@@ -8,6 +8,8 @@
- #ifndef SSTRING_H
+@@ -9,6 +9,8 @@
  #define SSTRING_H
+ 
  
 +#include <string.h>
 +
  // These functions are implemented because each platform calls them something different.
  int CompareCaseInsensitive(const char *a, const char *b);
  int CompareNCaseInsensitive(const char *a, const char *b, size_t len);
-@@ -128,7 +130,7 @@
+@@ -133,7 +135,7 @@
   * May have embedded zeroes as a result of @a substitute, but relies too heavily on C string
   * functions to allow reliable manipulations of these strings, other than simple appends, etc.
   */
@@ -18,7 +18,7 @@
  	lenpos_t sLen;			///< The size of the string in s
  	lenpos_t sizeGrowth;	///< Minimum growth size when appending strings
  	enum { sizeGrowthDefault = 64 };
-@@ -206,6 +208,22 @@
+@@ -211,6 +213,22 @@
  	const char *c_str() const {
  		return s ? s : "";
  	}

@@ -25,12 +25,23 @@
 #include "PropSet.h"
 
 class PropSetFile : public PropSet {
+	bool lowerKeys;
+	SString GetWildUsingStart(const PropSet &psStart, const char *keybase, const char *filename);
+protected:
+	static bool caseSensitiveFilenames;
 public:
-	PropSetFile() {};
-	~PropSetFile() {};
-	bool ReadLine(char *data, bool ifIsTrue, const char *directoryForImports=0);
+	PropSetFile(bool lowerKeys_=false);
+	~PropSetFile();
+	bool ReadLine(const char *data, bool ifIsTrue, const char *directoryForImports=0);
 	void ReadFromMemory(const char *data, int len, const char *directoryForImports=0);
-	void Read(const char *filename, const char *directoryForImports);
+	bool Read(const char *filename, const char *directoryForImports);
+	SString GetWild(const char *keybase, const char *filename);
+	SString GetNewExpand(const char *keybase, const char *filename="");
+	bool GetFirst(char **key, char **val);
+	bool GetNext(char **key, char **val);
+	static void SetCaseSensitiveFilenames(bool caseSensitiveFilenames_) {
+		caseSensitiveFilenames = caseSensitiveFilenames_;
+	}
 };
 
 #endif

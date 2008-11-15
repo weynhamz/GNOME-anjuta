@@ -15,7 +15,7 @@
 #include "Platform.h"
 
 #if PLAT_GTK_WIN32
-#include "Windows.h"
+#include "windows.h"
 #endif
 
 #include "Scintilla.h"
@@ -26,8 +26,11 @@
 #include "Accessor.h"
 #include "KeyWords.h"
 #endif
-#include "ContractionState.h"
 #include "SVector.h"
+#include "SplitVector.h"
+#include "Partitioning.h"
+#include "RunStyles.h"
+#include "ContractionState.h"
 #include "CellBuffer.h"
 #include "CallTip.h"
 #include "KeyMap.h"
@@ -37,8 +40,10 @@
 #include "Style.h"
 #include "AutoComplete.h"
 #include "ViewStyle.h"
+#include "Decoration.h"
 #include "CharClassify.h"
 #include "Document.h"
+#include "PositionCache.h"
 #include "Editor.h"
 #include "SString.h"
 #include "ScintillaBase.h"
@@ -73,7 +78,7 @@
 #pragma warning(disable: 4505)
 #endif
 
-#if GTK_CHECK_VERSION(2,2,0)
+#if GTK_CHECK_VERSION(2,6,0)
 #define USE_GTK_CLIPBOARD
 #endif
 
@@ -152,6 +157,7 @@ private:
 	virtual void Initialise();
 	virtual void Finalise();
 	virtual void DisplayCursor(Window::Cursor c);
+	virtual bool DragThreshold(Point ptStart, Point ptNow);
 	virtual void StartDrag();
 	int TargetAsUTF8(char *text);
 	int EncodedFromUTF8(char *utf8, char *encoded);
@@ -192,6 +198,7 @@ private:
 	void ReceivedDrop(GtkSelectionData *selection_data);
 	static void GetSelection(GtkSelectionData *selection_data, guint info, SelectionText *selected);
 #ifdef USE_GTK_CLIPBOARD
+	void StoreOnClipboard(SelectionText *clipText);
 	static void ClipboardGetSelection(GtkClipboard* clip, GtkSelectionData *selection_data, guint info, void *data);
 	static void ClipboardClearSelection(GtkClipboard* clip, void *data);
 #endif
@@ -255,8 +262,9 @@ private:
 	static gint SelectionNotify(GtkWidget *widget, GdkEventSelection *selection_event);
 #endif
 	static void DragBegin(GtkWidget *widget, GdkDragContext *context);
+	gboolean DragMotionThis(GdkDragContext *context, gint x, gint y, guint dragtime);
 	static gboolean DragMotion(GtkWidget *widget, GdkDragContext *context,
-	                           gint x, gint y, guint time);
+	                           gint x, gint y, guint dragtime);
 	static void DragLeave(GtkWidget *widget, GdkDragContext *context,
 	                      guint time);
 	static void DragEnd(GtkWidget *widget, GdkDragContext *context);
@@ -305,12 +313,18 @@ GdkAtom ScintillaGTK::atomString = 0;
 GdkAtom ScintillaGTK::atomUriList = 0;
 GdkAtom ScintillaGTK::atomDROPFILES_DND = 0;
 
-static const GtkTargetEntry clipboardTargets[] = {
-	{ "text/uri-list", 0, TARGET_URI },
-	{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
-	{ "STRING", 0, TARGET_STRING },
+static const GtkTargetEntry clipboardCopyTargets[] = {
+	{ (gchar *) "UTF8_STRING", 0, TARGET_UTF8_STRING },
+	{ (gchar *) "STRING", 0, TARGET_STRING },
 };
-static const gint nClipboardTargets = sizeof(clipboardTargets) / sizeof(clipboardTargets[0]);
+static const gint nClipboardCopyTargets = sizeof(clipboardCopyTargets) / sizeof(clipboardCopyTargets[0]);
+
+static const GtkTargetEntry clipboardPasteTargets[] = {
+	{ (gchar *) "text/uri-list", 0, TARGET_URI },
+	{ (gchar *) "UTF8_STRING", 0, TARGET_UTF8_STRING },
+	{ (gchar *) "STRING", 0, TARGET_STRING },
+};
+static const gint nClipboardPasteTargets = sizeof(clipboardPasteTargets) / sizeof(clipboardPasteTargets[0]);
 
 static GtkWidget *PWidget(Window &w) {
 	return reinterpret_cast<GtkWidget *>(w.GetID());
@@ -758,16 +772,36 @@ void ScintillaGTK::Initialise() {
 	gtk_widget_grab_focus(PWidget(wMain));
 
 	gtk_selection_add_targets(GTK_WIDGET(PWidget(wMain)), GDK_SELECTION_PRIMARY,
-	                          clipboardTargets, nClipboardTargets);
+	                          clipboardCopyTargets, nClipboardCopyTargets);
 
 #ifndef USE_GTK_CLIPBOARD
 	gtk_selection_add_targets(GTK_WIDGET(PWidget(wMain)), atomClipboard,
-	                          clipboardTargets, nClipboardTargets);
+	                          clipboardPasteTargets, nClipboardPasteTargets);
 #endif
 
 	gtk_drag_dest_set(GTK_WIDGET(PWidget(wMain)),
-	                  GTK_DEST_DEFAULT_ALL, clipboardTargets, nClipboardTargets,
+	                  GTK_DEST_DEFAULT_ALL, clipboardPasteTargets, nClipboardPasteTargets,
 	                  static_cast<GdkDragAction>(GDK_ACTION_COPY | GDK_ACTION_MOVE));
+
+#if GLIB_MAJOR_VERSION >= 2
+	// Set caret period based on GTK settings
+	gboolean blinkOn = false;
+	if (g_object_class_find_property(G_OBJECT_GET_CLASS(
+			G_OBJECT(gtk_settings_get_default())), "gtk-cursor-blink")) {
+		g_object_get(G_OBJECT(
+			gtk_settings_get_default()), "gtk-cursor-blink", &blinkOn, NULL);
+	}
+	if (blinkOn &&
+		g_object_class_find_property(G_OBJECT_GET_CLASS(
+			G_OBJECT(gtk_settings_get_default())), "gtk-cursor-blink-time")) {
+		gint value;
+		g_object_get(G_OBJECT(
+			gtk_settings_get_default()), "gtk-cursor-blink-time", &value, NULL);
+		caret.period = gint(value / 1.75);
+	} else {
+		caret.period = 0;
+	}
+#endif
 
 	SetTicking(true);
 }
@@ -784,14 +818,19 @@ void ScintillaGTK::DisplayCursor(Window::Cursor c) {
 		wText.SetCursor(static_cast<Window::Cursor>(cursorMode));
 }
 
+bool ScintillaGTK::DragThreshold(Point ptStart, Point ptNow) {
+#if GTK_MAJOR_VERSION < 2
+	return Editor::DragThreshold(ptStart, ptNow);
+#else
+	return gtk_drag_check_threshold(GTK_WIDGET(PWidget(wMain)),
+		ptStart.x, ptStart.y, ptNow.x, ptNow.y);
+#endif
+}
+
 void ScintillaGTK::StartDrag() {
 	dragWasDropped = false;
-	static const GtkTargetEntry targets[] = {
-	    { "UTF8_STRING", 0, TARGET_UTF8_STRING },
-	    { "STRING", 0, TARGET_STRING },
-	};
-	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
-	GtkTargetList *tl = gtk_target_list_new(targets, n_targets);
+	inDragDrop = ddDragging;
+	GtkTargetList *tl = gtk_target_list_new(clipboardCopyTargets, nClipboardCopyTargets);
 	gtk_drag_begin(GTK_WIDGET(PWidget(wMain)),
 	               tl,
 	               static_cast<GdkDragAction>(GDK_ACTION_COPY | GDK_ACTION_MOVE),
@@ -1253,17 +1292,9 @@ void ScintillaGTK::CopyToClipboard(const SelectionText &selectedText) {
 				atomClipboard,
 				GDK_CURRENT_TIME);
 #else
-	GtkClipboard *clipBoard;
-	clipBoard = gtk_widget_get_clipboard(GTK_WIDGET(PWidget(wMain)), atomClipboard);
-	if (clipBoard == NULL) // Occurs if widget isn't in a toplevel
-		return;
-
 	SelectionText *clipText = new SelectionText();
 	clipText->Copy(selectedText);
-
-	gtk_clipboard_set_with_data(clipBoard, clipboardTargets, nClipboardTargets,
-				    ClipboardGetSelection, ClipboardClearSelection, clipText);
-
+	StoreOnClipboard(clipText);
 #endif
 }
 
@@ -1275,17 +1306,9 @@ void ScintillaGTK::Copy() {
 		                        atomClipboard,
 		                        GDK_CURRENT_TIME);
 #else
-		GtkClipboard *clipBoard;
-		clipBoard = gtk_widget_get_clipboard(GTK_WIDGET(PWidget(wMain)), atomClipboard);
-		if (clipBoard == NULL) // Occurs if widget isn't in a toplevel
-			return;
-
 		SelectionText *clipText = new SelectionText();
 		CopySelectionRange(clipText);
-
-		gtk_clipboard_set_with_data(clipBoard, clipboardTargets, nClipboardTargets,
-					    ClipboardGetSelection, ClipboardClearSelection, clipText);
-
+		StoreOnClipboard(clipText);
 #endif
 #if PLAT_GTK_WIN32
 		if (selType == selRectangle) {
@@ -1383,13 +1406,13 @@ void ScintillaGTK::ClaimSelection() {
 void ScintillaGTK::GetGtkSelectionText(GtkSelectionData *selectionData, SelectionText &selText) {
 	char *data = reinterpret_cast<char *>(selectionData->data);
 	int len = selectionData->length;
-	GdkAtom selectionType = selectionData->type;
+	GdkAtom selectionTypeData = selectionData->type;
 
 	// Return empty string if selection is not a string
-	if ((selectionType != GDK_TARGET_STRING) && (selectionType != atomUTF8)) {
+	if ((selectionTypeData != GDK_TARGET_STRING) && (selectionTypeData != atomUTF8)) {
 		char *empty = new char[1];
 		empty[0] = '\0';
-		selText.Set(empty, 0, SC_CP_UTF8, 0, false);
+		selText.Set(empty, 0, SC_CP_UTF8, 0, false, false);
 		return;
 	}
 
@@ -1402,22 +1425,22 @@ void ScintillaGTK::GetGtkSelectionText(GtkSelectionData *selectionData, Selectio
 #endif
 
 	char *dest;
-	if (selectionType == GDK_TARGET_STRING) {
+	if (selectionTypeData == GDK_TARGET_STRING) {
 		dest = Document::TransformLineEnds(&len, data, len, pdoc->eolMode);
 		if (IsUnicodeMode()) {
 			// Unknown encoding so assume in Latin1
 			char *destPrevious = dest;
 			dest = UTF8FromLatin1(dest, len);
-			selText.Set(dest, len, SC_CP_UTF8, 0, selText.rectangular);
+			selText.Set(dest, len, SC_CP_UTF8, 0, selText.rectangular, false);
 			delete []destPrevious;
 		} else {
 			// Assume buffer is in same encoding as selection
 			selText.Set(dest, len, pdoc->dbcsCodePage,
-				vs.styles[STYLE_DEFAULT].characterSet, isRectangular);
+				vs.styles[STYLE_DEFAULT].characterSet, isRectangular, false);
 		}
 	} else {	// UTF-8
 		dest = Document::TransformLineEnds(&len, data, len, pdoc->eolMode);
-		selText.Set(dest, len, SC_CP_UTF8, 0, isRectangular);
+		selText.Set(dest, len, SC_CP_UTF8, 0, isRectangular, false);
 #ifdef USE_CONVERTER
 		const char *charSetBuffer = CharacterSetID();
 		if (!IsUnicodeMode() && *charSetBuffer) {
@@ -1425,7 +1448,7 @@ void ScintillaGTK::GetGtkSelectionText(GtkSelectionData *selectionData, Selectio
 				// Convert to locale
 				dest = ConvertText(&len, selText.s, selText.len, charSetBuffer, "UTF-8", true);
 				selText.Set(dest, len, pdoc->dbcsCodePage,
-					vs.styles[STYLE_DEFAULT].characterSet, selText.rectangular);
+					vs.styles[STYLE_DEFAULT].characterSet, selText.rectangular, false);
 		}
 #endif
 	}
@@ -1488,15 +1511,15 @@ void ScintillaGTK::ReceivedDrop(GtkSelectionData *selection_data) {
 
 void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, SelectionText *text) {
 #if PLAT_GTK_WIN32
-	// Many native win32 programs require \n line endings, so make a copy of
-	// the clip text now with newlines converted.  Use { } to hide symbols
+	// GDK on Win32 expands any \n into \r\n, so make a copy of
+	// the clip text now with newlines converted to \n.  Use { } to hide symbols
 	// from code below
 	SelectionText *newline_normalized = NULL;
 	{
 		int tmpstr_len;
 		char *tmpstr = Document::TransformLineEnds(&tmpstr_len, text->s, text->len, SC_EOL_LF);
 		newline_normalized = new SelectionText();
-		newline_normalized->Set(tmpstr, tmpstr_len, SC_CP_UTF8, 0, text->rectangular);
+		newline_normalized->Set(tmpstr, tmpstr_len, SC_CP_UTF8, 0, text->rectangular, false);
 		text = newline_normalized;
 	}
 #endif
@@ -1510,7 +1533,7 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, Se
 			int new_len;
 			char* tmputf = ConvertText(&new_len, text->s, text->len, "UTF-8", charSet, false);
 			converted = new SelectionText();
-			converted->Set(tmputf, new_len, SC_CP_UTF8, 0, text->rectangular);
+			converted->Set(tmputf, new_len, SC_CP_UTF8, 0, text->rectangular, false);
 			text = converted;
 		}
 	}
@@ -1601,6 +1624,18 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, Se
 }
 
 #ifdef USE_GTK_CLIPBOARD
+void ScintillaGTK::StoreOnClipboard(SelectionText *clipText) {
+	GtkClipboard *clipBoard =
+		gtk_widget_get_clipboard(GTK_WIDGET(PWidget(wMain)), atomClipboard);
+	if (clipBoard == NULL) // Occurs if widget isn't in a toplevel
+		return;
+
+	if (gtk_clipboard_set_with_data(clipBoard, clipboardCopyTargets, nClipboardCopyTargets,
+				    ClipboardGetSelection, ClipboardClearSelection, clipText)) {
+		gtk_clipboard_set_can_store(clipBoard, clipboardCopyTargets, nClipboardCopyTargets);
+	}
+}
+
 void ScintillaGTK::ClipboardGetSelection(GtkClipboard *, GtkSelectionData *selection_data, guint info, void *data) {
 	GetSelection(selection_data, info, static_cast<SelectionText*>(data));
 }
@@ -1807,7 +1842,15 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget,
 	// Compute amount and direction to scroll (even tho on win32 there is
 	// intensity of scrolling info in the native message, gtk doesn't
 	// support this so we simulate similarly adaptive scrolling)
+	// Note that this is disabled on OS X (Darwin) where the X11 server already has
+	// and adaptive scrolling algorithm that fights with this one
 	int cLineScroll;
+#if defined(__MWERKS__) || defined(__APPLE_CPP__) || defined(__APPLE_CC__)
+	cLineScroll = sciThis->linesPerScroll;
+	if (cLineScroll == 0)
+		cLineScroll = 4;
+	sciThis->wheelMouseIntensity = cLineScroll;
+#else
 	int timeDelta = 1000000;
 	GTimeVal curTime;
 	g_get_current_time(&curTime);
@@ -1825,6 +1868,7 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget,
 			cLineScroll = 4;
 		sciThis->wheelMouseIntensity = cLineScroll;
 	}
+#endif
 	if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_LEFT) {
 		cLineScroll *= -1;
 	}
@@ -1841,7 +1885,7 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget,
 		return FALSE;
 	}
 
-    // Horizontal scrolling
+	// Horizontal scrolling
 	if (event->direction == GDK_SCROLL_LEFT || event->direction == GDK_SCROLL_RIGHT) {
 		sciThis->HorizontalScrollTo(sciThis->xOffset + cLineScroll);
 
@@ -1945,6 +1989,12 @@ static int KeyTranslate(int keyIn) {
 		return SCK_SUBTRACT;
 	case GDK_KP_Divide:
 		return SCK_DIVIDE;
+	case GDK_Super_L:
+		return SCK_WIN;
+	case GDK_Super_R:
+		return SCK_RWIN;
+	case GDK_Menu:
+		return SCK_MENU;
 	default:
 		return keyIn;
 	}
@@ -1974,10 +2024,8 @@ gboolean ScintillaGTK::KeyThis(GdkEventKey *event) {
 	// This will have to change for Unicode
 	else if (key >= 0xFE00)
 		key = KeyTranslate(key);
-	else if (IsUnicodeMode())
-		;	// No operation
 #if GTK_MAJOR_VERSION < 2
-	else if ((key >= 0x100) && (key < 0x1000))
+	else if (!IsUnicodeMode() && (key >= 0x100) && (key < 0x1000))
 		key &= 0xff;
 #endif
 
@@ -1988,7 +2036,7 @@ gboolean ScintillaGTK::KeyThis(GdkEventKey *event) {
 	//fprintf(stderr, "SK-key: %d %x %x\n",event->keyval, event->state, consumed);
 	if (event->keyval == 0xffffff && event->length > 0) {
 		ClearSelection();
-		if (pdoc->InsertString(CurrentPosition(), event->string)) {
+		if (pdoc->InsertCString(CurrentPosition(), event->string)) {
 			MovePositionTo(CurrentPosition() + event->length);
 		}
 	}
@@ -2324,16 +2372,28 @@ void ScintillaGTK::DragBegin(GtkWidget *, GdkDragContext *) {
 	//Platform::DebugPrintf("DragBegin\n");
 }
 
-gboolean ScintillaGTK::DragMotion(GtkWidget *widget, GdkDragContext *context,
-                                  gint x, gint y, guint dragtime) {
-	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
-	//Platform::DebugPrintf("DragMotion %d %d %x %x %x\n", x, y,
-	//	context->actions, context->suggested_action, sciThis);
+gboolean ScintillaGTK::DragMotionThis(GdkDragContext *context,
+                                 gint x, gint y, guint dragtime) {
 	Point npt(x, y);
-	sciThis->inDragDrop = true;
-	sciThis->SetDragPosition(sciThis->PositionFromLocation(npt));
-	gdk_drag_status(context, context->suggested_action, dragtime);
+	SetDragPosition(PositionFromLocation(npt));
+	GdkDragAction preferredAction = context->suggested_action;
+	int pos = PositionFromLocation(npt);
+	if ((inDragDrop == ddDragging) && (0 == PositionInSelection(pos))) {
+		// Avoid dragging selection onto itself as that produces a move
+		// with no real effect but which creates undo actions.
+		preferredAction = static_cast<GdkDragAction>(0);
+	} else if (context->actions == static_cast<GdkDragAction>
+		(GDK_ACTION_COPY | GDK_ACTION_MOVE)) {
+		preferredAction = GDK_ACTION_MOVE;
+	}
+	gdk_drag_status(context, preferredAction, dragtime);
 	return FALSE;
+}
+
+gboolean ScintillaGTK::DragMotion(GtkWidget *widget, GdkDragContext *context,
+                                 gint x, gint y, guint dragtime) {
+	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
+	return sciThis->DragMotionThis(context, x, y, dragtime);
 }
 
 void ScintillaGTK::DragLeave(GtkWidget *widget, GdkDragContext * /*context*/, guint) {
@@ -2349,6 +2409,7 @@ void ScintillaGTK::DragEnd(GtkWidget *widget, GdkDragContext * /*context*/) {
 		sciThis->SetEmptySelection(sciThis->posDrag);
 	sciThis->SetDragPosition(invalidPosition);
 	//Platform::DebugPrintf("DragEnd %x %d\n", sciThis, sciThis->dragWasDropped);
+	sciThis->inDragDrop = ddNone;
 }
 
 gboolean ScintillaGTK::Drop(GtkWidget *widget, GdkDragContext * /*context*/,

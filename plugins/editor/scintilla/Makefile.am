@@ -58,6 +58,15 @@ libanjuta_scintilla_la_SOURCES =\
 	StyleContext.h\
 	XPM.h\
 	XPM.cxx\
+	Decoration.h \
+	Decoration.cxx \
+	PositionCache.h \
+	PositionCache.cxx \
+	RunStyles.cxx \
+	RunStyles.h \
+	SplitVector.h \
+	Partitioning.h \
+	CharacterSet.h \
 	scintilla-marshal.h\
 	scintilla-marshal.c\
 	$(LEXER_SRCS)

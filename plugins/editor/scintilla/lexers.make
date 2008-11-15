@@ -1,10 +1,12 @@
 ## Lexers make file
 LEXER_OBJS = \
 	$(top_srcdir)/plugins/editor/scintilla/StyleContext.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexAbaqus.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAda.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAPDL.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAsm.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAsn1.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexASY.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAU3.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexAVE.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexBaan.o\
@@ -13,17 +15,20 @@ LEXER_OBJS = \
 	$(top_srcdir)/plugins/editor/scintilla/LexBullant.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCaml.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCLW.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexCmake.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexConf.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCPP.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCrontab.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCsound.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexCSS.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexD.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexEiffel.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexErlang.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexEScript.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexFlagship.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexForth.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexFortran.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexGAP.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexGui4Cli.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexHaskell.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexHTML.o\
@@ -32,20 +37,26 @@ LEXER_OBJS = \
 	$(top_srcdir)/plugins/editor/scintilla/LexLisp.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexLout.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexLua.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexMagik.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexMatlab.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexMetapost.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexMMIXAL.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexMPT.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexMSSQL.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexMySQL.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexNsis.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexOpal.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexOthers.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPascal.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPB.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPerl.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexPLM.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPOV.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexPowerShell.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexProgress.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPS.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexPython.o\
+	$(top_srcdir)/plugins/editor/scintilla/LexR.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexRebol.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexRuby.o\
 	$(top_srcdir)/plugins/editor/scintilla/LexScriptol.o\
@@ -62,10 +73,12 @@ LEXER_OBJS = \
 	$(top_srcdir)/plugins/editor/scintilla/LexYAML.o
 
 LEXER_SRCS = \
+	LexAbaqus.cxx\
 	LexAda.cxx\
 	LexAPDL.cxx\
 	LexAsm.cxx\
 	LexAsn1.cxx\
+	LexASY.cxx\
 	LexAU3.cxx\
 	LexAVE.cxx\
 	LexBaan.cxx\
@@ -74,17 +87,20 @@ LEXER_SRCS = \
 	LexBullant.cxx\
 	LexCaml.cxx\
 	LexCLW.cxx\
+	LexCmake.cxx\
 	LexConf.cxx\
 	LexCPP.cxx\
 	LexCrontab.cxx\
 	LexCsound.cxx\
 	LexCSS.cxx\
+	LexD.cxx\
 	LexEiffel.cxx\
 	LexErlang.cxx\
 	LexEScript.cxx\
 	LexFlagship.cxx\
 	LexForth.cxx\
 	LexFortran.cxx\
+	LexGAP.cxx\
 	LexGui4Cli.cxx\
 	LexHaskell.cxx\
 	LexHTML.cxx\
@@ -93,20 +109,26 @@ LEXER_SRCS = \
 	LexLisp.cxx\
 	LexLout.cxx\
 	LexLua.cxx\
+	LexMagik.cxx\
 	LexMatlab.cxx\
 	LexMetapost.cxx\
 	LexMMIXAL.cxx\
 	LexMPT.cxx\
 	LexMSSQL.cxx\
+	LexMySQL.cxx\
 	LexNsis.cxx\
 	LexOpal.cxx\
 	LexOthers.cxx\
 	LexPascal.cxx\
 	LexPB.cxx\
 	LexPerl.cxx\
+	LexPLM.cxx\
 	LexPOV.cxx\
+	LexPowerShell.cxx\
+	LexProgress.cxx\
 	LexPS.cxx\
 	LexPython.cxx\
+	LexR.cxx\
 	LexRebol.cxx\
 	LexRuby.cxx\
 	LexScriptol.cxx\

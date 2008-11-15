@@ -1,6 +1,6 @@
 --- scintilla/include/Scintilla.h
 +++ scintilla/include/Scintilla.h
-@@ -24,6 +24,11 @@
+@@ -28,6 +28,11 @@
  #if _MSC_VER >= 1300
  #include <BaseTsd.h>
  #endif
@@ -12,7 +12,7 @@
  #ifdef MAXULONG_PTR
  typedef ULONG_PTR uptr_t;
  typedef LONG_PTR sptr_t;
-@@ -31,6 +36,7 @@
+@@ -35,6 +40,7 @@
  typedef unsigned long uptr_t;
  typedef long sptr_t;
  #endif
