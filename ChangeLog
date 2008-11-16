@@ -1,3 +1,7 @@
+2008-11-16  Naba Kumar  <naba@gnome.org>
+
+	* AUTHORS: Moved Massimo Cora and James Liggett new place.
+
 2008-11-16  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c
