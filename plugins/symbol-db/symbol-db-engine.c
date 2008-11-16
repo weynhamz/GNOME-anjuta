@@ -67,7 +67,8 @@ sqlite> select * from symbol join sym_kind on symbol.kind_id = sym_kind.sym_kind
 
 183|13|Fourth_2_class|52|0||140|137|175|8|-1|-1|0|8|class|137|Fourth|172|172|namespace|Fourth
 
-//// alternativa ////
+* OR * 
+		
 = get the *derived symbol*
 select * from symbol 
 	join sym_kind on symbol.kind_id = sym_kind.sym_kind_id 
@@ -130,8 +131,8 @@ select symbol_id_base, symbol.name from heritage
 
 #define SHARED_MEMORY_PREFIX		"/dev/shm"
 
-#define THREADS_MONITOR_TIMEOUT			10
-#define THREADS_MAX_CONCURRENT			3
+#define THREADS_MONITOR_TIMEOUT			50
+#define THREADS_MAX_CONCURRENT			7
 #define TRIGGER_SIGNALS_DELAY			100
 #define	TRIGGER_MAX_CLOSURE_RETRIES		50
 #define	THREAD_MAX_CLOSURE_RETRIES		20
@@ -365,6 +366,9 @@ struct _SymbolDBEnginePriv
 	gchar *db_directory;
 	gchar *project_directory;
 
+	gint scan_process_id;
+	GAsyncQueue *scan_process_id_queue;
+	
 	GAsyncQueue *scan_queue;	
 	GAsyncQueue *updated_symbols_id;
 	GAsyncQueue *updated_scope_symbols_id;
@@ -485,7 +489,7 @@ sdb_engine_clear_caches (SymbolDBEngine* dbe)
 
 static void
 sdb_engine_init_caches (SymbolDBEngine* dbe)
-{
+{	
 	SymbolDBEnginePriv *priv = dbe->priv;
 	priv->kind_cache = g_hash_table_new_full (g_str_hash,
 											g_str_equal,
@@ -608,14 +612,14 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 
 	/* no way: if connection is NULL we will break here. There must be
 	 * a connection established to db before using this function */
-	g_return_val_if_fail (priv->db_connection != NULL, NULL);
+	/*g_return_val_if_fail (priv->db_connection != NULL, NULL);*/
 	
 	if ((node = priv->static_query_list[query_id]) == NULL)
 		return NULL;
 
 	if (node->stmt == NULL)
 	{
-		DEBUG_PRINT ("generating new statement.. %d", query_id);
+		/*DEBUG_PRINT ("generating new statement.. %d", query_id);*/
 		/* create a new GdaStatement */
 		node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, node->query_str, NULL, 
@@ -1316,9 +1320,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 
 	g_return_if_fail (priv->db_connection != NULL);
 	g_return_if_fail (fd != NULL);
-
 	
-	DEBUG_PRINT ("%s", "sdb_engine_populate_db_by_tags ()");
 	if ((tag_file = tagsOpen_1 (fd, &tag_file_info)) == NULL)
 	{
 		g_warning ("error in opening ctags file");
@@ -1380,7 +1382,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	}
 
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
-	g_message ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
+	DEBUG_PRINT ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
 
 	/* notify listeners that another file has been scanned */
@@ -1425,7 +1427,8 @@ sdb_engine_ctags_output_thread (gpointer data)
 		/* is it an end file marker? */
 		marker_ptr = strstr (chars_ptr, CTAGS_MARKER);
 
-		do  {
+		do  
+		{
 			if (marker_ptr != NULL) 
 			{
 				gint scan_flag;
@@ -1573,38 +1576,45 @@ sdb_engine_ctags_output_thread (gpointer data)
 }
 
 
+/**
+ * This function runs on the main glib thread, so that it can safely spread signals 
+ */
 static gboolean
 sdb_engine_timeout_trigger_signals (gpointer user_data)
 {
 	SymbolDBEngine *dbe = (SymbolDBEngine *) user_data;
 	SymbolDBEnginePriv *priv;
 
-	g_return_val_if_fail (user_data != NULL, FALSE);
-	
-	priv = dbe->priv;
-		
-/*	DEBUG_PRINT ("%s", "signals trigger");*/
+	g_return_val_if_fail (user_data != NULL, FALSE);	
+	priv = dbe->priv;		
+
 	if (g_async_queue_length (priv->signals_queue) > 0)
 	{
 		gpointer tmp;
 		gpointer sign = NULL;
 		gint real_signal;
 	
-		while ((sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  {
-
-			if (sign== NULL) {
+		while ((sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  
+		{
+			if (sign == NULL) 
+			{
 				return g_async_queue_length (priv->signals_queue) > 0 ? TRUE : FALSE;
 			}
 	
-			real_signal = (gint)sign- 1;
+			real_signal = (gint)sign -1;
 	
-			switch (real_signal) {
+			switch (real_signal) 
+			{
 				case SINGLE_FILE_SCAN_END:
 					g_signal_emit (dbe, signals[SINGLE_FILE_SCAN_END], 0);
 					break;
 		
 				case SCAN_END:
-					g_signal_emit (dbe, signals[SCAN_END], 0);
+				{
+					/* get the process id from the queue */
+					gint tmp = g_async_queue_pop (priv->scan_process_id_queue);
+					g_signal_emit (dbe, signals[SCAN_END], 0, tmp);
+				}
 					break;
 	
 				case SYMBOL_INSERTED:
@@ -2033,10 +2043,17 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
 
+	/* identify the scan process with an id. There can be multiple files associated
+	 * within a process. A call to scan_files () will put inside the queue an id
+	 * returned and emitted by scan-end.
+	 */
+	sdbe->priv->scan_process_id_queue = g_async_queue_new ();
+	sdbe->priv->scan_process_id = 1;
+	
 	/* the scan_queue? It will contain mainly 
 	 * ints that refer to the force_update status.
 	 */
-	sdbe->priv->scan_queue = g_async_queue_new ();		
+	sdbe->priv->scan_queue = g_async_queue_new ();
 
 	/* the thread list data */
 	sdbe->priv->thread_list_data = g_queue_new ();
@@ -2422,8 +2439,8 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	/* init memory pool object for GValue strings */
 #ifdef USE_ASYNC_QUEUE	
-	sdbe->priv->mem_pool_string = g_async_queue_new ();
-	sdbe->priv->mem_pool_int = g_async_queue_new ();
+	sdbe->priv->mem_pool_string = g_async_queue_new_full (g_free);
+	sdbe->priv->mem_pool_int = g_async_queue_new_full (g_free);
 #else
 	sdbe->priv->mem_pool_string = g_queue_new ();
 	sdbe->priv->mem_pool_int = g_queue_new ();	
@@ -2535,6 +2552,12 @@ sdb_engine_finalize (GObject * object)
 	sdb_engine_free_cached_queries (dbe);
 	sdb_engine_free_cached_dynamic_queries (dbe);
 	
+	if (priv->scan_process_id_queue)
+	{
+		g_async_queue_unref (priv->scan_process_id_queue);
+		priv->scan_process_id_queue = NULL;
+	}
+	
 	if (priv->scan_queue)
 	{
 		g_async_queue_unref (priv->scan_queue);
@@ -2592,6 +2615,22 @@ sdb_engine_finalize (GObject * object)
 
 	g_tree_destroy (priv->file_symbols_cache);
 
+#ifdef USE_ASYNC_QUEUE	
+	g_async_queue_unref (priv->mem_pool_string);
+	g_async_queue_unref (priv->mem_pool_int);
+	priv->mem_pool_string = NULL;
+	priv->mem_pool_int = NULL;	
+#else
+	g_queue_foreach (priv->mem_pool_string, (GFunc)g_free, NULL);
+	g_queue_free (priv->mem_pool_string);
+	
+	g_queue_foreach (priv->mem_pool_int, (GFunc)g_free, NULL);
+	g_queue_free (priv->mem_pool_int);	
+	
+	priv->mem_pool_string = NULL;
+	priv->mem_pool_int = NULL;	
+#endif
+		
 	g_mutex_free (priv->shutting_mutex);
 	priv->shutting_mutex = NULL;	
 	
@@ -2622,7 +2661,9 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 						G_SIGNAL_RUN_FIRST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, scan_end),
 						NULL, NULL,
-						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
+						1,
+						G_TYPE_INT);
 
 	signals[SYMBOL_INSERTED]
 		= g_signal_new ("symbol-inserted",
@@ -2662,8 +2703,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
 						1,
-						G_TYPE_INT);
-	
+						G_TYPE_INT);	
 }
 
 GType
@@ -2856,9 +2896,6 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 	return TRUE;
 }
 
-/**
- * Check if the database already exists into the prj_directory
- */
 gboolean
 symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 {
@@ -2883,9 +2920,6 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 	return TRUE;
 }
 
-/**
- * Check if a file is already present [and scanned] in db.
- */
 gboolean
 symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 {
@@ -2948,9 +2982,6 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	return sdb_engine_disconnect_from_db (dbe);
 }
 
-/**
- * Open or create a new database at given directory.
- */
 gboolean
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 						  const gchar * prj_directory)
@@ -3049,9 +3080,6 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 	return TRUE;
 }
 
-/**
- * Test it project_name is created in the opened database
- */
 gboolean
 symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 							   	const gchar * project_name)
@@ -3082,12 +3110,6 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 	return TRUE;
 }
 
-
-/**
- * @param workspace Can be NULL. In that case a default workspace will be created, 
- * 					and project will depend on that.
- * @param project Project name. Must NOT be NULL.
- */
 gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 								  const gchar * project)
@@ -3195,7 +3217,6 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	return TRUE;
 }
 
-
 static gint
 sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 {
@@ -3205,10 +3226,10 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 */
 	gint table_id;
 	GValue *value;
-	SymbolDBEnginePriv *priv;
-		
+	SymbolDBEnginePriv *priv;		
+	
 	g_return_val_if_fail (language != NULL, -1);
-
+	
 	priv = dbe->priv;
 
 	MP_LEND_OBJ_STR(priv, value);
@@ -3400,7 +3421,30 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	return TRUE;
 } 
 
-gboolean
+static gint 
+sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+	gint ret_id;
+	
+	priv = dbe->priv;
+	
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
+	
+	priv->scan_process_id++;	
+	ret_id = priv->scan_process_id;
+	
+	/* add the current scan_process id into a queue */
+	g_async_queue_push (priv->scan_process_id_queue, 
+						(gpointer)priv->scan_process_id);
+
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
+	return ret_id;
+}
+							   
+gint
 symbol_db_engine_add_new_files (SymbolDBEngine * dbe, 
 								const gchar * project_name,
 								const GPtrArray * files_path, 
@@ -3412,6 +3456,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	GPtrArray * filtered_files_path;
 	GPtrArray * filtered_languages;
 	gboolean ret_code;
+	gint ret_id;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (files_path != NULL, FALSE);
@@ -3468,9 +3513,14 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	 */
 	ret_code = sdb_engine_scan_files_1 (dbe, filtered_files_path, NULL, FALSE);
 	g_ptr_array_free (filtered_files_path, TRUE);
-	return ret_code;
+	
+	if (ret_code == TRUE)
+		ret_id = sdb_engine_get_unique_scan_id (dbe);
+	else
+		ret_id = -1;
+	
+	return ret_id;
 }
-
 
 static inline gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
@@ -3494,7 +3544,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	gboolean ret_bool;
 	
 	priv = dbe->priv;
-	
+		
 	/* we assume that tag_entry is != NULL */
 	type = tag_entry->kind;
 	type_name = tag_entry->name;
@@ -3576,7 +3626,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	SymbolDBEnginePriv *priv;
 	
 	priv = dbe->priv;
-
+		
 	/* we assume that tag_entry is != NULL */
 	kind_name = tag_entry->kind;
 
@@ -3654,13 +3704,14 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	CREATE TABLE sym_access (access_kind_id integer PRIMARY KEY AUTOINCREMENT,
                          access_name varchar (50) not null unique
                          );
-*/
+*/	
 	const gchar *access;
 	gint table_id;
 	GValue *value;
 	SymbolDBEnginePriv *priv;
 
 	priv = dbe->priv;
+		
 	
 	/* we assume that tag_entry is != NULL */	
 	if ((access = tagsField (tag_entry, "access")) == NULL)
@@ -3733,7 +3784,6 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	return table_id;
 }
 
-
 static gint
 sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry)
@@ -3749,7 +3799,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 	SymbolDBEnginePriv *priv;
 
 	priv = dbe->priv;
-	
+			
 	/* we assume that tag_entry is != NULL */	
 	if ((implementation = tagsField (tag_entry, "implementation")) == NULL)
 	{
@@ -3821,7 +3871,6 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 	return table_id;
 }
 
-
 static void
 sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 							 gint derived_symbol_id)
@@ -3838,7 +3887,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	GValue *ret_value;
 	gboolean ret_bool;
 	SymbolDBEnginePriv *priv;
-
+	
+	
 	g_return_if_fail (base_symbol_id > 0);
 	g_return_if_fail (derived_symbol_id > 0);
 
@@ -3881,7 +3931,6 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	}	
 }
 
-
 static inline gint
 sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 									 gint type_table_id)
@@ -3907,6 +3956,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	g_return_val_if_fail (tag_entry->kind != NULL, -1);
 
 	priv = dbe->priv;
+	
 	
 	/* This symbol will define a scope which name is tag_entry->name
 	 * For example if we get a tag MyFoo with kind "namespace", it will define 
@@ -4027,6 +4077,7 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 
 	priv = dbe->priv;
 	
+		
 	if ((field_inherits = tagsField (tag_entry, "inherits")) == NULL)
 	{
 		field_inherits = "";
@@ -4204,7 +4255,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	gboolean ret_bool;
 
 	g_return_val_if_fail (G_VALUE_HOLDS_STRING (token_value), FALSE);
-	
+		
 	priv = dbe->priv;
 	tmp_str = g_value_get_string (token_value);
 
@@ -4354,7 +4405,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	gint i;
 	
 	priv = dbe->priv;
-
+	
 	DEBUG_PRINT ("%s", "sdb_engine_second_pass_update_scope()");
 	
 	/* temporary unlock. This function may take a while to be completed
@@ -4650,8 +4701,8 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("%s", "sdb_engine_second_pass_do()");
-	
+	DEBUG_PRINT ("%s", "sdb_engine_second_pass_do()");	
+
 	/* prepare for scope second scan */
 	if ((stmt1 =
 		 sdb_engine_get_statement_by_query_id (dbe,
@@ -5103,7 +5154,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	return table_id;
 }
 
-
 /**
  * Select * from __tmp_removed and emits removed signals.
  */
@@ -5282,6 +5332,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
  */
 static void
 on_scan_update_files_symbols_end (SymbolDBEngine * dbe, 
+								  gint process_id,
 								  UpdateFileSymbolsData* update_data)
 {
 	SymbolDBEnginePriv *priv;
@@ -5498,18 +5549,15 @@ symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types)
 	return filter_array;
 }
 
-/**
- * Update symbols of saved files. 
- * @note WARNING: files_path and it's contents will be freed on 
- * on_scan_update_files_symbols_end () callback.
- */
-gboolean
+gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
 									   GPtrArray * files_path,
 									   gboolean update_prj_analyse_time)
 {
 	SymbolDBEnginePriv *priv;
 	UpdateFileSymbolsData *update_data;
+	gboolean ret_code;
+	gint ret_id;
 	
 	priv = dbe->priv;
 
@@ -5529,9 +5577,13 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_files_symbols_end), update_data);
 	
-	sdb_engine_scan_files_1 (dbe, files_path, NULL, TRUE);
-
-	return TRUE;
+	ret_code = sdb_engine_scan_files_1 (dbe, files_path, NULL, TRUE);
+	if (ret_code == TRUE)
+		ret_id = sdb_engine_get_unique_scan_id (dbe);
+	else
+		ret_id = -1;
+	
+	return ret_id;
 }
 
 /* Update symbols of the whole project. It scans all file symbols etc. 
@@ -5726,8 +5778,6 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	return TRUE;
 }
 
-
-/** Remove a file, together with its symbols, from a project. */
 gboolean
 symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 							  const gchar * file)
@@ -5778,9 +5828,8 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
 	}	
 }
 
-
 static void
-on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
+on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 {
 	SymbolDBEnginePriv *priv;
 	GPtrArray *files_to_scan;
@@ -5818,11 +5867,6 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 	data = files_to_scan = NULL;
 }
 
-/* Update symbols of a file by a memory-buffer to perform a real-time updating 
- * of symbols. 
- * real_files_list: full path on disk to 'real file' to update. e.g.
- * /home/foouser/fooproject/src/main.c. They'll be freed inside this function.
- */
 gboolean
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
 										GPtrArray * real_files_list,
@@ -5831,6 +5875,8 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 {
 	SymbolDBEnginePriv *priv;
 	gint i;
+	gint ret_id;
+	gboolean ret_code;
 	/* array that'll represent the /dev/shm/anjuta-XYZ files */
 	GPtrArray *temp_files;
 	GPtrArray *real_files_on_db;
@@ -5928,8 +5974,12 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
 	
-	sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
-
+	ret_code = sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
+	if (ret_code == TRUE)
+		ret_id = sdb_engine_get_unique_scan_id (dbe);
+	else
+		ret_id = -1;
+	
 	/* let's free the temp_files array */
 	for (i=0; i < temp_files->len; i++)
 		g_free (g_ptr_array_index (temp_files, i));
@@ -5941,7 +5991,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		g_free (g_ptr_array_index (real_files_on_db, i));
 	
 	g_ptr_array_free (real_files_on_db, TRUE);
-	return TRUE;
+	return ret_id;
 }
 
 gboolean
@@ -5955,7 +6005,6 @@ symbol_db_engine_is_locked (SymbolDBEngine * dbe)
 	return priv->scanning_status;
 }
 
-/* user must free the returned value */
 gchar*
 symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 {
@@ -5992,7 +6041,6 @@ symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_
 
 	return relative_path;
 }
-
 
 static inline gint
 sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_path) 
@@ -6090,13 +6138,6 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
 	return final_definition_id;
 }
 
-
-/**
- * tries to get all the files with zero symbols: these should be the ones
- * excluded by an abort on population process.
- * @return A GPtrArray with paths on disk of the files. Must be freed by caller.
- * @return NULL if no files are found.
- */
 GPtrArray *
 symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 {

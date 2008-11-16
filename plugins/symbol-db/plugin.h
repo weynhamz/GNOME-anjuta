@@ -64,6 +64,8 @@ struct _SymbolDBPlugin{
 	guint buf_update_timeout_id;
 	gboolean need_symbols_update;
 	GTimer *update_timer;
+	GPtrArray *buffer_update_files;
+	GPtrArray *buffer_update_ids;
 	guint editor_watch_id;
 	gchar *project_root_uri;
 	gchar *project_root_dir;

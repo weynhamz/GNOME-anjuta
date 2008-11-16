@@ -90,6 +90,39 @@ register_stock_icons (AnjutaPlugin *plugin)
 	END_REGISTER_ICON;
 }
 
+static void
+on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
+										  gpointer data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	gint i;
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);	
+	
+	/* search for the proc id */
+	for (i = 0; i < sdb_plugin->buffer_update_ids->len; i++)
+	{
+		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == (gpointer)process_id)
+		{
+			gchar *str;
+			/* hey we found it */
+			/* remove both the items */
+			g_ptr_array_remove_index (sdb_plugin->buffer_update_ids, i);
+			
+			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
+													i);
+			/* we can now free it */
+			g_free (str);
+			
+			/* last but not least, remove the signal */
+			if (sdb_plugin->buffer_update_files->len <= 0)
+				g_signal_handlers_disconnect_by_func (G_OBJECT(dbe),
+										  G_CALLBACK (on_editor_buffer_symbol_update_scan_end ),
+										  data);			
+		}
+	}
+}
+
 static gboolean
 on_editor_buffer_symbols_update_timeout (gpointer user_data)
 {
@@ -99,6 +132,10 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	gint buffer_size = 0;
 	gdouble seconds_elapsed;
 	GFile* file;
+	gchar * local_path;
+	GPtrArray *real_files_list;
+	GPtrArray *text_buffers;
+	GPtrArray *buffer_sizes;
 	
 	g_return_val_if_fail (user_data != NULL, FALSE);
 	
@@ -125,6 +162,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	 if (sdb_plugin->need_symbols_update == FALSE)
 	 	return TRUE;
 	
+	
 	DEBUG_PRINT ("%s", "on_editor_buffer_symbols_update_timeout()");
 	
 	if (sdb_plugin->current_editor) 
@@ -138,37 +176,73 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	} 
 	else
 		return FALSE;
+
+	if (file == NULL)
+		return FALSE;
 	
-	if (file) 
+	/* take the path reference */
+	local_path = g_file_get_path (file);
+	
+	/* ok that's good. Let's have a last check: is the current file present
+	 * on the buffer_update_files?
+	 */
+	gint i;
+	for (i = 0; i < sdb_plugin->buffer_update_files->len; i++)
 	{
-		GPtrArray *real_files_list;
-		GPtrArray *text_buffers;
-		GPtrArray *buffer_sizes;
-								
-		gchar * local_path = g_file_get_path (file);
+		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
+					 local_path) == 0)
+		{
+			/* hey we found it */
+			/* something is already scanning this buffer file. Drop the procedure now. */
+			DEBUG_PRINT ("%s", "something is already scanning the file");
+			return FALSE;			
+		}
+	}
 
-		real_files_list = g_ptr_array_new ();
-		g_ptr_array_add (real_files_list, local_path);
+	real_files_list = g_ptr_array_new ();
+	g_ptr_array_add (real_files_list, local_path);
 
-		text_buffers = g_ptr_array_new ();
-		g_ptr_array_add (text_buffers, current_buffer);	
+	text_buffers = g_ptr_array_new ();
+	g_ptr_array_add (text_buffers, current_buffer);	
 
-		buffer_sizes = g_ptr_array_new ();
-		g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
+	buffer_sizes = g_ptr_array_new ();
+	g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
 
-		symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
-												sdb_plugin->project_opened,
-												real_files_list,
-												text_buffers,
-												buffer_sizes);												
+	
+	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+											sdb_plugin->project_opened,
+											real_files_list,
+											text_buffers,
+											buffer_sizes);
+	
+	if (proc_id > 0)
+	{
+		/* if the size of the array is 0 then we probably want to connect it to some
+		 * signals 
+		 */
+		if (sdb_plugin->buffer_update_files->len > 0)
+			g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
+		  		G_CALLBACK (on_editor_buffer_symbol_update_scan_end), sdb_plugin);
+		
+		/* good. All is ready for a buffer scan. Add the file_scan into the arrays */
+		gchar * local_path_dup = g_strdup (local_path);
+		g_ptr_array_add (sdb_plugin->buffer_update_files, local_path_dup);	
+		/* add the id too */
+		g_ptr_array_add (sdb_plugin->buffer_update_ids, (gpointer)proc_id);	
+	
+		
+		DEBUG_PRINT ("******** proc_id is %d", proc_id);			
 	}
 	
 	g_free (current_buffer);  
 	g_object_unref (file);
 
+	/* no need to free local_path, it'll be automatically freed later by the buffer_update
+	 * function */
+	
 	sdb_plugin->need_symbols_update = FALSE;
 
-	return TRUE;
+	return proc_id > 0 ? TRUE : FALSE;
 }
 
 static void
@@ -217,44 +291,52 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 				 SymbolDBPlugin *sdb_plugin)
 {
 	const gchar *old_uri;
-	gboolean tags_update;
+	gchar *local_filename;
+	gchar *saved_uri;
+	GPtrArray *files_array;
+	gint i;
 	
-	tags_update = TRUE;		
+	local_filename = g_file_get_path (file);
+	/* Verify that it's local file */
+	g_return_if_fail (local_filename != NULL);
 	
-	if (tags_update)
+	saved_uri = g_file_get_uri (file);
+	
+	for (i = 0; i < sdb_plugin->buffer_update_files->len; i++)
 	{
-		gchar *local_filename = g_file_get_path (file);
-		gchar *saved_uri = g_file_get_uri (file);
-		GPtrArray *files_array;
-
-		/* Verify that it's local file */
-		g_return_if_fail (local_filename != NULL);
-
-		files_array = g_ptr_array_new();		
-		DEBUG_PRINT ("local_filename saved is %s", local_filename);
-		g_ptr_array_add (files_array, local_filename);		
-		/* no need to free local_filename now */
-		
-		if (!sdb_plugin->editor_connected)
+		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
+					 local_filename) == 0)
+		{
+			DEBUG_PRINT ("%s", "already scanning");
+			/* something is already scanning this buffer file. Drop the procedure now. */
 			return;
-	
-		old_uri = g_hash_table_lookup (sdb_plugin->editor_connected, editor);
+		}
+	}									
+
+
+	files_array = g_ptr_array_new();		
+	g_ptr_array_add (files_array, local_filename);		
+	/* no need to free local_filename now */
 		
-		if (old_uri && strlen (old_uri) <= 0)
-			old_uri = NULL;
+	if (!sdb_plugin->editor_connected)
+		return;
+	
+	old_uri = g_hash_table_lookup (sdb_plugin->editor_connected, editor);
+		
+	if (old_uri && strlen (old_uri) <= 0)
+		old_uri = NULL;
 
-		/* files_array will be freed once updating has taken place */
-		symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
-				sdb_plugin->project_root_dir, files_array, TRUE);
-		g_hash_table_insert (sdb_plugin->editor_connected, editor,
-							 g_strdup (saved_uri));
+	/* files_array will be freed once updating has taken place */
+	symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
+		sdb_plugin->project_root_dir, files_array, TRUE);
+	g_hash_table_insert (sdb_plugin->editor_connected, editor,
+						 g_strdup (saved_uri));
 
-		/* if we saved it we shouldn't update a second time */
-		sdb_plugin->need_symbols_update = FALSE;			
-			
-		on_editor_update_ui (editor, sdb_plugin);
-		g_free (saved_uri);
-	}
+	/* if we saved it we shouldn't update a second time */
+	sdb_plugin->need_symbols_update = FALSE;
+	
+	on_editor_update_ui (editor, sdb_plugin);
+	g_free (saved_uri);
 }
 
 static void
@@ -338,7 +420,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
-						  sdb_plugin);						  
+						  sdb_plugin);
 		g_signal_connect (G_OBJECT (editor), "char-added",
 						  G_CALLBACK (on_char_added),
 						  sdb_plugin);
@@ -861,7 +943,7 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 }
 
 static void
-on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
+on_importing_project_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
 	GFile* file;
@@ -1156,7 +1238,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 								 sdb_plugin->sdbe_project, FALSE);
 				
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
-		  G_CALLBACK (on_importing_project_end), plugin);				
+		  G_CALLBACK (on_importing_project_end), plugin);
 				
 	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 										NULL);
@@ -1743,6 +1825,13 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* creates and start a new timer. */
 	symbol_db->update_timer = g_timer_new ();
 
+	/* these two arrays will maintain the same number of objects, 
+	 * so that if you search, say on the first, an occurrence of a file,
+	 * you'll be able to get in O(1) the _index in the second array, where the 
+	 * scan process ids are stored. This is true in the other way too.
+	 */
+	symbol_db->buffer_update_files = g_ptr_array_new ();
+	symbol_db->buffer_update_ids = g_ptr_array_new ();
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Initializing engines with %s", ctags_path);
 	/* create SymbolDBEngine(s) */
@@ -1996,6 +2085,19 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_free (sdb_plugin->project_opened);
 	sdb_plugin->project_opened = NULL;
 
+	if (sdb_plugin->buffer_update_files)
+	{
+		g_ptr_array_foreach (sdb_plugin->buffer_update_files, (GFunc)g_free, NULL);
+		g_ptr_array_free (sdb_plugin->buffer_update_files, TRUE);
+		sdb_plugin->buffer_update_files = NULL;
+	}
+
+	if (sdb_plugin->buffer_update_ids)
+	{
+		g_ptr_array_free (sdb_plugin->buffer_update_ids, TRUE);
+		sdb_plugin->buffer_update_ids = NULL;		
+	}	
+		
 	if (sdb_plugin->session_packages)
 	{
 		g_list_foreach (sdb_plugin->session_packages, (GFunc)g_free, NULL);

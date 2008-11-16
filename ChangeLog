@@ -1,3 +1,36 @@
+2008-11-16  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbol_update_scan_end),
+	(on_editor_buffer_symbols_update_timeout), (on_editor_saved),
+	(on_importing_project_end), (symbol_db_activate),
+	(symbol_db_deactivate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_statement_by_query_id),
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_init),
+	(sdb_engine_finalize), (sdb_engine_class_init),
+	(sdb_engine_get_unique_scan_id), (symbol_db_engine_add_new_files),
+	(sdb_engine_add_new_sym_access), (sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_files_symbols),
+	(on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-system.c
+	(on_engine_package_scan_end):
+	* plugins/symbol-db/symbol-db-view-locals.c (on_scan_end),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view.c (on_scan_end):
+	added code to destroy the pool objects in the engine.
+	Now a call to add_files () or similar will return a process_id, instead of a 
+	boolean.
+	Fixed some docs in the engine. Fixed a bug which could cause GtkTree corruption
+	when buffer scan was launched together with save scan.
+
 2008-11-15  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/properties.cxx,

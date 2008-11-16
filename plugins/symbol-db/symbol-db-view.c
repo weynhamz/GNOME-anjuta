@@ -169,7 +169,7 @@ symbol_db_view_clear_cache (SymbolDBView *dbv)
 }
 
 static void
-on_scan_end (SymbolDBEngine *dbe, gpointer data)
+on_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 {
 	SymbolDBView *dbv;
 	SymbolDBViewPriv *priv;

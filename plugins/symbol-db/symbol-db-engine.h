@@ -50,7 +50,7 @@ struct _SymbolDBEngineClass
 	
 	/* signals */
 	void (* single_file_scan_end) 	();
-	void (* scan_end) 				();
+	void (* scan_end) 				(gint process_id);
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);
 	void (* symbol_scope_updated)  	(gint symbol_id);	
@@ -106,7 +106,7 @@ gboolean
 symbol_db_engine_is_locked (SymbolDBEngine *dbe);
 
 /**
- * Open or create a new database. 
+ * Open or create a new database at given directory. 
  * Be sure to give a base_db_path with the ending '/' for directory.
  * @param base_db_path directory where .anjuta_sym_db.db will be stored. It can be
  *        different from project_directory
@@ -122,16 +122,15 @@ gboolean
 symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_db_path,
 						  const gchar * prj_directory);
 
-
 /** Disconnect db, gda client and db_connection */
 gboolean 
 symbol_db_engine_close_db (SymbolDBEngine *dbe);
 
 /**
- * Check if the database already exists into the db_directory
+ * Check if the database already exists into the prj_directory
  */
 gboolean
-symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * db_directory);
+symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory);
 
 /**
  * Check if a file is already present [and scanned] in db.
@@ -144,7 +143,13 @@ gboolean
 symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace);
 
 
-/** Add a new project to workspace to an opened database.*/
+/** 
+ * Add a new project to workspace to an opened database.
+ *
+ * @param workspace Can be NULL. In that case a default workspace will be created, 
+ * 					and project will depend on that.
+ * @param project Project name. Must NOT be NULL.
+ */
 gboolean 
 symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
 								  const gchar* project);
@@ -152,7 +157,7 @@ symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace,
 /** 
  * Test project existence. 
  * @return false if project isn't found
- */ 
+ */
 gboolean 
 symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
 								  const gchar* project_name);
@@ -183,9 +188,9 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  * 		  This is done to be uniform to the language-manager plugin.
  * @param force_scan If FALSE a check on db will be done to see
  *		  whether the file is already present or not.
- * @return true is insertion is successful.
+ * @return scan process id if insertion is successful, -1 on error.
  */
-gboolean 
+gint
 symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
 								const gchar * project_name,
 							    const GPtrArray *files_path,
@@ -211,9 +216,11 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
 
 /**
  * Update symbols of saved files. 
- * WARNING: files_path and it's contents will be freed on callback.
+ * @note WARNING: files_path and it's contents will be freed on 
+ * on_scan_update_files_symbols_end () callback.
+ * @return scan process id if insertion is successful, -1 on error.
  */
-gboolean 
+gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 
 									   GPtrArray *files_path,
 									   gboolean update_prj_analyse_time);
@@ -222,9 +229,11 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
  * real_files_list: full path on disk to 'real file' to update. e.g.
- * /home/foouser/fooproject/src/main.c. They'll be freed inside this function. 
+ * /home/foouser/fooproject/src/main.c. 
+ * They'll be freed inside this function when the scan has ended. 
+ * @return scan process id if insertion is successful, -1 on error.
  */
-gboolean
+gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,
 										GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,

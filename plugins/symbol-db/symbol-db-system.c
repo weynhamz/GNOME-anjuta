@@ -84,7 +84,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 				   gpointer user_data);
 
 static void
-on_engine_package_scan_end (SymbolDBEngine *dbe, gpointer user_data);
+on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_data);
 
 static void
 destroy_single_scan_data (SingleScanData *ss_data)
@@ -499,7 +499,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 }
 
 static void
-on_engine_package_scan_end (SymbolDBEngine *dbe, gpointer user_data)
+on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_data)
 {
 	SymbolDBSystem *sdbs;
 	SymbolDBSystemPriv *priv;

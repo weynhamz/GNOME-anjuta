@@ -999,7 +999,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 }
 
 static void
-on_scan_end (SymbolDBEngine *dbe, gpointer data)
+on_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 {
 	SymbolDBViewLocals *dbvl;
 	SymbolDBViewLocalsPriv *priv;
@@ -1469,9 +1469,10 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		}
 
 		/* ok, there may be some symbols left on the waiting_for_list...
- 	 	* launch the callback function by hand, flushing the list it in case 
-	 	*/
-		on_scan_end (dbe, dbvl);		
+ 	 	 * launch the callback function by hand, flushing the list it in case 
+		 * The 0 stays for an unused process_id
+		 */		
+		on_scan_end (dbe, 0, dbvl);		
 	}
 	
 	/* only gtk 2.12 ...
