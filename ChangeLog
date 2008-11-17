@@ -230,12 +230,11 @@
 	plugins/editor/scintilla/patches/scintilla-64-bit.diff:
 	Update scintilla to version 1.77
 
-2008-11-13  James Liggett  <jim@James>
-
-	reviewed by: <delete if not using a buddy>
+2008-11-13  James Liggett  <jrliggett@cox.net>
 
 	* plugins/editor/aneditor.cxx:
 	* plugins/editor/text_editor.c (load_from_file):
+	Fix yet more compile fallout from the DEBUG_PRINT patch.
 
 2008-11-12  James Liggett  <jrliggett@cox.net>
 
