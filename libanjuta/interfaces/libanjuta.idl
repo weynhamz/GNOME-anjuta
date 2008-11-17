@@ -4714,15 +4714,15 @@ interface IAnjutaVcs
 	void remove(List<GFile*> files);
 	
 	/**
-	 * ianjuta_vcs_update:
-	 * @file: GFile* to update
-	 * @recurse: TRUE to recurse into subdirectories (if file is a directory)
+	 * ianjuta_vcs_checkout:
+	 * @repository_location: Location of repository to check out
+	 * @dest: Destination of checked out copy
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Update filename with the vcs repositry.
+	 * Check out a copy of a code repository.
 	 */
-	void update(GFile* file, gboolean recurse);
+	void checkout(const gchar *repository_location, GFile *dest);
 	
 	typedef void (*StatusCallback) (GFile* file, AnjutaVcsStatus status, gpointer user_data);
   

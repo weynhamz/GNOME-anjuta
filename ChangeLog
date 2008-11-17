@@ -1,3 +1,8 @@
+2008-11-16  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Replace the update method with checkout in IAnjutaVCS.
+
 2008-11-16  Naba Kumar  <naba@gnome.org>
 
 	* AUTHORS: Moved Massimo Cora and James Liggett new place.
