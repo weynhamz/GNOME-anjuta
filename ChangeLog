@@ -1,3 +1,8 @@
+2008-11-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	Fix #561369: Debug->add source path menu item doesn't work
+
 2008-11-16  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/interfaces/libanjuta.idl:
