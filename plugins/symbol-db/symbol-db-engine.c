@@ -1612,7 +1612,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 				case SCAN_END:
 				{
 					/* get the process id from the queue */
-					gint tmp = g_async_queue_pop (priv->scan_process_id_queue);
+					gint tmp = (gint)g_async_queue_pop (priv->scan_process_id_queue);
 					g_signal_emit (dbe, signals[SCAN_END], 0, tmp);
 				}
 					break;
@@ -2621,10 +2621,10 @@ sdb_engine_finalize (GObject * object)
 	priv->mem_pool_string = NULL;
 	priv->mem_pool_int = NULL;	
 #else
-	g_queue_foreach (priv->mem_pool_string, (GFunc)g_free, NULL);
+	g_queue_foreach (priv->mem_pool_string, (GFunc)gda_value_free, NULL);
 	g_queue_free (priv->mem_pool_string);
 	
-	g_queue_foreach (priv->mem_pool_int, (GFunc)g_free, NULL);
+	g_queue_foreach (priv->mem_pool_int, (GFunc)gda_value_free, NULL);
 	g_queue_free (priv->mem_pool_int);	
 	
 	priv->mem_pool_string = NULL;
@@ -4005,7 +4005,6 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 													 NULL) == -1)
 	{
 		GValue *value1, *value2;
-
 		/* let's check for an already present scope table with scope and type_id infos. */
 		MP_LEND_OBJ_STR (priv, value1);
 		g_value_set_static_string (value1, scope);

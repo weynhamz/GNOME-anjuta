@@ -1,3 +1,10 @@
+2008-11-22  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_finalize),
+	(sdb_engine_add_new_scope_definition):
+	fixed bug #561813.
+
 2008-11-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-debug-manager.glade:
