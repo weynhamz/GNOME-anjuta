@@ -301,7 +301,7 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	MessageView* message_view;
 	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
-	if (g_list_length (anjuta_msgman_get_all_views(ANJUTA_MSGMAN(msgman))) == 0)
+	if (ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown == FALSE)
 	{
 		anjuta_shell_add_widget (shell, msgman,
 							 "AnjutaMessageView", _("Messages"),
