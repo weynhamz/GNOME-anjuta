@@ -4,12 +4,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-08-22 16:05+0000\n"
-"PO-Revision-Date: 2008-08-23 13:19+0200\n"
+"POT-Creation-Date: 2008-11-23 21:01+0000\n"
+"PO-Revision-Date: 2008-11-24 00:02+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
@@ -930,7 +930,7 @@ msgid "Editor Margins"
 msgstr "Márgenes del editor"
 
 #: C/anjuta-manual.xml:272(screeninfo) C/anjuta-manual.xml:320(screeninfo)
-#: C/anjuta-manual.xml:415(screeninfo)
+#: C/anjuta-manual.xml:427(screeninfo)
 msgid "The Tags toolbar"
 msgstr "La barra de herramientas de etiquetas"
 
@@ -1115,11 +1115,29 @@ msgstr ""
 "guimenu><guisubmenu>Editor</guisubmenu><guisubmenu>Modo de resaltado</"
 "guisubmenu></menuchoice>."
 
-#: C/anjuta-manual.xml:359(title)
+#: C/anjuta-manual.xml:358(para)
+msgid ""
+"Anjuta uses a properties file named <filename>$prefix/share/anjuta/"
+"properties/anjuta.properties</filename>, it has the same format than SciTE "
+"properties file but do not use all properties. The style of each element for "
+"all languages is defined in a file named <filename>$prefix/share/anjuta/"
+"properties/styles.properties</filename>. It uses some common properties "
+"defined by Anjuta GUI in the file <filename>$home/.config/anjuta/scintilla/"
+"editor-style.properties</filename>."
+msgstr ""
+"Anjuta usa un archivo de propiedades llamado <filename>$prefix/share/anjuta/"
+"properties/anjuta.properties</filename>, tiene el mismo formato que el "
+"archivo de propiedades SciTE pero no usa todas sus propiedades. El estilo de "
+"cada elemento para todos los idiomas está definido en un archivo llamado "
+"<filename>$prefix/share/anjuta/properties/styles.properties</filename>. Usa "
+"algunas propiedades comunes definidas por el IGU de Anjuta en el archivo "
+"<filename>$home/.config/anjuta/scintilla/editor-style.properties</filename>."
+
+#: C/anjuta-manual.xml:371(title)
 msgid "Code folding"
 msgstr "Plegado de código"
 
-#: C/anjuta-manual.xml:360(para)
+#: C/anjuta-manual.xml:372(para)
 msgid ""
 "Source files which have block coding properties (such as C, C++, Pascal, "
 "Java etc.), have the advantage of working with <emphasis>code folds</"
@@ -1138,7 +1156,7 @@ msgstr ""
 "puntos de plegado aparecen automáticamente para archivos fuente que usan "
 "bloques de código."
 
-#: C/anjuta-manual.xml:368(para)
+#: C/anjuta-manual.xml:380(para)
 msgid ""
 "Code folding is especially useful when editing big source files that run to "
 "thousands of lines. Once the folds are closed, the document appears to "
@@ -1149,7 +1167,7 @@ msgstr ""
 "pliegues, el documento parece más pequeño, facilitando la examinación y el "
 "editado del archivo."
 
-#: C/anjuta-manual.xml:374(para)
+#: C/anjuta-manual.xml:386(para)
 msgid ""
 "Please note that code folding and editor guides are only available in the "
 "scintilla based editor."
@@ -1157,11 +1175,11 @@ msgstr ""
 "Note que el plegado del código y las guías del editor sólo están disponibles "
 "en el editor basado en Scintilla."
 
-#: C/anjuta-manual.xml:381(title)
+#: C/anjuta-manual.xml:393(title)
 msgid "Auto-formatting source code"
 msgstr "Autoformatear el código fuente"
 
-#: C/anjuta-manual.xml:382(para)
+#: C/anjuta-manual.xml:394(para)
 msgid ""
 "If the current file is a C or C++ source or header file, then it is possible "
 "to automatically indent (auto-format) the file. This gives a clean look to "
@@ -1180,11 +1198,11 @@ msgstr ""
 "barra de menú. Cambie el estilo del formateo personalizando las opciones en "
 "las preferencias."
 
-#: C/anjuta-manual.xml:396(title)
+#: C/anjuta-manual.xml:408(title)
 msgid "Symbol browser and Browsing Files"
 msgstr "Examinador de símbolos y Examinador de archivos"
 
-#: C/anjuta-manual.xml:397(para)
+#: C/anjuta-manual.xml:409(para)
 msgid ""
 "All C and C++ source and header files can be browsed using the tags in the "
 "files. All of the open C and C++ source and header files are scanned for "
@@ -1201,15 +1219,15 @@ msgstr ""
 "al referirse al Examinador de etiquetas y al Examinador de símbolos, que "
 "tienen dos interfaces distintos."
 
-#: C/anjuta-manual.xml:413(title) C/anjuta-manual.xml:436(title)
+#: C/anjuta-manual.xml:425(title) C/anjuta-manual.xml:448(title)
 msgid "Tags toolbar"
 msgstr "Barra de herramientas de etiquetas"
 
-#: C/anjuta-manual.xml:419(title)
+#: C/anjuta-manual.xml:431(title)
 msgid "Function symbols"
 msgstr "Símbolos de funciones"
 
-#: C/anjuta-manual.xml:420(para)
+#: C/anjuta-manual.xml:432(para)
 msgid ""
 "Function prototype and definition, if present in the same file, can be "
 "usually distinguished from the corresponding line numbers. Prototypes "
@@ -1221,7 +1239,7 @@ msgstr ""
 "prototipos generalmente están antes de la definición, de tal forma que "
 "suelen tener números de línea más pequeños."
 
-#: C/anjuta-manual.xml:406(para)
+#: C/anjuta-manual.xml:418(para)
 msgid ""
 "<emphasis>Tags Browser:</emphasis> Tags browser is available on the Browser "
 "toolbar. It shows a list of tags available in the currently active file "
@@ -1240,11 +1258,11 @@ msgstr ""
 "han encontrado. Si hay múltiples símbolos con el mismo nombre, entonces se "
 "mostrarán con diferentes números de línea. <placeholder-1/><placeholder-2/>"
 
-#: C/anjuta-manual.xml:438(screeninfo)
+#: C/anjuta-manual.xml:450(screeninfo)
 msgid "Symbol browser"
 msgstr "Examinador de símbolos"
 
-#: C/anjuta-manual.xml:428(para)
+#: C/anjuta-manual.xml:440(para)
 msgid ""
 "<emphasis>Symbol Browser:</emphasis> If there is a project open, "
 "<application>Anjuta</application> will scan for tags in all of the source "
@@ -1263,11 +1281,11 @@ msgstr ""
 "definiciones de funciones). El examinador de símbolos lista todos los "
 "símbolos disponibles en el proyecto. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:446(title)
+#: C/anjuta-manual.xml:458(title)
 msgid "Tags synchronization"
 msgstr "Sincronización de etiquetas"
 
-#: C/anjuta-manual.xml:447(para)
+#: C/anjuta-manual.xml:459(para)
 msgid ""
 "You don't have to worry about the synchronization and update of the tag "
 "database. <application>Anjuta</application> will take care of everything. "
@@ -1277,15 +1295,15 @@ msgstr ""
 "de datos de las etiquetas. <application>Anjuta</application> se encargará de "
 "todo. Sólo tiene que decidir a qué etiqueta quiere ir."
 
-#: C/anjuta-manual.xml:458(title)
+#: C/anjuta-manual.xml:470(title)
 msgid "Searching for and Replacing text in files"
 msgstr "Buscar y reemplazar texto en los archivos"
 
-#: C/anjuta-manual.xml:460(title)
+#: C/anjuta-manual.xml:472(title)
 msgid "Searching"
 msgstr "Búsqueda"
 
-#: C/anjuta-manual.xml:461(para)
+#: C/anjuta-manual.xml:473(para)
 msgid ""
 "To search for a <emphasis>text</emphasis> or <emphasis>regular expression</"
 "emphasis> string in the current file, choose <menuchoice><guimenu>Edit</"
@@ -1299,7 +1317,7 @@ msgstr ""
 "menuchoice> o pulse <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></"
 "keycombo>. Esto abrirá el diálogo <interface>Buscar</interface>."
 
-#: C/anjuta-manual.xml:468(para)
+#: C/anjuta-manual.xml:480(para)
 msgid ""
 "Use the text box to specify the string to search for, and select whether it "
 "is a normal string or a regular expression (RegExp). It is also possible to "
@@ -1312,7 +1330,7 @@ msgstr ""
 "especificar la dirección de la búsqueda, si la búsqueda es sensible a "
 "capitalización o no y el ámbito de búsqueda."
 
-#: C/anjuta-manual.xml:474(para)
+#: C/anjuta-manual.xml:486(para)
 msgid ""
 "If the search is successful, the matched text in the document will be "
 "highlighted, marked... (according to the search action choice). If the "
@@ -1325,7 +1343,7 @@ msgstr ""
 "<emphasis>No se ha encontrado ninguna coincidencia con «el texto buscado»</"
 "emphasis>."
 
-#: C/anjuta-manual.xml:479(para)
+#: C/anjuta-manual.xml:491(para)
 msgid ""
 "If you want to search again, click on the <guibutton>Search</guibutton> "
 "button on the main toolbar or press <keycombo><keycap>Ctrl</"
@@ -1344,17 +1362,17 @@ msgstr ""
 "<guilabel>Expresión de búsqueda</guilabel> en la barra de herramientas "
 "principal."
 
-#: C/anjuta-manual.xml:488(title)
+#: C/anjuta-manual.xml:500(title)
 msgid "Search Text dialog"
 msgstr "Diálogo de búsqueda de texto"
 
-#: C/anjuta-manual.xml:493(para)
+#: C/anjuta-manual.xml:505(para)
 msgid "To stop a long research, choose <guibutton>Stop</guibutton> button."
 msgstr ""
 "Para parar una búsqueda prolongada, pulse el botón <guibutton>Detener</"
 "guibutton>."
 
-#: C/anjuta-manual.xml:496(para)
+#: C/anjuta-manual.xml:508(para)
 msgid ""
 "If the \"Basic Search\" option is selected in the Setting window, the search "
 "direction can be chosen from the Expression window."
@@ -1362,15 +1380,15 @@ msgstr ""
 "Si la opción «Búsqueda básica» está seleccionada en la ventana Ajustes, la "
 "dirección de búsqueda se puede elegir desde la ventana Expresión."
 
-#: C/anjuta-manual.xml:501(title)
+#: C/anjuta-manual.xml:513(title)
 msgid "Basic Search Text dialog"
 msgstr "Diálogo de texto Búsqueda básica"
 
-#: C/anjuta-manual.xml:508(title)
+#: C/anjuta-manual.xml:520(title)
 msgid "Specifying Search Range"
 msgstr "Especificar el ámbito de búsqueda"
 
-#: C/anjuta-manual.xml:509(para)
+#: C/anjuta-manual.xml:521(para)
 msgid ""
 "In the \"Search Target dialog\", define the search location and the action "
 "to be done in case of search success."
@@ -1378,27 +1396,27 @@ msgstr ""
 "En el diálogo «Buscar objetivo», defina la ubicación de la búsqueda y la "
 "acción que realizar en caso de que la búsqueda tenga éxito."
 
-#: C/anjuta-manual.xml:513(para)
+#: C/anjuta-manual.xml:525(para)
 msgid "The maximum number actions can be defined by User."
 msgstr "El usuario puede definir el máximo número de acciones."
 
-#: C/anjuta-manual.xml:517(title)
+#: C/anjuta-manual.xml:529(title)
 msgid "Search Target dialog"
 msgstr "Diálogo Buscar objetivo"
 
-#: C/anjuta-manual.xml:522(para)
+#: C/anjuta-manual.xml:534(para)
 msgid "The user can select where the text will be searched."
 msgstr "El usuario puede seleccionar dónde se buscará el texto."
 
-#: C/anjuta-manual.xml:526(title)
+#: C/anjuta-manual.xml:538(title)
 msgid "Search Target In choice"
 msgstr "Buscar en el objetivo elegido"
 
-#: C/anjuta-manual.xml:532(title)
+#: C/anjuta-manual.xml:544(title)
 msgid "Searching in Files"
 msgstr "Buscar en archivos"
 
-#: C/anjuta-manual.xml:533(para)
+#: C/anjuta-manual.xml:545(para)
 msgid ""
 "To find text in your project, select \"search in\" <menuchoice><guimenu> All "
 "Project Files</guimenu></menuchoice>."
@@ -1406,7 +1424,7 @@ msgstr ""
 "Para buscar un texto en su proyecto, seleccione «Buscar en» "
 "<menuchoice><guimenu>Todos los archivos del proyecto</guimenu></menuchoice>."
 
-#: C/anjuta-manual.xml:537(para)
+#: C/anjuta-manual.xml:549(para)
 msgid ""
 "Enter the text you want to search and specify search options (case-"
 "sensitive, complete words ...). Click <guibutton>Search</guibutton> to start "
@@ -1416,7 +1434,7 @@ msgstr ""
 "(capitalización, palabras completas...). Pulse <guibutton>Buscar</guibutton> "
 "para comenzar la búsqueda."
 
-#: C/anjuta-manual.xml:542(para)
+#: C/anjuta-manual.xml:554(para)
 msgid ""
 "To find text in File list, select \"search in\" <menuchoice><guimenu> "
 "Specifying File List</guimenu></menuchoice>. Define the Search variables. "
@@ -1427,21 +1445,21 @@ msgstr ""
 "menuchoice>. Defina las variables de búsqueda. Pulse <guibutton>Buscar</"
 "guibutton> para comenzar la búsqueda."
 
-#: C/anjuta-manual.xml:548(title)
+#: C/anjuta-manual.xml:560(title)
 msgid "Search File Pattern"
 msgstr "Buscar patrones de archivo"
 
-#: C/anjuta-manual.xml:558(title)
+#: C/anjuta-manual.xml:570(title)
 msgid "Specifying Search Action"
 msgstr "Especificar la acción de la búsqueda"
 
-#: C/anjuta-manual.xml:559(para)
+#: C/anjuta-manual.xml:571(para)
 msgid "The user selects which action will be done in case of search success."
 msgstr ""
 "El usuario selecciona qué acción se realizará en caso de que la búsqueda "
 "tenga éxito."
 
-#: C/anjuta-manual.xml:562(para)
+#: C/anjuta-manual.xml:574(para)
 msgid ""
 "According to the previous selections (Search in, Search direction ...), some "
 "actions could be unavailable."
@@ -1449,15 +1467,15 @@ msgstr ""
 "En concordancia con las secciones anteriores (Buscar en, Dirección de "
 "búsqueda...) algunas acciones pueden no estar disponibles."
 
-#: C/anjuta-manual.xml:567(title)
+#: C/anjuta-manual.xml:579(title)
 msgid "Search Target Action choice"
 msgstr "Selección de búsqueda de acción de objetivo"
 
-#: C/anjuta-manual.xml:575(title) C/anjuta-manual.xml:583(title)
+#: C/anjuta-manual.xml:587(title) C/anjuta-manual.xml:595(title)
 msgid "Replacing"
 msgstr "Reemplazar"
 
-#: C/anjuta-manual.xml:576(para)
+#: C/anjuta-manual.xml:588(para)
 msgid ""
 "Search and replace is similar to just finding text, except that you also "
 "specify the replace text in the <guilabel>Replace With:</guilabel> text box, "
@@ -1470,7 +1488,7 @@ msgstr ""
 "realizar la acción de reemplazar (Reemplazar la siguiente coincidencia o "
 "Reemplazar todas las coincidencias)."
 
-#: C/anjuta-manual.xml:588(para)
+#: C/anjuta-manual.xml:600(para)
 msgid ""
 "Choose <guibutton>Replace</guibutton> to replace the matched text or "
 "<guibutton>Forward</guibutton> to jump to the next matched text."
@@ -1479,18 +1497,18 @@ msgstr ""
 "coincidente o <guibutton>Adelante</guibutton> para saltar al siguiente texto "
 "coincidente."
 
-#: C/anjuta-manual.xml:595(title)
+#: C/anjuta-manual.xml:607(title)
 msgid "Search Setting"
 msgstr "Ajustes de búsqueda"
 
-#: C/anjuta-manual.xml:596(para)
+#: C/anjuta-manual.xml:608(para)
 msgid ""
 "The user has the possibility of saving the setting of his search options."
 msgstr ""
 "El usuario tiene la posibilidad de guardar el ajuste de sus opciones de "
 "búsqueda."
 
-#: C/anjuta-manual.xml:599(para)
+#: C/anjuta-manual.xml:611(para)
 msgid ""
 "Item highlighted in red is the active item. Item by default is the search "
 "setting which is loaded at Anjuta launching."
@@ -1498,23 +1516,23 @@ msgstr ""
 "El elemento resaltado en rojo es el elemento activo. El elemento "
 "predeterminado es el ajuste de búsqueda que se carga al lanzar Anjuta."
 
-#: C/anjuta-manual.xml:604(title)
+#: C/anjuta-manual.xml:616(title)
 msgid "Search Setting dialog"
 msgstr "Diálogo de ajustes de búsqueda"
 
-#: C/anjuta-manual.xml:615(title)
+#: C/anjuta-manual.xml:627(title)
 msgid "Printing a file"
 msgstr "Imprimir un archivo"
 
-#: C/anjuta-manual.xml:624(title)
+#: C/anjuta-manual.xml:636(title)
 msgid "Print preview of a C file"
 msgstr "Vista preliminar de impresión de un archivo C"
 
-#: C/anjuta-manual.xml:626(screeninfo)
+#: C/anjuta-manual.xml:638(screeninfo)
 msgid "Print preview"
 msgstr "Vista previa de impresión"
 
-#: C/anjuta-manual.xml:616(para)
+#: C/anjuta-manual.xml:628(para)
 msgid ""
 "Print preview could be taken by selecting <menuchoice><guisubmenu>File</"
 "guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>. It will "
@@ -1534,15 +1552,15 @@ msgstr ""
 "impresión del editor en la solapa <guilabel>Impresión</guilabel> de las "
 "preferencias del complemento del editor. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:633(title)
+#: C/anjuta-manual.xml:645(title)
 msgid "Print Preferences"
 msgstr "Preferencias de impresión"
 
-#: C/anjuta-manual.xml:635(screeninfo)
+#: C/anjuta-manual.xml:647(screeninfo)
 msgid "Print preferences"
 msgstr "Preferencias de impresión"
 
-#: C/anjuta-manual.xml:640(para)
+#: C/anjuta-manual.xml:652(para)
 msgid ""
 "When you are ready to print and satisfied with the preview, select "
 "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></"
@@ -1558,7 +1576,7 @@ msgstr ""
 "y como se muestra debajo. Seleccione los parámetros de impresión adecuados e "
 "imprima el archivo con el botón <guibutton>Imprimir</guibutton>."
 
-#: C/anjuta-manual.xml:647(para)
+#: C/anjuta-manual.xml:659(para)
 msgid ""
 "Landscaped or portrait page layout, paper size, page orientation and paper "
 "type could also be set. Remember to set them up properly according to your "
@@ -1569,7 +1587,7 @@ msgstr ""
 "en concordancia con su impresora, de otra manera puede que no se imprima "
 "correctamente."
 
-#: C/anjuta-manual.xml:654(title) C/anjuta-manual.xml:656(screeninfo)
+#: C/anjuta-manual.xml:666(title) C/anjuta-manual.xml:668(screeninfo)
 msgid "Print Dialog"
 msgstr "Diálogo de impresión"
 
