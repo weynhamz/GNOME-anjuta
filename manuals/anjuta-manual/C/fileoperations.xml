@@ -354,6 +354,18 @@
 	<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guisubmenu>
 	Highlight Mode</guisubmenu></menuchoice>.
    </para>
+    <note>
+     <para>
+	Anjuta uses a properties file named
+	<filename>$prefix/share/anjuta/properties/anjuta.properties</filename>,
+	it has the same format than SciTE properties file but do not use
+	all properties. The style of each element for all languages is
+	defined in a file named 
+	<filename>$prefix/share/anjuta/properties/styles.properties</filename>.
+	It uses some common properties defined by Anjuta GUI in the file
+	<filename>$home/.config/anjuta/scintilla/editor-style.properties</filename>.
+     </para>
+   </note>
    </sect2>
    <sect2 id="codefolding">
     <title>Code folding</title>

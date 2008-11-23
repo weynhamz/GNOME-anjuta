@@ -108,10 +108,17 @@ bool PropSetFile::Read(const char *filename, const char *directoryForImports) {
 	FILE *rcfile = fopen(filename, "rb");
 #endif
 	if (rcfile) {
-		char propsData[60000];
-		int lenFile = fread(propsData, 1, sizeof(propsData), rcfile);
+		unsigned int lenFile;
+		char *propsData;
+
+		fseek (rcfile, 0, SEEK_END);
+		lenFile = ftell (rcfile);
+		fseek (rcfile, 0, SEEK_SET);
+		propsData = new char[lenFile];
+		lenFile = fread(propsData, 1, lenFile, rcfile);
 		fclose(rcfile);
 		ReadFromMemory(propsData, lenFile, directoryForImports);
+		delete[] propsData;
 		return true;
 
 	} else {

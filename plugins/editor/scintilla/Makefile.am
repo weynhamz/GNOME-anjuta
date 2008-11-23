@@ -110,6 +110,8 @@ update-scintilla:
 	for patchfile in patches/*.diff; do \
 		patch -p1 < $$patchfile; \
 	done
+	echo "Updating properties file..."
+	./update-properties.pl $(srcdir)/../properties/styles.properties $(srcdir)/scite/src
 
 marshallers: scintilla-marshal.list
 	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --header > scintilla-marshal.h
