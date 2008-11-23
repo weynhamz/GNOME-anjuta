@@ -1,5 +1,10 @@
 2008-11-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/message-view/plugin.c:
+	Fix 560939 - Duplicated message panes
+
+2008-11-23  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* (removed) plugins/editor/properties/blitzbasic.properties,
 	(removed) plugins/editor/properties/SciTEGlobal.properties,
 	(removed) plugins/editor/properties/opal.properties,
