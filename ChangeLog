@@ -1,3 +1,14 @@
+2008-11-24  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/plugin.c:
+	Removed deprecated funcs.
+
+	* plugins/valgrind/vgrule-list.c,
+	plugins/valgrind/vgactions.c:
+	Removed deprecated funcs.
+
 2008-11-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/message-view/plugin.c:

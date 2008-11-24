@@ -299,7 +299,7 @@ vg_actions_kill (VgActions *actions)
 	vg_tool_view_disconnect (VG_TOOL_VIEW (priv->view));
 	
 	if (priv->gio) {
-		g_io_channel_close (priv->gio);
+		g_io_channel_shutdown (priv->gio, TRUE, NULL);
 		g_io_channel_unref (priv->gio);
 		priv->watch_id = 0;
 		priv->gio = NULL;

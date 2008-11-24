@@ -458,7 +458,7 @@ vg_rule_list_destroy (GtkObject *obj)
 	VgRuleList *list = (VgRuleList *) obj;
 	
 	if (list->gio != NULL) {
-		g_io_channel_close (list->gio);
+		g_io_channel_shutdown (list->gio, TRUE, NULL);
 		g_io_channel_unref (list->gio);
 		list->load_id = 0;
 		list->gio = NULL;
@@ -505,7 +505,7 @@ load_rules_step_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 	vg_rule_parser_free (list->parser);
 	list->parser = NULL;
 	
-	g_io_channel_close (list->gio);
+	g_io_channel_shutdown (list->gio, TRUE, NULL);
 	g_io_channel_unref (list->gio);
 	list->load_id = 0;
 	list->gio = NULL;
@@ -570,7 +570,7 @@ vg_rule_list_set_filename (VgRuleList *list, const char *filename)
 		if (list->load_id != 0) {
 			/* this means the file is currently being loaded. ugh */
 			vg_rule_parser_free (list->parser);
-			g_io_channel_close (list->gio);
+			g_io_channel_shutdown (list->gio, TRUE, NULL);
 			g_io_channel_unref (list->gio);
 			list->load_id = 0;
 			list->gio = NULL;

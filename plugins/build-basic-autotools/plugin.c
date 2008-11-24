@@ -1776,7 +1776,7 @@ on_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	if (plugin->current_editor_filename)
 	{
-		gchar *dirname = g_dirname (plugin->current_editor_filename);
+		gchar *dirname = g_path_get_dirname (plugin->current_editor_filename);
 		
 		build_build_file_or_dir (plugin, dirname, NULL, NULL, NULL);
 		
@@ -1789,7 +1789,7 @@ on_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	if (plugin->current_editor_filename)
 	{
-		gchar *dirname = g_dirname (plugin->current_editor_filename);
+		gchar *dirname = g_path_get_dirname (plugin->current_editor_filename);
 		
 		build_install_dir (plugin, dirname, NULL);
 		
@@ -1802,7 +1802,7 @@ on_clean_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	if (plugin->current_editor_filename)
 	{
-		gchar *dirname = g_dirname (plugin->current_editor_filename);
+		gchar *dirname = g_path_get_dirname (plugin->current_editor_filename);
 		
 		build_clean_dir (plugin, dirname, NULL);
 		
@@ -2242,11 +2242,11 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 		gchar *dirname;
 		gchar *build_dirname;
 
-		dirname = g_dirname (bb_plugin->current_editor_filename);
+		dirname = g_path_get_dirname (bb_plugin->current_editor_filename);
 		build_dirname = build_dir_from_source (bb_plugin, dirname);
 		
-		module = escape_label (g_basename (dirname));
-		filename = escape_label (g_basename (bb_plugin->current_editor_filename));
+		module = escape_label (g_path_get_basename (dirname));
+		filename = escape_label (g_path_get_basename (bb_plugin->current_editor_filename));
 		has_makefile = directory_has_makefile (build_dirname);
 		g_free (build_dirname);
 		g_free (dirname);
