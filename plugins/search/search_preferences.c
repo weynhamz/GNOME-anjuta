@@ -318,7 +318,7 @@ search_preferences_active_selection_row(GtkTreeView *view)
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
 		search_preferences_update_entry(name);
 		
-		if (g_strcasecmp(name, BASIC))
+		if (g_ascii_strcasecmp (name, BASIC))
 			search_preferences_read_setting(gconf_concat_dir_and_key(
 				                            SEARCH_PREF_PATH, name));
 		else
@@ -422,7 +422,7 @@ on_setting_pref_add_clicked(GtkButton *button, gpointer user_data)
 	if (search_preferences_find_setting(name))
 		return;
 		
-	if (g_strcasecmp(name, BASIC))
+	if (g_ascii_strcasecmp (name, BASIC))
 	{
 		list_pref = g_slist_append(list_pref, g_strdup(name));
 		
@@ -453,9 +453,9 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 	if (valid)
 	{
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
-		if (g_strcasecmp(name, BASIC))
+		if (g_ascii_strcasecmp (name, BASIC))
 		{
-            gchar *path;
+			gchar *path;
 
 			client = gconf_client_get_default();
 			path = gconf_client_get_string(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH,
@@ -466,7 +466,7 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 
 			search_preferences_remove_setting(name);
 
-			if (!g_strcasecmp(name, path))
+			if (!g_ascii_strcasecmp (name, path))
 			{
 				gconf_client_set_string(client, gconf_concat_dir_and_key(
 					SEARCH_PREF_PATH, "search_pref_default"), "", NULL);
@@ -496,7 +496,7 @@ on_setting_pref_modify_clicked(GtkButton *button, gpointer user_data)
 	if (valid)
 	{
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
-		if (g_strcasecmp(name, BASIC))
+		if (g_ascii_strcasecmp (name, BASIC))
 		{
 			search_preferences_save_setting(name);
 			search_preferences_update_entry("");
@@ -571,7 +571,7 @@ search_preferences_init(void)
 	model = search_preferences_get_model();
 	gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
 	
-	if (default_pref && g_strcasecmp(default_pref, "")  && g_strcasecmp(default_pref, BASIC))	
+	if (default_pref && (*default_pref != '\0') && g_ascii_strcasecmp (default_pref, BASIC))	
 		search_preferences_read_setting(gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
 		                                default_pref));
 	else

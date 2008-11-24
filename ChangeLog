@@ -2,6 +2,13 @@
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/search/search_preferences.c:
+	Removed deprecated funcs.
+
+2008-11-24  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/build-basic-autotools/plugin.c:
 	Removed deprecated funcs.
 
