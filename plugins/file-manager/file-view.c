@@ -33,6 +33,7 @@
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreemodelsort.h>
 #include <gtk/gtkversion.h>
+#include <gdk/gdkkeysyms.h>
 
 #include <gio/gio.h>
 
@@ -190,6 +191,40 @@ file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
 		gtk_tree_path_free(path);
 	
 	return retval;
+}
+
+static gboolean
+file_view_key_press_event (GtkWidget* widget, GdkEventKey* event)
+{
+	if (event->keyval == GDK_Return || event->keyval == GDK_KP_Enter)
+	{
+		AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
+		AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+		GtkTreeIter selected;
+	
+		GtkTreeSelection* selection = 
+			gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	
+		if (gtk_tree_selection_get_selected (selection, NULL, &selected))
+		{
+			GFile* file;
+			GtkTreeIter select_iter;
+			GtkTreeModel* sort_model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+			gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+													   &select_iter, &selected);
+			file = file_model_get_file (priv->model, &select_iter);
+			if (file != NULL)
+			{
+				g_signal_emit_by_name (G_OBJECT (view),
+												"file-open",
+												 file);
+				g_object_unref (file);
+			}
+		}
+	}
+	return 	
+		GTK_WIDGET_CLASS (file_view_parent_class)->key_press_event (widget,
+																	event);
 }
 
 static void
@@ -500,6 +535,7 @@ file_view_class_init (AnjutaFileViewClass *klass)
 				  NULL);
 	
 	widget_class->button_press_event = file_view_button_press_event;
+	widget_class->key_press_event = file_view_key_press_event;
 	
 	/* Tooltips */
 	widget_class->query_tooltip = file_view_query_tooltip;	
