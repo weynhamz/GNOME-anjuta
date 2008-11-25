@@ -726,34 +726,53 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	sdb_plugin->current_editor = NULL;
 }
 
-static void
-on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
-						  SymbolDBPlugin *sdb_plugin)
-{
-	GFile *gfile = NULL;
-	GFileInfo *gfile_info = NULL;
-	IAnjutaLanguage* lang_manager;
+/**
+ * Perform the real add to the db and also checks that no dups are inserted.
+ */
+static gint
+do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array)
+{	
+	GPtrArray* languages_array = NULL;	
+	GPtrArray* to_scan_array = NULL;
+	GHashTable* check_unique_file_hash = NULL;
+	IAnjutaLanguage* lang_manager;	
+	AnjutaPlugin *plugin;
+	gint added_num;
+	gint i;
 	
-	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
-	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
+	plugin = ANJUTA_PLUGIN (sdb_plugin);
 
-	lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(sdb_plugin)->shell, 
-													IAnjutaLanguage, NULL);
+	/* create array of languages and the wannabe scanned files */
+	languages_array = g_ptr_array_new ();
+	to_scan_array = g_ptr_array_new ();
 	
-	g_return_if_fail (lang_manager != NULL);
+	/* to speed the things up we must avoid the dups */
+	check_unique_file_hash = g_hash_table_new_full (g_str_hash, 
+						g_str_equal, NULL, NULL);	
 	
-	DEBUG_PRINT ("%s", "on_project_element_added");
+	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
+										NULL);	
 	
-	gfile = g_file_new_for_uri (uri);	
-	
-	if (gfile)
+	if (!lang_manager)
 	{
-		gchar *filename;
-		GPtrArray *files_array;
-		GPtrArray *languages_array;
-		const gchar* file_mime;
+		g_critical ("LanguageManager not found");
+		return -1;
+	}
+
+	for (i=0; i < sources_array->len; i++) 
+	{
+		const gchar *file_mime;
+		const gchar *lang;
+		const gchar *local_filename;
+		GFile *gfile;
+		GFileInfo *gfile_info;
 		IAnjutaLanguageId lang_id;
-		const gchar* lang;
+		
+		if ( (local_filename = g_ptr_array_index (sources_array, i)) == NULL)		
+			continue;
+		
+		if ((gfile = g_file_new_for_path (local_filename)) == NULL)
+			continue;
 		
 		gfile_info = g_file_query_info (gfile, 
 										"*", 
@@ -763,48 +782,102 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		if (gfile_info == NULL)
 		{
 			g_object_unref (gfile);
-			return;
+			continue;
+		}
+		
+		/* check if it's already present in the list. This avoids
+		 * duplicates.
+		 */
+		if (g_hash_table_lookup (check_unique_file_hash, 
+								 local_filename) == NULL)
+		{
+			g_hash_table_insert (check_unique_file_hash, 
+								 (gpointer)local_filename,
+								 (gpointer)local_filename);
+		}
+		else 
+		{
+			/* you're a dup! we don't want you */
+			continue;
 		}
 		
 		file_mime = g_file_info_get_attribute_string (gfile_info,
 										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
-		
-		DEBUG_PRINT ("got mime %s", file_mime);
-		
-		lang_id = ianjuta_language_get_from_mime_type (lang_manager, file_mime, 
-													   NULL);
-		
-		/* No supported language... */
+					
+		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+													 file_mime, NULL);
+					
 		if (!lang_id)
 		{
 			g_object_unref (gfile);
-			g_object_unref (gfile_info);
-			return;
+			g_object_unref (gfile_info);			
+			continue;
 		}
-		
+				
 		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
-		files_array = g_ptr_array_new();
-		languages_array = g_ptr_array_new();
+
+		/* test its existence */
+		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
+		{
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);			
+			continue;
+		}					
+
+		DEBUG_PRINT ("wh0a, adding to scan local_filename %s (%s)", local_filename,
+					 lang);
 		
-		filename = g_file_get_path (gfile);
-		
-		g_ptr_array_add (files_array, filename);
-		g_ptr_array_add (languages_array, g_strdup (lang));
-		
-		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
-			sdb_plugin->project_opened, files_array, languages_array, TRUE);
-		
-		g_ptr_array_free (files_array, TRUE);
-		
-		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (languages_array, TRUE);
+		/* ok, we've just tested that the local_filename does exist.
+		 * We can safely add it to the array.
+		 */
+		g_ptr_array_add (languages_array, g_strdup (lang));					
+		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
+		g_object_unref (gfile);
+		g_object_unref (gfile_info);		
 	}
+			
+	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
+					to_scan_array, languages_array, TRUE);
+
+	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (languages_array, TRUE);
+	
+	/* get the real added number of files */
+	added_num = to_scan_array->len;
+	
+	g_ptr_array_foreach (to_scan_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (to_scan_array, TRUE);	
+	
+	g_hash_table_destroy (check_unique_file_hash);
+	
+	return added_num;
+}
+
+static void
+on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
+						  SymbolDBPlugin *sdb_plugin)
+{
+	GFile *gfile = NULL;		
+	gchar *filename;
+	GPtrArray *files_array;			
+		
+	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
+	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
+
+	gfile = g_file_new_for_uri (uri);	
+	filename = g_file_get_path (gfile);
+
+	files_array = g_ptr_array_new ();
+	g_ptr_array_add (files_array, filename);
+	
+	/* use a custom function to add the files to db */
+	do_add_new_files (sdb_plugin, files_array);
+
+	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (files_array, TRUE);
 	
 	if (gfile)
-		g_object_unref (gfile);
-	
-	if (gfile_info)
-		g_object_unref (gfile_info);
+		g_object_unref (gfile);	
 }
 
 static void
@@ -1113,100 +1186,18 @@ do_import_project_src_after_abort (AnjutaPlugin *plugin,
 							   const GPtrArray *sources_array)
 {
 	SymbolDBPlugin *sdb_plugin;
-	GPtrArray* languages_array = NULL;
-	GPtrArray *to_scan_array = NULL;
-	IAnjutaLanguage* lang_manager;
-	gint i;
+	gint real_added;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
-		
 
-	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
-										NULL);
-	
-	/* create array of languages */
-	languages_array = g_ptr_array_new ();
-	to_scan_array = g_ptr_array_new ();
-	
-	if (!lang_manager)
-	{
-		g_critical ("LanguageManager not found");
-		return;
-	}
-
-	for (i=0; i < sources_array->len; i++) 
-	{
-		const gchar *file_mime;
-		const gchar *lang;
-		const gchar *local_filename;
-		GFile *gfile;
-		GFileInfo *gfile_info;
-		IAnjutaLanguageId lang_id;
-		
-		local_filename = g_ptr_array_index (sources_array, i);
-		
-		if (local_filename == NULL)
-			continue;
-		
-		gfile = g_file_new_for_path (local_filename);
-		if (gfile == NULL)
-			continue;
-		
-		gfile_info = g_file_query_info (gfile, 
-										"*", 
-										G_FILE_QUERY_INFO_NONE,
-										NULL,
-										NULL);
-		if (gfile_info == NULL)
-		{
-			g_object_unref (gfile);
-			continue;
-		}
-		
-		file_mime = g_file_info_get_attribute_string (gfile_info,
-										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
-					
-		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
-													 file_mime, NULL);
-					
-		if (!lang_id)
-		{
-			g_object_unref (gfile);
-			g_object_unref (gfile_info);			
-			continue;
-		}
-				
-		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
-
-		/* test its existence */
-		if (g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE) 
-		{
-			g_object_unref (gfile);
-			g_object_unref (gfile_info);			
-			continue;
-		}
-					
-		sdb_plugin->files_count_project++;
-		g_ptr_array_add (languages_array, g_strdup (lang));					
-		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
-		g_object_unref (gfile);
-		g_object_unref (gfile_info);		
-	}
-			
 	/* connect to receive signals on single file scan complete. We'll
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
 		  G_CALLBACK (on_project_single_file_scan_end), plugin);
-	
-	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
-					sources_array, languages_array, TRUE);
-			
-	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (languages_array, TRUE);
-	
-	g_ptr_array_foreach (to_scan_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (to_scan_array, TRUE);
+
+	real_added = do_add_new_files (sdb_plugin, sources_array);
+	sdb_plugin->files_count_project += real_added;
 	
 	/* signal */
 	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);
@@ -1218,14 +1209,22 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 {
 	SymbolDBPlugin *sdb_plugin;
 	GList* prj_elements_list;
-	GPtrArray* sources_array = NULL;
-	GPtrArray* languages_array = NULL;
-	GHashTable *check_unique_file;
-	IAnjutaLanguage* lang_manager;
+	GPtrArray* sources_array;
 	gint i;
+	gint real_added;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
-		
+
+	prj_elements_list = ianjuta_project_manager_get_elements (pm,
+					   IANJUTA_PROJECT_MANAGER_SOURCE,
+					   NULL);
+	
+	if (prj_elements_list == NULL)
+	{
+		g_critical ("No sources found within this project");
+		return;
+	}
+	
 	/* if we're importing first shut off the signal receiving.
 	 * We'll re-enable that on scan-end 
 	 */
@@ -1240,149 +1239,52 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
 		  G_CALLBACK (on_importing_project_end), plugin);
 				
-	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
-										NULL);
-			
-	if (lang_manager == NULL)
-	{
-		g_critical ("LanguageManager not found");
-		return;
-	}
-								  
-	prj_elements_list = ianjuta_project_manager_get_elements (pm,
-					   IANJUTA_PROJECT_MANAGER_SOURCE,
-					   NULL);
 	
-	if (prj_elements_list == NULL)
-	{
-		g_critical ("No sources found within this project");
-		return;
-	}
-	
-	/* to speed the things up we must avoid the dups */
-	check_unique_file = g_hash_table_new_full (g_str_hash, 
-						g_str_equal, g_free, g_free);
-
 	DEBUG_PRINT ("%s", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
 					 g_list_length (prj_elements_list));
-				
+
+	/* create the storage array. The file names will be strdup'd and put here. 
+	 + This is just a sort of GList -> GPtrArray conversion.
+	 */
+	sources_array = g_ptr_array_new ();
 	for (i=0; i < g_list_length (prj_elements_list); i++)
 	{	
 		gchar *local_filename;
-		const gchar *file_mime;
-		const gchar *lang;
-		IAnjutaLanguageId lang_id;
 		GFile *gfile = NULL;
-		GFileInfo *gfile_info;
 		
-		gfile = g_file_new_for_uri (g_list_nth_data (
-											prj_elements_list, i));
-		if (gfile == NULL)
+		if ((gfile = g_file_new_for_uri (g_list_nth_data (prj_elements_list, i))) == NULL)
 		{
 			continue;
-		}
-		
-				
-		local_filename = g_file_get_path (gfile);
-/*		DEBUG_PRINT ("local_filename %s [was %s]", local_filename, g_list_nth_data (
-										prj_elements_list, i));*/
-					
-		if (local_filename == NULL || 
-			g_file_test (local_filename, G_FILE_TEST_EXISTS) == FALSE)
+		}		
+
+		if ((local_filename = g_file_get_path (gfile)) == NULL)
 		{
 			if (gfile)
 				g_object_unref (gfile);
 			continue;
-		}
-					
-		/* check if it's already present in the list. This avoids
-		 * duplicates.
-		 */
-		if (g_hash_table_lookup (check_unique_file, 
-								 local_filename) == NULL)
-		{
-			g_hash_table_insert (check_unique_file, 
-								 g_strdup (local_filename), 
-								 g_strdup (local_filename));
-		}
-		else 
-		{
-			/* you're a dup! we don't want you */
-			g_free (local_filename);
-			continue;
-		}					
-		
-		if (gfile == NULL)
-		{
-			g_free (local_filename);
-			continue;
-		}
-		
-		gfile_info = g_file_query_info (gfile, 
-										"*", 
-										G_FILE_QUERY_INFO_NONE,
-										NULL,
-										NULL);
-		if (gfile_info == NULL)
-		{
-			g_free (local_filename);
-			g_object_unref (gfile);
-			continue;
-		}
-		
-		file_mime = g_file_info_get_attribute_string (gfile_info,
-										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
-					
-		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
-													 file_mime, NULL);
-					
-		if (!lang_id)
-		{
-			g_free (local_filename);
-			g_object_unref (gfile);
-			g_object_unref (gfile_info);
-			continue;
-		}
-			
-		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
+		}			
 
-		if (!sources_array)
-			sources_array = g_ptr_array_new ();
-					
-		if (!languages_array)
-			languages_array = g_ptr_array_new ();
-
-		sdb_plugin->files_count_project++;
 		g_ptr_array_add (sources_array, local_filename);
-		g_ptr_array_add (languages_array, g_strdup (lang));					
 		g_object_unref (gfile);
-		g_object_unref (gfile_info);		
 	}
+	
+	real_added = do_add_new_files (sdb_plugin, sources_array);
+	sdb_plugin->files_count_project += real_added;
 			
-	DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
-			 root_dir);
-
 	/* connect to receive signals on single file scan complete. We'll
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
 		  G_CALLBACK (on_project_single_file_scan_end), plugin);
 	
-	if (sources_array == NULL || languages_array == NULL)
-		g_warning ("source or language arrays are NULL. Could not import project's files.");
-	else
-		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
-										sdb_plugin->project_opened,
-						sources_array, languages_array, TRUE);
-				
-	g_hash_table_unref (check_unique_file);
-				
+	/* free the ptr array */
 	g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (sources_array, TRUE);
 
-	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (languages_array, TRUE);	
+	/* and the list of project files */
+	g_list_foreach (prj_elements_list, (GFunc) g_free, NULL);
+	g_list_free (prj_elements_list);
 }
 
 static  void
@@ -1418,22 +1320,65 @@ on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
 	}	
 }
 
-#if 0
 static void
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 {
 	GList * prj_elements_list;
 	IAnjutaProjectManager *pm;
-	gboolean parsed = NULL;
-	GPtrArray *to_remove_files = NULL;
+	GHashTable *prj_elements_hash;
+	GPtrArray *to_add_files = NULL;
+	gint i;
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);	
 
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
 		   IANJUTA_PROJECT_MANAGER_SOURCE,
-		   NULL);				
+		   NULL);
 	
+	/* fill an hash table with all the items of the list just taken. 
+	 * We won't g_strdup () the elements because they'll be freed later
+	 */
+	prj_elements_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, 
+											  NULL);
+	
+	for (i = 0; i <  g_list_length (prj_elements_list); i++)
+	{	
+		GFile *gfile;
+		gchar *filename;
+		const gchar *uri = (const gchar*)g_list_nth_data (prj_elements_list, i);
+
+		if ((gfile = g_file_new_for_uri (uri)) == NULL) 
+		{
+			DEBUG_PRINT ("%s", "hey, gfile is NULL");
+			continue;
+		}
+		
+		
+		if ((filename = g_file_get_path (gfile)) == NULL || 
+			g_strcmp0 (filename, "") == 0)
+		{
+			g_object_unref (gfile);
+			DEBUG_PRINT ("hey, filename (uri %s) is NULL", uri);
+			continue;
+		}
+		
+		/* test its existence */
+		if (g_file_test (filename, G_FILE_TEST_EXISTS) == FALSE) 
+		{
+			DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);
+			g_object_unref (gfile);
+			continue;
+		}					
+		
+		
+	/*	DEBUG_PRINT ("inserting into hash uri is ->%s<- filename ->%s<-", 
+					 uri, filename);*/
+		g_hash_table_insert (prj_elements_hash, filename, (gpointer)1);		
+		g_object_unref (gfile);
+	}	
+	
+
 	/* some files may have added/removed editing Makefile.am while
 	 * Anjuta was offline. Check this case too.
 	 */
@@ -1441,121 +1386,67 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		symbol_db_engine_get_files_for_project (sdb_plugin->sdbe_project, 
 												NULL,
 												SYMINFO_FILE_PATH);
-	
-	/* files eventually removed to the project with Anjuta offline */
-	to_remove_files = NULL;
-	
-	/* something between O(n^2) and O(n log n). Totally inefficient,
-	 * in particular for big-sized projects. Are we really sure we want 
-	 * this? The only hope is that both the lists come ordered.
-	 */
+
 	if (it != NULL && symbol_db_engine_iterator_get_n_items (it) > 0)
 	{
-		parsed = TRUE;
+		GPtrArray *remove_array;
+		remove_array = g_ptr_array_new ();
 		do {
 			SymbolDBEngineIteratorNode *dbin;
-			GList *link;
-			gchar *full_path;
-			gchar *full_uri;
-		
 			dbin = (SymbolDBEngineIteratorNode *) it;
 			
-			const gchar * db_file = 
+			const gchar * file = 
 				symbol_db_engine_iterator_node_get_symbol_extra_string (dbin,
 													SYMINFO_FILE_PATH);
-			full_path = symbol_db_engine_get_full_local_path (sdb_plugin->sdbe_project,
-												  db_file);
-			full_uri = gnome_vfs_get_uri_from_local_path (full_path);
 			
-			if ((link = g_list_find_custom (prj_elements_list, full_uri,
-									g_list_compare)) == NULL) 
+			if (g_hash_table_remove (prj_elements_hash, file) == FALSE)
 			{
-				if (to_remove_files == NULL)
-					to_remove_files = g_ptr_array_new ();
-				
-				DEBUG_PRINT ("to_remove_files, added %s", full_path);
-				g_ptr_array_add (to_remove_files, full_path);						
-				/* no need to free full_path now */				
-			} 
-			else
-			{
-				/* go and remove the entry from the project_entries, so 
-				 * to skip an iteration next time */
-				prj_elements_list = g_list_delete_link (prj_elements_list, 
-												   link);
-				DEBUG_PRINT ("deleted, removed %s. Still length %d", full_path,
-							 g_list_length (prj_elements_list));
-				g_free (full_path);
+				/* hey, we dind't find an element to remove the the project list.
+				 * So, probably, this is a new file added in offline mode via Makefile.am
+				 * editing.
+				 * Keep a reference to it.
+				 */
+				DEBUG_PRINT ("ARRAY REMOVE %s", file);
+				g_ptr_array_add (remove_array, (gpointer)file);
 			}
-			g_free (full_uri);
 		} while (symbol_db_engine_iterator_move_next (it));
-	}	
-				
-	/* good, in prj_elements_list we'll have the files to add 
-	 * from project */
-	if (to_remove_files != NULL)
-	{		
-		DEBUG_PRINT ("%s", "if (to_remove_files != NULL)");
+		
 		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
 									   sdb_plugin->project_opened,
-									   to_remove_files);
-		g_ptr_array_foreach (to_remove_files, (GFunc)g_free, NULL);
-		g_ptr_array_free (to_remove_files, TRUE);
-		to_remove_files = NULL;
+									   remove_array);		
+		g_ptr_array_free (remove_array, TRUE);		
 	}
-	
-	/* add those left files */
-	if (prj_elements_list != NULL && it != NULL && parsed == TRUE)
+
+	/* great, at this point we should have this situation:
+	 * remove array = files to remove, remaining items in the hash_table = files 
+	 * to add.
+	 */
+	to_add_files = g_ptr_array_new ();
+	if (g_hash_table_size (prj_elements_hash) > 0)
 	{
-		DEBUG_PRINT ("%s", "if (prj_elements_list != NULL)");
-		GPtrArray *to_add_files = g_ptr_array_new ();
-		GPtrArray *languages_array = g_ptr_array_new();
-		GList *item = prj_elements_list;														
-		IAnjutaLanguage* lang_manager;	
-	
-		lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(sdb_plugin)->shell, 
-										IAnjutaLanguage, NULL);	
-	
-		while (item != NULL)
-		{					
-			const gchar* lang;
-			gchar *full_path;
-			IAnjutaLanguageId lang_id;	
-			const gchar *file_mime;
-
-			full_path = gnome_vfs_get_local_path_from_uri (item->data);			
-			file_mime = gnome_vfs_get_mime_type_for_name (full_path);
-			lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
-								file_mime, NULL);								
-			/* No supported language... */
-			if (!lang_id)
-			{
-				g_free (full_path);
-				continue;
-			}						
-			lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
-			g_ptr_array_add (languages_array, g_strdup (lang));
-			
-
-			g_ptr_array_add (to_add_files, full_path);
-				
-			item = item->next;
-		}
-			
-		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project,
-						sdb_plugin->project_opened,
-						to_add_files,
-						languages_array,
-						TRUE);					
-			
-		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (languages_array, TRUE);
-			
-		g_ptr_array_foreach (to_add_files, (GFunc)g_free, NULL);
-		g_ptr_array_free (to_add_files, TRUE);	
+		gint i;
+		GList *keys = g_hash_table_get_keys (prj_elements_hash);		
+		
+		/* get all the nodes from the hash table and add them to the wannabe-added 
+		 * array
+		 */
+		for (i = 0; i < g_hash_table_size (prj_elements_hash); i++)
+		{
+			DEBUG_PRINT ("ARRAY ADD %s", g_list_nth_data (keys, i));
+			g_ptr_array_add (to_add_files, g_list_nth_data (keys, i));
+		}		
 	}
+
+	/* good. Let's go on with add of new files. */
+	if (to_add_files->len > 0)
+	{
+		do_add_new_files (sdb_plugin, to_add_files);
+	}
+	
+	g_object_unref (it);
+	g_ptr_array_free (to_add_files, TRUE);
+	g_hash_table_destroy (prj_elements_hash);
 }
-#endif
 
 /* add a new project */
 static void
@@ -1569,12 +1460,11 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	/*
-	 *   The Globals thing
+	 * The Globals thing
 	 */
 	
-	/* hide it. Default */
-	/* system tags thing: we'll import after abort even if the preferences says not
-	 * to automatically scan the packages.
+	/* hide it. Default system tags thing: we'll import after abort even 
+	 * if the preferences says not to automatically scan the packages.
 	 */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 	
@@ -1706,9 +1596,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				}
 
 				
-				/* check for offline changes */
-				/* FIXME */
-				/*do_check_offline_files_changed (sdb_plugin);*/
+				/* check for offline changes */				
+				do_check_offline_files_changed (sdb_plugin);
 				
 				
 				/* Update the symbols */
@@ -1738,9 +1627,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_signal_connect (G_OBJECT (pm), "element_added",
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
-					  G_CALLBACK (on_project_element_removed), sdb_plugin);	
-
-	
+					  G_CALLBACK (on_project_element_removed), sdb_plugin);
 }
 
 static void

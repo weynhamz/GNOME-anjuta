@@ -1,3 +1,14 @@
+2008-11-25  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (do_add_new_files),
+	(on_project_element_added), (do_import_project_src_after_abort),
+	(do_import_project_sources), (do_check_offline_files_changed),
+	(on_project_root_added):
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_add_new_files), (symbol_db_engine_remove_file):
+	code cleaning. Added check for offline Makefile.am changes.
+	Fixed bug #558171.
+
 2008-11-25  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

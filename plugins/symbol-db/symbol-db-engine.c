@@ -3478,7 +3478,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 		/* test the existance of node file */
 		if (g_file_test (node_file, G_FILE_TEST_EXISTS) == FALSE)
 		{
-			g_warning ("File %s does NOT exist", node_file);
+			g_warning ("symbol_db_engine_add_new_files (): File %s does NOT exist", node_file);
 			continue;
 		}
 		
@@ -3495,7 +3495,8 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 			sdb_engine_add_new_file (dbe, project_name, node_file, 
 									 node_lang) == FALSE)
 		{
-			g_warning ("Error processing file %s, db_directory %s, project_name %s, "
+			g_warning ("symbol_db_engine_add_new_files (): "
+					   "Error processing file %s, db_directory %s, project_name %s, "
 					   "project_directory %s", node_file, 
 					   priv->db_directory, project_name, priv->project_directory);
 			return FALSE;
@@ -5794,6 +5795,8 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 		g_warning ("wrong file to delete.");
 		return FALSE;
 	}
+	
+	DEBUG_PRINT ("deleting %s", file);
 	
 	/* Triggers will take care of updating/deleting connected symbols
 	 * tuples, like sym_kind, sym_type etc */
