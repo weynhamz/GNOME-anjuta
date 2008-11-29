@@ -2509,6 +2509,19 @@ on_collect (gpointer key, gpointer value, gpointer user_data)
 	g_free (id);
 }
 
+/**
+ * anjuta_plugin_manager_get_remembered_plugins:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * 
+ * Get the list of plugins loaded when there is a choice between several
+ * ones without asking the user.
+ *
+ * The list format is returned as a string with the format detailed in 
+ * anjuta_plugin_manager_set_remembered_plugins().
+ *
+ * Return value: a newly-allocated string that must be freed with g_free().
+ */
+
 gchar*
 anjuta_plugin_manager_get_remembered_plugins (AnjutaPluginManager *plugin_manager)
 {
@@ -2529,6 +2542,24 @@ on_foreach_remove_true (gpointer k, gpointer v, gpointer d)
 	return TRUE;
 }
 
+/**
+ * anjuta_plugin_manager_set_remembered_plugins:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * @remembered_plugins: A list of prefered plugins
+ * 
+ * Set the list of plugins loaded when there is a choice between several
+ * ones without asking the user.
+ * The list is a string composed of elements separated by ';'. Each element
+ * is defined with "key=value", where key is the list of possible plugins and
+ * the value is the choosen plugin.
+ *
+ * By the example the following element
+ * <programlisting>
+ *   anjuta-symbol-browser:SymbolBrowserPlugin,anjuta-symbol-db:SymbolDBPlugin,=anjuta-symbol-db:SymbolDBPlugin;
+ * </programlisting>
+ * means if Anjuta has to choose between SymbolBrowserPlugin and
+ * SymbolDBPlugin, it will choose SymbolDBPlugin.
+ */
 void
 anjuta_plugin_manager_set_remembered_plugins (AnjutaPluginManager *plugin_manager,
 											  const gchar *remembered_plugins)

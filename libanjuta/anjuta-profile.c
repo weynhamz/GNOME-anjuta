@@ -659,6 +659,14 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 	return descs_list != NULL;
 }
 
+/**
+ * anjuta_profile_to_xml :
+ * @profile: A #AnjutaProfile object
+ * 
+ * Return a string in xml format containing the list of saved plugins.
+ *
+ * Return value: a newly-allocated string that must be freed with g_free().
+ */
 gchar*
 anjuta_profile_to_xml (AnjutaProfile *profile)
 {
@@ -732,6 +740,14 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 	return g_string_free (str, FALSE);
 }
 
+/**
+ * anjuta_profile_set_sync_file:
+ * @profile: A #AnjutaProfile object
+ * @sync_file: File used to save profile
+ * 
+ * Define the file used to save plugins list.
+ */
+
 void
 anjuta_profile_set_sync_file (AnjutaProfile *profile, GFile *sync_file)
 {
@@ -748,6 +764,15 @@ anjuta_profile_set_sync_file (AnjutaProfile *profile, GFile *sync_file)
 		g_object_ref (priv->sync_file);
 }
 
+/**
+ * anjuta_profile_sync:
+ * @profile: A #AnjutaProfile object
+ * @error: Error propagation and reporting
+ * 
+ * Save the current plugins list in the xml file set with anjuta_profile_set_sync_file().
+ *
+ * Return value: TRUE on success, FALSE otherwise
+ */
 gboolean
 anjuta_profile_sync (AnjutaProfile *profile, GError **error)
 {

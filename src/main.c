@@ -344,7 +344,10 @@ main (int argc, char *argv[])
 								  GNOME_PARAM_APP_DATADIR, data_dir,
 								  GNOME_PARAM_NONE);
 	g_free (data_dir);
-	
+
+	/* Init debug helpers */
+	anjuta_debug_init ();
+
 	/* Get the command line files */
 	get_command_line_args ();
 	

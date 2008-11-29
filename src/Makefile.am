@@ -26,7 +26,8 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DOC_DIR=\"$(datadir)/doc/$(PACKAGE)\" \
 	-DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" \
 	-DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" \
-	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\"
+	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" \
+	-DG_LOG_DOMAIN=\"Anjuta\"
 
 
 include $(top_srcdir)/plugins/editor/scintilla/lexers.make

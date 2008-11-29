@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
-    anjuta-utils.h
+    anjuta-debug.h
     Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,21 @@
  * @stability: Unstable
  * @include: libanjuta/anjuta-debug.h
  * 
+ * Anjuta debug messages displayed with g_debug() can be filtered based on their
+ * domain. By default if DEBUG is defiled, all message are displayed. If DEBUG is not
+ * defined, all messages are hidden.
+ *
+ * This behavior can be changed using the ANJUTA_LOG_DOMAINS environment
+ * variable. If this variable is set to "all", all message are displayed whatever is the
+ * value of DEBUG. Else you can set it to a list of domains separated by space to 
+ * display messages from these selected domains only.
+ * If G_LOG_DOMAIN is undefined, it will match a domain named "NULL".
+ *
+ * By example
+ *<programlisting>
+ * ANJUTA_LOG_DOMAINS=Gtk Anjuta libanjuta-gdb
+ *</programlisting>
+ * will display debug messages from Gtk, Anjuta and gdb plugin only.
  */
 
 #ifndef __ANJUTA_DEBUG__
@@ -38,10 +53,16 @@
  * except it has only effect when DEBUG is defined. Used for printing debug 
  * messages.
  */
-#if defined (DEBUG) && defined (__GNUC__) && __GNUC__ >= 3
-#  define DEBUG_PRINT(format, ...) g_debug ("%s:%d (%s) " format, __FILE__, __LINE__, G_STRFUNC, __VA_ARGS__)
+#if defined (DEBUG)
+	#if defined (__GNUC__) && (__GNUC__ >= 3) && !defined(__STRICT_ANSI__)
+		#define DEBUG_PRINT(format, ...) g_debug ("%s:%d (%s) " format, __FILE__, __LINE__, G_STRFUNC, ##__VA_ARGS__)
+	#else
+		#define DEBUG_PRINT g_debug
+	#endif
 #else
-#  define DEBUG_PRINT(...)
+	#define DEBUG_PRINT(...)
 #endif
 
-#endif
+void anjuta_debug_init (void);
+
+#endif /* _ANJUTA_DEBUG_H_ */

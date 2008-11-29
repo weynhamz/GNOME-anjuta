@@ -1,3 +1,20 @@
+2008-11-29  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* (added) libanjuta/anjuta-debug.c,
+	libanjuta/anjuta-debug.h,
+	libanjuta/Makefile.am,
+	plugins/gdb/Makefile.am,
+	src/main.c,
+	src/Makefile.am:
+	Use gcc extension to allow using DEBUG_PRINT without a format string
+	Allow to filter g_debug message using ANJUTA_LOG_DOMAINS environment
+	variable
+
+	* manuals/reference/libanjuta/libanjuta-sections.txt,
+	libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-profile.c:
+	Update libanjuta documerntation
+
 2008-11-25  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (do_add_new_files),
