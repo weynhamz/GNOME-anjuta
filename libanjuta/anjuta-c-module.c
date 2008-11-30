@@ -204,8 +204,8 @@ anjuta_c_module_get_last_error (AnjutaCModule *module, GError** err)
 			return TRUE;
 	case IANJUTA_PLUGIN_FACTORY_INVALID_MODULE:
 			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,
-					 	module->error,
-						g_module_error());
+					 	 module->error,
+						 "%s", g_module_error());
 			return TRUE;
 	case IANJUTA_PLUGIN_FACTORY_MISSING_FUNCTION:
 			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,

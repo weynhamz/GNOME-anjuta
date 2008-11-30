@@ -168,6 +168,7 @@ anjuta_session_clear (AnjutaSession *session)
 {
 	gchar *path;
 	gchar *filename, *cmd;
+	gint ret;
 	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	
@@ -180,11 +181,11 @@ anjuta_session_clear (AnjutaSession *session)
 	anjuta_session_sync (session);
 	
 	cmd = g_strconcat ("mkdir -p ", session->priv->dir_path, NULL);
-	system (cmd);
+	ret = system (cmd);
 	g_free (cmd);
 	
 	cmd = g_strconcat ("rm -fr ", session->priv->dir_path, "/*", NULL);
-	system (cmd);
+	ret = system (cmd);
 	g_free (cmd);
 }
 

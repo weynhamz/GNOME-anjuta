@@ -1,3 +1,15 @@
+2008-11-30  Naba Kumar  <naba@naba-desktop>
+
+	Patch from: Ignacio Casal Quinteiro
+ 
+	* libanjuta/anjuta-c-module.c (anjuta_c_module_get_last_error):
+	* libanjuta/anjuta-session.c (anjuta_session_clear):
+	* libanjuta/anjuta-utils.c (anjuta_util_dialog_error),
+	(anjuta_util_dialog_warning), (anjuta_util_dialog_info),
+	(anjuta_util_dialog_error_system),
+	(anjuta_util_dialog_boolean_question): Fixes build warnings. Part of
+	Bug #558910: libanjuta has several warnings
+
 
 2008-11-30  Naba Kumar  <naba@gnome.org>
 

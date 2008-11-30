@@ -276,7 +276,7 @@ anjuta_util_dialog_error (GtkWindow *parent, const gchar *mesg, ...)
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_ERROR,
-									 GTK_BUTTONS_CLOSE, message);
+									 GTK_BUTTONS_CLOSE, "%s", message);
 	g_signal_connect (G_OBJECT (dialog), "response",
 					  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show (dialog);
@@ -308,7 +308,7 @@ anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...)
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_WARNING,
-									 GTK_BUTTONS_CLOSE, message);
+									 GTK_BUTTONS_CLOSE, "%s", message);
 	g_signal_connect (G_OBJECT (dialog), "response",
 					  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show (dialog);
@@ -339,7 +339,7 @@ anjuta_util_dialog_info (GtkWindow *parent, const gchar * mesg, ...)
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
-									 GTK_BUTTONS_CLOSE, message);
+									 GTK_BUTTONS_CLOSE, "%s", message);
 	g_signal_connect (G_OBJECT (dialog), "response",
 					  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show (dialog);
@@ -379,7 +379,7 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_ERROR,
-									 GTK_BUTTONS_CLOSE, tot_mesg);
+									 GTK_BUTTONS_CLOSE, "%s", tot_mesg);
 	g_signal_connect (G_OBJECT (dialog), "response",
 					  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show (dialog);
@@ -411,7 +411,7 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO, message);
+									 GTK_BUTTONS_YES_NO, "%s", message);
 
 	ret = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
@@ -925,6 +925,7 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 {
 	pid_t pid;
 	gchar *shell;
+	gint err;
 	
 	g_return_val_if_fail (command != NULL, -1);
 	
@@ -935,7 +936,7 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 		if(dir)
 		{
 			anjuta_util_create_dir (dir);
-			chdir (dir);
+			err = chdir (dir);
 		}
 		execlp (shell, shell, "-c", command, NULL);
 		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
@@ -1682,15 +1683,15 @@ anjuta_util_construct_pathv (const gchar* str, va_list str_list)
 	{
 		while ((tmp_str = va_arg (str_list, const gchar*)) != NULL) 
 		{
-			g_ptr_array_add (str_arr, tmp_str);
+			g_ptr_array_add (str_arr, (gpointer)tmp_str);
 		}
 		va_end (str_list);
 	}
 	
 	/* Terminate the list */
-	g_ptr_array_add (str_arr, (gpointer) NULL);
+	g_ptr_array_add (str_arr, NULL);
 
-	path = g_build_filenamev ((gchar*) str_arr->pdata);
+	path = g_build_filenamev ((gchar **)str_arr->pdata);
 	g_ptr_array_free (str_arr, TRUE);
 	
 	return path;
