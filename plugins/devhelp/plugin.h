@@ -49,10 +49,12 @@ struct _AnjutaDevhelp{
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	DhBase         *base;
 #endif /* DISABLE_EMBEDDED_DEVHELP */
-	GtkWidget     *htmlview;    
+	GtkWidget      *view;    
 	GtkWidget      *control_notebook; 
 	GtkWidget      *book_tree;
 	GtkWidget      *search;
+	GtkWidget      *go_back;
+	GtkWidget      *go_forward;
 	
 	IAnjutaEditor	*editor;
 	guint editor_watch_id;

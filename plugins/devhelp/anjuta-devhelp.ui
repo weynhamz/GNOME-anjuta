@@ -1,14 +1,6 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<menu name="MenuView" action="ActionMenuView">
-			<menu name="Goto" action="ActionMenuGoto">
-				<placeholder name="PlaceholderGotoMenus">
-					<menuitem name="BackHelp" action="ActionDevhelpBack" />
-					<menuitem name="ForwardHelp" action="ActionDevhelpForward" />
-				</placeholder>
-			</menu>
-		</menu>
 		<placeholder name="PlaceHolderHelpMenus" >
 			<menu name="MenuHelp" action="ActionMenuHelp" >
 				<placeholder name="PlaceHolderHelpDevel" >
@@ -24,7 +16,5 @@
 	</toolbar>
 	<toolbar name="ToolbarBrowser">		
 		<toolitem name="Context" action="ActionHelpContext" />
-		<toolitem name="BackHelp" action="ActionDevhelpBack" />
-		<toolitem name="ForwardHelp" action="ActionDevhelpForward" />
 	</toolbar>
 </ui>

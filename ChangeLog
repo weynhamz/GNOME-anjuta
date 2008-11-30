@@ -1,3 +1,22 @@
+2008-11-30  Johannes Schmid  <jhs@idefix>
+
+  Patch from 
+
+	* configure.in:
+	* plugins/devhelp/Makefile.am:
+	* plugins/devhelp/anjuta-devhelp.ui:
+	* plugins/devhelp/htmlview.c:
+	* plugins/devhelp/htmlview.h:
+	* plugins/devhelp/plugin.c (register_stock_icons),
+	(devhelp_tree_link_selected_cb), (devhelp_search_link_selected_cb),
+	(on_go_back_clicked), (on_go_forward_clicked), (context_idle),
+	(value_added_current_editor), (value_removed_current_editor),
+	(devhelp_activate), (devhelp_deactivate),
+	(anjuta_devhelp_check_history), (devhelp_finalize),
+	(devhelp_dispose), (devhelp_class_init), (ihelp_search):
+	* plugins/devhelp/plugin.h:
+	560311 – Update devhelp plugin to use webkit version
+
 2008-11-29  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* (added) libanjuta/anjuta-debug.c,

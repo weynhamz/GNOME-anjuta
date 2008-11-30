@@ -46,20 +46,11 @@ libanjuta_devhelp_la_SOURCES = \
 	plugin.c \
 	plugin.h
 
-if HAVE_PLUGIN_DEVHELP
-libanjuta_devhelp_la_SOURCES += \
-	htmlview.c \
-	htmlview.h
-endif
-
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(LIBANJUTA_LIBS)
-
-if HAVE_PLUGIN_DEVHELP
-libanjuta_devhelp_la_LIBADD += $(PLUGIN_DEVHELP_LIBS)
-endif
+	$(LIBANJUTA_LIBS) \
+	$(PLUGIN_DEVHELP_LIBS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

@@ -34,11 +34,9 @@
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
 #include <devhelp/dh-book-tree.h>
-#include <devhelp/dh-html.h>
-#include <devhelp/dh-preferences.h>
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
-#include "htmlview.h"
+#include <webkit/webkit.h>
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
 
 #else /* DISABLE_EMBEDDED_DEVHELP */
@@ -51,12 +49,8 @@ static gpointer parent_class;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-#define ANJUTA_PIXMAP_HELP_NEXT "anjuta-go-help-next-24.png"
-#define ANJUTA_PIXMAP_HELP_PREV "anjuta-go-help-prev-24.png"
 #define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin-48.png"
 
-#define ANJUTA_STOCK_HELP_NEXT "anjuta-help-next"
-#define ANJUTA_STOCK_HELP_PREV "anjuta-help-prev"
 #define ANJUTA_STOCK_DEVHELP "anjuta-devhelp"
 
 static void
@@ -74,76 +68,55 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (ANJUTA_PIXMAP_HELP_NEXT, ANJUTA_STOCK_HELP_NEXT);
-	REGISTER_ICON (ANJUTA_PIXMAP_HELP_PREV, ANJUTA_STOCK_HELP_PREV);
 	REGISTER_ICON (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
 }
 
 static void
-devhelp_tree_link_selected_cb (GObject       *ignored,
-			      DhLink        *link,
-			      AnjutaDevhelp *widget)
+devhelp_tree_link_selected_cb (GObject       *ignored, DhLink *link,
+							   AnjutaDevhelp *widget)
 {
+	gchar *uri;
 	
-	DhHtml       *html;
+	/*anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
+								 widget->view, NULL);*/
 
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->htmlview, NULL);
-
-	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
+	uri = dh_link_get_uri (link);
+	webkit_web_view_open (WEBKIT_WEB_VIEW (widget->view), uri);
+	g_free (uri);
 	
-	if (!DH_IS_HTML(html))
-		return;
-	
-	dh_html_open_uri (html, link->uri);
-
 	anjuta_devhelp_check_history (widget);
 }
 
 static void
-devhelp_search_link_selected_cb (GObject  *ignored,
-				DhLink   *link,
-				 AnjutaDevhelp *widget)
+devhelp_search_link_selected_cb (GObject  *ignored, DhLink *link,
+								 AnjutaDevhelp *widget)
 {
-	DhHtml       *html;
+	gchar *uri;
+	
+	/*anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
+								 widget->view, NULL);*/
 
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->htmlview, NULL);
-
-	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
-
-	if (!DH_IS_HTML(html))
-		return;
-
-	dh_html_open_uri (html, link->uri);
-
+	uri = dh_link_get_uri (link);
+	webkit_web_view_open (WEBKIT_WEB_VIEW (widget->view), uri);
+	g_free (uri);
+	
 	anjuta_devhelp_check_history (widget);
 }
 
 static void
-on_go_back_activate (GtkAction *action, AnjutaDevhelp *plugin)
+on_go_back_clicked (GtkWidget *widget, AnjutaDevhelp *plugin)
 {
-	DhHtml* html;
-
-	html = html_view_get_dh_html(HTML_VIEW(plugin->htmlview));
+	webkit_web_view_go_back (WEBKIT_WEB_VIEW (plugin->view));
 	
-	if (!DH_IS_HTML(html))
-		return;
-		
-	dh_html_go_back(html);
+	anjuta_devhelp_check_history (plugin);
 }
 
 static void
-on_go_forward_activate (GtkAction *action, AnjutaDevhelp *plugin)
+on_go_forward_clicked (GtkWidget *widget, AnjutaDevhelp *plugin)
 {
-	DhHtml* html;
-
-	html = html_view_get_dh_html(HTML_VIEW(plugin->htmlview));
+	webkit_web_view_go_forward (WEBKIT_WEB_VIEW (plugin->view));
 	
-	if (!DH_IS_HTML(html))
-		return;
-	
-	dh_html_go_forward(html);
+	anjuta_devhelp_check_history (plugin);
 }
 
 static gboolean
@@ -173,7 +146,7 @@ on_api_reference_activate (GtkAction *action, AnjutaDevhelp *plugin)
 }
 
 static gboolean
-context_idle(AnjutaDevhelp* plugin)
+context_idle (AnjutaDevhelp* plugin)
 {
 	IAnjutaEditor *editor;
 	gchar *current_word;
@@ -232,22 +205,6 @@ static GtkActionEntry actions[] = {
 		NULL,
 		NULL
 	},
-	{
-		"ActionDevhelpBack",
-		ANJUTA_STOCK_HELP_PREV,
-		N_("Previous Help"),
-		NULL,
-		N_("Go to previous help page"),
-		G_CALLBACK (on_go_back_activate)
-	},
-	{
-		"ActionDevhelpForward",
-		ANJUTA_STOCK_HELP_NEXT,
-		N_("Next Help"),
-		NULL,
-		N_("Go to next help page"),
-		G_CALLBACK (on_go_forward_activate)
-	},
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 	{
 		"ActionHelpApi",
@@ -282,7 +239,7 @@ static GtkActionEntry actions[] = {
 /* Watches callbacks */
 
 static void
-value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 							const GValue *value, gpointer data)
 {
 	GtkAction *action;
@@ -300,7 +257,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 static void
 value_removed_current_editor (AnjutaPlugin *plugin,
-							  const char *name, gpointer data)
+							  const gchar *name, gpointer data)
 {
 	GtkAction *action;
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (data);	
@@ -314,7 +271,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static gboolean
 devhelp_activate (AnjutaPlugin *plugin)
 {
-
 	AnjutaUI *ui;
 	AnjutaDevhelp *devhelp;
 
@@ -323,12 +279,15 @@ devhelp_activate (AnjutaPlugin *plugin)
 	GNode *books;
 	GList *keywords;
 	GtkWidget* books_sw;
+	GtkWidget *scrolled_window;
+	GtkWidget *main_vbox;
+	GtkWidget *button_hbox;
 	
 	if (!init)
 	{
 		register_stock_icons (plugin);
 		init = TRUE;
-	}	
+	}
 #endif
 
 	DEBUG_PRINT ("%s", "AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
@@ -346,47 +305,89 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
-
+	/*
+	 * Forward/back buttons
+	 */
+	main_vbox = gtk_vbox_new (FALSE, 6);
+	gtk_widget_show (main_vbox);
+	button_hbox = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (button_hbox);
+	
+	devhelp->go_back = gtk_button_new_from_stock (GTK_STOCK_GO_BACK);
+	gtk_widget_show (devhelp->go_back);
+	gtk_box_pack_start (GTK_BOX (button_hbox), devhelp->go_back, FALSE, FALSE, 0);
+	gtk_widget_set_sensitive (devhelp->go_back, FALSE);
+	g_signal_connect (devhelp->go_back, "clicked",
+			  G_CALLBACK (on_go_back_clicked), devhelp);
+	
+	devhelp->go_forward = gtk_button_new_from_stock (GTK_STOCK_GO_FORWARD);
+	gtk_widget_show (devhelp->go_forward);
+	gtk_box_pack_start (GTK_BOX (button_hbox), devhelp->go_forward, FALSE, FALSE, 0);
+	gtk_widget_set_sensitive (devhelp->go_forward, FALSE);
+	g_signal_connect (devhelp->go_forward, "clicked",
+			  G_CALLBACK (on_go_forward_clicked), devhelp);
+	
+	gtk_box_pack_start (GTK_BOX (main_vbox), button_hbox, FALSE, FALSE, 0);
+	
+	/*
+	 * Notebook
+	 */
 	books = dh_base_get_book_tree (devhelp->base);
 	keywords = dh_base_get_keywords (devhelp->base);
 	
-	books_sw = gtk_scrolled_window_new(NULL, NULL);
+	books_sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (books_sw),
-					GTK_POLICY_NEVER,
-					GTK_POLICY_AUTOMATIC);
+									GTK_POLICY_NEVER,
+									GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (books_sw),
-					     GTK_SHADOW_IN);
+									     GTK_SHADOW_IN);
 	gtk_container_set_border_width (GTK_CONTAINER (books_sw), 2);
 	
-	devhelp->control_notebook = gtk_notebook_new();
-	devhelp->book_tree = dh_book_tree_new(books);
-	devhelp->search = dh_search_new(keywords);
+	devhelp->control_notebook = gtk_notebook_new ();
+	gtk_box_pack_start (GTK_BOX (main_vbox), devhelp->control_notebook, TRUE, TRUE, 0);
+	devhelp->book_tree = dh_book_tree_new (books);
+	
+	devhelp->search = dh_search_new (keywords);
+	gtk_widget_set_size_request (devhelp->search, 0, 0);
 	
 	g_signal_connect (devhelp->book_tree,
-			  "link-selected",
-			  G_CALLBACK (devhelp_tree_link_selected_cb),
-			  devhelp);
+					  "link-selected",
+					  G_CALLBACK (devhelp_tree_link_selected_cb),
+					  devhelp);
 	g_signal_connect (devhelp->search,
-			  "link-selected",
-			  G_CALLBACK (devhelp_search_link_selected_cb),
-			  devhelp);
+					  "link-selected",
+					  G_CALLBACK (devhelp_search_link_selected_cb),
+					  devhelp);
 	
-	gtk_container_add(GTK_CONTAINER(books_sw), devhelp->book_tree);
-	gtk_notebook_append_page(GTK_NOTEBOOK(devhelp->control_notebook), books_sw,
-		gtk_label_new(_("Books")));
-	gtk_notebook_append_page(GTK_NOTEBOOK(devhelp->control_notebook), devhelp->search,
-		gtk_label_new(_("Search")));
+	gtk_container_add (GTK_CONTAINER (books_sw), devhelp->book_tree);
+	gtk_notebook_append_page (GTK_NOTEBOOK (devhelp->control_notebook), books_sw,
+							 gtk_label_new (_("Contents")));
+	gtk_notebook_append_page (GTK_NOTEBOOK (devhelp->control_notebook), devhelp->search,
+							  gtk_label_new (_("Search")));
 	
-	devhelp->htmlview = html_view_new(devhelp);	
+	gtk_widget_show_all (devhelp->control_notebook);
+	
+	/* View */
+	devhelp->view = webkit_web_view_new ();
+	gtk_widget_show (devhelp->view);
+	
+	webkit_web_view_open (WEBKIT_WEB_VIEW (devhelp->view), "about:blank");
+	
+	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_widget_show (scrolled_window);
+	gtk_container_add (GTK_CONTAINER (scrolled_window), devhelp->view);
 
-	anjuta_shell_add_widget (plugin->shell, devhelp->control_notebook,
-								 "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP,
-								 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	anjuta_shell_add_widget (plugin->shell, main_vbox,
+							 "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP,
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	/* This is the window that show the html help text */
-	anjuta_shell_add_widget (plugin->shell, devhelp->htmlview,
-								 "AnjutaDevhelpDisplay", _("Help display"),
-								 ANJUTA_STOCK_DEVHELP,
-								 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	anjuta_shell_add_widget (plugin->shell, scrolled_window,
+							 "AnjutaDevhelpDisplay", _("Help display"),
+							 ANJUTA_STOCK_DEVHELP,
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 								 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
@@ -415,7 +416,7 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
 	/* Remove widgets */
-	anjuta_shell_remove_widget(plugin->shell, devhelp->htmlview, NULL);
+	anjuta_shell_remove_widget(plugin->shell, devhelp->view, NULL);
 	anjuta_shell_remove_widget(plugin->shell, devhelp->control_notebook, NULL);	
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
@@ -431,32 +432,22 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-void anjuta_devhelp_check_history(AnjutaDevhelp* devhelp)
+void
+anjuta_devhelp_check_history (AnjutaDevhelp* devhelp)
 {
-	GtkAction* action_forward;
-	GtkAction* action_back;
-	DhHtml* html = html_view_get_dh_html(HTML_VIEW(devhelp->htmlview));
-	
-	action_forward = gtk_action_group_get_action (devhelp->action_group,
-										  "ActionDevhelpForward");
-	action_back = gtk_action_group_get_action (devhelp->action_group,
-										  "ActionDevhelpBack");
-	if (html != NULL)
-	{
-		g_object_set (action_forward, "sensitive", dh_html_can_go_forward (html) , NULL);
-		g_object_set (action_back, "sensitive", dh_html_can_go_back (html) , NULL);
-	}
+	gtk_widget_set_sensitive (devhelp->go_forward, webkit_web_view_can_go_forward (WEBKIT_WEB_VIEW (devhelp->view)));
+
+	gtk_widget_set_sensitive (devhelp->go_back, webkit_web_view_can_go_back (WEBKIT_WEB_VIEW (devhelp->view)));
 }
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
-#if 0
 static void
 devhelp_finalize (GObject *obj)
 {
+	DEBUG_PRINT ("%s", "Finalising Devhelp plugin");
+
 	/* Finalization codes here */
-	AnjutaDevhelp *plugin = ANJUTA_PLUGIN_DEVHELP (obj);
-	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
@@ -465,13 +456,17 @@ devhelp_dispose (GObject *obj)
 {
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (obj);
 	
-	/* Destroy devhelp - seems not to work... */
-	// g_object_unref(G_OBJECT(devhelp->base));
+	DEBUG_PRINT ("%s", "Disposing Devhelp plugin");
+	
+	if (devhelp->base)
+	{
+		g_object_unref(G_OBJECT(devhelp->base));
+		devhelp->base = NULL;
+	}
 
 	/* Disposition codes */
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
-#endif
 
 static void
 devhelp_instance_init (GObject *obj)
@@ -497,10 +492,9 @@ devhelp_class_init (GObjectClass *klass)
 
 	plugin_class->activate = devhelp_activate;
 	plugin_class->deactivate = devhelp_deactivate;
-#if 0
+	
 	klass->finalize = devhelp_finalize;
 	klass->dispose = devhelp_dispose;
-#endif
 }
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
@@ -515,7 +509,7 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 plugin->control_notebook, NULL);
 	
-	dh_search_set_search_string (DH_SEARCH (plugin->search), query);
+	dh_search_set_search_string (DH_SEARCH (plugin->search), query, NULL);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 1);
 }
 
@@ -524,34 +518,33 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 static void
 ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
-	AnjutaDevhelp *plugin;
-	
-	plugin = ANJUTA_PLUGIN_DEVHELP (help);
+	gchar *cmd[4];
 	
 	if (!anjuta_util_prog_is_installed ("devhelp", TRUE))
 	{
 		return;
 	}
 	
-	if(query && strlen (query) > 0)
+	cmd[0] = "devhelp";
+	
+	if (query && strlen (query) > 0)
 	{
-		fprintf(stderr, "Word is %s\n", query);
-		if(fork()==0)
-		{
-			execlp("devhelp", "devhelp", "-s", query, NULL);
-			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
-			_exit(1);
-		}
+		cmd[1] = "-s";
+		cmd[2] = (gchar *)query;
+		cmd[3] = NULL;	
 	}
 	else
 	{
-		if(fork()==0)
-		{
-			execlp("devhelp", "devhelp", NULL);
-			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
-			_exit(1);
-		}
+		cmd[1] = NULL;
 	}
+	
+	gdk_spawn_on_screen (gdk_screen_get_default (),
+					     NULL,
+					     cmd,
+					     NULL,
+					     G_SPAWN_SEARCH_PATH,
+					     NULL,
+					     NULL, NULL, NULL);
 }
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
