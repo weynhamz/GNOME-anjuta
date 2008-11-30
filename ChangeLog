@@ -1,5 +1,18 @@
 2008-11-30  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/devhelp/Makefile.am:
+	* plugins/devhelp/anjuta-go-help-next.svg:
+	* plugins/devhelp/anjuta-go-help-prev.svg:
+	Removed icons
+	
+	* plugins/devhelp/plugin.c (on_online_clicked), (on_load_finished),
+	(devhelp_activate):
+	* plugins/devhelp/plugin.h:
+	Added button to access online API help (library.gnome.org) and improved 
+	back/forward handling
+
+2008-11-30  Johannes Schmid  <jhs@gnome.org>
+
 	Patch from: Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 	* plugins/devhelp/plugin.c (devhelp_tree_link_selected_cb),
 	(devhelp_search_link_selected_cb), (on_go_back_clicked),

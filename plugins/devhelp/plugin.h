@@ -57,6 +57,7 @@ struct _AnjutaDevhelp{
 	GtkWidget      *search;
 	GtkWidget      *go_back;
 	GtkWidget      *go_forward;
+	GtkWidget      *online;
 	
 	IAnjutaEditor	*editor;
 	guint editor_watch_id;

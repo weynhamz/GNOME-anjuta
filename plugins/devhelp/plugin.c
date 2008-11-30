@@ -37,6 +37,9 @@
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
 #include <webkit/webkit.h>
+
+#define ONLINE_API_DOCS "http://library.gnome.org/devel"
+
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
 
 #else /* DISABLE_EMBEDDED_DEVHELP */
@@ -122,6 +125,16 @@ on_go_forward_clicked (GtkWidget *widget, AnjutaDevhelp *plugin)
 
 	webkit_web_view_go_forward (WEBKIT_WEB_VIEW (plugin->view));
 	
+	anjuta_devhelp_check_history (plugin);
+}
+
+static void
+on_online_clicked (GtkWidget* widget, AnjutaDevhelp* plugin)
+{
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 plugin->view_sw, NULL);
+	webkit_web_view_open (WEBKIT_WEB_VIEW(plugin->view),
+						  ONLINE_API_DOCS);
 	anjuta_devhelp_check_history (plugin);
 }
 
@@ -274,6 +287,14 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	g_object_set (action, "sensitive", FALSE, NULL);
 }
 
+#ifndef DISABLE_EMBEDDED_DEVHELP
+static void on_load_finished (GObject* view, GObject* frame, gpointer user_data)
+{
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP(user_data);
+	anjuta_devhelp_check_history(devhelp);
+}
+#endif
+
 static gboolean
 devhelp_activate (AnjutaPlugin *plugin)
 {
@@ -330,6 +351,12 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_widget_set_sensitive (devhelp->go_forward, FALSE);
 	g_signal_connect (devhelp->go_forward, "clicked",
 			  G_CALLBACK (on_go_forward_clicked), devhelp);
+
+	devhelp->online = gtk_button_new_from_stock (_("Online"));
+	gtk_widget_show (devhelp->online);
+	gtk_box_pack_start (GTK_BOX (button_hbox), devhelp->online, FALSE, FALSE, 0);
+	g_signal_connect (devhelp->online, "clicked",
+			  G_CALLBACK (on_online_clicked), devhelp);
 	
 	gtk_box_pack_start (GTK_BOX (devhelp->main_vbox), button_hbox, FALSE, FALSE, 0);
 	
@@ -376,12 +403,16 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->view = webkit_web_view_new ();
 	gtk_widget_show (devhelp->view);
 	
+	// TODO: Show some good start page
 	webkit_web_view_open (WEBKIT_WEB_VIEW (devhelp->view), "about:blank");
+	g_signal_connect(G_OBJECT (devhelp->view), "load-finished", 
+					 G_CALLBACK (on_load_finished), devhelp);
 	
 	devhelp->view_sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (devhelp->view_sw),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
+	gtk_container_set_border_width (GTK_CONTAINER (devhelp->view_sw), 5);
 	gtk_widget_show (devhelp->view_sw);
 	gtk_container_add (GTK_CONTAINER (devhelp->view_sw), devhelp->view);
 
