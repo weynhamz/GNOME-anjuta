@@ -48,5 +48,6 @@ typedef enum
 
 #endif // ANJUTA_VCS_STATUS_H
 
+
  
  
