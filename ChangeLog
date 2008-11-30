@@ -1,3 +1,10 @@
+2008-11-30  Naba Kumar  <naba@gnome.org>
+
+	Patch from:  Ignacio Casal Quinteiro
+
+	* libanjuta/anjuta-utils.[ch]: Improved copy file funtion to
+	use gio.
+
 2008-11-30  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/Makefile.am:

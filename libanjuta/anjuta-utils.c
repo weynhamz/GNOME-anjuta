@@ -59,69 +59,97 @@
 
 #define FILE_BUFFER_SIZE 1024
 
-gboolean
-anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error)
+static void
+anjuta_util_from_file_to_file (GInputStream *istream,
+							   GOutputStream *ostream)
 {
-	FILE *input_fp, *output_fp;
+	gsize bytes = 1;
+	GError *error = NULL;
 	gchar buffer[FILE_BUFFER_SIZE];
-	gint bytes_read, bytes_written;
-	gboolean error;
 	
-	error = TRUE;
-	
-	input_fp = fopen (src, "rb");
-	if (input_fp == NULL)
+	while (bytes != 0 && bytes != -1)
 	{
-		if( show_error)
-			anjuta_util_dialog_error_system (NULL, errno,
-											 _("Unable to read file: %s."),
-											 src);
-		return FALSE;
-	}
-	
-	output_fp = fopen (dest, "wb");
-	if (output_fp == NULL)
-	{
-		if( show_error)
-			anjuta_util_dialog_error_system (NULL, errno,
-											 _("Unable to create file: %s."),
-											 dest);
-		fclose (input_fp);
-		return TRUE;
-	}
-	
-	for (;;)
-	{
-		bytes_read = fread (buffer, 1, FILE_BUFFER_SIZE, input_fp);
-		if (bytes_read != FILE_BUFFER_SIZE && ferror (input_fp))
-		{
-			error = FALSE;
+		bytes = g_input_stream_read (istream, buffer,
+					     sizeof (buffer),
+					     NULL, &error);
+		if (error)
 			break;
-		}
-		
-		if (bytes_read)
-		{
-			bytes_written = fwrite (buffer, 1, bytes_read, output_fp);
-			if (bytes_read != bytes_written)
-			{
-				error = FALSE;
-				break;
-			}
-		}
-		
-		if (bytes_read != FILE_BUFFER_SIZE && feof (input_fp))
-		{
+
+		g_output_stream_write (ostream, buffer,
+				       bytes,
+				       NULL, &error);
+		if (error)
 			break;
-		}
 	}
 	
-	fclose (input_fp);
-	fclose (output_fp);
+	if (error)
+	{
+		g_warning (error->message);
+		g_error_free (error);
+		error = NULL;
+	}
 	
-	if( show_error && (error == FALSE))
-		anjuta_util_dialog_error_system (NULL, errno,
-										 _("Unable to complete file copy"));
-	return error;
+	if (!g_output_stream_close (ostream, NULL, &error))
+	{
+		g_warning (error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	if (!g_input_stream_close (istream, NULL, &error))
+	{
+		g_warning (error->message);
+		g_error_free (error);
+	}
+}
+
+/**
+ * anjuta_util_copy_file:
+ * @src: the file where copy
+ * @dest: the path to copy the @src
+ * @show_error: TRUE to show a dialog error
+ *
+ * Copies @src to @dest and shows a dialog error in case is needed.
+ *
+ * Returns: TRUE if there was an error copying the file.
+ */
+gboolean
+anjuta_util_copy_file (const gchar * src, const gchar * dest, gboolean show_error)
+{
+	GFile *src_file, *dest_file;
+	GFileInputStream *istream;
+	GFileOutputStream *ostream;
+	GError *error = NULL;
+	gboolean toret = FALSE;
+	
+	src_file = g_file_new_for_path (src);
+	dest_file = g_file_new_for_path (dest);
+	
+	istream = g_file_read (src_file, NULL, &error);
+	if (error)
+		goto free;
+		
+	ostream = g_file_create (dest_file, G_FILE_CREATE_NONE,
+							 NULL, &error);
+	if (error)
+		goto free;
+	
+	anjuta_util_from_file_to_file (G_INPUT_STREAM (istream), G_OUTPUT_STREAM (ostream));
+	
+free: if (error)
+	{
+		if (show_error)
+			anjuta_util_dialog_error_system (NULL, error->code,
+											 error->message);
+	
+		g_warning ("%s", error->message);
+		
+		toret = TRUE;
+	}
+	
+	g_object_unref (src_file);
+	g_object_unref (dest_file);
+	
+	return toret;
 }
 
 void

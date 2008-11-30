@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
+gboolean anjuta_util_copy_file (const gchar * src, const gchar * dest, gboolean show_error);
 
 gboolean anjuta_util_diff(const gchar* uri, const gchar* text);
 
