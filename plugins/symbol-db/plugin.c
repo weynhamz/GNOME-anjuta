@@ -136,6 +136,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	GPtrArray *real_files_list;
 	GPtrArray *text_buffers;
 	GPtrArray *buffer_sizes;
+	gint i;
 	
 	g_return_val_if_fail (user_data != NULL, FALSE);
 	
@@ -186,7 +187,6 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	/* ok that's good. Let's have a last check: is the current file present
 	 * on the buffer_update_files?
 	 */
-	gint i;
 	for (i = 0; i < sdb_plugin->buffer_update_files->len; i++)
 	{
 		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
@@ -228,10 +228,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		gchar * local_path_dup = g_strdup (local_path);
 		g_ptr_array_add (sdb_plugin->buffer_update_files, local_path_dup);	
 		/* add the id too */
-		g_ptr_array_add (sdb_plugin->buffer_update_ids, (gpointer)proc_id);	
-	
-		
-		DEBUG_PRINT ("******** proc_id is %d", proc_id);			
+		g_ptr_array_add (sdb_plugin->buffer_update_ids, (gpointer)proc_id);
 	}
 	
 	g_free (current_buffer);  
@@ -356,7 +353,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	/* we have an editor added, so let locals to display something */
 	symbol_db_view_locals_display_nothing (
 			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), FALSE);
-
 	
 	if (sdb_plugin->session_loading)
 	{
@@ -384,19 +380,12 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 	local_path = g_file_get_path (file);
 	uri = g_file_get_uri (file);
-	DEBUG_PRINT ("value_added_current_editor () gonna refresh local syms: local_path %s "
-				 "uri %s", local_path, uri);
+	
 	if (local_path == NULL)
 	{
-		g_critical ("FIXME local_path == NULL");
+		g_critical ("local_path == NULL");
 		return;
-	}
-	
-	if (strstr (local_path, "//") != NULL)
-	{
-		g_critical ("WARNING FIXME: bad file uri passed to symbol-db from editor. There's "
-				   "a trailing slash left. Please fix this at editor side");
-	}
+	}	
 				
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
@@ -835,9 +824,15 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array)
 		g_object_unref (gfile);
 		g_object_unref (gfile_info);		
 	}
-			
-	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
+	
+	/* last but not least check if we had some files in that GPtrArray. It that's not
+	 * the case just pass over
+	 */
+	if (to_scan_array->len > 0)
+	{
+		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
 					to_scan_array, languages_array, TRUE);
+	}
 
 	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (languages_array, TRUE);
@@ -1069,18 +1064,7 @@ on_importing_project_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 		return;
 
 	local_path = g_file_get_path (file);
-	if (local_path == NULL)
-	{
-		g_critical ("FIXME local_path == NULL");
-		return;
-	}
 	
-	if (strstr (local_path, "//") != NULL)
-	{
-		g_critical ("WARNING FIXME: bad file uri passed to symbol-db from editor. There's "
-				   "a trailing slash left. Please fix this at editor side");
-	}
-				
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 				 sdb_plugin->sdbe_project, local_path);	
@@ -1303,8 +1287,7 @@ on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
 		symbol_db_system_scan_package (sdb_plugin->sdbs, item->data);
 				
 		item = item->next;
-	}
-	
+	}	
 
 	/* the resume thing */
 	GPtrArray *sys_src_array = NULL;

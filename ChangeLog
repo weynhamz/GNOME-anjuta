@@ -1,3 +1,36 @@
+2008-11-30  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout),
+	(value_added_current_editor), (do_add_new_files),
+	(on_importing_project_end), (on_received_project_import_end):
+	* plugins/symbol-db/readtags.c (readNext), (readFieldValue):	
+	(sdb_engine_ctags_launcher_create):
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(do_add_child_symbol_to_view), (traverse_on_scan_end),
+	(add_waiting_for_symbol_to_view), (trigger_on_symbol_inserted),
+	(add_new_waiting_for), (do_recurse_subtree_and_invalidate),
+	(prepare_for_adding), (consume_symbols_inserted_queue_idle),
+	(do_recurse_subtree_and_remove), (on_symbol_removed),
+	(on_symbol_scope_updated), (on_symbol_inserted):
+	* plugins/symbol-db/symbol-db-view.c (traverse_free_waiting_for),
+	(symbol_db_view_clear_cache), (do_add_child_symbol_to_view),
+	(add_waiting_for_symbol_to_view), (trigger_on_symbol_inserted),
+	(add_new_waiting_for), (do_recurse_subtree_and_invalidate),
+	(prepare_for_adding), (on_symbol_inserted),
+	(do_recurse_subtree_and_remove), (on_symbol_removed),
+	(sdb_view_row_expanded_idle_destroy), (sdb_view_row_expanded_idle),
+	(sdb_view_namespace_row_expanded), (sdb_view_global_row_expanded),
+	(sdb_view_vars_row_expanded), (symbol_db_view_row_expanded),
+	(symbol_db_view_row_collapsed),
+	(sdb_view_build_and_display_base_tree), (symbol_db_view_open):
+	code cleaning, fixed two critical warnings.
+	Added -DG_LOG_DOMAIN=\"libanjuta-symbol-db\" for debug purposes.
+
+	* plugins/symbol-db/symbol-db-engine.c:
+	added --sort=no option, probably speeding up tags generation.
+
 2008-11-30  Johannes Schmid  <jhs@idefix>
 
   Patch from 

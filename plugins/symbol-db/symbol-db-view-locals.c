@@ -431,7 +431,7 @@ do_add_child_symbol_to_view (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 		return NULL;
 	
 	/* look up the row ref in the hashtable, then get its associated gtktreeiter */
-	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)parent_symbol_id);
+	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (parent_symbol_id));
 	
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
@@ -515,7 +515,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 		if (grandparent_id > 0) 
 		{
 			row_ref = 
-				 g_tree_lookup (priv->nodes_displayed, (gpointer)grandparent_id);
+				 g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (grandparent_id));
 			if (row_ref != NULL)
 			{
 				/* hey we have a namespace or something which is the parent of
@@ -527,7 +527,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 				row_ref = do_add_child_symbol_to_view (dbvl, grandparent_id, pixbuf, 
 							symbol_name, parent_id);
 				
-				g_tree_insert (priv->nodes_displayed, (gpointer)parent_id, 
+				g_tree_insert (priv->nodes_displayed, GINT_TO_POINTER (parent_id), 
 				   row_ref);
 			}
 		/*	DEBUG_PRINT ("traverse_on_scan_end (): row_ref %d", row_ref);*/
@@ -539,7 +539,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 			
 			row_ref = do_add_root_symbol_to_view (dbvl, pixbuf, 
 							symbol_name, parent_id);
-			g_tree_insert (priv->nodes_displayed, (gpointer)parent_id, 
+			g_tree_insert (priv->nodes_displayed, GINT_TO_POINTER (parent_id), 
 				   row_ref);			
 		}
 
@@ -573,7 +573,7 @@ add_waiting_for_symbol_to_view (SymbolDBViewLocals *dbvl, WaitingForSymbol *wfs,
 	symbol_id_added = wfs->child_symbol_id;
 	
 	/* add a new entry on gtree 'nodes_displayed' */
-	g_tree_insert (priv->nodes_displayed, (gpointer)wfs->child_symbol_id, 
+	g_tree_insert (priv->nodes_displayed, GINT_TO_POINTER (wfs->child_symbol_id), 
 				   child_tree_row_ref);	
 	
 	/* and now trigger the inserted symbol... (recursive function). */
@@ -595,7 +595,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 	/*DEBUG_PRINT ("trigger_on_symbol_inserted (): triggering %d", symbol_id);*/
 	
 	/* try to find a waiting for symbol */
-	slist = g_tree_lookup (priv->waiting_for, (gpointer)symbol_id);
+	slist = g_tree_lookup (priv->waiting_for, GINT_TO_POINTER (symbol_id));
 	
 	if (slist == NULL) 
 	{
@@ -623,7 +623,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 		}
 		
 		/* remove the waiting for key/value */
-		g_tree_remove (priv->waiting_for, (gpointer)symbol_id);		
+		g_tree_remove (priv->waiting_for, GINT_TO_POINTER (symbol_id));
 		g_slist_free (slist);
 	}
 }
@@ -639,6 +639,11 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	g_return_if_fail (dbvl != NULL);	
 	priv = dbvl->priv;
 
+	/* we don't want a negative parent_symbol_id */
+	if (parent_symbol_id < 0)
+		return;
+	
+	
 	/* check if we already have some children waiting for a 
 	 * specific father to be inserted, then add this symbol_id to the list 
 	 * (or create a new one)
@@ -652,7 +657,7 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 				
 /*	DEBUG_PRINT ("add_new_waiting_for (): looking up waiting_for %d", 
 				 parent_symbol_id);*/
-	node = g_tree_lookup (priv->waiting_for, (gpointer)parent_symbol_id);
+	node = g_tree_lookup (priv->waiting_for, GINT_TO_POINTER (parent_symbol_id));
 	if (node == NULL) 
 	{
 		/* no lists already set. Create one. */
@@ -665,7 +670,7 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 					 "waiting_for [%d]", parent_symbol_id);*/
 				
 		/* add it to the binary tree. */
-		g_tree_insert (priv->waiting_for, (gpointer)parent_symbol_id, 
+		g_tree_insert (priv->waiting_for, GINT_TO_POINTER (parent_symbol_id), 
 							   slist);
 	}
 	else 
@@ -679,7 +684,7 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 				 	parent_symbol_id, symbol_name);*/
 		slist = g_slist_prepend (slist, wfs);
 				
-		g_tree_replace (priv->waiting_for, (gpointer)parent_symbol_id, 
+		g_tree_replace (priv->waiting_for, GINT_TO_POINTER (parent_symbol_id), 
 						slist);
 	}	
 }
@@ -730,7 +735,7 @@ do_recurse_subtree_and_invalidate (SymbolDBViewLocals *dbvl,
 						 curr_symbol_id, curr_pixbuf);
 	
 	gtk_tree_store_remove (store, parent_subtree_iter);
-	g_tree_remove (priv->nodes_displayed, (gpointer) curr_symbol_id);
+	g_tree_remove (priv->nodes_displayed, GINT_TO_POINTER (curr_symbol_id));
 
 	/* don't forget to free this gchar */				   
 	g_free (curr_symbol_name);
@@ -764,7 +769,7 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 													 symbol_id);
 		
 		/* we'll fake the gpointer to store an int */
-		g_tree_insert (priv->nodes_displayed, (gpointer)symbol_id, 
+		g_tree_insert (priv->nodes_displayed, GINT_TO_POINTER (symbol_id), 
 					   curr_tree_row_ref);
 		
 		/* let's trigger the insertion of the symbol_id, there may be some children
@@ -778,7 +783,7 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 		/* do we already have that parent_symbol displayed in gtktreeview? 
 		 * If that's the case add it as children.
 		 */
-		node = g_tree_lookup (priv->nodes_displayed, (gpointer)parent_symbol_id);
+		node = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (parent_symbol_id));
 		
 		if (node != NULL) 
 		{
@@ -791,7 +796,7 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 				   pixbuf, symbol_name, symbol_id);
 			
 			/* add the children_path to the GTree. */
-			g_tree_insert (priv->nodes_displayed, (gpointer)symbol_id, 
+			g_tree_insert (priv->nodes_displayed, GINT_TO_POINTER (symbol_id), 
 						   child_row_ref);
 			trigger_on_symbol_inserted (dbvl, symbol_id);
 		}
@@ -967,7 +972,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 					symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
 				row_ref = g_tree_lookup (priv->nodes_displayed,
-										 (gpointer)curr_child_id);
+										 GINT_TO_POINTER (curr_child_id));
 				
 				if (row_ref == NULL)
 					continue;
@@ -1069,7 +1074,7 @@ do_recurse_subtree_and_remove (SymbolDBViewLocals *dbvl,
 	}
 
 	gtk_tree_store_remove (store, parent_subtree_iter);
-	g_tree_remove (priv->nodes_displayed, (gpointer) curr_symbol_id);
+	g_tree_remove (priv->nodes_displayed, GINT_TO_POINTER (curr_symbol_id));
 
 	/* don't forget to free this gchar */				   
 	g_free (curr_symbol_name);
@@ -1096,7 +1101,7 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	
 	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
 
-	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
+	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
 		return;
@@ -1124,7 +1129,7 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	}
 	
 	DEBUG_PRINT ("on_symbol_scope_updated () -local- %d", symbol_id);
-	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
+	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
 		return;
@@ -1133,7 +1138,7 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	do_recurse_subtree_and_remove (dbvl, &iter);	
 	
 	/* save the symbol_id to be added in the queue and just return */
-	g_queue_push_head (priv->symbols_inserted_ids, (gpointer)symbol_id);	
+	g_queue_push_head (priv->symbols_inserted_ids, GINT_TO_POINTER (symbol_id));	
 }
 
 static void 
@@ -1153,7 +1158,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	}
 	
 	/* save the symbol_id to be added in the queue and just return */
-	g_queue_push_head (priv->symbols_inserted_ids, (gpointer)symbol_id);
+	g_queue_push_head (priv->symbols_inserted_ids, GINT_TO_POINTER (symbol_id));
 }
 
 gint

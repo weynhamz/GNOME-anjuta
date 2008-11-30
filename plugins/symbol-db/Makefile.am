@@ -34,7 +34,8 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GDL_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	$(PLUGIN_SYMBOL_DB_CFLAGS)
+	$(PLUGIN_SYMBOL_DB_CFLAGS) \
+	-DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)

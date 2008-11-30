@@ -523,7 +523,7 @@ static void terminate (tagFile *const file)
 	free (file);
 }
 
-static tagResult readNext (tagFile *const file, tagEntry *const entry)
+static inline tagResult readNext (tagFile *const file, tagEntry *const entry)
 {
 	tagResult result = TagFailure;
 	if (file == NULL  ||  ! file->initialized)
@@ -539,7 +539,7 @@ static tagResult readNext (tagFile *const file, tagEntry *const entry)
 	return result;
 }
 
-static const char *readFieldValue (
+static inline const char *readFieldValue (
 	const tagEntry *const entry, const char *const key)
 {
 	const char *result = NULL;
