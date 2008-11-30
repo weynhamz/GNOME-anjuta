@@ -49,8 +49,10 @@ struct _AnjutaDevhelp{
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	DhBase         *base;
 #endif /* DISABLE_EMBEDDED_DEVHELP */
-	GtkWidget      *view;    
+	GtkWidget      *view;
+	GtkWidget      *view_sw;
 	GtkWidget      *control_notebook; 
+	GtkWidget      *main_vbox;
 	GtkWidget      *book_tree;
 	GtkWidget      *search;
 	GtkWidget      *go_back;

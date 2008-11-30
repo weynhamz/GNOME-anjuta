@@ -41,8 +41,8 @@ struct _MessageViewPrivate
 	gint adj_chgd_hdlr;
 	
 	/* Messages filter buttons */
-	GtkWidget *info, *warn, *error;
-	guint info_count, warn_count, error_count;
+	GtkWidget *normal, *info, *warn, *error;
+	guint normal_count, info_count, warn_count, error_count;
 
 	/* Properties */
 	gchar *label;
@@ -714,12 +714,14 @@ message_view_instance_init (MessageView * self)
 	GtkTreeSelection *select;
 	GtkListStore *model;	
 	GtkAdjustment* adj;
-
+	gint icon_width = 30; // FIXME: Obtain from theme
+ 
 	g_return_if_fail(self != NULL);
 	self->privat = g_new0 (MessageViewPrivate, 1);
 
 	/* Init private data */
 	self->privat->line_buffer = g_strdup("");
+	self->privat->normal_count = 0;
 	self->privat->info_count = 0;
 	self->privat->warn_count = 0;
 	self->privat->error_count = 0;
@@ -728,7 +730,15 @@ message_view_instance_init (MessageView * self)
 	vbox = gtk_hbox_new (FALSE, 0);
 	filter_buttons_box = gtk_vbox_new (FALSE, 1);
 	
-	self->privat->info = gtk_toggle_button_new_with_label (_("0 Messages"));
+	self->privat->normal = gtk_toggle_button_new_with_label (_("No Messages"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->normal), TRUE);
+	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->normal), FALSE);
+	gtk_button_set_relief (GTK_BUTTON (self->privat->normal), GTK_RELIEF_HALF);
+	gtk_widget_show (self->privat->normal);
+	g_signal_connect (G_OBJECT (self->privat->normal), "toggled",
+					  G_CALLBACK (on_filter_buttons_toggled), self);
+	
+	self->privat->info = gtk_toggle_button_new_with_label (_("No Infos"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->info), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->info), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->info), GTK_RELIEF_HALF);
@@ -739,7 +749,7 @@ message_view_instance_init (MessageView * self)
 	g_signal_connect (G_OBJECT (self->privat->info), "toggled",
 					  G_CALLBACK (on_filter_buttons_toggled), self);
 	
-	self->privat->warn = gtk_toggle_button_new_with_label (_("0 Warnings"));
+	self->privat->warn = gtk_toggle_button_new_with_label (_("No Warnings"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->warn), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->warn), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->warn), GTK_RELIEF_HALF);
@@ -751,7 +761,7 @@ message_view_instance_init (MessageView * self)
 	g_signal_connect (G_OBJECT (self->privat->warn), "toggled",
 					  G_CALLBACK (on_filter_buttons_toggled), self);
 	
-	self->privat->error = gtk_toggle_button_new_with_label (_("0 Errors"));
+	self->privat->error = gtk_toggle_button_new_with_label (_("No Errors"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->error), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->error), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->error), GTK_RELIEF_HALF);
@@ -762,6 +772,8 @@ message_view_instance_init (MessageView * self)
 	g_signal_connect (G_OBJECT (self->privat->error), "toggled",
 					  G_CALLBACK (on_filter_buttons_toggled), self);
 	
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->normal),
+						FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->info),
 						FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (self->privat->warn),
@@ -791,11 +803,16 @@ message_view_instance_init (MessageView * self)
 
 	/* Create pixbuf column */
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
+	g_object_set (G_OBJECT(renderer_pixbuf), "stock-size", GTK_ICON_SIZE_MENU, NULL);
 	column_pixbuf = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column_pixbuf, _("Icon"));
 	gtk_tree_view_column_pack_start (column_pixbuf, renderer_pixbuf, TRUE);
 	gtk_tree_view_column_add_attribute
 		(column_pixbuf, renderer_pixbuf, "stock-id", COLUMN_PIXBUF);
+	gtk_tree_view_column_set_sizing(column_pixbuf, GTK_TREE_VIEW_COLUMN_FIXED);
+	gtk_tree_view_column_set_fixed_width (column_pixbuf, icon_width);
+	gtk_tree_view_column_set_min_width (column_pixbuf, icon_width);
+	gtk_tree_view_column_set_max_width (column_pixbuf, icon_width);	
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self->privat->tree_view),
 								 column_pixbuf);
 	/* Create columns to hold text and color of a line, this
@@ -803,8 +820,11 @@ message_view_instance_init (MessageView * self)
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set (renderer, "yalign", 0.0, "wrap-mode", PANGO_WRAP_WORD,
 				  "wrap-width", 1000, NULL);
+	gtk_cell_renderer_text_set_fixed_height_from_font(GTK_CELL_RENDERER_TEXT(renderer),												  1);
 	column = gtk_tree_view_column_new ();
+
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
 	gtk_tree_view_column_set_title (column, _("Messages"));
 	gtk_tree_view_column_add_attribute
 		(column, renderer, "foreground", COLUMN_COLOR);
@@ -817,6 +837,9 @@ message_view_instance_init (MessageView * self)
 	select = gtk_tree_view_get_selection
 		(GTK_TREE_VIEW (self->privat->tree_view));
 	gtk_tree_selection_set_mode (select, GTK_SELECTION_BROWSE);
+	
+	/* Optimize */
+	gtk_tree_view_set_fixed_height_mode(GTK_TREE_VIEW(self->privat->tree_view), TRUE);
 
 	/* Add tree view to a scrolled window */
 	scrolled_win = gtk_scrolled_window_new (NULL, NULL);
@@ -1292,6 +1315,12 @@ update_button_labels (MessageView* view)
 	gchar* temp;
 	
 	temp = g_strdup_printf(ngettext ("%d Message", "%d Messages", 
+									 view->privat->normal_count),
+						   view->privat->normal_count);
+	gtk_button_set_label (GTK_BUTTON (view->privat->normal), temp);
+	g_free(temp);
+	
+	temp = g_strdup_printf(ngettext ("%d Info", "%d Infos", 
 									 view->privat->info_count),
 						   view->privat->info_count);
 	gtk_button_set_label (GTK_BUTTON (view->privat->info), temp);
@@ -1359,6 +1388,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 				break;
 			default:
 				color = NULL;
+				view->privat->normal_count++;
 		}
 	}
 	update_button_labels (view);
@@ -1413,9 +1443,11 @@ imessage_view_clear (IAnjutaMessageView *message_view, GError **e)
 	view = MESSAGE_VIEW (message_view);
 
 	/* filter settings restart */
+	view->privat->normal_count = 0;	
 	view->privat->info_count = 0;
 	view->privat->warn_count = 0;
 	view->privat->error_count = 0;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->normal), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->info), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->warn), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->privat->error), TRUE);
@@ -1549,7 +1581,9 @@ message_view_tree_view_filter (GtkTreeModel *model, GtkTreeIter  *iter,
 	gtk_tree_model_get (msgview->privat->model, iter, COLUMN_MESSAGE, &msg, -1);
 
 	if (msg != NULL) {
-		if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_INFO) {
+		if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_NORMAL) {
+			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->normal));
+		} else if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_INFO) {
 			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->info));
 		} else if (msg->type == IANJUTA_MESSAGE_VIEW_TYPE_WARNING) {
 			return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (msgview->privat->warn));

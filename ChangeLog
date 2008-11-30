@@ -1,4 +1,20 @@
-2008-11-30  Naba Kumar  <naba@naba-desktop>
+2008-11-30  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from: Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+	* plugins/devhelp/plugin.c (devhelp_tree_link_selected_cb),
+	(devhelp_search_link_selected_cb), (on_go_back_clicked),
+	(on_go_forward_clicked), (api_reference_idle), (devhelp_activate),
+	(devhelp_deactivate), (ihelp_search):
+	* plugins/devhelp/plugin.h:
+	#562750 – The view should be showed when you search something.
+	
+	* plugins/message-view/message-view.c (message_view_instance_init),
+	(update_button_labels), (imessage_view_append),
+	(imessage_view_clear), (message_view_tree_view_filter):
+	Add a button to suppress normal message (show errors & warnings only)
+	Use fixed height mode to optimize performance
+
+2008-11-30  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Ignacio Casal Quinteiro
  
@@ -63,7 +79,7 @@
 
 2008-11-30  Johannes Schmid  <jhs@idefix>
 
-  Patch from 
+  Patch from: Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* configure.in:
 	* plugins/devhelp/Makefile.am:
@@ -78,7 +94,8 @@
 	(anjuta_devhelp_check_history), (devhelp_finalize),
 	(devhelp_dispose), (devhelp_class_init), (ihelp_search):
 	* plugins/devhelp/plugin.h:
-	560311 – Update devhelp plugin to use webkit version
+	#560311 – Update devhelp plugin to use webkit version
+	(also fixes #562451 – update configure check of devhelp to avoid devhelp/webkit)
 
 2008-11-29  Sébastien Granjoux  <seb.sfo@free.fr>
 
