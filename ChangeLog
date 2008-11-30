@@ -1,4 +1,10 @@
+
 2008-11-30  Naba Kumar  <naba@gnome.org>
+
+	* configure.in,
+	* plugins/devhelp/plugin.c (devhelp_dispose): Fixed devhelp version
+	check in configure and fixed devhelp plugin build for non-embedded
+	mode.
 
 	* libanjuta/anjuta-vcs-status.h: Added newline at the
 	end of file.

@@ -195,32 +195,14 @@ if test "$user_disabled_devhelp" = 1; then
 	devhelp_enabled="no"
 else
 	AC_MSG_RESULT(no)
-	devhelp_old=yes
 	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
 				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
-					 [
-					    devhelp_old=no
-						devhelp_enabled=yes
-					 ], [
-						   AC_MSG_RESULT([version >= 0.11 not found])
-						   devhelp_old=yes
-						   devhelp_enabled=no
-					 ])
-	if test x$devhelp_old = xyes; then
-	  PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9], [devhelp_enabled=yes], [devhelp_enabled=no])
-		if test x$devhelp_enabled = xyes; then
-	      AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
-		fi
-	fi
+				[
+				    devhelp_enabled=yes
+				], [
+				    devhelp_enabled=no
+				])
 fi
-
-if test x$devhelp_enabled = xyes; then
-	GECKO_HOME=`$PKGCONFIG_CONFIG --variable=gecko_home libdevhelp-1.0`
-	if test x$GECKO_HOME != x; then
-		ANJUTA_LDFLAGS="$ANJUTA_LDFLAGS -R$GECKO_HOME"
-	fi
-fi
-AC_SUBST(ANJUTA_LDFLAGS)
 
 AM_CONDITIONAL(HAVE_PLUGIN_DEVHELP, [test x$devhelp_enabled = xyes])
 
@@ -1092,7 +1074,7 @@ if [ test x$devhelp_enabled = xyes ]; then
        echo "Building devhelp plugin: ...............................YES"
 else
        echo "Building devhelp plugin: ...............................NO"
-       echo "        Requires devhelp"
+       echo "        Requires devhelp >= 0.22"
 fi
 
 if [ test x$libgraphviz_found = xyes ]; then

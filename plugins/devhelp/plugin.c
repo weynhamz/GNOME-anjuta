@@ -454,15 +454,17 @@ devhelp_finalize (GObject *obj)
 static void
 devhelp_dispose (GObject *obj)
 {
-	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (obj);
-	
 	DEBUG_PRINT ("%s", "Disposing Devhelp plugin");
+	
+#ifndef DISABLE_EMBEDDED_DEVHELP
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (obj);
 	
 	if (devhelp->base)
 	{
 		g_object_unref(G_OBJECT(devhelp->base));
 		devhelp->base = NULL;
 	}
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 
 	/* Disposition codes */
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
