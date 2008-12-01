@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&amp;component=general\n"
-"POT-Creation-Date: 2008-11-30 10:30+0000\n"
-"PO-Revision-Date: 2008-11-30 12:24+0100\n"
+"POT-Creation-Date: 2008-11-30 22:53+0000\n"
+"PO-Revision-Date: 2008-12-01 19:12+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,21 +481,7 @@ msgstr "Distinguir mayúsculas"
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
-#: ../libanjuta/anjuta-utils.c:77
-#, c-format
-msgid "Unable to read file: %s."
-msgstr "No se puede leer el archivo: %s."
-
-#: ../libanjuta/anjuta-utils.c:87
-#, c-format
-msgid "Unable to create file: %s."
-msgstr "No se puede crear el archivo: %s."
-
-#: ../libanjuta/anjuta-utils.c:123
-msgid "Unable to complete file copy"
-msgstr "No se puede copiar el archivo"
-
-#: ../libanjuta/anjuta-utils.c:336
+#: ../libanjuta/anjuta-utils.c:364
 msgid ""
 "\n"
 "System: "
@@ -503,7 +489,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: ../libanjuta/anjuta-utils.c:474
+#: ../libanjuta/anjuta-utils.c:502
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -512,12 +498,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:913 ../libanjuta/anjuta-utils.c:917
+#: ../libanjuta/anjuta-utils.c:942 ../libanjuta/anjuta-utils.c:946
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1494
+#: ../libanjuta/anjuta-utils.c:1523
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -2509,48 +2495,52 @@ msgstr "Operaciones de vigilancia"
 msgid "Watches"
 msgstr "Vigilancias"
 
-#: ../plugins/devhelp/plugin.c:182
+#: ../plugins/devhelp/plugin.c:201
 msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
-#: ../plugins/devhelp/plugin.c:203 ../plugins/document-manager/plugin.c:247
+#: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:247
 #: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:264
 msgid "_Goto"
 msgstr "_Ir a"
 
-#: ../plugins/devhelp/plugin.c:212
+#: ../plugins/devhelp/plugin.c:231
 msgid "_API Reference"
 msgstr "Referencia del _API"
 
-#: ../plugins/devhelp/plugin.c:214
+#: ../plugins/devhelp/plugin.c:233
 msgid "Browse API Pages"
 msgstr "Examinar las páginas del API"
 
-#: ../plugins/devhelp/plugin.c:224
+#: ../plugins/devhelp/plugin.c:243
 msgid "_Context Help"
 msgstr "Ayuda _contextual"
 
-#: ../plugins/devhelp/plugin.c:226
+#: ../plugins/devhelp/plugin.c:245
 msgid "Search help for the current word in the editor"
 msgstr "Buscar una cadena o expresión en el editor"
 
-#: ../plugins/devhelp/plugin.c:232
+#: ../plugins/devhelp/plugin.c:251
 msgid "_Search Help"
 msgstr "_Buscar ayuda"
 
-#: ../plugins/devhelp/plugin.c:234
+#: ../plugins/devhelp/plugin.c:253
 msgid "Search for a term in help"
 msgstr "Buscar un término en la ayuda"
 
-#: ../plugins/devhelp/plugin.c:300
+#: ../plugins/devhelp/plugin.c:325
 msgid "Help operations"
 msgstr "Operaciones con ayuda"
 
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:355
+msgid "Online"
+msgstr "En línea"
+
+#: ../plugins/devhelp/plugin.c:396
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:366 ../plugins/search/search-replace.c:1007
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1007
 #: ../plugins/search/search-replace.c:1676
 #: ../plugins/search/search-replace.c:1683
 #: ../plugins/search/search-replace.c:1695
@@ -2559,11 +2549,11 @@ msgstr "Contenido"
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/devhelp/plugin.c:384 ../src/anjuta-app.c:696
+#: ../plugins/devhelp/plugin.c:420 ../src/anjuta-app.c:696
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../plugins/devhelp/plugin.c:388
+#: ../plugins/devhelp/plugin.c:424
 msgid "Help display"
 msgstr "Visor de ayuda"
 
@@ -5581,48 +5571,59 @@ msgstr "Cerrar todas las solapas de mensajes"
 msgid "No message details"
 msgstr "Sin detalles de los mensajes"
 
-#: ../plugins/message-view/message-view.c:731
-msgid "0 Messages"
-msgstr "0 mensajes"
+#: ../plugins/message-view/message-view.c:733
+msgid "No Messages"
+msgstr "Sin mensajes"
 
-#: ../plugins/message-view/message-view.c:742
-msgid "0 Warnings"
-msgstr "0 advertencias"
+#: ../plugins/message-view/message-view.c:741
+msgid "No Infos"
+msgstr "Sin información"
 
-#: ../plugins/message-view/message-view.c:754
-msgid "0 Errors"
-msgstr "0 errores"
+#: ../plugins/message-view/message-view.c:752
+msgid "No Warnings"
+msgstr "Sin advertencias"
 
-#: ../plugins/message-view/message-view.c:795
+#: ../plugins/message-view/message-view.c:764
+msgid "No Errors"
+msgstr "Sin errores"
+
+#: ../plugins/message-view/message-view.c:808
 msgid "Icon"
 msgstr "Icono"
 
-#: ../plugins/message-view/message-view.c:808
+#: ../plugins/message-view/message-view.c:828
 #: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
 #: ../plugins/message-view/plugin.c:411
 msgid "Messages"
 msgstr "Mensajes"
 
-#: ../plugins/message-view/message-view.c:1164
+#: ../plugins/message-view/message-view.c:1187
 #, c-format
 msgid "Error writing %s"
 msgstr "Error al escribir %s"
 
-#: ../plugins/message-view/message-view.c:1294
+#: ../plugins/message-view/message-view.c:1317
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d mensaje"
 msgstr[1] "%d mensajes"
 
-#: ../plugins/message-view/message-view.c:1299
+#: ../plugins/message-view/message-view.c:1323
+#, c-format
+msgid "%d Info"
+msgid_plural "%d Infos"
+msgstr[0] "%d información"
+msgstr[1] "%d informaciones"
+
+#: ../plugins/message-view/message-view.c:1328
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d advertencias"
 msgstr[1] "%d advertencias"
 
-#: ../plugins/message-view/message-view.c:1304
+#: ../plugins/message-view/message-view.c:1333
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -9416,6 +9417,15 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
+
+#~ msgid "Unable to read file: %s."
+#~ msgstr "No se puede leer el archivo: %s."
+
+#~ msgid "Unable to create file: %s."
+#~ msgstr "No se puede crear el archivo: %s."
+
+#~ msgid "Unable to complete file copy"
+#~ msgstr "No se puede copiar el archivo"
 
 #~ msgid "Previous Help"
 #~ msgstr "Ayuda anterior"
