@@ -25,6 +25,13 @@
  * @stability: Unstable
  * @include: libanjuta/anjuta-profile-manager.h
  * 
+ * Anjuta uses up to two profiles. A "no project" profile is used when no
+ * project is loaded a project profile when one is loaded.
+ * If a second project is loaded, it is loaded in another instance of Anjuta.
+ * When a project is closed, Anjuta goes back to the "no project" profile.
+ *
+ * The profile manager can be in a frozen state where you can push or 
+ * pop a profile from the stack without triggering a change of the profile.
  */
 
 #include <string.h>
@@ -74,12 +81,17 @@ on_plugin_activated (AnjutaPluginManager *plugin_manager,
 {
 	AnjutaProfileManagerPriv *priv;
 	priv = profile_manager->priv;
-	
+
 	if (priv->profiles)
 	{
 		/* Add it current profile */
-		anjuta_profile_add_plugin (ANJUTA_PROFILE (priv->profiles->data),
-								   plugin_desc);
+		gboolean exclude;
+
+		if (!anjuta_plugin_description_get_boolean (plugin_desc, "Anjuta Plugin", "ExcludeFromSession", &exclude) || !exclude)
+		{
+			anjuta_profile_add_plugin (ANJUTA_PROFILE (priv->profiles->data),
+									   plugin_desc);
+		}
 	}
 }
 
@@ -192,6 +204,15 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 	                                                      G_PARAM_READABLE |
 														  G_PARAM_WRITABLE |
 														  G_PARAM_CONSTRUCT));
+	/**
+	 * AnjutaProfileManager::profile-pushed:
+	 * @profile_manager: a #AnjutaProfileManager object.
+	 * @profile: the new #AnjutaProfile added.
+	 * 
+	 * Emitted when a profile is added in the stack. If the profile manager is
+	 * not frozen, the current profile will be unloaded and the new one
+	 * will be loaded.
+	 */
 	profile_manager_signals[PROFILE_PUSHED] =
 		g_signal_new ("profile-pushed",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -202,6 +223,16 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 		              anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
 		              ANJUTA_TYPE_PROFILE);
+	
+	/**
+	 * AnjutaProfileManager::profile-popped:
+	 * @profile_manager: a #AnjutaProfileManager object.
+	 * @profile: the current removed #AnjutaProfile.
+	 * 
+	 * Emitted when a profile is removed from the stack. If the profile manager
+	 * is not frozen, the current profile will be unloaded and the previous one
+	 * will be loaded.
+	 */
 	profile_manager_signals[PROFILE_POPPED] =
 		g_signal_new ("profile-popped",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -212,6 +243,14 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 					  anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
 		              ANJUTA_TYPE_PROFILE);
+	
+	/**
+	 * AnjutaProfileManager::profile-descoped:
+	 * @profile_manager: a #AnjutaProfileManager object.
+	 * @profile: the old unloaded #AnjutaProfile.
+	 * 
+	 * Emitted when a profile will be unloaded.
+	 */
 	profile_manager_signals[PROFILE_DESCOPED] =
 		g_signal_new ("profile-descoped",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -222,6 +261,14 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 					  anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
 		              ANJUTA_TYPE_PROFILE);
+	
+	/**
+	 * AnjutaProfileManager::profile-scoped:
+	 * @profile_manager: a #AnjutaProfileManager object.
+	 * @profile: the current loaded #AnjutaProfile.
+	 * 
+	 * Emitted when a new profile is loaded.
+	 */
 	profile_manager_signals[PROFILE_SCOPED] =
 		g_signal_new ("profile-scoped",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -262,6 +309,14 @@ anjuta_profile_manager_get_type (void)
 	return our_type;
 }
 
+/**
+ * anjuta_profile_manager_new:
+ * @plugin_manager: the #AnjutaPluginManager used by all profiles.
+ * 
+ * Create a new profile manager.
+ *
+ * Return value: the new #AnjutaProfileManager object.
+ */
 AnjutaProfileManager*
 anjuta_profile_manager_new (AnjutaPluginManager *plugin_manager)
 {
@@ -442,6 +497,18 @@ anjuta_profile_manager_queue_profile (AnjutaProfileManager *profile_manager,
 	}
 }
 
+/**
+ * anjuta_profile_manager_push:
+ * @profile_manager: the #AnjutaProfileManager object.
+ * @profile: the new #AnjutaProfile.
+ * @error: error propagation and reporting.
+ * 
+ * Add a new profile at the top of the profile manager stack. If the profile
+ * manager is not frozen, this new profile will be loaded immediatly and
+ * become the current profile.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ */
 gboolean
 anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
 							 AnjutaProfile *profile, GError **error)
@@ -459,7 +526,20 @@ anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
 												 error);
 }
 
-/* Only the last profile can be popped */
+/**
+ * anjuta_profile_manager_pop:
+ * @profile_manager: the #AnjutaProfileManager object.
+ * @profile_name: the name of the profile to remove.
+ * @error: error propagation and reporting.
+ * 
+ * Remove a profile from the profile manager stack. If the manager is not
+ * frozen, only the current profile can be removed. It will be unloaded and
+ * the previous profile will be loaded.
+ * If the manager is frozen, the current profile or the last pushed profile
+ * can be removed.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ */
 gboolean
 anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 							const gchar *profile_name, GError **error)
@@ -518,6 +598,15 @@ anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 	return FALSE;
 }
 
+/**
+ * anjuta_profile_manager_freeze:
+ * @profile_manager: the #AnjutaProfileManager object.
+ * 
+ * Freeze the plugin manager. In this state, plugins can be added and removed
+ * from the stack without triggering any change in the current profile. It is
+ * possible to freeze the manager several times but it will be back in its normal
+ * state only after as much call of anjuta_profile_manager_thaw().
+ */
 void
 anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager)
 {
@@ -527,6 +616,17 @@ anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager)
 	priv->freeze_count++;
 }
 
+/**
+ * anjuta_profile_manager_thaw:
+ * @profile_manager: the #AnjutaProfileManager object.
+ * @error: error propagation and reporting.
+ * 
+ * Put back the plugin manager in its normal mode after calling
+ * anjuta_profile_manager_freeze(). It will load a new profile if one has been
+ * added while the manager was frozen.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ */
 gboolean
 anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 							GError **error)
@@ -561,6 +661,14 @@ anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 	}
 }
 
+/**
+ * anjuta_profile_manager_get_current :
+ * @profile_manager: A #AnjutaProfileManager object.
+ * 
+ * Return the current profile.
+ *
+ * Return value: a #AnjutaProfile object or NULL if the profile stack is empty.
+ */
 AnjutaProfile*
 anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager)
 {

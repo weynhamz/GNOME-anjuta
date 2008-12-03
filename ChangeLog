@@ -1,3 +1,23 @@
+2008-12-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* src/anjuta.c:
+	Allow to pass project path in command line instead of only URI
+
+	* plugins/project-manager/anjuta-project-manager.plugin.in,
+	libanjuta/anjuta-plugin-description.c,
+	libanjuta/anjuta-plugin-description.h,
+	libanjuta/anjuta-plugin-handle.c,
+	libanjuta/anjuta-profile-manager.c:
+	Fix #548873: File->Close project menu remains active after closing
+	a project
+
+	* manuals/reference/libanjuta/plugin-description-file.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	libanjuta/anjuta-profile.c,
+	libanjuta/anjuta-profile.h,
+	libanjuta/anjuta-profile-manager.h:
+	Document AnjutaProfile and AnjutaProfileManager
+
 2008-11-30  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/devhelp/Makefile.am:

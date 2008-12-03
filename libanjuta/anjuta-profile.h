@@ -34,8 +34,24 @@ G_BEGIN_DECLS
 #define ANJUTA_IS_PROFILE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PROFILE))
 #define ANJUTA_IS_PROFILE_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PROFILE))
 #define ANJUTA_PROFILE_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PROFILE, AnjutaProfileClass))
+
+/**
+ * ANJUTA_PROFILE_ERROR:
+ *
+ * Error domain for Anjuta profile. Errors in this domain will be from the
+ * #AnjutaProfileError enumeration. See #GError for more information
+ * on error domains.
+ */
 #define ANJUTA_PROFILE_ERROR            (anjuta_profile_error_quark())
 
+/**
+ * AnjutaProfileError:
+ * @ANJUTA_PROFILE_ERROR_URI_READ_FAILED: Fail to read xml plugins list file.
+ * @ANJUTA_PROFILE_ERROR_URI_WRITE_FAILED: Fail to write xml plugins list file.
+ *
+ * Error codes returned by anjuta profile functions.
+ *
+ */
 typedef enum
 {
 	ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
@@ -58,6 +74,11 @@ struct _AnjutaProfileClass
 	void(* changed) (AnjutaProfile *self, GList *plugins);
 };
 
+/**
+ * AnjutaProfile:
+ *
+ * Stores a plugin list.
+ */
 struct _AnjutaProfile
 {
 	GObject parent_instance;
@@ -67,7 +88,7 @@ struct _AnjutaProfile
 GQuark anjuta_profile_error_quark (void);
 GType anjuta_profile_get_type (void) G_GNUC_CONST;
 
-AnjutaProfile* anjuta_profile_new (const gchar *profile_name,
+AnjutaProfile* anjuta_profile_new (const gchar *name,
 								   AnjutaPluginManager *plugin_manager);
 const gchar *anjuta_profile_get_name (AnjutaProfile *profile);
 void anjuta_profile_add_plugin (AnjutaProfile *profile,
@@ -82,7 +103,6 @@ gboolean anjuta_profile_has_plugin (AnjutaProfile *profile,
 									AnjutaPluginDescription *plugin);
 GList* anjuta_profile_get_plugins (AnjutaProfile *profile);
 
-gchar* anjuta_profile_to_xml (AnjutaProfile *profile);
 void anjuta_profile_set_sync_file (AnjutaProfile *profile,
 								  GFile *sync_file);
 gboolean anjuta_profile_sync (AnjutaProfile *profile, GError **error);

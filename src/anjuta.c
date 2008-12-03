@@ -475,7 +475,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	/* Load project file */
 	if (project_file)
 	{
-		GFile* file = g_file_new_for_uri (project_file);
+		GFile* file = g_file_new_for_commandline_arg (project_file);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);

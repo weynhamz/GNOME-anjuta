@@ -51,6 +51,11 @@ struct _AnjutaProfileManagerClass
 							AnjutaProfile* profile);
 };
 
+/**
+ * AnjutaProfileManager:
+ *
+ * Stores stack of #AnjutaProfile.
+ */
 struct _AnjutaProfileManager
 {
 	GObject parent_instance;
@@ -67,7 +72,7 @@ gboolean anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 									 const gchar *profile_name, GError **error);
 
 void anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager);
-gboolean anjuta_profile_manager_thaw (AnjutaProfileManager *plugin_manager,
+gboolean anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 									 GError **error);
 AnjutaProfile* anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager);
 

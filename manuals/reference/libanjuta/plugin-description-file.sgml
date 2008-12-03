@@ -89,6 +89,42 @@
 					</para>
 				</listitem>
 			</varlistentry>
+			<varlistentry><term>Dependencies</term>
+				<listitem>
+					<para>
+						Name of other plugins needed by this one.
+						These other plugins will be loaded before.
+						It can be useful to be sure that
+						a menu item has been created.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>UserActivatable</term>
+				<listitem>
+					<para>
+						Set to "no", if the plugin cannot be loaded
+						by the user. Such plugins are loaded
+						automatically by Anjuta when needed. It is
+						the case for plugin providing support for
+						some file types by example. By default a plugin can
+						be loaded by the user.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>ExcludeFromSession</term>
+				<listitem>
+					<para>
+						Set to "yes", if the plugin is not saved in
+						the user session. Such plugin must be
+						non user activatable too. This is the case
+						for project manager plugin. When activated it
+						loads a new session, so it does
+						not belong to the first session and should not
+						be saved inside. By default all plugins are saved
+						in the current user session.
+					</para>
+				</listitem>
+			</varlistentry>
 
 		</variablelist>
 		Here is a typical plugin meta-data file

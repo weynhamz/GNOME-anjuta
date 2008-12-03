@@ -925,7 +925,7 @@ anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
  * @keyname: Key name.
  * @val: Pointer to value to store retured value.
  * 
- * Returns the value of key as integer in the given section in current locale.
+ * Returns the value of key as integer in the given section.
  *
  * Return value: TRUE if sucessful, otherwise FALSE.
  */
@@ -950,4 +950,51 @@ anjuta_plugin_description_get_integer (AnjutaPluginDescription   *df,
   
   return TRUE;
   
+}
+
+/**
+ * anjuta_plugin_description_get_boolean:
+ * @df: an #AnjutaPluginDescription object.
+ * @section: Section name.
+ * @keyname: Key name.
+ * @val: Pointer to value to store retured value.
+ * 
+ * Returns the value of key as boolean in the given section.
+ *
+ * Return value: TRUE if sucessful, otherwise FALSE.
+ */
+gboolean
+anjuta_plugin_description_get_boolean (AnjutaPluginDescription   *df,
+			      const char       *section,
+			      const char       *keyname,
+			      gboolean         *val)
+{
+  gboolean res;
+  char *str;
+  
+  *val = 0;
+
+  res = anjuta_plugin_description_get_raw (df, section, keyname, NULL, &str);
+  if (!res)
+    return FALSE;
+
+  if ((g_ascii_strcasecmp (str, "yes") == 0) ||
+      (g_ascii_strcasecmp (str, "true") == 0))
+  {
+    *val = TRUE;
+  }
+  else if ((g_ascii_strcasecmp (str, "no") == 0) ||
+	          (g_ascii_strcasecmp (str, "false") == 0))	  
+
+  {
+    *val = FALSE;
+  }
+  else
+  {
+     res = FALSE;
+  }
+
+  g_free (str);
+
+  return res;
 }

@@ -25,6 +25,48 @@
  * @stability: Unstable
  * @include: libanjuta/anjuta-profile.h
  * 
+ * A anjuta profile contains the list of all plugins used in one Anjuta session.
+ * It is possible to add and remove plugins,
+ * check if one is included or get the whole list. The plugins list can be saved
+ * into a xml file and loaded from it.
+ *
+ * A profile in an Anjuta session includes plugins from up to 3 different xml
+ * sources:
+ *	<variablelist>
+ *    <varlistentry>
+ *    <term>$prefix/share/anjuta/profiles/default.profile</term>
+ *    <listitem>
+ *    <para>
+ *        This contains the system plugins. It is loaded in every profile and
+ *        contains mandatory plugins for Anjuta. These plugins cannot be
+ *        unloaded.
+ *    </para>
+ *    </listitem>
+ *    </varlistentry>
+ *    <varlistentry>
+ *    <term>$project_dir/$project_name.anjuta</term>
+ *    <listitem>
+ *    <para>
+ *        This contains the project plugins. It lists mandatory plugins for the
+ *        project. This file is version controlled and distributed with the source
+ *        code. Every user working on the project uses the same one. If there
+ *        is no project loaded, no project plugins are loaded.
+ *    </para>
+ *    </listitem>
+ *    </varlistentry>
+ *    <varlistentry>
+ *    <term>$project_dir/.anjuta/default.profile</term>
+ *    <listitem>
+ *    <para>
+ *        This contains the user plugins. This is the only list of plugins
+ *        which is updated when the user add or remove one plugin.
+ *        If there is no project loaded, the user home directory is used
+ *        instead of the project directory but this list is used only in this case.
+ *        There is no global user plugins list.
+ *    </para>
+ *    </listitem>
+ *    </varlistentry>
+ * </variablelist>
  */
 
 #include <glib/gi18n.h>
@@ -242,6 +284,13 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 											  G_PARAM_WRITABLE |
 											  G_PARAM_CONSTRUCT));
 
+	/**
+	 * AnjutaProfile::plugin-added:
+	 * @profile: a #AnjutaProfile object.
+	 * @plugin: the new plugin as a #AnjutaPluginDescription.
+	 * 
+	 * Emitted when a plugin is added in the list.
+	 */
 	profile_signals[PLUGIN_ADDED] =
 		g_signal_new ("plugin-added",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -252,6 +301,13 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 		              G_TYPE_NONE, 1,
 		              G_TYPE_POINTER);
 
+	/**
+	 * AnjutaProfile::plugin-removed:
+	 * @profile: a #AnjutaProfile object.
+	 * @plugin: the removed plugin as a #AnjutaPluginDescription.
+	 * 
+	 * Emitted when a plugin is removed from the list.
+	 */
 	profile_signals[PLUGIN_REMOVED] =
 		g_signal_new ("plugin-removed",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -261,6 +317,14 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 		              anjuta_cclosure_marshal_VOID__POINTER,
 		              G_TYPE_NONE, 1,
 		              G_TYPE_POINTER);
+	
+	/**
+	 * AnjutaProfile::changed:
+	 * @profile: a #AnjutaProfile object.
+	 * @plugin_list: the new plugins list.
+	 * 
+	 * Emitted when a plugin is added or removed from the list.
+	 */
 	profile_signals[CHANGED] =
 		g_signal_new ("changed",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -300,6 +364,15 @@ anjuta_profile_get_type (void)
 	return our_type;
 }
 
+/**
+ * anjuta_profile_new:
+ * @name: the new profile name.
+ * @plugin_manager: the #AnjutaPluginManager used by this profile.
+ * 
+ * Create a new profile.
+ *
+ * Return value: the new #AnjutaProfile object.
+ */
 AnjutaProfile*
 anjuta_profile_new (const gchar* name, AnjutaPluginManager *plugin_manager)
 {
@@ -309,6 +382,14 @@ anjuta_profile_new (const gchar* name, AnjutaPluginManager *plugin_manager)
 	return ANJUTA_PROFILE (profile);
 }
 
+/**
+ * anjuta_profile_get_name:
+ * @profile: a #AnjutaProfile object.
+ * 
+ * Get the profile name.
+ *
+ * Return value: the profile name.
+ */
 const gchar*
 anjuta_profile_get_name (AnjutaProfile *profile)
 {
@@ -318,6 +399,13 @@ anjuta_profile_get_name (AnjutaProfile *profile)
 	return priv->name;
 }
 
+/**
+ * anjuta_profile_add_plugin:
+ * @profile: a #AnjutaProfile object.
+ * @plugin: a #AnjutaPluginDescription.
+ * 
+ * Add one plugin into the profile plugin list.
+ */
 void
 anjuta_profile_add_plugin (AnjutaProfile *profile,
 						   AnjutaPluginDescription *plugin)
@@ -334,6 +422,13 @@ anjuta_profile_add_plugin (AnjutaProfile *profile,
 	}
 }
 
+/**
+ * anjuta_profile_remove_plugin:
+ * @profile: a #AnjutaProfile object.
+ * @plugin: a #AnjutaPluginDescription.
+ * 
+ * Remove one plugin from the profile plugin list.
+ */
 void
 anjuta_profile_remove_plugin (AnjutaProfile *profile, 
 							  AnjutaPluginDescription *plugin)
@@ -350,6 +445,15 @@ anjuta_profile_remove_plugin (AnjutaProfile *profile,
 	}
 }
 
+/**
+ * anjuta_profile_has_plugin:
+ * @profile: a #AnjutaProfile object
+ * @plugin: a #AnjutaPluginDescription 
+ * 
+ * Check if a plugin is included in the profile plugin list.
+ *
+ * Return value: TRUE if the plugin is included in the list.
+ */
 gboolean
 anjuta_profile_has_plugin (AnjutaProfile *profile,
 						   AnjutaPluginDescription *plugin)
@@ -362,6 +466,14 @@ anjuta_profile_has_plugin (AnjutaProfile *profile,
 			g_list_find (priv->plugins, plugin) != NULL);
 }
 
+/**
+ * anjuta_profile_get_plugins:
+ * @profile: a #AnjutaProfile object.
+ * 
+ * Get the profile current plugins list.
+ *
+ * Return value: the plugins list.
+ */
 GList*
 anjuta_profile_get_plugins (AnjutaProfile *profile)
 {
@@ -609,6 +721,17 @@ anjuta_profile_read_plugins_from_xml (AnjutaProfile *profile,
 	return descs_list;
 }
 
+/**
+ * anjuta_profile_add_plugins_from_xml:
+ * @profile: a #AnjutaProfile object.
+ * @profile_xml_file: xml file containing plugin list.
+ * @exclude_from_sync: TRUE if these plugins shouldn't be saved in user session.
+ * @error: error propagation and reporting.
+ * 
+ * Add all plugins inscribed in the xml file into the profile plugin list.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ */
 gboolean
 anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 									 GFile* profile_xml_file,
@@ -661,13 +784,13 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 
 /**
  * anjuta_profile_to_xml :
- * @profile: A #AnjutaProfile object
+ * @profile: a #AnjutaProfile object.
  * 
  * Return a string in xml format containing the list of saved plugins.
  *
  * Return value: a newly-allocated string that must be freed with g_free().
  */
-gchar*
+static gchar*
 anjuta_profile_to_xml (AnjutaProfile *profile)
 {
 	GList *node;
@@ -686,21 +809,18 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 		if (!g_hash_table_lookup (priv->plugins_to_exclude_from_sync,
 								  node->data))
 		{
-			gchar *user_activatable = NULL;
+			gboolean user_activatable;
 			gchar *name = NULL, *plugin_id = NULL;
 			
 			
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "UserActivatable",
-												  &user_activatable);
-			/* Do not save plugins that are auto activated */
-			if (user_activatable && strcmp (user_activatable, "no") == 0)
+			if (anjuta_plugin_description_get_boolean (desc, "Anjuta Plugin",
+												  "UserActivatable", &user_activatable)
+				&& !user_activatable)
 			{
-				g_free (user_activatable);
+				/* Do not save plugins that are auto activated */
 				node = g_list_next (node);
-				continue;
 			}
-			g_free (user_activatable);
+			
 			/* Do not use the _locale_ version because it's not in UI */
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Name", &name);
@@ -742,8 +862,8 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 
 /**
  * anjuta_profile_set_sync_file:
- * @profile: A #AnjutaProfile object
- * @sync_file: File used to save profile
+ * @profile: a #AnjutaProfile object.
+ * @sync_file: file used to save profile.
  * 
  * Define the file used to save plugins list.
  */
@@ -766,12 +886,12 @@ anjuta_profile_set_sync_file (AnjutaProfile *profile, GFile *sync_file)
 
 /**
  * anjuta_profile_sync:
- * @profile: A #AnjutaProfile object
- * @error: Error propagation and reporting
+ * @profile: a #AnjutaProfile object.
+ * @error: error propagation and reporting.
  * 
  * Save the current plugins list in the xml file set with anjuta_profile_set_sync_file().
  *
- * Return value: TRUE on success, FALSE otherwise
+ * Return value: TRUE on success, FALSE otherwise.
  */
 gboolean
 anjuta_profile_sync (AnjutaProfile *profile, GError **error)

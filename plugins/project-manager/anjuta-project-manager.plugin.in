@@ -5,6 +5,7 @@ Location=anjuta-project-manager:ProjectManagerPlugin
 Icon=anjuta-project-manager-plugin-48.png
 Interfaces=IAnjutaFile,IAnjutaProjectManager
 UserActivatable=no
+ExcludeFromSession=yes
 
 [File Loader]
 SupportedMimeTypes=application/x-anjuta

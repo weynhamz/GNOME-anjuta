@@ -452,10 +452,8 @@ ANJUTA_PLUGIN_HANDLE_GET_CLASS
 <FILE>anjuta-profile</FILE>
 ANJUTA_PROFILE_ERROR
 AnjutaProfileError
-AnjutaProfilePriv
 <TITLE>AnjutaProfile</TITLE>
 AnjutaProfile
-anjuta_profile_error_quark
 anjuta_profile_new
 anjuta_profile_get_name
 anjuta_profile_add_plugin
@@ -478,7 +476,6 @@ ANJUTA_PROFILE_GET_CLASS
 
 <SECTION>
 <FILE>anjuta-profile-manager</FILE>
-AnjutaProfileManagerPriv
 <TITLE>AnjutaProfileManager</TITLE>
 AnjutaProfileManager
 anjuta_profile_manager_new
@@ -1790,6 +1787,7 @@ anjuta_plugin_description_foreach_section
 anjuta_plugin_description_foreach_key
 anjuta_plugin_description_get_raw
 anjuta_plugin_description_get_integer
+anjuta_plugin_description_get_boolean
 anjuta_plugin_description_get_string
 anjuta_plugin_description_get_locale_string
 </SECTION>

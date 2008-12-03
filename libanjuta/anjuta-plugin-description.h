@@ -84,6 +84,11 @@ gboolean anjuta_plugin_description_get_integer (AnjutaPluginDescription *df,
 												const gchar *keyname,
 												gint *val);
 
+gboolean anjuta_plugin_description_get_boolean (AnjutaPluginDescription   *df,
+											   const gchar *section,
+											   const gchar *keyname,
+											   gboolean *val);
+
 gboolean anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
 											   const gchar *section,
 											   const gchar *keyname,
