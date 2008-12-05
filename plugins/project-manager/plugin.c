@@ -2220,10 +2220,17 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
 
 	update_operation_begin (plugin);
-	default_location_type =
-		ianjuta_project_manager_get_element_type (project_manager,
-												  default_location_uri, NULL);
-	location_id = get_element_id_from_uri (plugin, default_location_uri);
+	if (default_location_uri == NULL)
+	{
+		default_location_type = IANJUTA_PROJECT_MANAGER_UNKNOWN;
+	}
+	else
+	{
+		default_location_type =
+			ianjuta_project_manager_get_element_type (project_manager,
+													  default_location_uri, NULL);
+		location_id = get_element_id_from_uri (plugin, default_location_uri);
+	}
 	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
 	{
 		source_ids = gbf_project_util_add_source_multi (plugin->model,

@@ -1,3 +1,10 @@
+2008-12-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/file-wizard/file.c,
+	plugins/file-wizard/anjuta-file-wizard.glade,
+	plugins/project-manager/plugin.c:
+	Fix #562754: Create corresponding header file does not work
+
 2008-12-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* src/anjuta.c:

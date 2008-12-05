@@ -67,7 +67,7 @@ typedef struct _NewfileType
 {
 	gchar *name;
 	gchar *ext;
-	gboolean header;
+	gint header;
 	gboolean gpl;
 	gboolean template;
 	Cmt comment;
@@ -77,15 +77,15 @@ typedef struct _NewfileType
 
 
 NewfileType new_file_type[] = {
-	{N_("C Source File"), ".c", TRUE, TRUE, FALSE, CMT_C, LGE_C},
-	{N_("C/C++ Header File"), ".h", TRUE, TRUE, TRUE, CMT_C, LGE_HC},
-	{N_("C++ Source File"), ".cxx", TRUE, TRUE, FALSE, CMT_CPP, LGE_CPLUS},
-	{N_("C# Source File"), ".c#", TRUE, FALSE, FALSE, CMT_CPP, LGE_CSHARP},
-	{N_("Java Source File"), ".java", TRUE, TRUE, FALSE, CMT_CPP, LGE_JAVA},
-	{N_("Perl Source File"), ".pl", TRUE, TRUE, FALSE, CMT_P, LGE_PERL},
-	{N_("Python Source File"), ".py", FALSE, TRUE, FALSE, CMT_P, LGE_PYTHON},
-	{N_("Shell Script File"), ".sh", TRUE, TRUE, FALSE, CMT_P, LGE_SHELL},
-	{N_("Other"), NULL, FALSE, FALSE, FALSE, CMT_C, LGE_C}
+	{N_("C Source File"), ".c", LGE_HC, TRUE, TRUE, CMT_C, LGE_C},
+	{N_("C/C++ Header File"), ".h", -1, TRUE, TRUE, CMT_C, LGE_HC},
+	{N_("C++ Source File"), ".cxx", LGE_HC, TRUE, TRUE, CMT_CPP, LGE_CPLUS},
+	{N_("C# Source File"), ".c#", LGE_HC, FALSE, TRUE, CMT_CPP, LGE_CSHARP},
+	{N_("Java Source File"), ".java", -1, FALSE, FALSE, CMT_CPP, LGE_JAVA},
+	{N_("Perl Source File"), ".pl", -1, TRUE, TRUE, CMT_P, LGE_PERL},
+	{N_("Python Source File"), ".py", -1, TRUE, FALSE, CMT_P, LGE_PYTHON},
+	{N_("Shell Script File"), ".sh", -1, TRUE, TRUE, CMT_P, LGE_SHELL},
+	{N_("Other"), NULL, -1, FALSE, FALSE, CMT_C, LGE_C}
 };
 
 
@@ -221,6 +221,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	GtkWidget *checkbutton;
 	GtkWidget *optionmenu;
 	const gchar *name;
+	gchar *header_name = NULL;
 	gint sel;
 	const gchar* license_type;
 	gint comment_type;
@@ -229,6 +230,8 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	GtkWidget *toplevel;
 	IAnjutaMacro* macro;
 	IAnjutaEditor *te = NULL;
+	IAnjutaEditor *teh = NULL;
+	gboolean ok = TRUE;
 	
 	toplevel= gtk_widget_get_toplevel (window);
 	docman = IANJUTA_DOCUMENT_MANAGER (g_object_get_data (G_OBJECT(toplevel),
@@ -238,35 +241,16 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
 	name = gtk_entry_get_text(GTK_ENTRY(entry));
 
+	/* Create main file */
 	if (name && strlen (name) > 0)
 		te = ianjuta_document_manager_add_buffer (docman, name, NULL, NULL);
 	else
 		te = ianjuta_document_manager_add_buffer (docman, "", NULL, NULL);
+	
 	if (te == NULL)
 		return FALSE;
 	
-	if (nfg->plugin->top_dir &&
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
-	{
-		IAnjutaProjectManager *pm;
-		gchar* file_uri;
-		GFile* file;
-		
-		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
-										 IAnjutaProjectManager, NULL);
-		g_return_val_if_fail (pm != NULL, FALSE);
-		
-		file_uri = ianjuta_project_manager_add_source (pm, name, NULL, NULL);
-		if (!file_uri)
-			return FALSE;
-	
-		/* Create empty file */
-		file = g_file_new_for_uri (file_uri);
-		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), file, NULL);
-		g_object_unref (file);
-		g_free (file_uri);
-	}
-	
+	/* Create header file */
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
 	
@@ -274,9 +258,42 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-		insert_header(macro, source_type);
+		if (name && strlen (name) > 0)
+		{
+			const gchar *old_ext = strrchr (name,'.');
+			const gchar *new_ext =  new_file_type[new_file_type[source_type].header].ext;
+			
+			if (old_ext == NULL)
+			{
+				header_name = g_strconcat (name, new_ext, NULL);
+			}
+			else
+			{
+				header_name = g_strndup (name, old_ext - name + strlen(new_ext));
+				strcpy(&header_name[old_ext - name], new_ext);
+			}
+			teh = ianjuta_document_manager_add_buffer (docman, header_name, NULL, NULL);
+		}
+		else
+		{
+			teh = ianjuta_document_manager_add_buffer (docman, "", NULL, NULL);
+		}
+		ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
 	}
-		
+
+	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
+	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	{
+		insert_header(macro, source_type);
+		if (teh != NULL)
+		{
+			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(teh), NULL);		
+			insert_header (macro, new_file_type[source_type].header);
+			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
+		}
+	}
+	
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
@@ -287,19 +304,61 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		comment_type = new_file_type[source_type].comment;
 		                                  
 		insert_notice(macro, license_type, comment_type);		
+		if (teh != NULL)
+		{
+			comment_type = new_file_type[new_file_type[source_type].header].comment;
+			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(teh), NULL);		
+			insert_notice(macro, license_type, comment_type);		
+			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
+		}
 	}
 	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	/* Add file to project */
+	if (nfg->plugin->top_dir &&
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
 	{
-		ianjuta_macro_insert(macro, "Header_h", NULL);
+		IAnjutaProjectManager *pm;
+		GFile* file;
+		GList *names = NULL;
+		GList *uri_list;
+		
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
+										 IAnjutaProjectManager, NULL);
+		g_return_val_if_fail (pm != NULL, FALSE);
+
+		if (teh) names = g_list_prepend (names, header_name);
+		names = g_list_prepend (names, (gpointer) name);
+		uri_list = ianjuta_project_manager_add_sources (pm, names, NULL, NULL);
+		g_list_free (names);
+		
+		if (uri_list)
+		{
+			/* Save main file */
+			file = g_file_new_for_uri ((const gchar *)uri_list->data);
+			ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), file, NULL);		
+			g_object_unref (file);
+			
+			if (uri_list->next)
+			{
+				/* Save header file */
+				file = g_file_new_for_uri ((const gchar *)uri_list->next->data);
+				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), file, NULL);		
+				g_object_unref (file);
+			}		
+			g_list_foreach (uri_list, (GFunc)g_free, NULL);
+			g_list_free (uri_list);
+		}
+		else
+		{
+			ok = FALSE;
+		}
 	}
+	g_free (header_name);
 	
 	gtk_widget_hide (nfg->dialog);
 	nfg->showing = FALSE;
 	
-	return TRUE;
+	return ok;
 }
 
 void
@@ -337,7 +396,7 @@ on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data)
 	sel = gtk_option_menu_get_history(optionmenu);
 	
 	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
-	gtk_widget_set_sensitive(widget, new_file_type[sel].header);
+	gtk_widget_set_sensitive(widget, new_file_type[sel].header >= 0);
 	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
 	gtk_widget_set_sensitive(widget, new_file_type[sel].gpl);
 	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
