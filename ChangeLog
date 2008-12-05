@@ -1,5 +1,17 @@
 2008-12-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/build-basic-autotools/plugin.c,
+	plugins/build-basic-autotools/program.c,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	libanjuta/anjuta-utils.c,
+	libanjuta/anjuta-utils.h:
+	Move shell_expand function in anjuta-util
+
+	* plugins/project-wizard/property.c:
+	Fix #562623: Project creation fails if path uses a tilde
+
+2008-12-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/file-wizard/file.c,
 	plugins/file-wizard/anjuta-file-wizard.glade,
 	plugins/project-manager/plugin.c:

@@ -38,6 +38,7 @@
 #include <ctype.h>
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -494,6 +495,9 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		{
 			/* a GtkEntry is used in this case*/
 			value = gtk_entry_get_text (GTK_ENTRY (this->widget));
+			/* Expand ~ and environment variable */
+			alloc_value = anjuta_util_shell_expand (value);
+			value = alloc_value;
 		}
 		else
 		{

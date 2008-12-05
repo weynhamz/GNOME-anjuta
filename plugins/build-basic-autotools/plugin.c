@@ -1360,7 +1360,6 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, const gchar *filename,
 {
 	BuildContext *context;
 	gchar *build_dir;
-	gchar *src_dir;
 	gchar *target;
 	BuildProgram *prog;
 	

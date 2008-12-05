@@ -35,6 +35,8 @@
 
 #include "program.h"
 
+#include <libanjuta/anjuta-utils.h>
+
 #include <glib/gi18n.h>
 
 #include <string.h>
@@ -44,60 +46,6 @@
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
-
-static gchar*
-build_shell_expand (const gchar *input)
-{
-	GString* expand;
-	
-	if (input == NULL) return NULL;
-	
-	expand = g_string_sized_new (strlen (input));
-	
-	for (; *input != '\0'; input++)
-	{
-		switch (*input)
-		{
-			case '$':
-			{
-				/* Variable expansion */
-				const gchar *end;
-				gint var_name_len;
-
-				end = input + 1;
-				while (isalnum (*end) || (*end == '_')) end++;
-				var_name_len = end - input - 1;
-				if (var_name_len > 0)
-				{
-					const gchar *value;
-					
-					g_string_append_len (expand, input + 1, var_name_len);
-					value = g_getenv (expand->str + expand->len - var_name_len);
-					g_string_truncate (expand, expand->len - var_name_len);
-					g_string_append (expand, value);
-					input = end - 1;
-					continue;
-				}
-				break;
-			}
-			case '~':
-			{
-				/* User home directory expansion */
-				if (isspace(input[1]) || (input[1] == G_DIR_SEPARATOR) || (input[1] == '\0'))
-				{
-					g_string_append (expand, g_get_home_dir());
-					continue;
-				}
-				break;
-			}
-			default:
-				break;
-		}
-		g_string_append_c (expand, *input);
-	}
-	
-	return g_string_free (expand, FALSE);
-}
 
 static gchar **
 build_strv_insert_before (gchar ***pstrv, gint pos)
@@ -202,7 +150,7 @@ build_program_set_command (BuildProgram *prog, const gchar *command)
 	{
 		gchar *new_arg;
 		
-		new_arg = build_shell_expand (*arg);
+		new_arg = anjuta_util_shell_expand (*arg);
 		g_free (*arg);
 		*arg = new_arg;
 	}
@@ -238,7 +186,7 @@ build_program_insert_arg (BuildProgram *prog, gint pos, const gchar *arg)
 	gchar **parg;
 	
 	parg = build_strv_insert_before (&prog->argv, pos);
-	*parg = build_shell_expand (arg);
+	*parg = anjuta_util_shell_expand (arg);
 	
 	return TRUE;
 }
@@ -253,7 +201,7 @@ build_program_replace_arg (BuildProgram *prog, gint pos, const gchar *arg)
 	else
 	{
 		g_free (prog->argv[pos]);
-		prog->argv[pos] = build_shell_expand (arg);
+		prog->argv[pos] = anjuta_util_shell_expand (arg);
 	}
 	
 	return TRUE;

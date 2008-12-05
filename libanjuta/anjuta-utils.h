@@ -115,6 +115,7 @@ gchar* anjuta_util_get_real_path (const gchar *path);
 
 gchar* anjuta_util_uri_get_dirname (const gchar *uri);
 gchar* anjuta_util_replace_home_dir_with_tilde (const gchar *uri);
+gchar* anjuta_util_shell_expand (const gchar *string);
 gchar* anjuta_util_str_middle_truncate (const gchar *string,
 										 guint        truncate_length);
 

@@ -1615,6 +1615,68 @@ anjuta_util_replace_home_dir_with_tilde (const gchar *uri)
 	return g_strdup (uri);
 }
 
+/**
+ * anjuta_util_shell_expand:
+ * @string: input string
+ *
+ * Expand environment variables $(var_name) and tilde (~) in the input string.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*
+anjuta_util_shell_expand (const gchar *string)
+{
+	GString* expand;
+	
+	if (string == NULL) return NULL;
+	
+	expand = g_string_sized_new (strlen (string));
+	
+	for (; *string != '\0'; string++)
+	{
+		switch (*string)
+		{
+			case '$':
+			{
+				/* Variable expansion */
+				const gchar *end;
+				gint var_name_len;
+
+				end = string + 1;
+				while (isalnum (*end) || (*end == '_')) end++;
+				var_name_len = end - string - 1;
+				if (var_name_len > 0)
+				{
+					const gchar *value;
+					
+					g_string_append_len (expand, string + 1, var_name_len);
+					value = g_getenv (expand->str + expand->len - var_name_len);
+					g_string_truncate (expand, expand->len - var_name_len);
+					g_string_append (expand, value);
+					string = end - 1;
+					continue;
+				}
+				break;
+			}
+			case '~':
+			{
+				/* User home directory expansion */
+				if (isspace(string[1]) || (string[1] == G_DIR_SEPARATOR) || (string[1] == '\0'))
+				{
+					g_string_append (expand, g_get_home_dir());
+					continue;
+				}
+				break;
+			}
+			default:
+				break;
+		}
+		g_string_append_c (expand, *string);
+	}
+	
+	return g_string_free (expand, FALSE);
+}
+
 gchar *
 anjuta_util_str_middle_truncate (const gchar *string,
 								  guint        truncate_length)
