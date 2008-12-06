@@ -1,3 +1,9 @@
+2008-12-06  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/file-manager/plugin.c,
+	plugins/file-manager/file-model.c:
+	Fix #560284: Crash when deleting a folder outside Anjuta
+
 2008-11-23  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/message-view/plugin.c:

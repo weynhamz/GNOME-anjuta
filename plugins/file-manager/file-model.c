@@ -106,28 +106,6 @@ file_model_add_dummy (FileModel* model,
 }
 
 static void
-file_model_remove_file (FileModel* model, 
-						GtkTreeIter* iter)
-{
-	GFile* file;
-	GtkTreeRowReference* reference;
-	GFileMonitor* monitor;
-	
-	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
-						COLUMN_FILE, &file, -1);
-	
-	monitor = g_object_get_data (G_OBJECT(file), "file-monitor");
-	if (monitor)
-		g_object_unref (monitor);
-	
-	reference = g_object_get_data (G_OBJECT(file), "reference");
-	if (reference)
-		gtk_tree_row_reference_free(reference);
-	
-	gtk_tree_store_remove (GTK_TREE_STORE (model), iter);	
-}
-
-static void
 file_model_update_file (FileModel* model,
 						GtkTreeIter* iter,
 						GFile* file,
@@ -201,6 +179,7 @@ on_file_model_changed (GFileMonitor* monitor,
 	GtkTreeIter file_iter;
 	gboolean found = FALSE;
 	
+	/* reference could be invalid if the file has already been destroyed */
 	if (!gtk_tree_row_reference_valid(reference))
 		return;
 	
@@ -255,7 +234,7 @@ on_file_model_changed (GFileMonitor* monitor,
 		}
 		case G_FILE_MONITOR_EVENT_DELETED:
 		{
-			file_model_remove_file (model, &file_iter);
+			gtk_tree_store_remove (GTK_TREE_STORE (model), &file_iter);			
 			break;
 		}
 		default:
@@ -285,8 +264,9 @@ file_model_add_watch (FileModel* model, GtkTreePath* path)
 	g_signal_connect (monitor, "changed", G_CALLBACK(on_file_model_changed),
 					  reference);
 	
-	g_object_set_data (G_OBJECT(file), "file-monitor", monitor);
-	g_object_set_data (G_OBJECT(file), "reference", reference);	
+	g_object_set_data_full (G_OBJECT(file), "file-monitor", monitor, (GDestroyNotify)g_object_unref);
+	/* Reference is used by monitor, should be kept it until the monitor is destroyed */
+	g_object_set_data_full (G_OBJECT(monitor), "reference", reference, (GDestroyNotify)gtk_tree_row_reference_free);
 	g_object_unref (file);
 }
 
@@ -355,7 +335,7 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 
 	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, &real_iter))
 	{
-		file_model_remove_file (model, &child);
+		gtk_tree_store_remove (GTK_TREE_STORE (model), &child);		
 	}
 	
 	file_model_add_dummy (model, &real_iter);
