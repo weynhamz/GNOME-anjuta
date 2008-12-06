@@ -131,6 +131,7 @@ on_file_view_current_file_changed (AnjutaFileView* view, GFile* file,
 		g_value_set_object (value, file);
 		anjuta_shell_add_value (ANJUTA_PLUGIN (file_manager)->shell,
 								IANJUTA_FILE_MANAGER_SELECTED_FILE, value, NULL);
+		g_value_unset (value);
 	}
 	else
 	{
