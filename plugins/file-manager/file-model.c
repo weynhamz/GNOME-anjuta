@@ -35,6 +35,8 @@ const gchar* BINARY_SUFFIX[] =
 	".lo",
 	".a",
 	".so",
+	".pyc",
+	".pyo",
 	NULL
 };
 

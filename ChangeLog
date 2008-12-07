@@ -1,5 +1,10 @@
 2008-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/file-manager/file-model.c:
+	Fix #563530: "Do not show binary files" should add ".pyc" and ".pyo"
+
+2008-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* libanjuta/anjuta-plugin-manager.c:
 	Fix #552081: Dependent plugins are not added in the preference dialog
 
