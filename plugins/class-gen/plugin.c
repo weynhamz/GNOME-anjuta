@@ -215,14 +215,21 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	}
 	else
 	{
-		*new_header_file = added_files->data;
-		*new_source_file = g_list_next (added_files)->data;
+		GFile *file;
 
+		file = g_file_new_for_uri ((gchar *)added_files->data);
+		*new_header_file = g_file_get_path(file);
+		g_object_unref (file);
+		file = g_file_new_for_uri ((gchar *)g_list_next (added_files)->data);
+		*new_source_file = g_file_get_path(file);
+		g_object_unref (file);
+		
 		result = TRUE;
 	}
 
 	g_free (curdir);
 	g_free (dirname);
+	g_list_foreach (added_files, (GFunc)g_free, NULL);
 	g_list_free (added_files);
 	g_list_free (filenames);
 

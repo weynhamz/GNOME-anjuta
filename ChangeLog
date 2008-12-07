@@ -1,3 +1,8 @@
+2008-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/class-gen/plugin.c:
+	Fix #559951: Class Generator cannot add new class
+
 2008-12-05  Naba Kumar  <naba@naba-desktop>
 
 	Patch from Ignacio Casal Quinteiro  <nacho.resa@gmail.com>:
