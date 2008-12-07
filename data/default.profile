@@ -7,7 +7,7 @@
                  attribute="Interfaces"
                  value="IAnjutaFileLoader"/>
     </plugin>
-    <plugin name="Starter View"
+    <plugin name="Starter"
             url="http://anjuta.org/plugins/"
             mandatory="no">
                 <require group="Anjuta Plugin"

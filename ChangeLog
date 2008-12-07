@@ -1,3 +1,15 @@
+2008-12-05  Naba Kumar  <naba@naba-desktop>
+
+	Patch from Ignacio Casal Quinteiro  <nacho.resa@gmail.com>:
+
+	* data/default.profile:
+	* plugins/Makefile.am:
+	* plugins/starter/starter.c (recent_project_clicked_cb),
+	(starter_instance_init), (starter_new):
+	Added the subdir to plugins/Makefile.am. Since we are not going to
+	use it in the document-manager then it is not
+	neccessary implement all that interfaces in the starter.[ch]
+
 2008-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/file-manager/file-model.c:

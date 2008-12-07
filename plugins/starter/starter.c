@@ -21,10 +21,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
-#include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
-#include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
@@ -69,8 +66,8 @@ static void
 recent_project_clicked_cb (GtkButton *button, Starter *wcm)
 {
 	GFile *file;
-	IAnjutaLoader *loader = anjuta_shell_get_interface (wcm->priv->shell, IAnjutaFileLoader,
-														NULL);
+	IAnjutaFileLoader *loader = anjuta_shell_get_interface (wcm->priv->shell, IAnjutaFileLoader,
+															NULL);
 
 	file = g_object_get_data (G_OBJECT (button), "file");
 
@@ -352,7 +349,7 @@ starter_instance_init (Starter* wcm)
 	
 	if (error != NULL)
 	{
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 		return;
 	}
@@ -523,174 +520,11 @@ starter_class_init (StarterClass *klass)
 	object_class->finalize = starter_finalize;
 }
 
-/* Return true if editor can redo */
-static gboolean
-idocument_can_redo (IAnjutaDocument *editor, GError **e)
-{
-	return FALSE;
-}
-
-/* Return true if editor can undo */
-static gboolean
-idocument_can_undo (IAnjutaDocument *editor, GError **e)
-{
-	return FALSE;
-}
-
-/* Return true if editor can undo */
-static void
-idocument_begin_undo_action (IAnjutaDocument *editor, GError **e)
-{
-	return;
-}
-
-/* Return true if editor can undo */
-static void
-idocument_end_undo_action (IAnjutaDocument *editor, GError **e)
-{
-	return;
-}
-
-
-static void 
-idocument_undo (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-static void 
-idocument_redo (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-/* Grab focus */
-static void
-idocument_grab_focus (IAnjutaDocument *editor, GError **e)
-{
-	return;
-}
-
-/* Return the opened filename */
-static const gchar* 
-idocument_get_filename (IAnjutaDocument *editor, GError **e)
-{
-	Starter *wcm = ANJUTA_STARTER (editor);
-
-	return wcm->priv->filename;
-}
-
-static void 
-idocument_cut (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-static void 
-idocument_copy (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-static void 
-idocument_paste (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-static void 
-idocument_clear (IAnjutaDocument* edit, GError** ee)
-{
-	return;
-}
-
-static void
-idocument_iface_init (IAnjutaDocumentIface *iface)
-{
-	iface->grab_focus = idocument_grab_focus;
-	iface->get_filename = idocument_get_filename;
-	iface->can_undo = idocument_can_undo;
-	iface->can_redo = idocument_can_redo;
-	iface->begin_undo_action = idocument_begin_undo_action;
-	iface->end_undo_action = idocument_end_undo_action;
-	iface->undo = idocument_undo;
-	iface->redo = idocument_redo;
-	iface->cut = idocument_cut;
-	iface->copy = idocument_copy;
-	iface->paste = idocument_paste;
-	iface->clear = idocument_clear;
-}
-
-/* IAnjutaFile interface */
-
-/* Open uri in Editor */
-static void
-ifile_open (IAnjutaFile* file, GFile *uri, GError** e)
-{
-	return;
-}
-
-/* Return the currently loaded uri */
-
-static GFile *
-ifile_get_file (IAnjutaFile* file, GError** e)
-{
-	GFile *f;
-	
-	f = g_file_new_for_path (_("Starter"));
-	
-	return f;
-}
-
-/* IAnjutaFileSavable interface */
-
-/* Save file */
-static void 
-ifile_savable_save (IAnjutaFileSavable* file, GError** e)
-{
-	return;
-}
-
-/* Save file as */
-static void 
-ifile_savable_save_as (IAnjutaFileSavable* file, GFile *uri, GError** e)
-{
-	return;
-}
-
-static void 
-ifile_savable_set_dirty (IAnjutaFileSavable* file, gboolean dirty, GError** e)
-{
-	return;
-}
-
-static gboolean 
-ifile_savable_is_dirty (IAnjutaFileSavable* file, GError** e)
-{
-	return FALSE;
-}
-
-static void
-isavable_iface_init (IAnjutaFileSavableIface *iface)
-{
-	iface->save = ifile_savable_save;
-	iface->save_as = ifile_savable_save_as;
-	iface->set_dirty = ifile_savable_set_dirty;
-	iface->is_dirty = ifile_savable_is_dirty;
-}
-
-static void
-ifile_iface_init (IAnjutaFileIface *iface)
-{
-	iface->open = ifile_open;
-	iface->get_file = ifile_get_file;
-}
-
 /* Plublic funcs */
 Starter *
 starter_new (AnjutaShell *shell)
 {
-	Starter *starter = ANJUTA_STARTER(g_object_new(ANJUTA_TYPE_STARTER, NULL));
+	Starter *starter = ANJUTA_STARTER (g_object_new (ANJUTA_TYPE_STARTER, NULL));
 
 	starter->priv->shell = shell;
 	
@@ -709,7 +543,4 @@ starter_new (AnjutaShell *shell)
 }
 
 ANJUTA_TYPE_BEGIN(Starter, starter, GTK_TYPE_SCROLLED_WINDOW);
-ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
-ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
-ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_TYPE_END;

@@ -35,7 +35,8 @@ SUBDIRS = . \
 	git \
 	sourceview \
 	run-program \
-	scratchbox
+	scratchbox \
+	starter
 
 # indent
 
