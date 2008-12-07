@@ -1,3 +1,8 @@
+2008-12-07  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/message-view/message-view.c (message_view_instance_init):
+	Fixed horizontal scrolling in message-view
+
 2008-12-05  Naba Kumar  <naba@naba-desktop>
 
 	* AUTHORS: Fixed format.

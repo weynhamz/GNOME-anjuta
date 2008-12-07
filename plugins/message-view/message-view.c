@@ -824,7 +824,7 @@ message_view_instance_init (MessageView * self)
 	column = gtk_tree_view_column_new ();
 
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
+	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_GROW_ONLY);
 	gtk_tree_view_column_set_title (column, _("Messages"));
 	gtk_tree_view_column_add_attribute
 		(column, renderer, "foreground", COLUMN_COLOR);
