@@ -1,3 +1,8 @@
+2008-12-05  Naba Kumar  <naba@naba-desktop>
+
+	* AUTHORS: Fixed format.
+	* manuals/anjuta-manual/C/authors.xml: Fixed link to authors page.
+
 2008-12-05  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
