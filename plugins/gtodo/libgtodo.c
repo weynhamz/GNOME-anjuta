@@ -7,8 +7,8 @@
 #include <time.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libanjuta/anjuta-debug.h>
 #include "libgtodo.h"
-#include <libgnomevfs/gnome-vfs.h>
 
 #ifdef DEBUG
 short int debug = 1;
@@ -25,7 +25,7 @@ typedef struct _GTodoCategory{
 GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr node);
 
 /* this checks if the xml backend file exists.. not to be used by the user */
-int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gchar *info, GnomeVFSMonitorEventType event, GTodoClient *cl);
+void check_item_changed (GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GTodoClient *cl);
 
 int gtodo_client_check_file(GTodoClient *cl, GError **error);
 
@@ -555,13 +555,15 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 /* initialise the gtodo lib */
 int gtodo_client_check_file(GTodoClient *cl, GError **error)
 {
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
-	GnomeVFSResult info_result;
 	GError *tmp_error = NULL;
-	gchar *base_path = g_path_get_dirname(cl->xml_path);
+	GFile *base_path = NULL;
+	GFileInfo *file_info = NULL;
+	GError *file_error = NULL;
+
 	/* check if the error is good or wrong. */
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
+
+	base_path = g_file_get_parent (cl->xml_file);
 
 	/* this is dirty.. needs a fix hard *
 	 * The client should do this.. so this code should be considert
@@ -570,27 +572,30 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 	
 	if(base_path != NULL)
 	{
-		gnome_vfs_make_directory(base_path, 0755);
-		g_free(base_path);
+		g_file_make_directory (base_path, NULL, NULL);
+		g_object_unref (G_OBJECT(base_path));
 	}
 
 	/* Get permission of the file */
 	/* This also tell's us if it does exists */
-	info_result = gnome_vfs_get_file_info(cl->xml_path, 
-			&info, 
-			GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_GET_ACCESS_RIGHTS );
+	file_info = g_file_query_info (cl->xml_file, 
+			"access::can-read,access::can-write",
+			G_FILE_QUERY_INFO_NONE,
+			NULL, &file_error);
 
 	/* If I got the info to check it out */
-	if(info_result == GNOME_VFS_OK )
+	if(file_error == NULL)
 	{
-		GnomeVFSHandle *handle;
 		gchar *read_buf = NULL;
-		int perm = (info.permissions-(int)(info.permissions/65536)*65536);
-		int read      = (int)(perm/256);
-		int write     =(int)((perm - (int)(perm/256)*256)/128);
+		gboolean read;
+		gboolean write;
+		gsize size;
+
+		read = g_file_info_get_attribute_boolean (file_info, "access::can-read");
+		write = g_file_info_get_attribute_boolean (file_info, "access::can-write");
 
 		/* If I am not allowed to read the file */
-		if(read == 0)
+		if(!read)
 		{
 			/* save some more info here.. check for some logicol errors and print it. */
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_NO_PERMISSION,
@@ -599,41 +604,39 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			return TRUE;
 		}
 		cl->read_only = !write;
+		DEBUG_PRINT("trying to read file: %s, size: %d", g_file_get_parse_name (cl->xml_file), size);
 
-
-		if((result = gnome_vfs_open(&handle,cl->xml_path, GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
+		if (!g_file_load_contents (cl->xml_file, NULL, (char **)&read_buf, &size, NULL, &file_error))
 		{
-			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GNOME_VFS,gnome_vfs_result_to_string(result));
-			g_propagate_error(error, tmp_error);
+			if (file_error)
+			{
+				g_propagate_error(error, file_error);
+			}
+			else
+			{
+				g_set_error(&tmp_error, LIBGTODO_ERROR, LIBGTODO_ERROR_FAILED, _("Failed to read file"));
+				g_propagate_error(error, tmp_error);
+			}
 			return TRUE;
 		}
-		read_buf = g_malloc0((info.size+1)*sizeof(char));
-
-		result = gnome_vfs_read(handle, read_buf, info.size,NULL);
-		if(!(result == GNOME_VFS_OK || result == GNOME_VFS_ERROR_EOF))
-		{
-			g_free(read_buf);
-			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GNOME_VFS,gnome_vfs_result_to_string(result));
-			g_propagate_error(error, tmp_error);
-			return TRUE;
-		}
-		gnome_vfs_close(handle);
-		cl->gtodo_doc = xmlParseMemory(read_buf, info.size);
+		cl->gtodo_doc = xmlParseMemory(read_buf, size);
 		if(cl->gtodo_doc == NULL)
 		{
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse xml structure"));
 			g_propagate_error(error, tmp_error);
-			if(debug) g_print("**DEBUG** failed to read the file \n");
+			DEBUG_PRINT("%s", "failed to read the file");
+			g_free (read_buf);
 			return TRUE;
 		}
-		g_free(read_buf);
+
 		/* get root element.. this "root" is used in the while program */    
 		cl->root = xmlDocGetRootElement(cl->gtodo_doc);
 		if(cl->root == NULL)
 		{
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse xml structure"));
 			g_propagate_error(error, tmp_error);
-			if(debug)g_print("**DEBUG** failed to get root node.\n");
+			DEBUG_PRINT("%s", "failed to get root node.");
+			g_free (read_buf);
 			return TRUE;
 		}
 		/* check if the name of the root file is ok.. just to make sure :) */
@@ -641,10 +644,14 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 		{
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("File is not a valid gtodo file"));
 			g_propagate_error(error, tmp_error);
+			g_free (read_buf);
 			return TRUE;
 		}
+
+		g_free (read_buf);
 	}
-	else if(info_result == GNOME_VFS_ERROR_NOT_FOUND){
+	else if ((file_error->domain == G_IO_ERROR) && (file_error->code == G_IO_ERROR_NOT_FOUND))
+	{
 		xmlNodePtr newn;
 		if(debug) g_print("Trying to create new file\n");
 		cl->gtodo_doc = xmlNewDoc((xmlChar *)"1.0");
@@ -662,11 +669,11 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			return TRUE;
 		}
 		cl->read_only = FALSE;
+		g_error_free (file_error);
 	}
 	else{
 		/* save some more info here.. check for some logicol errors and print it. */
-		g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GNOME_VFS,gnome_vfs_result_to_string(info_result));
-		g_propagate_error(error, tmp_error);
+		g_propagate_error(error, file_error);
 		return TRUE;
 	}
 	return FALSE;
@@ -723,9 +730,10 @@ int gtodo_client_save_xml(GTodoClient *cl, GError **error)
 	/* check if the error is good or wrong. */
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
 
-	if(debug)g_print("** DEBUG ** saving %s\n", cl->xml_path);
-		gtodo_client_cleanup_doc (cl);
-	if(gtodo_client_save_xml_to_file(cl, cl->xml_path, &tmp_error))
+	DEBUG_PRINT ("saving %s", g_file_get_uri (cl->xml_file));
+	gtodo_client_cleanup_doc (cl);
+
+	if(gtodo_client_save_xml_to_file(cl, cl->xml_file, &tmp_error))
 	{
 		g_propagate_error(error, tmp_error);
 		return TRUE;
@@ -734,13 +742,12 @@ int gtodo_client_save_xml(GTodoClient *cl, GError **error)
 }
 
 
-int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error)
+int gtodo_client_save_xml_to_file(GTodoClient *cl, GFile *file, GError **error)
 {
 	xmlChar *buffer;
-	GnomeVFSHandle *handle;
-	GnomeVFSResult result = 0;
 	GError *tmp_error = NULL;
 	int size;
+
 	/* Test if there is actually a client to save */
 	if(cl == NULL)
 	{
@@ -753,6 +760,8 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error)
 	xmlKeepBlanksDefault(0);
 	xmlDocDumpFormatMemory(cl->gtodo_doc, &buffer, &size, TRUE);
 	/* dirty trick to get the whole crap to work on ftp */
+#if 0
+	/* Check if necessary with GIO */
 	if(!strncmp(file, "ftp://", MIN(strlen(file),6)))
 	{
 		GnomeVFSURI *uri = gnome_vfs_uri_new(file);
@@ -774,27 +783,17 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error)
 		}
 		gnome_vfs_uri_unref(uri);
 	}
-
+#endif
 	/* open the file for writing */
-	result = gnome_vfs_create(&handle,file,GNOME_VFS_OPEN_WRITE, 0, 0644);
-	if(result != GNOME_VFS_OK)
+	if (!g_file_replace_contents (file, 
+			(char *)buffer, size, 
+			NULL, FALSE, G_FILE_CREATE_NONE, 
+			NULL, NULL, &tmp_error))
 	{
-		g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GENERIC,_("Failed to create/open file.") );
-		g_propagate_error(error, tmp_error);
-		return TRUE;
-	}
-
-	/* start writing */
-	result = gnome_vfs_write(handle, buffer, size, NULL);
-	if(result != GNOME_VFS_OK)
-	{
-		g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GENERIC,_("Failed to write data to file.") );
 		g_propagate_error(error, tmp_error);
 		xmlFree(buffer);
 		return TRUE;
 	}
-	/* close the file connection */
-	gnome_vfs_close(handle);
 
 	xmlFree(buffer);
 	/* return that everything is ok */
@@ -815,15 +814,16 @@ int gtodo_client_reload(GTodoClient *cl)
 	return TRUE;
 }
 
-int gtodo_client_load(GTodoClient *cl, const gchar *xml_path)
+int gtodo_client_load(GTodoClient *cl, GFile *xml_file)
 {
 	/* fixme */
 	if (cl->gtodo_doc)
 		xmlFreeDoc(cl->gtodo_doc);
 	cl->root = NULL;
-	if (cl->xml_path)
-		g_free (cl->xml_path);
-	cl->xml_path = g_strdup (xml_path);
+	if (cl->xml_file)
+		g_object_unref (cl->xml_file);
+
+	cl->xml_file = g_file_dup (xml_file);
 	if(gtodo_client_check_file(cl, NULL))
 	{
 		if(debug)g_print("Failed to reload the file\n");
@@ -839,12 +839,14 @@ GTodoClient * gtodo_client_new_default(GError **error)
 {
 	GError *tmp_error = NULL;
 	GTodoClient *cl = NULL;
+	gchar* default_uri = NULL;
 	/* check if the error is good or wrong. */
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
 
 
 	cl = g_malloc(sizeof(GTodoClient));
-	cl->xml_path = g_strdup_printf("file:///%s/.gtodo/todos", g_getenv("HOME"));
+	default_uri = g_strdup_printf("/%s/.gtodo/todos", g_getenv("HOME"));
+	cl->xml_file = g_file_new_for_path (default_uri);
 	/* check, open or create the correct xml file */
 	if(gtodo_client_check_file(cl, &tmp_error))
 	{
@@ -871,7 +873,7 @@ GTodoClient * gtodo_client_new_from_file(char *filename, GError **error)
 	}
 
 	cl = g_malloc(sizeof(GTodoClient));
-	cl->xml_path = g_strdup(filename);
+	cl->xml_file = g_file_new_for_path(filename);
 	/* check, open or create the correct xml file */
 	if(gtodo_client_check_file(cl,&tmp_error))
 	{
@@ -886,7 +888,7 @@ GTodoClient * gtodo_client_new_from_file(char *filename, GError **error)
 void gtodo_client_quit(GTodoClient *cl)
 {
 	gtodo_client_save_xml(cl,NULL);
-	g_free(cl->xml_path);
+	g_object_unref (cl->xml_file);
 	g_free(cl);
 }
 
@@ -1232,19 +1234,15 @@ void gtodo_client_delete_todo_by_id(GTodoClient *cl, guint32 id)
 	gtodo_client_save_xml(cl,NULL);
 }
 
-int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gchar *info, GnomeVFSMonitorEventType event, GTodoClient *cl)
+//int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gchar *info, GnomeVFSMonitorEventType event, GTodoClient *cl)
+void check_item_changed (GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GTodoClient *cl)
 {
-	GnomeVFSURI* vfs_uri = gnome_vfs_uri_new(uri);
-	gboolean exists = gnome_vfs_uri_exists(vfs_uri);
-	g_free(vfs_uri);
-	if (!exists)
+	if (event == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
 	{
-		return FALSE;
+		gtodo_client_reload(cl);
+		DEBUG_PRINT ("%s", "Item changed");
+		cl->function(cl, cl->data);
 	}
-	gtodo_client_reload(cl);
-	if(debug)g_print("**DEBUG** Item changed\n");
-	cl->function(cl, cl->data);
-	return TRUE;
 }
 
 /* set the fucntion it should call when the todo database has changed */
@@ -1252,9 +1250,8 @@ int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gc
 void gtodo_client_set_changed_callback(GTodoClient *cl, void *(*function)(gpointer cl, gpointer data), gpointer data)
 {
 	cl->function = function;    
-	gnome_vfs_monitor_add(&cl->timeout,cl->xml_path,
-			GNOME_VFS_MONITOR_FILE,
-			(GnomeVFSMonitorCallback)check_item_changed, cl);
+	cl->timeout = g_file_monitor_file (cl->xml_file, G_FILE_MONITOR_NONE, NULL, NULL);
+	g_signal_connect (G_OBJECT (cl->timeout), "changed", G_CALLBACK (check_item_changed), cl);
 	cl->data = data; 
 }
 
@@ -1263,7 +1260,9 @@ void gtodo_client_destroy_changed_callback(GTodoClient *cl, void *(*function)(gp
 	cl->function = NULL;   
 	if(cl->timeout != NULL)
 	{
-		gnome_vfs_monitor_cancel(cl->timeout);
+		g_file_monitor_cancel (cl->timeout);
+		g_object_unref (cl->timeout);
+		cl->timeout = NULL;
 	}
 	cl->data = NULL;    
 }
@@ -1511,7 +1510,8 @@ void gtodo_client_block_changed_callback(GTodoClient *cl)
 {
 	if(cl->timeout != NULL)
 	{
-		gnome_vfs_monitor_cancel(cl->timeout);
+		g_file_monitor_cancel(cl->timeout);
+		g_object_unref (cl->timeout);
 	}
 	cl->timeout = NULL;
 }
@@ -1520,10 +1520,8 @@ void gtodo_client_unblock_changed_callback(GTodoClient *cl)
 {
 	if(cl->timeout == NULL)
 	{
-		gnome_vfs_monitor_add(&cl->timeout,cl->xml_path,
-				GNOME_VFS_MONITOR_FILE,
-				(GnomeVFSMonitorCallback)check_item_changed, cl);
-
+		cl->timeout = g_file_monitor_file (cl->xml_file, G_FILE_MONITOR_NONE, NULL, NULL);
+		g_signal_connect (G_OBJECT (cl->timeout), "changed", G_CALLBACK (check_item_changed), cl);
 	}
 }
 /* This function is deprecated now */
@@ -1547,7 +1545,7 @@ long int gtodo_item_compare_latest(GTodoItem *base, GTodoItem *test)
 /* make duplicate an exact copy of source */
 void gtodo_client_save_client_to_client(GTodoClient *source, GTodoClient *duplicate)
 {
-	gtodo_client_save_xml_to_file(source, duplicate->xml_path,NULL);
+	gtodo_client_save_xml_to_file(source, duplicate->xml_file,NULL);
 	gtodo_client_reload(duplicate);
 }
 

@@ -40,6 +40,7 @@ void export_backup_xml(void)
 	GtkWidget *browse;
 	char *temp;
 	GError *error = NULL;
+	GFile *file = NULL;
 
 	/* setup the dialog */
 	dialog = gtk_dialog_new_with_buttons("Export Task List",
@@ -72,7 +73,8 @@ void export_backup_xml(void)
 	{
 		case GTK_RESPONSE_ACCEPT:
 			g_print("saving to: %s\n", gtk_entry_get_text(GTK_ENTRY(entry)));
-			if(gtodo_client_save_xml_to_file(cl, (char *)gtk_entry_get_text(GTK_ENTRY(entry)), &error))
+			file = g_file_parse_name ((char *)gtk_entry_get_text(GTK_ENTRY(entry)));
+			if(gtodo_client_save_xml_to_file(cl, file, &error))
 			{
 			g_print("Other error\n");
 			}
@@ -80,6 +82,8 @@ void export_backup_xml(void)
 			{
 			g_print("Error: %s\n", error->message);
 			}
+
+			g_object_unref (file);
 		default:
 			gtk_widget_destroy(dialog);
 
@@ -113,8 +117,7 @@ void export_xslt()
 	GtkWidget *loc_entry, *loc_browser;
 	GtkWidget *emb_cb, *cust_cb, *cust_browser, *cb_curcat;;
 	GtkWidget *box, *but;
-	GnomeVFSHandle *handle;
-	GnomeVFSResult result;
+	GFile* file;
 	char *tmp_string;
 	xmlChar *string;
 	int length;
@@ -234,18 +237,13 @@ void export_xslt()
 		g_free(param_string);
 	}
 	xsltSaveResultToString(&string,&length , res, cur);
-
-	result = gnome_vfs_create(&handle, 
-			gtk_entry_get_text(GTK_ENTRY(loc_entry)), 
-			GNOME_VFS_OPEN_WRITE,
-			0, 0644);
-	if(result == GNOME_VFS_OK)
-	{
-		gnome_vfs_write(handle,(char*)string, length, NULL); 
-		xmlFree(string);
-	}
+	
+	file = g_file_parse_name (gtk_entry_get_text (GTK_ENTRY (loc_entry)));
+	g_file_replace_contents (file, (char *)string, length, NULL, FALSE,
+			G_FILE_CREATE_NONE, NULL, NULL, NULL);
 
 	/* clean up some junk*/
+	xmlFree(string);
 	xsltFreeStylesheet(cur);
 	xmlFreeDoc(res);
 	xsltCleanupGlobals();

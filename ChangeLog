@@ -1,3 +1,13 @@
+2008-12-07  Jens Georg  <mail@jensge.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gtodo/export.c,
+	plugins/gtodo/plugin.c,
+	plugins/gtodo/libgtodo.c,
+	plugins/gtodo/libgtodo.h:
+	#511589 – Anjuta uses GNOME-VFS
+
 2008-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/class-gen/plugin.c:

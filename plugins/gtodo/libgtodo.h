@@ -1,9 +1,9 @@
 #ifndef __LIBGTODO__
 #define __LIBGTODO__
 
-#include <libgnomevfs/gnome-vfs.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <gio/gio.h>
 #define GTODO_NO_DUE_DATE 99999999
 /* the GError stuff */
 #define LIBGTODO_ERROR g_quark_from_static_string("libgtodo-error-quark")
@@ -36,9 +36,9 @@ typedef struct _GTodoClient{
 	/* the last time the backend was edited */
 	time_t last_edit;
 	/* the timeout UID that is used to check again every x ms. */
-	GnomeVFSMonitorHandle *timeout;
+	GFileMonitor *timeout;
 	/* the path to the backend (in this case xml, should I make it more generic?) */
-	gchar *xml_path;
+	GFile *xml_file;
 	/* the pointer to the xml structure */
 	xmlDocPtr gtodo_doc;
 	/* pointer to the first node */
@@ -269,13 +269,13 @@ gchar *gtodo_todo_item_get_stop_date_as_string(GTodoItem *item);
 int gtodo_client_save_xml(GTodoClient *cl, GError **error);
 
 /* The above function should never be used, this can be useful f.e. backups or incase of syncronising */
-int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error);
+int gtodo_client_save_xml_to_file(GTodoClient *cl, GFile *file, GError **error);
 
 /* reloads the client backend data*/
 int gtodo_client_reload(GTodoClient *cl);
 
 /* Loads a file */
-int gtodo_client_load(GTodoClient *cl, const gchar *xml_path);
+int gtodo_client_load(GTodoClient *cl, GFile *xml_file);
 
 /* creates a new GTodoClient that opens the default backend */
 GTodoClient * gtodo_client_new_default(GError **error);
