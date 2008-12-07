@@ -122,7 +122,7 @@ gchar* anjuta_util_str_middle_truncate (const gchar *string,
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
 gchar* anjuta_util_get_local_path_from_uri (const gchar *uri);
 
-void anjuta_util_help_display (GtkWindow   *parent,
+void anjuta_util_help_display (GtkWidget   *parent,
 							   const gchar *doc_id,
 							   const gchar *file_name);
 

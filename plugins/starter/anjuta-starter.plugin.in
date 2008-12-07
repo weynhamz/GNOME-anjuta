@@ -1,0 +1,7 @@
+[Anjuta Plugin]
+_Name=Starter
+_Description=Welcome page with most common actions.
+Location=anjuta-starter:StarterPlugin
+Version=0.1
+Icon=anjuta-document-manager-plugin-48.png
+UserActivatable=yes

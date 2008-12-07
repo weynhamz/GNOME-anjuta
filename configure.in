@@ -1039,6 +1039,7 @@ plugins/project-wizard/templates/m4/Makefile
 plugins/language-support-cpp-java/Makefile
 plugins/run-program/Makefile
 plugins/scratchbox/Makefile
+plugins/starter/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

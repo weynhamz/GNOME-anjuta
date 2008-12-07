@@ -102,7 +102,7 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 }
 
 static void
-help_activate (GtkWindow *parent, const gchar *doc_id, const gchar *item)
+help_activate (GtkWidget *parent, const gchar *doc_id, const gchar *item)
 {
 	anjuta_util_help_display (parent, doc_id, item);
 }

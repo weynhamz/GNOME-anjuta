@@ -1,3 +1,28 @@
+2008-12-05  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+
+	* src/action-callbacks.c:
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	Changed argument from GtkWindow to GtkWidget.
+	
+	* plugins/starter/plugin.c:
+	* plugins/starter/plugin.h:
+	* plugins/starter/starter.c:
+	* plugins/starter/starter.h:
+	* plugins/starter/anjuta-starter.plugin.in:
+	* plugins/starter/starter_logo.png:
+	* plugins/starter/Makefile.am:
+	* src/layout.xml:
+	* data/default.profile:
+	* configure.in:
+	Added starter plugin. (Changes by Naba: dock the starter widget directly
+	to the shell instead of putting it as an editor in document-manager.
+	Removed on-session-load signal which is not necessary since this widget
+	can stay as quick shortcuts while working on projects. Added it in data/
+	default.profile and src/layout.xml to load at startup)
+
 2008-12-06  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/file-manager/plugin.c,

@@ -1486,7 +1486,7 @@ int scandir(const char *dir, struct dirent ***namelist,
 #endif /* HAVE_LIBUTIL */
 
 void
-anjuta_util_help_display (GtkWindow   *parent,
+anjuta_util_help_display (GtkWidget   *parent,
 						  const gchar *doc_id,
 						  const gchar *file_name)
 {

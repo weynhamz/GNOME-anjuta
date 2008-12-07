@@ -7,6 +7,13 @@
                  attribute="Interfaces"
                  value="IAnjutaFileLoader"/>
     </plugin>
+    <plugin name="Starter View"
+            url="http://anjuta.org/plugins/"
+            mandatory="no">
+                <require group="Anjuta Plugin"
+                 attribute="Location"
+                 value="anjuta-starter:StarterPlugin"/>
+    </plugin>
     <plugin name="Document Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
