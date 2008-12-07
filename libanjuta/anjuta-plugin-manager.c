@@ -791,7 +791,8 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 	GtkTreePath *path;
 	AnjutaPluginHandle *plugin;
 	gboolean enabled;
-	GHashTable *activated_plugins;
+	GList *activated_plugins;
+	GList *node;
 	AnjutaPlugin* plugin_object;
 	
 	path = gtk_tree_path_new_from_string (path_str);
@@ -805,9 +806,15 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 			    COL_PLUGIN, &plugin,
 			    -1);
 	
-	if (enabled)
+	/* Activate one plugin can force the loading of other ones, instead of
+	 * searching which plugins have to be activated, we just unmerge all 
+	 * current plugins and merge all plugins after the modification */
+	
+	/* unmerge all plugins */
+	activated_plugins = g_hash_table_get_values (priv->activated_plugins);
+	for (node = g_list_first (activated_plugins); node != NULL; node = g_list_next (node))
 	{
-		plugin_object = g_hash_table_lookup (priv->activated_plugins, plugin);
+		plugin_object = (AnjutaPlugin *)node->data;
 		if (plugin_object &&
 			IANJUTA_IS_PREFERENCES(plugin_object))
 		{
@@ -816,24 +823,29 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 									   NULL);
 		}
 	}
-	enabled = !enabled;
-
-	activated_plugins = plugin_set_update (plugin_manager, plugin, enabled);
-	plugin_object = g_hash_table_lookup (priv->activated_plugins, plugin);
+	g_list_free (activated_plugins);
+	
+	plugin_set_update (plugin_manager, plugin, !enabled);
 	
 	/* Make sure that it appears in the preferences. This method
 		can only be called when the preferences dialog is active so
 		it should be save
 	*/
-	if (plugin_object &&
-		IANJUTA_IS_PREFERENCES(plugin_object))
+	activated_plugins = g_hash_table_get_values (priv->activated_plugins);
+	for (node = g_list_first (activated_plugins); node != NULL; node = g_list_next (node))
 	{
-		ianjuta_preferences_merge (IANJUTA_PREFERENCES (plugin_object),
-								   anjuta_shell_get_preferences (ANJUTA_SHELL (priv->shell), NULL),
-								   NULL);
+		plugin_object = (AnjutaPlugin *)node->data;
+		if (plugin_object &&
+			IANJUTA_IS_PREFERENCES(plugin_object))
+		{
+			ianjuta_preferences_merge (IANJUTA_PREFERENCES (plugin_object),
+									   anjuta_shell_get_preferences (ANJUTA_SHELL (priv->shell), NULL),
+									   NULL);
+		}
 	}
-	
-	update_enabled (GTK_TREE_MODEL (store), activated_plugins);
+	g_list_free (activated_plugins);
+
+	update_enabled (GTK_TREE_MODEL (store), priv->activated_plugins);
 	gtk_tree_path_free (path);
 }
 
