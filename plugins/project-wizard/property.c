@@ -441,8 +441,9 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 	/* Check if the default property is valid */
 	if (value && (this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
 	{
+		gchar *expand_value = anjuta_util_shell_expand (value);
 		/* a file or directory with the same name shouldn't exist */
-		if (g_file_test (value, G_FILE_TEST_EXISTS))
+		if (g_file_test (expand_value, G_FILE_TEST_EXISTS))
 		{
 			char* buffer;
 			guint i;
@@ -457,9 +458,11 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 			}
 			this->defvalue = g_string_chunk_insert (this->owner->string_pool, buffer);
 			g_free (buffer);
+			g_free (expand_value);
 
 			return;
 		}
+		g_free (expand_value);
 	}
 	/* This function could be used with value = defvalue to only check
 	 * the default property */

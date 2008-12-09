@@ -786,7 +786,9 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			old_folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
 			if ((old_folder == NULL) || strcmp (old_folder, value))
 			{
-				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), value);
+				gchar *expand_value = anjuta_util_shell_expand (value);
+				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), expand_value);
+				g_free (expand_value);
 			}
 			g_free (old_folder);
 		}
@@ -794,8 +796,10 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		if (value)
 		{
+			gchar *expand_value = anjuta_util_shell_expand (value);
 			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object),
-															 value);
+															 expand_value);
+			g_free (expand_value);
 		}
 		break;
 	}

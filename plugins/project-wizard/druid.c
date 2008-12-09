@@ -890,7 +890,7 @@ npw_druid_add_default_property (NPWDruid* this)
 	/* Add default base project directory */
 	value = npw_value_heap_find_value (this->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
 	s = anjuta_preferences_get (pref, "anjuta.project.directory");
-	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+	npw_value_heap_set_value (this->values, value, s == NULL ? "~" : s, NPW_VALID_VALUE);
 	g_free (s);
 	
 	/* Add user name */

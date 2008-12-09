@@ -1,5 +1,13 @@
 2008-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* src/anjuta.glade,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/property.c,
+	libanjuta/anjuta-preferences.c:
+	Fix #563753 default project directory is "/" until I set it explicitly
+
+2008-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/gtodo/interface.c,
 	plugins/gtodo/plugin.c,
 	plugins/gtodo/libgtodo.c,
