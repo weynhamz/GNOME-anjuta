@@ -124,6 +124,9 @@ GtkWidget * gui_create_todo_widget()
 	
 	if (!cl)
 		cl = gtodo_client_new_default (NULL);
+	if (!cl)
+		return NULL;
+	
 	stock_icons();
 	/* add an verticall box */
 	mw.vbox = gtk_vbox_new(FALSE, 0);

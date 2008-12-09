@@ -27,7 +27,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 /* this checks if the xml backend file exists.. not to be used by the user */
 void check_item_changed (GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GTodoClient *cl);
 
-int gtodo_client_check_file(GTodoClient *cl, GError **error);
+gboolean gtodo_client_check_file(GTodoClient *cl, GError **error);
 
 
 /* Function that creates an empty todo item. WARNING Don't use this when adding a todo item to the list.*/
@@ -553,7 +553,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 }
 
 /* initialise the gtodo lib */
-int gtodo_client_check_file(GTodoClient *cl, GError **error)
+gboolean gtodo_client_check_file(GTodoClient *cl, GError **error)
 {
 	GError *tmp_error = NULL;
 	GFile *base_path = NULL;
@@ -601,7 +601,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_NO_PERMISSION,
 					_("No permission to read the file."));		
 			g_propagate_error(error, tmp_error);                                                         
-			return TRUE;
+			return FALSE;
 		}
 		cl->read_only = !write;
 		DEBUG_PRINT("trying to read file: %s, size: %d", g_file_get_parse_name (cl->xml_file), size);
@@ -617,7 +617,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 				g_set_error(&tmp_error, LIBGTODO_ERROR, LIBGTODO_ERROR_FAILED, _("Failed to read file"));
 				g_propagate_error(error, tmp_error);
 			}
-			return TRUE;
+			return FALSE;
 		}
 		cl->gtodo_doc = xmlParseMemory(read_buf, size);
 		if(cl->gtodo_doc == NULL)
@@ -626,7 +626,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			g_propagate_error(error, tmp_error);
 			DEBUG_PRINT("%s", "failed to read the file");
 			g_free (read_buf);
-			return TRUE;
+			return FALSE;
 		}
 
 		/* get root element.. this "root" is used in the while program */    
@@ -637,7 +637,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			g_propagate_error(error, tmp_error);
 			DEBUG_PRINT("%s", "failed to get root node.");
 			g_free (read_buf);
-			return TRUE;
+			return FALSE;
 		}
 		/* check if the name of the root file is ok.. just to make sure :) */
 		if(!xmlStrEqual(cl->root->name, (const xmlChar *)"gtodo"))
@@ -645,7 +645,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("File is not a valid gtodo file"));
 			g_propagate_error(error, tmp_error);
 			g_free (read_buf);
-			return TRUE;
+			return FALSE;
 		}
 
 		g_free (read_buf);
@@ -666,7 +666,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 		if(gtodo_client_save_xml(cl, &tmp_error))
 		{
 			g_propagate_error(error, tmp_error);
-			return TRUE;
+			return FALSE;
 		}
 		cl->read_only = FALSE;
 		g_error_free (file_error);
@@ -674,9 +674,9 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 	else{
 		/* save some more info here.. check for some logicol errors and print it. */
 		g_propagate_error(error, file_error);
-		return TRUE;
+		return FALSE;
 	}
-	return FALSE;
+	return TRUE;
 }
 
 /* Remove unwanted text nodes from the document */
@@ -800,38 +800,37 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, GFile *file, GError **error)
 	return FALSE;
 }
 
-int gtodo_client_reload(GTodoClient *cl)
+gboolean gtodo_client_reload(GTodoClient *cl, GError **error)
 {
-	/* fixme */
 	if (cl->gtodo_doc)
 		xmlFreeDoc(cl->gtodo_doc);
+	cl->gtodo_doc = NULL;
 	cl->root = NULL;
-	if(gtodo_client_check_file(cl, NULL))
-	{
-		if(debug)g_print("Failed to reload the file\n");
-		return FALSE;
-	}
-	return TRUE;
+	return gtodo_client_check_file(cl, error);
 }
 
-int gtodo_client_load(GTodoClient *cl, GFile *xml_file)
+gboolean gtodo_client_load(GTodoClient *cl, GFile *xml_file, GError **error)
 {
-	/* fixme */
+	void  *(* function)(gpointer cl, gpointer data) ;
+	gpointer data;	
+	
 	if (cl->gtodo_doc)
 		xmlFreeDoc(cl->gtodo_doc);
+	cl->gtodo_doc = NULL;
 	cl->root = NULL;
+	function = cl->function;
+	data = cl->data;
+	gtodo_client_destroy_changed_callback	(cl, function, data);
 	if (cl->xml_file)
 		g_object_unref (cl->xml_file);
 
 	cl->xml_file = g_file_dup (xml_file);
-	if(gtodo_client_check_file(cl, NULL))
-	{
-		if(debug)g_print("Failed to reload the file\n");
-		return FALSE;
-	}
-	gtodo_client_set_changed_callback (cl, cl->function, cl->data);
+	if(!gtodo_client_check_file(cl, error)) return FALSE;
+	
+	gtodo_client_set_changed_callback (cl, function, data);
 	if (cl->function)
-	    cl->function(cl, cl->data);
+		cl->function(cl, cl->data);
+
 	return TRUE;
 }
 
@@ -844,11 +843,11 @@ GTodoClient * gtodo_client_new_default(GError **error)
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
 
 
-	cl = g_malloc(sizeof(GTodoClient));
+	cl = g_malloc0(sizeof(GTodoClient));
 	default_uri = g_strdup_printf("/%s/.gtodo/todos", g_getenv("HOME"));
 	cl->xml_file = g_file_new_for_path (default_uri);
 	/* check, open or create the correct xml file */
-	if(gtodo_client_check_file(cl, &tmp_error))
+	if(!gtodo_client_check_file(cl, &tmp_error))
 	{
 		g_propagate_error(error, tmp_error);
 		return NULL;	
@@ -875,7 +874,7 @@ GTodoClient * gtodo_client_new_from_file(char *filename, GError **error)
 	cl = g_malloc(sizeof(GTodoClient));
 	cl->xml_file = g_file_new_for_path(filename);
 	/* check, open or create the correct xml file */
-	if(gtodo_client_check_file(cl,&tmp_error))
+	if(!gtodo_client_check_file(cl,&tmp_error))
 	{
 		g_propagate_error(error, tmp_error);
 		return NULL;
@@ -1239,7 +1238,7 @@ void check_item_changed (GFileMonitor *monitor, GFile *file, GFile *other_file, 
 {
 	if (event == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
 	{
-		gtodo_client_reload(cl);
+		gtodo_client_reload(cl, NULL);
 		DEBUG_PRINT ("%s", "Item changed");
 		cl->function(cl, cl->data);
 	}
@@ -1250,6 +1249,11 @@ void check_item_changed (GFileMonitor *monitor, GFile *file, GFile *other_file, 
 void gtodo_client_set_changed_callback(GTodoClient *cl, void *(*function)(gpointer cl, gpointer data), gpointer data)
 {
 	cl->function = function;    
+	if(cl->timeout != NULL)
+	{
+		g_file_monitor_cancel (cl->timeout);
+		g_object_unref (cl->timeout);
+	}
 	cl->timeout = g_file_monitor_file (cl->xml_file, G_FILE_MONITOR_NONE, NULL, NULL);
 	g_signal_connect (G_OBJECT (cl->timeout), "changed", G_CALLBACK (check_item_changed), cl);
 	cl->data = data; 
@@ -1546,7 +1550,7 @@ long int gtodo_item_compare_latest(GTodoItem *base, GTodoItem *test)
 void gtodo_client_save_client_to_client(GTodoClient *source, GTodoClient *duplicate)
 {
 	gtodo_client_save_xml_to_file(source, duplicate->xml_file,NULL);
-	gtodo_client_reload(duplicate);
+	gtodo_client_reload(duplicate, NULL);
 }
 
 gboolean gtodo_client_get_read_only(GTodoClient *cl)

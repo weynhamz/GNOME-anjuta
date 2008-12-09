@@ -1,3 +1,11 @@
+2008-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gtodo/interface.c,
+	plugins/gtodo/plugin.c,
+	plugins/gtodo/libgtodo.c,
+	plugins/gtodo/libgtodo.h:
+	Fix #563586 Crash if project TODO.tasks is not readable
+
 2008-12-07  Jens Georg  <mail@jensge.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

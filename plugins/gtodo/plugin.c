@@ -97,71 +97,24 @@ static GtkToggleActionEntry actions_view[] = {
 	}
 };
 
-static void
-project_root_added (AnjutaPlugin *plugin, const gchar *name,
-					const GValue *value, gpointer user_data)
-{
-	const gchar *root_uri;
-
-	root_uri = g_value_get_string (value);
-	
-	if (root_uri)
-	{
-		GFile *file;
-		gchar *todo_file;
-		
-		todo_file = g_strconcat (root_uri, "/TODO.tasks", NULL);
-		file = g_file_parse_name (todo_file);
-		gtodo_client_load (cl, file);
-		g_free (todo_file);
-		g_object_unref (file);
-		category_changed();
-	}
-}
-
-static void
-project_root_removed (AnjutaPlugin *plugin, const gchar *name,
-					  gpointer user_data)
-{
-	const gchar * home;
-	gchar *default_todo;
-	GFile* file;
-	
-	home = g_get_home_dir ();
-	default_todo = g_strconcat ("file://", home, "/.gtodo/todos", NULL);
-	file = g_file_new_for_uri (default_todo);
-	
-	gtodo_client_load (cl, file);
-	category_changed();
-	g_free (default_todo);
-	g_object_unref (file);
-}
-
 static gboolean
-activate_plugin (AnjutaPlugin *plugin)
+create_gui (GTodoPlugin *gtodo_plugin)
 {
 	GtkWidget *wid;
 	AnjutaUI *ui;
-	AnjutaPreferences *prefs;
-	GTodoPlugin *gtodo_plugin;
 	GtkAction* hide_due;
 	GtkAction* hide_nodate;
 	GtkAction* hide_done;
-	static gboolean initialized;
-	
-	DEBUG_PRINT ("%s", "GTodoPlugin: Activating Task manager plugin ...");
-	gtodo_plugin = ANJUTA_PLUGIN_GTODO (plugin);
-	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	
-	if (!initialized)
-	{
-		gtodo_load_settings();
-	}
+
+	if (gtodo_plugin->widget) return TRUE;
+
 	wid = gui_create_todo_widget();
+	if (!wid) return FALSE;
+	
 	gtk_widget_show_all (wid);
 	gtodo_plugin->widget = wid;
+		
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (gtodo_plugin)->shell, NULL);
 	
 	/* Add all our editor actions */
 	gtodo_plugin->action_group = 
@@ -169,23 +122,19 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Tasks manager"),
 											actions_todo_view,
 											G_N_ELEMENTS (actions_todo_view),
-											GETTEXT_PACKAGE, FALSE, plugin);
+											GETTEXT_PACKAGE, FALSE, gtodo_plugin);
 	gtodo_plugin->action_group2 = 
 		anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
 												_("Tasks manager view"),
 												actions_view,
 												G_N_ELEMENTS (actions_view),
-												GETTEXT_PACKAGE, TRUE, plugin);
+												GETTEXT_PACKAGE, TRUE, gtodo_plugin);
 	gtodo_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	anjuta_shell_add_widget (plugin->shell, wid,
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (gtodo_plugin)->shell, wid,
 							 "AnjutaTodoPlugin", _("Tasks"),
 							 "gtodo", /* Icon stock */
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
-	/* set up project directory watch */
-	gtodo_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-													IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-													project_root_added,
-													project_root_removed, NULL);
+	
 	hide_done = anjuta_ui_get_action (ui, "ActionGroupTodoViewOps",
 								   "ActionViewTodoHideCompleted");
 	g_object_set(G_OBJECT(hide_done), "active",
@@ -199,6 +148,114 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_set(G_OBJECT(hide_nodate), "active",
 				 gtodo_get_hide_nodate(), NULL);
 	
+	return TRUE;
+}
+
+static gboolean
+remove_gui (GTodoPlugin *gtodo_plugin)
+{
+	AnjutaUI *ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (gtodo_plugin)->shell, NULL);
+
+	if (!gtodo_plugin->widget) return FALSE;
+
+	/* Container holds the last ref to this widget so it will be destroyed as
+	 * soon as removed. No need to separately destroy it. */
+	anjuta_shell_remove_widget (ANJUTA_PLUGIN (gtodo_plugin)->shell, gtodo_plugin->widget,
+								NULL);
+	anjuta_ui_unmerge (ui, gtodo_plugin->uiid);
+	anjuta_ui_remove_action_group (ui, gtodo_plugin->action_group2);
+	anjuta_ui_remove_action_group (ui, gtodo_plugin->action_group);
+	
+	gtodo_plugin->uiid = 0;
+	gtodo_plugin->widget = NULL;
+	gtodo_plugin->action_group = NULL;
+	gtodo_plugin->action_group2 = NULL;
+	
+	return TRUE;
+}
+
+static void
+project_root_added (AnjutaPlugin *plugin, const gchar *name,
+					const GValue *value, gpointer user_data)
+{
+	const gchar *root_uri;
+
+	root_uri = g_value_get_string (value);
+	
+	if (root_uri)
+	{
+		GFile *file;
+		gchar *todo_file;
+		GError *error = NULL;
+		
+		todo_file = g_strconcat (root_uri, "/TODO.tasks", NULL);
+		file = g_file_parse_name (todo_file);
+		if (!gtodo_client_load (cl, file, &error))
+		{
+			remove_gui (ANJUTA_PLUGIN_GTODO (plugin));
+			anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load todo file: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+		else
+		{
+			create_gui (ANJUTA_PLUGIN_GTODO (plugin));
+		}
+		g_free (todo_file);
+		g_object_unref (file);
+	}
+}
+
+static void
+project_root_removed (AnjutaPlugin *plugin, const gchar *name,
+					  gpointer user_data)
+{
+	const gchar * home;
+	gchar *default_todo;
+	GFile* file;
+	GError *error = NULL;
+	
+	home = g_get_home_dir ();
+	default_todo = g_strconcat ("file://", home, "/.gtodo/todos", NULL);
+	file = g_file_new_for_uri (default_todo);
+	
+	if (!gtodo_client_load (cl, file, &error))
+	{
+		remove_gui (ANJUTA_PLUGIN_GTODO (plugin));
+		anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load todo file: %s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	else
+	{
+		create_gui (ANJUTA_PLUGIN_GTODO (plugin));
+	}
+	g_free (default_todo);
+	g_object_unref (file);
+}
+
+static gboolean
+activate_plugin (AnjutaPlugin *plugin)
+{
+	GTodoPlugin *gtodo_plugin;
+	static gboolean initialized;
+	
+	DEBUG_PRINT ("%s", "GTodoPlugin: Activating Task manager plugin ...");
+	gtodo_plugin = ANJUTA_PLUGIN_GTODO (plugin);
+	
+	if (!initialized)
+	{
+		gtodo_load_settings();
+	}
+	
+	create_gui (ANJUTA_PLUGIN_GTODO (plugin));
+	
+	/* set up project directory watch */
+	gtodo_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
+													IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+													project_root_added,
+													project_root_removed, NULL);
+	
 	initialized = TRUE;													
 	return TRUE;
 }
@@ -207,26 +264,15 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GTodoPlugin *gplugin = ANJUTA_PLUGIN_GTODO (plugin);
-	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	DEBUG_PRINT ("%s", "GTodoPlugin: Dectivating Tasks manager plugin ...");
 	
 	anjuta_plugin_remove_watch (plugin, gplugin->root_watch_id, TRUE);
+
+	remove_gui (gplugin);
 	
-	/* Container holds the last ref to this widget so it will be destroyed as
-	 * soon as removed. No need to separately destroy it. */
-	anjuta_shell_remove_widget (plugin->shell, gplugin->widget,
-								NULL);
-	anjuta_ui_unmerge (ui, gplugin->uiid);
-	anjuta_ui_remove_action_group (ui, gplugin->action_group2);
-	anjuta_ui_remove_action_group (ui, gplugin->action_group);
-	
-	
-	gplugin->uiid = 0;
-	gplugin->widget = NULL;
 	gplugin->root_watch_id = 0;
-	gplugin->action_group = NULL;
-	gplugin->action_group2 = NULL;
+	
 	return TRUE;
 }
 
@@ -263,10 +309,17 @@ gtodo_plugin_class_init (GObjectClass *klass)
 }
 
 static void
-itodo_load (IAnjutaTodo *profile, GFile* file, GError **err)
+itodo_load (IAnjutaTodo *plugin, GFile* file, GError **err)
 {
 	g_return_if_fail (file != NULL);
-	gtodo_client_load (cl, file);
+	if (!gtodo_client_load (cl, file, err))
+	{
+		remove_gui (ANJUTA_PLUGIN_GTODO (plugin));
+	}
+	else
+	{
+		create_gui (ANJUTA_PLUGIN_GTODO (plugin));
+	}
 }
 
 static void
