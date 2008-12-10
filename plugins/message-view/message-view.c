@@ -809,10 +809,6 @@ message_view_instance_init (MessageView * self)
 	gtk_tree_view_column_pack_start (column_pixbuf, renderer_pixbuf, TRUE);
 	gtk_tree_view_column_add_attribute
 		(column_pixbuf, renderer_pixbuf, "stock-id", COLUMN_PIXBUF);
-	gtk_tree_view_column_set_sizing(column_pixbuf, GTK_TREE_VIEW_COLUMN_FIXED);
-	gtk_tree_view_column_set_fixed_width (column_pixbuf, icon_width);
-	gtk_tree_view_column_set_min_width (column_pixbuf, icon_width);
-	gtk_tree_view_column_set_max_width (column_pixbuf, icon_width);	
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self->privat->tree_view),
 								 column_pixbuf);
 	/* Create columns to hold text and color of a line, this
@@ -820,11 +816,9 @@ message_view_instance_init (MessageView * self)
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set (renderer, "yalign", 0.0, "wrap-mode", PANGO_WRAP_WORD,
 				  "wrap-width", 1000, NULL);
-	gtk_cell_renderer_text_set_fixed_height_from_font(GTK_CELL_RENDERER_TEXT(renderer),												  1);
 	column = gtk_tree_view_column_new ();
 
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_GROW_ONLY);
 	gtk_tree_view_column_set_title (column, _("Messages"));
 	gtk_tree_view_column_add_attribute
 		(column, renderer, "foreground", COLUMN_COLOR);
@@ -838,9 +832,6 @@ message_view_instance_init (MessageView * self)
 		(GTK_TREE_VIEW (self->privat->tree_view));
 	gtk_tree_selection_set_mode (select, GTK_SELECTION_BROWSE);
 	
-	/* Optimize */
-	gtk_tree_view_set_fixed_height_mode(GTK_TREE_VIEW(self->privat->tree_view), TRUE);
-
 	/* Add tree view to a scrolled window */
 	scrolled_win = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (scrolled_win),

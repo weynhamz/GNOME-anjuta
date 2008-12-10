@@ -1,3 +1,8 @@
+2008-12-10  Johannes Schmid <jschmid@gnome.org>
+
+	* plugins/message-view/message-view.c (message_view_instance_init):
+	#563696 – garbage pixels appear in build output
+
 2008-12-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/class-gen/window.c,
