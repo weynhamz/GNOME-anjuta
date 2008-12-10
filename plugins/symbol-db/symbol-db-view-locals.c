@@ -641,8 +641,7 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 
 	/* we don't want a negative parent_symbol_id */
 	if (parent_symbol_id < 0)
-		return;
-	
+		return;	
 	
 	/* check if we already have some children waiting for a 
 	 * specific father to be inserted, then add this symbol_id to the list 
@@ -1206,7 +1205,7 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 	SymbolDBViewLocalsPriv *priv;
 
 	g_return_if_fail (dbvl != NULL);
-	priv = dbvl->priv;		
+	priv = dbvl->priv;
 	
 	if (enable_status == TRUE) 
 	{
@@ -1243,25 +1242,25 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl,
 		gtk_widget_set_sensitive (GTK_WIDGET (dbvl), FALSE);
 		
 		priv->recv_signals = FALSE;
-		if (priv->insert_handler >= 0) 
+		if (priv->insert_handler > 0) 
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
 			priv->insert_handler = 0;
 		}
 
-		if (priv->remove_handler >= 0)
+		if (priv->remove_handler > 0)
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->remove_handler);
 			priv->remove_handler = 0;
 		}	
 
-		if (priv->scan_end_handler >= 0)
+		if (priv->scan_end_handler > 0)
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->scan_end_handler);
 			priv->scan_end_handler = 0;
 		}
 		
-		if (priv->scope_update_handler >= 0) 
+		if (priv->scope_update_handler > 0) 
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->scope_update_handler);
 			priv->scope_update_handler = 0;
@@ -1293,10 +1292,9 @@ symbol_db_view_locals_display_nothing (SymbolDBViewLocals *dbvl,
 
 void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
-							  const gchar* filepath)
+							  const gchar* filepath, gboolean force_update)
 {
 	SymbolDBViewLocalsPriv *priv;
-
 	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;	
 	FileSymbolsStatus *fsstatus;
@@ -1307,16 +1305,20 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 
 	priv = dbvl->priv;
 
-	DEBUG_PRINT ("symbol_db_view_locals_update_list () %s", filepath);
+	DEBUG_PRINT ("filepath %s", filepath);
 	
 	/* we're not interested in giving user an updated gtktreestore if recv signals
 	 * is false. In that case we can have a project importing...
+	 * We should pass on this test if the force option is activated (i.e. is TRUE)
 	 */
-	if (priv->recv_signals == FALSE)
+	if (priv->recv_signals == FALSE && force_update == FALSE)
 	{		
 		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), NULL);
 		return;
 	}
+	
+	/* it's a good thing to enable the gtktreewidget */
+	gtk_widget_set_sensitive (GTK_WIDGET (dbvl), TRUE);
 	
 	/* ok, we can have a case where we're revisiting an old file with an already 
 	 * populated GtkTreeStore. We're gonna set that gtktreestore along with the

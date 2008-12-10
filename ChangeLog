@@ -1,3 +1,33 @@
+2008-12-11  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (gtree_compare_func),
+	(on_editor_buffer_symbol_update_scan_end),
+	(on_editor_buffer_symbols_update_timeout), (on_editor_saved),
+	(value_added_current_editor), (do_add_new_files),
+	(on_project_element_added), (project_import_scan_end),
+	(do_import_project_sources_after_abort),
+	(do_import_project_sources), (do_import_system_sources),
+	(do_update_project_symbols), (do_check_offline_files_changed),
+	(on_project_root_added), (on_scan_end_manager),
+	(symbol_db_activate), (symbol_db_deactivate),
+	(isymbol_manager_search):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_project_symbols):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view-locals.c (add_new_waiting_for),
+	(symbol_db_view_locals_recv_signals_from_engine),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-locals.h:
+	* plugins/symbol-db/symbol-db-view.c
+	(symbol_db_view_recv_signals_from_engine):
+	code cleaning, mostly on the locals symbols and in the plugin scan-end
+	management.
+	Fixed bug #562808.
+
 2008-12-11  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-status.c (anjuta_status):

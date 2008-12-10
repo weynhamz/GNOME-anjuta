@@ -67,12 +67,28 @@ enum
 	LAST_SIGNAL
 };
 
+typedef enum 
+{
+	TASK_IMPORT_PROJECT = 1,
+	TASK_IMPORT_PROJECT_AFTER_ABORT,
+	TASK_BUFFER_UPDATE,
+	TASK_ELEMENT_ADDED,
+	TASK_OFFLINE_CHANGES,
+	TASK_PROJECT_UPDATE
+} ProcTask;
+
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 static gint 
 g_list_compare (gconstpointer a, gconstpointer b)
 {
 	return strcmp ((const gchar*)a, (const gchar*)b);
+}
+
+static gint
+gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	return (gint)a - (gint)b;
 }
 
 static void
@@ -112,13 +128,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gsize process_id,
 			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
 													i);
 			/* we can now free it */
-			g_free (str);
-			
-			/* last but not least, remove the signal */
-			if (sdb_plugin->buffer_update_files->len <= 0)
-				g_signal_handlers_disconnect_by_func (G_OBJECT(dbe),
-										  G_CALLBACK (on_editor_buffer_symbol_update_scan_end ),
-										  data);			
+			g_free (str);			
 		}
 	}
 }
@@ -163,9 +173,6 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	 if (sdb_plugin->need_symbols_update == FALSE)
 	 	return TRUE;
 	
-	
-	DEBUG_PRINT ("%s", "on_editor_buffer_symbols_update_timeout()");
-	
 	if (sdb_plugin->current_editor) 
 	{
 		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
@@ -194,7 +201,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		{
 			/* hey we found it */
 			/* something is already scanning this buffer file. Drop the procedure now. */
-			DEBUG_PRINT ("%s", "something is already scanning the file");
+			DEBUG_PRINT ("something is already scanning the file %s", local_path);
 			return FALSE;			
 		}
 	}
@@ -216,19 +223,16 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 											buffer_sizes);
 	
 	if (proc_id > 0)
-	{
-		/* if the size of the array is 0 then we probably want to connect it to some
-		 * signals 
-		 */
-		if (sdb_plugin->buffer_update_files->len > 0)
-			g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
-		  		G_CALLBACK (on_editor_buffer_symbol_update_scan_end), sdb_plugin);
-		
+	{		
 		/* good. All is ready for a buffer scan. Add the file_scan into the arrays */
 		gchar * local_path_dup = g_strdup (local_path);
 		g_ptr_array_add (sdb_plugin->buffer_update_files, local_path_dup);	
 		/* add the id too */
-		g_ptr_array_add (sdb_plugin->buffer_update_ids, (gpointer)proc_id);
+		g_ptr_array_add (sdb_plugin->buffer_update_ids, GINT_TO_POINTER (proc_id));
+		
+		/* add a task so that scan_end_manager can manage this */
+		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
+					   GINT_TO_POINTER (TASK_BUFFER_UPDATE));		
 	}
 	
 	g_free (current_buffer);  
@@ -304,12 +308,11 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
 					 local_filename) == 0)
 		{
-			DEBUG_PRINT ("%s", "already scanning");
+			DEBUG_PRINT ("already scanning");
 			/* something is already scanning this buffer file. Drop the procedure now. */
 			return;
 		}
-	}									
-
+	}
 
 	files_array = g_ptr_array_new();		
 	g_ptr_array_add (files_array, local_filename);		
@@ -389,7 +392,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 				
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-				 sdb_plugin->sdbe_project, local_path);
+				 sdb_plugin->sdbe_project, local_path, FALSE);
 				 
 	if (g_hash_table_lookup (sdb_plugin->editor_connected, editor) == NULL)
 	{
@@ -717,9 +720,11 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 
 /**
  * Perform the real add to the db and also checks that no dups are inserted.
+ * Return the real number of files added.
  */
 static gint
-do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array)
+do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array, 
+				  ProcTask task)
 {	
 	GPtrArray* languages_array = NULL;	
 	GPtrArray* to_scan_array = NULL;
@@ -830,8 +835,13 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array)
 	 */
 	if (to_scan_array->len > 0)
 	{
-		symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, sdb_plugin->project_opened,
-					to_scan_array, languages_array, TRUE);
+		gint proc_id = 	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
+					sdb_plugin->project_opened, to_scan_array, languages_array, 
+														   TRUE);
+		
+		/* insert the proc id associated within the task */
+		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
+					   GINT_TO_POINTER (task));
 	}
 
 	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
@@ -865,8 +875,9 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	files_array = g_ptr_array_new ();
 	g_ptr_array_add (files_array, filename);
 	
+	/* TODO: manage signals freezing */
 	/* use a custom function to add the files to db */
-	do_add_new_files (sdb_plugin, files_array);
+	do_add_new_files (sdb_plugin, files_array, TASK_ELEMENT_ADDED);
 
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (files_array, TRUE);
@@ -1011,26 +1022,22 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 }
 
 static void
-on_importing_project_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
+project_import_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
 	GFile* file;
 	gchar *local_path;
 	
-	g_return_if_fail (data != NULL);
+	g_return_if_fail (data != NULL);	
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);
 	
-	DEBUG_PRINT ("%s", "on_importing_project_end ()");
-
 	/* hide the progress bar */
 	gtk_widget_hide (sdb_plugin->progress_bar_project);
 	
 	/* re-enable signals receiving on local-view */
-	symbol_db_view_locals_recv_signals_from_engine (
-						SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-								 sdb_plugin->sdbe_project, TRUE);
-
+	sdb_plugin->is_project_importing = FALSE;
+	
 	/* and on global view */
 	symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
 								 sdb_plugin->sdbe_project, TRUE);
@@ -1041,36 +1048,34 @@ on_importing_project_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 	
 	/* disconnect this coz it's not important after the process of importing */
 	g_signal_handlers_disconnect_by_func (dbe, on_project_single_file_scan_end, 
-										  data);																 
-	
-	/* disconnect it as we don't need it anymore. */
-	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);
-	
-	sdb_plugin->files_count_project_done = 0;
-	sdb_plugin->files_count_project = 0;	
+										  data);
 
-	DEBUG_PRINT ("%s", "emitting signals[PROJECT_IMPORT_END]");
-	/* emit signal. */
-	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);	
+	sdb_plugin->files_count_project_done = 0;
+	sdb_plugin->files_count_project = 0;
 
 	/* ok, enable local symbols view */
 	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
+	{
+		DEBUG_PRINT ("!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))");
 		return;
+	}
 	
-	file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor), 
-								  NULL);
-	
-	if (file == NULL)
+	if ((file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor), 
+								  NULL)) == NULL)
+	{
+		DEBUG_PRINT ("file is NULL");
 		return;
+	}
 
-	local_path = g_file_get_path (file);
+	local_path = g_file_get_path (file);	
 	
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-				 sdb_plugin->sdbe_project, local_path);	
+				 sdb_plugin->sdbe_project, local_path, TRUE);	
 	g_free (local_path);
 }
 
+/* note the *system* word in the function */
 static void
 do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 								  const GPtrArray *sources_array)
@@ -1165,8 +1170,9 @@ do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 }
 
 /* we assume that sources_array has already unique elements */
+/* note the *project* word in the function */
 static void
-do_import_project_src_after_abort (AnjutaPlugin *plugin, 
+do_import_project_sources_after_abort (AnjutaPlugin *plugin, 
 							   const GPtrArray *sources_array)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -1174,17 +1180,29 @@ do_import_project_src_after_abort (AnjutaPlugin *plugin,
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
 
+	/* 
+	 * if we're importing first shut off the signal receiving.
+	 * We'll re-enable that on scan-end 
+	 */
+	symbol_db_view_locals_recv_signals_from_engine (																
+		SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+				 sdb_plugin->sdbe_project, FALSE);
+	sdb_plugin->is_project_importing = TRUE;
+
+	/* disable signals receiving from engine */
+	symbol_db_view_recv_signals_from_engine (																
+		SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+				 sdb_plugin->sdbe_project, FALSE);
+	
 	/* connect to receive signals on single file scan complete. We'll
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
 		  G_CALLBACK (on_project_single_file_scan_end), plugin);
 
-	real_added = do_add_new_files (sdb_plugin, sources_array);
-	sdb_plugin->files_count_project += real_added;
-	
-	/* signal */
-	g_signal_emit (sdb_plugin, signals[PROJECT_IMPORT_END], 0);
+	real_added = do_add_new_files (sdb_plugin, sources_array, 
+								   TASK_IMPORT_PROJECT_AFTER_ABORT);
+	sdb_plugin->files_count_project += real_added;	
 }
 
 static void
@@ -1215,14 +1233,11 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	symbol_db_view_locals_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 								 sdb_plugin->sdbe_project, FALSE);
-
+	sdb_plugin->is_project_importing = TRUE;
+	
 	symbol_db_view_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
 								 sdb_plugin->sdbe_project, FALSE);
-				
-	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
-		  G_CALLBACK (on_importing_project_end), plugin);
-				
 	
 	DEBUG_PRINT ("%s", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
@@ -1253,7 +1268,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		g_object_unref (gfile);
 	}
 	
-	real_added = do_add_new_files (sdb_plugin, sources_array);
+	real_added = do_add_new_files (sdb_plugin, sources_array, TASK_IMPORT_PROJECT);
 	sdb_plugin->files_count_project += real_added;
 			
 	/* connect to receive signals on single file scan complete. We'll
@@ -1271,10 +1286,10 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_list_free (prj_elements_list);
 }
 
-static  void
-on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
+static void
+do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 {
-	DEBUG_PRINT ("%s", "on_received_project_import_end ()");
+	DEBUG_PRINT ("%s", "do_import_system_sources ()");
 	/* system's packages management */				
 	GList *item = sdb_plugin->session_packages; 
 	while (item != NULL)
@@ -1302,6 +1317,24 @@ on_received_project_import_end (SymbolDBPlugin *sdb_plugin, gpointer data)
 		g_ptr_array_free (sys_src_array, TRUE);
 	}	
 }
+
+static void
+do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
+{
+	gint proc_id;
+	/* Update the symbols */
+	proc_id = symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, 
+														 root_dir);
+	if (proc_id > 0)
+	{
+		sdb_plugin->is_project_updating = TRUE;		
+		
+		/* insert the proc id associated within the task */
+		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
+					   GINT_TO_POINTER (TASK_PROJECT_UPDATE));
+	}
+}
+
 
 static void
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
@@ -1335,8 +1368,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		{
 			DEBUG_PRINT ("%s", "hey, gfile is NULL");
 			continue;
-		}
-		
+		}		
 		
 		if ((filename = g_file_get_path (gfile)) == NULL || 
 			g_strcmp0 (filename, "") == 0)
@@ -1352,11 +1384,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);
 			g_object_unref (gfile);
 			continue;
-		}					
-		
-		
-	/*	DEBUG_PRINT ("inserting into hash uri is ->%s<- filename ->%s<-", 
-					 uri, filename);*/
+		}
+
 		g_hash_table_insert (prj_elements_hash, filename, (gpointer)1);		
 		g_object_unref (gfile);
 	}	
@@ -1423,7 +1452,20 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	/* good. Let's go on with add of new files. */
 	if (to_add_files->len > 0)
 	{
-		do_add_new_files (sdb_plugin, to_add_files);
+		/* block the signals spreading from engine to local-view tab */
+		symbol_db_view_locals_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe_project, FALSE);
+		sdb_plugin->is_offline_scanning = TRUE;		
+		
+		gint real_added = do_add_new_files (sdb_plugin, to_add_files, 
+										   TASK_OFFLINE_CHANGES);
+		
+		DEBUG_PRINT ("going to do add %d files with TASK_OFFLINE_CHANGES",
+					 real_added);
+		
+		if (real_added <= 0)
+			sdb_plugin->is_offline_scanning = FALSE;
 	}
 	
 	g_object_unref (it);
@@ -1458,14 +1500,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	if (parallel_scan == TRUE)
 	{
 		/* we simulate a project-import-end signal received */
-		on_received_project_import_end (sdb_plugin, sdb_plugin);		
-	}
-	else
-	{
-		g_signal_connect (G_OBJECT (sdb_plugin), 
-						"project-import-end", 
-						  G_CALLBACK (on_received_project_import_end), 
-						  sdb_plugin);
+		do_import_system_sources (sdb_plugin);		
 	}
 		
 	/*
@@ -1491,9 +1526,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		g_object_unref (gfile);
 		
 		/* FIXME: where's the project name itself? */
-		DEBUG_PRINT ("%s", "FIXME: where's the project name itself? ");
+		DEBUG_PRINT ("FIXME: where's the project name itself? ");
 		sdb_plugin->project_opened = g_strdup (root_dir);
-		DEBUG_PRINT ("FIXME: setting project opened to  %s", root_dir);
 		
 		if (root_dir)
 		{
@@ -1548,44 +1582,27 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			else	
 			{
 				/*
-				 * no import needed. But we may have aborted the scan of sources ..
+				 * no import needed. But we may have aborted the scan of sources in 
+				 * a previous session..
 				 */				
-				GPtrArray *sources_array = NULL;
+				GPtrArray *sources_array = NULL;				
 				
 				sources_array = 
 					symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
 
 				if (sources_array != NULL && sources_array->len > 0) 
-				{
-					/* 
-					 * if we're importing first shut off the signal receiving.
-	 				 * We'll re-enable that on scan-end 
-	 				 */
-					symbol_db_view_locals_recv_signals_from_engine (																
-						SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-								 sdb_plugin->sdbe_project, FALSE);
-
-					symbol_db_view_recv_signals_from_engine (																
-						SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-								 sdb_plugin->sdbe_project, FALSE);
-				
-					g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), 
-						"scan-end", G_CALLBACK (on_importing_project_end), plugin);				
-					
-					do_import_project_src_after_abort (plugin, sources_array);
+				{				
+					do_import_project_sources_after_abort (plugin, sources_array);
 					
 					g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
 					g_ptr_array_free (sources_array, TRUE);
 				}
-
 				
 				/* check for offline changes */				
-				do_check_offline_files_changed (sdb_plugin);
+				do_check_offline_files_changed (sdb_plugin);								
 				
-				
-				/* Update the symbols */
-				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, 
-														 root_dir);				
+				/* update any files of the project which isn't up-to-date */
+				do_update_project_symbols (sdb_plugin, root_dir);
 			}
 			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 									   _("Populating symbols' db..."));
@@ -1593,6 +1610,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 							 sdb_plugin->progress_bar_project);
 			gtk_widget_show (sdb_plugin->progress_bar_project);
 			
+			/* open symbol view, the global symbols gtktree */
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe_project);
 			g_source_remove (id);
@@ -1657,6 +1675,94 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	sdb_plugin->project_opened = NULL;
 }
 
+static void
+on_scan_end_manager (SymbolDBEngine *dbe, gint process_id, 
+										  gpointer data)
+{
+	SymbolDBPlugin *symbol_db;
+	symbol_db = ANJUTA_PLUGIN_SYMBOL_DB (data);	
+	gint task_registered;
+	
+	task_registered = GPOINTER_TO_INT (g_tree_lookup (symbol_db->proc_id_tree, 
+													   GINT_TO_POINTER (process_id)		
+													  ));
+	/* hey, we haven't find anything */
+	if (task_registered <= 0)
+	{
+		DEBUG_PRINT ("No task found, proc id was %d", process_id);
+		return;
+	}
+		
+	switch (task_registered) 
+	{
+		case TASK_IMPORT_PROJECT:
+		case TASK_IMPORT_PROJECT_AFTER_ABORT:			
+		{			
+			DEBUG_PRINT ("received TASK_IMPORT_PROJECT (AFTER_ABORT)");
+			project_import_scan_end (dbe, process_id, symbol_db);
+			
+			/* get preferences about the parallel scan */
+			gboolean parallel_scan = anjuta_preferences_get_int (symbol_db->prefs, 
+														 PARALLEL_SCAN); 
+			
+			/* check the system population has a parallel fashion or not. */			 
+			if (parallel_scan == FALSE)
+				do_import_system_sources (symbol_db);
+		}
+			break;			
+			
+		case TASK_BUFFER_UPDATE:
+			DEBUG_PRINT ("received TASK_BUFFER_UPDATE");
+			on_editor_buffer_symbol_update_scan_end (dbe, process_id, symbol_db);
+			break;
+			
+		case TASK_ELEMENT_ADDED:
+			DEBUG_PRINT ("TODO: TASK_ELEMENT_ADDED");
+			break;
+			
+		case TASK_OFFLINE_CHANGES:
+		{
+			DEBUG_PRINT ("received TASK_OFFLINE_CHANGES");
+			symbol_db->is_offline_scanning = FALSE;
+		}
+			break;
+			
+		case TASK_PROJECT_UPDATE:
+		{
+			DEBUG_PRINT ("received TASK_PROJECT_UPDATE");
+			symbol_db->is_project_updating = FALSE;
+		}
+			
+		default:
+			DEBUG_PRINT ("Don't know what to to with task_registered %d", 
+						 task_registered);
+	}
+	
+	/* ok, we're done. Remove the proc_id from the GTree coz we won't use it anymore */
+	if (g_tree_remove (symbol_db->proc_id_tree,  GINT_TO_POINTER (process_id)) == FALSE)
+		g_warning ("Cannot remove proc_id from GTree");	
+
+	DEBUG_PRINT ("symbol_db->is_offline_scanning == %d && "
+		"symbol_db->is_project_importing == %d && "
+		"symbol_db->is_project_updating == %d", 
+				symbol_db->is_offline_scanning,
+				symbol_db->is_project_importing,
+				symbol_db->is_project_updating);
+	
+	/**
+ 	 * perform some checks on some booleans. If they're all successfully passed
+ 	 * then activate the display of local view
+ 	 */
+	if (symbol_db->is_offline_scanning == FALSE && 
+		symbol_db->is_project_importing == FALSE &&
+		symbol_db->is_project_updating == FALSE)
+	{
+		symbol_db_view_locals_recv_signals_from_engine (
+			SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
+					 symbol_db->sdbe_project, TRUE);
+	}
+}
+
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
@@ -1664,7 +1770,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gchar *anjuta_cache_path;
 	gchar *ctags_path;
 	
-	DEBUG_PRINT ("%s", "SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
+	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
 	/* Initialize gda library. */
 	gda_init ();
@@ -1702,6 +1808,10 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 */
 	symbol_db->buffer_update_files = g_ptr_array_new ();
 	symbol_db->buffer_update_ids = g_ptr_array_new ();
+	
+	symbol_db->is_offline_scanning = FALSE;
+	symbol_db->is_project_importing = FALSE;
+	symbol_db->is_project_updating = FALSE;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Initializing engines with %s", ctags_path);
 	/* create SymbolDBEngine(s) */
@@ -1742,6 +1852,17 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (symbol_db->sdbs), "single-file-scan-end",
 					  G_CALLBACK (on_system_single_file_scan_end), plugin);	
 	
+	/* beign necessary to listen to many scan-end signals, we'll build up a method
+	 * to manage them with just one signal connection
+	 */
+	symbol_db->proc_id_tree = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 NULL);
+	
+	g_signal_connect (G_OBJECT (symbol_db->sdbe_project), "scan-end",
+		  		G_CALLBACK (on_scan_end_manager), symbol_db);
+	
 	/* sets preferences to NULL, it'll be instantiated when required.\ */
 	symbol_db->sdbp = NULL;
 	
@@ -1777,6 +1898,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	symbol_db->dbv_view_locals_tab_label = gtk_label_new (_("Local" ));
 	symbol_db->dbv_view_tree_locals = symbol_db_view_locals_new ();
+	
 	/* activate signals receiving by default */
 	symbol_db_view_locals_recv_signals_from_engine (
 					SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
@@ -1927,10 +2049,13 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 										  on_system_scan_package_end,
 										  plugin);
 	
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),										  
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
 										  on_system_single_file_scan_end,
 										  plugin);
 	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
+										  on_scan_end_manager,
+										  plugin);
 	if (sdb_plugin->update_timer)
 	{
 		g_timer_destroy (sdb_plugin->update_timer);
@@ -1983,6 +2108,9 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 		g_hash_table_destroy (sdb_plugin->editor_connected);
 		sdb_plugin->editor_connected = NULL;
 	}
+	
+	// FIXME
+	g_tree_destroy (sdb_plugin->proc_id_tree);
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->root_watch_id, FALSE);
@@ -2095,12 +2223,12 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
 	{
 		filter_array = NULL;
-		DEBUG_PRINT ("%s", "filter_array is NULL");
+		/*DEBUG_PRINT ("%s", "filter_array is NULL");*/
 	}
 	else 
 	{
 		filter_array = symbol_db_engine_fill_type_array (match_types);
-		DEBUG_PRINT ("filter_array filled with %d kinds", filter_array->len);
+		/*DEBUG_PRINT ("filter_array filled with %d kinds", filter_array->len);*/
 	}
 
 	if (exact_match == FALSE)
@@ -2114,20 +2242,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	}
 	
 	/* should we lookup for project of system tags? */
-	//*/
-	DEBUG_PRINT ("tags scan [%s] [exact_match %d] [global %d]", pattern, 
-					 exact_match, global_symbols_search);
-	{
-		gint i;
-		if (filter_array)
-			for (i = 0; i < filter_array->len; i++)
-			{
-				DEBUG_PRINT ("filter_array for type [%d] %s", i, 
-							 (gchar*)g_ptr_array_index (filter_array,
-							i));
-			}
-	}
-	//*/
 	iterator = 
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (
 					global_tags_search == FALSE ? dbe_project : dbe_globals, 

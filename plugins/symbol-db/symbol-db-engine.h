@@ -218,7 +218,7 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
  * Update symbols of saved files. 
  * @note WARNING: files_path and it's contents will be freed on 
  * on_scan_update_files_symbols_end () callback.
- * @return scan process id if insertion is successful, -1 on error.
+ * @return scan process id if insertion is successful, -1 on 'no files scanned'.
  */
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 

@@ -539,6 +539,7 @@ sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
 	}
 }
 
+#if 0
 static GdaDataModel *
 sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 {
@@ -569,6 +570,7 @@ sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 	
 	return res;
 }
+#endif
 
 static gint
 sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
@@ -761,8 +763,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		}
 		
 		dyn_node->query_str = g_strdup (sql);
-		
-		DEBUG_PRINT ("%s", "inserting direct child into main_gtree");
+				
 		/* insert it into gtree, thanks */
 		g_tree_insert (node->sym_extra_info_gtree, (gpointer)sym_info, dyn_node);
 		
@@ -1650,7 +1651,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		g_queue_get_length (priv->thread_list_data) <= 0 &&
 		priv->thread_monitor_handler <= 0)
 	{
-		DEBUG_PRINT ("%s", "removing signals trigger");
+		/*DEBUG_PRINT ("%s", "removing signals trigger");*/
 		/* remove the trigger coz we don't need it anymore... */
 		g_source_remove (priv->timeout_trigger_handler);
 		priv->timeout_trigger_handler = 0;
@@ -1676,7 +1677,7 @@ sdb_engine_thread_monitor (gpointer data)
 	
 	if (priv->shutting_down == TRUE)
 	{
-		DEBUG_PRINT ("%s", "SymbolDBEngine is shutting down: removing thread monitor");
+		/*DEBUG_PRINT ("%s", "SymbolDBEngine is shutting down: removing thread monitor");*/
 		/* remove the thread monitor */
 		g_source_remove (priv->thread_monitor_handler);
 		priv->thread_monitor_handler = 0;
@@ -1708,7 +1709,7 @@ sdb_engine_thread_monitor (gpointer data)
 	if (priv->thread_closure_retries > THREAD_MAX_CLOSURE_RETRIES &&
 		g_queue_get_length (priv->thread_list_data) <= 0)
 	{
-		DEBUG_PRINT ("%s", "removing thread monitor");
+		/*DEBUG_PRINT ("%s", "removing thread monitor");*/
 		/* remove the thread monitor */
 		g_source_remove (priv->thread_monitor_handler);
 		priv->thread_monitor_handler = 0;
@@ -5561,7 +5562,6 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	
 	priv = dbe->priv;
 
-	DEBUG_PRINT ("%s", "symbol_db_engine_update_files_symbols ()");
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
 
@@ -5591,7 +5591,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
  * PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME. When it will do please
  * remember to update this function.
  */
-gboolean
+gint
 symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project)
 {
 	const GdaSet *plist;
@@ -5657,7 +5657,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
 	{
-		g_message ("no rows");
+		DEBUG_PRINT ("no rows");
 		if (data_model != NULL)
 			g_object_unref (data_model);
 		data_model = NULL;
@@ -5775,7 +5775,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		return symbol_db_engine_update_files_symbols (dbe, project,
 											   files_to_scan, TRUE);
 	}
-	return TRUE;
+	return -1;
 }
 
 gboolean
@@ -5869,7 +5869,7 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 	data = files_to_scan = NULL;
 }
 
-gboolean
+gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
 										GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,

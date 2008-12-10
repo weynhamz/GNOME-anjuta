@@ -1816,19 +1816,19 @@ symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	{
 		gtk_widget_set_sensitive (GTK_WIDGET (dbv), FALSE);
 		
-		if (priv->insert_handler >= 0) 
+		if (priv->insert_handler > 0) 
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
 			priv->insert_handler = 0;
 		}
 
-		if (priv->remove_handler >= 0)
+		if (priv->remove_handler > 0)
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->remove_handler);
 			priv->remove_handler = 0;
 		}	
 
-		if (priv->scan_end_handler >= 0)
+		if (priv->scan_end_handler > 0)
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->scan_end_handler);
 			priv->scan_end_handler = 0;

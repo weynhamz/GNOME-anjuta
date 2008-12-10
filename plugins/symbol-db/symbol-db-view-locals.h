@@ -29,7 +29,7 @@
 #include <gtk/gtk.h>
 #include "symbol-db-engine.h"
 
-G_BEGIN_DECLS
+G_BEGIN_DECLS 
 
 #define SYMBOL_TYPE_DB_VIEW_LOCALS             (symbol_db_view_locals_get_type ())
 #define SYMBOL_DB_VIEW_LOCALS(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_TYPE_DB_VIEW_LOCALS, SymbolDBViewLocals))
@@ -63,7 +63,11 @@ symbol_db_view_locals_new (void);
  */
 void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
-							  const gchar* db_filepath);
+							  const gchar* db_filepath, gboolean force_update);
+
+/**
+ * Get the line of the corresponding symbol/GtkTreeItem clicked in the opened file.
+ */
 gint
 symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 								SymbolDBEngine *dbe,

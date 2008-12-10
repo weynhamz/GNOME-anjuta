@@ -52,7 +52,7 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 /* a sort of 'default' value for ctags executable. User must have it installed */
 #define CTAGS_PATH			"/usr/bin/ctags"
 
-struct _SymbolDBPlugin{
+struct _SymbolDBPlugin {
 	AnjutaPlugin parent;
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
@@ -117,9 +117,15 @@ struct _SymbolDBPlugin{
 	gint files_count_system_done;
 	gchar *current_scanned_package;
 	GList *session_packages;
+	
+	GTree *proc_id_tree;
+	
+	gboolean is_project_importing;		/* refreshes or resumes after abort */
+	gboolean is_project_updating;		/* makes up to date symbols of the project's files */
+	gboolean is_offline_scanning;		/* detects offline changes to makefile.am */
 };
 
-struct _SymbolDBPluginClass{
+struct _SymbolDBPluginClass {
 	AnjutaPluginClass parent_class;
 	
 	/* signals */
