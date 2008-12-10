@@ -615,7 +615,7 @@ cg_window_go_properties_transform_func (GHashTable *table,
 	cg_transform_flags (table, "Flags", GO_PROPERTY_FLAGS);
 
 	paramspec = g_hash_table_lookup (table, "ParamSpec");
-	if (strcmp (paramspec, "g_param_spec_string") == 0)
+	if (paramspec && (strcmp (paramspec, "g_param_spec_string") == 0))
 		cg_transform_string (table, "Default");
 }
 

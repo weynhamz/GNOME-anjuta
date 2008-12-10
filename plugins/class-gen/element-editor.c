@@ -735,17 +735,21 @@ cg_element_editor_set_valuesv_foreach_func (gpointer key,
                                             gpointer data,
                                             gpointer user_data)
 {
-	GString *str;
-	gchar *escaped;
+
+	if (data)
+	{
+		GString *str;
+		gchar *escaped;
+
+		str = (GString*)user_data;
+		escaped = g_strescape ((const gchar *) data, NULL);
 	
-	str = (GString*)user_data;
-	escaped = g_strescape ((const gchar *) data, NULL);
-	
-	g_string_append (str, (const gchar *) key);
-	g_string_append (str, "=\"");
-	g_string_append (str, escaped);
-	g_string_append (str, "\";");
-	g_free (escaped);
+		g_string_append (str, (const gchar *) key);
+		g_string_append (str, "=\"");
+		g_string_append (str, escaped);
+		g_string_append (str, "\";");
+		g_free (escaped);
+	}
 }
 
 static void

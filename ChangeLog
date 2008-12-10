@@ -1,3 +1,9 @@
+2008-12-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/class-gen/window.c,
+	plugins/class-gen/element-editor.c:
+	Fix #563685 crash when trying to create a GObject
+
 2008-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* src/anjuta.glade,
