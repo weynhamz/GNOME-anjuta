@@ -1,3 +1,33 @@
+2008-12-11  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-status.c (anjuta_status):
+	* plugins/document-manager/plugin.c (on_gconf_notify_timer):
+	* plugins/editor/text_editor.c (on_text_editor_uri_changed):
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbol_update_scan_end),
+	(on_editor_buffer_symbols_update_timeout),
+	(value_added_current_editor), (on_prefs_buffer_update_toggled):
+	Save some uW (http://gould.cx/ted/blog/Saving_the_world_one__w_at_a_time) by
+	using g_timeout_add_seconds instead of g_timeout_add where possible.
+
+	* plugins/symbol-db/symbol-db-engine.c (gtree_compare_func),
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals),
+	(sdb_engine_get_unique_scan_id), (sdb_engine_add_new_symbol),
+	(sdb_engine_detects_removed_ids),
+	(symbol_db_engine_update_buffer_symbols):
+	* plugins/symbol-db/symbol-db-view-locals.c (gtree_compare_func),
+	(traverse_on_scan_end), (consume_symbols_inserted_queue_idle):
+	* plugins/symbol-db/symbol-db-view.c (gtree_compare_func),
+	(symbol_db_view_row_collapsed):
+	Fix lots of 64-bit problems by using GPOINTER_TO_INT and GINT_TO_POINTER instead
+	of direct (unsave) casts.
+	
+	* plugins/document-manager/anjuta-document-manager.ui:
+	Remove "Print" and "Reload" from toolbar as they are not common enough.
+
 2008-12-10  Johannes Schmid <jschmid@gnome.org>
 
 	* plugins/message-view/message-view.c (message_view_instance_init):

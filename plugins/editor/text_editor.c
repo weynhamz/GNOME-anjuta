@@ -392,8 +392,8 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 	/* Set up 1 sec timer */
 	if (te->file_modified_timer > 0)
  		g_source_remove (te->file_modified_timer);
-	te->file_modified_timer = g_timeout_add (1000,
-							(GSourceFunc)on_text_editor_uri_changed_prompt, te);
+	te->file_modified_timer = g_timeout_add_seconds (1,
+													 (GSourceFunc)on_text_editor_uri_changed_prompt, te);
 }
 
 static void

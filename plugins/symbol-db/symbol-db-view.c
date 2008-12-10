@@ -83,7 +83,7 @@ trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id);
 static gint
 gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
 {
-	return (gint)a - (gint)b;
+	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
 }
 
 static void
@@ -1366,7 +1366,7 @@ symbol_db_view_row_collapsed (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		return;
 	}
 	else {		
-		g_source_remove ((gint)node);
+		g_source_remove (GPOINTER_TO_INT(node));
 		g_tree_remove (priv->expanding_gfunc_ids, GINT_TO_POINTER (collapsed_symbol_id));
 	}	
 }

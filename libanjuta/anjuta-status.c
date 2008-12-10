@@ -601,7 +601,7 @@ anjuta_status (AnjutaStatus *status, const gchar *mesg, gint timeout)
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (mesg != NULL);
 	anjuta_status_push (status, "%s", mesg);
-	g_timeout_add (timeout * 1000, (void*) anjuta_status_timeout, status);
+	g_timeout_add_seconds (timeout, (void*) anjuta_status_timeout, status);
 }
 
 void

@@ -1602,23 +1602,15 @@ on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
 			{
 				g_source_remove (plugin->autosave_id);
 				plugin->autosave_id =
-#if GLIB_CHECK_VERSION (2,14,0)
 					g_timeout_add_seconds (auto_save_timer * 60,
-#else
-					g_timeout_add (auto_save_timer * 60000,
-#endif
-									on_docman_auto_save, plugin);
+										   on_docman_auto_save, plugin);
 			}
 		}
 		else
 		{
 			plugin->autosave_id =
-#if GLIB_CHECK_VERSION (2,14,0)
 				g_timeout_add_seconds (auto_save_timer * 60,
-#else
-				g_timeout_add (auto_save_timer * 60000,
-#endif
-							 on_docman_auto_save, plugin);
+									   on_docman_auto_save, plugin);
 		}
 		plugin->autosave_it = auto_save_timer;
 		plugin->autosave_on = TRUE;

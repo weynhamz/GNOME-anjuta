@@ -91,7 +91,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id);
 static gint
 gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
 {
-	return (gint)a - (gint)b;
+	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
 }
 
 static void
@@ -479,7 +479,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 
 	priv = dbvl->priv;
 
-	parent_id = (gint) key;
+	parent_id = GPOINTER_TO_INT(key);
 	/*DEBUG_PRINT ("traverse_on_scan_end (): something has been left on "
 				"waiting_for_tree.. checking for %d", parent_id);*/
 
@@ -883,7 +883,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 	/* consume a symbol */
 	if (queue_length > 0)
 	{
-		consumed_symbol_id = (gint) g_queue_pop_head (priv->symbols_inserted_ids);
+		consumed_symbol_id = GPOINTER_TO_INT(g_queue_pop_head (priv->symbols_inserted_ids));
 	}
 	else {
 		return FALSE;

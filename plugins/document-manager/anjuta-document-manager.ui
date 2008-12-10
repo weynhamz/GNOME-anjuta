@@ -126,12 +126,9 @@
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="Save" action="ActionFileSave" />
-			<toolitem name="Reload" action="ActionFileReload" />
 			<separator name="separator16"/>
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />
-			<separator name="separator17" />
-			<toolitem name="Print" action="ActionPrintFile" />
 		</placeholder>
 	</toolbar>
 	<toolbar name="ToolbarBookmark">

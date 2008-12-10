@@ -50,7 +50,7 @@
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
-#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
+#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
 #define PROJECT_GLOBALS		"/"
@@ -91,7 +91,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
-on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
+on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gsize process_id, 
 										  gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -129,7 +129,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	SymbolDBPlugin *sdb_plugin;
 	IAnjutaEditor *ed;
 	gchar *current_buffer = NULL;
-	gint buffer_size = 0;
+	gsize buffer_size = 0;
 	gdouble seconds_elapsed;
 	GFile* file;
 	gchar * local_path;
@@ -209,7 +209,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
 
 	
-	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+	gsize proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
 											sdb_plugin->project_opened,
 											real_files_list,
 											text_buffers,
@@ -425,9 +425,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 				
 	if (tags_update)
 		sdb_plugin->buf_update_timeout_id = 
-				g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
-								on_editor_buffer_symbols_update_timeout,
-								plugin);
+				g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+									   on_editor_buffer_symbols_update_timeout,
+									   plugin);
 	sdb_plugin->need_symbols_update = FALSE;
 }
 
@@ -2378,9 +2378,9 @@ on_prefs_buffer_update_toggled (SymbolDBPrefs *sdbp, guint value,
 	{
 		if (sdb_plugin->buf_update_timeout_id == 0)
 			sdb_plugin->buf_update_timeout_id = 
-				g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
-								on_editor_buffer_symbols_update_timeout,
-								sdb_plugin);			
+				g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+									   on_editor_buffer_symbols_update_timeout,
+									   sdb_plugin);			
 		
 	}
 	
