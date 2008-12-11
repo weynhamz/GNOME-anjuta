@@ -37,9 +37,8 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
-#include <libgnomevfs/gnome-vfs.h>
-
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 
 #include <string.h>
 
@@ -115,10 +114,14 @@ static gchar*
 get_path_from_uri (char* uri)
 {
 	gchar* val;
+	GFile *file;
+
 	if (uri == NULL) return NULL;
 
-	val = gnome_vfs_get_local_path_from_uri (uri);
+	file = g_file_new_for_uri (uri);
 	g_free (uri);
+	val = g_file_get_path (file);
+	g_object_unref (file);
 
 	return val;
 }

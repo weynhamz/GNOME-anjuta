@@ -93,7 +93,6 @@ struct _ATPToolList
 {
 	GHashTable* hash;
 	GStringChunk* string_pool ;
-	GMemChunk* data_pool;
 	AnjutaUI* ui;
 	ATPUserTool* list;
 	ATPPlugin* plugin;

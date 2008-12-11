@@ -169,7 +169,6 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 {
 	ATPPlugin *this = ANJUTA_PLUGIN_ATP (plugin);
 	AnjutaUI *ui;
-	GtkAction *action;
 	
 	DEBUG_PRINT ("%s", "Tools Plugin: Activating tools plugin...");
 

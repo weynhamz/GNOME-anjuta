@@ -1,3 +1,14 @@
+2008-12-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/plugin.c,
+	plugins/tools/anjuta-tools.glade,
+	plugins/tools/tool.c,
+	plugins/tools/tool.h,
+	plugins/tools/variable.c,
+	plugins/tools/editor.c:
+	Partial fix #560857: Remove use of g_mem_chunk in tools plugin
+	Partial fix #513156: Get rid of libgnome(ui)
+
 2008-12-11  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

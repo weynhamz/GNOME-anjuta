@@ -37,9 +37,6 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
-#include <libgnomeui/libgnomeui.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 #include <gtk/gtk.h>
 
 #include <string.h>
@@ -1076,6 +1073,8 @@ atp_tool_editor_free (ATPToolEditor *this)
 
 	if (this->shortcut != NULL) g_free (this->shortcut);
 
+	if (atp_user_tool_get_name (this->tool) == NULL) atp_user_tool_free(this->tool);
+	
 	if (this->owner == NULL)
 	{
 		/* tool editor is not in a list */

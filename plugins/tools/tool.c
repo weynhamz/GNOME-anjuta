@@ -78,7 +78,7 @@ struct _ATPUserTool
  *---------------------------------------------------------------------------*/
 
 ATPEnumType output_type_list[] = {
- {ATP_TOUT_SAME, N_("Same than output")},
+ {ATP_TOUT_SAME, N_("Same as output")},
  {ATP_TOUT_COMMON_PANE, N_("Existing message pane")},
  {ATP_TOUT_NEW_PANE, N_("New message pane")},
  {ATP_TOUT_NEW_BUFFER, N_("New buffer")},
@@ -383,7 +383,7 @@ atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
 					/* Add tool before */
 					g_return_val_if_fail (tool == first, NULL);
 
-					tool = g_chunk_new0(ATPUserTool, list->data_pool);
+					tool = g_slice_new0(ATPUserTool);
 					tool->over = first;
 					tool->flags = ATP_TOOL_ENABLE;
 					tool->name = first->name;
@@ -393,7 +393,7 @@ atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
 				else if ((tool->over == NULL) || (tool->over->storage > storage)) 
 				{
 					/* Add tool after, using previous values as default */
-					first = g_chunk_new(ATPUserTool, list->data_pool);
+					first = g_slice_new(ATPUserTool);
 					memcpy(first, tool, sizeof (ATPUserTool));
 					first->over = tool->over;
 					tool->over = first;
@@ -406,7 +406,7 @@ atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
 		else
 		{
 			/* Create new tool */
-			tool = g_chunk_new0(ATPUserTool, list->data_pool);
+			tool = g_slice_new0(ATPUserTool);
 			tool->flags = ATP_TOOL_ENABLE;
 			tool->name = g_string_chunk_insert_const (list->string_pool, name);
 			g_hash_table_insert (list->hash, tool->name, tool);
@@ -415,7 +415,7 @@ atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
 	else
 	{
 		/* Create stand alone tool */
-		tool = g_chunk_new0(ATPUserTool, list->data_pool);
+		tool = g_slice_new0(ATPUserTool);
 		tool->flags = ATP_TOOL_ENABLE;
 	}
 		
@@ -434,7 +434,7 @@ atp_user_tool_free (ATPUserTool *this)
 	atp_user_tool_remove (this);
 	atp_user_tool_deactivate (this, this->owner->ui);
 
-	g_chunk_free (this, this->owner->data_pool);
+	g_slice_free (ATPUserTool, this);
 }
 
 
@@ -801,16 +801,29 @@ atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin)
 	this->list = NULL;
 	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
 	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new ("tool pool", sizeof (ATPUserTool), STRING_CHUNK_SIZE * sizeof (ATPUserTool) / 4, G_ALLOC_AND_FREE);
 
 	return this;
 }
 
+static void
+on_remove_tool (gpointer key, gpointer value, gpointer user_data)
+{
+	ATPUserTool* tool = value;
+	
+	do
+	{
+		ATPUserTool* next = tool->over;
+		
+		g_slice_free (ATPUserTool, tool);
+		tool = next;
+	} while (tool != NULL);
+}
+
 void atp_tool_list_destroy (ATPToolList* this)
 {
+	g_hash_table_foreach(this->hash, (GHFunc)on_remove_tool, NULL);
 	g_hash_table_destroy (this->hash);
 	g_string_chunk_free (this->string_pool);
-	g_mem_chunk_destroy (this->data_pool);
 }
 
 /*---------------------------------------------------------------------------*/
