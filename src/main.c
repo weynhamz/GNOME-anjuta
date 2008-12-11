@@ -387,7 +387,7 @@ main (int argc, char *argv[])
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
-	/* Initialize applicatoin */
+	/* Initialize application */
 	app = anjuta_new (argv[0], file_list, no_splash, no_session, no_files,
 					  im_file, proper_shutdown, anjuta_geometry);
 	

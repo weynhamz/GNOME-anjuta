@@ -1,3 +1,18 @@
+2008-12-11  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* src/anjuta.ui,
+	src/main.c,
+	plugins/build-basic-autotools/plugin.c,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	(added) plugins/build-basic-autotools/anjuta-build-24.png,
+	(added) plugins/build-basic-autotools/anjuta-build-16.png,
+	plugins/build-basic-autotools/Makefile.am,
+	plugins/run-program/plugin.c,
+	plugins/run-program/anjuta-run-program.ui:
+	Implemented #563692: added a toolbar with build and execute buttons
+
 2008-12-11  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (gtree_compare_func),

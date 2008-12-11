@@ -59,6 +59,11 @@
 		</placeholder>
 		<placeholder name="TestPlaceholder" />
 	</menubar>
-	<toolbar name="ToolbarMain"></toolbar>
-	<toolbar name="ToolbarBrowser"></toolbar>
+	<toolbar name="ToolbarMain"/>
+	<toolbar name="ToolbarBrowser"/>
+	<toolbar name="ToolbarBookmark"/>
+	<toolbar name="ToolbarBuild">
+		<placeholder name="PlaceHolderBuild"/>
+		<placeholder name="PlaceHolderExecute"/>
+	</toolbar>
 </ui>

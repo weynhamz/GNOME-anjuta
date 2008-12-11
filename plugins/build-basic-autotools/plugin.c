@@ -52,6 +52,9 @@
 #endif
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin-48.png"
+#define ANJUTA_PIXMAP_BUILD            "anjuta-build"
+#define ANJUTA_STOCK_BUILD             "anjuta-build"
+
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
 #define MAX_BUILD_PANES 3
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
@@ -2016,7 +2019,7 @@ static GtkActionEntry build_actions[] =
 		N_("_Build"), NULL, NULL, NULL
 	},
 	{
-		"ActionBuildBuildProject", NULL,
+		"ActionBuildBuildProject", GTK_STOCK_CONVERT,
 		N_("_Build Project"), "<shift>F11",
 		N_("Build whole project"),
 		G_CALLBACK (on_build_project)
@@ -2046,7 +2049,7 @@ static GtkActionEntry build_actions[] =
 		G_CALLBACK (on_build_tarball)
 	},
 	{
-		"ActionBuildBuildModule", GTK_STOCK_EXECUTE,
+		"ActionBuildBuildModule", ANJUTA_STOCK_BUILD,
 		N_("_Build Module"), "F11",
 		N_("Build module associated with current file"),
 		G_CALLBACK (on_build_module)
@@ -2064,7 +2067,7 @@ static GtkActionEntry build_actions[] =
 		G_CALLBACK (on_clean_module)
 	},
 	{
-		"ActionBuildCompileFile", GTK_STOCK_CONVERT,
+		"ActionBuildCompileFile", NULL,
 		N_("Co_mpile File"), "F9",
 		N_("Compile current editor file"),
 		G_CALLBACK (on_compile_file)
@@ -2750,6 +2753,20 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	update_module_ui (ba_plugin);
 }
 
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{	
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	BEGIN_REGISTER_ICON (plugin);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BUILD, ANJUTA_STOCK_BUILD);
+	END_REGISTER_ICON;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -2757,6 +2774,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	
+	if (!initialized)
+	{
+		register_stock_icons (plugin);
+	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	g_signal_connect (plugin->shell, "save-session",

@@ -15,4 +15,9 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<toolbar name="ToolbarBuild">
+		<placeholder name="PlaceHolderExecute">
+			<toolitem name="RunProgram" action="ActionRunProgram"/>
+		</placeholder>
+	</toolbar>
 </ui>

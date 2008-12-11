@@ -219,7 +219,7 @@ static GtkActionEntry actions_run[] = {
 	{
 		"ActionRunProgram",
 		GTK_STOCK_EXECUTE,
-		N_("Execute Program"),
+		N_("Execute"),
 		"F3",
 		N_("Run program without debugger"),
 		G_CALLBACK (on_run_program_activate)

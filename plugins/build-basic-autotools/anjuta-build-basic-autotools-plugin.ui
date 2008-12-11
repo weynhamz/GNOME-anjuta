@@ -21,6 +21,12 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<toolbar name="ToolbarBuild">
+		<placeholder name="PlaceHolderBuild">
+			<toolitem name="BuildProject" action="ActionBuildBuildProject"/>
+			<toolitem name="BuildModule" action="ActionBuildBuildModule"/>
+		</placeholder>
+	</toolbar>
 	<popup name="PopupFileManager">
 		<placeholder name="PlaceholderPopupFileBuild">
 			<menu name="PopupFileBuild" action="ActionPopupBuild">
