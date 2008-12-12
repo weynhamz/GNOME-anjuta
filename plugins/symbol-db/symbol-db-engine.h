@@ -201,7 +201,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
  * Update symbols of the whole project. It scans all file symbols etc. 
  * If force is true then update forcely all the files.
  */
-gboolean
+gint
 symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project);
 
 

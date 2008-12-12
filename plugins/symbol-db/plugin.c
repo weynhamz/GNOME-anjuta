@@ -107,7 +107,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
-on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gsize process_id, 
+on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
 										  gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -118,7 +118,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gsize process_id,
 	/* search for the proc id */
 	for (i = 0; i < sdb_plugin->buffer_update_ids->len; i++)
 	{
-		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == (gpointer)process_id)
+		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == GINT_TO_POINTER (process_id))
 		{
 			gchar *str;
 			/* hey we found it */
@@ -216,7 +216,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
 
 	
-	gsize proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
 											sdb_plugin->project_opened,
 											real_files_list,
 											text_buffers,

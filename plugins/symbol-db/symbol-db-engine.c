@@ -4817,7 +4817,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	const gchar* name;
 	gint file_position = 0;
 	gint is_file_scope = 0;
-	gchar signature[256];
+	const gchar *signature;
 	gint scope_definition_id = 0;
 	gint scope_id = 0;
 	gint type_id = 0;
@@ -4851,17 +4851,13 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	file_position = tag_entry->address.lineNumber;
 	is_file_scope = tag_entry->fileScope;
 
-	memset (signature, 0, sizeof (signature));
 	if ((tmp_str = tagsField (tag_entry, "signature")) != NULL)
 	{
-		if (strlen (tmp_str) > sizeof (signature))
-		{
-			memcpy (signature, tmp_str, sizeof (signature));
-		}
-		else
-		{
-			memcpy (signature, tmp_str, strlen (tmp_str));
-		}
+		signature = tmp_str;
+	}
+	else
+	{
+		signature = NULL;
 	}
 	
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
@@ -5143,7 +5139,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		{
 			table_id = -1;
 		}
-	}	
+	}
 
 	
 	/* before returning the table_id we have to fill some infoz on temporary tables

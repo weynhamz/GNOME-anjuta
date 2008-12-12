@@ -21,7 +21,7 @@
  * 	51 Franklin Street, Fifth Floor
  * 	Boston, MA  02110-1301, USA.
  */
-
+ 
 #include <glib.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>

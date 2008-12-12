@@ -1,3 +1,14 @@
+2008-12-12  Massimo Cora'  <mcora@svn.gnome.org>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbol_update_scan_end),
+	(on_editor_buffer_symbols_update_timeout):
+	* plugins/symbol-db/symbol-db-engine.c (sdb_engine_add_new_symbol):
+	* plugins/symbol-db/symbol-db-engine.h:
+	#562808 – symbol-db crashes with latest libgda
+
 2008-12-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/plugin.c,
