@@ -667,19 +667,19 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 	if (node->has_gtree_child == FALSE) 
 	{
 		/* use only sym_info as key, ignore other_parameters */
-		return g_tree_lookup (node->sym_extra_info_gtree, (gpointer)sym_info);
+		return g_tree_lookup (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info));
 	}
 	else {
 		GTree *child_gtree;
 		DynChildQueryNode *result;
 		
-		child_gtree = g_tree_lookup (node->sym_extra_info_gtree, (gpointer)sym_info);
+		child_gtree = g_tree_lookup (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info));
 		if (child_gtree == NULL) 
 		{			
 			return NULL;
 		}
 		
-		result = g_tree_lookup (child_gtree, (gpointer)other_parameters);		
+		result = g_tree_lookup (child_gtree, GINT_TO_POINTER (other_parameters));
 		return result;
 	}
 }
@@ -765,7 +765,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		dyn_node->query_str = g_strdup (sql);
 				
 		/* insert it into gtree, thanks */
-		g_tree_insert (node->sym_extra_info_gtree, (gpointer)sym_info, dyn_node);
+		g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), dyn_node);
 		
 		/* return it */
 		return dyn_node;
@@ -802,9 +802,9 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 					 other_parameters, sym_info, dyn_node);
 */		
 		/* insert the dyn_node into child_gtree, then child_gtree into main_gtree */
-		g_tree_insert (child_gtree, (gpointer)other_parameters, dyn_node);
+		g_tree_insert (child_gtree, GINT_TO_POINTER (other_parameters), dyn_node);
 		
-		g_tree_insert (node->sym_extra_info_gtree, (gpointer)sym_info, child_gtree);
+		g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), child_gtree);
 		
 		/* return it */
 		return dyn_node;		
@@ -1387,7 +1387,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
 
 	/* notify listeners that another file has been scanned */
-	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
+	g_async_queue_push (priv->signals_queue, GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1));
 	
 	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
@@ -1407,8 +1407,8 @@ sdb_engine_ctags_output_thread (gpointer data)
 	dbe = output->user_data;
 	chars = chars_ptr = output->chars;	
 	
-	g_return_val_if_fail (dbe != NULL, (gpointer)-1);	
-	g_return_val_if_fail (chars_ptr != NULL, (gpointer)-1);
+	g_return_val_if_fail (dbe != NULL, GINT_TO_POINTER (-1));	
+	g_return_val_if_fail (chars_ptr != NULL, GINT_TO_POINTER (-1));
 
 	priv = dbe->priv;
 
@@ -1522,8 +1522,8 @@ sdb_engine_ctags_output_thread (gpointer data)
 							g_async_queue_try_pop (priv->updated_scope_symbols_id))) > 0)
 					{
 						g_async_queue_lock (priv->signals_queue);
-						g_async_queue_push_unlocked (priv->signals_queue, (gpointer)
-													 (SYMBOL_SCOPE_UPDATED + 1));
+						g_async_queue_push_unlocked (priv->signals_queue, GINT_TO_POINTER (
+													 SYMBOL_SCOPE_UPDATED + 1));
 						g_async_queue_push_unlocked (priv->signals_queue, 
 													GINT_TO_POINTER(tmp_updated));
 						g_async_queue_unlock (priv->signals_queue);
@@ -1909,12 +1909,12 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			if (i + 1 >= files_list->len) 
 			{
 				/* yes */
-				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS_AND_EXIT);
+				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
 			}
 			else 
 			{
 				/* no */
-				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS);
+				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS));
 			}
 		}
 		else 
@@ -1922,11 +1922,11 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			if (i + 1 >= files_list->len) 
 			{
 				/* yes */
-				g_async_queue_push (priv->scan_queue, (gpointer) DONT_UPDATE_SYMS_AND_EXIT);
+				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
 			}
 			else {
 				/* no */
-				g_async_queue_push (priv->scan_queue, (gpointer) DONT_UPDATE_SYMS);
+				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
 			}
 		}
 
@@ -1943,7 +1943,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
 			 * is not a fake file scan 
 			 */
-			g_async_queue_push (priv->scan_queue, (gpointer) DONT_FAKE_UPDATE_SYMS);
+			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
 		}
 	}
 
@@ -1969,64 +1969,64 @@ sdb_engine_init (SymbolDBEngine * object)
 
 	/* please if you change some value below here remember to change also on */
 	g_hash_table_insert (h, g_strdup("class"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_CLASS);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_CLASS));
 
 	g_hash_table_insert (h, g_strdup("enum"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_ENUM);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_ENUM));
 
 	g_hash_table_insert (h, g_strdup("enumerator"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_ENUMERATOR);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_ENUMERATOR));
 
 	g_hash_table_insert (h, g_strdup("field"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FIELD);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_FIELD));
 
 	g_hash_table_insert (h, g_strdup("function"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FUNCTION);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_FUNCTION));
 
 	g_hash_table_insert (h, g_strdup("interface"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_INTERFACE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_INTERFACE));
 
 	g_hash_table_insert (h, g_strdup("member"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MEMBER);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_MEMBER));
 
 	g_hash_table_insert (h, g_strdup("method"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_METHOD);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_METHOD));
 
 	g_hash_table_insert (h, g_strdup("namespace"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_NAMESPACE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_NAMESPACE));
 
 	g_hash_table_insert (h, g_strdup("package"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_PACKAGE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_PACKAGE));
 
 	g_hash_table_insert (h, g_strdup("prototype"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_PROTOTYPE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_PROTOTYPE));
 				
 	g_hash_table_insert (h, g_strdup("struct"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_STRUCT);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_STRUCT));
 				
 	g_hash_table_insert (h, g_strdup("typedef"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_TYPEDEF);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_TYPEDEF));
 				
 	g_hash_table_insert (h, g_strdup("union"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_UNION);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_UNION));
 				
 	g_hash_table_insert (h, g_strdup("variable"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_VARIABLE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_VARIABLE));
 
 	g_hash_table_insert (h, g_strdup("externvar"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_EXTERNVAR);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_EXTERNVAR));
 
 	g_hash_table_insert (h, g_strdup("macro"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MACRO);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_MACRO));
 
 	g_hash_table_insert (h, g_strdup("macro_with_arg"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG));
 
 	g_hash_table_insert (h, g_strdup("file"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FILE);
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_FILE));
 
 	g_hash_table_insert (h, g_strdup("other"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_OTHER);	
+				GINT_TO_POINTER (IANJUTA_SYMBOL_TYPE_OTHER));
 	
 	
 	/* create the hash table that will store shared memory files strings used for 

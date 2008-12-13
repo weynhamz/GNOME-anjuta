@@ -672,7 +672,7 @@ symbol_db_prefs_new (SymbolDBSystem *sdbs, SymbolDBEngine *sdbe_project,
 	while (item != NULL)
 	{
 		g_hash_table_insert (priv->enabled_packages_hash, (gpointer)g_strdup (item->data), 
-							 (gpointer)TRUE);
+							 GINT_TO_POINTER (TRUE));
 		item = item->next;
 	}	
 	

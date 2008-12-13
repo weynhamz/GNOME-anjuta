@@ -1,3 +1,19 @@
+2008-12-13  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (gtree_compare_func),
+	(on_editor_buffer_symbols_update_timeout),
+	(on_project_element_added), (do_check_offline_files_changed),
+	(on_scan_end_manager), (symbol_db_activate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine.c
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_scan_files_1), (sdb_engine_init):
+	* plugins/symbol-db/symbol-db-prefs.c (symbol_db_prefs_new):
+	code cleaning and converted (gpointer) to GINT_TO_POINTER to avoid x64 problems.
+	Implemented last scan-end task on plugin.c.
+
 2008-12-12  Massimo Cora'  <mcora@svn.gnome.org>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

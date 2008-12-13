@@ -123,6 +123,7 @@ struct _SymbolDBPlugin {
 	gboolean is_project_importing;		/* refreshes or resumes after abort */
 	gboolean is_project_updating;		/* makes up to date symbols of the project's files */
 	gboolean is_offline_scanning;		/* detects offline changes to makefile.am */
+	gboolean is_adding_element;			/* we're adding an element */
 };
 
 struct _SymbolDBPluginClass {

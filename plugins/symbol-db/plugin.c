@@ -88,7 +88,7 @@ g_list_compare (gconstpointer a, gconstpointer b)
 static gint
 gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
 {
-	return (gint)a - (gint)b;
+	return GPOINTER_TO_INT (a) - GPOINTER_TO_INT (b);
 }
 
 static void
@@ -213,7 +213,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	g_ptr_array_add (text_buffers, current_buffer);	
 
 	buffer_sizes = g_ptr_array_new ();
-	g_ptr_array_add (buffer_sizes, (gpointer)buffer_size);	
+	g_ptr_array_add (buffer_sizes, GINT_TO_POINTER (buffer_size));
 
 	
 	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
@@ -864,6 +864,7 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 {
 	GFile *gfile = NULL;		
 	gchar *filename;
+	gint real_added;
 	GPtrArray *files_array;			
 		
 	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
@@ -875,10 +876,18 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	files_array = g_ptr_array_new ();
 	g_ptr_array_add (files_array, filename);
 	
-	/* TODO: manage signals freezing */
-	/* use a custom function to add the files to db */
-	do_add_new_files (sdb_plugin, files_array, TASK_ELEMENT_ADDED);
+	symbol_db_view_locals_recv_signals_from_engine (																
+		SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+				 sdb_plugin->sdbe_project, FALSE);
+	sdb_plugin->is_adding_element = TRUE;
 
+	/* use a custom function to add the files to db */
+	real_added = do_add_new_files (sdb_plugin, files_array, TASK_ELEMENT_ADDED);
+	if (real_added < 0) 
+	{
+		sdb_plugin->is_adding_element = FALSE;
+	}
+	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (files_array, TRUE);
 	
@@ -1386,7 +1395,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			continue;
 		}
 
-		g_hash_table_insert (prj_elements_hash, filename, (gpointer)1);		
+		g_hash_table_insert (prj_elements_hash, filename, GINT_TO_POINTER (1));		
 		g_object_unref (gfile);
 	}	
 	
@@ -1444,7 +1453,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		 */
 		for (i = 0; i < g_hash_table_size (prj_elements_hash); i++)
 		{
-			DEBUG_PRINT ("ARRAY ADD %s", g_list_nth_data (keys, i));
+			DEBUG_PRINT ("ARRAY ADD %s", (gchar*)g_list_nth_data (keys, i));
 			g_ptr_array_add (to_add_files, g_list_nth_data (keys, i));
 		}		
 	}
@@ -1717,7 +1726,8 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			break;
 			
 		case TASK_ELEMENT_ADDED:
-			DEBUG_PRINT ("TODO: TASK_ELEMENT_ADDED");
+			DEBUG_PRINT ("received TASK_ELEMENT_ADDED");
+			symbol_db->is_adding_element = FALSE;
 			break;
 			
 		case TASK_OFFLINE_CHANGES:
@@ -1740,14 +1750,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 	
 	/* ok, we're done. Remove the proc_id from the GTree coz we won't use it anymore */
 	if (g_tree_remove (symbol_db->proc_id_tree,  GINT_TO_POINTER (process_id)) == FALSE)
-		g_warning ("Cannot remove proc_id from GTree");	
-
-	DEBUG_PRINT ("symbol_db->is_offline_scanning == %d && "
-		"symbol_db->is_project_importing == %d && "
-		"symbol_db->is_project_updating == %d", 
-				symbol_db->is_offline_scanning,
-				symbol_db->is_project_importing,
-				symbol_db->is_project_updating);
+		g_warning ("Cannot remove proc_id from GTree");
 	
 	/**
  	 * perform some checks on some booleans. If they're all successfully passed
@@ -1755,7 +1758,8 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
  	 */
 	if (symbol_db->is_offline_scanning == FALSE && 
 		symbol_db->is_project_importing == FALSE &&
-		symbol_db->is_project_updating == FALSE)
+		symbol_db->is_project_updating == FALSE &&
+		symbol_db->is_adding_element == FALSE)
 	{
 		symbol_db_view_locals_recv_signals_from_engine (
 			SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
@@ -1812,6 +1816,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db->is_offline_scanning = FALSE;
 	symbol_db->is_project_importing = FALSE;
 	symbol_db->is_project_updating = FALSE;
+	symbol_db->is_adding_element = FALSE;	
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Initializing engines with %s", ctags_path);
 	/* create SymbolDBEngine(s) */
