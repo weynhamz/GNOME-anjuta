@@ -1,3 +1,11 @@
+2008-12-14  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/git/anjuta-git.glade:
+	Add comments for issues of bug #549374
+
+	* po/POTFILES.in:
+	Add two missing files in translation list
+
 2008-12-13  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (gtree_compare_func),

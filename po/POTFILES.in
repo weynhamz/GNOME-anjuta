@@ -188,6 +188,8 @@ plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
 plugins/sourceview/anjuta-editor-sourceview.glade
+plugins/starter/plugin.c
+plugins/starter/starter.c
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c
 plugins/subversion/subversion-add-dialog.c
