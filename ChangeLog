@@ -1,3 +1,10 @@
+2008-12-14  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix #564377: Avoid opening an empty buffer when file does not exist
+
 2008-12-14  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/git/anjuta-git.glade:

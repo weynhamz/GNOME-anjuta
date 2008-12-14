@@ -1247,6 +1247,11 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 
 	g_return_val_if_fail (file != NULL, NULL);
 	
+	if (!g_file_query_exists (file, NULL))
+	{
+		return NULL;
+	}
+	
 	gchar* uri = g_file_get_uri (file);
 	const gchar* line_str;
 	GFile* real_file;
