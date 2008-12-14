@@ -1,3 +1,9 @@
+2008-12-14  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/file-loader/plugin.c:
+	Fix a regression due to patch for #564377, files were not reopened
+	when Anjuta restart
+
 2008-12-14  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

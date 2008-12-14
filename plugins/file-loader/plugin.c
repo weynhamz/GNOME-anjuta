@@ -1132,9 +1132,20 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 						  strcmp (mime_type, "application/x-anjuta") != 0))
 				{
 					/* Then rest of the files */
+					gchar *fragment = strchr (uri, '#');
+
+					if (fragment)
+						*fragment = '\0';
 					GFile* file = g_file_new_for_uri (uri);
-					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+					GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  file, FALSE, NULL);
+					if (fragment)
+					{
+						if (IANJUTA_IS_DOCUMENT_MANAGER (loader))
+						{
+							ianjuta_document_manager_goto_file_line (IANJUTA_DOCUMENT_MANAGER (loader), file, atoi(fragment + 1), NULL);
+						}
+					}
 					g_object_unref (file);
 				}
 				g_free (filename);
