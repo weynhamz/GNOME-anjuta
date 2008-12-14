@@ -1326,55 +1326,71 @@ iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
 	
 }
 
+/* Find the previous open brace that begins the current indentation level. */
+static gboolean find_open_bracket(GtkTextIter *iter)
+{
+	int level = 1;
+	
+	while (gtk_text_iter_backward_char (iter))
+	{
+		switch (gtk_text_iter_get_char (iter))
+		{
+		case '{':
+			if (!--level)
+				return TRUE;
+			break;
+		case '}':
+			++level;
+			break;
+		}
+	}
+	
+	return FALSE;
+}
+
+/* Find the following close brace that ends the current indentation level. */
+static gboolean find_close_bracket(GtkTextIter *iter)
+{
+	int level = 1;
+	
+	while (gtk_text_iter_forward_char (iter))
+	{
+		switch (gtk_text_iter_get_char (iter))
+		{
+		case '{':
+			++level;
+			break;
+		case '}':
+			if (!--level)
+				return TRUE;
+			break;
+		}
+	}
+	
+	return FALSE;
+}
+
 static void 
 iselect_block(IAnjutaEditorSelection* edit, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter start_iter;
-	GtkTextIter end_iter;
-	GtkTextIter iter;
-	gchar *text;
-	gint position;
 	
-	gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(sv->priv->document),
-								   &start_iter);
-	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->document),
-								   &end_iter);
-	text = gtk_text_buffer_get_slice
-	(GTK_TEXT_BUFFER(sv->priv->document),
-										&start_iter, &end_iter, TRUE);
-	if (text)
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark (buffer, &iter,
+								 gtk_text_buffer_get_insert(buffer));
+	if (find_open_bracket (&iter))
 	{
-		gboolean found = FALSE;
-		gint cpt = 0;
-		gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
-									 gtk_text_buffer_get_insert(buffer));
-		position = gtk_text_iter_get_offset(&iter);
-		
-		while((--position >= 0) && !found)
+		GtkTextIter end_iter;
+		gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER(sv->priv->document),
+								     &iter);
+		end_iter = iter;
+		if (find_close_bracket (&end_iter))
 		{
-			if (text[position] == '{')
-				if (cpt-- == 0)
-					found = TRUE;
-			if (text[position] == '}')
-				cpt++;
-		}			
-		if (found)
-		{
-			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									           &start_iter, position + 2);
-			gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(sv->priv->document),
-									     &start_iter);
-			end_iter = start_iter;
-			found = FALSE;
-			//found = gtk_source_iter_find_matching_bracket (&end_iter);
-			if (found)
-				set_select(sv, &start_iter, &end_iter);
+			gtk_text_iter_forward_char (&end_iter);	  /* move past brace */
+			set_select (sv, &iter, &end_iter);
 		}
-		g_free(text);
 	}
-
 }
 
 static void

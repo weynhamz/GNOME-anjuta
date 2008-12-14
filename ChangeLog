@@ -1,3 +1,11 @@
+2008-12-14  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/sourceview/sourceview.c (find_open_bracket),
+	(find_close_bracket), (iselect_block):
+	fixed #563490 – Select Code Block command selects nothing in GtkSourceView editor
+
 2008-12-14  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Yuriy Penkin <yuriy.penkin@gmail.com>:
