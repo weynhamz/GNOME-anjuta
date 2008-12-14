@@ -1,3 +1,9 @@
+2008-12-14  Johannes Schmid <jhs@gnome.org>
+
+	Patch from Yuriy Penkin <yuriy.penkin@gmail.com>:
+	* plugins/sourceview/sourceview-io.c (on_save_finished):
+	#559806 – Anjuta crashes when closing unsaved file
+
 2008-12-14  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
