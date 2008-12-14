@@ -452,7 +452,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			GRegexMatchFlags match_flags = 0;
 		
 			match_flags |= G_REGEX_MATCH_NOTEMPTY;
-			if (s->ignore_case)
+			if (!s->match_case)
 			{
 				compile_flags |= G_REGEX_CASELESS;
 			}
@@ -517,7 +517,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 		if (SD_BACKWARD == direction)
 		{
 			/* Backward matching. */
-			if (s->ignore_case)
+			if (!s->match_case)
 			{
 				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
 				gint len = g_utf8_strlen (s->search_str, -1);
@@ -563,7 +563,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 		else
 		{
 			/* Forward match */
-			if (s->ignore_case)
+			if (!s->match_case)
 			{
 				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
 				gint len = g_utf8_strlen (s->search_str, -1);

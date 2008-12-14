@@ -31,7 +31,7 @@ typedef struct _SearchExpression
 	gchar *search_str;
 	gboolean regex;
 	gboolean greedy;
-	gboolean ignore_case;
+	gboolean match_case;
 	gboolean whole_word;
 	gboolean whole_line;
 	gboolean word_start;

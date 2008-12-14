@@ -445,7 +445,7 @@ search_box_init (SearchBox *object)
 					  G_CALLBACK (on_search_focus_out),
 					  object);	
 	
-	private->case_check = gtk_check_button_new_with_label (_("Case sensitive"));
+	private->case_check = gtk_check_button_new_with_label (_("Match case"));
 	
 	private->search_button = gtk_button_new ();
 	gtk_button_set_image (GTK_BUTTON (private->search_button), search);

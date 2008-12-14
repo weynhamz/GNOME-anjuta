@@ -310,10 +310,10 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkCheckButton" id="search.ignore.case">
+                                      <widget class="GtkCheckButton" id="search.match.case">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Case insensitive</property>
+                                        <property name="label" translatable="yes">Match case</property>
                                         <property name="use_underline">True</property>
                                         <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
@@ -330,7 +330,7 @@
                                       <widget class="GtkCheckButton" id="search.regex">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Regular Expression</property>
+                                        <property name="label" translatable="yes">Regular expression</property>
                                         <property name="use_underline">True</property>
                                         <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>

@@ -63,7 +63,7 @@ typedef enum _GladeWidgetId
 	/* Checkboxes */
 	SEARCH_REGEX,
 	GREEDY,
-	IGNORE_CASE,
+	MATCH_CASE,
 	WHOLE_WORD,
 	WORD_START,
 	WHOLE_LINE,

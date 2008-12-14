@@ -1,3 +1,27 @@
+2008-12-14  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/plugin.c (update_status):
+	Fixed #563988 – don't display zoom factor when using GtkSourceView editor
+	* plugins/build-basic-autotools/plugin.c (on_build_terminated),
+	plugins/tools/execute.c (atp_output_context_print_result):
+	#564295 - minor English fix
+
+	* plugins/document-manager/search-box.c (search_box_init),
+	plugins/search/anjuta-search.glade,
+	plugins/search/plugin.c (find_incremental),
+	plugins/search/search-replace.c (search_replace_populate),
+	(search_update_dialog), (search_replace_find_usage),
+	plugins/search/search-replace.h,
+	plugins/search/search-replace_backend.c (get_next_match),
+	plugins/search/search-replace_backend.h,
+	plugins/search/search_preferences.c
+	(search_preferences_read_setting),
+	(search_preferences_setting_by_default),
+	(search_preferences_save_setting):
+	fixed #563500 – inconsistent case sensitivity defaults
+ 
 2008-12-14  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

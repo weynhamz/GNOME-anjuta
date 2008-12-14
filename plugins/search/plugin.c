@@ -53,7 +53,7 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	se->search_str = expression;
 	se->regex = FALSE;
 	se->greedy = FALSE;
-	se->ignore_case = TRUE;
+	se->match_case = FALSE;
 	se->whole_word = FALSE;
 	se->whole_line = FALSE;
 	se->word_start = FALSE;

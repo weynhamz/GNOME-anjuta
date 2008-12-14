@@ -170,8 +170,8 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, "search.regex", NULL, NULL},
 	/* GREEDY */
 	{GE_BOOLEAN, "search.greedy", NULL, NULL},
-       	/* IGNORE_CASE */
-	{GE_BOOLEAN, "search.ignore.case", NULL, NULL},
+       	/* MATCH_CASE */
+	{GE_BOOLEAN, "search.match.case", NULL, NULL},
 	/* WHOLE_WORD */
 	{GE_BOOLEAN, "search.match.whole.word", NULL, NULL},
 	/* WORD_START */
@@ -1172,7 +1172,7 @@ search_replace_populate(void)
 	populate_value(SEARCH_STRING, &(sr->search.expr.search_str));
 	populate_value(SEARCH_REGEX, &(sr->search.expr.regex));
 	populate_value(GREEDY, &(sr->search.expr.greedy));
-	populate_value(IGNORE_CASE, &(sr->search.expr.ignore_case));
+	populate_value(MATCH_CASE, &(sr->search.expr.match_case));
 	populate_value(WHOLE_WORD, &(sr->search.expr.whole_word));
 	populate_value(WHOLE_LINE, &(sr->search.expr.whole_line));
 	populate_value(WORD_START, &(sr->search.expr.word_start));
@@ -1433,8 +1433,8 @@ search_update_dialog(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.regex);
 	widget = sr_get_gladewidget(GREEDY)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.greedy);
-	widget = sr_get_gladewidget(IGNORE_CASE)->widget;
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.ignore_case);
+	widget = sr_get_gladewidget(MATCH_CASE)->widget;
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.match_case);
 	widget = sr_get_gladewidget(WHOLE_WORD)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.whole_word);
 	widget = sr_get_gladewidget(WHOLE_LINE)->widget;
@@ -1816,7 +1816,7 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr.search_str = g_strdup (symbol);
 	sr->search.expr.regex = FALSE;
 	sr->search.expr.greedy = FALSE;
-	sr->search.expr.ignore_case = FALSE;
+	sr->search.expr.match_case = TRUE;
 	sr->search.expr.whole_word = TRUE;
 	sr->search.expr.whole_line = FALSE;
 	sr->search.expr.word_start = FALSE;

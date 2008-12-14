@@ -146,8 +146,8 @@ search_preferences_read_setting(gchar *name)
 	                        gconf_concat_dir_and_key(name, "regex"), NULL);
 	sr->search.expr.greedy = gconf_client_get_bool(client, 
 	                         gconf_concat_dir_and_key(name, "greedy"), NULL);
-	sr->search.expr.ignore_case = gconf_client_get_bool(client, 
-	                              gconf_concat_dir_and_key(name, "ignore_case"), NULL);
+	sr->search.expr.match_case = gconf_client_get_bool(client, 
+	                              gconf_concat_dir_and_key(name, "match_case"), NULL);
 	sr->search.expr.whole_word = gconf_client_get_bool(client, 
 	                             gconf_concat_dir_and_key(name, "whole_word"), NULL);
 	sr->search.expr.whole_line = gconf_client_get_bool(client, 
@@ -176,7 +176,7 @@ search_preferences_setting_by_default(void)
  {
 	sr->search.expr.regex =FALSE;
 	sr->search.expr.greedy = FALSE;
-	sr->search.expr.ignore_case = FALSE;
+	sr->search.expr.match_case = FALSE;
 	sr->search.expr.whole_word = FALSE;
 	sr->search.expr.whole_line = FALSE;
 	sr->search.expr.word_start = FALSE;
@@ -206,8 +206,8 @@ search_preferences_save_setting(gchar *name)
 	                      sr->search.expr.regex, NULL);
 	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "greedy"),
 	                      sr->search.expr.greedy, NULL);
-	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "ignore_case"),
-                          sr->search.expr.ignore_case, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "match_case"),
+                          sr->search.expr.match_case, NULL);
 	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "whole_word"), 
 	                      sr->search.expr.whole_word, NULL);
 	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "whole_line"), 

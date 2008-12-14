@@ -504,14 +504,14 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		{
 			if (error)
 			{
-				buffer = g_strdup_printf (_("Completed unsuccessful with status code %d\n"),
+				buffer = g_strdup_printf (_("Completed unsuccessfully with status code %d\n"),
 										  error);
 				ok = atp_output_context_print (this, buffer);
 				g_free (buffer);
 			}
 			else
 			{
-				ok = atp_output_context_print (this, _("Completed successful\n"));
+				ok = atp_output_context_print (this, _("Completed successfully\n"));
 			}
 			ok &= atp_output_context_print (this, "\n");
 			if (this->view)
