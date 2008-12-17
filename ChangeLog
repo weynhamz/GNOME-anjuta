@@ -1,3 +1,16 @@
+2008-12-17  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-async-notify.c (anjuta_async_notify_init),
+	(anjuta_async_notify_finalize), (anjuta_async_notify_finished),
+	(anjuta_async_notify_class_init), (anjuta_async_notify_new),
+	(anjuta_async_notify_get_error), (anjuta_async_notify_set_error),
+	(anjuta_async_notify_notify_finished):
+	* libanjuta/anjuta-async-notify.h:
+	Add new AnjutaAsyncNotify object to libanjuta to handle 
+	finish notifications for interfaces that usually work asynchronously,
+	like IAnjutaVCS. 
+
 2008-12-14  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/file-loader/plugin.c:

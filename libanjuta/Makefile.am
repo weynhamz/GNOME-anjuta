@@ -71,10 +71,11 @@ libanjuta_la_SOURCES= \
 	anjuta-async-command.h \
 	anjuta-sync-command.c \
 	anjuta-sync-command.h \
+	anjuta-async-notify.h \
+	anjuta-async-notify.c \
 	anjuta-message-area.h \
 	anjuta-debug.c \
 	anjuta-debug.h
-	
 
 if HAVE_PLUGIN_GLADE
 
