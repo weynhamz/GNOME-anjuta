@@ -68,7 +68,7 @@ struct _Profiler
 	gint project_watch_id;
 	gchar *project_root_uri;
 	gchar *profile_target_path;
-	GnomeVFSMonitorHandle *profile_data_monitor;
+	GFileMonitor *profile_data_monitor;
 };
 
 struct _ProfilerClass

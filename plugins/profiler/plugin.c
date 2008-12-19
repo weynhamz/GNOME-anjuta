@@ -138,7 +138,8 @@ setup_options (Profiler *profiler)
 	 {
 	 	if (!gprof_options_get_int (profiler->options, "automatic_refresh"))
 	 	{
-	 		gnome_vfs_monitor_cancel (profiler->profile_data_monitor);
+			g_file_monitor_cancel (profiler->profile_data_monitor);
+			g_object_unref (profiler->profile_data_monitor);
 	 		profiler->profile_data_monitor = NULL;
 	 	}
 	 }
@@ -191,27 +192,30 @@ profiler_get_data (Profiler *profiler)
 }
 
 static void
-on_profile_data_changed (GnomeVFSMonitorHandle *handle, 
-						 const gchar *monitor_uri, const gchar *info_uri,
-						 GnomeVFSMonitorEventType event,
-						 gpointer user_data)
+on_profile_data_changed (GFileMonitor *monitor,
+		GFile *file,
+		GFile *other_file,
+		GFileMonitorEvent event_type,
+		gpointer user_data)
 {
+	DEBUG_PRINT ("%s", "Data changed called");
 	Profiler *profiler;
-	
+
 	profiler = PROFILER (user_data);
-	
-	switch (event)
+
+	switch (event_type)
 	{
-		case GNOME_VFS_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_CHANGED:
 			if (profiler_get_data (profiler))
 				gprof_view_manager_refresh_views (profiler->view_manager);
 			break;
-		case GNOME_VFS_MONITOR_EVENT_DELETED:
-			gnome_vfs_monitor_cancel (handle);
+		case G_FILE_MONITOR_EVENT_DELETED:
+			g_file_monitor_cancel (monitor);
+			g_object_unref (profiler->profile_data_monitor);
 			profiler->profile_data_monitor = NULL;
 			break;
 		default:
-			break;			
+			break;
 	}
 }
 
@@ -223,6 +227,7 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 	gchar *profile_data_path;
 	gchar *profile_data_path_from_options;
 	gchar *profile_data_uri;
+	GFile *file;
 	
 	if (profiler->profile_target_path)
 	{
@@ -232,7 +237,7 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 	
 	if (profile_target_uri)
 	{
-		profile_target_path = gnome_vfs_get_local_path_from_uri (profile_target_uri);
+		profile_target_path = anjuta_util_get_local_path_from_uri (profile_target_uri);
 		
 		profile_data_path_from_options = gprof_options_get_string (profiler->options,
 																   "profile_data_file");
@@ -251,7 +256,9 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 		
 		g_free (profile_data_path_from_options);
 		
-		profile_data_uri = gnome_vfs_get_uri_from_local_path (profile_data_path);
+		file = g_file_new_for_path (profile_data_path);
+		profile_data_uri = g_file_get_uri (file);
+		g_object_unref (file);
 		
 		if (g_file_test (profile_data_path, G_FILE_TEST_EXISTS))
 		{
@@ -264,12 +271,13 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 			{
 				/* Cancel any existing monitor */
 				if (profiler->profile_data_monitor)
-					gnome_vfs_monitor_cancel (profiler->profile_data_monitor);
-				
-				gnome_vfs_monitor_add (&profiler->profile_data_monitor,
-									   profile_data_uri, GNOME_VFS_MONITOR_FILE,  
-									   on_profile_data_changed,
-									   (gpointer) profiler);
+					g_file_monitor_cancel (profiler->profile_data_monitor);
+				file = g_file_new_for_uri (profile_data_uri);
+				profiler->profile_data_monitor = 
+					g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
+				g_signal_connect (G_OBJECT (profiler->profile_data_monitor),
+						"changed", G_CALLBACK (on_profile_data_changed),
+						profiler);
 			}
 			
 			/* Show user the profiler views if they aren't visible so they
@@ -429,6 +437,7 @@ on_select_other_target_button_clicked (GtkButton *button,
 	gchar *selected_target_uri;
 	GtkTreeSelection *selection;
 	GtkTreePath *new_target_path;
+	GFile *file;
 	
 	model = gtk_tree_view_get_model (targets_list_view);
 	target_chooser_dialog = gtk_file_chooser_dialog_new ("Select Target",
@@ -443,7 +452,10 @@ on_select_other_target_button_clicked (GtkButton *button,
 	if (gtk_dialog_run (GTK_DIALOG (target_chooser_dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 		selected_target_path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (target_chooser_dialog));
-		selected_target_uri = gnome_vfs_get_uri_from_local_path (selected_target_path);
+		file = g_file_new_for_path (selected_target_path);
+		selected_target_uri = g_file_get_uri (file);
+		g_object_unref (file);
+
 		selection = gtk_tree_view_get_selection (targets_list_view);
 		
 		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
@@ -902,7 +914,7 @@ profiler_deactivate (AnjutaPlugin *plugin)
 	g_free (profiler->project_root_uri);
 	
 	if (profiler->profile_data_monitor)
-		gnome_vfs_monitor_cancel (profiler->profile_data_monitor);
+		g_file_monitor_cancel (profiler->profile_data_monitor);
 	
 	return TRUE;
 }

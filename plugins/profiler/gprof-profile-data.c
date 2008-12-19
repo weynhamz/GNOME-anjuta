@@ -21,8 +21,8 @@
  *            Boston,  MA  02110-1301, USA.
  */
 
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include "gprof-profile-data.h"
+#include <gio/gio.h>
 
 struct _GProfProfileDataPriv
 {
@@ -110,28 +110,29 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	FILE *stdout_stream;
 	gchar *program_dir;
 	gchar *profile_data_path;
-	gchar *profile_data_uri;
-	gchar *profile_data_mime_type;
-	gchar *path_uri;
 	GPtrArray *gprof_args;
-	gchar *target_mime_type;
 	gboolean is_libtool_target = FALSE;
 	GPid gprof_pid;
 	gint gprof_status;
 	
 	/* Determine target mime type */
-	path_uri = gnome_vfs_get_uri_from_local_path (path);
-	target_mime_type = gnome_vfs_get_mime_type (path_uri);
-	
-	if (target_mime_type)
+	GFile *file = g_file_new_for_path (path);
+	GFileInfo *fi = g_file_query_info (file,
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL,
+			NULL);
+
+	if (fi)
 	{
-		if (strcmp (target_mime_type, "application/x-shellscript") == 0)
+		if (strcmp (g_file_info_get_content_type (fi), 
+					"application/x-shellscript") == 0)
 			is_libtool_target = TRUE;
 		
-		g_free (target_mime_type);
+		g_object_unref (fi);
 	}
 	
-	g_free (path_uri);
+	g_object_unref (file);
 	
 	/* If the user gave us a path to a data file, check the mime type to make
 	 * sure the user gave us an actual profile dump, or else we could hang 
@@ -139,18 +140,29 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	 * memory until it sucks the system dry. */
 	if (alternate_profile_data_path)
 	{
-		profile_data_uri = gnome_vfs_get_uri_from_local_path (alternate_profile_data_path);
-		profile_data_mime_type = gnome_vfs_get_mime_type (profile_data_uri);
-		
-		if (strcmp (profile_data_mime_type, "application/x-profile") != 0)
+		file = g_file_new_for_path (alternate_profile_data_path);
+		fi = g_file_query_info (file,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL,
+				NULL);
+
+		if (fi == NULL)
 		{
-			g_free (profile_data_uri);
-			g_free (profile_data_mime_type);
+			g_object_unref (file);
+			return FALSE;
+		}
+
+		if (strcmp (g_file_info_get_content_type (fi),
+					"application/x-profile") != 0)
+		{
+			g_object_unref (fi);
+			g_object_unref (file);
 			return FALSE;
 		}
 		
-		g_free (profile_data_uri);
-		g_free (profile_data_mime_type);
+		g_object_unref (fi);
+		g_object_unref (file);
 	}
 	
 	
