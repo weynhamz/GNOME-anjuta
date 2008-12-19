@@ -129,7 +129,7 @@ symbol_db_engine_iterator_first (SymbolDBEngineIterator *dbi)
 	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	return gda_data_model_iter_move_at_row (priv->data_iter, 0);
+	return gda_data_model_iter_move_to_row (priv->data_iter, 0);
 }
 
 gboolean
@@ -185,7 +185,7 @@ symbol_db_engine_iterator_last (SymbolDBEngineIterator *dbi)
 	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	return gda_data_model_iter_move_at_row (priv->data_iter, 
+	return gda_data_model_iter_move_to_row (priv->data_iter, 
 					symbol_db_engine_iterator_get_n_items (dbi));
 }
 
@@ -197,7 +197,7 @@ symbol_db_engine_iterator_set_position (SymbolDBEngineIterator *dbi, gint pos)
 	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	return gda_data_model_iter_move_at_row (priv->data_iter, pos);
+	return gda_data_model_iter_move_to_row (priv->data_iter, pos);
 }
 
 gint

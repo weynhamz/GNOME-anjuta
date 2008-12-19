@@ -1,3 +1,11 @@
+2008-12-19  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-iterator.c
+	(symbol_db_engine_iterator_first),
+	(symbol_db_engine_iterator_last),
+	(symbol_db_engine_iterator_set_position):
+	using gda_data_model_iter_move_to_row () to use the latest libgda apis.
+
 2008-12-19  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
