@@ -6023,6 +6023,7 @@ symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_
 	gchar *relative_path;
 	const gchar *tmp;
 	g_return_val_if_fail (dbe != NULL, NULL);
+	g_return_val_if_fail (full_local_file_path != NULL, NULL);
 		
 	priv = dbe->priv;
 	

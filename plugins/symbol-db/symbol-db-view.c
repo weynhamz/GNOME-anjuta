@@ -762,7 +762,7 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
-	DEBUG_PRINT ("on_symbol_removed (): -global- %d", symbol_id);
+	/*DEBUG_PRINT ("on_symbol_removed (): -global- %d", symbol_id);*/
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &iter) == FALSE)

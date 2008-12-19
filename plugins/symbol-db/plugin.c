@@ -359,7 +359,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	if (sdb_plugin->session_loading)
 	{
-		DEBUG_PRINT ("%s", "session_loading");
 		return;
 	}
 	else

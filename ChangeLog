@@ -1,3 +1,15 @@
+2008-12-19  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (value_added_current_editor):
+	* plugins/symbol-db/symbol-db-view.c (on_symbol_removed):
+	removed DEBUG_PRINT. 
+
+	* plugins/symbol-db/symbol-db-engine.c
+	(symbol_db_engine_get_file_db_path):
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter), (sdb_view_search_init):
+	fixed #563980 - displayed some more info on search tab.
+
 2008-12-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* src/anjuta.c,

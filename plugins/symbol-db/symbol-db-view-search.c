@@ -134,23 +134,39 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 			
 			for (i = 0; i < max_hits; ++i)
 			{
-				GtkTreeIter iter;
-				
+				GtkTreeIter iter;				
 				iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 				
 				const gchar *sym_name = 
 					symbol_db_engine_iterator_node_get_symbol_name (iter_node);
-								
-				if (sym_name)
-				{
-					/* get the full file path instead of a database-oriented one. */
-					const gchar *file_path = 
-						symbol_db_engine_iterator_node_get_symbol_extra_string (
+
+				/* get the full file path instead of a database-oriented one. */					
+				const gchar *file_path = 
+					symbol_db_engine_iterator_node_get_symbol_extra_string (
 									iter_node, SYMINFO_FILE_PATH);
-								
+				
+				if (sym_name && file_path)
+				{
+					gchar *display;
+					gchar *db_file_path;
+					gint pos;
+					
+					/* and now get the relative one */
+					db_file_path = symbol_db_engine_get_file_db_path (priv->sdbe,
+																	  file_path);
+					
+					pos = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+					display = g_markup_printf_escaped("<b>%s</b>\n"
+										"<small><tt>%s:%d</tt></small>",
+										sym_name,
+										db_file_path,
+										pos);
+					g_free (db_file_path);
+					
 					/* add a new iter */
 					gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
 					
+
 					gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
 							COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
 								symbol_db_engine_iterator_node_get_symbol_extra_string (
@@ -158,7 +174,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 									symbol_db_engine_iterator_node_get_symbol_extra_string (
 									iter_node, SYMINFO_ACCESS)
 								),
-							COLUMN_NAME, sym_name,
+							COLUMN_NAME, display,
 							COLUMN_LINE, 
 								symbol_db_engine_iterator_node_get_symbol_file_pos (
 													iter_node),
@@ -168,7 +184,9 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 							-1);
 					
 					completion_list = g_list_prepend (completion_list,
-							g_strdup (sym_name));					
+							g_strdup (sym_name));
+					
+					g_free (display);
 				}
 
 				symbol_db_engine_iterator_move_next (iterator);
@@ -202,7 +220,6 @@ sdb_view_search_filter_idle (SymbolDBViewSearch * search)
 	priv->idle_filter = 0;
 	return FALSE;
 }
-
 
 static void
 sdb_view_search_on_entry_changed (GtkEntry * entry,
@@ -242,8 +259,6 @@ sdb_view_search_on_entry_activated (GtkEntry * entry,
 	/* parse the string typed in the entry   */
 	sdb_view_search_model_filter (search, str);
 }
-
-
 
 static gboolean
 sdb_view_search_on_tree_row_activate (GtkTreeView * view,
@@ -286,8 +301,6 @@ sdb_view_search_on_tree_row_activate (GtkTreeView * view,
 	 */
 	return FALSE;
 }
-
-
 
 static gboolean
 sdb_view_search_on_entry_key_press_event (GtkEntry * entry,
@@ -457,6 +470,8 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 					    COLUMN_NAME);
+	gtk_tree_view_column_set_attributes (column, renderer,
+										 "markup", COLUMN_NAME, NULL);	
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (priv->hitlist), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (priv->hitlist),
