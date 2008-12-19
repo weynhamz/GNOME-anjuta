@@ -39,7 +39,6 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-shell.h>
@@ -383,7 +382,7 @@ get_project_file_list(void)
 				gchar *file_path;
 		
 				uri = (const gchar *)node->data;
-				file_path = gnome_vfs_get_local_path_from_uri (uri);
+				file_path = anjuta_util_get_local_path_from_uri (uri);
 				if (file_path)
 				files = g_list_prepend (files, file_path);
 				node = g_list_next (node);
@@ -787,7 +786,7 @@ create_search_entries (Search *s)
 							  &dir_uri, NULL);
 			// FIXME : Replace Standard UNIX IO functions by gnome-vfs 
 			if (dir_uri)			
-				dir = gnome_vfs_get_local_path_from_uri(dir_uri);
+				dir = anjuta_util_get_local_path_from_uri(dir_uri);
 			
 			if (!dir)
 			{

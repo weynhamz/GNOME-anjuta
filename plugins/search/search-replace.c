@@ -23,7 +23,6 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-plugin.h>

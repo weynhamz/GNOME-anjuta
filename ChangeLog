@@ -1,3 +1,11 @@
+2008-12-19  Jens Georg <mail@jensge.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/search/search-replace_backend.c,
+	plugins/search/search-replace.c: 
+	#511589 – Anjuta uses GNOME-VFS
+
 2008-12-19  Jens Georg  <mail@jensge.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
