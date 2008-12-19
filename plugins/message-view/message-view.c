@@ -15,8 +15,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <libgnomevfs/gnome-vfs.h>
-
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
@@ -1112,16 +1110,25 @@ void message_view_previous(MessageView* view)
 
 static gboolean message_view_save_as(MessageView* view, gchar* uri)
 {
-	GnomeVFSHandle* handle;
+	GFile *file;
+	GOutputStream *os;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gboolean ok;
 
 	if (uri == NULL) return FALSE;
 
+	file = g_file_new_for_uri (uri);
+	os = G_OUTPUT_STREAM (
+			g_file_replace (file, NULL, 
+				FALSE,
+				G_FILE_CREATE_NONE,
+				NULL,
+				NULL));
 	/* Create file */
-	if (gnome_vfs_create (&handle, uri, GNOME_VFS_OPEN_WRITE, FALSE, 0664) != GNOME_VFS_OK)
+	if (os == NULL)
 	{
+		g_object_unref (file);
 		return FALSE;
 	}
 
@@ -1133,32 +1140,33 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 	while (gtk_tree_model_iter_next (model, &iter))
 	{
 		Message *message;
-		GnomeVFSFileSize written;
 
 		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
 		if (message)
 		{
 			if (message->details && (strlen (message->details) > 0))
 			{
-				if (gnome_vfs_write (handle, message->details, strlen (message->details), &written) != GNOME_VFS_OK)
+				if (!g_output_stream_write (os, message->details, strlen (message->details), NULL, NULL))
 				{
 					ok = FALSE;
 				}
 			}
 			else
 			{
-				if (gnome_vfs_write (handle, message->summary, strlen (message->summary), &written) != GNOME_VFS_OK)
+				if (!g_output_stream_write (os, message->summary, strlen (message->summary), NULL, NULL))
 				{
 					ok = FALSE;
 				}
 			}
-			if (gnome_vfs_write (handle, "\n", 1, &written) != GNOME_VFS_OK)
+			if (!g_output_stream_write (os, "\n", 1, NULL, NULL))
 			{
 				ok = FALSE;
 			}
 		}
 	}
-	gnome_vfs_close (handle);
+	g_output_stream_close (os, NULL, NULL);
+	g_object_unref (os);
+	g_object_unref (file);
 
 	return ok;
 }
