@@ -1077,45 +1077,74 @@ anjuta_util_escape_quotes(const gchar* str)
 	return buffer;
 }
 
-/* FIXME: Use gio instead */
 /* Diff the text contained in uri with text. Return true if files
-differ, FALSE if they are identical.
-FIXME: Find a better algorithm, this seems ineffective */
+differ, FALSE if they are identical.*/
 
 gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
 {
-	GnomeVFSFileSize bytes_read;
-	gchar* file_text;
-	GnomeVFSFileInfo info;
-	GnomeVFSHandle* handle = NULL;
-	
-	gnome_vfs_get_file_info(uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
-	
-	if (info.size == 0 && text == NULL)
+	GFile *file;
+	GFileInfo *file_info;
+	guint64 size;
+	gchar* file_text = NULL;
+	gsize bytes_read;
+
+	file = g_file_new_for_uri (uri);
+	file_info = g_file_query_info (file,
+			G_FILE_ATTRIBUTE_STANDARD_SIZE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL,
+			NULL);
+
+	if (file_info == NULL)
+	{
+		g_object_unref (file);
+		return TRUE;
+	}
+
+	size = g_file_info_get_attribute_uint64(file_info,
+			G_FILE_ATTRIBUTE_STANDARD_SIZE);
+	g_object_unref (file_info);
+
+	if (size == 0 && text == NULL)
+	{
+		g_object_unref (file);
 		return FALSE;
-	else if (info.size == 0 || text == NULL)
-		return TRUE;
-	
-	file_text = g_new0(gchar, info.size + 1);
-	
-	if (gnome_vfs_open(&handle, uri, GNOME_VFS_OPEN_READ != GNOME_VFS_OK))
-		return TRUE;
-	
-	if ((gnome_vfs_read(handle, file_text, info.size, &bytes_read) == GNOME_VFS_OK)
-		&& (bytes_read == info.size))
+	}
+	else if (size == 0 || text == NULL)
 	{
-		gnome_vfs_close(handle);
-		
-		if ((g_utf8_strlen(file_text, -1) == g_utf8_strlen(text, -1))
-			&& strcmp(file_text, text) == 0)
-			return FALSE;
+		g_object_unref (file);
 		return TRUE;
 	}
-	else
+
+	if (!g_file_load_contents(file, 
+				NULL,
+				&file_text, 
+				&bytes_read,
+				NULL,
+				NULL))
 	{
-		gnome_vfs_close(handle);
+		g_object_unref (file);
 		return TRUE;
 	}
+	g_object_unref (file);
+
+	if (bytes_read != size)
+	{
+		g_free (file_text);
+		return TRUE;
+	}
+
+	/* according to g_file_load_contents's documentation
+	 * file_text is guaranteed to end with \0.
+	 */
+	if (strcmp (file_text, text) == 0)
+	{
+		g_free (file_text);
+		return FALSE;
+	}
+
+	g_free (file_text);
+	return TRUE;
 }
 
 /**

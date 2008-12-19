@@ -38,7 +38,6 @@
 
 #include <gconf/gconf-client.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
@@ -621,26 +620,42 @@ valgrind_view_save_log (VgToolView *tool, gchar* uri)
 	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	VgError *err;
 	GString *str;
+	GFile *file;
+	GFileOutputStream *file_output_stream;
 	
 	int i;
-	GnomeVFSHandle* handle;
 	
 	if (uri == NULL) 
 		return -1;
 		
+	file = g_file_new_for_uri (uri);
+	file_output_stream  = g_file_replace (file,
+			NULL,  /* no etag */
+			FALSE, /* no backup */
+			G_FILE_CREATE_NONE,
+			NULL,
+			NULL);
+	g_object_unref (file);
+
 	/* Create file */
-	if (gnome_vfs_create (&handle, uri, GNOME_VFS_OPEN_WRITE, FALSE, 0664) != GNOME_VFS_OK)	{
+	if (file_output_stream == NULL)	{
 		return -1;
 	}
 		
 	str = g_string_new ("");
 	
 	for (i = 0; i < view->errors->len; i++) {
-		GnomeVFSFileSize written;
+		gsize written;
 		err = view->errors->pdata[i];
 		vg_error_to_string (err, str);
 
-		if (gnome_vfs_write (handle, str->str, str->len, &written) != GNOME_VFS_OK) {
+		written = g_output_stream_write (
+				G_OUTPUT_STREAM(file_output_stream),
+				str->str,
+				str->len,
+				NULL,
+				NULL);
+		if (written == -1) {
 			g_string_free (str, TRUE);
 			return -1;
 		}
@@ -648,8 +663,8 @@ valgrind_view_save_log (VgToolView *tool, gchar* uri)
 	}
 	
 	g_string_free (str, TRUE);
-
-	gnome_vfs_close (handle);	
+	g_output_stream_close (G_OUTPUT_STREAM(file_output_stream), 
+			NULL, NULL);
 
 	return 0;
 }
@@ -669,7 +684,7 @@ valgrind_view_load_log (VgToolView *tool, VgActions *actions, gchar* uri)
 	int fd;
 	gchar *filename;
 
-	filename = gnome_vfs_get_local_path_from_uri (uri);
+	filename = anjuta_util_get_local_path_from_uri (uri);
 	
 	if ((fd = open (filename, O_RDONLY)) != -1) {
 		vg_tool_view_connect (tool, fd);

@@ -22,9 +22,7 @@
  */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-about.h>
 #include <libanjuta/anjuta-shell.h>
@@ -79,7 +77,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	if (root_uri)
 	{
-		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
+		gchar *root_dir = anjuta_util_get_local_path_from_uri (root_uri);
 		if (root_dir)
 			val_plugin->project_root_uri = g_strdup(root_dir);
 		else
@@ -279,8 +277,11 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			gchar *program_dir;
 			SymTab *symtab;
 			VgToolView *vg_tool_view;
+			GFile *file;
 
-			prgname = gnome_vfs_format_uri_for_display (sel_target);
+			file = g_file_new_for_uri (sel_target);
+			prgname = g_file_get_parse_name (file);
+			g_object_unref (file);
 			DEBUG_PRINT ("target program selected is %s", prgname);			
 			
 			/* lets set some infos */
@@ -348,7 +349,7 @@ on_menu_save_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 {
 	GtkWidget *dialog;
 	gchar* uri = NULL;
-	GnomeVFSURI* vfs_uri;
+	GFile* file;
 	
 	dialog = gtk_file_chooser_dialog_new (_("Choose file where to save Valgrind log"),
 					NULL, GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, 
@@ -364,8 +365,8 @@ on_menu_save_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 
 	gtk_widget_destroy(dialog);
 
-	vfs_uri = gnome_vfs_uri_new(uri);
-	if (gnome_vfs_uri_exists (vfs_uri))
+	file = g_file_new_for_uri (uri);
+	if (g_file_query_exists (file, NULL))
 	{
 		GtkWidget *dialog;
 		dialog = gtk_message_dialog_new (NULL,
@@ -392,7 +393,7 @@ on_menu_save_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 	}
 
 	g_free (uri);
-	g_free (vfs_uri);
+	g_object_unref (file);
 }
 
 static void
