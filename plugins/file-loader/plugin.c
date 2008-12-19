@@ -63,35 +63,40 @@ sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
 		return 0;
 }
 
+/* The add argument is here to remember that recent menu items should be removed
+ * when the destination does not exist anymore */
 static void
-set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
-				 const gchar *mime)
+update_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
+				 const gchar *mime, gboolean add)
 {
-	GtkRecentData *recent_data;
-	gchar *name;
 	
-	DEBUG_PRINT ("Adding recent item of mimi-type: %s", mime);
-	
-	name = g_path_get_basename (uri);
-	
-	recent_data = g_slice_new (GtkRecentData);
-
-	recent_data->display_name   = name;
-	recent_data->description    = NULL;
-	recent_data->mime_type      = (gchar *)mime;
-	recent_data->app_name       = (gchar *) g_get_application_name ();
-	recent_data->app_exec       = g_strjoin (" ", g_get_prgname (), "%u", NULL);
-	recent_data->groups         = NULL;
-	recent_data->is_private     = FALSE;
-
-	if (!gtk_recent_manager_add_full (plugin->recent_manager, uri, recent_data))
+	if (add)
 	{
+		GtkRecentData *recent_data;
+	
+		recent_data = g_slice_new (GtkRecentData);
+
+		recent_data->display_name = NULL;
+		recent_data->description = NULL;
+		recent_data->mime_type = (gchar *)mime;
+		recent_data->app_name = (gchar *) g_get_application_name ();
+		recent_data->app_exec = g_strjoin (" ", g_get_prgname (), "%u", NULL);
+		recent_data->groups = NULL;
+		recent_data->is_private = FALSE;
+	
+		if (!gtk_recent_manager_add_full (plugin->recent_manager, uri, recent_data))
+		{
       		g_warning ("Unable to add '%s' to the list of recently used documents", uri);
+		}
+
+		g_free (recent_data->app_exec);
+		g_slice_free (GtkRecentData, recent_data);
+	}
+	else
+	{
+		gtk_recent_manager_remove_item (plugin->recent_manager, uri, NULL);
 	}
 
-	g_free (name);
-	g_free (recent_data->app_exec);
-	g_slice_free (GtkRecentData, recent_data);
 }
 
 static void
@@ -108,25 +113,8 @@ launch_application_failure (AnjutaFileLoaderPlugin *plugin,
 							  g_basename (uri), errmsg);
 }
 
-static gchar *
-get_supertype_from_mime_type (const gchar *mime_type)
-{
-	gchar *supertype;
-	gchar *delim;
-	gchar *retval;
-	
-	supertype = g_strdup (mime_type);
-	delim = strchr (supertype, '/');
-	g_return_val_if_fail (delim != NULL, supertype);
-
-	*delim = '\0';
-	retval = g_strconcat (supertype, "/*", NULL);
-	g_free(supertype);
-	return retval;
-}
-
 static GList *
-get_available_plugins_for_mime (AnjutaFileLoaderPlugin* plugin,
+get_available_plugins_for_mime (AnjutaPlugin* plugin,
 							   const gchar *mime_type)
 {
 	AnjutaPluginManager *plugin_manager;
@@ -134,8 +122,10 @@ get_available_plugins_for_mime (AnjutaFileLoaderPlugin* plugin,
 	
 	g_return_val_if_fail (mime_type != NULL, NULL);
 	
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(plugin)->shell,
+	plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell,
 													  NULL);
+	
+	/* Check an exact match */
 	plugin_descs = anjuta_plugin_manager_query (plugin_manager,
 												"Anjuta Plugin",
 												"Interfaces", "IAnjutaFile",
@@ -143,17 +133,55 @@ get_available_plugins_for_mime (AnjutaFileLoaderPlugin* plugin,
 												"SupportedMimeTypes",
 												mime_type,
 												NULL);
-	if (!plugin_descs);
+	
+	/* Check for plugins supporting one supertype */
+	if (plugin_descs == NULL)
 	{
-		gchar* supertype = get_supertype_from_mime_type (mime_type);
-		plugin_descs = anjuta_plugin_manager_query (plugin_manager,
+		GList *node;
+		GList *loader_descs = NULL;	
+		
+		loader_descs = anjuta_plugin_manager_query (plugin_manager,
 												"Anjuta Plugin",
 												"Interfaces", "IAnjutaFile",
-												"File Loader",
-												"SupportedMimeTypes",
-												supertype,
 												NULL);
-		g_free (supertype);
+		for (node = g_list_first (loader_descs); node != NULL; node = g_list_next (node))
+		{
+			gchar *value;
+			
+			if (anjuta_plugin_description_get_string ((AnjutaPluginDescription *)node->data,
+													  "File Loader", "SupportedMimeTypes", &value))
+			{
+				gchar **split_value;
+				
+				split_value = g_strsplit (value, ",", -1);
+				g_free (value);
+				if (split_value)
+				{
+					gchar **mime;
+					
+					for (mime = split_value; *mime != NULL; mime++)
+					{
+						/* The following line is working on unix only where
+						 * content and mime type are the same. Normally the
+						 * mime type has to be converted to a content type.
+						 * But it is a recent (glib 2.18) function, I think we can
+						 * wait a bit to fix this */
+						if (g_content_type_is_a (mime_type, *mime))
+						{
+							gchar *loc;
+							anjuta_plugin_description_get_string ((AnjutaPluginDescription *)node->data,
+													  "Anjuta Plugin", "Location", &loc);
+							
+							plugin_descs = g_list_prepend (plugin_descs, node->data);
+							break;
+						}
+					}
+				}
+				g_strfreev (split_value);
+			}
+		}
+		g_list_free (loader_descs);
+		plugin_descs = g_list_reverse (plugin_descs);
 	}
 	
 	return plugin_descs;
@@ -207,7 +235,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	gtk_menu_append (menu, menuitem);
 	
 	/* Open with plugins menu items */
-	plugin_descs = get_available_plugins_for_mime (plugin, mime_type);
+	plugin_descs = get_available_plugins_for_mime (ANJUTA_PLUGIN (plugin), mime_type);
 	snode = plugin_descs;
 	while (snode)
 	{
@@ -304,7 +332,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				{
 					GFile* file = g_file_new_for_uri (uri);
 					ianjuta_file_open (IANJUTA_FILE (loaded_plugin), file, NULL);
-					set_recent_file (plugin, uri, mime_type);
+					update_recent_file (plugin, uri, mime_type, TRUE);
 					g_object_unref (file);
 				}
 				else
@@ -330,10 +358,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				launch_application_failure (plugin, uri, error->message);
 				g_error_free (error);
 			}
-			else
-			{
-				set_recent_file (plugin, uri, mime_type);
-			}
+			update_recent_file (plugin, uri, mime_type, error == NULL);
 			g_list_free (uris);
 		}
 	}
@@ -342,28 +367,6 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	if (plugin_descs)
 		g_list_free (plugin_descs);
 	gtk_widget_destroy (dialog);
-}
-
-static gboolean
-launch_in_default_application (AnjutaFileLoaderPlugin *plugin,
-							   const gchar *mime_type, const gchar *uri)
-{
-	GAppInfo *appinfo;
-	GList *uris = NULL;
-
-	uris = g_list_prepend (uris, (gpointer)uri);
-
-	appinfo = g_app_info_get_default_for_type (mime_type, TRUE);
-	if (appinfo)
-	{
-		if (!g_app_info_launch_uris (appinfo, uris, NULL, NULL))
-		{
-			open_with_dialog (plugin, uri, mime_type);
-		}
-		g_object_unref (G_OBJECT (appinfo));
-	}
-	g_list_free (uris);
-	return TRUE;
 }
 
 static void
@@ -380,12 +383,8 @@ open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 	g_free (path);
 	g_free (dirname);
 	
-	
-	/* FIXME: We have to manage the error to know if we have to remove the recent file
-	 */
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 							  file, FALSE, NULL);
-	
 	g_object_unref (file);
 }
 
@@ -708,28 +707,25 @@ on_create_submenu (gpointer user_data)
 }
 
 static void
-open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
+open_uri_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 				const gchar *uri)
 {
-	GList *mime_apps;
-	GAppInfo *mime_app;
-	gchar *mime_type;
-	gint idx;
+	GAppInfo *app;
 	AnjutaPluginDescription *desc;
-	AnjutaPluginManager *plugin_manager;
-	
-	idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "index"));
-	desc = (AnjutaPluginDescription*) g_object_get_data (G_OBJECT (menuitem),
-														 "desc");
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
-													  NULL);
-	mime_type = anjuta_util_get_uri_mime_type (uri);
-	mime_apps = g_app_info_get_all_for_type (mime_type);
+	const gchar *mime_type;
 	
 	/* Open with plugin */
+	desc = (AnjutaPluginDescription*) g_object_get_data (G_OBJECT (menuitem),
+														 "desc");
+	mime_type = (const gchar*) g_object_get_data (G_OBJECT (menuitem),
+														 "mime_type");
 	if (desc)
 	{
+		AnjutaPluginManager *plugin_manager;
 		gchar *location = NULL;
+
+		plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
+	 														  NULL);
 		
 		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Location", &location);
@@ -744,9 +740,12 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 			if (loaded_plugin)
 			{
 				GFile* file = g_file_new_for_uri (uri);
-				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), file, NULL);
-				set_recent_file (plugin, uri, mime_type);
+				GError *error = NULL;
+				
+				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), file, &error);
 				g_object_unref (file);
+				update_recent_file (plugin, uri, mime_type, error == NULL);
+				g_free (error);
 			}
 			else
 			{
@@ -759,23 +758,25 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 	}
 	else
 	{
-		GList *uris = NULL;
-		GError *error = NULL;
-		
-		mime_app = g_list_nth_data (mime_apps, idx);
-		uris = g_list_prepend (uris, (gpointer)uri);
-		g_app_info_launch_uris (mime_app, uris, NULL, &error);
-		if (error)
+		/* Open with application */
+		app = (GAppInfo *) g_object_get_data (G_OBJECT (menuitem),
+															 "app");
+		if (app)
 		{
-			launch_application_failure (plugin, uri, error->message);
-			g_error_free (error);
+			GList *uris = NULL;
+			GError *error = NULL;
+		
+			uris = g_list_prepend (uris, (gpointer)uri);
+			g_app_info_launch_uris (app, uris, NULL, &error);
+			g_list_free (uris);
+			if (error)
+			{
+				launch_application_failure (plugin, uri, error->message);
+				g_error_free (error);
+			}
+			update_recent_file (plugin, uri, mime_type, error == NULL);
 		}
-		else
-			set_recent_file (plugin, uri, mime_type);
-		g_list_free (uris);
 	}
-	g_list_free (mime_apps);
-	g_free (mime_type);
 }
 
 static void
@@ -789,7 +790,7 @@ static void
 fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 {
 	if (plugin->fm_current_uri)
-		open_file_with (plugin, menuitem, plugin->fm_current_uri);
+		open_uri_with (plugin, menuitem, plugin->fm_current_uri);
 }
 
 static void
@@ -803,7 +804,7 @@ static void
 pm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 {
 	if (plugin->pm_current_uri)
-		open_file_with (plugin, menuitem, plugin->pm_current_uri);
+		open_uri_with (plugin, menuitem, plugin->pm_current_uri);
 }
 
 static GtkActionEntry actions_file[] = {
@@ -859,13 +860,12 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 						  const gchar *uri, GCallback callback,
 						  gpointer callback_data)
 {
-	GList *mime_apps, *node;
-	GAppInfo *mime_app;
-	GList *plugin_descs, *snode;
+	GList *mime_apps;
+	GList *plugin_descs;
+	GList *node;	
 	GtkWidget *menu, *menuitem;
 	gchar *mime_type;
-	gint idx;
-	gboolean ret;
+	GFile *file;
 	
 	g_return_val_if_fail (GTK_IS_MENU_ITEM (parentmenu), FALSE);
 	
@@ -873,21 +873,20 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	gtk_widget_show (menu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (parentmenu), menu);
 	
-	mime_type = anjuta_util_get_uri_mime_type (uri);
+	file = g_file_new_for_uri (uri);
+	mime_type = anjuta_util_get_file_mime_type (file);
+	g_object_unref (file);
 	if (mime_type == NULL)
 		return FALSE;
 	
-	idx = 0;
-	
 	/* Open with plugins menu items */
-	plugin_descs = get_available_plugins_for_mime (plugin, mime_type);
-	snode = plugin_descs;
-	while (snode)
+	plugin_descs = get_available_plugins_for_mime (ANJUTA_PLUGIN (plugin), mime_type);
+	for (node = plugin_descs; node != NULL; node = g_list_next (node))
 	{
 		gchar *name;
 		AnjutaPluginDescription *desc;
 		
-		desc = (AnjutaPluginDescription *)(snode->data);
+		desc = (AnjutaPluginDescription *)(node->data);
 		name = NULL;
 		anjuta_plugin_description_get_locale_string (desc, "File Loader",
 													 "Title", &name);
@@ -902,54 +901,58 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 												  "Location", &name);
 		}
 		menuitem = gtk_menu_item_new_with_label (name);
-		g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
 		g_object_set_data (G_OBJECT (menuitem), "desc", (gpointer)(desc));
+		g_object_set_data (G_OBJECT (menuitem), "mime_type", mime_type);			
 		g_signal_connect (G_OBJECT (menuitem), "activate",
 						  G_CALLBACK (callback), callback_data);
 		gtk_menu_append (menu, menuitem);
 		g_free (name);
-		snode = g_list_next (snode);
-		idx++;
 	}
+	g_list_free (plugin_descs);
 	
 	/* Open with applications */
 	mime_apps = g_app_info_get_all_for_type (mime_type);
-	if (idx > 0 && mime_apps)
+	if (plugin_descs && mime_apps)
 	{
 		menuitem = gtk_menu_item_new ();
 		gtk_menu_append (menu, menuitem);
-		idx++;
 	}
-	g_free (mime_type);
-	idx = 0;
-	node = mime_apps;
-	while (node)
+	
+	for (node = mime_apps; node != NULL; node = g_list_next (node))
 	{
+		GAppInfo *mime_app;
+		
 		mime_app = (GAppInfo *)(node->data);
 		if (g_app_info_should_show (mime_app))
 		{
 			menuitem = gtk_menu_item_new_with_label ( g_app_info_get_name (mime_app));
-			g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
+			g_object_set_data_full (G_OBJECT (menuitem), "app", mime_app, g_object_unref);			
+			g_object_set_data (G_OBJECT (menuitem), "mime_type", mime_type);			
 			g_signal_connect (G_OBJECT (menuitem), "activate",
 							  G_CALLBACK (callback), callback_data);
 			gtk_menu_append (menu, menuitem);
 		}
-		node = g_list_next (node);
-		idx++;
+		else
+		{
+			g_object_unref (mime_app);
+		}
 	}
-	gtk_widget_show_all (menu);
-	
-	if (mime_apps == NULL && plugin_descs == NULL)
-		ret = FALSE;
-	else
-		ret = TRUE;
-	
-	g_list_foreach (mime_apps, (GFunc) g_object_unref, NULL);
 	g_list_free (mime_apps);
-	if (plugin_descs)
-		g_list_free (plugin_descs);
-	
-	return ret;
+
+	gtk_widget_show_all (menu);
+
+	if ((mime_apps != NULL) || (plugin_descs != NULL))
+	{
+		g_object_set_data_full (G_OBJECT (menu), "mime_type", (gpointer)mime_type, g_free);
+		
+		return TRUE;
+	}
+	else
+	{
+		g_free (mime_type);
+		
+		return FALSE;
+	}
 }
 						  
 static void
@@ -1084,11 +1087,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session,
 				 AnjutaFileLoaderPlugin *plugin)
 {
-	AnjutaStatus *status;
-	const gchar *uri;
-	gchar *mime_type;
 	GList *files, *node;
-	gint i;
 				
 	/* We want to load the files first before other session loads */
 	if (phase != ANJUTA_SESSION_PHASE_FIRST)
@@ -1098,68 +1097,37 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	if (!files)
 		return;
 		
-	/* Open project files first and then regular files */
-	for (i = 0; i < 2; i++)
+	/* Open all files except project files */
+	for (node = g_list_first (files); node != NULL; node = g_list_next (node))
 	{
-		node = files;
-		while (node)
+		gchar *uri = node->data;
+		
+		if (uri)
 		{
-			uri = node->data;
-			if (uri)
-			{
-				gchar *label, *filename;
-				
-				mime_type = anjuta_util_get_uri_mime_type (uri);
-				
-				filename = g_path_get_basename (uri);
-				if (strchr (filename, '#'))
-					*(strchr (filename, '#')) = '\0';
-				
-				label = g_strconcat (_("Loaded:"), " ", filename, NULL);
-				
-				if (i == 0 && mime_type &&
-					strcmp (mime_type, "application/x-anjuta") == 0)
-				{
-					/* Project files first */
-					/* FIXME: Ignore project files for now */
-					/*
-					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
-											  uri, FALSE, NULL);
-					*/
-				}
-				else if (i != 0 &&
-						 (!mime_type ||
-						  strcmp (mime_type, "application/x-anjuta") != 0))
-				{
-					/* Then rest of the files */
-					gchar *fragment = strchr (uri, '#');
+			gchar *fragment;
+			
+			fragment = strchr (uri, '#');
+			if (fragment)
+				*fragment = '\0';
 
-					if (fragment)
-						*fragment = '\0';
-					GFile* file = g_file_new_for_uri (uri);
-					GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+			if (!anjuta_util_is_project_file (uri))
+			{
+				GFile* file = g_file_new_for_uri (uri);
+				GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  file, FALSE, NULL);
-					if (fragment)
+				if (fragment)
+				{
+					if (IANJUTA_IS_DOCUMENT_MANAGER (loader))
 					{
-						if (IANJUTA_IS_DOCUMENT_MANAGER (loader))
-						{
-							ianjuta_document_manager_goto_file_line (IANJUTA_DOCUMENT_MANAGER (loader), file, atoi(fragment + 1), NULL);
-						}
+						ianjuta_document_manager_goto_file_line (IANJUTA_DOCUMENT_MANAGER (loader), file, atoi(fragment + 1), NULL);
 					}
-					g_object_unref (file);
 				}
-				g_free (filename);
-				g_free (label);
-				g_free (mime_type);
+				g_object_unref (file);
 			}
-			node = g_list_next (node);
 		}
+		g_free (uri);
 	}
-	if (files)
-	{
-		g_list_foreach (files, (GFunc)g_free, NULL);
-		g_list_free (files);
-	}
+	g_list_free (files);
 }
 
 static void
@@ -1263,7 +1231,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	setup_recent_chooser_menu (GTK_RECENT_CHOOSER (toolbar_menu), loader_plugin);
 	gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (widget),
 								   toolbar_menu);
-	
+
 	/* Install drag n drop handler */
 	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
 				   "text/plain", "text/html", "text/source", "application-x/anjuta",
@@ -1349,24 +1317,11 @@ anjuta_file_loader_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
-static gchar*
-hide_fragment_identifier (const gchar *uri)
-{
-	gchar *new_uri;
-
-	new_uri = g_strdup (uri);
-	if (strchr (new_uri, '#'))
-		*(strchr (new_uri, '#')) = '\0';
-
-	return new_uri;
-}
-
 static GObject*
 iloader_load (IAnjutaFileLoader *loader, GFile* file,
 			  gboolean read_only, GError **err)
 {
 	gchar *mime_type;
-	gchar *new_uri;
 	AnjutaStatus *status;
 	AnjutaPluginManager *plugin_manager;
 	GList *plugin_descs = NULL;
@@ -1375,26 +1330,19 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 	
 	g_return_val_if_fail (uri != NULL, NULL);
 
-	new_uri = hide_fragment_identifier (uri);
-	GFile *file2 = g_file_new_for_uri (new_uri);
-	
-	if (!g_file_query_exists (file2, NULL))
-	{
-		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
-									uri, _("File not found"));
-		g_object_unref (G_OBJECT (file2));
-		return NULL;
-	}
-	g_object_unref (G_OBJECT (file2));
-	
-	new_uri = hide_fragment_identifier (uri);
-	mime_type = anjuta_util_get_uri_mime_type (new_uri);
+	mime_type = anjuta_util_get_file_mime_type (file);
 	
 	if (mime_type == NULL)
 	{
-		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
-									new_uri, _("File not found"));
-		g_free (new_uri);
+		g_object_unref (file);
+		update_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, NULL, FALSE);	
+		
+		if (err == NULL)
+			launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, _("File not found"));
+		
+		g_set_error (err, G_IO_ERROR, G_IO_ERROR_NOT_FOUND, _("File not found"));
+		
+		g_free (uri);
 		return NULL;
 	}
 	
@@ -1405,13 +1353,7 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 	
 	DEBUG_PRINT ("Opening URI: %s", uri);
 	
-	plugin_descs = anjuta_plugin_manager_query (plugin_manager,
-												"Anjuta Plugin",
-												"Interfaces", "IAnjutaFile",
-												"File Loader",
-												"SupportedMimeTypes",
-												mime_type,
-												NULL);
+	plugin_descs = get_available_plugins_for_mime (ANJUTA_PLUGIN (loader), mime_type);
 	
 	if (g_list_length (plugin_descs) > 1)
 	{
@@ -1441,19 +1383,47 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 	}
 	else
 	{
-		launch_in_default_application (ANJUTA_PLUGIN_FILE_LOADER (loader), mime_type, uri);
-	}
-	if (plugin)
-	{
-		ianjuta_file_open (IANJUTA_FILE(plugin), file, NULL);
+		GAppInfo *appinfo;
+		GList *uris = NULL;
+
+		uris = g_list_prepend (uris, (gpointer)uri);
+
+		appinfo = g_app_info_get_default_for_type (mime_type, TRUE);
+		if (appinfo)
+		{
+			GError *error = NULL;
+			if (!g_app_info_launch_uris (appinfo, uris, NULL, &error))
+			{
+				open_with_dialog (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, mime_type);
+			}
+			else
+			{
+				update_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, mime_type, error == NULL);
+			}				
+			g_object_unref (G_OBJECT (appinfo));
+		}
+		g_list_free (uris);
 	}
 	
-	set_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), new_uri, mime_type);
+	if (plugin)
+	{
+		GError *error = NULL;
+		
+		ianjuta_file_open (IANJUTA_FILE(plugin), file, &error);
+		if (error != NULL)
+		{
+			
+			if (err == NULL)
+				launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, error->message);
+			g_propagate_error (err, error);
+		}
+		update_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, mime_type, error == NULL);
+	}
 	
 	if (plugin_descs)
 		g_list_free (plugin_descs);
+	
 	g_free (mime_type);
-	g_free (new_uri);
 	g_free (uri);
 	anjuta_status_busy_pop (status);
 		

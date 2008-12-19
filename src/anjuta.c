@@ -227,48 +227,34 @@ static gchar*
 extract_project_from_session (const gchar* session_dir)
 {
 	AnjutaSession *session;
-	GList *node, *files, *new_files = NULL;
+	GList *node, *files;
 	gchar *project_uri = NULL;
 	
 	session = anjuta_session_new (session_dir);
 	
 	files = anjuta_session_get_string_list (session, "File Loader", "Files");
-	if (!files)
-		return NULL;
+	g_object_unref (session);
 	
-	/* Open project files first and then regular files */
+	/* Find project file */
 	node = files;
-	while (node)
+	for (node = files; node != NULL; node = g_list_next (node))
 	{
 		gchar *uri = node->data;
 		if (uri)
 		{
-			gchar *mime_type;
-			mime_type = anjuta_util_get_uri_mime_type (uri);
-			if (mime_type && strcmp (mime_type, "application/x-anjuta") == 0)
+			if (anjuta_util_is_project_file (uri))
 			{
 				g_free (project_uri);
 				project_uri = uri;
 			}
 			else
 			{
-				new_files = g_list_prepend (new_files, uri);
+				g_free (uri);
 			}
-			g_free (mime_type);
 		}
-		node = g_list_next (node);
 	}
-	/* anjuta_session_set_string_list (session, "File Loader", "Files", new_files);
-	anjuta_session_sync (session); */
-	g_object_unref (session);
+	g_list_free (files);
 	
-	if (new_files)
-	{
-		g_list_foreach (new_files, (GFunc)g_free, NULL);
-		g_list_free (new_files);
-	}
-	if (files)
-		g_list_free (files);
 	return project_uri;
 }
 
@@ -400,27 +386,19 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 									   geometry);
 		
 		/* Identify non-project files and set them for loading in session */
-		node = prog_args;
-		while (node)
+		for (node = prog_args; node != NULL; node = g_list_next (node))
 		{
-			const gchar *ext;
-			const gchar *filename = node->data;
-			
-			ext = strrchr (filename, '.');
-			
-			if (!ext ||
-				(strcmp (ext, ".anjuta") != 0 &&
-				 strcmp (ext, ".prj") != 0))
-			{
-				files_load = g_list_prepend (files_load, node->data);
-			}
-			else
+			gchar *filename = node->data;
+			if (anjuta_util_is_project_file (filename))
 			{
 				/* Pick up the first project file for loading later */
 				g_free (project_file);
 				project_file = g_strdup (filename);
 			}
-			node = g_list_next (node);
+			else
+			{
+				files_load = g_list_prepend (files_load, filename);
+			}
 		}
 		if (files_load)
 		{

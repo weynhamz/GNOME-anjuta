@@ -1252,25 +1252,11 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 		return NULL;
 	}
 	
-	gchar* uri = g_file_get_uri (file);
-	const gchar* line_str;
-	GFile* real_file;
-	
-	if ((line_str = strstr(uri, "#")) && line <= 0)
-	{
-		line = atoi (line_str + 1);
-		gchar* new_uri = g_strndup (uri, line_str - uri);
-		real_file = g_file_new_for_uri(new_uri);
-		g_free (new_uri);
-	}
-	else
-		real_file = g_file_dup (file);
-	
 	/* if possible, use a document that's already open */
-	doc = anjuta_docman_get_document_for_file (docman, real_file);
+	doc = anjuta_docman_get_document_for_file (docman, file);
 	if (doc == NULL)
 	{
-		te = anjuta_docman_add_editor (docman, real_file, NULL);
+		te = anjuta_docman_add_editor (docman, file, NULL);
 		doc = IANJUTA_DOCUMENT (te);
 	}
 	else if (IANJUTA_IS_EDITOR (doc))
@@ -1309,7 +1295,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 		ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
 	}
 	
-	g_object_unref (real_file);
 	return te;
 }
 

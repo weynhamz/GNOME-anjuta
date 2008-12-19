@@ -1,3 +1,21 @@
+2008-12-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* src/anjuta.c,
+	libanjuta/anjuta-utils.c,
+	libanjuta/anjuta-utils.h:
+	Partial fix for #511589 - Anjuta uses GNOME-VFS
+
+	* plugins/file-loader/plugin.c:
+	Do not use fragment in URI converted to GFile
+	Remove recent menu item if destination cannot be opened
+	Fix #309664 - Some file types impossible to open In Anjuta
+
+	* plugins/document-manager/anjuta-docman.c:
+	No need to handle fragment in URI returned by GFile
+
+	* plugins/file-loader/Makefile.am:
+	Define G_LOG_DOMAIN for file loader plugin
+
 2008-12-19  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-iterator.c

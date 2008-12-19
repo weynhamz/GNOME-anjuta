@@ -1118,63 +1118,89 @@ gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
 	}
 }
 
+/**
+ * anjuta_util_is_project_file:
+ * @filename: the file name
+ *
+ * Return TRUE if the file is an anjuta project file. It is implemented by
+ * checking only the file extension. So it does not check the existence
+ * of the file. But it is working on an URI if it does not containt a
+ * fragment.
+ *
+ * Returns: TRUE if the file is a project file, else FALSE
+ */
 gboolean
-anjuta_util_path_has_extension (const gchar *path, const gchar *ext)
+anjuta_util_is_project_file (const gchar *filename)
 {
-	if (strlen (path) <= strlen (ext))
-		return FALSE;
-	if ((path[strlen (path) - strlen (ext) - 1] == '.') &&
-		(strcmp (&path[strlen (path) - strlen (ext)], ext) == 0))
-		return TRUE;
-	return FALSE;
+	gsize len = strlen (filename);
+	return (len > 8) && (strcmp (filename + len - 7, ".anjuta") == 0);
 }
 
+/**
+ * anjuta_util_get_file_mine_type:
+ * @file: the file
+ *
+ * Check if a file exists and return its mime type.
+ *
+ * Returns: NULL if the corresponding file doesn't exist or the mime type as a newly
+ * allocated string that must be freed with g_free().
+ */
 gchar *
-anjuta_util_get_uri_mime_type (const gchar *uri)
+anjuta_util_get_file_mime_type (GFile *file)
 {
-	GnomeVFSURI *vfs_uri;
-	const gchar *path;
-	gchar *mime_type;
+	GFileInfo *info;
+	gchar *mime_type = NULL;
 	
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (file != NULL, NULL);
 	
-	vfs_uri = gnome_vfs_uri_new (uri);
-	if (vfs_uri)
-		path = gnome_vfs_uri_get_path (vfs_uri);
-	else
-		path = NULL;
+	/* Get file information, check that the file exist at the same time */
+	info = g_file_query_info (file,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+										  G_FILE_QUERY_INFO_NONE,
+										  NULL,
+										  NULL);
 	
-	/* If Anjuta is not installed in system gnome prefix, the mime types 
-	 * may not have been correctly registed. In that case, we use the
-	 * following mime detection
-	 */
-	if (!path)
+	if (info != NULL)
 	{
-		mime_type = gnome_vfs_get_slow_mime_type (uri);
-	}
-	else if (anjuta_util_path_has_extension (path, "anjuta"))
-	{
-		mime_type = g_strdup ("application/x-anjuta");
-	}
-	else if (anjuta_util_path_has_extension (path, "prj"))
-	{
-		mime_type = g_strdup ("application/x-anjuta-old");
-	}
-	else if (anjuta_util_path_has_extension (path, "ui"))
-	{
-		mime_type = g_strdup ("text/xml");
-	}
-	else if (anjuta_util_path_has_extension (path, "glade"))
-	{
-		mime_type = g_strdup ("application/x-glade");
-	}
-	else
-	{
-		mime_type = gnome_vfs_get_slow_mime_type (uri);
-	}
+		const gchar *extension;
+		gchar *name;
+		
+		/* If Anjuta is not installed in system gnome prefix, the mime types 
+		 * may not have been correctly registed. In that case, we use the
+	 	 * following mime detection
+	 	 */
+		name = g_file_get_basename (file);
+		extension = strrchr(name, '.');
+		if (extension != NULL)
+		{
+			const static struct {gchar *extension; gchar *type;} anjuta_types[] = {
+									{"anjuta", "application/x-anjuta"},
+									{"prj", "application/x-anjuta-old"},
+									{"ui", "text/xml"},
+									{"glade", "application/x-glade"},
+									{NULL, NULL}};
+			gint i;
+				
+			for (i = 0; anjuta_types[i].extension != NULL; i++)
+			{
+				if (strcmp(extension + 1, anjuta_types[i].extension) == 0)
+				{
+					mime_type = g_strdup (anjuta_types[i].type);
+					break;
+				}
+			}
+		}
+		g_free (name);
 	
-	if (vfs_uri)
-		gnome_vfs_uri_unref (vfs_uri);
+		/* Use mime database if it is not an Anjuta type */
+		if (mime_type == NULL)
+		{
+			mime_type = g_content_type_get_mime_type (g_file_info_get_content_type(info));
+		}
+		
+		g_object_unref (info);
+	}
+
 	return mime_type;
 }
 
@@ -1520,7 +1546,7 @@ anjuta_util_help_display (GtkWidget   *parent,
 
 	if (uri == NULL)
 	{
-		anjuta_util_dialog_error (parent, _("Unable to display help. Please make sure Anjuta "
+		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure Anjuta "
 								  "documentation package is install. It can be downloaded "
 								  "from http://anjuta.org"));
 
