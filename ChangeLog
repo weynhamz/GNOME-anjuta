@@ -1,3 +1,34 @@
+2008-12-19  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-bookmarks.c
+	(on_document_changed), (on_add_clicked), (on_remove_clicked),
+	(on_row_activate), (on_document_added), (on_selection_changed),
+	(anjuta_bookmarks_init), (anjuta_bookmarks_finalize),
+	(anjuta_bookmarks_class_init), (anjuta_bookmarks_new),
+	(anjuta_bookmarks_add), (anjuta_bookmarks_remove),
+	(anjuta_bookmarks_session_save), (anjuta_bookmarks_session_load):
+	* plugins/document-manager/anjuta-bookmarks.h:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c (register_stock_icons),
+	(activate_plugin), (deactivate_plugin):
+	* plugins/document-manager/plugin.h:
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/text_editor.c:
+	* plugins/search/search-replace.c (search_and_replace):
+	* plugins/sourceview/sourceview-io.c (on_save_finished):
+	* plugins/sourceview/sourceview.c:
+  New bookmark system. Will be extended to remember bookmarks across sessions
+  and with some other things soon.
+
+	* plugins/file-manager/file-view.c (file_view_row_activated),
+	(file_view_do_popup_menu), (file_view_button_press_event),
+	(file_view_popup_menu), (file_view_class_init):
+	Fixed mouse actions and popup-menu handling to use the correct gtk+ stuff.
+
 2008-12-17  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/Makefile.am:

@@ -48,7 +48,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -3161,56 +3160,6 @@ iview_iface_init (IAnjutaEditorViewIface *iface)
 	iface->get_count = iview_get_count;
 }
 
-/* IAnjutaBookmark implementation */
-static void
-ibookmark_toggle(IAnjutaBookmark* view, gint location,
-			  gboolean ensure_visible, GError **e)
-{
-	text_editor_goto_line (TEXT_EDITOR(view), location, FALSE, ensure_visible);
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_TOGGLE, 0, 0);
-}
-
-static void
-ibookmark_first(IAnjutaBookmark* view, GError **e)
-{
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_FIRST, 0, 0);
-}
-
-static void
-ibookmark_last(IAnjutaBookmark* view, GError **e)
-{
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_LAST, 0, 0);
-}
-
-static void
-ibookmark_next(IAnjutaBookmark* view, GError **e)
-{
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_NEXT, 0, 0);
-}
-
-static void
-ibookmark_previous(IAnjutaBookmark* view, GError **e)
-{
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_PREV, 0, 0);
-}
-
-static void
-ibookmark_clear_all(IAnjutaBookmark* view, GError **e)
-{
-	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_CLEAR, 0, 0);
-}
-
-static void
-ibookmark_iface_init(IAnjutaBookmarkIface* iface)
-{
-	iface->toggle = ibookmark_toggle;
-	iface->first = ibookmark_first;
-	iface->last = ibookmark_last;
-	iface->next = ibookmark_next;
-	iface->previous = ibookmark_previous;
-	iface->clear_all = ibookmark_clear_all;
-}
-
 static void
 iindicable_set (IAnjutaIndicable *te, IAnjutaIterable *begin_location,
 				IAnjutaIterable *end_location,
@@ -3659,7 +3608,6 @@ ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ifolds, IANJUTA_TYPE_EDITOR_FOLDS);
-ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);

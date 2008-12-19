@@ -49,12 +49,6 @@ void on_editor_command_complete_word_activate (GtkAction *action, gpointer user_
 void on_editor_command_close_folds_all_activate (GtkAction *action, gpointer user_data);
 void on_editor_command_open_folds_all_activate (GtkAction *action, gpointer user_data);
 void on_editor_command_toggle_fold_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_toggle_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_first_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_next_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_prev_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_last_activate (GtkAction *action, gpointer user_data);
-void on_editor_command_bookmark_clear_activate (GtkAction *action, gpointer user_data);
 
 void on_transform_eolchars1_activate (GtkAction *action, gpointer user_data);
 

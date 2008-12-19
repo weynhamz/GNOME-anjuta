@@ -26,14 +26,8 @@
 #include "file-model.h"
 #include "file-view-marshal.h"
 
-#include <gtk/gtkcellrenderertext.h>
-#include <gtk/gtkcellrendererpixbuf.h>
-#include <gtk/gtkcellrendererprogress.h>
-#include <gtk/gtktreestore.h>
-#include <gtk/gtktreeselection.h>
-#include <gtk/gtktreemodelsort.h>
-#include <gtk/gtkversion.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtk.h>
 
 #include <gio/gio.h>
 
@@ -41,8 +35,6 @@
 
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
-
-#include <gtk/gtktooltip.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -107,90 +99,54 @@ file_view_get_selected (AnjutaFileView* view)
 		return NULL;
 }
 
-static gboolean
-file_view_button_press_event (GtkWidget* widget, GdkEventButton* event)
+static void
+file_view_row_activated (GtkTreeView* widget, GtkTreePath* sort_path,
+						 GtkTreeViewColumn* column)
 {
 	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
 	GtkTreeIter selected;
-	gboolean is_dir;
 	GtkTreePath* path = NULL;
+	gboolean is_dir;
 	GFile* file;
-	gboolean retval = 	
-		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
-																	   event);	
 	
-	DEBUG_PRINT ("%s", "Button pressed");
+	GtkTreeIter select_iter;
+	GtkTreeModel* sort_model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+	gtk_tree_model_get_iter (sort_model, &selected, sort_path);
+	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+												   &select_iter, &selected);
+	gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &select_iter,
+						COLUMN_IS_DIR, &is_dir,
+						-1);
+	file = file_model_get_file (priv->model, &select_iter);
 	
-	GtkTreeSelection* selection = 
-		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-	
-	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
-	{
-		GtkTreeIter select_iter;
-		GtkTreeModel* sort_model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
-		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
-													   &select_iter, &selected);
-		gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &select_iter,
-							COLUMN_IS_DIR, &is_dir,
-							-1);
-		file = file_model_get_file (priv->model, &select_iter);
+	path = gtk_tree_model_get_path(sort_model, &selected);
 		
-		path = gtk_tree_model_get_path(sort_model, &selected);
+	if (is_dir)
+	{
+		if (!gtk_tree_view_row_expanded (GTK_TREE_VIEW (view),
+										 path))
+		{
+			gtk_tree_view_expand_row (GTK_TREE_VIEW (view),
+									  path,
+									  FALSE);
+		}
+		else
+		{
+			gtk_tree_view_collapse_row (GTK_TREE_VIEW (view),
+										path);
+		}	
 	}
 	else
 	{
-		file = NULL;
-		is_dir = FALSE;
-	}
-		
-	switch (event->button)
-	{
-		case 1: /* Left mouse button */
-		{
-			if (event->type == GDK_2BUTTON_PRESS)
-			{
-				if (is_dir)
-				{
-					if (!gtk_tree_view_row_expanded (GTK_TREE_VIEW (view),
-													 path))
-					{
-						gtk_tree_view_expand_row (GTK_TREE_VIEW (view),
-												  path,
-												  FALSE);
-					}
-					else
-					{
-						gtk_tree_view_collapse_row (GTK_TREE_VIEW (view),
-													path);
-					}	
-				}
-				else
-				{
-					g_signal_emit_by_name (G_OBJECT (view),
-										   "file-open",
-										   file);
-				}
-			}
-			break;
-		}
-		case 3: /* Right mouse button */
-		{
-			g_signal_emit_by_name (G_OBJECT (view),
-								   "show-popup-menu",
-								   file,
-								   is_dir,
-								   event->button,
-								   event->time);
-			break;
-		}
+		g_signal_emit_by_name (G_OBJECT (view),
+							   "file-open",
+							   file);
 	}
 	if (file)
 		g_object_unref (file);
 	if (path)
 		gtk_tree_path_free(path);
-	
-	return retval;
 }
 
 static gboolean
@@ -225,6 +181,69 @@ file_view_key_press_event (GtkWidget* widget, GdkEventKey* event)
 	return 	
 		GTK_WIDGET_CLASS (file_view_parent_class)->key_press_event (widget,
 																	event);
+}
+
+static void 
+file_view_do_popup_menu (GtkWidget* widget, GdkEventButton* event)
+{
+	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	GtkTreeSelection* selection = 
+			gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
+	GFile* file = NULL;
+	gboolean is_dir = FALSE;
+	GtkTreeIter selected;
+	gint button, event_time;
+	
+	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
+	{
+		GtkTreeIter select_iter;
+		GtkTreeModel* sort_model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+													   &select_iter, &selected);
+		gtk_tree_model_get (GTK_TREE_MODEL(priv->model), &select_iter,
+							COLUMN_IS_DIR, &is_dir,
+							-1);
+		file = file_model_get_file (priv->model, &select_iter);
+		
+	}
+	if (event)
+	{
+		button = event->button;
+		event_time = event->time;
+	}
+	else
+	{
+		button = 0;
+		event_time = gtk_get_current_event_time ();
+	}
+		
+	g_signal_emit_by_name (G_OBJECT(widget), "show-popup-menu",
+						   file, is_dir, button, event_time);
+	if (file)
+		g_object_unref (file);
+}
+
+static gboolean
+file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
+{
+  /* Ignore double-clicks and triple-clicks */
+  if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+    {
+      file_view_do_popup_menu (widget, event);
+      return TRUE;
+    }
+
+ return 	
+		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
+																	   event);
+}
+
+static gboolean
+file_view_popup_menu (GtkWidget* widget)
+{
+	file_view_do_popup_menu(widget, NULL);
+	return TRUE;
 }
 
 static void
@@ -482,6 +501,7 @@ file_view_class_init (AnjutaFileViewClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass* widget_class = GTK_WIDGET_CLASS (klass);
+	GtkTreeViewClass* tree_class = GTK_TREE_VIEW_CLASS(klass);
 	
 	g_type_class_add_private (klass, sizeof (AnjutaFileViewPrivate));
 	
@@ -534,8 +554,10 @@ file_view_class_init (AnjutaFileViewClass *klass)
 				  G_TYPE_INT,
 				  NULL);
 	
-	widget_class->button_press_event = file_view_button_press_event;
+	tree_class->row_activated = file_view_row_activated;
 	widget_class->key_press_event = file_view_key_press_event;
+	widget_class->popup_menu = file_view_popup_menu;
+	widget_class->button_press_event = file_view_button_press_event;
 	
 	/* Tooltips */
 	widget_class->query_tooltip = file_view_query_tooltip;	

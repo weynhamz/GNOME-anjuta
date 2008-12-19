@@ -33,7 +33,6 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 
 #include "search-replace_backend.h"
@@ -438,8 +437,8 @@ search_and_replace (void)
 														IANJUTA_MARKABLE_BOOKMARK,
 														NULL))
 							{
-								ianjuta_bookmark_toggle (IANJUTA_BOOKMARK(fb->te),
-														mi->line, FALSE, NULL);
+								//TODO:ianjuta_bookmark_toggle (IANJUTA_BOOKMARK(fb->te),
+								//						mi->line, FALSE, NULL);
 							}
 						}
 						break;

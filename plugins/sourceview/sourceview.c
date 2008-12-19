@@ -32,7 +32,6 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
@@ -1770,139 +1769,6 @@ iindic_iface_init(IAnjutaIndicableIface* iface)
 }
 
 static void
-ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	
-	GSList* markers;
-	
-	markers = gtk_source_buffer_get_source_marks_at_line (buffer, LOCATION_TO_LINE (location),
-												   marker_types[IANJUTA_MARKABLE_BOOKMARK]);
-	if (markers != NULL)
-	{
-		GtkTextIter begin;
-		GtkTextIter end;
-		
-		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, LOCATION_TO_LINE (location));
-		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &end, LOCATION_TO_LINE (location));
-		
-		gtk_source_buffer_remove_source_marks (buffer, &begin, &end, 
-										marker_types[IANJUTA_MARKABLE_BOOKMARK]);
-	}
-	else
-	{
-		GtkTextIter line;
-		GtkSourceMark* bookmark;
-		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer),
-															 &line, LOCATION_TO_LINE (location));
-		
-		bookmark = 
-			gtk_source_buffer_create_source_mark (buffer, NULL,
-											 marker_types [IANJUTA_MARKABLE_BOOKMARK],
-											 &line);
-	}
-}
-
-static void
-goto_bookmark (Sourceview* sv, GtkTextIter* iter, gboolean backward)
-{
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	gboolean found = FALSE;
-	
-	if (backward)
-		found = gtk_source_buffer_backward_iter_to_source_mark (buffer, iter, 
-														 marker_types[IANJUTA_MARKABLE_BOOKMARK]);
-	else
-		found = gtk_source_buffer_forward_iter_to_source_mark (buffer, iter, 
-														marker_types[IANJUTA_MARKABLE_BOOKMARK]);
-	if (found)
-	{
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(sv), 
-								 LINE_TO_LOCATION (gtk_text_iter_get_line (iter)), NULL);
-	}
-}
-
-static void
-ibookmark_first(IAnjutaBookmark* bmark, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkTextIter begin;
-	
-	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, 0);
-	
-	goto_bookmark (sv, &begin, FALSE);
-}
-
-
-static void
-ibookmark_last(IAnjutaBookmark* bmark, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);;
-	GtkTextIter begin;
-	
-	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, -1);
-	
-	goto_bookmark (sv, &begin, TRUE);
-}
-
-static void
-ibookmark_next(IAnjutaBookmark* bmark, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter begin;
-	
-	gtk_text_buffer_get_iter_at_mark (buffer, &begin,
-									  gtk_text_buffer_get_insert (buffer));
-	gtk_text_iter_forward_line (&begin);
-	
-	goto_bookmark (sv, &begin, FALSE);
-}
-
-static void
-ibookmark_previous(IAnjutaBookmark* bmark, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter begin;
-	
-	gtk_text_buffer_get_iter_at_mark (buffer, &begin,
-									  gtk_text_buffer_get_insert (buffer));
-	gtk_text_iter_backward_line (&begin);
-	
-	goto_bookmark (sv, &begin, TRUE);
-
-}
-
-static void
-ibookmark_clear_all(IAnjutaBookmark* bmark, GError** e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkTextIter begin;
-	GtkTextIter end;
-	
-	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, 0);
-	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
-	
-	gtk_source_buffer_remove_source_marks (buffer, &begin, &end, marker_types[IANJUTA_MARKABLE_BOOKMARK]);
-}
-
-static void
-ibookmark_iface_init(IAnjutaBookmarkIface* iface)
-{
-	iface->toggle = ibookmark_toggle;
-	iface->first = ibookmark_first;
-	iface->last = ibookmark_last;
-	iface->next = ibookmark_next;
-	iface->previous = ibookmark_previous;
-	iface->clear_all = ibookmark_clear_all;
-}
-
-static void
 iprint_print(IAnjutaPrint* print, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
@@ -2371,7 +2237,6 @@ ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
-ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);

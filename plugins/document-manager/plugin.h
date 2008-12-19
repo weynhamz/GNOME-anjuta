@@ -49,6 +49,9 @@ struct _DocmanPlugin{
 	
 	/* Base box of the widget */
 	GtkWidget* vbox;
+	
+	/* Bookmarks */
+	GObject* bookmarks;
 };
 
 struct _DocmanPluginClass{

@@ -28,7 +28,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
@@ -603,68 +602,6 @@ on_editor_command_toggle_fold_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 		ianjuta_editor_folds_toggle_current (IANJUTA_EDITOR_FOLDS (doc), NULL);
-}
-
-void
-on_editor_command_bookmark_toggle_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_toggle (IANJUTA_BOOKMARK (doc),
-								ianjuta_editor_get_lineno (IANJUTA_EDITOR (doc), NULL),
-								FALSE, NULL);
-}
-
-void
-on_editor_command_bookmark_first_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_first (IANJUTA_BOOKMARK (doc), NULL);
-}
-
-void
-on_editor_command_bookmark_next_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_next (IANJUTA_BOOKMARK (doc), NULL);
-}
-
-void
-on_editor_command_bookmark_prev_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_previous (IANJUTA_BOOKMARK (doc), NULL);
-}
-
-void
-on_editor_command_bookmark_last_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_last (IANJUTA_BOOKMARK (doc), NULL);
-}
-
-void
-on_editor_command_bookmark_clear_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_bookmark_clear_all (IANJUTA_BOOKMARK (doc), NULL);
 }
 
 void

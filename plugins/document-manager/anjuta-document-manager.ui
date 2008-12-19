@@ -84,18 +84,6 @@
 				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
 			</menu>
 			<menu name="Goto" action="ActionMenuGoto">
-				<placeholder name="PlaceHolderBookmarkMenus">
-					<menu name="MenuBookmark" action="ActionMenuBookmark">
-						<menuitem name="Toggle" action="ActionBookmarkToggle" />
-						<separator name="separator11" />
-						<menuitem name="First" action="ActionBookmarkFirst" />
-						<menuitem name="Previous" action="ActionBookmarkPrevious" />
-						<menuitem name="Next" action="ActionBookmarkNext" />
-						<menuitem name="Last" action="ActionBookmarkLast" />
-						<separator name="separator12" />
-						<menuitem name="Clear" action="ActionBookmarkClear" />
-					</menu>
-				</placeholder>
 				<menuitem name="Line" action="ActionEditGotoLine" />
 				<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
 				<separator name="separator13"/>
@@ -131,30 +119,13 @@
 			<toolitem name="Redo" action="ActionEditRedo" />
 		</placeholder>
 	</toolbar>
-	<toolbar name="ToolbarBookmark">
-		<placeholder name="PlaceholderBrowserToolbar" >
-			<toolitem name="Toggle" action="ActionBookmarkToggle"/>
-			<toolitem name="First" action="ActionBookmarkFirst"/>
-			<toolitem name="Previous" action="ActionBookmarkPrevious"/>
-			<toolitem name="Next" action="ActionBookmarkNext"/>
-			<toolitem name="Last" action="ActionBookmarkLast"/>
-			<toolitem name="Clear" action="ActionBookmarkClear"/>
-			<separator name="separator19"/>
-			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
-			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
-			<separator name="separator20"/>
-		</placeholder>
-	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menuitem name="Cut" action="ActionEditCut" />
 		<menuitem name="Copy" action="ActionEditCopy" />
 		<menuitem name="Paste" action="ActionEditPaste" />
 		<separator name="separator26"/>
-		<menuitem name="Toggle" action="ActionBookmarkToggle" />
 		<menu name="Goto" action="ActionMenuGoto">
 				<separator name="separator27"/>
-				<menuitem name="Previous" action="ActionBookmarkPrevious" />
-				<menuitem name="Next" action="ActionBookmarkNext" />
 				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
 				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
 		</menu>

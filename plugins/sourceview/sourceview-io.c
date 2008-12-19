@@ -220,8 +220,6 @@ on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
 	g_output_stream_write_finish (G_OUTPUT_STREAM(output_stream),
 								  result,
 								  &err);
-	g_free (sio->write_buffer);
-	sio->write_buffer = NULL;
 	if (err)
 	{
 		g_signal_emit_by_name (sio, "save-failed", err);
@@ -231,9 +229,11 @@ on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
 	{
 		set_display_name (sio);
 		g_output_stream_close(G_OUTPUT_STREAM (output_stream), NULL, NULL);
-		setup_monitor (sio);
 		g_signal_emit_by_name (sio, "save-finished");
+		setup_monitor (sio);
 	}
+	g_free (sio->write_buffer);
+	sio->write_buffer = NULL;
 	g_object_unref (output_stream);
 }
 

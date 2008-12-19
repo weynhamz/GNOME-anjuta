@@ -726,6 +726,11 @@ long AnEditor::Find (long flags, char* findWhat) {
 
 void AnEditor::BookmarkToggle( int lineno ) {
 	if (lineno == -1)
+		
+		
+		
+		
+		
 		lineno = GetCurrentLineNumber();
 	int state = SendEditor(SCI_MARKERGET, lineno);
 	if ( state & (1 << ANE_MARKER_BOOKMARK))

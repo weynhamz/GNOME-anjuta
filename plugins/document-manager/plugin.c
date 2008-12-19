@@ -48,17 +48,13 @@
 #include "action-callbacks.h"
 #include "plugin.h"
 #include "search-box.h"
+#include "anjuta-bookmarks.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 #define ICON_FILE "anjuta-document-manager-plugin-48.png"
 
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle"
-#define ANJUTA_PIXMAP_BOOKMARK_FIRST      "anjuta-bookmark-first"
-#define ANJUTA_PIXMAP_BOOKMARK_PREV       "anjuta-bookmark-prev"
-#define ANJUTA_PIXMAP_BOOKMARK_NEXT       "anjuta-bookmark-next"
-#define ANJUTA_PIXMAP_BOOKMARK_LAST       "anjuta-bookmark-last"
-#define ANJUTA_PIXMAP_BOOKMARK_CLEAR      "anjuta-bookmark-clear"
 
 #define ANJUTA_PIXMAP_FOLD_TOGGLE         "anjuta-fold-toggle"
 #define ANJUTA_PIXMAP_FOLD_CLOSE          "anjuta-fold-close"
@@ -89,11 +85,6 @@
 #define ANJUTA_STOCK_BLOCK_START              "anjuta-block-start"
 #define ANJUTA_STOCK_BLOCK_END                "anjuta-block-end"
 #define ANJUTA_STOCK_BOOKMARK_TOGGLE          "anjuta-bookmark-toggle"
-#define ANJUTA_STOCK_BOOKMARK_FIRST           "anjuta-bookmark-first"
-#define ANJUTA_STOCK_BOOKMARK_PREV            "anjuta-bookmark-previous"
-#define ANJUTA_STOCK_BOOKMARK_NEXT            "anjuta-bookmark-next"
-#define ANJUTA_STOCK_BOOKMARK_LAST            "anjuta-bookmark-last"
-#define ANJUTA_STOCK_BOOKMARK_CLEAR           "anjuta-bookmark-clear"
 #define ANJUTA_STOCK_GOTO_LINE				  "anjuta-goto-line"
 #define ANJUTA_STOCK_HISTORY_NEXT			  "anjuta-history-next"
 #define ANJUTA_STOCK_HISTORY_PREV			  "anjuta-history-prev"
@@ -365,28 +356,6 @@ static GtkActionEntry actions_format[] = {
     G_CALLBACK (on_editor_command_toggle_fold_activate)},
 };
 
-static GtkActionEntry actions_bookmark[] = {
-  { "ActionMenuBookmark", NULL, N_("Bookmar_k"), NULL, NULL, NULL},
-  { "ActionBookmarkToggle", ANJUTA_STOCK_BOOKMARK_TOGGLE, N_("_Toggle Bookmark"),
-	"<control>k", N_("Toggle a bookmark at the current line position"),
-    G_CALLBACK (on_editor_command_bookmark_toggle_activate)},
-  { "ActionBookmarkFirst", ANJUTA_STOCK_BOOKMARK_FIRST, N_("_First Bookmark"),
-	NULL, N_("Jump to the first bookmark in the file"),
-    G_CALLBACK (on_editor_command_bookmark_first_activate)},
-  { "ActionBookmarkPrevious", ANJUTA_STOCK_BOOKMARK_PREV, N_("_Previous Bookmark"),
-	"<control>comma", N_("Jump to the previous bookmark in the file"),
-    G_CALLBACK (on_editor_command_bookmark_prev_activate)},
-  { "ActionBookmarkNext", ANJUTA_STOCK_BOOKMARK_NEXT, N_("_Next Bookmark"),
-	"<control>period", N_("Jump to the next bookmark in the file"),
-    G_CALLBACK (on_editor_command_bookmark_next_activate)},
-  { "ActionBookmarkLast", ANJUTA_STOCK_BOOKMARK_LAST, N_("_Last Bookmark"),
-	NULL, N_("Jump to the last bookmark in the file"),
-    G_CALLBACK (on_editor_command_bookmark_last_activate)},
-  { "ActionBookmarkClear", ANJUTA_STOCK_BOOKMARK_CLEAR, N_("_Clear All Bookmarks"),
-	NULL, N_("Clear bookmarks"),
-    G_CALLBACK (on_editor_command_bookmark_clear_activate)},
-};
-
 static GtkActionEntry actions_documents[] = {
   {"ActionMenuDocuments", NULL, N_("_Documents"), NULL, NULL, NULL},
   { "ActionDocumentsPrevious", GTK_STOCK_GO_BACK, N_("Previous Document"),
@@ -423,7 +392,6 @@ static struct ActionGroupInfo action_groups[] = {
 	{ actions_zoom, G_N_ELEMENTS (actions_zoom), "ActionGroupEditorZoom", N_("Editor zoom operations") },
 	{ actions_style, G_N_ELEMENTS (actions_style), "ActionGroupEditorStyle", N_("Editor syntax highlighting styles") },
 	{ actions_format, G_N_ELEMENTS (actions_format), "ActionGroupEditorFormat", N_("Editor text formating") },
-	{ actions_bookmark, G_N_ELEMENTS (actions_bookmark), "ActionGroupEditorBookmark", N_("Editor bookmarks") },
 	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Simple searching") },
 	{ actions_documents, G_N_ELEMENTS (actions_documents), "ActionGroupDocuments", N_("Documents") }
 };
@@ -894,11 +862,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_PREV, ANJUTA_STOCK_BOOKMARK_PREV);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_NEXT, ANJUTA_STOCK_BOOKMARK_NEXT);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_LAST, ANJUTA_STOCK_BOOKMARK_LAST);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_CLEAR, ANJUTA_STOCK_BOOKMARK_CLEAR);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
@@ -1769,6 +1732,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (plugin->shell), "save-prompt",
 					  G_CALLBACK (on_save_prompt), plugin);
 	
+	/* Add bookmarks widget */
+	dplugin->bookmarks = G_OBJECT(anjuta_bookmarks_new (dplugin));
+	
 	dplugin->project_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
@@ -1818,6 +1784,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Widget is removed from the container when destroyed */
 	gtk_widget_destroy (eplugin->docman);
 	gtk_widget_destroy (eplugin->search_box);	/* the default searchbox instance may still be unparented */
+	g_object_unref (eplugin->bookmarks);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;
 	while (node)
