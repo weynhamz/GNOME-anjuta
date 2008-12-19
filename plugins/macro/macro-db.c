@@ -19,7 +19,6 @@
 #include "macro-db.h"
 #include "macro-util.h"
 #include <libxml/parser.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <stdlib.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
@@ -182,10 +181,9 @@ fill_userdefined (GtkTreeStore * tree_store, GtkTreeIter * iter_user)
 }
 
 static void
-save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
+save_macro (GtkTreeModel * model, GtkTreeIter * iter, GOutputStream * handle)
 {
-	GnomeVFSFileSize bytes, bytes_written;
-	GnomeVFSResult result;
+	gsize bytes, bytes_written;
 	gchar *name;
 	gchar *category;
 	gchar shortcut;
@@ -203,12 +201,15 @@ save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
 				  				name, category, shortcut_string, text);
 	g_free (shortcut_string);
 	bytes = strlen (output);
-	result = gnome_vfs_write (handle, output,
-				  strlen (output), &bytes_written);
+	bytes_written = g_output_stream_write (handle,
+			output, 
+			strlen (output),
+			NULL,
+			NULL);
 	g_free (name);
 	g_free (category);
 	g_free (text);
-	if (result != GNOME_VFS_OK)
+	if (bytes_written == -1)
 		return;
 }
 
@@ -298,32 +299,58 @@ macro_db_save (MacroDB * db)
 {
 	GtkTreeIter cur_cat;
 	GtkTreeModel *model;
-	GnomeVFSHandle *handle;
-	GnomeVFSResult result;
-	GnomeVFSFileSize bytes_written;
+	GFile *file;
+	GOutputStream *os;
 	const gchar* header = "<?xml version=\"1.0\" " 
 		"encoding=\"UTF-8\"?>\n";
 	const gchar *begin = "<anjuta-macros>\n";
 	const gchar *end = "</anjuta-macros>\n";
+	gsize bytes_written;
 
 	g_return_if_fail (db != NULL);
 
 	gchar *user_file = get_user_macro_path ();
-	result = gnome_vfs_create (&handle, user_file, GNOME_VFS_OPEN_WRITE,
-				   FALSE, 0777);
+
+	file = g_file_new_for_path (user_file);
+	os = G_OUTPUT_STREAM (g_file_replace (file, 
+			NULL,
+			FALSE,
+			G_FILE_CREATE_NONE,
+			NULL,
+			NULL));
 	g_free (user_file);
-	if (result != GNOME_VFS_OK)
+
+	if (os == NULL)
+	{
+		g_object_unref (file);
 		return;
+	}
+
+	bytes_written = g_output_stream_write (os, 
+			header, 
+			strlen (header),
+			NULL,
+			NULL);
+	if (bytes_written == -1)
+	{
+		g_object_unref (os);
+		g_object_unref (file);
+		return;
+	}
+
+	bytes_written = g_output_stream_write (os, 
+			begin, 
+			strlen (begin),
+			NULL,
+			NULL);
+	if (bytes_written == -1)
+	{
+		g_object_unref (os);
+		g_object_unref (file);
+		return;
+	}
 
 
-	result = gnome_vfs_write (handle, header, strlen (header),
-				  &bytes_written);
-	if (result != GNOME_VFS_OK)
-		return;
-	result = gnome_vfs_write (handle, begin, strlen (begin),
-				  &bytes_written);
-	if (result != GNOME_VFS_OK)
-		return;
 	model = GTK_TREE_MODEL (db->tree_store);
 	if (gtk_tree_model_iter_children (model, &cur_cat, &db->iter_user))
 	{
@@ -336,7 +363,7 @@ macro_db_save (MacroDB * db)
 				do
 				{
 					save_macro (model, &cur_macro,
-						    handle);
+							os);
 				}
 				while (gtk_tree_model_iter_next
 				       (model, &cur_macro));
@@ -348,15 +375,27 @@ macro_db_save (MacroDB * db)
 						    MACRO_IS_CATEGORY,
 						    &is_category, -1);
 				if (!is_category)
-					save_macro (model, &cur_cat, handle);
+					save_macro (model, &cur_cat, os);
 			}
 		}
 		while (gtk_tree_model_iter_next (model, &cur_cat));
 	}
-	result = gnome_vfs_write (handle, end, strlen (end), &bytes_written);
-	if (result != GNOME_VFS_OK)
+
+	bytes_written = g_output_stream_write (os, 
+			end, 
+			strlen (end),
+			NULL,
+			NULL);
+	if (bytes_written == -1)
+	{
+		g_object_unref (os);
+		g_object_unref (file);
 		return;
-	gnome_vfs_close (handle);
+	}
+
+	g_output_stream_close (os, NULL, NULL);
+	g_object_unref (os);
+	g_object_unref (file);
 }
 
 void

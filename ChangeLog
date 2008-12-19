@@ -2,6 +2,13 @@
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/macro/macro-db.c: 
+	#511589 – Anjuta uses GNOME-VFS
+
+2008-12-19  Jens Georg  <mail@jensge.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/message-view/message-view.c: 
 	#511589 – Anjuta uses GNOME-VFS
 
