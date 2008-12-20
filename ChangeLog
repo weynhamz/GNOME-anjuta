@@ -1,5 +1,10 @@
 2008-12-20  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	I forgot to add this file.
+
+2008-12-20  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/Makefile.am:
 	* plugins/symbol-db/plugin.c (symbol_db_activate),
 	(on_prefs_package_remove):
