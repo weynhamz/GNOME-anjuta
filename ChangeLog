@@ -1,3 +1,11 @@
+2008-12-20  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/reference/libanjuta/libanjuta.types:
+	Fix #565189 - anjuta fails to build due to IAnjutaBookmark not being
+	removed from documentation
+
 2008-12-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-profile.c:

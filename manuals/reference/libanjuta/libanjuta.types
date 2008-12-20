@@ -41,7 +41,6 @@ anjuta_sync_command_get_type
 ianjuta_editor_attribute_get_type
 ianjuta_editor_error_get_type
 ianjuta_editor_get_type
-ianjuta_bookmark_get_type
 ianjuta_buildable_command_get_type
 ianjuta_buildable_get_type
 ianjuta_builder_error_get_type
