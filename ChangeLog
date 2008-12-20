@@ -1,6 +1,11 @@
 2008-12-19  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/interfaces/libanjuta.idl:
+	Start using AnjutaAsyncNotify in IAnjutaVCS.
+
+2008-12-19  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/interfaces/libanjuta.idl:
 	Various fixes to IAnjutaVCS interface, mostly just documentation and 
 	indentation.
 

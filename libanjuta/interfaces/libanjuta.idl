@@ -4607,6 +4607,7 @@ interface IAnjutaVcs
 {
 	#include <gio/gio.h>
 	#include <libanjuta/anjuta-vcs-status.h>
+	#include <libanjuta/anjuta-async-notify.h>
 
 	/**
 	 * IAnjutaVcsError:
@@ -4623,29 +4624,35 @@ interface IAnjutaVcs
 	 * ianjuta_vcs_add:
 	 * @obj: Self
 	 * @files: List of List of files, represented as #Gfile objects, to add
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * reporting.
 	 *
 	 * Add files to the VCS repository.
 	 */
-	void add(List<GFile*> files);
+	void add(List<GFile*> files, AnjutaAsyncNotify *notify);
 	
 	/**
 	 * ianjuta_vcs_remove:
 	 * @obj: Self
 	 * @files: List of files, represented as #Gfile objects, to remove
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * reporting.
 	 *
 	 * Remove files from the VCS repository.
 	 */
-	void remove(List<GFile*> files);
+	void remove(List<GFile*> files, AnjutaAsyncNotify *notify);
 	
 	/**
 	 * ianjuta_vcs_checkout:
 	 * @obj: Self
 	 * @repository_location: Location of repository to check out
 	 * @dest: Destination of checked out copy
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * reporting.
 	 *
 	 * Check out a copy of a code repository.
 	 */
-	void checkout(const gchar *repository_location, GFile *dest);
+	void checkout(const gchar *repository_location, GFile *dest, AnjutaAsyncNotify *notify);
   
     /**
 	 * ianjuta_vcs_query_status:
@@ -4654,10 +4661,12 @@ interface IAnjutaVcs
 	 * @callback: callback to call when data for a particular file is available
 	 * @user_data: Userdata passed to callback
 	 * @cancel: A #GCancellable object to cancel the operation
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * reporting.
 	 *
 	 * Querys the status of files in the repository.
 	 */
-	void query_status (GFile* file, StatusCallback callback, gpointer user_data, GCancellable* cancel);
+	void query_status (GFile* file, StatusCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
   
     /**
      * IAnjutaVCSStatusCallback:
@@ -4675,10 +4684,12 @@ interface IAnjutaVcs
      * @obj: Self
      * @file: File to diff
      * @cancel: A #GCancellable object to cancel the operation
+     * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * reporting.
      *
      * Generates a unified diff of the file represented by @file.
      */
-	void diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel);
+	void diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
   
     /**
      * IAnjutaVCSDiffCallback:
