@@ -35,8 +35,6 @@
 
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
-#include "symbol-db-engine-iterator-node.h"
 #include "symbol-db-view.h"
 
 /* private class */

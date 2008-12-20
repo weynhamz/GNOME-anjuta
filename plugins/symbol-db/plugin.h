@@ -28,7 +28,6 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-launcher.h>
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
 
 
 G_BEGIN_DECLS

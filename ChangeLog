@@ -1,3 +1,101 @@
+2008-12-20  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c (symbol_db_activate),
+	(on_prefs_package_remove):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_cache_lookup), (sdb_engine_insert_cache),
+	(sdb_engine_clear_caches), (sdb_engine_init_caches),
+	(sdb_engine_execute_unknown_sql), (sdb_engine_execute_select_sql),
+	(sdb_engine_execute_non_select_sql),
+	(sdb_engine_get_statement_by_query_id),
+	(sdb_engine_get_dyn_query_node_by_id),
+	(sdb_engine_dyn_child_query_node_destroy),
+	(sdb_engine_insert_dyn_query_node_by_id),
+	(sdb_engine_get_query_parameters_list),
+	(sdb_engine_free_cached_queries),
+	(sdb_engine_free_cached_dynamic_queries),
+	(sdb_engine_disconnect_from_db),
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_get_tuple_id_by_unique_name4),
+	(sdb_engine_get_file_defined_id),
+	(sdb_engine_udpated_scope_gtree_populate),
+	(sdb_engine_populate_db_by_tags), (sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(sdb_engine_ctags_output_callback_1), (on_scan_files_end_1),
+	(sdb_engine_ctags_launcher_create), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (sdb_engine_unlink_shared_files),
+	(sdb_engine_unref_removed_launchers),
+	(sdb_engine_terminate_threads), (sdb_engine_finalize),
+	(sdb_engine_class_init), (sdb_engine_get_type),
+	(symbol_db_engine_set_ctags_path), (symbol_db_engine_new),
+	(sdb_engine_set_defaults_db_parameters),
+	(sdb_engine_connect_to_db), (sdb_engine_create_db_tables),
+	(symbol_db_engine_db_exists), (symbol_db_engine_file_exists),
+	(symbol_db_engine_close_db), (symbol_db_engine_open_db),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_get_unique_scan_id),
+	(symbol_db_engine_add_new_files), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_heritage),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_second_pass_do), (sdb_engine_add_new_symbol),
+	(sdb_engine_detects_removed_ids), (sdb_engine_update_file),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_get_sym_type_conversion_hash),
+	(symbol_db_engine_fill_type_array),
+	(symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file), (symbol_db_engine_remove_files),
+	(on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols):
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(sdb_engine_walk_down_scope_path),
+	(sdb_engine_prepare_file_info_sql),
+	(sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered),
+	(symbol_db_engine_get_files_for_project):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(symbol_db_glist_compare_func), (symbol_db_gtree_compare_func),
+	(symbol_db_engine_is_locked),
+	(symbol_db_engine_get_full_local_path),
+	(symbol_db_engine_get_file_db_path),
+	(symbol_db_engine_get_files_with_zero_symbols):
+	* plugins/symbol-db/symbol-db-engine-utils.h:
+	* plugins/symbol-db/symbol-db-engine.c:
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-search.c:
+	* plugins/symbol-db/symbol-db-view-search.h:
+	* plugins/symbol-db/symbol-db-view.c (on_scan_end),
+	(sdb_view_init), (symbol_db_view_open):
+	symbol-db-engine refactoring. Fixed #564048 - Split symbol-db-engine into 
+	several files.
+
 2008-12-20  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

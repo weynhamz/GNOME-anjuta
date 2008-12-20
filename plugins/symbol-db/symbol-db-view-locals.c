@@ -29,8 +29,6 @@
 
 #include "symbol-db-view-locals.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
-#include "symbol-db-engine-iterator-node.h"
 #include "symbol-db-view.h"
 
 
@@ -87,12 +85,6 @@ struct _SymbolDBViewLocalsPriv {
 static void
 trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id);
 
-
-static gint
-gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
-{
-	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
-}
 
 static void
 waiting_for_symbol_destroy (WaitingForSymbol *wfs)
@@ -1432,12 +1424,12 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	}
 	else 
 	{	
-		priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+		priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 (GDestroyNotify)&gtk_tree_row_reference_free);		
 
-		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 NULL);

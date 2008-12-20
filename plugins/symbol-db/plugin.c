@@ -45,7 +45,6 @@
 #include "symbol-db-view-locals.h"
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
 #include "symbol-db-prefs.h"
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
@@ -78,18 +77,6 @@ typedef enum
 } ProcTask;
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
-
-static gint 
-g_list_compare (gconstpointer a, gconstpointer b)
-{
-	return strcmp ((const gchar*)a, (const gchar*)b);
-}
-
-static gint
-gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
-{
-	return GPOINTER_TO_INT (a) - GPOINTER_TO_INT (b);
-}
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
@@ -1859,7 +1846,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* beign necessary to listen to many scan-end signals, we'll build up a method
 	 * to manage them with just one signal connection
 	 */
-	symbol_db->proc_id_tree = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+	symbol_db->proc_id_tree = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 NULL);
@@ -2466,7 +2453,7 @@ on_prefs_package_remove (SymbolDBPrefs *sdbp, const gchar *package,
 	GList *item;
 	DEBUG_PRINT ("%s", "on_prefs_package_remove");	
 	if ((item = g_list_find_custom (sdb_plugin->session_packages, package, 
-							g_list_compare)) != NULL)
+							symbol_db_glist_compare_func)) != NULL)
 	{
 		sdb_plugin->session_packages = g_list_remove_link (sdb_plugin->session_packages,
 														   item);

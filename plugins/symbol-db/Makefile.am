@@ -48,8 +48,7 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	readtags.c readtags.h \
 	symbol-db-engine-iterator.c \
 	symbol-db-engine-iterator.h \
-	symbol-db-engine.c \
-	symbol-db-engine.h symbol-db-view.h \
+	symbol-db-view.h \
 	symbol-db-view.c \
 	symbol-db-view-locals.c \
 	symbol-db-view-locals.h \
@@ -59,7 +58,11 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	symbol-db-engine-iterator-node.c \
 	symbol-db-system.h \
 	symbol-db-system.c  symbol-db-prefs.h \
-	symbol-db-prefs.c 
+	symbol-db-prefs.c  symbol-db-engine-queries.c \
+	symbol-db-engine-queries.h  symbol-db-engine-utils.c \
+	symbol-db-engine-utils.h  symbol-db-engine-priv.h \
+	symbol-db-engine-core.c  symbol-db-engine-core.h \
+	symbol-db-engine.h
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

@@ -28,8 +28,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include "symbol-db-view.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
-#include "symbol-db-engine-iterator-node.h"
 
 #define DUMMY_SYMBOL_ID		G_MININT32+1
 
@@ -79,12 +77,6 @@ static GHashTable *pixbufs_hash = NULL;
 static void 
 trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id);
 
-
-static gint
-gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
-{
-	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
-}
 
 static void
 waiting_for_symbol_destroy (WaitingForSymbol *wfs)
@@ -189,7 +181,7 @@ on_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 		 * one proposed by the doc is too complex.. create a list of the items
 		 * and reparse them with g_tree_remove...
 		 */
-		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 									 NULL,
 									 NULL,
 									 NULL);
@@ -1412,7 +1404,7 @@ sdb_view_init (SymbolDBView *object)
 	/* create a GTree where to store the row_expanding ids of the gfuncs.
 	 * we would be able then to g_source_remove them on row_collapsed
 	 */
-	priv->expanding_gfunc_ids = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+	priv->expanding_gfunc_ids = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL, NULL, NULL);
 	
 	/* Tree and his model */
@@ -1852,12 +1844,12 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	store = sdb_view_create_new_store ();
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store));
 	
-	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 (GDestroyNotify)&gtk_tree_row_reference_free);
 
-	priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+	priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 									 NULL,
 									 NULL,
 									 NULL);

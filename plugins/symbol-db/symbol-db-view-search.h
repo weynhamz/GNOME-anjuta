@@ -27,7 +27,6 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include "symbol-db-engine-iterator.h"
 #include "symbol-db-engine.h"
 
 G_BEGIN_DECLS
