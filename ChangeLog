@@ -1,3 +1,8 @@
+2008-12-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/class-gen/plugin.c:
+	Update class generator plugin to new IAnjutaVCS API
+
 2008-12-20  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/interfaces/libanjuta.idl:

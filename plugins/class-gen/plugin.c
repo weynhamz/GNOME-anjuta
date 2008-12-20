@@ -250,7 +250,7 @@ cg_plugin_add_to_repository (AnjutaClassGenPlugin *plugin,
 		GList* files = NULL;
 		files = g_list_append (files, g_file_new_for_path (header_file));
 		files = g_list_append (files, g_file_new_for_path (source_file));		
-		ianjuta_vcs_add (vcs, files, NULL);
+		ianjuta_vcs_add (vcs, files, NULL, NULL);
 		g_list_foreach (files, (GFunc) g_object_unref, NULL);
 		g_list_free (files);
 	}
