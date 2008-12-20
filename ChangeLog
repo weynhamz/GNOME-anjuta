@@ -1,6 +1,12 @@
 2008-12-20  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/interfaces/libanjuta.idl:
+	Small case fixes in documentation of IAnjutaVcs method callbacks
+	(IAnjutaVCS -> IAnjutaVcs). 
+
+2008-12-20  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/interfaces/libanjuta.idl:
 	The checkout method in IAnjutaVcs should take a GCancellable parameter so
 	that it can be canceled. 
 

@@ -4670,7 +4670,7 @@ interface IAnjutaVcs
 	void query_status (GFile* file, StatusCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
   
     /**
-     * IAnjutaVCSStatusCallback:
+     * IAnjutaVcsStatusCallback:
      * @file: File representing the file for which status is given
      * @status: #AnjutaVcsStatus for the file represented by @file.
      * @user_data: User data
@@ -4693,7 +4693,7 @@ interface IAnjutaVcs
 	void diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
   
     /**
-     * IAnjutaVCSDiffCallback:
+     * IAnjutaVcsDiffCallback:
      * @file: File being diffed
      * @diff: Diff data
      * @user_data: User data
