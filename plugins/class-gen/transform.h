@@ -22,7 +22,7 @@
 
 #include "element-editor.h"
 
-#include <glib/ghash.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 

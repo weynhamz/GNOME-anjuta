@@ -21,7 +21,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <gtk/gtkscrolledwindow.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-shell.h>
 

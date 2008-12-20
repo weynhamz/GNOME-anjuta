@@ -30,7 +30,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
-#include <gtk/gtktextview.h>
+#include <gtk/gtk.h>
 #include <string.h>
 
 static void sourceview_cell_class_init(SourceviewCellClass *klass);

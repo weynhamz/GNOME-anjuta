@@ -28,9 +28,7 @@
  */
 
 #include <config.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtkprogressbar.h>
-#include <gtk/gtkstatusbar.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>

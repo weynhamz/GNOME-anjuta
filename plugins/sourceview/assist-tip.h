@@ -26,8 +26,7 @@
 #define _ASSIST_TIP_H_
 
 #include <glib-object.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtktextview.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

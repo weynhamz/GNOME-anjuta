@@ -20,7 +20,7 @@
 #ifndef __CLASSGEN_VALIDATOR_H__
 #define __CLASSGEN_VALIDATOR_H__
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include <glib-object.h>
 

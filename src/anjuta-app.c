@@ -28,8 +28,7 @@
 #include <sys/wait.h>
 
 #include <glade/glade-xml.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 
 #include <gdl/gdl-dock.h>
 #include <gdl/gdl-dock-bar.h>

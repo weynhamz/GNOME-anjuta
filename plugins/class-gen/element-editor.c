@@ -20,12 +20,7 @@
 #include "element-editor.h"
 #include "cell-renderer-flags.h"
 
-#include <gtk/gtktreeselection.h>
-#include <gtk/gtkcellrenderercombo.h>
-#include <gtk/gtkcellrenderertext.h>
-#include <gtk/gtkcellrenderer.h>
-#include <gtk/gtkliststore.h>
-#include <gtk/gtkentry.h>
+#include <gtk/gtk.h>
 
 typedef struct _CgElementEditorColumn CgElementEditorColumn;
 struct _CgElementEditorColumn

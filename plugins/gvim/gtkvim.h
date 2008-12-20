@@ -35,7 +35,7 @@
 #define __GTK_VIM_H__
 
 
-#include <gtk/gtksocket.h>
+#include <gtk/gtk.h>
 
 /* gtksocket.h doesn't as yet supply this */
 #ifndef GTK_TYPE_SOCKET

@@ -21,7 +21,7 @@
 #ifndef _ANJUTA_STATUS_H_
 #define _ANJUTA_STATUS_H_
 
-#include <gtk/gtkhbox.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

@@ -36,8 +36,7 @@
 #include <libanjuta/anjuta-launcher.h>
 
 #include <glib/gstdio.h>
-#include <glib/gfileutils.h>
-#include <glib/gstrfuncs.h>
+#include <glib.h>
 
 #include <stdio.h>
 #include <stdlib.h>

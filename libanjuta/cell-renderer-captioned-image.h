@@ -22,9 +22,7 @@
 #ifndef PREFS_CELL_RENDERER_H
 #define PREFS_CELL_RENDERER_H
 
-#include <gtk/gtkcellrenderer.h>
-#include <gtk/gtkcellrenderertext.h>
-#include <gtk/gtkcellrendererpixbuf.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

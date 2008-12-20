@@ -21,7 +21,7 @@
 #define _ANJUTA_SHELL_H
 
 #include <glib-object.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>

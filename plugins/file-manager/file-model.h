@@ -26,8 +26,7 @@
 #define _FILE_MODEL_H_
 
 #include <glib-object.h>
-#include <gtk/gtktreestore.h>
-#include <gtk/gtktreeview.h>
+#include <gtk/gtk.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS

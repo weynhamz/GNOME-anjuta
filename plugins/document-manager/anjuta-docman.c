@@ -29,7 +29,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 
-#include <gtk/gtkfilechooserdialog.h>
+#include <gtk/gtk.h>
 
 #include "anjuta-docman.h"
 #include "file_history.h"

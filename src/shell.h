@@ -22,7 +22,7 @@
 #define _ANJUTA_TEST_SHELL_H_
 
 #include <glib.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 

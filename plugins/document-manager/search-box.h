@@ -25,7 +25,7 @@
 #ifndef _SEARCH_BOX_H_
 #define _SEARCH_BOX_H_
 
-#include <gtk/gtkbox.h>
+#include <gtk/gtk.h>
 #include "anjuta-docman.h"
 
 G_BEGIN_DECLS

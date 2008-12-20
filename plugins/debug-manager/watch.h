@@ -24,8 +24,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
-#include <gtk/gtkwidget.h>
-#include <gtk/gtktreemodel.h>
+#include <gtk/gtk.h>
 
 /* TODO #include "properties.h" */
 

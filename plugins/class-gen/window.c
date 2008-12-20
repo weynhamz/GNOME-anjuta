@@ -24,7 +24,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-#include <glib/gstrfuncs.h>
+#include <glib.h>
 
 #include <ctype.h>
 

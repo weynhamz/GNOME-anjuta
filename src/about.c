@@ -22,7 +22,7 @@
 # include <config.h>
 #endif
 
-#include <gtk/gtkaboutdialog.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-plugin-manager.h>
 
 #include "about.h"

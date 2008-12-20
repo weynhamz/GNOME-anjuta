@@ -18,7 +18,7 @@
 #ifndef _ANJUTA_MSGMAN_H
 #define _ANJUTA_MSGMAN_H
 
-#include <gtk/gtknotebook.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-preferences.h>
 #include "message-view.h"
 

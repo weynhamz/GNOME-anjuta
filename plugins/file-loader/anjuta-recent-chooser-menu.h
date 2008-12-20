@@ -22,8 +22,7 @@
 #ifndef __ANJUTA_RECENT_CHOOSER_MENU_H__
 #define __ANJUTA_RECENT_CHOOSER_MENU_H__
 
-#include <gtk/gtkmenu.h>
-#include <gtk/gtkrecentchooser.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

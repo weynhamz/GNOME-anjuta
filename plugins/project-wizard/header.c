@@ -29,7 +29,7 @@
 
 #include "header.h"
 
-#include <glib/gdir.h>
+#include <glib.h>
 #include <libanjuta/anjuta-utils.h>
 
 /*---------------------------------------------------------------------------*/

@@ -26,7 +26,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 
 #include <glib.h>
 

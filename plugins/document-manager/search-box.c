@@ -25,10 +25,7 @@
 #include <glib/gi18n.h>
 #include "search-box.h"
 
-#include <gtk/gtkbutton.h>
-#include <gtk/gtkcheckbutton.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkentry.h>
+#include <gtk/gtk.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>

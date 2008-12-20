@@ -1,6 +1,6 @@
 
 #include <libanjuta/anjuta-plugin.h>
-#include <gtk/gtkrecentmanager.h>
+#include <gtk/gtk.h>
 
 extern GType anjuta_file_loader_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_FILE_LOADER         (anjuta_file_loader_plugin_get_type (NULL))

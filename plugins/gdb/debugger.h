@@ -22,7 +22,7 @@
 
 #include <sys/types.h>
 #include <glib-object.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 #include "gdbmi.h"
 
 #include <libanjuta/interfaces/ianjuta-message-view.h>

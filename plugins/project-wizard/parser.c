@@ -27,7 +27,7 @@
 
 #include "parser.h"
 
-#include <glib/gdir.h>
+#include <glib.h>
 
 #include <string.h>
 #include <stdarg.h>

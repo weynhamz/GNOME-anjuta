@@ -20,7 +20,7 @@
 #ifndef __CLASSGEN_CELL_RENDERER_FLAGS_H__
 #define __CLASSGEN_CELL_RENDERER_FLAGS_H__
 
-#include <gtk/gtkcellrenderertext.h>
+#include <gtk/gtk.h>
 
 #include <glib-object.h>
 

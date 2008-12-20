@@ -19,7 +19,7 @@
 
 #include "validator.h"
 
-#include <gtk/gtkentry.h>
+#include <gtk/gtk.h>
 
 typedef struct _CgValidatorPrivate CgValidatorPrivate;
 struct _CgValidatorPrivate

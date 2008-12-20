@@ -1,3 +1,87 @@
+2008-12-20  Pedro Fragoso  <ember@ubuntu.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-message-area.h:
+	* libanjuta/anjuta-preferences-dialog.c:
+	* libanjuta/anjuta-preferences-dialog.h:
+	* libanjuta/anjuta-profile.c:
+	* libanjuta/anjuta-save-prompt.c:
+	* libanjuta/anjuta-save-prompt.h:
+	* libanjuta/anjuta-shell.h:
+	* libanjuta/anjuta-status.c:
+	* libanjuta/anjuta-status.h:
+	* libanjuta/anjuta-ui.c:
+	* libanjuta/anjuta-ui.h:
+	* libanjuta/cell-renderer-captioned-image.h:
+	* libanjuta/e-splash.h:
+	* libanjuta/interfaces/libanjuta.idl:
+	* libanjuta/resources.h:
+	* plugins/class-gen/cell-renderer-flags.c:
+	* plugins/class-gen/cell-renderer-flags.h:
+	* plugins/class-gen/combo-flags.c:
+	* plugins/class-gen/combo-flags.h:
+	* plugins/class-gen/element-editor.c:
+	* plugins/class-gen/element-editor.h:
+	* plugins/class-gen/transform.h:
+	* plugins/class-gen/validator.c:
+	* plugins/class-gen/validator.h:
+	* plugins/class-gen/window.c:
+	* plugins/class-gen/window.h:
+	* plugins/class-gen/plugin.c:
+	* plugins/debug-manager/locals.h:
+	* plugins/debug-manager/sexy-icon-entry.h:
+	* plugins/debug-manager/sharedlib.h:
+	* plugins/debug-manager/signals.h:
+	* plugins/debug-manager/stack_trace.h:
+	* plugins/debug-manager/threads.h:
+	* plugins/debug-manager/watch.h:
+	* plugins/document-manager/anjuta-docman.c:
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/search-box.c:
+	* plugins/document-manager/search-box.h:
+	* plugins/file-loader/anjuta-recent-chooser-menu.c:
+	* plugins/file-loader/anjuta-recent-chooser-menu.h:
+	* plugins/file-loader/plugin.h:
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.h:
+	* plugins/file-wizard/plugin.c:
+	* plugins/gdb/debugger.h:
+	* plugins/gtodo/egg-datetime.h:
+	* plugins/gtodo/eggtrayicon.h:
+	* plugins/gvim/gtkvim.h:
+	* plugins/indent/plugin.h:
+	* plugins/message-view/anjuta-msgman.c:
+	* plugins/message-view/anjuta-msgman.h:
+	* plugins/project-import/plugin.c:
+	* plugins/project-wizard/action.c:
+	* plugins/project-wizard/autogen.c:
+	* plugins/project-wizard/druid.c:
+	* plugins/project-wizard/druid.h:
+	* plugins/project-wizard/file.c:
+	* plugins/project-wizard/header.c:
+	* plugins/project-wizard/parser.c:
+	* plugins/project-wizard/property.c:
+	* plugins/sourceview/sourceview-cell.c:
+	* plugins/sourceview/sourceview-cell.h:
+	* plugins/sourceview/assist-tip.h:
+	* plugins/sourceview/assist-window.h:
+	* plugins/sourceview/sourceview.h:
+	* plugins/starter/starter.h:
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	* plugins/symbol-browser/an_symbol_search.c:
+	* plugins/symbol-browser/an_symbol_search.h:
+	* plugins/symbol-browser/anjuta-symbol-locals.c:
+	* plugins/symbol-browser/anjuta-symbol-locals.h:
+	* plugins/symbol-db/symbol-db-prefs.c:
+	* plugins/symbol-db/symbol-db-view-search.c:
+	* src/about.c:
+	* src/anjuta-app.c:
+	* src/main.c:
+	* src/start-with.c:
+	* src/shell.h:
+	GNOME Goal: Clean up GLib and GTK+ includes (Closes: #563889)	
+
 2008-12-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/class-gen/plugin.c:

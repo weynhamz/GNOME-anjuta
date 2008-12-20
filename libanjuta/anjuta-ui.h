@@ -32,8 +32,7 @@
  * removed from it and accordingly updates the required UI interfaces.
  * Use the EggMenuMerge object only to do things not doable by AnjutaUI.
  */
-#include <gtk/gtkaccelgroup.h>
-#include <gtk/gtkuimanager.h>
+#include <gtk/gtk.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS

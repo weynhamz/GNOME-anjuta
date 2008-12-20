@@ -29,7 +29,7 @@
 #include <sys/stat.h>
 
 #include <libgnome/gnome-program.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>

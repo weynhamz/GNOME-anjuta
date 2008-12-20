@@ -18,7 +18,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
  */
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 #include <glade/glade.h>
 #include "anjuta.h"
 #include "start-with.h"

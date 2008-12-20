@@ -25,7 +25,7 @@
 #define _E_SPLASH_H_
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

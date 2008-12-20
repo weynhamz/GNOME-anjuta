@@ -20,8 +20,7 @@
 #ifndef __CLASSGEN_COMBO_FLAGS_H__
 #define __CLASSGEN_COMBO_FLAGS_H__
 
-#include <gtk/gtktreemodel.h>
-#include <gtk/gtkhbox.h>
+#include <gtk/gtk.h>
 
 #include <glib-object.h>
 

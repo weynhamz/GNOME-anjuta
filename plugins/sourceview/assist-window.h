@@ -27,9 +27,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtkentrycompletion.h>
-#include <gtk/gtktextview.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

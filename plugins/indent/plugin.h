@@ -3,7 +3,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <indent-util.h>
 #include <indent-dialog.h>
-#include <glib/gstring.h>
+#include <glib.h>
 
 extern GType anjuta_indent_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_INDENT         (anjuta_indent_plugin_get_type (NULL))

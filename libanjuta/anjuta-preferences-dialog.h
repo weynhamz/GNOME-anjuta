@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #define ANJUTA_TYPE_PREFERENCES_DIALOG        (anjuta_preferences_dialog_get_type ())
 #define ANJUTA_PREFERENCES_DIALOG(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PREFERENCES_DIALOG, AnjutaPreferencesDialog))

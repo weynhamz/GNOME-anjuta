@@ -24,7 +24,7 @@
 #define __AN_SYMBOL_SEARCH__
 
 #include <glib-object.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "an_symbol_view.h"
 
 G_BEGIN_DECLS

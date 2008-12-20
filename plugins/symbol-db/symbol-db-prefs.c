@@ -25,8 +25,7 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #include <string.h>
-#include <gtk/gtktreeview.h>
-#include <gtk/gtkliststore.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-language.h>

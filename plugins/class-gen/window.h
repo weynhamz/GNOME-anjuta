@@ -22,7 +22,7 @@
 
 #include <plugins/project-wizard/values.h>
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include <glib-object.h>
 

@@ -70,7 +70,7 @@
  */
 
 #include <glib/gi18n.h>
-#include <glib/gerror.h>
+#include <glib.h>
 #include <string.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>

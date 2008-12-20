@@ -1170,7 +1170,7 @@ interface IAnjutaDocument
  */
 interface IAnjutaEditor
 {
-	#include <gtk/gtkwidget.h>
+	#include <gtk/gtk.h>
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
 	
 	enum Error
@@ -4738,7 +4738,7 @@ interface IAnjutaMacro
  */
 interface IAnjutaSymbol
 {
-	#include <gdk/gdkpixbuf.h>
+	#include <gdk/gdk.h>
 	#include <gio/gio.h>
 	
 	/** 

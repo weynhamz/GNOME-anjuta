@@ -41,7 +41,7 @@
 #include <gnome.h>
 #include <glib/gi18n.h>
 
-#include <gtk/gtkactiongroup.h>
+#include <gtk/gtk.h>
 
 #include <string.h>
 

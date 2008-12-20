@@ -21,7 +21,7 @@
 #ifndef _ANJUTA_DOCMAN_H_
 #define _ANJUTA_DOCMAN_H_
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>

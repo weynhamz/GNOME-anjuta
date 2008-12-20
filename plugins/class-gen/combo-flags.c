@@ -19,14 +19,7 @@
 
 #include "combo-flags.h"
 
-#include <gtk/gtktreeview.h>
-#include <gtk/gtktreeselection.h>
-#include <gtk/gtkcelllayout.h>
-#include <gtk/gtkcellrenderer.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtkframe.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtkmain.h>
+#include <gtk/gtk.h>
 
 #include <gdk/gdkkeysyms.h>
 

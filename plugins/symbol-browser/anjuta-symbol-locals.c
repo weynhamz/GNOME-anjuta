@@ -26,9 +26,7 @@
 #include <config.h>
 #endif
 #include <glib/gi18n.h>
-#include <gtk/gtktreeselection.h>
-#include <gtk/gtkcellrenderertext.h>
-#include <gtk/gtkcellrendererpixbuf.h>
+#include <gtk/gtk.h>
 #include "anjuta-symbol-locals.h"
 
 static GtkTreeViewClass* parent_class = NULL;

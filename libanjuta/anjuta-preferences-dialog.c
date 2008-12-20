@@ -34,13 +34,7 @@
 #include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <gtk/gtkhbox.h>
-#include <gtk/gtkliststore.h>
-#include <gtk/gtknotebook.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtktreeview.h>
-#include <gtk/gtktreeselection.h>
+#include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 

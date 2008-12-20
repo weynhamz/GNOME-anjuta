@@ -19,7 +19,7 @@
 */
 
 #include <config.h>
-#include <gtk/gtkactiongroup.h>
+#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>

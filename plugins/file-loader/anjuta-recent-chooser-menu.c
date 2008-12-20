@@ -23,7 +23,7 @@
 
 #include <string.h>
 
-#include <gdk/gdkscreen.h>
+#include <gdk/gdk.h>
 
 #include "anjuta-recent-chooser-menu.h"
 

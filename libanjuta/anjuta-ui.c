@@ -66,16 +66,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib/gi18n.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtkiconfactory.h>
-#include <gtk/gtktreeview.h>
-#include <gtk/gtktreestore.h>
-#include <gtk/gtkcellrenderertoggle.h>
-#include <gtk/gtkaccelmap.h>
-#include <gtk/gtkcellrendererpixbuf.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkcellrendereraccel.h>
+#include <gtk/gtk.h>
 
 #include "resources.h"
 #include "anjuta-ui.h"

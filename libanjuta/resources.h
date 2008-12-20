@@ -20,7 +20,7 @@
 #ifndef _RESOURCES_H_
 #define _RESOURCES_H_
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

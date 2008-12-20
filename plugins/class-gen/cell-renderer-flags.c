@@ -20,12 +20,7 @@
 #include "cell-renderer-flags.h"
 #include "combo-flags.h"
 
-#include <gtk/gtkcombobox.h>
-#include <gtk/gtktreemodel.h>
-#include <gtk/gtkcelllayout.h>
-#include <gtk/gtkcellrenderertext.h>
-#include <gtk/gtkcellrenderertoggle.h>
-#include <gtk/gtkcellrenderer.h>
+#include <gtk/gtk.h>
 
 typedef struct _CgCellRendererFlagsPrivate CgCellRendererFlagsPrivate;
 struct _CgCellRendererFlagsPrivate

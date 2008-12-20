@@ -25,7 +25,7 @@
 #ifndef _ANJUTA_SYMBOL_LOCALS_H_
 #define _ANJUTA_SYMBOL_LOCALS_H_
 
-#include <gtk/gtktreeview.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

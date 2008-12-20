@@ -25,7 +25,7 @@
 #ifndef _FILE_VIEW_H_
 #define _FILE_VIEW_H_
 
-#include <gtk/gtktreeview.h>
+#include <gtk/gtk.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS

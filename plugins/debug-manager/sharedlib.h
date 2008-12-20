@@ -28,7 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
 #include <glib.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 
 typedef struct _SharedlibsGui SharedlibsGui;
 typedef struct _Sharedlibs Sharedlibs;

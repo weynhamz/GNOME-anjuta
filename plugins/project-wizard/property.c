@@ -27,7 +27,7 @@
 
 #include "property.h"
 
-#include <glib/gdir.h>
+#include <glib.h>
 
 #include <gnome.h>
 #include <glib/gi18n.h>
