@@ -4647,7 +4647,7 @@ interface IAnjutaVcs
 	 * @obj: Self
 	 * @repository_location: Location of repository to check out
 	 * @dest: Destination of checked out copy
-	 * @cancel: A #GCancellable object to cancel the operation
+	 * @cancel: An optional #GCancellable object to cancel the operation, or NULL
 	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
 	 *
@@ -4660,8 +4660,8 @@ interface IAnjutaVcs
 	 * @obj: Self
 	 * @file: File/directory to query
 	 * @callback: callback to call when data for a particular file is available
-	 * @user_data: Userdata passed to callback
-	 * @cancel: A #GCancellable object to cancel the operation
+	 * @user_data: User data passed to callback
+	 * @cancel: An optional #GCancellable object to cancel the operation, or NULL
 	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
 	 *
@@ -4684,7 +4684,7 @@ interface IAnjutaVcs
      * ianjuta_vcs_diff:
      * @obj: Self
      * @file: File to diff
-     * @cancel: A #GCancellable object to cancel the operation
+     * @cancel: An optional #GCancellable object to cancel the operation, or NULL
      * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
      *
