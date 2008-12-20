@@ -274,7 +274,7 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 					g_file_monitor_cancel (profiler->profile_data_monitor);
 				file = g_file_new_for_uri (profile_data_uri);
 				profiler->profile_data_monitor = 
-					g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
+					g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, NULL);
 				g_signal_connect (G_OBJECT (profiler->profile_data_monitor),
 						"changed", G_CALLBACK (on_profile_data_changed),
 						profiler);

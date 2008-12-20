@@ -1,3 +1,10 @@
+2008-12-20  Jens Georg <mail@jensge.org>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/profiler/plugin.c (profiler_set_target):
+	requires now glib 2.16 instead of 2.18.
+
 2008-12-19  Jens Georg <mail@jensge.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
