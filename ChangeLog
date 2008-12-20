@@ -1,3 +1,9 @@
+2008-12-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-profile.c:
+	Fix #564673 - I cannot activate sourceview plugin over scintilla
+	Was due to an error in the previous patch
+
 2008-12-20  Pedro Fragoso  <ember@ubuntu.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

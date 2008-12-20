@@ -801,62 +801,53 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 	priv = profile->priv;
 	
 	str = g_string_new ("<?xml version=\"1.0\"?>\n<anjuta>\n");
-	node = priv->plugins;
-	while (node)
+	for (node = priv->plugins; node != NULL; node = g_list_next (node))
 	{
 		AnjutaPluginDescription *desc;
-		desc = (AnjutaPluginDescription *)node->data;
-		if (!g_hash_table_lookup (priv->plugins_to_exclude_from_sync,
-								  node->data))
+		gboolean user_activatable = TRUE;
+		gchar *name = NULL, *plugin_id = NULL;
+		
+		if (g_hash_table_lookup (priv->plugins_to_exclude_from_sync, node->data))
 		{
-			gboolean user_activatable;
-			gchar *name = NULL, *plugin_id = NULL;
+			/* Do not save plugin in the exclude list */
+			continue;
+		}
 			
-			
-			if (anjuta_plugin_description_get_boolean (desc, "Anjuta Plugin",
+		desc = (AnjutaPluginDescription *)node->data;
+		if (anjuta_plugin_description_get_boolean (desc, "Anjuta Plugin",
 												  "UserActivatable", &user_activatable)
 				&& !user_activatable)
-			{
-				/* Do not save plugins that are auto activated */
-				node = g_list_next (node);
-			}
-			
-			/* Do not use the _locale_ version because it's not in UI */
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &name);
-			DEBUG_PRINT("Saving plugin: %s", name);
-			if (!name)
-				name = g_strdup ("Unknown");
-			
-			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-													  "Location", &plugin_id))
-			{
-				g_string_append (str, "    <plugin name=\"");
-				g_string_append (str, name);
-				g_string_append (str, "\" mandatory=\"no\">\n");
-				g_string_append (str, "        <require group=\"Anjuta Plugin\"\n");
-				g_string_append (str, "                 attribute=\"Location\"\n");
-				g_string_append (str, "                 value=\"");
-				g_string_append (str, plugin_id);
-				g_string_append (str, "\"/>\n");
-				g_string_append (str, "    </plugin>\n");
-				
-				g_free (plugin_id);
-			}
-			g_free (name);
-		}
-		else
 		{
-			gchar* name;
-			/* Do not use the _locale_ version because it's debugging */
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &name);
-			DEBUG_PRINT ("excluding plugin: %s", name);
-			g_free (name);
+			/* Do not save plugins that are auto activated */
+			continue;
 		}
-		node = g_list_next (node);
+			
+		/* Do not use the _locale_ version because it's not in UI */
+		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+											  "Name", &name);
+		DEBUG_PRINT("Saving plugin: %s", name);
+		if (!name)
+			name = g_strdup ("Unknown");
+			
+		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Location", &plugin_id))
+		{
+			g_string_append (str, "    <plugin name=\"");
+			g_string_append (str, name);
+			g_string_append (str, "\" mandatory=\"no\">\n");
+			g_string_append (str, "        <require group=\"Anjuta Plugin\"\n");
+			g_string_append (str, "                 attribute=\"Location\"\n");
+			g_string_append (str, "                 value=\"");
+			g_string_append (str, plugin_id);
+			g_string_append (str, "\"/>\n");
+			g_string_append (str, "    </plugin>\n");
+				
+			g_free (plugin_id);
+		}
+		g_free (name);
 	}
 	g_string_append (str, "</anjuta>\n");
+	
 	return g_string_free (str, FALSE);
 }
 
