@@ -1,6 +1,11 @@
 2008-12-20  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/interfaces/libanjuta.idl:
+	Document the callback and user data parameters for IAnjutaVcs::diff. 
+
+2008-12-20  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/interfaces/libanjuta.idl:
 	Indicate that GCancellable parameters in IAnjutaVcs methods are optional,
 	and that NULL is a perfectly valid arguement for them. 
 

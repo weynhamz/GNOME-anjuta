@@ -4684,6 +4684,8 @@ interface IAnjutaVcs
      * ianjuta_vcs_diff:
      * @obj: Self
      * @file: File to diff
+     * @callback: Callback to call when diff data becomes available
+     * @user_data: User data passed to @callback
      * @cancel: An optional #GCancellable object to cancel the operation, or NULL
      * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
