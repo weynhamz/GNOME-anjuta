@@ -4647,12 +4647,13 @@ interface IAnjutaVcs
 	 * @obj: Self
 	 * @repository_location: Location of repository to check out
 	 * @dest: Destination of checked out copy
+	 * @cancel: A #GCancellable object to cancel the operation
 	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
 	 *
 	 * Check out a copy of a code repository.
 	 */
-	void checkout(const gchar *repository_location, GFile *dest, AnjutaAsyncNotify *notify);
+	void checkout(const gchar *repository_location, GFile *dest, GCancellable *cancel, AnjutaAsyncNotify *notify);
   
     /**
 	 * ianjuta_vcs_query_status:
