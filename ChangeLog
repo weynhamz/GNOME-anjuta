@@ -1,3 +1,9 @@
+2008-12-19  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Various fixes to IAnjutaVCS interface, mostly just documentation and 
+	indentation.
+
 2008-12-20  Jens Georg <mail@jensge.org>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
