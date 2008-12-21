@@ -5,9 +5,7 @@
 			<placeholder name="PlaceholderFileMenus">
 				<menuitem name="Save" action="ActionFileSave" />
 				<menuitem name="SaveAs" action="ActionFileSaveAs" />
-				<menuitem name="SaveAll" action="ActionFileSaveAll" />
 				<menuitem name="Close" action="ActionFileClose" />
-				<menuitem name="CloseAll" action="ActionFileCloseAll" />
 				<menuitem name="Reload" action="ActionFileReload" />
 				<separator name="separator4"/>
 			</placeholder>
@@ -104,6 +102,9 @@
 		</menu>
 		<placeholder name="PlaceHolderDocumentsMenus">
 			<menu name="Documents" action="ActionMenuDocuments">
+				<menuitem name="SaveAll" action="ActionFileSaveAll" />
+				<menuitem name="CloseAll" action="ActionFileCloseAll" />
+				<separator />
 				<menuitem name="PreviousDocument" action="ActionDocumentsPrevious" />
 				<menuitem name="NextDocument" action="ActionDocumentsNext" />
 				<separator />

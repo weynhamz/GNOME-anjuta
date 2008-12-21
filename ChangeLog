@@ -1,3 +1,30 @@
+2008-12-18  Adam Dingle  <adam@medovina.org>
+
+  Reviewed by: Johannes Schmid <jhs@gnome.org>
+   
+  * plugins/document-manager/anjuta-document-manager.ui:
+  * plugins/document-manager/plugin.c:
+  Fixed #564987 – Save All, Close All should appear in Documents menu.
+  Added an icon to the Save All menu item.
+
+  * plugins/document-manager/plugin.c:
+  Fixed #565002 – Redo shortcut should be Ctrl+Shift+Z
+  
+  * plugins/document-manager/plugin.c:
+  Fixed #565016 – Previous History and Next History should have shortcuts
+
+  * plugins/search/search-replace_backend.c
+    (file_buffer_line_from_pos), (file_match_line_from_pos),
+  (extra_match), (get_next_regex_match), (match_info),
+  (get_next_ascii_match), (normalize), (normal_advance),
+  (get_next_utf8_match), (str_is_ascii), (get_next_match):
+  * plugins/search/search-replace_backend.h: 	
+  Rewrote the UTF-8 search implementation to be faster and more robust.
+  When a search string is ASCII (which is virtually always the case),
+  we now bypass UTF-8 search altogether; this speeds up searching enormously.
+  Fixed bugs that sometimes caused incorrect lines to appear in the find output.
+  This fixes #563585 (Find in Files is extremely slow).
+
 2008-12-20  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-priv.h:

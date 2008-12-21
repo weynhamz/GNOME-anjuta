@@ -142,16 +142,24 @@ typedef enum _FileBufferType
 typedef struct _FileBuffer
 {
 	FileBufferType type;
+
 	/* The following are valid only for files loaded from disk */
 	gchar *name; /* Name of the file */
+
 	gchar *path; /* Full path to the file */
 	gchar *uri;  /* URI to the file */
-	gchar *buf; /* Contents of the file */
+	gchar *buf; /* Contents of the file, null-terminated */
 	gint len; /* Length of the buffer */
-	gint pos; /* Current position */
-	gint endpos; /* Restrict action upto this position */
+
+	/* Current position: a count of UTF-8 characters, *not* bytes. */
+	gint pos; 
+
 	gint line; /* Current line */
-	GList *lines; /* List of integers specifying line start positions */
+	GList *lines; /* List of integers specifying line start positions in bytes */
+
+	gchar *canonical;   /* buffer text converted to canonical utf-8 form */
+	gchar *canonical_p; /* current pointer into canonical text */
+
 	/* The following are valid only for files corresponding to a TextEditor */
 	IAnjutaEditor *te;
 } FileBuffer;

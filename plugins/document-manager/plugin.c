@@ -143,7 +143,7 @@ static GtkActionEntry actions_file[] = {
   { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."),  "<shift><control>s",
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as_activate)},
-  { "ActionFileSaveAll", NULL, N_("Save A_ll"), NULL,
+  { "ActionFileSaveAll", GTK_STOCK_SAVE, N_("Save A_ll"), "<shift><control>l",
 	N_("Save all currently open files, except new files"),
     G_CALLBACK (on_save_all_activate)},
   { "ActionFileClose", GTK_STOCK_CLOSE, N_("_Close File"), "<control>w",
@@ -249,10 +249,10 @@ static GtkActionEntry actions_navigation[] = {
 	"<control><alt>e", N_("Go to the end of the current block"),
     G_CALLBACK (on_goto_block_end1_activate)},
   { "ActionEditGotoHistoryPrev", ANJUTA_STOCK_HISTORY_PREV, N_("Previous _History"),
-	NULL, N_("Goto previous history"),
+	"<alt>Left", N_("Goto previous history"),
     G_CALLBACK (on_prev_history)},
   { "ActionEditGotoHistoryNext", ANJUTA_STOCK_HISTORY_NEXT, N_("Next Histor_y"),
-	 NULL, N_("Goto next history"),
+	"<alt>Right", N_("Goto next history"),
     G_CALLBACK (on_next_history)}
 };
 
@@ -284,7 +284,7 @@ static GtkActionEntry actions_edit[] = {
   { "ActionEditUndo", GTK_STOCK_UNDO, N_("U_ndo"), "<control>z",
 	N_("Undo the last action"),
     G_CALLBACK (on_editor_command_undo_activate)},
-  { "ActionEditRedo", GTK_STOCK_REDO, N_("_Redo"), "<control>r",
+  { "ActionEditRedo", GTK_STOCK_REDO, N_("_Redo"), "<shift><control>z",
 	N_("Redo the last undone action"),
     G_CALLBACK (on_editor_command_redo_activate)},
   { "ActionEditCut", GTK_STOCK_CUT, N_("C_ut"), "<control>x",

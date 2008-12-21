@@ -230,7 +230,7 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	{
 		const AnjutaEncoding *encoding_used = NULL;
 		gchar* converted_text;
-		guint converted_len;
+		gsize converted_len;
 		converted_text = anjuta_convert_to_utf8 (fb->buf, 
 												 fb->len, 
 												 &encoding_used,
@@ -297,9 +297,10 @@ file_buffer_line_from_pos(FileBuffer *fb, int pos)
 	g_return_val_if_fail(fb && pos >= 0, 1);
 	if (FB_FILE == fb->type)
 	{
+		gchar* p = g_utf8_offset_to_pointer(fb->buf, pos);
 		for (tmp = fb->lines; tmp; tmp = g_list_next(tmp))
 		{
-			if (pos < GPOINTER_TO_INT(tmp->data))
+			if (p - fb->buf < GPOINTER_TO_INT(tmp->data))
 				return lineno;
 			++ lineno;
 		}
@@ -321,11 +322,13 @@ gchar *
 file_match_line_from_pos(FileBuffer *fb, int pos)
 {
 	gint length=1;
+	int start;
 	gint i;
 	g_return_val_if_fail(fb && pos >= 0, NULL);
 
-	for (i= pos+1; ((fb->buf[i] != '\n') && (fb->buf[i] != '\0')); i++, length++);
-	for (i= pos-1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
+	start = g_utf8_offset_to_pointer(fb->buf, pos) - fb->buf;
+	for (i= start+1; ((fb->buf[i] != '\n') && (fb->buf[i] != '\0')); i++, length++);
+	for (i= start-1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
 	
 	return g_strndup (fb->buf + i + 1, length);
 }
@@ -403,27 +406,29 @@ isawordchar (gunichar c)
 }
 
 static gboolean
-extra_match (FileBuffer *fb, gchar* begin, gchar* end, SearchExpression *s)
+extra_match (gboolean at_start, gchar* begin, gchar* end, SearchExpression *s)
 {
 	gunichar b, e;
 	
 	b = g_utf8_get_char (g_utf8_prev_char (begin));
 	e = g_utf8_get_char (end);
+	if (g_unichar_ismark(e))
+		return FALSE;  /* matched character continues past match end */
 	
 	if (s->whole_line)
-		if ((fb->pos == 0 || b == '\n' || b == '\r') &&
+		if ((at_start || b == '\n' || b == '\r') &&
 			(e == '\0'	|| e == '\n' || e == '\r'))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->whole_word)
-		if ((fb->pos ==0 || !isawordchar(b)) && 
+		if ((at_start || !isawordchar(b)) && 
 			(e=='\0' || !isawordchar(e)))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->word_start)
-		if (fb->pos ==0 || !isawordchar(b))
+		if (at_start || !isawordchar(b))
 			return TRUE;
 		else
 			return FALSE;	
@@ -431,199 +436,228 @@ extra_match (FileBuffer *fb, gchar* begin, gchar* end, SearchExpression *s)
 		return TRUE;
 }
 
-/* Returns the next match in the passed buffer. The search expression should
-   be pre-compiled. The returned pointer should be freed with match_info_free()
-   when no longer required. */
-MatchInfo *
-get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
+static MatchInfo *
+get_next_regex_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 {
 	MatchInfo *mi = NULL;
-
-	g_return_val_if_fail(fb && s, NULL);
+	GMatchInfo* match_info;
 	
-	if (s->regex)
+	if (s->regex_info == NULL)
 	{
-		GMatchInfo* match_info;
-		if (s->regex_info == NULL)
+		GError* error = NULL;
+		GRegexCompileFlags compile_flags = 0;
+		GRegexMatchFlags match_flags = 0;
+	
+		match_flags |= G_REGEX_MATCH_NOTEMPTY;
+		if (!s->match_case)
 		{
-			GError* error = NULL;
-			GRegexCompileFlags compile_flags = 0;
-			GRegexMatchFlags match_flags = 0;
-		
-			match_flags |= G_REGEX_MATCH_NOTEMPTY;
-			if (!s->match_case)
-			{
-				compile_flags |= G_REGEX_CASELESS;
-			}
-			if (!s->greedy)
-			{
-				compile_flags |= G_REGEX_UNGREEDY;
-			}
-			s->regex_info = g_regex_new (s->search_str, compile_flags,
-										 match_flags, &error);
-			if (error)
-			{
-				anjuta_util_dialog_error (NULL, error->message);
-				g_error_free(error);
-				s->regex_info = NULL;
-				return NULL;
-			}
+			compile_flags |= G_REGEX_CASELESS;
 		}
+		if (!s->greedy)
+		{
+			compile_flags |= G_REGEX_UNGREEDY;
+		}
+		s->regex_info = g_regex_new (s->search_str, compile_flags,
+									 match_flags, &error);
+		if (error)
+		{
+			anjuta_util_dialog_error (NULL, error->message);
+			g_error_free(error);
+			s->regex_info = NULL;
+			return NULL;
+		}
+	}
 
-		g_regex_match_full (s->regex_info, fb->buf, fb->len,
-					   g_utf8_offset_to_pointer (fb->buf, fb->pos) - fb->buf, 
-					   G_REGEX_MATCH_NOTEMPTY, &match_info, NULL);
-		
-		if (g_match_info_matches (match_info))
+	g_regex_match_full (s->regex_info, fb->buf, fb->len,
+				   g_utf8_offset_to_pointer (fb->buf, fb->pos) - fb->buf, 
+				   G_REGEX_MATCH_NOTEMPTY, &match_info, NULL);
+	
+	if (g_match_info_matches (match_info))
+	{
+		gint start;
+		gint end;
+		int i;
+		mi = g_new0(MatchInfo, 1);
+		if (g_match_info_fetch_pos (match_info, 0, &start, &end))
 		{
-			gint start;
-			gint end;
-			int i;
-			mi = g_new0(MatchInfo, 1);
-			if (g_match_info_fetch_pos (match_info, 0, &start, &end))
-			{
-				DEBUG_PRINT ("Regex: %d %d", start, end);
-				mi->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
-				mi->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - mi->pos;
-				mi->line = file_buffer_line_from_pos(fb, mi->pos);
-			}
-			for (i = 1; i < g_match_info_get_match_count(match_info); i++) /* Captured subexpressions */
-			{
-				MatchSubStr *ms;
-				ms = g_new0(MatchSubStr, 1);
-				if (g_match_info_fetch_pos (match_info, i, &start, &end))
-				{
-					ms->start = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
-					ms->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - ms->start;
-				}
-				mi->subs = g_list_prepend(mi->subs, ms);
-			}
-			mi->subs = g_list_reverse(mi->subs);
-			fb->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + end);
+			DEBUG_PRINT ("Regex: %d %d", start, end);
+			mi->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
+			mi->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - mi->pos;
+			mi->line = file_buffer_line_from_pos(fb, mi->pos);
 		}
+		for (i = 1; i < g_match_info_get_match_count(match_info); i++) /* Captured subexpressions */
+		{
+			MatchSubStr *ms;
+			ms = g_new0(MatchSubStr, 1);
+			if (g_match_info_fetch_pos (match_info, i, &start, &end))
+			{
+				ms->start = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
+				ms->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - ms->start;
+			}
+			mi->subs = g_list_prepend(mi->subs, ms);
+		}
+		mi->subs = g_list_reverse(mi->subs);
+		fb->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + end);
+	}
+	return mi;
+}
+
+static MatchInfo *match_info(FileBuffer *fb, gchar* match, gchar* match_end,
+							 SearchDirection direction)
+{
+	MatchInfo *mi = g_new0 (MatchInfo, 1);
+	mi->pos = g_utf8_pointer_to_offset(fb->buf, match);
+	mi->len = g_utf8_pointer_to_offset(match, match_end);
+	mi->line = file_buffer_line_from_pos (fb, mi->pos);
+
+	if (direction == SD_BACKWARD)
+		fb->pos = mi->pos;
+	else
+		fb->pos = mi->pos + mi->len;
+	
+	return mi;
+}
+
+/* Get the next match, given that the search string is ASCII (as will nearly
+ * always be the case).  In this case we don't need to perform any UTF-8
+ * normalization, since any bytes with values 0-127 in a UTF-8 string always
+ * actually represent ASCII characters. */
+static MatchInfo *
+get_next_ascii_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
+{
+	int len = strlen(s->search_str);
+	gint (*compare)(const gchar *, const gchar *, gsize) =
+		s->match_case ? strncmp : g_ascii_strncasecmp;
+	gchar *p = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+	
+	if (direction == SD_BACKWARD)
+	{
+		for (p -= len; p >= fb->buf; --p)
+			if (!compare(p, s->search_str, len) &&
+				extra_match(p == fb->buf, p, p + len, s))
+				return match_info(fb, p, p + len, direction);
 	}
 	else
 	{
-		/* Simple string search - this needs to be performance-tuned */
-		gboolean found;
-		gint match_len;
+		for (; *p ; ++p)
+			if (!compare(p, s->search_str, len) &&
+				extra_match(p == fb->buf, p, p + len, s))
+				return match_info(fb, p, p + len, direction);
+	}
+	
+	return NULL;			
+}
 
-		match_len = g_utf8_strlen (s->search_str, -1);
-		if (match_len == 0)
-			return NULL;
+/* Normalize a UTF-8 string, optionally folding case.  Returns NULL if invalid. */
+static gchar* normalize(gchar *s, int len_bytes, gboolean match_case) {
+	gchar *c, *n;
+	
+	if (match_case)
+		return g_utf8_normalize(s, len_bytes, G_NORMALIZE_NFD);
+	
+	c = g_utf8_casefold(s, len_bytes);
+	n = g_utf8_normalize(c, -1, G_NORMALIZE_NFD);
+	g_free(c);
+	return n;
+}
 
-		found = FALSE;
-		if (SD_BACKWARD == direction)
+/* Given a UTF-8 string s, advance past a prefix whose normalized length in
+ * bytes is [normal_bytes]. */
+static gchar* normal_advance(gchar *s, int normal_bytes, gboolean match_case)
+{
+	while (*s && normal_bytes > 0)
+	{
+		gchar *next = g_utf8_next_char(s);
+		gchar *n = normalize(s, next - s, match_case);
+		normal_bytes -= strlen(n);
+		g_free(n);
+		s = next;
+	}
+	return s;
+}
+
+static MatchInfo *
+get_next_utf8_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
+{
+	gchar* search_key = normalize(s->search_str, -1, s->match_case);
+	gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+	gchar* search_buf;
+	gchar* p = NULL;
+	MatchInfo *mi = NULL;
+	int keylen;
+	
+	if (!search_key)
+		return NULL;
+	keylen = strlen(search_key);
+	
+	if (direction == SD_BACKWARD)
+	{
+		search_buf = normalize(fb->buf, current - fb->buf, s->match_case);
+		if (search_buf)
 		{
-			/* Backward matching. */
-			if (!s->match_case)
+			p = search_buf + strlen(search_buf);
+			while ((p = g_strrstr_len(search_buf, p - search_buf, search_key)) != NULL)
 			{
-				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
-				gint len = g_utf8_strlen (s->search_str, -1);
-				gchar* search_caseless = g_utf8_casefold (s->search_str, len);
-				for (; fb->pos >= len; --fb->pos)
-				{
-					gchar* current_caseless = g_utf8_casefold (current, len);
-					if (g_utf8_collate (current_caseless, search_caseless) == 0 &&
-						extra_match (fb, current, current + strlen (search_caseless),
-									 s))
-					{
-						found = TRUE;
-						g_free (current_caseless);
-						break;
-					}
-					else
-						current = g_utf8_prev_char (current);
-				}
-				g_free (search_caseless);
+				if (extra_match (p == search_buf, p, p + keylen, s))
+					break;
+				p = p + keylen - 1;
 			}
-			else
-			{
-				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
-				gint len = g_utf8_strlen (s->search_str, -1);
-				gchar* search_key = g_utf8_collate_key (s->search_str, len);
-				for (; fb->pos >= len; --fb->pos)
-				{
-					gchar* current_key = g_utf8_collate_key (current, len);
-					if (g_str_equal (current_key, search_key) &&
-						extra_match (fb, current, current + strlen (s->search_str),
-									 s))
-					{
-						found = TRUE;
-						g_free (current_key);
-						break;
-					}
-					else
-						current = g_utf8_prev_char (current);
-				}
-				g_free (search_key);
-			}
-		}
-		else
-		{
-			/* Forward match */
-			if (!s->match_case)
-			{
-				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
-				gint len = g_utf8_strlen (s->search_str, -1);
-				gchar* search_caseless = g_utf8_casefold (s->search_str, len);
-				gint buf_len = g_utf8_strlen (fb->buf, fb->len);
-				for (; fb->pos < buf_len; ++fb->pos)
-				{
-					gchar* current_caseless = g_utf8_casefold (current, len);
-					if (g_utf8_collate (current_caseless, search_caseless) == 0 &&
-						extra_match (fb, current, current + strlen (search_caseless),
-									 s))
-					{
-						found = TRUE;
-						g_free (current_caseless);
-						break;
-					}
-					else
-						current = g_utf8_next_char (current);
-				}
-				g_free (search_caseless);
-			}
-			else
-			{
-				gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
-				gint len = g_utf8_strlen (s->search_str, -1);
-				gint buf_len = g_utf8_strlen (fb->buf, fb->len);
-				gchar* search_key = g_utf8_collate_key (s->search_str, len);
-				for (; fb->pos < buf_len; ++fb->pos)
-				{
-					gchar* current_key = g_utf8_collate_key (current, len);
-					if (g_str_equal (current_key, search_key) &&
-						extra_match (fb, current, current + strlen (s->search_str),
-									 s))
-					{
-						found = TRUE;
-						g_free (current_key);
-						break;
-					}
-					else
-					{
-						g_free (current_key);
-						current = g_utf8_next_char (current);
-					}
-				}
-				g_free (search_key);
-			}
-		}
-		if (found)
-		{
-			mi = g_new0 (MatchInfo, 1);	//better to abort than silently fail to report match ?
-			mi->pos = fb->pos;
-			mi->len = match_len;
-			mi->line = file_buffer_line_from_pos (fb, fb->pos);
-			
-			if (direction == SD_BACKWARD)
-				fb->pos -= match_len;
-			else
-				fb->pos += match_len;
 		}
 	}
+	else
+	{  /* forward search */
+		search_buf = normalize(current, -1, s->match_case);
+		if (search_buf)
+		{
+			p = search_buf;
+			while ((p = strstr(p, search_key)) != NULL)
+			{
+				if (extra_match (fb->pos == 0 && p == search_buf, p, p + keylen, s))
+					break;
+				++p;
+			}
+		}
+	}
+	g_free(search_key);
+	
+	if (p)
+	{
+		/* We've found a match in the normalized buffer.  Now find the
+		 * corresponding position in the source buffer. */
+		gchar* match = normal_advance(
+								direction == SD_BACKWARD ? fb->buf : current,
+								p - search_buf, s->match_case);
+		gchar* match_end = normal_advance(match, keylen, s->match_case);
+		mi = match_info(fb, match, match_end, direction);
+	}
+	
+	g_free(search_buf);
 	return mi;
+}
+
+static gboolean str_is_ascii(gchar* s)
+{
+	for (; *s; ++s)
+		if (!isascii(*s))
+			return FALSE;
+	return TRUE;
+}
+
+/* Returns the next match in the passed buffer.  If direction is SD_BACKWARD,
+   finds the previous match whose end falls before the current position.
+   The search expression should be pre-compiled.  The returned pointer should
+   be freed with match_info_free() when no longer required. */
+MatchInfo *
+get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
+{
+	g_return_val_if_fail(fb && s, NULL);
+	
+	if (s->regex)
+		return get_next_regex_match(fb, direction, s);
+	
+	return str_is_ascii(s->search_str) ?
+		get_next_ascii_match(fb, direction, s) :
+		get_next_utf8_match(fb, direction, s);
 }
 
 /* Create list of search entries */
