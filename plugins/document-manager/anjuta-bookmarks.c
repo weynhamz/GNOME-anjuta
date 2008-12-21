@@ -21,6 +21,8 @@
 #include "anjuta-docman.h"
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
@@ -36,6 +38,8 @@ struct _AnjutaBookmarksPrivate
 	GtkWidget* window;
 	GtkWidget* tree;
 	GtkTreeModel* model;
+	GtkCellRenderer* renderer;
+	GtkTreeViewColumn* column;
 	
 	GtkWidget* button_add;
 	GtkWidget* button_remove;	
@@ -154,11 +158,27 @@ on_selection_changed (GtkTreeSelection* selection, AnjutaBookmarks* bookmarks)
 }
 
 static void
+on_title_edited (GtkCellRendererText *cell,
+				 gchar *path_string,
+				 gchar *new_text,
+				 AnjutaBookmarks* bookmarks)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	GtkTreeModel *model = priv->model;
+	GtkTreeIter iter;
+	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_list_store_set (GTK_LIST_STORE (model), &iter, COLUMN_TEXT, new_text, -1);
+	
+	gtk_tree_path_free (path);
+	g_object_set (G_OBJECT(priv->renderer), "editable", FALSE, NULL);
+}
+
+static void
 anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-	GtkCellRenderer* renderer;
-	GtkTreeViewColumn* column;
 	GtkWidget* scrolled_window;
 	GtkWidget* button_box;
 	GtkTreeSelection* selection;
@@ -175,10 +195,12 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 													 G_TYPE_OBJECT, G_TYPE_INT, G_TYPE_INT));
 	priv->tree = gtk_tree_view_new_with_model (priv->model);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW(priv->tree), FALSE);
-	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes ("Bookmark", renderer,
+	priv->renderer = gtk_cell_renderer_text_new();
+	g_signal_connect (G_OBJECT(priv->renderer), "edited", G_CALLBACK(on_title_edited),
+					  bookmarks);
+	priv->column = gtk_tree_view_column_new_with_attributes ("Bookmark", priv->renderer,
 													   "text", COLUMN_TEXT, NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW(priv->tree), column);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(priv->tree), priv->column);
 	gtk_container_add (GTK_CONTAINER(scrolled_window),
 					   priv->tree);
 	
@@ -188,7 +210,6 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
 	g_signal_connect (G_OBJECT(selection), "changed", G_CALLBACK(on_selection_changed),
 					  bookmarks);
-	
 	
 	button_box = gtk_hbutton_box_new ();
 	priv->button_add = gtk_button_new_from_stock (GTK_STOCK_ADD);
@@ -252,12 +273,55 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 	return bookmarks;
 }
 
+static gchar*
+anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	IAnjutaSymbolManager* sym_manager;
+	/* If we have a (short) selection, take this */
+	if (IANJUTA_IS_EDITOR_SELECTION(editor))
+	{
+		IAnjutaEditorSelection* selection = IANJUTA_EDITOR_SELECTION(editor);
+		if (ianjuta_editor_selection_has_selection (selection, NULL))
+		{
+			gchar* text = ianjuta_editor_selection_get (selection, NULL);
+			if (strlen (text) < 100)
+				return text;
+			g_free (text);
+		}
+	}
+	/* If we can get the symbol scope - take it */
+	sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
+											  IAnjutaSymbolManager,
+											  NULL);
+	if (sym_manager != NULL)
+	{
+		GFile* file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
+		gchar* path = g_file_get_path (file);
+		IAnjutaIterable* iter = 
+			ianjuta_symbol_manager_get_scope (sym_manager,
+											  path,
+											  line,
+											  IANJUTA_SYMBOL_FIELD_SIMPLE,
+											  NULL);
+		g_free (path);
+		if (iter)
+		{
+			return g_strdup (ianjuta_symbol_get_name(IANJUTA_SYMBOL(iter), NULL));
+		}
+	}
+	/* As last chance, take file + line */
+	return g_strdup_printf ("%s:%d",  ianjuta_document_get_filename(IANJUTA_DOCUMENT(editor), NULL),
+							line);									  
+}
+
 void
 anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line)
 {
 	g_return_if_fail (IANJUTA_IS_MARKABLE(editor));
 	IAnjutaMarkable* markable = IANJUTA_MARKABLE(editor);
 	GtkTreeIter iter;
+	GtkTreePath* path;
 	gint handle;
 	gchar* text;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
@@ -270,8 +334,7 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
-	text = g_strdup_printf ("%s:%d",  ianjuta_document_get_filename(IANJUTA_DOCUMENT(editor), NULL),
-							line);
+	text = anjuta_bookmarks_get_text (bookmarks, editor, line);
 	file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
 	gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
 						COLUMN_TEXT, text,
@@ -281,6 +344,22 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 						-1);
 	g_free(text);
 	g_object_unref (file);
+
+	g_object_set (G_OBJECT(priv->renderer), "editable", TRUE, NULL);
+	
+	path = gtk_tree_model_get_path (priv->model, &iter);
+
+	anjuta_shell_present_widget (ANJUTA_PLUGIN(priv->docman)->shell,
+								 priv->window, NULL);
+	gtk_widget_grab_focus (priv->tree);
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path,
+								  priv->column, FALSE, 0.0, 0.0);
+	
+	gtk_tree_view_set_cursor_on_cell (GTK_TREE_VIEW (priv->tree), path,
+									  priv->column,
+									  priv->renderer,
+									  TRUE);
+	gtk_tree_path_free (path);
 }
 
 void

@@ -1,3 +1,11 @@
+2008-12-22  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-bookmarks.c (on_title_edited),
+	(anjuta_bookmarks_init), (anjuta_bookmarks_get_text),
+	(anjuta_bookmarks_add):
+	Be able to assign names to bookmarks and use selection or symbol-manager scope
+	as default name
+
 2008-12-18  Adam Dingle  <adam@medovina.org>
 
   Reviewed by: Johannes Schmid <jhs@gnome.org>
