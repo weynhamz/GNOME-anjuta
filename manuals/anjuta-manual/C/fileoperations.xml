@@ -3,15 +3,15 @@
   
   <!-- ============= File operations: Creating a new file === -->
   <sect1 id="creating-files">
-   <title>Creating a New File and inserting texts</title>
+   <title>Creating a new file and inserting text</title>
     <sect2 id="new-file">
-    <title>Creating New File</title>
+    <title>Creating a New File</title>
      <para>
      To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
-     <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
-     <guibutton>New File</guibutton> button on the toolbar. A new page will 
+     <guimenuitem>New</guimenuitem></menuchoice> from the menu bar, or click on the 
+     <guibutton>New File</guibutton> button on the main toolbar. A new page will 
      appear in the editor (or a new window if the parent document is windowed). 
-     This new document will be named <filename>newfile#1</filename>, 
+     New documents will be named <filename>newfile#1</filename>, 
      <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
      so on. 
      </para>
@@ -28,11 +28,11 @@
      <para>
       A wizard can also be used to create a new file. To create a new file, choose
       <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu> 
-      <guimenuitem>File</guimenuitem></menuchoice> from the menubar.
-      This will open the New File Wizard dialog. Select the file type. Enter the File name. 
+      <guimenuitem>File</guimenuitem></menuchoice> from the menu bar.
+      This will open the New File dialog. Select the file type. Enter the filename. 
       The suffix will be automatically added. 
-      You can add a license information (according to your license choice) and a header.
-      In case of C-C++ header file, you can also add an header template.
+      You can add license information (according to your license choice) and a header.
+      In case of a C/C++ header file, you can also add an header template.
       Click <guibutton>OK</guibutton> to validate the creation.
       <figure id="new-file-wizard">
        <title>New File Wizard</title>
@@ -43,41 +43,41 @@
       </figure>
      </para>
      <para>
-       <application>Anjuta</application> occasionally also creates new files during some
-        operations. For example, some CVS operations, such as diff, file log, file status
-        etc, create new files and add the output there. These could be saved in real file
-        just like normal new files.
+       <application>Anjuta</application> occasionally also creates new file windows during some
+        operations. For example, some Subversion operations such as <command>Diff</command> and
+        <command>View Log</command>
+        create new file windows and add the output there. You can save the contents of these windows
+        to real files if you like.
      </para>
      </sect2>
      <sect2 id="inserting-macros">
       <title>Inserting Macros</title>
        <para>
-         Macros can be used to quickly edit repetitive sequences of text.
+         You can use <emphasis>macros</emphasis> to quickly edit repetitive sequences of text.
        </para>
        <important>
        <para>
-        Macro plugin must be activated.
+        The Macro plugin must be activated.
        </para>
        </important>
       <sect3 id="inserting">
        <title>Inserting</title>
        <para>
-        Two types of macros are available: Anjuta macros and User macros (My macros). Anjuta macros 
-        are not modifiable by the user. On the other hand, User macros can be defined and modified by 
-        the user.
+        Two types of macros are available: Anjuta macros and user macros (displayed as "My macros"). Anjuta macros 
+        are not modifiable, but you can define and modify your own user macros.
        </para>
        <para>
-        To insert macro, move the cursor at the desired place. Select  
+        To insert a macro, move the cursor to the desired place. Select  
         <menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu>
-        <guimenuitem>Macros...</guimenuitem></menuchoice>. The dialog window appears. Select the 
-        wanted macro in the list. The result of the macro expansion is displayed in the window and a
+        <guimenuitem>Macros...</guimenuitem></menuchoice>. A dialog window appears. Select the 
+        desired macro in the list. The result of the macro expansion is displayed in the window and a
         summary is shown in the dialog window. Choose <guibutton>Insert</guibutton>. The expanded macro
         text is inserted at the cursor position.
        </para>
        <para>
-        Another possibility to insert macro is to select <menuchoice><guisubmenu>Edit</guisubmenu>
+        Another way to insert a macro is to select <menuchoice><guisubmenu>Edit</guisubmenu>
         <guisubmenu>Macros</guisubmenu><guimenuitem>Insert Macro...</guimenuitem></menuchoice>, 
-        then to press the wanted macro shortcut.
+        then to press the desired macro shortcut.
         <figure id="display-macro">
          <title>Macro</title>
           <screenshot>
@@ -90,7 +90,7 @@
        <sect3 id="defining-macro">
         <title>Defining Macros</title>
         <para>
-          From the Insert-Macro window, choose <guibutton>Add</guibutton> or select <menuchoice>
+          From the Insert Macro window, choose <guibutton>Add</guibutton> or select <menuchoice>
           <guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Add Macro...
           </guimenuitem></menuchoice>. The Add/Edit window appears. Enter the macro name, choose or 
           define a category and enter a shortcut. Then edit text relative to your macro. The character 
@@ -98,11 +98,11 @@
           <guibutton>OK</guibutton>. The macro is added to the list.
         </para>
         <para>
-          The user can also erase a macro by selecting it in the list (only My Macros) then by choosing
-          <guibutton>Remove</guibutton>.
+          You can also erase a macro by selecting it in the list and choosing
+          <guibutton>Remove</guibutton>.  This only works for user macros (My Macros), of course.
         </para>
         <para>
-          Same manner, macro can be edited and modified by selecting it in the list then by choosing
+          Similarly, you can edit and modify a macro by selecting it in the list and choosing
          <guibutton>Edit</guibutton>.
          <figure id="add-edit-macro">
           <title>Add/Edit Macro</title>
@@ -116,12 +116,12 @@
        <sect3 id="macro-keyword">
         <title>Macro Keywords</title>
         <para>
-          Macros Keywords are available. They can be integrated in the macro definitions. The names of
-          these macro Keywords start and finish by the character ' @ '.
+          Macro keywords are available. They can be included in macro definitions.
+          These macro keywords start and finish with the character ' @ '.
         </para>
         <para>
-         Available macro keywords are : @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, @FILE_NAME@,
-         @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, @INDENTSIZE@, @USETABS@.
+         Available macro keywords are @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, @FILE_NAME@,
+         @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, @INDENTSIZE@, and @USETABS@.
          <figure id="keyword-macro">
          <title>Keyword Macro</title>
           <screenshot>
@@ -143,7 +143,7 @@
       <para>
        <emphasis>Opening a file:</emphasis> 
 	   To open an existing file, choose <menuchoice><guisubmenu>File</guisubmenu>
-	   <guimenuitem>Open</guimenuitem></menuchoice> from the menubar, click on 
+	   <guimenuitem>Open</guimenuitem></menuchoice> from the menu bar, click on 
 	   the <guibutton>Open</guibutton> button on the toolbar, or press 
 	   <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>. This will 
 	   display the <interface>Open File</interface> dialog.
@@ -154,20 +154,14 @@
          <graphic fileref="figures/open_file.png" format="PNG" srccredit="jnoel"></graphic>
         </screenshot>
        </figure>
-       Select or enter the file you want to open, then click 
+       Select or enter the name of file you want to open, then click 
 	   <guibutton>Open</guibutton>. To open more than one file at once, select multiple files
-	   to open by first pressing CTRL and clicking the files in the list and
+	   to open by holding down the <keycap>Ctrl</keycap> key and clicking each file in turn; then
 	   press <guibutton>Open</guibutton>. If you change your mind, click 
 	   <guibutton>Cancel</guibutton> to dismiss the dialog without opening 
 	   the file.
       </para>
 	  <para>
-	   For selecting multiple files at once,
-	   select a file in the dialog and press CTRL once. This will bring the file selection
-	   dialog in multiple-select mode and multiple files could be selected from the list.
-	   Multiple file select mode is similar to single file select mode, except that the file
-	   operation (for which the file selection was being done) will be performed for all
-	   the selected files.
 	   <figure id="open-file-multiple">
         <title>Open Multiple File dialog</title>
         <screenshot>
@@ -177,9 +171,10 @@
        </figure>
 	  </para>
 	  <para>
-	   The <emphasis>Show Hidden Files</emphasis>, if switched on (Click right), will make the hidden
-	   files (files starting with "."; visible in the file list. Depress it to make
-	   them hide. <application>Anjuta</application> file selection dialog also has inbuilt
+	   You can enable the <emphasis>Show Hidden Files</emphasis> option through the pop-up menu
+       that appears when you right-click in the Open File dialog.  This option will make hidden
+	   files (files starting with ".") visible in the file list. Clear the option to hide hidden files.
+       The Open File dialog also has a built-in
 	   file type filter. Select the appropriate file type filter in the dialog and the file
 	   list will be limited to the files of the selected type only.
 	  </para>
@@ -189,7 +184,7 @@
       <para>
        <emphasis>Saving a file:</emphasis> 
 	   To save a file, choose <menuchoice><guisubmenu>File</guisubmenu>
-	   <guimenuitem>Save</guimenuitem></menuchoice> from the menubar, click on 
+	   <guimenuitem>Save</guimenuitem></menuchoice> from the menu bar, click on 
 	   the <guibutton>Save</guibutton> button on the toolbar, or press 
 	   <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. This will 
 	   save the file. If the file is new, a <interface>Save As</interface> dialog will 
@@ -201,13 +196,13 @@
            </screenshot>
       </para>
 	   <note>
-	   <title>File auto save</title>
+	   <title>File autosave</title>
 		<para>
-		If you have enabled auto-save, it will not auto-save any new files. 
+		If you have enabled autosave, Anjuta will not autosave any new files. 
 		You must first save them manually. The same applies to the 
-		<guimenuitem>Save All</guimenuitem> option: it will not save new files, 
+		<guimenuitem>Save All</guimenuitem> option: Anjuta will not save new files, 
 		if you haven't saved them first manually. <emphasis>You must save a file manually 
-		before auto-save or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>    
+		before autosave or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>    
 		</para>
 	   </note>
      </listitem>
@@ -217,7 +212,7 @@
       <emphasis>Saving a file with a different name:</emphasis> 
 	  You can explicitly save a file with a new filename. To do this, choose 
 	  <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save As</guimenuitem></menuchoice> 
-	  from the menubar. A <interface>Save As</interface> dialog will appear prompting you to 
+	  from the menu bar. A <interface>Save As</interface> dialog will appear prompting you to 
 	  enter the new filename. Enter the name and click <guibutton>Save</guibutton>.
       </para>
       <note>
@@ -226,7 +221,7 @@
         When you use <guimenuitem>Save As</guimenuitem> with an existing file, 
 		the original is not deleted. It is left unchanged since the last save. 
 		If a file with the new filename already exists, a confirmation dialog 
-		will appear, to ensure that you want to overwrite it. Clicking 
+		will appear to ensure that you want to overwrite it. Clicking 
 		<guibutton>Yes</guibutton> will overwrite the file with the file you 
 		are saving.
        </para>
@@ -237,9 +232,9 @@
       <para>
       <emphasis>Closing a file:</emphasis> 
 	  To close a file, choose <menuchoice><guisubmenu>File</guisubmenu>
-	  <guimenuitem>Close</guimenuitem></menuchoice> from the menubar, or click on the 
-	  <guibutton>Close</guibutton> button on the toolbar. The file could also be closed
-	  by clicking the <guibutton>cross</guibutton> in the filename tab. This will close
+	  <guimenuitem>Close</guimenuitem></menuchoice> from the menu bar, or click on the 
+	  <guibutton>Close</guibutton> button on the toolbar. (You can also close a file
+	  by clicking the X in its filename tab.) This will close
 	  the current file. If the file is not saved, or is a new file, then 
 	  <application>Anjuta</application> will prompt you to save the file before 
 	  closing it.
@@ -253,18 +248,18 @@
   <sect1 id="editing-files">
    <title>Editing Files</title>
    <para>
-    <application>Anjuta</application> has a number of helpful features which aid in 
-    editing and working with source files. The following sections describe how to use 
+    <application>Anjuta</application> has a number of features which help you
+    edit and work with source files. The following sections describe how to use 
 	some of the interesting features available.
    </para>
    <sect2 id="editor-margins-sec">
    <title>Editor Margins</title>
-      <para><emphasis>Editor Margins:</emphasis> Editor margins are the small area on the
-	   left of the editor for some special purposes. There are three editor margins available
-	   and all of them may not be available when you first start <application>anjuta</application>.
-       They are Line numbers margin, Markers margin and Code fold margin.
-       By default (that is, when you run <application>anjuta</application> for the first time) only
-       the code fold margin will be visible. The rest could be made visible from
+      <para><emphasis>Editor Margins:</emphasis> Editor margins appear to the
+	   left of the editor and are used for some special purposes. There are three editor margins available:
+       the <emphasis>line number margin</emphasis>, the <emphasis>marker margin</emphasis>
+       and the <emphasis>code fold margin</emphasis>.
+       By default (that is, when you run <application>Anjuta</application> for the first time) only
+       the code fold margin will be visible. The rest can be made visible via
        <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu></menuchoice>.
        <figure id="editor-margins">
         <title>Editor Margins</title>
@@ -275,47 +270,47 @@
        </figure>
        </para>
        <para>
-	   The <emphasis>Line Numbers Margin</emphasis> is largest of all the three margins (and slightly
-	   darker then rest) and displays the document's line numbers.
-	   <emphasis>Line Number Margin</emphasis> could be made visible
-	   or invisible by toggling <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
-	   <guimenuitem>Line Numbers Margin</guimenuitem></menuchoice>. Single left clicking on this margin
-	   will select the whole line (including the last newline, if present). You can set the font
-	   properties for line number margin in the preferences.
+	   The <emphasis>line number margin</emphasis> is largest of all the three margins (and is slightly
+	   darker then rest) and displays a document's line numbers.
+	   The <emphasis>line number margin</emphasis> can be shown or hidden
+	   by toggling <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+	   <guimenuitem>Line Numbers Margin</guimenuitem></menuchoice>. Left-clicking on this margin
+	   will select an entire line (including the trailing newline, if present). You can set font
+	   properties for the line number margin in the preferences.
       </para>
-	  <para><emphasis>Markers Margin</emphasis> is the next margin which can be made visible or
-	   invisible by selecting <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+	  <para>The <emphasis>marker margin</emphasis> can be shown or hidden
+	   via <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
 	   <guimenuitem>Markers Margin</guimenuitem></menuchoice>. This margin displays graphical icons
-	   to mark the given line. The markers which will be displayed in this margin are Bookmark marker
-	   (rectangular blue colored icon), Breakpoint marker (circular red colored) and Line indicator
-	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmarked lines which could
-	   be toggled from <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</guisubmenu><guimenuitem>
+	   to mark the given line. The margin may display bookmark markers
+	   (blue and rectangular), breakpoint markers (red and circular)
+       and line indicator markers (which look like a yellow pointed arrow).
+       A bookmark marker indicates a bookmarked line, and can
+	   be toggled via <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</guisubmenu><guimenuitem>
 	   Toggle Bookmark</guimenuitem></menuchoice>
-	   with the cursor placed in that line. The breakpoint marker is used in debugger to mark the
-	   line with debugging breakpoints (see debugging section for more details). The line indicator
-	   marker is used to indicate a line when we do a jump from another part, for example when
-	   navigating the bookmarks and during single stepping in debugger.
+	   with the cursor placed on that line. A breakpoint marker is used in the debugger to indicate a
+	   debugging breakpoint (see the Debugging section for more details). A line indicator
+	   marker is used to indicate the current program position in the debugger.
        </para>
        <para>
-        <emphasis>Code folding margin</emphasis> is where the folding tree is visible. Clicking 
-        on these folding tree nodes will fold or unfold the code blocks. An underline will also
-        be drawn below the folded line to make it more obvious that a block of code has been 
+        The <emphasis>code fold margin</emphasis> is where the folding tree is visible. Clicking 
+        on folding tree nodes will fold or unfold code blocks. An underline will also
+        be drawn below a folded line to make it more obvious that a block of code has been 
         folded below the line. For more details on code folding, see the section <emphasis>Code Folding</emphasis>
         below.
        </para>
        <note>
        <title>Invisible margin marker</title>
         <para>
-         If the marker margin is not visible, the markers will be displayed by changing the
-         background color of the line. For example, if there a breakpoint marker is set in 
-         a line and the marker margin is not visible, that line will be displayed with red
-         background. Similarly, for bookmark marker and line indication marker, the background
+         If the marker margin is not visible, Anjuta displays markers by changing the
+         background color of a line. For example, if a breakpoint marker is set in 
+         a line and the marker margin is not visible, that line will be displayed with a red
+         background. Similarly, for a bookmark marker and a line indicator marker the background
          color of the line will be sky blue and yellow, respectively. If you do not like this
-         (perhaps due to some contrasting themes), enable the <emphasis>Markers Margins</emphasis>
-         from <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
-         <guimenuitem>Markers Margin</guimenuitem></menuchoice>.
+         (perhaps due to some contrasting themes), enable the marker margin
+         via <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+         <guimenuitem>Marker Margin</guimenuitem></menuchoice>.
          <figure id="editor-markers">
-          <title>Editor markers when markers margin is invisible</title>
+          <title>Editor markers when the marker margin is invisible</title>
           <screenshot>
            <screeninfo>The Tags toolbar</screeninfo>
            <graphic fileref="figures/editor_markers.png" format="PNG" srccredit="naba"></graphic>
@@ -326,14 +321,13 @@
       </sect2>
       <sect2 id="editor-guides-sec">
       <title>Editor Guides</title>
-      <para>The editor could be made to make certain document information, which otherwise are
-      normally not visible. <emphasis>Indentation guides, white spaces and line end characters</emphasis>
-      are such information which could be made visible for editing comfort. They could be make
+      <para>The editor can be set to display certain document information which is
+      normally invisible, including <emphasis>indentation guides</emphasis>, <emphasis>white space</emphasis>
+      and <emphasis>line end characters</emphasis>. They can be make
       visible or invisible by toggling the menu items in <menuchoice><guimenu>View</guimenu>
-      <guisubmenu>Editor</guisubmenu></menuchoice>. Indentation guides are the small dotted lines 
-      drawn to connect the matching braces in the source code. When the cursor is over one such
-      matching braces, the dotted indentation guide is highlighted to give a visual region of the
-      indentation.
+      <guisubmenu>Editor</guisubmenu></menuchoice>. Indentation guides are small dotted lines 
+      drawn to connect matching braces in source code. When the cursor is over a
+      matching brace, its dotted indentation guide is highlighted to emphasize the indentation level visually.
       </para>
        <figure id="editor-guides">
         <title>Editor with guides</title>
@@ -346,10 +340,10 @@
    <sect2 id="highlighting">
    <title>Syntax highlighting</title>
    <para>
-    <application>Anjuta</application> can highlight many different languages. 
-	This is usually done automatically by determining the type of the file from the 
-	file extension. If <application>Anjuta</application> cannot determine the type of 
-	the file, there will be no syntax highlighting. You can explicitly force a particular 
+    <application>Anjuta</application> can highlight the syntax of many different languages. 
+	This is usually done automatically by determining the type of a file from its 
+	extension. If <application>Anjuta</application> cannot determine the type of 
+	a file, there will be no syntax highlighting. You can explicitly force a particular 
 	highlight style by selecting the style from the menu 
 	<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guisubmenu>
 	Highlight Mode</guisubmenu></menuchoice>.
@@ -358,11 +352,11 @@
      <para>
 	Anjuta uses a properties file named
 	<filename>$prefix/share/anjuta/properties/anjuta.properties</filename>,
-	it has the same format than SciTE properties file but do not use
+	which has the same format as a SciTE properties file but does not use
 	all properties. The style of each element for all languages is
 	defined in a file named 
 	<filename>$prefix/share/anjuta/properties/styles.properties</filename>.
-	It uses some common properties defined by Anjuta GUI in the file
+	It uses some common properties defined by Anjuta in the file
 	<filename>$home/.config/anjuta/scintilla/editor-style.properties</filename>.
      </para>
    </note>
@@ -370,34 +364,33 @@
    <sect2 id="codefolding">
     <title>Code folding</title>
     <para>
-     Source files which have block coding properties (such as C, C++, Pascal, Java etc.),
-     have the advantage of working with <emphasis>code folds</emphasis>. All of
-     the code blocks in the source file can be folded or unfolded by clicking on the
-     fold points in the fold margin of the <interface>Editor window</interface> 
+     Anjuta can display <emphasis>code folds</emphasis> for source files in block-structured
+     languages (such as C, C++, Pascal, and Java).
+     All code blocks in a source file can be folded or unfolded by clicking on the
+     fold points in the code fold margin of the <interface>Editor</interface> window
 	 (usually a +/- symbol or up/down arrow). These fold points automatically appear for 
 	 source files which use code blocks.
     </para>
     <para>
-     Code folding is especially useful when editing big source files that run to
-     thousands of lines. Once the folds are closed, the document appears to become 
+     Code folding is especially useful when editing large source files with
+     thousands of lines. Once the folds are closed, a document appears to become 
 	 smaller, facilitating easy browsing and editing of the file.
     </para>
     <note>
      <para>
 	  Please note that code folding and editor guides are only available in
-      the scintilla based editor.
+      the Scintilla-based editor.
 	 </para>
 	</note>
    </sect2>
    <sect2 id="autoformat">
     <title>Auto-formatting source code</title>
     <para>
-      If the current file is a C or C++ source or header file, then it is possible to
-      automatically indent (auto-format) the file. This gives a clean look to
+      Anjuta can automatically indent (auto-format) C or C++ source or header files. This gives a clean look to
       the source code, increases legibility, reduces the likelihood of syntax errors,
-      and above all it saves time. This can be performed by choosing 
+      and above all saves time. To auto-indent the current source file, choose
       <menuchoice><guimenu>Edit</guimenu><guimenuitem>Auto Indent
-      </guimenuitem></menuchoice> on the menubar. Change the style of formatting by customizing the 
+      </guimenuitem></menuchoice> on the menu bar. You can change the style of formatting by customizing the 
       choices in the preferences.
     </para>
    </sect2>
@@ -405,57 +398,29 @@
 
  <!-- ============= File operations: Browsing with the tags browser ===   -->
   <sect1 id="browsing-files">
-   <title>Symbol browser and Browsing Files</title>
+   <title>The Symbol Browser</title>
    <para>
-    All C and C++ source and header files can be browsed using the tags in the files. 
-    All of the open C and C++ source and header files are scanned for available tags 
-	(a "tag" refers to a function definition, structure, macro, etc.). Please note that
-    Tag and Symbol is used synonymously in this manual, except when referring to Tags
-    browser and Symbol browser, which two different interfaces.
+    You can browse C and C++ source and header files using <emphasis>tags</emphasis> in the files. 
+	A tag (or <emphasis>symbol</emphasis>) refers to a named entity such as a function definition, structure, or macro.
+    Anjuta scans open C and C++ source and header files for available tags.
    </para>
-    <orderedlist>
-     <listitem>
-      <para><emphasis>Tags Browser:</emphasis> Tags browser is available on the 
-      Browser toolbar. It shows a list of tags available in the currently active
-      file (source file). If there is no tags (or symbols) available in the file,
-      the tags list will be invisible and a "No Tags" will be displayed instead. The tags
-      in this list are shown along with the line numbers where they are found. If there are
-      multiple symbols with the same name, they will be shown with different line numbers.
-       <figure id="tags-toolbar">
-        <title>Tags toolbar</title>
-        <screenshot>
-         <screeninfo>The Tags toolbar</screeninfo>
-         <graphic fileref="figures/toolbar_browser.png" format="PNG" srccredit="jhs"></graphic>
-        </screenshot>
-       </figure>
-      <tip><title>Function symbols</title>
-       <para>Function prototype and definition, if present in the same file, can be usually
-       distinguished from the corresponding line numbers. Prototypes usually comes before the
-       definition, so they are likely to have smaller line numbers.
-       </para>
-      </tip>
-      </para>
-     </listitem>
-     <listitem>
-      <para><emphasis>Symbol Browser:</emphasis> 
-       If there is a project open, <application>Anjuta</application> will scan for tags 
-	   in all of the source and header files of the project. This way it is possible 
-	   to go to any function definition, structure definition, class definition etc. 
-	   without manually opening the file. You don't even have to know which file that 
-	   tag is found in (except in the case of function definitions). The symbol browser
-       lists all the available symbols in the project.
-       <figure id="symbol-browser">
-        <title>Tags toolbar</title>
-        <screenshot>
-         <screeninfo>Symbol browser</screeninfo>
-         <graphic fileref="figures/symbol_browser.png" format="PNG" srccredit="jhs"></graphic>
-        </screenshot>
-       </figure>
-      </para>
-     </listitem>
-    </orderedlist>
+   <para>
+    <application>Anjuta</application> will automatically scan for tags 
+    in all of the source and header files of any open project. You can
+	jump to any function definition, structure definition, class definition or other tag 
+	without manually opening the containing file. You don't even have to know which file the
+	tag is found in. The symbol browser
+    lists all available symbols in the project.
+    <figure id="symbol-browser">
+     <title>Symbol browser</title>
+     <screenshot>
+      <screeninfo>Symbol browser</screeninfo>
+      <graphic fileref="figures/symbol_browser.png" format="PNG" srccredit="jhs"></graphic>
+     </screenshot>
+    </figure>
+    </para>
    <tip>
-    <title>Tags synchronization</title>
+    <title>Tag synchronization</title>
     <para>
      You don't have to worry about the synchronization and update of the tag 
      database. <application>Anjuta</application> will take care of everything. 
@@ -471,30 +436,30 @@
     <sect2 id="searching">
     <title>Searching</title>
       <para>
-       To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
-       string in the current file, choose <menuchoice><guimenu>Edit</guimenu>
+       To search for a <emphasis>string</emphasis> or <emphasis>regular expression</emphasis>
+       in the current file, choose <menuchoice><guimenu>Edit</guimenu>
        <guisubmenu>Search</guisubmenu><guimenuitem>Find</guimenuitem></menuchoice>
-       or press <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>.
+       or press <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>F</keycap></keycombo>.
        This will open the <interface>Find</interface> dialog. 
       </para>
       <para>
        Use the text box to specify the string to search for, and select whether it is a normal 
-       string or a regular expression (RegExp). It is also possible to specify the direction of 
+       string or a regular expression. You can also specify the direction of 
        search, whether the search is case-sensitive or not, and the scope of the search. Click 
        <guibutton>Search</guibutton> to start searching.
       </para>
       <para>
-       If the search is successful, the matched text in the document will be highlighted, marked...
-       (according to the search action choice). If the search is not successful, 
-       a <emphasis>The match "search text" was not found</emphasis> message will be displayed.
+       If the search is successful, Anjuta will jump to the matched text or perform another action
+       (according to the <guilabel>Search Action</guilabel> you choose in the <guilabel>Search Target</guilabel> tab). If the search is not successful, Anjuta will display 
+       a message indicating that the search text was not found.
       </para>
       <para>
-       If you want to search again, click on the <guibutton>Search</guibutton> button on the main 
-       toolbar or press <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>. This will 
-       find the next match (<keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap>
+       If you want to search again, click the <guibutton>Search</guibutton> button again
+       or press <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>. This will 
+       find the next match (use <keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap>
        <keycap>G</keycap></keycombo> for the previous match). You can even 
-       change the search text when you do this. Enter the new string in the 
-       <guilabel>Search Expression</guilabel> text box in the main toolbar.
+       change the search text when you do this; enter the new string in the 
+       <guilabel>Search Expression</guilabel> text box in the search dialog.
       </para>
       <figure id="search-expr">
       <title>Search Text dialog</title>
@@ -503,27 +468,17 @@
         </screenshot>
       </figure>
 	  <para>
-	    To stop a long research, choose <guibutton>Stop</guibutton> button.
+	    To stop a long search, press the <guibutton>Stop</guibutton> button.
 	  </para>
-	  <para>
-	    If the "Basic Search" option is selected in the Setting window,
-		the search direction can be chosen from the Expression window.
-	  </para>
-      <figure id="search-expr-basic">
-      <title>Basic Search Text dialog</title>
-        <screenshot>
-        <graphic fileref="figures/search_expr_basic.png" format="PNG" srccredit="jhs"></graphic>
-        </screenshot>
-      </figure>
     </sect2>
     <sect2 id="search-range">
     <title>Specifying Search Range</title>
       <para>
-        In the "Search Target dialog", define the search location and the action 
-		to be done in case of search success.
+        In the <interface>Search Target</interface> tab, define the search location and the action 
+		to be performed if the search succeeds.
       </para>
       <para>
-        The maximum number actions can be defined by User.
+        You can define the maximum number of actions to be performed.
       </para>
       <figure id="search-target">
       <title>Search Target dialog</title>
@@ -532,7 +487,7 @@
         </screenshot>
       </figure>
       <para>
-        The user can select where the text will be searched.
+        You can select which text will be searched.
       </para>
       <figure id="search-target-in">
       <title>Search Target In choice</title>
@@ -543,17 +498,17 @@
       <sect3 id="search-file">
       <title>Searching in Files</title>
        <para>
-         To find text in your project, select "search in" <menuchoice><guimenu>
-	     All Project Files</guimenu></menuchoice>.
+         To find text in your project, set <guilabel>Search In</guilabel> to
+	     All Project Files.
        </para>
        <para>
-         Enter the text you want to search and specify search options (case-sensitive,
-	     complete words ...).
+         In the <guilabel>Search Expression</guilabel> tab, enter the text you want to search for and specify search options, such as the <guilabel>Match case</guilabel>
+         or <guilabel>Match complete words</guilabel> options.
          Click <guibutton>Search</guibutton> to start searching.
        </para>
        <para>
-         To find text in File list, select "search in" <menuchoice><guimenu>
-	     Specifying File List</guimenu></menuchoice>. Define the Search variables.  
+         To find text in a set of files, set <guilabel>Search In</guilabel> to
+	     Specify File Patterns. Define the search variables.  
          Click <guibutton>Search</guibutton> to start searching.		 
        </para>	 
          <figure id="search-file-pattern">
@@ -567,13 +522,14 @@
 
 	</sect2>
     <sect2 id="search-action">
-    <title>Specifying Search Action</title>
+    <title>Specifying a Search Action</title>
       <para>
-        The user selects which action will be done in case of search success.
+        You can select which action will be performed when a search succeeds.
       </para>
       <para>
-        According to the previous selections (Search in, Search direction ...),
-		some actions could be unavailable.
+        Depending on the previous selections (<guilabel>Search In</guilabel>, <guilabel>Search Direction</guilabel>
+        , and so on),
+		some actions may be unavailable.
       </para>
       <figure id="search-target-action">
       <title>Search Target Action choice</title>
@@ -586,9 +542,9 @@
     <sect2 id="replacing">
     <title>Replacing</title>
       <para>
-       Search and replace is similar to just finding text, except that you 
-       also specify the replace text in the <guilabel>Replace With:</guilabel> text box, 
-       and whether or not you want to be prompted before the replace takes place
+       Searching and replacing is similar to just finding text, except that you 
+       also specify the replacement text in the <guilabel>Replace With</guilabel> text box, 
+       and also specify whether or not you want to be prompted before each replacement takes place
 	   (Replace First Match or Replace All Matches).
       </para>
       <figure id="replace">
@@ -606,11 +562,11 @@
     <sect2 id="search-setting">
     <title>Search Setting</title>
       <para>
-        The user has the possibility of saving the setting of his search options.
+        You may also save search options.
       </para>
       <para>
-        Item highlighted in red is the active item. Item by default is the search
-		setting which is loaded at Anjuta launching.
+        The item highlighted in red is the active item. The default item specifies search
+		settings which are loaded when Anjuta launches.
       </para>
       <figure id="search-setting-fig">
       <title>Search Setting dialog</title>
@@ -626,12 +582,12 @@
    <sect1 id="printing">
     <title>Printing a file</title>
     <para>
-     Print preview could be taken by selecting 
+     You can perform a print preview by selecting 
 	 <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>.
-	 It will render the current file and present a preview of the print. Source codes which
-	 are highlighted in the editor are also highlighted similarly in the print (or preview). Additional
-	 options are available to print with the line numbers, wrapped lines and/or headers in the
-	 <guilabel>Printing</guilabel> tab of your editor plugin preferences.
+	 This will render the current file and present a preview of the print. Source code which
+	 is highlighted in the editor is also highlighted similarly in the preview (and subsequent print).  The
+	 <guilabel>Printing</guilabel> tab of your editor plugin preferences contains additional
+	 options which let you print with line numbers, wrapped lines and/or headers.
 	 <figure>
        <title>Print preview of a C file</title>
        <screenshot>
@@ -653,13 +609,13 @@
 	When you are ready to print and satisfied with the preview, select 
 	<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></menuchoice>
 	or <guibutton>Print</guibutton> from the print preview window. This will bring up the
-	actual print dialog as shown below. Select the appropriate print parameters and print
-	the file with <guibutton>Print</guibutton> on it.
+	actual print dialog as shown below. Select the appropriate print parameters and press
+	<guibutton>Print</guibutton> to print the file.
 	</para>
 	<para>
-	Landscaped or portrait page layout, paper size, page orientation
-	and paper type could also be set. Remember to set them up properly according to your printer,
-	otherwise printing may not come up properly.
+	You can also set landscaped or portrait page layout and the paper size, page orientation
+	and paper type. Remember to set them up properly according to your printer,
+	otherwise printing may not look correct.
 	</para>
 	<para>
 	 <figure>
@@ -672,3 +628,4 @@
 	</para>
    </sect1>
  </chapter>
+

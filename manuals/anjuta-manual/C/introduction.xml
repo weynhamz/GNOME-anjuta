@@ -4,24 +4,26 @@
   <para>
   <application>Anjuta</application> is a versatile Integrated Development
   Environment (IDE) for the GNOME desktop. It features a number of advanced
-  programming facilities that include project management, application
-  wizards, an on-board interactive debugger, an integrated glade UI designer,
-  integrated devhelp API help, an integrated valgrind memory profiler,
+  programming facilities includes project management, application
+  wizards, an interactive debugger, an integrated Glade UI designer,
+  integrated Devhelp API help, an integrated Valgrind memory profiler,
   an integrated gprof performance profiler, a class generator, a powerful
-  source editor, source browsing, and more. is a versatile Integrated
-  Development Environment 
+  source editor, source browsing, and more.
   </para>
 
   <para>
   Anjuta DevStudio has been designed to be simple to operate yet powerful enough
-  to fulfill all your programming needs. Many features have evolved since the
-  early days and several very attractive ones added. Our focus is on delivering
-  power and usability at the same time without overloading your senses and
-  making your software development a pleasurable process. We will always be
-  busy getting you one of the best IDE experiences by straighting up all
-  the neat features and stabilizing it. We hope you will have a good time
+  to fulfill all your programming needs. We've added many new features to Anjuta
+  over the course of its development. Our focus is on delivering
+  power and usability at the same time and
+  making your software development enjoyable without overloading your senses. We intend to
+  continue improving and stabilizing Anjuta to give you the best IDE experience possible.
+  We hope you will have a good time
   using Anjuta. If not, please help us make it better by reporting bugs and
-  suggestions. Here are some of the things you will find in Anjuta.
+  suggestions.
+  </para>
+  <para>
+  The following screenshot illustrates some of the things you will find in Anjuta.
   </para>
 
   <para>
@@ -35,18 +37,18 @@
   </para>
 
   <para>
-  Anjuta has a very flexible and advanced docking system that allows you to
-  layout all views in whatever way you like. You can drag and drop the views
-  using drag bars and re-arrange the layout. The layouts are persistent for
-  each project so you can maintain different layouts required by projects.
-  All dock views are minimizable to avoid clutter in main window. Minimized
-  views appear as icons on left side of main window. All menu actions are
-  configurable either by type-in-the-menu (the usual GNOME way) or by
-  a dedicated shortcuts configuration UI.
+  Anjuta has a flexible and advanced docking system that allows you to
+  lay out all views in whatever way you like. You can drag and drop the views
+  using drag bars and rearrange the layout. The layouts are persistent for
+  each project so you can maintain different layouts for different projects.
+  All dock views are minimizable to avoid clutter in the main window. Minimized
+  views appear as icons on the left side of the main window. You can configure all menu actions
+  either by typing when the cursor is over a menu item (the usual GNOME way) or through
+  a dedicated shortcut configuration user interface.
   </para>
 
   <para>
   Please report any problems with <application>Anjuta</application> - this will help to 
-  improve the software, as well as helping the Open Source community.
+  improve the software, as well as helping the open source community.
   </para>
  </chapter>

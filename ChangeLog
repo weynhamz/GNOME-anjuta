@@ -1,3 +1,20 @@
+2008-12-22  Adam Dingle  <adam@medovina.org>
+
+	* manuals/anjuta-manual/C/anjuta-manual.xml:
+	* manuals/anjuta-manual/C/authors.xml:
+	* manuals/anjuta-manual/C/build.xml:
+	* manuals/anjuta-manual/C/debugger.xml:
+	* manuals/anjuta-manual/C/fileoperations.xml:
+	* manuals/anjuta-manual/C/interface.xml:
+	* manuals/anjuta-manual/C/introduction.xml:
+	* manuals/anjuta-manual/C/preferences.xml:
+	* manuals/anjuta-manual/C/projects.xml:
+	* manuals/anjuta-manual/C/tools.xml:
+	Copy edited the entire Anjuta manual, making zillions of small improvements to
+	grammar and wording.
+	Removed description of tags browser in browser toolbar; this no longer exists.
+	This fixes #565381 (Anjuta manual needs copy editing).
+
 2008-12-22  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-bookmarks.c (on_title_edited),

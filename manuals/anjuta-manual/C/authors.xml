@@ -2,9 +2,8 @@
   <title>Authors</title>
    <para>
     The <application>Anjuta</application> project was founded by Naba Kumar.
-	Please visit
-	<ulink type="http" url="http://anjuta.org/credits">this online list</ulink>
-	 to know all Anjuta contributors.
+	<ulink type="http" url="http://anjuta.org/credits">This page</ulink>
+	 lists all Anjuta contributors.
    </para>
 
    <para>
@@ -12,12 +11,14 @@
     website at <ulink type="http" url="http://anjuta.org/">http://anjuta.org</ulink>. 
     Bug reports should be made using the Bug Tracker at the project development site 
     <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
-    http://www.sourceforge.net/projects/anjuta</ulink>
+    http://www.sourceforge.net/projects/anjuta</ulink>.
    </para>
    
    <para>
-    This manual was written by Naba Kumar and Andy Piper. Please send all comments and suggestions regarding 
-    this manual to Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</email>. Comments may also be submitted via the 
+    This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay and Johannes Schmid.
+    Please send all comments and suggestions regarding 
+    this manual to the Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</email>. Comments may also be submitted via the 
     project trackers at SourceForge.
    </para> 
 </chapter>
+

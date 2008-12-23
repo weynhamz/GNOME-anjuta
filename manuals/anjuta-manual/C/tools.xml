@@ -5,7 +5,7 @@
   <sect1 id="tools-intro">
   <title>Introduction</title>
   <para>
-  Often, you'll find the inbuilt functionality provided by Anjuta to be
+  You'll sometimes find the built-in functionality provided by Anjuta to be
   insufficient. In these cases, you might be tempted to either add the
   feature yourself to the Anjuta codebase or submit a feature request to
   implement the feature. However, both approaches are likely to be slow
@@ -15,10 +15,10 @@
 
   <para>
   Anjuta provides a powerful framework for defining user-defined tools for
-  extending it's functionality. Tools have access to almost all features of
+  extending its functionality. Tools have access to almost all features of
   the IDE through the use of variables. You can add tools under any menu item,
   specify input, output and error redirection within the GUI framework and
-  supply command line parameters to the tool.
+  supply command-line parameters to the tool.
   </para>
 	<note>
 	<para>
@@ -31,7 +31,7 @@
   <title>Tools Examples</title>
   <para>
   This is a simple example how to use the tools plugin to integrate the GNOME ChangeLog
-	generation script
+	generation script.
   </para>
 
   <figure id="tool-list">

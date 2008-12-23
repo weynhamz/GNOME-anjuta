@@ -4,20 +4,20 @@
   
   <para>
   Anjuta has a powerful Project Manager plugin which can open most
-  <ulink type="info" url="info:automake">automake/autoconf</ulink> based projects.
+  <ulink type="info" url="info:automake">automake/autoconf</ulink>-based projects.
   It might fail on some
-  oddly configured projects, but as long as the project is done by using
+  oddly-configured projects, but as long as the project uses
   automake/autoconf in a typical way, it should work.
   </para>
 
   <para>
-  The neat thing is that it does not store any project information beyond what
-  is already available in project structure. That is, there is no separate
-  project data maintained by Anjuta and all project processing are done
-  directly within the project structure. This allows the project to be
-  maintained or developed outside Anjuta without having to so-called
-  'porting' or 'switching' to a new platform. Since technically Anjuta
-  projects are just automake projects, mixed development of it (Anjuta and
+  The neat thing is that Anjuta does not store any project information beyond what
+  is already available in the project structure. That is, there is no separate
+  project data maintained by Anjuta and all project processing is done
+  directly within the project structure. This allows a project to be
+  maintained or developed outside Anjuta without any need to convert to or from
+  an Anjuta-specific format. Since technically Anjuta
+  projects are just automake projects, mixed development (with both Anjuta and
   non-Anjuta users) or switching back and forth between Anjuta and other
   tools is quite possible without any hindrance.
   </para>
@@ -25,40 +25,40 @@
   <sect1 id="new-project">
    <title>Creating a New Project</title>
    <sect2 id="new-project-from-template">
-   <title>New project from template</title>
+   <title>Creating a project from a template</title>
    <para>
    The project wizard plugin uses a powerful template processing engine
    called <application>autogen</application>. All new projects are created from
    templates that
-   are written in <application>autogen</application> syntax. Project wizard
+   are written in <application>autogen</application> syntax. The project wizard
    lets you create new
    projects from a selection of project templates. The selection includes
-   simple generic, flat (no subdirectory), gtk+, gnome, java, python
+   simple generic, flat (no subdirectory), GTK+, GNOME, Java, Python
    projects and more. New templates can be easily downloaded and
-   installed since they are just a collection of text files.
+   installed since each template is just a collection of text files.
    </para>
 
    <para>
-    Choose the menu item <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu>
+    To create a project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu>
     <guimenuitem>Project &hellip;</guimenuitem></menuchoice>
     to start the application wizard.
-    Read the <interface>first page</interface> carefully. Click on 
+    Read the first page carefully. Click on 
 	<guibutton>Next</guibutton> to proceed.
    </para>
    <para>
     Select the type of application you want to create in the
-    <interface>second page</interface>.
+    second page.
     Click on <guibutton>Next</guibutton> to proceed.   
    </para>
 
    <para>
-    On the next pages, enter all necessary
-    details for your project. You can change these settings later also, but
-    it is advisable to put them right in first run to maintain the project's
+    On the following pages, enter all necessary
+    details for your project. You can change these settings later, but
+    it is advisable to set them right initially in order to maintain the project's
     integrity.
     White spaces or any non-alphanumeric characters, except 
     underscore (_) and dash (-), are not allowed in many of the entry boxes 
-	that would follow (except perhaps the
+	that follow (except perhaps the
     <guilabel>Author</guilabel> text box).
 	</para>
 
@@ -68,14 +68,14 @@
     using <application>gettext</application> (read the
     <ulink type="info" url="info:gettext">gettext info page</ulink> for 
 	more details). This gives your project multilingual support for 
-	different regional languages such as English, French, Dutch etc..
+	different languages such as English, French and Dutch.
     The rest of the options are for setting whether the GNU copyright 
-	statement should appear in the comments at the top of each file, and 
+	statement should appear in the comments at the top of each file, and for
 	enabling GNOME desktop menu information if necessary. Shared library
-    support allows adding shared library modules later in the project. If
-    you plan to have libraries in your project, it would be good to enable.
-    Depending on the project type that is being created, there would be
-    other information requested.
+    support allows you to add shared library modules later on. If
+    you plan to have libraries in your project, it would be good to enable this.
+    Depending on the project type that is being created, Anjuta may request
+    additional information.
    </para>
 
    <para>
@@ -84,26 +84,26 @@
    </para>
 
    <para>
-    Once project generation is over, you can try it out by 
-    building the project and executing it.
+    Once the project has been generated, you can try it out by 
+    building it and executing it.
    </para>
   </sect2>
    <sect2 id="importing-project">
     <title>Importing Projects</title>
     <para>
-     The import project feature is used to import an already existing project and convert it into
-     <application>anjuta</application> project. Activate the import project wizard from
+     The import project feature is used to import an already existing project and convert it into an
+     <application>Anjuta</application> project. Activate the import project wizard via
      <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu>
 	<guimenuitem>Project from existing sources</guimenuitem></menuchoice>
-     and follow instructions dictated by the wizard. Once the project is imported, it could be
-     opened in <application>anjuta</application> subsequently just like any other <application>
-     anjuta</application> project.
+     and follow the instructions dictated by the wizard. Once a project has been imported, it can be
+     opened in <application>Anjuta</application> subsequently just like any other <application>
+     Anjuta</application> project.
     </para>
 	<note>
 	<para>
-	The import project features only works if your existing project is
-    using <ulink type="info" url="info:automake">autoconf/automake</ulink> and,
-    to a very limited extend, plain makefiles.
+	The import project feature only works if your existing project uses
+    <ulink type="info" url="info:automake">autoconf/automake</ulink> or,
+    to a very limited extent, a plain Makefile.
 	</para>
 	</note>
    </sect2>
@@ -123,21 +123,20 @@
     <para>
      If the project has recently been opened, then you will find it listed in the 
      menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent</guisubmenu></menuchoice>. 
-	 Choose the project file from the list, and the project will be opened. 
+	 Choose the project filename from the list, and the project will be opened. 
     </para>
     <para>
      As soon as a project is opened, <application>Anjuta</application> will enter 
 	 <emphasis>Project mode</emphasis>. There are three panes in the project window. The
-     first is the project pane and lists the project files organized in file types. The second
-     is the symbol browser, which has already been discussed in section <emphasis>Symbol
-     Browser and tags Browser</emphasis>. The third pane is the file view of the project and
-     is more or less similar to a mini file-manager. In file view, all the files present
-     in the project tree is visible. Right clicking on these files will pop up the file
-     <guimenu>Operation menu</guimenu>.
+     first is the project pane and lists project files organized by file type. The second
+     is the symbol browser, which has already been discussed in the section <emphasis>The Symbol Browser</emphasis>. The third pane is the file view of the project and
+     is more or less similar to a mini file-manager. In the file view, all the files present
+     in the project tree are visible. Right-clicking on these files will pop up a
+     context menu with file operations.
     </para>
     <para>
      If the project is also a CVS tree, then corresponding file revision numbers are also
-     listing on the right of file names in the file view pane.
+     listed to the right of file names in the file view pane.
     </para>
    </sect2>
    <sect2 id="saving-project">
@@ -152,8 +151,8 @@
   <sect1 id="projects-structure">
   <title>Project structure</title>
   <para>
-   Here is the <interface>Project window</interface> with the  
-   the <guimenu>Operation menu</guimenu>
+   Here is the <interface>Project window</interface> with its  
+   context menu
    (accessible by clicking on the right mouse button). 
    <figure id="project-window">
     <title>Project window</title>
@@ -164,19 +163,19 @@
    </figure>
   </para>
   <para>
-  <interface>Project window</interface> lists the project in standard
+  The <interface>Project window</interface> displays the project's
   <ulink type="info" url="info:automake"><application>automake</application></ulink>
   hierarchy organized
-  into groups of targets. <emphasis>Groups</emphasis> correspond to
-  directories in your project and <emphasis>targets</emphasis>
+  into <emphasis>groups</emphasis> of <emphasis>targets</emphasis>. Groups correspond to
+  directories in your project and targets
   correspond to normal <application>automake</application> targets (not to be confused
-  with make targets). <interface>Project window</interface> actually
-  has two parts; one part
-  (lower one) shows complete project hierarchy and the other part (upper one)
-  lists important targets directly. Important targets constitute executable
-  and library targets -- making them very accessible in from the view.
-  This is particularly useful in big projects where the hierarchy
-  could be deep and hard to navigate from the tree alone. Targets are, in
+  with make targets). The <interface>Project window</interface> actually
+  has two parts: the lower part
+  shows the complete project hierarchy and the upper part
+  lists important targets directly. Important targets include executable
+  and library targets; the view makes these easily accessible.
+  This is particularly useful in large projects where the hierarchy
+  can be deep and hard to navigate from the tree alone. Targets are, in
   turn, composed of source files.
   </para>
 
@@ -185,59 +184,59 @@
    <listitem>
     <para>
       <emphasis>Groups</emphasis> are used to logically organize targets.
-      A project can contain any number of groups. Each group can have sub-groups
-      as well as targets. In automake projects, groups are just sub-directories
-      in the project. The top level group is called root and is always "/".
+      A project can contain any number of groups. Each group can have subgroups
+      as well as targets. In automake projects, groups are just subdirectories
+      in the project. The top-level group is always labeled "/".
     </para>
    </listitem>
    <listitem>
     <para>
-      <emphasis>Targets</emphasis> are the build targets in project, such as
-      programs (executable binaries), scripts, libraries, miscellaneous data
-      etc. Not all target types are built from sources, but exist just to
-      organize the sources and therefore may not exist physically (e.g.
-      Miscellaneous data target).
+      <emphasis>Targets</emphasis> are the build targets in the project, such as
+      programs (executable binaries), scripts, libraries and miscellaneous data.
+      Not all target types are built from sources; some exist just to
+      organize sources and therefore may not exist physically (e.g. a
+      Miscellaneous Data target).
       Targets exist under groups. See <link linkend="adding-target">"Adding targets"</link> for
-      full list of available target types.
+      a full list of available target types.
     </para>
    </listitem>
    <listitem>
     <para>
-      <emphasis>Source files</emphasis> are the files used to build the targets
-      or just to be part of it. They exist only under targets. Many target types
-      expect certain type of source files (e.g. programs and libraries target
-      types), but some can accept any file (e.g. Miscellaneous data target).
+      <emphasis>Source files</emphasis> may be used to build targets, though some source files
+      simply belong to targets. They exist only under targets. Many target types
+      expect certain type of source files (e.g. the Programs and Libraries target
+      types), but some can accept any file (e.g. a Miscellaneous Data target).
     </para>
    </listitem>
   </itemizedlist>
   </para>
 
   <para>
-  Each of the project groups and targets is configurable in standard
-  <application>automake</application> way. You can set complier and linker
-  flags directly for each target, or set configure variables. Groups allow
-  setting installation destinations for its targets.
+  Each project group and target is configurable in the standard
+  <application>automake</application> way. You can set compiler and linker
+  flags directly for each target, or set <application>configure</application> variables. Groups allow
+  you to set an installation destination for their targets.
   </para>
 
   <para>
-  Just like file manager, project manager view also has convenience actions
-  (accessible from the <guimenu>Operation menu</guimenu>) for the source
+  Just like the file manager, the project manager view also has convenience actions
+  (accessible from the context menu) for source
   files and targets.
   </para>
 
   <para>
    Many command-line tools are available to maintain and manage a project, 
    and each tool has its own specific rules and capabilities.
-   <application>Anjuta</application> tries to automate most of the common
+   <application>Anjuta</application> tries to automate most common
    operations using plugins. However, you might occasionally still need
-   to do them manually.
+   to perform certain operations manually.
   </para>
   
   <para>
-   It is possible to make use of other tools or hand edit the project
-   files simultaneously. It doesn't matter if the project is loaded in
+   You may modify a project's structure using external tools or by hand-editing the project
+   files.   It doesn't matter whether the project is loaded in
    <application>Anjuta</application> or not. <application>Anjuta</application>
-   would update itself with any external changes made to project.
+   will update itself with any external changes made to a project.
   </para>
   </sect1>
  
@@ -247,31 +246,32 @@
    <sect2 id="adding-groups">
     <title>Adding Groups</title>
     <para>
-     To add a new group (a directory in automake based projects):
+     To add a new group (which is a directory in automake-based projects):
         <itemizedlist>
          <listitem>
            <para>
            Select <menuchoice><guisubmenu>Project</guisubmenu>
 	   <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
-           add a new group would popup. 
+           add a new group will pop up. 
            </para>
          </listitem>
          <listitem>
-           <para>Select the group under which to add new group.</para>
+           <para>Select the group under which to add the new group.</para>
          </listitem>
          <listitem>
-            <para>Give a name of the new group and click Ok.</para>
+            <para>Enter the name of the new group and click <guibutton>Add</guibutton>.</para>
          </listitem>
         </itemizedlist>
+     </para>
+     <para>
      With automake projects,
-     a new directory with the given name would be created under the parent
+     a new directory with the given name will be created under the parent
      group's directory.
     </para>
     <para>
-     New group can also be added from the <guimenu>Operation menu</guimenu>
-     in <interface>Project window</interface> by
-     selecting <guimenuitem>Add Group</guimenuitem>. First select the group
-     under which to add the group in <interface>Project window</interface>.
+     You can also add a new group from the <interface>Project</interface> window directly.  Right-click the group
+     under which to add the new group, then choose
+     <guimenuitem>Add Group</guimenuitem> from the context menu.
     </para>
    </sect2>
 
@@ -281,16 +281,18 @@
     To remove a group:
     <itemizedlist>
      <listitem>
-       <para>Select the target in <interface>Project Manager view</interface>.</para>
+       <para>Right-click the group in the <interface>Project Manager</interface> view.</para>
      </listitem>
      <listitem>
        <para>Select <guimenuitem>Remove</guimenuitem> from the
-       <guimenu>Operation menu</guimenu>.</para>
+       context menu.</para>
      </listitem>
     </itemizedlist>
+    </para>
+    <para>
       The target and sources associated
-      with the group will also be removed from the project (they are not
-      deleted from the file system, though. You can still add them later).
+      with the group will also be removed from the project. (They are not
+      deleted from the file system, though. You can add them to the project again later if you like.)
     </para>
    </sect2>
 
@@ -302,7 +304,7 @@
       <listitem>
        <para>Select <menuchoice><guisubmenu>Project</guisubmenu>
        <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
-       add a new target would popup.</para>
+       add a new target will popup.</para>
      </listitem>
      <listitem>
       <para>Select the group under which to add the target.</para>
@@ -311,104 +313,102 @@
       <para>Select the target type.</para>
      </listitem>
      <listitem>
-      <para>Give a name of the new target and click Ok.</para>
+      <para>Enter a name for the new target and click <guibutton>Add</guibutton>.</para>
      </listitem>
     </itemizedlist>
     </para>
     <para>
-     New target can also be added from the <guimenu>Operation menu</guimenu>
-     in <interface>Project window</interface> by
-     selecting <guimenuitem>Add target</guimenuitem>. First select the group
-     under which to add the target in <interface>Project window</interface>.
+     You can also add a new target from the <interface>Project</interface> window directly.
+     Right-click the group
+     under which to add the target, then select
+     <guimenuitem>Add target</guimenuitem> from the context menu.
     </para>
     <para>
      Target names usually require some standard prefix and suffix, depending
-     on the type of target. Anjuta would warn if the name is not valid and
-     may give an example of a name.
+     on the type of target. Anjuta will warn you if a name is not valid and
+     may provide an example of a valid name.
     </para>
     <para>
-     There are several target types for automake project. They are:
+     There are several target types for automake projects. They are:
     <itemizedlist>
      <listitem>
       <para>
-       <emphasis>Program</emphasis> target type is for executable binaries. Select
-       this if you want to add an executable to the project. By default, all program
-       targets would be installed in standard executable directory, e.g.
-       /usr/bin or /usr/local/bin. You can override it by specifying a different
-       installation directory in its group properties.
+       The <emphasis>Program</emphasis> target type is for executable binaries. Select
+       this type if you want to add an executable to the project. By default, all program
+       targets will be installed in the standard executable directory, e.g.
+       /usr/bin or /usr/local/bin. You can override this by specifying a different
+       installation directory in the properties of the group containing the target.
       </para>
      </listitem>
      <listitem>
       <para>
-       <emphasis>Shared Library</emphasis> target type is for shared or dynamic libraries.
-       Select this if you are adding a shared library to the project. By default, all
-       shared libraries are installed in standard libraries directory, e.g.
-       /usr/lib or /usr/local/lib. You can override it by specifying a different
-       installation directory in its group properties.
+       The <emphasis>Shared Library</emphasis> target type is for shared or dynamic libraries.
+       Select this type if you are adding a shared library to the project. By default, all
+       shared libraries are installed in the standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override this by specifying a different
+       installation directory in the properties of the group containing the target.
       </para>
      </listitem>
      <listitem>
       <para>
-       <emphasis>Static Library</emphasis> target type is for static library.
-       Select this if you are adding a static library to the project. By default,
-       all static libraries are installed in standard libraries directory, e.g.
-       /usr/lib or /usr/local/lib. You can override it by specifying a different
-       installation directory in its group properties.
+       The <emphasis>Static Library</emphasis> target type is for static libraries.
+       Select this type if you are adding a static library to the project. By default,
+       all static libraries are installed in the standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override this by specifying a different
+       installation directory in the properties of the group containing the target.
       </para>
      </listitem>
      <listitem>
       <para>
-       <emphasis>Java module</emphasis> target type is for java module. Select
-       this if you are grouping java sources into a module. You need to provide
+       The <emphasis>Java Module</emphasis> target type is for Java modules. Select
+       this type if you are grouping Java sources into a module. You need to provide
        an installation directory for this target where the .class files will
-       be installed. It can be set in group properties of the group where this
-       target belongs.
+       be installed. It can be set in the properties of the group containing the target.
       </para>
       <note>
        <para>
-         There can really be only one java module in a group. This is a
-         restriction put by automake. Please read automake info page for more
+         There can really be only one Java module in a group. This is a
+         restriction made by automake. Please read the automake info page for more
          details.
        </para>
       </note>
      </listitem>
      <listitem>
       <para>
-       <emphasis>Python module</emphasis> target type is for python module. Select
-       this if you are grouping python sources into a module. You need to provide
+       The <emphasis>Python Module</emphasis> target type is for Python modules. Select
+       this type if you are grouping Python sources into a module. You need to provide
        an installation directory for this target where the sources will
-       be installed. It can be set in group properties of the group where this
-       target belongs.
+       be installed. It can be set in the properties of the group containing the target.
       </para>
      </listitem>
      <listitem>
       <para>
-        <emphasis>Scripts</emphasis> target is to group scripts. They will be
-        installed in standard executable directory.
+        The <emphasis>Scripts</emphasis> target type is for grouping scripts. They will be
+        installed in the standard executable directory.
       </para>
      </listitem>
      <listitem>
       <para>
-        <emphasis>Miscellaneous Data</emphasis> target type is to group
-        simple files in the project. An installation directory needs to be
-        specified in its group properties.
+        The <emphasis>Miscellaneous Data</emphasis> target type is for grouping
+        simple files in a project. You must specify an installation directory
+        in the group properties.
       </para>
      </listitem>
      <listitem>
       <para>
-        <emphasis>Header Files</emphasis> target type is to group C/C++
-        header files that need to be installed in system (for example as part
-        of library API). For header files that do not need to be installed,
-        make them part of the Program target along with the sources. They will
-        be installed in standard include directory unless installation path
-        is specified in its group properties.
+        The <emphasis>Header Files</emphasis> target type is for grouping C/C++
+        header files that need to be installed on a system (for example as part
+        of a library API). (For header files that do not need to be installed,
+        make them part of the Program target along with the sources.) Header files will
+        be installed in the standard include directory unless an installation path
+        is specified in the group properties.
       </para>
      </listitem>
      <listitem>
       <para>
-        <emphasis>Man documentation</emphasis> and <emphasis>Info documentation</emphasis>
+        The <emphasis>Man Documentation</emphasis> and <emphasis>Info Documentation</emphasis>
         target types are for grouping man and info documentation respectively.
-        By default, they will be installed in standard installation directories.
+        By default, documentation files will be installed in the standard installation directories.
       </para>
      </listitem>
     </itemizedlist>
@@ -420,13 +420,15 @@
       To remove a target:
       <itemizedlist>
        <listitem>
-        <para>Select the target in <interface>Project Manager view</interface></para>
+        <para>Right-click the target in the <interface>Project Manager</interface> view.</para>
        </listitem>
        <listitem>
         <para>Select <guimenuitem>Remove</guimenuitem> from the
-        <guimenu>Operation menu</guimenu>.</para>
+        context menu.</para>
        </listitem>
       </itemizedlist>
+    </para>
+    <para>
       The sources associated with the targets
       will also be removed from the project (they are not deleted from the
       file system, though).
@@ -439,40 +441,39 @@
    <sect2 id="adding-sources">
     <title>Adding Source Files</title>
     <para>
-     Select menu item <menuchoice><guisubmenu>Project</guisubmenu>
+     Select the menu item <menuchoice><guisubmenu>Project</guisubmenu>
 	 <guimenuitem>Add Source File</guimenuitem></menuchoice>.
 	From the dialog, select the target to which the file should be added and
     the file itself. You can add multiple files at once. To do that, select
-    multiple files from the file selection dialog using either SHIFT or CONTROL
-    key. Then click <guibutton>Add</guibutton> button to finally add the
-    files in project.
+    multiple files from the file selection dialog using either the <keycap>Shift</keycap> or <keycap>Ctrl</keycap>
+    key. Then click <guibutton>Add</guibutton> to add the
+    files to the project.
     </para>
     <para>
-    By default, current editor file would be preselected for addition in the
-    dialog. Other convenient way to add a file is to select it in
-    <interface>File Manager</interface> and choosing
+    By default, the current editor file will be preselected for addition in the
+    dialog. Another convenient way to add a file is to right-click it in the
+    <interface>File Manager</interface> and choose
     <guimenuitem>Add to project</guimenuitem> from the
-    <guimenu>Operation menu</guimenu>.	
+    context menu.	
     </para>
     <para>
      If the file you choose has already been added to the project, then
      <application>Anjuta</application> will not add it again. 
-     It will also give you a warning that the file is already added.
+     It will also give you a warning that the file has already been added.
     </para>
     <para>
      If the file you choose is not in the project directory, you will be asked
      to confirm that you wish to copy the file into the target's directory.
      <application>Anjuta</application> cannot add files which are 
-	 outside of target's directory.
+	 outside of a target's directory without copying them in.
     </para>
    </sect2>
    <sect2 id="removing-sources">
     <title>Removing Source Files</title>
     <para>
-     To remove a file from the project, select the file you want to remove
-     from the <interface>Project window</interface>, right-click to open the 
-	 <guimenu>Operation menu</guimenu> and choose 
-	 <guimenuitem>Remove</guimenuitem>.
+     To remove a file from the project, right-click the file you want to remove
+     in the <interface>Project window</interface> and
+	 choose <guimenuitem>Remove</guimenuitem> from the context menu.
     </para>
     <para>
      A confirmation dialog will appear, and the file will be removed from the 
@@ -483,8 +484,8 @@
      <para>
      The file is not deleted from the filesystem. It still exists, and you can
      add it back again later if you so wish. The file is only removed from the project 
-	 listing, and will not take part in any of the project operations such as compiling, 
-	 building, distribution etc..
+	 listing, and will not take part in any project operations such as compiling, 
+	 building, or distribution.
      </para>
      </important>
    </sect2>
@@ -494,42 +495,42 @@
    <title>Project Configuration</title>
    <para>
     Project configuration involves setting the correct build flags for
-    targets, groups and project itself. You can set these flags in their
-    respective properties dialog.
+    targets, groups and the project itself. You can set these flags in their
+    respective properties dialogs.
    </para>
 
    <para>
     You can freely use autoconf and automake variables that are automatically
     set for the project during configuration. Apart from these automatically
-    set variables, you can also defined your own variables in
-    <link linkend="project-properties">Project Properties</link> use them in
+    set variables, you can also define your own variables in
+    <link linkend="project-properties">Project Properties</link> and use them in
     properties. This will make it easy to update flags later, especially when
-    the variable is used in several targets.
+    a variable is used in several targets.
    </para>
 
    <para>
     Some of the many common variables are listed here. For full list of them
-    see <ulink url="info:automake">automake info documentation</ulink>.
+    see the <ulink url="info:automake">automake info documentation</ulink>.
 
      <itemizedlist>
       <listitem>
        <para>
          <emphasis>$(prefix)</emphasis>: The installation prefix. The project
-         is installed under various sub-directories under this prefix. By default
+         is installed under various subdirectories under this prefix. By default
          it is /usr/local.
        </para>
       </listitem>
       <listitem>
        <para>
          <emphasis>$(bindir)</emphasis>: The installation directory for
-         executable binaries. All your executable and scripts targets would
+         executable binaries. All your executable and script targets will
          be installed in this directory. By default, it is $(prefix)/bin.
        </para>
       </listitem>
       <listitem>
        <para>
          <emphasis>$(libdir)</emphasis>: The installation directory for
-         libraries. All your library targets (both shared and static) would
+         libraries. All your library targets (both shared and static) will
          be installed in this directory or a subdirectory below it.
          By default, it is $(prefix)/lib.
        </para>
@@ -537,10 +538,10 @@
       <listitem>
        <para>
          <emphasis>$(module_CFLAGS)</emphasis> and $(module_LIBS): These
-         flags are set by configure for the packages that your project
+         flags are set by <application>configure</application> for the packages that your project
          depends on. The packages used by the project are set in
          <link linkend="project-properties">Project Properties</link>. 'module'
-         is the packages group that you give in project properties.
+         is a package group that you specify in the project properties as described below.
        </para>
       </listitem>
      </itemizedlist>
@@ -551,26 +552,26 @@
    <sect2 id="project-properties">
     <title>Project properties</title>
     <para>
-    Project properties dialog can be only brought by
+    The project properties dialog can be opened only by
     choosing <menuchoice><guisubmenu>Project</guisubmenu>
-    <guimenuitem>Properties</guimenuitem></menuchoice>. You can:
+    <guimenuitem>Properties</guimenuitem></menuchoice> from the toplevel menu bar. You can:
     <itemizedlist>
      <listitem>
       <para>
-      Set project name, version and URL in <guibutton>General</guibutton> page.
-      Configure variables can also be use in these fields. The URL is the
+      Set the project name, version and URL in the <guibutton>General</guibutton> page.
+      <application>configure</application> variables can also be use in these fields. The URL is the
       bug report URL for the project.
       </para>
      </listitem>
      <listitem>
       <para>
-      Add and remove dependencies for your project in
+      Add and remove dependencies for your project in the
       <guibutton>Packages</guibutton> page. See below for details.
       </para>
      </listitem>
      <listitem>
       <para>
-      Create more configure variables in <guibutton>Variables</guibutton> page
+      Create more configure variables in the <guibutton>Variables</guibutton> page
       to use in group and target properties.
       </para>
      </listitem>
@@ -578,7 +579,7 @@
     </para>
     <para>
     Dependencies
-    are external packages that the project uses and hence required
+    are external packages that the project uses and are hence required
     to build it. Only packages installed using
     <ulink url="info:pkg-config">pkg-config</ulink>
     can be added from this interface. For others, the configure.ac file can
@@ -594,16 +595,16 @@
    <para>
     External package dependencies are grouped into <emphasis>modules</emphasis>,
     so that their combined build flags can be conveniently added to different
-    targets. <emphasis>Modules</emphasis> are just arbitrary names given to
-    group the packages and can be named anything (only alphanumeric and _ are
-    allowed in module name). Usually, they follow the name of
-    targets they would be use in. Consequently, for small projects with single 
+    targets. <emphasis>Modules</emphasis> are just arbitrary
+    groups of packages and can be named anything (only alphanumeric characters and _ are
+    allowed in module names). Usually, they follow the name of
+    targets they would be used in. Consequently, for small projects with single 
     targets, just one module to hold all dependencies is enough.
    </para>
    <para>
     Each package exports a set of <emphasis>compiler flags</emphasis>
     and <emphasis>libraries</emphasis>. They are aggregated together for
-    all packages under a module and configure variables
+    all packages under a module, and <application>configure</application> variables
     <emphasis>$(module_CFLAGS)</emphasis> and
     <emphasis>$(module_LIBS)</emphasis> are defined. These variables can then
     be used in <link linkend="group-properties">Group properties</link>
@@ -615,12 +616,12 @@
      <listitem>
       <para>
       Select <menuchoice><guisubmenu>Project</guisubmenu>
-      <guimenuitem>Properties</guimenuitem></menuchoice> to bring up project
+      <guimenuitem>Properties</guimenuitem></menuchoice> to bring up the project
       properties dialog.
       </para>
      </listitem>
      <listitem>
-      <para>Select the tab <guibutton>Packages</guibutton> to bring up packages
+      <para>Select the tab <guibutton>Packages</guibutton> to bring up the Packages
       page.</para>
      </listitem>
      <listitem>
@@ -628,13 +629,13 @@
       Select the <emphasis>module</emphasis> to add the package to. If there
       is no module created yet or there is no appropriate module, create one
       by clicking <guibutton>Add module</guibutton>. Give a sensible name to the
-      module, preferably in UPPERCASE to match with rest of configure variables
+      module, preferably in UPPERCASE to match other <application>configure</application> variables
       (only use alphanumeric and '_' characters) and press <keycap>Enter</keycap>
       to create it.
       </para>
      </listitem>
      <listitem>
-      <para>Click <guibutton>Add Package</guibutton> to bring up package selection dialog.</para>
+      <para>Click <guibutton>Add Package</guibutton> to bring up the package selection dialog.</para>
      </listitem>
      <listitem>
       <para>Select the package to add and click <guibutton>Add</guibutton>.</para>
@@ -649,58 +650,57 @@
    <sect2 id="group-properties">
     <title>Group properties</title>
     <para>
-    To set group properties, select
-    it in the <interface>Project window</interface> and active it. You can also
-    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
-    <guimenuitem>Properties</guimenuitem></menuchoice>
+    To edit a group's properties, double-click the group in the
+    <interface>Project</interface> window to open the <interface>Group Properties</interface> dialog.
+    (You can alternatively right-click the group
+    and select <guimenuitem>Properties</guimenuitem> from the context menu.)
     </para>
 
     <para>
-         <emphasis>Group Properties</emphasis> set to a group applies to all
-         the targets under it. So any compiler or linker flags set there would
-         be automatically be part of all the targets in it (in addition the
-         targets individual properties). Following flags are available in group
-         properties.
+         Properties set for a group apply to all
+         the targets under it. So any compiler or linker flags set for a group will
+         be automatically be part of all the targets in it (in addition to
+         each target's individual properties). The following fields are available in the Group
+         Properties dialog.
 
 		   <itemizedlist>
 		    <listitem>
 		     <para>
                 <emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables
-                and other include directories for your c and c++ targets.
+                and other include directories for your C and C++ targets here.
                 You need to provide the full include options of the compiler
-                here, e.g. -I/usr/include/blah. The include paths will be use
-                to find the include files in your source files. You can also
-                add other sort of compiler flags here, but they are preferred
-                to be set in their respective compiler flags properties
-                (see below).
+                here, e.g. -I/usr/include/blah. The include paths will be used
+                to find header files included by your source files. (You can also
+                add other compiler flags here, but it's preferable
+                to set them in their respective <emphasis>compiler flags</emphasis> fields as described below.)
              </para>
              <para>
-                Usually your configure script would also make some automatically
+                Usually your configure script will also make some automatically
                 determined compiler flags. The variables usually end with
                 _CFLAGS, e.g $(PACKAGE_CFLAGS). They are also set here.
-                See setting
+                See
                 <link linkend="project-properties">Project properties</link>
                 for more details on these variables.
              </para>
            </listitem>
 		    <listitem>
 		     <para>
-                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                <emphasis>Compiler flags</emphasis>: Set your compiler-specific
                 flags here. There are different fields for different compiler
                 categories. Flags that can be set here depend on the actual
-                compiler used. The default compiler use for c/c++ is gcc/g++
-                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                compiler used. The default compiler used for C/C++ is gcc/g++
+                (the GNU C compiler). Check out the <ulink url="info:gcc">gcc info
                 documentation</ulink> for more details.
              </para>
            </listitem>
 		    <listitem>
 		     <para>
-                <emphasis>Install directories</emphasis>: Targets in the group
-                that require installation directories would each get a field
-                to enter the installation directory. Set their installation
-                directories as relative to one of the many automake
+                <emphasis>Install directories</emphasis>: The dialog will display
+                a field for each target in the group
+                that requires an installation directory. Set each installation
+                directory as relative to one of the many <application>automake</application>
                 directory variables, such as $(prefix), $(bindir), $(libdir),
-                $(datadir) etc.
+                or $(datadir).
              </para>
            </listitem>
           </itemizedlist>
@@ -711,34 +711,33 @@
    <sect2 id="target-properties">
     <title>Target properties</title>
     <para>
-    To set target properties, select
-    it in the <interface>Project window</interface> and active it. You can also
-    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
-    <guimenuitem>Properties</guimenuitem></menuchoice>
+    To set a target's properties, double-click the target
+    in the <interface>Project window</interface> to open the Target Properties dialog. (You can
+    alternatively right-click the target and select <guimenuitem>Properties</guimenuitem> from
+    the context menu.)
     </para>
 
     <para>
-         <emphasis>Target Properties</emphasis> set to a target applies to that
-         target. So any compiler or linker flags set there would
-         be just part of it (in addition the its group properties).
-         Following flags are available in target properties.
+         Any properties set for a target apply to that target only.  A target also inherits
+		 properties from its containing group.
+         The following fields are available in the Target Properties dialog.
 
 		   <itemizedlist>
 		    <listitem>
 		     <para>
-                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                <emphasis>Compiler settings</emphasis>: Set your compiler-specific
                 flags here. There are different fields for different compiler
                 categories. Flags that can be set here depend on the actual
-                compiler used. The default compiler use for c/c++ is gcc/g++
-                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                compiler used. The default compiler used for C/C++ is gcc/g++
+                (the GNU C compiler). Check out the <ulink url="info:gcc">gcc info
                 documentation</ulink> for more details.
              </para>
             </listitem>
 		    <listitem>
 		     <para>
                 <emphasis>Linker flags</emphasis>: Set linker flags that should
-                be used when linking the target. It applies only to Program
-                and library targets. See <ulink url="info:ld">ld info documentation</ulink>
+                be used when linking the target. These flags apply only to Program
+                and Library targets. See the <ulink url="info:ld">ld info documentation</ulink>
                 for available linker options.
              </para>
             </listitem>
@@ -746,7 +745,7 @@
 		     <para>
                 <emphasis>Libraries</emphasis>: Set the libraries that the
                 target depends on. Usually they are the $(module_LIBS)
-                configure variables. See setting
+                configure variables. See
                 <link linkend="project-properties">Project properties</link>
                 for more details on these variables.
              </para>

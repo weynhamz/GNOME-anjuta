@@ -2,8 +2,8 @@
  <chapter id="building">
   <title>Building</title>
   <para>
-   Anjuta handles autotools projects. It is able to cope with other kinds of
-   project like projects using a user written makefile but the current build
+   Anjuta handles <application>autotools</application> projects. It is able to cope with other kinds of
+   projects, such as projects using a user-written Makefile, but the current build
    interface is targeted at autotools projects. Some knowledge of them is
    useful to better understand the way a project is built.
   </para>
@@ -19,46 +19,46 @@
   </para>
   <para>
    <emphasis>Build</emphasis> is the main step in which all target files are
-   generated from the source files. It can be divided in
-   two sub phases: <emphasis>Compile</emphasis> and <emphasis>Link</emphasis>.
-   In <emphasis>Compile</emphasis> phase each object file is generated from 
+   generated from the source files. It can be divided into
+   two subphases: <emphasis>Compile</emphasis> and <emphasis>Link</emphasis>.
+   In the <emphasis>Compile</emphasis> phase each object file is generated from 
    its corresponding source file. For instance, a source file <filename>hello.c</filename>
    will generate <filename>hello.o</filename> after compilation. Usually you do not need 
    to worry about these object files &mdash; just think of them as intermediate files. 
-   In <emphasis>Link</emphasis> phase, all object files and libraries
+   In the <emphasis>Link</emphasis> phase, all object files and libraries
    are linked together to create the final executable.
    Some programming languages do not need a <emphasis>Compile</emphasis>
    and a <emphasis>Link</emphasis> phase. Moreover the <emphasis>Build</emphasis> step
-   is used to generate other files, like documentation which don't need such phases.
+   may be used to generate other files, like documentation which doesn't need such phases.
   </para>
   <para>
-   <emphasis>Configure</emphasis> is the step in which the sources tree is adjusted
-   to your system. autotools projects can be built on a wide range of systems using
+   <emphasis>Configure</emphasis> is the step in which the source tree is adjusted
+   to your system. <application>autotools</application> projects can be built on a wide range of systems using
    different compilers and having different library functions. This step runs a
    script named <filename>configure</filename> that will check for various characteristics
    of your system
    and create some of the files required to perform a build (such as 
    <filename>Makefile</filename> and <filename>config.h</filename>).
-   This step is used to select build options too, for
-   instance, disable optimization to make debugging easier or disable some
+   This step is used to select build options, too; for
+   instance, a build option may disable optimization to make debugging easier or disable some
    experimental part of a program.
   </para>
   <para>
    <emphasis>Generate</emphasis> is the step in which the <filename>configure</filename>
    script and other related files are created. The <filename>configure</filename>
    script used above needs to run on
-   various systems and checks a lots of things. It is quite difficult to write it
-   by hand. Moreover the autotools stuff enforces some rules to organize a
-   project like some mandatory files: <filename>NEWS</filename> or <filename>COPYING</filename>.
+   various systems and checks a lot of things. It would be quite difficult to write it
+   by hand. Moreover <application>autotools</application> enforces some project organization rules
+   such as the presence of some mandatory files: <filename>NEWS</filename> and <filename>COPYING</filename>, for example.
    It includes several tools
-   to check and create all necessary files from simpler files written by the developper
-   like <filename>configure.in</filename> (or <filename>configure.ac</filename>) and
+   to create necessary files from simpler files written by the developer
+   such as <filename>configure.in</filename> (or <filename>configure.ac</filename>) and
    <filename>Makefile.am</filename>. All these tools are commonly run
    from a script named <filename>autogen.sh</filename> in the project directory. This step is useful only
    for a developer (someone modifying the source files), as the
-   <filename>configure</filename> script depends only on the sources files, it is distributed within the
+   <filename>configure</filename> script depends only on the source files, and is distributed within the
    project package.
-   Note that, the makefiles created by configure included some rules
+   Note that the makefiles created by <application>configure</application> include some rules
    to automatically regenerate the project when needed, so it often not needed to
    rerun it directly.
  </para>
@@ -88,7 +88,7 @@
    <para>
     There is no requirement to run this only once. It can be 
     run at any time, usually when the configuration options need to be changed. One thing to 
-    note is that, if the <filename>config.h</filename> file in the top level directory is 
+    note is that if the <filename>config.h</filename> file in the top level directory is 
     changed, running <filename>configure</filename> again will not overwrite it.
    </para>
    <para>
@@ -97,13 +97,13 @@
     <guimenuitem>Configure Project&hellip;</guimenuitem></menuchoice>.
     This menu item brings a dialog where you can choose:
     <itemizedlist>
-     <listitem><para>If you want to run the generate step or not</para>
+     <listitem><para>Whether you want to run the generate step or not</para>
       <para>
-       It needs to be run once at the beginning of the project then it is automatically
-       handled by the build process. You can force to run it by checking the check box
-       <interface>Regenerate project</interface> in cases you encounter some
-       difficulties while building the projects (such as lots of errors reported
-       due to mis-synchronization after modifying lots of build files).
+       The generate step needs to be run once at the beginning of the project; then it is automatically
+       handled by the build process. You can force it to run by checking the checkbox
+       <interface>Regenerate project</interface>; you might do this if you encounter
+       difficulties while building a project (e.g. if you receive build errors
+       after you've modified lots of build files).
       </para>
      </listitem>
      <listitem><para>The configuration name</para>
@@ -116,7 +116,7 @@
      <listitem><para>The build directory</para>
       <para>
        This is the build directory name. In the Default configuration, it is the same
-       directory than the source directory but autotools support to build in a
+       directory as the source directory but autotools supports building in a
        different directory.
       </para> 
       <note><para>
@@ -129,9 +129,8 @@
      </listitem>
      <listitem><para>Configure options</para>
       <para>
-       These options are passed to the <filename>configure</filename> script. Some are standard like prefix, CFLAGS,
-       &hellip; some depends on the project. You can get a list of allowed configuration option by
-       running the <filename>configure</filename> script with --help argument.
+       These options are passed to the <filename>configure</filename> script. Some are standard, such as --prefix and CFLAGS; others depend on the project. You can get a list of allowed configuration options by
+       running the <filename>configure</filename> script with the <option>--help</option> argument.
       </para>
      </listitem>
     </itemizedlist>
@@ -142,20 +141,20 @@
    <para>
     If you have created different configurations, you can select which one is active by
     selecting it in <menuchoice><guisubmenu>Build</guisubmenu>
-    <guimenuitem>Select Configuration</guimenuitem></menuchoice>
+    <guimenuitem>Select Configuration</guimenuitem></menuchoice>.
    </para>
   </sect2>
   <sect2 id="configure">
    <title>Clean a configuration</title>
    <para>
-    To clean the project and leave it in a state that requires to rerun the
-    configure step, you have to choose <menuchoice><guisubmenu>Build</guisubmenu>
+    To clean the project and leave it in a state that requires rerunning the
+    configure step, choose <menuchoice><guisubmenu>Build</guisubmenu>
     <guimenuitem>Remove Configuration</guimenuitem></menuchoice>.
-    It run "make distclean" and deletes more files than <guimenuitem>Clean Project</guimenuitem>.
+    It run <command>make distclean</command> and deletes more files than <guimenuitem>Clean Project</guimenuitem>.
     In other words, it leaves the project
     as though it has just been extracted from a distribution tarball. Note
-    that it does not remove the configuration directory itself but you can
-    do it.
+    that it does not remove the configuration directory itself; you can
+    do that yourself if you like.
    </para>
   </sect2>
  </sect1>
@@ -168,12 +167,12 @@
   <sect2 id="build-compile">
    <title>Compiling a file</title>
    <para>
-    In a project, the individual source files can be compiled separately into objects 
+    In a project, individual source files can be compiled separately into objects 
     (<filename>*.o</filename> files). Although you do not have to worry about these object 
     files, sometimes it is handy to compile a file first (for example, to make sure there are 
     no syntax errors). Building a whole project can take a lot of time, especially in the case of 
     larger and more complex applications. Therefore, you will probably go through a series of 
-    edit-compile-edit-compile-.... loops while developing a project.
+    edit-compile iterations while developing a project.
    </para>
    <para>
     To compile a file, choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
@@ -186,34 +185,33 @@
    <title>Building an executable</title>
    <para>
     <application>Anjuta</application> has no separate link command, simply because 
-    it is not necessary. The build process will compile all the source files and link them together 
-    along with the libraries. The build command will note recompile those files which are 
+    it is not necessary. The build process will compile all source files and link them together 
+    along with the necessary libraries. The build command will not recompile those files which are 
     already up-to-date (this is called the <emphasis>dependency check</emphasis>). 
-    If you have already compiled all of the files individually, then the only thing the build 
+    If you have already compiled all files individually, then the only thing the build 
     step performs is the link. If you have already built the project and no dependent file has been 
     modified, even the link stage will be skipped.
    </para>
    <para>
-    So how exactly does the dependency check influence the project development? 
+    So how exactly does the dependency check influence project development? 
     If you have modified a file, then all of the source files that depend on the modified 
-    file are recompiled. All files (not only the object files and executable) in the 
+    file are recompiled. All files (not just the object files and executable) in the 
     project are checked for these dependencies during the build process. If it is found that 
     a particular file is dependent on some other file which has been modified, then that file 
-    will be re-generated.
+    will be regenerated.
    </para>
    <para>
-    Since you have now got a rough understanding of the value of the dependency check, can 
-    you imagine how your life (as a programmer) would be if it had not been there? If you 
-    cannot answer just yet, then will find out when you start developing big projects!
+    Can you imagine how your life (as a programmer) would be if the dependency check were not there? If you 
+    cannot answer just yet, then you will find out when you start developing big projects!
    </para>
    <para>
     <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build</guimenuitem></menuchoice> 
-    will build all of the files in the directory of the currently active file. 
+    will build all files in the directory of the currently active file. 
    </para>
    <para>
     <menuchoice><guisubmenu>Build</guisubmenu>
     <guimenuitem>Build Project</guimenuitem></menuchoice> will build 
-    the whole project &mdash; all of the subdirectories are built recursively.
+    the whole project &mdash; all subdirectories are built recursively.
    </para>
   </sect2>
  </sect1>
@@ -226,9 +224,9 @@
   <sect2 id="build-dist">
    <title>Creating a distribution package</title>
    <para>
-    To build the tarball distribution of the project choose <menuchoice><guisubmenu>Build</guisubmenu>
+    To build a tarball distribution of the project choose <menuchoice><guisubmenu>Build</guisubmenu>
     <guimenuitem>Build Tarball</guimenuitem></menuchoice>. This will create a 
-    tarball (<filename>*.tar.gz</filename>) and put it in the top level project directory. 
+    tarball (<filename>*.tar.gz</filename>) and put it in the top-level project directory. 
     Copy the file to a safe place for distribution.
    </para>
   </sect2>
@@ -240,12 +238,12 @@
     application on your system. 
    </para>
    <note>
-    <title>System wide installation</title>
+    <title>System-wide installation</title>
     <para>
      You must be logged in as root to perform a system-wide install. Also note that for a GNOME 
      application to use the pixmaps in the project, it must be installed as a system-wide 
      application. Otherwise, when the application is executed in your project, there will be 
-     lots of &quot;pixmap not found&quot; errors. You can configure anjuta to use <command>sudo</command>
+     lots of &quot;pixmap not found&quot; errors. You can configure Anjuta to use <command>sudo</command>
      or <command>su</command> before installing the project in the build preferences.
     </para>
    </note>
@@ -259,7 +257,7 @@
    </para>
    <para>
     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
-    <guimenuitem>Clean Project</guimenuitem></menuchoice> to clean all the project
+    <guimenuitem>Clean Project</guimenuitem></menuchoice> to clean all project
     files.
    </para>
    <para>
