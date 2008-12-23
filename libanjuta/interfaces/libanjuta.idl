@@ -2539,6 +2539,15 @@ interface IAnjutaDocumentManager
 	*/
 	void add_document (IAnjutaDocument* document);
 	
+	/*
+	 * ianjuta_document_manager_add_bookmark:
+	 * @obj: Self
+	 * @file: File to add the bookmark
+	 * @line: Line of the bookmark
+	 *
+	 * Add a bookmark
+	 */
+	 void add_bookmark (GFile* file, gint line);
 }
 
 /**

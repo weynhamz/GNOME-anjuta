@@ -1980,6 +1980,16 @@ ianjuta_docman_remove_document(IAnjutaDocumentManager *plugin,
 }
 
 static void
+ianjuta_docman_add_bookmark (IAnjutaDocumentManager* plugin,
+									  GFile* file,
+									  gint  line,
+									  GError **e)
+{
+	AnjutaBookmarks* bookmarks = ANJUTA_BOOKMARKS (ANJUTA_PLUGIN_DOCMAN(plugin)->bookmarks);
+	anjuta_bookmarks_add_file (bookmarks, file, line);
+}
+
+static void
 ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->add_buffer = ianjuta_docman_add_buffer;
@@ -1993,6 +2003,7 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->remove_document = ianjuta_docman_remove_document;
 	iface->set_current_document = ianjuta_docman_set_current_document;
 	iface->set_message_area = ianjuta_docman_set_message_area;
+	iface->add_bookmark = ianjuta_docman_add_bookmark;
 }
 
 /* Implement IAnjutaFile interface */

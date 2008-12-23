@@ -1,3 +1,19 @@
+2008-12-23  Johannes  Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/anjuta-bookmarks.c (on_add_clicked),
+	(anjuta_bookmarks_get_text_from_file), (anjuta_bookmarks_get_text),
+	(anjuta_bookmarks_add), (anjuta_bookmarks_add_file):
+	* plugins/document-manager/anjuta-bookmarks.h:
+	* plugins/document-manager/plugin.c (ianjuta_docman_add_bookmark),
+	(ianjuta_document_manager_iface_init):
+	* plugins/search/search-replace.c (search_and_replace):
+	Added new add_bookmark method to document-manager interface and readded
+	the possibility add bookmarks to all search results.
+	
+	* plugins/sourceview/sourceview-io.c (set_display_name):
+	Adding missing unref
+
 2008-12-22  Adam Dingle  <adam@medovina.org>
 
 	* manuals/anjuta-manual/C/anjuta-manual.xml:

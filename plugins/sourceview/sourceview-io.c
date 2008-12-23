@@ -209,7 +209,7 @@ set_display_name (SourceviewIO* sio)
 		g_free (sio->filename);
 		sio->filename = NULL;
 	}
-	
+	g_object_unref (file_info);
 }
 
 static void

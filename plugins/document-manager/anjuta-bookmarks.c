@@ -75,7 +75,7 @@ on_add_clicked (GtkWidget* button, AnjutaBookmarks* bookmarks)
 		anjuta_docman_get_current_document (ANJUTA_DOCMAN(priv->docman->docman));
 	g_return_if_fail (IANJUTA_IS_EDITOR(doc));
 	IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
-	anjuta_bookmarks_add (bookmarks, editor, ianjuta_editor_get_lineno (editor, NULL));						 
+	anjuta_bookmarks_add (bookmarks, editor, ianjuta_editor_get_lineno (editor, NULL), TRUE);						 
 }
 
 static void
@@ -274,29 +274,16 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 }
 
 static gchar*
-anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line)
+anjuta_bookmarks_get_text_from_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-	IAnjutaSymbolManager* sym_manager;
-	/* If we have a (short) selection, take this */
-	if (IANJUTA_IS_EDITOR_SELECTION(editor))
-	{
-		IAnjutaEditorSelection* selection = IANJUTA_EDITOR_SELECTION(editor);
-		if (ianjuta_editor_selection_has_selection (selection, NULL))
-		{
-			gchar* text = ianjuta_editor_selection_get (selection, NULL);
-			if (strlen (text) < 100)
-				return text;
-			g_free (text);
-		}
-	}
 	/* If we can get the symbol scope - take it */
-	sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
-											  IAnjutaSymbolManager,
-											  NULL);
+	IAnjutaSymbolManager* sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
+																	IAnjutaSymbolManager,
+																	NULL);
+	
 	if (sym_manager != NULL)
 	{
-		GFile* file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
 		gchar* path = g_file_get_path (file);
 		IAnjutaIterable* iter = 
 			ianjuta_symbol_manager_get_scope (sym_manager,
@@ -310,13 +297,49 @@ anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gi
 			return g_strdup (ianjuta_symbol_get_name(IANJUTA_SYMBOL(iter), NULL));
 		}
 	}
-	/* As last chance, take file + line */
-	return g_strdup_printf ("%s:%d",  ianjuta_document_get_filename(IANJUTA_DOCUMENT(editor), NULL),
-							line);									  
+	{
+		gchar* text;
+		GFileInfo* info;
+		/* As last chance, take file + line */
+		info = g_file_query_info (file,
+								  G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+								  G_FILE_QUERY_INFO_NONE,
+								  NULL,
+								  NULL);
+		text = g_strdup_printf ("%s:%d",  g_file_info_get_display_name (info),
+								line);
+		g_object_unref (info);
+		return text;
+	}
+}
+
+static gchar*
+anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, gboolean use_selection)
+{	
+	/* If we have a (short) selection, take this */
+	if (IANJUTA_IS_EDITOR_SELECTION(editor) && use_selection)
+	{
+		IAnjutaEditorSelection* selection = IANJUTA_EDITOR_SELECTION(editor);
+		if (ianjuta_editor_selection_has_selection (selection, NULL))
+		{
+			gchar* text = ianjuta_editor_selection_get (selection, NULL);
+			if (strlen (text) < 100)
+				return text;
+			g_free (text);
+		}
+	}
+	{
+		GFile* file = ianjuta_file_get_file (IANJUTA_FILE(editor), NULL);
+		gchar* text =  anjuta_bookmarks_get_text_from_file (bookmarks,
+															file,
+															line);
+		g_object_unref (file);
+		return text;
+	}								  
 }
 
 void
-anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line)
+anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, gboolean use_selection)
 {
 	g_return_if_fail (IANJUTA_IS_MARKABLE(editor));
 	IAnjutaMarkable* markable = IANJUTA_MARKABLE(editor);
@@ -334,7 +357,7 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
-	text = anjuta_bookmarks_get_text (bookmarks, editor, line);
+	text = anjuta_bookmarks_get_text (bookmarks, editor, line, use_selection);
 	file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
 	gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
 						COLUMN_TEXT, text,
@@ -347,19 +370,21 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 
 	g_object_set (G_OBJECT(priv->renderer), "editable", TRUE, NULL);
 	
-	path = gtk_tree_model_get_path (priv->model, &iter);
-
-	anjuta_shell_present_widget (ANJUTA_PLUGIN(priv->docman)->shell,
-								 priv->window, NULL);
-	gtk_widget_grab_focus (priv->tree);
-	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path,
-								  priv->column, FALSE, 0.0, 0.0);
-	
-	gtk_tree_view_set_cursor_on_cell (GTK_TREE_VIEW (priv->tree), path,
-									  priv->column,
-									  priv->renderer,
-									  TRUE);
-	gtk_tree_path_free (path);
+	if (use_selection)
+	{
+		path = gtk_tree_model_get_path (priv->model, &iter);
+		anjuta_shell_present_widget (ANJUTA_PLUGIN(priv->docman)->shell,
+									 priv->window, NULL);
+		gtk_widget_grab_focus (priv->tree);
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path,
+									  priv->column, FALSE, 0.0, 0.0);
+		
+		gtk_tree_view_set_cursor_on_cell (GTK_TREE_VIEW (priv->tree), path,
+										  priv->column,
+										  priv->renderer,
+										  TRUE);
+		gtk_tree_path_free (path);
+	}
 }
 
 void
@@ -391,6 +416,30 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 		g_object_unref (file);
 		
 		gtk_list_store_remove (GTK_LIST_STORE (priv->model), &iter);
+	}
+}
+
+void 
+anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	IAnjutaDocument* doc;
+	GtkTreeIter iter;
+	if ((doc = anjuta_docman_get_document_for_file (ANJUTA_DOCMAN(priv->docman->docman), file)))
+	{
+		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, FALSE);
+	}
+	else
+	{
+		gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
+		gchar* text = anjuta_bookmarks_get_text_from_file (bookmarks, file, line);
+		gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
+							COLUMN_TEXT, text,
+							COLUMN_FILE, file,
+							COLUMN_LINE, line,
+							COLUMN_HANDLE, -1,
+							-1);
+		g_free (text);
 	}
 }
 

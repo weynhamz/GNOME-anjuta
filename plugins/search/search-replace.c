@@ -422,23 +422,13 @@ search_and_replace (void)
 					case SA_BOOKMARK:
 						if (found_line != mi->line)
 						{
-							found_line = mi->line;
-						
-							if (fb->te == NULL)
-								fb->te =
-									IANJUTA_EDITOR (ianjuta_document_manager_get_current_document
-										(sr->docman, NULL));
-
-							if (IANJUTA_IS_MARKABLE (fb->te) &&
-								!ianjuta_markable_is_marker_set (
-														IANJUTA_MARKABLE(fb->te),
-														mi->line,
-														IANJUTA_MARKABLE_BOOKMARK,
-														NULL))
-							{
-								//TODO:ianjuta_bookmark_toggle (IANJUTA_BOOKMARK(fb->te),
-								//						mi->line, FALSE, NULL);
-							}
+							GFile* file = g_file_new_for_uri (fb->uri);
+							found_line = mi->line + 1; /* different line count between search and editor */
+							ianjuta_document_manager_add_bookmark (sr->docman,
+																   file,
+																   found_line,
+																   NULL);
+							g_object_unref (file);			  
 						}
 						break;
 						
