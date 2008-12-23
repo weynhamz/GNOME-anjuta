@@ -1,3 +1,21 @@
+2008-12-23  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (do_add_new_files),
+	(do_import_system_src_after_abort), (on_scan_end_manager):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_update_buffer_symbols):
+	Don't let buffer-updating files which are not in current project.
+
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(symbol_db_engine_iterator_node_get_symbol_extra_string):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.h:
+	* plugins/symbol-db/symbol-db-engine-iterator.h:
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine.h:
+	some minor headers fixes. 
+
 2008-12-23  Johannes  Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

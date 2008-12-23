@@ -99,7 +99,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 SymbolDBEngineIterator *
 symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, 
 									const gchar* full_local_file_path, gulong line, 
-									 SymExtraInfo sym_info);
+									SymExtraInfo sym_info);
 
 
 /**

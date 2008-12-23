@@ -28,6 +28,8 @@
 #include <glib-object.h>
 #include <libgda/libgda.h>
 
+#include "symbol-db-engine-priv.h"
+
 G_BEGIN_DECLS
 
 #define SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE             (sdb_engine_iterator_node_get_type ())
@@ -76,7 +78,7 @@ symbol_db_engine_iterator_node_get_symbol_signature (SymbolDBEngineIteratorNode 
  */
 const gchar*
 symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNode *dbin,
-												   gint sym_info);
+												   SymExtraInfo sym_info);
 
 void
 symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,

@@ -42,6 +42,8 @@ typedef struct _SymbolDBEngineIteratorClass SymbolDBEngineIteratorClass;
 typedef struct _SymbolDBEngineIterator SymbolDBEngineIterator;
 typedef struct _SymbolDBEngineIteratorPriv SymbolDBEngineIteratorPriv;
 
+
+
 struct _SymbolDBEngineIteratorClass
 {
 	SymbolDBEngineIteratorNodeClass parent_class;

@@ -5409,7 +5409,6 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
 	{
-		DEBUG_PRINT ("no rows");
 		if (data_model != NULL)
 			g_object_unref (data_model);
 		data_model = NULL;
@@ -5652,33 +5651,38 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	/* obtain a GPtrArray with real_files on database */
 	for (i=0; i < real_files_list->len; i++) 
 	{
-		gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, 
-									g_ptr_array_index (real_files_list, i));
-		if (relative_path == NULL)
-		{
-			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
-					   "relative_path is NULL");
-			return FALSE;
-		}
-		g_ptr_array_add (real_files_on_db, relative_path);
-	}	
-	
-	/* create a temporary file for each buffer */
-	for (i=0; i < real_files_list->len; i++) 
-	{
+		gchar *relative_path;
+		const gchar *curr_abs_file;
 		FILE *buffer_mem_file;
 		const gchar *temp_buffer;
 		gint buffer_mem_fd;
 		gint temp_size;
 		gchar *shared_temp_file;
 		gchar *base_filename;
-		const gchar *curr_real_file;
-				
-		curr_real_file = g_ptr_array_index (real_files_list, i);
 		
+		curr_abs_file = g_ptr_array_index (real_files_list, i);
+		/* check if the file exists in db. We will not scan buffers for files
+		 * which aren't already in db
+		 */
+		if (symbol_db_engine_file_exists (dbe, curr_abs_file) == FALSE)
+		{
+			DEBUG_PRINT ("will not scan buffer claiming to be %s because not in db",
+						 curr_abs_file);
+			continue;
+		}		
+		
+		relative_path = symbol_db_engine_get_file_db_path (dbe, curr_abs_file);
+		if (relative_path == NULL)
+		{
+			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
+					   "relative_path is NULL");
+			continue;
+		}
+		g_ptr_array_add (real_files_on_db, relative_path);
+
 		/* it's ok to have just the base filename to create the
 		 * target buffer one */
-		base_filename = g_filename_display_basename (curr_real_file);
+		base_filename = g_filename_display_basename (relative_path);
 		
 		shared_temp_file = g_strdup_printf ("/anjuta-%d-%ld-%s", getpid (),
 						 time (NULL), base_filename);
@@ -5689,7 +5693,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		{
 			g_warning ("Error while trying to open a shared memory file. Be"
 					   "sure to have "SHARED_MEMORY_PREFIX" mounted with tmpfs");
-			return FALSE;
+			return -1;
 		}
 	
 		buffer_mem_file = fdopen (buffer_mem_fd, "w+b");
@@ -5721,18 +5725,25 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 			g_free (shared_temp_file);
 		}
 	}
+
+	/* in case we didn't have any good buffer to scan...*/
+	ret_id = -1;
 	
-	/* data will be freed when callback will be called. The signal will be
-	 * disconnected too, don't worry about disconnecting it by hand.
-	 */
-	g_signal_connect (G_OBJECT (dbe), "scan-end",
-					  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
+	/* it may happens that no buffer is correctly set up */
+	if (real_files_on_db->len > 0)
+	{
+		/* data will be freed when callback will be called. The signal will be
+	 	* disconnected too, don't worry about disconnecting it by hand.
+	 	*/
+		g_signal_connect (G_OBJECT (dbe), "scan-end",
+						  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
 	
-	ret_code = sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
-	if (ret_code == TRUE)
-		ret_id = sdb_engine_get_unique_scan_id (dbe);
-	else
-		ret_id = -1;
+		ret_code = sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
+		if (ret_code == TRUE)
+			ret_id = sdb_engine_get_unique_scan_id (dbe);
+		else
+			ret_id = -1;
+	}
 	
 	/* let's free the temp_files array */
 	for (i=0; i < temp_files->len; i++)

@@ -220,6 +220,24 @@ typedef struct _ChildDynQueryNode {
 } DynChildQueryNode;
 
 
+/* WARNING: these must match the ones on libanjuta.idl [AnjutaSymbol::Field] */
+typedef enum {
+	SYMINFO_SIMPLE = 1,
+	SYMINFO_FILE_PATH = 2,
+	SYMINFO_IMPLEMENTATION = 4,
+	SYMINFO_ACCESS = 8,
+	SYMINFO_KIND = 16,
+	SYMINFO_TYPE = 32,
+	SYMINFO_TYPE_NAME = 64,
+	SYMINFO_LANGUAGE = 128,
+	SYMINFO_FILE_IGNORE = 256,
+	SYMINFO_FILE_INCLUDE = 512,
+	SYMINFO_PROJECT_NAME = 1024,
+	SYMINFO_WORKSPACE_NAME = 2048
+	
+} SymExtraInfo;
+
+
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv
 {

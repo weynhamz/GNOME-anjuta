@@ -804,9 +804,6 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 			continue;
 		}					
 
-		DEBUG_PRINT ("wh0a, adding to scan local_filename %s (%s)", local_filename,
-					 lang);
-		
 		/* ok, we've just tested that the local_filename does exist.
 		 * We can safely add it to the array.
 		 */
@@ -1111,6 +1108,7 @@ do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 		if (local_filename == NULL)
 			continue;
 		
+		DEBUG_PRINT ("local_filename %s", local_filename);
 		gfile = g_file_new_for_path (local_filename);
 		if (gfile == NULL)
 			continue;
@@ -1738,6 +1736,11 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 	if (g_tree_remove (symbol_db->proc_id_tree,  GINT_TO_POINTER (process_id)) == FALSE)
 		g_warning ("Cannot remove proc_id from GTree");
 	
+	DEBUG_PRINT ("is_offline_scanning  %d, is_project_importing %d, is_project_updating %d, "
+				 "is_adding_element %d", symbol_db->is_offline_scanning,
+				 symbol_db->is_project_importing, symbol_db->is_project_updating,
+				 symbol_db->is_adding_element);
+				 
 	/**
  	 * perform some checks on some booleans. If they're all successfully passed
  	 * then activate the display of local view

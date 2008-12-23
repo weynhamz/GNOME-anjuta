@@ -197,7 +197,7 @@ symbol_db_engine_iterator_node_get_symbol_signature (SymbolDBEngineIteratorNode 
 
 const gchar*
 symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNode *dbin,
-												   gint sym_info)
+												   SymExtraInfo sym_info)
 {
 	SymbolDBEngineIteratorNodePriv *priv;
 	const GValue *value = NULL;
