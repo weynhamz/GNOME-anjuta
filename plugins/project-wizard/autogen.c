@@ -117,19 +117,19 @@ npw_check_autogen (void)
  *---------------------------------------------------------------------------*/
 
 static void
-cb_autogen_write_definition (const gchar* name, const gchar* value, NPWValueTag tag, gpointer user_data)
+cb_autogen_write_definition (const gchar* name, NPWValue * node, gpointer user_data)
 {
 	FILE* def = (FILE *)user_data;
 
-	if ((tag & NPW_VALID_VALUE) && (value != NULL))
+	if ((npw_value_get_tag(node) & NPW_VALID_VALUE) && (npw_value_get_value(node) != NULL))
 	{
-		if(value[0] == '{') /* Seems to be a list, so do not quote */
+		if(npw_value_get_value (node)[0] == '{') /* Seems to be a list, so do not quote */
 		{
-			fprintf(def, "%s = %s;\n", name, value);
+			fprintf(def, "%s = %s;\n", name, npw_value_get_value (node));
 		}
 		else
 		{
-			gchar *esc_value = g_strescape (value, NULL);
+			gchar *esc_value = g_strescape (npw_value_get_value (node), NULL);
 			fprintf (def, "%s = \"%s\";\n", name, esc_value);
 			g_free (esc_value);
 		}
@@ -137,7 +137,7 @@ cb_autogen_write_definition (const gchar* name, const gchar* value, NPWValueTag 
 }
 
 gboolean
-npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values)
+npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values)
 {
 	FILE* def;
 
@@ -149,7 +149,7 @@ npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values)
 
 	/* Generate definition data for autogen */
 	fputs ("AutoGen Definitions .;\n",def);
-	npw_value_heap_foreach_value (values, cb_autogen_write_definition, def);
+	npw_value_heap_foreach_value (values, (GHFunc)cb_autogen_write_definition, def);
 
 	fclose (def);
 

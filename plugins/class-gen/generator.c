@@ -388,7 +388,7 @@ cg_generator_new (const gchar *header_template,
 
 gboolean
 cg_generator_run (CgGenerator *generator,
-                  NPWValueHeap *values,
+                  GHashTable *values,
                   GError **error)
 {
 	CgGeneratorPrivate *priv;

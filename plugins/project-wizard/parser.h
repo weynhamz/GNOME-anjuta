@@ -28,39 +28,37 @@
 #include "file.h"
 #include "action.h"
 
-gboolean npw_header_list_readdir (NPWHeaderList* this, const gchar* pathname);
+gboolean npw_header_list_readdir (GList** this, const gchar* pathname);
 
-gboolean npw_header_list_read (NPWHeaderList* this, const gchar* filename);
+gboolean npw_header_list_read (GList** this, const gchar* filename);
 
 
 typedef struct _NPWPageParser NPWPageParser;
 
 NPWPageParser* npw_page_parser_new (NPWPage* page, const gchar* filename, gint count);
-void npw_page_parser_free (NPWPageParser* this);
+void npw_page_parser_free (NPWPageParser* parser);
 
-gboolean npw_page_parser_parse (NPWPageParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_page_parser_end_parse (NPWPageParser* this, GError** error);
+gboolean npw_page_parser_parse (NPWPageParser* parser, const gchar* text, gssize len, GError** error);
+gboolean npw_page_parser_end_parse (NPWPageParser* parser, GError** error);
 
-gboolean npw_page_read (NPWPage* this, const gchar* filename, gint count);
+gboolean npw_page_read (NPWPage* page, const gchar* filename, gint count);
 
 
 typedef struct _NPWFileListParser NPWFileListParser;
 
-NPWFileListParser* npw_file_list_parser_new (NPWFileList* list, const gchar* filename);
-void npw_file_list_parser_free (NPWFileListParser* this);
+NPWFileListParser* npw_file_list_parser_new (const gchar* filename);
+void npw_file_list_parser_free (NPWFileListParser* parser);
 
-gboolean npw_file_list_parser_parse (NPWFileListParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_file_list_parser_end_parse (NPWFileListParser* this, GError** error);
-
-gboolean npw_file_list_read (NPWFileList* this, const gchar* filename);
+gboolean npw_file_list_parser_parse (NPWFileListParser* parser, const gchar* text, gssize len, GError** error);
+GList* npw_file_list_parser_end_parse (NPWFileListParser* parser, GError** error);
 
 
 typedef struct _NPWActionListParser NPWActionListParser;
 
-NPWActionListParser* npw_action_list_parser_new (NPWActionList* list);
-void npw_action_list_parser_free (NPWActionListParser* this);
+NPWActionListParser* npw_action_list_parser_new (void);
+void npw_action_list_parser_free (NPWActionListParser* parser);
 
-gboolean npw_action_list_parser_parse (NPWActionListParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_action_list_parser_end_parse (NPWActionListParser* this, GError** error);
+gboolean npw_action_list_parser_parse (NPWActionListParser* parser, const gchar* text, gssize len, GError** error);
+GList* npw_action_list_parser_end_parse (NPWActionListParser* parser, GError** error);
 
 #endif

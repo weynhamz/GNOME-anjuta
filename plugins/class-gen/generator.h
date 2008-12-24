@@ -63,7 +63,7 @@ CgGenerator *cg_generator_new (const gchar *header_template,
                                const gchar *header_destination,
                                const gchar *source_destination);
 gboolean cg_generator_run (CgGenerator *generator,
-                           NPWValueHeap *values,
+                           GHashTable *values,
                            GError **error);
 
 const gchar *cg_generator_get_header_template (CgGenerator *generator);

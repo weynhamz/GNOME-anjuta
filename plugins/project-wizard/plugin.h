@@ -48,8 +48,8 @@ struct _NPWPluginClass {
 	AnjutaPluginClass parent_class;
 };
 
-IAnjutaMessageView* npw_plugin_create_view (NPWPlugin* this);
-void npw_plugin_append_view (NPWPlugin* this, const gchar* text);
-void npw_plugin_print_view (NPWPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details);
+IAnjutaMessageView* npw_plugin_create_view (NPWPlugin* plugin);
+void npw_plugin_append_view (NPWPlugin* plugin, const gchar* text);
+void npw_plugin_print_view (NPWPlugin* plugin, IAnjutaMessageViewType type, const gchar* summary, const gchar* details);
 
 #endif

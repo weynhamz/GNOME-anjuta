@@ -750,7 +750,7 @@ cg_element_editor_set_valuesv_foreach_func (gpointer key,
 static void
 cg_element_editor_set_valuesv (CgElementEditor *editor,
                                const gchar *name,
-                               NPWValueHeap *values,
+                               GHashTable *values,
                                CgElementEditorTransformFunc func,
                                gpointer user_data,
                                const gchar **field_names)
@@ -798,7 +798,7 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 
 		value = npw_value_heap_find_value (values, value_name);
 
-		npw_value_heap_set_value (values, value, value_str->str,
+		npw_value_set_value (value, value_str->str,
 		                          NPW_VALID_VALUE);
 
 		g_string_set_size (value_str, 0);
@@ -813,7 +813,7 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 void
 cg_element_editor_set_values (CgElementEditor *editor,
                               const gchar *name,
-                              NPWValueHeap *values,
+                              GHashTable *values,
                               CgElementEditorTransformFunc func,
                               gpointer user_data,
                               ...)
@@ -841,7 +841,7 @@ cg_element_editor_set_values (CgElementEditor *editor,
 void
 cg_element_editor_set_value_count (CgElementEditor *editor,
                                    const gchar *name,
-                                   NPWValueHeap *values,
+                                   GHashTable *values,
                                    CgElementEditorConditionFunc func,
                                    gpointer user_data)
 {
@@ -881,5 +881,5 @@ cg_element_editor_set_value_count (CgElementEditor *editor,
 
 	sprintf (count_str, "%u", count);
 	value = npw_value_heap_find_value (values, name);
-	npw_value_heap_set_value (values, value, count_str, NPW_VALID_VALUE);
+	npw_value_set_value (value, count_str, NPW_VALID_VALUE);
 }

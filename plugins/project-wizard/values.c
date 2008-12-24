@@ -37,22 +37,6 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define STRING_CHUNK_SIZE	256
-
-/*---------------------------------------------------------------------------*/
-
-/* This stores all the values. It's basically an hash table with a string
- * and a mem chunk to allocate all memories inside the object.
- * After adding a new property, there is no way to remove it, but you can
- * use the tag to mark it as obsolete */
-
-struct _NPWValueHeap
-{
-	GHashTable* hash;
-	GStringChunk* string_pool;
-	GMemChunk* value_pool;	
-};
-
 /* One property value, so just a name and a value plus a tag !
  * The tag is defined in the header file, but is not really used in this code */
 
@@ -60,48 +44,49 @@ struct _NPWValue
 {
 	NPWValueTag tag;
 	const gchar* name;
-	const gchar* value;
+	gchar* value;
 };
 
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
-static NPWValueHeap*
-npw_value_heap_initialize (NPWValueHeap* this)
+static NPWValue*
+npw_value_new (const gchar *name)
 {
-	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
-	this->value_pool = g_mem_chunk_new ("value pool", sizeof(NPWValue), (STRING_CHUNK_SIZE / 4) * sizeof(NPWValue), G_ALLOC_ONLY);
-	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
-
-	return this;
+	NPWValue *value;
+	
+	value = g_slice_new (NPWValue);
+	value->tag = NPW_EMPTY_VALUE;
+	value->name = name;
+	value->value = NULL;
+	
+	return value;
 }
 
 static void
-npw_value_heap_deinitialize (NPWValueHeap* this)
+npw_value_free (NPWValue *value)
 {
-	g_string_chunk_free (this->string_pool);
-	g_mem_chunk_destroy (this->value_pool);
-	g_hash_table_destroy (this->hash);
+	g_free (value->value);
+	g_slice_free (NPWValue, value);
 }
-
-
-NPWValueHeap*
+	
+GHashTable*
 npw_value_heap_new (void)
 {
-	NPWValueHeap* this;
+	GHashTable* hash;
 
-	this = g_new0 (NPWValueHeap, 1);
-	return npw_value_heap_initialize (this);
+	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)npw_value_free);
+	
+	return hash;
 }
 
 void
-npw_value_heap_free (NPWValueHeap* this)
+npw_value_heap_free (GHashTable* hash)
 {
 	/* GSList* node; */
-	g_return_if_fail (this != NULL);
+	g_return_if_fail (hash != NULL);
 
-	npw_value_heap_deinitialize (this);
-	g_free (this);
+	g_hash_table_destroy (hash);
 }
 
 /* Find a value or list all values
@@ -110,55 +95,33 @@ npw_value_heap_free (NPWValueHeap* this)
 /* Return key corresponding to name, create key if it doesn't exist */
 
 NPWValue*
-npw_value_heap_find_value (NPWValueHeap* this, const gchar* name)
+npw_value_heap_find_value (GHashTable* hash, const gchar* name)
 {
 	NPWValue* node;
 
-	if (!g_hash_table_lookup_extended (this->hash, name, NULL, (gpointer)&node))
+	if (!g_hash_table_lookup_extended (hash, name, NULL, (gpointer)&node))
 	{
 		gchar* new_name;
 
-		node = g_chunk_new (NPWValue, this->value_pool);
-		new_name = g_string_chunk_insert (this->string_pool, name);
-		node->name = new_name;
-		node->tag = NPW_EMPTY_VALUE;
-		node->value = NULL;
-		g_hash_table_insert (this->hash, new_name, node);
+		new_name = g_strdup (name);
+		node = npw_value_new (new_name);
+		g_hash_table_insert (hash, new_name, node);
 	}
 
 	return node;
 }
 
-typedef struct _NPWValueHeapForeachValueData
-{
-	NPWValueHeapForeachFunc func;
-	gpointer data;
-} NPWValueHeapForeachValueData;
-
-static void
-cb_value_heap_foreach_value (gpointer key, gpointer value, gpointer user_data)
-{
-	NPWValueHeapForeachValueData* data = (NPWValueHeapForeachValueData *)user_data;
-	NPWValue* node = (NPWValue*)value;
-
-	(data->func)(node->name, node->value, node->tag, data->data);
-}
-
 void
-npw_value_heap_foreach_value (const NPWValueHeap* this, NPWValueHeapForeachFunc func, gpointer user_data)
+npw_value_heap_foreach_value (GHashTable* hash, GHFunc func, gpointer user_data)
 {
-	NPWValueHeapForeachValueData data;
-
-	data.func = func;
-	data.data = user_data;
-	g_hash_table_foreach (this->hash, cb_value_heap_foreach_value, &data);
+	g_hash_table_foreach (hash, func, user_data);
 }
 
 /* Access value attributes
  *---------------------------------------------------------------------------*/
 
 const gchar*
-npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node)
+npw_value_get_name ( const NPWValue* node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
 
@@ -168,7 +131,7 @@ npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node)
 /* set new value, return FALSE if value has not changed */
 
 gboolean
-npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag)
+npw_value_set_value (NPWValue* node, const gchar* value, NPWValueTag tag)
 {
 	gboolean change = FALSE;
 
@@ -189,6 +152,7 @@ npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value
 		{
 			if (node->value != NULL)
 			{
+				g_free (node->value);
 				node->value = NULL;
 				change = TRUE;
 			}
@@ -197,7 +161,8 @@ npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value
 		{
 			if ((node->value == NULL) || (strcmp (node->value, value) != 0))
 			{
-				node->value = g_string_chunk_insert (this->string_pool, value);
+				g_free (node->value);
+				node->value = g_strdup (value);
 				change = TRUE;
 			}
 		}
@@ -220,7 +185,7 @@ npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value
 }
 
 const gchar*
-npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node)
+npw_value_get_value (const NPWValue* node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
 	
@@ -228,7 +193,7 @@ npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node)
 }
 
 NPWValueTag
-npw_value_heap_get_tag (const NPWValueHeap* this, const NPWValue* node)
+npw_value_get_tag (const NPWValue* node)
 {
 	g_return_val_if_fail (node != NULL, NPW_EMPTY_VALUE);
 

@@ -55,7 +55,7 @@ GType cg_window_get_type (void) G_GNUC_CONST;
 
 CgWindow *cg_window_new (void);
 GtkDialog *cg_window_get_dialog (CgWindow *window);
-NPWValueHeap *cg_window_create_value_heap (CgWindow *window);
+GHashTable *cg_window_create_value_heap (CgWindow *window);
 
 const gchar *cg_window_get_header_template (CgWindow *window);
 const gchar *cg_window_get_header_file (CgWindow *window);

@@ -37,35 +37,20 @@ typedef enum {
 	NPW_FILE_TRUE = 1
 } NPWFileBooleanValue;
 
-NPWFile* npw_file_new (NPWFileList* owner);
-void npw_file_free (NPWFile* this);
+NPWFile* npw_file_new_file (const gchar *destination, const gchar *source);
+void npw_file_free (NPWFile* file);
 
-void npw_file_set_type (NPWFile* this, NPWFileType type);
-NPWFileType npw_file_get_type (const NPWFile* this);
+NPWFileType npw_file_get_type (const NPWFile* file);
+const gchar* npw_file_get_destination (const NPWFile* file);
+const gchar* npw_file_get_source (const NPWFile* file);
 
-void npw_file_set_destination (NPWFile* this, const gchar* destination);
-const gchar* npw_file_get_destination (const NPWFile* this);
+void npw_file_set_execute (NPWFile* file, gboolean value);
+gboolean npw_file_get_execute (const NPWFile* file);
 
-void npw_file_set_source (NPWFile* this, const gchar* destination);
-const gchar* npw_file_get_source (const NPWFile* this);
+void npw_file_set_project (NPWFile* file, gboolean value);
+gboolean npw_file_get_project (const NPWFile* file);
 
-void npw_file_set_execute (NPWFile* this, gboolean value);
-gboolean npw_file_get_execute (const NPWFile* this);
-
-void npw_file_set_project (NPWFile* this, gboolean value);
-gboolean npw_file_get_project (const NPWFile* this);
-
-void npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value);
-NPWFileBooleanValue npw_file_get_autogen (const NPWFile* this);
-
-const NPWFile* npw_file_next (const NPWFile* this);
-
-NPWFileList* npw_file_list_new (void);
-void npw_file_list_free (NPWFileList* this);
-
-typedef void (*NPWFileForeachFunc) (NPWFile* file);
-
-void npw_file_list_foreach_file (const NPWFileList* this, NPWFileForeachFunc func);
-const NPWFile* npw_file_list_first (const NPWFileList* this);
+void npw_file_set_autogen (NPWFile* file, NPWFileBooleanValue value);
+NPWFileBooleanValue npw_file_get_autogen (const NPWFile* file);
 
 #endif

@@ -70,63 +70,62 @@ typedef enum {
 	NPW_TRUE = 1
 } NPWPropertyBooleanValue;
 
-NPWProperty* npw_property_new (NPWPage* owner);
-void npw_property_free (NPWProperty* this);
+NPWProperty* npw_property_new (void);
+void npw_property_free (NPWProperty* prop);
 
-void npw_property_set_type (NPWProperty* this, NPWPropertyType type);
-void npw_property_set_string_type (NPWProperty* this, const gchar* type);
-NPWPropertyType npw_property_get_type (const NPWProperty* this);
+void npw_property_set_type (NPWProperty* prop, NPWPropertyType type);
+void npw_property_set_string_type (NPWProperty* prop, const gchar* type);
+NPWPropertyType npw_property_get_type (const NPWProperty* prop);
 
-void npw_property_set_restriction (NPWProperty* this, NPWPropertyRestriction restriction);
-void npw_property_set_string_restriction (NPWProperty* this, const gchar* restriction);
-NPWPropertyRestriction npw_property_get_restriction (const NPWProperty* this);
-gboolean npw_property_is_valid_restriction (const NPWProperty* this);
+void npw_property_set_restriction (NPWProperty* prop, NPWPropertyRestriction restriction);
+void npw_property_set_string_restriction (NPWProperty* prop, const gchar* restriction);
+NPWPropertyRestriction npw_property_get_restriction (const NPWProperty* prop);
+gboolean npw_property_is_valid_restriction (const NPWProperty* prop);
 
-void npw_property_set_name (NPWProperty* this, const gchar* name);
-const gchar* npw_property_get_name (const NPWProperty* this);
+void npw_property_set_name (NPWProperty* prop, const gchar* name, NPWPage *page);
+const gchar* npw_property_get_name (const NPWProperty* prop);
 
-void npw_property_set_label (NPWProperty* this, const gchar* name);
-const gchar* npw_property_get_label (const NPWProperty* this);
+void npw_property_set_label (NPWProperty* prop, const gchar* name);
+const gchar* npw_property_get_label (const NPWProperty* prop);
 
-void npw_property_set_description (NPWProperty* this, const gchar* description);
-const gchar* npw_property_get_description (const NPWProperty* this);
+void npw_property_set_description (NPWProperty* prop, const gchar* description);
+const gchar* npw_property_get_description (const NPWProperty* prop);
 
-GtkWidget* npw_property_create_widget (NPWProperty* this);
-void npw_property_set_widget (NPWProperty* this, GtkWidget* widget);
-GtkWidget* npw_property_get_widget (const NPWProperty* this);
+GtkWidget* npw_property_create_widget (NPWProperty* prop);
+void npw_property_set_widget (NPWProperty* prop, GtkWidget* widget);
+GtkWidget* npw_property_get_widget (const NPWProperty* prop);
 
-void npw_property_set_default (NPWProperty* this, const gchar* value);
+void npw_property_set_default (NPWProperty* prop, const gchar* value);
 
-gboolean npw_property_update_value_from_widget (NPWProperty* this);
-gboolean npw_property_save_value_from_widget (NPWProperty* this);
-gboolean npw_property_remove_value (NPWProperty* this);
-const char* npw_property_get_value (const NPWProperty* this);
+gboolean npw_property_update_value_from_widget (NPWProperty* prop);
+gboolean npw_property_save_value_from_widget (NPWProperty* prop);
+gboolean npw_property_remove_value (NPWProperty* prop);
+const char* npw_property_get_value (const NPWProperty* prop);
 
-gboolean npw_property_add_list_item (NPWProperty* this, const char* name, const gchar* label);
+gboolean npw_property_add_list_item (NPWProperty* prop, const char* name, const gchar* label);
 
-void npw_property_set_mandatory_option (NPWProperty* this, gboolean value);
-void npw_property_set_summary_option (NPWProperty* this, gboolean value);
-void npw_property_set_editable_option (NPWProperty* this, gboolean value);
-NPWPropertyOptions npw_property_get_options (const NPWProperty* this);
+void npw_property_set_mandatory_option (NPWProperty* prop, gboolean value);
+void npw_property_set_summary_option (NPWProperty* prop, gboolean value);
+void npw_property_set_editable_option (NPWProperty* prop, gboolean value);
+NPWPropertyOptions npw_property_get_options (const NPWProperty* prop);
 
-void npw_property_set_exist_option (NPWProperty* this, NPWPropertyBooleanValue value);
-NPWPropertyBooleanValue npw_property_get_exist_option (const NPWProperty* this);
+void npw_property_set_exist_option (NPWProperty* prop, NPWPropertyBooleanValue value);
+NPWPropertyBooleanValue npw_property_get_exist_option (const NPWProperty* prop);
 
 
-NPWPage* npw_page_new (NPWValueHeap* value);
-void npw_page_free (NPWPage* this);
+NPWPage* npw_page_new (GHashTable* value);
+void npw_page_free (NPWPage* page);
 
-typedef void (*NPWPropertyForeachFunc) (NPWProperty* head, gpointer data);
+void npw_page_set_name (NPWPage* page, const gchar* name);
+const gchar* npw_page_get_name (const NPWPage* page);
 
-void npw_page_set_name (NPWPage* this, const gchar* name);
-const gchar* npw_page_get_name (const NPWPage* this);
+void npw_page_set_label (NPWPage* page, const gchar* name);
+const gchar* npw_page_get_label (const NPWPage* page);
 
-void npw_page_set_label (NPWPage* this, const gchar* name);
-const gchar* npw_page_get_label (const NPWPage* this);
+void npw_page_set_description (NPWPage* page, const gchar* name);
+const gchar* npw_page_get_description (const NPWPage* page);
 
-void npw_page_set_description (NPWPage* this, const gchar* name);
-const gchar* npw_page_get_description (const NPWPage* this);
-
-void npw_page_foreach_property (const NPWPage* this, NPWPropertyForeachFunc func, gpointer data);
+void npw_page_foreach_property (const NPWPage* page, GFunc func, gpointer data);
+void npw_page_add_property (NPWPage* page, NPWProperty* prop);
 
 #endif

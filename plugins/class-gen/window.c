@@ -225,7 +225,7 @@ cg_window_fetch_boolean (CgWindow *window,
 
 static void
 cg_window_set_heap_value (CgWindow *window,
-                          NPWValueHeap *values,
+                          GHashTable *values,
                           GType type,
                           const gchar *name,
                           const gchar *id)
@@ -242,16 +242,16 @@ cg_window_set_heap_value (CgWindow *window,
 	{
 	case G_TYPE_STRING:
 		text = cg_window_fetch_string (window, id);
-		npw_value_heap_set_value (values, value, text, NPW_VALID_VALUE);
+		npw_value_set_value (value, text, NPW_VALID_VALUE);
 		g_free (text);
 		break;
 	case G_TYPE_INT:
 		int_value = cg_window_fetch_integer (window, id);
 		sprintf (int_buffer, "%d", int_value);
-		npw_value_heap_set_value (values, value, int_buffer, NPW_VALID_VALUE);
+		npw_value_set_value (value, int_buffer, NPW_VALID_VALUE);
 		break;
 	case G_TYPE_BOOLEAN:
-		npw_value_heap_set_value (values, value,
+		npw_value_set_value (value,
 			cg_window_fetch_boolean (window, id) ? "1" : "0", NPW_VALID_VALUE);
 
 		break;
@@ -865,7 +865,7 @@ cg_window_get_dialog (CgWindow *window)
 	return GTK_DIALOG (CG_WINDOW_PRIVATE (window)->window);
 }
 
-NPWValueHeap *
+GHashTable *
 cg_window_create_value_heap (CgWindow *window)
 {
 	static const gchar *LICENSES[] = {
@@ -875,7 +875,7 @@ cg_window_create_value_heap (CgWindow *window)
 	};
 
 	CgWindowPrivate *priv;
-	NPWValueHeap *values;
+	GHashTable *values;
 	NPWValue *value;
 	GError *error;
 	gint license_index;
@@ -934,10 +934,10 @@ cg_window_create_value_heap (CgWindow *window)
 		g_free (text);
 
 		value = npw_value_heap_find_value (values, "BaseTypePrefix");
-		npw_value_heap_set_value (values, value, base_prefix, NPW_VALID_VALUE);
+		npw_value_set_value (value, base_prefix, NPW_VALID_VALUE);
 		
 		value = npw_value_heap_find_value (values, "BaseTypeSuffix");
-		npw_value_heap_set_value (values, value, base_suffix, NPW_VALID_VALUE);
+		npw_value_set_value (value, base_suffix, NPW_VALID_VALUE);
 		
 		g_free (base_prefix);
 		g_free (base_suffix);
@@ -1002,17 +1002,17 @@ cg_window_create_value_heap (CgWindow *window)
 	license_index = cg_window_fetch_integer (window, "license");
 	value = npw_value_heap_find_value (values, "License");
 
-	npw_value_heap_set_value(values, value, LICENSES[license_index],
+	npw_value_set_value(value, LICENSES[license_index],
 	                         NPW_VALID_VALUE);
 
 	header_file = g_path_get_basename (cg_window_get_header_file (window));
 	source_file = g_path_get_basename (cg_window_get_source_file (window));
 	
 	value = npw_value_heap_find_value (values, "HeaderFile");
-	npw_value_heap_set_value (values, value, header_file, NPW_VALID_VALUE);
+	npw_value_set_value (value, header_file, NPW_VALID_VALUE);
 	
 	value = npw_value_heap_find_value (values, "SourceFile");
-	npw_value_heap_set_value (values, value, source_file, NPW_VALID_VALUE);
+	npw_value_set_value (value, source_file, NPW_VALID_VALUE);
 	
 	g_free (header_file);
 	g_free (source_file);

@@ -34,7 +34,7 @@ typedef void (*NPWAutogenOutputFunc) (const gchar* output, gpointer data);
 NPWAutogen* npw_autogen_new (void);
 void npw_autogen_free (NPWAutogen* this);
 
-gboolean npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values);
+gboolean npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values);
 
 gboolean npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker);
 gboolean npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename);

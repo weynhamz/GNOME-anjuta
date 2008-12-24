@@ -34,7 +34,7 @@ typedef struct _NPWInstall NPWInstall;
 NPWInstall* npw_install_new (struct _NPWPlugin* plugin);
 void npw_install_free (NPWInstall* this);
 
-gboolean npw_install_set_property (NPWInstall* this, NPWValueHeap* values);
+gboolean npw_install_set_property (NPWInstall* this, GHashTable* values);
 gboolean npw_install_set_wizard_file (NPWInstall* this, const gchar* filename);
 gboolean npw_install_launch (NPWInstall* this);
 

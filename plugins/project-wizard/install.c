@@ -56,12 +56,12 @@
 struct _NPWInstall
 {
 	NPWAutogen* gen;
-	NPWFileListParser* parser;
-	NPWFileList* list;
-	const NPWFile* file;
+	NPWFileListParser* file_parser;
+	GList* file_list;
+	GList* current_file;
 	NPWActionListParser* action_parser;
-	NPWActionList* action_list;
-	const NPWAction* action;
+	GList* action_list;
+	GList* action;
 	AnjutaLauncher* launcher;
 	NPWPlugin* plugin;
 	const gchar* project_file;
@@ -205,13 +205,14 @@ NPWInstall* npw_install_new (NPWPlugin* plugin)
 
 void npw_install_free (NPWInstall* this)
 {
-	if (this->parser != NULL)
+	if (this->file_parser != NULL)
 	{
-		npw_file_list_parser_free (this->parser);
+		npw_file_list_parser_free (this->file_parser);
 	}
-	if (this->list != NULL)
+	if (this->file_list != NULL)
 	{
-		npw_file_list_free (this->list);
+		g_list_foreach (this->file_list, (GFunc)npw_file_free, NULL);
+		g_list_free (this->file_list);
 	}
 	if (this->action_parser != NULL)
 	{
@@ -219,7 +220,8 @@ void npw_install_free (NPWInstall* this)
 	}
 	if (this->action_list != NULL)
 	{
-		npw_action_list_free (this->action_list);
+		g_list_foreach (this->action_list, (GFunc)npw_action_free, NULL);
+		g_list_free (this->action_list);
 	}
 	if (this->launcher != NULL)
 	{
@@ -233,7 +235,7 @@ void npw_install_free (NPWInstall* this)
 
 
 gboolean
-npw_install_set_property (NPWInstall* this, NPWValueHeap* values)
+npw_install_set_property (NPWInstall* this, GHashTable* values)
 {
 	npw_autogen_write_definition_file (this->gen, values);
 
@@ -243,17 +245,17 @@ npw_install_set_property (NPWInstall* this, NPWValueHeap* values)
 gboolean
 npw_install_set_wizard_file (NPWInstall* this, const gchar* filename)
 {
-	if (this->list != NULL)
+	if (this->file_list != NULL)
 	{
-		npw_file_list_free (this->list);
+		g_list_foreach (this->file_list, (GFunc)npw_file_free, NULL);
+		g_list_free (this->file_list);
+		this->file_list = NULL;
 	}
-	this->list = npw_file_list_new ();
-
-	if (this->parser != NULL)
+	if (this->file_parser != NULL)
 	{
-		npw_file_list_parser_free (this->parser);
+		npw_file_list_parser_free (this->file_parser);
 	}
-	this->parser = npw_file_list_parser_new (this->list, filename);
+	this->file_parser = npw_file_list_parser_new (filename);
 
 	npw_autogen_set_input_file (this->gen, filename, "[+","+]");
 
@@ -275,21 +277,23 @@ on_install_end_action (gpointer data)
 
 	for (;;)
 	{
+		NPWAction *action;
+		
 		if (this->action == NULL)
 		{
 			if (this->success)
 			{
 				/* Run action on success only */
-				this->action = npw_action_list_first (this->action_list);
+				this->action = g_list_first (this->action_list);
 			}
 		}
 		else
 		{
-			this->action = npw_action_next (this->action);
+			this->action = g_list_next (this->action);
 		}
 		if (this->action == NULL)
 		{
-			DEBUG_PRINT ("%s", "Project wizard done");
+			DEBUG_PRINT ("Project wizard done");
 			/* The wizard could have been deactivated when loading the new
 			 * project. Hence, the following check.
 			 */
@@ -298,7 +302,9 @@ on_install_end_action (gpointer data)
 			npw_install_free (this);
 			return;
 		}
-		switch (npw_action_get_type (this->action))
+		action = (NPWAction *)this->action->data;
+		
+		switch (npw_action_get_type (action))
 		{
 		case NPW_RUN_ACTION:
 			npw_run_action (this);
@@ -317,7 +323,7 @@ on_install_read_all_action_list (NPWAutogen* gen, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
-	npw_action_list_parser_end_parse (this->action_parser, NULL);
+	this->action_list = npw_action_list_parser_end_parse (this->action_parser, NULL);
 
 	on_install_end_install_file (NULL, this);
 }
@@ -327,7 +333,7 @@ on_install_read_file_list (const gchar* output, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
-	npw_file_list_parser_parse (this->parser, output, strlen (output), NULL);
+	npw_file_list_parser_parse (this->file_parser, output, strlen (output), NULL);
 }
 
 static void
@@ -335,13 +341,22 @@ on_install_read_all_file_list (NPWAutogen* gen, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
-	npw_file_list_parser_end_parse (this->parser, NULL);
+	this->file_list = npw_file_list_parser_end_parse (this->file_parser, NULL);
 
-	this->file = NULL;
+	this->current_file = NULL;
 	this->project_file = NULL;
 
-	this->action_list = npw_action_list_new ();
-	this->action_parser = npw_action_list_parser_new (this->action_list);
+	if (this->action_list != NULL)
+	{
+		g_list_foreach (this->action_list, (GFunc)npw_action_free, NULL);
+		g_list_free (this->action_list);
+		this->action_list = NULL;
+	}
+	if (this->action_parser != NULL)
+	{
+		npw_action_list_parser_free (this->action_parser);
+	}
+	this->action_parser = npw_action_list_parser_new ();
 	npw_autogen_set_output_callback (this->gen, on_install_read_action_list, this);
 	npw_autogen_execute (this->gen, on_install_read_all_action_list, this, NULL);
 }
@@ -355,28 +370,32 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 	
 	for (;;)
 	{
-		if (this->file == NULL)
+		NPWFile *file;
+			
+		if (this->current_file == NULL)
 		{
-			this->file = npw_file_list_first (this->list);
+			this->current_file = g_list_first (this->file_list);
 		}
 		else
 		{
-			if (npw_file_get_execute (this->file))
+			NPWFile *file = (NPWFile *)this->current_file->data;
+			
+			if (npw_file_get_execute (file))
 			{
 				gint previous;
 				/* Make this file executable */
 				previous = umask (0666);
-				chmod (npw_file_get_destination (this->file), 0777 & ~previous);
+				chmod (npw_file_get_destination (file), 0777 & ~previous);
 				umask (previous);
 			}
-			if (npw_file_get_project (this->file))
+			if (npw_file_get_project (file))
 			{
 				/* Check if project is NULL */
-				this->project_file = npw_file_get_destination (this->file);
+				this->project_file = npw_file_get_destination (file);
 			}
-			this->file = npw_file_next (this->file);
+			this->current_file = g_list_next (this->current_file);
 		}
-		if (this->file == NULL)
+		if (this->current_file == NULL)
 		{
 			/* IAnjutaFileLoader* loader; */
 			/* All files have been installed */
@@ -398,13 +417,14 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 			
 			return;
 		}
-		switch (npw_file_get_type (this->file))
+		file = (NPWFile *)this->current_file->data;
+		switch (npw_file_get_type (file))
 		{
 		case NPW_FILE:
 			npw_install_install_file (this);
 			return;
 		default:
-			g_warning("Unknown file type %d\n", npw_file_get_type (this->file));
+			g_warning("Unknown file type %d\n", npw_file_get_type (file));
 			break;
 		}
 	}
@@ -430,9 +450,11 @@ npw_install_install_file (NPWInstall* this)
 	gchar* msg;
 	gboolean use_autogen;
 	gboolean ok = TRUE;
-
-	destination = npw_file_get_destination (this->file);
-	source = npw_file_get_source (this->file);
+	NPWFile *file = (NPWFile *)this->current_file->data;
+	
+	
+	destination = npw_file_get_destination (file);
+	source = npw_file_get_source (file);
 
 	/* Check if file already exist */
 	if (g_file_test (destination, G_FILE_TEST_EXISTS))
@@ -446,7 +468,7 @@ npw_install_install_file (NPWInstall* this)
 	}	
 
 	/* Check if autogen is needed */
-	switch (npw_file_get_autogen (this->file))
+	switch (npw_file_get_autogen (file))
 	{
 	case NPW_TRUE:
 		use_autogen = TRUE;
@@ -536,25 +558,28 @@ static gboolean
 npw_run_action (NPWInstall* this)
 {
 	gchar *msg;
+	NPWAction *action = (NPWAction *)this->action->data;
+	
 	if (this->launcher == NULL)
 	{
 		this->launcher = anjuta_launcher_new ();
 	}
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
-	msg = g_strconcat (_("Executing: "), npw_action_get_command (this->action), NULL);
+	msg = g_strconcat (_("Executing: "), npw_action_get_command (action), NULL);
 	npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, msg, "");
-	return anjuta_launcher_execute (this->launcher, npw_action_get_command (this->action), on_run_output, this);
+	return anjuta_launcher_execute (this->launcher, npw_action_get_command (action), on_run_output, this);
 }
 
 static gboolean
 npw_open_action (NPWInstall* this)
 {
 	IAnjutaFileLoader* loader;
+	NPWAction *action = (NPWAction *)this->action->data;
 
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->plugin)->shell, IAnjutaFileLoader, NULL);
 	if (loader)
 	{
-		GFile* file = g_file_new_for_path (npw_action_get_file (this->action));
+		GFile* file = g_file_new_for_path (npw_action_get_file (action));
 		ianjuta_file_loader_load (loader, file, FALSE, NULL);
 		g_object_unref (file);
 

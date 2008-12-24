@@ -23,7 +23,6 @@
 
 #include <glib.h>
 
-typedef struct _NPWValueHeap NPWValueHeap;
 typedef struct _NPWValue NPWValue;
 
 typedef enum {
@@ -33,19 +32,16 @@ typedef enum {
 	NPW_DEFAULT_VALUE = 1 << 2  	/* default value = could be overwritten */
 } NPWValueTag;
 
-NPWValueHeap* npw_value_heap_new (void);
-void npw_value_heap_free (NPWValueHeap* this);
+GHashTable* npw_value_heap_new (void);
+void npw_value_heap_free (GHashTable* hash);
 
-NPWValue* npw_value_heap_find_value (NPWValueHeap* this, const gchar* name);
+NPWValue* npw_value_heap_find_value (GHashTable* hash, const gchar* name);
+void npw_value_heap_foreach_value (GHashTable* hash, GHFunc func, gpointer user_data);
 
-gboolean npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag);
-const gchar* npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node);
-
-const gchar* npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node);
-NPWValueTag npw_value_heap_get_tag (const NPWValueHeap* this, const NPWValue* node);
-
-typedef void (*NPWValueHeapForeachFunc) (const gchar* name, const gchar* value, NPWValueTag tag, gpointer user_data);
-void npw_value_heap_foreach_value (const NPWValueHeap* this, NPWValueHeapForeachFunc func, gpointer user_data);
+gboolean npw_value_set_value (NPWValue* node, const gchar* value, NPWValueTag tag);
+const gchar* npw_value_get_value (const NPWValue* node);
+const gchar* npw_value_get_name (const NPWValue* node);
+NPWValueTag npw_value_get_tag (const NPWValue* node);
 
 #endif
 

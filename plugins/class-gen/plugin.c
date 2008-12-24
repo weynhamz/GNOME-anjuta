@@ -359,7 +359,7 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 {
 	AnjutaClassGenPlugin *plugin;
 	IAnjutaProjectManager *manager;
-	NPWValueHeap *values;
+	GHashTable *values;
 	NPWValue *value;
 	GError *error;
 	gchar *name;
@@ -402,7 +402,7 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 				/* Use basename of the project's root URI as project name. */
 				name = g_path_get_basename (plugin->top_dir);
 				value = npw_value_heap_find_value (values, "ProjectName");
-				npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
+				npw_value_set_value (value, name, NPW_VALID_VALUE);
 				g_free (name);
 			}
 			else
@@ -410,7 +410,7 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 				name = g_path_get_basename (cg_window_get_source_file(
 				                            plugin->window));
 				value = npw_value_heap_find_value (values, "ProjectName");
-				npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
+				npw_value_set_value (value, name, NPW_VALID_VALUE);
 				g_free (name);
 			}
 

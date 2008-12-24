@@ -93,7 +93,7 @@ struct _NPWDruid
 {
 	GtkWidget* dialog;
 	GtkNotebook* project_book;
-	GMemChunk* pool;
+	GList *stuff_list;
 	GnomeDruid* druid;
 	const gchar* project_file;
 	GnomeDruidPage* selection_page;
@@ -106,9 +106,9 @@ struct _NPWDruid
 	
 	guint page;
 	GQueue* page_list;
-	NPWValueHeap* values;
+	GHashTable* values;
 	NPWPageParser* parser;
-	NPWHeaderList* header_list;
+	GList* header_list;
 	NPWHeader* header;
 	NPWAutogen* gen;
 	gboolean busy;
@@ -185,7 +185,7 @@ npw_druid_fill_summary (NPWDruid* this)
 
 	for (i = 0; (page = g_queue_peek_nth (this->page_list, i)) != NULL; ++i)
 	{
-		npw_page_foreach_property (page, cb_druid_add_summary_property, text);
+		npw_page_foreach_property (page, (GFunc)cb_druid_add_summary_property, text);
 	}
 
 	gnome_druid_page_edge_set_text (GNOME_DRUID_PAGE_EDGE (this->finish_page), text->str);
@@ -230,10 +230,11 @@ on_druid_project_select_page (GtkWidget* widget, gpointer user_data)
 
 /* Add a project in the icon list */
 static void
-cb_druid_insert_project_icon (NPWHeader* header, gpointer user_data)
+cb_druid_insert_project_icon (gpointer data, gpointer user_data)
 {
-	gint idx;
+	NPWHeader *header = (NPWHeader *)data;
 	GnomeIconList* list = GNOME_ICON_LIST (user_data);
+	gint idx;
 
 	idx = gnome_icon_list_append (list, npw_header_get_iconfile (header), _(npw_header_get_name (header)));
 	gnome_icon_list_set_icon_data (list, idx, header);
@@ -241,7 +242,7 @@ cb_druid_insert_project_icon (NPWHeader* header, gpointer user_data)
 
 /* Add a page in the project notebook */
 static void
-cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
+cb_druid_insert_project_page (gpointer value, gpointer user_data)
 {
 	NPWDruid* this = (NPWDruid*)user_data;
 	GladeXML* xml;
@@ -249,11 +250,12 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	GtkWidget* frame;
 	GnomeIconList* list;
 	GtkLabel* desc;
+	GList *template_list = (GList *)value;
 	const gchar* category;
 	NPWDruidAndTextBuffer* data;
 
-	category = npw_header_get_category(header);
-		
+	category = npw_header_get_category ((NPWHeader *)template_list->data);
+	
 	/* Create new frame according to glade file */
 	xml = glade_xml_new (GLADE_FILE, PROJECT_SELECTION_FRAME, NULL);
 	g_return_if_fail (xml != NULL);
@@ -262,11 +264,12 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	list = GNOME_ICON_LIST (glade_xml_get_widget (xml, PROJECT_SELECTION_LIST));
 	desc = GTK_LABEL (glade_xml_get_widget (xml, PROJECT_DESCRIPTION));
 
-	npw_header_list_foreach_project_in (this->header_list, category, cb_druid_insert_project_icon, list);
+	g_list_foreach (template_list, cb_druid_insert_project_icon, list); 
 
 	/* put druid address and corresponding text buffer in one structure 
 	 * to pass them to a call back function as an unique pointer */
-	data = g_chunk_new (NPWDruidAndTextBuffer, this->pool);
+	data = g_slice_new (NPWDruidAndTextBuffer);
+	this->stuff_list = g_list_prepend (this->stuff_list, data);
 	data->druid = this;
 	data->description = desc;
 	data->header = (NPWHeader*)gnome_icon_list_get_icon_data (list, 0);
@@ -280,7 +283,7 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	g_return_if_fail (xml != NULL);
 	label = glade_xml_get_widget (xml, PROJECT_SELECTION_BOOK_LABEL);
 	g_object_unref (xml);
-	gtk_label_set_text (GTK_LABEL(label), category);
+	gtk_label_set_text (GTK_LABEL(label), (const gchar *)category);
 
 	gtk_notebook_append_page (this->project_book, frame, label);
 }
@@ -297,13 +300,13 @@ npw_druid_fill_selection_page (NPWDruid* this)
 	this->header_list = npw_header_list_new ();	
 
 	/* Fill list with all project in directory */
-	ok = npw_header_list_readdir (this->header_list, PROJECT_WIZARD_DIRECTORY);
+	ok = npw_header_list_readdir (&this->header_list, PROJECT_WIZARD_DIRECTORY);
 #ifdef LOCAL_PROJECT_WIZARD_DIRECTORY
 	local_dir = g_build_filename (g_get_home_dir(), LOCAL_PROJECT_WIZARD_DIRECTORY, NULL);
 #else
 	local_dir = anjuta_util_get_user_data_file_path ("projects/",NULL);
 #endif
-	ok = npw_header_list_readdir (this->header_list, local_dir) || ok;
+	ok = npw_header_list_readdir (&this->header_list, local_dir) || ok;
 	g_free (local_dir);
 	if (!ok)
 	{
@@ -313,7 +316,8 @@ npw_druid_fill_selection_page (NPWDruid* this)
 
 	/* Add all notebook page */
 	gtk_notebook_remove_page(this->project_book, 0);	
-	npw_header_list_foreach_category (this->header_list, cb_druid_insert_project_page, this);
+	
+	g_list_foreach (this->header_list, cb_druid_insert_project_page, this);
 
 	return TRUE;
 }
@@ -403,7 +407,7 @@ npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 	/* Add new widget */
 	data.druid = this;
 	data.row = 0;
-	npw_page_foreach_property (page, cb_druid_add_property, &data);
+	npw_page_foreach_property (page, (GFunc)cb_druid_add_property, &data);
 
 	/* Change page only if current is project selection page */
 	gnome_druid_set_page (this->druid, GNOME_DRUID_PAGE (this->property_page));
@@ -581,7 +585,7 @@ npw_druid_save_valid_values (NPWDruid* this)
 	data.modified = FALSE;
 	data.next = TRUE;
 	data.parent = GTK_WINDOW (this->dialog);
-	npw_page_foreach_property (page, cb_save_valid_property, &data);
+	npw_page_foreach_property (page, (GFunc)cb_save_valid_property, &data);
 
 	if (data.modified) npw_druid_remove_following_page (this);
 
@@ -598,7 +602,7 @@ npw_druid_save_old_values (NPWDruid* this)
 
 	page = g_queue_peek_nth (this->page_list, this->page - 1);
 	modified = FALSE;
-	npw_page_foreach_property (page, cb_save_old_property, &modified);
+	npw_page_foreach_property (page, (GFunc)cb_save_old_property, &modified);
 }
 
 
@@ -890,7 +894,7 @@ npw_druid_add_default_property (NPWDruid* this)
 	/* Add default base project directory */
 	value = npw_value_heap_find_value (this->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
 	s = anjuta_preferences_get (pref, "anjuta.project.directory");
-	npw_value_heap_set_value (this->values, value, s == NULL ? "~" : s, NPW_VALID_VALUE);
+	npw_value_set_value (value, s == NULL ? "~" : s, NPW_VALID_VALUE);
 	g_free (s);
 	
 	/* Add user name */
@@ -899,11 +903,11 @@ npw_druid_add_default_property (NPWDruid* this)
 	if (!s || strlen(s) == 0)
 	{
 		s = (gchar *)g_get_real_name();
-		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+		npw_value_set_value (value, s, NPW_VALID_VALUE);
 	}
 	else
 	{
-		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+		npw_value_set_value (value, s, NPW_VALID_VALUE);
 		g_free (s);
 	}
 	/* Add Email address */
@@ -916,7 +920,7 @@ npw_druid_add_default_property (NPWDruid* this)
 			s = getenv("USER");
 		s = g_strconcat(s, "@", getenv("HOSTNAME"), NULL);
 	}
-	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	g_free (s);
 }
 
@@ -949,8 +953,7 @@ npw_druid_new (NPWPlugin* plugin)
 
 		return NULL;
 	}
-	this->pool = g_mem_chunk_new ("druid pool", sizeof(NPWDruidStuff), sizeof(NPWDruidStuff) * 20, G_ALLOC_ONLY);
-	
+
 	/* Get reference on all useful widget */
 	this->dialog = glade_xml_get_widget (xml, NEW_PROJECT_DIALOG);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog),
@@ -999,6 +1002,12 @@ npw_druid_new (NPWPlugin* plugin)
 	return this;
 }
 
+static void
+npw_druid_stuff_free (NPWDruidStuff *stuff)
+{
+	g_slice_free (NPWDruidStuff, stuff);
+}
+
 void
 npw_druid_free (NPWDruid* this)
 {
@@ -1018,7 +1027,8 @@ npw_druid_free (NPWDruid* this)
 	npw_value_heap_free (this->values);
 	npw_autogen_free (this->gen);
 	if (this->parser != NULL) npw_page_parser_free (this->parser);
-	g_mem_chunk_destroy(this->pool);
+	g_list_foreach (this->stuff_list, (GFunc)npw_druid_stuff_free, NULL);
+	g_list_free (this->stuff_list);
 	npw_header_list_free (this->header_list);
 	gtk_widget_destroy (this->dialog);
 	this->plugin->druid = NULL;

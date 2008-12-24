@@ -80,7 +80,7 @@ typedef void(*CgElementEditorTransformFunc) (GHashTable *, gpointer);
  * eventually. */
 void cg_element_editor_set_values (CgElementEditor *editor,
                                    const gchar *name,
-                                   NPWValueHeap *values,
+                                   GHashTable *values,
                                    CgElementEditorTransformFunc func,
                                    gpointer user_data,
                                    ...);
@@ -89,7 +89,7 @@ typedef gboolean(*CgElementEditorConditionFunc) (const gchar **, gpointer);
 
 void cg_element_editor_set_value_count (CgElementEditor *editor,
                                         const gchar *name,
-                                        NPWValueHeap *values,
+                                        GHashTable *values,
                                         CgElementEditorConditionFunc func,
                                         gpointer user_data);
 

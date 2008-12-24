@@ -1,3 +1,34 @@
+2008-12-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/plugin.c,
+	plugins/project-wizard/plugin.h,
+	plugins/project-wizard/values.c,
+	plugins/project-wizard/values.h,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/parser.h,
+	plugins/project-wizard/autogen.c,
+	plugins/project-wizard/autogen.h,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/install.h,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/action.c,
+	plugins/project-wizard/action.h,
+	plugins/project-wizard/file.c,
+	plugins/project-wizard/file.h,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/header.c,
+	plugins/project-wizard/header.h,
+	plugins/project-wizard/Makefile.am,
+	plugins/class-gen/plugin.c,
+	plugins/class-gen/window.c,
+	plugins/class-gen/window.h,
+	plugins/class-gen/element-editor.c,
+	plugins/class-gen/element-editor.h,
+	plugins/class-gen/generator.c,
+	plugins/class-gen/generator.h:
+	Bug #560857 - Remove deprecated GLib symbols in project wizard
+
 2008-12-23  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (do_add_new_files),

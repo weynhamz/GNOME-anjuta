@@ -31,7 +31,7 @@
 
 #include <gnome.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
+#include <gio/gio.h>
 
 #include <string.h>
 #include <stdlib.h>
@@ -42,17 +42,10 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define STRING_CHUNK_SIZE	256
-
-/*---------------------------------------------------------------------------*/
-
 struct _NPWPage
 {
-	GNode* list;
-	GStringChunk* string_pool;
-	GMemChunk* data_pool;
-	GMemChunk* item_pool;
-	NPWValueHeap* value;
+	GList* properties;
+	GHashTable* values;
 	gchar* name;
 	gchar* label;
 	gchar* description;
@@ -67,13 +60,12 @@ struct _NPWProperty {
 	gchar* defvalue;
 	NPWValue* value;
 	GtkWidget* widget;
-	NPWPage* owner;
-	GSList* item;
+	GSList* items;
 };
 
 struct _NPWItem {
-	const gchar* name;
-	const gchar* label;
+	gchar* name;
+	gchar* label;
 };
 
 static const gchar* NPWPropertyTypeString[] = {
@@ -90,6 +82,29 @@ static const gchar* NPWPropertyTypeString[] = {
 static const gchar* NPWPropertyRestrictionString[] = {
 	"filename"
 };
+
+/* Item object
+ *---------------------------------------------------------------------------*/
+
+static NPWItem*
+npw_item_new (const gchar *name, const gchar *label)
+{
+	NPWItem *item;
+	
+	item = g_slice_new (NPWItem);
+	item->name = g_strdup (name);
+	item->label = g_strdup (label);
+	
+	return item;
+}
+
+static void
+npw_item_free (NPWItem *item)
+{
+	g_free (item->name);
+	g_free (item->label);
+	g_slice_free (NPWItem, item);
+}
 
 /* Property object
  *---------------------------------------------------------------------------*/
@@ -131,86 +146,78 @@ npw_property_restriction_from_string (const gchar* restriction)
 }
 
 NPWProperty*
-npw_property_new (NPWPage* owner)
+npw_property_new (void)
 {
-	NPWProperty* this;
+	NPWProperty* prop;
 
-	g_return_val_if_fail (owner, NULL);
-
-	this = g_chunk_new0(NPWProperty, owner->data_pool);
-	this->owner = owner;
-	this->type = NPW_UNKNOWN_PROPERTY;
-	this->restriction = NPW_NO_RESTRICTION;
-	this->item = NULL;
+	prop = g_slice_new0(NPWProperty);
+	prop->type = NPW_UNKNOWN_PROPERTY;
+	prop->restriction = NPW_NO_RESTRICTION;
 	/* value is set to NULL */
-	g_node_append_data (owner->list, this);
 
-	return this;
+	return prop;
 }
 
 void
-npw_property_free (NPWProperty* this)
+npw_property_free (NPWProperty* prop)
 {
-	GNode* node;
-
-	if (this->item != NULL)
+	if (prop->items != NULL)
 	{
-		g_slist_free (this->item);
+		g_slist_foreach (prop->items, (GFunc)npw_item_free, NULL);
+		g_slist_free (prop->items);
 	}
-	node = g_node_find_child (this->owner->list, G_TRAVERSE_ALL, this);
-	if (node != NULL)
-	{
-		g_node_destroy (node);
-		/* Memory allocated in string pool and data pool is not free */
-	}
+	g_free (prop->label);
+	g_free (prop->description);
+	g_free (prop->defvalue);
+	g_slice_free (NPWProperty, prop);
 }
 
 void
-npw_property_set_type (NPWProperty* this, NPWPropertyType type)
+npw_property_set_type (NPWProperty* prop, NPWPropertyType type)
 {
-	this->type = type;
+	prop->type = type;
 }
 
 void
-npw_property_set_string_type (NPWProperty* this, const gchar* type)
+npw_property_set_string_type (NPWProperty* prop, const gchar* type)
 {
-	npw_property_set_type (this, npw_property_type_from_string (type));
+	npw_property_set_type (prop, npw_property_type_from_string (type));
 }
 
 
 NPWPropertyType
-npw_property_get_type (const NPWProperty* this)
+npw_property_get_type (const NPWProperty* prop)
 {
-	return this->type;
+	return prop->type;
 }
 
 void
-npw_property_set_restriction (NPWProperty* this, NPWPropertyRestriction restriction)
+npw_property_set_restriction (NPWProperty* prop, NPWPropertyRestriction restriction)
 {
-	this->restriction = restriction;
+	prop->restriction = restriction;
 }
 
 void
-npw_property_set_string_restriction (NPWProperty* this, const gchar* restriction)
+npw_property_set_string_restriction (NPWProperty* prop, const gchar* restriction)
 {
-	npw_property_set_restriction (this, npw_property_restriction_from_string (restriction));
+	npw_property_set_restriction (prop, npw_property_restriction_from_string (restriction));
 }
 
 NPWPropertyRestriction
-npw_property_get_restriction (const NPWProperty* this)
+npw_property_get_restriction (const NPWProperty* prop)
 {
-	return this->restriction;
+	return prop->restriction;
 }
 
 gboolean
-npw_property_is_valid_restriction (const NPWProperty* this)
+npw_property_is_valid_restriction (const NPWProperty* prop)
 {
 	const gchar *value;
 
-	switch (this->restriction)
+	switch (prop->restriction)
 	{
 	case NPW_FILENAME_RESTRICTION:
-		value = npw_property_get_value (this);
+		value = npw_property_get_value (prop);
 
 		/* First character should be letters, digit or '_' */
 		if (value == NULL) return TRUE;
@@ -236,39 +243,39 @@ npw_property_is_valid_restriction (const NPWProperty* this)
 }
 
 void
-npw_property_set_name (NPWProperty* this, const gchar* name)
+npw_property_set_name (NPWProperty* prop, const gchar* name, NPWPage *page)
 {
-	this->value = npw_value_heap_find_value (this->owner->value, name);
+	prop->value = npw_value_heap_find_value (page->values, name);
 }
 
 const gchar*
-npw_property_get_name (const NPWProperty* this)
+npw_property_get_name (const NPWProperty* prop)
 {
-	return npw_value_heap_get_name (this->owner->value, this->value);
+	return npw_value_get_name (prop->value);
 }
 
 void
-npw_property_set_label (NPWProperty* this, const gchar* label)
+npw_property_set_label (NPWProperty* prop, const gchar* label)
 {
-	this->label = g_string_chunk_insert (this->owner->string_pool, label);
+	prop->label = g_strdup (label);
 }
 
 const gchar*
-npw_property_get_label (const NPWProperty* this)
+npw_property_get_label (const NPWProperty* prop)
 {
-	return this->label;
+	return prop->label;
 }
 
 void
-npw_property_set_description (NPWProperty* this, const gchar* description)
+npw_property_set_description (NPWProperty* prop, const gchar* description)
 {
-	this->description = g_string_chunk_insert (this->owner->string_pool, description);
+	prop->description = g_strdup (description);
 }
 
 const gchar*
-npw_property_get_description (const NPWProperty* this)
+npw_property_get_description (const NPWProperty* prop)
 {
-	return this->description;
+	return prop->description;
 }
 
 static void
@@ -319,14 +326,14 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 }
 
 GtkWidget*
-npw_property_create_widget (NPWProperty* this)
+npw_property_create_widget (NPWProperty* prop)
 {
 	GtkWidget* widget = NULL;
 	GtkWidget* entry;
 	const gchar* value;
 
-	value = npw_property_get_value (this);
-	switch (this->type)
+	value = npw_property_get_value (prop);
+	switch (prop->type)
 	{
 	case NPW_BOOLEAN_PROPERTY:
 		entry = gtk_toggle_button_new_with_label (_("No"));
@@ -351,7 +358,7 @@ npw_property_create_widget (NPWProperty* this)
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 	case NPW_FILE_PROPERTY:
-		if ((this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
+		if ((prop->options & NPW_EXIST_SET_OPTION) && !(prop->options & NPW_EXIST_OPTION))
 		{
 			GtkWidget *button;
 			
@@ -364,13 +371,13 @@ npw_property_create_widget (NPWProperty* this)
 			gtk_container_add (GTK_CONTAINER (widget), entry);
 			
 			button = gtk_button_new_from_stock (GTK_STOCK_OPEN);
-			g_signal_connect (button, "clicked", G_CALLBACK (cb_browse_button_clicked), this);
+			g_signal_connect (button, "clicked", G_CALLBACK (cb_browse_button_clicked), prop);
 			gtk_container_add (GTK_CONTAINER (widget), button);
 			gtk_box_set_child_packing (GTK_BOX (widget), button, FALSE, TRUE, 0, GTK_PACK_END);
 		}
 		else
 		{
-			if (this->type == NPW_DIRECTORY_PROPERTY)
+			if (prop->type == NPW_DIRECTORY_PROPERTY)
 			{
 				entry = gtk_file_chooser_button_new (_("Choose directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 			}
@@ -382,9 +389,11 @@ npw_property_create_widget (NPWProperty* this)
 				
 			if (value)
 			{
-				gchar* uri = gnome_vfs_make_uri_from_input (value);
+				GFile *file = g_file_parse_name (value);
+				gchar* uri = g_file_get_uri (file);
 				gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
 				g_free (uri);
+				g_object_unref (file);
 			}
 		}
 		break;
@@ -398,7 +407,7 @@ npw_property_create_widget (NPWProperty* this)
 		gboolean get_value = FALSE;
 
 		entry = gtk_combo_box_entry_new_text ();
-		for (node = this->item; node != NULL; node = node->next)
+		for (node = prop->items; node != NULL; node = node->next)
 		{
 			gtk_combo_box_append_text (GTK_COMBO_BOX (entry), _(((NPWItem *)node->data)->label));
 			if ((value != NULL) && !get_value && (strcmp (value, ((NPWItem *)node->data)->name) == 0))
@@ -407,7 +416,7 @@ npw_property_create_widget (NPWProperty* this)
 				get_value = TRUE;
 			}
 		}
-		if (!(this->options & NPW_EDITABLE_OPTION))
+		if (!(prop->options & NPW_EDITABLE_OPTION))
 		{
 			gtk_editable_set_editable (GTK_EDITABLE (GTK_BIN (entry)->child), FALSE);
 		}
@@ -417,29 +426,29 @@ npw_property_create_widget (NPWProperty* this)
 	default:
 		return NULL;
 	}
-	this->widget = entry;
+	prop->widget = entry;
 	
 
 	return widget == NULL ? entry : widget;
 }
 
 void
-npw_property_set_widget (NPWProperty* this, GtkWidget* widget)
+npw_property_set_widget (NPWProperty* prop, GtkWidget* widget)
 {
-	this->widget = widget;
+	prop->widget = widget;
 }
 
 GtkWidget*
-npw_property_get_widget (const NPWProperty* this)
+npw_property_get_widget (const NPWProperty* prop)
 {
-	return this->widget;
+	return prop->widget;
 }
 
 void
-npw_property_set_default (NPWProperty* this, const gchar* value)
+npw_property_set_default (NPWProperty* prop, const gchar* value)
 {
 	/* Check if the default property is valid */
-	if (value && (this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
+	if (value && (prop->options & NPW_EXIST_SET_OPTION) && !(prop->options & NPW_EXIST_OPTION))
 	{
 		gchar *expand_value = anjuta_util_shell_expand (value);
 		/* a file or directory with the same name shouldn't exist */
@@ -456,8 +465,7 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 				sprintf(buffer,"%s%d",value, i);
 				if (!g_file_test (buffer, G_FILE_TEST_EXISTS)) break;
 			}
-			this->defvalue = g_string_chunk_insert (this->owner->string_pool, buffer);
-			g_free (buffer);
+			prop->defvalue = buffer;
 			g_free (expand_value);
 
 			return;
@@ -466,58 +474,58 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 	}
 	/* This function could be used with value = defvalue to only check
 	 * the default property */
-	if (this->defvalue != value)
+	if (prop->defvalue != value)
 	{
-		this->defvalue = (value == NULL) ? NULL : g_string_chunk_insert (this->owner->string_pool, value);
+		prop->defvalue = (value == NULL) ? NULL : g_strdup (value);
 	}
 }
 
 static gboolean
-npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
+npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 {
 	gchar* alloc_value = NULL;
 	const gchar* value = NULL;
 	gboolean ok;
 
-	switch (this->type)
+	switch (prop->type)
 	{
 	case NPW_INTEGER_PROPERTY:
-		alloc_value = g_strdup_printf("%d", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (this->widget)));
+		alloc_value = g_strdup_printf("%d", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (prop->widget)));
 		value = alloc_value;
 		break;
 	case NPW_BOOLEAN_PROPERTY:
-		alloc_value = g_strdup_printf("%d", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (this->widget)));
+		alloc_value = g_strdup_printf("%d", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop->widget)));
 		value = alloc_value;
 		break;
 	case NPW_STRING_PROPERTY:
-		value = gtk_entry_get_text (GTK_ENTRY (this->widget));
+		value = gtk_entry_get_text (GTK_ENTRY (prop->widget));
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 	case NPW_FILE_PROPERTY:
-		if ((this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
+		if ((prop->options & NPW_EXIST_SET_OPTION) && !(prop->options & NPW_EXIST_OPTION))
 		{
 			/* a GtkEntry is used in this case*/
-			value = gtk_entry_get_text (GTK_ENTRY (this->widget));
+			value = gtk_entry_get_text (GTK_ENTRY (prop->widget));
 			/* Expand ~ and environment variable */
 			alloc_value = anjuta_util_shell_expand (value);
 			value = alloc_value;
 		}
 		else
 		{
-			alloc_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (this->widget));
+			alloc_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->widget));
 			value = alloc_value;
 		}
 		break;
 	case NPW_ICON_PROPERTY:
-		alloc_value = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (this->widget));
+		alloc_value = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (prop->widget));
 		value = alloc_value;
 		break;
 	case NPW_LIST_PROPERTY:
 	{
 		GSList* node;
 
-		value = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (this->widget)->child));
-		for (node = this->item; node != NULL; node = node->next)
+		value = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (prop->widget)->child));
+		for (node = prop->items; node != NULL; node = node->next)
 		{
 			if (strcmp (value, _(((NPWItem *)node->data)->label)) == 0)
 			{
@@ -529,227 +537,209 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 	}
 	default:
 		/* Hidden property */
-		value = this->defvalue;
+		value = prop->defvalue;
 		break;
 	}
 
 	/* Check and mark default value (will not be saved) */
-	if ((value) && (this->defvalue) && (strcmp (value, this->defvalue) == 0))
+	if ((value) && (prop->defvalue) && (strcmp (value, prop->defvalue) == 0))
 	{
 		tag |= NPW_DEFAULT_VALUE;
 	}
 	
-	ok = npw_value_heap_set_value (this->owner->value, this->value, value, tag);
+	ok = npw_value_set_value (prop->value, value, tag);
 	if (alloc_value != NULL) g_free (alloc_value);
 
 	return ok;
 }
 
 gboolean
-npw_property_update_value_from_widget (NPWProperty* this)
+npw_property_update_value_from_widget (NPWProperty* prop)
 {
-	return npw_property_set_value_from_widget (this, NPW_VALID_VALUE);
+	return npw_property_set_value_from_widget (prop, NPW_VALID_VALUE);
 }
 
 gboolean
-npw_property_save_value_from_widget (NPWProperty* this)
+npw_property_save_value_from_widget (NPWProperty* prop)
 {
-	return npw_property_set_value_from_widget (this, NPW_OLD_VALUE);
+	return npw_property_set_value_from_widget (prop, NPW_OLD_VALUE);
 }
 
 gboolean
-npw_property_remove_value (NPWProperty* this)
+npw_property_remove_value (NPWProperty* prop)
 {
-	return npw_value_heap_set_value (this->owner->value, this->value, NULL, NPW_EMPTY_VALUE);
+	return npw_value_set_value (prop->value, NULL, NPW_EMPTY_VALUE);
 }
 
 const char*
-npw_property_get_value (const NPWProperty* this)
+npw_property_get_value (const NPWProperty* prop)
 {
 	NPWValueTag tag;
 
-	tag = npw_value_heap_get_tag (this->owner->value, this->value);
+	tag = npw_value_get_tag (prop->value);
 	if ((tag == NPW_EMPTY_VALUE) || (tag & NPW_DEFAULT_VALUE))
 	{
-		return this->defvalue;
+		return prop->defvalue;
 	}
 	else
 	{
 		/* Only value entered by user could replace default value */
-		return npw_value_heap_get_value (this->owner->value, this->value);
+		return npw_value_get_value (prop->value);
 	}	
 }
 
 gboolean
-npw_property_add_list_item (NPWProperty* this, const gchar* name, const gchar* label)
+npw_property_add_list_item (NPWProperty* prop, const gchar* name, const gchar* label)
 {
 	NPWItem* item;
 
-	item  = g_chunk_new (NPWItem, this->owner->item_pool);
-	item->name = g_string_chunk_insert (this->owner->string_pool, name);
-	item->label = g_string_chunk_insert (this->owner->string_pool, label);
-
-	this->item = g_slist_append (this->item, item);
+	item = npw_item_new (name, label);
+	prop->items = g_slist_append (prop->items, item);
 
 	return TRUE;
 }
 
 void
-npw_property_set_mandatory_option (NPWProperty* this, gboolean value)
+npw_property_set_mandatory_option (NPWProperty* prop, gboolean value)
 {
 	if (value)
 	{
-		this->options |= NPW_MANDATORY_OPTION;
+		prop->options |= NPW_MANDATORY_OPTION;
 	}
 	else
 	{
-		this->options &= ~NPW_MANDATORY_OPTION;
+		prop->options &= ~NPW_MANDATORY_OPTION;
 	}
 }
 
 void
-npw_property_set_summary_option (NPWProperty* this, gboolean value)
+npw_property_set_summary_option (NPWProperty* prop, gboolean value)
 {
 	if (value)
 	{
-		this->options |= NPW_SUMMARY_OPTION;
+		prop->options |= NPW_SUMMARY_OPTION;
 	}
 	else
 	{
-		this->options &= ~NPW_SUMMARY_OPTION;
+		prop->options &= ~NPW_SUMMARY_OPTION;
 	}
 }
 
 void
-npw_property_set_editable_option (NPWProperty* this, gboolean value)
+npw_property_set_editable_option (NPWProperty* prop, gboolean value)
 {
 	if (value)
 	{
-		this->options |= NPW_EDITABLE_OPTION;
+		prop->options |= NPW_EDITABLE_OPTION;
 	}
 	else
 	{
-		this->options &= ~NPW_EDITABLE_OPTION;
+		prop->options &= ~NPW_EDITABLE_OPTION;
 	}
 }
 
 NPWPropertyOptions
-npw_property_get_options (const NPWProperty* this)
+npw_property_get_options (const NPWProperty* prop)
 {
-	return this->options;
+	return prop->options;
 }
 
 void
-npw_property_set_exist_option (NPWProperty* this, NPWPropertyBooleanValue value)
+npw_property_set_exist_option (NPWProperty* prop, NPWPropertyBooleanValue value)
 {
 	switch (value)
 	{
 	case NPW_TRUE:
-		this->options |= NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION;
+		prop->options |= NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION;
 		break;
 	case NPW_FALSE:
-		this->options &= ~NPW_EXIST_OPTION;
-		this->options |= NPW_EXIST_SET_OPTION;
-		npw_property_set_default (this, this->defvalue);
+		prop->options &= ~NPW_EXIST_OPTION;
+		prop->options |= NPW_EXIST_SET_OPTION;
+		npw_property_set_default (prop, prop->defvalue);
 		break;
 	case NPW_DEFAULT:
-		this->options &= ~(NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION);
+		prop->options &= ~(NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION);
 		break;
 	}
 }
 
 NPWPropertyBooleanValue
-npw_property_get_exist_option (const NPWProperty* this)
+npw_property_get_exist_option (const NPWProperty* prop)
 {
-	return this->options & NPW_EXIST_SET_OPTION ? (this->options & NPW_EXIST_OPTION ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
+	return prop->options & NPW_EXIST_SET_OPTION ? (prop->options & NPW_EXIST_OPTION ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
 }
 
 /* Page object = list of properties
  *---------------------------------------------------------------------------*/
 
 NPWPage*
-npw_page_new (NPWValueHeap* value)
+npw_page_new (GHashTable* value)
 {
-	NPWPage* this;
+	NPWPage* page;
 
-	this = g_new0(NPWPage, 1);
-	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new ("property pool", sizeof (NPWProperty), STRING_CHUNK_SIZE * sizeof (NPWProperty) / 4, G_ALLOC_ONLY);
-	this->item_pool = g_mem_chunk_new ("item pool", sizeof (NPWItem), STRING_CHUNK_SIZE * sizeof (NPWItem) / 4, G_ALLOC_ONLY);
-	this->list = g_node_new (NULL);
-	this->value = value;
+	page = g_new0(NPWPage, 1);
+	page->values = value;
 
-	return this;
+	return page;
 }
 
 void
-npw_page_free (NPWPage* this)
+npw_page_free (NPWPage* page)
 {
-	g_return_if_fail (this != NULL);
+	g_return_if_fail (page != NULL);
 
-	g_string_chunk_free (this->string_pool);
-	g_mem_chunk_destroy (this->data_pool);
-	g_mem_chunk_destroy (this->item_pool);
-	g_node_destroy (this->list);
-	g_free (this);
+	g_free (page->name);
+	g_free (page->label);
+	g_free (page->description);
+	g_list_foreach (page->properties, (GFunc)npw_property_free, NULL);
+	g_list_free (page->properties);
+	g_free (page);
 }
 
 void
-npw_page_set_name (NPWPage* this, const gchar* name)
+npw_page_set_name (NPWPage* page, const gchar* name)
 {
-	this->name = g_string_chunk_insert (this->string_pool, name);
+	page->name = g_strdup (name);
 }
 
 const gchar*
-npw_page_get_name (const NPWPage* this)
+npw_page_get_name (const NPWPage* page)
 {
-	return this->name;
+	return page->name;
 }
 
 void
-npw_page_set_label (NPWPage* this, const gchar* label)
+npw_page_set_label (NPWPage* page, const gchar* label)
 {
-	this->label = g_string_chunk_insert (this->string_pool, label);
+	page->label = g_strdup (label);
 }
 
 const gchar*
-npw_page_get_label (const NPWPage* this)
+npw_page_get_label (const NPWPage* page)
 {
-	return this->label;
+	return page->label;
 }
 
 void
-npw_page_set_description (NPWPage* this, const gchar* description)
+npw_page_set_description (NPWPage* page, const gchar* description)
 {
-	this->description = g_string_chunk_insert (this->string_pool, description);
+	page->description = g_strdup (description);
 }
 
 const gchar*
-npw_page_get_description (const NPWPage* this)
+npw_page_get_description (const NPWPage* page)
 {
-	return this->description;
-}
-
-typedef struct _PageForeachPropertyData
-{
-	NPWPropertyForeachFunc func;
-	gpointer data;
-} PageForeachPropertyData;
-
-static void
-cb_page_foreach_property (GNode* node, gpointer data)
-{
-	PageForeachPropertyData* d = (PageForeachPropertyData *)data;
-
-	(d->func)((NPWProperty*)node->data, d->data);
+	return page->description;
 }
 
 void
-npw_page_foreach_property (const NPWPage* this, NPWPropertyForeachFunc func, gpointer data)
+npw_page_foreach_property (const NPWPage* page, GFunc func, gpointer data)
 {
-	PageForeachPropertyData d;
+	g_list_foreach (page->properties, func, data);
+}
 
-	d.func = func;
-	d.data = data;
-	g_node_children_foreach (this->list, G_TRAVERSE_LEAFS, cb_page_foreach_property, &d);
+void
+npw_page_add_property (NPWPage* page, NPWProperty *prop)
+{
+	page->properties = g_list_append (page->properties, prop);
 }

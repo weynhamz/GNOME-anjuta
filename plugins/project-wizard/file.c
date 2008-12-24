@@ -27,28 +27,13 @@
 
 #include "file.h"
 
-#include <glib.h>
-
 /*---------------------------------------------------------------------------*/
-
-#define STRING_CHUNK_SIZE	256
-
-/*---------------------------------------------------------------------------*/
-
-struct _NPWFileList
-{
-	GNode* list;
-	GStringChunk* string_pool;
-	GMemChunk* data_pool;
-};
 
 struct _NPWFile {
 NPWFileType type;
 	gchar* source;
 	gchar* destination;
 	gint attribute;
-	NPWFileList* owner;
-	GNode* node;
 };
 
 typedef enum {
@@ -62,183 +47,105 @@ typedef enum {
  *---------------------------------------------------------------------------*/
 
 NPWFile*
-npw_file_new (NPWFileList* owner)
+npw_file_new_file (const gchar *destination, const gchar *source)
 {
-	NPWFile* this;
+	NPWFile *file;
 
-	g_return_val_if_fail (owner, NULL);
+	g_return_val_if_fail (destination && source, NULL);
 
-	this = g_chunk_new0(NPWFile, owner->data_pool);
-	this->owner = owner;
-	this->node = g_node_append_data (owner->list, this);
-	this->attribute = 0;
+	file = g_slice_new(NPWFile);
+	file->type = NPW_FILE;
+	file->destination = g_strdup (destination);
+	file->source = g_strdup (source);
+	file->attribute = 0;
 	
-	return this;
+	return file;
 }
 
 void
-npw_file_free (NPWFile* this)
+npw_file_free (NPWFile* file)
 {
-	GNode* node;
-
-	node = g_node_find_child (this->owner->list, G_TRAVERSE_ALL, this);
-	if (node != NULL)
-	{
-		g_node_destroy (node);
-		/* Memory allocated in string pool and project pool is not free */
-	}
-}
-
-void
-npw_file_set_type (NPWFile* this, NPWFileType type)
-{
-	this->type = type;
+	g_free (file->destination);
+	g_free (file->source);
+	g_slice_free (NPWFile, file);
 }
 
 NPWFileType
-npw_file_get_type (const NPWFile* this)
+npw_file_get_type (const NPWFile* file)
 {
-	return this->type;
-}
-
-void
-npw_file_set_destination (NPWFile* this, const gchar* destination)
-{
-	this->destination = g_string_chunk_insert (this->owner->string_pool, destination);
+	return file->type;
 }
 
 const gchar*
-npw_file_get_destination (const NPWFile* this)
+npw_file_get_destination (const NPWFile* file)
 {
-	return this->destination;
-}
-
-void
-npw_file_set_source (NPWFile* this, const gchar* source)
-{
-	this->source = g_string_chunk_insert (this->owner->string_pool, source);
+	return file->destination;
 }
 
 const gchar*
-npw_file_get_source (const NPWFile* this)
+npw_file_get_source (const NPWFile* file)
 {
-	return this->source;
+	return file->source;
 }
 
 void
-npw_file_set_execute (NPWFile* this, gboolean value)
+npw_file_set_execute (NPWFile* file, gboolean value)
 {
 	if (value)
 	{
-		this->attribute |= NPW_EXECUTE_FILE;
+		file->attribute |= NPW_EXECUTE_FILE;
 	}
 	else
 	{
-		this->attribute &= ~NPW_EXECUTE_FILE;
+		file->attribute &= ~NPW_EXECUTE_FILE;
 	}
 }
 
 gboolean
-npw_file_get_execute (const NPWFile* this)
+npw_file_get_execute (const NPWFile* file)
 {
-	return this->attribute & NPW_EXECUTE_FILE;
+	return file->attribute & NPW_EXECUTE_FILE;
 }
 
 void
-npw_file_set_project (NPWFile* this, gboolean value)
+npw_file_set_project (NPWFile* file, gboolean value)
 {
 	if (value)
 	{
-		this->attribute |= NPW_PROJECT_FILE;
+		file->attribute |= NPW_PROJECT_FILE;
 	}
 	else
 	{
-		this->attribute &= ~NPW_PROJECT_FILE;
+		file->attribute &= ~NPW_PROJECT_FILE;
 	}
 }
 
 gboolean
-npw_file_get_project (const NPWFile* this)
+npw_file_get_project (const NPWFile* file)
 {
-	return this->attribute & NPW_PROJECT_FILE;
+	return file->attribute & NPW_PROJECT_FILE;
 }
 
 void
-npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value)
+npw_file_set_autogen (NPWFile* file, NPWFileBooleanValue value)
 {
 	switch (value)
 	{
 	case NPW_FILE_TRUE:
-		this->attribute |= NPW_AUTOGEN_FILE | NPW_AUTOGEN_SET;
+		file->attribute |= NPW_AUTOGEN_FILE | NPW_AUTOGEN_SET;
 		break;
 	case NPW_FILE_FALSE:
-		this->attribute |= NPW_AUTOGEN_SET;
-		this->attribute &= ~NPW_AUTOGEN_FILE;
+		file->attribute |= NPW_AUTOGEN_SET;
+		file->attribute &= ~NPW_AUTOGEN_FILE;
 		break;
 	case NPW_FILE_DEFAULT:
-		this->attribute &= ~(NPW_AUTOGEN_SET | NPW_AUTOGEN_FILE);
+		file->attribute &= ~(NPW_AUTOGEN_SET | NPW_AUTOGEN_FILE);
 		break;
 	}
 }
 
 NPWFileBooleanValue
-npw_file_get_autogen (const NPWFile* this)
+npw_file_get_autogen (const NPWFile* file)
 {
-	return this->attribute & NPW_AUTOGEN_SET ? (this->attribute & NPW_AUTOGEN_FILE ? NPW_FILE_TRUE : NPW_FILE_FALSE) : NPW_FILE_DEFAULT;
-}
-
-const NPWFile*
-npw_file_next (const NPWFile* this)
-{
-	GNode* node = this->node->next;
-
-	return node == NULL ? NULL : (NPWFile *)node->data;
-}
-
-/* File list object
- *---------------------------------------------------------------------------*/
-
-NPWFileList*
-npw_file_list_new (void)
-{
-	NPWFileList* this;
-
-	this = g_new (NPWFileList, 1);
-	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new ("file pool", sizeof (NPWFile), STRING_CHUNK_SIZE * sizeof (NPWFile) / 4, G_ALLOC_ONLY);
-	this->list = g_node_new (NULL);
-
-	return this;
-}
-
-void
-npw_file_list_free (NPWFileList* this)
-{
-	g_return_if_fail (this != NULL);
-
-	g_string_chunk_free (this->string_pool);
-	g_mem_chunk_destroy (this->data_pool);
-	g_node_destroy (this->list);
-	g_free (this);
-}
-
-static void
-cb_file_list_foreach_file (GNode* node, gpointer data)
-{
-	((NPWFileForeachFunc)data)((NPWFile*)node->data);
-}
-
-void
-npw_file_list_foreach_file (const NPWFileList* this, NPWFileForeachFunc func)
-{
-	g_node_children_foreach (this->list, G_TRAVERSE_LEAFS, cb_file_list_foreach_file, (gpointer)func);
-}
-
-const NPWFile*
-npw_file_list_first (const NPWFileList* this)
-{
-	/* Should work even if first child is NULL (empty list) */
-	GNode* node = g_node_first_child (this->list);
-
-	return node == NULL ? NULL : (NPWFile *)node->data;
+	return file->attribute & NPW_AUTOGEN_SET ? (file->attribute & NPW_AUTOGEN_FILE ? NPW_FILE_TRUE : NPW_FILE_FALSE) : NPW_FILE_DEFAULT;
 }

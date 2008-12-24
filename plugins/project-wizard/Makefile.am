@@ -30,7 +30,8 @@ plugin_LTLIBRARIES = libanjuta-project-wizard.la
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"libanjuta-project-wizard\"
 
 libanjuta_project_wizard_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
