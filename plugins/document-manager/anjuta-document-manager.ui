@@ -115,9 +115,10 @@
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="Save" action="ActionFileSave" />
-			<separator name="separator16"/>
+			<separator />
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />
+			<separator />
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">

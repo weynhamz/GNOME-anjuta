@@ -953,7 +953,7 @@ static GtkActionEntry actions_stopped[] =
 {
 	{
 		"ActionDebuggerRunContinue",                   /* Action name */
-		GTK_STOCK_EXECUTE,                             /* Stock icon, if any */
+		GTK_STOCK_MEDIA_PLAY,                             /* Stock icon, if any */
 		N_("Run/_Continue"),                           /* Display label */
 		"F4",                                          /* short-cut */
 		N_("Continue the execution of the program"),   /* Tooltip */

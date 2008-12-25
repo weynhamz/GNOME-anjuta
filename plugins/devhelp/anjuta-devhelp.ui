@@ -12,9 +12,4 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarMain">
-	</toolbar>
-	<toolbar name="ToolbarBrowser">		
-		<toolitem name="Context" action="ActionHelpContext" />
-	</toolbar>
 </ui>

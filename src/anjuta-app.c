@@ -34,8 +34,6 @@
 #include <gdl/gdl-dock-bar.h>
 #include <gdl/gdl-switcher.h>
 
-#include <bonobo/bonobo-dock-item.h>
-
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
@@ -59,7 +57,6 @@ static void anjuta_app_layout_save (AnjutaApp *app,
 									const gchar *name);
 
 static gpointer parent_class = NULL;
-static GList* toolbars = NULL;
 static GtkToolbarStyle style = -1;
 
 static void
@@ -67,7 +64,6 @@ on_toolbar_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 						  gpointer user_data)
 {
 	AnjutaApp* app = ANJUTA_APP (user_data);
-	GList *node = toolbars;
 	
 	char* tb_style = anjuta_preferences_get (app->preferences, "anjuta.toolbar.style");
 	
@@ -91,19 +87,11 @@ on_toolbar_style_changed (GConfClient* client, guint id, GConfEntry* entry,
 	
 	if (style != -1)
 	{
-		while (node)
-		{
-			gtk_toolbar_set_style (GTK_TOOLBAR (node->data), style);
-			node = node->next;
-		}
+		gtk_toolbar_set_style (GTK_TOOLBAR (app->toolbar), style);
 	}
 	else
 	{
-		while (node)
-		{
-			gtk_toolbar_unset_style (GTK_TOOLBAR (node->data));
-			node = node->next;
-		}
+		gtk_toolbar_unset_style (GTK_TOOLBAR (app->toolbar));
 	}
 }
 
@@ -204,234 +192,14 @@ on_layout_locked_notify (GdlDockMaster *master, GParamSpec *pspec,
 }
 
 static void
-anjuta_app_add_dock_item (AnjutaApp *app, BonoboDockItem *item,
-						  BonoboDockPlacement placement, gint band_num,
-						  gint band_position, gint offset)
-{
-	if (app->bonobo_layout)
-		bonobo_dock_layout_add_item (app->bonobo_layout,
-									 BONOBO_DOCK_ITEM (item),
-									 placement, band_num, band_position,
-									 offset);
-	else
-		bonobo_dock_add_item (BONOBO_DOCK(app->bonobo_dock),
-							  BONOBO_DOCK_ITEM( item),
-							  placement, band_num, band_position, offset, FALSE);
-
-	g_signal_emit_by_name (app->bonobo_dock, "layout_changed", app);
-}
-
-
-static void
-on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
-{
-	AnjutaApp *app;
-	GtkWidget *dock_item;
-	const gchar *name;
-	gint band;
-	gint position;
-	gint offset;
-
-	
-	name = gtk_widget_get_name (widget);
-	app = g_object_get_data (G_OBJECT(widget), "app");
-	dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");
-	band = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "band"));
-	position = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "position"));
-	offset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "offset"));
-
-	
-	if (gtk_check_menu_item_get_active (menuitem))
-	{
-		if (!dock_item)
-		{
-			static gint count;
-			gchar *unique_name = g_strdup_printf ("%s-%d", name, count);
-			
-			DEBUG_PRINT ("Adding dock item %s band %d, offset %d, position %d",
-						 unique_name, band, offset, position);
-
-			dock_item = bonobo_dock_item_new (unique_name,
-											  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
-											  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING);
-
-			gtk_container_add (GTK_CONTAINER (dock_item), widget);
-
-			/* Widget not yet added to the dock. Add it */
-			anjuta_app_add_dock_item (app, BONOBO_DOCK_ITEM (dock_item),
-									  BONOBO_DOCK_TOP, band, position, offset);
-
-			g_object_set_data_full (G_OBJECT(dock_item), "unique_name",
-									unique_name, g_free);
-			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
-			count++;
-		}
-		gtk_widget_show (dock_item);
-		gtk_widget_show (GTK_BIN (dock_item)->child);
-	}
-	else if (dock_item)
-	{
-		gtk_widget_hide (dock_item);
-		gtk_widget_hide (GTK_BIN (dock_item)->child);
-	}
-}
-
-static void
-on_merge_widget_destroy (GtkWidget *merge_widget, GtkWidget *menuitem)
-{
-	toolbars = g_list_remove (toolbars, merge_widget);
-	DEBUG_PRINT ("%s", "Destroying menuitem for toolbar widget");
-	gtk_widget_destroy (menuitem);
-}
-
-static void
-on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
-					 GtkWidget *ui_container)
-{
-	DEBUG_PRINT ("%s", "Adding UI item ...");
-	
-	if (GTK_IS_MENU_BAR (widget))
-	{
-		/* We don't need to manage GtkMenuBar widgets */
-		return;
-	}
-	else
-	{
-		static gint count = 0;
-		const gchar *toolbarname;
-		gchar* visible_key;
-		gchar* band_key;
-		gchar* position_key;
-		gchar* offset_key;		
-		AnjutaPreferences *pr;
-		GtkWidget *menuitem;
-		gint band;
-		gint position;
-		gint offset;
-		pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences);
-		
-		/* Showing the arrows seem to break anything completly! */
-		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
-		
-		/* Set the toolbar style */
-		if (style != -1)
-			gtk_toolbar_set_style(GTK_TOOLBAR (widget), style);
-		
-		gtk_widget_show (widget);
-		g_object_set_data (G_OBJECT (widget), "app", ui_container);
-		
-		/* Load toolbar position */
-		toolbarname = gtk_widget_get_name (widget);
-		band_key = g_strconcat (toolbarname, ".band", NULL);
-		position_key = g_strconcat (toolbarname, ".position", NULL);
-		offset_key = g_strconcat (toolbarname, ".offset", NULL);		
-		band = anjuta_preferences_get_int_with_default(pr, band_key, -1);
-		position = anjuta_preferences_get_int_with_default(pr, position_key, 0);
-		offset = anjuta_preferences_get_int_with_default(pr, offset_key, 0);
-		g_object_set_data(G_OBJECT(widget), "position", GINT_TO_POINTER(position));
-		g_object_set_data(G_OBJECT(widget), "offset", GINT_TO_POINTER(offset));
-		g_object_set_data (G_OBJECT (widget), "band",
-						   GINT_TO_POINTER(band));
-		
-		g_free(offset_key);
-		g_free(position_key);
-		g_free(band_key);
-		DEBUG_PRINT ("Adding toolbar: %s", toolbarname);
-		
-		if (!ANJUTA_APP (ui_container)->toolbars_menu)
-		{
-			ANJUTA_APP (ui_container)->toolbars_menu = gtk_menu_new ();
-			gtk_widget_show (GTK_WIDGET (ANJUTA_APP (ui_container)->toolbars_menu));
-		}
-		
-		menuitem = gtk_check_menu_item_new_with_label (toolbarname);
-		gtk_menu_append (GTK_MENU (ANJUTA_APP (ui_container)->toolbars_menu),
-						 menuitem);
-		gtk_widget_show (GTK_WIDGET (menuitem));
-		g_signal_connect (G_OBJECT (menuitem), "toggled",
-						  G_CALLBACK (on_toolbar_view_toggled), widget);
-		g_object_set_data(G_OBJECT(widget), "menuitem", menuitem);
-		
-		/* When the toolbar is destroyed make sure corresponding menuitem is
-		 * also destroyed */
-		g_signal_connect (widget, "destroy",
-						  G_CALLBACK (on_merge_widget_destroy),
-						  menuitem);
-		
-		toolbars = g_list_append(toolbars, widget);
-
-		/* Show/hide toolbar */
-		visible_key = g_strconcat (toolbarname, ".visible", NULL);
-		if (anjuta_preferences_get_int_with_default (pr, visible_key,
-													 (count == 0)? 1:0))
-		{
-			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem),
-											TRUE);
-		}
-		g_free (visible_key);
-		count ++;
-	}
-}
-
-static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, AnjutaApp *app)
 {
 	gchar *geometry, *layout_file;
 	GdkWindowState state;
-	GList* node = toolbars;
-	
 	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
-	
-	/* Save toolbars */
-	while (node)
-	{
-		GtkWidget* widget = node->data;
-		GtkWidget* dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");;
-		const gchar* toolbarname = gtk_widget_get_name(widget);
-		AnjutaPreferences* pr = ANJUTA_PREFERENCES (app->preferences);
-				
-		if (dock_item)
-		{
-			gboolean visible;
-			gchar* key = g_strconcat (toolbarname, ".visible", NULL);
-			gchar* band_key = g_strconcat (toolbarname, ".band", NULL);
-			gchar* position_key = g_strconcat (toolbarname, ".position", NULL);
-			gchar* offset_key = g_strconcat (toolbarname, ".offset", NULL);
-			
-			/* Save visibility */
-			g_object_get(G_OBJECT(dock_item), "visible", &visible, NULL);
-			anjuta_preferences_set_int(pr, key, visible);
-			g_free(key);
-			
-			/* Save toolbar position */
-			if (app->bonobo_dock != NULL)
-			{
-				guint band;
-				guint position;
-				guint offset;
-				BonoboDockPlacement placement;
-				gchar* unique_name = g_object_get_data(G_OBJECT(dock_item),
-													   "unique_name");
-				
-				BonoboDockItem* item = bonobo_dock_get_item_by_name(BONOBO_DOCK(app->bonobo_dock), 
-																	unique_name, &placement, 
-																	&band, &position, &offset);
-				g_return_if_fail(item != NULL);
-			
-				anjuta_preferences_set_int(pr, band_key, band);
-				anjuta_preferences_set_int(pr, position_key, position);
-				anjuta_preferences_set_int(pr, offset_key, offset);
-			}
-			
-			g_free (band_key);
-			g_free (position_key);
-			g_free (offset_key);
-		}
-		node = g_list_next(node);
-	}
 	
 	/* Save geometry */
 	state = gdk_window_get_state (GTK_WIDGET (app)->window);
@@ -504,7 +272,6 @@ static void
 anjuta_app_dispose (GObject *widget)
 {
 	AnjutaApp *app;
-	GList *tmp_list;
 	
 	g_return_if_fail (ANJUTA_IS_APP (widget));
 	
@@ -537,18 +304,6 @@ anjuta_app_dispose (GObject *widget)
 		g_hash_table_destroy (app->values);
 		app->values = NULL;
 	}
-	
-	/* We need to destroy to the toolbars now so that the
-	 * on_merge_widget_destroy() does not produce a error trying to destory
-	 * already destroyed menuitems which happen when the window is being
-	 * destroyed
-	 *
-	 * Make a tmp list because the handler removes items from 'toolbars' list.
-	 * FIXME: Why is 'toolbars' a global static variable?
-	 */
-	tmp_list = g_list_copy (toolbars);
-	g_list_foreach (tmp_list, (GFunc)gtk_widget_destroy, NULL);
-	g_list_free (tmp_list);
 	
 	if (app->layout_manager) {
 		g_object_unref (app->layout_manager);
@@ -589,7 +344,7 @@ static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
-	GtkWidget *menubar, *toolbar_menu, *about_menu;
+	GtkWidget *menubar, *about_menu;
 	GtkWidget *view_menu, *hbox;
 	GtkWidget *main_box;
 	GtkWidget *dockbar;
@@ -611,8 +366,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	main_box = gtk_vbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (app), main_box);
 	gtk_widget_show (main_box);
-		
-	app->layout_manager = NULL;
 	
 	app->values = NULL;
 	app->widgets = NULL;
@@ -645,10 +398,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
-	
-	g_signal_connect (G_OBJECT (app->ui),
-					  "add_widget", G_CALLBACK (on_add_merge_widget),
-					  app);
 	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer)&app->ui);
 	
 	/* Plugin Manager */
@@ -668,11 +417,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 								   on_gdl_style_changed, app, NULL);
 	
 	on_gdl_style_changed (NULL, 0, NULL, app);
-	
-	anjuta_preferences_notify_add (app->preferences, "anjuta.toolbar.style",
-								   on_toolbar_style_changed, app, NULL);
-	
-	on_toolbar_style_changed (NULL, 0, NULL, app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -697,17 +441,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 										G_N_ELEMENTS (menu_entries_help),
 										GETTEXT_PACKAGE, TRUE, app);
 
-	/* Bonobo stuff */	
-	app->bonobo_dock = bonobo_dock_new ();
-	gtk_widget_show (app->bonobo_dock);
-	
-	app->bonobo_layout = bonobo_dock_layout_new ();   
-	bonobo_dock_add_from_layout (BONOBO_DOCK (app->bonobo_dock),
-								 app->bonobo_layout);
-						    
-	g_object_unref (app->bonobo_layout);
-	app->bonobo_layout = NULL;
-
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
 	
@@ -721,22 +454,19 @@ anjuta_app_instance_init (AnjutaApp *app)
 	gtk_box_pack_start (GTK_BOX (main_box), menubar, FALSE, FALSE, 0);
 	gtk_widget_show (menubar);
 	
-	/*
-	 * We have to add the dock after merging the ui
-	 */
-	gtk_box_pack_start (GTK_BOX (main_box), app->bonobo_dock,
-			    TRUE, TRUE, 0);
-	bonobo_dock_set_client_area (BONOBO_DOCK (app->bonobo_dock), hbox);
-	
-	/* create toolbar menus */
-	toolbar_menu =
-		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
-								  "/MenuMain/MenuView/Toolbars");
-	if (toolbar_menu)
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (toolbar_menu),
-								   app->toolbars_menu);
-	else
-		g_warning ("Cannot retrive main menu widget");
+	/* create toolbar */	
+	app->toolbar = gtk_ui_manager_get_widget (GTK_UI_MANAGER (app->ui),
+										 "/ToolbarMain");
+	gtk_box_pack_start (GTK_BOX (main_box), app->toolbar, FALSE, FALSE, 0);
+	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
+										"/MenuMain/MenuView/Toolbar");
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION(action),
+								  anjuta_preferences_get_int_with_default (app->preferences,
+																		   "anjuta.toolbar.visible",
+																		   TRUE));
+	anjuta_preferences_notify_add (app->preferences, "anjuta.toolbar.style",
+								   on_toolbar_style_changed, app, NULL);
+	on_toolbar_style_changed (NULL, 0, NULL, app);
 
 	/* Create widgets menu */
 	view_menu = 
@@ -756,7 +486,10 @@ anjuta_app_instance_init (AnjutaApp *app)
 								   "/MenuMain/PlaceHolderHelpMenus/MenuHelp/"
 								   "PlaceHolderHelpAbout/AboutPlugins");
 	about_create_plugins_submenu (ANJUTA_SHELL (app), about_menu);
-							
+	
+	/* Add main view */
+	gtk_box_pack_start (GTK_BOX (main_box), hbox, TRUE, TRUE, 0);
+						
 	/* Connect to session */
 	g_signal_connect (G_OBJECT (app), "save_session",
 					  G_CALLBACK (on_session_save), app);
@@ -1055,20 +788,6 @@ static void
 on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 {
 	GtkWidget *dock_item;
-	GList* node = toolbars;
-	while (node)
-	{
-		if (node->data == widget)
-		{
-			g_message("Removing toolbar");
-			GtkWidget* menuitem = GTK_WIDGET(g_object_get_data(G_OBJECT(widget), "menuitem"));
-			gtk_widget_hide(menuitem);
-			gtk_widget_destroy(menuitem);
-			toolbars = g_list_delete_link(toolbars, node);
-			break;
-		}
-		node = g_list_next(node);
-	}
 
 	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
 	if (dock_item)

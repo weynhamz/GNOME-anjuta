@@ -10,14 +10,6 @@
 				</menu>
 	  </menu>
 	</menubar>
-	<toolbar name="ToolbarBrowser">
-		<placeholder name="PlaceholderBrowserToolbar" >
-  		<separator name="separator1" />
-			<toolitem name="PreviousMessage" action="ActionMessagePrev"/>
-			<toolitem name="NextMessage" action="ActionMessageNext"/>
-			<separator name="separator2" />
-		</placeholder>
-	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menu name="Goto" action="ActionMenuGoto">
 			<menuitem name="PrevMessage" action="ActionMessagePrev" />

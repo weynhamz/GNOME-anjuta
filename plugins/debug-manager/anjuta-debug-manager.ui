@@ -50,7 +50,7 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarDebug">
+	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderDebugToolbar" >
 			<toolitem name="Run" action="ActionDebuggerRunContinue" />
 			<toolitem name="RunToPosition" action="ActionDebuggerRunToPosition" />

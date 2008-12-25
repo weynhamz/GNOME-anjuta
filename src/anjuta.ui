@@ -23,7 +23,7 @@
 			<menuitem name="LockLayout" action="ActionViewLockLayout"/>
 			<menuitem name="ResetLayout" action="ActionViewResetLayout"/>
 			<separator name="separate1"/>
-			<menuitem name="Toolbars" action="ActionViewToolbars"/>
+			<menuitem name="Toolbar" action="ActionViewToolbar"/>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus"/>
 		<placeholder name="PlaceHolderProjectMenus"/>
@@ -59,11 +59,14 @@
 		</placeholder>
 		<placeholder name="TestPlaceholder" />
 	</menubar>
-	<toolbar name="ToolbarMain"/>
-	<toolbar name="ToolbarBrowser"/>
-	<toolbar name="ToolbarBookmark"/>
-	<toolbar name="ToolbarBuild">
-		<placeholder name="PlaceHolderBuild"/>
-		<placeholder name="PlaceHolderExecute"/>
+	<toolbar name="ToolbarMain">
+	  <placeholder name="PlaceholderFileToolbar" />
+	  <separator />
+	  <placeholder name="PlaceHolderBuild" />
+	  <separator />
+	  <placeholder name="PlaceHolderExecute" />
+	  <separator />
+	  <placeholder name="PlaceholderDebugToolbar" />
+	  <separator />
 	</toolbar>
 </ui>

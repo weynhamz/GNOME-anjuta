@@ -43,7 +43,7 @@ typedef struct _AnjutaAppClass AnjutaAppClass;
 struct _AnjutaApp
 {
 	GtkWindow parent;
-	GtkWidget *toolbars_menu;
+	GtkWidget *toolbar;
 	GtkWidget *view_menu;
 	GtkWidget *dock;
  	GdlDockLayout *layout_manager;
@@ -58,10 +58,6 @@ struct _AnjutaApp
 	AnjutaPreferences *preferences;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
-	
-	/* Bonobo */
-	GtkWidget *bonobo_dock;
-	BonoboDockLayout *bonobo_layout;
 };
 
 struct _AnjutaAppClass

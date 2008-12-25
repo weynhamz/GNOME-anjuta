@@ -26,7 +26,7 @@ void on_exit1_activate (GtkAction * action, AnjutaApp *app);
 void on_fullscreen_toggle (GtkAction *action, AnjutaApp *app);
 void on_layout_lock_toggle (GtkAction *action, AnjutaApp *app);
 void on_reset_layout_activate (GtkAction *action, AnjutaApp *app);
-
+void on_toolbar_view_toggled (GtkAction *action,  AnjutaApp *app);
 void on_set_preferences1_activate (GtkAction * action, AnjutaApp *app);
 
 /* Help actions */

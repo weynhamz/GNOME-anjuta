@@ -75,6 +75,23 @@ on_reset_layout_activate(GtkAction *action, AnjutaApp *app)
 }
 
 void
+on_toolbar_view_toggled (GtkAction *action, AnjutaApp *app)
+{
+	gboolean status = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+	if (status)
+	{
+		gtk_widget_show (app->toolbar);
+	}
+	else
+	{
+		gtk_widget_hide (app->toolbar);
+	}
+	anjuta_preferences_set_int (app->preferences,
+								"anjuta.toolbar.visible",
+								status);
+}
+
+void
 on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 {
 

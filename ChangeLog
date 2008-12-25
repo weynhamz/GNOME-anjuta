@@ -1,3 +1,25 @@
+2008-12-25  Johannes  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.ui:
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	* plugins/debug-manager/plugin.c:
+	* plugins/devhelp/anjuta-devhelp.ui:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/message-view/anjuta-message-manager.ui:
+	* plugins/run-program/anjuta-run-program.ui:
+	* src/action-callbacks.c (on_toolbar_view_toggled):
+	* src/action-callbacks.h:
+	* src/anjuta-actions.h:
+	* src/anjuta-app.c (on_toolbar_style_changed), (on_session_save),
+	(anjuta_app_dispose), (anjuta_app_instance_init),
+	(on_widget_remove):
+	* src/anjuta-app.h:
+	* src/anjuta.ui:
+	* www/htdocs/index.php:
+
 2008-12-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/plugin.c,

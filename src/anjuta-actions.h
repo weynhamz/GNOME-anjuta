@@ -39,8 +39,7 @@ static GtkActionEntry menu_entries_view[] = {
   { "ActionViewResetLayout", NULL, 
 	N_("_Reset Dock Layout"), NULL,
 	N_("Reset the widgets docking layout to default"),
-    G_CALLBACK (on_reset_layout_activate)},
-  { "ActionViewToolbars", NULL, N_("_Toolbars")}
+    G_CALLBACK (on_reset_layout_activate)}
 };
 
 static GtkToggleActionEntry menu_entries_toggle_view[] = {
@@ -51,7 +50,11 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
   { "ActionViewLockLayout", NULL,
     N_("_Lock Dock Layout"), NULL,
     N_("Lock the current dock layout so that widgets cannot be moved"),
-	G_CALLBACK (on_layout_lock_toggle)}
+	G_CALLBACK (on_layout_lock_toggle)},
+  { "ActionViewToolbar", NULL, 
+	N_("_Toolbar"), NULL,
+    N_("Show or hide the toolbar"),
+    G_CALLBACK (on_toolbar_view_toggled)}
 };
 
 static GtkActionEntry menu_entries_help[] = {

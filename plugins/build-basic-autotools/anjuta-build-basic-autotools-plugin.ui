@@ -21,7 +21,7 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarBuild">
+	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceHolderBuild">
 			<toolitem name="BuildProject" action="ActionBuildBuildProject"/>
 			<toolitem name="BuildModule" action="ActionBuildBuildModule"/>

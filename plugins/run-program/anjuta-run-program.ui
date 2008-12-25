@@ -15,7 +15,7 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarBuild">
+	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceHolderExecute">
 			<toolitem name="RunProgram" action="ActionRunProgram"/>
 		</placeholder>
