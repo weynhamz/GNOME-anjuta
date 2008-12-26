@@ -1306,6 +1306,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	if (priv->recv_signals == FALSE && force_update == FALSE)
 	{		
 		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), NULL);
+		DEBUG_PRINT ("recv signals is false");
 		return;
 	}
 	
@@ -1373,8 +1374,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		symbol_db_engine_get_file_db_path (dbe, filepath);
 	if (priv->current_db_file == NULL) 
 	{
-		/*DEBUG_PRINT ("%s", "symbol_db_view_locals_update_list (): "
-					 "Warning: priv->current_db_file is NULL");*/
+		DEBUG_PRINT ("Warning: priv->current_db_file is NULL");
 		return;
 	}
 	priv->current_local_file_path = g_strdup (filepath);

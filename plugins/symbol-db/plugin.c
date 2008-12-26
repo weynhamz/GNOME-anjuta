@@ -866,9 +866,12 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 
 	/* use a custom function to add the files to db */
 	real_added = do_add_new_files (sdb_plugin, files_array, TASK_ELEMENT_ADDED);
-	if (real_added < 0) 
+	if (real_added <= 0) 
 	{
 		sdb_plugin->is_adding_element = FALSE;
+		symbol_db_view_locals_recv_signals_from_engine (																
+			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+				 sdb_plugin->sdbe_project, TRUE);		
 	}
 	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
@@ -1195,6 +1198,13 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 
 	real_added = do_add_new_files (sdb_plugin, sources_array, 
 								   TASK_IMPORT_PROJECT_AFTER_ABORT);
+	if (real_added <= 0)
+	{
+		sdb_plugin->is_project_importing = FALSE;
+		symbol_db_view_locals_recv_signals_from_engine (																
+			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+				 sdb_plugin->sdbe_project, TRUE);
+	}
 	sdb_plugin->files_count_project += real_added;	
 }
 
@@ -1260,15 +1270,23 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		g_ptr_array_add (sources_array, local_filename);
 		g_object_unref (gfile);
 	}
-	
-	real_added = do_add_new_files (sdb_plugin, sources_array, TASK_IMPORT_PROJECT);
-	sdb_plugin->files_count_project += real_added;
-			
+
 	/* connect to receive signals on single file scan complete. We'll
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
 		  G_CALLBACK (on_project_single_file_scan_end), plugin);
+	
+	real_added = do_add_new_files (sdb_plugin, sources_array, TASK_IMPORT_PROJECT);
+	if (real_added <= 0)
+	{
+		symbol_db_view_locals_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe_project, TRUE);
+		sdb_plugin->is_project_importing = FALSE;		
+	}
+	sdb_plugin->files_count_project += real_added;			
+
 	
 	/* free the ptr array */
 	g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
@@ -1458,7 +1476,12 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 					 real_added);
 		
 		if (real_added <= 0)
+		{
 			sdb_plugin->is_offline_scanning = FALSE;
+			symbol_db_view_locals_recv_signals_from_engine (																
+				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe_project, TRUE);			
+		}
 	}
 	
 	g_object_unref (it);

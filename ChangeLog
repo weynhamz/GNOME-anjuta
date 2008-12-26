@@ -1,3 +1,15 @@
+2008-12-26  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_project_element_added),
+	(do_import_project_sources_after_abort),
+	(do_import_project_sources), (do_check_offline_files_changed):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_files_symbols):
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_update_list):
+	added some checks that fix some local-view updating problems.
+
 2008-12-26  Johannes  Schmid <jhs@gnome.org>
 
 	* Makefile.am:

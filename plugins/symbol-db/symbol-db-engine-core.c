@@ -5111,7 +5111,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		
 		if (strstr (node, priv->project_directory) == NULL) 
 		{
-			g_warning ("on_scan_update_files_symbols_end  node %s is shorter than "
+			g_warning ("node %s is shorter than "
 					   "prj_directory %s",
 					   node, priv->project_directory);
 			continue;
@@ -5311,17 +5311,55 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	UpdateFileSymbolsData *update_data;
 	gboolean ret_code;
 	gint ret_id;
+	gint i;
+	GPtrArray * ready_files;
 	
 	priv = dbe->priv;
 
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
 
+	ready_files = g_ptr_array_new ();
+	
+	/* check if the files exist in db before passing them to the scan procedure */
+	for (i = 0; i < files_path->len; i++) 
+	{
+		gchar *curr_abs_file;
+		
+		curr_abs_file = g_ptr_array_index (files_path, i);
+		/* check if the file exists in db. We will not scan buffers for files
+		 * which aren't already in db
+		 */
+		if (symbol_db_engine_file_exists (dbe, curr_abs_file) == FALSE)
+		{
+			DEBUG_PRINT ("will not update file symbols claiming to be %s because not in db",
+						 curr_abs_file);
+			
+			g_free (curr_abs_file);
+			continue;
+		}
+		
+		/* ok the file exists in db. Add it to ready_files */
+		g_ptr_array_add (ready_files, curr_abs_file);
+	}
+	
+	/* free just the array but not its values */
+	g_ptr_array_free (files_path, FALSE);
+	
+	/* if no file has been added to the array then bail out here */
+	if (ready_files->len <= 0)
+	{
+		g_ptr_array_free (ready_files, TRUE);
+		DEBUG_PRINT ("not enough files to update");
+		return -1;
+	}
+	
 	update_data = g_new0 (UpdateFileSymbolsData, 1);
 	
 	update_data->update_prj_analyse_time = update_prj_analyse_time;
-	update_data->files_path = files_path;
+	update_data->files_path = ready_files;
 	update_data->project = g_strdup (project);
+
 	
 	/* data will be freed when callback will be called. The signal will be
 	 * disconnected too, don't worry about disconneting it by hand.
@@ -5329,7 +5367,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_files_symbols_end), update_data);
 	
-	ret_code = sdb_engine_scan_files_1 (dbe, files_path, NULL, TRUE);
+	ret_code = sdb_engine_scan_files_1 (dbe, ready_files, NULL, TRUE);
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
