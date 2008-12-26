@@ -28,8 +28,6 @@
 
 #include "aneditor.h"
 
-#include "tm_tagmanager.h"
-
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-encodings.h>
 

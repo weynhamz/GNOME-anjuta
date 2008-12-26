@@ -1,6 +1,4 @@
-if HAVE_PLUGIN_SYMBOL_DB
-
-#SUBDIRS = test
+SUBDIRS = images 
 
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql
@@ -81,9 +79,6 @@ EXTRA_DIST = \
 	$(symbol_db_glade_DATA) \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA)
-
-endif
-
 
 
 

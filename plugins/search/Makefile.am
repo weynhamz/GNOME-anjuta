@@ -39,8 +39,7 @@ libanjuta_search_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS) \
-	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/tagmanager/libanjuta-ctags.la
+	$(LIBANJUTA_LIBS)
 
 libanjuta_search_la_SOURCES= \
 	plugin.c \

@@ -1,8 +1,0 @@
-Makefile.in
-Makefile
-anjuta-tags
-system.tags
-create_global_tags.sh
-*.lo
-*.o
-*.bak

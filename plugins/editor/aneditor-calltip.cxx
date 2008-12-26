@@ -22,6 +22,7 @@
 #include "aneditor-priv.h"
 
 bool AnEditor::StartCallTip_new() {
+#if 0
 	TMTagAttrType attrs[] =
 	{
 		tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t
@@ -103,6 +104,7 @@ bool AnEditor::StartCallTip_new() {
 		g_free (real_tip);
 		ContinueCallTip_new();
 	}
+#endif
 	return true;
 }
 
@@ -307,6 +309,7 @@ void AnEditor::SetCallTipDefaults( ) {
 // them
 
 void AnEditor::CompleteCallTip() {
+#if 0
 	char expr[256];
 	TMTagAttrType attrs[] = {tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
 	int caret_position = SendEditor(SCI_GETCURRENTPOS);
@@ -342,4 +345,5 @@ void AnEditor::CompleteCallTip() {
 		SendEditorString(SCI_CALLTIPSHOW, caret_position, real_tip);
 		g_free (real_tip);
 	}
+#endif
 }

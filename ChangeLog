@@ -1,4 +1,182 @@
-2008-12-25  Johannes  <jhs@gnome.org>
+2008-12-26  Johannes  Schmid <jhs@gnome.org>
+
+	* Makefile.am:
+	* configure.in:
+	* global-tags/.cvsignore:
+	* global-tags/Makefile.am:
+	* global-tags/create_global_tags.sh.in:
+	* global-tags/tm_global_tags.c:
+	* plugins/Makefile.am:
+	* plugins/editor/Makefile.am:
+	* plugins/editor/aneditor-calltip.cxx:
+	* plugins/editor/aneditor-priv.h:
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/text_editor.h:
+	* plugins/search/Makefile.am:
+	* plugins/search/search-replace.c (save_not_opened_files):
+	* plugins/search/search-replace_backend.c
+	(file_buffer_new_from_te), (file_buffer_new_from_path),
+	(create_search_entries):
+	* plugins/sourceview/Makefile.am:
+	* plugins/symbol-browser/.cvsignore:
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/symbol-browser/an_symbol.c:
+	* plugins/symbol-browser/an_symbol.h:
+	* plugins/symbol-browser/an_symbol_info.c:
+	* plugins/symbol-browser/an_symbol_info.h:
+	* plugins/symbol-browser/an_symbol_iter.c:
+	* plugins/symbol-browser/an_symbol_iter.h:
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	* plugins/symbol-browser/an_symbol_prefs.h:
+	* plugins/symbol-browser/an_symbol_search.c:
+	* plugins/symbol-browser/an_symbol_search.h:
+	* plugins/symbol-browser/an_symbol_view.c:
+	* plugins/symbol-browser/an_symbol_view.h:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.svg:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.ui:
+	* plugins/symbol-browser/anjuta-symbol-browser.plugin.in:
+	* plugins/symbol-browser/anjuta-symbol-locals.c:
+	* plugins/symbol-browser/anjuta-symbol-locals.h:
+	* plugins/symbol-browser/images/.cvsignore:
+	* plugins/symbol-browser/images/Makefile.am:
+	* plugins/symbol-browser/images/README:
+	* plugins/symbol-browser/plugin.c:
+	* plugins/symbol-browser/plugin.h:
+	* plugins/symbol-browser/test-class.cpp:
+	* plugins/symbol-browser/test-class.h:
+	* plugins/symbol-browser/test-symbol-browser.c:
+	* plugins/symbol-db/Makefile.am:
+	* scripts/Makefile.am:
+	* scripts/anjuta_import.sh.in:
+	* tagmanager/.cvsignore:
+	* tagmanager/Makefile.am:
+	* tagmanager/acconfig.h:
+	* tagmanager/args.c:
+	* tagmanager/args.h:
+	* tagmanager/asm.c:
+	* tagmanager/asp.c:
+	* tagmanager/awk.c:
+	* tagmanager/beta.c:
+	* tagmanager/c.c:
+	* tagmanager/cobol.c:
+	* tagmanager/ctags.c:
+	* tagmanager/ctags.h:
+	* tagmanager/debug.c:
+	* tagmanager/debug.h:
+	* tagmanager/eiffel.c:
+	* tagmanager/entry.c:
+	* tagmanager/entry.h:
+	* tagmanager/erlang.c:
+	* tagmanager/fortran.c:
+	* tagmanager/general.h:
+	* tagmanager/get.c:
+	* tagmanager/get.h:
+	* tagmanager/html.c:
+	* tagmanager/include/.cvsignore:
+	* tagmanager/include/Makefile.am:
+	* tagmanager/include/tm_file_entry.h:
+	* tagmanager/include/tm_project.h:
+	* tagmanager/include/tm_source_file.h:
+	* tagmanager/include/tm_symbol.h:
+	* tagmanager/include/tm_tag.h:
+	* tagmanager/include/tm_tagmanager.h:
+	* tagmanager/include/tm_work_object.h:
+	* tagmanager/include/tm_workspace.h:
+	* tagmanager/jscript.c:
+	* tagmanager/keyword.c:
+	* tagmanager/keyword.h:
+	* tagmanager/lisp.c:
+	* tagmanager/lregex.c:
+	* tagmanager/lua.c:
+	* tagmanager/main.h:
+	* tagmanager/make.c:
+	* tagmanager/options.c:
+	* tagmanager/options.h:
+	* tagmanager/parse.c:
+	* tagmanager/parse.h:
+	* tagmanager/parsers.h:
+	* tagmanager/pascal.c:
+	* tagmanager/perl.c:
+	* tagmanager/php.c:
+	* tagmanager/python.c:
+	* tagmanager/read.c:
+	* tagmanager/read.h:
+	* tagmanager/readtags.c:
+	* tagmanager/readtags.h:
+	* tagmanager/regex.c:
+	* tagmanager/rexx.c:
+	* tagmanager/routines.c:
+	* tagmanager/routines.h:
+	* tagmanager/ruby.c:
+	* tagmanager/scheme.c:
+	* tagmanager/sh.c:
+	* tagmanager/slang.c:
+	* tagmanager/sml.c:
+	* tagmanager/sort.c:
+	* tagmanager/sort.h:
+	* tagmanager/sql.c:
+	* tagmanager/strlist.c:
+	* tagmanager/strlist.h:
+	* tagmanager/tcl.c:
+	* tagmanager/test_tm_buffer.c:
+	* tagmanager/tm_file_entry.c:
+	* tagmanager/tm_project.c:
+	* tagmanager/tm_source_file.c:
+	* tagmanager/tm_symbol.c:
+	* tagmanager/tm_tag.c:
+	* tagmanager/tm_tagmanager.c:
+	* tagmanager/tm_work_object.c:
+	* tagmanager/tm_workspace.c:
+	* tagmanager/verilog.c:
+	* tagmanager/vim.c:
+	* tagmanager/vstring.c:
+	* tagmanager/vstring.h:
+	* tagmanager/yacc.c:
+
+	Removed tagmanager/symbol-browser in favour of the nearly stable symbol-db plugin. Commented
+	some very old code in scintilla that is probably not used anymore though  some portions can be ported
+	to IAnjutaSymbolManager interface such as highlighting of tags. 
+	Adapted some other plugins that very using tagmanager for strange things (like search).
+
+	* plugins/build/build_file.c:
+	* plugins/build/build_file.h:
+	* plugins/build/build_project.c:
+	* plugins/build/build_project.h:
+	* plugins/build/clean_project.c:
+	* plugins/build/clean_project.h:
+	* plugins/build/commands.c:
+	* plugins/build/commands.h:
+	* plugins/build/compile.c:
+	* plugins/build/compile.h:
+	* plugins/build/compiler_options.c:
+	* plugins/build/compiler_options.h:
+	* plugins/build/configurer.c:
+	* plugins/build/configurer.h:
+	* plugins/build/executer.c:
+	* plugins/build/executer.h:
+	Removed obsolete build plugin. If you really need to have a look check the svn history.
+
+	* plugins/gvim/.cvsignore:
+	* plugins/gvim/Makefile.am:
+	* plugins/gvim/anjuta-vim.c:
+	* plugins/gvim/anjuta-vim.h:
+	* plugins/gvim/anjuta-vim.plugin.in:
+	* plugins/gvim/gtkvim.c:
+	* plugins/gvim/gtkvim.h:
+	* plugins/gvim/plugin.c:
+	* plugins/gvim/plugin.h:
+	Removed gvim plugin. It is replaced by the GSoc vim plugin.
+
+2008-12-25  Jens Georg  <mail@jensge.org>
+ 
+	Reviewed by: Johannes Schmid <jhs@gnome.org>
+ 
+	* plugins/search/search-replace_backend.c: 
+	* plugins/search/search-replace.c:
+	remove usage of std i/o (#565492)
+
+2008-12-25  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
 	.ui:

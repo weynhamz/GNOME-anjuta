@@ -53,8 +53,6 @@
 
 #include <libanjuta/resources.h>
 
-#include "tm_tagmanager.h"
-
 #include <string>
 #include <memory>
 

@@ -62,7 +62,6 @@
 */
 
 #include "search-replace_backend.h"
-#include "tm_tagmanager.h"
 
 /* Information about a matched substring */
 typedef struct _MatchSubStr
@@ -130,11 +129,6 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 	
 	file = ianjuta_file_get_file(IANJUTA_FILE(te), NULL);
 	path = g_file_get_path (file);
-	if (path)
-	{
-		fb->path = tm_get_real_path(path);
-		g_free (path);
-	}
 	fb->uri = g_file_get_uri (file);
 	fb->len = ianjuta_editor_get_length(te, NULL);
 	fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);
@@ -155,33 +149,29 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	FileBuffer *fb;
 	IAnjutaEditor *te;
 	IAnjutaDocument* doc;
-	char *real_path;
 	GFile* file;
 	char *uri;
 	int i;
 	int lineno;
 
 	g_return_val_if_fail(path, NULL);
-	real_path = tm_get_real_path(path);
 	
 	/* There might be an already open TextEditor with this path */
-	file = g_file_new_for_path (real_path);
+	file = g_file_new_for_path (path);
 	uri = g_file_get_uri (file);
 	doc = ianjuta_document_manager_find_document_with_file (sr->docman,
 														 file, NULL);
-	g_object_unref (file);
-
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
 		te = IANJUTA_EDITOR (doc);
-		g_free(real_path);
 		return file_buffer_new_from_te(te);
 	}
 	fb = g_new0(FileBuffer, 1);
 	fb->type = FB_FILE;
-	fb->path = real_path;
+	fb->path = g_file_get_path (file);
 	fb->uri = uri;
 	fb->name = strrchr(path, '/');
+	g_object_unref (file);
 	if (fb->name)
 		++ fb->name;
 	else
@@ -195,37 +185,73 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	}
 	else
 	{
-		struct stat s;
+		GFileInfo *fi;
+		guint64 size;
 
-		if ((0 == stat(fb->path, &s)) && (S_ISREG(s.st_mode)))
+		file = g_file_new_for_path (fb->path);
+		fi = g_file_query_info (file,
+				G_FILE_ATTRIBUTE_STANDARD_SIZE ","
+				G_FILE_ATTRIBUTE_STANDARD_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+		if (fi != NULL && g_file_info_get_file_type(fi) == G_FILE_TYPE_REGULAR)
 		{
-			if ((fb->len = s.st_size) < 0) return NULL;
-			fb->buf = g_new(char, s.st_size + 1);
+			size = g_file_info_get_attribute_uint64(fi, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+			g_object_unref (fi);
+			fi = NULL;
+
+			if ((fb->len = size) < 0) return NULL;
+			fb->buf = g_new(char, size + 1);
 			{
-				int total_bytes = 0, bytes_read, fd;
-				if (0 > (fd = open(fb->path, O_RDONLY)))
+				int total_bytes = 0, bytes_read;
+				GInputStream *is;
+				GError* error = NULL;
+
+				is = G_INPUT_STREAM (g_file_read (file, NULL, &error));
+				if (NULL == is)
 				{
-					perror(fb->path);
-					file_buffer_free(fb);
+					DEBUG_PRINT("Error opening file: %s", error->message);
+					g_error_free (error);
+					file_buffer_free (fb);
+					g_object_unref (file);
 					return NULL;
 				}
-				while (total_bytes < s.st_size)
+
+				while (total_bytes < size)
 				{
-					if (0 > (bytes_read = read(fd, fb->buf + total_bytes
-					  , s.st_size - total_bytes)))
+					bytes_read = g_input_stream_read (is,
+							fb->buf + total_bytes,
+							size - total_bytes,
+							NULL,
+							&error);
+					if (bytes_read == -1)
 					{
-						perror(fb->path);
-						close(fd);
-						file_buffer_free(fb);
+						DEBUG_PRINT("Error reading from file: %s", error->message);
+						g_error_free (error);
+						file_buffer_free (fb);
+						g_input_stream_close (is, NULL, NULL);
+						g_object_unref (is);
+						g_object_unref (file);
 						return NULL;
 					}
 					total_bytes += bytes_read;
 				}
-				close(fd);
+
+				g_input_stream_close (is, NULL, NULL);
+				g_object_unref (is);
+				g_object_unref (file);
 				fb->buf[fb->len] = '\0';
 			}
 		}
+		else
+		{
+			if (NULL != fi)
+			{
+				g_object_unref (fi);
+			}
+		}
 	}
+
 	if (!g_utf8_validate (fb->buf, MIN(MAX_VALIDATE, fb->len), NULL))
 	{
 		const AnjutaEncoding *encoding_used = NULL;
@@ -331,26 +357,6 @@ file_match_line_from_pos(FileBuffer *fb, int pos)
 	for (i= start-1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
 	
 	return g_strndup (fb->buf + i + 1, length);
-}
-
-/* Generate a list of files to search in. Call with start = TRUE and
-** top_dir = sf->top_dir. This is used when the search range is specified as
-SR_FILES */
-static GList *
-create_search_files_list(SearchFiles *sf, const char *top_dir)
-{
-	TMFileEntry *entry;
-	GList *files;
-
-	g_return_val_if_fail(sf && top_dir, NULL);
-	entry = tm_file_entry_new(top_dir, NULL, sf->recurse, sf->match_files
-	  , sf->ignore_files, sf->match_dirs, sf->ignore_dirs
-	  , sf->ignore_hidden_files, sf->ignore_hidden_dirs);
-	if (!entry)
-		return NULL;
-	files = tm_file_entry_list(entry, NULL);
-	tm_file_entry_free(entry);
-	return files;
 }
 
 /* Get a list of all project files */
@@ -829,10 +835,7 @@ create_search_entries (Search *s)
 				dir = g_get_current_dir();
 			}
 
-			if (SR_FILES == s->range.type)
-				files = create_search_files_list(&(s->range.files), dir);
-			else /* if (SR_PROJECT == s->range.type) */
-				files = get_project_file_list();	
+			files = get_project_file_list();	
 			
 			if (files)
 			{

@@ -2,7 +2,7 @@
 
 @INTLTOOL_DESKTOP_RULE@
 
-SUBDIRS = tagmanager global-tags \
+SUBDIRS = \
 	pixmaps scripts data \
 	doc libanjuta plugins src manuals mime launcher po
 

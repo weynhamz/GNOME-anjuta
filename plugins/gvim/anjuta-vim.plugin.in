@@ -1,6 +1,0 @@
-[Anjuta Plugin]
-_Name=Patch Plugin
-_Description=Anjuta VIM Editor.
-Location=anjuta-vim:AnjutaVimPlugin
-Icon=anjuta-vim-plugin.png
-Interfaces=IAnjutaEditorFactory

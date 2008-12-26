@@ -31,7 +31,6 @@ SUBDIRS = . \
 	profiler \
 	language-manager \
 	symbol-db \
-	symbol-browser \
 	git \
 	sourceview \
 	run-program \

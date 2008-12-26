@@ -2516,6 +2516,8 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SString kw2 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 2, kw2.c_str());
 	/* For C/C++ projects, get list of typedefs for colorizing */
+	/* TODO: Either remove or port to IAnjutaSymbolManager */
+#if 0
 	if (SCLEX_CPP == lexLanguage)
 	{
 		const TMWorkspace *workspace = tm_get_workspace();
@@ -2568,6 +2570,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		}
 	}
 	else
+#endif
 	{
 		SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
 		SendEditorString(SCI_SETKEYWORDS, 1, kw1.c_str());

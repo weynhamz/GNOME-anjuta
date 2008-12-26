@@ -699,13 +699,39 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 static void
 save_not_opened_files(FileBuffer *fb)
 {
-	FILE *fp;
+	GFile *file;
+	GOutputStream *os;
+	gsize written;
+	gsize size;
+	gchar *buffer;
 
-	fp = fopen(fb->path, "wb");	
-	if (!fp)
-			return;
-	fwrite(fb->buf, fb->len, 1, fp);
-	fclose(fp);
+	file = g_file_new_for_uri (fb->uri);
+	os = G_OUTPUT_STREAM (g_file_replace (file, 
+			NULL,
+			FALSE,
+			G_FILE_CREATE_NONE,
+			NULL,
+			NULL));
+	if (os == NULL)
+	{
+		g_object_unref (file);
+		return;
+	}
+
+	buffer = fb->buf;
+	size = fb->len;
+	do
+	{
+		written = g_output_stream_write (os, 
+				buffer, size, NULL, NULL);
+		
+		size -= written;
+		buffer += size;
+	}
+	while (written != -1 && size > 0);
+	g_output_stream_close(os, NULL, NULL);
+	g_object_unref (os);
+	g_object_unref (file);
 }
 
 static gboolean

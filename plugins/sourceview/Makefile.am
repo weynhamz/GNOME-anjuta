@@ -27,8 +27,7 @@ AM_CPPFLAGS = \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(PLUGIN_SOURCEVIEW_CFLAGS) \
-	$(LIBANJUTA_CFLAGS) \
-	-I$(top_srcdir)/tagmanager/include
+	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -79,8 +78,7 @@ libanjuta_sourceview_la_LIBADD = \
 	$(GNOME_VFS_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \
 	$(GLADE_LIBS) \
-	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/tagmanager/libanjuta-ctags.la
+	$(LIBANJUTA_LIBS)
 
 prefs_glade_files = anjuta-editor-sourceview.glade
 include $(top_srcdir)/scripts/build-schemas.mk
