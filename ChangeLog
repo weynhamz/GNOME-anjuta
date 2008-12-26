@@ -1,5 +1,12 @@
 2008-12-26  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter),
+	(sdb_view_search_on_entry_key_press_event), (sdb_view_search_init):
+	fix #565700 – Enter key inserts garbage into Symbols / Search box
+
+2008-12-26  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/plugin.c (on_project_element_added),
 	(do_import_project_sources_after_abort),
 	(do_import_project_sources), (do_check_offline_files_changed):

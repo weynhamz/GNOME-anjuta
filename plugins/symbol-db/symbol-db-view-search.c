@@ -60,6 +60,7 @@ enum
 
 enum {
 	COLUMN_PIXBUF,
+	COLUMN_DESC,
 	COLUMN_NAME,
 	COLUMN_LINE,
 	COLUMN_FILE,
@@ -162,7 +163,8 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 									symbol_db_engine_iterator_node_get_symbol_extra_string (
 									iter_node, SYMINFO_ACCESS)
 								),
-							COLUMN_NAME, display,
+							COLUMN_DESC, display,
+							COLUMN_NAME, sym_name,
 							COLUMN_LINE, 
 								symbol_db_engine_iterator_node_get_symbol_file_pos (
 													iter_node),
@@ -323,7 +325,7 @@ sdb_view_search_on_entry_key_press_event (GtkEntry * entry,
 		gint line;
 		gchar *file;
 
-		DEBUG_PRINT("%s", "enter key pressed: getting the first entry found");
+		DEBUG_PRINT("enter key pressed: getting the first entry found");
 
 		/* Get the first entry found. */
 		if (gtk_tree_model_get_iter_first
@@ -432,7 +434,7 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 
 	
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT));
+				    G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT));
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->model),
 										  COLUMN_NAME,
 										  GTK_SORT_ASCENDING);
@@ -457,9 +459,9 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
-					    COLUMN_NAME);
+					    COLUMN_DESC);
 	gtk_tree_view_column_set_attributes (column, renderer,
-										 "markup", COLUMN_NAME, NULL);	
+										 "markup", COLUMN_DESC, NULL);	
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (priv->hitlist), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (priv->hitlist),
