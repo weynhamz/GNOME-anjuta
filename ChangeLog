@@ -1,3 +1,10 @@
+2008-12-26  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	Fixed #565706 – trailing period in symbol-db labels
+
 2008-12-26  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-view-search.c
