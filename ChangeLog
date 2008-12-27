@@ -1,3 +1,14 @@
+2008-12-27  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	* libanjuta/anjuta-session.c (anjuta_session_finalize),
+	(anjuta_session_new), (anjuta_session_sync),
+	(anjuta_session_clear), (anjuta_session_clear_section),
+	(anjuta_session_set_int), (anjuta_session_set_float),
+	(anjuta_session_set_string), (anjuta_session_set_string_list),
+	(anjuta_session_get_int), (anjuta_session_get_float),
+	(anjuta_session_get_string), (anjuta_session_get_string_list):
+	#565650 – Port anjuta-session from gnome-config to GKeyfile
+
 2008-12-26  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>

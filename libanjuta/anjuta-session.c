@@ -29,13 +29,13 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <libgnome/gnome-config.h>
 
 #include "anjuta-session.h"
 #include "anjuta-utils.h"
  
 struct _AnjutaSessionPriv {
 	gchar *dir_path;
+	GKeyFile *key_file;
 };
 
 static gpointer *parent_class = NULL;
@@ -47,6 +47,7 @@ anjuta_session_finalize (GObject *object)
 	cobj = ANJUTA_SESSION (object);
 	
 	g_free (cobj->priv->dir_path);
+	g_key_file_free (cobj->priv->key_file);
 	g_free (cobj->priv);
 
 	G_OBJECT_CLASS(parent_class)->finalize(object);
@@ -82,12 +83,21 @@ AnjutaSession*
 anjuta_session_new (const gchar *session_directory)
 {
 	AnjutaSession *obj;
+	gchar *filename;
 	
 	g_return_val_if_fail (session_directory != NULL, NULL);
 	g_return_val_if_fail (g_path_is_absolute (session_directory), NULL);
 	
 	obj = ANJUTA_SESSION (g_object_new (ANJUTA_TYPE_SESSION, NULL));
 	obj->priv->dir_path = g_strdup (session_directory);
+	
+	obj->priv->key_file = g_key_file_new ();
+	
+	filename = anjuta_session_get_session_filename (obj);
+	g_key_file_load_from_file (obj->priv->key_file, filename,
+							   G_KEY_FILE_NONE, NULL);
+	g_free (filename);
+	 
 	return obj;
 }
 
@@ -124,18 +134,6 @@ anjuta_session_get_session_filename (AnjutaSession *session)
 							 "anjuta.session", NULL);
 }
 
-static gchar*
-anjuta_session_get_key_path (AnjutaSession *session, const gchar *section,
-							 const gchar *key)
-{
-	gchar *key_path, *filename;
-
-	filename = anjuta_session_get_session_filename (session);
-	key_path = g_strdup_printf ("=%s=/%s/%s", filename, section, key);
-	g_free (filename);
-	return key_path;
-}
-
 /**
  * anjuta_session_sync:
  * @session: an #AnjutaSession object
@@ -145,16 +143,16 @@ anjuta_session_get_key_path (AnjutaSession *session, const gchar *section,
 void
 anjuta_session_sync (AnjutaSession *session)
 {
-	gchar *filename;
-	gchar *path;
+	gchar *filename, *data;
 	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	
 	filename = anjuta_session_get_session_filename (session);
-	path = g_strdup_printf ("=%s=", filename);
-	gnome_config_sync_file (path);
+	data = g_key_file_to_data (session->priv->key_file, NULL, NULL);
+	g_file_set_contents (filename, data, -1, NULL);
+	
 	g_free (filename);
-	g_free (path);
+	g_free (data);
 }
 
 /**
@@ -166,17 +164,13 @@ anjuta_session_sync (AnjutaSession *session)
 void
 anjuta_session_clear (AnjutaSession *session)
 {
-	gchar *path;
-	gchar *filename, *cmd;
+	gchar *cmd;
 	gint ret;
 	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	
-	filename = anjuta_session_get_session_filename (session);
-	path = g_strdup_printf ("=%s=", filename);
-	gnome_config_clean_file (path);
-	g_free (filename);
-	g_free (path);
+	g_key_file_free (session->priv->key_file);
+	session->priv->key_file = g_key_file_new ();
 	
 	anjuta_session_sync (session);
 	
@@ -199,16 +193,11 @@ anjuta_session_clear (AnjutaSession *session)
 void
 anjuta_session_clear_section (AnjutaSession *session,
 							  const gchar *section)
-{
-	gchar *filename, *section_path;
-	
+{	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	g_return_if_fail (section != NULL);
 
-	filename = anjuta_session_get_session_filename (session);
-	section_path = g_strdup_printf ("=%s=/%s", filename, section);
-	gnome_config_clean_section (section_path);
-	g_free (filename);
+	g_key_file_remove_group (session->priv->key_file, section, NULL);
 }
  
 /**
@@ -224,15 +213,17 @@ void
 anjuta_session_set_int (AnjutaSession *session, const gchar *section,
 						const gchar *key, gint value)
 {
-	gchar *key_path;
-	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	g_return_if_fail (section != NULL);
 	g_return_if_fail (key != NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	gnome_config_set_int (key_path, value);
-	g_free (key_path);
+	if (!value)
+	{
+		g_key_file_remove_key (session->priv->key_file, section, key, NULL);
+		return;
+	}
+	
+	g_key_file_set_integer (session->priv->key_file, section, key, value);
 }
 
 /**
@@ -248,15 +239,17 @@ void
 anjuta_session_set_float (AnjutaSession *session, const gchar *section,
 						  const gchar *key, gfloat value)
 {
-	gchar *key_path;
-	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	g_return_if_fail (section != NULL);
 	g_return_if_fail (key != NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	gnome_config_set_float (key_path, value);
-	g_free (key_path);
+	if (!value)
+	{
+		g_key_file_remove_key (session->priv->key_file, section, key, NULL);
+		return;
+	}
+	
+	g_key_file_set_double (session->priv->key_file, section, key, value);
 }
 
 /**
@@ -272,15 +265,17 @@ void
 anjuta_session_set_string (AnjutaSession *session, const gchar *section,
 						   const gchar *key, const gchar *value)
 {
-	gchar *key_path;
-	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
 	g_return_if_fail (section != NULL);
 	g_return_if_fail (key != NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	gnome_config_set_string (key_path, value);
-	g_free (key_path);
+	if (!value)
+	{
+		g_key_file_remove_key (session->priv->key_file, section, key, NULL);
+		return;
+	}
+	
+	g_key_file_set_string (session->priv->key_file, section, key, value);
 }
 
 /**
@@ -297,7 +292,7 @@ anjuta_session_set_string_list (AnjutaSession *session,
 								const gchar *section,
 								const gchar *key, GList *value)
 {
-	gchar *key_path, *value_str;
+	gchar *value_str;
 	GString *str;
 	GList *node;
 	gboolean first_item = TRUE;
@@ -306,7 +301,12 @@ anjuta_session_set_string_list (AnjutaSession *session,
 	g_return_if_fail (section != NULL);
 	g_return_if_fail (key != NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
+	if (!value)
+	{
+		g_key_file_remove_key (session->priv->key_file, section, key, NULL);
+		return;
+	}
+	
 	str = g_string_new ("");
 	node = value;
 	while (node)
@@ -323,10 +323,9 @@ anjuta_session_set_string_list (AnjutaSession *session,
 	}
 	
 	value_str = g_string_free (str, FALSE);
-	gnome_config_set_string (key_path, value_str);
+	g_key_file_set_string (session->priv->key_file, section, key, value_str);
 	
 	g_free (value_str);
-	g_free (key_path);
 }
 
 /**
@@ -343,16 +342,14 @@ gint
 anjuta_session_get_int (AnjutaSession *session, const gchar *section,
 						const gchar *key)
 {
-	gchar *key_path;
 	gint value;
 	
 	g_return_val_if_fail (ANJUTA_IS_SESSION (session), 0);
 	g_return_val_if_fail (section != NULL, 0);
 	g_return_val_if_fail (key != NULL, 0);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	value = gnome_config_get_int (key_path);
-	g_free (key_path);
+	value = g_key_file_get_integer (session->priv->key_file, section, key, NULL);
+	
 	return value;
 }
 
@@ -370,16 +367,14 @@ gfloat
 anjuta_session_get_float (AnjutaSession *session, const gchar *section,
 						  const gchar *key)
 {
-	gchar *key_path;
 	gfloat value;
 	
 	g_return_val_if_fail (ANJUTA_IS_SESSION (session), 0);
 	g_return_val_if_fail (section != NULL, 0);
 	g_return_val_if_fail (key != NULL, 0);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	value = gnome_config_get_float (key_path);
-	g_free (key_path);
+	value = (float)g_key_file_get_double (session->priv->key_file, section, key, NULL);
+	
 	return value;
 }
 
@@ -397,16 +392,14 @@ gchar*
 anjuta_session_get_string (AnjutaSession *session, const gchar *section,
 						   const gchar *key)
 {
-	gchar *key_path;
 	gchar *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_SESSION (session), NULL);
 	g_return_val_if_fail (section != NULL, NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	value = gnome_config_get_string (key_path);
-	g_free (key_path);
+	value = g_key_file_get_string (session->priv->key_file, section, key, NULL);
+	
 	return value;
 }
 
@@ -425,15 +418,15 @@ anjuta_session_get_string_list (AnjutaSession *session,
 								const gchar *section,
 								const gchar *key)
 {
-	gchar *key_path, *val, **str, **ptr;
+	gchar *val, **str, **ptr;
 	GList *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_SESSION (session), NULL);
 	g_return_val_if_fail (section != NULL, NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 	
-	key_path = anjuta_session_get_key_path (session, section, key);
-	val = gnome_config_get_string (key_path);
+	val = g_key_file_get_string (session->priv->key_file, section, key, NULL);
+	
 	
 	value = NULL;
 	if (val)
@@ -452,7 +445,6 @@ anjuta_session_get_string_list (AnjutaSession *session,
 		}
 		g_free (val);
 	}
-	g_free (key_path);
 	
 	return g_list_reverse (value);
 }
