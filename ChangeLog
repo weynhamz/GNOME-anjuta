@@ -1,3 +1,30 @@
+2008-12-27  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_find_symbol_by_name_pattern):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(symbol_db_glist_compare_func):
+	* plugins/symbol-db/symbol-db-prefs.c (on_listall_exit):
+	* plugins/symbol-db/symbol-db-system.c
+	(sdb_system_files_visit_dir):
+	* plugins/symbol-db/symbol-db-view.c (symbol_db_view_row_expanded):
+	code cleaning. strcmp () -> g_strcmp0 ().
+	Improved query symbol_db_engine_find_symbol_by_name_pattern().
+
+2008-12-27  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout), (on_editor_saved):
+	* plugins/symbol-db/symbol-db-engine-core.c (on_scan_files_end_1),
+	(sdb_engine_init), (symbol_db_engine_set_ctags_path),
+	(symbol_db_engine_new), (sdb_engine_add_new_scope_definition),
+	(sdb_engine_second_pass_update_scope_1):
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	fixed #565701 – Anjuta hangs if ctags not installed
+
 2008-12-27  Johannes  Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c

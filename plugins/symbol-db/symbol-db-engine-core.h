@@ -79,7 +79,7 @@ symbol_db_engine_new (const gchar * ctags_path);
 /**
  * Set a new path for ctags executable.
  */ 
-void 
+gboolean
 symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
 								  const gchar * ctags_path);
 

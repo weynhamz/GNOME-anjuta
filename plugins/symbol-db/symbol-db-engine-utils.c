@@ -52,7 +52,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 gint 
 symbol_db_glist_compare_func (gconstpointer a, gconstpointer b)
 {
-	return strcmp ((const gchar*)a, (const gchar*)b);
+	return g_strcmp0 ((const gchar*)a, (const gchar*)b);
 }
 
 gint

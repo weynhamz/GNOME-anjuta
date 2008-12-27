@@ -1233,7 +1233,7 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND);
-		if (strcmp (symbol_kind, "namespace") == 0)
+		if (g_strcmp0 (symbol_kind, "namespace") == 0)
 		{
 			sdb_view_namespace_row_expanded (dbv, dbe, expanded_iter, 
 											 expanded_symbol_id);

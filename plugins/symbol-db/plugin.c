@@ -183,7 +183,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	 */
 	for (i = 0; i < sdb_plugin->buffer_update_files->len; i++)
 	{
-		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
+		if (g_strcmp0 (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
 					 local_path) == 0)
 		{
 			/* hey we found it */
@@ -292,7 +292,7 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 	
 	for (i = 0; i < sdb_plugin->buffer_update_files->len; i++)
 	{
-		if (strcmp (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
+		if (g_strcmp0 (g_ptr_array_index (sdb_plugin->buffer_update_files, i),
 					 local_filename) == 0)
 		{
 			DEBUG_PRINT ("already scanning");

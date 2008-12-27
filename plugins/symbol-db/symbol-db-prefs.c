@@ -125,12 +125,6 @@ on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 	DEBUG_PRINT ("%s", "on_gconf_notify_prefs ()");
 }
 
-static gint 
-pkg_list_compare (gconstpointer a, gconstpointer b)
-{
-	return strcmp ((const gchar*)a, (const gchar*)b);
-}
-
 static void
 on_listall_output (AnjutaLauncher * launcher,
 					AnjutaLauncherOutputType output_type,
@@ -213,7 +207,7 @@ on_listall_exit (AnjutaLauncher * launcher, int child_pid,
 		return;
 	}
 
-	priv->pkg_list = g_list_sort (priv->pkg_list, pkg_list_compare);
+	priv->pkg_list = g_list_sort (priv->pkg_list, symbol_db_glist_compare_func);
 	item = priv->pkg_list;
 	
 	while (item != NULL)

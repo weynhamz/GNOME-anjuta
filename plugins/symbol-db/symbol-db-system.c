@@ -348,8 +348,8 @@ sdb_system_files_visit_dir (GList **files_list, const gchar* uri)
 			
 			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) 
 			{				
-				if (strcmp (info->name, ".") == 0 ||
-					strcmp (info->name, "..") == 0)
+				if (g_strcmp0 (info->name, ".") == 0 ||
+					g_strcmp0 (info->name, "..") == 0)
 					continue;
 
 				gchar *tmp = g_strdup_printf ("%s/%s", uri, info->name);

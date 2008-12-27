@@ -40,8 +40,8 @@
 /**
  * Use this function to find symbols names by patterns like '%foo_func%'
  * that will return a family of my_foo_func_1, your_foo_func_2 etc
- * @name must not be NULL.
- * @name must include the optional '%' character to have a wider match, e.g. "foo_func%"
+ * @param pattern must not be NULL.
+ * It must include the optional '%' character to have a wider match, e.g. "foo_func%"
  */
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 

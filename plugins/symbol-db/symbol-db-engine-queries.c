@@ -1705,11 +1705,9 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 												priv->project_directory);	
 }
 
-/**
- * Use this function to find symbols names by patterns like '%foo_func%'
- * that will return a family of my_foo_func_1, your_foo_func_2 etc
- * @pattern must not be NULL.
- */
+#define DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_YES			0x010000
+#define DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_NO			0x020000
+
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
 									const gchar *pattern, SymExtraInfo sym_info)
@@ -1722,8 +1720,9 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	GdaHolder *param;
 	const DynChildQueryNode *dyn_node;
 	GValue *ret_value;
-	gboolean ret_bool;
-	
+	gboolean ret_bool;	
+	const gchar *match_str;
+	gint other_parameters;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -1733,8 +1732,24 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		g_mutex_lock (priv->mutex);
 	}
 
+	other_parameters = 0;
+	
+	/* check for match */
+	if (g_strrstr (pattern, "%") == NULL)
+	{
+		other_parameters |= 
+			DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_YES;
+		match_str = " = ## /* name:'pattern' type:gchararray */";
+	}
+	else
+	{
+		other_parameters |= 
+			DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_NO;
+		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
+	}
+	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-		DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN, sym_info, 0)) == NULL)
+		DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN, sym_info, other_parameters)) == NULL)
 	{
 		/* info_data contains the stuff after SELECT and befor FROM */
 		info_data = g_string_new ("");
@@ -1751,12 +1766,11 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 			"symbol.name AS name, symbol.file_position AS file_position, "
 			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
 			"%s FROM symbol "
-			"%s WHERE symbol.name LIKE ## /* name:'pattern' type:gchararray */", 
-									 info_data->str, join_data->str);
+			"%s WHERE symbol.name %s", info_data->str, join_data->str, match_str);
 		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-						sym_info, 0,
+						sym_info, other_parameters,
 						query_str);
 		
 		g_free (query_str);

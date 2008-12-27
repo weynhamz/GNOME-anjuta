@@ -1530,11 +1530,22 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 static void
 on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 				   int exit_status, gulong time_taken_in_seconds,
-				   gpointer data)
+				   gpointer user_data)
 {
-	DEBUG_PRINT ("%s", "***** ctags ended *****");
-}
+	SymbolDBEngine *dbe = (SymbolDBEngine *) user_data;
+	SymbolDBEnginePriv *priv;
 
+	g_return_if_fail (user_data != NULL);
+	
+	priv = dbe->priv;	
+	
+	DEBUG_PRINT ("***** ctags ended *****");
+	
+	if (priv->shutting_down == TRUE)
+		return;
+
+	priv->ctags_path = NULL;
+}
 
 static void
 sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
@@ -2173,7 +2184,7 @@ sdb_engine_init (SymbolDBEngine * object)
 
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-									FALSE);
+									TRUE);
 
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,			
@@ -2495,13 +2506,13 @@ sdb_engine_get_type (void)
 	return our_type;
 }
 
-void 
+gboolean
 symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 {
 	SymbolDBEnginePriv *priv;
 
-	g_return_if_fail (dbe != NULL);
-	g_return_if_fail (ctags_path != NULL);
+	g_return_val_if_fail (dbe != NULL, FALSE);
+	g_return_val_if_fail (ctags_path != NULL, FALSE);
 	
 	priv = dbe->priv;
 	
@@ -2510,13 +2521,13 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 	{
 		g_warning ("symbol_db_engine_set_ctags_path (): Wrong path for ctags. Keeping "
 				   "the old value %s", priv->ctags_path);
-		return;
+		return priv->ctags_path != NULL;
 	}	
 	
 	/* have we already got it? */
 	if (priv->ctags_path != NULL && 
-		strcmp (priv->ctags_path, ctags_path) == 0)
-		return;
+		g_strcmp0 (priv->ctags_path, ctags_path) == 0)
+		return TRUE;
 
 	/* free the old value */
 	g_free (priv->ctags_path);
@@ -2536,6 +2547,7 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 	
 	/* set the new one */
 	priv->ctags_path = g_strdup (ctags_path);	
+	return TRUE;
 }
 
 SymbolDBEngine *
@@ -2551,7 +2563,10 @@ symbol_db_engine_new (const gchar * ctags_path)
 	priv->mutex = g_mutex_new ();
 
 	/* set the mandatory ctags_path */
-	symbol_db_engine_set_ctags_path (sdbe, ctags_path);
+	if (!symbol_db_engine_set_ctags_path (sdbe, ctags_path))
+	{
+		return NULL;
+	}
 		
 	return sdbe;
 }
@@ -3723,8 +3738,8 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	scope = tag_entry->name;
 
 	/* filter out 'variable' and 'member' kinds. They define no scope. */
-	if (strcmp (tag_entry->kind, "variable") == 0 ||
-		strcmp (tag_entry->kind, "member") == 0)
+	if (g_strcmp0 (tag_entry->kind, "variable") == 0 ||
+		g_strcmp0 (tag_entry->kind, "member") == 0)
 	{
 		return -1;
 	}
@@ -4033,7 +4048,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		/* handle special typedef case. Usually we have something like struct:my_foo.
 		 * splitting we have [0]-> struct [1]-> my_foo
 		 */
-		if (strcmp (token_name, "typedef") == 0)
+		if (g_strcmp0 (token_name, "typedef") == 0)
 		{
 			free_token_name = TRUE;
 			token_name = g_strdup (tmp_str_splitted[0]);
