@@ -1,3 +1,10 @@
+2008-12-27  Johannes  Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	(on_reload_file_activate), (on_next_document),
+	(on_previous_document):
+	#565578 – Next Document command does not cycle back to first document
+	
 2008-12-27  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	* libanjuta/anjuta-session.c (anjuta_session_finalize),

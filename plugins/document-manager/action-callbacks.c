@@ -275,7 +275,7 @@ on_reload_file_activate (GtkAction *action, gpointer user_data)
 	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_NONE, msg);
+									 GTK_BUTTONS_NONE, "%s", msg);
 	gtk_dialog_add_button (GTK_DIALOG (dialog),
 						   GTK_STOCK_CANCEL, GTK_RESPONSE_NO);
 	anjuta_util_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
@@ -870,24 +870,39 @@ on_editor_remove_view_activate (GtkAction *action, gpointer user_data)
 		ianjuta_editor_view_remove_current (IANJUTA_EDITOR_VIEW (doc), NULL);
 }
 
-void on_next_document (GtkAction *action, gpointer user_data)
+void
+on_next_document (GtkAction *action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman),
-								   gtk_notebook_get_current_page (GTK_NOTEBOOK(docman)) + 1);
+	GtkNotebook* notebook = GTK_NOTEBOOK (docman); 
+	gint cur_page = gtk_notebook_get_current_page(notebook);
+	if (cur_page <
+		gtk_notebook_get_n_pages(notebook) - 1)
+		cur_page++;
+	else
+		cur_page = 0;
+
+	gtk_notebook_set_current_page (notebook,
+								   cur_page);
 }
 
-void on_previous_document (GtkAction *action, gpointer user_data)
+void 
+on_previous_document (GtkAction *action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
+	GtkNotebook* notebook = GTK_NOTEBOOK (docman); 
+	gint cur_page = gtk_notebook_get_current_page(notebook);
+	if (cur_page > 0)
+		cur_page--;
+	else
+		cur_page = -1; /* last_page */
 	
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman),
-								   gtk_notebook_get_current_page (GTK_NOTEBOOK(docman)) - 1);
+	gtk_notebook_set_current_page (notebook,
+								   cur_page);
 }
