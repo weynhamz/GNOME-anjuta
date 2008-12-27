@@ -24,8 +24,11 @@
 
 #include <libanjuta/anjuta-debug.h>
 
-#include "symbol-db-engine-queries.h"
-#include "symbol-db-engine-priv.h"
+#include <libanjuta/resources.h>
+#include "symbol-db-engine-utils.h"
+
+
+static GHashTable *pixbufs_hash = NULL;
 
 /*
  * extern declarations 
@@ -179,4 +182,115 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 		g_mutex_unlock (priv->mutex);
 	
 	return files_to_scan;
+}
+
+#define CREATE_SYM_ICON(N, F) \
+	pix_file = anjuta_res_get_pixmap_file (F); \
+	g_hash_table_insert (pixbufs_hash, \
+					   N, \
+					   gdk_pixbuf_new_from_file (pix_file, NULL)); \
+	g_free (pix_file);
+
+static void
+sdb_util_load_symbol_pixbufs ()
+{
+	gchar *pix_file;
+	
+	if (pixbufs_hash != NULL) 
+	{
+		/* we already have loaded it */
+		return;
+	}
+
+	pixbufs_hash = g_hash_table_new (g_str_hash, g_str_equal);
+
+	CREATE_SYM_ICON ("class",             "element-class-16.png");	
+	CREATE_SYM_ICON ("enum",     	  	  "element-enumeration-16.png");		
+	CREATE_SYM_ICON ("enumerator",     	  "element-enumeration-16.png");	
+	CREATE_SYM_ICON ("function",          "element-method-16.png");	
+	CREATE_SYM_ICON ("interface",         "element-interface-16.png");	
+	CREATE_SYM_ICON ("macro",             "element-event-16.png");	
+	CREATE_SYM_ICON ("namespace",         "element-namespace-16.png");
+	CREATE_SYM_ICON ("none",              "element-literal-16.png");
+	CREATE_SYM_ICON ("struct",            "element-structure-16.png");
+	CREATE_SYM_ICON ("typedef",           "element-literal-16.png");
+	CREATE_SYM_ICON ("union",             "element-structure-16.png");
+	CREATE_SYM_ICON ("variable",          "element-literal-16.png");
+	CREATE_SYM_ICON ("prototype",         "element-interface-16.png");	
+	
+	CREATE_SYM_ICON ("privateclass",      "element-class-16.png");
+	CREATE_SYM_ICON ("privateenum",   	  "element-enumeration-16.png");
+	CREATE_SYM_ICON ("privatefield",   	  "element-event-16.png");
+	CREATE_SYM_ICON ("privatefunction",   "element-method-16.png");
+	CREATE_SYM_ICON ("privateinterface",  "element-interface-16.png");	
+	CREATE_SYM_ICON ("privatemember",     "element-property-16.png");	
+	CREATE_SYM_ICON ("privatemethod",     "element-method-16.png");
+	CREATE_SYM_ICON ("privateproperty",   "element-property-16.png");
+	CREATE_SYM_ICON ("privatestruct",     "element-structure-16.png");
+	CREATE_SYM_ICON ("privateprototype",  "element-interface-16.png");
+
+	CREATE_SYM_ICON ("protectedclass",    "element-class-16.png");	
+	CREATE_SYM_ICON ("protectedenum",     "element-enumeration-16.png");
+	CREATE_SYM_ICON ("protectedfield",    "element-event-16.png");	
+	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
+	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
+	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
+	
+	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
+	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
+	CREATE_SYM_ICON ("publicfunction",    "element-method-16.png");
+	CREATE_SYM_ICON ("publicmember",      "element-method-16.png");
+	CREATE_SYM_ICON ("publicproperty",    "element-property-16.png");
+	CREATE_SYM_ICON ("publicstruct",      "element-structure-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
+	
+	/* special icon */
+	CREATE_SYM_ICON ("othersvars",   "element-event-16.png");
+	CREATE_SYM_ICON ("globalglobal", "element-event-16.png");
+}
+
+/**
+ * @return The pixbufs. It will initialize pixbufs first if they weren't before
+ * @param node_access can be NULL.
+ */
+const GdkPixbuf* 
+symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
+{
+	gchar *search_node;
+	GdkPixbuf *pix;
+	if (!pixbufs_hash)
+	{
+		sdb_util_load_symbol_pixbufs ();
+	}
+	
+	/*DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
+				 node_type, node_access);*/
+	
+	g_return_val_if_fail (node_type != NULL, NULL);
+
+	/* is there a better/quicker method to retrieve pixbufs? */
+	if (node_access != NULL)
+	{
+		search_node = g_strdup_printf ("%s%s", node_access, node_type);
+	}
+	else 
+	{ 
+		/* we will not free search_node gchar, so casting here is ok. */
+		search_node = (gchar*)node_type;
+	}
+	pix = GDK_PIXBUF (g_hash_table_lookup (pixbufs_hash, search_node));
+	
+	if (node_access)
+	{
+		g_free (search_node);
+	}
+	
+	if (pix == NULL)
+	{
+		DEBUG_PRINT ("symbol_db_view_get_pixbuf (): no pixbuf for %s %s",					 
+					 node_type, node_access);
+	}
+	
+	return pix;
 }

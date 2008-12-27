@@ -129,7 +129,7 @@ sdb_view_locals_create_new_store ()
 	GtkTreeStore *store;
 	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
 				    G_TYPE_STRING, G_TYPE_INT);	
-	// FIXME? 
+
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 										  COLUMN_NAME,
 										  GTK_SORT_ASCENDING);
@@ -489,7 +489,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 		
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		
-		pixbuf = symbol_db_view_get_pixbuf (
+		pixbuf = symbol_db_util_get_pixbuf (
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND),
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
@@ -922,7 +922,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 		
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		
-		pixbuf = symbol_db_view_get_pixbuf (
+		pixbuf = symbol_db_util_get_pixbuf (
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND),
 						symbol_db_engine_iterator_node_get_symbol_extra_string (

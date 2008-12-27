@@ -1,0 +1,9 @@
+<!--*- xml -*-->
+<ui>
+	<popup name="PopupDocumentManager">
+		<menu name="Goto" action="ActionMenuGoto">
+			<menuitem name="TagDef" action="ActionSymbolDBGotoDef" />
+			<menuitem name="TagDecl" action="ActionSymbolDBGotoDecl" />
+		</menu>
+	</popup>
+</ui>

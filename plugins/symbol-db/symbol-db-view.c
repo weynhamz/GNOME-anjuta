@@ -73,7 +73,6 @@ typedef struct _NodeIdleExpand  {
 
 
 static GtkTreeViewClass *parent_class = NULL;
-static GHashTable *pixbufs_hash = NULL;
 static void 
 trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id);
 
@@ -640,7 +639,7 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		symbol_access = symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_ACCESS);
 		
-		pixbuf = symbol_db_view_get_pixbuf (symbol_kind, symbol_access);
+		pixbuf = symbol_db_util_get_pixbuf (symbol_kind, symbol_access);
 		symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
 		
 		/* check if one of the children [if they exist] of symbol_id are already 
@@ -875,7 +874,7 @@ sdb_view_row_expanded_idle (gpointer data)
 														SYMINFO_KIND);			
 	symbol_access = symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node, 
 														SYMINFO_ACCESS);						
-	pixbuf = symbol_db_view_get_pixbuf (symbol_kind, symbol_access);
+	pixbuf = symbol_db_util_get_pixbuf (symbol_kind, symbol_access);
 	
 	curr_tree_row_ref = do_add_child_symbol_to_view (dbv, 
 										node_expand->expanded_symbol_id, pixbuf, 
@@ -917,7 +916,7 @@ sdb_view_row_expanded_idle (gpointer data)
 			GtkTreeIter others_dummy_node;
 			others_row_ref = do_add_child_symbol_to_view (dbv, 
 								node_expand->expanded_symbol_id, 
-								symbol_db_view_get_pixbuf ("vars", "others"), 
+								symbol_db_util_get_pixbuf ("vars", "others"), 
 								"Vars/Others", 
 								-node_expand->expanded_symbol_id);
 				
@@ -1284,7 +1283,7 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 			
 			/* Step 3 */
 			/* ok we must display this symbol */			
-			pixbuf = symbol_db_view_get_pixbuf (
+			pixbuf = symbol_db_util_get_pixbuf (
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND),
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
@@ -1498,118 +1497,6 @@ symbol_db_view_get_type (void)
 }
 
 
-#define CREATE_SYM_ICON(N, F) \
-	pix_file = anjuta_res_get_pixmap_file (F); \
-	g_hash_table_insert (pixbufs_hash, \
-					   N, \
-					   gdk_pixbuf_new_from_file (pix_file, NULL)); \
-	g_free (pix_file);
-
-static void
-sdb_view_load_symbol_pixbufs ()
-{
-	gchar *pix_file;
-	
-	if (pixbufs_hash != NULL) 
-	{
-		/* we already have loaded it */
-		return;
-	}
-
-	pixbufs_hash = g_hash_table_new (g_str_hash, g_str_equal);
-
-	CREATE_SYM_ICON ("class",             "element-class-16.png");	
-	CREATE_SYM_ICON ("enum",     	  	  "element-enumeration-16.png");		
-	CREATE_SYM_ICON ("enumerator",     	  "element-enumeration-16.png");	
-	CREATE_SYM_ICON ("function",          "element-method-16.png");	
-	CREATE_SYM_ICON ("interface",         "element-interface-16.png");	
-	CREATE_SYM_ICON ("macro",             "element-event-16.png");	
-	CREATE_SYM_ICON ("namespace",         "element-namespace-16.png");
-	CREATE_SYM_ICON ("none",              "element-literal-16.png");
-	CREATE_SYM_ICON ("struct",            "element-structure-16.png");
-	CREATE_SYM_ICON ("typedef",           "element-literal-16.png");
-	CREATE_SYM_ICON ("union",             "element-structure-16.png");
-	CREATE_SYM_ICON ("variable",          "element-literal-16.png");
-	CREATE_SYM_ICON ("prototype",         "element-interface-16.png");	
-	
-	CREATE_SYM_ICON ("privateclass",      "element-class-16.png");
-	CREATE_SYM_ICON ("privateenum",   	  "element-enumeration-16.png");
-	CREATE_SYM_ICON ("privatefield",   	  "element-event-16.png");
-	CREATE_SYM_ICON ("privatefunction",   "element-method-16.png");
-	CREATE_SYM_ICON ("privateinterface",  "element-interface-16.png");	
-	CREATE_SYM_ICON ("privatemember",     "element-property-16.png");	
-	CREATE_SYM_ICON ("privatemethod",     "element-method-16.png");
-	CREATE_SYM_ICON ("privateproperty",   "element-property-16.png");
-	CREATE_SYM_ICON ("privatestruct",     "element-structure-16.png");
-	CREATE_SYM_ICON ("privateprototype",  "element-interface-16.png");
-
-	CREATE_SYM_ICON ("protectedclass",    "element-class-16.png");	
-	CREATE_SYM_ICON ("protectedenum",     "element-enumeration-16.png");
-	CREATE_SYM_ICON ("protectedfield",    "element-event-16.png");	
-	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
-	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
-	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
-	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
-	
-	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
-	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
-	CREATE_SYM_ICON ("publicfunction",    "element-method-16.png");
-	CREATE_SYM_ICON ("publicmember",      "element-method-16.png");
-	CREATE_SYM_ICON ("publicproperty",    "element-property-16.png");
-	CREATE_SYM_ICON ("publicstruct",      "element-structure-16.png");
-	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
-	
-	/* special icon */
-	CREATE_SYM_ICON ("othersvars",   "element-event-16.png");
-	CREATE_SYM_ICON ("globalglobal", "element-event-16.png");
-}
-
-/**
- * @return The pixbufs. It will initialize pixbufs first if they weren't before
- * @param node_access can be NULL.
- */
-inline const GdkPixbuf* 
-symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
-{
-	gchar *search_node;
-	GdkPixbuf *pix;
-	if (!pixbufs_hash)
-	{
-		sdb_view_load_symbol_pixbufs ();
-	}
-	
-	/*DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
-				 node_type, node_access);*/
-	
-	g_return_val_if_fail (node_type != NULL, NULL);
-
-	/* is there a better/quicker method to retrieve pixbufs? */
-	if (node_access != NULL)
-	{
-		search_node = g_strdup_printf ("%s%s", node_access, node_type);
-	}
-	else 
-	{ 
-		/* we will not free search_node gchar, so casting here is ok. */
-		search_node = (gchar*)node_type;
-	}
-	pix = GDK_PIXBUF (g_hash_table_lookup (pixbufs_hash, search_node));
-	
-	if (node_access)
-	{
-		g_free (search_node);
-	}
-	
-	if (pix == NULL)
-	{
-		DEBUG_PRINT ("symbol_db_view_get_pixbuf (): no pixbuf for %s %s",					 
-					 node_type, node_access);
-	}
-	
-	return pix;
-}
-
-
 GtkWidget* 
 symbol_db_view_new (void)
 {
@@ -1710,7 +1597,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 
 			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 			
-			pixbuf = symbol_db_view_get_pixbuf (
+			pixbuf = symbol_db_util_get_pixbuf (
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND),
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
@@ -1748,7 +1635,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	/*
 	 * Good. Add a 'Global' node to the store. 
 	 */
-	global_pixbuf = symbol_db_view_get_pixbuf ("global", "global");
+	global_pixbuf = symbol_db_util_get_pixbuf ("global", "global");
 	
 	global_tree_row_ref = do_add_root_symbol_to_view (dbv, global_pixbuf, 
 											"Global", ROOT_GLOBAL);

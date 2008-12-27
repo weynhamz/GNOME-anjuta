@@ -58,7 +58,11 @@ struct _SymbolDBPlugin {
 	
 	/* project monitor */
 	guint root_watch_id;
-	 
+	
+	/* ui merge */
+	GtkActionGroup *popup_action_group;
+	gint merge_id;
+	
 	/* editor monitor */
 	guint buf_update_timeout_id;
 	gboolean need_symbols_update;

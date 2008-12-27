@@ -48,6 +48,7 @@
 #include "symbol-db-prefs.h"
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.ui"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
@@ -63,7 +64,7 @@ enum
 {
 	PROJECT_IMPORT_END,
 	GLOBALS_IMPORT_END,
-	LAST_SIGNAL
+	LAST_SIGNAL 
 };
 
 typedef enum 
@@ -92,6 +93,131 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ICON_FILE, "symbol-db-plugin-icon");
 	END_REGISTER_ICON;
 }
+
+static void
+goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
+{
+	IAnjutaDocumentManager *docman;
+	GFile* file;
+	
+	g_return_if_fail (filename != NULL);
+		
+	DEBUG_PRINT ("going to: file %s, line %d", filename, lineno);
+	
+	/* Go to file and line number */
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager,
+										 NULL);
+	file = g_file_new_for_path (filename);
+	ianjuta_document_manager_goto_file_line (docman, file, lineno, NULL);
+	
+	g_object_unref (file);
+}
+
+static void
+goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
+			   gboolean prefer_definition)
+{
+	SymbolDBEngineIterator *iterator;	
+	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
+															 word,
+															 SYMINFO_SIMPLE |
+											   				 SYMINFO_KIND |
+															 SYMINFO_FILE_PATH);
+	do {
+		const gchar *symbol_kind;
+		SymbolDBEngineIteratorNode *iter_node; 
+		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);			
+
+		/* not found or some error occurred */
+		if (iter_node == NULL)
+			break;
+
+		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
+					iter_node, SYMINFO_KIND);				
+		
+		if (prefer_definition == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0)
+		{
+			gint line = 
+				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+			const gchar* file = 
+				symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+													SYMINFO_FILE_PATH);
+			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+			break;
+		}
+		else if (prefer_definition == TRUE && g_strcmp0 (symbol_kind, "function") == 0)
+		{
+			gint line = 
+				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+			const gchar* file = 
+				symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+													SYMINFO_FILE_PATH);
+			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+			break;
+		}
+
+	} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);	
+	
+	if (iterator)
+		g_object_unref (iterator);
+}
+
+static void
+on_goto_file_tag_def_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
+{
+	IAnjutaEditor *ed;
+	gchar *word;
+
+	if (sdb_plugin->current_editor)
+	{
+		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
+		word = ianjuta_editor_get_current_word (ed, NULL);
+		if (word)
+		{
+			goto_file_tag (sdb_plugin, word, TRUE);
+			g_free (word);
+		}
+	}
+}
+
+static void
+on_goto_file_tag_decl_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
+{
+	IAnjutaEditor *ed;
+	gchar *word;
+
+	if (sdb_plugin->current_editor)
+	{
+		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
+		word = ianjuta_editor_get_current_word (ed, NULL);
+		if (word)
+		{
+			goto_file_tag (sdb_plugin, word, FALSE);
+			g_free (word);
+		}
+	}
+}
+
+static GtkActionEntry actions[] = 
+{
+	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
+	{
+		"ActionSymbolDBGotoDef",
+		NULL,
+		N_("Tag _Definition"),
+		"<control>d",
+		N_("Goto symbol definition"),
+		G_CALLBACK (on_goto_file_tag_def_activate)
+	},
+	{
+		"ActionSymbolDBGotoDecl",
+		NULL,
+		N_("Tag De_claration"),
+		"<shift><control>d",
+		N_("Goto symbol declaration"),
+		G_CALLBACK (on_goto_file_tag_decl_activate)
+	}
+};
 
 static void
 on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
@@ -524,24 +650,6 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 						 (GWeakNotify) (on_editor_destroy),
 						 user_data);
 }
-
-static void
-goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
-{
-	IAnjutaDocumentManager *docman;
-	GFile* file;
-	
-	g_return_if_fail (filename != NULL);
-		
-	/* Go to file and line number */
-	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager,
-										 NULL);
-	file = g_file_new_for_path (filename);
-	ianjuta_document_manager_goto_file_line (docman, file, lineno, NULL);
-	
-	g_object_unref (file);
-}
-
 
 static void
 goto_local_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
@@ -1072,7 +1180,7 @@ project_import_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 
 /* note the *system* word in the function */
 static void
-do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
+do_import_system_sources_after_abort (SymbolDBPlugin *sdb_plugin,
 								  const GPtrArray *sources_array)
 {
 	AnjutaPlugin *plugin;
@@ -1086,7 +1194,7 @@ do_import_system_src_after_abort (SymbolDBPlugin *sdb_plugin,
 	lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 										NULL);
 
-	DEBUG_PRINT ("do_import_system_src_after_abort %d", sources_array->len);
+	DEBUG_PRINT ("array length %d", sources_array->len);
 	/* create array of languages */
 	languages_array = g_ptr_array_new ();
 	to_scan_array = g_ptr_array_new ();
@@ -1322,7 +1430,7 @@ do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 
 	if (sys_src_array != NULL && sys_src_array->len > 0) 
 	{
-		do_import_system_src_after_abort (sdb_plugin, sys_src_array);
+		do_import_system_sources_after_abort (sdb_plugin, sys_src_array);
 			
 		g_ptr_array_foreach (sys_src_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (sys_src_array, TRUE);
@@ -2000,6 +2108,19 @@ symbol_db_activate (AnjutaPlugin *plugin)
 							 "symbol-db-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);	
 
+	/* Add action group */
+	symbol_db->popup_action_group = 
+		anjuta_ui_add_action_group_entries (symbol_db->ui,
+											"ActionGroupPopupSymbolDB",
+											_("Symbol db popup actions"),
+											actions,
+											G_N_ELEMENTS (actions),
+											GETTEXT_PACKAGE, FALSE, plugin);
+	
+	/* Add UI */
+	symbol_db->merge_id = 
+		anjuta_ui_merge (symbol_db->ui, UI_FILE);
+	
 	/* set up project directory watch */
 	symbol_db->root_watch_id = anjuta_plugin_add_watch (plugin,
 									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
@@ -2132,6 +2253,9 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->root_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, sdb_plugin->editor_watch_id, TRUE);
+
+	/* Remove UI */
+	anjuta_ui_unmerge (sdb_plugin->ui, sdb_plugin->merge_id);	
 	
 	/* Remove widgets: Widgets will be destroyed when dbv_main is removed */
 	g_object_unref (sdb_plugin->progress_bar_project);
@@ -2140,6 +2264,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 
 	sdb_plugin->root_watch_id = 0;
 	sdb_plugin->editor_watch_id = 0;
+	sdb_plugin->merge_id = 0;
 	sdb_plugin->dbv_notebook = NULL;
 	sdb_plugin->scrolled_global = NULL;
 	sdb_plugin->scrolled_locals = NULL;

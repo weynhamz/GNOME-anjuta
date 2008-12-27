@@ -402,7 +402,7 @@ isymbol_get_icon (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR (isymbol), FALSE);
 	s = SYMBOL_DB_ENGINE_ITERATOR_NODE (isymbol);
 	
-	return symbol_db_view_get_pixbuf (
+	return symbol_db_util_get_pixbuf (
 				symbol_db_engine_iterator_node_get_symbol_extra_string (s, 
 								SYMINFO_TYPE), 
 				symbol_db_engine_iterator_node_get_symbol_extra_string (s, 

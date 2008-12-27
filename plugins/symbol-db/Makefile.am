@@ -3,6 +3,10 @@ SUBDIRS = images
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql
 
+# Plugin UI file
+symbol_db_uidir = $(anjuta_ui_dir)
+symbol_db_ui_DATA = anjuta-symbol-db-plugin.ui
+
 # Plugin Glade file
 symbol_db_gladedir = $(anjuta_glade_dir)
 symbol_db_glade_DATA =  anjuta-symbol-db.glade
@@ -78,7 +82,8 @@ EXTRA_DIST = \
 	$(symbol_db_plugin_DATA) \
 	$(symbol_db_glade_DATA) \
 	$(symbol_db_pixmaps_DATA) \
-	$(symbol_db_data_DATA)
+	$(symbol_db_data_DATA) \
+	$(symbol_db_ui_DATA)
 
 
 

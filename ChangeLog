@@ -1,5 +1,34 @@
 2008-12-27  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/anjuta-symbol-db-plugin.ui:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c (goto_file_line), (goto_file_tag),
+	(on_goto_file_tag_def_activate), (on_goto_file_tag_decl_activate),
+	(do_import_system_sources_after_abort), (do_import_system_sources),
+	(symbol_db_activate), (symbol_db_deactivate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c
+	(isymbol_get_icon):
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_find_symbol_by_name_pattern):
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(sdb_util_load_symbol_pixbufs), (symbol_db_util_get_pixbuf):
+	* plugins/symbol-db/symbol-db-engine-utils.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(sdb_view_locals_create_new_store), (traverse_on_scan_end),
+	(consume_symbols_inserted_queue_idle):
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter):
+	* plugins/symbol-db/symbol-db-view.c (on_symbol_inserted),
+	(sdb_view_row_expanded_idle), (symbol_db_view_row_expanded),
+	(sdb_view_build_and_display_base_tree):
+	* plugins/symbol-db/symbol-db-view.h:
+	moved symbol_db_util_get_pixbuf () into symbol-db-engine-utils.c.
+	Fixed #565691 – no Goto Definition command in symbol-db.
+
+2008-12-27  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/symbol-db-engine-queries.c
 	(symbol_db_engine_find_symbol_by_name_pattern):
 	* plugins/symbol-db/symbol-db-engine-queries.h:

@@ -28,6 +28,9 @@
 #include <glib-object.h>
 #include <glib.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libgda/libgda.h>
+#include <sql-parser/gda-sql-parser.h>
+
 
 /* file should be specified without the ".db" extension. */
 #define ANJUTA_DB_FILE	".anjuta_sym_db"

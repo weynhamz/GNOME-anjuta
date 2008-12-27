@@ -1765,14 +1765,14 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
 			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
-			"%s FROM symbol "
-			"%s WHERE symbol.name %s", info_data->str, join_data->str, match_str);
+			"%s FROM symbol %s "
+			"WHERE symbol.name %s", info_data->str, join_data->str, match_str);
 		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
 						sym_info, other_parameters,
 						query_str);
-		
+		/* DEBUG_PRINT ("query %s", query_str);*/
 		g_free (query_str);
 		g_string_free (info_data, TRUE);
 		g_string_free (join_data, TRUE);

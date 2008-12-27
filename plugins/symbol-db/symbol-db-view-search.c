@@ -157,7 +157,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 					
 
 					gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
-							COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
+							COLUMN_PIXBUF, symbol_db_util_get_pixbuf (
 								symbol_db_engine_iterator_node_get_symbol_extra_string (
 									iter_node, SYMINFO_KIND),
 									symbol_db_engine_iterator_node_get_symbol_extra_string (

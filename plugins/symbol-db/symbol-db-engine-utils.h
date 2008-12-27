@@ -28,6 +28,9 @@
 #include <glib-object.h>
 #include <glib.h>
 
+#include "symbol-db-engine-priv.h"
+#include "symbol-db-engine.h"
+
 
 /**
  * Simple compare function for GTree(s)
@@ -41,7 +44,6 @@ symbol_db_gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_da
 gint
 symbol_db_glist_compare_func (gconstpointer a, gconstpointer b);
 
-
 /**
  * Return full_local_path given a relative-to-db file path.
  * User must care to free the returned string.
@@ -49,7 +51,6 @@ symbol_db_glist_compare_func (gconstpointer a, gconstpointer b);
  */
 gchar*
 symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
-
 
 /**
  * Return a db-relativ file path. Es. given the full_local_file_path 
@@ -81,6 +82,10 @@ symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types);
 GPtrArray *
 symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe);
 
-
+/* return the pixbufs. It will initialize pixbufs first if they weren't before
+ * node_access: can be NULL.
+ */
+const GdkPixbuf* 
+symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access);
 
 #endif
