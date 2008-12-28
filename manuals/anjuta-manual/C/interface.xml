@@ -36,8 +36,8 @@
     <itemizedlist>
      <listitem>
       <para>
-       <emphasis>Switch Editor Page:</emphasis> <keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo>
-       (forward) and <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Tab</keycap></keycombo>
+       <emphasis>Switch Editor Page:</emphasis> <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Page Up</keycap></keycombo>
+       (forward) and <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Page Down</keycap></keycombo>
        (backward). You can
 	   also switch pages by right-clicking on the notebook tabs and selecting a filename from the pop-up menu
 	   (useful when all the tabs in the editor are not visible at once). Some desktop configurations

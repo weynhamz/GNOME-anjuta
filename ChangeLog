@@ -1,4 +1,10 @@
-2008-12-27  Jens Georg  <mail@jensge.org>
+2008-12-28  Adam Dingle  <adam@medovina.org>
+ 
+ 	* manuals/anjuta-manual/C/interface.xml:
+ 	Corrected documentation of shortcuts for moving to next/previous document.
+ 	This fixes #565368. 
+
+2008-12-28  Jens Georg  <mail@jensge.org>
  
  	* plugins/cvs-plugin/plugin.c: 
  	Fix regression introduced with last patch for CVS plugin 
