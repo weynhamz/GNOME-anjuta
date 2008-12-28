@@ -1,3 +1,10 @@
+2008-12-28  Johannes  Schmid <jhs@gnome.org>
+
+	* plugins/search/search-replace.c (search_and_replace):
+	Removed comment
+	* plugins/sourceview/sourceview.c (set_select), (iselect_set):
+	#545127 – When searching down can't see below search result
+
 2008-12-28  Adam Dingle  <adam@medovina.org>
  
  	* plugins/document-manager/anjuta-document-manager.ui:

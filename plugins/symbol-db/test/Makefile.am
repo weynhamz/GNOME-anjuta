@@ -1,6 +1,7 @@
 
 bin_PROGRAMS = \
-	benchmark 
+	benchmark \
+	test-symbol-db 
 	
 
 AM_CPPFLAGS = \
@@ -22,8 +23,9 @@ test_symbol_db_SOURCES = \
 	main.c       \
 	../readtags.c       \
 	../readtags.h       \
-	../symbol-db-engine.c       \
-	../symbol-db-engine.h       \
+	../symbol-db-engine-core.c       \
+	../symbol-db-engine-queries.c       \
+	../symbol-db-engine-utils.c  \
 	../symbol-db-engine-iterator.c       \
 	../symbol-db-engine-iterator.h \
 	../symbol-db-engine-iterator-node.c \
@@ -39,10 +41,10 @@ benchmark_SOURCES = \
 	benchmark.c       \
 	../readtags.c       \
 	../readtags.h       \
-	../symbol-db-engine.c       \
-	../symbol-db-engine.h       \
+	../symbol-db-engine-core.c       \
+	../symbol-db-engine-queries.c       \
 	../symbol-db-engine-iterator.c       \
-	../symbol-db-engine-iterator.h \
+	../symbol-db-engine-utils.c \
 	../symbol-db-engine-iterator-node.c \
 	../symbol-db-engine-iterator-node.h \
 	../symbol-db-view.h \

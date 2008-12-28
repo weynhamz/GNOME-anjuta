@@ -370,12 +370,6 @@ search_and_replace (void)
 		{		
 			fb->pos = se->start_pos;
 			offset = 0;
-/* NO - there's no reason for user to expect existing marks to be removed.
-	And that can easily be done manually by user if so desired.
-			if (s->action == SA_BOOKMARK && IANJUTA_IS_MARKABLE (fb->te))
-				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
-				                                    IANJUTA_MARKABLE_LINEMARKER, NULL);
-*/
 		//FIXME enable clearing of marks by some means other than a 0-match search
 			if (s->action == SA_HIGHLIGHT)	
 				ianjuta_indicable_clear (IANJUTA_INDICABLE(fb->te), NULL); 				

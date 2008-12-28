@@ -1313,9 +1313,14 @@ idocument_iface_init (IAnjutaDocumentIface *iface)
 static void
 set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
 {
-	gtk_text_buffer_select_range (GTK_TEXT_BUFFER (sv->priv->document), start_iter, end_iter);
-	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->view),
-								 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
+	gtk_text_buffer_select_range (buffer, start_iter, end_iter);
+	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (sv->priv->view),
+								  gtk_text_buffer_get_insert (buffer),
+								  0.25,
+								  FALSE,
+								  0.0,
+								  0.0);
 }
 
 /* IAnjutaEditorSelection */
@@ -1401,12 +1406,9 @@ iselect_set (IAnjutaEditorSelection* edit,
 			 GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	gtk_text_buffer_select_range (GTK_TEXT_BUFFER (sv->priv->document),
-								  sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
-								  sourceview_cell_get_iter (SOURCEVIEW_CELL (iend)));
-	gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (sv->priv->view),
-												 sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
-												 0, FALSE, 0, 0);
+	set_select(sv,
+			   sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
+			   sourceview_cell_get_iter (SOURCEVIEW_CELL (iend)));
 }
 															
 

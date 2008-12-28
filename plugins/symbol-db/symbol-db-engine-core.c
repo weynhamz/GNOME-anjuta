@@ -1122,7 +1122,6 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		/* insert or update a symbol */
 		sdb_engine_add_new_symbol (dbe, &tag_entry, file_defined_id,
 								   force_sym_update);
-		
 		tags_total_DEBUG ++;
 		tag_entry.file = NULL;
 	}
@@ -4600,6 +4599,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint update_flag;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GTimer* timer = g_timer_new();
 		
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
@@ -4632,24 +4632,28 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	}
 	
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
-
+	DEBUG_PRINT ("add_symbol type_id: %f", g_timer_elapsed (timer, NULL));
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
 	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
 															   type_id);
 
+	DEBUG_PRINT ("add_symbol scope_definition_id: %f", g_timer_elapsed (timer, NULL));
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parse in the second pass.
 	 */
 	scope_id = 0;
 
 	kind_id = sdb_engine_add_new_sym_kind (dbe, tag_entry);
+	DEBUG_PRINT ("add_symbol kind_id: %f", g_timer_elapsed (timer, NULL));
 	
 	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);
+	DEBUG_PRINT ("add_symbol access_kind_id: %f", g_timer_elapsed (timer, NULL));
 	implementation_kind_id =
 		sdb_engine_add_new_sym_implementation (dbe, tag_entry);
-	
+	DEBUG_PRINT ("add_symbol implementation_kind_id: %f", g_timer_elapsed (timer, NULL));
+	DEBUG_PRINT ("add_symbol ids: %f", g_timer_elapsed (timer, NULL));
 	/* ok: was the symbol updated [at least on it's type_id/name]? 
 	 * There are 3 cases:
 	 * #1. The symbol remain the same [at least on unique index key]. We will 
@@ -4662,7 +4666,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
 	 *     also scope_ids and other things.
 	 */
-
+	
 	
 	if (update_flag == FALSE)
 	{
@@ -4718,8 +4722,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		MP_RETURN_OBJ_INT (priv, value3);
 		MP_RETURN_OBJ_INT (priv, value4);
 	}
-		 
-
 	/* ok then, parse the symbol id value */
 	if (symbol_id <= 0)
 	{
@@ -4788,7 +4790,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 		MP_SET_HOLDER_BATCH_INT(priv, param, symbol_id, ret_bool, ret_value);
 	}
-	
+	DEBUG_PRINT ("add_symbol init: %f", g_timer_elapsed (timer, NULL));
 	/* common params */
 
 	/* fileposition parameter */
@@ -4872,12 +4874,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, update_flag, ret_bool, ret_value);
 	
+	DEBUG_PRINT ("add_symbol batch: %f", g_timer_elapsed (timer, NULL));
+	
 	/* execute the query with parametes just set */
 	gint nrows;
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
 													 NULL);
+	DEBUG_PRINT ("add_symbol query: %f", g_timer_elapsed (timer, NULL));
 	
 	if (sym_was_updated == FALSE)
 	{
@@ -4919,6 +4924,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
 	
+	DEBUG_PRINT ("add_symbol end: %f", g_timer_elapsed (timer, NULL));
+	g_timer_destroy (timer);
 	return table_id;
 }
 
