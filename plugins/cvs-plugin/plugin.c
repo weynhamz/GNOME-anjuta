@@ -172,6 +172,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	gchar *filename;
 	GFileType type;
 	GFile *cvs_dir;
+	GFileEnumerator *en;
 	
 	GFile* file = G_FILE (g_value_get_object (value));
 	filename = g_file_get_path (file);
@@ -191,7 +192,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	if it is a file we check if it's directory contains a "CVS" directory */
 
 	type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
-	if (type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+	if (type == G_FILE_TYPE_DIRECTORY)
 	{
 		cvs_dir = g_file_get_child (file, "CVS");
 	}
@@ -212,9 +213,12 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 		}
 	}	
 
-	type = g_file_query_file_type (cvs_dir, G_FILE_QUERY_INFO_NONE, NULL);
-	if (type == G_FILE_TYPE_DIRECTORY)
+	en = g_file_enumerate_children (cvs_dir, "", 
+			G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+	if (en != NULL)
 	{
+		g_object_unref (G_OBJECT (en));
 		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", TRUE, NULL);
 	}
 	else
