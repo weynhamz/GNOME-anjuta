@@ -162,7 +162,6 @@ static void
 anjuta_view_class_init (AnjutaViewClass *klass)
 {
 	GObjectClass     *object_class = G_OBJECT_CLASS (klass);
-	GtkObjectClass   *gtkobject_class = GTK_OBJECT_CLASS (klass);
 	GtkTextViewClass *textview_class = GTK_TEXT_VIEW_CLASS (klass);
 	GtkWidgetClass   *widget_class = GTK_WIDGET_CLASS (klass);
 	GtkBindingSet    *binding_set;
@@ -317,8 +316,9 @@ anjuta_view_dispose (GObject *object)
 	AnjutaView *view;
 
 	view = ANJUTA_VIEW (object);
-
-	g_source_remove (view->priv->scroll_idle);
+	
+	if (view->priv->scroll_idle > 0)
+				g_source_remove (view->priv->scroll_idle);
 		
 	(* G_OBJECT_CLASS (anjuta_view_parent_class)->dispose) (object);
 }

@@ -1,5 +1,11 @@
 2008-12-28  Adam Dingle  <adam@medovina.org>
  
+ 	* plugins/search/search-replace_backend.c (search_entry_compare),
+ 	(create_search_entries):
+ 	Fixed #565014 – sort Find in Files output by filename 
+
+2008-12-28  Adam Dingle  <adam@medovina.org>
+ 
  	* manuals/anjuta-manual/C/interface.xml:
  	Corrected documentation of shortcuts for moving to next/previous document.
  	This fixes #565368. 

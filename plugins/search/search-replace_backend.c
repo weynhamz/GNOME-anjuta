@@ -666,6 +666,13 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 		get_next_utf8_match(fb, direction, s);
 }
 
+static gint search_entry_compare(gconstpointer a, gconstpointer b)
+{
+	gchar* a_path = ((SearchEntry *) a)->path;
+	gchar* b_path = ((SearchEntry *) b)->path;
+	return strcmp(a_path, b_path);
+}
+
 /* Create list of search entries */
 GList *
 create_search_entries (Search *s)
@@ -811,7 +818,7 @@ create_search_entries (Search *s)
 				entries = g_list_prepend(entries, se);
 			}
 			}
-			entries = g_list_reverse(entries);
+			entries = g_list_sort(entries, search_entry_compare);
 			g_list_free (editors);
 			break;
 		case SR_FILES:
@@ -851,7 +858,7 @@ create_search_entries (Search *s)
 					entries = g_list_prepend(entries, se);
 				}
 				g_list_free(files);
-				entries = g_list_reverse(entries);
+				entries = g_list_sort(entries, search_entry_compare);
 			}
 			g_free(dir);
 			g_free(dir_uri);
