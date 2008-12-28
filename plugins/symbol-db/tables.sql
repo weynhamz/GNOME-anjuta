@@ -124,8 +124,6 @@ CREATE TRIGGER delete_symbol_trg BEFORE DELETE ON symbol
 FOR EACH ROW
 BEGIN
     DELETE FROM scope WHERE scope.scope_id=old.scope_definition_id;
-    DELETE FROM sym_type WHERE sym_type.type_id=old.type_id AND (SELECT COUNT(*) 
-					FROM symbol WHERE symbol.type_id=old.type_id) <= 1;
     UPDATE symbol SET scope_id='-1' WHERE symbol.scope_id=old.scope_definition_id AND symbol.scope_id > 0;
     INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;

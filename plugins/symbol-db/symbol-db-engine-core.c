@@ -603,7 +603,6 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 
 	for (i = 0; i < PREP_QUERY_COUNT; i++)
 	{
-/*DEBUG_PRINT ("sdb_engine_free_cached_queries START %d", i);*/
 		node = priv->static_query_list[i];
 
 		if (node != NULL && node->stmt != NULL)
@@ -623,7 +622,6 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 		/* last but not the least free the node itself */
 		g_free (node);
 		priv->static_query_list[i] = NULL;
-/*DEBUG_PRINT ("sdb_engine_free_cached_queries END %d", i);		*/
 	}
 }
 
@@ -2583,6 +2581,16 @@ sdb_engine_set_defaults_db_parameters (SymbolDBEngine * dbe)
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
 }
 
+/**
+ * Delete all entries that don't have a reference on symbol table.
+ */
+static void
+sdb_engine_normalize_sym_type (SymbolDBEngine * dbe)
+{	
+	sdb_engine_execute_unknown_sql (dbe, "DELETE FROM sym_type WHERE type_id NOT IN "
+		"(SELECT type_id FROM symbol)");
+}
+
 /* Will create priv->db_connection.
  * Connect to database identified by db_directory.
  * Usually db_directory is defined also into priv. We let it here as parameter 
@@ -2800,7 +2808,10 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	}
 
 	sdb_engine_set_defaults_db_parameters (dbe);
-	
+
+	/* normalize some tables */
+	sdb_engine_normalize_sym_type (dbe);
+		
 	return TRUE;
 }
 
@@ -4963,7 +4974,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 	{
 		if ((num_rows = gda_data_model_get_n_rows (data_model)) <= 0)
 		{
-			DEBUG_PRINT ("%s", "sdb_engine_detects_removed_ids (): nothing to remove");
+			DEBUG_PRINT ("nothing to remove");
 			g_object_unref (data_model);
 			return;
 		}
@@ -4983,7 +4994,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		val = gda_data_model_get_value_at (data_model, 0, i, NULL);
 		tmp = g_value_get_int (val);
 	
-		DEBUG_PRINT ("%s", "EMITTING symbol-removed");
+		/*DEBUG_PRINT ("%s", "EMITTING symbol-removed");*/
 		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(SYMBOL_REMOVED + 1));
 		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(tmp));
 	}

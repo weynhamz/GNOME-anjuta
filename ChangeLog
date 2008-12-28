@@ -1,5 +1,17 @@
 2008-12-28  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_free_cached_queries), (sdb_engine_normalize_sym_type),
+	(symbol_db_engine_open_db), (sdb_engine_detects_removed_ids):
+	* plugins/symbol-db/tables.sql:
+	fixed #565769 – symbol-db blocks anjuta when files are removed.
+	Removed a trigger when ON DELETE is called. This should speed up the things.
+	The 'delete from sym_type' will take place on connection opening.
+	A complete repopulation is needed to see such fix working, 
+	e.g. `rm .anjuta_sym_db.db`
+
+2008-12-28  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* AUTHORS: added Carl-Anton Ingmarsson.
 	* plugins/class-inheritance/Makefile.am:
 	added G_LOG_DOMAIN
