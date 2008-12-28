@@ -1,3 +1,14 @@
+2008-12-28  Johannes  Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-view.c (anjuta_view_class_init),
+	(anjuta_view_dispose):
+	Fixed a race conditin where an idle call happens after the object is
+	already destroyed.
+	
+	* plugins/sourceview/sourceview.c (on_open_finish),
+	(sourceview_dispose):
+	Fixed 564891 – Crash when closing editor window
+
 2008-12-27  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/anjuta-symbol-db-plugin.ui:

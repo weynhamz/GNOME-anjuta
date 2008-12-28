@@ -66,7 +66,7 @@ struct _AnjutaViewPrivate
   Sourceview* sv;
 };
 
-static void	anjuta_view_destroy		(GtkObject       *object);
+static void	anjuta_view_dispose		(GObject       *object);
 static void	anjuta_view_finalize		(GObject         *object);
 static void	anjuta_view_move_cursor		(GtkTextView     *text_view,
 						 GtkMovementStep  step,
@@ -168,7 +168,7 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	GtkBindingSet    *binding_set;
 	GParamSpec *anjuta_view_spec_popup;
 
-	gtkobject_class->destroy = anjuta_view_destroy;
+	object_class->dispose = anjuta_view_dispose;
 	object_class->finalize = anjuta_view_finalize;
 	object_class->set_property = anjuta_view_set_property;
 	object_class->get_property = anjuta_view_get_property;	
@@ -312,13 +312,15 @@ anjuta_view_init (AnjutaView *view)
 }
 
 static void
-anjuta_view_destroy (GtkObject *object)
+anjuta_view_dispose (GObject *object)
 {
 	AnjutaView *view;
 
 	view = ANJUTA_VIEW (object);
-	
-	(* GTK_OBJECT_CLASS (anjuta_view_parent_class)->destroy) (object);
+
+	g_source_remove (view->priv->scroll_idle);
+		
+	(* G_OBJECT_CLASS (anjuta_view_parent_class)->dispose) (object);
 }
 
 static void

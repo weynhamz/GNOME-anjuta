@@ -440,7 +440,6 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
     g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
 	
-	sv->priv->loading = FALSE;
 	if (sv->priv->goto_line > 0)
 	{
 		goto_line (sv, sv->priv->goto_line);
@@ -596,6 +595,9 @@ sourceview_dispose(GObject *object)
 	if (cobj->priv->assist_tip)
 		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
 	g_object_unref (cobj->priv->io);
+	
+	if (cobj->priv->tooltip_cell)
+		g_object_unref (cobj->priv->tooltip_cell);
 	
 	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
 	{
