@@ -32,58 +32,6 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.ui"
 #define ICON_FILE "anjuta-search-plugin-48.png"
 
-#define ANJUTA_PIXMAP_MATCH_NEXT				  "anjuta-go-match-next"
-#define ANJUTA_PIXMAP_MATCH_PREV				  "anjuta-go-match-prev"
-#define ANJUTA_STOCK_MATCH_NEXT				  "anjuta-match-next"
-#define ANJUTA_STOCK_MATCH_PREV				  "anjuta-match-prev"
-
-/* Find next occurence of expression in Editor
-   Caching of FileBuffer might be useful here to improve performance
-   Returns: TRUE = found, FALSE = not found
-*/
-
-static gboolean find_incremental(IAnjutaEditor* te, gchar* expression, 
-								 SearchDirection dir)
-{
-	FileBuffer* fb = file_buffer_new_from_te (te);
-	SearchExpression* se = g_new0(SearchExpression, 1);
-	MatchInfo* info;
-	gboolean ret;
-		
-	se->search_str = expression;
-	se->regex = FALSE;
-	se->greedy = FALSE;
-	se->match_case = FALSE;
-	se->whole_word = FALSE;
-	se->whole_line = FALSE;
-	se->word_start = FALSE;
-	se->no_limit = FALSE;
-	se->actions_max = 1;
-	se->regex_info = NULL;
-
-	info = get_next_match(fb, dir, se);
-	
-	if (info != NULL)
-	{
-		IAnjutaIterable *start, *end;
-		start = ianjuta_editor_get_position_from_offset (te, info->pos, NULL);
-		end = ianjuta_editor_get_position_from_offset (te, info->pos + info->len, NULL);
-		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  start, end, NULL);
-		g_object_unref (start);
-		g_object_unref (end);
-		ret = TRUE;
-	}
-	else
-		ret = FALSE;
-	
-	match_info_free(info);
-	file_buffer_free(fb);
-	g_free(se);
-	
-	return ret;
-}
-
 static void
 on_find1_activate (GtkAction * action, gpointer user_data)
 {
@@ -115,78 +63,6 @@ on_findprevious1_activate (GtkAction * action, gpointer user_data)
 	search_replace_previous();
 }
 
-static void
-on_prev_occur(GtkAction * action, gpointer user_data)
-{
-	IAnjutaEditor* te;
-	IAnjutaDocumentManager *docman;
-	IAnjutaDocument* doc;
-	SearchPlugin *plugin;
-    gint return_;
-	gchar *buffer = NULL;
-	
-	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										IAnjutaDocumentManager, NULL);
-	doc = ianjuta_document_manager_get_current_document(docman, NULL);
-	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
-	if(!te) return;
-	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
-	{
-		g_strstrip(buffer);
-		if ('\0' == *buffer)
-		{
-			g_free(buffer);
-			buffer = NULL;
-		}
-	}
-	if (NULL == buffer)
-	{
-		buffer = ianjuta_editor_get_current_word(te, NULL);
-		if (!buffer)
-			return;
-	}
-    return_= find_incremental(te, buffer, SD_BACKWARD);
-	
-	g_free(buffer);
-}
-
-static void 
-on_next_occur(GtkAction * action, gpointer user_data)
-{
-	IAnjutaEditor* te;
-	IAnjutaDocumentManager *docman;
-	IAnjutaDocument* doc;
-	SearchPlugin *plugin;
-    gint return_;
-	gchar *buffer = NULL;
-	
-	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										IAnjutaDocumentManager, NULL);
-	doc = ianjuta_document_manager_get_current_document(docman, NULL);
-	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
-	if(!te) return;
-	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
-	{
-		g_strstrip(buffer);
-		if ('\0' == *buffer)
-		{
-			g_free(buffer);
-			buffer = NULL;
-		}
-	}
-	if (NULL == buffer)
-	{
-		buffer = ianjuta_editor_get_current_word(te, NULL);
-		if (!buffer)
-			return;
-	}
-    return_= find_incremental(te, buffer, SD_FORWARD);
-	
-	g_free(buffer);
-}
-
 static GtkActionEntry actions_search[] = {
   { "ActionMenuEditSearch", NULL, N_("_Search"), NULL, NULL, NULL},
   { "ActionEditSearchFind", GTK_STOCK_FIND, N_("_Find..."), "<control><alt>f",
@@ -209,14 +85,6 @@ static GtkActionEntry actions_search[] = {
   { "ActionEditSearchInFiles", NULL, N_("Fin_d in Files..."), NULL,
 	N_("Search for a string in multiple files or directories"),
     G_CALLBACK (on_find_in_files1_activate)},
-	{ "ActionEditGotoOccuranceNext", ANJUTA_STOCK_MATCH_NEXT,
-	N_("Ne_xt Occurrence"), NULL,
-	N_("Find the next occurrence of current word"),
-    G_CALLBACK (on_next_occur)},
-  { "ActionEditGotoOccurancePrev",ANJUTA_STOCK_MATCH_PREV,
-	N_("Pre_vious Occurrence"),  NULL,
-	N_("Find the previous occurrence of current word"),
-    G_CALLBACK (on_prev_occur)},
 };
 
 gpointer parent_class;
@@ -224,21 +92,10 @@ gpointer parent_class;
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	static gboolean init = FALSE;
 	AnjutaUI *ui;
 	SearchPlugin* splugin = ANJUTA_PLUGIN_SEARCH (plugin);
 	IAnjutaDocumentManager* docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 																IAnjutaDocumentManager, NULL);
-	
-	
-	if (!init)
-	{
-		BEGIN_REGISTER_ICON (plugin);
-		REGISTER_ICON_FULL (ANJUTA_PIXMAP_MATCH_NEXT, ANJUTA_STOCK_MATCH_NEXT);
-		REGISTER_ICON_FULL (ANJUTA_PIXMAP_MATCH_PREV, ANJUTA_STOCK_MATCH_PREV);
-		END_REGISTER_ICON;
-		init = TRUE;
-	}
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupSearch",

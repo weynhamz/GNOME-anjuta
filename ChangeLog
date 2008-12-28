@@ -1,5 +1,13 @@
 2008-12-28  Adam Dingle  <adam@medovina.org>
  
+ 	* plugins/document-manager/anjuta-document-manager.ui:
+ 	* plugins/search/Makefile.am:
+ 	* plugins/search/anjuta-search.ui:
+ 	* plugins/search/plugin.c (activate_plugin):
+ 	Fixed #565278 – remove Next Occurrence and Previous Occurrence commands 
+
+2008-12-28  Adam Dingle  <adam@medovina.org>
+ 
  	* plugins/search/search-replace_backend.c (search_entry_compare),
  	(create_search_entries):
  	Fixed #565014 – sort Find in Files output by filename 
