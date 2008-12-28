@@ -1,3 +1,17 @@
+2008-12-28  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* AUTHORS: added Carl-Anton Ingmarsson.
+	* plugins/class-inheritance/Makefile.am:
+	added G_LOG_DOMAIN
+
+2008-12-28  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-system.c
+	(sdb_system_get_normalized_cflags):
+	fixed #565823 – symbol-db hardcodes /usr/include for header files
+
 2008-12-28  Johannes  Schmid <jhs@gnome.org>
 
 	* plugins/search/search-replace.c (search_and_replace):

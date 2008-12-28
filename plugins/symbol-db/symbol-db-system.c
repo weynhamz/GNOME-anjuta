@@ -242,7 +242,7 @@ sdb_system_get_normalized_cflags (const gchar *chars)
 	while ((curr_flag = flags[i++]) != NULL)
 	{
 		/* '-I/usr/include/gimp-2.0' would be good, but '/usr/include/' wouldn't. */
-		if (g_regex_match_simple ("\\.*/usr/include/\\w+", curr_flag, 0, 0) == TRUE)
+		if (g_regex_match_simple ("\\.*/include/\\w+", curr_flag, 0, 0) == TRUE)
 		{
 			/* FIXME the +2. It's to skip the -I */
 			DEBUG_PRINT ("adding %s to good_flags", curr_flag +2);

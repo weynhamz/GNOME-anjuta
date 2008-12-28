@@ -28,7 +28,8 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(GDL_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(GRAPHVIZ_CFLAGS)
+	$(GRAPHVIZ_CFLAGS) \
+	-DG_LOG_DOMAIN=\"libanjuta-class-inheritance\"
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
