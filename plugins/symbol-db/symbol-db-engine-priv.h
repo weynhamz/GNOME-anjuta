@@ -42,10 +42,8 @@
 #define SHARED_MEMORY_PREFIX		"/dev/shm"
 
 #define THREADS_MONITOR_TIMEOUT			50
-#define THREADS_MAX_CONCURRENT			7
+#define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
-#define	TRIGGER_MAX_CLOSURE_RETRIES		50
-#define	THREAD_MAX_CLOSURE_RETRIES		20
 
 #define MEMORY_POOL_STRING_SIZE			100
 #define MEMORY_POOL_INT_SIZE			100
@@ -266,17 +264,12 @@ struct _SymbolDBEnginePriv
 	GList *removed_launchers;
 	gboolean scanning_status;
 	gboolean shutting_down;
-	GMutex *shutting_mutex;
-	GCond *shutting_cond;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
-	GQueue* thread_list_data;
 	
-	gboolean thread_status;
-	gint concurrent_threads;
+	GThreadPool *thread_pool;
 	
-	gint thread_monitor_handler;	
 	gint timeout_trigger_handler;
 	
 	gint trigger_closure_retries;

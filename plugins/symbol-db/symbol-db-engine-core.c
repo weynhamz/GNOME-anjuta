@@ -170,12 +170,6 @@ enum
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 
-typedef struct _ThreadDataOutput {
-	gchar * chars;
-	gpointer user_data;
-	
-} ThreadDataOutput;
-
 typedef struct _UpdateFileSymbolsData {	
 	gchar *project;
 	gboolean update_prj_analyse_time;
@@ -1150,10 +1144,9 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
 
-static gpointer
-sdb_engine_ctags_output_thread (gpointer data)
+static void
+sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 {
-	ThreadDataOutput *output;
 	gint len_chars;
 	gchar *chars, *chars_ptr;
 	gint remaining_chars;
@@ -1161,19 +1154,17 @@ sdb_engine_ctags_output_thread (gpointer data)
 	SymbolDBEnginePriv *priv;
 	SymbolDBEngine *dbe;
 	
-	output = (ThreadDataOutput *)data;
-	dbe = output->user_data;
-	chars = chars_ptr = output->chars;	
+	chars = chars_ptr = (char *)data;
+	dbe = (SymbolDBEngine *)user_data;
 	
-	g_return_val_if_fail (dbe != NULL, GINT_TO_POINTER (-1));	
-	g_return_val_if_fail (chars_ptr != NULL, GINT_TO_POINTER (-1));
+	g_return_if_fail (dbe != NULL);	
+	g_return_if_fail (chars_ptr != NULL);
 
 	priv = dbe->priv;
 
 	/* lock */
 	if (priv->mutex)
 		g_mutex_lock (priv->mutex);
-	priv->thread_status = TRUE;
 	
 	remaining_chars = len_chars = strlen (chars_ptr);
 	len_marker = strlen (CTAGS_MARKER);	
@@ -1317,21 +1308,12 @@ sdb_engine_ctags_output_thread (gpointer data)
 	{
 		DEBUG_PRINT ("%s", "no len_chars > len_marker");
 	}
-
-	priv->thread_status = FALSE;
-	priv->concurrent_threads--;	
 	
 	/* unlock */
 	if (priv->mutex)
 		g_mutex_unlock (priv->mutex);
-
-	/* notify waiters that we've finished another thread */
-	g_cond_signal (priv->shutting_cond);
 	
 	g_free (chars);
-	g_free (output);
-	
-	return 0;
 }
 
 
@@ -1404,10 +1386,8 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		priv->trigger_closure_retries++;
 	}
 	
-	if (priv->thread_status == FALSE &&
-		priv->trigger_closure_retries > TRIGGER_MAX_CLOSURE_RETRIES &&
-		g_queue_get_length (priv->thread_list_data) <= 0 &&
-		priv->thread_monitor_handler <= 0)
+	if (g_thread_pool_unprocessed (priv->thread_pool) == 0 &&
+		g_thread_pool_get_num_threads (priv->thread_pool) == 0)
 	{
 		/*DEBUG_PRINT ("%s", "removing signals trigger");*/
 		/* remove the trigger coz we don't need it anymore... */
@@ -1419,73 +1399,11 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	return TRUE;
 }
 
-static gboolean
-sdb_engine_thread_monitor (gpointer data)
-{
-	gpointer output;
-	SymbolDBEngine *dbe = (SymbolDBEngine *) data;
-	SymbolDBEnginePriv *priv;
-
-	g_return_val_if_fail (data != NULL, FALSE);
-	
-	priv = dbe->priv;
-	
-	if (priv->shutting_mutex)
-		g_mutex_lock (priv->shutting_mutex);
-	
-	if (priv->shutting_down == TRUE)
-	{
-		/*DEBUG_PRINT ("%s", "SymbolDBEngine is shutting down: removing thread monitor");*/
-		/* remove the thread monitor */
-		g_source_remove (priv->thread_monitor_handler);
-		priv->thread_monitor_handler = 0;
-		g_mutex_unlock (priv->shutting_mutex);
-		return FALSE;
-	}
-		
-	if (priv->concurrent_threads > THREADS_MAX_CONCURRENT) 
-	{
-		/* monitor acted here. There are plenty threads already working. */
-		g_mutex_unlock (priv->shutting_mutex);
-		return TRUE;
-	}
-	
-	output = g_queue_pop_head (priv->thread_list_data);
- 
-	if (output != NULL)
-	{
-		priv->concurrent_threads ++;
-		g_thread_create ((GThreadFunc)sdb_engine_ctags_output_thread, output, 
-					 FALSE, NULL);
-		priv->thread_closure_retries = 0;
-	}
-	else 
-	{
-		priv->thread_closure_retries++;
-	}
-
-	if (priv->thread_closure_retries > THREAD_MAX_CLOSURE_RETRIES &&
-		g_queue_get_length (priv->thread_list_data) <= 0)
-	{
-		/*DEBUG_PRINT ("%s", "removing thread monitor");*/
-		/* remove the thread monitor */
-		g_source_remove (priv->thread_monitor_handler);
-		priv->thread_monitor_handler = 0;
-		g_mutex_unlock (priv->shutting_mutex);
-		return FALSE;
-	}
-	
-	g_mutex_unlock (priv->shutting_mutex);
-	/* recall this monitor */
-	return TRUE;	
-}
-
 static void
 sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 								  AnjutaLauncherOutputType output_type,
 								  const gchar * chars, gpointer user_data)
-{ 
-	ThreadDataOutput *output;
+{
 	SymbolDBEngine *dbe = (SymbolDBEngine *) user_data;
 	SymbolDBEnginePriv *priv;
 
@@ -1495,24 +1413,8 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	
 	if (priv->shutting_down == TRUE)
 		return;
-	
-	output  = g_new0 (ThreadDataOutput, 1);
-	output->chars = g_strdup (chars);
-	output->user_data = user_data;
 
-	g_queue_push_tail (priv->thread_list_data, output);
-
-	/* thread monitor */
-	if (priv->thread_monitor_handler <= 0)
-	{
-		priv->thread_monitor_handler = 
-			g_timeout_add_full (G_PRIORITY_LOW,
-					THREADS_MONITOR_TIMEOUT, 
-					sdb_engine_thread_monitor, 
-					user_data,
-					NULL);
-		priv->thread_closure_retries = 0;
-	}
+	g_thread_pool_push (priv->thread_pool, g_strdup (chars), NULL);
 	
 	/* signals monitor */
 	if (priv->timeout_trigger_handler <= 0)
@@ -1807,8 +1709,6 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->ctags_launcher = NULL;
 	sdbe->priv->removed_launchers = NULL;
 	sdbe->priv->shutting_down = FALSE;
-	sdbe->priv->shutting_mutex = g_mutex_new ();
-	sdbe->priv->shutting_cond = g_cond_new ();
 
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
@@ -1825,8 +1725,10 @@ sdb_engine_init (SymbolDBEngine * object)
 	 */
 	sdbe->priv->scan_queue = g_async_queue_new ();
 
-	/* the thread list data */
-	sdbe->priv->thread_list_data = g_queue_new ();
+	/* the thread pool for tags scannning */
+	sdbe->priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
+												 sdbe, THREADS_MAX_CONCURRENT,
+												 FALSE, NULL);
 	
 	/* some signals queues */
 	sdbe->priv->signals_queue = g_async_queue_new ();
@@ -2250,27 +2152,6 @@ sdb_engine_unref_removed_launchers (gpointer data, gpointer user_data)
 }
 
 static void
-sdb_engine_terminate_threads (SymbolDBEngine *dbe)
-{
-	SymbolDBEnginePriv *priv;	
-	
-	priv = dbe->priv;
-	
-	priv->shutting_down = TRUE;
-
-	/* get a lock to share with the monitor */
-	g_mutex_lock (priv->shutting_mutex);	
-	
-	while (priv->concurrent_threads > 0)
-	{		
-		/* wait for the thread to notify us that it has just finished its execution */
-		g_cond_wait (priv->shutting_cond, priv->shutting_mutex);
-	}	
-	
-	g_mutex_unlock (priv->shutting_mutex);
-}
-
-static void
 sdb_engine_finalize (GObject * object)
 {
 	SymbolDBEngine *dbe;
@@ -2279,8 +2160,11 @@ sdb_engine_finalize (GObject * object)
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
 	
-	/* we're shutting down the plugin. Let the threads finish their work... */
-	sdb_engine_terminate_threads (dbe);
+	if (priv->thread_pool)
+	{
+		g_thread_pool_free (priv->thread_pool, FALSE, TRUE);
+		priv->thread_pool = NULL;
+	}
 	
 	if (priv->ctags_launcher)
 	{
@@ -2302,21 +2186,8 @@ sdb_engine_finalize (GObject * object)
 		priv->mutex = NULL;
 	}
 	
-	if (priv->shutting_cond)
-	{
-		g_cond_free (priv->shutting_cond);
-		priv->shutting_cond = NULL;
-	}
-	
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
-	
-	if (priv->thread_monitor_handler > 0)
-		g_source_remove (priv->thread_monitor_handler);
-		
-	if (priv->thread_list_data != NULL)
-		g_queue_free  (priv->thread_list_data);
-	
 
 	sdb_engine_disconnect_from_db (dbe);	
 	sdb_engine_free_cached_queries (dbe);
@@ -2400,9 +2271,6 @@ sdb_engine_finalize (GObject * object)
 	priv->mem_pool_string = NULL;
 	priv->mem_pool_int = NULL;	
 #endif
-		
-	g_mutex_free (priv->shutting_mutex);
-	priv->shutting_mutex = NULL;	
 	
 	g_free (priv);
 	
@@ -2756,7 +2624,10 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	priv = dbe->priv;
 	
 	/* terminate threads, if ever they're running... */
-	sdb_engine_terminate_threads (dbe);
+	g_thread_pool_free (priv->thread_pool, FALSE, TRUE);
+	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
+										   dbe, THREADS_MAX_CONCURRENT,
+										   FALSE, NULL);
 	
 	return sdb_engine_disconnect_from_db (dbe);
 }
@@ -4643,28 +4514,28 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	}
 	
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
-	DEBUG_PRINT ("add_symbol type_id: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol type_id: %f", g_timer_elapsed (timer, NULL));*/
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
 	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
 															   type_id);
 
-	DEBUG_PRINT ("add_symbol scope_definition_id: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol scope_definition_id: %f", g_timer_elapsed (timer, NULL));*/
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parse in the second pass.
 	 */
 	scope_id = 0;
 
 	kind_id = sdb_engine_add_new_sym_kind (dbe, tag_entry);
-	DEBUG_PRINT ("add_symbol kind_id: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol kind_id: %f", g_timer_elapsed (timer, NULL));*/
 	
 	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);
-	DEBUG_PRINT ("add_symbol access_kind_id: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol access_kind_id: %f", g_timer_elapsed (timer, NULL));*/
 	implementation_kind_id =
 		sdb_engine_add_new_sym_implementation (dbe, tag_entry);
-	DEBUG_PRINT ("add_symbol implementation_kind_id: %f", g_timer_elapsed (timer, NULL));
-	DEBUG_PRINT ("add_symbol ids: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol implementation_kind_id: %f", g_timer_elapsed (timer, NULL));*/
+	/*DEBUG_PRINT ("add_symbol ids: %f", g_timer_elapsed (timer, NULL));*/
 	/* ok: was the symbol updated [at least on it's type_id/name]? 
 	 * There are 3 cases:
 	 * #1. The symbol remain the same [at least on unique index key]. We will 
@@ -4801,7 +4672,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 		MP_SET_HOLDER_BATCH_INT(priv, param, symbol_id, ret_bool, ret_value);
 	}
-	DEBUG_PRINT ("add_symbol init: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol init: %f", g_timer_elapsed (timer, NULL));*/
 	/* common params */
 
 	/* fileposition parameter */
@@ -4885,7 +4756,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, update_flag, ret_bool, ret_value);
 	
-	DEBUG_PRINT ("add_symbol batch: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol batch: %f", g_timer_elapsed (timer, NULL));*/
 	
 	/* execute the query with parametes just set */
 	gint nrows;
@@ -4893,7 +4764,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
 													 NULL);
-	DEBUG_PRINT ("add_symbol query: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol query: %f", g_timer_elapsed (timer, NULL));*/
 	
 	if (sym_was_updated == FALSE)
 	{
@@ -4935,7 +4806,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
 	
-	DEBUG_PRINT ("add_symbol end: %f", g_timer_elapsed (timer, NULL));
+	/*DEBUG_PRINT ("add_symbol end: %f", g_timer_elapsed (timer, NULL));*/
 	g_timer_destroy (timer);
 	return table_id;
 }
