@@ -481,7 +481,7 @@ sourceview_io_cancel (SourceviewIO* sio)
 gchar* 
 sourceview_io_get_filename (SourceviewIO* sio)
 {
-	static gint new_file_count = 0;
+	static gint new_file_count = 1;
 	if (sio->filename)
 		return g_strdup(sio->filename);	
 	else /* new file */

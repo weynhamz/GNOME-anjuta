@@ -1,3 +1,10 @@
+2008-12-30  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview-io.c (sourceview_io_get_filename):
+	Start new file count at 1 instead of 0
+	* plugins/symbol-db/plugin.c (symbol_db_activate):
+	Use ellipse middle instead of ellipse end (very cosmetic correction...)
+
 2008-12-30  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.c
