@@ -2931,9 +2931,12 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
 		}		
+		
+		if (last_inserted)
+			g_object_unref (last_inserted);			
 	}
 	MP_RETURN_OBJ_STR(priv, value);	
-	
+
 	return table_id;
 }
 
@@ -3198,7 +3201,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	gboolean ret_bool;
 	
 	priv = dbe->priv;
-		
+
 	/* we assume that tag_entry is != NULL */
 	type = tag_entry->kind;
 	type_name = tag_entry->name;
@@ -3263,6 +3266,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		table_id = g_value_get_int (value);
 	}		
 	
+	if (last_inserted)
+		g_object_unref (last_inserted);	
 	return table_id;
 }
 
@@ -3344,10 +3349,11 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			/* we should cache only tables which are != -1 */
 			sdb_engine_insert_cache (priv->kind_cache, kind_name, table_id);
 		}
+		if (last_inserted)
+			g_object_unref (last_inserted);			
 	}
 
 	MP_RETURN_OBJ_STR(priv, value);
-	
 	return table_id;
 }
 
@@ -3431,10 +3437,13 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			/* we should cache only tables which are != -1 */
 			sdb_engine_insert_cache (priv->access_cache, access, table_id);
 		}		
+		
+		if (last_inserted)
+			g_object_unref (last_inserted);			
 	}
 	
 	MP_RETURN_OBJ_STR(priv, value);
-	
+
 	return table_id;
 }
 
@@ -3518,6 +3527,8 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 			sdb_engine_insert_cache (priv->implementation_cache, implementation, 
 									 table_id);	
 		}
+		if (last_inserted)
+			g_object_unref (last_inserted);			
 	}
 	
 	MP_RETURN_OBJ_STR(priv, value);
@@ -3684,6 +3695,9 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 		table_id = g_value_get_int (value);
 	}	
 
+	if (last_inserted)
+		g_object_unref (last_inserted);	
+	
 	return table_id;
 }
 
@@ -3879,6 +3893,9 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 		const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 		table_id = g_value_get_int (value);
 	}
+
+	if (last_inserted)
+		g_object_unref (last_inserted);	
 	
 	return table_id;
 }
@@ -4495,11 +4512,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	g_return_val_if_fail (tag_entry != NULL, -1);
 
 	/* parse the entry name */
-	if (strlen (tag_entry->name) > 256)
-	{
-		g_warning ("tag_entry->name too big for database");
-		return -1;
-	}
 	name = tag_entry->name;
 	file_position = tag_entry->address.lineNumber;
 	is_file_scope = tag_entry->fileScope;
@@ -4512,8 +4524,9 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	{
 		signature = NULL;
 	}
-	
+
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
+
 	/*DEBUG_PRINT ("add_symbol type_id: %f", g_timer_elapsed (timer, NULL));*/
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
@@ -4548,7 +4561,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
 	 *     also scope_ids and other things.
 	 */
-	
 	
 	if (update_flag == FALSE)
 	{
@@ -4765,7 +4777,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 													 (GdaSet*)plist, &last_inserted,
 													 NULL);
 	/*DEBUG_PRINT ("add_symbol query: %f", g_timer_elapsed (timer, NULL));*/
-	
+
 	if (sym_was_updated == FALSE)
 	{
 		if (nrows > 0)
@@ -4798,14 +4810,16 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 			table_id = -1;
 		}
 	}
-
+	
+	if (last_inserted)
+		g_object_unref (last_inserted);	
 	
 	/* before returning the table_id we have to fill some infoz on temporary tables
 	 * so that in a second pass we can parse also the heritage and scope fields.
 	 */
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
-	
+
 	/*DEBUG_PRINT ("add_symbol end: %f", g_timer_elapsed (timer, NULL));*/
 	g_timer_destroy (timer);
 	return table_id;

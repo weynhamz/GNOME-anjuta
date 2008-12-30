@@ -1,3 +1,14 @@
+2008-12-30  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_add_new_language), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_add_new_symbol):
+	fixed a memleak.
+
 2008-12-29  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
