@@ -55,20 +55,20 @@
 
 #ifdef USE_ASYNC_QUEUE
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); \
-		DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_async_queue_length (sdb_priv->mem_pool_string));
+		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); 
+/*		DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-	g_async_queue_push(sdb_priv->mem_pool_string, gvalue); \
-	DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_async_queue_length (sdb_priv->mem_pool_string));
+	g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
+/*	DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
 
 #define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_int); \
-		DEBUG_PRINT ("lend int, qlength %d [-]", g_async_queue_length (sdb_priv->mem_pool_int));
+		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_int); 
+/*		DEBUG_PRINT ("lend int, qlength %d [-]", g_async_queue_length (sdb_priv->mem_pool_int));*/
 
 #define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-	g_async_queue_push(sdb_priv->mem_pool_int, gvalue); \
-	DEBUG_PRINT ("return int, qlength %d [+]", g_async_queue_length (sdb_priv->mem_pool_int));
+	g_async_queue_push(sdb_priv->mem_pool_int, gvalue); 
+/*	DEBUG_PRINT ("return int, qlength %d [+]", g_async_queue_length (sdb_priv->mem_pool_int));*/
 #else
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); 
@@ -154,6 +154,7 @@ typedef enum
 	PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
 	PREP_QUERY_GET_REMOVED_IDS,
 	PREP_QUERY_TMP_REMOVED_DELETE_ALL,
+	PREP_QUERY_REMOVE_FILE_BY_PROJECT_NAME,
 	PREP_QUERY_COUNT
 		
 } static_query_type;

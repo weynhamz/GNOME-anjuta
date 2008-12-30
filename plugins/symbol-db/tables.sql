@@ -1,4 +1,6 @@
 
+-- FOREIGN keys are not supported. http://www.sqlite.org/omitted.html
+
 CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
                         workspace_name varchar (50) not null unique,
                         analyse_time DATE
@@ -98,26 +100,35 @@ CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,
 							symbol_removed_id integer not null
 							);
 
-CREATE INDEX symbol_idx_1 ON symbol (name);
+-- test on 250 .c files.
+-- all indexes disabled: 13.1 ms/symbol; after pragmas: 11.9
+-- all indexes enabled: 14.3 ms/symbol
+-- symbol_idx_1 enabled: 13.4 ms/symbol
+-- unique keys (symbol_idx_2, scope_idx_2, file_idx_1, sym_type_idx_2): 13.3
+-- symbol_idx_1, symbol_idx_3, symbol_idx_4, scope_idx_1, sym_type_idx_1: 13.9
 
-CREATE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
+--CREATE INDEX symbol_idx_1 ON symbol (name);
+
+--not needed CREATE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
 
 CREATE INDEX symbol_idx_3 ON symbol (name, file_defined_id, type_id);
 
-CREATE INDEX scope_idx_1 ON scope (scope_name);
+CREATE INDEX symbol_idx_4 ON symbol (scope_id);
 
-CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
+--CREATE INDEX scope_idx_1 ON scope (scope_name);
 
-CREATE INDEX file_idx_1 ON file (file_path);
+--not needed CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
 
-CREATE INDEX sym_type_idx_1 ON sym_type (type_type);
+--not needed CREATE INDEX file_idx_1 ON file (file_path);
 
-CREATE INDEX sym_type_idx_2 ON sym_type (type_type, type_name);
+--CREATE INDEX sym_type_idx_1 ON sym_type (type_type);
+
+--not needed CREATE INDEX sym_type_idx_2 ON sym_type (type_type, type_name);
 
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file
 FOR EACH ROW
 BEGIN
-    DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file WHERE file_path=old.file_path);
+	DELETE FROM symbol WHERE file_defined_id = old.file_id;
 END;
 
 CREATE TRIGGER delete_symbol_trg BEFORE DELETE ON symbol
@@ -127,3 +138,11 @@ BEGIN
     UPDATE symbol SET scope_id='-1' WHERE symbol.scope_id=old.scope_definition_id AND symbol.scope_id > 0;
     INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;
+
+PRAGMA page_size = 32768;
+PRAGMA cache_size = 12288;
+PRAGMA synchronous = OFF;
+PRAGMA temp_store = MEMORY;
+PRAGMA case_sensitive_like = 1;
+PRAGMA journal_mode = OFF;
+PRAGMA read_uncommitted = 1;

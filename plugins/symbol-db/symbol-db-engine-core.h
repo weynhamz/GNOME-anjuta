@@ -194,7 +194,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 /** Remove a file, together with its symbols, from a project. */
 gboolean 
 symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project, 
-							  const gchar* file);
+							  const gchar* abs_file);
 
 void
 symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,

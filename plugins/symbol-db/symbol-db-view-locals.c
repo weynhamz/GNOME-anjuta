@@ -971,7 +971,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 				if (sdb_view_locals_get_iter_from_row_ref (dbvl, 
 								row_ref, &child_iter) == FALSE)
 				{
-					g_warning ("on_symbol_inserted (): something went wrong");
+					/*g_warning ("on_symbol_inserted (): something went wrong");*/
 					continue;
 				}		
 				
@@ -1090,7 +1090,7 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		return;
 	}
 	
-	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
+	/*DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);*/
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
@@ -1119,7 +1119,7 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		return;
 	}
 	
-	DEBUG_PRINT ("on_symbol_scope_updated () -local- %d", symbol_id);
+	/*DEBUG_PRINT ("on_symbol_scope_updated () -local- %d", symbol_id);*/
 	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{

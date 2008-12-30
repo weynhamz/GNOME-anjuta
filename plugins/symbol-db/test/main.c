@@ -731,8 +731,8 @@ int main(int argc, char** argv)
     g_type_init();
 	gda_init ();
 	
-	dbe_one = symbol_db_engine_new ();
-	dbe_two = symbol_db_engine_new ();
+	dbe_one = symbol_db_engine_new ("/usr/bin/ctags");
+	dbe_two = symbol_db_engine_new ("/usr/bin/ctags");
 	
 	gchar *prj_dir_one = "/home/pescio/Projects/entwickler-0.1";
 

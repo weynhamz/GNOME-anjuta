@@ -1,6 +1,49 @@
 2008-12-30  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_get_tuple_id_by_unique_name4),
+	(sdb_engine_get_file_defined_id), (sdb_engine_populate_db_by_tags),
+	(sdb_engine_ctags_output_thread), (sdb_engine_init),
+	(sdb_engine_set_defaults_db_parameters),
+	(symbol_db_engine_file_exists),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_language),
+	(sdb_engine_add_new_file), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_sym_implementation),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_scope),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_add_new_symbol), (sdb_engine_detects_removed_ids),
+	(sdb_engine_update_file), (on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file),
+	(symbol_db_engine_update_buffer_symbols):
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(consume_symbols_inserted_queue_idle), (on_symbol_removed),
+	(on_symbol_scope_updated):
+	* plugins/symbol-db/tables.sql:
+	performance improvements. On average tests with benchmark test program
+	I could reach 11.9 ms/symbol, which is quite fine (my pc is an old P4 1.8GHz). 
+	Slightly modified tables.sql, which require a full re-scan of the projects:
+	even when populating now the gui seems responsive and not blocking at all.
+	Fixed #565769 – symbol-db blocks anjuta when files are removed. Now performance
+	for removing files is at the top.
+
+	* plugins/symbol-db/test/benchmark.c (on_scan_end):
+	* plugins/symbol-db/test/main.c (main):
+	fixed some compiling issues.
+
+2008-12-30  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c
 	(sdb_engine_add_new_language), (sdb_engine_add_new_sym_type),
 	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
 	(sdb_engine_add_new_sym_implementation),
