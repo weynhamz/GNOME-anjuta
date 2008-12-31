@@ -1,3 +1,9 @@
+2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor_prefs.c,
+	plugins/document-manager/plugin.c:
+	Fix #563988 - Zoom factor is not updated correctly in scintilla 
+
 2008-12-30  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-io.c (sourceview_io_get_filename):

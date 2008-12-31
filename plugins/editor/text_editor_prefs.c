@@ -119,6 +119,7 @@ on_gconf_notify_zoom_factor (GConfClient *gclient, guint cnxn_id,
 	te = TEXT_EDITOR (user_data);
 	zoom_factor = set_n_get_prop_int (te, TEXT_ZOOM_FACTOR);
 	text_editor_set_zoom_factor (te, zoom_factor);
+	g_signal_emit_by_name(G_OBJECT (te), "update_ui");
 }
 
 static void
