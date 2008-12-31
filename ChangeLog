@@ -1,3 +1,8 @@
+2008-12-31  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* configure.in:
+	removed symbol-browser references to let autoconf finish fine.
+
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* po/POTFILES.in:
