@@ -26,7 +26,6 @@ libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
-plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c

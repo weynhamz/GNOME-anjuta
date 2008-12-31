@@ -1,3 +1,8 @@
+2008-12-31  Claude Paroz  <claude@2xlibre.net>
+
+	* POTFILES.in: Removed inexistent file.
+	* fr.po: Updated French translation.
+
 2008-12-31  Daniel Nylander  <po@danielnylander.se>
 
 	* sv.po: Updated Swedish translation.
