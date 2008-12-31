@@ -1334,7 +1334,6 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 	
 	if (mime_type == NULL)
 	{
-		g_object_unref (file);
 		update_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), uri, NULL, FALSE);	
 		
 		if (err == NULL)
