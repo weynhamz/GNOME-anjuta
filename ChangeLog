@@ -1,5 +1,15 @@
 2008-12-31  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/tables.sql:
+	* plugins/symbol-db/test/benchmark.c (on_scan_end):
+	Added an index to the database. Repopulation is needed (hopefully for the last
+	time :) ).
+	fixed 565773 – symbol scanning is very slow. Now the 'generating inheritances'
+	step take only few seconds.
+
+2008-12-31  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* configure.in:
 	removed symbol-browser references to let autoconf finish fine.
 

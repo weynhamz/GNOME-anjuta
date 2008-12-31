@@ -44,7 +44,7 @@ static void
 on_scan_end (SymbolDBEngine* engine, gpointer user_data)
 {
 	g_message ("on_scan_end  ()");
-	g_object_unref (engine);
+//	g_object_unref (engine);
 //  	exit(0);
 }
 

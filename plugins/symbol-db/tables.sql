@@ -115,6 +115,8 @@ CREATE INDEX symbol_idx_3 ON symbol (name, file_defined_id, type_id);
 
 CREATE INDEX symbol_idx_4 ON symbol (scope_id);
 
+CREATE INDEX symbol_idx_5 ON symbol (type_id);
+
 --CREATE INDEX scope_idx_1 ON scope (scope_name);
 
 --not needed CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
