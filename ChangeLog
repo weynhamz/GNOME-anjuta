@@ -1,3 +1,8 @@
+2008-12-31  Claude Paroz  <claude@2xlibre.net>
+
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	Remove translatable property on stock items.
+
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor.h,
