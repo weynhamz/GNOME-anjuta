@@ -35,6 +35,8 @@ SUBDIRS = . \
 	sourceview \
 	run-program \
 	scratchbox \
+	gbf-am \
+	gbf-mkfile \
 	starter
 
 # indent

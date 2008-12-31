@@ -19,11 +19,11 @@
 
 #include "project-import.h"
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/interfaces/ianjuta-project-backend.h>
+#include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include <config.h>
-
-#include <gbf/gbf-backend.h>
 
 #define AM_PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
 #define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/project/mkfile/project.anjuta"
@@ -51,9 +51,10 @@ on_import_key_press_event(GtkWidget *widget, GdkEventKey *event,
 static void
 on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 {
-	GSList* l;
-	GbfBackend* backend = NULL;
-	GbfProject* proj;
+	AnjutaPluginManager *plugin_manager;
+	GList *descs = NULL;
+	GList *desc;
+	AnjutaPluginDescription *backend;
 	
 	if (page != pi->import_finish)
 		return;
@@ -67,41 +68,48 @@ on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 		return;
 	}
 	
-	gbf_backend_init();
-	
-	for (l = gbf_backend_get_backends (); l; l = l->next) {
-		backend = l->data;
-		if (!backend)
-		{
-			g_warning("Backend appears empty!");
-			continue;
-		}
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pi)->shell, NULL);
+	descs = anjuta_plugin_manager_query (plugin_manager,
+										 "Anjuta Plugin",
+										 "Interfaces",
+										 "IAnjutaProjectBackend",
+										 NULL);	
+	for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
+		IAnjutaProjectBackend *plugin;
+		gchar *location = NULL;
+		GbfProject* proj;	
 		
+		backend = (AnjutaPluginDescription *)desc->data;
+		anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
+		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
+		g_free (location);
+
 		/* Probe the backend to find out if the project directory is OK */
 		/* If probe() returns TRUE then we have a valid backend */
 		
-		proj = gbf_backend_new_project(backend->id);
+		proj= ianjuta_project_backend_new_project (plugin, NULL);
 		if (proj)
 		{
-			if (gbf_project_probe(proj, path, NULL))
+			if (gbf_project_probe (proj, path, NULL))
 			{
 				/* This is a valid backend for this root directory */
 				/* FIXME: Possibility of more than one valid backend? */
-				g_object_unref(proj);
 				break;
 			}
-			g_object_unref(proj);
+			g_object_unref (proj);
 		}
+		plugin = NULL;
 		backend = NULL;
 	}
-
+	g_list_free (descs);
+	
 	if (!backend)
 	{
 		gchar* message_text =
 		g_strdup_printf(_("Could not find a valid project backend for the "
 						  "directory given (%s). Please select a different "
 						  "directory, or try upgrading to a newer version of "
-						  "the Gnome Build Framework."), path);
+						  "Anjuta."), path);
 		
 		GtkDialog* message = 
 		GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->assistant),
@@ -125,11 +133,17 @@ on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 	}
 	
 	gchar* summary;
+	gchar* type;
 	
+	if (!anjuta_plugin_description_get_string (backend, "Project", "Supported-Project-Types", &type))
+	{
+		type = g_strdup ("unknown");
+	}
 	summary = g_strdup_printf(_("Project name: %s\n"
 								"Project type: %s\n"
 								"Project path: %s\n"),
-								name, backend->name, path);
+								name, type, path);
+		
 	gtk_label_set_text (GTK_LABEL (pi->import_finish),
 			    summary);
 
@@ -142,7 +156,7 @@ on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 	
 	if (pi->backend_id)
 		g_free(pi->backend_id);
-	pi->backend_id = g_strdup(backend->id);
+	pi->backend_id = type;
 	g_free (path);
 }
 
@@ -402,9 +416,9 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	take a default project file. */
 	
 	GFile* source_file;
-	if (!strcmp (pi->backend_id, "gbf-am:GbfAmProject"))
+	if (!strcmp (pi->backend_id, "automake"))
 		source_file = g_file_new_for_path (AM_PROJECT_FILE);
-	else if (!strcmp (pi->backend_id, "gbf-mkfile:GbfMkfileProject"))
+	else if (!strcmp (pi->backend_id, "make"))
 		source_file = g_file_new_for_path (MKFILE_PROJECT_FILE);
 	else
 	{

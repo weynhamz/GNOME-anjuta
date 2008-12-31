@@ -34,7 +34,6 @@ VTE_NEW_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
 LIBDEVHELP_REQUIRED=0.22
 GDL_REQUIRED=0.7.3
-GNOMEBUILD_REQUIRED=0.3.0
 GLADEUI_REQUIRED=3.2.0
 LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
@@ -61,7 +60,6 @@ AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(VTE_NEW_REQUIRED)
 AC_SUBST(LIBDEVHELP_REQUIRED)
 AC_SUBST(GDL_REQUIRED)
-AC_SUBST(GNOMEBUILD_REQUIRED)
 AC_SUBST(GLADEUI_REQUIRED)
 AC_SUBST(GLADEUI_SVN_REQUIRED)
 AC_SUBST(LIBGRAPHVIZ_REQUIRED)
@@ -205,11 +203,6 @@ else
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_DEVHELP, [test x$devhelp_enabled = xyes])
-
-dnl Check for Gnome Build
-dnl ---------------------
-
-PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
 
 dnl Check for Glade3
 dnl ---------------------
@@ -943,6 +936,14 @@ plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/profiler/Makefile
 plugins/project-manager/Makefile
+plugins/gbf-am/Makefile
+plugins/gbf-am/gbf-am-parse
+plugins/gbf-am/GBF/Makefile
+plugins/gbf-mkfile/Makefile
+plugins/gbf-mkfile/gbf-mkfile-parse
+plugins/gbf-mkfile/GBF/Makefile
+plugins/symbol-browser/Makefile
+plugins/symbol-browser/images/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/test/Makefile
@@ -1023,6 +1024,8 @@ manuals/anjuta-faqs/Makefile
 manuals/anjuta-build-tutorial/Makefile
 mime/Makefile
 ])
+chmod +x ${ac_top_build_dir}plugins/gbf_am/gbf-am-parse
+chmod +x ${ac_top_build_dir}plugins/gbf_mkfile/gbf-mkfile-parse
 echo " "
 echo "-------------------------------------------------------------------"
 echo "Conditionally built plugins:"

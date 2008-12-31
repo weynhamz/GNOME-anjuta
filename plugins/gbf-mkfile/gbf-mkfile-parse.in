@@ -1,0 +1,1797 @@
+#!/usr/bin/perl
+# -*- perl -*-
+
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+BEGIN
+{
+    my $prefix = "@prefix@";
+    my $perlmodulesdir = "@datadir@/@PACKAGE@";
+    unshift @INC, "$perlmodulesdir";
+}
+
+use strict;
+
+use GBF::General;
+use GBF::Make;
+
+# I18n
+use Locale::gettext;
+use POSIX;
+
+setlocale(LC_MESSAGES, "");
+textdomain("@PACKAGE@");
+
+my $debug = 0;
+my $verbose = 0;
+my $dry_run = 0;
+
+
+sub debug { my $message = $_[0]; print STDERR "DEBUG: $message\n" if $debug; }
+
+# File taken from Automake GBF backend and modified for Makefile use by Eric
+# Greveson. Uses Make.pm from Nick Ing-Simmons' Make-1.00 CPAN module.
+
+# General FIXMEs:
+
+# - implement help for the command line
+
+# - Don't remove backslashes from read macros
+
+# File index:
+# 1. CONSTANTS AND VARIABLES
+# 3. SOURCE EXTRACTION
+# 4. GROUP AND PROJECT CONSTRUCTION
+# 5. PROJECT MODIFICATION
+# 6. TARGET WRITER FUNCTIONS
+# 7. XML PRINTING FUNCTIONS
+# 8. XML SCANNING
+# 9. XML PROCESSING
+# 10. HELPER FUNCTIONS
+# 11. MAIN PROGRAM
+
+##########################################################################################
+#
+# BEGIN DOCUMENTATION
+#
+# Syntax:
+# --------------------------------------------------------------------------------------- 
+#
+#  gbf-mkfile-parse [options] <operation> <argument>
+#
+#  Operations:
+#
+#     --get : argument is the project root
+#             analyzes the Makefile project and outputs an xml representation
+#
+#     --set : argument is a file (or - for stdin)
+#             reads an xml file which specifies operations to be performed
+#             outputs changed project groups affected by the operations
+#
+#  Options:
+#
+#     -v (--verbose) : output additional information during processing
+#     -n (--dry-run) : when in --set operation mode don't alter any files, just
+#                      parse the input
+#     -d (--debug)   : output debugging information
+#
+#  Output:
+# 
+#  In stdout the script outputs the xml representation of the project
+#  (or the changed groups).  Through stderr the script outputs errors and warnings
+#  using the following format:
+#
+#  DEBUG: message
+#  ERROR(code): message
+#  WARNING(code): message
+#
+#  Error codes:
+#
+#       0   Success
+#    1-99   General errors
+#       1:  Malformed project
+#       2:  Invalid directory
+#       3:  Cannot open output file
+#       4:  Cannot open input file
+#       5:  Syntax error
+# 100-199   Makefile parser error
+#     100:  Can't open file
+#     101:  Invalid trailing backslash
+# 200-299   Extraction errors
+#     200:  Invalid primary prefix
+# 300-399   Target writer errors
+#     300:  Invalid operation
+#     301:  Invalid operand
+#     302:  Unimplemented target writer
+#     303:  Group not found
+#     304:  Can't write file
+#     305:  Target/group already exists
+#
+#  Warning codes:
+#
+#       0   Success
+#    1-99   General warnings
+# 100-199   Makefile parser warning
+#     100:  Adding text to not previously declared macro
+#     102:  Makefile for a subdirectory not found
+# 200-299   Extraction warning
+#     200:  General semantic error
+# 300-399   Target writer warning
+#     300:  Creating an already existing macro
+#     301:  Out of bounds line number
+#     302:  Target types don't match while creating a new simple primary target
+#
+#
+#
+# Output format (see output.dtd):
+# ---------------------------------------------------------------------------------------
+#
+# Sample output:
+# <?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>
+# <!DOCTYPE project []>
+# <project root="/home/gustavo/tmp/gdl">
+#
+# the 'root' attribute is a full path to the root of the project
+#
+#  <config>
+#    <param name="source_generators">
+#      <item name="glib_genmarshal" value="GLIB_GENMARSHAL"/>
+#      <item name="glib_mkenums" value="GLIB_MKENUMS"/>
+#      <item name="orbit_idl" value="ORBIT_IDL"/>
+#    </param>
+#  </config>
+#
+# the project itself can contain some 'config' parameters
+# the config is composed of 'param' elements
+# special characters in parameter values are escaped
+# \  (the backslash) -> '\\'
+# \n (newline)       -> '\n'
+# \t (tab character) -> '\t'
+#
+# there are three types of parameters: 
+#
+# 1) simple strings:
+# <param name="parameter" value="string"/>
+#
+# 2) lists:
+# <param name="list">
+#   <item value="item 1"/>
+#   <item value="item 2"/>
+# </param>
+#
+# 3) mappings:
+# <param name="mapping">
+#   <item name="item1" value="value 1"/>
+#   <item name="item2" value="value 2"/>
+# </param>
+#
+# Next in the project comes the root group
+# each group can have:
+# - one config section (defined as above)
+# - some targets
+# - other groups nested in
+#
+#  <group name="/" id="/">
+#
+# here the attribute 'name' is a printable name
+# and 'id' is a unique name to identify the group in the whole project
+# also 'id' is the path from the project root for the group
+# here's a nested group (nested groups appear before targets but after group config
+#
+#    <group name="idl" id="/idl/">
+#      <config>
+#        <param name="installdirs">
+#          <item name="idl" value="$(datadir)/idl/libgdl-1.0"/>
+#        </param>
+#      </config>
+#      <target name="idl" type="data" id="idl:data">
+#
+# each target has a printable 'name' a unique 'id' (within the group) and a 'type'
+# conventionally id is name:type but that is subject to change
+# the targets also can have a config section
+#
+#        <config>
+#          <param name="installdir" value="idl"/>
+#        </config>
+#
+# after the config section, comes the target sources and dependencies
+# the difference between a source and a dependency is that plain sources are
+# files available directly, and dependencies are files which are in turn
+# generated from other targets
+#
+#        <source uri="/idl/GDL.idl"/>
+#        <source uri="/idl/editor-buffer.idl"/>
+#        <source uri="/idl/editor-gutter.idl"/>
+#        <source uri="/idl/symbol-browser.idl"/>
+#      </target>
+#
+# an example of a target with dependencies:
+#
+#      <target name="libgdl-1.la" type="shared_lib" id="libgdl-1.la:shared_lib">
+#        <source uri="/gdl/default-icon.c"/>
+#        .
+#        .
+#        <source uri="/gdl/gdl-recent.c"/>
+#        <dependency file="/gdl/libgdlmarshal.c" target="libgdlmarshal.c:rule"/>
+#        .
+#        .
+#        <dependency file="/gdl/libgdltypebuiltins.c" target="libgdltypebuiltins.c:rule"/>
+#      </target>
+#
+# the 'uri' attribute contains a path absolute to the project root for the file
+# the 'file' is the same as 'uri' but for dependencies, and 'target' is the target
+# 'id' as explained before (the targets belong to the same group)
+#
+#
+# Internal architecture:
+# ---------------------------------------------------------------------------------------
+#
+# All data is kept in anonymous hashes to emulate a C struct
+#
+# Meta structure definitions
+#
+# +--------------
+# | project               : information about the project as a whole
+# +----------------
+# | prefix                : string containing the root directory of the project
+# | root_group            : root group hash (defined below)
+# | all_groups            : flat hash containing all the groups for faster access
+# |
+#
+# +----------------
+# | group                 : group (or directory for this backend) information
+# +-----------------
+# | name                  : string, the name of the group
+# | makefile              : makefile hash (see GBF/AmFiles.pm)
+# | targets               : hash of target hashes (defined below) 
+# |                         (target_name => target_hash)
+# | config                : group_config hash for this directory
+# | groups                : hash of subgroups hashes
+# | changed               : the group_process procedure puts this flag to 1
+# | 
+#
+# +----------------
+# | group_config          : group configuration
+# +-----------------
+# | subdirs               : SUBDIRS macro (order is important!!)
+# | includes (*)          : INCLUDES macro
+# | ldadd (*)             : LDADD macro
+# | compile (*)           : COMPILE macro
+# | link (*)              : LINK macro
+# | options (*)           : AUTOMAKE_OPTIONS macro
+# | omit_deps (*)         : OMIT_DEPENDENCIES macro
+# | built_sources         : BUILT_SOURCES macro (expanded)
+# | extra_dist            : EXTRA_DIST macro (expanded)
+# | cleanfiles (*)        : CLEANFILES macro
+# | mostlyclean (*)       : MOSTLYCLEANFILES macro
+# | maintainclean (*)     : MAINTAINCLEANFILES macro
+# | distclean (*)         : DISTCLEANFILES macro
+# | install_exec_local(*) : install-exec-local rule actions
+# | install_data_local(*) : install-data-local rule actions
+# | dist_hook (*)         : dist-hook rule actions
+# | other_vars            : hash of unused remaining Makefile.am macros after target
+# |                         extraction (macro_name => macro_contents)
+# | installdirs           : hash containing user defined installation prefixes
+# |                         (prefix => installation_dir)
+# | 
+#
+# +----------------
+# | target                : target information
+# +-----------------
+# | id                    : id of the target (how it's identified in the group's hash
+# | name                  : string, name of the target
+# | type                  : type of the target
+# | sources               : list of the source files which this target depends on
+# | dependencies          : list of other targets this target depends on
+# | built_files           : list of files presumably this target generates
+# | config                : target_config hash (defined below)
+# | 
+#
+# +----------------
+# | target_config         : extra target configuration (these are all optional and 
+# |                         dependent of the target type)
+# +-----------------
+# | ldflags (*)           : for a primary target, target_LDFLAGS macro contents
+# | ldadd (*)             : for a primary target, target_LDADD macro contents
+# | explicit_deps (*)     : for a primary target, target_DEPENDENCIES macro contents
+# | actions (*)           : rule actions if the target is derived from a makefile rule
+# | installdir            : installation prefix (or noinst, check, EXTRA)
+# | 
+#
+# (*)  These fields are optional, they can be empty or undef
+#
+#
+# END DOCUMENTATION  ------------------
+#
+##########################################################################################
+
+######################################################################
+####  3. SOURCE EXTRACTION  ##########################################
+######################################################################
+
+sub find_rules_for_target
+{
+	my $target = shift;
+	my $rules;
+	# FIXME: only takes first COLON or DCOLON
+	if (exists $target->{DCOLON})
+	{
+		$rules = $target->{DCOLON};
+	}
+	elsif (exists $target->{COLON})
+	{
+		$rules = $target->{COLON};
+	}
+	# If we only have one rule, make a 1-element array reference
+	if ((ref $rules) eq "Make::Rule")
+	{
+		my @rulearray = ($rules);
+		$rules = \@rulearray;
+	}
+	return $rules;
+}
+
+sub is_phony_target
+{
+	my ($target, $root) = @_;
+	return 0 unless exists $root->{Depend}{".PHONY"};
+	
+	if (defined (my $rules = find_rules_for_target ($root->{Depend}{".PHONY"})))
+	{
+		foreach (@{$rules})
+		{
+			foreach (@{$_->depend})
+			{
+				return 1 if ($_ eq $target);
+			}
+		}
+	}
+	return 0;
+}
+
+sub find_source_suffixes
+{
+	my ($sr, $root) = @_;
+	
+	if (defined (my $rules = find_rules_for_target ($root->{Depend}{$sr}) ))
+	{
+		my @suffixes;
+		foreach (@{$rules})
+		{
+			foreach (@{$_->depend})
+			{
+				my $sufdep = $_;
+				# if suffix dependency starts with a %, strip it
+				$sufdep =~ s/^\%//;
+				
+				push @suffixes, $sufdep;
+			}
+		}
+		return @suffixes;
+	}
+	return undef;
+}
+
+sub find_sources_for_depname
+{
+	my ($depname, $path, $root) = @_;
+	my @sources = ();
+	
+	# use suffix rules to find the sources
+	my @suffix;
+	my $depsuffix = $depname;
+	if ($depsuffix =~ /\.\w*$/)
+	{
+		$depsuffix =~ s/.*\./\./g;
+
+		# The dependency name has a suffix: check for %.blah rule
+		# Otherwise try a .blah rule
+		my $sr = '%' . $depsuffix;
+		if ($root->{Depend}{$sr})
+		{
+			@suffix = find_source_suffixes ($sr, $root);
+		}
+		elsif ($root->{Depend}{$depsuffix})
+		{
+			@suffix = find_source_suffixes ($depsuffix, $root);
+		}
+	}
+	else
+	{
+		# The dependency name has no suffix: check for % rule
+		if ($root->{Depend}{'%'})
+		{
+			@suffix = find_source_suffixes ('%', $root);
+		}
+	}
+	
+	$depname =~ s/\.\w*$//;
+	foreach (@suffix)
+	{
+		my $srcname = $path . "/" . $depname . $_;
+		
+		if ((-e $srcname) && (-T $srcname))
+		{
+			# add the source file to the list and finish
+			push @sources, $srcname;
+			last;
+		}
+	}
+	
+	return (wantarray ? @sources : \@sources);
+}
+
+sub find_all_deps
+{
+	my ($target, $rules, $group, %loopdetect) = @_;
+	my %deps = ();
+	unless (defined %loopdetect) {%loopdetect = ();}
+	
+	foreach (@{$rules})
+	{
+		foreach (@{$_->depend})
+		{
+			if (exists $loopdetect{$_})
+			{
+				&report_error (200, gettext("Loop detected in dependency graph"));
+				return undef;
+			}
+			$loopdetect{$_} = 1;
+			$deps{$_} = 1;
+			
+			if (exists $group->{Depend}{$_})
+			{
+				# It's a target - find its deps and add them to the hash.
+				my $newtarget = $group->{Depend}{$_};
+				my $newrules = find_rules_for_target ($newtarget);		
+
+				%deps = (%deps, find_all_deps ($newtarget, $newrules, 
+											$group, %loopdetect));
+			}
+		}
+	}
+	return %deps;
+}
+
+# find_top_targets: find the top-level non-phony non-suffix targets to
+# build the project tree roots from
+
+sub find_top_targets
+{
+	my $root = shift;
+	my %targets = %{$root->{Depend}};
+	my %deps;
+	
+	foreach (keys %targets)
+	{
+		# get rid of suffix and phony targets
+		if (($_ eq ".PHONY") || ($_ =~ /^[\.%]/))
+		{
+			delete $targets{$_};
+			next;
+		}
+
+		my $curr_targ = $root->{Depend}{$_};
+		%deps = find_all_deps ($curr_targ, find_rules_for_target($curr_targ), 
+								$root);
+		delete @targets{keys %deps};
+	}
+	
+	# Sort keys in same order as the Makefile targets
+	my @sorted = ();
+	foreach (@{$root->{Targets}})
+	{
+		if (exists $targets{$_})
+		{
+			push @sorted, $_;
+		}
+	}
+
+	return (%targets, @sorted);
+}
+
+sub create_group_from_depname
+{
+	my ($depname, $parent, $root) = @_;
+	
+	my $path = $root->{Dir};
+	my $sources = find_sources_for_depname ($depname, $path, $root);
+	
+	my $group = bless  {Name => $depname,
+						Dir => $path,
+						Children => {},
+						Rules => {},
+						Sources => $sources,
+						Changed => 0,
+						Vars => {
+									Phony => is_phony_target ($depname, $root)
+									},
+						Id => "$parent->{Id}$depname/",
+						Parent => $parent,
+						Root => $root};
+						
+	return $group;
+}
+
+sub create_group_from_target
+{
+	my ($target, $parent, $root) = @_;
+
+	my $group = create_group_from_depname ($target->Name, $parent, $root);
+	$group->{Rules} = find_rules_for_target ($target);
+	$group->{Target} = $target->Name;
+
+	# Add child groups
+
+	foreach (@{$group->{Rules}})
+	{
+		foreach (@{$_->depend})
+		{
+			if (exists $root->{Depend}{$_})
+			{
+				# we have a dependency which is itself a target
+				my $childtarget = $root->{Depend}{$_};
+				$group->{Children}{$_} = create_group_from_target ($childtarget, 
+																$group, $root);
+			}
+			else
+			{
+				# we have a dependency built from suffix rules
+				$group->{Children}{$_} = create_group_from_depname($_, 
+																$group, $root);
+			}
+		}
+	}
+	
+	return $group;
+}
+
+sub build_makefile_tree
+{
+	my $root = shift;
+	my (%targets, @targ_sorted) = find_top_targets ($root);
+	my $group = bless  {Name => "/",
+						Vars => $root->{Vars},
+						Children => {},
+						Changed => 0,
+						Dir => $root->{Dir},
+						Id => "/",
+						Root => $root};
+
+	foreach (keys %targets)
+	{
+		$group->{Children}{$_} = create_group_from_target($root->{Depend}{$_},
+															$root, $root);
+	}
+
+	return $group;
+}
+
+sub rec_print
+{
+	my ($root, $tabs) = @_;
+
+	print $tabs. "+" . $root->{Name} . "\n";
+	$tabs .= "\t";
+	if (exists ($root->{Sources}))
+	{
+		foreach (@{$root->{Sources}})
+		{
+			print "$tabs $_\n";
+		}
+	}
+	foreach (values %{$root->{Children}})
+	{
+		rec_print($_, $tabs);
+	}
+}
+
+######################################################################
+####  4. GROUP AND PROJECT CONSTRUCTION  #############################
+######################################################################
+
+sub process_project
+{
+    my $project_dir = $_[0];
+	my $mkfile_name = "Makefile";
+
+    &debug ("Using $project_dir as the project root");
+    if ( ! -f "$project_dir/Makefile") {
+		if ( ! -f "$project_dir/makefile") {
+			&report_error (1, gettext("Can't find $project_dir/Makefile or $project_dir/makefile"));
+			return undef;
+		}
+		$mkfile_name = "makefile";
+    };
+
+    my $project = { prefix      => $project_dir,
+		            mkfile      => $mkfile_name,
+					root        => {}};
+    
+    # Recursively parse the Makefiles
+	$project->{root} = Make->new(Dir => $project_dir, Makefile => $mkfile_name);
+    $project->{root_group} = build_makefile_tree ($project->{root});
+	
+    return $project;
+};
+
+
+######################################################################
+####  5. PROJECT MODIFICATION  #######################################
+######################################################################
+
+###
+# project_reset_changed (project)
+#   reset groups' changed flag
+sub project_reset_changed
+{
+    my $project = shift;
+    foreach my $group (values %{$project->{all_groups}}) {
+	$group->{changed} = 0;
+    }
+}
+
+###
+# project_operate (project, operations)
+#   perform indicated operations on project
+#   returns: true if the project changed
+sub project_operate
+{
+    my ($project, $ops) = @_;
+    my $project_dirty = 0;
+
+  OP:
+    foreach my $op (@$ops) {
+	&debug ("($op->{op}, $op->{group_name}, ".
+		"$op->{target_name}, $op->{operand})");
+	my ($group, $target, $operand, $group_name, $result);
+	
+	if ($op->{op} eq "add_group" || $op->{op} eq "remove_group") {
+	    $operand = $op->{group_name};
+	    $group_name = $operand;
+	    $group_name =~ s/[^\/]+\/\z//;
+	    &debug ("Adding a group $operand on group $group_name");
+	} else {
+	    # Get the group from the project
+	    $group_name = $op->{group_name};
+	}
+	$group = $project->{all_groups}{$group_name};
+	
+	if (!$group) { 
+	    &report_error (303, gettext("The group $group_name doesn't exist"));
+	    next OP; 
+	}
+	&debug ("Using group $group->{name}");
+	
+	# If the operation is on a group, do it now
+	## if ($op->{op} =~ /group/) {
+	if ($op->{target_name} eq "") {
+	    if (!defined($operand)) {
+	    	$operand = $op->{operand};
+	    }
+	    $result = &group_op_handler ($project, $group, $op->{op}, $operand);
+	    $project_dirty = 1;
+	    next OP;
+	}
+
+	# If not, continue with the parameters preparation
+	$operand = $op->{operand};
+	$target = $op->{target_name};
+	my $target_type = $operand;
+	if ($op->{op} ne "add_target" && $op->{op} !~ /group/) {
+	    # Get the target hash from the group
+	    $target = $group->{targets}{$target};
+	    if (! defined ($target)) {
+		&report_error (304, gettext("The target $op->{target_name} doesn't exist"));
+		next OP;
+	    }
+	    $target_type = $target->{type};
+	}
+	
+	# Get the target writer
+#	my $writer = $target_writers{$target_type};
+#	$result = &$writer ($project, $group, $op->{op}, $target, $operand);
+#	if ($result == 0) {
+#	    $project_dirty = 1;
+#	}
+    }
+
+    if ($project_dirty) {
+	# update flat hash first
+	&project_update_all_groups ($project);
+
+	# write configure.in
+	if ($project->{configure_in}{dirty}) {
+	    output_configure_in $project->{configure_in};
+	    # FIXME: possibly reprocess configure.in information
+	};
+
+	foreach my $group (values %{$project->{all_groups}}) {
+	    if ($group->{makefile}{dirty}) {
+		my $makefile = $group->{makefile};
+		&debug ("$makefile->{filename} is dirty");
+
+		# output modified makefile.am if not running in test mode
+		&output_am_file ($makefile, $makefile->{filename}) unless ($dry_run);
+
+		# reprocess group
+		&group_process ($group);
+
+		$makefile->{dirty} = 0;
+	    };
+	};
+    };
+
+    return $project_dirty;
+}
+
+
+######################################################################
+####  6. TARGET WRITER FUNCTIONS  ####################################
+######################################################################
+
+sub group_op_handler
+{
+    my ($project, $group, $op, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    # group is the group hash in which to do the operation
+    # op is: "add_group" or "remove_group"
+    # operand is full group name for add_group, and ignored for remove_group
+
+    if ($op eq "add_group") {
+	my @components = split '/', $operand;
+	my $group_name = "";
+	$group_name = pop @components while ($group_name eq "");
+
+	# check that the group doesn't exist already
+	if (defined $group->{groups}{$group_name}) {
+	    return &report_error (305, gettext("Group $operand already exists"));
+	};
+
+	# create the directory and an empty Makefile.am
+	my $local_new_dir = $group->{prefix} . $group_name;
+	my $new_dir = $project->{prefix} . $local_new_dir;
+	
+	unless (-d $new_dir) {
+	    mkdir $new_dir || return &report_error (304, gettext("Can't mkdir $new_dir"));
+	};
+	unless (-f "$new_dir/Makefile.am") {
+	    if (open (NEWFILE, ">$new_dir/Makefile.am")) {
+		print NEWFILE "## File created by the gnome-build tools\n\n\n";
+		close NEWFILE;
+	    } else {
+		return &report_error (304, gettext("Can't write $new_dir/Makefile.am"));
+	    };
+	};
+
+	# add new directory to the SUBDIRS macro in the parent group
+	&macro_append_text ($makefile, "SUBDIRS", $group_name);
+
+	# create the internal representation of the group
+	$group->{groups}{$group_name} = &create_group ($operand, "$group_name", $project);
+
+	# add Makefile to list of configure generated files
+	$local_new_dir =~ s/^\///;
+	edit_config_files $project->{configure_in}, "add", "$local_new_dir/Makefile";
+    }
+    elsif ($op eq "remove_group") {
+	my @components = split '/', $operand;
+	my $group_name = "";
+
+	$group_name = pop @components while ($group_name eq "");
+	
+	# check that the group doesn't exist already
+	if (!defined $group->{groups}{$group_name}) {
+	    return &report_error (305, gettext("Group $operand does not exists"));
+	};
+	
+	# remove directory from the SUBDIRS macro in the parent group
+	&macro_remove_text ($makefile, "SUBDIRS", $group_name, 1);
+	
+	# add Makefile to list of configure generated files
+	my $local_new_dir = $group->{prefix} . $group_name;
+	$local_new_dir =~ s/^\///;
+	edit_config_files $project->{configure_in}, "remove", "$local_new_dir/Makefile";
+	
+	## Remove group from internal hashes
+	delete $project->{all_groups}->{$operand};
+	delete $group->{groups}->{$group_name};
+    }
+    elsif ($op eq "set_config") {
+      KEY:
+	foreach my $key (keys %$operand) {
+	    my $value = $operand->{$key};
+
+	    if ($key eq "includes") {
+		&macro_rewrite ($makefile, "INCLUDES", $value);
+	    } elsif ($key eq "installdirs") {
+	    	foreach my $item (keys %$value) {
+			&macro_rewrite ($makefile, $item."dir", $value->{$item});
+		}
+	    }    
+	}
+    }
+    else {
+    
+	return &report_error (300, gettext("Invalid operation '$op' to group_op_handler"));
+    }
+    # success!
+    return 0;
+}
+
+sub unimplemented_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+
+    # group is the group hash in which to do the operation
+    # op is: "add_target", "remove_target", "set_config", "add_source", "remove_source"
+    # target is:
+    #  - the new target name when add_target
+    #  - a ref to the target hash to operate on otherwise
+    # operand is:
+    #  - ignored for remove_target
+    #  - target type for add_target
+    #  - the source uri to add/remove on {add,remove}_source
+    #  - a config hash on set_config containing any/all fields in group config
+    # FIXME: handle dependencies
+
+    return &report_error (302, gettext("Unimplemented target type writer"));
+}
+
+sub compiled_primary_target_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    my %primaries = ( program    => "PROGRAMS",
+		      static_lib => "LIBRARIES",
+		      shared_lib => "LTLIBRARIES" );
+
+    &debug ("$op on group $group with $target($operand)");
+ 
+    # FIXME: Modify the $group variable as well as the makefile (worth it?...
+    # only if we have to do a sequence of operations on the same target)
+
+    if ($op eq "add_target") {
+	# $target contains the target name, which in this case is the name of
+	# the compiled objects (program or library)
+	# $operand contains the target type
+	my $canonical = &canonicalize_name ($target);
+	my ($primary, $prefix);
+
+	my %default_prefixes = ( program    => "noinst",
+				 static_lib => "noinst",
+				 shared_lib => "lib" );
+
+	$primary = $primaries{$operand};
+	$prefix = $default_prefixes{$operand};
+
+	if ($target eq "") {
+	    return &report_error (301, gettext("Invalid empty target name"));
+	}
+
+	if (!defined $primary) {
+	    return &report_error (301, gettext("Invalid target type '$operand' to compiled_primary_target_writer"));
+	}
+
+	# FIXME: verify that the target doesn't yet exist
+	&macro_append_text ($makefile, "${prefix}_${primary}", $target);
+	&macro_create ($makefile, "${canonical}_SOURCES", "", "${prefix}_${primary}");
+
+    }
+    elsif ($op eq "remove_target") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+
+	# FIXME: what if the target is in a macro which is used in prefix_PRIMARY
+	&macro_remove_text ($makefile, "${prefix}_${primary}", $target->{name}, 1);
+	&macro_remove_text ($makefile, "EXTRA_${primary}", $target->{name}, 1);
+	&macro_remove ($makefile, 
+		       "${canonical}_SOURCES", 
+		       "EXTRA_${canonical}_SOURCES",
+		       "${canonical}_LDADD",
+		       "${canonical}_LIBADD",
+		       "${canonical}_LDFLAGS",
+		       "${canonical}_DEPENDENCIES");
+	## FIXME: The line below reports error.
+	## &rule_remove ($makefile, "\$(${canonical}_OBJECTS)");
+	
+	## Remove the target from internal hash
+	my $target_id = $target->{id};
+	delete $group->{targets}->{$target_id};
+    }
+    elsif ($op eq "set_config") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $primary = $primaries{$target->{type}};
+	
+      KEY:
+	foreach my $key (keys %$operand) {
+	    my $value = $operand->{$key};
+
+	    if ($key eq "installdir") {
+		my $old_prefix = $target->{config}{installdir};
+		my $new_prefix = &check_primary_prefix ($value, $primary, $group);
+		if (!$new_prefix) {
+		    next KEY;
+		}
+
+		# FIXME: handle the EXTRA prefix
+		&debug ("Removing $target->{name} from ${old_prefix}_${primary}");
+		&macro_remove_text ($makefile, "${old_prefix}_${primary}", 
+				    $target->{name}, 1);
+		&macro_append_text ($makefile, "${new_prefix}_${primary}",
+				    $target->{name});
+	    } elsif ($key eq "ldflags") {
+	    	if ($value ne "") {
+		    &macro_rewrite ($makefile, "${canonical}_LDFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_LDFLAGS");
+		};
+	    } elsif ($key eq "ldadd") {
+		# Get rid of deprecated variable
+		&macro_remove ($makefile, "${canonical}_LIBADD");
+	    	if ($value ne "") {
+		    &macro_rewrite ($makefile, "${canonical}_LDADD",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_LDADD");
+		};
+	    } elsif ($key eq "explicit_deps") {
+		# FIXME: this should perhaps be handled via sources add/remove
+	    	if ($value ne "") {
+		    &macro_rewrite ($makefile, "${canonical}_DEPENDENCIES",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_DEPENDENCIES");
+		};
+	    }
+	}
+    }
+    elsif ($op eq "add_source") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $var = "${canonical}_SOURCES";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+
+	&debug ("Will modify $var using source $rel_source");
+	my %macros = %{$makefile->{macros}};
+	if (!exists ($macros{$var})) {
+	    # Need to add the default source the the new var
+	    $operand = "$target->{name}.c " . $rel_source;
+	}
+	&macro_append_text ($makefile, $var, $rel_source);
+	
+    }
+    elsif ($op eq "remove_source") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $var = "${canonical}_SOURCES";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+
+	# FIXME: this needs lot of work, since only works for literal filnanmes
+	# we need to identify where is this filename in expanded from a macro or 
+	# if it has some variable like $(srcdir)
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+
+	# FIXME: check for duplicate sources
+
+	&debug ("Will modify $var using source $rel_source");
+	if (!exists ($makefile->{macros}{$var}) &&
+	    $rel_source eq "${$target->{name}}.c") {
+	    # Create the empty macro if the removed source is the default one
+	    &macro_create ($makefile, $var, "");
+	} else {
+	    &macro_remove_text ($makefile, $var, $rel_source);
+	}
+
+    }
+    else {
+	return &report_error (300, gettext("Invalid operation '$op' to program_target_writer"));
+    };
+
+    # Success!
+    return 0;
+}
+
+
+sub simple_primary_target_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    my %primaries = ( data    => "DATA",
+		      scripts => "SCRIPTS",
+		      headers => "HEADERS" );
+
+    &debug ("$op on group $group with $target($operand)");
+ 
+    # FIXME: Modify the $group variable as well as the makefile (worth it?...
+    # only if we have to do a sequence of operations on the same target)
+
+    if ($op eq "add_target") {
+	# WARNING, Convention: $target for simple primaries is actually $prefix:$type
+	# $operand also contains the target type
+	my ($primary, $prefix, $check_primary);
+	
+	($prefix, $check_primary) = split /:/, $target;
+
+	$primary = $primaries{$operand};
+	if (!defined $primary) {
+	    return &report_error (301, gettext("Invalid target type '$operand' to simple_primary_target_writer"));
+	}
+
+	if ($check_primary ne $operand) {
+	    &report_warning (302, gettext("The target type supplied in the target name $target and the given target type '$operand' don't match.  Will use the one provided in the name"));
+	}
+
+	if (!&check_primary_prefix ($prefix, $primary, $group)) {
+	    return;
+	}
+
+	&macro_create ($makefile, "${prefix}_${primary}", "");
+
+    }
+    elsif ($op eq "remove_target") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+
+	&macro_remove ($makefile, "${prefix}_${primary}");
+    }
+    elsif ($op eq "set_config") {
+	# Nothing to do here, since these kind of targets are not relocatable
+
+    }
+    elsif ($op eq "add_source") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+	my $var = "${prefix}_${primary}";
+
+	# FIXME: add file to EXTRA_DIST if it's a DATA primary and the file is not
+	# a built file
+	# Note: we expect the uri to be relative to the group
+	&macro_append_text ($makefile, $var, $operand);
+	
+    }
+    elsif ($op eq "remove_source") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+	my $var = "${prefix}_${primary}";
+
+	# Note: we expect the uri to be relative to the group
+	&macro_remove_text ($makefile, $var, $operand);
+
+    }
+    else {
+	return &report_error (300, gettext("Invalid operation '$op' to program_target_writer"));
+    };
+
+    # Success!
+    return 0;
+}
+
+
+######################################################################
+####  7. XML PRINTING FUNCTIONS  #####################################
+######################################################################
+
+my ($indent_level, $have_vspace);
+
+$indent_level = 0;
+$have_vspace = 0;
+
+sub xml_enter  { $indent_level += 2; }
+sub xml_leave  { $indent_level -= 2; }
+sub xml_indent { print " " x $indent_level; $have_vspace = 0; }
+sub xml_vspace { if (not $have_vspace) { print "\n"; $have_vspace = 1; } }
+sub xml_print { &xml_indent; print @_; }
+
+sub xml_escape
+{
+    $_ = $_[0];
+    s/\&/\&amp;/g;
+    s/\</\&lt;/g;
+    s/\>/\&gt;/g;
+    s/\"/\&quot;/g;
+    ## s/\\/\\\\/g;
+    ## s/\n/\\n/g;
+    ## s/\t/\\t/g;
+    return $_;
+}
+
+sub xml_unescape
+{
+    $_ = $_[0];
+    s/\&amp;/\&/g;
+    s/\&lt;/\</g;
+    s/\&gt;/\>/g;
+    s/\&quot;/\"/g;
+    ## s/\\\\/\\/g;
+    ## s/\\n/\n/g;
+    ## s/\\t/\t/g;
+    return $_;
+}
+
+sub xml_print_source
+{
+    my $source = shift;
+
+    &xml_enter ();
+    &xml_print ("<source uri=\"" . reduce_path ($source) . "\"/>\n");
+    &xml_leave ();
+}
+
+sub xml_print_dep
+{
+    my ($dep, $prefix) = @_;
+
+    my ($target, $file) = split ';', $dep;
+    &xml_enter ();
+    # FIXME: uris should be absolute to the project root (i.e. ../ must be reduced)
+    &xml_print ("<dependency file=\"" . 
+				reduce_path ($prefix . "/" . $target) . "\"/>\n");
+    &xml_leave ();
+}
+
+sub xml_print_target
+{
+    my $group = shift;
+	
+	&xml_enter ();
+    
+	my $type = "program";
+	&xml_print ("<target name=\"$group->{Target}\" ".
+				"id=\"$group->{Target}\" type=\"$type\">\n");
+	
+	if (exists $group->{Sources})
+	{
+		foreach (@{$group->{Sources}}) {
+			&xml_print_source ($_);
+		}
+	}
+
+	&xml_print ("</target>\n");
+
+	&xml_leave ();
+}
+
+###
+# group_print_xml (group [, which])
+#   recursively prints the xml representation of the group
+#   if which is "changed" only prints the group if it's flaged as changed
+sub group_print_xml
+{
+    my $group = shift;
+    my $which = shift || "all";
+    
+    if ($which ne "changed" || $group->{Changed})
+	{
+		&xml_enter ();
+		&xml_print ("<group name=\"$group->{Name}\" id=\"$group->{Id}\" " .
+					"source=\"$group->{Dir}/Makefile\">\n");
+
+		# Print the group config
+		&xml_print_config ($group->{Vars}, ());
+	
+		# Print child groups
+		foreach (values %{$group->{Children}}) {
+			&group_print_xml ($_, $which);
+		}
+	
+		# Print the target
+		if (exists $group->{Target})
+		{
+			&xml_print_target ($group);
+		}
+
+		&xml_print ("</group>\n");
+
+		&xml_leave ();
+    }
+}
+
+sub xml_print_config
+{
+    my ($config, @except) = @_;
+    my $value;
+
+    &xml_enter ();
+    &xml_print ("<config>\n");
+    foreach my $key (keys %{$config}) {
+	if (grep $_ eq $key, @except) {
+	    next;
+	};
+
+	&xml_enter ();
+	$value = &empty_if_undef ($config->{$key});
+	if (ref ($value) eq "ARRAY" && @$value) {
+	    # It's a list
+	    &xml_print ("<param name=\"$key\">\n");
+	    &xml_enter ();
+	    foreach (@$value) {
+	    	## Remove white spaces from config parameters.
+	    	$_ =~ s/\s/ /gs;
+		$_ =~ s/\s+/ /gs;
+		$_ = &xml_escape ($_);
+		&xml_print ("<item value=\"$_\"/>\n");
+	    };
+	    &xml_leave ();
+	    &xml_print ("</param>\n");
+	} elsif (ref ($value) eq "HASH" && %$value) {
+	    # It's a hash
+	    &xml_print ("<param name=\"$key\">\n");
+	    &xml_enter ();
+	    foreach my $item (keys %$value) {
+	    	## Remove white spaces from config parameters.
+		my $val = $value->{$item};
+	    	$val =~ s/\s/ /gs;
+	    	$val =~ s/\s+/ /gs;
+		$_ = &xml_escape ($val);
+		&xml_print ("<item name=\"$item\" value=\"$_\"/>\n");
+	    };
+	    &xml_leave ();
+	    &xml_print ("</param>\n");
+	} elsif (! ref ($value) && $value) {
+	    ## Remove white spaces from config parameters.
+	    $value =~ s/\s/ /gs;
+	    $value =~ s/\s+/ /gs;
+	    $value = &xml_escape ($value);
+	    &xml_print ("<param name=\"$key\" value=\"$value\"/>\n");
+	};
+	&xml_leave ();
+    };
+    &xml_print ("</config>\n");
+    &xml_leave ();
+}
+
+###
+# project_print_xml (project [, which])
+#   print xml representation of the project
+#   if which is "changed" only prints changed groups in last modification
+sub project_print_xml
+{
+    my $project = shift;
+    my $which = shift || "all";
+
+    print "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>\n";
+    print "<!DOCTYPE project []>\n\n";
+    print "<project root=\"$project->{prefix}\" report=\"" . 
+	($which eq "changed" ? "partial" : "full") . 
+	"\" source=\"$project->{prefix}/$project->{mkfile}\">\n";
+    
+    # Print the groups
+    &group_print_xml ($project->{root_group}, $which);
+    
+    print "</project>\n";
+}
+
+sub recursive_print
+{
+    my ($level, $el) = @_;
+    my $pad = " " x (2 * $level);
+    if (!ref ($el)) {
+	print $pad, $el, "\n";
+    } elsif (ref ($el) eq "ARRAY") {
+	foreach my $sel (@$el) {
+	    &recursive_print ($level + 1, $sel);
+	}
+    } elsif (ref ($el) eq "HASH") {
+	foreach my $sel (keys %$el) {
+	    print $pad, $sel, " => ", $el->{$sel}, "\n";
+	}
+    }
+}
+
+
+######################################################################
+####  8. XML SCANNING  ###############################################
+######################################################################
+
+sub xml_scan_make_kid_array
+{
+    my %hash = ();
+    my (@sublist, @attr);
+
+    @attr = $_[0] =~ /[^\s]+\s*([a-zA-Z_-]+)\s*\=\s*\"([^\"]*)/g;
+    %hash = @attr;
+    
+    push @sublist, \%hash;
+    return \@sublist;
+}
+
+sub xml_scan_recurse
+{
+    my ($tree, $scan_ref) = @_;
+    
+    my @list = @$tree;
+    my ($el, $sublist);
+    
+    while (@$scan_ref) {
+	$el = shift @$scan_ref;
+
+        # Empty strings, PI and DTD must go.
+	if (($el eq "") || $el =~ /^\<[!?].*\>$/s) { next; }
+
+	if ($el =~ /^\<.*\/\>$/s) {
+	    # Empty.
+	    $el =~ /^\<([a-zA-Z_-]+).*\/\>$/s;
+	    push @list, $1;
+	    push @list, &xml_scan_make_kid_array ($el);
+
+	} elsif ($el =~ /^\<\/.*\>$/s) {
+	    # End.
+	    last;
+
+	} elsif ($el =~ /^\<.*\>$/s) {
+	    # Start.
+	    $el =~ /^\<([a-zA-Z_-]+).*\>$/s;
+	    push @list, $1;
+	    $sublist = &xml_scan_make_kid_array ($el);
+	    push @list, &xml_scan_recurse ($sublist, $scan_ref);
+	    next;
+
+	} elsif ($el ne "") {
+	    # PCDATA.
+	    push @list, 0;
+	    push @list, "$el";
+	}
+    }
+    
+    return \@list;
+}
+
+sub xml_scan
+{
+    my $input_file = $_[0];
+    my ($doc, $tree, $i);
+    
+    if (!$input_file || $input_file eq "-") {
+	$doc .= $i while ($i = <STDIN>);
+
+    } else {
+	if (open INPUT_FILE, $input_file) {
+	    $doc .= $i while ($i = <INPUT_FILE>);
+	    close INPUT_FILE;
+	}
+	else {
+	    &report_error (4, gettext("Can't open input file '$input_file'"));
+	    return [];
+	}
+    }
+
+    &debug ("Got input: $doc");
+
+    my @xml_scan_list = ($doc =~ /([^\<]*)(\<[^\>]*\>)[ \t\n\r]*/mg); # pcdata, tag, pcdata, tag, ...
+    
+    $tree = &xml_scan_recurse ([], \@xml_scan_list);
+    
+    return $tree;
+}
+
+
+######################################################################
+####  9. XML PROCESSING  #############################################
+######################################################################
+
+sub xml_parse_params
+{
+    my $tree = $_[0];
+    my %params;
+    
+    shift @$tree;
+    
+    while ($$tree[0] eq "param") {
+    	shift @$tree;
+	my $child = $$tree[0];
+	if (defined($$child[0]->{value})) {
+		my $str = $$child[0]->{value};
+        	$params{$$child[0]->{name}} = xml_unescape ($str);
+	} else {
+		my %items;
+		$params{$$child[0]->{name}} = \%items;
+		shift @$child;
+		while ($$child[0] eq "item") {
+			shift @$child;
+			my $str = $$child[0][0]->{value};
+			$items{$$child[0][0]->{name}} = xml_unescape ($str);
+			shift @$child;
+		}
+	}
+	shift @$tree;
+    }
+    return \%params;
+}
+
+sub xml_parse_add
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "add_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    # The group id is unique
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	    if ($type eq "target") {
+		$new_op{operand} = $$curr[0]->{type};
+	    }
+	} elsif ($parent eq "source") { 
+	    $new_op{operand} = $$curr[0]->{uri};
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+
+    return \%new_op;
+}
+
+sub xml_parse_change
+{
+}
+
+sub xml_parse_set
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+    $new_op{operand} = {};
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "set_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	} elsif ($parent eq "config") {
+	    $new_op{operand} = xml_parse_params($curr);
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+
+    return \%new_op;
+}
+
+sub xml_parse_remove
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "remove_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    # The group name is unique
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	} elsif ($parent eq "source") { 
+	    $new_op{operand} = $$curr[0]->{uri};
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+    return \%new_op;
+}
+
+sub xml_parse_ops
+{
+    my $tree = $_[0];
+    my @ops;
+
+    shift @$tree;  # Skip attributes.
+
+    while (@$tree) {
+	if ($$tree[0] eq "add") { 
+	    push @ops, &xml_parse_add ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "change") { 
+	    push @ops, &xml_parse_change ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "set") { 
+	    push @ops, &xml_parse_set ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "remove") { 
+	    push @ops, &xml_parse_remove ($$tree[1]); 
+	}
+
+	shift @$tree;
+	shift @$tree;
+    }
+
+    return \@ops;
+}
+
+
+######################################################################
+####  10. HELPER FUNCTIONS  ##########################################
+######################################################################
+
+sub path_relative_to_absolute
+{
+    my ($prefix, $rel) = @_;
+
+    if (substr ($prefix, -1) ne "/") {
+	$prefix .= "/";
+    };
+
+    return reduce_path ($prefix . $rel);
+}
+
+sub path_absolute_to_relative
+{
+    my ($prefix, $absolute) = @_;
+
+    my @prefix_parts = split '/', $prefix;
+    my @absolute_parts = split '/', $absolute;
+    my @result = ();
+    my $append_parent = 0;
+
+    foreach my $part (@prefix_parts) {
+	my $abs_part = shift @absolute_parts;
+
+	if ($part eq $abs_part && !$append_parent) {
+	    next;
+	} else {
+	    $append_parent = 1;
+	    unshift @result, "..";
+	    push @result, $abs_part;
+	};
+	    
+    };
+    push @result, @absolute_parts;
+
+    return join ('/', @result);
+}
+
+sub reduce_path
+{
+    my ($uri) = @_;
+
+    my @result = ();
+
+    foreach my $part (split '/', $uri) {
+	if ($part eq "..") {
+	    pop @result;
+	} elsif ($part eq ".") {
+	    next;
+	} else {
+	    push @result, $part;
+	};
+    };
+
+    return (join '/', @result);
+}
+
+sub remove_files_from_sources
+{
+    my ($var, $group) = @_;
+
+    my %targets = %{$group->{targets}};
+
+    # Strips from $var all those files already present in some target's sources
+    $var = " $var ";
+    foreach my $target (values %targets) {
+	foreach my $source (@{$target->{sources}}) {
+	    $var =~ s/\s\Q$source\s/ /g;
+	};
+    };
+    return &trim ($var);
+}
+
+sub remove_files_from_built_files
+{
+    my ($var, $group) = @_;
+
+    my %targets = %{$group->{targets}};
+
+    # Strips from $var all those files already present in some target's built_file,
+    # returning the target name
+    my @targets_found;
+    $var = " $var ";
+    foreach my $target (keys %targets) {
+	foreach my $built_file (@{$targets{$target}{built_files}}) {
+	    if ($var =~ /\s\Q$built_file\E\s/) {
+		$var =~ s/\s\Q$built_file\E\s/ /g;
+		push @targets_found, "$target;$built_file";
+	    };
+	};
+    };
+    # Now remove those files present in BUILT_SOURCES
+    foreach my $built_file (split /\s+/, $group->{config}{built_sources}) {
+	$var =~ s/\s$built_file\s/ /g;
+    }
+	
+    return (&trim ($var), @targets_found);
+}
+
+sub get_sources_by_extension
+{
+    my ($group, $ext) = @_;
+
+    my @result;
+
+    foreach my $target (values %{$group->{targets}}) {
+	my @sources = @{$target->{sources}};
+	push @result, grep /$ext\z/, @sources;
+    };
+    return @result;
+}
+
+sub make_absolute_path
+{
+    my $path = $_[0];
+
+    if (substr ($path, 0, 1) ne "/") {
+	# the path is not absolute
+	my $cwd = `pwd`;
+	chomp $cwd;
+	$path = "$cwd/$path";
+    };
+
+    return reduce_path ($path);
+}
+
+######################################################################
+####  11. MAIN PROGRAM  ##############################################
+######################################################################
+
+my ($op, $arg, $newop);
+
+$op = "";
+while (@ARGV) {
+    $_ = shift @ARGV;
+    if    ($_ eq "--get" || $_ eq "-g") { $newop = "get"; }
+    elsif ($_ eq "--set" || $_ eq "-s") { $newop = "set"; }
+    elsif ($_ eq "--verbose" || $_ eq "-v") { $verbose = 1; }
+    elsif ($_ eq "--dry-run" || $_ eq "-n") { $dry_run = 1; }
+    elsif ($_ eq "--debug" || $_ eq "-d") { $debug = 1; }
+
+    elsif ($_ eq "--test-scan") { $newop = "test-scan"; }
+    else {
+	if ($arg) {
+	    &report_error (5, gettext("You can't specify more than one project dir/file"));
+	    exit 5;
+	}
+	$arg = $_;
+    }
+    if ($newop) {
+	if ($op) {
+	    &report_error (5, gettext("You can't specify more than one operation"));
+	    exit 5;
+	}
+	$op = $newop;
+	$newop = "";
+    }
+}
+
+if ($op eq 'get') {
+    #########################################
+    # Get the project XML view
+    #########################################
+
+    my $project_dir = make_absolute_path ($arg);
+
+    if (!$project_dir || ! -d $project_dir || ! -e $project_dir) {
+	&report_error (2, gettext("Project root directory doesn't exist"));
+	exit 2;
+    };
+
+    my $project = &process_project ($project_dir);
+
+    if ($project)
+	{
+		&project_print_xml ($project);
+		
+#		rec_print($project->{root_group});
+	};
+}
+
+elsif ($op eq "test-scan") {
+    #########################################
+    # Test XML scanning
+    #########################################
+
+    my $tree = &xml_scan ($arg);
+    &recursive_print (-1, $tree);
+
+}
+elsif ($op eq "set") {
+    ########################################
+    # Project modification
+    ########################################
+
+    my $tree = &xml_scan ($arg);
+
+    # Walk the tree recursively and extract configuration parameters.
+
+    while (@$tree) {
+	if ($$tree[0] eq "project") { 
+	    # Get the project and execute
+	    my $project_dir = make_absolute_path ($$tree [1][0]->{root});
+	    my $project = &process_project ($project_dir);
+	    my $ops = &xml_parse_ops ($$tree[1]);
+	    if ($project && $ops) {
+		# reset groups changed flag so we later know what
+		# groups changed and need to be fed back to the user
+		&project_reset_changed ($project);
+
+		# perform the operations
+		if (&project_operate ($project, $ops)) {
+		    # print changed groups
+		    &project_print_xml ($project, "changed");
+		}
+	    };
+	}
+	shift @$tree;
+	shift @$tree;
+    }
+}
+else {
+    &report_warning (0, gettext("Nothing to do"));
+}

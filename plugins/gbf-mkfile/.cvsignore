@@ -1,0 +1,6 @@
+Makefile.in
+Makefile
+.deps
+.libs
+test
+gbf-mkfile-parse

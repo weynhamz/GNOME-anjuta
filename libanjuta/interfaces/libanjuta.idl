@@ -2868,6 +2868,31 @@ interface IAnjutaTerminal
 }
 
 /**
+ * SECTION:ianjuta-project-backend
+ * @title: IAnjutaProjectBackend
+ * @short_description: Interface for creating new project
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-project-backend.h
+ * 
+ */
+interface IAnjutaProjectBackend
+{
+	#include <libanjuta/gbf-project.h>
+	
+	/**
+	 * ianjuta_project_backend_new_project:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get a new GbfProject
+	 *
+	 * Return value: An object derived from GbfProject
+	 */
+	GbfProject* new_project ();
+}
+
+/**
  * SECTION:ianjuta-project-manager
  * @title: IAnjutaProjectManager
  * @short_description: Interface for project managers

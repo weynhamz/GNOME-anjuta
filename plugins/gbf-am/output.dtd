@@ -1,0 +1,39 @@
+<!DOCTYPE project [
+
+<!ELEMENT project (config?,group+)>
+<!ATTLIST project
+  root CDATA #REQUIRED>
+
+<!ELEMENT config (param*)>
+
+<!ELEMENT param (item*)>
+<!ATTLIST param 
+  name  CDATA #REQUIRED
+  value CDATA #IMPLIED>
+
+<!ELEMENT item EMPTY>
+<!ATTLIST item
+  name  CDATA #IMPLIED
+  value CDATA #REQUIRED>
+
+<!ELEMENT group (config?,group*,target*)>
+<!ATTLIST group
+  id   CDATA #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT target (config?,source*,dependency*)>
+<!ATTLIST target
+  id   CDATA #REQUIRED
+  name CDATA #REQUIRED
+  type CDATA #REQUIRED>
+
+<!ELEMENT source EMPTY>
+<!ATTLIST source
+  uri CDATA #REQUIRED>
+
+<!ELEMENT dependency EMPTY>
+<!ATTLIST dependency
+  file   CDATA #REQUIRED
+  target CDATA #REQUIRED>
+
+]>

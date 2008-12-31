@@ -28,12 +28,12 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
+#include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include <libanjuta/anjuta-profile-manager.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
 
-#include <gbf/gbf-project-util.h>
-#include <gbf/gbf-backend.h>
+#include "gbf-project-util.h"
 
 #include "plugin.h"
 
@@ -1177,12 +1177,13 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static void
 project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 {
+	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
 	gchar *dirname;
 	const gchar *root_uri;
-	GSList *l;
 	GError *error = NULL;
-	GbfBackend *backend = NULL;
+	GList *descs = NULL;
+	GList *desc;
 	
 	root_uri = pm_plugin->project_root_uri;
 	
@@ -1193,12 +1194,24 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	if (pm_plugin->project != NULL)
 			g_object_unref (pm_plugin->project);
 	
-	DEBUG_PRINT ("%s", "initializing gbf backend...\n");
-	gbf_backend_init ();
-	for (l = gbf_backend_get_backends (); l; l = l->next) {
-		backend = l->data;
+	DEBUG_PRINT ("loading gbf backend...\n");
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pm_plugin)->shell, NULL);
+	descs = anjuta_plugin_manager_query (plugin_manager,
+										 "Anjuta Plugin",
+										 "Interfaces",
+										 "IAnjutaProjectBackend",
+										 NULL);
+	for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
+		AnjutaPluginDescription *backend;
+		IAnjutaProjectBackend *plugin;
+		gchar *location = NULL;
 		
-		pm_plugin->project = gbf_backend_new_project (backend->id);
+		backend = (AnjutaPluginDescription *)desc->data;
+		anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
+		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
+		g_free (location);
+			
+		pm_plugin->project = ianjuta_project_backend_new_project (plugin, NULL);
 		if (pm_plugin->project)
 		{
 			if (gbf_project_probe (pm_plugin->project, dirname, NULL))
@@ -1213,10 +1226,11 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 		if (!strcmp (backend->id, "gbf-am:GbfAmProject"))
 			break;
 		*/
-		backend = NULL;
+		plugin = NULL;
 	}
+	g_list_free (descs);
 	
-	if (!backend)
+	if (!pm_plugin->project)
 	{
 		/* FIXME: Set err */
 		g_warning ("no backend available for this project\n");
@@ -1465,7 +1479,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* GladeXML *gxml; */
 	ProjectManagerPlugin *pm_plugin;
 	
-	DEBUG_PRINT ("%s", "ProjectManagerPlugin: Activating Project Manager plugin...");
+	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin %p...", plugin);
 	
 	if (!initialized)
 		register_stock_icons (plugin);
@@ -1577,6 +1591,7 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 
+	DEBUG_PRINT ("ProjectManagerPlugin: Deactivate Project Manager plugin...");
 	if (pm_plugin->close_project_idle > -1)
 	{
 		g_source_remove (pm_plugin->close_project_idle);
@@ -1699,7 +1714,7 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id, const gc
 {
 	gchar *path, *ptr;
 	gchar *uri;
-	const gchar *project_root;
+	const gchar *project_root = NULL;
 	
 	if (!id)
 		return NULL;
@@ -1721,6 +1736,15 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id, const gc
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 					  root, G_TYPE_STRING,
 					  &project_root, NULL);
+	if (project_root == NULL)
+	{
+		/* Perhaps missing build URI, use project URI instead */
+		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+					  G_TYPE_STRING,
+					  &project_root,
+					  NULL);
+	}
 	uri = g_build_filename (project_root, path, NULL);
 	/* DEBUG_PRINT ("Converting id: %s to %s", id, uri); */
 	g_free (path);
@@ -1735,6 +1759,15 @@ get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri, const
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 					  root, G_TYPE_STRING,
 					  &project_root, NULL);
+	if (project_root == NULL)
+	{
+		/* Perhaps missing build URI, use project URI instead */
+		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+					  G_TYPE_STRING,
+					  &project_root,
+					  NULL);
+	}
 	if (project_root)
 	{
 		if (uri[0] != '/')
@@ -2152,7 +2185,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 {
 	ProjectManagerPlugin *plugin;
 	IAnjutaProjectManagerElementType default_location_type;
-	gchar *location_id;
+	gchar *location_id = NULL;
 	gchar* source_id;
 	gchar* source_uri;
 	
@@ -2210,7 +2243,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 {
 	ProjectManagerPlugin *plugin;
 	IAnjutaProjectManagerElementType default_location_type;
-	gchar *location_id;
+	gchar *location_id = NULL;
 	GList* source_ids;
 	GList* source_uris = NULL;
 	
@@ -2392,7 +2425,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	GError *error = NULL;
 	gchar* uri = g_file_get_uri (file);
 	GnomeVFSURI* vfs_uri;
-	
+
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
 	
 	/* If there is already a project loaded, load in separate anjuta window */
@@ -2403,6 +2436,8 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 		g_free (quoted_uri);
 		anjuta_util_execute_shell (NULL, cmd);
 		g_free (cmd);
+		g_free (uri);
+		
 		return;
 	}
 	
@@ -2420,26 +2455,30 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	session_profile = g_file_new_for_uri (DEFAULT_PROFILE);
 	anjuta_profile_add_plugins_from_xml (profile, session_profile,
 										 TRUE, &error);
+	g_object_unref (session_profile);
 	if (error)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
-								  "%s", error->message);
-		g_error_free (error);
-		error = NULL;
+		g_propagate_error (e, error);
+
+		g_free(uri);
+		g_object_unref (profile);
+		
+		return;
 	}
-	g_object_unref (session_profile);
 	
 	/* Project default profile */
 	session_profile = g_file_new_for_uri (uri);
 	anjuta_profile_add_plugins_from_xml (profile, session_profile, TRUE, &error);
+	g_object_unref (session_profile);
 	if (error)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
-								  "%s", error->message);
-		g_error_free (error);
-		error = NULL;
+		g_propagate_error (e, error);
+		
+		g_free(uri);
+		g_object_unref (profile);
+
+		return;
 	}
-	g_object_unref (session_profile);
 	
 	/* Project session profile */
 	vfs_uri = gnome_vfs_uri_new (uri);
@@ -2461,14 +2500,16 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 											 FALSE, &error);
 		if (error)
 		{
-			anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
-									  "%s", error->message);
-			g_error_free (error);
-			error = NULL;
+			g_propagate_error (e, error);
+			
+			g_free(uri);
+			g_object_unref (profile);
+			g_object_unref (session_profile);
+			
+			return;
 		}
 	}
 	anjuta_profile_set_sync_file (profile, session_profile); 
-	g_object_unref (session_profile);
 	g_free (session_profile_path);
 	g_free (profile_name);
 	

@@ -22,9 +22,9 @@
 #define _PROJECT_MANAGER_PLUGIN_H_
 
 #include <libanjuta/anjuta-plugin.h>
-#include <gbf/gbf-project.h>
-#include <gbf/gbf-project-model.h>
-#include <gbf/gbf-project-view.h>
+#include <libanjuta/gbf-project.h>
+#include "gbf-project-model.h"
+#include "gbf-project-view.h"
 
 extern GType project_manager_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER         (project_manager_plugin_get_type (NULL))

@@ -1,0 +1,2612 @@
+#!/usr/bin/perl -w
+# -*- perl -*-
+
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+BEGIN
+{
+    my $prefix = "@prefix@";
+    my $perlmodulesdir = "@datadir@/@PACKAGE@";
+    unshift @INC, "$perlmodulesdir";
+}
+
+use strict;
+
+use GBF::General;
+use GBF::AmFiles;
+
+# I18n
+use POSIX;
+use Locale::gettext qw(textdomain gettext);
+
+setlocale(LC_MESSAGES, "");
+textdomain("@PACKAGE@");
+
+my $verbose = 0;
+my $dry_run = 0;
+
+# General FIXMEs:
+
+# - implement help for the command line
+
+# - Externalize intltool rule extractor, via a config file or something 
+#   (i.e. don't hardcode)
+
+# - Don't remove backslashes from read macros
+
+# - take makefile names from configure.{in,ac}, since they can also be
+#   named makefile (lowercase) and besides that's the way automake works
+
+# File index:
+# 1. CONSTANTS AND VARIABLES
+# 2. PARSER FUNCTIONS
+# 3. TARGET EXTRACT FUNCTIONS
+# 4. GROUP AND PROJECT CONSTRUCTION
+# 5. PROJECT MODIFICATION
+# 6. TARGET WRITER FUNCTIONS
+# 7. XML PRINTING FUNCTIONS
+# 8. XML SCANNING
+# 9. XML PROCESSING
+# 10. HELPER FUNCTIONS
+# 11. MAIN PROGRAM
+
+##########################################################################################
+#
+# BEGIN DOCUMENTATION
+#
+# Syntax:
+# --------------------------------------------------------------------------------------- 
+#
+#  gbf-am-parse [options] <operation> <argument>
+#
+#  Operations:
+#
+#     --get : argument is the project root
+#             analyzes the automake project and outputs an xml representation
+#
+#     --set : argument is a file (or - for stdin)
+#             reads a xml file which specifies operations to be performed
+#             outputs changed project groups affected by the operations
+#
+#  Options:
+#
+#     -v (--verbose) : output additional information during processing
+#     -n (--dry-run) : when in --set operation mode don't alter any files, just
+#                      parse the input
+#     -d (--debug)   : output debugging information
+#
+#  Output:
+# 
+#  In stdout the script outputs the xml representation of the project
+#  (or the changed groups).  Through stderr the script outputs errors and warnings
+#  using the following format:
+#
+#  DEBUG: message
+#  ERROR(code): message
+#  WARNING(code): message
+#
+#  Error codes:
+#
+#       0   Success
+#    1-99   General errors
+#       1:  Malformed project
+#       2:  Invalid directory
+#       3:  Cannot open output file
+#       4:  Cannot open input file
+#       5:  Syntax error
+# 100-199   configure.in/Makefile.am parser error
+#     100:  Can't open file
+#     101:  Invalid trailing backslash
+# 200-299   Extraction errors
+#     200:  Invalid primary prefix
+# 300-399   Target writer errors
+#     300:  Invalid operation
+#     301:  Invalid operand
+#     302:  Unimplemented target writer
+#     303:  Group not found
+#     304:  Can't write file
+#     305:  Target/group already exists
+#
+#  Warning codes:
+#
+#       0   Success
+#    1-99   General warnings
+# 100-199   configure.in/Makefile.am parser warning
+#     100:  Adding text to not previously declared macro
+#     101:  General error in configure.in (other things will not work)
+#     102:  Makefile.am for a subdirectory not found
+# 200-299   Extraction warning
+#     200:  General semantic error
+# 300-399   Target writer warning
+#     300:  Creating an already existing macro
+#     301:  Out of bounds line number
+#     302:  Target types don't match while creating a new simple primary target
+#
+#
+#
+# Output format (see output.dtd):
+# ---------------------------------------------------------------------------------------
+#
+# Sample output:
+# <?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>
+# <!DOCTYPE project []>
+# <project root="/home/gustavo/tmp/gdl">
+#
+# the 'root' attribute is a full path to the root of the project
+#
+#  <config>
+#    <param name="source_generators">
+#      <item name="glib_genmarshal" value="GLIB_GENMARSHAL"/>
+#      <item name="glib_mkenums" value="GLIB_MKENUMS"/>
+#      <item name="orbit_idl" value="ORBIT_IDL"/>
+#    </param>
+#  </config>
+#
+# the project itself can contain some 'config' parameters
+# the config is composed of 'param' elements
+# special characters in parameter values are escaped
+# \  (the backslash) -> '\\'
+# \n (newline)       -> '\n'
+# \t (tab character) -> '\t'
+#
+# there are three types of parameters: 
+#
+# 1) simple strings:
+# <param name="parameter" value="string"/>
+#
+# 2) lists:
+# <param name="list">
+#   <item value="item 1"/>
+#   <item value="item 2"/>
+# </param>
+#
+# 3) mappings:
+# <param name="mapping">
+#   <item name="item1" value="value 1"/>
+#   <item name="item2" value="value 2"/>
+# </param>
+#
+# Next in the project comes the root group
+# each group can have:
+# - one config section (defined as above)
+# - some targets
+# - other groups nested in
+#
+#  <group name="/" id="/">
+#
+# here the attribute 'name' is a printable name
+# and 'id' is a unique name to identify the group in the whole project
+# also 'id' is the path from the project root for the group
+# here's a nested group (nested groups appear before targets but after group config
+#
+#    <group name="idl" id="/idl/">
+#      <config>
+#        <param name="installdirs">
+#          <item name="idl" value="$(datadir)/idl/libgdl-1.0"/>
+#        </param>
+#      </config>
+#      <target name="idl" type="data" id="idl:data">
+#
+# each target has a printable 'name' a unique 'id' (within the group) and a 'type'
+# conventionally id is name:type but that is subject to change
+# the targets also can have a config section
+#
+#        <config>
+#          <param name="installdir" value="idl"/>
+#        </config>
+#
+# after the config section, comes the target sources and dependencies
+# the difference between a source and a dependency is that plain sources are
+# files available directly, and dependencies are files which are in turn
+# generated from other targets
+#
+#        <source uri="/idl/GDL.idl"/>
+#        <source uri="/idl/editor-buffer.idl"/>
+#        <source uri="/idl/editor-gutter.idl"/>
+#        <source uri="/idl/symbol-browser.idl"/>
+#      </target>
+#
+# an example of a target with dependencies:
+#
+#      <target name="libgdl-1.la" type="shared_lib" id="libgdl-1.la:shared_lib">
+#        <source uri="/gdl/default-icon.c"/>
+#        .
+#        .
+#        <source uri="/gdl/gdl-recent.c"/>
+#        <dependency file="/gdl/libgdlmarshal.c" target="libgdlmarshal.c:rule"/>
+#        .
+#        .
+#        <dependency file="/gdl/libgdltypebuiltins.c" target="libgdltypebuiltins.c:rule"/>
+#      </target>
+#
+# the 'uri' attribute contains a path absolute to the project root for the file
+# the 'file' is the same as 'uri' but for dependencies, and 'target' is the target
+# 'id' as explained before (the targets belong to the same group)
+#
+#
+# Internal architecture:
+# ---------------------------------------------------------------------------------------
+#
+# All data is kept in anonymous hashes to emulate a C struct
+#
+# Meta structure definitions
+#
+# +--------------
+# | project               : information about the project as a whole
+# +----------------
+# | configure_in          : configure_in hash (defined below)
+# | prefix                : string containing the root directory of the project
+# | config                : project_config hash (defined below)
+# | root_group            : root group hash (defined below)
+# | all_groups            : flat hash containing all the groups for faster access
+# |
+#
+# +-----------------
+# | configure_in          : information regarding the parsing of the configure.in file
+# +--------------------
+# | lines                 : list of text lines in configure.in file
+# | other_files           : hash of configure time generated files (target => source)
+# | vars                  : hash of AC_SUBSTed vars (varname => contents)
+# |
+#
+# +----------------
+# | project_config        : project configuration
+# +-----------------
+# | source_generators     : hash of defined source generators mapped to configure.in vars
+# |                         (source_gen_name => configure_in_variable)
+# | 
+#
+# +----------------
+# | group                 : group (or directory for this backend) information
+# +-----------------
+# | name                  : string, the name of the group
+# | makefile              : makefile hash (see GBF/AmFiles.pm)
+# | targets               : hash of target hashes (defined below) 
+# |                         (target_name => target_hash)
+# | config                : group_config hash for this directory
+# | groups                : hash of subgroups hashes
+# | changed               : the group_process procedure puts this flag to 1
+# | 
+#
+# +----------------
+# | group_config          : group configuration
+# +-----------------
+# | subdirs               : SUBDIRS macro (order is important!!)
+# | includes (*)          : INCLUDES macro
+# | ldadd (*)             : LDADD macro
+# | compile (*)           : COMPILE macro
+# | link (*)              : LINK macro
+# | options (*)           : AUTOMAKE_OPTIONS macro
+# | omit_deps (*)         : OMIT_DEPENDENCIES macro
+# | built_sources         : BUILT_SOURCES macro (expanded)
+# | extra_dist            : EXTRA_DIST macro (expanded)
+# | cleanfiles (*)        : CLEANFILES macro
+# | mostlyclean (*)       : MOSTLYCLEANFILES macro
+# | maintainclean (*)     : MAINTAINCLEANFILES macro
+# | distclean (*)         : DISTCLEANFILES macro
+# | install_exec_local(*) : install-exec-local rule actions
+# | install_data_local(*) : install-data-local rule actions
+# | dist_hook (*)         : dist-hook rule actions
+# | other_vars            : hash of unused remaining Makefile.am macros after target
+# |                         extraction (macro_name => macro_contents)
+# | installdirs           : hash containing user defined installation prefixes
+# |                         (prefix => installation_dir)
+# | 
+#
+# +----------------
+# | target                : target information
+# +-----------------
+# | id                    : id of the target (how it's identified in the group's hash
+# | name                  : string, name of the target
+# | type                  : type of the target
+# | sources               : list of the source files which this target depends on
+# | dependencies          : list of other targets this target depends on
+# | built_files           : list of files presumably this target generates
+# | config                : target_config hash (defined below)
+# | 
+#
+# +----------------
+# | target_config         : extra target configuration (these are all optional and 
+# |                         dependent of the target type)
+# +-----------------
+# | ldflags (*)           : for a primary target, target_LDFLAGS macro contents
+# | ldadd (*)             : for a primary target, target_LDADD macro contents
+# | libadd (*)						: for a primary target, target_LIBADD macro contents
+# | explicit_deps (*)     : for a primary target, target_DEPENDENCIES macro contents
+# | actions (*)           : rule actions if the target is derived from a makefile rule
+# | installdir            : installation prefix (or noinst, check, EXTRA)
+# | 
+#
+# (*)  These fields are optional, they can be empty or undef
+#
+#
+# END DOCUMENTATION  ------------------
+#
+##########################################################################################
+
+
+
+######################################################################
+####  1. CONSTANTS AND VARIABLES  ####################################
+######################################################################
+
+
+# These files are included automatically by automake, so they should be sources
+# of the "extra" target in the root group
+# Makefile.am's and configure.in should be only accessible through the
+# configuration controls of the backend
+
+my @auto_files  = qw ( ChangeLog README INSTALL COPYING AUTHORS NEWS );
+
+my %am_valid_prefixes = ( PROGRAMS    => [ qw ( bin sbin libexec pkglib check) ],
+			  LIBRARIES   => [ qw ( lib pkglib ) ],
+			  LTLIBRARIES => [ qw ( lib pkglib ) ],
+			  SCRIPTS     => [ qw ( bin sbin libexec pkgdata check) ],
+			  HEADERS     => [ qw ( include oldinclude pkginclude ) ],
+			  DATA        => [ qw ( data sysconf sharedstate localstate 
+						pkgdata ) ],
+			  LISP        => [ qw ( lisp ) ], 
+			  TEXINFOS    => [ qw ( info ) ],
+			  MANS        => [ qw ( man ) ] );
+
+my %automake_types = ( PROGRAMS    => "program",
+		       LIBRARIES   => "static_lib",
+		       LTLIBRARIES => "shared_lib",
+		       MANS        => "man",
+		       DATA        => "data",
+		       SCRIPTS     => "script",
+		       TEXINFOS    => "info",
+		       LISP        => "lisp",
+		       HEADERS     => "headers",
+		       JAVA        => "java",
+		       PYTHON      => "python" );
+
+my $PRIMARY_MATCHER = "^(\\w+)_(" . join ('|', keys %automake_types) . ")\\z";
+
+my %target_writers = ( program         => \&compiled_primary_target_writer,
+		       static_lib      => \&compiled_primary_target_writer,
+		       shared_lib      => \&compiled_primary_target_writer,
+		       man             => \&unimplemented_writer,
+		       data            => \&simple_primary_target_writer,
+		       script          => \&simple_primary_target_writer,
+		       info            => \&unimplemented_writer,
+		       lisp            => \&unimplemented_writer,
+		       headers         => \&simple_primary_target_writer,
+		       java            => \&simple_primary_target_writer,
+		       python          => \&simple_primary_target_writer,
+		       generic_rule    => \&unimplemented_writer,
+		       extra           => \&simple_extra_dist_target_writer,
+		       configure_generated_file 
+		                       => \&unimplemented_writer,
+		       orbit_idl       => \&unimplemented_writer,
+		       glib_mkenums    => \&unimplemented_writer,
+		       glib_genmarshal => \&unimplemented_writer,
+		       intltool_rule   => \&unimplemented_writer );
+
+
+# Other special variables
+
+my %intltool_rules = ( INTLTOOL_DESKTOP_RULE   => ".desktop",
+		       INTLTOOL_DIRECTORY_RULE => ".directory",
+		       INTLTOOL_KEYS_RULE      => ".keys",
+		       INTLTOOL_OAF_RULE       => ".oaf",
+		       INTLTOOL_PONG_RULE      => ".pong",
+		       INTLTOOL_SERVER_RULE    => ".server",
+		       INTLTOOL_SHEET_RULE     => ".sheet",
+		       INTLTOOL_SOUNDLIST_RULE => ".soundlist",
+		       INTLTOOL_UI_RULE        => ".ui",
+		       INTLTOOL_XML_RULE       => ".xml",
+		       INTLTOOL_CAVES_RULE     => ".caves" );
+
+
+######################################################################
+####  2. PARSER FUNCTIONS  ###########################################
+######################################################################
+
+
+
+######################################################################
+####  3. TARGET EXTRACT FUNCTIONS  ###################################
+######################################################################
+
+# (target extraction from makefile.am contents)
+
+sub extract_project_config
+{
+    my $project = $_[0];
+
+    $project->{config} = {};
+    use Data::Dumper;
+    ## print Dumper($project->{configure_in});
+
+    # Package, version and URL
+    my ($package_name, $package_version, $package_url);
+    
+    if ($project->{configure_in}{contents} =~ /AC_INIT\(([^\,\)]+)\)/ms)
+    {
+	$package_name = $1;
+	$package_name =~ s/^[\s\[]*//s;
+	$package_name =~ s/[\s\]]*$//s;
+	$project->{config}->{package_name} = $package_name;
+    }
+    elsif ($project->{configure_in}{contents} =~ /AC_INIT\(([^\,\)]+),([^\,\)]+)\)/ms)
+    {
+	$package_name = $1;
+	$package_version = $2;
+	$package_name =~ s/^[\s\[]*//s;
+	$package_name =~ s/[\s\]]*$//s;
+	$package_version =~ s/^[\s\[]*//s;
+	$package_version =~ s/[\s\]]*$//s;
+	$project->{config}->{package_name} = $package_name;
+	$project->{config}->{package_version} = $package_version;
+    }
+    elsif ($project->{configure_in}{contents} =~ /AC_INIT\(([^\,\)]+),([^\,\)]+),([^\,\)]+)\)/ms)
+    {
+	$package_name = $1;
+	$package_version = $2;
+	$package_url = $3;
+	$package_name =~ s/^[\s\[]*//s;
+	$package_name =~ s/[\s\]]*$//s;
+	$package_version =~ s/^[\s\[]*//s;
+	$package_version =~ s/[\s\]]*$//s;
+	$package_url =~ s/^[\s\[]*//s;
+	$package_url =~ s/[\s\]]*$//s;
+	$project->{config}->{package_name} = $package_name;
+	$project->{config}->{package_version} = $package_version;
+	$project->{config}->{package_url} = $package_url;
+    }
+
+    # Variables.
+    my %vars = %{$project->{configure_in}{vars}};
+    my @vars_order = @{$project->{configure_in}{vars_order}};
+    $project->{config}->{variables} = \%vars;
+    $project->{config}->{variables_order} = \@vars_order;
+    
+    # Substitutions.
+    my @substitutions = $project->{configure_in}{contents} =~ /AC_SUBST\(([^\)]+)\)/sg;
+    $project->{config}->{substitutions} = \@substitutions;
+    
+    # Get known source generators from variables
+    my %source_generators;
+    foreach my $var (keys %vars) {
+	$_ = $vars{$var};
+	if (/\$PKG_CONFIG.+--variable=orbit_idl/) {
+	    $source_generators{orbit_idl} = $var;
+	    &debug ("Found orbit-idl compiler in configure.in var $var");
+	}
+	elsif (/\$PKG_CONFIG.+--variable=glib_mkenums/) {
+	    $source_generators{glib_mkenums} = $var;
+	    &debug ("Found glib-mkenums in configure.in var $var");
+	}
+	elsif (/\$PKG_CONFIG.+--variable=glib_genmarshal/) {
+	    $source_generators{glib_genmarshal} = $var;
+	    &debug ("Found glib-genmarshal in configure.in var $var");
+	};
+    };
+    $project->{config}->{source_generators} = \%source_generators;
+    
+    # Extract pkg-config packages
+    my %pkgconfig_modules = $project->{configure_in}{contents}
+	=~ /PKG_CHECK_MODULES\([\s\[]*([^\,\)\]]+)[\s\]]*\,(.+?)\)/sg;
+    foreach my $one_module (keys(%pkgconfig_modules)) {
+	my $line = $pkgconfig_modules{$one_module};
+	my $packages = "";
+	my $yes_code = "";
+	my $no_code = "";
+	if ($line =~ /^[\s\]]*([^\,\]]+)[\s\]]*,([^\,]+),([^\,]+)$/s) {
+	    $packages = $1;
+	    $yes_code = $2;
+	    $no_code = $3;
+	    $packages =~ s/^[\s\[]*//s;
+	    $packages =~  s/[\s\]]*$//s;
+	} elsif ($line =~ /^[\s\]]*([^\,\]]+)[\s\]]*,([^\,]+)$/s) {
+	    $packages = $1;
+	    $yes_code = $2;
+	    $packages =~ s/^[\s\[]*//s;
+	    $packages =~  s/[\s\]]*$//s;
+	} else {
+	    $packages = $line;
+	    $packages =~ s/^[\s\[]*//s;
+	    $packages =~  s/[\s\]]*$//s;
+	}
+	$packages =~ s/\s+/ /sg;
+	$packages =~ s/^\s+//sg;
+	$packages =~ s/s+$//sg;
+	$packages =~ s/^\[//sg;
+	$packages =~ s/\]$//sg;
+	$yes_code =~ s/^\s+//sg;
+	$yes_code =~ s/s+$//sg;
+	$yes_code =~ s/^\[//sg;
+	$yes_code =~ s/\]$//sg;
+	$no_code  =~ s/^\s+//sg;
+	$no_code  =~ s/s+$//sg;
+	$no_code  =~ s/^\[//sg;
+	$no_code  =~ s/\]$//sg;
+	
+	$packages =~ s/ >= /_\$\$_>=_\$\$_/g;
+	$packages =~ s/ <= /_\$\$_<=_\$\$_/g;
+	$packages =~ s/ == /_\$\$_==_\$\$_/g;
+	$packages =~ s/ = /_\$\$_=_\$\$_/g;
+	
+	my @pkgs = split(/\s+/, $packages);
+	my @tmp;
+	foreach my $pkg (@pkgs) {
+	    $pkg =~ s/_\$\$_>=_\$\$_/ >= /g;
+	    $pkg =~ s/_\$\$_<=_\$\$_/ <= /g;
+	    $pkg =~ s/_\$\$_==_\$\$_/ == /g;
+	    $pkg =~ s/_\$\$_=_\$\$_/ = /g;
+	    push (@tmp, $pkg);
+	}
+	@pkgs = @tmp;
+	    
+	my %info;
+	$info{'packages'} = join (", ", @pkgs);
+	$info{'action-if'} = $yes_code;
+	$info{'action-not'} = $no_code;
+	
+	$project->{config}->{"pkg_check_modules_${one_module}"} = \%info;
+	if (!defined($project->{config}->{"pkg_check_modules"})) {
+	    $project->{config}->{"pkg_check_modules"} = "$one_module";
+	} else {
+	    $project->{config}->{"pkg_check_modules"} .= ", $one_module";
+	}
+    }
+}
+
+sub extract_group_config
+{
+    my ($group, $project) = @_;
+
+    my %macros = %{$group->{makefile}{macros}};
+    my %rules = %{$group->{makefile}{rules}};
+    my $config = $group->{config};
+
+    $config->{includes} = &use_macro ($macros{INCLUDES});
+    $config->{ldadd}    = &use_macro ($macros{LDADD});
+    $config->{libadd}    = &use_macro ($macros{LIBADD});
+    $config->{compile}  = &use_macro ($macros{COMPILE});
+    $config->{link}     = &use_macro ($macros{LINK});
+    $config->{amcflags} = &use_macro($macros{AM_CFLAGS});
+    $config->{amcppflags} = &use_macro($macros{AM_CPPFLAGS});
+    $config->{amcxxflags} = &use_macro($macros{AM_CXXFLAGS});
+    $config->{amgcjflags} = &use_macro($macros{AM_GCJFLAGS});
+    $config->{amjavaflags} = &use_macro($macros{AM_JAVAFLAGS});    
+    $config->{amfflags} = &use_macro($macros{AM_FFLAGS});
+    
+    # FIXME: extract inherited from autoconf: CC, CFLAGS, CPPFLAGS, DEFS, LDFLAGS, 
+    # LIBS, CXX, CXXFLAGS, CXXCOMPILE, CXXLINK, JAVAC
+    # FIXME: other automake flags (Fortran, etc.)
+    # FIXME: what is ELCFILES?
+
+    $config->{built_sources} = &empty_if_undef (&use_macro ($macros{BUILT_SOURCES}));
+    $config->{extra_dist}    = &empty_if_undef (&use_macro ($macros{EXTRA_DIST}));
+    $config->{subdirs}       = trim(join(' ', (
+        &empty_if_undef (&use_macro ($macros{SUBDIRS})),
+        &empty_if_undef (&use_macro ($macros{DIST_SUBDIRS})),
+        &empty_if_undef (&use_macro ($macros{SRC_SUBDIRS})),
+        )));
+
+    $config->{options}       = &use_macro ($macros{AUTOMAKE_OPTIONS});
+    $config->{omit_deps}     = &use_macro ($macros{OMIT_DEPENDENCIES});
+    $config->{cleanfiles}    = &use_macro ($macros{CLEANFILES});
+    $config->{mostlyclean}   = &use_macro ($macros{MOSTLYCLEANFILES});
+    $config->{distclean}     = &use_macro ($macros{DISTCLEANFILES});
+    $config->{maintainclean} = &use_macro ($macros{MAINTAINCLEANFILES});
+
+    (undef, $config->{install_data_local}) = &use_rule ($rules{'install-data-local'});
+    (undef, $config->{install_exec_local}) = &use_rule ($rules{'install-exec-local'});
+    (undef, $config->{dist_hook})          = &use_rule ($rules{'dist-hook'});
+
+    $config->{other_vars}  = {};
+    $config->{installdirs} = {};
+
+    my $top_srcdir = "$group->{prefix}";
+    $top_srcdir =~ s/\/([^\/]+)/\/\.\./g;     # replace all directory names by ..
+    $top_srcdir = substr $top_srcdir, 1, -1;  # strip leading slash 
+
+    # Add special macros for later expanding
+    $group->{makefile}{macros}{srcdir} = { contents => ".",
+					   atline   => 0,
+					   used     => 1 };
+    $group->{makefile}{macros}{top_srcdir} = { contents => $top_srcdir,
+					       atline   => 0,
+					       used     => 1 };
+}
+
+sub check_primary_prefix
+{
+    my ($prefix, $primary, $group) = @_;
+
+    if ($prefix eq "EXTRA" || $prefix eq "noinst" || $prefix eq "check") {
+	return $prefix;
+    };
+
+    my %macros = %{$group->{makefile}{macros}};
+
+    # get user supplied prefix (if there is one)
+    my @user_dir = grep (($_ eq $prefix . "dir"), keys %macros);
+
+    if (grep (($_ eq $prefix), @{$am_valid_prefixes{$primary}}) || @user_dir) {
+	if (@user_dir) {
+	    # Save the installation dir in the group configuration
+	    if (!defined ($group->{config}{installdirs}{$prefix})) {
+		$group->{config}{installdirs}{$prefix} = 
+		    &use_macro ($macros{$user_dir[0]});
+	    };
+	};
+	return $prefix;
+    }
+    else {
+	## Some projects have install dirs defined in configure and
+	## therefore they are not found in the Makefile.am and is not
+	## necessarily an error condition.
+	## &report_error (200, "Invalid prefix '$prefix' for primary '$primary'");
+	## return "";
+	
+	# Save the installation dir in the group configuration
+	if (!defined ($group->{config}{installdirs}{$prefix})) {
+	    $group->{config}{installdirs}{$prefix} = "";
+	};
+	return $prefix;
+    };
+}
+
+# Function extract_standard_targets
+
+# Extracts standard automake targets from parsed Makefile.am
+
+sub extract_standard_targets
+{
+    my $group = $_[0];
+    my $makefile = $group->{makefile};
+    my %macros = %{$makefile->{macros}};
+    my %rules = %{$makefile->{rules}};
+    
+    # Search for primary variables
+    MACRO: foreach my $macro_name (keys %macros) {
+	if ($macros{$macro_name}{used}) {
+	    next MACRO;
+	};
+
+	my ($prefix, $primary);
+
+	if ($macro_name =~ $PRIMARY_MATCHER) {
+	    $prefix = $1;
+	    $primary = $2;
+	} else {
+	    # we don't handle any other than primary automake types here
+	    next MACRO;
+	};
+
+	my $install_dir = &check_primary_prefix ($prefix, $primary, $group);
+	my $type = $automake_types{$primary};
+
+	my $tmp_value = &expand_one_var (&use_macro ($macros{$macro_name}), %macros);
+	my @split_macro = split /\s+/, &trim ($tmp_value);
+
+	# Handle programs, scripts and libraries
+	if ($primary eq "PROGRAMS" || $primary eq "LIBRARIES" || 
+	    $primary eq "LTLIBRARIES" || $primary eq "SCRIPTS") {
+	    
+	    foreach my $target (@split_macro) {
+		my %new_target;
+		my $canonical = &canonicalize_name ($target);
+
+		# Fill in the new target info
+		%new_target = ( id           => "$target:$type",
+				name         => $target,
+				type         => $type,
+				sources      => [],
+				dependencies => [],
+				built_files  => [ $target ],
+				config       => { installdir => $install_dir } );
+
+		my $sources = &use_macro ($macros{$canonical . "_SOURCES"});
+		if (defined ($sources)) {
+		    $new_target{sources} = [split /\s+/, $sources];
+		    $sources = &use_macro ($macros{"EXTRA_" . $canonical . "_SOURCES"});
+		    if (defined $sources) {
+			push @{$new_target{sources}}, split /\s+/, $sources;
+		    };
+		} else {
+		    # Default automake source
+		    $new_target{sources} = ["$target.c", ];
+		};
+
+		# LIBADD and LDADD parameters
+		$new_target{config}{ldadd} = 
+		    &empty_if_undef (&use_macro ($macros{$canonical . "_LDADD"}));
+		$new_target{config}{libadd} =	
+			&empty_if_undef (&use_macro ($macros{$canonical . "_LIBADD"}));
+		
+		$new_target{config}{ldflags} = 
+		    &use_macro ($macros{$canonical . "_LDFLAGS"});
+		$new_target{config}{explicit_deps} = 
+		    &use_macro ($macros{$canonical . "_DEPENDENCIES"});
+		$new_target{config}{cflags} = 
+		    &use_macro ($macros{$canonical . "_CFLAGS"});
+		$new_target{config}{cppflags} = 
+		    &use_macro ($macros{$canonical . "_CPPFLAGS"});
+		$new_target{config}{cxxflags} = 
+		    &use_macro ($macros{$canonical . "_CXXFLAGS"});
+		$new_target{config}{gcjflags} = 
+		    &use_macro ($macros{$canonical . "_GCJFLAGS"});
+		$new_target{config}{fflags} = 
+		    &use_macro ($macros{$canonical . "_FFLAGS"});		    
+		# If there is a rule for $(canonical_OBJECTS), then it should be 
+		# treated as defining extra dependencies for the target
+		my ($extra_deps, $extra_actions) = 
+		    &use_rule ($rules{"\$(${canonical}_OBJECTS)"});
+		if (defined ($extra_deps)) {
+		    $new_target{config}{explicit_deps} .= $extra_deps;
+		    if ($extra_actions ne "") {
+			&report_warning (200, gettext("Actions defined for \$(${canonical}_OBJECTS), and this should be left to automake alone"));
+		    };
+		};
+
+		# Add the target to the group
+		$group->{targets}{$new_target{id}} = \%new_target;
+	    };
+	}
+	elsif ($primary eq "SCRIPTS" || $primary eq "DATA" || $primary eq "HEADERS" ||
+	       $primary eq "PYTHON" || $primary eq "JAVA") {
+	    # for SCRIPTS, HEADERS, JAVA, PYTHON and DATA we generate a single
+		# target whose sources are all the files mentioned in the macro
+		# definition.
+		# FIXME: data files are not included in dist by default, 
+	    # whereas others are so, we need to make the distinction here
+	    my %new_target;
+
+	    my $target_name = "$prefix";
+
+	    %new_target = ( id           => "$prefix:$type",
+			    name         => $target_name,
+			    type         => $type,
+			    sources      => \@split_macro,
+			    dependencies => [],
+			    built_files  => [],
+			    config       => { installdir => $install_dir } );
+
+	    $group->{targets}{$new_target{id}} = \%new_target;
+	};
+
+	# FIXME: handle JAVA (they aren't included in dist), LISP
+	# FIXME: handle TEXINFOS (and dependencies, which are texi_TEXINFOS)
+	# FIXME: handle MANS (not included in dist)
+    };
+}
+
+# FIXME: maybe we should split this function in one or more subs, one for 
+# intltool rules and other for source generators
+sub extract_other_targets
+{
+    my ($group, %source_generators) = @_;
+
+    # Look for specific, known, rules
+    my @extra = @{$group->{makefile}{extra}};
+    my %rules = %{$group->{makefile}{rules}};
+    my %macros = %{$group->{makefile}{macros}};
+    
+    # Look for rules containing known source generators
+  RULE:
+    for my $rule (keys %rules) {
+	if ($rules{$rule}{used}) {
+	    next RULE;
+	};
+
+	my %new_target;
+
+	%new_target = ( id           => "$rule:rule",
+			name         => rule_name ($rule),
+			type         => "",
+			sources      => [],
+			dependencies => [],
+			built_files  => [],
+			config       => { installdir => "" } );
+
+	$_ = $rules{$rule}{actions};
+
+	if (/orbit-idl/ || (defined ($source_generators{orbit_idl}) && 
+			    /(\$\(|\@)$source_generators{orbit_idl}(\)|\@)/)) {
+	    &debug ("Found orbit-idl rule $rule");
+	    $new_target{type} = "orbit_idl";
+	    # FIXME: we should actually get the filename given to orbit-idl and
+	    # append -common.c, -skels.c, -stubs.c and .h to it
+	    # For now we assume the rule itself contains the generated files
+	    $new_target{built_files} = [ $rule ];
+	}
+	elsif (/glib-mkenums/ || (defined ($source_generators{glib_mkenums}) && 
+				  /(\$\(|\@)$source_generators{glib_mkenums}(\)|\@)/)) {
+	    &debug ("Found glib-mkenums rule $rule");
+	    $new_target{type} = "glib_mkenums";
+	    $new_target{built_files} = [ $rule ];
+	}
+	elsif (/glib-genmarshal/ || 
+	       (defined ($source_generators{glib_genmarshal}) && 
+		/(\$\(|\@)$source_generators{glib_genmarshal}(\)|\@)/)) {
+	    &debug ("Found glib-genmarshal rule $rule");
+	    $new_target{type} = "glib_genmarshal";
+	    $new_target{built_files} = [ $rule ];
+	}
+	else {
+	    # Next if we didn't match any known generator
+	    next RULE;
+	};
+
+	# If we got here, we matched a generator, and we already have its type set
+	my ($deps, $actions) = &use_rule ($rules{$rule});
+	
+	$new_target{sources} = [ split /\s+/, $deps ];
+	$new_target{config}{actions} = $actions;
+
+	$group->{targets}{$new_target{id}} = \%new_target;
+    };
+
+    # Look for INTLTOOL_*_RULES
+    foreach my $intltool_rule (keys %intltool_rules) {
+	if (grep /^\@$intltool_rule\@$/, @extra) {
+	    &debug ("\@$intltool_rule\@ found");
+	
+	    my %new_target;
+
+	    my $ext = $intltool_rules{$intltool_rule};
+
+	    # FIXME: we make a strong assumption here: all .ext files are already
+	    # generated as sources of other targets, and this may not be true, since
+	    # when we get here, there are still makefile rules unanalyzed
+	    my @built_files = &get_sources_by_extension ($group, $ext);
+	    my @sources = map "$_.in", @built_files;
+
+	    %new_target = ( id           => "$ext:intltool_rule",
+			    name         => "$ext files translation",
+			    type         => "intltool_rule",
+			    sources      => \@sources,
+			    dependencies => [],
+			    built_files  => \@built_files,
+			    config       => { installdir => "" } );
+
+	    $group->{targets}{$new_target{id}} = \%new_target;
+	};
+    };
+}
+
+sub rule_name
+{
+    my $rule = $_[0];
+
+    $rule =~ tr/a-zA-Z _//cd;
+
+    return "$rule";
+}
+
+sub make_targets_from_rules
+{
+    my $group = $_[0];
+    my %rules = %{$group->{makefile}{rules}};
+    my %macros = %{$group->{makefile}{macros}};
+
+  RULE: 
+    foreach my $rule (keys %rules) {
+	my %new_target;
+
+	if ($rules{$rule}{used}) {
+	    next RULE;
+	};
+
+	my ($deps, $actions) = &use_rule ($rules{$rule});
+
+	%new_target = ( id           => "$rule:rule",
+			name         => rule_name ($rule),
+			type         => "generic_rule",
+			sources      => [ split /\s+/, $deps ],
+			dependencies => [],
+			built_files  => [ $rule ],
+			config       => { actions    => $actions,
+					  installdir => "" } );
+
+	$group->{targets}{$new_target{id}} = \%new_target;
+    };
+}
+
+sub extract_remaining_macros
+{
+    my $group = $_[0];
+
+    my %macros = %{$group->{makefile}{macros}};
+    my %other_vars;
+
+    for my $macro (keys %macros) {
+	if (! $macros{$macro}{used}) {
+	    $other_vars{$macro} = &use_macro ($macros{$macro});
+	};
+    };
+
+    $group->{config}{other_vars} = \%other_vars;
+}
+
+sub expand_variables
+{
+    my ($group, $only_targets) = @_;
+
+    my %macros = %{$group->{makefile}{macros}};
+    my %targets = %{$group->{targets}};
+
+    for my $target (keys %targets) {
+	# Expand sources
+	my $sources = join ' ', @{$targets{$target}{sources}};
+	$sources = &expand_one_var ($sources, %macros);
+	# Remove any reference to the Makefile itself
+	$sources =~ s/\s+Makefile\s+//g;
+	$targets{$target}{sources} = [ split '\s+', &trim ($sources) ];
+
+	# Expand built_files
+	my $built_files = join ' ', @{$targets{$target}{built_files}};
+	$built_files = &expand_one_var ($built_files, %macros);
+	$targets{$target}{built_files} = [ split '\s+', &trim ($built_files) ];
+    };
+
+    if (! $only_targets) {
+	# Expand BUILT_SOURCES
+	$group->{config}{built_sources} = 
+	    &trim (&expand_one_var ($group->{config}{built_sources}, %macros));
+	&debug ("BUILT_SOURCES = $group->{config}{built_sources}");
+
+	# Expand EXTRA_DIST
+	$group->{config}{extra_dist} = 
+	    &trim (&expand_one_var ($group->{config}{extra_dist}, %macros));
+	
+	# Expand subdirs
+	$group->{config}{subdirs} =
+	    &trim (&expand_one_var ($group->{config}{subdirs}, %macros));
+    };
+}
+
+sub reduce_sources
+{
+    my $group = $_[0];
+
+    my %targets = %{$group->{targets}};
+
+    # FIXME: also remove all sources which don't exist as files
+    foreach my $target (values %targets) {
+	my @targets_found;
+	my $sources = join ' ', @{$target->{sources}};
+	
+	($sources, @targets_found) = &remove_files_from_built_files ($sources, $group);
+
+	$target->{sources} = [ split /\s+/, $sources ];
+	if (@targets_found) {
+	    # FIXME: there must be a more direct way to do this
+	    my @dependencies = @{$target->{dependencies}};
+	    push @dependencies, @targets_found;
+	    $target->{dependencies} = \@dependencies;
+	};
+    };
+}
+
+
+######################################################################
+####  4. GROUP AND PROJECT CONSTRUCTION  #############################
+######################################################################
+
+sub group_process
+{
+    my $group = $_[0];
+    my $project = $group->{project};
+
+    # unuse all macros and rules
+    &am_file_reset ($group->{makefile});
+
+    # Standard automake targets
+    &extract_group_config ($group, $project);
+    &extract_standard_targets ($group);
+
+    # We need to make a first expansion here so the intltool rules
+    # gets sources correctly
+    &expand_variables ($group, 1);
+
+    # Extract known target types from rules
+    &extract_other_targets ($group, %{$project->{config}->{source_generators}});
+
+    # Get remaining rules and get them as generic rules in the group's targets
+    &make_targets_from_rules ($group);
+
+    # Get remaining macros and put them in the group's config
+    &extract_remaining_macros ($group);
+
+    # Create a target for each file generated at configure time
+    my $relative_path = substr "$group->{prefix}", 1;
+    my %other_files = %{$project->{configure_in}{other_files}};
+    foreach my $file (keys %other_files) {
+	# Strip relative path from generated file and source
+	if ($file =~ /^$relative_path[^\/]+$/) {
+	    my $source = $other_files{$file};
+	    $source =~ s/^$relative_path//;
+	    $file =~ s/^$relative_path//;
+	    my %new_target = ( id           => "$file:configure_generated_file",
+			       name         => $file,
+			       type         => "configure_generated_file",
+			       sources      => [ $source ],
+			       dependencies => [],
+			       built_files  => [ $file ],
+			       config       => { installdir => "" } );
+	    $group->{targets}{$new_target{id}} = \%new_target;
+	};
+    };
+
+    # Expand variables in target sources, built_files, EXTRA_DIST and BUILT_SOURCES
+    &expand_variables ($group, 0);
+    
+    # Create the extra target
+    my @sources = split /\s+/, &remove_files_from_sources 
+	($group->{config}{extra_dist}, $group);
+
+    if ($group->{name} eq "/") {
+	foreach my $auto_file (@auto_files) {
+	    my $duplicate = 0;
+	    foreach my $source (@sources) {
+		if ($source eq $auto_file) {
+		    $duplicate = 1;
+		    last;
+		};
+	    };
+	    if (!$duplicate) {
+		push @sources, $auto_file;
+	    };
+	};
+    };
+
+    if (@sources) {
+	$group->{targets}{"other:extra"} = { id           => "other:extra",
+					     name         => "other files",
+					     type         => "extra",
+					     sources      => \@sources,
+					     dependencies => [],
+					     built_files  => [],
+					     config       => { installdir => "" } };
+    };
+
+    # Remove files from sources when those files are generated by
+    # other targets 
+    &reduce_sources ($group);
+
+    # FIXME: since we are maybe called for reprocess of the group
+    # after a modification, we need to check if the user added/deleted
+    # any subgroups and act accordingly.  Some of that is currently
+    # done in create_group
+
+    $group->{changed} = 1;
+}
+
+
+sub create_group
+{
+    my ($prefix, $name, $project) = @_;
+
+    my $group = { name     => $name,
+		  targets  => {},
+		  config   => { 
+	          installdirs => {} },
+		  groups   => {},
+		  prefix   => $prefix,
+		  project  => $project };
+
+    my $full_prefix = $project->{prefix} . $prefix;
+    $group->{makefile} = &parse_am_file ("${full_prefix}Makefile.am");
+
+    if (! $group->{makefile}) {
+	return undef;
+    };
+
+    &group_process ($group);
+
+    # Recurse
+    my $subdirs = $group->{config}{subdirs};
+    if ($subdirs) {
+	my @subgroups = split /\s+/, $subdirs;
+	foreach my $subgroup (@subgroups) {
+	    if ($subgroup ne ".") {
+		&debug ("${full_prefix}: Recursing into '$subgroup'");
+		my $makefile = "${full_prefix}$subgroup/Makefile.am";
+		if (-f $makefile ) {
+		    my $new_prefix = $prefix ne "" ? "$prefix$subgroup/" : $subgroup;
+		    $group->{groups}{$subgroup} = &create_group ($new_prefix, 
+								 "$subgroup", 
+								 $project);
+		} else {
+		    &report_warning (102, gettext("file $makefile doesn't exist"));
+		}
+	    };
+	};
+    };
+
+    return $group;
+}
+
+###
+# project_update_all_groups (project)
+#   regenerates the flat hash which contains all groups for fast lookup
+sub project_update_all_groups
+{
+    my $project = shift;
+
+    # create flat groups hash
+    my %flat_hash = ();
+    my @helper_list = $project->{root_group};
+    while (@helper_list) {
+	my $current_group = shift @helper_list;
+	push @helper_list, values %{$current_group->{groups}};
+	$flat_hash{$current_group->{prefix}} = $current_group;
+    };
+    $project->{all_groups} = \%flat_hash;
+}
+
+sub process_project
+{
+    my $project_dir = $_[0];
+
+    &debug ("Using $project_dir as the project root");
+    if ( ! -f "$project_dir/configure.in" && ! -f "$project_dir/configure.ac" ) {
+	&report_error (1, gettext("Root directory doesn't look like the root of an " .
+		       "automake package"));
+	return undef;
+    };
+
+    my $project = { prefix       => $project_dir,
+		    config       => {},
+		    configure_in => {},
+		    root_group   => {} };
+    
+    # Parse configure.in
+    $project->{configure_in} = &parse_configure_in ($project_dir);
+    # and extract useful information
+    &extract_project_config ($project);
+
+    # Recursively parse the Makefile.am files
+    $project->{root_group} = &create_group ("/", "/", $project);
+    
+    &project_update_all_groups ($project);
+
+    return $project;
+};
+
+
+######################################################################
+####  5. PROJECT MODIFICATION  #######################################
+######################################################################
+
+###
+# project_reset_changed (project)
+#   reset groups' changed flag
+sub project_reset_changed
+{
+    my $project = shift;
+    foreach my $group (values %{$project->{all_groups}}) {
+	$group->{changed} = 0;
+    }
+}
+
+###
+# project_operate (project, operations)
+#   perform indicated operations on project
+#   returns: true if the project changed
+sub project_operate
+{
+    my ($project, $ops) = @_;
+    my $project_dirty = 0;
+
+  OP:
+    foreach my $op (@$ops) {
+	&debug ("($op->{op}, $op->{group_name}, ".
+		"$op->{target_name}, $op->{operand})");
+	my ($group, $target, $operand, $group_name, $result);
+	
+	if ($op->{op} eq "add_group" || $op->{op} eq "remove_group") {
+	    $operand = $op->{group_name};
+	    $group_name = $operand;
+	    $group_name =~ s/[^\/]+\/\z//;
+	    &debug ("Adding a group $operand on group $group_name");
+	} else {
+	    # Get the group from the project
+	    $group_name = $op->{group_name};
+	}
+	
+	# if no group name is defined, it is probably a project op.
+	if ($group_name eq "") {
+	    if (!defined($operand)) {
+	    	$operand = $op->{operand};
+	    }
+	    $result = &project_op_handler ($project, $op->{op}, $operand);
+	    $project_dirty = 1;
+	    next OP;
+	}
+	
+	# else it is group op.
+	$group = $project->{all_groups}{$group_name};
+	
+	if (!$group) { 
+	    &report_error (303, gettext("The group $group_name doesn't exist"));
+	    next OP; 
+	}
+	&debug ("Using group $group->{name}");
+	
+	# If the operation is on a group, do it now
+	## if ($op->{op} =~ /group/) {
+	if ($op->{target_name} eq "") {
+	    if (!defined($operand)) {
+	    	$operand = $op->{operand};
+	    }
+	    $result = &group_op_handler ($project, $group, $op->{op}, $operand);
+	    $project_dirty = 1;
+	    next OP;
+	}
+
+	# If not, continue with the parameters preparation
+	$operand = $op->{operand};
+	$target = $op->{target_name};
+	my $target_type = $operand;
+	if ($op->{op} ne "add_target" && $op->{op} !~ /group/) {
+	    # Get the target hash from the group
+	    $target = $group->{targets}{$target};
+	    if (! defined ($target)) {
+		&report_error (304, gettext("The target $op->{target_name} doesn't exist"));
+		next OP;
+	    }
+	    $target_type = $target->{type};
+	}
+	
+	# Get the target writer
+	my $writer = $target_writers{$target_type};
+	$result = &$writer ($project, $group, $op->{op}, $target, $operand);
+	if ($result == 0) {
+	    $project_dirty = 1;
+	}
+    }
+
+    if ($project_dirty) {
+	# update flat hash first
+	&project_update_all_groups ($project);
+
+	# write configure.in
+	if ($project->{configure_in}{dirty}) {
+	    output_configure_in $project->{configure_in};
+	    $project->{configure_in} =
+		&parse_configure_in_buffer ($project->{configure_in}{filename},
+		    $project->{configure_in}{contents});
+	    &extract_project_config ($project);
+	    # FIXME: possibly more reprocess configure.in information
+	};
+
+	foreach my $group (values %{$project->{all_groups}}) {
+	    if ($group->{makefile}{dirty}) {
+		my $makefile = $group->{makefile};
+		&debug ("$makefile->{filename} is dirty");
+
+		# output modified makefile.am if not running in test mode
+		&output_am_file ($makefile, $makefile->{filename}) unless ($dry_run);
+
+		# reprocess group
+		&group_process ($group);
+
+		$makefile->{dirty} = 0;
+	    };
+	};
+    };
+
+    return $project_dirty;
+}
+
+
+######################################################################
+####  6. TARGET WRITER FUNCTIONS  ####################################
+######################################################################
+
+sub group_op_handler
+{
+    my ($project, $group, $op, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    # group is the group hash in which to do the operation
+    # op is: "add_group" or "remove_group"
+    # operand is full group name for add_group, and ignored for remove_group
+
+    if ($op eq "add_group") {
+	my @components = split '/', $operand;
+	my $group_name = "";
+	$group_name = pop @components while ($group_name eq "");
+
+	# check that the group doesn't exist already
+	if (defined $group->{groups}{$group_name}) {
+	    return &report_error (305, gettext("Group $operand already exists"));
+	};
+
+	# create the directory and an empty Makefile.am
+	my $local_new_dir = $group->{prefix} . $group_name;
+	my $new_dir = $project->{prefix} . $local_new_dir;
+	
+	unless (-d $new_dir) {
+	    mkdir $new_dir || return &report_error (304, gettext("Can't mkdir $new_dir"));
+	};
+	unless (-f "$new_dir/Makefile.am") {
+	    if (open (NEWFILE, ">$new_dir/Makefile.am")) {
+		print NEWFILE "## File created by the gnome-build tools\n\n\n";
+		close NEWFILE;
+	    } else {
+		return &report_error (304, gettext("Can't write $new_dir/Makefile.am"));
+	    };
+	};
+
+	# add new directory to the SUBDIRS macro in the parent group
+	&macro_append_text ($makefile, "SUBDIRS", $group_name);
+
+	# create the internal representation of the group
+	$group->{groups}{$group_name} = &create_group ($operand, "$group_name", $project);
+
+	# add Makefile to list of configure generated files
+	$local_new_dir =~ s/^\///;
+	edit_config_files $project->{configure_in}, "add", "$local_new_dir/Makefile";
+    }
+    elsif ($op eq "remove_group") {
+	my @components = split '/', $operand;
+	my $group_name = "";
+
+	$group_name = pop @components while ($group_name eq "");
+	
+	# check that the group doesn't exist already
+	if (!defined $group->{groups}{$group_name}) {
+	    return &report_error (305, gettext("Group $operand does not exists"));
+	};
+	
+	# remove directory from the SUBDIRS macro in the parent group
+	&macro_remove_text ($makefile, "SUBDIRS", $group_name, 1);
+	
+	# add Makefile to list of configure generated files
+	my $local_new_dir = $group->{prefix} . $group_name;
+	$local_new_dir =~ s/^\///;
+	edit_config_files $project->{configure_in}, "remove", "$local_new_dir/Makefile";
+	
+	## Remove group from internal hashes
+	delete $project->{all_groups}->{$operand};
+	delete $group->{groups}->{$group_name};
+    }
+    elsif ($op eq "set_config") {
+      KEY:
+	foreach my $key (keys %$operand) {
+	    my $value = $operand->{$key};
+
+	    if ($key eq "includes") {
+		&macro_rewrite ($makefile, "INCLUDES", $value);
+	    } elsif ($key eq "amcflags") {
+		&macro_rewrite ($makefile, "AM_CFLAGS", $value);
+		} elsif ($key eq "amcppflags") {
+		&macro_rewrite ($makefile, "AM_CPPFLAGS", $value);
+		} elsif ($key eq "amcxxflags") {
+		&macro_rewrite ($makefile, "AM_CXXFLAGS", $value);
+		} elsif ($key eq "amgcjflags") {
+		&macro_rewrite ($makefile, "AM_GCJFLAGS", $value);
+		} elsif ($key eq "amjavaflags") {
+		&macro_rewrite ($makefile, "AM_JAVAFLAGS", $value);
+		} elsif ($key eq "amfflags") {
+		&macro_rewrite ($makefile, "AM_FFLAGS", $value);
+	  } elsif ($key eq "installdirs") {
+	    	foreach my $item (keys %$value) {
+		    if ($value->{$item} =~ /^\s*$/) {
+			&macro_remove ($makefile, $item."dir");
+		    } else {
+			&macro_rewrite ($makefile, $item."dir", $value->{$item});
+		    }
+		}
+	    }    
+	}
+    }
+    else {
+    
+	return &report_error (300, gettext("Invalid operation '$op' to group_op_handler"));
+    }
+    # success!
+    return 0;
+}
+
+sub project_op_handler
+{
+    my ($project, $op, $operand) = @_;
+    my $configure_in = $project->{"configure_in"};
+
+    if ($verbose) {
+        print "Operation = $op\n";
+        print "operand start\n";
+        print Dumper $operand;
+        print "operand end\n";
+    }
+    
+    # op is: "set_config"
+    # operand is full group name for add_group, and ignored for remove_group
+    my $package_name = $project->{config}->{package_name};
+    my $package_version = $project->{config}->{package_version};
+    my $package_url = $project->{config}->{package_url};
+    
+    if ($op eq "set_config") {
+      KEY:
+	foreach my $key (keys %$operand) {
+	    my $value = $operand->{$key};
+
+	    if ($key eq "variables") {
+	    	foreach my $var (keys %$value) {
+		    if ($value->{$var} =~ /^\s*$/) {
+			&configure_remove_variable ($configure_in, $var);
+		    } else {
+			&configure_rewrite_variable ($configure_in, $var,
+						     $value->{$var});
+		    }
+		}
+	    } elsif ($key =~ /^pkg_check_modules_(.*)$/) {
+		my $module = $1;
+	    	foreach my $subkey (keys %$value) {
+		    if ($subkey eq "packages") {
+			my $packages = $value->{$subkey};
+			&configure_rewrite_packages ($configure_in, $module,
+						     $packages);
+		    }
+		}
+	    } elsif ($key eq "package_name") {
+	        $package_name = $value;
+		configure_rewrite_package_info ($configure_in, $package_name,
+						$package_version, $package_url);
+	    } elsif ($key eq "package_version") {
+	        $package_version = $value;
+		configure_rewrite_package_info ($configure_in, $package_name,
+						$package_version, $package_url);
+	    } elsif ($key eq "package_url") {
+	        $package_url = $value;
+		configure_rewrite_package_info ($configure_in, $package_name,
+						$package_version, $package_url);
+	    }
+	}
+    }
+    else {
+    
+	return &report_error (300, gettext("Invalid operation '$op' to group_op_handler"));
+    }
+    # success!
+    return 0;
+}
+
+sub unimplemented_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+
+    # group is the group hash in which to do the operation
+    # op is: "add_target", "remove_target", "set_config", "add_source", "remove_source"
+    # target is:
+    #  - the new target name when add_target
+    #  - a ref to the target hash to operate on otherwise
+    # operand is:
+    #  - ignored for remove_target
+    #  - target type for add_target
+    #  - the source uri to add/remove on {add,remove}_source
+    #  - a config hash on set_config containing any/all fields in group config
+    # FIXME: handle dependencies
+
+    return &report_error (302, gettext("Unimplemented target type writer"));
+}
+
+sub compiled_primary_target_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    my %primaries = ( program    => "PROGRAMS",
+		      static_lib => "LIBRARIES",
+		      shared_lib => "LTLIBRARIES" );
+
+    &debug ("compiled primary writer: $op on group $group with $target($operand)");
+ 
+    # FIXME: Modify the $group variable as well as the makefile (worth it?...
+    # only if we have to do a sequence of operations on the same target)
+
+    if ($op eq "add_target") {
+	# $target contains the target name, which in this case is the name of
+	# the compiled objects (program or library)
+	# $operand contains the target type
+	my $canonical = &canonicalize_name ($target);
+	my ($primary, $prefix);
+
+	my %default_prefixes = ( program    => "bin",
+				 static_lib => "lib",
+				 shared_lib => "lib" );
+
+	$primary = $primaries{$operand};
+	$prefix = $default_prefixes{$operand};
+
+	if ($target eq "") {
+	    return &report_error (301, gettext("Invalid empty target name"));
+	}
+
+	if (!defined $primary) {
+	    return &report_error (301, gettext("Invalid target type '$operand' to compiled_primary_target_writer"));
+	}
+
+	# FIXME: verify that the target doesn't yet exist
+	&macro_append_text ($makefile, "${prefix}_${primary}", $target);
+	&macro_create ($makefile, "${canonical}_SOURCES", "", "${prefix}_${primary}");
+	
+    }
+    elsif ($op eq "remove_target") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+
+	# FIXME: what if the target is in a macro which is used in prefix_PRIMARY
+	&macro_remove_text ($makefile, "${prefix}_${primary}", $target->{name}, 1);
+	&macro_remove_text ($makefile, "EXTRA_${primary}", $target->{name}, 1);
+	&macro_remove ($makefile, 
+		       "${canonical}_SOURCES", 
+		       "EXTRA_${canonical}_SOURCES",
+		       "${canonical}_LDADD",
+		       "${canonical}_LIBADD",
+		       "${canonical}_LDFLAGS",
+		       "${canonical}_DEPENDENCIES",
+		       "${canonical}_CFLAGS",
+		       "${canonical}_CPPFLAGS",
+		       "${canonical}_CXXFLAGS",
+		       "${canonical}_GCJFLAGS",
+		       "${canonical}_FFLAGS",
+		       );
+	## FIXME: The line below reports error.
+	## &rule_remove ($makefile, "\$(${canonical}_OBJECTS)");
+	
+	## Remove the target from internal hash
+	my $target_id = $target->{id};
+	delete $group->{targets}->{$target_id};
+    }
+    elsif ($op eq "set_config") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $primary = $primaries{$target->{type}};
+	
+      KEY:
+	foreach my $key (keys %$operand) {
+	    my $value = $operand->{$key};
+
+	    if ($key eq "installdir") {
+		my $old_prefix = $target->{config}{installdir};
+		my $new_prefix = &check_primary_prefix ($value, $primary, $group);
+		if (!$new_prefix) {
+		    next KEY;
+		}
+
+		# FIXME: handle the EXTRA prefix
+		&debug ("Removing $target->{name} from ${old_prefix}_${primary}");
+		&macro_remove_text ($makefile, "${old_prefix}_${primary}", 
+				    $target->{name}, 1);
+		&macro_append_text ($makefile, "${new_prefix}_${primary}",
+				    $target->{name});
+	    } elsif ($key eq "ldflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_LDFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_LDFLAGS");
+		};
+	    } elsif ($key eq "cflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_CFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_CFLAGS");
+		};
+			    } elsif ($key eq "cppflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_CPPFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_CPPFLAGS");
+		};
+			    } elsif ($key eq "cxxflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_CXXFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_CXXFLAGS");
+		};
+			    } elsif ($key eq "gcjflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_GCJFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_GCJFLAGS");
+		};
+			    } elsif ($key eq "fflags") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_FFLAGS",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_FFLAGS");
+		};
+	    } elsif ($key eq "ldadd") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_LDADD",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_LDADD");
+		};
+	    } elsif ($key eq "libadd") {
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_LIBADD",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_LIBADD");
+		};
+			} elsif ($key eq "explicit_deps") {
+		# FIXME: this should perhaps be handled via sources add/remove
+	    	if ($value !~ /^\s*$/) {
+		    &macro_rewrite ($makefile, "${canonical}_DEPENDENCIES",
+				    $value, "${canonical}_SOURCES");
+		} else {
+		    &macro_remove ($makefile, "${canonical}_DEPENDENCIES");
+		};
+	    }
+	}
+    }
+    elsif ($op eq "add_source") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $var = "${canonical}_SOURCES";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+
+	&debug ("Will modify $var using source $rel_source");
+	my %macros = %{$makefile->{macros}};
+	if (!exists ($macros{$var})) {
+	    # Need to add the default source the the new var
+	    $operand = "$target->{name}.c " . $rel_source;
+	}
+	&macro_append_text ($makefile, $var, $rel_source);
+	
+    }
+    elsif ($op eq "remove_source") {
+	my $canonical = &canonicalize_name ($target->{name});
+	my $var = "${canonical}_SOURCES";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+
+	# FIXME: this needs lot of work, since only works for literal filnanmes
+	# we need to identify where is this filename in expanded from a macro or 
+	# if it has some variable like $(srcdir)
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+
+	# FIXME: check for duplicate sources
+
+	&debug ("Will modify $var using source $rel_source");
+	if (!exists ($makefile->{macros}{$var}) &&
+	    $rel_source eq "${$target->{name}}.c") {
+	    # Create the empty macro if the removed source is the default one
+	    &macro_create ($makefile, $var, "");
+	} else {
+	    &macro_remove_text ($makefile, $var, $rel_source);
+	}
+
+    }
+    else {
+	return &report_error (300, gettext("Invalid operation '$op' to program_target_writer"));
+    };
+
+    # Success!
+    return 0;
+}
+
+sub hidden_in_another_var {
+	my ($makefile, $macro_name, $file) = @_;
+	
+	my @parts = split (/\s+/, $makefile->{macros}->{$macro_name}->{contents});
+	
+	foreach my $part (@parts) {
+		# FIXME: Are there more characters allowed in macro names than a-zA-Z0-9_?
+		if ($part =~ m/^\$\(([a-zA-Z0-9_]*)\)$/) {
+			my $var = $1;
+			my $content = $makefile->{macros}->{$var}->{contents};
+			my @sub_parts = split (/\s+/, $content);
+			foreach my $sub_part (@sub_parts) {
+				if ($sub_part eq $file) {
+					return $var;
+				}
+			}
+		}
+	}
+	
+	return undef;
+}
+
+sub simple_extra_dist_target_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    &debug ("simple extra target writer: $op on group $group with $target($operand)");
+
+	if ($op eq "add_target") {
+		if (exists($makefile->{macros}->{EXTRA_DIST}) and $makefile->{macros}->{EXTRA_DIST}->{content} !~ m/^\s*$/) {
+			return &report_error (305, gettext("An extra target already exists for ") . $group->{prefix})
+		}
+	}
+	elsif ($op eq "remove_target") {
+		&macro_remove ($makefile, "EXTRA_DIST");
+	}
+	elsif ($op eq "add_source") {
+		my $rel_source;
+	
+		# Note: we expect the operand to be the absolute to the root of the project
+		# i.e. for group /src/, the operand will be /src/file.c
+		$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+	
+		&debug ("adding $rel_source to EXTRA_DIST");
+		# Note: we expect the uri to be relative to the group
+		&macro_append_text ($makefile, "EXTRA_DIST", $rel_source);
+    }
+    elsif ($op eq "remove_source") {
+		my $rel_source;
+	
+		# Note: we expect the operand to be the absolute to the root of the project
+		# i.e. for group /src/, the operand will be /src/file.c
+		$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+	
+		if (defined(my $original_pkg = hidden_in_another_var($makefile, "EXTRA_DIST", $rel_source))) {
+			return &report_error (305, gettext("Could not remove file because it is part of group '$original_pkg'. Please delete it there."));
+		}
+			
+		&debug ("removing $rel_source from EXTRA_DIST");
+		# Note: we expect the uri to be relative to the group
+		&macro_remove_text ($makefile, "EXTRA_DIST", $rel_source);
+    }
+    else {
+		return &report_error (300, gettext("Invalid operation '$op' to program_target_writer"));
+    };
+
+    # Success!
+    return 0;
+}
+
+sub simple_primary_target_writer
+{
+    my ($project, $group, $op, $target, $operand) = @_;
+    my $makefile = $group->{makefile};
+
+    my %primaries = ( data    => "DATA",
+		      script => "SCRIPTS",
+		      headers => "HEADERS",
+		      java    => "JAVA",
+		      python  => "PYTHON");
+
+    &debug ("simple primary writer: $op on group $group with $target($operand)");
+ 
+    # FIXME: Modify the $group variable as well as the makefile (worth it?...
+    # only if we have to do a sequence of operations on the same target)
+
+    if ($op eq "add_target") {
+	# WARNING, Convention: $target for simple primaries is actually $prefix:$type
+	# $operand also contains the target type
+	my ($primary, $prefix, $check_primary);
+	
+	($prefix, $check_primary) = split /:/, $target;
+
+	$primary = $primaries{$operand};
+	if (!defined $primary) {
+	    return &report_error (301, gettext("Invalid target type '$operand' to simple_primary_target_writer"));
+	}
+
+	if ($check_primary ne $operand) {
+	    &report_warning (302, gettext("The target type supplied in the target name $target and the given target type '$operand' don't match.  Will use the one provided in the name"));
+	}
+
+	if (!&check_primary_prefix ($prefix, $primary, $group)) {
+	    return;
+	}
+
+	&macro_create ($makefile, "${prefix}_${primary}", "");
+	
+	## Add installation dir
+	if ($primary eq "DATA") {
+		&macro_create ($makefile, "${prefix}dir", '$(pkgdatadir)', "${prefix}_${primary}");
+	}
+	elsif ($primary eq "HEADERS") {
+		&macro_create ($makefile, "${prefix}dir", '$(pkgincludedir)', "${prefix}_${primary}");
+	}		
+	
+	## For data primary target DATA and HEADERS, also add it to EXTRA_DIST
+	if ($primary eq "DATA" || $primary eq "HEADERS")
+	{
+	    &macro_append_text ($makefile, "EXTRA_DIST",
+				"\$\(${prefix}_${primary}\)");
+	}
+    }
+    elsif ($op eq "remove_target") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+
+	&macro_remove ($makefile, "${prefix}_${primary}");
+	
+	## Remove from EXTRA_DIST too.
+	&macro_remove_text ($makefile, "EXTRA_DIST",
+			    "\$\(${prefix}_${primary}\)");
+	
+	&macro_remove ($makefile, "${prefix}dir");
+	
+    }
+    elsif ($op eq "set_config") {
+	# Nothing to do here, since these kind of targets are not relocatable
+    }
+    elsif ($op eq "add_source") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+	my $var = "${prefix}_${primary}";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+
+	# Note: we expect the uri to be relative to the group
+	&macro_append_text ($makefile, $var, $rel_source);
+    }
+    elsif ($op eq "remove_source") {
+	my $prefix = $target->{config}{installdir};
+	my $primary = $primaries{$target->{type}};
+	my $var = "${prefix}_${primary}";
+	my $rel_source;
+
+	# Note: we expect the operand to be the absolute to the root of the project
+	# i.e. for group /src/, the operand will be /src/file.c
+	$rel_source = path_absolute_to_relative ($group->{prefix}, $operand);
+	
+	&debug ("removing $rel_source from $var macro");
+	# Note: we expect the uri to be relative to the group
+	&macro_remove_text ($makefile, $var, $rel_source);
+    }
+    else {
+	return &report_error (300, gettext("Invalid operation '$op' to program_target_writer"));
+    };
+
+    # Success!
+    return 0;
+}
+
+
+######################################################################
+####  7. XML PRINTING FUNCTIONS  #####################################
+######################################################################
+
+my ($indent_level, $have_vspace);
+
+$indent_level = 0;
+$have_vspace = 0;
+
+sub xml_enter  { $indent_level += 2; }
+sub xml_leave  { $indent_level -= 2; }
+sub xml_indent { print " " x $indent_level; $have_vspace = 0; }
+sub xml_vspace { if (not $have_vspace) { print "\n"; $have_vspace = 1; } }
+sub xml_print { &xml_indent; print @_; }
+
+sub xml_escape
+{
+    $_ = $_[0];
+    s/\&/\&amp;/g;
+    s/\</\&lt;/g;
+    s/\>/\&gt;/g;
+    s/\"/\&quot;/g;
+    s/\'/\&apos;/g;
+    ## s/\\/\\\\/g;
+    ## s/\n/\\n/g;
+    ## s/\t/\\t/g;
+    return $_;
+}
+
+sub xml_unescape
+{
+    $_ = $_[0];
+    s/\&amp;/\&/g;
+    s/\&lt;/\</g;
+    s/\&gt;/\>/g;
+    s/\&quot;/\"/g;
+    s/\&apos;/\'/g;
+    ## s/\\\\/\\/g;
+    ## s/\\n/\n/g;
+    ## s/\\t/\t/g;
+    return $_;
+}
+
+sub xml_print_source
+{
+    my ($source, $prefix) = @_;
+
+    &xml_enter ();
+    &xml_print ("<source uri='" . xml_escape(reduce_path ($prefix . $source)) . "'/>\n");
+    &xml_leave ();
+}
+
+sub xml_print_dep
+{
+    my ($dep, $prefix) = @_;
+
+    my ($target, $file) = split ';', $dep;
+    &xml_enter ();
+    &xml_print ("<dependency file='" . 
+		xml_escape(reduce_path ($prefix . $file)) . 
+		"' target='" . xml_escape($target) . "'/>\n");
+    &xml_leave ();
+}
+
+sub xml_print_target
+{
+    my ($target, $group) = @_;
+    my $sr;
+
+    &xml_enter ();
+    
+    &xml_print ("<target name='" . xml_escape($target->{name} ) . "' type='" . xml_escape($target->{type}) .
+		"' id='" . xml_escape($target->{id}) . "'>\n");
+    # Print the target config
+    &xml_print_config ($target->{config}, ());
+
+    foreach $sr (@{$target->{sources}}) {
+	&xml_print_source ($sr, $group->{prefix});
+    }
+    foreach $sr (@{$target->{dependencies}}) {
+	&xml_print_dep ($sr, $group->{prefix});
+    };
+    &xml_print ("</target>\n");
+
+    &xml_leave ();
+}
+
+###
+# group_print_xml (group [, which])
+#   recursively prints the xml representation of the group
+#   if which is "changed" only prints the group if it's flaged as changed
+sub group_print_xml
+{
+    my $group = shift;
+    my $which = shift || "all";
+    
+    if ($which ne "changed" || $group->{changed}) {
+	&xml_enter ();
+	&xml_print ("<group name='" . xml_escape($group->{name}) . "' id='" . xml_escape($group->{prefix}) . "' ".
+		    "source='" . xml_escape($group->{makefile}{filename}) . "'>\n");
+    }
+
+    # Print each subgroup
+    foreach my $gr (values %{$group->{groups}}) {
+	&group_print_xml ($gr, $which);
+    }
+
+    if ($which ne "changed" || $group->{changed}) {
+	# Print the group config
+	&xml_print_config ($group->{config}, ());
+	
+	# Print the targets
+	foreach my $tr (values %{$group->{targets}}) {
+	    &xml_print_target ($tr, $group);
+	}
+	&xml_print ("</group>\n");
+
+	&xml_leave ();
+    }
+}
+
+sub xml_print_config
+{
+    my ($config, @except) = @_;
+    my $value;
+
+    &xml_enter ();
+    &xml_print ("<config>\n");
+    foreach my $key (keys %{$config}) {
+	if (($key =~ /_order$/) || (grep $_ eq $key, @except)) {
+	    next;
+	};
+
+	&xml_enter ();
+	$value = &empty_if_undef ($config->{$key});
+	if (ref ($value) eq "ARRAY" && @$value) {
+	    # It's a list
+	    &xml_print ("<param name=\"$key\">\n");
+	    &xml_enter ();
+	    foreach (@$value) {
+	    	## Remove white spaces from config parameters.
+	    	$_ =~ s/\s/ /gs;
+		$_ =~ s/\s+/ /gs;
+		$_ = &xml_escape ($_);
+		&xml_print ("<item value=\"$_\"/>\n");
+	    };
+	    &xml_leave ();
+	    &xml_print ("</param>\n");
+	} elsif (ref ($value) eq "HASH" && %$value) {
+	    # It's a hash
+	    my @value_order;
+	    if (defined ($config->{"${key}_order"}) &&
+	    	ref ($config->{"${key}_order"}) eq 'ARRAY') {
+	    	@value_order = @{$config->{"${key}_order"}};
+	    }
+	    if (@value_order <= 0) {
+	    	@value_order = keys %$value;
+	    }
+	    &xml_print ("<param name=\"$key\">\n");
+	    &xml_enter ();
+	    foreach my $item (@value_order) {
+	    	## Remove white spaces from config parameters.
+		my $val = $value->{$item};
+	    	$val =~ s/\s/ /gs;
+	    	$val =~ s/\s+/ /gs;
+		$_ = &xml_escape ($val);
+		&xml_print ("<item name=\"$item\" value=\"$_\"/>\n");
+	    };
+	    &xml_leave ();
+	    &xml_print ("</param>\n");
+	} elsif (! ref ($value) && $value) {
+	    ## Remove white spaces from config parameters.
+	    $value =~ s/\s/ /gs;
+	    $value =~ s/\s+/ /gs;
+	    $value = &xml_escape ($value);
+	    &xml_print ("<param name=\"$key\" value=\"$value\"/>\n");
+	};
+	&xml_leave ();
+    };
+    &xml_print ("</config>\n");
+    &xml_leave ();
+}
+
+###
+# project_print_xml (project [, which])
+#   print xml representation of the project
+#   if which is "changed" only prints changed groups in last modification
+sub project_print_xml
+{
+    my $project = shift;
+    my $which = shift || "all";
+
+    print "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>\n";
+    print "<!DOCTYPE project []>\n\n";
+    print "<project root=\"$project->{prefix}\" report=\"" . 
+	($which eq "changed" ? "partial" : "full") . 
+	"\" source=\"$project->{configure_in}{filename}\">\n";
+    
+    # Print project config.
+    &xml_print_config ($project->{config}, ());
+
+    # Print the groups
+    &group_print_xml ($project->{root_group}, $which);
+    
+    print "</project>\n";
+}
+
+sub recursive_print
+{
+    my ($level, $el) = @_;
+    my $pad = " " x (2 * $level);
+    if (!ref ($el)) {
+	print $pad, $el, "\n";
+    } elsif (ref ($el) eq "ARRAY") {
+	foreach my $sel (@$el) {
+	    &recursive_print ($level + 1, $sel);
+	}
+    } elsif (ref ($el) eq "HASH") {
+	foreach my $sel (keys %$el) {
+	    print $pad, $sel, " => ", $el->{$sel}, "\n";
+	}
+    }
+}
+
+
+######################################################################
+####  8. XML SCANNING  ###############################################
+######################################################################
+
+sub xml_scan_make_kid_array
+{
+    my %hash = ();
+    my (@sublist, @attr);
+
+    @attr = $_[0] =~ /[^\s]+\s*([a-zA-Z_-]+)\s*\=\s*\"([^\"]*)/g;
+    %hash = @attr;
+    
+    push @sublist, \%hash;
+    return \@sublist;
+}
+
+sub xml_scan_recurse
+{
+    my ($tree, $scan_ref) = @_;
+    
+    my @list = @$tree;
+    my ($el, $sublist);
+    
+    while (@$scan_ref) {
+	$el = shift @$scan_ref;
+
+        # Empty strings, PI and DTD must go.
+	if (($el eq "") || $el =~ /^\<[!?].*\>$/s) { next; }
+
+	if ($el =~ /^\<.*\/\>$/s) {
+	    # Empty.
+	    $el =~ /^\<([a-zA-Z_-]+).*\/\>$/s;
+	    push @list, $1;
+	    push @list, &xml_scan_make_kid_array ($el);
+
+	} elsif ($el =~ /^\<\/.*\>$/s) {
+	    # End.
+	    last;
+
+	} elsif ($el =~ /^\<.*\>$/s) {
+	    # Start.
+	    $el =~ /^\<([a-zA-Z_-]+).*\>$/s;
+	    push @list, $1;
+	    $sublist = &xml_scan_make_kid_array ($el);
+	    push @list, &xml_scan_recurse ($sublist, $scan_ref);
+	    next;
+
+	} elsif ($el ne "") {
+	    # PCDATA.
+	    push @list, 0;
+	    push @list, "$el";
+	}
+    }
+    
+    return \@list;
+}
+
+sub xml_scan
+{
+    my $input_file = $_[0];
+    my ($doc, $tree, $i);
+    
+    if (!$input_file || $input_file eq "-") {
+	$doc .= $i while ($i = <STDIN>);
+
+    } else {
+	if (open INPUT_FILE, $input_file) {
+	    $doc .= $i while ($i = <INPUT_FILE>);
+	    close INPUT_FILE;
+	}
+	else {
+	    &report_error (4, gettext("Can't open input file '$input_file'"));
+	    return [];
+	}
+    }
+
+    &debug ("Got input: $doc");
+
+    my @xml_scan_list = ($doc =~ /([^\<]*)(\<[^\>]*\>)[ \t\n\r]*/mg); # pcdata, tag, pcdata, tag, ...
+    
+    $tree = &xml_scan_recurse ([], \@xml_scan_list);
+    
+    return $tree;
+}
+
+
+######################################################################
+####  9. XML PROCESSING  #############################################
+######################################################################
+
+sub xml_parse_params
+{
+    my $tree = $_[0];
+    my %params;
+    
+    shift @$tree;
+    
+    while (@$tree && $$tree[0] eq "param") {
+    	shift @$tree;
+	my $child = $$tree[0];
+	if (defined($$child[0]->{value})) {
+		my $str = $$child[0]->{value};
+        	$params{$$child[0]->{name}} = xml_unescape ($str);
+	} else {
+		my %items;
+		$params{$$child[0]->{name}} = \%items;
+		shift @$child;
+		while (@$child && $$child[0] eq "item") {
+			shift @$child;
+			my $str = $$child[0][0]->{value};
+			$items{$$child[0][0]->{name}} = xml_unescape ($str);
+			shift @$child;
+		}
+	}
+	shift @$tree;
+    }
+    return \%params;
+}
+
+sub xml_parse_add
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "add_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    # The group id is unique
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	    if ($type eq "target") {
+		$new_op{operand} = $$curr[0]->{type};
+	    }
+	} elsif ($parent eq "source") { 
+	    $new_op{operand} = $$curr[0]->{uri};
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+
+    return \%new_op;
+}
+
+sub xml_parse_change
+{
+}
+
+sub xml_parse_set
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+    $new_op{operand} = {};
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "set_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	} elsif ($parent eq "config") {
+	    $new_op{operand} = xml_parse_params($curr);
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+
+    return \%new_op;
+}
+
+sub xml_parse_remove
+{
+    my $tree = $_[0];
+    my $type;
+    my ($parent, $curr);
+
+    my %new_op = ( op          => "",
+		   group_name  => "",
+		   target_name => "",
+		   operand     => "" );
+
+    $type = $$tree[0]->{type};
+    $new_op{op} = "remove_$type";
+
+    shift @$tree;
+
+    $parent = $$tree[0];
+    $curr = $$tree[1];
+
+    while (1) {
+	if ($parent eq "group") {
+	    # The group name is unique
+	    $new_op{group_name} = $$curr[0]->{id};
+	} elsif ($parent eq "target") { 
+	    $new_op{target_name} = $$curr[0]->{id};
+	} elsif ($parent eq "source") { 
+	    $new_op{operand} = $$curr[0]->{uri};
+	}
+
+	if ($parent eq $type) {
+	    last;
+	}
+	
+	shift @$curr;
+	$parent = $$curr[0];
+	$curr = $$curr[1];
+    }
+    return \%new_op;
+}
+
+sub xml_parse_ops
+{
+    my $tree = $_[0];
+    my @ops;
+
+    shift @$tree;  # Skip attributes.
+
+    while (@$tree) {
+	if ($$tree[0] eq "add") { 
+	    push @ops, &xml_parse_add ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "change") { 
+	    push @ops, &xml_parse_change ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "set") { 
+	    push @ops, &xml_parse_set ($$tree[1]); 
+	}
+	elsif ($$tree[0] eq "remove") { 
+	    push @ops, &xml_parse_remove ($$tree[1]); 
+	}
+
+	shift @$tree;
+	shift @$tree;
+    }
+
+    return \@ops;
+}
+
+
+######################################################################
+####  10. HELPER FUNCTIONS  ##########################################
+######################################################################
+
+sub path_relative_to_absolute
+{
+    my ($prefix, $rel) = @_;
+
+    if (substr ($prefix, -1) ne "/") {
+	$prefix .= "/";
+    };
+
+    return reduce_path ($prefix . $rel);
+}
+
+sub path_absolute_to_relative
+{
+    my ($prefix, $absolute) = @_;
+
+    my @prefix_parts = split '/', $prefix;
+    my @absolute_parts = split '/', $absolute;
+    my @result = ();
+    my $append_parent = 0;
+
+    # If prefix is root, assume single empty field so that leading '/'
+    # is stripped from the given abosulte path to form the relative path.
+    @prefix_parts = ("") if ($prefix eq "/");
+    
+    foreach my $part (@prefix_parts) {
+	my $abs_part = shift @absolute_parts;
+
+	if ($part eq $abs_part && !$append_parent) {
+	    next;
+	} else {
+	    $append_parent = 1;
+	    unshift @result, "..";
+	    push @result, $abs_part;
+	};
+	    
+    };
+    push @result, @absolute_parts;
+
+    return join ('/', @result);
+}
+
+sub reduce_path
+{
+    my ($uri) = @_;
+
+    my @result = ();
+
+    foreach my $part (split '/', $uri) {
+	if ($part eq "..") {
+	    # Preserve a leading /../
+	    if (@result > 0 && $result[$#result] ne "") {
+		pop @result;
+	    } else {
+		push @result, $part;
+	    }
+	} elsif ($part eq ".") {
+	    next;
+	} else {
+	    push @result, $part;
+	};
+    };
+
+    return (join '/', @result);
+}
+
+sub remove_files_from_sources
+{
+    my ($var, $group) = @_;
+
+    my %targets = %{$group->{targets}};
+
+    # Strips from $var all those files already present in some target's sources
+    $var = " $var ";
+    foreach my $target (values %targets) {
+	foreach my $source (@{$target->{sources}}) {
+	    $var =~ s/\s\Q$source\s/ /g;
+	};
+    };
+    return &trim ($var);
+}
+
+sub remove_files_from_built_files
+{
+    my ($var, $group) = @_;
+
+    my %targets = %{$group->{targets}};
+
+    # Strips from $var all those files already present in some target's built_file,
+    # returning the target name
+    my @targets_found;
+    $var = " $var ";
+    foreach my $target (keys %targets) {
+	foreach my $built_file (@{$targets{$target}{built_files}}) {
+	    if ($var =~ /\s\Q$built_file\E\s/) {
+		$var =~ s/\s\Q$built_file\E\s/ /g;
+		push @targets_found, "$target;$built_file";
+	    };
+	};
+    };
+    # Now remove those files present in BUILT_SOURCES
+    foreach my $built_file (split /\s+/, $group->{config}{built_sources}) {
+	$var =~ s/\s$built_file\s/ /g;
+    }
+	
+    return (&trim ($var), @targets_found);
+}
+
+sub get_sources_by_extension
+{
+    my ($group, $ext) = @_;
+
+    my @result;
+
+    foreach my $target (values %{$group->{targets}}) {
+	my @sources = @{$target->{sources}};
+	push @result, grep /$ext\z/, @sources;
+    };
+    return @result;
+}
+
+sub make_absolute_path
+{
+    my $path = $_[0];
+
+    if (substr ($path, 0, 1) ne "/") {
+	# the path is not absolute
+	my $cwd = `pwd`;
+	chomp $cwd;
+	$path = "$cwd/$path";
+    };
+
+    return reduce_path ($path);
+}
+
+######################################################################
+####  11. MAIN PROGRAM  ##############################################
+######################################################################
+
+my ($op, $arg, $newop);
+
+$op = "";
+while (@ARGV) {
+    $_ = shift @ARGV;
+    if    ($_ eq "--get" || $_ eq "-g") { $newop = "get"; }
+    elsif ($_ eq "--set" || $_ eq "-s") { $newop = "set"; }
+    elsif ($_ eq "--verbose" || $_ eq "-v") { $verbose = 1; }
+    elsif ($_ eq "--dry-run" || $_ eq "-n") { $dry_run = 1; }
+    elsif ($_ eq "--debug" || $_ eq "-d") { &enable_debug(); }
+
+    elsif ($_ eq "--test-scan") { $newop = "test-scan"; }
+    else {
+	if ($arg) {
+	    &report_error (5, gettext("You can't specify more than one project dir/file"));
+	    exit 5;
+	}
+	$arg = $_;
+    }
+    if ($newop) {
+	if ($op) {
+	    &report_error (5, gettext("You can't specify more than one operation"));
+	    exit 5;
+	}
+	$op = $newop;
+	$newop = "";
+    }
+}
+
+if ($op eq 'get') {
+    #########################################
+    # Get the project XML view
+    #########################################
+
+    my $project_dir = make_absolute_path ($arg);
+
+    if (!$project_dir || ! -d $project_dir || ! -e $project_dir) {
+	&report_error (2, gettext("Project root directory doesn't exist"));
+	exit 2;
+    };
+
+    my $project = &process_project ($project_dir);
+
+    if ($project) {
+	&project_print_xml ($project);
+    };
+
+}
+elsif ($op eq "test-scan") {
+    #########################################
+    # Test XML scanning
+    #########################################
+
+    my $tree = &xml_scan ($arg);
+    &recursive_print (-1, $tree);
+
+}
+elsif ($op eq "set") {
+    ########################################
+    # Project modification
+    ########################################
+
+    my $tree = &xml_scan ($arg);
+
+    # Walk the tree recursively and extract configuration parameters.
+
+    while (@$tree) {
+	if ($$tree[0] eq "project") { 
+	    # Get the project and execute
+	    my $project_dir = make_absolute_path ($$tree [1][0]->{root});
+	    my $project = &process_project ($project_dir);
+	    my $ops = &xml_parse_ops ($$tree[1]);
+	    if ($project && $ops) {
+		# reset groups changed flag so we later know what
+		# groups changed and need to be fed back to the user
+		&project_reset_changed ($project);
+
+		# perform the operations
+		if (&project_operate ($project, $ops)) {
+		    # print changed groups
+		    &project_print_xml ($project, "changed");
+		}
+	    };
+	}
+	shift @$tree;
+	shift @$tree;
+    }
+}
+else {
+    &report_warning (0, gettext("Nothing to do"));
+}

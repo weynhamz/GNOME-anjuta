@@ -1,5 +1,71 @@
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* configure.in
+	libanjuta/interfaces/libanjuta.idl
+	(added) libanjuta/gbf-project.c
+	(added) libanjuta/gbf-project.h
+	libanjuta/Makefile.am
+	plugins/Makefile.am
+	plugins/project-import/project-import.c
+	plugins/project-manager/plugin.c
+	plugins/project-manager/plugin.h
+	(added) plugins/project-manager/gbf-project-model.c
+	(added) plugins/project-manager/gbf-project-model.h
+	(added) plugins/project-manager/gbf-tree-data.c
+	(added) plugins/project-manager/gbf-tree-data.h
+	(added) plugins/project-manager/gbf-project-view.c
+	(added) plugins/project-manager/gbf-project-view.h
+	(added) plugins/project-manager/gbf-project-util.c
+	(added) plugins/project-manager/gbf-project-util.h
+	(added) plugins/project-manager/create_dialogs.glade
+	plugins/project-manager/Makefile.am
+	(added) plugins/gbf-am/plugin.c
+	(added) plugins/gbf-am/plugin.h
+	(added) plugins/gbf-am/gbf-am.plugin.in
+	(added) plugins/gbf-am/gbf-am-plugin-48.png
+	(added) plugins/gbf-am/gbf-am-config.h
+	(added) plugins/gbf-am/gbf-am-config.c
+	(added) plugins/gbf-am/gbf-am-project.h
+	(added) plugins/gbf-am/gbf-am-project.c
+	(added) plugins/gbf-am/gbf-am-properties.c
+	(added) plugins/gbf-am/gbf-am-properties.h
+	(added) plugins/gbf-am/gbf-am-parse.in
+	(added) plugins/gbf-am/gbf-am-dialogs.glade
+	(added) plugins/gbf-am/run-test.sh
+	(added) plugins/gbf-am/test.c
+	(added) plugins/gbf-am/output.dtd
+	(added) plugins/gbf-am/shared.xpm
+	(added) plugins/gbf-am/static.xpm
+	(added) plugins/gbf-am/unknown.xpm
+	(added) plugins/gbf-am/program.xpm
+	(added) plugins/gbf-am/GBF/General.pm
+	(added) plugins/gbf-am/GBF/AmFiles.pm
+	(added) plugins/gbf-am/GBF/.cvsignore
+	(added) plugins/gbf-am/GBF/Makefile.am
+	(added) plugins/gbf-am/.cvsignore
+	(added) plugins/gbf-am/Makefile.am
+	(added) plugins/gbf-mkfile/plugin.c
+	(added) plugins/gbf-mkfile/plugin.h
+	(added) plugins/gbf-mkfile/gbf-mkfile.plugin.in
+	(added) plugins/gbf-mkfile/gbf-mkfile-plugin-48.png
+	(added) plugins/gbf-mkfile/gbf-mkfile-properties.c
+	(added) plugins/gbf-mkfile/gbf-mkfile-properties.h
+	(added) plugins/gbf-mkfile/gbf-mkfile-config.c
+	(added) plugins/gbf-mkfile/gbf-mkfile-config.h
+	(added) plugins/gbf-mkfile/gbf-mkfile-project.c
+	(added) plugins/gbf-mkfile/gbf-mkfile-project.h
+	(added) plugins/gbf-mkfile/gbf-mkfile-parse.in
+	(added) plugins/gbf-mkfile/GBF/General.pm
+	(added) plugins/gbf-mkfile/GBF/Make.pm
+	(added) plugins/gbf-mkfile/GBF/.cvsignore
+	(added) plugins/gbf-mkfile/GBF/Makefile.am
+	(added) plugins/gbf-mkfile/.cvsignore
+	(added) plugins/gbf-mkfile/Makefile.am:
+	Move gnome-build library revision 643 in Anjuta tree
+	The file names have not changed
+
+2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/editor/text_editor.h,
 	plugins/editor/text_editor.c,
 	plugins/editor/plugin.c:

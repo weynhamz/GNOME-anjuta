@@ -75,7 +75,9 @@ libanjuta_la_SOURCES= \
 	anjuta-async-notify.c \
 	anjuta-message-area.h \
 	anjuta-debug.c \
-	anjuta-debug.h
+	anjuta-debug.h \
+	gbf-project.c \
+	gbf-project.h
 
 if HAVE_PLUGIN_GLADE
 
