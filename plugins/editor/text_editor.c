@@ -35,6 +35,9 @@
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-convert.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-message-area.h>
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
@@ -303,59 +306,14 @@ text_editor_remove_view (TextEditor *te)
 }
 
 static void
-on_reload_dialog_response (GtkWidget *dlg, gint res, TextEditor *te)
+on_reload_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
 {
 	if (res == GTK_RESPONSE_YES)
 	{
 		text_editor_load_file (te);
 	}
-	gtk_widget_destroy (dlg);
-	te->file_modified_widget = NULL;
+	gtk_widget_destroy (message_area);
 	/* DEBUG_PRINT ("%s", "File modified dialog responded"); */
-}
-
-static gboolean
-on_text_editor_uri_changed_prompt (TextEditor *te)
-{
-	GtkWidget *dlg;
-	GtkWidget *parent;
-	gchar *buff;
-	
-	buff =
-		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than\n"
-						  "the current buffer.\nDo you want to reload it?"),
-						 te->filename);
-	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-	
-	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
-								  GTK_DIALOG_DESTROY_WITH_PARENT,
-								  GTK_MESSAGE_WARNING,
-								  GTK_BUTTONS_NONE, buff);
-	gtk_dialog_add_button (GTK_DIALOG (dlg),
-						   GTK_STOCK_NO,
-						   GTK_RESPONSE_NO);
-	anjuta_util_dialog_add_button (GTK_DIALOG (dlg),
-								   _("_Reload"),
-								   GTK_STOCK_REFRESH,
-								   GTK_RESPONSE_YES);
-	g_free (buff);
-	
-	gtk_window_set_transient_for (GTK_WINDOW (dlg),
-								  GTK_WINDOW (parent));
-	
-	g_signal_connect (dlg, "response",
-					  G_CALLBACK (on_reload_dialog_response),
-					  te);
-	g_signal_connect_swapped (dlg, "delete-event",
-					  G_CALLBACK (gtk_widget_destroy),
-					  dlg);
-	gtk_widget_show (dlg);
-	
-	te->file_modified_widget = dlg;
-
-	return FALSE;
 }
 
 static void
@@ -366,33 +324,42 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 							gpointer user_data)
 {
 	TextEditor *te = TEXT_EDITOR (user_data);
+	GtkWidget *message_area;
+	IAnjutaDocumentManager *docman;
+	IAnjutaDocument *doc;
+	gchar *buff;
 	
 	/* DEBUG_PRINT ("%s", "File changed!!!"); */
 	
 	if (!(event_type == G_FILE_MONITOR_EVENT_CHANGED ||
 		  event_type == G_FILE_MONITOR_EVENT_CREATED))
 		return;
+
+	buff =
+		g_strdup_printf (_
+						 ("The file '%s' on the disk is more recent than\n"
+						  "the current buffer.\nDo you want to reload it?"),
+						 te->filename);
 	
-	if (!anjuta_util_diff (te->uri, te->last_saved_content))
-	{
-		/* The file content is same. Remove any previous prompt for reload */
-		if (te->file_modified_widget)
-			gtk_widget_destroy (te->file_modified_widget);
-		te->file_modified_widget = NULL;
-		return;
-	}
+	docman = anjuta_shell_get_interface (te->shell, IAnjutaDocumentManager, NULL);
+	if (!docman)
+  		return;
+  	doc = IANJUTA_DOCUMENT (te);
+
+	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_REFRESH,
+									GTK_RESPONSE_YES);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+								    GTK_STOCK_CANCEL,
+									GTK_RESPONSE_NO);
+	g_free (buff);	
 	
-	/* If the file modified dialog is already shown, don't bother showing it
-	 * again.
-	 */
-	if (te->file_modified_widget)
-		return;
-	
-	/* Set up 1 sec timer */
-	if (te->file_modified_timer > 0)
- 		g_source_remove (te->file_modified_timer);
-	te->file_modified_timer = g_timeout_add_seconds (1,
-													 (GSourceFunc)on_text_editor_uri_changed_prompt, te);
+	g_signal_connect (G_OBJECT(message_area), "response",
+					  G_CALLBACK (on_reload_dialog_response),
+					  te);					  
+	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
+
 }
 
 static void
@@ -430,13 +397,14 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 }
 
 GtkWidget *
-text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, const gchar *name)
+text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, AnjutaShell *shell, const gchar *uri, const gchar *name)
 {
 	gint zoom_factor;
 	static guint new_file_count;
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
 	
 	te->status = status; 
+	te->shell = shell;
 	
 	te->preferences = eo;
 	te->props_base = text_editor_get_props();
@@ -491,11 +459,6 @@ void
 text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
-	if (te->file_modified_timer > 0)
-	{
-		g_source_remove (te->file_modified_timer);
-		te->file_modified_timer = 0;
-	}
 	if (te->monitor)
 	{
 		text_editor_update_monitor (te, TRUE);
@@ -551,7 +514,6 @@ text_editor_finalize (GObject *obj)
 	g_free (te->filename);
 	g_free (te->uri);
 	g_free (te->force_hilite);
-	g_free (te->last_saved_content);
 	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -1266,7 +1228,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	GFileInfo *info;
 	gsize nchars;
 	gint dos_filter, editor_mode;
-	gchar *file_content = NULL;
 	gchar *buffer = NULL;
 	guint64 size; 
 
@@ -1322,7 +1283,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	if (buffer)
 	{
 		buffer[size] = '\0';
-		file_content = g_strdup (buffer);
 	}
 	
 	if (size != nchars)
@@ -1358,7 +1318,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 			{
 				/* bail out */
 				g_free (buffer);
-				g_free (file_content);
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
 								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
@@ -1379,10 +1338,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 							nchars, (long) buffer);
 	
 	g_free (buffer);
-	
-	/* Save the buffer as last saved content */
-	g_free (te->last_saved_content);
-	te->last_saved_content = file_content;
 	
 	g_object_unref (gio_uri);
 
@@ -1483,9 +1438,7 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 		}
 	}
 	
-	/* Set last content saved to data */
-	g_free (te->last_saved_content);
-	te->last_saved_content = data;
+	g_free (data);
 	
 	if (result)
 		result = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, error);

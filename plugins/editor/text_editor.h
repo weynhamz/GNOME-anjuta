@@ -25,6 +25,7 @@
 
 #include <gio/gio.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-shell.h>
 
 #include "aneditor.h"
 
@@ -63,6 +64,7 @@ struct _TextEditor
 	GFileMonitor *monitor;
 	
 	AnjutaStatus *status;
+	AnjutaShell *shell;
 	
 	/* File extension that will be used to force hilite type */
 	gchar *force_hilite;
@@ -98,19 +100,6 @@ struct _TextEditor
 	/* Current zoom factor */
 	gint zoom_factor;
 	
-	/* Last saved content for comparision on external modifications on
-	 * the file. The content is copied here during file saves.
-	 */
-	gchar *last_saved_content;
-	
-	/* When a file is saved, gio also notifies changes to the file
-	 * resulting in unneccessary processing. To avoid this, file modified
-	 * notifications from gio are dampped for 1 sec. After the 1 sec
-	 * timeout, if the file is still different, the user is notified.
-	 */
-	gint file_modified_timer;
-	GtkWidget *file_modified_widget;
-	
 	gboolean hover_tip_on;
 };
 
@@ -122,7 +111,7 @@ struct _TextEditorClass
 GType text_editor_get_type (void);
 
 /* New instance of TextEditor */
-GtkWidget* text_editor_new (AnjutaStatus *status, AnjutaPreferences * pr, const gchar *uri,
+GtkWidget* text_editor_new (AnjutaStatus *status, AnjutaPreferences * pr, AnjutaShell* shell, const gchar *uri,
 							const gchar *tab_name);
 
 /* Freeze and thaw editor */

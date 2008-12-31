@@ -105,7 +105,7 @@ itext_editor_factory_new_editor(IAnjutaEditorFactory* factory,
 	AnjutaStatus *status = anjuta_shell_get_status (shell, NULL);
 	/* file can be NULL, if we open a buffer, not a file */
 	gchar* uri = file ? g_file_get_uri (file) : NULL;
-	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new(status, prefs,
+	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new(status, prefs, shell,
 														   uri, filename));
 	g_free(uri);
 	return editor;
