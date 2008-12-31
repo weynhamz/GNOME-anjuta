@@ -100,6 +100,12 @@ struct _TextEditor
 	/* Current zoom factor */
 	gint zoom_factor;
 	
+	/* Last saved content for comparision on external modifications on
+	 * the file. The content is copied here during file saves.
+	 */
+	gchar *last_saved_content;
+	GtkWidget *file_modified_widget;
+	
 	gboolean hover_tip_on;
 };
 

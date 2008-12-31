@@ -313,6 +313,7 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
 		text_editor_load_file (te);
 	}
 	gtk_widget_destroy (message_area);
+	te->file_modified_widget = NULL;
 	/* DEBUG_PRINT ("%s", "File modified dialog responded"); */
 }
 
@@ -335,6 +336,15 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 		  event_type == G_FILE_MONITOR_EVENT_CREATED))
 		return;
 
+	if (!anjuta_util_diff (te->uri, te->last_saved_content))
+	{
+		/* The file content is same. Remove any previous prompt for reload */
+		if (te->file_modified_widget)
+			gtk_widget_destroy (te->file_modified_widget);
+		te->file_modified_widget = NULL;
+		return;
+	}
+
 	buff =
 		g_strdup_printf (_
 						 ("The file '%s' on the disk is more recent than\n"
@@ -354,6 +364,7 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 								    GTK_STOCK_CANCEL,
 									GTK_RESPONSE_NO);
 	g_free (buff);	
+	te->file_modified_widget = message_area;
 	
 	g_signal_connect (G_OBJECT(message_area), "response",
 					  G_CALLBACK (on_reload_dialog_response),
@@ -514,6 +525,7 @@ text_editor_finalize (GObject *obj)
 	g_free (te->filename);
 	g_free (te->uri);
 	g_free (te->force_hilite);
+	g_free (te->last_saved_content);
 	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -1228,6 +1240,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	GFileInfo *info;
 	gsize nchars;
 	gint dos_filter, editor_mode;
+	gchar *file_content = NULL;
 	gchar *buffer = NULL;
 	guint64 size; 
 
@@ -1283,6 +1296,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	if (buffer)
 	{
 		buffer[size] = '\0';
+		file_content = g_strdup (buffer);
 	}
 	
 	if (size != nchars)
@@ -1318,6 +1332,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 			{
 				/* bail out */
 				g_free (buffer);
+				g_free (file_content);
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
 								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
@@ -1338,6 +1353,10 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 							nchars, (long) buffer);
 	
 	g_free (buffer);
+
+	/* Save the buffer as last saved content */
+	g_free (te->last_saved_content);
+	te->last_saved_content = file_content;
 	
 	g_object_unref (gio_uri);
 
@@ -1438,7 +1457,9 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 		}
 	}
 	
-	g_free (data);
+	/* Set last content saved to data */
+	g_free (te->last_saved_content);
+	te->last_saved_content = data;
 	
 	if (result)
 		result = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, error);

@@ -1,3 +1,9 @@
+2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor.h,
+	plugins/editor/text_editor.c:
+	Restore file comparison removed in a previous patch
+
 2008-12-31  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.h:
@@ -97,6 +103,7 @@
 	plugins/editor/plugin.c:
 	Fix #529181 – refresh dialog pops over all windows
 	Remove 1s delay on changed file
+	Remove file content comparison
 
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
