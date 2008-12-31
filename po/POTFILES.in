@@ -26,6 +26,7 @@ libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
+plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c
@@ -72,6 +73,7 @@ plugins/debug-manager/utilities.c
 plugins/debug-manager/watch.c
 plugins/devhelp/plugin.c
 plugins/document-manager/action-callbacks.c
+plugins/document-manager/anjuta-bookmarks.c
 plugins/document-manager/anjuta-docman.c
 plugins/document-manager/anjuta-document-manager.glade
 plugins/document-manager/plugin.c
@@ -90,6 +92,13 @@ plugins/file-manager/plugin.c
 plugins/file-wizard/anjuta-file-wizard.glade
 plugins/file-wizard/file.c
 plugins/file-wizard/plugin.c
+plugins/gbf-am/gbf-am-config.c
+plugins/gbf-am/gbf-am-dialogs.glade
+plugins/gbf-am/gbf-am-project.c
+plugins/gbf-am/gbf-am-properties.c
+plugins/gbf-mkfile/gbf-mkfile-config.c
+plugins/gbf-mkfile/gbf-mkfile-project.c
+plugins/gbf-mkfile/gbf-mkfile-properties.c
 plugins/gdb/anjuta-gdb.glade
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
@@ -165,6 +174,9 @@ plugins/profiler/profiler-function-call-tree.glade
 plugins/profiler/profiler.glade
 plugins/profiler/string-utils.c
 plugins/project-import/project-import.c
+plugins/project-manager/create_dialogs.glade
+plugins/project-manager/gbf-project-model.c
+plugins/project-manager/gbf-project-util.c
 plugins/project-manager/plugin.c
 plugins/project-wizard/anjuta-project-wizard.glade
 plugins/project-wizard/druid.c
@@ -205,13 +217,6 @@ plugins/subversion/subversion-switch-dialog.c
 plugins/subversion/subversion-ui-utils.c
 plugins/subversion/subversion-update-dialog.c
 plugins/subversion/svn-command.c
-plugins/symbol-browser/anjuta-symbol-locals.c
-plugins/symbol-browser/an_symbol_info.c
-plugins/symbol-browser/an_symbol_prefs.c
-plugins/symbol-browser/an_symbol_search.c
-plugins/symbol-browser/an_symbol_view.c
-plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
-plugins/symbol-browser/plugin.c
 plugins/symbol-db/symbol-db-prefs.c
 plugins/symbol-db/symbol-db-system.c
 plugins/symbol-db/anjuta-symbol-db.glade
@@ -285,7 +290,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/search/anjuta-search.plugin.in
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in
-[type: gettext/ini]plugins/symbol-browser/anjuta-symbol-browser.plugin.in
 [type: gettext/ini]plugins/symbol-db/symbol-db.plugin.in
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
 [type: gettext/ini]plugins/valgrind/anjuta-valgrind.plugin.in
@@ -293,3 +297,5 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
 [type: gettext/ini]plugins/language-manager/language-manager.plugin.in
+[type: gettext/ini]plugins/gbf-mkfile/gbf-mkfile.plugin.in
+[type: gettext/ini]plugins/gbf-am/gbf-am.plugin.in

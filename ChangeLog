@@ -1,5 +1,10 @@
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* po/POTFILES.in:
+	Update to include gnome-build files and remove symbol browser
+
+2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* (added) plugins/project-manager/gbf-install.png
 	(added) plugins/project-manager/gbf-build.png:
 	Add 2 missing files in the latch patch
