@@ -153,7 +153,7 @@ static void
 on_selection_changed (GtkTreeSelection* selection, AnjutaBookmarks* bookmarks)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-	gboolean status = gtk_tree_selection_get_selected (selection, NULL, NULL);
+	gboolean status = (gtk_tree_selection_count_selected_rows (selection) > 0);
 	gtk_widget_set_sensitive (priv->button_remove, status);
 }
 
@@ -208,6 +208,7 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 					  bookmarks);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 	g_signal_connect (G_OBJECT(selection), "changed", G_CALLBACK(on_selection_changed),
 					  bookmarks);
 	
@@ -391,13 +392,31 @@ void
 anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-	GtkTreeIter iter;
 	GtkTreeSelection* selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
-	if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+	GList* selected = gtk_tree_selection_get_selected_rows (selection,
+															NULL);
+	GList* node;
+	GList* refs = NULL;
+	for (node = selected; node != NULL; node = g_list_next (node))
+	{
+		GtkTreeRowReference* ref = gtk_tree_row_reference_new (priv->model,
+															   node->data);
+		refs = g_list_append (refs, ref);
+	}
+	g_list_foreach (selected, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (selected);
+	for (node = refs; node != NULL; node = g_list_next (node))
 	{
 		GFile* file;
 		gint line;
 		IAnjutaEditor* editor;
+		GtkTreeIter iter;
+		GtkTreeRowReference* ref = node->data;
+		GtkTreePath* path = gtk_tree_row_reference_get_path(ref);
+		gtk_tree_model_get_iter (priv->model,
+								 &iter,
+								 path);
+		gtk_tree_path_free (path);
 		gtk_tree_model_get (priv->model, &iter, 
 							COLUMN_FILE, &file,
 							COLUMN_LINE, &line,
@@ -417,6 +436,8 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 		
 		gtk_list_store_remove (GTK_LIST_STORE (priv->model), &iter);
 	}
+	g_list_foreach (refs, (GFunc)gtk_tree_row_reference_free, NULL);
+	g_list_free (refs);
 }
 
 void 

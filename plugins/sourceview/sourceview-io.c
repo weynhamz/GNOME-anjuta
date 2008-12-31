@@ -488,7 +488,7 @@ sourceview_io_get_filename (SourceviewIO* sio)
 	{
 		sio->filename = g_strdup_printf (_("New file %d"), new_file_count++);
 		return g_strdup (sio->filename);
-	}									 
+	}	
 }
 
 void 
