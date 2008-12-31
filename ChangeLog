@@ -1,5 +1,10 @@
 2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/project-manager/plugin.c:
+	Fix #564302 – "Loaded Project..." is confusing
+
+2008-12-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/file-loader/plugin.c:
 	Fix #566129 – crash when project opening and file not found
 

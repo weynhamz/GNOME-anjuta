@@ -2533,10 +2533,10 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	}
 	
 	anjuta_status_progress_tick (status, NULL,
-								 _("Loaded Project... Initializing"));
+								 _("Initializing Project..."));
 	update_ui (plugin);
 
-	anjuta_status_progress_tick (status, NULL, _("Loaded Project..."));
+	anjuta_status_progress_tick (status, NULL, _("Project Loaded"));
 	g_free (uri);
 }
 
