@@ -1,6 +1,12 @@
 2008-12-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-bookmarks.c
+	(anjuta_bookmaks_init):
+	Show scrollbars only if necessary
+
+2008-12-31  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-bookmarks.c
 	(on_selection_changed), (anjuta_bookmarks_init),
 	(anjuta_bookmarks_remove):
 	Allow multiple selection to remove bookmarks
