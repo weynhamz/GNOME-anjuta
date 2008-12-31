@@ -942,8 +942,6 @@ plugins/gbf-am/GBF/Makefile
 plugins/gbf-mkfile/Makefile
 plugins/gbf-mkfile/gbf-mkfile-parse
 plugins/gbf-mkfile/GBF/Makefile
-plugins/symbol-browser/Makefile
-plugins/symbol-browser/images/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/test/Makefile
