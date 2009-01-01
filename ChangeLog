@@ -1,3 +1,7 @@
+2009-01-01  Naba Kumar  <naba@gnome.org>
+
+	* src/layout.xml: Added Symbol DB widget docking in default layout.
+
 2008-12-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-bookmarks.c
