@@ -35,13 +35,15 @@
 /* file should be specified without the ".db" extension. */
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
+/* if tables.sql changes or general db structure changes modify also the value here */
+#define SYMBOL_DB_VERSION	"1.0"
+
 #define TABLES_SQL	PACKAGE_DATA_DIR"/tables.sql"
 
 #define CTAGS_MARKER	"#_#\n"
 
 #define SHARED_MEMORY_PREFIX		"/dev/shm"
 
-#define THREADS_MONITOR_TIMEOUT			50
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 

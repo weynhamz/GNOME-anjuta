@@ -2645,7 +2645,6 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	return TRUE;
 }
 
-
 /**
  * Creates required tables for the database to work.
  * @param tables_sql_file File containing sql code.
@@ -2656,6 +2655,7 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 	GError *err;
 	SymbolDBEnginePriv *priv;
 	gchar *contents;
+	gchar *query;
 	gsize sizez;
 
 	g_return_val_if_fail (tables_sql_file != NULL, FALSE);
@@ -2675,9 +2675,15 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 		return FALSE;
 	}
 
-	sdb_engine_execute_non_select_sql (dbe, contents);
-	
+	sdb_engine_execute_non_select_sql (dbe, contents);	
 	g_free (contents);
+	
+	/* set the current symbol db database version. This may help if new tables/fields
+	 * are added/removed in future versions.
+	 */
+	query = "INSERT INTO version VALUES ("SYMBOL_DB_VERSION")";
+	sdb_engine_execute_non_select_sql (dbe, query);	
+	
 	return TRUE;
 }
 
@@ -4020,7 +4026,6 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 }
 
 /** Return the symbol_id of the changed symbol */
-// FIXME: find a quicker way to handle the thing here.
 static inline gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   GdaDataModel * data, gint data_row,
@@ -4164,7 +4169,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	return symbol_referer_id;
 }
 
-
 /**
  * @param data Must be filled with some values. It must have num_rows > 0
  * @note *CALL THIS BEFORE second_pass_update_heritage ()*
@@ -4265,7 +4269,6 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	if (priv->mutex)
 		g_mutex_lock (priv->mutex);
 }
-
 
 /**
  * @param data Must be filled with some values. It must have num_rows > 0
@@ -4458,8 +4461,7 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 	
 	/* relock before leaving... */
 	if (priv->mutex)
-		g_mutex_lock (dbe->priv->mutex);
-	
+		g_mutex_lock (dbe->priv->mutex);	
 }
 
 /**

@@ -84,7 +84,9 @@ CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
                     type_id integer,
                     unique (scope_name, type_id)
                     );
-                    
+
+CREATE TABLE version (sdb_version numeric PRIMARY KEY);
+
 CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY AUTOINCREMENT,
 							symbol_referer_id integer not null,
 							field_inherits varchar(256),

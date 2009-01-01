@@ -1,3 +1,13 @@
+2009-01-01  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_create_db_tables),
+	(sdb_engine_second_pass_update_heritage):
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/tables.sql:
+	fixed #566145. Added a table 'version' where to store the symbol db structure
+	version. This should help migration in future releases.
+
 2009-01-01  Naba Kumar  <naba@gnome.org>
 
 	* src/layout.xml: Added Symbol DB widget docking in default layout.
