@@ -1,3 +1,11 @@
+2009-01-01  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_class_init):
+	fixed  #566225 – activating selected row in search view does nothing.
+
 2009-01-01  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.c

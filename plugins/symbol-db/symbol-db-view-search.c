@@ -3,7 +3,7 @@
  * anjuta
  * Copyright (C) 2001-2003 CodeFactory AB
  * Copyright (C) 2001-2003 Mikael Hallendal <micke@imendio.com>
- * Copyright (C) 2005-2008 Massimo Corà <maxcvs@email.it>
+ * Copyright (C) 2005-2009 Massimo Cora' <maxcvs@email.it>
  * 
  * anjuta is free software.
  * 
@@ -598,7 +598,7 @@ sdb_view_search_class_init (SymbolDBViewSearchClass * klass)
 			      G_STRUCT_OFFSET (SymbolDBViewSearchClass,
 					       symbol_selected), NULL, NULL,
 			       g_cclosure_marshal_VOID__UINT_POINTER, G_TYPE_NONE,
-			      2, G_TYPE_INT, G_TYPE_STRING);
+			      2, G_TYPE_UINT, G_TYPE_POINTER);
 }
 
 /**
