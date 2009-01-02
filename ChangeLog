@@ -1,3 +1,11 @@
+2009-01-02  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter):
+	fixed #566284 – search-view should match more
+
 2009-01-02  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (do_import_system_sources),
