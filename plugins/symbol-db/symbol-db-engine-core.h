@@ -113,6 +113,12 @@ gboolean
 symbol_db_engine_close_db (SymbolDBEngine *dbe);
 
 /**
+ * Check whether the engine is connected to db or not.
+ */
+gboolean
+symbol_db_engine_is_connected (SymbolDBEngine * dbe);
+
+/**
  * Check if the database already exists into the prj_directory
  */
 gboolean

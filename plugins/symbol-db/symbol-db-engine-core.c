@@ -652,6 +652,10 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
+	DEBUG_PRINT ("Disconnecting from %s", priv->cnc_string);
+	g_free (priv->cnc_string);
+	priv->cnc_string = NULL;
+
 	if (priv->db_connection != NULL)
 		gda_connection_close (priv->db_connection);
 	priv->db_connection = NULL;
@@ -1699,7 +1703,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			continue;
 		}
 			
-		DEBUG_PRINT ("sent to stdin [%d] %s", i, node);
+		/*DEBUG_PRINT ("sent to stdin [%d] %s", i, node);*/
 		anjuta_launcher_send_stdin (priv->ctags_launcher, node);
 		anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
 
@@ -1762,6 +1766,13 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe = SYMBOL_DB_ENGINE (object);
 	sdbe->priv = g_new0 (SymbolDBEnginePriv, 1);
 
+	sdbe->priv->db_connection = NULL;
+	sdbe->priv->sql_parser = NULL;
+	sdbe->priv->db_directory = NULL;
+	sdbe->priv->project_directory = NULL;
+	sdbe->priv->cnc_string = NULL;
+	
+	
 	/* initialize an hash table to be used and shared with Iterators */
 	sdbe->priv->sym_type_conversion_hash =
 		g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);	
@@ -2633,6 +2644,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 		return FALSE;		
 	}
 
+	priv->cnc_string = g_strdup (cnc_string);
 	priv->sql_parser = gda_connection_create_parser (priv->db_connection);
 	
 	if (!GDA_IS_SQL_PARSER (priv->sql_parser)) 
@@ -2641,8 +2653,20 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 		return FALSE;
 	}
 	
-	DEBUG_PRINT ("connected to database %s", cnc_string);
+	DEBUG_PRINT ("Connected to database %s", cnc_string);
 	return TRUE;
+}
+
+gboolean
+symbol_db_engine_is_connected (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+
+	g_return_val_if_fail (dbe != NULL, FALSE);
+	priv = dbe->priv;	
+	
+	return priv->db_connection && priv->cnc_string && priv->sql_parser && 
+		gda_connection_is_opened (priv->db_connection );
 }
 
 /**
@@ -2651,8 +2675,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
  */
 static gboolean
 sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file)
-{
-	GError *err;
+{	
 	SymbolDBEnginePriv *priv;
 	gchar *contents;
 	gchar *query;
@@ -2665,13 +2688,11 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 
 	/* read the contents of the file */
-	if (g_file_get_contents (tables_sql_file, &contents, &sizez, &err) == FALSE)
+	if (g_file_get_contents (tables_sql_file, &contents, &sizez, NULL) == FALSE)
 	{
 		g_warning ("Something went wrong while trying to read %s",
 				   tables_sql_file);
 
-		if (err != NULL)
-			g_message ("%s", err->message);
 		return FALSE;
 	}
 
@@ -3179,7 +3200,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		{
 			g_warning ("param prjid is NULL from pquery!");
 			g_free (relative_path);
-			MP_RETURN_OBJ_STR (priv, ret_value);
 			return FALSE;
 		}
 
@@ -3466,11 +3486,10 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		MP_SET_HOLDER_BATCH_STR(priv, param, kind_name, ret_bool, ret_value);
 	
 		/* execute the query with parametes just set */
-		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
-														 &err) == -1)
+														 NULL) == -1)
 		{		
 			table_id = -1;		
 		}			
@@ -3553,11 +3572,10 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		MP_SET_HOLDER_BATCH_STR(priv, param, access, ret_bool, ret_value);
 		
 		/* execute the query with parametes just set */
-		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
-														 &err) == -1)
+														 NULL) == -1)
 		{		
 			table_id = -1;		
 		}			
@@ -3641,11 +3659,10 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		MP_SET_HOLDER_BATCH_STR(priv, param, implementation, ret_bool, ret_value);		
 
 		/* execute the query with parametes just set */
-		GError *err = NULL;
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
-														 &err) == -1)
+														 NULL) == -1)
 		{		
 			table_id = -1;		
 		}			
@@ -4092,10 +4109,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	MP_LEND_OBJ_STR (priv, value2);
 	g_value_set_static_string (value2, object_name);
 
-	/* we're gonna access db. Let's lock here */
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);
-	
 	if ((scope_id = sdb_engine_get_tuple_id_by_unique_name2 (dbe,
 									 PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
 									 "tokenname",
@@ -4106,15 +4119,11 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		if (free_token_name)
 			g_free (token_name);
 
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);					
-		
 		return -1;
 	}
 	
 	if (free_token_name)
 		g_free (token_name);
-
 	
 	/* if we reach this point we should have a good scope_id.
 	 * Go on with symbol updating.
@@ -4129,8 +4138,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		== NULL)
 	{
 		g_warning ("query is null");
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);					
 		return -1;
 	}
 
@@ -4140,8 +4147,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)
 	{
 		g_warning ("param scopeid is NULL from pquery!");
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);					
 		return -1;
 	}
 
@@ -4151,8 +4156,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
 	{
 		g_warning ("param symbolid is NULL from pquery!");
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);					
 		return -1;
 	}
 
@@ -4164,8 +4167,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 													 (GdaSet*)plist, NULL,
 													 NULL);
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);					
 	return symbol_referer_id;
 }
 
@@ -4193,16 +4194,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	 */
 	gint i;
 	
-	priv = dbe->priv;
-	
-	/* temporary unlock. This function may take a while to be completed
-	 * so let other db-task to be executed, so that main thread
-	 * isn't locked up. 
-	 * sdb_engine_second_pass_update_scope_1 () which is called later on will
-	 * access db and then will lock again.
-	 */
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);					
+	priv = dbe->priv;	
 	
 	DEBUG_PRINT ("Processing %d rows", gda_data_model_get_n_rows (data));
 	
@@ -4264,10 +4256,6 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 												   value);
 		}
 	}
-
-	/* relock */
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);
 }
 
 /**
@@ -4286,9 +4274,6 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 	priv = dbe->priv;
 	
 	DEBUG_PRINT ("%s", "sdb_engine_second_pass_update_heritage ()");
-	/* unlock */
-	if (priv->mutex)
-		g_mutex_unlock (dbe->priv->mutex);
 	
 	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
 	{
@@ -4392,10 +4377,6 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 				derived_klass_id = 0;
 			}
 
-			/* we're on the query side of the function. It needs some locking... */
-			if (priv->mutex)
-				g_mutex_lock (dbe->priv->mutex);
-			
 			/* ok, search for the symbol_id of the base class */
 			if (namespace_name == NULL)
 			{
@@ -4410,10 +4391,6 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 										 "klassname",
 										 value1)) < 0)
 				{
-
-					if (priv->mutex)
-						g_mutex_unlock (dbe->priv->mutex);
-
 					continue;
 				}
 			}
@@ -4436,10 +4413,6 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 						  "namespacename",
 						  value2)) < 0)
 				{
-
-					if (priv->mutex)
-						g_mutex_unlock (dbe->priv->mutex);
-
 					continue;
 				}
 			}
@@ -4451,17 +4424,10 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 						 "base_klass_id %d, derived_klass_id %d", base_klass_id, 
 						 derived_klass_id);
 			sdb_engine_add_new_heritage (dbe, base_klass_id, derived_klass_id);
-			if (priv->mutex)
-				g_mutex_unlock (dbe->priv->mutex);
-			
 		}
 
 		g_strfreev (inherits_list);			
-	}
-	
-	/* relock before leaving... */
-	if (priv->mutex)
-		g_mutex_lock (dbe->priv->mutex);	
+	}	
 }
 
 /**
@@ -4688,19 +4654,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		g_value_set_int (value3, type_id);
 		
 		MP_LEND_OBJ_INT (priv, value4);		
-		g_value_set_int (value4, file_position);
-		
-		/* we should use more value and set them with the same values because
-		 * sdb_engine_get_tuple_id_by_unique_name () will manage them
-		 */
-		MP_LEND_OBJ_STR (priv, value5);	
-		g_value_set_static_string (value5, name);
-
-		MP_LEND_OBJ_INT (priv, value6);
-		g_value_set_int (value6, file_defined_id);
-
-		MP_LEND_OBJ_INT (priv, value7);		
-		g_value_set_int (value7, type_id);		
+		g_value_set_int (value4, file_position);		
 
 		sym_list = g_tree_lookup (priv->file_symbols_cache, GINT_TO_POINTER(type_id));
 		
@@ -4714,6 +4668,18 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		/* no luck, retry widely */
 		if (symbol_id <= 0)
 		{
+			/* we should use more value and set them with the same values because
+			 * sdb_engine_get_tuple_id_by_unique_name () will manage them
+		 	 */
+			MP_LEND_OBJ_STR (priv, value5);	
+			g_value_set_static_string (value5, name);
+
+			MP_LEND_OBJ_INT (priv, value6);
+			g_value_set_int (value6, file_defined_id);
+
+			MP_LEND_OBJ_INT (priv, value7);		
+			g_value_set_int (value7, type_id);		
+
 			symbol_id = sdb_engine_get_tuple_id_by_unique_name3 (dbe,
 								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
 								  "symname", value5,

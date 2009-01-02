@@ -251,6 +251,7 @@ struct _SymbolDBEnginePriv
 	GdaSqlParser *sql_parser;
 	gchar *db_directory;
 	gchar *project_directory;
+	gchar *cnc_string;
 
 	gint scan_process_id;
 	GAsyncQueue *scan_process_id_queue;

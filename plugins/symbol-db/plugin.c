@@ -1408,7 +1408,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 static void
 do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 {
-	DEBUG_PRINT ("%s", "do_import_system_sources ()");
+	DEBUG_PRINT ("%s", "");
 	/* system's packages management */				
 	GList *item = sdb_plugin->session_packages; 
 	while (item != NULL)
@@ -1563,7 +1563,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		 */
 		for (i = 0; i < g_hash_table_size (prj_elements_hash); i++)
 		{
-			DEBUG_PRINT ("ARRAY ADD %s", (gchar*)g_list_nth_data (keys, i));
+			/*DEBUG_PRINT ("ARRAY ADD %s", (gchar*)g_list_nth_data (keys, i));*/
 			g_ptr_array_add (to_add_files, g_list_nth_data (keys, i));
 		}		
 	}
@@ -1611,6 +1611,26 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	/*
 	 * The Globals thing
 	 */
+
+	/* is the global db connected? */	
+	if (symbol_db_engine_is_connected (sdb_plugin->sdbe_globals) == FALSE)
+	{
+		gchar *anjuta_cache_path;
+		/* open the connection to global db */
+		anjuta_cache_path = anjuta_util_get_user_cache_file_path (".", NULL);
+		symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
+							  anjuta_cache_path, 
+							  PROJECT_GLOBALS);
+		g_free (anjuta_cache_path);
+	
+		/* unref and recreate the sdbs object */
+		if (sdb_plugin->sdbs != NULL)
+			g_object_unref (sdb_plugin->sdbs);
+		
+		sdb_plugin->sdbs = symbol_db_system_new (sdb_plugin, 
+												 sdb_plugin->sdbe_globals);		
+	}
+	
 	
 	/* hide it. Default system tags thing: we'll import after abort even 
 	 * if the preferences says not to automatically scan the packages.
@@ -1627,6 +1647,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		do_import_system_sources (sdb_plugin);		
 	}
 		
+	
+	
 	/*
 	 *   The Project thing
 	 */
@@ -1962,7 +1984,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db_engine_open_db (symbol_db->sdbe_globals, 
 							  anjuta_cache_path, 
 							  PROJECT_GLOBALS);
-
 	g_free (anjuta_cache_path);
 	
 	/* create the object that'll manage the globals population */
@@ -2205,7 +2226,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 		g_object_unref (sdb_plugin->sdbe_project);
 	sdb_plugin->sdbe_project = NULL;
 
-	/* this must be done *bedore* destroying sdbe_globals */
+	/* this must be done *before* destroying sdbe_globals */
 	g_object_unref (sdb_plugin->sdbs);
 	sdb_plugin->sdbs = NULL;
 	

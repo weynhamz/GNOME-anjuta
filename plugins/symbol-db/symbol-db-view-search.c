@@ -32,6 +32,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-marshal.h>
 
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
@@ -597,8 +598,8 @@ sdb_view_search_class_init (SymbolDBViewSearchClass * klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (SymbolDBViewSearchClass,
 					       symbol_selected), NULL, NULL,
-			       g_cclosure_marshal_VOID__UINT_POINTER, G_TYPE_NONE,
-			      2, G_TYPE_UINT, G_TYPE_POINTER);
+			      anjuta_cclosure_marshal_VOID__INT_STRING, G_TYPE_NONE,
+			      2, G_TYPE_INT, G_TYPE_STRING);
 }
 
 /**
