@@ -664,3 +664,100 @@ anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 	
 	xmlFreeDoc (doc);
 }
+
+static gint
+line_compare (gconstpointer line1, gconstpointer line2)
+{
+	gint l1 = GPOINTER_TO_INT(line1);
+	gint l2 = GPOINTER_TO_INT(line2);
+	return l2 - l1;
+}
+
+static GList*
+get_bookmarks_for_editor (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	GList* marks = NULL;
+	GtkTreeIter iter;
+	GFile* file;
+	if (!gtk_tree_model_get_iter_first (priv->model, &iter))
+		return NULL;
+	file = ianjuta_file_get_file (IANJUTA_FILE(editor), NULL);
+	if (!file)
+		return NULL;
+	do
+	{
+		GFile* bookmark_file;
+		gint line;
+		gtk_tree_model_get (priv->model,
+							&iter,
+							COLUMN_FILE, &bookmark_file,
+							COLUMN_LINE, &line,
+							-1);
+		if (g_file_equal (file, bookmark_file))
+			marks = g_list_insert_sorted (marks, GINT_TO_POINTER(line), line_compare);
+		g_object_unref (bookmark_file);
+	}
+	while (gtk_tree_model_iter_next (priv->model, &iter));
+	g_object_unref (file);
+	
+	return marks;
+}
+
+void 
+anjuta_bookmarks_next (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
+					   gint line)
+{
+	IAnjutaIterable* end_pos;
+	gint end_line;
+	GList* marks = get_bookmarks_for_editor (bookmarks, editor);
+	GList* node;
+	
+	end_pos = ianjuta_editor_get_end_position (editor, NULL);
+	end_line = ianjuta_editor_get_line_from_position (editor, end_pos, NULL);
+	g_object_unref (end_pos);
+	
+	for (node = marks; node != NULL; node = g_list_next (node))
+	{
+		gint node_line = GPOINTER_TO_INT (node->data);
+		if (node_line > line)
+		{
+			ianjuta_editor_goto_line (editor, node_line, NULL);
+		}
+	}
+	g_list_free (marks);
+}
+
+void 
+anjuta_bookmarks_prev (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
+					   gint line)
+{
+	IAnjutaIterable* end_pos;
+	gint end_line;
+	GList* marks = get_bookmarks_for_editor (bookmarks, editor);
+	GList* node;
+	
+	end_pos = ianjuta_editor_get_end_position (editor, NULL);
+	end_line = ianjuta_editor_get_line_from_position (editor, end_pos, NULL);
+	g_object_unref (end_pos);
+	
+	marks = g_list_reverse (marks);
+	
+	for (node = marks; node != NULL; node = g_list_next (node))
+	{
+		gint node_line = GPOINTER_TO_INT (node->data);
+		if (node_line < line)
+		{
+			ianjuta_editor_goto_line (editor, node_line, NULL);
+		}
+	}
+	g_list_free (marks);
+}
+
+void anjuta_bookmarks_clear (AnjutaBookmarks* bookmarks)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	GtkTreeSelection* selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
+	gtk_tree_selection_select_all (selection);
+	anjuta_bookmarks_remove (bookmarks);
+}

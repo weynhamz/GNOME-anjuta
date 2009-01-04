@@ -44,6 +44,7 @@
 #include "plugin.h"
 #include "file_history.h"
 #include "search-box.h"
+#include "anjuta-bookmarks.h"
 
 static IAnjutaDocument *
 get_current_document (gpointer user_data)
@@ -905,4 +906,57 @@ on_previous_document (GtkAction *action, gpointer user_data)
 	
 	gtk_notebook_set_current_page (notebook,
 								   cur_page);
+}
+
+void
+on_bookmark_add_activate (GtkAction *action, gpointer user_data)
+{
+	IAnjutaDocument *doc;
+	DocmanPlugin *plugin;
+	doc = get_current_document (user_data);
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	if (doc && IANJUTA_IS_EDITOR(doc))
+	{
+		IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
+		anjuta_bookmarks_add (ANJUTA_BOOKMARKS (plugin->bookmarks), editor, 
+							  ianjuta_editor_get_lineno (editor, NULL), NULL, TRUE);
+	}
+}
+
+void 
+on_bookmark_next_activate (GtkAction *action, gpointer user_data)
+{
+	IAnjutaDocument *doc;
+	DocmanPlugin *plugin;
+	doc = get_current_document (user_data);
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	if (doc && IANJUTA_IS_EDITOR(doc))
+	{
+		IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
+		anjuta_bookmarks_next (ANJUTA_BOOKMARKS (plugin->bookmarks), editor, 
+							  ianjuta_editor_get_lineno (editor, NULL));
+	}
+}
+
+void
+on_bookmark_prev_activate (GtkAction *action, gpointer user_data)
+{
+	IAnjutaDocument *doc;
+	DocmanPlugin *plugin;
+	doc = get_current_document (user_data);
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	if (doc && IANJUTA_IS_EDITOR(doc))
+	{
+		IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
+		anjuta_bookmarks_prev (ANJUTA_BOOKMARKS (plugin->bookmarks), editor, 
+							   ianjuta_editor_get_lineno (editor, NULL));
+	}
+}
+
+void
+on_bookmarks_clear_activate (GtkAction *action, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	anjuta_bookmarks_clear (ANJUTA_BOOKMARKS(plugin->bookmarks));
 }

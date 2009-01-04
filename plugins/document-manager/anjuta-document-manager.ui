@@ -103,6 +103,15 @@
 				<menuitem name="SaveAll" action="ActionFileSaveAll" />
 				<menuitem name="CloseAll" action="ActionFileCloseAll" />
 				<separator />
+				<menu name="DocumentsBookmarks" action="ActionMenuBookmark">
+				  <menuitem name="AddBookmark" action="ActionBookmarkAdd" />
+				  <separator />
+				  <menuitem name="NextBookmark" action="ActionBookmarkNext" />				  
+				  <menuitem name="PrevBookmark" action="ActionBookmarkPrev" />
+				  <separator />
+				  <menuitem name="ClearBookmarks" action="ActionBookmarksClear" />
+				</menu>
+				<separator />	  
 				<menuitem name="PreviousDocument" action="ActionDocumentsPrevious" />
 				<menuitem name="NextDocument" action="ActionDocumentsNext" />
 				<separator />

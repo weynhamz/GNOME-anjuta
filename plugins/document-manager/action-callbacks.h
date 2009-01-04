@@ -97,4 +97,9 @@ void on_repeat_quicksearch (GtkAction *action, gpointer user_data);
 void on_next_document (GtkAction *action, gpointer user_data);
 void on_previous_document (GtkAction *action, gpointer user_data);
 
+void on_bookmark_add_activate (GtkAction *action, gpointer user_data);
+void on_bookmark_next_activate (GtkAction *action, gpointer user_data);
+void on_bookmark_prev_activate (GtkAction *action, gpointer user_data);
+void on_bookmarks_clear_activate (GtkAction *action, gpointer user_data);
+
 #endif

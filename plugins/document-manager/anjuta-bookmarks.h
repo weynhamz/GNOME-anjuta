@@ -58,6 +58,12 @@ void anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks);
 void anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* session);
 void anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* session);
 
+void anjuta_bookmarks_next (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
+							gint line);
+void anjuta_bookmarks_prev (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
+							gint line);
+void anjuta_bookmarks_clear (AnjutaBookmarks* bookmarks);
+
 G_END_DECLS
 
 #endif /* _ANJUTA_BOOKMARKS_H_ */

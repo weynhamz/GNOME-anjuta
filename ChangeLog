@@ -1,3 +1,19 @@
+2009-01-04 Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	(on_bookmark_add_activate), (on_bookmark_next_activate),
+	(on_bookmark_prev_activate), (on_bookmarks_clear_activate):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-bookmarks.c (line_compare),
+	(get_bookmarks_for_editor), (anjuta_bookmarks_next),
+	(anjuta_bookmarks_prev), (anjuta_bookmarks_clear):
+	* plugins/document-manager/anjuta-bookmarks.h:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c (register_stock_icons):
+	
+	Added menuitems for add/next/prev/clear bookmark. Bookmark interface is now
+	complete again
+
 2009-01-04  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/Makefile.am:
