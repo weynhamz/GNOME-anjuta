@@ -1348,6 +1348,17 @@ on_window_key_release_event (AnjutaShell *shell,
 }
 
 static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, DocmanPlugin *plugin)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	anjuta_bookmarks_session_load (ANJUTA_BOOKMARKS (plugin->bookmarks),
+								   session);
+}
+
+static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, DocmanPlugin *plugin)
 {
@@ -1391,6 +1402,9 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		g_list_foreach (files, (GFunc)g_free, NULL);
 		g_list_free (files);
 	}
+	
+	anjuta_bookmarks_session_save (ANJUTA_BOOKMARKS (plugin->bookmarks),
+								   session);
 }
 
 static gboolean
@@ -1728,6 +1742,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
 					  G_CALLBACK (on_session_save), plugin);
+	/* Connect to load session */
+	g_signal_connect (G_OBJECT (plugin->shell), "load-session",
+					  G_CALLBACK (on_session_load), plugin);
+	
 	/* Connect to save prompt */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-prompt",
 					  G_CALLBACK (on_save_prompt), plugin);
@@ -1986,7 +2004,7 @@ ianjuta_docman_add_bookmark (IAnjutaDocumentManager* plugin,
 									  GError **e)
 {
 	AnjutaBookmarks* bookmarks = ANJUTA_BOOKMARKS (ANJUTA_PLUGIN_DOCMAN(plugin)->bookmarks);
-	anjuta_bookmarks_add_file (bookmarks, file, line);
+	anjuta_bookmarks_add_file (bookmarks, file, line, NULL);
 }
 
 static void

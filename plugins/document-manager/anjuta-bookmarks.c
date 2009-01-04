@@ -17,19 +17,28 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define DEBUG 1
+
 #include "anjuta-bookmarks.h"
 #include "anjuta-docman.h"
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/anjuta-debug.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/parser.h>
 
 #define BOOKMARKS_GET_PRIVATE(o)  \
    (G_TYPE_INSTANCE_GET_PRIVATE ((o), ANJUTA_TYPE_BOOKMARKS, AnjutaBookmarksPrivate))
 
 #define ANJUTA_STOCK_BOOKMARK_TOGGLE          "anjuta-bookmark-toggle"
+
+#define ENCODING "UTF-8"
+
 
 typedef struct _AnjutaBookmarksPrivate AnjutaBookmarksPrivate;
 
@@ -75,7 +84,8 @@ on_add_clicked (GtkWidget* button, AnjutaBookmarks* bookmarks)
 		anjuta_docman_get_current_document (ANJUTA_DOCMAN(priv->docman->docman));
 	g_return_if_fail (IANJUTA_IS_EDITOR(doc));
 	IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
-	anjuta_bookmarks_add (bookmarks, editor, ianjuta_editor_get_lineno (editor, NULL), TRUE);						 
+	anjuta_bookmarks_add (bookmarks, editor, 
+						  ianjuta_editor_get_lineno (editor, NULL), NULL,TRUE);						 
 }
 
 static void
@@ -343,7 +353,8 @@ anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gi
 }
 
 void
-anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, gboolean use_selection)
+anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, 
+					  const gchar* title, gboolean use_selection)
 {
 	g_return_if_fail (IANJUTA_IS_MARKABLE(editor));
 	IAnjutaMarkable* markable = IANJUTA_MARKABLE(editor);
@@ -361,7 +372,10 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
-	text = anjuta_bookmarks_get_text (bookmarks, editor, line, use_selection);
+	if (title == NULL)
+		text = anjuta_bookmarks_get_text (bookmarks, editor, line, use_selection);
+	else
+		text = g_strdup(title);
 	file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
 	gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
 						COLUMN_TEXT, text,
@@ -444,19 +458,26 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 }
 
 void 
-anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
+anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks,
+						   GFile* file,
+						   gint line,
+						   const gchar* title)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	IAnjutaDocument* doc;
 	GtkTreeIter iter;
 	if ((doc = anjuta_docman_get_document_for_file (ANJUTA_DOCMAN(priv->docman->docman), file)))
 	{
-		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, FALSE);
+		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, NULL, FALSE);
 	}
 	else
 	{
+		gchar* text;
 		gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
-		gchar* text = anjuta_bookmarks_get_text_from_file (bookmarks, file, line);
+		if (title == NULL)
+			text = anjuta_bookmarks_get_text_from_file (bookmarks, file, line);
+		else
+			text = g_strdup(title);
 		gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
 							COLUMN_TEXT, text,
 							COLUMN_FILE, file,
@@ -470,11 +491,176 @@ anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
 void
 anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* session)
 {
-	/* TODO: Add public function implementation here */
+	LIBXML_TEST_VERSION;
+	int rc;
+	xmlTextWriterPtr writer;
+	xmlBufferPtr buf;
+	GtkTreeIter iter;
+	
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	
+	/* Create a new XML buffer, to which the XML document will be
+	 * written */
+	buf = xmlBufferCreate();
+	if (buf == NULL) 
+	{
+		DEBUG_PRINT ("%s", "XmlwriterMemory: Error creating the xml buffer\n");
+		return;
+	}
+	
+	/* Create a new XmlWriter for memory, with no compression.
+	 * Remark: there is no compression for this kind of xmlTextWriter */
+	writer = xmlNewTextWriterMemory(buf, 0);
+	if (writer == NULL) 
+	{
+		DEBUG_PRINT ("%s", "XmlwriterMemory: Error creating the xml writer\n");
+		return;
+	}
+	
+	rc = xmlTextWriterStartDocument(writer, NULL, ENCODING, NULL);
+	if (rc < 0) {
+		DEBUG_PRINT ("%s", 
+					 "XmlwriterMemory: Error at xmlTextWriterStartDocument\n");
+					 return;
+	}
+    rc = xmlTextWriterStartElement(writer, BAD_CAST "bookmarks");
+    if (rc < 0) {
+        DEBUG_PRINT ("%s", 
+            "XmlwriterMemory: Error at xmlTextWriterStartElement\n");
+        return;
+    }
+	
+	if (gtk_tree_model_get_iter_first (priv->model,
+									   &iter))
+	{
+		do
+		{
+			gchar* title;
+			GFile* file;
+			gint line;
+			gchar* line_text;
+			gchar* uri;
+			
+			gtk_tree_model_get (priv->model,
+								&iter,
+								COLUMN_TEXT, &title,
+								COLUMN_FILE, &file,
+								COLUMN_LINE, &line,
+								-1);
+			uri = g_file_get_uri (file);
+			g_object_unref (file);
+			
+			rc = xmlTextWriterStartElement(writer, BAD_CAST "bookmark");
+			if (rc < 0) {
+				DEBUG_PRINT ("%s",
+					"XmlwriterMemory: Error at xmlTextWriterStartElement\n");
+				return;
+			}
+			rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "title",
+											 BAD_CAST title);
+			g_free (title);
+			if (rc < 0) {
+				DEBUG_PRINT ("%s",
+					"XmlwriterMemory: Error at xmlTextWriterWriteAttribute\n");
+				return;
+			}
+			rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "uri",
+											 BAD_CAST uri);
+			g_free (uri);
+			if (rc < 0) {
+				DEBUG_PRINT ("%s",
+					"XmlwriterMemory: Error at xmlTextWriterWriteAttribute\n");
+				return;
+			}
+			line_text = g_strdup_printf ("%d", line);
+			rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "line",
+											 BAD_CAST line_text);
+			g_free (line_text);
+			if (rc < 0) {
+				DEBUG_PRINT ("%s",
+					"XmlwriterMemory: Error at xmlTextWriterWriteAttribute\n");
+				return;
+			}
+			/* Close the element named bookmark. */
+			rc = xmlTextWriterEndElement(writer);
+			if (rc < 0) {
+				DEBUG_PRINT ("%s", "XmlwriterMemory: Error at xmlTextWriterEndElement\n");
+				return;
+			}
+		}
+		while (gtk_tree_model_iter_next (priv->model, &iter));
+	}
+	rc = xmlTextWriterEndDocument(writer);
+	if (rc < 0) {
+		DEBUG_PRINT ("%s", "testXmlwriterMemory: Error at xmlTextWriterEndDocument\n");
+		return;
+	}
+	xmlFreeTextWriter(writer);
+
+	anjuta_session_set_string (session,
+							   "Document Manager",
+							   "bookmarks",
+							   (const gchar*) buf->content);
+	
+	xmlBufferFree(buf);
+}
+
+static void
+read_bookmarks (AnjutaBookmarks* bookmarks, xmlNodePtr marks)
+{
+	xmlNodePtr cur;
+	for (cur = marks; cur != NULL; cur = cur->next)
+	{
+		DEBUG_PRINT ("Reading bookmark: %s", cur->name);
+		if (xmlStrcmp (cur->name, BAD_CAST "bookmark") == 0)
+		{
+			gchar* title;
+			gchar* line_text;
+			gint line;
+			gchar* uri;
+			GFile* file;
+			
+			title = (gchar*) xmlGetProp(cur, BAD_CAST "title");
+			uri = (gchar*) xmlGetProp(cur, BAD_CAST "uri");
+			line_text = (gchar*) xmlGetProp(cur, BAD_CAST "line");
+			
+			DEBUG_PRINT ("Reading bookmark real: %s", title);
+
+			
+			line = atoi(line_text);
+			file = g_file_new_for_uri (uri);
+			
+			anjuta_bookmarks_add_file (bookmarks, file, line, title);
+			g_free(uri);
+			g_free (title);
+		}
+	}
 }
 
 void
 anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* session)
 {
-	/* TODO: Add public function implementation here */
+	gchar* xml_string = anjuta_session_get_string (session,
+												   "Document Manager",
+												   "bookmarks");
+	DEBUG_PRINT("Session load");
+	
+	if (!xml_string || !strlen(xml_string))
+		return;
+	xmlDocPtr doc = xmlParseMemory (xml_string,
+									strlen (xml_string));
+	g_free(xml_string);
+	
+	xmlNodePtr cur = xmlDocGetRootElement (doc);
+
+	if (cur == NULL)
+	{
+		xmlFreeDoc (doc);
+		return;
+	}
+
+	if (xmlStrcmp (cur->name, BAD_CAST "bookmarks") == 0)
+		read_bookmarks (bookmarks, cur->children);
+	
+	xmlFreeDoc (doc);
 }

@@ -1,3 +1,18 @@
+2009-01-04  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/Makefile.am:
+	Added log domain for document-manager
+	
+	* plugins/document-manager/anjuta-bookmarks.c (on_add_clicked),
+	(anjuta_bookmarks_add), (anjuta_bookmarks_add_file),
+	(anjuta_bookmarks_session_save), (read_bookmarks),
+	(anjuta_bookmarks_session_load):
+	* plugins/document-manager/anjuta-bookmarks.h:
+	* plugins/document-manager/plugin.c (on_session_load),
+	(on_session_save), (activate_plugin),
+	(ianjuta_docman_add_bookmark):
+	Save bookmarks with the current session (#305515)
+
 2009-01-02  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>

@@ -50,8 +50,10 @@ struct _AnjutaBookmarks
 
 GType anjuta_bookmarks_get_type (void) G_GNUC_CONST;
 AnjutaBookmarks* anjuta_bookmarks_new (DocmanPlugin* docman);
-void anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, gboolean use_selection);
-void anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, gint line);
+void anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, 
+						   const gchar* title, gboolean use_selection);
+void anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, 
+								gint line, const gchar* title);
 void anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks);
 void anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* session);
 void anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* session);

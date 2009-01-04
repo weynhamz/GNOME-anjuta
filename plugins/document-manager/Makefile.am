@@ -24,7 +24,8 @@ AM_CPPFLAGS = \
 	$(GDL_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"libanjuta-document-manager\"
 
 libanjuta_document_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
