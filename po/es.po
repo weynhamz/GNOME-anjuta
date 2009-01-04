@@ -6,14 +6,14 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=anjuta&amp;component=general\n"
-"POT-Creation-Date: 2008-12-25 17:55+0000\n"
-"PO-Revision-Date: 2008-12-26 09:29+0100\n"
+"product=anjuta&component=general\n"
+"POT-Creation-Date: 2008-12-31 17:21+0000\n"
+"PO-Revision-Date: 2009-01-04 16:50+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -194,7 +194,12 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandés"
 
-#: ../libanjuta/anjuta-encodings.c:441
+#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3222
+#: ../plugins/gbf-am/gbf-am-properties.c:128
+#: ../plugins/gbf-am/gbf-am-properties.c:172
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3084
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
 msgid "Unknown"
 msgstr "Desconocido"
 
@@ -235,8 +240,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:902
-#: ../plugins/symbol-browser/an_symbol_prefs.c:767
-#: ../plugins/symbol-db/symbol-db-prefs.c:526
+#: ../plugins/symbol-db/symbol-db-prefs.c:520
 msgid "Load"
 msgstr "Carga"
 
@@ -414,6 +418,7 @@ msgstr "Categoría"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
 #: ../src/anjuta-app.c:646
@@ -656,6 +661,8 @@ msgid "No executables in this project!"
 msgstr "No hay ejecutable para este proyecto."
 
 #: ../plugins/build-basic-autotools/executer.c:153
+#: ../plugins/gbf-am/gbf-am-project.c:3212
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3078
 msgid "Program"
 msgstr "Programa"
 
@@ -825,7 +832,7 @@ msgstr "Limpia todo el proyecto"
 
 #: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "C_onfigure Project..."
-msgstr "C_onfigurar el proyecto..."
+msgstr "C_onfigurar el proyecto…"
 
 #: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Configure project"
@@ -1051,7 +1058,6 @@ msgid "Class Options:"
 msgstr "Opciones de clase:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
 msgid "Create"
 msgstr "Crear"
 
@@ -1403,6 +1409,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:439
+#: ../plugins/gbf-am/gbf-am-properties.c:1216
 msgid "Module"
 msgstr "Módulo"
 
@@ -1438,8 +1445,8 @@ msgid "CVS command is running - please wait until it finishes!"
 msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
-#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:447
-#: ../plugins/cvs-plugin/plugin.c:454
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:451
+#: ../plugins/cvs-plugin/plugin.c:458
 msgid "CVS"
 msgstr "CVS"
 
@@ -1547,11 +1554,11 @@ msgstr "_Importar árbol"
 msgid "Import a new source tree to CVS"
 msgstr "Importa un árbol de fuentes nuevo al CVS"
 
-#: ../plugins/cvs-plugin/plugin.c:345
+#: ../plugins/cvs-plugin/plugin.c:349
 msgid "CVS operations"
 msgstr "Operaciones CVS"
 
-#: ../plugins/cvs-plugin/plugin.c:351
+#: ../plugins/cvs-plugin/plugin.c:355
 msgid "CVS popup operations"
 msgstr "Operaciones emergentes de CVS"
 
@@ -1791,18 +1798,6 @@ msgstr "Elimina_r todo"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:52
-msgid "gtk-apply"
-msgstr "gtk-apply"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:53
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:54
-msgid "gtk-connect"
-msgstr "gtk-connect"
-
 #: ../plugins/debug-manager/breakpoints.c:1664
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer borrar todos los puntos de parada?"
@@ -1958,12 +1953,14 @@ msgstr "Operaciones de los puntos de parada"
 msgid "_Goto address"
 msgstr "_Ir a la dirección"
 
-#: ../plugins/debug-manager/debug_tree.c:126 ../plugins/tools/editor.c:454
+#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/gbf-am/gbf-am-properties.c:954 ../plugins/tools/editor.c:454
 msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:471
+#: ../plugins/gbf-am/gbf-am-properties.c:963
 #: ../plugins/run-program/parameters.c:731 ../plugins/tools/editor.c:460
 msgid "Value"
 msgstr "Valor"
@@ -2056,7 +2053,7 @@ msgstr "Iniciar el depurador y acoplarlo al programa en ejecución"
 
 #: ../plugins/debug-manager/plugin.c:861
 msgid "Debug _Remote Target..."
-msgstr "Depurar objetivo _remoto..."
+msgstr "Depurar objetivo _remoto…"
 
 #: ../plugins/debug-manager/plugin.c:863
 msgid "Connect to a remote debugging target"
@@ -2500,7 +2497,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:238
-#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:264
+#: ../plugins/message-view/plugin.c:68
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2540,12 +2537,11 @@ msgstr "En línea"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:995
-#: ../plugins/search/search-replace.c:1664
-#: ../plugins/search/search-replace.c:1671
-#: ../plugins/search/search-replace.c:1683
-#: ../plugins/search/search-replace.c:2001
-#: ../plugins/symbol-browser/plugin.c:968
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1015
+#: ../plugins/search/search-replace.c:1684
+#: ../plugins/search/search-replace.c:1691
+#: ../plugins/search/search-replace.c:1703
+#: ../plugins/search/search-replace.c:2021
 msgid "Search"
 msgstr "Buscar"
 
@@ -2567,9 +2563,12 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:281
-#: ../plugins/editor/text_editor.c:340
 msgid "_Reload"
 msgstr "_Recargar"
+
+#: ../plugins/document-manager/anjuta-bookmarks.c:264
+msgid "Bookmarks"
+msgstr "Marcadores"
 
 #: ../plugins/document-manager/anjuta-docman.c:400
 msgid "Close file"
@@ -2897,7 +2896,7 @@ msgstr "H_istórico siguiente"
 msgid "Goto next history"
 msgstr "Ir al histórico siguiente"
 
-#: ../plugins/document-manager/plugin.c:260 ../plugins/search/plugin.c:191
+#: ../plugins/document-manager/plugin.c:260 ../plugins/search/plugin.c:67
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -3562,7 +3561,7 @@ msgstr "Vista previa de la impresión"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:326
+#: ../plugins/editor/text_editor.c:350
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3573,25 +3572,25 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1284
+#: ../plugins/editor/text_editor.c:1258
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
 #. DEBUG_PRINT ("%s", "This file is too big. Unable to allocate memory.");
-#: ../plugins/editor/text_editor.c:1296
+#: ../plugins/editor/text_editor.c:1270
 msgid "This file is too big. Unable to allocate memory."
 msgstr ""
 "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1305
+#: ../plugins/editor/text_editor.c:1279
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../plugins/editor/text_editor.c:1316
+#: ../plugins/editor/text_editor.c:1290
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1362
+#: ../plugins/editor/text_editor.c:1336
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3601,11 +3600,11 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo esté soportada "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1509
+#: ../plugins/editor/text_editor.c:1483
 msgid "Loading file..."
 msgstr "Cargando archivo…"
 
-#: ../plugins/editor/text_editor.c:1518
+#: ../plugins/editor/text_editor.c:1492
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3616,24 +3615,24 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1538
+#: ../plugins/editor/text_editor.c:1512
 msgid "File loaded successfully"
 msgstr "Archivo cargado correctamente"
 
-#: ../plugins/editor/text_editor.c:1558
+#: ../plugins/editor/text_editor.c:1532
 msgid "Saving file..."
 msgstr "Guardando archivo…"
 
-#: ../plugins/editor/text_editor.c:1567
+#: ../plugins/editor/text_editor.c:1541
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "No se puede guardar el archivo intermedio %s: %s"
 
-#: ../plugins/editor/text_editor.c:1581
+#: ../plugins/editor/text_editor.c:1555
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: ../plugins/editor/text_editor.c:1943
+#: ../plugins/editor/text_editor.c:1917
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -3861,17 +3860,17 @@ msgstr "Abrir archivo reciente"
 msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
-#: ../plugins/file-loader/plugin.c:1341 ../plugins/file-loader/plugin.c:1343
+#: ../plugins/file-loader/plugin.c:1340 ../plugins/file-loader/plugin.c:1342
 #, c-format
 msgid "File not found"
 msgstr "No se encontró el archivo"
 
-#: ../plugins/file-loader/plugin.c:1361
+#: ../plugins/file-loader/plugin.c:1360
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccione un complemento para abrir. <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1365
+#: ../plugins/file-loader/plugin.c:1364
 msgid "Open With"
 msgstr "Abrir con"
 
@@ -3905,7 +3904,6 @@ msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
 #: ../plugins/file-manager/file-model.c:112
-#: ../plugins/symbol-browser/an_symbol_view.c:872
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -3972,7 +3970,6 @@ msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: ../plugins/macro/anjuta-macro.glade.h:6
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -3983,6 +3980,8 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
+#: ../plugins/gbf-am/gbf-am-properties.c:1506
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -4043,6 +4042,442 @@ msgstr "Licencia Pública BSD"
 #: ../plugins/file-wizard/file.c:167
 msgid "Unable to build user interface for New File"
 msgstr "No se pudo construir el interfaz de usuario para «Archivo nuevo»"
+
+#: ../plugins/gbf-am/gbf-am-config.c:98 ../plugins/gbf-am/gbf-am-config.c:132
+msgid "Invalid GbfAmConfigValue type"
+msgstr "Tipo GbfAmConfigValue no válido"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:1
+msgid "<b>Select Package to add:</b>"
+msgstr "<b>Seleccione un paquete para añadir:</b>"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:2
+msgid "Add _Package"
+msgstr "Añadir _paquete"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:3
+msgid "Add _module"
+msgstr "Añadir _módulo"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:5
+msgid "Packages"
+msgstr "Paquetes"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:6
+msgid "Select package"
+msgstr "Seleccionar el paquete"
+
+#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:7
+msgid "Variables"
+msgstr "Variables"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2409
+#: ../plugins/gbf-am/gbf-am-project.c:2487
+#: ../plugins/gbf-am/gbf-am-project.c:2696
+#: ../plugins/gbf-am/gbf-am-project.c:2905
+#: ../plugins/gbf-am/gbf-am-project.c:3055
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2345
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2423
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2815
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2963
+msgid "Group doesn't exist"
+msgstr "El grupo no existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2429
+#: ../plugins/gbf-am/gbf-am-project.c:2532
+#: ../plugins/gbf-am/gbf-am-project.c:2948
+#: ../plugins/gbf-am/gbf-am-project.c:3170
+#: ../plugins/gbf-am/gbf-am-project.c:3390
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2365
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2468
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2858
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3038
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3224
+msgid "Target doesn't exist"
+msgstr "El objetivo no existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2463
+#: ../plugins/gbf-am/gbf-am-project.c:2507
+#: ../plugins/gbf-am/gbf-am-project.c:2550
+#: ../plugins/gbf-am/gbf-am-project.c:2866
+#: ../plugins/gbf-am/gbf-am-project.c:2926
+#: ../plugins/gbf-am/gbf-am-project.c:3130
+#: ../plugins/gbf-am/gbf-am-project.c:3191
+#: ../plugins/gbf-am/gbf-am-project.c:3490
+#: ../plugins/gbf-am/gbf-am-project.c:3551
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2399
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2443
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2486
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2776
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2836
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2999
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3059
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3286
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3347
+msgid "Unable to update project"
+msgstr "No se pudo actualizar el proyecto"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2593
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2529
+msgid "Invalid or remote path (only local paths supported)"
+msgstr "Ruta no válida o remota (sólo se soportan rutas locales)"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2601
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2537
+msgid "Project doesn't exist or invalid path"
+msgstr "El proyecto no existe o ruta no válida"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2612
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2548
+msgid "Malformed project"
+msgstr "Proyecto deformado"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2809
+msgid "Please specify group name"
+msgstr "Especifique el nombre del grupo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2823
+msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
+msgstr ""
+"El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o «.»"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2832
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2742
+msgid "Parent group doesn't exist"
+msgstr "El grupo padre no existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2843
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2753
+msgid "Group already exists"
+msgstr "El grupo ya existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2853
+#: ../plugins/gbf-am/gbf-am-project.c:2880
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2763
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2790
+msgid "Group couldn't be created"
+msgstr "No se pudo crear el grupo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:2913
+msgid "Group couldn't be removed"
+msgstr "No se pudo eliminar el grupo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3063
+msgid "Please specify target name"
+msgstr "Especifique el nombre del objetivo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3077
+msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
+msgstr ""
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-» "
+"o «.»"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3086
+msgid "Shared library target name must be of the form 'libxxx.la'"
+msgstr ""
+"El nombre de la biblioteca compartida del objetivo debe ser de la forma "
+"«libxxx.la»"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3095
+msgid "Static library target name must be of the form 'libxxx.a'"
+msgstr ""
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3107
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2976
+msgid "Target already exists"
+msgstr "El objetivo ya existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3117
+msgid "General failure in target creation"
+msgstr "Fallo general al crear el objetivo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3145
+msgid "Newly created target could not be identified"
+msgstr "No se pudo identificar el objetivo recién creado"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3178
+msgid "Target couldn't be removed"
+msgstr "El objetivo no se ha podido eliminar"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3202
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3070
+msgid "Static Library"
+msgstr "Biblioteca estática"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3204
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3072
+msgid "Shared Library"
+msgstr "Biblioteca compartida"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3206
+msgid "Header Files"
+msgstr "Archivos de cabecera"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3208
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3074
+msgid "Man Documentation"
+msgstr "Documentación man"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3210
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3076
+msgid "Miscellaneous Data"
+msgstr "Datos misceláneos"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3214
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3080
+msgid "Script"
+msgstr "Script"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3216
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3082
+msgid "Info Documentation"
+msgstr "Documentación info"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3218
+msgid "Java Module"
+msgstr "Módulo Java"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3220
+msgid "Python Module"
+msgstr "Módulo Python"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3278
+#: ../plugins/gbf-am/gbf-am-project.c:3528
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3134
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3324
+msgid "Source doesn't exist"
+msgstr "El código fuente no existe"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3381
+msgid ""
+"Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+msgstr ""
+"El nombre de archivo de origen sólo puede contener caracteres alfanuméricos, "
+"«_», «-» o «.»"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3455
+msgid "Source file is already in given target"
+msgstr "El archivo fuente ya encuentra en el objetivo"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3472
+msgid "General failure in adding source file"
+msgstr "Fallo general al añadir el archivo de código"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3505
+msgid "Newly added source file could not be identified"
+msgstr "No se pudo identificar el archivo fuente recién creado"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3536
+msgid "Source couldn't be removed"
+msgstr "El código no pudo ser eliminado"
+
+#: ../plugins/gbf-am/gbf-am-project.c:3722
+#: ../plugins/gbf-am/gbf-am-project.c:3723
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3436
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3437
+msgid "Project directory"
+msgstr "Directorio del proyecto"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:338
+#: ../plugins/gbf-am/gbf-am-properties.c:390
+msgid "Enter new module"
+msgstr "Introduzca el módulo nuevo"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:426
+#: ../plugins/gbf-am/gbf-am-properties.c:914
+msgid "Module/Packages"
+msgstr "Módulo/paquetes"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:432
+#: ../plugins/gbf-am/gbf-am-properties.c:922
+msgid "Version"
+msgstr "Versión"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:518
+#, c-format
+msgid ""
+"Are you sure you want to remove module \"%s\" and all its associated "
+"packages?"
+msgstr ""
+"¿Seguro que quiere quitar el módulo «%s» y todos los paquetes asociados?"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:520
+#, c-format
+msgid "Are you sure you want to remove package \"%s\"?"
+msgstr "¿Seguro que quiere quitar el paquete «%s»?"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:576
+#: ../plugins/gbf-am/gbf-am-properties.c:658
+msgid "Enter new variable"
+msgstr "Introduzca la nueva variable"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:689
+#, c-format
+msgid "Are you sure you want to remove variable \"%s\"?"
+msgstr "¿Seguro que quiere quitar la variable «%s»?"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:838
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
+msgid "Project:"
+msgstr "Proyecto:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:841
+msgid "Package name:"
+msgstr "Nombre del paquete:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:844
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
+msgid "Version:"
+msgstr "Versión:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:847
+msgid "Url:"
+msgstr "URL:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1211
+msgid "Use"
+msgstr "Uso"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1303
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
+msgid "Group name:"
+msgstr "Nombre del grupo:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1306
+msgid "Advanced"
+msgstr "Avanzada"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1311
+#: ../plugins/gbf-am/gbf-am-properties.c:1401
+msgid "C compiler flags:"
+msgstr "Opciones del compilador de C:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1313
+msgid "C preprocessor flags:"
+msgstr "Opciones de preprocesado de C:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1315
+msgid "C++ compiler flags:"
+msgstr "Opciones del compilador de C++:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1317
+msgid "gcj compiler flags (ahead-of-time):"
+msgstr "Opciones del compilador gcj (antes de tiempo):"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1319
+msgid "Java compiler flags (just-in-time):"
+msgstr "Opciones del compilador de Java (en el momento):"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1321
+#: ../plugins/gbf-am/gbf-am-properties.c:1409
+msgid "Fortran compiler flags:"
+msgstr "Opciones del compilador de Fortran:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1324
+msgid "Includes (deprecated):"
+msgstr "Incluye (obsoleto):"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1335
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
+msgid "Install directories:"
+msgstr "Directorios de instalación:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1403
+msgid "C preprocessor flags"
+msgstr "Opciones de preprocesado de C"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1405
+msgid "C++ compiler flags"
+msgstr "Opciones del compilador de C++"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1407
+msgid "gcj compiler flags (ahead-of-time)"
+msgstr "Opciones del compilador gcj (antes de tiempo)"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1413
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
+msgid "Linker flags:"
+msgstr "Opciones del enlazador:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1419
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
+msgid "Libraries:"
+msgstr "Bibliotecas:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1425
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
+msgid "Dependencies:"
+msgstr "Dependencias:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1428
+msgid "Advanced options"
+msgstr "Opciones avanzadas"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1503
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
+msgid "Target name:"
+msgstr "Nombre del objetivo:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1512
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
+msgid "Group:"
+msgstr "Grupo:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1530
+#: ../plugins/gbf-am/gbf-am-properties.c:1546
+#: ../plugins/gbf-am/gbf-am-properties.c:1553
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
+msgid "Install directory:"
+msgstr "Directorio de instalación:"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1565
+msgid "Advanced..."
+msgstr "Avanzado…"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
+#: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
+msgid "Invalid GbfMkfileConfigValue type"
+msgstr "Tipo GbfMkfileConfigValue no válido"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2823
+msgid "Group coudn't be removed"
+msgstr "El grupo no se ha podido eliminar"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2986
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3013
+msgid "Target couldn't be created"
+msgstr "No se pudo crear el objetivo"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3046
+msgid "Target coudn't be removed"
+msgstr "No se pudo eliminar el objetivo"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3239
+msgid "Source file must be inside the project directory"
+msgstr "El archivo de código debe estar dentro del directorio del proyecto"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3251
+msgid "Source is already in target"
+msgstr "El código ya se encuentra en el objetivo"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3268
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+msgid "Source couldn't be added"
+msgstr "No se pudo añadir el código"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3332
+msgid "Source coudn't be removed"
+msgstr "No se pudo eliminar el código"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
+msgid "Includes:"
+msgstr "Inclusiones:"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
@@ -4749,7 +5184,7 @@ msgstr "_Abortar"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:121
 msgid "_Pull..."
-msgstr "Ca_rgar (pull)..."
+msgstr "Ca_rgar (pull)…"
 
 #. Action name
 #. Stock icon, if any
@@ -4761,7 +5196,7 @@ msgstr "Realizar «unstage» de archivos"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:137
 msgid "_Check out files..."
-msgstr "_Descargar (checkout) archivos..."
+msgstr "_Descargar (checkout) archivos…"
 
 #. Action name
 #. Stock icon, if any
@@ -4779,7 +5214,7 @@ msgstr "Crear serie de parches…"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
 msgid "_Reset tree..."
-msgstr "_Restablecer árbol..."
+msgstr "_Restablecer árbol…"
 
 #. Action name
 #. Stock icon, if any
@@ -4836,19 +5271,19 @@ msgstr "_Ignorar…"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
 msgid "_Create branch..."
-msgstr "_Crear rama..."
+msgstr "_Crear rama…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:258
 msgid "_Delete branch..."
-msgstr "_Borrar rama..."
+msgstr "_Borrar rama…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:266
 msgid "_Switch to another branch..."
-msgstr "Cambia_r a otra rama..."
+msgstr "Cambia_r a otra rama…"
 
 #. Action name
 #. Stock icon, if any
@@ -4866,13 +5301,13 @@ msgstr "Ramas _remotas"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:298
 msgid "_Delete..."
-msgstr "_Borrar..."
+msgstr "_Borrar…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
 msgid "_Create tag..."
-msgstr "_Crear etiqueta..."
+msgstr "_Crear etiqueta…"
 
 #. Action name
 #. Stock icon, if any
@@ -5509,7 +5944,6 @@ msgstr "Cerrar todas las solapas de mensajes"
 
 #: ../plugins/message-view/message-view.c:324
 #: ../plugins/message-view/message-view.c:358
-#: ../plugins/symbol-browser/an_symbol_view.c:171
 msgid "No message details"
 msgstr "Sin detalles de los mensajes"
 
@@ -5914,25 +6348,24 @@ msgstr "Mostrar funciones no llamadas"
 msgid "Use this profiling data file:"
 msgstr "Usar este archivo de perfilado de datos:"
 
-#: ../plugins/project-import/project-import.c:101
+#: ../plugins/project-import/project-import.c:109
 #, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
-"select a different directory, or try upgrading to a newer version of the "
-"Gnome Build Framework."
+"select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
 "(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna del marco de compilación de GNOME."
+"más moderna de Anjuta."
 
 #.
 #. * Now we can't apply
 #.
-#: ../plugins/project-import/project-import.c:122
+#: ../plugins/project-import/project-import.c:130
 msgid "Please, fix the configuration"
 msgstr "Arregle la configuración"
 
-#: ../plugins/project-import/project-import.c:129
+#: ../plugins/project-import/project-import.c:142
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -5943,35 +6376,35 @@ msgstr ""
 "Tipo de proyecto: %s\n"
 "Ruta del proyecto: %s\n"
 
-#: ../plugins/project-import/project-import.c:188
+#: ../plugins/project-import/project-import.c:202
 msgid "This assistant will import an existing project into Anjuta."
 msgstr "Este asistente importará en Anjuta un proyecto ya existente."
 
-#: ../plugins/project-import/project-import.c:193
+#: ../plugins/project-import/project-import.c:207
 msgid "Import Project"
 msgstr "Importar un proyecto"
 
-#: ../plugins/project-import/project-import.c:235
+#: ../plugins/project-import/project-import.c:249
 msgid "<b>Enter the project name:</b>"
 msgstr "<b>Introduzca el nombre del proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:255
+#: ../plugins/project-import/project-import.c:269
 msgid "<b>Enter the base path of your project:</b>"
 msgstr "<b>Introduzca la ruta base de su proyecto:</b>"
 
-#: ../plugins/project-import/project-import.c:260
+#: ../plugins/project-import/project-import.c:274
 msgid "Select project directory"
 msgstr "Seleccionar el directorio del proyecto"
 
-#: ../plugins/project-import/project-import.c:266
+#: ../plugins/project-import/project-import.c:280
 msgid "Project to Import"
 msgstr "Proyecto que importar"
 
-#: ../plugins/project-import/project-import.c:279
+#: ../plugins/project-import/project-import.c:293
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: ../plugins/project-import/project-import.c:420
+#: ../plugins/project-import/project-import.c:434
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -5980,12 +6413,12 @@ msgstr ""
 "plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
 "Anjuta está actualizada."
 
-#: ../plugins/project-import/project-import.c:443
+#: ../plugins/project-import/project-import.c:457
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/project-import.c:484
+#: ../plugins/project-import/project-import.c:498
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -5993,6 +6426,105 @@ msgid ""
 msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
 "de escritura al directorio del proyecto."
+
+#: ../plugins/project-manager/create_dialogs.glade.h:1
+msgid "Add Source"
+msgstr "Añadir fuente"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:2
+msgid "New Group"
+msgstr "Grupo nuevo"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:3
+msgid "New Target"
+msgstr "Objetivo nuevo"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:4
+msgid "Select the _target for the new source files:"
+msgstr "Seleccionar el _objetivo para los nuevos archivos de código:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:5
+msgid "Source files:"
+msgstr "Archivos de código:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:6
+msgid "Specify _where to create the group:"
+msgstr "Especificar _donde crear el grupo:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:7
+msgid "Specify _where to create the target:"
+msgstr "Especificar _donde crear el objetivo:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:8
+msgid "Target _name:"
+msgstr "_Nombre del objetivo:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:9
+msgid "Target _type:"
+msgstr "_Tipo de objetivo:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:10
+msgid "TargetTypes"
+msgstr "Tipos de objetivo"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:11
+msgid "_Group name:"
+msgstr "Nombre del _grupo:"
+
+#: ../plugins/project-manager/create_dialogs.glade.h:12
+msgid "_Select file to add..."
+msgstr "_Seleccionar un archivo para añadir…"
+
+#: ../plugins/project-manager/gbf-project-model.c:234
+#: ../plugins/project-manager/plugin.c:1295
+#: ../plugins/project-manager/plugin.c:1377
+#: ../plugins/project-manager/plugin.c:1550
+#: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
+msgid "Project"
+msgstr "Proyecto"
+
+#: ../plugins/project-manager/gbf-project-model.c:235
+msgid "GbfProject Object"
+msgstr "Objeto GbfProjec"
+
+#: ../plugins/project-manager/gbf-project-model.c:252
+msgid "No project loaded"
+msgstr "No se ha cargado ningún proyecto"
+
+#: ../plugins/project-manager/gbf-project-util.c:83
+msgid "Couldn't load glade file"
+msgstr "No se pudo cargar el archivo glade"
+
+#: ../plugins/project-manager/gbf-project-util.c:265
+#: ../plugins/project-manager/gbf-project-util.c:273
+msgid "Can not add group"
+msgstr "No se puede añadir el grupo"
+
+#: ../plugins/project-manager/gbf-project-util.c:274
+msgid "No parent group selected"
+msgstr "No ha seleccionado el grupo padre"
+
+#: ../plugins/project-manager/gbf-project-util.c:446
+#: ../plugins/project-manager/gbf-project-util.c:455
+msgid "Can not add target"
+msgstr "No se puede añadir el objetivo"
+
+#: ../plugins/project-manager/gbf-project-util.c:456
+msgid "No group selected"
+msgstr "No se ha seleccionado ningún grupo"
+
+#: ../plugins/project-manager/gbf-project-util.c:561
+msgid "Select sources..."
+msgstr "Seleccionar fuentes…"
+
+#: ../plugins/project-manager/gbf-project-util.c:798
+#: ../plugins/project-manager/gbf-project-util.c:805
+msgid "Can not add source files"
+msgstr "No se pueden añadir los archivos de código"
+
+#: ../plugins/project-manager/gbf-project-util.c:806
+msgid "No target has been selected"
+msgstr "No se ha seleccionado ningún objetivo"
 
 #: ../plugins/project-manager/plugin.c:422
 #: ../plugins/project-manager/plugin.c:823
@@ -6096,7 +6628,6 @@ msgid "_Properties"
 msgstr "_Propiedades"
 
 #: ../plugins/project-manager/plugin.c:828
-#: ../plugins/symbol-browser/plugin.c:312
 msgid "_Refresh"
 msgstr "_Refrescar"
 
@@ -6168,16 +6699,16 @@ msgstr "Qui_tar"
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1240
+#: ../plugins/project-manager/plugin.c:1254
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1248
+#: ../plugins/project-manager/plugin.c:1262
 msgid "Created project view..."
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1261
+#: ../plugins/project-manager/plugin.c:1275
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6186,33 +6717,26 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1281
-#: ../plugins/project-manager/plugin.c:1363
-#: ../plugins/project-manager/plugin.c:1536
-#: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
-msgid "Project"
-msgstr "Proyecto"
-
-#: ../plugins/project-manager/plugin.c:1451
+#: ../plugins/project-manager/plugin.c:1465
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1515
+#: ../plugins/project-manager/plugin.c:1529
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1523
+#: ../plugins/project-manager/plugin.c:1537
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2495
-msgid "Loaded Project... Initializing"
-msgstr "Proyecto cargado… Inicializando"
+#: ../plugins/project-manager/plugin.c:2536
+msgid "Initializing Project..."
+msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2498
-msgid "Loaded Project..."
-msgstr "Proyecto cargado…"
+#: ../plugins/project-manager/plugin.c:2539
+msgid "Project Loaded"
+msgstr "Proyecto cargado"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
@@ -6261,11 +6785,6 @@ msgstr ""
 "detalles acerca de la estructura inicial para la aplicación. Responda las "
 "preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
 "valores más tarde."
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
-msgid "Version:"
-msgstr "Versión:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
@@ -6406,8 +6925,6 @@ msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
 #: ../plugins/project-wizard/property.c:298
-#: ../plugins/symbol-browser/an_symbol_prefs.c:326
-#: ../plugins/symbol-browser/an_symbol_prefs.c:522
 msgid "Select directory"
 msgstr "Seleccionar directorio"
 
@@ -7152,64 +7669,48 @@ msgstr "Buscar objetivo"
 msgid "Setting"
 msgstr "Ajuste"
 
-#: ../plugins/search/plugin.c:192
+#: ../plugins/search/plugin.c:68
 msgid "_Find..."
 msgstr "_Buscar…"
 
-#: ../plugins/search/plugin.c:193
+#: ../plugins/search/plugin.c:69
 msgid "Search for a string or regular expression in the editor"
 msgstr "Buscar una cadena o expresión regular en el editor"
 
-#: ../plugins/search/plugin.c:195
+#: ../plugins/search/plugin.c:71
 msgid "Find _Next"
 msgstr "Buscar siguie_nte"
 
-#: ../plugins/search/plugin.c:196 ../plugins/search/plugin.c:200
+#: ../plugins/search/plugin.c:72 ../plugins/search/plugin.c:76
 msgid "Repeat the last Find command"
 msgstr "Repetir el último comando de búsqueda"
 
-#: ../plugins/search/plugin.c:198
+#: ../plugins/search/plugin.c:74
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../plugins/search/plugin.c:202
+#: ../plugins/search/plugin.c:78
 msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
-#: ../plugins/search/plugin.c:204
+#: ../plugins/search/plugin.c:80
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
-#: ../plugins/search/plugin.c:206 ../plugins/search/plugin.c:207
+#: ../plugins/search/plugin.c:82 ../plugins/search/plugin.c:83
 msgid "Search and Replace"
 msgstr "Buscar y reemplazar"
 
-#: ../plugins/search/plugin.c:209
+#: ../plugins/search/plugin.c:85
 msgid "Fin_d in Files..."
 msgstr "_Buscar en archivos…"
 
-#: ../plugins/search/plugin.c:210
+#: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
 msgstr "Buscar una cadena en múltiples archivos o directorios"
 
-#: ../plugins/search/plugin.c:213
-msgid "Ne_xt Occurrence"
-msgstr "_Siguiente coincidencia"
-
-#: ../plugins/search/plugin.c:214
-msgid "Find the next occurrence of current word"
-msgstr "Buscar la siguiente coincidencia de la palabra actual"
-
-#: ../plugins/search/plugin.c:217
-msgid "Pre_vious Occurrence"
-msgstr "Coincidencia _anterior"
-
-#: ../plugins/search/plugin.c:218
-msgid "Find the previous occurrence of current word"
-msgstr "Buscar la coincidencia anterior de la palabra actual"
-
-#: ../plugins/search/plugin.c:245
+#: ../plugins/search/plugin.c:102
 msgid "Searching..."
 msgstr "Buscando…"
 
@@ -7274,43 +7775,43 @@ msgstr "Reemplazar todas las coincidencias"
 msgid "Find: "
 msgstr "Buscar: "
 
-#: ../plugins/search/search-replace.c:492
+#: ../plugins/search/search-replace.c:486
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/search/search-replace.c:612
+#: ../plugins/search/search-replace.c:606
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:998
-#: ../plugins/search/search-replace.c:1678
+#: ../plugins/search/search-replace.c:1018
+#: ../plugins/search/search-replace.c:1698
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: ../plugins/search/search-replace.c:1037
+#: ../plugins/search/search-replace.c:1057
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
 "principio del documento?"
 
-#: ../plugins/search/search-replace.c:1057
+#: ../plugins/search/search-replace.c:1077
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1072
+#: ../plugins/search/search-replace.c:1092
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1085
+#: ../plugins/search/search-replace.c:1105
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1251
+#: ../plugins/search/search-replace.c:1271
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
@@ -7330,7 +7831,7 @@ msgid "Could not open %s: %s"
 msgstr "No se pudo abrir %s: %s"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:474
+#: ../plugins/sourceview/sourceview.c:473
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
@@ -7945,152 +8446,19 @@ msgstr "Faltan: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
 
-#: ../plugins/symbol-browser/anjuta-symbol-locals.c:60
-#: ../plugins/symbol-browser/an_symbol_view.c:568
-msgid "Symbol"
-msgstr "Símbolo"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:391
-msgid "Directories to scan"
-msgstr "Directorios que escrutar"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:431
-msgid "Please enter a name and at least one directory."
-msgstr "Seleccione un nombre y al menos un directorio."
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:531
-msgid "Anjuta tags files"
-msgstr "Archivos de etiquetas de Anjuta"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:666
-#, c-format
-msgid "Scanning package: %s"
-msgstr "Escaneando el paquete: %s"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:721
-msgid "Completed system tags generation"
-msgstr "Se completó la generación de etiquetas del sistema"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:756
-#: ../plugins/symbol-browser/an_symbol_prefs.c:850
-#: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:1
-msgid "Symbol Browser"
-msgstr "Examinador de símbolos"
-
-#: ../plugins/symbol-browser/an_symbol_prefs.c:775
-#: ../plugins/symbol-db/symbol-db-prefs.c:534
-msgid "API Tags"
-msgstr "Etiquetas del API"
-
-#: ../plugins/symbol-browser/an_symbol_view.c:205
-msgid "No file details"
-msgstr "Sin detalles de los archivos"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
-msgid "<b>Available API tags:</b>"
-msgstr "<b>Etiquetas del API disponibles:</b>"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
-msgid "<b>Create API tags:</b>"
-msgstr "<b>Crear etiquetas del API:</b>"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
-msgid "Add Directory"
-msgstr "Añadir directorio"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
-msgid "Add directories in the list to scan:"
-msgstr "Añadir directorios en la lista para escrutar:"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
-msgid "Create API tags"
-msgstr "Crear etiquetas del API"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
-msgid "Load API tags from project configuration"
-msgstr "Cargar las etiquetas de la API desde la configuración del proyecto"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
-msgid "Update Global Tags"
-msgstr "Actualizar etiquetas globales"
-
-#: ../plugins/symbol-browser/plugin.c:268
-msgid "Tag _Definition"
-msgstr "_Definición de etiqueta"
-
-#: ../plugins/symbol-browser/plugin.c:270
-#: ../plugins/symbol-browser/plugin.c:290
-msgid "Goto symbol definition"
-msgstr "Ir a definición del símbolo"
-
-#: ../plugins/symbol-browser/plugin.c:276
-msgid "Tag De_claration"
-msgstr "Declaración de _etiqueta"
-
-#: ../plugins/symbol-browser/plugin.c:278
-#: ../plugins/symbol-browser/plugin.c:298
-msgid "Goto symbol declaration"
-msgstr "Ir a declaración del símbolo"
-
-#: ../plugins/symbol-browser/plugin.c:288
-msgid "Goto _Definition"
-msgstr "_Definición goto"
-
-#: ../plugins/symbol-browser/plugin.c:296
-msgid "Goto De_claration"
-msgstr "_Declaración goto"
-
-#: ../plugins/symbol-browser/plugin.c:304
-msgid "_Find Usage"
-msgstr "_Buscar uso"
-
-#: ../plugins/symbol-browser/plugin.c:306
-msgid "Find usage of symbol in project"
-msgstr "Buscar uso del símbolo en el proyecto"
-
-#: ../plugins/symbol-browser/plugin.c:314
-msgid "Refresh symbol browser tree"
-msgstr "Refrescar el árbol del explorador de símbolos"
-
-#: ../plugins/symbol-browser/plugin.c:385
-msgid "Created symbols..."
-msgstr "Símbolos creados…"
-
-#. Local symbols of the file
-#: ../plugins/symbol-browser/plugin.c:927
-msgid "Local"
-msgstr "Local"
-
-#. Global project-wide symbols
-#: ../plugins/symbol-browser/plugin.c:947
-msgid "Global"
-msgstr "Global"
-
-#: ../plugins/symbol-browser/plugin.c:991
-msgid "Symbol browser actions"
-msgstr "Acciones del explorador de símbolos"
-
-#: ../plugins/symbol-browser/plugin.c:998
-msgid "Symbol browser popup actions"
-msgstr "Acciones emergentes el explorador de símbolos"
-
-#: ../plugins/symbol-browser/plugin.c:1005
-msgid "Symbol navigations"
-msgstr "Navegación de símbolos"
-
-#: ../plugins/symbol-browser/plugin.c:1014
-msgid "Symbols"
-msgstr "Símbolos"
-
-#: ../plugins/symbol-db/symbol-db-prefs.c:278
+#: ../plugins/symbol-db/symbol-db-prefs.c:272
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:425
-#: ../plugins/symbol-db/symbol-db-prefs.c:585
+#: ../plugins/symbol-db/symbol-db-prefs.c:419
+#: ../plugins/symbol-db/symbol-db-prefs.c:579
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:528
+msgid "API Tags"
+msgstr "Etiquetas del API"
 
 #: ../plugins/symbol-db/symbol-db-system.c:761
 msgid "Resuming glb scan."
@@ -8101,12 +8469,12 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Etiquetas de la API disponibles</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-msgid "Automatically scan project's packages."
-msgstr "Analizar automáticamente los paquetes del proyecto."
+msgid "Automatically scan project's packages"
+msgstr "Analizar automáticamente los paquetes del proyecto"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
-msgid "Automatically update symbols without saving file."
-msgstr "Actualizar automáticamente los símbolos sin guardar el archivo."
+msgid "Automatically update symbols without saving file"
+msgstr "Actualizar automáticamente los símbolos sin guardar el archivo"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
@@ -8117,8 +8485,8 @@ msgid "Ctags executable:"
 msgstr "Ctags ejecutables:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
-msgid "Parallel scan of project and global symbols."
-msgstr "Análisis paralelo de símbolos global y del proyecto."
+msgid "Parallel scan of project and global symbols"
+msgstr "Análisis paralelo de símbolos global y del proyecto"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -9339,10 +9707,6 @@ msgstr "Gestor de proyectos"
 msgid "Project Manager Plugin for Anjuta."
 msgstr "Complemento de gestor de proyectos para Anjuta."
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:2
-msgid "Symbol Browser Plugin for Anjuta."
-msgstr "Complemento examinador de símbolos para Anjuta."
-
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
 msgid "Symbol Database Plugin for Anjuta (unstable)."
 msgstr "Complemento de base de datos de símbolos para Anjuta (inestable)"
@@ -9389,8 +9753,144 @@ msgstr ""
 "Complemento para mantener el seguimiento de los múltiples lenguajes de "
 "programación"
 
-#~ msgid "Bookmar_k"
-#~ msgstr "_Marcar"
+#: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Backend de makefile"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:2
+msgid "Makefile backend for project manager"
+msgstr "Backend de makefile para el gestor de proyectos"
+
+#: ../plugins/gbf-am/gbf-am.plugin.in.h:1
+msgid "Autotools backend"
+msgstr "Backend de autotools"
+
+#: ../plugins/gbf-am/gbf-am.plugin.in.h:2
+msgid "Autotools backend for project manager"
+msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "gtk-apply"
+#~ msgstr "gtk-apply"
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-connect"
+#~ msgstr "gtk-connect"
+
+#~ msgid "Loaded Project... Initializing"
+#~ msgstr "Proyecto cargado… Inicializando"
+
+#~ msgid "Loaded Project..."
+#~ msgstr "Proyecto cargado…"
+
+#~ msgid "Ne_xt Occurrence"
+#~ msgstr "_Siguiente coincidencia"
+
+#~ msgid "Find the next occurrence of current word"
+#~ msgstr "Buscar la siguiente coincidencia de la palabra actual"
+
+#~ msgid "Pre_vious Occurrence"
+#~ msgstr "Coincidencia _anterior"
+
+#~ msgid "Find the previous occurrence of current word"
+#~ msgstr "Buscar la coincidencia anterior de la palabra actual"
+
+#~ msgid "Symbol"
+#~ msgstr "Símbolo"
+
+#~ msgid "Directories to scan"
+#~ msgstr "Directorios que escrutar"
+
+#~ msgid "Please enter a name and at least one directory."
+#~ msgstr "Seleccione un nombre y al menos un directorio."
+
+#~ msgid "Anjuta tags files"
+#~ msgstr "Archivos de etiquetas de Anjuta"
+
+#~ msgid "Scanning package: %s"
+#~ msgstr "Escaneando el paquete: %s"
+
+#~ msgid "Completed system tags generation"
+#~ msgstr "Se completó la generación de etiquetas del sistema"
+
+#~ msgid "Symbol Browser"
+#~ msgstr "Examinador de símbolos"
+
+#~ msgid "No file details"
+#~ msgstr "Sin detalles de los archivos"
+
+#~ msgid "<b>Available API tags:</b>"
+#~ msgstr "<b>Etiquetas del API disponibles:</b>"
+
+#~ msgid "<b>Create API tags:</b>"
+#~ msgstr "<b>Crear etiquetas del API:</b>"
+
+#~ msgid "Add Directory"
+#~ msgstr "Añadir directorio"
+
+#~ msgid "Add directories in the list to scan:"
+#~ msgstr "Añadir directorios en la lista para escrutar:"
+
+#~ msgid "Create API tags"
+#~ msgstr "Crear etiquetas del API"
+
+#~ msgid "Load API tags from project configuration"
+#~ msgstr "Cargar las etiquetas de la API desde la configuración del proyecto"
+
+#~ msgid "Update Global Tags"
+#~ msgstr "Actualizar etiquetas globales"
+
+#~ msgid "Tag _Definition"
+#~ msgstr "_Definición de etiqueta"
+
+#~ msgid "Goto symbol definition"
+#~ msgstr "Ir a definición del símbolo"
+
+#~ msgid "Tag De_claration"
+#~ msgstr "Declaración de _etiqueta"
+
+#~ msgid "Goto symbol declaration"
+#~ msgstr "Ir a declaración del símbolo"
+
+#~ msgid "Goto _Definition"
+#~ msgstr "_Definición goto"
+
+#~ msgid "Goto De_claration"
+#~ msgstr "_Declaración goto"
+
+#~ msgid "_Find Usage"
+#~ msgstr "_Buscar uso"
+
+#~ msgid "Find usage of symbol in project"
+#~ msgstr "Buscar uso del símbolo en el proyecto"
+
+#~ msgid "Refresh symbol browser tree"
+#~ msgstr "Refrescar el árbol del explorador de símbolos"
+
+#~ msgid "Created symbols..."
+#~ msgstr "Símbolos creados…"
+
+#~ msgid "Local"
+#~ msgstr "Local"
+
+#~ msgid "Global"
+#~ msgstr "Global"
+
+#~ msgid "Symbol browser actions"
+#~ msgstr "Acciones del explorador de símbolos"
+
+#~ msgid "Symbol browser popup actions"
+#~ msgstr "Acciones emergentes el explorador de símbolos"
+
+#~ msgid "Symbol navigations"
+#~ msgstr "Navegación de símbolos"
+
+#~ msgid "Symbols"
+#~ msgstr "Símbolos"
+
+#~ msgid "Symbol Browser Plugin for Anjuta."
+#~ msgstr "Complemento examinador de símbolos para Anjuta."
 
 #~ msgid "_Toggle Bookmark"
 #~ msgstr "Cam_biar marcador"
