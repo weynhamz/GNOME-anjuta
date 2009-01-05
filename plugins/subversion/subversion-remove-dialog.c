@@ -101,8 +101,8 @@ on_subversion_remove_response(GtkDialog* dialog, gint response,
 			}
 			
 			
-			remove_command = svn_remove_command_new ((gchar *) filename, log,
-													 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (force)));
+			remove_command = svn_remove_command_new_path ((gchar *) filename, log,
+														  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (force)));
 			
 			g_signal_connect (G_OBJECT (remove_command), "command-finished",
 							  G_CALLBACK (on_remove_command_finished),

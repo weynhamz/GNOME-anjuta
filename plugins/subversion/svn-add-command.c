@@ -29,7 +29,7 @@
 
 struct _SvnAddCommandPriv
 {
-	gchar *path;
+	GList *paths;
 	gboolean force;
 	gboolean recursive;
 };
@@ -49,7 +49,7 @@ svn_add_command_finalize (GObject *object)
 	
 	self = SVN_ADD_COMMAND (object);
 	
-	g_free (self->priv->path);
+	svn_command_free_path_list (self->priv->paths);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (svn_add_command_parent_class)->finalize (object);
@@ -60,21 +60,28 @@ svn_add_command_run (AnjutaCommand *command)
 {
 	SvnAddCommand *self;
 	SvnCommand *svn_command;
+	GList *current_path;
 	svn_error_t *error;
 	
 	self = SVN_ADD_COMMAND (command);
 	svn_command = SVN_COMMAND (command);
+	current_path = self->priv->paths;
 
-	error = svn_client_add2 (self->priv->path,  
-							 self->priv->force, 
-							 self->priv->recursive, 
-							 svn_command_get_client_context (svn_command), 
-							 svn_command_get_pool (svn_command));
-
-	if (error)
+	while (current_path)
 	{
-		svn_command_set_error (svn_command, error);
-		return 1;
+		error = svn_client_add2 (current_path->data,  
+								 self->priv->force, 
+								 self->priv->recursive, 
+								 svn_command_get_client_context (svn_command), 
+								 svn_command_get_pool (svn_command));
+		
+		if (error)
+		{
+			svn_command_set_error (svn_command, error);
+			return 1;
+		}
+		
+		current_path = g_list_next (current_path);
 	}
 	
 	return 0;
@@ -92,17 +99,41 @@ svn_add_command_class_init (SvnAddCommandClass *klass)
 
 
 SvnAddCommand *
-svn_add_command_new (const gchar *path, gboolean force, gboolean recursive)
+svn_add_command_new_path (const gchar *path, gboolean force, gboolean recursive)
 {
 	SvnAddCommand *self;
 	
 	self = g_object_new (SVN_TYPE_ADD_COMMAND, NULL);
-	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
-														path);
+	self->priv->paths = g_list_append (self->priv->paths,  
+									   svn_command_make_canonical_path (SVN_COMMAND (self),
+																		path));
 	self->priv->force = force;
 	self->priv->recursive = recursive;
 	
 	return self;
+}
+
+SvnAddCommand *
+svn_add_command_new_list (GList *paths, gboolean force, gboolean recursive)
+{
+	SvnAddCommand *self;
+	GList *current_path;
+	
+	self = g_object_new (SVN_TYPE_ADD_COMMAND, NULL);
+	current_path = paths;
+	
+	while (current_path)
+	{
+		self->priv->paths = g_list_append (self->priv->paths,  
+										   svn_command_make_canonical_path (SVN_COMMAND (self),
+																			current_path->data));
+		current_path = g_list_next (current_path);
+	}
+	
+	self->priv->force = force;
+	self->priv->recursive = recursive;
+	
+	return self;	
 }
 
 void

@@ -65,9 +65,9 @@ on_subversion_add_response(GtkDialog* dialog, gint response, SubversionData* dat
 				break;
 			}
 			
-			add_command = svn_add_command_new ((gchar *) filename,
-											   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(force)),
-											   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(recurse)));
+			add_command = svn_add_command_new_path ((gchar *) filename,
+													gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(force)),
+													gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(recurse)));
 			
 			g_signal_connect (G_OBJECT (add_command), "command-finished",
 							  G_CALLBACK (on_add_command_finished),

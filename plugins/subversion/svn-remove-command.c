@@ -29,7 +29,7 @@
 
 struct _SvnRemoveCommandPriv
 {
-	gchar *path;
+	GList *paths;
 	gchar *log_message;
 	gboolean force;
 };
@@ -73,7 +73,7 @@ svn_remove_command_finalize (GObject *object)
 	
 	self = SVN_REMOVE_COMMAND (object);
 	
-	g_free (self->priv->path);
+	svn_command_free_path_list (self->priv->paths);
 	g_free (self->priv->log_message);
 	g_free (self->priv);
 
@@ -85,21 +85,28 @@ svn_remove_command_run (AnjutaCommand *command)
 {
 	SvnRemoveCommand *self;
 	SvnCommand *svn_command;
-	apr_array_header_t *path_array;
+	apr_array_header_t *remove_paths;
+	GList *current_path;
 	svn_error_t *error;
 	svn_client_commit_info_t* commit_info;
 	gchar *revision_message;
 	
 	self = SVN_REMOVE_COMMAND (command);
 	svn_command = SVN_COMMAND (command);
-	path_array = apr_array_make (svn_command_get_pool (SVN_COMMAND (command)), 
-													   1, sizeof (char *));
+	remove_paths = apr_array_make (svn_command_get_pool (SVN_COMMAND (command)), 
+								   g_list_length (self->priv->paths), 
+								   sizeof (char *));
+	current_path = self->priv->paths;
 								 
-	/* I just copied this so don't blame me... */
-	(*((const char **) apr_array_push (path_array))) = self->priv->path;
+	while (current_path)
+	{
+		/* I just copied this so don't blame me... */
+		(*((const char **) apr_array_push (remove_paths))) = current_path->data;
+		current_path = g_list_next (current_path);
+	}
 	
 	error = svn_client_delete (&commit_info, 
-							   path_array, 
+							   remove_paths, 
 							   self->priv->force,
 							   svn_command_get_client_context (svn_command), 
 							   svn_command_get_pool (svn_command));
@@ -134,13 +141,39 @@ svn_remove_command_class_init (SvnRemoveCommandClass *klass)
 }
 
 SvnRemoveCommand *
-svn_remove_command_new (const gchar *path, const gchar *log_message, gboolean force)
+svn_remove_command_new_path (const gchar *path, const gchar *log_message, 
+							 gboolean force)
 {
 	SvnRemoveCommand *self;
 	
 	self = g_object_new (SVN_TYPE_REMOVE_COMMAND, NULL);
-	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
-														path);
+	self->priv->paths = g_list_append (self->priv->paths,  
+									   svn_command_make_canonical_path (SVN_COMMAND (self),
+																		path));
+	self->priv->log_message = g_strdup (log_message);
+	self->priv->force = force;
+	
+	return self;
+}
+
+SvnRemoveCommand *
+svn_remove_command_new_list (GList *paths, const gchar *log_message, 
+							 gboolean force)
+{
+	SvnRemoveCommand *self;
+	GList *current_path;
+	
+	self = g_object_new (SVN_TYPE_REMOVE_COMMAND, NULL);
+	current_path = paths;
+	
+	while (current_path)
+	{
+		self->priv->paths = g_list_append (self->priv->paths,  
+										   svn_command_make_canonical_path (SVN_COMMAND (self),
+																			current_path->data));
+		current_path = g_list_next (current_path);
+	}
+	
 	self->priv->log_message = g_strdup (log_message);
 	self->priv->force = force;
 	
@@ -151,10 +184,4 @@ void
 svn_remove_command_destroy (SvnRemoveCommand *self)
 {
 	g_object_unref (self);
-}
-
-gchar *
-svn_remove_command_get_path (SvnRemoveCommand *self)
-{
-	return g_strdup (self->priv->path);
 }

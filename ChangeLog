@@ -1,3 +1,22 @@
+2009-01-04  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-add-dialog.c
+	(on_subversion_add_response):
+	* plugins/subversion/subversion-remove-dialog.c
+	(on_subversion_remove_response):
+	* plugins/subversion/svn-add-command.c (svn_add_command_finalize),
+	(svn_add_command_run), (svn_add_command_new_path),
+	(svn_add_command_new_list):
+	* plugins/subversion/svn-add-command.h:
+	* plugins/subversion/svn-remove-command.c
+	(svn_remove_command_finalize), (svn_remove_command_run),
+	(svn_remove_command_new_path), (svn_remove_command_new_list),
+	(svn_remove_command_destroy):
+	* plugins/subversion/svn-remove-command.h:
+	
+	Extend Subversion Add/Remove commands to take both individual paths and 
+	path lists.
+
 2009-01-04 Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c
