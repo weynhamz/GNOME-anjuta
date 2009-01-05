@@ -626,26 +626,13 @@ static void
 write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 				   MatchInfo *mi)
 {
-	gchar *match_line;
+	gchar *match_line = file_match_line_from_pos(fb, mi->pos);
+	int line = mi->line;
 	char buf[BUFSIZ];
-	gchar *tmp;
 	
-	match_line = file_match_line_from_pos(fb, mi->pos);
-
-	if (SE_BUFFER == se->type)
-	{
-		/* DEBUG_PRINT ("FBPATH  %s\n", fb->path); */
-		const gchar* filename = ianjuta_document_get_filename(IANJUTA_DOCUMENT(se->te), NULL);
-		tmp = g_strrstr(fb->path, "/");
-		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
-		snprintf(buf, BUFSIZ, "%s%s:%d:%s\n", tmp, filename,
-		         mi->line, match_line);
-		g_free(tmp);
-	}
-	else /* if (SE_FILE == se->type) */
-	{
-		snprintf(buf, BUFSIZ, "%s:%d:%s\n", se->path, mi->line + 1, match_line);
-	}
+	if (se->type == SE_FILE)
+		++line;
+    snprintf(buf, BUFSIZ, "%s:%d:%s\n", fb->path, line, match_line);
 	g_free(match_line);
 	ianjuta_message_view_buffer_append (view, buf, NULL);
 }

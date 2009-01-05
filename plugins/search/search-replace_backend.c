@@ -120,7 +120,6 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 {
 	FileBuffer *fb;
 	GFile* file;
-	gchar* path;
 	
 	g_return_val_if_fail(te, NULL);
 	fb = g_new0(FileBuffer, 1);
@@ -128,7 +127,7 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 	fb->te = te;
 	
 	file = ianjuta_file_get_file(IANJUTA_FILE(te), NULL);
-	path = g_file_get_path (file);
+	fb->path = g_file_get_path (file);
 	fb->uri = g_file_get_uri (file);
 	fb->len = ianjuta_editor_get_length(te, NULL);
 	fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);

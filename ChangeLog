@@ -1,11 +1,18 @@
-2008-01-05  Adam Dingle  <adam@medovina.org>
+2009-01-05  Adam Dingle  <adam@medovina.org>
+ 
+ 	* plugins/search/search-replace.c (write_message_pane):
+ 	* plugins/search/search-replace_backend.c
+ 	(file_buffer_new_from_te):
+ 	Fixed #565885 – Search is broken for a single file with output to find pane 
+
+2009-01-05  Adam Dingle  <adam@medovina.org>
  
  	* plugins/build-basic-autotools/plugin.c:
  	* plugins/debug-manager/plugin.c:
  	* src/anjuta-actions.h:
  	Fixed #565714 – use F11 shortcut for Full Screen 
 
-2008-01-04  Jens Georg  <mail@jensge.org>
+2009-01-04  Jens Georg  <mail@jensge.org>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
 
@@ -16,7 +23,7 @@
 	(run_dialog_init):
 	* plugins/run-program/plugin.c:
 
-2008-01-04  Jens Georg  <mail@jensge.org>
+2009-01-04  Jens Georg  <mail@jensge.org>
  
  	* plugins/subversion/plugin.c: 
  	#511589 – Anjuta uses GNOME-VFS 
