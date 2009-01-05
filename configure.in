@@ -1021,8 +1021,8 @@ manuals/anjuta-faqs/Makefile
 manuals/anjuta-build-tutorial/Makefile
 mime/Makefile
 ])
-chmod +x ${ac_top_build_dir}plugins/gbf_am/gbf-am-parse
-chmod +x ${ac_top_build_dir}plugins/gbf_mkfile/gbf-mkfile-parse
+chmod +x ${ac_top_build_dir}plugins/gbf-am/gbf-am-parse
+chmod +x ${ac_top_build_dir}plugins/gbf-mkfile/gbf-mkfile-parse
 echo " "
 echo "-------------------------------------------------------------------"
 echo "Conditionally built plugins:"
