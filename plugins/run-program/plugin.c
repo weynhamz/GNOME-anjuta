@@ -33,8 +33,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 #include <signal.h>
 
 /*---------------------------------------------------------------------------*/

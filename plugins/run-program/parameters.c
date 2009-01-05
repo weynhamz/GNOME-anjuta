@@ -31,8 +31,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 /*---------------------------------------------------------------------------*/
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.ui"
@@ -103,7 +101,7 @@ on_add_uri_in_model (gpointer data, gpointer user_data)
 	GtkTreeIter iter;
 	gchar *local;
 	
-	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	local = anjuta_util_get_local_path_from_uri ((const char *)data);
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, local, -1);
 	g_free (local);
@@ -115,7 +113,7 @@ on_add_directory_in_chooser (gpointer data, gpointer user_data)
 	GtkFileChooser* chooser = (GtkFileChooser *)user_data;
 	gchar *local;
 
-	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	local = anjuta_util_get_local_path_from_uri ((const char *)data);
 	gtk_file_chooser_add_shortcut_folder (chooser, (const gchar *)local, NULL);
 	g_free (local);
 }
@@ -255,21 +253,12 @@ save_dialog_data (RunDialog* dlg)
 	filename = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (dlg->target)->child));
 	if ((filename != NULL) && (*filename != '\0'))
 	{
-		if (!g_path_is_absolute (filename))
-		{
-			gchar *abs_filename;
-			gchar *current_dir;
-			
-			current_dir = g_get_current_dir ();
-			abs_filename = g_build_filename (current_dir, filename, NULL);
-			g_free (current_dir);
-			uri = gnome_vfs_get_uri_from_local_path (abs_filename);
-			g_free (abs_filename);
-		}
-		else
-		{
-			uri = gnome_vfs_get_uri_from_local_path (filename);
-		}
+		GFile *file;
+
+		file = g_file_new_for_path (filename);
+		uri = g_file_get_uri (file);
+		g_free (file);
+
 		if (uri != NULL)
 		{
 			find = g_list_find_custom (plugin->recent_target, uri, (GCompareFunc)strcmp);
@@ -700,7 +689,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	{
 		gchar *local;
 		
-		local = gnome_vfs_get_local_path_from_uri ((const char *)plugin->recent_target->data);
+		local = anjuta_util_get_local_path_from_uri ((const char *)plugin->recent_target->data);
 		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), local);
 		g_free (local);
 	}

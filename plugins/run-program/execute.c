@@ -30,8 +30,6 @@
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 #include <signal.h>
 
 /* Constants
@@ -65,7 +63,7 @@ get_local_executable (GtkWindow *parent, const gchar *uri)
 
 	if (uri != NULL)
 	{
-		local = gnome_vfs_get_local_path_from_uri (uri);
+		local = anjuta_util_get_local_path_from_uri (uri);
 		if (local == NULL)
 		{
 			/* Only local program are supported */
@@ -102,7 +100,7 @@ get_local_directory (GtkWindow *parent, const gchar *uri)
 
 	if (uri != NULL)
 	{
-		local = gnome_vfs_get_local_path_from_uri (uri);
+		local = anjuta_util_get_local_path_from_uri (uri);
 		if (local == NULL)
 		{
 			/* Only local directory are supported */

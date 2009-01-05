@@ -18,9 +18,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs.h>
-
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
@@ -211,18 +208,13 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 {
 	AnjutaUI *ui;
 	GtkAction *subversion_menu_action;
-	gchar *uri;
-	GnomeVFSURI *subversion_uri = NULL;
-	gchar *subversion_text_uri = NULL;
-	gchar *subversion_dir;
 	gchar *filename;
-	GnomeVFSDirectoryHandle* handle;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
 	GFile* file;
+	GFile* svn_dir;
+	GFileType type;
+	GFileEnumerator *en;
 	
 	file = G_FILE(g_value_get_object (value));
-	uri = g_file_get_uri (file);
 	filename = g_file_get_path (file);
 	g_return_if_fail (filename != NULL);
 
@@ -238,43 +230,40 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	
 	/* If a directory is selected we check if it contains a "Subversion" directory,
 	if it is a file we check if it's directory contains a "Subversion" directory */
-	result = gnome_vfs_get_file_info(uri, &info, 
-		GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result == GNOME_VFS_OK)
+	type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
+	if (type == G_FILE_TYPE_DIRECTORY)
 	{
-		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-		{
-			/* Is "Subversion" a valid svn directory in a local checkout,
-			 * If yes, we should check for both .svn and Subversion.
-			 */
-			/* subversion_dir = g_build_filename (uri, "Subversion", NULL); */
-			subversion_dir = g_build_filename (uri, ".svn", NULL);
-		}
-		
-		else
-		{
-			subversion_uri = gnome_vfs_uri_new (uri);
-			subversion_text_uri = gnome_vfs_uri_extract_dirname(subversion_uri);
-			/* subversion_dir = g_strconcat(subversion_text_uri, "/Subversion", NULL); */
-			subversion_dir = g_build_filename(subversion_text_uri, ".svn", NULL);
-			g_free(subversion_text_uri);
-			gnome_vfs_uri_unref(subversion_uri);
-		}	
+		svn_dir = g_file_get_child (file, ".svn");
 	}
 	else
-		return; /* Strange... */
-	if (gnome_vfs_directory_open(&handle, subversion_dir, 
-		GNOME_VFS_FILE_INFO_DEFAULT) == GNOME_VFS_OK) 
 	{
-		
+		GFile *parent;
+
+		parent = g_file_get_parent (file);
+		if (parent != NULL)
+		{
+			svn_dir = g_file_get_child (parent, ".svn");
+			g_object_unref (G_OBJECT (parent));
+		}
+		else
+		{
+			svn_dir = g_file_new_for_path("/.svn");
+		}
+	}
+
+	en = g_file_enumerate_children (svn_dir, "", G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+	if (en != NULL)
+	{
+		g_object_unref (en);
 		g_object_set (G_OBJECT (subversion_menu_action), "sensitive", TRUE, NULL);
 	}
 	else
 	{
 		g_object_set (G_OBJECT (subversion_menu_action), "sensitive", FALSE, NULL);
 	}
-	g_free (subversion_dir);
-	g_free (uri);
+
+	g_object_unref (svn_dir);
 }
 
 static void
@@ -328,8 +317,8 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
-		bb_plugin->project_root_dir =
-			gnome_vfs_get_local_path_from_uri (root_uri);
+		bb_plugin->project_root_dir = 
+			anjuta_util_get_local_path_from_uri (root_uri);
 		if (bb_plugin->project_root_dir)
 		{
 			// update_project_ui (bb_plugin);

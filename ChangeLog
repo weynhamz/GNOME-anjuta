@@ -1,3 +1,19 @@
+2008-01-04  Jens Georg  <mail@jensge.org>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/run-program/execute.c (get_local_executable),
+	(get_local_directory):
+	* plugins/run-program/parameters.c (on_add_uri_in_model),
+	(on_add_directory_in_chooser), (save_dialog_data),
+	(run_dialog_init):
+	* plugins/run-program/plugin.c:
+
+2008-01-04  Jens Georg  <mail@jensge.org>
+ 
+ 	* plugins/subversion/plugin.c: 
+ 	#511589 – Anjuta uses GNOME-VFS 
+
 2009-01-04  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/subversion-add-dialog.c
