@@ -68,7 +68,7 @@ on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 		return;
 	}
 	
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pi)->shell, NULL);
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pi->plugin)->shell, NULL);
 	descs = anjuta_plugin_manager_query (plugin_manager,
 										 "Anjuta Plugin",
 										 "Interfaces",

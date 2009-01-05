@@ -1,3 +1,9 @@
+2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-import/project-import.c:
+	Import Project is not working due to the patch moving gnome-build
+	into Anjuta
+
 2.25.4:
 
 2009-01-05  Johannes Schmid <jhs@gnome.org>
