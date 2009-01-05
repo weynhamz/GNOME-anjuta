@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-12-23 09:39+0000\n"
-"PO-Revision-Date: 2009-01-04 17:03+0100\n"
+"PO-Revision-Date: 2009-01-05 16:21+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,6 @@ msgid "Introduction"
 msgstr "Introducción"
 
 #: C/anjuta-manual.xml:4(para)
-#, fuzzy
 msgid ""
 "<application>Anjuta</application> is a versatile Integrated Development "
 "Environment (IDE) for the GNOME desktop. It features a number of advanced "
@@ -145,7 +144,7 @@ msgstr ""
 "facilitar la programación que incluyen gestión de proyectos, asistentes de "
 "aplicación, un depurador interactivo integrado, un diseñador de IU Glade "
 "integrado, una ayuda API de devhelp integrada, un perfilador de memoria "
-"valgrind integrado, un perfilador de rendimiento grpof integrado, un "
+"Valgrind integrado, un perfilador de rendimiento grpof integrado, un "
 "generador de clases, un potente editor de código fuente, búsqueda de fuentes "
 "y mucho más."
 
@@ -4080,7 +4079,6 @@ msgid "Adding or Setting Breakpoints"
 msgstr "Añadir o establecer puntos de parada"
 
 #: C/anjuta-manual.xml:382(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> or "
@@ -4092,20 +4090,19 @@ msgstr ""
 "guisubmenu><guimenuitem>Añadir punto de parada…</guimenuitem></menuchoice> o "
 "<menuchoice><guimenuitem>Añadir punto de parada…</guimenuitem></menuchoice> "
 "en el menú emergente de la lista de puntos de parada para abrir el diálogo "
-"añadir nuevo punto de parada."
+"<interface>Añadir punto de parada</interface>."
 
 #: C/anjuta-manual.xml:390(title) C/anjuta-manual.xml:392(screeninfo)
 msgid "Breakpoint add dialog"
 msgstr "Diálogo de adición de punto de parada"
 
 #: C/anjuta-manual.xml:405(para)
-#, fuzzy
 msgid ""
 "Enter the location at which to set the breakpoint. It can be specified in "
 "any of the following formats:"
 msgstr ""
 "Introduzca la ubicación en la que quiere establecer el punto de parada. Se "
-"debe especificar en uno de los siguientes formatos:"
+"puede especificar en uno de los siguientes formatos:"
 
 #: C/anjuta-manual.xml:411(para)
 msgid "File_name:Line_number"
@@ -4144,7 +4141,6 @@ msgstr ""
 "emphasis>."
 
 #: C/anjuta-manual.xml:432(para)
-#, fuzzy
 msgid ""
 "The <emphasis>Condition</emphasis> parameter displays a associated "
 "expression which should evaluate to a Boolean value — that is, the "
@@ -4152,14 +4148,13 @@ msgid ""
 "the final evaluation value is not a Boolean value, then it will be "
 "appropriately type cast to a Boolean."
 msgstr ""
-"El parámetro <emphasis>condición</emphasis> muestra una expresión asociada "
+"El parámetro <emphasis>Condición</emphasis> muestra una expresión asociada "
 "que se debería evaluar con un valor booleano; esto es, la evaluación de la "
 "expresión debe resultar en «TRUE(1)» o «FALSE(0)». Si la evaluación final no "
 "es un valor booleano, entonces se hará un cambio de tipo («typecast») a "
 "booleano."
 
 #: C/anjuta-manual.xml:439(para)
-#, fuzzy
 msgid ""
 "Every time the breakpoint is encountered during your program's execution, "
 "the break condition will be evaluated. The debugger will break the execution "
@@ -4172,15 +4167,14 @@ msgstr ""
 "ejecución como si no hubiese habido un punto de parada."
 
 #: C/anjuta-manual.xml:445(para)
-#, fuzzy
 msgid ""
 "The default value, if you leave this field blank, of <emphasis>Condition</"
 "emphasis> is TRUE. The debugger will always break the execution at the "
 "breakpoint location."
 msgstr ""
-"El valor predeterminado, si dejó el campo vacío, de la <emphasis>Condición "
-"de parada</emphasis> es siempre TRUE. El depurador parará la ejecución en la "
-"posición del punto de parada."
+"El valor predeterminado, si deja el campo vacío, de la <emphasis>Condición</"
+"emphasis> es siempre TRUE. El depurador parará la ejecución en la posición "
+"del punto de parada."
 
 #: C/anjuta-manual.xml:452(term)
 msgid "Pass Count"
@@ -4208,25 +4202,23 @@ msgstr ""
 "emphasis> llegue a cero."
 
 #: C/anjuta-manual.xml:464(para)
-#, fuzzy
 msgid ""
 "The default value, if you leave this field blank, of the <emphasis>Pass "
 "count</emphasis> is zero. The breakpoint will be considered when it is first "
 "encountered."
 msgstr ""
-"El valor predeterminado, si dejó el campo vacío, del <emphasis>Conteo de "
+"El valor predeterminado, si deja el campo vacío, del <emphasis>Conteo de "
 "pasadas</emphasis> es cero. El punto de parada se considerará cuando se "
 "encuentre por primera vez."
 
 #: C/anjuta-manual.xml:397(para)
-#, fuzzy
 msgid ""
 "Enter the location and, optionally, the break condition and the pass count; "
 "then click <guibutton>OK</guibutton> to set the breakpoint. <placeholder-1/>"
 msgstr ""
-"Debe introducir la ubicación y opcionalmente, la condición de parada y el "
-"conteo de pasadas, después pulse <guibutton>Aceptar</guibutton> para "
-"establecer el punto de parada. <placeholder-1/>"
+"Introduzca la ubicación y opcionalmente, la condición de parada y el conteo "
+"de pasadas, después pulse <guibutton>Aceptar</guibutton> para establecer el "
+"punto de parada. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:472(para)
 #, fuzzy
@@ -4364,9 +4356,8 @@ msgid "Expressions"
 msgstr "Expresiones"
 
 #: C/anjuta-manual.xml:547(title)
-#, fuzzy
 msgid "Listing local variables"
-msgstr "Listar una variable local"
+msgstr "Listar las variables locales"
 
 #: C/anjuta-manual.xml:548(para)
 #, fuzzy
@@ -4404,13 +4395,12 @@ msgstr ""
 "ver: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:569(para)
-#, fuzzy
 msgid ""
 "The value of a local variable can be modified by selecting it and clicking "
 "in the <guilabel>Value</guilabel> column."
 msgstr ""
 "El valor de una variable local se puede modificar seleccionándola y pulsando "
-"en la columna valor."
+"en la columna <guilabel>Valor</guilabel>."
 
 #: C/anjuta-manual.xml:574(para)
 #, fuzzy
@@ -4507,9 +4497,8 @@ msgstr ""
 "crear la vigilancia de la expresión cada vez que el programa se pare."
 
 #: C/anjuta-manual.xml:624(title)
-#, fuzzy
 msgid "Removing a watched expression"
-msgstr "Listar las expresiones vigiladas"
+msgstr "Eliminar una expresión vigilada"
 
 #: C/anjuta-manual.xml:625(para)
 #, fuzzy
@@ -4524,14 +4513,13 @@ msgstr ""
 "ratón y elija el elemento del menú <guimenuitem>Eliminar</guimenuitem>."
 
 #: C/anjuta-manual.xml:630(para)
-#, fuzzy
 msgid ""
 "All watches can be removed by choosing <guimenuitem>Remove All</guimenuitem> "
 "in the context menu of the <interface>Watches window</interface>."
 msgstr ""
-"Se puede quitar toda vigilancia eligiendo <guimenuitem>Eliminar todo</"
-"guimenuitem> en el menú emergente de la <interface>ventana de vigilancia de "
-"expresiones</interface>."
+"Se pueden quitar todas las vigilancias eligiendo <guimenuitem>Eliminar todo</"
+"guimenuitem> en el menú contextual de la <interface>ventana de vigilancia</"
+"interface>."
 
 #: C/anjuta-manual.xml:637(title)
 msgid "Evaluating expressions"
@@ -4557,23 +4545,21 @@ msgstr ""
 "guibutton> en la <interface>barra de herramientas de depuración</interface>."
 
 #: C/anjuta-manual.xml:647(para)
-#, fuzzy
 msgid ""
 "A window will appear showing the evaluation of the expression highlighted in "
 "the editor. You can evaluate a new expression by clicking on the "
 "<guilabel>name</guilabel> column and entering the new one."
 msgstr ""
 "Aparecerá una ventana mostrando la evaluación de la expresión resaltada en "
-"el editor. Puede evaluar una nueva expresión pulsando en la columna nombre e "
-"introduciendo la nueva expresión."
+"el editor. Puede evaluar una nueva expresión pulsando en la columna "
+"<guilabel>nombre</guilabel> e introduciendo la nueva expresión."
 
 #: C/anjuta-manual.xml:653(para)
-#, fuzzy
 msgid ""
 "You can add the expression to the list of watched expressions directly by "
 "clicking on the <guibutton>Add</guibutton> button."
 msgstr ""
-"La expresión se puede añadir directamente en la lista de expresiones para "
+"Puede añadir la expresión directamente en la lista de expresiones para "
 "vigilar pulsando el botón <guibutton>Añadir</guibutton>."
 
 #: C/anjuta-manual.xml:660(title)
@@ -4596,12 +4582,11 @@ msgstr ""
 "consejo."
 
 #: C/anjuta-manual.xml:667(para)
-#, fuzzy
 msgid ""
 "This capability is currently working only for simple variables, not for "
 "structures or arrays."
 msgstr ""
-"Actualmente sólo funciona para una variable simple, no para estructuras o "
+"Actualmente sólo funciona para variables simples, no para estructuras o "
 "vectores («array»)."
 
 #: C/anjuta-manual.xml:676(title)
@@ -4753,14 +4738,13 @@ msgstr ""
 "establecer el hilo."
 
 #: C/anjuta-manual.xml:758(para)
-#, fuzzy
 msgid ""
 "Changing the thread changes the value of CPU registers and the current stack "
 "frame, so the <interface>Locals window</interface> changes too."
 msgstr ""
 "Al cambiar el hilo también cambiará el valor de los registros de la CPU y el "
-"marco actual de la pila, de tal forma que la <interface>ventana de lista de "
-"locales</interface> también cambiará."
+"marco actual de la pila, de tal forma que la <interface>ventana de locales</"
+"interface> también cambiará."
 
 #: C/anjuta-manual.xml:767(title)
 msgid "CPU"
@@ -5193,7 +5177,6 @@ msgid "File Manager"
 msgstr "Gestor de archivos"
 
 #: C/anjuta-manual.xml:26(para)
-#, fuzzy
 msgid ""
 "<emphasis>Root directory if no project is open</emphasis> is the path where "
 "the root of the file manager points if no project is currently open."
@@ -5265,7 +5248,6 @@ msgid "Tools Examples"
 msgstr "Ejemplos de herramientas"
 
 #: C/anjuta-manual.xml:32(para)
-#, fuzzy
 msgid ""
 "This is a simple example how to use the tools plugin to integrate the GNOME "
 "ChangeLog generation script."
@@ -5293,7 +5275,6 @@ msgstr ""
 "ulink> para conocer todos los contribuidores de Anjuta."
 
 #: C/anjuta-manual.xml:9(para)
-#, fuzzy
 msgid ""
 "For more information on <application>Anjuta</application>, please visit the "
 "project website at <ulink type=\"http\" url=\"http://anjuta.org/\">http://"
@@ -5304,12 +5285,11 @@ msgstr ""
 "Para obtener más información acerca de <application>Anjuta</application>, "
 "visite la página web del proyecto en <ulink type=\"http\" url=\"http://"
 "anjuta.org/\">http://anjuta.org</ulink>. Los informes de error se deben "
-"rellenar usando Bug Tracker en la página web de desarrollo del proyecto en "
-"<ulink type=\"http\" url=\"http://www.sourceforge.net/projects/anjuta\"> "
-"http://www.sourceforge.net/projects/anjuta</ulink>."
+"rellenar usando la página de seguimiento de errores en el sitio web de "
+"desarrollo del proyecto en <ulink type=\"http\" url=\"http://www.sourceforge."
+"net/projects/anjuta\"> http://www.sourceforge.net/projects/anjuta</ulink>."
 
 #: C/anjuta-manual.xml:17(para)
-#, fuzzy
 msgid ""
 "This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
 "and Johannes Schmid. Please send all comments and suggestions regarding this "
@@ -5317,10 +5297,11 @@ msgid ""
 "email>. Comments may also be submitted via the project trackers at "
 "SourceForge."
 msgstr ""
-"Naba Kumar y Andy Piper escribieron este manual. Envíe cualquier comentario "
-"y sugerencia acerca de este manual a la lista de desarrollo de Anjuta "
-"<email>anjuta-devel@list.sourceforge.net</email>. También se pueden enviar "
-"comentarios a traes de la página del proyecto en SourceForge."
+"Naba Kumar, Andy Piper, Biswapesh Chattopadhyay y Johannes Schmid "
+"escribieron este manual. Envíe cualquier comentario y sugerencia acerca de "
+"este manual a la lista de desarrollo de Anjuta <email>anjuta-devel@list."
+"sourceforge.net</email>. También se pueden enviar comentarios a traes de la "
+"página del proyecto en SourceForge."
 
 #: C/anjuta-manual.xml:2(title)
 msgid "License"
@@ -5375,7 +5356,7 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
-msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008"
+msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007-2009"
 
 #~ msgid "2006"
 #~ msgstr "2006"
