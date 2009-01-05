@@ -32,6 +32,7 @@ plugin_LTLIBRARIES = \
 
 libgbf_mkfile_la_SOURCES = \
 	plugin.c \
+	plugin.h \
 	gbf-mkfile-project.c \
 	gbf-mkfile-project.h \
 	gbf-mkfile-config.c \

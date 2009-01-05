@@ -58,7 +58,8 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(project_plugin_DATA) \
 	$(project_ui_DATA) \
-	$(project_pixmaps_DATA)
+	$(project_pixmaps_DATA) \
+	$(project_glade_DATA)
 
 DISTCLEANFILES = \
 	$(project_plugin_DATA) \

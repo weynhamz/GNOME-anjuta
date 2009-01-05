@@ -1,3 +1,117 @@
+Anjuta 2.25.4 (5 January 2009) -- Johannes Schmid
+
+Translations updates:
+====================
+es, fr, sv, fi, he, ru, pt_BR, pl
+
+New:
+- Symbol-db plugin now default and working, old ctags code and symbol-browser
+removed
+- Starter plugin for fast access to common actions
+- Remote debugging support using gdbserver
+- New bookmark interface
+- gnome-build merge into anjuta
+
+Updates:
+- Single toolbar without bonobo
+- Devhelp plugin uses webkit now
+- Lots of HIG fixes
+- Improved searching
+- Scintilla updated to 1.77
+
+Special thanks to (in no particular order, before the huge list of bugs appears...)
+- Sébastien Granjoux (for general bug fixing, merging gnome-build and being totally awesome)
+- Massimo Cora' (for doing the great work on the symbol-db plugin)
+- Naba Kumar (for giving lots of input on design decisions)
+- James Liggett (for the work on the version control plugins)
+- Adam Dingle (for many patches and lots of QA in bugzilla)
+- Jens Georg (for the GNOME-VFS porting)
+- Carl-Anton Ingmarsson (for various great patches)
+- Ignacio Casal Quinteiro (for updating devhelp to webkit and the new starter plugin)
+- All translators and people I possibly missed here
+
+Bugs fixed:
+#565885 – Search is broken for a single file with output to find pane 
+#565714 – use F11 shortcut for Full Screen
+#511589 – Anjuta uses GNOME-VFS (partly)
+#305515 – Bookmarks are not remembered across sessions
+#566284 – search-view should match more
+#566225 – activating selected row in search view does nothing
+#564302 – "Loaded Project..." is confusing
+#566129 – crash when project opening and file not found
+#565773 – symbol scanning is very slow
+#529181 – refresh dialog pops over all windows
+#563988 - Zoom factor is not updated correctly in scintilla
+#565769 – symbol-db blocks anjuta when files are removed
+#565890 – cleanup thread handling by using a GThreadPool
+#565823 – symbol-db hardcodes /usr/include for header files
+#545127 – When searching down can't see below search result
+#565278 – remove Next Occurrence and Previous Occurrence commands
+#565014 – sort Find in Files output by filename
+#564891 – Crash when closing editor window
+#565691 – no Goto Definition command in symbol-db
+#565701 – Anjuta hangs if ctags not installed
+#565578 – Next Document command does not cycle back to first document
+#565650 – Port anjuta-session from gnome-config to GKeyfile
+#565706 – trailing period in symbol-db labels
+#565700 – Enter key inserts garbage into Symbols / Search box
+#565492 – remove usage of std i/o
+#560857 – Remove deprecated GLib symbols in project wizard
+#565381 – Anjuta manual needs copy editing
+#564987 – Save All, Close All should appear in Documents menu
+#565002 – Redo shortcut should be Ctrl+Shift+Z
+#565016 – Previous History and Next History should have shortcuts
+#563585 – Find in Files is extremely slow
+#565189 – anjuta fails to build due to IAnjutaBookmark not being
+	removed from documentation
+#564673 – I cannot activate sourceview plugin over scintilla
+#563889 – GNOME Goal: Clean up GLib and GTK+ includes
+#563980 - displayed some more info on search tab
+#309664 - Some file types impossible to open In Anjuta
+#563490 – Select Code Block command selects nothing in GtkSourceView editor
+#559806 – Anjuta crashes when closing unsaved file
+#563988 – don't display zoom factor when using GtkSourceView editor
+#564295 - minor English fix
+#563500 – inconsistent case sensitivity defaults
+#564377: Avoid opening an empty buffer when file does not exist
+#562808 – symbol-db crashes with latest libgda
+#560857: Remove use of g_mem_chunk in tools plugin
+#513156: Get rid of libgnome(ui) (partial)
+#563692: added a toolbar with build and execute buttons
+#563696 – garbage pixels appear in build output
+#563685 crash when trying to create a GObject
+#563753 default project directory is "/" until I set it explicitly
+#563586 Crash if project TODO.tasks is not readable
+#559951: Class Generator cannot add new class
+#563530: "Do not show binary files" should add ".pyc" and ".pyo"
+#552081: Dependent plugins are not added in the preference dialog
+#560284: Crash when deleting a folder outside Anjuta
+#562623: Project creation fails if path uses a tilde
+#562754: Create corresponding header file does not work
+#548873: File->Close project menu remains active after closing
+	a project
+#562750 – The view should be showed when you search something.
+#558910: libanjuta has several warnings
+#560311 – Update devhelp plugin to use webkit version
+#557767 – Open file in file tree view on press Enter
+#312660 – Too many click to set "terminus" font
+#561369: Debug->add source path menu item doesn't work
+#558788 – Improving debugging
+#559800 - Missing debugger menu
+#558315 – Ambiguous message
+#544583 Add support for gnome applet projects
+#556147 Provide valid default directory for project
+#552996 - New file dialog misses BSD licence
+#545668 - new file are not added correctly to the project
+#545668 – file's icon not correctly updated on tabs-right-click
+#556053 – closing file tabs disable 'save button'
+#556053 – closing file tabs disable 'save button'
+#523609 – PATCH: Using a deprecated func in about.c
+#554337 Allow to change build directory to project directory
+#554337 Set uri instead of current_folder_uri
+#554684 – Cursor column number is not updated when typing text
+#554337 could not find glade file while executing a program
+
 Anjuta 2.24.0 (22 September 2008) -- Johannes Schmid
 
 Translations updates:

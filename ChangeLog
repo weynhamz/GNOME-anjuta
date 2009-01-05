@@ -1,3 +1,15 @@
+2.25.4:
+
+2009-01-05  Johannes Schmid <jhs@gnome.org>
+
+	* NEWS: Updated
+	* configure.in: Bumped version to 2.25.4
+	* plugins/project-manager/Makefile.am:
+	* plugins/gbf-am/Makefile.am:
+	* plugins/gbf-mkfile/Makefile.am:
+	* plugins/starter/Makefile.am:
+	Fixed distcheck
+
 2009-01-05  Adam Dingle  <adam@medovina.org>
  
  	* plugins/search/search-replace.c (write_message_pane):
@@ -22,6 +34,7 @@
 	(on_add_directory_in_chooser), (save_dialog_data),
 	(run_dialog_init):
 	* plugins/run-program/plugin.c:
+	#511589 – Anjuta uses GNOME-VFS
 
 2009-01-04  Jens Georg  <mail@jensge.org>
  

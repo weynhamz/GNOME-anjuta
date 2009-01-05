@@ -32,6 +32,7 @@ plugin_LTLIBRARIES = \
 
 libgbf_am_la_SOURCES = \
 	plugin.c \
+	plugin.h \
 	gbf-am-project.c \
 	gbf-am-project.h \
 	gbf-am-config.c \
@@ -60,7 +61,8 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(plugin_DATA) \
 	$(plugin_ui_DATA) \
-	$(plugin_pixmaps_DATA)
+	$(plugin_pixmaps_DATA) \
+	$(plugin_glade_DATA)
 
 DISTCLEANFILES = \
 	$(plugin_DATA) \
