@@ -1,3 +1,11 @@
+2009-01-05  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-system.c
+	(sdb_system_files_visit_dir), (prepare_files_to_be_scanned):
+	#511589 – Anjuta uses GNOME-VFS 
+
 2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* configure.in:

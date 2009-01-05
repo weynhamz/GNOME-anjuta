@@ -31,7 +31,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <string.h>
 
 struct _SymbolDBSystemPriv
@@ -331,45 +330,40 @@ on_pkg_config_output (AnjutaLauncher * launcher,
 }
 
 static GList **
-sdb_system_files_visit_dir (GList **files_list, const gchar* uri)
+sdb_system_files_visit_dir (GList **files_list, GFile *file)
 {
+	GFileEnumerator *enumerator;
 	
-	GList *files_in_curr_dir = NULL;
-	
-	if (gnome_vfs_directory_list_load (&files_in_curr_dir, uri,
-								   GNOME_VFS_FILE_INFO_GET_MIME_TYPE) == GNOME_VFS_OK) 
+	if ((enumerator = g_file_enumerate_children (file, "standard::name,standard::type",
+												G_FILE_QUERY_INFO_NONE, NULL, NULL)))
 	{
-		GList *node;
-		node = files_in_curr_dir;
-		do {
-			GnomeVFSFileInfo* info;
-						
-			info = node->data;
+		GFileInfo *info;
+		
+		info = g_file_enumerator_next_file (enumerator, NULL, NULL);
+		while (info)
+		{
+			GFileType type;
+			GFile *child_file;
 			
-			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) 
-			{				
-				if (g_strcmp0 (info->name, ".") == 0 ||
-					g_strcmp0 (info->name, "..") == 0)
-					continue;
-
-				gchar *tmp = g_strdup_printf ("%s/%s", uri, info->name);
-				
-				/* recurse */
-				files_list = sdb_system_files_visit_dir (files_list, tmp);
-				
-				g_free (tmp);
-			}
-			else 
+			type = g_file_info_get_file_type (info);
+			child_file = g_file_resolve_relative_path (file, g_file_info_get_name (info));
+			
+			if (type == G_FILE_TYPE_DIRECTORY)
 			{
-				gchar *local_path;
-				gchar *tmp = g_strdup_printf ("%s/%s", 
-									uri, info->name);
-			
-				local_path = gnome_vfs_get_local_path_from_uri (tmp);
-				*files_list = g_list_prepend (*files_list, local_path);
-				g_free (tmp);
+				/* recurse */
+				files_list = sdb_system_files_visit_dir (files_list, child_file);
+				
+				g_object_unref (child_file);
 			}
-		} while ((node = node->next) != NULL);		
+			else
+				*files_list = g_list_prepend (*files_list, child_file);
+			
+			g_object_unref (info);
+			
+			info = g_file_enumerator_next_file (enumerator, NULL, NULL);
+		}
+		
+		g_object_unref (enumerator);
 	}	 
 	
 	return files_list;
@@ -389,13 +383,14 @@ prepare_files_to_be_scanned (SymbolDBSystem *sdbs,
 	
 	do {
 		GList *files_tmp_list = NULL;
-		gchar *uri;
+		GFile *file;
 		
-		uri = gnome_vfs_get_uri_from_local_path (node->data);
+		
+		file = g_file_new_for_path ((char *)node->data);
 		
 		/* files_tmp_list needs to be freed */
-		sdb_system_files_visit_dir (&files_tmp_list, uri);
-		g_free (uri);
+		sdb_system_files_visit_dir (&files_tmp_list, file);
+		g_object_unref (file);
 		
 		if (files_tmp_list != NULL) 
 		{			
@@ -405,29 +400,36 @@ prepare_files_to_be_scanned (SymbolDBSystem *sdbs,
 			GList *tmp_node;
 			tmp_node = files_tmp_list;
 			do {
-				const gchar* file_mime;
-				IAnjutaLanguageId lang_id;
-				const gchar* lang;
-				file_mime = gnome_vfs_get_mime_type_for_name (tmp_node->data);
-		
-				lang_id = ianjuta_language_get_from_mime_type (priv->lang_manager, file_mime, 
-													   NULL);
-		
-				/* No supported language... */
-				if (!lang_id)
+				GFileInfo *info;
+				
+				if ((info = g_file_query_info ((GFile *)tmp_node->data, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+											  G_FILE_QUERY_INFO_NONE, NULL, NULL)))
 				{
-					continue;
+					IAnjutaLanguageId lang_id;
+					const char *lang;
+					
+					lang_id = ianjuta_language_get_from_mime_type (priv->lang_manager,
+																   g_file_info_get_content_type (info), 
+																   NULL);
+					
+					g_object_unref (info);
+					
+					/* No supported language... */
+					if (!lang_id)
+					{
+						continue;
+					}
+					
+					lang = ianjuta_language_get_name (priv->lang_manager, lang_id, NULL);				
+					
+					g_ptr_array_add (OUT_languages_array, g_strdup (lang));				
+					g_ptr_array_add (OUT_files_to_scan_array, 
+									 g_file_get_path ((GFile *)tmp_node->data));
 				}
-			
-				lang = ianjuta_language_get_name (priv->lang_manager, lang_id, NULL);				
-		
-				g_ptr_array_add (OUT_languages_array, g_strdup (lang));				
-				g_ptr_array_add (OUT_files_to_scan_array, 
-								 g_strdup (tmp_node->data));
 			} while ((tmp_node = tmp_node->next) != NULL);		
 			
 			/* free the tmp files list */
-			g_list_foreach (files_tmp_list, (GFunc)g_free, NULL);
+			g_list_foreach (files_tmp_list, (GFunc)g_object_unref, NULL);
 			g_list_free (files_tmp_list);
 		}
 	} while ((node = node->next) != NULL);
