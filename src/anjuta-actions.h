@@ -44,7 +44,7 @@ static GtkActionEntry menu_entries_view[] = {
 
 static GtkToggleActionEntry menu_entries_toggle_view[] = {
   { "ActionViewFullscreen", GTK_STOCK_FULLSCREEN,
-    N_("_Full Screen"), NULL,
+    N_("_Full Screen"), "F11",
     N_("Toggle fullscreen mode"),
 	G_CALLBACK (on_fullscreen_toggle)},
   { "ActionViewLockLayout", NULL,

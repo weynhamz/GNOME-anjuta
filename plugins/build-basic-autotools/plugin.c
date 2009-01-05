@@ -2020,7 +2020,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildBuildProject", GTK_STOCK_CONVERT,
-		N_("_Build Project"), "<shift>F11",
+		N_("_Build Project"), "<shift>F7",
 		N_("Build whole project"),
 		G_CALLBACK (on_build_project)
 	},
@@ -2050,7 +2050,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildBuildModule", ANJUTA_STOCK_BUILD,
-		N_("_Build Module"), "F11",
+		N_("_Build Module"), "F7",
 		N_("Build module associated with current file"),
 		G_CALLBACK (on_build_module)
 	},

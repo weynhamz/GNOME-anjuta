@@ -979,7 +979,7 @@ static GtkActionEntry actions_stopped[] =
 		"ActionDebuggerStepOut",
 		"debugger-step-out",
 		N_("Step _Out"),                    
-		"F7",                              
+		"<shift>F5",                              
 		N_("Single step out of the function"), 
 		G_CALLBACK (on_step_out_action_activate) 
 	},

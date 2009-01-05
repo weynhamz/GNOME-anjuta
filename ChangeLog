@@ -1,3 +1,10 @@
+2008-01-05  Adam Dingle  <adam@medovina.org>
+ 
+ 	* plugins/build-basic-autotools/plugin.c:
+ 	* plugins/debug-manager/plugin.c:
+ 	* src/anjuta-actions.h:
+ 	Fixed #565714 – use F11 shortcut for Full Screen 
+
 2008-01-04  Jens Georg  <mail@jensge.org>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
