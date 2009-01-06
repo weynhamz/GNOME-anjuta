@@ -257,7 +257,7 @@ save_dialog_data (RunDialog* dlg)
 
 		file = g_file_new_for_path (filename);
 		uri = g_file_get_uri (file);
-		g_free (file);
+		g_object_unref (file);
 
 		if (uri != NULL)
 		{

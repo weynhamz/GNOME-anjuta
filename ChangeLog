@@ -1,3 +1,10 @@
+2009-01-06  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/run-program/parameters.c (save_dialog_data):
+	Fixed #566715 – invalid free in run-program/parameters.c
+
 2009-01-06  Jens Georg  <mail@jensge.org>
 
 	* plugins/cvs-plugin/cvs-interface.c: 
