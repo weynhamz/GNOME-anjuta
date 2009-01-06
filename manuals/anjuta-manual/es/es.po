@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-12-23 09:39+0000\n"
-"PO-Revision-Date: 2009-01-05 21:44+0100\n"
+"PO-Revision-Date: 2009-01-06 11:42+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,6 @@ msgstr ""
 "una interfaz de configuración de los atajos de teclado."
 
 #: C/anjuta-manual.xml:50(para)
-#, fuzzy
 msgid ""
 "Please report any problems with <application>Anjuta</application> - this "
 "will help to improve the software, as well as helping the open source "
@@ -214,7 +213,7 @@ msgid ""
 msgstr ""
 "Por favor, informe de cualquier problema con <application>Anjuta</"
 "application>: esto ayudará a mejorar el software así como ayuda a la "
-"comunidad código abierto («Open Source»)."
+"comunidad código abierto."
 
 #: C/anjuta-manual.xml:2(title)
 msgid "Getting Familiar with Anjuta"
@@ -261,7 +260,6 @@ msgstr ""
 "rápidas útiles."
 
 #: C/anjuta-manual.xml:38(para)
-#, fuzzy
 msgid ""
 "<emphasis>Switch Editor Page:</emphasis><keycombo><keycap>Ctrl</"
 "keycap><keycap>Tab</keycap></keycombo> (forward) and <keycombo><keycap>Ctrl</"
@@ -272,16 +270,17 @@ msgid ""
 "shortcut keys assigned. In that case, you will need to reconfigure them (not "
 "in Anjuta, because they are fixed) if you want to use these shortcuts."
 msgstr ""
-"<emphasis>Página del editor de selección:</emphasis> Ctrl+Tab (adelante) y "
-"Ctrl+Mayús+Tab (atrás). Las páginas también se pueden seleccionar pulsando "
-"con el botón derecho del ratón en las solapas de notas y seleccionando una "
-"solapa del editor (útil cuando no se pueden ver a la vez todas las solapas "
-"del editor). Algunas configuraciones del escritorio pueden haber asignado "
-"teclas de acceso rápido. En ese caso, deberá reconfigurarlas (no en Anjuta, "
-"porque son fijas) si quiere disponer de esas combinaciones de teclas."
+"<emphasis>Página del editor de selección:</emphasis> <keycombo><keycap>Ctrl</"
+"keycap><keycap>Tab</keycap></keycombo> (adelante) y <keycombo><keycap>Ctrl</"
+"keycap><keycap>Mayús</keycap><keycap>Tab</keycap></keycombo> (atrás). "
+"También puede cambiar las páginas  pulsando con el botón derecho del ratón "
+"en las solapas de notas y seleccionando una solapa del editor (útil cuando "
+"no se pueden ver a la vez todas las solapas del editor). Algunas "
+"configuraciones del escritorio pueden haber asignado teclas de acceso "
+"rápido. En ese caso, deberá reconfigurarlas (no en Anjuta, porque son fijas) "
+"si quiere disponer de esas combinaciones de teclas."
 
 #: C/anjuta-manual.xml:49(para)
-#, fuzzy
 msgid ""
 "<emphasis>Context Help:</emphasis><keycombo><keycap>Shift</"
 "keycap><keycap>F1</keycap></keycombo>. Place the cursor on the word (for "
@@ -292,17 +291,17 @@ msgid ""
 "application> website. You will also have to install the related "
 "<application>Devhelp</application> books."
 msgstr ""
-"<emphasis>Ayuda contextual:</emphasis> Mayús+F1; mantenga el cursor sobre "
-"una palabra (por ejemplo, el nombre de la función) para la que quiere "
-"obtener la ayuda de la API y pulse el atajo. La ayuda contextual sólo "
-"funciona si tiene <emphasis>DevHelp</emphasis> instalado. Si no tiene "
-"instalado <application>DevHelp</application>, el menú de ayuda contextual y "
-"la barra de botones estarán inactivas. Puede obtenerlo de la página web de "
-"<application>DevHelp</application>. También tendrá que instalar los libros "
-"relacionados con<application>DevHelp</application>."
+"<emphasis>Ayuda contextual:</emphasis> <keycombo><keycap>Mayús</"
+"keycap><keycap>F1</keycap></keycombo>. Sitúe el cursor sobre una palabra "
+"(por ejemplo, el nombre de la función) para la que quiere obtener la ayuda "
+"de la API y pulse este atajo. La ayuda contextual sólo funciona si tiene "
+"<emphasis>Devhelp</emphasis> instalado. Si no tiene instalado "
+"<application>Devhelp</application>, el menú de ayuda contextual y la barra "
+"de botones estarán inactivas. Puede obtenerlo de la página web de "
+"<application>Devhelp</application>. También tendrá que instalar los libros "
+"relacionados con<application>Devhelp</application>."
 
 #: C/anjuta-manual.xml:60(para)
-#, fuzzy
 msgid ""
 "<emphasis>Autocomplete:</emphasis><keycombo><keycap>Ctrl</"
 "keycap><keycap>Enter</keycap></keycombo>. Type this shortcut with the cursor "
@@ -310,13 +309,13 @@ msgid ""
 "remaining part will appear. Scroll and select the right word from the list "
 "if you find one."
 msgstr ""
-"<emphasis>Autocompletar:</emphasis> Ctrl+Intro; pulse la combinación de "
-"teclas con el cursor ubicado al final de una palabra incompleta y se "
-"mostrará una lista de palabras que coincidan con la parte restante. Desplace "
-"la lista y seleccione la palabra correcta de la lista, si encuentra una."
+"<emphasis>Autocompletar:</emphasis> <keycombo><keycap>Ctrl</"
+"keycap><keycap>Intro</keycap></keycombo>. Pulse la combinación de teclas con "
+"el cursor ubicado al final de una palabra incompleta y se mostrará una lista "
+"de palabras que coincidan con la parte restante. Desplace la lista y "
+"seleccione la palabra correcta de la lista, si encuentra una."
 
 #: C/anjuta-manual.xml:68(para)
-#, fuzzy
 msgid ""
 "<emphasis>More shortcuts:</emphasis> Look for the shortcut keys displayed on "
 "the right side of menu item labels. Shortcuts can also be changed as "
@@ -331,7 +330,6 @@ msgid "Customize shortcuts"
 msgstr "Personalizar los atajos de teclado"
 
 #: C/anjuta-manual.xml:76(para)
-#, fuzzy
 msgid ""
 "You can change the default shortcuts by choosing "
 "<menuchoice><guisubmenu>Edit</guisubmenu><guimenuitem>Preferences</"
@@ -468,7 +466,6 @@ msgstr ""
 "mensaje."
 
 #: C/anjuta-manual.xml:152(para)
-#, fuzzy
 msgid ""
 "For example, when you compile a file which contains errors, some red "
 "messages will appear showing what the problems are, and where they occur. "
@@ -481,13 +478,13 @@ msgstr ""
 "que contiene el error."
 
 #: C/anjuta-manual.xml:160(para)
-#, fuzzy
 msgid ""
 "The <interface>Terminal window</interface> is a terminal emulator where you "
 "can type commands just like in the GNOME Terminal application."
 msgstr ""
 "La <interface>Ventana del terminal</interface> es una emulación de un "
-"terminal donde puede ejecutar comandos igual que en gnome-terminal."
+"terminal donde puede ejecutar comandos igual que en la aplicación Terminal "
+"de GNOME."
 
 #: C/anjuta-manual.xml:168(title)
 msgid "Session management"
@@ -514,12 +511,10 @@ msgid "File Operations"
 msgstr "Operaciones con archivos"
 
 #: C/anjuta-manual.xml:6(title)
-#, fuzzy
 msgid "Creating a new file and inserting text"
 msgstr "Crear un archivo nuevo e insertar texto"
 
 #: C/anjuta-manual.xml:8(title)
-#, fuzzy
 msgid "Creating a New File"
 msgstr "Crear un archivo nuevo"
 
