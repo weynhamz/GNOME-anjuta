@@ -1,3 +1,9 @@
+2009-01-06  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/subversion/Makefile.am:
+	Removed GNOME_VFS_LIBS. #511589 – Anjuta uses GNOME-VFS
+
 2009-01-06  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
