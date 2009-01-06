@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-12-23 09:39+0000\n"
-"PO-Revision-Date: 2009-01-06 11:42+0100\n"
+"POT-Creation-Date: 2009-01-06 10:43+0000\n"
+"PO-Revision-Date: 2009-01-06 13:23+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -262,20 +262,21 @@ msgstr ""
 #: C/anjuta-manual.xml:38(para)
 msgid ""
 "<emphasis>Switch Editor Page:</emphasis><keycombo><keycap>Ctrl</"
-"keycap><keycap>Tab</keycap></keycombo> (forward) and <keycombo><keycap>Ctrl</"
-"keycap><keycap>Shift</keycap><keycap>Tab</keycap></keycombo> (backward). You "
-"can also switch pages by right-clicking on the notebook tabs and selecting a "
-"filename from the pop-up menu (useful when all the tabs in the editor are "
-"not visible at once). Some desktop configurations may already have these "
-"shortcut keys assigned. In that case, you will need to reconfigure them (not "
-"in Anjuta, because they are fixed) if you want to use these shortcuts."
+"keycap><keycap>Alt</keycap><keycap>Page Up</keycap></keycombo> (forward) and "
+"<keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Page Down</"
+"keycap></keycombo> (backward). You can also switch pages by right-clicking "
+"on the notebook tabs and selecting a filename from the pop-up menu (useful "
+"when all the tabs in the editor are not visible at once). Some desktop "
+"configurations may already have these shortcut keys assigned. In that case, "
+"you will need to reconfigure them (not in Anjuta, because they are fixed) if "
+"you want to use these shortcuts."
 msgstr ""
 "<emphasis>Página del editor de selección:</emphasis> <keycombo><keycap>Ctrl</"
 "keycap><keycap>Tab</keycap></keycombo> (adelante) y <keycombo><keycap>Ctrl</"
 "keycap><keycap>Mayús</keycap><keycap>Tab</keycap></keycombo> (atrás). "
-"También puede cambiar las páginas  pulsando con el botón derecho del ratón "
-"en las solapas de notas y seleccionando una solapa del editor (útil cuando "
-"no se pueden ver a la vez todas las solapas del editor). Algunas "
+"También puede seleccionar las páginas  pulsando con el botón derecho del "
+"ratón en las solapas de notas y seleccionando una solapa del editor (útil "
+"cuando no se pueden ver a la vez todas las solapas del editor). Algunas "
 "configuraciones del escritorio pueden haber asignado teclas de acceso "
 "rápido. En ese caso, deberá reconfigurarlas (no en Anjuta, porque son fijas) "
 "si quiere disponer de esas combinaciones de teclas."
@@ -346,18 +347,16 @@ msgid "Main Window"
 msgstr "Ventana principal"
 
 #: C/anjuta-manual.xml:88(para)
-#, fuzzy
 msgid ""
 "The main window contains several view windows which can be rearranged by "
 "dragging on their title bars. They can also be minimized by clicking on the "
 "minimize buttons on the left of title bars."
 msgstr ""
-"En la ventana principal hay varias vistas que se pueden reordenar soltando "
-"sus barras de título. También se pueden minimizar pulsando en los botones de "
-"minimizar en la parte izquierda de las barras de título."
+"La ventana principal contiene varias vistas que se pueden reordenar "
+"arrastrando sus barras de título. También se pueden minimizar pulsando en "
+"los botones de minimizar en la parte izquierda de las barras de título."
 
 #: C/anjuta-manual.xml:97(para)
-#, fuzzy
 msgid ""
 "The <interface>Documents window</interface> will have one document active at "
 "a time (if there are any files opened). All file commands will apply to this "
@@ -367,31 +366,28 @@ msgid ""
 "have a lot of files opened, but not all of them are visible in the page tab "
 "area."
 msgstr ""
-"La <interface>ventana de documentos</interface> tendrá un documento activo "
+"La <interface>Ventana de documentos</interface> tendrá un documento activo "
 "cada vez (si hay algún archivo abierto). Todos los comandos del archivo se "
-"aplican en este documento. Puede cambiar a cualquier página pulsando en la "
-"solapa de la página. Puede hacer lo mismo pulsando con el botón derecho del "
-"ratón en las solapas de la página y escogiendo el documento del menú "
-"emergente que aparecerá. Esto es especialmente útil cuando tiene muchos "
-"archivos abiertos pero no todos son visibles en el área de las solapas de la "
-"página."
+"aplican en este documento. Puede cambiar a cualquier página pulsando en su "
+"solapa. Puede hacer lo mismo pulsando con el botón derecho del ratón en las "
+"solapas de la página y eligiendo el documento del menú emergente que "
+"aparecerá. Esto es especialmente útil cuando tiene muchos archivos abiertos "
+"pero no todos son visibles en el área de las solapas de la página."
 
 #: C/anjuta-manual.xml:108(para)
-#, fuzzy
 msgid ""
 "The <interface>Project window</interface> shows a tree of project files if "
 "you have a project opened. Otherwise, the <interface>Project window</"
 "interface> is usually hidden. Double-clicking on any item in the "
 "<interface>Project window</interface> will open that file."
 msgstr ""
-"La <interface>ventana de proyecto</interface> muestra un árbol con los "
+"La <interface>Ventana de proyecto</interface> muestra un árbol con los "
 "archivos del proyecto si tiene un proyecto abierto. De otra forma, la "
 "<interface>Ventana de proyecto</interface> generalmente está oculta. Pulsar "
 "dos veces sobre cualquier elemento en la <interface>Ventana de proyecto</"
 "interface> abrirá ese archivo."
 
 #: C/anjuta-manual.xml:116(para)
-#, fuzzy
 msgid ""
 "The <interface>Files window</interface> shows a file tree. If no project is "
 "open, the file tree usually points to the file system root but you can "
@@ -400,25 +396,24 @@ msgid ""
 "application as configured in the GNOME MIME preferences. Right-clicking "
 "opens a context menu which gives you choices about how to open the file."
 msgstr ""
-"La <interface>ventana de archivos</interface> muestra un árbol de archivos. "
-"Si no hay un proyecto abierto, el árbol de archivos apunta al sistema de "
-"archivos raíz, pero puede cambiarlo en las preferencias. Si un proyecto está "
-"abierto muestra todos los archivos dentro del proyecto. Pulsar dos veces "
-"abre un archivo en la aplicación apropiada según esté configurado en las "
-"preferencias MIME de GNOME. Pulsar con el botón derecho abre un menú "
+"La <interface>Ventana de archivos</interface> muestra un árbol de archivos. "
+"Si no hay un proyecto abierto, el árbol de archivos apunta a la raíz del "
+"sistema de archivos, pero puede cambiarlo en las preferencias. Si un "
+"proyecto está abierto muestra todos los archivos dentro del proyecto. Pulsar "
+"dos veces abre un archivo en la aplicación apropiada según esté configurado "
+"en las preferencias MIME de GNOME. Pulsar con el botón derecho abre un menú "
 "emergente que le proporciona opciones sobre cómo abrir el archivo."
 
 #: C/anjuta-manual.xml:125(para)
-#, fuzzy
 msgid ""
 "The <interface>Symbols window</interface> shows a tree of available symbols "
 "in the project generated from the <application>ctags</application> parser. "
 "Double-clicking opens an editor window with the corresponding file and line."
 msgstr ""
-"La <interface>ventana de símbolos</interface> muestra un árbol con los "
-"símbolos disponibles en el proyecto generados desde el analizador ctags. Al "
-"pulsar dos veces se abre una ventana del editor con el archivo y líneas "
-"correspondientes."
+"La <interface>Ventana de símbolos</interface> muestra un árbol con los "
+"símbolos disponibles en el proyecto generados desde el analizador "
+"<application>ctags</application>. Al pulsar dos veces se abre una ventana "
+"del editor con el archivo y líneas correspondientes."
 
 #: C/anjuta-manual.xml:130(para)
 msgid ""
@@ -448,7 +443,6 @@ msgstr ""
 "es necesario."
 
 #: C/anjuta-manual.xml:144(para)
-#, fuzzy
 msgid ""
 "The colors used to display the messages are important. Messages displayed in "
 "the standard foreground color (usually black) are normal messages. Messages "
@@ -491,7 +485,6 @@ msgid "Session management"
 msgstr "Gestión de sesiones"
 
 #: C/anjuta-manual.xml:169(para)
-#, fuzzy
 msgid ""
 "All settings, including window sizes and positions, are saved when you exit "
 "<application>Anjuta</application>. Session management is still under "
@@ -583,7 +576,6 @@ msgstr ""
 "<guibutton>Aceptar</guibutton> para validar la creación. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:45(para)
-#, fuzzy
 msgid ""
 "<application>Anjuta</application> occasionally also creates new file windows "
 "during some operations. For example, some Subversion operations such as "
@@ -592,9 +584,9 @@ msgid ""
 "to real files if you like."
 msgstr ""
 "<application>Anjuta</application> ocasionalmente crea nuevos archivos "
-"durante algunas operaciones. Por ejemplo, algunas operaciones sobre CVS, "
-"tales como diff, log de un archivo, status de un archivo, etc, crean "
-"archivos nuevos y añaden la salida allí. Estos se pueden guardar en un "
+"durante algunas operaciones. Por ejemplo, algunas operaciones sobre "
+"Subversion, tales como <command>diff</command> y <command>view log</command> "
+"crean archivos nuevos y añaden la salida allí. Estos se pueden guardar en un "
 "archivo real igual que los nuevos archivos normales."
 
 #: C/anjuta-manual.xml:54(title)
@@ -602,16 +594,14 @@ msgid "Inserting Macros"
 msgstr "Insertar macros"
 
 #: C/anjuta-manual.xml:55(para)
-#, fuzzy
 msgid ""
 "You can use <emphasis>macros</emphasis> to quickly edit repetitive sequences "
 "of text."
 msgstr ""
-"Se pueden usar macros para editar rápidamente secuencias repetitivas de "
-"texto."
+"Puede usar <emphasis>macros</emphasis> para editar rápidamente secuencias "
+"repetitivas de texto."
 
 #: C/anjuta-manual.xml:59(para)
-#, fuzzy
 msgid "The Macro plugin must be activated."
 msgstr "El complemento de macros debe estar activado."
 
@@ -620,16 +610,15 @@ msgid "Inserting"
 msgstr "Insertar"
 
 #: C/anjuta-manual.xml:65(para)
-#, fuzzy
 msgid ""
 "Two types of macros are available: Anjuta macros and user macros (displayed "
 "as \"My macros\"). Anjuta macros are not modifiable, but you can define and "
 "modify your own user macros."
 msgstr ""
 "Existen dos tipos de macros disponibles: Los macros de Anjuta y los macros "
-"del usuario (Mis macros). Los macros de Anjuta no son modificables por el "
-"usuario. Por otra parte, los macros del usuario se pueden definir y "
-"modificar por el usuario."
+"de usuario (se muestran como «Mis macros»). Los macros de Anjuta no son "
+"modificables por el usuario. Por otra parte, los macros del usuario se "
+"pueden definir y modificar por el usuario."
 
 #: C/anjuta-manual.xml:69(para)
 #, fuzzy
@@ -659,7 +648,6 @@ msgid "The Macro dialog"
 msgstr "El diálogo Macro"
 
 #: C/anjuta-manual.xml:77(para)
-#, fuzzy
 msgid ""
 "Another way to insert a macro is to select <menuchoice><guisubmenu>Edit</"
 "guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Insert Macro...</"
@@ -727,14 +715,13 @@ msgid "Macro Keywords"
 msgstr "Palabras clave de los macros"
 
 #: C/anjuta-manual.xml:118(para)
-#, fuzzy
 msgid ""
 "Macro keywords are available. They can be included in macro definitions. "
 "These macro keywords start and finish with the character ' @ '."
 msgstr ""
 "Están disponibles las palabras clave para los macros. Pueden integrarse en "
 "la definición del macro. Los nombres de estas palabras clave de los macros "
-"comienzan y finalizan con el carácter «@»."
+"comienzan y finalizan con el carácter « @ »."
 
 #: C/anjuta-manual.xml:126(title)
 msgid "Keyword Macro"
@@ -745,7 +732,6 @@ msgid "The Keyword macro"
 msgstr "La palabra clave del macro"
 
 #: C/anjuta-manual.xml:122(para)
-#, fuzzy
 msgid ""
 "Available macro keywords are @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, "
 "@FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, "
@@ -753,7 +739,7 @@ msgid ""
 msgstr ""
 "Las palabras clave de macro disponibles son: @DATE_TIME@, @DATE_YMD@, "
 "@DATE_Y@, @USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, "
-"@EMAIL@, @TABSIZE@, @INDENTSIZE@, @USETABS@. <placeholder-1/>"
+"@EMAIL@, @TABSIZE@, @INDENTSIZE@ y @USETABS@. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:139(title)
 msgid "Opening and Saving Files"
@@ -845,7 +831,6 @@ msgstr ""
 "proporcionado. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:199(title)
-#, fuzzy
 msgid "File autosave"
 msgstr "Autoguardar archivos"
 
@@ -1173,7 +1158,6 @@ msgstr ""
 "bloques de código."
 
 #: C/anjuta-manual.xml:374(para)
-#, fuzzy
 msgid ""
 "Code folding is especially useful when editing large source files with "
 "thousands of lines. Once the folds are closed, a document appears to become "
@@ -1181,11 +1165,10 @@ msgid ""
 msgstr ""
 "El plegado de código es especialmente útil al editar archivos fuente grandes "
 "que se extienden varios miles de líneas. Una vez que se cierran los "
-"pliegues, el documento parece más pequeño, facilitando la examinación y el "
-"editado del archivo."
+"pliegues, el documento parece más pequeño, facilitando el examinado y la "
+"edición del archivo."
 
 #: C/anjuta-manual.xml:380(para)
-#, fuzzy
 msgid ""
 "Please note that code folding and editor guides are only available in the "
 "Scintilla-based editor."
@@ -1198,7 +1181,6 @@ msgid "Auto-formatting source code"
 msgstr "Autoformatear el código fuente"
 
 #: C/anjuta-manual.xml:388(para)
-#, fuzzy
 msgid ""
 "Anjuta can automatically indent (auto-format) C or C++ source or header "
 "files. This gives a clean look to the source code, increases legibility, "
@@ -1208,17 +1190,15 @@ msgid ""
 "bar. You can change the style of formatting by customizing the choices in "
 "the preferences."
 msgstr ""
-"Si el archivo actual es un archivo fuente o de cabeceras de C o C++, "
-"entonces es posible sangrarlo automáticamente (autoformatearlo). Proporciona "
-"al código un aspecto limpio, aumentando su legibilidad, reduce la "
-"probabilidad de errores de sintaxis y, por encima de todo, ahorra tiempo. "
-"Esto se puede realizar eligiendo <menuchoice><guimenu>Editar</"
-"guimenu><guimenuitem>Sangría automática</guimenuitem></menuchoice> en la "
-"barra de menú. Cambie el estilo del formateo personalizando las opciones en "
-"las preferencias."
+"Anjuta pueda sangrar automáticamente (autoformatear) archivos C o C++ fuente "
+"o de cabecera. Ésto proporciona al código un aspecto limpio, aumentando su "
+"legibilidad, reduce la probabilidad de errores de sintaxis y, por encima de "
+"todo, ahorra tiempo. Para autoindentar el archivo fuente actual, elija "
+"<menuchoice><guimenu>Editar</guimenu><guimenuitem>Sangría automática</"
+"guimenuitem></menuchoice> en la barra de menú. Cambie el estilo del formateo "
+"personalizando las opciones en las preferencias."
 
 #: C/anjuta-manual.xml:401(title)
-#, fuzzy
 msgid "The Symbol Browser"
 msgstr "Examinador de símbolos"
 
@@ -1240,7 +1220,6 @@ msgid "Symbol browser"
 msgstr "Examinador de símbolos"
 
 #: C/anjuta-manual.xml:407(para)
-#, fuzzy
 msgid ""
 "<application>Anjuta</application> will automatically scan for tags in all of "
 "the source and header files of any open project. You can jump to any "
@@ -1249,17 +1228,15 @@ msgid ""
 "which file the tag is found in. The symbol browser lists all available "
 "symbols in the project. <placeholder-1/>"
 msgstr ""
-"<emphasis>Examinador de símbolos:</emphasis> si hay un proyecto abierto, "
 "<application>Anjuta</application> examinará las etiquetas en todos los "
-"fuentes y archivos de cabecera del proyecto. De esta forma es posible ir a "
-"cualquier definición de función, definición de estructura, definición de "
-"clase, etc. sin tener que operar manualmente el archivo. No necesita saber "
-"en qué archivo se encontró la etiqueta (excepto en el caso de las "
-"definiciones de funciones). El examinador de símbolos lista todos los "
-"símbolos disponibles en el proyecto. <placeholder-1/>"
+"fuentes y archivos de cabecera de un proyecto abierto. Puede ir a cualquier "
+"definición de función, definición de estructura, definición de clase o "
+"cualquier otra etiqueta sin tener que abrir manualmente el archivo. Ni "
+"siquiera necesita saber en qué archivo se encuentra la etiqueta. El "
+"examinador de símbolos lista todos los símbolos disponibles en el proyecto. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:423(title)
-#, fuzzy
 msgid "Tag synchronization"
 msgstr "Sincronización de etiquetas"
 
@@ -1282,7 +1259,6 @@ msgid "Searching"
 msgstr "Búsqueda"
 
 #: C/anjuta-manual.xml:438(para)
-#, fuzzy
 msgid ""
 "To search for a <emphasis>string</emphasis> or <emphasis>regular expression</"
 "emphasis> in the current file, choose <menuchoice><guimenu>Edit</"
@@ -1294,11 +1270,10 @@ msgstr ""
 "Para buscar un <emphasis>texto</emphasis> o una <emphasis>expresión regular</"
 "emphasis> en el archivo actual, elija <menuchoice><guimenu>Editar</"
 "guimenu><guisubmenu>Buscar</guisubmenu><guimenuitem>Buscar...</guimenuitem></"
-"menuchoice> o pulse <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></"
+"menuchoice> o pulse <keycombo><keycap>Alt</keycap><keycap>F</keycap></"
 "keycombo>. Esto abrirá el diálogo <interface>Buscar</interface>."
 
 #: C/anjuta-manual.xml:445(para)
-#, fuzzy
 msgid ""
 "Use the text box to specify the string to search for, and select whether it "
 "is a normal string or a regular expression. You can also specify the "
@@ -1308,7 +1283,8 @@ msgstr ""
 "Use la caja de texto para especificar la cadena para buscar y seleccione si "
 "es una cadena normal o una expresión regular (RegExp). También es posible "
 "especificar la dirección de la búsqueda, si la búsqueda es sensible a "
-"capitalización o no y el ámbito de búsqueda."
+"capitalización o no y el ámbito de búsqueda. Pulse <guibutton>Buscar</"
+"guibutton> para comenzar la búsqueda."
 
 #: C/anjuta-manual.xml:451(para)
 #, fuzzy
@@ -1350,7 +1326,6 @@ msgid "Search Text dialog"
 msgstr "Diálogo de búsqueda de texto"
 
 #: C/anjuta-manual.xml:470(para)
-#, fuzzy
 msgid "To stop a long search, press the <guibutton>Stop</guibutton> button."
 msgstr ""
 "Para parar una búsqueda prolongada, pulse el botón <guibutton>Detener</"
@@ -1361,13 +1336,12 @@ msgid "Specifying Search Range"
 msgstr "Especificar el ámbito de búsqueda"
 
 #: C/anjuta-manual.xml:476(para)
-#, fuzzy
 msgid ""
 "In the <interface>Search Target</interface> tab, define the search location "
 "and the action to be performed if the search succeeds."
 msgstr ""
-"En el diálogo «Buscar objetivo», defina la ubicación de la búsqueda y la "
-"acción que realizar en caso de que la búsqueda tenga éxito."
+"En la solapa <interface>Buscar objetivo</interface>, defina la ubicación de "
+"la búsqueda y la acción que realizar en caso de que la búsqueda tenga éxito."
 
 #: C/anjuta-manual.xml:480(para)
 msgid "You can define the maximum number of actions to be performed."
@@ -1390,13 +1364,12 @@ msgid "Searching in Files"
 msgstr "Buscar en archivos"
 
 #: C/anjuta-manual.xml:500(para)
-#, fuzzy
 msgid ""
 "To find text in your project, set <guilabel>Search In</guilabel> to All "
 "Project Files."
 msgstr ""
-"Para buscar un texto en su proyecto, seleccione «Buscar en» "
-"<menuchoice><guimenu>Todos los archivos del proyecto</guimenu></menuchoice>."
+"Para buscar un texto en su proyecto, ajuste <guilabel>Buscar en</guilabel> "
+"Todos los archivos del proyecto."
 
 #: C/anjuta-manual.xml:504(para)
 #, fuzzy
@@ -1431,21 +1404,20 @@ msgid "Specifying a Search Action"
 msgstr "Especificar la acción de la búsqueda"
 
 #: C/anjuta-manual.xml:526(para)
-#, fuzzy
 msgid "You can select which action will be performed when a search succeeds."
 msgstr ""
-"El usuario selecciona qué acción se realizará en caso de que la búsqueda "
-"tenga éxito."
+"Puede seleccionar qué acción se realizará en caso de que la búsqueda tenga "
+"éxito."
 
 #: C/anjuta-manual.xml:529(para)
-#, fuzzy
 msgid ""
 "Depending on the previous selections (<guilabel>Search In</guilabel>, "
 "<guilabel>Search Direction</guilabel> , and so on), some actions may be "
 "unavailable."
 msgstr ""
-"En concordancia con las secciones anteriores (Buscar en, Dirección de "
-"búsqueda...) algunas acciones pueden no estar disponibles."
+"Dependiendo de las selecciones anteriores (<guilabel>Buscar en</guilabel>, "
+"<guilabel>Dirección de búsqueda</guilabel> y demás) algunas acciones pueden "
+"no estar disponibles."
 
 #: C/anjuta-manual.xml:535(title)
 msgid "Search Target Action choice"
@@ -1487,7 +1459,6 @@ msgid "You may also save search options."
 msgstr "También puede guardar las opciones de búsqueda."
 
 #: C/anjuta-manual.xml:567(para)
-#, fuzzy
 msgid ""
 "The item highlighted in red is the active item. The default item specifies "
 "search settings which are loaded when Anjuta launches."
@@ -1723,13 +1694,12 @@ msgstr ""
 "<guibutton>Terminar</guibutton> para comenzar a generar el proyecto."
 
 #: C/anjuta-manual.xml:86(para)
-#, fuzzy
 msgid ""
 "Once the project has been generated, you can try it out by building it and "
 "executing it."
 msgstr ""
-"Una vez que la generación del proyecto ha terminado, puede probarla "
-"construyendo el proyecto y ejecutándolo."
+"Una vez que se ha generado el proyecto, puede probarlo construyéndolo y "
+"ejecutándolo."
 
 #: C/anjuta-manual.xml:92(title)
 msgid "Importing Projects"
