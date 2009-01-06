@@ -34,7 +34,6 @@ profiler_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 # Include paths
 AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
-	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(WARN_CFLAGS) \
 	$(GDL_CFLAGS) \
 	$(LIBXML_CFLAGS) \
@@ -90,7 +89,7 @@ endif
 libanjuta_profiler_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
-libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GLADE_LIBS) $(GNOME_CANVAS_LIBS) $(GNOME_VFS_MODULE_LIBS) $(LIBXML_LIBS)
+libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GLADE_LIBS) $(GNOME_CANVAS_LIBS) $(GIO_LIBS) $(LIBXML_LIBS)
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_LIBADD += $(GRAPHVIZ_LIBS)

@@ -1,3 +1,21 @@
+2009-01-06  Jens Georg  <mail@jensge.org>
+
+	* plugins/gtodo/libgtodo.c: 
+  	#511589 - Remove unnecessary hack for GNOME-VFS which
+  	is not needed for GIO/GVFS
+
+2009-01-06  Jens Georg  <mail@jensge.org>
+
+  	* plugins/profiler/Makefile.am
+	* plugins/file-loader/Makefile.am
+	* plugins/search/Makefile.am
+	* plugins/class-gen/Makefile.am
+	* plugins/project-import/Makefile.am
+	* plugins/message-view/Makefile.am
+	* plugins/macro/Makefile.am
+	* plugins/file-wizard/Makefile.am
+	#511589 – Remove dependency on gnome-vfs from Makefiles
+
 2009-01-06  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/cvs-plugin/Makefile.am:

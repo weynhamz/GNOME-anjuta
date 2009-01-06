@@ -26,6 +26,7 @@ libanjuta_project_import_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_project_import_la_LIBADD = \
 	$(PLUGIN_GNOMEBUILD_LIBS) \
 	$(GNOME_UI_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_project_import_la_SOURCES= \

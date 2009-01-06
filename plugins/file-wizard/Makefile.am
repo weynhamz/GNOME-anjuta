@@ -26,7 +26,7 @@ libanjuta_file_wizard_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_file_wizard_la_LIBADD = \
 	$(GLADE_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_file_wizard_la_SOURCES= \

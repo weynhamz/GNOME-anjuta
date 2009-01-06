@@ -41,7 +41,7 @@ libanjuta_loader_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_loader_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 # Plugin dependencies

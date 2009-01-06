@@ -32,7 +32,7 @@ libanjuta_message_view_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_message_view_la_LIBADD = \
 	$(GLADE_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_message_view_la_SOURCES = \

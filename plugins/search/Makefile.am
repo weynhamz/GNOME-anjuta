@@ -25,7 +25,6 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
-	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)/tagmanager/include
 

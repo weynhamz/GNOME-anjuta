@@ -34,6 +34,7 @@ libanjuta_subversion_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_subversion_la_LIBADD = \
 	$(GLADE_LIBS) \
+  $(GIO_LIBS) \
 	$(LIBANJUTA_LIBS) $(SVN_LIB)
 
 libanjuta_subversion_la_SOURCES = \

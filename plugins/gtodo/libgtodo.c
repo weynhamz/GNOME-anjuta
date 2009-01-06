@@ -759,32 +759,7 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, GFile *file, GError **error)
 	/* xmlIndentTreeOutput = 1; */
 	xmlKeepBlanksDefault(0);
 	xmlDocDumpFormatMemory(cl->gtodo_doc, &buffer, &size, TRUE);
-	/* dirty trick to get the whole crap to work on ftp */
-#if 0
-	/* Check if necessary with GIO */
-	if(!strncmp(file, "ftp://", MIN(strlen(file),6)))
-	{
-		GnomeVFSURI *uri = gnome_vfs_uri_new(file);
-		if(uri != NULL && gnome_vfs_uri_exists(uri))
-		{
-			/* stupid hack to make everything work.. darn ftp */
-			if(debug)g_print("trying to unlink the file\n");
-			if(gnome_vfs_unlink(file) != GNOME_VFS_OK)
-			{      
-				if(debug)g_print("Failed to delete\n");
-				g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_GENERIC,_("Failed to delete %s."),file);	
-				g_propagate_error(error, tmp_error);
-				return TRUE;	
-			}
-			else
-			{
-				if(debug)g_print("file unlinked\n");
-			}
-		}
-		gnome_vfs_uri_unref(uri);
-	}
-#endif
-	/* open the file for writing */
+
 	if (!g_file_replace_contents (file, 
 			(char *)buffer, size, 
 			NULL, FALSE, G_FILE_CREATE_NONE, 

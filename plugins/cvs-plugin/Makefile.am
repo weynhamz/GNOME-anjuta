@@ -28,6 +28,7 @@ libanjuta_cvs_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_cvs_plugin_la_LIBADD = \
 	$(GLADE_LIBS) \
+  $(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_cvs_plugin_la_SOURCES = \
