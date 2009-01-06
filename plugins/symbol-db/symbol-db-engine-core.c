@@ -468,8 +468,10 @@ sdb_engine_dyn_child_query_node_destroy (gpointer data)
 	node_to_destroy = (DynChildQueryNode *)data;
 
 	g_free (node_to_destroy->query_str);
-	g_object_unref (node_to_destroy->stmt);
-	g_object_unref (node_to_destroy->plist);
+	if (node_to_destroy->stmt)
+		g_object_unref (node_to_destroy->stmt);
+	if (node_to_destroy->plist)
+		g_object_unref (node_to_destroy->plist);
 	g_free (node_to_destroy);
 }
 

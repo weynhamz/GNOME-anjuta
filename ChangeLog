@@ -1,3 +1,9 @@
+2009-01-07  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_dyn_child_query_node_destroy):
+	small unref fix.
+
 2009-01-06  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (on_editor_saved),
