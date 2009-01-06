@@ -84,14 +84,6 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
 								  const gchar * ctags_path);
 
 /**
- * Be sure to check lock status with this function before calling
- * something else below. If you call a scanning function while
- * dbe is locked there can be some weird behaviours.
- */
-gboolean
-symbol_db_engine_is_locked (SymbolDBEngine *dbe);
-
-/**
  * Open or create a new database at given directory. 
  * Be sure to give a base_db_path with the ending '/' for directory.
  * @param base_db_path directory where .anjuta_sym_db.db will be stored. It can be
@@ -174,6 +166,8 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  *        An example of files_path array composition can be: 
  *        "/home/user/foo_project/foo1.c", "/home/user/foo_project/foo2.cpp", 
  * 		  "/home/user/foo_project/foo3.java".
+ *        NOTE: all the files MUST exist. So check for their existence before call
+ *        this function. The function'll write entries on the db.
  * @param languages is an array of 'languages'. It must have the same number of 
  *		  elments that files_path has. It should be populated like this: "C", "C++",
  *		  "Java"

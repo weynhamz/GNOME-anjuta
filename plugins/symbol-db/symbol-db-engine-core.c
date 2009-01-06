@@ -123,17 +123,9 @@ select symbol_id_base, symbol.name from heritage
 #include "symbol-db-engine-utils.h"
 
 
-
-enum {
-	DO_UPDATE_SYMS = 1,
-	DO_UPDATE_SYMS_AND_EXIT,
-	DONT_UPDATE_SYMS,
-	DONT_UPDATE_SYMS_AND_EXIT,
-	DONT_FAKE_UPDATE_SYMS,
-	END_UPDATE_GROUP_SYMS
-};
-
-
+/*
+ * utility macros
+ */
 #define STATIC_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gda_stmt) { \
 	static_query_node *q = g_new0 (static_query_node, 1); \
 	q->query_id = query_type; \
@@ -155,7 +147,9 @@ enum {
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
-/* signals */
+/* 
+ * signals 
+ */
 enum
 {
 	SINGLE_FILE_SCAN_END,
@@ -169,7 +163,21 @@ enum
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
+/*
+ * enums
+ */
+enum {
+	DO_UPDATE_SYMS = 1,
+	DO_UPDATE_SYMS_AND_EXIT,
+	DONT_UPDATE_SYMS,
+	DONT_UPDATE_SYMS_AND_EXIT,
+	DONT_FAKE_UPDATE_SYMS,
+	END_UPDATE_GROUP_SYMS
+};
 
+/*
+ * structs used for callback data.
+ */
 typedef struct _UpdateFileSymbolsData {	
 	gchar *project;
 	gboolean update_prj_analyse_time;
@@ -177,12 +185,23 @@ typedef struct _UpdateFileSymbolsData {
 	
 } UpdateFileSymbolsData;
 
+typedef struct _ScanFiles1Data {
+	SymbolDBEngine *dbe;
+	
+	gchar *real_file;	/* may be NULL. If not NULL must be freed */
+	gint partial_count;
+	gint files_list_len;
+	gint symbols_update;
+	
+} ScanFiles1Data;
 
-
+/*
+ * global file variables
+ */ 
 static GObjectClass *parent_class = NULL;
 
 /*
- * some forward declarations 
+ * forward declarations 
  */
 static void 
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
@@ -1607,6 +1626,110 @@ sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 	g_free (exe_string);
 }
 
+/**
+ * A GAsyncReadyCallback function. This function is the async continuation for
+ * sdb_engine_scan_files_1 ().
+ */
+static void  
+sdb_engine_scan_files_2 (GFile *gfile,
+                         GAsyncResult *res,
+                         gpointer user_data)
+{
+	ScanFiles1Data *sf_data = (ScanFiles1Data*)user_data;
+	SymbolDBEngine *dbe;
+	SymbolDBEnginePriv *priv;
+	GFileInfo *ginfo;
+	gchar *local_path;
+	gchar *real_file;
+	gboolean symbols_update;
+	gint partial_count;
+	gint files_list_len;
+
+	dbe = sf_data->dbe;
+	symbols_update = sf_data->symbols_update;
+	real_file = sf_data->real_file;
+	files_list_len = sf_data->files_list_len;
+	partial_count = sf_data->partial_count;
+
+	priv = dbe->priv;
+	
+	ginfo = g_file_query_info_finish (gfile, res, NULL);
+
+	local_path = g_file_get_path (gfile);
+	
+	if (ginfo == NULL || 
+		g_file_info_get_attribute_boolean (ginfo, 
+								   G_FILE_ATTRIBUTE_ACCESS_CAN_READ) == FALSE)
+	{
+		g_warning ("File does not exist or is unreadable by user (%s)", local_path);
+
+		g_free (local_path);
+		g_free (real_file);
+		g_free (sf_data);
+
+		if (ginfo)
+			g_object_unref (ginfo);
+		if (gfile)
+			g_object_unref (gfile);
+		return;
+	}
+	
+	/*DEBUG_PRINT ("sent to stdin %s", local_path);*/
+	anjuta_launcher_send_stdin (priv->ctags_launcher, local_path);
+	anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
+	
+	if (symbols_update == TRUE) 
+	{
+		/* will this be the last file in the list? */
+		if (partial_count + 1 >= files_list_len) 
+		{
+			/* yes */
+			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
+		}
+		else 
+		{
+			/* no */
+			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS));
+		}
+	}
+	else 
+	{
+		if (partial_count + 1 >= files_list_len) 
+		{
+			/* yes */
+			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
+		}
+		else {
+			/* no */
+			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
+		}
+	}
+
+	/* don't forget to add the real_files if the caller provided a list for
+	 * them! */
+	if (real_file != NULL)
+	{
+		g_async_queue_push (priv->scan_queue, 
+							real_file);
+	}
+	else 
+	{
+		/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
+		 * is not a fake file scan 
+		 */
+		g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
+	}	
+	
+	/* we don't need ginfo object anymore, bye */
+	g_object_unref (ginfo);
+	g_object_unref (gfile);
+	g_free (local_path);
+	g_free (sf_data);
+	/* no need to free real_file. For two reasons: 1. it's null. 2. it has been
+	 * pushed in the async queue and will be freed later
+	 */
+}
+
 /* Scans with ctags and produce an output 'tags' file [shared memory file]
  * containing language symbols. This function will call ctags 
  * executale and then sdb_engine_populate_db_by_tags () when it'll detect some
@@ -1630,7 +1753,6 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	SymbolDBEnginePriv *priv;
 	gint i;
 
-	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (files_list != NULL, FALSE);
 	
 	if (files_list->len == 0)
@@ -1686,72 +1808,43 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		}
 	
 		priv->shared_mem_file = fdopen (priv->shared_mem_fd, "a+b");
-		DEBUG_PRINT ("temp_file %s", temp_file);
+		/*DEBUG_PRINT ("temp_file %s", temp_file);*/
 
 		/* no need to free temp_file (alias shared_mem_str). It will be freed on plugin finalize */
 	}
 	
-	priv->scanning_status = TRUE;	
-
 	for (i = 0; i < files_list->len; i++)
 	{
+		GFile *gfile;
+		ScanFiles1Data *sf_data;
 		gchar *node = (gchar *) g_ptr_array_index (files_list, i);
+		gfile = g_file_new_for_path (node);
+	
+		/* prepare an ojbect where to store some data for the async call */
+		sf_data = g_new0 (ScanFiles1Data, 1);
+		sf_data->dbe = dbe;
+		sf_data->files_list_len = files_list->len;
+		sf_data->partial_count = i;
+		sf_data->symbols_update = symbols_update;
 		
-		if (g_file_test (node, G_FILE_TEST_EXISTS) == FALSE)
-		{
-			g_warning ("File %s not scanned because it does not exist", node);
-			continue;
-		}
-			
-		/*DEBUG_PRINT ("sent to stdin [%d] %s", i, node);*/
-		anjuta_launcher_send_stdin (priv->ctags_launcher, node);
-		anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
-
-		if (symbols_update == TRUE) 
-		{
-			/* will this be the last file in the list? */
-			if (i + 1 >= files_list->len) 
-			{
-				/* yes */
-				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
-			}
-			else 
-			{
-				/* no */
-				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS));
-			}
-		}
-		else 
-		{
-			if (i + 1 >= files_list->len) 
-			{
-				/* yes */
-				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
-			}
-			else {
-				/* no */
-				g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
-			}
-		}
-
-		/* don't forget to add the real_files if the caller provided a list for
-		 * them! */
 		if (real_files_list != NULL)
 		{
-			g_async_queue_push (priv->scan_queue, 
-								(gpointer)g_strdup (
-								g_ptr_array_index (real_files_list, i)));
+			sf_data->real_file = g_strdup (g_ptr_array_index (real_files_list, i));
 		}
-		else 
+		else
 		{
-			/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
-			 * is not a fake file scan 
-			 */
-			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
+			sf_data->real_file = NULL;
 		}
-	}
 
-	priv->scanning_status = FALSE;
+		/* call it */
+		g_file_query_info_async (gfile, 
+								 G_FILE_ATTRIBUTE_ACCESS_CAN_READ, 
+								 G_FILE_QUERY_INFO_NONE, 
+								 G_PRIORITY_LOW,
+								 NULL,
+								 (GAsyncReadyCallback)sdb_engine_scan_files_2,
+								 sf_data);
+	}
 
 	return TRUE;
 }
@@ -1770,8 +1863,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->sql_parser = NULL;
 	sdbe->priv->db_directory = NULL;
 	sdbe->priv->project_directory = NULL;
-	sdbe->priv->cnc_string = NULL;
-	
+	sdbe->priv->cnc_string = NULL;	
 	
 	/* initialize an hash table to be used and shared with Iterators */
 	sdbe->priv->sym_type_conversion_hash =
@@ -3109,7 +3201,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
  *                    project_directory: /home/user/projects/foo_project
  */
 static gboolean
-sdb_engine_add_new_file (SymbolDBEngine * dbe, const gchar * project_name,
+sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 						 const gchar * local_filepath, const gchar * language)
 {
 /*
@@ -3253,7 +3345,7 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 		g_mutex_unlock (priv->mutex);
 	return ret_id;
 }
-							   
+	
 gint
 symbol_db_engine_add_new_files (SymbolDBEngine * dbe, 
 								const gchar * project_name,
@@ -3282,27 +3374,23 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	
 	for (i = 0; i < files_path->len; i++)
 	{
-		gchar *node_file = (gchar *) g_ptr_array_index (files_path, i);
-		gchar *node_lang = (gchar *) g_ptr_array_index (languages, i);
-		
-		/* test the existance of node file */
-		if (g_file_test (node_file, G_FILE_TEST_EXISTS) == FALSE)
-		{
-			g_warning ("symbol_db_engine_add_new_files (): File %s does NOT exist", node_file);
-			continue;
-		}
+		const gchar *node_file = (const gchar *) g_ptr_array_index (files_path, i);
+		const gchar *node_lang = (const gchar *) g_ptr_array_index (languages, i);
 		
 		if (force_scan == FALSE)
 		{
+			/* test the existence of the file in db */
 			if (symbol_db_engine_file_exists (dbe, node_file) == TRUE)
+			{
 				/* we don't want to touch the already present file... within 
 				 * its symbols
 				 */
 				continue;
+			}
 		}
 		
 		if (project_name != NULL && 
-			sdb_engine_add_new_file (dbe, project_name, node_file, 
+			sdb_engine_add_new_db_file (dbe, project_name, node_file, 
 									 node_lang) == FALSE)
 		{
 			g_warning ("symbol_db_engine_add_new_files (): "
@@ -3315,7 +3403,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 		/* note: we don't use g_strdup () here because we'll free the filtered_files_path
 		 * before returning from this function.
 		 */
-		g_ptr_array_add (filtered_files_path, node_file);
+		g_ptr_array_add (filtered_files_path, (gpointer)node_file);
 	}
 
 	/* perform the scan of files. It will spawn a fork() process with 
@@ -3323,13 +3411,13 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	 * executed, the populating process'll take place.
 	 */
 	ret_code = sdb_engine_scan_files_1 (dbe, filtered_files_path, NULL, FALSE);
-	g_ptr_array_free (filtered_files_path, TRUE);
 	
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
 		ret_id = -1;
 	
+	g_ptr_array_free (filtered_files_path, TRUE);
 	return ret_id;
 }
 

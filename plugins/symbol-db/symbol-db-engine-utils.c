@@ -64,17 +64,6 @@ symbol_db_gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_da
 	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
 }
 
-gboolean
-symbol_db_engine_is_locked (SymbolDBEngine * dbe)
-{
-	SymbolDBEnginePriv *priv;
-
-	g_return_val_if_fail (dbe != NULL, FALSE);
-	
-	priv = dbe->priv;
-	return priv->scanning_status;
-}
-
 gchar*
 symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 {

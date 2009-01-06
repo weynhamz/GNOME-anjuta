@@ -74,7 +74,8 @@ typedef enum
 	TASK_BUFFER_UPDATE,
 	TASK_ELEMENT_ADDED,
 	TASK_OFFLINE_CHANGES,
-	TASK_PROJECT_UPDATE
+	TASK_PROJECT_UPDATE,
+	TASK_FILE_UPDATE
 } ProcTask;
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
@@ -399,7 +400,6 @@ on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 		sdb_plugin->need_symbols_update = TRUE;
 }
 
-
 static void
 on_editor_saved (IAnjutaEditor *editor, GFile* file,
 				 SymbolDBPlugin *sdb_plugin)
@@ -408,6 +408,7 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 	gchar *local_filename;
 	gchar *saved_uri;
 	GPtrArray *files_array;
+	gint proc_id;
 	gint i;
 	
 	local_filename = g_file_get_path (file);
@@ -440,8 +441,15 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 		old_uri = NULL;
 
 	/* files_array will be freed once updating has taken place */
-	symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
-		sdb_plugin->project_root_dir, files_array, TRUE);
+	proc_id = symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
+						sdb_plugin->project_root_dir, files_array, TRUE);
+	if (proc_id > 0)
+	{		
+		/* add a task so that scan_end_manager can manage this */
+		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
+					   GINT_TO_POINTER (TASK_FILE_UPDATE));
+	}
+	
 	g_hash_table_insert (sdb_plugin->editor_connected, editor,
 						 g_strdup (saved_uri));
 
@@ -1867,18 +1875,19 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			symbol_db->is_adding_element = FALSE;
 			break;
 			
-		case TASK_OFFLINE_CHANGES:
-		{
+		case TASK_OFFLINE_CHANGES:		
 			DEBUG_PRINT ("received TASK_OFFLINE_CHANGES");
-			symbol_db->is_offline_scanning = FALSE;
-		}
+			symbol_db->is_offline_scanning = FALSE;		
 			break;
 			
-		case TASK_PROJECT_UPDATE:
-		{
+		case TASK_PROJECT_UPDATE:		
 			DEBUG_PRINT ("received TASK_PROJECT_UPDATE");
 			symbol_db->is_project_updating = FALSE;
-		}
+			break;
+
+		case TASK_FILE_UPDATE:
+			DEBUG_PRINT ("received TASK_FILE_UPDATE");
+			break;
 			
 		default:
 			DEBUG_PRINT ("Don't know what to to with task_registered %d", 

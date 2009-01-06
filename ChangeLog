@@ -1,3 +1,16 @@
+2009-01-06  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_editor_saved),
+	(on_scan_end_manager):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_scan_files_2), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (sdb_engine_add_new_db_file),
+	(symbol_db_engine_add_new_files):
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-utils.c:
+	#565981 – Don't use g_file_test()
+
 2009-01-06  Jens Georg  <mail@jensge.org>
 
 	* plugins/gtodo/libgtodo.c: 

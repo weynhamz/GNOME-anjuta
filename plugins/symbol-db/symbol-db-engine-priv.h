@@ -266,7 +266,6 @@ struct _SymbolDBEnginePriv
 	gint shared_mem_fd;
 	AnjutaLauncher *ctags_launcher;
 	GList *removed_launchers;
-	gboolean scanning_status;
 	gboolean shutting_down;
 	
 	GMutex* mutex;
