@@ -213,6 +213,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	GFile* svn_dir;
 	GFileType type;
 	GFileEnumerator *en;
+	GFileInfo *file_info;
 	
 	file = G_FILE(g_value_get_object (value));
 	filename = g_file_get_path (file);
@@ -230,7 +231,18 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	
 	/* If a directory is selected we check if it contains a "Subversion" directory,
 	if it is a file we check if it's directory contains a "Subversion" directory */
-	type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
+	file_info = g_file_query_info (file, 
+			G_FILE_ATTRIBUTE_STANDARD_TYPE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+	if (file_info == NULL)
+	{
+		return;
+	}
+
+	type = g_file_info_get_attribute_uint32 (file_info, 
+			G_FILE_ATTRIBUTE_STANDARD_TYPE);
+	g_object_unref (G_OBJECT (file_info));
 	if (type == G_FILE_TYPE_DIRECTORY)
 	{
 		svn_dir = g_file_get_child (file, ".svn");

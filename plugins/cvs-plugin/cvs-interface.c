@@ -88,10 +88,23 @@ static gboolean is_directory(const gchar* filename)
 {
 	GFile* file;
 	GFileType type;
+	GFileInfo *file_info;
 
 	// FIXME check if filename can only be local file here
 	file = g_file_new_for_path(filename);
-	type = g_file_query_file_type(file, G_FILE_QUERY_INFO_NONE, NULL);
+	file_info = g_file_query_info (file, 
+			G_FILE_ATTRIBUTE_STANDARD_TYPE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+	if (file_info == NULL)
+	{
+		g_object_unref (G_OBJECT (file));
+		return FALSE;
+	}
+
+	type = g_file_info_get_attribute_uint32 (file_info, 
+			G_FILE_ATTRIBUTE_STANDARD_TYPE);
+	g_object_unref(G_OBJECT(file_info));
 	g_object_unref(G_OBJECT(file));
 	
 	return type == G_FILE_TYPE_DIRECTORY ? TRUE : FALSE;

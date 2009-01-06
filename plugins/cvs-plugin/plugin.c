@@ -173,6 +173,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	GFileType type;
 	GFile *cvs_dir;
 	GFileEnumerator *en;
+	GFileInfo *file_info;
 	
 	GFile* file = G_FILE (g_value_get_object (value));
 	filename = g_file_get_path (file);
@@ -190,8 +191,18 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	
 	/* If a directory is selected we check if it contains a "CVS" directory,
 	if it is a file we check if it's directory contains a "CVS" directory */
+	file_info = g_file_query_info (file,
+			G_FILE_ATTRIBUTE_STANDARD_TYPE,
+			G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-	type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
+	if (file_info == NULL)
+	{
+		return;
+	}
+
+	type = g_file_info_get_attribute_uint32 (file_info, 
+			G_FILE_ATTRIBUTE_STANDARD_TYPE);
+	g_object_unref (file_info);
 	if (type == G_FILE_TYPE_DIRECTORY)
 	{
 		cvs_dir = g_file_get_child (file, "CVS");
