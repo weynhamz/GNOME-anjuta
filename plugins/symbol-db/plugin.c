@@ -136,17 +136,9 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 					iter_node, SYMINFO_KIND);				
 		
-		if (prefer_definition == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0)
-		{
-			gint line = 
-				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
-			const gchar* file = 
-				symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
-													SYMINFO_FILE_PATH);
-			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-			break;
-		}
-		else if (prefer_definition == TRUE && g_strcmp0 (symbol_kind, "function") == 0)
+		if ((prefer_definition == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0) ||
+			(prefer_definition == TRUE && g_strcmp0 (symbol_kind, "function") == 0) ||
+			(prefer_definition == TRUE && g_strcmp0 (symbol_kind, "macro") == 0))
 		{
 			gint line = 
 				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);

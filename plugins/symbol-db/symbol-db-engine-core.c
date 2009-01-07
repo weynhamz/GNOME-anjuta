@@ -528,6 +528,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		dyn_node = g_new0 (DynChildQueryNode, 1);
 		
 		/* create a new GdaStatement */
+		dyn_node->plist = NULL;
 		dyn_node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
 										 NULL);
@@ -546,7 +547,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		/* return it */
 		return dyn_node;
 	}
-	else 
+	else
 	{
 		/* ok, this is a slightly more complex case */
 		GTree *child_gtree;
@@ -560,6 +561,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		dyn_node = g_new0 (DynChildQueryNode, 1);
 		
 		/* create a new GdaStatement */
+		dyn_node->plist = NULL;
 		dyn_node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
 										 NULL);
