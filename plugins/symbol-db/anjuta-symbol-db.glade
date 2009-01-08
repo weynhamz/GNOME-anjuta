@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Sep 15 12:25:14 2008 -->
+<!--Generated with glade3 3.4.5 on Thu Jan  8 18:45:36 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -62,6 +62,8 @@
                           <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="tooltip_text">This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)</property>
                             <property name="label" translatable="yes">Automatically scan project's packages</property>
                             <property name="response_id">0</property>
                             <property name="draw_indicator">True</property>
@@ -79,6 +81,8 @@
                           <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.parallel_scan">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="tooltip_text">This option means that the global system packages will be scanned contemporary with the project's ones</property>
                             <property name="label" translatable="yes">Parallel scan of project and global symbols</property>
                             <property name="response_id">0</property>
                             <property name="draw_indicator">True</property>
@@ -96,6 +100,8 @@
                           <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.buffer_update">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="tooltip_text">Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user.</property>
                             <property name="label" translatable="yes">Automatically update symbols without saving file</property>
                             <property name="response_id">0</property>
                             <property name="active">True</property>

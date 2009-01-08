@@ -1,5 +1,12 @@
 2009-01-08  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/anjuta-symbol-db.glade:
+	fixed #566699 – Default "Available API tags" for 
+	Symbol Database preference tab.
+	Added some tooltips to prefs page.
+
+2009-01-08  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/plugin.c (goto_global_tree_iter):
 	partially fixed #548910 – critials when clicking on the 
 	global entry availabe in the global symbols tab
