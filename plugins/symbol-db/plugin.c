@@ -690,7 +690,8 @@ goto_global_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project,
 							iter, &line, &file) == FALSE)
 	{
-		g_warning ("goto_global_tree_iter (): error while trying to get file/line");
+		DEBUG_PRINT ("goto_global_tree_iter (): error while trying to get file/line. "
+					 "Maybe you clicked on Global/Var etc. node.");
 		return;
 	};
 	
