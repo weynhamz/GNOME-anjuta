@@ -116,7 +116,7 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 
 static void
 goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
-			   gboolean prefer_definition)
+			   gboolean prefer_implementation)
 {
 	SymbolDBEngineIterator *iterator;	
 	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
@@ -136,9 +136,9 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 					iter_node, SYMINFO_KIND);				
 		
-		if ((prefer_definition == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0) ||
-			(prefer_definition == TRUE && g_strcmp0 (symbol_kind, "function") == 0) ||
-			(prefer_definition == TRUE && g_strcmp0 (symbol_kind, "macro") == 0))
+		if ((prefer_implementation == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0) ||
+			(prefer_implementation == TRUE && g_strcmp0 (symbol_kind, "function") == 0) ||
+			(prefer_implementation == TRUE && g_strcmp0 (symbol_kind, "macro") == 0))
 		{
 			gint line = 
 				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
@@ -156,7 +156,7 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
 }
 
 static void
-on_goto_file_tag_def_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
+on_goto_file_tag_impl_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 {
 	IAnjutaEditor *ed;
 	gchar *word;
@@ -195,21 +195,21 @@ static GtkActionEntry actions[] =
 {
 	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
 	{
-		"ActionSymbolDBGotoDef",
-		NULL,
-		N_("Tag _Definition"),
-		"<control>d",
-		N_("Goto symbol definition"),
-		G_CALLBACK (on_goto_file_tag_def_activate)
-	},
-	{
 		"ActionSymbolDBGotoDecl",
 		NULL,
 		N_("Tag De_claration"),
 		"<shift><control>d",
 		N_("Goto symbol declaration"),
 		G_CALLBACK (on_goto_file_tag_decl_activate)
-	}
+	},
+	{
+		"ActionSymbolDBGotoImpl",
+		NULL,
+		N_("Tag _Implementation"),
+		"<control>d",
+		N_("Goto symbol definition"),
+		G_CALLBACK (on_goto_file_tag_impl_activate)
+	}	
 };
 
 static void
