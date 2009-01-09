@@ -28,6 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "plugin.h"
+#include "subversion-vcs-interface.h"
 #include "subversion-add-dialog.h"
 #include "subversion-remove-dialog.h"
 #include "subversion-commit-dialog.h"
@@ -572,6 +573,7 @@ subversion_class_init (GObjectClass *klass)
 }
 
 ANJUTA_PLUGIN_BEGIN (Subversion, subversion);
+ANJUTA_PLUGIN_ADD_INTERFACE (subversion_ivcs, IANJUTA_TYPE_VCS);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (Subversion, subversion);

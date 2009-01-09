@@ -1,5 +1,26 @@
 2009-01-08  James Liggett  <jrliggett@cox.net>
 
+	* plugins/subversion/Makefile.am:
+	* plugins/subversion/plugin.c:
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_iface_init), (subversion_ivcs_add),
+	(subversion_ivcs_checkout), (on_diff_command_data_arrived),
+	(subversion_ivcs_diff), (on_status_command_data_arrived),
+	(subversion_ivcs_query_status), (subversion_ivcs_remove):
+	* plugins/subversion/subversion-vcs-interface.h:
+	An initial implementation of IAnjutaVcs interface for the Subversion plugin.
+	
+	Important Notes:
+		- The functionality of the interface is untested. The plugin compiles
+		  and loads fine, but I haven't verified that the actual interface 
+		  methods work
+		- The checkout method is a stub right now; we don't even have support
+		  for that in the plugin right now. That will be changing soon.
+		- The cancellable parameter is ignored. Implementing suport for that
+		  is also on my todo list.
+
+2009-01-08  James Liggett  <jrliggett@cox.net>
+
 	* libanjuta/anjuta-utils.c:
 	* libanjuta/anjuta-utils.h:
 	Add a new utility function, anjuta_util_convert_gfile_list_to_path_list,
