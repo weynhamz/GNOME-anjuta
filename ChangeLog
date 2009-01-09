@@ -1,3 +1,10 @@
+2009-01-08  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	Add a new utility function, anjuta_util_convert_gfile_list_to_path_list,
+	for converting lists of GFiles to lists of paths. 
+
 2009-01-08  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/anjuta-symbol-db-plugin.ui:

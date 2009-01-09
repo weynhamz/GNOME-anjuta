@@ -1937,3 +1937,25 @@ anjuta_util_get_user_data_file_path (const gchar* path, ...)
 	return file_path;
 }
 
+GList *
+anjuta_util_convert_gfile_list_to_path_list (GList *list)
+{
+	GList *path_list;
+	GList *current_file;
+	gchar *path;
+	
+	path_list = NULL;
+	current_file = list;
+	
+	while (current_file)
+	{
+		path = g_file_get_path (current_file->data);
+		
+		/* Ignore files with invalid paths */
+		if (path)
+			path_list = g_list_append (path_list, path);
+	}
+	
+	return path_list;
+}
+
