@@ -281,7 +281,7 @@ sdb_view_search_on_tree_row_activate (GtkTreeView * view,
 						COLUMN_FILE, &file,
 						-1);
 
-	DEBUG_PRINT ("sdb_view_search_on_tree_row_activate: file %s", file);
+	/*DEBUG_PRINT ("sdb_view_search_on_tree_row_activate: file %s", file);*/
 						   
 	g_signal_emit (search, signals[SYM_SELECTED], 0, line, file);
 	
@@ -326,7 +326,7 @@ sdb_view_search_on_entry_key_press_event (GtkEntry * entry,
 		gint line;
 		gchar *file;
 
-		DEBUG_PRINT("enter key pressed: getting the first entry found");
+		/*DEBUG_PRINT("enter key pressed: getting the first entry found");*/
 
 		/* Get the first entry found. */
 		if (gtk_tree_model_get_iter_first
@@ -412,6 +412,36 @@ sdb_view_search_on_entry_text_inserted (GtkEntry * entry,
 	}
 }
 
+static gint
+sdb_view_search_sort_iter_compare_func (GtkTreeModel *model, GtkTreeIter  *a,
+		GtkTreeIter  *b, gpointer userdata)
+{
+	gchar *name1, *name2;
+	gchar *file1, *file2;
+	gint ret;
+	
+	gtk_tree_model_get (model, a, COLUMN_NAME, &name1, COLUMN_FILE, &file1, -1);
+    gtk_tree_model_get (model, b, COLUMN_NAME, &name2, COLUMN_FILE, &file2, -1);
+
+	if (name1 == NULL || name2 == NULL || file1 == NULL || file2 == NULL)
+    {
+		ret = 0;
+	}
+	else if ((ret = g_strcmp0 (name1, name2)) == 0)		/* they're equal */
+	{
+		/* process file name */		
+		ret = g_strcmp0 (file1, file2);
+	}
+
+	g_free (name1);
+	g_free (name2);
+	g_free (file1);
+	g_free (file2);
+	
+	return ret;
+}
+
+
 static void
 sdb_view_search_init (SymbolDBViewSearch * search)
 {
@@ -439,7 +469,12 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->model),
 										  COLUMN_NAME,
 										  GTK_SORT_ASCENDING);
-
+	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->model),
+				COLUMN_NAME,
+				(GtkTreeIterCompareFunc )sdb_view_search_sort_iter_compare_func,
+				NULL,
+				NULL);
+									 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (priv->hitlist), GTK_TREE_MODEL (priv->model));	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->hitlist), FALSE);
 	

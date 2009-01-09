@@ -1,3 +1,21 @@
+2009-01-09  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-system.c (sdb_system_class_init):
+	fixed #567203 – small signal error in symbol-db-system
+
+2009-01-10  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (goto_file_tag):
+	added interface to the list of 'declaration' symbol kind.
+
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_on_tree_row_activate),
+	(sdb_view_search_on_entry_key_press_event),
+	(sdb_view_search_sort_iter_compare_func), (sdb_view_search_init):
+	fixed #566985 – sort multiple symbol matches by file path
+
 2009-01-09  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (goto_file_tag):

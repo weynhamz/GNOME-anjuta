@@ -191,7 +191,7 @@ sdb_system_class_init (SymbolDBSystemClass *klass)
 						NULL, NULL,
 						g_cclosure_marshal_VOID__UINT_POINTER, G_TYPE_NONE, 
 						2,
-						G_TYPE_INT,
+						G_TYPE_UINT,
 						G_TYPE_POINTER);
 
 	signals[SCAN_PACKAGE_END]

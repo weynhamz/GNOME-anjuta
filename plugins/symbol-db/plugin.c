@@ -152,7 +152,8 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
 			symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 						iter_node, SYMINFO_KIND);				
 		
-			if (g_strcmp0 (symbol_kind, "prototype") == 0)			
+			if (g_strcmp0 (symbol_kind, "prototype") == 0 || 
+				g_strcmp0 (symbol_kind, "interface") == 0)
 			{
 				gint line = 
 					symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
