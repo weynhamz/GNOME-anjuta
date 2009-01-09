@@ -2405,7 +2405,7 @@ sdb_engine_finalize (GObject * object)
 	
 	if (priv->thread_pool)
 	{
-		g_thread_pool_free (priv->thread_pool, FALSE, TRUE);
+		g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
 		priv->thread_pool = NULL;
 	}
 	
@@ -2883,7 +2883,7 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	priv = dbe->priv;
 	
 	/* terminate threads, if ever they're running... */
-	g_thread_pool_free (priv->thread_pool, FALSE, TRUE);
+	g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
 	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 										   dbe, THREADS_MAX_CONCURRENT,
 										   FALSE, NULL);

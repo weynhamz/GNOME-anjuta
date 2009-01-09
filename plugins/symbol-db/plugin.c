@@ -119,38 +119,73 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
 			   gboolean prefer_implementation)
 {
 	SymbolDBEngineIterator *iterator;	
+	gboolean found;
 	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
 															 word,
 															 SYMINFO_SIMPLE |
 											   				 SYMINFO_KIND |
 															 SYMINFO_FILE_PATH);
-	do {
-		const gchar *symbol_kind;
+	
+	if (iterator == NULL || symbol_db_engine_iterator_get_n_items (iterator) <= 0)
+	{
+		if (iterator)
+			g_object_unref (iterator);
+		return;
+	}
+	
+	found = FALSE;
+	
+	/* FIXME: namespaces are not handled here, but they should. */
+	
+	if (prefer_implementation == FALSE)
+	{
+		do 
+		{
+			const gchar *symbol_kind;
+			SymbolDBEngineIteratorNode *iter_node; 
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);			
+
+			/* not found or some error occurred */
+			if (iter_node == NULL)
+				break;
+
+			symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
+						iter_node, SYMINFO_KIND);				
+		
+			if (g_strcmp0 (symbol_kind, "prototype") == 0)			
+			{
+				gint line = 
+					symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+				const gchar* file = 
+					symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+													SYMINFO_FILE_PATH);
+				goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+				found = TRUE;
+				break;
+			}
+		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);	
+	}
+	
+	/* still not found? Try with implementation (see bug #566690) */
+	if (found == FALSE)
+	{
+		/* reset iterator position. */
+		symbol_db_engine_iterator_first (iterator);
 		SymbolDBEngineIteratorNode *iter_node; 
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);			
 
 		/* not found or some error occurred */
-		if (iter_node == NULL)
-			break;
-
-		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
-					iter_node, SYMINFO_KIND);				
-		
-		if ((prefer_implementation == FALSE && g_strcmp0 (symbol_kind, "prototype") == 0) ||
-			(prefer_implementation == TRUE && g_strcmp0 (symbol_kind, "function") == 0) ||
-			(prefer_implementation == TRUE && g_strcmp0 (symbol_kind, "macro") == 0))
+		if (iter_node != NULL)
 		{
 			gint line = 
 				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
 			const gchar* file = 
 				symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
-													SYMINFO_FILE_PATH);
+												SYMINFO_FILE_PATH);
 			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-			break;
 		}
-
-	} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);	
-	
+	}
+		
 	if (iterator)
 		g_object_unref (iterator);
 }

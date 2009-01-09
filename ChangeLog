@@ -1,3 +1,21 @@
+2009-01-09  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (goto_file_tag):
+	fixed #567058 – Goto Implementation can't jump to struct or typedef types
+	fixed #566690 – Goto declaration menu item should go to implementation if 
+	there's no delcaration
+
+2009-01-09  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c (sdb_engine_finalize),
+	(symbol_db_engine_close_db):
+	fixed #567067 – Anjuta hangs if I close project while scanning symbols
+
+	* plugins/sourceview/sourceview.c (wordcharacters_contains):
+	fixed #567049 – Goto Definition fails for symbols ending in a digit
+
 2009-01-08  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/Makefile.am:

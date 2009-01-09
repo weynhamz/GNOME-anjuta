@@ -918,7 +918,7 @@ static gboolean
 wordcharacters_contains (gchar c)
 {
 	const gchar* wordcharacters =
-		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	gint pos;
 	
 	for (pos = 0; pos < strlen(wordcharacters); pos++)
