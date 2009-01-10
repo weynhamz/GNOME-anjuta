@@ -686,7 +686,8 @@ debugger_load_executable (Debugger *debugger, const gchar *prog)
 
 	if (debugger->priv->output_callback)
 	{
-		msg = g_strconcat (_("Loading Executable: "), prog, "\n", NULL);
+		/* The %s argument is a program name, anjuta by example */
+		msg = g_strdup_printf (_("Loading Executable: %s\n"), prog);
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT, msg, 
 							   debugger->priv->output_user_data);
 		g_free (msg);
@@ -716,7 +717,8 @@ debugger_load_core (Debugger *debugger, const gchar *core)
 
 	if (debugger->priv->output_callback)
 	{
-		msg = g_strconcat (_("Loading Core: "), core, "\n", NULL);
+		/* The %s argument is a file name */
+		msg = g_strdup_printf (_("Loading Core: %s\n"), core);
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT, msg, 
 									 debugger->priv->output_user_data);
 		g_free (msg);
@@ -1842,8 +1844,10 @@ debugger_is_connected (Debugger *debugger, const GDBMIValue *mi_results,
 	{
 		gchar *msg;
 		gboolean retry;
-		
-		msg = g_strdup_printf(_("Unable to connect to remote target, %s.\n Do you want to try again ?"),
+	
+		/* The %s argument is an error message returned by gdb.
+		 * It is something like, "No such file or directory" */
+		msg = g_strdup_printf(_("Unable to connect to remote target, %s\nDo you want to try again?"),
 							  error->message);
 		retry = anjuta_util_dialog_boolean_question (debugger->priv->parent_win, msg);
 		g_free (msg);

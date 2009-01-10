@@ -464,11 +464,11 @@ create_signals_set_dialog (Signals *s)
 	gtk_widget_show (hbox4);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox4, TRUE, TRUE, 0);
 	
-	label5 = gtk_label_new (_(" Stop: "));
+	label5 = gtk_label_new (_("Stop:"));
 	gtk_widget_show (label5);
 	gtk_box_pack_start (GTK_BOX (hbox4), label5, TRUE, TRUE, 0);
 	
-	label6 = gtk_label_new (_(" Print: "));
+	label6 = gtk_label_new (_("Print:"));
 	gtk_widget_show (label6);
 	gtk_box_pack_start (GTK_BOX (hbox4), label6, TRUE, TRUE, 0);
 	

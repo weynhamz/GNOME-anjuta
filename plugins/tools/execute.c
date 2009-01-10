@@ -454,6 +454,7 @@ static gboolean
 atp_output_context_print_command (ATPOutputContext *this, const gchar* command)
 {
 	gboolean ok;
+	gchar *msg;
 
 	ok = TRUE;
 	switch (this->type)
@@ -463,10 +464,10 @@ atp_output_context_print_command (ATPOutputContext *this, const gchar* command)
 		break;
 	case ATP_TOUT_COMMON_PANE:
 	case ATP_TOUT_NEW_PANE:
-		
-		ok = atp_output_context_print (this, _("Running command: "));
-		ok &= atp_output_context_print (this, command);
-		ok &= atp_output_context_print (this, "...\n");	
+		/* Display the name of the command */
+		msg = g_strdup_printf(_("Running command: %s...\n"), command);	
+		ok = atp_output_context_print (this, msg);
+		g_free (msg);
 		break;
 	case ATP_TOUT_NEW_BUFFER:
 	case ATP_TOUT_REPLACE_BUFFER:

@@ -1,3 +1,20 @@
+2008-01-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/execute.c:
+	Fix #567227 – Don't leave trailing spaces
+
+	* plugins/project-wizard/install.c,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/templates/minimal.wiz:
+	Fix #567223 – Don't leave trailing spaces
+
+	* plugins/gdb/debugger.c:
+	Fix #567219 – String fixes
+
+	* plugins/debug-manager/signals.c,
+	plugins/debug-manager/anjuta-debug-manager.glade:
+	Fix #567218 – Don't leave spaces before punctuation
+
 2009-01-09  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>

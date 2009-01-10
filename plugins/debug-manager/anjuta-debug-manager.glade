@@ -1879,7 +1879,7 @@
                       <widget class="GtkLabel" id="label11">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Address :</property>
+                        <property name="label" translatable="yes">Address:</property>
                       </widget>
                     </child>
                     <child>
@@ -1896,7 +1896,7 @@
                       <widget class="GtkLabel" id="label13">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Port :</property>
+                        <property name="label" translatable="yes">Port:</property>
                       </widget>
                       <packing>
                         <property name="position">2</property>
@@ -2067,7 +2067,7 @@
                               <widget class="GtkLabel" id="label12">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Address :</property>
+                                <property name="label" translatable="yes">Address:</property>
                               </widget>
                             </child>
                             <child>
@@ -2084,7 +2084,7 @@
                               <widget class="GtkLabel" id="label14">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Port :</property>
+                                <property name="label" translatable="yes">Port:</property>
                               </widget>
                               <packing>
                                 <property name="position">2</property>

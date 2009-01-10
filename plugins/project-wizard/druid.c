@@ -178,10 +178,10 @@ npw_druid_fill_summary (NPWDruid* this)
 	GString* text;
 
 	text = g_string_new (_("Confirm the following information:\n\n"));
-	
-	g_string_append (text,_("Project Type: "));
-	g_string_append (text, _(npw_header_get_name (this->header)));
-	g_string_append (text,"\n");
+
+	/* The project type is translated too, it is something like
+	 * generic, GNOME applet, Makefile project... */
+	g_string_append_printf (text, _("Project Type: %s\n"), _(npw_header_get_name (this->header)));
 
 	for (i = 0; (page = g_queue_peek_nth (this->page_list, i)) != NULL; ++i)
 	{

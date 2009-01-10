@@ -565,8 +565,12 @@ npw_run_action (NPWInstall* this)
 		this->launcher = anjuta_launcher_new ();
 	}
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
-	msg = g_strconcat (_("Executing: "), npw_action_get_command (action), NULL);
+	/* The %s is a name of a unix command line, by example
+	 * cp foobar.c project */
+	msg = g_strdup_printf (_("Executing: %s"), npw_action_get_command (action));
 	npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, msg, "");
+	g_free (msg);
+
 	return anjuta_launcher_execute (this->launcher, npw_action_get_command (action), on_run_output, this);
 }
 
