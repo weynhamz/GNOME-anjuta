@@ -1,4 +1,10 @@
-2009-01-10  Johannes Schmid  <jhs@Obelix>
+2009-01-09 Yang Hong <hongyang@redflag-linux.com>
+ 
+	* configure.in:
+	Check perl and perl module Locale::gettext for gbf
+	Fixed #567010 - Can't import project if parse scripts failed
+
+2009-01-10  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
 	* plugins/sourceview/sourceview.c (on_backspace):

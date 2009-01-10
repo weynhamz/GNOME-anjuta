@@ -177,6 +177,29 @@ if test x$AUTOGEN_PATH = xno; then
    AC_MSG_ERROR([Couldn't find autogen, please install the autogen package. You can get it from http://autogen.sourceforge.net/])
 fi
 
+dnl Check for perl required by gbf-am/mkfile
+dnl ----------------------------------------
+# Automake backend requirements
+# Also needed by Makefile backend
+AC_PATH_PROG(PERL, perl)
+if test -z "$PERL"; then
+   AC_MSG_ERROR([perl not found])
+fi
+$PERL -e 'require 5.005;' || {
+   AC_MSG_ERROR([perl 5.005 or better is required])
+}
+
+# Check for perl Locale::gettext module
+if test "x$PERL" != x; then
+        AC_MSG_CHECKING(for perl module Locale::gettext)
+        $PERL "-MLocale::gettext" -e exit > /dev/null 2>&1
+        if test $? -ne 0; then
+                AC_MSG_ERROR([not found, you should installed perl-gettext package for your distribution]);
+        else
+        AC_MSG_RESULT(ok);
+        fi
+fi
+
 dnl Check for Devhelp
 dnl -----------------
 
