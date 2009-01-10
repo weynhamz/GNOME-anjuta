@@ -2,6 +2,13 @@
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-model.c
+	#566943 – Icons are not not found
+
+2009-01-10  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview.c (autodetect_language):
 	#567156 – better autodetection of language
 

@@ -122,20 +122,27 @@ file_model_update_file (FileModel* model,
 {
 	GtkTreeStore* store = GTK_TREE_STORE(model);
 	gboolean is_dir = FALSE;
-	const gchar** icon_names;
+	gchar** icon_names;
 	GtkIconInfo* icon_info;
 	GIcon* icon;
-	GdkPixbuf* pixbuf;
+	GdkPixbuf* pixbuf = NULL;
 	gchar* display_name;
 	
 	icon = g_file_info_get_icon(file_info);
 	g_object_get (icon, "names", &icon_names, NULL);
-	icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
-											icon_names,
+	
+	g_object_unref (icon);
+	
+	if ((icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+											(const gchar **)icon_names,
 											ICON_SIZE,
-											GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-	pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
-	gtk_icon_info_free(icon_info);
+											GTK_ICON_LOOKUP_GENERIC_FALLBACK)))
+	{
+		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+		gtk_icon_info_free(icon_info);
+	}
+	
+	g_strfreev (icon_names);
 	
 	if (g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
 		is_dir = TRUE;
@@ -154,7 +161,8 @@ file_model_update_file (FileModel* model,
 	if (is_dir)
 		file_model_add_dummy(model, iter);
 	
-	g_object_unref (pixbuf);
+	if (pixbuf)
+		g_object_unref (pixbuf);
 	g_free(display_name);
 }
 
