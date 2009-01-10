@@ -1205,6 +1205,14 @@ interface IAnjutaEditor
 	 * The newly added character is @ch which has been inserted at @position.
 	 */
 	void   ::char_added (GObject *position, gchar ch);
+
+	/**
+	 * IAnjutaEditor::backspace:
+	 * @obj: Self
+	 * 
+	 * The signal is emitted when the user presses backspace
+	 */
+	void   ::backspace ();
 	
 	/**
 	 * IAnjutaEditor::changed:

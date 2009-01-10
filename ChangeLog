@@ -1,3 +1,23 @@
+2009-01-10  Johannes Schmid  <jhs@Obelix>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/sourceview/sourceview.c (on_backspace):
+	Added "backspace" signal:
+	#567068 – autocomplete box should vanish on backspace
+	
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_destroy_completion_cache),
+	(cpp_java_assist_create_scope_completion_cache),
+	(cpp_java_assist_show_autocomplete),
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_create_calltips), (cpp_java_assist_show_calltip),
+	(cpp_java_assist_check), (on_editor_backspace),
+	(cpp_java_assist_install), (cpp_java_assist_uninstall),
+	(cpp_java_assist_finalize):
+	#566987 – display tooltip with prototype when calling function in project
+	#566693 – Code completion of symbols usually not working
+	
 2009-01-10  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.

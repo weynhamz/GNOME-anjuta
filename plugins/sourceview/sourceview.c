@@ -274,6 +274,7 @@ static void on_mark_set (GtkTextBuffer *buffer,
 static void on_backspace (GtkTextView* view,
 						  Sourceview* sv)
 {
+	g_signal_emit_by_name(G_OBJECT(sv), "backspace");
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
 }
 
