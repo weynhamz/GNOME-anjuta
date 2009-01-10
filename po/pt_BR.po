@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-01-06 15:11+0000\n"
+"POT-Creation-Date: 2009-01-10 08:54+0000\n"
 "PO-Revision-Date: 2009-01-09 22:03-0200\n"
 "Last-Translator: Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
@@ -769,7 +769,7 @@ msgid "Completed unsuccessfully\n"
 msgstr "Concluído sem sucesso\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:950
-#: ../plugins/tools/execute.c:514
+#: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "Concluído com sucesso\n"
 
@@ -1572,7 +1572,7 @@ msgid "Add Watch"
 msgstr "Inspecionar variável"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
-msgid "Address :"
+msgid "Address:"
 msgstr "Endereço:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
@@ -1675,11 +1675,11 @@ msgid "Pass:"
 msgstr "Passar:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
-msgid "Port :"
+msgid "Port:"
 msgstr "Porta:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
-#: ../plugins/gdb/anjuta-gdb.glade.h:20
+#: ../plugins/debug-manager/signals.c:471 ../plugins/gdb/anjuta-gdb.glade.h:20
 msgid "Print:"
 msgstr "Imprimir:"
 
@@ -1727,7 +1727,7 @@ msgid "Start Debugger"
 msgstr "Iniciar o depurador"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
-#: ../plugins/gdb/anjuta-gdb.glade.h:28
+#: ../plugins/debug-manager/signals.c:467 ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "Parar:"
 
@@ -2291,14 +2291,6 @@ msgstr "Passar"
 msgid "Description"
 msgstr "Descrição"
 
-#: ../plugins/debug-manager/signals.c:467
-msgid " Stop: "
-msgstr " Parar: "
-
-#: ../plugins/debug-manager/signals.c:471
-msgid " Print: "
-msgstr " Imprimir: "
-
 #: ../plugins/debug-manager/sparse_view.c:1195
 msgid "Show Line Numbers"
 msgstr "Mostrar o número das linhas"
@@ -2410,7 +2402,7 @@ msgstr "Falta o arquivo %s"
 msgid "Path"
 msgstr "Caminho"
 
-#: ../plugins/debug-manager/start.c:1288 ../plugins/gdb/debugger.c:1692
+#: ../plugins/debug-manager/start.c:1288 ../plugins/gdb/debugger.c:1694
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -4533,15 +4525,19 @@ msgstr "Executar em um terminal"
 msgid "_Pass:"
 msgstr "_Passar:"
 
-#: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:932
-msgid "Loading Executable: "
-msgstr "Carregando executável: "
+#. The %s argument is a program name, anjuta by example
+#: ../plugins/gdb/debugger.c:690
+#, c-format
+msgid "Loading Executable: %s\n"
+msgstr "Carregando executável: %s\n"
 
-#: ../plugins/gdb/debugger.c:719
-msgid "Loading Core: "
-msgstr "Carregando core: "
+#. The %s argument is a file name
+#: ../plugins/gdb/debugger.c:721
+#, c-format
+msgid "Loading Core: %s\n"
+msgstr "Carregando core: %s\n"
 
-#: ../plugins/gdb/debugger.c:797
+#: ../plugins/gdb/debugger.c:799
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4552,54 +4548,58 @@ msgstr ""
 "Não foi possível inicializar o depurador.\n"
 "Certifique-se de que o Anjuta esteja instalado corretamente."
 
-#: ../plugins/gdb/debugger.c:926
+#: ../plugins/gdb/debugger.c:928
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparando para iniciar a sessão de depuração...\n"
 
-#: ../plugins/gdb/debugger.c:941
+#: ../plugins/gdb/debugger.c:934
+msgid "Loading Executable: "
+msgstr "Carregando executável: "
+
+#: ../plugins/gdb/debugger.c:943
 msgid "No executable specified.\n"
 msgstr "Nenhum executável especificado.\n"
 
-#: ../plugins/gdb/debugger.c:944
+#: ../plugins/gdb/debugger.c:946
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abra um executável ou anexe a um processo para iniciar a depuração.\n"
 
-#: ../plugins/gdb/debugger.c:953
+#: ../plugins/gdb/debugger.c:955
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Ocorreu um erro na inicialização do depurador.\n"
 
-#: ../plugins/gdb/debugger.c:957
+#: ../plugins/gdb/debugger.c:959
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Certifique-se de que o \"gdb\" esteja instalado no sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1248
+#: ../plugins/gdb/debugger.c:1250
 msgid "Program exited normally\n"
 msgstr "O programa terminou normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1259
+#: ../plugins/gdb/debugger.c:1261
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "O programa terminou com o código de erro %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1274
+#: ../plugins/gdb/debugger.c:1276
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Ponto de Interrupção número %s atingido\n"
 
-#: ../plugins/gdb/debugger.c:1283
+#: ../plugins/gdb/debugger.c:1285
 msgid "Function finished\n"
 msgstr "Função terminada\n"
 
-#: ../plugins/gdb/debugger.c:1289
+#: ../plugins/gdb/debugger.c:1291
 msgid "Stepping finished\n"
 msgstr "Passo a passo terminado\n"
 
-#: ../plugins/gdb/debugger.c:1295
+#: ../plugins/gdb/debugger.c:1297
 msgid "Location reached\n"
 msgstr "Local atingido\n"
 
-#: ../plugins/gdb/debugger.c:1689
+#: ../plugins/gdb/debugger.c:1691
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4607,29 +4607,31 @@ msgstr ""
 "O programa está anexado.\n"
 "Ainda deseja parar o depurador?"
 
-#: ../plugins/gdb/debugger.c:1846
+#. The %s argument is an error message returned by gdb.
+#. * It is something like, "No such file or directory"
+#: ../plugins/gdb/debugger.c:1850
 #, c-format
 msgid ""
-"Unable to connect to remote target, %s.\n"
-" Do you want to try again ?"
+"Unable to connect to remote target, %s\n"
+"Do you want to try again?"
 msgstr ""
-"Não foi possível conectar-se ao alvo remoto %s\n"
+"Não foi possível conectar-se ao alvo remoto: %s\n"
 "Você quer tentar de novo?"
 
-#: ../plugins/gdb/debugger.c:1864
+#: ../plugins/gdb/debugger.c:1868
 msgid "Debugger connected\n"
 msgstr "Depurador conectado\n"
 
-#: ../plugins/gdb/debugger.c:1938
+#: ../plugins/gdb/debugger.c:1942
 msgid "Program attached\n"
 msgstr "Programa anexado\n"
 
-#: ../plugins/gdb/debugger.c:1959
+#: ../plugins/gdb/debugger.c:1963
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Anexando ao processo: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1985
+#: ../plugins/gdb/debugger.c:1989
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4637,33 +4639,33 @@ msgstr ""
 "Um processo já está em execução.\n"
 "Você gostaria de terminá-lo e anexar um novo processo?"
 
-#: ../plugins/gdb/debugger.c:2002
+#: ../plugins/gdb/debugger.c:2006
 msgid "Anjuta is unable to attach to itself."
 msgstr "O Anjuta não pode anexar-se a ele mesmo."
 
-#: ../plugins/gdb/debugger.c:2052
+#: ../plugins/gdb/debugger.c:2056
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:2067
+#: ../plugins/gdb/debugger.c:2071
 msgid "Program detached\n"
 msgstr "Programa desanexado\n"
 
-#: ../plugins/gdb/debugger.c:2087
+#: ../plugins/gdb/debugger.c:2091
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Desanexando o processo...\n"
 
-#: ../plugins/gdb/debugger.c:2108
+#: ../plugins/gdb/debugger.c:2112
 msgid "Interrupting the process\n"
 msgstr "Interrompendo o processo\n"
 
-#: ../plugins/gdb/debugger.c:3892
+#: ../plugins/gdb/debugger.c:3896
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviando sinal %s ao processo: %d"
 
-#: ../plugins/gdb/debugger.c:3918
+#: ../plugins/gdb/debugger.c:3922
 msgid "Error whilst signaling the process."
 msgstr "Erro no momento em que sinalizava o processo."
 
@@ -5174,7 +5176,7 @@ msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:75
+#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "_Commit..."
 
@@ -5283,15 +5285,15 @@ msgstr "_Ver log..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
-#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:59
-#: ../plugins/subversion/plugin.c:166
+#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:60
+#: ../plugins/subversion/plugin.c:167
 msgid "_Add..."
 msgstr "_Adicionar..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
-#: ../plugins/subversion/plugin.c:67 ../plugins/subversion/plugin.c:174
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
 msgid "_Remove..."
 msgstr "_Remover..."
 
@@ -6825,9 +6827,12 @@ msgstr ""
 "Confirme as seguintes informações:\n"
 "\n"
 
-#: ../plugins/project-wizard/druid.c:182
-msgid "Project Type: "
-msgstr "Tipo de projeto: "
+#. The project type is translated too, it is something like
+#. * generic, GNOME applet, Makefile project...
+#: ../plugins/project-wizard/druid.c:184
+#, c-format
+msgid "Project Type: %s\n"
+msgstr "Tipo de projeto: %s\n"
 
 #: ../plugins/project-wizard/druid.c:313
 #, c-format
@@ -6944,9 +6949,12 @@ msgstr "Criando %s (utilizando o AutoGen)... %s"
 msgid "Creating %s ... %s"
 msgstr "Criando %s ... %s"
 
-#: ../plugins/project-wizard/install.c:568
-msgid "Executing: "
-msgstr "Executando: "
+#. The %s is a name of a unix command line, by example
+#. * cp foobar.c project
+#: ../plugins/project-wizard/install.c:570
+#, c-format
+msgid "Executing: %s"
+msgstr "Executando: %s"
 
 #: ../plugins/project-wizard/plugin.c:157
 msgid "New Project Assistant"
@@ -7005,8 +7013,8 @@ msgid "A generic java project using automake project management"
 msgstr "Um projeto genérico em Java gerenciado com Automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-msgid "A generic minimal and flat project "
-msgstr "Um projeto genérico mínimo e plano"
+msgid "A generic minimal and flat project"
+msgstr "Um projeto genérico, mínimo e plano"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid ""
@@ -8136,145 +8144,145 @@ msgstr "domínio"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:51 ../plugins/subversion/plugin.c:150
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:61 ../plugins/subversion/plugin.c:168
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Adiciona um novo arquivo/diretório à árvore do Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:69 ../plugins/subversion/plugin.c:176
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Remove um arquivo/diretório da árvore do Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:77
+#: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
 msgstr "Submete as suas alterações para a árvore do Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:83
+#: ../plugins/subversion/plugin.c:84
 msgid "_Revert..."
 msgstr "_Reverter..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:85
+#: ../plugins/subversion/plugin.c:86
 msgid "Revert changes to your working copy."
 msgstr "Reverte mudanças para a cópia de trabalho."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:91
+#: ../plugins/subversion/plugin.c:92
 msgid "_Resolve Conflicts..."
 msgstr "_Resolver conflitos..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:93
+#: ../plugins/subversion/plugin.c:94
 msgid "Resolve conflicts in your working copy."
 msgstr "Resolve conflitos na cópia de trabalho."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:99 ../plugins/subversion/plugin.c:158
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update..."
 msgstr "At_ualizar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:101 ../plugins/subversion/plugin.c:160
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Sync your local copy with the Subversion tree"
 msgstr "Sincroniza sua cópia local com a árvore do Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:107
+#: ../plugins/subversion/plugin.c:108
 msgid "Copy Files/Folders..."
 msgstr "Copiar arquivos/pastas..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:109 ../plugins/subversion/plugin.c:192
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
 msgid "Copy files/folders in the repository"
 msgstr "Copia arquivos/pastas no repositório"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:115
+#: ../plugins/subversion/plugin.c:116
 msgid "Switch to a Branch/Tag..."
 msgstr "Alternar para a versão/tag..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:117
+#: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
 msgstr "Alterna a sua cópia local para uma versão ou tag no repositório"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:123
+#: ../plugins/subversion/plugin.c:124
 msgid "Merge..."
 msgstr "Mesclar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:125
+#: ../plugins/subversion/plugin.c:126
 msgid "Merge changes into your working copy"
 msgstr "Mescla mudanças com a sua cópia de trabalho"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:131 ../plugins/subversion/plugin.c:182
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
 msgid "_View Log..."
 msgstr "_Ver log..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:133 ../plugins/subversion/plugin.c:184
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
 msgid "View file history"
 msgstr "Vê histório do arquivo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:139
+#: ../plugins/subversion/plugin.c:140
 msgid "_Diff..."
 msgstr "_Diff..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:141 ../plugins/subversion/plugin.c:200
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
 msgid "Diff local tree with repository"
 msgstr "Vê as diferenças da árvore local e o repositório"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:190
+#: ../plugins/subversion/plugin.c:191
 msgid "Copy..."
 msgstr "Copiar..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:198
+#: ../plugins/subversion/plugin.c:199
 msgid "Diff..."
 msgstr "Diferenças..."
 
-#: ../plugins/subversion/plugin.c:445
+#: ../plugins/subversion/plugin.c:446
 msgid "Subversion operations"
 msgstr "Operações do Subversion"
 
-#: ../plugins/subversion/plugin.c:451
+#: ../plugins/subversion/plugin.c:452
 msgid "Subversion popup operations"
 msgstr "Operações do menu de contexto do subversion"
 
-#: ../plugins/subversion/plugin.c:479
+#: ../plugins/subversion/plugin.c:480
 msgid "Subversion Log"
 msgstr "Log do Subversion"
 
@@ -8695,24 +8703,26 @@ msgstr "(saída)"
 msgid "(error)"
 msgstr "(erro)"
 
-#: ../plugins/tools/execute.c:467
-msgid "Running command: "
-msgstr "Comando de execução: "
+#. Display the name of the command
+#: ../plugins/tools/execute.c:468
+#, c-format
+msgid "Running command: %s...\n"
+msgstr "Executando comando: %s...\n"
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:508
 #, c-format
 msgid "Completed unsuccessfully with status code %d\n"
 msgstr "Concluído sem sucesso, com código de status %d\n"
 
-#: ../plugins/tools/execute.c:627
+#: ../plugins/tools/execute.c:628
 msgid "Unable to create a buffer, command aborted"
 msgstr "Não foi possível criar um buffer, comando abortado"
 
-#: ../plugins/tools/execute.c:639
+#: ../plugins/tools/execute.c:640
 msgid "No document currently open, command aborted"
 msgstr "Nenhum documento está aberto atualmente, comando abortado"
 
-#: ../plugins/tools/execute.c:1017
+#: ../plugins/tools/execute.c:1018
 #, c-format
 msgid "Unable to open input file %s, command aborted"
 msgstr "Não foi possível abrir o arquivo de entrada %s, comando abortado"
@@ -9793,3 +9803,9 @@ msgstr "Backend autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend autotools para o gerenciador de projetos"
+
+#~ msgid " Stop: "
+#~ msgstr " Parar: "
+
+#~ msgid " Print: "
+#~ msgstr " Imprimir: "
