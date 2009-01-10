@@ -304,7 +304,7 @@ plugin that can work with most languages type system.</comment>
       <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
     </item>
     <item>
-      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159616893"/>
+      <attribute id="1159539232" priority="1" done="1" start_date="732583" completed_date="733382" notify="0" last_edited="1228522106"/>
       <summary>Rewrite symbol-browser plugin</summary>
       <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #358479]
 
