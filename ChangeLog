@@ -1,3 +1,10 @@
+2009-01-10  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (autodetect_language):
+	#567156 – better autodetection of language
+
 2009-01-09 Yang Hong <hongyang@redflag-linux.com>
  
 	* configure.in:

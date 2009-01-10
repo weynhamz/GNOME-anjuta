@@ -1825,42 +1825,24 @@ ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
 static const gchar*
 autodetect_language (Sourceview* sv)
 {
-	GStrv languages;
-	GStrv cur_lang;
-	const gchar* detected_language = NULL;
-	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
-							&languages, NULL);
 	gchar* io_mime_type = sourceview_io_get_mime_type (sv->priv->io);
+	gchar* filename = sourceview_io_get_filename (sv->priv->io);
+	GtkSourceLanguage *language;
+	const gchar* detected_language = NULL;
 	
-	if (!io_mime_type)
-		return NULL;
+	language = gtk_source_language_manager_guess_language (gtk_source_language_manager_get_default (), filename, io_mime_type);
+	if (!language)
+		goto out;
 	
-	for (cur_lang = languages; *cur_lang != NULL; cur_lang++)
-	{
-		GtkSourceLanguage* language = 
-			gtk_source_language_manager_get_language (gtk_source_language_manager_get_default(),
-													  *cur_lang);
-		GStrv mime_types = gtk_source_language_get_mime_types (language);
-		if (!mime_types)
-			continue;
-		GStrv mime_type;
-		for (mime_type = mime_types; *mime_type != NULL; mime_type++)
-		{
-			if (g_str_equal (*mime_type, io_mime_type))
-			{
-				detected_language = gtk_source_language_get_id (language);				
-				g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
-									   detected_language);
-				gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (sv->priv->document), language);
-				g_strfreev (mime_types);
-				goto out;
-			}
-		}
-		g_strfreev (mime_types);
-	}
-	out:
-		g_strfreev(languages);
+	detected_language = gtk_source_language_get_id (language);	
+	
+	g_signal_emit_by_name (sv, "language-changed", detected_language);
+	gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (sv->priv->document), language);
+	
+out:
+	if (io_mime_type)
 		g_free (io_mime_type);
+	g_free (filename);
 	
 	return detected_language;
 }
