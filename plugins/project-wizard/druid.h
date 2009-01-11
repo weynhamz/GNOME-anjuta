@@ -21,7 +21,6 @@
 #ifndef __DRUID_H__
 #define __DRUID_H__
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-wizard.glade"
 #define ICON_FILE "anjuta-project-wizard-plugin-48.png"
 
 #include <glib.h> 
@@ -30,8 +29,8 @@ struct _NPWPlugin;
 typedef struct _NPWDruid NPWDruid;
 
 NPWDruid* npw_druid_new (struct _NPWPlugin* plugin);
-void npw_druid_free (NPWDruid* this);
+void npw_druid_free (NPWDruid* druid);
 
-void npw_druid_show (NPWDruid* this);
+void npw_druid_show (NPWDruid* druid);
 
 #endif

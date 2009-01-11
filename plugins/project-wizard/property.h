@@ -125,6 +125,9 @@ const gchar* npw_page_get_label (const NPWPage* page);
 void npw_page_set_description (NPWPage* page, const gchar* name);
 const gchar* npw_page_get_description (const NPWPage* page);
 
+void npw_page_set_widget (NPWPage* page, GtkWidget *widget);
+GtkWidget *npw_page_get_widget (const NPWPage *page);
+
 void npw_page_foreach_property (const NPWPage* page, GFunc func, gpointer data);
 void npw_page_add_property (NPWPage* page, NPWProperty* prop);
 

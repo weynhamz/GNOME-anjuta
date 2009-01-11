@@ -1,3 +1,18 @@
+2008-01-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/druid.h,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/header.c,
+	plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/Makefile.am,
+	configure.in:
+	Partial fix #513156: Replace GnomeDruid by GtkAssistant and
+	GnomeIconList by GtkIconView
+	Use GtkBuilder instead of libglade
+	gtk_assistant_set_current_page need gtk 2.19.10
+
 2009-01-11  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/devhelp/anjuta-devhelp-simple.ui:

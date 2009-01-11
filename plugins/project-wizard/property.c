@@ -49,6 +49,7 @@ struct _NPWPage
 	gchar* name;
 	gchar* label;
 	gchar* description;
+	GtkWidget *widget;
 };
 
 struct _NPWProperty {
@@ -730,6 +731,18 @@ const gchar*
 npw_page_get_description (const NPWPage* page)
 {
 	return page->description;
+}
+
+void
+npw_page_set_widget (NPWPage* page, GtkWidget *widget)
+{
+	page->widget = widget;
+}
+
+GtkWidget*
+npw_page_get_widget (const NPWPage* page)
+{
+	return page->widget;
 }
 
 void

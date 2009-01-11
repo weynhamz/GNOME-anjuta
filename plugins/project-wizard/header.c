@@ -214,8 +214,6 @@ remove_category (GList *list)
 void
 npw_header_list_free (GList* list)
 {
-	g_return_if_fail (list != NULL);
-
 	g_list_foreach (list, (GFunc)remove_category, NULL);
 	g_list_free (list);
 }

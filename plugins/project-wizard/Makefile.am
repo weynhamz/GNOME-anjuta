@@ -3,7 +3,7 @@ SUBDIRS = templates
 
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
-wizard_glade_DATA = anjuta-project-wizard.glade \
+wizard_glade_DATA = anjuta-project-wizard.ui \
 	applogo.png \
 	appwizard.png
 
@@ -20,6 +20,10 @@ wizard_pixmaps_DATA = \
 # Plugin Icon file
 plugin_in_files = anjuta-project-wizard.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
+# Create .ui file from .glade file
+%.ui: %.glade
+	gtk-builder-convert $< $@ 
 
 wizard_plugindir = $(anjuta_plugin_dir)
 wizard_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
