@@ -118,6 +118,13 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 					  G_CALLBACK (on_diff_command_data_arrived),
 					  callback);
 	
+	if (cancel)
+	{
+		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
+								  G_CALLBACK (anjuta_command_cancel),
+								  diff_command);
+	}
+	
 	if (notify)
 	{
 		g_signal_connect_swapped (G_OBJECT (diff_command), "finished",
@@ -178,6 +185,13 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	g_signal_connect (G_OBJECT (status_command), "finished",
 					  G_CALLBACK (g_object_unref),
 					  NULL);
+	
+	if (cancel)
+	{
+		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
+								  G_CALLBACK (anjuta_command_cancel),
+								  status_command);
+	}
 	
 	if (notify)
 	{
