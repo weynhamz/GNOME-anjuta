@@ -1,3 +1,8 @@
+2009-01-10  James Liggett  <jrliggett@cox.net>
+
+	* configure.in:
+	Require Subversion 1.5.
+
 2009-01-10  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>

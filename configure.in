@@ -36,9 +36,9 @@ LIBDEVHELP_REQUIRED=0.22
 GDL_REQUIRED=0.7.3
 GLADEUI_REQUIRED=3.2.0
 LIBGRAPHVIZ_REQUIRED=1.0
-NEON_REQUIRED=0.24.5
+NEON_REQUIRED=0.28.2
 SVN_MAJOR=1
-SVN_MINOR=4
+SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 GTKSOURCEVIEW_REQUIRED=2.4.0
@@ -1056,8 +1056,8 @@ else
         echo "Building subversion plugin: ............................NO"
 		echo "        Requires apr (>= 0.9.4); http://subversion.org"
 		echo "        Requires apr-util (>= 0.9.4); http://subversion.org"
-		echo "        Requires neon (>= 0.24.5); http://subversion.org"
-		echo "        Requires subversion (>= 1.0.2); http://subversion.org"
+		echo "        Requires neon (>= 0.28.2); http://subversion.org"
+		echo "        Requires subversion (>= 1.5); http://subversion.org"
 fi
 
 if [ test x$libgladeui_found = xyes ]; then
