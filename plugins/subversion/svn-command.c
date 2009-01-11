@@ -604,7 +604,10 @@ svn_command_make_canonical_path (SvnCommand *self, const gchar *path)
 {
 	const gchar *canonical_path;
 	
-	canonical_path = svn_path_canonicalize (path, self->priv->pool);
+	canonical_path = NULL;
+	
+	if (path)
+		canonical_path = svn_path_canonicalize (path, self->priv->pool);
 	
 	return g_strdup (canonical_path);
 }
