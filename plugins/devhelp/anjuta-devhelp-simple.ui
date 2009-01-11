@@ -12,8 +12,4 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarMain">
-		<separator name="separator1" />
-		<toolitem name="Context" action="ActionHelpContext" />
-	</toolbar>
 </ui>

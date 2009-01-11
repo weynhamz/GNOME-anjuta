@@ -1,3 +1,8 @@
+2009-01-11  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/devhelp/anjuta-devhelp-simple.ui:
+	#567360 – Context Help needs an icon
+
 2009-01-11  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/subversion-vcs-interface.c
