@@ -1,3 +1,9 @@
+2009-01-11  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/svn-command.c (on_svn_cancel),
+	(svn_command_init), (svn_command_cancel), (svn_command_class_init):
+	Implement support for cancelling operations in the Subversion plugin.
+
 2009-01-10  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-command.c (anjuta_command_class_init),

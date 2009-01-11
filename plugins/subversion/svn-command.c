@@ -31,6 +31,7 @@ struct _SvnCommandPriv
 	GQueue *info_messages;
 	GMutex *ui_lock;
 	gboolean main_thread_has_ui_lock;
+	gboolean cancelled;
 };
 
 G_DEFINE_TYPE (SvnCommand, svn_command, ANJUTA_TYPE_ASYNC_COMMAND);
@@ -407,6 +408,20 @@ on_svn_notify (gpointer baton,
 	}
 }
 
+/* Operation cancelling callback */
+static svn_error_t *
+on_svn_cancel (gpointer cancel_baton)
+{
+	SvnCommand *self;
+	
+	self = SVN_COMMAND (cancel_baton);
+	
+	if (self->priv->cancelled)
+		return svn_error_create (SVN_ERR_CANCELLED, NULL, NULL);
+	else
+		return SVN_NO_ERROR;
+}
+
 static void
 svn_command_init (SvnCommand *self)
 {
@@ -420,6 +435,8 @@ svn_command_init (SvnCommand *self)
 	svn_client_create_context (&self->priv->client_context, self->priv->pool);
 	self->priv->client_context->notify_func2 = on_svn_notify;
 	self->priv->client_context->notify_baton2 = self;
+	self->priv->client_context->cancel_func = on_svn_cancel;
+	self->priv->client_context->cancel_baton = self;
 	
 	svn_config_get_config (&(self->priv->client_context)->config,
 						   NULL, /* default dir */
@@ -518,11 +535,23 @@ svn_command_finalize (GObject *object)
 }
 
 static void
+svn_command_cancel (AnjutaCommand *command)
+{
+	SvnCommand *self;
+	
+	self = SVN_COMMAND (command);
+	
+	self->priv->cancelled = TRUE;
+}
+
+static void
 svn_command_class_init (SvnCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	AnjutaCommandClass *command_class = ANJUTA_COMMAND_CLASS (klass);
 
 	object_class->finalize = svn_command_finalize;
+	command_class->cancel = svn_command_cancel;
 }
 
 
