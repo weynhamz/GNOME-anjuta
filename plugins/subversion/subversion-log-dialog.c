@@ -399,6 +399,7 @@ on_log_diff_selected_button_clicked (GtkButton *button, LogData *data)
 		diff_command = svn_diff_command_new (data->path, 
 											 revision1,
 											 revision2,
+											 data->plugin->project_root_dir,
 											 TRUE);
 		
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
@@ -463,8 +464,11 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 						COL_REVISION, &revision,
 						-1);
 	
-	diff_command = svn_diff_command_new (data->path, SVN_DIFF_REVISION_PREVIOUS,
-										 revision, TRUE); 
+	diff_command = svn_diff_command_new (data->path,
+										 SVN_DIFF_REVISION_PREVIOUS,
+										 revision,
+										 data->plugin->project_root_dir,
+										 TRUE);
 	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);

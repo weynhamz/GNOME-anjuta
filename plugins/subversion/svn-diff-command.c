@@ -31,9 +31,10 @@ struct _SvnDiffCommandPriv
 {
 	GQueue *output;
 	gchar *path;
+	gchar *root_dir;
 	glong revision1;
 	glong revision2;
-	gboolean recursive;
+	svn_depth_t depth;
 };
 
 G_DEFINE_TYPE (SvnDiffCommand, svn_diff_command, SVN_TYPE_COMMAND);
@@ -63,6 +64,7 @@ svn_diff_command_finalize (GObject *object)
 	
 	g_queue_free (self->priv->output);
 	g_free (self->priv->path);
+	g_free (self->priv->root_dir);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (svn_diff_command_parent_class)->finalize (object);
@@ -146,17 +148,19 @@ svn_diff_command_run (AnjutaCommand *command)
 	apr_file_mktemp (&diff_file, file_template, 0, 
 					 svn_command_get_pool (SVN_COMMAND (command)));
 	
-	error = svn_client_diff3 (options,
+	error = svn_client_diff4 (options,
 							  self->priv->path,
 							  &revision1,
 							  self->priv->path,
 							  &revision2,
-							  self->priv->recursive,
+							  self->priv->root_dir,
+							  self->priv->depth,
 							  FALSE,
 							  FALSE,
 							  FALSE,
 							  SVN_APR_LOCALE_CHARSET,
 							  diff_file,
+							  NULL,
 							  NULL,
 							  svn_command_get_client_context (svn_command),
 							  svn_command_get_pool (svn_command));
@@ -207,18 +211,20 @@ svn_diff_command_class_init (SvnDiffCommandClass *klass)
 }
 
 SvnDiffCommand *
-svn_diff_command_new (const gchar *path, glong revision1, glong revision2, 
-					  gboolean recursive)
+svn_diff_command_new (const gchar *path, glong revision1, glong revision2,
+					  const gchar *root_dir, gboolean recursive)
 {
 	SvnDiffCommand *self;
 	
 	self = g_object_new (SVN_TYPE_DIFF_COMMAND, NULL);
 	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
 														path);
+	self->priv->root_dir = svn_command_make_canonical_path (SVN_COMMAND (self),
+															root_dir);
 	self->priv->revision1 = revision1;
 	self->priv->revision2 = revision2;
-	self->priv->recursive = recursive;
-	
+	self->priv->depth = recursive ? svn_depth_infinity : svn_depth_empty;
+		
 	return self;
 }
 

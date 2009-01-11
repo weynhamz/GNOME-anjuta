@@ -84,6 +84,7 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			diff_command = svn_diff_command_new ((gchar *) path, 
 												 SVN_DIFF_REVISION_NONE,
 												 SVN_DIFF_REVISION_NONE,
+												 data->plugin->project_root_dir,
 												 !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (diff_no_recursive_check)));
 			
 			pulse_timer_id = status_bar_progress_pulse (data->plugin,

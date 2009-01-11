@@ -100,6 +100,7 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 	path = g_file_get_path (file);
 	diff_command = svn_diff_command_new (path, SVN_DIFF_REVISION_NONE,
 										 SVN_DIFF_REVISION_NONE,
+										 ANJUTA_PLUGIN_SUBVERSION (obj)->project_root_dir,
 										 TRUE);
 	
 	g_free (path);

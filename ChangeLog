@@ -1,3 +1,21 @@
+2009-01-10  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: James Liggett <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-diff-dialog.c
+	(on_subversion_diff_response):
+	* plugins/subversion/subversion-log-dialog.c
+	(on_log_diff_selected_button_clicked),
+	(on_log_diff_previous_button_clicked):
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_diff):
+	* plugins/subversion/svn-diff-command.c
+	(svn_diff_command_finalize), (svn_diff_command_run),
+	(svn_diff_command_new):
+	* plugins/subversion/svn-diff-command.h:
+	Fix bug 566924 - Subversion diff should be done from the project's root
+	directory.  
+
 2009-01-10  James Liggett  <jrliggett@cox.net>
 
 	* configure.in:

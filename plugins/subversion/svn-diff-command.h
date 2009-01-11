@@ -62,7 +62,8 @@ enum
 
 GType svn_diff_command_get_type (void) G_GNUC_CONST;
 SvnDiffCommand *svn_diff_command_new (const gchar *path, glong revision1,
-									  glong revision2, gboolean recursive);
+									  glong revision2, const gchar *root_dir,
+									  gboolean recursive);
 void svn_diff_command_destroy (SvnDiffCommand *self);
 
 GQueue *svn_diff_command_get_output (SvnDiffCommand *self);
