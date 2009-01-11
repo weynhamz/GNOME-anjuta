@@ -99,6 +99,7 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	
 	klass->run = NULL;
 	klass->start = NULL;
+	klass->cancel = NULL;
 	klass->notify_data_arrived = NULL;
 	klass->notify_complete = NULL;
 	klass->notify_progress = NULL;
@@ -177,6 +178,17 @@ anjuta_command_start (AnjutaCommand *self)
 	ANJUTA_COMMAND_GET_CLASS (self)->start (self);
 }
 
+/**
+ * anjuta_command_cancel:
+ * @self: Command object.
+ *
+ * Cancels a running command.
+ */
+void
+anjuta_command_cancel (AnjutaCommand *self)
+{
+	ANJUTA_COMMAND_GET_CLASS (self)->cancel (self);
+}
 
 /**
  * anjuta_command_notify_data_arrived:

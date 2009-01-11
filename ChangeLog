@@ -1,5 +1,12 @@
 2009-01-10  James Liggett  <jrliggett@cox.net>
 
+	* libanjuta/anjuta-command.c (anjuta_command_class_init),
+	(anjuta_command_cancel):
+	* libanjuta/anjuta-command.h:
+	Add a cancel method to AnjutaCommand.
+
+2009-01-10  James Liggett  <jrliggett@cox.net>
+
 	* plugins/subversion/svn-command.c
 	(svn_command_make_canonical_path):
 	svn_command_make_canonical path shouldn't crash if given a NULL path.

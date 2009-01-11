@@ -47,6 +47,7 @@ struct _AnjutaCommandClass
 	/* Virtual Methods */
 	guint (*run) (AnjutaCommand *self);
 	void (*start) (AnjutaCommand *self);
+	void (*cancel) (AnjutaCommand *self);
 	void (*notify_data_arrived) (AnjutaCommand *self);
 	void (*notify_complete) (AnjutaCommand *self, guint return_code);
 	void (*notify_progress) (AnjutaCommand *self, gfloat progress);
@@ -68,6 +69,7 @@ struct _AnjutaCommand
 GType anjuta_command_get_type (void) G_GNUC_CONST;
 
 void anjuta_command_start (AnjutaCommand *self);
+void anjuta_command_cancel (AnjutaCommand *self);
 void anjuta_command_notify_data_arrived (AnjutaCommand *self);
 void anjuta_command_notify_complete (AnjutaCommand *self, guint return_code);
 void anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress);
