@@ -1,12 +1,17 @@
 2009-01-11  James Liggett  <jrliggett@cox.net>
 
+	* plugins/profiler/profiler.glade:
+	Fix Bug 567228 – Don't leave trailing spaces.
+
+2009-01-11  James Liggett  <jrliggett@cox.net>
+
 	* plugins/subversion/subversion-vcs-interface.c
 	(subversion_ivcs_checkout), (on_ivcs_status_command_data_arrived),
 	(subversion_ivcs_query_status):
 	* plugins/subversion/subversion-vcs-interface.h:
 	Implement the checkout method for IAnjutaVcs in the Subversion plugin.
 	
-	IAnjutaVcs is now completely implemented in the Subversion plugin.
+	IAnjutaVcs is now completely implemented for the Subversion plugin.
 
 2009-01-11  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
