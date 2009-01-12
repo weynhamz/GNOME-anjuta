@@ -481,7 +481,7 @@
                             <child>
                               <widget class="GtkLabel" id="label18">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Use revision/tag: </property>
+                                <property name="label" translatable="yes">Use revision/tag:</property>
                               </widget>
                               <packing>
                                 <property name="expand">False</property>
@@ -689,7 +689,7 @@
                             <child>
                               <widget class="GtkLabel" id="label36">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Use revision/tag: </property>
+                                <property name="label" translatable="yes">Use revision/tag:</property>
                               </widget>
                               <packing>
                                 <property name="expand">False</property>
