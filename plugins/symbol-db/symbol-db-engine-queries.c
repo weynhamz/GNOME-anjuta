@@ -2701,6 +2701,8 @@ symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
 	g_return_val_if_fail (language != NULL, FALSE);
 	
 	priv = dbe->priv;
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
 
 	MP_LEND_OBJ_STR(priv, value);
 	g_value_set_static_string (value, language);
@@ -2711,9 +2713,15 @@ symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
 						"langname",
 						value)) < 0)
 	{
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
+	
 		return FALSE;
 	}
-	
+
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
+
 	return TRUE;
 }
 

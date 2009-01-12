@@ -1,3 +1,12 @@
+2009-01-12  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (do_update_project_symbols),
+	(do_check_offline_files_changed), (on_project_root_added):
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_is_language_used):
+	fixed #567505 – Anjuta hangs while generating inheritances. Was introduced by
+	me with last patch.
+
 2009-01-11  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/anjuta-subversion.glade:

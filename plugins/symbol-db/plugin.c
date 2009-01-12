@@ -1473,7 +1473,10 @@ do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 	}	
 }
 
-static void
+/**
+ * @return TRUE if a scan is in progress, FALSE elsewhere.
+ */
+static gboolean
 do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 {
 	gint proc_id;
@@ -1487,7 +1490,10 @@ do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 		/* insert the proc id associated within the task */
 		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
 					   GINT_TO_POINTER (TASK_PROJECT_UPDATE));
+		return TRUE;
 	}
+	
+	return FALSE;
 }
 
 /**
@@ -1526,7 +1532,10 @@ do_check_languages_count (SymbolDBPlugin *symbol_db)
 	}
 }
 
-static void
+/**
+ * @return TRUE is a scan process is started, FALSE elsewhere.
+ */
+static gboolean
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 {
 	GList * prj_elements_list;
@@ -1534,6 +1543,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	GHashTable *prj_elements_hash;
 	GPtrArray *to_add_files = NULL;
 	gint i;
+	gint real_added ;
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);	
@@ -1648,7 +1658,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 								 sdb_plugin->sdbe_project, FALSE);
 		sdb_plugin->is_offline_scanning = TRUE;		
 		
-		gint real_added = do_add_new_files (sdb_plugin, to_add_files, 
+		real_added = do_add_new_files (sdb_plugin, to_add_files, 
 										   TASK_OFFLINE_CHANGES);
 		
 		DEBUG_PRINT ("going to do add %d files with TASK_OFFLINE_CHANGES",
@@ -1666,6 +1676,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	g_object_unref (it);
 	g_ptr_array_free (to_add_files, TRUE);
 	g_hash_table_destroy (prj_elements_hash);
+	
+	return real_added > 0 ? TRUE : FALSE;	
 }
 
 /* add a new project */
@@ -1806,7 +1818,10 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			 * a previous session..
 			 */				
 			GPtrArray *sources_array = NULL;				
-				
+			gboolean flag_offline;
+			gboolean flag_update;
+			
+			
 			sources_array = 
 				symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
 
@@ -1819,10 +1834,20 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			}
 				
 			/* check for offline changes */				
-			do_check_offline_files_changed (sdb_plugin);								
+			flag_offline = do_check_offline_files_changed (sdb_plugin);
 				
 			/* update any files of the project which isn't up-to-date */
-			do_update_project_symbols (sdb_plugin, root_dir);
+			flag_update = do_update_project_symbols (sdb_plugin, root_dir);
+			
+			/* if they're both false then there won't be a place where
+			 * the do_check_languages_count () is called. Check the returns
+			 * and to it here
+			 */
+			if (flag_offline == FALSE && flag_update == FALSE)
+			{
+				/* check for the number of languages used in the opened project. */
+				do_check_languages_count (sdb_plugin);				
+			}				
 		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 								   _("Populating symbols' db..."));
@@ -1848,9 +1873,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sdb_plugin);
-
-	/* check for the number of languages used in the opened project. */
-	do_check_languages_count (sdb_plugin);
 }
 
 static void
