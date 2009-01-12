@@ -29,9 +29,12 @@
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "svn-add-command.h"
+#include "svn-checkout-command.h"
 #include "svn-diff-command.h"
 #include "svn-status-command.h"
 #include "svn-remove-command.h"
+
+#include "subversion-ui-utils.h"
 
 void subversion_ivcs_iface_init (IAnjutaVcsIface *iface);
 void subversion_ivcs_add (IAnjutaVcs *obj, GList *files, 

@@ -67,7 +67,37 @@ subversion_ivcs_checkout (IAnjutaVcs *obj,
 						  GCancellable *cancel,
 						  AnjutaAsyncNotify *notify, GError **err)
 {
-	/* Stub */
+	gchar *path;
+	SvnCheckoutCommand *checkout_command;
+	Subversion *plugin;
+	
+	path = g_file_get_path (dest);
+	checkout_command = svn_checkout_command_new (repository_location, path);
+	plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
+	
+	g_free (path);
+	
+	create_message_view (plugin);
+	
+	g_signal_connect (G_OBJECT (checkout_command), "data-arrived",
+					  G_CALLBACK (on_command_info_arrived),
+					  plugin);
+	
+	if (cancel)
+	{
+		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
+								  G_CALLBACK (anjuta_command_cancel),
+								  checkout_command);
+	}
+	
+	if (notify)
+	{
+		g_signal_connect_swapped (G_OBJECT (checkout_command), "finished",
+								  G_CALLBACK (anjuta_async_notify_notify_finished),
+								  notify);
+	}
+	
+	anjuta_command_start (ANJUTA_COMMAND (checkout_command));
 }
 
 static void
@@ -135,8 +165,9 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 	anjuta_command_start (ANJUTA_COMMAND (diff_command));
 }
 
+/* FIXME: The stuff in subversion-ui-utils.c should be namespaced. */
 static void
-on_status_command_data_arrived (AnjutaCommand *command, 
+on_ivcs_status_command_data_arrived (AnjutaCommand *command, 
 								IAnjutaVcsStatusCallback callback)
 {
 	GQueue *status_queue;
@@ -179,7 +210,7 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	g_object_set_data (G_OBJECT (status_command), "user-data", user_data);
 	
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",
-					  G_CALLBACK (on_status_command_data_arrived),
+					  G_CALLBACK (on_ivcs_status_command_data_arrived),
 					  callback);
 	
 	g_signal_connect (G_OBJECT (status_command), "finished",
