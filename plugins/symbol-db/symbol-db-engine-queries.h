@@ -190,7 +190,7 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 									SymExtraInfo sym_info);
 
 /**
- * Gets the files of a project.
+ * Get the files of a project.
  * @param project_name name of project you want to know the files of.
  *        It can be NULL. In that case all the files will be returned.
  */
@@ -198,4 +198,21 @@ SymbolDBEngineIterator *
 symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe, 
 									const gchar *project_name,
 								 	SymExtraInfo sym_info);
+
+/**
+ * Get the number of languages used in a project.
+ *
+ * @return number of different languages used in the opened project. -1 on error.
+ */
+gint
+symbol_db_engine_get_languages_count (SymbolDBEngine *dbe);
+
+/**
+ *
+ * @return true if the language is used in the opened project.
+ */
+gboolean
+symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
+								   const gchar *language);
+
 #endif

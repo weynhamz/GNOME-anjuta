@@ -46,6 +46,11 @@ extern inline const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql);
+extern inline gint
+sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
+										gchar * param_key,
+										GValue * param_value);
+
 
 /*
  * implementation starts here 
@@ -2631,3 +2636,84 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
 }
+
+gint
+symbol_db_engine_get_languages_count (SymbolDBEngine *dbe)
+{
+	SymbolDBEnginePriv *priv;
+	GdaDataModel *data_model;	
+	const GdaStatement *stmt;
+	const GValue *value;
+	gint num_rows = 0;
+	gint ret = -1;
+
+	g_return_val_if_fail (dbe != NULL, -1);
+	priv = dbe->priv;
+	
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);	
+	
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
+								 PREP_QUERY_GET_LANGUAGE_COUNT))
+		== NULL)
+	{
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
+		return -1;
+	}
+
+	data_model = gda_connection_statement_execute_select (priv->db_connection, 
+														  (GdaStatement*)stmt, 
+														  NULL, NULL);
+	
+	if (!GDA_IS_DATA_MODEL (data_model) ||
+		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
+	{
+		if (data_model != NULL)
+			g_object_unref (data_model);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
+		return -1;
+	}	
+	
+	if ((value = gda_data_model_get_value_at (data_model, 0, 0, NULL)) != NULL)
+	{
+		ret = g_value_get_int (value);
+	}
+
+	if (data_model)
+		g_object_unref (data_model);
+	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
+	
+	return ret;	
+}
+
+gboolean
+symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
+								   const gchar *language)
+{
+	gint table_id;
+	GValue *value;
+	SymbolDBEnginePriv *priv;		
+	
+	g_return_val_if_fail (language != NULL, FALSE);
+	
+	priv = dbe->priv;
+
+	MP_LEND_OBJ_STR(priv, value);
+	g_value_set_static_string (value, language);
+
+	/* check for an already existing table with language "name". */
+	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
+						PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
+						"langname",
+						value)) < 0)
+	{
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+

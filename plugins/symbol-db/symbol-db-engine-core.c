@@ -225,6 +225,11 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql);
 
+inline gint
+sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
+										gchar * param_key,
+										GValue * param_value);
+
 /*
  * implementation starts here 
  */
@@ -699,7 +704,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 /**
  * @return -1 on error. Otherwise the id of tuple.
  */
-static inline gint
+inline gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										GValue * param_value)
@@ -2054,6 +2059,10 @@ sdb_engine_init (SymbolDBEngine * object)
 									PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
 	 	"SELECT language_id FROM language WHERE language_name = ## /* name:'langname' "
 	 	"type:gchararray */ LIMIT 1");
+
+	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
+									PREP_QUERY_GET_LANGUAGE_COUNT,
+	 	"SELECT COUNT(*) FROM language");	
 	
 	/* -- sym type -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -5682,7 +5691,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 		return FALSE;
 	}
 	
-	DEBUG_PRINT ("deleting %s", abs_file);
+	DEBUG_PRINT ("deleting from db %s", abs_file);
 	
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, 
 									PREP_QUERY_REMOVE_FILE_BY_PROJECT_NAME)) == NULL)

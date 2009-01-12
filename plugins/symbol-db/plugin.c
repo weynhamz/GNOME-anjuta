@@ -304,8 +304,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		return TRUE;
 	
 	seconds_elapsed = g_timer_elapsed (sdb_plugin->update_timer, NULL);
-	
-	/* DEBUG_PRINT ("seconds_elapsed  %f", seconds_elapsed ); */
+
 	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
 		return TRUE;
 		
@@ -1491,6 +1490,41 @@ do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 	}
 }
 
+/**
+ * Check the number of languages used by a project and then enable/disable the 
+ * global tab in case there's only C files.
+ */
+static void
+do_check_languages_count (SymbolDBPlugin *symbol_db)
+{
+	gint count;
+	
+	count = symbol_db_engine_get_languages_count (symbol_db->sdbe_project);
+	
+	/* is only C used? */
+	if (count == 1)
+	{
+		if (symbol_db_engine_is_language_used (symbol_db->sdbe_project, 
+											   "C") == TRUE)
+		{
+			/* hide the global tab and disable the receiving of signals */
+			symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (
+													symbol_db->dbv_view_tree),
+													 symbol_db->sdbe_project,
+													 FALSE);
+			
+			gtk_widget_hide (symbol_db->scrolled_global);
+		}
+	}
+	else 
+	{
+			symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (
+													 symbol_db->dbv_view_tree),
+													 symbol_db->sdbe_project,
+													 TRUE);
+			gtk_widget_show (symbol_db->scrolled_global);
+	}
+}
 
 static void
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
@@ -1642,11 +1676,13 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaProjectManager *pm;
 	SymbolDBPlugin *sdb_plugin;
 	const gchar *root_uri;
+	gchar *root_dir;
+	GFile *gfile;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	/*
-	 * The Globals thing
+	 * The Global System symbols thing
 	 */
 
 	/* is the global db connected? */	
@@ -1669,7 +1705,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	}
 	
 	
-	/* hide it. Default system tags thing: we'll import after abort even 
+	/* Hide the progress bar. Default system tags thing: we'll import after abort even 
 	 * if the preferences says not to automatically scan the packages.
 	 */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
@@ -1683,7 +1719,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		/* we simulate a project-import-end signal received */
 		do_import_system_sources (sdb_plugin);		
 	}
-		
+	
 	
 	
 	/*
@@ -1694,124 +1730,127 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		
 	g_free (sdb_plugin->project_root_uri);
 	sdb_plugin->project_root_uri = NULL;
-	root_uri = g_value_get_string (value);
-	
-	if (root_uri)
+	if ((root_uri = g_value_get_string (value)) == NULL)
 	{
-		gchar *root_dir;
-		GFile *gfile;
-		gfile = g_file_new_for_uri (root_uri);
-		
-		root_dir = g_file_get_path (gfile);
-		DEBUG_PRINT ("Symbol-DB: added project root_dir %s, name %s", root_dir, 
-					 name);
-		
-		g_object_unref (gfile);
-		
-		/* FIXME: where's the project name itself? */
-		DEBUG_PRINT ("FIXME: where's the project name itself? ");
-		sdb_plugin->project_opened = g_strdup (root_dir);
-		
-		if (root_dir)
-		{
-			gboolean needs_sources_scan = FALSE;
-			gboolean project_exist = FALSE;
-			GHashTable* lang_hash;
-			guint id;
-				
-			lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
-											  sources_array_free);
-
-			/* is it a fresh-new project? is it an imported project with 
-			 * no 'new' symbol-db database but the 'old' one symbol-browser? 
-			 */
-			if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, 
-											root_dir) == FALSE)
-			{
-				DEBUG_PRINT ("%s", "Symbol-DB: project does not exist");
-				needs_sources_scan = TRUE;
-				project_exist = FALSE;
-			}
-			else 
-			{
-				project_exist = TRUE;
-			}
-
-			/* we'll use the same values for db_directory and project_directory */
-			DEBUG_PRINT ("opening db %s and project_dir %s", root_dir, root_dir);
-			if (symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
-										  root_dir) == FALSE)
-			{
-				g_error ("Symbol-DB: error in opening db");
-			}
-
-			/* if project did not exist add a new project */
-			if (project_exist == FALSE)
-			{
-				DEBUG_PRINT ("%s", "Symbol-DB: creating new project.");
-				symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
-												  NULL,	/* still no workspace logic */
-												  sdb_plugin->project_opened);
-			}
-
-			/*
-			 * we need an initial import 
-			 */
-			if (needs_sources_scan == TRUE)
-			{
-				DEBUG_PRINT ("%s", "Symbol-DB: importing sources...");
-				do_import_project_sources (plugin, pm, root_dir);
-			}
-			else	
-			{
-				/*
-				 * no import needed. But we may have aborted the scan of sources in 
-				 * a previous session..
-				 */				
-				GPtrArray *sources_array = NULL;				
-				
-				sources_array = 
-					symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
-
-				if (sources_array != NULL && sources_array->len > 0) 
-				{				
-					do_import_project_sources_after_abort (plugin, sources_array);
-					
-					g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-					g_ptr_array_free (sources_array, TRUE);
-				}
-				
-				/* check for offline changes */				
-				do_check_offline_files_changed (sdb_plugin);								
-				
-				/* update any files of the project which isn't up-to-date */
-				do_update_project_symbols (sdb_plugin, root_dir);
-			}
-			gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
-									   _("Populating symbols' db..."));
-			id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
-							 sdb_plugin->progress_bar_project);
-			gtk_widget_show (sdb_plugin->progress_bar_project);
-			
-			/* open symbol view, the global symbols gtktree */
-			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
-								 sdb_plugin->sdbe_project);
-			g_source_remove (id);
-			gtk_widget_hide (sdb_plugin->progress_bar_project);
-
-			/* root dir */
-			sdb_plugin->project_root_dir = root_dir;
-			
-			g_hash_table_unref (lang_hash);			
-		}
-		/* this is uri */
-		sdb_plugin->project_root_uri = g_strdup (root_uri);
+		DEBUG_PRINT ("Warning, root_uri for project is NULL");
+		return;
 	}
+
+	
+	gfile = g_file_new_for_uri (root_uri);
+		
+	root_dir = g_file_get_path (gfile);
+	DEBUG_PRINT ("Symbol-DB: added project root_dir %s, name %s", root_dir, 
+				 name);
+		
+	g_object_unref (gfile);
+		
+	/* FIXME: where's the project name itself? */
+	DEBUG_PRINT ("FIXME: where's the project name itself? using %s", root_dir);
+	sdb_plugin->project_opened = g_strdup (root_dir);
+	
+	if (root_dir)
+	{
+		gboolean needs_sources_scan = FALSE;
+		gboolean project_exist = FALSE;
+		GHashTable* lang_hash;
+		guint id;
+			
+		lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
+										  sources_array_free);
+
+		/* is it a fresh-new project? is it an imported project with 
+		 * no 'new' symbol-db database but the 'old' one symbol-browser? 
+		 */
+		if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, 
+										root_dir) == FALSE)
+		{
+			DEBUG_PRINT ("Project %s does not exist", root_dir);
+			needs_sources_scan = TRUE;
+			project_exist = FALSE;
+		}
+		else 
+		{
+			project_exist = TRUE;
+		}
+
+		/* we'll use the same values for db_directory and project_directory */
+		DEBUG_PRINT ("Opening db %s and project_dir %s", root_dir, root_dir);
+		if (symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
+										  root_dir) == FALSE)
+		{
+			g_error ("*** Error in opening db ***");
+		}
+			
+		/* if project did not exist add a new project */
+		if (project_exist == FALSE)
+		{
+			DEBUG_PRINT ("Creating new project.");
+			symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
+											  NULL,	/* still no workspace logic */
+											  sdb_plugin->project_opened);
+		}
+
+		/*
+		 * we need an initial import 
+		 */
+		if (needs_sources_scan == TRUE)
+		{
+			DEBUG_PRINT ("Importing sources.");
+			do_import_project_sources (plugin, pm, root_dir);
+		}
+		else	
+		{
+			/*
+			 * no import needed. But we may have aborted the scan of sources in 
+			 * a previous session..
+			 */				
+			GPtrArray *sources_array = NULL;				
+				
+			sources_array = 
+				symbol_db_engine_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
+
+			if (sources_array != NULL && sources_array->len > 0) 
+			{				
+				do_import_project_sources_after_abort (plugin, sources_array);
+				
+				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
+				g_ptr_array_free (sources_array, TRUE);
+			}
+				
+			/* check for offline changes */				
+			do_check_offline_files_changed (sdb_plugin);								
+				
+			/* update any files of the project which isn't up-to-date */
+			do_update_project_symbols (sdb_plugin, root_dir);
+		}
+		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
+								   _("Populating symbols' db..."));
+		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
+						 sdb_plugin->progress_bar_project);
+		gtk_widget_show (sdb_plugin->progress_bar_project);
+		
+		/* open symbol view, the global symbols gtktree */
+		symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
+							 sdb_plugin->sdbe_project);
+		g_source_remove (id);
+		gtk_widget_hide (sdb_plugin->progress_bar_project);
+
+		/* root dir */
+		sdb_plugin->project_root_dir = root_dir;
+			
+		g_hash_table_unref (lang_hash);			
+	}
+	/* this is uri */
+	sdb_plugin->project_root_uri = g_strdup (root_uri);	
 
 	g_signal_connect (G_OBJECT (pm), "element_added",
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sdb_plugin);
+
+	/* check for the number of languages used in the opened project. */
+	do_check_languages_count (sdb_plugin);
 }
 
 static void
@@ -1888,9 +1927,11 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			gboolean parallel_scan = anjuta_preferences_get_int (symbol_db->prefs, 
 														 PARALLEL_SCAN); 
 			
+			do_check_languages_count (symbol_db);
+			
 			/* check the system population has a parallel fashion or not. */			 
 			if (parallel_scan == FALSE)
-				do_import_system_sources (symbol_db);
+				do_import_system_sources (symbol_db);			
 		}
 			break;			
 			
@@ -1902,11 +1943,13 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		case TASK_ELEMENT_ADDED:
 			DEBUG_PRINT ("received TASK_ELEMENT_ADDED");
 			symbol_db->is_adding_element = FALSE;
+			do_check_languages_count (symbol_db);
 			break;
 			
 		case TASK_OFFLINE_CHANGES:		
 			DEBUG_PRINT ("received TASK_OFFLINE_CHANGES");
 			symbol_db->is_offline_scanning = FALSE;		
+			do_check_languages_count (symbol_db);
 			break;
 			
 		case TASK_PROJECT_UPDATE:		

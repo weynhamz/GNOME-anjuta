@@ -1,3 +1,20 @@
+2009-01-12  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c
+	(on_editor_buffer_symbols_update_timeout),
+	(do_check_languages_count), (on_project_root_added),
+	(on_scan_end_manager):
+	* plugins/symbol-db/symbol-db-engine-core.c (sdb_engine_init),
+	(symbol_db_engine_remove_file):
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_get_languages_count),
+	(symbol_db_engine_is_language_used):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	fixed #548910. 
+	Hide the Global tab in case only C-files are used in a project.
+	Enable it instead with 2+ different languages.
+
 2008-01-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/druid.c,
