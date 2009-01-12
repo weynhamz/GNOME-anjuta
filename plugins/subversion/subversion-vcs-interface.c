@@ -46,13 +46,13 @@ subversion_ivcs_add (IAnjutaVcs *obj, GList *files, AnjutaAsyncNotify *notify,
 	
 	anjuta_util_glist_strings_free (path_list);
 	
-	g_signal_connect (G_OBJECT (add_command), "finished", 
+	g_signal_connect (G_OBJECT (add_command), "command-finished", 
 					  G_CALLBACK (g_object_unref), 
 					  NULL);
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (add_command), "finished",
+		g_signal_connect_swapped (G_OBJECT (add_command), "command-finished",
 								  G_CALLBACK (anjuta_async_notify_notify_finished),
 								  notify);
 	}
@@ -92,7 +92,8 @@ subversion_ivcs_checkout (IAnjutaVcs *obj,
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (checkout_command), "finished",
+		g_signal_connect_swapped (G_OBJECT (checkout_command), 
+								  "command-finished",
 								  G_CALLBACK (anjuta_async_notify_notify_finished),
 								  notify);
 	}
@@ -140,7 +141,7 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 							(GDestroyNotify) g_object_unref);
 	g_object_set_data (G_OBJECT (diff_command), "user-data", user_data);
 	
-	g_signal_connect (G_OBJECT (diff_command), "finished", 
+	g_signal_connect (G_OBJECT (diff_command), "command-finished", 
 					  G_CALLBACK (g_object_unref),
 					  NULL);
 	
@@ -157,7 +158,7 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (diff_command), "finished",
+		g_signal_connect_swapped (G_OBJECT (diff_command), "command-finished",
 								  G_CALLBACK (anjuta_async_notify_notify_finished),
 								  notify);
 	}
@@ -213,7 +214,7 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 					  G_CALLBACK (on_ivcs_status_command_data_arrived),
 					  callback);
 	
-	g_signal_connect (G_OBJECT (status_command), "finished",
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (g_object_unref),
 					  NULL);
 	
@@ -226,7 +227,7 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (status_command), "finished",
+		g_signal_connect_swapped (G_OBJECT (status_command), "command-finished",
 								  G_CALLBACK (anjuta_async_notify_notify_finished),
 								  notify);
 	}
@@ -246,13 +247,13 @@ subversion_ivcs_remove (IAnjutaVcs *obj, GList *files,
 	
 	anjuta_util_glist_strings_free (path_list);
 	
-	g_signal_connect (G_OBJECT (remove_command), "finished", 
+	g_signal_connect (G_OBJECT (remove_command), "command-finished", 
 					  G_CALLBACK (g_object_unref), 
 					  NULL);
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (remove_command), "finished",
+		g_signal_connect_swapped (G_OBJECT (remove_command), "command-finished",
 								  G_CALLBACK (anjuta_async_notify_notify_finished),
 								  notify);
 	}

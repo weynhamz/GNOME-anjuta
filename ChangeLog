@@ -1,3 +1,12 @@
+2009-01-12  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_add), (subversion_ivcs_checkout),
+	(subversion_ivcs_diff), (subversion_ivcs_query_status),
+	(subversion_ivcs_remove):
+	Fix the name of the command finish signal from "finished" to 
+	"command-finished," the proper name (argh!)
+	
 2009-01-12  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (do_update_project_symbols),
