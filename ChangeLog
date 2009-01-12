@@ -1,3 +1,17 @@
+2009-01-11  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	reviewed by: James Liggett <jrliggett@cox.net>
+
+	* plugins/subversion/Makefile.am:
+	* plugins/subversion/svn-checkout-command.c
+	(svn_checkout_command_init), (svn_checkout_command_finalize),
+	(svn_checkout_command_run), (svn_checkout_command_class_init),
+	(svn_checkout_command_new), (svn_checkout_command_destroy):
+	* plugins/subversion/svn-checkout-command.h:
+	Add a checkout command to the Subversion plugin.
+	
+	Partially fixes bug 531765.
+
 2009-01-12  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c

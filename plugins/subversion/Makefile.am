@@ -97,7 +97,9 @@ libanjuta_subversion_la_SOURCES = \
 	svn-resolve-command.h \
 	svn-resolve-command.c \
 	subversion-vcs-interface.c \
-	subversion-vcs-interface.h
+	subversion-vcs-interface.h \
+	svn-checkout-command.c \
+	svn-checkout-command.h
 
 endif
 
