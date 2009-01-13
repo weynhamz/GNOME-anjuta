@@ -108,26 +108,18 @@ update_title (ProjectManagerPlugin* plugin, const gchar *project_uri)
 static gchar*
 get_session_dir (ProjectManagerPlugin *plugin)
 {
-	GnomeVFSURI *vfs_uri;
 	gchar *session_dir = NULL;
+	gchar *local_dir;
 	
 	g_return_val_if_fail (plugin->project_root_uri, NULL);
 	
-	vfs_uri = gnome_vfs_uri_new (plugin->project_root_uri);
-	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
+	local_dir = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
+	if (local_dir)
 	{
-		gchar *local_dir;
-		
-		local_dir = gnome_vfs_get_local_path_from_uri (plugin->project_root_uri);
-		if (local_dir)
-		{
-			session_dir = g_build_filename (local_dir, ".anjuta", "session",
-											NULL);
-		}
-		g_free (local_dir);
+		session_dir = g_build_filename (local_dir, ".anjuta", "session",
+										NULL);
 	}
-	if (vfs_uri)
-		gnome_vfs_uri_unref (vfs_uri);
+	g_free (local_dir);
 	
 	return session_dir;
 }

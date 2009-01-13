@@ -235,9 +235,14 @@ build_configuration_list_create (BuildConfigurationList *list, const gchar *name
 		/* Add configuration */
 		cfg = g_new0 (BuildConfiguration, 1);
 		cfg->name = g_strdup (name);
-		for (prev = build_configuration_list_get_first (list); prev->next != NULL; prev = prev->next) ;
-		cfg->prev = prev;
-		prev->next = cfg;
+		prev = build_configuration_list_get_first (list);
+		if (prev != NULL)
+		{
+			/* Append configuration if list is not empty */
+			for (;prev->next != NULL; prev = prev->next) ;
+			prev->next = cfg;
+			cfg->prev = prev;
+		}
 	}
 	list->selected = cfg;
 	

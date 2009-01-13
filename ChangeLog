@@ -1,3 +1,13 @@
+2009-01-13  Jens Georg  <mail@jensge.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-manager/plugin.c: 
+	* plugins/build-basic-autotools/configuration-list.c: 
+	Fix problem that it is not possible to generate a new project
+	on NFS and subsequent crash in project configuration. 
+	Partial port of project-manager to GIO
+
 2009-01-12  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/subversion-vcs-interface.c
