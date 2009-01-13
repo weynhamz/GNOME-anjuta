@@ -37,6 +37,7 @@
 #include <glib/gi18n.h>
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-vcs-status.h>
 
 typedef struct _AnjutaFileViewPrivate AnjutaFileViewPrivate;
 
@@ -52,6 +53,19 @@ struct _AnjutaFileViewPrivate
 	(G_TYPE_INSTANCE_GET_PRIVATE((o), ANJUTA_TYPE_FILE_VIEW, AnjutaFileViewPrivate))
 
 G_DEFINE_TYPE (AnjutaFileView, file_view, GTK_TYPE_TREE_VIEW);
+
+const gchar* anjuta_vcs_status_strings[] = {
+	NULL,
+	N_("Modified"),
+	N_("Added"),
+	N_("Removed"),
+	N_("Deleted"),
+	N_("Conflicted"),
+	N_("Outdated"),
+	N_("Locked"),
+	N_("Missing"),
+	N_("Unversioned")
+};
 
 enum
 {
@@ -260,7 +274,9 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 	{
 		gchar* display;
 		gchar time_str[128];
-		gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, -1);
+		AnjutaVcsStatus status;
+		gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, 
+							COLUMN_STATUS, &status, -1);
 		time_t time;
 		
 		file_info = g_file_query_info (file,
@@ -269,11 +285,22 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 									   NULL, NULL);
 		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
 		strftime(time_str, 127, "%x %X", localtime(&time));
-		display = g_markup_printf_escaped("%s\n"
-										  "<small><tt>%s</tt></small>",
-										  g_file_info_get_display_name(file_info),
-										  time_str);
-		
+		if (anjuta_vcs_status_strings[status])
+		{
+			display = g_markup_printf_escaped("%s\n"
+											  "<small><tt>%s</tt></small>\n"
+											  "<small>%s</small>",
+											  g_file_info_get_display_name(file_info),
+											  time_str,
+											  anjuta_vcs_status_strings[status]);
+		}
+		else
+		{
+			display = g_markup_printf_escaped("%s\n"
+											  "<small><tt>%s</tt></small>",
+											  g_file_info_get_display_name(file_info),
+											  time_str);
+		}
 		gtk_tree_store_set (GTK_TREE_STORE(file_model), iter,
 							COLUMN_DISPLAY, display,
 							-1);
@@ -431,16 +458,21 @@ file_view_init (AnjutaFileView *object)
 											 NULL);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
+	g_object_set (G_OBJECT (renderer_pixbuf), "cell-background-set", TRUE, NULL);
 	renderer_display = gtk_cell_renderer_text_new ();
-	
+	g_object_set (G_OBJECT (renderer_pixbuf), "cell-background-set", TRUE, NULL);	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Filename"));
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
 	gtk_tree_view_column_pack_start (column, renderer_display, FALSE);
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
-										 "pixbuf", COLUMN_PIXBUF, NULL);
+										 "pixbuf", COLUMN_PIXBUF,
+										 "cell-background", COLUMN_BACKGROUND,
+										 NULL);
 	gtk_tree_view_column_set_attributes (column, renderer_display,
-										 "markup", COLUMN_DISPLAY, NULL);
+										 "markup", COLUMN_DISPLAY, 
+										 "cell-background", COLUMN_BACKGROUND,
+										 NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
 	
 	selection =

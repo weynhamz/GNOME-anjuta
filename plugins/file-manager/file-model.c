@@ -26,6 +26,9 @@
 #include <glib/gi18n.h>
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-async-notify.h>
+#include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
@@ -60,6 +63,8 @@ struct _FileModelPrivate
 	gboolean filter_binary;
 	gboolean filter_hidden;
 	gboolean filter_backup;
+	
+	GtkTreeView* view;
 };
 
 struct _FileModelAsyncData
@@ -102,7 +107,7 @@ file_model_filter_file (FileModel* model,
 
 static void
 file_model_add_dummy (FileModel* model,
-					 GtkTreeIter* iter)
+					  GtkTreeIter* iter)
 {
 	GtkTreeStore* store = GTK_TREE_STORE (model);
 	GtkTreeIter dummy;
@@ -112,6 +117,99 @@ file_model_add_dummy (FileModel* model,
 					    COLUMN_FILENAME, _("Loading..."),
 						COLUMN_SORT, -1,
 					    -1);
+}
+
+typedef struct
+{
+	FileModel* model;
+	GtkTreeRowReference* ref;
+} VcsData;
+
+static void
+file_model_vcs_status_callback(GFile *file,
+							   AnjutaVcsStatus status,
+							   gpointer user_data)
+{
+	VcsData* data = user_data;
+	gchar* path = g_file_get_path (file);
+	
+	GtkTreePath* tree_path = gtk_tree_row_reference_get_path (data->ref);
+	if (tree_path)
+	{
+		const gchar* color = NULL;
+		GtkTreeIter iter;
+		GtkTreeModel* model = gtk_tree_row_reference_get_model (data->ref);
+		switch (status)
+		{
+			case ANJUTA_VCS_STATUS_MODIFIED:
+				color = "yellow";
+				break;
+			case ANJUTA_VCS_STATUS_ADDED:
+				color = "green";
+				break;
+			case ANJUTA_VCS_STATUS_CONFLICTED:
+				color = "red";
+				break;
+			default:
+				color = "white";
+		}
+		gtk_tree_model_get_iter (model,
+								 &iter,
+								 tree_path);
+		gtk_tree_store_set (GTK_TREE_STORE (model),
+							&iter,
+							COLUMN_BACKGROUND,
+							color,
+							COLUMN_STATUS,
+							status,
+							-1);
+		gtk_tree_path_free (tree_path);
+	}
+	g_free(path);
+}
+
+static void
+file_model_free_vcs_data (VcsData *data)
+{
+	gtk_tree_row_reference_free (data->ref);
+	g_free (data);
+}
+
+static void
+file_model_get_vcs_status (FileModel* model,
+						   GtkTreeIter* iter,
+						   GFile* file)
+{	
+	GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL(model),
+												 iter);
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(g_object_get_data (G_OBJECT(priv->view), "__plugin"));
+	
+	g_return_if_fail (plugin != NULL);
+
+	IAnjutaVcs* ivcs = anjuta_shell_get_interface (plugin->shell,
+												   IAnjutaVcs,
+												   NULL);
+	if (ivcs)
+	{	
+		VcsData* data = g_new0(VcsData, 1);
+		AnjutaAsyncNotify* notify = anjuta_async_notify_new();
+		data->ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (model),
+												path);
+		data->model = model;
+		
+		g_signal_connect_swapped (G_OBJECT (notify), "finished", 
+								  G_CALLBACK (file_model_free_vcs_data), data);
+
+		ianjuta_vcs_query_status(ivcs,
+								 file,
+								 file_model_vcs_status_callback,
+								 data,
+								 NULL,
+								 notify,
+								 NULL);
+	}						 
+	gtk_tree_path_free (path);	
 }
 
 static void
@@ -155,11 +253,16 @@ file_model_update_file (FileModel* model,
 						COLUMN_FILENAME, display_name,
 						COLUMN_FILE, file,
 						COLUMN_PIXBUF, pixbuf,
+						COLUMN_STATUS, ANJUTA_VCS_STATUS_NONE,
+						COLUMN_BACKGROUND, "white",
 						COLUMN_IS_DIR, is_dir,
 						COLUMN_SORT, g_file_info_get_sort_order(file_info),
 						-1);
+	
 	if (is_dir)
 		file_model_add_dummy(model, iter);
+	
+	file_model_get_vcs_status (model, iter, file);
 	
 	if (pixbuf)
 		g_object_unref (pixbuf);
@@ -532,8 +635,9 @@ file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
 	GObject* model =
 		g_object_new (FILE_TYPE_MODEL, "base_uri", base_uri, NULL);
 	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING,
-		G_TYPE_STRING, G_TYPE_OBJECT,
+		G_TYPE_STRING, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_OBJECT,
 		G_TYPE_BOOLEAN, G_TYPE_INT};
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
 	
 	g_signal_connect (G_OBJECT (tree_view), "row-collapsed", 
 					  G_CALLBACK (file_model_row_collapsed), model);
@@ -542,6 +646,8 @@ file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
 	
 	gtk_tree_store_set_column_types (GTK_TREE_STORE (model), N_COLUMNS,
 									 types);
+	
+	priv->view = tree_view;
 	
 	return FILE_MODEL(model);
 }

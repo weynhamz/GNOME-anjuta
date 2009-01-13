@@ -231,6 +231,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 										 GTK_SHADOW_IN);
 	
 	file_manager->fv = ANJUTA_FILE_VIEW (file_view_new ());
+	g_object_set_data (G_OBJECT(file_manager->fv), "__plugin", ANJUTA_PLUGIN(file_manager));
 	
 	g_signal_connect (G_OBJECT (file_manager->fv), "file-open",
 					  G_CALLBACK (on_file_view_open_file), file_manager);

@@ -1,3 +1,18 @@
+2009-01-14  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/cvs-plugin/anjuta-cvs.plugin.in:
+	Don't claim to implement IAnjutaVCS
+	
+	* plugins/file-manager/file-model.c
+	(file_model_vcs_status_callback), (file_model_free_vcs_data),
+	(file_model_get_vcs_status), (file_model_update_file),
+	(file_model_new):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.c (file_view_show_extended_data),
+	(file_view_init):
+	* plugins/file-manager/plugin.c (file_manager_activate):
+	Show VCS status in file-manager
+
 2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/anjuta-project-wizard.glade,
