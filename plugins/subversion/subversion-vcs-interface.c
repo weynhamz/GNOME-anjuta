@@ -169,11 +169,12 @@ subversion_ivcs_diff (IAnjutaVcs *obj, GFile* file,
 /* FIXME: The stuff in subversion-ui-utils.c should be namespaced. */
 static void
 on_ivcs_status_command_data_arrived (AnjutaCommand *command, 
-								IAnjutaVcsStatusCallback callback)
+									 IAnjutaVcsStatusCallback callback)
 {
 	GQueue *status_queue;
 	SvnStatus *status;
 	gchar *path;
+	GFile *file;
 	
 	status_queue = svn_status_command_get_status_queue (SVN_STATUS_COMMAND (command));
 	
@@ -181,10 +182,16 @@ on_ivcs_status_command_data_arrived (AnjutaCommand *command,
 	{
 		status = g_queue_pop_head (status_queue);
 		path = svn_status_get_path (status);
+		file = g_file_new_for_path (path);
 		
-		callback (g_object_get_data (G_OBJECT (command), "file"), 
-				  svn_status_get_vcs_status (status),
-				  g_object_get_data (G_OBJECT (command), "user-data"));
+		if (file)
+		{
+			callback (file, 
+					  svn_status_get_vcs_status (status),
+					  g_object_get_data (G_OBJECT (command), "user-data"));
+			
+			g_object_unref (file);
+		}
 		
 		svn_status_destroy (status);
 		g_free (path);
@@ -205,9 +212,6 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	
 	g_free (path);
 	
-	g_object_set_data_full (G_OBJECT (status_command), "file", 
-							g_object_ref (file),
-							(GDestroyNotify) g_object_unref);
 	g_object_set_data (G_OBJECT (status_command), "user-data", user_data);
 	
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",

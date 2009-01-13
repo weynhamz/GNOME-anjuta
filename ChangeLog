@@ -1,6 +1,16 @@
 2009-01-12  James Liggett  <jrliggett@cox.net>
 
 	* plugins/subversion/subversion-vcs-interface.c
+	(on_ivcs_status_command_data_arrived),
+	(subversion_ivcs_query_status):
+	The file passed to ianjuta_vcs_query_status shouldn't be passed to the
+	callback. Instead, create a file for each path in the returned list,
+	so that we get status for everything if we're given a directory, not just
+	the directory itself. 
+
+2009-01-12  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-vcs-interface.c
 	(subversion_ivcs_add), (subversion_ivcs_checkout),
 	(subversion_ivcs_diff), (subversion_ivcs_query_status),
 	(subversion_ivcs_remove):
