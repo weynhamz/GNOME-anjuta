@@ -314,7 +314,6 @@ project_import_init (ProjectImport *pi)
 	g_signal_connect(G_OBJECT(pi->assistant), "key-press-event",
 					 G_CALLBACK(on_import_key_press_event), pi);
 
-	gtk_widget_show (pi->assistant);
 }
 
 static void
@@ -380,6 +379,8 @@ project_import_new(AnjutaPlugin* plugin)
 	obj->plugin = plugin;
 	gtk_window_set_transient_for (GTK_WINDOW (obj->assistant),
 								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
+	gtk_window_set_position (GTK_WINDOW (obj->assistant), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_widget_show (obj->assistant);
 	
 	return obj;
 }

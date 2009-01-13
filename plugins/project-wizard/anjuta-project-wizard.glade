@@ -3,6 +3,7 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkAssistant" id="druid_window">
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <child>

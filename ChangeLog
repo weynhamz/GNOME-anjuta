@@ -1,3 +1,9 @@
+2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-import/project-import.c:
+	Fix #567504 – New Project dialog is not centered
+
 2009-01-13  Jens Georg  <mail@jensge.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
