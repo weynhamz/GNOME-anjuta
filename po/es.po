@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-01-10 08:54+0000\n"
-"PO-Revision-Date: 2009-01-10 12:35+0100\n"
+"POT-Creation-Date: 2009-01-13 23:28+0000\n"
+"PO-Revision-Date: 2009-01-14 20:32+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -517,26 +517,32 @@ msgstr ""
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:292
+#: ../plugins/file-manager/file-view.c:59
 msgid "Modified"
 msgstr "Modificado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:296
+#: ../plugins/file-manager/file-view.c:60
 msgid "Added"
 msgstr "Añadido"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:300
+#: ../plugins/file-manager/file-view.c:62
 msgid "Deleted"
 msgstr "Borrado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:304
+#: ../plugins/file-manager/file-view.c:63
 msgid "Conflicted"
 msgstr "En conflicto"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
+#: ../plugins/file-manager/file-view.c:66
 msgid "Missing"
 msgstr "Faltante"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
+#: ../plugins/file-manager/file-view.c:67
 msgid "Unversioned"
 msgstr "Sin versión"
 
@@ -1093,7 +1099,6 @@ msgstr "Declaración e implementación en línea"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "License:"
 msgstr "Licencia:"
 
@@ -1140,7 +1145,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:943
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1046
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -1356,7 +1361,6 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1742,7 +1746,7 @@ msgstr "Conexión TCP/IP"
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
-#: ../plugins/project-wizard/property.c:285
+#: ../plugins/project-wizard/property.c:286
 msgid "Yes"
 msgstr "Sí"
 
@@ -1970,6 +1974,7 @@ msgid "Disassembly"
 msgstr "Desensamblado"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
+#: ../plugins/project-wizard/druid.c:139
 msgid "Information"
 msgstr "Información"
 
@@ -2260,8 +2265,8 @@ msgstr "Símbolos leídos"
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
 #: ../plugins/debug-manager/signals.c:221
-#: ../plugins/project-wizard/property.c:287
-#: ../plugins/project-wizard/property.c:339
+#: ../plugins/project-wizard/property.c:288
+#: ../plugins/project-wizard/property.c:340
 msgid "No"
 msgstr "No"
 
@@ -3932,19 +3937,34 @@ msgstr "No mostrar los archivos ocultos"
 msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:112
+#: ../plugins/file-manager/file-model.c:117
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:437
+#: ../plugins/file-manager/file-view.c:61
+#| msgid "Remove"
+msgid "Removed"
+msgstr "Eliminado"
+
+#: ../plugins/file-manager/file-view.c:64
+#| msgid "Started"
+msgid "Outdated"
+msgstr "Obsoleto"
+
+#: ../plugins/file-manager/file-view.c:65
+#| msgid "Loaded"
+msgid "Locked"
+msgstr "Bloqueado"
+
+#: ../plugins/file-manager/file-view.c:465
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/file-manager/file-view.c:515
+#: ../plugins/file-manager/file-view.c:547
 msgid "Base uri"
 msgstr "URI base"
 
-#: ../plugins/file-manager/file-view.c:516
+#: ../plugins/file-manager/file-view.c:548
 msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
@@ -3960,11 +3980,11 @@ msgstr "Renombrar el archivo o directorio"
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:252
+#: ../plugins/file-manager/plugin.c:253
 msgid "Files"
 msgstr "Archivos"
 
-#: ../plugins/file-manager/plugin.c:375 ../plugins/file-manager/plugin.c:384
+#: ../plugins/file-manager/plugin.c:376 ../plugins/file-manager/plugin.c:385
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Gestor de archivos"
@@ -4358,7 +4378,6 @@ msgid "Package name:"
 msgstr "Nombre del paquete:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:844
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Version:"
 msgstr "Versión:"
@@ -4509,7 +4528,6 @@ msgid "Includes:"
 msgstr "Inclusiones:"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:1
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -4840,7 +4858,6 @@ msgid "Author/Grep"
 msgstr "Autor/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:40
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Author:"
 msgstr "Autor:"
@@ -5563,7 +5580,6 @@ msgid "Due date"
 msgstr "Fecha de vencimiento"
 
 #: ../plugins/gtodo/interface.c:230
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
 msgid "Summary"
 msgstr "Resumen"
 
@@ -6325,11 +6341,16 @@ msgid "Do not show these symbols:"
 msgstr "No mostrar estos símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:11
+#| msgid ""
+#| "Enter one symbol specification per line.\n"
+#| "\n"
+#| "For information on symbol specifications, see section \n"
+#| "4.5 of the gprof info page. "
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
 "For information on symbol specifications, see section \n"
-"4.5 of the gprof info page. "
+"4.5 of the gprof info page."
 msgstr ""
 "Introduzca una especificación de símbolo por línea.\n"
 "\n"
@@ -6438,7 +6459,7 @@ msgstr "Proyecto que importar"
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: ../plugins/project-import/project-import.c:434
+#: ../plugins/project-import/project-import.c:435
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -6447,12 +6468,12 @@ msgstr ""
 "plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
 "Anjuta está actualizada."
 
-#: ../plugins/project-import/project-import.c:457
+#: ../plugins/project-import/project-import.c:458
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/project-import.c:498
+#: ../plugins/project-import/project-import.c:499
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -6510,9 +6531,9 @@ msgid "_Select file to add..."
 msgstr "_Seleccionar un archivo para añadir…"
 
 #: ../plugins/project-manager/gbf-project-model.c:234
-#: ../plugins/project-manager/plugin.c:1295
-#: ../plugins/project-manager/plugin.c:1377
-#: ../plugins/project-manager/plugin.c:1550
+#: ../plugins/project-manager/plugin.c:1287
+#: ../plugins/project-manager/plugin.c:1369
+#: ../plugins/project-manager/plugin.c:1542
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -6560,29 +6581,29 @@ msgstr "No se pueden añadir los archivos de código"
 msgid "No target has been selected"
 msgstr "No se ha seleccionado ningún objetivo"
 
-#: ../plugins/project-manager/plugin.c:422
-#: ../plugins/project-manager/plugin.c:823
+#: ../plugins/project-manager/plugin.c:414
+#: ../plugins/project-manager/plugin.c:815
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/plugin.c:427
+#: ../plugins/project-manager/plugin.c:419
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/plugin.c:432
+#: ../plugins/project-manager/plugin.c:424
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/plugin.c:456
+#: ../plugins/project-manager/plugin.c:448
 msgid "No properties available for this target"
 msgstr "Sin propiedades disponibles para este destino"
 
-#: ../plugins/project-manager/plugin.c:482
+#: ../plugins/project-manager/plugin.c:474
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:660
+#: ../plugins/project-manager/plugin.c:652
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -6590,7 +6611,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente grupo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:661
+#: ../plugins/project-manager/plugin.c:653
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -6601,7 +6622,7 @@ msgstr ""
 "\n"
 "El grupo no se borrará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:664
+#: ../plugins/project-manager/plugin.c:656
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -6609,12 +6630,12 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo objetivo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:665
+#: ../plugins/project-manager/plugin.c:657
 #, c-format
 msgid "Target: %s"
 msgstr "Objetivo: %s"
 
-#: ../plugins/project-manager/plugin.c:668
+#: ../plugins/project-manager/plugin.c:660
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -6622,7 +6643,7 @@ msgstr ""
 "¿Seguro que quiere eliminar el siguiente archivo fuente del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:669
+#: ../plugins/project-manager/plugin.c:661
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -6633,7 +6654,7 @@ msgstr ""
 "\n"
 "El archivo fuente no se borrará del sistema."
 
-#: ../plugins/project-manager/plugin.c:724
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6642,107 +6663,107 @@ msgstr ""
 "Falló al eliminar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:772
 msgid "The file you selected is a link and can't be added to the project"
 msgstr ""
 "El archivo que ha seleccionado es un enlace y no se puede añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:782
+#: ../plugins/project-manager/plugin.c:774
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:819
+#: ../plugins/project-manager/plugin.c:811
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:823
-#: ../plugins/project-manager/plugin.c:857
+#: ../plugins/project-manager/plugin.c:815
+#: ../plugins/project-manager/plugin.c:849
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:828
+#: ../plugins/project-manager/plugin.c:820
 msgid "_Refresh"
 msgstr "_Refrescar"
 
-#: ../plugins/project-manager/plugin.c:828
+#: ../plugins/project-manager/plugin.c:820
 msgid "Refresh project manager tree"
 msgstr "Refrescar el árbol del adm. de proyectos"
 
-#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:825
 msgid "Add _Group..."
 msgstr "Añadir _grupo…"
 
-#: ../plugins/project-manager/plugin.c:833
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:825
+#: ../plugins/project-manager/plugin.c:859
 msgid "Add a group to project"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:838
+#: ../plugins/project-manager/plugin.c:830
 msgid "Add _Target..."
 msgstr "Añadir _objetivo…"
 
-#: ../plugins/project-manager/plugin.c:838
-#: ../plugins/project-manager/plugin.c:872
+#: ../plugins/project-manager/plugin.c:830
+#: ../plugins/project-manager/plugin.c:864
 msgid "Add a target to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:843
+#: ../plugins/project-manager/plugin.c:835
 msgid "Add _Source File..."
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:843
-#: ../plugins/project-manager/plugin.c:862
-#: ../plugins/project-manager/plugin.c:877
+#: ../plugins/project-manager/plugin.c:835
+#: ../plugins/project-manager/plugin.c:854
+#: ../plugins/project-manager/plugin.c:869
 msgid "Add a source file to project"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:848
+#: ../plugins/project-manager/plugin.c:840
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:848
+#: ../plugins/project-manager/plugin.c:840
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:857
+#: ../plugins/project-manager/plugin.c:849
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:854
 msgid "_Add To Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:859
 msgid "Add _Group"
 msgstr "Añadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:872
+#: ../plugins/project-manager/plugin.c:864
 msgid "Add _Target"
 msgstr "Añadir _objetivo"
 
-#: ../plugins/project-manager/plugin.c:877
+#: ../plugins/project-manager/plugin.c:869
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:882
+#: ../plugins/project-manager/plugin.c:874
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:882
+#: ../plugins/project-manager/plugin.c:874
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1254
+#: ../plugins/project-manager/plugin.c:1246
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1262
+#: ../plugins/project-manager/plugin.c:1254
 msgid "Created project view..."
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1275
+#: ../plugins/project-manager/plugin.c:1267
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6751,105 +6772,91 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1465
+#: ../plugins/project-manager/plugin.c:1457
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1529
+#: ../plugins/project-manager/plugin.c:1521
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1537
+#: ../plugins/project-manager/plugin.c:1529
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2536
+#: ../plugins/project-manager/plugin.c:2528
 msgid "Initializing Project..."
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2539
+#: ../plugins/project-manager/plugin.c:2531
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#| msgid "<b>Module Details:</b>"
+msgid "<b>Details</b>"
+msgstr "<b>Detalles</b>"
+
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
-msgid "<b>Project description:</b>"
-msgstr "<b>Descripción del proyecto:</b>"
+#: ../plugins/project-wizard/druid.c:151
+#| msgid "Errors:"
+msgid "Error"
+msgstr "Error"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
-msgid "<b>Select the type of application to be developed</b>"
-msgstr "<b>Seleccione el tipo de aplicación que desea desarrollar</b>"
+#| msgid "Please, fix the configuration"
+msgid "Page de confirmation"
+msgstr "Página de confirmación"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "Application Assistant"
-msgstr "Asistente para aplicaciones"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
-msgid "Basic Information"
-msgstr "Información básica"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
-msgid "Destination:"
-msgstr "Destino:"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-msgid "Enter the basic Project information"
-msgstr "Introduzca la información básica del proyecto"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
-msgid "Project Name:"
-msgstr "Nombre del proyecto:"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
-msgid "Project Type"
-msgstr "Tipo de proyecto"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
-msgid ""
-"The Application Assistant will generate a basic skeleton for a project, "
-"including all of the build files. It will ask for details of the initial "
-"structure for the application. Please answer the questions carefully, as it "
-"may not be possible to change some of the settings later."
-msgstr ""
-"El asistente para Aplicaciones generará un esqueleto básico para un "
-"proyecto, incluyendo todos los archivos de compilación. Le preguntará "
-"detalles acerca de la estructura inicial para la aplicación. Responda las "
-"preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
-"valores más tarde."
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
 msgstr "etiqueta"
 
-#: ../plugins/project-wizard/druid.c:180
+#: ../plugins/project-wizard/druid.c:143 ../plugins/project-wizard/druid.c:147
+#| msgid "Warnings:"
+msgid "Warning"
+msgstr "Advertencia"
+
+#: ../plugins/project-wizard/druid.c:154
+#| msgid "Messages"
+msgid "Message"
+msgstr "Mensaje"
+
+#: ../plugins/project-wizard/druid.c:220
+#| msgid ""
+#| "Confirm the following information:\n"
+#| "\n"
 msgid ""
-"Confirm the following information:\n"
+"<b>Confirm the following information:</b>\n"
 "\n"
 msgstr ""
-"Confirme la siguiente información:\n"
+"<b>Confirme la siguiente información:</b>\n"
 "\n"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:184
+#: ../plugins/project-wizard/druid.c:224
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Tipo de proyecto: %s\n"
 
-#: ../plugins/project-wizard/druid.c:313
+#: ../plugins/project-wizard/druid.c:370
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "No se puede encontrar ninguna plantilla de proyecto en %s"
 
-#: ../plugins/project-wizard/druid.c:490
+#: ../plugins/project-wizard/druid.c:581
 #, c-format
-msgid "Field \"%s\" is mandatory. Please enter it."
-msgstr "El campo «%s» es obligatorio. Introdúzcalo."
+#| msgid "Field \"%s\" is mandatory. Please enter it."
+msgid ""
+"\n"
+"Field \"%s\" is mandatory. Please enter it."
+msgstr ""
+"\n"
+"El campo «%s» es obligatorio. Introdúzcalo."
 
-#: ../plugins/project-wizard/druid.c:511
+#: ../plugins/project-wizard/druid.c:596
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contains "
@@ -6858,7 +6865,13 @@ msgstr ""
 "El campo «%s» debe comenzar por una letra, un dígito o un guión bajo, y "
 "contener sólo letras, dígitos, guión bajo, menos y punto. Arréglelo."
 
-#: ../plugins/project-wizard/druid.c:547
+#: ../plugins/project-wizard/druid.c:601
+#, c-format
+#| msgid "Unknown item"
+msgid "Unknown error."
+msgstr "Elementos desconocido."
+
+#: ../plugins/project-wizard/druid.c:628
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -6867,12 +6880,20 @@ msgstr ""
 "El directorio «%s» no está vacío. La creación del proyecto podría fallar si "
 "algunos archivos no se pudiesen escribir. ¿Quiere continuar?"
 
-#: ../plugins/project-wizard/druid.c:549
+#: ../plugins/project-wizard/druid.c:630
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
-#: ../plugins/project-wizard/druid.c:714
+#: ../plugins/project-wizard/druid.c:661
+msgid "Invalid entry"
+msgstr "Entrada no válida"
+
+#: ../plugins/project-wizard/druid.c:672
+msgid "Dubious entry"
+msgstr "Entrada dudosa"
+
+#: ../plugins/project-wizard/druid.c:782
 #, c-format
 msgid ""
 "\n"
@@ -6881,7 +6902,7 @@ msgstr ""
 "\n"
 "Faltan programas: %s"
 
-#: ../plugins/project-wizard/druid.c:725
+#: ../plugins/project-wizard/druid.c:793
 #, c-format
 msgid ""
 "\n"
@@ -6890,7 +6911,7 @@ msgstr ""
 "\n"
 "Faltan paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:735
+#: ../plugins/project-wizard/druid.c:801
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -6900,11 +6921,7 @@ msgstr ""
 "faltan para construir este proyecto. Asegúrese de que están instalados "
 "adecuadamente antes de generar el proyecto.\n"
 
-#: ../plugins/project-wizard/druid.c:744
-msgid "Missing components"
-msgstr "Faltan componentes"
-
-#: ../plugins/project-wizard/druid.c:747
+#: ../plugins/project-wizard/druid.c:807
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched in your Application Manager. Similarly, the development packages "
@@ -6920,10 +6937,17 @@ msgstr ""
 "ellos. Generalmente acaban con el sufijo -dev o -devel en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
-#: ../plugins/project-wizard/druid.c:951
-msgid "Unable to build project assistant user interface."
+#: ../plugins/project-wizard/druid.c:815
+msgid "Missing components"
+msgstr "Faltan componentes"
+
+#: ../plugins/project-wizard/druid.c:947
+#, c-format
+#| msgid "Unable to build project assistant user interface."
+msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
-"No se pudo construir la interfaz de usuario del asistente de proyectos."
+"No se pudo construir la interfaz de usuario del asistente de proyectos "
+"leyendo %s."
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -6964,23 +6988,23 @@ msgstr "Ejecutando: %s"
 msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
-#: ../plugins/project-wizard/property.c:298
+#: ../plugins/project-wizard/property.c:299
 msgid "Select directory"
 msgstr "Seleccionar directorio"
 
-#: ../plugins/project-wizard/property.c:306
+#: ../plugins/project-wizard/property.c:307
 msgid "Select file"
 msgstr "Seleccionar archivo"
 
-#: ../plugins/project-wizard/property.c:382
+#: ../plugins/project-wizard/property.c:383
 msgid "Choose directory"
 msgstr "Elija un directorio"
 
-#: ../plugins/project-wizard/property.c:386
+#: ../plugins/project-wizard/property.c:387
 msgid "Choose file"
 msgstr "Elija un archivo"
 
-#: ../plugins/project-wizard/property.c:401
+#: ../plugins/project-wizard/property.c:402
 msgid "Icon choice"
 msgstr "Elección del icono"
 
@@ -7123,6 +7147,11 @@ msgstr "Crear un archivo de plantilla glade para el interfaz"
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Create glade interface file"
 msgstr "Crear un archivo de interfaz glade"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
+msgid "Destination:"
+msgstr "Destino:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Display description of the applet"
@@ -7293,6 +7322,10 @@ msgstr "El complemento tiene menús y/o barras de herramientas"
 #: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Plugin interfaces to implement"
 msgstr "Interfaces del complemento para implementar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Project Name:"
+msgstr "Nombre del proyecto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Project directory, output file etc."
@@ -7855,7 +7888,7 @@ msgstr[1] "Se han reemplazado %d coincidencias."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
-#: ../plugins/sourceview/sourceview.c:314
+#: ../plugins/sourceview/sourceview.c:315
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than the current buffer.\n"
@@ -7865,13 +7898,13 @@ msgstr ""
 "¿Desea recargarlo?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:354
+#: ../plugins/sourceview/sourceview.c:355
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "No se pudo abrir %s: %s"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:473
+#: ../plugins/sourceview/sourceview.c:474
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
@@ -8124,6 +8157,11 @@ msgstr "Actualizar archivo/directorio"
 msgid "Use first path"
 msgstr "Usar la primera ruta"
 
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#| msgid "Use revision/tag: "
+msgid "Use revision/tag:"
+msgstr "Usar revisión/etiqueta:"
+
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
 msgstr "Ver el registro"
@@ -8316,9 +8354,9 @@ msgstr "Introduzca una ruta de destino."
 msgid "[Head/Working Copy]"
 msgstr "[Head/Copia de trabajo]"
 
-#: ../plugins/subversion/subversion-diff-dialog.c:90
-#: ../plugins/subversion/subversion-log-dialog.c:417
-#: ../plugins/subversion/subversion-log-dialog.c:481
+#: ../plugins/subversion/subversion-diff-dialog.c:91
+#: ../plugins/subversion/subversion-log-dialog.c:418
+#: ../plugins/subversion/subversion-log-dialog.c:485
 msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: Obteniendo Diff…"
 
@@ -8405,83 +8443,89 @@ msgstr "Subversion: Diff completado."
 msgid "Subversion: Update complete."
 msgstr "Subversion: Actualización completada."
 
-#: ../plugins/subversion/svn-command.c:144
-#: ../plugins/subversion/svn-command.c:200
+#: ../plugins/subversion/svn-command.c:145
+#: ../plugins/subversion/svn-command.c:201
 msgid "Authentication canceled"
 msgstr "Autenticación cancelada"
 
-#: ../plugins/subversion/svn-command.c:173
-msgid "Hostname: "
-msgstr "Servidor: "
-
 #: ../plugins/subversion/svn-command.c:174
-msgid "Fingerprint: "
-msgstr "Huella: "
+#| msgid "Hostname: "
+msgid "Hostname:"
+msgstr "Nombre del equipo:"
 
 #: ../plugins/subversion/svn-command.c:175
-msgid "Valid from: "
-msgstr "Válido desde: "
+#| msgid "Fingerprint: "
+msgid "Fingerprint:"
+msgstr "Huella:"
 
 #: ../plugins/subversion/svn-command.c:176
-msgid "Valid until: "
-msgstr "Válido hasta: "
+#| msgid "Valid from: "
+msgid "Valid from:"
+msgstr "Válido desde:"
 
 #: ../plugins/subversion/svn-command.c:177
-msgid "Issuer DN: "
-msgstr "ND del emisor: "
+#| msgid "Valid until: "
+msgid "Valid until:"
+msgstr "Válido hasta:"
 
 #: ../plugins/subversion/svn-command.c:178
-msgid "DER certificate: "
-msgstr "Certificado DER: "
+#| msgid "Issuer DN: "
+msgid "Issuer DN:"
+msgstr "ND del emisor:"
 
-#: ../plugins/subversion/svn-command.c:325
-#: ../plugins/subversion/svn-command.c:341
+#: ../plugins/subversion/svn-command.c:179
+#| msgid "DER certificate: "
+msgid "DER certificate:"
+msgstr "Certificado DER:"
+
+#: ../plugins/subversion/svn-command.c:326
+#: ../plugins/subversion/svn-command.c:342
 #, c-format
 msgid "Deleted: %s"
 msgstr "Borrados: %s"
 
-#: ../plugins/subversion/svn-command.c:328
-#: ../plugins/subversion/svn-command.c:347
+#: ../plugins/subversion/svn-command.c:329
+#: ../plugins/subversion/svn-command.c:348
 #, c-format
 msgid "Added: %s"
 msgstr "Añadidos: %s"
 
-#: ../plugins/subversion/svn-command.c:338
+#: ../plugins/subversion/svn-command.c:339
 #, c-format
 msgid "Resolved: %s"
 msgstr "Resueltos: %s"
 
-#: ../plugins/subversion/svn-command.c:344
+#: ../plugins/subversion/svn-command.c:345
 #, c-format
 msgid "Updated: %s"
 msgstr "Actualizados: %s"
 
-#: ../plugins/subversion/svn-command.c:350
+#: ../plugins/subversion/svn-command.c:351
 #, c-format
 msgid "Externally Updated: %s"
 msgstr "Actualizados externamente: %s"
 
-#: ../plugins/subversion/svn-command.c:384
+#: ../plugins/subversion/svn-command.c:385
 #, c-format
 msgid "Modified: %s"
 msgstr "Modificados: %s"
 
-#: ../plugins/subversion/svn-command.c:387
+#: ../plugins/subversion/svn-command.c:388
 #, c-format
 msgid "Merged: %s"
 msgstr "Mezclados: %s"
 
-#: ../plugins/subversion/svn-command.c:390
+#: ../plugins/subversion/svn-command.c:391
 #, c-format
 msgid "Conflicted: %s"
 msgstr "Con conflictos: %s"
 
-#: ../plugins/subversion/svn-command.c:394
+#: ../plugins/subversion/svn-command.c:395
 #, c-format
 msgid "Missing: %s"
 msgstr "Faltan: %s"
 
-#: ../plugins/subversion/svn-command.c:397
+#: ../plugins/subversion/svn-command.c:398
 #, c-format
 msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
@@ -9810,6 +9854,36 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "<b>Project description:</b>"
+#~ msgstr "<b>Descripción del proyecto:</b>"
+
+#~ msgid "<b>Select the type of application to be developed</b>"
+#~ msgstr "<b>Seleccione el tipo de aplicación que desea desarrollar</b>"
+
+#~ msgid "Application Assistant"
+#~ msgstr "Asistente para aplicaciones"
+
+#~ msgid "Basic Information"
+#~ msgstr "Información básica"
+
+#~ msgid "Enter the basic Project information"
+#~ msgstr "Introduzca la información básica del proyecto"
+
+#~ msgid "Project Type"
+#~ msgstr "Tipo de proyecto"
+
+#~ msgid ""
+#~ "The Application Assistant will generate a basic skeleton for a project, "
+#~ "including all of the build files. It will ask for details of the initial "
+#~ "structure for the application. Please answer the questions carefully, as "
+#~ "it may not be possible to change some of the settings later."
+#~ msgstr ""
+#~ "El asistente para Aplicaciones generará un esqueleto básico para un "
+#~ "proyecto, incluyendo todos los archivos de compilación. Le preguntará "
+#~ "detalles acerca de la estructura inicial para la aplicación. Responda las "
+#~ "preguntas cuidadosamente, ya que puede que no sea posible cambiar algunos "
+#~ "valores más tarde."
 
 #~ msgid " Stop: "
 #~ msgstr " Detener: "
