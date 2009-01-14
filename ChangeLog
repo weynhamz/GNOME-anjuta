@@ -1,3 +1,11 @@
+2009-01-14  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (find_file_line), (goto_file_tag),
+	(on_project_import_scan_end), (on_scan_end_manager):
+	Fixed #567523 (Goto Implementation jumps to declaration).
+
 2009-01-14  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/cvs-plugin/anjuta-cvs.plugin.in:

@@ -114,79 +114,72 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 	g_object_unref (file);
 }
 
+/* Find an implementation (if impl == TRUE) or declaration (if impl == FALSE)
+ * from the given symbol iterator. 
+ */
+static const gchar *
+find_file_line (SymbolDBEngineIterator *iterator, gboolean impl, gint *line)
+{
+	do
+	{
+		const gchar *symbol_kind;
+		gboolean is_decl;		
+		SymbolDBEngineIteratorNode *iter_node =
+			SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+		
+		if (iter_node == NULL)
+		{
+			/* not found or some error occurred */
+			break;  
+		}
+		
+		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
+					iter_node, SYMINFO_KIND);				
+		is_decl = g_strcmp0 (symbol_kind, "prototype") == 0 || 
+				  g_strcmp0 (symbol_kind, "interface") == 0;
+
+		if (is_decl == !impl) 
+		{
+			*line = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+			return symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+													SYMINFO_FILE_PATH);
+		}
+	} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+	
+	/* not found */
+	return NULL;	
+}
+
 static void
-goto_file_tag (SymbolDBPlugin *sdb_plugin, const char *word,
+goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 			   gboolean prefer_implementation)
 {
 	SymbolDBEngineIterator *iterator;	
-	gboolean found;
+	const gchar *file = NULL;
+	gint line;
+	
 	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
 															 word,
 															 SYMINFO_SIMPLE |
 											   				 SYMINFO_KIND |
 															 SYMINFO_FILE_PATH);
 	
-	if (iterator == NULL || symbol_db_engine_iterator_get_n_items (iterator) <= 0)
+	if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
 	{
-		if (iterator)
-			g_object_unref (iterator);
-		return;
-	}
+		/* FIXME: namespaces are not handled here, but they should. */
 	
-	found = FALSE;
-	
-	/* FIXME: namespaces are not handled here, but they should. */
-	
-	if (prefer_implementation == FALSE)
-	{
-		do 
+		file = find_file_line (iterator, prefer_implementation, &line);
+		if (!file)
 		{
-			const gchar *symbol_kind;
-			SymbolDBEngineIteratorNode *iter_node; 
-			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);			
-
-			/* not found or some error occurred */
-			if (iter_node == NULL)
-				break;
-
-			symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
-						iter_node, SYMINFO_KIND);				
-		
-			if (g_strcmp0 (symbol_kind, "prototype") == 0 || 
-				g_strcmp0 (symbol_kind, "interface") == 0)
-			{
-				gint line = 
-					symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
-				const gchar* file = 
-					symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
-													SYMINFO_FILE_PATH);
-				goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-				found = TRUE;
-				break;
-			}
-		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);	
-	}
-	
-	/* still not found? Try with implementation (see bug #566690) */
-	if (found == FALSE)
-	{
-		/* reset iterator position. */
-		symbol_db_engine_iterator_first (iterator);
-		SymbolDBEngineIteratorNode *iter_node; 
-		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);			
-
-		/* not found or some error occurred */
-		if (iter_node != NULL)
-		{
-			gint line = 
-				symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
-			const gchar* file = 
-				symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
-												SYMINFO_FILE_PATH);
-			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+			/* reset iterator */
+			symbol_db_engine_iterator_first (iterator);   
+			file = find_file_line (iterator, !prefer_implementation, &line);
 		}
+	
+		if (file)
+			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
 	}
-		
+	
 	if (iterator)
 		g_object_unref (iterator);
 }
@@ -1161,7 +1154,7 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 }
 
 static void
-project_import_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
+on_project_import_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
 	GFile* file;
@@ -1943,7 +1936,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		case TASK_IMPORT_PROJECT_AFTER_ABORT:			
 		{			
 			DEBUG_PRINT ("received TASK_IMPORT_PROJECT (AFTER_ABORT)");
-			project_import_scan_end (dbe, process_id, symbol_db);
+			on_project_import_scan_end (dbe, process_id, symbol_db);
 			
 			/* get preferences about the parallel scan */
 			gboolean parallel_scan = anjuta_preferences_get_int (symbol_db->prefs, 
