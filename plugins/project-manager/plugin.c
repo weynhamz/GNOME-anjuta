@@ -2372,6 +2372,9 @@ iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 	
+	/* Check if a current project is opened */
+	if (plugin->project == NULL) return NULL;
+	
 	modules = gbf_project_get_config_modules (plugin->project, NULL);
 	for (node = modules; node != NULL; node = g_list_next (node))
 	{

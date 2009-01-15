@@ -3144,8 +3144,9 @@ interface IAnjutaProjectManager
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: the list of pkg-config packages that this projects
-	 * requires in it's configure.ac or NULL
+	 * Returns: the list of pkg-config packages that the current project
+	 * requires in it's configure.ac. Can be NULL if there is no project
+	 * opened currently or no package is required.
 	 */
 	List<gchar*> get_packages();
 }
