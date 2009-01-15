@@ -315,7 +315,8 @@ search_and_replace (void)
 
 	if (SA_FIND_PANE == s->action)
 	{
-		gchar* name = g_strconcat(_("Find: "), s->expr.search_str, NULL);		
+		/* Avoid space in translated string */
+		gchar* name = g_strconcat(_("Find:"), " ", s->expr.search_str, NULL);		
 		AnjutaShell* shell;
 		g_object_get(G_OBJECT(sr->docman), "shell", &shell, NULL);
 		msgman = anjuta_shell_get_interface(shell, 

@@ -1357,6 +1357,7 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 	if (g_list_length (plugin_descs) > 1)
 	{
 		gchar* basename = g_path_get_basename (uri);
+		/* %s is name of file that will be opened */ 
 		gchar* message = g_strdup_printf (_("Please select a plugin to open <b>%s</b>."), 
 										 basename);
 		plugin =

@@ -40,7 +40,6 @@
           <widget class="GtkLabel" id="project_book_label">
             <property name="visible">True</property>
             <property name="xpad">5</property>
-            <property name="label" translatable="yes">label49</property>
           </widget>
           <packing>
             <property name="type">tab</property>
@@ -98,7 +97,6 @@
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
                     <property name="xpad">24</property>
-                    <property name="label" translatable="yes">label</property>
                     <property name="wrap">True</property>
                   </widget>
                 </child>
@@ -142,7 +140,6 @@
     <child>
       <widget class="GtkLabel" id="finish_page">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Page de confirmation</property>
         <property name="use_markup">True</property>
       </widget>
       <packing>

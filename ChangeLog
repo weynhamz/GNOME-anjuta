@@ -1,3 +1,21 @@
+2008-01-15  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/file-loader/plugin.c:
+	Fix #567222 – Please add comments for translators
+
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	Fix #567216 – Don't leave trailing spaces
+
+	* plugins/search/search-replace.c:
+	Fix #567226 – Don't leave trailing spaces
+
+	* libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-utils.c:
+	Fix #567224 – Don't leave trailing spaces
+
+	* plugins/project-wizard/anjuta-project-wizard.glade:
+	Fix #567881 – Strange strings
+
 2009-01-14  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>

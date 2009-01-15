@@ -361,7 +361,8 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 	va_end (args);
 
 	if (0 != errnum) {
-		tot_mesg = g_strconcat (message, _("\nSystem: "),
+		/* Avoid space in translated string */
+		tot_mesg = g_strconcat (message, "\n", _("System:"), " ",
 								g_strerror(errnum), NULL);
 		g_free (message);
 	} else
