@@ -312,10 +312,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 					DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID, sym_info, 0)) == NULL)
@@ -352,8 +349,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -362,8 +358,7 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "childklassid")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -380,13 +375,11 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -419,10 +412,7 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 	
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	final_definition_id = -1;
 	if (scope_path != NULL)	
@@ -494,15 +484,13 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "klassname")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -512,8 +500,7 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	{
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "defid")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 		
@@ -531,13 +518,11 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);
@@ -589,10 +574,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	/* check for an already flagged sym_info with KIND. SYMINFO_KIND on sym_info
 	 * is already contained into the default query infos.
@@ -745,8 +727,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	
 	if (dyn_node == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -754,8 +735,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -766,8 +746,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -804,13 +783,11 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -865,15 +842,11 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	if (scope_parent_symbol_id <= 0)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -993,8 +966,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 
 	if (dyn_node == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}	
 	
@@ -1002,8 +974,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -1014,8 +985,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -1041,8 +1011,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "scopeparentsymid")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1059,13 +1028,11 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1107,15 +1074,11 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	if (scope_parent_symbol_id <= 0)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1183,8 +1146,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1193,8 +1155,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -1205,8 +1166,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -1215,8 +1175,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "scopeparentsymid")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1237,13 +1196,11 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1293,17 +1250,13 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);	
-	}
+	SDB_LOCK(priv);
 	
 	final_definition_id = sdb_engine_walk_down_scope_path (dbe, scope_path);
 	
 	if (final_definition_id <= 0) 
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1340,15 +1293,13 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}	
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "defid")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1365,14 +1316,12 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1407,10 +1356,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	DEBUG_PRINT ("db_relative_file  %s", db_relative_file);
 	DEBUG_PRINT ("full_local_file_path %s", full_local_file_path);
 	
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 
 	sym_info = sym_info & ~SYMINFO_FILE_PATH;
 	
@@ -1451,16 +1397,14 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		g_free (db_relative_file);
 		return NULL;
 	}
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "linenum")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		g_free (db_relative_file);
 		return NULL;
 	}
@@ -1469,8 +1413,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filepath")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		g_free (db_relative_file);
 		return NULL;
 	}
@@ -1488,14 +1431,12 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		g_free (db_relative_file);
 		return NULL;
 	}
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	
 	g_free (db_relative_file);
 	
@@ -1527,10 +1468,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	priv = dbe->priv;	
 	g_return_val_if_fail (priv->db_directory != NULL, NULL);
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
+	
 	/* check for an already flagged sym_info with FILE_PATH. SYMINFO_FILE_PATH on 
 	 * sym_info is already contained into the default query infos.
 	 */
@@ -1574,8 +1513,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -1584,16 +1522,14 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filepath")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 		
 	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, file_path);
 	if (relative_path == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -1610,15 +1546,13 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
 	g_free (relative_path);
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1642,10 +1576,7 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 		DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID, sym_info, 0)) == NULL)
@@ -1680,8 +1611,7 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "symid")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -1698,13 +1628,11 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1715,7 +1643,8 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
-									const gchar *pattern, SymExtraInfo sym_info)
+									const gchar *pattern, gboolean case_sensitive,
+									SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
@@ -1732,10 +1661,11 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	/* the function uses a mutex lock, so call it before locking this one */
+	if (case_sensitive == FALSE)
+		symbol_db_engine_set_db_case_sensitive (dbe, FALSE);
+	
+	SDB_LOCK(priv);
 
 	other_parameters = 0;
 	
@@ -1785,15 +1715,13 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 
 	if (dyn_node == NULL) 
 	{		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "pattern")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -1810,13 +1738,16 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
+	
+	/* re enable the sensitiveness on the db */
+	if (case_sensitive == FALSE)
+		symbol_db_engine_set_db_case_sensitive (dbe, TRUE);
+	
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -1851,10 +1782,7 @@ select * from symbol where scope_definition_id = (
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 
 	if (db_file == NULL)
 	{
@@ -1862,8 +1790,7 @@ select * from symbol where scope_definition_id = (
 						PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE))
 			== NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return -1;
 		}
 
@@ -1876,8 +1803,7 @@ select * from symbol where scope_definition_id = (
 						PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID))
 			== NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return -1;
 		}
 
@@ -1888,8 +1814,7 @@ select * from symbol where scope_definition_id = (
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "dbfile")) == NULL)
 		{			
 			g_warning ("param dbfile is NULL from pquery!");
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return -1;
 		}
 		
@@ -1900,8 +1825,7 @@ select * from symbol where scope_definition_id = (
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "symid")) == NULL)
 	{			
 		g_warning ("param symid is NULL from pquery!");
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return -1;
 	}	
 	
@@ -1917,8 +1841,7 @@ select * from symbol where scope_definition_id = (
 	{
 		if (data != NULL)
 			g_object_unref (data);
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return -1;
 	}
 
@@ -2002,8 +1925,7 @@ select * from symbol where scope_definition_id = (
 		if ((stmt2 = sdb_engine_get_statement_by_query_id (dbe, 
 					PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID)) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return -1;
 		}
 
@@ -2014,8 +1936,7 @@ select * from symbol where scope_definition_id = (
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedsymid")) == NULL)
 		{			
 			g_warning ("param scopedsymid is NULL from pquery!");
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return -1;
 		}	
 		
@@ -2033,8 +1954,7 @@ select * from symbol where scope_definition_id = (
 		{
 			if (detailed_data != NULL)
 				g_object_unref (detailed_data);
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);		
+			SDB_UNLOCK(priv);
 			res = -1;
 		}	
 		else		/* ok we have a good result here */
@@ -2090,8 +2010,7 @@ select * from symbol where scope_definition_id = (
 	}
 	g_object_unref (data);
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return res;
 }
 
@@ -2159,10 +2078,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	sym_info = sym_info & ~SYMINFO_KIND;
 	
@@ -2402,8 +2318,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 
 	if (dyn_node == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -2411,8 +2326,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -2423,8 +2337,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	{	
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);			
 			return NULL;
 		}
 
@@ -2465,8 +2378,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "globalsearch")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 	
@@ -2474,8 +2386,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "pattern")) == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -2495,13 +2406,11 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -2534,10 +2443,7 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	sym_info = sym_info & ~SYMINFO_FILE_PATH;
 	sym_info = sym_info & ~SYMINFO_PROJECT_NAME;
@@ -2601,8 +2507,7 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 	{
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "prj_name")) == NULL)
 		{
-			if (priv->mutex)
-				g_mutex_unlock (priv->mutex);
+			SDB_UNLOCK(priv);
 			return NULL;
 		}
 
@@ -2625,13 +2530,11 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 		if (data != NULL)
 			g_object_unref (data);
 		
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);		
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,
 												priv->project_directory);	
@@ -2650,15 +2553,13 @@ symbol_db_engine_get_languages_count (SymbolDBEngine *dbe)
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
 	
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);	
+	SDB_LOCK(priv);
 	
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_LANGUAGE_COUNT))
 		== NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return -1;
 	}
 
@@ -2671,8 +2572,7 @@ symbol_db_engine_get_languages_count (SymbolDBEngine *dbe)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return -1;
 	}	
 	
@@ -2684,8 +2584,7 @@ symbol_db_engine_get_languages_count (SymbolDBEngine *dbe)
 	if (data_model)
 		g_object_unref (data_model);
 	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	
 	return ret;	
 }
@@ -2701,8 +2600,7 @@ symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
 	g_return_val_if_fail (language != NULL, FALSE);
 	
 	priv = dbe->priv;
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);
+	SDB_LOCK(priv);
 
 	MP_LEND_OBJ_STR(priv, value);
 	g_value_set_static_string (value, language);
@@ -2713,14 +2611,12 @@ symbol_db_engine_is_language_used (SymbolDBEngine *dbe,
 						"langname",
 						value)) < 0)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 	
 		return FALSE;
 	}
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 
 	return TRUE;
 }

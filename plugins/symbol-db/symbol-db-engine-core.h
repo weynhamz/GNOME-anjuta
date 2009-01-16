@@ -225,7 +225,12 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
 
-
+/**
+ * Set the opened db case sensitive. The searches on this db will then be performed
+ * taking into consideration this SQLite's PRAGMA case_sensitive_like.
+ */
+void
+symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensitive);
 
 
 G_END_DECLS

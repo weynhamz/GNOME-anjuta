@@ -106,7 +106,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 		pattern = g_strdup_printf ("%%%s%%", string);
 			
 		iterator = symbol_db_engine_find_symbol_by_name_pattern (priv->sdbe, 
-										pattern, SYMINFO_SIMPLE| SYMINFO_FILE_PATH |
+										pattern, FALSE, SYMINFO_SIMPLE| SYMINFO_FILE_PATH |
 												SYMINFO_ACCESS | SYMINFO_KIND);
 		g_free (pattern);
 		

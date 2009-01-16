@@ -295,6 +295,7 @@ sdb_engine_init_caches (SymbolDBEngine* dbe)
 											NULL);	
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 static gboolean 
 sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
 {
@@ -304,10 +305,14 @@ sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
 	
 	priv = dbe->priv;	
 	
+	SDB_LOCK(priv);
 	stmt = gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, NULL);	
 
 	if (stmt == NULL)
+	{
+		SDB_UNLOCK(priv);
 		return FALSE;
+	}
 	
     if ((res = gda_connection_statement_execute (priv->db_connection, 
 												   (GdaStatement*)stmt, 
@@ -316,13 +321,15 @@ sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
 													NULL, NULL)) == NULL)
 	{
 		g_object_unref (stmt);
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	else 
 	{
 		g_object_unref (res);
 		g_object_unref (stmt);
-		return TRUE;		
+		SDB_UNLOCK(priv);
+		return TRUE;
 	}
 }
 
@@ -386,6 +393,8 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * Use a proxy to return an already present or a fresh new prepared query 
  * from static 'query_list'. We should perform actions in the fastest way, because
  * these queries are time-critical.
@@ -595,6 +604,8 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * Return a GdaSet of parameters calculated from the statement. It does not check
  * if it's null. You *must* be sure to have called sdb_engine_get_statement_by_query_id () first.
  */
@@ -702,6 +713,8 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * @return -1 on error. Otherwise the id of tuple.
  */
 inline gint
@@ -771,6 +784,8 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * This is the same as sdb_engine_get_tuple_id_by_unique_name () but for two
  * unique parameters. This should be the quickest way. Surely quicker than
  * use g_strdup_printf () with a va_list for example.
@@ -871,6 +886,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static inline gint
 sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
@@ -987,6 +1003,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static inline gint
 sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
@@ -1125,6 +1142,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	return table_id;
 }
 
+/** ### Thread note: this function inherits the mutex lock ### */
 static int
 sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 								const gchar* base_prj_path,
@@ -1175,6 +1193,7 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 	return file_defined_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static
 gboolean sdb_engine_udpated_scope_gtree_populate (gpointer key,
                                                   gpointer value,
@@ -1207,6 +1226,8 @@ static gint tags_total_DEBUG = 0;
 static gdouble elapsed_total_DEBUG = 0;
 
 /**
+ * ### Thread note: this function inherits the mutex lock ###
+ *
  * If fake_file is != NULL we claim and assert that tags contents which are
  * scanned belong to the fake_file in the project.
  * More: the fake_file refers to just one single file and cannot be used
@@ -1305,6 +1326,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 static void
 sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 {
@@ -1323,9 +1345,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 
 	priv = dbe->priv;
 
-	/* lock */
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);
+	SDB_LOCK(priv);
 	
 	remaining_chars = len_chars = strlen (chars_ptr);
 	len_marker = strlen (CTAGS_MARKER);	
@@ -1470,9 +1490,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 		DEBUG_PRINT ("%s", "no len_chars > len_marker");
 	}
 	
-	/* unlock */
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	
 	g_free (chars);
 }
@@ -2697,10 +2715,10 @@ sdb_engine_set_defaults_db_parameters (SymbolDBEngine * dbe)
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA page_size = 32768");
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA cache_size = 12288");
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA synchronous = OFF");
-	sdb_engine_execute_unknown_sql (dbe, "PRAGMA temp_store = MEMORY");
-	sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
+	sdb_engine_execute_unknown_sql (dbe, "PRAGMA temp_store = MEMORY");	
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA journal_mode = OFF");
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA read_uncommitted = 1");
+	symbol_db_engine_set_db_case_sensitive (dbe, TRUE);
 }
 
 /**
@@ -2837,6 +2855,7 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 	return TRUE;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 {
@@ -2850,16 +2869,12 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 	
 	priv = dbe->priv;
 
-	if (priv->mutex)
-	{
-		g_mutex_lock (priv->mutex);
-	}
+	SDB_LOCK(priv);
 	
 	relative = symbol_db_engine_get_file_db_path (dbe, abs_file_path);
 	if (relative == NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
 	MP_LEND_OBJ_STR(priv, value);	
@@ -2871,14 +2886,12 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 													value)) < 0)
 	{	
 		g_free (relative);
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return FALSE;	
 	}
 	
 	g_free (relative);
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return TRUE;	
 }
 
@@ -3336,6 +3349,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	return TRUE;
 } 
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 static gint 
 sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 {
@@ -3344,8 +3358,7 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	
 	priv = dbe->priv;
 	
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);
+	SDB_LOCK(priv);
 	
 	priv->scan_process_id++;	
 	ret_id = priv->scan_process_id;
@@ -3354,8 +3367,7 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	g_async_queue_push (priv->scan_process_id_queue, 
 						GINT_TO_POINTER(priv->scan_process_id));
 
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+	SDB_UNLOCK(priv);
 	return ret_id;
 }
 	
@@ -3434,6 +3446,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 	return ret_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static inline gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
@@ -3524,6 +3537,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static gint
 sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
@@ -3608,6 +3622,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static gint
 sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
@@ -3696,6 +3711,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static gint
 sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry)
@@ -3782,6 +3798,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 	return table_id;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static void
 sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 							 gint derived_symbol_id)
@@ -3842,6 +3859,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	}	
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static inline gint
 sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 									 gint type_table_id)
@@ -3945,6 +3963,8 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * Saves the tagEntry info for a second pass parsing.
  * Usually we don't know all the symbol at the first scan of the tags. We need
  * a second one. These tuples are created for that purpose.
@@ -4143,7 +4163,11 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 	return table_id;
 }
 
-/** Return the symbol_id of the changed symbol */
+/** 
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
+ * Return the symbol_id of the changed symbol 
+ */
 static inline gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   GdaDataModel * data, gint data_row,
@@ -4272,6 +4296,8 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * @param data Must be filled with some values. It must have num_rows > 0
  * @note *CALL THIS BEFORE second_pass_update_heritage ()*
  * @note *DO NOT FREE data* inside this function.
@@ -4360,6 +4386,8 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * @param data Must be filled with some values. It must have num_rows > 0
  * @note *CALL THIS AFTER second_pass_update_scope ()*
  */
@@ -4532,6 +4560,8 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * Process the temporary table to update the symbols on scope and inheritance 
  * fields.
  * *CALL THIS FUNCTION ONLY AFTER HAVING PARSED ALL THE TAGS ONCE*
@@ -4624,7 +4654,10 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 														  NULL, NULL, NULL);	
 }
 
-/* base_prj_path can be NULL. In that case path info tag_entry will be taken
+/**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
+ * base_prj_path can be NULL. In that case path info tag_entry will be taken
  * as an absolute path.
  * fake_file can be used when a buffer updating is being executed. In that 
  * particular case both base_prj_path and tag_entry->file will be ignored. 
@@ -4673,7 +4706,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint update_flag;
 	GValue *ret_value;
 	gboolean ret_bool;
-	GTimer* timer = g_timer_new();
 		
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
@@ -4702,28 +4734,24 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
 
-	/*DEBUG_PRINT ("add_symbol type_id: %f", g_timer_elapsed (timer, NULL));*/
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
 	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
 															   type_id);
 
-	/*DEBUG_PRINT ("add_symbol scope_definition_id: %f", g_timer_elapsed (timer, NULL));*/
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parse in the second pass.
 	 */
 	scope_id = 0;
 
 	kind_id = sdb_engine_add_new_sym_kind (dbe, tag_entry);
-	/*DEBUG_PRINT ("add_symbol kind_id: %f", g_timer_elapsed (timer, NULL));*/
 	
 	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);
-	/*DEBUG_PRINT ("add_symbol access_kind_id: %f", g_timer_elapsed (timer, NULL));*/
+	
 	implementation_kind_id =
 		sdb_engine_add_new_sym_implementation (dbe, tag_entry);
-	/*DEBUG_PRINT ("add_symbol implementation_kind_id: %f", g_timer_elapsed (timer, NULL));*/
-	/*DEBUG_PRINT ("add_symbol ids: %f", g_timer_elapsed (timer, NULL));*/
+	
 	/* ok: was the symbol updated [at least on it's type_id/name]? 
 	 * There are 3 cases:
 	 * #1. The symbol remain the same [at least on unique index key]. We will 
@@ -4866,7 +4894,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 		MP_SET_HOLDER_BATCH_INT(priv, param, symbol_id, ret_bool, ret_value);
 	}
-	/*DEBUG_PRINT ("add_symbol init: %f", g_timer_elapsed (timer, NULL));*/
+
 	/* common params */
 
 	/* fileposition parameter */
@@ -4950,15 +4978,12 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, update_flag, ret_bool, ret_value);
 	
-	/*DEBUG_PRINT ("add_symbol batch: %f", g_timer_elapsed (timer, NULL));*/
-	
 	/* execute the query with parametes just set */
 	gint nrows;
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
 													 NULL);
-	/*DEBUG_PRINT ("add_symbol query: %f", g_timer_elapsed (timer, NULL));*/
 
 	if (sym_was_updated == FALSE)
 	{
@@ -5002,8 +5027,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
 
-	/*DEBUG_PRINT ("add_symbol end: %f", g_timer_elapsed (timer, NULL));*/
-	g_timer_destroy (timer);
 	return table_id;
 }
 
@@ -5083,6 +5106,8 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 }
 
 /**
+ * ~~~ Thread note: this function locks the mutex ~~~ *
+ *
  * WARNING: do not use this function thinking that it would do a scan of symbols
  * too. Use symbol_db_engine_update_files_symbols () instead. This one will set
  * up some things on db, like removing the 'old' symbols which have not been 
@@ -5100,6 +5125,8 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 
 	priv = dbe->priv;
 
+	SDB_LOCK(priv);
+	
 	/* if we're updating symbols we must do some other operations on db 
 	 * symbols, like remove the ones which don't have an update_flag = 1 
 	 * per updated file.
@@ -5115,6 +5142,8 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 									PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS)) == NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
+		
 		return FALSE;
 	}
 
@@ -5123,6 +5152,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	if ((param = gda_set_get_holder ((GdaSet*)plist1, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5139,6 +5169,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 									PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS)) == NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5161,6 +5192,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		== NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
@@ -5170,6 +5202,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	if ((param = gda_set_get_holder ((GdaSet*)plist3, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5177,6 +5210,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt3, 
 														 (GdaSet*)plist3, NULL, NULL);	
+	SDB_UNLOCK(priv);
 	return TRUE;
 }
 
@@ -5244,12 +5278,14 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		const GdaStatement *stmt;
 		GdaHolder *param;
 
+		SDB_LOCK(priv);
 		/* and the project analyse_time */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 									PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME))
 			== NULL)
 		{
 			g_warning ("query is null");
+			SDB_UNLOCK(priv);
 			return;
 		}
 
@@ -5259,6 +5295,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 		{
 			g_warning ("param prjname is NULL from pquery!");
+			SDB_UNLOCK(priv);
 			return;
 		}
 		
@@ -5267,6 +5304,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL, NULL);
+		SDB_UNLOCK(priv);
 	}	
 	
 	/* free the GPtrArray. */
@@ -5480,7 +5518,10 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	return ret_id;
 }
 
-/* Update symbols of the whole project. It scans all file symbols etc. 
+/**
+ * ~~~ Thread note: this function locks the mutex ~~~ *
+ *
+ * Update symbols of the whole project. It scans all file symbols etc. 
  * FIXME: libgda does not support nested prepared queries like 
  * PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME. When it will do please
  * remember to update this function.
@@ -5508,6 +5549,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	g_return_val_if_fail (project != NULL, FALSE);
 	g_return_val_if_fail (priv->project_directory != NULL, FALSE);
 	
+	SDB_LOCK(priv);
 
 	MP_LEND_OBJ_STR(priv, value);	
 	g_value_set_static_string (value, project);
@@ -5518,6 +5560,8 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 									 "prjname",
 									 value)) <= 0)
 	{
+		SDB_UNLOCK(priv);
+
 		return FALSE;
 	}
 
@@ -5526,6 +5570,8 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		== NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
+
 		return FALSE;
 	}
 
@@ -5536,6 +5582,8 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 	{
 		g_warning ("param prjid is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		
 		return FALSE;
 	}
 	
@@ -5661,13 +5709,19 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	
 	if (files_to_scan->len > 0)
 	{
+		SDB_UNLOCK(priv);
+		
 		/* at the end let the scanning function do its job */
 		return symbol_db_engine_update_files_symbols (dbe, project,
 											   files_to_scan, TRUE);
 	}
+	
+	SDB_UNLOCK(priv);
+	
 	return -1;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 							  const gchar * abs_file)
@@ -5685,9 +5739,12 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	g_return_val_if_fail (abs_file != NULL, FALSE);
 	priv = dbe->priv;
 	
+	SDB_LOCK(priv);
+
 	if (strlen (abs_file) < strlen (priv->project_directory)) 
 	{
 		g_warning ("wrong file to delete.");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5697,6 +5754,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 									PREP_QUERY_REMOVE_FILE_BY_PROJECT_NAME)) == NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
@@ -5705,6 +5763,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 	{
 		g_warning ("param prjname is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5713,6 +5772,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
 	{
 		g_warning ("param filepath is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -5729,6 +5789,8 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	sdb_engine_detects_removed_ids (dbe);
 	
 	g_free (file_on_db);
+	SDB_UNLOCK(priv);
+	
 	return TRUE;
 }
 
@@ -5928,3 +5990,17 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	return ret_id;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+void
+symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensitive)
+{
+	SymbolDBEnginePriv *priv;
+	
+	g_return_if_fail (dbe != NULL);
+	priv = dbe->priv;
+
+	if (case_sensitive == TRUE)
+		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
+	else 
+		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
+}

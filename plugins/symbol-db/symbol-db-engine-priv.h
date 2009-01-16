@@ -107,6 +107,8 @@
 	} \
 }
 
+#define SDB_LOCK(priv) if (priv->mutex) g_mutex_lock (priv->mutex);
+#define SDB_UNLOCK(priv) if (priv->mutex) g_mutex_unlock (priv->mutex);
 
 typedef enum
 {

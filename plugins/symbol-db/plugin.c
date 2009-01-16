@@ -160,6 +160,7 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 	
 	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
 															 word,
+															 TRUE,
 															 SYMINFO_SIMPLE |
 											   				 SYMINFO_KIND |
 															 SYMINFO_FILE_PATH);

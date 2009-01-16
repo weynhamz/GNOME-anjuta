@@ -45,7 +45,9 @@
  */
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
-									const gchar *pattern, SymExtraInfo sym_info);
+									const gchar *pattern, 
+									gboolean case_sensitive,
+									SymExtraInfo sym_info);
 
 /**
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.

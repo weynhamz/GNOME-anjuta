@@ -1,3 +1,39 @@
+2009-01-16  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (goto_file_tag):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_execute_unknown_sql), (sdb_engine_ctags_output_thread),
+	(sdb_engine_set_defaults_db_parameters),
+	(symbol_db_engine_file_exists), (sdb_engine_get_unique_scan_id),
+	(sdb_engine_add_new_symbol), (sdb_engine_update_file),
+	(on_scan_update_files_symbols_end),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file),
+	(symbol_db_engine_set_db_case_sensitive):
+	* plugins/symbol-db/symbol-db-engine-core.h:
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_get_class_parents_by_symbol_id),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id),
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered),
+	(symbol_db_engine_get_files_for_project),
+	(symbol_db_engine_get_languages_count),
+	(symbol_db_engine_is_language_used):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter):
+	fixed #567060 – symbol search should ignore case.
+	Added some macros to manage mutex_lock ().
+
 2008-01-16  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
