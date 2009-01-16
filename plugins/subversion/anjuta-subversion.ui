@@ -27,6 +27,7 @@
 		<placeholder name="PlaceholderPopupFileVCS">
 			<menu name="PopupFileSubversion" action="ActionPopupSubversion">
 				<menuitem name="Update..." action="ActionPopupSubversionUpdate" />
+				<menuitem name="Revert..." action="ActionPopupSubversionRevert" />
 				<menuitem name="Add..." action="ActionPopupSubversionAdd" />
 				<menuitem name="Remove..." action="ActionPopupSubversionRemove" />
 				<menuitem name="Copy..." action="ActionPopupSubversionCopy" />

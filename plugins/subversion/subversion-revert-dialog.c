@@ -53,7 +53,7 @@ on_subversion_revert_response (GtkDialog *dialog, gint response,
 		revert_status_view = glade_xml_get_widget (data->gxml,
 												   "revert_status_view");
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (revert_status_view));
-		revert_command = svn_revert_command_new (selected_paths, TRUE);
+		revert_command = svn_revert_command_new_list (selected_paths, TRUE);
 		
 		svn_command_free_path_list (selected_paths);
 		
@@ -147,4 +147,24 @@ void
 on_menu_subversion_revert (GtkAction *action, Subversion *plugin)
 {
 	subversion_revert_dialog (action, plugin);
+}
+
+void
+on_fm_subversion_revert (GtkAction *action, Subversion *plugin)
+{
+	SvnRevertCommand *revert_command;
+	
+	revert_command = svn_revert_command_new_path (plugin->fm_current_filename, TRUE);
+	
+	g_signal_connect (G_OBJECT (revert_command), "data-arrived",
+					  G_CALLBACK (on_command_info_arrived),
+					  plugin);
+	
+	g_signal_connect (G_OBJECT (revert_command), "command-finished",
+					  G_CALLBACK (on_revert_command_finished),
+					  plugin);
+	
+	create_message_view (plugin);
+	
+	anjuta_command_start (ANJUTA_COMMAND (revert_command));
 }

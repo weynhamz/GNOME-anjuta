@@ -162,6 +162,14 @@ static GtkActionEntry popup_actions_subversion[] = {
 		G_CALLBACK (on_fm_subversion_update)    /* action callback */
 	},
 	{
+		"ActionPopupSubversionRevert",                       /* Action name */
+		GTK_STOCK_UNDO,                            /* Stock icon, if any */
+		N_("_Revert..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Revert changes to your working copy."),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_revert)    /* action callback */
+	},
+	{
 		"ActionPopupSubversionAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
 		N_("_Add..."),                     /* Display label */

@@ -54,7 +54,9 @@ struct _SvnRevertCommand
 };
 
 GType svn_revert_command_get_type (void) G_GNUC_CONST;
-SvnRevertCommand * svn_revert_command_new (GList *paths, gboolean recursive);
+SvnRevertCommand *svn_revert_command_new_list (GList *paths, 
+											   gboolean recursive);
+SvnRevertCommand *svn_revert_command_new_path (gchar *path, gboolean recursive);
 void svn_revert_command_destroy (SvnRevertCommand *self);
 
 G_END_DECLS

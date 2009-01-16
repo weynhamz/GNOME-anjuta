@@ -1,3 +1,15 @@
+2009-01-16  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/anjuta-subversion.ui:
+	* plugins/subversion/plugin.c:
+	* plugins/subversion/subversion-revert-dialog.c
+	(on_subversion_revert_response), (on_fm_subversion_revert):
+	* plugins/subversion/subversion-revert-dialog.h:
+	* plugins/subversion/svn-revert-command.c
+	(svn_revert_command_new_list), (svn_revert_command_new_path):
+	* plugins/subversion/svn-revert-command.h:
+	Fix Bug 564988 – Subversion context menu should have a Revert command
+
 2008-01-15  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-manager/plugin.c,

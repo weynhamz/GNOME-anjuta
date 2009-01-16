@@ -100,12 +100,26 @@ svn_revert_command_class_init (SvnRevertCommandClass *klass)
 
 
 SvnRevertCommand *
-svn_revert_command_new (GList *paths, gboolean recursive)
+svn_revert_command_new_list (GList *paths, gboolean recursive)
 {
 	SvnRevertCommand *self;
 	
 	self = g_object_new (SVN_TYPE_REVERT_COMMAND, NULL);
 	self->priv->paths = svn_command_copy_path_list (paths);
+	self->priv->recursive = recursive;
+	
+	return self;
+}
+
+SvnRevertCommand *
+svn_revert_command_new_path (gchar *path, gboolean recursive)
+{
+	SvnRevertCommand *self;
+	
+	self = g_object_new (SVN_TYPE_REVERT_COMMAND, NULL);
+	self->priv->paths = g_list_append (self->priv->paths,  
+									   svn_command_make_canonical_path (SVN_COMMAND (self),
+																		path));
 	self->priv->recursive = recursive;
 	
 	return self;

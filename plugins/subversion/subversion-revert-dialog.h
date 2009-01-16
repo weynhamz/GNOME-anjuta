@@ -29,5 +29,6 @@
 #include "svn-revert-command.h"
 
 void on_menu_subversion_revert (GtkAction *action, Subversion *plugin);
+void on_fm_subversion_revert (GtkAction *action, Subversion *plugin);
 
 #endif
