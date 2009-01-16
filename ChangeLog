@@ -1,3 +1,11 @@
+2009-01-16  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (find_file_line), (goto_file_tag):
+	fixed #568028 – goto [declaration|implementation] should prefer the current 
+	file.
+
 2009-01-16  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (goto_file_tag):

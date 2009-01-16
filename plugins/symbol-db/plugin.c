@@ -115,11 +115,16 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 }
 
 /* Find an implementation (if impl == TRUE) or declaration (if impl == FALSE)
- * from the given symbol iterator. 
+ * from the given symbol iterator.
+ * If current_document != NULL it prefers matches from the currently open document
  */
-static const gchar *
-find_file_line (SymbolDBEngineIterator *iterator, gboolean impl, gint *line)
+static gchar *
+find_file_line (SymbolDBEngineIterator *iterator, gboolean impl, const gchar *current_document,
+				gint *line)
 {
+	gchar *path = NULL;
+	gint _line = -1;
+	
 	do
 	{
 		const gchar *symbol_kind;
@@ -134,20 +139,36 @@ find_file_line (SymbolDBEngineIterator *iterator, gboolean impl, gint *line)
 		}
 		
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
-					iter_node, SYMINFO_KIND);				
+																			  iter_node, SYMINFO_KIND);				
 		is_decl = g_strcmp0 (symbol_kind, "prototype") == 0 || 
-				  g_strcmp0 (symbol_kind, "interface") == 0;
-
+			g_strcmp0 (symbol_kind, "interface") == 0;
+		
 		if (is_decl == !impl) 
 		{
-			*line = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
-			return symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
-													SYMINFO_FILE_PATH);
+			const gchar *_path;
+			_path = symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+																			SYMINFO_FILE_PATH);
+			/* if the path matches the current document we return immidiately */
+			if (!current_document || g_strcmp0 (_path, current_document) == 0)
+			{
+				*line = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+				g_free (path);
+				
+				return g_strdup (_path);
+			}
+			/* we store the first match incase there is no match against the current document */
+			else if (_line == -1)
+			{
+				path = g_strdup (_path);
+				_line = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+			}
 		}
 	} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
 	
-	/* not found */
-	return NULL;	
+	if (_line != -1)
+		*line = _line;
+	
+	return path;	
 }
 
 static void
@@ -155,30 +176,49 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 			   gboolean prefer_implementation)
 {
 	SymbolDBEngineIterator *iterator;	
-	const gchar *file = NULL;
+	gchar *path = NULL;
 	gint line;
 	
 	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
 															 word,
 															 TRUE,
 															 SYMINFO_SIMPLE |
-											   				 SYMINFO_KIND |
+															 SYMINFO_KIND |
 															 SYMINFO_FILE_PATH);
 	
 	if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
 	{
+		gchar *current_document = NULL;
 		/* FIXME: namespaces are not handled here, but they should. */
-	
-		file = find_file_line (iterator, prefer_implementation, &line);
-		if (!file)
+		
+		if (IANJUTA_IS_FILE (sdb_plugin->current_editor))
+		{
+			GFile *file;
+			
+			if ((file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor),
+											   NULL)))
+			{
+				current_document = g_file_get_path (file);
+				g_object_unref (file);
+			}
+		}
+		
+		path = find_file_line (iterator, prefer_implementation, current_document, &line);
+		if (!path)
 		{
 			/* reset iterator */
 			symbol_db_engine_iterator_first (iterator);   
-			file = find_file_line (iterator, !prefer_implementation, &line);
+			path = find_file_line (iterator, !prefer_implementation, current_document,
+								   &line);
 		}
-	
-		if (file)
-			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+		
+		if (path)
+		{
+			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), path, line);
+			g_free (path);
+		}
+		
+		g_free (current_document);
 	}
 	
 	if (iterator)
