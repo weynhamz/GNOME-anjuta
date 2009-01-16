@@ -1,3 +1,11 @@
+2008-01-16  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/templates/gnome-applet/Makefile.am.tpl:
+	* plugins/project-wizard/templates/terminal/Makefile.am.tpl:
+	Fixed #565342 – wizard creates useless dist-hook in Makefile.am
+
 2009-01-16  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-status.c (anjuta_status_progress_pulse):
