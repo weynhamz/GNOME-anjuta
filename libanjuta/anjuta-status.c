@@ -481,7 +481,7 @@ anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text)
 	statusbar = status->priv->status_bar;
 	
 	if (text)
-		anjuta_status_set (status, "%s", text);
+		anjuta_status_push (status, "%s", text);
 	
 	gtk_progress_bar_pulse (progressbar);
 	

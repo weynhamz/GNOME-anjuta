@@ -1,5 +1,11 @@
 2009-01-16  James Liggett  <jrliggett@cox.net>
 
+	* libanjuta/anjuta-status.c (anjuta_status_progress_pulse):
+	Fix Bug 565024 – "Retrieving log..." still displayed after retrieval 
+	complete
+
+2009-01-16  James Liggett  <jrliggett@cox.net>
+
 	* plugins/subversion/anjuta-subversion.ui:
 	* plugins/subversion/plugin.c:
 	* plugins/subversion/subversion-revert-dialog.c
