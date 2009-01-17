@@ -1,5 +1,12 @@
 2009-01-17  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-model.c (file_model_update_file),
+	(on_row_expanded_async), (file_model_refresh):
+	#568008 – invalid g_object_unref in file-manager
+	(Carl-Anton Ingmarsson)
+	
+2009-01-17  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/anjuta-bookmarks.c
 	(anjuta_bookmarks_add_file), (anjuta_bookmarks_session_save):
 	Clear the bookmarks panel when the session is save to avoid adding too many

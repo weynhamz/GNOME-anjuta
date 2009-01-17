@@ -227,20 +227,20 @@ file_model_update_file (FileModel* model,
 	gchar* display_name;
 	
 	icon = g_file_info_get_icon(file_info);
-	g_object_get (icon, "names", &icon_names, NULL);
-	
-	g_object_unref (icon);
-	
-	if ((icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
-											(const gchar **)icon_names,
-											ICON_SIZE,
-											GTK_ICON_LOOKUP_GENERIC_FALLBACK)))
+	if (icon)
 	{
-		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
-		gtk_icon_info_free(icon_info);
-	}
-	
-	g_strfreev (icon_names);
+		g_object_get (icon, "names", &icon_names, NULL);
+		
+		if ((icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+													 (const gchar **)icon_names,
+													 ICON_SIZE,
+													 GTK_ICON_LOOKUP_GENERIC_FALLBACK)))
+		{
+			pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+			gtk_icon_info_free(icon_info);
+		}
+		g_strfreev (icon_names);
+ 	}
 	
 	if (g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
 		is_dir = TRUE;
@@ -431,6 +431,7 @@ on_row_expanded_async (GObject* source_object,
 		GFile* file = g_file_get_child (dir, g_file_info_get_name(file_info));
 		file_model_add_file (data->model, &real_iter, file, file_info);
 		g_object_unref (file);
+		g_object_unref (file_info);
 	}
 	/* Remove dummy node */
 	gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &dummy, &real_iter);
@@ -667,9 +668,11 @@ file_model_refresh (FileModel* model)
 								  G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	
 	if (!base_info)
-		return;
-	
-	file_model_add_file (model, NULL, base, base_info);
+		goto out;
+ 	
+ 	file_model_add_file (model, NULL, base, base_info);
+	g_object_unref (base_info);
+out:
 	g_object_unref (base);
 }
 
