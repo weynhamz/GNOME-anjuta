@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-01-13 23:28+0000\n"
-"PO-Revision-Date: 2009-01-14 20:32+0100\n"
+"POT-Creation-Date: 2009-01-15 18:55+0000\n"
+"PO-Revision-Date: 2009-01-17 12:13+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -332,9 +332,10 @@ msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2477
-msgid "Loaded: "
-msgstr "Cargado: "
+#. Avoid space in translated string
+#: ../libanjuta/anjuta-plugin-manager.c:2478
+msgid "Loaded:"
+msgstr "Cargado:"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
@@ -486,15 +487,15 @@ msgstr "Distinguir mayúsculas"
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
-#: ../libanjuta/anjuta-utils.c:364
-msgid ""
-"\n"
-"System: "
-msgstr ""
-"\n"
-"Sistema: "
+#. Avoid space in translated string
+#: ../libanjuta/anjuta-utils.c:365
+#| msgid ""
+#| "\n"
+#| "System: "
+msgid "System:"
+msgstr "Sistema:"
 
-#: ../libanjuta/anjuta-utils.c:502
+#: ../libanjuta/anjuta-utils.c:503
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -503,12 +504,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:942 ../libanjuta/anjuta-utils.c:946
+#: ../libanjuta/anjuta-utils.c:943 ../libanjuta/anjuta-utils.c:947
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1578
+#: ../libanjuta/anjuta-utils.c:1579
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -1345,8 +1346,10 @@ msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-msgid "Revision: "
-msgstr "Revisión: "
+#: ../plugins/git/anjuta-git.glade.h:72
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Revision:"
+msgstr "Revisión:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
@@ -1361,12 +1364,14 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-msgid "Use revision/tag: "
-msgstr "Usar revisión/etiqueta"
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
+msgid "Use revision/tag:"
+msgstr "Usar revisión/etiqueta:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-msgid "Use revision: "
-msgstr "Usar revisión: "
+#| msgid "Use revision: "
+msgid "Use revision:"
+msgstr "Usar revisión:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
@@ -2534,11 +2539,11 @@ msgstr "En línea"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1002
-#: ../plugins/search/search-replace.c:1671
-#: ../plugins/search/search-replace.c:1678
-#: ../plugins/search/search-replace.c:1690
-#: ../plugins/search/search-replace.c:2008
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1003
+#: ../plugins/search/search-replace.c:1672
+#: ../plugins/search/search-replace.c:1679
+#: ../plugins/search/search-replace.c:1691
+#: ../plugins/search/search-replace.c:2009
 msgid "Search"
 msgstr "Buscar"
 
@@ -3899,12 +3904,13 @@ msgstr "Abre archivos recientes"
 msgid "File not found"
 msgstr "No se encontró el archivo"
 
-#: ../plugins/file-loader/plugin.c:1360
+#. %s is name of file that will be opened
+#: ../plugins/file-loader/plugin.c:1361
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccione un complemento para abrir. <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1364
+#: ../plugins/file-loader/plugin.c:1365
 msgid "Open With"
 msgstr "Abrir con"
 
@@ -3942,17 +3948,14 @@ msgid "Loading..."
 msgstr "Cargando…"
 
 #: ../plugins/file-manager/file-view.c:61
-#| msgid "Remove"
 msgid "Removed"
 msgstr "Eliminado"
 
 #: ../plugins/file-manager/file-view.c:64
-#| msgid "Started"
 msgid "Outdated"
 msgstr "Obsoleto"
 
 #: ../plugins/file-manager/file-view.c:65
-#| msgid "Loaded"
 msgid "Locked"
 msgstr "Bloqueado"
 
@@ -4985,11 +4988,6 @@ msgstr "Revertir commit"
 #: ../plugins/git/anjuta-git.glade.h:71
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
-
-#: ../plugins/git/anjuta-git.glade.h:72
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
-msgid "Revision:"
-msgstr "Revisión:"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Select A Folder"
@@ -6341,11 +6339,6 @@ msgid "Do not show these symbols:"
 msgstr "No mostrar estos símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:11
-#| msgid ""
-#| "Enter one symbol specification per line.\n"
-#| "\n"
-#| "For information on symbol specifications, see section \n"
-#| "4.5 of the gprof info page. "
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
@@ -6794,39 +6787,23 @@ msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#| msgid "<b>Module Details:</b>"
 msgid "<b>Details</b>"
 msgstr "<b>Detalles</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 #: ../plugins/project-wizard/druid.c:151
-#| msgid "Errors:"
 msgid "Error"
 msgstr "Error"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
-#| msgid "Please, fix the configuration"
-msgid "Page de confirmation"
-msgstr "Página de confirmación"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "label"
-msgstr "etiqueta"
-
 #: ../plugins/project-wizard/druid.c:143 ../plugins/project-wizard/druid.c:147
-#| msgid "Warnings:"
 msgid "Warning"
 msgstr "Advertencia"
 
 #: ../plugins/project-wizard/druid.c:154
-#| msgid "Messages"
 msgid "Message"
 msgstr "Mensaje"
 
 #: ../plugins/project-wizard/druid.c:220
-#| msgid ""
-#| "Confirm the following information:\n"
-#| "\n"
 msgid ""
 "<b>Confirm the following information:</b>\n"
 "\n"
@@ -6848,7 +6825,6 @@ msgstr "No se puede encontrar ninguna plantilla de proyecto en %s"
 
 #: ../plugins/project-wizard/druid.c:581
 #, c-format
-#| msgid "Field \"%s\" is mandatory. Please enter it."
 msgid ""
 "\n"
 "Field \"%s\" is mandatory. Please enter it."
@@ -6867,7 +6843,6 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:601
 #, c-format
-#| msgid "Unknown item"
 msgid "Unknown error."
 msgstr "Elementos desconocido."
 
@@ -6943,7 +6918,6 @@ msgstr "Faltan componentes"
 
 #: ../plugins/project-wizard/druid.c:947
 #, c-format
-#| msgid "Unable to build project assistant user interface."
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
 "No se pudo construir la interfaz de usuario del asistente de proyectos "
@@ -7844,47 +7818,49 @@ msgstr "Reemplazar la siguiente coincidencia"
 msgid "Replace all matches"
 msgstr "Reemplazar todas las coincidencias"
 
-#: ../plugins/search/search-replace.c:318
-msgid "Find: "
-msgstr "Buscar: "
+#. Avoid space in translated string
+#: ../plugins/search/search-replace.c:319
+#| msgid "Find: "
+msgid "Find:"
+msgstr "Buscar:"
 
-#: ../plugins/search/search-replace.c:486
+#: ../plugins/search/search-replace.c:487
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/search/search-replace.c:606
+#: ../plugins/search/search-replace.c:607
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1005
-#: ../plugins/search/search-replace.c:1685
+#: ../plugins/search/search-replace.c:1006
+#: ../plugins/search/search-replace.c:1686
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: ../plugins/search/search-replace.c:1044
+#: ../plugins/search/search-replace.c:1045
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
 "principio del documento?"
 
-#: ../plugins/search/search-replace.c:1064
+#: ../plugins/search/search-replace.c:1065
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1079
+#: ../plugins/search/search-replace.c:1080
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1092
+#: ../plugins/search/search-replace.c:1093
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1258
+#: ../plugins/search/search-replace.c:1259
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
@@ -8156,11 +8132,6 @@ msgstr "Actualizar archivo/directorio"
 #: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
 msgstr "Usar la primera ruta"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
-#| msgid "Use revision/tag: "
-msgid "Use revision/tag:"
-msgstr "Usar revisión/etiqueta:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
@@ -8449,32 +8420,26 @@ msgid "Authentication canceled"
 msgstr "Autenticación cancelada"
 
 #: ../plugins/subversion/svn-command.c:174
-#| msgid "Hostname: "
 msgid "Hostname:"
 msgstr "Nombre del equipo:"
 
 #: ../plugins/subversion/svn-command.c:175
-#| msgid "Fingerprint: "
 msgid "Fingerprint:"
 msgstr "Huella:"
 
 #: ../plugins/subversion/svn-command.c:176
-#| msgid "Valid from: "
 msgid "Valid from:"
 msgstr "Válido desde:"
 
 #: ../plugins/subversion/svn-command.c:177
-#| msgid "Valid until: "
 msgid "Valid until:"
 msgstr "Válido hasta:"
 
 #: ../plugins/subversion/svn-command.c:178
-#| msgid "Issuer DN: "
 msgid "Issuer DN:"
 msgstr "ND del emisor:"
 
 #: ../plugins/subversion/svn-command.c:179
-#| msgid "DER certificate: "
 msgid "DER certificate:"
 msgstr "Certificado DER:"
 
@@ -9855,6 +9820,22 @@ msgstr "Backend de autotools"
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
 
+#~ msgid "Loaded: "
+#~ msgstr "Cargado: "
+
+#~ msgid "Revision: "
+#~ msgstr "Revisión: "
+
+#~ msgid "Use revision/tag: "
+#~ msgstr "Usar revisión/etiqueta"
+
+#~| msgid "Please, fix the configuration"
+#~ msgid "Page de confirmation"
+#~ msgstr "Página de confirmación"
+
+#~ msgid "label"
+#~ msgstr "etiqueta"
+
 #~ msgid "<b>Project description:</b>"
 #~ msgstr "<b>Descripción del proyecto:</b>"
 
@@ -10034,9 +10015,6 @@ msgstr "Backend de autotools para el gestor de proyectos"
 
 #~ msgid "Editor bookmarks"
 #~ msgstr "Marcadores del editor"
-
-#~ msgid "Loaded:"
-#~ msgstr "Cargado:"
 
 #~ msgid "Case sensitive"
 #~ msgstr "Coincidir con capitalización"
