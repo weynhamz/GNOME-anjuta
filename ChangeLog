@@ -1,3 +1,14 @@
+2009-01-16  James Liggett  <jrliggett@cox.net>
+
+	* plugins/subversion/subversion-diff-dialog.c
+	(subversion_show_diff), (on_subversion_diff_response),
+	(on_fm_subversion_diff):
+	When invoked from the file manager's context menu, the Subversion plugin's
+	Diff command now works immediately, bypassing the dialog.
+	
+	Partially fixes Bug 565353 – View Log and Diff context menu commands should 
+	act immediately
+
 2009-01-16  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
