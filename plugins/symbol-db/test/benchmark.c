@@ -3,7 +3,6 @@
 
 #include <../symbol-db-engine.h>
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 {
@@ -16,27 +15,42 @@ static GPtrArray* get_files (const gchar* dir)
 	GList* list = NULL;
 	GList* node;
 	GPtrArray* files = g_ptr_array_new();
-	gchar* uri = gnome_vfs_get_uri_from_local_path (dir);
+	GFile *file;
+	GFileEnumerator *enumerator;
+	GFileInfo* info;
+	GError *error = NULL;
 	
-	if (gnome_vfs_directory_list_load (&list, uri, GNOME_VFS_FILE_INFO_GET_MIME_TYPE)
-			!= GNOME_VFS_OK)
-		return files;
-	
-	for (node = list; node != NULL; node = g_list_next (node))
+	file = g_file_new_for_commandline_arg (dir);
+	enumerator = g_file_enumerate_children (file, 
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+			G_FILE_ATTRIBUTE_STANDARD_NAME,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, &error);
+
+	if (!enumerator)
 	{
-		GnomeVFSFileInfo* info = node->data;
-		
-		if (!info->mime_type)
+		g_warning ("Could not enumerate: %s %s\n", 
+				g_file_get_path (file),
+				error->message);
+		g_error_free (error);
+		g_object_unref (file);
+		return files;
+	}
+
+	for (info = g_file_enumerator_next_file (enumerator, NULL, NULL); info != NULL; 
+			info = g_file_enumerator_next_file (enumerator, NULL, NULL))
+	{
+		const gchar *mime_type = g_file_info_get_content_type (info);
+		if (!mime_type)
 			continue;
-		if (g_str_equal (info->mime_type, "text/x-csrc") ||
-				g_str_equal (info->mime_type, "text/x-chdr"))
+		if (g_str_equal (mime_type, "text/x-csrc") ||
+				g_str_equal (mime_type, "text/x-chdr"))
 		{
-			g_message ("File: %s", info->name);
-			g_ptr_array_add (files, g_build_filename (dir, info->name, NULL));
+			g_message ("File: %s", g_file_info_get_name (info));
+			g_ptr_array_add (files, g_build_filename (dir, g_file_info_get_name (info), NULL));
 		}
 	}
 	
-	g_free (uri);
 	return files;
 }	
 	
