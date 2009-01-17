@@ -1,3 +1,10 @@
+2009-01-17  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-bookmarks.c
+	(anjuta_bookmarks_add_file), (anjuta_bookmarks_session_save):
+	Clear the bookmarks panel when the session is save to avoid adding too many
+	bookmarks to the old session.
+	
 2009-01-17  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c

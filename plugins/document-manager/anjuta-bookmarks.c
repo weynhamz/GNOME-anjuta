@@ -466,6 +466,7 @@ anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks,
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	IAnjutaDocument* doc;
 	GtkTreeIter iter;
+	
 	if ((doc = anjuta_docman_get_document_for_file (ANJUTA_DOCMAN(priv->docman->docman), file)))
 	{
 		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, NULL, FALSE);
@@ -601,8 +602,10 @@ anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 							   "Document Manager",
 							   "bookmarks",
 							   (const gchar*) buf->content);
-	
 	xmlBufferFree(buf);
+	
+	/* Clear the model */
+	gtk_list_store_clear (GTK_LIST_STORE (priv->model));
 }
 
 static void
