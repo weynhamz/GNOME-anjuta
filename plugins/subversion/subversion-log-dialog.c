@@ -220,7 +220,7 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 }
 
 static void
-on_log_view_button_clicked (GtkButton *button, LogData *data)
+subversion_show_log (LogData *data)
 {
 	GtkWidget *log_changes_view;
 	GtkWidget *log_file_entry;
@@ -271,6 +271,12 @@ on_log_view_button_clicked (GtkButton *button, LogData *data)
 	gtk_widget_set_sensitive (log_view_selected_button, FALSE);
 	
 	gtk_list_store_clear (data->log_store);
+}
+
+static void
+on_log_view_button_clicked (GtkButton *button, LogData *data)
+{
+	subversion_show_log (data);
 }
 
 static void
@@ -606,6 +612,7 @@ subversion_log_window_create (Subversion *plugin)
 	
 	g_object_set_data (G_OBJECT (log_whole_project_check), "fileentry",
 					   log_file_entry);
+	g_object_set_data (G_OBJECT (subversion_log_vbox), "log-data", data);
 	g_signal_connect (G_OBJECT (log_whole_project_check), "toggled",
 					  G_CALLBACK (on_whole_project_toggled), plugin);
 	init_whole_project (plugin, log_whole_project_check, FALSE);
@@ -651,14 +658,22 @@ void
 on_fm_subversion_log (GtkAction *action, Subversion *plugin)
 {
 	GtkWidget *log_file_entry;
+	GtkWidget *log_whole_project_check;
 	
 	log_file_entry = glade_xml_get_widget (plugin->log_gxml, "log_file_entry");
+	log_whole_project_check = glade_xml_get_widget (plugin->log_gxml,
+													"log_whole_project_check");
 	
 	gtk_entry_set_text (GTK_ENTRY (log_file_entry), 
 						plugin->fm_current_filename);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (log_whole_project_check),
+								  FALSE);
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell, 
 								 plugin->log_viewer, NULL);
+	
+	subversion_show_log (g_object_get_data (G_OBJECT (plugin->log_viewer), 
+											"log-data"));
 }
 
 void
