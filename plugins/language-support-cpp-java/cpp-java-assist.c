@@ -715,8 +715,10 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   call_context, FALSE, TRUE, FALSE,
 									   max_completions, -1, NULL);
 	tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_project));
-	g_object_unref (iter_global);
-	g_object_unref (iter_project);
+	if (iter_global)
+		g_object_unref (iter_global);
+	if (iter_project)
+		g_object_unref (iter_project);
 	if (tips)
 	{
 		/* Calculate calltip offset from context offset */
