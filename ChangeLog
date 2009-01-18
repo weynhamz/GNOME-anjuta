@@ -1,5 +1,10 @@
 2009-01-18  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-model.c (file_model_update_file):
+	Don't show the status of directories
+
+2009-01-18  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/Makefile.am:
 	* plugins/file-manager/file-model.c (get_vcs_emblem),
 	(file_model_vcs_status_callback), (file_model_update_file),
