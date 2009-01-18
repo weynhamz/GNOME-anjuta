@@ -125,6 +125,51 @@ typedef struct
 	GtkTreeRowReference* ref;
 } VcsData;
 
+#define EMBLEM_ADDED "vcs-added.png"
+#define EMBLEM_CONFLICT "vcs-conflict.png"
+#define EMBLEM_DELETED "vcs-deleted.png"
+#define EMBLEM_IGNORED "vcs-ignored.png"
+#define EMBLEM_LOCKED "vcs-locked.png"
+#define EMBLEM_UNVERSIONED "vcs-unversioned.png"
+#define EMBLEM_UPDATED "vcs-updated.png"
+#define EMBLEM_MODIFIED "vcs-modified.png"
+
+#define COMPOSITE_ALPHA 225
+
+static GdkPixbuf* 
+get_vcs_emblem (AnjutaVcsStatus status)
+{
+	GdkPixbuf* emblem ;
+	switch (status)
+	{
+		case ANJUTA_VCS_STATUS_NONE:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UPDATED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_ADDED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_ADDED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_MODIFIED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_MODIFIED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_DELETED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_DELETED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_CONFLICTED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_CONFLICT, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_LOCKED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_LOCKED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UNVERSIONED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UNVERSIONED, NULL);
+			break;
+		default:
+			emblem = NULL;
+	}
+	DEBUG_PRINT ("emblem found: %d", emblem != NULL);
+	return emblem;
+}
+
 static void
 file_model_vcs_status_callback(GFile *file,
 							   AnjutaVcsStatus status,
@@ -133,33 +178,52 @@ file_model_vcs_status_callback(GFile *file,
 	VcsData* data = user_data;
 	gchar* path = g_file_get_path (file);
 	
+	DEBUG_PRINT ("Status of %s = %d", path, status);
+	
 	GtkTreePath* tree_path = gtk_tree_row_reference_get_path (data->ref);
 	if (tree_path)
 	{
-		const gchar* color = NULL;
+		GdkPixbuf* file_icon = NULL;
+		GdkPixbuf* emblem = NULL;
 		GtkTreeIter iter;
 		GtkTreeModel* model = gtk_tree_row_reference_get_model (data->ref);
-		switch (status)
-		{
-			case ANJUTA_VCS_STATUS_MODIFIED:
-				color = "yellow";
-				break;
-			case ANJUTA_VCS_STATUS_ADDED:
-				color = "green";
-				break;
-			case ANJUTA_VCS_STATUS_CONFLICTED:
-				color = "red";
-				break;
-			default:
-				color = "white";
-		}
+
 		gtk_tree_model_get_iter (model,
 								 &iter,
 								 tree_path);
+		
+		emblem = get_vcs_emblem (status);
+		if (emblem)
+		{
+			gtk_tree_model_get (model, &iter,
+								COLUMN_PIXBUF, &file_icon,
+								-1);
+			if (file_icon)
+			{
+				gdk_pixbuf_composite (emblem,
+									  file_icon,
+									  0, 0,
+									  gdk_pixbuf_get_width (file_icon),
+									  gdk_pixbuf_get_height (file_icon),
+									  0, 0,
+									  1, 1,
+									  GDK_INTERP_BILINEAR,
+									  COMPOSITE_ALPHA);
+				gtk_tree_store_set (GTK_TREE_STORE (model),
+									&iter,
+									COLUMN_PIXBUF,
+									file_icon,
+									-1);
+				DEBUG_PRINT ("%s", "setting emblem");
+				
+				g_object_unref (file_icon);
+			}
+			g_object_unref (emblem);
+		}
+		
+
 		gtk_tree_store_set (GTK_TREE_STORE (model),
 							&iter,
-							COLUMN_BACKGROUND,
-							color,
 							COLUMN_STATUS,
 							status,
 							-1);
@@ -254,7 +318,6 @@ file_model_update_file (FileModel* model,
 						COLUMN_FILE, file,
 						COLUMN_PIXBUF, pixbuf,
 						COLUMN_STATUS, ANJUTA_VCS_STATUS_NONE,
-						COLUMN_BACKGROUND, "white",
 						COLUMN_IS_DIR, is_dir,
 						COLUMN_SORT, g_file_info_get_sort_order(file_info),
 						-1);
@@ -636,7 +699,7 @@ file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
 	GObject* model =
 		g_object_new (FILE_TYPE_MODEL, "base_uri", base_uri, NULL);
 	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING,
-		G_TYPE_STRING, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_OBJECT,
+		G_TYPE_STRING, G_TYPE_UINT, G_TYPE_OBJECT,
 		G_TYPE_BOOLEAN, G_TYPE_INT};
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
 	

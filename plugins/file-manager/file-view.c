@@ -458,20 +458,16 @@ file_view_init (AnjutaFileView *object)
 											 NULL);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
-	g_object_set (G_OBJECT (renderer_pixbuf), "cell-background-set", TRUE, NULL);
 	renderer_display = gtk_cell_renderer_text_new ();
-	g_object_set (G_OBJECT (renderer_pixbuf), "cell-background-set", TRUE, NULL);	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Filename"));
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
 	gtk_tree_view_column_pack_start (column, renderer_display, FALSE);
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
 										 "pixbuf", COLUMN_PIXBUF,
-										 "cell-background", COLUMN_BACKGROUND,
 										 NULL);
 	gtk_tree_view_column_set_attributes (column, renderer_display,
 										 "markup", COLUMN_DISPLAY, 
-										 "cell-background", COLUMN_BACKGROUND,
 										 NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
 	

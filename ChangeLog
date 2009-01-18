@@ -1,3 +1,14 @@
+2009-01-18  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/file-model.c (get_vcs_emblem),
+	(file_model_vcs_status_callback), (file_model_update_file),
+	(file_model_new):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.c (file_view_init):
+
+	Show the vcs status with emblems (from Subclipse/TurtoiseSVN, icons are GPL)
+
 2009-01-17  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c (file_model_update_file),

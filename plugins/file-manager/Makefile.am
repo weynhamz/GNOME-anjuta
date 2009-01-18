@@ -10,7 +10,13 @@ file_manager_ui_DATA =  file-manager.ui
 file_manager_pixmapsdir = $(anjuta_image_dir)
 file_manager_pixmaps_DATA = \
 	anjuta-file-manager-plugin.svg \
-	anjuta-file-manager-plugin-48.png
+	anjuta-file-manager-plugin-48.png \
+	vcs-added.png \
+	vcs-conflict.png \
+	vcs-deleted.png \
+	vcs-ignored.png \
+	vcs-modified.png \
+	vcs-unversioned.png
 
 # Plugin description file
 plugin_in_files = file-manager.plugin.in
