@@ -1,3 +1,10 @@
+2.25.5:
+
+2009-01-19  Johannes Schmid  <jhs@gnome.org>
+
+	* NEWS: 
+	* configure.in: Updated for release
+
 2009-01-19  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/project-manager/gbf-project-view.c

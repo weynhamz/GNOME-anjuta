@@ -1,3 +1,71 @@
+Anjuta 2.25.5 (19 January 2009) -- Johannes Schmid
+
+New:
+- File-browser shows version control status for subversion using emblems
+
+Updates:
+- Removed gnome-vfs usage
+- Lots of improvements with auto-completion and symbol-db
+- string fixes
+
+Bugs fixed:
+#567967 – build fail with sun cc because zero-sized struct
+#568068 – critical warnings on activation of debug-manager
+#531717 - remove tray icon
+#511589 - port to gio
+#568008 – invalid g_object_unref in file-manager
+#568020 – critical warning on bracket completion
+#565353 – View Log and Diff context menu commands should 
+	act immediately
+#568028 – goto [declaration|implementation] should prefer the current 
+	file.
+#567060 – symbol search should ignore case.
+#565342 – wizard creates useless dist-hook in Makefile.am
+65024 – "Retrieving log..." still displayed after retrieval 
+	complete
+#564988 – Subversion context menu should have a Revert command
+Fix #567222 – Please add comments for translators
+Fix #567216 – Don't leave trailing spaces
+Fix #567226 – Don't leave trailing spaces
+Fix #567224 – Don't leave trailing spaces
+Fix #567881 – Strange strings
+#567523 (Goto Implementation jumps to declaration).
+#567504 – New Project dialog is not centered
+#567505 – Anjuta hangs while generating inheritances
+#567217 – Don't use trailing spaces.
+#567228 – Don't leave trailing spaces.
+#548910 Hide the Global tab in case only C-files are used in a project.
+#567360 – Context Help needs an icon
+566924 - Subversion diff should be done from the project's root
+	directory.  
+#566943 – Icons are not not found
+#567156 – better autodetection of language
+#567010 - Can't import project if parse scripts failed
+#567068 – autocomplete box should vanish on backspace
+#566987 – display tooltip with prototype when calling function in project
+#566693 – Code completion of symbols usually not working
+#567227 – Don't leave trailing spaces
+#567223 – Don't leave trailing spaces
+#567219 – String fixes
+#567218 – Don't leave spaces before punctuation
+#567203 – small signal error in symbol-db-system
+#566985 – sort multiple symbol matches by file path
+#567058 – Goto Implementation can't jump to struct or typedef types
+#566690 – Goto declaration menu item should go to implementation if 
+	there's no delcaration
+#567067 – Anjuta hangs if I close project while scanning symbols
+#567049 – Goto Definition fails for symbols ending in a digit
+#566699 – Default "Available API tags" for 
+	Symbol Database preference tab.
+#566691 – Goto declaration nor goto definition work with macros
+#565981 – Don't use g_file_test()
+#511589 - Remove unnecessary hack for GNOME-VFS which
+  	is not needed for GIO/GVFS
+#511589 – Remove dependency on gnome-vfs from Makefiles
+#511589 – Anjuta uses GNOME-VFS
+#566715 – invalid free in run-program/parameters.c
+#511589 – Anjuta uses GNOME-VFS 
+
 Anjuta 2.25.4 (5 January 2009) -- Johannes Schmid
 
 Translations updates:
