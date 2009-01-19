@@ -25,6 +25,7 @@
 #include <config.h>
 #endif
 
+#include <gio/gio.h>
 #include "gbf-tree-data.h"
 
 GType

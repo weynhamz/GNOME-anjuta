@@ -1,3 +1,8 @@
+2009-01-20  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/project-manager/gbf-tree-data.c:
+	build fix, missing include.
+
 2.25.5:
 
 2009-01-20  Johannes Schmid  <jhs@gnome.org>
