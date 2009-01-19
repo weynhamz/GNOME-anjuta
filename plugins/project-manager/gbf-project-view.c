@@ -39,10 +39,6 @@
 
 #define ICON_SIZE 16
 
-struct _GbfProjectViewPrivate {	
-
-};
-
 enum {
 	URI_ACTIVATED,
 	TARGET_SELECTED,
@@ -334,15 +330,11 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 static void 
 gbf_project_view_instance_init (GbfProjectView *tree)
 {
-	GbfProjectViewPrivate *priv;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	static GtkTargetEntry row_targets[] = {
 		{ "GTK_TREE_MODEL_ROW", GTK_TARGET_SAME_WIDGET, 0 }
 	};
-
-	priv = g_new0 (GbfProjectViewPrivate, 1);
-	tree->priv = priv;
     
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree), FALSE);
 	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (tree), TRUE);

@@ -1,3 +1,9 @@
+2009-01-19  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/project-manager/gbf-project-view.c
+	(gbf_project_view_instance_init):
+	#567967 – build fail with sun cc because zero-sized struct
+
 2009-01-20  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
