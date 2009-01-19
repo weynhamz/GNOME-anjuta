@@ -7,6 +7,10 @@
 #include <time.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/transform.h>
+#include <libxslt/xsltutils.h>
 #include <libanjuta/anjuta-debug.h>
 #include "libgtodo.h"
 
@@ -1532,4 +1536,45 @@ gboolean gtodo_client_get_read_only(GTodoClient *cl)
 {
 	if(cl == NULL) return FALSE;
 	return cl->read_only;	
+}
+
+
+gboolean 
+gtodo_client_export(GTodoClient *source, GFile *dest, const gchar *path_to_xsl, gchar **params, GError **error)
+{
+	xsltStylesheetPtr cur;
+	xmlChar *string;
+	xmlDocPtr res;
+	int length;
+	GError *err;
+
+	g_return_val_if_fail(path_to_xsl != NULL, FALSE);
+
+	cur= xsltParseStylesheetFile(BAD_CAST (path_to_xsl));
+
+	if (params == NULL)
+	{
+		res = xsltApplyStylesheet(cur, source->gtodo_doc, NULL);
+	}
+	else
+	{
+		res = xsltApplyStylesheet(cur, source->gtodo_doc, (const char **)params);
+	}
+
+	xsltSaveResultToString (&string, &length, res, cur);
+
+	if (!g_file_replace_contents (dest, (char *)string, length, NULL, FALSE,
+			G_FILE_CREATE_NONE, NULL, NULL, &err))
+	{
+		DEBUG_PRINT ("Error exporting file: %s", 
+				err->message);
+		g_propagate_error (error, err);
+	}
+
+	xmlFree (string);
+	xsltFreeStylesheet (cur);
+	xmlFreeDoc (res);
+	xsltCleanupGlobals ();
+
+	return TRUE;
 }

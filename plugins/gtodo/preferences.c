@@ -1,9 +1,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
-#include <tray-icon.h>
 #include "main.h"
 
-void preferences_cb_do_tray(GtkWidget *chbox, GtkWidget *hwin);
 static void preferences_cb_show_date(GtkWidget *chbox);
 static void preferences_cb_do_tooltip(GtkWidget *chbox);
 static void preferences_cb_auto_purge(GtkWidget *cb, GtkWidget *hbox);
@@ -13,7 +11,6 @@ static void preferences_cb_toggle_hl_indays(GtkWidget *chbox);
 static void preferences_cb_toggle_show_notification(GtkWidget *chbox);
 static void preferences_cb_toggle_show_category_column(GtkWidget *chbox);
 static void preferences_cb_toggle_show_priority_column(GtkWidget *chbox);
-static void preferences_cb_toggle_enable_tray(GtkWidget *chbox);
 
 void gui_preferences(void)
 {
@@ -226,12 +223,6 @@ GtkWidget *preferences_widget()
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), gconf_client_get_bool(client, "/apps/gtodo/prefs/do_notification",NULL));
 	g_signal_connect(G_OBJECT(cb), "toggled", G_CALLBACK(preferences_cb_toggle_show_notification), NULL);
 
-	cb = gtk_check_button_new_with_label(_("Show Notification Tray Icon"));
-	gtk_box_pack_start(GTK_BOX(vbox),cb, FALSE, TRUE, 0); 	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), 
-		gconf_client_get_bool(client, "/apps/gtodo/view/enable-tray",NULL));
-	g_signal_connect(G_OBJECT(cb), "toggled", 
-			G_CALLBACK(preferences_cb_toggle_enable_tray), NULL);
 	gtk_widget_show_all (notebook);
 	return notebook;
 }
@@ -256,12 +247,6 @@ static void preferences_cb_toggle_hl_indays(GtkWidget *chbox)
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox)),NULL);
 	settings.hl_indays =  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox));
 	category_changed();
-}
-
-static void preferences_cb_toggle_enable_tray(GtkWidget *chbox)
-{
-	gconf_client_set_bool(client, "/apps/gtodo/view/enable-tray", 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox)),NULL);
 }
 
 static void preferences_cb_toggle_show_notification(GtkWidget *chbox)
@@ -390,19 +375,6 @@ static void  pref_gconf_changed_hl_due(GConfClient *client)
 	category_changed();
 }
 
-static void  pref_gconf_changed_enable_tray(GConfClient *client)
-{
-	if(gconf_client_get_bool(client, "/apps/gtodo/view/enable-tray",NULL))
-	{
-	    if (mw.window)
-		tray_init(mw.window);	
-	}
-	else
-	{
-		tray_icon_remove();
-	}
-}
-
 static void  pref_gconf_changed_hl_indays(GConfClient *client)
 {
 	settings.hl_indays= gconf_client_get_bool(client,"/apps/gtodo/prefs/hl-indays",NULL);
@@ -461,9 +433,4 @@ void pref_gconf_set_notifications(GConfClient *client)
 			NULL,
 			NULL, NULL);	
 
-	gconf_client_notify_add(client,"/apps/gtodo/view/enable-tray",
-			(GConfClientNotifyFunc) pref_gconf_changed_enable_tray,
-			NULL,
-			NULL, NULL);	
-	
 }

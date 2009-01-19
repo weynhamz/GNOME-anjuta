@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "main.h"
-#include "tray-icon.h"
+#include <libanjuta/anjuta-utils.h>
 #include "debug_printf.h"
 
 /* the main window struct */
@@ -51,8 +51,6 @@ void gtodo_load_settings ()
 
 	debug_printf(DEBUG_INFO, "Loading settings from gconf");
 
-	/* Enable tray by default..  user won't know if he/she doesnt have tray */
-	/* this is just for people who don't want it in there tray */
 	settings.place = gconf_client_get_bool(client, "/apps/gtodo/prefs/restore-position",NULL);;
 	settings.size =  gconf_client_get_bool(client, "/apps/gtodo/prefs/restore-size",NULL);;
 	settings.ask_delete_category 	=  gconf_client_get_bool(client, "/apps/gtodo/prefs/ask-delete-category",NULL);
@@ -111,6 +109,11 @@ void gtodo_update_settings()
 	check_for_notification_event();
 }
 
+static void on_export_clicked_cb (GtkWidget *foo, gpointer user_data)
+{
+	export_gui();
+}
+
 
 GtkWidget * gui_create_todo_widget()
 {
@@ -161,11 +164,14 @@ GtkWidget * gui_create_todo_widget()
 	gtk_container_add(GTK_CONTAINER(lb), hbox);
 	gtk_container_add(GTK_CONTAINER(mw.tbeditbut), lb);
 
-
 	lb = gtk_image_new_from_stock("gtodo-edit", GTK_ICON_SIZE_BUTTON);
 	gtk_box_pack_start(GTK_BOX(hbox), lb, FALSE, TRUE, 0);
 	mw.tbeditlb = gtk_label_new_with_mnemonic(_("_Edit"));
 	gtk_box_pack_start(GTK_BOX(hbox), mw.tbeditlb, FALSE, TRUE,0);
+
+	mw.tbexport = anjuta_util_button_new_with_stock_image (_("_Export"), GTK_STOCK_SAVE_AS);
+	gtk_size_group_add_widget(sgroup, mw.tbaddbut);
+	gtk_box_pack_start (GTK_BOX (mw.toolbar), mw.tbexport, FALSE, FALSE, 0);
 
 	/* add them */
 	gtk_box_pack_end(GTK_BOX(mw.toolbar), mw.tbaddbut, FALSE, FALSE, 0);
@@ -179,6 +185,7 @@ GtkWidget * gui_create_todo_widget()
 	g_signal_connect(G_OBJECT(mw.tbaddbut), "clicked", G_CALLBACK(gui_add_todo_item), GINT_TO_POINTER(0));
 	g_signal_connect(G_OBJECT(mw.tbeditbut), "clicked", G_CALLBACK(gui_add_todo_item), GINT_TO_POINTER(1));
 	g_signal_connect(G_OBJECT(mw.tbdelbut), "clicked", G_CALLBACK(remove_todo_item), FALSE);
+	g_signal_connect(G_OBJECT(mw.tbexport), "clicked", G_CALLBACK(on_export_clicked_cb), NULL);
 
 
 	/* add the todo list */
@@ -268,12 +275,6 @@ static void stock_icons()
 	gtk_icon_source_set_filename(icon_source, PIXMAP_PATH"/"ICON_FILE);
 	gtk_icon_set_add_source(icons, icon_source);
 	gtk_icon_factory_add(factory, "gtodo", icons);
-
-	icons = gtk_icon_set_new();
-	icon_source = gtk_icon_source_new();
-	gtk_icon_source_set_filename(icon_source, PIXMAP_PATH"/gtodo_tray.png");
-	gtk_icon_set_add_source(icons, icon_source);
-	gtk_icon_factory_add(factory, "gtodo-tray", icons);
 
 	/* added this because there isn no about availible in the default stock set. */
 	/* I call it gnome about so it still uses the one out off the current icon theme */

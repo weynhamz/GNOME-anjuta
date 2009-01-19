@@ -1,4 +1,27 @@
 2009-01-19  Jens Georg  <mail@jensge.org>
+ 
+ 	* plugins/gtodo/Makefile.am:
+ 	* plugins/gtodo/callback.c (message_box):
+	* plugins/gtodo/egg-datetime.c (egg_datetime_get_type),
+ 	(egg_datetime_set_property):
+ 	* plugins/gtodo/egg-datetime.h:
+ 	* plugins/gtodo/export.c (export_gui), (on_file_type_changed_cb),
+ 	(gtodo_export_gui_create_extra_widget):
+ 	* plugins/gtodo/interface.c (gtodo_load_settings),
+ 	(on_export_clicked_cb), (gui_create_todo_widget), (stock_icons):
+ 	* plugins/gtodo/libgtodo.c (gtodo_client_export):
+ 	* plugins/gtodo/libgtodo.h:
+ 	* plugins/gtodo/main.h:
+ 	* plugins/gtodo/preferences.c (preferences_widget),
+ 	(pref_gconf_set_notifications):
+ 	
+ 	- #531717 - remove tray icon
+ 	- enable export button which is now able to save to XML, HTML and plaintext
+ 	- port patches from libegg to eggdatetime.[ch]
+ 	
+ 	* TODO: synced with gtodo plugin (now that we have export ;)
+
+2009-01-19  Jens Georg  <mail@jensge.org>
 
 	* configure.in
 	* src/main.c

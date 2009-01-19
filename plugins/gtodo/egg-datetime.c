@@ -249,10 +249,10 @@ static void	 update_time_label		(EggDateTime *edt);
 static GtkHBoxClass *parent_class = NULL;
 
 
-	GtkType
+GType
 egg_datetime_get_type (void)
 {
-	static GtkType datetime_type = 0;
+	static GType datetime_type = 0;
 
 	if (!datetime_type) {
 		static const GTypeInfo datetime_info = {
@@ -605,7 +605,7 @@ egg_datetime_set_property (GObject	*object,
 			priv->year = g_value_get_uint (value);
 			break;
 		case ARG_MONTH:
-			priv->minute = g_value_get_uint (value);
+			priv->month = g_value_get_uint (value);
 			break;
 		case ARG_DAY:
 			priv->day = g_value_get_uint (value);

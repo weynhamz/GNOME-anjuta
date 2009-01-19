@@ -128,7 +128,7 @@ int message_box(gchar *text, gchar *buttext, GtkMessageType type)
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 			type,
 			GTK_BUTTONS_NONE,
-			text
+			"%s", text
 			);
 	if(type == GTK_MESSAGE_WARNING)
 	{

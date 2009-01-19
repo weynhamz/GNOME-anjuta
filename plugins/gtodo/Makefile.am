@@ -3,14 +3,15 @@ gtodo_uidir = $(anjuta_ui_dir)
 gtodo_ui_DATA = anjuta-gtodo.ui
 
 gtodo_datadir = $(anjuta_data_dir)/gtodo
-gtodo_data_DATA = gtodo.css gtodo.xsl
+gtodo_data_DATA = gtodo.css \
+				  gtodo.xsl \
+				  gtodo-plain.xsl
 
 # Plugin pixmaps
 gtodo_pixmapsdir = $(anjuta_image_dir)
 gtodo_pixmaps_DATA = \
 	anjuta-gtodo-plugin.svg \
 	anjuta-gtodo-plugin-48.png \
-	gtodo_tray.png \
 	gtodo-about.png \
 	gtodo-edit.png
 
@@ -51,8 +52,6 @@ libanjuta_gtodo_la_SOURCES=\
 	debug_printf.h\
 	egg-datetime.c\
 	egg-datetime.h\
-	eggtrayicon.c\
-	eggtrayicon.h\
 	export.c\
 	interface.c\
 	libgtodo.c\
@@ -63,9 +62,7 @@ libanjuta_gtodo_la_SOURCES=\
 	notification.c\
 	preferences.c\
 	tasklists.c\
-	todo_db.c\
-	tray-icon.c\
-	tray-icon.h
+	todo_db.c
 
 EXTRA_DIST = \
 	$(gtodo_pixmaps_DATA) \

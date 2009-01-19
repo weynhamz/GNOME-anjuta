@@ -383,4 +383,6 @@ long int gtodo_item_compare_latest(GTodoItem *base, GTodoItem *test);
 /* could be usefull for syncronising */
 void gtodo_client_save_client_to_client(GTodoClient *source, GTodoClient *duplicate);
 
+gboolean gtodo_client_export(GTodoClient *source, GFile *dest, const gchar *path_to_xsl, gchar **params, GError **error);
+
 #endif

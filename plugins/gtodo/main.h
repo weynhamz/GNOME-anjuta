@@ -51,6 +51,7 @@ typedef struct{
 	GtkTreeModel *sortmodel;
 	GtkWidget *tbdelbut, *tbaddbut, *tbeditbut;
 	GtkWidget *tbeditlb;
+	GtkWidget *tbexport;
 	GtkWidget *option, *menu;
 	catitems **mitems;
 	GtkAccelGroup *accel_group;
