@@ -30,7 +30,6 @@
 
 #include <libgnome/gnome-program.h>
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
@@ -118,8 +117,9 @@ get_real_path (const gchar *file_name)
 	{
 		gchar path[PATH_MAX+1];
 		gchar *uri_scheme;
+		GFile *file = g_file_new_for_commandline_arg (file_name);
 		
-		uri_scheme = gnome_vfs_get_uri_scheme (file_name);
+		uri_scheme = g_file_get_uri_scheme (file);
 		if (!uri_scheme)
 		{
 			memset(path, '\0', PATH_MAX+1);
@@ -127,6 +127,7 @@ get_real_path (const gchar *file_name)
 			return g_strdup (path);
 		}
 		g_free (uri_scheme);
+		g_object_unref (file);
 		return g_strdup (file_name);
 	}
 	else
@@ -398,8 +399,6 @@ main (int argc, char *argv[])
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
-	
-	gnome_vfs_shutdown();
 	
 	return 0;
 }

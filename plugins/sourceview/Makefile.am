@@ -25,7 +25,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
-	$(GNOME_VFS_CFLAGS) \
+	$(GIO_CFLAGS) \
 	$(PLUGIN_SOURCEVIEW_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
@@ -75,7 +75,7 @@ libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \
 	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)

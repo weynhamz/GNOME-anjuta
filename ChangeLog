@@ -1,3 +1,77 @@
+2009-01-19  Jens Georg  <mail@jensge.org>
+
+	* configure.in
+	* src/main.c
+	* plugins/glade/plugin.c
+	* src/anjuta.c
+	* libanjuta/anjuta-utils.c
+	* libanjuta/anjuta-preferences.c
+	* libanjuta/anjuta-plugin-manager.c:
+	#511589 - port to gio - removing everything that remains
+
+2009-01-19  Jens Georg  <mail@jensge.org>
+ 
+ 	* plugins/gbf-mkfile/Makefile.am:
+ 	* plugins/gbf-mkfile/gbf-mkfile-project.c (uri_is_equal),
+ 	(uri_is_parent), (uri_normalize), (uri_get_chrooted_path),
+ 	(xml_new_change_doc), (monitor_cb), (monitor_add),
+ 	(monitors_setup), (sax_start_element), (spawn_shutdown),
+	(spawn_kill_child), (spawn_script), (project_reload),
+ 	(project_update), (gbf_mkfile_project_set_config),
+ 	(gbf_mkfile_project_set_group_config),
+ 	(gbf_mkfile_project_set_target_config), (impl_load), (impl_probe),
+ 	(impl_add_group), (impl_remove_group), (impl_add_target),
+ 	(impl_remove_target), (impl_add_source), (impl_remove_source):
+ 	#511589 - port to gio. Removed resolution of "~" in uris; also
+ 	fixes a bug creating uris like "file:///a/b/c/a/b/c.c" for file
+ 	entries 
+
+2009-01-19  Jens Georg  <mail@jensge.org>
+ 
+	reviewed by: <delete if not using a buddy>
+ 
+ 	* plugins/gbf-am/Makefile.am:
+ 	* plugins/gbf-am/gbf-am-project.c (uri_is_equal), (uri_is_parent),
+ 	(uri_normalize), (uri_get_chrooted_path), (xml_new_change_doc),
+ 	(monitor_cb), (monitor_add), (monitors_setup), (spawn_shutdown),
+ 	(spawn_write_child), (spawn_kill_child), (spawn_script),
+	(project_reload), (project_update), (gbf_am_project_set_config),
+ 	(gbf_am_project_set_group_config),
+ 	(gbf_am_project_set_target_config), (impl_load), (impl_probe),
+ 	(impl_add_group), (impl_remove_group), (impl_add_target),
+ 	(impl_remove_target), (impl_add_source), (impl_remove_source):
+ 	
+ 	#511589 - port to gio. Removed resolution of "~" in uris 
+
+2009-01-19  Jens Georg <mail@jensge.org>
+ 
+ 	* plugins/project-manager/gbf-project-util.c
+ 	(browse_button_clicked_cb):
+ 	* plugins/project-manager/gbf-tree-data.c
+ 	(gbf_tree_data_new_source):
+ 	* plugins/project-manager/plugin.c (update_title),
+ 	(on_popup_add_to_project), (project_manager_load_gbf),
+ 	(get_uri_vfs_type), (get_element_id_from_uri),
+ 	(iproject_manager_get_element_type), (ifile_open):
+ 	
+ 	#511589 - Fix port to GIO of project manager 
+
+2009-01-19  Jens Georg  <mail@jensge.org>
+ 
+ 	* plugins/document-manager/Makefile.am:
+ 	* plugins/glade/anjuta-design-document.c:
+ 	* plugins/gtodo/Makefile.am:
+ 	* plugins/indent/indent-util.c (indent_get_buffer):
+ 	* plugins/patch/plugin.c:
+ 	* plugins/search/search-replace_backend.c (create_search_entries):
+ 	* plugins/sourceview/Makefile.am:
+ 	* plugins/valgrind/preferences.c:
+ 	* plugins/valgrind/vgdefaultview.c:
+ 	* plugins/valgrind/vggeneralprefs.c:
+ 	
+ 	#511589 - mostly cosmetical changes like removing #include directives, 
+ 	makefile references etc. 
+
 2009-01-18  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c (file_model_update_file):

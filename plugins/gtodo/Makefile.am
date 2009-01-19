@@ -28,7 +28,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GTK_CFLAGS) \
-	$(GNOME_VFS_CFLAGS) \
+	$(GIO_CFLAGS) \
 	$(LIBXSLT_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DDATADIR="\"$(anjuta_data_dir)\"" \
@@ -38,7 +38,7 @@ libanjuta_gtodo_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_gtodo_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBXSLT_LIBS) \
 	$(LIBANJUTA_LIBS)
 

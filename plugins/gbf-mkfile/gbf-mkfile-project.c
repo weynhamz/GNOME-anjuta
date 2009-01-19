@@ -37,13 +37,12 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <libgnome/gnome-macros.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include <libgnomevfs/gnome-vfs-monitor.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/gbf-project.h>
+#include <libanjuta/anjuta-utils.h>
 #include "gbf-mkfile-project.h"
 #include "gbf-mkfile-config.h"
 #include "gbf-mkfile-properties.h"
@@ -51,9 +50,9 @@
 #define ENABLE_DEBUG
 
 #ifdef ENABLE_DEBUG
-#define DEBUG(x) x
+#define GBF_DEBUG(x) x
 #else
-#define DEBUG(x)
+#define GBF_DEBUG(x)
 #endif
 
 
@@ -191,8 +190,7 @@ static gboolean        uri_is_equal                 (const gchar       *uri1,
 static gboolean        uri_is_parent                (const gchar       *parent_uri,
 						     const gchar       *child_uri);
 static gboolean        uri_is_local_path            (const gchar       *uri);
-static gchar          *uri_to_path                  (const gchar       *uri);
-static gchar          *uri_normalize                (const gchar       *uri,
+static gchar          *uri_normalize                (const gchar       *path_or_uri,
 						     const gchar       *base_uri);
 
 static gboolean        xml_write_add_source         (GbfMkfileProject      *project,
@@ -282,14 +280,13 @@ uri_is_equal (const gchar *uri1,
 	      const gchar *uri2)
 {
 	gboolean retval = FALSE;
-	GnomeVFSURI *vfs_uri1, *vfs_uri2;
+	GFile *file1, *file2;
 
-	vfs_uri1 = gnome_vfs_uri_new (uri1);
-	vfs_uri2 = gnome_vfs_uri_new (uri2);
-	if (vfs_uri1 != NULL && vfs_uri2 != NULL)
-		retval = gnome_vfs_uri_equal (vfs_uri1, vfs_uri2);
-	gnome_vfs_uri_unref (vfs_uri1);
-	gnome_vfs_uri_unref (vfs_uri2);
+	file1 = g_file_new_for_commandline_arg (uri1);
+	file2 = g_file_new_for_commandline_arg (uri2);
+	retval = g_file_equal (file1, file2);
+	g_object_unref (file1);
+	g_object_unref (file2);
 
 	return retval;
 }
@@ -299,18 +296,21 @@ uri_is_parent (const gchar *parent_uri,
 	       const gchar *child_uri)
 {
 	gboolean retval = FALSE;
-	GnomeVFSURI *parent, *child;
+	GFile *parent, *child;
 
-	parent = gnome_vfs_uri_new (parent_uri);
-	child = gnome_vfs_uri_new (child_uri);
-	if (parent != NULL && child != NULL)
-		retval = gnome_vfs_uri_is_parent (parent, child, TRUE);
-	gnome_vfs_uri_unref (parent);
-	gnome_vfs_uri_unref (child);
+	parent = g_file_new_for_commandline_arg (parent_uri);
+	child = g_file_new_for_commandline_arg (child_uri);
+	retval = g_file_equal (parent, child);
+	g_object_unref (parent);
+	g_object_unref (child);
 
 	return retval;
 }
 
+/*
+ * This is very similar to the function that decides in 
+ * g_file_new_for_commandline_arg
+ */
 static gboolean
 uri_is_local_path (const gchar *uri)
 {
@@ -327,56 +327,39 @@ uri_is_local_path (const gchar *uri)
 		return TRUE;
 }
 
+/*
+ * This is basically g_file_get_uri (g_file_new_for_commandline_arg (uri)) with
+ * an option to give a basedir while g_file_new_for_commandline_arg always
+ * uses the current dir.
+ */
 static gchar *
-uri_to_path (const gchar *uri)
-{
-	return gnome_vfs_get_local_path_from_uri (uri);
-}
-
-static gchar *
-uri_normalize (const gchar *uri, const gchar *base_uri)
+uri_normalize (const gchar *path_or_uri, const gchar *base_uri)
 {
 	gchar *normalized_uri = NULL;
 
-	if (uri_is_local_path (uri)) {
-		gchar *absolute_path;
-		
-		absolute_path = gnome_vfs_expand_initial_tilde (uri);
-		if (!g_path_is_absolute (uri)) {
-			gchar *tmp = absolute_path;
-			gchar *base_dir;
-			if (base_uri != NULL)
-				base_dir = uri_to_path (base_uri);
-			else
-				base_dir = g_get_current_dir ();
+	if (base_uri != NULL && uri_is_local_path (path_or_uri))
+	{
+		GFile *base;
+		GFile *resolved;
 
-			absolute_path = g_build_filename (base_dir, tmp, NULL);
-			g_free (base_dir);
-			g_free (tmp);
-		}
-		normalized_uri = gnome_vfs_make_uri_canonical (absolute_path);
-		g_free (absolute_path);
-	} else {
-		GnomeVFSURI *vfs_uri;
+		base = g_file_new_for_uri (base_uri);
+		resolved = g_file_resolve_relative_path (base, path_or_uri);
 
-		vfs_uri = gnome_vfs_uri_new (uri);
-		/* FIXME: this should probably check that the method is file: */
-		if (gnome_vfs_uri_is_local (vfs_uri))
-			normalized_uri = gnome_vfs_make_uri_canonical (uri);
-		gnome_vfs_uri_unref (vfs_uri);
+		normalized_uri = g_file_get_uri (resolved);
+		g_object_unref (base);
+		g_object_unref (resolved);
+	}
+	else
+	{
+		GFile *file;
+
+		file = g_file_new_for_commandline_arg (path_or_uri);
+		normalized_uri = g_file_get_uri (file);
+		g_object_unref (file);
 	}
 
-	/* strip trailing slash */
-	if (normalized_uri) {
-		gint length = strlen (normalized_uri);
-		gchar *p;
-		if (length > 0) {
-			p = normalized_uri + length - 1;
-			if (*p == '/')
-				*p = '\0';
-		}
-	}
-
+	GBF_DEBUG (g_debug (G_STRLOC" path_or_uri: %s, base_uri: %s, normalized: %s\n",
+		path_or_uri, base_uri, normalized_uri));
 	return normalized_uri;
 }
 
@@ -393,29 +376,28 @@ uri_normalize (const gchar *uri, const gchar *base_uri)
 static gchar *
 uri_get_chrooted_path (const gchar *root_uri, const gchar *uri)
 {
-	gchar *root_path, *path;
-	gint root_length;
-	gchar *retval = NULL;
-	
-	path = uri_to_path (uri);
+	GFile *root, *file;
+	gchar *path = NULL;
+
 	if (root_uri == NULL)
-		return path;
-	
-	root_path = uri_to_path (root_uri);
-	
-	root_length = strlen (root_path);
-	if (strncmp (root_path, path, root_length) == 0) {
-		/* check for trailing path separator in root... we need it to
-		 * make the returned path absolute */
-		if (root_path [root_length - 1] == '/')
-			root_length--;
-		retval = g_strdup (path + root_length);
+	{
+		path = anjuta_util_get_local_path_from_uri (uri);
+	}
+	else
+	{
+
+		root = g_file_new_for_uri (root_uri);
+		file = g_file_new_for_uri (uri);
+
+		path = g_file_get_relative_path (root, file);
+
+		g_object_unref (root);
+		g_object_unref (file);
 	}
 
-	g_free (root_path);
-	g_free (path);
-	
-	return retval;
+	GBF_DEBUG (g_debug (G_STRLOC">>>>>>>>>>>>>>>>>> root_uri: %s, uri: %s, path: %s\n",
+		root_uri, uri, path));
+	return path;
 }
 
 /*
@@ -752,7 +734,7 @@ xml_new_change_doc (GbfMkfileProject *project)
 	doc = xmlNewDoc (BAD_CAST("1.0"));
 	if (doc != NULL) {
 		gchar *root_path;
-		root_path = uri_to_path (project->project_root_uri);
+		root_path = anjuta_util_get_local_path_from_uri (project->project_root_uri);
 		doc->children = xmlNewDocNode (doc, NULL, BAD_CAST("project"), NULL);
 		xmlSetProp (doc->children, BAD_CAST("root"), BAD_CAST(root_path));
 		g_free (root_path);
@@ -768,21 +750,21 @@ xml_new_change_doc (GbfMkfileProject *project)
  */
 
 static void
-monitor_cb (GnomeVFSMonitorHandle   *handle,
-	    const gchar             *monitor_uri,
-	    const gchar             *info_uri,
-	    GnomeVFSMonitorEventType event_type,
-	    gpointer                 data)
+monitor_cb (GFileMonitor *monitor,
+			GFile *file,
+			GFile *other_file,
+			GFileMonitorEvent event_type,
+			gpointer data)
 {
-	GbfMkfileProject *project = data;
+	GbfMkfileProject *project = GBF_MKFILE_PROJECT (data);
 
 	g_return_if_fail (project != NULL && GBF_IS_MKFILE_PROJECT (project));
 
 	switch (event_type) {
-		case GNOME_VFS_MONITOR_EVENT_CHANGED:
-		case GNOME_VFS_MONITOR_EVENT_DELETED:
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_DELETED:
 			/* monitor will be removed here... is this safe? */
-			DEBUG (g_message ("File changed"));
+			GBF_DEBUG (g_message ("File changed"));
 			project_reload (project, NULL);
 			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
 			break;
@@ -794,8 +776,7 @@ monitor_cb (GnomeVFSMonitorHandle   *handle,
 static void
 monitor_add (GbfMkfileProject *project, const gchar *uri)
 {
-	GnomeVFSMonitorHandle *handle = NULL;
-	GnomeVFSResult result;
+	GFileMonitor *monitor = NULL;
 
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (project->monitors != NULL);
@@ -803,25 +784,29 @@ monitor_add (GbfMkfileProject *project, const gchar *uri)
 	if (!uri)
 		return;
 	
-	handle = g_hash_table_lookup (project->monitors, uri);
-	if (!handle) {
-		GnomeVFSURI *vfs_uri;
+	monitor = g_hash_table_lookup (project->monitors, uri);
+	if (!monitor) {
 		gboolean exists;
-		
-		vfs_uri = gnome_vfs_uri_new (uri);
-		exists = gnome_vfs_uri_exists (vfs_uri);
-		gnome_vfs_uri_unref (vfs_uri);
+		GFile *file;
 
+		/* FIXME clarify if uri is uri, path or both */
+		file = g_file_new_for_commandline_arg (uri);
+		exists = g_file_query_exists (file, NULL);
+		
 		if (exists) {
-			result = gnome_vfs_monitor_add (&handle,
-							uri,
-							GNOME_VFS_MONITOR_FILE,
-							monitor_cb,
-							project);
-			if (result == GNOME_VFS_OK) {
+			monitor = g_file_monitor_file (file, 
+										   G_FILE_MONITOR_NONE,
+										   NULL,
+										   NULL);
+			if (monitor != NULL)
+			{
+				g_signal_connect (G_OBJECT (monitor),
+								  "changed",
+								  G_CALLBACK (monitor_cb),
+								  project);
 				g_hash_table_insert (project->monitors,
-						     g_strdup (uri),
-						     handle);
+								     g_strdup (uri),
+								     monitor);
 			}
 		}
 	}
@@ -857,7 +842,7 @@ monitors_setup (GbfMkfileProject *project)
 	
 	/* setup monitors hash */
 	project->monitors = g_hash_table_new_full (g_str_hash, g_str_equal, g_free,
-						   (GDestroyNotify) gnome_vfs_monitor_cancel);
+						   (GDestroyNotify) g_file_monitor_cancel);
 
 	monitor_add (project, project->project_file);
 	g_hash_table_foreach (project->groups, group_hash_foreach_monitor, project);
@@ -962,7 +947,7 @@ change_set_debug_print (GSList *change_set)
 
 #define PARSER_ASSERT(x)  G_STMT_START {						\
 	if (!(x)) {									\
-		DEBUG (g_warning ("Parser assertion at " G_STRLOC " failed: " #x));	\
+		GBF_DEBUG (g_warning ("Parser assertion at " G_STRLOC " failed: " #x));	\
 		data->state = PARSE_ERROR; return;					\
 	}										\
 											\
@@ -1209,7 +1194,7 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 		}
 		PARSER_ASSERT (uri != NULL);
 		
-		source_uri = g_build_filename (project->project_root_uri, uri, NULL);
+		source_uri = uri_normalize ((gchar *)uri, project->project_root_uri);
 		source_id = g_strdup_printf ("%s:%s",
 					     GBF_MKFILE_NODE (data->current_node)->id,
 					     source_uri);
@@ -1724,7 +1709,7 @@ spawn_shutdown (GbfMkfileSpawnData *data)
 	g_return_if_fail (data != NULL);
 	
 	if (data->child_pid) {
-		DEBUG (g_message ("Killing child"));
+		GBF_DEBUG (g_message ("Killing child"));
 		kill (data->child_pid, SIGKILL);
 		data->child_pid = 0;
 	}
@@ -1938,7 +1923,7 @@ static gboolean
 spawn_kill_child (GbfMkfileSpawnData *data)
 {
 	/* we can't wait longer */
-	DEBUG (g_message ("Timeout: sending SIGTERM to child process"));
+	GBF_DEBUG (g_message ("Timeout: sending SIGTERM to child process"));
 	
 	kill (data->child_pid, SIGTERM);
 	
@@ -1999,7 +1984,7 @@ spawn_script (gchar  **argv,
 		data->input.length = 0;  /* for input buffer length acts as an index */
 	}
 
-	DEBUG (g_message ("Spawning script"));
+	GBF_DEBUG (g_message ("Spawning script"));
 	
 	if (!g_spawn_async_with_pipes (NULL,             /* working dir */
 				       argv,
@@ -2101,11 +2086,11 @@ project_reload (GbfMkfileProject *project, GError **err)
 	gboolean retval;
 	gint i;
 	
-	project_path = uri_to_path (project->project_root_uri);
+	project_path = anjuta_util_get_local_path_from_uri (project->project_root_uri);
 		
 	i = 0;
 	argv [i++] = GBF_MKFILE_PARSE;
-	DEBUG (argv [i++] = "-d");
+	GBF_DEBUG (argv [i++] = "-d");
 	argv [i++] = "--get";
 	argv [i++] = project_path;
 	argv [i++] = NULL;
@@ -2160,7 +2145,7 @@ project_update (GbfMkfileProject *project,
 
 	i = 0;
 	argv [i++] = GBF_MKFILE_PARSE;
-	DEBUG (argv [i++] = "-d");
+	GBF_DEBUG (argv [i++] = "-d");
 	argv [i++] = "--set";
 	argv [i++] = "-";
 	argv [i++] = NULL;
@@ -2388,7 +2373,7 @@ gbf_mkfile_project_set_config (GbfMkfileProject *project,
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/set-config.xml", doc);
 	});
@@ -2432,7 +2417,7 @@ gbf_mkfile_project_set_group_config (GbfMkfileProject *project, const gchar *gro
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/set-config.xml", doc);
 	});
@@ -2475,7 +2460,7 @@ gbf_mkfile_project_set_target_config (GbfMkfileProject *project,
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/set-config.xml", doc);
 	});
@@ -2501,7 +2486,8 @@ impl_load (GbfProject  *_project,
 	   GError     **error)
 {
 	GbfMkfileProject *project;
-	gchar *root_path;
+	GFile *file;
+	GFileInfo *file_info;
 	
 	g_return_if_fail (GBF_IS_MKFILE_PROJECT (_project));
 
@@ -2522,25 +2508,42 @@ impl_load (GbfProject  *_project,
 	if (uri == NULL)
 		return;
 	
+	file = g_file_new_for_commandline_arg (uri);
 	/* check that the uri is in the filesystem */
-	project->project_root_uri = uri_normalize (uri, NULL);
+	project->project_root_uri = g_file_get_uri (file);
 	if (project->project_root_uri == NULL) {
 		error_set (error, GBF_PROJECT_ERROR_DOESNT_EXIST,
 			   _("Invalid or remote path (only local paths supported)"));
 		return;
 	}
-		
-	/* some basic checks */
-	root_path = uri_to_path (project->project_root_uri);
-	if (root_path == NULL || !g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
+	
+	if (!g_file_query_exists (file, NULL))
+	{
 		error_set (error, GBF_PROJECT_ERROR_DOESNT_EXIST,
-			   _("Project doesn't exist or invalid path"));
-		g_free (root_path);
+			   _("Project doesn't exist"));
+		g_object_unref (file);
 		g_free (project->project_root_uri);
 		project->project_root_uri = NULL;
 		return;
 	}
-	g_free (root_path);
+
+	file_info = g_file_query_info (file,
+			G_FILE_ATTRIBUTE_STANDARD_TYPE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+	if (file_info == NULL || g_file_info_get_file_type (file_info) != G_FILE_TYPE_DIRECTORY)
+	{
+		error_set (error, GBF_PROJECT_ERROR_DOESNT_EXIST,
+			   _("Project doesn't exist or invalid path"));
+		if (file_info != NULL)
+		{
+			g_object_unref (file_info);
+		}
+		g_object_unref (file);
+		g_free (project->project_root_uri);
+		project->project_root_uri = NULL;
+		return;
+	}
 
 	/* now try loading the project */
 	if (!project_reload (project, error)) {
@@ -2549,6 +2552,8 @@ impl_load (GbfProject  *_project,
 		g_free (project->project_root_uri);
 		project->project_root_uri = NULL;
 	}
+	g_object_unref (file_info);
+	g_object_unref (file);
 }
 
 static gboolean
@@ -2569,22 +2574,24 @@ impl_probe (GbfProject  *_project,
 	    const gchar *path,
 	    GError     **error)
 {
-	gchar *normalized_uri, *root_path;
+	gchar *root_path;
 	gboolean retval = FALSE;
+	GFile *file;
 	
 	g_return_val_if_fail (GBF_IS_MKFILE_PROJECT (_project), FALSE);
 
-	normalized_uri = uri_normalize (path, NULL);
-	if (normalized_uri != NULL) {
-		root_path = uri_to_path (normalized_uri);
-		if (root_path != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
-			retval = ((file_exists (root_path, "Makefile") ||
-					   file_exists (root_path, "makefile")) &&
-					   !(file_exists (root_path, "Makefile.am") || 
-						 file_exists (root_path, "Makefile.in")));
-			g_free (root_path);
-		}
-		g_free (normalized_uri);
+	/* use _for_commandline_arg to resolve eventually relative path against
+	 * current directory
+	 */
+	file = g_file_new_for_commandline_arg (path);
+	root_path = g_file_get_path (file);
+	g_object_unref (file);
+	if (root_path != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
+		retval = ((file_exists (root_path, "Makefile") ||
+				   file_exists (root_path, "makefile")) &&
+				   !(file_exists (root_path, "Makefile.am") || 
+					 file_exists (root_path, "Makefile.in")));
+		g_free (root_path);
 	}
 
 	return retval;
@@ -2765,7 +2772,7 @@ impl_add_group (GbfProject  *_project,
 		return NULL;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/add-group.xml", doc);
 	});
@@ -2781,7 +2788,7 @@ impl_add_group (GbfProject  *_project,
 
 	/* get newly created group id */
 	retval = NULL;
-	DEBUG (change_set_debug_print (change_set));
+	GBF_DEBUG (change_set_debug_print (change_set));
 	change = change_set_find (change_set, GBF_MKFILE_CHANGE_ADDED, GBF_MKFILE_NODE_GROUP);
 	if (change) {
 		retval = g_strdup (change->id);
@@ -2825,7 +2832,7 @@ impl_remove_group (GbfProject  *_project,
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/remove-group.xml", doc);
 	});
@@ -2988,7 +2995,7 @@ impl_add_target (GbfProject  *_project,
 		return NULL;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/add-target.xml", doc);
 	});
@@ -3004,7 +3011,7 @@ impl_add_target (GbfProject  *_project,
 	
 	/* get newly created target id */
 	retval = NULL;
-	DEBUG (change_set_debug_print (change_set));
+	GBF_DEBUG (change_set_debug_print (change_set));
 	change = change_set_find (change_set, GBF_MKFILE_CHANGE_ADDED, GBF_MKFILE_NODE_TARGET);
 	if (change) {
 		retval = g_strdup (change->id);
@@ -3048,7 +3055,7 @@ impl_remove_target (GbfProject  *_project,
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/remove-target.xml", doc);
 	});
@@ -3275,7 +3282,7 @@ impl_add_source (GbfProject  *_project,
 		return NULL;
 	}
 	
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/add-source.xml", doc);
 	});
@@ -3291,7 +3298,7 @@ impl_add_source (GbfProject  *_project,
 
 	/* get newly created source id */
 	retval = NULL;
-	DEBUG (change_set_debug_print (change_set));
+	GBF_DEBUG (change_set_debug_print (change_set));
 	change = change_set_find (change_set, GBF_MKFILE_CHANGE_ADDED, GBF_MKFILE_NODE_SOURCE);
 	if (change) {
 		retval = g_strdup (change->id);
@@ -3334,7 +3341,7 @@ impl_remove_source (GbfProject  *_project,
 		return;
 	}
 
-	DEBUG ({
+	GBF_DEBUG ({
 		xmlSetDocCompressMode (doc, 0);
 		xmlSaveFile ("/tmp/remove-source.xml", doc);
 	});

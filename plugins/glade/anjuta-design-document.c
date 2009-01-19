@@ -29,8 +29,6 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 enum
 {
 	PROP_0,

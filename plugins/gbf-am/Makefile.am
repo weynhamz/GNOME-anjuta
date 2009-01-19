@@ -24,6 +24,7 @@ plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\"
 
@@ -43,6 +44,7 @@ libgbf_am_la_SOURCES = \
 libgbf_am_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libgbf_am_la_LIBADD = \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 # Test program

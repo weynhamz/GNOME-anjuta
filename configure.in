@@ -158,7 +158,7 @@ PKG_CHECK_MODULES(ORBIT, ORBit-2.0 >= $ORBIT_REQUIRED)
 
 PKG_CHECK_MODULES(GLADE, libglade-2.0 >= $LIBGLADE_REQUIRED)
 
-PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED libgnomeui-2.0 >= $GNOME_REQUIRED gnome-vfs-2.0 >= $GNOME_REQUIRED libgnomecanvas-2.0 >= $GNOME_REQUIRED gnome-vfs-module-2.0 >= $GNOME_REQUIRED libgnomeprint-2.2 >= $GNOME_REQUIRED libgnomeprintui-2.2 >= $GNOME_REQUIRED)
+PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED libgnomeui-2.0 >= $GNOME_REQUIRED libgnomecanvas-2.0 >= $GNOME_REQUIRED libgnomeprint-2.2 >= $GNOME_REQUIRED libgnomeprintui-2.2 >= $GNOME_REQUIRED)
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
 

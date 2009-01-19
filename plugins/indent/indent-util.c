@@ -21,7 +21,6 @@
 
 #include <sys/wait.h>
 
-#include <libgnomevfs/gnome-vfs.h>
 #include <gconf/gconf-client.h>
 
 #include <libanjuta/anjuta-utils.h>
@@ -492,37 +491,21 @@ indent_execute(gchar *line_option, IndentData *idt)
 gchar *
 indent_get_buffer(void)
 {
-	GnomeVFSResult result;
-	GnomeVFSHandle *handle;
-	GnomeVFSFileInfo info;
+	GFile *file;
 	gchar *read_buf = NULL;
-	gchar *text_uri;
+	GError *error = NULL;
+	gsize *size;
 
-	text_uri = gnome_vfs_get_uri_from_local_path(INDENT_FILE_OUTPUT);
-	result = gnome_vfs_get_file_info(text_uri, &info,
-	                                 GNOME_VFS_FILE_INFO_DEFAULT |
-	                                 GNOME_VFS_FILE_INFO_GET_ACCESS_RIGHTS);
-	if(result != GNOME_VFS_OK )
+	file = g_file_new_for_path (INDENT_FILE_OUTPUT);
+	if (!g_file_load_contents (file, NULL,
+		&read_buf, &size, 
+		NULL, &error))
 	{
-		DEBUG_PRINT("Cannot get info: %s\n", text_uri);
-		return NULL;
+		read_buf = NULL;
+		DEBUG_PRINT ("Error reading file: %s", error->message);
 	}
-	if((result = gnome_vfs_open (&handle, text_uri,
-								 GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
-	{
-		DEBUG_PRINT("Cannot open: %s\n", text_uri);
-		return NULL;
-	}
-	read_buf = g_new0(char, info.size + 1);
-	
-	result = gnome_vfs_read (handle, read_buf, info.size, NULL);
-	if(!(result == GNOME_VFS_OK || result == GNOME_VFS_ERROR_EOF))
-	{
-		g_free (read_buf);
-		DEBUG_PRINT("No file: %s\n", text_uri);	
-		return NULL;
-	}
-	gnome_vfs_close (handle);
+	g_object_unref (file);
+
 	return read_buf;
 }
 

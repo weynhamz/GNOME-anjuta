@@ -30,7 +30,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-marshal.h>

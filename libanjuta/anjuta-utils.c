@@ -55,8 +55,6 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
-#include <libgnomevfs/gnome-vfs.h>
-
 #define FILE_BUFFER_SIZE 1024
 
 static void

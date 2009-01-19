@@ -29,7 +29,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs-uri.h>
 
 #include "gbf-project-model.h"
 

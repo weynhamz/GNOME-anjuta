@@ -830,7 +830,7 @@ create_search_entries (Search *s)
 			anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
 							  "project_root_uri", G_TYPE_STRING,
 							  &dir_uri, NULL);
-			// FIXME : Replace Standard UNIX IO functions by gnome-vfs 
+			// FIXME : Replace Standard UNIX IO functions by gio 
 			if (dir_uri)			
 				dir = anjuta_util_get_local_path_from_uri(dir_uri);
 			

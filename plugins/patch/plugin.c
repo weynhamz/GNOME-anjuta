@@ -16,7 +16,6 @@
  */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin.h>

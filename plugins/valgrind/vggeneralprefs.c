@@ -36,7 +36,6 @@
 
 #include <gconf/gconf-client.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 

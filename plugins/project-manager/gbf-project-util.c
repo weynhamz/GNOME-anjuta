@@ -29,9 +29,7 @@
 #include <glade/glade-xml.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs-uri.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <bonobo/bonobo-file-selector-util.h>
+#include <gio/gio.h>
 
 #include "gbf-tree-data.h"
 #include "gbf-project-view.h"
@@ -541,7 +539,7 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 {
     GtkTreeView *tree = user_data;
     gchar *file, *uri;
-    GnomeVFSURI *tmp_uri;
+	GFile *gio_file, *tmp;
     GtkFileChooserDialog* dialog;
 	GtkTreeModel* model;
     GtkTreeIter iter;
@@ -564,13 +562,16 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				      NULL));
-    tmp_uri = gnome_vfs_uri_new (uri);
+	/* FIXME: this is somewhat UGLY */
+	gio_file = g_file_new_for_uri (uri);
+	tmp = g_file_get_parent (gio_file);
     g_free (uri);
-    uri = NULL;
-    if (tmp_uri) {
-        uri = gnome_vfs_uri_extract_dirname (tmp_uri);
-        gnome_vfs_uri_unref (tmp_uri);
-    }
+	uri = NULL;
+	if (g_file_query_exists (tmp, NULL))
+	{
+	    uri = g_file_get_uri (tmp);
+	}
+
     
     gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),
     	uri ? uri : g_object_get_data (G_OBJECT (widget), "root"));

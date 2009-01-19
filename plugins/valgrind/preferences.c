@@ -30,7 +30,6 @@
 
 #include <string.h>
 #include <gconf/gconf-client.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 
 #define EDITOR_KEY      "/apps/anjuta/valgrind/editor"

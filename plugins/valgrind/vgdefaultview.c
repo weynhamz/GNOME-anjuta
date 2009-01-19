@@ -674,7 +674,7 @@ valgrind_view_save_log (VgToolView *tool, gchar* uri)
  * We can only load local files. Support to VFS would require to change all the
  * I/O [i.e. fopen/fwrite/etc...] calls for this plugin. I hope day somebody
  * will write a gnomelib wrapper that supports old I/O methos.
- * Perhaps a solution would be to save the file grabbed by the gnome_vfs to /tmp
+ * Perhaps a solution would be to save the file grabbed by the gvfs to /tmp
  * and then open it with the I/O fopen/fwrite.
  */
  

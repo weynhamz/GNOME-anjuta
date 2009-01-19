@@ -138,7 +138,7 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	
 	/*
 	 * We want to be somewhere at last to start, otherwise bonobo-activation
-	 * and gnome-vfs gets screwed up at start up
+	 * gets screwed up at start up
 	 */
 	gnome_client_set_priority (client, 80);
 	

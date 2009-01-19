@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -325,12 +324,14 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 			if (project->path)
 #endif
 			{
-				uri = gnome_vfs_get_uri_from_local_path (
+				GFile *file = g_file_new_for_path (
 #if (GLADEUI_VERSION >= 330)
 					ppath);
 #else
 					project->path);
 #endif
+				uri = g_file_get_uri (file);
+				g_object_unref (file);
 				if (uri)
 				{
 					/ * FIXME only log file if it's still open in docman * /

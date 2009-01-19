@@ -19,8 +19,6 @@
 */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
@@ -86,18 +84,31 @@ update_title (ProjectManagerPlugin* plugin, const gchar *project_uri)
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	if (project_uri)
 	{
-		gchar* uri_basename;
-		gchar* unescape_basename;
-		gchar* ext;
-		
-		uri_basename = g_path_get_basename (project_uri);
-		unescape_basename = gnome_vfs_unescape_string (uri_basename, "");
-		ext = strrchr (unescape_basename, '.');
-		if (ext)
-			*ext = '\0';
-		anjuta_status_set_title (status, unescape_basename);
-		g_free (unescape_basename);
-		g_free (uri_basename);
+		GFile *file;
+		GFileInfo *file_info;
+
+		file = g_file_new_for_uri (project_uri);
+		file_info = g_file_query_info (file,
+			G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+			G_FILE_QUERY_INFO_NONE,
+			NULL,
+			NULL);
+		if (file_info)
+		{
+			gchar *dispname;
+			gchar *ext;
+			
+			dispname = g_strdup (
+				g_file_info_get_display_name (file_info));
+			ext = strrchr (dispname, '.');	
+			if (ext)
+				*ext = '\0';
+			anjuta_status_set_title (status, dispname);
+			g_free (dispname);
+			g_object_unref (file_info);
+		}
+
+		g_object_unref (file);
 	}
 	else
 	{
@@ -726,22 +737,27 @@ static void
 on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkWindow *win;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult res;
+	GFile *file;
+	GFileInfo *file_info;
 	gchar *parent_directory, *filename;
+	GError *error = NULL;
 	
 	win = get_plugin_parent_window (plugin);
-	res = gnome_vfs_get_file_info (plugin->fm_current_uri, &info,
-								   GNOME_VFS_FILE_INFO_DEFAULT |
-								   GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	if (res == GNOME_VFS_OK)
+
+	file = g_file_new_for_uri (plugin->fm_current_uri);
+	file_info = g_file_query_info (file,
+	                               G_FILE_ATTRIBUTE_STANDARD_TYPE,
+								   G_FILE_QUERY_INFO_NONE,
+								   NULL,
+								   &error);
+	if (file_info != NULL)
 	{
 		parent_directory = g_path_get_dirname (plugin->fm_current_uri);
 		if (!parent_directory)
 			parent_directory = g_strdup ("");
 		
 		filename = g_path_get_basename (plugin->fm_current_uri);
-		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+		if (g_file_info_get_file_type (file_info) == G_FILE_TYPE_DIRECTORY)
 		{
 			gchar *group_id =
 			ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
@@ -759,20 +775,15 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 													NULL);
 			g_free(source_id);
 		}
+		g_object_unref (file_info);
 		g_free (filename);
 		g_free (parent_directory);
 	}
 	else
 	{
-		const gchar *mesg;
-		
-		if (res != GNOME_VFS_OK)
-			mesg = gnome_vfs_result_to_string (res);
-		else
-			mesg = _("The file you selected is a link and can't be added to the project");
-		anjuta_util_dialog_error (win,
-								  _("Failed to retrieve URI info of %s: %s"),
-								  plugin->fm_current_uri, mesg);
+		anjuta_util_dialog_error (win, _("Failed to retrieve URI info of %s: %s"),
+					  plugin->fm_current_uri, error->message);
+		g_error_free (error);
 	}
 }
 
@@ -1179,7 +1190,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	
 	root_uri = pm_plugin->project_root_uri;
 	
-	dirname = gnome_vfs_get_local_path_from_uri (root_uri);
+	dirname = anjuta_util_get_local_path_from_uri (root_uri);
 	
 	g_return_if_fail (dirname != NULL);
 	
@@ -1673,12 +1684,26 @@ project_manager_plugin_class_init (GObjectClass *klass)
 
 /* IAnjutaProjectManager implementation */
 
-static GnomeVFSFileType
+static GFileType
 get_uri_vfs_type (const gchar *uri)
 {
-	GnomeVFSFileInfo info;
-	gnome_vfs_get_file_info (uri, &info, 0);
-	return info.type;
+	GFileType retval = G_FILE_TYPE_UNKNOWN;
+	GFile *file;
+	GFileInfo *file_info;
+
+	file = g_file_new_for_uri (uri);
+	file_info = g_file_query_info (file,
+		G_FILE_ATTRIBUTE_STANDARD_TYPE,
+		G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+		NULL, NULL);
+	if (file_info)
+	{
+		retval = g_file_info_get_file_type (file_info);
+		g_object_unref (file_info);
+	}
+
+	g_object_unref (file);
+	return retval;
 }
 
 static gboolean
@@ -1832,7 +1857,7 @@ get_element_id_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
 		id = g_strdup (target->id);
 		gbf_project_target_free (target);
 	}
-	else if (get_uri_vfs_type (uri) | GNOME_VFS_FILE_TYPE_DIRECTORY)
+	else if (get_uri_vfs_type (uri) | G_FILE_TYPE_DIRECTORY)
 	{
 		id = g_strconcat (get_element_relative_path (plugin, uri, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI), "/", NULL);
 	}
@@ -1848,7 +1873,7 @@ iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 								   const gchar *element_uri,
 								   GError **err)
 {
-	GnomeVFSFileType ftype;
+	GFileType ftype;
 	ProjectManagerPlugin *plugin;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
@@ -1861,7 +1886,7 @@ iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
 	
 	ftype = get_uri_vfs_type (element_uri);
-	if (ftype | GNOME_VFS_FILE_TYPE_DIRECTORY)
+	if (ftype | G_FILE_TYPE_DIRECTORY)
 	{
 		return IANJUTA_PROJECT_MANAGER_GROUP;
 	}
@@ -1871,7 +1896,7 @@ iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 	{
 		return IANJUTA_PROJECT_MANAGER_TARGET;
 	}
-	else if (ftype | GNOME_VFS_FILE_TYPE_REGULAR)
+	else if (ftype | G_FILE_TYPE_REGULAR)
 	{
 		return IANJUTA_PROJECT_MANAGER_SOURCE;
 	}
@@ -2413,19 +2438,20 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	AnjutaProfileManager *profile_manager;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
-	gchar *dirname, *dirname_tmp, *vfs_dir;
 	gchar *session_profile_path, *profile_name;
 	GFile *session_profile;
+	GFile *default_profile;
+	GFile *project_root;
+	GFile *tmp;
 	ProjectManagerPlugin *plugin;
 	GError *error = NULL;
-	gchar* uri = g_file_get_uri (file);
-	GnomeVFSURI* vfs_uri;
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
 	
 	/* If there is already a project loaded, load in separate anjuta window */
 	if (plugin->project_root_uri)
 	{
+		gchar *uri = g_file_get_uri (file);
 		gchar *quoted_uri = g_shell_quote (uri);
 		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", quoted_uri, NULL);
 		g_free (quoted_uri);
@@ -2447,48 +2473,41 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	profile = anjuta_profile_new (PROJECT_PROFILE_NAME, plugin_manager);
 	
 	/* System default profile */
-	session_profile = g_file_new_for_uri (DEFAULT_PROFILE);
-	anjuta_profile_add_plugins_from_xml (profile, session_profile,
+	default_profile = g_file_new_for_uri (DEFAULT_PROFILE);
+	anjuta_profile_add_plugins_from_xml (profile, default_profile,
 										 TRUE, &error);
-	g_object_unref (session_profile);
+	profile_name = g_file_get_basename (default_profile);
+	g_object_unref (default_profile);
 	if (error)
 	{
 		g_propagate_error (e, error);
-
-		g_free(uri);
+		g_free (profile_name);
 		g_object_unref (profile);
 		
 		return;
 	}
 	
 	/* Project default profile */
-	session_profile = g_file_new_for_uri (uri);
-	anjuta_profile_add_plugins_from_xml (profile, session_profile, TRUE, &error);
-	g_object_unref (session_profile);
+	anjuta_profile_add_plugins_from_xml (profile, file, TRUE, &error);
 	if (error)
 	{
 		g_propagate_error (e, error);
-		
-		g_free(uri);
+	
+		g_free (profile_name);
 		g_object_unref (profile);
 
 		return;
 	}
 	
 	/* Project session profile */
-	vfs_uri = gnome_vfs_uri_new (uri);
+	project_root = g_file_get_parent (file);
+	tmp = g_file_get_child (project_root, ".anjuta");
+	session_profile = g_file_get_child (tmp, profile_name);
+	g_object_unref (tmp);
+	g_free (profile_name);
 	
-	dirname_tmp = gnome_vfs_uri_extract_dirname (vfs_uri);
-	dirname = gnome_vfs_unescape_string (dirname_tmp, "");
-	g_free (dirname_tmp);
-	
-	profile_name = g_path_get_basename (DEFAULT_PROFILE);
-	gnome_vfs_uri_unref (vfs_uri);
-	
-	session_profile_path = g_build_filename (dirname, ".anjuta",
-										profile_name, NULL);
+	session_profile_path = g_file_get_path (session_profile);
 	DEBUG_PRINT ("Loading project session profile: %s", session_profile_path);
-	session_profile = g_file_new_for_path (session_profile_path);
 	if (g_file_query_exists (session_profile, NULL))
 	{
 		anjuta_profile_add_plugins_from_xml (profile, session_profile,
@@ -2496,8 +2515,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 		if (error)
 		{
 			g_propagate_error (e, error);
-			
-			g_free(uri);
+		
+			g_free (session_profile_path);
+			g_object_unref (project_root);
 			g_object_unref (profile);
 			g_object_unref (session_profile);
 			
@@ -2506,16 +2526,14 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	}
 	anjuta_profile_set_sync_file (profile, session_profile); 
 	g_free (session_profile_path);
-	g_free (profile_name);
 	
 	/* Set project uri */
 	g_free (plugin->project_root_uri);
 	g_free (plugin->project_uri);
 	
-	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
-	plugin->project_uri = g_strdup (uri);
-	plugin->project_root_uri = vfs_dir;
-	g_free (dirname);
+	plugin->project_uri = g_file_get_uri (file);
+	plugin->project_root_uri = g_file_get_uri (project_root);
+	g_object_unref (project_root);
 	
 	/* Load profile */
 	anjuta_profile_manager_push (profile_manager, profile, &error);
@@ -2532,7 +2550,6 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	update_ui (plugin);
 
 	anjuta_status_progress_tick (status, NULL, _("Project Loaded"));
-	g_free (uri);
 }
 
 static GFile*

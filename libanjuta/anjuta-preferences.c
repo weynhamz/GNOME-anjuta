@@ -67,7 +67,6 @@
 
 #include <glade/glade-parser.h>
 #include <gconf/gconf-client.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>

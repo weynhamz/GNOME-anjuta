@@ -25,7 +25,6 @@
 #include <config.h>
 #endif
 
-#include <libgnomevfs/gnome-vfs-uri.h>
 #include "gbf-tree-data.h"
 
 GType
@@ -81,16 +80,34 @@ GbfTreeData *
 gbf_tree_data_new_source (GbfProject *project, const GbfProjectTargetSource *source)
 {
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
-	GnomeVFSURI *uri;
+	GFile *file;
+	GFileInfo *file_info;
 	
 	node->type = GBF_TREE_NODE_TARGET_SOURCE;
 	node->id = g_strdup (source->id);
 	node->uri = g_strdup (source->source_uri);
+	node->name = NULL;
 	
-	uri = gnome_vfs_uri_new (source->source_uri);
-	node->name = gnome_vfs_uri_extract_short_name (uri);
-	gnome_vfs_uri_unref (uri);
-	
+	file = g_file_new_for_uri (source->source_uri);
+	node->name = g_file_get_basename (file);
+	if (g_file_query_exists (file, NULL))
+	{
+		file_info = g_file_query_info (file, 
+			G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, NULL);
+		if (file_info)
+		{
+			node->name = g_strdup (g_file_info_get_display_name (file_info));
+		}
+	}
+	g_object_unref (file);
+
+	if (node->name == NULL)
+	{
+		node->name = g_file_get_basename (file);
+	}
+
 	return node;
 }
 
