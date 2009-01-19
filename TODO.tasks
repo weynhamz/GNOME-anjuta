@@ -363,19 +363,19 @@ It can be done either during save or load. Without this fix, the save xml is dis
       <comment>Implement column sorting (ala evolution).</comment>
     </item>
     <item>
-      <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483549"/>
-      <summary>Proper deactivation</summary>
-      <comment>Some stuffs are left out during deactivation of the plugin. For example, gnome-vfs monitor for TODO.tasks is not removed, leading to crash when the file changes when the plugin is not active.</comment>
+      <attribute id="1107241016" priority="1" done="1" start_date="731978" completed_date="732583" notify="0" last_edited="1159555711"/>
+      <summary>Text wrap</summary>
+      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
     </item>
     <item>
-      <attribute id="1107241155" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483646"/>
+      <attribute id="1107241155" priority="1" done="1" start_date="731978" completed_date="733426" notify="0" last_edited="1232385464"/>
       <summary>Create text version TODO file</summary>
       <comment>Create human readable TODO file, which will be plain text, during save.</comment>
     </item>
     <item>
-      <attribute id="1107241016" priority="1" done="1" start_date="731978" completed_date="732583" notify="0" last_edited="1159555711"/>
-      <summary>Text wrap</summary>
-      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
+      <attribute id="1107240955" priority="1" done="1" start_date="731978" completed_date="733426" notify="0" last_edited="1232385465"/>
+      <summary>Proper deactivation</summary>
+      <comment>Some stuffs are left out during deactivation of the plugin. For example, gnome-vfs monitor for TODO.tasks is not removed, leading to crash when the file changes when the plugin is not active.</comment>
     </item>
   </category>
   <category title="Plugin: Project Wizard" place="9">

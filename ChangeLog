@@ -1,3 +1,12 @@
+2009-01-20  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/debug-manager/breakpoints.c (create_breakpoint_gui):
+	* plugins/debug-manager/plugin.c (dma_plugin_activate):
+	
+	#568068 – critical warnings on activation of debug-manager
+
 2009-01-19  Jens Georg  <mail@jensge.org>
  
  	* plugins/gtodo/Makefile.am:

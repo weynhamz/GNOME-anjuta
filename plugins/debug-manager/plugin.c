@@ -1096,25 +1096,25 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	this->start_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebugStart",
 											_("Debugger operations"),
 											actions_start,
 											G_N_ELEMENTS (actions_start),
 											GETTEXT_PACKAGE, TRUE, this);
 	this->loaded_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebugLoaded",
 											_("Debugger operations"),
 											actions_loaded,
 											G_N_ELEMENTS (actions_loaded),
 											GETTEXT_PACKAGE, TRUE, this);
 	this->stopped_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebugStopped",
 											_("Debugger operations"),
 											actions_stopped,
 											G_N_ELEMENTS (actions_stopped),
 											GETTEXT_PACKAGE, TRUE, this);
 	this->running_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebugRunning",
 											_("Debugger operations"),
 											actions_running,
 											G_N_ELEMENTS (actions_running),

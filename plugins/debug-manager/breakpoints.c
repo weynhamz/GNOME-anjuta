@@ -1950,7 +1950,7 @@ create_breakpoint_gui(BreakpointsDBase *bd)
 										G_N_ELEMENTS (actions_debugger_breakpoints),
 										GETTEXT_PACKAGE, TRUE, bd);
 	bd->permanent_group =
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpointPermanent",
 										_("Breakpoint operations"),
 										actions_permanent_breakpoints,
 										G_N_ELEMENTS (actions_permanent_breakpoints),
