@@ -1,5 +1,9 @@
 2.25.5:
 
+2009-01-20  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: Fixed gnomeprint dependency (hopefully the last release that requires it)
+
 2009-01-19  Johannes Schmid  <jhs@gnome.org>
 
 	* NEWS: 
