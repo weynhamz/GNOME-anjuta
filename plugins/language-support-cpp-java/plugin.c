@@ -1044,7 +1044,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				line_indent += extra_indent;
 				break;
 			}
-			}
+		}
 		else if (point_ch == '{')
 		{
 			gint line_for_indent =

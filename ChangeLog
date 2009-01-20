@@ -1,3 +1,15 @@
+2009-01-20  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	* plugins/terminal/terminal.c (terminal_set_preferences),
+	(preferences_changed), (terminal_child_exited_cb),
+	(terminal_execute), (init_shell), (terminal_focus_cb),
+	(terminal_keypress_cb), (terminal_click_cb),
+	(on_project_root_added), (create_terminal), (create_box),
+	(terminal_create), (activate_plugin), (deactivate_plugin),
+	(terminal_plugin_instance_init):
+	
+	#566696 – Make the terminal plugin open in the directory of the project
+
 2009-01-20  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.c:

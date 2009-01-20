@@ -27,6 +27,7 @@
 
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 #include <signal.h>
 
@@ -82,15 +83,15 @@ struct _TerminalPlugin{
 	GtkActionGroup *action_group;	
 	
 	AnjutaPreferences *prefs;
-	pid_t child_pid;
-	GtkWidget *term;
-	GtkWidget *hbox;
+	GPid child_pid;
+	GtkWidget *shell, *term;
+	GtkWidget *shell_box, *term_box;
 	GtkWidget *frame;
-	GtkWidget *scrollbar;
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
 	gboolean   widget_added_to_shell;
 	GList *gconf_notify_ids;
+	guint root_watch_id;
 #if OLD_VTE == 1
 	gboolean first_time_realization;
 #endif
@@ -128,7 +129,7 @@ get_profile_key (const gchar *profile, const gchar *key)
 									 NULL);
 
 static void
-preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
+terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 {
 	GConfClient *client;
 	char *text;
@@ -137,12 +138,8 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	GdkColor color[2];
 	GdkColor* foreground;
 	GdkColor* background;
-	GtkWidget *vte;
 	gchar *profile;
-	AnjutaPreferences *pref;
 	
-	pref = term->prefs;
-	vte = term->term;
 	client = gconf_client_get_default ();
 	
 	g_return_if_fail (client != NULL);
@@ -164,7 +161,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 			text = g_strdup ("Default");
 	profile = text;
 	
-	vte_terminal_set_mouse_autohide (VTE_TERMINAL (vte), TRUE);
+	vte_terminal_set_mouse_autohide (term, TRUE);
 
 	/* Set terminal font either using the desktop wide font or g-t one. */
 	setting = GET_PROFILE_BOOL (GCONF_USE_SYSTEM_FONT);
@@ -175,38 +172,38 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	} else {
 		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
 	}
-	vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
+	vte_terminal_set_font_from_string (term, text);
 	g_free (text);
 	
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
-	vte_terminal_set_cursor_blinks (VTE_TERMINAL (vte), setting);
+	vte_terminal_set_cursor_blinks ((term), setting);
 	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
-	vte_terminal_set_audible_bell (VTE_TERMINAL (vte), !setting);
+	vte_terminal_set_audible_bell (term, !setting);
 	value = GET_PROFILE_INT (GCONF_SCROLLBACK_LINES);
-	vte_terminal_set_scrollback_lines (VTE_TERMINAL (vte), value);
+	vte_terminal_set_scrollback_lines (term, value);
 	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_KEYSTROKE);
-	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (vte), setting);
+	vte_terminal_set_scroll_on_keystroke (term, setting);
 	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_OUTPUT);
-	vte_terminal_set_scroll_on_output (VTE_TERMINAL (vte), TRUE);
+	vte_terminal_set_scroll_on_output (term, TRUE);
 	text = GET_PROFILE_STRING (GCONF_WORD_CHARS);
 	if (text)
-		vte_terminal_set_word_chars (VTE_TERMINAL (vte), text);
+		vte_terminal_set_word_chars (term, text);
 	g_free (text);
 	
 	text = GET_PROFILE_STRING (GCONF_BACKSPACE_BINDING);
 	if (text)
 	{
 		if (!strcmp (text, "ascii-del"))
-			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_backspace_binding (term,
 								VTE_ERASE_ASCII_DELETE);
 		else if (!strcmp (text, "escape-sequence"))
-			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_backspace_binding (term,
 								VTE_ERASE_DELETE_SEQUENCE);
 		else if (!strcmp (text, "control-h"))
-			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_backspace_binding (term,
 								VTE_ERASE_ASCII_BACKSPACE);
 		else
-			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_backspace_binding (term,
 								VTE_ERASE_AUTO);
 		g_free (text);
 	}
@@ -214,16 +211,16 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	if (text)
 	{
 		if (!strcmp (text, "ascii-del"))
-			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_delete_binding (term,
 							 VTE_ERASE_ASCII_DELETE);
 		else if (!strcmp (text, "escape-sequence"))
-			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_delete_binding (term,
 							 VTE_ERASE_DELETE_SEQUENCE);
 		else if (!strcmp (text, "control-h"))
-			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_delete_binding (term,
 							 VTE_ERASE_ASCII_BACKSPACE);
 		else
-			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+			vte_terminal_set_delete_binding (term,
 							 VTE_ERASE_AUTO);
 		g_free (text);
 	}
@@ -245,9 +242,16 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	/* vte_terminal_set_colors works even if the terminal widget is not realized
 	 * which is not the case with vte_terminal_set_color_foreground and
 	 * vte_terminal_set_color_background */
-	vte_terminal_set_colors (VTE_TERMINAL (vte), foreground, background, NULL, 0);
+	vte_terminal_set_colors (term, foreground, background, NULL, 0);
 	g_free (profile);
 	g_object_unref (client);
+}
+
+static void
+preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
+{
+	terminal_set_preferences (VTE_TERMINAL (term->shell), prefs);
+	terminal_set_preferences (VTE_TERMINAL (term->term), prefs);
 }
 
 static void
@@ -297,9 +301,24 @@ use_default_profile_cb (GtkToggleButton *button,
 }
 
 static void
-terminal_child_exited_cb (VteReaper *vtereaper, gint pid, gint status, TerminalPlugin *term_plugin)
-{
-	g_signal_emit_by_name(term_plugin, "child-exited", pid, status);	
+terminal_child_exited_cb (VteReaper *reaper, GPid pid, gint status, TerminalPlugin *term_plugin)
+{	
+	gboolean focus;
+	
+	if (term_plugin->child_pid == pid)
+	{
+		focus = gtk_widget_is_focus (term_plugin->term);
+		
+		gtk_container_remove (GTK_CONTAINER (term_plugin->frame), term_plugin->term_box);
+		gtk_container_add (GTK_CONTAINER (term_plugin->frame), term_plugin->shell_box);
+		gtk_widget_show_all (term_plugin->shell_box);
+		if (focus)
+			gtk_widget_grab_focus (term_plugin->shell);
+		
+		term_plugin->child_pid = 0;
+	}
+	
+	g_signal_emit_by_name(term_plugin, "child-exited", pid, status);
 }
 
 static pid_t
@@ -310,6 +329,7 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	GList *args_list, *args_list_ptr;
 	gchar *dir;
 	VteTerminal *term;
+	gboolean focus;
 	
 	g_return_val_if_fail (command != NULL, 0);
 	
@@ -334,7 +354,15 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	term = VTE_TERMINAL (term_plugin->term);
 	
 	vte_terminal_reset (term, TRUE, TRUE);
-
+	
+	focus = gtk_widget_is_focus (term_plugin->shell);
+	
+	gtk_container_remove (GTK_CONTAINER (term_plugin->frame), term_plugin->shell_box);
+	gtk_container_add (GTK_CONTAINER (term_plugin->frame), term_plugin->term_box);
+	gtk_widget_show_all (term_plugin->term_box);
+	if (focus)
+		gtk_widget_grab_focus (term_plugin->term);
+		
 	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
 														environment, dir, 0, 0, 0);
 	vte_reaper_add_child (term_plugin->child_pid);
@@ -352,11 +380,12 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 }
 
 static void
-terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
+init_shell (VteTerminal *term, const char *uri)
 {
 	struct passwd *pw;
 	const char *shell;
 	const char *dir;
+	static gboolean first_time = TRUE;
 	
 	pw = getpwuid (getuid ());
 	if (pw) {
@@ -366,47 +395,42 @@ terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
 		shell = "/bin/sh";
 		dir = "/";
 	}
-	terminal_execute (term_plugin, dir, shell, NULL);
+	
+	if (uri)
+		dir = uri;
+	
+	if (!first_time)
+		vte_terminal_reset (term, FALSE, TRUE);
+	else
+		first_time = FALSE;
+	
+	vte_terminal_fork_command (term, shell, NULL, NULL, dir, 0, 0, 0);
 }
 
 static gboolean
 terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
 				   TerminalPlugin *term) 
 {
-	if (term->child_pid == 0)
-	{
-		terminal_init_cb (widget, term);
-	}
 	gtk_widget_grab_focus (widget);
 	return FALSE;
 }
 
 static gboolean
 terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
-					  TerminalPlugin *term) 
+						   TerminalPlugin *terminal_plugin)
 {
-	/* Fixme: GDK_KEY_PRESS doesn't seem to be called for our keys */
-	if (event->type != GDK_KEY_RELEASE)
+	if (event->type != GDK_KEY_PRESS)
 		return FALSE;
 	
 	/* ctrl-d */
-	if (event->keyval == GDK_d ||
-		event->keyval == GDK_D)
+	if ((event->keyval == GDK_d || event->keyval == GDK_D) &&
+		(event->state & GDK_CONTROL_MASK))
 	{
-		/* Ctrl pressed */
-		if (event->state & GDK_CONTROL_MASK)
+		if (terminal_plugin->child_pid)
 		{
-			kill (term->child_pid, SIGINT);
-			term->child_pid = 0;
-			terminal_init_cb (GTK_WIDGET (term->term), term);
-			return TRUE;
+			kill (terminal_plugin->child_pid, SIGINT);
+			terminal_plugin->child_pid = 0;
 		}
-	}
-	/* Shift-Insert */
-	if ((event->keyval == GDK_Insert || event->keyval == GDK_KP_Insert) &&
-		 event->state & GDK_SHIFT_MASK)
-	{
-		vte_terminal_paste_clipboard(VTE_TERMINAL(term->term));
 		return TRUE;
 	}
 	return FALSE;
@@ -414,7 +438,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 
 static gboolean
 terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
-					  TerminalPlugin *term) 
+				   TerminalPlugin *term) 
 {
 	if (event->button == 3)
 	{
@@ -425,7 +449,7 @@ terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(term)->shell, NULL);
 		popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupTerminal"));
 		action = gtk_action_group_get_action (term->action_group, "ActionCopyFromTerminal");
-		gtk_action_set_sensitive (action,vte_terminal_get_has_selection(VTE_TERMINAL(term->term)));
+		gtk_action_set_sensitive (action,vte_terminal_get_has_selection(VTE_TERMINAL(widget)));
 		
 		gtk_menu_popup (popup, NULL, NULL, NULL, NULL,
 						event->button, event->time);
@@ -480,13 +504,6 @@ terminal_unrealize_cb (GtkWidget *term, TerminalPlugin *plugin)
 #endif
 
 static void
-terminal_destroy_cb (GtkWidget *widget, TerminalPlugin *term)
-{
-	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
-							G_CALLBACK (terminal_init_cb), term);
-}
-
-static void
 on_terminal_copy_cb (GtkAction * action, TerminalPlugin *term)
 {
 	if (vte_terminal_get_has_selection(VTE_TERMINAL(term->term)))
@@ -519,56 +536,106 @@ static GtkActionEntry actions_terminal[] = {
 };
 
 static void
+on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
+					   const GValue *value, gpointer user_data)
+{
+	TerminalPlugin *term_plugin;
+	const gchar *root_uri;
+	
+	term_plugin = (TerminalPlugin *)plugin;
+	
+	root_uri = g_value_get_string (value);
+	if (root_uri)
+	{
+		GFile *file;
+		char *path;
+		
+		file = g_file_new_for_uri (root_uri);
+		path = g_file_get_path (file);
+		
+		init_shell (VTE_TERMINAL (term_plugin->shell), path);
+		
+		g_object_unref (file);
+		g_free (path);
+	}
+}
+
+static GtkWidget *
+create_terminal (TerminalPlugin *term_plugin)
+{
+	GtkWidget *term;
+	
+	/* Create new terminal. */
+	term = vte_terminal_new ();
+	gtk_widget_set_size_request (GTK_WIDGET (term), 10, 10);
+	vte_terminal_set_size (VTE_TERMINAL (term), 50, 1);
+	
+	g_signal_connect (G_OBJECT (term), "focus-in-event",
+					  G_CALLBACK (terminal_focus_cb), term_plugin);
+	
+	g_signal_connect (G_OBJECT (term), "button-press-event",
+					  G_CALLBACK (terminal_click_cb), term_plugin);
+	
+#if OLD_VTE == 1
+	g_signal_connect (G_OBJECT (term), "realize",
+					  G_CALLBACK (terminal_realize_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term), "unrealize",
+					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
+#endif
+	
+	return term;
+}
+
+static GtkWidget *
+create_box (GtkWidget *term)
+{
+	GtkWidget *sb, *hbox;
+	
+	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term)->adjustment));
+	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
+	
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), term, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
+	
+	g_object_ref_sink (hbox);
+	
+	return hbox;
+}	
+	
+static void
 terminal_create (TerminalPlugin *term_plugin)
 {
-	GtkWidget *sb, *frame, *hbox;
+	GtkWidget *frame;
 	
 	g_return_if_fail(term_plugin != NULL);
 
 	term_plugin->child_pid = 0;
 	
-	/* Create new terminal. */
-	term_plugin->term = vte_terminal_new ();
-	gtk_widget_set_size_request (GTK_WIDGET (term_plugin->term), 10, 10);
-	vte_terminal_set_size (VTE_TERMINAL (term_plugin->term), 50, 1);
+	/* Create the terminals. */
+	term_plugin->shell = create_terminal (term_plugin);
+	term_plugin->shell_box = create_box (term_plugin->shell);
 	
-	g_signal_connect (G_OBJECT (term_plugin->term), "focus_in_event",
-					  G_CALLBACK (terminal_focus_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->term), "child-exited",
-					  G_CALLBACK (terminal_init_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->term), "destroy",
-					  G_CALLBACK (terminal_destroy_cb), term_plugin);
+	term_plugin->term = create_terminal (term_plugin);
+	term_plugin->term_box = create_box (term_plugin->term);
+	
+	/* key-press handler for ctrl-d "kill" */
 	g_signal_connect (G_OBJECT (term_plugin->term), "key-press-event",
 					  G_CALLBACK (terminal_keypress_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->term), "button-press-event",
-					  G_CALLBACK (terminal_click_cb), term_plugin);
-#if OLD_VTE == 1
-	g_signal_connect (G_OBJECT (term_plugin->term), "realize",
-					  G_CALLBACK (terminal_realize_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->term), "unrealize",
-					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
-#endif
-	g_signal_connect (vte_reaper_get(), "child-exited",
-					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
-	
-	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term_plugin->term)->adjustment));
-	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
 	
 	frame = gtk_frame_new (NULL);
 	gtk_widget_show (frame);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start (GTK_BOX (hbox), term_plugin->term, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), term_plugin->shell_box);
 	gtk_widget_show_all (frame);
 	
-	term_plugin->scrollbar = sb;
 	term_plugin->frame = frame;
-	term_plugin->hbox = hbox;
-
-	terminal_init_cb (GTK_WIDGET (term_plugin->term), term_plugin);
+	
+	g_signal_connect (vte_reaper_get(), "child-exited",
+					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
+	
+	init_shell (VTE_TERMINAL (term_plugin->shell), NULL);
 }
 
 static void
@@ -630,6 +697,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	 * possibility could be to call this when the widget is realized */
 	preferences_changed (term_plugin->prefs, term_plugin);
 	
+	/* set up project directory watch */
+	term_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
+														  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+														  on_project_root_added,
+														  0, NULL);
+	
 	return TRUE;
 }
 
@@ -651,29 +724,27 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	prefs_finalize (term_plugin);
 
-#if OLD_VTE == 1
-	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->term),
-			 G_CALLBACK (terminal_unrealize_cb), term_plugin);
-#endif
-
 	/* terminal plugin widgets are destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
 	
-	/*
-	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->pref_default_button),
-										  G_CALLBACK (use_default_profile_cb),
+	g_object_unref (term_plugin->shell_box);
+	g_object_unref (term_plugin->term_box);
+	
+	g_signal_handlers_disconnect_by_func (vte_reaper_get (), terminal_child_exited_cb,
 										  term_plugin);
-	*/
-	term_plugin->frame = NULL;
-	term_plugin->term = NULL;
-	term_plugin->scrollbar = NULL;
-	term_plugin->hbox = NULL;
+	
+	/* remove watch */
+	anjuta_plugin_remove_watch (plugin, term_plugin->root_watch_id, FALSE);
+	
 	term_plugin->child_pid = 0;
+	
 #if OLD_VTE == 1
+	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->term),
+			 G_CALLBACK (terminal_unrealize_cb), term_plugin);
+	
 	term_plugin->first_time_realization = TRUE;
 #endif
 
-	// terminal_finalize (term_plugin);
 	return TRUE;
 }
 
@@ -692,12 +763,13 @@ terminal_plugin_finalize (GObject *obj)
 static void
 terminal_plugin_instance_init (GObject *obj)
 {
-	TerminalPlugin *plugin = ANJUTA_PLUGIN_TERMINAL (obj);
-	plugin->gconf_notify_ids = NULL;
-	plugin->child_pid = 0;
-	plugin->pref_profile_combo = NULL;
-	plugin->uiid = 0;
-	plugin->action_group = NULL;
+	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (obj);
+	
+	term_plugin->gconf_notify_ids = NULL;
+	term_plugin->child_pid = 0;
+	term_plugin->pref_profile_combo = NULL;
+	term_plugin->uiid = 0;
+	term_plugin->action_group = NULL;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
 #endif
