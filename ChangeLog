@@ -1,5 +1,11 @@
 2009-01-20  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-engine-core.c:
+	* plugins/symbol-db/symbol-db-engine-queries.c:
+	fixed #568254 – build fail on symbol-db-engine-core.c with suncc
+
+2009-01-20  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/project-manager/gbf-tree-data.c:
 	build fix, missing include.
 

@@ -474,7 +474,7 @@ sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_i
 	}
 }
 
-static void
+void
 sdb_engine_dyn_child_query_node_destroy (gpointer data)
 {
 	DynChildQueryNode *node_to_destroy;
@@ -5766,7 +5766,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
-	
+
 	MP_SET_HOLDER_BATCH_STR(priv, param, project, ret_bool, ret_value);
 	
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)

@@ -42,6 +42,8 @@ extern inline const DynChildQueryNode *
 sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 SymExtraInfo sym_info, gsize other_parameters);
 
+extern void sdb_engine_dyn_child_query_node_destroy (gpointer data);
+
 extern inline const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
@@ -1706,7 +1708,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
 						sym_info, other_parameters,
-						query_str);
+						query_str);		
 		/* DEBUG_PRINT ("query %s", query_str);*/
 		g_free (query_str);
 		g_string_free (info_data, TRUE);
