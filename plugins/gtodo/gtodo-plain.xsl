@@ -58,7 +58,7 @@ SUCH DAMAGE.
 
 <xsl:otherwise>
 <xsl:for-each select="category">
-<xsl:if test="count(item) &gt; 0">
+    <xsl:if test="count(item/attribute[@done = '0'])">
 <xsl:apply-templates select="."/>
 </xsl:if>
 </xsl:for-each>

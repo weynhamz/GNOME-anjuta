@@ -97,23 +97,11 @@ Documentation
  - Update:
    All documents need update.
 
-Plugin: File Loader
-=======================================================================================
 libanjuta-interfaces
 =======================================================================================
 
  - Documentation:
    Add gdoc API documentation in libanjuta.idl.
-
-Plugin: Task Manager
-=======================================================================================
-
- - Proper deactivation:
-   Some stuffs are left out during deactivation of the plugin. For example, gnome-vfs monitor for TODO.tasks is not removed, leading to crash when the file changes when the plugin is not active.
-
-
- - Create text version TODO file:
-   Create human readable TODO file, which will be plain text, during save.
 
 Plugin: Project Wizard
 =======================================================================================
@@ -129,10 +117,6 @@ anjuta
 
 Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.
 
-Plugin: Macros
-=======================================================================================
-Plugin: Message Manager
-=======================================================================================
 Plugin: Debugger
 =======================================================================================
 
@@ -152,12 +136,6 @@ Plugin: Terminal
  - Be able to create multiple terminals:
    Be able to create multiple terminals
 
-Plugin: Default Profile
-=======================================================================================
-Plugin: Subversion
-=======================================================================================
-Plugin: Executer
-=======================================================================================
 Plugin: Glade
 =======================================================================================
 
@@ -184,5 +162,3 @@ of dissussion.
 
 Also, the the glade widget editor should be embed in Anjuta (glade-3 already has the necessary widgets).
 
-Pluing: Class wizard
-=======================================================================================

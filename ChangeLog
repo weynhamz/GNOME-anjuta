@@ -1,3 +1,10 @@
+2009-01-20  Jens Georg  <mail@jensge.org>
+ 
+ 	* plugins/gtodo/gtodo-plain.xsl: 
+ 	export only non-empty (contains at least one undone item)
+ 	categories
+ 	* TODO: Updated
+
 2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/print.h,
