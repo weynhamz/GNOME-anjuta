@@ -3,9 +3,9 @@ _Name=Makefile backend
 _Description=Makefile backend for project manager
 Location=gbf-mkfile:GbfMkfilePlugin
 Icon=gbf-mkfile-plugin-48.png
-UserActivatable=no
 Interfaces=IAnjutaProjectBackend
 Dependencies=anjuta-project-manager:ProjectManagerPlugin
+UserActivatable=no
 
 [Project]
 Supported-Project-Types=make

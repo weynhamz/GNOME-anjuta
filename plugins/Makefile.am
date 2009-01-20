@@ -3,7 +3,7 @@
 SUBDIRS = . \
 	gtodo \
 	message-view \
-	editor \
+	scintilla \
 	gdb \
 	debug-manager \
 	file-manager \

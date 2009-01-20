@@ -3,9 +3,9 @@ _Name=Autotools backend
 _Description=Autotools backend for project manager
 Location=gbf-am:GbfAmPlugin
 Icon=gbf-am-plugin-48.png
-UserActivatable=no
 Interfaces=IAnjutaProjectBackend
 Dependencies=anjuta-project-manager:ProjectManagerPlugin
+UserActivatable=no
 
 [Project]
 Supported-Project-Types=automake

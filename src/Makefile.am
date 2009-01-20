@@ -30,7 +30,7 @@ AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"Anjuta\"
 
 
-include $(top_srcdir)/plugins/editor/scintilla/lexers.make
+include $(top_srcdir)/plugins/scintilla/scintilla/lexers.make
 
 bin_PROGRAMS = anjuta
 

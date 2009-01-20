@@ -352,14 +352,14 @@ dnl Scintilla Editor
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-scintilla,
-	AC_HELP_STRING([--enable-plugin-scintilla],[Enable Scintilla based editor in Anjuta]), 
+	AC_HELP_STRING([--disable-plugin-scintilla],[ Scintilla based editor in Anjuta]), 
 	[ if test "$enableval" = "yes"; then
-		user_enabled_scintilla=1
+		user_disabled_scintilla=1
 	  fi ],
-	[ user_enabled_scintilla=0 ])
+	[ user_disabled_scintilla=0 ])
 
 AC_MSG_CHECKING(if scintilla plugin is disabled)
-if test "$user_enabled_scintilla" = 0; then
+if test "$user_disabled_scintilla" = 1; then
 	AC_MSG_RESULT(yes)
 	scintilla="no"
 else
@@ -938,10 +938,10 @@ plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
 plugins/patch/Makefile
-plugins/editor/Makefile
-plugins/editor/scintilla/Makefile
-plugins/editor/scintilla/include/Makefile
-plugins/editor/properties/Makefile
+plugins/scintilla/Makefile
+plugins/scintilla/scintilla/Makefile
+plugins/scintilla/scintilla/include/Makefile
+plugins/scintilla/properties/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
 plugins/search/Makefile
