@@ -399,7 +399,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 		
 		if (error != NULL)
 		{
-			DEBUG_PRINT ("%s", "Error while setting up file monitor: %s",
+			DEBUG_PRINT ("Error while setting up file monitor: %s",
 					   error->message);
 			g_error_free (error);
 		}

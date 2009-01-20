@@ -1,8 +1,9 @@
 /*
  * print.h
- * Copyright (C) 2002
- *     Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
- *     Naba Kumar <kh_naba@users.sourceforge.net>
+ *
+ * Copyright (C) 2002 Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+ * Copyright (C) 2002 Naba Kumar <kh_naba@users.sourceforge.net>
+ * Copyright (C) 2008 Sebastien Granjoux <seb.sfo@free.fr>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,15 +29,10 @@ G_BEGIN_DECLS
 
 void anjuta_print (gboolean preview, AnjutaPreferences *p, TextEditor *te);
 
-#define PRINT_PAPER_SIZE           "print.paper.size"
 #define PRINT_HEADER               "print.header"
 #define PRINT_WRAP                 "print.linewrap"
 #define PRINT_LINENUM_COUNT        "print.linenumber.count"
 #define PRINT_LANDSCAPE            "print.landscape"
-#define PRINT_MARGIN_LEFT          "print.margin.left"
-#define PRINT_MARGIN_RIGHT         "print.margin.right"
-#define PRINT_MARGIN_TOP           "print.margin.top"
-#define PRINT_MARGIN_BOTTOM        "print.margin.bottom"
 #define PRINT_COLOR                "print.color"
 
 G_END_DECLS

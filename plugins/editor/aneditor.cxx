@@ -1781,9 +1781,12 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 			if(wParam == lParam) return 0;
 			start = (guint) MINIMUM(wParam, lParam);
 			end = (guint) MAXIMUM(wParam, lParam);
+			/* Allocate a bit more space to allow reading multi
+			 * byte characters more easily */
 			gchar *buff = (gchar*) g_malloc((end-start+10)*2);
 			if(!buff) return 0;
 			GetRange(start, end, buff, true);
+			memset (buff + (end-start) * 2, 0, 20);
 			return (long) buff;
 		}
 		break;

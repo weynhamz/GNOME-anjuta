@@ -1,3 +1,18 @@
+2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/print.h,
+	plugins/editor/aneditor.cxx,
+	plugins/editor/print.c,
+	configure.in:
+	Fix #564659 – Port anjuta to use Gtk+ print instead of deprecated
+	gnomeprint
+
+	* plugins/editor/text_editor.c:
+	Fix one debugging error message
+
+	* plugins/editor/Makefile.am:
+	Add log domain
+
 2009-01-20  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	* plugins/terminal/terminal.c (terminal_set_preferences),
