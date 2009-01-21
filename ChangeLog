@@ -1,3 +1,9 @@
+2009-01-21  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(sdb_util_load_symbol_pixbufs):
+	fixed warning for "prototype protected"
+
 2009-01-20  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:

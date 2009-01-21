@@ -224,7 +224,7 @@ sdb_util_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
 	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
 	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
-	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
+	CREATE_SYM_ICON ("protectedprototype","element-interface-16.png");
 	
 	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
 	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
