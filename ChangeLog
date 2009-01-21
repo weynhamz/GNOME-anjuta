@@ -1,3 +1,8 @@
+2009-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/debugger.xml:
+	Fix #568381 – Website manual chapter 5. Debugging
+
 2009-01-21  Arun Tejasvi Chaganty  <arunchaganty@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
@@ -236,7 +241,7 @@
  	categories
  	* TODO: Updated
 
-2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
+2009-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/print.h,
 	plugins/editor/aneditor.cxx,

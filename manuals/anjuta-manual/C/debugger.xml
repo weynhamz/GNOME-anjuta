@@ -40,6 +40,16 @@
     <listitem><para><emphasis>Running an executable</emphasis></para></listitem>
     <listitem><para><emphasis>Attaching to a process</emphasis></para></listitem>
    </itemizedlist>
+   <note>
+    <para>
+     Almost every feature of Anjuta is provided by a plugin. If you do not see
+     the menus described here. It is probably because the debugger plugin is not
+     loaded. Go in 
+     <menuchoice><guisubmenu>Edit</guisubmenu><guimenuitem>Preferences</guimenuitem><guimenuitem>General</guimenuitem><guimenuitem>Installed plugins</guimenuitem></menuchoice>
+     and check that the debugger plugin is loaded.
+     It is an user activatable plugin, so loaded or unloaded on request.
+    </para>
+   </note>
   </para>
 
   <sect2 id="debug-run">
