@@ -131,9 +131,11 @@ GtkWidget* anjuta_ui_get_accel_editor (AnjutaUI *ui);
 void anjuta_ui_dump_tree (AnjutaUI *ui);
 
 /* Loading and saving accels */
-void anjuta_ui_load_accels (void);
+void anjuta_ui_load_accels (const gchar *filename);
 
-void anjuta_ui_save_accels (void);
+void anjuta_ui_save_accels (const gchar *filename);
+
+void anjuta_ui_unload_accels (AnjutaUI *ui);
 
 /* Convenience macros to register stock icons */
 #define BEGIN_REGISTER_ICON(plugin) \

@@ -947,28 +947,54 @@ anjuta_ui_get_accel_file (void)
 }
 
 void
-anjuta_ui_load_accels (void)
+anjuta_ui_load_accels (const gchar *filename)
 {
-	gchar *filename;
-
-	filename = anjuta_ui_get_accel_file ();
-	if (filename != NULL)
+	if (filename)
 	{
 		gtk_accel_map_load (filename);
-		g_free (filename);
+	}
+	else
+	{
+		gchar *def_filename = anjuta_ui_get_accel_file ();
+		if (def_filename != NULL)
+		{
+			gtk_accel_map_load (def_filename);
+			g_free (def_filename);
+		}
 	}
 }
 
 void
-anjuta_ui_save_accels (void)
+anjuta_ui_save_accels (const gchar *filename)
 {
-	gchar *filename;
-
-	filename = anjuta_ui_get_accel_file ();
-	if (filename != NULL)
+	if (filename)
 	{
 		gtk_accel_map_save (filename);
-		g_free (filename);
+	}
+	else
+	{
+        	gchar * def_filename = anjuta_ui_get_accel_file ();
+
+		if (def_filename != NULL)
+		{
+			gtk_accel_map_save (def_filename);
+			g_free (def_filename);
+		}
 	}
 }
+
+static void anjuta_ui_remove_accel (AnjutaUI *ui,
+     const gchar *accel_path, guint accel_key,
+     GdkModifierType accel_mods, gboolean changed)
+{
+    gtk_accel_group_disconnect_key (anjuta_ui_get_accel_group(ui), accel_key, accel_mods);
+}
+
+void
+anjuta_ui_unload_accels (AnjutaUI *ui)
+{
+    anjuta_ui_save_accels (NULL);
+    gtk_accel_map_foreach_unfiltered (ui, anjuta_ui_remove_accel);
+} 
+
 

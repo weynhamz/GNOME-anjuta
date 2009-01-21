@@ -1,4 +1,14 @@
-2008-01-21  Michael Trimarchi  <michael@evidence.eu.com>
+2009-01-21  Arun Tejasvi Chaganty  <arunchaganty@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* src/anjuta-app.c
+	libanjuta/anjuta-ui.h
+	libanjuta/anjuta-ui.c:
+	Fix #548310 – Allow plugins to load/save key accelerators
+	Needed for vim plugin
+
+2009-01-21  Michael Trimarchi  <michael@evidence.eu.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
 

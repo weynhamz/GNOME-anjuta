@@ -497,7 +497,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_session_load), app);
 	
 	/* Loading accels */
-	anjuta_ui_load_accels ();
+	anjuta_ui_load_accels (NULL);
 }
 
 static void
@@ -601,7 +601,7 @@ anjuta_app_layout_save (AnjutaApp *app, const gchar *filename,
 		g_warning ("Saving dock layout to '%s' failed!", filename);
 		
 	/* This is a good place to save the accels too */
-	anjuta_ui_save_accels ();
+	anjuta_ui_save_accels (NULL);
 }
 
 static void
