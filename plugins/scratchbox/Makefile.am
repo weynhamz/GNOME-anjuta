@@ -1,6 +1,7 @@
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-scratchbox.glade
+anjuta_glade_DATA = anjuta-scratchbox.glade \
+		    anjuta-scratchbox-panel.png
 
 # Plugin Icon file
 anjuta_pixmapsdir = $(anjuta_image_dir)
