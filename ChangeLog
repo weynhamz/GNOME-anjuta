@@ -1,3 +1,18 @@
+2009-01-23  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/images/Makefile.am:
+	* (added) plugins/symbol-db/images/element-interface-24.png
+	* (added) plugins/symbol-db/images/element-method-24.png
+	* plugins/symbol-db/plugin.c (register_stock_icons):
+	added some icons for popup menu.	
+
+2009-01-23  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_session_load), (on_project_root_added):
+	fixed #568119 – Automatic scanning of system-packages doesn't work
+
 2009-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml:

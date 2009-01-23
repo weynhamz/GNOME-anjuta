@@ -56,7 +56,7 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
-    	symbol-db-engine-iterator-node.h \
+  symbol-db-engine-iterator-node.h \
 	symbol-db-engine-iterator-node.c \
 	symbol-db-system.h \
 	symbol-db-system.c  symbol-db-prefs.h \

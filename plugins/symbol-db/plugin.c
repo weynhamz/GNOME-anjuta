@@ -57,6 +57,12 @@
 #define SESSION_SECTION		"SymbolDB"
 #define SESSION_KEY			"SystemPackages"
 
+#define ANJUTA_PIXMAP_GOTO_DECLARATION		"element-interface"
+#define ANJUTA_PIXMAP_GOTO_IMPLEMENTATION	"element-method"
+
+#define ANJUTA_STOCK_GOTO_DECLARATION		"element-interface"
+#define ANJUTA_STOCK_GOTO_IMPLEMENTATION	"element-method"
+
 static gpointer parent_class;
 
 /* signals */
@@ -92,6 +98,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON (ICON_FILE, "symbol-db-plugin-icon");
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_DECLARATION, ANJUTA_STOCK_GOTO_DECLARATION);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_IMPLEMENTATION, ANJUTA_STOCK_GOTO_IMPLEMENTATION);
 	END_REGISTER_ICON;
 }
 
@@ -266,7 +274,7 @@ static GtkActionEntry actions[] =
 	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
 	{
 		"ActionSymbolDBGotoDecl",
-		NULL,
+		ANJUTA_STOCK_GOTO_DECLARATION,
 		N_("Tag De_claration"),
 		"<shift><control>d",
 		N_("Goto symbol declaration"),
@@ -274,7 +282,7 @@ static GtkActionEntry actions[] =
 	},
 	{
 		"ActionSymbolDBGotoImpl",
-		NULL,
+		ANJUTA_STOCK_GOTO_IMPLEMENTATION,
 		N_("Tag _Implementation"),
 		"<control>d",
 		N_("Goto symbol definition"),
@@ -642,41 +650,15 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	
 	if (phase == ANJUTA_SESSION_PHASE_START)
 	{
-		GList *session_packages = anjuta_session_get_string_list (session, 
-														SESSION_SECTION, 
-														SESSION_KEY);
-		
-		GList *to_scan_packages = NULL;
+		sdb_plugin->session_packages = anjuta_session_get_string_list (session, 
+																	   SESSION_SECTION, 
+																	   SESSION_KEY);
 	
 		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
 					 anjuta_session_get_session_directory (session));
 		sdb_plugin->session_loading = TRUE;
-		
-		if (session_packages == NULL)
-		{
-			/* hey, does user want to import system sources for this project? */
-			gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
-														  PROJECT_AUTOSCAN);
-			/* letting session_packages to NULL won't start the population */
-			if (automatic_scan == TRUE)
-			{
-				GList *project_default_packages = 
-					ianjuta_project_manager_get_packages (pm, NULL);
-			
-				/* take the project's defaults */
-				to_scan_packages = project_default_packages;
-			}
-		}
-		else
-		{
-			to_scan_packages = session_packages;
-		}
-
-		
-		sdb_plugin->session_packages = to_scan_packages;
-		
-		/* no need to free the GList(s) */
 	}
+	
 	else if (phase == ANJUTA_SESSION_PHASE_END)
 	{
 		IAnjutaDocumentManager* docman;
@@ -1756,6 +1738,21 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	 */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 	
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+	
+	if (sdb_plugin->session_packages == NULL)
+	{
+		/* hey, does user want to import system sources for this project? */
+		gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+															  PROJECT_AUTOSCAN);
+		
+		if (automatic_scan == TRUE)
+		{
+			sdb_plugin->session_packages = ianjuta_project_manager_get_packages (pm, NULL);
+		}
+	}
+
 	/* get preferences about the parallel scan */
 	gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
 														 PARALLEL_SCAN); 
@@ -1770,9 +1767,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	/*
 	 *   The Project thing
-	 */
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaProjectManager, NULL);	
+	 */	
 		
 	g_free (sdb_plugin->project_root_uri);
 	sdb_plugin->project_root_uri = NULL;
