@@ -1,3 +1,23 @@
+2009-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/header.c,
+	plugins/project-wizard/header.h,
+	manuals/reference/libanjuta/project-wizard-format.sgml:
+	Allow to read project templates from user defined directories
+	Document this improvement
+
+	* manuals/anjuta-manual/C/build.xml:
+	Fix error in xml tags
+
+	* plugins/scintilla/scintilla/Makefile.am,
+	manuals/reference/libanjuta/Makefile.am:
+	Fix makefile after scintilla move
+
+	* plugins/project-wizard/appwizard.png:
+	Use a transparent background for project wizard side image
+
 2009-01-23  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/images/Makefile.am:

@@ -48,9 +48,6 @@
 /*---------------------------------------------------------------------------*/
 
 #define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR"/project"
-/* Uncomment if you want to keep project wizards in a non-standard dir 
-#define LOCAL_PROJECT_WIZARD_DIRECTORY anjuta_utils_data_dir/projects/ 
-*/
 
 /* Default property name useable in wizard file
  *---------------------------------------------------------------------------*/
@@ -345,8 +342,10 @@ static gboolean
 npw_druid_fill_selection_page (NPWDruid* druid)
 {
 	gboolean ok;
-	gchar* local_dir;
-
+	gchar* dir;
+	const gchar * const * sys_dir;
+	const gchar * user_dir;
+ 
 	/* Remove all previous data */
 	druid->project_book = GTK_NOTEBOOK (gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), PROJECT_PAGE));
 	gtk_notebook_remove_page(druid->project_book, 0);	
@@ -354,18 +353,26 @@ npw_druid_fill_selection_page (NPWDruid* druid)
 	
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();	
-
-	/* Fill list with all project in directory */
-	ok = npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
-#ifdef LOCAL_PROJECT_WIZARD_DIRECTORY
-	local_dir = g_build_filename (g_get_home_dir(), LOCAL_PROJECT_WIZARD_DIRECTORY, NULL);
-#else
-	local_dir = anjuta_util_get_user_data_file_path ("projects/",NULL);
-#endif
-	ok = npw_header_list_readdir (&druid->header_list, local_dir) || ok;
-	g_free (local_dir);
 	
-	if (!ok)
+	/* Read project template in user directory,
+	 * normally ~/.local/share/anjuta/project,
+	 * the first template read override the others */
+	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+	npw_header_list_readdir (&druid->header_list, dir);
+	g_free (dir);
+	
+	/* Read project template in system directory */	
+	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+	{
+		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+		g_free (dir);
+	}
+
+	/* Read anjuta installation directory */
+	npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+	
+	if (g_list_length (druid->header_list) == 0)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (druid->plugin)->shell),_("Unable to find any project template in %s"), PROJECT_WIZARD_DIRECTORY);		
 		return FALSE;

@@ -62,5 +62,6 @@ GList* npw_header_check_required_packages (NPWHeader* self);
 GList* npw_header_list_new (void);
 void npw_header_list_free (GList* list);
 GList * npw_header_list_insert_header (GList *list, NPWHeader *header);
+NPWHeader* npw_header_list_find_header (GList *list, NPWHeader *header);
 
 #endif

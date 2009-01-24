@@ -351,8 +351,6 @@ typedef struct _NPWHeaderParser
 	NPWTag* last;
 	/* Unknown element stack */
 	guint unknown;
-	/* List where should be added the header */
-	GList** list;
 	/* Current header */
 	NPWHeader* header;
 	/* Name of file read */
@@ -529,7 +527,6 @@ parse_header_text (GMarkupParseContext* context,
 			if (npw_header_get_category (parser->header) == NULL)
 			{
 				npw_header_set_category (parser->header, text);
-				*parser->list = npw_header_list_insert_header (*parser->list, parser->header);				
 			}
 			else
 			{
@@ -575,7 +572,6 @@ npw_header_parser_new (GList** list, const gchar* filename)
 	parser->unknown = 0;
 	parser->tag[0] = NPW_NO_TAG;
 	parser->last = parser->tag;
-	parser->list = list;
 	parser->header = NULL;
 	parser->filename = g_strdup (filename);
 
@@ -615,6 +611,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 	gchar* content;
 	gsize len;
 	NPWHeaderParser* parser;
+	NPWHeader* header;
 	GError* err = NULL;
 
 	g_return_val_if_fail (list != NULL, FALSE);
@@ -631,8 +628,9 @@ npw_header_list_read (GList** list, const gchar* filename)
 	parser = npw_header_parser_new (list, filename);
 
 	npw_header_parser_parse (parser, content, len, &err);
+	header = parser->header;
 	/* Parse only a part of the file, so need to call parser_end_parse */
-       
+	
 	npw_header_parser_free (parser);
 	g_free (content);
 
@@ -641,7 +639,8 @@ npw_header_list_read (GList** list, const gchar* filename)
 		/* Parsing must end with an error
 		 *  generated at the end of the project wizard block */
 		g_warning ("Missing project wizard block in %s", filename);
-
+		npw_header_free (header);
+		
 		return FALSE;
 	}
 	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
@@ -649,11 +648,18 @@ npw_header_list_read (GList** list, const gchar* filename)
 		/* Parsing error */
 		g_warning (err->message);
 		g_error_free (err);
+		npw_header_free (header);
 
 		return FALSE;
 	}
 	g_error_free (err);
-
+	
+	/* Add header to list if template does not already exist*/
+	if (npw_header_list_find_header (*list, header) == NULL)
+	{
+		*list = npw_header_list_insert_header (*list, header);
+	}
+	
 	return TRUE;	
 }
 

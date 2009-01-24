@@ -91,11 +91,11 @@ update-scintilla:
 	cp $(srcdir)/scintilla/include/*.iface $(srcdir)/include/
 	echo "## Lexers make file" > lexers.make
 	echo 'LEXER_OBJS = \' >> lexers.make;
-	echo -n '	$$(top_srcdir)/plugins/editor/scintilla/StyleContext.o' >> lexers.make
+	echo -n '	$$(top_srcdir)/plugins/scintilla/scintilla/StyleContext.o' >> lexers.make
 	for lex in Lex*.cxx; do \
 		lex=`echo $$lex | sed -e "s/cxx$$/o/"`; \
 		echo '\' >> lexers.make; \
-		echo -n '	$$(top_srcdir)/plugins/editor/scintilla/' >> lexers.make; \
+		echo -n '	$$(top_srcdir)/plugins/scintilla/scintilla/' >> lexers.make; \
 		echo -n "$$lex" >> lexers.make; \
 	done
 	echo "" >> lexers.make

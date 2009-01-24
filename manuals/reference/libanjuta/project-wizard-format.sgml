@@ -12,8 +12,17 @@
 	<sect1 id="overview">
 		<title>Overview</title>
 		<para>
-			The template file <emphasis>looks like</emphasis> a
-			xml document. It is divided in four parts:
+			The template files <emphasis>look like</emphasis>
+			xml documents and have normally the extension
+			<filename>.wiz</filename>. All templates and others
+			related files are installed by default in <filename>$anjuta_install_dir/share/anjuta/project</filename>. But the project wizard looks
+			for templates in the sub directory <filename>anjuta/project</filename> of
+			all user data directories as defined by
+			<ulink type="http" url="http://www.freedesktop.org/Standards/basedir-spec">XDG Base Directory Specification</ulink> too. It is possible to
+			override a Anjuta project template by an user one put, 
+			by example, in <filename>~/.local/share/anjuta/project</filename>.
+		</para>
+		<para> The template file is divided in four parts:
 			an header block, one or more page blocks, a content block
 			and an optional action block. The file is read several times, one
 			time for each block but before reading it,

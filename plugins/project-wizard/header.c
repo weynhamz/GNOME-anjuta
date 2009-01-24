@@ -238,15 +238,53 @@ npw_header_list_insert_header (GList *list, NPWHeader *header)
 		template_list = (GList *)node->data;	
 		first = (NPWHeader *)template_list->data;
 		res = g_ascii_strcasecmp (npw_header_get_category (first), npw_header_get_category (header));
-		if (res > 0) break;
 		if (res == 0)
 		{
 			node->data = g_list_insert_sorted (template_list, header, (GCompareFunc) compare_header_name);
 			return list;
+		}
+		else if (res > 0)
+		{
+			break;
 		}
 	}
 
 	template_list = g_list_prepend (NULL, header);
 
 	return g_list_insert_before (list, node, template_list);
+}
+
+NPWHeader*
+npw_header_list_find_header (GList *list, NPWHeader *header)
+{
+	GList *node;
+	GList *template_list;
+	
+	for (node = g_list_first (list); node != NULL; node = g_list_next (node))
+	{
+		NPWHeader* first;
+		gint res;
+		
+		template_list = (GList *)node->data;	
+		first = (NPWHeader *)template_list->data;
+		res = g_ascii_strcasecmp (npw_header_get_category (first), npw_header_get_category (header));
+		if (res == 0)
+		{
+			GList *find;
+			
+			find = g_list_find_custom (template_list, header, (GCompareFunc) compare_header_name);
+			if (find != NULL)
+			{
+				return (NPWHeader *)find->data;
+			}
+
+			break;
+		}
+		else if (res > 0)
+		{
+			break;
+		}
+	}
+
+	return NULL;
 }

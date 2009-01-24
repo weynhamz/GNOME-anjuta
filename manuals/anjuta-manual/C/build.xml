@@ -136,7 +136,7 @@
     </itemizedlist>
    </para>
   </sect2>
-  <sect2 id="configure">
+  <sect2 id="select-configure">
    <title>Select a configuration</title>
    <para>
     If you have created different configurations, you can select which one is active by
@@ -144,7 +144,7 @@
     <guimenuitem>Select Configuration</guimenuitem></menuchoice>.
    </para>
   </sect2>
-  <sect2 id="configure">
+  <sect2 id="clean-configure">
    <title>Clean a configuration</title>
    <para>
     To clean the project and leave it in a state that requires rerunning the
