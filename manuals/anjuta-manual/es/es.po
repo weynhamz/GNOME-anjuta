@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-01-21 20:45+0000\n"
-"PO-Revision-Date: 2009-01-23 16:56+0100\n"
+"PO-Revision-Date: 2009-01-24 21:01+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -684,14 +684,14 @@ msgstr ""
 "se añadirá a la lista."
 
 #: C/anjuta-manual.xml:100(para)
-#, fuzzy
 msgid ""
 "You can also erase a macro by selecting it in the list and choosing "
 "<guibutton>Remove</guibutton>. This only works for user macros (My Macros), "
 "of course."
 msgstr ""
-"El usuario también puede borrar un macro seleccionándolo en la lista (sólo "
-"Mis macros) y después eligiendo <guibutton>Eliminar</guibutton>."
+"También puede borrar un macro seleccionándolo en la lista (sólo Mis macros) "
+"y después eligiendo <guibutton>Eliminar</guibutton>. Ésto sólo funciona para "
+"los macros del usuario (Mis macros)."
 
 #: C/anjuta-manual.xml:108(title)
 msgid "Add/Edit Macro"
@@ -702,13 +702,12 @@ msgid "Add Edit dialog"
 msgstr "Diálogo Añadir/Editar"
 
 #: C/anjuta-manual.xml:104(para)
-#, fuzzy
 msgid ""
 "Similarly, you can edit and modify a macro by selecting it in the list and "
 "choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
 msgstr ""
 "De la misma manera se puede editar un macro y modificarlo seleccionándolo en "
-"la lista y después eligiendo <guibutton>Editar</guibutton>. <placeholder-1/>"
+"la lista y eligiendo después <guibutton>Editar</guibutton>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:117(title)
 msgid "Macro Keywords"
@@ -912,7 +911,6 @@ msgid "Editing Files"
 msgstr "Editar archivos"
 
 #: C/anjuta-manual.xml:250(para)
-#, fuzzy
 msgid ""
 "<application>Anjuta</application> has a number of features which help you "
 "edit and work with source files. The following sections describe how to use "
@@ -1030,7 +1028,6 @@ msgid "Invisible margin marker"
 msgstr "Marcador de márgenes invisibles"
 
 #: C/anjuta-manual.xml:313(title)
-#, fuzzy
 msgid "Editor markers when the marker margin is invisible"
 msgstr "El editor marca cuando el margen del marcador es invisible"
 
@@ -1590,9 +1587,8 @@ msgid "Creating a New Project"
 msgstr "Crear un proyecto nuevo"
 
 #: C/anjuta-manual.xml:28(title)
-#, fuzzy
 msgid "Creating a project from a template"
-msgstr "Proyecto nuevo desde una plantilla"
+msgstr "Crear un proyecto nuevo desde una plantilla"
 
 #: C/anjuta-manual.xml:29(para)
 #, fuzzy
@@ -1630,13 +1626,12 @@ msgstr ""
 "<guibutton>Siguiente</guibutton> para continuar."
 
 #: C/anjuta-manual.xml:48(para)
-#, fuzzy
 msgid ""
 "Select the type of application you want to create in the second page. Click "
 "on <guibutton>Next</guibutton> to proceed."
 msgstr ""
-"En la <interface>segunda página</interface> seleccione el tipo de aplicación "
-"que desea crear. Pulse <guibutton>Siguiente</guibutton> para continuar."
+"En la segunda página seleccione el tipo de aplicación que desea crear. Pulse "
+"<guibutton>Siguiente</guibutton> para continuar."
 
 #: C/anjuta-manual.xml:54(para)
 #, fuzzy
@@ -1728,7 +1723,6 @@ msgstr ""
 "application>."
 
 #: C/anjuta-manual.xml:103(para)
-#, fuzzy
 msgid ""
 "The import project feature only works if your existing project uses <ulink "
 "type=\"info\" url=\"info:automake\">autoconf/automake</ulink> or, to a very "
@@ -1736,7 +1730,7 @@ msgid ""
 msgstr ""
 "La característica de importación de proyectos sólo funciona para proyectos "
 "existentes que usen<ulink type=\"info\" url=\"info:automake\">autoconf/"
-"automake</ulink> y para un número muy limitado de archivos planos makefile."
+"automake</ulink> y para un número muy limitado de archivos planos Makefile."
 
 #: C/anjuta-manual.xml:113(title)
 msgid "Loading and Saving Projects"
@@ -1759,7 +1753,6 @@ msgstr ""
 "anjuta</filename>) en el diálogo y pulse <guibutton>Aceptar</guibutton>."
 
 #: C/anjuta-manual.xml:123(para)
-#, fuzzy
 msgid ""
 "If the project has recently been opened, then you will find it listed in the "
 "menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent</"
@@ -1797,7 +1790,6 @@ msgstr ""
 "del <application>menú de operación</application>."
 
 #: C/anjuta-manual.xml:137(para)
-#, fuzzy
 msgid ""
 "If the project is also a CVS tree, then corresponding file revision numbers "
 "are also listed to the right of file names in the file view pane."
@@ -1831,14 +1823,13 @@ msgid "The Project window"
 msgstr "La ventana de proyecto"
 
 #: C/anjuta-manual.xml:153(para)
-#, fuzzy
 msgid ""
 "Here is the <interface>Project window</interface> with its context menu "
 "(accessible by clicking on the right mouse button). <placeholder-1/>"
 msgstr ""
-"Aquí está la <interface>ventana de proyecto</interface> con el <guimenu>menú "
-"de operación</guimenu> (accesible pulsando con el botón derecho del ratón). "
-"<placeholder-1/>"
+"Aquí está la <interface>Ventana de proyecto</interface> con su menú "
+"contextual (accesible pulsando con el botón derecho del ratón). <placeholder-"
+"1/>"
 
 #: C/anjuta-manual.xml:165(para)
 #, fuzzy
