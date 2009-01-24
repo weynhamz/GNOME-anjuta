@@ -1750,8 +1750,10 @@ debugger_abort (Debugger *debugger)
 
 	if (debugger->priv->instance != NULL)
 	{
+		/* debugger-stopped triggers a call to debugger_free that
+		 * will free the debugger instance, so no access to it is
+		 * allowed after the following line */
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", NULL);
-		debugger->priv->instance = NULL;
 	}
 
 	return TRUE;
@@ -2363,7 +2365,6 @@ debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint li
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	quoted_file = gdb_quote (file);
-
 	buff = g_strdup_printf ("-break-insert \"\\\"%s\\\":%u\"", quoted_file, line);
 	g_free (quoted_file);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_add_breakpoint_finish, callback, user_data);
@@ -2374,12 +2375,20 @@ void
 debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, const gchar *function, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
+	gchar *quoted_file;
 
 	DEBUG_PRINT ("%s", "In function: debugger_add_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-break-insert %s%s%s", file == NULL ? "" : file, file == NULL ? "" : ":" , function);
+	quoted_file = file == NULL ? NULL : gdb_quote (file);
+	buff = g_strdup_printf ("-break-insert %s%s%s%s%s",
+		       file == NULL ? "" : "\"\\\"",
+	       	       file == NULL ? "" : quoted_file,
+		       file == NULL ? "" : "\\\":" ,
+		       function,
+		       file == NULL ? "" : "\"");
+	g_free (quoted_file);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_add_breakpoint_finish, callback, user_data);
 	g_free (buff);
 }

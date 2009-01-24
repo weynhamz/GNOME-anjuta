@@ -1,5 +1,10 @@
 2009-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/gdb/debugger.c:
+	Fix #565188 – Invalid write on deinitialization
+
+2009-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/project-wizard/druid.c,
 	plugins/project-wizard/parser.c,
 	plugins/project-wizard/header.c,
