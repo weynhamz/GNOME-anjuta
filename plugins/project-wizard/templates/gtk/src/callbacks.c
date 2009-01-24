@@ -14,6 +14,11 @@
 #  include <config.h>
 #endif
 
-#include <gtk/gtk.h>
-
 #include "callbacks.h"
+
+
+void
+destroy (GtkWidget *widget, gpointer data)
+{
+	gtk_main_quit ();
+}

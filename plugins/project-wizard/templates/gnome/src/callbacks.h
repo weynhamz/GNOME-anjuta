@@ -11,3 +11,5 @@
 [+ESAC+] */
 
 #include <gnome.h>
+
+void destroy (GtkWidget *widget, gpointer data);
