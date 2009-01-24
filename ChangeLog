@@ -1,3 +1,14 @@
+2009-01-24  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_project_element_added),
+	(do_import_project_sources_after_abort),
+	(do_import_project_sources), (do_check_offline_files_changed),
+	(on_scan_end_manager):
+	Disabled receiving of insert/remove signals even for global tab. This should
+	avoid useless parsing of signals on big project sources movements.
+	Should also fix #568493 - Anjuta freezes after moving around large portions 
+	of code.
+
 2009-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/gtk/src/callbacks.c,

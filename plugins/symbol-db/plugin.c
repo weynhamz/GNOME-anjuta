@@ -1022,6 +1022,11 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	symbol_db_view_locals_recv_signals_from_engine (																
 		SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 				 sdb_plugin->sdbe_project, FALSE);
+	
+	symbol_db_view_recv_signals_from_engine (
+		SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+				 sdb_plugin->sdbe_project, FALSE);		
+	
 	sdb_plugin->is_adding_element = TRUE;
 
 	/* use a custom function to add the files to db */
@@ -1031,7 +1036,11 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		sdb_plugin->is_adding_element = FALSE;
 		symbol_db_view_locals_recv_signals_from_engine (																
 			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-				 sdb_plugin->sdbe_project, TRUE);		
+				 sdb_plugin->sdbe_project, TRUE);
+		
+		symbol_db_view_recv_signals_from_engine (
+			SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+					 sdb_plugin->sdbe_project, TRUE);
 	}
 	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
@@ -1343,6 +1352,11 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 	symbol_db_view_locals_recv_signals_from_engine (																
 		SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 				 sdb_plugin->sdbe_project, FALSE);
+	
+	symbol_db_view_recv_signals_from_engine (
+		SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree),
+				 sdb_plugin->sdbe_project, FALSE);
+	
 	sdb_plugin->is_project_importing = TRUE;
 
 	/* disable signals receiving from engine */
@@ -1364,6 +1378,10 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 		symbol_db_view_locals_recv_signals_from_engine (																
 			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 				 sdb_plugin->sdbe_project, TRUE);
+		
+		symbol_db_view_recv_signals_from_engine (
+			SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+					 sdb_plugin->sdbe_project, TRUE);
 	}
 	sdb_plugin->files_count_project += real_added;	
 }
@@ -1396,6 +1414,11 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	symbol_db_view_locals_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 								 sdb_plugin->sdbe_project, FALSE);
+	
+	symbol_db_view_recv_signals_from_engine (
+				SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe_project, FALSE);		
+	
 	sdb_plugin->is_project_importing = TRUE;
 	
 	symbol_db_view_recv_signals_from_engine (																
@@ -1443,6 +1466,11 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		symbol_db_view_locals_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 								 sdb_plugin->sdbe_project, TRUE);
+		
+		symbol_db_view_recv_signals_from_engine (
+				SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe_project, TRUE);		
+		
 		sdb_plugin->is_project_importing = FALSE;		
 	}
 	sdb_plugin->files_count_project += real_added;			
@@ -1672,6 +1700,11 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		symbol_db_view_locals_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
 								 sdb_plugin->sdbe_project, FALSE);
+		
+		symbol_db_view_recv_signals_from_engine (
+				SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+					 			sdb_plugin->sdbe_project, FALSE);		
+		
 		sdb_plugin->is_offline_scanning = TRUE;		
 		
 		real_added = do_add_new_files (sdb_plugin, to_add_files, 
@@ -1685,7 +1718,12 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			sdb_plugin->is_offline_scanning = FALSE;
 			symbol_db_view_locals_recv_signals_from_engine (																
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-								 sdb_plugin->sdbe_project, TRUE);			
+								 sdb_plugin->sdbe_project, TRUE);		
+			
+			symbol_db_view_recv_signals_from_engine (
+				SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe_project, TRUE);
+			
 		}
 	}
 	
@@ -2038,6 +2076,10 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		symbol_db_view_locals_recv_signals_from_engine (
 			SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
 					 symbol_db->sdbe_project, TRUE);
+		
+		symbol_db_view_recv_signals_from_engine (
+			SYMBOL_DB_VIEW(symbol_db->dbv_view_tree), 
+					 symbol_db->sdbe_project, TRUE);		
 	}
 }
 
