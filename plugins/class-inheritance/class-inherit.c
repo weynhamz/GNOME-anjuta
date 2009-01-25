@@ -663,7 +663,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *graph_
 					file = g_file_get_path (gfile);
 					
 					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__filepath",
-											file, g_object_unref);
+											file, g_free);
 					g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
 									   GINT_TO_POINTER (line));
 					

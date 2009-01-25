@@ -1,3 +1,11 @@
+2009-01-24  Jens Georg  <mail@jensge.org>
+
+	* plugins/class-inheritance/class-inherit.c
+	(cls_inherit_draw_expanded_node):
+	
+	use g_free instead of g_object_unref to free object gchar * data 
+	(fixes crash in class inheritance plugin)
+
 2009-01-24  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (on_project_element_added),
