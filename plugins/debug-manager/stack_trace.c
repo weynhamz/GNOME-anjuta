@@ -27,14 +27,14 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
-#include <gnome.h>
+
+#include <gio/gio.h>
 
 /*#define DEBUG*/
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include "utilities.h"
 #include "info.h"
@@ -292,8 +292,10 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 		{
 			if (g_path_is_absolute (frame->file))
 			{					
-				uri = gnome_vfs_get_uri_from_local_path(frame->file);
+				GFile *gio_file = g_file_new_for_path (frame->file);
+				uri = g_file_get_uri (gio_file);
 				file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
+				g_object_unref (gio_file);
 			}
 			else
 			{

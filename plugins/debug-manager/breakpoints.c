@@ -49,8 +49,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <gnome.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
+#include <gio/gio.h>
 
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
@@ -155,7 +154,11 @@ breakpoint_item_update_from_debugger (BreakpointItem *bi, const IAnjutaDebuggerB
 		bi->bp.file = g_strdup (bp->file);
 		bi->bp.line = bp->line;
 		if ((bi->uri == NULL) && (g_path_is_absolute (bp->file)))
-			bi->uri = gnome_vfs_get_uri_from_local_path (bp->file);
+		{
+			GFile *file = g_file_new_for_path (bp->file);
+			bi->uri = g_file_get_uri (file);
+			g_object_unref (file);
+		}
 	}
 	if (bp->type & IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION)
 	{
@@ -259,7 +262,7 @@ breakpoint_item_new_from_uri (BreakpointsDBase *bd, const gchar* uri, guint line
 	if (uri != NULL)
 	{
 		bi->uri = g_strdup (uri);
-		bi->bp.file = gnome_vfs_get_local_path_from_uri (uri);
+		bi->bp.file = anjuta_util_get_local_path_from_uri (uri);
 		bi->bp.line = line;
 	}
 	bi->bp.enable = enable;
@@ -290,7 +293,7 @@ breakpoint_item_new_from_string (BreakpointsDBase *bd, const gchar* string, cons
 	else if ((uri != NULL) && isdigit (*string))
 	{
 		bi->uri = g_strdup (uri);
-		bi->bp.file = gnome_vfs_get_local_path_from_uri (uri);
+		bi->bp.file = anjuta_util_get_local_path_from_uri (uri);
 		bi->bp.line = strtoul (string, NULL, 10);
 		bi->bp.type = IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE;
 	}
@@ -321,7 +324,9 @@ breakpoint_item_new_from_string (BreakpointsDBase *bd, const gchar* string, cons
 			bi->bp.file = g_strndup (string, ptr - string);
 			if (g_path_is_absolute (bi->bp.file))
 			{
-				bi->uri = gnome_vfs_get_uri_from_local_path (bi->bp.file);
+				GFile *file = g_file_new_for_path (bi->bp.file);
+				bi->uri = g_file_get_uri (file);
+				g_object_unref (file);
 			}
 		}
 	}

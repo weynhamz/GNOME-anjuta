@@ -42,10 +42,8 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-
 #include <glade/glade-xml.h>
+#include <gio/gio.h>
 
 #include <errno.h>
 #include <sys/stat.h>
@@ -181,10 +179,13 @@ get_source_directories (AnjutaPlugin *plugin)
 	GList *slibs_dirs = NULL;
 	GList *libs_dirs = NULL;
 	GValue value = {0,};
+	GFile *file;
 
 	return NULL;
 	cwd = g_get_current_dir();
-	search_dirs = g_list_prepend (search_dirs, gnome_vfs_get_uri_from_local_path(cwd));
+	file = g_file_new_for_path (cwd);
+	search_dirs = g_list_prepend (search_dirs, g_file_get_uri (file));
+	g_object_unref (file);
 	g_free (cwd);
 
 	/* Check if a project is already open */
@@ -854,7 +855,7 @@ start_remote_target (DmaStart *this, const gchar *target)
 	
 	if (dir_uri != NULL)
 	{
-		dir = gnome_vfs_get_local_path_from_uri (dir_uri);
+		dir = anjuta_util_get_local_path_from_uri (dir_uri);
 		g_free (dir_uri);
 	}
 	else
@@ -893,20 +894,45 @@ load_target (DmaStart *this, const gchar *target)
 {
 	gchar *mime_type;
 	gchar *filename;
+	GFile *file;
+	GFileInfo *file_info;
+	GError *error = NULL;
 	
-	mime_type = gnome_vfs_get_mime_type ((const gchar *)target);
+	DEBUG_PRINT ("Using target %s", target);
+	file = g_file_new_for_uri (target);
+	file_info = g_file_query_info (file, 
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, &error);
+	if (file_info == NULL)
+	{
+		DEBUG_PRINT ("Error getting file info: %s", error->message);
+		g_error_free (error);
+		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
+				_("Unable to open %s. (file_info) Debugger cannot start."), target);
+		g_object_unref (file);
+		return FALSE;
+	}
+
+	mime_type = g_file_info_get_attribute_as_string (file_info, 
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 	if (mime_type == NULL)
 	{
 		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
-				_("Unable to open %s. Debugger cannot start."), target);
+				_("Unable to open %s. (mime_type) Debugger cannot start."), target);
+		g_object_unref (file_info);
+		g_object_unref (file);
 		return FALSE;
 	}
-	filename = gnome_vfs_get_local_path_from_uri (target);
+
+	filename = g_file_get_path (file);
 	
 	dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
 
 	g_free (filename);
 	g_free (mime_type);
+	g_object_unref (file_info);
+	g_object_unref (file);
 
 	return TRUE;
 }
@@ -988,14 +1014,16 @@ check_target (DmaStart *this, const gchar *target)
 static gboolean
 dma_start_load_and_start_uri (DmaStart *this, const gchar *target)
 {
-	GnomeVFSURI *vfs_uri;
+	gchar *local_path = NULL;
 
 	if (!dma_quit_debugger (this)) return FALSE;
 	
-	vfs_uri = gnome_vfs_uri_new (target);
-	g_return_val_if_fail (vfs_uri != NULL, TRUE);
-	if (!gnome_vfs_uri_is_local (vfs_uri)) return FALSE;
-	gnome_vfs_uri_unref (vfs_uri);
+	local_path = anjuta_util_get_local_path_from_uri (target);
+	if (!local_path)
+	{
+		return FALSE;
+	}
+	g_free (local_path);
 	
 	return check_target (this, target);
 }
@@ -1113,7 +1141,7 @@ on_add_uri_in_model (gpointer data, gpointer user_data)
 	GtkTreeIter iter;
 	gchar *local;
 	
-	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	local = anjuta_util_get_local_path_from_uri ((const char *)data);
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, 0, local, -1);
 	g_free (local);
@@ -1125,10 +1153,13 @@ on_add_source_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter
 	GList** list = (GList **)user_data;
 	gchar* dir;
 	gchar* uri;
+	GFile *file;
 
 	gtk_tree_model_get (model, iter, 0, &dir, -1);
-	uri =  gnome_vfs_get_uri_from_local_path (dir);
+	file = g_file_new_for_path (dir);
+	uri =  g_file_get_uri (file);
 	*list = g_list_prepend (*list, uri);
+	g_object_unref (file);
 	g_free (dir);
 	
 	return FALSE;

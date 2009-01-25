@@ -14,6 +14,7 @@ anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 plugindir = $(anjuta_plugin_dir)
@@ -22,8 +23,8 @@ plugin_LTLIBRARIES = libanjuta-debug-manager.la
 libanjuta_debug_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_debug_manager_la_LIBADD = \
-	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 # Marshallers

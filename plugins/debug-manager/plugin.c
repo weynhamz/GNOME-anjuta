@@ -50,7 +50,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
 
 /* Contants defintion
  *---------------------------------------------------------------------------*/

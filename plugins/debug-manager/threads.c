@@ -29,8 +29,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
-#include <gnome.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
 
 /*#define DEBUG*/
 #include <libanjuta/resources.h>
@@ -223,8 +222,10 @@ on_info_thread (const IAnjutaDebuggerFrame* frame, gpointer user_data)
 	{
 		if (g_path_is_absolute (frame->file))
 		{					
-			uri = gnome_vfs_get_uri_from_local_path(frame->file);
+			GFile *gio_file = g_file_new_for_path (frame->file);
+			uri = g_file_get_uri (gio_file);
 			file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
+			g_object_unref (gio_file);
 		}
 		else
 		{
@@ -325,8 +326,10 @@ on_list_thread (const GList *threads, gpointer user_data)
 			{
 				if (g_path_is_absolute (frame->file))
 				{					
-					uri = gnome_vfs_get_uri_from_local_path(frame->file);
+					GFile *gio_file = g_file_new_for_path (frame->file);
+					uri = g_file_get_uri (gio_file);
 					file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
+					g_object_unref (gio_file);
 				}
 				else
 				{
