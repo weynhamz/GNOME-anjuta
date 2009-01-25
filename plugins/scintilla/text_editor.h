@@ -100,11 +100,11 @@ struct _TextEditor
 	/* Current zoom factor */
 	gint zoom_factor;
 	
-	/* Last saved content for comparision on external modifications on
-	 * the file. The content is copied here during file saves.
-	 */
-	gchar *last_saved_content;
-	GtkWidget *file_modified_widget;
+	/* message area widget */
+	GtkWidget *message_area;
+	
+	/* Set buffer as modified until next save */
+	gboolean force_not_saved;
 	
 	gboolean hover_tip_on;
 };
@@ -189,6 +189,7 @@ gint text_editor_goto_block_end (TextEditor* te);
 /* Save or load file */
 gboolean text_editor_load_file (TextEditor * te);
 gboolean text_editor_save_file (TextEditor * te, gboolean update);
+void text_editor_set_saved (TextEditor *te, gboolean saved);
 
 void text_editor_update_controls (TextEditor * te);
 gboolean text_editor_save_yourself (TextEditor * te, FILE * stream);

@@ -397,13 +397,19 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			}
 			else
 			{
-				files_load = g_list_prepend (files_load, filename);
+				GFile *file = g_file_new_for_path (filename);
+				gchar *uri;
+
+				uri = g_file_get_uri (file);
+				g_object_unref (file);
+				files_load = g_list_prepend (files_load, uri);
 			}
 		}
 		if (files_load)
 		{
 			anjuta_session_set_string_list (session, "File Loader", "Files",
 											files_load);
+			g_list_foreach (files_load, (GFunc)g_free, NULL);
 			g_list_free (files_load);
 		}
 		anjuta_session_sync (session);

@@ -132,6 +132,8 @@ text_editor_instance_init (TextEditor *te)
 	te->encoding = NULL;
 	te->gconf_notify_ids = NULL;
 	te->hover_tip_on = FALSE;
+	te->force_not_saved = FALSE;
+	te->message_area = NULL;
 }
 
 static void
@@ -312,9 +314,31 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
 	{
 		text_editor_load_file (te);
 	}
-	gtk_widget_destroy (message_area);
-	te->file_modified_widget = NULL;
-	/* DEBUG_PRINT ("%s", "File modified dialog responded"); */
+	else
+	{
+		gtk_widget_destroy (message_area);
+		te->message_area = NULL;
+	}
+}
+
+static void
+on_close_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		IAnjutaDocumentManager *docman;
+		
+		docman = anjuta_shell_get_interface (te->shell, IAnjutaDocumentManager, NULL);
+		if (docman == NULL) return;
+
+		ianjuta_document_manager_remove_document (docman, IANJUTA_DOCUMENT (te), FALSE, NULL);
+	}
+	else
+	{
+		text_editor_set_saved (te, FALSE);
+		gtk_widget_destroy (message_area);
+		te->message_area = NULL;
+	}
 }
 
 static void
@@ -327,50 +351,91 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 	TextEditor *te = TEXT_EDITOR (user_data);
 	GtkWidget *message_area;
 	IAnjutaDocumentManager *docman;
-	IAnjutaDocument *doc;
 	gchar *buff;
 	
 	/* DEBUG_PRINT ("%s", "File changed!!!"); */
 	
-	if (!(event_type == G_FILE_MONITOR_EVENT_CHANGED ||
-		  event_type == G_FILE_MONITOR_EVENT_CREATED))
-		return;
-
-	if (!anjuta_util_diff (te->uri, te->last_saved_content))
+	switch (event_type)
 	{
-		/* The file content is same. Remove any previous prompt for reload */
-		if (te->file_modified_widget)
-			gtk_widget_destroy (te->file_modified_widget);
-		te->file_modified_widget = NULL;
-		return;
+		case G_FILE_MONITOR_EVENT_CREATED:
+		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+			if (text_editor_is_saved (te))
+			{
+				/* If a saved file is changed reload it automatically */
+				text_editor_load_file (te);
+			
+				return;
+			}
+			else
+			{
+				buff = g_strdup_printf (_("The file '%s' has been changed.\n"
+								  "Do you want to loose your changes and reload it ?"),
+								 te->filename);
+				message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+				g_free (buff);
+				anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+													GTK_STOCK_REFRESH,
+													GTK_RESPONSE_YES);
+				anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+												    GTK_STOCK_CANCEL,
+													GTK_RESPONSE_NO);
+				g_signal_connect (G_OBJECT(message_area), "response",
+								  G_CALLBACK (on_reload_dialog_response),
+								  te);
+			}
+			break;
+		case G_FILE_MONITOR_EVENT_DELETED:
+			if (text_editor_is_saved (te))
+			{
+				buff = g_strdup_printf (_
+							 ("The file '%s' has been deleted.\n"
+							  "Do you confirm and close it ?"),
+							 te->filename);
+			}
+			else
+			{
+				buff = g_strdup_printf (_
+							 ("The file '%s' has been deleted.\n"
+							  "Do you want to loose your changes and close it ?"),
+							 te->filename);
+			}
+			message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+			g_free (buff);
+			anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+											GTK_STOCK_DELETE,
+											GTK_RESPONSE_YES);
+			anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+											GTK_STOCK_CANCEL,
+											GTK_RESPONSE_NO);
+			g_signal_connect (G_OBJECT(message_area), "response",
+							  G_CALLBACK (on_close_dialog_response),
+							  te);
+			break;
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
+		case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
+		case G_FILE_MONITOR_EVENT_UNMOUNTED:
+			return;
+		default:
+			g_warn_if_reached ();
+			return;
+	}
+	
+	if (te->message_area != NULL)
+	{
+		gtk_widget_destroy (te->message_area);
+		te->message_area = NULL;
 	}
 
-	buff =
-		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than\n"
-						  "the current buffer.\nDo you want to reload it?"),
-						 te->filename);
-	
 	docman = anjuta_shell_get_interface (te->shell, IAnjutaDocumentManager, NULL);
 	if (!docman)
+	{
+		gtk_widget_destroy (message_area);
   		return;
-  	doc = IANJUTA_DOCUMENT (te);
+	}
 
-	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-									GTK_STOCK_REFRESH,
-									GTK_RESPONSE_YES);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-								    GTK_STOCK_CANCEL,
-									GTK_RESPONSE_NO);
-	g_free (buff);	
-	te->file_modified_widget = message_area;
-	
-	g_signal_connect (G_OBJECT(message_area), "response",
-					  G_CALLBACK (on_reload_dialog_response),
-					  te);					  
-	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
-
+	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT (te), message_area, NULL);
+	te->message_area = message_area;
 }
 
 static void
@@ -381,6 +446,12 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 		/* Shutdown existing monitor */
 		g_file_monitor_cancel (te->monitor);
 		te->monitor = NULL;
+	}
+	if (te->message_area) 
+	{
+		/* Remove existing message area */
+		gtk_widget_destroy (te->message_area);
+		te->message_area = NULL;
 	}
 	if (te->uri && !disable_it)
 	{
@@ -426,10 +497,8 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, AnjutaShell *shell
 	if (uri && strlen(uri) > 0)
 	{	
 		new_file_count--;
-		if (te->filename)
-			g_free (te->filename);
-		if (te->uri)
-			g_free (te->uri);
+		g_free (te->filename);
+		g_free (te->uri);
 
 		GFile *gio_uri;
 		gio_uri = g_file_new_for_uri (uri);
@@ -525,7 +594,6 @@ text_editor_finalize (GObject *obj)
 	g_free (te->filename);
 	g_free (te->uri);
 	g_free (te->force_hilite);
-	g_free (te->last_saved_content);
 	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -1355,8 +1423,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	g_free (buffer);
 
 	/* Save the buffer as last saved content */
-	g_free (te->last_saved_content);
-	te->last_saved_content = file_content;
+	g_free (file_content);
 	
 	g_object_unref (gio_uri);
 
@@ -1458,8 +1525,7 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 	}
 	
 	/* Set last content saved to data */
-	g_free (te->last_saved_content);
-	te->last_saved_content = data;
+	g_free (data);
 	
 	if (result)
 		result = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, error);
@@ -1501,6 +1567,7 @@ text_editor_load_file (TextEditor * te)
 	text_editor_thaw (te);
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_SETSAVEPOINT, 0, 0);
+	te->force_not_saved = FALSE;
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te, NULL);
@@ -1550,6 +1617,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		text_editor_thaw (te);
 		scintilla_send_message (SCINTILLA (te->scintilla),
 								SCI_SETSAVEPOINT, 0, 0);
+		te->force_not_saved = FALSE;
 		g_signal_emit_by_name (G_OBJECT (te), "saved", file);
 		g_object_unref (file);
 		anjuta_status (te->status, _("File saved successfully"), 5);
@@ -1558,6 +1626,17 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	text_editor_update_monitor (te, FALSE);
 
 	return ret;
+}
+
+void
+text_editor_set_saved (TextEditor *te, gboolean saved)
+{
+	if (saved)
+	{
+		scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETSAVEPOINT, 0, 0);
+	}
+	te->force_not_saved = !saved;
+	g_signal_emit_by_name(G_OBJECT (te), "save_point", saved);
 }
 
 gboolean
@@ -1630,7 +1709,7 @@ gboolean
 text_editor_is_saved (TextEditor * te)
 {
 	return !(scintilla_send_message (SCINTILLA (te->scintilla),
-					 SCI_GETMODIFY, 0, 0));
+					 SCI_GETMODIFY, 0, 0)) && (!te->force_not_saved);
 }
 
 gboolean
@@ -2640,13 +2719,11 @@ ifile_open (IAnjutaFile *editor, GFile* file, GError **error)
 	/* Close current file and open new file in this editor */
 	TextEditor* text_editor;
 	text_editor = TEXT_EDITOR(editor);
-	
-	/* Do nothing if current file is not saved */
-	if (!text_editor_is_saved (text_editor))
-		return;
-	text_editor->uri = g_file_get_uri (file);
-	
+
 	/* Remove path */
+	g_free (text_editor->uri);
+	text_editor->uri = g_file_get_uri (file);
+	g_free (text_editor->filename);
 	text_editor->filename = g_file_get_basename (file);
 	text_editor_load_file (text_editor);
 }
@@ -2670,8 +2747,10 @@ isavable_save_as (IAnjutaFileSavable* editor, GFile* file, GError** e)
 		ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (text_editor),
 											  NULL);
 	
-	text_editor->uri = g_file_get_uri (file);
 	/* Remove path */
+	g_free (text_editor->uri);
+	text_editor->uri = g_file_get_uri (file);
+	g_free (text_editor->filename);
 	text_editor->filename = g_file_get_basename (file);
 	text_editor_save_file (text_editor, FALSE);
 	text_editor_set_hilite_type (text_editor, NULL);
@@ -2692,13 +2771,14 @@ static gboolean
 isavable_is_dirty (IAnjutaFileSavable* editor, GError** e)
 {
 	TextEditor *text_editor = TEXT_EDITOR(editor);
-	return !text_editor_is_saved(text_editor);
+	return !text_editor_is_saved (text_editor);
 }
 
 static void
 isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 {
-	/* DEBUG_PRINT("set_dirty: Not implemented in EditorPlugin"); */
+	TextEditor *text_editor = TEXT_EDITOR(editor);
+	text_editor_set_saved (text_editor, !dirty);
 }
 
 static gboolean

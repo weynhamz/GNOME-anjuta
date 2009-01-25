@@ -1200,6 +1200,29 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	}
 }
 
+static void
+on_destroy_message_area (gpointer data, GObject *finalized_object)
+{
+	AnjutaDocmanPage *page = (AnjutaDocmanPage *)data;
+	GFile *file;
+       
+	file = ianjuta_file_get_file (IANJUTA_FILE (page->doc), NULL);
+	if (file)
+	{
+		GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
+
+		if (pixbuf)
+		{
+			gtk_image_set_from_pixbuf (GTK_IMAGE(page->menu_icon), pixbuf);
+			gtk_image_set_from_pixbuf (GTK_IMAGE(page->mime_icon), pixbuf);
+			g_object_unref (pixbuf);
+		}
+
+		g_object_unref (file);
+	}
+	page->message_area = NULL;
+}
+
 void
 anjuta_docman_set_message_area (AnjutaDocman *docman, IAnjutaDocument* doc, 
                                 GtkWidget *message_area)
@@ -1226,8 +1249,10 @@ anjuta_docman_set_message_area (AnjutaDocman *docman, IAnjutaDocument* doc,
 			                    FALSE,
 			                    0);
 			
-			g_object_add_weak_pointer (G_OBJECT (page->message_area), 
-				   					   (gpointer *)&page->message_area);
+			gtk_image_set_from_stock (GTK_IMAGE (page->menu_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
+			gtk_image_set_from_stock (GTK_IMAGE (page->mime_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
+			g_object_weak_ref (G_OBJECT (page->message_area),
+				       on_destroy_message_area, page);
 		}
 	}
 }
