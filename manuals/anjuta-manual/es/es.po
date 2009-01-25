@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-01-21 20:45+0000\n"
-"PO-Revision-Date: 2009-01-24 21:01+0100\n"
+"PO-Revision-Date: 2009-01-25 12:03+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -512,7 +512,6 @@ msgid "Creating a New File"
 msgstr "Crear un archivo nuevo"
 
 #: C/anjuta-manual.xml:9(para)
-#, fuzzy
 msgid ""
 "To create a new file, choose <menuchoice><guisubmenu>File</"
 "guisubmenu><guimenuitem>New</guimenuitem></menuchoice> from the menu bar, or "
@@ -554,7 +553,6 @@ msgid "The Open File dialog"
 msgstr "El diálogo Abrir archivo"
 
 #: C/anjuta-manual.xml:28(para)
-#, fuzzy
 msgid ""
 "A wizard can also be used to create a new file. To create a new file, choose "
 "<menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</"
@@ -621,7 +619,6 @@ msgstr ""
 "pueden definir y modificar por el usuario."
 
 #: C/anjuta-manual.xml:69(para)
-#, fuzzy
 msgid ""
 "To insert a macro, move the cursor to the desired place. Select "
 "<menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</"
@@ -657,14 +654,13 @@ msgstr ""
 "Otra posibilidad para insertar un macro es seleecionar "
 "<menuchoice><guisubmenu>Editar</guisubmenu><guisubmenu>Macros</"
 "guisubmenu><guimenuitem>Insertar macro…</guimenuitem></menuchoice>, después "
-"pulsar el atajo de teclado sobre el macro seleccionado. <placeholder-1/>"
+"pulsar el atajo de teclado sobre la macro seleccionado. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:91(title)
 msgid "Defining Macros"
 msgstr "Definir macros"
 
 #: C/anjuta-manual.xml:92(para)
-#, fuzzy
 msgid ""
 "From the Insert Macro window, choose <guibutton>Add</guibutton> or select "
 "<menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</"
@@ -719,16 +715,16 @@ msgid ""
 "These macro keywords start and finish with the character ' @ '."
 msgstr ""
 "Están disponibles las palabras clave para los macros. Pueden integrarse en "
-"la definición del macro. Los nombres de estas palabras clave de los macros "
+"la definición de la macro. Los nombres de estas palabras clave de los macros "
 "comienzan y finalizan con el carácter « @ »."
 
 #: C/anjuta-manual.xml:126(title)
 msgid "Keyword Macro"
-msgstr "Palabra clave del macro"
+msgstr "Palabra clave de la macro"
 
 #: C/anjuta-manual.xml:128(screeninfo)
 msgid "The Keyword macro"
-msgstr "La palabra clave del macro"
+msgstr "La palabra clave de la macro"
 
 #: C/anjuta-manual.xml:122(para)
 msgid ""
@@ -4751,18 +4747,16 @@ msgstr ""
 "depurando. Esta ventana muestra el contenido de toda la memoria."
 
 #: C/anjuta-manual.xml:802(para)
-#, fuzzy
 msgid ""
 "The first column displays memory addresses in hexadecimal, the second "
 "displays memory contents in hexadecimal and the last column shows memory "
 "contents in ASCII."
 msgstr ""
-"Lo primero son las direcciones de memoria en hexadecimal, lo segundo es el "
-"contenido de la memoria en hexadecimal y la última columna es el contenido "
-"de la memoria en ASCII."
+"La primera columna muestra las direcciones de memoria en hexadecimal, la "
+"segunda muestra el contenido de la memoria en hexadecimal y la última "
+"columna muestra el contenido de la memoria en ASCII."
 
 #: C/anjuta-manual.xml:806(para)
-#, fuzzy
 msgid ""
 "The addressing space of even a 32-bit microprocessor is quite large (4 "
 "gigabytes), so it is very difficult to go to a particular address with the "
@@ -4774,7 +4768,7 @@ msgstr ""
 "Hasta el espacio de direccionamiento de un microprocesador de 32 bits es "
 "bastante grande (4 Gigabytes) de tal forma que es bastante difícil ir a una "
 "dirección en particular con la barra de desplazamiento. Pero puede pulsar "
-"con el botón derecho del ratón, obtener un nuevo menú y seleccionar "
+"con el botón derecho del ratón para mostrar un menú contextual y seleccionar "
 "<menuchoice><guimenuitem>Ir a la dirección</guimenuitem></menuchoice> para "
 "obtener una pequeña caja de texto editable donde puede introducir una "
 "dirección en hexadecimal."
@@ -4784,7 +4778,6 @@ msgid "Disassembly window"
 msgstr "Ventaba de desensamblado"
 
 #: C/anjuta-manual.xml:817(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Disassembly </guimenuitem></menuchoice> to open the "
@@ -4796,7 +4789,6 @@ msgstr ""
 "está depurando."
 
 #: C/anjuta-manual.xml:822(para)
-#, fuzzy
 msgid ""
 "The first column displays addresses in hexadecimal. In the second column, "
 "you can have a label starting at the beginning of the line and ending with a "
@@ -4808,7 +4800,6 @@ msgstr ""
 "espacio."
 
 #: C/anjuta-manual.xml:827(para)
-#, fuzzy
 msgid ""
 "Again, as the addressing space is very large, the scrollbar is quite "
 "useless. You can click on the right mouse button to display the context menu "
@@ -4843,7 +4834,6 @@ msgid "Dynamically loaded Libraries"
 msgstr "Bibliotecas cargadas dinámicamente"
 
 #: C/anjuta-manual.xml:849(para)
-#, fuzzy
 msgid ""
 "To obtain a list of the dynamic libraries used by a program, choose the menu "
 "item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Info</"
@@ -4869,7 +4859,6 @@ msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
 #: C/anjuta-manual.xml:870(para)
-#, fuzzy
 msgid ""
 "Kernel signals are a way of signaling between processes in Linux. The list "
 "of signals available for a program can be displayed by choosing the menu "
@@ -4891,7 +4880,6 @@ msgid "Kernel Signals window"
 msgstr "Ventana de señales del núcleo"
 
 #: C/anjuta-manual.xml:886(para)
-#, fuzzy
 msgid ""
 "There are three columns which specify what to do when a signal is received:"
 msgstr ""
@@ -4923,7 +4911,6 @@ msgstr ""
 "al programa."
 
 #: C/anjuta-manual.xml:909(para)
-#, fuzzy
 msgid ""
 "The context menu that is displayed when you click on the right mouse button "
 "has all its items disabled because the corresponding functions are not "
@@ -4931,14 +4918,13 @@ msgid ""
 msgstr ""
 "El menú emergente que se muestra al pulsar con el botón derecho del ratón "
 "tiene todos sus elementos desactivados porque las funciones correspondientes "
-"no están aún implementadas."
+"aún no están implementadas."
 
 #: C/anjuta-manual.xml:918(title)
 msgid "Information about used files"
 msgstr "Información acerca de archivos usados"
 
 #: C/anjuta-manual.xml:919(para)
-#, fuzzy
 msgid ""
 "You can get some information about the files used by the debugged program by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -4949,14 +4935,13 @@ msgstr ""
 "programa depurado, eligiendo el elemento del menú "
 "<menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</"
 "guisubmenu><guimenuitem>Información de archivos objetivo</guimenuitem></"
-"menuchoice>. Se abrirá una ventana mostrando toda la información."
+"menuchoice>. Se abrirá una ventana mostrando esta información."
 
 #: C/anjuta-manual.xml:928(title)
 msgid "Information about debugged program"
 msgstr "Información acerca del programa depurado"
 
 #: C/anjuta-manual.xml:929(para)
-#, fuzzy
 msgid ""
 "You can get some information about the debugged program by choosing the menu "
 "item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</"
@@ -4966,15 +4951,13 @@ msgstr ""
 "Es posible obtener alguna información acerca del programa depurado eligiendo "
 "el elemento del menú <menuchoice><guisubmenu>Depurar</"
 "guisubmenu><guisubmenu>Información</guisubmenu><guimenuitem>Programa</"
-"guimenuitem></menuchoice>. Se abrirá una ventana mostrando toda la "
-"información."
+"guimenuitem></menuchoice>. Se abrirá una ventana mostrando esta información."
 
 #: C/anjuta-manual.xml:938(title)
 msgid "Information about kernel structure"
 msgstr "Información acerca de la estructura del núcleo"
 
 #: C/anjuta-manual.xml:939(para)
-#, fuzzy
 msgid ""
 "You can get some information about kernel data for the current process by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -4985,16 +4968,14 @@ msgstr ""
 "Es posible obtener alguna información de los datos del núcleo acerca de los "
 "procesos actuales eligiendo el elemento del menú "
 "<menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</"
-"guisubmenu><guimenuitem>Información del user struct del núcleo</"
-"guimenuitem></menuchoice>. Se abrirá una ventana mostrando toda la "
-"información."
+"guisubmenu><guimenuitem>User struct del núcleo</guimenuitem></menuchoice>. "
+"Se abrirá una ventana mostrando esta información."
 
 #: C/anjuta-manual.xml:948(title)
 msgid "Information about global variables"
 msgstr "Información acerca de las variables globales"
 
 #: C/anjuta-manual.xml:949(para)
-#, fuzzy
 msgid ""
 "You can list all global variables by choosing the menu item "
 "<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</"
@@ -5003,15 +4984,14 @@ msgid ""
 msgstr ""
 "Es posible listar todas las variables globales eligiendo el elemento del "
 "menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</"
-"guisubmenu><guimenuitem>Info variables globales</guimenuitem></menuchoice>. "
-"Se abrirá una ventana listando todas las variables globales."
+"guisubmenu><guimenuitem>Variables globales</guimenuitem></menuchoice>. Se "
+"abrirá una ventana listando todas las variables globales."
 
 #: C/anjuta-manual.xml:958(title)
 msgid "Information about the current frame"
 msgstr "Información acerca del marco actual"
 
 #: C/anjuta-manual.xml:959(para)
-#, fuzzy
 msgid ""
 "You can obtain information about the currently selected frame by choosing "
 "the menu item <menuchoice><guisubmenu>Debug</"
@@ -5030,7 +5010,6 @@ msgid "Information about the current function arguments"
 msgstr "Información acerca de los argumentos actuales de la función"
 
 #: C/anjuta-manual.xml:969(para)
-#, fuzzy
 msgid ""
 "You can obtain information about the arguments of the current function by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -5163,7 +5142,6 @@ msgstr ""
 "herramientas de Anjuta."
 
 #: C/anjuta-manual.xml:16(para)
-#, fuzzy
 msgid ""
 "Anjuta provides a powerful framework for defining user-defined tools for "
 "extending its functionality. Tools have access to almost all features of the "
@@ -5176,8 +5154,8 @@ msgstr ""
 "acceden a casi todas las características del EID a través del uso de "
 "variables. Puede añadir herramientas bajo cualquier elemento del menú, "
 "entradas específicas, salidas y redirecciones de errores dentro del entorno "
-"de trabajo del IGU así como proporcionar parámetros de la línea de comandos "
-"a la herramienta."
+"de trabajo de la IGU así como proporcionar parámetros de la línea de "
+"comandos a la herramienta."
 
 #: C/anjuta-manual.xml:24(para)
 msgid "The tools plugin has to be enabled to use this feature!"
