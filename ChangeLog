@@ -1,3 +1,22 @@
+2009-01-27  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (enable_view_signals),
+	(on_session_load), (goto_local_tree_iter), (goto_global_tree_iter),
+	(on_treesearch_symbol_selected_event),
+	(on_local_treeview_row_activated),
+	(on_global_treeview_row_activated),
+	(on_global_treeview_row_expanded),
+	(on_global_treeview_row_collapsed), (on_project_element_added),
+	(on_project_element_removed), (on_project_single_file_scan_end),
+	(clear_project_progress_bar),
+	(on_check_offline_single_file_scan_end),
+	(do_import_system_sources_after_abort),
+	(do_import_project_sources_after_abort),
+	(do_import_project_sources), (do_import_system_sources),
+	(do_check_languages_count), (do_check_offline_files_changed),
+	(on_scan_end_manager), (symbol_db_activate):
+	Fixed #568493 – Anjuta freezes after moving around large portions of code.
+
 2009-01-26  Johannes Schmid  <jhs@gnome.org>
 
 	Patch from Pavel Kostyuchenko:
