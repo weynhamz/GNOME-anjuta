@@ -70,4 +70,32 @@ gboolean glade_can_redo(GladePlugin *plugin);
 
 gchar* glade_get_filename(GladePlugin *plugin);
 
+/* GLADE_SIGNAL_EDITOR_EXT means extensible glade signal editor
+ * GLADE_LAYOUT_WIDGET_EVENTS means availability of GladeDesignLayout signal for widget events
+ */
+
+#define GLADE_LAYOUT_WIDGET_EVENTS 1
+#define GLADE_SIGNAL_EDITOR_EXT 1
+
+#ifndef GLADE_SIGNAL_EDITOR_EXT
+enum
+{
+	GSE_COLUMN_SIGNAL,
+	GSE_COLUMN_HANDLER,
+	GSE_COLUMN_AFTER,
+	GSE_COLUMN_USERDATA,
+	GSE_COLUMN_LOOKUP,
+
+	GSE_COLUMN_USERDATA_SLOT,
+	GSE_COLUMN_LOOKUP_VISIBLE,
+	GSE_COLUMN_AFTER_VISIBLE,
+	GSE_COLUMN_HANDLER_EDITABLE,
+	GSE_COLUMN_USERDATA_EDITABLE,
+	GSE_COLUMN_SLOT,
+	GSE_COLUMN_BOLD,
+	GSE_NUM_COLUMNS
+};
+#endif
+
+
 #endif

@@ -2181,6 +2181,68 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
+static gchar *
+iproject_manager_get_selected_id (IAnjutaProjectManager *project_manager,
+								  IAnjutaProjectManagerElementType element_type,
+								  GError **err)
+{
+	GbfTreeData *data;
+	ProjectManagerPlugin *plugin;
+	gchar *id = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+
+	if (element_type == IANJUTA_PROJECT_MANAGER_UNKNOWN ||
+		element_type == IANJUTA_PROJECT_MANAGER_SOURCE)
+	{
+		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+		                                       GBF_TREE_NODE_TARGET_SOURCE);
+		if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
+			id = g_strdup (data->id);
+
+		if (data)
+			gbf_tree_data_free (data);
+
+		if (id)
+			return id;
+	}
+
+	if (element_type == IANJUTA_PROJECT_MANAGER_UNKNOWN ||
+		element_type == IANJUTA_PROJECT_MANAGER_TARGET)
+	{
+		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+											   GBF_TREE_NODE_TARGET);
+		if (data && data->type == GBF_TREE_NODE_TARGET)
+			id = g_strdup (data->id);
+		
+		if (data)
+			gbf_tree_data_free (data);
+
+		if (id)
+			return id;
+	}
+
+	if (element_type == IANJUTA_PROJECT_MANAGER_UNKNOWN ||
+		element_type == IANJUTA_PROJECT_MANAGER_GROUP)
+	{
+		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+											   GBF_TREE_NODE_GROUP);
+		if (data && data->type == GBF_TREE_NODE_GROUP)
+			id = g_strdup (data->id);
+
+		if (data)
+			gbf_tree_data_free (data);
+
+		if (id)
+			return id;
+	}
+
+	return id;
+}
+
 static IAnjutaProjectManagerCapabilities
 iproject_manager_get_capabilities (IAnjutaProjectManager *project_manager,
 								   GError **err)
@@ -2250,6 +2312,30 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	g_free(source_id);
 	
 	return source_uri;
+}
+
+static gchar*
+iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
+								   const gchar *source_uri_to_add,
+								   const gchar *location_uri,
+								   GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	gchar* source_id;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
+
+	update_operation_begin (plugin);
+	source_id = gbf_project_add_source (plugin->project,
+										source_uri_to_add,
+										location_uri,
+										err);
+	update_operation_end (plugin, TRUE);
+	
+	return source_id;
 }
 
 static GList*
@@ -2422,8 +2508,10 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_parent = iproject_manager_get_parent;
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
+	iface->get_selected_id = iproject_manager_get_selected_id;
 	iface->get_capabilities = iproject_manager_get_capabilities;
 	iface->add_source = iproject_manager_add_source;
+	iface->add_source_quiet = iproject_manager_add_source_quiet;
 	iface->add_sources = iproject_manager_add_source_multi;
 	iface->add_target = iproject_manager_add_target;
 	iface->add_group = iproject_manager_add_group;

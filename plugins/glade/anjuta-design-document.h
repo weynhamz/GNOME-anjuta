@@ -2,19 +2,19 @@
 /*
  * anjuta
  * Copyright (C) Johannes Schmid 2007 <jhs@gnome.org>
- * 
+ *
  * anjuta is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * anjuta is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with anjuta.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -44,18 +44,27 @@ typedef struct _AnjutaDesignDocumentPrivate AnjutaDesignDocumentPrivate;
 
 struct _AnjutaDesignDocumentClass
 {
-	GladeDesignViewClass parent_class;
+	GtkAlignmentClass parent_class;
 };
 
 struct _AnjutaDesignDocument
 {
-	GladeDesignView parent_instance;
+	GtkAlignment parent_instance;
 	gboolean is_project_added;
 };
 
 GType anjuta_design_document_get_type (void) G_GNUC_CONST;
-GtkWidget* 
-anjuta_design_document_new (GladePlugin* glade_plugin, GladeProject* project);
+GtkWidget*
+anjuta_design_document_new (GladePlugin* glade_plugin,
+                            GladeDesignView *design_view,
+                            GtkContainer *design_view_parent);
+GladeDesignView *
+anjuta_design_document_get_design_view (AnjutaDesignDocument *self);
+void
+anjuta_design_document_set_design_view (AnjutaDesignDocument *self, GladeDesignView *value);
+void
+anjuta_design_document_set_design_view_parent (AnjutaDesignDocument* self,
+                                               GtkContainer *container);
 
 G_END_DECLS
 

@@ -7,7 +7,7 @@ Interfaces=IAnjutaFile,IAnjutaWizard
 UserActivatable=no
 
 [File Loader]
-SupportedMimeTypes=application/x-glade
+SupportedMimeTypes=application/x-glade,application/x-designer
 
 [Wizard]
 _Title=Glade File

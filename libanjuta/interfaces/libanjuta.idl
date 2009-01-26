@@ -3065,6 +3065,16 @@ interface IAnjutaProjectManager
 	gchar* get_selected ();
 	
 	/**
+	* ianjuta_project_manager_get_selected:
+	* @obj: Self
+	* @element_type: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	gchar* get_selected_id (ElementType element_type);
+	
+	/**
 	* ianjuta_project_manager_get_capabilities:
 	* @obj: Self
 	* @err: Error propagation and reporting.
@@ -3089,6 +3099,19 @@ interface IAnjutaProjectManager
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
 	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+
+	/**
+	* ianjuta_project_manager_add_source_quiet:
+	* @obj: Self
+	* @source_uri_to_add: fixme
+	* @target_id: fixme
+	* @err: Error propagation and reporting.
+	*
+	* Add a file to the project without prompting the user.
+	*
+	* Returns: element ID. Must be freed when no longer required.
+	*/
+	gchar* add_source_quiet (const gchar *source_uri_to_add, const gchar *target_id);
 	
 	/**
 	* ianjuta_project_manager_add_sources:

@@ -1,23 +1,40 @@
 <!--*- xml -*-->
-<ui>
-	<menubar name="MenuMain">
-		<placeholder name="PlaceHolderDesignerMenus">
-			<menu name="Goto" action="ActionMenuGlade">
-					<menuitem name="Undo" action="ActionGladeUndo" />
-					<menuitem name="Redo" action="ActionGladeRedo" />
-					<separator name="separator1"/>
-					<menuitem name="Cut" action="ActionGladeCut" />
-					<menuitem name="Copy" action="ActionGladeCopy" />
-					<menuitem name="Paste" action="ActionGladePaste" />
-					<menuitem name="Delete" action="ActionGladeDelete" />
-					<separator name="separator2"/>
-					<menuitem name="ShowClipboard" action="ActionGladeShowClipboard" />
-					<separator name="separator3"/>
-					<menuitem name="Save" action="ActionGladeSave" />
-					<menuitem name="SaveAs" action="ActionGladeSaveAs" />
-					<separator name="separator4"/>
-					<menuitem name="Close" action="ActionGladeClose" />
+ <ui>
+ 	<menubar name="MenuMain">
+ 		<placeholder name="PlaceHolderDesignerMenus">
+			<menu name="MenuGlade" action="ActionMenuGlade">
+				<menuitem name="SwitchDesigner" action="ActionGladeSwitchDesigner" />
+				<menuitem name="AssociateDnE" action="ActionAssociateDesignerAndEditor" />
+				<menuitem name="InsertAutoHandlerStub" action="ActionInsertAutoHandlerStub" />
+				<menuitem name="AssociationsDialog" action="ActionGladeAssociationsDialog" />
+				<menuitem name="VersionDialog" action="ActionVersionDialog" />
+				<!--menuitem name="PreviewMode" action="ActionPreviewMode" /-->
+				<!--menuitem name="VerifyProject" action="ActionVerifyProject" /-->
 			</menu>
 		</placeholder>
 	</menubar>
+	<popup name="PopupDocumentManager">
+		<separator />
+		<menuitem name="InsertHandlerStub" action="ActionInsertHandlerStub" />
+	</popup>
+	<popup name="PopupProjectManager">
+		<separator />
+		<menuitem name="SetDefaultTarget" action="ActionSetDefaultTarget" />
+	</popup>
+	<toolbar name='GladeDesignLayoutToolBar'>
+		<toolitem action='Close' action='ActionGladeClose'/>
+		<separator/>
+		<toolitem action='Save' action='ActionGladeSave'/>
+		<separator/>
+		<toolitem action='VersionDialog' action='ActionVersionDialog'/>
+		<!--separator/-->
+		<!--toolitem action='Undo' action='ActionGladeUndo'/-->
+		<!--toolitem action='Redo' action='ActionGladeRedo'/-->
+		<separator/>
+		<toolitem action='Cut' action='ActionGladeCut'/>
+		<toolitem action='Copy' action='ActionGladeCopy'/>
+		<toolitem action='Paste' action='ActionGladePaste'/>
+		<separator/>
+		<toolitem action='Delete' action='ActionGladeDelete'/>
+	</toolbar>
 </ui>

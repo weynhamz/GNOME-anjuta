@@ -1,3 +1,140 @@
+2009-01-26  Johannes Schmid  <jhs@gnome.org>
+
+	Patch from Pavel Kostyuchenko:
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/glade/Makefile.am:
+	* plugins/glade/anjuta-design-document.c
+	(anjuta_design_document_set_design_view_parent),
+	(anjuta_design_document_design_view_destroy_cb),
+	(anjuta_design_document_design_view_parent_set_cb),
+	(anjuta_design_document_set_design_view),
+	(anjuta_design_document_get_design_view),
+	(anjuta_design_document_set_property),
+	(anjuta_design_document_get_property),
+	(anjuta_design_document_parent_set_cb),
+	(anjuta_design_document_constructed),
+	(anjuta_design_document_dispose),
+	(anjuta_design_document_class_init), (anjuta_design_document_new),
+	(ifile_get_file):
+	* plugins/glade/anjuta-design-document.h:
+	* plugins/glade/anjuta-glade.plugin.in:
+	* plugins/glade/anjuta-glade.ui:
+	* plugins/glade/plugin.c (plugin_glade_error_quark),
+	(designer_associations_raise_editor_priority),
+	(designer_associations_raise_designer_priority),
+	(value_added_current_editor), (value_removed_current_editor),
+	(value_added_project_root_uri), (value_removed_project_root_uri),
+	(value_added_pm_current_uri), (value_removed_pm_current_uri),
+	(update_current_project), (glade_update_ui),
+	(get_page_num_for_design_view), (on_document_destroy),
+	(on_shell_destroy), (get_design_document_from_project),
+	(get_project_from_design_document), (on_glade_project_changed),
+	(switch_back_to_editor), (on_designer_notebook_enter_notify),
+	(on_designer_layout_switch_page),
+	(on_designer_layout_page_child_remove), (designer_layout_add_doc),
+	(desinger_layout_add_all_docs), (designer_layout_remove_doc),
+	(desinger_layout_remove_all_docs),
+	(update_separated_designer_layout),
+	(glade_plugin_save_preferences),
+	(glade_plugin_do_save_associations),
+	(glade_plugin_save_associations), (update_actions),
+	(claim_xml_string), (glade_plugin_load_preferences),
+	(glade_plugin_load_associations), (glade_plugin_save_doc_list),
+	(on_session_save), (on_session_load),
+	(inspector_item_activated_cb), (on_glade_resource_removed),
+	(on_glade_resource_added), (find_root_gwidget),
+	(get_uri_from_ianjuta_file), (insert_code_block_into_editor),
+	(format_handler_stub), (validate_position),
+	(do_insert_handler_stub_C), (do_insert_handler_stub_Python),
+	(do_insert_handler_stub_Vala), (find_auto_position),
+	(find_editor_by_file), (find_designer_by_file),
+	(designer_associations_match_editor),
+	(designer_associations_match_designer), (dump_items_list),
+	(get_associated_items_for_designer),
+	(get_associated_items_for_editor), (find_valid_editor),
+	(find_valid_designer), (get_associated_editor_for_doc),
+	(gse_get_signal_name), (get_auto_position), (forget_last_signal),
+	(validate_last_signal), (glade_plugin_fetch_last_signal),
+	(language_name_to_id), (insert_handler_stub_auto),
+	(on_insert_handler_stub_auto), (insert_handler_stub_manual),
+	(on_insert_handler_stub_manual), (goto_symbol),
+	(on_handler_editing_done), (switch_designer_and_editor),
+	(on_switch_designer_and_editor), (associate_designer_and_editor),
+	(on_associate_designer_and_editor), (glade_plugin_get_glade_xml),
+	(gtk_tree_selection_get_one_selected),
+	(associations_dialog_mark_all_fields_as_unchanged),
+	(associations_dialog_load_all_field),
+	(associations_dialog_clear_all_field),
+	(associations_dialog_update_options_editor),
+	(fill_position_type_combobox_model),
+	(associations_dialog_update_model),
+	(associations_dialog_update_row), (get_string_from_entry),
+	(associations_dialog_commit_all_fields),
+	(associations_dialog_options_save_cb),
+	(associations_dialog_options_revert_cb),
+	(associations_dialog_mark_field_as_changed),
+	(associations_dialog_spec_regexp_changed),
+	(associations_dialog_widget_name_changed),
+	(associations_dialog_spec_regexp_toggled),
+	(associations_dialog_widget_name_toggled),
+	(associations_dialog_position_type_changed_cb),
+	(associations_dialog_button_delete_cb),
+	(glade_plugin_hide_associations_dialog),
+	(associations_dialog_button_close_cb),
+	(associations_dialog_button_save_cb),
+	(associations_dialog_delete_event_cb),
+	(associations_dialog_selection_changed),
+	(associations_dialog_insert_text_column),
+	(show_associations_dialog), (on_show_associations_dialog),
+	(on_associations_changed), (doc_list_changed),
+	(associations_dialog_button_associate_cb), (gse_editing_started),
+	(handler_store_update), (append_symbols_to_store),
+	(on_handler_editing_started), (make_default_handler_name),
+	(on_signal_row_activated), (search_for_default_signal),
+	(glade_widget_adaptor_get_default_signal),
+	(on_glade_widget_2button_press), (on_glade_designer_widget_event),
+	(on_glade_designer_widget_event_after),
+	(on_designer_doc_save_point), (glade_plugin_add_project),
+	(set_default_resource_target), (on_set_default_resource_target),
+	(on_glade_verify_project), (on_glade_show_version_dialog),
+	(glade_plugin_sync_current_doc_with_project),
+	(on_glade_layout_close), (on_glade_layout_save),
+	(on_glade_layout_undo), (on_glade_layout_redo),
+	(on_glade_layout_cut), (on_glade_layout_copy),
+	(on_glade_layout_paste), (on_glade_layout_delete),
+	(create_toolbar), (on_gse_week_ref), (on_gse_selection_changed),
+	(on_gse_focus_in), (on_gse_signal_data_free), (on_gse_created),
+	(on_gse_created_after), (disconnect_glade_signal_editors),
+	(activate_plugin), (glade_close_all), (deactivate_plugin),
+	(ifile_open), (iwizard_activate),
+	(on_set_default_data_signal_template0),
+	(on_set_default_data_signal_template1),
+	(on_insert_handler_on_edit_toggled),
+	(on_auto_add_resource_toggled),
+	(on_separated_designer_layout_toggled),
+	(on_insert_handler_on_edit_changed),
+	(on_auto_add_resource_changed),
+	(on_default_handler_template_changed),
+	(on_separated_designer_layout_changed), (update_prefs_page),
+	(remove_widget_from_parent), (glade_plugin_preferences_add_page),
+	(on_preferences_default_resource_entry_focus_out),
+	(on_preferences_default_resource_entry_activate),
+	(on_default_resource_target_changed), (ipreferences_merge),
+	(ipreferences_unmerge), (ipreferences_iface_init):
+	* plugins/glade/plugin.h:
+	* plugins/project-manager/plugin.c
+	(iproject_manager_get_selected_id),
+	(iproject_manager_add_source_quiet), (iproject_manager_iface_init):
+	#542412 GSoc: Glade3 integration
+
+	* configure.in:
+	Print correct message when enabling/disabling scintilla plugin
+	Bumped glade3 requirement to 3.5.6
+	
+	* plugins/gtodo/tray-icon.c:
+	* plugins/gtodo/tray-icon.h:
+	Removed unnecessary files
+
 2009-01-25  Jens Georg  <jens@einstein>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>
