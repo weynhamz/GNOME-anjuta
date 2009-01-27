@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-01-21 20:45+0000\n"
-"PO-Revision-Date: 2009-01-25 12:03+0100\n"
+"POT-Creation-Date: 2009-01-25 11:04+0000\n"
+"PO-Revision-Date: 2009-01-27 20:52+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -780,7 +780,6 @@ msgid "The Open File dialog in multiple-select mode"
 msgstr "El diálogo Abrir archivo en el modo de múltiple selección"
 
 #: C/anjuta-manual.xml:173(para)
-#, fuzzy
 msgid ""
 "You can enable the <emphasis>Show Hidden Files</emphasis> option through the "
 "pop-up menu that appears when you right-click in the Open File dialog. This "
@@ -790,14 +789,14 @@ msgid ""
 "the dialog and the file list will be limited to the files of the selected "
 "type only."
 msgstr ""
-"Si la opción <emphasis>mostrar archivos ocultos</emphasis> está seleccionada "
-"(pulse con el botón derecho), hará que los archivos ocultos (archivos cuyo "
-"nombre comienza por «.») sean visibles en la lista de archivos. Pulse de "
-"nuevo para ocultarlos. El diálogo de selección de archivo de "
-"<application>Anjuta</application> también tiene un filtro para tipos de "
-"archivo incluido. Seleccione el filtro de tipo de archivo apropiado en el "
-"diálogo y la lista de archivos se limitará a los archivos del tipo "
-"seleccionado."
+"Puede activar la opción <emphasis>Mostrar archivos ocultos</emphasis> a "
+"través del menú emergente que aparece al pulsar con el botón derecho en el "
+"diálogo Abrir archivo. Esta opción hará que los archivos ocultos (archivos "
+"que comienzan por «.») sean visibles en la lista de archivos. Pulse de nuevo "
+"para ocultarlos. El diálogo de selección de archivo de <application>Anjuta</"
+"application> también tiene un filtro para tipos de archivo incluido. "
+"Seleccione el filtro de tipo de archivo apropiado en el diálogo y la lista "
+"de archivos se limitará a los archivos del tipo seleccionado."
 
 #: C/anjuta-manual.xml:194(screeninfo)
 msgid "The Save As File"
@@ -830,7 +829,6 @@ msgid "File autosave"
 msgstr "Autoguardar archivos"
 
 #: C/anjuta-manual.xml:200(para)
-#, fuzzy
 msgid ""
 "If you have enabled autosave, Anjuta will not autosave any new files. You "
 "must first save them manually. The same applies to the <guimenuitem>Save "
@@ -838,11 +836,11 @@ msgid ""
 "saved them first manually. <emphasis>You must save a file manually before "
 "autosave or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>"
 msgstr ""
-"Si ha habilitado el autoguardado, no guardará ningún archivo nuevo. Primero "
-"debe guardarlos manualmente. Lo mismo se aplica a la opción "
-"<guimenuitem>Guardar todos</guimenuitem>: no guardará ningún archivo nuevo "
-"si no los ha guardado antes manualmente. <emphasis>Debe guardar un archivo "
-"manualmente para que el autoguardado o <guimenuitem>Guardar todos</"
+"Si ha habilitado el autoguardado, Anjuta no guardará ningún archivo nuevo. "
+"Primero debe guardarlos manualmente. Lo mismo se aplica a la opción "
+"<guimenuitem>Guardar todos</guimenuitem>: Anjuta no guardará ningún archivo "
+"nuevo si no los ha guardado antes manualmente. <emphasis>Debe guardar un "
+"archivo manualmente para que el autoguardado o <guimenuitem>Guardar todos</"
 "guimenuitem> funcionen con ellos.</emphasis>"
 
 #: C/anjuta-manual.xml:211(para)
@@ -867,7 +865,6 @@ msgid "File save as overwrite"
 msgstr "Sobreescribir archivo al guardar"
 
 #: C/anjuta-manual.xml:220(para)
-#, fuzzy
 msgid ""
 "When you use <guimenuitem>Save As</guimenuitem> with an existing file, the "
 "original is not deleted. It is left unchanged since the last save. If a file "
@@ -1280,7 +1277,6 @@ msgstr ""
 "guibutton> para comenzar la búsqueda."
 
 #: C/anjuta-manual.xml:451(para)
-#, fuzzy
 msgid ""
 "If the search is successful, Anjuta will jump to the matched text or perform "
 "another action (according to the <guilabel>Search Action</guilabel> you "
@@ -1290,9 +1286,9 @@ msgid ""
 msgstr ""
 "Si la búsqueda es satisfactoria, Anjuta saltará al texto coincidente o "
 "realizará otra acción (dependiendo de la <guilabel>Acción de búsqueda</"
-"guilabel> que elija en la solapa <guilabel></guilabel>). Si la búsqueda no "
-"es satisfactoria, Anjuta mostrará un mensaje indicando que no se encontró el "
-"texto de búsqueda."
+"guilabel> que elija en la solapa <guilabel>Buscar objetivo</guilabel>). Si "
+"la búsqueda no es satisfactoria, Anjuta mostrará un mensaje indicando que no "
+"se encontró el texto de búsqueda."
 
 #: C/anjuta-manual.xml:456(para)
 #, fuzzy
@@ -1377,16 +1373,14 @@ msgstr ""
 "para comenzar la búsqueda."
 
 #: C/anjuta-manual.xml:509(para)
-#, fuzzy
 msgid ""
 "To find text in a set of files, set <guilabel>Search In</guilabel> to "
 "Specify File Patterns. Define the search variables. Click <guibutton>Search</"
 "guibutton> to start searching."
 msgstr ""
-"Para buscar texto en la lista de archivos, seleccione «Buscar en» "
-"<menuchoice><guimenu>Especificar la lista de archivos</guimenu></"
-"menuchoice>. Defina las variables de búsqueda. Pulse <guibutton>Buscar</"
-"guibutton> para comenzar la búsqueda."
+"Para buscar texto en un conjunto de archivos, establezca <guilabel>Buscar "
+"en</guilabel> para especificar patrones de archivos. Defina las variables de "
+"búsqueda. Pulse <guibutton>Buscar</guibutton> para comenzar la búsqueda."
 
 #: C/anjuta-manual.xml:515(title)
 msgid "Search File Pattern"
@@ -4565,7 +4559,6 @@ msgstr ""
 "de funciones se haga mayor."
 
 #: C/anjuta-manual.xml:698(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View </"
 "guisubmenu><guimenuitem>Stack</guimenuitem></menuchoice> to open the stack "
@@ -4580,7 +4573,6 @@ msgid "Stack trace window"
 msgstr "Ventana de la traza de la pila"
 
 #: C/anjuta-manual.xml:712(para)
-#, fuzzy
 msgid ""
 "A small arrow points to the currently selected frame in the stack trace. By "
 "default, this will be frame 0, the last function called. All evaluation and "
@@ -4601,7 +4593,6 @@ msgid "Setting the current frame"
 msgstr "Establecer el marco actual"
 
 #: C/anjuta-manual.xml:723(para)
-#, fuzzy
 msgid ""
 "Double-clicking on any frame in the stack trace sets that frame as the "
 "currently selected frame. The arrow will point to the frame, indicating that "
@@ -4619,16 +4610,15 @@ msgstr ""
 "marco actual</guimenuitem> para establecer el marco."
 
 #: C/anjuta-manual.xml:731(para)
-#, fuzzy
 msgid ""
 "Changing the stack frame changes the <interface>Locals window</interface> "
 "content, but not the <interface>Watches window</interface> as each "
 "expression is evaluated in the frame used when it was defined."
 msgstr ""
 "Cambiar el marco de la pila cambia el contenido de la <interface>ventana de "
-"lista de locales</interface> pero no la <interface>ventana de vigilancia de "
-"expresión</interface> ya que cada expresión se evalúa en el marco usado "
-"cuando se definió."
+"lista de locales</interface> pero no la <interface>ventana de vigilancias</"
+"interface> ya que cada expresión se evalúa en el marco usado cuando se "
+"definió."
 
 #: C/anjuta-manual.xml:741(title)
 msgid "Thread"
@@ -4639,20 +4629,18 @@ msgid "Thread Window"
 msgstr "Ventana de hilos"
 
 #: C/anjuta-manual.xml:745(para)
-#, fuzzy
 msgid ""
 "The <interface>Thread window</interface> shows all threads used by the "
 "program and indicates the current thread. Choose the menu item "
 "<menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Thread</guimenuitem></"
 "menuchoice> to open this window."
 msgstr ""
-"La <interface>ventana de hilos</interface> muestra todos los hilos usados "
-"por el programa y muestra el hilo actual. Para abrir esta ventana elija el "
+"La <interface>Ventana de hilos</interface> muestra todos los hilos usados "
+"por el programa e indica el hilo actual. Para abrir esta ventana elija el "
 "elemento del menú <menuchoice><guisubmenu>Ver</guisubmenu><guimenuitem>Hilo</"
 "guimenuitem></menuchoice>."
 
 #: C/anjuta-manual.xml:750(para)
-#, fuzzy
 msgid ""
 "A small arrow points to the current thread. When the program is stopped, the "
 "current thread is the thread which has been interrupted. Each thread has its "
@@ -4669,7 +4657,6 @@ msgid "Setting the current thread"
 msgstr "Establecer el hilo actual"
 
 #: C/anjuta-manual.xml:760(para)
-#, fuzzy
 msgid ""
 "Double-clicking on any thread in the thread list will set that thread as the "
 "currently selected thread. The arrow will point to the thread, indicating "
@@ -4683,8 +4670,8 @@ msgstr ""
 "indicando que se ha seleccionado como el hilo actual). Alternativamente, "
 "abra el <interface>menú de operaciones</interface> pulsando con el botón "
 "derecho sobre la <interface>ventana de la lista de hilos</interface> y elija "
-"el elemento del menú <guimenuitem>Establecer hilo</guimenuitem> para "
-"establecer el hilo."
+"el elemento del menú <guimenuitem>Establecer el hilo actual</guimenuitem> "
+"para establecer el hilo."
 
 #: C/anjuta-manual.xml:768(para)
 msgid ""
@@ -4704,7 +4691,6 @@ msgid "Register window"
 msgstr "Ventana de registros"
 
 #: C/anjuta-manual.xml:781(para)
-#, fuzzy
 msgid ""
 "It is possible to examine the contents of the internal registers of the CPU "
 "(microprocessor). Choose the menu item <menuchoice><guisubmenu>View</"
@@ -4719,7 +4705,6 @@ msgstr ""
 "correspondiente contenido."
 
 #: C/anjuta-manual.xml:788(para)
-#, fuzzy
 msgid ""
 "If any register value was changed in the last debugging step, its value will "
 "be highlighted in red. It is possible to change one register value by "
@@ -4727,14 +4712,13 @@ msgid ""
 msgstr ""
 "Si cualquier valor de un registro se cambió en el último paso de depuración, "
 "su valor se resaltará en rojo. Es posible cambiar el valor de un registro "
-"seleccionándolo y pulsando en la columna de valor."
+"seleccionándolo y pulsando en la columna </guilabel>valor<guilabel>."
 
 #: C/anjuta-manual.xml:796(title)
 msgid "Memory window"
 msgstr "Ventana de memoria"
 
 #: C/anjuta-manual.xml:797(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Memory </guimenuitem></menuchoice> to open the "
