@@ -29,6 +29,7 @@ typedef struct _AnFileHistory
 {
 	GList *items;
 	GList *current;
+	gboolean history_move;
 } AnFileHistory;
 
 static AnFileHistory *s_history = NULL;
@@ -38,15 +39,17 @@ static void an_file_history_init()
 	s_history = g_new(AnFileHistory, 1);
 	s_history->items = NULL;
 	s_history->current = NULL;
+	s_history->history_move = FALSE;
 }
 
-AnHistFile *an_hist_file_new (const gchar *uri, gint line)
+AnHistFile *an_hist_file_new (GFile *file, gint line)
 {
 	AnHistFile *h_file;
 
-	g_return_val_if_fail(uri, NULL);
+	g_return_val_if_fail(file, NULL);
+	
 	h_file= g_new(AnHistFile, 1);
-	h_file->uri = g_strdup(uri);
+	h_file->file = g_object_ref (file);
 	h_file->line = line;
 	return h_file;
 }
@@ -54,7 +57,7 @@ AnHistFile *an_hist_file_new (const gchar *uri, gint line)
 void an_hist_file_free(AnHistFile *h_file)
 {
 	g_return_if_fail(h_file);
-	g_free(h_file->uri);
+	g_object_unref (h_file->file);
 	g_free(h_file);
 }
 
@@ -77,33 +80,38 @@ void an_file_history_reset(void)
 	s_history->current = NULL;
 }
 
-void an_file_history_push (const gchar *uri, gint line)
+void an_file_history_push (GFile *file, gint line)
 {
 	AnHistFile *h_file;
 
-	g_return_if_fail (uri);
+	g_return_if_fail (file);
+
 	if (!s_history)
 		an_file_history_init();
+	
 	if (s_history->current)
 	{
-		AnHistFile *current = (AnHistFile *) s_history->current->data;
-		if (strcmp(uri, current->uri) == 0 &&
-			(current->line < 1 || line == current->line))
+		GList *next;
+		
+		/* Only update line number when called by forward/backward */
+		if (s_history->history_move)
 		{
-			current->line = line;
+			AnHistFile *h_file = (AnHistFile *) s_history->current->data;
+			
+			if (g_file_equal (file,h_file->file))
+			{
+				h_file->line = line;
+			}
 			return;
 		}
-		if (s_history->current != s_history->items)
-		{
-			GList *tmp = s_history->current->prev;
-			if (tmp)
-			{
-				tmp->next = NULL;
-				an_hist_items_free(s_history->items);
-			}
-			s_history->items = s_history->current;
-			s_history->current->prev = NULL;
-		}
+				
+		next = s_history->current->next;
+		s_history->current->next = NULL;
+		an_hist_items_free(s_history->items);
+			
+		s_history->items = next;			
+		if (next) next->prev = NULL;
+		s_history->current = NULL;
 		if (g_list_length(s_history->items) > MAX_ENTRIES)
 		{
 			GList *tmp = g_list_nth(s_history->items, OPT_ENTRIES);
@@ -111,41 +119,47 @@ void an_file_history_push (const gchar *uri, gint line)
 			tmp->next = NULL;
 		}
 	}
-	h_file = an_hist_file_new(uri, line);
+	h_file = an_hist_file_new(file, line);
 	s_history->items = g_list_prepend(s_history->items, h_file);
-	s_history->current = s_history->items;
+	s_history->current = NULL;
 }
 
 void an_file_history_back(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
-	GFile* file;
+	GList *current;
 
-	if (!(s_history && s_history->current && s_history->current->next))
+	if (!(s_history && (!s_history->current || s_history->current->next)))
 		return;
 
-	s_history->current = s_history->current->next;
-	h_file = (AnHistFile *) s_history->current->data;
-	file = g_file_new_for_uri (h_file->uri);
-	anjuta_docman_goto_file_line_mark (docman, file,
+	current = s_history->current ? s_history->current->next : s_history->items;
+	h_file = (AnHistFile *) current->data;
+	
+	s_history->history_move = TRUE;
+	anjuta_docman_goto_file_line_mark (docman, h_file->file,
 									   h_file->line, FALSE);
-	g_object_unref (file);
+	s_history->history_move = FALSE;
+	
+	s_history->current = current;
 }
 
 void an_file_history_forward(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
-	GFile* file;
+	GList *current;
 
 	if (!(s_history && s_history->current && s_history->current->prev))
 		return;
 	
-	s_history->current = s_history->current->prev;
-	h_file = (AnHistFile *) s_history->current->data;
-	file = g_file_new_for_uri (h_file->uri);
-	anjuta_docman_goto_file_line_mark(docman, file,
+	current = s_history->current->prev;
+	h_file = (AnHistFile *) current->data;
+	
+	s_history->history_move = TRUE;
+	anjuta_docman_goto_file_line_mark(docman, h_file->file,
 									  h_file->line, FALSE);
-	g_object_unref (file);
+	s_history->history_move = FALSE;
+	
+	s_history->current = current;
 }
 
 void an_file_history_dump(void)
@@ -157,8 +171,11 @@ void an_file_history_dump(void)
 	fprintf(stderr, "--------------------------\n");
 	for (tmp = s_history->items; tmp; tmp = g_list_next(tmp))
 	{
+		gchar *uri;
 		h_file = (AnHistFile *) tmp->data;
-		fprintf(stderr, "%s:%d", h_file->uri, h_file->line);
+		uri = g_file_get_uri (h_file->file);
+		fprintf(stderr, "%s:%d", uri, h_file->line);
+		g_free (uri);
 		if (tmp == s_history->current)
 			fprintf(stderr, " (*)");
 		fprintf(stderr, "\n");

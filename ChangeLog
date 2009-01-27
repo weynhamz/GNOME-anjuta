@@ -1,3 +1,11 @@
+2009-01-27  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/file_history.c,
+	plugins/document-manager/file_history.h,
+	plugins/document-manager/anjuta-docman.c:
+	Fix #357820 – Goto / Previous history should return to previous cursor
+	position
+
 2009-01-27  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	* plugins/glade/anjuta-design-document.c

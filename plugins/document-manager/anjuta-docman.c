@@ -1269,12 +1269,32 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 {	
 	IAnjutaDocument *doc;
 	IAnjutaEditor *te;
+	AnjutaDocmanPage *page;
 
 	g_return_val_if_fail (file != NULL, NULL);
 	
 	if (!g_file_query_exists (file, NULL))
 	{
 		return NULL;
+	}
+
+	/* Save current uri and line in document history list */
+	page = anjuta_docman_get_current_page (docman);
+	if (page && page->doc && IANJUTA_IS_FILE (page->doc))
+	{
+		GFile* file = ianjuta_file_get_file (IANJUTA_FILE (page->doc), NULL);
+		
+		if (file)
+		{
+			gint line = 0;
+			
+			if (IANJUTA_IS_EDITOR (page->doc))
+			{
+				line = ianjuta_editor_get_lineno (IANJUTA_EDITOR (page->doc), NULL);
+			}
+		
+			an_file_history_push (file, line);
+		}
 	}
 	
 	/* if possible, use a document that's already open */
@@ -1296,11 +1316,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 
 	if (te != NULL)	
 	{
-		GFile *te_file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
-		gchar* te_uri = g_file_get_uri (te_file);
-		an_file_history_push (te_uri, line);
-		g_free (te_uri);
-
 		if (line >= 0)
 		{
 			ianjuta_editor_goto_line (te, line, NULL);
