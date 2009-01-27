@@ -81,8 +81,8 @@ anjuta_design_document_set_design_view_parent (AnjutaDesignDocument* self,
 		gtk_container_remove (priv->design_view_parent,
 		                      GTK_WIDGET (priv->design_view));
 	}
-	DEBUG_PRINT (container ? "Setting the new container for design view" :
-	                         "Unsetting the container for design view");
+	DEBUG_PRINT ("%s", container ? "Setting the new container for design view" :
+	             "Unsetting the container for design view");
 	if (container)
 	{
 		gtk_container_add (container,

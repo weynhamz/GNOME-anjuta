@@ -1,3 +1,9 @@
+2009-01-27  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	* plugins/glade/anjuta-design-document.c
+	(anjuta_design_document_set_design_view_parent):
+	#569225 – glade-plugin build error
+
 2009-01-27  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (enable_view_signals),
