@@ -445,24 +445,19 @@ sdb_view_search_sort_iter_compare_func (GtkTreeModel *model, GtkTreeIter  *a,
 static void
 sdb_view_search_init (SymbolDBViewSearch * search)
 {
-
 	SymbolDBViewSearchPriv *priv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkWidget *frame, *list_sw;
-
 	
 	/* allocate space for a SymbolDBViewSearchPriv class. */
 	priv = g_new0 (SymbolDBViewSearchPriv, 1);
 	search->priv = priv;
 
 	priv->idle_complete = 0;
-	priv->idle_filter = 0;
-	
+	priv->idle_filter = 0;	
 	priv->completion = g_completion_new (NULL);
-
 	priv->hitlist = gtk_tree_view_new ();
-
 	
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
 				    G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT));
@@ -699,3 +694,13 @@ symbol_db_view_search_new (SymbolDBEngine *dbe)
 	return GTK_WIDGET (search);
 }
 
+GtkEntry *
+symbol_db_view_search_get_entry (SymbolDBViewSearch *search)
+{
+	SymbolDBViewSearchPriv *priv;
+	priv = search->priv;
+
+	g_return_val_if_fail (search != NULL, NULL);
+	
+	return GTK_ENTRY (priv->entry);
+}

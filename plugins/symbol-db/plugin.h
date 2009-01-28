@@ -61,6 +61,7 @@ struct _SymbolDBPlugin {
 	
 	/* ui merge */
 	GtkActionGroup *popup_action_group;
+	GtkActionGroup *menu_action_group;	
 	gint merge_id;
 	
 	/* editor monitor */

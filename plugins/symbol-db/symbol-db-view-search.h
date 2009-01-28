@@ -67,6 +67,8 @@ symbol_db_view_search_clear (SymbolDBViewSearch *search);
 GtkWidget *
 symbol_db_view_search_new (SymbolDBEngine *dbe);
 
+GtkEntry *
+symbol_db_view_search_get_entry (SymbolDBViewSearch *search);
 
 G_END_DECLS
 

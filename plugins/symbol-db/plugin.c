@@ -23,6 +23,7 @@
  */
 
 
+
 #include <config.h>
 #include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
@@ -269,6 +270,18 @@ on_goto_file_tag_decl_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 	}
 }
 
+static void
+on_find_symbol (GtkAction *action, SymbolDBPlugin *sdb_plugin)
+{
+	DEBUG_PRINT ("on_find_symbol (GtkAction *action, gpointer user_data)");
+	GtkEntry * entry;
+	
+	entry = symbol_db_view_search_get_entry ( 
+					SYMBOL_DB_VIEW_SEARCH (sdb_plugin->dbv_view_tree_search));
+	gtk_notebook_set_current_page (sdb_plugin->dbv_notebook, 2);
+	gtk_widget_grab_focus (GTK_WIDGET (entry));
+}
+
 static GtkActionEntry actions[] = 
 {
 	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
@@ -288,6 +301,12 @@ static GtkActionEntry actions[] =
 		N_("Goto symbol definition"),
 		G_CALLBACK (on_goto_file_tag_impl_activate)
 	}	
+};
+
+static GtkActionEntry actions_search[] = {
+  { "ActionEditSearchFindSymbol", GTK_STOCK_FIND, N_("_Find Symbol"),
+	"<control>l", N_("Find Symbol"),
+    G_CALLBACK (on_find_symbol)}
 };
 
 static void
@@ -2256,9 +2275,17 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->popup_action_group = 
 		anjuta_ui_add_action_group_entries (sdb_plugin->ui,
 											"ActionGroupPopupSymbolDB",
-											_("Symbol db popup actions"),
+											_("SymbolDb popup actions"),
 											actions,
 											G_N_ELEMENTS (actions),
+											GETTEXT_PACKAGE, FALSE, plugin);
+	
+	sdb_plugin->menu_action_group = 
+		anjuta_ui_add_action_group_entries (sdb_plugin->ui,
+											"ActionGroupEditSearchSymbolDB",
+											_("SymbolDb menu actions"),
+											actions_search,
+											G_N_ELEMENTS (actions_search),
 											GETTEXT_PACKAGE, FALSE, plugin);
 	
 	/* Add UI */

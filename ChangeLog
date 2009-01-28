@@ -1,3 +1,14 @@
+2009-01-28  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/anjuta-symbol-db-plugin.ui:
+	* plugins/symbol-db/plugin.c (on_find_symbol),
+	(symbol_db_activate):
+	* plugins/symbol-db/plugin.h:
+	* plugins/symbol-db/symbol-db-view-search.c (sdb_view_search_init),
+	(symbol_db_view_search_get_entry):
+	* plugins/symbol-db/symbol-db-view-search.h:
+	fixed #357275 – allow user to jump directly to Symbols / Search
+
 2009-01-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/scintilla/text_editor.h,
