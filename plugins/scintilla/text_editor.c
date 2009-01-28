@@ -132,6 +132,7 @@ text_editor_instance_init (TextEditor *te)
 	te->encoding = NULL;
 	te->gconf_notify_ids = NULL;
 	te->hover_tip_on = FALSE;
+	te->last_saved_content = NULL;
 	te->force_not_saved = FALSE;
 	te->message_area = NULL;
 }
@@ -354,35 +355,44 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 	gchar *buff;
 	
 	/* DEBUG_PRINT ("%s", "File changed!!!"); */
-	
+		
 	switch (event_type)
 	{
 		case G_FILE_MONITOR_EVENT_CREATED:
 		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+			
+			if (!anjuta_util_diff (te->uri, te->last_saved_content))
+			{
+				/* The file content is same. Remove any previous prompt for reload */
+				if (te->message_area)
+					gtk_widget_destroy (te->message_area);
+				te->message_area = NULL;
+				return;
+			}
+			
 			if (text_editor_is_saved (te))
 			{
-				/* If a saved file is changed reload it automatically */
-				text_editor_load_file (te);
-			
-				return;
+				buff = g_strdup_printf (_("The file '%s' has been changed.\n"
+								  "Do you want to reload it ?"),
+								 te->filename);
 			}
 			else
 			{
 				buff = g_strdup_printf (_("The file '%s' has been changed.\n"
 								  "Do you want to loose your changes and reload it ?"),
 								 te->filename);
-				message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-				g_free (buff);
-				anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-													GTK_STOCK_REFRESH,
-													GTK_RESPONSE_YES);
-				anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
-												    GTK_STOCK_CANCEL,
-													GTK_RESPONSE_NO);
-				g_signal_connect (G_OBJECT(message_area), "response",
-								  G_CALLBACK (on_reload_dialog_response),
-								  te);
 			}
+			message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+			g_free (buff);
+			anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+											GTK_STOCK_REFRESH,
+											GTK_RESPONSE_YES);
+			anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+											GTK_STOCK_CANCEL,
+											GTK_RESPONSE_NO);
+			g_signal_connect (G_OBJECT(message_area), "response",
+							  G_CALLBACK (on_reload_dialog_response),
+							  te);
 			break;
 		case G_FILE_MONITOR_EVENT_DELETED:
 			if (text_editor_is_saved (te))
@@ -594,6 +604,7 @@ text_editor_finalize (GObject *obj)
 	g_free (te->filename);
 	g_free (te->uri);
 	g_free (te->force_hilite);
+	g_free (te->last_saved_content);
 	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -1423,7 +1434,8 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	g_free (buffer);
 
 	/* Save the buffer as last saved content */
-	g_free (file_content);
+	g_free (te->last_saved_content);
+	te->last_saved_content = file_content;
 	
 	g_object_unref (gio_uri);
 
@@ -1525,7 +1537,8 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 	}
 	
 	/* Set last content saved to data */
-	g_free (data);
+	g_free (te->last_saved_content);
+	te->last_saved_content = data;
 	
 	if (result)
 		result = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, error);

@@ -1,3 +1,9 @@
+2009-01-28  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/scintilla/text_editor.h,
+	plugins/scintilla/text_editor.c:
+	Fix #491491 – Auto save's problem (automatic reload was a bad idea)
+
 2009-01-27  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/file_history.c,

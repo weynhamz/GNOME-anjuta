@@ -102,7 +102,12 @@ struct _TextEditor
 	
 	/* message area widget */
 	GtkWidget *message_area;
-	
+
+	/* Last saved content for comparision on external modifications on 
+	 * the file. The content is copied here during file saves.
+	 */ 	 
+	gchar *last_saved_content;
+
 	/* Set buffer as modified until next save */
 	gboolean force_not_saved;
 	
