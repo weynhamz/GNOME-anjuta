@@ -1621,6 +1621,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 								  _("Could not save intermediate file %s: %s"),
 								  te->uri,
 								  error->message);
+		g_signal_emit_by_name (G_OBJECT (te), "saved", NULL);
 		g_error_free (error);
 	}
 	else

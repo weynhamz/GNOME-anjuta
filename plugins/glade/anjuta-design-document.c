@@ -364,38 +364,45 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 {
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(file);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
-
+	
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
-
+	
 #if (GLADEUI_VERSION >= 330)
-	if (glade_project_get_path(project) != NULL) {
+	if (glade_project_get_path(project) != NULL) 
+	{
 #else
-	if (project && project->path != NULL) {
-#endif
-		AnjutaStatus *status;
-
-		status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
-
-#if (GLADEUI_VERSION >= 330)
-		if (glade_project_save (project, glade_project_get_path(project),
-								NULL)) {
-			anjuta_status_set (status, _("Glade project '%s' saved"),
-							   glade_project_get_name(project));
-#else
-		if (glade_project_save (project, project->path, NULL)) {
-			anjuta_status_set (status, _("Glade project '%s' saved"),
-							   project->name);
-#endif
-		g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
-		}
-		else
+		if (project && project->path != NULL) 
 		{
-			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
-										_("Invalid glade file name"));
-		}
-		return;
-	}
-	DEBUG_PRINT("%s", "Invalid use of ifile_savable_save!");
+#endif
+			AnjutaStatus *status;
+			
+			status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
+			
+#if (GLADEUI_VERSION >= 330)
+			if (glade_project_save (project, glade_project_get_path(project),
+									NULL)) 
+			{
+				anjuta_status_set (status, _("Glade project '%s' saved"),
+								   glade_project_get_name(project));
+#else
+				if (glade_project_save (project, project->path, NULL)) 
+				{
+					GFile* file = g_file_new_for_path(project->path);
+					anjuta_status_set (status, _("Glade project '%s' saved"),
+									   project->name);
+#endif
+					g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
+					g_signal_emit_by_name(G_OBJECT(self), "saved", file);
+				}
+				else
+				{
+					anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
+												_("Invalid glade file name"));
+					g_signal_emit_by_name(G_OBJECT(self), "saved", NULL);
+				}
+				return;
+			}
+			DEBUG_PRINT("%s", "Invalid use of ifile_savable_save!");
 }
 
 static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError **e)

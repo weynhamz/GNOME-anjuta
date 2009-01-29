@@ -276,9 +276,12 @@ on_find_symbol (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 	DEBUG_PRINT ("on_find_symbol (GtkAction *action, gpointer user_data)");
 	GtkEntry * entry;
 	
+	anjuta_shell_present_widget(ANJUTA_PLUGIN(sdb_plugin)->shell,
+								sdb_plugin->dbv_main, NULL);
+	
 	entry = symbol_db_view_search_get_entry ( 
 					SYMBOL_DB_VIEW_SEARCH (sdb_plugin->dbv_view_tree_search));
-	gtk_notebook_set_current_page (sdb_plugin->dbv_notebook, 2);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), 2);
 	gtk_widget_grab_focus (GTK_WIDGET (entry));
 }
 

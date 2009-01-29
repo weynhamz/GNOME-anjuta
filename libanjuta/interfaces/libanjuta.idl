@@ -84,7 +84,7 @@ interface IAnjutaFile
 		/**
 		 * IAnjutaFileSavable::saved:
 		 * @obj: Self
-		 * @file: file where the content is saved.
+		 * @file: file where the content is saved or NULL if save failed
 		 * 
 		 * This signal is emitted when the content is saved.
 		 */

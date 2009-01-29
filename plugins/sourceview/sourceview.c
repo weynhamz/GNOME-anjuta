@@ -470,6 +470,8 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 	GList* documents = ianjuta_document_manager_get_doc_widgets (docman, NULL);
 	GtkWidget* message_area;
 	
+	g_signal_emit_by_name(G_OBJECT(sv), "saved", NULL);
+	
 	/* Could not open <filename>: <error message> */
 	gchar* message = g_strdup_printf (_("Could not save %s: %s"),
 									  sourceview_io_get_filename (sv->priv->io), 

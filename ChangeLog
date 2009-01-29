@@ -1,3 +1,15 @@
+2009-01-29  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/glade/anjuta-design-document.c:
+	* plugins/scintilla/text_editor.c (text_editor_save_file):
+	* plugins/sourceview/sourceview.c (on_save_failed):
+	Emit saved(NULL) when file-saving fails.
+	#567206 – Build doesn't start if auto-save fails
+	
+	* plugins/symbol-db/plugin.c (on_find_symbol):
+	#357275 – allow user to jump directly to Symbols / Search
+
 2009-01-28  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/anjuta-symbol-db-plugin.ui:
