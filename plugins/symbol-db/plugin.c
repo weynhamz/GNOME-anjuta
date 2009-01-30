@@ -307,7 +307,7 @@ static GtkActionEntry actions[] =
 };
 
 static GtkActionEntry actions_search[] = {
-  { "ActionEditSearchFindSymbol", GTK_STOCK_FIND, N_("_Find Symbol"),
+  { "ActionEditSearchFindSymbol", GTK_STOCK_FIND, N_("_Find Symbol..."),
 	"<control>l", N_("Find Symbol"),
     G_CALLBACK (on_find_symbol)}
 };
