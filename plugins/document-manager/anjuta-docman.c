@@ -74,7 +74,6 @@ struct _AnjutaDocmanPriv {
 struct _AnjutaDocmanPage {
 	IAnjutaDocument *doc; /* a IAnjutaDocument */
 	GtkWidget *widget;	/* notebook-page widget */
-	GtkWidget *message_area; /* page message area */
 	GtkWidget *box;		/* notebook-tab-label parent widget */
 	GtkWidget *menu_box; /* notebook-tab-menu parent widget */
 	GtkWidget *close_image;
@@ -373,7 +372,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	GtkWidget *close_button;
 	GtkWidget *close_pixmap;
 	GtkWidget *label, *menu_label;
-	GtkWidget *vbox, *box, *menu_box;
+	GtkWidget *box, *menu_box;
 	GtkWidget *event_hbox;
 	GtkWidget *event_box;
 	gint h, w;
@@ -471,9 +470,6 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_widget_show_all (menu_box);
 	
 	/* main box */
-	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (vbox), GTK_WIDGET (doc), TRUE, TRUE, 0);
-
 	g_signal_connect (G_OBJECT (close_button), "clicked",
 					  G_CALLBACK (on_notebook_page_close_button_click),
 					  docman);
@@ -490,9 +486,8 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 					  G_CALLBACK (on_notebook_tab_btnrelease),
 					  docman);
 
-	page->widget = GTK_WIDGET (vbox);	/* this is the notebook-page child widget */
+	page->widget = GTK_WIDGET (doc);	/* this is the notebook-page child widget */
 	page->doc = doc;
-	page->message_area = NULL;
 	page->box = box;
 	page->close_image = close_pixmap;
 	page->close_button = close_button;
@@ -918,7 +913,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 }
 
 static void
-on_document_save_point (IAnjutaDocument *doc, gboolean entering,
+on_document_update_save_ui (IAnjutaDocument *doc,
 						AnjutaDocman *docman)
 {
 	anjuta_docman_update_page_label (docman, doc);
@@ -931,7 +926,7 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 	gint page_num;
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (doc),
-										  G_CALLBACK (on_document_save_point),
+										  G_CALLBACK (on_document_update_save_ui),
 										  docman);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (doc),
 										  G_CALLBACK (on_document_destroy),
@@ -1003,8 +998,8 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget,
 									 TRUE);
 	
-	g_signal_connect (G_OBJECT (doc), "save_point",
-					  G_CALLBACK (on_document_save_point), docman);
+	g_signal_connect (G_OBJECT (doc), "update-save-ui",
+					  G_CALLBACK (on_document_update_save_ui), docman);
 	g_signal_connect (G_OBJECT (doc), "destroy",
 					  G_CALLBACK (on_document_destroy), docman);
 	
@@ -1196,63 +1191,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 						gtk_widget_set_sensitive (page->mime_icon, FALSE);
 				}
 			}
-		}
-	}
-}
-
-static void
-on_destroy_message_area (gpointer data, GObject *finalized_object)
-{
-	AnjutaDocmanPage *page = (AnjutaDocmanPage *)data;
-	GFile *file;
-       
-	file = ianjuta_file_get_file (IANJUTA_FILE (page->doc), NULL);
-	if (file)
-	{
-		GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
-
-		if (pixbuf)
-		{
-			gtk_image_set_from_pixbuf (GTK_IMAGE(page->menu_icon), pixbuf);
-			gtk_image_set_from_pixbuf (GTK_IMAGE(page->mime_icon), pixbuf);
-			g_object_unref (pixbuf);
-		}
-
-		g_object_unref (file);
-	}
-	page->message_area = NULL;
-}
-
-void
-anjuta_docman_set_message_area (AnjutaDocman *docman, IAnjutaDocument* doc, 
-                                GtkWidget *message_area)
-{
-	AnjutaDocmanPage *page;
-
-	if (doc != NULL)
-	{
-		page = anjuta_docman_get_page_for_document (docman, doc);
-		if (page->message_area != message_area)
-		{
-			if (page->message_area != NULL)
-				gtk_widget_destroy (page->message_area);
-			
-			page->message_area = message_area;
-			
-			if (message_area == NULL)
-				return;
-
-			gtk_widget_show (message_area);
-			gtk_box_pack_start (GTK_BOX (page->widget),
-			                    message_area,
-			                    FALSE,
-			                    FALSE,
-			                    0);
-			
-			gtk_image_set_from_stock (GTK_IMAGE (page->menu_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
-			gtk_image_set_from_stock (GTK_IMAGE (page->mime_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
-			g_object_weak_ref (G_OBJECT (page->message_area),
-				       on_destroy_message_area, page);
 		}
 	}
 }
@@ -1467,6 +1405,23 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
 		g_free (label);
 		g_free (basename);
+
+		if (ianjuta_file_savable_is_conflict (IANJUTA_FILE_SAVABLE (doc), NULL))
+		{
+			gtk_image_set_from_stock (GTK_IMAGE (page->menu_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
+			gtk_image_set_from_stock (GTK_IMAGE (page->mime_icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
+		}
+		else
+		{
+			GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
+
+			if (pixbuf)
+			{
+				gtk_image_set_from_pixbuf (GTK_IMAGE(page->menu_icon), pixbuf);
+				gtk_image_set_from_pixbuf (GTK_IMAGE(page->mime_icon), pixbuf);
+				g_object_unref (pixbuf);
+			}
+		}
 		g_object_unref (file);
 	}
 	else if ((doc_filename = ianjuta_document_get_filename (doc, NULL)) != NULL)
@@ -1631,7 +1586,18 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 	if (path)
 	{
 		local_real_path = anjuta_util_get_real_path (path);
-		g_free (path);
+		if (local_real_path) 
+		{	
+			g_free (path);
+		}
+		else
+		{
+			local_real_path = path;
+		}
+	}
+	else
+	{
+		return NULL;
 	}
 	
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
@@ -1665,7 +1631,14 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 					if (path)
 					{
 						gchar *doc_real_path = anjuta_util_get_real_path (path);
-						g_free (path);
+						if (doc_real_path)
+						{
+							g_free (path);
+						}
+						else
+						{
+							doc_real_path = path;
+						}
 						if ((strcmp (doc_real_path, local_real_path) == 0))
 						{
 							file_doc = doc;

@@ -70,16 +70,16 @@ interface IAnjutaFile
 	interface IAnjutaFileSavable
 	{
 		/**
-		 * IAnjutaFileSavable::save_point:
+		 * IAnjutaFileSavable::update_save_ui:
 		 * @obj: Self
-		 * @entered: TRUE if save point is entered, FALSE otherwise.
 		 * 
-		 * This signal is emitted when the editor enters or leave the save
-		 * point. Save point is the point where the contents were saved to
-		 * non-volatile memory (e.g. disk). For example, performing undo/redo
-		 * will enter or leave the save point in an editor.
+		 * This signal is emitted when the state of the file has
+		 * changed. It could be that the user writes in it
+		 * and the file becomes dirty or the opposite: after using
+		 * undo, the file is back to its saved content. It is triggered
+		 * if the file becomes read-only or give a conflict too.
 		 */
-		void ::save_point (gboolean entered);
+		void ::update_save_ui ();
 		
 		/**
 		 * IAnjutaFileSavable::saved:
@@ -143,6 +143,18 @@ interface IAnjutaFile
 		 */
 		gboolean is_read_only ();
 
+		/**
+		 * ianjuta_file_savable_is_conflict:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Return is the file is in conflict. It means the file
+		 * has been modified externally and the user needs to
+		 * tell which version he wants to use.
+		 *
+		 * Return value: TRUE if conflict, FALSE otherwise.
+		 */
+		gboolean is_conflict ();
 	}
 }
 
@@ -2482,17 +2494,6 @@ interface IAnjutaDocumentManager
 	*/
 	void set_current_document (IAnjutaDocument *document);
 
-	/** 
-	* ianjuta_document_manager_set_message_area:
-	* @obj: Self
-	* @document: the document we change the message area.
-	* @message_area: the widget to use as the message area.
-	* @err: Error propagation and reporting.
-	* 
-	* Sets the message area for the given document.
-	*/
-	void set_message_area (IAnjutaDocument *document, GtkWidget *message_area);
-	
 	/**
 	* ianjuta_document_manager_get_doc_widgets:
 	* @obj: Self

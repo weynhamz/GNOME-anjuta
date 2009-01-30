@@ -363,7 +363,7 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 		{
 			gboolean dirty = ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL);
 			g_signal_emit_by_name (G_OBJECT(doc), "update_ui");
-			g_signal_emit_by_name (G_OBJECT(doc), "save_point", !dirty);
+			g_signal_emit_by_name (G_OBJECT(doc), "update-save-ui");
 		}
 	}
 
@@ -3752,7 +3752,7 @@ on_glade_designer_widget_event_after (GladeProject *project, GladeWidget *gwidge
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 static void
-on_designer_doc_save_point (AnjutaDesignDocument *doc, gboolean arg1,
+on_designer_doc_update_save_ui (AnjutaDesignDocument *doc,
                             GladePlugin *plugin)
 {
 	g_return_if_fail (ANJUTA_IS_DESIGN_DOCUMENT (doc));
@@ -3818,8 +3818,8 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project,
 
 	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(doc), NULL);
 
-	g_signal_connect (G_OBJECT (doc), "save_point",
-	                  G_CALLBACK (on_designer_doc_save_point), glade_plugin);
+	g_signal_connect (G_OBJECT (doc), "update-save-ui",
+	                  G_CALLBACK (on_designer_doc_update_save_ui), glade_plugin);
 
 #ifdef GLADE_LAYOUT_WIDGET_EVENTS
 	layout = glade_design_view_get_layout (GLADE_DESIGN_VIEW (view));

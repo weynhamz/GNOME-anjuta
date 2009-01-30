@@ -47,6 +47,7 @@ struct _SourceviewIOClass
 	void(* open_finished) (SourceviewIO *self);
 	void(* open_failed) (SourceviewIO *self, GError* error);
 	void(* save_failed) (SourceviewIO *self, GError* error);
+	void(* deleted) (SourceviewIO *self);
 };
 
 struct _SourceviewIO

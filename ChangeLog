@@ -1,3 +1,26 @@
+2009-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/scintilla/text_editor.c,
+	plugins/scintilla/text_editor.h,
+	plugins/scintilla/text_editor_cbs.c,
+	plugins/sourceview/sourceview-io.c,
+	plugins/sourceview/sourceview-io.h,
+	plugins/sourceview/sourceview-private.h,
+	plugins/sourceview/sourceview.h,
+	plugins/sourceview/sourceview.c,
+	plugins/glade/anjuta-design-document.c,
+	plugins/glade/plugin.c,
+	plugins/document-manager/plugin.c,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/action-callbacks.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Move message area code from document manager to each editor plugin
+	Rename save_point signal to update_save_ui and make it more general
+	Add ianjuta_file_savable_is_conflict function to disable autosave
+	Fix a crash when having deleted file document
+	Fix #549958 – user is not notified if a file is removed from
+	filesystem
+
 2009-01-30  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c:

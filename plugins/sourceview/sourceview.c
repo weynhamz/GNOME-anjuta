@@ -190,6 +190,35 @@ goto_line (Sourceview* sv, gint line)
 	gtk_text_buffer_select_range (buffer, &iter, &iter);
 }
 
+static void
+on_destroy_message_area (Sourceview* sv, GObject *finalized_object)
+{
+	sv->priv->message_area = NULL;
+	g_signal_emit_by_name (G_OBJECT (sv), "update-save-ui");
+}
+
+static void
+sourceview_set_message_area (Sourceview* sv,  GtkWidget *message_area)
+{
+	if (sv->priv->message_area != NULL)
+		gtk_widget_destroy (sv->priv->message_area);
+	sv->priv->message_area = message_area;
+
+	if (sv->priv->message_area == NULL)
+		return;
+		
+	gtk_widget_show (message_area);
+	gtk_box_pack_start (GTK_BOX (sv),
+						message_area,
+						FALSE,
+						FALSE,
+						0);
+	g_object_weak_ref (G_OBJECT (sv->priv->message_area),
+					   (GWeakNotify)on_destroy_message_area, sv);
+	
+	g_signal_emit_by_name (G_OBJECT (sv), "update-save-ui");
+}
+
 /* Callbacks */
 
 static void
@@ -249,7 +278,7 @@ static void on_insert_text (GtkTextBuffer* buffer,
 static void on_document_modified_changed(GtkTextBuffer* buffer, Sourceview* sv)
 {
 	/* Emit IAnjutaFileSavable signals */
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+	g_signal_emit_by_name(G_OBJECT(sv), "update-save-ui",
 						  !gtk_text_buffer_get_modified(buffer));
 }
 
@@ -299,13 +328,31 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 	gtk_widget_destroy (message_area);
 }
 
+static void 
+on_close_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		IAnjutaDocumentManager *docman;
+		
+		docman = anjuta_shell_get_interface (sv->priv->plugin->shell, IAnjutaDocumentManager, NULL);
+		if (docman == NULL) return;
+
+		ianjuta_document_manager_remove_document (docman, IANJUTA_DOCUMENT (sv), FALSE, NULL);
+	}
+	else
+	{
+		/* Set dirty */
+		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), TRUE);
+	}
+	gtk_widget_destroy (message_area);
+}
+
 static gboolean
 on_file_changed (SourceviewIO* sio, Sourceview* sv)
 {
 	GtkWidget *message_area;
-	IAnjutaDocumentManager *docman;
 	IAnjutaDocument *doc;
-	AnjutaShell *shell;
 	gchar *buff;
 	
 	gchar* filename = sourceview_io_get_filename (sio);
@@ -318,10 +365,6 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 
 	g_free (filename);
 	
-	shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
-	docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-	if (!docman)
-  		return TRUE;
   	doc = IANJUTA_DOCUMENT (sv);
 
 	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
@@ -335,8 +378,46 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 	
 	g_signal_connect (G_OBJECT(message_area), "response",
 					  G_CALLBACK (on_reload_dialog_response),
-					  sv);					  
-	ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
+					  sv);
+	
+	sourceview_set_message_area (sv, message_area);
+	
+	return FALSE;
+}
+
+static gboolean
+on_file_deleted (SourceviewIO* sio, Sourceview* sv)
+{
+	GtkWidget *message_area;
+	IAnjutaDocument *doc;
+	gchar *buff;
+	
+	gchar* filename = sourceview_io_get_filename (sio);
+	
+	buff =
+		g_strdup_printf (_
+						 ("The file '%s' has been deleted on the disk.\n"
+						  "Do you want to close it?"),
+						 filename);
+
+	g_free (filename);
+	
+  	doc = IANJUTA_DOCUMENT (sv);
+
+	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+									GTK_STOCK_DELETE,
+									GTK_RESPONSE_YES);
+	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+								    GTK_STOCK_CANCEL,
+									GTK_RESPONSE_NO);
+	g_free (buff);
+	
+	g_signal_connect (G_OBJECT(message_area), "response",
+					  G_CALLBACK (on_close_dialog_response),
+					  sv);
+	
+	sourceview_set_message_area (sv, message_area);
 	
 	return FALSE;
 }
@@ -364,8 +445,7 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 										GTK_RESPONSE_OK);
 		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 		
-		ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
-												   message_area, NULL);
+		sourceview_set_message_area (sv, message_area);
 	}
 	else
 	{
@@ -392,7 +472,6 @@ on_read_only_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 		gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view),
 									TRUE);
 		sv->priv->read_only = FALSE;
-		g_signal_emit_by_name (sv, "save-point", TRUE);
 	}
 	gtk_widget_destroy (message_area);
 }
@@ -407,11 +486,6 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	
 	if (sourceview_io_get_read_only (io))
 	{
-		AnjutaShell* shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
-		IAnjutaDocumentManager* docman = 
-			anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-		g_return_if_fail (docman != NULL);
-		IAnjutaDocument* doc = IANJUTA_DOCUMENT (sv);
 		gchar* filename = sourceview_io_get_filename (io);
 		gchar* buff = g_strdup_printf ("The file '%s' is read-only! Edit anyway?",
 									   filename);
@@ -433,13 +507,12 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 		
 		sv->priv->read_only = TRUE;
 		
-		ianjuta_document_manager_set_message_area (docman, doc, message_area, NULL);
+		sourceview_set_message_area (sv, message_area);
 	}
 	else
 		gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
 
-    g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  TRUE);
+    g_signal_emit_by_name(G_OBJECT(sv), "update-save-ui");
 	
 	if (sv->priv->goto_line > 0)
 	{
@@ -485,8 +558,7 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 										GTK_RESPONSE_OK);
 		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 		
-		ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT(sv), 
-												   message_area, NULL);
+		sourceview_set_message_area (sv, message_area);
 	}
 	else
 	{
@@ -510,7 +582,7 @@ static void on_save_finish(SourceviewIO* sio, Sourceview* sv)
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), FALSE);
 	sv->priv->read_only = FALSE;
 	g_signal_emit_by_name(G_OBJECT(sv), "saved", file);
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
+	g_signal_emit_by_name(G_OBJECT(sv), "update-save-ui");
 	g_object_unref (file);
 	/* Autodetect language */
 	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
@@ -539,6 +611,7 @@ sourceview_instance_init(Sourceview* sv)
 	sv->priv = g_slice_new0 (SourceviewPrivate);
 	sv->priv->io = sourceview_io_new (sv);
 	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
+	g_signal_connect (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted), sv);
 	g_signal_connect (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
 					  sv);
 	g_signal_connect (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
@@ -642,12 +715,15 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	sv->priv->plugin = plugin;
 	
 	/* Add View */
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv),
+	sv->priv->window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_end (GTK_BOX (sv), sv->priv->window, TRUE, TRUE, 0);
+	
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv->priv->window),
 				      GTK_POLICY_AUTOMATIC,
 				      GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(sv), GTK_WIDGET(sv->priv->view));
+	gtk_container_add(GTK_CONTAINER(sv->priv->window), GTK_WIDGET(sv->priv->view));
 	gtk_widget_show_all(GTK_WIDGET(sv));
-	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv));
+	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv->priv->window));
 	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
 	
 	if (file != NULL)
@@ -735,6 +811,13 @@ ifile_savable_is_read_only (IAnjutaFileSavable* file, GError** e)
 	return sv->priv->read_only;
 }
 
+static gboolean
+ifile_savable_is_conflict (IAnjutaFileSavable* file, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (file);
+	return sv->priv->message_area != NULL;
+}
+
 static void
 isavable_iface_init (IAnjutaFileSavableIface *iface)
 {
@@ -743,6 +826,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 	iface->set_dirty = ifile_savable_set_dirty;
 	iface->is_dirty = ifile_savable_is_dirty;
 	iface->is_read_only = ifile_savable_is_read_only;
+	iface->is_conflict = ifile_savable_is_conflict;
 }
 
 static void
@@ -2216,7 +2300,7 @@ ihover_iface_init(IAnjutaEditorHoverIface* iface)
 	iface->display = ihover_display;
 }
 
-ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
+ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);

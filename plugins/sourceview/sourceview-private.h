@@ -50,6 +50,12 @@ struct SourceviewPrivate {
 	/* Popup menu */
 	GtkWidget* menu;
 	
+	/* Message area */
+	GtkWidget* message_area;
+
+	/* Editor window */
+	GtkWidget* window;
+	
 	/* Bookmarks */
 	GList* bookmarks;
 	GList* cur_bmark;

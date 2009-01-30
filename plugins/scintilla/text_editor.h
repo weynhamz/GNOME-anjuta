@@ -57,7 +57,7 @@ typedef struct _TextEditorClass TextEditorClass;
 
 struct _TextEditor
 {
-	GtkVBox vbox;
+	GtkVBox parent;
 	
 	gchar *filename;
 	gchar *uri;
@@ -77,6 +77,7 @@ struct _TextEditor
 	AnEditorID editor_id;
 	AnEditorID editor_id_split;
 	GtkWidget *scintilla;
+	GtkWidget *vbox;
 	GList *views;
 
 	/* Properties set ID in the preferences */

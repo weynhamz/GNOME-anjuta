@@ -391,7 +391,7 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 					anjuta_status_set (status, _("Glade project '%s' saved"),
 									   project->name);
 #endif
-					g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
+					g_signal_emit_by_name(G_OBJECT(self), "update-save-ui");
 					g_signal_emit_by_name(G_OBJECT(self), "saved", file);
 				}
 				else
@@ -426,7 +426,7 @@ static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError
 		anjuta_status_set (status, _("Glade project '%s' saved"),
 							   project->name);
 #endif
-	g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
+	g_signal_emit_by_name(G_OBJECT(self), "update-save-ui");
 	}
 	else
 	{
@@ -474,6 +474,13 @@ ifile_savable_is_read_only (IAnjutaFileSavable* savable, GError** e)
 	return FALSE;
 }
 
+static gboolean
+ifile_savable_is_conflict (IAnjutaFileSavable* savable, GError** e)
+{
+	// FIXME
+	return FALSE;
+}
+
 static void
 ifile_savable_iface_init(IAnjutaFileSavableIface *iface)
 {
@@ -482,6 +489,7 @@ ifile_savable_iface_init(IAnjutaFileSavableIface *iface)
 	iface->set_dirty = ifile_savable_set_dirty;
 	iface->is_dirty = ifile_savable_is_dirty;
 	iface->is_read_only = ifile_savable_is_read_only;
+	iface->is_conflict = ifile_savable_is_conflict;
 }
 
 /* Return true if editor can redo */

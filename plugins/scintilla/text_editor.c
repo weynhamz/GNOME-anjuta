@@ -238,9 +238,8 @@ text_editor_add_view (TextEditor *te)
 	gtk_widget_set_usize (scintilla, 50, 50);
 	gtk_widget_show (scintilla);
 	
-	gtk_box_set_homogeneous (GTK_BOX (te), TRUE);
-	gtk_box_set_spacing (GTK_BOX (te), 3);
-	gtk_box_pack_start (GTK_BOX (te), scintilla, TRUE, TRUE, 0);
+	gtk_box_set_spacing (GTK_BOX (te->vbox), 3);
+	gtk_box_pack_start (GTK_BOX (te->vbox), scintilla, TRUE, TRUE, 0);
 	gtk_widget_grab_focus (scintilla);
 
 	g_signal_connect (G_OBJECT (scintilla), "event",
@@ -290,7 +289,7 @@ text_editor_remove_view (TextEditor *te)
 				G_CALLBACK (on_text_editor_scintilla_focus_in), te);
 	
 	te->views = g_list_remove (te->views, GINT_TO_POINTER(te->editor_id));
-	gtk_container_remove (GTK_CONTAINER (te), te->scintilla);
+	gtk_container_remove (GTK_CONTAINER (te->vbox), te->scintilla);
 	aneditor_destroy(te->editor_id);
 	
 	/* Set current view */
@@ -302,7 +301,7 @@ text_editor_remove_view (TextEditor *te)
 	}
 	else
 	{
-		gtk_box_set_spacing (GTK_BOX (te), 0);
+		gtk_box_set_spacing (GTK_BOX (te->vbox), 0);
 		te->editor_id = 0;
 		te->scintilla = NULL;
 	}
@@ -317,9 +316,18 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
 	}
 	else
 	{
+		text_editor_set_saved (te, FALSE);
 		gtk_widget_destroy (message_area);
-		te->message_area = NULL;
 	}
+}
+
+static void
+on_destroy_message_area (gpointer data, GObject *finalized_object)
+{
+	TextEditor *te = (TextEditor *)data;
+	
+	te->message_area = NULL;
+	g_signal_emit_by_name (G_OBJECT (te), "update-save-ui");
 }
 
 static void
@@ -338,8 +346,29 @@ on_close_dialog_response (GtkWidget *message_area, gint res, TextEditor *te)
 	{
 		text_editor_set_saved (te, FALSE);
 		gtk_widget_destroy (message_area);
-		te->message_area = NULL;
 	}
+}
+
+static void
+text_editor_set_message_area (TextEditor *te,  GtkWidget *message_area)
+{
+	if (te->message_area != NULL)
+		gtk_widget_destroy (te->message_area);
+	te->message_area = message_area;
+
+	if (te->message_area == NULL)
+		return;
+		
+	gtk_widget_show (message_area);
+	gtk_box_pack_start (GTK_BOX (te),
+						message_area,
+						FALSE,
+						FALSE,
+						0);
+	g_object_weak_ref (G_OBJECT (te->message_area),
+					   on_destroy_message_area, te);
+	
+	g_signal_emit_by_name (G_OBJECT (te), "update-save-ui");
 }
 
 static void
@@ -351,14 +380,12 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 {
 	TextEditor *te = TEXT_EDITOR (user_data);
 	GtkWidget *message_area;
-	IAnjutaDocumentManager *docman;
 	gchar *buff;
 	
 	/* DEBUG_PRINT ("%s", "File changed!!!"); */
 		
 	switch (event_type)
 	{
-		case G_FILE_MONITOR_EVENT_CREATED:
 		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
 			
 			if (!anjuta_util_diff (te->uri, te->last_saved_content))
@@ -369,7 +396,9 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 				te->message_area = NULL;
 				return;
 			}
-			
+			/* No break here */
+
+		case G_FILE_MONITOR_EVENT_CREATED:
 			if (text_editor_is_saved (te))
 			{
 				buff = g_strdup_printf (_("The file '%s' has been changed.\n"
@@ -431,21 +460,7 @@ on_text_editor_uri_changed (GFileMonitor *monitor,
 			return;
 	}
 	
-	if (te->message_area != NULL)
-	{
-		gtk_widget_destroy (te->message_area);
-		te->message_area = NULL;
-	}
-
-	docman = anjuta_shell_get_interface (te->shell, IAnjutaDocumentManager, NULL);
-	if (!docman)
-	{
-		gtk_widget_destroy (message_area);
-  		return;
-	}
-
-	ianjuta_document_manager_set_message_area (docman, IANJUTA_DOCUMENT (te), message_area, NULL);
-	te->message_area = message_area;
+	text_editor_set_message_area (te, message_area);
 }
 
 static void
@@ -521,6 +536,8 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, AnjutaShell *shell
 	text_editor_prefs_init (te);
 	
 	/* Create primary view */
+	te->vbox = gtk_vbox_new (TRUE, 3);
+	gtk_box_pack_end (GTK_BOX (te), te->vbox, TRUE, TRUE, 0);
 	text_editor_add_view (te);
 
 	if (te->uri)
@@ -1578,9 +1595,9 @@ text_editor_load_file (TextEditor * te)
 							0, 0);
 	// check_tm_file(te);
 	text_editor_thaw (te);
+	te->force_not_saved = FALSE;
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_SETSAVEPOINT, 0, 0);
-	te->force_not_saved = FALSE;
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te, NULL);
@@ -1629,9 +1646,9 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		GFile* file = g_file_new_for_uri (te->uri);
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
+		te->force_not_saved = FALSE;
 		scintilla_send_message (SCINTILLA (te->scintilla),
 								SCI_SETSAVEPOINT, 0, 0);
-		te->force_not_saved = FALSE;
 		g_signal_emit_by_name (G_OBJECT (te), "saved", file);
 		g_object_unref (file);
 		anjuta_status (te->status, _("File saved successfully"), 5);
@@ -1650,7 +1667,7 @@ text_editor_set_saved (TextEditor *te, gboolean saved)
 		scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETSAVEPOINT, 0, 0);
 	}
 	te->force_not_saved = !saved;
-	g_signal_emit_by_name(G_OBJECT (te), "save_point", saved);
+	g_signal_emit_by_name(G_OBJECT (te), "update-save-ui");
 }
 
 gboolean
@@ -2802,6 +2819,13 @@ isavable_is_read_only (IAnjutaFileSavable* savable, GError** e)
 	return FALSE;
 }
 
+static gboolean
+isavable_is_conflict (IAnjutaFileSavable* savable, GError** e)
+{
+	TextEditor *te = TEXT_EDITOR(savable);
+	return  te->message_area != NULL;
+}
+
 static void
 isavable_iface_init (IAnjutaFileSavableIface *iface)
 {
@@ -2810,6 +2834,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 	iface->set_dirty = isavable_set_dirty;
 	iface->is_dirty = isavable_is_dirty;
 	iface->is_read_only = isavable_is_read_only;
+	iface->is_conflict = isavable_is_conflict;
 }
 
 static void

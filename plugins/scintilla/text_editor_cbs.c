@@ -152,10 +152,10 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 		scintilla_uri_dropped(te, nt->text);
 		break;
 	case SCN_SAVEPOINTREACHED:
-		g_signal_emit_by_name(G_OBJECT (te), "save_point", TRUE);
+		g_signal_emit_by_name(G_OBJECT (te), "update_save_ui");
 		break;
 	case SCN_SAVEPOINTLEFT:
-		g_signal_emit_by_name(G_OBJECT (te), "save_point", FALSE);
+		g_signal_emit_by_name(G_OBJECT (te), "update_save_ui");
 		//FIXME:
 		// anjuta_update_title ();
 		// update_main_menubar ();

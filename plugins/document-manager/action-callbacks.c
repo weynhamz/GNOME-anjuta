@@ -263,28 +263,36 @@ on_reload_file_activate (GtkAction *action, gpointer user_data)
 	gchar *msg;
 	GtkWidget *dialog;
 	GtkWidget *parent;
+	gint reply = GTK_RESPONSE_YES;
 	
 	doc = get_current_document (user_data);
 	if (doc == NULL)
 		return;
 
 	parent = gtk_widget_get_toplevel (GTK_WIDGET (doc));
-	msg = g_strdup_printf (
-	_("Are you sure you want to reload '%s'?\nAny unsaved changes will be lost."),
-							ianjuta_document_get_filename (doc, NULL));
+	if (IANJUTA_IS_FILE_SAVABLE (doc) && ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
+	{
+		msg = g_strdup_printf (
+		_("Are you sure you want to reload '%s'?\nAny unsaved changes will be lost."),
+								ianjuta_document_get_filename (doc, NULL));
 
-	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
-									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_NONE, "%s", msg);
-	gtk_dialog_add_button (GTK_DIALOG (dialog),
-						   GTK_STOCK_CANCEL, GTK_RESPONSE_NO);
-	anjuta_util_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
-							  GTK_STOCK_REVERT_TO_SAVED,
-							  GTK_RESPONSE_YES);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
-									 GTK_RESPONSE_NO);
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE, "%s", msg);
+		gtk_dialog_add_button (GTK_DIALOG (dialog),
+							   GTK_STOCK_CANCEL, GTK_RESPONSE_NO);
+		anjuta_util_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
+								  GTK_STOCK_REVERT_TO_SAVED,
+								  GTK_RESPONSE_YES);
+		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+										 GTK_RESPONSE_NO);
+		reply = gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		g_free (msg);
+	}
+		
+	if (reply == GTK_RESPONSE_YES)
 	{
 		GFile* file;
 		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
@@ -294,8 +302,6 @@ on_reload_file_activate (GtkAction *action, gpointer user_data)
 			g_object_unref(file);
 		}
 	}
-	gtk_widget_destroy (dialog);
-	g_free (msg);
 }
 
 void

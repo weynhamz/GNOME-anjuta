@@ -860,7 +860,7 @@ update_document_ui (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 }
 
 static void
-on_document_update_save_ui (IAnjutaDocument *doc, gboolean entered,
+on_document_update_save_ui (IAnjutaDocument *doc,
 							AnjutaPlugin *plugin)
 {
 	update_document_ui_save_items (plugin, doc);
@@ -1086,7 +1086,7 @@ on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (doc), "update_ui",
 					  G_CALLBACK (on_document_update_ui),
 					  docman_plugin);
-	g_signal_connect (G_OBJECT (doc), "save_point",
+	g_signal_connect (G_OBJECT (doc), "update-save-ui",
 					  G_CALLBACK (on_document_update_save_ui),
 					  plugin);
 	/* Present the vbox as this is the widget that was added to the shell */
@@ -1552,7 +1552,8 @@ on_docman_auto_save (gpointer data)
 		for (node = buffers; node != NULL; node = g_list_next (node))
 		{
 			doc = IANJUTA_DOCUMENT (node->data);
-			if (ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
+			if (ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL) &&
+				!ianjuta_file_savable_is_conflict (IANJUTA_FILE_SAVABLE (doc), NULL))
 			{
 				GFile* file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 				if (file)
@@ -1923,17 +1924,6 @@ ianjuta_docman_set_current_document (IAnjutaDocumentManager *plugin,
 	anjuta_docman_set_current_document (docman, doc);
 }
 
-static void
-ianjuta_docman_set_message_area (IAnjutaDocumentManager *plugin,
-								 IAnjutaDocument *doc,
-								 GtkWidget *message_area,
-								 GError **e)
-{
-	AnjutaDocman *docman;
-	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_set_message_area (docman, doc, message_area);
-}
-
 static GList*
 ianjuta_docman_get_doc_widgets (IAnjutaDocumentManager *plugin, GError **e)
 {
@@ -2046,7 +2036,6 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
 	iface->remove_document = ianjuta_docman_remove_document;
 	iface->set_current_document = ianjuta_docman_set_current_document;
-	iface->set_message_area = ianjuta_docman_set_message_area;
 	iface->add_bookmark = ianjuta_docman_add_bookmark;
 }
 

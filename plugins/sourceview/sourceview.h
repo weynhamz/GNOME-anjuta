@@ -43,12 +43,12 @@
 typedef struct SourceviewPrivate SourceviewPrivate;
 
 typedef struct {
-	GtkScrolledWindow parent;
+	GtkVBox parent;
 	SourceviewPrivate *priv;
 } Sourceview;
 
 typedef struct {
-	GtkScrolledWindowClass parent_class;
+	GtkVBoxClass parent_class;
 	void (*update_ui);
 	
 } SourceviewClass;

@@ -35,6 +35,7 @@ enum
 	OPEN_FINISHED,
 	OPEN_FAILED,
 	SAVE_FAILED,
+	FILE_DELETED,
 
 	LAST_SIGNAL
 };
@@ -85,6 +86,7 @@ sourceview_io_class_init (SourceviewIOClass *klass)
 	object_class->finalize = sourceview_io_finalize;
 
 	klass->changed = NULL;
+	klass->deleted = NULL;
 	klass->save_finished = NULL;
 	klass->open_finished = NULL;
 	klass->open_failed = NULL;
@@ -139,6 +141,16 @@ sourceview_io_class_init (SourceviewIOClass *klass)
 		              g_cclosure_marshal_VOID__POINTER,
 		              G_TYPE_NONE, 1,
 		              G_TYPE_POINTER);
+	
+	io_signals[FILE_DELETED] =
+		g_signal_new ("deleted",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              0,
+		              G_STRUCT_OFFSET (SourceviewIOClass, deleted),
+		              NULL, NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE, 0,
+		              NULL);
 }
 
 static void on_file_changed (GFileMonitor* monitor, 
@@ -149,7 +161,18 @@ static void on_file_changed (GFileMonitor* monitor,
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	
-	g_signal_emit_by_name (sio, "changed");
+	switch (event_type)
+	{
+		case G_FILE_MONITOR_EVENT_CREATED:
+		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+			g_signal_emit_by_name (sio, "changed");
+			break;
+		case G_FILE_MONITOR_EVENT_DELETED:
+			g_signal_emit_by_name (sio, "deleted");
+			break;
+		default:
+			break;
+	}
 }
 
 static gboolean
