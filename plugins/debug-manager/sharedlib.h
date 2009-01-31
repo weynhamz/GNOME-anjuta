@@ -37,7 +37,6 @@ struct _SharedlibsGui
 {
 	GtkWidget*   window;
 	GtkWidget*   menu;
-	GtkActionGroup *action_group;
 	GtkWidget* treeview;
 	GtkListStore* store;
 };
@@ -46,6 +45,8 @@ struct _Sharedlibs
 {
 	SharedlibsGui  widgets;
 	DmaDebuggerQueue *debugger;
+	AnjutaPlugin *plugin;
+	GtkActionGroup *action_group;
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 };

@@ -396,15 +396,6 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_loaded");
 	
-	if (this->sharedlibs == NULL)
-	{
-		this->sharedlibs = sharedlibs_new (this);
-	}
-	if (this->signals == NULL)
-	{
-		this->signals = signals_new (this);
-	}
-
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
@@ -476,17 +467,6 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_unload");
 	
-	if (this->sharedlibs != NULL)
-	{
-		sharedlibs_free (this->sharedlibs);
-		this->sharedlibs = NULL;
-	}
-	if (this->signals == NULL)
-	{
-		signals_free (this->signals);
-		this->signals = NULL;
-	}
-
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_visible (this->start_group, TRUE);
@@ -1143,7 +1123,13 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 
 	/* Start debugger part */
 	this->start = dma_start_new (this);
-	
+
+	/* Shared libraries part */
+	this->sharedlibs = sharedlibs_new (this);
+
+	/* Signal part */
+	this->signals = signals_new (this);
+
 	dma_plugin_debugger_stopped (this, 0);
 	
 	/* Add watches */
@@ -1211,6 +1197,12 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	
 	dma_start_free (this->start);
 	this->start = NULL;
+
+	sharedlibs_free (this->sharedlibs);
+	this->sharedlibs = NULL;
+
+	signals_free (this->signals);
+	this->signals = NULL;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_ui_remove_action_group (ui, this->start_group);

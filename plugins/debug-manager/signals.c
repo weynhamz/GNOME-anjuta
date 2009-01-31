@@ -50,8 +50,8 @@ signals_update_controls (Signals * ew)
 	
 	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 	Pr = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_RUNNING;
-	gtk_action_group_set_sensitive(ew->widgets.action_group_debugger_ok, R);
-	gtk_action_group_set_sensitive(ew->widgets.action_group_program_running, Pr);
+	gtk_action_group_set_sensitive(ew->action_group_program_stopped, R);
+	gtk_action_group_set_sensitive(ew->action_group_program_running, Pr);
 }
 
 /*
@@ -195,6 +195,7 @@ on_signals_event (GtkWidget *widget, GdkEventButton  *bevent, gpointer user_data
 	gtk_menu_popup (GTK_MENU(ew->widgets.menu), NULL,
 					NULL, NULL, NULL,
 					bevent->button, bevent->time);
+	
 	return TRUE;
 }
 
@@ -212,24 +213,24 @@ on_signals_event (GtkWidget *widget, GdkEventButton  *bevent, gpointer user_data
  * dma_queue_handler_signal().
  */
 static void
-on_column_toggled(GtkCellRendererToggle *renderer, gchar *path, Signals *sig)
+on_column_toggled(GtkCellRendererToggle *renderer, gchar *path, Signals *sg)
 {
 	GtkTreeIter iter;
 	gchar *signal;
 	gboolean data[SIGNAL_COLUMN_COUNT];
 	guint column;
 
-	if (dma_debugger_queue_get_state (sig->debugger) != IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+	if (dma_debugger_queue_get_state (sg->debugger) != IANJUTA_DEBUGGER_PROGRAM_STOPPED)
 	{
 		return;
 	}
 
 	column = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (renderer), "__column_nr"));
 	
-	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (sig->widgets.store),
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (sg->widgets.store),
 			&iter,
 			path);
-	gtk_tree_model_get (GTK_TREE_MODEL (sig->widgets.store),
+	gtk_tree_model_get (GTK_TREE_MODEL (sg->widgets.store),
 			&iter,
 			SIGNAL_COLUMN_NAME, &signal,
 			SIGNAL_COLUMN_STOP, &data[SIGNAL_COLUMN_STOP],
@@ -239,10 +240,10 @@ on_column_toggled(GtkCellRendererToggle *renderer, gchar *path, Signals *sig)
 
 	data[column] = !data[column];
 
-	gtk_list_store_set (sig->widgets.store,
+	gtk_list_store_set (sg->widgets.store,
 			&iter,
 			column, data[column], -1);
-	dma_queue_handle_signal (sig->debugger, signal, 
+	dma_queue_handle_signal (sg->debugger, signal, 
 			data[SIGNAL_COLUMN_STOP],
 			data[SIGNAL_COLUMN_PRINT],
 			data[SIGNAL_COLUMN_PASS]);
@@ -250,13 +251,12 @@ on_column_toggled(GtkCellRendererToggle *renderer, gchar *path, Signals *sig)
 }
 
 static void
-signals_add_toggle_column (GtkTreeView *tv, const gchar *title, guint column_num, Signals *sig)
+signals_add_toggle_column (GtkTreeView *tv, const gchar *title, guint column_num, Signals *sg)
 {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
 	renderer = gtk_cell_renderer_toggle_new ();
-	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
 	column = gtk_tree_view_column_new_with_attributes (title,
 			renderer, 
 			"active", column_num,
@@ -264,11 +264,11 @@ signals_add_toggle_column (GtkTreeView *tv, const gchar *title, guint column_num
 	gtk_tree_view_append_column (tv, column);
 	g_object_set_data (G_OBJECT (renderer), "__column_nr", GINT_TO_POINTER (column_num));
 	g_signal_connect (G_OBJECT (renderer), 
-			"toggled", G_CALLBACK (on_column_toggled), sig);
+			"toggled", G_CALLBACK (on_column_toggled), sg);
 }
 
 static GtkWidget *
-signals_create_list_store_and_treeview(Signals *sig)
+signals_create_list_store_and_treeview(Signals *sg)
 {
 	GtkListStore *store;
 	GtkWidget *w;
@@ -292,9 +292,9 @@ signals_create_list_store_and_treeview(Signals *sig)
 			NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (w), column);
 
-	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Stop"), SIGNAL_COLUMN_STOP, sig);
-	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Print"), SIGNAL_COLUMN_PRINT, sig);
-	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Pass"), SIGNAL_COLUMN_PASS, sig);
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Stop"), SIGNAL_COLUMN_STOP, sg);
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Print"), SIGNAL_COLUMN_PRINT, sg);
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Pass"), SIGNAL_COLUMN_PASS, sg);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Description"),
@@ -304,7 +304,7 @@ signals_create_list_store_and_treeview(Signals *sig)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (w), column);
 
 	g_signal_connect (G_OBJECT (w), "button-press-event", 
-			G_CALLBACK (on_signals_event), sig);
+			G_CALLBACK (on_signals_event), sg);
 
 	return w;
 }
@@ -323,7 +323,7 @@ static GtkActionEntry actions_signals_program_running[] = {
 	}
 };
 
-static GtkActionEntry actions_signals_debugger_ok[] = {
+static GtkActionEntry actions_signals_program_stopped[] = {
 	{
 		"ActionDmaSignalUpdate",
 		GTK_STOCK_REFRESH,
@@ -334,13 +334,21 @@ static GtkActionEntry actions_signals_debugger_ok[] = {
 	}
 };
 
+static void
+destroy_signals_gui (Signals *sg)
+{
+	gtk_widget_destroy (sg->widgets.window);
+	gtk_widget_destroy (sg->widgets.menu);
+	g_object_unref (sg->widgets.store);
+}
 
 static void
-create_signals_gui (Signals *cr)
+create_signals_gui (Signals *sg)
 {
 	GtkWidget *window3;
 	GtkWidget *scrolledwindow4;
 	GtkWidget *tv;
+	AnjutaUI *ui;	
 
 	window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_usize (window3, 170, -2);
@@ -354,54 +362,46 @@ create_signals_gui (Signals *cr)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4),
 									GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
-	tv = signals_create_list_store_and_treeview (cr);
+	tv = signals_create_list_store_and_treeview (sg);
 	gtk_widget_show (tv);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow4), tv);
 	gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-						GTK_SIGNAL_FUNC (on_signals_delete_event), cr);
+						GTK_SIGNAL_FUNC (on_signals_delete_event),sg);
 	gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
-						GTK_SIGNAL_FUNC (on_signals_key_press_event), cr);
+						GTK_SIGNAL_FUNC (on_signals_key_press_event), sg);
 	
-	cr->widgets.window = window3;
-	cr->widgets.treeview = tv;
-	cr->widgets.store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tv)));
+	sg->widgets.window = window3;
+	sg->widgets.treeview = tv;
+	sg->widgets.store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tv)));
+	ui = anjuta_shell_get_ui (sg->plugin->shell, NULL);
+	sg->widgets.menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+				"/PopupSignals");
+	
+	sg->is_showing = FALSE;
+	sg->win_width = 460;
+	sg->win_height = 320;
+	sg->win_pos_x = 150;
+	sg->win_pos_y = 130;
 }
 
-Signals *
-signals_new (DebugManagerPlugin *plugin)
+static void
+on_program_exited (Signals * sg)
 {
-	Signals *ew;
-	AnjutaUI *ui;
-	ew = g_malloc (sizeof (Signals));
-	if (ew)
-	{
-		ew->plugin = plugin;
-		ew->debugger = dma_debug_manager_get_queue (plugin);
-		ew->is_showing = FALSE;
-		ew->win_width = 460;
-		ew->win_height = 320;
-		ew->win_pos_x = 150;
-		ew->win_pos_y = 130;
-		create_signals_gui (ew);
-		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
-		ew->widgets.action_group_debugger_ok = 
-				anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsDebuggerOk",
-													_("Signal operations"),
-													actions_signals_debugger_ok,
-													G_N_ELEMENTS (actions_signals_debugger_ok),
-													GETTEXT_PACKAGE, TRUE, ew);
-		ew->widgets.action_group_program_running = 
-				anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsProgramRunning",
-													_("Signal operations"),
-													actions_signals_program_running,
-													G_N_ELEMENTS (actions_signals_program_running),
-													GETTEXT_PACKAGE, TRUE, ew);
-		ew->widgets.menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-					"/PopupSignals"));
+	g_signal_handlers_disconnect_by_func (sg->plugin, G_CALLBACK (on_program_exited), sg);
 
-	}
-	return ew;
+	destroy_signals_gui(sg);
 }
+
+static void
+on_program_started (Signals * sg)
+{
+	create_signals_gui(sg);
+	
+	g_signal_connect_swapped (sg->plugin, "program-exited", G_CALLBACK (on_program_exited), sg);
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
 
 void
 signals_clear (Signals * sg)
@@ -413,57 +413,97 @@ signals_clear (Signals * sg)
 }
 
 void
-signals_show (Signals * ew)
+signals_show (Signals * sg)
 {
-	if (ew)
+	if (sg)
 	{
-		if (ew->is_showing)
+		if (sg->is_showing)
 		{
-			gdk_window_raise (ew->widgets.window->window);
+			gdk_window_raise (sg->widgets.window->window);
 		}
 		else
 		{
-			gtk_widget_set_uposition (ew->widgets.window, ew->win_pos_x,
-									  ew->win_pos_y);
-			gtk_window_set_default_size (GTK_WINDOW (ew->widgets.window),
-										 ew->win_width, ew->win_height);
-			gtk_widget_show (ew->widgets.window);
-			ew->is_showing = TRUE;
+			gtk_widget_set_uposition (sg->widgets.window, sg->win_pos_x,
+									  sg->win_pos_y);
+			gtk_window_set_default_size (GTK_WINDOW (sg->widgets.window),
+										 sg->win_width, sg->win_height);
+			gtk_widget_show (sg->widgets.window);
+			sg->is_showing = TRUE;
 			dma_queue_info_signal (
-					ew->debugger,
+					sg->debugger,
 					(IAnjutaDebuggerCallback)signals_update,
-					ew);
+					sg);
 		}
 	}
 }
 
 void
-signals_hide (Signals * ew)
+signals_hide (Signals * sg)
 {
-	if (ew)
+	if (sg)
 	{
-		if (ew->is_showing == FALSE)
+		if (sg->is_showing == FALSE)
 			return;
-		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
-									&ew->win_pos_y);
-		gdk_window_get_size (ew->widgets.window->window, &ew->win_width,
-							 &ew->win_height);
-		gtk_widget_hide (ew->widgets.window);
-		ew->is_showing = FALSE;
+		gdk_window_get_root_origin (sg->widgets.window->window, &sg->win_pos_x,
+									&sg->win_pos_y);
+		gdk_window_get_size (sg->widgets.window->window, &sg->win_width,
+							 &sg->win_height);
+		gtk_widget_hide (sg->widgets.window);
+		sg->is_showing = FALSE;
 	}
+}
+
+/* Constructor & Destructor
+ *---------------------------------------------------------------------------*/
+
+Signals *
+signals_new (DebugManagerPlugin *plugin)
+{
+	Signals *sg;
+	AnjutaUI *ui;
+	
+	sg = g_new0 (Signals, 1);
+	g_return_val_if_fail (sg != NULL, NULL);
+	
+	sg->plugin = ANJUTA_PLUGIN (plugin);
+	sg->debugger = dma_debug_manager_get_queue (plugin);
+	
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	sg->action_group_program_stopped = 
+			anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsProgramStopped",
+												_("Signal operations"),
+												actions_signals_program_stopped,
+												G_N_ELEMENTS (actions_signals_program_stopped),
+												GETTEXT_PACKAGE, TRUE, sg);
+	sg->action_group_program_running = 
+			anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsProgramRunning",
+												_("Signal operations"),
+												actions_signals_program_running,
+												G_N_ELEMENTS (actions_signals_program_running),
+												GETTEXT_PACKAGE, TRUE, sg);
+
+	g_signal_connect_swapped (plugin, "program-started", G_CALLBACK (on_program_started), sg);
+	
+	return sg;
 }
 
 void
 signals_free (Signals * sg)
 {
-	if (sg)
-	{
-		signals_clear (sg);
-		gtk_widget_destroy (sg->widgets.window);
-		g_object_unref (sg->widgets.store);
-		g_object_unref (sg->widgets.menu);
-		g_object_unref (sg->widgets.action_group_debugger_ok);
-		g_object_unref (sg->widgets.action_group_program_running);
-		g_free (sg);
-	}
+	AnjutaUI *ui;
+
+	g_return_if_fail (sg != NULL);
+	
+	/* Disconnect from debugger */
+	g_signal_handlers_disconnect_matched (sg->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, sg);	
+
+	/* Remove menu actions */
+	ui = anjuta_shell_get_ui (sg->plugin->shell, NULL);
+	anjuta_ui_remove_action_group (ui, sg->action_group_program_stopped);
+	anjuta_ui_remove_action_group (ui, sg->action_group_program_running);
+	
+	/* Destroy GUI */
+	destroy_signals_gui (sg);
+	
+	g_free (sg);
 }

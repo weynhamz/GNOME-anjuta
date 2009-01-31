@@ -108,13 +108,13 @@ on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 }
 
 static void
-sharedlibs_update_controls (Sharedlibs* ew)
+sharedlibs_update_controls (Sharedlibs* sl)
 {
 	gboolean R;
 
-	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+	R = dma_debugger_queue_get_state (sl->debugger) == IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 
-	gtk_action_group_set_sensitive (ew->widgets.action_group, R);
+	gtk_action_group_set_sensitive (sl->action_group, R);
 }
 
 static gboolean
@@ -146,23 +146,6 @@ static GtkActionEntry sharedlibs_menu_actions[] =
 		G_CALLBACK (on_sharedlibs_update_activate)
 	}
 };
-
-static GtkWidget*
-create_sharedlibs_menu (Sharedlibs *sl, DebugManagerPlugin *plugin)
-{
-	AnjutaUI *ui;
-
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
-	sl->widgets.action_group = 
-		anjuta_ui_add_action_group_entries (ui,
-				"ActionGroupSharedlibs",
-				_("Sharedlibs operations"),
-				sharedlibs_menu_actions,
-				G_N_ELEMENTS(sharedlibs_menu_actions),
-				GETTEXT_PACKAGE, TRUE, sl);
-	return gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-			"/PopupSharedlibs");
-}
 
 static GtkWidget*
 sharedlibs_ui_create_treeview_and_store (Sharedlibs *sl)
@@ -214,11 +197,20 @@ sharedlibs_ui_create_treeview_and_store (Sharedlibs *sl)
 }
 
 static void
-create_sharedlibs_gui (Sharedlibs *sl, DebugManagerPlugin *plugin)
+destroy_sharedlibs_gui (Sharedlibs *sl)
+{
+	gtk_widget_destroy(sl->widgets.window);
+	gtk_widget_destroy(sl->widgets.menu);
+	g_object_unref (sl->widgets.store);
+}
+
+static void
+create_sharedlibs_gui (Sharedlibs *sl)
 {
 	GtkWidget *window3;
 	GtkWidget *scrolledwindow4;
 	GtkWidget *treeview;
+	AnjutaUI *ui;
 	
 	window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_usize (window3, 170, -2);
@@ -248,86 +240,130 @@ create_sharedlibs_gui (Sharedlibs *sl, DebugManagerPlugin *plugin)
 	
 	sl->widgets.window = window3;
 	sl->widgets.treeview = treeview;
-	sl->widgets.menu = create_sharedlibs_menu (sl, plugin);
+	ui = anjuta_shell_get_ui (sl->plugin->shell, NULL);
+	sl->widgets.menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+			"/PopupSharedlibs");
+
+	sl->is_showing = FALSE;
+	sl->win_width = 410;
+	sl->win_height = 370;
+	sl->win_pos_x = 120;
+	sl->win_pos_y = 140;
 }
+
+static void
+on_program_unloaded (Sharedlibs *sl)
+{
+	g_signal_handlers_disconnect_by_func (sl->plugin, G_CALLBACK (on_program_unloaded), sl);
+
+	destroy_sharedlibs_gui(sl);
+}
+
+static void
+on_program_loaded (Sharedlibs *sl)
+{
+	create_sharedlibs_gui(sl);
+	
+	g_signal_connect_swapped (sl->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), sl);
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+void
+sharedlibs_clear (Sharedlibs *sl)
+{
+	g_return_if_fail (sl->widgets.store != NULL);
+	g_return_if_fail (GTK_IS_LIST_STORE (sl->widgets.store));
+
+	gtk_list_store_clear (sl->widgets.store);
+}
+
+void
+sharedlibs_show (Sharedlibs* sl)
+{
+	if(sl)
+	{
+		if(sl->is_showing)
+		{
+			gdk_window_raise(sl->widgets.window->window);
+		}
+		else
+		{
+			gtk_widget_set_uposition(sl->widgets.window, sl->win_pos_x,
+									 sl->win_pos_y);
+			gtk_window_set_default_size(GTK_WINDOW(sl->widgets.window),
+										sl->win_width, sl->win_height);
+			gtk_widget_show(sl->widgets.window);
+			sl->is_showing = TRUE;
+			dma_queue_info_sharedlib (
+					sl->debugger,
+					(IAnjutaDebuggerCallback)sharedlibs_update,
+					sl);
+		}
+	}
+}
+
+void
+sharedlibs_hide (Sharedlibs* sl)
+{
+	if(sl)
+	{
+		if(sl->is_showing == FALSE) return;
+			gdk_window_get_root_origin(sl->widgets.window->window,
+									   &sl->win_pos_x, &sl->win_pos_y);
+		gdk_window_get_size(sl ->widgets.window->window, &sl->win_width,
+							&sl->win_height);
+		gtk_widget_hide(sl->widgets.window);
+		sl->is_showing = FALSE;
+	}
+}
+
+/* Constructor & Destructor
+ *---------------------------------------------------------------------------*/
 
 Sharedlibs*
 sharedlibs_new (DebugManagerPlugin *plugin)
 {
-	Sharedlibs* ew;
-	ew = g_malloc(sizeof(Sharedlibs));
-	if(ew)
-	{
-		ew->debugger = dma_debug_manager_get_queue (plugin);
+	Sharedlibs* sl;
+	AnjutaUI *ui;
+
+	sl = g_new0 (Sharedlibs, 1);
+	g_return_val_if_fail (sl != NULL, NULL);
+
+	sl->plugin = ANJUTA_PLUGIN (plugin);
+	sl->debugger = dma_debug_manager_get_queue (plugin);
 		
-		ew->is_showing = FALSE;
-		ew->win_width = 410;
-		ew->win_height = 370;
-		ew->win_pos_x = 120;
-		ew->win_pos_y = 140;
-		create_sharedlibs_gui(ew, plugin);
-	}
-	return ew;
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	sl->action_group = 
+		anjuta_ui_add_action_group_entries (ui,
+				"ActionGroupSharedlibs",
+				_("Sharedlibs operations"),
+				sharedlibs_menu_actions,
+				G_N_ELEMENTS(sharedlibs_menu_actions),
+				GETTEXT_PACKAGE, TRUE, sl);
+
+	g_signal_connect_swapped (plugin, "program-loaded", G_CALLBACK (on_program_loaded), sl);
+
+	return sl;
 }
 
 void
-sharedlibs_clear (Sharedlibs *sg)
+sharedlibs_free(Sharedlibs* sl)
 {
-	g_return_if_fail (sg->widgets.store != NULL);
-	g_return_if_fail (GTK_IS_LIST_STORE (sg->widgets.store));
+	AnjutaUI *ui;
 
-	gtk_list_store_clear (sg->widgets.store);
-}
+	g_return_if_fail (sl != NULL);
+	
+	/* Disconnect from debugger */
+	g_signal_handlers_disconnect_matched (sl->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, sl);	
 
-void
-sharedlibs_show (Sharedlibs* ew)
-{
-	if(ew)
-	{
-		if(ew->is_showing)
-		{
-			gdk_window_raise(ew->widgets.window->window);
-		}
-		else
-		{
-			gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x,
-									 ew->win_pos_y);
-			gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window),
-										ew->win_width, ew->win_height);
-			gtk_widget_show(ew->widgets.window);
-			ew->is_showing = TRUE;
-			dma_queue_info_sharedlib (
-					ew->debugger,
-					(IAnjutaDebuggerCallback)sharedlibs_update,
-					ew);
-		}
-	}
-}
-
-void
-sharedlibs_hide (Sharedlibs* ew)
-{
-	if(ew)
-	{
-		if(ew->is_showing == FALSE) return;
-			gdk_window_get_root_origin(ew ->widgets.window->window,
-									   &ew->win_pos_x, &ew->win_pos_y);
-		gdk_window_get_size(ew ->widgets.window->window, &ew->win_width,
-							&ew->win_height);
-		gtk_widget_hide(ew->widgets.window);
-		ew->is_showing = FALSE;
-	}
-}
-
-void
-sharedlibs_free(Sharedlibs* sg)
-{
-	if(sg)
-	{
-		sharedlibs_clear(sg);
-		gtk_widget_destroy(sg->widgets.window);
-		gtk_widget_destroy(sg->widgets.menu);
-		g_object_unref (sg->widgets.store);
-		g_free(sg);
-	}
+	/* Remove menu actions */
+	ui = anjuta_shell_get_ui (sl->plugin->shell, NULL);
+	anjuta_ui_remove_action_group (ui, sl->action_group);
+	
+	/* Destroy GUI */
+	destroy_sharedlibs_gui (sl);
+	
+	g_free (sl);
 }

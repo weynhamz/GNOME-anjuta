@@ -38,18 +38,17 @@ struct _SignalsGui
 {
 	GtkWidget*   window;
 	GtkWidget*   treeview;
+	GtkWidget*  menu;
 	GtkListStore* store;
-	GtkActionGroup *action_group_debugger_ok;
-	GtkActionGroup *action_group_program_running;
-
-	GtkMenu*   menu;
 };
 
 struct _Signals
 {
 	SignalsGui  widgets;
-	DebugManagerPlugin *plugin;
+	AnjutaPlugin *plugin;
 	DmaDebuggerQueue *debugger;
+	GtkActionGroup *action_group_program_stopped;
+	GtkActionGroup *action_group_program_running;
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 };

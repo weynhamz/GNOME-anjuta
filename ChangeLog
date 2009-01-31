@@ -1,5 +1,14 @@
 2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/sharedlib.h,
+	plugins/debug-manager/signals.c,
+	plugins/debug-manager/signals.h,
+	plugins/debug-manager/plugin.c:
+	Fix some warnings due to the previous patch
+
+2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/file-loader/plugin.c,
 	plugins/patch/patch-plugin.c,
 	plugins/gtodo/libgtodo.c,
