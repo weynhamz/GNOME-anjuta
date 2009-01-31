@@ -256,8 +256,7 @@ designer_associations_unlock_notification (DesignerAssociations *self)
 {
 	self->priv->notification_lock --;
 	if (self->priv->notification_lock < 0)
-		g_critical ("Unbalanced lock stack detected in %s\n",
-		             G_GNUC_PRETTY_FUNCTION);
+		g_critical ("Unbalanced lock stack detected");
 	if (self->priv->notification_lock == 0 && self->priv->notification_pending)
 		g_signal_emit (self, designer_associations_signals[ITEM_NOTIFY],
 		               g_quark_from_static_string (DESIGNER_ASSOCIATIONS_DETAIL_LOADED),

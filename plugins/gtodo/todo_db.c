@@ -250,7 +250,7 @@ get_all_past_purge (void)
 	GTodoItem *item;
 	guint today = 0;
 	GDate *date = g_date_new ();
-	g_date_set_time (date, time (NULL));
+	g_date_set_time_t (date, time (NULL));
 	if (g_date_valid (date) == FALSE)
 	{
 		g_date_free (date);

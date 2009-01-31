@@ -63,11 +63,13 @@ GTodoItem * gtodo_client_create_empty_todo_item(void)
 GTodoItem * gtodo_client_create_new_todo_item(GTodoClient *cl)
 {
 	GTodoItem *item = gtodo_client_create_empty_todo_item();
+	time_t now = time(NULL);
+
 	/* give an nice "random" id */
-	item->id = (GTime)time(NULL);
+	item->id = (guint32)now;
 	/* set the start time */
 	item->start = g_date_new();
-	g_date_set_time(item->start, (GTime)item->id);
+	g_date_set_time_t(item->start, now);
 	return item;
 }
 
@@ -85,11 +87,12 @@ void gtodo_todo_item_free(GTodoItem *item)
 }
 
 
-/* get the id from an todo item in guint32 (its an GTime, but a gtime is an gint32)..*/
-/* I made it a guint32 because there is no negative time here */
+/* get the id from an todo item in guint32 */
+/* I made it a guint because it is generated from a time and there is no 
+ * negative time */
 guint32 gtodo_todo_item_get_id(GTodoItem *item)
 {
-	return (guint32 )item->id;
+	return item->id;
 }
 
 /* set the notification flag for this todo item. */    
@@ -228,7 +231,7 @@ gint32 gtodo_todo_item_check_due(GTodoItem *item)
 	int i;
 	if(item->due == NULL) return GTODO_NO_DUE_DATE;
 	today = g_date_new();
-	g_date_set_time(today, time(NULL));
+	g_date_set_time_t(today, time(NULL));
 	i = g_date_days_between(item->due,today);
 	g_date_free(today);
 	return i;
@@ -257,7 +260,7 @@ guint32 gtodo_todo_item_get_last_edited_date_as_julian(GTodoItem *item)
 	{
 		GDate *date = g_date_new();
 		guint32 julian=1;
-		g_date_set_time(date, item->last_edited);
+		g_date_set_time_t(date, item->last_edited);
 		julian = g_date_get_julian(date);
 		g_date_free(date);
 		return julian;
@@ -355,7 +358,7 @@ gboolean gtodo_todo_item_set_stop_date_today(GTodoItem *item)
 {
 	if(item == NULL) return FALSE;
 	if(item->stop == NULL) item->stop = g_date_new();
-	g_date_set_time(item->stop, time(NULL));
+	g_date_set_time_t(item->stop, time(NULL));
 	return TRUE;
 }
 /* get localized string.. this needs to be freed! */
@@ -547,7 +550,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			if(temp != NULL)
 			{
 				guint64 i = g_ascii_strtoull((gchar *)temp, NULL, 0);
-				item->last_edited = (GTime) i;
+				item->last_edited = (time_t) i;
 				xmlFree(temp);
 			}
 		}
@@ -1114,7 +1117,7 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 			}
 			/* last edited (to the start date attribute) */
 			{
-				temp1 = g_strdup_printf("%u", (GTime)time(NULL));
+				temp1 = g_strdup_printf("%u", time(NULL));
 				xmlSetProp(newa, (xmlChar *)"last_edited", (xmlChar *)temp1);
 				g_free(temp1);
 			}

@@ -932,7 +932,7 @@ cal_set_today (EggDateTime *edt, GtkCalendar *calendar)
 	edt->priv->no_date = FALSE;
 
 	now = g_date_new();
-	g_date_set_time (now, time (NULL));
+	g_date_set_time_t (now, time (NULL));
 
 	year = g_date_get_year(now);
 	month = g_date_get_month(now);

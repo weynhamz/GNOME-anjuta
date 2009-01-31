@@ -1183,6 +1183,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
 	gchar *dirname;
+	gchar *basename;
 	const gchar *root_uri;
 	GError *error = NULL;
 	GList *descs = NULL;
@@ -1254,7 +1255,8 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell, NULL);
 	anjuta_status_progress_add_ticks (status, 1);
-	anjuta_status_push (status, _("Loading project: %s"), g_basename (dirname));
+	basename = g_path_get_basename (dirname);
+	anjuta_status_push (status, _("Loading project: %s"), basename);
 	anjuta_status_busy_push (status);
 	
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
@@ -1281,6 +1283,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 		/* g_propagate_error (err, error); */
 		g_object_unref (pm_plugin->project);
 		pm_plugin->project = NULL;
+		g_free (basename);
 		g_free (dirname);
 		/* gtk_widget_destroy (progress_win); */
 		anjuta_status_pop (status);
@@ -1295,9 +1298,10 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 								 pm_plugin->scrolledwindow,
 								 NULL);
 	
-	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
+	anjuta_status_set_default (status, _("Project"), basename);
 	anjuta_status_pop (status);
 	anjuta_status_busy_pop (status);
+	g_free (basename);
 	g_free (dirname);
 }
 

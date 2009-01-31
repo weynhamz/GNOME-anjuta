@@ -105,12 +105,15 @@ launch_application_failure (AnjutaFileLoaderPlugin *plugin,
 							const gchar *errmsg)
 {
 	GtkWidget *parent;
+	gchar *basename;
 	
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
+	basename = g_path_get_basename (uri);
 	anjuta_util_dialog_error (GTK_WINDOW (parent),
 							  _("Can not open \"%s\".\n\n%s"),
-							  g_basename (uri), errmsg);
+							  basename, errmsg);
+	g_free (basename);
 }
 
 static GList *
@@ -199,10 +202,12 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	GtkWidget *dialog, *parent, *hbox, *label;
 	GtkWidget *options;
 	gchar *message;
+	gchar *basename;
 	AnjutaPluginManager *plugin_manager;
 	
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
 													  NULL);
+	basename = g_path_get_basename (uri);
 	message = g_strdup_printf (_("<b>Cannot open \"%s\"</b>.\n\n"
 								 "There is no plugin, default action, or application "
 								 "configured to handle this file type.\n"
@@ -211,7 +216,9 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 								 "\n"
 								 "You may choose to try opening it with the following "
 								 "plugins or applications."),
-							   g_basename(uri), mime_type);
+							   basename, mime_type);
+	g_free (basename);
+
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),

@@ -1529,7 +1529,7 @@ do_ordertab1 (const void *a, const void *b)
 	order_struct aos,bos;
 	aos = *(order_struct*)a;
 	bos = *(order_struct*)b;
-	return (g_strcasecmp (aos.m_label, bos.m_label)); /* need g_utf8_collate() ? */
+	return (g_ascii_strcasecmp (aos.m_label, bos.m_label)); /* need g_utf8_collate() ? */
 }
 
 static void

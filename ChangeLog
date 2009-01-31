@@ -1,5 +1,19 @@
 2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/file-loader/plugin.c,
+	plugins/patch/patch-plugin.c,
+	plugins/gtodo/libgtodo.c,
+	plugins/gtodo/libgtodo.h,
+	plugins/gtodo/todo_db.c,
+	plugins/gtodo/add_edit_item.c,
+	plugins/gtodo/egg-datetime.c,
+	plugins/project-manager/plugin.c,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/glade/designer-associations.c:
+	Fix #560857 – GNOME Goal: Remove deprecated GLib symbols
+
+2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* (added) www/htdocs/update_news.html:
 	Add a small script to update news on the web site main page
 

@@ -420,7 +420,7 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel)
 	gchar *tempstr;
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbox))){
 		date = g_date_new();
-		g_date_set_time(date, time(NULL));
+		g_date_set_time_t(date, time(NULL));
 		stop_jul= g_date_get_julian(date);
 		g_date_free(date);
 	}

@@ -64,10 +64,10 @@ typedef struct _GTodoList{
 typedef struct _GTotoItem{
 	/* ID of todo item.  This one should be unique */
 	/* for now I made it the time.. that should be unique enough for my purpose */
-	GTime id;
+	guint32 id;
 
 	/* last edited, probly needed for syncing and stuff */
-	GTime last_edited;
+	time_t last_edited;
 
 	/* Creation Date.  And possible end date */
 	GDate *start;

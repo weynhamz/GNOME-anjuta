@@ -176,10 +176,10 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	}
 	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p_plugin->dry_run_check)))
-		g_string_sprintf (command, "patch --dry-run -d %s -p %d -f -i %s",
+		g_string_printf (command, "patch --dry-run -d %s -p %d -f -i %s",
 				  directory, patch_level, patch_file);
 	else
-		g_string_sprintf (command, "patch -d %s -p %d -f -i %s",
+		g_string_printf (command, "patch -d %s -p %d -f -i %s",
 				  directory, patch_level, patch_file);
 	
 	message = g_strdup_printf (_("Patching %s using %s\n"), 
