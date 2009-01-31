@@ -1431,8 +1431,7 @@ anjuta_plugin_manager_is_active_plugin (AnjutaPluginManager *plugin_manager,
  * Searches the currently available plugins to find the one which
  * implements the given interface as primary interface and returns it. If
  * the plugin is not yet loaded, it will be loaded and activated.
- * The returned object is garanteed to be an implementor of the
- * interface (as exported by the plugin metafile). It only searches
+ * It only searches
  * from the pool of plugin objects loaded in this shell and can only search
  * by primary interface. If there are more objects implementing this primary
  * interface, user might be prompted to select one from them (and might give
@@ -1444,9 +1443,10 @@ anjuta_plugin_manager_is_active_plugin (AnjutaPluginManager *plugin_manager,
  * </programlisting>
  * Notice that this function takes the interface name string as string, unlike
  * anjuta_plugins_get_interface() which takes the type directly.
+ * If no plugin implementing this interface can be found, returns NULL.
  *
  * Return value: The plugin object (subclass of #AnjutaPlugin) which implements
- * the given interface. See #AnjutaPlugin for more detail on interfaces
+ * the given interface or NULL. See #AnjutaPlugin for more detail on interfaces
  * implemented by plugins.
  */
 GObject *
@@ -1513,7 +1513,6 @@ anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 	}
 	
 	/* No plugin implementing this interface found */
-	g_warning ("No plugin found implementing %s Interface.", iface_name);
 	return NULL;
 }
 

@@ -1,3 +1,8 @@
+2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-plugin-manager.c:
+	Fix #567846 – A lot of g_warning-s when starting up Anjuta
+
 2009-01-31  Adam Dingle  <adam@medovina.org>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
