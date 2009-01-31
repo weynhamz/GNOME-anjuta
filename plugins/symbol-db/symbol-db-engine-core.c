@@ -206,6 +206,9 @@ static GObjectClass *parent_class = NULL;
 static void 
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 
+void
+sdb_engine_dyn_child_query_node_destroy (gpointer data);
+
 static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id, gboolean sym_update);
@@ -3422,7 +3425,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 					   "Error processing file %s, db_directory %s, project_name %s, "
 					   "project_directory %s", node_file, 
 					   priv->db_directory, project_name, priv->project_directory);
-			return FALSE;
+			return -1;
 		}
 		
 		/* note: we don't use g_strdup () here because we'll free the filtered_files_path

@@ -381,12 +381,13 @@ prepare_files_to_be_scanned (SymbolDBSystem *sdbs,
 	priv = sdbs->priv;	
 	node = cflags;	
 	
-	do {
+	do 
+	{
 		GList *files_tmp_list = NULL;
 		GFile *file;
 		
 		
-		file = g_file_new_for_path ((char *)node->data);
+		file = g_file_new_for_path ((gchar *)node->data);
 		
 		/* files_tmp_list needs to be freed */
 		sdb_system_files_visit_dir (&files_tmp_list, file);
@@ -435,18 +436,56 @@ prepare_files_to_be_scanned (SymbolDBSystem *sdbs,
 	} while ((node = node->next) != NULL);
 }
 
+static inline void 
+sdb_system_do_scan_package_1 (SymbolDBSystem *sdbs,							
+							SingleScanData *ss_data)
+{
+	SymbolDBSystemPriv *priv;
+	gchar *exe_string;
+	priv = sdbs->priv;
+	
+	DEBUG_PRINT ("SCANNING %s", 
+				 ss_data->package_name);
+	exe_string = g_strdup_printf ("pkg-config --cflags %s", 
+								  ss_data->package_name);
+	
+	g_signal_connect (G_OBJECT (priv->single_package_scan_launcher), 
+					  "child-exited", G_CALLBACK (on_pkg_config_exit), ss_data);	
+	
+	anjuta_launcher_execute (priv->single_package_scan_launcher,
+							 	exe_string, on_pkg_config_output, 
+							 	ss_data);	
+	g_free (exe_string);	
+}
+
+/**
+ * Scan the next package in queue, if exists.
+ */
+static void
+sdb_system_do_scan_next_package (SymbolDBSystem *sdbs)
+{
+	SymbolDBSystemPriv *priv;
+	priv = sdbs->priv;
+	
+	if (g_queue_get_length (priv->sscan_queue) > 0)
+	{
+		/* get the next one without storing it into queue */
+		SingleScanData *ss_data = g_queue_peek_head (priv->sscan_queue);
+		
+		/* enjoy */
+		sdb_system_do_scan_package_1 (sdbs, ss_data);
+	}
+}
+
 static inline void
 sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 {
 	SymbolDBSystemPriv *priv;
 	GPtrArray *files_to_scan_array; 
 	GPtrArray *languages_array;
+	gint proc_id;
 	
 	priv = sdbs->priv;
-
-	/* will be disconnected automatically when callback is called. */
-	g_signal_connect (G_OBJECT (priv->sdbe_globals), "scan-end",
- 			G_CALLBACK (on_engine_package_scan_end), es_data);
 
 	if (es_data->special_abort_scan == FALSE)
 	{
@@ -456,7 +495,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 		/* the above arrays will be populated with this function */
 		prepare_files_to_be_scanned (sdbs, es_data->cflags, files_to_scan_array,
 								 languages_array);
-
+		
 		symbol_db_engine_add_new_project (priv->sdbe_globals, NULL,
 								  		es_data->package_name);
 	}
@@ -464,29 +503,36 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	{
 		files_to_scan_array = es_data->files_to_scan_array;
 		languages_array = es_data->languages_array;
-	}		
-							
+	}
 	
-	/* notify the listeners about our intention of adding new files
-	 * to the db 
-	 */
-	g_signal_emit (sdbs, signals[SCAN_PACKAGE_START], 0, 
-				   files_to_scan_array->len,
-				   es_data->package_name); 
 			
 	/* note the FALSE as last parameter: we don't want
 	 * to re-scan an already present file. There's the possibility
 	 * infact to have more references of the same files in different
 	 * packages
 	 */
-	symbol_db_engine_add_new_files (priv->sdbe_globals,
+	proc_id = symbol_db_engine_add_new_files (priv->sdbe_globals,
 							es_data->special_abort_scan == FALSE ? 
 									es_data->package_name : NULL, 
 							files_to_scan_array,
 							languages_array,
 							es_data->special_abort_scan == FALSE ? 
 									FALSE : TRUE);
-		
+
+	if (proc_id > 0)
+	{
+		/* will be disconnected automatically when callback is called. */
+		g_signal_connect (G_OBJECT (priv->sdbe_globals), "scan-end",
+ 				G_CALLBACK (on_engine_package_scan_end), es_data);
+	
+		/* notify the listeners about our intention of adding new files
+	 	* to the db 
+	 	*/
+		g_signal_emit (sdbs, signals[SCAN_PACKAGE_START], 0, 
+					   files_to_scan_array->len,
+					   es_data->package_name); 
+	}
+	
 	/* hey, destroy_engine_scan_data () will take care of destroying these for us,
 	 * in case we're on a special_abort_scan
 	 */
@@ -498,6 +544,18 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (languages_array, TRUE);	
 	}
+	/* if no scan has started destroy the engine data here */
+	else if (proc_id <= 0) 			
+	{
+		destroy_engine_scan_data (es_data);
+		es_data = NULL;
+	
+		/* having not connected the signal to on_engine_package_scan_end () it's
+		 * likely that the queue won't be processed more. So here it is the call
+		 * to unlock it
+		 */
+		sdb_system_do_scan_next_package (sdbs);
+	}	
 }
 
 static void
@@ -530,47 +588,6 @@ on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_
 		es_data = g_queue_peek_head (priv->engine_queue);
 	
 		sdb_system_do_engine_scan (sdbs, es_data);
-	}
-}
-
-static inline void 
-sdb_system_do_scan_package_1 (SymbolDBSystem *sdbs,							
-							SingleScanData *ss_data)
-{
-	SymbolDBSystemPriv *priv;
-	gchar *exe_string;
-	priv = sdbs->priv;
-	
-	DEBUG_PRINT ("sdb_system_do_scan_package_1 SCANNING %s", 
-				 ss_data->package_name);
-	exe_string = g_strdup_printf ("pkg-config --cflags %s", 
-								  ss_data->package_name);
-	
-	g_signal_connect (G_OBJECT (priv->single_package_scan_launcher), 
-					  "child-exited", G_CALLBACK (on_pkg_config_exit), ss_data);	
-	
-	anjuta_launcher_execute (priv->single_package_scan_launcher,
-							 	exe_string, on_pkg_config_output, 
-							 	ss_data);	
-	g_free (exe_string);	
-}
-
-/**
- * Scan the next package in queue, if exists.
- */
-static void
-sdb_system_do_scan_next_package (SymbolDBSystem *sdbs)
-{
-	SymbolDBSystemPriv *priv;
-	priv = sdbs->priv;
-	
-	if (g_queue_get_length (priv->sscan_queue) > 0)
-	{
-		/* get the next one without storing it into queue */
-		SingleScanData *ss_data = g_queue_peek_head (priv->sscan_queue);
-		
-		/* enjoy */
-		sdb_system_do_scan_package_1 (sdbs, ss_data);
 	}
 }
 
@@ -650,13 +667,18 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 			/* just push the tail waiting for a later processing [i.e. after
 			 * a scan-end received 
 			 */
-			DEBUG_PRINT ("pushing on engine queue %s", es_data->package_name);
+			DEBUG_PRINT ("pushing on engine queue [length %d] %s", 
+						 g_queue_get_length (priv->engine_queue),
+						 es_data->package_name);
 			g_queue_push_tail (priv->engine_queue, es_data);
 		}
 		else
 		{
 			/* push the tail to signal a 'working engine' */
-			DEBUG_PRINT ("scanning with engine queue %s", es_data->package_name);
+			DEBUG_PRINT ("scanning with engine queue [length %d] %s", 
+						 g_queue_get_length (priv->engine_queue),
+						 es_data->package_name);
+			
 			g_queue_push_tail (priv->engine_queue, es_data);
 			
 			sdb_system_do_engine_scan (sdbs, es_data);
@@ -766,6 +788,8 @@ symbol_db_system_parse_aborted_package (SymbolDBSystem *sdbs,
 	es_data->languages_array = languages_array;
 		
 		
+	DEBUG_PRINT ("SYSTEM ABORT PARSING.....");
+	
 	/* is the engine queue already full && working? */
 	if (g_queue_get_length (priv->engine_queue) > 0) 
 	{

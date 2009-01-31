@@ -1107,9 +1107,9 @@ on_system_scan_package_start (SymbolDBEngine *dbe, guint num_files,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 
 	sdb_plugin->files_count_system_done = 0;
-	sdb_plugin->files_count_system = num_files;	
+	sdb_plugin->files_count_system += num_files;	
 	
-	DEBUG_PRINT ("on_system_scan_package_start  () [%s]", package);
+	DEBUG_PRINT ("********************* START [%s] with n %d files ", package, num_files);
 	
 	/* show the global bar */
 	gtk_widget_show (sdb_plugin->progress_bar_system);
@@ -1125,7 +1125,7 @@ on_system_scan_package_end (SymbolDBEngine *dbe, const gchar *package,
 	SymbolDBPlugin *sdb_plugin;
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 	
-	DEBUG_PRINT ("on_system_scan_package_end () [%s]", package);
+	DEBUG_PRINT ("******************** END () [%s]", package);
 	
 	/* hide the progress bar */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
@@ -1145,17 +1145,19 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	plugin = ANJUTA_PLUGIN (data);
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
-	DEBUG_PRINT ("%s", "on_system_single_file_scan_end ()");
-	
 	sdb_plugin->files_count_system_done++;	
 	if (sdb_plugin->files_count_system_done >= sdb_plugin->files_count_system)
+	{
 		message = g_strdup_printf (_("%s: Generating inheritances..."), 
 								   sdb_plugin->current_scanned_package);
+	}
 	else
+	{
 		message = g_strdup_printf (_("%s: %d files scanned out of %d"), 
 							sdb_plugin->current_scanned_package,
 							sdb_plugin->files_count_system_done, 
 							sdb_plugin->files_count_system);
+	}
 
 	if (sdb_plugin->files_count_system > 0)
 	{
@@ -1200,7 +1202,7 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	gtk_widget_show (sdb_plugin->progress_bar_project);
 	g_free (message);
 }
- 
+
 static void
 clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 {
@@ -1582,14 +1584,16 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			g_strcmp0 (filename, "") == 0)
 		{
 			g_object_unref (gfile);
-			DEBUG_PRINT ("hey, filename (uri %s) is NULL", uri);
+			/* FIXME here */
+			/*DEBUG_PRINT ("hey, filename (uri %s) is NULL", uri);*/
 			continue;
 		}
 		
 		/* test its existence */
 		if (g_file_test (filename, G_FILE_TEST_EXISTS) == FALSE) 
 		{
-			DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);
+			/* FIXME here */
+			/*DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);*/
 			g_object_unref (gfile);
 			continue;
 		}
@@ -1913,9 +1917,6 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	DEBUG_PRINT ("%s", "project_root_removed ()");
 	/* Disconnect events from project manager */
 	
-	/* FIXME: There should be a way to ensure that this project manager
-	 * is indeed the one that has opened the project_uri
-	 */
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
@@ -1938,6 +1939,19 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	/* and the globals one */
 	symbol_db_engine_close_db (sdb_plugin->sdbe_globals);
 
+	/* stop any opened scanning process */
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system), "");
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project), "");
+	gtk_widget_hide (sdb_plugin->progress_bar_system);
+	gtk_widget_hide (sdb_plugin->progress_bar_project);
+	
+	sdb_plugin->files_count_system_done = 0;
+	sdb_plugin->files_count_system = 0;
+	
+	sdb_plugin->files_count_project_done = 0;
+	sdb_plugin->files_count_project = 0;
+	
+	
 	g_free (sdb_plugin->project_root_uri);
 	g_free (sdb_plugin->project_root_dir);
 	g_free (sdb_plugin->project_opened);

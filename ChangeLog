@@ -1,3 +1,19 @@
+2009-01-31  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_system_scan_package_start),
+	(on_system_scan_package_end), (on_system_single_file_scan_end),
+	(do_check_offline_files_changed), (on_project_root_removed):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(symbol_db_engine_add_new_files):
+	* plugins/symbol-db/symbol-db-system.c
+	(prepare_files_to_be_scanned), (sdb_system_do_scan_package_1),
+	(sdb_system_do_scan_next_package), (sdb_system_do_engine_scan),
+	(on_pkg_config_exit), (symbol_db_system_parse_aborted_package):
+	partially fixed #566209 – "generate inhertances..." 
+	progress bar doesn't disappear
+	Improved global package scanning. Now the queue of scannable packages 
+	shouldn't block anymore.
+
 2009-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/scintilla/text_editor.c,
