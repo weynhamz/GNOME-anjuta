@@ -187,51 +187,71 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 	SymbolDBEngineIterator *iterator;	
 	gchar *path = NULL;
 	gint line;
+	gint i;
+	gboolean found = FALSE;
+	SymbolDBEngine *engine;
 	
-	iterator = symbol_db_engine_find_symbol_by_name_pattern (sdb_plugin->sdbe_project, 
+	for (i = 0; i < 2; i++)
+	{
+		if (i == 0)
+		{
+			engine = sdb_plugin->sdbe_project;
+		}
+		else
+		{
+			engine = sdb_plugin->sdbe_globals;
+		}		
+						
+		iterator = symbol_db_engine_find_symbol_by_name_pattern (engine, 
 															 word,
 															 TRUE,
 															 SYMINFO_SIMPLE |
 															 SYMINFO_KIND |
 															 SYMINFO_FILE_PATH);
 	
-	if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
-	{
-		gchar *current_document = NULL;
-		/* FIXME: namespaces are not handled here, but they should. */
-		
-		if (IANJUTA_IS_FILE (sdb_plugin->current_editor))
+		if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
 		{
-			GFile *file;
-			
-			if ((file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor),
-											   NULL)))
+			gchar *current_document = NULL;
+			/* FIXME: namespaces are not handled here, but they should. */
+		
+			if (IANJUTA_IS_FILE (sdb_plugin->current_editor))
 			{
-				current_document = g_file_get_path (file);
-				g_object_unref (file);
+				GFile *file;
+			
+				if ((file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor),
+												   NULL)))
+				{
+					current_document = g_file_get_path (file);
+					g_object_unref (file);
+				}
 			}
-		}
 		
-		path = find_file_line (iterator, prefer_implementation, current_document, &line);
-		if (!path)
-		{
-			/* reset iterator */
-			symbol_db_engine_iterator_first (iterator);   
-			path = find_file_line (iterator, !prefer_implementation, current_document,
-								   &line);
-		}
+			path = find_file_line (iterator, prefer_implementation, current_document, &line);
+			if (!path)
+			{
+				/* reset iterator */
+				symbol_db_engine_iterator_first (iterator);   
+				path = find_file_line (iterator, !prefer_implementation, current_document,
+									   &line);
+			}
 		
-		if (path)
-		{
-			goto_file_line (ANJUTA_PLUGIN (sdb_plugin), path, line);
-			g_free (path);
-		}
+			if (path)
+			{
+				goto_file_line (ANJUTA_PLUGIN (sdb_plugin), path, line);
+				g_free (path);
+				found = TRUE;
+			}
 		
-		g_free (current_document);
-	}
+			g_free (current_document);
+		}
 	
-	if (iterator)
-		g_object_unref (iterator);
+		if (iterator)
+			g_object_unref (iterator);
+		
+		/* have we found it in the project db? */
+		if (found)
+			break;
+	}
 }
 
 static void
