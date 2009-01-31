@@ -54,7 +54,6 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \
 	$(GLADE_LIBS) \
-	$(GNOME_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

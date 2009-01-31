@@ -1068,9 +1068,8 @@ static gboolean
 dma_plugin_activate (AnjutaPlugin* plugin)
 {
 	DebugManagerPlugin *this;
-    static gboolean initialized = FALSE;
+	static gboolean initialized = FALSE;
 	AnjutaUI *ui;
-	GtkAction *action;
 	
 	DEBUG_PRINT ("%s", "DebugManagerPlugin: Activating Debug Manager plugin...");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);

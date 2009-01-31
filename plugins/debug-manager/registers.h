@@ -27,8 +27,6 @@
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-debugger-register.h>
 
-#include <gnome.h>
-
 typedef struct _CpuRegisters CpuRegisters;
 
 CpuRegisters* cpu_registers_new (DebugManagerPlugin *plugin);

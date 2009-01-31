@@ -24,7 +24,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
 #include <glade/glade.h>
 
 #include <libanjuta/resources.h>
@@ -425,13 +424,12 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		}
 		else
 		{
-			DEBUG_PRINT ("%s", "No installed terminal plugin found");
-			gnome_execute_shell (dir, cmd);
+			anjuta_util_execute_shell (dir, cmd);
 		}
 	}
 	else
 	{
-		gnome_execute_shell (dir, cmd);
+		anjuta_util_execute_shell (dir, cmd);
 	}
 	
 	g_free (dir);

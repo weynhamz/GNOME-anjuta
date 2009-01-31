@@ -27,8 +27,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
-
 /*#define DEBUG*/
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>

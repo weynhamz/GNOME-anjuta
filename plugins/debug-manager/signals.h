@@ -36,25 +36,22 @@ typedef struct _Signals Signals;
 
 struct _SignalsGui
 {
-    GtkWidget*   window;
-    GtkWidget*   clist;
-    GtkWidget*   menu;
-    GtkWidget*   menu_modify;
-    GtkWidget*   menu_signal;
-    GtkWidget*   menu_update;
+	GtkWidget*   window;
+	GtkWidget*   treeview;
+	GtkListStore* store;
+	GtkActionGroup *action_group_debugger_ok;
+	GtkActionGroup *action_group_program_running;
+
+	GtkMenu*   menu;
 };
 
 struct _Signals
 {
 	SignalsGui  widgets;
+	DebugManagerPlugin *plugin;
 	DmaDebuggerQueue *debugger;
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
-	gint	idx;
-	gchar	*signal;
-	gboolean stop;
-	gboolean print;
-	gboolean pass;
 };
 
 Signals* signals_new (DebugManagerPlugin *plugin);

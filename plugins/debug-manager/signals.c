@@ -26,36 +26,47 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <gnome.h>
-
+#include <libanjuta/anjuta-shell.h>
 #include <libanjuta/resources.h>
 
 #include "utilities.h"
 #include "signals.h"
 
 
-static GtkWidget* create_signals_set_dialog (Signals *s);
+enum _SignalColums
+{
+	SIGNAL_COLUMN_NAME,
+	SIGNAL_COLUMN_STOP,
+	SIGNAL_COLUMN_PRINT,
+	SIGNAL_COLUMN_PASS,
+	SIGNAL_COLUMN_DESCRIPTION,
+	SIGNAL_COLUMN_COUNT
+};
 
 static void
 signals_update_controls (Signals * ew)
 {
 	gboolean R, Pr;
 	
-	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_OK;
+	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 	Pr = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_RUNNING;
-	gtk_widget_set_sensitive (ew->widgets.menu_signal, Pr);
-	gtk_widget_set_sensitive (ew->widgets.menu_modify, R);
-	gtk_widget_set_sensitive (ew->widgets.menu_update, R);
+	gtk_action_group_set_sensitive(ew->widgets.action_group_debugger_ok, R);
+	gtk_action_group_set_sensitive(ew->widgets.action_group_program_running, Pr);
 }
 
+/*
+ * signals_update:
+ */
 static void
 signals_update (const GList * lines, gpointer data)
 {
 	Signals *sg;
 	gint j, count;
-	gchar *row[5], *str;
+	gchar *str;
 	gchar sig[32], stop[10], print[10], pass[10];
 	GList *list, *node;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
 	
 	sg = (Signals *) data;
 	signals_clear (sg);
@@ -65,12 +76,20 @@ signals_update (const GList * lines, gpointer data)
 		g_list_free (list);
 		return;
 	}
-	gtk_clist_freeze (GTK_CLIST(sg->widgets.clist));
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (sg->widgets.treeview));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (sg->widgets.treeview), NULL);
 	node = list->next;
+
+	/* Skip the first two lines */
+	if (node)
+		node = node->next;
+	if (node)
+		node = node->next;
 	while (node)
 	{
 		count =
-			sscanf ((char *) node->data, "%s %s %s %s", sig, stop, print, pass);
+			sscanf ((char *) node->data, "~%s %s %s %s", sig, stop, print, pass);
 		str = node->data;
 		node = g_list_next (node);
 		if (count != 4)
@@ -79,10 +98,6 @@ signals_update (const GList * lines, gpointer data)
 		/* Do not worry. This is used to avoid the last line */
 		if (node == NULL)
 			break;
-		row[0] = sig;
-		row[1] = stop;
-		row[2] = print;
-		row[3] = pass;
 		for (j = 0; j < 4; j++)
 		{
 			while (isspace (*str))
@@ -92,19 +107,20 @@ signals_update (const GList * lines, gpointer data)
 		}
 		while (isspace (*str))
 			str++;
-		row[4] = str;
-		gtk_clist_append (GTK_CLIST (sg->widgets.clist), row);
-	}
-	g_list_free (list);
-	gtk_clist_thaw (GTK_CLIST(sg->widgets.clist));
-}
 
-static void
-on_signals_clist_select_row (GtkCList *clist, gint row,
-							 gint column, GdkEvent *event, gpointer user_data)
-{
-    Signals *s = (Signals*)user_data;
-    s->idx = row;
+		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+				SIGNAL_COLUMN_NAME, sig,
+				SIGNAL_COLUMN_STOP, strcmp (stop, "Yes") == 0,
+				SIGNAL_COLUMN_PRINT, strcmp (print, "Yes") == 0,
+				SIGNAL_COLUMN_PASS, strcmp (pass, "Yes") == 0,
+				SIGNAL_COLUMN_DESCRIPTION, str,
+				-1);
+	}
+
+	/* FIXME: do we need to free the char data as well? */
+	g_list_free (list);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (sg->widgets.treeview), model);
 }
 
 static gint
@@ -129,29 +145,29 @@ on_signals_key_press_event(GtkWidget *widget, GdkEventKey *event,
 }
 
 static void
-on_signals_modify_activate (GtkMenuItem *menuitem, gpointer user_data)
-{
-	GtkWidget* dialog;
-    Signals *s = (Signals*)user_data;
-	
-	dialog = create_signals_set_dialog (s);
-	if (dialog)
-		gtk_widget_show (dialog);
-}
-
-static void
 on_signals_send_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
-	#if 0
+	Signals *s = (Signals*)user_data;
+#if 0
 	gchar* sig;
-    Signals *s = (Signals*)user_data;
-	
-	if (debugger_program_is_running (s->debugger) == FALSE) return;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+#endif 
+	if (dma_debugger_queue_get_state (s->debugger) != IANJUTA_DEBUGGER_PROGRAM_RUNNING)
+		return;
+	/* has FIXME in debugger.c in gdb plugin */
+#if 0
 	
 	signals_show (s);
-	gtk_clist_get_text(GTK_CLIST (s->widgets.clist), s->idx, 0, &sig);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (s->widgets.treeview));
+	gtk_tree_selection_get_selected (selection, &model, &iter);
+	gtk_tree_model_get (model, &iter, 
+			SIGNAL_COLUMN_NAME, &sig,
+			-1);
 	debugger_signal(sig, TRUE);
-	#endif
+	g_free (sig);
+#endif
 }
 
 static void
@@ -164,17 +180,17 @@ on_signals_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 			s);
 }
 
+/*
+ * Show popup menu on #GtkTreeView
+ */
 static gboolean
-on_signals_event (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
+on_signals_event (GtkWidget *widget, GdkEventButton  *bevent, gpointer user_data)
 {
-	GdkEventButton *bevent;
     Signals *ew = (Signals*)user_data;
 	
-	if (event->type != GDK_BUTTON_PRESS) return FALSE;
-	if (((GdkEventButton *)event)->button != 3) return FALSE;
+	if (bevent->type != GDK_BUTTON_PRESS) return FALSE;
+	if (bevent->button != 3) return FALSE;
 	
-	bevent =  (GdkEventButton *)event;
-	bevent->button = 1;
 	signals_update_controls(ew);
 	gtk_menu_popup (GTK_MENU(ew->widgets.menu), NULL,
 					NULL, NULL, NULL,
@@ -182,134 +198,155 @@ on_signals_event (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
 	return TRUE;
 }
 
+/*
+ * on_column_toggled:
+ *
+ * @renderer: cell renderer on which the toggle happened
+ * @path: row in list where the change happened
+ * @sig: instance of #Signals
+ *
+ * Callback if one of the three boolean columns has been toggled by the 
+ * user. If the debugged program is not stopped this function will
+ * do nothing. Function will fetch state of signal from list store, update the 
+ * affected column and pass on the data to the debugging backend using
+ * dma_queue_handler_signal().
+ */
 static void
-on_signals_togglebutton1_toggled (GtkToggleButton *togglebutton,
-								  gpointer user_data)
+on_column_toggled(GtkCellRendererToggle *renderer, gchar *path, Signals *sig)
 {
-	Signals *sig = (Signals*) user_data;
+	GtkTreeIter iter;
+	gchar *signal;
+	gboolean data[SIGNAL_COLUMN_COUNT];
+	guint column;
+
+	if (dma_debugger_queue_get_state (sig->debugger) != IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+	{
+		return;
+	}
+
+	column = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (renderer), "__column_nr"));
 	
-	sig->stop = gtk_toggle_button_get_active (togglebutton);
-	if (sig->stop)
-		gtk_label_set_text (GTK_LABEL(GTK_BIN (togglebutton)->child), _("Yes"));
-    else
-		gtk_label_set_text (GTK_LABEL(GTK_BIN (togglebutton)->child), _("No"));
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (sig->widgets.store),
+			&iter,
+			path);
+	gtk_tree_model_get (GTK_TREE_MODEL (sig->widgets.store),
+			&iter,
+			SIGNAL_COLUMN_NAME, &signal,
+			SIGNAL_COLUMN_STOP, &data[SIGNAL_COLUMN_STOP],
+			SIGNAL_COLUMN_PRINT, &data[SIGNAL_COLUMN_PRINT],
+			SIGNAL_COLUMN_PASS, &data[SIGNAL_COLUMN_PASS],
+			-1);
+
+	data[column] = !data[column];
+
+	gtk_list_store_set (sig->widgets.store,
+			&iter,
+			column, data[column], -1);
+	dma_queue_handle_signal (sig->debugger, signal, 
+			data[SIGNAL_COLUMN_STOP],
+			data[SIGNAL_COLUMN_PRINT],
+			data[SIGNAL_COLUMN_PASS]);
+	g_free (signal);
 }
 
 static void
-on_signals_togglebutton2_toggled (GtkToggleButton *togglebutton,
-								  gpointer user_data)
+signals_add_toggle_column (GtkTreeView *tv, const gchar *title, guint column_num, Signals *sig)
 {
-	Signals *sig = (Signals*) user_data;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
+	renderer = gtk_cell_renderer_toggle_new ();
+	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+	column = gtk_tree_view_column_new_with_attributes (title,
+			renderer, 
+			"active", column_num,
+			NULL);
+	gtk_tree_view_append_column (tv, column);
+	g_object_set_data (G_OBJECT (renderer), "__column_nr", GINT_TO_POINTER (column_num));
+	g_signal_connect (G_OBJECT (renderer), 
+			"toggled", G_CALLBACK (on_column_toggled), sig);
+}
+
+static GtkWidget *
+signals_create_list_store_and_treeview(Signals *sig)
+{
+	GtkListStore *store;
+	GtkWidget *w;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
+	store = gtk_list_store_new (SIGNAL_COLUMN_COUNT, 
+								G_TYPE_STRING,
+								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
+								G_TYPE_STRING
+								);
 	
-	sig->print = gtk_toggle_button_get_active(togglebutton);
-	if (sig->print)
-		gtk_label_set_text (GTK_LABEL(GTK_BIN(togglebutton)->child), _("Yes"));
-    else
-		gtk_label_set_text (GTK_LABEL(GTK_BIN(togglebutton)->child), _("No"));
-}
-
-static void
-on_signals_togglebutton3_toggled (GtkToggleButton *togglebutton,
-								  gpointer user_data)
-{
-	Signals *sig = (Signals*) user_data;
+	w = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 	
-	sig->pass = gtk_toggle_button_get_active (togglebutton);
-	if (sig->pass)
-		gtk_label_set_text (GTK_LABEL(GTK_BIN(togglebutton)->child), _("Yes"));
-    else
-		gtk_label_set_text (GTK_LABEL(GTK_BIN(togglebutton)->child), _("No"));
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Signal"),
+			renderer, 
+			"text", SIGNAL_COLUMN_NAME,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (w), column);
+
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Stop"), SIGNAL_COLUMN_STOP, sig);
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Print"), SIGNAL_COLUMN_PRINT, sig);
+	signals_add_toggle_column (GTK_TREE_VIEW (w), _("Pass"), SIGNAL_COLUMN_PASS, sig);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Description"),
+			renderer, 
+			"text", SIGNAL_COLUMN_DESCRIPTION,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (w), column);
+
+	g_signal_connect (G_OBJECT (w), "button-press-event", 
+			G_CALLBACK (on_signals_event), sig);
+
+	return w;
 }
 
-static void
-on_signals_set_ok_clicked              (GtkButton       *button,
-                                        gpointer         user_data)
-{
-	Signals *s = (Signals*) user_data;
+/* Actions table
+ *---------------------------------------------------------------------------*/
 
-	if(s->stop)
+static GtkActionEntry actions_signals_program_running[] = {
 	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "Yes");
+		"ActionDmaSignalSend",         	/* Action name */
+		NULL,                                 	/* Stock icon, if any */
+		N_("Send to process"),               /* Display label */
+		NULL,                                   /* short-cut */
+		NULL,                                   /* Tooltip */
+		G_CALLBACK (on_signals_send_activate) 	/* action callback */
 	}
-	else
-	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "No");
-	}
-	if(s->print)
-	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "Yes");
-	}
-	else
-	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "No");
-	}
-	if(s->pass)
-	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "Yes");
-	}
-	else
-	{
-		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "No");
-	}
-	dma_queue_handle_signal (s->debugger, s->signal, s->stop, s->print, s->pass);
-}
-
-static GnomeUIInfo signals_menu_uiinfo[] =
-{
-	{
-		GNOME_APP_UI_ITEM, N_("Modify Signal"),
-		NULL,
-		on_signals_modify_activate, NULL, NULL,
-		GNOME_APP_PIXMAP_NONE, NULL,
-		0, 0, NULL
-	},
-	{
-		GNOME_APP_UI_ITEM, N_("Send to process"),
-		NULL,
-		on_signals_send_activate, NULL, NULL,
-		GNOME_APP_PIXMAP_NONE, NULL,
-		0, 0, NULL
-	},
-	{
-		GNOME_APP_UI_ITEM, N_("Update"),
-		NULL,
-		on_signals_update_activate, NULL, NULL,
-		GNOME_APP_PIXMAP_NONE, NULL,
-		0, 0, NULL
-	},
-	GNOMEUIINFO_END
 };
 
-static GtkWidget*
-create_signals_menu (Signals *s)
-{
-	GtkWidget *signals_menu;
-	
-	signals_menu = gtk_menu_new ();
-	
-	signals_menu_uiinfo[0].user_data = s;
-	signals_menu_uiinfo[1].user_data = s;
-	signals_menu_uiinfo[2].user_data = s;
-	
-	gnome_app_fill_menu (GTK_MENU_SHELL (signals_menu), signals_menu_uiinfo,
-						 NULL, FALSE, 0);
-	return signals_menu;
-}
+static GtkActionEntry actions_signals_debugger_ok[] = {
+	{
+		"ActionDmaSignalUpdate",
+		GTK_STOCK_REFRESH,
+		N_("Update"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_signals_update_activate)
+	}
+};
+
 
 static void
 create_signals_gui (Signals *cr)
 {
 	GtkWidget *window3;
 	GtkWidget *scrolledwindow4;
-	GtkWidget *clist4;
-	GtkWidget *label6, *label7, *label8, *label9, *label10;
+	GtkWidget *tv;
 
 	window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_usize (window3, 170, -2);
 	gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
 	gtk_window_set_wmclass (GTK_WINDOW (window3), "signals", "Anjuta");
 	gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
-	gnome_window_icon_set_from_default(GTK_WINDOW(window3));
 
 	scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (scrolledwindow4);
@@ -317,240 +354,51 @@ create_signals_gui (Signals *cr)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4),
 									GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
-	clist4 = gtk_clist_new (5);
-	gtk_widget_show (clist4);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow4), clist4);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 0, 100);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 1, 50);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 2, 50);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 3, 50);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 4, 80);
-	gtk_clist_set_selection_mode (GTK_CLIST (clist4), GTK_SELECTION_BROWSE);
-	gtk_clist_column_titles_show (GTK_CLIST (clist4));
-	gtk_clist_set_column_auto_resize (GTK_CLIST(clist4), 4, TRUE);
-	
-	label6 = gtk_label_new (_("Signal"));
-	gtk_widget_show (label6);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 0, label6);
-	
-	label7 = gtk_label_new (_("Stop"));
-	gtk_widget_show (label7);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 1, label7);
-	
-	label8 = gtk_label_new (_("Print"));
-	gtk_widget_show (label8);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
-	
-	label9 = gtk_label_new (_("Pass"));
-	gtk_widget_show (label9);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 3, label9);
-	
-	label10 = gtk_label_new (_("Description"));
-	gtk_widget_show (label10);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 4, label10);
-	
+	tv = signals_create_list_store_and_treeview (cr);
+	gtk_widget_show (tv);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow4), tv);
 	gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
 						GTK_SIGNAL_FUNC (on_signals_delete_event), cr);
 	gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
 						GTK_SIGNAL_FUNC (on_signals_key_press_event), cr);
 	
-	gtk_signal_connect (GTK_OBJECT (clist4), "event",
-						GTK_SIGNAL_FUNC (on_signals_event),
-						cr);
-	gtk_signal_connect (GTK_OBJECT (clist4), "select_row",
-						GTK_SIGNAL_FUNC (on_signals_clist_select_row),
-						cr);
-
 	cr->widgets.window = window3;
-	cr->widgets.clist = clist4;
-	cr->widgets.menu = create_signals_menu (cr);
-	cr->widgets.menu_modify = signals_menu_uiinfo[0].widget;
-	cr->widgets.menu_signal = signals_menu_uiinfo[1].widget;
-	cr->widgets.menu_update = signals_menu_uiinfo[2].widget;
-}
-
-static GtkWidget*
-create_signals_set_dialog (Signals *s)
-{
-	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *hbox1;
-	GtkWidget *label1;
-	GtkWidget *label2;
-	GtkWidget *hbox2;
-	GtkWidget *label3;
-	GtkWidget *label4;
-	GtkWidget *hseparator1;
-	GtkWidget *hbox4;
-	GtkWidget *label5;
-	GtkWidget *label6;
-	GtkWidget *label7;
-	GtkWidget *hbox3;
-	GtkWidget *togglebutton1;
-	GtkWidget *togglebutton2;
-	GtkWidget *togglebutton3;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
-	gchar *row[5];
-	
-	if(s->idx < 0)
-		return NULL;
-	
-	gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,0, &row[0]);
-	gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,1, &row[1]);
-	gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,2, &row[2]);
-	gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,3, &row[3]);
-	gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,4, &row[4]);
-	s->signal = row[0];
-	
-	if(strcasecmp(row[1], "Yes")==0)
-		s->stop = TRUE;
-	else
-		s->stop = FALSE;
-
-	if(strcasecmp(row[2], "Yes")==0)
-		s->print = TRUE;
-	else
-		s->print = FALSE;
-
-	if(strcasecmp(row[3], "Yes")==0)
-		s->pass = TRUE;
-	else
-		s->pass = FALSE;
-	
-	dialog1 = gnome_dialog_new (_("Set Signal Property"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog1),
-								  GTK_WINDOW(s->widgets.window));
-	GTK_WINDOW (dialog1)->type = GTK_WINDOW_TOPLEVEL;
-	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_MOUSE);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "set_signal", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
-	
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
-	gtk_widget_show (dialog_vbox1);
-	
-	hbox1 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox1, TRUE, TRUE, 0);
-	
-	label1 = gtk_label_new ("Signal: ");
-	gtk_widget_show (label1);
-	gtk_box_pack_start (GTK_BOX (hbox1), label1, FALSE, FALSE, 0);
-	
-	label2 = gtk_label_new (row[0]);
-	gtk_widget_show (label2);
-	gtk_box_pack_start (GTK_BOX (hbox1), label2, FALSE, FALSE, 0);
-	
-	hbox2 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox2);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox2, TRUE, TRUE, 0);
-	
-	label3 = gtk_label_new ("Description: ");
-	gtk_widget_show (label3);
-	gtk_box_pack_start (GTK_BOX (hbox2), label3, FALSE, FALSE, 0);
-	
-	label4 = gtk_label_new (row[4]);
-	gtk_widget_show (label4);
-	gtk_box_pack_start (GTK_BOX (hbox2), label4, FALSE, FALSE, 0);
-	
-	hseparator1 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hseparator1, TRUE, TRUE, 0);
-	
-	hbox4 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox4);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox4, TRUE, TRUE, 0);
-	
-	label5 = gtk_label_new (_("Stop:"));
-	gtk_widget_show (label5);
-	gtk_box_pack_start (GTK_BOX (hbox4), label5, TRUE, TRUE, 0);
-	
-	label6 = gtk_label_new (_("Print:"));
-	gtk_widget_show (label6);
-	gtk_box_pack_start (GTK_BOX (hbox4), label6, TRUE, TRUE, 0);
-	
-	label7 = gtk_label_new (_("Pass:"));
-	gtk_widget_show (label7);
-	gtk_box_pack_start (GTK_BOX (hbox4), label7, TRUE, TRUE, 0);
-	
-	hbox3 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox3);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox3, TRUE, TRUE, 0);
-	
-	togglebutton1 = gtk_toggle_button_new_with_label (row[1]);
-	gtk_widget_show (togglebutton1);
-	gtk_box_pack_start (GTK_BOX (hbox3), togglebutton1, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (togglebutton1), 3);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(togglebutton1), s->stop);
-	
-	togglebutton2 = gtk_toggle_button_new_with_label (row[2]);
-	gtk_widget_show (togglebutton2);
-	gtk_box_pack_start (GTK_BOX (hbox3), togglebutton2, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (togglebutton2), 3);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(togglebutton2), s->print);
-	
-	togglebutton3 = gtk_toggle_button_new_with_label (row[3]);
-	gtk_widget_show (togglebutton3);
-	gtk_box_pack_start (GTK_BOX (hbox3), togglebutton3, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (togglebutton3), 3);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(togglebutton3), s->pass);
-	
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
-							   GTK_BUTTONBOX_SPREAD);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-								GNOME_STOCK_BUTTON_HELP);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button1);
-	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_OK);
-	button2 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button2);
-	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-								GNOME_STOCK_BUTTON_CANCEL);
-	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button3);
-	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
-	
-	gtk_signal_connect (GTK_OBJECT (togglebutton1), "toggled",
-						GTK_SIGNAL_FUNC (on_signals_togglebutton1_toggled),
-						s);
-	gtk_signal_connect (GTK_OBJECT (togglebutton2), "toggled",
-						GTK_SIGNAL_FUNC (on_signals_togglebutton2_toggled),
-						s);
-	gtk_signal_connect (GTK_OBJECT (togglebutton3), "toggled",
-						GTK_SIGNAL_FUNC (on_signals_togglebutton3_toggled),
-						s);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-						GTK_SIGNAL_FUNC (on_signals_set_ok_clicked),
-						s);
-	return dialog1;
+	cr->widgets.treeview = tv;
+	cr->widgets.store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tv)));
 }
 
 Signals *
 signals_new (DebugManagerPlugin *plugin)
 {
 	Signals *ew;
+	AnjutaUI *ui;
 	ew = g_malloc (sizeof (Signals));
 	if (ew)
 	{
+		ew->plugin = plugin;
 		ew->debugger = dma_debug_manager_get_queue (plugin);
 		ew->is_showing = FALSE;
 		ew->win_width = 460;
 		ew->win_height = 320;
 		ew->win_pos_x = 150;
 		ew->win_pos_y = 130;
-		ew->idx = -1;
 		create_signals_gui (ew);
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+		ew->widgets.action_group_debugger_ok = 
+				anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsDebuggerOk",
+													_("Signal operations"),
+													actions_signals_debugger_ok,
+													G_N_ELEMENTS (actions_signals_debugger_ok),
+													GETTEXT_PACKAGE, TRUE, ew);
+		ew->widgets.action_group_program_running = 
+				anjuta_ui_add_action_group_entries (ui, "ActionGroupSignalsProgramRunning",
+													_("Signal operations"),
+													actions_signals_program_running,
+													G_N_ELEMENTS (actions_signals_program_running),
+													GETTEXT_PACKAGE, TRUE, ew);
+		ew->widgets.menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+					"/PopupSignals"));
+
 	}
 	return ew;
 }
@@ -558,9 +406,10 @@ signals_new (DebugManagerPlugin *plugin)
 void
 signals_clear (Signals * sg)
 {
-	if (GTK_IS_CLIST (sg->widgets.clist))
-		gtk_clist_clear (GTK_CLIST (sg->widgets.clist));
-	sg->idx = -1;
+	g_return_if_fail (sg->widgets.store != NULL);
+	g_return_if_fail (GTK_IS_LIST_STORE(sg->widgets.store));
+
+	gtk_list_store_clear (sg->widgets.store);
 }
 
 void
@@ -611,7 +460,10 @@ signals_free (Signals * sg)
 	{
 		signals_clear (sg);
 		gtk_widget_destroy (sg->widgets.window);
-		gtk_widget_destroy (sg->widgets.menu);
+		g_object_unref (sg->widgets.store);
+		g_object_unref (sg->widgets.menu);
+		g_object_unref (sg->widgets.action_group_debugger_ok);
+		g_object_unref (sg->widgets.action_group_program_running);
 		g_free (sg);
 	}
 }

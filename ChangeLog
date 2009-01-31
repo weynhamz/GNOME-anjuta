@@ -1,3 +1,32 @@
+2009-01-31  Jens Georg  <mail@jensge.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/Makefile.am:
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	* plugins/debug-manager/disassemble.c:
+	* plugins/debug-manager/plugin.c (dma_plugin_activate):
+	* plugins/debug-manager/registers.c:
+	* plugins/debug-manager/registers.h:
+	* plugins/debug-manager/sharedlib.c (sharedlibs_update),
+	(sharedlibs_update_controls), (create_sharedlibs_menu),
+	(sharedlibs_ui_create_treeview_and_store), (create_sharedlibs_gui),
+	(sharedlibs_new), (sharedlibs_clear), (sharedlibs_free):
+	* plugins/debug-manager/sharedlib.h:
+	* plugins/debug-manager/signals.c (signals_update_controls),
+	(signals_update), (on_signals_send_activate), (on_signals_event),
+	(on_column_toggled), (signals_add_toggle_column),
+	(signals_create_list_store_and_treeview), (create_signals_gui),
+	(signals_new), (signals_clear), (signals_free):
+	* plugins/debug-manager/signals.h:
+	Remove GnomeDialog and GnomeMenuShell as well as GtkCList from signals
+	and sharedlibs window
+	#513156 – Get rid of libgnome(ui)
+
+	* manuals/build-basic-autotools/Makefile.am:
+	* plugins/build-basic-autotools/executer.c (execute_program):
+	#513156 – Get rid of libgnome(ui)
+
 2008-12-31  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

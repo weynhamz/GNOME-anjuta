@@ -35,10 +35,11 @@ typedef struct _Sharedlibs Sharedlibs;
 
 struct _SharedlibsGui
 {
-    GtkWidget*   window;
-    GtkWidget*   clist;
-    GtkWidget*   menu;
-    GtkWidget*   menu_update;
+	GtkWidget*   window;
+	GtkWidget*   menu;
+	GtkActionGroup *action_group;
+	GtkWidget* treeview;
+	GtkListStore* store;
 };
 
 struct _Sharedlibs

@@ -25,13 +25,21 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
-
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-shell.h>
 
 #include "utilities.h"
 #include "sharedlib.h"
 #include "queue.h"
+
+enum 
+{
+	SHL_COLUMN_SHARED_OBJECT,
+	SHL_COLUMN_FROM,
+	SHL_COLUMN_TO,
+	SHL_COLUMN_SYM_READ,
+	SHL_COLUMN_COUNT
+};
 
 static gint
 on_sharedlibs_delete_event (GtkWidget* w, GdkEvent *event, gpointer data)
@@ -55,33 +63,37 @@ on_sharedlibs_key_press_event (GtkWidget *widget, GdkEventKey *event,
 }
 
 
-static void
+	static void
 sharedlibs_update (const GList *lines, gpointer data)
 {
-    Sharedlibs *sl;
-    gchar obj[512], from[32], to[32], read[32];
-    gchar *row[4];
-    gint count;
-    GList *list, *node;
+	Sharedlibs *sl;
+	gchar obj[512], from[32], to[32], read[32];
+	gint count;
+	GList *list, *node;
+	GtkTreeIter iter;
 
-    sl = (Sharedlibs*)data;
+	sl = (Sharedlibs*)data;
 
-    list = gdb_util_remove_blank_lines(lines);
-    sharedlibs_clear(sl);
-    if(g_list_length(list) < 2 ){g_list_free(list); return;}
-    node = list->next;
-    while(node)
-    {
-        count = sscanf((char*)node->data, "%s %s %s %s", from,to,read,obj);
-        node = g_list_next(node);
-        if(count != 4) continue;
-        row[0]=(gchar*) g_path_get_basename (obj);
-        row[1]=from;
-        row[2]=to;
-        row[3]=read;
-        gtk_clist_append(GTK_CLIST(sl->widgets.clist), row);
-     }
-     g_list_free(list);
+	list = gdb_util_remove_blank_lines(lines);
+	sharedlibs_clear(sl);
+	if(g_list_length(list) < 2 ){g_list_free(list); return;}
+	node = list->next;
+	if (node)
+		node = g_list_next (node);
+	while(node)
+	{
+		count = sscanf((char*)node->data, "~%s %s %s %s", from,to,read,obj);
+		node = g_list_next(node);
+		if(count != 4) continue;
+		gtk_list_store_append (sl->widgets.store, &iter);
+		gtk_list_store_set (sl->widgets.store, &iter,
+				SHL_COLUMN_SHARED_OBJECT, g_path_get_basename (obj),
+				SHL_COLUMN_FROM, from,
+				SHL_COLUMN_TO, to,
+				SHL_COLUMN_SYM_READ, strcmp(read, "Yes") == 0,
+				-1);
+	}
+	g_list_free(list);
 }
 
 static void
@@ -98,11 +110,11 @@ on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 static void
 sharedlibs_update_controls (Sharedlibs* ew)
 {
-     gboolean R;
+	gboolean R;
 
-     R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_OK;
+	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 
-     gtk_widget_set_sensitive(ew->widgets.menu_update, R);
+	gtk_action_group_set_sensitive (ew->widgets.action_group, R);
 }
 
 static gboolean
@@ -124,44 +136,95 @@ on_sharedlibs_event (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
 	return TRUE;
 }
 
-static GnomeUIInfo sharedlibs_menu_uiinfo[] =
+static GtkActionEntry sharedlibs_menu_actions[] =
 {
 	{
-		GNOME_APP_UI_ITEM, N_("Update"),
-		NULL,
-		on_sharedlibs_update_activate, NULL, NULL,
-		GNOME_APP_PIXMAP_NONE, NULL,
-		0, 0, NULL
-	},
-	GNOMEUIINFO_END
+		"ActionDmaSharedlibsUpdate",
+		GTK_STOCK_REFRESH,
+		N_("Update"),
+		NULL, NULL,
+		G_CALLBACK (on_sharedlibs_update_activate)
+	}
 };
 
 static GtkWidget*
-create_sharedlibs_menu (Sharedlibs *sl)
+create_sharedlibs_menu (Sharedlibs *sl, DebugManagerPlugin *plugin)
 {
-	GtkWidget *sharedlibs_menu;
+	AnjutaUI *ui;
 
-	sharedlibs_menu = gtk_menu_new ();
-	sharedlibs_menu_uiinfo[0].user_data = sl;
-	gnome_app_fill_menu (GTK_MENU_SHELL (sharedlibs_menu), sharedlibs_menu_uiinfo,
-						 NULL, FALSE, 0);
-	return sharedlibs_menu;
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	sl->widgets.action_group = 
+		anjuta_ui_add_action_group_entries (ui,
+				"ActionGroupSharedlibs",
+				_("Sharedlibs operations"),
+				sharedlibs_menu_actions,
+				G_N_ELEMENTS(sharedlibs_menu_actions),
+				GETTEXT_PACKAGE, TRUE, sl);
+	return gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+			"/PopupSharedlibs");
+}
+
+static GtkWidget*
+sharedlibs_ui_create_treeview_and_store (Sharedlibs *sl)
+{
+	GtkWidget *treeview;
+	GtkListStore *store;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
+	store = gtk_list_store_new (SHL_COLUMN_COUNT,
+			G_TYPE_STRING,
+			G_TYPE_STRING,
+			G_TYPE_STRING,
+			G_TYPE_BOOLEAN);
+	treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Shared Object"),
+			renderer,
+			"text", SHL_COLUMN_SHARED_OBJECT,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("From"),
+			renderer,
+			"text", SHL_COLUMN_FROM,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("To"),
+			renderer,
+			"text", SHL_COLUMN_TO,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+	renderer = gtk_cell_renderer_toggle_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Symbols read"),
+			renderer,
+			"active", SHL_COLUMN_SYM_READ,
+			NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+	sl->widgets.treeview = treeview;
+	sl->widgets.store = store;
+
+	return treeview;
 }
 
 static void
-create_sharedlibs_gui (Sharedlibs *sl)
+create_sharedlibs_gui (Sharedlibs *sl, DebugManagerPlugin *plugin)
 {
 	GtkWidget *window3;
 	GtkWidget *scrolledwindow4;
-	GtkWidget *clist4;
-	GtkWidget *label6, *label7, *label8, *label9;
+	GtkWidget *treeview;
 	
 	window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_usize (window3, 170, -2);
 	gtk_window_set_title (GTK_WINDOW (window3), _("Shared libraries"));
 	gtk_window_set_wmclass (GTK_WINDOW (window3), "sharedlibs", "Anjuta");
 	gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
-	gnome_window_icon_set_from_default(GTK_WINDOW(window3));
 	
 	scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (scrolledwindow4);
@@ -169,46 +232,23 @@ create_sharedlibs_gui (Sharedlibs *sl)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
-	clist4 = gtk_clist_new (4);
-	gtk_widget_show (clist4);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow4), clist4);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 0, 110);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 1, 90);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 2, 90);
-	gtk_clist_set_column_width (GTK_CLIST (clist4), 3, 80);
-	gtk_clist_set_selection_mode (GTK_CLIST (clist4), GTK_SELECTION_BROWSE);
-	gtk_clist_column_titles_show (GTK_CLIST (clist4));
-	gtk_clist_set_column_auto_resize (GTK_CLIST(clist4), 0, TRUE);
+
+	treeview = sharedlibs_ui_create_treeview_and_store (sl);
+	gtk_widget_show (treeview);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow4), treeview);
 	
-	label6 = gtk_label_new (_("Shared Object"));
-	gtk_widget_show (label6);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 0, label6);
-	
-	label7 = gtk_label_new (_("From"));
-	gtk_widget_show (label7);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 1, label7);
-	
-	label8 = gtk_label_new (_("To"));
-	gtk_widget_show (label8);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
-	
-	/* Whether the debugging symbols in the shared libraries have been read */
-	label9 = gtk_label_new (_("Symbols read"));
-	gtk_widget_show (label9);
-	gtk_clist_set_column_widget (GTK_CLIST (clist4), 3, label9);
-	
-	gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-						GTK_SIGNAL_FUNC (on_sharedlibs_delete_event), sl);
-	gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
-						GTK_SIGNAL_FUNC (on_sharedlibs_key_press_event), sl);							 
-	gtk_signal_connect (GTK_OBJECT (clist4), "event",
-						GTK_SIGNAL_FUNC (on_sharedlibs_event),
+	g_signal_connect (G_OBJECT (window3), "delete_event",
+						G_CALLBACK (on_sharedlibs_delete_event), sl);
+	g_signal_connect (G_OBJECT (window3), "key-press-event",
+						G_CALLBACK (on_sharedlibs_key_press_event), sl);
+
+	g_signal_connect (G_OBJECT (treeview), "event",
+						G_CALLBACK (on_sharedlibs_event),
 						sl);
 	
 	sl->widgets.window = window3;
-	sl->widgets.clist = clist4;
-	sl->widgets.menu = create_sharedlibs_menu (sl);
-	sl->widgets.menu_update = sharedlibs_menu_uiinfo[0].widget;
+	sl->widgets.treeview = treeview;
+	sl->widgets.menu = create_sharedlibs_menu (sl, plugin);
 }
 
 Sharedlibs*
@@ -225,7 +265,7 @@ sharedlibs_new (DebugManagerPlugin *plugin)
 		ew->win_height = 370;
 		ew->win_pos_x = 120;
 		ew->win_pos_y = 140;
-		create_sharedlibs_gui(ew);
+		create_sharedlibs_gui(ew, plugin);
 	}
 	return ew;
 }
@@ -233,8 +273,10 @@ sharedlibs_new (DebugManagerPlugin *plugin)
 void
 sharedlibs_clear (Sharedlibs *sg)
 {
-	if(GTK_IS_CLIST(sg->widgets.clist))
-		gtk_clist_clear(GTK_CLIST(sg->widgets.clist));
+	g_return_if_fail (sg->widgets.store != NULL);
+	g_return_if_fail (GTK_IS_LIST_STORE (sg->widgets.store));
+
+	gtk_list_store_clear (sg->widgets.store);
 }
 
 void
@@ -285,6 +327,7 @@ sharedlibs_free(Sharedlibs* sg)
 		sharedlibs_clear(sg);
 		gtk_widget_destroy(sg->widgets.window);
 		gtk_widget_destroy(sg->widgets.menu);
+		g_object_unref (sg->widgets.store);
 		g_free(sg);
 	}
 }

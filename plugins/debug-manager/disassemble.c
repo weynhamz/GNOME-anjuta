@@ -32,7 +32,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
 #include "disassemble.h"
 
 #include "sparse_buffer.h"
