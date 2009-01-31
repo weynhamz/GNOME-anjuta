@@ -2482,7 +2482,7 @@ sub remove_files_from_built_files
     };
     # Now remove those files present in BUILT_SOURCES
     foreach my $built_file (split /\s+/, $group->{config}{built_sources}) {
-	$var =~ s/\s$built_file\s/ /g;
+	$var =~ s/\s\Q$built_file\E\s/ /g;
     }
 	
     return (&trim ($var), @targets_found);

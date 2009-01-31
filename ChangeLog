@@ -1,3 +1,10 @@
+2009-01-31  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gbf-am/gbf-am-parse.in:
+	Partially fixed #565323 (unable to create a project from WebKit source).
+
 2009-01-31  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
