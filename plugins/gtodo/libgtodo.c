@@ -611,7 +611,7 @@ gboolean gtodo_client_check_file(GTodoClient *cl, GError **error)
 			return FALSE;
 		}
 		cl->read_only = !write;
-		DEBUG_PRINT("trying to read file: %s, size: %d", g_file_get_parse_name (cl->xml_file), size);
+		DEBUG_PRINT("trying to read file: %s", g_file_get_parse_name (cl->xml_file));
 
 		if (!g_file_load_contents (cl->xml_file, NULL, (char **)&read_buf, &size, NULL, &file_error))
 		{

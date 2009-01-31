@@ -1,3 +1,10 @@
+2009-01-31  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gtodo/libgtodo.c:
+	Fix #570014 – invalid print of uninitalized value
+
 2009-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/sharedlib.c,
