@@ -504,16 +504,30 @@ terminal_unrealize_cb (GtkWidget *term, TerminalPlugin *plugin)
 #endif
 
 static void
-on_terminal_copy_cb (GtkAction * action, TerminalPlugin *term)
+on_terminal_copy_cb (GtkAction * action, TerminalPlugin *term_plugin)
 {
-	if (vte_terminal_get_has_selection(VTE_TERMINAL(term->term)))
-		vte_terminal_copy_clipboard(VTE_TERMINAL(term->term));
+	VteTerminal *term;
+	
+	if (term_plugin->child_pid)
+		term = VTE_TERMINAL (term_plugin->term);
+	else
+		term = VTE_TERMINAL (term_plugin->shell);
+	
+	if (vte_terminal_get_has_selection(term))
+		vte_terminal_copy_clipboard(term);
 }
 
 static void
-on_terminal_paste_cb (GtkAction * action, TerminalPlugin *term)
+on_terminal_paste_cb (GtkAction * action, TerminalPlugin *term_plugin)
 {
-	vte_terminal_paste_clipboard(VTE_TERMINAL(term->term));
+	VteTerminal *term;
+	
+	if (term_plugin->child_pid)
+		term = VTE_TERMINAL (term_plugin->term);
+	else
+		term = VTE_TERMINAL (term_plugin->shell);
+	
+	vte_terminal_paste_clipboard(term);
 }
 
 static GtkActionEntry actions_terminal[] = {

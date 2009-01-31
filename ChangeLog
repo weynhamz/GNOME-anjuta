@@ -1,3 +1,10 @@
+2008-12-31  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/terminal/terminal.c:
+	Fix #569857 – terminal copy/paste doesn't work
+
 2009-01-31  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (on_system_scan_package_start),
