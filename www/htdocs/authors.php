@@ -56,6 +56,6 @@ foreach ($vals as $key) {
 }
 xml_parser_free($xml_authors);
 
-echo ("<p><b>Note: </b><i>If you have contributed something significant to Anjuta and your name is missing here, please email Naba Kumar &lt;naba<i><script language=javascript>document.write(\"&#64;\");</script><noscript>_at_</noscript></i>gnome.org&gt; with your Full name, email address, country and a brief reminder of what you have done. This page is auto-generated from AUTHORS file in CVS.</i><p>");
+echo ("<p><b>Note: </b><i>If you have contributed something significant to Anjuta and your name is missing here, please email Naba Kumar &lt;naba<i><script language=javascript>document.write(\"&#64;\");</script><noscript>_at_</noscript></i>gnome.org&gt; with your full name, email address, country and a brief reminder of what you have done. This page is auto-generated from the AUTHORS file in CVS.</i><p>");
 
 ?>

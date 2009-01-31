@@ -5,26 +5,26 @@
 	</p>
 	<p>
 		Members submit news <a href="http://sourceforge.net/news/submit.php?group_id=14222"
-		>here</a>. News Sync takes place every hour, so submitted news
-		may not be available immediately here.
+		>here</a>. News is synchronized every hour, so submitted news
+		may not be available immediately on this page.
 	</p>
 
 	<h3>Introduction</h3>
 		<p>
 		Anjuta is a versatile Integrated Development Environment (IDE)
 		for C and C++ on GNU/Linux.  It has been written for GTK/GNOME
-		and features a number of advanced programming facilities.
-		These include project management, application wizards, an
-		on-board interactive debugger, and a powerful source editor
+		and features a number of advanced programming facilities
+		including project management, application wizards, an
+		interactive debugger and a powerful source editor
 		with source browsing and syntax highlighting.
 		</p><p>
 		Anjuta is an effort to marry the flexibility and power of text-based
-		command-line tools with the ease-of-use of the GNOME graphical user
+		command-line tools with the ease of use of the GNOME graphical user
 		interface.  That is why it has been made as user-friendly as possible.
 		</p><p>
-		Any sort of suggestions or patches for Anjuta are also most welcome.
+		Any sort of suggestions or patches for Anjuta are most welcome.
 		</p><p>
-		  Remember, this program is under the license of the GPL.<br>
+		  Anjuta is licensed under the GNU GPL.
 		  Please read the file COPYING that comes with the distribution for details.
 		</p>
 <!--
@@ -46,10 +46,11 @@
 -->
 	<h3>Help wanted!</h3>
 		<p>
+		We welcome help from
 		<ul>
-			<li>Software Developers [New Code, Fixes, etc...]
-			<li>Editors [Manuals, Articles]
-			<li>Artists [Icons, images, splash]
+			<li>software developers (new code, bug fixes)
+			<li>editors (manuals, articles)
+			<li>artists (icons, images, splash screens)
 		</ul>
 		Please go to the mailing list section to join or subscribe to the
 		development mailing list to start contributing.

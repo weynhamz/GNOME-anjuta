@@ -222,17 +222,17 @@ foreach ($document as $line) {
 
 ?>
 <p>
-These are the tasks that have been defined and being undertaken. Many of the tasks have bounties assined to prioritize their development and to encourage more contribution to critical tasks in Anjuta. Anyone interested can pick up any tasks and contribute to Anjuta. It is advisable to announce and discuss it first in anjuta-devel mailing list before undertaking any of the tasks to ensure that no duplicate work is being done. It also ensures the tasks are marked 'Assigned' so that other people know who are working on them (and possibly to collaborate the work).
+These are Anjuta development tasks that have been defined and are being undertaken. Many tasks have bounties assigned to prioritize their development and to encourage more contribution to critical tasks in Anjuta. Anyone interested can pick up any tasks and contribute to Anjuta. Before undertaking any task, it is advisable to announce and discuss it first on the anjuta-devel mailing list to ensure that no duplicate work is being done. This also ensures that tasks in progress are marked 'Assigned' so that other people know who are working on them (and can possibly collaborate on the work).
 </p>
 <p>
-For a task to be assigned, it is mandatory to <a href='http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta'>create a bugzilla entry</a> for tracking its development. Put the task title as bugzilla summary and task description as the bugzilla summary. If the task has a bounty, please also suffix the bugzilla summary with 'Bounty: '.
+In order for a task to be marked as assigned, you must <a href='http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta'>create a Bugzilla entry</a> for tracking its development. Enter the task title as the Bugzilla summary and the task description as the Bugzilla description. If the task has a bounty, please also suffix the Bugzilla summary with 'Bounty: '.
 </p>
 <p>
-Tasks with bounties are little different than other general tasks. For them to be marked 'Assigned' we need to first make sure the contributor is indeed suitable for the task. If you are new to Anjuta developemnt, it is therefore suggested to convince the lead developer in the mailing list discussion that you can perform the task. The contribution/patch is subject to code reviews and quality checks. Means there will be constant feedbacks and suggestions until the code is acceptatble. 
+Tasks with bounties are little different than other general tasks. Before these can be marked Assigned we need to first make sure that the contributor is indeed suitable for the task. If you are new to Anjuta development, we suggest that you convince the lead developer in the mailing list discussion that you can perform the task. Your contribution or patch is subject to code reviews and quality checks. This means that you will receive feedback and suggestions until the code is acceptable. 
 </p>
 <?php
 echo "<h1>Pending Tasks</h1>\n";
-echo "Click on task titles for full descriptions and on bugzilla ids for development updates.<br>";
+echo "Click on task titles for full descriptions and on Bugzilla ids for development updates.<br>";
 echo "<table cellspacing=0 cellpadding=5 border=1 width='100%'>";
 echo "<tr><th>Category</th><th>Summary</th><th>Bounty</th><th>Status</th><th>Bugzilla</th>";
 echo $index_html;

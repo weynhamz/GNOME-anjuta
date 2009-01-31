@@ -15,47 +15,47 @@
 		?>
 	</p>
 -->
-	<h3>Getting Anjuta from GNOME subversion server</h3>
+	<h3>Getting Anjuta from the GNOME Subversion server</h3>
 	<p>
-		Subversion is a powerful tool to allow many developers work on the
-		same source code.  This is possible because each developer checks out a copy of
-		the current version of the source code.  Then, each developer independently works on
+		Subversion is a powerful tool that allows many developers to work on the
+		same source code.  With Subversion, each developer checks out a copy of
+		the current source code and independently works on
 		his or her own personal copy of the sources. When the developer has made
-		changes, he or she commits them back to the subversion repository. 
-		The subversion server then takes care of things like trying
+		changes, he or she commits them back to the Subversion repository. 
+		The Subversion server then takes care of things like trying
 		to merge each developer's changes with those of others.  When that doesn't work, the
 		developer is notified, and he or she must do a hand merge of the conflicts.
 		</p>
-		<p>First, you need to set up the editor environmental variable, for example:
+		<p>First, you need to set up the EDITOR environment variable, for example:
 		</p>
 		<div class="terminal">
 			$ export EDITOR='emacs'
 		</div>
 
-		<p>Make sure you have all the dependencies of Anjuta installed and ready.
-		Now, grab the anjuta, gnome-build and gdl modules from the repository:</p>
+		<p>Make sure you have all dependencies of Anjuta installed and ready.
+		Now, grab the <code>anjuta</code> and <code>gdl</code> modules from the repository:</p>
 		
 		<div class="terminal">
 		$ svn checkout http://svn.gnome.org/svn/gdl/trunk gdl <br/>
-		$ svn checkout http://svn.gnome.org/svn/gnome-build/trunk gnome-build <br/>
+		$ svn checkout http://svn.gnome.org/svn/libgda/trunk libgda <br/>
 		$ svn checkout http://svn.gnome.org/svn/anjuta/trunk anjuta
 		</div>
 
-		<p>That only gives read access to the repository. Instead, if you have an account
+		<p>That only gives read access to the repository. If you have an account
 		in svn.gnome.org and want write access (you must have been granted write access
-		to anjuta module as an Anjuta developer), you need to checkout the source with:</p>
+		to the <code>anjuta</code> module as an Anjuta developer), you instead need to check out the source with:</p>
 		
 		<div class="terminal">
 		$ svn checkout svn+ssh://svn.gnome.org/svn/gdl/trunk gdl <br/>
-		$ svn checkout svn+ssh://svn.gnome.org/svn/gnome-build/trunk gnome-build <br/>
+		$ svn checkout svn+ssh://svn.gnome.org/svn/libgda/trunk libgda <br/>
 		$ svn checkout svn+ssh://svn.gnome.org/svn/anjuta/trunk anjuta
 		</div>
 		
-		<p>Now, you will want to go through them to build and install.  Run:</p>
+		<p>Now you will want to build and install.  Run:</p>
 
 		<div class="terminal">$ ./autogen.sh</div>
 
-		<p>If you want to enabled Anjuta API docs generation, you can pass --enable-gtk-doc to
+		<p>If you want to enable Anjuta API documentation generation, you can pass --enable-gtk-doc to
                 the above autogen.sh script. Then continue just like you would work with a tarball
                 package:</p>
                 <div class="terminal">
@@ -69,8 +69,8 @@
                 <div class="terminal">
 			$ svn update (in the anjuta	top level directory)
                 </div>
-		<p>to update your personal copy of anjuta to the latest version from the
-		subversion repository and rebuild.
+		<p>to update your personal copy of Anjuta to the latest version from the
+		Subversion repository and rebuild.
                 </p>
 
         <h3>Prolog</h3>

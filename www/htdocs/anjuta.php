@@ -61,15 +61,15 @@
 	</ul>
 	<h3>Documentations</h3>
 	<ul>
-                <li><a href="/documentations/subpage/documents/libanjuta/index.html">Anjuta API docs</a></li>
+		<li><a href="http://library.gnome.org/devel/libanjuta/stable">Anjuta API docs</a></li>
 		<li><a href="http://live.gnome.org/Anjuta">Anjuta wiki</a></li>
-		<li><a href="/documentations/subpage/documents/C/anjuta-faqs/anjuta-faqs.html">FAQ [English]</a></li>
+		<li><a href="http://library.gnome.org/devel/anjuta-faqs/stable">FAQ [English]</a></li>
 		<!--<li><a href="/documentations/subpage/documents/ja/anjuta-faqs/index.html">FAQ [Japanese]</a></li>
 		<li><a href="/documentations/subpage/documents/C/anjuta-tutorial/index.html">Tutorial [English]</a></li>
 		<li><a href="/documentations/subpage/documents/de/anjuta-tutorial/index.html">Tutorial [German]</a></li>
 		<li><a href="/documentations/subpage/documents/zh_CN/anjuta-tutorial/index.html">Tutorial [Chinese]</a></li> -->
 		<li><a href="/documentations/subpage/documents/C/anjuta-build-tutorial/index.html">Build Tutorial [English]</a></li> 
-		<li><a href="/documentations/subpage/documents/C/anjuta-manual/anjuta-manual.html">Manual [English]</a></li>
+		<li><a href="http://library.gnome.org/devel/anjuta-manual/stable">Manual [English]</a></li>
 		<!--<li><a href="/documentations/subpage/documents/ja/anjuta-manual/index.html">Manual [Japanese]</a></li> -->
 	</ul>
 	<h3>Project Status</h3>

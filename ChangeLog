@@ -1,3 +1,17 @@
+2009-01-31  Adam Dingle  <adam@medovina.org>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* www/htdocs/anjuta_news.html:
+	* www/htdocs/authors.php:
+	* www/htdocs/development.php:
+	* www/htdocs/downloads.php:
+	* www/htdocs/features.php:
+	* www/htdocs/home.php:
+	* www/htdocs/tasks.php:
+	Copy edited Web pages, making numerous small fixes to grammar and
+	English usage.
+
 2009-01-31  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (goto_file_tag):
