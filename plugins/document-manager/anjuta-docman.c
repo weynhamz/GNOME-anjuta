@@ -1025,7 +1025,6 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	if (page)
 	{
-		gtk_container_remove (GTK_CONTAINER (page->widget), GTK_WIDGET(doc));
 		gtk_container_remove (GTK_CONTAINER (docman), page->widget);
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		if (!g_list_length (docman->priv->pages))

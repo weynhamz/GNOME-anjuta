@@ -199,9 +199,7 @@ sharedlibs_ui_create_treeview_and_store (Sharedlibs *sl)
 static void
 destroy_sharedlibs_gui (Sharedlibs *sl)
 {
-	gtk_widget_destroy(sl->widgets.window);
-	gtk_widget_destroy(sl->widgets.menu);
-	g_object_unref (sl->widgets.store);
+
 }
 
 static void

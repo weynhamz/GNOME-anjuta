@@ -337,9 +337,7 @@ static GtkActionEntry actions_signals_program_stopped[] = {
 static void
 destroy_signals_gui (Signals *sg)
 {
-	gtk_widget_destroy (sg->widgets.window);
-	gtk_widget_destroy (sg->widgets.menu);
-	g_object_unref (sg->widgets.store);
+
 }
 
 static void
