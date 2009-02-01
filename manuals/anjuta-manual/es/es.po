@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-01-25 11:04+0000\n"
-"PO-Revision-Date: 2009-01-27 20:52+0100\n"
+"PO-Revision-Date: 2009-02-01 14:40+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4375,7 +4375,6 @@ msgstr ""
 "<emphasis>vigilancia de expresiones</emphasis>."
 
 #: C/anjuta-manual.xml:599(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Watches</guimenuitem></menuchoice> to display the "
@@ -4383,7 +4382,7 @@ msgid ""
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
 "guisubmenu><guimenuitem>Vigilancias</guimenuitem></menuchoice> para mostrar "
-"la <interface>ventana de vigilancia de expresiones</interface>."
+"la <interface>ventana de vigilancias</interface>."
 
 #: C/anjuta-manual.xml:606(title)
 msgid "Adding an expression to watch"
@@ -4427,7 +4426,6 @@ msgstr ""
 "menú anterior."
 
 #: C/anjuta-manual.xml:625(para)
-#, fuzzy
 msgid ""
 "It is not necessary to have the debugger running to add a new watch "
 "expression. If the debugger is not running or the corresponding expression "
@@ -4444,7 +4442,6 @@ msgid "Removing a watched expression"
 msgstr "Eliminar una expresión vigilada"
 
 #: C/anjuta-manual.xml:635(para)
-#, fuzzy
 msgid ""
 "Right-click the watch expression that you want to remove in the "
 "<interface>Watches window</interface>, then choose the context menu item "
@@ -4452,8 +4449,8 @@ msgid ""
 msgstr ""
 "Seleccione la expresión para vigilar que quiere quitar en la "
 "<interface>ventana de vigilancia de expresiones</interface>, después abra el "
-"<interface>menú de operación</interface> pulsando con el botón derecho del "
-"ratón y elija el elemento del menú <guimenuitem>Eliminar</guimenuitem>."
+"menú contextual pulsando con el botón derecho del ratón y elija el elemento "
+"del menú <guimenuitem>Eliminar</guimenuitem>."
 
 #: C/anjuta-manual.xml:640(para)
 msgid ""
@@ -4510,7 +4507,6 @@ msgid "Inspecting expressions in editor window"
 msgstr "Inspeccionar expresiones en la ventana del editor"
 
 #: C/anjuta-manual.xml:671(para)
-#, fuzzy
 msgid ""
 "When the debugger is active with the program stopped, you can get the value "
 "of an expression just by putting the mouse pointer over it and staying there "
@@ -4521,8 +4517,8 @@ msgstr ""
 "Cuando la depuración está activada con el programa parado, puede obtener el "
 "valor de una expresión simplemente poniendo el puntero sobre ella y "
 "dejándolo un tiempo corto. Si la expresión ya está presente en la ventana "
-"local o la ventana de vigilancia su valor se mostrará en una ventana de "
-"consejo."
+"<interface>Local</interface> o la ventana de <interface>Vigilancias</"
+"interface> su valor se mostrará en una ventana de consejo."
 
 #: C/anjuta-manual.xml:677(para)
 msgid ""
@@ -4541,7 +4537,6 @@ msgid "Stack Window"
 msgstr "Ventana de pila"
 
 #: C/anjuta-manual.xml:690(para)
-#, fuzzy
 msgid ""
 "The <interface>stack trace window</interface> shows the contents of the "
 "program stack. It lists all functions and their arguments in the sequence "
