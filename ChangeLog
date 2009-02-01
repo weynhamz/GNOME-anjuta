@@ -1,3 +1,13 @@
+2009-02-01  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	#563499 – Goto Matching Brace and other commands missing in GtkSourceView editor
+	
+	* plugins/document-manager/plugin.c
+	(update_document_ui_interface_items), (create_highlight_submenu):
+	#564272 – Highlight Mode menu should indicate current mode
+
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c

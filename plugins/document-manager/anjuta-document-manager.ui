@@ -54,7 +54,6 @@
 			<placeholder name="PlaceholderSelectMenus">
 				<menu name="Select" action="ActionMenuEditSelect">
 					<menuitem name="SelectAll" action="ActionEditSelectAll" />
-					<menuitem name="SelectBrace" action="ActionEditSelectToBrace" />
 					<menuitem name="SelectBlock" action="ActionEditSelectBlock" />
 				</menu>
 			</placeholder>

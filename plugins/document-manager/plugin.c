@@ -201,22 +201,14 @@ static GtkActionEntry actions_transform[] = {
 };
 
 static GtkActionEntry actions_select[] = {
-  { "ActionMenuEditSelect",  NULL, N_("_Select"), NULL, NULL, NULL}, /* menu title */
-  { "ActionEditSelectAll",
-#ifdef GTK_STOCK_SELECT_ALL
-	GTK_STOCK_SELECT_ALL
-#else
-	NULL
-#endif
-	, N_("Select _All"), "<control>a",
-	N_("Select all text in the editor"),
-    G_CALLBACK (on_editor_command_select_all_activate)},
-  { "ActionEditSelectToBrace", NULL, N_("Select to _Brace"), NULL,
-	N_("Select the text in the matching braces"),
-    G_CALLBACK (on_editor_command_select_to_brace_activate)},
-  { "ActionEditSelectBlock", ANJUTA_STOCK_BLOCK_SELECT, N_("Select _Code Block"),
-	 "<shift><control>b", N_("Select the current code block"),
-    G_CALLBACK (on_editor_command_select_block_activate)},
+	{ "ActionMenuEditSelect",  NULL, N_("_Select"), NULL, NULL, NULL}, /* menu title */
+	{ "ActionEditSelectAll",
+		GTK_STOCK_SELECT_ALL, N_("Select _All"), "<control>a",
+		N_("Select all text in the editor"),
+		G_CALLBACK (on_editor_command_select_all_activate)},
+	{ "ActionEditSelectBlock", ANJUTA_STOCK_BLOCK_SELECT, N_("Select _Code Block"),
+		"<shift><control>b", N_("Select the current code block"),
+		G_CALLBACK (on_editor_command_select_block_activate)}
 };
 
 static GtkActionEntry actions_comment[] = {
@@ -735,10 +727,6 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
-								   "ActionEditSelectToBrace");
-	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
-	
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
 								   "ActionEditSelectBlock");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
@@ -1024,8 +1012,7 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 	const GList *languages, *node;
 	GList *sorted_languages;
 	GtkWidget *submenu;
-	GtkWidget *menuitem;
-	
+	GtkWidget *auto_menuitem;	
 	submenu = gtk_menu_new ();
 	
 	if (!editor || !IANJUTA_IS_EDITOR_LANGUAGE (editor))
@@ -1036,12 +1023,13 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 		return NULL;
 	
 	/* Automatic highlight menu */
-	menuitem = gtk_menu_item_new_with_mnemonic (_("Automatic"));
-	g_signal_connect (G_OBJECT (menuitem), "activate",
+	auto_menuitem = gtk_radio_menu_item_new_with_mnemonic (NULL, _("Automatic"));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(auto_menuitem), TRUE);
+	g_signal_connect (G_OBJECT (auto_menuitem), "activate",
 					  G_CALLBACK (on_force_hilite_activate),
 					  plugin);
-	g_object_set_data(G_OBJECT(menuitem), "language_code", "auto-detect");
-	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+	g_object_set_data(G_OBJECT(auto_menuitem), "language_code", "auto-detect");
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), auto_menuitem);
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), gtk_separator_menu_item_new());
 
 	/* Sort languages so they appear alphabetically in the menu. */
@@ -1058,7 +1046,8 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 		/* Should fix #493583 */
 		if (name != NULL)
 		{
-			menuitem = gtk_menu_item_new_with_mnemonic (name);
+			GtkWidget *menuitem;
+			menuitem = gtk_radio_menu_item_new_with_mnemonic_from_widget (GTK_RADIO_MENU_ITEM(auto_menuitem), name);
 			g_object_set_data_full (G_OBJECT (menuitem), "language_code",
 									g_strdup (lang),
 									(GDestroyNotify)g_free);
@@ -1066,6 +1055,7 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 							  G_CALLBACK (on_force_hilite_activate),
 							  plugin);
 			gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem), FALSE);
 		}
 		node = g_list_next (node);
 	}

@@ -428,16 +428,6 @@ on_editor_command_select_all_activate (GtkAction *action, gpointer user_data)
 }
 
 void
-on_editor_command_select_to_brace_activate (GtkAction *action, gpointer user_data)
-{
-	IAnjutaDocument *doc;
-
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_editor_selection_select_to_brace (IANJUTA_EDITOR_SELECTION (doc), NULL);
-}
-
-void
 on_editor_command_select_block_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
