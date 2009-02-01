@@ -1,3 +1,10 @@
+2009-02-01  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/file-loader/plugin.c:
+	Fix #570034 – the open ToolbarItem is named "Open recent file"
+
 2009-02-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gtodo/export.c:

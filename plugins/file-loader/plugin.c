@@ -1238,6 +1238,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	setup_recent_chooser_menu (GTK_RECENT_CHOOSER (toolbar_menu), loader_plugin);
 	gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (widget),
 								   toolbar_menu);
+	gtk_tool_button_set_label (GTK_TOOL_BUTTON (widget), _("Open"));
+	gtk_tool_item_set_tooltip_text (GTK_TOOL_ITEM (widget), _("Open a file"));
+	gtk_menu_tool_button_set_arrow_tooltip_text (GTK_MENU_TOOL_BUTTON (widget), _("Open recent file"));
 
 	/* Install drag n drop handler */
 	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
