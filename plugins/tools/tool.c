@@ -86,7 +86,7 @@ ATPEnumType output_type_list[] = {
  {ATP_TOUT_INSERT_BUFFER, N_("Insert in buffer")},
  {ATP_TOUT_APPEND_BUFFER, N_("Append to buffer")},
  {ATP_TOUT_REPLACE_SELECTION, N_("Replace selection")},
- /* Translators: Checkbox if a dialog should be shown after some operation finishes, so translate as "to popup a dialog" */
+ /* Translators: Checkbox if a dialog should be shown after some operation finishes, so translate as "to pop up a dialog" */
  {ATP_TOUT_POPUP_DIALOG, N_("Popup dialog")},
  {ATP_TOUT_NULL, N_("Discard output")},
  {-1, NULL}

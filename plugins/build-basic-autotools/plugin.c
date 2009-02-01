@@ -2797,9 +2797,11 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, TRUE, plugin);
 	ba_plugin->build_popup_action_group = 
 		anjuta_ui_add_action_group_entries (ui,
-											"ActionGroupPopupBuild",
-											_("Build popup commands"),
-											build_popup_actions,
+			       	"ActionGroupPopupBuild",
+				/* Translators: This is a group of build
+				 * commands which appears in pop up menus */
+			       	_("Build popup commands"),
+			       	build_popup_actions,
 											sizeof(build_popup_actions)/sizeof(GtkActionEntry),
 											GETTEXT_PACKAGE, FALSE, plugin);
 	/* Add UI */

@@ -601,7 +601,7 @@ For information on symbol specifications, see section
             <child>
               <widget class="GtkLabel" id="label4">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Call Graph</property>
+                <property name="label" translatable="yes" comment="this is a graph of function calls">Call Graph</property>
               </widget>
               <packing>
                 <property name="type">tab</property>

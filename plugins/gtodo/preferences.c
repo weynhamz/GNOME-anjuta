@@ -172,11 +172,13 @@ GtkWidget *preferences_widget()
 	gtk_box_pack_start(GTK_BOX(vbox),cb_auto_purge, FALSE, TRUE, 0); 	
 
 
-	hbox = gtk_hbox_new(FALSE, 6); 
+	hbox = gtk_hbox_new(FALSE, 6);
+	/* Translators: First part of the sentence "Purge items after %d days"*/
 	label = gtk_label_new(_("Purge items after"));
 	gtk_box_pack_start(GTK_BOX(hbox),label, FALSE, TRUE, 0); 
 	sp_purge_days = gtk_spin_button_new_with_range(1,365, 1);	
 	gtk_box_pack_start(GTK_BOX(hbox),sp_purge_days, FALSE, TRUE, 0); 
+	/* Translators: Second part of the sentence "Purge items after %d days"*/
 	label = gtk_label_new(_("days."));
 	gtk_box_pack_start(GTK_BOX(hbox),label, FALSE, TRUE, 0); 
 
