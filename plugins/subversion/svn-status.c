@@ -91,7 +91,13 @@ svn_status_get_vcs_status (SvnStatus *self)
 	
 	switch (self->priv->status)
 	{
+		case svn_wc_status_external:
+		case svn_wc_status_incomplete:			
+			status = ANJUTA_VCS_STATUS_NONE;
+			break;
 		case svn_wc_status_modified:
+		case svn_wc_status_replaced:
+		case svn_wc_status_merged:			
 			status = ANJUTA_VCS_STATUS_MODIFIED;
 			break;
 		case svn_wc_status_added:
@@ -101,14 +107,20 @@ svn_status_get_vcs_status (SvnStatus *self)
 			status = ANJUTA_VCS_STATUS_DELETED;
 			break;
 		case svn_wc_status_conflicted:
+		case svn_wc_status_obstructed:
 			status = ANJUTA_VCS_STATUS_CONFLICTED;
 			break;
 		case svn_wc_status_missing:
 			status = ANJUTA_VCS_STATUS_MISSING;
 			break;
-		default:
-			status = ANJUTA_VCS_STATUS_NONE;
+		case svn_wc_status_unversioned:
+			status = ANJUTA_VCS_STATUS_UNVERSIONED;
 			break;
+		case svn_wc_status_ignored:
+			status = ANJUTA_VCS_STATUS_IGNORED;
+			break;		
+		default:
+			status = ANJUTA_VCS_STATUS_UPTODATE;
 	}
 	
 	return status;

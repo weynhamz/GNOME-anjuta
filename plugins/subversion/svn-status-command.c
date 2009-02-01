@@ -72,28 +72,15 @@ on_svn_status_notify (void *baton, const char *path, svn_wc_status2_t *status)
 	
 	self = SVN_STATUS_COMMAND (baton);
 	
-	/* Right now we only support text status (no properties.) */
+	status_object = svn_status_new ((gchar *) path, 
+									status->text_status);
 	
-	switch (status->text_status)
-	{
-		case svn_wc_status_modified:
-		case svn_wc_status_added:
-		case svn_wc_status_deleted:
-		case svn_wc_status_conflicted:
-		case svn_wc_status_missing:
-			status_object = svn_status_new ((gchar *) path, 
-											status->text_status);
-		
-			anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (self));
-			g_queue_push_tail (self->priv->status_queue, status_object);
-			anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (self));
-		
-			anjuta_command_notify_data_arrived (ANJUTA_COMMAND (self));
-		
-			break;
-		default:
-			break;
-	}
+	anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (self));
+	g_queue_push_tail (self->priv->status_queue, status_object);
+	anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (self));
+	
+	anjuta_command_notify_data_arrived (ANJUTA_COMMAND (self));
+	
 }
 
 static guint 

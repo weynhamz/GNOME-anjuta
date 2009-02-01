@@ -61,10 +61,11 @@ const gchar* anjuta_vcs_status_strings[] = {
 	N_("Removed"),
 	N_("Deleted"),
 	N_("Conflicted"),
-	N_("Outdated"),
+	N_("Up-to-date"),
 	N_("Locked"),
 	N_("Missing"),
-	N_("Unversioned")
+	N_("Unversioned"),
+	N_("Ignored")	
 };
 
 enum

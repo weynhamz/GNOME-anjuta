@@ -1,5 +1,23 @@
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/anjuta-ui.c (anjuta_ui_init),
+	(anjuta_ui_add_action_group), (anjuta_ui_get_accel_editor),
+	(anjuta_ui_unload_accels):
+	#564276 – useless checkbox next to action groups in Shortcuts view
+	
+	* libanjuta/anjuta-vcs-status.h:
+	* plugins/file-manager/file-model.c (get_vcs_emblem),
+	(file_model_vcs_status_callback):
+	* plugins/file-manager/file-view.c:
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_query_status):
+	* plugins/subversion/svn-status-command.c (on_svn_status_notify):
+	* plugins/subversion/svn-status.c (svn_status_get_vcs_status):
+	
+	Show more file stati
+
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/Makefile.am:
 	#514609 – install-data-hook problem on Gentoo
 

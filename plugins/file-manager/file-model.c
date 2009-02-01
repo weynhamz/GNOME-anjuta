@@ -131,7 +131,7 @@ typedef struct
 #define EMBLEM_IGNORED "vcs-ignored.png"
 #define EMBLEM_LOCKED "vcs-locked.png"
 #define EMBLEM_UNVERSIONED "vcs-unversioned.png"
-#define EMBLEM_UPDATED "vcs-updated.png"
+#define EMBLEM_UPTODATE "vcs-updated.png"
 #define EMBLEM_MODIFIED "vcs-modified.png"
 
 #define COMPOSITE_ALPHA 225
@@ -142,9 +142,6 @@ get_vcs_emblem (AnjutaVcsStatus status)
 	GdkPixbuf* emblem ;
 	switch (status)
 	{
-		case ANJUTA_VCS_STATUS_NONE:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UPDATED, NULL);
-			break;
 		case ANJUTA_VCS_STATUS_ADDED:
 			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_ADDED, NULL);
 			break;
@@ -163,6 +160,12 @@ get_vcs_emblem (AnjutaVcsStatus status)
 		case ANJUTA_VCS_STATUS_UNVERSIONED:
 			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UNVERSIONED, NULL);
 			break;
+		case ANJUTA_VCS_STATUS_UPTODATE:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UPTODATE, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_IGNORED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_IGNORED, NULL);
+			break;
 		default:
 			emblem = NULL;
 	}
@@ -177,9 +180,7 @@ file_model_vcs_status_callback(GFile *file,
 {
 	VcsData* data = user_data;
 	gchar* path = g_file_get_path (file);
-	
-	DEBUG_PRINT ("Status of %s = %d", path, status);
-	
+		
 	GtkTreePath* tree_path = gtk_tree_row_reference_get_path (data->ref);
 	if (tree_path)
 	{

@@ -84,6 +84,7 @@ enum {
 	COLUMN_PIXBUF,
 	COLUMN_ACTION_LABEL,
 	COLUMN_VISIBLE,
+	COLUMN_SHOW_VISIBLE,
 	COLUMN_SENSITIVE,
 	COLUMN_ACTION,
 	COLUMN_GROUP,
@@ -354,6 +355,7 @@ anjuta_ui_init (AnjutaUI *ui)
 								G_TYPE_STRING,
 								G_TYPE_BOOLEAN,
 								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
 								G_TYPE_OBJECT,
 								G_TYPE_STRING);
 	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION_LABEL,
@@ -524,6 +526,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 						COLUMN_PIXBUF, pixbuf,
 						COLUMN_ACTION_LABEL, action_group_label,
 						COLUMN_GROUP, action_group_name,
+						COLUMN_SHOW_VISIBLE, FALSE,
 						-1);
 	for (l = actions; l; l = l->next)
 	{
@@ -561,6 +564,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 									COLUMN_PIXBUF, pixbuf,
 									COLUMN_ACTION_LABEL, action_label,
 									COLUMN_VISIBLE, gtk_action_get_visible (action),
+									COLUMN_SHOW_VISIBLE, TRUE,
 									COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
 									COLUMN_ACTION, action,
 									COLUMN_GROUP, action_group_name,
@@ -575,6 +579,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
 								COLUMN_ACTION_LABEL, action_label,
 								COLUMN_VISIBLE, gtk_action_get_visible (action),
+								COLUMN_SHOW_VISIBLE, TRUE,
 								COLUMN_SENSITIVE, gtk_action_get_sensitive (action),
 								COLUMN_ACTION, action,
 								COLUMN_GROUP, action_group_name,
@@ -859,6 +864,8 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 													   renderer,
 													   "active",
 													   COLUMN_VISIBLE,
+													   "visible",
+													   COLUMN_SHOW_VISIBLE,
 													   NULL);
 	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
@@ -994,7 +1001,7 @@ void
 anjuta_ui_unload_accels (AnjutaUI *ui)
 {
     anjuta_ui_save_accels (NULL);
-    gtk_accel_map_foreach_unfiltered (ui, anjuta_ui_remove_accel);
+    gtk_accel_map_foreach_unfiltered (ui, (GtkAccelMapForeach) anjuta_ui_remove_accel);
 } 
 
 
