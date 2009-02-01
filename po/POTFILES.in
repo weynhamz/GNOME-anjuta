@@ -77,11 +77,6 @@ plugins/document-manager/anjuta-docman.c
 plugins/document-manager/anjuta-document-manager.glade
 plugins/document-manager/plugin.c
 plugins/document-manager/search-box.c
-plugins/editor/anjuta-editor-scintilla.glade
-plugins/editor/print.c
-plugins/editor/plugin.c
-plugins/editor/text_editor.c
-plugins/editor/text_editor_cbs.c
 plugins/file-loader/anjuta-recent-chooser-menu.c
 plugins/file-loader/plugin.c
 plugins/file-manager/file-manager.glade
@@ -125,6 +120,8 @@ plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c
 plugins/git/plugin.c
+plugins/glade/anjuta-glade.glade
+plugins/glade/designer-associations-item.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
 plugins/gtodo/add_edit_item.c
@@ -139,7 +136,6 @@ plugins/gtodo/plugin.c
 plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
-plugins/gtodo/tray-icon.c
 plugins/macro/anjuta-macro.glade
 plugins/macro/macro-actions.c
 plugins/macro/macro-db.c
@@ -188,6 +184,10 @@ plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
 plugins/sample1/plugin.c
+plugins/scintilla/anjuta-editor-scintilla.glade
+plugins/scintilla/print.c
+plugins/scintilla/plugin.c
+plugins/scintilla/text_editor.c
 plugins/scratchbox/anjuta-scratchbox.glade
 plugins/scratchbox/plugin.c
 plugins/search/anjuta-search.glade
@@ -282,7 +282,9 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
 [type: gettext/ini]plugins/project-import/anjuta-project-import.plugin.in
 [type: gettext/ini]plugins/sourceview/sourceview.plugin.in
-[type: gettext/ini]plugins/editor/anjuta-editor.plugin.in
+[type: gettext/ini]plugins/scintilla/anjuta-editor.plugin.in
+[type: gettext/ini]plugins/scratchbox/anjuta-scratchbox.plugin.in
+[type: gettext/ini]plugins/starter/anjuta-starter.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
 [type: gettext/ini]plugins/profiler/profiler.plugin.in

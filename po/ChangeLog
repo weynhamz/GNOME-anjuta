@@ -1,3 +1,11 @@
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
+
+	* POTFILES.in:
+	* POTFILES.skip:
+	#570096 – Missing files in POTFILES.in(skip)
+	
+	Thanks to Yuriy Penkin
+
 2009-02-01  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Translation updated.

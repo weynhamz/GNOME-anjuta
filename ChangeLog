@@ -1,4 +1,4 @@
-2009-02-01  Johannes Schmid  <jhs@Obelix>
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c:
 	* plugins/document-manager/anjuta-document-manager.ui:
