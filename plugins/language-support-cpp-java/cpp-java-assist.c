@@ -530,7 +530,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 										   IANJUTA_SYMBOL_TYPE_MAX,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										   assist->priv->pre_word, TRUE, FALSE, FALSE, -1, -1, NULL);
+										   assist->priv->pre_word, TRUE, TRUE, FALSE, -1, -1, NULL);
 		
 		IAnjutaIterable* iter_globals = 
 			ianjuta_symbol_manager_search (assist->priv->isymbol_manager,

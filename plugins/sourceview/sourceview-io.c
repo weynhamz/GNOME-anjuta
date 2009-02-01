@@ -18,10 +18,10 @@
  */
 
 #include "sourceview-io.h"
+#include "sourceview-private.h"
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/anjuta-convert.h>
 #include <libanjuta/anjuta-encodings.h>
-#include <sourceview-private.h>
 
 #define READ_SIZE 4096
 #define RATE_LIMIT 5000 /* Use a big rate limit to avoid duplicates */
@@ -280,30 +280,22 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 {
 	GFileOutputStream* output_stream;
 	GError* err = NULL;
+	gboolean backup = TRUE;
+	
 	g_return_if_fail (file != NULL);
 	
 	cancel_monitor (sio);
 	
-	output_stream = g_file_create (file, G_FILE_CREATE_NONE, NULL, &err);
+	backup = anjuta_preferences_get_int_with_default (sio->sv->priv->prefs,
+													  "sourceview.backup", TRUE);
+	
+	output_stream = g_file_replace (file, NULL, backup, G_FILE_CREATE_NONE,
+									NULL, NULL);
 	if (!output_stream)
 	{
-		if (err->code != G_IO_ERROR_EXISTS)
-		{
-			g_signal_emit_by_name (sio, "save-failed", err);
-			g_error_free (err);
-			return;
-		}
-		else
-		{
-			output_stream = g_file_replace (file, NULL, TRUE, G_FILE_CREATE_NONE,
-											NULL, NULL);
-			if (!output_stream)
-			{
-				g_signal_emit_by_name (sio, "save-failed", err);
-				g_error_free (err);
-				return;
-			}
-		}
+		g_signal_emit_by_name (sio, "save-failed", err);
+		g_error_free (err);
+		return;
 	}
 	
 	if (sio->last_encoding == NULL)

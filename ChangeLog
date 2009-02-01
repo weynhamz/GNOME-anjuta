@@ -1,3 +1,14 @@
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache):
+	Make auto-completion working for non-local project symbol. Still depends
+	on a better search interface for the symbol-db to also show local symbols
+	
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/sourceview-io.c (sourceview_io_save_as):
+	#561094 – Creation of backup files can't be disabled using gtksourceview
+
 2009-02-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/profiler/profiler.glade,
