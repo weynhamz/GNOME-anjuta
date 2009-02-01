@@ -41,6 +41,8 @@ void export_gui()
 	char **param_string= NULL;
 	ExportExtraWidget *eex = NULL;
 	GError *error = NULL;
+	GFile *file;
+	gchar *filename;
 
 	dialog = gtk_file_chooser_dialog_new (_("Export task list"),
 			NULL,
@@ -103,23 +105,27 @@ void export_gui()
 		}
 	}	
 
+	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+	file = g_file_new_for_path (filename);
+	g_free (filename);
 	switch (gtk_combo_box_get_active (GTK_COMBO_BOX (eex->file_type)))
 	{
 		case FILE_TYPE_HTML:
-			gtodo_client_export (cl, gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog)), 
+			gtodo_client_export (cl, file, 
 				DATADIR"/gtodo/gtodo.xsl", param_string, &error);
 			break;
 		case FILE_TYPE_PLAIN:
-			gtodo_client_export (cl, gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog)), 
+			gtodo_client_export (cl, file, 
 				DATADIR"/gtodo/gtodo-plain.xsl", param_string, &error);
 			break;
 		case FILE_TYPE_XML:
-			gtodo_client_save_xml_to_file (cl, gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog)),
+			gtodo_client_save_xml_to_file (cl, file,
 					&error);
 			break;
 		default:
 			break;
 	}
+	g_object_unref (file); 
 
 	g_strfreev (param_string);
 
