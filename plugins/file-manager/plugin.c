@@ -43,6 +43,7 @@
 #define PREF_FILTER_BINARY "filemanager.filter.binary"
 #define PREF_FILTER_HIDDEN "filemanager.filter.hidden"
 #define PREF_FILTER_BACKUP "filemanager.filter.backup"
+#define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
 
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (file_manager->prefs, \
@@ -184,7 +185,8 @@ on_gconf_notify(GConfClient *gclient, guint cnxn_id,
 	g_object_set (G_OBJECT (file_model),
 				  "filter_binary", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BINARY),
 				  "filter_hidden", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_HIDDEN),
-				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP), NULL);				  
+				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP),
+				  "filter_unversioned", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);				  
 	
 	if (!file_manager->have_project)
 	{
@@ -263,6 +265,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_gconf_notify);
 	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_gconf_notify);
 	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_gconf_notify);
+	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_gconf_notify);
 	on_gconf_notify (NULL, 0, NULL, file_manager);
 	
 	return TRUE;

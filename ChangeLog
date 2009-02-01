@@ -1,3 +1,13 @@
+2009-02-02  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	* plugins/file-manager/file-manager.glade:
+	* plugins/file-manager/file-model.c
+	(file_model_vcs_status_callback), (file_model_set_property),
+	(file_model_get_property), (file_model_class_init):
+	* plugins/file-manager/plugin.c (on_gconf_notify),
+	(file_manager_activate):
+	#570136 – add option to not show unversioned files
+
 2009-02-02   Pavel Kostyuchenko  <ShprotX@gmail.com>
 
 	* manuals/anjuta-manual/C/anjuta-manual.xml:

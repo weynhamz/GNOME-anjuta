@@ -51,7 +51,8 @@ enum
 	PROP_BASE_URI,
 	PROP_FILTER_BINARY,
 	PROP_FILTER_HIDDEN,
-	PROP_FILTER_BACKUP
+	PROP_FILTER_BACKUP,
+	PROP_FILTER_UNVERSIONED
 };
 
 typedef struct _FileModelPrivate FileModelPrivate;
@@ -63,6 +64,7 @@ struct _FileModelPrivate
 	gboolean filter_binary;
 	gboolean filter_hidden;
 	gboolean filter_backup;
+	gboolean filter_unversioned;
 	
 	GtkTreeView* view;
 };
@@ -179,6 +181,7 @@ file_model_vcs_status_callback(GFile *file,
 							   gpointer user_data)
 {
 	VcsData* data = user_data;
+	FileModelPrivate *priv = FILE_MODEL_GET_PRIVATE (data->model);
 	gchar* path = g_file_get_path (file);
 		
 	GtkTreePath* tree_path = gtk_tree_row_reference_get_path (data->ref);
@@ -193,41 +196,49 @@ file_model_vcs_status_callback(GFile *file,
 								 &iter,
 								 tree_path);
 		
-		emblem = get_vcs_emblem (status);
-		if (emblem)
+		if (priv->filter_unversioned &&
+			(status == ANJUTA_VCS_STATUS_UNVERSIONED ||
+			 status == ANJUTA_VCS_STATUS_IGNORED))
 		{
-			gtk_tree_model_get (model, &iter,
-								COLUMN_PIXBUF, &file_icon,
-								-1);
-			if (file_icon)
-			{
-				gdk_pixbuf_composite (emblem,
-									  file_icon,
-									  0, 0,
-									  gdk_pixbuf_get_width (file_icon),
-									  gdk_pixbuf_get_height (file_icon),
-									  0, 0,
-									  1, 1,
-									  GDK_INTERP_BILINEAR,
-									  COMPOSITE_ALPHA);
-				gtk_tree_store_set (GTK_TREE_STORE (model),
-									&iter,
-									COLUMN_PIXBUF,
-									file_icon,
-									-1);
-				DEBUG_PRINT ("%s", "setting emblem");
-				
-				g_object_unref (file_icon);
-			}
-			g_object_unref (emblem);
+			gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		}
-		
-
-		gtk_tree_store_set (GTK_TREE_STORE (model),
-							&iter,
-							COLUMN_STATUS,
-							status,
-							-1);
+		else
+		{
+			emblem = get_vcs_emblem (status);
+			if (emblem)
+			{
+				gtk_tree_model_get (model, &iter,
+									COLUMN_PIXBUF, &file_icon,
+									-1);
+				if (file_icon)
+				{
+					gdk_pixbuf_composite (emblem,
+										  file_icon,
+										  0, 0,
+										  gdk_pixbuf_get_width (file_icon),
+										  gdk_pixbuf_get_height (file_icon),
+										  0, 0,
+										  1, 1,
+										  GDK_INTERP_BILINEAR,
+										  COMPOSITE_ALPHA);
+					gtk_tree_store_set (GTK_TREE_STORE (model),
+										&iter,
+										COLUMN_PIXBUF,
+										file_icon,
+										-1);
+					DEBUG_PRINT ("%s", "setting emblem");
+					
+					g_object_unref (file_icon);
+				}
+				g_object_unref (emblem);
+			}
+			
+			gtk_tree_store_set (GTK_TREE_STORE (model),
+								&iter,
+								COLUMN_STATUS,
+								status,
+								-1);
+		}
 		gtk_tree_path_free (tree_path);
 	}
 	g_free(path);
@@ -617,6 +628,9 @@ file_model_set_property (GObject *object, guint prop_id, const GValue *value, GP
 	case PROP_FILTER_BACKUP:
 		priv->filter_backup = g_value_get_boolean (value);
 		break;
+	case PROP_FILTER_UNVERSIONED:
+		priv->filter_unversioned = g_value_get_boolean (value);
+		break;
 
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -641,7 +655,9 @@ file_model_get_property (GObject *object, guint prop_id, GValue *value, GParamSp
 	case PROP_FILTER_HIDDEN:
 		g_value_set_boolean (value, priv->filter_hidden);
 	case PROP_FILTER_BACKUP:
-		g_value_set_boolean (value, priv->filter_backup);	
+		g_value_set_boolean (value, priv->filter_backup);
+	case PROP_FILTER_UNVERSIONED:
+		g_value_set_boolean (value, priv->filter_unversioned);
 		
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -689,6 +705,14 @@ file_model_class_init (FileModelClass *klass)
 									 g_param_spec_boolean ("filter_backup",
 														   "Filter backup files",
 														   "file_backup",
+														   TRUE,
+														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	
+	g_object_class_install_property (object_class,
+									 PROP_FILTER_UNVERSIONED,
+									 g_param_spec_boolean ("filter_unversioned",
+														   "Filter unversioned files",
+														   "file_unversioned",
 														   TRUE,
 														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
 	
