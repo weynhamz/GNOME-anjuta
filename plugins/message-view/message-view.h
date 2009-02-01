@@ -63,6 +63,7 @@ GtkWidget* message_view_new (AnjutaPreferences* prefs, GtkWidget* popup_menu);
 void message_view_next(MessageView* view);
 void message_view_previous(MessageView* view);
 void message_view_save(MessageView* view);
+void message_view_copy(MessageView* view);
 gboolean message_view_serialize (MessageView *view,
 								 AnjutaSerializer *serializer);
 gboolean message_view_deserialize (MessageView *view,

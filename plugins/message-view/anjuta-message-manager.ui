@@ -17,6 +17,7 @@
 		</menu>
 	</popup>
 	<popup name="PopupMessageView">
+		<menuitem name="CopyMessage" action="ActionMessageCopy" />
 		<menuitem name="NextMessage" action="ActionMessageNext" />
 		<menuitem name="PrevMessage" action="ActionMessagePrev" />
 		<menuitem name="SaveMessage" action="ActionMessageSave" />

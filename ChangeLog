@@ -1,3 +1,11 @@
+2009-02-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/message-view/plugin.c,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/anjuta-message-manager.ui:
+	Fix #567728 – Copypasting build errors, messages and warnings
+
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin

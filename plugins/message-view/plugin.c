@@ -56,6 +56,14 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 		message_view_previous(view);
 }
 
+static void on_copy_message(GtkAction* menuitem, MessageViewPlugin *plugin)
+{
+	AnjutaMsgman* msgman = ANJUTA_MSGMAN(plugin->msgman);
+	MessageView* view = anjuta_msgman_get_current_view(msgman);
+	if (view != NULL)
+		message_view_copy(view);
+}
+
 static void on_save_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
 	AnjutaMsgman* msgman = ANJUTA_MSGMAN(plugin->msgman);
@@ -66,6 +74,10 @@ static void on_save_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 
 static GtkActionEntry actions_goto[] = {
   { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
+  { "ActionMessageCopy", GTK_STOCK_COPY,
+    N_("_Copy Message"), NULL,
+	N_("Copy message"),
+    G_CALLBACK (on_copy_message)},
   { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
     N_("_Next Message"), "<control><alt>n",
 	N_("Next message"),
@@ -87,12 +99,15 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 								   "ActionMessageNext");
 	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessagePrev");
+	GtkAction* action_copy = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessageCopy");
 	gboolean sensitive = (anjuta_msgman_get_current_view(msgman) != NULL);
 	if (sensitive)
 		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 GTK_WIDGET(msgman), NULL);
 	g_object_set (G_OBJECT (action_next), "sensitive", sensitive, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", sensitive, NULL);
+	g_object_set (G_OBJECT (action_copy), "sensitive", sensitive, NULL);
 }
 
 static gpointer parent_class;
@@ -208,8 +223,11 @@ activate_plugin (AnjutaPlugin *plugin)
 								   "ActionMessageNext");
 	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessagePrev");
+	GtkAction* action_copy = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessageCopy");
 	g_object_set (G_OBJECT (action_next), "sensitive", FALSE, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action_copy), "sensitive", FALSE, NULL);
 	
 #if 0
 	/* Connect to save and load session */

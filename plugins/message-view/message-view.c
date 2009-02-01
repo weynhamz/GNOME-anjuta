@@ -1189,6 +1189,45 @@ void message_view_save(MessageView* view)
 	}
 }
 
+void message_view_copy(MessageView* view)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreeSelection *select;
+	GtkTreePath *path;
+
+	model = view->privat->model;
+	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
+					      (view->privat->tree_view));
+	
+	if (gtk_tree_selection_get_selected (select, &model, &iter))
+	{
+		Message *message;
+		const gchar *text;
+		GtkClipboard *clipboard;
+		
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1); 
+		
+		if (message->details && (*message->details != '\0'))
+		{
+			text = message->details;
+		}
+		else if (message->summary && (*message->summary != '\0'))
+		{
+			text = message->summary;
+		}
+		else
+		{
+			/* No message */
+			return;
+		}
+		
+		clipboard = gtk_widget_get_clipboard (GTK_WIDGET (view), GDK_SELECTION_CLIPBOARD);
+	
+		gtk_clipboard_set_text (clipboard, text, -1);
+	}
+}
+
 /* Preferences notifications */
 static void
 pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
