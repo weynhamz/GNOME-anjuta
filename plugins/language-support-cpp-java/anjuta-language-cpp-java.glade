@@ -98,7 +98,6 @@
                               <widget class="GtkSpinButton" id="preferences_spin:int:0:1:language.cpp.indent.brace.size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">0 0 100 1 10 10</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -115,7 +114,6 @@
                               <widget class="GtkSpinButton" id="preferences_spin:int:4:1:language.cpp.indent.statement.size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">4 0 100 1 10 10</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -218,7 +216,6 @@
                           <widget class="GtkSpinButton" id="preferences_spin:int:10:0:language.cpp.code.completion.choices">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">10 0 50 1 10 10</property>
                             <property name="climb_rate">1</property>
                             <property name="numeric">True</property>
                           </widget>

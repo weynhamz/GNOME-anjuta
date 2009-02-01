@@ -93,7 +93,7 @@ check_input (GtkWidget *parent, GtkWidget *entry, const gchar *error_message)
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_WARNING,
 										 GTK_BUTTONS_OK,
-										 error_message);
+										 "%s", error_message);
 		
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
@@ -240,10 +240,20 @@ on_status_command_data_arrived (AnjutaCommand *command,
 		status = g_queue_pop_head (status_queue);
 		path = svn_status_get_path (status);
 		
-		anjuta_vcs_status_tree_view_add (tree_view, path, 
-								  svn_status_get_vcs_status (status),
-								  FALSE);
-		
+		switch (svn_status_get_vcs_status(status)) 	 
+		{ 	 
+			case ANJUTA_VCS_STATUS_MODIFIED: 	 
+			case ANJUTA_VCS_STATUS_ADDED: 
+			case ANJUTA_VCS_STATUS_DELETED: 	 
+			case ANJUTA_VCS_STATUS_CONFLICTED: 	 
+			case ANJUTA_VCS_STATUS_MISSING:
+				anjuta_vcs_status_tree_view_add (tree_view, path, 
+												 svn_status_get_vcs_status (status),
+												 FALSE);
+				break;
+			default:
+				break;
+		}
 		svn_status_destroy (status);
 		g_free (path);
 	}

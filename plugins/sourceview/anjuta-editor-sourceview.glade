@@ -50,7 +50,6 @@
                           <widget class="GtkSpinButton" id="preferences_spin:int:4:1:indent.size">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">4 1 100 1 10 10</property>
                             <property name="climb_rate">1</property>
                             <property name="numeric">True</property>
                           </widget>
@@ -67,7 +66,6 @@
                           <widget class="GtkSpinButton" id="preferences_spin:int:4:1:tabsize">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">4 1 100 1 10 10</property>
                             <property name="climb_rate">1</property>
                             <property name="numeric">True</property>
                           </widget>
@@ -355,7 +353,6 @@
                                   <widget class="GtkSpinButton" id="preferences_spin:int:80:0:sourceview.rightmargin.position">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">80 0 200 1 10 10</property>
                                     <property name="climb_rate">1</property>
                                     <property name="numeric">True</property>
                                   </widget>

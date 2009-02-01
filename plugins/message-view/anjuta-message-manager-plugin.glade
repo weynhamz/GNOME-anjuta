@@ -40,7 +40,6 @@
                 <child>
                   <widget class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.first">
                     <property name="can_focus">True</property>
-                    <property name="adjustment">50 1 1000 1 10 10</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                   </widget>
@@ -56,7 +55,6 @@
                 <child>
                   <widget class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.last">
                     <property name="can_focus">True</property>
-                    <property name="adjustment">50 1 1000 1 10 10</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                   </widget>

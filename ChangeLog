@@ -1,5 +1,23 @@
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	* plugins/scintilla/anjuta-editor-scintilla.glade:
+	* plugins/search/anjuta-search.glade:
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	
+	Avoid GtkSpinButton adjustment warnings
+	
+	* plugins/subversion/subversion-ui-utils.c (check_input),
+	(on_status_command_data_arrived):
+	Fixed a regression from the previous status change
+
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-ui.c (anjuta_ui_init),
 	(anjuta_ui_add_action_group), (anjuta_ui_get_accel_editor),
 	(anjuta_ui_unload_accels):

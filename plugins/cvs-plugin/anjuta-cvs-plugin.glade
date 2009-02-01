@@ -101,7 +101,6 @@
                   <widget class="GtkSpinButton" id="preferences_spin:int:3:0:cvs.compression">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">1 0 10 1 10 10</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                   </widget>
