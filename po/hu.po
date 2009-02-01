@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-01-12 03:08+0000\n"
-"PO-Revision-Date: 2009-01-15 18:42+0100\n"
+"POT-Creation-Date: 2009-01-20 21:26+0000\n"
+"PO-Revision-Date: 2009-02-01 01:54+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Anjuta IDE"
 msgid "Develop software in an integrated development environment"
 msgstr "Szoftverfejlesztés integrált fejlesztői környezetben"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:343
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:344
 msgid "Integrated Development Environment"
 msgstr "Integrált fejlesztői környezet"
 
@@ -187,10 +187,10 @@ msgstr "Vietnami"
 msgid "Thai"
 msgstr "Thai"
 
-#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3222
+#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3205
 #: ../plugins/gbf-am/gbf-am-properties.c:128
 #: ../plugins/gbf-am/gbf-am-properties.c:172
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3084
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
 msgid "Unknown"
@@ -206,7 +206,7 @@ msgstr "Nem hajtható végre a parancs: „%s”"
 msgid "execvp failed"
 msgstr "az execvp meghiúsult"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2308
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2307
 msgid "Anjuta Shell"
 msgstr "Anjuta héj"
 
@@ -214,12 +214,12 @@ msgstr "Anjuta héj"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta héj, amely tartalmazni fogja a bővítményt"
 
-#: ../libanjuta/anjuta-plugin-manager.c:734
+#: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
 msgid "Plugin '%s' do not want to be deactivated"
 msgstr "A bővítmény („%s”) nem kapcsolható ki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:765
+#: ../libanjuta/anjuta-plugin-manager.c:764
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -232,25 +232,25 @@ msgstr ""
 "hibaüzenet:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:902
+#: ../libanjuta/anjuta-plugin-manager.c:901
 #: ../plugins/symbol-db/symbol-db-prefs.c:520
 msgid "Load"
 msgstr "Betöltés"
 
-#: ../libanjuta/anjuta-plugin-manager.c:924
-#: ../libanjuta/anjuta-plugin-manager.c:1943
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:1942
 msgid "Available Plugins"
 msgstr "Elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1037 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
 msgid "Preferred plugins"
 msgstr "Előnyben részesített bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1151
+#: ../libanjuta/anjuta-plugin-manager.c:1150
 msgid "Only show user activatable plugins"
 msgstr "Csak a felhasználó által aktiválható bővítmények mutatása"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1198
+#: ../libanjuta/anjuta-plugin-manager.c:1197
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -260,71 +260,73 @@ msgstr ""
 "bővítmény közül az egyik kiválasztására kérte. Az előnyben részesített "
 "bővítmény eltávolítása lehetővé teszi másik bővítmény kiválasztását."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1224
+#: ../libanjuta/anjuta-plugin-manager.c:1223
 msgid "Forget selected plugin"
 msgstr "Kiválasztott bővítmény elfelejtése"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1358
-#: ../libanjuta/anjuta-plugin-manager.c:1509 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1357
+#: ../libanjuta/anjuta-plugin-manager.c:1508 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:556
 msgid "Select a plugin"
 msgstr "Válasszon ki egy bővítményt"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1359
-#: ../libanjuta/anjuta-plugin-manager.c:1510
+#: ../libanjuta/anjuta-plugin-manager.c:1358
+#: ../libanjuta/anjuta-plugin-manager.c:1509
 #: ../plugins/debug-manager/queue.c:557
 msgid "Please select a plugin to activate"
 msgstr "Válasszon ki egy aktiválandó bővítményt"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1373
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin able to load other plugins in %s"
 msgstr "Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1962
+#: ../libanjuta/anjuta-plugin-manager.c:1961
 msgid "Remember this selection"
 msgstr "Ezen döntés megjegyzése"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2289
+#: ../libanjuta/anjuta-plugin-manager.c:2288
 msgid "Profiles"
 msgstr "Profilok"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2290
+#: ../libanjuta/anjuta-plugin-manager.c:2289
 msgid "Current stack of profiles"
 msgstr "Aktuális profilhalmaz"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2295
+#: ../libanjuta/anjuta-plugin-manager.c:2294
 msgid "Available plugins"
 msgstr "Elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2296
+#: ../libanjuta/anjuta-plugin-manager.c:2295
 msgid "Currently available plugins found in plugin paths"
 msgstr "A bővítményútvonalakon talált elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2302
+#: ../libanjuta/anjuta-plugin-manager.c:2301
 msgid "Activated plugins"
 msgstr "Aktív bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2303
+#: ../libanjuta/anjuta-plugin-manager.c:2302
 msgid "Currently activated plugins"
 msgstr "Jelenleg aktivált bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2309
+#: ../libanjuta/anjuta-plugin-manager.c:2308
 msgid "Anjuta shell for which the plugins are"
 msgstr "Anjuta héj, amelyhez a bővítmények készültek"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2317
+#: ../libanjuta/anjuta-plugin-manager.c:2316
 msgid "Anjuta Status"
 msgstr "Anjuta állapot"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2318
+#: ../libanjuta/anjuta-plugin-manager.c:2317
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
+#. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2477
-msgid "Loaded: "
-msgstr "Betöltve: "
+#| msgid "Loaded: "
+msgid "Loaded:"
+msgstr "Betöltve:"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
@@ -351,12 +353,10 @@ msgid "List of plugins for this profile"
 msgstr "A profil bővítményeinek listája"
 
 #: ../libanjuta/anjuta-profile.c:280
-#| msgid "Synchronization URI"
 msgid "Synchronization file"
 msgstr "Szinkronizálási fájl"
 
 #: ../libanjuta/anjuta-profile.c:281
-#| msgid "URI to sync the profile xml"
 msgid "File to sync the profile xml"
 msgstr "A profil xml szinkronizálásához használandó fájl"
 
@@ -388,7 +388,7 @@ msgstr ""
 "„%s” nem olvasható be: A következő szükséges bővítmények hiányoznak:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1457
+#: ../libanjuta/anjuta-preferences.c:1456
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -398,12 +398,12 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1461 ../plugins/git/plugin.c:193
+#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:193
 msgid "_Reset"
 msgstr "_Visszaállítás"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:223 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:230 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Kategória"
 
@@ -412,7 +412,7 @@ msgstr "Kategória"
 #: ../libanjuta/anjuta-preferences-dialog.c:141
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
-#: ../plugins/valgrind/vggeneralprefs.c:173 ../src/anjuta.glade.h:16
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
 #: ../src/anjuta-app.c:646
 msgid "General"
 msgstr "Általános"
@@ -476,15 +476,15 @@ msgstr "Érzékeny"
 msgid "Shortcut"
 msgstr "Gyorsbillentyű"
 
-#: ../libanjuta/anjuta-utils.c:364
-msgid ""
-"\n"
-"System: "
-msgstr ""
-"\n"
-"Rendszer: "
+#. Avoid space in translated string
+#: ../libanjuta/anjuta-utils.c:363
+#| msgid ""
+#| "\n"
+#| "System: "
+msgid "System:"
+msgstr "Rendszer:"
 
-#: ../libanjuta/anjuta-utils.c:502
+#: ../libanjuta/anjuta-utils.c:501
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -493,12 +493,12 @@ msgstr ""
 "A(z) „%s” segédeszköz nincs telepítve.\n"
 "Kérem telepítse."
 
-#: ../libanjuta/anjuta-utils.c:942 ../libanjuta/anjuta-utils.c:946
+#: ../libanjuta/anjuta-utils.c:941 ../libanjuta/anjuta-utils.c:945
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "'%s' parancs végrehajtása (%s héj használatával) sikertelen\n"
 
-#: ../libanjuta/anjuta-utils.c:1578
+#: ../libanjuta/anjuta-utils.c:1577
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -508,26 +508,32 @@ msgstr ""
 "anjuta.org"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:292
+#: ../plugins/file-manager/file-view.c:59
 msgid "Modified"
 msgstr "Módosítva"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:296
+#: ../plugins/file-manager/file-view.c:60
 msgid "Added"
 msgstr "Felvéve"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:300
+#: ../plugins/file-manager/file-view.c:62
 msgid "Deleted"
 msgstr "Törölve"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:304
+#: ../plugins/file-manager/file-view.c:63
 msgid "Conflicted"
 msgstr "Ütközött"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
+#: ../plugins/file-manager/file-view.c:66
 msgid "Missing"
 msgstr "Hiányzik"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
+#: ../plugins/file-manager/file-view.c:67
 msgid "Unversioned"
 msgstr "Verziózatlan"
 
@@ -652,8 +658,8 @@ msgid "No executables in this project!"
 msgstr "Nincsenek végrehajtható fájlok ehhez a projekthez!"
 
 #: ../plugins/build-basic-autotools/executer.c:153
-#: ../plugins/gbf-am/gbf-am-project.c:3212
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3078
+#: ../plugins/gbf-am/gbf-am-project.c:3195
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
 msgid "Program"
 msgstr "Program"
 
@@ -759,13 +765,11 @@ msgid "Total time taken: %lu secs\n"
 msgstr "Eltelt idő összesen: %lu másodperc\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:945
-#| msgid "Completed unsuccessful\n"
 msgid "Completed unsuccessfully\n"
 msgstr "Sikertelenül befejezve\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:950
 #: ../plugins/tools/execute.c:515
-#| msgid "Completed successful\n"
 msgid "Completed successfully\n"
 msgstr "Sikeresen befejezve\n"
 
@@ -1090,7 +1094,7 @@ msgid "Member Functions/Variables"
 msgstr "Tagfüggvények/változók"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:503
+#: ../plugins/glade/plugin.c:504
 msgid "Properties"
 msgstr "Tulajdonságok"
 
@@ -1328,8 +1332,10 @@ msgid "Reset sticky tags"
 msgstr "Ragadós címkék visszaállítása"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-msgid "Revision: "
-msgstr "Revízió: "
+#: ../plugins/git/anjuta-git.glade.h:72
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Revision:"
+msgstr "Revízió:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
@@ -1344,12 +1350,14 @@ msgid "Unified format instead of context format"
 msgstr "Kontextusformátum helyett egységesített formátum"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-msgid "Use revision/tag: "
-msgstr "Revízió/címke használata: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
+msgid "Use revision/tag:"
+msgstr "Revízió/címke használata:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-msgid "Use revision: "
-msgstr "Revízió használata: "
+#| msgid "Use revision: "
+msgid "Use revision:"
+msgstr "Revízió használata:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
@@ -1554,7 +1562,6 @@ msgid "<b>Debugger:</b>"
 msgstr "<b>Hibakereső:</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
-#| msgid "<b>Remote to delete:</b>"
 msgid "<b>Remote debugging</b>"
 msgstr "<b>Távoli hibakeresés</b>"
 
@@ -1563,7 +1570,6 @@ msgid "Add Watch"
 msgstr "Megfigyelő hozzáadása"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
-#| msgid "Address"
 msgid "Address:"
 msgstr "Cím:"
 
@@ -1613,7 +1619,6 @@ msgid "Description:"
 msgstr "Leírás:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
-#| msgid "Disabled"
 msgid "Disable"
 msgstr "Tiltás"
 
@@ -1668,7 +1673,6 @@ msgid "Pass:"
 msgstr "Átadás:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
-#| msgid "Print:"
 msgid "Port:"
 msgstr "Port:"
 
@@ -1967,7 +1971,6 @@ msgstr "Információk"
 
 #: ../plugins/debug-manager/info.c:127
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:48
-#: ../plugins/editor/print.c:1039
 msgid "Lines"
 msgstr "Sor"
 
@@ -2044,12 +2047,10 @@ msgid "Start debugger and attach to a running program"
 msgstr "Hibakereső indítása és kapcsolódás futó programhoz"
 
 #: ../plugins/debug-manager/plugin.c:861
-#| msgid "Debugger Target:"
 msgid "Debug _Remote Target..."
 msgstr "Távol cél hibakeresése…"
 
 #: ../plugins/debug-manager/plugin.c:863
-#| msgid "Select debugging target"
 msgid "Connect to a remote debugging target"
 msgstr "Válassza ki a távoli hibakeresés célpontját"
 
@@ -2275,7 +2276,7 @@ msgstr "Szignál"
 msgid "Stop"
 msgstr "Leállítás"
 
-#: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1030
+#: ../plugins/debug-manager/signals.c:340
 msgid "Print"
 msgstr "Nyomtatás"
 
@@ -2512,20 +2513,18 @@ msgid "Help operations"
 msgstr "Súgóműveletek"
 
 #: ../plugins/devhelp/plugin.c:355
-#| msgid "Underlined"
 msgid "Online"
 msgstr "Online"
 
 #: ../plugins/devhelp/plugin.c:396
-#| msgid "Co_mment"
 msgid "Contents"
 msgstr "Tartalom"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1002
-#: ../plugins/search/search-replace.c:1671
-#: ../plugins/search/search-replace.c:1678
-#: ../plugins/search/search-replace.c:1690
-#: ../plugins/search/search-replace.c:2008
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1003
+#: ../plugins/search/search-replace.c:1672
+#: ../plugins/search/search-replace.c:1679
+#: ../plugins/search/search-replace.c:1691
+#: ../plugins/search/search-replace.c:2009
 msgid "Search"
 msgstr "Keresés"
 
@@ -2552,7 +2551,6 @@ msgstr "_Újratöltés"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:278
 #: ../plugins/document-manager/plugin.c:419
-#| msgid "Bookmar_k"
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
@@ -2903,7 +2901,7 @@ msgstr "_Gyors újrakeresés"
 msgid "Repeat quick search"
 msgstr "Gyorskeresés ismétlése"
 
-#: ../plugins/document-manager/plugin.c:276 ../plugins/gtodo/interface.c:167
+#: ../plugins/document-manager/plugin.c:276 ../plugins/gtodo/interface.c:169
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1848
 msgid "_Edit"
@@ -2956,7 +2954,7 @@ msgstr "Kijelölt szöveg kivágása a szerkesztőből a vágólapra"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:299 ../plugins/terminal/terminal.c:506
+#: ../plugins/document-manager/plugin.c:299 ../plugins/terminal/terminal.c:523
 #: ../plugins/valgrind/vgdefaultview.c:1167
 msgid "_Copy"
 msgstr "Má_solás"
@@ -2965,7 +2963,7 @@ msgstr "Má_solás"
 msgid "Copy the selected text to the clipboard"
 msgstr "A kijelölt szöveg másolása a vágólapra"
 
-#: ../plugins/document-manager/plugin.c:302 ../plugins/terminal/terminal.c:514
+#: ../plugins/document-manager/plugin.c:302 ../plugins/terminal/terminal.c:531
 #: ../plugins/valgrind/vgdefaultview.c:1168
 msgid "_Paste"
 msgstr "_Beillesztés"
@@ -3107,12 +3105,10 @@ msgid "Bookmar_k"
 msgstr "Könyvje_lző"
 
 #: ../plugins/document-manager/plugin.c:377
-#| msgid "_Next Bookmark"
 msgid "_Add Bookmark"
 msgstr "Könyvjelző hozzá_adása"
 
 #: ../plugins/document-manager/plugin.c:378
-#| msgid "Toggle a bookmark at the current line position"
 msgid "Add a bookmark at the current line position"
 msgstr "Könyvjelző hozzáadása a jelenlegi sorpozícióhoz"
 
@@ -3259,7 +3255,6 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:445
 #: ../plugins/search/anjuta-search.glade.h:23
-#| msgid "Matching _Brace"
 msgid "Match case"
 msgstr "Nagybetűérzékeny"
 
@@ -3561,26 +3556,18 @@ msgstr "Behúzási üreshelyek mutatása"
 msgid "Wrap bookmarks search around"
 msgstr "Könyvjelzők keresése körbe"
 
-#: ../plugins/editor/print.c:481
-msgid "No file to print!"
-msgstr "Nincs fájl a nyomtatáshoz!"
-
-#: ../plugins/editor/print.c:504
-msgid "Unable to get text buffer for printing"
-msgstr "A nyomtatáshoz nem érhető el a szöveges puffer"
-
-#: ../plugins/editor/print.c:758
+#: ../plugins/editor/print.c:658
 #, c-format
 msgid "File: %s"
 msgstr "Fájl: %s"
 
-#: ../plugins/editor/print.c:871 ../plugins/editor/print.c:883
-msgid "Printing..."
-msgstr "Nyomtatás…"
+#: ../plugins/editor/print.c:887
+msgid "Unable to get text buffer for printing"
+msgstr "A nyomtatáshoz nem érhető el a szöveges puffer"
 
-#: ../plugins/editor/print.c:1066
-msgid "Print Preview"
-msgstr "Nyomtatási kép"
+#: ../plugins/editor/print.c:966
+msgid "No file to print!"
+msgstr "Nincs fájl a nyomtatáshoz!"
 
 #: ../plugins/editor/plugin.c:130 ../plugins/editor/plugin.c:142
 #: ../plugins/editor/anjuta-editor.plugin.in.h:1
@@ -3885,18 +3872,16 @@ msgstr "Legutóbbi fájlok megnyitása"
 
 #: ../plugins/file-loader/plugin.c:1340 ../plugins/file-loader/plugin.c:1342
 #, c-format
-#| msgid "Widget not found: %s"
 msgid "File not found"
 msgstr "A fájl nem található"
 
-#: ../plugins/file-loader/plugin.c:1360
+#. %s is name of file that will be opened
+#: ../plugins/file-loader/plugin.c:1361
 #, c-format
-#| msgid "Please select a plugin from the list"
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Válasszon egy bővítményt a(z) <b>%s</b> megnyitásához."
 
-#: ../plugins/file-loader/plugin.c:1364
-#| msgid "Open _With"
+#: ../plugins/file-loader/plugin.c:1365
 msgid "Open With"
 msgstr "Megnyitás ezzel"
 
@@ -3929,19 +3914,34 @@ msgstr "Ne mutassa a rejtett fájlokat"
 msgid "Root directory if no project is open:"
 msgstr "Gyökérkönyvtár, ha nincs megnyitva projekt:"
 
-#: ../plugins/file-manager/file-model.c:112
+#: ../plugins/file-manager/file-model.c:117
 msgid "Loading..."
 msgstr "Betöltés…"
 
-#: ../plugins/file-manager/file-view.c:437
+#: ../plugins/file-manager/file-view.c:61
+#| msgid "Remove"
+msgid "Removed"
+msgstr "Eltávolítva"
+
+#: ../plugins/file-manager/file-view.c:64
+#| msgid "Started"
+msgid "Outdated"
+msgstr "Elavult"
+
+#: ../plugins/file-manager/file-view.c:65
+#| msgid "Loaded"
+msgid "Locked"
+msgstr "Zárolva"
+
+#: ../plugins/file-manager/file-view.c:463
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../plugins/file-manager/file-view.c:515
+#: ../plugins/file-manager/file-view.c:543
 msgid "Base uri"
 msgstr "Alap URI"
 
-#: ../plugins/file-manager/file-view.c:516
+#: ../plugins/file-manager/file-view.c:544
 msgid "Uri of the top-most path displayed"
 msgstr "A legfelső megjelenített könyvtár URI címe"
 
@@ -3957,11 +3957,11 @@ msgstr "Fájl/könyvtár átnevezése"
 msgid "File manager popup actions"
 msgstr "Fájlkezelő felbukkanó műveletek"
 
-#: ../plugins/file-manager/plugin.c:252
+#: ../plugins/file-manager/plugin.c:253
 msgid "Files"
 msgstr "Fájlok"
 
-#: ../plugins/file-manager/plugin.c:375 ../plugins/file-manager/plugin.c:384
+#: ../plugins/file-manager/plugin.c:376 ../plugins/file-manager/plugin.c:385
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Fájlkezelő"
@@ -4062,7 +4062,6 @@ msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/file-wizard/file.c:101
-#| msgid "General Public License (GPL)"
 msgid "BSD Public License"
 msgstr "BSD Public License"
 
@@ -4075,259 +4074,233 @@ msgid "Invalid GbfAmConfigValue type"
 msgstr "Érvénytelen GbfAmConfigValue típus"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:1
-#| msgid "<b>Select file to add:</b>"
 msgid "<b>Select Package to add:</b>"
 msgstr "<b>Válassza ki a hozzáadni kívánt csomagot:</b>"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:2
-#| msgid "Add _Target"
 msgid "Add _Package"
 msgstr "_Csomag hozzáadása"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:3
-#| msgid "Build module"
 msgid "Add _module"
 msgstr "_Modul hozzáadása"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:5
-#| msgid "Patches"
 msgid "Packages"
 msgstr "Csomagok"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:6
-#| msgid "Select to _Brace"
 msgid "Select package"
 msgstr "Válasszon csomagot"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:7
-#| msgid "Variable"
 msgid "Variables"
 msgstr "Változók"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2409
-#: ../plugins/gbf-am/gbf-am-project.c:2487
-#: ../plugins/gbf-am/gbf-am-project.c:2696
-#: ../plugins/gbf-am/gbf-am-project.c:2905
-#: ../plugins/gbf-am/gbf-am-project.c:3055
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2345
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2423
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2815
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2963
-#| msgid "Value doesn't exist"
+#: ../plugins/gbf-am/gbf-am-project.c:2392
+#: ../plugins/gbf-am/gbf-am-project.c:2470
+#: ../plugins/gbf-am/gbf-am-project.c:2679
+#: ../plugins/gbf-am/gbf-am-project.c:2888
+#: ../plugins/gbf-am/gbf-am-project.c:3038
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2330
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2408
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2636
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2822
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2970
 msgid "Group doesn't exist"
 msgstr "A csoport nem létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2429
-#: ../plugins/gbf-am/gbf-am-project.c:2532
-#: ../plugins/gbf-am/gbf-am-project.c:2948
-#: ../plugins/gbf-am/gbf-am-project.c:3170
-#: ../plugins/gbf-am/gbf-am-project.c:3390
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2365
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2468
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2858
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3038
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3224
-#| msgid "Value doesn't exist"
+#: ../plugins/gbf-am/gbf-am-project.c:2412
+#: ../plugins/gbf-am/gbf-am-project.c:2515
+#: ../plugins/gbf-am/gbf-am-project.c:2931
+#: ../plugins/gbf-am/gbf-am-project.c:3153
+#: ../plugins/gbf-am/gbf-am-project.c:3373
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2350
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2453
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2865
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3045
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3231
 msgid "Target doesn't exist"
 msgstr "A cél nem létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2463
-#: ../plugins/gbf-am/gbf-am-project.c:2507
-#: ../plugins/gbf-am/gbf-am-project.c:2550
-#: ../plugins/gbf-am/gbf-am-project.c:2866
-#: ../plugins/gbf-am/gbf-am-project.c:2926
-#: ../plugins/gbf-am/gbf-am-project.c:3130
-#: ../plugins/gbf-am/gbf-am-project.c:3191
-#: ../plugins/gbf-am/gbf-am-project.c:3490
-#: ../plugins/gbf-am/gbf-am-project.c:3551
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2399
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2443
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2486
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2776
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2836
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2999
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3059
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3286
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3347
-#| msgid "Unable to delete file"
+#: ../plugins/gbf-am/gbf-am-project.c:2446
+#: ../plugins/gbf-am/gbf-am-project.c:2490
+#: ../plugins/gbf-am/gbf-am-project.c:2533
+#: ../plugins/gbf-am/gbf-am-project.c:2849
+#: ../plugins/gbf-am/gbf-am-project.c:2909
+#: ../plugins/gbf-am/gbf-am-project.c:3113
+#: ../plugins/gbf-am/gbf-am-project.c:3174
+#: ../plugins/gbf-am/gbf-am-project.c:3476
+#: ../plugins/gbf-am/gbf-am-project.c:3537
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2384
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2428
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2471
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2783
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2843
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3066
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3293
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3354
 msgid "Unable to update project"
 msgstr "Nem lehet frissíteni a projektet"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2593
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2529
+#: ../plugins/gbf-am/gbf-am-project.c:2576
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2516
 msgid "Invalid or remote path (only local paths supported)"
 msgstr "Érvénytelen vagy távoli útvonal (csak helyi útvonalak támogatottak)"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2601
+#: ../plugins/gbf-am/gbf-am-project.c:2584
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2537
 msgid "Project doesn't exist or invalid path"
 msgstr "A projekt nem létezik vagy érvénytelen az útvonal"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2612
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2548
-#| msgid "Close project"
+#: ../plugins/gbf-am/gbf-am-project.c:2595
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2551
 msgid "Malformed project"
 msgstr "Hibás projekt"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2809
-#| msgid "Please enter a tag name."
+#: ../plugins/gbf-am/gbf-am-project.c:2792
 msgid "Please specify group name"
 msgstr "Adja meg a csoportnevet"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2823
+#: ../plugins/gbf-am/gbf-am-project.c:2806
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "A csoportnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2832
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2742
-#| msgid "Value doesn't exist"
+#: ../plugins/gbf-am/gbf-am-project.c:2815
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2749
 msgid "Parent group doesn't exist"
 msgstr "A szülőcsoport nem létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2843
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2753
-#| msgid "Skipping %s: file already exists"
+#: ../plugins/gbf-am/gbf-am-project.c:2826
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2760
 msgid "Group already exists"
 msgstr "A csoport már létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2853
-#: ../plugins/gbf-am/gbf-am-project.c:2880
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2763
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2790
+#: ../plugins/gbf-am/gbf-am-project.c:2836
+#: ../plugins/gbf-am/gbf-am-project.c:2863
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2770
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2797
 msgid "Group couldn't be created"
 msgstr "A csoportot nem lehet létrehozni"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2913
+#: ../plugins/gbf-am/gbf-am-project.c:2896
 msgid "Group couldn't be removed"
 msgstr "A csoportot nem lehet eltávolítani"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3063
-#| msgid "Please enter a tag name."
+#: ../plugins/gbf-am/gbf-am-project.c:3046
 msgid "Please specify target name"
 msgstr "Adja meg a cél nevét"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3077
+#: ../plugins/gbf-am/gbf-am-project.c:3060
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "A célnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3086
+#: ../plugins/gbf-am/gbf-am-project.c:3069
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "Az osztott programkönyvtár célneve csak „libxxx.la” alakú lehet"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3095
+#: ../plugins/gbf-am/gbf-am-project.c:3078
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "A statikus programkönyvtár célneve csak „libxxx.la” alakú lehet"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3107
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2976
-#| msgid "Skipping %s: file already exists"
+#: ../plugins/gbf-am/gbf-am-project.c:3090
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2983
 msgid "Target already exists"
 msgstr "A cél már létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3117
+#: ../plugins/gbf-am/gbf-am-project.c:3100
 msgid "General failure in target creation"
 msgstr "Általános hiba a cél létrehozásakor"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3145
+#: ../plugins/gbf-am/gbf-am-project.c:3128
 msgid "Newly created target could not be identified"
 msgstr "Az újonnan létrehozott cél nem azonosítható"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3178
+#: ../plugins/gbf-am/gbf-am-project.c:3161
 msgid "Target couldn't be removed"
 msgstr "A célt nem lehet eltávolítani"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3202
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3070
-#| msgid "Shared Libraries"
+#: ../plugins/gbf-am/gbf-am-project.c:3185
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3077
 msgid "Static Library"
 msgstr "Statikus programkönyvtár"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3204
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3072
-#| msgid "Shared Libraries"
+#: ../plugins/gbf-am/gbf-am-project.c:3187
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
 msgid "Shared Library"
 msgstr "Osztott programkönyvtár"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3206
-#| msgid "Header File:"
+#: ../plugins/gbf-am/gbf-am-project.c:3189
 msgid "Header Files"
 msgstr "Fejlécfájlok"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3208
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3074
-#| msgid "Documents"
+#: ../plugins/gbf-am/gbf-am-project.c:3191
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
 msgid "Man Documentation"
 msgstr "Man dokumentáció"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3210
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3076
+#: ../plugins/gbf-am/gbf-am-project.c:3193
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
 msgid "Miscellaneous Data"
 msgstr "Egyéb adatok"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3214
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3080
+#: ../plugins/gbf-am/gbf-am-project.c:3197
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
 msgid "Script"
 msgstr "Parancsfájl"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3216
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3082
-#| msgid "Information"
+#: ../plugins/gbf-am/gbf-am-project.c:3199
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
 msgid "Info Documentation"
 msgstr "Info dokumentáció"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3218
-#| msgid "Module"
+#: ../plugins/gbf-am/gbf-am-project.c:3201
 msgid "Java Module"
 msgstr "Java modul"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3220
-#| msgid "Python Source File"
+#: ../plugins/gbf-am/gbf-am-project.c:3203
 msgid "Python Module"
 msgstr "Python modul"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3278
-#: ../plugins/gbf-am/gbf-am-project.c:3528
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3134
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3324
-#| msgid "Value doesn't exist"
+#: ../plugins/gbf-am/gbf-am-project.c:3261
+#: ../plugins/gbf-am/gbf-am-project.c:3514
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3141
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3331
 msgid "Source doesn't exist"
 msgstr "A forrás nem létezik"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3381
+#: ../plugins/gbf-am/gbf-am-project.c:3364
 msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "A forrásfájl neve csak betűket, számokat, illetve _ - . karaktereket "
 "tartalmazhat"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3455
+#: ../plugins/gbf-am/gbf-am-project.c:3441
 msgid "Source file is already in given target"
 msgstr "A forrásfájl már benne van a megadott célban"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3472
+#: ../plugins/gbf-am/gbf-am-project.c:3458
 msgid "General failure in adding source file"
 msgstr "Általános hiba a forrásfájl hozzáadásakor"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3505
-#| msgid "Header or source file has not been created"
+#: ../plugins/gbf-am/gbf-am-project.c:3491
 msgid "Newly added source file could not be identified"
 msgstr "Az újonnan hozzáadott forrásfájl nem azonosítható"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3536
+#: ../plugins/gbf-am/gbf-am-project.c:3522
 msgid "Source couldn't be removed"
 msgstr "A forrást nem lehet eltávolítani"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3722
-#: ../plugins/gbf-am/gbf-am-project.c:3723
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3436
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3437
-#| msgid "Project directory:"
+#: ../plugins/gbf-am/gbf-am-project.c:3708
+#: ../plugins/gbf-am/gbf-am-project.c:3709
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3443
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3444
 msgid "Project directory"
 msgstr "Projektkönyvtár"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:338
 #: ../plugins/gbf-am/gbf-am-properties.c:390
-#| msgid "Clean module"
 msgid "Enter new module"
 msgstr "Adjon meg új csomagot"
 
@@ -4338,13 +4311,11 @@ msgstr "Modul/csomagok"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:432
 #: ../plugins/gbf-am/gbf-am-properties.c:922
-#| msgid "Version:"
 msgid "Version"
 msgstr "Verzió"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:518
 #, c-format
-#| msgid "Are you sure you want to remove all the completed todo items?"
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
 "packages?"
@@ -4354,30 +4325,25 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-properties.c:520
 #, c-format
-#| msgid "Are you sure you want to delete the '%s' tool?"
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "Valóban el kívánja távolítani a(z) „%s” csomagot?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:576
 #: ../plugins/gbf-am/gbf-am-properties.c:658
-#| msgid "Environment Variables:"
 msgid "Enter new variable"
 msgstr "Adja meg az új változót"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:689
 #, c-format
-#| msgid "Are you sure you want to delete the '%s' tool?"
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "Valóban el kívánja távolítani a(z) „%s” változót?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:838
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
-#| msgid "Project"
 msgid "Project:"
 msgstr "Projekt:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:841
-#| msgid "Project name:"
 msgid "Package name:"
 msgstr "Csomag neve:"
 
@@ -4391,24 +4357,20 @@ msgid "Url:"
 msgstr "Url:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1211
-#| msgid "User"
 msgid "Use"
 msgstr "Használat"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1303
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
-#| msgid "Module name:"
 msgid "Group name:"
 msgstr "Csoportnév:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1306
-#| msgid "Added"
 msgid "Advanced"
 msgstr "Speciális"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1311
 #: ../plugins/gbf-am/gbf-am-properties.c:1401
-#| msgid "Compile file"
 msgid "C compiler flags:"
 msgstr "C fordító jelzői:"
 
@@ -4417,7 +4379,6 @@ msgid "C preprocessor flags:"
 msgstr "C előfeldolgozó jelzői:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1315
-#| msgid "Compile file"
 msgid "C++ compiler flags:"
 msgstr "C++ fordító jelzői:"
 
@@ -4440,7 +4401,6 @@ msgstr "Include-ok (elavult):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1335
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
-#| msgid "Ignore Directories:"
 msgid "Install directories:"
 msgstr "Telepítési könyvtárak:"
 
@@ -4449,7 +4409,6 @@ msgid "C preprocessor flags"
 msgstr "C előfeldolgozó paraméterei"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1405
-#| msgid "Compile file"
 msgid "C++ compiler flags"
 msgstr "C++ fordító paraméterei"
 
@@ -4464,30 +4423,25 @@ msgstr "Szerkesztő paraméterei:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1419
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
-#| msgid "Shared Libraries"
 msgid "Libraries:"
 msgstr "Programkönyvtárak:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1425
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
-#| msgid "Plugin Dependencies:"
 msgid "Dependencies:"
 msgstr "Függőségek:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1428
-#| msgid "_Advanced tutorial"
 msgid "Advanced options"
 msgstr "Speciális beállítások"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1503
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
-#| msgid "Project name:"
 msgid "Target name:"
 msgstr "Cél neve:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1512
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
-#| msgid "Grep:"
 msgid "Group:"
 msgstr "Csoport:"
 
@@ -4497,12 +4451,10 @@ msgstr "Csoport:"
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
-#| msgid "_Install Project"
 msgid "Install directory:"
 msgstr "Telepítési könyvtár:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1565
-#| msgid "_Add..."
 msgid "Advanced..."
 msgstr "Speciális…"
 
@@ -4511,34 +4463,38 @@ msgstr "Speciális…"
 msgid "Invalid GbfMkfileConfigValue type"
 msgstr "Érvénytelen GbfMkfileConfigValue típus"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2823
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2523
+#| msgid "Target doesn't exist"
+msgid "Project doesn't exist"
+msgstr "A projekt nem létezik"
+
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2830
 msgid "Group coudn't be removed"
 msgstr "A csoportot nem lehet eltávolítani"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2986
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3013
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2993
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3020
 msgid "Target couldn't be created"
 msgstr "A célt nem lehet létrehozni"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3046
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3053
 msgid "Target coudn't be removed"
 msgstr "A célt nem lehet eltávolítani"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3239
-#| msgid "Select project directory"
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3246
 msgid "Source file must be inside the project directory"
 msgstr "A forrásfájlnak a projektkönyvtáron belül kell lennie"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3251
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3258
 msgid "Source is already in target"
 msgstr "A forrás már benne van a célban"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3268
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3275
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3307
 msgid "Source couldn't be added"
 msgstr "A forrást nem lehet hozzáadni"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3332
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3339
 msgid "Source coudn't be removed"
 msgstr "A forrást nem lehet eltávolítani"
 
@@ -4573,14 +4529,12 @@ msgstr "Áta_dás:"
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:690
 #, c-format
-#| msgid "Loading Executable: "
 msgid "Loading Executable: %s\n"
 msgstr "Végrehajtható fájl betöltése: %s\n"
 
 #. The %s argument is a file name
 #: ../plugins/gdb/debugger.c:721
 #, c-format
-#| msgid "Loading Core: "
 msgid "Loading Core: %s\n"
 msgstr "Core betöltése: %s\n"
 
@@ -4668,7 +4622,6 @@ msgstr ""
 "Újrapróbálja?"
 
 #: ../plugins/gdb/debugger.c:1868
-#| msgid "Debugger command"
 msgid "Debugger connected\n"
 msgstr "Hibakereső csatlakoztatva\n"
 
@@ -5012,11 +4965,6 @@ msgstr "Véglegesítés visszavonása"
 msgid "Revision/Tag:"
 msgstr "Revízió/címke:"
 
-#: ../plugins/git/anjuta-git.glade.h:72
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
-msgid "Revision:"
-msgstr "Revízió:"
-
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Select A Folder"
 msgstr "Válasszon ki egy mappát"
@@ -5134,12 +5082,10 @@ msgid "Git: Fetch complete."
 msgstr "Git: A lekérés kész."
 
 #: ../plugins/git/git-log-dialog.c:151
-#| msgid "Call Graph"
 msgid "Graph"
 msgstr "Grafikon"
 
 #: ../plugins/git/git-log-dialog.c:166
-#| msgid "Short Log"
 msgid "Short log"
 msgstr "Rövid napló"
 
@@ -5154,7 +5100,7 @@ msgstr "Git: Napló lekérése…"
 
 #: ../plugins/git/git-log-dialog.c:344
 #: ../plugins/subversion/subversion-add-dialog.c:63
-#: ../plugins/subversion/subversion-diff-dialog.c:66
+#: ../plugins/subversion/subversion-diff-dialog.c:114
 #: ../plugins/subversion/subversion-remove-dialog.c:98
 #: ../plugins/subversion/subversion-update-dialog.c:66
 msgid "Please enter a path."
@@ -5334,14 +5280,14 @@ msgstr "_Napló megjelenítése…"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
 #: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:60
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "Hozzá_adás…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
-#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "_Eltávolítás…"
 
@@ -5439,38 +5385,38 @@ msgstr "Git fájlműveletek"
 msgid "Git Log"
 msgstr "Git napló"
 
-#: ../plugins/glade/plugin.c:493
+#: ../plugins/glade/plugin.c:494
 msgid "Widgets"
 msgstr "Felületi elemek"
 
-#: ../plugins/glade/plugin.c:498
+#: ../plugins/glade/plugin.c:499
 msgid "Palette"
 msgstr "Paletta"
 
-#: ../plugins/glade/plugin.c:644
+#: ../plugins/glade/plugin.c:645
 #, c-format
 msgid "Not local file: %s"
 msgstr "%s nem helyi fájl"
 
-#: ../plugins/glade/plugin.c:695
+#: ../plugins/glade/plugin.c:696
 #, c-format
 msgid "Could not open %s"
 msgstr "%s nem nyitható meg"
 
-#: ../plugins/glade/plugin.c:771
+#: ../plugins/glade/plugin.c:772
 msgid "Could not create a new glade project."
 msgstr "Nem lehet új glade projektet létrehozni."
 
-#: ../plugins/glade/anjuta-design-document.c:168
-#: ../plugins/glade/anjuta-design-document.c:172
-#: ../plugins/glade/anjuta-design-document.c:200
-#: ../plugins/glade/anjuta-design-document.c:205
+#: ../plugins/glade/anjuta-design-document.c:166
+#: ../plugins/glade/anjuta-design-document.c:170
+#: ../plugins/glade/anjuta-design-document.c:198
+#: ../plugins/glade/anjuta-design-document.c:203
 #, c-format
 msgid "Glade project '%s' saved"
 msgstr "„%s” Glade projekt mentve"
 
-#: ../plugins/glade/anjuta-design-document.c:180
-#: ../plugins/glade/anjuta-design-document.c:213
+#: ../plugins/glade/anjuta-design-document.c:178
+#: ../plugins/glade/anjuta-design-document.c:211
 msgid "Invalid glade file name"
 msgstr "Érvénytelen glade fájlnév"
 
@@ -5585,69 +5531,105 @@ msgstr ""
 "Valóban törölni akarja az összes befejezett teendőelemet a(z) „%s” "
 "kategóriából?"
 
-#: ../plugins/gtodo/export.c:21
-msgid "Export to"
-msgstr "Exportálás"
+#: ../plugins/gtodo/export.c:45
+#| msgid "Export to"
+msgid "Export task list"
+msgstr "Feladatlista exportálása"
+
+#: ../plugins/gtodo/export.c:152
+msgid "XML"
+msgstr "XML"
+
+#: ../plugins/gtodo/export.c:153
+#| msgid "Plugin Title:"
+msgid "Plain Text"
+msgstr "Egyszerű szöveg"
+
+#: ../plugins/gtodo/export.c:154
+msgid "HTML"
+msgstr "HTML"
+
+#. add the embed css style sheet tb
+#: ../plugins/gtodo/export.c:161
+msgid "Export current category only"
+msgstr "Csak az aktuális kategória exportálása"
+
+#: ../plugins/gtodo/export.c:165
+#| msgid "<b>Print options</b>"
+msgid "<b>HTML export options:</b>"
+msgstr "<b>HTML exportálás beállításai:</b>"
+
+#: ../plugins/gtodo/export.c:175
+msgid "Embed default (CSS) style sheet"
+msgstr "Alapértelmezett (CSS) stíluslap beágyazása"
+
+#: ../plugins/gtodo/export.c:179
+msgid "Custom (CSS) style sheet"
+msgstr "Egyéni (CSS) stíluslap"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../plugins/gtodo/interface.c:145
+#: ../plugins/gtodo/interface.c:148
 msgid "All"
 msgstr "Mind"
 
-#: ../plugins/gtodo/interface.c:209
+#: ../plugins/gtodo/interface.c:172
+#| msgid "Export to"
+msgid "_Export"
+msgstr "_Exportálás"
+
+#: ../plugins/gtodo/interface.c:216
 msgid "Priority"
 msgstr "Prioritás"
 
-#: ../plugins/gtodo/interface.c:216
+#: ../plugins/gtodo/interface.c:223
 msgid "Due date"
 msgstr "Lejárat"
 
-#: ../plugins/gtodo/interface.c:230
+#: ../plugins/gtodo/interface.c:237
 msgid "Summary"
 msgstr "Összegzés"
 
-#: ../plugins/gtodo/libgtodo.c:602
+#: ../plugins/gtodo/libgtodo.c:606
 #, c-format
 msgid "No permission to read the file."
 msgstr "A fájl olvasása nem engedélyezett."
 
-#: ../plugins/gtodo/libgtodo.c:617
+#: ../plugins/gtodo/libgtodo.c:621
 #, c-format
-#| msgid "Failed to create/open file."
 msgid "Failed to read file"
 msgstr "Nem sikerült olvasni a fájlt"
 
-#: ../plugins/gtodo/libgtodo.c:625 ../plugins/gtodo/libgtodo.c:636
+#: ../plugins/gtodo/libgtodo.c:629 ../plugins/gtodo/libgtodo.c:640
 #, c-format
 msgid "Failed to parse xml structure"
 msgstr "Nem sikerült feldolgozni az xml struktúrát"
 
-#: ../plugins/gtodo/libgtodo.c:645
+#: ../plugins/gtodo/libgtodo.c:649
 #, c-format
 msgid "File is not a valid gtodo file"
 msgstr "A fájl nem egy érvényes gtodo fájl"
 
-#: ../plugins/gtodo/libgtodo.c:661
+#: ../plugins/gtodo/libgtodo.c:665
 msgid "Personal"
 msgstr "Személyes"
 
-#: ../plugins/gtodo/libgtodo.c:663
+#: ../plugins/gtodo/libgtodo.c:667
 msgid "Business"
 msgstr "Üzleti"
 
-#: ../plugins/gtodo/libgtodo.c:665
+#: ../plugins/gtodo/libgtodo.c:669
 msgid "Unfiled"
 msgstr "Nem iktatott"
 
-#: ../plugins/gtodo/libgtodo.c:754
+#: ../plugins/gtodo/libgtodo.c:758
 #, c-format
 msgid "No Gtodo Client to save."
 msgstr "Nincs menthető Gtodo kliens."
 
-#: ../plugins/gtodo/libgtodo.c:844
+#: ../plugins/gtodo/libgtodo.c:848
 #, c-format
 msgid "No filename supplied."
 msgstr "Nem adott meg fájlnevet."
@@ -5726,90 +5708,86 @@ msgstr "Feladatok"
 msgid "Todo Manager"
 msgstr "Teendőkezelő"
 
-#: ../plugins/gtodo/preferences.c:24
+#: ../plugins/gtodo/preferences.c:21
 msgid "Todo List Preferences"
 msgstr "Teendőlista tulajdonságai"
 
-#: ../plugins/gtodo/preferences.c:87
+#: ../plugins/gtodo/preferences.c:84
 msgid "Interface"
 msgstr "Felület"
 
-#: ../plugins/gtodo/preferences.c:91
+#: ../plugins/gtodo/preferences.c:88
 msgid "Show due date column"
 msgstr "Lejárat dátuma oszlop mutatása"
 
-#: ../plugins/gtodo/preferences.c:99
+#: ../plugins/gtodo/preferences.c:96
 msgid "Show category column"
 msgstr "Kategória oszlop mutatása"
 
-#: ../plugins/gtodo/preferences.c:104
+#: ../plugins/gtodo/preferences.c:101
 msgid "Show priority column"
 msgstr "Prioritás oszlop mutatása"
 
-#: ../plugins/gtodo/preferences.c:109
+#: ../plugins/gtodo/preferences.c:106
 msgid "Tooltips in list"
 msgstr "eszköztippek a listában"
 
-#: ../plugins/gtodo/preferences.c:120 ../plugins/gtodo/preferences.c:122
+#: ../plugins/gtodo/preferences.c:117 ../plugins/gtodo/preferences.c:119
 msgid "Show in main window"
 msgstr "Megjelenítés a főablakban"
 
-#: ../plugins/gtodo/preferences.c:133 ../plugins/gtodo/preferences.c:135
+#: ../plugins/gtodo/preferences.c:130 ../plugins/gtodo/preferences.c:132
 msgid "Highlight"
 msgstr "Kiemelés"
 
 #. tb for highlighting due today
-#: ../plugins/gtodo/preferences.c:145
+#: ../plugins/gtodo/preferences.c:142
 msgid "Items that are due today"
 msgstr "Ma lejáró elemek"
 
 #. tb for highlighting due
-#: ../plugins/gtodo/preferences.c:151
+#: ../plugins/gtodo/preferences.c:148
 msgid "Items that are past due"
 msgstr "Lejárt elemek"
 
 #. tb for highlighting in x days
-#: ../plugins/gtodo/preferences.c:157
+#: ../plugins/gtodo/preferences.c:154
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
 msgstr[0] "A következő %i napon lejáró elemek"
 msgstr[1] "A következő %i napon lejáró elemek"
 
-#: ../plugins/gtodo/preferences.c:171
+#: ../plugins/gtodo/preferences.c:168
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../plugins/gtodo/preferences.c:174
+#: ../plugins/gtodo/preferences.c:171
 msgid "Auto purge completed items"
 msgstr "Befejezett elemek automatikus törlése"
 
-#: ../plugins/gtodo/preferences.c:179
+#: ../plugins/gtodo/preferences.c:176
 msgid "Purge items after"
 msgstr "Elemek törlése"
 
-#: ../plugins/gtodo/preferences.c:183
+#: ../plugins/gtodo/preferences.c:180
 msgid "days."
 msgstr "nap után."
 
-#: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
+#: ../plugins/gtodo/preferences.c:193 ../plugins/gtodo/preferences.c:195
 msgid "Auto Purge"
 msgstr "Automatikus törlés"
 
-#: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
+#: ../plugins/gtodo/preferences.c:207 ../plugins/gtodo/preferences.c:209
 msgid "Notification"
 msgstr "Értesítés"
 
-#: ../plugins/gtodo/preferences.c:219
+#: ../plugins/gtodo/preferences.c:216
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
 msgstr[0] "A teendőelemek értesíthetnek, ha %i percen belül lejárnak"
 msgstr[1] "A teendőelemek értesíthetnek, ha %i percen belül lejárnak"
-
-#: ../plugins/gtodo/preferences.c:229
-msgid "Show Notification Tray Icon"
-msgstr "Ikon mutatása a figyelmeztető területen"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -6022,22 +6000,18 @@ msgid "No message details"
 msgstr "Az üzenetnek nincsenek részletei"
 
 #: ../plugins/message-view/message-view.c:731
-#| msgid "0 Messages"
 msgid "No Messages"
 msgstr "Nincs üzenet"
 
 #: ../plugins/message-view/message-view.c:739
-#| msgid "_Info"
 msgid "No Infos"
 msgstr "Nincs info"
 
 #: ../plugins/message-view/message-view.c:750
-#| msgid "0 Warnings"
 msgid "No Warnings"
 msgstr "Nincs figyelmeztetés"
 
 #: ../plugins/message-view/message-view.c:762
-#| msgid "0 Errors"
 msgid "No Errors"
 msgstr "Nincs hiba"
 
@@ -6065,7 +6039,6 @@ msgstr[1] "%d üzenet"
 
 #: ../plugins/message-view/message-view.c:1322
 #, c-format
-#| msgid "_Info"
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d info"
@@ -6183,17 +6156,17 @@ msgstr "Foltozás szintje:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:54 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_Eszközök"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:62
+#: ../plugins/patch/plugin.c:61
 msgid "_Patch..."
 msgstr "_Folt…"
 
-#: ../plugins/patch/plugin.c:93
+#: ../plugins/patch/plugin.c:92
 msgid "Patch files/directories"
 msgstr "Fájlok/könyvtárak foltozása"
 
@@ -6371,11 +6344,6 @@ msgid "Do not show these symbols:"
 msgstr "Ne mutassa a következő szimbólumokat:"
 
 #: ../plugins/profiler/profiler.glade.h:11
-#| msgid ""
-#| "Enter one symbol specification per line.\n"
-#| "\n"
-#| "For information on symbol specifications, see section \n"
-#| "4.5 of the gprof info page. "
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
@@ -6435,17 +6403,13 @@ msgstr "A következő profiladatfájl használata:"
 
 #: ../plugins/project-import/project-import.c:109
 #, c-format
-#| msgid ""
-#| "Could not find a valid project backend for the directory given (%s). "
-#| "Please select a different directory, or try upgrading to a newer version "
-#| "of the Gnome Build Framework."
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "Nem található érvényes projekt-háttérprogram az adott könyvtárhoz (%s). "
-"Válasszon másik könyvtárat, vagy próbáljon az Anjuta újabb "
-"verziójára frissíteni."
+"Válasszon másik könyvtárat, vagy próbáljon az Anjuta újabb verziójára "
+"frissíteni."
 
 #.
 #. * Now we can't apply
@@ -6493,7 +6457,7 @@ msgstr "Importálandó projekt"
 msgid "Confirmation"
 msgstr "Megerősítés"
 
-#: ../plugins/project-import/project-import.c:434
+#: ../plugins/project-import/project-import.c:435
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -6501,12 +6465,12 @@ msgstr ""
 "A projektfájl előállítása meghiúsult. Nem található megfelelő, használandó "
 "projektsablon. Győződjön meg róla, hogy az Anjuta verziója naprakész."
 
-#: ../plugins/project-import/project-import.c:457
+#: ../plugins/project-import/project-import.c:458
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Már létezik „%s” nevű fájl. Le akarja cserélni?"
 
-#: ../plugins/project-import/project-import.c:498
+#: ../plugins/project-import/project-import.c:499
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -6516,27 +6480,22 @@ msgstr ""
 "könyvtárára."
 
 #: ../plugins/project-manager/create_dialogs.glade.h:1
-#| msgid "Add _Source File"
 msgid "Add Source"
 msgstr "Forrás hozzáadása"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:2
-#| msgid "Add _Group"
 msgid "New Group"
 msgstr "Új csoport"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:3
-#| msgid "Search Target"
 msgid "New Target"
 msgstr "Új cél"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:4
-#| msgid "Select the text in the matching braces"
 msgid "Select the _target for the new source files:"
 msgstr "Válassza ki az új forrásfájlok _célját:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:5
-#| msgid "Source File:"
 msgid "Source files:"
 msgstr "Forrásfájlok:"
 
@@ -6549,111 +6508,99 @@ msgid "Specify _where to create the target:"
 msgstr "Adja meg a létrehozandó _cél helyét:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:8
-#| msgid "Project name:"
 msgid "Target _name:"
 msgstr "Cél _neve:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:9
-#| msgid "Target: %s"
 msgid "Target _type:"
 msgstr "Cél _típusa:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:10
-#| msgid "Target: %s"
 msgid "TargetTypes"
 msgstr "Céltípusok"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:11
-#| msgid "Module name:"
 msgid "_Group name:"
 msgstr "_Csoportnév:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:12
-#| msgid "<b>Select file to add:</b>"
 msgid "_Select file to add..."
 msgstr "_Válassza ki a hozzáadni kívánt fájlt…"
 
-#: ../plugins/project-manager/gbf-project-model.c:234
-#: ../plugins/project-manager/plugin.c:1295
-#: ../plugins/project-manager/plugin.c:1377
-#: ../plugins/project-manager/plugin.c:1550
+#: ../plugins/project-manager/gbf-project-model.c:233
+#: ../plugins/project-manager/plugin.c:1298
+#: ../plugins/project-manager/plugin.c:1380
+#: ../plugins/project-manager/plugin.c:1553
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projekt"
 
-#: ../plugins/project-manager/gbf-project-model.c:235
-#| msgid "Project directory:"
+#: ../plugins/project-manager/gbf-project-model.c:234
 msgid "GbfProject Object"
 msgstr "GbfProject objektum"
 
-#: ../plugins/project-manager/gbf-project-model.c:252
-#| msgid "project name"
+#: ../plugins/project-manager/gbf-project-model.c:251
 msgid "No project loaded"
 msgstr "Nincs projekt betöltve"
 
-#: ../plugins/project-manager/gbf-project-util.c:83
-#| msgid "Could not open file"
+#: ../plugins/project-manager/gbf-project-util.c:81
 msgid "Couldn't load glade file"
 msgstr "Nem lehet betölteni a glade fájlt"
 
-#: ../plugins/project-manager/gbf-project-util.c:265
-#: ../plugins/project-manager/gbf-project-util.c:273
+#: ../plugins/project-manager/gbf-project-util.c:263
+#: ../plugins/project-manager/gbf-project-util.c:271
 msgid "Can not add group"
 msgstr "Nem lehet hozzáadni csoportot"
 
-#: ../plugins/project-manager/gbf-project-util.c:274
+#: ../plugins/project-manager/gbf-project-util.c:272
 msgid "No parent group selected"
 msgstr "Nincs szülőcsoport kijelölve"
 
-#: ../plugins/project-manager/gbf-project-util.c:446
-#: ../plugins/project-manager/gbf-project-util.c:455
+#: ../plugins/project-manager/gbf-project-util.c:444
+#: ../plugins/project-manager/gbf-project-util.c:453
 msgid "Can not add target"
 msgstr "Nem lehet hozzáadni célt"
 
-#: ../plugins/project-manager/gbf-project-util.c:456
+#: ../plugins/project-manager/gbf-project-util.c:454
 msgid "No group selected"
 msgstr "Nincs kijelölve csoport"
 
-#: ../plugins/project-manager/gbf-project-util.c:561
-#| msgid "Select Target..."
+#: ../plugins/project-manager/gbf-project-util.c:559
 msgid "Select sources..."
 msgstr "Válasszon forrásokat…"
 
-#: ../plugins/project-manager/gbf-project-util.c:798
-#: ../plugins/project-manager/gbf-project-util.c:805
-#| msgid "Java source files"
+#: ../plugins/project-manager/gbf-project-util.c:799
+#: ../plugins/project-manager/gbf-project-util.c:806
 msgid "Can not add source files"
 msgstr "Nem lehet hozzáadni forrásfájlokat"
 
-#: ../plugins/project-manager/gbf-project-util.c:806
-#| msgid "%d match has been replaced."
-#| msgid_plural "%d matches have been replaced."
+#: ../plugins/project-manager/gbf-project-util.c:807
 msgid "No target has been selected"
 msgstr "Nincs cél kiválasztva"
 
-#: ../plugins/project-manager/plugin.c:422
-#: ../plugins/project-manager/plugin.c:823
+#: ../plugins/project-manager/plugin.c:425
+#: ../plugins/project-manager/plugin.c:826
 msgid "Project properties"
 msgstr "A projekt tulajdonságai"
 
-#: ../plugins/project-manager/plugin.c:427
+#: ../plugins/project-manager/plugin.c:430
 msgid "Target properties"
 msgstr "Cél tulajdonságai"
 
-#: ../plugins/project-manager/plugin.c:432
+#: ../plugins/project-manager/plugin.c:435
 msgid "Group properties"
 msgstr "Csoport tulajdonságai"
 
-#: ../plugins/project-manager/plugin.c:456
+#: ../plugins/project-manager/plugin.c:459
 msgid "No properties available for this target"
 msgstr "Nem állnak rendelkezésre tulajdonságok ehhez a célhoz"
 
-#: ../plugins/project-manager/plugin.c:482
+#: ../plugins/project-manager/plugin.c:485
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "A(z) %s projekt frissítése sikertelen"
 
-#: ../plugins/project-manager/plugin.c:660
+#: ../plugins/project-manager/plugin.c:663
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
@@ -6661,7 +6608,7 @@ msgstr ""
 "Valóban törölni akarja a következő csoportot a projektből?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:661
+#: ../plugins/project-manager/plugin.c:664
 #, c-format
 msgid ""
 "Group: %s\n"
@@ -6672,7 +6619,7 @@ msgstr ""
 "\n"
 "A csoport nem kerül törlésre a fájlrendszerről."
 
-#: ../plugins/project-manager/plugin.c:664
+#: ../plugins/project-manager/plugin.c:667
 msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
@@ -6680,12 +6627,12 @@ msgstr ""
 "Valóban törölni akarja a következő célt a projektből?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:665
+#: ../plugins/project-manager/plugin.c:668
 #, c-format
 msgid "Target: %s"
 msgstr "Cél: %s"
 
-#: ../plugins/project-manager/plugin.c:668
+#: ../plugins/project-manager/plugin.c:671
 msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
@@ -6693,7 +6640,7 @@ msgstr ""
 "Valóban törölni akarja a következő forrásfájlt a projektből?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:669
+#: ../plugins/project-manager/plugin.c:672
 #, c-format
 msgid ""
 "Source: %s\n"
@@ -6704,7 +6651,7 @@ msgstr ""
 "\n"
 "A forrásfájl nem kerül törlésre a fájlrendszerről."
 
-#: ../plugins/project-manager/plugin.c:724
+#: ../plugins/project-manager/plugin.c:727
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6713,106 +6660,102 @@ msgstr ""
 "A(z) %s eltávolítása sikertelen:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:780
-msgid "The file you selected is a link and can't be added to the project"
-msgstr "A kijelölt fájl egy link és nem adható a projekthez"
-
-#: ../plugins/project-manager/plugin.c:782
+#: ../plugins/project-manager/plugin.c:784
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "%s URI információinak letöltése meghiúsult: %s"
 
-#: ../plugins/project-manager/plugin.c:819
+#: ../plugins/project-manager/plugin.c:822
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../plugins/project-manager/plugin.c:823
-#: ../plugins/project-manager/plugin.c:857
+#: ../plugins/project-manager/plugin.c:826
+#: ../plugins/project-manager/plugin.c:860
 msgid "_Properties"
 msgstr "_Tulajdonságok"
 
-#: ../plugins/project-manager/plugin.c:828
+#: ../plugins/project-manager/plugin.c:831
 msgid "_Refresh"
 msgstr "_Frissítés"
 
-#: ../plugins/project-manager/plugin.c:828
+#: ../plugins/project-manager/plugin.c:831
 msgid "Refresh project manager tree"
 msgstr "Projektkezelő-fa frissítése"
 
-#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:836
 msgid "Add _Group..."
 msgstr "_Csoport hozzáadása…"
 
-#: ../plugins/project-manager/plugin.c:833
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:836
+#: ../plugins/project-manager/plugin.c:870
 msgid "Add a group to project"
 msgstr "Egy csoport hozzáadása a projekthez"
 
-#: ../plugins/project-manager/plugin.c:838
+#: ../plugins/project-manager/plugin.c:841
 msgid "Add _Target..."
 msgstr "Cé_l hozzáadása…"
 
-#: ../plugins/project-manager/plugin.c:838
-#: ../plugins/project-manager/plugin.c:872
+#: ../plugins/project-manager/plugin.c:841
+#: ../plugins/project-manager/plugin.c:875
 msgid "Add a target to project"
 msgstr "Egy cél hozzáadása a projekthez"
 
-#: ../plugins/project-manager/plugin.c:843
+#: ../plugins/project-manager/plugin.c:846
 msgid "Add _Source File..."
 msgstr "_Forrásfájl hozzáadása…"
 
-#: ../plugins/project-manager/plugin.c:843
-#: ../plugins/project-manager/plugin.c:862
-#: ../plugins/project-manager/plugin.c:877
+#: ../plugins/project-manager/plugin.c:846
+#: ../plugins/project-manager/plugin.c:865
+#: ../plugins/project-manager/plugin.c:880
 msgid "Add a source file to project"
 msgstr "Egy forrásfájl hozzáadása a projekthez"
 
-#: ../plugins/project-manager/plugin.c:848
+#: ../plugins/project-manager/plugin.c:851
 msgid "Close Pro_ject"
 msgstr "Projekt be_zárása"
 
-#: ../plugins/project-manager/plugin.c:848
+#: ../plugins/project-manager/plugin.c:851
 msgid "Close project"
 msgstr "A projekt bezárása"
 
-#: ../plugins/project-manager/plugin.c:857
+#: ../plugins/project-manager/plugin.c:860
 msgid "Properties of group/target/source"
 msgstr "Csoport/cél/forrás tulajdonságai"
 
-#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:865
 msgid "_Add To Project"
 msgstr "_Hozzáadás a projekthez"
 
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group"
 msgstr "_Csoport hozzáadása"
 
-#: ../plugins/project-manager/plugin.c:872
+#: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target"
 msgstr "Cé_l hozzáadása"
 
-#: ../plugins/project-manager/plugin.c:877
+#: ../plugins/project-manager/plugin.c:880
 msgid "Add _Source File"
 msgstr "_Forrásfájl hozzáadása"
 
-#: ../plugins/project-manager/plugin.c:882
+#: ../plugins/project-manager/plugin.c:885
 msgid "Re_move"
 msgstr "_Eltávolítás"
 
-#: ../plugins/project-manager/plugin.c:882
+#: ../plugins/project-manager/plugin.c:885
 msgid "Remove from project"
 msgstr "Eltávolítás a projektből"
 
-#: ../plugins/project-manager/plugin.c:1254
+#: ../plugins/project-manager/plugin.c:1257
 #, c-format
 msgid "Loading project: %s"
 msgstr "Projekt betöltése: %s"
 
-#: ../plugins/project-manager/plugin.c:1262
+#: ../plugins/project-manager/plugin.c:1265
 msgid "Created project view..."
 msgstr "Projektnézet létrehozva…"
 
-#: ../plugins/project-manager/plugin.c:1275
+#: ../plugins/project-manager/plugin.c:1278
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6821,63 +6764,45 @@ msgstr ""
 "A(z) %s projekt feldolgozása meghiúsult (a projekt meg van nyitva, de nem "
 "lesz projektnézet): %s\n"
 
-#: ../plugins/project-manager/plugin.c:1465
+#: ../plugins/project-manager/plugin.c:1468
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Hiba a projekt betöltésekor: %s"
 
-#: ../plugins/project-manager/plugin.c:1529
+#: ../plugins/project-manager/plugin.c:1532
 msgid "Project manager actions"
 msgstr "Projektkezelő műveletek"
 
-#: ../plugins/project-manager/plugin.c:1537
+#: ../plugins/project-manager/plugin.c:1540
 msgid "Project manager popup actions"
 msgstr "Projektkezelő felbukkanó műveletek"
 
-#: ../plugins/project-manager/plugin.c:2536
-#| msgid "_Install Project"
+#: ../plugins/project-manager/plugin.c:2549
 msgid "Initializing Project..."
 msgstr "Projekt inicializálása…"
 
-#: ../plugins/project-manager/plugin.c:2539
-#| msgid "Project Name:"
+#: ../plugins/project-manager/plugin.c:2552
 msgid "Project Loaded"
 msgstr "Projekt betöltve"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#| msgid "<b>Module Details:</b>"
 msgid "<b>Details</b>"
 msgstr "<b>Részletek</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 #: ../plugins/project-wizard/druid.c:151
-#| msgid "Errors:"
 msgid "Error"
 msgstr "Hiba"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
-#| msgid "Please, fix the configuration"
-msgid "Page de confirmation"
-msgstr ""
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "label"
-msgstr ""
-
 #: ../plugins/project-wizard/druid.c:143 ../plugins/project-wizard/druid.c:147
-#| msgid "Warnings:"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
 #: ../plugins/project-wizard/druid.c:154
-#| msgid "Messages"
 msgid "Message"
 msgstr "Üzenet"
 
 #: ../plugins/project-wizard/druid.c:220
-#| msgid ""
-#| "Confirm the following information:\n"
-#| "\n"
 msgid ""
 "<b>Confirm the following information:</b>\n"
 "\n"
@@ -6889,7 +6814,6 @@ msgstr ""
 #. * generic, GNOME applet, Makefile project...
 #: ../plugins/project-wizard/druid.c:224
 #, c-format
-#| msgid "Project Type: "
 msgid "Project Type: %s\n"
 msgstr "Projekt típusa: %s\n"
 
@@ -6900,7 +6824,6 @@ msgstr "Nem található egyetlen projektsablon sem itt: %s"
 
 #: ../plugins/project-wizard/druid.c:581
 #, c-format
-#| msgid "Field \"%s\" is mandatory. Please enter it."
 msgid ""
 "\n"
 "Field \"%s\" is mandatory. Please enter it."
@@ -6920,7 +6843,6 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:601
 #, c-format
-#| msgid "Unknown item"
 msgid "Unknown error."
 msgstr "Ismeretlen hiba."
 
@@ -6995,9 +6917,10 @@ msgstr "Hiányzó komponensek"
 
 #: ../plugins/project-wizard/druid.c:947
 #, c-format
-#| msgid "Unable to build project assistant user interface."
 msgid "Unable to build project assistant user interface reading %s."
-msgstr "A projektasszisztens felhasználói felülete nem állítható össze %s olvasásával."
+msgstr ""
+"A projektasszisztens felhasználói felülete nem állítható össze %s "
+"olvasásával."
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -7031,7 +6954,6 @@ msgstr "%s létrehozása… %s"
 #. * cp foobar.c project
 #: ../plugins/project-wizard/install.c:570
 #, c-format
-#| msgid "Executing: "
 msgid "Executing: %s"
 msgstr "Végrehajtás: %s"
 
@@ -7044,7 +6966,6 @@ msgid "Select directory"
 msgstr "Válasszon könyvtárat"
 
 #: ../plugins/project-wizard/property.c:307
-#| msgid "Select _All"
 msgid "Select file"
 msgstr "Válasszon fájlt"
 
@@ -7061,7 +6982,6 @@ msgid "Icon choice"
 msgstr "Válasszon ikont"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#| msgid "A generic GNOME project"
 msgid "A GNOME applet project"
 msgstr "GNOME-kisalkalmazás projekt"
 
@@ -7094,7 +7014,6 @@ msgid "A generic java project using automake project management"
 msgstr "Általános Java projekt automake projektkezeléssel"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-#| msgid "A generic minimal and flat project "
 msgid "A generic minimal and flat project"
 msgstr "Általános minimális, egyszerű projekt"
 
@@ -7162,7 +7081,6 @@ msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr "A libanjuta keretrendszert használó Anjuta bővítményprojekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
-#| msgid "Plugin Title:"
 msgid "Applet Title:"
 msgstr "Kisalkalmazás címe:"
 
@@ -7205,7 +7123,6 @@ msgid "Destination:"
 msgstr "Cél:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
-#| msgid "Display description of the plugin"
 msgid "Display description of the applet"
 msgstr "A kisalkalmazás leírásának megjelenítése"
 
@@ -7214,7 +7131,6 @@ msgid "Display description of the plugin"
 msgstr "A bővítmény leírásának megjelenítése"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:37
-#| msgid "Display title of the plugin"
 msgid "Display title of the applet"
 msgstr "A kisalkalmazás nevének megjelenítése"
 
@@ -7754,7 +7670,6 @@ msgid "No Limit"
 msgstr "Nincs korlátozva"
 
 #: ../plugins/search/anjuta-search.glade.h:30
-#| msgid "Regular Expression"
 msgid "Regular expression"
 msgstr "Reguláris kifejezés"
 
@@ -7899,45 +7814,47 @@ msgstr "Következő találat cseréje"
 msgid "Replace all matches"
 msgstr "Minden találat cseréje"
 
-#: ../plugins/search/search-replace.c:318
-msgid "Find: "
-msgstr "Keresés: "
+#. Avoid space in translated string
+#: ../plugins/search/search-replace.c:319
+#| msgid "Find: "
+msgid "Find:"
+msgstr "Keresés:"
 
-#: ../plugins/search/search-replace.c:486
+#: ../plugins/search/search-replace.c:487
 msgid "Replace"
 msgstr "Csere"
 
-#: ../plugins/search/search-replace.c:606
+#: ../plugins/search/search-replace.c:607
 msgid "Search complete"
 msgstr "A keresés kész"
 
-#: ../plugins/search/search-replace.c:1005
-#: ../plugins/search/search-replace.c:1685
+#: ../plugins/search/search-replace.c:1006
+#: ../plugins/search/search-replace.c:1686
 msgid "Replace All"
 msgstr "Mindent cserél"
 
-#: ../plugins/search/search-replace.c:1044
+#: ../plugins/search/search-replace.c:1045
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "„%s” nem található. Folytassam a dokumentum elejétől?"
 
-#: ../plugins/search/search-replace.c:1064
+#: ../plugins/search/search-replace.c:1065
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "„%s” nem található."
 
-#: ../plugins/search/search-replace.c:1079
+#: ../plugins/search/search-replace.c:1080
 msgid "The maximum number of results has been reached."
 msgstr "Elérte az eredmények legnagyobb számát."
 
-#: ../plugins/search/search-replace.c:1092
+#: ../plugins/search/search-replace.c:1093
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "%d találat cserélve."
 msgstr[1] "%d találat cserélve."
 
-#: ../plugins/search/search-replace.c:1258
+#: ../plugins/search/search-replace.c:1259
 msgid "Unable to build user interface for Search And Replace"
 msgstr "A Keresés és csere ablak felhasználói felülete nem állítható össze"
 
@@ -8045,32 +7962,26 @@ msgid "Wrap long lines to fit on paper"
 msgstr "Hosszú sorok tördelése a papír méretéhez"
 
 #: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:344
-#| msgid "Started"
 msgid "Starter"
 msgstr "Indító"
 
 #: ../plugins/starter/starter.c:385
-#| msgid "_Clean Project"
 msgid "Create File/Project"
 msgstr "Fájl/projekt létrehozása"
 
 #: ../plugins/starter/starter.c:419
-#| msgid "Anjuta Projects"
 msgid "Recent Projects"
 msgstr "Legutóbbi projektek"
 
 #: ../plugins/starter/starter.c:450
-#| msgid "Lines"
 msgid "Links"
 msgstr "Hivatkozások"
 
 #: ../plugins/starter/starter.c:469
-#| msgid "Anjuta _Home Page"
 msgid "Anjuta Home Page"
 msgstr "Az Anjuta honlapja"
 
 #: ../plugins/starter/starter.c:475
-#| msgid "Anjuta user's manual"
 msgid "Anjuta Manual"
 msgstr "Az Anjuta kézikönyve"
 
@@ -8214,11 +8125,6 @@ msgstr "Fájl/könyvtár frissítése"
 msgid "Use first path"
 msgstr "Első útvonal használata"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
-#| msgid "Use revision/tag: "
-msgid "Use revision/tag:"
-msgstr "Revízió/címke használata:"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
 msgstr "Napló megjelenítése"
@@ -8247,13 +8153,13 @@ msgstr "_Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Új fájl/könyvtár hozzáadása a Subversion fához"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Fájl/könyvtár eltávolítása a Subversion fából"
 
@@ -8265,13 +8171,13 @@ msgstr "Változtatások érvényesítése a Subversion fában"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:84
+#: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 msgid "_Revert..."
 msgstr "_Visszavonás…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:86
+#: ../plugins/subversion/plugin.c:86 ../plugins/subversion/plugin.c:169
 msgid "Revert changes to your working copy."
 msgstr "A munkapéldány változtatásainak visszavonása."
 
@@ -8307,7 +8213,7 @@ msgstr "Fájlok/mappák másolása…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:201
 msgid "Copy files/folders in the repository"
 msgstr "Fájlok/mappák másolása a tárolóban"
 
@@ -8337,13 +8243,13 @@ msgstr "Változtatások egyesítése a munkapéldányba"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 msgid "_View Log..."
 msgstr "_Napló megjelenítése…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:193
 msgid "View file history"
 msgstr "Fájl előzményeinek megjelenítése"
 
@@ -8355,31 +8261,31 @@ msgstr "Eltérés (_diff)…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
 msgstr "Helyi fa diffelése a tárolóval"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:191
+#: ../plugins/subversion/plugin.c:199
 msgid "Copy..."
 msgstr "Másolás…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:199
+#: ../plugins/subversion/plugin.c:207
 msgid "Diff..."
 msgstr "Diff…"
 
-#: ../plugins/subversion/plugin.c:446
+#: ../plugins/subversion/plugin.c:454
 msgid "Subversion operations"
 msgstr "Subversion műveletek"
 
-#: ../plugins/subversion/plugin.c:452
+#: ../plugins/subversion/plugin.c:460
 msgid "Subversion popup operations"
 msgstr "Felugró Subversion műveletek"
 
-#: ../plugins/subversion/plugin.c:480
+#: ../plugins/subversion/plugin.c:488
 msgid "Subversion Log"
 msgstr "Subversion napló"
 
@@ -8407,13 +8313,13 @@ msgstr "Adjon meg egy forrás útvonalat."
 msgid "Please enter a destination path."
 msgstr "Adjon meg egy cél útvonalat."
 
-#: ../plugins/subversion/subversion-diff-dialog.c:75
+#: ../plugins/subversion/subversion-diff-dialog.c:44
 msgid "[Head/Working Copy]"
 msgstr "[Head/Munkapéldány]"
 
-#: ../plugins/subversion/subversion-diff-dialog.c:91
-#: ../plugins/subversion/subversion-log-dialog.c:418
-#: ../plugins/subversion/subversion-log-dialog.c:485
+#: ../plugins/subversion/subversion-diff-dialog.c:59
+#: ../plugins/subversion/subversion-log-dialog.c:424
+#: ../plugins/subversion/subversion-log-dialog.c:491
 msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: Diff lekérése…"
 
@@ -8433,11 +8339,11 @@ msgstr "Rövid napló"
 msgid "Subversion: Retrieving log..."
 msgstr "Subversion: Napló lekérése…"
 
-#: ../plugins/subversion/subversion-log-dialog.c:301
+#: ../plugins/subversion/subversion-log-dialog.c:307
 msgid "Subversion: File retrieved."
 msgstr "Subversion: Fájl lekérve."
 
-#: ../plugins/subversion/subversion-log-dialog.c:343
+#: ../plugins/subversion/subversion-log-dialog.c:349
 msgid "Subversion: Retrieving file..."
 msgstr "Subversion: Fájl lekérése…"
 
@@ -8506,32 +8412,26 @@ msgid "Authentication canceled"
 msgstr "Hitelesítés megszakítva"
 
 #: ../plugins/subversion/svn-command.c:174
-#| msgid "Hostname: "
 msgid "Hostname:"
 msgstr "Gépnév:"
 
 #: ../plugins/subversion/svn-command.c:175
-#| msgid "Fingerprint: "
 msgid "Fingerprint:"
 msgstr "Ujjlenyomat:"
 
 #: ../plugins/subversion/svn-command.c:176
-#| msgid "Valid from: "
 msgid "Valid from:"
 msgstr "Érvényesség kezdete:"
 
 #: ../plugins/subversion/svn-command.c:177
-#| msgid "Valid until: "
 msgid "Valid until:"
 msgstr "Érvényesség vége:"
 
 #: ../plugins/subversion/svn-command.c:178
-#| msgid "Issuer DN: "
 msgid "Issuer DN:"
 msgstr "Kibocsátó DN:"
 
 #: ../plugins/subversion/svn-command.c:179
-#| msgid "DER certificate: "
 msgid "DER certificate:"
 msgstr "DER tanúsítvány:"
 
@@ -8610,12 +8510,10 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Elérhető API címkék</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-#| msgid "Automatically scan projetc's packages."
 msgid "Automatically scan project's packages"
 msgstr "A projekt csomagjainak automatikus vizsgálata"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
-#| msgid "Automatically update symbols without saving file."
 msgid "Automatically update symbols without saving file"
 msgstr "Szimbólumok automatikus frissítése a fájl mentése nélkül"
 
@@ -8628,7 +8526,6 @@ msgid "Ctags executable:"
 msgstr "Ctags végrehajtható fájl:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
-#| msgid "Parallel scan of project and global symbols."
 msgid "Parallel scan of project and global symbols"
 msgstr "Globális és projektszintű szimbólumok párhuzamos vizsgálata"
 
@@ -8652,12 +8549,12 @@ msgstr "GNOME terminál profil használata:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "A jelenleg kiválasztott profil használata a GNOME terminállal"
 
-#: ../plugins/terminal/terminal.c:603
+#: ../plugins/terminal/terminal.c:670
 msgid "terminal operations"
 msgstr "terminálműveletek"
 
-#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:774
-#: ../plugins/terminal/terminal.c:827
+#: ../plugins/terminal/terminal.c:688 ../plugins/terminal/terminal.c:846
+#: ../plugins/terminal/terminal.c:899
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminál"
@@ -8810,13 +8707,11 @@ msgstr "(hiba)"
 #. Display the name of the command
 #: ../plugins/tools/execute.c:468
 #, c-format
-#| msgid "Running command: "
 msgid "Running command: %s...\n"
 msgstr "Parancs futtatása: %s…\n"
 
 #: ../plugins/tools/execute.c:508
 #, c-format
-#| msgid "Completed unsuccessful with status code %d\n"
 msgid "Completed unsuccessfully with status code %d\n"
 msgstr "Sikertelenül befejezve a következő állapotkóddal: %d\n"
 
@@ -8865,7 +8760,6 @@ msgid "Command line parameters"
 msgstr "Parancssori paraméterek"
 
 #: ../plugins/tools/tool.c:81
-#| msgid "Same than output"
 msgid "Same as output"
 msgstr "Ugyanaz, mint a kimenet"
 
@@ -9023,23 +8917,23 @@ msgstr "Szabályok szerkesztése"
 msgid "Use Valgrind debug tool"
 msgstr "A Valgrind hibakereső eszköz használata"
 
-#: ../plugins/valgrind/preferences.c:123
+#: ../plugins/valgrind/preferences.c:122
 msgid "<b>Valgrind general preferences</b>"
 msgstr "<b>Valgrind általános tulajdonságai</b>"
 
-#: ../plugins/valgrind/preferences.c:129
+#: ../plugins/valgrind/preferences.c:128
 msgid "Valgrind binary file path:"
 msgstr "A Valgrind bináris fájl útvonala:"
 
-#: ../plugins/valgrind/preferences.c:143
+#: ../plugins/valgrind/preferences.c:142
 msgid "Choose Valgrind Binary File Path..."
 msgstr "Valgrind bináris fájl útvonalának kiválasztása…"
 
-#: ../plugins/valgrind/preferences.c:162
+#: ../plugins/valgrind/preferences.c:161
 msgid "Preview"
 msgstr "Előnézet"
 
-#: ../plugins/valgrind/preferences.c:175
+#: ../plugins/valgrind/preferences.c:174
 msgid "lines above and below the target line."
 msgstr "sor a célsor alatt és felett."
 
@@ -9146,49 +9040,49 @@ msgid "Edit in Custom Editor"
 msgstr "Szerkesztés egyéni szerkesztőben"
 
 #. demangle = decode C++ name encoding
-#: ../plugins/valgrind/vggeneralprefs.c:180
+#: ../plugins/valgrind/vggeneralprefs.c:179
 msgid "Demangle C++ symbol names"
 msgstr "C++ szimbólumnevek visszafejtése"
 
-#: ../plugins/valgrind/vggeneralprefs.c:188
+#: ../plugins/valgrind/vggeneralprefs.c:187
 msgid "Show"
 msgstr "Megjelenítés"
 
-#: ../plugins/valgrind/vggeneralprefs.c:200
+#: ../plugins/valgrind/vggeneralprefs.c:199
 msgid "callers in stack trace"
 msgstr "hívók a veremnyomkövetésben"
 
-#: ../plugins/valgrind/vggeneralprefs.c:207
+#: ../plugins/valgrind/vggeneralprefs.c:206
 msgid "Stop showing errors if there are too many"
 msgstr "Hibák megjelenítésének leállítása, ha túl sok van"
 
-#: ../plugins/valgrind/vggeneralprefs.c:215
+#: ../plugins/valgrind/vggeneralprefs.c:214
 msgid "Round malloc sizes to next word"
 msgstr "A malloc méretek kerekítése a következő szóra"
 
-#: ../plugins/valgrind/vggeneralprefs.c:223
+#: ../plugins/valgrind/vggeneralprefs.c:222
 msgid "Trace any child processes forked off by the program being debugged"
 msgstr ""
 "A hibakeresés alatt álló program által indított gyermekfolyamatok "
 "nyomkövetése"
 
-#: ../plugins/valgrind/vggeneralprefs.c:231
+#: ../plugins/valgrind/vggeneralprefs.c:230
 msgid "Track open file descriptors"
 msgstr "Nyitott fájlleírók követése"
 
-#: ../plugins/valgrind/vggeneralprefs.c:239
+#: ../plugins/valgrind/vggeneralprefs.c:238
 msgid "Add time stamps to log messages"
 msgstr "Időbélyegek hozzáadása a naplóüzenetekhez"
 
-#: ../plugins/valgrind/vggeneralprefs.c:247
+#: ../plugins/valgrind/vggeneralprefs.c:246
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
 msgstr "A __libc_freeres() meghívása kilépéskor memóriaszivárgások ellenőrzése előtt"
 
-#: ../plugins/valgrind/vggeneralprefs.c:255
+#: ../plugins/valgrind/vggeneralprefs.c:254
 msgid "Suppressions File:"
 msgstr "Elnyomások fájlja:"
 
-#: ../plugins/valgrind/vggeneralprefs.c:275
+#: ../plugins/valgrind/vggeneralprefs.c:274
 msgid "Choose Valgrind Suppressions File..."
 msgstr "Válasszon ki egy Valgrind elnyomásfájlt…"
 
@@ -9414,7 +9308,6 @@ msgstr ""
 "mozgatni"
 
 #: ../src/anjuta-actions.h:55
-#| msgid "_Toolbars"
 msgid "_Toolbar"
 msgstr "_Eszköztár"
 
@@ -9519,41 +9412,41 @@ msgstr "Gyorsbillentyűk"
 msgid "Value doesn't exist"
 msgstr "Az érték nem létezik"
 
-#: ../src/main.c:70
+#: ../src/main.c:69
 msgid "Specify the size and location of the main window"
 msgstr "A főablak helyének és méretének megadása"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:73
+#: ../src/main.c:72
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/main.c:78
+#: ../src/main.c:77
 msgid "Do not show the splashscreen"
 msgstr "Ne mutassa az indítóképet"
 
-#: ../src/main.c:84
+#: ../src/main.c:83
 msgid "Start a new instance and do not open the file in a existing"
 msgstr "Új példány indítása a fájl meglévőben történő megnyitás helyett"
 
-#: ../src/main.c:90
+#: ../src/main.c:89
 msgid "Do not open last session on startup"
 msgstr "Ne nyissa meg az utolsó munkamenetet indításkor"
 
-#: ../src/main.c:96
+#: ../src/main.c:95
 msgid "Do not open last project and files on startup"
 msgstr "Ne nyissa meg az utolsó projektet és fájlokat indításkor"
 
-#: ../src/main.c:102
+#: ../src/main.c:101
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr "Az anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
-#: ../src/main.c:316
+#: ../src/main.c:317
 msgid "- Integrated Development Environment"
 msgstr "- Integrált fejlesztői környezet"
 
-#: ../src/main.c:384
+#: ../src/main.c:385
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9895,12 +9788,10 @@ msgid "Plugin to keep track of multiple programming languages"
 msgstr "Több programozási nyelvet követő bővítmény"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:1
-#| msgid "Makefiles"
 msgid "Makefile backend"
 msgstr "Makefile háttérprogram"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:2
-#| msgid "Makefile-based project"
 msgid "Makefile backend for project manager"
 msgstr "Makefile háttérprogram a projektkezelőhöz"
 
