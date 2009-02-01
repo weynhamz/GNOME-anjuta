@@ -4,7 +4,8 @@ DOC_MODULE = anjuta-manual
 DOC_ENTITIES = legal.xml debugger.xml introduction.xml  projects.xml \
 	authors.xml legal.xml template.xml \
 	fileoperations.xml license.xml tools.xml \
-	interface.xml preferences.xml build.xml
+	interface.xml preferences.xml build.xml \
+	glade.xml
 DOC_AM_CPPFLAGS =
 DOC_FIGURES = figures/add_edit_macro.png \
               figures/anjuta-in-action.png \

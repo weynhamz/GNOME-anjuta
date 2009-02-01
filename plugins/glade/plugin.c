@@ -3841,7 +3841,10 @@ static void
 set_default_resource_target (const gchar *value, GladePlugin* plugin)
 {
 	g_free (plugin->priv->default_resource_target);
-	plugin->priv->default_resource_target = g_strdup (value);
+	if (!value || strlen (value) == 0)
+		plugin->priv->default_resource_target = NULL;
+	else
+		plugin->priv->default_resource_target = g_strdup (value);
 	on_default_resource_target_changed (value, plugin);
 }
 
@@ -5041,7 +5044,7 @@ on_default_resource_target_changed (const gchar *value, GladePlugin *plugin)
 
 	entry = GTK_ENTRY(gtk_builder_get_object (plugin->priv->xml,
 	                                          DEFAULT_RESOURCE_ENTRY_NAME));
-	gtk_entry_set_text (entry, value);
+	gtk_entry_set_text (entry, value ? value : "");
 }
 
 static void
@@ -5069,7 +5072,6 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError*
 static void
 ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GObject *object;
 	GtkWidget *page;
 	GladePlugin* plugin = ANJUTA_PLUGIN_GLADE (ipref);
 
@@ -5078,25 +5080,6 @@ ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GErro
 	/* Stops watching for preferences */
 	plugin->priv->prefs = NULL;
 
-	object = gtk_builder_get_object (plugin->priv->xml, HANDLER_TEMPLATE_BUTTON0_NAME);
-	g_signal_handlers_disconnect_by_func (object,
-	                                      G_CALLBACK(on_set_default_data_signal_template0),
-	                                      plugin);
-	object = gtk_builder_get_object (plugin->priv->xml, HANDLER_TEMPLATE_BUTTON1_NAME);
-	g_signal_handlers_disconnect_by_func (object,
-	                                      G_CALLBACK(on_set_default_data_signal_template1),
-	                                      plugin);
-
-	object = gtk_builder_get_object (plugin->priv->xml, INSERT_HANDLER_ON_EDIT_NAME);
-	g_signal_handlers_disconnect_by_func (object,
-	                                      G_CALLBACK(on_insert_handler_on_edit_toggled),
-	                                      plugin);
-	on_insert_handler_on_edit_changed (plugin);
-
-	object = gtk_builder_get_object (plugin->priv->xml, AUTO_ADD_RESOURCE_NAME);
-	g_signal_handlers_disconnect_by_func (object,
-	                                      G_CALLBACK(on_auto_add_resource_toggled),
-	                                      plugin);
 	remove_widget_from_parent (gtk_widget_get_parent (page), page);
 
 	anjuta_preferences_remove_page(prefs, _("Glade GUI Designer"));

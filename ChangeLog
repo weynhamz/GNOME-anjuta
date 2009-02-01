@@ -1,3 +1,12 @@
+2009-02-02   Pavel Kostyuchenko  <ShprotX@gmail.com>
+
+	* manuals/anjuta-manual/C/anjuta-manual.xml:
+	* manuals/anjuta-manual/Makefile.am:
+	* plugins/glade/plugin.c (set_default_resource_target),
+	(on_default_resource_target_changed), (ipreferences_unmerge):
+	Glade manual and misc fixes:
+	542412 – GSoc: Glade3 integration
+
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/debug-manager/sharedlib.c (destroy_sharedlibs_gui):

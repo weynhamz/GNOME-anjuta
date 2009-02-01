@@ -9,6 +9,7 @@
   <!ENTITY projects SYSTEM "projects.xml">
   <!ENTITY build SYSTEM "build.xml">
   <!ENTITY debugger SYSTEM "debugger.xml">
+  <!ENTITY glade SYSTEM "glade.xml">
   <!ENTITY preferences SYSTEM "preferences.xml">
   <!ENTITY tools SYSTEM "tools.xml">
   <!ENTITY authors SYSTEM "authors.xml">
@@ -101,6 +102,8 @@
  &build;
  <!-- Debugging -->
  &debugger;
+ <!-- Glade Interface Designer -->
+ &glade;
  <!-- Preferences -->
  &preferences;
  <!-- Tools -->
