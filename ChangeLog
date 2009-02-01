@@ -1,5 +1,10 @@
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/Makefile.am:
+	#514609 – install-data-hook problem on Gentoo
+
+2009-02-01  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/document-manager/action-callbacks.c:
 	* plugins/document-manager/anjuta-document-manager.ui:
 	#563499 – Goto Matching Brace and other commands missing in GtkSourceView editor
