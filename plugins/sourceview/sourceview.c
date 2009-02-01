@@ -170,7 +170,9 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 	sv->priv->warning_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									WARNING_INDIC,
-									"foreground", "#00FF00", NULL); 
+									"foreground", "#00FF00", 
+									"underline", PANGO_UNDERLINE_SINGLE,
+									NULL); 
 	sv->priv->critical_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									CRITICAL_INDIC,
