@@ -796,7 +796,7 @@ create_search_entries (Search *s)
 					start = ianjuta_editor_get_position_from_offset (se->te, selstart, NULL);
 					end = ianjuta_editor_get_position_from_offset (se->te, selend, NULL);
 					ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (se->te), 
-				                                 start, end, NULL);	
+				                                 start, end, TRUE, NULL);	
 					g_object_unref (start);
 					g_object_unref (end);
 				}

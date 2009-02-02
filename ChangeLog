@@ -1,5 +1,20 @@
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/search-box.c (on_incremental_search),
+	(on_search_activated):
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(on_assist_chosen):
+	* plugins/scintilla/text_editor.c (iselection_set),
+	(iselection_iface_init):
+	* plugins/search/search-replace.c (search_and_replace):
+	* plugins/search/search-replace_backend.c (create_search_entries):
+	* plugins/sourceview/sourceview.c (set_select), (iselect_block),
+	(iselect_set), (iselect_iface_init):
+	#569908 – completion of symbol shouldn't scroll the editor
+
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
+
 	* manuals/anjuta-manual/C/glade.xml:
 	Added missing file
 	

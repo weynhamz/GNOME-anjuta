@@ -2594,6 +2594,7 @@ static void
 iselection_set (IAnjutaEditorSelection* edit, 
 				IAnjutaIterable* istart,
 				IAnjutaIterable* iend,
+				gboolean scroll, /* TODO: Is is possible to set this in scintilla? */
 				GError** e)
 {
 	TextEditorCell* start = TEXT_EDITOR_CELL (istart);
@@ -2663,12 +2664,6 @@ iselection_select_all (IAnjutaEditorSelection* te, GError** ee)
 }
 
 static void
-iselection_select_to_brace (IAnjutaEditorSelection* te, GError** ee)
-{
-	text_editor_command (TEXT_EDITOR (te), ANE_SELECTTOBRACE, 0, 0);
-}
-
-static void
 iselection_select_block (IAnjutaEditorSelection *te, GError **e)
 {
 	text_editor_command (TEXT_EDITOR(te), ANE_SELECTBLOCK, 0, 0);
@@ -2726,7 +2721,6 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 	iface->get_end = iselection_get_end;
 	iface->replace = iselection_replace;
 	iface->select_all = iselection_select_all;
-	iface->select_to_brace = iselection_select_to_brace;
 	iface->select_block = iselection_select_block;
 	iface->select_function = iselection_select_function;
 }

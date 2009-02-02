@@ -883,7 +883,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	{
 		ianjuta_iterable_next (iter, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  iter, cur_pos, NULL);
+									  iter, cur_pos, FALSE, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
 										  assistance->str, -1, NULL);
 		g_free (pre_word);

@@ -1400,26 +1400,21 @@ idocument_iface_init (IAnjutaDocumentIface *iface)
 }
 
 static void
-set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
+set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter, gboolean scroll)
 {
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
 	gtk_text_buffer_select_range (buffer, start_iter, end_iter);
-	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (sv->priv->view),
-								  gtk_text_buffer_get_insert (buffer),
-								  0.25,
-								  FALSE,
-								  0.0,
-								  0.0);
+
+	if (scroll)
+		gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (sv->priv->view),
+									  gtk_text_buffer_get_insert (buffer),
+									  0.25,
+									  FALSE,
+									  0.0,
+									  0.0);
 }
 
 /* IAnjutaEditorSelection */
-
-// TODO: Move these to ilanguage-support?
-static void
-iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
-{
-	
-}
 
 /* Find the previous open brace that begins the current indentation level. */
 static gboolean find_open_bracket(GtkTextIter *iter)
@@ -1454,7 +1449,7 @@ static gboolean find_close_bracket(GtkTextIter *iter)
 		{
 		case '{':
 			++level;
-			break;
+			break;				
 		case '}':
 			if (!--level)
 				return TRUE;
@@ -1483,7 +1478,7 @@ iselect_block(IAnjutaEditorSelection* edit, GError** e)
 		if (find_close_bracket (&end_iter))
 		{
 			gtk_text_iter_forward_char (&end_iter);	  /* move past brace */
-			set_select (sv, &iter, &end_iter);
+			set_select (sv, &iter, &end_iter, TRUE);
 		}
 	}
 }
@@ -1492,12 +1487,14 @@ static void
 iselect_set (IAnjutaEditorSelection* edit, 
 			 IAnjutaIterable* istart,
 			 IAnjutaIterable* iend,
+			 gboolean scroll,
 			 GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	set_select(sv,
 			   sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
-			   sourceview_cell_get_iter (SOURCEVIEW_CELL (iend)));
+			   sourceview_cell_get_iter (SOURCEVIEW_CELL (iend)),
+			   scroll);
 }
 															
 
@@ -1600,7 +1597,6 @@ iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 	iface->select_block = iselect_block;
 	iface->select_function = iselect_function;
 	iface->select_all = iselect_all;
-	iface->select_to_brace = iselect_to_brace;
 	iface->select_block = iselect_block;
 	iface->get = iselect_get;
 	iface->replace = iselect_replace;

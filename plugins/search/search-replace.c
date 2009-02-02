@@ -447,6 +447,7 @@ search_and_replace (void)
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
+														 TRUE,
 														 NULL);
 							g_object_unref (start);
 							g_object_unref (end);
@@ -479,6 +480,7 @@ search_and_replace (void)
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
+														 TRUE,
 														 NULL);
 							g_object_unref (start);
 							g_object_unref (end);
@@ -508,6 +510,7 @@ search_and_replace (void)
 								ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 															 start,														 
 															 end,
+															 TRUE,
 															 NULL);
 								ianjuta_editor_selection_replace(IANJUTA_EDITOR_SELECTION (fb->te), 
 																 sr->replace.repl_str,
@@ -543,6 +546,7 @@ search_and_replace (void)
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 														 start,
 														 end,
+														 TRUE,
 														 NULL);
 							ianjuta_editor_selection_replace(IANJUTA_EDITOR_SELECTION (fb->te), 
 															 sr->replace.repl_str,

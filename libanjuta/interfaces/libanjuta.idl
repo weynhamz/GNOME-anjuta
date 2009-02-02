@@ -1640,12 +1640,13 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @start: Begin of selection
 		 * @end: End of selection
+		 * @scroll: Scroll selection onscreen
 		 * @err: Error propagation and reporting
 		 *
 		 * Select characters between start and end. Start and end don't have to
 		 * be ordered.
 		 */
-		void set (IAnjutaIterable* start, IAnjutaIterable* end);
+		void set (IAnjutaIterable* start, IAnjutaIterable* end, gboolean scroll);
 		
 		/**
 		 * ianjuta_editor_selection_get_start:
@@ -1693,16 +1694,6 @@ interface IAnjutaEditor
 		 * method does not do anything.
 		 */
 		void select_function ();
-
-		/**
-		 * ianjuta_editor_selection_select_to_brace:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Select to brace. Some highlight mode does not have braces concept,
-		 * in that case, this method does not do anything.
-		 */
-		void select_to_brace ();
 		
 		/**
 		 * ianjuta_editor_edit_select_all:

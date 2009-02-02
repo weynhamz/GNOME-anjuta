@@ -268,7 +268,7 @@ on_incremental_search (GtkWidget* widget, SearchBox* search_box)
 		selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
 		ianjuta_editor_selection_set (selection,
 									 IANJUTA_ITERABLE (result_start),
-									 IANJUTA_ITERABLE (result_end), NULL);
+									 IANJUTA_ITERABLE (result_end), TRUE, NULL);
 		g_object_unref (result_start);
 		g_object_unref (result_end);
 		
@@ -393,7 +393,7 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 	{
 		ianjuta_editor_selection_set (selection,
 									  IANJUTA_ITERABLE (result_start),
-									  IANJUTA_ITERABLE (result_end), NULL);
+									  IANJUTA_ITERABLE (result_end), TRUE, NULL);
 		g_object_unref (result_start);
 		g_object_unref (result_end);
 	}
