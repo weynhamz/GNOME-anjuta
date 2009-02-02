@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 25)
-m4_define(anjuta_micro_version,  5)
+m4_define(anjuta_micro_version,  90)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 
 AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
@@ -34,7 +34,7 @@ VTE_NEW_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
 LIBDEVHELP_REQUIRED=0.22
 GDL_REQUIRED=0.7.3
-GLADEUI_REQUIRED=3.5.6
+GLADEUI_REQUIRED=3.5.7
 LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.28.2
 SVN_MAJOR=1

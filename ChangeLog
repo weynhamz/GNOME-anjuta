@@ -1,3 +1,12 @@
+2.25.90
+
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
+
+	* NEWS: Updated
+	* configure.in:
+	- Bumped version to 2.25.90
+	- Changed glade requirement to 3.5.7
+
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/Makefile.am:
