@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-02-01 15:58+0000\n"
-"PO-Revision-Date: 2009-02-01 18:12+0100\n"
+"POT-Creation-Date: 2009-02-02 12:48+0000\n"
+"PO-Revision-Date: 2009-02-02 18:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -197,7 +197,7 @@ msgstr "Tailandés"
 #: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3205
 #: ../plugins/gbf-am/gbf-am-properties.c:128
 #: ../plugins/gbf-am/gbf-am-properties.c:172
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
 msgid "Unknown"
@@ -439,7 +439,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:190
-#: ../plugins/document-manager/plugin.c:596 ../plugins/glade/plugin.c:4061
+#: ../plugins/document-manager/plugin.c:596 ../plugins/glade/plugin.c:4064
 msgid "Save"
 msgstr "Guardar"
 
@@ -471,19 +471,19 @@ msgstr ""
 "cerrar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:840
+#: ../libanjuta/anjuta-ui.c:845
 msgid "Action"
 msgstr "Acción"
 
-#: ../libanjuta/anjuta-ui.c:858
+#: ../libanjuta/anjuta-ui.c:863
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:869
+#: ../libanjuta/anjuta-ui.c:876
 msgid "Sensitive"
 msgstr "Distinguir mayúsculas"
 
-#: ../libanjuta/anjuta-ui.c:878
+#: ../libanjuta/anjuta-ui.c:885
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
@@ -525,22 +525,22 @@ msgid "Added"
 msgstr "Añadido"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:300
-#: ../plugins/file-manager/file-view.c:62
+#: ../plugins/file-manager/file-view.c:61
 msgid "Deleted"
 msgstr "Borrado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:304
-#: ../plugins/file-manager/file-view.c:63
+#: ../plugins/file-manager/file-view.c:62
 msgid "Conflicted"
 msgstr "En conflicto"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
-#: ../plugins/file-manager/file-view.c:66
+#: ../plugins/file-manager/file-view.c:65
 msgid "Missing"
 msgstr "Faltante"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
-#: ../plugins/file-manager/file-view.c:67
+#: ../plugins/file-manager/file-view.c:66
 msgid "Unversioned"
 msgstr "Sin versión"
 
@@ -667,7 +667,7 @@ msgstr "No hay ejecutable para este proyecto."
 
 #: ../plugins/build-basic-autotools/executer.c:152
 #: ../plugins/gbf-am/gbf-am-project.c:3195
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
 msgid "Program"
 msgstr "Programa"
 
@@ -1109,7 +1109,7 @@ msgid "Member Functions/Variables"
 msgstr "Funciones/Variables del miembro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:4435
+#: ../plugins/glade/plugin.c:4438
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -1719,7 +1719,7 @@ msgid "Set Signal Property"
 msgstr "Propiedades de la señal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
-#: ../plugins/debug-manager/sharedlib.c:217
+#: ../plugins/debug-manager/sharedlib.c:215
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Bibliotecas compartidas"
@@ -2262,8 +2262,7 @@ msgstr "Para"
 msgid "Symbols read"
 msgstr "Símbolos leídos"
 
-#: ../plugins/debug-manager/sharedlib.c:341
-#| msgid "Thread operations"
+#: ../plugins/debug-manager/sharedlib.c:339
 msgid "Sharedlibs operations"
 msgstr "Operaciones con bibliotecas compartidas"
 
@@ -2293,13 +2292,12 @@ msgstr "Descripción"
 msgid "Send to process"
 msgstr "Enviar al proceso"
 
-#: ../plugins/debug-manager/signals.c:355
+#: ../plugins/debug-manager/signals.c:353
 msgid "Kernel signals"
 msgstr "Señales del núcleo"
 
-#: ../plugins/debug-manager/signals.c:474
-#: ../plugins/debug-manager/signals.c:480
-#| msgid "terminal operations"
+#: ../plugins/debug-manager/signals.c:472
+#: ../plugins/debug-manager/signals.c:478
 msgid "Signal operations"
 msgstr "Operaciones con señales"
 
@@ -2401,7 +2399,6 @@ msgstr "No se puede abrir el archivo: %s\n"
 
 #: ../plugins/debug-manager/start.c:912
 #, c-format
-#| msgid "Unable to open %s. Debugger cannot start."
 msgid "Unable to open %s. (file_info) Debugger cannot start."
 msgstr ""
 "No se puede abrir %s. (información_de_archivo) El depurador no puede "
@@ -2409,7 +2406,6 @@ msgstr ""
 
 #: ../plugins/debug-manager/start.c:922
 #, c-format
-#| msgid "Unable to open %s. Debugger cannot start."
 msgid "Unable to open %s. (mime_type) Debugger cannot start."
 msgstr "No se puede abrir %s. (tipo_mime) El depurador no puede iniciarse."
 
@@ -2504,7 +2500,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:68
+#: ../plugins/message-view/plugin.c:76
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2544,11 +2540,11 @@ msgstr "En línea"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1003
-#: ../plugins/search/search-replace.c:1672
-#: ../plugins/search/search-replace.c:1679
-#: ../plugins/search/search-replace.c:1691
-#: ../plugins/search/search-replace.c:2009
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1007
+#: ../plugins/search/search-replace.c:1676
+#: ../plugins/search/search-replace.c:1683
+#: ../plugins/search/search-replace.c:1695
+#: ../plugins/search/search-replace.c:2013
 msgid "Search"
 msgstr "Buscar"
 
@@ -2612,7 +2608,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/document-manager/anjuta-docman.c:1392
+#: ../plugins/document-manager/anjuta-docman.c:1391
 msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
@@ -2947,7 +2943,7 @@ msgstr "Quita la vista actual del documento"
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4071
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4074
 msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
@@ -3488,7 +3484,6 @@ msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
 #: ../plugins/file-loader/plugin.c:1242
-#| msgid "Open file"
 msgid "Open a file"
 msgstr "Abrir un archivo"
 
@@ -3533,24 +3528,31 @@ msgid "Do not show hidden files"
 msgstr "No mostrar los archivos ocultos"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
+#| msgid "Do not show hidden files"
+msgid "Do not show unversioned files"
+msgstr "No mostrar los archivos sin versión"
+
+#: ../plugins/file-manager/file-manager.glade.h:8
 msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:117
+#: ../plugins/file-manager/file-model.c:119
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:61
-msgid "Removed"
-msgstr "Eliminado"
+#: ../plugins/file-manager/file-view.c:63
+#| msgid "Update"
+msgid "Up-to-date"
+msgstr "Actualizado"
 
 #: ../plugins/file-manager/file-view.c:64
-msgid "Outdated"
-msgstr "Obsoleto"
-
-#: ../plugins/file-manager/file-view.c:65
 msgid "Locked"
 msgstr "Bloqueado"
+
+#: ../plugins/file-manager/file-view.c:67
+#| msgid "_Ignore..."
+msgid "Ignored"
+msgstr "Ignorado"
 
 #: ../plugins/file-manager/file-view.c:463
 msgid "Filename"
@@ -3564,23 +3566,23 @@ msgstr "URI base"
 msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
-#: ../plugins/file-manager/plugin.c:73
+#: ../plugins/file-manager/plugin.c:74
 msgid "_Rename"
 msgstr "_Renombrar"
 
-#: ../plugins/file-manager/plugin.c:73
+#: ../plugins/file-manager/plugin.c:74
 msgid "Rename file or directory"
 msgstr "Renombrar el archivo o directorio"
 
-#: ../plugins/file-manager/plugin.c:219
+#: ../plugins/file-manager/plugin.c:223
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:253
+#: ../plugins/file-manager/plugin.c:257
 msgid "Files"
 msgstr "Archivos"
 
-#: ../plugins/file-manager/plugin.c:376 ../plugins/file-manager/plugin.c:385
+#: ../plugins/file-manager/plugin.c:381 ../plugins/file-manager/plugin.c:390
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Gestor de archivos"
@@ -3721,11 +3723,11 @@ msgstr "Variables"
 #: ../plugins/gbf-am/gbf-am-project.c:2679
 #: ../plugins/gbf-am/gbf-am-project.c:2888
 #: ../plugins/gbf-am/gbf-am-project.c:3038
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2330
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2408
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2636
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2822
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2970
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2332
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2410
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2638
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2824
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2972
 msgid "Group doesn't exist"
 msgstr "El grupo no existe"
 
@@ -3734,11 +3736,11 @@ msgstr "El grupo no existe"
 #: ../plugins/gbf-am/gbf-am-project.c:2931
 #: ../plugins/gbf-am/gbf-am-project.c:3153
 #: ../plugins/gbf-am/gbf-am-project.c:3373
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2350
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2453
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2865
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3045
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3231
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2352
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2455
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2867
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3047
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3233
 msgid "Target doesn't exist"
 msgstr "El objetivo no existe"
 
@@ -3751,30 +3753,30 @@ msgstr "El objetivo no existe"
 #: ../plugins/gbf-am/gbf-am-project.c:3174
 #: ../plugins/gbf-am/gbf-am-project.c:3476
 #: ../plugins/gbf-am/gbf-am-project.c:3537
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2384
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2428
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2471
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2783
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2843
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3066
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3293
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3354
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2386
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2430
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2473
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2785
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
 msgid "Unable to update project"
 msgstr "No se pudo actualizar el proyecto"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2576
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2516
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2518
 msgid "Invalid or remote path (only local paths supported)"
 msgstr "Ruta no válida o remota (sólo se soportan rutas locales)"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2584
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2537
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2539
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2595
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2551
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
 msgid "Malformed project"
 msgstr "Proyecto deformado"
 
@@ -3788,19 +3790,19 @@ msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o «.»"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2815
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2749
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2751
 msgid "Parent group doesn't exist"
 msgstr "El grupo padre no existe"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2826
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2760
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2762
 msgid "Group already exists"
 msgstr "El grupo ya existe"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2836
 #: ../plugins/gbf-am/gbf-am-project.c:2863
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2770
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2797
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2772
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2799
 msgid "Group couldn't be created"
 msgstr "No se pudo crear el grupo"
 
@@ -3831,7 +3833,7 @@ msgstr ""
 "a»"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3090
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2983
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2985
 msgid "Target already exists"
 msgstr "El objetivo ya existe"
 
@@ -3848,12 +3850,12 @@ msgid "Target couldn't be removed"
 msgstr "El objetivo no se ha podido eliminar"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3185
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3077
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
 msgid "Static Library"
 msgstr "Biblioteca estática"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3187
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
 msgid "Shared Library"
 msgstr "Biblioteca compartida"
 
@@ -3862,22 +3864,22 @@ msgid "Header Files"
 msgstr "Archivos de cabecera"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3191
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
 msgid "Man Documentation"
 msgstr "Documentación man"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3193
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
 msgid "Miscellaneous Data"
 msgstr "Datos misceláneos"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3197
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
 msgid "Script"
 msgstr "Script"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3199
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
 msgid "Info Documentation"
 msgstr "Documentación"
 
@@ -3891,8 +3893,8 @@ msgstr "Módulo Python"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3141
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3331
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
 msgid "Source doesn't exist"
 msgstr "El código fuente no existe"
 
@@ -3921,8 +3923,8 @@ msgstr "El código no pudo ser eliminado"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3443
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3444
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
 msgid "Project directory"
 msgstr "Directorio del proyecto"
 
@@ -4089,37 +4091,37 @@ msgstr "Avanzado…"
 msgid "Invalid GbfMkfileConfigValue type"
 msgstr "Tipo GbfMkfileConfigValue no válido"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2523
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2525
 msgid "Project doesn't exist"
 msgstr "El proyecto no existe"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2830
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2832
 msgid "Group coudn't be removed"
 msgstr "El grupo no se ha podido eliminar"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2993
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3020
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2995
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
 msgid "Target couldn't be created"
 msgstr "No se pudo crear el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3053
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3055
 msgid "Target coudn't be removed"
 msgstr "No se pudo eliminar el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3246
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
 msgid "Source file must be inside the project directory"
 msgstr "El archivo de código debe estar dentro del directorio del proyecto"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3258
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
 msgid "Source is already in target"
 msgstr "El código ya se encuentra en el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3275
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3307
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
 msgid "Source couldn't be added"
 msgstr "No se pudo añadir el código"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3339
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
 msgid "Source coudn't be removed"
 msgstr "No se pudo eliminar el código"
 
@@ -5007,17 +5009,14 @@ msgid "Git Log"
 msgstr "Registro de Git"
 
 #: ../plugins/glade/anjuta-glade.glade.h:1
-#| msgid "<b>Branch to delete:</b>"
 msgid "<b>Handler template</b>"
 msgstr "<b>Plantilla del manejador</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:2
-#| msgid "<b>Messages options</b>"
 msgid "<b>Manage associations</b>"
 msgstr "<b>Gestionar asociaciones</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:3
-#| msgid "<b>Session</b>"
 msgid "<b>New association</b>"
 msgstr "<b>Asociación nueva</b>"
 
@@ -5026,12 +5025,10 @@ msgid "Associate"
 msgstr "Asociar"
 
 #: ../plugins/glade/anjuta-glade.glade.h:5
-#| msgid "Automatically scan project's packages"
 msgid "Automatically add resources"
 msgstr "Añadir recursos automáticamente"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4414
-#| msgid "Debugger"
+#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4417
 msgid "Designer"
 msgstr "Diseñador"
 
@@ -5042,12 +5039,10 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:2239
-#| msgid "Fonts and colors for editor"
 msgid "Insert handler on edit"
 msgstr "Insertar manejador al editar"
 
 #: ../plugins/glade/anjuta-glade.glade.h:9
-#| msgid "Position:"
 msgid "Position type"
 msgstr "Tipo de posición"
 
@@ -5057,21 +5052,18 @@ msgstr ""
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Special regexp"
-msgstr ""
+msgstr "ExpReg especial"
 
 #: ../plugins/glade/anjuta-glade.glade.h:12
-#, fuzzy
 #| msgid "Target name:"
 msgid "Widget name"
-msgstr "Nombre del objetivo:"
+msgstr "Nombre del widget"
 
 #: ../plugins/glade/anjuta-glade.glade.h:13
-#| msgid "gtk-clear"
 msgid "gtk-close"
 msgstr "gtk-close"
 
 #: ../plugins/glade/anjuta-glade.glade.h:14
-#| msgid "gtk-cancel"
 msgid "gtk-save"
 msgstr "gtk-save"
 
@@ -5086,17 +5078,17 @@ msgstr ""
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
 msgid "association item has no designer"
-msgstr ""
+msgstr "el elemento de asociación no tiene diseñador"
 
 #: ../plugins/glade/designer-associations-item.c:268
 #, c-format
 msgid "association item has no editor"
-msgstr ""
+msgstr "el elemento de asociación no tiene editor"
 
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
 msgid "bad association item option in the node %s"
-msgstr ""
+msgstr "opción del elemento de asociación errónea en el nodo %s"
 
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
@@ -5124,10 +5116,10 @@ msgid "Couldn't save associations because project root isn't set"
 msgstr ""
 
 #: ../plugins/glade/plugin.c:867
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to activate plugin: %s"
 msgid "Failed to save associations"
-msgstr "Falló al activar el complemento: %s"
+msgstr "Falló al guardar las asociaciones"
 
 #: ../plugins/glade/plugin.c:1354
 #, c-format
@@ -5172,10 +5164,9 @@ msgid "Error while adding a new handler stub: %"
 msgstr "Error al leer desde el archivo"
 
 #: ../plugins/glade/plugin.c:2067
-#, fuzzy
 #| msgid "Compile current editor file"
 msgid "no current editor"
-msgstr "Compila el archivo actual del editor"
+msgstr "no hay editor actual"
 
 #: ../plugins/glade/plugin.c:2238
 #, c-format
@@ -5183,16 +5174,14 @@ msgid "To avoid this messages turn off \"%s\" flag in the %s->%s"
 msgstr ""
 
 #: ../plugins/glade/plugin.c:2240
-#| msgid "_Preferences"
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../plugins/glade/plugin.c:2241 ../plugins/glade/plugin.c:5057
-#: ../plugins/glade/plugin.c:5102
-#, fuzzy
+#: ../plugins/glade/plugin.c:2241 ../plugins/glade/plugin.c:5060
+#: ../plugins/glade/plugin.c:5085
 #| msgid "Glade interface designer"
 msgid "Glade GUI Designer"
-msgstr "Diseñador de interfaces Glade"
+msgstr "Diseñador de IGU Glade"
 
 #: ../plugins/glade/plugin.c:2377
 msgid "Those documents are already associated"
@@ -5204,178 +5193,159 @@ msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
 
 #: ../plugins/glade/plugin.c:3673
-#, fuzzy
 #| msgid "Couldn't load glade file"
 msgid "Couldn't find a default signal name"
-msgstr "No se pudo cargar el archivo glade"
+msgstr "No se pudo encontrar un nombre de señal predeterminado"
 
-#: ../plugins/glade/plugin.c:3878
+#: ../plugins/glade/plugin.c:3881
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr ""
+"El proyecto %s no tiene widgets obsoletos o inconsistencias entre versiones."
 
-#: ../plugins/glade/plugin.c:3895
-#, fuzzy
+#: ../plugins/glade/plugin.c:3898
 #| msgid "Whole project"
 msgid "There's no Glade projects"
-msgstr "Proyecto completo"
+msgstr "No hay proyectos de Glade"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3981
-#| msgid "Glade File"
+#: ../plugins/glade/plugin.c:3984
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3989 ../plugins/glade/plugin.c:3991
+#: ../plugins/glade/plugin.c:3992 ../plugins/glade/plugin.c:3994
 msgid "Switch designer/code"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4000 ../plugins/glade/plugin.c:4002
 msgid "Insert handler stub"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
+#: ../plugins/glade/plugin.c:4008 ../plugins/glade/plugin.c:4010
 msgid "Insert handler stub, autoposition"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4013
+#: ../plugins/glade/plugin.c:4016
 msgid "Associate last designer and last editor"
-msgstr ""
+msgstr "Asociar el último diseñador y el último editor"
 
-#: ../plugins/glade/plugin.c:4015
+#: ../plugins/glade/plugin.c:4018
 msgid "Associate last designer and editor"
-msgstr ""
+msgstr "Asociar el último diseñador y editor"
 
-#: ../plugins/glade/plugin.c:4021 ../plugins/glade/plugin.c:4023
+#: ../plugins/glade/plugin.c:4024 ../plugins/glade/plugin.c:4026
 msgid "Associations dialog..."
-msgstr ""
+msgstr "Diálogo de asociaciones..."
 
-#: ../plugins/glade/plugin.c:4029
-#| msgid "Printing..."
+#: ../plugins/glade/plugin.c:4032
 msgid "Versioning..."
 msgstr "Versionado…"
 
-#: ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4034
 msgid "Switch between library versions and check deprecations"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4037 ../plugins/glade/plugin.c:4039
+#: ../plugins/glade/plugin.c:4040 ../plugins/glade/plugin.c:4042
 msgid "Set as default resource target"
-msgstr ""
+msgstr "Establecer como objetivo de recurso predeterminado"
 
-#: ../plugins/glade/plugin.c:4047
-#, fuzzy
+#: ../plugins/glade/plugin.c:4050
 #| msgid "Current Selection"
 msgid "Current default target"
-msgstr "Selección actual"
+msgstr "Objetivo predeterminado actual"
 
-#: ../plugins/glade/plugin.c:4053
-#| msgid "Close All"
+#: ../plugins/glade/plugin.c:4056
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../plugins/glade/plugin.c:4055
-#| msgid "Close current file"
+#: ../plugins/glade/plugin.c:4058
 msgid "Close the current file"
 msgstr "Cerrar el archivo actual"
 
-#: ../plugins/glade/plugin.c:4063
-#| msgid "Save current file"
+#: ../plugins/glade/plugin.c:4066
 msgid "Save the current file"
 msgstr "Guardar el archivo actual"
 
-#: ../plugins/glade/plugin.c:4069
-#| msgid "U_ndo"
+#: ../plugins/glade/plugin.c:4072
 msgid "Undo"
 msgstr "Deshacer"
 
-#: ../plugins/glade/plugin.c:4077
-#| msgid "_Redo"
+#: ../plugins/glade/plugin.c:4080
 msgid "Redo"
 msgstr "Rehacer"
 
-#: ../plugins/glade/plugin.c:4079
-#| msgid "Undo the last action"
+#: ../plugins/glade/plugin.c:4082
 msgid "Redo the last action"
 msgstr "Rehacer la última acción"
 
-#: ../plugins/glade/plugin.c:4085
-#| msgid "C_ut"
+#: ../plugins/glade/plugin.c:4088
 msgid "Cut"
 msgstr "Cortar"
 
-#: ../plugins/glade/plugin.c:4087
-#| msgid "Current selection"
+#: ../plugins/glade/plugin.c:4090
 msgid "Cut the selection"
 msgstr "Cortar la selección"
 
-#: ../plugins/glade/plugin.c:4093
-#| msgid "_Copy"
+#: ../plugins/glade/plugin.c:4096
 msgid "Copy"
 msgstr "Copiar"
 
-#: ../plugins/glade/plugin.c:4095
-#| msgid "Editor text selection"
+#: ../plugins/glade/plugin.c:4098
 msgid "Copy the selection"
 msgstr "Copiar la selección"
 
-#: ../plugins/glade/plugin.c:4101
-#| msgid "_Paste"
+#: ../plugins/glade/plugin.c:4104
 msgid "Paste"
 msgstr "Pegar"
 
-#: ../plugins/glade/plugin.c:4103
+#: ../plugins/glade/plugin.c:4106
 msgid "Paste the clipboard"
 msgstr "Pegar el contenido del portapapeles"
 
-#: ../plugins/glade/plugin.c:4109 ../plugins/gtodo/mcategory.c:146
+#: ../plugins/glade/plugin.c:4112 ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
 msgstr "Borrar"
 
-#: ../plugins/glade/plugin.c:4111
-#| msgid "Remember this selection"
+#: ../plugins/glade/plugin.c:4114
 msgid "Delete the selection"
 msgstr "Borrar la selección"
 
-#: ../plugins/glade/plugin.c:4289
-#| msgid "Debugger operations"
+#: ../plugins/glade/plugin.c:4292
 msgid "Glade designer operations"
 msgstr "Operaciones del diseñador de Glade"
 
-#: ../plugins/glade/plugin.c:4399
-#| msgid "Goto next history"
+#: ../plugins/glade/plugin.c:4402
 msgid "Go back in undo history"
 msgstr "Ir atrás en el historial de deshacer"
 
-#: ../plugins/glade/plugin.c:4401
-#| msgid "Goto next history"
+#: ../plugins/glade/plugin.c:4404
 msgid "Go forward in undo history"
 msgstr "Ir adelante en el historial de deshacer"
 
-#: ../plugins/glade/plugin.c:4420
+#: ../plugins/glade/plugin.c:4423
 msgid "Glade Clipboard"
 msgstr "Portapapeles de Glade"
 
-#: ../plugins/glade/plugin.c:4425
+#: ../plugins/glade/plugin.c:4428
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:4430
+#: ../plugins/glade/plugin.c:4433
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:4688
+#: ../plugins/glade/plugin.c:4691
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:4713
+#: ../plugins/glade/plugin.c:4716
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:4781
+#: ../plugins/glade/plugin.c:4784
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5966,8 +5936,8 @@ msgid "Icon"
 msgstr "Icono"
 
 #: ../plugins/message-view/message-view.c:820
-#: ../plugins/message-view/plugin.c:307 ../plugins/message-view/plugin.c:399
-#: ../plugins/message-view/plugin.c:411
+#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
+#: ../plugins/message-view/plugin.c:429
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -5976,59 +5946,71 @@ msgstr "Mensajes"
 msgid "Error writing %s"
 msgstr "Error al escribir %s"
 
-#: ../plugins/message-view/message-view.c:1316
+#: ../plugins/message-view/message-view.c:1355
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d mensaje"
 msgstr[1] "%d mensajes"
 
-#: ../plugins/message-view/message-view.c:1322
+#: ../plugins/message-view/message-view.c:1361
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d información"
 msgstr[1] "%d informaciones"
 
-#: ../plugins/message-view/message-view.c:1327
+#: ../plugins/message-view/message-view.c:1366
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d advertencias"
 msgstr[1] "%d advertencias"
 
-#: ../plugins/message-view/message-view.c:1332
+#: ../plugins/message-view/message-view.c:1371
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
 msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
-#: ../plugins/message-view/plugin.c:70
+#: ../plugins/message-view/plugin.c:78
+#, fuzzy
+#| msgid "No Messages"
+msgid "_Copy Message"
+msgstr "Sin mensajes"
+
+#: ../plugins/message-view/plugin.c:79
+#, fuzzy
+#| msgid "Log message:"
+msgid "Copy message"
+msgstr "Mensaje de registro:"
+
+#: ../plugins/message-view/plugin.c:82
 msgid "_Next Message"
 msgstr "Mensaje _siguiente"
 
-#: ../plugins/message-view/plugin.c:71
+#: ../plugins/message-view/plugin.c:83
 msgid "Next message"
 msgstr "Mensaje siguiente"
 
-#: ../plugins/message-view/plugin.c:74
+#: ../plugins/message-view/plugin.c:86
 msgid "_Previous Message"
 msgstr "Mensaje _anterior"
 
-#: ../plugins/message-view/plugin.c:75
+#: ../plugins/message-view/plugin.c:87
 msgid "Previous message"
 msgstr "Mensaje anterior"
 
-#: ../plugins/message-view/plugin.c:78
+#: ../plugins/message-view/plugin.c:90
 msgid "_Save Message"
 msgstr "_Guardar mensaje"
 
-#: ../plugins/message-view/plugin.c:79
+#: ../plugins/message-view/plugin.c:91
 msgid "Save message"
 msgstr "Guardar mensaje"
 
-#: ../plugins/message-view/plugin.c:197
+#: ../plugins/message-view/plugin.c:212
 msgid "Next/Previous Message"
 msgstr "Siguiente/Anterior mensaje"
 
@@ -6493,34 +6475,34 @@ msgstr "No se ha cargado ningún proyecto"
 msgid "Couldn't load glade file"
 msgstr "No se pudo cargar el archivo glade"
 
-#: ../plugins/project-manager/gbf-project-util.c:263
-#: ../plugins/project-manager/gbf-project-util.c:271
+#: ../plugins/project-manager/gbf-project-util.c:260
+#: ../plugins/project-manager/gbf-project-util.c:268
 msgid "Can not add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/gbf-project-util.c:272
+#: ../plugins/project-manager/gbf-project-util.c:269
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/gbf-project-util.c:444
-#: ../plugins/project-manager/gbf-project-util.c:453
+#: ../plugins/project-manager/gbf-project-util.c:441
+#: ../plugins/project-manager/gbf-project-util.c:450
 msgid "Can not add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/gbf-project-util.c:454
+#: ../plugins/project-manager/gbf-project-util.c:451
 msgid "No group selected"
 msgstr "No se ha seleccionado ningún grupo"
 
-#: ../plugins/project-manager/gbf-project-util.c:559
+#: ../plugins/project-manager/gbf-project-util.c:556
 msgid "Select sources..."
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/gbf-project-util.c:799
-#: ../plugins/project-manager/gbf-project-util.c:806
+#: ../plugins/project-manager/gbf-project-util.c:796
+#: ../plugins/project-manager/gbf-project-util.c:803
 msgid "Can not add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/gbf-project-util.c:807
+#: ../plugins/project-manager/gbf-project-util.c:804
 msgid "No target has been selected"
 msgstr "No se ha seleccionado ningún objetivo"
 
@@ -7841,6 +7823,8 @@ msgid ""
 "The file '%s' has been deleted.\n"
 "Do you confirm and close it ?"
 msgstr ""
+"Se ha borrado el archivo «%s».\n"
+"¿Confirmar y cerrar?"
 
 #: ../plugins/scintilla/text_editor.c:437
 #, fuzzy, c-format
@@ -8218,43 +8202,43 @@ msgstr "Reemplazar todas las coincidencias"
 msgid "Find:"
 msgstr "Buscar:"
 
-#: ../plugins/search/search-replace.c:487
+#: ../plugins/search/search-replace.c:489
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/search/search-replace.c:607
+#: ../plugins/search/search-replace.c:611
 msgid "Search complete"
 msgstr "Búsqueda completada"
 
-#: ../plugins/search/search-replace.c:1006
-#: ../plugins/search/search-replace.c:1686
+#: ../plugins/search/search-replace.c:1010
+#: ../plugins/search/search-replace.c:1690
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: ../plugins/search/search-replace.c:1045
+#: ../plugins/search/search-replace.c:1049
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
 "principio del documento?"
 
-#: ../plugins/search/search-replace.c:1065
+#: ../plugins/search/search-replace.c:1069
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No se ha encontrado ninguna coincidencia con «%s»."
 
-#: ../plugins/search/search-replace.c:1080
+#: ../plugins/search/search-replace.c:1084
 msgid "The maximum number of results has been reached."
 msgstr "Se ha alcanzado el máximo número de resultados."
 
-#: ../plugins/search/search-replace.c:1093
+#: ../plugins/search/search-replace.c:1097
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1259
+#: ../plugins/search/search-replace.c:1263
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»"
 
@@ -8324,7 +8308,6 @@ msgid "<b>View</b>"
 msgstr "<b>Ver</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
-#| msgid "Create patch series"
 msgid "Create backup files"
 msgstr "Crear archivos de respaldo"
 
@@ -8818,7 +8801,7 @@ msgstr "Introduzca una URL de rama/etiqueta."
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:339
+#: ../plugins/subversion/subversion-ui-utils.c:349
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
@@ -10113,12 +10096,10 @@ msgid "GtkSourceview editor"
 msgstr "Editor GtkSourceview"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
-#| msgid "An alternate editor based on GtkSourceview"
 msgid "The default editor based on GtkSourceview"
 msgstr "El editor predeterminado basado en GtkSourceview"
 
 #: ../plugins/scintilla/anjuta-editor.plugin.in.h:1
-#| msgid "An alternate editor based on GtkSourceview"
 msgid "An alternate editor based on Scintilla"
 msgstr "Un editor alternativo basado en Scintilla"
 
@@ -10241,6 +10222,12 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "Removed"
+#~ msgstr "Eliminado"
+
+#~ msgid "Outdated"
+#~ msgstr "Obsoleto"
 
 #~ msgid "Modify Signal"
 #~ msgstr "Modificar señal"
