@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-01-25 11:04+0000\n"
-"PO-Revision-Date: 2009-02-01 14:40+0100\n"
+"POT-Creation-Date: 2009-02-02 08:31+0000\n"
+"PO-Revision-Date: 2009-02-02 19:25+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,67 +14,67 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: C/anjuta-manual.xml:26(title)
+#: C/anjuta-manual.xml:27(title)
 msgid "Anjuta IDE Manual"
 msgstr "Manual del EID Anjuta"
 
-#: C/anjuta-manual.xml:27(edition)
+#: C/anjuta-manual.xml:28(edition)
 msgid "v1.0.0"
 msgstr "v1.0.0"
 
-#: C/anjuta-manual.xml:29(para)
+#: C/anjuta-manual.xml:30(para)
 msgid "Manual for the Anjuta IDE"
 msgstr "Manual para el  EID Anjuta"
 
-#: C/anjuta-manual.xml:33(firstname)
+#: C/anjuta-manual.xml:34(firstname)
 msgid "Naba"
 msgstr "Naba"
 
-#: C/anjuta-manual.xml:34(surname)
+#: C/anjuta-manual.xml:35(surname)
 msgid "Kumar"
 msgstr "Kumar"
 
-#: C/anjuta-manual.xml:37(firstname)
+#: C/anjuta-manual.xml:38(firstname)
 msgid "Andy"
 msgstr "Andy"
 
-#: C/anjuta-manual.xml:38(surname)
+#: C/anjuta-manual.xml:39(surname)
 msgid "Piper"
 msgstr "Piper"
 
-#: C/anjuta-manual.xml:41(firstname)
+#: C/anjuta-manual.xml:42(firstname)
 msgid "Biswapesh"
 msgstr "Biswapesh"
 
-#: C/anjuta-manual.xml:42(surname)
+#: C/anjuta-manual.xml:43(surname)
 msgid "Chattopadhyayr"
 msgstr "Chattopadhyayr"
 
-#: C/anjuta-manual.xml:45(firstname)
+#: C/anjuta-manual.xml:46(firstname)
 msgid "Johannes"
 msgstr "Johannes"
 
-#: C/anjuta-manual.xml:46(surname)
+#: C/anjuta-manual.xml:47(surname)
 msgid "Schmid"
 msgstr "Schmid"
 
-#: C/anjuta-manual.xml:50(year)
+#: C/anjuta-manual.xml:51(year)
 msgid "2001-2002"
 msgstr "2001-2002"
 
-#: C/anjuta-manual.xml:51(year)
+#: C/anjuta-manual.xml:52(year)
 msgid "2006-2008"
 msgstr "2006-2008"
 
-#: C/anjuta-manual.xml:52(holder)
+#: C/anjuta-manual.xml:53(holder)
 msgid "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
 msgstr "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
 
-#: C/anjuta-manual.xml:53(holder)
+#: C/anjuta-manual.xml:54(holder)
 msgid "Johannes Schmid"
 msgstr "Johannes Schmid"
 
-#: C/anjuta-manual.xml:57(para)
+#: C/anjuta-manual.xml:58(para)
 msgid ""
 "Permission is granted to copy, distribute and/or modify this document under "
 "the terms of the <citetitle>GNU Free Documentation License</citetitle>, "
@@ -95,7 +95,7 @@ msgstr ""
 "org\">página web</ulink> o escribiendo a: Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, EE. UU."
 
-#: C/anjuta-manual.xml:69(para)
+#: C/anjuta-manual.xml:70(para)
 msgid ""
 "Many of the names used by companies to distinguish their products and "
 "services are claimed as trademarks. Where those names appear in any GNOME "
@@ -109,19 +109,19 @@ msgstr ""
 "proyecto de documentación las reconozcan dichas marcas comerciales, dichos "
 "nombres se imprimen en mayúsculas o iniciales mayúsculas."
 
-#: C/anjuta-manual.xml:80(revnumber)
+#: C/anjuta-manual.xml:81(revnumber)
 msgid "Anjuta Manual 2.1.0"
 msgstr "Manual de Anjuta 2.1.0"
 
-#: C/anjuta-manual.xml:81(date)
+#: C/anjuta-manual.xml:82(date)
 msgid "2007"
 msgstr "2007"
 
-#: C/anjuta-manual.xml:83(para)
+#: C/anjuta-manual.xml:84(para)
 msgid "Johannes Schmid<email>jhs@gnome.org</email>"
 msgstr "Johannes Schmid<email>jhs@gnome.org</email>"
 
-#: C/anjuta-manual.xml:85(para)
+#: C/anjuta-manual.xml:86(para)
 msgid "Anjuta Team"
 msgstr "Equipo de Anjuta"
 
@@ -4346,7 +4346,6 @@ msgstr ""
 "en la columna <guilabel>Valor</guilabel>."
 
 #: C/anjuta-manual.xml:584(para)
-#, fuzzy
 msgid ""
 "<application>gdb</application> is more and more often used as a back end for "
 "a graphical front end. It has been improved recently in this area. It is "
@@ -4354,17 +4353,17 @@ msgid ""
 "versions, gdb can crash when the front end asks for an pointer with an "
 "invalid (but unused) value."
 msgstr ""
-"Glib cada vez se usa más y más como «backend» para un «frontend» gráfico. Se "
-"ha mejorado recientemente en ésta área. Se recomienda usar la última versión "
-"(6.6) de gdb. En versiones anteriores gdb se puede colgar cuando el "
-"«frontend» pregunta por un puntero con un valor no válido (pero no usado)."
+"<application>gdb</application> cada vez se usa más y más como «backend» para "
+"un «frontend» gráfico. Se ha mejorado recientemente en ésta área. Se "
+"recomienda usar la última versión (6.6) de gdb. En versiones anteriores gdb "
+"se puede colgar cuando el «frontend» pregunta por un puntero con un valor no "
+"válido (pero no usado)."
 
 #: C/anjuta-manual.xml:594(title)
 msgid "Listing watched expressions"
 msgstr "Listar las expresiones vigiladas"
 
 #: C/anjuta-manual.xml:595(para)
-#, fuzzy
 msgid ""
 "Inspecting or evaluating an expression provides the result only once. To "
 "continuously monitor some variables or expressions, use <emphasis>expression "
@@ -4466,7 +4465,6 @@ msgid "Evaluating expressions"
 msgstr "Evaluar expresiones"
 
 #: C/anjuta-manual.xml:648(para)
-#, fuzzy
 msgid ""
 "When control is returned from a program — possibly at a breakpoint — it is "
 "possible to evaluate expressions or inspect the values of variables in the "
@@ -4476,13 +4474,14 @@ msgid ""
 "the context menu of the editor or click the <guibutton>Inspect</guibutton> "
 "button on the <interface>Debug Toolbar</interface>."
 msgstr ""
-"Cuando un programa devuelve el control —posiblemente en un punto de parada— "
-"es posible evaluar expresiones o inspeccionar los valores de las variables "
-"en el programa. Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
-"guisubmenu><guimenuitem>Inspeccionar/Evaluar...</guimenuitem></menuchoice>, "
-"<menuchoice><guimenuitem>Inspeccionar/Evaluar...</guimenuitem></menuchoice> "
-"en el menú emergente del editor o pulse el botón <guibutton>Inspeccionar</"
-"guibutton> en la <interface>barra de herramientas de depuración</interface>."
+"Cuando el control se devuelve desde un programa —posiblemente en un punto de "
+"parada— es posible evaluar expresiones o inspeccionar los valores de las "
+"variables en el programa. Elija el elemento del menú "
+"<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Inspeccionar/"
+"Evaluar...</guimenuitem></menuchoice>, <menuchoice><guimenuitem>Inspeccionar/"
+"Evaluar...</guimenuitem></menuchoice> en el menú emergente del editor o "
+"pulse el botón <guibutton>Inspeccionar</guibutton> en la <interface>Barra de "
+"herramientas de depuración</interface>."
 
 #: C/anjuta-manual.xml:657(para)
 msgid ""
@@ -5031,9 +5030,252 @@ msgstr ""
 "Es mejor evitar el uso de este comando a no ser que sepa exactamente qué "
 "está haciendo."
 
-#: C/anjuta-manual.xml:3(title)
+#: C/anjuta-manual.xml:2(title)
+msgid "Glade Interface Designer"
+msgstr "Diseñador de interfaces Glade"
+
+#: C/anjuta-manual.xml:5(title)
+msgid "Quick start"
+msgstr "Inicio rápido"
+
+#: C/anjuta-manual.xml:10(para)
+msgid "You should have a project containing Glade file opened;"
+msgstr "Debería tener un proyecto que contenga un archivo Glade abierto;"
+
+#: C/anjuta-manual.xml:13(para)
+msgid ""
+"Unlike original Glade designer, Anjuta plugin uses double click for creating "
+"handlers for default signal. You can perform a click on widgets (e.g. switch "
+"current tab in a GtkNotebook) by keeping \"Windows\" or \"Super\" key "
+"pressed;"
+msgstr ""
+
+#: C/anjuta-manual.xml:19(para)
+msgid ""
+"Open <menuchoice><guimenuitem>Preferences</guimenuitem><guimenuitem>Glade "
+"GUI Designer</guimenuitem></menuchoice> and check the three topmost flags "
+"<guilabel>Insert handler on edit</guilabel>, <guilabel>Separated designer "
+"layout</guilabel> and <guilabel>Automatically add resources</guilabel>;"
+msgstr ""
+
+#: C/anjuta-manual.xml:28(para)
+#| msgid ""
+#| "Choose the menu item <menuchoice><guisubmenu>View</"
+#| "guisubmenu><guimenuitem>Watches</guimenuitem></menuchoice> to display the "
+#| "<interface>Watches window</interface>."
+msgid ""
+"Check <menuchoice><guimenuitem>View</guimenuitem><guimenuitem>Designer</"
+"guimenuitem></menuchoice> flag and move this window to a better place;"
+msgstr ""
+"Compruebe la opción <menuchoice><guimenuitem>Ver</"
+"guimenuitem><guimenuitem>Diseñador</guimenuitem></menuchoice> y mueva esta "
+"ventana a un lugar mejor;"
+
+#: C/anjuta-manual.xml:36(para)
+msgid ""
+"Switch to a Glade file in the design area and to the source code file that "
+"should contain callbacks for the Glade file, then press "
+"<menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Associate last "
+"designer and editor</guimenuitem></menuchoice>;"
+msgstr ""
+
+#: C/anjuta-manual.xml:42(para)
+msgid ""
+"Optionally select a target for image and other resources in the project "
+"manager and press <guilabel>Set as default resource target</guilabel> in the "
+"context menu."
+msgstr ""
+
+#: C/anjuta-manual.xml:6(para)
+msgid ""
+"If you don't want to read all this boring manual, here is few steps to get "
+"all things ready for use: <placeholder-1/>"
+msgstr ""
+
+#: C/anjuta-manual.xml:52(title)
+msgid "Glade general usage questions"
+msgstr ""
+
+#: C/anjuta-manual.xml:53(para)
+msgid ""
+"Glade plugin mostly copies functionality of standalone Glade designer, but "
+"there are some special features. The four windows of the Glade desinger are "
+"design area, palette, widgets inspector and property editor. They have the "
+"same purpose as in the standalone designer, so please consult <ulink type="
+"\"help\" url=\"ghelp:glade\">Glade Interface Designer Manual</ulink> for "
+"their description. An extra functionality allows you to use infrastructure "
+"of Anjuta more effectively and is described here."
+msgstr ""
+
+#: C/anjuta-manual.xml:66(title)
+msgid "Editor and designer association"
+msgstr ""
+
+#: C/anjuta-manual.xml:67(para)
+msgid ""
+"You can associate text editor and Glade designer so you will easily switch "
+"between them and automatically insert handler stubs for newly entered "
+"handlers. You can associate more then one editor to a designer. The most "
+"recent editor or associated with the current toplevel widget will be used. "
+"There are two ways of associating editor and designer. The first way is "
+"using associations dialog. The second way is to choose designer and editor "
+"document in any order and then press <menuchoice><guimenuitem>Glade</"
+"guimenuitem><guimenuitem>Associate last designer and editor</guimenuitem></"
+"menuchoice> menu item."
+msgstr ""
+
+#: C/anjuta-manual.xml:83(title)
+msgid "Associations dialog"
+msgstr ""
+
+#: C/anjuta-manual.xml:94(guilabel)
+msgid "Spec regexp"
+msgstr ""
+
+#: C/anjuta-manual.xml:95(para)
+msgid ""
+"Shortened from \"special regular expression\". Used for defining a custom "
+"position for inserting stubs."
+msgstr ""
+
+#: C/anjuta-manual.xml:101(guilabel)
+msgid "Widget name"
+msgstr ""
+
+#: C/anjuta-manual.xml:102(para)
+msgid "The name of the toplevel widget this assoctiation belongs to."
+msgstr ""
+
+#: C/anjuta-manual.xml:107(guilabel)
+msgid "Position type"
+msgstr ""
+
+#: C/anjuta-manual.xml:108(para)
+msgid ""
+"Describes a position at which a handler stub will be inserted. "
+"<guilabel>After begin</guilabel> means after special mark (which may be "
+"entered in the <guilabel>Spec regexp</guilabel> entry) and <guilabel>before "
+"end</guilabel> means before special end mark. Default begin mark is /* "
+"window_name callbacks */ and default end mark is /* end of window_name "
+"callbacks */. window_name may be ommited."
+msgstr ""
+
+#: C/anjuta-manual.xml:84(para)
+msgid ""
+"Allows you to create and manager associations. To create an association "
+"select designer and editor in the comboboxes and press <guibutton>Associate</"
+"guibutton>. You can also select the document by switching to it in document "
+"manager or windows list in the main menu. The list in the middle of the "
+"dialog shows existing associations. A couple of controls below are intended "
+"for editing association properties. Here is their description: <placeholder-"
+"1/>"
+msgstr ""
+
+#: C/anjuta-manual.xml:122(title)
+msgid "Default signal"
+msgstr ""
+
+#: C/anjuta-manual.xml:123(para)
+msgid ""
+"Double click on a widget in the design area will create a new handler for "
+"default signal using a predefined template for its naming. For example, the "
+"default signal is \"clicked\" for button, \"toggled\" for check box, etc. If "
+"<guilabel>Insert handler on edit</guilabel> option is enabled then a new "
+"handler stub will be inserted to the position which depends on "
+"<guilabel>Position type</guilabel> setting."
+msgstr ""
+
+#: C/anjuta-manual.xml:134(title)
+#, fuzzy
+#| msgid "Inserting Macros"
+msgid "Inserting a stub"
+msgstr "Insertar macros"
+
+#: C/anjuta-manual.xml:135(para)
+msgid ""
+"One of the most valuable goal of <application>Anjuta</application> and "
+"<application>Glade</application> integration is automatical creating of "
+"handler stubs, so you will not need to do a lot of routine work for that, it "
+"will be done automatically."
+msgstr ""
+
+#: C/anjuta-manual.xml:144(para)
+msgid ""
+"Automatically if <guilabel>Insert handler on edit</guilabel> option if "
+"enabled"
+msgstr ""
+
+#: C/anjuta-manual.xml:148(para)
+#, fuzzy
+#| msgid ""
+#| "Choosing the menu item <menuchoice><guisubmenu>Build</"
+#| "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install "
+#| "the generated application on your system."
+msgid ""
+"Using <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Insert "
+"handler stub, autoposition</guimenuitem></menuchoice> in hte main menu"
+msgstr ""
+"Eligiendo el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Instalar</guimenuitem></menuchoice> instalará la "
+"aplicación generada en su sistema."
+
+#: C/anjuta-manual.xml:154(para)
+msgid ""
+"Using <guilabel>Insert handler stub</guilabel> item in the context menu of "
+"text document"
+msgstr ""
+
+#: C/anjuta-manual.xml:141(para)
+#, fuzzy
+msgid "There are several ways to create a stub: <placeholder-1/>"
+msgstr ""
+"Existen varios tipos de objetivos para un proyecto automake. Éstos son: "
+"<placeholder-1/>"
+
+#: C/anjuta-manual.xml:163(title) C/anjuta-manual.xml:3(title)
 msgid "Preferences"
 msgstr "Preferencias"
+
+#: C/anjuta-manual.xml:166(guilabel)
+msgid "Insert handler on edit"
+msgstr ""
+
+#: C/anjuta-manual.xml:167(para)
+msgid ""
+"Enables inserting a handler stub into the associated editor after entering a "
+"new handler into signal editor or creating a <link linkend=\"glade-default-"
+"signal\">default signal handler</link>"
+msgstr ""
+
+#: C/anjuta-manual.xml:174(guilabel)
+msgid "Separated designer layout"
+msgstr ""
+
+#: C/anjuta-manual.xml:175(para)
+msgid ""
+"Detaches the design area from document manager so you can dock it separately "
+"from text editors."
+msgstr ""
+
+#: C/anjuta-manual.xml:181(guilabel)
+msgid "Automatically add resources"
+msgstr ""
+
+#: C/anjuta-manual.xml:182(para)
+msgid ""
+"When checked then all resources (e.g. images) will be added to the target in "
+"the current project. You can choose the target using project manager context "
+"menu or by entering target id in the entry below the check button."
+msgstr ""
+
+#: C/anjuta-manual.xml:190(guilabel)
+msgid "Handler template"
+msgstr ""
+
+#: C/anjuta-manual.xml:191(para)
+msgid ""
+"You can choose between the two formats of automatic naming of signal handler."
+msgstr ""
 
 #: C/anjuta-manual.xml:4(para)
 msgid ""
