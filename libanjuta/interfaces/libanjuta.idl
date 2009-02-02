@@ -96,6 +96,7 @@ interface IAnjutaFile
 		 * @err: Error propagation and reporting
 		 * 
 		 * Saves the content to the original file from which it was loaded.
+		 * The signal saved is always emitted even if the save fails.
 		 */
 		void save ();
 		
@@ -106,6 +107,7 @@ interface IAnjutaFile
 		 * @err: Error propagation and reporting
 		 * 
 		 * Saves the content to a different File.
+		 * The signal saved is always emitted even if the save fails.
 		 */
 		void save_as (GFile* file);
 		

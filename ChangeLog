@@ -1,5 +1,11 @@
 2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/scintilla/text_editor.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix #567206 – Build doesn't start if auto-save fails
+
+2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/document-manager/anjuta-bookmarks.c:
 	Remove some critical warnings when having document without a file
 

@@ -1616,11 +1616,9 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	GtkWindow *parent;
 	GError *error = NULL;
 	gboolean ret = FALSE;
-	
-	if (te == NULL)
-		return FALSE;
-	if (IS_SCINTILLA (te->scintilla) == FALSE)
-		return FALSE;
+
+	g_return_val_if_fail (te != NULL, FALSE);
+	g_return_val_if_fail (IS_SCINTILLA (te->scintilla), FALSE);	
 	
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
@@ -2757,8 +2755,11 @@ static void
 isaveable_save (IAnjutaFileSavable* editor, GError** e)
 {
 	TextEditor *text_editor = TEXT_EDITOR(editor);
+
 	if (text_editor->uri != NULL)
 		text_editor_save_file(text_editor, FALSE);
+	else
+		g_signal_emit_by_name (G_OBJECT (text_editor), "saved", NULL);
 }
 
 static void
