@@ -1,3 +1,9 @@
+2009-02-02  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/document-manager/anjuta-bookmarks.c:
+	* plugins/language-manager/plugin.c (load_languages):
+	Cleanup XML-Parser correctly
+
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/plugin.c (file_manager_set_default_uri),
