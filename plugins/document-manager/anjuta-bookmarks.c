@@ -118,6 +118,7 @@ on_document_added (AnjutaDocman* docman, IAnjutaDocument* doc,
 {
 	IAnjutaMarkable* markable;
 	GtkTreeIter iter;
+	GFile* editor_file;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	
 	if (!IANJUTA_IS_MARKABLE(doc))
@@ -126,11 +127,16 @@ on_document_added (AnjutaDocman* docman, IAnjutaDocument* doc,
 	markable = IANJUTA_MARKABLE(doc);
 	if (!gtk_tree_model_get_iter_first (priv->model, &iter))
 		return;
+	
+	editor_file = ianjuta_file_get_file (IANJUTA_FILE(doc), NULL);
+	if (editor_file == NULL)
+		return;
+	
 	do
 	{
 		GFile* file;
-		GFile* editor_file = ianjuta_file_get_file (IANJUTA_FILE(doc), NULL);
 		gint line;
+		
 		gtk_tree_model_get (priv->model, &iter,
 							COLUMN_FILE, &file,
 							COLUMN_LINE, &line,
@@ -151,12 +157,10 @@ on_document_added (AnjutaDocman* docman, IAnjutaDocument* doc,
 									handle, -1);
 			}
 		}
-		g_object_unref (editor_file);
 		g_object_unref (file);		
 	}
 	while (gtk_tree_model_iter_next (priv->model, &iter));
-	
-	
+	g_object_unref (editor_file);
 }
 
 static void
@@ -377,6 +381,9 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	else
 		text = g_strdup(title);
 	file = ianjuta_file_get_file(IANJUTA_FILE(editor), NULL);
+	/* The buffer is not saved yet -> do nothing */
+	if (file == NULL)
+		return;
 	gtk_list_store_set (GTK_LIST_STORE(priv->model), &iter, 
 						COLUMN_TEXT, text,
 						COLUMN_FILE, file,

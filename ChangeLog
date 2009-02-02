@@ -1,3 +1,8 @@
+2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-bookmarks.c:
+	Remove some critical warnings when having document without a file
+
 2.25.90
 
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
