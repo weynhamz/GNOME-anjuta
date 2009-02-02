@@ -1,4 +1,12 @@
-2009-02-02  Johannes Schmid  <jhs@Obelix>
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/file-view.c:
+	Show all VCS icons (there was some Makefile problem and a off-by-one in the
+	string array.
+	(#561370 – there is no way to know which files are in repository and which not.)
+
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-bookmarks.c:
 	* plugins/language-manager/plugin.c (load_languages):

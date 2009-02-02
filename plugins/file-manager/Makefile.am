@@ -16,7 +16,8 @@ file_manager_pixmaps_DATA = \
 	vcs-deleted.png \
 	vcs-ignored.png \
 	vcs-modified.png \
-	vcs-unversioned.png
+	vcs-unversioned.png \
+	vcs-updated.png
 
 # Plugin description file
 plugin_in_files = file-manager.plugin.in

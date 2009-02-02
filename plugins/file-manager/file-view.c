@@ -58,7 +58,6 @@ const gchar* anjuta_vcs_status_strings[] = {
 	NULL,
 	N_("Modified"),
 	N_("Added"),
-	N_("Removed"),
 	N_("Deleted"),
 	N_("Conflicted"),
 	N_("Up-to-date"),
