@@ -151,21 +151,18 @@ error_dialog (GtkWindow *parent, const gchar *summary, const gchar *msg, ...)
 {
     va_list ap;
     gchar *tmp;
-    gchar *message;
     GtkWidget *dialog;
     
     va_start (ap, msg);
     tmp = g_strdup_vprintf (msg, ap);
     va_end (ap);
     
-    message = g_markup_printf_escaped ("<b>%s</b>\n\n%s", summary, tmp);
     dialog = gtk_message_dialog_new_with_markup (parent,
 						 GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR,
 						 GTK_BUTTONS_OK,
-						 "%s", message);
+						 "<b>%s</b>\n\n%s", summary, tmp);
     g_free (tmp);
-    g_free (message);
     
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);

@@ -1,0 +1,199 @@
+<chapter id="glade">
+	<title>Glade Interface Designer</title>
+
+	<sect2>
+		<title>Quick start</title>
+		<para>
+			If you don't want to read all this boring manual, here is few steps to
+			get all things ready for use:
+			<orderedlist>
+				<listitem><para>
+					You should have a project containing Glade file opened;
+				</para></listitem>
+				<listitem><para>
+					Unlike original Glade designer, Anjuta plugin uses double click
+					for creating handlers for default signal. You can perform a click
+					on widgets (e.g. switch current tab in a GtkNotebook)
+					by keeping "Windows" or "Super" key pressed;
+				</para></listitem>
+				<listitem><para>
+					Open
+					<menuchoice><guimenuitem>Preferences</guimenuitem>
+					<guimenuitem>Glade GUI Designer</guimenuitem></menuchoice>
+					and check the three topmost flags
+					<guilabel>Insert handler on edit</guilabel>,
+					<guilabel>Separated designer layout</guilabel>
+					and <guilabel>Automatically add resources</guilabel>;
+				</para></listitem>
+				<listitem><para>
+					Check
+					<menuchoice>
+						<guimenuitem>View</guimenuitem>
+						<guimenuitem>Designer</guimenuitem>
+					</menuchoice>
+					flag and move this window to a better place;
+				</para></listitem>
+				<listitem><para>
+					Switch to a Glade file in the design area and to the source code file that
+					should contain callbacks for the Glade file, then press
+					<menuchoice><guimenuitem>Glade</guimenuitem>
+					<guimenuitem>Associate last designer and editor</guimenuitem></menuchoice>;
+				</para></listitem>
+				<listitem><para>
+					Optionally select a target for image and other resources in the
+					project manager and press <guilabel>Set as default resource target</guilabel>
+					in the context menu.
+				</para></listitem>
+			</orderedlist>
+		</para>
+	</sect2>
+	
+	<sect2>
+		<title>Glade general usage questions</title>
+		<para>
+			Glade plugin mostly copies functionality of standalone Glade
+			designer, but there are some special features. The four windows of
+			the Glade desinger are design area, palette, widgets inspector and
+			property editor. They have the same purpose as in the standalone
+			designer, so please consult
+			<ulink type="help" url="ghelp:glade">Glade Interface Designer Manual</ulink>
+			for their description. An extra functionality allows you to
+			use infrastructure of Anjuta more effectively and is described here.
+		</para>
+	</sect2>
+
+	<sect2>
+		<title>Editor and designer association</title>
+		<para>
+			You can associate text editor and Glade designer so you will easily
+			switch between them and automatically insert handler stubs for
+			newly entered handlers. You can associate more then one editor to
+			a designer. The most recent editor or associated with the current
+			toplevel widget will be used.
+			There are two ways of associating editor and designer.
+			The first way is using associations dialog. The second way is to
+			choose designer and editor document in any order and then press
+			<menuchoice><guimenuitem>Glade</guimenuitem>
+			<guimenuitem>Associate last designer and editor</guimenuitem></menuchoice>
+			menu item.
+		</para>
+	</sect2>
+
+	<sect2>
+		<title>Associations dialog</title>
+		<para>
+			Allows you to create and manager associations. To create an
+			association select designer and editor in the comboboxes and press
+			<guibutton>Associate</guibutton>. You can also select the document by
+			switching to it in document manager or windows list in the main menu.
+			The list in the middle of the dialog shows existing associations.
+			A couple of controls below are intended for editing association properties.
+			Here is their description:
+			<variablelist>
+				<varlistentry>
+					<term><guilabel>Spec regexp</guilabel></term>
+					<listitem><para>
+						Shortened from "special regular expression". Used for defining
+						a custom position for inserting stubs.
+					</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><guilabel>Widget name</guilabel></term>
+					<listitem><para>
+							The name of the toplevel widget this assoctiation belongs to.
+					</para></listitem>
+				</varlistentry>
+				<varlistentry id="glade-position-type">
+					<term><guilabel>Position type</guilabel></term>
+					<listitem><para>
+						Describes a position at which a handler stub will be inserted.
+						<guilabel>After begin</guilabel> means after special mark
+						(which may be entered in the <guilabel>Spec regexp</guilabel> entry)
+						and <guilabel>before end</guilabel> means before special end mark.
+						Default begin mark is /* window_name callbacks */ and default end
+						mark is /* end of window_name callbacks */. window_name may be ommited.
+					</para></listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+	</sect2>
+	
+	<sect2 id="glade-default-signal">
+		<title>Default signal</title>
+		<para>
+			Double click on a widget in the design area will create a new handler
+			for default signal using a predefined template for its naming.
+			For example, the default signal is "clicked" for button, "toggled" for
+			check box, etc.
+			If <guilabel>Insert handler on edit</guilabel> option is enabled then a new handler stub will be inserted to the position
+			which depends on <guilabel>Position type</guilabel> setting.
+		</para>
+	</sect2>
+	
+	<sect2>
+		<title>Inserting a stub</title>
+		<para>
+			One of the most valuable goal of <application>Anjuta</application> and
+			<application>Glade</application> integration is automatical creating of
+			handler stubs, so you will not need to do a lot of routine work for that,
+			it will be done automatically.
+		</para>
+		<para>
+			There are several ways to create a stub:
+			<itemizedlist>
+				<listitem><para>
+						Automatically if <guilabel>Insert handler on edit</guilabel> option
+						if enabled
+					</para></listitem>
+				<listitem><para>
+						Using
+						<menuchoice><guimenuitem>Glade</guimenuitem>
+						<guimenuitem>Insert handler stub, autoposition</guimenuitem></menuchoice>
+						in hte main menu
+					</para></listitem>
+				<listitem><para>
+						Using <guilabel>Insert handler stub</guilabel> item in the context
+						menu of text document
+					</para></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+
+	<sect2>
+		<title>Preferences</title>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Insert handler on edit</guilabel></term>
+				<listitem><para>
+					Enables inserting a handler stub into the associated editor after
+					entering a new handler into signal editor or creating a
+					<link linkend="glade-default-signal">default signal handler</link>
+				</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Separated designer layout</guilabel></term>
+				<listitem><para>
+						Detaches the design area from document manager so you can dock it
+						separately from text editors.
+					</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Automatically add resources</guilabel></term>
+				<listitem><para>
+					When checked then all resources (e.g. images) will be added to
+					the target in the current project. You can choose the target
+					using project manager context menu or by entering target id in
+					the entry below the check button.
+				</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Handler template</guilabel></term>
+				<listitem><para>
+						You can choose between the two formats of automatic naming of
+						signal handler.
+				</para></listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+
+</chapter>

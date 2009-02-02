@@ -1,3 +1,11 @@
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
+
+	* manuals/anjuta-manual/C/glade.xml:
+	Added missing file
+	
+	* plugins/project-manager/gbf-project-util.c (error_dialog):
+	Show correct markup
+
 2009-02-02  Jens Georg  <mail@jensge.org>
 
 	* plugins/gbf-am/gbf-am-project.c (uri_is_parent), (uri_normalize),
