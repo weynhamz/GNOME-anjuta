@@ -300,7 +300,7 @@ uri_is_parent (const gchar *parent_uri,
 
 	parent = g_file_new_for_commandline_arg (parent_uri);
 	child = g_file_new_for_commandline_arg (child_uri);
-	retval = g_file_equal (parent, child);
+	retval = g_file_has_prefix (child, parent);
 	g_object_unref (parent);
 	g_object_unref (child);
 
@@ -385,11 +385,13 @@ uri_get_chrooted_path (const gchar *root_uri, const gchar *uri)
 	}
 	else
 	{
-
+		char *tmp;
 		root = g_file_new_for_uri (root_uri);
 		file = g_file_new_for_uri (uri);
 
-		path = g_file_get_relative_path (root, file);
+		tmp = g_file_get_relative_path (root, file);
+		path = g_build_filename (G_DIR_SEPARATOR_S, tmp, NULL);
+		g_free (tmp);
 
 		g_object_unref (root);
 		g_object_unref (file);
