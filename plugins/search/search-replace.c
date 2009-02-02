@@ -589,8 +589,6 @@ search_and_replace (void)
 			
 		}
 		file_buffer_free (fb);
-		g_free (se->path);
-		g_free (se);
 
 		if (SA_SELECT == s->action && nb_results > 0)
 			break;
@@ -602,8 +600,7 @@ search_and_replace (void)
 		s->range.type == SR_SELECTION)
 			flag_select = TRUE;
 	
-	if (entries)
-		g_list_free (entries);
+	free_search_entries  (entries);
 	
 	if (s->action == SA_FIND_PANE)
 	{

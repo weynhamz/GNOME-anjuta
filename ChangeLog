@@ -1,5 +1,12 @@
 2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c,
+	plugins/search/search-replace_backend.h:
+	Fix #570223 – Replace all in open buffers crashes
+
+2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/scintilla/text_editor.c,
 	libanjuta/interfaces/libanjuta.idl:
 	Fix #567206 – Build doesn't start if auto-save fails

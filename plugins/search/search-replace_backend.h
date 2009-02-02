@@ -198,6 +198,8 @@ void function_select (IAnjutaEditor *te);
 
 GList *create_search_entries(Search *s);
 
+void free_search_entries (GList *entries);
+
 FileBuffer *file_buffer_new_from_te (IAnjutaEditor *te);
 
 FileBuffer *

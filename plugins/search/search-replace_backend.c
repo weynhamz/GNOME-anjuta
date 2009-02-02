@@ -669,7 +669,13 @@ static gint search_entry_compare(gconstpointer a, gconstpointer b)
 {
 	gchar* a_path = ((SearchEntry *) a)->path;
 	gchar* b_path = ((SearchEntry *) b)->path;
-	return strcmp(a_path, b_path);
+	return g_strcmp0(a_path, b_path);
+}
+
+static void search_entry_free (gpointer data, gpointer user_data)
+{
+	g_free (((SearchEntry *)data)->path);
+	g_free (data);
 }
 
 /* Create list of search entries */
@@ -808,14 +814,28 @@ create_search_entries (Search *s)
 			{
 				if (IANJUTA_IS_EDITOR (tmp->data))
 				{
+					gchar *path = NULL;
+
+					if (IANJUTA_IS_FILE (tmp->data))
+					{
+						GFile *file = ianjuta_file_get_file (IANJUTA_FILE (tmp->data), NULL);
+						
+						if (file != NULL)
+						{
+							path = g_file_get_path (file);
+							g_object_unref (file);
+						}
+					}
+					
 					se = g_new0 (SearchEntry, 1);
-				se->type = SE_BUFFER;
+					se->type = SE_BUFFER;
 					se->te = IANJUTA_EDITOR (tmp->data);
-				se->direction = SD_FORWARD;
-				se->start_pos = 0;
-				se->end_pos = -1;
-				entries = g_list_prepend(entries, se);
-			}
+					se->path = path;
+					se->direction = SD_FORWARD;
+					se->start_pos = 0;
+					se->end_pos = -1;
+					entries = g_list_prepend(entries, se);
+				}
 			}
 			entries = g_list_sort(entries, search_entry_compare);
 			g_list_free (editors);
@@ -865,6 +885,12 @@ create_search_entries (Search *s)
 		}
 	}	
 	return entries;		
+}
+
+void free_search_entries (GList *entries)
+{
+	g_list_foreach (entries, search_entry_free, NULL);
+	g_list_free (entries);
 }
 
 gchar *
