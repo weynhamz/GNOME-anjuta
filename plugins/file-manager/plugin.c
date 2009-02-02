@@ -83,7 +83,8 @@ file_manager_set_default_uri (AnjutaFileManager* file_manager)
 
 	file = g_file_new_for_path (anjuta_preferences_get (file_manager->prefs, PREF_ROOT));
 	char *uri = g_file_get_uri (file);
-	g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
+	if (uri)
+		g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
 	file_manager->have_project = FALSE;
 	g_free (uri);
 	g_object_unref (file);
@@ -175,6 +176,17 @@ on_file_view_show_popup_menu (AnjutaFileView* view, GFile* file,
 }
 
 static void 
+on_gconf_notify_root(GConfClient *gclient, guint cnxn_id,
+					 GConfEntry *entry, gpointer user_data)
+{
+	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
+	if (!file_manager->have_project)
+	{
+		file_manager_set_default_uri (file_manager);
+		file_view_refresh (file_manager->fv);
+	}
+}
+static void 
 on_gconf_notify(GConfClient *gclient, guint cnxn_id,
 				GConfEntry *entry, gpointer user_data)
 {
@@ -186,18 +198,8 @@ on_gconf_notify(GConfClient *gclient, guint cnxn_id,
 				  "filter_binary", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BINARY),
 				  "filter_hidden", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_HIDDEN),
 				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP),
-				  "filter_unversioned", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);				  
-	
-	if (!file_manager->have_project)
-	{
-		file_manager_set_default_uri (file_manager);
-		file_view_refresh (file_manager->fv);
-	}
-	else
-	{
-		file_view_refresh (file_manager->fv);
-	}
-	
+				  "filter_unversioned", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);
+	file_view_refresh (file_manager->fv);
 }
 
 static gboolean
@@ -261,7 +263,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 								 project_root_removed, NULL);
 	
 	
-	REGISTER_NOTIFY (PREF_ROOT, on_gconf_notify);
+	REGISTER_NOTIFY (PREF_ROOT, on_gconf_notify_root);
 	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_gconf_notify);
 	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_gconf_notify);
 	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_gconf_notify);

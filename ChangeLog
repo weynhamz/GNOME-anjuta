@@ -1,5 +1,12 @@
 2009-02-02  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/plugin.c (file_manager_set_default_uri),
+	(on_gconf_notify_root), (on_gconf_notify), (file_manager_activate):
+	#566800 – Had a random crash in "File manager" preferences pane (avoid
+	flickering when a project is open)
+
+2009-02-02  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/interfaces/libanjuta.idl:
 	* plugins/document-manager/search-box.c (on_incremental_search),
 	(on_search_activated):
