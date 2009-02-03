@@ -497,7 +497,7 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @err: Error propagation and reporting
 	* 
-	* Clones the iterable. The returned iterable object must be unrefed
+	* Clones the iterable. The returned iterable object must be unreffed
 	* when done.
 	*
 	* Returns: A new instance of this iterable pointing at the same location.
@@ -5030,14 +5030,13 @@ interface IAnjutaSymbolManager
 	* @global_symbols_search: if TRUE it will search only for public/extern functions. 
 	* 						If FALSE it will search also for static/private functions.
 	* @global_tags_search: If TRUE it'll search only for system tags, using pkg-config to retrieve installed packages
-	* infos. If FALSE only current project's symbols will be searched.
+	* info. If FALSE only current project's symbols will be searched.
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
- 	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
- 	* @results_offset Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 
-	* 
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* @deprecated This function is deprecated and should not be used in new code. 
+	*
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* 
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
@@ -5045,13 +5044,78 @@ interface IAnjutaSymbolManager
 	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_symbols_search, gboolean global_tags_search, gint results_limit, gint results_offset);
 	
 	/**
+	* ianjuta_symbol_manager_search_system:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched in global (system) packages.
+	* User must have installed the -dev packages of, for istance, gtk+, glib, etc.
+	* 
+	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
+	* 
+	*/	
+	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
+		
+	/**
+	* ianjuta_symbol_manager_search_project:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched in current opened project.
+	* 
+	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
+	* 
+	*/	
+	IAnjutaIterable* search_project (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
+	
+	/**
+	* ianjuta_symbol_manager_search_project:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched in the specified file.
+	* 
+	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
+	* 
+	*/		
+	IAnjutaIterable* search_file (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, const GFile *file, gint results_limit, gint results_offset);
+		
+	/**
 	* ianjuta_symbol_manager_get_members:
 	* @obj: Self
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @global_search: fixme
 	* @err: Error propagation and reporting.
 	* 
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	*	 
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.	
 	* 
@@ -5065,7 +5129,7 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	* 
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* 
 	* Returns: if the passed symbol is a class then this function tries to catch its parents.
 	*
@@ -5080,7 +5144,7 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.	 
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.	 
 	* It gets the scope specified by the line of the file. 
 	*
 	* Returns: The returned iterator should contain just one element if the query is successful, 
@@ -5097,12 +5161,12 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* Find the parent scope given a symbol
 	* 
 	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
 	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unrefed after use.
+	* The returned #IAnjutaIterable object must be unreffed after use.
 	*/	
 	IAnjutaIterable* get_parent_scope (const IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
 
@@ -5113,7 +5177,7 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.	
 	*
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* While at first sight this function may seem as useless, in a deeper inspection
 	* you can see that you can achieve speed improvements for example avoiding 
 	* to pass many info_fields requests to a search query, which itself could require
@@ -5122,7 +5186,7 @@ interface IAnjutaSymbolManager
 	*
 	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
 	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unrefed after use.
+	* The returned #IAnjutaIterable object must be unreffed after use.
 	*
 	*/	
 	IAnjutaIterable* get_symbol_more_info (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
@@ -5134,13 +5198,13 @@ interface IAnjutaSymbolManager
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @return NULL on error.
 	*
-	* Database query. The returned #IAnjutaIterable object must be unrefed after use.
+	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* A symbol is identified by an unique id. If you have its id you can also 
 	* have its object IAnjutaSymbol.	 
 	*
 	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
 	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unrefed after use.	 
+	* The returned #IAnjutaIterable object must be unreffed after use.	 
 	*/
 	IAnjutaSymbol* get_symbol_by_id (gint symbol_id, IAnjutaSymbolField info_fields);
 }

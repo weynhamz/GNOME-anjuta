@@ -1,3 +1,42 @@
+2009-02-03  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/symbol-db/plugin.c (do_import_system_sources),
+	(on_project_root_added), (isymbol_manager_search),
+	(isymbol_manager_get_members), (isymbol_manager_search_system),
+	(isymbol_manager_search_project), (isymbol_manager_search_file),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/symbol-db-engine-core.c (sdb_engine_init),
+	(symbol_db_engine_file_exists),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_project_exists),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_db_file),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file), (on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols):
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_find_symbol_by_name_pattern_on_file):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(symbol_db_util_get_full_local_path),
+	(symbol_db_util_get_file_db_path),
+	(symbol_db_util_get_files_with_zero_symbols),
+	(symbol_db_util_is_pattern_exact_match),
+	(symbol_db_util_fill_type_array),
+	(symbol_db_util_get_sym_type_conversion_hash):
+	* plugins/symbol-db/symbol-db-engine-utils.h:
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-search.c
+	(sdb_view_search_model_filter):
+	Splitted interfaces for searching symbols. Now you can search in system,
+	project or file.
+	#566987 – display tooltip with prototype when calling function in project
+	Fixed some lock () issues.
+
 === 2.25.901 ===
 
 2009-02-03  Johannes Schmid  <jhs@gnome.org>

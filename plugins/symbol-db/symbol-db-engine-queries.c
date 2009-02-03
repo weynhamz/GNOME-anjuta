@@ -1351,7 +1351,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 	
-	db_relative_file = symbol_db_engine_get_file_db_path (dbe, full_local_file_path);
+	db_relative_file = symbol_db_util_get_file_db_path (dbe, full_local_file_path);
 	if (db_relative_file == NULL)
 		return NULL;
 	
@@ -1528,7 +1528,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		return NULL;
 	}
 		
-	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, file_path);
+	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, file_path);
 	if (relative_path == NULL)
 	{
 		SDB_UNLOCK(priv);
@@ -2015,6 +2015,293 @@ select * from symbol where scope_definition_id = (
 	SDB_UNLOCK(priv);
 	return res;
 }
+
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_YES		0x010000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_NO			0x020000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_LIMIT					0x040000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_OFFSET					0x080000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_EXACT_MATCH_YES			0x100000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_EXACT_MATCH_NO			0x200000
+
+SymbolDBEngineIterator *
+symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
+									const gchar *pattern,
+									const gchar *full_local_file_path,
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds,
+									gint results_limit,
+									gint results_offset,
+									SymExtraInfo sym_info)
+{
+	SymbolDBEnginePriv *priv;
+	GdaDataModel *data;
+	GString *info_data;
+	GString *join_data;
+	GString *filter_str;
+	gchar *query_str;
+	const gchar *match_str;
+	GdaHolder *param;
+	const DynChildQueryNode *dyn_node;
+	gint other_parameters;
+	gchar *limit = "";
+	gboolean limit_free = FALSE;
+	gchar *offset = "";
+	gboolean offset_free = FALSE;
+	GValue *ret_value;
+	gboolean ret_bool;	
+	gchar *db_rel_path;
+
+	g_return_val_if_fail (dbe != NULL, NULL);
+	priv = dbe->priv;
+
+	SDB_LOCK(priv);
+	
+	/* remove kind and path. They're already provided */
+	sym_info = sym_info & ~SYMINFO_KIND;
+	sym_info = sym_info & ~SYMINFO_FILE_PATH;
+	
+	/* initialize dynamic stuff */
+	other_parameters = 0;
+	dyn_node = NULL;
+
+
+	/* check for match */
+	if (g_strrstr (pattern, "%") == NULL)
+	{
+		other_parameters |= 
+			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_EXACT_MATCH_YES;
+		match_str = " = ## /* name:'pattern' type:gchararray */";
+	}
+	else
+	{
+		other_parameters |= 
+			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_EXACT_MATCH_NO;
+		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
+	}	
+	
+	if (results_limit > 0)
+	{
+		other_parameters |= DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_LIMIT;
+		limit_free = TRUE;
+		limit = g_strdup_printf ("LIMIT ## /* name:'limit' type:gint */");
+	}
+	
+	if (results_offset > 0)
+	{
+		other_parameters |= DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_OFFSET;
+		offset_free = TRUE;
+		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");		
+	}
+	
+	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
+	{
+		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
+			DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE, sym_info, 
+														 other_parameters)) == NULL)
+		{
+			/* info_data contains the stuff after SELECT and befor FROM */
+			info_data = g_string_new ("");
+	
+			/* join_data contains the optionals joins to do to retrieve new data on other
+			 * tables.
+		 	 */
+			join_data = g_string_new ("");
+		
+			/* fill info_data and join data with optional sql */
+			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+			
+			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
+					"symbol.name AS name, symbol.file_position AS file_position, "
+					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+					"sym_kind.kind_name AS kind_name "
+					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
+					"WHERE symbol.name %s AND symbol.file_defined_id IN "
+					"(SELECT file_id FROM file WHERE file_path = ## /* name:'fpath' type:gchararray */) %s %s", 
+				info_data->str, join_data->str, match_str, limit, offset);			
+
+			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
+						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
+						sym_info, other_parameters,
+						query_str);
+
+			g_free (query_str);
+			g_string_free (info_data, TRUE);
+			g_string_free (join_data, TRUE);
+		}
+	}
+	else
+	{		
+		if (include_kinds == TRUE)
+		{
+			other_parameters |= 
+				DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_YES;
+		}
+		else
+		{
+			other_parameters |= 
+				DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_NO;
+		}
+
+		/* set the number of parameters in the less important byte */
+		other_parameters |= filter_kinds->len;
+		
+		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
+				DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE, sym_info, 
+				other_parameters)) == NULL)
+		{					
+			gint i;
+			
+			/* info_data contains the stuff after SELECT and before FROM */
+			info_data = g_string_new ("");
+
+			/* join_data contains the optionals joins to do to retrieve new 
+			 * data on other tables.
+		 	 */
+			join_data = g_string_new ("");
+	
+			/* fill info_data and join data with optional sql */
+			sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+			/* prepare the dynamic filter string before the final query */
+			filter_str = g_string_new ("");
+		
+			if (include_kinds == TRUE)
+			{				
+				filter_str = g_string_append (filter_str , 
+					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
+				for (i = 1; i < filter_kinds->len; i++)
+				{				
+					g_string_append_printf (filter_str , 
+							",## /* name:'filter%d' type:gchararray */", i);
+				}
+				filter_str = g_string_append (filter_str , ")");				
+			}
+			else
+			{
+				filter_str = g_string_append (filter_str , 
+					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
+				for (i = 1; i < filter_kinds->len; i++)
+				{				
+					g_string_append_printf (filter_str , 
+							",## /* name:'filter%d' type:gchararray */", i);
+				}
+				filter_str = g_string_append (filter_str , ")");				
+			}			
+			
+			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
+				"symbol.file_position AS file_position, "
+				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+				"sym_kind.kind_name AS kind_name "
+					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "					
+					"WHERE symbol.name %s AND symbol.file_defined_id IN "
+					"(SELECT file_id FROM file WHERE file_path = ## /* name:'fpath' type:gchararray */) "
+					"%s GROUP BY symbol.name %s %s", 
+			 		info_data->str, join_data->str, match_str, 
+			 		filter_str->str, limit, offset);
+			
+			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
+						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
+						sym_info, other_parameters,
+						query_str);
+			g_free (query_str);
+			g_string_free (info_data, TRUE);
+			g_string_free (join_data, TRUE);
+			g_string_free (filter_str, TRUE);
+		}
+	}	
+	
+	if (limit_free)
+		g_free (limit);
+	
+	if (offset_free)
+		g_free (offset);
+
+	if (dyn_node == NULL)
+	{
+		SDB_UNLOCK(priv);
+		return NULL;
+	}
+	
+	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_LIMIT)
+	{	
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
+		{
+			SDB_UNLOCK(priv);
+			return NULL;
+		}
+
+		MP_SET_HOLDER_BATCH_INT(priv, param, results_limit, ret_bool, ret_value);		
+	}
+
+	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_OFFSET)
+	{	
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
+		{
+			SDB_UNLOCK(priv);			
+			return NULL;
+		}
+
+		MP_SET_HOLDER_BATCH_INT(priv, param, results_offset, ret_bool, ret_value);		
+	}
+	
+	/* fill parameters for filter kinds */
+	if (other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_YES ||
+		other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_NO)
+	{	
+		gint i;
+		for (i = 0; i < filter_kinds->len; i++)
+		{
+			gchar *curr_str = g_strdup_printf ("filter%d", i);
+			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds, i), ret_bool, ret_value);		
+			g_free (curr_str);
+		}
+	}
+	
+	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "pattern")) == NULL)
+	{
+		SDB_UNLOCK(priv);
+		return NULL;
+	}
+
+	MP_SET_HOLDER_BATCH_STR(priv, param, pattern, ret_bool, ret_value);
+
+	/* get the db-relative file path */
+	db_rel_path = symbol_db_util_get_file_db_path (dbe, full_local_file_path);
+	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "fpath")) == NULL)
+	{
+		SDB_UNLOCK(priv);
+		g_free (db_rel_path);
+		return NULL;
+	}
+
+	MP_SET_HOLDER_BATCH_STR(priv, param, db_rel_path, ret_bool, ret_value);
+	
+	/*DEBUG_PRINT ("query: %s", dyn_node->query_str);*/
+		
+	/* execute the query with parametes just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+		
+	if (!GDA_IS_DATA_MODEL (data) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
+	{
+		if (data != NULL)
+			g_object_unref (data);
+		
+		SDB_UNLOCK(priv);
+		g_free (db_rel_path);
+		return NULL;
+	}
+
+	SDB_UNLOCK(priv);
+	
+	g_free (db_rel_path);
+	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
+												priv->sym_type_conversion_hash,
+												priv->project_directory);
+}
+
 
 /**
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.

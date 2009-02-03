@@ -45,33 +45,33 @@ gint
 symbol_db_glist_compare_func (gconstpointer a, gconstpointer b);
 
 /**
- * Return full_local_path given a relative-to-db file path.
+ * @return full_local_path given a relative-to-db file path.
  * User must care to free the returned string.
  * @param db_file Relative path inside project.
  */
 gchar*
-symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
+symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
 
 /**
- * Return a db-relativ file path. Es. given the full_local_file_path 
+ * @return a db-relativ file path. Es. given the full_local_file_path 
  * /home/user/foo_project/src/foo.c returned file should be /src/foo.c.
  * Return NULL on error.
  */
 gchar*
-symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
+symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
 
 /** 
  * Hash table that converts from a char like 'class' 'struct' etc to an 
  * IANJUTA_SYMBOL_TYPE
  */
 const GHashTable*
-symbol_db_engine_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
+symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
 
 /**
- * Return a GPtrArray that must be freed from caller.
+ * @return a GPtrArray that must be freed from caller.
  */
 GPtrArray *
-symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types);
+symbol_db_util_fill_type_array (IAnjutaSymbolType match_types);
 
 /**
  * Try to get all the files with zero symbols: these should be the ones
@@ -80,12 +80,22 @@ symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types);
  * @return NULL if no files are found.
  */
 GPtrArray *
-symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe);
+symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe);
 
-/* return the pixbufs. It will initialize pixbufs first if they weren't before
- * node_access: can be NULL.
+/**
+ * @return The pixbufs. It will initialize pixbufs first if they weren't before
+ * @param node_access can be NULL.
  */
 const GdkPixbuf* 
 symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access);
+
+/**
+ * @param pattern The pattern you want to test to check if it's an exact pattern 
+ * or not. An exact pattern can be "foo_function", while a LIKE pattern can be
+ * "foo_func%". You can escape the '%' by prefixing it with another '%', e.g. 
+ * "strange_search_%%_yeah"
+ */
+gboolean
+symbol_db_util_is_pattern_exact_match (const gchar *pattern);
 
 #endif

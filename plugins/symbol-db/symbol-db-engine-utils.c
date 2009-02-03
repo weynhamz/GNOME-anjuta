@@ -65,7 +65,7 @@ symbol_db_gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_da
 }
 
 gchar*
-symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
+symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 {
 	SymbolDBEnginePriv *priv;
 	gchar *full_path;
@@ -78,7 +78,7 @@ symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 }
 
 gchar*
-symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path)
+symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path)
 {
 	SymbolDBEnginePriv *priv;
 	gchar *relative_path;
@@ -103,7 +103,7 @@ symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_
 }
 
 GPtrArray *
-symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
+symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 {
 	/*select * from file where file_id not in (select file_defined_id from symbol);*/
 	SymbolDBEnginePriv *priv;
@@ -161,7 +161,7 @@ symbol_db_engine_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 
 		/* build abs path. */
 		file_name = g_value_get_string (value);
-		file_abs_path = symbol_db_engine_get_full_local_path (dbe, file_name);
+		file_abs_path = symbol_db_util_get_full_local_path (dbe, file_name);
 		g_ptr_array_add (files_to_scan, file_abs_path);
 	}
 
@@ -239,10 +239,6 @@ sdb_util_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("globalglobal", "element-event-16.png");
 }
 
-/**
- * @return The pixbufs. It will initialize pixbufs first if they weren't before
- * @param node_access can be NULL.
- */
 const GdkPixbuf* 
 symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 {
@@ -282,4 +278,171 @@ symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	}
 	
 	return pix;
+}
+
+gboolean
+symbol_db_util_is_pattern_exact_match (const gchar *pattern)
+{
+	gint i;
+	g_return_val_if_fail (pattern != NULL, FALSE);
+	gint str_len = strlen (pattern);
+	gboolean found_sequence = FALSE;
+	gint count = 0;
+	
+	for (i = 0; i < str_len; i++)
+	{
+		gchar c = pattern[i];
+		gint j = i;
+		
+		while (c == '%')
+		{
+			found_sequence = TRUE;
+			count++;
+			/* grab the next one */
+			if (j + 1 < str_len)
+			{				
+				c = pattern[j+1];
+				j++;
+			}
+			else 
+			{
+				break;
+			}			
+		}
+		
+		if (found_sequence)
+			break;
+	}
+
+	return (count % 2 == 1) ? FALSE : TRUE;
+}
+
+GPtrArray *
+symbol_db_util_fill_type_array (IAnjutaSymbolType match_types)
+{
+	GPtrArray *filter_array;
+	filter_array = g_ptr_array_new ();
+
+	if (match_types & IANJUTA_SYMBOL_TYPE_CLASS)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("class"));
+	}
+
+	if (match_types & IANJUTA_SYMBOL_TYPE_ENUM)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("enum"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_ENUMERATOR)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("enumerator"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_FIELD)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("field"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_FUNCTION)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("function"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_INTERFACE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("interface"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_MEMBER)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("member"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_METHOD)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("method"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_NAMESPACE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("namespace"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_PACKAGE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("package"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_PROTOTYPE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("prototype"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("struct"));
+	}
+
+	if (match_types & IANJUTA_SYMBOL_TYPE_TYPEDEF)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("typedef"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("struct"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_UNION)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("union"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("variable"));
+	}
+				
+	if (match_types & IANJUTA_SYMBOL_TYPE_EXTERNVAR)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("externvar"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("macro"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("macro_with_arg"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_FILE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("file"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("variable"));
+	}
+	
+	if (match_types & IANJUTA_SYMBOL_TYPE_OTHER)
+	{
+		g_ptr_array_add (filter_array, g_strdup ("other"));
+	}
+
+	return filter_array;
+}
+
+const GHashTable*
+symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe)
+{
+	SymbolDBEnginePriv *priv;
+	g_return_val_if_fail (dbe != NULL, NULL);
+	
+	priv = dbe->priv;
+		
+	return priv->sym_type_conversion_hash;
 }

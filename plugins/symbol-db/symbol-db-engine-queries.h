@@ -76,6 +76,16 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									SymExtraInfo sym_info);
 
 
+SymbolDBEngineIterator *
+symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
+									const gchar *pattern,
+									const gchar *full_local_file_path,
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds,
+									gint results_limit,
+									gint results_offset,
+									SymExtraInfo sym_info);
+
 /**
  * Return an iterator to the data retrieved from database. 
  * The iterator, if not null, will contain a list of parent classes for the 

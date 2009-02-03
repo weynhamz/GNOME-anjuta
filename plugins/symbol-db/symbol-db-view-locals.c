@@ -1371,7 +1371,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	priv->current_local_file_path = NULL;
 
 	priv->current_db_file = 
-		symbol_db_engine_get_file_db_path (dbe, filepath);
+		symbol_db_util_get_file_db_path (dbe, filepath);
 	if (priv->current_db_file == NULL) 
 	{
 		DEBUG_PRINT ("Warning: priv->current_db_file is NULL");

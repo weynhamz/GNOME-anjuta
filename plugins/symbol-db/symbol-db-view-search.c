@@ -142,7 +142,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 					gint pos;
 					
 					/* and now get the relative one */
-					db_file_path = symbol_db_engine_get_file_db_path (priv->sdbe,
+					db_file_path = symbol_db_util_get_file_db_path (priv->sdbe,
 																	  file_path);
 					
 					pos = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);

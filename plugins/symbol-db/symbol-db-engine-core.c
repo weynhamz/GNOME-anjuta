@@ -2363,6 +2363,10 @@ sdb_engine_init (SymbolDBEngine * object)
 									TRUE);
 
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
+									TRUE);
+	
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
 									TRUE);
 
@@ -2874,7 +2878,7 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 
 	SDB_LOCK(priv);
 	
-	relative = symbol_db_engine_get_file_db_path (dbe, abs_file_path);
+	relative = symbol_db_util_get_file_db_path (dbe, abs_file_path);
 	if (relative == NULL)
 	{
 		SDB_UNLOCK(priv);
@@ -2970,6 +2974,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	return TRUE;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 									const gchar * workspace_name)
@@ -2992,10 +2997,13 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 
+	SDB_LOCK(priv);
+	
 	if ((stmt =
 		 sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_WORKSPACE_NEW)) == NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
@@ -3004,6 +3012,7 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
 		g_warning ("param is NULL from pquery!\n");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	MP_SET_HOLDER_BATCH_STR(priv, param, workspace_name, ret_bool, ret_value);
@@ -3013,12 +3022,15 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	SDB_UNLOCK(priv);
 	return TRUE;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 							   	const gchar * project_name)
@@ -3029,6 +3041,8 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 
 	priv = dbe->priv;
 
+	SDB_LOCK(priv);
+	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	MP_LEND_OBJ_STR(priv,value);	
 	g_value_set_static_string (value, project_name);
@@ -3039,13 +3053,16 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 				"prjname",
 				 value)) <= 0)
 	{
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	SDB_UNLOCK(priv);
 	/* we found it */
 	return TRUE;
 }
 
+/* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 								  const gchar * project)
@@ -3070,6 +3087,8 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	g_return_val_if_fail (dbe != NULL, FALSE);	
 	priv = dbe->priv;
 
+	SDB_LOCK(priv);
+	
 	if (workspace == NULL)
 	{
 		GValue *value;
@@ -3084,12 +3103,18 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 				 "wsname",
 				 value)) <= 0)
 		{ 
+			
+			/* symbol_db_engine_add_new_workspace 'll lock so unlock here before */			
+			SDB_UNLOCK(priv);
+			
 			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
 			{	
 				DEBUG_PRINT ("%s", "Project cannot be added because a default workspace "
-							 "cannot be created");
+							 "cannot be created");				
 				return FALSE;
 			}
+			/* relock */
+			SDB_LOCK(priv);
 		}
 	}
 	else
@@ -3107,6 +3132,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 				 value)) <= 0)
 	{
 		DEBUG_PRINT ("No workspace id");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
 	
@@ -3115,6 +3141,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 		 sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_PROJECT_NEW)) == NULL)
 	{
 		g_warning ("query is null");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
@@ -3124,6 +3151,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 	{
 		g_warning ("param prjname is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -3132,6 +3160,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsid")) == NULL)
 	{
 		g_warning ("param prjname is NULL from pquery!");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -3142,12 +3171,15 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	SDB_UNLOCK(priv);
 	return TRUE;
 }
 
+/* ### Thread note: this function inherits the mutex lock ### */
 static gint
 sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 {
@@ -3217,7 +3249,10 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 	return table_id;
 }
 
-/* Add a file to project. 
+/**
+ * ~~~ Thread note: this function locks the mutex ~~~
+ *
+ * Add a file to project. 
  * This function requires an opened db, i.e. calling before
  * symbol_db_engine_open_db ()
  * filepath: referes to a full file path.
@@ -3253,6 +3288,8 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	if (strstr (local_filepath, priv->project_directory) == NULL)
 		return FALSE;
 
+	SDB_LOCK(priv);
+	
 	MP_LEND_OBJ_STR(priv, value);	
 	g_value_set_static_string (value, project_name);
 
@@ -3263,6 +3300,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 								  value)) < 0)
 	{
 		g_warning ("no project with that name exists");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
@@ -3271,10 +3309,11 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	 * e.g.: we have a file on disk: "/tmp/foo/src/file.c" and a db_directory located on
 	 * "/tmp/foo/". The entry on db will be "src/file.c" 
 	 */
-	gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, local_filepath);
+	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, local_filepath);
 	if (relative_path == NULL)
 	{
 		DEBUG_PRINT ("%s", "relative_path == NULL");
+		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
 	
@@ -3301,6 +3340,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		{
 			g_warning ("query is null");
 			g_free (relative_path);
+			SDB_UNLOCK(priv);
 			return FALSE;
 		}
 
@@ -3311,6 +3351,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		{
 			g_warning ("param langname is NULL from pquery!");
 			g_free (relative_path);			
+			SDB_UNLOCK(priv);
 			return FALSE;
 		}
 		
@@ -3321,6 +3362,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		{
 			g_warning ("param prjid is NULL from pquery!");
 			g_free (relative_path);
+			SDB_UNLOCK(priv);
 			return FALSE;
 		}
 
@@ -3331,6 +3373,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		{
 			g_warning ("param langid is NULL from pquery!");
 			g_free (relative_path);
+			SDB_UNLOCK(priv);
 			return FALSE;
 		}		
 
@@ -3343,12 +3386,14 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 														 NULL) == -1)
 		{		
 			g_free (relative_path);
+			SDB_UNLOCK(priv);
 			return FALSE;
 		}	
 	}
 
 	g_free (relative_path);
 	
+	SDB_UNLOCK(priv);
 	return TRUE;
 } 
 
@@ -5317,136 +5362,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	g_free (update_data);
 }
 
-const GHashTable*
-symbol_db_engine_get_sym_type_conversion_hash (SymbolDBEngine *dbe)
-{
-	SymbolDBEnginePriv *priv;
-	g_return_val_if_fail (dbe != NULL, NULL);
-	
-	priv = dbe->priv;
-		
-	return priv->sym_type_conversion_hash;
-}
-
-GPtrArray *
-symbol_db_engine_fill_type_array (IAnjutaSymbolType match_types)
-{
-	GPtrArray *filter_array;
-	filter_array = g_ptr_array_new ();
-
-	if (match_types & IANJUTA_SYMBOL_TYPE_CLASS)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("class"));
-	}
-
-	if (match_types & IANJUTA_SYMBOL_TYPE_ENUM)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("enum"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_ENUMERATOR)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("enumerator"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FIELD)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("field"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FUNCTION)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("function"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_INTERFACE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("interface"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MEMBER)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("member"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_METHOD)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("method"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_NAMESPACE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("namespace"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_PACKAGE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("package"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_PROTOTYPE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("prototype"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("struct"));
-	}
-
-	if (match_types & IANJUTA_SYMBOL_TYPE_TYPEDEF)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("typedef"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("struct"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNION)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("union"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("variable"));
-	}
-				
-	if (match_types & IANJUTA_SYMBOL_TYPE_EXTERNVAR)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("externvar"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("macro"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("macro_with_arg"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FILE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("file"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("variable"));
-	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_OTHER)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("other"));
-	}
-
-	return filter_array;
-}
-
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
 									   GPtrArray * files_path,
@@ -5564,7 +5479,6 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 									 value)) <= 0)
 	{
 		SDB_UNLOCK(priv);
-
 		return FALSE;
 	}
 
@@ -5574,7 +5488,6 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	{
 		g_warning ("query is null");
 		SDB_UNLOCK(priv);
-
 		return FALSE;
 	}
 
@@ -5585,8 +5498,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 	{
 		g_warning ("param prjid is NULL from pquery!");
-		SDB_UNLOCK(priv);
-		
+		SDB_UNLOCK(priv);		
 		return FALSE;
 	}
 	
@@ -5779,7 +5691,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 		return FALSE;
 	}
 	
-	gchar * file_on_db = symbol_db_engine_get_file_db_path (dbe, abs_file);
+	gchar * file_on_db = symbol_db_util_get_file_db_path (dbe, abs_file);
 	MP_SET_HOLDER_BATCH_STR(priv, param, file_on_db, ret_bool, ret_value);	
 
 	/* Triggers will take care of updating/deleting connected symbols
@@ -5831,7 +5743,7 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
-		gchar *relative_path = symbol_db_engine_get_file_db_path (dbe, node);
+		gchar *relative_path = symbol_db_util_get_file_db_path (dbe, node);
 		if (relative_path != NULL)
 		{
 			/* will be emitted removed signals */
@@ -5905,7 +5817,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 			continue;
 		}		
 		
-		relative_path = symbol_db_engine_get_file_db_path (dbe, curr_abs_file);
+		relative_path = symbol_db_util_get_file_db_path (dbe, curr_abs_file);
 		if (relative_path == NULL)
 		{
 			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
