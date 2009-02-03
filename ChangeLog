@@ -1,3 +1,10 @@
+=== 2.25.901 ===
+
+2009-02-03  Johannes Schmid  <jhs@gnome.org>
+
+	* NEWS: Updated
+	* configure.in: 2.25.901
+
 2009-02-03  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:
@@ -28,7 +35,7 @@
 	* libanjuta/anjuta-vcs-status.h:
 	* plugins/file-manager/file-view.c (get_status_string),
 	(file_view_show_extended_data):
-	570264 – cannot do subversion->commit: no modified files are detected anymore
+	#570264 – cannot do subversion->commit: no modified files are detected anymore
 
 2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
 

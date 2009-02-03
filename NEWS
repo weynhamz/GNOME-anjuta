@@ -1,3 +1,14 @@
+Anjuta 2.25.901 (3 February 2009) -- Johannes Schmid
+
+This is a bug-fix release for things that were broken too much in 2.25.90
+
+Bugs fixed:
+#570249 – glade plugin does not build
+#566702 – Please add a separator between Build Project and Build Tarrbal
+#570264 – cannot do subversion->commit: no modified files are detected anymore
+#570223 – Replace all in open buffers crashes
+#567206 – Build doesn't start if auto-save fails
+
 Anjuta 2.25.90 (2 February 2009) -- Johannes Schmid
 
 New:
