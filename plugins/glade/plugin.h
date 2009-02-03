@@ -25,17 +25,8 @@
 
 #include "config.h"
 
-#if (GLADEUI_VERSION <= 303)
-# include <glade.h>
-#else
-# if (GLADEUI_VERSION <= 314)
-#   include <glade.h>
-#   include <glade-design-view.h>
-# else /* Since 3.1.5 */
-#   include <gladeui/glade.h>
-#   include <gladeui/glade-design-view.h>
-# endif
-#endif
+#include <gladeui/glade.h>
+#include <gladeui/glade-design-view.h>
 
 extern GType glade_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GLADE         (glade_plugin_get_type (NULL))

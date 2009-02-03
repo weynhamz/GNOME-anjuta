@@ -54,18 +54,35 @@ struct _AnjutaFileViewPrivate
 
 G_DEFINE_TYPE (AnjutaFileView, file_view, GTK_TYPE_TREE_VIEW);
 
-const gchar* anjuta_vcs_status_strings[] = {
-	NULL,
-	N_("Modified"),
-	N_("Added"),
-	N_("Deleted"),
-	N_("Conflicted"),
-	N_("Up-to-date"),
-	N_("Locked"),
-	N_("Missing"),
-	N_("Unversioned"),
-	N_("Ignored")	
-};
+static const gchar*
+get_status_string(AnjutaVcsStatus status)
+{
+	switch (status)
+	{
+		case ANJUTA_VCS_STATUS_NONE:
+			return NULL;
+		case ANJUTA_VCS_STATUS_MODIFIED:
+			return _("Modified");
+		case ANJUTA_VCS_STATUS_DELETED:
+			return _("Deleted");
+		case ANJUTA_VCS_STATUS_ADDED:
+			return _("Added");
+		case ANJUTA_VCS_STATUS_CONFLICTED:
+			return _("Conflicted");
+		case ANJUTA_VCS_STATUS_UPTODATE:
+			return _("Up-to-date");
+		case ANJUTA_VCS_STATUS_LOCKED:
+			return _("Locked");
+		case ANJUTA_VCS_STATUS_MISSING:
+			return _("Missing");
+		case ANJUTA_VCS_STATUS_UNVERSIONED:
+			return _("Unversioned");
+		case ANJUTA_VCS_STATUS_IGNORED:
+			return _("Ignored");
+		default:
+			g_assert_not_reached();
+	}		
+}
 
 enum
 {
@@ -285,14 +302,14 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 									   NULL, NULL);
 		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
 		strftime(time_str, 127, "%x %X", localtime(&time));
-		if (anjuta_vcs_status_strings[status])
+		if (get_status_string(status))
 		{
 			display = g_markup_printf_escaped("%s\n"
 											  "<small><tt>%s</tt></small>\n"
 											  "<small>%s</small>",
 											  g_file_info_get_display_name(file_info),
 											  time_str,
-											  anjuta_vcs_status_strings[status]);
+											  get_status_string(status));
 		}
 		else
 		{

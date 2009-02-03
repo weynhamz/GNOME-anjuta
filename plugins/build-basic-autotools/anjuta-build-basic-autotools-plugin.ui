@@ -6,7 +6,6 @@
 				<menuitem name="CompileFile" action="ActionBuildCompileFile"/>
 				<menuitem name="BuildModule" action="ActionBuildBuildModule"/>
 				<menuitem name="BuildProject" action="ActionBuildBuildProject"/>
-				<menuitem name="BuildDistribution" action="ActionBuildDistribution"/>
 				<separator name="separator10"/>
 				<menuitem name="InstallModule" action="ActionBuildInstallModule"/>
 				<menuitem name="InstallProject" action="ActionBuildInstallProject"/>
@@ -18,6 +17,7 @@
 				<menuitem name="SelectConfiguration" action="ActionBuildSelectConfiguration"/>
 				<menuitem name="RemoveConfiguration" action="ActionBuildRemoveConfiguration"/>
 				<separator name="separator13"/>
+				<menuitem name="BuildDistribution" action="ActionBuildDistribution"/>
 			</menu>
 		</placeholder>
 	</menubar>

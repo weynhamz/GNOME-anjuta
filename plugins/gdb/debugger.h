@@ -163,7 +163,7 @@ void debugger_write_register (Debugger *debugger, const gchar *name, const gchar
 /* Stack */
 void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_set_frame (Debugger *debugger, guint frame);
+void debugger_set_frame (Debugger *debugger, gsize frame);
 
 /* Thread */
 void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);

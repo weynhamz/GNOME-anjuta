@@ -555,9 +555,7 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 			ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(design_document), NULL);
 		}
 
-#  if (GLADEUI_VERSION >= 330)
         glade_inspector_set_project (GLADE_INSPECTOR (plugin->priv->inspector), project);
-#  endif
 
 	}
 }
@@ -1084,7 +1082,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	glade_plugin_load_associations (plugin);
 }
 
-#if (GLADEUI_VERSION >= 330)
 static void
 inspector_item_activated_cb (GladeInspector     *inspector,
 							 AnjutaPlugin       *plugin)
@@ -1139,8 +1136,6 @@ on_glade_resource_added (GladeProject *project, const gchar *resource,
 	g_free (resource_uri);
 	g_free (glade_basename);
 }
-
-#endif
 
 
 
@@ -3829,12 +3824,10 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project,
 	                        G_CALLBACK (on_glade_designer_widget_event_after), glade_plugin);
 #endif
 
-#if (GLADEUI_VERSION >= 330)
 	g_signal_connect (G_OBJECT (project), "resource-added",
 	                  G_CALLBACK (on_glade_resource_added), glade_plugin);
 	g_signal_connect (G_OBJECT (project), "resource-removed",
 	                  G_CALLBACK (on_glade_resource_removed), glade_plugin);
-#endif
 }
 
 static void
@@ -4320,22 +4313,12 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
 
-#if (GLADEUI_VERSION >= 330)
         priv->inspector = glade_inspector_new ();
 
         g_signal_connect (priv->inspector, "item-activated",
         				  G_CALLBACK (inspector_item_activated_cb),
         				  plugin);
-#else
-		priv->inspector = glade_project_view_new ();
-#endif
 
-#if (GLADEUI_VERSION < 330)
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->inspector),
-										GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-		glade_app_add_project_view (GLADE_PROJECT_VIEW (priv->inspector));
-#endif
 		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->inspector),
 							TRUE, TRUE, 0);
 
@@ -4657,15 +4640,7 @@ glade_plugin_class_init (GObjectClass *klass)
 
 gchar* glade_get_filename(GladePlugin *plugin)
 {
-#if (GLADEUI_VERSION >= 330)
 	return glade_project_get_name(glade_app_get_project());
-#else
-	GladeProject* project = glade_app_get_project();
-	if (project)
-		return project->name;
-	else
-		return NULL;
-#endif
 }
 
 static void
@@ -4703,11 +4678,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		return;
 	}
 
-#if (GLADEUI_VERSION >= 330)
 	project = glade_project_load (filename);
-#else
-	project = glade_project_open (filename);
-#endif
 	g_free (filename);
 	if (!project)
 	{
@@ -4717,11 +4688,8 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		g_free (name);
 		return;
 	}
-#if (GLADEUI_VERSION >= 330)
 	project_name = glade_project_get_name(project);
-#else
-	project_name = project->name;
-#endif
+
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project, project_name);
 
 	/* Select the first window in the project */
@@ -4742,17 +4710,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 static GFile*
 ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
-#if (GLADEUI_VERSION >= 330)
 	const gchar* path = glade_project_get_path(glade_app_get_project());
 	GFile* file = g_file_new_for_path (path);
 	return file;
-#else
-	GladeProject* project = glade_app_get_project();
-	if (project && project->path)
-		return g_file_new_for_path(project->path);
-	else
-		return NULL;
-#endif
 }
 
 static void
@@ -4773,11 +4733,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 
 	priv = ANJUTA_PLUGIN_GLADE (iwizard)->priv;
 
-#if (GLADEUI_VERSION >= 330)
 	project = glade_project_new ();
-#else
-	project = glade_project_new (TRUE);
-#endif
 	if (!project)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (iwizard)->shell),
@@ -4786,11 +4742,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	}
 	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 	gtk_list_store_append (store, &iter);
-#if (GLADEUI_VERSION >= 330)
 	project_name = glade_project_get_name(project);
-#else
-	project_name = project->name;
-#endif
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (iwizard), project, project_name);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (iwizard)->shell,
 				     GTK_WIDGET (glade_app_get_palette ()), NULL);

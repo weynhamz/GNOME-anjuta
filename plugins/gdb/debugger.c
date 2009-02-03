@@ -1993,7 +1993,7 @@ debugger_attach_process (Debugger *debugger, pid_t pid)
 		dialog = gtk_message_dialog_new (debugger->priv->parent_win,
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO, mesg);
+										 GTK_BUTTONS_YES_NO, "%s", mesg);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 		{
 			debugger_stop_program (debugger);
@@ -3523,14 +3523,14 @@ static void
 debugger_set_frame_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
 
 {
-	guint frame  = (guint)debugger->priv->current_cmd.user_data;
+	gsize frame  = (gsize)debugger->priv->current_cmd.user_data;
 	debugger->priv->current_frame = frame;
 	
 	g_signal_emit_by_name (debugger->priv->instance, "frame-changed", frame, debugger->priv->current_thread);
 }
 
 void
-debugger_set_frame (Debugger *debugger, guint frame)
+debugger_set_frame (Debugger *debugger, gsize frame)
 {
 	gchar *buff;
 	
@@ -3538,7 +3538,7 @@ debugger_set_frame (Debugger *debugger, guint frame)
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-stack-select-frame %d", frame);
+	buff = g_strdup_printf ("-stack-select-frame %u", frame);
 
 	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_set_frame_finish, NULL, (gpointer)frame);
 	g_free (buff);

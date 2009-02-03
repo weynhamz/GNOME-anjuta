@@ -338,18 +338,11 @@ static GFile* ifile_get_file(IAnjutaFile* ifile, GError **e)
 
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
 
-#if (GLADEUI_VERSION >= 330)
 	const gchar* path = glade_project_get_path(project);
 	if (path != NULL)
 		return g_file_new_for_path (path);
 	else
 		return NULL;
-#else
-	if (project && project->path)
-		return g_file_new_for_path (project->path);
-	else
-		return NULL;
-#endif
 }
 
 
@@ -367,42 +360,28 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 	
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
 	
-#if (GLADEUI_VERSION >= 330)
 	if (glade_project_get_path(project) != NULL) 
 	{
-#else
-		if (project && project->path != NULL) 
+		AnjutaStatus *status;
+		
+		status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
+		if (glade_project_save (project, glade_project_get_path(project),
+								NULL)) 
 		{
-#endif
-			AnjutaStatus *status;
-			
-			status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
-			
-#if (GLADEUI_VERSION >= 330)
-			if (glade_project_save (project, glade_project_get_path(project),
-									NULL)) 
-			{
-				anjuta_status_set (status, _("Glade project '%s' saved"),
-								   glade_project_get_name(project));
-#else
-				if (glade_project_save (project, project->path, NULL)) 
-				{
-					GFile* file = g_file_new_for_path(project->path);
-					anjuta_status_set (status, _("Glade project '%s' saved"),
-									   project->name);
-#endif
-					g_signal_emit_by_name(G_OBJECT(self), "update-save-ui");
-					g_signal_emit_by_name(G_OBJECT(self), "saved", file);
-				}
-				else
-				{
-					anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
-												_("Invalid glade file name"));
-					g_signal_emit_by_name(G_OBJECT(self), "saved", NULL);
-				}
-				return;
-			}
-			DEBUG_PRINT("%s", "Invalid use of ifile_savable_save!");
+			anjuta_status_set (status, _("Glade project '%s' saved"),
+							   glade_project_get_name(project));
+			g_signal_emit_by_name(G_OBJECT(self), "update-save-ui");
+			g_signal_emit_by_name(G_OBJECT(self), "saved", file);
+		}
+		else
+		{
+			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
+										_("Invalid glade file name"));
+			g_signal_emit_by_name(G_OBJECT(self), "saved", NULL);
+		}
+		return;
+	}
+	DEBUG_PRINT("%s", "Invalid use of ifile_savable_save!");
 }
 
 static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError **e)
@@ -414,18 +393,11 @@ static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError
 
 	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(priv->glade_plugin)->shell, NULL);
 
-#if (GLADEUI_VERSION >= 330)
 	if (glade_project_save (project, g_file_get_path (file),
 								NULL))
 	{
 		anjuta_status_set (status, _("Glade project '%s' saved"),
 							   glade_project_get_name(project));
-#else
-	if (glade_project_save (project, g_file_get_path (file), NULL))
-	{
-		anjuta_status_set (status, _("Glade project '%s' saved"),
-							   project->name);
-#endif
 	g_signal_emit_by_name(G_OBJECT(self), "update-save-ui");
 	}
 	else
@@ -449,15 +421,7 @@ static gboolean ifile_savable_is_dirty(IAnjutaFileSavable* file, GError **e)
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
 	if (project == NULL)
 		return FALSE;
-#if (GLADEUI_VERSION >= 330)
-#  if (GLADEUI_VERSION >= 331)
 	if (glade_project_get_modified (project))
-#  else
- 	if (glade_project_get_has_unsaved_changes (project))
-#  endif
-#else
-	if (project->changed)
-#endif
 	{
 		return TRUE;
 	}
@@ -497,12 +461,7 @@ static gboolean idocument_can_redo(IAnjutaDocument *editor, GError **e)
 {
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(editor);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
-#if (GLADEUI_VERSION >= 330)
 	GladeCommand *redo_item;
-#else
-	GList *prev_redo_item;
-	GList *redo_item;
-#endif
 	const gchar *redo_description = NULL;
 
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
@@ -512,16 +471,9 @@ static gboolean idocument_can_redo(IAnjutaDocument *editor, GError **e)
 	}
 	else
 	{
-#if (GLADEUI_VERSION >= 330)
 		redo_item = glade_project_next_redo_item(project);
 		if (redo_item)
 			redo_description = redo_item->description;
-#else
-		prev_redo_item = project->prev_redo_item;
-		redo_item = (prev_redo_item == NULL) ? project->undo_stack : prev_redo_item->next;
-		if (redo_item && redo_item->data)
-			redo_description = GLADE_COMMAND (redo_item->data)->description;
-#endif
 	}
 	return (redo_description != NULL);
 }
@@ -531,12 +483,7 @@ static gboolean idocument_can_undo(IAnjutaDocument *editor, GError **e)
 {
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(editor);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
-#if (GLADEUI_VERSION >= 330)
 	GladeCommand *undo_item;
-#else
-	GList *prev_redo_item;
-	GList *undo_item;
-#endif
 	const gchar *undo_description = NULL;
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
 	if (!project)
@@ -545,15 +492,9 @@ static gboolean idocument_can_undo(IAnjutaDocument *editor, GError **e)
 	}
 	else
 	{
-#if (GLADEUI_VERSION >= 330)
 		undo_item = glade_project_next_undo_item(project);
 		if (undo_item)
 			undo_description = undo_item->description;
-#else
-		undo_item = prev_redo_item = project->prev_redo_item;
-		if (undo_item && undo_item->data)
-			undo_description = GLADE_COMMAND (undo_item->data)->description;
-#endif
 	}
 	return (undo_description != NULL);
 }
@@ -595,14 +536,7 @@ static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(editor);
 	AnjutaDesignDocumentPrivate* priv = ADD_GET_PRIVATE(self);
 	GladeProject* project = glade_design_view_get_project(priv->design_view);
-	#if (GLADEUI_VERSION >= 330)
-		return glade_project_get_name(project);
-	#else
-		if (project)
-			return project->name;
-		else
-			return "Glade";
-	#endif
+	return glade_project_get_name(project);
 }
 
 static void

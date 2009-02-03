@@ -1,3 +1,35 @@
+2009-02-03  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in:
+	* plugins/glade/anjuta-design-document.c (ifile_get_file),
+	(ifile_savable_save), (ifile_savable_save_as),
+	(ifile_savable_is_dirty), (idocument_can_redo),
+	(idocument_can_undo), (idocument_get_filename):
+	* plugins/glade/plugin.c (on_glade_project_changed),
+	(glade_plugin_add_project), (activate_plugin),
+	(glade_get_filename), (ifile_open), (ifile_get_file),
+	(iwizard_activate):
+	* plugins/glade/plugin.h:
+
+	#570249 – glade plugin does not build
+	
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.ui:
+	#566702 – Please add a separator between Build Project and Build Tarrbal
+	
+	* plugins/gdb/debugger.c (debugger_attach_process),
+	(debugger_set_frame_finish), (debugger_set_frame):
+	* plugins/gdb/debugger.h:
+	Fixed 64-bit warnings
+	
+	* libanjuta/anjuta-utils.c (anjuta_util_from_file_to_file):
+	Fix warnings
+	
+	* libanjuta/anjuta-vcs-status.h:
+	* plugins/file-manager/file-view.c (get_status_string),
+	(file_view_show_extended_data):
+	570264 – cannot do subversion->commit: no modified files are detected anymore
+
 2009-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c,
