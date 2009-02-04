@@ -60,9 +60,12 @@ static gboolean
 get_bool(GConfEntry* entry)
 {
 	GConfValue* value = gconf_entry_get_value(entry);
+	/* The value might be deleted */
+	if (!value)
+		return FALSE;
 	/* Usually we would use get_bool but anjuta_preferences saves bool as int 
 		#409408 */
-		if (value->type == GCONF_VALUE_BOOL)
+	if (value->type == GCONF_VALUE_BOOL)
 		return gconf_value_get_bool (value);
 	else
 		return gconf_value_get_int(value);
@@ -158,20 +161,6 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
-														 GConfEntry *entry, gpointer user_data)
-{
-	Sourceview *sv;
-	gint indent_width = get_int(entry);
-	
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
-	
-	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), indent_width);
-}
-
-static void
 on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
 																				 GConfEntry *entry, gpointer user_data)
 {
@@ -258,7 +247,8 @@ on_gconf_notify_font (GConfClient *gclient, guint cnxn_id,
 	
 	font = anjuta_preferences_get(prefs, FONT);
 	
-	anjuta_view_set_font(sv->priv->view, FALSE, font);
+	if (font != NULL)
+		anjuta_view_set_font(sv->priv->view, FALSE, font);
 	g_free (font);
 }
 
@@ -314,9 +304,9 @@ init_fonts(Sourceview* sv)
 }
 
 static int
-get_key(Sourceview* sv, const gchar* key)
+get_key(Sourceview* sv, const gchar* key, gint default_value)
 {
-	return anjuta_preferences_get_int (sv->priv->prefs, key);
+	return anjuta_preferences_get_int_with_default (sv->priv->prefs, key, default_value);
 }
 
 void 
@@ -328,30 +318,30 @@ sourceview_prefs_init(Sourceview* sv)
 	prefs = sv->priv->prefs;
 	
 	/* Init */
-  gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), get_key(sv, HIGHLIGHT_SYNTAX));
+	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), get_key(sv, HIGHLIGHT_SYNTAX, TRUE));
 	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-																						 get_key(sv, HIGHLIGHT_CURRENT_LINE));
-	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
-	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, INDENT_SIZE));
+																						 get_key(sv, HIGHLIGHT_CURRENT_LINE, FALSE));
+	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE, 4));
+	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), -1); /* Same as tab width */
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-																										!get_key(sv, USE_TABS));
+																										!get_key(sv, USE_TABS, FALSE));
 	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-																										get_key(sv, HIGHLIGHT_BRACKETS));
+																										get_key(sv, HIGHLIGHT_BRACKETS, FALSE));
 	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
-																			get_key(sv, VIEW_MARKS));
+																			get_key(sv, VIEW_MARKS, TRUE));
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-																				get_key(sv, VIEW_LINENUMBERS));
+																				get_key(sv, VIEW_LINENUMBERS, TRUE));
 	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
-																				get_key(sv, VIEW_RIGHTMARGIN));
+																				get_key(sv, VIEW_RIGHTMARGIN, TRUE));
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
-																						get_key(sv, RIGHTMARGIN_POSITION));
+																						get_key(sv, RIGHTMARGIN_POSITION, 80));
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
-															 get_key (sv, VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
+															 get_key (sv, VIEW_EOL, FALSE) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
 
 	
-	if (get_key (sv, VIEW_WHITE_SPACES))
+	if (get_key (sv, VIEW_WHITE_SPACES, FALSE))
 		flags |= (GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
-	if (get_key (sv, VIEW_EOL))
+	if (get_key (sv, VIEW_EOL, FALSE))
 		flags |= GTK_SOURCE_DRAW_SPACES_NEWLINE;
 	
 	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view),
@@ -361,7 +351,6 @@ sourceview_prefs_init(Sourceview* sv)
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);	
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (HIGHLIGHT_SYNTAX, on_gconf_notify_disable_hilite);
 	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);

@@ -43,7 +43,7 @@
 #define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
 #define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
 #define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto"
-#define ANJUTA_STOCK_SWAP                     "anjuta-swap"
+#define ANJUTA_STOCK_SWAP                 "anjuta-swap"
 #define ANJUTA_STOCK_COMPLETE         	  "anjuta-complete"
 #define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
 #define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"

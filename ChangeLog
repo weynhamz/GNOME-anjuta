@@ -1,5 +1,14 @@
 2009-02-04  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	Remove useless indent-size property. This is better handled by the 
+	language-support-plugin.
+	* plugins/sourceview/sourceview-prefs.c (get_bool),
+	(on_gconf_notify_font), (get_key), (sourceview_prefs_init):
+	Fix #570492 – Canot open editor - crash
+
+2009-02-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
 	.glade:
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
