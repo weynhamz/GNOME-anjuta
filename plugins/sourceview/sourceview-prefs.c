@@ -50,10 +50,13 @@ static AnjutaPreferences* prefs = NULL;
 #define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
 
 static int
-get_int(GConfEntry* entry)
+get_int_default(GConfEntry* entry, gint default_value)
 {
 	GConfValue* value = gconf_entry_get_value(entry);
-	return gconf_value_get_int(value);
+	if (value)
+		return gconf_value_get_int(value);
+	else
+		return default_value;
 }
 
 static gboolean
@@ -151,7 +154,7 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 													GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
-	gint tab_size = get_int(entry);
+	gint tab_size = get_int_default(entry, 4);
 	
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
@@ -225,10 +228,10 @@ on_gconf_notify_view_right_margin (GConfClient *gclient, guint cnxn_id,
 
 static void
 on_gconf_notify_right_margin_position (GConfClient *gclient, guint cnxn_id,
-																			 GConfEntry *entry, gpointer user_data)
+									   GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
-	gboolean pos = get_bool(entry);
+	gboolean pos = get_int_default(entry, 80);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 

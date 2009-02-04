@@ -1,5 +1,12 @@
 2009-02-04  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview-prefs.c (get_int_default),
+	(on_gconf_notify_tab_size),
+	(on_gconf_notify_right_margin_position):
+	Fix an unlikely critical when deleting gconf values directly
+
+2009-02-04  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/anjuta-editor-sourceview.glade:
 	Remove useless indent-size property. This is better handled by the 
 	language-support-plugin.
