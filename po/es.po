@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=general\n"
-"POT-Creation-Date: 2009-02-02 12:48+0000\n"
-"PO-Revision-Date: 2009-02-02 18:59+0100\n"
+"POT-Creation-Date: 2009-02-02 18:00+0000\n"
+"PO-Revision-Date: 2009-02-04 20:51+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3528,7 +3528,6 @@ msgid "Do not show hidden files"
 msgstr "No mostrar los archivos ocultos"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
-#| msgid "Do not show hidden files"
 msgid "Do not show unversioned files"
 msgstr "No mostrar los archivos sin versión"
 
@@ -3541,7 +3540,6 @@ msgid "Loading..."
 msgstr "Cargando…"
 
 #: ../plugins/file-manager/file-view.c:63
-#| msgid "Update"
 msgid "Up-to-date"
 msgstr "Actualizado"
 
@@ -3550,7 +3548,6 @@ msgid "Locked"
 msgstr "Bloqueado"
 
 #: ../plugins/file-manager/file-view.c:67
-#| msgid "_Ignore..."
 msgid "Ignored"
 msgstr "Ignorado"
 
@@ -5048,14 +5045,13 @@ msgstr "Tipo de posición"
 
 #: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Separated designer layout"
-msgstr ""
+msgstr "Distribución del diseñador separada"
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Special regexp"
 msgstr "ExpReg especial"
 
 #: ../plugins/glade/anjuta-glade.glade.h:12
-#| msgid "Target name:"
 msgid "Widget name"
 msgstr "Nombre del widget"
 
@@ -5069,11 +5065,11 @@ msgstr "gtk-save"
 
 #: ../plugins/glade/anjuta-glade.glade.h:15
 msgid "on_widget_signal"
-msgstr ""
+msgstr "a_la_señal_del_widget"
 
 #: ../plugins/glade/anjuta-glade.glade.h:16
 msgid "widget_signal_cb"
-msgstr ""
+msgstr "señal_cb_del_widget"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
@@ -5093,85 +5089,84 @@ msgstr "opción del elemento de asociación errónea en el nodo %s"
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
 msgid "no filename found in the node %s"
-msgstr ""
+msgstr "no se encontró el nombre de archivo en el nodo %s"
 
 #: ../plugins/glade/designer-associations-item.c:478
 #, c-format
 msgid "invalid %s property value"
-msgstr ""
+msgstr "valor de la propiedad %s no válido"
 
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
 msgid "association item filename has no path"
-msgstr ""
+msgstr "el nombre del archivo del elemento de asociación no tiene ruta"
 
 #: ../plugins/glade/plugin.c:838
 #, c-format
 msgid "No associoations initialized, nothing to save"
-msgstr ""
+msgstr "No se inicializó ninguna asociación, no hay nada que guardar"
 
 #: ../plugins/glade/plugin.c:845
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr ""
+"No se pudieron guardar las asociaciones porque el proyecto raíz no está "
+"configurado"
 
 #: ../plugins/glade/plugin.c:867
 #, c-format
-#| msgid "Failed to activate plugin: %s"
 msgid "Failed to save associations"
 msgstr "Falló al guardar las asociaciones"
 
 #: ../plugins/glade/plugin.c:1354
 #, c-format
 msgid "couldn't introspect the signal"
-msgstr ""
+msgstr "no se pudo inspeccionar la señal"
 
 #: ../plugins/glade/plugin.c:1376
 #, c-format
 msgid "Python language isn't supported yet"
-msgstr ""
+msgstr "El lenguaje Python no está soportado aún"
 
 #: ../plugins/glade/plugin.c:1389
 #, c-format
 msgid "Vala language isn't supported yet"
-msgstr ""
+msgstr "El lenguaje Vala no está soportado aún"
 
 #: ../plugins/glade/plugin.c:1948
 #, c-format
 msgid "there's no associated editor for the designer"
-msgstr ""
+msgstr "no hay un editor asociado para el diseñador"
 
 #: ../plugins/glade/plugin.c:1966
 #, c-format
 msgid "unknown language of the editor \"%s\""
-msgstr ""
+msgstr "editor del lenguaje «%s» desconocido"
 
 #: ../plugins/glade/plugin.c:2033 ../plugins/glade/plugin.c:2110
 #: ../plugins/glade/plugin.c:2235
-#, fuzzy, c-format
+#, c-format
 #| msgid "Error while reading from file"
 msgid "Error while adding a new handler stub: %s"
-msgstr "Error al leer desde el archivo"
+msgstr ""
 
 #: ../plugins/glade/plugin.c:2040 ../plugins/glade/plugin.c:2124
 msgid "Couldn't find a signal information"
+msgstr "No se pudo encontrar una señal de información"
+
+#: ../plugins/glade/plugin.c:2067
+#| msgid "Error while reading from file"
+msgid "Error while adding a new handler stub: %"
 msgstr ""
 
 #: ../plugins/glade/plugin.c:2067
-#, fuzzy
-#| msgid "Error while reading from file"
-msgid "Error while adding a new handler stub: %"
-msgstr "Error al leer desde el archivo"
-
-#: ../plugins/glade/plugin.c:2067
-#| msgid "Compile current editor file"
 msgid "no current editor"
 msgstr "no hay editor actual"
 
 #: ../plugins/glade/plugin.c:2238
 #, c-format
 msgid "To avoid this messages turn off \"%s\" flag in the %s->%s"
-msgstr ""
+msgstr "Para evitar estos mensajes desactive la opción «%s» en la %s->%s"
 
 #: ../plugins/glade/plugin.c:2240
 msgid "Preferences"
@@ -5179,13 +5174,12 @@ msgstr "Preferencias"
 
 #: ../plugins/glade/plugin.c:2241 ../plugins/glade/plugin.c:5060
 #: ../plugins/glade/plugin.c:5085
-#| msgid "Glade interface designer"
 msgid "Glade GUI Designer"
 msgstr "Diseñador de IGU Glade"
 
 #: ../plugins/glade/plugin.c:2377
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "Esos documentos ya están asociados"
 
 #: ../plugins/glade/plugin.c:2415
 #, c-format
@@ -5193,7 +5187,6 @@ msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
 
 #: ../plugins/glade/plugin.c:3673
-#| msgid "Couldn't load glade file"
 msgid "Couldn't find a default signal name"
 msgstr "No se pudo encontrar un nombre de señal predeterminado"
 
@@ -5204,7 +5197,6 @@ msgstr ""
 "El proyecto %s no tiene widgets obsoletos o inconsistencias entre versiones."
 
 #: ../plugins/glade/plugin.c:3898
-#| msgid "Whole project"
 msgid "There's no Glade projects"
 msgstr "No hay proyectos de Glade"
 
@@ -5216,7 +5208,7 @@ msgstr "_Glade"
 
 #: ../plugins/glade/plugin.c:3992 ../plugins/glade/plugin.c:3994
 msgid "Switch designer/code"
-msgstr ""
+msgstr "Intercambiar diseñador/código"
 
 #: ../plugins/glade/plugin.c:4000 ../plugins/glade/plugin.c:4002
 msgid "Insert handler stub"
@@ -5245,13 +5237,13 @@ msgstr "Versionado…"
 #: ../plugins/glade/plugin.c:4034
 msgid "Switch between library versions and check deprecations"
 msgstr ""
+"Cambiar entre las versiones de bibliotecas y comprobar las obsolescencias"
 
 #: ../plugins/glade/plugin.c:4040 ../plugins/glade/plugin.c:4042
 msgid "Set as default resource target"
 msgstr "Establecer como objetivo de recurso predeterminado"
 
 #: ../plugins/glade/plugin.c:4050
-#| msgid "Current Selection"
 msgid "Current default target"
 msgstr "Objetivo predeterminado actual"
 
@@ -5975,16 +5967,14 @@ msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
 #: ../plugins/message-view/plugin.c:78
-#, fuzzy
 #| msgid "No Messages"
 msgid "_Copy Message"
-msgstr "Sin mensajes"
+msgstr "_Copiar mensaje"
 
 #: ../plugins/message-view/plugin.c:79
-#, fuzzy
 #| msgid "Log message:"
 msgid "Copy message"
-msgstr "Mensaje de registro:"
+msgstr "Copiar mensaje"
 
 #: ../plugins/message-view/plugin.c:82
 msgid "_Next Message"
@@ -7790,7 +7780,7 @@ msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
 #: ../plugins/scintilla/text_editor.c:404
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' on the disk is more recent than\n"
 #| "the current buffer.\n"
@@ -7799,12 +7789,11 @@ msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to reload it ?"
 msgstr ""
-"El archivo «%s» en el disco es más reciente\n"
-"que el búfer actual.\n"
-"¿Desea recargarlo?"
+"Se ha cambiado el archivo «%s».\n"
+"¿Quiere recargarlo?"
 
 #: ../plugins/scintilla/text_editor.c:410
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' on the disk is more recent than\n"
 #| "the current buffer.\n"
@@ -7813,9 +7802,8 @@ msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to loose your changes and reload it ?"
 msgstr ""
-"El archivo «%s» en el disco es más reciente\n"
-"que el búfer actual.\n"
-"¿Desea recargarlo?"
+"Se ha cambiado el archivo «%s».\n"
+"¿Quiere perder sus cambios y recargarlo?"
 
 #: ../plugins/scintilla/text_editor.c:430
 #, c-format
@@ -7827,7 +7815,7 @@ msgstr ""
 "¿Confirmar y cerrar?"
 
 #: ../plugins/scintilla/text_editor.c:437
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' already exists.\n"
 #| "Do you want to replace it with the one you are saving?"
@@ -7835,8 +7823,8 @@ msgid ""
 "The file '%s' has been deleted.\n"
 "Do you want to loose your changes and close it ?"
 msgstr ""
-"El archivo «%s» ya existe.\n"
-"¿Desea sobreescribirlo con el que está intentando guardar?"
+"Se ha borrado el archivo «%s».\n"
+"¿Quiere perder sus cambios y cerrarlo?"
 
 #: ../plugins/scintilla/text_editor.c:1354
 msgid "Could not get file info"
@@ -7921,16 +7909,14 @@ msgid "Scratchbox directory:"
 msgstr "Directorio Scratchbox:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
-#, fuzzy
 #| msgid "Scratchbox directory:"
 msgid "Scratchbox target:"
-msgstr "Directorio Scratchbox:"
+msgstr "Objetivo de Scratchbox:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:5
-#, fuzzy
 #| msgid "Scratchbox directory:"
 msgid "Scratchbox version:"
-msgstr "Directorio Scratchbox:"
+msgstr "Versión de Scratchbox:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:6
 msgid "Select Scratchbox Folder"
@@ -8249,10 +8235,10 @@ msgid ""
 "Do you want to reload it?"
 msgstr ""
 "El archivo «%s» en el disco es más reciente que el búfer actual.\n"
-"¿Desea recargarlo?"
+"¿Quiere recargarlo?"
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' on the disk is more recent than the current buffer.\n"
 #| "Do you want to reload it?"
@@ -8260,8 +8246,8 @@ msgid ""
 "The file '%s' has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"El archivo «%s» en el disco es más reciente que el búfer actual.\n"
-"¿Desea recargarlo?"
+"Se ha borrado del disco el archivo «%s».\n"
+"¿Quiere cerrarlo?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:438
