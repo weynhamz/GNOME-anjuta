@@ -1,3 +1,18 @@
+2009-02-04  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	* plugins/scintilla/anjuta-editor-scintilla.glade:
+	* plugins/search/anjuta-search.glade:
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/subversion/subversion-ui-utils.c (check_input),
+	(on_status_command_data_arrived):
+	Revert adjumenst changes (#570444 – can't change numbers in preferences dialog)
+
 2009-02-03  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
@@ -191,24 +206,6 @@
 	plugins/message-view/message-view.h,
 	plugins/message-view/anjuta-message-manager.ui:
 	Fix #567728 – Copypasting build errors, messages and warnings
-
-2009-02-01  Johannes Schmid  <jhs@gnome.org>
-
-	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
-	.glade:
-	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
-	* plugins/document-manager/anjuta-document-manager.glade:
-	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
-	* plugins/message-view/anjuta-message-manager-plugin.glade:
-	* plugins/scintilla/anjuta-editor-scintilla.glade:
-	* plugins/search/anjuta-search.glade:
-	* plugins/sourceview/anjuta-editor-sourceview.glade:
-	
-	Avoid GtkSpinButton adjustment warnings
-	
-	* plugins/subversion/subversion-ui-utils.c (check_input),
-	(on_status_command_data_arrived):
-	Fixed a regression from the previous status change
 
 2009-02-01  Johannes Schmid  <jhs@gnome.org>
 
