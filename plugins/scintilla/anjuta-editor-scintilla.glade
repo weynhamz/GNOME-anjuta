@@ -67,7 +67,7 @@
                               <widget class="GtkSpinButton" id="preferences_spin:int:3:0:autocompleteword.automatic">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">3 0 50 1 10 10</property>
+                                <property name="adjustment">3 0 50 1 10 0</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -387,7 +387,7 @@ Squares</property>
                               <widget class="GtkSpinButton" id="preferences_spin:int:80:0:edge.column">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">80 0 500 1 10 10</property>
+                                <property name="adjustment">80 0 500 1 10 0</property>
                                 <property name="climb_rate">1</property>
                               </widget>
                               <packing>
@@ -400,7 +400,7 @@ Squares</property>
                             <child>
                               <widget class="GtkSpinButton" id="preferences_spin:int:350:0:caret.period">
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">212 100 10000 10 10 10</property>
+                                <property name="adjustment">212 100 10000 10 10 0</property>
                                 <property name="climb_rate">10</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -414,7 +414,7 @@ Squares</property>
                             <child>
                               <widget class="GtkSpinButton" id="preferences_spin:int:2:0:caret.width">
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">1 1 3 1 10 10</property>
+                                <property name="adjustment">1 1 3 1 10 0</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -471,7 +471,7 @@ Squares</property>
                             <child>
                               <widget class="GtkSpinButton" id="preferences_spin:int:40:0:margin.linenumber.width">
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">40 10 200 1 10 10</property>
+                                <property name="adjustment">40 10 200 1 10 0</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </widget>
@@ -695,7 +695,7 @@ Squares</property>
                       <widget class="GtkSpinButton" id="preferences_spin:int:4:1:indent.size">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="adjustment">4 1 100 1 10 10</property>
+                        <property name="adjustment">4 1 100 1 10 0</property>
                         <property name="climb_rate">1</property>
                         <property name="numeric">True</property>
                       </widget>
@@ -712,7 +712,7 @@ Squares</property>
                       <widget class="GtkSpinButton" id="preferences_spin:int:4:1:tabsize">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="adjustment">4 1 100 1 10 10</property>
+                        <property name="adjustment">4 1 100 1 10 0</property>
                         <property name="climb_rate">1</property>
                         <property name="numeric">True</property>
                       </widget>
@@ -961,7 +961,7 @@ Squares</property>
                   <widget class="GtkSpinButton" id="preferences_spin:int:1:0:print.linenumber.count">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">1 0 1000 1 10 10</property>
+                    <property name="adjustment">1 0 1000 1 10 0</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                   </widget>

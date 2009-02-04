@@ -9,6 +9,19 @@
 	* plugins/scintilla/anjuta-editor-scintilla.glade:
 	* plugins/search/anjuta-search.glade:
 	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	#567100 – opening Find dialog causes GtkSpinButton warning
+
+2009-02-04  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	* plugins/scintilla/anjuta-editor-scintilla.glade:
+	* plugins/search/anjuta-search.glade:
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
 	* plugins/subversion/subversion-ui-utils.c (check_input),
 	(on_status_command_data_arrived):
 	Revert adjumenst changes (#570444 – can't change numbers in preferences dialog)

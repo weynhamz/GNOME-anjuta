@@ -487,7 +487,7 @@
                                           <widget class="GtkSpinButton" id="actions.max">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="adjustment">100 1 400 1 10 10</property>
+                                            <property name="adjustment">100 1 400 1 10 0</property>
                                             <property name="climb_rate">1</property>
                                           </widget>
                                           <packing>
