@@ -1,3 +1,8 @@
+2009-02-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	Fix #566693 – Code completion of symbols usually not working
+
 2009-02-04  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-prefs.c (get_int_default),

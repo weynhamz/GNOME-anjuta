@@ -26,6 +26,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
@@ -76,8 +77,12 @@ completion_compare (gconstpointer a, gconstpointer b)
 {
 	CppJavaAssistTag * tag_a = (CppJavaAssistTag*) a;
 	CppJavaAssistTag * tag_b = (CppJavaAssistTag*) b;
-	return (strcmp (tag_a->name, tag_b->name) &&
-			tag_a->type == tag_b->type);
+	gint cmp;
+	
+	cmp = strcmp (tag_a->name, tag_b->name);
+	if (cmp == 0) cmp = tag_a->type - tag_b->type;
+	
+	return cmp;
 }
 
 static void
@@ -242,7 +247,7 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 	IAnjutaIterable *end;
 	gchar ch, *preword_chars = NULL;
 	gboolean out_of_range = FALSE;
-	gboolean preword_found = TRUE;
+	gboolean preword_found = FALSE;
 	
 	end = ianjuta_iterable_clone (iter, NULL);
 	ianjuta_iterable_next (end, NULL);
@@ -442,7 +447,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist)
 	if (assist->priv->pre_word)
 		g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
 	else
-		g_completion_complete (assist->priv->completion_cache, "", NULL);
+		return FALSE;
 
 	position =
 		ianjuta_editor_get_position (IANJUTA_EDITOR (assist->priv->iassist),
@@ -525,20 +530,43 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 	
 	if (!assist->priv->editor_only)
 	{
+		gchar *pattern = g_strconcat (assist->priv->pre_word, "%", NULL);
+		
+		if (IANJUTA_IS_FILE (assist->priv->iassist))
+		{
+			GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
+			if (file != NULL)
+			{				
+				IAnjutaIterable* iter_file = ianjuta_symbol_manager_search_file (assist->priv->isymbol_manager,
+																				 IANJUTA_SYMBOL_TYPE_MAX,
+																				 TRUE,
+																				 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
+																				 pattern, file, -1, -1, NULL);
+												 
+				if (iter_file) 
+				{
+					completion = create_completion (assist->priv->iassist, iter_file, completion);
+					g_object_unref (iter_file);
+				}
+				g_object_unref (file);
+			}
+		}
+		
 		IAnjutaIterable* iter_project = 
-			ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+			ianjuta_symbol_manager_search_project (assist->priv->isymbol_manager,
 										   IANJUTA_SYMBOL_TYPE_MAX,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										   assist->priv->pre_word, TRUE, TRUE, FALSE, -1, -1, NULL);
+										   pattern, -1, -1, NULL);
 		
 		IAnjutaIterable* iter_globals = 
-			ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+			ianjuta_symbol_manager_search_system (assist->priv->isymbol_manager,
 										   IANJUTA_SYMBOL_TYPE_MAX,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										   assist->priv->pre_word, TRUE, TRUE, TRUE, -1, -1, NULL);
-		
+										   pattern, -1, -1, NULL);
+		g_free (pattern);
+
 		if (iter_project) 
 		{
 			completion = create_completion (assist->priv->iassist, iter_project, NULL);
@@ -583,7 +611,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		g_completion_add_items (completion, tag_list);		
 		g_list_free (editor_completions);
 	}
-	
+
 	assist->priv->completion_cache = completion;
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
 	
@@ -693,32 +721,63 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
 												 MAX_COMPLETIONS);
-	/* Search global */
-	IAnjutaIterable* iter_global = 
-		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
-									   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
-									   IANJUTA_SYMBOL_TYPE_FUNCTION|
-									   IANJUTA_SYMBOL_TYPE_METHOD|
-									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context, FALSE, TRUE, TRUE,
-									   max_completions, -1, NULL);
-	tips = cpp_java_assist_create_calltips (iter_global);
+
+	/* Search file */
+	if (IANJUTA_IS_FILE (assist->priv->iassist))
+	{
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
+
+		if (file != NULL)
+		{		
+			IAnjutaIterable* iter_file = ianjuta_symbol_manager_search_file (assist->priv->isymbol_manager,
+																			 IANJUTA_SYMBOL_TYPE_PROTOTYPE|
+																			 IANJUTA_SYMBOL_TYPE_FUNCTION|
+																			 IANJUTA_SYMBOL_TYPE_METHOD|
+																			 IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+																			 TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+																			 call_context, file, max_completions, -1, NULL);
+												 
+			if (iter_file) 
+			{
+				tips = cpp_java_assist_create_calltips (iter_file);
+				g_object_unref (iter_file);
+			}
+			g_object_unref (file);
+		}
+	}
+
 	/* Search Project */
 	IAnjutaIterable* iter_project = 
-		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+		ianjuta_symbol_manager_search_project (assist->priv->isymbol_manager,
 									   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
 									   IANJUTA_SYMBOL_TYPE_FUNCTION|
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context, FALSE, TRUE, FALSE,
+									   call_context,
 									   max_completions, -1, NULL);
-	tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_project));
-	if (iter_global)
-		g_object_unref (iter_global);
 	if (iter_project)
+	{
+		tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_project));
 		g_object_unref (iter_project);
+	}
+	
+	/* Search global */
+	IAnjutaIterable* iter_global = 
+		ianjuta_symbol_manager_search_system (assist->priv->isymbol_manager,
+									   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
+									   IANJUTA_SYMBOL_TYPE_FUNCTION|
+									   IANJUTA_SYMBOL_TYPE_METHOD|
+									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+									   call_context, 
+									   max_completions, -1, NULL);
+	if (iter_global)
+	{
+		tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_global));
+		g_object_unref (iter_global);
+	}
+	
 	if (tips)
 	{
 		/* Calculate calltip offset from context offset */
