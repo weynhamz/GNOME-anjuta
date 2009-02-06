@@ -1,3 +1,20 @@
+2009-02-05  Yang Hong  <hongyang@redflag-linux.com>
+
+	* plugins/file-manager/file-model.c
+	(file_model_vcs_status_callback):
+	Fix a crasher in gdk_pixbuf_composite.
+	
+	* plugins/file-manager/file-view.c (get_status_string):
+	Return a NULL value instead of g_assert_not_reached.
+	
+	* plugins/terminal/terminal.c (terminal_set_preferences),
+	(terminal_execute):
+	Do not reset execute terminal, remain output for comparison,
+	Set default scrollback lines for 500, or minimum is too small.
+	
+	* src/main.c (send_bacon_message):
+	Fix cann't open relative URI in server side.
+
 2009-02-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:

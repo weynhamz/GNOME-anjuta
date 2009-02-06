@@ -79,9 +79,13 @@ get_status_string(AnjutaVcsStatus status)
 			return _("Unversioned");
 		case ANJUTA_VCS_STATUS_IGNORED:
 			return _("Ignored");
+#if 0
 		default:
 			g_assert_not_reached();
+#endif
 	}		
+
+	return NULL;
 }
 
 enum

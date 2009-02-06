@@ -36,6 +36,12 @@ EXTRA_DIST = \
 	intltool-update.in\
 	$(anjutadoc_DATA)
 
+gnomerelease:
+	scp *.tar.bz2 master.gnome.org:
+	
+sfrelease:
+	scp *.tar.bz2 clubfan,anjuta@frs.sf.net:uploads
+
 gnomemenudir = $(datadir)/applications
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)

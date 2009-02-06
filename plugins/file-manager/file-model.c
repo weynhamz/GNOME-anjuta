@@ -212,8 +212,11 @@ file_model_vcs_status_callback(GFile *file,
 									-1);
 				if (file_icon)
 				{
+					GdkPixbuf *new_icon;
+
+					new_icon = gdk_pixbuf_copy (file_icon);
 					gdk_pixbuf_composite (emblem,
-										  file_icon,
+										  new_icon,
 										  0, 0,
 										  gdk_pixbuf_get_width (file_icon),
 										  gdk_pixbuf_get_height (file_icon),
@@ -224,10 +227,10 @@ file_model_vcs_status_callback(GFile *file,
 					gtk_tree_store_set (GTK_TREE_STORE (model),
 										&iter,
 										COLUMN_PIXBUF,
-										file_icon,
+										new_icon,
 										-1);
 					DEBUG_PRINT ("%s", "setting emblem");
-					
+					g_object_unref (new_icon);
 					g_object_unref (file_icon);
 				}
 				g_object_unref (emblem);

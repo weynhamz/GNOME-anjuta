@@ -294,7 +294,17 @@ send_bacon_message (void)
 
 		for (l = file_list; l != NULL; l = l->next)
 		{
-			command = g_string_append (command, l->data);
+			/* convert to absolute path for serverside */
+			if (g_path_is_absolute (l->data))
+			{
+				command = g_string_append (command, l->data);
+			}
+			else
+			{
+				gchar *uri;
+				uri = g_build_filename (g_getenv ("PWD"), l->data, NULL);
+				command = g_string_append (command, uri);
+			}
 			if (l->next != NULL)
 				command = g_string_append_c (command, ' ');
 		}

@@ -43,7 +43,6 @@
 
 #define COMBO_STYLES "combo_styles"
 #define SOURCEVIEW_STYLE "sourceview.style"
-#define SOURCEVIEW_DEFAULT_STYLE "classic"
 
 #define FONT_USE_THEME_BUTTON "preferences_toggle:bool:1:0:sourceview.font.use_theme"
 #define FONT_BUTTON "preferences_font:font:Monospace 12:0:sourceview.font"
@@ -120,14 +119,11 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 	gchar* current_style = anjuta_preferences_get (prefs, SOURCEVIEW_STYLE);
 	GtkSourceStyleSchemeManager* manager = gtk_source_style_scheme_manager_get_default();
 	Sourceview* sv;
-	if (!current_style)
-	{
-		current_style = g_strdup (SOURCEVIEW_DEFAULT_STYLE);
-	}
 	sv = sourceview_new(file, filename, plugin);
-	gtk_source_buffer_set_style_scheme (GTK_SOURCE_BUFFER (sv->priv->document),
-										gtk_source_style_scheme_manager_get_scheme (manager,
-																					current_style));
+	if (current_style)
+		gtk_source_buffer_set_style_scheme (GTK_SOURCE_BUFFER (sv->priv->document),
+											gtk_source_style_scheme_manager_get_scheme (manager,
+																						current_style));
 	g_free (current_style);
 	return IANJUTA_EDITOR (sv);
 }
@@ -154,10 +150,7 @@ create_style_model (AnjutaPreferences* prefs, GtkTreeIter** current)
 	const gchar* const *styles = gtk_source_style_scheme_manager_get_scheme_ids (manager);
 	const gchar* const *style;
 	gchar* current_style = anjuta_preferences_get (prefs, SOURCEVIEW_STYLE);
-	if (!current_style)
-	{
-		current_style = g_strdup (SOURCEVIEW_DEFAULT_STYLE);
-	}
+	*current = NULL;
 	for (style = styles; *style != NULL; style++)
 	{
 		GtkTreeIter iter;

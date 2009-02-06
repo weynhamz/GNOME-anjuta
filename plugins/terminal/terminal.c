@@ -180,7 +180,7 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
 	vte_terminal_set_audible_bell (term, !setting);
 	value = GET_PROFILE_INT (GCONF_SCROLLBACK_LINES);
-	vte_terminal_set_scrollback_lines (term, value);
+	vte_terminal_set_scrollback_lines (term, (value == 0) ? 500 : value);
 	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_KEYSTROKE);
 	vte_terminal_set_scroll_on_keystroke (term, setting);
 	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_OUTPUT);
@@ -353,7 +353,9 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	
 	term = VTE_TERMINAL (term_plugin->term);
 	
+/*
 	vte_terminal_reset (term, TRUE, TRUE);
+*/
 	
 	focus = gtk_widget_is_focus (term_plugin->shell);
 	
