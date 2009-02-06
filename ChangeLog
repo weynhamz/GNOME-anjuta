@@ -1,5 +1,13 @@
 2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/plugin.c (isymbol_manager_search_project):
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	* plugins/symbol-db/symbol-db-engine-queries.h:
+	#566987 – display tooltip with prototype when calling function in project.
+
+2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/project-manager/gbf-project-util.c
 	(browse_button_clicked_cb):
 	fixed #570245 – gbf gio-critical g_file_query_exists

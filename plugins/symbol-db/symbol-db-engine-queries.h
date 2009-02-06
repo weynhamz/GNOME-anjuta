@@ -55,8 +55,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  * @param exact_match Should the pattern be searched for an exact match?
  * @param filter_kinds Can be NULL. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
- * @param global_symbols_search If TRUE only global public function will be searched. If false
- *		  even private or static (for C language) will be searched.
+ * @param global_symbols_search If 1 only global public function will be searched. If 0
+ *		  even private or static (for C language) will be searched. -1 to be ignored.
  * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
  *        If yes then provide a GList, if no then pass NULL.	 
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
@@ -69,7 +69,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									gboolean exact_match,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
-									gboolean global_symbols_search,
+									gint global_symbols_search,
 									GList *session_projects,													   
 									gint results_limit, 
 									gint results_offset,

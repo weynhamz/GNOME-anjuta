@@ -2847,7 +2847,7 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 					exact_match,
 					filter_array,
 					include_types,
-					FALSE,
+					-1,		/* ignore file_scope */
 					NULL,
 					results_limit,
 					results_offset,

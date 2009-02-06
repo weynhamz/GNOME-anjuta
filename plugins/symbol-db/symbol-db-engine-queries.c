@@ -2309,8 +2309,8 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
  * @param exact_match Should the pattern be searched for an exact match?
  * @param filter_kinds Can be NULL. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
- * @param global_symbols_search If TRUE only global public function will be searched. If false
- *		  even private or static (for C language) will be searched.
+ * @param global_symbols_search If 1 only global public function will be searched. If 0
+ *		  even private or static (for C language) will be searched. -1 to be ignored.
  * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
  *        If yes then provide a GList, if no then pass NULL.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
@@ -2325,14 +2325,15 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
  * |--------------------------|-------------|-------------|
  *   main parameters [2 bytes]  sessions [1]   filter [1]
  */
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES			0x010000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO			0x020000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		0x040000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO			0x080000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES		0x100000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO			0x200000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					0x400000
-#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					0x800000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_YES			0x00010000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_EXACT_MATCH_NO			0x00020000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_YES		0x00040000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO			0x00080000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES		0x00100000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO			0x00200000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_IGNORE		0x00400000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_LIMIT					0x00800000
+#define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_OFFSET					0x01000000
 
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
@@ -2340,7 +2341,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									gboolean exact_match,
 									const GPtrArray *filter_kinds,
 									gboolean include_kinds,
-									gboolean global_symbols_search,
+									gint global_symbols_search,
 									GList *session_projects,
 									gint results_limit, 
 									gint results_offset,
@@ -2353,6 +2354,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	GString *filter_str;
 	gchar *query_str;
 	const gchar *match_str;
+	const gchar *file_scope_str;
 	GdaHolder *param;
 	const DynChildQueryNode *dyn_node;
 	gint other_parameters;
@@ -2400,15 +2402,23 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
 	}
 	
-	if (global_symbols_search == TRUE)
+	if (global_symbols_search == 1)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES;
+		file_scope_str = " AND symbol.is_file_scope = 1 ";
 	}
-	else
+	else if (global_symbols_search == 0)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO;
+		file_scope_str = " AND symbol.is_file_scope = 0 ";
+	}
+	else 	/* -1 */
+	{
+		other_parameters |= 
+			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_IGNORE;
+		file_scope_str = " ";
 	}
 	
 	if (results_limit > 0)
@@ -2483,10 +2493,9 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
 					"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
-					"WHERE symbol.name %s AND symbol.is_file_scope = "
-					"## /* name:'globalsearch' type:gint */ %s %s %s", 
-				info_data->str, join_data->str, match_str, filter_projects->str, 
-										 limit, offset);			
+					"WHERE symbol.name %s %s %s %s %s", 
+				info_data->str, join_data->str, match_str, file_scope_str, 
+										 filter_projects->str, limit, offset);			
 
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
@@ -2581,9 +2590,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
 				"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
-					"WHERE symbol.name %s AND symbol.is_file_scope = "
-					"## /* name:'globalsearch' type:gint */ %s %s GROUP BY symbol.name %s %s", 
-			 		info_data->str, join_data->str, match_str, 
+					"WHERE symbol.name %s %s %s %s GROUP BY symbol.name %s %s", 
+			 		info_data->str, join_data->str, match_str, file_scope_str,
 			 		filter_str->str, filter_projects->str, limit, offset);
 			
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
@@ -2664,14 +2672,6 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			i++;
 		}
 	}
-	
-	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "globalsearch")) == NULL)
-	{
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, !global_symbols_search, ret_bool, ret_value);
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "pattern")) == NULL)
 	{
