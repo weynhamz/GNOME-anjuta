@@ -303,7 +303,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="label" translatable="yes">gtk-close</property>
+                            <property name="label" translatable="no">gtk-close</property>
                             <property name="use_stock">True</property>
                             <signal name="clicked" handler="associations_dialog_button_close_cb"/>
                           </object>
@@ -317,7 +317,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="label" translatable="yes">gtk-save</property>
+                            <property name="label" translatable="no">gtk-save</property>
                             <property name="use_stock">True</property>
                             <signal name="clicked" handler="associations_dialog_button_save_cb"/>
                           </object>

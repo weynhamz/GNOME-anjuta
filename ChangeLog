@@ -1,3 +1,20 @@
+2009-02-06  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/debug-manager/sharedlib.c (sharedlibs_new):
+	* plugins/debug-manager/start.c (load_target):
+	* plugins/glade/designer-associations-item.c
+	(designer_associations_item_from_xml),
+	(designer_associations_option_from_xml),
+	(associations_file_from_xml):
+	* plugins/glade/plugin.c (glade_update_ui),
+	(on_glade_project_changed), (glade_plugin_do_save_associations),
+	(do_insert_handler_stub_C), (insert_handler_stub_auto),
+	(insert_handler_stub_manual), (on_handler_editing_done),
+	(on_glade_show_version_dialog):
+	* plugins/sourceview/sourceview.c (on_open_finish):
+	
+	Fix translation isses (#570491 and #570429)
+
 2009-02-05  Yang Hong  <hongyang@redflag-linux.com>
 
 	* plugins/file-manager/file-model.c

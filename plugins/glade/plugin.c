@@ -361,7 +361,6 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 		doc = ianjuta_document_manager_get_current_document(docman, NULL);
 		if (doc && ANJUTA_IS_DESIGN_DOCUMENT(doc))
 		{
-			gboolean dirty = ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL);
 			g_signal_emit_by_name (G_OBJECT(doc), "update_ui");
 			g_signal_emit_by_name (G_OBJECT(doc), "update-save-ui");
 		}
@@ -518,8 +517,8 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 	if (gtk_combo_box_get_active_iter (combo, &iter))
 	{
 		GladeProject *project;
-		AnjutaDesignDocument *design_document;
-		GladeDesignView *design_view;
+		AnjutaDesignDocument *design_document = NULL;
+		GladeDesignView *design_view = NULL;
 		gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
 		glade_app_set_project (project);
 
@@ -552,7 +551,8 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 		}
 		else
 		{
-			ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(design_document), NULL);
+			if (design_document)
+				ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(design_document), NULL);
 		}
 
         glade_inspector_set_project (GLADE_INSPECTOR (plugin->priv->inspector), project);
@@ -833,7 +833,7 @@ glade_plugin_do_save_associations (GladePlugin *plugin, GError **error)
 	{
 		g_set_error (error, PLUGIN_GLADE_ERROR,
 		             PLUGIN_GLADE_ERROR_GENERIC,
-		             _("No associoations initialized, nothing to save"));
+		             _("No associations initialized, nothing to save"));
 		return FALSE;
 	}
 	if (!plugin->priv->project_root)
@@ -1306,7 +1306,7 @@ do_insert_handler_stub_C (IAnjutaDocumentManager *docman, IAnjutaEditor *editor,
 		end_str = "\n\n";
 		break;
 	case iptAfterBegin:
-		ianjuta_editor_get_line_from_position (editor, position, NULL);
+		lineno = ianjuta_editor_get_line_from_position (editor, position, NULL);
 		position = ianjuta_editor_get_line_end_position (editor, lineno, NULL);
 		/* there's no need in break, honestly */
 	case iptCurrent:
@@ -1346,7 +1346,7 @@ do_insert_handler_stub_C (IAnjutaDocumentManager *docman, IAnjutaEditor *editor,
 		g_set_error (error,
 	                 PLUGIN_GLADE_ERROR,
 	                 PLUGIN_GLADE_ERROR_GENERIC,
-	                 _("couldn't introspect the signal"));
+	                 _("Couldn't introspect the signal"));
 
 	{
 		gint i;
@@ -1940,7 +1940,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 		g_set_error (error,
 		             PLUGIN_GLADE_ERROR,
 		             PLUGIN_GLADE_ERROR_GENERIC,
-		             _("there's no associated editor for the designer"));
+		             _("There is no associated editor for the designer"));
 		return;
 	}
 	lang_name = ianjuta_language_get_name_from_editor (lang_manager,
@@ -1958,7 +1958,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 			g_set_error (error,
 			             PLUGIN_GLADE_ERROR,
 			             PLUGIN_GLADE_ERROR_GENERIC,
-			             _("unknown language of the editor \"%s\""), uri);
+			             _("Unknown language of the editor \"%s\""), uri);
 			g_free (uri);
 			return;
 		}
@@ -2059,7 +2059,7 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 	if (!IANJUTA_IS_EDITOR (doc))
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                            _("Error while adding a new handler stub: %"), _("no current editor"));
+		                            "%s", _("Error while adding a new handler stub: No current editor"));
 		return;
 	}
 	editor = IANJUTA_EDITOR (doc);
@@ -2230,10 +2230,7 @@ on_handler_editing_done (GladeSignalEditor *self, gchar *signal_name,
 					g_strdup_printf(_("Error while adding a new handler stub: %s"),
 					                error->message);
 				gchar *hint_message =
-					g_strdup_printf(_("To avoid this messages turn off \"%s\" flag in the %s->%s"),
-									_("Insert handler on edit"),
-									_("Preferences"),
-									_("Glade GUI Designer"));
+					g_strdup_printf(_("To avoid this messages turn off \"Insert handler on edit\" flag in Preferences->Glade GUI Designer"));
 
 				anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 										   "%s. %s", error_message, hint_message);
@@ -3888,7 +3885,7 @@ on_glade_show_version_dialog (GtkAction* action, GladePlugin* plugin)
 	else
 	{
 		anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                         _("There's no Glade projects"));
+		                         _("There is no Glade project"));
 	}
 }
 
@@ -3982,9 +3979,9 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeSwitchDesigner",
 		NULL,
-		N_("Switch designer/code"),
+		N_("Switch between designer/code"),
 		"F12",
-		N_("Switch designer/code"),
+		N_("Switch between designer/code"),
 		G_CALLBACK (on_switch_designer_and_editor)
 	},
 	{
@@ -4046,7 +4043,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeClose",
 		GTK_STOCK_CLOSE,
-		N_("Close"),
+		NULL,
 		NULL,
 		N_("Close the current file"),
 		G_CALLBACK (on_glade_layout_close)
@@ -4054,7 +4051,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeSave",
 		GTK_STOCK_SAVE,
-		N_("Save"),
+		NULL,
 		NULL,
 		N_("Save the current file"),
 		G_CALLBACK (on_glade_layout_save)
@@ -4062,7 +4059,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeUndo",
 		GTK_STOCK_UNDO,
-		N_("Undo"),
+		NULL,
 		NULL,
 		N_("Undo the last action"),
 		G_CALLBACK (on_glade_layout_undo)
@@ -4070,7 +4067,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeRedo",
 		GTK_STOCK_REDO,
-		N_("Redo"),
+		NULL,
 		NULL,
 		N_("Redo the last action"),
 		G_CALLBACK (on_glade_layout_redo)
@@ -4078,7 +4075,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeCut",
 		GTK_STOCK_CUT,
-		N_("Cut"),
+		NULL,
 		NULL,
 		N_("Cut the selection"),
 		G_CALLBACK (on_glade_layout_cut)
@@ -4086,7 +4083,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeCopy",
 		GTK_STOCK_COPY,
-		N_("Copy"),
+		NULL,
 		NULL,
 		N_("Copy the selection"),
 		G_CALLBACK (on_glade_layout_copy)
@@ -4094,7 +4091,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladePaste",
 		GTK_STOCK_PASTE,
-		N_("Paste"),
+		NULL,
 		NULL,
 		N_("Paste the clipboard"),
 		G_CALLBACK (on_glade_layout_paste)
@@ -4102,7 +4099,7 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeDelete",
 		GTK_STOCK_DELETE,
-		N_("Delete"),
+		NULL,
 		NULL,
 		N_("Delete the selection"),
 		G_CALLBACK (on_glade_layout_delete)

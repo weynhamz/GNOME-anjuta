@@ -240,7 +240,7 @@ designer_associations_item_from_xml (DesignerAssociationsItem *self,
 		g_set_error (error,
 		             DESIGNER_ASSOCIATIONS_ERROR,
 			         DESIGNER_ASSOCIATIONS_ERROR_LOADING,
-			         _("association item has no designer"));
+			         _("Association item has no designer"));
 		return self;
 	}
 	self->designer = associations_file_from_xml (xml_doc, child_node,
@@ -265,7 +265,7 @@ designer_associations_item_from_xml (DesignerAssociationsItem *self,
 		g_set_error (error,
 		             DESIGNER_ASSOCIATIONS_ERROR,
 			         DESIGNER_ASSOCIATIONS_ERROR_LOADING,
-			         _("association item has no editor"));
+			         _("Association item has no editor"));
 		return self;
 	}
 	self->editor = associations_file_from_xml (xml_doc, child_node,
@@ -368,7 +368,7 @@ designer_associations_option_from_xml (DesignerAssociationsOption *self,
 		g_set_error (error,
 		             DESIGNER_ASSOCIATIONS_ERROR,
 		             DESIGNER_ASSOCIATIONS_ERROR_LOADING,
-		             _("bad association item option in the node %s"),
+		             _("Bad association item option in the node %s"),
 		             node->name);
 		xmlFree (name);
 		xmlFree (value);
@@ -493,7 +493,7 @@ associations_file_from_xml (xmlDocPtr xml_doc, xmlNodePtr node,
 		g_set_error (error,
 		             DESIGNER_ASSOCIATIONS_ERROR,
 		             DESIGNER_ASSOCIATIONS_ERROR_LOADING,
-		             _("association item filename has no path"));
+		             _("Association item filename has no path"));
 
 		return NULL;
 	}

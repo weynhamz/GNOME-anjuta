@@ -336,7 +336,7 @@ sharedlibs_new (DebugManagerPlugin *plugin)
 	sl->action_group = 
 		anjuta_ui_add_action_group_entries (ui,
 				"ActionGroupSharedlibs",
-				_("Sharedlibs operations"),
+				_("Shared library operations"),
 				sharedlibs_menu_actions,
 				G_N_ELEMENTS(sharedlibs_menu_actions),
 				GETTEXT_PACKAGE, TRUE, sl);

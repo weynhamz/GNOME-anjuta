@@ -489,7 +489,7 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	if (sourceview_io_get_read_only (io))
 	{
 		gchar* filename = sourceview_io_get_filename (io);
-		gchar* buff = g_strdup_printf ("The file '%s' is read-only! Edit anyway?",
+		gchar* buff = g_strdup_printf (_("The file '%s' is read-only! Edit anyway?"),
 									   filename);
 		GtkWidget* message_area;
 		g_free (filename);

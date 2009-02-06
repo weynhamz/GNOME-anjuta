@@ -909,7 +909,7 @@ load_target (DmaStart *this, const gchar *target)
 		DEBUG_PRINT ("Error getting file info: %s", error->message);
 		g_error_free (error);
 		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
-				_("Unable to open %s. (file_info) Debugger cannot start."), target);
+				_("Unable to open %s. Debugger cannot start."), target);
 		g_object_unref (file);
 		return FALSE;
 	}
@@ -919,7 +919,7 @@ load_target (DmaStart *this, const gchar *target)
 	if (mime_type == NULL)
 	{
 		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
-				_("Unable to open %s. (mime_type) Debugger cannot start."), target);
+				_("Unable to detect mime-type of %s. Debugger cannot start."), target);
 		g_object_unref (file_info);
 		g_object_unref (file);
 		return FALSE;
