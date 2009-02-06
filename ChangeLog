@@ -1,5 +1,11 @@
 2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/project-manager/gbf-project-util.c
+	(browse_button_clicked_cb):
+	fixed #570245 – gbf gio-critical g_file_query_exists
+
+2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/plugin.c (on_session_load),
 	(symbol_db_activate):
 	hide progress bar for system and project if no project is loaded.

@@ -564,7 +564,7 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 	tmp = g_file_get_parent (gio_file);
     g_free (uri);
 	uri = NULL;
-	if (g_file_query_exists (tmp, NULL))
+	if (tmp && g_file_query_exists (tmp, NULL))
 	{
 	    uri = g_file_get_uri (tmp);
 	}
