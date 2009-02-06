@@ -2406,13 +2406,13 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES;
-		file_scope_str = " AND symbol.is_file_scope = 1 ";
+		file_scope_str = " AND symbol.is_file_scope = 0 ";
 	}
 	else if (global_symbols_search == 0)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO;
-		file_scope_str = " AND symbol.is_file_scope = 0 ";
+		file_scope_str = " AND symbol.is_file_scope = 1 ";
 	}
 	else 	/* -1 */
 	{

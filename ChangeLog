@@ -1,3 +1,11 @@
+2009-02-07  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (isymbol_manager_search_project):
+	* plugins/symbol-db/symbol-db-engine-queries.c
+	(symbol_db_engine_find_symbol_by_name_pattern_filtered):
+	ianjuta_symbol_manager_search_project () will now search only for global
+	project symbols.
+
 2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (isymbol_manager_search_project):
