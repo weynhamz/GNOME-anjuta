@@ -1,3 +1,9 @@
+2009-02-06  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_session_load),
+	(symbol_db_activate):
+	hide progress bar for system and project if no project is loaded.
+
 2009-02-06  Johannes Schmid  <jhs@Obelix>
 
 	* plugins/debug-manager/sharedlib.c (sharedlibs_new):

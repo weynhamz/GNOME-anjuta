@@ -742,6 +742,12 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				g_value_unset(&value);
 			}
 		}
+		
+		if (sdb_plugin->project_opened == NULL)
+		{
+			gtk_widget_hide (sdb_plugin->progress_bar_project);
+			gtk_widget_hide (sdb_plugin->progress_bar_system);
+		}
 	}	
 }
 
@@ -2202,7 +2208,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->progress_bar_system = gtk_progress_bar_new();
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_system),
 									PANGO_ELLIPSIZE_MIDDLE);
-	
 	g_object_ref (sdb_plugin->progress_bar_system);
 		
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->dbv_notebook,
@@ -2213,6 +2218,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 						FALSE, FALSE, 0);	
 	gtk_widget_show_all (sdb_plugin->dbv_main);
 	
+
 	/* Local symbols */
 	sdb_plugin->scrolled_locals = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_locals),
