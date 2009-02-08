@@ -1,30 +1,30 @@
 
-<h3>Latest unstable Anjuta 2.23.x releases (Cyclone)</h3>
-        <p>
-                Latest unstable release is <a
-                href="http://downloads.sourceforge.net/anjuta/anjuta-2.23.91.tar.bz2"
-                >Anjuta version 2.23.91</a>.
-                See <a href="http://sourceforge.net/project/shownotes.php?group_id=14222&release_id=623540">
-                Release notes and ChangeLog</a> for list of all changes in this release.
-                This is the an unstable release of 2.23.x series (formerly 2.5.x series)
-                and targeted for 2.24.0 Cyclone series.
-                We encorage to use it and help us with bug reports. Please see <a href="http://anjuta.org/features">features</a>
-                for some details on this release. Some more information can be found at <a
+<h3>Latest unstable Anjuta 2.25.x releases</h3>
+	<p>
+		Latest unstable release is
+		<a href="http://ftp.gnome.org/pub/GNOME/sources/anjuta/2.25" >here</a>.
+	
+		Anjuta now follows GNOME <a href="http://live.gnome.org/TwoPointTwentyfive">release planning</a> and version numbering scheme. Unstable
+		versions have a odd minor version number while stable version
+		have a even minor version number.
+		We encourage to use it and help us with <a href="http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta">bug reports</a>.
+                Some more information can be found at <a
                 href="http://live.gnome.org/Anjuta">Anjuta wiki</a>.
-        </p><p>
+        </p>
 
-<h3>Latest stable Anjuta 2.4.x releases (Tornado)</h3>
+<h3>Latest stable Anjuta 2.24.x releases (Cyclone)</h3>
+
         <p>
                 Latest stable release is <a
-                href="http://downloads.sourceforge.net/anjuta/anjuta-2.4.2.tar.bz2"
-                >Anjuta version 2.4.2</a>.
-                See <a href="http://sourceforge.net/project/shownotes.php?group_id=14222&release_id=602860"
-		>Release notes and ChangeLog</a> for list of all changes in this release.
-                This is a stable release of 2.4.x (Tornado) series and is under constant bugfix.
-		We encorage to use it and help us with bug reports.
+                href="http://ftp.gnome.org/pub/GNOME/sources/anjuta/2.24/anjuta-2.24.2.tar.bz2">
+                Anjuta version 2.24.2</a>.
+                Please see <a href="http://anjuta.org/features">features</a>
+		for some details on this release.
+                This is a stable release of 2.24.x (Cyclone) series and is under constant bugfix.
+		We encourage to use it and help us with bug reports.
 	</p><p>
 		Older releases and documentations are available <a
-		href="http://sourceforge.net/project/showfiles.php?group_id=14222">here</a>
+		href="http://ftp.gnome.org/pub/GNOME/sources/anjuta/">here</a>
 	</p>
 <hr/>
 <h3>Anjuta 2.x Dependencies</h3>
@@ -39,7 +39,10 @@
 
                         <tr><td nowrap><a href="http://ftp.gnome.org/pub/GNOME/sources/gnome-build/0.2/">gnome-build</a></td>
                         <td nowrap>0.2.0 or later</td>
-                        <td>GNOME build frame work</td></tr>
+                        <td>GNOME build frame work (not needed anymore for Anjuta > 2.25.0)</td></tr>
+                        <tr><td nowrap><a href="http://ftp.gnome.org/pub/GNOME/sources/libgda/3.99/">libgda</a></td>
+                        <td nowrap>3.99.7 or later</td>
+                        <td>GNOME DB library (need for Anjuta > 2.25.0)</td></tr>
 
                         <tr><td nowrap><a href="http://sourceforge.net/project/showfiles.php?group_id=3593">libopts</a></td>
                         <td nowrap>23.0.0 or later</td>

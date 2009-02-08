@@ -1,5 +1,10 @@
 2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* www/htdocs/downloads.php:
+	Fix #570614 – outdated download addresses
+
+2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/scintilla/text_editor.c,
 	plugins/sourceview/sourceview.c,
 	libanjuta/interfaces/libanjuta.idl:
