@@ -1,3 +1,12 @@
+2009-02-08  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-model.c (file_model_get_vcs_status):
+	* plugins/file-manager/plugin.c (get_vcs_plugin),
+	(project_root_added), (file_manager_activate):
+	* plugins/subversion/anjuta-subversion.plugin.in:
+	
+	Only load correct IAnjutaVcs plugin for project
+
 2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c,

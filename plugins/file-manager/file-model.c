@@ -262,13 +262,7 @@ file_model_get_vcs_status (FileModel* model,
 	GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL(model),
 												 iter);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
-	AnjutaPlugin* plugin = ANJUTA_PLUGIN(g_object_get_data (G_OBJECT(priv->view), "__plugin"));
-	
-	g_return_if_fail (plugin != NULL);
-
-	IAnjutaVcs* ivcs = anjuta_shell_get_interface (plugin->shell,
-												   IAnjutaVcs,
-												   NULL);
+	IAnjutaVcs* ivcs = g_object_get_data (G_OBJECT(priv->view), "__ivcs");
 	if (ivcs)
 	{	
 		VcsData* data = g_new0(VcsData, 1);

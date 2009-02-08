@@ -30,6 +30,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include "plugin.h"
@@ -90,6 +91,61 @@ file_manager_set_default_uri (AnjutaFileManager* file_manager)
 	g_object_unref (file);
 }
 
+static IAnjutaVcs*
+get_vcs_plugin(AnjutaFileManager* file_manager, const gchar* root_uri)
+{
+	typedef struct
+	{
+		const gchar* file;
+		const gchar* name;
+	} VcsSystem;
+	VcsSystem vcs_systems[] = {
+		{".svn", "Subversion"},
+		{".git", "Git"},
+		{NULL, NULL}
+	};
+	
+	gint i;
+	const gchar* vcs_system = NULL;
+	IAnjutaVcs* ivcs = NULL;
+	for (i = 0; vcs_systems[i].name != NULL; i++)
+	{
+		gchar* vcs_uri = g_build_filename (root_uri, vcs_systems[i].file, NULL);
+		GFile* vcs_file = g_file_new_for_uri (vcs_uri);
+		if (g_file_query_exists(vcs_file, NULL))
+		{
+			vcs_system = vcs_systems[i].name;
+		}
+		g_free (vcs_uri);
+		g_object_unref (vcs_file);
+		if (vcs_system)
+			break;
+	}
+	
+	if (vcs_system)
+	{
+		/* Load current language editor support plugins */
+		AnjutaPluginManager* plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(file_manager)->shell, NULL);
+		GList* plugin_descs = anjuta_plugin_manager_query (plugin_manager,
+														   "Anjuta Plugin",
+														   "Interfaces",
+														   "IAnjutaVcs",
+														   "Vcs",
+														   "System",
+														   vcs_system, NULL);
+		if (plugin_descs)
+		{
+			gchar* plugin_id;
+			anjuta_plugin_description_get_string (plugin_descs->data, "Anjuta Plugin", "Location",
+													  &plugin_id);
+			ivcs = IANJUTA_VCS(anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																	   plugin_id));
+			g_list_free (plugin_descs);
+		}
+	}
+	return ivcs;
+}
+
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
@@ -102,11 +158,17 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	if (root_uri)
 	{
 		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
+		g_object_set_data (G_OBJECT(file_manager->fv), "__ivcs",
+						   get_vcs_plugin (file_manager,
+										   root_uri));
+		
 		file_view_refresh (file_manager->fv);
 		file_manager->have_project = TRUE;
 	}
 	else
 	{
+		g_object_set_data (G_OBJECT(file_manager->fv), "__ivcs",
+						   NULL);
 		file_manager_set_default_uri (file_manager);
 		file_view_refresh (file_manager->fv);
 	}
@@ -235,7 +297,6 @@ file_manager_activate (AnjutaPlugin *plugin)
 										 GTK_SHADOW_IN);
 	
 	file_manager->fv = ANJUTA_FILE_VIEW (file_view_new ());
-	g_object_set_data (G_OBJECT(file_manager->fv), "__plugin", ANJUTA_PLUGIN(file_manager));
 	
 	g_signal_connect (G_OBJECT (file_manager->fv), "file-open",
 					  G_CALLBACK (on_file_view_open_file), file_manager);
