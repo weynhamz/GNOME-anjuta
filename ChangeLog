@@ -1,5 +1,15 @@
 2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c:
+	Fix #564942 – display project-relative path in search results pane
+	Fix #565015 – duplicate matches in search results pane
+
+	* plugins/message-view/message-view.c:
+	Fix #539580 – Uncorrect pass search result to
+
+2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* www/htdocs/downloads.php:
 	Fix #570614 – outdated download addresses
 

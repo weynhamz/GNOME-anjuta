@@ -1323,15 +1323,6 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 	/* Check if message contains newlines */
 	for (cur_char = 0; cur_char < len; cur_char++)
 	{		
-		/* Replace "\\\n" with " " */
-		if (message[cur_char] == '\\' && cur_char < len - 1 &&
-			message[cur_char+1] == '\n')
-		{
-			add_char(&view->privat->line_buffer, ' ');
-			cur_char++;
-			continue;
-		}
-
 		/* Is newline => print line */
 		if (message[cur_char] != '\n')
 		{

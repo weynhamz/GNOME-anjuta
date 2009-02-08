@@ -602,6 +602,34 @@ static void search_entry_free (gpointer data, gpointer user_data)
 	g_free (data);
 }
 
+/* Remove duplicate entries in the list, the list must be sorted */
+static GList* search_entries_remove_duplicate (GList *entries)
+{
+	GList *node;
+	
+	for (node = g_list_first (entries); (node != NULL) && (node->next != NULL); )
+	{
+		GList *next = g_list_next (node);
+		SearchEntry *se = (SearchEntry *)node->data;
+		SearchEntry *next_se = (SearchEntry *)next->data;
+		
+		if ((se->te == next_se->te) && (search_entry_compare (se, next_se) == 0))
+		{
+			/* Find a duplicate entry , remove it*/
+			
+			search_entry_free (next_se, NULL);
+			entries = g_list_delete_link (entries, next);
+		}
+		else
+		{
+			/* Get next entry */
+			node = g_list_next(node);
+		}
+	}
+	
+	return entries;
+}
+
 /* Create list of search entries */
 GList *
 create_search_entries (Search *s)
@@ -761,7 +789,6 @@ create_search_entries (Search *s)
 					entries = g_list_prepend(entries, se);
 				}
 			}
-			entries = g_list_sort(entries, search_entry_compare);
 			g_list_free (editors);
 			break;
 		case SR_FILES:
@@ -801,13 +828,16 @@ create_search_entries (Search *s)
 					entries = g_list_prepend(entries, se);
 				}
 				g_list_free(files);
-				entries = g_list_sort(entries, search_entry_compare);
 			}
 			g_free(dir);
 			g_free(dir_uri);
 			break;
 		}
-	}	
+	}
+
+	entries = g_list_sort(entries, search_entry_compare);
+	entries = search_entries_remove_duplicate (entries);
+	
 	return entries;		
 }
 

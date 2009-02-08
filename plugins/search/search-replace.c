@@ -652,11 +652,37 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 	gchar *match_line = file_match_line_from_pos(fb, mi->pos);
 	int line = mi->line;
 	gchar *buf;
-	gchar *path;
+	gchar *path = NULL;
 	
 	if (se->type == SE_FILE)
 		++line;
-	path = g_file_get_path (fb->file);
+	if (fb->file != NULL)
+	{
+		gchar *dir_uri = NULL;	
+		
+		anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
+							  "project_root_uri", G_TYPE_STRING,
+							  &dir_uri, NULL);
+		if (dir_uri != NULL)
+		{
+			GFile *root_file = g_file_new_for_uri (dir_uri);
+			
+			g_free (dir_uri);
+			path = g_file_get_relative_path (root_file, fb->file);
+			g_object_unref (root_file);
+		}
+		
+		if (path == NULL)
+		{
+			path = g_file_get_path (fb->file);
+		}
+	}
+	else
+	{
+		g_return_if_fail (se->te != NULL);
+		
+		path = g_strdup (ianjuta_document_get_filename (IANJUTA_DOCUMENT (se->te), NULL));
+	}
 	buf = g_strdup_printf ("%s:%d:%s\n", path, line, match_line);
 	g_free (path);
 	g_free(match_line);
