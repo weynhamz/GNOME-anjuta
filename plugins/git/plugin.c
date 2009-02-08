@@ -597,6 +597,17 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->log_popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 															"/PopupLog");
 	
+	/* Log viewer */
+	git_plugin->log_viewer = git_log_window_create (git_plugin);
+	anjuta_shell_add_widget (plugin->shell,
+							 git_plugin->log_viewer,
+							 "GitLogViewer",
+							 _("Git Log"),
+							 GTK_STOCK_ZOOM_100,
+							 ANJUTA_SHELL_PLACEMENT_CENTER,
+							 NULL);
+	g_object_unref (git_plugin->log_viewer);
+	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
 																 IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
@@ -615,17 +626,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 													   on_fm_file_added,
 													   on_fm_file_removed,
 													   NULL);
-	
-	/* Log viewer */
-	git_plugin->log_viewer = git_log_window_create (git_plugin);
-	anjuta_shell_add_widget (plugin->shell,
-							 git_plugin->log_viewer,
-							 "GitLogViewer",
-							 _("Git Log"),
-							 GTK_STOCK_ZOOM_100,
-							 ANJUTA_SHELL_PLACEMENT_CENTER,
-							 NULL);
-	g_object_unref (git_plugin->log_viewer);
 	
 	
 	

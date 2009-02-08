@@ -1,3 +1,8 @@
+2009-02-08  Yang Hong  <hongyang@redflag-linux.com>
+
+	* plugins/git/plugin.c (git_activate_plugin):
+	Fixed #570929, initialize widgets before add watches.
+
 2009-02-07  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (isymbol_manager_search_project):
