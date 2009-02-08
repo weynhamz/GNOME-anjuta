@@ -547,6 +547,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	/* if no scan has started destroy the engine data here */
 	else if (proc_id <= 0) 			
 	{
+		g_queue_remove (priv->engine_queue, es_data);
 		destroy_engine_scan_data (es_data);
 		es_data = NULL;
 	

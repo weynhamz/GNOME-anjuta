@@ -684,74 +684,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 }
 
 static void
-on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session,
-				 SymbolDBPlugin *sdb_plugin)
-{
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-
-	DEBUG_PRINT ("%s", "SymbolDB: session_save");
-
-	anjuta_session_set_string_list (session, 
-									SESSION_SECTION, 
-									SESSION_KEY,
-									sdb_plugin->session_packages);	
-}
-
-static void
-on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session,
-				 SymbolDBPlugin *sdb_plugin)
-{
-	IAnjutaProjectManager *pm;
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaProjectManager, NULL);	
-	
-	if (phase == ANJUTA_SESSION_PHASE_START)
-	{
-		sdb_plugin->session_packages = anjuta_session_get_string_list (session, 
-																	   SESSION_SECTION, 
-																	   SESSION_KEY);
-	
-		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
-					 anjuta_session_get_session_directory (session));
-		sdb_plugin->session_loading = TRUE;
-	}
-	
-	else if (phase == ANJUTA_SESSION_PHASE_END)
-	{
-		IAnjutaDocumentManager* docman;
-		sdb_plugin->session_loading = FALSE;
-		DEBUG_PRINT ("SymbolDB: session_loading finished");
-		
-		/* Show the symbols for the current editor */
-		docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
-		if (docman)
-		{
-			IAnjutaDocument* cur_doc = 
-				ianjuta_document_manager_get_current_document (docman, NULL);
-			if (cur_doc)
-			{
-				GValue value = {0, };
-				g_value_init (&value, G_TYPE_OBJECT);
-				g_value_set_object (&value, cur_doc);
-				value_added_current_editor (ANJUTA_PLUGIN (sdb_plugin),
-											"document_manager_current_document",
-											&value, NULL);
-				g_value_unset(&value);
-			}
-		}
-		
-		if (sdb_plugin->project_opened == NULL)
-		{
-			gtk_widget_hide (sdb_plugin->progress_bar_project);
-			gtk_widget_hide (sdb_plugin->progress_bar_system);
-		}
-	}	
-}
-
-static void
 on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 {	
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
@@ -1724,6 +1656,95 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	return real_added > 0 ? TRUE : FALSE;	
 }
 
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
+				 SymbolDBPlugin *sdb_plugin)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	DEBUG_PRINT ("%s", "SymbolDB: session_save");
+
+	anjuta_session_set_string_list (session, 
+									SESSION_SECTION, 
+									SESSION_KEY,
+									sdb_plugin->session_packages);	
+}
+
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
+				 SymbolDBPlugin *sdb_plugin)
+{
+	IAnjutaProjectManager *pm;
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaProjectManager, NULL);	
+	
+	if (phase == ANJUTA_SESSION_PHASE_START)
+	{
+		sdb_plugin->session_packages = anjuta_session_get_string_list (session, 
+																	   SESSION_SECTION, 
+																	   SESSION_KEY);
+	
+		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
+					 anjuta_session_get_session_directory (session));
+		sdb_plugin->session_loading = TRUE;
+		
+		if (sdb_plugin->session_packages == NULL)
+		{
+			/* hey, does user want to import system sources for this project? */
+			gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+																  PROJECT_AUTOSCAN);
+			
+			if (automatic_scan == TRUE)
+			{
+				sdb_plugin->session_packages = ianjuta_project_manager_get_packages (pm, NULL);
+			}
+		}
+		
+		/* get preferences about the parallel scan */
+		gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+															 PARALLEL_SCAN); 
+		
+		if (parallel_scan == TRUE)
+		{
+			/* we simulate a project-import-end signal received */
+			do_import_system_sources (sdb_plugin);		
+		}
+	}	
+	else if (phase == ANJUTA_SESSION_PHASE_END)
+	{
+		IAnjutaDocumentManager* docman;
+		sdb_plugin->session_loading = FALSE;
+		DEBUG_PRINT ("SymbolDB: session_loading finished");
+		
+		/* Show the symbols for the current editor */
+		docman = anjuta_shell_get_interface (shell, IAnjutaDocumentManager, NULL);
+		if (docman)
+		{
+			IAnjutaDocument* cur_doc = 
+				ianjuta_document_manager_get_current_document (docman, NULL);
+			if (cur_doc)
+			{
+				GValue value = {0, };
+				g_value_init (&value, G_TYPE_OBJECT);
+				g_value_set_object (&value, cur_doc);
+				value_added_current_editor (ANJUTA_PLUGIN (sdb_plugin),
+											"document_manager_current_document",
+											&value, NULL);
+				g_value_unset(&value);
+			}
+		}
+		
+		if (sdb_plugin->project_opened == NULL)
+		{
+			gtk_widget_hide (sdb_plugin->progress_bar_project);
+			gtk_widget_hide (sdb_plugin->progress_bar_system);
+		}
+	}	
+}
+
 /* add a new project */
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -1760,7 +1781,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 												 sdb_plugin->sdbe_globals);		
 	}
 	
-	
 	/* Hide the progress bar. Default system tags thing: we'll import after abort even 
 	 * if the preferences says not to automatically scan the packages.
 	 */
@@ -1768,30 +1788,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);
-	
-	if (sdb_plugin->session_packages == NULL)
-	{
-		/* hey, does user want to import system sources for this project? */
-		gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
-															  PROJECT_AUTOSCAN);
-		
-		if (automatic_scan == TRUE)
-		{
-			sdb_plugin->session_packages = ianjuta_project_manager_get_packages (pm, NULL);
-		}
-	}
-
-	/* get preferences about the parallel scan */
-	gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
-														 PARALLEL_SCAN); 
-	
-	if (parallel_scan == TRUE)
-	{
-		/* we simulate a project-import-end signal received */
-		do_import_system_sources (sdb_plugin);		
-	}
-	
-	
 	
 	/*
 	 *   The Project thing

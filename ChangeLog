@@ -1,3 +1,12 @@
+2009-02-08  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_session_save), (on_session_load),
+	(on_project_root_added):
+	* plugins/symbol-db/symbol-db-system.c (sdb_system_do_engine_scan):
+	fixed #570877 – symbol-db doesn't scan user-added packages.
+
 2009-02-08  Yang Hong  <hongyang@redflag-linux.com>
 
 	* plugins/git/plugin.c (git_activate_plugin):
