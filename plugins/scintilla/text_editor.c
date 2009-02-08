@@ -2265,22 +2265,8 @@ itext_editor_get_lineno (IAnjutaEditor *editor, GError **e)
 static gint
 itext_editor_get_length (IAnjutaEditor *editor, GError **e)
 {
-	TextEditor *te = TEXT_EDITOR (editor);
-	
-	/* FIXME: Find a more optimal solution */
-	gint length = scintilla_send_message (SCINTILLA (te->scintilla),
-										  SCI_GETLENGTH, 0, 0);
-	if (length > 0)
-	{
-		gint char_position;
-		gchar *data =
-			(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, 0,
-										length);
-		char_position = g_utf8_strlen (data, -1);
-		g_free (data);
-		return char_position;
-	}
-	return 0;
+        return aneditor_command (TEXT_EDITOR (editor)->editor_id,
+		       	ANE_GETLENGTH, 0, 0);
 }
 
 static gchar*

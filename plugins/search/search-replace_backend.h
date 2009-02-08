@@ -143,25 +143,23 @@ typedef struct _FileBuffer
 {
 	FileBufferType type;
 
-	/* The following are valid only for files loaded from disk */
-	gchar *name; /* Name of the file */
+	GFile *file;			/* GFile object */
 
-	gchar *path; /* Full path to the file */
-	gchar *uri;  /* URI to the file */
-	gchar *buf; /* Contents of the file, null-terminated */
-	gint len; /* Length of the buffer */
+	gchar *buf;		/* Contents of the file, null-terminated */
+	gsize len;			/* Length of the buffer */
 
-	/* Current position: a count of UTF-8 characters, *not* bytes. */
+	/* Current position: a count of bytes, *not* UTF-8 characters. */
 	gint pos; 
 
-	gint line; /* Current line */
-	GList *lines; /* List of integers specifying line start positions in bytes */
+	gint line; 			/* Current line */
+	GList *lines; 		/* List of integers specifying line start positions in bytes */
 
 	gchar *canonical;   /* buffer text converted to canonical utf-8 form */
 	gchar *canonical_p; /* current pointer into canonical text */
 
 	/* The following are valid only for files corresponding to a TextEditor */
 	IAnjutaEditor *te;
+
 } FileBuffer;
 
 
@@ -176,17 +174,17 @@ typedef enum _SearchEntryType
 typedef struct _SearchEntry
 {
 	SearchEntryType type;
-	gchar *path;
+	gchar *uri;
 	IAnjutaEditor *te;
 	SearchDirection direction;
-	gint start_pos;
+	gint start_pos;		/* Both position in characters */
 	gint end_pos;
 } SearchEntry;
 	
 typedef struct _MatchInfo
 {
-	gint pos;
-	gint len;
+	gint pos;			/* in bytes */
+	gint len;			/* in bytes */
 	gint line;
 	GList *subs; /* <MatchSubStr *> */
 } MatchInfo;
@@ -202,13 +200,9 @@ void free_search_entries (GList *entries);
 
 FileBuffer *file_buffer_new_from_te (IAnjutaEditor *te);
 
-FileBuffer *
-file_buffer_new_from_path(const char *path, const char *buf, int len, int pos);
+FileBuffer *file_buffer_new_from_uri(const gchar *uri);
 
-FileBuffer *
-file_buffer_new_from_path(const char *path, const char *buf, int len, int pos);
-
-gchar *file_match_line_from_pos(FileBuffer *fb, int pos);
+gchar *file_match_line_from_pos(FileBuffer *fb, gint pos);
 
 MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s);
 

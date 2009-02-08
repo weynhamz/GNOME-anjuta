@@ -1,3 +1,19 @@
+2009-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/scintilla/text_editor.c,
+	plugins/sourceview/sourceview.c,
+	libanjuta/interfaces/libanjuta.idl:
+	ianjuta_editor_get_length returns value in bytes instead of characters
+
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c,
+	plugins/search/search-replace_backend.h:
+	Fix #566531 – Find & Replace results in wrong result for files
+	containing multi-byte UTF-8 sequences
+
+	* plugins/search/Makefile.am:
+	Define log domains for search plugin
+
 2009-02-08  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>

@@ -228,7 +228,6 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, Ma
 static gboolean on_message_clicked (GObject* object, gchar* message, gpointer data);
 static void on_message_view_destroyed (gpointer unused, GObject* where_the_object_was);
 static void on_message_buffer_flush (IAnjutaMessageView *view, const gchar *one_line, gpointer data);
-static void save_not_opened_files(FileBuffer *fb);
 static gboolean replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str);
 static void search_set_action(SearchAction action);
 static void search_set_target(SearchRangeType target);
@@ -355,21 +354,25 @@ search_and_replace (void)
 		found_line = (s->action == SA_BOOKMARK) ? -1 : 1;
 
 		se = (SearchEntry *) tmp->data;
-		if (flag_select)
-		{
-			se->start_pos = start_sel;
-			se->end_pos = end_sel;
-		}
-		else
-			end_sel = se->end_pos;
+		
 		if (SE_BUFFER == se->type)
 			fb = file_buffer_new_from_te(se->te);
 		else /* if (SE_FILE == se->type) */
-			fb = file_buffer_new_from_path(se->path, NULL, -1, 0);
-
+			fb = file_buffer_new_from_uri(se->uri);
+		
 		if (fb && fb->buf)
-		{		
-			fb->pos = se->start_pos;
+		{
+			if (flag_select)
+			{
+				se->start_pos = g_utf8_strlen (fb->buf, start_sel);
+				se->end_pos = g_utf8_strlen (fb->buf, end_sel);
+			}
+			else
+			 {
+				end_sel = g_utf8_offset_to_pointer (fb->buf, se->end_pos) - fb->buf;
+			 }
+			
+			fb->pos = g_utf8_offset_to_pointer (fb->buf, se->start_pos) - fb->buf;
 			offset = 0;
 		//FIXME enable clearing of marks by some means other than a 0-match search
 			if (s->action == SA_HIGHLIGHT)	
@@ -402,10 +405,14 @@ search_and_replace (void)
 
 						if (IANJUTA_INDICABLE (fb->te))
 						{
+							gint offset;
 							IAnjutaIterable *start_pos, *end_pos;
 							/* end-location is correct for sourceview, 1-too-big for scintilla */
-							start_pos = ianjuta_editor_get_position_from_offset (fb->te, mi->pos, NULL);
-							end_pos = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len, NULL);
+
+							offset = g_utf8_strlen (fb->buf, mi->pos);
+							start_pos = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end_pos = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 							ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),
 												   start_pos, end_pos,
 												   IANJUTA_INDICABLE_IMPORTANT, NULL);
@@ -417,14 +424,12 @@ search_and_replace (void)
 					case SA_BOOKMARK:
 						if (found_line != mi->line)
 						{
-							GFile* file = g_file_new_for_uri (fb->uri);
 							found_line = mi->line + 1; /* different line count between search and editor */
 							ianjuta_document_manager_add_bookmark (sr->docman,
-																   file,
+																   fb->file,
 																   found_line,
 																   NULL);
-							g_object_unref (file);			  
-						}
+	 					}
 						break;
 						
 					case SA_SELECT:
@@ -434,16 +439,19 @@ search_and_replace (void)
 								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
 							else
 							{
-								GFile* file = g_file_new_for_uri (fb->uri);
-								fb->te = ianjuta_document_manager_goto_file_line_mark
-									(sr->docman, file, mi->line, FALSE, NULL);
-								g_object_unref (file);
+									fb->te = ianjuta_document_manager_goto_file_line_mark
+									(sr->docman, fb->file, mi->line, FALSE, NULL);
 							}
 							found_line = mi->line;
 						}
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len, NULL);
+							gint offset;
+							IAnjutaIterable *start, *end;
+
+							offset = g_utf8_strlen (fb->buf, mi->pos);
+							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -465,18 +473,21 @@ search_and_replace (void)
 								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
 							else
 							{
-								GFile* file = g_file_new_for_uri (fb->uri);
 								fb->te = ianjuta_document_manager_goto_file_line_mark
-									(sr->docman, file, mi->line, FALSE, NULL);
-								g_object_unref (file);
+									(sr->docman, fb->file, mi->line, FALSE, NULL);
 							}
 							found_line = mi->line;
 							}
 
 						if (!interactive)
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset + mi->len, NULL);
+							gint offset;
+							IAnjutaIterable *start, *end;
+
+							offset = g_utf8_strlen (fb->buf, mi->pos);
+							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -505,8 +516,13 @@ search_and_replace (void)
 								ch = NULL;
 						}
 							{
-								IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - os, NULL);
-								IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len - os, NULL);
+								gint offset;
+								IAnjutaIterable *start, *end;
+
+								offset = g_utf8_strlen (fb->buf, mi->pos);
+								start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+								offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+								end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 								ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 															 start,														 
 															 end,
@@ -541,8 +557,13 @@ search_and_replace (void)
 						}
 						else
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len - offset, NULL);
+							gint offset;
+							IAnjutaIterable *start, *end;
+
+							offset = g_utf8_strlen (fb->buf, mi->pos);
+							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 														 start,
 														 end,
@@ -583,7 +604,7 @@ search_and_replace (void)
 			}
 			if (save_file)
 			{
-				save_not_opened_files (fb);
+				g_file_replace_contents (fb->file, fb->buf, fb->len, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL, NULL);
 				save_file = FALSE;
 			}
 			
@@ -630,13 +651,17 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 {
 	gchar *match_line = file_match_line_from_pos(fb, mi->pos);
 	int line = mi->line;
-	char buf[BUFSIZ];
+	gchar *buf;
+	gchar *path;
 	
 	if (se->type == SE_FILE)
 		++line;
-    snprintf(buf, BUFSIZ, "%s:%d:%s\n", fb->path, line, match_line);
+	path = g_file_get_path (fb->file);
+	buf = g_strdup_printf ("%s:%d:%s\n", path, line, match_line);
+	g_free (path);
 	g_free(match_line);
 	ianjuta_message_view_buffer_append (view, buf, NULL);
+	g_free (buf);
 }
 
 static void
@@ -677,44 +702,6 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 	g_free(path);
 	g_free(nline);
 	return FALSE;
-}
-
-static void
-save_not_opened_files(FileBuffer *fb)
-{
-	GFile *file;
-	GOutputStream *os;
-	gsize written;
-	gsize size;
-	gchar *buffer;
-
-	file = g_file_new_for_uri (fb->uri);
-	os = G_OUTPUT_STREAM (g_file_replace (file, 
-			NULL,
-			FALSE,
-			G_FILE_CREATE_NONE,
-			NULL,
-			NULL));
-	if (os == NULL)
-	{
-		g_object_unref (file);
-		return;
-	}
-
-	buffer = fb->buf;
-	size = fb->len;
-	do
-	{
-		written = g_output_stream_write (os, 
-				buffer, size, NULL, NULL);
-		
-		size -= written;
-		buffer += size;
-	}
-	while (written != -1 && size > 0);
-	g_output_stream_close(os, NULL, NULL);
-	g_object_unref (os);
-	g_object_unref (file);
 }
 
 static gboolean

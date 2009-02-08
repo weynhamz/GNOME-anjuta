@@ -102,10 +102,8 @@ file_buffer_free (FileBuffer *fb)
 {
 	if (fb)
 	{
-		if (fb->path)
-			g_free(fb->path);
-		if (fb->uri)
-			g_free (fb->uri);
+		if (fb->file)
+			g_object_unref (fb->file);
 		if (fb->buf)
 			g_free(fb->buf);
 		if (fb->lines)
@@ -118,23 +116,21 @@ file_buffer_free (FileBuffer *fb)
 FileBuffer *
 file_buffer_new_from_te (IAnjutaEditor *te)
 {
-	FileBuffer *fb;
-	GFile* file;
+	FileBuffer *fb = NULL;
+	gint len;
 	
 	g_return_val_if_fail(te, NULL);
-	fb = g_new0(FileBuffer, 1);
-	fb->type = FB_EDITOR;
-	fb->te = te;
 	
-	file = ianjuta_file_get_file(IANJUTA_FILE(te), NULL);
-	fb->path = g_file_get_path (file);
-	fb->uri = g_file_get_uri (file);
-	fb->len = ianjuta_editor_get_length(te, NULL);
-	fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);
-	fb->pos = ianjuta_editor_get_offset(fb->te, NULL);
-	fb->line = ianjuta_editor_get_lineno(fb->te, NULL);
-	
-	g_object_unref (file);
+	len = ianjuta_editor_get_length(te, NULL);
+	if (len != 0)
+	{
+		fb = g_new0(FileBuffer, 1);
+		fb->type = FB_EDITOR;
+		fb->te = te;
+		fb->file = ianjuta_file_get_file(IANJUTA_FILE(te), NULL);
+		fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);
+		fb->len = len;
+	}
 	
 	return fb;
 }
@@ -143,121 +139,47 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 #define MAX_VALIDATE 500
 
 FileBuffer *
-file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
+file_buffer_new_from_uri (const gchar *uri)
 {
 	FileBuffer *fb;
-	IAnjutaEditor *te;
+	GFile *file;
 	IAnjutaDocument* doc;
-	GFile* file;
-	char *uri;
-	int i;
-	int lineno;
+	gchar *buffer;
+	gsize length;
 
-	g_return_val_if_fail(path, NULL);
+	g_return_val_if_fail(uri, NULL);
+	
+	
+	file = g_file_new_for_uri (uri);
 	
 	/* There might be an already open TextEditor with this path */
-	file = g_file_new_for_path (path);
-	uri = g_file_get_uri (file);
 	doc = ianjuta_document_manager_find_document_with_file (sr->docman,
 														 file, NULL);
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
+		IAnjutaEditor *te;
+		
 		te = IANJUTA_EDITOR (doc);
+		g_object_unref (file);
+
 		return file_buffer_new_from_te(te);
 	}
-	fb = g_new0(FileBuffer, 1);
-	fb->type = FB_FILE;
-	fb->path = g_file_get_path (file);
-	fb->uri = uri;
-	fb->name = strrchr(path, '/');
-	g_object_unref (file);
-	if (fb->name)
-		++ fb->name;
-	else
-		fb->name = fb->path;
-	if (buf && len > 0)
+
+	if (!g_file_load_contents (file, NULL, &buffer, &length, NULL, NULL))
 	{
-		fb->buf = g_new(char, len + 1);
-		memcpy(fb->buf, buf, len);
-		fb->buf[len] = '\0';
-		fb->len = len;
+		/* Unable to read file */
+		g_object_unref (file);
+		
+		return NULL;
 	}
-	else
-	{
-		GFileInfo *fi;
-		guint64 size;
-
-		file = g_file_new_for_path (fb->path);
-		fi = g_file_query_info (file,
-				G_FILE_ATTRIBUTE_STANDARD_SIZE ","
-				G_FILE_ATTRIBUTE_STANDARD_TYPE,
-				G_FILE_QUERY_INFO_NONE,
-				NULL, NULL);
-		if (fi != NULL && g_file_info_get_file_type(fi) == G_FILE_TYPE_REGULAR)
-		{
-			size = g_file_info_get_attribute_uint64(fi, G_FILE_ATTRIBUTE_STANDARD_SIZE);
-			g_object_unref (fi);
-			fi = NULL;
-
-			if ((fb->len = size) < 0) return NULL;
-			fb->buf = g_new(char, size + 1);
-			{
-				int total_bytes = 0, bytes_read;
-				GInputStream *is;
-				GError* error = NULL;
-
-				is = G_INPUT_STREAM (g_file_read (file, NULL, &error));
-				if (NULL == is)
-				{
-					DEBUG_PRINT("Error opening file: %s", error->message);
-					g_error_free (error);
-					file_buffer_free (fb);
-					g_object_unref (file);
-					return NULL;
-				}
-
-				while (total_bytes < size)
-				{
-					bytes_read = g_input_stream_read (is,
-							fb->buf + total_bytes,
-							size - total_bytes,
-							NULL,
-							&error);
-					if (bytes_read == -1)
-					{
-						DEBUG_PRINT("Error reading from file: %s", error->message);
-						g_error_free (error);
-						file_buffer_free (fb);
-						g_input_stream_close (is, NULL, NULL);
-						g_object_unref (is);
-						g_object_unref (file);
-						return NULL;
-					}
-					total_bytes += bytes_read;
-				}
-
-				g_input_stream_close (is, NULL, NULL);
-				g_object_unref (is);
-				g_object_unref (file);
-				fb->buf[fb->len] = '\0';
-			}
-		}
-		else
-		{
-			if (NULL != fi)
-			{
-				g_object_unref (fi);
-			}
-		}
-	}
-
-	if (!g_utf8_validate (fb->buf, MIN(MAX_VALIDATE, fb->len), NULL))
+	
+	if (!g_utf8_validate (buffer, MIN(MAX_VALIDATE, length), NULL))
 	{
 		const AnjutaEncoding *encoding_used = NULL;
 		gchar* converted_text;
 		gsize converted_len;
-		converted_text = anjuta_convert_to_utf8 (fb->buf, 
-												 fb->len, 
+		converted_text = anjuta_convert_to_utf8 (buffer, 
+												 length, 
 												 &encoding_used,
 												 &converted_len, 
 												 NULL);
@@ -267,65 +189,69 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 			encoding_used =  
 				anjuta_encoding_get_from_charset("ISO-8859-15");
 			
-			converted_text = anjuta_convert_to_utf8 (fb->buf,
-												  fb->len,
+			converted_text = anjuta_convert_to_utf8 (buffer,
+												  length,
 												  &encoding_used,
 												  &converted_len,
 												  NULL);
 		}
+		g_free (buffer);
+		
 		if (converted_text == NULL)
 		{
 			/* Give up */
-			file_buffer_free(fb);
+			g_object_unref (file);
+			
 			return NULL;
 		}
-		else
-		{
-			g_free (fb->buf);
-			fb->buf = converted_text;
-			fb->len = converted_len;
-		}
+		
+		buffer = converted_text;
+		length = converted_len;
 	}
 	
-	if (pos <= 0 || pos > fb->len)
-	{
-		fb->pos = 0;
-		fb->line = 0;
-	}
-	else
-	{
-		fb->pos = pos;
-		fb->line = 0;
-	}
-	/* First line starts at column 0 */
-	fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(0));
-	lineno = 0;
-	for (i=0; i < fb->len; ++i)
-	{
-		if ('\n' == fb->buf[i] && '\0' != fb->buf[i+1])
-		{
-			fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(i + 1));
-			if (0 == fb->line && fb->pos > i)
-				fb->line = lineno;
-			++ lineno;
-		}
-	}
-	fb->lines = g_list_reverse(fb->lines);
+	fb = g_new0(FileBuffer, 1);
+	fb->type = FB_FILE;
+	
+	fb->file = file;
+	fb->len = length;
+	fb->buf = buffer;
+	
 	return fb;
 }
 
 static long
-file_buffer_line_from_pos(FileBuffer *fb, int pos)
+file_buffer_line_from_pos(FileBuffer *fb, gint pos)
 {
-	GList *tmp;
-	int lineno = -1;
+	gint lineno = -1;
+	
 	g_return_val_if_fail(fb && pos >= 0, 1);
+	
 	if (FB_FILE == fb->type)
 	{
-		gchar* p = g_utf8_offset_to_pointer(fb->buf, pos);
+		GList *tmp;
+		
+		if (fb->lines == NULL)
+		{
+			gint i;
+			/* First line starts at column 0 */
+			fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(0));
+			lineno = 0;
+			for (i=0; i < fb->len; ++i)
+			{
+				if ('\n' == fb->buf[i] && '\0' != fb->buf[i+1])
+				{
+					fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(i + 1));
+					if (0 == fb->line && fb->pos > i)
+						fb->line = lineno;
+					++ lineno;
+				}
+			}
+			fb->lines = g_list_reverse(fb->lines);
+		}
+		
 		for (tmp = fb->lines; tmp; tmp = g_list_next(tmp))
 		{
-			if (p - fb->buf < GPOINTER_TO_INT(tmp->data))
+			if (pos < GPOINTER_TO_INT(tmp->data))
 				return lineno;
 			++ lineno;
 		}
@@ -334,9 +260,13 @@ file_buffer_line_from_pos(FileBuffer *fb, int pos)
 	else if (FB_EDITOR == fb->type)
 	{
 		IAnjutaIterable *position;
-		position = ianjuta_editor_get_position_from_offset (fb->te, pos, NULL);
+		gint offset;
+		
+		offset = g_utf8_strlen (fb->buf, pos);
+		position = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
 		lineno = ianjuta_editor_get_line_from_position (fb->te, position, NULL);
 		g_object_unref (position);
+		
 		return lineno;
 	}
 	else
@@ -347,13 +277,11 @@ gchar *
 file_match_line_from_pos(FileBuffer *fb, int pos)
 {
 	gint length=1;
-	int start;
 	gint i;
 	g_return_val_if_fail(fb && pos >= 0, NULL);
 
-	start = g_utf8_offset_to_pointer(fb->buf, pos) - fb->buf;
-	for (i= start+1; ((fb->buf[i] != '\n') && (fb->buf[i] != '\0')); i++, length++);
-	for (i= start-1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
+	for (i= pos+1; ((fb->buf[i] != '\n') && (fb->buf[i] != '\0')); i++, length++);
+	for (i= pos -1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
 	
 	return g_strndup (fb->buf + i + 1, length);
 }
@@ -387,12 +315,8 @@ get_project_file_list(void)
 	
 			while (node)
 			{
-				gchar *file_path;
-		
 				uri = (const gchar *)node->data;
-				file_path = anjuta_util_get_local_path_from_uri (uri);
-				if (file_path)
-				files = g_list_prepend (files, file_path);
+				files = g_list_prepend (files, g_strdup (uri));
 				node = g_list_next (node);
 			}
 			files = g_list_reverse (files);
@@ -474,7 +398,7 @@ get_next_regex_match(FileBuffer *fb, SearchDirection direction, SearchExpression
 	}
 
 	g_regex_match_full (s->regex_info, fb->buf, fb->len,
-				   g_utf8_offset_to_pointer (fb->buf, fb->pos) - fb->buf, 
+				   fb->pos, 
 				   G_REGEX_MATCH_NOTEMPTY, &match_info, NULL);
 	
 	if (g_match_info_matches (match_info))
@@ -486,8 +410,8 @@ get_next_regex_match(FileBuffer *fb, SearchDirection direction, SearchExpression
 		if (g_match_info_fetch_pos (match_info, 0, &start, &end))
 		{
 			DEBUG_PRINT ("Regex: %d %d", start, end);
-			mi->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
-			mi->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - mi->pos;
+			mi->pos = start;
+			mi->len = end - mi->pos;
 			mi->line = file_buffer_line_from_pos(fb, mi->pos);
 		}
 		for (i = 1; i < g_match_info_get_match_count(match_info); i++) /* Captured subexpressions */
@@ -496,13 +420,13 @@ get_next_regex_match(FileBuffer *fb, SearchDirection direction, SearchExpression
 			ms = g_new0(MatchSubStr, 1);
 			if (g_match_info_fetch_pos (match_info, i, &start, &end))
 			{
-				ms->start = g_utf8_pointer_to_offset (fb->buf, fb->buf + start);
-				ms->len = g_utf8_pointer_to_offset (fb->buf, fb->buf + end) - ms->start;
+				ms->start =start;
+				ms->len = end - ms->start;
 			}
 			mi->subs = g_list_prepend(mi->subs, ms);
 		}
 		mi->subs = g_list_reverse(mi->subs);
-		fb->pos = g_utf8_pointer_to_offset (fb->buf, fb->buf + end);
+		fb->pos = end;
 	}
 	return mi;
 }
@@ -511,8 +435,8 @@ static MatchInfo *match_info(FileBuffer *fb, gchar* match, gchar* match_end,
 							 SearchDirection direction)
 {
 	MatchInfo *mi = g_new0 (MatchInfo, 1);
-	mi->pos = g_utf8_pointer_to_offset(fb->buf, match);
-	mi->len = g_utf8_pointer_to_offset(match, match_end);
+	mi->pos = match - fb->buf;
+	mi->len = match_end - match;
 	mi->line = file_buffer_line_from_pos (fb, mi->pos);
 
 	if (direction == SD_BACKWARD)
@@ -585,7 +509,7 @@ static MatchInfo *
 get_next_utf8_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 {
 	gchar* search_key = normalize(s->search_str, -1, s->match_case);
-	gchar* current = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+	gchar* current = fb->buf + fb->pos;
 	gchar* search_buf;
 	gchar* p = NULL;
 	MatchInfo *mi = NULL;
@@ -667,14 +591,14 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 
 static gint search_entry_compare(gconstpointer a, gconstpointer b)
 {
-	gchar* a_path = ((SearchEntry *) a)->path;
-	gchar* b_path = ((SearchEntry *) b)->path;
-	return g_strcmp0(a_path, b_path);
+	gchar* a_uri = ((SearchEntry *) a)->uri;
+	gchar* b_uri = ((SearchEntry *) b)->uri;
+	return g_strcmp0(a_uri, b_uri);
 }
 
 static void search_entry_free (gpointer data, gpointer user_data)
 {
-	g_free (((SearchEntry *)data)->path);
+	g_free (((SearchEntry *)data)->uri);
 	g_free (data);
 }
 
@@ -814,7 +738,7 @@ create_search_entries (Search *s)
 			{
 				if (IANJUTA_IS_EDITOR (tmp->data))
 				{
-					gchar *path = NULL;
+					gchar *uri = NULL;
 
 					if (IANJUTA_IS_FILE (tmp->data))
 					{
@@ -822,7 +746,7 @@ create_search_entries (Search *s)
 						
 						if (file != NULL)
 						{
-							path = g_file_get_path (file);
+							uri = g_file_get_uri (file);
 							g_object_unref (file);
 						}
 					}
@@ -830,7 +754,7 @@ create_search_entries (Search *s)
 					se = g_new0 (SearchEntry, 1);
 					se->type = SE_BUFFER;
 					se->te = IANJUTA_EDITOR (tmp->data);
-					se->path = path;
+					se->uri = uri;
 					se->direction = SD_FORWARD;
 					se->start_pos = 0;
 					se->end_pos = -1;
@@ -869,7 +793,7 @@ create_search_entries (Search *s)
 				{
 					se = g_new0(SearchEntry, 1);
 					se->type = SE_FILE;
-					se->path = (char *) tmp->data;
+					se->uri = (char *) tmp->data;
 					se->direction = SD_FORWARD;
 					se->type = SE_FILE;
 					se->start_pos = 0;

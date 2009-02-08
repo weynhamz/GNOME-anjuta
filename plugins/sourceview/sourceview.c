@@ -983,7 +983,7 @@ static gint ieditor_get_lineno(IAnjutaEditor *editor, GError **e)
 static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 {
 	/* We do not use gtk_text_buffer_get_char_count here because
-	someone may rely that this is the size of a buffer for all the text */
+	 we need a size in bytes not in characters */
 	
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
@@ -997,7 +997,7 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 								   &end_iter);
 	text = gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
 									&start_iter, &end_iter, TRUE);
-	length = g_utf8_strlen(text,  -1);
+	length = strlen(text);
 	g_free(text);
 
 	return length;

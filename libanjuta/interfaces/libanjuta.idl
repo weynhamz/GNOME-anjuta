@@ -1453,7 +1453,7 @@ interface IAnjutaEditor
 	 * @err: Error propagation and reporting
 	 *
 	 * Get length of complete text in editor. This will be the total
-	 * number of characters in the file or buffer.
+	 * number of bytes in the file or buffer.
 	 *
 	 * Return value: Text length.
 	 */
