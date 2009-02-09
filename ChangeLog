@@ -1,3 +1,8 @@
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-manager/languages.xml:
+	#556970 – Swap .h/.c doesn't work for C header files (*.h)
+
 2009-02-09  Johannes Schmid  <jhs@Obelix>
 
 	* plugins/sourceview/sourceview.c (on_assist_window_destroyed),
