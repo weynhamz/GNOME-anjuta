@@ -192,9 +192,6 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_inden
 	
 	g_return_val_if_fail (spaces >= 0, NULL);
 	
-	
-	g_warning ("Spaces: %d", line_indent_spaces);
-	
 	if (spaces <= 0)
 		return NULL;
 	
@@ -1180,9 +1177,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		line_indent += extra_indent;
 	}
 	g_object_unref (iter);
-	
-	g_warning ("Proposed spaces: %d", *line_indent_spaces);
-	
+		
 	return line_indent;
 }
 

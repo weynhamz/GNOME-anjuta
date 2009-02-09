@@ -1,5 +1,14 @@
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation_string), (get_line_indentation_base):
+	Removed debugging output
+	
+	* src/main.c (main):
+	Reintroduce gnome_program_init() to avoid warnings from libgnomeui
+
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
+
 	* src/anjuta-app.c (anjuta_app_add_widget_full):
 	Call set_default_position() on widgets that are never floating to avoid
 	another critical warning with bug #570492
