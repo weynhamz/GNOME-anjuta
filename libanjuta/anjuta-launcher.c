@@ -120,7 +120,6 @@ struct _AnjutaLauncherPriv
 	gboolean child_has_terminated;
 	
 	/* Synchronization in progress */
-	gboolean in_cleanup;
 	guint completion_check_timeout;
 
 	/* Terminate child on child exit */
@@ -200,8 +199,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->source = 0;
 	
 	/* Synchronization in progress */
-	obj->priv->in_cleanup = FALSE;
-	obj->priv->completion_check_timeout = -1;
+	obj->priv->completion_check_timeout = 0;
 	
 	/* Terminate child on child exit */
 	obj->priv->terminate_on_exit = FALSE;
@@ -495,17 +493,16 @@ anjuta_launcher_get_child_pid (AnjutaLauncher *launcher)
 static void
 anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 {
-	if (launcher->priv->in_cleanup) return;
-
 	if (launcher->priv->child_has_terminated &&
 		launcher->priv->stdout_is_done &&
 		launcher->priv->stderr_is_done)
 	{
-		if (launcher->priv->completion_check_timeout >= 0)
+		if (launcher->priv->completion_check_timeout != 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
-		    g_timeout_add (50, anjuta_launcher_check_for_execution_done,
-							 launcher);
+			/* Use a low priority timer to make sure all pending I/O are flushed out */
+		    g_timeout_add_full (G_PRIORITY_DEFAULT_IDLE, 50, anjuta_launcher_check_for_execution_done,
+							 launcher, NULL);
 	}
 	
 	/* This case is not very good, but it blocks the whole IDE
@@ -514,22 +511,24 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 			 launcher->priv->stderr_is_done)
 	{
 		/* DEBUG_PRINT ("%s", "Child has't exited yet waiting for 200ms"); */
-		if (launcher->priv->completion_check_timeout >= 0)
+		if (launcher->priv->completion_check_timeout != 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
-		    g_timeout_add(200, anjuta_launcher_check_for_execution_done,
-							launcher);
+			/* Use a low priority timer to make sure all pending I/O are flushed out */
+		    g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 200, anjuta_launcher_check_for_execution_done,
+							launcher, NULL);
 	}
 	/* Add this case for gdb. It creates child inheriting gdb
 	 * pipes which are not closed if gdb crashes */
 	else if (launcher->priv->child_has_terminated &&
 			launcher->priv->terminate_on_exit)
 	{
-		if (launcher->priv->completion_check_timeout >= 0)
+		if (launcher->priv->completion_check_timeout != 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
-		    g_timeout_add(0, anjuta_launcher_call_execution_done,
-							launcher);
+			/* Use a low priority timer to make sure all pending I/O are flushed out */
+			g_idle_add ( anjuta_launcher_call_execution_done,
+						 launcher);
 	}
 }
 
@@ -933,21 +932,10 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 	gint child_status, child_pid;
 	time_t start_time;
 
-	if (launcher->priv->in_cleanup)
-		return;
-
-	launcher->priv->in_cleanup = TRUE;
-
 	/* Remove pending timeout */
-	if (launcher->priv->completion_check_timeout >= 0)
+	if (launcher->priv->completion_check_timeout != 0)
 		g_source_remove (launcher->priv->completion_check_timeout);
 	
-	/* Make sure all pending I/O are flushed out */
-	while (g_main_context_pending (NULL))
-		g_main_context_iteration (NULL, FALSE);
-	
-	/* Can be called again, while waiting in the previous line
-	 * Do nothing if clean up is already done */
 	if (launcher->priv->stdout_channel)
 	{	
 		g_io_channel_shutdown (launcher->priv->stdout_channel, emit_signal, NULL);
@@ -1007,7 +995,7 @@ anjuta_launcher_call_execution_done (gpointer data)
 {
 	AnjutaLauncher *launcher = data;
 
-	launcher->priv->completion_check_timeout = -1;
+	launcher->priv->completion_check_timeout = 0;
 	anjuta_launcher_execution_done_cleanup (launcher, TRUE);
 	return FALSE;
 }
@@ -1029,7 +1017,7 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 	{
 		/* DEBUG_PRINT ("%s", "launcher: We missed the exit of the child"); */
 	}
-	launcher->priv->completion_check_timeout = -1;
+	launcher->priv->completion_check_timeout = 0;
 	anjuta_launcher_execution_done_cleanup (launcher, TRUE);
 	return FALSE;
 }
@@ -1268,7 +1256,6 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
 	launcher->priv->stdout_is_done = FALSE;
 	launcher->priv->stderr_is_done = FALSE;
 	launcher->priv->child_has_terminated = FALSE;
-	launcher->priv->in_cleanup = FALSE;
 	launcher->priv->output_callback = callback;
 	launcher->priv->callback_data = callback_data;
 	

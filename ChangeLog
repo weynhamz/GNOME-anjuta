@@ -1,3 +1,9 @@
+2009-02-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-launcher.c:
+	Fix #566785 – Anjuta crashes after enabling and disabling a plugin
+	often 
+
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c
