@@ -2781,6 +2781,7 @@ isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match
 	SymbolDBEngineIterator *iterator;
 	gboolean exact_match;
 	GPtrArray *filter_array;
+	g_return_val_if_fail (pattern != NULL, NULL);
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
@@ -2823,6 +2824,8 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 	gboolean exact_match;
 	GPtrArray *filter_array;
 
+	g_return_val_if_fail (pattern != NULL, NULL);
+	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	
@@ -2864,6 +2867,8 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 	GPtrArray *filter_array;
 	gchar *abs_file_path;
 
+	g_return_val_if_fail (pattern != NULL, NULL);
+	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	

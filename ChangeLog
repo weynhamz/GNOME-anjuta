@@ -1,3 +1,10 @@
+2009-02-09  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (isymbol_manager_search_system),
+	(isymbol_manager_search_project), (isymbol_manager_search_file):
+	some assertions to prevent a NULL pattern to be passed to SymbolManager
+	interface.
+
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:
