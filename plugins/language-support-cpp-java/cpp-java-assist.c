@@ -545,7 +545,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 												 
 				if (iter_file) 
 				{
-					completion = create_completion (assist->priv->iassist, iter_file, completion);
+					completion = create_completion (assist->priv->iassist, iter_file, NULL);
 					g_object_unref (iter_file);
 				}
 				g_object_unref (file);
@@ -569,7 +569,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 
 		if (iter_project) 
 		{
-			completion = create_completion (assist->priv->iassist, iter_project, NULL);
+			completion = create_completion (assist->priv->iassist, iter_project, completion);
 			g_object_unref (iter_project);
 		}
 		
@@ -832,8 +832,10 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 								 NULL);
 				DEBUG_PRINT ("Idle source added");
 			}
+			shown = cpp_java_assist_show_autocomplete (assist);
 		}
-		shown = cpp_java_assist_show_autocomplete (assist);
+		else
+			shown = FALSE;
 		if (!shown)
 			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
 													NULL);

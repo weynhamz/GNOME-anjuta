@@ -1,3 +1,10 @@
+2009-02-09  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_check):
+	Avoid hang while pressing backspace
+
 2009-02-08  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c (file_model_get_vcs_status):
