@@ -1,3 +1,9 @@
+2009-02-09  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/run-program/plugin.c (on_run_program_activate):
+	#570720 – There are warnings in some cases when I press cancel in 
+	program arguments dialog
+
 2009-02-09  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-launcher.c:

@@ -183,7 +183,10 @@ on_run_program_activate (GtkAction* action, RunProgramPlugin* plugin)
 	}
 	if (plugin->recent_target == NULL)
 	{
-		run_parameters_dialog_run (plugin);
+		if (run_parameters_dialog_run (plugin) != GTK_RESPONSE_APPLY)
+		{
+			return;
+		}
 	}
 	
 	run_plugin_run_program(plugin);
