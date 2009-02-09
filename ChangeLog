@@ -1,3 +1,14 @@
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
+
+	* src/anjuta-app.c (anjuta_app_add_widget_full):
+	Call set_default_position() on widgets that are never floating to avoid
+	another critical warning with bug #570492
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation_string), (set_line_indentation),
+	(get_line_indentation_base), (get_line_auto_indentation),
+	(on_editor_char_inserted_cpp), (on_auto_indent):
+	#567606 – Auto-indentation in Anjuta gets tab indentation wrong for function paramaters
+
 2009-02-09  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (isymbol_manager_search_system),
@@ -16,7 +27,7 @@
 	* src/main.c (message_received_cb), (main):
 	
 	Remove old crufty bacon-message code and replace it by a sane implementation
-	using the new libunique gnome depency.
+	using the new libunique gnome dependency.
 
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 

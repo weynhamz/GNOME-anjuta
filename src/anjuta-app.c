@@ -886,6 +886,10 @@ anjuta_app_add_widget_full (AnjutaShell *shell,
 	gtk_container_add (GTK_CONTAINER (item), widget);
     gdl_dock_add_item (GDL_DOCK (app->dock),
                        GDL_DOCK_ITEM (item), placement);
+	
+	if (locked)
+		gdl_dock_item_set_default_position(GDL_DOCK_ITEM(item), GDL_DOCK_OBJECT(app->dock));
+	
 	gtk_widget_show_all (item);
 	
 	/* Add toggle button for the widget */
