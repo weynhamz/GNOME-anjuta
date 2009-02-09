@@ -115,47 +115,6 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 	gtk_main_quit ();
 }
 
-/* Saves the current anjuta session */
-static gint
-on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-								 GnomeSaveStyle s_style, gint shutdown,
-								 GnomeInteractStyle i_style, gint fast,
-								 gpointer app)
-{
-	gchar *argv[] = { "rm",	"-rf", NULL};
-	const gchar *prefix;
-	
-	DEBUG_PRINT ("%s", "Going to save session...");
-
-	prefix = gnome_client_get_config_prefix (client);
-	argv[2] = gnome_config_get_real_path (prefix);
-	gnome_client_set_discard_command (client, 3, argv);
-	
-	argv[0] = "anjuta";
-	argv[1] = "--no-client";
-	gnome_client_set_restart_command (client, 2, argv);
-	gnome_client_set_restart_style (client, GNOME_RESTART_IF_RUNNING);
-	
-	/*
-	 * We want to be somewhere at last to start, otherwise bonobo-activation
-	 * gets screwed up at start up
-	 */
-	gnome_client_set_priority (client, 80);
-	
-	/* Save current session */
-	anjuta_shell_session_save (ANJUTA_SHELL (app), argv[2], NULL);
-	g_free (argv[2]);
-	
-	return TRUE;
-}
-
-static gint
-on_anjuta_session_die (GnomeClient * client, gpointer data)
-{
-	gtk_main_quit();
-	return FALSE;
-}
-
 static void
 on_profile_scoped (AnjutaProfileManager *profile_manager,
 				   AnjutaProfile *profile, AnjutaApp *app)
@@ -260,7 +219,7 @@ extract_project_from_session (const gchar* session_dir)
 
 /* FIXME: Clean this mess */
 AnjutaApp*
-anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
+anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 			gboolean no_session, gboolean no_files,
 			const gchar *im_file,
 			gboolean proper_shutdown, const gchar *geometry)
@@ -269,8 +228,6 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	AnjutaProfileManager *profile_manager;
 	AnjutaApp *app;
 	AnjutaStatus *status;
-	GnomeClient *client;
-	GnomeClientFlags flags;
 	AnjutaProfile *profile;
 	GFile *session_profile;
 	gchar *remembered_plugins;
@@ -350,29 +307,12 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		error = NULL;
 	}
 	
-	/* Session management */
-	client = gnome_master_client();
-	gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
-					   GTK_SIGNAL_FUNC(on_anjuta_session_save_yourself),
-					   app);
-	gtk_signal_connect(GTK_OBJECT(client), "die",
-					   GTK_SIGNAL_FUNC(on_anjuta_session_die), app);
-	
-	flags = gnome_client_get_flags(client);
-	
-	if (flags & GNOME_CLIENT_RESTORED)
-	{
-		/* Load the last session */
-		const gchar *prefix;
-		prefix = gnome_client_get_config_prefix (client);
-		system_restore_session = gnome_config_get_real_path (prefix);
-		project_file = extract_project_from_session (system_restore_session);
-	}
-	else if (prog_args || geometry)
+	if (files || geometry)
 	{                 
 		gchar *session_dir;
 		AnjutaSession *session;
-		GList *node, *files_load = NULL;
+		gchar **node;
+		GList *files_load = NULL;
 		
 		/* Reset default session */
 		session_dir = USER_SESSION_PATH_NEW;
@@ -386,9 +326,10 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 									   geometry);
 		
 		/* Identify non-project files and set them for loading in session */
-		for (node = prog_args; node != NULL; node = g_list_next (node))
+		for (node = files; *node != NULL; node++)
 		{
-			gchar *filename = node->data;
+			GFile* file = g_file_new_for_commandline_arg(*node);
+			gchar *filename = g_file_get_path (file);
 			if (anjuta_util_is_project_file (filename))
 			{
 				/* Pick up the first project file for loading later */
@@ -397,13 +338,10 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			}
 			else
 			{
-				GFile *file = g_file_new_for_path (filename);
-				gchar *uri;
-
-				uri = g_file_get_uri (file);
-				g_object_unref (file);
-				files_load = g_list_prepend (files_load, uri);
+				files_load = g_list_prepend (files_load, g_file_get_uri (file));
 			}
+			g_free (filename);
+			g_object_unref(file);
 		}
 		if (files_load)
 		{

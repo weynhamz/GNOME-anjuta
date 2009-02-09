@@ -1,4 +1,17 @@
-2009-02-09  Johannes Schmid  <jhs@Obelix>
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in:
+	* src/Makefile.am:
+	* src/anjuta.c (anjuta_new):
+	* src/anjuta.h:
+	* src/bacon-message-connection.c:
+	* src/bacon-message-connection.h:
+	* src/main.c (message_received_cb), (main):
+	
+	Remove old crufty bacon-message code and replace it by a sane implementation
+	using the new libunique gnome depency.
+
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c
 	(cpp_java_assist_create_word_completion_cache),

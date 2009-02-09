@@ -16,10 +16,7 @@ anjuta_pixmaps_DATA = \
 	anjuta-preferences-general-48.png
 
 AM_CPPFLAGS = \
-	$(GNOME_CFLAGS)\
-	$(GCONF_CFLAGS)\
-	$(GDL_CFLAGS)\
-	$(GLADE_CFLAGS)\
+	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)\
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -44,8 +41,6 @@ anjuta_SOURCES = \
 	anjuta-actions.h \
 	action-callbacks.h \
 	action-callbacks.c \
-	bacon-message-connection.h \
-	bacon-message-connection.c \
 	main.c
 
 anjuta_LDADD =  \

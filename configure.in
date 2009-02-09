@@ -45,6 +45,7 @@ GTKSOURCEVIEW_REQUIRED=2.4.0
 BINUTILS_REQUIRED=2.15.92
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=3.99.7
+UNIQUE_REQUIRED=1.0.0
 
 dnl LIBGTODO_REQUIRED=0.15
 
@@ -68,6 +69,7 @@ AC_SUBST(GTKSOURCEVIEW_REQUIRED)
 AC_SUBST(BINUTILS_REQUIRED)
 AC_SUBST(LIBWNCK_REQUIRED)
 AC_SUBST(GDA_REQUIRED)
+AC_SUBST(UNIQUE_REQUIRED)
 
 dnl AC_SUBST(LIBGTODO_REQUIRED)
 
@@ -147,7 +149,7 @@ fi
 dnl pkg checks are split into separate packages instead of single package
 dnl because different plugins have different requirements.
 
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED gmodule-2.0 >= $GLIB_REQUIRED gthread-2.0 >= $GLIB_REQUIRED gio-2.0 >= $GLIB_REQUIRED)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED gmodule-2.0 >= $GLIB_REQUIRED gthread-2.0 >= $GLIB_REQUIRED gio-2.0 >= $GLIB_REQUIRED unique-1.0 >= $UNIQUE_REQUIRED)
 
 PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
 
@@ -420,7 +422,7 @@ contains the function bfd_get_section_size_before_reloc])
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(GNOME_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
+LIBANJUTA_CFLAGS='$(GLIB_CFLAGS) $(GTK_CFLAGS) $(GDL_CFLAGS) $(GNOME_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)

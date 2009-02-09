@@ -28,14 +28,13 @@
 
 #include <sys/stat.h>
 
-#include <libgnome/gnome-program.h>
 #include <gtk/gtk.h>
+#include <unique/unique.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include "anjuta.h"
-#include "bacon-message-connection.h"
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -46,14 +45,7 @@
 /* App */
 static AnjutaApp *app = NULL;
 
-/* Bacon */
-static guint32 startup_timestamp = 0;
-static BaconMessageConnection *connection;
-
 /* Command line options */
-/* command line */
-static gint line_position = 0;
-static GList *file_list = NULL;
 static gboolean no_splash = 0;
 static gboolean no_client = 0;
 static gboolean no_session = 0;
@@ -110,219 +102,55 @@ static const GOptionEntry anjuta_options[] = {
 	{NULL}
 };
 
-static gchar*
-get_real_path (const gchar *file_name)
+static UniqueResponse
+message_received_cb (UniqueApp         *unique,
+					 UniqueCommand      command,
+					 UniqueMessageData *message,
+					 guint              time_,
+					 gpointer           user_data)
 {
-	if (file_name)
+	UniqueResponse res;
+	
+	switch (command)
 	{
-		gchar path[PATH_MAX+1];
-		gchar *uri_scheme;
-		GFile *file = g_file_new_for_commandline_arg (file_name);
-		
-		uri_scheme = g_file_get_uri_scheme (file);
-		if (!uri_scheme)
+		case UNIQUE_ACTIVATE:
+			/* move the main window to the screen that sent us the command */
+			gtk_window_set_screen (GTK_WINDOW (app), unique_message_data_get_screen (message));
+			gtk_window_present (GTK_WINDOW (app));
+			res = UNIQUE_RESPONSE_OK;
+			break;
+		case UNIQUE_OPEN:
 		{
-			memset(path, '\0', PATH_MAX+1);
-			realpath(file_name, path);
-			return g_strdup (path);
-		}
-		g_free (uri_scheme);
-		g_object_unref (file);
-		return g_strdup (file_name);
-	}
-	else
-		return NULL;
-}
-
-static void
-get_command_line_args ()
-{
-	int i;
-	if (anjuta_filenames) 
-		for (i = 0; anjuta_filenames[i]; i++) 
- 			file_list = g_list_append (file_list,
-										  get_real_path (anjuta_filenames[i]));
-}
-
-static GdkDisplay *
-display_open_if_needed (const gchar *name)
-{
-	GSList *displays;
-	GSList *l;
-	GdkDisplay *display = NULL;
-
-	displays = gdk_display_manager_list_displays (gdk_display_manager_get ());
-
-	for (l = displays; l != NULL; l = l->next)
-	{
-		if (strcmp (gdk_display_get_name ((GdkDisplay *) l->data), name) == 0)
-		{
-			display = l->data;
+			gchar** uris = unique_message_data_get_uris(message);
+			gchar** uri;
+			for (uri = uris; *uri != NULL; uri++)
+			{	
+				IAnjutaFileLoader* loader =
+					anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
+				GFile* gfile = g_file_new_for_commandline_arg(*uri);
+				ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
+				g_object_unref (gfile);
+			}
+			g_strfreev(uris);
+			res = UNIQUE_RESPONSE_OK;
 			break;
 		}
-	}
-
-	g_slist_free (displays);
-
-	return display != NULL ? display : gdk_display_open (name);
-}
-
-/* serverside */
-static void
-on_message_received (const char *message, gpointer    data)
-{
-	gchar **commands;
-	gchar **params;
-	gchar *display_name;
-	gint screen_number;
-	gint i;
-	GdkDisplay *display;
-	GdkScreen *screen;
-	GList* file;
-
-	g_return_if_fail (message != NULL);
-
-	commands = g_strsplit (message, "\v", -1);
-
-	/* header */
-	params = g_strsplit (commands[0], "\t", 4);
-	startup_timestamp = atoi (params[0]); /* CHECK if this is safe */
-	display_name = g_strdup (params[1]);
-	screen_number = atoi (params[2]);
-
-	display = display_open_if_needed (display_name);
-	screen = gdk_display_get_screen (display, screen_number);
-	g_free (display_name);
-
-	g_strfreev (params);
-
-	/* body */
-	gtk_window_present (GTK_WINDOW (app));
-	i = 1;
-	while (commands[i])
-	{
-		params = g_strsplit (commands[i], "\t", -1);
-
-		if (strcmp (params[0], "OPEN-URIS") == 0)
-		{
-			gint n_uris, i;
-			gchar **uris;
-
-			line_position = atoi (params[1]);
-
-			n_uris = atoi (params[2]);
-			uris = g_strsplit (params[3], " ", n_uris);
-
-			for (i = 0; i < n_uris; i++)
-				file_list = g_list_prepend (file_list, uris[i]);
-			file_list = g_list_reverse (file_list);
-
-			/* the list takes ownerhip of the strings,
-			 * only free the array */
-			g_free (uris);
-		}
-		else
-		{
-			g_warning ("Unexpected bacon command");
-		}
-
-		g_strfreev (params);
-		++i;
-	}
-
-	g_strfreev (commands);
-
-	/* execute the commands */
-
-	for (file = file_list; file != NULL; file = g_list_next (file))
-	{
-		IAnjutaFileLoader* loader =
-			anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-		GFile* gfile = g_file_new_for_commandline_arg(file->data);
-		if (gfile)
-		{
-			ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
-			g_object_unref (gfile);
-		}
-	}
-
-	/* free the file list and reset to default */
-	g_list_foreach (file_list, (GFunc) g_free, NULL);
-	g_list_free (file_list);
-	file_list = NULL;
-
-	line_position = 0;
-}
-
-/* clientside */
-static void
-send_bacon_message (void)
-{
-	GdkScreen *screen;
-	GdkDisplay *display;
-	const gchar *display_name;
-	gint screen_number;
-	GString *command;
-
-	screen = gdk_screen_get_default ();
-	display = gdk_screen_get_display (screen);
-
-	display_name = gdk_display_get_name (display);
-	screen_number = gdk_screen_get_number (screen);
-
-	command = g_string_new (NULL);
-
-	/* header */
-	g_string_append_printf (command,
-				"%" G_GUINT32_FORMAT "\t%s\t%d",
-				startup_timestamp,
-				display_name,
-				screen_number);
-
-	/* OPEN_URIS command, optionally specify line_num and encoding */
-	if (file_list)
-	{
-		GList *l;
-
-		command = g_string_append_c (command, '\v');
-		command = g_string_append (command, "OPEN-URIS");
-
-		g_string_append_printf (command,
-					"\t%d\t%d\t",
-					line_position,
-					g_list_length (file_list));
-
-		for (l = file_list; l != NULL; l = l->next)
-		{
-			/* convert to absolute path for serverside */
-			if (g_path_is_absolute (l->data))
-			{
-				command = g_string_append (command, l->data);
-			}
-			else
-			{
-				gchar *uri;
-				uri = g_build_filename (g_getenv ("PWD"), l->data, NULL);
-				command = g_string_append (command, uri);
-			}
-			if (l->next != NULL)
-				command = g_string_append_c (command, ' ');
-		}
+		default:
+			res = UNIQUE_RESPONSE_OK;
+			break;
 	}
 	
-	bacon_message_connection_send (connection,
-				       command->str);
-
-	g_string_free (command, TRUE);
+	return res;
 }
+
 
 int
 main (int argc, char *argv[])
 {
-	GnomeProgram *program;
 	GOptionContext *context;
-	gchar *data_dir;
-	char *im_file;
+	GError* error = NULL;
+	gchar* im_file;
+	UniqueApp* unique;
 	
 	context = g_option_context_new (_("- Integrated Development Environment"));
 #ifdef ENABLE_NLS
@@ -330,13 +158,12 @@ main (int argc, char *argv[])
 	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
-	g_option_context_add_main_entries (context, anjuta_options, PACKAGE);	
+	g_option_context_add_main_entries (context, anjuta_options, GETTEXT_PACKAGE);	
 #else
 	g_option_context_add_main_entries (context, anjuta_options, NULL);
 #endif
 	
-	data_dir = g_strdup (PACKAGE_DATA_DIR);
-	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
 	
     /* Initialize threads, if possible */
 #ifdef G_THREADS_ENABLED    
@@ -346,61 +173,54 @@ main (int argc, char *argv[])
 #endif
     
 	/* Initialize gnome program */
-	g_option_context_parse (context, &argc, &argv, NULL);
-	program = gnome_program_init (PACKAGE, VERSION,
-								  LIBGNOMEUI_MODULE, argc, argv,
-								  GNOME_PARAM_GOPTION_CONTEXT, context,
-								  GNOME_PARAM_HUMAN_READABLE_NAME,
-								  _("Integrated Development Environment"),
-								  GNOME_PARAM_APP_DATADIR, data_dir,
-								  GNOME_PARAM_NONE);
-	g_free (data_dir);
-
+	if (!g_option_context_parse (context, &argc, &argv, &error))
+	{
+		DEBUG_PRINT ("Option parsing failed: %s", error);
+		exit(1);
+	}
+	
 	/* Init debug helpers */
 	anjuta_debug_init ();
-
-	/* Get the command line files */
-	get_command_line_args ();
 	
-	connection = bacon_message_connection_new ("anjuta");
+	unique = unique_app_new ("org.gnome.anjuta", NULL);
 	
-	if (connection != NULL)
+	if (unique_app_is_running(unique))
 	{
-		if (!bacon_message_connection_get_is_server (connection) &&
-			 no_client == FALSE) 
+		UniqueResponse response;
+		
+		if (!no_client)
 		{
-			DEBUG_PRINT("%s", "Client");
-			send_bacon_message ();
-
-			/* we never popup a window... tell startup-notification
-			 * that we are done.
-			 */
-			gdk_notify_startup_complete ();
-
-			bacon_message_connection_free (connection);
-
-			exit (0);
-		}
-		else 
-		{
-			DEBUG_PRINT("%s", "Server");
-			bacon_message_connection_set_callback (connection,
-							       on_message_received,
-							       NULL);
+			if (anjuta_filenames)
+			{
+				UniqueMessageData* message = unique_message_data_new();
+				if (!unique_message_data_set_uris (message, anjuta_filenames))
+					g_warning("Set uris failed");
+				response = unique_app_send_message (unique, UNIQUE_OPEN, message);
+				unique_message_data_free(message);
+			}
+			response = unique_app_send_message (unique, UNIQUE_ACTIVATE, NULL);
+			
+			/* we don't need the application instance anymore */
+			g_object_unref (unique);
+			
+			if (response == UNIQUE_RESPONSE_OK)
+				return 0;
+			else
+				DEBUG_PRINT("Faild to contact first instance, starting up normally");
 		}
 	}
-	else
-		g_warning ("Cannot create the 'anjuta' connection.");
 	
+	/* Init gtk+ */
+	gtk_init (&argc, &argv);
 	g_set_application_name (_("Anjuta"));
 	gtk_window_set_default_icon_name ("anjuta");
 	gtk_window_set_auto_startup_notification(FALSE);
-
-	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
 	/* Initialize application */
-	app = anjuta_new (argv[0], file_list, no_splash, no_session, no_files,
+	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
+	app = anjuta_new (argv[0], anjuta_filenames, no_splash, no_session, no_files,
 					  im_file, proper_shutdown, anjuta_geometry);
+	g_signal_connect (unique, "message-received", G_CALLBACK (message_received_cb), NULL);
 	
 	g_free (im_file);
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
