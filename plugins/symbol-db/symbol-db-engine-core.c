@@ -2906,18 +2906,21 @@ gboolean
 symbol_db_engine_close_db (SymbolDBEngine *dbe)
 {
 	SymbolDBEnginePriv *priv;
-
+	gboolean ret;
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	
 	priv = dbe->priv;
-	
+
 	/* terminate threads, if ever they're running... */
 	g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
+	priv->thread_pool = NULL;
+	ret = sdb_engine_disconnect_from_db (dbe);
+	
 	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 										   dbe, THREADS_MAX_CONCURRENT,
 										   FALSE, NULL);
 	
-	return sdb_engine_disconnect_from_db (dbe);
+	return ret;
 }
 
 gboolean

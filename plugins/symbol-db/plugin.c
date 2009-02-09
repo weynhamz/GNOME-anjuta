@@ -1707,10 +1707,11 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
 															 PARALLEL_SCAN); 
 		
-		if (parallel_scan == TRUE)
+		if (parallel_scan == TRUE && 
+			symbol_db_engine_is_connected (sdb_plugin->sdbe_globals) == TRUE)
 		{
 			/* we simulate a project-import-end signal received */
-			do_import_system_sources (sdb_plugin);		
+			do_import_system_sources (sdb_plugin);
 		}
 	}	
 	else if (phase == ANJUTA_SESSION_PHASE_END)
@@ -2803,7 +2804,7 @@ isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match
 					exact_match,
 					filter_array,
 					include_types,
-					TRUE,
+					1,
 					sdb_plugin->session_packages,
 					results_limit,
 					results_offset,

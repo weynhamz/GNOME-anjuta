@@ -187,6 +187,12 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 	
 	priv = dbvl->priv;
 		
+	if (priv->insertion_idle_handler > 0)
+	{				
+		g_source_remove (priv->insertion_idle_handler);
+		priv->insertion_idle_handler = 0;
+	}
+	
 	/*DEBUG_PRINT ("%s", "symbol_db_view_locals_clear_cache ()");*/
 	/* check whether we already have the view status saved on hash table or not.
 	 * If we saved that then don't remove it, or there may be a memory leak

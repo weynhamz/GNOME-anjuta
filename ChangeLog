@@ -1,3 +1,14 @@
+2009-02-09  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/plugin.c (on_session_load),
+	(isymbol_manager_search_system):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(symbol_db_engine_close_db):
+	* plugins/symbol-db/symbol-db-view-locals.c
+	(symbol_db_view_locals_clear_cache):
+	fixed some warnings like GDA_IS_CONNECTION (cnc) when the project was
+	closing as the same time as the local tab was populating with symbols.
+
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c (update_status),
