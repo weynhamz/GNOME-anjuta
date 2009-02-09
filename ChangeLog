@@ -1,3 +1,9 @@
+2009-02-09  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/sourceview/sourceview.c (on_assist_window_destroyed),
+	(on_assist_tip_destroyed), (iassist_suggest), (iassist_show_tips):
+	Use weak pointer instead of destroy signals
+
 2009-02-09  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	* plugins/run-program/plugin.c (on_run_program_activate):

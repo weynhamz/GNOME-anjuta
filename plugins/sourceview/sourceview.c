@@ -224,13 +224,13 @@ sourceview_set_message_area (Sourceview* sv,  GtkWidget *message_area)
 /* Callbacks */
 
 static void
-on_assist_window_destroyed (AssistWindow* window, Sourceview* sv)
+on_assist_window_destroyed (Sourceview* sv, gpointer where_object_was)
 {
 	sv->priv->assist_win = NULL;
 }
 
 static void 
-on_assist_tip_destroyed (AssistTip* tip, Sourceview* sv)
+on_assist_tip_destroyed (Sourceview* sv, gpointer where_object_was)
 {
 	sv->priv->assist_tip = NULL;
 }
@@ -2046,8 +2046,8 @@ iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, IAnjutaIterable* 
 		{
 			sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), NULL,
 													 ianjuta_iterable_get_position (ipos, NULL));
-			g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
-								 G_CALLBACK(on_assist_window_destroyed), sv);
+			g_object_weak_ref (G_OBJECT(sv->priv->assist_win),
+			                   (GWeakNotify)on_assist_window_destroyed, sv);
 			g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
 								 G_CALLBACK(on_assist_chosen), sv);
 			g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
@@ -2101,8 +2101,9 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* i
 		sv->priv->assist_tip = 
 			ASSIST_TIP (assist_tip_new (GTK_TEXT_VIEW (sv->priv->view), tips));
 		
-		g_signal_connect (G_OBJECT(sv->priv->assist_tip), "destroy", G_CALLBACK(on_assist_tip_destroyed),
-						  sv);
+		g_object_weak_ref (G_OBJECT(sv->priv->assist_tip),
+		                   (GWeakNotify) on_assist_tip_destroyed,
+		                   sv);
 		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), tip_position);
 		gtk_widget_show (GTK_WIDGET (sv->priv->assist_tip));
 	}
