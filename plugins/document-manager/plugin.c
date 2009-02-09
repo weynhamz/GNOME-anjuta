@@ -900,25 +900,6 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 		if (status == NULL)
 			return;
 		
-		/* TODO: Implement this in IAnjutaEditor some kind
-		gint editor_mode;
-		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
-											   SCI_GETEOLMODE, 0, 0);
-		switch (editor_mode) {
-			case SC_EOL_CRLF:
-				mode = g_strdup(_("DOS (CRLF)"));
-				break;
-			case SC_EOL_LF:
-				mode = g_strdup(_("Unix (LF)"));
-				break;
-			case SC_EOL_CR:
-				mode = g_strdup(_("Mac (CR)"));
-				break;
-			default:
-				mode = g_strdup(_("Unknown"));
-				break;
-		}*/
-		
 		zoom = anjuta_preferences_get_int (plugin->prefs, TEXT_ZOOM_FACTOR);
 		line = ianjuta_editor_get_lineno (te, NULL);
 		col = ianjuta_editor_get_column (te, NULL);
@@ -950,11 +931,7 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 		if (status)
 		{
-			anjuta_status_set_default (status, _("Zoom"), NULL);
-			anjuta_status_set_default (status, _("Line"), NULL);
-			anjuta_status_set_default (status, _("Col"), NULL);
-			anjuta_status_set_default (status, _("Mode"), NULL);
-			/* anjuta_status_set_default (status, _("EOL"), NULL); */
+			anjuta_status_set (status, "");
 		}
 	}
 }
@@ -1154,6 +1131,7 @@ static void
 on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 					 AnjutaPlugin *plugin)
 {
+	DocmanPlugin *docman_plugin;
 	update_document_ui (plugin, doc);
 	
 	if (doc)
@@ -1171,12 +1149,10 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 		anjuta_shell_remove_value (plugin->shell, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								   NULL);
 	}
-
+	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
-		DocmanPlugin *docman_plugin;
-
-		docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 		update_status (docman_plugin, IANJUTA_EDITOR (doc));
 
 		if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
@@ -1252,6 +1228,8 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 			}
 		}
 	}
+	else
+		update_status (docman_plugin, NULL);
 out:
 	update_title (ANJUTA_PLUGIN_DOCMAN (plugin));
 }

@@ -1,5 +1,11 @@
 2009-02-09  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c (update_status),
+	(on_document_changed):
+	#563704 – Anjuta displays column/line numbers after edit windows closed
+
+2009-02-09  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/language-manager/languages.xml:
 	#556970 – Swap .h/.c doesn't work for C header files (*.h)
 
