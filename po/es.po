@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-02-06 16:15+0000\n"
-"PO-Revision-Date: 2009-02-06 20:34+0100\n"
+"POT-Creation-Date: 2009-02-06 19:36+0000\n"
+"PO-Revision-Date: 2009-02-10 20:58+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2263,7 +2263,6 @@ msgid "Symbols read"
 msgstr "Símbolos leídos"
 
 #: ../plugins/debug-manager/sharedlib.c:339
-#| msgid "Sharedlibs operations"
 msgid "Shared library operations"
 msgstr "Operaciones con bibliotecas compartidas"
 
@@ -2400,13 +2399,11 @@ msgstr "No se puede abrir el archivo: %s\n"
 
 #: ../plugins/debug-manager/start.c:912
 #, c-format
-#| msgid "Unable to open %s. (file_info) Debugger cannot start."
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "No se pudo abrir %s. El depurador no puede iniciarse."
 
 #: ../plugins/debug-manager/start.c:922
 #, c-format
-#| msgid "Unable to open %s. (mime_type) Debugger cannot start."
 msgid "Unable to detect mime-type of %s. Debugger cannot start."
 msgstr ""
 "No se puede detectar el tipo MIME de %s. El depurador no puede iniciarse."
@@ -5067,19 +5064,16 @@ msgstr "señal_cb_del_widget"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
-#| msgid "association item has no designer"
 msgid "Association item has no designer"
 msgstr "El elemento de asociación no tiene diseñador"
 
 #: ../plugins/glade/designer-associations-item.c:268
 #, c-format
-#| msgid "association item has no editor"
 msgid "Association item has no editor"
 msgstr "El elemento de asociación no tiene editor"
 
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
-#| msgid "bad association item option in the node %s"
 msgid "Bad association item option in the node %s"
 msgstr "Opción del elemento de asociación errónea en el nodo %s"
 
@@ -5095,13 +5089,11 @@ msgstr "valor de la propiedad %s no válido"
 
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
-#| msgid "association item filename has no path"
 msgid "Association item filename has no path"
 msgstr "El nombre del archivo del elemento de asociación no tiene ruta"
 
 #: ../plugins/glade/plugin.c:836
 #, c-format
-#| msgid "No associoations initialized, nothing to save"
 msgid "No associations initialized, nothing to save"
 msgstr "No se inicializó ninguna asociación, no hay nada que guardar"
 
@@ -5119,7 +5111,6 @@ msgstr "Falló al guardar las asociaciones"
 
 #: ../plugins/glade/plugin.c:1349
 #, c-format
-#| msgid "couldn't introspect the signal"
 msgid "Couldn't introspect the signal"
 msgstr "No se pudo inspeccionar la señal"
 
@@ -5135,13 +5126,11 @@ msgstr "El lenguaje Vala no está soportado aún"
 
 #: ../plugins/glade/plugin.c:1943
 #, c-format
-#| msgid "there's no associated editor for the designer"
 msgid "There is no associated editor for the designer"
 msgstr "No hay un editor asociado para el diseñador"
 
 #: ../plugins/glade/plugin.c:1961
 #, c-format
-#| msgid "unknown language of the editor \"%s\""
 msgid "Unknown language of the editor \"%s\""
 msgstr "Editor del lenguaje «%s» desconocido"
 
@@ -5149,7 +5138,7 @@ msgstr "Editor del lenguaje «%s» desconocido"
 #: ../plugins/glade/plugin.c:2230
 #, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr ""
+msgstr "Error al añadir un nuevo manejador de esbozos: %s"
 
 #: ../plugins/glade/plugin.c:2035 ../plugins/glade/plugin.c:2119
 msgid "Couldn't find a signal information"
@@ -5158,10 +5147,10 @@ msgstr "No se pudo encontrar una señal de información"
 #: ../plugins/glade/plugin.c:2062
 msgid "Error while adding a new handler stub: No current editor"
 msgstr ""
+"Error al añadir un nuevo manejador de esbozos: No existe un editor actual"
 
 #: ../plugins/glade/plugin.c:2233
 #, c-format
-#| msgid "To avoid this messages turn off \"%s\" flag in the %s->%s"
 msgid ""
 "To avoid this messages turn off \"Insert handler on edit\" flag in "
 "Preferences->Glade GUI Designer"
@@ -5189,7 +5178,6 @@ msgstr ""
 "El proyecto %s no tiene widgets obsoletos o inconsistencias entre versiones."
 
 #: ../plugins/glade/plugin.c:3888
-#| msgid "There's no Glade projects"
 msgid "There is no Glade project"
 msgstr "No hay ningún proyecto de Glade"
 
@@ -5200,17 +5188,16 @@ msgid "_Glade"
 msgstr "_Glade"
 
 #: ../plugins/glade/plugin.c:3982 ../plugins/glade/plugin.c:3984
-#| msgid "Switch designer/code"
 msgid "Switch between designer/code"
 msgstr "Cambiar entre diseñador/código"
 
 #: ../plugins/glade/plugin.c:3990 ../plugins/glade/plugin.c:3992
 msgid "Insert handler stub"
-msgstr ""
+msgstr "Insertar manejador de esbozos"
 
 #: ../plugins/glade/plugin.c:3998 ../plugins/glade/plugin.c:4000
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Insertar manejador de esbozos, posición automática"
 
 #: ../plugins/glade/plugin.c:4006
 msgid "Associate last designer and last editor"
