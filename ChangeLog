@@ -1,3 +1,8 @@
+2009-02-10  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/plugin.c (create_style_model):
+	#571114 – Crash after clicking on Edit/Preferences with open document
+
 2009-02-10  Yang Hong  <hongyang@redflag-linux.com.com>
  
 	* plugins/message-view/message-view.c (message_view_instance_init):

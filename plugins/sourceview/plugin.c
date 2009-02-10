@@ -162,7 +162,7 @@ create_style_model (AnjutaPreferences* prefs, GtkTreeIter** current)
 							COLUMN_NAME, gtk_source_style_scheme_get_name (scheme),
 							COLUMN_DESC, gtk_source_style_scheme_get_description (scheme),
 							COLUMN_ID, id, -1);
-		if (g_str_equal (id, current_style))
+		if (current_style && g_str_equal (id, current_style))
 		{
 			*current = gtk_tree_iter_copy (&iter);
 		}
