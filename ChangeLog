@@ -1,3 +1,14 @@
+2009-02-10  Yang Hong  <hongyang@redflag-linux.com.com>
+ 
+	* plugins/message-view/message-view.c (message_view_instance_init):
+ 	Align message filters into left.
+ 	
+ 	* plugins/tools/anjuta-tools.glade:
+ 	Use GtkFileChooserDialog instead GtkFileSelection
+ 	
+ 	* plugins/tools/variable.c (atp_variable_get_editor_variable):
+ 	Fixed #571143 - Double free crasher of path string.
+
 2009-02-09  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/plugin.c (on_session_load),

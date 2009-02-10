@@ -712,7 +712,6 @@ message_view_instance_init (MessageView * self)
 	GtkTreeSelection *select;
 	GtkListStore *model;	
 	GtkAdjustment* adj;
-	gint icon_width = 30; // FIXME: Obtain from theme
  
 	g_return_if_fail(self != NULL);
 	self->privat = g_new0 (MessageViewPrivate, 1);
@@ -732,6 +731,7 @@ message_view_instance_init (MessageView * self)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->normal), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->normal), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->normal), GTK_RELIEF_HALF);
+	gtk_button_set_alignment (GTK_BUTTON (self->privat->normal), 0.0, 0.5);
 	gtk_widget_show (self->privat->normal);
 	g_signal_connect (G_OBJECT (self->privat->normal), "toggled",
 					  G_CALLBACK (on_filter_buttons_toggled), self);
@@ -740,6 +740,7 @@ message_view_instance_init (MessageView * self)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->info), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->info), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->info), GTK_RELIEF_HALF);
+	gtk_button_set_alignment (GTK_BUTTON (self->privat->info), 0.0, 0.5);
 	gtk_button_set_image (GTK_BUTTON (self->privat->info), 
 						  gtk_image_new_from_stock (GTK_STOCK_INFO, 
 													GTK_ICON_SIZE_BUTTON));
@@ -751,6 +752,7 @@ message_view_instance_init (MessageView * self)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->warn), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->warn), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->warn), GTK_RELIEF_HALF);
+	gtk_button_set_alignment (GTK_BUTTON (self->privat->warn), 0.0, 0.5);
 	/* FIXME: There is not GTK_STOCK_DIALOG_WARNING. */
 	gtk_button_set_image (GTK_BUTTON (self->privat->warn), 
 						  gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, 
@@ -763,6 +765,7 @@ message_view_instance_init (MessageView * self)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->privat->error), TRUE);
 	gtk_button_set_focus_on_click (GTK_BUTTON (self->privat->error), FALSE);
 	gtk_button_set_relief (GTK_BUTTON (self->privat->error), GTK_RELIEF_HALF);
+	gtk_button_set_alignment (GTK_BUTTON (self->privat->error), 0.0, 0.5);
 	gtk_button_set_image (GTK_BUTTON (self->privat->error), 
 						  gtk_image_new_from_stock (GTK_STOCK_STOP, 
 													GTK_ICON_SIZE_BUTTON));
@@ -1194,7 +1197,6 @@ void message_view_copy(MessageView* view)
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GtkTreeSelection *select;
-	GtkTreePath *path;
 
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW

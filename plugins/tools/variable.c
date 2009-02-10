@@ -332,7 +332,6 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 		path = g_file_get_path (file);
 		val = remove_filename(path);
 		g_object_unref (file);
-		g_free(path);
 		break;
 	default:
 		g_return_val_if_reached (NULL);
