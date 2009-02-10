@@ -1,5 +1,11 @@
 2009-02-10  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview.c
+	(ilanguage_get_supported_languages):
+	Don't crash when language manager returns a NULL list of languages (#570492)
+
+2009-02-10  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/plugin.c (create_style_model):
 	#571114 – Crash after clicking on Edit/Preferences with open document
 

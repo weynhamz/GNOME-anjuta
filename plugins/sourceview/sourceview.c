@@ -1887,15 +1887,17 @@ ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 	static GList* languages = NULL;
 	if (!languages)
 	{
-		GStrv langs;
-		GStrv lang;
-		g_object_get (gtk_source_language_manager_get_default(), "language-ids", &langs, NULL);
-		
-		for (lang = langs; *lang != NULL; lang++)
+		const gchar* const * langs = gtk_source_language_manager_get_language_ids (gtk_source_language_manager_get_default());		
+		if (langs)
 		{
-			languages = g_list_append (languages, *lang);
+			const gchar* const * lang;
+		
+			for (lang = langs; *lang != NULL; lang++)
+			{
+				languages = g_list_append (languages, (gpointer)*lang);
+			}
 		}
-	}		
+	}
 	return languages;
 }
 
