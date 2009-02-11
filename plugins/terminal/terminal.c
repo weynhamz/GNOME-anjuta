@@ -172,7 +172,8 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 	} else {
 		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
 	}
-	vte_terminal_set_font_from_string (term, text);
+	if (text)
+		vte_terminal_set_font_from_string (term, text);
 	g_free (text);
 	
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);

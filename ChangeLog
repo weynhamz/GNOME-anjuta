@@ -1,3 +1,14 @@
+2009-02-12  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation), (get_line_indentation_string),
+	(set_line_indentation), (get_line_indentation_base),
+	(get_line_auto_indentation):
+	#571215 – doesn't indent function declarations correctly
+	
+	* plugins/terminal/terminal.c (terminal_set_preferences):
+	#570492 – Some criticals in the terminal plugin
+
 2009-02-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gbf-am/gbf-am-properties.c:

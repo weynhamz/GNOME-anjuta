@@ -139,7 +139,7 @@ skip_iter_to_newline_tail (IAnjutaIterable *iter, gchar ch)
 /* Jumps to the reverse matching brace of the given brace character */
 
 static gint
-get_line_indentation (IAnjutaEditor *editor, gint line_num)
+get_line_indentation (IAnjutaEditor *editor, gint line_num, gint* line_indent_spaces)
 {
 	IAnjutaIterable *line_begin, *line_end;
 	gchar *line_string, *idx;
@@ -176,7 +176,7 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 		if (*idx == '\t')
 			line_indent += TAB_SIZE;
 		else
-			line_indent++;
+			line_indent_spaces++;
 		idx++; /* Since we are looking for first non-space char, simple
 	            * increment of the utf8 chars would do */
 	}
@@ -189,10 +189,8 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_inden
 {
 	gint i;
 	gchar *indent_string;
-	
-	g_return_val_if_fail (spaces >= 0, NULL);
-	
-	if (spaces <= 0)
+		
+	if ((spaces + line_indent_spaces) <= 0)
 		return NULL;
 	
 	if (USE_SPACES_FOR_INDENTATION)
@@ -674,8 +672,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 }
 
 static gint
-set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation,
-					  gint line_indent_spaces)
+set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gint line_indent_spaces)
 {
 	IAnjutaIterable *line_begin, *line_end, *indent_position;
 	IAnjutaIterable *current_pos;
@@ -724,7 +721,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation,
 	if ((indentation + line_indent_spaces) > 0)
 	{
 		indent_string = get_line_indentation_string (editor, indentation, line_indent_spaces);
-		nchars = g_utf8_strlen (indent_string, -1);
+		nchars = indent_string ? g_utf8_strlen (indent_string, -1) : 0;
 		
 		/* Only indent if there is something to indent with */
 		if (indent_string)
@@ -845,7 +842,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	iter = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	
 	current_line_is_preprocessor = line_is_preprocessor (editor, iter);
-	current_line_is_continuation = line_is_continuation (editor, iter);
+	current_line_is_continuation = 
+		line_is_continuation (editor, iter);
 	/*
 	DEBUG_PRINT ("Current line is preprocessor = %d",
 				 current_line_is_preprocessor);
@@ -858,7 +856,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	{
 		/* Continuation of preprocessor line -- just maintain indentation */
 		g_object_unref (iter);
-		return get_line_indentation (editor, line_num - 1);;
+		return get_line_indentation (editor, line_num - 1, line_indent_spaces);
 	}
 	else if (current_line_is_preprocessor)
 	{
@@ -1032,7 +1030,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			/* If at level 0 indentation, encoutered a
 			 * block end, don't bother going further
 			 */
-			if (point_ch == '}' && get_line_indentation (editor, line_saved) <= 0)
+			if (point_ch == '}' && get_line_indentation (editor, line_saved, line_indent_spaces) <= 0)
 			{
 				line_indent = 0;
 				line_indent += extra_indent;
@@ -1042,7 +1040,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			/* Find matching brace and continue */
 			if (!cpp_java_util_jump_to_matching_brace (iter, point_ch, -1))
 			{
-				line_indent = get_line_indentation (editor, line_saved);
+				line_indent = get_line_indentation (editor, line_saved, line_indent_spaces);
 				line_indent += extra_indent;
 				break;
 			}
@@ -1051,7 +1049,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		{
 			gint line_for_indent =
 				ianjuta_editor_get_line_from_position (editor, iter, NULL);
-			line_indent = get_line_indentation (editor, line_for_indent);
+			line_indent = get_line_indentation (editor, line_for_indent, line_indent_spaces);
 			/* Increase line indentation */
 			line_indent += INDENT_SIZE;
 			line_indent += extra_indent;
@@ -1239,7 +1237,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	
 	if (is_iter_inside_string (iter))
 	{
-		line_indent = get_line_indentation (editor, line - 1);
+		line_indent = get_line_indentation (editor, line - 1, line_indent_spaces);
 	}
 	else
 	{
@@ -1281,8 +1279,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		 */
 		if (is_iter_inside_string (iter))
 		{
-			line_indent = get_line_indentation (editor, line - 1);
-			*line_indent_spaces = 0;
+			line_indent = get_line_indentation (editor, line - 1, line_indent_spaces);
 			break;
 		}
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
@@ -1322,14 +1319,14 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 				gint line = ianjuta_editor_get_line_from_position (editor,
 																   iter,
 																   NULL);
-				line_indent = get_line_indentation (editor, line);
-				*line_indent_spaces = 0;
+				line_indent = get_line_indentation (editor, line, line_indent_spaces);
 			}
 			break;
 		}
 		else if (ch == '#')
 		{
 			line_indent = 0;
+			*line_indent_spaces = 0;
 		}
 		else if (!isspace (ch))
 		{
@@ -1341,6 +1338,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	}
 	while (ianjuta_iterable_next (iter, NULL));
 	g_object_unref (iter);
+	
 	return line_indent;
 }
 
