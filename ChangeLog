@@ -1,3 +1,17 @@
+2009-02-11  Yang Hong  <hongyang@redflag-linux.com>
+	
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/scripts/tools-2.xml.in:
+	Fixed wrong path of grep command.
+
+	* plugins/gbf-am/gbf-am-parse.in:
+	Fixed #571262 – gbf-am: treat tail slash as a package (pkg_check_module)
+	
+	* plugins/gbf-am/gbf-am-properties.c (add_package_clicked_cb),
+	(gbf_am_properties_get_widget):
+	Fixed #566991 – list project modules in sorted order
+
 2009-02-11  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c (ilanguage_set_language):
@@ -15,7 +29,7 @@
 	* plugins/sourceview/plugin.c (create_style_model):
 	#571114 – Crash after clicking on Edit/Preferences with open document
 
-2009-02-10  Yang Hong  <hongyang@redflag-linux.com.com>
+2009-02-10  Yang Hong  <hongyang@redflag-linux.com>
  
 	* plugins/message-view/message-view.c (message_view_instance_init):
  	Align message filters into left.

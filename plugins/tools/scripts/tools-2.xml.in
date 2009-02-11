@@ -37,7 +37,7 @@
 		<shortcut></shortcut>
 	</tool>
 	<tool name="Find With Grep">
-		<command>/usr/xpg4/bin/grep -r -e</command>
+		<command>grep -r -e</command>
 		<parameter>$(ask_user_string) .</parameter>
 		<working_dir>$(project_root_directory)</working_dir>
 		<enabled>1</enabled>

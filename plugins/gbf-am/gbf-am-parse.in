@@ -532,6 +532,9 @@ sub extract_project_config
 	my @pkgs = split(/\s+/, $packages);
 	my @tmp;
 	foreach my $pkg (@pkgs) {
+	    if ($pkg =~ m/^\\$/) {
+		next;
+	    }
 	    $pkg =~ s/_\$\$_>=_\$\$_/ >= /g;
 	    $pkg =~ s/_\$\$_<=_\$\$_/ <= /g;
 	    $pkg =~ s/_\$\$_==_\$\$_/ == /g;

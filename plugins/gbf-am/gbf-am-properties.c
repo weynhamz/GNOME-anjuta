@@ -427,6 +427,7 @@ add_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 							renderer,
 							"text", COL_PKG_PACKAGE,
 							NULL);
+	gtk_tree_view_column_set_sort_column_id (col, COL_PKG_PACKAGE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (pkg_treeview), col);
 	renderer = gtk_cell_renderer_text_new ();
 	col = gtk_tree_view_column_new_with_attributes (_("Version"),
@@ -914,6 +915,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 	col = gtk_tree_view_column_new_with_attributes (_("Module/Packages"),
 							renderer,
 							"text", 0, NULL);
+	gtk_tree_view_column_set_sort_column_id (col, 0);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), col);
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
@@ -955,6 +957,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 							renderer,
 							"text", 
 							COL_VAR_NAME, NULL);
+	gtk_tree_view_column_set_sort_column_id (col, COL_VAR_NAME);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), col);
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
