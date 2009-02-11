@@ -35,6 +35,8 @@
 
 #include <glib/gi18n.h>
 
+#include <libanjuta/anjuta-debug.h>
+
 #include "gbf-am-config.h"
 #include "gbf-am-properties.h"
 
@@ -269,7 +271,7 @@ save_packages_list (GbfAmProject *project, GbfAmConfigMapping *config,
 	    while (gtk_tree_model_iter_next (model, &child));
 	}
 	
-	if (strlen (packages_list->str) > 0)
+	if (packages_list->len > 0)
 	{
 		GbfAmConfigMapping *pkgmodule;
 		key_name = g_strconcat ("pkg_check_modules_",
@@ -302,8 +304,10 @@ save_packages_list (GbfAmProject *project, GbfAmConfigMapping *config,
 			gbf_am_config_value_set_string (value, packages_list->str);
 		}
 		g_free (key_name);
-	}
+	} 
 	g_free (module_name);
+	
+	g_string_free (packages_list, TRUE);
 }
 
 static void
@@ -525,7 +529,9 @@ remove_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 						  GTK_BUTTONS_YES_NO,
 						  msg, name);
 	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+	{
 		gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+	}
 	gtk_widget_destroy (dlg);
 	g_free (name);
 	if (has_parent)
@@ -702,9 +708,11 @@ remove_variable_clicked_cb (GtkWidget *button, GtkWidget *top_level)
 		if (value)
 		{
 			variables = gbf_am_config_value_get_mapping (value);
-			value = gbf_am_config_value_new (GBF_AM_TYPE_STRING);
-			gbf_am_config_value_set_string (value, "");
-			gbf_am_config_mapping_insert (variables, name, value);
+			value = gbf_am_config_mapping_lookup (variables, name);
+			if (value)
+			{
+				gbf_am_config_value_set_string (value, NULL);
+			}
 		}
 		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 	}

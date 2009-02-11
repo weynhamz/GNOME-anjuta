@@ -27,6 +27,7 @@ AM_CPPFLAGS = 					\
 	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\"
+	-DG_LOG_DOMAIN=\"libgbf-am\"
 
 plugin_LTLIBRARIES = \
 	libgbf-am.la

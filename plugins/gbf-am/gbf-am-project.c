@@ -37,6 +37,7 @@
 #include <libgnome/gnome-macros.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include "gbf-am-project.h"
 #include "gbf-am-config.h"
@@ -45,9 +46,8 @@
 /* With debugging enable, the perl script gbf-am-parse outputs
  * debugging messages not in xml format and the parser
  * return an error */
-/*#define ENABLE_DEBUG*/
 
-#ifdef ENABLE_DEBUG
+#ifdef DEBUG
 #define GBF_DEBUG(x) x
 #else
 #define GBF_DEBUG(x)
@@ -772,7 +772,7 @@ monitor_cb (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* monitor will be removed here... is this safe? */
-			GBF_DEBUG (g_message ("File changed"));
+			DEBUG_PRINT ("File changed");
 			project_reload (project, NULL);
 			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
 			break;
@@ -908,7 +908,7 @@ change_set_destroy (GSList *change_set)
 	g_slist_free (change_set);
 }
 
-#ifdef ENABLE_DEBUG
+#ifdef DEBUG
 static void
 change_set_debug_print (GSList *change_set)
 {
@@ -1746,7 +1746,7 @@ spawn_shutdown (GbfAmSpawnData *data)
 	g_return_if_fail (data != NULL);
 	
 	if (data->child_pid) {
-		GBF_DEBUG (g_message ("Killing child"));
+		DEBUG_PRINT ("Killing child");
 		kill (data->child_pid, SIGKILL);
 		data->child_pid = 0;
 	}
@@ -1826,7 +1826,7 @@ spawn_write_child (GIOChannel *ioc, GIOCondition condition, gpointer user_data)
 
 		switch (status) {
 		    case G_IO_STATUS_NORMAL:
-			    GBF_DEBUG (g_message ("wrote %" G_GSIZE_FORMAT " bytes", bytes_written));
+			    DEBUG_PRINT ("wrote %" G_GSIZE_FORMAT " bytes", bytes_written);
 			    
 			    if (data->input.length < data->input.size) {
 				    /* don't remove the source */
@@ -1962,7 +1962,7 @@ static gboolean
 spawn_kill_child (GbfAmSpawnData *data)
 {
 	/* we can't wait longer */
-	GBF_DEBUG (g_message ("Timeout: sending SIGTERM to child process"));
+	DEBUG_PRINT ("Timeout: sending SIGTERM to child process");
 	
 	kill (data->child_pid, SIGTERM);
 	
@@ -2023,7 +2023,7 @@ spawn_script (gchar  **argv,
 		data->input.length = 0;  /* for input buffer length acts as an index */
 	}
 
-	GBF_DEBUG (g_message ("Spawning script"));
+	DEBUG_PRINT ("Spawning script");
 	
 	if (!g_spawn_async_with_pipes (NULL,             /* working dir */
 				       argv,

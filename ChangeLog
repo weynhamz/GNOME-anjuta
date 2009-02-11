@@ -1,3 +1,13 @@
+2009-02-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gbf-am/gbf-am-properties.c:
+	Fix #556148 – it's impossible to remove project variables
+
+	* plugins/gbf-am/plugin.c,
+	plugins/gbf-am/Makefile.am,
+	plugins/gbf-am/gbf-am-project.c:
+	Use Anjute debugging functions
+
 2009-02-11  Yang Hong  <hongyang@redflag-linux.com>
 	
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
