@@ -1,3 +1,9 @@
+2009-02-11  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (ilanguage_set_language):
+	Don't crash when language manager returns a NULL list of languages (#570492)
+	Avoid duplicated code that was causing the same behaviour as previous commit.
+
 2009-02-10  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c

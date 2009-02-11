@@ -1939,15 +1939,13 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW (ilanguage);
 	gboolean found = FALSE;
-	GStrv languages;
-	GStrv cur_lang;
-	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
-							&languages, NULL);
-	for (cur_lang = languages; *cur_lang != NULL && language != NULL; cur_lang++)
+	const GList* languages = ilanguage_get_supported_languages(ilanguage, err);
+	const GList* cur_lang;
+	for (cur_lang = languages; cur_lang != NULL && language != NULL; cur_lang = g_list_next (cur_lang))
 	{
 		GtkSourceLanguage* source_language = 
 			gtk_source_language_manager_get_language (gtk_source_language_manager_get_default(),
-													  *cur_lang);
+													  cur_lang->data);
 		const gchar* id = gtk_source_language_get_id (source_language);
 		
 		if (g_str_equal (language, id))
@@ -1960,7 +1958,6 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 			break;
 		}
 	}
-	g_strfreev(languages);
 	if (!found)
 	{
 		autodetect_language (sv);
