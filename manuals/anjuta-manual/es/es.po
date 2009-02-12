@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-02-02 18:25+0000\n"
-"PO-Revision-Date: 2009-02-06 20:35+0100\n"
+"POT-Creation-Date: 2009-02-06 19:36+0000\n"
+"PO-Revision-Date: 2009-02-12 23:33+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2051,7 +2051,6 @@ msgid "Adding Targets"
 msgstr "Añadir objetivos"
 
 #: C/anjuta-manual.xml:305(para)
-#, fuzzy
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Target</"
 "guimenuitem></menuchoice> and a dialog to add a new target will popup."
@@ -2069,10 +2068,10 @@ msgid "Select the target type."
 msgstr "Seleccione el tipo de objetivo."
 
 #: C/anjuta-manual.xml:316(para)
-#, fuzzy
 msgid "Enter a name for the new target and click <guibutton>Add</guibutton>."
 msgstr ""
-"Seleccione el paquete para añadir y pulse <guibutton>Añadir</guibutton>."
+"Introduzca un nombre para el objetivo nuevo y pulse <guibutton>Añadir</"
+"guibutton>."
 
 #: C/anjuta-manual.xml:301(para)
 msgid "To add a new target: <placeholder-1/>"
@@ -2090,7 +2089,6 @@ msgstr ""
 "<guimenuitem>Añadir objetivo</guimenuitem> del menú contextual."
 
 #: C/anjuta-manual.xml:326(para)
-#, fuzzy
 msgid ""
 "Target names usually require some standard prefix and suffix, depending on "
 "the type of target. Anjuta will warn you if a name is not valid and may "
@@ -2153,7 +2151,6 @@ msgstr ""
 "instalación diferente en las propiedades del grupo."
 
 #: C/anjuta-manual.xml:362(para)
-#, fuzzy
 msgid ""
 "The <emphasis>Java Module</emphasis> target type is for Java modules. Select "
 "this type if you are grouping Java sources into a module. You need to "
@@ -2161,14 +2158,13 @@ msgid ""
 "will be installed. It can be set in the properties of the group containing "
 "the target."
 msgstr ""
-"El tipo de objetivo <emphasis>módulo de Java</emphasis> es para el módulo de "
-"Java. Seleccione esto si está agrupando los fuentes de Java en un módulo. "
-"Debe proporcionar un directorio de instalación para este objetivo donde se "
-"instalarán los archivos .class. Se puede establecer en las propiedades de "
-"grupo del grupo al que pertenece este objetivo."
+"El tipo de objetivo <emphasis>Módulo de Java</emphasis> es para el módulo de "
+"Java. Seleccione este tipo si está agrupando los fuentes de Java en un "
+"módulo. Debe proporcionar un directorio de instalación para este objetivo "
+"donde se instalarán los archivos .class. Se puede establecer en las "
+"propiedades de grupo del grupo al que pertenece este objetivo."
 
 #: C/anjuta-manual.xml:369(para)
-#, fuzzy
 msgid ""
 "There can really be only one Java module in a group. This is a restriction "
 "made by automake. Please read the automake info page for more details."
