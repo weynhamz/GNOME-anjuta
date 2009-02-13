@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-02-06 19:36+0000\n"
-"PO-Revision-Date: 2009-02-12 23:33+0100\n"
+"PO-Revision-Date: 2009-02-13 17:37+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4276,19 +4276,17 @@ msgstr ""
 "dependiendo de su estado actual."
 
 #: C/anjuta-manual.xml:543(para)
-#, fuzzy
 msgid ""
 "To disable all breakpoints, click on <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Disable All Breakpoints</guimenuitem></menuchoice> "
 "or on <menuchoice><guimenuitem>Disable All Breakpoints</guimenuitem></"
 "menuchoice> in the breakpoint list context menu."
 msgstr ""
-"Para desactivar todos los puntos de parada pulse en "
+"Para desactivar todos los puntos de parada pulse "
 "<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Desactivar todos "
 "los puntos de parada</guimenuitem></menuchoice> o pulse "
 "<menuchoice><guimenuitem>Desactivar todos los puntos de parada</"
-"guimenuitem></menuchoice> en el menú emergente de la lista de puntos de "
-"parada."
+"guimenuitem></menuchoice> en el menú contextual."
 
 #: C/anjuta-manual.xml:554(title)
 msgid "Expressions"
@@ -4299,7 +4297,6 @@ msgid "Listing local variables"
 msgstr "Listar las variables locales"
 
 #: C/anjuta-manual.xml:558(para)
-#, fuzzy
 msgid ""
 "When a program is running under the control of the debugger, the "
 "<interface>Locals list window</interface> can be opened by choosing "
@@ -4307,7 +4304,7 @@ msgid ""
 "menuchoice>."
 msgstr ""
 "Cuando un programa se está ejecutando bajo el control del depurador, la "
-"<interface>ventanta lista de locales</interface> se puede abrir eligiendo "
+"<interface>Ventana de lista de locales</interface> se puede abrir eligiendo "
 "<menuchoice><guisubmenu>Ver</guisubmenu><guimenuitem>Locales</guimenuitem></"
 "menuchoice>."
 
@@ -5178,10 +5175,9 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:134(title)
-#, fuzzy
 #| msgid "Inserting Macros"
 msgid "Inserting a stub"
-msgstr "Insertar macros"
+msgstr "Insertar un esbozo"
 
 #: C/anjuta-manual.xml:135(para)
 msgid ""
@@ -5198,7 +5194,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:148(para)
-#, fuzzy
 #| msgid ""
 #| "Choosing the menu item <menuchoice><guisubmenu>Build</"
 #| "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install "
@@ -5207,9 +5202,9 @@ msgid ""
 "Using <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Insert "
 "handler stub, autoposition</guimenuitem></menuchoice> in hte main menu"
 msgstr ""
-"Eligiendo el elemento del menú <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Instalar</guimenuitem></menuchoice> instalará la "
-"aplicación generada en su sistema."
+"Usando <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Insertar "
+"manejador de esbozos, posición automática</guimenuitem></menuchoice> en el "
+"menú principal"
 
 #: C/anjuta-manual.xml:154(para)
 msgid ""
@@ -5218,11 +5213,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:141(para)
-#, fuzzy
 msgid "There are several ways to create a stub: <placeholder-1/>"
-msgstr ""
-"Existen varios tipos de objetivos para un proyecto automake. Éstos son: "
-"<placeholder-1/>"
+msgstr "Existen varias formas de crear un esbozo: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:163(title) C/anjuta-manual.xml:3(title)
 msgid "Preferences"
@@ -5230,7 +5222,7 @@ msgstr "Preferencias"
 
 #: C/anjuta-manual.xml:166(guilabel)
 msgid "Insert handler on edit"
-msgstr ""
+msgstr "Insertar manejador al editar"
 
 #: C/anjuta-manual.xml:167(para)
 msgid ""
@@ -5241,7 +5233,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:174(guilabel)
 msgid "Separated designer layout"
-msgstr ""
+msgstr "Distribución del diseñador separada"
 
 #: C/anjuta-manual.xml:175(para)
 msgid ""
@@ -5251,7 +5243,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:181(guilabel)
 msgid "Automatically add resources"
-msgstr ""
+msgstr "Añadir recursos automáticamente"
 
 #: C/anjuta-manual.xml:182(para)
 msgid ""
@@ -5262,12 +5254,14 @@ msgstr ""
 
 #: C/anjuta-manual.xml:190(guilabel)
 msgid "Handler template"
-msgstr ""
+msgstr "Plantilla del manejador"
 
 #: C/anjuta-manual.xml:191(para)
 msgid ""
 "You can choose between the two formats of automatic naming of signal handler."
 msgstr ""
+"Puede elegir entre dos formatos de nombrar automáticamente el manejador de "
+"señales."
 
 #: C/anjuta-manual.xml:4(para)
 msgid ""
