@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-05 01:46+0100\n"
-"PO-Revision-Date: 2009-02-01 23:42+0100\n"
+"POT-Creation-Date: 2009-02-15 13:52+0100\n"
+"PO-Revision-Date: 2009-02-15 01:06+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Anjuta IDE"
 msgid "Develop software in an integrated development environment"
 msgstr "Skriv software i et integreret udviklingsmiljø"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:344
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Integreret udviklingsmiljø (IDE)"
 
@@ -207,21 +207,21 @@ msgid "Thai"
 msgstr "Thailandsk"
 
 #: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3205
-#: ../plugins/gbf-am/gbf-am-properties.c:128
-#: ../plugins/gbf-am/gbf-am-properties.c:172
+#: ../plugins/gbf-am/gbf-am-properties.c:130
+#: ../plugins/gbf-am/gbf-am-properties.c:174
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: ../libanjuta/anjuta-launcher.c:1159 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1147 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Kan ikke køre kommando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1160
+#: ../libanjuta/anjuta-launcher.c:1148
 msgid "execvp failed"
 msgstr "execvp slog fejl"
 
@@ -448,7 +448,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Hvis du ikke gemmer, vil alle dine ændringer gå tabt."
 
 #: ../libanjuta/anjuta-save-prompt.c:190
-#: ../plugins/document-manager/plugin.c:596 ../plugins/glade/plugin.c:4057
+#: ../plugins/document-manager/plugin.c:596
 msgid "Save"
 msgstr "Gem"
 
@@ -568,8 +568,8 @@ msgstr "Pixbuf-objekt"
 msgid "The pixbuf to render."
 msgstr "Pixbuffen, der skal tegnes."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3023
-#: ../plugins/glade/plugin.c:3058
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3020
+#: ../plugins/glade/plugin.c:3055
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Kontrol blev ikke fundet: %s"
@@ -623,7 +623,7 @@ msgstr "Fortsæt ved fejl"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
 msgid "Highlight message locations in editor"
-msgstr "Markér meddelelsesplaceringer i redigeringsprogrammet"
+msgstr "Markér meddelelsesplaceringer i redigeringen"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
 msgid "Install as root:"
@@ -1119,7 +1119,7 @@ msgid "Member Functions/Variables"
 msgstr "Medlemsfunktioner/variable"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:4421
+#: ../plugins/glade/plugin.c:4418
 msgid "Properties"
 msgstr "Egenskaber"
 
@@ -1429,7 +1429,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:439
-#: ../plugins/gbf-am/gbf-am-properties.c:1216
+#: ../plugins/gbf-am/gbf-am-properties.c:1227
 msgid "Module"
 msgstr "Module"
 
@@ -1973,13 +1973,13 @@ msgid "_Goto address"
 msgstr "_Gå til adresse"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/gbf-am/gbf-am-properties.c:954 ../plugins/tools/editor.c:454
+#: ../plugins/gbf-am/gbf-am-properties.c:964 ../plugins/tools/editor.c:454
 msgid "Variable"
 msgstr "Variabel"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:963
+#: ../plugins/gbf-am/gbf-am-properties.c:974
 #: ../plugins/run-program/parameters.c:720 ../plugins/tools/editor.c:460
 msgid "Value"
 msgstr "Værdi"
@@ -2276,9 +2276,8 @@ msgid "Symbols read"
 msgstr "Symboler læst"
 
 #: ../plugins/debug-manager/sharedlib.c:339
-#, fuzzy
-msgid "Sharedlibs operations"
-msgstr "Trådoperationer"
+msgid "Shared library operations"
+msgstr "Operationer for delte biblioteker"
 
 #: ../plugins/debug-manager/signals.c:289
 msgid "Signal"
@@ -2312,9 +2311,8 @@ msgstr "Kerne signaler"
 
 #: ../plugins/debug-manager/signals.c:472
 #: ../plugins/debug-manager/signals.c:478
-#, fuzzy
 msgid "Signal operations"
-msgstr "terminaloperationer"
+msgstr "Signaloperationer"
 
 #: ../plugins/debug-manager/sparse_view.c:1195
 msgid "Show Line Numbers"
@@ -2362,8 +2360,7 @@ msgstr "Fil"
 
 #: ../plugins/debug-manager/stack_trace.c:641
 #: ../plugins/debug-manager/threads.c:459
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:954
+#: ../plugins/document-manager/plugin.c:921
 msgid "Line"
 msgstr "Linje"
 
@@ -2413,14 +2410,14 @@ msgid "Unable to open the file: %s\n"
 msgstr "Kan ikke åbne filen: %s\n"
 
 #: ../plugins/debug-manager/start.c:912
-#, fuzzy, c-format
-msgid "Unable to open %s. (file_info) Debugger cannot start."
+#, c-format
+msgid "Unable to open %s. Debugger cannot start."
 msgstr "Kan ikke åbne %s. Fejlsøgeren kan ikke starte."
 
 #: ../plugins/debug-manager/start.c:922
-#, fuzzy, c-format
-msgid "Unable to open %s. (mime_type) Debugger cannot start."
-msgstr "Kan ikke åbne %s. Fejlsøgeren kan ikke starte."
+#, c-format
+msgid "Unable to detect mime-type of %s. Debugger cannot start."
+msgstr "Kan ikke bestemme mime-typen for %s. Fejlsøgeren kan ikke starte."
 
 #: ../plugins/debug-manager/start.c:1058 ../plugins/debug-manager/start.c:1250
 #: ../plugins/run-program/parameters.c:600
@@ -2553,11 +2550,11 @@ msgstr "Online"
 msgid "Contents"
 msgstr "Indhold"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1004
-#: ../plugins/search/search-replace.c:1673
-#: ../plugins/search/search-replace.c:1680
-#: ../plugins/search/search-replace.c:1692
-#: ../plugins/search/search-replace.c:2010
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1017
+#: ../plugins/search/search-replace.c:1686
+#: ../plugins/search/search-replace.c:1693
+#: ../plugins/search/search-replace.c:1705
+#: ../plugins/search/search-replace.c:2023
 msgid "Search"
 msgstr "Søg"
 
@@ -2926,7 +2923,7 @@ msgstr "Gentag hurtigsøgning"
 
 #: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:169
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1848
+#: ../plugins/language-support-cpp-java/plugin.c:1855
 msgid "_Edit"
 msgstr "_Redigér"
 
@@ -2955,7 +2952,7 @@ msgstr "Fjern den aktuelle visning af dokumentet"
 msgid "U_ndo"
 msgstr "_Fortryd"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4067
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4064
 msgid "Undo the last action"
 msgstr "Fortryd sidste handling"
 
@@ -2977,7 +2974,7 @@ msgstr "Klip den markerede tekst fra editoren til udklipsholderen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:537
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:540
 #: ../plugins/valgrind/vgdefaultview.c:1167
 msgid "_Copy"
 msgstr "_Kopier"
@@ -2986,7 +2983,7 @@ msgstr "_Kopier"
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopier den markerede tekst til udklipsholderen"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:545
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:548
 #: ../plugins/valgrind/vgdefaultview.c:1168
 msgid "_Paste"
 msgstr "Inds_æt"
@@ -3205,9 +3202,9 @@ msgid "Simple searching"
 msgstr "Simpel søgning"
 
 #: ../plugins/document-manager/plugin.c:410
-#: ../plugins/document-manager/plugin.c:1736
-#: ../plugins/document-manager/plugin.c:2148
-#: ../plugins/document-manager/plugin.c:2158
+#: ../plugins/document-manager/plugin.c:1714
+#: ../plugins/document-manager/plugin.c:2126
+#: ../plugins/document-manager/plugin.c:2136
 msgid "Documents"
 msgstr "Dokumenter"
 
@@ -3223,43 +3220,40 @@ msgstr "Genindlæs"
 msgid "Goto"
 msgstr "Gå til"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:909
 msgid "OVR"
 msgstr "OVR"
 
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:913
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:936
-#: ../plugins/document-manager/plugin.c:938
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:917
+#: ../plugins/document-manager/plugin.c:919
 msgid "Zoom"
 msgstr "Zoom"
 
 # ??
-#: ../plugins/document-manager/plugin.c:941
-#: ../plugins/document-manager/plugin.c:955
+#: ../plugins/document-manager/plugin.c:922
 msgid "Col"
 msgstr "Kol"
 
-#: ../plugins/document-manager/plugin.c:942
-#: ../plugins/document-manager/plugin.c:956
+#: ../plugins/document-manager/plugin.c:923
 msgid "Mode"
 msgstr "Tilstand"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1026
+#: ../plugins/document-manager/plugin.c:1003
 msgid "Automatic"
 msgstr "Automatisk"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1559
+#: ../plugins/document-manager/plugin.c:1537
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Autogemning slog fejl for %s"
 
-#: ../plugins/document-manager/plugin.c:1573
+#: ../plugins/document-manager/plugin.c:1551
 msgid "Autosave completed"
 msgstr "Autogemning fuldført"
 
@@ -3498,9 +3492,8 @@ msgid "Open recent files"
 msgstr "Åbn seneste filer"
 
 #: ../plugins/file-loader/plugin.c:1242
-#, fuzzy
 msgid "Open a file"
-msgstr "Åben fil"
+msgstr "Åbn en fil"
 
 #: ../plugins/file-loader/plugin.c:1350 ../plugins/file-loader/plugin.c:1352
 #, c-format
@@ -3543,9 +3536,8 @@ msgid "Do not show hidden files"
 msgstr "Vis ikke skjulte filer"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
-#, fuzzy
 msgid "Do not show unversioned files"
-msgstr "Vis ikke skjulte filer"
+msgstr "Vis ikke filer uden for versionsstyring"
 
 #: ../plugins/file-manager/file-manager.glade.h:8
 msgid "Root directory if no project is open:"
@@ -3556,48 +3548,46 @@ msgid "Loading..."
 msgstr "Indlæser..."
 
 #: ../plugins/file-manager/file-view.c:73
-#, fuzzy
 msgid "Up-to-date"
-msgstr "Opdatér"
+msgstr "Opdateret"
 
 #: ../plugins/file-manager/file-view.c:75
 msgid "Locked"
 msgstr "Låst"
 
 #: ../plugins/file-manager/file-view.c:81
-#, fuzzy
 msgid "Ignored"
-msgstr "_Ignorér..."
+msgstr "Ignoreret"
 
-#: ../plugins/file-manager/file-view.c:480
+#: ../plugins/file-manager/file-view.c:484
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../plugins/file-manager/file-view.c:560
+#: ../plugins/file-manager/file-view.c:564
 msgid "Base uri"
 msgstr "Basis-uri"
 
-#: ../plugins/file-manager/file-view.c:561
+#: ../plugins/file-manager/file-view.c:565
 msgid "Uri of the top-most path displayed"
 msgstr "Uri for den øverste viste sti"
 
-#: ../plugins/file-manager/plugin.c:74
+#: ../plugins/file-manager/plugin.c:75
 msgid "_Rename"
 msgstr "_Omdøb"
 
-#: ../plugins/file-manager/plugin.c:74
+#: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
 msgstr "Omdøb fil eller mappe"
 
-#: ../plugins/file-manager/plugin.c:223
+#: ../plugins/file-manager/plugin.c:285
 msgid "File manager popup actions"
 msgstr "Pop op-handlinger for filhåndtering"
 
-#: ../plugins/file-manager/plugin.c:257
+#: ../plugins/file-manager/plugin.c:318
 msgid "Files"
 msgstr "Filer"
 
-#: ../plugins/file-manager/plugin.c:381 ../plugins/file-manager/plugin.c:390
+#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Filhåndtering"
@@ -3642,7 +3632,7 @@ msgid "New File"
 msgstr "Ny fil"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1506
+#: ../plugins/gbf-am/gbf-am-properties.c:1517
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Type:"
 msgstr "Type:"
@@ -3939,22 +3929,22 @@ msgstr "Kilden kunne ikke fjernes"
 msgid "Project directory"
 msgstr "Projektmappe"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:338
-#: ../plugins/gbf-am/gbf-am-properties.c:390
+#: ../plugins/gbf-am/gbf-am-properties.c:342
+#: ../plugins/gbf-am/gbf-am-properties.c:394
 msgid "Enter new module"
 msgstr "Indtast nyt modul"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:426
-#: ../plugins/gbf-am/gbf-am-properties.c:914
+#: ../plugins/gbf-am/gbf-am-properties.c:430
+#: ../plugins/gbf-am/gbf-am-properties.c:923
 msgid "Module/Packages"
 msgstr "Modul/pakker"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:432
-#: ../plugins/gbf-am/gbf-am-properties.c:922
+#: ../plugins/gbf-am/gbf-am-properties.c:437
+#: ../plugins/gbf-am/gbf-am-properties.c:932
 msgid "Version"
 msgstr "Version"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:518
+#: ../plugins/gbf-am/gbf-am-properties.c:523
 #, c-format
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
@@ -3963,138 +3953,138 @@ msgstr ""
 "Er du sikker på, at du vil fjerne modulet \"%s\" og alle dets tilhørende "
 "pakker?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:520
+#: ../plugins/gbf-am/gbf-am-properties.c:525
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "Er du sikker på at du vil fjerne pakken \"%s\"?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:576
-#: ../plugins/gbf-am/gbf-am-properties.c:658
+#: ../plugins/gbf-am/gbf-am-properties.c:583
+#: ../plugins/gbf-am/gbf-am-properties.c:665
 msgid "Enter new variable"
 msgstr "Indtast ny variabel"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:689
+#: ../plugins/gbf-am/gbf-am-properties.c:696
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "Er du sikker på at du vil fjerne variablen \"%s\"?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:838
+#: ../plugins/gbf-am/gbf-am-properties.c:847
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
 msgid "Project:"
 msgstr "Projekt:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:841
+#: ../plugins/gbf-am/gbf-am-properties.c:850
 msgid "Package name:"
 msgstr "Pakkenavn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:844
+#: ../plugins/gbf-am/gbf-am-properties.c:853
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Version:"
 msgstr "Version:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:847
+#: ../plugins/gbf-am/gbf-am-properties.c:856
 msgid "Url:"
 msgstr "Url:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1211
+#: ../plugins/gbf-am/gbf-am-properties.c:1222
 msgid "Use"
 msgstr "Brug"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1303
+#: ../plugins/gbf-am/gbf-am-properties.c:1314
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
 msgid "Group name:"
 msgstr "Gruppenavn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1306
+#: ../plugins/gbf-am/gbf-am-properties.c:1317
 msgid "Advanced"
 msgstr "Avanceret"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1311
-#: ../plugins/gbf-am/gbf-am-properties.c:1401
+#: ../plugins/gbf-am/gbf-am-properties.c:1322
+#: ../plugins/gbf-am/gbf-am-properties.c:1412
 msgid "C compiler flags:"
 msgstr "C-kompilerflag:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1313
+#: ../plugins/gbf-am/gbf-am-properties.c:1324
 msgid "C preprocessor flags:"
 msgstr "C-præprocessorflag:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1315
+#: ../plugins/gbf-am/gbf-am-properties.c:1326
 msgid "C++ compiler flags:"
 msgstr "C++-kompilerflag:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1317
+#: ../plugins/gbf-am/gbf-am-properties.c:1328
 msgid "gcj compiler flags (ahead-of-time):"
 msgstr "gcj-kompilerflag (statisk):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1319
+#: ../plugins/gbf-am/gbf-am-properties.c:1330
 msgid "Java compiler flags (just-in-time):"
 msgstr "Java-kompilerflag (dynamisk):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1321
-#: ../plugins/gbf-am/gbf-am-properties.c:1409
+#: ../plugins/gbf-am/gbf-am-properties.c:1332
+#: ../plugins/gbf-am/gbf-am-properties.c:1420
 msgid "Fortran compiler flags:"
 msgstr "Fortrankompilerflag:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-am/gbf-am-properties.c:1335
 msgid "Includes (deprecated):"
 msgstr "Inklusioner (deprecieret):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1335
+#: ../plugins/gbf-am/gbf-am-properties.c:1346
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
 msgid "Install directories:"
 msgstr "Installationsmapper:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1403
+#: ../plugins/gbf-am/gbf-am-properties.c:1414
 msgid "C preprocessor flags"
 msgstr "C-præprocessorflag"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1405
+#: ../plugins/gbf-am/gbf-am-properties.c:1416
 msgid "C++ compiler flags"
 msgstr "C++-kompilerflag"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1407
+#: ../plugins/gbf-am/gbf-am-properties.c:1418
 msgid "gcj compiler flags (ahead-of-time)"
 msgstr "gcj-kompilerflag (statisk)"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1413
+#: ../plugins/gbf-am/gbf-am-properties.c:1424
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
 msgid "Linker flags:"
 msgstr "Linkerflag:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1419
+#: ../plugins/gbf-am/gbf-am-properties.c:1430
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
 msgid "Libraries:"
 msgstr "Biblioteker:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1425
+#: ../plugins/gbf-am/gbf-am-properties.c:1436
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
 msgid "Dependencies:"
 msgstr "Afhængigheder:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1428
+#: ../plugins/gbf-am/gbf-am-properties.c:1439
 msgid "Advanced options"
 msgstr "Avancerede indstillinger"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1503
+#: ../plugins/gbf-am/gbf-am-properties.c:1514
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
 msgid "Target name:"
 msgstr "Målnavn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1512
+#: ../plugins/gbf-am/gbf-am-properties.c:1523
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
 msgid "Group:"
 msgstr "Gruppe:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1530
-#: ../plugins/gbf-am/gbf-am-properties.c:1546
-#: ../plugins/gbf-am/gbf-am-properties.c:1553
+#: ../plugins/gbf-am/gbf-am-properties.c:1541
+#: ../plugins/gbf-am/gbf-am-properties.c:1557
+#: ../plugins/gbf-am/gbf-am-properties.c:1564
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
 msgid "Install directory:"
 msgstr "Installationsmappe:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1565
+#: ../plugins/gbf-am/gbf-am-properties.c:1576
 msgid "Advanced..."
 msgstr "Avanceret..."
 
@@ -5019,38 +5009,33 @@ msgstr "Git-loggeoperationer"
 msgid "Git FM operations"
 msgstr "Git-FM-operationer"
 
-#: ../plugins/git/plugin.c:624
+#: ../plugins/git/plugin.c:605
 msgid "Git Log"
 msgstr "Git-log"
 
 #: ../plugins/glade/anjuta-glade.glade.h:1
-#, fuzzy
 msgid "<b>Handler template</b>"
-msgstr "<b>Gren der skal slettes:</b>"
+msgstr "<b>Skabelon for håndteringer</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:2
-#, fuzzy
 msgid "<b>Manage associations</b>"
-msgstr "<b>Meddelelsesindstillinger</b>"
+msgstr "<b>Håndtér associationer</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:3
-#, fuzzy
 msgid "<b>New association</b>"
-msgstr "<b>Session</b>"
+msgstr "<b>Ny association</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:4
 msgid "Associate"
-msgstr ""
+msgstr "Associér"
 
 #: ../plugins/glade/anjuta-glade.glade.h:5
-#, fuzzy
 msgid "Automatically add resources"
-msgstr "Scan automatisk projektets pakker"
+msgstr "Tilføj automatisk ressourcer"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4400
-#, fuzzy
+#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4397
 msgid "Designer"
-msgstr "Definitioner"
+msgstr "Designer"
 
 #: ../plugins/glade/anjuta-glade.glade.h:7
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:28
@@ -5058,333 +5043,268 @@ msgstr "Definitioner"
 msgid "Editor"
 msgstr "Redigering"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:2234
-#, fuzzy
+#: ../plugins/glade/anjuta-glade.glade.h:8
 msgid "Insert handler on edit"
-msgstr "Skrifttyper og farver for redigering"
+msgstr "Indsæt håndtering ved redigering"
 
 #: ../plugins/glade/anjuta-glade.glade.h:9
-#, fuzzy
 msgid "Position type"
-msgstr "Position:"
+msgstr "Positionstype"
 
 #: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Separated designer layout"
-msgstr ""
+msgstr "Separeret designerlayout"
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Special regexp"
-msgstr ""
+msgstr "Speciel regexp"
 
 #: ../plugins/glade/anjuta-glade.glade.h:12
-#, fuzzy
 msgid "Widget name"
-msgstr "Målnavn:"
+msgstr "Kontrolnavn"
 
+# ??? fejlrapport
 #: ../plugins/glade/anjuta-glade.glade.h:13
-#, fuzzy
-msgid "gtk-close"
-msgstr "gtk-clear"
-
-#: ../plugins/glade/anjuta-glade.glade.h:14
-#, fuzzy
-msgid "gtk-save"
-msgstr "gtk-cancel"
-
-#: ../plugins/glade/anjuta-glade.glade.h:15
 msgid "on_widget_signal"
-msgstr ""
+msgstr "on_widget_signal"
 
-#: ../plugins/glade/anjuta-glade.glade.h:16
+# fejlrapport
+#: ../plugins/glade/anjuta-glade.glade.h:14
 msgid "widget_signal_cb"
-msgstr ""
+msgstr "widget_signal_cb"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
-msgid "association item has no designer"
-msgstr ""
+msgid "Association item has no designer"
+msgstr "Associationselement har ingen designer"
 
 #: ../plugins/glade/designer-associations-item.c:268
 #, c-format
-msgid "association item has no editor"
-msgstr ""
+msgid "Association item has no editor"
+msgstr "Associationselement har ingen redigering"
 
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
-msgid "bad association item option in the node %s"
-msgstr ""
+msgid "Bad association item option in the node %s"
+msgstr "Dårlig indstilling for associationselement i knuden %s"
 
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
 msgid "no filename found in the node %s"
-msgstr ""
+msgstr "intet filnavn fundet i knuden %s"
 
 #: ../plugins/glade/designer-associations-item.c:478
 #, c-format
 msgid "invalid %s property value"
-msgstr ""
+msgstr "ugyldig %s-egenskabstype"
 
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
-msgid "association item filename has no path"
-msgstr ""
+msgid "Association item filename has no path"
+msgstr "Associationselementets filnavn har ingen sti"
 
 #: ../plugins/glade/plugin.c:836
 #, c-format
-msgid "No associoations initialized, nothing to save"
-msgstr ""
+msgid "No associations initialized, nothing to save"
+msgstr "Ingen associationer initieret, intet at gemme"
 
 #: ../plugins/glade/plugin.c:843
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
-msgstr ""
+msgstr "Kunne ikke gemme associationer, da projektroden ikke er indstillet"
 
 #: ../plugins/glade/plugin.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to save associations"
-msgstr "Kunne ikke aktivere modul: %s"
+msgstr "Kunne ikke gemme associationer"
 
 #: ../plugins/glade/plugin.c:1349
 #, c-format
-msgid "couldn't introspect the signal"
-msgstr ""
+msgid "Couldn't introspect the signal"
+msgstr "Kunne ikke introspicere signalet"
 
 #: ../plugins/glade/plugin.c:1371
 #, c-format
 msgid "Python language isn't supported yet"
-msgstr ""
+msgstr "Sproget Python understøttes endnu ikke"
 
 #: ../plugins/glade/plugin.c:1384
 #, c-format
 msgid "Vala language isn't supported yet"
-msgstr ""
+msgstr "Sproget Vala understøttes endnu ikke"
 
 #: ../plugins/glade/plugin.c:1943
 #, c-format
-msgid "there's no associated editor for the designer"
-msgstr ""
+msgid "There is no associated editor for the designer"
+msgstr "Der er ingen associeret redigering for designeren"
 
 #: ../plugins/glade/plugin.c:1961
 #, c-format
-msgid "unknown language of the editor \"%s\""
-msgstr ""
+msgid "Unknown language of the editor \"%s\""
+msgstr "Ukendt sprog for redigeringen \"%s\""
 
 #: ../plugins/glade/plugin.c:2028 ../plugins/glade/plugin.c:2105
 #: ../plugins/glade/plugin.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr "Fejl under læsning fra fil"
+msgstr "Fejl under tilføjelse af ny håndteringsstub: %s"
 
 #: ../plugins/glade/plugin.c:2035 ../plugins/glade/plugin.c:2119
 msgid "Couldn't find a signal information"
-msgstr ""
+msgstr "Kunne ikke finde en signalinformation"
 
 #: ../plugins/glade/plugin.c:2062
-#, fuzzy
-msgid "Error while adding a new handler stub: %"
-msgstr "Fejl under læsning fra fil"
-
-# ???
-#: ../plugins/glade/plugin.c:2062
-#, fuzzy
-msgid "no current editor"
-msgstr "Kompilér nuværende redigeringsfil"
+msgid "Error while adding a new handler stub: No current editor"
+msgstr "Fejl under tilføjelse af ny håndteringsstub: Ingen aktuel redigering"
 
 #: ../plugins/glade/plugin.c:2233
 #, c-format
-msgid "To avoid this messages turn off \"%s\" flag in the %s->%s"
+msgid ""
+"To avoid this messages turn off \"Insert handler on edit\" flag in "
+"Preferences->Glade GUI Designer"
 msgstr ""
+"Slå \"Indsæt håndtering ved redigering\" fra i Indstillinger->Glade "
+"grænsefladedesigner for at undgå denne meddelelse"
 
-#: ../plugins/glade/plugin.c:2235
-#, fuzzy
-msgid "Preferences"
-msgstr "_Indstillinger"
-
-#: ../plugins/glade/plugin.c:2236 ../plugins/glade/plugin.c:5012
-#: ../plugins/glade/plugin.c:5037
-#, fuzzy
-msgid "Glade GUI Designer"
-msgstr "Glade-grænsefladedesigner"
-
-#: ../plugins/glade/plugin.c:2372
+#: ../plugins/glade/plugin.c:2369
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "De dokumenter er allerede associeret"
 
-#: ../plugins/glade/plugin.c:2410
+#: ../plugins/glade/plugin.c:2407
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Kan ikke læse filen: %s."
 
-#: ../plugins/glade/plugin.c:3668
-#, fuzzy
+#: ../plugins/glade/plugin.c:3665
 msgid "Couldn't find a default signal name"
-msgstr "Kunne ikke åbne glade-fil"
+msgstr "Kunne ikke finde et standardsignalnavn"
 
-#: ../plugins/glade/plugin.c:3874
+#: ../plugins/glade/plugin.c:3871
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr ""
+"Projektet %s har ingen deprecierede kontroller eller versionskonflikter."
 
-#: ../plugins/glade/plugin.c:3891
-#, fuzzy
-msgid "There's no Glade projects"
-msgstr "Hele projektet"
+#: ../plugins/glade/plugin.c:3888
+msgid "There is no Glade project"
+msgstr "Der er intet Glade-projekt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3977
-#, fuzzy
+#: ../plugins/glade/plugin.c:3974
 msgid "_Glade"
-msgstr "Glade-fil"
+msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3985 ../plugins/glade/plugin.c:3987
-msgid "Switch designer/code"
-msgstr ""
+#: ../plugins/glade/plugin.c:3982 ../plugins/glade/plugin.c:3984
+msgid "Switch between designer/code"
+msgstr "Skift mellem designer/kode"
 
-#: ../plugins/glade/plugin.c:3993 ../plugins/glade/plugin.c:3995
+#: ../plugins/glade/plugin.c:3990 ../plugins/glade/plugin.c:3992
 msgid "Insert handler stub"
-msgstr ""
+msgstr "Indsæt håndteringsstub"
 
-#: ../plugins/glade/plugin.c:4001 ../plugins/glade/plugin.c:4003
+#: ../plugins/glade/plugin.c:3998 ../plugins/glade/plugin.c:4000
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Indsæt håndteringsstub, autoplacér"
 
-#: ../plugins/glade/plugin.c:4009
+#: ../plugins/glade/plugin.c:4006
 msgid "Associate last designer and last editor"
-msgstr ""
+msgstr "Associér sidste designer og sidste redigering"
 
-#: ../plugins/glade/plugin.c:4011
+#: ../plugins/glade/plugin.c:4008
 msgid "Associate last designer and editor"
-msgstr ""
+msgstr "Associér sidste designer og redigering"
 
-#: ../plugins/glade/plugin.c:4017 ../plugins/glade/plugin.c:4019
+#: ../plugins/glade/plugin.c:4014 ../plugins/glade/plugin.c:4016
 msgid "Associations dialog..."
-msgstr ""
+msgstr "Dialogen associationer..."
 
-#: ../plugins/glade/plugin.c:4025
-#, fuzzy
+# Det står faktisk i RO
+#: ../plugins/glade/plugin.c:4022
 msgid "Versioning..."
-msgstr "Udskriver..."
+msgstr "Versionerer..."
 
-#: ../plugins/glade/plugin.c:4027
+#: ../plugins/glade/plugin.c:4024
 msgid "Switch between library versions and check deprecations"
-msgstr ""
+msgstr "Skift mellem biblioteksversioner og kontrollér deprecieringer"
 
-#: ../plugins/glade/plugin.c:4033 ../plugins/glade/plugin.c:4035
+#: ../plugins/glade/plugin.c:4030 ../plugins/glade/plugin.c:4032
 msgid "Set as default resource target"
-msgstr ""
+msgstr "Sæt som standardressourcemål"
 
-#: ../plugins/glade/plugin.c:4043
-#, fuzzy
+#: ../plugins/glade/plugin.c:4040
 msgid "Current default target"
-msgstr "Aktuelle markering"
+msgstr "Aktuelle standardmål"
 
-#: ../plugins/glade/plugin.c:4049
-msgid "Close"
-msgstr "Luk"
-
-#: ../plugins/glade/plugin.c:4051
-#, fuzzy
+#: ../plugins/glade/plugin.c:4048
 msgid "Close the current file"
-msgstr "Luk aktuel fil"
+msgstr "Luk den aktuelle fil"
 
-#: ../plugins/glade/plugin.c:4059
-#, fuzzy
+#: ../plugins/glade/plugin.c:4056
 msgid "Save the current file"
-msgstr "Gem aktuel fil"
+msgstr "Gem den aktuelle fil"
 
-#: ../plugins/glade/plugin.c:4065
-#, fuzzy
-msgid "Undo"
-msgstr "_Fortryd"
-
-#: ../plugins/glade/plugin.c:4073
-#, fuzzy
-msgid "Redo"
-msgstr "Gør o_m"
-
-#: ../plugins/glade/plugin.c:4075
-#, fuzzy
+#: ../plugins/glade/plugin.c:4072
 msgid "Redo the last action"
-msgstr "Fortryd sidste handling"
+msgstr "Omgør den sidste handling"
 
-#: ../plugins/glade/plugin.c:4081
-msgid "Cut"
-msgstr "Klip"
-
-#: ../plugins/glade/plugin.c:4083
-#, fuzzy
+#: ../plugins/glade/plugin.c:4080
 msgid "Cut the selection"
-msgstr "Aktuelle markering"
+msgstr "Klip markeringen"
 
-#: ../plugins/glade/plugin.c:4089
-#, fuzzy
-msgid "Copy"
-msgstr "_Kopier"
-
-#: ../plugins/glade/plugin.c:4091
-#, fuzzy
+#: ../plugins/glade/plugin.c:4088
 msgid "Copy the selection"
-msgstr "Tekstmarkering i redigering"
+msgstr "Kopiér markeringen"
 
-#: ../plugins/glade/plugin.c:4097
-msgid "Paste"
-msgstr "Indsæt"
-
-#: ../plugins/glade/plugin.c:4099
-#, fuzzy
+#: ../plugins/glade/plugin.c:4096
 msgid "Paste the clipboard"
-msgstr "Brug temafarver"
+msgstr "Indsæt fra klippebordet"
 
-#: ../plugins/glade/plugin.c:4105 ../plugins/gtodo/mcategory.c:146
-msgid "Delete"
-msgstr "Slet"
-
-#: ../plugins/glade/plugin.c:4107
-#, fuzzy
+#: ../plugins/glade/plugin.c:4104
 msgid "Delete the selection"
-msgstr "Husk dette udvalg"
+msgstr "Slet markeringen"
 
-#: ../plugins/glade/plugin.c:4285
-#, fuzzy
+#: ../plugins/glade/plugin.c:4282
 msgid "Glade designer operations"
-msgstr "Fejlsøgeroperationer"
+msgstr "Glade-designeroperationer"
 
-#: ../plugins/glade/plugin.c:4385
-#, fuzzy
+#: ../plugins/glade/plugin.c:4382
 msgid "Go back in undo history"
-msgstr "Gå til næste i historikken"
+msgstr "Gå tilbage i fortrydehistorikken"
 
-#: ../plugins/glade/plugin.c:4387
-#, fuzzy
+#: ../plugins/glade/plugin.c:4384
 msgid "Go forward in undo history"
-msgstr "Gå til næste i historikken"
+msgstr "Gå fremad i fortrydehistorikken"
 
-#: ../plugins/glade/plugin.c:4406
+#: ../plugins/glade/plugin.c:4403
 msgid "Glade Clipboard"
-msgstr ""
+msgstr "Glade-klippebord"
 
-#: ../plugins/glade/plugin.c:4411
+#: ../plugins/glade/plugin.c:4408
 msgid "Widgets"
 msgstr "Kontroller"
 
-#: ../plugins/glade/plugin.c:4416
+#: ../plugins/glade/plugin.c:4413
 msgid "Palette"
 msgstr "Palet"
 
-#: ../plugins/glade/plugin.c:4666
+#: ../plugins/glade/plugin.c:4663
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ikke en lokal fil: %s"
 
-#: ../plugins/glade/plugin.c:4687
+#: ../plugins/glade/plugin.c:4684
 #, c-format
 msgid "Could not open %s"
 msgstr "Kan ikke åbne %s"
 
-#: ../plugins/glade/plugin.c:4740
+#: ../plugins/glade/plugin.c:4737
 msgid "Could not create a new glade project."
 msgstr "Kan ikke oprette et nyt glade-projekt."
+
+#: ../plugins/glade/plugin.c:5009 ../plugins/glade/plugin.c:5034
+msgid "Glade GUI Designer"
+msgstr "Glade grænsefladedesigner"
 
 #: ../plugins/glade/anjuta-design-document.c:371
 #: ../plugins/glade/anjuta-design-document.c:399
@@ -5612,6 +5532,10 @@ msgstr "Intet filnavn angivet."
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Når du sletter kategorien \"%s\", vil alle tilhørende punkter gå tabt"
+
+#: ../plugins/gtodo/mcategory.c:146
+msgid "Delete"
+msgstr "Slet"
 
 #: ../plugins/gtodo/mcategory.c:173
 #, c-format
@@ -5947,7 +5871,7 @@ msgstr "Luk alle beskedfaneblade"
 msgid "No message details"
 msgstr "Ingen beskeddetaljer"
 
-#: ../plugins/message-view/message-view.c:731
+#: ../plugins/message-view/message-view.c:730
 msgid "No Messages"
 msgstr "Ingen meddelser"
 
@@ -5955,51 +5879,51 @@ msgstr "Ingen meddelser"
 msgid "No Infos"
 msgstr "Ingen info'er"
 
-#: ../plugins/message-view/message-view.c:750
+#: ../plugins/message-view/message-view.c:751
 msgid "No Warnings"
 msgstr "Ingen advarsler"
 
-#: ../plugins/message-view/message-view.c:762
+#: ../plugins/message-view/message-view.c:764
 msgid "No Errors"
 msgstr "Ingen fejl"
 
-#: ../plugins/message-view/message-view.c:806
+#: ../plugins/message-view/message-view.c:809
 msgid "Icon"
 msgstr "Ikon"
 
-#: ../plugins/message-view/message-view.c:820
+#: ../plugins/message-view/message-view.c:823
 #: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
 #: ../plugins/message-view/plugin.c:429
 msgid "Messages"
 msgstr "Meddelser"
 
-#: ../plugins/message-view/message-view.c:1186
+#: ../plugins/message-view/message-view.c:1189
 #, c-format
 msgid "Error writing %s"
 msgstr "Fejl ved skrivning til %s"
 
-#: ../plugins/message-view/message-view.c:1355
+#: ../plugins/message-view/message-view.c:1348
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d meddelse"
 msgstr[1] "%d meddelser"
 
-#: ../plugins/message-view/message-view.c:1361
+#: ../plugins/message-view/message-view.c:1354
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d info"
 msgstr[1] "%d info'er"
 
-#: ../plugins/message-view/message-view.c:1366
+#: ../plugins/message-view/message-view.c:1359
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d advarsel"
 msgstr[1] "%d advarsler"
 
-#: ../plugins/message-view/message-view.c:1371
+#: ../plugins/message-view/message-view.c:1364
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -6007,14 +5931,12 @@ msgstr[0] "%d fejl"
 msgstr[1] "%d fejl"
 
 #: ../plugins/message-view/plugin.c:78
-#, fuzzy
 msgid "_Copy Message"
-msgstr "Ingen meddelser"
+msgstr "_Kopiér meddelelse"
 
 #: ../plugins/message-view/plugin.c:79
-#, fuzzy
 msgid "Copy message"
-msgstr "Logbesked:"
+msgstr "Kopiér meddelelse"
 
 #: ../plugins/message-view/plugin.c:82
 msgid "_Next Message"
@@ -7452,36 +7374,36 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/run-program/plugin.c:212
+#: ../plugins/run-program/plugin.c:215
 msgid "_Run"
 msgstr "_Kør"
 
-#: ../plugins/run-program/plugin.c:220
+#: ../plugins/run-program/plugin.c:223
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
 msgstr "Kør"
 
-#: ../plugins/run-program/plugin.c:222
+#: ../plugins/run-program/plugin.c:225
 msgid "Run program without debugger"
 msgstr "Kør programmet uden fejlsøger"
 
-#: ../plugins/run-program/plugin.c:228
+#: ../plugins/run-program/plugin.c:231
 msgid "Stop Program"
 msgstr "Stop programmet"
 
-#: ../plugins/run-program/plugin.c:230
+#: ../plugins/run-program/plugin.c:233
 msgid "Kill program"
 msgstr "Dræb program"
 
-#: ../plugins/run-program/plugin.c:236
+#: ../plugins/run-program/plugin.c:239
 msgid "Program Parameters..."
 msgstr "Programparametre..."
 
-#: ../plugins/run-program/plugin.c:238
+#: ../plugins/run-program/plugin.c:241
 msgid "Set current program, arguments and so on"
 msgstr "Indstil det aktuelle program, argumenter og så videre"
 
-#: ../plugins/run-program/plugin.c:263
+#: ../plugins/run-program/plugin.c:266
 msgid "Run operations"
 msgstr "Kør operationer"
 
@@ -7817,24 +7739,22 @@ msgid "Scintilla Editor"
 msgstr "Scintilla-redigering"
 
 #: ../plugins/scintilla/text_editor.c:404
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to reload it ?"
 msgstr ""
-"Filen \"%s\" på disken er nyere end den som \n"
-"findes i den aktuelle buffer.\n"
+"Filen \"%s\" er blevet ændret.\n"
 "Vil du genindlæse den?"
 
 #: ../plugins/scintilla/text_editor.c:410
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to loose your changes and reload it ?"
 msgstr ""
-"Filen \"%s\" på disken er nyere end den som \n"
-"findes i den aktuelle buffer.\n"
-"Vil du genindlæse den?"
+"Filen \"%s\" er blevet ændret.\n"
+"Ønsker du at genindlæse den, hvorved dine ændringer går tabt?"
 
 #: ../plugins/scintilla/text_editor.c:430
 #, c-format
@@ -7842,15 +7762,17 @@ msgid ""
 "The file '%s' has been deleted.\n"
 "Do you confirm and close it ?"
 msgstr ""
+"Filen \"%s\" er blevet slettet.\n"
+"Vil du bekræfte og lukke den?"
 
 #: ../plugins/scintilla/text_editor.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been deleted.\n"
 "Do you want to loose your changes and close it ?"
 msgstr ""
-"Filen \"%s\" findes allerede.\n"
-"Vil du overskrive den med filen, du er ved at gemme?"
+"Filen \"%s\" er blevet slettet.\n"
+"Ønsker du at lukke den, hvorved dine ændringer går tabt?"
 
 #: ../plugins/scintilla/text_editor.c:1354
 msgid "Could not get file info"
@@ -7933,14 +7855,12 @@ msgid "Scratchbox directory:"
 msgstr "Scratchbox-mappe:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
-#, fuzzy
 msgid "Scratchbox target:"
-msgstr "Scratchbox-mappe:"
+msgstr "Scratchbox-mål:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:5
-#, fuzzy
 msgid "Scratchbox version:"
-msgstr "Scratchbox-mappe:"
+msgstr "Scratchbox-version:"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:6
 msgid "Select Scratchbox Folder"
@@ -8210,45 +8130,45 @@ msgid "Replace all matches"
 msgstr "Erstat alle forekomster"
 
 #. Avoid space in translated string
-#: ../plugins/search/search-replace.c:319
+#: ../plugins/search/search-replace.c:318
 msgid "Find:"
 msgstr "Find:"
 
-#: ../plugins/search/search-replace.c:489
+#: ../plugins/search/search-replace.c:500
 msgid "Replace"
 msgstr "Erstat"
 
-#: ../plugins/search/search-replace.c:608
+#: ../plugins/search/search-replace.c:629
 msgid "Search complete"
 msgstr "Søgning fuldendt"
 
-#: ../plugins/search/search-replace.c:1007
-#: ../plugins/search/search-replace.c:1687
+#: ../plugins/search/search-replace.c:1020
+#: ../plugins/search/search-replace.c:1700
 msgid "Replace All"
 msgstr "Erstat alle"
 
-#: ../plugins/search/search-replace.c:1046
+#: ../plugins/search/search-replace.c:1059
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "Intet resultat for \"%s\". Ombryd til dokumentets begyndelse?"
 
-#: ../plugins/search/search-replace.c:1066
+#: ../plugins/search/search-replace.c:1079
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Intet resultat for \"%s\"."
 
-#: ../plugins/search/search-replace.c:1081
+#: ../plugins/search/search-replace.c:1094
 msgid "The maximum number of results has been reached."
 msgstr "Det maksimale antal træfninger er nået."
 
-#: ../plugins/search/search-replace.c:1094
+#: ../plugins/search/search-replace.c:1107
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "%d resultat er blevet erstattet."
 msgstr[1] "%d resultater er blevet erstattet."
 
-#: ../plugins/search/search-replace.c:1260
+#: ../plugins/search/search-replace.c:1273
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Kan ikke bygge brugergrænsefladen for søg og erstat"
 
@@ -8262,19 +8182,24 @@ msgstr ""
 "Vil du genindlæse den?"
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"Filen \"%s\" på disken er nyere end den aktuelle buffer.\n"
-"Vil du genindlæse den?"
+"Filen \"%s\" er blevet slettet på disken.\n"
+"Vil du lukke den?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:438
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Kunne ikke åbne %s: %s"
+
+#: ../plugins/sourceview/sourceview.c:492
+#, c-format
+msgid "The file '%s' is read-only! Edit anyway?"
+msgstr "Filen \"%s\" er skrivebeskyttet! Redigér alligevel?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:551
@@ -8313,9 +8238,8 @@ msgid "<b>View</b>"
 msgstr "<b>Vis</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
-#, fuzzy
 msgid "Create backup files"
-msgstr "Opret patch-række"
+msgstr "Opret backup-filer"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
 msgid "Font"
@@ -8912,7 +8836,7 @@ msgstr "Symboldatabase"
 msgid "API Tags"
 msgstr "API-mærker"
 
-#: ../plugins/symbol-db/symbol-db-system.c:785
+#: ../plugins/symbol-db/symbol-db-system.c:786
 msgid "Resuming glb scan."
 msgstr "Fortsætter glb-scanning."
 
@@ -8960,12 +8884,12 @@ msgstr "Brug GNOME-terminalprofil:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Brug den aktuelle profil i GNOME-terminal"
 
-#: ../plugins/terminal/terminal.c:684
+#: ../plugins/terminal/terminal.c:687
 msgid "terminal operations"
 msgstr "terminaloperationer"
 
-#: ../plugins/terminal/terminal.c:702 ../plugins/terminal/terminal.c:860
-#: ../plugins/terminal/terminal.c:913
+#: ../plugins/terminal/terminal.c:705 ../plugins/terminal/terminal.c:863
+#: ../plugins/terminal/terminal.c:916
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -9166,7 +9090,7 @@ msgstr "Værktøjsoperationer"
 msgid "Tools"
 msgstr "Værktøjer"
 
-#: ../plugins/tools/variable.c:494
+#: ../plugins/tools/variable.c:493
 msgid "Command line parameters"
 msgstr "Kommandolinjeparametre"
 
@@ -9594,7 +9518,7 @@ msgstr "Du har ikke angivet en underkendelsesfil i dine indstillinger."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:481
+#: ../src/anjuta.c:419
 msgid "Loaded Session..."
 msgstr "Session indlæst..."
 
@@ -9821,42 +9745,42 @@ msgstr "Genveje"
 msgid "Value doesn't exist"
 msgstr "Værdien findes ikke"
 
-#: ../src/main.c:69
+#: ../src/main.c:62
 msgid "Specify the size and location of the main window"
 msgstr "Angiv størrelsen og placeringen af hovedvinduet"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:72
+#: ../src/main.c:65
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "BREDDExHØJDE+XSTART+YSTART"
 
-#: ../src/main.c:77
+#: ../src/main.c:70
 msgid "Do not show the splashscreen"
 msgstr "Vis ikke startbilledet"
 
-#: ../src/main.c:83
+#: ../src/main.c:76
 msgid "Start a new instance and do not open the file in a existing"
 msgstr "Start en ny instans og åben ikke filen i en allerede kørende"
 
-#: ../src/main.c:89
+#: ../src/main.c:82
 msgid "Do not open last session on startup"
 msgstr "Åbn ikke sidste session ved opstart"
 
-#: ../src/main.c:95
+#: ../src/main.c:88
 msgid "Do not open last project and files on startup"
 msgstr "Åbn ikke sidste projekt og filer ved opstart"
 
-#: ../src/main.c:101
+#: ../src/main.c:94
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr ""
 "Luk anjuta korrekt under frigivelse af alle ressourcer (til fejlsøgning)"
 
-#: ../src/main.c:317
+#: ../src/main.c:156
 msgid "- Integrated Development Environment"
 msgstr "- Integreret udviklingsmiljø"
 
-#: ../src/main.c:385
+#: ../src/main.c:224
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9924,42 +9848,42 @@ msgstr "Smart indrykning"
 msgid "Statement indentation size in spaces:"
 msgstr "Størrelse af erklæringsindrykning i mellemrum:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1854
+#: ../plugins/language-support-cpp-java/plugin.c:1861
 msgid "_AutoComplete"
 msgstr "_AutoFuldfør"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1855
+#: ../plugins/language-support-cpp-java/plugin.c:1862
 msgid "AutoComplete the current word"
 msgstr "Autofuldfør det aktuelle ord"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1861
+#: ../plugins/language-support-cpp-java/plugin.c:1868
 msgid "Auto Indent"
 msgstr "Autoindryk"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1862
+#: ../plugins/language-support-cpp-java/plugin.c:1869
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Autoindryk den aktuelle linje eller markering baseret på "
 "indrykningsindstillingerne"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1867
+#: ../plugins/language-support-cpp-java/plugin.c:1874
 msgid "Swap .h/.c"
 msgstr "Byt .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1868
+#: ../plugins/language-support-cpp-java/plugin.c:1875
 msgid "Swap c header and source files"
 msgstr "Udskift c-header og kildefiler"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1911
+#: ../plugins/language-support-cpp-java/plugin.c:1918
 msgid "C++/Java Assistance"
 msgstr "C++/Java-hjælp"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1999
-#: ../plugins/language-support-cpp-java/plugin.c:2008
+#: ../plugins/language-support-cpp-java/plugin.c:2006
+#: ../plugins/language-support-cpp-java/plugin.c:2015
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/sourceview/plugin.c:230 ../plugins/sourceview/plugin.c:268
+#: ../plugins/sourceview/plugin.c:223 ../plugins/sourceview/plugin.c:261
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView-redigering"
 
@@ -10096,22 +10020,20 @@ msgid "GtkSourceview editor"
 msgstr "GtkSourcevew-redigering"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
-#, fuzzy
 msgid "The default editor based on GtkSourceview"
-msgstr "En alternativ redigering baseret på GtkSourceview"
+msgstr "Standardredigeringen baseret på GtkSourceview"
 
 #: ../plugins/scintilla/anjuta-editor.plugin.in.h:1
-#, fuzzy
 msgid "An alternate editor based on Scintilla"
-msgstr "En alternativ redigering baseret på GtkSourceview"
+msgstr "En alternativ redigering baseret på Scintilla"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:1
 msgid "Change build commands to use scratchbox 1 or 2"
-msgstr ""
+msgstr "Ændr byggekommandoer som skal bruges i Scratchbox 1 eller 2"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
-msgstr ""
+msgstr "Velkomstside med de fleste almindelige handlinger."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
@@ -10222,6 +10144,15 @@ msgstr "Autotools-backend"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Autotools-backend for projekthåndteringen"
+
+#~ msgid "Close"
+#~ msgstr "Luk"
+
+#~ msgid "Cut"
+#~ msgstr "Klip"
+
+#~ msgid "Paste"
+#~ msgstr "Indsæt"
 
 #~ msgid "Modify Signal"
 #~ msgstr "Modificér signal"
