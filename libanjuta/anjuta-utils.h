@@ -137,6 +137,8 @@ gchar* anjuta_util_get_user_config_file_path (const gchar* path, ...);
 /* Function for converting GFile objects to string paths 
  * Free the returned list with anjuta_util_glist_strings_free. */
 GList *anjuta_util_convert_gfile_list_to_path_list (GList *list);
+GList *anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
+															 const gchar *parent);
 
 /* Temporarily copied here */
 

@@ -1,3 +1,10 @@
+2009-02-15  James Liggett  <jim@jim-desktop>
+
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	Add utility function for converting lists of GFile objects to lists of 
+	relative paths.
+
 2009-02-15  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/project-wizard/templates/Makefile.am:

@@ -1958,3 +1958,34 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 	return path_list;
 }
 
+GList *
+anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
+                                                      const gchar *parent)
+{
+	GFile *parent_file;
+	GList *path_list;
+	GList *current_file;
+	gchar *path;
+	
+	parent_file = g_file_new_for_path (parent);
+	path_list = NULL;
+	
+	if (parent_file)
+	{
+		current_file = list;
+		
+		while (current_file)
+		{
+			path = g_file_get_relative_path (parent_file, current_file->data);
+			
+			/* Ignore files with invalid paths */
+			if (path)
+				path_list = g_list_append (path_list, path);
+		}
+		
+		g_object_unref (parent_file);
+	}
+	
+	return path_list;
+}
+
