@@ -1,3 +1,9 @@
+2009-02-14  James Liggett  <jrliggett@cox.net>
+	
+	* plugins/subversion/anjuta-subversion.plugin.in:
+	Make sure there's a newline at the end of the file, or the plugin won't 
+	load.
+	
 2009-02-12  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c
