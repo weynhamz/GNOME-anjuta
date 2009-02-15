@@ -1,3 +1,22 @@
+2009-02-15  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/project-wizard/templates/Makefile.am:
+	* plugins/project-wizard/templates/gnome.wiz:
+	* plugins/project-wizard/templates/gnome/.cvsignore:
+	* plugins/project-wizard/templates/gnome/Makefile.am:
+	* plugins/project-wizard/templates/gnome/po/.cvsignore:
+	* plugins/project-wizard/templates/gnome/po/Makefile.am:
+	* plugins/project-wizard/templates/gnome/po/POTFILES.in:
+	* plugins/project-wizard/templates/gnome/src/.cvsignore:
+	* plugins/project-wizard/templates/gnome/src/Makefile.am:
+	* plugins/project-wizard/templates/gnome/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gnome/src/callbacks.c:
+	* plugins/project-wizard/templates/gnome/src/callbacks.h:
+	* plugins/project-wizard/templates/gnome/src/main.c:
+	* plugins/project-wizard/templates/gnome/src/project.glade:
+	Remove gnome project template as it just contains deprecated
+	libraries
+
 2009-02-14  James Liggett  <jrliggett@cox.net>
 	
 	* plugins/subversion/anjuta-subversion.plugin.in:
