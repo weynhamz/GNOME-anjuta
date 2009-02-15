@@ -1,4 +1,9 @@
-2009-02-15  James Liggett  <jim@jim-desktop>
+2009-02-15  James Liggett  <jrliggett@cox.net>
+
+	* ChangeLog:
+	E-mail address fix.
+
+2009-02-15  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-utils.c:
 	* libanjuta/anjuta-utils.h:
