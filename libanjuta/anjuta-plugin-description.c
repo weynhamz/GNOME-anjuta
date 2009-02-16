@@ -527,7 +527,7 @@ parse_key_value (AnjutaPluginDescriptionParser *parser, GError **error)
     line->locale = g_strndup (locale_start, locale_end - locale_start);
   line->value = value;
   
-  parser->line = (line_end) ? line_end + 1 : NULL;
+  parser->line = (*line_end) ? line_end + 1 : NULL;
   parser->line_nr++;
   
   return TRUE;
