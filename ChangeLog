@@ -1,3 +1,9 @@
+2009-02-12  Yang Hong  <hongyang@redflag-linux.com>
+ 
+	* plugins/search/search-replace.c (create_dialog),
+ 	(on_search_expression_entry_changed):
+ 	#571381 – Seach button disabled if no files opened. 
+
 2009-02-16  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/file-view.c (file_view_sort_model):

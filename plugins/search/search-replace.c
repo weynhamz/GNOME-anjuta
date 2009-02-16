@@ -62,6 +62,7 @@ void on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 void on_search_action_changed (GtkComboBox *combo, gpointer user_data);
 void on_search_target_changed(GtkComboBox *combo, gpointer user_data);
 void on_search_expression_changed(GtkComboBox *combo, gpointer user_data);
+void on_search_expression_entry_changed(GtkEntry *entry, gpointer user_data);
 void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data);
 void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
 void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
@@ -1305,6 +1306,10 @@ create_dialog(void)
 
 	widget = sr_get_gladewidget(SEARCH_STRING_COMBO)->widget;
 	g_signal_connect (widget, "changed", G_CALLBACK (on_search_expression_changed), NULL);
+	/* Entry in the GtkComboBoxEntry */
+	widget = GTK_BIN (widget)->child;
+	gtk_entry_set_activates_default (GTK_ENTRY(widget), TRUE);
+	g_signal_connect (widget, "changed", G_CALLBACK (on_search_expression_entry_changed), NULL);
 	widget = sr_get_gladewidget(SEARCH_STRING)->widget;
 	g_signal_connect (widget, "activate", G_CALLBACK (on_search_expression_activate), NULL);
 	widget = sr_get_gladewidget(REPLACE_STRING)->widget;
@@ -1770,10 +1775,19 @@ on_search_expression_changed(GtkComboBox *combo, gpointer user_data)
 	GtkWidget *widget = sr_get_gladewidget(SEARCH_BUTTON)->widget;
 	gboolean sensitive;
 
-	sensitive = *gtk_entry_get_text (GTK_ENTRY (search_entry)) == '\0' ? FALSE: TRUE;
+	sensitive = strlen(gtk_entry_get_text (GTK_ENTRY (search_entry))) > 0;
 	gtk_widget_set_sensitive (widget, sensitive);
 }
 
+void
+on_search_expression_entry_changed(GtkEntry *entry, gpointer user_data)
+{
+	GtkWidget *widget = sr_get_gladewidget(SEARCH_BUTTON)->widget;
+	gboolean sensitive;
+
+	sensitive = *gtk_entry_get_text (GTK_ENTRY (entry)) == '\0' ? FALSE: TRUE;
+	gtk_widget_set_sensitive (widget, sensitive);
+}
 
 void
 on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
