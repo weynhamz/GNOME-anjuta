@@ -1,5 +1,10 @@
 2009-02-16  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/file-manager/file-view.c (file_view_sort_model):
+	#571733 – file manager should sort files case-insensitively
+
+2009-02-16  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-plugin-description.c (parse_key_value):
 	571233 – Uncorrect loading of subversion plugin (thanks to Yuriy Penkin 
 	for the patch!)

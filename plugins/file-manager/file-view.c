@@ -448,7 +448,7 @@ file_view_sort_model(GtkTreeModel* model,
 	}
 	else if (filename1 && filename2)
 	{
-		retval = strcmp(filename1, filename2);
+		retval = strcasecmp(filename1, filename2);
 	}
 	g_free(filename1);
 	g_free(filename2);
