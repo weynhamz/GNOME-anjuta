@@ -1,3 +1,11 @@
+2009-02-16  Johannes Schmid  <jhs@gnome.org>
+
+	* Makefile.am:
+	Fixed SF.net release target
+	
+	* plugins/project-wizard/templates/Makefile.am:
+	Fixed build
+
 === 2.25.902 ===
 
 2009-02-16  Johannes Schmid  <jhs@gnome.org>

@@ -40,7 +40,7 @@ gnomerelease:
 	scp *.tar.bz2 master.gnome.org:
 	
 sfrelease:
-	scp *.tar.bz2 clubfan,anjuta@frs.sf.net:uploads
+	scp *.tar.bz2 clubfan@frs.sf.net:uploads
 
 gnomemenudir = $(datadir)/applications
 gnomemenu_premerge_file = anjuta.desktop.in
