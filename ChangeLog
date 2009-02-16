@@ -1,3 +1,8 @@
+2009-02-16  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/search/search-replace.c (on_message_clicked):
+	#564942 – display project-relative path in search results pane
+
 2009-02-16  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* configure.in:
