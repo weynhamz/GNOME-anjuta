@@ -171,7 +171,6 @@ get_vcs_emblem (AnjutaVcsStatus status)
 		default:
 			emblem = NULL;
 	}
-	DEBUG_PRINT ("emblem found: %d", emblem != NULL);
 	return emblem;
 }
 

@@ -1,3 +1,11 @@
+2009-02-16  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-loader/plugin.c (on_new_clicked), (on_open_clicked),
+	(activate_plugin):
+	#570820 – problem with gtk+ trunk
+
 2009-02-16  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/search/search-replace.c (on_message_clicked):
