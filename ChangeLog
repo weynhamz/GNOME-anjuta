@@ -1,3 +1,11 @@
+2009-02-16  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* configure.in:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/symbol-db/test/main.c:
+	removed outdated test file.
+
 2009-02-12  Yang Hong  <hongyang@redflag-linux.com>
  
 	* plugins/search/search-replace.c (create_dialog),

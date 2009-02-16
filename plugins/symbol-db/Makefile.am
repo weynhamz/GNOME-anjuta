@@ -1,4 +1,4 @@
-SUBDIRS = images 
+SUBDIRS = images test 
 
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql

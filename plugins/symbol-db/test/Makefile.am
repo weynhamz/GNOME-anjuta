@@ -1,7 +1,6 @@
 
 bin_PROGRAMS = \
-	benchmark \
-	test-symbol-db 
+	benchmark
 	
 
 AM_CPPFLAGS = \
@@ -18,24 +17,6 @@ AM_CPPFLAGS = \
 	-DDEBUG
 
 AM_CFLAGS = -g -pg
-
-test_symbol_db_SOURCES = \
-	main.c       \
-	../readtags.c       \
-	../readtags.h       \
-	../symbol-db-engine-core.c       \
-	../symbol-db-engine-queries.c       \
-	../symbol-db-engine-utils.c  \
-	../symbol-db-engine-iterator.c       \
-	../symbol-db-engine-iterator.h \
-	../symbol-db-engine-iterator-node.c \
-	../symbol-db-engine-iterator-node.h \
-	../symbol-db-view.h \
-	../symbol-db-view.c  
-
-test_symbol_db_LDFLAGS = \
-	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_SYMBOL_DB_LIBS)
 
 benchmark_SOURCES = \
 	benchmark.c       \
@@ -55,23 +36,6 @@ benchmark_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
 
-
-gda_2_connections_bug_SOURCES = \
-	gda_two_connections_bug.c       \
-	../readtags.c       \
-	../readtags.h       \
-	../symbol-db-engine.c       \
-	../symbol-db-engine.h       \
-	../symbol-db-engine-iterator.c       \
-	../symbol-db-engine-iterator.h \
-	../symbol-db-engine-iterator-node.c \
-	../symbol-db-engine-iterator-node.h \
-	../symbol-db-view.h \
-	../symbol-db-view.c
-
-gda_2_connections_bug_LDFLAGS = \
-	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_SYMBOL_DB_LIBS)
 
 ## File created by the gnome-build tools
 
