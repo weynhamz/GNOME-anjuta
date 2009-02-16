@@ -68,8 +68,6 @@ EXTRA_DIST = \
 	$(plugin_glade_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
-	$(plugin_in_files)
-
+	$(plugin_DATA)
 SUBDIRS = GBF
 

@@ -1,3 +1,49 @@
+Anjuta 2.25.902 (16 February 2009) -- Johannes Schmid
+
+This is a bug-fix release for the GNOME 2.25.91 Beta!
+
+Updates:
+- Code completion
+- Searching
+- Project Management
+
+Bugs fixed:
+#570820 – problem with gtk+ trunk
+#564942 – display project-relative path in search results pane
+#571381 – Seach button disabled if no files opened. 
+#571733 – file manager should sort files case-insensitively
+#571233 – Uncorrect loading of subversion plugin
+#571215 – doesn't indent function declarations correctly
+#570492 – Some criticals in the terminal plugin
+#556148 – it's impossible to remove project variables
+#571262 – gbf-am: treat tail slash as a package
+#566991 – list project modules in sorted order
+#571114 – Crash after clicking on Edit/Preferences with open document
+#571143 - Double free crasher of path string.
+#563704 – Anjuta displays column/line numbers after edit windows closed
+#556970 – Swap .h/.c doesn't work for C header files (*.h)
+#570720 – There are warnings in some cases when I press cancel in 
+	program arguments dialog
+#566785 – Anjuta crashes after enabling and disabling a plugin
+	often
+#567606 – Auto-indentation in Anjuta gets tab indentation wrong for function paramaters
+#565015 – duplicate matches in search results pane
+#539580 – Uncorrect pass search result to
+#570614 – outdated download addresses
+#566531 – Find & Replace results in wrong result for files
+	containing multi-byte UTF-8 sequences
+#570877 – symbol-db doesn't scan user-added packages.
+#570929, initialize widgets before add watches.
+#566987 – display tooltip with prototype when calling function in project.
+#570245 – gbf gio-critical g_file_query_exists
+#566693 – Code completion of symbols usually not working
+#570492 – Canot open editor - crash
+#567100 – opening Find dialog causes GtkSpinButton warning
+#570444 – can't change numbers in preferences dialog
+#566987 – display tooltip with prototype when calling function in project
+
+Thanks to anybody involved!
+
 Anjuta 2.25.901 (3 February 2009) -- Johannes Schmid
 
 This is a bug-fix release for things that were broken too much in 2.25.90

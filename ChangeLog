@@ -1,3 +1,15 @@
+=== 2.25.902 ===
+
+2009-02-16  Johannes Schmid  <jhs@gnome.org>
+
+	* NEWS:
+	* configure.in:
+	Updated for release
+	
+	* plugins/gbf-am/Makefile.am:
+	* plugins/gbf-mkfile/Makefile.am:
+	Fixed dist-clean issue
+
 2009-02-16  Carl-Anton Ingmarsson  <ca.ingmarsson@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
