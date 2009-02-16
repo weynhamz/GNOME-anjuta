@@ -1,3 +1,8 @@
+2009-02-14  Adam Dingle  <adam@medovina.org>
+ 
+	* plugins/document-manager/plugin.c:
+ 	fixed #571746 – use Ctrl+I to jump to line number
+
 2009-02-16  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-plugin-description.c (parse_key_value):

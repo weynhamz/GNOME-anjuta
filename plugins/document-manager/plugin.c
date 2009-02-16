@@ -235,7 +235,7 @@ static GtkActionEntry actions_comment[] = {
 static GtkActionEntry actions_navigation[] = {
   { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},/* menu title */
   { "ActionEditGotoLine", ANJUTA_STOCK_GOTO_LINE, N_("_Line Number..."),
-	"<control><alt>g", N_("Go to a particular line in the editor"),
+	"<control>i", N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_line_no1_activate)},
   { "ActionEditGotoMatchingBrace", GTK_STOCK_JUMP_TO, N_("Matching _Brace"),
 	"<control><alt>m", N_("Go to the matching brace in the editor"),
