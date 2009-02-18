@@ -1,5 +1,4 @@
-
-bin_PROGRAMS = \
+noinst_PROGRAMS = \
 	benchmark
 	
 
