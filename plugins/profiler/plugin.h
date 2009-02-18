@@ -31,8 +31,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include "gprof-view-manager.h"
 #include "gprof-profile-data.h"
 #include "gprof-flat-profile-view.h"

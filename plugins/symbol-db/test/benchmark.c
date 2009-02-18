@@ -74,7 +74,6 @@ int main (int argc, char** argv)
   gtk_init(&argc, &argv);
   g_thread_init (NULL);
 	gda_init ();
-	gnome_vfs_init();
 	
 	if (argc != 2)
 	{

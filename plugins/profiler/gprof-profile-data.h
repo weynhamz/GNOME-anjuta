@@ -28,7 +28,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include "gprof-flat-profile.h"
 #include "gprof-call-graph.h"
 

@@ -486,7 +486,7 @@ on_row_expanded_async (GObject* source_object,
 		g_object_unref (files);
 		return;
 	}
-	
+
 	if (err)
 	{
 		DEBUG_PRINT ("GIO-Error: %s", err->message);
@@ -494,7 +494,7 @@ on_row_expanded_async (GObject* source_object,
 		// TODO: Collapse row
 		return;
 	}
-	
+
 	gtk_tree_model_get_iter (GTK_TREE_MODEL(data->model), &real_iter, path);
 	
 	while (files && (file_info = g_file_enumerator_next_file (files, NULL, NULL)))

@@ -1,3 +1,11 @@
+2009-02-18  Jens Georg  <mail@jensge.org>
+
+	* plugins/profiler/gprof-profile-data.h:
+	* plugins/profiler/plugin.h:
+	* plugins/symbol-db/test/benchmark.c (main):
+	
+	#511589 - remove missed includes
+
 2009-02-18  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-utils.c
