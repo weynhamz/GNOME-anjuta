@@ -197,6 +197,7 @@ sdb_util_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("enum",     	  	  "element-enumeration-16.png");		
 	CREATE_SYM_ICON ("enumerator",     	  "element-enumeration-16.png");	
 	CREATE_SYM_ICON ("function",          "element-method-16.png");	
+	CREATE_SYM_ICON ("method",            "element-method-16.png");	
 	CREATE_SYM_ICON ("interface",         "element-interface-16.png");	
 	CREATE_SYM_ICON ("macro",             "element-event-16.png");	
 	CREATE_SYM_ICON ("namespace",         "element-namespace-16.png");

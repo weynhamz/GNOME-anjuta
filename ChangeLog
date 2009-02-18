@@ -1,5 +1,11 @@
 2009-02-18  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/symbol-db/symbol-db-engine-utils.c
+	(sdb_util_load_symbol_pixbufs):
+	added "method" to the symbol's type icons cache.
+
+2009-02-18  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* plugins/symbol-db/test/Makefile.am:
 	now benchmark test program won't be installed in system.
 
