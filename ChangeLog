@@ -1,3 +1,10 @@
+2009-02-18   Vincent Untz <vuntz@gnome.org>
+
+	reviewed by: Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/test/benchmark.c (on_single_file_scan_end):
+	fixed #572289 – Make code less ambiguous
+
 2009-02-16  Johannes Schmid  <jhs@gnome.org>
 
 	* Makefile.am:

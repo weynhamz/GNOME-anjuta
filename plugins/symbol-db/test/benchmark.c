@@ -7,7 +7,8 @@
 static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 {
 	static int i = 0;
-	g_message ("Finished [%d]: %s", i, (gchar*)g_ptr_array_index (files, i++));
+	g_message ("Finished [%d]: %s", i, (gchar*)g_ptr_array_index (files, i));
+	i++;
 }
 
 static GPtrArray* get_files (const gchar* dir)
