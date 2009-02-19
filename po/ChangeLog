@@ -1,3 +1,8 @@
+2009-02-19  Raivis Dejus  <orvils@gmail.com>
+
+	* LINGUAS: Added 'lv' (latvian) entry.
+	* lv.po: Add latvian translation.
+	
 2009-02-15 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 	* da.po: Updated Danish translation by Ask H. Larsen
