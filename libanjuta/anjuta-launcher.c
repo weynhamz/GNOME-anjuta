@@ -580,10 +580,10 @@ create_password_dialog (const gchar* prompt)
 	gtk_entry_set_visibility (GTK_ENTRY (entry), FALSE);
 	gtk_box_pack_start (GTK_BOX (box), entry, FALSE, FALSE, 0);
 	
-	gtk_widget_ref (entry);
+	g_object_ref (entry);
 	g_object_set_data_full (G_OBJECT (dialog), "password_entry",
-							  gtk_widget_ref (entry),
-							  (GDestroyNotify) gtk_widget_unref);
+							  g_object_ref (entry),
+							  g_object_unref);
 	gtk_widget_grab_focus (entry);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 	

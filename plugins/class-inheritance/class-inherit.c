@@ -1185,6 +1185,6 @@ class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
 	
 	plugin->update = canvas_menu_uiinfo[0].widget;
 	
-	gtk_widget_ref (plugin->menu);
-	gtk_widget_ref (plugin->update);
+	g_object_ref (plugin->menu);
+	g_object_ref (plugin->update);
 }

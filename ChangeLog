@@ -1,3 +1,11 @@
+2009-02-19  Andre Klapper  <a9016009@gmx.de>
+
+	* libanjuta/anjuta-launcher.c:
+	* plugins/class-inheritance/class-inherit.c:
+	* plugins/debug-manager/watch.c:
+	* plugins/search/search-replace.c:
+	Replace deprecated gtk_widget_(un)ref by g_object_(un)ref
+
 2009-02-18  Jens Georg  <mail@jensge.org>
 
 	* plugins/profiler/gprof-profile-data.h:

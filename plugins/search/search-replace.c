@@ -1316,7 +1316,7 @@ create_dialog(void)
 			/* Get child of GtkComboBoxEntry */
 			w->widget = GTK_BIN(w->widget)->child;
 		}
-		gtk_widget_ref(w->widget);
+		g_object_ref(w->widget);
 		if (GE_COMBO == w->type && NULL != w->extra)
 		{
 			search_set_popdown_map(GTK_COMBO_BOX(w->widget), (AnjutaUtilStringMap *)w->extra);

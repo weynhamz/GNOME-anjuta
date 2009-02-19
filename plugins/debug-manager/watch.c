@@ -77,7 +77,7 @@ on_entry_updated (const gchar *value, gpointer user_data, GError *err)
 	GtkWidget *entry = GTK_WIDGET (user_data);
 	
 	gtk_entry_set_text (GTK_ENTRY (entry), value);
-	gtk_widget_unref (entry);
+	g_object_unref (entry);
 }
 #endif
 
