@@ -235,7 +235,7 @@ text_editor_add_view (TextEditor *te)
 			  (glong) app->accel_group, 0);
 	*/
 	
-	gtk_widget_set_usize (scintilla, 50, 50);
+	gtk_widget_set_size_request (scintilla, 50, 50);
 	gtk_widget_show (scintilla);
 	
 	gtk_box_set_spacing (GTK_BOX (te->vbox), 3);

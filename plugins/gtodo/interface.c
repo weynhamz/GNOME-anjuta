@@ -141,7 +141,7 @@ GtkWidget * gui_create_todo_widget()
 	/* add drop down menu's */
 	mw.option = gtk_option_menu_new();
 	mw.menu = gtk_menu_new();
-	// gtk_widget_set_usize(mw.option, 120 , -1);
+	// gtk_widget_set_size_request(mw.option, 120 , -1);
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(mw.option), mw.menu);
 	gtk_box_pack_start(GTK_BOX(mw.toolbar), mw.option, FALSE, FALSE, 0); 
 

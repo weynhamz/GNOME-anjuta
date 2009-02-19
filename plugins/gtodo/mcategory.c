@@ -74,7 +74,7 @@ void category_manager(void)
 		gtk_list_store_set(list, &iter, 0, mw.mitems[i]->date, 1, 1, -1);
 	}   
 
-	gtk_widget_set_usize(GTK_WIDGET(dialog), 350, 250);
+	gtk_widget_set_size_request(GTK_WIDGET(dialog), 350, 250);
 	gtk_widget_show_all(dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);

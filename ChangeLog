@@ -1,5 +1,16 @@
 2009-02-19  Andre Klapper  <a9016009@gmx.de>
 
+	* plugins/debug-manager/sharedlib.c:
+	* plugins/debug-manager/signals.c:
+	* plugins/gtodo/interface.c:
+	* plugins/gtodo/mcategory.c:
+	* plugins/scintilla/scintilla/PlatGTK.cxx:
+	* plugins/scintilla/scintilla/test-scintilla.cxx:
+	* plugins/scintilla/text_editor.c:
+	Replace deprecated gtk_widget_set_usize by gtk_widget_set_size_request
+
+2009-02-19  Andre Klapper  <a9016009@gmx.de>
+
 	* libanjuta/anjuta-launcher.c:
 	* plugins/class-inheritance/class-inherit.c:
 	* plugins/debug-manager/watch.c:

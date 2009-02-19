@@ -1760,7 +1760,7 @@ void Window::SetPosition(PRectangle rc) {
 #else
 
 	gtk_widget_set_uposition(id, rc.left, rc.top);
-	gtk_widget_set_usize(id, rc.right - rc.left, rc.bottom - rc.top);
+	gtk_widget_set_size_request(id, rc.right - rc.left, rc.bottom - rc.top);
 #endif
 }
 
@@ -1797,7 +1797,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	alloc.height = rc.bottom - rc.top;
 	gtk_widget_size_allocate(id, &alloc);
 #endif
-	gtk_widget_set_usize(PWidget(id), sizex, sizey);
+	gtk_widget_set_size_request(PWidget(id), sizex, sizey);
 }
 
 PRectangle Window::GetClientPosition() {
@@ -2178,14 +2178,14 @@ PRectangle ListBoxX::GetDesiredRect() {
 		          + 2 * (ythickness
 		                 + GTK_CONTAINER(PWidget(list))->border_width + 1));
 #endif
-		gtk_widget_set_usize(GTK_WIDGET(PWidget(list)), -1, height);
+		gtk_widget_set_size_request(GTK_WIDGET(PWidget(list)), -1, height);
 
 		// Get the size of the scroller because we set usize on the window
 		gtk_widget_size_request(GTK_WIDGET(scroller), &req);
 		rc.right = req.width;
 		rc.bottom = req.height;
 
-		gtk_widget_set_usize(GTK_WIDGET(list), -1, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(list), -1, -1);
 		int width = maxItemCharacters;
 		if (width < 12)
 			width = 12;
