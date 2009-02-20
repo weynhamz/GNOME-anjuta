@@ -1,5 +1,10 @@
 2009-02-20  Massimo Cora'  <mcora@svn.gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c (spaces_only):
+	fixed a crasher: press enter on empty line.
+
+2009-02-20  Massimo Cora'  <mcora@svn.gnome.org>
+
 	* .cvsignore:
 	* data/.cvsignore:
 	* doc/.cvsignore:
@@ -47,7 +52,6 @@
 	* plugins/sourceview/.cvsignore:
 	* plugins/subversion/.cvsignore:
 	* plugins/symbol-db/images/.cvsignore:
-	* plugins/symbol-db/symbol-db-system.c (on_pkg_config_exit):
 	* plugins/terminal/.cvsignore:
 	* plugins/tools/.cvsignore:
 	* plugins/tools/scripts/.cvsignore:

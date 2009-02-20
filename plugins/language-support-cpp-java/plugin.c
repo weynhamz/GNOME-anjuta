@@ -1222,8 +1222,13 @@ static gboolean
 spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end)
 {
 	gboolean empty = TRUE;
-	gchar* text = ianjuta_editor_get_text (editor, begin, end, NULL);
 	gchar* idx;
+	gchar* text = ianjuta_editor_get_text (editor, begin, end, NULL);
+
+	if (text == NULL)
+		return TRUE;
+	
+
 	for (idx = text; *idx != '\0'; idx++)
 	{
 		if (!isspace(*idx))
