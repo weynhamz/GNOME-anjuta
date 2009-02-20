@@ -1,3 +1,61 @@
+2009-02-20  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* .cvsignore:
+	* data/.cvsignore:
+	* doc/.cvsignore:
+	* launcher/.cvsignore:
+	* libanjuta/.cvsignore:
+	* libanjuta/interfaces/.cvsignore:
+	* manuals/.cvsignore:
+	* manuals/anjuta-manual/C/figures/.cvsignore:
+	* manuals/reference/.cvsignore:
+	* manuals/reference/libanjuta/.cvsignore:
+	* mime/.cvsignore:
+	* omf-install/.cvsignore:
+	* pixmaps/.cvsignore:
+	* plugins/.cvsignore:
+	* plugins/build-basic-autotools/.cvsignore:
+	* plugins/class-gen/.cvsignore:
+	* plugins/class-inheritance/.cvsignore:
+	* plugins/cvs-plugin/.cvsignore:
+	* plugins/debug-manager/.cvsignore:
+	* plugins/debug-manager/images/.cvsignore:
+	* plugins/devhelp/.cvsignore:
+	* plugins/document-manager/.cvsignore:
+	* plugins/file-loader/.cvsignore:
+	* plugins/file-wizard/.cvsignore:
+	* plugins/gbf-am/.cvsignore:
+	* plugins/gbf-am/GBF/.cvsignore:
+	* plugins/gbf-mkfile/.cvsignore:
+	* plugins/gbf-mkfile/GBF/.cvsignore:
+	* plugins/gdb/.cvsignore:
+	* plugins/gdb/images/.cvsignore:
+	* plugins/glade/.cvsignore:
+	* plugins/gtodo/.cvsignore:
+	* plugins/language-support-cpp-java/.cvsignore:
+	* plugins/macro/.cvsignore:
+	* plugins/message-view/.cvsignore:
+	* plugins/patch/.cvsignore:
+	* plugins/project-import/.cvsignore:
+	* plugins/project-manager/.cvsignore:
+	* plugins/sample1/.cvsignore:
+	* plugins/scintilla/.cvsignore:
+	* plugins/scintilla/properties/.cvsignore:
+	* plugins/scintilla/scintilla/.cvsignore:
+	* plugins/scintilla/scintilla/include/.cvsignore:
+	* plugins/search/.cvsignore:
+	* plugins/sourceview/.cvsignore:
+	* plugins/subversion/.cvsignore:
+	* plugins/symbol-db/images/.cvsignore:
+	* plugins/symbol-db/symbol-db-system.c (on_pkg_config_exit):
+	* plugins/terminal/.cvsignore:
+	* plugins/tools/.cvsignore:
+	* plugins/tools/scripts/.cvsignore:
+	* plugins/valgrind/.cvsignore:
+	* scripts/.cvsignore:
+	* src/.cvsignore:
+	removed unused .cvsignore files. Left out project-wizard plugin.
+
 2009-02-20  Andre Klapper  <a9016009@gmx.de>
 
 	* plugins/gtodo/add_edit_item.c
