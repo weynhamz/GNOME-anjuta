@@ -149,7 +149,9 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, TRUE,0);
 	gtk_size_group_add_widget(sglabel, label);
 	/* summary entry box */
-	summary = gtk_entry_new_with_max_length(64);
+	summary = gtk_entry_new();
+	gtk_entry_set_max_length (GTK_ENTRY(summary), 64);
+
 	gtk_box_pack_start(GTK_BOX(hbox2), summary, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(summary), "changed", G_CALLBACK(check_length), addbut);
 

@@ -1,5 +1,12 @@
 2009-02-20  Andre Klapper  <a9016009@gmx.de>
 
+	* plugins/gtodo/add_edit_item.c
+	* plugins/macro/macro-actions.c:
+	Replace deprecated gtk_entry_new_with_max_length by 
+	gtk_entry_new/gtk_entry_set_max_length.
+
+2009-02-20  Andre Klapper  <a9016009@gmx.de>
+
 	* plugins/gtodo/egg-datetime.c:
 	Replace deprecated gtk_calendar_display_options by 
 	gtk_calendar_set_display_options.
