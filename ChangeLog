@@ -1,5 +1,10 @@
 2009-02-20  Andre Klapper  <a9016009@gmx.de>
 
+	* plugins/debug-manager/info.c:
+	Replace deprecated gtk_window_set_policy by gtk_window_set_resizable.
+
+2009-02-20  Andre Klapper  <a9016009@gmx.de>
+
 	* plugins/document-manager/plugin.c:
 	* plugins/message-view/anjuta-msgman.c:
 	Replace deprecated gtk_notebook_set_page by 

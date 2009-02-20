@@ -53,7 +53,7 @@ create_dialog_with_textview (GtkWindow *parent, gint width, gint height)
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
 										  NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
@@ -102,7 +102,7 @@ create_dialog_with_treeview (GtkWindow *parent, gint width, gint height)
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
 										  NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
