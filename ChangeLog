@@ -1,5 +1,14 @@
 2009-02-20  Andre Klapper  <a9016009@gmx.de>
 
+	* libanjuta/anjuta-plugin-manager.c:
+	* libanjuta/resources.c:
+	* plugins/debug-manager/stack_trace.c:
+	* plugins/debug-manager/threads.c:
+	* plugins/scintilla/scintilla/PlatGTK.cxx:
+	Replace deprecated gdk_pixbuf_unref by g_object_unref.
+
+2009-02-20  Andre Klapper  <a9016009@gmx.de>
+
 	* libanjuta/e-splash.c:
 	Replace deprecated gdk_pixbuf_(un)ref by g_object_(un)ref.
 

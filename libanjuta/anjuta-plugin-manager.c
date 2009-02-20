@@ -1001,7 +1001,7 @@ populate_plugin_model (AnjutaPluginManager *plugin_manager,
 					if (icon) {
 						gtk_list_store_set (store, &iter,
 											COL_ICON, icon, -1);
-						gdk_pixbuf_unref (icon);
+						g_object_unref (icon);
 					}
 				}
 				g_free (text);
@@ -1075,7 +1075,7 @@ foreach_remembered_plugin (gpointer key, gpointer value, gpointer user_data)
 			if (icon) {
 				gtk_list_store_set (store, &iter,
 									COL_REM_ICON, icon, -1);
-				gdk_pixbuf_unref (icon);
+				g_object_unref (icon);
 			}
 		}
 		g_free (text);

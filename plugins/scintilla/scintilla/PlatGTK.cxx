@@ -1917,7 +1917,7 @@ static void list_image_free(gpointer, gpointer value, gpointer) {
 		gdk_bitmap_unref(list_image->bitmap);
 #else
 	if (list_image->pixbuf)
-		gdk_pixbuf_unref (list_image->pixbuf);
+		g_object_unref (list_image->pixbuf);
 #endif
 	g_free(list_image);
 }
@@ -2247,7 +2247,7 @@ static void init_pixmap(ListImage *list_image) {
 	}
 #else
 	if (list_image->pixbuf)
-		gdk_pixbuf_unref(list_image->pixbuf);
+		g_object_unref(list_image->pixbuf);
 	list_image->pixbuf =
 		gdk_pixbuf_new_from_xpm_data((const gchar**)xpm_lineform);
 #endif
@@ -2474,7 +2474,7 @@ void ListBoxX::RegisterImage(int type, const char *xpm_data) {
 		list_image->bitmap = 0;
 #else
 		if (list_image->pixbuf)
-			gdk_pixbuf_unref(list_image->pixbuf);
+			g_object_unref(list_image->pixbuf);
 		list_image->pixbuf = NULL;
 #endif
 		list_image->xpm_data = xpm_data;

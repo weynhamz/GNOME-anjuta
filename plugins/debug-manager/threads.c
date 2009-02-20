@@ -358,7 +358,7 @@ on_list_thread (const GList *threads, gpointer user_data)
 		}
 		
 		if (pic)
-			gdk_pixbuf_unref (pic);
+			g_object_unref (pic);
 	}
 }
 
@@ -537,7 +537,7 @@ on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *it
 	if (pic != NULL)
 	{
 		/* Remove previously selected thread marker */
-		gdk_pixbuf_unref (pic);
+		g_object_unref (pic);
 		pic = NULL;
 	}		
 	
@@ -552,7 +552,7 @@ on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *it
 	
 	if (pic != NULL)
 	{
-		gdk_pixbuf_unref (pic);
+		g_object_unref (pic);
 	}
 	
 	return FALSE;

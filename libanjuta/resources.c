@@ -104,7 +104,7 @@ anjuta_res_get_image_sized (const gchar * pixfile, gint width, gint height)
 	}
 	pixbuf = gdk_pixbuf_new_from_file_at_size (pathname, width, height, NULL);
 	pixmap = gtk_image_new_from_pixbuf (pixbuf);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 	g_free (pathname);
 	return pixmap;
 }

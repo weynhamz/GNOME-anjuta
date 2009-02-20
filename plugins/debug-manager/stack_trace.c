@@ -323,7 +323,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 		g_free (uri);
 		g_free (adr);
 	}
-	gdk_pixbuf_unref (pic);
+	g_object_unref (pic);
 	
 }
 
@@ -455,7 +455,7 @@ on_frame_changed (StackTrace *self, guint frame, gint thread)
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter,
 							STACK_TRACE_ACTIVE_COLUMN, pointer_pix,
 							-1);
-		gdk_pixbuf_unref (pointer_pix);
+		g_object_unref (pointer_pix);
 	}
 }
 
