@@ -1,5 +1,12 @@
 2009-02-20  Andre Klapper  <a9016009@gmx.de>
 
+	* plugins/document-manager/plugin.c:
+	* plugins/message-view/anjuta-msgman.c:
+	Replace deprecated gtk_notebook_set_page by 
+	gtk_notebook_set_current_page.
+
+2009-02-20  Andre Klapper  <a9016009@gmx.de>
+
 	* libanjuta/anjuta-plugin-manager.c:
 	* libanjuta/resources.c:
 	* plugins/debug-manager/stack_trace.c:

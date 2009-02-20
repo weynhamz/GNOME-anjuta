@@ -1278,7 +1278,7 @@ on_window_key_press_event (AnjutaShell *shell,
 		else
 			cur_page = cur_page ? cur_page - 1 : pages_nb -1;
 
-		gtk_notebook_set_page (notebook, cur_page);
+		gtk_notebook_set_current_page (notebook, cur_page);
 
 		break;
 	}
@@ -1291,7 +1291,7 @@ on_window_key_press_event (AnjutaShell *shell,
 
 			if (!notebook->children)
 				return FALSE;
-			gtk_notebook_set_page(notebook, page_req);
+			gtk_notebook_set_current_page(notebook, page_req);
 		}
 		else
 			return FALSE;

@@ -479,7 +479,7 @@ anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 		page_num =
 			gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
 					       GTK_WIDGET (mv));
-		gtk_notebook_set_page (GTK_NOTEBOOK (msgman), page_num);
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), page_num);
 	}
 	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
