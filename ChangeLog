@@ -1,3 +1,10 @@
+2009-02-20  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c
+	(get_line_indentation), (get_line_indentation_base),
+	(get_line_auto_indentation):
+	Fixed auto-indentation for spaces-only indentation
+
 2009-02-19  Andre Klapper  <a9016009@gmx.de>
 
 	* plugins/debug-manager/sharedlib.c:
