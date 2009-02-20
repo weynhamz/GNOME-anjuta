@@ -1,6 +1,13 @@
 2009-02-20  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c
+	(set_line_indentation), (spaces_only), (get_line_auto_indentation),
+	(on_editor_char_inserted_cpp):
+	#540989 – Should not insert tabs on empty lines
+
+2009-02-20  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c
 	(get_line_indentation), (get_line_indentation_base),
 	(get_line_auto_indentation):
 	Fixed auto-indentation for spaces-only indentation

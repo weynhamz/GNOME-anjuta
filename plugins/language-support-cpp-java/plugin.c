@@ -178,7 +178,7 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 		else
 			line_indent++;
 		idx++; /* Since we are looking for first non-space char, simple
-	            * increment of the utf8 chars would do */
+				* increment of the utf8 chars would do */
 	}
 	g_free (line_string);
 	return line_indent;
@@ -758,7 +758,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 	/* If indentation == 0, we really didn't enter the previous code block,
 	 * but we may need to clear existing indentation.
 	 */
-	if (indentation == 0)
+	if ((indentation + line_indent_spaces) == 0)
 	{
 		/* Get existing indentation */
 		if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
@@ -1218,6 +1218,24 @@ is_iter_inside_string (IAnjutaIterable *iter)
 	return FALSE;
 }
 
+static gboolean
+spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end)
+{
+	gboolean empty = TRUE;
+	gchar* text = ianjuta_editor_get_text (editor, begin, end, NULL);
+	gchar* idx;
+	for (idx = text; *idx != '\0'; idx++)
+	{
+		if (!isspace(*idx))
+		{
+			empty = FALSE;
+			break;
+		}
+	}
+	g_free(text);
+	return empty;
+}
+
 static gint
 get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 						   gint line, gint *line_indent_spaces)
@@ -1231,10 +1249,24 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	g_return_val_if_fail (line > 0, 0);
 	
 	if (line == 1) /* First line */
+	{
 		return 0;
+	}
+	else
+	{
+		IAnjutaIterable* begin = ianjuta_editor_get_line_begin_position (editor, line -1 , NULL);
+		IAnjutaIterable* end = ianjuta_editor_get_line_end_position (editor, line -1 , NULL);
+
+		if (spaces_only (editor, begin, end))
+		{
+			set_line_indentation (editor, line -1, 0, 0);
+		}
+		g_object_unref (begin);
+		g_object_unref (end);
+	}
 	
 	iter = ianjuta_editor_get_line_begin_position (editor, line, NULL);
-	
+
 	if (is_iter_inside_string (iter))
 	{
 		line_indent = get_line_indentation (editor, line - 1);
@@ -1246,18 +1278,18 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 												 line_indent_spaces,
 												 &colon_indent);
 	}
-	
+
 	if (colon_indent)
 	{
 		/* If the last non-whitespace character in the line is ":" then
 		 * we remove the extra colon_indent
 		 */
-		gchar ch;
 		end_iter = ianjuta_editor_get_line_end_position (editor, line, NULL);
+		gchar ch;
 		while (ianjuta_iterable_previous (end_iter, NULL))
 		{
 			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end_iter),
-											   0, NULL);
+			                                   0, NULL);
 			if (ch == ':')
 			{
 				line_indent -= INDENT_SIZE;
@@ -1412,6 +1444,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		
 			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 			initialize_indentation_params (plugin);
+			
 			insert_line = ianjuta_editor_get_lineno (editor, NULL);
 			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &line_indent_spaces);
 			set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
@@ -1433,8 +1466,8 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			/* If the previous char is a ' we don't have to autocomplete */
 			if (*prev_char != '\'')
 			{
+				
 				ianjuta_iterable_next (iter, NULL);
-		
 				switch (ch)
 				{
 					case '[': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
@@ -1461,14 +1494,14 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		{
 			gchar *prev_char;
 			IAnjutaIterable *previous;
-			
+
 			previous = ianjuta_iterable_clone (iter, NULL);
 			ianjuta_iterable_previous (previous, NULL);
 			prev_char = ianjuta_editor_get_text (editor, previous, iter, NULL);
 
 			/* First iter*/
 			ianjuta_iterable_next (iter, NULL);
-		
+
 			/*
 			 * If the character is " we have to decide if we need insert
 			 * another " or we have to skip the character
