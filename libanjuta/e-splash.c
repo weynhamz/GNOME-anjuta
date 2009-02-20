@@ -71,7 +71,7 @@ impl_destroy (GtkObject *object)
 	priv = splash->priv;
 
 	if (priv->splash_image_pixbuf != NULL)
-		gdk_pixbuf_unref (priv->splash_image_pixbuf);
+		g_object_unref (priv->splash_image_pixbuf);
 	g_free (priv);
 }
 
@@ -136,7 +136,7 @@ e_splash_construct (ESplash *splash,
 
 	priv = splash->priv;
 	priv->progressbar_position = progressbar_position;
-	priv->splash_image_pixbuf = gdk_pixbuf_ref (splash_image_pixbuf);
+	priv->splash_image_pixbuf = g_object_ref (splash_image_pixbuf);
 
 	canvas = gnome_canvas_new_aa ();
 	priv->canvas = GNOME_CANVAS (canvas);
@@ -208,7 +208,7 @@ e_splash_new (const char *image_file, gint progressbar_position)
 	splash = g_object_new (e_splash_get_type (), "type", GTK_WINDOW_TOPLEVEL, NULL);
 	e_splash_construct (splash, splash_image_pixbuf, progressbar_position);
 
-	/* gdk_pixbuf_unref (splash_image_pixbuf); */
+	/* g_object_unref (splash_image_pixbuf); */
 
 	return GTK_WIDGET (splash);
 }
@@ -257,7 +257,7 @@ e_splash_set  (ESplash *splash, GdkPixbuf *icon_pixbuf,
 						  GDK_INTERP_HYPER);
 		g_object_set (G_OBJECT (priv->canvas_icon),
 					  "pixbuf", scaled_pixbuf, NULL);
-		gdk_pixbuf_unref (scaled_pixbuf);
+		g_object_unref (scaled_pixbuf);
 	}
 	
 	if (title)
