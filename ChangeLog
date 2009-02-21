@@ -1,6 +1,11 @@
 2009-02-21  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c:
+	Remove one Valgrind warning when searching something
+
+2009-02-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/search/search-replace.c:
 	Fix #571760 – Find & Replace is broken (due to my previous changes)
 
 	* plugins/search/Makefile.am:

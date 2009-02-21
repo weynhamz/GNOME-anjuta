@@ -368,7 +368,7 @@ search_and_replace (void)
 				se->start_pos = g_utf8_strlen (fb->buf, start_sel);
 				se->end_pos = g_utf8_strlen (fb->buf, end_sel);
 			}
-			else
+			else if (se->end_pos != -1)
 			 {
 				end_sel = g_utf8_offset_to_pointer (fb->buf, se->end_pos) - fb->buf;
 			 }
