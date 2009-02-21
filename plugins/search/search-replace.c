@@ -283,9 +283,9 @@ search_and_replace (void)
 	FileBuffer *fb;
 	static MatchInfo *mi;
 	Search *s;
-	gint offset;
+	gint offset;			/* offset due to previous replace */
 	gint found_line = 0;
-	static gint os = 0;
+	static gint os = 0;		/* Keep previous offset when doing interactibe S&R */
 	gint nb_results;
 	static long start_sel = 0;
 	static long end_sel = 0;
@@ -406,14 +406,14 @@ search_and_replace (void)
 
 						if (IANJUTA_INDICABLE (fb->te))
 						{
-							gint offset;
+							gint char_pos;
 							IAnjutaIterable *start_pos, *end_pos;
 							/* end-location is correct for sourceview, 1-too-big for scintilla */
 
-							offset = g_utf8_strlen (fb->buf, mi->pos);
-							start_pos = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
-							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
-							end_pos = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							char_pos = g_utf8_strlen (fb->buf, mi->pos);
+							start_pos = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
+							char_pos += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end_pos = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
 							ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),
 												   start_pos, end_pos,
 												   IANJUTA_INDICABLE_IMPORTANT, NULL);
@@ -446,13 +446,13 @@ search_and_replace (void)
 							found_line = mi->line;
 						}
 						{
-							gint offset;
+							gint char_pos;
 							IAnjutaIterable *start, *end;
 
-							offset = g_utf8_strlen (fb->buf, mi->pos);
-							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
-							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
-							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							char_pos = g_utf8_strlen (fb->buf, mi->pos);
+							start = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
+							char_pos += g_utf8_strlen (fb->buf + mi->pos, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -469,7 +469,7 @@ search_and_replace (void)
 					
 					case SA_REPLACE:
 						if (found_line != mi->line || fb->te == NULL)
-							{
+						{
 							if (fb->te)
 								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
 							else
@@ -478,17 +478,17 @@ search_and_replace (void)
 									(sr->docman, fb->file, mi->line, FALSE, NULL);
 							}
 							found_line = mi->line;
-							}
+						}
 
 						if (!interactive)
 						{
-							gint offset;
+							gint char_pos;
 							IAnjutaIterable *start, *end;
 
-							offset = g_utf8_strlen (fb->buf, mi->pos);
-							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
-							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
-							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							char_pos = g_utf8_strlen (fb->buf, mi->pos - offset);
+							start = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
+							char_pos += g_utf8_strlen (fb->buf + mi->pos - offset, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -505,25 +505,25 @@ search_and_replace (void)
 							{
 									g_free (ch);
 								ch = regex_backref (mi, fb);
-								}
 							}
+						}
 						else
 						{
-						if (ch && sr->replace.regex && sr->search.expr.regex)
-						{
+							if (ch && sr->replace.regex && sr->search.expr.regex)
+							{
 								g_free (sr->replace.repl_str);
 								sr->replace.repl_str = g_strdup (ch);
-							g_free (ch);
+								g_free (ch);
 								ch = NULL;
-						}
+							}
 							{
-								gint offset;
+								gint char_pos;
 								IAnjutaIterable *start, *end;
 
-								offset = g_utf8_strlen (fb->buf, mi->pos);
-								start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
-								offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
-								end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+								char_pos = g_utf8_strlen (fb->buf, mi->pos - os);
+								start = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
+								char_pos += g_utf8_strlen (fb->buf + mi->pos - os, mi->len);
+								end = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
 								ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 															 start,														 
 															 end,
@@ -536,10 +536,10 @@ search_and_replace (void)
 								g_object_unref (start);
 								g_object_unref (end);
 							}
-						if (se->direction != SD_BACKWARD)
-							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
+							if (se->direction != SD_BACKWARD)
+								offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						
-						interactive = FALSE;
+							interactive = FALSE;
 						}
 						break;
 
@@ -558,13 +558,13 @@ search_and_replace (void)
 						}
 						else
 						{
-							gint offset;
+							gint char_pos;
 							IAnjutaIterable *start, *end;
 
-							offset = g_utf8_strlen (fb->buf, mi->pos);
-							start = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
-							offset += g_utf8_strlen (fb->buf + mi->pos, mi->len);
-							end = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);
+							char_pos = g_utf8_strlen (fb->buf, mi->pos - offset);
+							start = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
+							char_pos += g_utf8_strlen (fb->buf + mi->pos - offset, mi->len);
+							end = ianjuta_editor_get_position_from_offset (fb->te, char_pos, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 														 start,
 														 end,

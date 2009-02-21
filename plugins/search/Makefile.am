@@ -26,7 +26,7 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	-I$(top_srcdir)/tagmanager/include
+	-I$(top_srcdir)/tagmanager/include \
 	-DG_LOG_DOMAIN=\"libanjuta-search\"
 
 libanjuta_search_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
