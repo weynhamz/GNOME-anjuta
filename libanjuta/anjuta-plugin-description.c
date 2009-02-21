@@ -585,24 +585,23 @@ anjuta_plugin_description_new_from_string (char *data, GError **error)
 
   parser.line = data;
 
-  /* Put any initial comments in a NULL segment */
-  open_section (&parser, NULL);
-  
-  while (parser.line && *parser.line)
-    {
-      if (*parser.line == '[') {
-	if (!parse_section_start (&parser, error))
-	  return NULL;
-      } else if (is_blank_line (&parser) ||
-		 *parser.line == '#')
-	parse_comment_or_blank (&parser);
-      else
-	{
-	  if (!parse_key_value (&parser, error))
-	    return NULL;
+	/* Put any initial comments in a NULL segment */
+	open_section (&parser, NULL);
+	while (parser.line != NULL && strlen(parser.line))
+	{ 
+		if (*parser.line == '[') {
+			if (!parse_section_start (&parser, error))
+				return NULL;
+		} else if (is_blank_line (&parser) ||
+		           *parser.line == '#')
+			parse_comment_or_blank (&parser);
+		else
+		{
+			if (!parse_key_value (&parser, error))
+				return NULL;
+		}
 	}
-    }
-
+ 
   return parser.df;
 }
 

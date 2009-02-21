@@ -472,8 +472,8 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 	AnjutaPluginHandle *plugin_handle;
 	AnjutaPluginDescription *desc;
 	char *str;
-	gboolean *enable;
-	gchar *contents;
+	gboolean enable;
+	gchar *contents = NULL;
 	gboolean success = TRUE;
 	
 	/* Load file content */
@@ -544,8 +544,8 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 	}
 	
 	if (anjuta_plugin_description_get_boolean (desc, "Anjuta Plugin",
-											  "UserActivatable", &enable) && !enable) {
-		plugin_handle->priv->user_activatable = FALSE;
+											  "UserActivatable", &enable)) {
+		plugin_handle->priv->user_activatable = enable;
 		/*
 		DEBUG_PRINT ("Plugin '%s' is not user activatable",
 					 plugin_handle->priv->name?

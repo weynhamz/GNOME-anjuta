@@ -1,3 +1,11 @@
+2009-02-21  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-plugin-description.c
+	(anjuta_plugin_description_new_from_string):
+	* libanjuta/anjuta-plugin-handle.c (anjuta_plugin_handle_new):
+	
+	Fixed some errors reported by valgrind
+
 2009-02-20  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c (spaces_only):
