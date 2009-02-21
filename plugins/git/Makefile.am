@@ -177,7 +177,9 @@ libanjuta_git_la_SOURCES = \
 	git-cat-blob-command.c \
 	git-cat-blob-command.h \
 	git-cat-file-menu.c \
-	git-cat-file-menu.h
+	git-cat-file-menu.h \
+	git-vcs-interface.c \
+	git-vcs-interface.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

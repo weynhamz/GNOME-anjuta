@@ -3,3 +3,7 @@ Location=anjuta-git:Git
 Icon=anjuta-git-plugin-48.png
 _Name=Git
 _Description=Git version control
+Interfaces=IAnjutaVcs
+
+[Vcs]
+System=Git

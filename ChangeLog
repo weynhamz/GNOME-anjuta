@@ -1,3 +1,17 @@
+2009-02-21  James Liggett  <jrliggett@cox.net>
+
+	* plugins/git/Makefile.am:
+	* plugins/git/git-vcs-interface.c (git_ivcs_iface_init),
+	(git_ivcs_add), (git_ivcs_checkout),
+	(on_diff_command_data_arrived), (git_ivcs_diff),
+	(on_status_command_data_arrived), (git_ivcs_query_status),
+	(git_ivcs_remove):
+	* plugins/git/git-vcs-interface.h:
+	* plugins/git/git.plugin.in:
+	* plugins/git/plugin.c:
+	Implement the beginnings of IAnjutaVcs for the git plugin. Checkout and 
+	operation canceling aren't supported yet. Everything else should work.
+
 2009-02-21  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c:

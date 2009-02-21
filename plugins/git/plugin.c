@@ -20,6 +20,7 @@
 */
 
 #include "plugin.h"
+#include "git-vcs-interface.h"
 #include "git-diff-dialog.h"
 #include "git-commit-dialog.h"
 #include "git-add-dialog.h"
@@ -711,5 +712,8 @@ git_class_init (GObjectClass *klass)
 	klass->dispose = git_dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (Git, git);
+ANJUTA_PLUGIN_BEGIN (Git, git);
+ANJUTA_PLUGIN_ADD_INTERFACE (git_ivcs, IANJUTA_TYPE_VCS);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (Git, git);
