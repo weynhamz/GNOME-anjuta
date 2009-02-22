@@ -457,11 +457,11 @@ get_next_ascii_match(FileBuffer *fb, SearchDirection direction, SearchExpression
 	int len = strlen(s->search_str);
 	gint (*compare)(const gchar *, const gchar *, gsize) =
 		s->match_case ? strncmp : g_ascii_strncasecmp;
-	gchar *p = g_utf8_offset_to_pointer (fb->buf, fb->pos);
+	gchar *p = fb->buf + fb->pos;
 	
 	if (direction == SD_BACKWARD)
 	{
-		for (p -= len; p >= fb->buf; --p)
+		for (; p >= fb->buf; --p)
 			if (!compare(p, s->search_str, len) &&
 				extra_match(p == fb->buf, p, p + len, s))
 				return match_info(fb, p, p + len, direction);
@@ -521,7 +521,7 @@ get_next_utf8_match(FileBuffer *fb, SearchDirection direction, SearchExpression 
 	
 	if (direction == SD_BACKWARD)
 	{
-		search_buf = normalize(fb->buf, current - fb->buf, s->match_case);
+		search_buf = normalize(fb->buf, current + strlen (s->search_str) - 1 - fb->buf, s->match_case);
 		if (search_buf)
 		{
 			p = search_buf + strlen(search_buf);

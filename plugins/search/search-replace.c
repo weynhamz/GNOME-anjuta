@@ -382,10 +382,10 @@ search_and_replace (void)
 			while (interactive || 
 				NULL != (mi = get_next_match(fb, s->range.direction, &(s->expr))))
 			{
-				if ((s->range.direction == SD_BACKWARD) && (mi->pos < se->end_pos))
+				if ((s->range.direction == SD_BACKWARD) && (mi->pos < end_sel))
 						break; 
-				if ((s->range.direction != SD_BACKWARD) && ((se->end_pos != -1) &&
-					(mi->pos+mi->len > se->end_pos)))
+				if ((s->range.direction != SD_BACKWARD) && ((end_sel != 0) &&
+					(mi->pos+mi->len > end_sel)))
 						break; 
 				nb_results++; 
 				if (nb_results > sr->search.expr.actions_max)

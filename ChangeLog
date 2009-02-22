@@ -1,3 +1,10 @@
+2009-02-21  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c:
+	Backward search go back one character at a time
+	Fix an error comparing characters with bytes position
+
 2009-02-22  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/message-view/anjuta-msgman.c (anjuta_msgman_dispose):
