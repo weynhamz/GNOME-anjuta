@@ -177,11 +177,6 @@ static gpointer parent_class;
 static void
 anjuta_msgman_dispose (GObject *obj)
 {
-	AnjutaMsgman *msgman = ANJUTA_MSGMAN (obj);
-	if (msgman->priv->views)
-	{
-		anjuta_msgman_remove_all_views (msgman);
-	}
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 

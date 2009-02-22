@@ -1,3 +1,9 @@
+2009-02-22  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/message-view/anjuta-msgman.c (anjuta_msgman_dispose):
+	Don't explicitly close all message-views in dispose as it's done implicitly by
+	GtkContainer anyway (might fix #572451)
+
 2009-02-21  James Liggett  <jrliggett@cox.net>
 
 	* plugins/git/Makefile.am:
