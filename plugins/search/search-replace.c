@@ -736,7 +736,6 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 			g_free(path);
 		}
 		g_free(project_path);
-		g_free(project_uri);
 	}
 	if (!real_path)
 		real_path = path;
