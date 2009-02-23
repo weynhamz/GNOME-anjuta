@@ -1,5 +1,9 @@
 2009-02-23  Hendrik Richter  <hendrikr@gnome.org>
 
+	* de.po: Updated German translation, fix #569584.
+
+2009-02-23  Hendrik Richter  <hendrikr@gnome.org>
+
 	* de.po: Updated German translation.
 	         "Verzeichnis" => "Ordner"
 
