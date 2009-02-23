@@ -1972,7 +1972,7 @@ ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
 	if (lang)
 	{
-		return gtk_source_language_get_name(lang);
+		return gtk_source_language_get_id(lang);
 	}
 	else
 	{

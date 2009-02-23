@@ -1,3 +1,8 @@
+2009-02-23  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/sourceview/sourceview.c:
+	Fix #556970 – Swap .h/.c doesn't work for C header files (*.h)
+
 2009-02-23  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>
