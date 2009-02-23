@@ -1,3 +1,10 @@
+2009-02-23  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/plugin.c:
+	Fix #555895 – Save configure options for build configuration
+
 2009-02-23  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/plugin.c (on_build_mesg_format):

@@ -2384,6 +2384,15 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		name = build_configuration_get_name (cfg);
 		anjuta_session_set_string (session, "Build", "Selected Configuration", name);
 	}
+	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
+	{
+		gchar *key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
+
+		anjuta_session_set_string (session, "Build",
+			       key,
+			       build_configuration_get_args(cfg));
+		g_free (key);
+	}
 }
 
 static void
@@ -2392,7 +2401,8 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 {
 	GList *configurations;
 	gchar *selected;
-				
+	BuildConfiguration *cfg;
+
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 	
@@ -2406,6 +2416,19 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	selected = anjuta_session_get_string (session, "Build", "Selected Configuration");
 	build_configuration_list_select (plugin->configurations, selected);
 	g_free (selected);
+
+	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
+	{
+		gchar *key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
+		gchar *args = anjuta_session_get_string (session, "Build",
+				key);
+		g_free (key);
+		if (args != NULL)
+		{
+			build_configuration_set_args (cfg, args);
+			g_free (args);
+		}
+	}
 
 	build_project_configured (G_OBJECT (plugin), NULL, NULL, NULL);
 }
