@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-21 15:09+0100\n"
+"POT-Creation-Date: 2009-02-23 18:01+0100\n"
 "PO-Revision-Date: 2009-02-17 00:44+0100\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -314,7 +314,7 @@ msgstr "Verfügbare Komponenten"
 #: ../libanjuta/anjuta-plugin-manager.c:2294
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
-"Verfügbare Komponenten, die im Komponenten-Verzeichnis gefunden wurden."
+"Verfügbare Komponenten, die in Komponenten-Ordnern gefunden wurden."
 
 #: ../libanjuta/anjuta-plugin-manager.c:2300
 msgid "Activated plugins"
@@ -413,7 +413,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:193
+#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:194
 msgid "_Reset"
 msgstr "_Zurücksetzen"
 
@@ -604,7 +604,7 @@ msgstr "Argumente:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 msgid "Build Directory:"
-msgstr "Verzeichnis zur Erstellung:"
+msgstr "Ordner zur Erstellung:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 msgid "Configure Options:"
@@ -641,7 +641,7 @@ msgstr "Programm auswählen"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:16
 msgid "Select a build directory"
-msgstr "Verzeichnis zum Kompilieren auswählen"
+msgstr "Ordner zum Kompilieren auswählen"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:17
 msgid "Translate messages"
@@ -750,251 +750,256 @@ msgstr "Verlasse: %s"
 msgid "warning:"
 msgstr "Warnung:"
 
-#: ../plugins/build-basic-autotools/plugin.c:896
+#: ../plugins/build-basic-autotools/plugin.c:785
+#: ../plugins/tools/execute.c:334
+msgid "error:"
+msgstr "Fehler:"
+
+#: ../plugins/build-basic-autotools/plugin.c:902
 #, c-format
 msgid "Command exited with status %d"
 msgstr "Befehl schloss mit Status %d ab"
 
-#: ../plugins/build-basic-autotools/plugin.c:906
+#: ../plugins/build-basic-autotools/plugin.c:912
 #, c-format
 msgid "Command canceled by user"
 msgstr "Befehl wurde vom Benutzer widerrufen"
 
-#: ../plugins/build-basic-autotools/plugin.c:911
+#: ../plugins/build-basic-autotools/plugin.c:917
 #, c-format
 msgid "Command aborted by user"
 msgstr "Befehl wurde vom Benutzer abgebrochen"
 
-#: ../plugins/build-basic-autotools/plugin.c:916
+#: ../plugins/build-basic-autotools/plugin.c:922
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Befehl wurde mit Status %d beendet"
 
-#: ../plugins/build-basic-autotools/plugin.c:924
+#: ../plugins/build-basic-autotools/plugin.c:930
 msgid "Command terminated for an unknown reason"
 msgstr "Befehl wurde aus unbekanntem Grund beendet "
 
 # c-format
-#: ../plugins/build-basic-autotools/plugin.c:940
+#: ../plugins/build-basic-autotools/plugin.c:946
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Benötigte Zeit: %lu Sek.\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:945
+#: ../plugins/build-basic-autotools/plugin.c:951
 msgid "Completed unsuccessfully\n"
 msgstr "Nicht erfolgreich abgeschlossen\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:950
+#: ../plugins/build-basic-autotools/plugin.c:956
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "Erfolgreich abgeschlossen\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:996
+#: ../plugins/build-basic-autotools/plugin.c:1002
 #, c-format
 msgid "Build %d: %s"
 msgstr "Erstelle %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1565
+#: ../plugins/build-basic-autotools/plugin.c:1571
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "»%s« kann nicht übersetzt werden: Es ist keine Übersetzungsregel für diesen "
 "Dateitypen definiert."
 
-#: ../plugins/build-basic-autotools/plugin.c:1636
+#: ../plugins/build-basic-autotools/plugin.c:1642
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "Projekt kann nicht konfiguriert werden: Das Skript zum Konfigurieren fehlt "
 "in »%s«."
 
-#: ../plugins/build-basic-autotools/plugin.c:2019
-#: ../plugins/build-basic-autotools/plugin.c:2093
-#: ../plugins/build-basic-autotools/plugin.c:2103
-#: ../plugins/build-basic-autotools/plugin.c:2121
-#: ../plugins/build-basic-autotools/plugin.c:2131
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2025
+#: ../plugins/build-basic-autotools/plugin.c:2099
+#: ../plugins/build-basic-autotools/plugin.c:2109
+#: ../plugins/build-basic-autotools/plugin.c:2127
+#: ../plugins/build-basic-autotools/plugin.c:2137
+#: ../plugins/build-basic-autotools/plugin.c:2265
 #, c-format
 msgid "_Build"
 msgstr "_Erstellen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2023
+#: ../plugins/build-basic-autotools/plugin.c:2029
 msgid "_Build Project"
 msgstr "Projekt _übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2024
+#: ../plugins/build-basic-autotools/plugin.c:2030
 msgid "Build whole project"
 msgstr "Übersetzt das gesamte Projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2029
+#: ../plugins/build-basic-autotools/plugin.c:2035
 msgid "_Install Project"
 msgstr "Projekt _installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2030
+#: ../plugins/build-basic-autotools/plugin.c:2036
 msgid "Install whole project"
 msgstr "Projekt installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2035
+#: ../plugins/build-basic-autotools/plugin.c:2041
 msgid "_Clean Project"
 msgstr "Projekt _bereinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2036
+#: ../plugins/build-basic-autotools/plugin.c:2042
 msgid "Clean whole project"
 msgstr "Gesamtes Projekt bereinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2041
+#: ../plugins/build-basic-autotools/plugin.c:2047
 msgid "C_onfigure Project..."
 msgstr "Projekt _konfigurieren..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2042
+#: ../plugins/build-basic-autotools/plugin.c:2048
 msgid "Configure project"
 msgstr "Projekt konfigurieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2047
+#: ../plugins/build-basic-autotools/plugin.c:2053
 msgid "Build _Tarball"
 msgstr "A_rchiv erstellen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2048
+#: ../plugins/build-basic-autotools/plugin.c:2054
 msgid "Build project tarball distribution"
 msgstr "Distributionspaket erstellen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2053
+#: ../plugins/build-basic-autotools/plugin.c:2059
 msgid "_Build Module"
 msgstr "_Module übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2054
+#: ../plugins/build-basic-autotools/plugin.c:2060
 msgid "Build module associated with current file"
 msgstr "Der aktuellen Datei zugehöriges Modul übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2059
+#: ../plugins/build-basic-autotools/plugin.c:2065
 msgid "_Install Module"
 msgstr "Module _installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2066
 msgid "Install module associated with current file"
 msgstr "Der aktuellen Datei zugehöriges Modul installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2065
+#: ../plugins/build-basic-autotools/plugin.c:2071
 msgid "_Clean Module"
 msgstr "Modul be_reinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2072
 msgid "Clean module associated with current file"
 msgstr "Der aktuellen Datei zugehöriges Modul bereinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2071
+#: ../plugins/build-basic-autotools/plugin.c:2077
 msgid "Co_mpile File"
 msgstr "Datei _übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2078
 msgid "Compile current editor file"
 msgstr "Die aktuelle Quelldatei übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2077
+#: ../plugins/build-basic-autotools/plugin.c:2083
 msgid "Select Configuration"
 msgstr "Konfiguration auswählen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2084
 msgid "Select current configuration"
 msgstr "Aktuelle Konfiguration auswählen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2089
 msgid "Remove Configuration"
 msgstr "Konfiguration entfernen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2084
+#: ../plugins/build-basic-autotools/plugin.c:2090
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt bereinigen (distclean) und nach Möglichkeit den Konfigurationsordner "
 "entfernen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2097
-#: ../plugins/build-basic-autotools/plugin.c:2125
+#: ../plugins/build-basic-autotools/plugin.c:2103
+#: ../plugins/build-basic-autotools/plugin.c:2131
 msgid "_Compile"
 msgstr "_Übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2098
-#: ../plugins/build-basic-autotools/plugin.c:2126
+#: ../plugins/build-basic-autotools/plugin.c:2104
+#: ../plugins/build-basic-autotools/plugin.c:2132
 msgid "Compile file"
 msgstr "Datei übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2104
-#: ../plugins/build-basic-autotools/plugin.c:2132
+#: ../plugins/build-basic-autotools/plugin.c:2110
+#: ../plugins/build-basic-autotools/plugin.c:2138
 msgid "Build module"
 msgstr "Modul erstellen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2109
-#: ../plugins/build-basic-autotools/plugin.c:2137
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2115
+#: ../plugins/build-basic-autotools/plugin.c:2143
+#: ../plugins/build-basic-autotools/plugin.c:2272
 #, c-format
 msgid "_Install"
 msgstr "_Installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2110
-#: ../plugins/build-basic-autotools/plugin.c:2138
+#: ../plugins/build-basic-autotools/plugin.c:2116
+#: ../plugins/build-basic-autotools/plugin.c:2144
 msgid "Install module"
 msgstr "Module installieren"
 
-#: ../plugins/build-basic-autotools/plugin.c:2115
-#: ../plugins/build-basic-autotools/plugin.c:2143
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2121
+#: ../plugins/build-basic-autotools/plugin.c:2149
+#: ../plugins/build-basic-autotools/plugin.c:2279
 #, c-format
 msgid "_Clean"
 msgstr "_Bereinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2116
-#: ../plugins/build-basic-autotools/plugin.c:2144
+#: ../plugins/build-basic-autotools/plugin.c:2122
+#: ../plugins/build-basic-autotools/plugin.c:2150
 msgid "Clean module"
 msgstr "Modul bereinigen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2149
+#: ../plugins/build-basic-autotools/plugin.c:2155
 msgid "_Cancel command"
 msgstr "Befehl _widerrufen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2150
+#: ../plugins/build-basic-autotools/plugin.c:2156
 msgid "Cancel build command"
 msgstr "Übersetzungsbefehl widerrufen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2265
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Erstellen (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2272
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installieren (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2279
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Bereinigen (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2287
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_Übersetzen (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2287
 #, c-format
 msgid "Co_mpile"
 msgstr "_Übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2794
+#: ../plugins/build-basic-autotools/plugin.c:2800
 msgid "Build commands"
 msgstr "Übersetzungsbefehle"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2803
+#: ../plugins/build-basic-autotools/plugin.c:2809
 msgid "Build popup commands"
 msgstr "Übersetzungsbefehle-Kontextmenü"
 
-#: ../plugins/build-basic-autotools/plugin.c:3160
-#: ../plugins/build-basic-autotools/plugin.c:3178
+#: ../plugins/build-basic-autotools/plugin.c:3166
+#: ../plugins/build-basic-autotools/plugin.c:3184
 msgid "Build Autotools"
 msgstr "Autotools-Generierung"
 
@@ -1221,7 +1226,7 @@ msgstr "CVS-Einstellungen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
 msgid "CVS: Add file/directory"
-msgstr "CVS: Datei/Verzeichnis hinzufügen"
+msgstr "CVS: Datei/Ordner hinzufügen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "CVS: Commit file/directory"
@@ -1229,7 +1234,7 @@ msgstr "CVS: Datei/Ordner einchecken"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 msgid "CVS: Diff file/directory"
-msgstr "CVS: Unterschiede für Datei/Verzeichnis anzeigen"
+msgstr "CVS: Unterschiede für Datei/Ordner anzeigen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Import"
@@ -1237,11 +1242,11 @@ msgstr "CVS: Importieren"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Log file/directory"
-msgstr "CVS: Protokoll für Datei/Verzeichnis"
+msgstr "CVS: Protokoll für Datei/Ordner"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Remove file/directory"
-msgstr "CVS: Datei/Verzeichnis entfernen"
+msgstr "CVS: Datei/Ordner entfernen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
 msgid "CVS: Status"
@@ -1249,11 +1254,11 @@ msgstr "CVS: Status"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Status from file/directory"
-msgstr "CVS: Status der Datei/des Verzeichnisses"
+msgstr "CVS: Status der Datei/des Ordners"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 msgid "CVS: Update file/directory"
-msgstr "CVS: Datei/Verzeichnis aktualisieren"
+msgstr "CVS: Datei/Ordner aktualisieren"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "CVSROOT:"
@@ -1262,34 +1267,34 @@ msgstr "CVSROOT:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Choose file or directory to add:"
-msgstr "Datei/Verzeichnis zum Hinzufügen auswählen:"
+msgstr "Datei/Ordner zum Hinzufügen auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "Choose file or directory to commit:"
-msgstr "Datei/Verzeichnis zum Einchecken auswählen:"
+msgstr "Datei/Ordner zum Einchecken auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to diff:"
 msgstr ""
-"Verzeichnis, für welches die Unterschiede angezeigt werden sollen, auswählen:"
+"Ordner, für welchen die Unterschiede angezeigt werden sollen, auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to get log:"
-msgstr "Datei oder Verzeichnis für das Protokoll auswählen:"
+msgstr "Datei oder Ordner für das Protokoll auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to get the status from:"
 msgstr ""
-"Datei oder Verzeichnis vom dem der Status ermittelt werden soll aussuchen:"
+"Datei oder Ordner, dessen Status ermittelt werden soll, aussuchen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to remove:"
-msgstr "Datei/Verzeichnis zum Entfernen auswählen:"
+msgstr "Datei/Ordner zum Entfernen auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 #: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Choose file or directory to update:"
-msgstr "Datei/Verzeichnis zum Aktualisieren auswählen:"
+msgstr "Datei/Ordner zum Aktualisieren auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Compression Level (0=off, 10=max):"
@@ -1297,11 +1302,11 @@ msgstr "Kompressionslevel (0=Aus, 10=Maximal)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "Create new directories"
-msgstr "Neue Verzeichnisse erstellen"
+msgstr "Neuen Ordner erstellen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Delete empty directories"
-msgstr "Leere Verzeichnisse löschen"
+msgstr "Leere Ordner löschen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:30
@@ -1345,7 +1350,7 @@ msgstr "Pfad zum \"cvs\" Kommando"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
-msgstr "Wurzelverzeichnis des Projekts:"
+msgstr "Wurzelordner des Projekts:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
 msgid "Release tag:"
@@ -1441,7 +1446,7 @@ msgstr "Version"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:449
 msgid "Directory"
-msgstr "Verzeichnisse"
+msgstr "Ordner"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
@@ -1484,7 +1489,7 @@ msgstr "_Hinzufügen"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:54
 msgid "Add a new file/directory to the CVS tree"
-msgstr "Ein neue Datei/neues Verzeichnis zum CVS Baum hinzufügen"
+msgstr "Neue Datei/neuen Ordner zum CVS-Baum hinzufügen"
 
 #. Action name
 #. Stock icon, if any
@@ -1496,7 +1501,7 @@ msgstr "_Entfernen"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:62
 msgid "Remove a file/directory from CVS tree"
-msgstr "Eine Datei/Ein Verzeichnis vom CVS Baum entfernen"
+msgstr "Eine Datei/einen Ordner vom CVS-Baum entfernen"
 
 #. Action name
 #. Stock icon, if any
@@ -1546,7 +1551,7 @@ msgstr "_Status anzeigen"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "Show the status of a file/directory"
-msgstr "Status von Datei/Verzeichnis anzeigen"
+msgstr "Status von Datei/Ordner anzeigen"
 
 #. Action name
 #. Stock icon, if any
@@ -1558,7 +1563,7 @@ msgstr "Protokoll _anzeigen"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "Show the log of a file/directory"
-msgstr "Das Protokoll für Datei/Verzeichnis anzeigen"
+msgstr "Das Protokoll für Datei/Ordner anzeigen"
 
 #. Action name
 #. Stock icon, if any
@@ -1716,7 +1721,7 @@ msgstr "Unterbrechungssignal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
 msgid "Select one directory"
-msgstr "Ein Verzeichnis auswählen"
+msgstr "Einen Ordner auswählen"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 msgid "Serial Line Connection"
@@ -1742,7 +1747,7 @@ msgstr "Signal:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Source Directories"
-msgstr "Quellverzeichnisse"
+msgstr "Quellordner"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
 msgid "Start Debugger"
@@ -2092,7 +2097,7 @@ msgstr "Quellpfade hinzufügen …"
 
 #: ../plugins/debug-manager/plugin.c:859
 msgid "Add additional source paths"
-msgstr "Zusätzliche Verzeichnisse mit Quelldateien hinzufügen"
+msgstr "Zusätzliche Ordner mit Quelldateien hinzufügen"
 
 #. Action name
 #. Stock icon, if any
@@ -2551,11 +2556,11 @@ msgstr "Angemeldet"
 msgid "Contents"
 msgstr "Inhalt"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1710
-#: ../plugins/search/search-replace.c:1717
-#: ../plugins/search/search-replace.c:1729
-#: ../plugins/search/search-replace.c:2056
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1036
+#: ../plugins/search/search-replace.c:1709
+#: ../plugins/search/search-replace.c:1716
+#: ../plugins/search/search-replace.c:1728
+#: ../plugins/search/search-replace.c:2055
 msgid "Search"
 msgstr "Suchen"
 
@@ -3529,7 +3534,7 @@ msgstr "<b>Global</b>"
 #: ../plugins/file-manager/file-manager.glade.h:3
 msgid "Choose Directory to show if no project is open"
 msgstr ""
-"Das Verzeichnis, welche angezeigt werden soll, wenn kein Projekt geöffnet "
+"Den Ordner, der angezeigt werden soll wenn kein Projekt geöffnet "
 "ist, auswählen"
 
 #: ../plugins/file-manager/file-manager.glade.h:4
@@ -3550,7 +3555,7 @@ msgstr "Dateien ohne Version nicht zeigen"
 
 #: ../plugins/file-manager/file-manager.glade.h:8
 msgid "Root directory if no project is open:"
-msgstr "Wurzelverzeichnis, wenn kein Projekt geöffnet ist"
+msgstr "Wurzelordner, wenn kein Projekt geöffnet ist"
 
 #: ../plugins/file-manager/file-model.c:119
 msgid "Loading..."
@@ -3586,7 +3591,7 @@ msgstr "_Umbenennen"
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
-msgstr "Datei oder /Verzeichnis umbenennen"
+msgstr "Datei oder Ordner umbenennen"
 
 #: ../plugins/file-manager/plugin.c:285
 msgid "File manager popup actions"
@@ -4442,7 +4447,7 @@ msgstr "<b>URL:</b>"
 #: ../plugins/git/anjuta-git.glade.h:30
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
-msgstr "<b>Änderungen für Datei/Verzeichnis anzeigen:</b>"
+msgstr "<b>Änderungen für Datei/Ordner anzeigen:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:31
 msgid "Add File"
@@ -4804,227 +4809,227 @@ msgstr "Git: Dateien zurücknehmen."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
+#: ../plugins/git/plugin.c:58 ../plugins/git/plugin.c:403
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:66 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "Ein_spielen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:73
+#: ../plugins/git/plugin.c:74
 msgid "_Fetch"
 msgstr "_Holen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:81
+#: ../plugins/git/plugin.c:82
 msgid "_Rebase"
 msgstr "_Basis umstellen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
+#: ../plugins/git/plugin.c:90 ../plugins/git/plugin.c:186
 msgid "_Start..."
 msgstr "_Start ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:97
+#: ../plugins/git/plugin.c:98
 msgid "_Continue"
 msgstr "_Fortsetzen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:105
+#: ../plugins/git/plugin.c:106
 msgid "_Skip"
 msgstr "_Überspringen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:113
+#: ../plugins/git/plugin.c:114
 msgid "_Abort"
 msgstr "_Abbrechen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:121
+#: ../plugins/git/plugin.c:122
 msgid "_Pull..."
 msgstr "_Ziehen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:129
+#: ../plugins/git/plugin.c:130
 msgid "_Unstage files..."
 msgstr "Dateien _zurücknehmen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:137
+#: ../plugins/git/plugin.c:138
 msgid "_Check out files..."
 msgstr "_Arbeitskopie erstellen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:145
+#: ../plugins/git/plugin.c:146
 msgid "_Resolve conflicts..."
 msgstr "Kon_flikte auflösen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:153
+#: ../plugins/git/plugin.c:154
 msgid "Create patch series..."
 msgstr "Serie von Patchen erstellen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
+#: ../plugins/git/plugin.c:162 ../plugins/git/plugin.c:359
 msgid "_Reset tree..."
 msgstr "Baum _zurücksetzen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:170 ../plugins/git/plugin.c:367
 msgid "_Revert commit..."
 msgstr "Commit _zurücknehmen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:178 ../plugins/git/plugin.c:375
 #, fuzzy
 msgid "_Bisect"
 msgstr "_Zweiteilen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:201
+#: ../plugins/git/plugin.c:202
 msgid "_Good"
 msgstr "_Gut"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:209
+#: ../plugins/git/plugin.c:210
 msgid "_Bad"
 msgstr "_Schlecht"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
+#: ../plugins/git/plugin.c:218 ../plugins/git/plugin.c:411
 msgid "_View log..."
 msgstr "Änderungen _anzeigen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
-#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:226 ../plugins/git/plugin.c:291
+#: ../plugins/git/plugin.c:419 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Hinzufügen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/git/plugin.c:234 ../plugins/git/plugin.c:427
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "_Entfernen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:241
+#: ../plugins/git/plugin.c:242
 msgid "_Ignore..."
 msgstr "_ignorieren ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
+#: ../plugins/git/plugin.c:251 ../plugins/git/plugin.c:343
 msgid "_Create branch..."
 msgstr "Zweig _erstellen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:258
+#: ../plugins/git/plugin.c:259
 msgid "_Delete branch..."
 msgstr "Zweig _löschen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:266
+#: ../plugins/git/plugin.c:267
 msgid "_Switch to another branch..."
 msgstr "Zu einem anderen Zweig _wechseln ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:274
+#: ../plugins/git/plugin.c:275
 msgid "_Merge..."
 msgstr "_Zusammenführen …"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:282
+#: ../plugins/git/plugin.c:283
 msgid "_Remote branches"
 msgstr "_Entfernten Zweig"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:298
+#: ../plugins/git/plugin.c:299
 msgid "_Delete..."
 msgstr "_Löschen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
+#: ../plugins/git/plugin.c:307 ../plugins/git/plugin.c:351
 msgid "_Create tag..."
 msgstr "Marke _erstellen ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:314
+#: ../plugins/git/plugin.c:315
 msgid "_Diff uncommitted changes"
 msgstr "Differenz_datei der nicht eingespielten Änderungen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:326
+#: ../plugins/git/plugin.c:327
 msgid "_Show commit diff"
 msgstr "_DIfferenzen zum Einspielen anzeigen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:334
+#: ../plugins/git/plugin.c:335
 msgid "_View selected revision"
 msgstr "Markierte Revision _anzeigen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:382
+#: ../plugins/git/plugin.c:383
 #, fuzzy
 msgid "_Set good revision"
 msgstr "Gute Revision _setzen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:391
 #, fuzzy
 msgid "_Set bad revision"
 msgstr "Schlechte Revision _setzen"
 
-#: ../plugins/git/plugin.c:580
+#: ../plugins/git/plugin.c:581
 msgid "Git operations"
 msgstr "Vorgänge von Git"
 
-#: ../plugins/git/plugin.c:585
+#: ../plugins/git/plugin.c:586
 msgid "Git log operations"
 msgstr "Änderungsvorgänge von Git"
 
-#: ../plugins/git/plugin.c:590
+#: ../plugins/git/plugin.c:591
 msgid "Git FM operations"
 msgstr "FM-Vorgänge von Git"
 
-#: ../plugins/git/plugin.c:605
+#: ../plugins/git/plugin.c:606
 msgid "Git Log"
 msgstr "Protokoll von Git"
 
@@ -5981,7 +5986,7 @@ msgstr "Nächste/Vorherige Nachricht"
 
 #: ../plugins/patch/patch-plugin.c:88
 msgid "File/Directory to patch"
-msgstr "Datei/Verzeichnis, auf welches der Patch angewendet werden soll"
+msgstr "Datei/Ordner, auf welche der Patch angewendet werden soll"
 
 #: ../plugins/patch/patch-plugin.c:91
 msgid "Patch file"
@@ -5998,7 +6003,7 @@ msgstr "Patch"
 #: ../plugins/patch/patch-plugin.c:174
 msgid "Please select the directory where the patch should be applied"
 msgstr ""
-"Bitte wählen Sie das Verzeichnis, in dem der Patch angewendet werden soll"
+"Bitte wählen Sie den Ordner, in dem der Patch angewendet werden soll"
 
 #: ../plugins/patch/patch-plugin.c:185
 #, c-format
@@ -6064,7 +6069,7 @@ msgstr "_Patch einspielen …"
 
 #: ../plugins/patch/plugin.c:92
 msgid "Patch files/directories"
-msgstr "Dateien/Verzeichnisse patchen"
+msgstr "Dateien/Ordner patchen"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:312
 #: ../plugins/profiler/gprof-call-graph-view.c:322
@@ -6338,7 +6343,7 @@ msgstr "<b>Geben Sie den Projektnamen ein:</b>"
 
 #: ../plugins/project-import/project-import.c:269
 msgid "<b>Enter the base path of your project:</b>"
-msgstr "<b>Geben Sie das Wurzelverzeichnis des Projektes an:</b>"
+msgstr "<b>Geben Sie den Wurzelordner des Projektes an:</b>"
 
 #: ../plugins/project-import/project-import.c:274
 msgid "Select project directory"
@@ -6372,7 +6377,7 @@ msgid ""
 "to the project directory."
 msgstr ""
 "Die Datei »%s« konnte nicht geschrieben werden: %s. Überprüfen Sie, ob sie "
-"Schreibrechte für das Projekt-Verzeichnis besitzen."
+"Schreibrechte für den Projektordner besitzen."
 
 #: ../plugins/project-manager/create_dialogs.glade.h:1
 msgid "Add Source"
@@ -6484,7 +6489,7 @@ msgstr "Zieleigenschaften"
 
 #: ../plugins/project-manager/plugin.c:435
 msgid "Group properties"
-msgstr "Unterverzeichnis-eigenschaften"
+msgstr "Unterordnereigenschaften"
 
 #: ../plugins/project-manager/plugin.c:459
 msgid "No properties available for this target"
@@ -6500,7 +6505,7 @@ msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
 msgstr ""
-"Sind Sie sicher, dass das folgendes Unterverzeichnis aus der "
+"Sind Sie sicher, dass der folgendes Unterordner aus der "
 "Projektdatenbank entfernt werden soll?\n"
 "\n"
 
@@ -6511,9 +6516,9 @@ msgid ""
 "\n"
 "The group will not be deleted from file system."
 msgstr ""
-"Unterverzeichnis: %s\n"
+"Unterordner: %s\n"
 "\n"
-"Das Unterverzeichnis wird nicht im Dateisystem gelöscht werden."
+"Der Unterordner wird nicht im Dateisystem gelöscht werden."
 
 #: ../plugins/project-manager/plugin.c:667
 msgid ""
@@ -6581,15 +6586,15 @@ msgid "Refresh project manager tree"
 msgstr "Projektdatenbank neu aufbauen"
 
 # Zum besseren Verständnis IMHO, denn Gruppen
-# sind Unterverzeichnisse
+# sind Unterordner
 #: ../plugins/project-manager/plugin.c:836
 msgid "Add _Group..."
-msgstr "_Unterverzeichnis hinzufügen …"
+msgstr "_Unterordner hinzufügen …"
 
 #: ../plugins/project-manager/plugin.c:836
 #: ../plugins/project-manager/plugin.c:870
 msgid "Add a group to project"
-msgstr "Ein Unterverzeichnis zum Project hinzufügen …"
+msgstr "Einen Unterordner zum Projekt hinzufügen …"
 
 #: ../plugins/project-manager/plugin.c:841
 msgid "Add _Target..."
@@ -6620,7 +6625,7 @@ msgstr "Projekt schließen"
 
 #: ../plugins/project-manager/plugin.c:860
 msgid "Properties of group/target/source"
-msgstr "Eigenschaften von Unterverzeichnis/Ziel/Quelle"
+msgstr "Eigenschaften von Unterordner/Ziel/Quelle"
 
 #: ../plugins/project-manager/plugin.c:865
 msgid "_Add To Project"
@@ -6628,7 +6633,7 @@ msgstr "Zum Projekt _hinzufügen"
 
 #: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group"
-msgstr "_Unterverzeichnis hinzufügen"
+msgstr "_Unterordner hinzufügen"
 
 #: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target"
@@ -6752,7 +6757,7 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"Das Verzeichnis »%s« ist nicht leer. Das Projekt kann eventuell nicht richtig "
+"Der Ordner »%s« ist nicht leer. Das Projekt kann eventuell nicht richtig "
 "erstellt werden, falls einige Dateien nicht geschrieben werden können. "
 "Vorgang fortsetzen?"
 
@@ -6833,17 +6838,17 @@ msgstr "Neues Projekte konnte nicht erstellt werden."
 #: ../plugins/project-wizard/install.c:462
 #, c-format
 msgid "Skipping %s: file already exists"
-msgstr "Überspringe %s: Die Datei existiert bereits"
+msgstr "%s wird übersprungen: Die Datei existiert bereits"
 
 #: ../plugins/project-wizard/install.c:503
 #, c-format
 msgid "Creating %s ... Fail to create directory"
-msgstr "Erstelle %s … Verzeichnis konnte nicht erstellt werden"
+msgstr "%s wird erstellt … Ordner konnte nicht erstellt werden"
 
 #: ../plugins/project-wizard/install.c:519
 #, c-format
 msgid "Creating %s (using AutoGen)... %s"
-msgstr "Erstelle %s (durch AutoGen) … %s"
+msgstr "%s wird erstellt (durch AutoGen) … %s"
 
 #: ../plugins/project-wizard/install.c:524
 #, c-format
@@ -6868,7 +6873,7 @@ msgstr "Nein"
 
 #: ../plugins/project-wizard/property.c:299
 msgid "Select directory"
-msgstr "Verzeichnis auswählen"
+msgstr "Ordner auswählen"
 
 #: ../plugins/project-wizard/property.c:307
 msgid "Select file"
@@ -6876,7 +6881,7 @@ msgstr "Datei auswählen"
 
 #: ../plugins/project-wizard/property.c:383
 msgid "Choose directory"
-msgstr "Verzeichnis auswählen"
+msgstr "Ordner auswählen"
 
 #: ../plugins/project-wizard/property.c:387
 msgid "Choose file"
@@ -7208,11 +7213,11 @@ msgstr "Projektname:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Project directory, output file etc."
-msgstr "Projekt-Verzeichnis, Ausgabedateien, etc."
+msgstr "Projektordner, Ausgabedateien, etc."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Project directory:"
-msgstr "Projektverzeichnis:"
+msgstr "Projektordner:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid ""
@@ -7345,7 +7350,7 @@ msgstr "Projektname"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:2
 msgid "Choose a working directory"
-msgstr "Legen Sie ein Arbeitsverzeichnis fest"
+msgstr "Legen Sie einen Arbeitsordner fest"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:3
 msgid "Environment Variables:"
@@ -7365,7 +7370,7 @@ msgstr "Im Terminal ausführen"
 
 #: ../plugins/run-program/anjuta-run-program.glade.h:7
 msgid "Working Directory:"
-msgstr "Arbeitsverzeichnis:"
+msgstr "Arbeitsordner:"
 
 #: ../plugins/run-program/execute.c:76
 #, c-format
@@ -7930,7 +7935,7 @@ msgstr "Einfaches Suchen und Ersetzen"
 
 #: ../plugins/search/anjuta-search.glade.h:10
 msgid "Choose Directories:"
-msgstr "Verzeichnisse auswählen:"
+msgstr "Ordner auswählen:"
 
 #: ../plugins/search/anjuta-search.glade.h:11
 msgid "Choose Files:"
@@ -7967,7 +7972,7 @@ msgstr "Binärdateien ignorieren"
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Directories:"
-msgstr "Verzeichnisse ignorieren:"
+msgstr "Ordner ignorieren:"
 
 # ??
 #: ../plugins/search/anjuta-search.glade.h:19
@@ -7976,7 +7981,7 @@ msgstr "Dateien ignorieren:"
 
 #: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Hidden Directories"
-msgstr "Versteckte Verzeichnisse ignorieren"
+msgstr "Versteckte Ordner ignorieren"
 
 #: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Files"
@@ -8093,7 +8098,7 @@ msgstr "In _Dateien Suchen  …"
 
 #: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
-msgstr "Eine Zeichenkette in mehreren Dateien oder Verzeichnissen suchen"
+msgstr "Eine Zeichenkette in mehreren Dateien oder Ordnern suchen"
 
 #: ../plugins/search/plugin.c:102
 msgid "Searching..."
@@ -8169,35 +8174,35 @@ msgstr "Ersetzen"
 msgid "Search complete"
 msgstr "Suche komplett"
 
-#: ../plugins/search/search-replace.c:1040
-#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1039
+#: ../plugins/search/search-replace.c:1723
 msgid "Replace All"
 msgstr "Alle Ersetzen"
 
-#: ../plugins/search/search-replace.c:1079
+#: ../plugins/search/search-replace.c:1078
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "Die Zeichenkette »%s« wurde nicht gefunden. Suche am Anfang des Dokumentes "
 "fortsetzen?"
 
-#: ../plugins/search/search-replace.c:1099
+#: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Die Zeichenkette \"%s\" wurde nicht gefunden"
 
-#: ../plugins/search/search-replace.c:1114
+#: ../plugins/search/search-replace.c:1113
 msgid "The maximum number of results has been reached."
 msgstr "Die Höchstanzahl an Ergebnissen wurde erreicht."
 
-#: ../plugins/search/search-replace.c:1127
+#: ../plugins/search/search-replace.c:1126
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "%d Treffer sind ersetzt worden."
 msgstr[1] "%d Treffer sind ersetzt worden."
 
-#: ../plugins/search/search-replace.c:1293
+#: ../plugins/search/search-replace.c:1292
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Konnte die Oberfläche für »Suchen und Ersetzen« nicht erstellen"
 
@@ -8363,11 +8368,11 @@ msgstr "<b>End-Revision:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "<b>File or directory to diff:</b>"
-msgstr "<b>Datei oder Verzeichnis das verglichen werden soll:</b>"
+msgstr "<b>Datei/Ordner, die verglichen werden soll:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "<b>File/URL to Remove:</b>"
-msgstr "<b>Datei/URL die entfernt werden soll:</b>"
+msgstr "<b>Datei/URL, die entfernt werden soll:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "<b>First Path:</b>"
@@ -8399,7 +8404,7 @@ msgstr "<b>Arbeitskopie-Pfad:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Add file/directory"
-msgstr "Datei/Verzeichnis hinzufügen"
+msgstr "Datei/Ordner hinzufügen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Copy files/folders"
@@ -8411,7 +8416,7 @@ msgstr "Gewählte Versionen vergleichen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:28
 msgid "Diff file/directory"
-msgstr "Datei/Verzeichnis vergleichen"
+msgstr "Datei/Ordner vergleichen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
@@ -8447,7 +8452,7 @@ msgstr "Diese Entscheidung merken"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Remove file/directory"
-msgstr "Datei/Verzeichnis entfernen"
+msgstr "Datei/Ordner entfernen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Repository Head"
@@ -8483,7 +8488,7 @@ msgstr "Server vertrauen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Update file/directory"
-msgstr "Datei/Verzeichnis aktualisieren"
+msgstr "Datei/Ordner aktualisieren"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
@@ -8519,13 +8524,13 @@ msgstr "_Subversion"
 #. short-cut
 #: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
-msgstr "Neue Datei/Verzeichnis zum Subversion-Baum hinzufügen"
+msgstr "Neue Datei/neuen Ordner zum Subversion-Baum hinzufügen"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
-msgstr "Datei/Verzeichnis aus dem Subversion-Baum entfernen"
+msgstr "Datei/Ordner aus dem Subversion-Baum entfernen"
 
 #. Display label
 #. short-cut
@@ -8573,7 +8578,7 @@ msgstr "Ihre lokale Kopie mit dem Subversion-Baum abgleichen"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:108
 msgid "Copy Files/Folders..."
-msgstr "Dateien/Verzeichnisse kopieren …"
+msgstr "Dateien/Ordner kopieren …"
 
 #. Display label
 #. short-cut
@@ -8976,7 +8981,7 @@ msgstr "Variablenliste"
 
 #: ../plugins/tools/anjuta-tools.glade.h:19
 msgid "Working directory:"
-msgstr "Arbeitsverzeichnis:"
+msgstr "Arbeitsordner:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "_Variable..."
@@ -9047,10 +9052,6 @@ msgstr "Konnte Benutzeroberfläche für Werkzeug-Editor nicht erstellen"
 #, c-format
 msgid "Opening %s"
 msgstr "%s wird geöffnet"
-
-#: ../plugins/tools/execute.c:334
-msgid "error:"
-msgstr "Fehler:"
 
 #. This is append to the tool name to give something
 #. * like "My tools (output)". It's used to name the message
@@ -9579,7 +9580,7 @@ msgstr ""
 
 #: ../src/anjuta.glade.h:9
 msgid "Default project directory:"
-msgstr "Vorgabe-Projektverzeichnis:"
+msgstr "Vorgabe-Projektordner:"
 
 #: ../src/anjuta.glade.h:10
 msgid "Developer email address:"
@@ -9605,7 +9606,7 @@ msgstr "Stil der Dock-Wechselknöpfe:"
 
 #: ../src/anjuta.glade.h:17
 msgid "Select projects directory"
-msgstr "Das Projekteverzeichnis auswählen"
+msgstr "Den Projekteordner auswählen"
 
 #: ../src/anjuta.glade.h:18
 msgid ""
@@ -10003,7 +10004,7 @@ msgstr "Patch-Komponente"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
 msgid "Patches files and directories."
-msgstr "Spielt Patches auf Dateien/Verzeichnisse ein"
+msgstr "Patches auf Dateien/Ordner anwenden"
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
@@ -10011,7 +10012,7 @@ msgstr "Externe Programme aus Anjuta heraus benutzen"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:1
 msgid "Sample Plugin"
-msgstr "Beispiel Komponente"
+msgstr "Beispielkomponente"
 
 #: ../plugins/sample1/anjuta-sample.plugin.in.h:2
 msgid "Sample Plugin for Anjuta."
@@ -10351,10 +10352,10 @@ msgstr "Autotools-Backend für die Projektverwaltung"
 #~ msgstr "Symbol"
 
 #~ msgid "Directories to scan"
-#~ msgstr "Abzusuchende Verzeichnisse"
+#~ msgstr "Abzusuchende Ordner"
 
 #~ msgid "Please enter a name and at least one directory."
-#~ msgstr "Bitte geben Sie einen Namen und mindestens ein Verzeichnis ein."
+#~ msgstr "Bitte geben Sie einen Namen und mindestens einen Ordner ein."
 
 #~ msgid "Anjuta tags files"
 #~ msgstr "Anjuta-Symbol-Datei"
@@ -10378,10 +10379,10 @@ msgstr "Autotools-Backend für die Projektverwaltung"
 #~ msgstr "<b>API-Tags erstellen:</b>"
 
 #~ msgid "Add Directory"
-#~ msgstr "Verzeichnis hinzufügen"
+#~ msgstr "Ordner hinzufügen"
 
 #~ msgid "Add directories in the list to scan:"
-#~ msgstr "Verzeichnisse, die durchsucht werden sollen, hinzufügen:"
+#~ msgstr "Ordner, die durchsucht werden sollen, hinzufügen:"
 
 #~ msgid "Create API tags"
 #~ msgstr "API-Tags erstellen"
@@ -10496,7 +10497,7 @@ msgstr "Autotools-Backend für die Projektverwaltung"
 #~ msgstr "Schließen"
 
 #~ msgid "No properties available for this group"
-#~ msgstr "Keine Eigenschaften für dieses Unterverzeichnis verfügbar"
+#~ msgstr "Keine Eigenschaften für diesen Unterordner verfügbar"
 
 #~ msgid "Could not obtain backup filename"
 #~ msgstr "Backup-Dateiname konnte nicht erhalten werden"
