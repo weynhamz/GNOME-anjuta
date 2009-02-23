@@ -1,11 +1,12 @@
 # German translation for anjuta.
 # Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
-# Hendrik Richter <hendrikr@gnome.org>, 2005.
+# Hendrik Richter <hendrikr@gnome.org>, 2005, 2007, 2009.
 # Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2007.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008, 2009.
+#
 # folgende Kommentare:
 # ?? keinen Plan wie zu übersetzen
 # -- braucht m.E. nicht übersetzt zu werden
@@ -17,14 +18,14 @@
 # Auf neue deutsche Rechtschreibreform achten!!
 # Display... != Zeigt...an (Bitte aufpassen, ist hier besonders wichtig!)
 # Auf Unterschied achten: show/display == zeigen/anzeigen
-# Plugins == Komponenten! (Ja, im Gegensatz zur Standard-Übersetzung macht hier Komponenten viel mehr Sinn!Hendrik Richter <hendrikr@gnome.org>, 2007.
+# Plugins == Komponenten! (Ja, im Gegensatz zur Standard-Übersetzung macht hier Komponenten viel mehr Sinn!
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 18:01+0100\n"
-"PO-Revision-Date: 2009-02-23 18:21+0100\n"
+"PO-Revision-Date: 2009-02-23 18:23+0100\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -313,8 +314,7 @@ msgstr "Verfügbare Komponenten"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2294
 msgid "Currently available plugins found in plugin paths"
-msgstr ""
-"Verfügbare Komponenten, die in Komponenten-Ordnern gefunden wurden."
+msgstr "Verfügbare Komponenten, die in Komponenten-Ordnern gefunden wurden."
 
 #: ../libanjuta/anjuta-plugin-manager.c:2300
 msgid "Activated plugins"
@@ -1284,8 +1284,7 @@ msgstr "Datei oder Ordner für das Protokoll auswählen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to get the status from:"
-msgstr ""
-"Datei oder Ordner, dessen Status ermittelt werden soll, aussuchen:"
+msgstr "Datei oder Ordner, dessen Status ermittelt werden soll, aussuchen:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to remove:"
@@ -3534,8 +3533,8 @@ msgstr "<b>Global</b>"
 #: ../plugins/file-manager/file-manager.glade.h:3
 msgid "Choose Directory to show if no project is open"
 msgstr ""
-"Den Ordner, der angezeigt werden soll wenn kein Projekt geöffnet "
-"ist, auswählen"
+"Den Ordner, der angezeigt werden soll wenn kein Projekt geöffnet ist, "
+"auswählen"
 
 #: ../plugins/file-manager/file-manager.glade.h:4
 msgid "Do not show backup files"
@@ -6002,8 +6001,7 @@ msgstr "Patch"
 
 #: ../plugins/patch/patch-plugin.c:174
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
-"Bitte wählen Sie den Ordner, in dem der Patch angewendet werden soll"
+msgstr "Bitte wählen Sie den Ordner, in dem der Patch angewendet werden soll"
 
 #: ../plugins/patch/patch-plugin.c:185
 #, c-format
@@ -6505,8 +6503,8 @@ msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
 msgstr ""
-"Sind Sie sicher, dass der folgendes Unterordner aus der "
-"Projektdatenbank entfernt werden soll?\n"
+"Sind Sie sicher, dass der folgendes Unterordner aus der Projektdatenbank "
+"entfernt werden soll?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:664
