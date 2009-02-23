@@ -781,10 +781,16 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 			indicator = IANJUTA_INDICABLE_WARNING;
 		}
-		else
+		else if ((strstr (line, "error:") != NULL) ||
+		          (strstr (line, _("error:")) != NULL))
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 			indicator = IANJUTA_INDICABLE_CRITICAL;
+		}
+		else
+		{
+			type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+			indicator = IANJUTA_INDICABLE_IMPORTANT;
 		}
 		
 		mid_str = strstr (line, dummy_fn);
