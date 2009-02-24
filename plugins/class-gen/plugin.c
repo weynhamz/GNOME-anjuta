@@ -179,33 +179,19 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	GList *filenames;
 	GList *added_files;
 	GList *node;
-	gchar *dirname;
-	gchar *curdir;
 	gboolean result;
 
 	manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                      IAnjutaProjectManager, NULL);
        
-	if (manager == NULL) return FALSE;
-
-	curdir = g_get_current_dir ();
+	if (manager == NULL) 
+		return FALSE;
 
 	filenames = NULL;
 	filenames = g_list_append (filenames, g_path_get_basename (header_file));
 	filenames = g_list_append (filenames, g_path_get_basename (source_file));
-	dirname = g_path_get_dirname (source_file);
-
-	if (dirname != NULL && strcmp (dirname, ".") != 0)
-	{
-		added_files = ianjuta_project_manager_add_sources (manager, filenames,
-														   dirname, NULL);
-	}
-	else
-	{
-		added_files = ianjuta_project_manager_add_sources (manager, filenames,
-														   curdir, NULL);
-	}
-
+	added_files = ianjuta_project_manager_add_sources (manager, filenames,
+	                                                   plugin->top_dir, NULL);
 	if (g_list_length (added_files) != 2)
 	{
 		for (node = added_files; node != NULL; node = g_list_next (node))
@@ -227,8 +213,6 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 		result = TRUE;
 	}
 
-	g_free (curdir);
-	g_free (dirname);
 	g_list_foreach (added_files, (GFunc)g_free, NULL);
 	g_list_free (added_files);
 	g_list_free (filenames);
@@ -238,8 +222,8 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 
 static void
 cg_plugin_add_to_repository (AnjutaClassGenPlugin *plugin,
-                             const gchar *header_file,
-                             const gchar *source_file)
+                             GFile *header_file,
+                             GFile *source_file)
 {
 	IAnjutaVcs *vcs;
 	vcs = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
@@ -248,10 +232,10 @@ cg_plugin_add_to_repository (AnjutaClassGenPlugin *plugin,
 	if(vcs != NULL)
 	{
 		GList* files = NULL;
-		files = g_list_append (files, g_file_new_for_path (header_file));
-		files = g_list_append (files, g_file_new_for_path (source_file));		
-		ianjuta_vcs_add (vcs, files, NULL, NULL);
-		g_list_foreach (files, (GFunc) g_object_unref, NULL);
+		AnjutaAsyncNotify* notify = anjuta_async_notify_new ();
+		files = g_list_append (files, header_file);
+		files = g_list_append (files, source_file);
+		ianjuta_vcs_add (vcs, files, notify, NULL);
 		g_list_free (files);
 	}
 }
@@ -324,18 +308,19 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaFileLoader, NULL);
-
-	if (cg_window_get_add_to_repository (plugin->window))
-	{
-		cg_plugin_add_to_repository (plugin, header_file, source_file);
-	}
-
+	
 	if (cg_window_get_add_to_project (plugin->window))
 	{
 		GFile* header = g_file_new_for_path (header_file);
 		GFile* source = g_file_new_for_path (source_file);
 		ianjuta_file_loader_load (loader, header, FALSE, NULL);
 		ianjuta_file_loader_load (loader, source, FALSE, NULL);
+
+		if (cg_window_get_add_to_repository (plugin->window))
+		{
+			cg_plugin_add_to_repository (plugin, header, source);
+		}
+		
 		g_object_unref (header);
 		g_object_unref (source);
 	}

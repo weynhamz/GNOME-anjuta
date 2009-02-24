@@ -1,3 +1,12 @@
+2009-02-25  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/class-gen/plugin.c (cg_plugin_add_to_project),
+	(cg_plugin_add_to_repository), (cg_plugin_generator_created_cb):
+	* plugins/class-gen/window.c (cg_window_add_project_toggled_cb),
+	(cg_window_cc_name_changed_cb), (cg_window_get_add_to_repository):
+	Fixed serveral issues in class-gen plugin, including the add to 
+	repository feature.
+
 2009-02-24  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/anjuta-utils.c:

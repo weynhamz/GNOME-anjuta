@@ -351,8 +351,10 @@ cg_window_add_project_toggled_cb (GtkToggleButton *button,
 
 	if (gtk_toggle_button_get_active (button) == FALSE)
 	{
-		gtk_widget_set_sensitive (glade_xml_get_widget(
-			priv->gxml, "add_repository"), FALSE);
+		GtkWidget* widget = glade_xml_get_widget(priv->gxml, "add_repository");
+		gtk_widget_set_sensitive (widget, FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
+		                              FALSE);
 	}
 	else
 	{
@@ -383,8 +385,8 @@ cg_window_cc_name_changed_cb (GtkEntry *entry,
 	str_filebase = cg_window_class_name_to_file_name (
 		gtk_entry_get_text (GTK_ENTRY (entry)));
 
-	str_fileheader = g_strconcat (str_filebase, ".hpp", NULL);
-	str_filesource = g_strconcat (str_filebase, ".cpp", NULL);
+	str_fileheader = g_strconcat (str_filebase, ".h", NULL);
+	str_filesource = g_strconcat (str_filebase, ".cc", NULL);
 	g_free (str_filebase);
 	
 	gtk_entry_set_text (GTK_ENTRY (file_header), str_fileheader);
@@ -1135,14 +1137,7 @@ gboolean
 cg_window_get_add_to_repository (CgWindow *window)
 {
 	CgWindowPrivate *priv;
-	GtkWidget *button;
 	priv = CG_WINDOW_PRIVATE (window);
-
-	/* It can happen that the checkbox is checked and then somehow
-	 * disabled (for example by unchecking add to project). In this
-	 * case add to repository should also be FALSE. */
-	button = glade_xml_get_widget (priv->gxml, "add_repository");
-	if (GTK_WIDGET_IS_SENSITIVE(button) == FALSE) return FALSE;
 
 	return cg_window_fetch_boolean (window, "add_repository");
 }
