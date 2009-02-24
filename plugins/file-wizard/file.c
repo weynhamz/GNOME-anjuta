@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-macro.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "plugin.h"
 #include "file.h"
@@ -108,6 +109,16 @@ static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
 static void insert_notice(IAnjutaMacro* macro, const gchar* license_type, gint comment_type);
 static void insert_header(IAnjutaMacro* macro, gint source_type);
 
+static void
+on_add_to_project_toggled (GtkWidget* toggle_button, NewFileGUI *gui)
+{
+	gboolean status = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(toggle_button));
+	gtk_widget_set_sensitive (gui->add_to_repository, status);
+	if (!status)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(gui->add_to_repository),
+		                              FALSE);
+}
+
 void
 display_new_file(AnjutaFileWizardPlugin *plugin,
 				 IAnjutaDocumentManager *docman)
@@ -129,6 +140,10 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
        if (manager)
 			caps = ianjuta_project_manager_get_capabilities (manager, NULL);
 	}
+
+	g_signal_connect (nfg->add_to_project, "toggled", 
+	                  G_CALLBACK(on_add_to_project_toggled),
+	                  nfg);
 	
 	if ((caps & IANJUTA_PROJECT_MANAGER_CAN_ADD_SOURCE) == FALSE) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
@@ -143,8 +158,6 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 	}
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_repository),
 								  FALSE);
-	/* FIXME: fix the problem with the repository add, then enable this check-button */
-	gtk_widget_set_sensitive (nfg->add_to_repository, FALSE);
 	
 	if (nfg && !(nfg->showing))
 	{
@@ -345,6 +358,26 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), file, NULL);		
 				g_object_unref (file);
 			}		
+
+
+			/* Add to repository */
+			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_repository)))
+			{
+				IAnjutaVcs* ivcs = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
+										 IAnjutaVcs, NULL);
+				if (ivcs)
+				{					
+					GList* files = NULL;
+					GList* node;
+					AnjutaAsyncNotify* notify = anjuta_async_notify_new();
+					for (node = uri_list; node != NULL; node = g_list_next (node))
+					{
+						files = g_list_append (files, g_file_new_for_uri (node->data));
+					}
+					ianjuta_vcs_add (ivcs, files, notify, NULL);
+					g_list_foreach (files, (GFunc) g_object_unref, NULL);
+				}
+			}
 			g_list_foreach (uri_list, (GFunc)g_free, NULL);
 			g_list_free (uri_list);
 		}

@@ -82,20 +82,20 @@ anjuta_util_from_file_to_file (GInputStream *istream,
 	
 	if (error)
 	{
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
 	
 	if (!g_output_stream_close (ostream, NULL, &error))
 	{
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
 	if (!g_input_stream_close (istream, NULL, &error))
 	{
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 	}
 }
@@ -1944,9 +1944,8 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 	gchar *path;
 	
 	path_list = NULL;
-	current_file = list;
 	
-	while (current_file)
+	for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 	{
 		path = g_file_get_path (current_file->data);
 		
@@ -1971,10 +1970,8 @@ anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
 	path_list = NULL;
 	
 	if (parent_file)
-	{
-		current_file = list;
-		
-		while (current_file)
+	{		
+		for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 		{
 			path = g_file_get_relative_path (parent_file, current_file->data);
 			
