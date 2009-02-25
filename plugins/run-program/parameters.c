@@ -683,8 +683,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 			g_list_free (exec_targets);
 		}
 	}
-	g_object_unref (model);
-
+	
 	if (plugin->recent_target != NULL)
 	{
 		gchar *local;
@@ -693,6 +692,24 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), local);
 		g_free (local);
 	}
+	else
+	{
+		GtkTreeIter iter;
+
+		if (gtk_tree_model_get_iter_first (model, &iter) &&
+			!gtk_tree_model_iter_next (model, &iter))
+		{
+			gchar *default_target;
+
+			gtk_tree_model_get_iter_first (model, &iter);
+			gtk_tree_model_get (model, &iter,
+								0, &default_target,
+								-1);
+			gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), default_target);
+			g_free (default_target);
+		}
+	}
+	g_object_unref (model);
 	
 	/* Fill environment variable list */
 	model = GTK_TREE_MODEL (gtk_list_store_new (ENV_N_COLUMNS,
@@ -732,24 +749,43 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	return dlg;
 }
 
+static gint
+run_parameters_dialog_or_try_execute (RunProgramPlugin *plugin, gboolean try_run)
+{
+	RunDialog dlg;
+	gint response;
+	
+	run_dialog_init (&dlg, plugin);
+	const char *target = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (dlg.target)->child));
+	if (try_run && target && *target)
+	{
+		save_dialog_data (&dlg);
+		return GTK_RESPONSE_APPLY;
+	}
+	else
+	{
+		response = gtk_dialog_run (GTK_DIALOG (dlg.win));
+		if (response == GTK_RESPONSE_APPLY)
+		{
+			save_dialog_data (&dlg);
+		}
+		gtk_widget_destroy (dlg.win);
+	}	
+
+	return response;
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
 gint
 run_parameters_dialog_run (RunProgramPlugin *plugin)
 {
-	RunDialog dlg;
-	gint response;
-	
-	run_dialog_init (&dlg, plugin);
-	
-	response = gtk_dialog_run (GTK_DIALOG (dlg.win));
-	if (response == GTK_RESPONSE_APPLY)
-	{
-		save_dialog_data (&dlg);
-	}
-	gtk_widget_destroy (dlg.win);
-	
-	return response;
+	return run_parameters_dialog_or_try_execute (plugin, FALSE);
 }
 
+gint
+run_parameters_dialog_or_execute (RunProgramPlugin *plugin)
+{
+	return run_parameters_dialog_or_try_execute (plugin, TRUE);
+}

@@ -1,5 +1,15 @@
 2009-02-25  Yuriy Penkin <yuriy.penkin@gmail.com>
 
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/run-program/plugin.c,
+	plugins/run-program/parameters.c,
+	plugins/run-program/parameters.h:
+	Fix #564306 – don't ask which program to run if project has only one
+	target
+
+2009-02-25  Yuriy Penkin <yuriy.penkin@gmail.com>
+
 	* plugins/sourceview/sourceview-io.c (on_save_finished):
 	#559806 – Anjuta crashes when closing unsaved file (Patch got lost somewhere)
 

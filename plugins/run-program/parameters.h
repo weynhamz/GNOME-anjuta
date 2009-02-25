@@ -24,5 +24,6 @@
 #include "plugin.h"
 
 gint run_parameters_dialog_run (RunProgramPlugin *plugin);
+gint run_parameters_dialog_or_execute (RunProgramPlugin *plugin);
 
 #endif
