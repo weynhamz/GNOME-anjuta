@@ -1,5 +1,16 @@
 2009-02-25  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/glade/anjuta-glade.plugin.in:
+	Also open xml files (as for gtkbuilder)
+	
+	* plugins/glade/plugin.c (on_document_destroy),
+	(update_separated_designer_layout), (glade_plugin_add_project),
+	(activate_plugin), (deactivate_plugin), (iwizard_activate):
+	- Fixed seperate layout
+	- Fixed duplciated entries in combo box and thus plugin deactivation
+
+2009-02-25  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/class-gen/plugin.c (cg_plugin_add_to_project),
 	(cg_plugin_add_to_repository), (cg_plugin_generator_created_cb):
 	* plugins/class-gen/window.c (cg_window_add_project_toggled_cb),
