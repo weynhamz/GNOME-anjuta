@@ -1,3 +1,13 @@
+2009-02-25  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_get_tuple_id_by_unique_name),
+	(sdb_engine_get_tuple_id_by_unique_name2),
+	(sdb_engine_get_tuple_id_by_unique_name3),
+	(sdb_engine_get_tuple_id_by_unique_name4):
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	fixed #572637 – Valgrind shows some errors in symbol-db.
+
 2009-02-25  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/glade/plugin.c (check_deactivation),

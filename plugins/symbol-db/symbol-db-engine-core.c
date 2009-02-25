@@ -754,7 +754,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	}
 
 	ret_value = gda_holder_take_static_value (param, param_value, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (param_value) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);		
@@ -834,7 +834,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value1, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -856,7 +856,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value2, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -929,7 +929,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value1, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -951,7 +951,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value2, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -973,7 +973,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value3, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -1048,7 +1048,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value1, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -1070,7 +1070,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value2, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -1091,7 +1091,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	}
 	
 	ret_value = gda_holder_take_static_value (param, value3, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);
@@ -1112,7 +1112,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	}
 
 	ret_value = gda_holder_take_static_value (param, value4, &ret_bool, NULL);	
-	if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+	if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
 	{
 		if (ret_value != NULL)
 			MP_RETURN_OBJ_STR(priv, ret_value);

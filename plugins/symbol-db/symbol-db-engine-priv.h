@@ -50,6 +50,7 @@
 #define MEMORY_POOL_STRING_SIZE			200
 #define MEMORY_POOL_INT_SIZE			200
 
+#define DUMMY_VOID_STRING				""
 
 #define USE_ASYNC_QUEUE
 #undef USE_ASYNC_QUEUE
@@ -61,6 +62,7 @@
 /*		DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
+	g_value_set_static_string (gvalue, DUMMY_VOID_STRING); \
 	g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
 /*	DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
 
@@ -76,7 +78,10 @@
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); 
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
+	g_value_set_static_string (gvalue, DUMMY_VOID_STRING); \
 	g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
+
+
 
 #define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_int); 
