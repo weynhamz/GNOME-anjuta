@@ -1,3 +1,8 @@
+2009-02-25  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/sourceview/sourceview-io.c (on_save_finished):
+	#559806 – Anjuta crashes when closing unsaved file (Patch got lost somewhere)
+
 2009-02-25  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/glade/anjuta-glade.plugin.in:
