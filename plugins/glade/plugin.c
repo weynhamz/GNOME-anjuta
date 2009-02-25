@@ -438,6 +438,14 @@ get_page_num_for_design_view (GladeDesignView *design_view, GladePlugin *plugin)
 }
 
 static void
+check_deactivation (GladePlugin* plugin)
+{
+	GtkTreeModel* model = model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
+	if (!plugin->priv->deactivating && gtk_tree_model_iter_n_children (model, NULL) <= 0)
+		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+}
+
+static void
 on_document_destroy (AnjutaDesignDocument* doc, GladePlugin *plugin)
 {
 	GladeProject *project;
@@ -478,8 +486,7 @@ on_document_destroy (AnjutaDesignDocument* doc, GladePlugin *plugin)
 
 	glade_do_close (plugin, project);
 
-	if (!plugin->priv->deactivating && gtk_tree_model_iter_n_children (model, NULL) <= 0)
-		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+	check_deactivation(plugin);
 }
 
 static void
@@ -4656,10 +4663,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	GList *glade_obj_node;
 	const gchar *project_name;
 	AnjutaDesignDocument *doc;
+	GladePlugin* plugin = ANJUTA_PLUGIN_GLADE (ifile);
 
 	g_return_if_fail (file != NULL);
 
-	priv = ANJUTA_PLUGIN_GLADE (ifile)->priv;
+	priv = plugin->priv;
 
 	filename = g_file_get_path (file);
 	if (!filename)
@@ -4668,7 +4676,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 								    _("Not local file: %s"), uri);
 		g_free (uri);
-		return;
+		check_deactivation(plugin);
 	}
 
 	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(ifile)->shell, IAnjutaDocumentManager,
@@ -4678,7 +4686,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	{
 		project = get_project_from_design_document (doc);
 		glade_app_set_project (project);
-		return;
+		check_deactivation(plugin);
 	}
 
 	project = glade_project_load (filename);
@@ -4689,7 +4697,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 								    _("Could not open %s"), name);
 		g_free (name);
-		return;
+		check_deactivation(plugin);
 	}
 	project_name = glade_project_get_name(project);
 

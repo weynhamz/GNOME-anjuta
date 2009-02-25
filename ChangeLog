@@ -1,3 +1,9 @@
+2009-02-25  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/glade/plugin.c (check_deactivation),
+	(on_document_destroy), (ifile_open):
+	Deactivate plugin if opening of project fails and no other projects are open
+
 2009-02-25  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/scintilla/text_editor_cbs.c,
