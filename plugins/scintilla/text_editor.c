@@ -246,6 +246,8 @@ text_editor_add_view (TextEditor *te)
 			    G_CALLBACK (on_text_editor_text_event), te);
 	g_signal_connect (G_OBJECT (scintilla), "button_press_event",
 			    G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_connect (G_OBJECT (scintilla), "key_release_event",
+			    G_CALLBACK (on_text_editor_text_keyrelease_event), te);
 	g_signal_connect_after (G_OBJECT (scintilla), "size_allocate",
 			    G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
 	g_signal_connect (G_OBJECT (scintilla), "sci-notify",
@@ -281,6 +283,8 @@ text_editor_remove_view (TextEditor *te)
 				G_CALLBACK (on_text_editor_text_event), te);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
 				G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_text_keyrelease_event), te);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
 				G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
@@ -592,6 +596,8 @@ text_editor_dispose (GObject *obj)
 						G_CALLBACK (on_text_editor_text_event), te);
 			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
 						G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_text_keyrelease_event), te);
 			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
 						G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
 			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),

@@ -70,6 +70,19 @@ on_text_editor_text_buttonpress_event (GtkWidget * widget,
 }
 
 gboolean
+on_text_editor_text_keyrelease_event (GtkWidget * widget,
+									   GdkEventKey * event,
+									   gpointer user_data)
+{
+    if (event->keyval == GDK_BackSpace)
+    {
+        TextEditor *te = user_data;
+        g_signal_emit_by_name(G_OBJECT(te), "backspace");
+    }
+	return FALSE;
+}
+
+gboolean
 on_text_editor_text_event (GtkWidget * widget,
 						   GdkEvent * event, gpointer user_data)
 {

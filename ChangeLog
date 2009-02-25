@@ -1,3 +1,10 @@
+2009-02-25  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/scintilla/text_editor_cbs.c,
+	plugins/scintilla/text_editor_cbs.h,
+	plugins/scintilla/text_editor.c:
+	Fix #567068 – autocomplete box should vanish on backspace
+
 2009-02-25  Yuriy Penkin <yuriy.penkin@gmail.com>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>

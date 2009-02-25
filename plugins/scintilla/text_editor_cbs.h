@@ -35,6 +35,11 @@ on_text_editor_text_buttonpress_event  (GtkWidget       *widget,
                                         GdkEventButton  *event,
                                         gpointer         user_data);
 
+gboolean
+on_text_editor_text_keyrelease_event  (GtkWidget       *widget,
+                                        GdkEventKey  *event,
+                                        gpointer         user_data);
+
 void
 on_text_editor_scintilla_notify(GtkWidget* sci,	gint wParam,
 								gpointer lParam, gpointer data);
