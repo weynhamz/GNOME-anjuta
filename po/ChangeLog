@@ -1,3 +1,8 @@
+2009-02-26  Johannes Schmid  <jhs@gnome.org>
+
+	* de.po: Corrected German translation as "Online" does obviously not mean
+	"Angemeldet" in this context (ok, who would know without a context...)
+
 2009-02-23  Hendrik Richter  <hendrikr@gnome.org>
 
 	* de.po: Updated German translation.

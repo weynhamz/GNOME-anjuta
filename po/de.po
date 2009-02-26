@@ -2549,7 +2549,7 @@ msgstr "Hilfe-Operationen"
 
 #: ../plugins/devhelp/plugin.c:355
 msgid "Online"
-msgstr "Angemeldet"
+msgstr "Internet"
 
 #: ../plugins/devhelp/plugin.c:396
 msgid "Contents"
