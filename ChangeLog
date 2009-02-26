@@ -1,3 +1,10 @@
+2009-02-26  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache):
+	Fixed a race condition hang if the idle handler is called while the user
+	already deleted some characters and the resulting pre_word is too short.
+
 2009-02-25  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-engine-core.c
