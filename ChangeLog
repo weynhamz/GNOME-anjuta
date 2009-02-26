@@ -1,5 +1,11 @@
 2009-02-26  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/debug-manager/sharedlib.c (create_sharedlibs_gui):
+	* plugins/debug-manager/signals.c (create_sharedlibs_gui):
+	Don't call set_size_request with values <= -1
+	
+2009-02-26  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c (create_breakpoint_gui):
 	* plugins/debug-manager/disassemble.c (create_disassemble_gui):
 	* plugins/debug-manager/memory.c (create_memory_gui):
