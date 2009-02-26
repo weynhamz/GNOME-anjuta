@@ -1,5 +1,16 @@
 2009-02-26  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/debug-manager/breakpoints.c (create_breakpoint_gui):
+	* plugins/debug-manager/disassemble.c (create_disassemble_gui):
+	* plugins/debug-manager/memory.c (create_memory_gui):
+	* plugins/debug-manager/registers.c (create_cpu_registers_gui):
+	Add some debugger windows with ANJUTA_PLACEMENT_NONE to avoid cluttering
+	UI when just loading the debugger. (IMHO few users will ever look at
+	disassemble/memory/registers and those most likely know how to enable those).
+	Needs latest gdl from svn trunk to avoid a stupid warning
+
+2009-02-26  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/cpp-java-assist.c
 	(cpp_java_assist_create_word_completion_cache):
 	Fixed a race condition hang if the idle handler is called while the user

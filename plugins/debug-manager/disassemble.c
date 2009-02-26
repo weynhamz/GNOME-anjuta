@@ -849,7 +849,7 @@ create_disassemble_gui (DmaDisassemble *self)
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (self->plugin)->shell,
 							 self->window,
                              "AnjutaDebuggerDisassemble", _("Disassembly"),
-                             NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
+                             NULL, ANJUTA_SHELL_PLACEMENT_NONE,
 							 NULL);
 
 	return TRUE;

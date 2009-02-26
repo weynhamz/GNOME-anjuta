@@ -1974,7 +1974,7 @@ create_breakpoint_gui(BreakpointsDBase *bd)
 	anjuta_shell_add_widget (ANJUTA_PLUGIN(bd->plugin)->shell,
 							 bd->window,
 							 "AnjutaDebuggerBreakpoints", _("Breakpoints"),
-							 ANJUTA_STOCK_BREAKPOINT_ENABLED, ANJUTA_SHELL_PLACEMENT_BOTTOM,
+							 ANJUTA_STOCK_BREAKPOINT_ENABLED, ANJUTA_SHELL_PLACEMENT_NONE,
 							 NULL);
 
 	/* Add popup menu */

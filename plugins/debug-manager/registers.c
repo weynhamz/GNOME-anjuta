@@ -487,7 +487,7 @@ create_cpu_registers_gui (CpuRegisters *self)
 	anjuta_shell_add_widget (self->plugin->shell,
 							 self->window,
                              "AnjutaDebuggerRegisters", _("Registers"),
-                             NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
+                             NULL, ANJUTA_SHELL_PLACEMENT_NONE,
 							 NULL);
 
 	return TRUE;
