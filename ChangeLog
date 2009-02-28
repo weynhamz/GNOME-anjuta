@@ -1,3 +1,8 @@
+2009-02-28  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c:
+	Fix #573326 – Debug misfunction
+
 2009-02-26  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/debug-manager/sharedlib.c (create_sharedlibs_gui):

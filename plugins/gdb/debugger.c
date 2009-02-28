@@ -769,6 +769,10 @@ debugger_set_environment (Debugger *debugger, gchar **variables)
 			g_free (buff);
 		}
 	}
+	else
+	{
+		debugger_emit_ready (debugger);
+	}
 	
 	return TRUE;
 }
