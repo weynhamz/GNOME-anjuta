@@ -527,8 +527,11 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 												 MAX_COMPLETIONS);
 	
 	cpp_java_assist_destroy_completion_cache (assist, FALSE);
+
+	if (!assist->priv->pre_word || strlen(assist->priv->pre_word) < 3)
+		return FALSE;
 	
-	if (!assist->priv->editor_only && assist->priv->pre_word && strlen(assist->priv->pre_word) > 3)
+	if (!assist->priv->editor_only)
 	{
 		gchar *pattern = g_strconcat (assist->priv->pre_word, "%", NULL);
 		

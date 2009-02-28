@@ -1,3 +1,9 @@
+2009-02-28  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_create_word_completion_cache):
+	Little correction on the hang check
+
 2009-02-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c:
