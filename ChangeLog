@@ -1,3 +1,40 @@
+2009-02-28  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/plugin.c:
+	Fix #564282 – configure error: source directory already configured
+	Fix #567513 – Running configure doesn't make anjuta be aware that the
+	project doesn't need a configure stage in its menus
+	Fix #565170 – Invalid read in plugin.c
+
+	* plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/gnome-applet.wiz,
+	plugins/project-wizard/templates/anjuta-plugin-vala.wiz,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/cpp.wiz,
+	plugins/project-wizard/templates/sdl.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/minimal.wiz,
+	plugins/project-wizard/templates/xlib.wiz,
+	plugins/project-wizard/templates/gcj.wiz:
+	Do not generate project in the wizard (can be easily done later)
+
+	* plugins/project-wizard/templates/gtkmm/src/main.cc,
+	plugins/project-wizard/templates/gtk/src/main.c,
+	plugins/run-program/parameters.c:
+	Read glade file in a directory relative to project source directory
+	Set by default working directory to project source directory
+
+	* plugins/project-wizard/templates/translatable-strings.h:
+	Remove translatable string used in the removed GNOME template
+
+	* plugins/gdb/debugger.c:
+	Avoid bug #573326 in one additional case
+
 2009-02-28  Claude Paroz  <claude@2xlibre.net>
 
 	* manuals/anjuta-manual/C/debugger.xml: <tip> tag content must be enclosed

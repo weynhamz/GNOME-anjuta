@@ -760,7 +760,7 @@ debugger_set_environment (Debugger *debugger, gchar **variables)
 
 	g_return_val_if_fail (IS_DEBUGGER (debugger), FALSE);
 
-	if (variables != NULL)
+	if ((variables != NULL)  && (*variables != NULL))
 	{
 		for (; *variables != NULL; variables++)
 		{

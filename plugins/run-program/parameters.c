@@ -638,7 +638,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	g_object_unref (model);
 
 	/* Fill working directory list */
-	g_list_foreach (plugin->recent_dirs, on_add_directory_in_chooser, dlg->dirs);	
+	g_list_foreach (plugin->recent_dirs, on_add_directory_in_chooser, dlg->dirs);
 	if (plugin->recent_dirs != NULL) gtk_file_chooser_set_uri (dlg->dirs, (const char *)plugin->recent_dirs->data);
 	
 	/* Fill target combo box */
@@ -682,6 +682,10 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 			}
 			g_list_free (exec_targets);
 		}
+
+		/* Set a default value for current dir, allowing to find glade file in
+		 * new project created by the wizard without any change */
+		if (plugin->recent_dirs == NULL) gtk_file_chooser_set_uri (dlg->dirs, project_root_uri);
 	}
 	
 	if (plugin->recent_target != NULL)
