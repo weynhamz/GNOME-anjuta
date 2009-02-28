@@ -1,3 +1,11 @@
+2009-02-28  Claude Paroz  <claude@2xlibre.net>
+
+	* manuals/anjuta-manual/C/debugger.xml: <tip> tag content must be enclosed
+	in <para>.
+	* manuals/anjuta-manual/C/glade.xml: <sect2> cannot be used without
+	parent <sect1>.
+	Fixed XML validation of anjuta-manual.
+
 2009-02-28  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c

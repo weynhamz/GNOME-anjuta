@@ -1,7 +1,7 @@
 <chapter id="glade">
 	<title>Glade Interface Designer</title>
 
-	<sect2>
+	<sect1>
 		<title>Quick start</title>
 		<para>
 			If you don't want to read all this boring manual, here is few steps to
@@ -46,9 +46,9 @@
 				</para></listitem>
 			</orderedlist>
 		</para>
-	</sect2>
+	</sect1>
 	
-	<sect2>
+	<sect1>
 		<title>Glade general usage questions</title>
 		<para>
 			Glade plugin mostly copies functionality of standalone Glade
@@ -60,9 +60,9 @@
 			for their description. An extra functionality allows you to
 			use infrastructure of Anjuta more effectively and is described here.
 		</para>
-	</sect2>
+	</sect1>
 
-	<sect2>
+	<sect1>
 		<title>Editor and designer association</title>
 		<para>
 			You can associate text editor and Glade designer so you will easily
@@ -77,9 +77,9 @@
 			<guimenuitem>Associate last designer and editor</guimenuitem></menuchoice>
 			menu item.
 		</para>
-	</sect2>
+	</sect1>
 
-	<sect2>
+	<sect1>
 		<title>Associations dialog</title>
 		<para>
 			Allows you to create and manager associations. To create an
@@ -116,9 +116,9 @@
 				</varlistentry>
 			</variablelist>
 		</para>
-	</sect2>
+	</sect1>
 	
-	<sect2 id="glade-default-signal">
+	<sect1 id="glade-default-signal">
 		<title>Default signal</title>
 		<para>
 			Double click on a widget in the design area will create a new handler
@@ -128,9 +128,9 @@
 			If <guilabel>Insert handler on edit</guilabel> option is enabled then a new handler stub will be inserted to the position
 			which depends on <guilabel>Position type</guilabel> setting.
 		</para>
-	</sect2>
+	</sect1>
 	
-	<sect2>
+	<sect1>
 		<title>Inserting a stub</title>
 		<para>
 			One of the most valuable goal of <application>Anjuta</application> and
@@ -157,9 +157,9 @@
 					</para></listitem>
 			</itemizedlist>
 		</para>
-	</sect2>
+	</sect1>
 
-	<sect2>
+	<sect1>
 		<title>Preferences</title>
 		<variablelist>
 			<varlistentry>
@@ -194,6 +194,6 @@
 				</para></listitem>
 			</varlistentry>
 		</variablelist>
-	</sect2>
+	</sect1>
 
 </chapter>

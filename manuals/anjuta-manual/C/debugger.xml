@@ -88,10 +88,10 @@
        Environment variables displayed in light gray are the current environment variables. You can
        add, modify or remove environment variables here.
       </para>
-      <tip>
+      <tip><para>
        To debug Anjuta using Anjuta, you can use a different theme to change the look of the instance
        being debugged; for example, you could add "GTK2_RC_FILES=/usr/share/themes/Crux/gtk-2.0/gtkrc".
-      </tip>	
+      </para></tip>
      </listitem>
      <listitem><para>Whether the program should run in a terminal or not.  If so, the Anjuta terminal plugin is used.</para></listitem>
     </itemizedlist>
