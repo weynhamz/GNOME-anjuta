@@ -828,6 +828,7 @@ GTodoClient * gtodo_client_new_default(GError **error)
 	cl = g_malloc0(sizeof(GTodoClient));
 	default_uri = g_strdup_printf("/%s/.gtodo/todos", g_getenv("HOME"));
 	cl->xml_file = g_file_new_for_path (default_uri);
+	g_free (default_uri);
 	/* check, open or create the correct xml file */
 	if(!gtodo_client_check_file(cl, &tmp_error))
 	{

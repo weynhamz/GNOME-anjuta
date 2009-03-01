@@ -2962,6 +2962,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to "
 				 "database with %s...", cnc_string);
 	sdb_engine_connect_to_db (dbe, cnc_string);
+	g_free (cnc_string);
 
 	if (needs_tables_creation == TRUE)
 	{

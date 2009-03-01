@@ -264,14 +264,13 @@ static void stock_icons()
 	/* testing icon factory.. hope it works a little */
 	factory = gtk_icon_factory_new();
 	/* random icon */
-	icons = gtk_icon_set_new();
 	icon_source = gtk_icon_source_new();
+	icons = gtk_icon_set_new();
 	gtk_icon_source_set_filename(icon_source, PIXMAP_PATH"/gtodo-edit.png");
 	gtk_icon_set_add_source(icons, icon_source);
 	gtk_icon_factory_add(factory, "gtodo-edit", icons);
 
 	icons = gtk_icon_set_new();
-	icon_source = gtk_icon_source_new();
 	gtk_icon_source_set_filename(icon_source, PIXMAP_PATH"/"ICON_FILE);
 	gtk_icon_set_add_source(icons, icon_source);
 	gtk_icon_factory_add(factory, "gtodo", icons);
@@ -279,11 +278,12 @@ static void stock_icons()
 	/* added this because there isn no about availible in the default stock set. */
 	/* I call it gnome about so it still uses the one out off the current icon theme */
 	icons = gtk_icon_set_new();
-	icon_source = gtk_icon_source_new();
 	gtk_icon_source_set_filename(icon_source, PIXMAP_PATH"/gtodo-about.png");
 	gtk_icon_set_add_source(icons, icon_source);
 	gtk_icon_factory_add(factory, "gnome-stock-about", icons);
 	gtk_icon_factory_add_default (factory);
+
+	gtk_icon_source_free (icon_source);
 
 }
 

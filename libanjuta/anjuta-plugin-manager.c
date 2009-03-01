@@ -1982,6 +1982,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 			gchar *icon_path = NULL;
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
+			g_free (icon_filename);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
 			icon_pixbuf = 
 				gdk_pixbuf_new_from_file (icon_path, NULL);
@@ -2009,19 +2010,20 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 		{
 			g_warning ("Plugin does not define Description attribute");
 		}
-		if (!anjuta_plugin_description_get_string (desc,
-												  "Anjuta Plugin",
-												  "Location",
-												  &location))
-		{
-			g_warning ("Plugin does not define Location attribute");
-		}
-		
 		if (plugin_name && plugin_desc)
 		{
 			GtkTreeIter iter;
 			gchar *text;
-			
+
+			if (!anjuta_plugin_description_get_string (desc,
+													  "Anjuta Plugin",
+													  "Location",
+													  &location))
+			{
+				g_warning ("Plugin does not define Location attribute");
+			}
+		
+		
 			text = g_markup_printf_escaped ("<span size=\"larger\" weight=\"bold\">%s</span>\n%s", plugin_name, plugin_desc);
 
 			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
@@ -2037,6 +2039,8 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 			
 			selection_ids = g_list_prepend (selection_ids, location);
 		}
+		g_free (plugin_name);
+		g_free (plugin_desc);
 		node = g_list_next (node);
 	}
 	

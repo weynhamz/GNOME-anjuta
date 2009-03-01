@@ -1,3 +1,11 @@
+2009-03-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gtodo/interface.c,
+	plugins/gtodo/libgtodo.c,
+	plugins/symbol-db/symbol-db-engine-core.c,
+	libanjuta/anjuta-plugin-manager.c:
+	Fix a few memory leaks thanks to Valgrind
+
 2009-02-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/plugin.c:
