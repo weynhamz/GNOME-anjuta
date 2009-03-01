@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-02-06 19:36+0000\n"
-"PO-Revision-Date: 2009-02-13 17:37+0100\n"
+"POT-Creation-Date: 2009-02-13 19:27+0000\n"
+"PO-Revision-Date: 2009-03-01 22:00+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -745,7 +745,6 @@ msgid "Open File dialog"
 msgstr "Diálogo Abrir archivo"
 
 #: C/anjuta-manual.xml:143(para)
-#, fuzzy
 msgid ""
 "<emphasis>Opening a file:</emphasis> To open an existing file, choose "
 "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Open</guimenuitem></"
@@ -767,9 +766,10 @@ msgstr ""
 "el diálogo <interface>Abrir archivo</interface>. <placeholder-1/> Seleccione "
 "o introduzca el archivo que quiere abrir, después pulse <guibutton>Abrir</"
 "guibutton>. Para abrir más de un archivo a la vez, seleccione múltiples "
-"archivos pulsando primero la tecla Ctrl y pulsando sobre los archivos en la "
-"lista y pulse <guibutton>Abrir</guibutton>. Si cambia de opinión, pulse "
-"<guibutton>Cancelar</guibutton> para cerrar el diálogo sin abrir el archivo."
+"archivos pulsando primero la tecla <keycap>Ctrl</keycap> y pulsando sobre "
+"los archivos en la lista y pulse <guibutton>Abrir</guibutton>. Si cambia de "
+"opinión, pulse <guibutton>Cancelar</guibutton> para cerrar el diálogo sin "
+"abrir el archivo."
 
 #: C/anjuta-manual.xml:166(title)
 msgid "Open Multiple File dialog"
@@ -4056,7 +4056,6 @@ msgid "File:Function_name"
 msgstr "Archivo:Nombre_de_la_función"
 
 #: C/anjuta-manual.xml:426(para)
-#, fuzzy
 msgid ""
 "The first format is obvious — the location refers to the line number "
 "<emphasis>Line_number</emphasis> in the source file <emphasis>File</"
@@ -4160,7 +4159,6 @@ msgstr ""
 "punto de parada. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:482(para)
-#, fuzzy
 msgid ""
 "A breakpoint may also be set by selecting a line in the editor and choosing "
 "the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Toggle "
@@ -4171,12 +4169,11 @@ msgstr ""
 "Un punto de parada también se puede establecer seleccionando una línea en el "
 "editor y eligiendo el elemento del menú <menuchoice><guisubmenu>Depurar</"
 "guisubmenu><guimenuitem>Conmutar punto de parada</guimenuitem></menuchoice> "
-"en el elemento del menú emergente o pulsando el icono <guibutton>Conmutar "
-"punto de parada</guibutton> en la <interface>barra de herramientas del "
+"en el elemento del menú contextual o pulsando el icono <guibutton>Conmutar "
+"punto de parada</guibutton> en la <interface>Barra de herramientas del "
 "depurador</interface>."
 
 #: C/anjuta-manual.xml:491(para)
-#, fuzzy
 msgid ""
 "Breakpoints can be added even if the debugger is not started, or in a "
 "dynamic library which is not loaded yet. But they cannot be added while a "
@@ -4191,14 +4188,13 @@ msgid "Editing Breakpoints"
 msgstr "Editar puntos de parada"
 
 #: C/anjuta-manual.xml:501(para)
-#, fuzzy
 msgid ""
 "You can change the condition and the pass count by selecting the breakpoint "
 "in the breakpoint list and clicking <menuchoice><guimenuitem>Edit "
 "Breakpoint</guimenuitem></menuchoice> in the popup menu."
 msgstr ""
-"Se puede cambiar la condición y el conteo de pasadas seleccionando el punto "
-"de parada en la lista de puntos de parada y pulsando en el elemento "
+"Puede cambiar la condición y el conteo de pasadas seleccionando el punto de "
+"parada en la lista de puntos de parada y pulsando en el elemento "
 "<menuchoice><guimenuitem>Editar punto de parada</guimenuitem></menuchoice> "
 "del menú emergente."
 
@@ -4243,25 +4239,23 @@ msgstr ""
 "<interface>barra de herramientas del depurador</interface>."
 
 #: C/anjuta-manual.xml:527(para)
-#, fuzzy
 msgid ""
 "You can remove all breakpoints by clicking on <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Remove All Breakpoints</guimenuitem></menuchoice> or "
 "on <menuchoice><guimenuitem>Remove All Breakpoints</guimenuitem></"
 "menuchoice> in the breakpoint list context menu."
 msgstr ""
-"Es posible quitar todos los puntos de parada pulsando en "
+"Puede quitar todos los puntos de parada pulsando en "
 "<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Quitar todos los "
 "puntos de parada</guimenuitem></menuchoice> o en "
 "<menuchoice><guimenuitem>Quitar todos los puntos de parada</guimenuitem></"
-"menuchoice> en el menú emergente de lista de puntos de parada."
+"menuchoice> en el menú contextual de la lista de puntos de parada."
 
 #: C/anjuta-manual.xml:536(title)
 msgid "Enabling or Disabling Breakpoints"
 msgstr "Activar o desactivar puntos de parada"
 
 #: C/anjuta-manual.xml:537(para)
-#, fuzzy
 msgid ""
 "Click on the Enable column of the <interface>Breakpoint list window</"
 "interface> or in the context menu item <menuchoice><guimenuitem>Enable "
@@ -4269,11 +4263,11 @@ msgid ""
 "breakpoint. The breakpoint will be enabled or disabled, depending on its "
 "current state."
 msgstr ""
-"Pulse en la columna Activar de la <interface>ventana de lista de puntos de "
-"parada</interface> o en el elemento del menú <menuchoice><guimenuitem>Editar "
-"punto de parada</guimenuitem></menuchoice> para activar o desactivar el "
-"punto de parada seleccionado. El punto de parada se activará o desactivará, "
-"dependiendo de su estado actual."
+"Pulse en la columna Activar de la <interface>Ventana de lista de puntos de "
+"parada</interface> o en el elemento del menú "
+"<menuchoice><guimenuitem>Activar punto de parada</guimenuitem></menuchoice> "
+"para activar o desactivar el punto de parada seleccionado. El punto de "
+"parada se activará o desactivará, dependiendo de su estado actual."
 
 #: C/anjuta-manual.xml:543(para)
 msgid ""
@@ -4313,7 +4307,6 @@ msgid "Local variables"
 msgstr "Variables locales"
 
 #: C/anjuta-manual.xml:564(para)
-#, fuzzy
 msgid ""
 "Local variables of the current frame (the current function in which the "
 "program control is present) are displayed in the <interface>Locals window</"
@@ -4323,10 +4316,10 @@ msgid ""
 "presented in a tree form for easy view. <placeholder-1/>"
 msgstr ""
 "Las variables locales del marco actual (la función actual en la que el "
-"control de programa está presente) se muestran en la <interface>ventana "
-"lista de locales</interface>. Durante la ejecución del programa (ej. durante "
-"la ejecución paso a paso) se actualizarán las variables locales. Si el valor "
-"de alguna variable cambió en el último paso de depuración, su valor se "
+"control de programa está presente) se muestran en la <interface>Ventana de "
+"locales</interface>. Durante la ejecución del programa (ej. durante la "
+"ejecución paso a paso) se actualizarán las variables locales. Si el valor de "
+"alguna variable cambió en el último paso de depuración, su valor se "
 "resaltará en rojo. Las variables se presentan en una forma de árbol fácil de "
 "ver: <placeholder-1/>"
 
@@ -4381,7 +4374,6 @@ msgid "Adding an expression to watch"
 msgstr "Añadir una expresión para vigilar"
 
 #: C/anjuta-manual.xml:607(para)
-#, fuzzy
 msgid ""
 "Right-click on the <interface>Watches window</interface> to open the context "
 "menu. Choose the menu item <guimenuitem>Add Watch…</guimenuitem>. "
@@ -4390,16 +4382,14 @@ msgid ""
 "prompting for the expression will appear. Enter the expression and click "
 "<guibutton>OK</guibutton>."
 msgstr ""
-"Pulse con el botón derecho del ratón en la <interface>ventana de vigilancia "
-"de expresiones</interface> para abrir el <interface>menú de operación</"
-"interface>. Elija el elemento del menú <guimenuitem>Añadir vigilancia…</"
-"guimenuitem>. Alternativamente  puede usar <menuchoice><guisubmenu>Depurar</"
-"guisubmenu><guimenuitem>Añadir vigilancia…</guimenuitem></menuchoice>. "
-"Aparecerá un diálogo preguntando por la expresión. Introduzca la expresión y "
-"pulse <guibutton>Aceptar</guibutton>."
+"Pulse con el botón derecho del ratón en la <interface>Ventana de "
+"vigilancias</interface> para abrir el menú contextual. Elija el elemento del "
+"menú <guimenuitem>Añadir vigilancia…</guimenuitem>. Alternativamente  puede "
+"usar <menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Añadir "
+"vigilancia…</guimenuitem></menuchoice>. Aparecerá un diálogo preguntando por "
+"la expresión. Introduzca la expresión y pulse <guibutton>Aceptar</guibutton>."
 
 #: C/anjuta-manual.xml:616(para)
-#, fuzzy
 msgid ""
 "By default watch expressions are updated automatically each time the program "
 "is stopped. This can be changed in the add watch dialog or later using the "
@@ -4411,11 +4401,11 @@ msgstr ""
 "De forma predeterminada las expresiones vigiladas se actualizan "
 "automáticamente cada vez que el programa se para. Esto se puede cambiar en "
 "el diálogo añadir vigilancia o posteriormente usando el elemento del menú "
-"<guimenuitem>Autoactualizar</guimenuitem> en el menú emergente de la "
-"<interface>ventana de vigilancia de expresiones</interface>. Una expresión "
-"vigilada se puede actualzar manualmente eligiendo <guimenuitem>Actualizar "
-"vigilancia</guimenuitem> o <guimenuitem>Actualizar todo</guimenuitem> en el "
-"menú anterior."
+"<guimenuitem>Autoactualizar</guimenuitem> en el menú contextual de la "
+"<interface>Ventana de vigilancias</interface>. Una expresión vigilada se "
+"puede actualizar manualmente eligiendo <guimenuitem>Actualizar vigilancia</"
+"guimenuitem> o <guimenuitem>Actualizar todo</guimenuitem> en el menú "
+"anterior."
 
 #: C/anjuta-manual.xml:625(para)
 msgid ""
@@ -5042,6 +5032,10 @@ msgid ""
 "current tab in a GtkNotebook) by keeping \"Windows\" or \"Super\" key "
 "pressed;"
 msgstr ""
+"A diferencia del diseñador Glade original, el complemento de Anjuta usa la "
+"pulsación doble para crear manejadores para la señal predeterminada. Puede "
+"realizar pulsaciones en widgets (ej. cambiar la solapa actual en un "
+"GtkNotebook) manteniendo pulsada la tecla «Windows» o «Super»;"
 
 #: C/anjuta-manual.xml:19(para)
 msgid ""
@@ -5050,6 +5044,11 @@ msgid ""
 "<guilabel>Insert handler on edit</guilabel>, <guilabel>Separated designer "
 "layout</guilabel> and <guilabel>Automatically add resources</guilabel>;"
 msgstr ""
+"Abra <menuchoice><guimenuitem>Preferencias</"
+"guimenuitem><guimenuitem>Diseñador de IGU Glade</guimenuitem></menuchoice> y "
+"seleccione las tres opciones superiores <guilabel>Insertar manejador al "
+"editar</guilabel>, <guilabel>Distribución del diseñador separada</guilabel> "
+"y <guilabel>Añadir recursos automáticamente</guilabel>;"
 
 #: C/anjuta-manual.xml:28(para)
 msgid ""
@@ -5067,6 +5066,10 @@ msgid ""
 "<menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Associate last "
 "designer and editor</guimenuitem></menuchoice>;"
 msgstr ""
+"Cambie al archivo de Glade en el área de diseño y al archivo de código "
+"fuente que debería contener las llamadas desde el archivo Glade, después "
+"pulse <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Asociar el "
+"último diseñador y el último editor</guimenuitem></menuchoice>;"
 
 #: C/anjuta-manual.xml:42(para)
 msgid ""
@@ -5074,12 +5077,17 @@ msgid ""
 "manager and press <guilabel>Set as default resource target</guilabel> in the "
 "context menu."
 msgstr ""
+"Opcionalmente seleccione un destino para la imagen y otros recursos en el "
+"gestor de proyectos y pulse <guilabel>Establecer como objetivo de recurso "
+"predeterminado</guilabel> en el menú contextual."
 
 #: C/anjuta-manual.xml:6(para)
 msgid ""
 "If you don't want to read all this boring manual, here is few steps to get "
 "all things ready for use: <placeholder-1/>"
 msgstr ""
+"Si no quiere leer todo este aburrido manual, aquí existen unos pocos pasos "
+"para tener todo esto listo para su uso: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:52(title)
 msgid "Glade general usage questions"
@@ -5175,7 +5183,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:134(title)
-#| msgid "Inserting Macros"
 msgid "Inserting a stub"
 msgstr "Insertar un esbozo"
 
@@ -5192,12 +5199,10 @@ msgid ""
 "Automatically if <guilabel>Insert handler on edit</guilabel> option if "
 "enabled"
 msgstr ""
+"Automáticamente si la opción <guilabel>Insertar manejador al editar</"
+"guilabel> está activada"
 
 #: C/anjuta-manual.xml:148(para)
-#| msgid ""
-#| "Choosing the menu item <menuchoice><guisubmenu>Build</"
-#| "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install "
-#| "the generated application on your system."
 msgid ""
 "Using <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Insert "
 "handler stub, autoposition</guimenuitem></menuchoice> in hte main menu"
@@ -5211,6 +5216,8 @@ msgid ""
 "Using <guilabel>Insert handler stub</guilabel> item in the context menu of "
 "text document"
 msgstr ""
+"Usando el elemento <guilabel>Insertar manejador de esbozos</guilabel> en el "
+"menú contextual del documento de texto"
 
 #: C/anjuta-manual.xml:141(para)
 msgid "There are several ways to create a stub: <placeholder-1/>"
@@ -5230,6 +5237,9 @@ msgid ""
 "new handler into signal editor or creating a <link linkend=\"glade-default-"
 "signal\">default signal handler</link>"
 msgstr ""
+"Activa la inserción de un manejador de esbozo en el editor asociado después "
+"de introducir un manejador nuevo en un editor de señales o al crear un <link "
+"linkend=\"glade-default-signal\">manejador predeterminado de señales</link>"
 
 #: C/anjuta-manual.xml:174(guilabel)
 msgid "Separated designer layout"
@@ -5240,6 +5250,8 @@ msgid ""
 "Detaches the design area from document manager so you can dock it separately "
 "from text editors."
 msgstr ""
+"Desacopla el área de diseño del gestor de documentos para que pueda "
+"acoplarlo separadamente desde editores de texto."
 
 #: C/anjuta-manual.xml:181(guilabel)
 msgid "Automatically add resources"
@@ -5251,6 +5263,10 @@ msgid ""
 "the current project. You can choose the target using project manager context "
 "menu or by entering target id in the entry below the check button."
 msgstr ""
+"Cuando todos los elementos están seleccionados (ej. imágenes) se añadirán al "
+"destino en el proyecto actual. Puede elegir el objetivo usando el menú "
+"contextual del gestor de proyectos o introduciendo el ID del objetivo en la "
+"entrada bajo el botón de verificación."
 
 #: C/anjuta-manual.xml:190(guilabel)
 msgid "Handler template"
