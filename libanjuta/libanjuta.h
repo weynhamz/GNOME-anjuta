@@ -48,6 +48,8 @@
 #include <libanjuta/anjuta-vcs-status-tree-view.h>
 #include <libanjuta/anjuta-command.h>
 #include <libanjuta/anjuta-async-command.h>
+#include <libanjuta/anjuta-async-notify.h>
 #include <libanjuta/anjuta-sync-command.h>
+#include <libanjuta/gbf-project.h>
 
 #endif

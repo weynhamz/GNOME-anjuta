@@ -1,5 +1,11 @@
 2009-03-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* libanjuta/libanjuta.h,
+	libanjuta/Makefile.am:
+	Add two new includes of libanjuta
+
+2009-03-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/gtodo/interface.c,
 	plugins/gtodo/libgtodo.c,
 	plugins/symbol-db/symbol-db-engine-core.c,

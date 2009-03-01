@@ -132,8 +132,10 @@ libanjuta_include = \
 	anjuta-vcs-status.h \
 	anjuta-command.h \
 	anjuta-async-command.h \
+	anjuta-async-notify.h \
 	anjuta-sync-command.h \
-	anjuta-version.h
+	anjuta-version.h \
+	gbf-project.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
