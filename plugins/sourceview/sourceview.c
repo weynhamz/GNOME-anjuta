@@ -2235,6 +2235,7 @@ isearch_iface_init(IAnjutaEditorSearchIface* iface)
 }
 
 /* IAnjutaHover */
+static void on_sourceview_hover_destroy (gpointer data, GObject* where_the_data_was);
 static void
 on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
 {
@@ -2246,7 +2247,15 @@ on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
 		g_object_unref (sv->priv->tooltip_cell);
 		sv->priv->tooltip_cell = NULL;
 	}
+	g_object_weak_unref (G_OBJECT(sv), on_sourceview_hover_destroy, where_the_data_was);
 }
+
+static void
+on_sourceview_hover_destroy (gpointer data, GObject* where_the_data_was)
+{
+	g_object_weak_unref (G_OBJECT(data), on_sourceview_hover_leave, where_the_data_was);
+}
+
 
 static gboolean 
 on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
@@ -2257,11 +2266,11 @@ on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 	SourceviewCell* cell;
 	GtkTextIter iter;
 	GtkTextView *text_view = GTK_TEXT_VIEW (widget);
-	gint bx, by, trailing;
+	gint bx, by;
 		
 	gtk_text_view_window_to_buffer_coords (text_view, GTK_TEXT_WINDOW_TEXT,
 											   x, y, &bx, &by);
-	gtk_text_view_get_iter_at_position (text_view, &iter, &trailing, bx, by);
+	gtk_text_view_get_iter_at_location (text_view, &iter, bx, by);
 	
 	cell = sourceview_cell_new (&iter, text_view);
 	
@@ -2272,6 +2281,7 @@ on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 	{
 		gtk_tooltip_set_text (tooltip, sv->priv->tooltip);
 		g_object_weak_ref (G_OBJECT (tooltip), on_sourceview_hover_leave, sv);
+		g_object_weak_ref (G_OBJECT (sv), on_sourceview_hover_destroy, tooltip);
 		g_free (sv->priv->tooltip);
 		sv->priv->tooltip = NULL;
 		sv->priv->tooltip_cell = cell;

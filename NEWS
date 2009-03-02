@@ -1,3 +1,29 @@
+Anjuta 2.25.903 (2 March 2009) -- Johannes Schmid
+
+Bugs fixed:
+- Valgrind memory fixes
+- Documentation fixes and updates
+- Fixes in the glade plugin
+- Version control integration fixes
+- Auto-indentation fixes
+#564282 – configure error: source directory already configured
+#567513 – Running configure doesn't make anjuta be aware that the
+  project doesn't need a configure stage in its menus
+#565170 – Invalid read in plugin.c
+#573326 – Debug misfunction
+#572637 – Valgrind shows some errors in symbol-db
+#567068 – autocomplete box should vanish on backspace
+#564306 – don't ask which program to run if project has only one target
+#559806 – Anjuta crashes when closing unsaved file
+#556970 – Swap .h/.c doesn't work for C header files (*.h)
+#555895 – Save configure options for build configuration
+#572608 – crash clicking on 'find in files...' results.
+#572451 - crash on closing project
+#571760 – Find & Replace is broken (due to my previous changes)
+#511589 - remove missed includes
+#572289 – Make code less ambiguous
+#564891 – Crash when closing editor window
+
 Anjuta 2.25.902 (16 February 2009) -- Johannes Schmid
 
 This is a bug-fix release for the GNOME 2.25.91 Beta!

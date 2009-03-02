@@ -1,5 +1,14 @@
 2009-03-02  Johannes Schmid  <jhs@gnome.org>
 
+	* MAINTAINERS: Added myself after five releases.
+	* NEWS: Updated for release
+	* configure.in: Bumped version
+	* plugins/sourceview/sourceview.c (on_sourceview_hover_leave),
+	(on_sourceview_hover_destroy), (on_sourceview_hover_over):
+	#564891 – Crash when closing editor window
+
+2009-03-02  Johannes Schmid  <jhs@gnome.org>
+
 	* manuals/anjuta-manual/C/projects.xml:
 	* manuals/anjuta-manual/Makefile.am:
 	Updated project configuration documentation
