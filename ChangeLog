@@ -5,6 +5,16 @@
 
 2009-03-02  Johannes Schmid  <jhs@gnome.org>
 
+  Patch from: Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>:
+	* libanjuta/e-splash.c (impl_destroy), (e_splash_init),
+	(on_expose_event_cb), (e_splash_construct), (e_splash_new),
+	(e_splash_set):
+	#571740 – Get rid of deprecated libgnomecanvas
+	
+=== 2.25.903.0 ===
+
+2009-03-02  Johannes Schmid  <jhs@gnome.org>
+
 	* MAINTAINERS: Added myself after five releases.
 	* NEWS: Updated for release
 	* configure.in: Bumped version

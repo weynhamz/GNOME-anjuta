@@ -34,20 +34,16 @@
 #include <config.h>
 #endif
 
-#include <libgnomecanvas/gnome-canvas-pixbuf.h>
-#include <libgnomecanvas/libgnomecanvas.h>
 #include <gtk/gtk.h>
 
 #include "e-splash.h"
 
 struct _ESplashPrivate {
-	GnomeCanvas *canvas;
-	GnomeCanvasItem *canvas_icon;
-	GnomeCanvasItem *canvas_text;
-	GnomeCanvasItem *canvas_line;
-	GnomeCanvasItem *canvas_line_back;
 	GdkPixbuf *splash_image_pixbuf;
+	GdkPixbuf *icon_pixbuf;
+	gchar *title;
 	gint progressbar_position;
+	gfloat progress_percentage;
 };
 
 G_DEFINE_TYPE(ESplash, e_splash, GTK_TYPE_WINDOW)
@@ -72,12 +68,16 @@ impl_destroy (GtkObject *object)
 
 	if (priv->splash_image_pixbuf != NULL)
 		g_object_unref (priv->splash_image_pixbuf);
+	if (priv->icon_pixbuf != NULL)
+		g_object_unref (priv->icon_pixbuf);
+	g_free (priv->title);
+	
 	g_free (priv);
 }
 
 static void
 e_splash_finalize (GObject *obj)
-{	
+{
 	G_OBJECT_CLASS (e_splash_parent_class)->finalize (obj);
 }
 
@@ -98,8 +98,9 @@ e_splash_init (ESplash *splash)
 	ESplashPrivate *priv;
 
 	priv = g_new (ESplashPrivate, 1);
-	priv->canvas              = NULL;
 	priv->splash_image_pixbuf = NULL;
+	priv->icon_pixbuf = NULL;
+	priv->title = NULL;
 	priv->progressbar_position = 100;
 	splash->priv = priv;
 }
@@ -114,6 +115,74 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 	return TRUE;
 }
 
+static gboolean
+on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
+                    ESplash *splash)
+{
+	ESplashPrivate *priv;
+	cairo_t *cr;
+	gint inc_width;
+
+	priv = splash->priv;
+
+	/* draw the background pixbuf */
+	cr = gdk_cairo_create (widget->window);
+	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+	gdk_cairo_set_source_pixbuf (cr, priv->splash_image_pixbuf, 0, 0);
+
+	cairo_paint (cr);
+
+	/* draw the plugin icon */
+	if (priv->icon_pixbuf)
+	{
+		cr = gdk_cairo_create (widget->window);
+		gdk_cairo_set_source_pixbuf (cr, priv->icon_pixbuf, ICON_X, ICON_Y);
+
+		cairo_paint (cr);
+	}
+
+	/* draw the plugin text */
+	if (priv->title)
+	{
+		PangoContext *pc;
+		PangoLayout *layout;
+		gint layout_height;
+		
+		pc = gtk_widget_get_pango_context (widget);
+		layout = pango_layout_new (pc);
+		pango_layout_set_markup (layout, priv->title, -1);
+		pango_layout_get_size (layout, NULL, &layout_height);
+
+		cr = gdk_cairo_create (widget->window);
+		cairo_move_to (cr, ICON_X + ICON_SIZE + 10,
+		               ICON_Y + ICON_SIZE - PROGRESS_SIZE - PANGO_PIXELS (layout_height));
+		
+		pango_cairo_show_layout (cr, layout);
+
+		g_object_unref (layout);
+	}
+	
+	/* draw the progress bar */
+	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
+	inc_width -= (ICON_X + ICON_SIZE + 20);	
+	
+	cr = gdk_cairo_create (widget->window);
+	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
+	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
+	                 inc_width, PROGRESS_SIZE);
+
+	cairo_fill (cr);
+
+	cr = gdk_cairo_create (widget->window);
+	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
+	                 (priv->progress_percentage * inc_width), PROGRESS_SIZE);
+
+	cairo_fill (cr);
+
+	return TRUE;
+}
+	
+	
 /**
  * e_splash_construct:
  * @splash: A pointer to an ESplash widget
@@ -123,11 +192,10 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
  **/
 void
 e_splash_construct (ESplash *splash,
-					GdkPixbuf *splash_image_pixbuf,
-					gint progressbar_position)
+                    GdkPixbuf *splash_image_pixbuf,
+                    gint progressbar_position)
 {
 	ESplashPrivate *priv;
-	GtkWidget *canvas; /*, *frame; */
 	int image_width, image_height;
 
 	g_return_if_fail (splash != NULL);
@@ -138,45 +206,13 @@ e_splash_construct (ESplash *splash,
 	priv->progressbar_position = progressbar_position;
 	priv->splash_image_pixbuf = g_object_ref (splash_image_pixbuf);
 
-	canvas = gnome_canvas_new_aa ();
-	priv->canvas = GNOME_CANVAS (canvas);
-
 	image_width = gdk_pixbuf_get_width (splash_image_pixbuf);
 	image_height = gdk_pixbuf_get_height (splash_image_pixbuf);
 
-	gtk_widget_set_size_request (canvas, image_width, image_height);
-	gnome_canvas_set_scroll_region (GNOME_CANVAS (canvas), 0, 0, image_width, image_height);
-	gtk_widget_show (canvas);
+	gtk_widget_set_size_request (GTK_WIDGET (splash), image_width, image_height);
 
-	gtk_container_add (GTK_CONTAINER (splash), canvas);
-
-	gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
-			       GNOME_TYPE_CANVAS_PIXBUF,
-			       "pixbuf", splash_image_pixbuf,
-			       NULL);
-	priv->canvas_icon = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
-						   GNOME_TYPE_CANVAS_PIXBUF,
-						   "x", (double) (ICON_X),
-						   "y", (double) (ICON_Y),
-						   NULL);
-	priv->canvas_text  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
-						   GNOME_TYPE_CANVAS_TEXT,
-						   "fill_color", "black",
-						   "size_points", (double)12,
-						   "anchor", GTK_ANCHOR_SOUTH_WEST,
-						   "x", (double)(ICON_X + ICON_SIZE + 10),
-						   "y", (double)(ICON_Y + ICON_SIZE - PROGRESS_SIZE),
-						   NULL);
-	priv->canvas_line  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
-						   GNOME_TYPE_CANVAS_LINE,
-						   "fill_color", "black",
-						   "width_pixels", PROGRESS_SIZE,
-						   NULL);
-	priv->canvas_line_back  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
-						   GNOME_TYPE_CANVAS_LINE,
-						   "fill_color", "blue",
-						   "width_pixels", PROGRESS_SIZE,
-						   NULL);
+	g_signal_connect (G_OBJECT (splash), "expose-event",
+	                  G_CALLBACK (on_expose_event_cb), splash);
 	g_signal_connect (G_OBJECT (splash), "button-press-event",
 			  G_CALLBACK (button_press_event), splash);
 	
@@ -205,10 +241,8 @@ e_splash_new (const char *image_file, gint progressbar_position)
 	splash_image_pixbuf = gdk_pixbuf_new_from_file (image_file, NULL);
 	g_return_val_if_fail (splash_image_pixbuf != NULL, NULL);
 
-	splash = g_object_new (e_splash_get_type (), "type", GTK_WINDOW_TOPLEVEL, NULL);
+	splash = g_object_new (E_TYPE_SPLASH, "type", GTK_WINDOW_TOPLEVEL, NULL);
 	e_splash_construct (splash, splash_image_pixbuf, progressbar_position);
-
-	/* g_object_unref (splash_image_pixbuf); */
 
 	return GTK_WIDGET (splash);
 }
@@ -225,68 +259,41 @@ e_splash_new (const char *image_file, gint progressbar_position)
  **/
 void
 e_splash_set  (ESplash *splash, GdkPixbuf *icon_pixbuf,
-			   const gchar *title, const gchar *desc,
-			   gfloat progress_percentage)
+               const gchar *title, const gchar *desc,
+               gfloat progress_percentage)
 {
 	ESplashPrivate *priv;
-	GnomeCanvasPoints *points;
-	gint inc_width, progress_width;
 	
 	g_return_if_fail (splash != NULL);
 	g_return_if_fail (E_IS_SPLASH (splash));
-
-#ifdef GNOME2_CONVERSION_COMPLETE
-	if (GTK_OBJECT_DESTROYED (splash))
-		return;
-#endif
 	
 	priv = splash->priv;
-	
+
 	if (icon_pixbuf)
 	{
 		GdkPixbuf *scaled_pixbuf;
-		
+
 		scaled_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE,
-										8, ICON_SIZE, ICON_SIZE);
+		                                8, ICON_SIZE, ICON_SIZE);
 		gdk_pixbuf_scale (icon_pixbuf, scaled_pixbuf,
-						  0, 0,
-						  ICON_SIZE, ICON_SIZE,
-						  0, 0,
-						  (double) ICON_SIZE / gdk_pixbuf_get_width (icon_pixbuf),
-						  (double) ICON_SIZE / gdk_pixbuf_get_height (icon_pixbuf),
-						  GDK_INTERP_HYPER);
-		g_object_set (G_OBJECT (priv->canvas_icon),
-					  "pixbuf", scaled_pixbuf, NULL);
-		g_object_unref (scaled_pixbuf);
+		                  0, 0,
+		                  ICON_SIZE, ICON_SIZE,
+		                  0, 0,
+		                  (double) ICON_SIZE / gdk_pixbuf_get_width (icon_pixbuf),
+		                  (double) ICON_SIZE / gdk_pixbuf_get_height (icon_pixbuf),
+		                  GDK_INTERP_HYPER);
+
+		g_object_unref (priv->icon_pixbuf);
+		priv->icon_pixbuf = scaled_pixbuf;
 	}
-	
+
 	if (title)
 	{
-		g_object_set (G_OBJECT (priv->canvas_text),
-					  "markup", title, NULL);
+		g_free (priv->title);
+		priv->title = g_strdup (title);
 	}
-	
-	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
-	inc_width -= (ICON_X + ICON_SIZE + 20);
-	progress_width = inc_width;
-	
-	points = gnome_canvas_points_new (2);
-	points->coords[0] = ICON_X + ICON_SIZE + 10;
-	points->coords[1] = ICON_Y + ICON_SIZE;
-	points->coords[2] = ICON_X + ICON_SIZE + 10 + (progress_percentage * inc_width);
-	points->coords[3] = ICON_Y + ICON_SIZE;
-	
-	g_object_set (G_OBJECT (priv->canvas_line),
-				  "points", points, NULL);
-	gnome_canvas_points_unref (points);
-	
-	points = gnome_canvas_points_new (2);
-	points->coords[0] = ICON_X + ICON_SIZE + 10 + (progress_percentage * inc_width);
-	points->coords[1] = ICON_Y + ICON_SIZE;
-	points->coords[2] = ICON_X + ICON_SIZE + 10 + progress_width;
-	points->coords[3] = ICON_Y + ICON_SIZE;
-	
-	g_object_set (G_OBJECT (priv->canvas_line_back),
-				  "points", points, NULL);
-	gnome_canvas_points_unref (points);
+
+	priv->progress_percentage = progress_percentage;
+
+	gtk_widget_queue_draw (GTK_WIDGET (splash));
 }
