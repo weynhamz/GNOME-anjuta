@@ -732,9 +732,10 @@
         flags to that target and enable you to use the module within this target.
     </para>
     <sect3 id="target-advanced">
+    <title>Advanced target options</title>
     <para>
     The following fields are available in the advanced target configuration that
-    you reach when you clicked the <guiitem>Advanded...</guiitem> button in the
+    you reach when you clicked the <guibutton>Advanded...</guibutton> button in the
     target properties dialog.
     </para>
     <para>

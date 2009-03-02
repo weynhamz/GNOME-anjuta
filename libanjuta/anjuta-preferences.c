@@ -758,12 +758,6 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 												 (prop->object), value);
 			}
 		}
-		/* FIXME: Set a standard font as default.
-		else
-		{
-			gnome_font_picker_set_font_name (GNOME_FONT_PICKER (prop->object),
-											 "A standard font");
-		}*/
 		break;
 		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
