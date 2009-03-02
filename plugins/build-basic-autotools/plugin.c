@@ -187,10 +187,13 @@ static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 }
 
 static gboolean
-project_has_configure (BasicAutotoolsPlugin *bb_plugin)
+directory_has_makefile_am (BasicAutotoolsPlugin *bb_plugin, const char *dirname )
 {
 	gchar *configure;
+	gchar *makefile_am;
+	gboolean makefile_am_exists;
 
+	/* We need configure.ac or configure.in too */	
 	if (bb_plugin->project_root_dir == NULL) return FALSE;
 	
 	configure = g_build_filename (bb_plugin->project_root_dir, "configure.ac", NULL);
@@ -207,7 +210,12 @@ project_has_configure (BasicAutotoolsPlugin *bb_plugin)
 	}
 	g_free (configure);
 
-	return TRUE;
+	/* Check for Makefile.am */
+	makefile_am = g_build_filename (dirname, "Makefile.am", NULL);
+	makefile_am_exists = g_file_test (makefile_am, G_FILE_TEST_EXISTS);
+	g_free (makefile_am);
+
+	return makefile_am_exists;
 }
 
 static gboolean
@@ -2386,7 +2394,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 		
 		module = escape_label (g_path_get_basename (dirname));
 		filename = escape_label (g_path_get_basename (bb_plugin->current_editor_filename));
-		has_makefile = directory_has_makefile (build_dirname) || project_has_configure (bb_plugin);
+		has_makefile = directory_has_makefile (build_dirname) || directory_has_makefile_am (bb_plugin, build_dirname);
 		g_free (build_dirname);
 		g_free (dirname);
 	}
@@ -2435,7 +2443,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	DEBUG_PRINT ("%s", "Updating project UI");
 	
 	has_project = bb_plugin->project_root_dir != NULL;
-	has_makefile = has_project && (directory_has_makefile (bb_plugin->project_build_dir) || project_has_configure (bb_plugin));
+	has_makefile = has_project && (directory_has_makefile (bb_plugin->project_build_dir) || directory_has_makefile_am (bb_plugin, bb_plugin->project_build_dir));
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
@@ -2594,7 +2602,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 		dirname = g_strdup (filename);
 	else
 		dirname = g_path_get_dirname (filename);
-	makefile_exists = directory_has_makefile (dirname) || project_has_configure (ba_plugin);
+	makefile_exists = directory_has_makefile (dirname) || directory_has_makefile_am (ba_plugin, dirname);
 	g_free (dirname);
 	
 	if (!makefile_exists)
@@ -2658,7 +2666,7 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 		dirname = g_strdup (filename);
 	else
 		dirname = g_path_get_dirname (filename);
-	makefile_exists = directory_has_makefile (dirname) || project_has_configure (ba_plugin);
+	makefile_exists = directory_has_makefile (dirname) || directory_has_makefile_am (ba_plugin, dirname);
 	g_free (dirname);
 	
 	if (!makefile_exists)

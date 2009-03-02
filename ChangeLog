@@ -1,3 +1,8 @@
+2009-03-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/plugin.c:
+	Check Makefile.am too, to enable project menu items
+
 2009-03-02  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:
