@@ -1,5 +1,11 @@
 2009-03-02  Johannes Schmid  <jhs@gnome.org>
 
+	* manuals/anjuta-manual/C/projects.xml:
+	* manuals/anjuta-manual/Makefile.am:
+	Updated project configuration documentation
+
+2009-03-02  Johannes Schmid  <jhs@gnome.org>
+
 	* manuals/anjuta-build-tutorial/C/anjuta-build-tutorial.xml:
 	Fixed a validation error
 

@@ -654,6 +654,13 @@
     <interface>Project</interface> window to open the <interface>Group Properties</interface> dialog.
     (You can alternatively right-click the group
     and select <guimenuitem>Properties</guimenuitem> from the context menu.)
+     <figure>
+       <title>Group properties dialog</title>
+       <screenshot>
+	   <screeninfo>Group properties dialog</screeninfo>
+        <graphic fileref="figures/project_group.png" format="PNG" srccredit="jhs"></graphic>
+       </screenshot>
+     </figure>
     </para>
 
     <para>
@@ -666,21 +673,12 @@
 		   <itemizedlist>
 		    <listitem>
 		     <para>
-                <emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables
-                and other include directories for your C and C++ targets here.
+                <emphasis>Includes</emphasis>: Set your include directories for your C and C++ targets here.
                 You need to provide the full include options of the compiler
                 here, e.g. -I/usr/include/blah. The include paths will be used
                 to find header files included by your source files. (You can also
                 add other compiler flags here, but it's preferable
                 to set them in their respective <emphasis>compiler flags</emphasis> fields as described below.)
-             </para>
-             <para>
-                Usually your configure script will also make some automatically
-                determined compiler flags. The variables usually end with
-                _CFLAGS, e.g $(PACKAGE_CFLAGS). They are also set here.
-                See
-                <link linkend="project-properties">Project properties</link>
-                for more details on these variables.
              </para>
            </listitem>
 		    <listitem>
@@ -711,17 +709,42 @@
    <sect2 id="target-properties">
     <title>Target properties</title>
     <para>
+     Any properties set for a target apply to that target only.  A target also inherits
+		 properties from its containing group.
+		</para>
+	  <para>
     To set a target's properties, double-click the target
     in the <interface>Project window</interface> to open the Target Properties dialog. (You can
     alternatively right-click the target and select <guimenuitem>Properties</guimenuitem> from
     the context menu.)
+     <figure>
+       <title>Target properties dialog</title>
+       <screenshot>
+	   <screeninfo>Target properties dialog</screeninfo>
+        <graphic fileref="figures/project_target.png" format="PNG" srccredit="jhs"></graphic>
+       </screenshot>
+     </figure>
     </para>
-
     <para>
-         Any properties set for a target apply to that target only.  A target also inherits
-		 properties from its containing group.
-         The following fields are available in the Target Properties dialog.
-
+        You can add the modules you have added in <link linkend="project-properties">Project properties</link>
+        to a specific target here. To activate the module simply toggle the checkbox
+        next to the module name. This will automatically add include and linker
+        flags to that target and enable you to use the module within this target.
+    </para>
+    <sect3 id="target-advanced">
+    <para>
+    The following fields are available in the advanced target configuration that
+    you reach when you clicked the <guiitem>Advanded...</guiitem> button in the
+    target properties dialog.
+    </para>
+    <para>
+    <figure>
+       <title>Target properties dialog</title>
+       <screenshot>
+	   <screeninfo>Target properties dialog</screeninfo>
+        <graphic fileref="figures/project_target_details.png" format="PNG" srccredit="jhs"></graphic>
+       </screenshot>
+     </figure>
 		   <itemizedlist>
 		    <listitem>
 		     <para>
@@ -744,15 +767,13 @@
 		    <listitem>
 		     <para>
                 <emphasis>Libraries</emphasis>: Set the libraries that the
-                target depends on. Usually they are the $(module_LIBS)
-                configure variables. See
-                <link linkend="project-properties">Project properties</link>
-                for more details on these variables.
+                target depends on.
              </para>
            </listitem>
           </itemizedlist>
 
     </para>
+    </sect3>
    </sect2>
   </sect1>
   
