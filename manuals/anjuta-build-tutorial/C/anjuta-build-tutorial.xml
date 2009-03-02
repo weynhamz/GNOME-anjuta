@@ -1726,7 +1726,7 @@ int main()
 			</listitem>
 			</orderedlist>
 		</sect2>
-		<sect2 id="library-anjuta-pkgconfig"> 
+		<sect2 id="library-anjuta-no-pkgconfig"> 
 			<title>Without pkg-config</title>
 			<para>
 				<application>Anjuta</application> has no real support for library not
