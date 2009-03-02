@@ -191,3 +191,8 @@ EXTRA_DIST = \
 	libanjuta-1.0.pc.in \
 	anjuta-marshal.list \
 	$(catalog_DATA)
+
+DISTCLEANFILES = \
+  anjuta-enum-types.h \
+  anjuta-enum-types.c \
+  stamp-anjuta-enum-types.h

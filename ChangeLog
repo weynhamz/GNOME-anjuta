@@ -1,5 +1,11 @@
 2009-03-02  Johannes Schmid  <jhs@gnome.org>
 
+	* libanjuta/Makefile.am:
+	* scripts/build-schemas.mk:
+	Fixed distcheck (mostly)
+
+2009-03-02  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c (set_property_value_as_string):
 	(removed dead code)
 	* manuals/anjuta-manual/C/projects.xml:

@@ -26,3 +26,4 @@ uninstall-local:
 endif
 
 CLEANFILES = prefs_glade_schemas
+DISTCLEANFILES = prefs_glade_schemas

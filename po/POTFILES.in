@@ -173,7 +173,7 @@ plugins/project-manager/create_dialogs.glade
 plugins/project-manager/gbf-project-model.c
 plugins/project-manager/gbf-project-util.c
 plugins/project-manager/plugin.c
-plugins/project-wizard/anjuta-project-wizard.glade
+[type: gettext/glade]plugins/project-wizard/anjuta-project-wizard.ui
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
