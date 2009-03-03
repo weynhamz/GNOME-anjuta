@@ -5146,7 +5146,7 @@ msgstr "Hiba az új kezelőcsonk hozzáadása közben: nincs aktuális szerkeszt
 msgid ""
 "To avoid this messages turn off \"Insert handler on edit\" flag in "
 "Preferences->Glade GUI Designer"
-msgstr "Ezen üzenetek elkerüléséhez kapcsolja ki a Beállítások->Glade felülettervező „Kezelő beszúrása szerkesztéskor” beállítását."
+msgstr "Ezen üzenetek elkerüléséhez kapcsolja ki a Beállítások → Glade felülettervező „Kezelő beszúrása szerkesztéskor” beállítását."
 
 #: ../plugins/glade/plugin.c:2369
 msgid "Those documents are already associated"
