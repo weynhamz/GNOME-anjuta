@@ -1,3 +1,8 @@
+2009-03-03  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/file-manager/plugin.c (file_manager_set_default_uri):
+	Fixed critical when no path is set in preferences
+
 2009-03-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/plugin.c:

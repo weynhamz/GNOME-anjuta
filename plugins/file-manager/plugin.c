@@ -81,14 +81,19 @@ static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
 	GFile *file;	
-
-	file = g_file_new_for_path (anjuta_preferences_get (file_manager->prefs, PREF_ROOT));
-	char *uri = g_file_get_uri (file);
-	if (uri)
-		g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
-	file_manager->have_project = FALSE;
-	g_free (uri);
-	g_object_unref (file);
+	gchar* path = anjuta_preferences_get (file_manager->prefs, PREF_ROOT);
+		
+	if (path)
+	{
+		file = g_file_new_for_path (path);
+		char *uri = g_file_get_uri (file);
+		if (uri)
+			g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
+		file_manager->have_project = FALSE;
+		g_free (uri);
+		g_object_unref (file);
+	}
+	g_free(path);
 }
 
 static IAnjutaVcs*
