@@ -1,3 +1,11 @@
+2009-03-04  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-engine-core.c:
+	* plugins/symbol-db/symbol-db-engine-priv.h:
+	* plugins/symbol-db/symbol-db-engine-queries.c:
+	* plugins/symbol-db/symbol-db-engine-utils.c:
+	fixed #573858 – link fail on Solaris for plugin symbol-db.
+
 2009-03-04  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in:

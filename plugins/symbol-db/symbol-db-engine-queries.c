@@ -32,23 +32,23 @@
  * extern declarations 
  */
 
-extern inline const GdaStatement *
+extern GNUC_INLINE const GdaStatement *
 sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type query_id);
 
-extern inline const GdaSet *
+extern GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
 
-extern inline const DynChildQueryNode *
+extern GNUC_INLINE const DynChildQueryNode *
 sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 SymExtraInfo sym_info, gsize other_parameters);
 
 extern void sdb_engine_dyn_child_query_node_destroy (gpointer data);
 
-extern inline const DynChildQueryNode *
+extern GNUC_INLINE const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql);
-extern inline gint
+extern GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										GValue * param_value);
@@ -58,7 +58,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
  * implementation starts here 
  */
 
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_path) 
 {
 	SymbolDBEnginePriv *priv;
@@ -154,7 +154,7 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
 	return final_definition_id;
 }
 
-static inline void
+static GNUC_INLINE void
 sdb_engine_prepare_file_info_sql (SymbolDBEngine *dbe, GString *info_data,
 									GString *join_data, SymExtraInfo sym_info) 
 {
@@ -207,7 +207,7 @@ sdb_engine_prepare_file_info_sql (SymbolDBEngine *dbe, GString *info_data,
 	}	
 }
 
-static inline void
+static GNUC_INLINE void
 sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 									GString *join_data, SymExtraInfo sym_info) 
 {

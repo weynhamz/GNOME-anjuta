@@ -213,22 +213,22 @@ static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id, gboolean sym_update);
 
-inline const GdaStatement *
+GNUC_INLINE const GdaStatement *
 sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type query_id);
 
-inline const GdaSet *
+GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
 
-inline const DynChildQueryNode *
+GNUC_INLINE const DynChildQueryNode *
 sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 SymExtraInfo sym_info, gsize other_parameters);
 
-inline const DynChildQueryNode *
+GNUC_INLINE const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql);
 
-inline gint
+GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										GValue * param_value);
@@ -236,7 +236,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 /*
  * implementation starts here 
  */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_cache_lookup (GHashTable* hash_table, const gchar* lookup)
 {
 	gpointer orig_key = NULL;
@@ -254,7 +254,7 @@ sdb_engine_cache_lookup (GHashTable* hash_table, const gchar* lookup)
 	return -1;
 }
 
-static inline void
+static GNUC_INLINE void
 sdb_engine_insert_cache (GHashTable* hash_table, const gchar* key,
 						 gint value)
 {
@@ -403,7 +403,7 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
  * these queries are time-critical.
  * A GdaSet will also be populated once, avoiding so to create again later on.
  */
-inline const GdaStatement *
+GNUC_INLINE const GdaStatement *
 sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type query_id)
 {
 	static_query_node *node;
@@ -440,7 +440,7 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 /**
  *
  */
-inline const DynChildQueryNode *
+GNUC_INLINE const DynChildQueryNode *
 sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 SymExtraInfo sym_info, gsize other_parameters)
 {
@@ -497,7 +497,7 @@ sdb_engine_dyn_child_query_node_destroy (gpointer data)
  * sdb_engine_get_dyn_query_node_by_id () that the node we're going to add 
  * isn't yet inserted.
  */
-inline const DynChildQueryNode *
+GNUC_INLINE const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql)
@@ -612,7 +612,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
  * Return a GdaSet of parameters calculated from the statement. It does not check
  * if it's null. You *must* be sure to have called sdb_engine_get_statement_by_query_id () first.
  */
-inline const GdaSet *
+GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id)
 {
 	SymbolDBEnginePriv *priv;
@@ -720,7 +720,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
  *
  * @return -1 on error. Otherwise the id of tuple.
  */
-inline gint
+GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
 										gchar * param_key,
 										GValue * param_value)
@@ -795,7 +795,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
  * @return -1 on error. Otherwise the id of table
  *
  */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -890,7 +890,7 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -1007,7 +1007,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -3499,7 +3499,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe,
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 /*
@@ -3912,7 +3912,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 									 gint type_table_id)
 {
@@ -4023,7 +4023,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
  *
  * @return the table_id of the inserted tuple. -1 on error.
  */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry,
 									   gint symbol_referer_id)
@@ -4220,7 +4220,7 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
  *
  * Return the symbol_id of the changed symbol 
  */
-static inline gint
+static GNUC_INLINE gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   GdaDataModel * data, gint data_row,
 									   gchar * token_name,

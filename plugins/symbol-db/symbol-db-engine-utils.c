@@ -26,24 +26,24 @@
 
 #include <libanjuta/resources.h>
 #include "symbol-db-engine-utils.h"
-
+#include "symbol-db-engine-priv.h"
 
 static GHashTable *pixbufs_hash = NULL;
 
 /*
  * extern declarations 
  */
-extern inline const GdaStatement *
+extern GNUC_INLINE const GdaStatement *
 sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type query_id);
 
-extern inline const GdaSet *
+extern GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
 
-extern inline const DynChildQueryNode *
+extern GNUC_INLINE const DynChildQueryNode *
 sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 SymExtraInfo sym_info, gsize other_parameters);
 
-extern inline const DynChildQueryNode *
+extern GNUC_INLINE const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
 										const gchar *sql);
