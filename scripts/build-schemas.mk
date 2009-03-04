@@ -1,19 +1,19 @@
 # Targets for handing glade-to-GConf schema conversion for prefs keys
 
 prefs_glade_schemasdir = @GCONF_SCHEMA_FILE_DIR@
-prefs_glade_schemas_DATA = $(prefs_glade_files:.glade=.schemas)
+prefs_glade_schemas = $(prefs_glade_files:.glade=.schemas)
 
 %.schemas: %.glade
 	$(top_srcdir)/scripts/glade2schema.pl $(srcdir)/$(?) > $(@)
 
 if GCONF_SCHEMAS_INSTALL
-install-data-local:
+install-data-local: $(prefs_glade_schemas)
 	        for p in $(prefs_glade_schemas) ; do \
 	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p ; \
 	        done
 		@killall -1 gconfd-2 || true
 
-uninstall-local:
+uninstall-local: $(prefs_glade_schemas)
 	        for p in $(prefs_glade_schemas) ; do \
 	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $$p ; \
 	        done
@@ -25,5 +25,4 @@ install-data-local:
 uninstall-local:
 endif
 
-CLEANFILES = prefs_glade_schemas
-DISTCLEANFILES = prefs_glade_schemas
+CLEANFILES = $(prefs_glade_schemas)

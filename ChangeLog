@@ -1,5 +1,12 @@
 2009-03-04  Johannes Schmid  <jhs@gnome.org>
 
+	* configure.in:
+	* plugins/tools/scripts/Makefile.am:
+	* scripts/build-schemas.mk:
+	Fixed schema file generation and distcheck completely
+
+2009-03-04  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/e-splash.c (e_splash_init), (e_splash_set):
 	Fixed critical in new splash code
 

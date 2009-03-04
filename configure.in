@@ -477,39 +477,6 @@ dnl Check for gtk-doc.
 dnl ***************************************************************************
 GTK_DOC_CHECK([1.4])
 
-dnl ***************************************************************************
-dnl Check for Gnome XML [Is this still required?]
-dnl ***************************************************************************
-dnl GNOME_XML_CHECK
-
-dnl ***************************************************************************
-dnl Check for ScrollKeeper [No documentation for now]
-dnl ***************************************************************************
-dnl AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
-dnl if test x$SCROLLKEEPER_CONFIG = xno; then
-dnl   AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package. You can get it from http://scrollkeeper.sourceforge.net/)
-dnl fi
-dnl SCROLLKEEPER_REQUIRED=0.1.4
-dnl AC_SUBST(SCROLLKEEPER_REQUIRED)
-
-dnl ***************************************************************************
-dnl Checking for scrollkeeper version [No documentation for now]
-dnl ***************************************************************************
-dnl AC_MSG_CHECKING(for scrollkeeper version number)
-dnl if scrollkeeper-config --version > /dev/null 2>&1; then 
-dnl    version=`scrollkeeper-config --version`; \
-dnl    vers=`echo $version | awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`; \
-dnl    AC_MSG_RESULT(found $version)
-dnl    SCROLLKEEPER_VERSION_NUM=$vers
-dnl else
-dnl    AC_MSG_ERROR(Did not find scrollkeeper installed)
-dnl fi
-dnl AC_SUBST(SCROLLKEEPER_VERSION_NUM)
-
-dnl ***************************************************************************
-dnl Tagmanager checks.
-dnl ***************************************************************************
-
 dnl Define convenience macros
 dnl -------------------------
 dnl CHECK_HEADER_DEFINE(LABEL, HEADER [,ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND ] ])
