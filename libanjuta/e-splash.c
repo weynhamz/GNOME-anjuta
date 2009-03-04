@@ -97,10 +97,7 @@ e_splash_init (ESplash *splash)
 {
 	ESplashPrivate *priv;
 
-	priv = g_new (ESplashPrivate, 1);
-	priv->splash_image_pixbuf = NULL;
-	priv->icon_pixbuf = NULL;
-	priv->title = NULL;
+	priv = g_new0 (ESplashPrivate, 1);
 	priv->progressbar_position = 100;
 	splash->priv = priv;
 }
@@ -282,8 +279,8 @@ e_splash_set  (ESplash *splash, GdkPixbuf *icon_pixbuf,
 		                  (double) ICON_SIZE / gdk_pixbuf_get_width (icon_pixbuf),
 		                  (double) ICON_SIZE / gdk_pixbuf_get_height (icon_pixbuf),
 		                  GDK_INTERP_HYPER);
-
-		g_object_unref (priv->icon_pixbuf);
+		if (priv->icon_pixbuf)
+			g_object_unref (priv->icon_pixbuf);
 		priv->icon_pixbuf = scaled_pixbuf;
 	}
 

@@ -1,4 +1,9 @@
-2009-03-03  Johannes Schmid  <jhs@Obelix>
+2009-03-04  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/e-splash.c (e_splash_init), (e_splash_set):
+	Fixed critical in new splash code
+
+2009-03-03  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/file-manager/plugin.c (file_manager_set_default_uri):
 	Fixed critical when no path is set in preferences
