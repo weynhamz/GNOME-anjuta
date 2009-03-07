@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-02-13 19:27+0000\n"
-"PO-Revision-Date: 2009-03-01 22:00+0100\n"
+"POT-Creation-Date: 2009-03-02 20:37+0000\n"
+"PO-Revision-Date: 2009-03-07 16:44+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2641,29 +2641,34 @@ msgstr "Para añadir una dependencia de un paquete: <placeholder-1/>"
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
+#: C/anjuta-manual.xml:658(title) C/anjuta-manual.xml:660(screeninfo)
+#| msgid "Project properties dialog"
+msgid "Group properties dialog"
+msgstr "Diálogo Propiedades del grupo"
+
 #: C/anjuta-manual.xml:652(para)
 #, fuzzy
 msgid ""
 "To edit a group's properties, double-click the group in the "
 "<interface>Project</interface> window to open the <interface>Group "
 "Properties</interface> dialog. (You can alternatively right-click the group "
-"and select <guimenuitem>Properties</guimenuitem> from the context menu.)"
+"and select <guimenuitem>Properties</guimenuitem> from the context menu.) "
+"<placeholder-1/>"
 msgstr ""
 "Para establecer propiedades del grupo selecciónelas en la <interface>ventana "
 "de proyecto</interface> y actívelo. También puede acceder al menú "
 "seleccionando <menuchoice><guimenu>Menú de operación</"
 "guimenu><guimenuitem>Propiedades</guimenuitem></menuchoice>."
 
-#: C/anjuta-manual.xml:668(para)
+#: C/anjuta-manual.xml:675(para)
 #, fuzzy
 msgid ""
-"<emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables and other "
-"include directories for your C and C++ targets here. You need to provide the "
-"full include options of the compiler here, e.g. -I/usr/include/blah. The "
-"include paths will be used to find header files included by your source "
-"files. (You can also add other compiler flags here, but it's preferable to "
-"set them in their respective <emphasis>compiler flags</emphasis> fields as "
-"described below.)"
+"<emphasis>Includes</emphasis>: Set your include directories for your C and C+"
+"+ targets here. You need to provide the full include options of the compiler "
+"here, e.g. -I/usr/include/blah. The include paths will be used to find "
+"header files included by your source files. (You can also add other compiler "
+"flags here, but it's preferable to set them in their respective "
+"<emphasis>compiler flags</emphasis> fields as described below.)"
 msgstr ""
 "<emphasis>Inclusiones</emphasis>: establezca sus variables $(modulo_CFLAGS) "
 "y otros directorios de inclusión para sus objetivos C y C++. Aquí debe "
@@ -2673,21 +2678,7 @@ msgstr ""
 "opciones del compilador, pero es preferible establecerlas en sus respectivas "
 "propiedades de opciones del compilador (ver más abajo)."
 
-#: C/anjuta-manual.xml:677(para)
-#, fuzzy
-msgid ""
-"Usually your configure script will also make some automatically determined "
-"compiler flags. The variables usually end with _CFLAGS, e.g "
-"$(PACKAGE_CFLAGS). They are also set here. See <link linkend=\"project-"
-"properties\">Project properties</link> for more details on these variables."
-msgstr ""
-"Generalmente su script de configuración también creará algunas opciones de "
-"compilación determinadas automáticamente. Las variables generalmente "
-"terminan con _CFLAGS, ej. $(PAQUETE_CFLAGS). También están establecidas "
-"aquí. Para obtener más detalles acerca de estas variables consulte las <link "
-"linkend=\"project-properties\">Propiedades del proyecto</link>."
-
-#: C/anjuta-manual.xml:687(para)
+#: C/anjuta-manual.xml:685(para)
 #, fuzzy
 msgid ""
 "<emphasis>Compiler flags</emphasis>: Set your compiler-specific flags here. "
@@ -2703,7 +2694,7 @@ msgstr ""
 "gcc/g++ (el compilador GNU de C). Para obtener más detalles consulte la "
 "<ulink url=\"info:gcc\">información de documentación de gcc</ulink>."
 
-#: C/anjuta-manual.xml:697(para)
+#: C/anjuta-manual.xml:695(para)
 #, fuzzy
 msgid ""
 "<emphasis>Install directories</emphasis>: The dialog will display a field "
@@ -2718,7 +2709,7 @@ msgstr ""
 "son relativos a una de las muchas variables de directorio de automake, tales "
 "como $(prefix), $(bindir), $(libdir), $(datadir), etc."
 
-#: C/anjuta-manual.xml:659(para)
+#: C/anjuta-manual.xml:666(para)
 #, fuzzy
 msgid ""
 "Properties set for a group apply to all the targets under it. So any "
@@ -2734,24 +2725,68 @@ msgstr ""
 "objetivo). Las siguientes opciones están disponibles en las propiedades de "
 "grupo. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:712(title)
+#: C/anjuta-manual.xml:710(title)
 msgid "Target properties"
 msgstr "Propiedades del destino"
 
-#: C/anjuta-manual.xml:713(para)
+#: C/anjuta-manual.xml:711(para)
+msgid ""
+"Any properties set for a target apply to that target only. A target also "
+"inherits properties from its containing group."
+msgstr ""
+"Cualquier propiedad establecida para un objetivo se aplica sólo sobre ese "
+"objetivo. Un objetivo también hereda las propiedades del grupo que lo "
+"contiene."
+
+#: C/anjuta-manual.xml:721(title) C/anjuta-manual.xml:723(screeninfo)
+#: C/anjuta-manual.xml:743(title) C/anjuta-manual.xml:745(screeninfo)
+#| msgid "Project properties dialog"
+msgid "Target properties dialog"
+msgstr "Diálogo Propiedades del objetivo"
+
+#: C/anjuta-manual.xml:715(para)
 #, fuzzy
 msgid ""
 "To set a target's properties, double-click the target in the "
 "<interface>Project window</interface> to open the Target Properties dialog. "
 "(You can alternatively right-click the target and select "
-"<guimenuitem>Properties</guimenuitem> from the context menu.)"
+"<guimenuitem>Properties</guimenuitem> from the context menu.) <placeholder-1/"
+">"
 msgstr ""
 "Para establecer las propiedades del objetivo, selecciónelo en la "
 "<interface>ventana de proyecto</interface> y actívelo. También puede acceder "
 "al menú seleccionando el<menuchoice><guimenu>Menú de operación</"
 "guimenu><guimenuitem>Propiedades</guimenuitem></menuchoice>"
 
-#: C/anjuta-manual.xml:727(para)
+#: C/anjuta-manual.xml:728(para)
+msgid ""
+"You can add the modules you have added in <link linkend=\"project-properties"
+"\">Project properties</link> to a specific target here. To activate the "
+"module simply toggle the checkbox next to the module name. This will "
+"automatically add include and linker flags to that target and enable you to "
+"use the module within this target."
+msgstr ""
+"Aquí puede añadir los módulos que ha añadido en las <link linkend=\"project-"
+"properties\">Propiedades del proyecto</link> a un objetivo específico. Para "
+"activar el módulo simplemente conmute la caja de verificación junto al "
+"nombre del módulo. Esto añadirá automáticamente opciones de inclusión y "
+"enlazado sobre ese objetivo y le permitirá usar el módulo en ese objetivo."
+
+#: C/anjuta-manual.xml:735(title)
+msgid "Advanced target options"
+msgstr "Opciones avanzadas del objetivo"
+
+#: C/anjuta-manual.xml:736(para)
+msgid ""
+"The following fields are available in the advanced target configuration that "
+"you reach when you clicked the <guibutton>Advanded...</guibutton> button in "
+"the target properties dialog."
+msgstr ""
+"Los siguientes campos están disponibles en la configuración avanzada del "
+"objetivo, a la que se llega pulsando el botón <guibutton>Avanzadas...</"
+"guibutton> en el diálogo de propiedades del objetivo."
+
+#: C/anjuta-manual.xml:751(para)
 #, fuzzy
 msgid ""
 "<emphasis>Compiler settings</emphasis>: Set your compiler-specific flags "
@@ -2767,7 +2802,7 @@ msgstr ""
 "gcc/g++ (el compilador GNU de C). Para obtener más detalles consulte la "
 "<ulink url=\"info:gcc\">información de documentación de gcc</ulink>."
 
-#: C/anjuta-manual.xml:737(para)
+#: C/anjuta-manual.xml:761(para)
 #, fuzzy
 msgid ""
 "<emphasis>Linker flags</emphasis>: Set linker flags that should be used when "
@@ -2780,32 +2815,12 @@ msgstr ""
 "tipo programa y biblioteca. Consulte <ulink url=\"info:ld\">documentación de "
 "ld</ulink> para ver las opciones disponibles del enlazador."
 
-#: C/anjuta-manual.xml:745(para)
-#, fuzzy
+#: C/anjuta-manual.xml:769(para)
 msgid ""
-"<emphasis>Libraries</emphasis>: Set the libraries that the target depends "
-"on. Usually they are the $(module_LIBS) configure variables. See <link "
-"linkend=\"project-properties\">Project properties</link> for more details on "
-"these variables."
+"<emphasis>Libraries</emphasis>: Set the libraries that the target depends on."
 msgstr ""
-"<emphasis>Bibliotecas:</emphasis> Establezca las bibliotecas de las que "
-"depende el objetivo. Generalmente son las variables de configuración "
-"$(module_LIBS). Para obtener más detalles acerca de estas variables, "
-"consulte los ajustes de las <link linkend=\"project-properties\">Propiedades "
-"del proyecto</link>."
-
-#: C/anjuta-manual.xml:720(para)
-#, fuzzy
-msgid ""
-"Any properties set for a target apply to that target only. A target also "
-"inherits properties from its containing group. The following fields are "
-"available in the Target Properties dialog. <placeholder-1/>"
-msgstr ""
-"Las <emphasis>Propiedades del objetivo</emphasis> se establecen para un "
-"objetivo. De tal forma que cualquier opción del compilador o enlazador "
-"establecidas aquí serán simplemente parte de él (además de sus propiedades "
-"de grupo). Las siguientes opciones están disponibles en las propiedades del "
-"objetivo. <placeholder-1/>"
+"<emphasis>Bibliotecas</emphasis>: Establece las bibliotecas de las que "
+"depende el objetivo."
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Building"
@@ -2980,7 +2995,6 @@ msgstr ""
 "asistente lo ejecutará como parte del proceso de generación del proyecto."
 
 #: C/anjuta-manual.xml:88(para)
-#, fuzzy
 msgid ""
 "There is no requirement to run this only once. It can be run at any time, "
 "usually when the configuration options need to be changed. One thing to note "
@@ -2995,12 +3009,10 @@ msgstr ""
 "ejecutar <filename>configure</filename> de nuevo no lo sobreescribirá."
 
 #: C/anjuta-manual.xml:100(para)
-#, fuzzy
 msgid "Whether you want to run the generate step or not"
-msgstr "Si quiere ejecutar el paso de generación o no"
+msgstr "Indica si quiere ejecutar el paso de generación o no"
 
 #: C/anjuta-manual.xml:101(para)
-#, fuzzy
 msgid ""
 "The generate step needs to be run once at the beginning of the project; then "
 "it is automatically handled by the build process. You can force it to run by "
@@ -3012,8 +3024,8 @@ msgstr ""
 "automáticamente por el proceso de construcción. Puede forzar su ejecución "
 "seleccionando la casilla de verificación <interface>Regenerar el proyecto</"
 "interface> en caso de que encuentre alguna dificultad al construir los "
-"proyectos (tal como multitud de errores debidos a faltas de sincronización "
-"después de modificar muchos archivos de construcción)."
+"proyectos (ej. si obtiene errores de construcción después de modificar "
+"muchos archivos de construcción)."
 
 #: C/anjuta-manual.xml:109(para)
 msgid "The configuration name"
@@ -3035,7 +3047,6 @@ msgid "The build directory"
 msgstr "El directorio de construcción"
 
 #: C/anjuta-manual.xml:117(para)
-#, fuzzy
 msgid ""
 "This is the build directory name. In the Default configuration, it is the "
 "same directory as the source directory but autotools supports building in a "
@@ -3043,7 +3054,7 @@ msgid ""
 msgstr ""
 "Éste es el nombre del directorio de construcción. En la configuración "
 "predeterminada es el mismo directorio que el directorio de fuentes pero "
-"autotools soportan la construcción en un directorio distinto."
+"autotools soporta la construcción en un directorio distinto."
 
 #: C/anjuta-manual.xml:122(para)
 msgid ""
@@ -3066,7 +3077,6 @@ msgid "Configure options"
 msgstr "Opciones de configuración"
 
 #: C/anjuta-manual.xml:131(para)
-#, fuzzy
 msgid ""
 "These options are passed to the <filename>configure</filename> script. Some "
 "are standard, such as --prefix and CFLAGS; others depend on the project. You "
@@ -3075,9 +3085,10 @@ msgid ""
 "argument."
 msgstr ""
 "Estas opciones se pasan al script <filename>configure</filename>. Algunas "
-"son prefijos estándar, CFLAGS, ... algunas dependen del proyecto. Puede "
-"obtener una lista completa de las opciones de configuración permitidas "
-"ejecutando el script <filename>configure</filename> con el argumento --help."
+"son prefijos estándar, tales como --prefix y CFLAGS; otras dependen del "
+"proyecto. Puede obtener una lista completa de las opciones de configuración "
+"permitidas ejecutando el script <filename>configure</filename> con el "
+"argumento --help."
 
 #: C/anjuta-manual.xml:94(para)
 msgid ""
@@ -3111,7 +3122,6 @@ msgid "Clean a configuration"
 msgstr "Limpiar la configuración"
 
 #: C/anjuta-manual.xml:149(para)
-#, fuzzy
 msgid ""
 "To clean the project and leave it in a state that requires rerunning the "
 "configure step, choose <menuchoice><guisubmenu>Build</"
@@ -3124,11 +3134,12 @@ msgid ""
 msgstr ""
 "Para limpiar un proyecto y dejarlo en un estado que requiera volver al paso "
 "de configuración debe elegir <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Quitar configuración</guimenuitem></menuchoice>. "
-"Ejecutará «make distclean» y borra más archivos que <guimenuitem>Limpiar "
-"proyecto</guimenuitem>. En otras palabras, deja el proyecto como si se "
-"acabase de extraer del paquete tarball de la distribución. Note que no quita "
-"el directorio de configuración en sí, pero puede hacerlo usted mismo."
+"guisubmenu><guimenuitem>Eliminar configuración</guimenuitem></menuchoice>. "
+"Ejecutará <command>make distclean</command> y borra más archivos que "
+"<guimenuitem>Limpiar proyecto</guimenuitem>. En otras palabras, deja el "
+"proyecto como si se acabase de extraer del paquete tarball de la "
+"distribución. Note que no quita el directorio de configuración en sí, pero "
+"puede hacerlo usted mismo."
 
 #: C/anjuta-manual.xml:166(title)
 msgid "Compile and Build"
@@ -3139,7 +3150,6 @@ msgid "Compiling a file"
 msgstr "Compilar un archivo"
 
 #: C/anjuta-manual.xml:169(para)
-#, fuzzy
 msgid ""
 "In a project, individual source files can be compiled separately into "
 "objects (<filename>*.o</filename> files). Although you do not have to worry "
@@ -3155,8 +3165,7 @@ msgstr ""
 "primero (por ejemplo, para asegurarse de que no hay errores de sintaxis). "
 "Compilar un proyecto entero puede llevar mucho tiempo, especialmente en el "
 "caso de aplicaciones grandes y complejas. Por ello probablemente pasará por "
-"series de bucles edición-compilación-edición-compilación... mientras esté "
-"desarrollando el proyecto."
+"series ciclos de edición-compilación mientras esté desarrollando el proyecto."
 
 #: C/anjuta-manual.xml:177(para)
 msgid ""
@@ -3424,7 +3433,6 @@ msgstr ""
 "forma que se carga o descarga bajo petición."
 
 #: C/anjuta-manual.xml:37(para)
-#, fuzzy
 #| msgid ""
 #| "The debugger is always started with a program loaded. There are two ways "
 #| "to do this: <placeholder-1/>"
@@ -3433,10 +3441,9 @@ msgid ""
 "do this: <placeholder-1/><placeholder-2/>"
 msgstr ""
 "El depurador siempre se inicia con un programa cargado. Hay dos formas de "
-"hacerlo: <placeholder-1/>"
+"hacerlo: <placeholder-1/><placeholder-2/>"
 
 #: C/anjuta-manual.xml:57(para)
-#, fuzzy
 msgid ""
 "Running a program with or without the debugger uses the same menu: select "
 "<menuchoice><guisubmenu>Run</guisubmenu><guimenuitem>Run Program</"
@@ -3452,7 +3459,6 @@ msgstr ""
 "ejecutarlo con el depurador."
 
 #: C/anjuta-manual.xml:65(para)
-#, fuzzy
 msgid ""
 "In order to better use the debugger, it is strongly recommended that you "
 "build your program with debugging information (-g for gcc) and no "
@@ -3460,7 +3466,7 @@ msgid ""
 "configuration before building the program for the first time."
 msgstr ""
 "Para hacer un mejor uso del depurador, se recomienda encarecidamente que "
-"depure el programa con la información de depuración (-g para gcc) y sin "
+"construya el programa con la información de depuración (-g para gcc) y sin "
 "optimización (-O0 para gcc). Esto se puede realizar seleccionando la "
 "configuración de depuración antes de construir el programa por primera vez."
 
@@ -3469,7 +3475,6 @@ msgid "The program that you want to debug"
 msgstr "El programa que quiere depurar"
 
 #: C/anjuta-manual.xml:77(para)
-#, fuzzy
 msgid ""
 "The drop-down menu of the target drop-down combination box is pre-filled "
 "with all executables of the current project. But you can alternatively "
@@ -3481,52 +3486,45 @@ msgstr ""
 "está rellenada con todos los ejecutables del proyecto actual. Pero puede "
 "seleccionar otro ejecutable que no forme parte del proyecto. El depurador "
 "acepta ejecutables de libtool, es decir scripts generados por libtool, que "
-"envuelven al ejecutable real. Nótese que se espera un URI, no una ruta de "
-"archivo incluso si actualmente el depurador sólo soporta archivos locales."
+"envuelven al ejecutable real."
 
 #: C/anjuta-manual.xml:84(para)
-#, fuzzy
 msgid "The command-line parameters"
 msgstr "Los parámetros de la línea de comandos"
 
 #: C/anjuta-manual.xml:85(para)
-#, fuzzy
 msgid "The working directory"
-msgstr "El directorio de trabajo del programa"
+msgstr "El directorio de trabajo"
 
 #: C/anjuta-manual.xml:86(para)
-#, fuzzy
 msgid "Environment variables"
-msgstr "Añadir o quitar algunas variables de entorno"
+msgstr "Variables de entorno"
 
 #: C/anjuta-manual.xml:87(para)
-#, fuzzy
 msgid ""
 "Environment variables displayed in light gray are the current environment "
 "variables. You can add, modify or remove environment variables here."
 msgstr ""
 "Las variables de entorno en gris claro son las variables de entorno "
-"actuales. Puede añadir una nueva, modificar una existente o quitar las "
-"variables de entorno."
+"actuales. Aquí puede añadir, modificar o quitar las variables de entorno."
 
-#: C/anjuta-manual.xml:91(tip)
-#, fuzzy
+#: C/anjuta-manual.xml:91(para)
 msgid ""
 "To debug Anjuta using Anjuta, you can use a different theme to change the "
 "look of the instance being debugged; for example, you could add "
 "\"GTK2_RC_FILES=/usr/share/themes/Crux/gtk-2.0/gtkrc\"."
 msgstr ""
 "Para depurar Anjuta usando Anjuta puede usar un tema diferente para "
-"reconocer inmediatamente la instancia bajo depuración añadiendo, por "
-"ejemplo, «GTK2_RC_FILES=/usr/share/themes/Crux/gtk-2.0/gtkrc»."
+"reconocer inmediatamente la instancia en depuración añadiendo, por ejemplo "
+"puede añadir «GTK2_RC_FILES=/usr/share/themes/Crux/gtk-2.0/gtkrc»."
 
 #: C/anjuta-manual.xml:96(para)
-#, fuzzy
 msgid ""
 "Whether the program should run in a terminal or not. If so, the Anjuta "
 "terminal plugin is used."
 msgstr ""
-"Si quiere o no una terminal (se usa el complemento del terminal de Anjuta)"
+"Indica si el programa se debe ejecutar en un terminal o no. De ser así, se "
+"usa el complemento del terminal de Anjuta."
 
 #: C/anjuta-manual.xml:71(para)
 msgid ""
@@ -5499,6 +5497,33 @@ msgstr ""
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
 msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007-2009"
+
+#, fuzzy
+#~ msgid ""
+#~ "Usually your configure script will also make some automatically "
+#~ "determined compiler flags. The variables usually end with _CFLAGS, e.g "
+#~ "$(PACKAGE_CFLAGS). They are also set here. See <link linkend=\"project-"
+#~ "properties\">Project properties</link> for more details on these "
+#~ "variables."
+#~ msgstr ""
+#~ "Generalmente su script de configuración también creará algunas opciones "
+#~ "de compilación determinadas automáticamente. Las variables generalmente "
+#~ "terminan con _CFLAGS, ej. $(PAQUETE_CFLAGS). También están establecidas "
+#~ "aquí. Para obtener más detalles acerca de estas variables consulte las "
+#~ "<link linkend=\"project-properties\">Propiedades del proyecto</link>."
+
+#, fuzzy
+#~ msgid ""
+#~ "<emphasis>Libraries</emphasis>: Set the libraries that the target depends "
+#~ "on. Usually they are the $(module_LIBS) configure variables. See <link "
+#~ "linkend=\"project-properties\">Project properties</link> for more details "
+#~ "on these variables."
+#~ msgstr ""
+#~ "<emphasis>Bibliotecas:</emphasis> Establezca las bibliotecas de las que "
+#~ "depende el objetivo. Generalmente son las variables de configuración "
+#~ "$(module_LIBS). Para obtener más detalles acerca de estas variables, "
+#~ "consulte los ajustes de las <link linkend=\"project-properties"
+#~ "\">Propiedades del proyecto</link>."
 
 #~ msgid "2006"
 #~ msgstr "2006"
