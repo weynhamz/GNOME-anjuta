@@ -222,7 +222,9 @@ git_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 		                        "parent-file", 
 		                        g_object_ref (parent_file), 
 		                        (GDestroyNotify) g_object_unref);
-		g_object_set_data (G_OBJECT (status_command), "file", file);
+		g_object_set_data_full (G_OBJECT (status_command), "file", 
+								g_object_ref (file),
+								(GDestroyNotify) g_object_unref);
 		
 		g_object_unref (project_root_file);
 		g_object_unref (parent_file);
