@@ -4,6 +4,7 @@ _Description=A Subversion client plugin based on libsvn
 Location=anjuta-subversion:Subversion
 Icon=anjuta-subversion-plugin-48.png
 Interfaces=IAnjutaVcs
+License=The subversion plugin includes cryptographic software written by Eric Young (eay@cryptsoft.com).\nThe code of the plugin itself remains GPL licensed and we hereby grant permission\n to link anjuta against OpenSSL.
 
 [Vcs]
 System=Subversion

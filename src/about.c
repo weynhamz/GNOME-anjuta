@@ -27,6 +27,8 @@
 
 #include "about.h"
 
+#define LICENSE_FILE PACKAGE_DOC_DIR "/COPYING"
+
 #define ANJUTA_PIXMAP_LOGO			"anjuta_logo.png"
 #define ABOUT_AUTHORS				"AUTHORS"	
 #define MAX_CAR 256
@@ -171,9 +173,23 @@ about_box_new ()
 {
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
+	gchar* license = NULL;
+	GError* error = NULL;
 	
 	/*  Parse AUTHORS file  */
 	about_read_file();
+
+	
+	if (!g_file_get_contents (LICENSE_FILE,
+	                          &license,
+	                          NULL,
+	                          &error))
+	{
+		g_warning ("Couldn't read license file %s: %s",
+		            LICENSE_FILE,
+		            error->message);
+		g_error_free (error);
+	}
 	
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO,
 									NULL);
@@ -186,7 +202,7 @@ about_box_new ()
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
 		_("Integrated Development Environment"));
 	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
-		NULL);
+		license);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.anjuta.org");
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
@@ -198,6 +214,7 @@ about_box_new ()
 	/* Free authors, documenters, translators */
 	about_free_credit();
 	g_object_unref (pix);
+	g_free (license);
 	return dialog;
 }
 
@@ -206,6 +223,7 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 {
 	gchar *name = NULL;
 	gchar *authors = NULL;
+	gchar *license = NULL;
 	gchar **authors_v = NULL;
 	gchar *icon = NULL;
 	gchar *d = NULL;
@@ -220,6 +238,8 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 										  "Icon", &icon);
 	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 										  "Authors", &authors);
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+										  "License", &license);	
 	if (icon)
 	{
 		gchar *path = g_build_filename (PACKAGE_PIXMAPS_DIR, icon, NULL);
@@ -233,8 +253,9 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	dialog = gtk_about_dialog_new();
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), name);
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
-		_("Anjuta Plugin"));
+	if (license)
+		gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+		                               license);
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),d);
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
@@ -242,12 +263,16 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 								 (const gchar **)authors_v);
 	
 	gtk_widget_show (dialog);
+
+	g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+	
 	g_object_unref (pix);
 	g_strfreev (authors_v);
 	g_free (name);
 	g_free (d);
 	g_free (authors);
 	g_free (icon);
+	g_free (license);
 }
 
 void
@@ -275,9 +300,12 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 		if (anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
 														 "Name", &label))
 		{
-			gchar *authors;
+			gchar *authors = NULL;
+			gchar *license = NULL;
 			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-													  "Authors", &authors))
+													  "Authors", &authors) ||
+			    anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+													  "License", &license))
 			{
 				item = gtk_menu_item_new_with_label (label);
 				gtk_widget_show (item);
@@ -286,6 +314,7 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 								  desc);
 				gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 				g_free (authors);
+				g_free (license);
 			}
 			g_free (label);
 		}

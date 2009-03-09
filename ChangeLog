@@ -1,5 +1,14 @@
 2009-03-09  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/subversion/anjuta-subversion.plugin.in:
+	Add a license exception for linking with OpenSSL
+	
+	* src/about.c (about_box_new), (on_about_plugin_activate),
+	(about_create_plugins_submenu):
+	#397883 – The license info is almost empty
+
+2009-03-09  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview.c (sourceview_dispose):
 	Removed double unref
 
