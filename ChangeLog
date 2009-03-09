@@ -1,3 +1,14 @@
+2009-03-09  Johannes Schmid  <jhs@Obelix>
+
+	* plugins/project-wizard/Makefile.am:
+	* plugins/project-wizard/anjuta-project-wizard.ui:
+	Just use the GtkBuilder file and no longer autogenerate it (fixed intltool problems)
+	
+	* plugins/sourceview/sourceview-io.c (on_save_finished),
+	(sourceview_io_save_as):
+	* plugins/sourceview/sourceview.c (sourceview_dispose):
+	#574376 – Save doesn't always save
+
 2009-03-07  James Liggett  <jrliggett@cox.net>
 
 	* plugins/git/git-vcs-interface.c (git_ivcs_query_status):

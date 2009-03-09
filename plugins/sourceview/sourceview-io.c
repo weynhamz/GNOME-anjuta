@@ -258,6 +258,7 @@ on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
 		g_signal_emit_by_name (sio, "save-finished");
 	}
 	g_object_unref (output_stream);
+	g_object_unref (sio);
 }
 
 void
@@ -337,6 +338,7 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 		sio->file = file;
 		g_object_ref (file);
 	}
+	g_object_ref (sio);
 }
 
 static void insert_text_in_document(SourceviewIO* sio, const gchar* text, gsize len)
