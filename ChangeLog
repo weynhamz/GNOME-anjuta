@@ -1,4 +1,9 @@
-2009-03-09  Johannes Schmid  <jhs@Obelix>
+2009-03-09  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c (sourceview_dispose):
+	Removed double unref
+
+2009-03-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/project-wizard/Makefile.am:
 	* plugins/project-wizard/anjuta-project-wizard.ui:

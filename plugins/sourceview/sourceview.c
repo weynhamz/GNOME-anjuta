@@ -682,7 +682,6 @@ sourceview_dispose(GObject *object)
 		g_source_remove (GPOINTER_TO_UINT (node->data));
 	}
 	g_slist_free (cobj->priv->idle_sources);
-	g_object_unref (cobj->priv->io);
 	
 	sourceview_prefs_destroy(cobj);
 	
