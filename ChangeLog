@@ -1,3 +1,8 @@
+2009-03-11  Johannes Schmid  <jhs@gnome.org>
+
+	* configure.in: Fixed "--enable-editor-scintilla"
+	(Thanks to Debarshi Ray for reporting this)
+
 2009-03-09  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/subversion/anjuta-subversion.plugin.in:

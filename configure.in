@@ -342,12 +342,12 @@ dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-scintilla,
 	AC_HELP_STRING([--disable-plugin-scintilla],[ Scintilla based editor in Anjuta]), 
-	[ if test "$enableval" = "yes"; then
+	[ if test "$enableval" = "no"; then
 		user_disabled_scintilla=1
 	  fi ],
 	[ user_disabled_scintilla=0 ])
 
-AC_MSG_CHECKING(if scintilla plugin is disabled)
+AC_MSG_CHECKING(if scintilla plugin is enabled)
 if test "$user_disabled_scintilla" = 1; then
 	AC_MSG_RESULT(no)
 	scintilla="no"
