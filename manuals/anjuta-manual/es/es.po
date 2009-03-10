@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-03-02 20:37+0000\n"
-"PO-Revision-Date: 2009-03-07 16:44+0100\n"
+"PO-Revision-Date: 2009-03-10 19:20+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3541,7 +3541,6 @@ msgid "Attaching to a Process"
 msgstr "Acoplar a un proceso"
 
 #: C/anjuta-manual.xml:103(para)
-#, fuzzy
 msgid ""
 "It is also possible to attach to a running process and debug it by choosing "
 "the menu item <menuchoice><guisubmenu>Run</guisubmenu><guimenuitem>Debug "
@@ -3566,7 +3565,6 @@ msgstr ""
 "para iniciar el depurador, acóplelo al proceso seleccionado y párelo."
 
 #: C/anjuta-manual.xml:121(para)
-#, fuzzy
 msgid ""
 "It is currently not possible to load symbol information for an attached "
 "process. Symbols should be included in the process."
@@ -3579,7 +3577,6 @@ msgid "Stopping the Debugger"
 msgstr "Parar el depurador"
 
 #: C/anjuta-manual.xml:130(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Run</"
 "guisubmenu><guimenuitem>Stop Debugger</guimenuitem></menuchoice> to stop the "
@@ -3611,7 +3608,6 @@ msgstr ""
 "directorios de fuentes."
 
 #: C/anjuta-manual.xml:146(para)
-#, fuzzy
 msgid ""
 "Most executables include full file paths, so defining the directories where "
 "are the source files is normally not useful. But some executables include "
@@ -3653,7 +3649,6 @@ msgstr ""
 "atrás, pausar, parar y demás. Aunque aún no se puede ir hacia atrás."
 
 #: C/anjuta-manual.xml:170(para)
-#, fuzzy
 msgid ""
 "The methods those can be used to execute a program in the debugger are "
 "described in the following sections. These commands are available only when "
@@ -3680,7 +3675,6 @@ msgstr ""
 "depurador</interface> para avanzar un paso en un programa."
 
 #: C/anjuta-manual.xml:184(para)
-#, fuzzy
 msgid ""
 "Single stepping executes only one statement of the program (from the place "
 "where it has stopped) and then returns control. If the statement that is "
@@ -3811,7 +3805,6 @@ msgid "Run To"
 msgstr "Ejecutar hasta"
 
 #: C/anjuta-manual.xml:257(para)
-#, fuzzy
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Run to Cursor</guimenuitem></menuchoice> or click on "
@@ -3821,18 +3814,17 @@ msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
 "guisubmenu><guimenuitem>Ejecutar hasta cursor</guimenuitem></menuchoice> o "
 "pulse en el icono <guibutton>Ejecutar hasta cursor</guibutton> en la "
-"<interface>barra de herramientas del depurador</interface> para ejecutar "
+"<interface>Barra de herramientas del depurador</interface> para ejecutar "
 "hasta la línea en la que se encuentra el cursor."
 
 #: C/anjuta-manual.xml:263(para)
-#, fuzzy
 msgid ""
 "This option continues the execution of the program until the line or the "
 "address (if the <interface>Disassembly window</interface> has the focus) at "
 "the cursor is reached."
 msgstr ""
 "Esta opción continua la ejecución del programa hasta la línea o la dirección "
-"(si la <interface>ventana de desensamblado</interface> tiene el foco) donde "
+"(si la <interface>Ventana de desensamblado</interface> tiene el foco) donde "
 "se alcanza al cursor."
 
 #: C/anjuta-manual.xml:271(title)
@@ -3951,13 +3943,12 @@ msgid "Pass count"
 msgstr "Conteo de pasadas"
 
 #: C/anjuta-manual.xml:355(para)
-#, fuzzy
 msgid ""
 "When the debugger is not running, this column displays the pass count of the "
 "breakpoint, or zero if it is not defined."
 msgstr ""
 "Cuando el depurador no se está ejecutando, ésta columna muestra el conteo de "
-"pasadas del punto de parada, será cero si no se ha definido."
+"pasadas del punto de parada, será cero si no está definido."
 
 #: C/anjuta-manual.xml:359(para)
 msgid ""
@@ -4219,7 +4210,6 @@ msgstr ""
 "menuchoice> para borrarlo."
 
 #: C/anjuta-manual.xml:518(para)
-#, fuzzy
 msgid ""
 "A existing breakpoint may also be deleted by selecting its line in the "
 "editor and choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -4228,13 +4218,13 @@ msgid ""
 "guimenuitem></menuchoice> or the <guibutton>Toggle Breakpoint</guibutton> "
 "icon in the <interface>Debug toolbar</interface>."
 msgstr ""
-"Un punto de parada existente también se puede borrar seleccionando la línea "
+"Un punto de parada existente también se puede borrar seleccionando su línea "
 "en el editor y eligiendo el elemento del menú "
 "<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Conmutar punto de "
 "parada</guimenuitem></menuchoice>, el elemento del menú emergente "
 "<menuchoice><guimenuitem>Conmutar punto de parada</guimenuitem></menuchoice> "
 "o el icono <guibutton>Conmutar punto de parada</guibutton> en la "
-"<interface>barra de herramientas del depurador</interface>."
+"<interface>Barra de herramientas del depurador</interface>."
 
 #: C/anjuta-manual.xml:527(para)
 msgid ""
@@ -5101,6 +5091,14 @@ msgid ""
 "their description. An extra functionality allows you to use infrastructure "
 "of Anjuta more effectively and is described here."
 msgstr ""
+"El complemento de Glade básicamente copia las funcionalidades del diseñador "
+"de Glade, pero tiene algunas características especiales. Las cuatro ventanas "
+"del diseñador de Glade son el área de diseño, la paleta, el inspector de "
+"widgets y el editor de propiedades. Tienen el mismo propósito que en el "
+"diseñador individual, así que consulte el <ulink type=\"help\" url=\"ghelp:"
+"glade\">Manual del diseñador de interfaces Glade</ulink> para ver su "
+"descripción. Una funcionalidad adicional le permite usar la estructura de "
+"Anjuta de una forma más efectiva y se describe aquí."
 
 #: C/anjuta-manual.xml:66(title)
 msgid "Editor and designer association"
@@ -5118,6 +5116,16 @@ msgid ""
 "guimenuitem><guimenuitem>Associate last designer and editor</guimenuitem></"
 "menuchoice> menu item."
 msgstr ""
+"Puede asociar el editor de textos y el diseñador Glade para cambiar "
+"fácilmente entre ambos e insertar manejadores de esbozos para manejadores "
+"nuevos que haya introducido. Puede asociar más de un editor a un diseñador. "
+"Se usará el editor más reciente o el asociado con el widget de nivel "
+"superior. Existen dos formas de asociar un editor y un diseñador. La primera "
+"forma es usando el diálogo de asociaciones. La segunda forma es elegir el "
+"diseñador y el editor de documentos en cualquier orden y seleccionar el "
+"elemento del menú <menuchoice><guimenuitem>Glade</"
+"guimenuitem><guimenuitem>Asociar el último diseñador y el último editor</"
+"guimenuitem></menuchoice>."
 
 #: C/anjuta-manual.xml:83(title)
 msgid "Associations dialog"
@@ -5125,13 +5133,15 @@ msgstr "Diálogo de asociaciones"
 
 #: C/anjuta-manual.xml:94(guilabel)
 msgid "Spec regexp"
-msgstr ""
+msgstr "RegExp especial"
 
 #: C/anjuta-manual.xml:95(para)
 msgid ""
 "Shortened from \"special regular expression\". Used for defining a custom "
 "position for inserting stubs."
 msgstr ""
+"Apócope de «expresión regular especial». Se usa para definir una posición "
+"especial para insertar esbozos."
 
 #: C/anjuta-manual.xml:101(guilabel)
 msgid "Widget name"
@@ -5140,6 +5150,7 @@ msgstr "Nombre del widget"
 #: C/anjuta-manual.xml:102(para)
 msgid "The name of the toplevel widget this assoctiation belongs to."
 msgstr ""
+"El nombre del widget de nivel superior al que pertenece esta asociación."
 
 #: C/anjuta-manual.xml:107(guilabel)
 msgid "Position type"
@@ -5154,6 +5165,13 @@ msgid ""
 "window_name callbacks */ and default end mark is /* end of window_name "
 "callbacks */. window_name may be ommited."
 msgstr ""
+"Describe una posición en la que se insertará un manejador de esbozos. "
+"<guilabel>Después del principio</guilabel> significa después de una marca "
+"especial (que se introducirá en la entrada <guilabel>RegExp especial</"
+"guilabel>) y <guilabel>Antes del final</guilabel> significa antes de la "
+"marca especial de final. La marca predeterminada de inicio es /* window_name "
+"callbacks */ y la marca predeterminada de final es /* end of window_name "
+"callbacks */. Se puede omitir window_name."
 
 #: C/anjuta-manual.xml:84(para)
 msgid ""
@@ -5165,10 +5183,17 @@ msgid ""
 "for editing association properties. Here is their description: <placeholder-"
 "1/>"
 msgstr ""
+"Le permite crear y gestionar las asociaciones. Para crear una asociación "
+"seleccione diseñador y editor en las cajas de combinación y pulse "
+"<guibutton>Asociar</guibutton>. También puede seleccionar el documento "
+"cambiando a él en el gestor de documentos o la lista de ventanas en el menú "
+"principal. La lista en el medio del diálogo muestra las asociaciones "
+"existentes. Un par de controles debajo están pensadas para editar las "
+"propiedades de las asociaciones. Aquí está su descripción: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:122(title)
 msgid "Default signal"
-msgstr ""
+msgstr "Señal predeterminada"
 
 #: C/anjuta-manual.xml:123(para)
 msgid ""
@@ -5179,6 +5204,13 @@ msgid ""
 "handler stub will be inserted to the position which depends on "
 "<guilabel>Position type</guilabel> setting."
 msgstr ""
+"Pulsar dos veces en un widget en el área de diseño creará un nuevo manejador "
+"para la señal predeterminada usando una plantilla predefinida para su "
+"nombre. Por ejemplo, la señal predeterminada es «pulsado» para un botón. "
+"«conmutado» para una caja de combinación, etc. Si la opción "
+"<guilabel>Insertar manejador al editar</guilabel> está activada entonces se "
+"insertará un nuevo manejador de esbozos en la posición que depende del "
+"ajuste <guilabel>Tipo de posición</guilabel>."
 
 #: C/anjuta-manual.xml:134(title)
 msgid "Inserting a stub"
@@ -5191,6 +5223,10 @@ msgid ""
 "handler stubs, so you will not need to do a lot of routine work for that, it "
 "will be done automatically."
 msgstr ""
+"Uno de los objetivos más importantes de la integración de "
+"<application>Anjuta</application> y <application>Glade</application> es "
+"crear automáticamente manejadores de esbozos, para que no necesite realizar "
+"mucho trabajo rutinario, que se hará automáticamente."
 
 #: C/anjuta-manual.xml:144(para)
 msgid ""
