@@ -4,14 +4,15 @@
 # This file is distributed under the same license as the Anjuta package.
 # Lauri Nurmi <lanurmi@iki.fi>, 2005 - 2006, 2008.
 # Ilkka Tuohela <hile@iki.fi>, 2008.
+# Tommi Vainikaine <thv@iki.fi>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 17:32+0300\n"
-"PO-Revision-Date: 2008-09-29 06:30+0300\n"
-"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
+"POT-Creation-Date: 2009-03-11 14:25+0200\n"
+"PO-Revision-Date: 2009-03-11 14:26+0200\n"
+"Last-Translator: Tommi Vainikainen <thv@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr "Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Kehitä ohjelmia integroidussa kehitysympäristössä"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Integroitu kehitysympäristö"
 
@@ -205,7 +206,7 @@ msgstr "Komentoa ei voi suorittaa: ”%s”"
 msgid "execvp failed"
 msgstr "execvp epäonnistui"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2306
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2310
 msgid "Anjuta Shell"
 msgstr "Anjutan tulkki"
 
@@ -283,46 +284,46 @@ msgstr "Mikään liitännäinen ei voi ladata muita liitännäisiä kohdassa %s"
 msgid "Remember this selection"
 msgstr "Muista tämä valinta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2287
+#: ../libanjuta/anjuta-plugin-manager.c:2291
 msgid "Profiles"
 msgstr "Profiilit"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2288
+#: ../libanjuta/anjuta-plugin-manager.c:2292
 msgid "Current stack of profiles"
 msgstr "Nykyinen profiilipino"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2293
+#: ../libanjuta/anjuta-plugin-manager.c:2297
 msgid "Available plugins"
 msgstr "Saatavilla olevat liitännäiset"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2294
+#: ../libanjuta/anjuta-plugin-manager.c:2298
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Saatavilla olevat liitännäiset, jotka löytyivät liitännäisten hakupoluilta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2300
+#: ../libanjuta/anjuta-plugin-manager.c:2304
 msgid "Activated plugins"
 msgstr "Käytössä olevat liitännäiset"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2301
+#: ../libanjuta/anjuta-plugin-manager.c:2305
 msgid "Currently activated plugins"
 msgstr "Tällä hetkellä käytössä olevat liitännäiset"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2307
+#: ../libanjuta/anjuta-plugin-manager.c:2311
 msgid "Anjuta shell for which the plugins are"
 msgstr "Anjutan tulkki, jolle liitännäiset tehdään"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2315
+#: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
 msgstr "Anjutan tila"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2316
+#: ../libanjuta/anjuta-plugin-manager.c:2320
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Liitännäisiä ladattaessa ja poistettaessa käytettävä Anjutan tila"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2476
+#: ../libanjuta/anjuta-plugin-manager.c:2480
 msgid "Loaded:"
 msgstr "Ladattu:"
 
@@ -386,7 +387,7 @@ msgstr ""
 "Kohdetta ”%s” ei voitu lukea: seuraavat pakolliset liitännäiset puuttuvat:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1450
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -396,7 +397,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:194
+#: ../libanjuta/anjuta-preferences.c:1454 ../plugins/git/plugin.c:194
 msgid "_Reset"
 msgstr "_Tyhjennä"
 
@@ -549,8 +550,8 @@ msgstr "Pixbuf-olio"
 msgid "The pixbuf to render."
 msgstr "Esitettävä pixbuf."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3020
-#: ../plugins/glade/plugin.c:3055
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
+#: ../plugins/glade/plugin.c:3066
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Ikkunaelementtiä ei löydy: %s"
@@ -697,11 +698,11 @@ msgstr "Ohjelma ”%s” ei ole ajan tasalla."
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:154
+#: ../plugins/build-basic-autotools/plugin.c:166
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Siirrytään\\s+kansioon\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:155
+#: ../plugins/build-basic-autotools/plugin.c:167
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Siirrytään\\s+kansioon\\s+'(.+)'"
 
@@ -710,273 +711,273 @@ msgstr "make(\\[\\d+\\])?:\\s+Siirrytään\\s+kansioon\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:163
+#: ../plugins/build-basic-autotools/plugin.c:175
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Poistutaan\\s+kansiosta\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:164
+#: ../plugins/build-basic-autotools/plugin.c:176
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Poistutaan\\s+kansiosta\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:710
+#: ../plugins/build-basic-autotools/plugin.c:825
 #, c-format
 msgid "Entering: %s"
 msgstr "Siirrytään: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:746
+#: ../plugins/build-basic-autotools/plugin.c:861
 #, c-format
 msgid "Leaving: %s"
 msgstr "Poistutaan: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:779
+#: ../plugins/build-basic-autotools/plugin.c:894
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "varoitus:"
 
-#: ../plugins/build-basic-autotools/plugin.c:785
+#: ../plugins/build-basic-autotools/plugin.c:900
 #: ../plugins/tools/execute.c:334
 msgid "error:"
 msgstr "virhe:"
 
-#: ../plugins/build-basic-autotools/plugin.c:902
+#: ../plugins/build-basic-autotools/plugin.c:1017
 #, c-format
 msgid "Command exited with status %d"
 msgstr "Komento valmistui epäonnistuen tilakoodilla %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:912
+#: ../plugins/build-basic-autotools/plugin.c:1027
 #, c-format
 msgid "Command canceled by user"
 msgstr "Käyttäjä pysäytti komennon"
 
-#: ../plugins/build-basic-autotools/plugin.c:917
+#: ../plugins/build-basic-autotools/plugin.c:1032
 #, c-format
 msgid "Command aborted by user"
 msgstr "Käyttäjä keskeytti komennon"
 
-#: ../plugins/build-basic-autotools/plugin.c:922
+#: ../plugins/build-basic-autotools/plugin.c:1037
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Komento keskeytyi tilakoodilla %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:930
+#: ../plugins/build-basic-autotools/plugin.c:1045
 msgid "Command terminated for an unknown reason"
 msgstr "Komento keskeytyi tuntemattomasta syystä"
 
-#: ../plugins/build-basic-autotools/plugin.c:946
+#: ../plugins/build-basic-autotools/plugin.c:1061
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Aikaa kului yhteensä: %lu sekuntia\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:951
+#: ../plugins/build-basic-autotools/plugin.c:1066
 msgid "Completed unsuccessfully\n"
 msgstr "Valmistui epäonnistuneesti\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:956
+#: ../plugins/build-basic-autotools/plugin.c:1071
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "Valmistui onnistuneesti\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1002
+#: ../plugins/build-basic-autotools/plugin.c:1117
 #, c-format
 msgid "Build %d: %s"
 msgstr "Kooste %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1571
+#: ../plugins/build-basic-autotools/plugin.c:1690
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Kohdetta ”%s” ei voi kääntää: tiedostotyypille ei ole määritelty sääntöjä."
 
-#: ../plugins/build-basic-autotools/plugin.c:1642
+#: ../plugins/build-basic-autotools/plugin.c:1816
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr "Projektia ei voi määritellä. Configure-skripti puuttuu kohteesta %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2025
-#: ../plugins/build-basic-autotools/plugin.c:2099
-#: ../plugins/build-basic-autotools/plugin.c:2109
-#: ../plugins/build-basic-autotools/plugin.c:2127
-#: ../plugins/build-basic-autotools/plugin.c:2137
-#: ../plugins/build-basic-autotools/plugin.c:2265
+#: ../plugins/build-basic-autotools/plugin.c:2235
+#: ../plugins/build-basic-autotools/plugin.c:2309
+#: ../plugins/build-basic-autotools/plugin.c:2319
+#: ../plugins/build-basic-autotools/plugin.c:2337
+#: ../plugins/build-basic-autotools/plugin.c:2347
+#: ../plugins/build-basic-autotools/plugin.c:2404
 #, c-format
 msgid "_Build"
 msgstr "_Koosta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2029
+#: ../plugins/build-basic-autotools/plugin.c:2239
 msgid "_Build Project"
 msgstr "Koosta _projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2030
+#: ../plugins/build-basic-autotools/plugin.c:2240
 msgid "Build whole project"
 msgstr "Koosta koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2035
+#: ../plugins/build-basic-autotools/plugin.c:2245
 msgid "_Install Project"
 msgstr "Asenna p_rojekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2036
+#: ../plugins/build-basic-autotools/plugin.c:2246
 msgid "Install whole project"
 msgstr "Asenna koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2041
+#: ../plugins/build-basic-autotools/plugin.c:2251
 msgid "_Clean Project"
 msgstr "P_uhdista projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2042
+#: ../plugins/build-basic-autotools/plugin.c:2252
 msgid "Clean whole project"
 msgstr "Puhdista koko projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2047
+#: ../plugins/build-basic-autotools/plugin.c:2257
 msgid "C_onfigure Project..."
 msgstr "_Määrittele projekti..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2048
+#: ../plugins/build-basic-autotools/plugin.c:2258
 msgid "Configure project"
 msgstr "Määrittele projekti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2053
+#: ../plugins/build-basic-autotools/plugin.c:2263
 msgid "Build _Tarball"
 msgstr "Koosta _tar-paketti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2054
+#: ../plugins/build-basic-autotools/plugin.c:2264
 msgid "Build project tarball distribution"
 msgstr "Koosta projektista tar-paketti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2059
+#: ../plugins/build-basic-autotools/plugin.c:2269
 msgid "_Build Module"
 msgstr "_Koosta moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2270
 msgid "Build module associated with current file"
 msgstr "Koosta nykyiseen tiedostoon liittyvä moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2065
+#: ../plugins/build-basic-autotools/plugin.c:2275
 msgid "_Install Module"
 msgstr "_Asenna moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2276
 msgid "Install module associated with current file"
 msgstr "Asenna nykyiseen tiedostoon liittyvä moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2071
+#: ../plugins/build-basic-autotools/plugin.c:2281
 msgid "_Clean Module"
 msgstr "Sii_voa moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2282
 msgid "Clean module associated with current file"
 msgstr "Siivoa pois nykyiseen tiedostoon liittyvä moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2077
+#: ../plugins/build-basic-autotools/plugin.c:2287
 msgid "Co_mpile File"
 msgstr "_Käännä tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2288
 msgid "Compile current editor file"
 msgstr "Käännä nykyinen muokkaimen tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2293
 msgid "Select Configuration"
 msgstr "Valitse määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2084
+#: ../plugins/build-basic-autotools/plugin.c:2294
 msgid "Select current configuration"
 msgstr "Valitse nykyinen määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2089
+#: ../plugins/build-basic-autotools/plugin.c:2299
 msgid "Remove Configuration"
 msgstr "Poista määrittely"
 
-#: ../plugins/build-basic-autotools/plugin.c:2090
+#: ../plugins/build-basic-autotools/plugin.c:2300
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Siivoa project (distclean) ja poista asetuskansio, jos mahdollista"
 
-#: ../plugins/build-basic-autotools/plugin.c:2103
-#: ../plugins/build-basic-autotools/plugin.c:2131
+#: ../plugins/build-basic-autotools/plugin.c:2313
+#: ../plugins/build-basic-autotools/plugin.c:2341
 msgid "_Compile"
 msgstr "K_äännä"
 
-#: ../plugins/build-basic-autotools/plugin.c:2104
-#: ../plugins/build-basic-autotools/plugin.c:2132
+#: ../plugins/build-basic-autotools/plugin.c:2314
+#: ../plugins/build-basic-autotools/plugin.c:2342
 msgid "Compile file"
 msgstr "Käännä tiedosto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2110
-#: ../plugins/build-basic-autotools/plugin.c:2138
+#: ../plugins/build-basic-autotools/plugin.c:2320
+#: ../plugins/build-basic-autotools/plugin.c:2348
 msgid "Build module"
 msgstr "Koosta moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2115
-#: ../plugins/build-basic-autotools/plugin.c:2143
-#: ../plugins/build-basic-autotools/plugin.c:2272
+#: ../plugins/build-basic-autotools/plugin.c:2325
+#: ../plugins/build-basic-autotools/plugin.c:2353
+#: ../plugins/build-basic-autotools/plugin.c:2411
 #, c-format
 msgid "_Install"
 msgstr "_Asenna"
 
-#: ../plugins/build-basic-autotools/plugin.c:2116
-#: ../plugins/build-basic-autotools/plugin.c:2144
+#: ../plugins/build-basic-autotools/plugin.c:2326
+#: ../plugins/build-basic-autotools/plugin.c:2354
 msgid "Install module"
 msgstr "Asenna moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2121
-#: ../plugins/build-basic-autotools/plugin.c:2149
-#: ../plugins/build-basic-autotools/plugin.c:2279
+#: ../plugins/build-basic-autotools/plugin.c:2331
+#: ../plugins/build-basic-autotools/plugin.c:2359
+#: ../plugins/build-basic-autotools/plugin.c:2418
 #, c-format
 msgid "_Clean"
 msgstr "_Siivoa"
 
-#: ../plugins/build-basic-autotools/plugin.c:2122
-#: ../plugins/build-basic-autotools/plugin.c:2150
+#: ../plugins/build-basic-autotools/plugin.c:2332
+#: ../plugins/build-basic-autotools/plugin.c:2360
 msgid "Clean module"
 msgstr "Siivoa moduuli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2155
+#: ../plugins/build-basic-autotools/plugin.c:2365
 msgid "_Cancel command"
 msgstr "_Peru komento"
 
-#: ../plugins/build-basic-autotools/plugin.c:2156
+#: ../plugins/build-basic-autotools/plugin.c:2366
 msgid "Cancel build command"
 msgstr "Peru koostamiskomento"
 
-#: ../plugins/build-basic-autotools/plugin.c:2265
+#: ../plugins/build-basic-autotools/plugin.c:2404
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Koosta (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2272
+#: ../plugins/build-basic-autotools/plugin.c:2411
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Asenna (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2279
+#: ../plugins/build-basic-autotools/plugin.c:2418
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Siivoa (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2426
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Kää_nnä (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2426
 #, c-format
 msgid "Co_mpile"
 msgstr "_Käännä"
 
-#: ../plugins/build-basic-autotools/plugin.c:2800
+#: ../plugins/build-basic-autotools/plugin.c:2962
 msgid "Build commands"
 msgstr "Koostamiskomennot"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2809
+#: ../plugins/build-basic-autotools/plugin.c:2971
 msgid "Build popup commands"
 msgstr "Koosta ponnahdusikkunan komennot"
 
-#: ../plugins/build-basic-autotools/plugin.c:3166
-#: ../plugins/build-basic-autotools/plugin.c:3184
+#: ../plugins/build-basic-autotools/plugin.c:3328
+#: ../plugins/build-basic-autotools/plugin.c:3346
 msgid "Build Autotools"
 msgstr "Koosta Autotoolsit"
 
@@ -1099,7 +1100,7 @@ msgid "Member Functions/Variables"
 msgstr "Jäsenfunktiot ja muuttujat"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:4418
+#: ../plugins/glade/plugin.c:4428
 msgid "Properties"
 msgstr "Ominaisuudet"
 
@@ -1145,12 +1146,12 @@ msgstr ""
 "Autogen-versiota 5 ei löytynyt, asenna paketti autogen. Löydät sen "
 "osoitteesta http://autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:269 ../plugins/class-gen/plugin.c:427
+#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:412
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Komentoa autogen ei voi suorittaa: %s"
 
-#: ../plugins/class-gen/window.c:816
+#: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
 msgstr "Käyttöliittymän XML-kuvaus"
 
@@ -1605,7 +1606,7 @@ msgstr "Muuta tarkkailinta"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
 msgid "Connect to remote target"
-msgstr ""
+msgstr "Yhdistä etäkohteeseen"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
@@ -1619,7 +1620,7 @@ msgstr "Vianetsintäkomento:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
 #: ../plugins/gdb/anjuta-gdb.glade.h:9
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Description:"
 msgstr "Kuvaus:"
 
@@ -1702,7 +1703,7 @@ msgstr "Valitse yksi kansio"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 msgid "Serial Line Connection"
-msgstr ""
+msgstr "Sarjakaapeliyhteys"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
 #: ../plugins/gdb/anjuta-gdb.glade.h:24
@@ -1710,7 +1711,7 @@ msgid "Set Signal Property"
 msgstr "Aseta signaalin ominaisuus"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
-#: ../plugins/debug-manager/sharedlib.c:215
+#: ../plugins/debug-manager/sharedlib.c:214
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Jaetut kirjastot"
@@ -1736,7 +1737,7 @@ msgstr "Pysäytä:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 msgid "TCP/IP Connection"
-msgstr ""
+msgstr "TCP/IP-yhteys"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
 #: ../plugins/gdb/anjuta-gdb.glade.h:29
@@ -1959,7 +1960,7 @@ msgstr "Muuttuja"
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/gbf-am/gbf-am-properties.c:974
-#: ../plugins/run-program/parameters.c:720 ../plugins/tools/editor.c:460
+#: ../plugins/run-program/parameters.c:741 ../plugins/tools/editor.c:460
 msgid "Value"
 msgstr "Arvo"
 
@@ -2249,7 +2250,7 @@ msgstr "Loppu"
 msgid "Symbols read"
 msgstr "Luetut symbolit"
 
-#: ../plugins/debug-manager/sharedlib.c:339
+#: ../plugins/debug-manager/sharedlib.c:338
 msgid "Shared library operations"
 msgstr "Jaettujen kirjastojen toiminnot"
 
@@ -2386,12 +2387,12 @@ msgstr "Tiedostoa ei voi avata: %s\n"
 #: ../plugins/debug-manager/start.c:912
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
-msgstr "Kohdetta ”%s” ei voi avata. Debuggeri ei voi käynnistyä."
+msgstr "Kohdetta ”%s” ei voi avata. Debuggeri ei voi käynnistyä."
 
 #: ../plugins/debug-manager/start.c:922
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to detect mime-type of %s. Debugger cannot start."
-msgstr "Kohdetta ”%s” ei voi avata. Debuggeri ei voi käynnistyä."
+msgstr "Kohteen ”%s” mime-tyyppiä ei tunnistettu. Debuggeri ei voi käynnistyä."
 
 #: ../plugins/debug-manager/start.c:1058 ../plugins/debug-manager/start.c:1250
 #: ../plugins/run-program/parameters.c:600
@@ -2403,7 +2404,7 @@ msgstr "Tiedosto %s puuttuu"
 msgid "Path"
 msgstr "Polku"
 
-#: ../plugins/debug-manager/start.c:1319 ../plugins/gdb/debugger.c:1694
+#: ../plugins/debug-manager/start.c:1319 ../plugins/gdb/debugger.c:1698
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2928,7 +2929,7 @@ msgstr "Poista nykyinen asiakirjanäkymä"
 msgid "U_ndo"
 msgstr "_Peru"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4064
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
 msgid "Undo the last action"
 msgstr "Peru viimeisin toiminto"
 
@@ -3554,15 +3555,15 @@ msgstr "_Nimeä uudestaan"
 msgid "Rename file or directory"
 msgstr "Nimeä tiedosto tai kansio uudestaan"
 
-#: ../plugins/file-manager/plugin.c:285
+#: ../plugins/file-manager/plugin.c:290
 msgid "File manager popup actions"
 msgstr "Tiedostohallinan ponnahdusikkunan toiminnot"
 
-#: ../plugins/file-manager/plugin.c:318
+#: ../plugins/file-manager/plugin.c:323
 msgid "Files"
 msgstr "Tiedostot"
 
-#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
+#: ../plugins/file-manager/plugin.c:447 ../plugins/file-manager/plugin.c:456
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Tiedostojenhallinta"
@@ -3616,57 +3617,57 @@ msgstr "Tyyppi:"
 msgid "Use Template for the Header file"
 msgstr "Käytä mallia otsikkotiedostolle"
 
-#: ../plugins/file-wizard/file.c:80
+#: ../plugins/file-wizard/file.c:81
 msgid "C Source File"
 msgstr "C-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:81
+#: ../plugins/file-wizard/file.c:82
 msgid "C/C++ Header File"
 msgstr "C/C++-otsikkotiedosto"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:83
 msgid "C++ Source File"
 msgstr "C++-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:83
+#: ../plugins/file-wizard/file.c:84
 msgid "C# Source File"
 msgstr "C#-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:84
+#: ../plugins/file-wizard/file.c:85
 msgid "Java Source File"
 msgstr "Java-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:85
+#: ../plugins/file-wizard/file.c:86
 msgid "Perl Source File"
 msgstr "Perl-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:86
+#: ../plugins/file-wizard/file.c:87
 msgid "Python Source File"
 msgstr "Python-lähdekooditiedosto"
 
-#: ../plugins/file-wizard/file.c:87
+#: ../plugins/file-wizard/file.c:88
 msgid "Shell Script File"
 msgstr "Kuoren komentotiedosto"
 
-#: ../plugins/file-wizard/file.c:88
+#: ../plugins/file-wizard/file.c:89
 msgid "Other"
 msgstr "Muu"
 
-#: ../plugins/file-wizard/file.c:99
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/file-wizard/file.c:100
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/file-wizard/file.c:100
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/file-wizard/file.c:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/file-wizard/file.c:101
+#: ../plugins/file-wizard/file.c:102
 msgid "BSD Public License"
 msgstr "BSD Public License"
 
-#: ../plugins/file-wizard/file.c:167
+#: ../plugins/file-wizard/file.c:180
 msgid "Unable to build user interface for New File"
 msgstr "Uudelle tiedostolle ei voitu luoda käyttöliittymää"
 
@@ -3748,12 +3749,12 @@ msgstr "Projektia ei voi päivittää"
 #: ../plugins/gbf-am/gbf-am-project.c:2576
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2518
 msgid "Invalid or remote path (only local paths supported)"
-msgstr ""
+msgstr "Virheellinen tai etäpolku (vain paikallisia polkuja tuetaan)"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2584
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2539
 msgid "Project doesn't exist or invalid path"
-msgstr ""
+msgstr "Projektia ei ole olemassa tai polku on virheellinen"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2595
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
@@ -3767,6 +3768,8 @@ msgstr "Anna ryhmän nimi"
 #: ../plugins/gbf-am/gbf-am-project.c:2806
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Ryhmän nimi voi sisältää vain kirjaimia, numeroita tai merkkejä ”_”, ”-” ja "
+"”.”"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2815
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2751
@@ -3796,14 +3799,16 @@ msgstr "Anna kohteen nimi"
 #: ../plugins/gbf-am/gbf-am-project.c:3060
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Kohteen nimi voi sisältää vain kirjaimia, numeroita tai merkkejä ”_”, ”-” ja "
+"”.”"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3069
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr ""
+msgstr "Jaetun kirjaston kohteen nimen tulee olla muotoa ”libxxx.la”"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3078
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr ""
+msgstr "Staattisen kirjaston kohteen nimen tulee olla muotoa ”libxxx.a”"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3090
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2985
@@ -3844,7 +3849,7 @@ msgstr "Man-dokumentaatio"
 #: ../plugins/gbf-am/gbf-am-project.c:3193
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
 msgid "Miscellaneous Data"
-msgstr ""
+msgstr "Sekalaista dataa"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3197
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
@@ -3875,6 +3880,8 @@ msgstr "Lähdettä ei ole olemassa"
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Lähdekooditiedoston nimi voi sisältää vain kirjaimia, numeroita tai merkkejä "
+"”_”, ”-” ja ”.”"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3441
 msgid "Source file is already in given target"
@@ -3915,11 +3922,12 @@ msgid "Version"
 msgstr "Versio"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:523
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
 "packages?"
-msgstr "Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät?"
+msgstr ""
+"Haluatko varmasti poistaa moduulin ”%s” ja kaikki siihen liittyvät paketit?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:525
 #, c-format
@@ -3946,7 +3954,7 @@ msgid "Package name:"
 msgstr "Paketin nimi:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:853
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
 msgid "Version:"
 msgstr "Versio:"
 
@@ -3995,7 +4003,7 @@ msgstr "Fortran-kääntäjän liput:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1335
 msgid "Includes (deprecated):"
-msgstr ""
+msgstr "Sisällytykset (vanhentunut):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1346
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
@@ -4059,7 +4067,7 @@ msgstr "Lisäasetukset..."
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
 msgid "Invalid GbfMkfileConfigValue type"
-msgstr ""
+msgstr "Virheellinen GbfMkfileConfigValue-tyyppi"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2525
 msgid "Project doesn't exist"
@@ -4135,7 +4143,7 @@ msgstr "Ladataan suoritustiedostoa: %s\n"
 msgid "Loading Core: %s\n"
 msgstr "Ladataan core-tiedostoa: %s\n"
 
-#: ../plugins/gdb/debugger.c:799
+#: ../plugins/gdb/debugger.c:803
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4146,59 +4154,59 @@ msgstr ""
 "Vianetsintätyökalua ei voi alustaa.\n"
 "Tarkista, että Anjuta on asennettu oikein."
 
-#: ../plugins/gdb/debugger.c:928
+#: ../plugins/gdb/debugger.c:932
 msgid "Getting ready to start debugging session...\n"
 msgstr "Valmistellaan vianetsintäistunnon aloitusta...\n"
 
-#: ../plugins/gdb/debugger.c:934
+#: ../plugins/gdb/debugger.c:938
 msgid "Loading Executable: "
 msgstr "Ladataan suoritustiedostoa: "
 
-#: ../plugins/gdb/debugger.c:943
+#: ../plugins/gdb/debugger.c:947
 msgid "No executable specified.\n"
 msgstr "Suoritustiedostoja ei annettu.\n"
 
-#: ../plugins/gdb/debugger.c:946
+#: ../plugins/gdb/debugger.c:950
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Aloita vianetsintä avaamalla suoritustiedosto tai liittymällä prosessiin.\n"
 
-#: ../plugins/gdb/debugger.c:955
+#: ../plugins/gdb/debugger.c:959
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Tapahtui virhe käynnistettäessä vianetsintätyökalua.\n"
 
-#: ../plugins/gdb/debugger.c:959
+#: ../plugins/gdb/debugger.c:963
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Varmista että ”gdb” on asennettuna järjestelmässä.\n"
 
-#: ../plugins/gdb/debugger.c:1250
+#: ../plugins/gdb/debugger.c:1254
 msgid "Program exited normally\n"
 msgstr "Ohjelma päättyi normaalisti\n"
 
-#: ../plugins/gdb/debugger.c:1261
+#: ../plugins/gdb/debugger.c:1265
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "Ohjelma päättyi virhekoodilla %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1276
+#: ../plugins/gdb/debugger.c:1280
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Keskeytyspiste numero %s täsmäsi\n"
 
-#: ../plugins/gdb/debugger.c:1285
+#: ../plugins/gdb/debugger.c:1289
 msgid "Function finished\n"
 msgstr "Funktio päättyi\n"
 
-#: ../plugins/gdb/debugger.c:1291
+#: ../plugins/gdb/debugger.c:1295
 msgid "Stepping finished\n"
 msgstr "Askellus päättyi\n"
 
-#: ../plugins/gdb/debugger.c:1297
+#: ../plugins/gdb/debugger.c:1301
 msgid "Location reached\n"
 msgstr "Saavutettiin sijainti\n"
 
-#: ../plugins/gdb/debugger.c:1691
+#: ../plugins/gdb/debugger.c:1695
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4208,27 +4216,29 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:1852
+#: ../plugins/gdb/debugger.c:1856
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
 "Do you want to try again?"
 msgstr ""
+"Ei saatu yhteyttä etäkohteeseen: %s\n"
+"Haluatko yrittää uudelleen?"
 
-#: ../plugins/gdb/debugger.c:1870
+#: ../plugins/gdb/debugger.c:1874
 msgid "Debugger connected\n"
 msgstr "Vianetsintä yhdistetty\n"
 
-#: ../plugins/gdb/debugger.c:1944
+#: ../plugins/gdb/debugger.c:1948
 msgid "Program attached\n"
 msgstr "Liitytyy ohjelmaan\n"
 
-#: ../plugins/gdb/debugger.c:1965
+#: ../plugins/gdb/debugger.c:1969
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Liitytään prosessiin: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1991
+#: ../plugins/gdb/debugger.c:1995
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4236,33 +4246,33 @@ msgstr ""
 "Prosessi on jo käynnissä.\n"
 "Haluatko keskeyttää sen ja yhdistää uuteen prosessiin?"
 
-#: ../plugins/gdb/debugger.c:2008
+#: ../plugins/gdb/debugger.c:2012
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta ei voi liittyä itseensä."
 
-#: ../plugins/gdb/debugger.c:2058
+#: ../plugins/gdb/debugger.c:2062
 msgid "Program terminated\n"
 msgstr "Ohjelma keskeytetty\n"
 
-#: ../plugins/gdb/debugger.c:2073
+#: ../plugins/gdb/debugger.c:2077
 msgid "Program detached\n"
 msgstr "Prosessi irrotettu\n"
 
-#: ../plugins/gdb/debugger.c:2093
+#: ../plugins/gdb/debugger.c:2097
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Irrotetaan prosessista...\n"
 
-#: ../plugins/gdb/debugger.c:2114
+#: ../plugins/gdb/debugger.c:2118
 msgid "Interrupting the process\n"
 msgstr "Keskeytetään prosessi\n"
 
-#: ../plugins/gdb/debugger.c:3905
+#: ../plugins/gdb/debugger.c:3909
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Lähetetään signaali %s prosessille: %d"
 
-#: ../plugins/gdb/debugger.c:3931
+#: ../plugins/gdb/debugger.c:3935
 msgid "Error whilst signaling the process."
 msgstr "Virhe signaloitaessa prosessia."
 
@@ -4409,7 +4419,7 @@ msgstr "Poista etähaara"
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Lisää rivi allekirjoittajasta"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Annotate this tag"
@@ -4426,7 +4436,7 @@ msgid "Author/Grep"
 msgstr "Tekijä/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:40
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Tekijä:"
 
@@ -4995,7 +5005,7 @@ msgstr "Assosioi"
 msgid "Automatically add resources"
 msgstr "Lisää resurssit automaattisesti"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
 msgid "Designer"
 msgstr "Suunnittelija"
 
@@ -5046,7 +5056,7 @@ msgstr "Assosiaatiolla ei ole muokkainta"
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
 msgid "Bad association item option in the node %s"
-msgstr ""
+msgstr "Viallinen assosiaatiovalinta solmulla %s"
 
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
@@ -5061,204 +5071,209 @@ msgstr "virheellinen %s-ominaisuuden arvo"
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
 msgid "Association item filename has no path"
-msgstr ""
+msgstr "Assosiaatiotiedostonimellä ei ole polkua"
 
-#: ../plugins/glade/plugin.c:836
+#: ../plugins/glade/plugin.c:847
 #, c-format
 msgid "No associations initialized, nothing to save"
-msgstr ""
+msgstr "Ei assosiaatioita alustettuna, mitään ei ole tallennettavissa"
 
-#: ../plugins/glade/plugin.c:843
+#: ../plugins/glade/plugin.c:854
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr ""
+"Ei voitu tallentaa assosiaatioita, koska projektin juurta ei ole asetettu"
 
-#: ../plugins/glade/plugin.c:865
+#: ../plugins/glade/plugin.c:876
 #, c-format
 msgid "Failed to save associations"
 msgstr "Assosiaatioiden tallennus epäonnistui"
 
-#: ../plugins/glade/plugin.c:1349
+#: ../plugins/glade/plugin.c:1360
 #, c-format
 msgid "Couldn't introspect the signal"
-msgstr ""
+msgstr "Ei voitu itsetutkiskella signaalia"
 
-#: ../plugins/glade/plugin.c:1371
+#: ../plugins/glade/plugin.c:1382
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "Python ei ole vielä tuettu kieli"
 
-#: ../plugins/glade/plugin.c:1384
+#: ../plugins/glade/plugin.c:1395
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "Vala ei ole vielä tuettu kieli"
 
-#: ../plugins/glade/plugin.c:1943
+#: ../plugins/glade/plugin.c:1954
 #, c-format
 msgid "There is no associated editor for the designer"
-msgstr ""
+msgstr "Suunnittelijaan ei ole liitetty editoria"
 
-#: ../plugins/glade/plugin.c:1961
+#: ../plugins/glade/plugin.c:1972
 #, c-format
 msgid "Unknown language of the editor \"%s\""
-msgstr ""
+msgstr "Tuntematon kieli editorilla ”%s”"
 
-#: ../plugins/glade/plugin.c:2028 ../plugins/glade/plugin.c:2105
-#: ../plugins/glade/plugin.c:2230
-#, fuzzy, c-format
+#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
+#: ../plugins/glade/plugin.c:2241
+#, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr "Virhe luettaessa tiedostosta"
+msgstr "Virhe lisättäessä uutta käsittelijätynkää: %s"
 
-#: ../plugins/glade/plugin.c:2035 ../plugins/glade/plugin.c:2119
+#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
 msgid "Couldn't find a signal information"
 msgstr "Signaalitietoja ei löytynyt"
 
-#: ../plugins/glade/plugin.c:2062
+#: ../plugins/glade/plugin.c:2073
 msgid "Error while adding a new handler stub: No current editor"
-msgstr ""
+msgstr "Virhe lisättäessä uutta käsittelijätynkää: Ei nykyistä editoria"
 
-#: ../plugins/glade/plugin.c:2233
+#: ../plugins/glade/plugin.c:2244
 #, c-format
 msgid ""
 "To avoid this messages turn off \"Insert handler on edit\" flag in "
 "Preferences->Glade GUI Designer"
 msgstr ""
+"Tätä viestiä ei näytetä jos lippu ”Lisää käsittelijä muokattaessa” on "
+"kytketty pois päältä kohdassa Asetukset->Glade-käyttöliittymätyökalu"
 
-#: ../plugins/glade/plugin.c:2369
+#: ../plugins/glade/plugin.c:2380
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "Nämä asiakirjat on jo assosioitu"
 
-#: ../plugins/glade/plugin.c:2407
+#: ../plugins/glade/plugin.c:2418
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Tiedostoa ei voi lukea: %s."
 
-#: ../plugins/glade/plugin.c:3665
+#: ../plugins/glade/plugin.c:3676
 msgid "Couldn't find a default signal name"
 msgstr "Oletus-signaalin nimeä ei löytynyt"
 
-#: ../plugins/glade/plugin.c:3871
+#: ../plugins/glade/plugin.c:3886
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr ""
+"Projektissa %s ei ole vanhentuneita ikkunaelementtejä tai "
+"versioepäyhteensopivuuksia."
 
-#: ../plugins/glade/plugin.c:3888
+#: ../plugins/glade/plugin.c:3903
 msgid "There is no Glade project"
 msgstr "Glade-projektia ei ole olemassa"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3974
+#: ../plugins/glade/plugin.c:3989
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3982 ../plugins/glade/plugin.c:3984
+#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
 msgid "Switch between designer/code"
-msgstr ""
+msgstr "Vaihda suunnittelijan ja koodin välillä"
 
-#: ../plugins/glade/plugin.c:3990 ../plugins/glade/plugin.c:3992
+#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
 msgid "Insert handler stub"
-msgstr ""
+msgstr "Lisää käsittelijätynkä"
 
-#: ../plugins/glade/plugin.c:3998 ../plugins/glade/plugin.c:4000
+#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Lisää käsittelijätynkä, automaattisijoitus"
 
-#: ../plugins/glade/plugin.c:4006
+#: ../plugins/glade/plugin.c:4021
 msgid "Associate last designer and last editor"
-msgstr ""
+msgstr "Assosioi viimeisin suunnittelija ja viimeisin editori"
 
-#: ../plugins/glade/plugin.c:4008
+#: ../plugins/glade/plugin.c:4023
 msgid "Associate last designer and editor"
-msgstr ""
+msgstr "Assosioi viimeisin suunnittelija ja editori"
 
-#: ../plugins/glade/plugin.c:4014 ../plugins/glade/plugin.c:4016
+#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
 msgid "Associations dialog..."
 msgstr "Assosiaatioikkuna..."
 
-#: ../plugins/glade/plugin.c:4022
+#: ../plugins/glade/plugin.c:4037
 msgid "Versioning..."
 msgstr "Versiointi..."
 
-#: ../plugins/glade/plugin.c:4024
+#: ../plugins/glade/plugin.c:4039
 msgid "Switch between library versions and check deprecations"
-msgstr ""
+msgstr "Vaihda kirjastoversioiden ja vanhentumistarkistusten välillä"
 
-#: ../plugins/glade/plugin.c:4030 ../plugins/glade/plugin.c:4032
+#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
 msgid "Set as default resource target"
-msgstr ""
+msgstr "Aseta oletusresurssikohteeksi"
 
-#: ../plugins/glade/plugin.c:4040
+#: ../plugins/glade/plugin.c:4055
 msgid "Current default target"
 msgstr "Tämänhetkinen oletuskohde"
 
-#: ../plugins/glade/plugin.c:4048
+#: ../plugins/glade/plugin.c:4063
 msgid "Close the current file"
 msgstr "Sulje nykyinen tiedosto"
 
-#: ../plugins/glade/plugin.c:4056
+#: ../plugins/glade/plugin.c:4071
 msgid "Save the current file"
 msgstr "Tallenna nykyinen tiedosto"
 
-#: ../plugins/glade/plugin.c:4072
+#: ../plugins/glade/plugin.c:4087
 msgid "Redo the last action"
 msgstr "Toista viimeisin toiminto"
 
-#: ../plugins/glade/plugin.c:4080
+#: ../plugins/glade/plugin.c:4095
 msgid "Cut the selection"
 msgstr "Leikkaa valinta"
 
-#: ../plugins/glade/plugin.c:4088
+#: ../plugins/glade/plugin.c:4103
 msgid "Copy the selection"
 msgstr "Kopioi valinta"
 
-#: ../plugins/glade/plugin.c:4096
+#: ../plugins/glade/plugin.c:4111
 msgid "Paste the clipboard"
 msgstr "Liitä leikepöytä"
 
-#: ../plugins/glade/plugin.c:4104
+#: ../plugins/glade/plugin.c:4119
 msgid "Delete the selection"
 msgstr "Poista valinta"
 
-#: ../plugins/glade/plugin.c:4282
+#: ../plugins/glade/plugin.c:4297
 msgid "Glade designer operations"
 msgstr "Glade-suunnittelijan toiminnot"
 
-#: ../plugins/glade/plugin.c:4382
+#: ../plugins/glade/plugin.c:4397
 msgid "Go back in undo history"
 msgstr "Siirry edelliseen perumishistoriassa"
 
-#: ../plugins/glade/plugin.c:4384
+#: ../plugins/glade/plugin.c:4399
 msgid "Go forward in undo history"
 msgstr "Siirry seuraavaan perumishistoriassa"
 
-#: ../plugins/glade/plugin.c:4403
+#: ../plugins/glade/plugin.c:4413
 msgid "Glade Clipboard"
-msgstr ""
+msgstr "Gladen leikepöytä"
 
-#: ../plugins/glade/plugin.c:4408
+#: ../plugins/glade/plugin.c:4418
 msgid "Widgets"
 msgstr "Ikkunaelementit"
 
-#: ../plugins/glade/plugin.c:4413
+#: ../plugins/glade/plugin.c:4423
 msgid "Palette"
 msgstr "Paletti"
 
-#: ../plugins/glade/plugin.c:4663
+#: ../plugins/glade/plugin.c:4677
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ei paikallinen tiedosto: %s"
 
-#: ../plugins/glade/plugin.c:4684
+#: ../plugins/glade/plugin.c:4698
 #, c-format
 msgid "Could not open %s"
 msgstr "Tiedostoa %s ei voitu avata"
 
-#: ../plugins/glade/plugin.c:4737
+#: ../plugins/glade/plugin.c:4749
 msgid "Could not create a new glade project."
 msgstr "Uutta glade-projektia ei voitu luoda."
 
-#: ../plugins/glade/plugin.c:5009 ../plugins/glade/plugin.c:5034
+#: ../plugins/glade/plugin.c:5019 ../plugins/glade/plugin.c:5044
 msgid "Glade GUI Designer"
 msgstr "Glade-käyttöliittymätyökalu"
 
@@ -5477,7 +5492,7 @@ msgstr "Luokittelematon"
 msgid "No Gtodo Client to save."
 msgstr "Tallennettavaa Gtodo-asiakasta ei ole."
 
-#: ../plugins/gtodo/libgtodo.c:851
+#: ../plugins/gtodo/libgtodo.c:852
 #, c-format
 msgid "No filename supplied."
 msgstr "Tiedostonimeä ei annettu"
@@ -6176,7 +6191,6 @@ msgid "Do not show these symbols:"
 msgstr "Älä näytä seuraavia symboleita:"
 
 #: ../plugins/profiler/profiler.glade.h:11
-#, fuzzy
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
@@ -6234,14 +6248,14 @@ msgid "Use this profiling data file:"
 msgstr "Käytä seuraavaa profilointitietojen tiedostoa:"
 
 #: ../plugins/project-import/project-import.c:109
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "Annetulle kansiolle (%s) ei löytynyt kelvollista projektin "
-"taustajärjestelmää. Valitse muu kansio, tai yritä päivittää Gnomen "
-"käännösympäristön uusimpaan versioon."
+"taustajärjestelmää. Valitse muu kansio, tai yritä päivittää Anjutan "
+"uudempaan versioon."
 
 #.
 #. * Now we can't apply
@@ -6617,11 +6631,11 @@ msgstr "Alusta projekti..."
 msgid "Project Loaded"
 msgstr "Projekti ladattu"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Yksityiskohdat</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
 msgid "Error"
 msgstr "Virhe"
@@ -6694,11 +6708,11 @@ msgstr "Tiedosto ”%s” on jo olemassa. Haluatko korvata sen?"
 
 #: ../plugins/project-wizard/druid.c:668
 msgid "Invalid entry"
-msgstr ""
+msgstr "Virheellinen syöte"
 
 #: ../plugins/project-wizard/druid.c:679
 msgid "Dubious entry"
-msgstr ""
+msgstr "Epäilyttävä syöte"
 
 #: ../plugins/project-wizard/druid.c:789
 #, c-format
@@ -6749,9 +6763,9 @@ msgid "Missing components"
 msgstr "Osia puuttuu"
 
 #: ../plugins/project-wizard/druid.c:954
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build project assistant user interface reading %s."
-msgstr "Projektinapulaisen käyttöliittymää ei voi luoda."
+msgstr "Projektinapulaisen käyttöliittymää ei voi luoda lukemalla %s."
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -6826,109 +6840,104 @@ msgid "A generic C++ project"
 msgstr "Tavallinen C++-projekti"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "A generic GNOME project"
-msgstr "Tavallinen Gnome-projekti"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTK+ project"
 msgstr "Tavallinen GTK+-projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
 msgstr "Tavallinen GTKmm (C++) -projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
 msgstr "Tavallinen Xlib-telakan sovelma"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
 msgstr "Tavallinen Xlib-projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
 msgstr "Tavallinen java-projekti käyttäen automake-projektinhallintaa"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project"
 msgstr "Tavallinen minimaalinen ja yksinkertainen projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Tavallinen natiivikoodiksi käännetty java-projekti käyttäen GNU Java-"
 "kääntäjää (gcj)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
 msgstr "Tavallinen projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
 msgstr "Tavallinen python-projekti käyttäen automake-projektinhallintaa"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
 msgstr "Tavallinen Wx Widgets -projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
 msgid "A sample SDL project"
 msgstr "SDL-esimerkkiprojekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "Lisää C++-tuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "Lisä gtk-doc -järjestelmä:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "Lisää kotoistamistuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "Lisää jaettujen tiedostojen tuki:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "Lisää C++-tuen projektiin, jolloin C++-tiedostoja voidaan kääntää"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr "Lisää projektiin tuen jaettujen kirjastojen kääntämiselle"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
 "Lisää tuen kotoistamiselle, jolloin projekti voidaan kääntää eri kielille"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
-#: ../src/about.c:237
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "Anjuta Plugin"
 msgstr "Anjutan liitännäinen"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr "Anjutan liitännäisprojekti käyttäen libanjuta-järjestelmää"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Applet Title:"
 msgstr "Sovelman otsikko:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Basic information"
 msgstr "Perustiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley Software Distribution License (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6937,104 +6946,100 @@ msgstr ""
 "Luettelo voi olla joko käyttöliittymän ensisijainen nimi tai liitännäisen "
 "sijainti (kirjasto:luokka)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages"
 msgstr "Määrittele ulkoiset paketit"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Configure external packages:"
 msgstr "Määrittele ulkoiset paketit:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create a template glade interface file"
 msgstr "Luo glade-käyttöliittymätiedosto mallista"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 msgid "Create glade interface file"
 msgstr "Luo glade-käyttöliittymätiedosto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Kohde:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Display description of the applet"
 msgstr "Näytä sovelman kuvaus"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Display description of the plugin"
 msgstr "Näytä liitännäisen kuvaus"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Display title of the applet"
 msgstr "näytä sovelman otsikko"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Display title of the plugin"
 msgstr "näytä liitännäisen otsikko"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Django Project"
 msgstr "Django-projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Django Project information"
 msgstr "Django-projektin tiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "Email address:"
 msgstr "Sähköpostiosoite:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "GCJ:n täytyy tietää mikä luokka sisältää main()-funktion"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
-msgid "GNOME"
-msgstr "Gnome"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "GNOME Applet"
-msgstr ""
+msgstr "Gnome-sovelma"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "GTKmm"
 msgstr "GTKmm"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "General Project Information"
 msgstr "Projektin perustiedot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic"
 msgstr "Tavallinen"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic (Minimal)"
 msgstr "Tavallinen (minimaalinen)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Generic C++"
 msgstr "Tavallinen C++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic gcj compiled java"
 msgstr "Tavallinen gcj-käännetty java"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Generic java (automake)"
 msgstr "Tavallinen java (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Generic python (automake)"
 msgstr "Tavallinen python (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7043,103 +7048,103 @@ msgstr ""
 "Anna projektisi vaatiman paketin nimi. Voit myös kertoa vaaditun paketin "
 "version, esimerkiksi ”libgnomeui-2.0” tai ”libgnomeui-2.0 >= 2.2.0”."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Icon File:"
 msgstr "Kuvaketiedosto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Icon file for the plugin"
 msgstr "Liitännäisen kuvaketiedosto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Implement plugin interfaces"
 msgstr "Toteuta liitännisten rajapinnat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Interface implemented by the plugin"
 msgstr "Liitännäisen toteuttama liittymä"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Interface:"
 msgstr "Liittymä:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "License"
 msgstr "Lisenssi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Main Class:"
 msgstr "Pääluokka:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Main class"
 msgstr "Pääluokka"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Makefile project"
 msgstr "Makefile-projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Makefile-based project"
 msgstr "Makefile-pohjainen projekti"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Mininum SDL version required"
 msgstr "Pienin vaadittu SDL-versio"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Name of the value to watch"
 msgstr "Tarkkailtavan arvon nimi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "No license"
 msgstr "Ei lisenssiä"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Options for project build system"
 msgstr "Projektin rakennusjärjestelmän valitsimet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin Class Name:"
 msgstr "Liitännäisluokan nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin Dependencies:"
 msgstr "Liitännäisen riippuvuudet:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin Description:"
 msgstr "Liitännäisen kuvaus:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Plugin Title:"
 msgstr "Liitännäisen otsikko:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Plugin class name"
 msgstr "Liitännäisluokan nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Plugin has menus or/and toolbars"
 msgstr "Liitännäisellä on valikoita tai työkalupalkkeja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid "Plugin interfaces to implement"
 msgstr "Toteutettavat liitännäisen liitynnät"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project Name:"
 msgstr "Projektin nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project directory, output file etc."
 msgstr "Projektihakemisto, tulostiedosto jne."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Project directory:"
 msgstr "Projektikansio:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -7147,122 +7152,112 @@ msgstr ""
 "Projektin nimi ei saa sisältää välilyöntejä, koska siitä muodostetaan "
 "projektin koontikohteen nimi (suoritettava ohjelma, kirjasto jne.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Project name:"
 msgstr "Projektin nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Project options"
 msgstr "Projektin valinnat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Python webproject using Django Web Framework"
 msgstr "Python www-projekti käyttäen django-kirjastoja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require Package:"
 msgstr "Vaadi paketti:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL version:"
 msgstr "Vaadi SDL-versio:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_gfx library"
 msgstr "Vaadi SDL_gfx-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_gfx:"
 msgstr "Vaadi SDL-gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_image library"
 msgstr "Vaadi SDL_image-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_image:"
 msgstr "Vaadi SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_mixer library"
 msgstr "Vaadi SDL_mixer-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_mixer:"
 msgstr "Vaadi SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "Require SDL_net library"
 msgstr "Vaadi SDL_net-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Require SDL_net:"
 msgstr "Vaadi SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Require SDL_ttf library"
 msgstr "Vaadi SDL_ttf-kirjasto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Require SDL_ttf:"
 msgstr "Vaadi SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "SDL"
 msgstr "SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Select code license"
 msgstr "Valitse lähdekoodin lisenssi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Shell values to watch"
 msgstr "Tarkkailtavat ympäristömuuttujat"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
-msgid "Use libglade for the UI"
-msgstr "Käytä libglade:a käyttöliittymälle"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Käytä pkg-config:iaa muiden pakettien kirjastojen lisäämiseen"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
-msgid ""
-"Use the libglade-2.0 library to load the glade interface file at runtime"
-msgstr ""
-"Käytä libglade-2.0-kirjastoa lataamaan glade-käyttöliittymä suoritettaessa"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Value Name:"
 msgstr "Arvon nimi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Values to watch"
 msgstr "Tarkkailtavat arvot"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Onko liitännäisellä valikoita tai työkalupalkkeja"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Wx Widgets"
 msgstr "Wx Widgets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:108
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "Xlib"
 msgstr "Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:109
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Xlib dock"
 msgstr "Xlib-telakka"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:110
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "GObject-pohjaisten luokkien API-dokumentaatio luodaan gtk-doc:in avulla"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:111
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
 msgid "project name"
 msgstr "projektin nimi"
 
@@ -7305,7 +7300,7 @@ msgstr "Ohjelman kansio ”%s” ei ole paikallinen"
 msgid "Load Target to run"
 msgstr "Lataa suoritettava kohde"
 
-#: ../plugins/run-program/parameters.c:711
+#: ../plugins/run-program/parameters.c:732
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nimi"
@@ -7683,60 +7678,60 @@ msgstr "Ei tulostettavaa tiedostoa!"
 msgid "Scintilla Editor"
 msgstr "Scintilla-muokkain"
 
-#: ../plugins/scintilla/text_editor.c:404
-#, fuzzy, c-format
+#: ../plugins/scintilla/text_editor.c:408
+#, c-format
 msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to reload it ?"
 msgstr ""
-"Levyllä oleva tiedosto ”%s” on uudempi kuin\n"
-"nykyinen puskuri.\n"
+"Tiedostoa ”%s” on muokattu.\n"
 "Ladataanko tiedosto levyltä?"
 
-#: ../plugins/scintilla/text_editor.c:410
-#, fuzzy, c-format
+#: ../plugins/scintilla/text_editor.c:414
+#, c-format
 msgid ""
 "The file '%s' has been changed.\n"
 "Do you want to loose your changes and reload it ?"
 msgstr ""
-"Levyllä oleva tiedosto ”%s” on uudempi kuin\n"
-"nykyinen puskuri.\n"
-"Ladataanko tiedosto levyltä?"
+"Tiedostoa ”%s” on muokattu.\n"
+"Haluatko hylätä omat muutoksesi ja ladata tiedoston levyltä?"
 
-#: ../plugins/scintilla/text_editor.c:430
+#: ../plugins/scintilla/text_editor.c:434
 #, c-format
 msgid ""
 "The file '%s' has been deleted.\n"
 "Do you confirm and close it ?"
 msgstr ""
+"Tiedosto ”%s” on poistettu.\n"
+"Hyväksytäänkö ja suljetaanko tiedosto?"
 
-#: ../plugins/scintilla/text_editor.c:437
-#, fuzzy, c-format
+#: ../plugins/scintilla/text_editor.c:441
+#, c-format
 msgid ""
 "The file '%s' has been deleted.\n"
 "Do you want to loose your changes and close it ?"
 msgstr ""
-"Tiedosto ”%s” on jo olemassa.\n"
-"Haluatko korvata sen nyt tallennettavalla tiedostolla?"
+"Tiedosto ”%s” on poistettu.\n"
+"Haluatko hylätä omat muutoksesti ja sulkea tiedoston?"
 
-#: ../plugins/scintilla/text_editor.c:1354
+#: ../plugins/scintilla/text_editor.c:1360
 msgid "Could not get file info"
 msgstr "Tietoja tiedostosta ei saatu"
 
 #. DEBUG_PRINT ("%s", "This file is too big. Unable to allocate memory.");
-#: ../plugins/scintilla/text_editor.c:1366
+#: ../plugins/scintilla/text_editor.c:1372
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tämä tiedosto on liian suuri. Muistia ei voi varata."
 
-#: ../plugins/scintilla/text_editor.c:1375
+#: ../plugins/scintilla/text_editor.c:1381
 msgid "Could not open file"
 msgstr "Tiedostoa ei voitu avata"
 
-#: ../plugins/scintilla/text_editor.c:1386
+#: ../plugins/scintilla/text_editor.c:1392
 msgid "Error while reading from file"
 msgstr "Virhe luettaessa tiedostosta"
 
-#: ../plugins/scintilla/text_editor.c:1432
+#: ../plugins/scintilla/text_editor.c:1438
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -7746,11 +7741,11 @@ msgstr ""
 "tuettu. Tarkista, että tiedoston merkistökoodaus on tuettujen koodausten "
 "luettelossa. Jos sitä ei löydy, voit lisätä sen asetuksista."
 
-#: ../plugins/scintilla/text_editor.c:1579
+#: ../plugins/scintilla/text_editor.c:1585
 msgid "Loading file..."
 msgstr "Ladataan tiedostoa..."
 
-#: ../plugins/scintilla/text_editor.c:1588
+#: ../plugins/scintilla/text_editor.c:1594
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -7761,24 +7756,24 @@ msgstr ""
 "\n"
 "Yksityiskohdat: %s"
 
-#: ../plugins/scintilla/text_editor.c:1609
+#: ../plugins/scintilla/text_editor.c:1615
 msgid "File loaded successfully"
 msgstr "Tiedosto ladattu onnistuneesti"
 
-#: ../plugins/scintilla/text_editor.c:1627
+#: ../plugins/scintilla/text_editor.c:1633
 msgid "Saving file..."
 msgstr "Tallennetaan tiedostoa..."
 
-#: ../plugins/scintilla/text_editor.c:1636
+#: ../plugins/scintilla/text_editor.c:1642
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "Väliaikaistiedostoa %s ei voitu tallentaa: %s"
 
-#: ../plugins/scintilla/text_editor.c:1652
+#: ../plugins/scintilla/text_editor.c:1658
 msgid "File saved successfully"
 msgstr "Tiedosto tallennettu onnistuneesti"
 
-#: ../plugins/scintilla/text_editor.c:2025
+#: ../plugins/scintilla/text_editor.c:2031
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -8099,7 +8094,7 @@ msgstr "Osumaa haulle ”%s” ei löytynyt. Jatketaanko tiedoston alusta?"
 #: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "The match \"%s\" was not found."
-msgstr "Osumaa haulle ”%s” ei löytynyt."
+msgstr "Osumaa haulle ”%s” ei löytynyt."
 
 #: ../plugins/search/search-replace.c:1113
 msgid "The maximum number of results has been reached."
@@ -8126,13 +8121,13 @@ msgstr ""
 "Ladataanko tiedosto levyltä?"
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"Levyllä oleva tiedosto ”%s” on uudempi kuin nykyinen puskuri.\n"
-"Ladataanko tiedosto levyltä?"
+"Tiedosto ”%s” on poistettu levyltä.\n"
+"Haluatko sulkea sen?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:438
@@ -8143,7 +8138,7 @@ msgstr "Tiedostoa %s ei voitu avata: %s"
 #: ../plugins/sourceview/sourceview.c:492
 #, c-format
 msgid "The file '%s' is read-only! Edit anyway?"
-msgstr ""
+msgstr "Tiedosto ”%s” on kirjoitussuojattu! Muokataanko silti?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:551
@@ -8151,12 +8146,12 @@ msgstr ""
 msgid "Could not save %s: %s"
 msgstr "Tiedostoa %s ei voitu tallentaa: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:271
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Tiedostoa ei voitu tallentaa koska tiedostonimeä ei ole vielä valittu"
 
-#: ../plugins/sourceview/sourceview-io.c:504
+#: ../plugins/sourceview/sourceview-io.c:506
 #, c-format
 msgid "New file %d"
 msgstr "Uusi tiedosto %d"
@@ -8264,7 +8259,7 @@ msgstr "Anjutan käyttöohje"
 
 #: ../plugins/starter/starter.c:481
 msgid "Gnome Online API Documentation"
-msgstr ""
+msgstr "Gnomen rajapintadokumentaatio verkossa"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -8787,14 +8782,12 @@ msgid "<b>Available API tags</b>"
 msgstr "<b>Saatavilla olevat API-tagit</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
-#, fuzzy
 msgid "Automatically scan project's packages"
-msgstr "Etsi projektin paketeista automaattisesti."
+msgstr "Etsi projektin paketeista automaattisesti"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
-#, fuzzy
 msgid "Automatically update symbols without saving file"
-msgstr "Pävitä symbolit automaattisesti tallentamatta tiedostoa."
+msgstr "Pävitä symbolit automaattisesti tallentamatta tiedostoa"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
@@ -8805,9 +8798,8 @@ msgid "Ctags executable:"
 msgstr "Ctags-komento:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
-#, fuzzy
 msgid "Parallel scan of project and global symbols"
-msgstr "Symbolien rinnakkainen etsintä projektista ja muualta."
+msgstr "Symbolien rinnakkainen etsintä projektista ja muualta"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -9020,7 +9012,7 @@ msgstr "Virhe ladattaessa ulkoisia työkaluja"
 #: ../plugins/tools/fileop.c:703
 #, c-format
 msgid "Unable to open %s for writing"
-msgstr "Kohdetta ”%s” ei voi avata kirjoitettavaksi"
+msgstr "Kohdetta ”%s” ei voi avata kirjoitettavaksi"
 
 #: ../plugins/tools/plugin.c:179
 msgid "Tool operations"
@@ -9453,7 +9445,7 @@ msgstr "Rajoitus-sääntöjä ei voi tallentaa: %s"
 msgid "You have not set a suppressions file in your settings."
 msgstr "Et ole asettanut rajoitustiedostoa asetuksista."
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Tekijänoikeus © Naba Kumar"
 
@@ -9968,11 +9960,11 @@ msgstr "Scintilla-pohjainen vaihtoehtoinen muokkain"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:1
 msgid "Change build commands to use scratchbox 1 or 2"
-msgstr ""
+msgstr "Muuta käännöskomennot käyttämään scratchboxin versiota 1 tai 2"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
-msgstr ""
+msgstr "Tervetuliassivu yleisimmillä toiminnoilla."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
@@ -10082,6 +10074,20 @@ msgstr "Autotools-taustajärjestelmä"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Autotools-taustajärjestelmä projektin hallintaan"
+
+#~ msgid "A generic GNOME project"
+#~ msgstr "Tavallinen Gnome-projekti"
+
+#~ msgid "GNOME"
+#~ msgstr "Gnome"
+
+#~ msgid "Use libglade for the UI"
+#~ msgstr "Käytä libglade:a käyttöliittymälle"
+
+#~ msgid ""
+#~ "Use the libglade-2.0 library to load the glade interface file at runtime"
+#~ msgstr ""
+#~ "Käytä libglade-2.0-kirjastoa lataamaan glade-käyttöliittymä suoritettaessa"
 
 #~ msgid "Loaded: "
 #~ msgstr "Ladattu: "
