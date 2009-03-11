@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-03-02 20:37+0000\n"
-"PO-Revision-Date: 2009-03-10 19:20+0100\n"
+"POT-Creation-Date: 2009-03-10 18:38+0000\n"
+"PO-Revision-Date: 2009-03-11 18:37+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -803,7 +803,6 @@ msgid "The Save As File"
 msgstr "Guardar como archivo"
 
 #: C/anjuta-manual.xml:184(para)
-#, fuzzy
 msgid ""
 "<emphasis>Saving a file:</emphasis> To save a file, choose "
 "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save</guimenuitem></"
@@ -844,7 +843,6 @@ msgstr ""
 "guimenuitem> funcionen con ellos.</emphasis>"
 
 #: C/anjuta-manual.xml:211(para)
-#, fuzzy
 msgid ""
 "<emphasis>Saving a file with a different name:</emphasis> You can explicitly "
 "save a file with a new filename. To do this, choose "
@@ -880,7 +878,6 @@ msgstr ""
 "con el archivo que está guardando."
 
 #: C/anjuta-manual.xml:232(para)
-#, fuzzy
 msgid ""
 "<emphasis>Closing a file:</emphasis> To close a file, choose "
 "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Close</guimenuitem></"
@@ -893,11 +890,11 @@ msgstr ""
 "<emphasis>Cerrar un archivo:</emphasis> para cerrar un archivo, elija "
 "<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Cerrar</"
 "guimenuitem></menuchoice> de la barra de menú, o pulse el botón "
-"<guibutton>Cerrar</guibutton> de la barra de herramientas. El archivo "
-"también se puede cerrar pulsando sobre la <guibutton>cruz</guibutton> en la "
-"solapa del nombre del archivo. Esto cerrará el archivo actual. Si el archivo "
-"no está guardado o es un archivo nuevo, entonces <application>Anjuta</"
-"application> le preguntará si quiere salvar el archivo antes de cerrarlo."
+"<guibutton>Cerrar</guibutton> de la barra de herramientas. (El archivo "
+"también se puede cerrar pulsando sobre la X en la solapa del nombre del "
+"archivo.) Esto cerrará el archivo actual. Si el archivo no está guardado o "
+"es un archivo nuevo, entonces <application>Anjuta</application> le "
+"preguntará si quiere guardar el archivo antes de cerrarlo."
 
 #: C/anjuta-manual.xml:249(title)
 msgid "Editing Files"
@@ -923,7 +920,6 @@ msgid "The Tags toolbar"
 msgstr "La barra de herramientas de etiquetas"
 
 #: C/anjuta-manual.xml:257(para)
-#, fuzzy
 msgid ""
 "<emphasis>Editor Margins:</emphasis> Editor margins appear to the left of "
 "the editor and are used for some special purposes. There are three editor "
@@ -936,17 +932,16 @@ msgid ""
 msgstr ""
 "<emphasis>Márgenes del editor:</emphasis> los márgenes del editor son las "
 "pequeñas áreas en la parte izquierda del editor que sirven para algunos "
-"propósitos especiales. Existen tres márgenes de editor disponibles y puede "
-"que no todos estén disponibles al iniciar <application>Anjuta</application>. "
-"Son el Margen del número de línea, el Margen de marcadores y el Margen de "
-"plegado del código. De forma predeterminada (esto es, cuando inicia "
+"propósitos especiales. Existen tres márgenes de editor disponibles el "
+"<emphasis>margen del número de línea</emphasis>, el <emphasis>margen de "
+"marcadores</emphasis> y el <emphasis>margen de plegado del código</"
+"emphasis>. De forma predeterminada (esto es, cuando inicia "
 "<application>Anjuta</application> por primera vez) sólo el margen de plegado "
 "del código será visible. El resto se puede hacer visible desde el menú "
 "<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</guisubmenu></"
 "menuchoice>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:272(para)
-#, fuzzy
 msgid ""
 "The <emphasis>line number margin</emphasis> is largest of all the three "
 "margins (and is slightly darker then rest) and displays a document's line "
@@ -962,13 +957,12 @@ msgstr ""
 "de línea del documento. El <emphasis>Margen de números de línea</emphasis> "
 "puede hacerse visible o invisible conmutando <menuchoice><guimenu>Ver</"
 "guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Margen de números de "
-"línea</guimenuitem></menuchoice>. Una simple pulsación en este margen "
-"seleccionará la línea entera (incluyendo. si está presente, la última línea "
-"nueva). Puede establecer las propiedades de la tipografía para el margen de "
-"los números de línea en las preferencias."
+"línea</guimenuitem></menuchoice>. Pulsando con el botón izquierdo sobre este "
+"margen seleccionará la línea entera (incluyendo. si está presente, la última "
+"línea nueva). Puede establecer las propiedades de la tipografía para el "
+"margen de los números de línea en las preferencias."
 
 #: C/anjuta-manual.xml:281(para)
-#, fuzzy
 msgid ""
 "The <emphasis>marker margin</emphasis> can be shown or hidden via "
 "<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
@@ -984,24 +978,22 @@ msgid ""
 "details). A line indicator marker is used to indicate the current program "
 "position in the debugger."
 msgstr ""
-"El <emphasis>Margen de marcadores</emphasis> es el siguiente margen que se "
-"puede hacer visible o invisible seleccionando <menuchoice><guimenu>Ver</"
-"guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Margen de marcadores</"
-"guimenuitem></menuchoice>. Este margen muestra iconos gráficos para marcar "
-"la línea dada. Los marcadores que se mostrarán en éste margen son los "
-"Marcadores (icono rectangular azul), los Puntos de parada (círculo rojo) y "
-"los Indicadores de línea (flecha amarilla). Los Marcadores se usan para "
-"indicar líneas marcadas que se pueden cambiar desde <menuchoice><guimenu>Ir "
-"a</guimenu><guisubmenu>Marcador</guisubmenu><guimenuitem>Cambiar marcador</"
-"guimenuitem></menuchoice> con el cursor sobre esa línea. Los marcadores de "
-"puntos de parada se usan en la depuración para marcar la línea con puntos de "
-"para de la depuración (vea la sección de depuración para obtener más "
-"detalles). Los marcadores de indicadores se usan para indicar una línea "
-"cuando se salta de una parte a otra, por ejemplo, cuando se navega entre los "
-"marcadores y durante la depuración paso a paso."
+"El <emphasis>Margen de marcadores</emphasis> se puede hacer mostrar u "
+"ocultar a través de <menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
+"guisubmenu><guimenuitem>Margen de marcadores</guimenuitem></menuchoice>. "
+"Este margen muestra iconos gráficos para marcar la línea dada. Los "
+"marcadores que se mostrarán en éste margen son los Marcadores (icono "
+"rectangular azul), los Puntos de parada (círculo rojo) y los Indicadores de "
+"línea (flecha amarilla). Los marcadores se usan para indicar líneas marcadas "
+"que se pueden cambiar desde <menuchoice><guimenu>Ir a</"
+"guimenu><guisubmenu>Marcador</guisubmenu><guimenuitem>Cambiar marcador</"
+"guimenuitem></menuchoice> con el cursor sobre esa línea. Un marcador de "
+"puntos de parada se usa en la depuración para marcar la línea con puntos de "
+"para de la depuración (consulte la sección de depuración para obtener más "
+"detalles). Un marcador de indicador se usa para indicar la posición actual "
+"del programa en el depurador."
 
 #: C/anjuta-manual.xml:294(para)
-#, fuzzy
 msgid ""
 "The <emphasis>code fold margin</emphasis> is where the folding tree is "
 "visible. Clicking on folding tree nodes will fold or unfold code blocks. An "
@@ -1014,7 +1006,7 @@ msgstr ""
 "desplegará los bloques de código. Se dibujará un guión bajo debajo de la "
 "línea plegada para que sea más obvio que se ha plegado un bloque de código "
 "bajo la línea. Para obtener más detalles acerca del plegado de código, "
-"consulte la sección <emphasis>Plegado de código</emphasis>."
+"consulte la sección <emphasis>Plegado de código</emphasis> debajo."
 
 #: C/anjuta-manual.xml:302(title)
 msgid "Invisible margin marker"
@@ -1291,7 +1283,6 @@ msgstr ""
 "se encontró el texto de búsqueda."
 
 #: C/anjuta-manual.xml:456(para)
-#, fuzzy
 msgid ""
 "If you want to search again, click the <guibutton>Search</guibutton> button "
 "again or press <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>. "
@@ -1306,7 +1297,7 @@ msgstr ""
 "keycap><keycap>G</keycap></keycombo>. Esto buscará la siguiente coincidencia "
 "(<keycombo><keycap>Mayús</keycap><keycap>Ctrl</keycap><keycap>G</keycap></"
 "keycombo> para la coincidencia anterior). Puede incluso cambiar el texto de "
-"búsqueda cuando haga esto. Introduzca la cadena nueva en la caja de texto "
+"búsqueda al hacer esto. Introduzca la cadena nueva en la caja de texto "
 "<guilabel>Expresión de búsqueda</guilabel> en la barra de herramientas "
 "principal."
 
@@ -1361,16 +1352,17 @@ msgstr ""
 "Todos los archivos del proyecto."
 
 #: C/anjuta-manual.xml:504(para)
-#, fuzzy
 msgid ""
 "In the <guilabel>Search Expression</guilabel> tab, enter the text you want "
 "to search for and specify search options, such as the <guilabel>Match case</"
 "guilabel> or <guilabel>Match complete words</guilabel> options. Click "
 "<guibutton>Search</guibutton> to start searching."
 msgstr ""
-"Introduzca el texto que quiere buscar y especifique las opciones de búsqueda "
-"(capitalización, palabras completas...). Pulse <guibutton>Buscar</guibutton> "
-"para comenzar la búsqueda."
+"Introduzca en <guilabel>Buscar expresión</guilabel> el texto que quiere "
+"buscar y especifique las opciones de búsqueda, tales como "
+"<guilabel>Coincidir con capitalización</guilabel> o <guilabel>Coincidir con "
+"palabras completas</guilabel>. Pulse <guibutton>Buscar</guibutton> para "
+"comenzar la búsqueda."
 
 #: C/anjuta-manual.xml:509(para)
 msgid ""
@@ -1415,16 +1407,15 @@ msgid "Replacing"
 msgstr "Reemplazar"
 
 #: C/anjuta-manual.xml:544(para)
-#, fuzzy
 msgid ""
 "Searching and replacing is similar to just finding text, except that you "
 "also specify the replacement text in the <guilabel>Replace With</guilabel> "
 "text box, and also specify whether or not you want to be prompted before "
 "each replacement takes place (Replace First Match or Replace All Matches)."
 msgstr ""
-"Buscar y reemplazar es similar a la busqueda simple de texto, excepto que "
+"Buscar y reemplazar es similar a la búsqueda simple de texto, excepto que "
 "también especifica el texto de reemplazo en la caja de texto "
-"<guilabel>Reemplazar por:</guilabel>, y si se debe preguntar antes de "
+"<guilabel>Reemplazar con</guilabel>, y si se debe preguntar antes de "
 "realizar la acción de reemplazar (Reemplazar la siguiente coincidencia o "
 "Reemplazar todas las coincidencias)."
 
@@ -2642,7 +2633,6 @@ msgid "Group properties"
 msgstr "Propiedades del grupo"
 
 #: C/anjuta-manual.xml:658(title) C/anjuta-manual.xml:660(screeninfo)
-#| msgid "Project properties dialog"
 msgid "Group properties dialog"
 msgstr "Diálogo Propiedades del grupo"
 
@@ -2740,7 +2730,6 @@ msgstr ""
 
 #: C/anjuta-manual.xml:721(title) C/anjuta-manual.xml:723(screeninfo)
 #: C/anjuta-manual.xml:743(title) C/anjuta-manual.xml:745(screeninfo)
-#| msgid "Project properties dialog"
 msgid "Target properties dialog"
 msgstr "Diálogo Propiedades del objetivo"
 
@@ -3433,9 +3422,6 @@ msgstr ""
 "forma que se carga o descarga bajo petición."
 
 #: C/anjuta-manual.xml:37(para)
-#| msgid ""
-#| "The debugger is always started with a program loaded. There are two ways "
-#| "to do this: <placeholder-1/>"
 msgid ""
 "The debugger is always started with a program loaded. There are two ways to "
 "do this: <placeholder-1/><placeholder-2/>"
