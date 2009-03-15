@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2009-03-10 18:38+0000\n"
-"PO-Revision-Date: 2009-03-11 18:37+0100\n"
+"PO-Revision-Date: 2009-03-15 14:50+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1017,7 +1017,6 @@ msgid "Editor markers when the marker margin is invisible"
 msgstr "El editor marca cuando el margen del marcador es invisible"
 
 #: C/anjuta-manual.xml:303(para)
-#, fuzzy
 msgid ""
 "If the marker margin is not visible, Anjuta displays markers by changing the "
 "background color of a line. For example, if a breakpoint marker is set in a "
@@ -1029,8 +1028,8 @@ msgid ""
 "guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Marker Margin</"
 "guimenuitem></menuchoice>. <placeholder-1/>"
 msgstr ""
-"Si no se ve el margen del marcador, los marcadores se mostrarán cambiando el "
-"color del fondo de la línea. Por ejemplo, si hay un marcador de punto de "
+"Si no se ve el margen del marcador, Anjuta mostrará los marcadores cambiando "
+"el color del fondo de la línea. Por ejemplo, si hay un marcador de punto de "
 "parada en una línea y el margen del marcador no se ve, esa línea se mostrará "
 "en un fondo rojo. De forma similar, para los marcadores y los marcadores "
 "indicadores de línea el color de fondo de la línea será azul cielo y "
@@ -1045,7 +1044,6 @@ msgid "Editor Guides"
 msgstr "Guías del editor"
 
 #: C/anjuta-manual.xml:324(para)
-#, fuzzy
 msgid ""
 "The editor can be set to display certain document information which is "
 "normally invisible, including <emphasis>indentation guides</emphasis>, "
@@ -1058,16 +1056,15 @@ msgid ""
 "level visually."
 msgstr ""
 "Se puede hacer que el editor cree cierta información del documento, que de "
-"otra manera no sería visible. Las <emphasis>Guías de sangría, espacios en "
-"blanco y los caracteres de fin de línea</emphasis> son ese tipo de "
-"información que se puede hacer visible para un confort visual. Se pueden "
-"hacer visibles o invisibles conmutando los elementos del menú en "
-"<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</guisubmenu></"
-"menuchoice>. Las guías de sangría son las pequeñas líneas punteadas "
-"dibujadas para conectar las llaves coincidentes en el código fuente. Cuando "
-"el cursor está encima de uno de esas llaves coincidentes, las guías de "
-"sangría punteadas se resaltan para proporcionar una región visual del "
-"sangrado."
+"otra manera no sería visible, incluyendo las <emphasis>guías de sangría</"
+"emphasis>, <emphasis>espacios en blanco</emphasis> y los "
+"<emphasis>caracteres de fin de línea</emphasis>. Se pueden hacer visibles o "
+"invisibles conmutando los elementos del menú en <menuchoice><guimenu>Ver</"
+"guimenu><guisubmenu>Editor</guisubmenu></menuchoice>. Las guías de sangría "
+"son las pequeñas líneas punteadas dibujadas para conectar las llaves "
+"coincidentes en el código fuente. Cuando el cursor está encima de uno de "
+"esas llaves coincidentes, las guías de sangría punteadas se resaltan para "
+"proporcionar una región visual del sangrado."
 
 #: C/anjuta-manual.xml:333(title) C/anjuta-manual.xml:335(screeninfo)
 msgid "Editor with guides"
@@ -1078,7 +1075,6 @@ msgid "Syntax highlighting"
 msgstr "Resaltado de sintaxis"
 
 #: C/anjuta-manual.xml:342(para)
-#, fuzzy
 msgid ""
 "<application>Anjuta</application> can highlight the syntax of many different "
 "languages. This is usually done automatically by determining the type of a "
@@ -1088,9 +1084,9 @@ msgid ""
 "the menu <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
 "guisubmenu><guisubmenu> Highlight Mode</guisubmenu></menuchoice>."
 msgstr ""
-"<application>Anjuta</application> puede resaltar muchos lenguajes "
-"diferentes. Esto generalmente se hace automáticamente determinando el tipo "
-"del archivo desde la extensión de archivo. Si <application>Anjuta</"
+"<application>Anjuta</application> puede resaltar la sintaxis muchos "
+"lenguajes diferentes. Esto generalmente se hace automáticamente determinando "
+"el tipo del archivo desde la extensión de archivo. Si <application>Anjuta</"
 "application> no puede determinar el tipo del archivo, entonces no habrá "
 "resaltado de sintaxis. Puede forzar un estilo de resaltado particular "
 "seleccionándolo del menú <menuchoice><guimenu>Ver</"
@@ -1098,7 +1094,6 @@ msgstr ""
 "guisubmenu></menuchoice>."
 
 #: C/anjuta-manual.xml:352(para)
-#, fuzzy
 msgid ""
 "Anjuta uses a properties file named <filename>$prefix/share/anjuta/"
 "properties/anjuta.properties</filename>, which has the same format as a "
@@ -1113,8 +1108,8 @@ msgstr ""
 "archivo de propiedades SciTE pero no usa todas sus propiedades. El estilo de "
 "cada elemento para todos los idiomas está definido en un archivo llamado "
 "<filename>$prefix/share/anjuta/properties/styles.properties</filename>. Usa "
-"algunas propiedades comunes definidas por el IGU de Anjuta en el archivo "
-"<filename>$home/.config/anjuta/scintilla/editor-style.properties</filename>."
+"algunas propiedades comunes definidas por Anjuta en el archivo <filename>"
+"$home/.config/anjuta/scintilla/editor-style.properties</filename>."
 
 #: C/anjuta-manual.xml:365(title)
 msgid "Code folding"
@@ -1461,7 +1456,6 @@ msgid "Print preview"
 msgstr "Vista previa de impresión"
 
 #: C/anjuta-manual.xml:584(para)
-#, fuzzy
 msgid ""
 "You can perform a print preview by selecting <menuchoice><guisubmenu>File</"
 "guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>. This will "
@@ -1473,11 +1467,11 @@ msgid ""
 msgstr ""
 "La vista previa de impresión se puede obtener seleccionando "
 "<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Vista previa de "
-"impresión</guimenuitem></menuchoice>. Renderizará el archivo actual y "
+"impresión</guimenuitem></menuchoice>. Esto renderizará el archivo actual y "
 "presentará una vista previa de la impresión. Los códigos fuente que estén "
 "resaltados en el editor también se resaltarán de forma similar en la "
-"impresión (o vista previa). Existen opciones adicionales para imprimir los "
-"números de línea, ajustar líneas y/o cabeceras en las preferencias de "
+"impresión (y en la impresión). Existen opciones adicionales para imprimir "
+"los números de línea, ajustar líneas y/o cabeceras en las preferencias de "
 "impresión del editor en la solapa <guilabel>Impresión</guilabel> de las "
 "preferencias del complemento del editor. <placeholder-1/>"
 
@@ -1490,7 +1484,6 @@ msgid "Print preferences"
 msgstr "Preferencias de impresión"
 
 #: C/anjuta-manual.xml:608(para)
-#, fuzzy
 msgid ""
 "When you are ready to print and satisfied with the preview, select "
 "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></"
@@ -1507,7 +1500,6 @@ msgstr ""
 "imprima el archivo con el botón <guibutton>Imprimir</guibutton>."
 
 #: C/anjuta-manual.xml:615(para)
-#, fuzzy
 msgid ""
 "You can also set landscaped or portrait page layout and the paper size, page "
 "orientation and paper type. Remember to set them up properly according to "
@@ -1527,7 +1519,6 @@ msgid "Project Management"
 msgstr "Gestión de proyectos"
 
 #: C/anjuta-manual.xml:5(para)
-#, fuzzy
 msgid ""
 "Anjuta has a powerful Project Manager plugin which can open most <ulink type="
 "\"info\" url=\"info:automake\">automake/autoconf</ulink>-based projects. It "
@@ -1541,7 +1532,6 @@ msgstr ""
 "usando automake/autoconf de forma típica, entonces debería funcionar."
 
 #: C/anjuta-manual.xml:13(para)
-#, fuzzy
 msgid ""
 "The neat thing is that Anjuta does not store any project information beyond "
 "what is already available in the project structure. That is, there is no "
@@ -1553,15 +1543,15 @@ msgid ""
 "or switching back and forth between Anjuta and other tools is quite possible "
 "without any hindrance."
 msgstr ""
-"Lo interesante es que no almacena ninguna información del proyecto aparte de "
-"la que ya está disponible en la estructura del proyecto. Esto es, no hay "
-"datos de proyecto separados y mantenidos por Anjuta, y todos los "
-"procesamientos de los proyectos se realizan directamente con la propia "
+"Lo interesante de Anjuta es que no almacena ninguna información del proyecto "
+"aparte de la que ya está disponible en la estructura del proyecto. Esto es, "
+"no hay datos de proyecto separados y mantenidos por Anjuta, y todo el "
+"procesamiento de los proyectos se realiza directamente con la propia "
 "estructura del proyecto. Esto permite que el proyecto se mantenga o "
-"desarrolle fuera de Anjuta sin tener que realizar «portes» o «cambios» a otras "
-"plataformas. Ya que técnicamente los proyectos en Anjuta son simplemente "
-"proyectos automake, se puede desarrollar junto con otras plataformas, "
-"programas o herramientas sin ningún problema."
+"desarrolle fuera de Anjuta sin tener que realizar cambios al formato "
+"específico de Anjuta. Ya que técnicamente los proyectos en Anjuta son "
+"simplemente proyectos automake, se pueden desarrollar junto con otras "
+"plataformas, programas o herramientas sin ningún problema."
 
 #: C/anjuta-manual.xml:26(title)
 msgid "Creating a New Project"
@@ -1572,7 +1562,6 @@ msgid "Creating a project from a template"
 msgstr "Crear un proyecto nuevo desde una plantilla"
 
 #: C/anjuta-manual.xml:29(para)
-#, fuzzy
 msgid ""
 "The project wizard plugin uses a powerful template processing engine called "
 "<application>autogen</application>. All new projects are created from "
