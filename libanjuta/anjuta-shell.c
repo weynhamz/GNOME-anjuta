@@ -754,6 +754,34 @@ anjuta_shell_get_profile_manager (AnjutaShell *shell, GError **error)
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_profile_manager (shell, error);
 }
 
+/**
+ * anjuta_shell_saving_push:
+ * @shell: A #AnjutaShell interface
+ *
+ * Increase the count of files that need to be saved 
+ *
+ */
+void anjuta_shell_saving_push	    (AnjutaShell* shell)
+{
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	
+	return ANJUTA_SHELL_GET_IFACE (shell)->saving_push (shell);
+}
+
+/**
+ * anjuta_shell_saving_push:
+ * @shell: A #AnjutaShell interface
+ *
+ * Decrease the count of files that need to be saved 
+ *
+ */
+void anjuta_shell_saving_pop	    (AnjutaShell* shell)
+{
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->saving_pop (shell);
+}
+
 void
 anjuta_shell_session_save (AnjutaShell *shell, const gchar *session_directory,
 						   GError **error)

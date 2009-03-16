@@ -498,6 +498,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	
 	/* Loading accels */
 	anjuta_ui_load_accels (NULL);
+
+	app->save_count = 0;
 }
 
 static void
@@ -766,6 +768,20 @@ anjuta_app_remove_value (AnjutaShell *shell, const char *name, GError **error)
 		g_signal_emit_by_name (app, "value_removed", name);
 		g_hash_table_remove (app->values, name);
 	}
+}
+
+static void
+anjuta_app_saving_push (AnjutaShell* shell)
+{
+	AnjutaApp* app = ANJUTA_APP (shell);
+	app->save_count++;
+}
+
+static void
+anjuta_app_saving_pop (AnjutaShell* shell)
+{
+	AnjutaApp* app = ANJUTA_APP (shell);
+	app->save_count--;
 }
 
 static gboolean
@@ -1041,6 +1057,8 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_preferences = anjuta_app_get_preferences;
 	iface->get_plugin_manager = anjuta_app_get_plugin_manager;
 	iface->get_profile_manager = anjuta_app_get_profile_manager;
+	iface->saving_push = anjuta_app_saving_push;
+	iface->saving_pop = anjuta_app_saving_pop;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GTK_TYPE_WINDOW);

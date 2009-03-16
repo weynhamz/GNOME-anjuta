@@ -184,7 +184,7 @@ main (int argc, char *argv[])
 	/* Initialize gnome program */
 	if (!g_option_context_parse (context, &argc, &argv, &error))
 	{
-		DEBUG_PRINT ("Option parsing failed: %s", error);
+		DEBUG_PRINT ("Option parsing failed: %s", error->message);
 		exit(1);
 	}
 	

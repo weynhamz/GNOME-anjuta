@@ -79,6 +79,15 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 				break;
 		}
 	}
+	/* Wait for files to be really saved (asyncronous operation) */
+	if (app->save_count > 0)
+	{
+		g_message ("Waiting for %d file(s) to be saved!", app->save_count);
+		while (app->save_count > 0)
+		{
+			g_main_context_iteration (NULL, TRUE);
+		}
+	}
 	
 	/* If current active profile is "user", save current session as
 	 * default session

@@ -108,6 +108,8 @@ struct _AnjutaShellIface {
 	void (*remove_value)      (AnjutaShell  *shell,
 							   const char   *name,
 							   GError       **error);
+	void (*saving_push)       (AnjutaShell* shell);
+	void (*saving_pop)        (AnjutaShell* shell);
 	GObject* (*get_object)    (AnjutaShell  *shell,
 							   const char   *iface_name,
 							   GError       **error);
@@ -196,6 +198,9 @@ void anjuta_shell_save_prompt       (AnjutaShell *shell,
 									 AnjutaSavePrompt *prompt,
 									 GError **error);
 void anjuta_shell_notify_exit       (AnjutaShell *shell, GError **error);
+void anjuta_shell_saving_push	    (AnjutaShell* shell);
+void anjuta_shell_saving_pop	    (AnjutaShell* shell);
+
 
 /**
  * anjuta_shell_get_interface:

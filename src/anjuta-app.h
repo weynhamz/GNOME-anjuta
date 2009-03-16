@@ -58,6 +58,8 @@ struct _AnjutaApp
 	AnjutaPreferences *preferences;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
+
+	gint save_count;
 };
 
 struct _AnjutaAppClass

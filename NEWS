@@ -1,3 +1,24 @@
+Anjuta 2.26.0 (16 March 2009) -- Johannes Schmid
+
+Bugs fixed:
+#397883 – The license info is almost empty
+#574376 – Save doesn't always save
+#573858 – link fail on Solaris for plugin symbol-db
+#562113 – Clean docbook syntax in order to validate
+#571740 – Get rid of deprecated libgnomecanvas
+- Fixed crash in git plugin
+- Fixed little problem in build plugin
+- Fixed distcheck
+
+- Translation updates:
+Anjuta is now fully translated into the following languages:
+pt_BR, en_GB, da, fi, fr, gl, el, it, ca, pt, sv, es, tr, hu, vi, de, sl
+and over 80% in
+ru, ja, mr, ar, th, pl
+The manual is translated into Spanish now.
+
+Thanks to all translators
+
 Anjuta 2.25.903 (2 March 2009) -- Johannes Schmid
 
 Bugs fixed:

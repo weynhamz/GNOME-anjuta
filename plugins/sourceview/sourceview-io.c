@@ -236,14 +236,18 @@ set_display_name (SourceviewIO* sio)
 }
 
 static void
-on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
+on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
+	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	GError* err = NULL;
-	g_output_stream_write_finish (G_OUTPUT_STREAM(output_stream),
-								  result,
-								  &err);
+	gchar* etag;
+	g_file_replace_contents_finish (G_FILE (file),
+	                                result,
+	                                &etag,
+	                                &err);
 	g_free (sio->write_buffer);
+	g_free (etag);
 	sio->write_buffer = NULL;
 	if (err)
 	{
@@ -253,12 +257,11 @@ on_save_finished (GObject* output_stream, GAsyncResult* result, gpointer data)
 	else
 	{
 		set_display_name (sio);
-		g_output_stream_close(G_OUTPUT_STREAM (output_stream), NULL, NULL);
 		setup_monitor (sio);
 		g_signal_emit_by_name (sio, "save-finished");
 	}
-	g_object_unref (output_stream);
 	g_object_unref (sio);
+	anjuta_shell_saving_pop (shell);
 }
 
 void
@@ -279,9 +282,9 @@ sourceview_io_save (SourceviewIO* sio)
 void
 sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 {
-	GFileOutputStream* output_stream;
-	GError* err = NULL;
+	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	gboolean backup = TRUE;
+	gsize len;
 	
 	g_return_if_fail (file != NULL);
 	
@@ -290,19 +293,11 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	backup = anjuta_preferences_get_int_with_default (sio->sv->priv->prefs,
 													  "sourceview.backup", TRUE);
 	
-	output_stream = g_file_replace (file, NULL, backup, G_FILE_CREATE_NONE,
-									NULL, NULL);
-	if (!output_stream)
-	{
-		g_signal_emit_by_name (sio, "save-failed", err);
-		g_error_free (err);
-		return;
-	}
-	
 	if (sio->last_encoding == NULL)
 	{
 		sio->write_buffer = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
 														 NULL);
+		len = strlen (sio->write_buffer);
 	}
 	else
 	{
@@ -312,7 +307,7 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 		sio->write_buffer = anjuta_convert_from_utf8 (buffer_text,
 													  -1,
 													  sio->last_encoding,
-													  NULL,
+													  &len,
 													  &err);
 		g_free (buffer_text);
 		if (err != NULL)
@@ -323,13 +318,16 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 		}
 	}
 	g_cancellable_reset (sio->cancel);
-	g_output_stream_write_async (G_OUTPUT_STREAM (output_stream),
-								 sio->write_buffer,
-								 strlen (sio->write_buffer),
-								 G_PRIORITY_LOW,
-								 sio->cancel,
-								 on_save_finished,
-								 sio);
+	g_file_replace_contents_async (file,
+	                               sio->write_buffer,
+	                               len,
+	                               NULL,
+	                               backup,
+	                               G_FILE_CREATE_NONE,
+	                               sio->cancel,
+	                               on_save_finished,
+	                               sio);
+	anjuta_shell_saving_push (shell);
 	
 	if (sio->file != file)
 	{
