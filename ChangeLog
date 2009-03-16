@@ -1,3 +1,30 @@
+2009-03-16  Johannes Schmid  <jhs@gnome.org>
+
+	* NEWS: Update for release
+	* configure.in: Bumped to 2.26.0
+
+2009-03-15  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-shell.c (anjuta_shell_saving_push),
+	(anjuta_shell_saving_pop):
+	* libanjuta/anjuta-shell.h:
+	* src/anjuta-app.c (anjuta_app_instance_init),
+	(anjuta_app_saving_push), (anjuta_app_saving_pop),
+	(anjuta_shell_iface_init):
+	* src/anjuta-app.h:
+	* src/anjuta.c (on_anjuta_delete_event):
+	Implemented infrastructure to wait for all async save operation before 
+	exiting
+
+	* src/main.c (main):
+	Fix trivial warning (error->message instead of error)
+
+	* plugins/sourceview/sourceview-io.c (on_save_finished),
+	(sourceview_io_save_as):
+	Use saving infrastructure to fix #574376 – Save doesn't always save. Use
+	g_file_replace_contents_async instead of GOutputStream to avoid duplicated
+	code with gio.
+
 2009-03-11  Johannes Schmid  <jhs@gnome.org>
 
 	* configure.in: Fixed "--enable-editor-scintilla"

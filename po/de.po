@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-10 09:24+0100\n"
-"PO-Revision-Date: 2009-03-10 09:44+0100\n"
+"POT-Creation-Date: 2009-03-16 21:17+0100\n"
+"PO-Revision-Date: 2009-03-16 21:17+0100\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -257,7 +257,7 @@ msgstr "Laden"
 msgid "Available Plugins"
 msgstr "Verfügbare Komponenten"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:661
 msgid "Preferred plugins"
 msgstr "Bevorzugte Komponente"
 
@@ -428,7 +428,7 @@ msgstr "Kategory"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:648
 msgid "General"
 msgstr "Allgemein"
 
@@ -4899,7 +4899,6 @@ msgstr "Commit _zurücknehmen …"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:178 ../plugins/git/plugin.c:375
-#, fuzzy
 msgid "_Bisect"
 msgstr "_Zweiteilen"
 
@@ -5005,14 +5004,12 @@ msgstr "Markierte Revision _anzeigen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 msgid "_Set good revision"
 msgstr "Gute Revision _setzen"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:391
-#, fuzzy
 msgid "_Set bad revision"
 msgstr "Schlechte Revision _setzen"
 
@@ -5139,7 +5136,7 @@ msgid "Failed to save associations"
 msgstr "Speichern der Verknüpfungen ist fehlgeschlagen"
 
 #: ../plugins/glade/plugin.c:1360
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't introspect the signal"
 msgstr "Signal konnte nicht inspiziert werden"
 
@@ -5167,7 +5164,7 @@ msgstr "Unbekannte Sprache »%s« des Editors"
 #: ../plugins/glade/plugin.c:2241
 #, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr ""
+msgstr "Fehler bei der Erstellung der Platzhalter-Funktion: %s"
 
 #: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
 msgid "Couldn't find a signal information"
@@ -5176,6 +5173,7 @@ msgstr "Eine Signalinformation konnte nicht gefunden werden"
 #: ../plugins/glade/plugin.c:2073
 msgid "Error while adding a new handler stub: No current editor"
 msgstr ""
+"Fehler bei der Erstellung der Platzhalter-Funktion: Kein aktueller Editor"
 
 #: ../plugins/glade/plugin.c:2244
 #, c-format
@@ -5221,11 +5219,11 @@ msgstr "Zwischen Designer und Quellcode wechseln"
 
 #: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
 msgid "Insert handler stub"
-msgstr ""
+msgstr "Platzhalter-Funktion einfügen"
 
 #: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Platzhalter Funktion einfügen, automatisch positionieren"
 
 #: ../plugins/glade/plugin.c:4021
 msgid "Associate last designer and last editor"
@@ -8223,14 +8221,14 @@ msgstr "Die Datei »%s« ist nur lesbar! Soll Sie trotzdem bearbeitet werden?"
 msgid "Could not save %s: %s"
 msgstr "Datei %s konnte nicht gespeichert werden: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:271
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 "Die Datei konnte nicht gespeichert werden, weil der Dateiname nicht "
 "festgelegt ist"
 
-#: ../plugins/sourceview/sourceview-io.c:506
+#: ../plugins/sourceview/sourceview-io.c:504
 #, c-format
 msgid "New file %d"
 msgstr "Neue Datei %d"
@@ -9530,7 +9528,7 @@ msgstr "In Ihren Einstellungen wurde keine Unterdrückungsdatei angegeben."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Sitzung geladen …"
 
@@ -9749,15 +9747,15 @@ msgstr "Bearbeiten"
 msgid "View"
 msgstr "Ansicht"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:659
 msgid "Installed plugins"
 msgstr "Installierte Komponenten"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:663
 msgid "Shortcuts"
 msgstr "Tastenkürzel"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:735
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Wert existiert nicht"
@@ -10046,7 +10044,7 @@ msgstr "Ein alternativer auf Scintilla basierender Editor"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:1
 msgid "Change build commands to use scratchbox 1 or 2"
-msgstr ""
+msgstr "Erstellungs-Befehle für Scratchbox 1 oder 2 verändern"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
