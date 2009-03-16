@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-08 21:32+0100\n"
-"PO-Revision-Date: 2009-03-08 21:30+0100\n"
-"Last-Translator: Petr Kovar <pknbe@volny.cz>\n"
+"POT-Creation-Date: 2009-03-16 05:46+0100\n"
+"PO-Revision-Date: 2009-03-15 02:38+0100\n"
+"Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "IDE Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Vývoj softwaru v integrovaném vývojovém prostředí"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
@@ -282,7 +282,7 @@ msgstr "Vyberte zásuvný modul, který chcete aktivovat"
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin able to load other plugins in %s"
-msgstr ""
+msgstr "V %s není k dispozici zásuvný modul schopný nahrávat jiné moduly"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1960
 msgid "Remember this selection"
@@ -455,7 +455,14 @@ msgid ""
 msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
+"<b>Existuje %d položka, jejíž změny nebyly uloženy. Uložit před uzavřením?</"
+"b>"
 msgstr[1] ""
+"<b>Existují %d položky, jejichž změny nebyly uloženy. Uložit před uzavřením?"
+"</b>"
+msgstr[2] ""
+"<b>Existuje %d položek, jejichž změny nebyly uloženy. Uložit před uzavřením?"
+"</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -480,11 +487,8 @@ msgstr "Zkratka"
 
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-utils.c:363
-#, fuzzy
 msgid "System:"
-msgstr ""
-"\n"
-"Systém: "
+msgstr "Systém: "
 
 #: ../libanjuta/anjuta-utils.c:501
 #, c-format
@@ -575,9 +579,8 @@ msgid "<b>Configuration:</b>"
 msgstr "<b>Konfigurace:</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
-#, fuzzy
 msgid "<b>Install</b>"
-msgstr "<b>Filtr souborů</b>"
+msgstr "<b>Instalace</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "<b>Regenerate project</b>"
@@ -600,7 +603,7 @@ msgstr "Adresář pro sestavení:"
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 #, fuzzy
 msgid "Configure Options:"
-msgstr "<b>Možnosti:</b>"
+msgstr "Možnosti configure:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Configure Project"
@@ -625,7 +628,7 @@ msgstr "Spustit v terminálu"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
 msgid "Run several commands at a time:"
-msgstr ""
+msgstr "Spustit najednou ěkolik příkazů:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
 msgid "Select Program"
@@ -1383,14 +1386,12 @@ msgstr "Unifikovaný formát místo kontextového formátu"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
-#, fuzzy
 msgid "Use revision/tag:"
-msgstr "Použit revizi/tag: "
+msgstr "Použit revizi/tag:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-#, fuzzy
 msgid "Use revision:"
-msgstr "Použít revizi: "
+msgstr "Použít revizi:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:56
@@ -1598,18 +1599,16 @@ msgid "<b>Debugger:</b>"
 msgstr "<b>Debugger:</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
-#, fuzzy
 msgid "<b>Remote debugging</b>"
-msgstr "<b>Spouštění programu:</b>"
+msgstr "<b>Vzdálené lazení</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:3
 msgid "Add Watch"
 msgstr "Přidat sledování"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
-#, fuzzy
 msgid "Address:"
-msgstr "Adresa"
+msgstr "Adresa:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:2
@@ -1638,7 +1637,7 @@ msgstr "Změnit sledování"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
 msgid "Connect to remote target"
-msgstr ""
+msgstr "Připojit se k vzdálenému cíli"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
@@ -1712,9 +1711,8 @@ msgid "Pass:"
 msgstr "Předat:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
-#, fuzzy
 msgid "Port:"
-msgstr "Tisk:"
+msgstr "Port:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
 #: ../plugins/gdb/anjuta-gdb.glade.h:20
@@ -1737,7 +1735,7 @@ msgstr "Vyberte jeden adresář"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 msgid "Serial Line Connection"
-msgstr ""
+msgstr "Spojení po sériové lince"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
 #: ../plugins/gdb/anjuta-gdb.glade.h:24
@@ -1771,7 +1769,7 @@ msgstr "Zastavit:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 msgid "TCP/IP Connection"
-msgstr ""
+msgstr "Spojení TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
 #: ../plugins/gdb/anjuta-gdb.glade.h:29
@@ -2294,9 +2292,8 @@ msgid "Symbols read"
 msgstr "Symboly"
 
 #: ../plugins/debug-manager/sharedlib.c:338
-#, fuzzy
 msgid "Shared library operations"
-msgstr "Sdílené knihovny"
+msgstr "Operace se sdílenými knihovnami"
 
 #: ../plugins/debug-manager/signals.c:289
 msgid "Signal"
@@ -2330,9 +2327,8 @@ msgstr "Signály jádra"
 
 #: ../plugins/debug-manager/signals.c:472
 #: ../plugins/debug-manager/signals.c:478
-#, fuzzy
 msgid "Signal operations"
-msgstr "terminálové operace"
+msgstr "Operace se signály"
 
 #: ../plugins/debug-manager/sparse_view.c:1195
 msgid "Show Line Numbers"
@@ -2566,9 +2562,8 @@ msgid "Help operations"
 msgstr "Operace nástrojů"
 
 #: ../plugins/devhelp/plugin.c:355
-#, fuzzy
 msgid "Online"
-msgstr "Podtržené"
+msgstr "On-line"
 
 #: ../plugins/devhelp/plugin.c:396
 #, fuzzy
@@ -2606,9 +2601,8 @@ msgstr "_Znovu načíst"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:282
 #: ../plugins/document-manager/plugin.c:411
-#, fuzzy
 msgid "Bookmarks"
-msgstr "_Záložka"
+msgstr "Záložky"
 
 #: ../plugins/document-manager/anjuta-docman.c:399
 msgid "Close file"
@@ -3163,14 +3157,13 @@ msgid "Bookmar_k"
 msgstr "_Záložka"
 
 #: ../plugins/document-manager/plugin.c:369
-#, fuzzy
 msgid "_Add Bookmark"
-msgstr "_Následující záložka"
+msgstr "Přid_at záložku"
 
 #: ../plugins/document-manager/plugin.c:370
 #, fuzzy
 msgid "Add a bookmark at the current line position"
-msgstr "Přepnout záložku na aktuální pozici"
+msgstr "Přidat záložku na aktuální pozici kurzoru v řádce"
 
 #: ../plugins/document-manager/plugin.c:372
 msgid "_Previous Bookmark"
@@ -3299,7 +3292,7 @@ msgstr "Automatické uložení dokončeno"
 #: ../plugins/document-manager/search-box.c:382
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
-msgstr ""
+msgstr "Hledání řetězce \"%s\" došlo na konec a pokračuje od začátku."
 
 #: ../plugins/document-manager/search-box.c:388
 #, c-format
@@ -3307,12 +3300,13 @@ msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
 msgstr ""
+"Hledání řetězce \"%s\" došlo na konec a pokračuje od začátku, avšak nebyly "
+"nalezeny žádné nové výsledky."
 
 #: ../plugins/document-manager/search-box.c:445
 #: ../plugins/search/anjuta-search.glade.h:23
-#, fuzzy
 msgid "Match case"
-msgstr "Odpovídající složenou _závorku"
+msgstr "Rozlišovat velikost písmen"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3529,14 +3523,13 @@ msgid "Open recent files"
 msgstr "Otevřít nedávné soubory"
 
 #: ../plugins/file-loader/plugin.c:1263
-#, fuzzy
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
 #: ../plugins/file-loader/plugin.c:1372 ../plugins/file-loader/plugin.c:1374
-#, fuzzy, c-format
+#, c-format
 msgid "File not found"
-msgstr "Widget nenalezen: %s"
+msgstr "Soubor nenalezen"
 
 #. %s is name of file that will be opened
 #: ../plugins/file-loader/plugin.c:1393
@@ -3545,9 +3538,8 @@ msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Vyberte prosím ze seznamu zásuvný modul"
 
 #: ../plugins/file-loader/plugin.c:1397
-#, fuzzy
 msgid "Open With"
-msgstr "Otevřít _s"
+msgstr "Otevřít s"
 
 #: ../plugins/file-manager/file-manager.glade.h:1
 msgid "<b>Filter</b>"
@@ -3593,14 +3585,12 @@ msgid "Up-to-date"
 msgstr "Aktualizovat"
 
 #: ../plugins/file-manager/file-view.c:75
-#, fuzzy
 msgid "Locked"
-msgstr "Načteno"
+msgstr "Uzamčeno"
 
 #: ../plugins/file-manager/file-view.c:81
-#, fuzzy
 msgid "Ignored"
-msgstr "_Ignorovat..."
+msgstr "Ignorováno"
 
 #: ../plugins/file-manager/file-view.c:484
 msgid "Filename"
@@ -3731,9 +3721,8 @@ msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/file-wizard/file.c:102
-#, fuzzy
 msgid "BSD Public License"
-msgstr "General Public License (GPL)"
+msgstr "BSD Public License"
 
 #: ../plugins/file-wizard/file.c:180
 msgid "Unable to build user interface for New File"
@@ -3759,19 +3748,16 @@ msgid "Add _module"
 msgstr "Sestavit modul"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:5
-#, fuzzy
 msgid "Packages"
-msgstr "Patche"
+msgstr "Balíčky"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:6
-#, fuzzy
 msgid "Select package"
-msgstr "Vybrat do _složené závorky"
+msgstr "Zvolte balíček"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:7
-#, fuzzy
 msgid "Variables"
-msgstr "Proměnná"
+msgstr "Proměnné"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2392
 #: ../plugins/gbf-am/gbf-am-project.c:2470
@@ -3783,9 +3769,8 @@ msgstr "Proměnná"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2638
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2824
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2972
-#, fuzzy
 msgid "Group doesn't exist"
-msgstr "Hodnota neexistuje"
+msgstr "Skupina neexistuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2412
 #: ../plugins/gbf-am/gbf-am-project.c:2515
@@ -3797,9 +3782,8 @@ msgstr "Hodnota neexistuje"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2867
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3047
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3233
-#, fuzzy
 msgid "Target doesn't exist"
-msgstr "Hodnota neexistuje"
+msgstr "Cíl neexistuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2446
 #: ../plugins/gbf-am/gbf-am-project.c:2490
@@ -3827,11 +3811,13 @@ msgstr "Nemohu odstranit soubor"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2518
 msgid "Invalid or remote path (only local paths supported)"
 msgstr ""
+"Neplatná cesta nebo ukazující na vzdálené umístění (podporovány jsou jen "
+"místní cesty)"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2584
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2539
 msgid "Project doesn't exist or invalid path"
-msgstr ""
+msgstr "Projekt neexistuje nebo není cesta platná"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2595
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
@@ -3840,120 +3826,110 @@ msgid "Malformed project"
 msgstr "Zavřít projekt"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2792
-#, fuzzy
 msgid "Please specify group name"
-msgstr "Zadejte prosím název souboru!"
+msgstr "Zadejte prosím název skupiny"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2806
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Název skupiny může obsahovat jen alfanumerické znaky, '_', '-' nebo '.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2815
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2751
-#, fuzzy
 msgid "Parent group doesn't exist"
-msgstr "Hodnota neexistuje"
+msgstr "Rodičovská skupina neexistuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2826
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2762
-#, fuzzy
 msgid "Group already exists"
-msgstr "Přeskakuji %s: soubor již existuje"
+msgstr "Skupina již existuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2836
 #: ../plugins/gbf-am/gbf-am-project.c:2863
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2772
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2799
 msgid "Group couldn't be created"
-msgstr ""
+msgstr "Skupinu nelze vytvořit"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2896
 msgid "Group couldn't be removed"
-msgstr ""
+msgstr "Skupinu nelze odstranit"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3046
-#, fuzzy
 msgid "Please specify target name"
-msgstr "Zadejte prosím název souboru!"
+msgstr "Zadejte prosím název cíle"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3060
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr ""
+msgstr "Název cíle může obsahovat jen alfanumerické znaky, '_', '-' nebo '.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3069
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr ""
+msgstr "Název cílové sdílené knihovny musí být ve formátu 'libxxx.la'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3078
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr ""
+msgstr "Název cílové statické knihovny musí být ve formátu 'libxxx.la'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3090
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2985
-#, fuzzy
 msgid "Target already exists"
-msgstr "Přeskakuji %s: soubor již existuje"
+msgstr "Cíl již existuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3100
 msgid "General failure in target creation"
-msgstr ""
+msgstr "Obecná chyba při vytváření cíle"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3128
 msgid "Newly created target could not be identified"
-msgstr ""
+msgstr "Nove vytvořený cíl nelze identifikovat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3161
 msgid "Target couldn't be removed"
-msgstr ""
+msgstr "Cíl nelze odstranit"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3185
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
-#, fuzzy
 msgid "Static Library"
-msgstr "Sdílené knihovny"
+msgstr "Statická knihovna"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3187
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
-#, fuzzy
 msgid "Shared Library"
-msgstr "Sdílené knihovny"
+msgstr "Sdílená knihovna"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3189
-#, fuzzy
 msgid "Header Files"
-msgstr "Hlavičkový soubor:"
+msgstr "Hlavičkové soubory"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3191
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
-#, fuzzy
 msgid "Man Documentation"
-msgstr "Dokumenty"
+msgstr "Manuálová Dokumenty"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3193
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
 msgid "Miscellaneous Data"
-msgstr ""
+msgstr "Různorodá data"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3197
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3199
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
 #, fuzzy
 msgid "Info Documentation"
-msgstr "Informace"
+msgstr "Informační stránka"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3201
-#, fuzzy
 msgid "Java Module"
-msgstr "Modul"
+msgstr "Modul jazyka Java"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3203
-#, fuzzy
 msgid "Python Module"
-msgstr "Zdrojový soubor v Pythonu"
+msgstr "Modul jazyka Python"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
@@ -3961,20 +3937,22 @@ msgstr "Zdrojový soubor v Pythonu"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
 #, fuzzy
 msgid "Source doesn't exist"
-msgstr "Hodnota neexistuje"
+msgstr "Zdroj neexistuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3364
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Název zdrojového souboru může obsahovat jen alfanumerické znaky, '_', '-' "
+"nebo '.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3441
 msgid "Source file is already in given target"
-msgstr ""
+msgstr "Zdrojový soubor v zadaném cíli již existuje"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3458
 msgid "General failure in adding source file"
-msgstr ""
+msgstr "Obecná chyba při přidávání zdrojového souboru"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3491
 #, fuzzy
@@ -3983,66 +3961,60 @@ msgstr "Hlavičkový nebo zdrojový soubor nebyl vytvořen"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3522
 msgid "Source couldn't be removed"
-msgstr ""
+msgstr "Zdroj nelze odstranit"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
-#, fuzzy
 msgid "Project directory"
-msgstr "Adresář projektu:"
+msgstr "Adresář projektu"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:342
 #: ../plugins/gbf-am/gbf-am-properties.c:394
-#, fuzzy
 msgid "Enter new module"
-msgstr "Vyčistit modul"
+msgstr "Zadejte nový modul"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:430
 #: ../plugins/gbf-am/gbf-am-properties.c:923
 msgid "Module/Packages"
-msgstr ""
+msgstr "Modul/Balíčky"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:437
 #: ../plugins/gbf-am/gbf-am-properties.c:932
-#, fuzzy
 msgid "Version"
-msgstr "Verze:"
+msgstr "Verze"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:523
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
 "packages?"
-msgstr "Opravdu chcete odstranit všechny dokončené úkoly?"
+msgstr "Opravdu chcete odstranit modul \"%s\" a s ním asociované balíčky?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:525
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
-msgstr "Opravdu chcete odstranit nástroj '%s'?"
+msgstr "Opravdu chcete odstranit balíček \"%s\"?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:583
 #: ../plugins/gbf-am/gbf-am-properties.c:665
-#, fuzzy
 msgid "Enter new variable"
-msgstr "Proměnné prostředí:"
+msgstr "Zadejte novou proměnnou"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:696
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
-msgstr "Opravdu chcete odstranit nástroj '%s'?"
+msgstr "Opravdu chcete odstranit nástroj proměnnou \"%s\"?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:847
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
-#, fuzzy
 msgid "Project:"
-msgstr "Projekt"
+msgstr "Projekt:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:850
-#, fuzzy
 msgid "Package name:"
-msgstr "Název projektu:"
+msgstr "Název balíčku:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:853
 #: ../plugins/project-wizard/templates/translatable-strings.h:101
@@ -4051,7 +4023,7 @@ msgstr "Verze:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:856
 msgid "Url:"
-msgstr ""
+msgstr "Adresa URL:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1222
 #, fuzzy
@@ -4060,14 +4032,12 @@ msgstr "Uživatel"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1314
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
-#, fuzzy
 msgid "Group name:"
-msgstr "Název modulu:"
+msgstr "Název skupiny:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1317
-#, fuzzy
 msgid "Advanced"
-msgstr "Přidáno"
+msgstr "Pokročilé"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1322
 #: ../plugins/gbf-am/gbf-am-properties.c:1412
@@ -4076,8 +4046,9 @@ msgid "C compiler flags:"
 msgstr "Kompilovat soubor"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1324
+#, fuzzy
 msgid "C preprocessor flags:"
-msgstr ""
+msgstr "Přepínače preprocesoru jazyka C:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1326
 #, fuzzy
@@ -4103,9 +4074,8 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1346
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
-#, fuzzy
 msgid "Install directories:"
-msgstr "Ignorovat adresáře:"
+msgstr "Instalační adresáře:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1414
 msgid "C preprocessor flags"
@@ -4127,32 +4097,27 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1430
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
-#, fuzzy
 msgid "Libraries:"
-msgstr "Sdílené knihovny"
+msgstr "Knihovny:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1436
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
-#, fuzzy
 msgid "Dependencies:"
-msgstr "Závislosti zásuvného modulu:"
+msgstr "Závislosti:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1439
-#, fuzzy
 msgid "Advanced options"
-msgstr "_Pokročilý průvodce"
+msgstr "Pokročilé možnosti"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1514
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
-#, fuzzy
 msgid "Target name:"
-msgstr "Název projektu:"
+msgstr "Název cíle:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1523
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
-#, fuzzy
 msgid "Group:"
-msgstr "Řečtina"
+msgstr "Skupina:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1541
 #: ../plugins/gbf-am/gbf-am-properties.c:1557
@@ -4160,14 +4125,12 @@ msgstr "Řečtina"
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
-#, fuzzy
 msgid "Install directory:"
-msgstr "_Nainstalovat projekt"
+msgstr "Instalační adresář:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1576
-#, fuzzy
 msgid "Advanced..."
-msgstr "_Přidat..."
+msgstr "Pokročilé..."
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
@@ -4175,22 +4138,21 @@ msgid "Invalid GbfMkfileConfigValue type"
 msgstr ""
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2525
-#, fuzzy
 msgid "Project doesn't exist"
-msgstr "Hodnota neexistuje"
+msgstr "Projekt neexistuje"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2832
 msgid "Group coudn't be removed"
-msgstr ""
+msgstr "Skupinu nelze odstranit"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2995
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
 msgid "Target couldn't be created"
-msgstr ""
+msgstr "Cíl nelze vytvořit"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3055
 msgid "Target coudn't be removed"
-msgstr ""
+msgstr "Cíl nelze odstranit"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
 #, fuzzy
@@ -4199,16 +4161,16 @@ msgstr "Vyberte adresář projektu"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
 msgid "Source is already in target"
-msgstr ""
+msgstr "Zdroji již v cíli existuje"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
 msgid "Source couldn't be added"
-msgstr ""
+msgstr "Zdroj nelze přidat"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
 msgid "Source coudn't be removed"
-msgstr ""
+msgstr "Zdroj nelze odstranit"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
 msgid "Includes:"
@@ -4329,11 +4291,12 @@ msgid ""
 "Unable to connect to remote target, %s\n"
 "Do you want to try again?"
 msgstr ""
+"Nelze se připojit ke vzdálenému cíli, %s\n"
+"Přejete si to zkusit znovu?"
 
 #: ../plugins/gdb/debugger.c:1874
-#, fuzzy
 msgid "Debugger connected\n"
-msgstr "Příkaz debuggeru"
+msgstr "Ladící nástroj byl připojen\n"
 
 #: ../plugins/gdb/debugger.c:1948
 msgid "Program attached\n"
@@ -4679,7 +4642,7 @@ msgstr "_Vynulovat"
 #: ../plugins/git/anjuta-git.glade.h:69
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
-msgstr ""
+msgstr "Zjišťuje se stav..."
 
 #: ../plugins/git/anjuta-git.glade.h:70
 msgid "Revert Commit"
@@ -4887,7 +4850,7 @@ msgstr ""
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 #: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: ../plugins/git/git-ui-utils.c:438
 msgid "Git: Diff complete."
@@ -5094,8 +5057,9 @@ msgstr "Potvrdit přidané"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:327
+#, fuzzy
 msgid "_Show commit diff"
-msgstr ""
+msgstr "Zobrazit rozdíl commitu"
 
 #. Action name
 #. Stock icon, if any
@@ -5185,8 +5149,9 @@ msgid "Separated designer layout"
 msgstr ""
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
+#, fuzzy
 msgid "Special regexp"
-msgstr ""
+msgstr "Zvláštní regulární výraz"
 
 #: ../plugins/glade/anjuta-glade.glade.h:12
 #, fuzzy
@@ -5239,7 +5204,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:854
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
-msgstr ""
+msgstr "Nelze uložit asociace, protože není nastaven kořen projektu"
 
 #: ../plugins/glade/plugin.c:876
 #, fuzzy, c-format
@@ -5254,12 +5219,12 @@ msgstr ""
 #: ../plugins/glade/plugin.c:1382
 #, c-format
 msgid "Python language isn't supported yet"
-msgstr ""
+msgstr "Jazyk Python zatím není podporován"
 
 #: ../plugins/glade/plugin.c:1395
 #, c-format
 msgid "Vala language isn't supported yet"
-msgstr ""
+msgstr "Jazyk Vala zatím není podporován"
 
 #: ../plugins/glade/plugin.c:1954
 #, c-format
@@ -5311,7 +5276,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:3886
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
-msgstr ""
+msgstr "Projekt %s neobsahuej žádné zastaralé widgety ani chybné verze."
 
 #: ../plugins/glade/plugin.c:3903
 #, fuzzy
@@ -5321,13 +5286,12 @@ msgstr "Celý projekt"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/glade/plugin.c:3989
-#, fuzzy
 msgid "_Glade"
-msgstr "Soubor Glade"
+msgstr "_Glade"
 
 #: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
 msgid "Switch between designer/code"
-msgstr ""
+msgstr "Přepnout mezi návrhem/kódem"
 
 #: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
 msgid "Insert handler stub"
@@ -5347,7 +5311,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
 msgid "Associations dialog..."
-msgstr ""
+msgstr "Okno asociací..."
 
 #: ../plugins/glade/plugin.c:4037
 #, fuzzy
@@ -5443,7 +5407,6 @@ msgid "Could not create a new glade project."
 msgstr "Nemohu vytvořit nový projekt glade."
 
 #: ../plugins/glade/plugin.c:5019 ../plugins/glade/plugin.c:5044
-#, fuzzy
 msgid "Glade GUI Designer"
 msgstr "Návrhář rozhraní Glade"
 
@@ -5574,16 +5537,15 @@ msgstr "Exportovat do"
 
 #: ../plugins/gtodo/export.c:158
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: ../plugins/gtodo/export.c:159
-#, fuzzy
 msgid "Plain Text"
-msgstr "Název zásuvného modulu:"
+msgstr "Čistý text"
 
 #: ../plugins/gtodo/export.c:160
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #. add the embed css style sheet tb
 #: ../plugins/gtodo/export.c:167
@@ -5591,9 +5553,8 @@ msgid "Export current category only"
 msgstr ""
 
 #: ../plugins/gtodo/export.c:171
-#, fuzzy
 msgid "<b>HTML export options:</b>"
-msgstr "<b>Možnosti tisku</b>"
+msgstr "<b>Možnosti exportu do HTML:</b>"
 
 #: ../plugins/gtodo/export.c:181
 msgid "Embed default (CSS) style sheet"
@@ -5612,9 +5573,8 @@ msgid "All"
 msgstr "Vše"
 
 #: ../plugins/gtodo/interface.c:172
-#, fuzzy
 msgid "_Export"
-msgstr "Exportovat do"
+msgstr "_Export"
 
 #: ../plugins/gtodo/interface.c:216
 msgid "Priority"
@@ -6611,11 +6571,11 @@ msgstr "Nemohu otevřít soubor"
 #: ../plugins/project-manager/gbf-project-util.c:260
 #: ../plugins/project-manager/gbf-project-util.c:268
 msgid "Can not add group"
-msgstr ""
+msgstr "Nelze přidat skupinu"
 
 #: ../plugins/project-manager/gbf-project-util.c:269
 msgid "No parent group selected"
-msgstr ""
+msgstr "Není zvolena rodičovská skupina"
 
 #: ../plugins/project-manager/gbf-project-util.c:441
 #: ../plugins/project-manager/gbf-project-util.c:450
@@ -6850,42 +6810,38 @@ msgstr "_Nainstalovat projekt"
 msgid "Project Loaded"
 msgstr "Název projektu:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 #, fuzzy
 msgid "<b>Details</b>"
 msgstr "<b>Podrobnosti o modulu:</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
-#, fuzzy
 msgid "Error"
-msgstr "Chyby:"
+msgstr "Chyba"
 
 #: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
-#, fuzzy
 msgid "Warning"
-msgstr "Varování:"
+msgstr "Varování"
 
 #: ../plugins/project-wizard/druid.c:151
-#, fuzzy
 msgid "Message"
-msgstr "Zprávy"
+msgstr "Zpráva"
 
 #: ../plugins/project-wizard/druid.c:217
-#, fuzzy
 msgid ""
 "<b>Confirm the following information:</b>\n"
 "\n"
 msgstr ""
-"Potvrďte následující informace:\n"
+"<b>Potvrďte následující informace:</b>\n"
 "\n"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
 #: ../plugins/project-wizard/druid.c:221
-#, fuzzy, c-format
+#, c-format
 msgid "Project Type: %s\n"
-msgstr "Typ projektu: "
+msgstr "Typ projektu: %s\n"
 
 #: ../plugins/project-wizard/druid.c:377
 #, c-format
@@ -6893,11 +6849,13 @@ msgid "Unable to find any project template in %s"
 msgstr "Nemohu najít žádnou šablonu projektu v %s"
 
 #: ../plugins/project-wizard/druid.c:588
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Field \"%s\" is mandatory. Please enter it."
-msgstr "Pole \"%s\" je povinné. Vyplňte je prosím."
+msgstr ""
+"\n"
+"Pole \"%s\" je povinné. Vyplňte je prosím."
 
 #: ../plugins/project-wizard/druid.c:603
 #, c-format
@@ -6910,9 +6868,9 @@ msgstr ""
 "prosím."
 
 #: ../plugins/project-wizard/druid.c:608
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error."
-msgstr "Neznámá položka"
+msgstr "Neznámá chyba."
 
 #: ../plugins/project-wizard/druid.c:635
 #, c-format
@@ -7020,9 +6978,9 @@ msgstr "Vytváří se %s ... %s"
 #. The %s is a name of a unix command line, by example
 #. * cp foobar.c project
 #: ../plugins/project-wizard/install.c:570
-#, fuzzy, c-format
+#, c-format
 msgid "Executing: %s"
-msgstr "Spouštím: "
+msgstr "Spouští se: %s"
 
 #: ../plugins/project-wizard/plugin.c:157
 #, fuzzy
@@ -7039,9 +6997,8 @@ msgid "Select directory"
 msgstr "Vyberte adresář"
 
 #: ../plugins/project-wizard/property.c:307
-#, fuzzy
 msgid "Select file"
-msgstr "Vybrat _vše"
+msgstr "Vybrat soubor"
 
 #: ../plugins/project-wizard/property.c:383
 msgid "Choose directory"
@@ -7056,14 +7013,12 @@ msgid "Icon choice"
 msgstr "Volba ikony"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#, fuzzy
 msgid "A GNOME applet project"
-msgstr "Projekt pro GNOME"
+msgstr "Projekt appletu pro GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
-#, fuzzy
 msgid "A generic C++ project"
-msgstr "Přidat skupinu do projektu"
+msgstr "Obecný projekt v jazyce C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
@@ -7075,12 +7030,11 @@ msgstr "Projekt v GTKmm (C++)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "Obecný applet pro Xlib dock"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
-#, fuzzy
 msgid "A generic Xlib project"
-msgstr "Xlib projekt"
+msgstr "Obecný projekt oid Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
@@ -7097,9 +7051,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-#, fuzzy
 msgid "A generic project"
-msgstr "Automaticky vygenerovat soubory projektu"
+msgstr "Obecný projekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
@@ -7110,9 +7063,8 @@ msgid "A generic wx Widgets project"
 msgstr "Projekt ve wx Widgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "A sample SDL project"
-msgstr "Přidat skupinu do projektu"
+msgstr "Ukázkový projekt pod SDL"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
@@ -7149,7 +7101,6 @@ msgstr ""
 "lokalizován do různých jazyků"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#: ../src/about.c:237
 msgid "Anjuta Plugin"
 msgstr "Zásuvné moduly Anjuty"
 
@@ -7158,9 +7109,8 @@ msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
-#, fuzzy
 msgid "Applet Title:"
-msgstr "Název zásuvného modulu:"
+msgstr "Název appletu:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Basic information"
@@ -7235,7 +7185,7 @@ msgstr "GCJ potřebuje vědět, která třída obsahuje funkci main()"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "GNOME Applet"
-msgstr ""
+msgstr "Applet pro GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "GTK+"
@@ -7462,7 +7412,7 @@ msgstr "Vybrat licenci kódu"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Shell values to watch"
-msgstr ""
+msgstr "Sledované hodnoty shellu"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Use pkg-config to add library support from other packages"
@@ -7475,7 +7425,7 @@ msgstr "Nový název:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Values to watch"
-msgstr ""
+msgstr "Sledované hodnoty"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Whether the plugin has menus or toolbars"
@@ -8057,12 +8007,12 @@ msgstr "Vyberte adresář"
 
 #: ../plugins/scratchbox/anjuta-scratchbox.glade.h:6
 msgid "Select Scratchbox Folder"
-msgstr ""
+msgstr "Vyberte složku nástroje Scratchbox"
 
 #: ../plugins/scratchbox/plugin.c:456 ../plugins/scratchbox/plugin.c:478
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:2
 msgid "Scratchbox"
-msgstr ""
+msgstr "Scratchbox"
 
 #. Public functions
 #. *---------------------------------------------------------------------------
@@ -8404,12 +8354,12 @@ msgstr ""
 msgid "Could not save %s: %s"
 msgstr "Nelze uložit %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:271
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Nemohu uložit soubor, protože nebylo zadáno jméno."
 
-#: ../plugins/sourceview/sourceview-io.c:504
+#: ../plugins/sourceview/sourceview-io.c:506
 #, c-format
 msgid "New file %d"
 msgstr "Nový soubor %d"
@@ -8515,18 +8465,16 @@ msgid "Links"
 msgstr "Řádek"
 
 #: ../plugins/starter/starter.c:469
-#, fuzzy
 msgid "Anjuta Home Page"
-msgstr "_Domovská stránka Anjuty"
+msgstr "Domovská stránka Anjuty"
 
 #: ../plugins/starter/starter.c:475
-#, fuzzy
 msgid "Anjuta Manual"
 msgstr "Příručka uživatele Anjuty"
 
 #: ../plugins/starter/starter.c:481
 msgid "Gnome Online API Documentation"
-msgstr ""
+msgstr "On-line dokumentace GNOME API"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -8970,28 +8918,26 @@ msgid "Authentication canceled"
 msgstr "Autentizace zrušena"
 
 #: ../plugins/subversion/svn-command.c:174
-#, fuzzy
 msgid "Hostname:"
-msgstr "Host: "
+msgstr "Hostitel: "
 
 #: ../plugins/subversion/svn-command.c:175
 msgid "Fingerprint:"
-msgstr ""
+msgstr "Otisk:"
 
 #: ../plugins/subversion/svn-command.c:176
 msgid "Valid from:"
-msgstr ""
+msgstr "Platné od:"
 
 #: ../plugins/subversion/svn-command.c:177
 msgid "Valid until:"
-msgstr ""
+msgstr "Platné do:"
 
 #: ../plugins/subversion/svn-command.c:178
 msgid "Issuer DN:"
 msgstr ""
 
 #: ../plugins/subversion/svn-command.c:179
-#, fuzzy
 msgid "DER certificate:"
 msgstr "Certifikát DER:"
 
@@ -9035,7 +8981,7 @@ msgstr "Sloučeno: %s"
 #: ../plugins/subversion/svn-command.c:391
 #, c-format
 msgid "Conflicted: %s"
-msgstr ""
+msgstr "V konfliktu: %s"
 
 #: ../plugins/subversion/svn-command.c:395
 #, c-format
@@ -9747,7 +9693,7 @@ msgstr ""
 msgid "You have not set a suppressions file in your settings."
 msgstr ""
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
@@ -9829,7 +9775,7 @@ msgstr ""
 #. translators: translate the same as in gnome-control-center
 #: ../src/anjuta.glade.h:24
 msgid "Toolbar button labels:"
-msgstr ""
+msgstr "Popisky tlačítek nástrojové lišty:"
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
@@ -9876,13 +9822,12 @@ msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr "Zamknout momentální rozložení doku, aby widgety nemohly být přesouvány"
 
 #: ../src/anjuta-actions.h:55
-#, fuzzy
 msgid "_Toolbar"
-msgstr "_Lišty nástrojů"
+msgstr "_Lišta nástrojů"
 
 #: ../src/anjuta-actions.h:56
 msgid "Show or hide the toolbar"
-msgstr ""
+msgstr "Zobrazit nebo skrýt nástrojovou lištu"
 
 #: ../src/anjuta-actions.h:61
 msgid "_Help"
@@ -10285,7 +10230,7 @@ msgstr ""
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
-msgstr ""
+msgstr "Uvítací stránka s většinou nejpoužívanějších akcí."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
