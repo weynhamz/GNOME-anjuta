@@ -7,15 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?\n"
-"POT-Creation-Date: 2009-02-28 21:52+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2009-03-16 23:25+0000\n"
 "PO-Revision-Date: 2009-03-01 12:04+0800\n"
 "Last-Translator: Yang Zhang <zyangmath@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -25,7 +26,7 @@ msgstr "Anjuta IDE"
 msgid "Develop software in an integrated development environment"
 msgstr "在集成开发环境中开发软件"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "集成开发环境"
 
@@ -203,7 +204,7 @@ msgstr "无法执行命令：“%s”"
 msgid "execvp failed"
 msgstr "删除文件"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2306
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2310
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
@@ -235,7 +236,7 @@ msgstr "装入"
 msgid "Available Plugins"
 msgstr "可用的插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:661
 msgid "Preferred plugins"
 msgstr "首选插件"
 
@@ -276,45 +277,45 @@ msgstr ""
 msgid "Remember this selection"
 msgstr "记住此选项"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2287
+#: ../libanjuta/anjuta-plugin-manager.c:2291
 msgid "Profiles"
 msgstr "概况"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2288
+#: ../libanjuta/anjuta-plugin-manager.c:2292
 msgid "Current stack of profiles"
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:2293
+#: ../libanjuta/anjuta-plugin-manager.c:2297
 msgid "Available plugins"
 msgstr "可用的插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2294
+#: ../libanjuta/anjuta-plugin-manager.c:2298
 msgid "Currently available plugins found in plugin paths"
 msgstr "在插件路径下发现的当前可用插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2300
+#: ../libanjuta/anjuta-plugin-manager.c:2304
 msgid "Activated plugins"
 msgstr "已激活插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2301
+#: ../libanjuta/anjuta-plugin-manager.c:2305
 msgid "Currently activated plugins"
 msgstr "当前已激活的插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2307
+#: ../libanjuta/anjuta-plugin-manager.c:2311
 msgid "Anjuta shell for which the plugins are"
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:2315
+#: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
 msgstr "Anjuta 状态"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2316
+#: ../libanjuta/anjuta-plugin-manager.c:2320
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "加载和卸载插件时的Anjuta状态"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2476
+#: ../libanjuta/anjuta-plugin-manager.c:2480
 msgid "Loaded:"
 msgstr "已装入："
 
@@ -378,7 +379,7 @@ msgstr ""
 "无法读入 %s：未发现下列必备插件：\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1450
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -386,7 +387,7 @@ msgstr "您确定想要将首选项重置为默认设置吗？"
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:194
+#: ../libanjuta/anjuta-preferences.c:1454 ../plugins/git/plugin.c:194
 msgid "_Reset"
 msgstr "重置(_R)"
 
@@ -401,7 +402,7 @@ msgstr "类别"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:648
 msgid "General"
 msgstr "常规"
 
@@ -431,11 +432,12 @@ msgid "_Discard changes"
 msgstr "撤销改动(_D)"
 
 #: ../libanjuta/anjuta-save-prompt.c:297
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr ""
+msgstr[0] "文件“%s”尚未保存。是否在关闭前先将文件保存？"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -699,264 +701,264 @@ msgstr "make(\\[\\d+\\])?:\\s+离开目录\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+离开目录\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:817
+#: ../plugins/build-basic-autotools/plugin.c:825
 #, c-format
 msgid "Entering: %s"
 msgstr "正在进入： %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:853
+#: ../plugins/build-basic-autotools/plugin.c:861
 #, c-format
 msgid "Leaving: %s"
 msgstr "离开：%s"
 
-#: ../plugins/build-basic-autotools/plugin.c:886
+#: ../plugins/build-basic-autotools/plugin.c:894
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "警告："
 
-#: ../plugins/build-basic-autotools/plugin.c:892
+#: ../plugins/build-basic-autotools/plugin.c:900
 #: ../plugins/tools/execute.c:334
 msgid "error:"
 msgstr "错误："
 
-#: ../plugins/build-basic-autotools/plugin.c:1009
+#: ../plugins/build-basic-autotools/plugin.c:1017
 #, c-format
 msgid "Command exited with status %d"
 msgstr "命令已状态 %d 退出"
 
-#: ../plugins/build-basic-autotools/plugin.c:1019
+#: ../plugins/build-basic-autotools/plugin.c:1027
 #, c-format
 msgid "Command canceled by user"
 msgstr "命令被用户终止"
 
-#: ../plugins/build-basic-autotools/plugin.c:1024
+#: ../plugins/build-basic-autotools/plugin.c:1032
 #, c-format
 msgid "Command aborted by user"
 msgstr "命令被用户退出"
 
-#: ../plugins/build-basic-autotools/plugin.c:1029
+#: ../plugins/build-basic-autotools/plugin.c:1037
 #, c-format
 msgid "Command terminated with signal %d"
-msgstr "命令被用户结束"
+msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1045
 msgid "Command terminated for an unknown reason"
 msgstr "命令无故结束"
 
-#: ../plugins/build-basic-autotools/plugin.c:1053
+#: ../plugins/build-basic-autotools/plugin.c:1061
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "总共耗时：%lu 秒\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1058
+#: ../plugins/build-basic-autotools/plugin.c:1066
 msgid "Completed unsuccessfully\n"
 msgstr "已完成 ... 失败\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1063
+#: ../plugins/build-basic-autotools/plugin.c:1071
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "已完成...成功\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1109
+#: ../plugins/build-basic-autotools/plugin.c:1117
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1682
+#: ../plugins/build-basic-autotools/plugin.c:1690
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr "不能编译\"%s\"：没有定义对此文件类型的编译规则"
 
-#: ../plugins/build-basic-autotools/plugin.c:1808
+#: ../plugins/build-basic-autotools/plugin.c:1816
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2227
-#: ../plugins/build-basic-autotools/plugin.c:2301
-#: ../plugins/build-basic-autotools/plugin.c:2311
-#: ../plugins/build-basic-autotools/plugin.c:2329
-#: ../plugins/build-basic-autotools/plugin.c:2339
-#: ../plugins/build-basic-autotools/plugin.c:2396
+#: ../plugins/build-basic-autotools/plugin.c:2235
+#: ../plugins/build-basic-autotools/plugin.c:2309
+#: ../plugins/build-basic-autotools/plugin.c:2319
+#: ../plugins/build-basic-autotools/plugin.c:2337
+#: ../plugins/build-basic-autotools/plugin.c:2347
+#: ../plugins/build-basic-autotools/plugin.c:2404
 #, c-format
 msgid "_Build"
 msgstr "生成(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2231
+#: ../plugins/build-basic-autotools/plugin.c:2239
 msgid "_Build Project"
 msgstr "生成工程(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2232
+#: ../plugins/build-basic-autotools/plugin.c:2240
 msgid "Build whole project"
 msgstr "生成整个工程"
 
-#: ../plugins/build-basic-autotools/plugin.c:2237
+#: ../plugins/build-basic-autotools/plugin.c:2245
 msgid "_Install Project"
 msgstr "安装工程(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2238
+#: ../plugins/build-basic-autotools/plugin.c:2246
 msgid "Install whole project"
 msgstr "安装整个工程"
 
-#: ../plugins/build-basic-autotools/plugin.c:2243
+#: ../plugins/build-basic-autotools/plugin.c:2251
 msgid "_Clean Project"
 msgstr "清理工程(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2244
+#: ../plugins/build-basic-autotools/plugin.c:2252
 msgid "Clean whole project"
 msgstr "清理整个工程"
 
-#: ../plugins/build-basic-autotools/plugin.c:2249
+#: ../plugins/build-basic-autotools/plugin.c:2257
 msgid "C_onfigure Project..."
 msgstr "配置工程(_O)..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2250
+#: ../plugins/build-basic-autotools/plugin.c:2258
 msgid "Configure project"
 msgstr "配置工程"
 
-#: ../plugins/build-basic-autotools/plugin.c:2255
+#: ../plugins/build-basic-autotools/plugin.c:2263
 msgid "Build _Tarball"
 msgstr "生成 Tarball(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2256
+#: ../plugins/build-basic-autotools/plugin.c:2264
 msgid "Build project tarball distribution"
 msgstr "生成工程 tarball 发行包"
 
-#: ../plugins/build-basic-autotools/plugin.c:2261
+#: ../plugins/build-basic-autotools/plugin.c:2269
 msgid "_Build Module"
 msgstr "生成模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2262
+#: ../plugins/build-basic-autotools/plugin.c:2270
 msgid "Build module associated with current file"
 msgstr "生成与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2267
+#: ../plugins/build-basic-autotools/plugin.c:2275
 msgid "_Install Module"
 msgstr "安装模块(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2268
+#: ../plugins/build-basic-autotools/plugin.c:2276
 msgid "Install module associated with current file"
 msgstr "安装与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2281
 msgid "_Clean Module"
 msgstr "清理模块(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2274
+#: ../plugins/build-basic-autotools/plugin.c:2282
 msgid "Clean module associated with current file"
 msgstr "清理与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2279
+#: ../plugins/build-basic-autotools/plugin.c:2287
 msgid "Co_mpile File"
 msgstr "编译文件(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2280
+#: ../plugins/build-basic-autotools/plugin.c:2288
 msgid "Compile current editor file"
 msgstr "编译当前编辑器中的文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2285
+#: ../plugins/build-basic-autotools/plugin.c:2293
 msgid "Select Configuration"
 msgstr "选择配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2286
+#: ../plugins/build-basic-autotools/plugin.c:2294
 msgid "Select current configuration"
 msgstr "保存当前配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2291
+#: ../plugins/build-basic-autotools/plugin.c:2299
 msgid "Remove Configuration"
 msgstr "删除配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2292
+#: ../plugins/build-basic-autotools/plugin.c:2300
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2305
-#: ../plugins/build-basic-autotools/plugin.c:2333
+#: ../plugins/build-basic-autotools/plugin.c:2313
+#: ../plugins/build-basic-autotools/plugin.c:2341
 msgid "_Compile"
 msgstr "编译(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2306
-#: ../plugins/build-basic-autotools/plugin.c:2334
+#: ../plugins/build-basic-autotools/plugin.c:2314
+#: ../plugins/build-basic-autotools/plugin.c:2342
 msgid "Compile file"
 msgstr "编译文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2312
-#: ../plugins/build-basic-autotools/plugin.c:2340
+#: ../plugins/build-basic-autotools/plugin.c:2320
+#: ../plugins/build-basic-autotools/plugin.c:2348
 msgid "Build module"
 msgstr "生成模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2317
-#: ../plugins/build-basic-autotools/plugin.c:2345
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2325
+#: ../plugins/build-basic-autotools/plugin.c:2353
+#: ../plugins/build-basic-autotools/plugin.c:2411
 #, c-format
 msgid "_Install"
 msgstr "安装(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2318
-#: ../plugins/build-basic-autotools/plugin.c:2346
+#: ../plugins/build-basic-autotools/plugin.c:2326
+#: ../plugins/build-basic-autotools/plugin.c:2354
 msgid "Install module"
 msgstr "安装模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2323
-#: ../plugins/build-basic-autotools/plugin.c:2351
-#: ../plugins/build-basic-autotools/plugin.c:2410
+#: ../plugins/build-basic-autotools/plugin.c:2331
+#: ../plugins/build-basic-autotools/plugin.c:2359
+#: ../plugins/build-basic-autotools/plugin.c:2418
 #, c-format
 msgid "_Clean"
 msgstr "清理(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2324
-#: ../plugins/build-basic-autotools/plugin.c:2352
+#: ../plugins/build-basic-autotools/plugin.c:2332
+#: ../plugins/build-basic-autotools/plugin.c:2360
 msgid "Clean module"
 msgstr "清理模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2357
+#: ../plugins/build-basic-autotools/plugin.c:2365
 msgid "_Cancel command"
 msgstr "取消命令(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2358
+#: ../plugins/build-basic-autotools/plugin.c:2366
 msgid "Cancel build command"
 msgstr "取消构建命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:2396
+#: ../plugins/build-basic-autotools/plugin.c:2404
 #, c-format
 msgid "_Build (%s)"
 msgstr "生成(%s)(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2411
 #, c-format
 msgid "_Install (%s)"
 msgstr "安装(%s)(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2410
+#: ../plugins/build-basic-autotools/plugin.c:2418
 #, c-format
 msgid "_Clean (%s)"
 msgstr "清理(%s)(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2426
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "编译(%s)(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2426
 #, c-format
 msgid "Co_mpile"
 msgstr "编译(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2954
+#: ../plugins/build-basic-autotools/plugin.c:2962
 msgid "Build commands"
 msgstr "生成命令"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2963
+#: ../plugins/build-basic-autotools/plugin.c:2971
 msgid "Build popup commands"
 msgstr "生成弹出命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:3320
-#: ../plugins/build-basic-autotools/plugin.c:3338
+#: ../plugins/build-basic-autotools/plugin.c:3328
+#: ../plugins/build-basic-autotools/plugin.c:3346
 msgid "Build Autotools"
 msgstr "生成 Autotools"
 
@@ -3524,16 +3526,16 @@ msgstr "重命名(_R)"
 msgid "Rename file or directory"
 msgstr "重命名文件或目录"
 
-#: ../plugins/file-manager/plugin.c:285
+#: ../plugins/file-manager/plugin.c:290
 #, fuzzy
 msgid "File manager popup actions"
 msgstr "编译器和链接器选项"
 
-#: ../plugins/file-manager/plugin.c:318
+#: ../plugins/file-manager/plugin.c:323
 msgid "Files"
 msgstr "文件"
 
-#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
+#: ../plugins/file-manager/plugin.c:447 ../plugins/file-manager/plugin.c:456
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "文件管理器"
@@ -5611,7 +5613,7 @@ msgstr "打开文件"
 msgid "No Gtodo Client to save."
 msgstr ""
 
-#: ../plugins/gtodo/libgtodo.c:851
+#: ../plugins/gtodo/libgtodo.c:852
 #, c-format
 msgid "No filename supplied."
 msgstr ""
@@ -5634,7 +5636,8 @@ msgstr ""
 #: ../plugins/gtodo/notification.c:67
 #, c-format
 msgid "The following item is due in %i minute:"
-msgstr ""
+msgid_plural "The following item is due in %i minutes:"
+msgstr[0] ""
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
@@ -5746,7 +5749,8 @@ msgstr ""
 #: ../plugins/gtodo/preferences.c:154
 #, c-format
 msgid "Items that are due in the next %i day"
-msgstr ""
+msgid_plural "Items that are due in the next %i days"
+msgstr[0] ""
 
 #: ../plugins/gtodo/preferences.c:168
 msgid "Misc"
@@ -5779,7 +5783,8 @@ msgstr "不进行优化"
 #: ../plugins/gtodo/preferences.c:218
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
-msgstr ""
+msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
+msgstr[0] ""
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -6837,12 +6842,12 @@ msgstr "安装工程(_I)"
 msgid "Project Loaded"
 msgstr "工程名称："
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 #, fuzzy
 msgid "<b>Details</b>"
 msgstr "<b>模块细节：</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
 #, fuzzy
 msgid "Error"
@@ -7118,7 +7123,6 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#: ../src/about.c:237
 #, fuzzy
 msgid "Anjuta Plugin"
 msgstr "Anjuta 插件"
@@ -8414,7 +8418,7 @@ msgstr ""
 msgid "Could not save %s: %s"
 msgstr "无法保存文件：%s。"
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:274
 #, fuzzy, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "无法保存文件：%s。"
@@ -9821,11 +9825,11 @@ msgstr ""
 msgid "You have not set a suppressions file in your settings."
 msgstr ""
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "版权 (c) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 #, fuzzy
 msgid "Loaded Session..."
 msgstr "正在载入工程...\n"
@@ -10046,17 +10050,17 @@ msgstr "编辑"
 msgid "View"
 msgstr "查看"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:659
 #, fuzzy
 msgid "Installed plugins"
 msgstr "Anjuta 插件"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:663
 #, fuzzy
 msgid "Shortcuts"
 msgstr "快捷方式"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:735
 #, c-format
 msgid "Value doesn't exist"
 msgstr "值不存在"
