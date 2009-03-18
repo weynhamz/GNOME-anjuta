@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-03-16 04:46+0000\n"
-"PO-Revision-Date: 2009-03-16 20:15+0100\n"
+"POT-Creation-Date: 2009-03-17 07:13+0000\n"
+"PO-Revision-Date: 2009-03-18 08:53+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -268,7 +268,7 @@ msgid "Available Plugins"
 msgstr "Razpoložljivi vstavki"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1036
-#: ../src/anjuta-app.c:659
+#: ../src/anjuta-app.c:661
 msgid "Preferred plugins"
 msgstr "Priljubljeni vstavki"
 
@@ -432,7 +432,7 @@ msgstr "Kategorija"
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172
 #: ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:648
 msgid "General"
 msgstr "Splošno"
 
@@ -5041,17 +5041,15 @@ msgstr "<b>Predloga upravljalnika</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:2
 msgid "<b>Manage associations</b>"
-msgstr ""
+msgstr "<b>Urejanje zvez</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:3
-#, fuzzy
 msgid "<b>New association</b>"
-msgstr "nova_povezava"
+msgstr "<b>Nova zveza</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:4
-#, fuzzy
 msgid "Associate"
-msgstr "Poveži"
+msgstr "Zveži"
 
 #: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Automatically add resources"
@@ -5069,14 +5067,12 @@ msgid "Editor"
 msgstr "Urejevalnik"
 
 #: ../plugins/glade/anjuta-glade.glade.h:8
-#, fuzzy
 msgid "Insert handler on edit"
-msgstr "Vstavi v urejevalno polje"
+msgstr "Vstavi upravljalnik med urejanjem"
 
 #: ../plugins/glade/anjuta-glade.glade.h:9
-#, fuzzy
 msgid "Position type"
-msgstr "Vrsta vsebine"
+msgstr "Vrsta lega"
 
 #: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Separated designer layout"
@@ -5101,17 +5097,17 @@ msgstr "widget_signal_cb"
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
 msgid "Association item has no designer"
-msgstr ""
+msgstr "Predmet zveze nima določenega oblikovalca"
 
 #: ../plugins/glade/designer-associations-item.c:268
 #, c-format
 msgid "Association item has no editor"
-msgstr ""
+msgstr "Predmet zveze nima določenega urejevalcem"
 
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
 msgid "Bad association item option in the node %s"
-msgstr ""
+msgstr "Neveljavna možnost predmeta zveze v vozlišču %s"
 
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
@@ -5126,22 +5122,22 @@ msgstr "neveljavna %s vrednost lastnosti"
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
 msgid "Association item filename has no path"
-msgstr ""
+msgstr "Ime datoteke predmeta zveze nima določene poti"
 
 #: ../plugins/glade/plugin.c:847
 #, c-format
 msgid "No associations initialized, nothing to save"
-msgstr ""
+msgstr "Ni zagnene zveze, ni sprememb za shranjevanje"
 
 #: ../plugins/glade/plugin.c:854
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
-msgstr ""
+msgstr "Ni mogoče shraniti zvez, ker koren projekta ni določen"
 
 #: ../plugins/glade/plugin.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to save associations"
-msgstr "Ni mogoče shraniti UserDatabase v %s"
+msgstr "Ni mogoče shraniti zvez"
 
 #: ../plugins/glade/plugin.c:1360
 #, c-format
@@ -5161,7 +5157,7 @@ msgstr "Programski jezik Vala še ni podprt."
 #: ../plugins/glade/plugin.c:1954
 #, c-format
 msgid "There is no associated editor for the designer"
-msgstr ""
+msgstr "Ni zveze med urejevalcem in oblikovalcem"
 
 #: ../plugins/glade/plugin.c:1972
 #, c-format
@@ -5171,9 +5167,9 @@ msgstr "Neznan jezik urejevalnika \"%s\""
 #: ../plugins/glade/plugin.c:2039
 #: ../plugins/glade/plugin.c:2116
 #: ../plugins/glade/plugin.c:2241
-#, fuzzy, c-format
+#, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr "Napaka med branjem iz datoteke"
+msgstr "Napaka med dodajanjem upravljalnika: %s"
 
 #: ../plugins/glade/plugin.c:2046
 #: ../plugins/glade/plugin.c:2130
@@ -5182,16 +5178,16 @@ msgstr "Ni mogoče najti podrobnosti signala"
 
 #: ../plugins/glade/plugin.c:2073
 msgid "Error while adding a new handler stub: No current editor"
-msgstr ""
+msgstr "Napaka med dodajanjem upravljalnika: Ni trenutnega urejevalnika"
 
 #: ../plugins/glade/plugin.c:2244
 #, c-format
 msgid "To avoid this messages turn off \"Insert handler on edit\" flag in Preferences->Glade GUI Designer"
-msgstr ""
+msgstr "Ponavljujoče sporočilo lahko prezrete, če izklopite možnost \"Vstavi upravljalnik med urejanjem\" med Lastnostmi->Glade GUI Oblikovalec"
 
 #: ../plugins/glade/plugin.c:2380
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "Ti dokumenti imajo že določeno zvezo"
 
 #: ../plugins/glade/plugin.c:2418
 #, c-format
@@ -5205,7 +5201,7 @@ msgstr "Ni mogoče najti privzetega imena signala"
 #: ../plugins/glade/plugin.c:3886
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
-msgstr ""
+msgstr "Projekt %s nima nepotrebnih gradnikov in je skladen v različicah."
 
 #: ../plugins/glade/plugin.c:3903
 msgid "There is no Glade project"
@@ -5219,34 +5215,31 @@ msgstr "_Glade"
 
 #: ../plugins/glade/plugin.c:3997
 #: ../plugins/glade/plugin.c:3999
-#, fuzzy
 msgid "Switch between designer/code"
-msgstr "Samodejno preklopi med diapozitivi"
+msgstr "Preklopi med oblikovalcem in kodo"
 
 #: ../plugins/glade/plugin.c:4005
 #: ../plugins/glade/plugin.c:4007
-#, fuzzy
 msgid "Insert handler stub"
-msgstr "Obravnalnik dejanja obrazca"
+msgstr "Dodajanje upravljalnika"
 
 #: ../plugins/glade/plugin.c:4013
 #: ../plugins/glade/plugin.c:4015
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Vstavi upravljalnik , samodejno"
 
 #: ../plugins/glade/plugin.c:4021
 msgid "Associate last designer and last editor"
-msgstr ""
+msgstr "Zveži zadnjega oblikovalca in urejevalca"
 
 #: ../plugins/glade/plugin.c:4023
 msgid "Associate last designer and editor"
-msgstr ""
+msgstr "Zveži zadnjega oblikovalca in zadnjega urejevalca"
 
 #: ../plugins/glade/plugin.c:4029
 #: ../plugins/glade/plugin.c:4031
-#, fuzzy
 msgid "Associations dialog..."
-msgstr "Pojavno okno"
+msgstr "Okno zvez ..."
 
 #: ../plugins/glade/plugin.c:4037
 msgid "Versioning..."
@@ -6286,7 +6279,6 @@ msgid "Do not show these symbols:"
 msgstr "Ne prikaži simbolov:"
 
 #: ../plugins/profiler/profiler.glade.h:11
-#, fuzzy
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
@@ -6344,9 +6336,9 @@ msgid "Use this profiling data file:"
 msgstr "Uporaba datoteke s podatki profila:"
 
 #: ../plugins/project-import/project-import.c:109
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find a valid project backend for the directory given (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
-msgstr "Ni mogoče najti hrbtenice projekta za mapo (%s). Prosim, izberite drugo mapo ali pa poskusite posodobiti na novejšo različico Gnome Build."
+msgstr "Ni mogoče najti hrbtenice projekta za mapo (%s). Prosim, izberite drugo mapo ali pa poskusite posodobiti na novejšo različico Anjute."
 
 #.
 #. * Now we can't apply
@@ -6703,9 +6695,8 @@ msgid "Initializing Project..."
 msgstr "Zaganjanje projekta ..."
 
 #: ../plugins/project-manager/plugin.c:2644
-#, fuzzy
 msgid "Project Loaded"
-msgstr "Naložen projekt ..."
+msgstr "Naložen projekt"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "<b>Details</b>"
@@ -6726,12 +6717,11 @@ msgid "Message"
 msgstr "Sporočilo"
 
 #: ../plugins/project-wizard/druid.c:217
-#, fuzzy
 msgid ""
 "<b>Confirm the following information:</b>\n"
 "\n"
 msgstr ""
-"Potrdite naslednje podrobnosti:\n"
+"<b>Potrdite naslednje podrobnosti:</b>\n"
 "\n"
 
 #. The project type is translated too, it is something like
@@ -6747,11 +6737,13 @@ msgid "Unable to find any project template in %s"
 msgstr "Ni mogoče najti predloge projekta v %s"
 
 #: ../plugins/project-wizard/druid.c:588
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Field \"%s\" is mandatory. Please enter it."
-msgstr "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
+msgstr ""
+"\n"
+"Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
 #: ../plugins/project-wizard/druid.c:603
 #, c-format
@@ -6812,9 +6804,9 @@ msgid "Missing components"
 msgstr "Manjkajoče enote"
 
 #: ../plugins/project-wizard/druid.c:954
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build project assistant user interface reading %s."
-msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika"
+msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika %s."
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -8172,12 +8164,12 @@ msgstr "Datoteka '%s' je le za branje! Ali jo vseeno želite urejati?"
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:271
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Ni mogoče shraniti datoteke, ker ime datoteke še ni določeno"
 
-#: ../plugins/sourceview/sourceview-io.c:506
+#: ../plugins/sourceview/sourceview-io.c:504
 #, c-format
 msgid "New file %d"
 msgstr "Nova datoteka %d"
@@ -9481,7 +9473,7 @@ msgstr "Med nastavitvami ni nastavljenih pravil preprečevanja."
 msgid "Copyright (c) Naba Kumar"
 msgstr "Avtorske pravice (c) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Naložena seja ..."
 
@@ -9696,15 +9688,15 @@ msgstr "Uredi"
 msgid "View"
 msgstr "Pogled"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:659
 msgid "Installed plugins"
 msgstr "Naloženi vstavki"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:663
 msgid "Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:735
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Vrednost ne obstaja"
