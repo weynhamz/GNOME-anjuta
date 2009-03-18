@@ -1,3 +1,10 @@
+2009-03-18  Johannes Schmid  <jhs@gnome.org>
+	
+	Patch from Michael Trimarchi <michael@evidence.eu.com>
+	* plugins/scratchbox/plugin.c (on_update_target),
+	(sbox2_environment_override), (ipreferences_merge):
+	Fix the parameter passing to the sb2 shell script, enclose them in ""	
+
 2009-03-18  Tobias Müller <gnome-bugs@auftrags-killer.org>
 
 	* libanjuta/anjuta-message-area.c:

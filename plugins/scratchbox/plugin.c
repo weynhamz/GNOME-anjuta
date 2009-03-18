@@ -205,7 +205,7 @@ on_update_target(GtkComboBox *combo, ScratchboxPlugin *plugin)
 		sbox_args = sbox2_commands_args[TARGET_LIST][1];
 	}
 
-	g_string_append_printf(command, sbox_commands);
+	g_string_append (command, sbox_commands);
 
 	if (g_file_test (command->str, G_FILE_TEST_EXISTS) == FALSE)
         {
@@ -305,14 +305,14 @@ scratchbox_plugin_deactivate (AnjutaPlugin *plugin)
 	return TRUE;
 }
 
-void
+static void
 sbox2_environment_override (IAnjutaEnvironment* environment, gchar **dir, gchar ***argvp, gchar ***envp, GError** err)
 {
 	ScratchboxPlugin *plugin = ANJUTA_PLUGIN_SCRATCHBOX (environment);
 	AnjutaPreferences* prefs;
 	gchar **new_argv;
 	gchar* sb_dir;
-	gsize len;
+	int i;
 
 	if (plugin->target == NULL || !strcmp(plugin->target, "host"))
 		return;
@@ -328,12 +328,14 @@ sbox2_environment_override (IAnjutaEnvironment* environment, gchar **dir, gchar 
 
 	/* Add scratchbox login */
 	new_argv = g_new (gchar*, len_argv + 4);
-	memcpy (new_argv + 3, *argvp, sizeof(gchar *) * (len_argv + 1));
 	new_argv[0] = g_strconcat (sb_dir, G_DIR_SEPARATOR_S,
 				   sbox2_commands_args[EXECUTE_CMD][0],
 				   NULL);
 	new_argv[1] = g_strconcat (sbox2_commands_args[EXECUTE_CMD][1], NULL);
 	new_argv[2] = g_strconcat (plugin->target, NULL);
+
+	for (i = 0; i < len_argv; i++)
+		new_argv[3 + i] = g_strconcat("\"", *(*argvp + i), "\"", NULL);
 	
 	g_free (*argvp);
 	*argvp = new_argv;
@@ -464,7 +466,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 			 "changed", G_CALLBACK(on_change_target),
 			 plugin);
 
-        plugin->target = gtk_combo_box_get_active_text (combo_target_entry);
+        plugin->target = gtk_combo_box_get_active_text (
+				GTK_COMBO_BOX(combo_target_entry));
 
 }
 
