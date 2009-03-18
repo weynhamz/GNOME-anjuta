@@ -1,3 +1,39 @@
+2009-03-18  Tobias Müller <gnome-bugs@auftrags-killer.org>
+
+	* libanjuta/anjuta-message-area.c:
+	* libanjuta/anjuta-message-area.h:
+	* libanjuta/anjuta-widgets.c:
+	* libanjuta/anjuta-widgets.h:
+	* libanjuta/gbf-project.c:
+	* libanjuta/gbf-project.h:
+	* plugins/file-loader/anjuta-recent-chooser-menu.c:
+	* plugins/file-loader/anjuta-recent-chooser-menu.h:
+	* plugins/gbf-am/gbf-am-config.c:
+	* plugins/gbf-am/gbf-am-config.h:
+	* plugins/gbf-am/gbf-am-project.c:
+	* plugins/gbf-am/gbf-am-project.h:
+	* plugins/gbf-am/gbf-am-properties.c:
+	* plugins/gbf-am/gbf-am-properties.h:
+	* plugins/gbf-mkfile/gbf-mkfile-config.c:
+	* plugins/gbf-mkfile/gbf-mkfile-config.h:
+	* plugins/gbf-mkfile/gbf-mkfile-project.c:
+	* plugins/gbf-mkfile/gbf-mkfile-project.h:
+	* plugins/gbf-mkfile/gbf-mkfile-properties.c:
+	* plugins/gbf-mkfile/gbf-mkfile-properties.h:
+	* plugins/git/giggle-graph-renderer.c:
+	* plugins/git/giggle-graph-renderer.h:
+	* plugins/project-manager/gbf-project-model.c:
+	* plugins/project-manager/gbf-project-model.h:
+	* plugins/project-manager/gbf-project-util.c:
+	* plugins/project-manager/gbf-project-util.h:
+	* plugins/project-manager/gbf-project-view.c:
+	* plugins/project-manager/gbf-project-view.h:
+	* plugins/project-manager/gbf-tree-data.c:
+	* plugins/project-manager/gbf-tree-data.h:
+	* setup-gettext:
+	* www/htdocs/home.php:
+	#575617 – Update FSF address
+
 2009-03-16  Johannes Schmid  <jhs@gnome.org>
 
 	* NEWS: Update for release
