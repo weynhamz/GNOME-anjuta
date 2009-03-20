@@ -118,7 +118,7 @@ print_setup (Sourceview* sv)
 																																						PRINT_HEADER));
 	gtk_source_print_compositor_set_print_footer (compositor,
 																								anjuta_preferences_get_int (sv->priv->prefs,
-																																						PRINT_HEADER));
+																																						PRINT_FOOTER));
 	
 	
 	gtk_source_print_compositor_set_highlight_syntax (compositor,

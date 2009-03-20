@@ -1,3 +1,18 @@
+2009-03-20  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview-print.c (print_setup):
+	Fixed "print footer"	
+
+	* plugins/symbol-db/plugin.c:
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (on_notify_prefs),
+	(sdb_prefs_init1):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	Fixed symbol-db preferences system (backport from trunk)
+
+	* scripts/build-schemas.mk:
+	#575893 – plugins schema files are not installed (from trunk)
+
 2009-03-18  Johannes Schmid  <jhs@gnome.org>
 	
 	Patch from Michael Trimarchi <michael@evidence.eu.com>

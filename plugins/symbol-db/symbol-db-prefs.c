@@ -106,7 +106,7 @@ on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
 	if (new_file != NULL) 
 	{
 		GtkWidget *fchooser;
-		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);	
+		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS);	
 		/*gtk_widget_set_sensitive (fchooser, TRUE);*/
 		
 		anjuta_preferences_set (priv->prefs, CTAGS_PREFS_KEY,
@@ -119,10 +119,10 @@ on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
 }
 
 static void
-on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
+on_notify_prefs (AnjutaPreferences* prefs, const gchar* key,
+                 const gchar* value, gpointer user_data)
 {
-	DEBUG_PRINT ("%s", "on_gconf_notify_prefs ()");
+	DEBUG_PRINT ("%s", "on_notify_prefs ()");
 }
 
 static void
@@ -351,65 +351,15 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 }
 
 static void
-on_autoscan_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
-{
-	SymbolDBPrefsPriv *priv;	
-	gboolean check_button_value;
-	priv = sdbp->priv;
-	GtkWidget *check_button;
-	
-	check_button = glade_xml_get_widget (priv->prefs_gxml, PROJECT_AUTOSCAN);
-
-	check_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button));
-	DEBUG_PRINT ("%s", "on_check_button_toggled ()");
-	anjuta_preferences_set_int (priv->prefs, PROJECT_AUTOSCAN, check_button_value);
-
-}
-
-static void
-on_update_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
-{
-	SymbolDBPrefsPriv *priv;	
-	gboolean update_button_value;
-	priv = sdbp->priv;
-	GtkWidget *update_button;
-	
-	update_button = glade_xml_get_widget (priv->prefs_gxml, BUFFER_AUTOSCAN);
-
-	update_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (update_button));
-	DEBUG_PRINT ("%s", "on_update_button_toggled ()");
-	anjuta_preferences_set_int (priv->prefs, BUFFER_AUTOSCAN, update_button_value);	
-
-	g_signal_emit (sdbp, signals[BUFFER_UPDATE_TOGGLED], 0, update_button_value);
-}
-
-static void
-on_parallel_button_toggled (GtkToggleButton *togglebutton, SymbolDBPrefs *sdbp)
-{
-	SymbolDBPrefsPriv *priv;	
-	gboolean parallel_button_value;
-	priv = sdbp->priv;
-	GtkWidget *parallel_button;
-	
-	parallel_button = glade_xml_get_widget (priv->prefs_gxml, PARALLEL_SCAN);
-
-	parallel_button_value =  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (parallel_button));
-	DEBUG_PRINT ("%s", "on_parallel_button_toggled ()");
-	anjuta_preferences_set_int (priv->prefs, PARALLEL_SCAN, parallel_button_value);	
-}
-
-static void
 sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 {
 	SymbolDBPrefsPriv *priv;
 	GtkWidget *fchooser;
-	GtkWidget *check_button, *update_button, *parallel_button;
-	gboolean check_button_value, update_button_value, parallel_button_value;
 	gchar *ctags_value;
 
 	priv = sdbp->priv;
 
-	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS_KEY);
+	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS);
 	/* we will reactivate it after the listall has been finished */
 	/*gtk_widget_set_sensitive (fchooser, FALSE);*/
 			
@@ -447,29 +397,10 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 					  G_CALLBACK (on_prefs_executable_changed), sdbp);	
 	
 
-	priv->prefs_notify_id = anjuta_preferences_notify_add (priv->prefs, 
-												CTAGS_PREFS_KEY, 
-											   on_gconf_notify_prefs, 
-											   priv->prefs, NULL);		
-
-	
-	check_button = glade_xml_get_widget (priv->prefs_gxml, PROJECT_AUTOSCAN);
-	g_signal_connect (G_OBJECT (check_button), "toggled", 
-					  G_CALLBACK (on_autoscan_button_toggled), sdbp);
-	check_button_value = anjuta_preferences_get_int (priv->prefs, PROJECT_AUTOSCAN);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), check_button_value);
-
-	update_button = glade_xml_get_widget (priv->prefs_gxml, BUFFER_AUTOSCAN);
-	g_signal_connect (G_OBJECT (update_button), "toggled", 
-					  G_CALLBACK (on_update_button_toggled), sdbp);
-	update_button_value = anjuta_preferences_get_int (priv->prefs, BUFFER_AUTOSCAN);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (update_button), update_button_value);
-	
-	parallel_button	= glade_xml_get_widget (priv->prefs_gxml, PARALLEL_SCAN);
-	g_signal_connect (G_OBJECT (parallel_button), "toggled", 
-					  G_CALLBACK (on_parallel_button_toggled), sdbp);
-	parallel_button_value = anjuta_preferences_get_int (priv->prefs, PARALLEL_SCAN);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (parallel_button), parallel_button_value);
+	priv->prefs_notify_id = anjuta_preferences_notify_add_string (priv->prefs, 
+	                                                              CTAGS_PREFS_KEY, 
+	                                                              on_notify_prefs, 
+	                                                              priv->prefs, NULL);
 	
 	g_free (ctags_value);
 }
