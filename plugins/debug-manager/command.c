@@ -1155,7 +1155,6 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	gboolean ret = FALSE;
 	DmaDebuggerCommandType type = cmd->type & COMMAND_MASK;
 	IAnjutaDebuggerCallback callback = cmd->callback == NULL ? NULL : dma_debugger_queue_command_callback;
-	GFile* file;
 	switch (type)
 	{
 	case EMPTY_COMMAND:

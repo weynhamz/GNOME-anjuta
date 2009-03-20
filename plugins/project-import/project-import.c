@@ -116,7 +116,7 @@ on_import_next(GtkAssistant *assistant, GtkWidget *page, ProjectImport *pi)
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_MESSAGE_ERROR,
 										  GTK_BUTTONS_CLOSE,
-										  message_text));
+										  "%s", message_text));
 		
 		g_free(message_text);
 	

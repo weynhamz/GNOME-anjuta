@@ -507,7 +507,7 @@ atp_tool_list_load_from_file (ATPToolList* this, const gchar* filename, ATPToolS
 	if (err != NULL)
 	{
 		/* Parsing error */
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 		g_error_free (err);
 
 		return FALSE;

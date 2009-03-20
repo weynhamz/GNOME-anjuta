@@ -341,10 +341,8 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 static gboolean
 npw_druid_fill_selection_page (NPWDruid* druid)
 {
-	gboolean ok;
 	gchar* dir;
 	const gchar * const * sys_dir;
-	const gchar * user_dir;
  
 	/* Remove all previous data */
 	druid->project_book = GTK_NOTEBOOK (gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), PROJECT_PAGE));

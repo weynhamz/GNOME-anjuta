@@ -17,12 +17,11 @@
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 
 #include "message-view.h"
 #define MESSAGE_TYPE message_get_type()
-
-#define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 
 struct _MessageViewPrivate
 {
@@ -33,7 +32,6 @@ struct _MessageViewPrivate
 	GtkTreeModel *model;
 	GtkTreeModel *filter;
 	
-	AnjutaPreferences* prefs;
 	GtkWidget *popup_menu;
 	
 	gint adj_chgd_hdlr;
@@ -47,15 +45,8 @@ struct _MessageViewPrivate
 	gchar *pixmap;
 	gboolean highlite;
 	
-#if !HAVE_TOOLTIP_API
-	GdkRectangle tooltip_rect;
-	GtkWidget *tooltip_window;
-	gulong tooltip_timeout;
-	PangoLayout *tooltip_layout;
-#endif
-	
 	/* gconf notification ids */
-	GList *gconf_notify_ids;
+	GList *notify_ids;
 };
 
 typedef struct
@@ -230,7 +221,6 @@ escape_string (const gchar *str)
 	return g_string_free (gstr, FALSE);
 }
 
-#if HAVE_TOOLTIP_API
 static gboolean
 message_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 						 GtkTooltip* tooltip)
@@ -270,224 +260,6 @@ message_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard
 	}
 	return FALSE;
 }
-#endif
-
-#if !HAVE_TOOLTIP_API
-/* Tooltip operations -- taken from gtodo */
-
-static gchar *
-tooltip_get_display_text (MessageView *view)
-{
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	
-	model = view->privat->model;
-	
-	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
-		view->privat->tooltip_rect.x, view->privat->tooltip_rect.y,
-		&path, NULL, NULL, NULL))
-	{
-		Message *message;
-		gchar *text, *title, *desc;
-		
-		gtk_tree_model_get_iter (model, &iter, path);
-		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1); 
-		gtk_tree_path_free(path);
-		
-		if (!message->details || !message->summary ||
-			strlen (message->details) <= 0 ||
-			strlen (message->summary) <= 0)
-			return NULL;
-		
-		title = escape_string (message->summary);
-		desc = escape_string (message->details);
-		text = g_strdup_printf ("<b>%s</b>\n%s", title, desc);
-		
-		g_free (title);
-		g_free (desc);
-		
-		return text;
-	}
-	return NULL;
-}
-
-static void
-tooltip_paint (GtkWidget *widget, GdkEventExpose *event, MessageView *view)
-{
-	GtkStyle *style;
-	gchar *tooltiptext;
-
-	tooltiptext = tooltip_get_display_text (view);
-	
-	if (!tooltiptext)
-		tooltiptext = g_strdup (_("No message details"));
-
-	pango_layout_set_markup (view->privat->tooltip_layout,
-							 tooltiptext,
-							 strlen (tooltiptext));
-	pango_layout_set_wrap(view->privat->tooltip_layout, PANGO_WRAP_CHAR);
-	pango_layout_set_width(view->privat->tooltip_layout, 600000);
-	style = view->privat->tooltip_window->style;
-
-	gtk_paint_flat_box (style, view->privat->tooltip_window->window,
-						GTK_STATE_NORMAL, GTK_SHADOW_OUT,
-						NULL, view->privat->tooltip_window,
-						"tooltip", 0, 0, -1, -1);
-
-	gtk_paint_layout (style, view->privat->tooltip_window->window,
-					  GTK_STATE_NORMAL, TRUE,
-					  NULL, view->privat->tooltip_window,
-					  "tooltip", 4, 4, view->privat->tooltip_layout);
-	/*
-	   g_object_unref(layout);
-	   */
-	g_free(tooltiptext);
-	return;
-}
-
-static gboolean
-tooltip_timeout (MessageView *view)
-{
-	gint scr_w,scr_h, w, h, x, y;
-	gchar *tooltiptext;
-
-	tooltiptext = tooltip_get_display_text (view);
-	
-	if (!tooltiptext)
-		tooltiptext = g_strdup (_("No message details"));
-	
-	view->privat->tooltip_window = gtk_window_new (GTK_WINDOW_POPUP);
-	view->privat->tooltip_window->parent = view->privat->tree_view;
-	gtk_widget_set_app_paintable (view->privat->tooltip_window, TRUE);
-	gtk_window_set_resizable (GTK_WINDOW(view->privat->tooltip_window), FALSE);
-	gtk_widget_set_name (view->privat->tooltip_window, "gtk-tooltips");
-	g_signal_connect (G_OBJECT(view->privat->tooltip_window), "expose_event",
-					  G_CALLBACK(tooltip_paint), view);
-	gtk_widget_ensure_style (view->privat->tooltip_window);
-
-	view->privat->tooltip_layout =
-		gtk_widget_create_pango_layout (view->privat->tooltip_window, NULL);
-	pango_layout_set_wrap (view->privat->tooltip_layout, PANGO_WRAP_CHAR);
-	pango_layout_set_width (view->privat->tooltip_layout, 600000);
-	pango_layout_set_markup (view->privat->tooltip_layout, tooltiptext,
-							 strlen (tooltiptext));
-	scr_w = gdk_screen_width();
-	scr_h = gdk_screen_height();
-	pango_layout_get_size (view->privat->tooltip_layout, &w, &h);
-	w = PANGO_PIXELS(w) + 8;
-	h = PANGO_PIXELS(h) + 8;
-
-	gdk_window_get_pointer (NULL, &x, &y, NULL);
-	if (GTK_WIDGET_NO_WINDOW (view->privat->tree_view))
-		y += view->privat->tree_view->allocation.y;
-
-	x -= ((w >> 1) + 4);
-
-	if ((x + w) > scr_w)
-		x -= (x + w) - scr_w;
-	else if (x < 0)
-		x = 0;
-
-	if ((y + h + 4) > scr_h)
-		y = y - h;
-	else
-		y = y + 6;
-	/*
-	   g_object_unref(layout);
-	   */
-	gtk_widget_set_size_request (view->privat->tooltip_window, w, h);
-	gtk_window_move (GTK_WINDOW (view->privat->tooltip_window), x, y);
-	gtk_widget_show (view->privat->tooltip_window);
-	g_free (tooltiptext);
-	
-	return FALSE;
-}
-
-static gboolean
-tooltip_motion_cb (GtkWidget *tv, GdkEventMotion *event, MessageView *view)
-{
-	GtkTreePath *path;
-	
-	if (view->privat->tooltip_rect.y == 0 &&
-		view->privat->tooltip_rect.height == 0 &&
-		view->privat->tooltip_timeout)
-	{
-		g_source_remove (view->privat->tooltip_timeout);
-		view->privat->tooltip_timeout = 0;
-		if (view->privat->tooltip_window) {
-			gtk_widget_destroy (view->privat->tooltip_window);
-			view->privat->tooltip_window = NULL;
-		}
-		return FALSE;
-	}
-	if (view->privat->tooltip_timeout) {
-		if (((int)event->y > view->privat->tooltip_rect.y) &&
-			(((int)event->y - view->privat->tooltip_rect.height)
-				< view->privat->tooltip_rect.y))
-			return FALSE;
-
-		if(event->y == 0)
-		{
-			g_source_remove (view->privat->tooltip_timeout);
-			view->privat->tooltip_timeout = 0;
-			return FALSE;
-		}
-		/* We've left the cell.  Remove the timeout and create a new one below */
-		if (view->privat->tooltip_window) {
-			gtk_widget_destroy (view->privat->tooltip_window);
-			view->privat->tooltip_window = NULL;
-		}
-		g_source_remove (view->privat->tooltip_timeout);
-		view->privat->tooltip_timeout = 0;
-	}
-
-	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
-									   event->x, event->y, &path,
-									   NULL, NULL, NULL))
-	{
-		GtkTreeSelection *selection;
-		
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(view->privat->tree_view));
-		if (gtk_tree_selection_path_is_selected (selection, path))
-		{
-			gtk_tree_view_get_cell_area (GTK_TREE_VIEW (view->privat->tree_view),
-										 path, NULL, &view->privat->tooltip_rect);
-			
-			if (view->privat->tooltip_rect.y != 0 &&
-				view->privat->tooltip_rect.height != 0)
-			{
-				gchar *tooltiptext;
-				
-				tooltiptext = tooltip_get_display_text (view);
-				if (tooltiptext == NULL)
-					return FALSE;
-				g_free (tooltiptext);
-				
-				view->privat->tooltip_timeout =
-					g_timeout_add (500, (GSourceFunc) tooltip_timeout, view);
-			}
-		}
-		gtk_tree_path_free (path);
-	}
-	return FALSE;
-}
-
-static void
-tooltip_leave_cb (GtkWidget *w, GdkEventCrossing *e, MessageView *view)
-{
-	if (view->privat->tooltip_timeout) {
-		g_source_remove (view->privat->tooltip_timeout);
-		view->privat->tooltip_timeout = 0;
-	}
-	if (view->privat->tooltip_window) {
-		gtk_widget_destroy (view->privat->tooltip_window);
-		g_object_unref (view->privat->tooltip_layout);
-		view->privat->tooltip_window = NULL;
-	}
-}
-#endif
-
 
 /* MessageView signal callbacks */
 /* Send a signal if a message was double-clicked or ENTER or SPACE was pressed */
@@ -664,23 +436,11 @@ static void
 message_view_dispose (GObject *obj)
 {
 	MessageView *mview = MESSAGE_VIEW (obj);
-	if (mview->privat->gconf_notify_ids)
+	if (mview->privat->notify_ids)
 	{
 		prefs_finalize (mview);
-		mview->privat->gconf_notify_ids = NULL;
+		mview->privat->notify_ids = NULL;
 	}
-#if !HAVE_TOOLTIP_API
-	if (mview->privat->tooltip_timeout) {
-		g_source_remove (mview->privat->tooltip_timeout);
-		mview->privat->tooltip_timeout = 0;
-	}
-
-	if (mview->privat->tooltip_window) {
-		gtk_widget_destroy (mview->privat->tooltip_window);
-		g_object_unref (mview->privat->tooltip_layout);
-		mview->privat->tooltip_window = NULL;
-	}
-#endif
 	if (mview->privat->tree_view)
 	{
 		mview->privat->tree_view = NULL;
@@ -867,14 +627,9 @@ message_view_instance_init (MessageView * self)
 	/* Connect signals */
 	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
 					  G_CALLBACK (on_message_event), self);
-#if !HAVE_TOOLTIP_API
-	g_signal_connect (G_OBJECT (self->privat->tree_view), "motion-notify-event",
-					  G_CALLBACK (tooltip_motion_cb), self);
-	g_signal_connect (G_OBJECT (self->privat->tree_view), "leave-notify-event",
-					  G_CALLBACK (tooltip_leave_cb), self);
-#else
+	
 	g_object_set (G_OBJECT(self), "has-tooltip", TRUE, NULL);
-#endif
+
 }
 
 static void
@@ -892,9 +647,8 @@ message_view_class_init (MessageViewClass * klass)
 	gobject_class->finalize = message_view_finalize;
 	gobject_class->dispose = message_view_dispose;
 	
-#if HAVE_TOOLTIP_API
 	widget_class->query_tooltip = message_view_query_tooltip;
-#endif
+
 	
 	message_view_spec_label = g_param_spec_string ("label",
 						       "Label of the view",
@@ -928,10 +682,9 @@ message_view_class_init (MessageViewClass * klass)
 
 /* Returns a new message-view instance */
 GtkWidget *
-message_view_new (AnjutaPreferences* prefs, GtkWidget* popup_menu)
+message_view_new (GtkWidget* popup_menu)
 {
 	MessageView * mv = MESSAGE_VIEW (g_object_new (message_view_get_type (), NULL));
-	mv->privat->prefs = prefs;
 	mv->privat->popup_menu = popup_menu;
 	prefs_init (mv);
 	return GTK_WIDGET(mv);
@@ -1240,7 +993,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	GtkTreeIter iter;
 	gboolean success;
 	
-	color = anjuta_preferences_get (mview->privat->prefs, color_pref_key);
+	color = anjuta_preferences_get (anjuta_preferences_default(), color_pref_key);
 	store = GTK_LIST_STORE (mview->privat->model);
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
 	while (success)
@@ -1259,49 +1012,47 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 
 
 static void
-on_gconf_notify_color_warning (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+on_notify_color (AnjutaPreferences* prefs, const gchar* key,
+                 const gchar* value, gpointer user_data)
 {
 	pref_change_color (MESSAGE_VIEW (user_data),
 					   IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
-					   "messages.color.warning");
+					   key);
 }
 
-static void
-on_gconf_notify_color_error (GConfClient *gclient, guint cnxn_id,
-							 GConfEntry *entry, gpointer user_data)
-{
-	pref_change_color (MESSAGE_VIEW (user_data),
-					   IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-					   "messages.color.error");
-}
-
-#define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (mview->privat->prefs, \
-											   key, func, mview, NULL); \
-	mview->privat->gconf_notify_ids = g_list_prepend (mview->privat->gconf_notify_ids, \
-										   GINT_TO_POINTER(notify_id));
 static void
 prefs_init (MessageView *mview)
 {
-	guint notify_id;
-	REGISTER_NOTIFY ("messages.color.warning", on_gconf_notify_color_warning);
-	REGISTER_NOTIFY ("messages.color.error", on_gconf_notify_color_error);
+	gint id;
+	id = anjuta_preferences_notify_add_string (anjuta_preferences_default (),
+	                                           "messages.color.error",
+	                                           on_notify_color,
+	                                           mview,
+	                                           NULL);
+	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
+	                                           GINT_TO_POINTER (id));	
+	id = anjuta_preferences_notify_add_string (anjuta_preferences_default (),
+	                                      "messages.color.warning",
+	                                      on_notify_color,
+	                                      mview,
+	                                      NULL);
+	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
+	                                         GINT_TO_POINTER (id));
 }
 
 static void
 prefs_finalize (MessageView *mview)
 {
 	GList *node;
-	node = mview->privat->gconf_notify_ids;
+	node = mview->privat->notify_ids;
 	while (node)
 	{
-		anjuta_preferences_notify_remove (mview->privat->prefs,
+		anjuta_preferences_notify_remove (anjuta_preferences_default(),
 										  GPOINTER_TO_INT (node->data));
 		node = g_list_next (node);
 	}
-	g_list_free (mview->privat->gconf_notify_ids);
-	mview->privat->gconf_notify_ids = NULL;
+	g_list_free (mview->privat->notify_ids);
+	mview->privat->notify_ids = NULL;
 }
 
 /* IAnjutaMessageView interface implementation */
@@ -1405,14 +1156,14 @@ imessage_view_append (IAnjutaMessageView *message_view,
 				stock_id = GTK_STOCK_INFO;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
-				color = anjuta_preferences_get (view->privat->prefs,
+				color = anjuta_preferences_get (anjuta_preferences_default(),
 									  "messages.color.warning");
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
 				view->privat->warn_count++;
 				stock_id = GTK_STOCK_DIALOG_WARNING;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
-				color = anjuta_preferences_get (view->privat->prefs,
+				color = anjuta_preferences_get (anjuta_preferences_default(),
 									  "messages.color.error");
 				view->privat->error_count++;
 				stock_id = GTK_STOCK_STOP;

@@ -297,7 +297,7 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 {
 	docman->priv->tab_pressed = FALSE;
 
-	if (anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+	if (anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 	{
 		GList *node;
 
@@ -685,7 +685,7 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (doc), file, NULL);
 	}
 	
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
+	if (anjuta_preferences_get_bool (ANJUTA_PREFERENCES (docman->priv->preferences),
 									EDITOR_TABS_ORDERING))
 		anjuta_docman_order_tabs (docman);
 
@@ -901,8 +901,8 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		 */
 		if (!docman->priv->tab_pressed	/* after a tab-click, sorting is done upon release */
 			&& !g_tabbing
-			&& !anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_ORDERING)
-			&& anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+			&& !anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_ORDERING)
+			&& anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 		{
 			gtk_notebook_reorder_child (notebook, page->widget, 0);
 		}
@@ -1166,7 +1166,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 											  page->widget);
 			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), page_num);
 
-			if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
+			if (anjuta_preferences_get_bool (ANJUTA_PREFERENCES (docman->priv->preferences),
 											EDITOR_TABS_ORDERING))
 				anjuta_docman_order_tabs (docman);
 

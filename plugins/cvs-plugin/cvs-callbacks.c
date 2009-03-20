@@ -60,7 +60,7 @@ static gboolean check_entry(GtkDialog* dialog, GtkWidget* entry,
 		gchar* message = g_strdup_printf(_("Please fill field: %s"), stringname);
 		GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
 			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
-			GTK_BUTTONS_CLOSE, message);
+			GTK_BUTTONS_CLOSE, "%s", message);
 		gtk_dialog_run(GTK_DIALOG(dlg));
 		gtk_widget_destroy(dlg);
 		return FALSE;

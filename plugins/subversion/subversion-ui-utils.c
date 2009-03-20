@@ -93,7 +93,7 @@ check_input (GtkWidget *parent, GtkWidget *entry, const gchar *error_message)
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_WARNING,
 										 GTK_BUTTONS_OK,
-										 error_message);
+										 "%s", error_message);
 		
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);

@@ -45,7 +45,7 @@ static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 	
 	cvs = anjuta_preferences_get(prefs, "cvs.path");
 	compression = anjuta_preferences_get_int(prefs, "cvs.compression");
-	ignorerc = anjuta_preferences_get_int(prefs, "cvs.ignorerc");
+	ignorerc = anjuta_preferences_get_bool(prefs, "cvs.ignorerc");
 	if (compression && ignorerc)
 		global_options = g_strdup_printf("-f -z%d", compression);
 	else if (compression)

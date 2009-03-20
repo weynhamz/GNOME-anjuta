@@ -157,7 +157,7 @@ anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
 	&& cp xgenc-gmc $(@F) \
 	&& rm -f xgenc-gmc
 
-anjuta-enum-types.h: stamp-anjuta-enum-types.h
+anjuta-enum-types.h: stamp-anjuta-enum-types.h $(libanjuta_include)
 	@true
 stamp-anjuta-enum-types.h: Makefile $(libanjuta_include) anjuta-enum-types.c
 	( cd $(srcdir) && $(GLIB_MKENUMS) \

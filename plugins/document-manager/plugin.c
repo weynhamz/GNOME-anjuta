@@ -577,7 +577,7 @@ ui_states_init (AnjutaPlugin *plugin)
 		GtkAction *action;
 		gboolean state;
 		
-		state = anjuta_preferences_get_int (eplugin->prefs, prefs[i]);
+		state = anjuta_preferences_get_bool (eplugin->prefs, prefs[i]);
 		action = anjuta_ui_get_action (eplugin->ui, "ActionGroupEditorView",
 									   actions_view[i].name);
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), state);
@@ -1326,7 +1326,7 @@ on_window_key_release_event (AnjutaShell *shell,
 		gint cur_page;
 		plugin->g_tabbing = FALSE;
 		
-		if (anjuta_preferences_get_int (plugin->prefs,
+		if (anjuta_preferences_get_bool (plugin->prefs,
 										EDITOR_TABS_RECENT_FIRST))
 		{
 			/*
@@ -1450,8 +1450,8 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 static void
 docman_plugin_set_tab_pos (DocmanPlugin *ep)
 {
-	if (anjuta_preferences_get_int_with_default (ep->prefs, EDITOR_TABS_HIDE,
-												 1))
+	if (anjuta_preferences_get_bool_with_default (ep->prefs, EDITOR_TABS_HIDE,
+												 TRUE))
 	{
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), FALSE);
 	}
@@ -1481,8 +1481,8 @@ docman_plugin_set_tab_pos (DocmanPlugin *ep)
 }
 
 static void
-on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
+on_notify_prefs (AnjutaPreferences* prefs, 
+                 const gchar* key, gint value, gpointer user_data)
 {
 	DocmanPlugin *ep = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman_plugin_set_tab_pos (ep);
@@ -1505,7 +1505,7 @@ on_docman_auto_save (gpointer data)
 		return FALSE;
 
 	prefs = anjuta_shell_get_preferences (docman->shell, NULL);
-	if (anjuta_preferences_get_int (prefs, SAVE_AUTOMATIC) == FALSE)
+	if (anjuta_preferences_get_bool (prefs, SAVE_AUTOMATIC) == FALSE)
 	{
 		plugin->autosave_on = FALSE;
 		return FALSE;
@@ -1554,22 +1554,21 @@ on_docman_auto_save (gpointer data)
 }
 
 static void
-on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
+on_notify_timer (AnjutaPreferences* prefs,
+                 const gchar* key,
+                 gboolean value,
+                 gpointer user_data)
 {
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	AnjutaPreferences* prefs;
 	gint auto_save_timer;
 	gboolean auto_save;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-
-	prefs = anjuta_shell_get_preferences (docman->shell, NULL);
 	
 	auto_save_timer = anjuta_preferences_get_int(prefs, AUTOSAVE_TIMER);
-	auto_save = anjuta_preferences_get_int(prefs, SAVE_AUTOMATIC);
+	auto_save = anjuta_preferences_get_bool(prefs, SAVE_AUTOMATIC);
 	
 	if (auto_save)
 	{
@@ -1599,8 +1598,8 @@ on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
 	}
 }
 
-#define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (ep->prefs, \
+#define REGISTER_NOTIFY(key, func, type) \
+	notify_id = anjuta_preferences_notify_add_##type (ep->prefs, \
 											   key, func, ep, NULL); \
 	ep->gconf_notify_ids = g_list_prepend (ep->gconf_notify_ids, \
 										   GUINT_TO_POINTER (notify_id));
@@ -1609,12 +1608,12 @@ prefs_init (DocmanPlugin *ep)
 {
 	guint notify_id;
 	docman_plugin_set_tab_pos (ep);
-	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_gconf_notify_prefs);
-	REGISTER_NOTIFY (EDITOR_TABS_POS, on_gconf_notify_prefs);
-	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_gconf_notify_timer);
-	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_gconf_notify_timer);
+	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_notify_prefs, bool);
+	REGISTER_NOTIFY (EDITOR_TABS_POS, on_notify_prefs, int);
+	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_notify_timer, bool);
+	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_notify_timer, bool);
 	
-	on_gconf_notify_timer(NULL,0,NULL, ep);
+	on_notify_timer(anjuta_preferences_default(), NULL, FALSE, ep);
 }
 
 static void

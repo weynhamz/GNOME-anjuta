@@ -1,3 +1,144 @@
+2009-03-20  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-preferences.c (unbuild_key),
+	(anjuta_preferences_get_int), (anjuta_preferences_get_bool),
+	(anjuta_preferences_get_int_with_default),
+	(anjuta_preferences_get_bool_with_default),
+	(anjuta_preferences_default_get_bool),
+	(anjuta_preferences_set_int), (anjuta_preferences_set_bool),
+	(set_property_value_as_bool), (update_property_on_change_bool),
+	(get_property), (register_callbacks),
+	(preferences_foreach_callback), (connect_prop_to_object),
+	(anjuta_preferences_register_property_custom),
+	(anjuta_preferences_foreach), (anjuta_preferences_instance_init),
+	(anjuta_preferences_new), (anjuta_preferences_default),
+	(gconf_notify), (anjuta_preferences_notify_add_int),
+	(anjuta_preferences_notify_add_string),
+	(anjuta_preferences_notify_add_bool),
+	(anjuta_preferences_get_prefix):
+	* libanjuta/anjuta-preferences.h:
+	* manuals/reference/libanjuta/libanjuta.types:
+	
+	Make AnjutaPreferences a singleton (available through anjuta_preferences_default()).
+	Add methods for boolean values and be more pedantic that boolean != int when
+	setting getting keys.
+	Added new notification system that allows to remove any custom gconf code from
+	the plugins and instead is really based on the anjuta preferences system though
+	it of course still relies on the gconf backend.
+	
+	* plugins/build-basic-autotools/executer.c (execute_program):
+	* plugins/build-basic-autotools/plugin.c
+	(build_execute_command_in_context), (get_root_install_command),
+	(on_update_indicators_idle):
+	* plugins/class-inheritance/class-inherit.c (gtree_compare_func):
+	* plugins/cvs-plugin/cvs-callbacks.c (check_entry):
+	* plugins/cvs-plugin/cvs-interface.c
+	(create_cvs_command_with_cvsroot):
+	* plugins/debug-manager/command.c (dma_command_run):
+	* plugins/debug-manager/info.c (gdb_info_show_command):
+	* plugins/debug-manager/registers.c (on_find_register_list),
+	(dma_thread_set_register_list):
+	* plugins/debug-manager/stack_trace.c (on_find_stack_trace),
+	(dma_thread_set_stack_trace):
+	* plugins/document-manager/action-callbacks.c
+	(on_editor_linenos1_activate), (on_editor_markers1_activate),
+	(on_editor_codefold1_activate), (on_editor_indentguides1_activate),
+	(on_editor_whitespaces1_activate), (on_editor_eolchars1_activate),
+	(on_editor_linewrap1_activate):
+	* plugins/document-manager/anjuta-docman.c
+	(on_notebook_tab_btnrelease), (anjuta_docman_save_document_as),
+	(on_notebook_switch_page), (anjuta_docman_set_current_document):
+	* plugins/document-manager/plugin.c (ui_states_init),
+	(on_window_key_release_event), (docman_plugin_set_tab_pos),
+	(on_notify_prefs), (on_docman_auto_save), (on_notify_timer),
+	(prefs_init):
+	* plugins/file-loader/plugin.c (open_with_dialog):
+	* plugins/file-manager/plugin.c (on_notify_root), (on_notify),
+	(file_manager_activate):
+	* plugins/gdb/debugger.c (debugger_set_frame):
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(on_editor_char_added), (on_assist_chosen):
+	* plugins/language-support-cpp-java/plugin.c
+	(on_editor_char_inserted_cpp):
+	* plugins/macro/macro-util.c (get_date_time), (get_use_tabs):
+	* plugins/message-view/anjuta-msgman.c (on_notify_message_pref),
+	(anjuta_msgman_new), (anjuta_msgman_add_view),
+	(anjuta_msgman_deserialize):
+	* plugins/message-view/anjuta-msgman.h:
+	* plugins/message-view/message-view.c (message_view_query_tooltip),
+	(message_view_dispose), (message_view_instance_init),
+	(message_view_class_init), (message_view_new), (pref_change_color),
+	(on_notify_color), (prefs_init), (prefs_finalize),
+	(imessage_view_append):
+	* plugins/message-view/message-view.h:
+	* plugins/message-view/plugin.c (activate_plugin),
+	(ipreferences_merge):
+	* plugins/project-import/project-import.c (on_import_next):
+	* plugins/project-wizard/druid.c (npw_druid_fill_selection_page):
+	* plugins/project-wizard/parser.c (npw_header_list_read),
+	(npw_page_read), (npw_action_list_parser_parse):
+	* plugins/run-program/execute.c (run_program):
+	* plugins/scintilla/print.c (anjuta_print_setup):
+	* plugins/scintilla/text_editor.c (text_editor_instance_init),
+	(text_editor_dispose), (text_editor_hilite_one), (load_from_file),
+	(save_to_file), (text_editor_load_file),
+	(text_editor_set_line_number_width):
+	* plugins/scintilla/text_editor.h:
+	* plugins/scintilla/text_editor_prefs.c (pref_notify),
+	(set_n_get_prop_bool), (on_notify_disable_hilite),
+	(on_notify_zoom_factor), (on_notify_tab_size),
+	(on_notify_use_tab_for_indentation), (on_notify_indent_size),
+	(on_notify_wrap_bookmarks), (on_notify_braces_check),
+	(on_notify_indent_maintain), (on_notify_tab_indents),
+	(on_notify_backspace_unindents), (on_notify_view_eols),
+	(on_notify_view_whitespaces), (on_notify_view_linewrap),
+	(on_notify_view_indentation_guides), (on_notify_view_folds),
+	(on_notify_view_markers), (on_notify_view_linenums),
+	(on_notify_fold_symbols), (on_notify_fold_underline),
+	(on_notify_edge_column), (text_editor_prefs_init),
+	(text_editor_prefs_finalize):
+	* plugins/scratchbox/plugin.c (ipreferences_merge):
+	* plugins/sourceview/sourceview-io.c (sourceview_io_save_as):
+	* plugins/sourceview/sourceview-prefs.c (on_notify_view_spaces),
+	(on_notify_view_eol), (on_notify_line_wrap),
+	(on_notify_disable_hilite), (on_notify_highlight_current_line),
+	(on_notify_tab_size), (on_notify_use_tab_for_indentation),
+	(on_notify_braces_check), (on_notify_view_marks),
+	(on_notify_view_linenums), (on_notify_view_right_margin),
+	(on_notify_right_margin_position), (on_notify_font),
+	(on_notify_font_theme), (init_fonts), (get_key_int),
+	(get_key_bool), (sourceview_prefs_init),
+	(sourceview_prefs_destroy):
+	* plugins/sourceview/sourceview-print.c (print_setup):
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/subversion/subversion-ui-utils.c (check_input):
+	* plugins/terminal/terminal.c (terminal_set_preferences),
+	(on_notify_prefs_profile), (on_notify_prefs_default), (prefs_init):
+	* plugins/tools/fileop.c (atp_tool_list_load_from_file):
+	* src/action-callbacks.c (on_toolbar_view_toggled):
+	* src/anjuta-app.c (on_toolbar_style_changed),
+	(on_gdl_style_changed), (anjuta_app_instance_init):
+	* src/anjuta.c (anjuta_new):
+	Fixed code to use the new notification system and to use 
+	anjuta_preferences_get_bool() were appropriate.
+	
+		* plugins/symbol-db/plugin.c (value_added_current_editor),
+	(on_session_load), (on_scan_end_manager):
+	* plugins/symbol-db/symbol-db-prefs.c
+	(on_prefs_executable_changed), (on_notify_prefs),
+	(sdb_prefs_init1):
+	* plugins/symbol-db/symbol-db-prefs.h:
+	Fix symbol-db preference system. It was totally broken. This part will be
+	backported to 2.26.
+	
+	* plugins/file-manager/Makefile.am:
+	Install schemas for file-manager plugin (was missing somehow)
+
+	* scripts/build-schemas.mk:
+	#575893 – plugins schema files are not installed
+	(thanks to Marcin Banasiak for the patch)
+
 2009-03-18  Johannes Schmid  <jhs@gnome.org>
 	
 	Patch from Michael Trimarchi <michael@evidence.eu.com>

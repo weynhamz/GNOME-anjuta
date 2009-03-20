@@ -145,7 +145,7 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 	g_return_if_fail (client != NULL);
 	
 	/* Update the currently available list of terminal profiles */
-	setting = anjuta_preferences_get_int (pref,
+	setting = anjuta_preferences_get_bool (pref,
 										  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
 	if (setting)
 	{
@@ -177,7 +177,8 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 	g_free (text);
 	
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
-	vte_terminal_set_cursor_blinks ((term), setting);
+	vte_terminal_set_cursor_blink_mode ((term), 
+	                                    setting ? VTE_CURSOR_BLINK_ON : VTE_CURSOR_BLINK_OFF);
 	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
 	vte_terminal_set_audible_bell (term, !setting);
 	value = GET_PROFILE_INT (GCONF_SCROLLBACK_LINES);
@@ -256,15 +257,27 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 }
 
 static void
-on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
+on_notify_prefs_profile(AnjutaPreferences* prefs,
+                        const gchar* key,
+                        const gchar* value,
+                        gpointer user_data)
 {
 	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
 	preferences_changed (tp->prefs, tp);
 }
 
-#define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (tp->prefs, \
+static void
+on_notify_prefs_default (AnjutaPreferences* prefs,
+                         const gchar* key,
+                         gboolean value,
+                         gpointer user_data)
+{
+	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
+	preferences_changed (tp->prefs, tp);
+}
+
+#define REGISTER_NOTIFY(key, func, type) \
+	notify_id = anjuta_preferences_notify_add_##type (tp->prefs, \
 											   key, func, tp, NULL); \
 	tp->gconf_notify_ids = g_list_prepend (tp->gconf_notify_ids, \
 										   GUINT_TO_POINTER (notify_id));
@@ -272,8 +285,8 @@ static void
 prefs_init (TerminalPlugin *tp)
 {
 	guint notify_id;
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_gconf_notify_prefs);
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_gconf_notify_prefs);
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_notify_prefs_profile, string);
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_notify_prefs_default, bool);
 }
 
 static void

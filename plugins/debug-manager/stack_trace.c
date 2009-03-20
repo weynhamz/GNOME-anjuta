@@ -381,13 +381,13 @@ static gboolean
 on_find_stack_trace (gconstpointer a, gconstpointer b)
 {
 	const DmaThreadStackTrace *trace = (const DmaThreadStackTrace *)a;
-	guint thread = (gint)b;
+	guint thread = GPOINTER_TO_UINT(b);
 	
 	return trace->thread != thread;
 }
 
 static void
-dma_thread_set_stack_trace (StackTrace *self, gint thread)
+dma_thread_set_stack_trace (StackTrace *self, guint thread)
 {
 	GList *list;
 	DmaThreadStackTrace *trace;
@@ -396,7 +396,7 @@ dma_thread_set_stack_trace (StackTrace *self, gint thread)
 	{
 		self->current_frame = 0;
 		
-		list = g_list_find_custom (self->list, (gconstpointer) thread, on_find_stack_trace);
+		list = g_list_find_custom (self->list, GINT_TO_POINTER(thread), on_find_stack_trace);
 	
 		if (list == NULL)
 		{

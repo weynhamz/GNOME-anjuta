@@ -58,7 +58,7 @@ struct _MessageViewClass
 
 /* Note: MessageView implements IAnjutaMessageView interface */
 GType message_view_get_type (void);
-GtkWidget* message_view_new (AnjutaPreferences* prefs, GtkWidget* popup_menu);
+GtkWidget* message_view_new (GtkWidget* popup_menu);
 
 void message_view_next(MessageView* view);
 void message_view_previous(MessageView* view);

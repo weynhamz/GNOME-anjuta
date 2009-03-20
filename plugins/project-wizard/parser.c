@@ -619,7 +619,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 
 	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
- 		g_warning (err->message);
+ 		g_warning ("%s", err->message);
 		g_error_free (err);
 
 		return FALSE;
@@ -646,7 +646,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
 	{
 		/* Parsing error */
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 		g_error_free (err);
 		npw_header_free (header);
 
@@ -990,7 +990,7 @@ npw_page_read (NPWPage* page, const gchar* filename, gint count)
 
 	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 		g_error_free (err);
 
 		return FALSE;
@@ -1007,7 +1007,7 @@ npw_page_read (NPWPage* page, const gchar* filename, gint count)
 	if (err != NULL)
 	{
 		/* Parsing error */
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 		g_error_free (err);
 
 		return FALSE;
@@ -1690,7 +1690,7 @@ npw_action_list_parser_parse (NPWActionListParser* parser, const gchar* text, gs
 	g_markup_parse_context_parse (parser->ctx, text, len, &err);
 	if (err != NULL)
 	{
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 	}
 
 	return TRUE;

@@ -179,7 +179,7 @@ gdb_info_show_command (GtkWindow *parent, const gchar *command_line,
 	if (!g_spawn_command_line_sync (command_line, &std_output,
 									NULL, NULL, &err))
 	{
-		g_warning (err->message);
+		g_warning ("%s", err->message);
 		g_error_free (err);
 
 		return FALSE;

@@ -919,13 +919,13 @@ anjuta_print_setup (AnjutaPreferences *p, TextEditor *te)
 	
 	/* Set preferences */
 	pji->print_line_numbers =
-		anjuta_preferences_get_int_with_default (p, PRINT_LINENUM_COUNT, 1);
+		anjuta_preferences_get_bool_with_default (p, PRINT_LINENUM_COUNT, 1);
 	pji->print_header =
-		anjuta_preferences_get_int_with_default (p, PRINT_HEADER, 1);
+		anjuta_preferences_get_bool_with_default (p, PRINT_HEADER, 1);
 	pji->print_color =
-		anjuta_preferences_get_int_with_default (p, PRINT_COLOR, 1);
+		anjuta_preferences_get_bool_with_default (p, PRINT_COLOR, 1);
 	pji->wrapping =
-		anjuta_preferences_get_int_with_default (p, PRINT_WRAP, 1);
+		anjuta_preferences_get_bool_with_default (p, PRINT_WRAP, 1);
 	pji->tab_width =
 		anjuta_preferences_get_int_with_default (p, TAB_SIZE, 8);
 	pji->zoom_factor = anjuta_preferences_get_int (te->preferences,

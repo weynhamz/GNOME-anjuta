@@ -308,13 +308,13 @@ static gboolean
 on_find_register_list (gconstpointer a, gconstpointer b)
 {
 	const DmaThreadRegisterList *regs = (const DmaThreadRegisterList *)a;
-	guint thread = (gint)b;
+	guint thread = GPOINTER_TO_UINT(b);
 	
 	return regs->thread != thread;
 }
 
 static void
-dma_thread_set_register_list (CpuRegisters *self, gint thread)
+dma_thread_set_register_list (CpuRegisters *self, guint thread)
 {
 	GList *list;
 	DmaThreadRegisterList *regs;
@@ -323,7 +323,7 @@ dma_thread_set_register_list (CpuRegisters *self, gint thread)
 
 	if (self->current->thread != thread)
 	{
-		list = g_list_find_custom (self->list, (gconstpointer) thread, on_find_register_list);
+		list = g_list_find_custom (self->list, GUINT_TO_POINTER(thread), on_find_register_list);
 	
 		if (list == NULL)
 		{

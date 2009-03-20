@@ -370,7 +370,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	else
 		cmd = g_strdup (target);
 
-	if (anjuta_preferences_get_int (prefs , PREF_USE_SB))
+	if (anjuta_preferences_get_bool (prefs , PREF_USE_SB))
 	{
 		const gchar* sb_path = anjuta_preferences_get(prefs, PREF_SB_PATH);
 		/* we need to skip the /scratchbox/users part, maybe could be done more clever */

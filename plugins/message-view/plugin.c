@@ -216,7 +216,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
 	mv_plugin->msgman = 
-		anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);
+		anjuta_msgman_new(popup);
 	g_signal_connect(G_OBJECT(mv_plugin->msgman), "view_changed", 
 					 G_CALLBACK(on_view_changed), mv_plugin);
 	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
@@ -416,8 +416,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		anjuta_preferences_add_page (prefs, gxml,
 									"Messages", _("Messages"),
 									 ANJUTA_PIXMAP_MESSAGES);
-		notify_id = anjuta_preferences_notify_add (prefs, MESSAGES_TABS_POS, 
-			on_gconf_notify_message_pref, plugin->msgman, NULL);
+		notify_id = anjuta_preferences_notify_add_string (prefs, MESSAGES_TABS_POS, 
+		                                                on_notify_message_pref, plugin->msgman, NULL);
 		
 		g_object_unref (gxml);
 }

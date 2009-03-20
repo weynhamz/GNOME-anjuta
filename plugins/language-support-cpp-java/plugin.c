@@ -1392,7 +1392,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	iter = ianjuta_iterable_clone (insert_pos, NULL);
 	
 	/* If autoindent is enabled*/
-	if (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_AUTOMATIC))
+	if (anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC))
 	{
 	
 		/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */	
@@ -1457,7 +1457,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		}
 	}
 	
-	if (anjuta_preferences_get_int (plugin->prefs, PREF_BRACE_AUTOCOMPLETION))
+	if (anjuta_preferences_get_bool (plugin->prefs, PREF_BRACE_AUTOCOMPLETION))
 	{
 		if (ch == '[' || ch == '(')
 		{

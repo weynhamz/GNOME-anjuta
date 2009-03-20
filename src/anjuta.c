@@ -373,7 +373,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		
 		/* If preferences is set to not load last session, clear it */
 		if (no_session ||
-			anjuta_preferences_get_int (app->preferences,
+			anjuta_preferences_get_bool (app->preferences,
 										ANJUTA_SESSION_SKIP_LAST))
 		{
 			/* Reset default session */
@@ -383,7 +383,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		}
 		/* If preferences is set to not load last project, clear it */
 		else if (no_files ||
-				 anjuta_preferences_get_int (app->preferences,
+				 anjuta_preferences_get_bool (app->preferences,
 											 ANJUTA_SESSION_SKIP_LAST_FILES))
 		{
 			session = anjuta_session_new (session_dir);

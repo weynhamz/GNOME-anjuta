@@ -270,10 +270,10 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 			    COL_PIXBUF, icon,
 			    COL_WIDGET, page,
 			    -1);
-	
-		gtk_tree_model_get_iter_first (GTK_TREE_MODEL (dlg->priv->store),
-									   &first);
-		gtk_tree_selection_select_iter (selection, &first);
+
+	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (dlg->priv->store),
+	                               &first);
+	gtk_tree_selection_select_iter (selection, &first);
 }
 
 /**

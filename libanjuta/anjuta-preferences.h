@@ -22,7 +22,6 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
-#include <gconf/gconf-client.h>
 
 #include <libanjuta/anjuta-preferences-dialog.h>
 #include <libanjuta/anjuta-plugin-manager.h>
@@ -51,12 +50,6 @@ typedef enum
 	ANJUTA_PROPERTY_DATA_TYPE_FONT
 } AnjutaPropertyDataType;
 
-typedef enum
-{
-	ANJUTA_PREFERENCES_FILTER_NONE = 0,
-	ANJUTA_PREFERENCES_FILTER_PROJECT = 1
-} AnjutaPreferencesFilterType;
-
 typedef struct _AnjutaProperty AnjutaProperty;
 
 /* Get functions. Add more get functions for AnjutaProperty, if required */
@@ -76,7 +69,7 @@ typedef struct _AnjutaPreferencesPriv    AnjutaPreferencesPriv;
 struct _AnjutaPreferences
 {
 	GObject parent;
-	
+
 	/*< private >*/
 	AnjutaPreferencesPriv *priv;
 };
@@ -87,152 +80,149 @@ struct _AnjutaPreferencesClass
 };
 
 typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
-											   const gchar *key,
-											   gpointer data);
+                                               const gchar *key,
+                                               gpointer data);
 
 GType anjuta_preferences_get_type (void);
 
 AnjutaPreferences *anjuta_preferences_new (AnjutaPluginManager *plugin_manager);
+AnjutaPreferences *anjuta_preferences_default (void);
 
 void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
-								  const gchar* glade_widget_name,
-								  const gchar* title,
-								  const gchar *icon_filename);
+                                  const gchar* glade_widget_name,
+                                  const gchar* title,
+                                  const gchar *icon_filename);
 void anjuta_preferences_remove_page (AnjutaPreferences *pr, 
-									 const gchar *page_name);
+                                     const gchar *page_name);
 
 /*
  * Registers all properties defined for widgets below the 'parent' widget
  * in the given gxml glade UI tree
  */
 void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
-																GladeXML *gxml,
-																GtkWidget *parent);
+                                                                GladeXML *gxml,
+                                                                GtkWidget *parent);
 gboolean
 anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
-												  GtkWidget *object,
-												  const gchar *property_desc);
+                                                  GtkWidget *object,
+                                                  const gchar *property_desc);
 
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr, GtkWidget *object,
-										  const gchar *key,
-										  const gchar *default_value,
-										  guint flags,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type);
+                                          const gchar *key,
+                                          const gchar *default_value,
+                                          guint flags,
+                                          AnjutaPropertyObjectType object_type,
+                                          AnjutaPropertyDataType  data_type);
 
 gboolean
 anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
-											 GtkWidget *object,
-										     const gchar *key,
-										     const gchar *default_value,
-											 AnjutaPropertyDataType data_type,
-										     guint flags,
-		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
-		gchar * (*get_property) (AnjutaProperty *));
+                                             GtkWidget *object,
+                                             const gchar *key,
+                                             const gchar *default_value,
+                                             AnjutaPropertyDataType data_type,
+                                             guint flags,
+                                             void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+                                             gchar * (*get_property) (AnjutaProperty *));
 
 void anjuta_preferences_reset_defaults (AnjutaPreferences *pr);
-
-gboolean 
-anjuta_preferences_load_gconf (AnjutaPreferences *pr);
-
-gboolean 
-anjuta_preferences_save (AnjutaPreferences *pr, FILE *stream);
-
-/* Save excluding the filtered properties. This will save only those
- * properties which DOES NOT have the flags set to values given by the filter.
- */
-gboolean 
-anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
-										   AnjutaPreferencesFilterType filter);
-gboolean 
-anjuta_preferences_save_gconf (AnjutaPreferences *pr,
-										   AnjutaPreferencesFilterType filter);
-
-
 
 /* Calls the callback function for each of the properties with the flags
  * matching with the given filter 
  */
 void anjuta_preferences_foreach (AnjutaPreferences *pr,
-								 AnjutaPreferencesFilterType filter,
-								 AnjutaPreferencesCallback callback,
-								 gpointer data);
+                                 AnjutaPreferencesCallback callback,
+                                 gpointer data);
 
 /* This will transfer all the properties values from the main
-properties database to the parent session properties database */
+ properties database to the parent session properties database */
 void anjuta_preferences_sync_to_session (AnjutaPreferences *pr);
 
 /* Sets the value (string) of a key */
 void anjuta_preferences_set (AnjutaPreferences *pr,
-									const gchar *key,
-									const gchar *value);
+                             const gchar *key,
+                             const gchar *value);
 
-/* Sets the list of a key */
-void anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
-					                    GConfValueType list_type, GSList *list);
-										
-/* Sets the pair of a key */
-gboolean anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
-					         GConfValueType car_type, GConfValueType cdr_type,
-                             gconstpointer address_of_car,
-                             gconstpointer address_of_cdr);
-							 
 /* Sets the value (int) of a key */
 void anjuta_preferences_set_int (AnjutaPreferences *pr,
-										const gchar *key,
-										const gint value);
+                                 const gchar *key,
+                                 const gint value);
+
+void anjuta_preferences_set_bool (AnjutaPreferences *pr,
+                                  const gchar *key,
+                                  const gboolean value);
 
 /* Gets the value (string) of a key */
 /* Must free the return string */
 gchar * anjuta_preferences_get (AnjutaPreferences *pr,
-									   const gchar *key);
-
-/* Gets the list of a key */
-GSList *anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
-                                           GConfValueType list_type);
-
-/* Gets the pair of a key */
-gboolean anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
-                             GConfValueType car_type, GConfValueType cdr_type,
-                             gpointer car_retloc, gpointer cdr_retloc);										   
+                                const gchar *key);
 
 /* Gets the value (int) of a key. If not found, 0 is returned */
 gint anjuta_preferences_get_int (AnjutaPreferences *pr,
-										const gchar *key);
+                                 const gchar *key);
+
+gboolean anjuta_preferences_get_bool (AnjutaPreferences *pr,
+                                      const gchar *key);
 
 /* Gets the value (int) of a key. If not found, the default_value is returned */
 gint anjuta_preferences_get_int_with_default (AnjutaPreferences* pr,
-													 const gchar *key,
-													 gint default_value);
+                                              const gchar *key,
+                                              gint default_value);
+
+gint anjuta_preferences_get_bool_with_default (AnjutaPreferences* pr,
+                                               const gchar *key,
+                                               gint default_value);
 
 gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
-											   const gchar *key);
+                                        const gchar *key);
 
 /* Gets the value (int) of a key */
 gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
-												const gchar *key);
+                                         const gchar *key);
+
+gint anjuta_preferences_default_get_bool (AnjutaPreferences *pr,
+                                          const gchar *key);
 
 /* Dialog methods */
 GtkWidget *anjuta_preferences_get_dialog (AnjutaPreferences *pr);
 gboolean anjuta_preferences_is_dialog_created (AnjutaPreferences *pr);
 
 /* Key notifications */
-guint anjuta_preferences_notify_add (AnjutaPreferences *pr,
-									 const gchar *key,
-									 GConfClientNotifyFunc func,
-									 gpointer data,
-									 GFreeFunc destroy_notify);
+
+typedef void (*AnjutaPreferencesNotify) (AnjutaPreferences *pr,
+                                         const gchar* key,
+                                         const gchar* value,
+                                         gpointer data);
+typedef void (*AnjutaPreferencesNotifyInt) (AnjutaPreferences *pr,
+                                            const gchar* key,
+                                            gint value,
+                                            gpointer data);
+typedef void (*AnjutaPreferencesNotifyBool) (AnjutaPreferences *pr,
+                                             const gchar* key,
+                                             gboolean value,
+                                             gpointer data);
+
+guint anjuta_preferences_notify_add_int (AnjutaPreferences *pr,
+                                         const gchar *key,
+                                         AnjutaPreferencesNotifyInt func,
+                                         gpointer data,
+                                         GFreeFunc destroy_notify);
+
+guint anjuta_preferences_notify_add_string (AnjutaPreferences *pr,
+                                            const gchar *key,
+                                            AnjutaPreferencesNotify func,
+                                            gpointer data,
+                                            GFreeFunc destroy_notify);
+
+guint anjuta_preferences_notify_add_bool (AnjutaPreferences *pr,
+                                          const gchar *key,
+                                          AnjutaPreferencesNotifyBool func,
+                                          gpointer data,
+                                          GFreeFunc destroy_notify);
+
 void anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id);
 
 const gchar* anjuta_preferences_get_prefix (AnjutaPreferences *pr);
-
-gboolean anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir);
-
-void anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir, 
-                                       GConfClientPreloadType preload);
-
-void anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir);
 
 G_END_DECLS
 

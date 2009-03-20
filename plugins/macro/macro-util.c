@@ -41,7 +41,7 @@ get_date_time(void)
 	gchar *buffer;
 
 	DateTime = g_new(gchar, 100);
-	sprintf(DateTime,ctime(&cur_time));
+	sprintf("%s", DateTime,ctime(&cur_time));
 	buffer = g_strndup(DateTime, strlen(DateTime) - 1);
 	g_free(DateTime);
 	return buffer;
@@ -148,7 +148,7 @@ get_use_tabs(MacroPlugin * plugin)
 	gchar *ut;
 	
 	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
-	if (anjuta_preferences_get_int (prefs, "use.tabs"))
+	if (anjuta_preferences_get_bool (prefs, "use.tabs"))
 		ut = g_strdup("indent-tabs: t");
 	else
 		ut = g_strdup("");

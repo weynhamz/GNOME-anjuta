@@ -86,7 +86,7 @@ on_toolbar_view_toggled (GtkAction *action, AnjutaApp *app)
 	{
 		gtk_widget_hide (app->toolbar);
 	}
-	anjuta_preferences_set_int (app->preferences,
+	anjuta_preferences_set_bool (app->preferences,
 								"anjuta.toolbar.visible",
 								status);
 }

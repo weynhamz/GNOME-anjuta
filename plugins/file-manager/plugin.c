@@ -46,8 +46,8 @@
 #define PREF_FILTER_BACKUP "filemanager.filter.backup"
 #define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
 
-#define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (file_manager->prefs, \
+#define REGISTER_NOTIFY(key, func, type) \
+	notify_id = anjuta_preferences_notify_add_##type (file_manager->prefs, \
 											   key, func, file_manager, NULL); \
 	file_manager->gconf_notify_ids = g_list_prepend (file_manager->gconf_notify_ids, \
 										   GUINT_TO_POINTER(notify_id));
@@ -243,8 +243,10 @@ on_file_view_show_popup_menu (AnjutaFileView* view, GFile* file,
 }
 
 static void 
-on_gconf_notify_root(GConfClient *gclient, guint cnxn_id,
-					 GConfEntry *entry, gpointer user_data)
+on_notify_root(AnjutaPreferences* prefs,
+                         const gchar* key,
+                         const gchar* value,
+                         gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
 	if (!file_manager->have_project)
@@ -253,19 +255,22 @@ on_gconf_notify_root(GConfClient *gclient, guint cnxn_id,
 		file_view_refresh (file_manager->fv);
 	}
 }
+
 static void 
-on_gconf_notify(GConfClient *gclient, guint cnxn_id,
-				GConfEntry *entry, gpointer user_data)
+on_notify(AnjutaPreferences* prefs,
+          const gchar* key,
+          gboolean value,
+          gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
 	GtkTreeModel* sort_model = gtk_tree_view_get_model (GTK_TREE_VIEW (file_manager->fv));
 	GtkTreeModel* file_model = gtk_tree_model_sort_get_model (GTK_TREE_MODEL_SORT(sort_model));
 	
 	g_object_set (G_OBJECT (file_model),
-				  "filter_binary", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BINARY),
-				  "filter_hidden", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_HIDDEN),
-				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP),
-				  "filter_unversioned", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);
+				  "filter_binary", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_BINARY),
+				  "filter_hidden", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_HIDDEN),
+				  "filter_backup", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_BACKUP),
+				  "filter_unversioned", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);
 	file_view_refresh (file_manager->fv);
 }
 
@@ -329,12 +334,12 @@ file_manager_activate (AnjutaPlugin *plugin)
 								 project_root_removed, NULL);
 	
 	
-	REGISTER_NOTIFY (PREF_ROOT, on_gconf_notify_root);
-	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_gconf_notify);
-	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_gconf_notify);
-	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_gconf_notify);
-	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_gconf_notify);
-	on_gconf_notify (NULL, 0, NULL, file_manager);
+	REGISTER_NOTIFY (PREF_ROOT, on_notify_root, string);
+	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_notify, bool);
+	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_notify, bool);
+	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_notify, bool);
+	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_notify, bool);
+	on_notify (anjuta_preferences_default(), NULL, FALSE, file_manager);
 	
 	return TRUE;
 }

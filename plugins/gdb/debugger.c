@@ -3542,7 +3542,7 @@ debugger_set_frame (Debugger *debugger, gsize frame)
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-stack-select-frame %u", frame);
+	buff = g_strdup_printf ("-stack-select-frame %" G_GSIZE_FORMAT, frame);
 
 	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_set_frame_finish, NULL, (gpointer)frame);
 	g_free (buff);

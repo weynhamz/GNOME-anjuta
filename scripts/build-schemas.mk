@@ -2,6 +2,7 @@
 
 prefs_glade_schemasdir = @GCONF_SCHEMA_FILE_DIR@
 prefs_glade_schemas = $(prefs_glade_files:.glade=.schemas)
+prefs_glade_schemas_DATA = $(prefs_glade_schemas)
 
 %.schemas: %.glade
 	$(top_srcdir)/scripts/glade2schema.pl $(srcdir)/$(?) > $(@)

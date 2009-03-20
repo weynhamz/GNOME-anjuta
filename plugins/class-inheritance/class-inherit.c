@@ -65,7 +65,7 @@ cls_inherit_nodestatus_destroy (NodeExpansionStatus *node) {
 static gint
 gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
 {
-	return (gint)a - (gint)b;
+	return GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
 }
 
 gchar *

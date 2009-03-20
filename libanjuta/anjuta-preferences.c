@@ -74,6 +74,9 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
+/* AnjutaPreferences is a singleton */
+static AnjutaPreferences* default_preferences = NULL;
+
 struct _AnjutaProperty
 {
 	GtkWidget                *object;
@@ -103,16 +106,19 @@ struct _AnjutaPreferencesPriv
 	GtkWidget           *prefs_dialog;
 	AnjutaPluginManager *plugin_manager;
 	gboolean             is_showing;
+
+	GHashTable			*notifications;
 };
 
 /* Internal structure for anjuta_preferences_foreach */
 struct _AnjutaPreferencesForeachData
 {
 	AnjutaPreferences *pr;
-	AnjutaPreferencesFilterType filter;
 	AnjutaPreferencesCallback callback;
 	gpointer callback_data;
 };
+
+/* Data for notifications */
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
 #define GCONF_KEY_PREFIX "/apps/anjuta/preferences"
@@ -123,6 +129,14 @@ build_key (const gchar *key)
 	static gchar buffer[1024];
 	snprintf (buffer, 1024, "%s/%s", GCONF_KEY_PREFIX, key);
 	return buffer;
+}
+
+static const gchar*
+unbuild_key (const gchar* key)
+{
+	if (g_str_has_prefix (key, GCONF_KEY_PREFIX))
+		return key + strlen (GCONF_KEY_PREFIX);
+	return NULL;
 }
 
 /**
@@ -145,58 +159,6 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 	g_return_val_if_fail (key != NULL, NULL);
 
 	return gconf_client_get_string (pr->priv->gclient, build_key (key), NULL);
-}
-
-/**
- * anjuta_preferences_get_list:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @list_type: Type of each list element
- *
- * Gets the list of @key.
- *
- * Return value: Key list or NULL if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-GSList *
-anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
-                             GConfValueType list_type)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-
-	return gconf_client_get_list(pr->priv->gclient, build_key (key), list_type, NULL);
-}
-
-/**
- * anjuta_preferences_get_pair:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @car_type: Desired type of the pair's first field (car).
- * @cdr_type: Desired type of the pair's second field (cdr).
- * @car_retloc: Address of a return location for the car.
- * @cdr_retloc: Address of a return location for the cdr.
- *
- * Gets the pair of @key.
- *
- * Return value: TRUE or FALSE.
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
-                             GConfValueType car_type, GConfValueType cdr_type,
-                             gpointer car_retloc, gpointer cdr_retloc)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-
-	return gconf_client_get_pair(pr->priv->gclient, build_key (key),
-                                 car_type, cdr_type,
-                                 car_retloc, cdr_retloc, NULL);
 }
 
 /**
@@ -229,6 +191,43 @@ anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 			case GCONF_VALUE_INT:
 				ret_val = gconf_value_get_int (value);
 				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
+	}
+	else
+		DEBUG_PRINT ("The preference key %s is not defined", key);
+	return ret_val;
+}
+
+/**
+ * anjuta_preferences_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as boolean or FALSE if the key is not defined.
+ */
+#ifdef __GNUC__
+inline
+#endif
+gint
+anjuta_preferences_get_bool (AnjutaPreferences *pr, const gchar *key)
+{
+	gboolean ret_val;
+	GConfValue *value;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	
+	ret_val = FALSE;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
 			case GCONF_VALUE_BOOL:
 				ret_val = gconf_value_get_bool (value);
 				break;
@@ -237,8 +236,8 @@ anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 		}
 		gconf_value_free (value);
 	}
-	/* else
-		g_warning ("The preference key %s is not defined", key); */
+	else
+		DEBUG_PRINT ("The preference key %s is not defined", key);
 	return ret_val;
 }
 
@@ -275,6 +274,44 @@ anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 			case GCONF_VALUE_INT:
 				ret_val = gconf_value_get_int (value);
 				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
+	}
+	return ret_val;
+}
+
+/**
+ * anjuta_preferences_get_int_with_default:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @default_value: Default value to return if the key is not defined.
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as integer or @default_value if the
+ * key is not defined.
+ */
+#ifdef __GNUC__
+inline
+#endif
+gint
+anjuta_preferences_get_bool_with_default (AnjutaPreferences *pr,
+                                          const gchar *key, gboolean default_value)
+{
+	gboolean ret_val;
+	GConfValue *value;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	
+	ret_val = default_value;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
 			case GCONF_VALUE_BOOL:
 				ret_val = gconf_value_get_bool (value);
 				break;
@@ -354,6 +391,39 @@ anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
 }
 
 /**
+ * anjuta_preferences_default_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the default value of @key as integer. The default value of the key
+ * is the value defined in System defaults (generally installed during 
+ * program installation).
+ *
+ * Return value: Default key value as integer or 0 if the key is not defined.
+ */
+#ifdef __GNUC__
+inline
+#endif
+gboolean
+anjuta_preferences_default_get_bool (AnjutaPreferences *pr, const gchar *key)
+{
+	GConfValue *val;
+	gint ret;
+	GError *err = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
+	if (err) {
+		g_error_free (err);
+		return 0;
+	}
+	ret = gconf_value_get_bool (val);
+	gconf_value_free (val);
+	return ret;
+}
+
+/**
  * anjuta_preferences_set:
  * @pr: A #AnjutaPreferences object.
  * @key: Property key.
@@ -382,57 +452,6 @@ anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 }
 
 /**
- * anjuta_preferences_set_list:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @list_type: Type of each element.
- * @list: New value of the key.
- *
- * Sets a list in current session.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
-					         GConfValueType list_type, GSList *list)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	gconf_client_set_list(pr->priv->gclient, build_key (key), 
-		                      list_type, list, NULL);
-}
-
-/**
- * anjuta_preferences_set_pair:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @car_type: Type of the pair's first field (car).
- * @cdr_type: Type of the pair's second field (cdr).
- * @address_of_car: Address of the car.
- * @address_of_cdr: Address of the cdr.
- *
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
-					         GConfValueType car_type, GConfValueType cdr_type,
-                             gconstpointer address_of_car,
-                             gconstpointer address_of_cdr)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-
-	return gconf_client_set_pair (pr->priv->gclient, build_key (key),
-                                  car_type, cdr_type,
-                                  address_of_car, address_of_cdr,
-                                  NULL);
-}
-
-/**
  * anjuta_preferences_set_int:
  * @pr: A #AnjutaPreferences object.
  * @key: Property key.
@@ -457,10 +476,6 @@ anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 	{
 		switch (gvalue->type)
 		{
-			case GCONF_VALUE_BOOL:
-				gconf_client_set_bool (pr->priv->gclient, build_key (key),
-									   value, NULL);
-				break;
 			case GCONF_VALUE_INT:
 				gconf_client_set_int (pr->priv->gclient, build_key (key),
 									  value, NULL);
@@ -472,9 +487,51 @@ anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 	}
 	else
 	{
-		/* g_warning ("The preference key %s is not defined", key); */
+		DEBUG_PRINT ("The preference key %s is not defined", key);
 		gconf_client_set_int (pr->priv->gclient, build_key (key),
 							  value, NULL);
+	}
+}
+
+/**
+ * anjuta_preferences_set_bool:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @value: Boolean value of the key.
+ *
+ * Sets the value of @key in current session.
+ */
+#ifdef __GNUC__
+inline
+#endif
+void
+anjuta_preferences_set_bool (AnjutaPreferences *pr, const gchar *key,
+							 gboolean value)
+{
+	GConfValue *gvalue;
+	
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (key != NULL);
+	
+	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (gvalue)
+	{
+		switch (gvalue->type)
+		{
+			case GCONF_VALUE_BOOL:
+				gconf_client_set_bool (pr->priv->gclient, build_key (key),
+									   value, NULL);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (gvalue);
+	}
+	else
+	{
+		DEBUG_PRINT ("The preference key %s is not defined", key);
+		gconf_client_set_bool (pr->priv->gclient, build_key (key),
+		                       value, NULL);
 	}
 }
 
@@ -807,6 +864,15 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 	g_free (text_value);	
 }
 
+static void
+set_property_value_as_bool (AnjutaProperty *prop, gboolean value)
+{
+	gchar *text_value;
+	text_value = g_strdup_printf ("%d", value);
+	set_property_value_as_string (prop, text_value);
+	g_free (text_value);	
+}
+
 static gboolean
 update_property_on_event_str (GtkWidget *widget, GdkEvent *event,
 							  gpointer user_data)
@@ -874,6 +940,20 @@ update_property_on_change_int (GtkWidget *widget, gpointer user_data)
 }
 
 static void
+update_property_on_change_bool (GtkWidget *widget, gpointer user_data)
+{
+	AnjutaPreferences *pr;
+	AnjutaProperty *p;
+	gint val;
+	
+	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
+												"AnjutaPreferences"));
+	p = (AnjutaProperty *) user_data;
+	val = get_property_value_as_int (p);
+	anjuta_preferences_set_bool (pr, p->key, val);
+}
+
+static void
 update_property_on_change_color (GtkWidget *widget, gpointer user_data)
 {
 	AnjutaPreferences *pr;
@@ -938,7 +1018,7 @@ get_property (GConfClient *gclient, guint cnxt_id,
 		gboolean gconf_value;
 		
 		gconf_value = gconf_value_get_bool (value);
-		set_property_value_as_int (p, gconf_value);
+		set_property_value_as_bool (p, gconf_value);
 	}
 	else if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
 	{
@@ -992,7 +1072,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
 			g_signal_connect (G_OBJECT(p->object), "toggled",
-							  G_CALLBACK (update_property_on_change_int), p);
+							  G_CALLBACK (update_property_on_change_bool), p);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 			g_signal_connect (G_OBJECT(p->object), "color-set",
@@ -1032,10 +1112,7 @@ preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p,
 {	
 	if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
 	{
-		if (data->filter == ANJUTA_PREFERENCES_FILTER_NONE)
-			return data->callback (data->pr, key, data->callback_data);
-		else if (p->flags & data->filter)
-			return data->callback (data->pr, key, data->callback_data);
+		return data->callback (data->pr, key, data->callback_data);
 	}
 	
 	return TRUE;
@@ -1047,13 +1124,18 @@ connect_prop_to_object (AnjutaPreferences *pr, AnjutaProperty *p)
 	int gconf_value;
 	gchar *value;
 	
-	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL ||
-		p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
+	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL)
 	{	
+		gconf_value = anjuta_preferences_get_bool (pr, p->key);
+		value = g_strdup_printf ("%d", gconf_value);
+		set_property_value_as_string (p, value);
+	}
+	else if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
+	{
 		gconf_value = anjuta_preferences_get_int (pr, p->key);
 		value = g_strdup_printf ("%d", gconf_value);
 		set_property_value_as_string (p, value);
-	} 
+    }
 	else 
 	{
 		value = anjuta_preferences_get (pr, p->key);
@@ -1247,9 +1329,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 			   data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL) ||
 			  (value->type == GCONF_VALUE_INT &&
 			   data_type == ANJUTA_PROPERTY_DATA_TYPE_INT) ||
-			  (value->type == GCONF_VALUE_STRING &&
-			   data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
-			   data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)))
+			  (value->type == GCONF_VALUE_STRING)))
 		{
 			gconf_client_unset (pr->priv->gclient, build_key (key), NULL);
 		}
@@ -1474,14 +1554,12 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
  */
 void
 anjuta_preferences_foreach (AnjutaPreferences *pr,
-							AnjutaPreferencesFilterType filter,
 							AnjutaPreferencesCallback callback,
 							gpointer data)
 {
 	struct _AnjutaPreferencesForeachData foreach_data;
 	
 	foreach_data.pr = pr;
-	foreach_data.filter = filter;
 	foreach_data.callback = callback;
 	foreach_data.callback_data = data;
 	
@@ -1701,6 +1779,10 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	pr->priv->properties = g_hash_table_new_full (g_str_hash, g_str_equal,
 												  g_free, 
 												  (GDestroyNotify) property_destroy);
+	pr->priv->notifications = g_hash_table_new_full (g_int_hash,
+	                                                 g_int_equal,
+	                                                 g_free, 
+	                                                 NULL);
 	
 	pr->priv->gclient = gconf_client_get_default();
 	gconf_client_add_dir (pr->priv->gclient, GCONF_KEY_PREFIX,
@@ -1740,16 +1822,93 @@ AnjutaPreferences *
 anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
 {
 	AnjutaPreferences *pr;
-	
-	pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
-	pr->priv->plugin_manager = g_object_ref (plugin_manager);
-	
-	return pr;
+
+	if (!default_preferences)
+	{
+		pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
+		pr->priv->plugin_manager = g_object_ref (plugin_manager);
+		default_preferences = pr;
+		return pr;
+	}
+	else
+		return default_preferences;
 	
 }
 
 /**
- * anjuta_preferences_notify_add:
+ * anjuta_preferences_default:
+ * 
+ * Get the default instace of anjuta preferences
+ * 
+ * Return value: A #AnjutaPreferences object.
+ */
+AnjutaPreferences *anjuta_preferences_default ()
+{
+	return default_preferences;
+}
+
+static void
+gconf_notify (GConfEngine* conf,
+              guint id,
+              GConfEntry* entry,
+              gpointer user_data)
+{
+	AnjutaPreferences* prefs = anjuta_preferences_default();
+	gpointer notify =
+		g_hash_table_lookup (prefs->priv->notifications,
+		                     &id);
+	
+	if (entry->value)
+	{
+		const gchar* real_key = unbuild_key (entry->key);
+		switch (entry->value->type)
+		{
+			case GCONF_VALUE_INT:
+			{
+				AnjutaPreferencesNotifyInt int_func = notify;
+				int_func (prefs, real_key,
+				          gconf_value_get_int (entry->value), user_data);
+				break;
+			}
+			case GCONF_VALUE_STRING:
+			{
+				AnjutaPreferencesNotify str_func = notify;
+				str_func (prefs, real_key, 
+				          gconf_value_get_string (entry->value), user_data);
+				break;
+			}
+			case GCONF_VALUE_BOOL:
+			{
+				AnjutaPreferencesNotifyBool bool_func = notify;
+				bool_func (prefs, real_key,
+				           gconf_value_get_bool (entry->value), user_data);
+				break;
+			}
+			default:
+				g_warning ("Notification for unknown type of key: %s", entry->key);
+		}
+	}
+}
+
+guint 
+anjuta_preferences_notify_add_int (AnjutaPreferences *pr,
+                                   const gchar *key,
+                                   AnjutaPreferencesNotifyInt func,
+                                   gpointer data,
+                                   GFreeFunc destroy_notify)
+{
+	guint* id = g_new0 (guint, 1);
+	*id = gconf_client_notify_add (pr->priv->gclient,
+	                              build_key (key),
+	                              (GConfClientNotifyFunc) gconf_notify, data, destroy_notify, NULL);
+	g_hash_table_insert (pr->priv->notifications,
+	                     id,
+	                     func);
+	return *id;
+}
+
+/**
+ * anjuta_preferences_notify_add_string:
  * @pr: A #AnjutaPreferences object.
  * @key: Key to monitor.
  * @func: User callback function.
@@ -1762,17 +1921,40 @@ anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
  *
  * Return value: Notify ID.
  */
-guint
-anjuta_preferences_notify_add (AnjutaPreferences *pr,
-							   const gchar *key,
-							   GConfClientNotifyFunc func,
-							   gpointer data,
-							   GFreeFunc destroy_notify)
+guint 
+anjuta_preferences_notify_add_string (AnjutaPreferences *pr,
+                                      const gchar *key,
+                                      AnjutaPreferencesNotify func,
+                                      gpointer data,
+                                      GFreeFunc destroy_notify)
 {
-	return gconf_client_notify_add (pr->priv->gclient,
-									build_key (key),
-									func, data, destroy_notify, NULL);
+	guint* id = g_new0 (guint, 1);
+	*id = gconf_client_notify_add (pr->priv->gclient,
+	                              build_key (key),
+	                              (GConfClientNotifyFunc)gconf_notify, data, destroy_notify, NULL);
+	g_hash_table_insert (pr->priv->notifications,
+	                     id,
+	                     func);
+	return *id;
 }
+
+guint 
+anjuta_preferences_notify_add_bool (AnjutaPreferences *pr,
+                                    const gchar *key,
+                                    AnjutaPreferencesNotifyBool func,
+                                    gpointer data,
+                                    GFreeFunc destroy_notify)
+{
+	guint* id = g_new0 (guint, 1);
+	*id = gconf_client_notify_add (pr->priv->gclient,
+	                              build_key (key),
+	                              (GConfClientNotifyFunc)gconf_notify, data, destroy_notify, NULL);
+	g_hash_table_insert (pr->priv->notifications,
+	                     id,
+	                     func);
+	return *id;
+}
+
 
 /**
  * anjuta_preferences_notify_remove:
@@ -1799,64 +1981,4 @@ const gchar*
 anjuta_preferences_get_prefix (AnjutaPreferences *pr)
 {
 	return PREFERENCE_PROPERTY_PREFIX;
-}
-
-/**
- * anjuta_preferences_dir_exists:
- * @pr: A #AnjutaPreferences object.
- * @dir: Directory to checkfor.
- *
- * Return value: TRUE if dir exists.
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (dir != NULL, FALSE);
-
-	return gconf_client_dir_exists(pr->priv->gclient, build_key (dir), NULL);
-}
-
-/**
- * anjuta_preferences_add_dir:
- * @pr: A #AnjutaPreferences object.
- * @dir: Directory to add to the list.
- * @preload: Degree of preload.
- *
- * Add a directory to the list of directories the GConfClient.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir, 
-                               GConfClientPreloadType preload)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (dir != NULL);
-
-	gconf_client_add_dir(pr->priv->gclient, build_key (dir), 
-	                     preload, NULL);
-}
-
-/**
- * anjuta_preferences_remove_dir:
- * @pr: A #AnjutaPreferences object.
- * @dir: Directory to remove from the list.
- *
- * Remove a directory from the list of directories.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (dir != NULL);
-
-	gconf_client_remove_dir(pr->priv->gclient, build_key (dir), NULL);
 }

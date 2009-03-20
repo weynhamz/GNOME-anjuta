@@ -49,7 +49,7 @@ struct _AnjutaMsgmanClass
 };
 
 GType anjuta_msgman_get_type (void);
-GtkWidget *anjuta_msgman_new (AnjutaPreferences * pref, GtkWidget* popup_menu);
+GtkWidget *anjuta_msgman_new (GtkWidget* popup_menu);
 
 MessageView *anjuta_msgman_add_view (AnjutaMsgman * msgman,
 									 const gchar * name,
@@ -74,7 +74,7 @@ gboolean anjuta_msgman_deserialize (AnjutaMsgman *msgman,
 									AnjutaSerializer *serializer);
 
 void
-on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data);
+on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
+                        const gchar* value, gpointer user_data);
 
 #endif /* _ANJUTA_MSGMAN_H */

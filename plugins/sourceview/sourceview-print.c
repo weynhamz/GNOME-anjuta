@@ -98,8 +98,8 @@ print_setup (Sourceview* sv)
 																						 GTK_WRAP_NONE);
 	
 	gtk_source_print_compositor_set_print_line_numbers (compositor,
-																											anjuta_preferences_get_int (sv->priv->prefs,
-																																									PRINT_LINENUMBERS));
+																											anjuta_preferences_get_bool (sv->priv->prefs,
+																											                             PRINT_LINENUMBERS));
 	
 	gtk_source_print_compositor_set_header_format (compositor,
 																								 TRUE,
@@ -114,15 +114,15 @@ print_setup (Sourceview* sv)
 																								 "Page %N/%Q");
 	
 	gtk_source_print_compositor_set_print_header (compositor,
-																								anjuta_preferences_get_int (sv->priv->prefs,
+																								anjuta_preferences_get_bool (sv->priv->prefs,
 																																						PRINT_HEADER));
 	gtk_source_print_compositor_set_print_footer (compositor,
-																								anjuta_preferences_get_int (sv->priv->prefs,
-																																						PRINT_HEADER));
+																								anjuta_preferences_get_bool (sv->priv->prefs,
+																																						PRINT_FOOTER));
 	
 	
 	gtk_source_print_compositor_set_highlight_syntax (compositor,
-																										anjuta_preferences_get_int (sv->priv->prefs,
+																										anjuta_preferences_get_bool (sv->priv->prefs,
 																																								PRINT_HIGHLIGHT)),
 	
 	operation = gtk_print_operation_new ();

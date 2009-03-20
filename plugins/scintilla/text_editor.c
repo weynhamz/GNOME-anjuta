@@ -130,7 +130,7 @@ text_editor_instance_init (TextEditor *te)
 	te->props_base = 0;
 	te->first_time_expose = TRUE;
 	te->encoding = NULL;
-	te->gconf_notify_ids = NULL;
+	te->notify_ids = NULL;
 	te->hover_tip_on = FALSE;
 	te->last_saved_content = NULL;
 	te->force_not_saved = FALSE;
@@ -612,10 +612,10 @@ text_editor_dispose (GObject *obj)
 		te->editor_id = 0;
 		te->views = NULL;
 	}
-	if (te->gconf_notify_ids)
+	if (te->notify_ids)
 	{
 		text_editor_prefs_finalize (te);
-		te->gconf_notify_ids = NULL;
+		te->notify_ids = NULL;
 	}
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
@@ -671,7 +671,7 @@ text_editor_hilite_one (TextEditor * te, AnEditorID editor_id,
 {
 	/* If syntax highlighting is disabled ... */
 	if (override_by_pref &&
-		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
+		anjuta_preferences_get_bool (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
 	{
 		aneditor_command (editor_id, ANE_SETHILITE, (glong) "plain.txt", 0);
@@ -1406,7 +1406,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		/* DEBUG_PRINT ("File size and loaded size not matching"); */
 	}
 	dos_filter = 
-		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
+		anjuta_preferences_get_bool (ANJUTA_PREFERENCES (te->preferences),
 									DOS_EOL_CHECK);
 	
 	/* Set editor mode */
@@ -1528,7 +1528,7 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 		}				
 		
 		/* Strip trailing spaces */
-		strip = anjuta_preferences_get_int (te->preferences,
+		strip = anjuta_preferences_get_bool (te->preferences,
 											STRIP_TRAILING_SPACES);
 		if (strip)
 		{
@@ -1540,7 +1540,7 @@ save_to_file (TextEditor *te, gchar *uri, GError **error)
 			data[size] = '\n';
 			++ size;
 		}
-		dos_filter = anjuta_preferences_get_int (te->preferences,
+		dos_filter = anjuta_preferences_get_bool (te->preferences,
 												 DOS_EOL_CHECK);
 		editor_mode =  scintilla_send_message (SCINTILLA (te->scintilla),
 											   SCI_GETEOLMODE, 0, 0);
@@ -1607,7 +1607,7 @@ text_editor_load_file (TextEditor * te)
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te, NULL);
-	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
+	if (anjuta_preferences_get_bool (te->preferences, FOLD_ON_OPEN))
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
@@ -2060,8 +2060,8 @@ void
 text_editor_set_line_number_width (TextEditor* te)
 {
 	/* Set line numbers with according to file size */
-	if (anjuta_preferences_get_int_with_default(te->preferences,
-			"margin.linenumber.visible", 0))
+	if (anjuta_preferences_get_bool_with_default(te->preferences,
+			"margin.linenumber.visible", FALSE))
 	{
 		int lines, line_number_width;
 		gchar* line_number;

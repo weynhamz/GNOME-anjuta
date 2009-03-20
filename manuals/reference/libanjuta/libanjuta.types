@@ -5,7 +5,6 @@ anjuta_serializer_get_type
 anjuta_ui_get_type
 anjuta_status_get_type
 anjuta_plugin_handle_get_type
-anjuta_cell_renderer_captioned_image_get_type
 anjuta_plugin_get_type
 anjuta_preferences_dialog_get_type
 anjuta_plugin_manager_get_type
@@ -13,7 +12,6 @@ anjuta_shell_get_type
 anjuta_encoding_get_type
 anjuta_save_prompt_get_type
 anjuta_session_get_type
-anjuta_c_module_get_type
 anjuta_profile_get_type
 anjuta_preferences_get_type
 anjuta_launcher_get_type
@@ -25,7 +23,6 @@ anjuta_plugin_manager_error_get_type
 anjuta_profile_error_get_type
 anjuta_property_object_type_get_type
 anjuta_property_data_type_get_type
-anjuta_preferences_filter_type_get_type
 anjuta_launcher_output_type_get_type
 anjuta_session_phase_get_type
 anjuta_serializer_mode_get_type
@@ -33,7 +30,6 @@ anjuta_vcs_status_get_type
 anjuta_command_get_type
 anjuta_profile_manager_get_type
 g_error_get_type
-anjuta_c_plugin_factory_get_type
 anjuta_vcs_status_tree_view_get_type
 anjuta_async_command_get_type
 anjuta_message_area_get_type

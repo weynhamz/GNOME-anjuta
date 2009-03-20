@@ -69,7 +69,10 @@ file-view-marshal.c: file-view-marshal.h file-view-marshal.list
 	        --prefix=file_view_cclosure_marshal file-view-marshal.list --body >> xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc	
-	
+
+prefs_glade_files = file-manager.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(file_manager_plugin_DATA) \

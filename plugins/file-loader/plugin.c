@@ -222,9 +222,10 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
-									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_INFO,
-									 GTK_BUTTONS_OK_CANCEL, message);
+	                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                             GTK_MESSAGE_INFO,
+	                                             GTK_BUTTONS_OK_CANCEL, "%s",
+	                                             message);
 	g_free (message);
 	
 	hbox = gtk_hbox_new (FALSE, 5);

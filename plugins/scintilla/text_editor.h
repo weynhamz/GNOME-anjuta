@@ -95,8 +95,8 @@ struct _TextEditor
 	/* Popup menu widget */
 	GtkWidget *popup_menu;
 	
-	/* Gconf notify IDs */
-	GList* gconf_notify_ids;
+	/* notify IDs */
+	GList* notify_ids;
 	
 	/* Current zoom factor */
 	gint zoom_factor;

@@ -257,24 +257,20 @@ set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
 }
 
 void
-on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
+on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
+                        const gchar* value, gpointer user_data)
 {
-	AnjutaPreferences *pref;
-	
-	pref = ANJUTA_MSGMAN (user_data)->priv->preferences;
-	set_message_tab(pref, GTK_NOTEBOOK (user_data));
+	set_message_tab(prefs, GTK_NOTEBOOK (user_data));
 }
 
 
 GtkWidget*
-anjuta_msgman_new (AnjutaPreferences *pref, GtkWidget *popup_menu)
+anjuta_msgman_new (GtkWidget *popup_menu)
 {
 	GtkWidget *msgman = NULL;
 	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
 	if (msgman)
 	{
-	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
 	    ANJUTA_MSGMAN (msgman)->priv->popup_menu = popup_menu;
 	}
 	return msgman;
@@ -373,7 +369,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 	g_return_val_if_fail (msgman != NULL, NULL);
 	g_return_val_if_fail (name != NULL, NULL);
 
-	mv = message_view_new (msgman->priv->preferences, msgman->priv->popup_menu);
+	mv = message_view_new (msgman->priv->popup_menu);
 	g_return_val_if_fail (mv != NULL, NULL);
 	g_object_set (G_OBJECT (mv), "highlite", TRUE, "label", name,
 				  "pixmap", pixmap, NULL);
@@ -531,8 +527,7 @@ anjuta_msgman_deserialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
 	{
 		gchar *label, *pixmap;
 		GtkWidget *view;
-		view = message_view_new (msgman->priv->preferences,
-								 msgman->priv->popup_menu);
+		view = message_view_new (msgman->priv->popup_menu);
 		g_return_val_if_fail (view != NULL, FALSE);
 		if (!message_view_deserialize (MESSAGE_VIEW (view), serializer))
 		{

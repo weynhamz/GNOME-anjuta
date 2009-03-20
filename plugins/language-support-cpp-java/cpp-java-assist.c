@@ -875,12 +875,12 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 					  gchar ch, CppJavaAssist *assist)
 {
 	gboolean enable_complete =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_ENABLE,
 												 TRUE);
 	
 	gboolean enable_calltips =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
 												 TRUE);
 	cpp_java_assist_check (assist, enable_complete, enable_calltips);
@@ -919,11 +919,11 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	if (tag->is_func)
 	{
 		add_space_after_func =
-			anjuta_preferences_get_int_with_default (assist->priv->preferences,
+			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 													 PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC,
 													 TRUE);
 		add_brace_after_func =
-			anjuta_preferences_get_int_with_default (assist->priv->preferences,
+			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 													 PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC,
 													 TRUE);
 		if (add_space_after_func)

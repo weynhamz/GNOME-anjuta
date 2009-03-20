@@ -22,8 +22,6 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-
-
 #include <config.h>
 #include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
@@ -673,7 +671,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	g_free (local_path);
 	
 	/* add a default timeout to the updating of buffer symbols */	
-	tags_update = anjuta_preferences_get_int (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+	tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
 				
 	if (tags_update)
 		sdb_plugin->buf_update_timeout_id = 
@@ -1694,7 +1692,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		if (sdb_plugin->session_packages == NULL)
 		{
 			/* hey, does user want to import system sources for this project? */
-			gboolean automatic_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+			gboolean automatic_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
 																  PROJECT_AUTOSCAN);
 			
 			if (automatic_scan == TRUE)
@@ -1704,7 +1702,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		}
 		
 		/* get preferences about the parallel scan */
-		gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+		gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
 															 PARALLEL_SCAN); 
 		
 		if (parallel_scan == TRUE && 
@@ -2016,7 +2014,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 										  sdb_plugin);
 			
 			/* get preferences about the parallel scan */
-			gboolean parallel_scan = anjuta_preferences_get_int (sdb_plugin->prefs, 
+			gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
 														 PARALLEL_SCAN); 
 			
 			do_check_languages_count (sdb_plugin);

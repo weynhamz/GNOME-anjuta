@@ -710,7 +710,7 @@ on_editor_linenos1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_LINENUMBERS_MARGIN, state);
 }
 
@@ -721,7 +721,7 @@ on_editor_markers1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_MARKER_MARGIN, state);
 }
 
@@ -732,7 +732,7 @@ on_editor_codefold1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_FOLD_MARGIN, state);
 }
 
@@ -743,7 +743,7 @@ on_editor_indentguides1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_INDENTATION_GUIDES, state);
 }
 
@@ -754,7 +754,7 @@ on_editor_whitespaces1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_WHITE_SPACES, state);
 }
 
@@ -765,7 +765,7 @@ on_editor_eolchars1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_EOL, state);
 }
 
@@ -776,7 +776,7 @@ on_editor_linewrap1_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (plugin->prefs,
+	anjuta_preferences_set_bool (plugin->prefs,
 								VIEW_LINE_WRAP, state);
 }
 

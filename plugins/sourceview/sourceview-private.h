@@ -45,7 +45,7 @@ struct SourceviewPrivate {
 	
 	/* Preferences */
 	AnjutaPreferences* prefs;
-	GList* gconf_notify_ids;
+	GList* notify_ids;
 	
 	/* Popup menu */
 	GtkWidget* menu;

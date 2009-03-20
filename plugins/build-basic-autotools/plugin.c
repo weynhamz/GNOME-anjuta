@@ -1232,22 +1232,6 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	return context;
 }
 
-/* Save all current anjuta files */
-static void
-save_all_files (AnjutaPlugin *plugin)
-{
-	IAnjutaDocumentManager *docman;
-	IAnjutaFileSavable* save;
-
-	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
-	/* No document manager, so no file to save */
-	if (docman != NULL)
-	{
-		save = IANJUTA_FILE_SAVABLE (docman);
-		if (save) ianjuta_file_savable_save (save, NULL);
-	}
-}
-
 static void
 build_set_command_in_context (BuildContext* context, BuildProgram *prog)
 {
@@ -1265,17 +1249,17 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	/* Send options to make */
 	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
-		if (!anjuta_preferences_get_int (prefs , PREF_TRANSLATE_MESSAGE))
+		if (!anjuta_preferences_get_bool (prefs , PREF_TRANSLATE_MESSAGE))
 		{
 			build_program_add_env (context->program, "LANGUAGE", "C");
 		}
-		if (anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE))
+		if (anjuta_preferences_get_bool (prefs , PREF_PARALLEL_MAKE))
 		{
 			gchar *arg = g_strdup_printf ("-j%d", anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE_JOB));
 			build_program_insert_arg (context->program, 1, arg);
 			g_free (arg);
 		}
-		if (anjuta_preferences_get_int (prefs , PREF_CONTINUE_ON_ERROR))
+		if (anjuta_preferences_get_bool (prefs , PREF_CONTINUE_ON_ERROR))
 		{
 			build_program_insert_arg (context->program, 1, "-k");
 		}
@@ -1513,7 +1497,7 @@ get_root_install_command(BasicAutotoolsPlugin *bplugin)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
 	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	if (anjuta_preferences_get_int (prefs , PREF_INSTALL_ROOT))
+	if (anjuta_preferences_get_bool (prefs , PREF_INSTALL_ROOT))
 	{
 		gchar* command = anjuta_preferences_get(prefs, PREF_INSTALL_ROOT_COMMAND);
 		if (command != NULL)
@@ -2789,7 +2773,7 @@ on_update_indicators_idle (gpointer data)
 	/* If indicators are not yet updated in the editor, do it */
 	if (ba_plugin->current_editor_filename &&
 		IANJUTA_IS_INDICABLE (editor) &&
-		anjuta_preferences_get_int (anjuta_shell_get_preferences (plugin->shell,
+		anjuta_preferences_get_bool (anjuta_shell_get_preferences (plugin->shell,
 																  NULL),
 									PREF_INDICATORS_AUTOMATIC))
 	{
