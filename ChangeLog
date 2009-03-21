@@ -1,3 +1,11 @@
+2009-03-21  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/class-inheritance/class-inherit.c
+	(cls_inherit_draw_graph):
+	* plugins/profiler/gprof-function-call-chart-view.c
+	(async_draw_graph):
+	fixed #576057 – doesn't build with graphviz 2.22.2
+
 2009-03-20  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:

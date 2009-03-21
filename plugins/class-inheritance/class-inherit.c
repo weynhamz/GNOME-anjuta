@@ -815,9 +815,18 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 		gdouble node_width;
 		gdouble node_height;
 		point node_pos;
+#ifndef ND_coord_i
+		pointf node_posf;
+#endif
 		
 		/* get some infos from the node */
+#ifdef ND_coord_i
 		node_pos = ND_coord_i(graph_node);
+#else
+		node_posf = ND_coord(graph_node);
+		PF2P(node_posf,node_pos);
+#endif
+		
 		node_width = ND_width (graph_node);
 		node_height = ND_height (graph_node);
 
