@@ -530,6 +530,9 @@ async_draw_graph (gpointer user_data)
 	Agedge_t *current_edge;
 	Agraph_t *current_graph;
 	point node_pos;
+#ifndef ND_coord_i	
+	pointf node_posf;
+#endif	
 	gdouble node_width;
 	gdouble node_height;
 	
@@ -541,7 +544,13 @@ async_draw_graph (gpointer user_data)
 		
 		if (self->priv->current_node)
 		{
+#ifdef ND_coord_i			
 			node_pos = ND_coord_i (self->priv->current_node);
+#else
+			node_posf = ND_coord (self->priv->current_node);
+			PF2P(node_posf,node_pos);
+#endif			
+			
 			node_pos.y += self->priv->y_offset;
 			node_width = ND_width (self->priv->current_node);
 			node_height = ND_height (self->priv->current_node);
