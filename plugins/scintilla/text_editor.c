@@ -3106,11 +3106,17 @@ static void
 iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
 				   IAnjutaIterable *position, gint char_alignment, GError **err)
 {
-	gint lineno, cur_pos, cur_col, real_pos, real_col;
 	GString *calltip;
 	GList *tip;
 	gint tips_count;
 	TextEditor *te = TEXT_EDITOR (iassist);
+	TextEditorCell *cell = TEXT_EDITOR_CELL (position);
+	gint column;
+	gint pos;
+	gint calltip_pos;
+	gint line;
+	gint calltip_lines = 0;
+	int i;
 	
 	g_return_if_fail (IS_TEXT_EDITOR (te));
 	g_return_if_fail (tips != NULL);
@@ -3120,7 +3126,6 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
 	DEBUG_PRINT ("Number of calltips found %d\n", tips_count);
 	
 	calltip = g_string_sized_new (256);
-
 	tip = tips;
 	while (tip)
 	{
@@ -3129,31 +3134,29 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
 		g_string_append (calltip, (gchar*) tip->data);
 		tip = g_list_next (tip);
 	}
-/*	
-	if (tips_count > 1)
+	for (i = 0; calltip->str[i] != '\0'; i++)
 	{
-		g_string_prepend_c (calltip, '\001');
-		g_string_append_c (calltip, '\002');
+		if (calltip->str[i] == '\n')
+			calltip_lines++;
 	}
-*/
 	/* Calculate real calltip position */
-	cur_pos = scintilla_send_message (SCINTILLA (te->scintilla),
-									 SCI_GETCURRENTPOS, 0, 0);
-	lineno = scintilla_send_message (SCINTILLA (te->scintilla),
-									 SCI_LINEFROMPOSITION, cur_pos, 0);
-	cur_col = scintilla_send_message (SCINTILLA (te->scintilla),
-									 SCI_GETCOLUMN, cur_pos, 0);
-	real_col = cur_col - char_alignment;
-	if (real_col < 0)
-		real_col = 0;
-	real_pos = scintilla_send_message (SCINTILLA (te->scintilla),
-									   SCI_FINDCOLUMN, lineno, real_col);
+	pos = text_editor_cell_get_position (cell);
+	column = scintilla_send_message (SCINTILLA (te->scintilla),
+	                                 SCI_GETCOLUMN,
+	                                 pos, 0);
+	line = scintilla_send_message (SCINTILLA (te->scintilla),
+	                               SCI_LINEFROMPOSITION,
+	                               pos, 0);
+	/* Align calltip above function call */
+	line -= (calltip_lines + 3);
+	calltip_pos = scintilla_send_message (SCINTILLA(te->scintilla),
+	                                      SCI_POSITIONFROMLINE, line, 0) + column;
+	
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_CALLTIPSHOW,
-							real_pos,
+							calltip_pos,
 							(uptr_t) calltip->str);
 	g_string_free (calltip, TRUE);
-	/* ContinueCallTip_new(); */
 }
 
 static void
@@ -3161,6 +3164,14 @@ iassist_cancel_tips (IAnjutaEditorAssist *iassist, GError **err)
 {
 	TextEditor *te = TEXT_EDITOR (iassist);
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPCANCEL, 0, 0);
+}
+
+static gboolean
+iassist_tip_shown (IAnjutaEditorAssist* iassist, GError **err)
+{
+	TextEditor *te = TEXT_EDITOR (iassist);
+	return scintilla_send_message (SCINTILLA (te->scintilla),
+	                                          SCI_CALLTIPACTIVE, 0, 0);
 }
 
 static void
@@ -3180,6 +3191,7 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->hide_suggestions = iassist_hide_suggestions;
 	iface->show_tips = iassist_show_tips;
 	iface->cancel_tips = iassist_cancel_tips;
+	iface->tip_shown = iassist_tip_shown;
 }
 
 /* IAnutaEditorFolds implementation */

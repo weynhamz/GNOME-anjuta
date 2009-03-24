@@ -1884,7 +1884,7 @@ on_auto_complete (GtkAction *action, gpointer data)
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	if (lang_plugin->assist)
-		cpp_java_assist_check (lang_plugin->assist, TRUE, TRUE);
+		cpp_java_assist_check (lang_plugin->assist, TRUE, TRUE, FALSE);
 }
 
 static GtkActionEntry actions[] = {

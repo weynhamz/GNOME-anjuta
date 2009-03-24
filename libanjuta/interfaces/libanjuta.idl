@@ -1945,6 +1945,15 @@ interface IAnjutaEditor
 		void cancel_tips ();
 		
 		/**
+		 * ianjuta_editor_assist_tip_shown:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Returns: whether a tooltip is crrently shown		
+		 */
+		gboolean tip_shown();
+		
+		/**
 		 * ianjuta_editor_assist_get_suggestions:
 		 * @obj: Self
 		 * @context: The context for the suggestions.

@@ -2084,16 +2084,10 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* i
 				   gint char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
-	GtkTextIter iter;
-	gint tip_position;
-	gtk_text_buffer_get_iter_at_mark (buffer, &iter,
-									  gtk_text_buffer_get_insert (buffer));
+	SourceviewCell* cell = SOURCEVIEW_CELL (ipos);
+	GtkTextIter* iter = sourceview_cell_get_iter(cell);
 	
-	tip_position = gtk_text_iter_get_offset (&iter) - char_alignment;
-	
-	if (tips == NULL)
-		return;
+	g_return_if_fail (tips != NULL);
 	
 	if (!sv->priv->assist_tip)
 	{
@@ -2103,13 +2097,13 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* i
 		g_object_weak_ref (G_OBJECT(sv->priv->assist_tip),
 		                   (GWeakNotify) on_assist_tip_destroyed,
 		                   sv);
-		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), tip_position);
+		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), iter);
 		gtk_widget_show (GTK_WIDGET (sv->priv->assist_tip));
 	}
 	else
 	{
 		assist_tip_set_tips (sv->priv->assist_tip, tips);
-		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), tip_position);
+		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), iter);
 	}
 }
 
@@ -2121,6 +2115,13 @@ iassist_cancel_tips (IAnjutaEditorAssist* iassist, GError** err)
 		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
 }
 
+static gboolean
+iassist_tip_shown (IAnjutaEditorAssist* iassist, GError** err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	return (sv->priv->assist_tip != NULL);
+}
+
 static void
 iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
@@ -2129,6 +2130,7 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->get_suggestions = iassist_get_suggestions;
 	iface->show_tips = iassist_show_tips;
 	iface->cancel_tips = iassist_cancel_tips;
+	iface->tip_shown = iassist_tip_shown;
 }
 
 static gboolean
