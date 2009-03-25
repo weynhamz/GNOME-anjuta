@@ -4,7 +4,7 @@
 
 			# check the return value of fetch_rss()
 
-			$rss = fetch_rss("http://blogs.gnome.org/anjuta");
+			$rss = fetch_rss("http://blogs.gnome.org/anjuta/feed");
 
 			if ( $rss ) {
 				echo "<ul>";
