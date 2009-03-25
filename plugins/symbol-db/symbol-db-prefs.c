@@ -119,13 +119,6 @@ on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
 }
 
 static void
-on_notify_prefs (AnjutaPreferences* prefs, const gchar* key,
-                 const gchar* value, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "on_notify_prefs ()");
-}
-
-static void
 on_listall_output (AnjutaLauncher * launcher,
 					AnjutaLauncherOutputType output_type,
 					const gchar * chars, gpointer user_data)
@@ -394,13 +387,7 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 #endif
 	
 	g_signal_connect (G_OBJECT (fchooser), "changed",
-					  G_CALLBACK (on_prefs_executable_changed), sdbp);	
-	
-
-	priv->prefs_notify_id = anjuta_preferences_notify_add_string (priv->prefs, 
-	                                                              CTAGS_PREFS_KEY, 
-	                                                              on_notify_prefs, 
-	                                                              priv->prefs, NULL);
+					  G_CALLBACK (on_prefs_executable_changed), sdbp);
 	
 	g_free (ctags_value);
 }
@@ -506,7 +493,6 @@ sdb_prefs_finalize (GObject *object)
 	
 	DEBUG_PRINT ("%s", "symbol_db_prefs_finalize ()");
 	
-	anjuta_preferences_notify_remove(priv->prefs, priv->prefs_notify_id);
 	anjuta_preferences_remove_page(priv->prefs, _("Symbol Database"));
 
 	if (priv->pkg_config_launcher != NULL)

@@ -60,6 +60,8 @@ struct _CppJavaAssistPriv {
 	gchar *search_cache;
 	gchar *scope_context_cache;
 	gchar *pre_word;
+	gchar *calltip_context;
+	
 	GCompletion *completion_cache;
 	gboolean editor_only;
 	guint word_idle;
@@ -90,31 +92,6 @@ cpp_java_assist_tag_destroy (CppJavaAssistTag *tag)
 {
 	g_free (tag->name);
 	g_free (tag);
-}
-
-static gint
-get_iter_column (CppJavaAssist *assist, IAnjutaIterable *iter)
-{
-	gchar ch;
-	gint offset = 0;
-	gint tabsize =
-		ianjuta_editor_get_tabsize (IANJUTA_EDITOR (assist->priv->iassist),
-									NULL);
-	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-									   0, NULL);
-	
-	while (ch != '\n')
-	{
-		if (!ianjuta_iterable_previous (iter, NULL))
-			break;
-		if (ch == '\t')
-			offset += tabsize - 1;
-		offset++;
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-										   0, NULL);
-	}
-	//DEBUG_PRINT ("Iter column: %d", offset);
-	return offset;
 }
 
 static gboolean
@@ -151,7 +128,7 @@ static GCompletion*
 create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
 				   GCompletion* mergeable)
 {	
-	GCompletion *completion;
+	GCompletion *completion;	
 	
 	if (mergeable == NULL)
 		completion = g_completion_new (completion_function);
@@ -629,11 +606,10 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 
 static gchar*
 cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
-									 IAnjutaIterable *iter,
-									 gint *context_offset)
+                                     IAnjutaIterable *iter)
 {
 	gchar ch;
-	gchar *context = NULL;
+	gchar *context = NULL;	
 	
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	if (ch == ')')
@@ -655,14 +631,11 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 		&& g_ascii_isspace (ianjuta_editor_cell_get_char
 								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
 
-	
 	context = cpp_java_assist_get_scope_context
 		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);
-	
-	if (context_offset)
-	{
-		*context_offset = get_iter_column (assist, iter);
-	}
+
+	/* Point iter to the first character of the scope to align calltip correctly */
+	ianjuta_iterable_next (iter, NULL);
 	
 	return context;
 }
@@ -714,7 +687,6 @@ cpp_java_assist_create_calltips (IAnjutaIterable* iter)
 
 static gboolean
 cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
-							  gint context_offset,
 							  IAnjutaIterable *position_iter)
 {	
 	GList *tips = NULL;
@@ -782,16 +754,9 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 	}
 	
 	if (tips)
-	{
-		/* Calculate calltip offset from context offset */
-		gint char_alignment =
-			get_iter_column (assist, position_iter)- context_offset;
-		
-		if (char_alignment < 0)
-			char_alignment = context_offset;
-		
+	{	
 		ianjuta_editor_assist_show_tips (assist->priv->iassist, tips,
-										 position_iter, char_alignment,
+										 position_iter, 0,
 										 NULL);
 		g_list_foreach (tips, (GFunc) g_free, NULL);
 		g_list_free (tips);
@@ -800,40 +765,41 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 	return FALSE;
 }
 
-gboolean
+void
 cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
-					   gboolean calltips)
+					   gboolean calltips, gboolean backspace)
 {
-	gboolean shown = FALSE;
 	IAnjutaEditor *editor;
-	IAnjutaIterable *iter, *iter_save;	
+	IAnjutaIterable *iter;
 	
 	if (!autocomplete && !calltips)
-		return FALSE; /* Nothing to do */
+		return; /* Nothing to do */
 	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
 	
 	iter = ianjuta_editor_get_position (editor, NULL);
 	ianjuta_iterable_previous (iter, NULL);
-	iter_save = ianjuta_iterable_clone (iter, NULL);
-	
+
 	if (autocomplete)
 	{
 		gboolean shown = FALSE;
 		g_free (assist->priv->pre_word);
 		assist->priv->pre_word = cpp_java_assist_get_pre_word (editor, iter);
 		DEBUG_PRINT ("Pre word: %s", assist->priv->pre_word);
-		
+
 		if (assist->priv->pre_word && strlen (assist->priv->pre_word) > 3)
 		{
 			if (!assist->priv->search_cache ||
-				!g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
+			    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
 			{
-				g_idle_add_full (G_PRIORITY_LOW,
-								 (GSourceFunc) cpp_java_assist_create_word_completion_cache,
-								 assist,
-								 NULL);
-				DEBUG_PRINT ("Idle source added");
+				if (!backspace)
+				{
+					g_idle_add_full (G_PRIORITY_LOW,
+					                 (GSourceFunc) cpp_java_assist_create_word_completion_cache,
+					                 assist,
+					                 NULL);
+					DEBUG_PRINT ("Idle source added");
+				}
 			}
 			shown = cpp_java_assist_show_autocomplete (assist);
 		}
@@ -841,33 +807,42 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			shown = FALSE;
 		if (!shown)
 			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
-													NULL);
+			                                        NULL);
 		DEBUG_PRINT ("Show autocomplete: %d", shown);
 	}
 	if (calltips)
 	{
-		if (!shown)
+		gchar *call_context =
+			cpp_java_assist_get_calltip_context (assist, iter);
+		if (call_context)
 		{
-			gint offset;
-			gchar *call_context =
-				cpp_java_assist_get_calltip_context (assist, iter, &offset);
-			if (call_context)
+			if (ianjuta_editor_assist_tip_shown (IANJUTA_EDITOR_ASSIST (editor), NULL))
 			{
-				shown = cpp_java_assist_show_calltip (assist, call_context,
-													  offset, iter_save);
+				if (!g_str_equal (call_context, assist->priv->calltip_context))
+				{
+					cpp_java_assist_show_calltip (assist, call_context,
+					                              iter);
+					g_free (assist->priv->calltip_context);
+					assist->priv->calltip_context = g_strdup(call_context);
+				}
 			}
 			else
 			{
-				ianjuta_editor_assist_cancel_tips (assist->priv->iassist, NULL);
+				cpp_java_assist_show_calltip (assist, call_context,
+				                              iter);
+				g_free (assist->priv->calltip_context);
+				assist->priv->calltip_context = g_strdup(call_context);
 			}
-			g_free (call_context);
 		}
+		else
+		{
+			ianjuta_editor_assist_cancel_tips (assist->priv->iassist, NULL);
+			g_free (assist->priv->calltip_context);
+			assist->priv->calltip_context = NULL;
+		}
+		g_free (call_context);
 	}
-	
-	g_object_unref (iter);
-	g_object_unref (iter_save);
-	
-	return shown;
+	g_object_unref (iter);	
 }
 
 static void
@@ -883,7 +858,7 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
 												 TRUE);
-	cpp_java_assist_check (assist, enable_complete, enable_calltips);
+	cpp_java_assist_check (assist, enable_complete, enable_calltips, ch == '\b');
 }
 
 static void
@@ -965,7 +940,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	
 	/* Show calltip if we completed function */
 	if (add_brace_after_func)
-		cpp_java_assist_check (assist, FALSE, TRUE);
+		cpp_java_assist_check (assist, FALSE, TRUE, FALSE);
 	
 	g_string_free (assistance, TRUE);
 }
@@ -1012,6 +987,11 @@ cpp_java_assist_finalize (GObject *object)
 	CppJavaAssist *assist = CPP_JAVA_ASSIST (object);
 	cpp_java_assist_uninstall (assist);
 	cpp_java_assist_destroy_completion_cache (assist, TRUE);
+	if (assist->priv->calltip_context)
+	{
+		g_free (assist->priv->calltip_context);
+		assist->priv->calltip_context = NULL;
+	}
 	g_free (assist->priv);
 	G_OBJECT_CLASS (cpp_java_assist_parent_class)->finalize (object);
 }

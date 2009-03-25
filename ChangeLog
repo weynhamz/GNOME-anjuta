@@ -1,3 +1,45 @@
+=== 2.26.0.1 ===
+
+2009-03-25  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/symbol-db/symbol-db-prefs.c (sdb_prefs_init1),
+	(sdb_prefs_finalize):
+	Fixed missing symbol
+
+2009-03-24  Johannes Schmid  <jhs@gnome.org>
+
+	* configire.in: Bumped version to 2.26.0.1
+	* NEWS: Updated
+
+2009-03-24  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Added ianjuta_editor_assist_tip_shown() to determine if a calltip is
+	currently active.
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_get_calltip_context),
+	(cpp_java_assist_show_calltip), (cpp_java_assist_check),
+	(on_editor_char_added), (on_assist_chosen),
+	(cpp_java_assist_finalize):
+
+	* plugins/language-support-cpp-java/cpp-java-assist.h:
+	* plugins/language-support-cpp-java/plugin.c (on_auto_complete):
+	- Avoid jumping tooltips
+	- Fix #574802 – show calltips makes the editing lag
+	- Fixed backspace problems
+
+	* plugins/scintilla/text_editor.c (iassist_show_tips),
+	(iassist_tip_shown), (iassist_iface_init):
+	Implemented changed calltip behaviour
+
+	* plugins/sourceview/assist-tip.c (assist_tip_get_coordinates),
+	(assist_tip_move):
+	* plugins/sourceview/assist-tip.h:
+	* plugins/sourceview/sourceview.c (iassist_show_tips),
+	(iassist_tip_shown), (iassist_iface_init):
+	Implemented changed calltip behaviour
+
 2009-03-21  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/class-inheritance/class-inherit.c

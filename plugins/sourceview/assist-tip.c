@@ -109,28 +109,21 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 
 /* Return a tuple containing the (x, y) position of the cursor + 1 line */
 static void
-assist_tip_get_coordinates(GtkWidget* view, int offset, int* x, int* y, GtkWidget* entry)
+assist_tip_get_coordinates(GtkWidget* view, int* x, int* y, GtkTextIter* iter, GtkWidget* entry)
 {
 	int xor, yor;
-	/* We need to Rectangles because if we step to the next line
+	/* We need Rectangles because if we step to the next line
 	the x position is lost */
 	GtkRequisition entry_req;
-	GdkRectangle rectx;
-	GdkRectangle recty;
+	GdkRectangle rect;
 	gint view_width;
 	gint width_left;
 	GdkWindow* window;
-	GtkTextIter iter;
-	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	
-	gtk_text_buffer_get_iter_at_offset(buffer, &iter, 
-									   offset); 
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &iter, &rectx);
-	
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &iter, &recty);
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), iter, &rect);
 	window = gtk_text_view_get_window(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT);
 	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT, 
-		rectx.x + rectx.width, recty.y, x, y);
+		rect.x, rect.y, x, y);
 	
 	gdk_window_get_origin(window, &xor, &yor);
 	*x = *x + xor;
@@ -153,10 +146,10 @@ assist_tip_get_coordinates(GtkWidget* view, int offset, int* x, int* y, GtkWidge
 }
 
 void
-assist_tip_move(AssistTip* assist_tip, GtkTextView* text_view, int offset)
+assist_tip_move(AssistTip* assist_tip, GtkTextView* text_view, GtkTextIter* iter)
 {
 	int x,y;
-	assist_tip_get_coordinates(GTK_WIDGET(text_view), offset, &x, &y, assist_tip->label);	
+	assist_tip_get_coordinates(GTK_WIDGET(text_view), &x, &y, iter, assist_tip->label);	
 	gtk_window_move(GTK_WINDOW(assist_tip), x, y);
 
 }
