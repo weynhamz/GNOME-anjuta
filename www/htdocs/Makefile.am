@@ -2,9 +2,8 @@ SUBDIRS=css
 
 urlpath = /anjuta
 
-page_SCRIPTS = index.html 
+HTMLFILES = development.html downloads.html features.html home.html layout.shtml
 
-page_DATA = \
-	$(page_SCRIPTS)
+page_DATA = $(HTMLFILES)
 
 include $(top_srcdir)/rules.common
