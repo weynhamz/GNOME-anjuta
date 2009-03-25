@@ -1,14 +1,26 @@
 	<p>
 		<?php
-			require("anjuta_news.html");
+			error_reporting(E_ERROR);
+
+			# check the return value of fetch_rss()
+
+			$rss = fetch_rss("http://blogs.gnome.org/anjuta");
+
+			if ( $rss ) {
+				echo "<ul>";
+				foreach ($rss->items as $item) {
+					$href = $item['link'];
+					$title = $item['title'];
+					echo "<li><a href=$href>$title</a></li>";
+				}
+				echo "</ul>";
+			}
+			else {
+				echo "Could not fetch news!" .
+					 "<br>Error Message: "	. magpie_error();
+			}
 		?>
 	</p>
-	<p>
-		Members submit news <a href="http://sourceforge.net/news/submit.php?group_id=14222"
-		>here</a>. News is synchronized every hour, so submitted news
-		may not be available immediately on this page.
-	</p>
-
 	<h3>Introduction</h3>
 		<p>
 		Anjuta is a versatile Integrated Development Environment (IDE)

@@ -17,7 +17,7 @@
         <a href="http://anjuta.org/" title="Home">Home</a>
       </li>
       <li id="siteaction-gnome_news">
-        <a href="http://sourceforge.net/news/?group_id=14222" title="News">News</a>
+        <a href="http://blogs.gnome.org/anjuta" title="News">News</a>
       </li>
       <li id="siteaction-gnome_projects">
         <a href="http://sourceforge.net/projects/anjuta" title="Project Site">Project Site</a>
