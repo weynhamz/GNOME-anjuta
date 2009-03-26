@@ -1,3 +1,21 @@
+2009-03-26  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/scratchbox/plugin.c (ipreferences_merge):
+	Fixed warning
+	
+	* www/htdocs/Makefile.am:
+	* www/htdocs/README:
+	* www/htdocs/css/Makefile.am:
+	* www/htdocs/css/docs.css:
+	* www/htdocs/css/layout.css:
+	* www/htdocs/css/style.css:
+	* www/htdocs/development.html:
+	* www/htdocs/downloads.html:
+	* www/htdocs/features.html:
+	* www/htdocs/index.html:
+	* www/htdocs/layout.shtml:
+	Removed website directory. Website is in gnomeweb-wml repository now
+
 2009-03-24  Johannes Schmid  <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

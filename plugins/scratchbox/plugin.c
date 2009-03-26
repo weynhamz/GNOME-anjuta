@@ -468,7 +468,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 
         plugin->target = gtk_combo_box_get_active_text (
 				GTK_COMBO_BOX(combo_target_entry));
-
 }
 
 static void

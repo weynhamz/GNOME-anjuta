@@ -1,9 +1,0 @@
-Deployment of anjuta website
-
-1. There has be a directory called 'svn' here that contains README, ChangeLog, HACKING, NEWS, ROADMAP, TODO.tasks and AUTHORS from the top level directory of anjuta source tree. Create this during deployment.
-
-2. index.php should be a symbolic link to anjuta.php
-
-3. Copy all these files and directories (excluding any hidden files such as version control files) to 'htdocs' directory of the webserver.
-
-
