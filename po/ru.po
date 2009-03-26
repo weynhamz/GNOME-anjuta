@@ -11,15 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-03 03:11+0300\n"
-"PO-Revision-Date: 2009-03-02 20:39+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"POT-Creation-Date: 2009-03-26 03:54+0300\n"
+"PO-Revision-Date: 2009-03-23 00:03+0300\n"
+"Last-Translator: Yuriy Penkin <yuriy.penkin@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -29,7 +30,7 @@ msgstr "Интегрированная среда разработки Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Разработка приложений в интегрированной среде разработки"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Интегрированная среда разработки"
 
@@ -236,7 +237,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:520
+#: ../plugins/symbol-db/symbol-db-prefs.c:438
 msgid "Load"
 msgstr "Загрузить"
 
@@ -245,7 +246,7 @@ msgstr "Загрузить"
 msgid "Available Plugins"
 msgstr "Доступные модули"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:661
 msgid "Preferred plugins"
 msgstr "Предпочитаемые дополнения"
 
@@ -336,7 +337,7 @@ msgstr "Диспетчер дополнений"
 
 #: ../libanjuta/anjuta-profile.c:255
 msgid "The plugin manager to use for resolving plugins"
-msgstr "Менеджер дополнений для работы с дополнениями"
+msgstr "Диспетчер дополнений для работы с дополнениями"
 
 #: ../libanjuta/anjuta-profile.c:263
 msgid "Profile Name"
@@ -355,14 +356,12 @@ msgid "List of plugins for this profile"
 msgstr "Список дополнений для этого профиля"
 
 #: ../libanjuta/anjuta-profile.c:280
-#, fuzzy
 msgid "Synchronization file"
-msgstr "URI для синхронизации"
+msgstr "Файл для синхронизации"
 
 #: ../libanjuta/anjuta-profile.c:281
-#, fuzzy
 msgid "File to sync the profile xml"
-msgstr "URI для синхронизации профиля xml"
+msgstr "Файл для синхронизации профиля xml"
 
 #: ../libanjuta/anjuta-profile.c:508
 msgid "Please select a plugin from the list"
@@ -397,7 +396,7 @@ msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
-"Вы уверены, что хотите сбросить настройки в\n"
+"Уверены, что хотите сбросить настройки в\n"
 "их значения по умолчанию?"
 
 #. Action name
@@ -417,7 +416,7 @@ msgstr "Категория"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:648
 msgid "General"
 msgstr "Общие"
 
@@ -538,7 +537,7 @@ msgstr "Отсутствует"
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:312
 #: ../plugins/file-manager/file-view.c:79
 msgid "Unversioned"
-msgstr ""
+msgstr "Не под контролем системы версий"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:218
 msgid "Text"
@@ -1000,13 +999,13 @@ msgstr "Команда прервана"
 msgid "Fixed data-view"
 msgstr "Фиксированное представление данных"
 
-#: ../plugins/class-inheritance/class-inherit.c:1099
+#: ../plugins/class-inheritance/class-inherit.c:1108
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:330
 msgid "Update"
 msgstr "Обновить"
 
-#: ../plugins/class-inheritance/class-inherit.c:1100
+#: ../plugins/class-inheritance/class-inherit.c:1109
 msgid "Update the graph"
 msgstr "Обновить граф"
 
@@ -1120,16 +1119,16 @@ msgstr "Сигналы"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "Source File:"
-msgstr "Файл исходных текстов"
+msgstr "Файл исходного кода:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
 msgid "Source/Header Headings:"
-msgstr "Заголовки файла заголовков/исходных текстов"
+msgstr "Заголовки файла заголовков/исходного кода:"
 
 #: ../plugins/class-gen/generator.c:132
 #, c-format
 msgid "Header or source file has not been created"
-msgstr "Заголовочный файл или файл исходный текстов не был создан"
+msgstr "Заголовочный файл или файл исходного кода не был создан"
 
 #: ../plugins/class-gen/generator.c:294
 msgid "Autogen template used for the header file"
@@ -1198,7 +1197,8 @@ msgstr ""
 "<b>Внимание: </b>\n"
 "\n"
 "После нажатия OK файл будет удалён с диска и из CVS. Естественно файл не "
-"будет удалён из CVS до вызова CVS Commit. <b>Вы предупреждены!</b>"
+"будет удалён из CVS до вызова публикации изменений CVS. <b>Вы предупреждены!"
+"</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
@@ -1218,7 +1218,7 @@ msgstr "CVS: Добавить файл/каталог"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "CVS: Commit file/directory"
-msgstr "CVS: Зафиксировать изменения файла/каталога"
+msgstr "CVS: Опубликовать файл/каталог"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 msgid "CVS: Diff file/directory"
@@ -1259,7 +1259,7 @@ msgstr "Выберите файл/каталог для добавления:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "Choose file or directory to commit:"
-msgstr "Выберите файл или каталог для операции фиксации:"
+msgstr "Выберите файл или каталог для операции публикации:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to diff:"
@@ -1366,12 +1366,10 @@ msgstr "Унифицированный формат вместо контекс�
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
-#, fuzzy
 msgid "Use revision/tag:"
-msgstr "Использовать правку/метку"
+msgstr "Использовать правку/метку:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-#, fuzzy
 msgid "Use revision:"
 msgstr "Использовать правку:"
 
@@ -1405,7 +1403,7 @@ msgstr "Команда CVS выполняется. Дождитесь её ок�
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:154
 msgid "Unable to delete file"
-msgstr "Не удаётся удалить файл"
+msgstr "Не удалось удалить файл"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:246
 #: ../plugins/git/git-commit-dialog.c:68
@@ -1413,7 +1411,7 @@ msgstr "Не удаётся удалить файл"
 #: ../plugins/git/git-merge-dialog.c:80
 #: ../plugins/subversion/subversion-commit-dialog.c:70
 msgid "Are you sure that you want to pass an empty log message?"
-msgstr "Вы уверены, что не хотите оставить пустым сообщение журнала?"
+msgstr "Уверены, что не хотите оставить пустым сообщение журнала?"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:436
 msgid "CVSROOT"
@@ -1438,7 +1436,7 @@ msgstr "Каталог"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
-msgstr "Вы уверены, что не хотите написать сообщение для журнала?"
+msgstr "Уверены, что не хотите написать сообщение для журнала?"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
@@ -1496,13 +1494,13 @@ msgstr "Удалить файл или папку из дерева CVS"
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:68 ../plugins/cvs-plugin/plugin.c:127
 msgid "_Commit"
-msgstr "_Фиксация"
+msgstr "П_убликация"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "Commit your changes to the CVS tree"
-msgstr "Фиксировать изменения в дереве CVS"
+msgstr "Опубликовать изменения в дереве CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1636,9 +1634,8 @@ msgid "Description:"
 msgstr "Описание:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
-#, fuzzy
 msgid "Disable"
-msgstr "Выключен"
+msgstr "Выключить"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
 #: ../plugins/gdb/anjuta-gdb.glade.h:10
@@ -1811,7 +1808,7 @@ msgstr "_Значение"
 
 #: ../plugins/debug-manager/breakpoints.c:1669
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "Вы уверены, что хотите удалить все точки останова?"
+msgstr "Уверены, что хотите удалить все точки останова?"
 
 #. Action name
 #. Stock icon, if any
@@ -2084,7 +2081,7 @@ msgstr "Добавить каталог исходных текстов"
 
 #: ../plugins/debug-manager/plugin.c:859
 msgid "Add additional source paths"
-msgstr "Добавить дополнительные пути к исходным текстам"
+msgstr "Добавить дополнительные пути к исходным кодам"
 
 #. Action name
 #. Stock icon, if any
@@ -2133,7 +2130,6 @@ msgstr "Разделяемые библиотеки"
 
 #: ../plugins/debug-manager/plugin.c:919
 #: ../plugins/debug-manager/plugin.c:1019
-#, fuzzy
 msgid "Show shared libraries mappings"
 msgstr "Показать карты разделяемых библиотек"
 
@@ -2314,9 +2310,8 @@ msgid "Show Line Markers"
 msgstr "Показать маркеры строк"
 
 #: ../plugins/debug-manager/sparse_view.c:1204
-#, fuzzy
 msgid "Whether to display line marker pixbufs"
-msgstr "Будут ли отображаться маркеры сторк"
+msgstr "Показывать значки маркеров строк"
 
 #. Action name
 #. Stock icon, if any
@@ -2403,9 +2398,9 @@ msgid "Unable to open %s. Debugger cannot start."
 msgstr "Не удалось открыть %s. Отладчик не может быть запущен."
 
 #: ../plugins/debug-manager/start.c:922
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to detect mime-type of %s. Debugger cannot start."
-msgstr "Не удалось открыть %s. Отладчик не может быть запущен."
+msgstr "Не удалось определить тип MIME для %s. Отладчик не может быть запущен."
 
 #: ../plugins/debug-manager/start.c:1058 ../plugins/debug-manager/start.c:1250
 #: ../plugins/run-program/parameters.c:600
@@ -2531,9 +2526,8 @@ msgid "Help operations"
 msgstr "Операции со справкой"
 
 #: ../plugins/devhelp/plugin.c:355
-#, fuzzy
 msgid "Online"
-msgstr "Подчеркнутый"
+msgstr "Искать в сети"
 
 #: ../plugins/devhelp/plugin.c:396
 msgid "Contents"
@@ -2561,7 +2555,7 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Вы уверены, что хотите перезагрузить «%s»?\n"
+"Уверены, что хотите перезагрузить «%s»?\n"
 "Все несохранённые изменения будут утеряны."
 
 #: ../plugins/document-manager/action-callbacks.c:285
@@ -3266,9 +3260,8 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:445
 #: ../plugins/search/anjuta-search.glade.h:23
-#, fuzzy
 msgid "Match case"
-msgstr "Парная _скобка"
+msgstr "Учитывать регистр"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3281,9 +3274,8 @@ msgstr "Парная _скобка"
 #. * recent chooser menu widget.
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
-#, fuzzy
 msgid "No items found"
-msgstr "Элементы не найдены"
+msgstr "Нет элементов"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
@@ -3368,7 +3360,7 @@ msgstr "Открыть с помощью:"
 #: ../plugins/file-loader/plugin.c:241
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
-msgstr "Менеджер документов"
+msgstr "Диспетчер документов"
 
 #: ../plugins/file-loader/plugin.c:461 ../plugins/patch/patch-plugin.c:116
 #: ../plugins/run-program/parameters.c:308
@@ -3531,9 +3523,8 @@ msgid "Do not show hidden files"
 msgstr "Не показывать скрытые файлы"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
-#, fuzzy
 msgid "Do not show unversioned files"
-msgstr "Не показывать скрытые файлы"
+msgstr "Не показывать файлы, не учитываемые системой контроля версий"
 
 #: ../plugins/file-manager/file-manager.glade.h:8
 msgid "Root directory if no project is open:"
@@ -3544,19 +3535,16 @@ msgid "Loading..."
 msgstr "Загрузка..."
 
 #: ../plugins/file-manager/file-view.c:73
-#, fuzzy
 msgid "Up-to-date"
-msgstr "Обновить"
+msgstr "Не требует публикации"
 
 #: ../plugins/file-manager/file-view.c:75
-#, fuzzy
 msgid "Locked"
-msgstr "Загружен"
+msgstr "Захвачен"
 
 #: ../plugins/file-manager/file-view.c:81
-#, fuzzy
 msgid "Ignored"
-msgstr "_Удалить"
+msgstr "Не учитывается"
 
 #: ../plugins/file-manager/file-view.c:484
 msgid "Filename"
@@ -3578,18 +3566,18 @@ msgstr "_Переименовать"
 msgid "Rename file or directory"
 msgstr "Переименовать файл/каталог"
 
-#: ../plugins/file-manager/plugin.c:285
+#: ../plugins/file-manager/plugin.c:290
 msgid "File manager popup actions"
-msgstr "Всплывающие команды менеджера файлов"
+msgstr "Всплывающие команды работы с файлами"
 
-#: ../plugins/file-manager/plugin.c:318
+#: ../plugins/file-manager/plugin.c:323
 msgid "Files"
 msgstr "Файлы"
 
-#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
+#: ../plugins/file-manager/plugin.c:447 ../plugins/file-manager/plugin.c:456
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
-msgstr "Менеджер файлов"
+msgstr "Управление файлами"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 msgid "<b>File Information</b>"
@@ -3781,13 +3769,12 @@ msgstr "Проект не существует или путь неверен"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2595
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
-#, fuzzy
 msgid "Malformed project"
-msgstr "Закрыть проект"
+msgstr "Некорректный проект"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2792
 msgid "Please specify group name"
-msgstr "Определите название группы"
+msgstr "Задайте название группы"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2806
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
@@ -3817,7 +3804,7 @@ msgstr "Группа не может быть удалена"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3046
 msgid "Please specify target name"
-msgstr "Определите название цели"
+msgstr "Задайте название цели"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3060
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
@@ -3839,11 +3826,11 @@ msgstr "Цель уже существует"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3100
 msgid "General failure in target creation"
-msgstr ""
+msgstr "Общая ошибка при создании цели"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3128
 msgid "Newly created target could not be identified"
-msgstr ""
+msgstr "Созданная цель не может быть определена"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3161
 msgid "Target couldn't be removed"
@@ -3907,16 +3894,15 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-project.c:3441
 msgid "Source file is already in given target"
-msgstr ""
+msgstr "Файл исходных текстов уже в этой цели"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3458
 msgid "General failure in adding source file"
-msgstr ""
+msgstr "Общая ошибка при добавлении файла исходных текстов"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3491
-#, fuzzy
 msgid "Newly added source file could not be identified"
-msgstr "Заголовочный файл или файл исходный текстов не был создан"
+msgstr "Добавленный файл исходного кода не может быть определён"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3522
 msgid "Source couldn't be removed"
@@ -3931,9 +3917,8 @@ msgstr "Каталог проекта"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:342
 #: ../plugins/gbf-am/gbf-am-properties.c:394
-#, fuzzy
 msgid "Enter new module"
-msgstr "Очистить модуль"
+msgstr "Задайте новый модуль"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:430
 #: ../plugins/gbf-am/gbf-am-properties.c:923
@@ -3946,27 +3931,26 @@ msgid "Version"
 msgstr "Версия"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:523
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
 "packages?"
-msgstr "Вы уверены, что хотите удалить все завершённые задачи?"
+msgstr "Уверены, что хотите удалить модуль «%s» и все связанные пакеты?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:525
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
-msgstr "Вы уверены, что хотите удалить пакет «%s»?"
+msgstr "Уверены, что хотите удалить пакет «%s»?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:583
 #: ../plugins/gbf-am/gbf-am-properties.c:665
-#, fuzzy
 msgid "Enter new variable"
-msgstr "Переменные окружения:"
+msgstr "Задайте новую переменную"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:696
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
-msgstr "Вы уверены, что хотите удалить переменную «%s»?"
+msgstr "Уверены, что хотите удалить переменную «%s»?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:847
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
@@ -4002,55 +3986,54 @@ msgstr "Дополнительно"
 #: ../plugins/gbf-am/gbf-am-properties.c:1322
 #: ../plugins/gbf-am/gbf-am-properties.c:1412
 msgid "C compiler flags:"
-msgstr "Флаги компилятора C:"
+msgstr "Ключи компилятора C:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1324
 msgid "C preprocessor flags:"
-msgstr "Флаги препроцессора C:"
+msgstr "Ключи препроцессора C:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1326
 msgid "C++ compiler flags:"
-msgstr "Флаги компилятора C++:"
+msgstr "Ключи компилятора C++:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1328
 msgid "gcj compiler flags (ahead-of-time):"
-msgstr "Флаги компилятора gcj (ahead-of-time):"
+msgstr "Ключи компилятора gcj (ahead-of-time):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1330
 msgid "Java compiler flags (just-in-time):"
-msgstr "Флага компилятора Java (just-in-time):"
+msgstr "Ключи компилятора Java (just-in-time):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1332
 #: ../plugins/gbf-am/gbf-am-properties.c:1420
 msgid "Fortran compiler flags:"
-msgstr "Флаги компилятора Fortran:"
+msgstr "Ключи компилятора Fortran:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1335
 msgid "Includes (deprecated):"
-msgstr ""
+msgstr "Пути включений (устарело):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1346
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
-#, fuzzy
 msgid "Install directories:"
-msgstr "Игнорировать каталоги:"
+msgstr "Каталоги установки:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1414
 msgid "C preprocessor flags"
-msgstr "Флаги препроцессора C"
+msgstr "Ключи препроцессора C"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1416
 msgid "C++ compiler flags"
-msgstr "Флаги компилятора C++"
+msgstr "Ключи компилятора C++"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1418
 msgid "gcj compiler flags (ahead-of-time)"
-msgstr "Флаги компилятора gcj (ahead-of-time)"
+msgstr "Ключи компилятора gcj (ahead-of-time)"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1424
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
 msgid "Linker flags:"
-msgstr "Флаги компоновщика:"
+msgstr "Ключи компоновщика:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1430
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
@@ -4063,9 +4046,8 @@ msgid "Dependencies:"
 msgstr "Зависимости:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1439
-#, fuzzy
 msgid "Advanced options"
-msgstr "_Подробное руководство"
+msgstr "Расширенные параметры"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1514
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
@@ -4083,14 +4065,12 @@ msgstr "Группа:"
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
-#, fuzzy
 msgid "Install directory:"
-msgstr "_Установить проект"
+msgstr "Каталог для установки:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1576
-#, fuzzy
 msgid "Advanced..."
-msgstr "_Добавить"
+msgstr "Расширенные..."
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
@@ -4161,15 +4141,15 @@ msgstr "_Проход:"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:690
-#, fuzzy, c-format
+#, c-format
 msgid "Loading Executable: %s\n"
-msgstr "Загрузка исполняемого файла: "
+msgstr "Загрузка исполняемого файла: %s\n"
 
 #. The %s argument is a file name
 #: ../plugins/gdb/debugger.c:721
-#, fuzzy, c-format
+#, c-format
 msgid "Loading Core: %s\n"
-msgstr "Загрузка дампа (core): "
+msgstr "Загрузка образа памяти (core): %s\n"
 
 #: ../plugins/gdb/debugger.c:803
 #, c-format
@@ -4302,7 +4282,6 @@ msgid "Sending signal %s to the process: %d"
 msgstr "Отправка сигнала %s процессу: %d"
 
 #: ../plugins/gdb/debugger.c:3935
-#, fuzzy
 msgid "Error whilst signaling the process."
 msgstr "При посылке сигнала процессу произошла ошибка."
 
@@ -4343,9 +4322,8 @@ msgid "<b>Changes:</b>"
 msgstr "<b>Изменения:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:7
-#, fuzzy
 msgid "<b>Commit to revert:</b>"
-msgstr "<b>Программа для тестирования:</b>"
+msgstr "<b>Опубликовать в откате:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:8
 msgid "<b>Filters</b>"
@@ -4353,11 +4331,11 @@ msgstr "<b>Фильтры</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:9
 msgid "<b>Folder to create patches in:</b>"
-msgstr "<b>Каталог для создания патчей в нем:</b>"
+msgstr "<b>Каталог для создания заплаток в нем:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:10
 msgid "<b>Generate patches relative to:</b>"
-msgstr "<b>Создавать патчи относительно:</b>"
+msgstr "<b>Создавать заплатки относительно:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:11
 msgid "<b>Good revision:</b>"
@@ -4378,22 +4356,19 @@ msgstr "<b>Режим:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:16
 msgid "<b>Remote branch to rebase from:</b>"
-msgstr ""
+msgstr "<b>Удалённая ветка для переноса:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:17
-#, fuzzy
 msgid "<b>Remote to delete:</b>"
-msgstr "<b>Выберите изменения для восстановления:</b>"
+msgstr "<b>Удалённый для удаления:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:18
-#, fuzzy
 msgid "<b>Repository to pull from:</b>"
-msgstr "<b>Репозиторий: </b>"
+msgstr "<b>Репозиторий для загрузки:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
-#, fuzzy
 msgid "<b>Reset to:</b>"
-msgstr "<b>Правка:</b>"
+msgstr "<b>Сбросить к:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:20
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
@@ -4401,14 +4376,13 @@ msgid "<b>Revision:</b>"
 msgstr "<b>Правка:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:21
-#, fuzzy
 msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>Выберите файлы для фиксации:</b>"
+msgstr "<b>Выберите файлы для извлечения:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
-msgstr "<b>Выберите файлы для фиксации:</b>"
+msgstr "<b>Выберите файлы для публикации:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:23
 msgid "<b>Select Files to Ignore:</b>"
@@ -4420,9 +4394,8 @@ msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Отметьте файлы, для которых конфликт разрешён:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:25
-#, fuzzy
 msgid "<b>Select Files to Unstage:</b>"
-msgstr "<b>Выберите файлы для фиксации:</b>"
+msgstr "<b>Выберите файлы для удаления:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select file to add:</b>"
@@ -4433,9 +4406,8 @@ msgid "<b>Select file to remove:</b>"
 msgstr "<b>Выберите файлы для удаления:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:28
-#, fuzzy
 msgid "<b>Tag name:</b>"
-msgstr "<b>Изменения:</b>"
+msgstr "<b>Метка:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:29
 msgid "<b>URL:</b>"
@@ -4457,22 +4429,21 @@ msgstr "Добавить удалённую ветку"
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
 #: ../plugins/git/anjuta-git.glade.h:34
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Добавить подпись"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Annotate this tag"
-msgstr ""
+msgstr "Пометить"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
 #: ../plugins/git/anjuta-git.glade.h:37
 msgid "Append fetch data"
-msgstr ""
+msgstr "Добавлять извлечённые данные"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
 #: ../plugins/git/anjuta-git.glade.h:39
-#, fuzzy
 msgid "Author/Grep"
-msgstr "Автор"
+msgstr "Автор/Шаблон"
 
 #: ../plugins/git/anjuta-git.glade.h:40
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
@@ -4481,7 +4452,7 @@ msgstr "Автор:"
 
 #: ../plugins/git/anjuta-git.glade.h:41
 msgid "Branch must be fully merged"
-msgstr ""
+msgstr "Ветвь должна быть полностью слита"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Check Out Files"
@@ -4489,16 +4460,16 @@ msgstr "Извлечь файлы"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Check out the branch after it is created"
-msgstr ""
+msgstr "Извлечь ветвь после создания"
 
 #: ../plugins/git/anjuta-git.glade.h:44
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Commit Changes"
-msgstr "Зафиксировать изменения"
+msgstr "Опубликовать изменения"
 
 #: ../plugins/git/anjuta-git.glade.h:45
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Публиковать после быстрого слияния"
 
 #: ../plugins/git/anjuta-git.glade.h:46
 msgid "Create Branch"
@@ -4509,9 +4480,8 @@ msgid "Create Tag"
 msgstr "Создать метку"
 
 #: ../plugins/git/anjuta-git.glade.h:48
-#, fuzzy
 msgid "Create patch series"
-msgstr "Создать список задач"
+msgstr "Создать серию заплаток"
 
 #: ../plugins/git/anjuta-git.glade.h:49 ../plugins/git/git-log-dialog.c:188
 #: ../plugins/subversion/subversion-log-dialog.c:139
@@ -4523,84 +4493,73 @@ msgid "Delete Branch"
 msgstr "Удалить ветку"
 
 #: ../plugins/git/anjuta-git.glade.h:51
-#, fuzzy
 msgid "Delete Remote Branch"
-msgstr "Выделить до _скобки"
+msgstr "Удалить ветвь в сети"
 
 #: ../plugins/git/anjuta-git.glade.h:52
-#, fuzzy
 msgid "Do not commit"
-msgstr "Не показывать закладки"
+msgstr "Не публиковать"
 
 #: ../plugins/git/anjuta-git.glade.h:53
-#, fuzzy
 msgid "Do not follow tags"
-msgstr "Не показывать закладки"
+msgstr "Не следовать меткам"
 
 #: ../plugins/git/anjuta-git.glade.h:54
 msgid "Fetch remote branches after creation"
-msgstr ""
+msgstr "Извлекать удалённые ветви после создания"
 
 #: ../plugins/git/anjuta-git.glade.h:55
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
-#, fuzzy
 msgid "Force"
-msgstr "Кадр"
+msgstr "Принудительно"
 
 #: ../plugins/git/anjuta-git.glade.h:57
-#, fuzzy
 msgid "From:"
-msgstr "С"
+msgstr "Из:"
 
 #: ../plugins/git/anjuta-git.glade.h:58
-#, fuzzy
 msgid "Grep:"
-msgstr "Греческий"
+msgstr "Шаблон:"
 
 #: ../plugins/git/anjuta-git.glade.h:59
 msgid "Hard"
-msgstr ""
+msgstr "Жёсткий"
 
 #: ../plugins/git/anjuta-git.glade.h:60
-#, fuzzy
 msgid "Head"
-msgstr "За_головок..."
+msgstr "Последняя версия"
 
 #: ../plugins/git/anjuta-git.glade.h:61
 msgid "Ignore Files"
 msgstr "Игнорировать файлы"
 
 #: ../plugins/git/anjuta-git.glade.h:62
-#, fuzzy
 msgid "Merge"
-msgstr "Слияние..."
+msgstr "Со слиянием"
 
 #: ../plugins/git/anjuta-git.glade.h:63
 msgid "Mixed"
-msgstr ""
+msgstr "Смешанный"
 
 #: ../plugins/git/anjuta-git.glade.h:64
-#, fuzzy
 msgid "Previous commit"
-msgstr "Предыдущий документ"
+msgstr "Предыдущая публикация"
 
 #: ../plugins/git/anjuta-git.glade.h:65
 msgid "Pull"
-msgstr ""
+msgstr "Извлечение"
 
 #: ../plugins/git/anjuta-git.glade.h:66
-#, fuzzy
 msgid "Rebase"
-msgstr "Выпуск"
+msgstr "Перемещение"
 
 #: ../plugins/git/anjuta-git.glade.h:67
 msgid "Remove File"
 msgstr "Удалить файл"
 
 #: ../plugins/git/anjuta-git.glade.h:68
-#, fuzzy
 msgid "Reset Tree"
-msgstr "Перезапустить цель"
+msgstr "Сброс дерева"
 
 #: ../plugins/git/anjuta-git.glade.h:69
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
@@ -4608,18 +4567,16 @@ msgid "Retrieving status..."
 msgstr "Получение статуса..."
 
 #: ../plugins/git/anjuta-git.glade.h:70
-#, fuzzy
 msgid "Revert Commit"
-msgstr "_Фиксация"
+msgstr "Отменить публикацию"
 
 #: ../plugins/git/anjuta-git.glade.h:71
 msgid "Revision/Tag:"
 msgstr "Ревизия/метка:"
 
 #: ../plugins/git/anjuta-git.glade.h:73
-#, fuzzy
 msgid "Select A Folder"
-msgstr "Каталог scratchbox:"
+msgstr "Выберите каталог"
 
 #: ../plugins/git/anjuta-git.glade.h:74
 #: ../plugins/subversion/anjuta-subversion.glade.h:48
@@ -4628,39 +4585,35 @@ msgstr "Пометить конфликты как разрешённые"
 
 #: ../plugins/git/anjuta-git.glade.h:75
 msgid "Soft"
-msgstr ""
+msgstr "Мягкий"
 
 #: ../plugins/git/anjuta-git.glade.h:76
 msgid "Squash"
-msgstr ""
+msgstr "Сталкивающий"
 
 #: ../plugins/git/anjuta-git.glade.h:77
 msgid "Switch to Another Branch"
 msgstr "Переключиться на другую ветвь"
 
 #: ../plugins/git/anjuta-git.glade.h:78
-#, fuzzy
 msgid "Tag/Commit"
-msgstr "_Фиксация"
+msgstr "Пометить/Опубликовать"
 
 #: ../plugins/git/anjuta-git.glade.h:79
 msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
+msgstr "Эта публикация содержит результат неудачного слияния (используйте -i)"
 
 #: ../plugins/git/anjuta-git.glade.h:81
-#, fuzzy
 msgid "To:"
-msgstr "По"
+msgstr "В:"
 
 #: ../plugins/git/anjuta-git.glade.h:82
-#, fuzzy
 msgid "Unstage Files"
-msgstr "_Файлы"
+msgstr "Убрать файлы"
 
 #: ../plugins/git/anjuta-git.glade.h:83
-#, fuzzy
 msgid "Use a custom log message"
-msgstr "Добавлять время к сообщениям журнала"
+msgstr "Добавить сообщение в журнал"
 
 #: ../plugins/git/anjuta-git.glade.h:84
 msgid "View log"
@@ -4668,7 +4621,7 @@ msgstr "Показать журнал"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
-msgstr ""
+msgstr "Git: файлы выставленные для добавления."
 
 #: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
 msgid "Please select a file."
@@ -4690,9 +4643,8 @@ msgstr "Введите URL."
 
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
-#, fuzzy
 msgid "Git: Fetching..."
-msgstr "Применение заплатки...\n"
+msgstr "Git: извлечение..."
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-create-branch-dialog.c:89
@@ -4709,11 +4661,11 @@ msgstr "Git: получен файл."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr ""
+msgstr "Git: файлы извлечены."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
-msgstr "Git: внесение изменений завершено."
+msgstr "Git: публикация изменений завершена."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
@@ -4726,9 +4678,8 @@ msgid "Git: Created tag \"%s\"."
 msgstr "Git: создана метка «%s»."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
-#, fuzzy
 msgid "Please enter a tag name."
-msgstr "Пожалуйста, введите название файла!"
+msgstr "Введите имя метки."
 
 #: ../plugins/git/git-delete-branch-dialog.c:41
 #, c-format
@@ -4736,14 +4687,12 @@ msgid "Git: Deleted branch \"%s\"."
 msgstr "Git: удалена ветвь «%s»."
 
 #: ../plugins/git/git-fetch-dialog.c:40
-#, fuzzy
 msgid "Git: Fetch complete."
-msgstr "Поиск завершен"
+msgstr "Git: извлечение завершено."
 
 #: ../plugins/git/git-log-dialog.c:151
-#, fuzzy
 msgid "Graph"
-msgstr "Граф вызовов"
+msgstr "Граф"
 
 #: ../plugins/git/git-log-dialog.c:166
 msgid "Short log"
@@ -4777,9 +4726,9 @@ msgid "<b>Tag:</b> %s"
 msgstr "<<b>Метка:</b> %s"
 
 #: ../plugins/git/git-log-dialog.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Remote:</b> %s"
-msgstr "<b>Шрифт:</b>"
+msgstr "<b>Удалённый:</b> %s"
 
 #: ../plugins/git/git-merge-dialog.c:36
 msgid "Git: Merge complete."
@@ -4787,16 +4736,15 @@ msgstr "Git: слияние завершено."
 
 #: ../plugins/git/git-pull-dialog.c:36
 msgid "Git: Pull complete."
-msgstr ""
+msgstr "Git: загрузка завершена."
 
 #: ../plugins/git/git-pull-dialog.c:77
-#, fuzzy
 msgid "Please enter the URL of the repository to pull from."
-msgstr "Введите конечную правку"
+msgstr "Введите URL репозитария для загрузки."
 
 #: ../plugins/git/git-rebase-dialog.c:49
 msgid "Git: Rebasing"
-msgstr ""
+msgstr "Git: перенос"
 
 #: ../plugins/git/git-remove-dialog.c:36
 msgid "Git: File removed."
@@ -4808,7 +4756,7 @@ msgstr "Git: разрешение конфликтов завершено."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
-msgstr ""
+msgstr "Git: загрузка ветви завершена."
 
 #: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
 #: ../plugins/git/git.plugin.in.h:1
@@ -4821,7 +4769,7 @@ msgstr "Git: поиск различий завершён."
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
-msgstr ""
+msgstr "Git: файлы убраны."
 
 #. Action name
 #. Stock icon, if any
@@ -4833,35 +4781,31 @@ msgstr "_Git"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:66 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
-msgstr "_Фиксировать..."
+msgstr "Оп_убликовать..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:74
-#, fuzzy
 msgid "_Fetch"
-msgstr "_Подключить"
+msgstr "_Забрать"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:82
-#, fuzzy
 msgid "_Rebase"
-msgstr "_Сбросить"
+msgstr "П_еренести"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:90 ../plugins/git/plugin.c:186
-#, fuzzy
 msgid "_Start..."
-msgstr "Пе_чать..."
+msgstr "_Начать..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:98
-#, fuzzy
 msgid "_Continue"
-msgstr "Запустить/п_родолжить"
+msgstr "Прод_олжить"
 
 #. Action name
 #. Stock icon, if any
@@ -4879,14 +4823,13 @@ msgstr "П_рервать"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:122
 msgid "_Pull..."
-msgstr ""
+msgstr "_Загрузить..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:130
-#, fuzzy
 msgid "_Unstage files..."
-msgstr "Сохранение файла..."
+msgstr "_Убрать файлы..."
 
 #. Action name
 #. Stock icon, if any
@@ -4897,51 +4840,44 @@ msgstr "_Извлечь файлы..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:146
-#, fuzzy
 msgid "_Resolve conflicts..."
-msgstr "_Разрешить конфликты"
+msgstr "Разрешить _конфликты"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 msgid "Create patch series..."
-msgstr "Создано представление проекта..."
+msgstr "Создать серию заплаток..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:162 ../plugins/git/plugin.c:359
-#, fuzzy
 msgid "_Reset tree..."
-msgstr "_Обратить..."
+msgstr "_Сбросить дерево..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:170 ../plugins/git/plugin.c:367
-#, fuzzy
 msgid "_Revert commit..."
-msgstr "_Обратить..."
+msgstr "_Отменить публикацию..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:178 ../plugins/git/plugin.c:375
-#, fuzzy
 msgid "_Bisect"
-msgstr "_Сбросить"
+msgstr "_Бисекция"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:202
-#, fuzzy
 msgid "_Good"
-msgstr "П_ерейти"
+msgstr "«_Хорошая»"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:210
-#, fuzzy
 msgid "_Bad"
-msgstr "С_борка"
+msgstr "«_Плохая»"
 
 #. Action name
 #. Stock icon, if any
@@ -4985,16 +4921,14 @@ msgstr "_Удалить ветвь"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:267
-#, fuzzy
 msgid "_Switch to another branch..."
-msgstr "Переключиться на ветвь/метку"
+msgstr "Переключиться _на ветвь..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:275
-#, fuzzy
 msgid "_Merge..."
-msgstr "Слияние..."
+msgstr "Слить..."
 
 #. Action name
 #. Stock icon, if any
@@ -5017,77 +4951,68 @@ msgstr "_Создать тег..."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:315
-#, fuzzy
 msgid "_Diff uncommitted changes"
-msgstr "_Отклонить изменения"
+msgstr "Оп_убликовать неопубликованные изменения"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:327
 msgid "_Show commit diff"
-msgstr ""
+msgstr "Показать отличия публик_ации"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:335
-#, fuzzy
 msgid "_View selected revision"
-msgstr "Просмотреть выбранную правку"
+msgstr "Просмотреть в_ыбранную правку"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 msgid "_Set good revision"
-msgstr "Использовать правку:"
+msgstr "Установить «_хорошую» версию"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:391
-#, fuzzy
 msgid "_Set bad revision"
-msgstr "Использовать правку:"
+msgstr "Установить «_плохую» версию"
 
 #: ../plugins/git/plugin.c:581
 msgid "Git operations"
 msgstr "Операции Git"
 
 #: ../plugins/git/plugin.c:586
-#, fuzzy
 msgid "Git log operations"
-msgstr "Операции редактирования файлов"
+msgstr "Операции журнала Git"
 
 #: ../plugins/git/plugin.c:591
-#, fuzzy
 msgid "Git FM operations"
-msgstr "Операции с объектами наблюдения"
+msgstr "Операции с файлами Git"
 
 #: ../plugins/git/plugin.c:606
 msgid "Git Log"
 msgstr "Журнал Git"
 
 #: ../plugins/glade/anjuta-glade.glade.h:1
-#, fuzzy
 msgid "<b>Handler template</b>"
-msgstr "<b>Ветка для удаления:</b>"
+msgstr "<b>Шаблон обработчика</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:2
-#, fuzzy
 msgid "<b>Manage associations</b>"
-msgstr "<b>Параметры сообщений</b>"
+msgstr "<b>Управление связями</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:3
 msgid "<b>New association</b>"
-msgstr "<b>Новая ассоциация</b>"
+msgstr "<b>Новая связь</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:4
 msgid "Associate"
-msgstr ""
+msgstr "Связать"
 
 #: ../plugins/glade/anjuta-glade.glade.h:5
-#, fuzzy
 msgid "Automatically add resources"
-msgstr "Автоматически обновлять отображение данных о профилировании"
+msgstr "Автоматически добавлять ресурсы"
 
 #: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
 msgid "Designer"
@@ -5100,9 +5025,8 @@ msgid "Editor"
 msgstr "Редактор"
 
 #: ../plugins/glade/anjuta-glade.glade.h:8
-#, fuzzy
 msgid "Insert handler on edit"
-msgstr "Шрифты и цвета редактора"
+msgstr "Вставлять обработчик при редактирование"
 
 #: ../plugins/glade/anjuta-glade.glade.h:9
 msgid "Position type"
@@ -5110,11 +5034,11 @@ msgstr "Тип позиции"
 
 #: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Separated designer layout"
-msgstr ""
+msgstr "Редактировать интерфейс в отдельном окне"
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Special regexp"
-msgstr ""
+msgstr "Специальный шаблон"
 
 #: ../plugins/glade/anjuta-glade.glade.h:12
 msgid "Widget name"
@@ -5122,7 +5046,7 @@ msgstr "Название виджета"
 
 #: ../plugins/glade/anjuta-glade.glade.h:13
 msgid "on_widget_signal"
-msgstr ""
+msgstr "on_widget_signal"
 
 #: ../plugins/glade/anjuta-glade.glade.h:14
 msgid "widget_signal_cb"
@@ -5131,42 +5055,42 @@ msgstr "widget_signal_cb"
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
 msgid "Association item has no designer"
-msgstr ""
+msgstr "Связанный элемент не имеет редактора интерфейса"
 
 #: ../plugins/glade/designer-associations-item.c:268
 #, c-format
 msgid "Association item has no editor"
-msgstr ""
+msgstr "Связанный элемент не имеет текстового редактора"
 
 #: ../plugins/glade/designer-associations-item.c:371
 #, c-format
 msgid "Bad association item option in the node %s"
-msgstr ""
+msgstr "Неверный параметр связи в узле %s"
 
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
 msgid "no filename found in the node %s"
-msgstr ""
+msgstr "не найдено имя файла в узле %s"
 
 #: ../plugins/glade/designer-associations-item.c:478
 #, c-format
 msgid "invalid %s property value"
-msgstr ""
+msgstr "Некорректное значение свойства %s"
 
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
 msgid "Association item filename has no path"
-msgstr ""
+msgstr "Связанное имя файла не содержит пути"
 
 #: ../plugins/glade/plugin.c:847
 #, c-format
 msgid "No associations initialized, nothing to save"
-msgstr ""
+msgstr "Связи не созданы, нет данных для сохранения"
 
 #: ../plugins/glade/plugin.c:854
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
-msgstr ""
+msgstr "Не удалось сохранить связи, так как не установлен корень проекта"
 
 #: ../plugins/glade/plugin.c:876
 #, c-format
@@ -5176,7 +5100,7 @@ msgstr "Не удалось сохранить ассоциации"
 #: ../plugins/glade/plugin.c:1360
 #, c-format
 msgid "Couldn't introspect the signal"
-msgstr ""
+msgstr "Не удалось автоматически получить информацию о сигнале"
 
 #: ../plugins/glade/plugin.c:1382
 #, c-format
@@ -5191,29 +5115,26 @@ msgstr "Язык Vala ещё не поддерживается"
 #: ../plugins/glade/plugin.c:1954
 #, c-format
 msgid "There is no associated editor for the designer"
-msgstr ""
+msgstr "Нет редактора текста, связанного с этим редактором интерфейса"
 
 #: ../plugins/glade/plugin.c:1972
 #, c-format
 msgid "Unknown language of the editor \"%s\""
-msgstr ""
+msgstr "Неизвестный язык для редактора «%s»"
 
 #: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
 #: ../plugins/glade/plugin.c:2241
-#, fuzzy, c-format
+#, c-format
 msgid "Error while adding a new handler stub: %s"
-msgstr "Ошибка чтения из файла"
+msgstr "Возникла ошибка при чтении шаблона обработчика: %s"
 
 #: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
-#, fuzzy
 msgid "Couldn't find a signal information"
-msgstr ""
-"Подтвердите следующую информацию:\n"
-"\n"
+msgstr "Не удалось найти информацию о сигнале"
 
 #: ../plugins/glade/plugin.c:2073
 msgid "Error while adding a new handler stub: No current editor"
-msgstr ""
+msgstr "Ошибка при добавлении обработчика: Не найден редактора текста"
 
 #: ../plugins/glade/plugin.c:2244
 #, c-format
@@ -5221,10 +5142,12 @@ msgid ""
 "To avoid this messages turn off \"Insert handler on edit\" flag in "
 "Preferences->Glade GUI Designer"
 msgstr ""
+"Для того, чтобы отключить это сообщение, выключите флаг «Вставлять обработчик "
+"при правке» в меню Параметры подменю Glade"
 
 #: ../plugins/glade/plugin.c:2380
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "Эти документы уже связаны"
 
 #: ../plugins/glade/plugin.c:2418
 #, c-format
@@ -5238,7 +5161,7 @@ msgstr "Не удалось найти название сигнала по ум
 #: ../plugins/glade/plugin.c:3886
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
-msgstr ""
+msgstr "Проект %s не содержит устаревших виджетов и несовпадения версий."
 
 #: ../plugins/glade/plugin.c:3903
 msgid "There is no Glade project"
@@ -5248,44 +5171,43 @@ msgstr "Проект Glade отсутствует"
 #. Stock icon, if any
 #: ../plugins/glade/plugin.c:3989
 msgid "_Glade"
-msgstr "_Glade"
+msgstr "Интер_фейс"
 
 #: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
 msgid "Switch between designer/code"
-msgstr ""
+msgstr "Переключить редактор интерфейса/кода"
 
 #: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
 msgid "Insert handler stub"
-msgstr ""
+msgstr "Вставлять заготовку обработчика"
 
 #: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
 msgid "Insert handler stub, autoposition"
-msgstr ""
+msgstr "Вставлять загтовку обработчика, автоматически размещая её в коде"
 
 #: ../plugins/glade/plugin.c:4021
 msgid "Associate last designer and last editor"
-msgstr ""
+msgstr "Связать последние редактор интерфейса и редактор текста"
 
 #: ../plugins/glade/plugin.c:4023
 msgid "Associate last designer and editor"
-msgstr ""
+msgstr "Связать последний редактор интерфейса и текста"
 
 #: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
 msgid "Associations dialog..."
-msgstr ""
+msgstr "Редактор связей..."
 
 #: ../plugins/glade/plugin.c:4037
-#, fuzzy
 msgid "Versioning..."
-msgstr "Печать..."
+msgstr "Версии..."
 
 #: ../plugins/glade/plugin.c:4039
 msgid "Switch between library versions and check deprecations"
-msgstr ""
+msgstr "Переклчиться между версиями библиотек и проверить зависимости"
 
 #: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
 msgid "Set as default resource target"
-msgstr ""
+msgstr "Установить как цель по умолчанию"
 
 #: ../plugins/glade/plugin.c:4055
 msgid "Current default target"
@@ -5313,7 +5235,7 @@ msgstr "Скопировать выделенное"
 
 #: ../plugins/glade/plugin.c:4111
 msgid "Paste the clipboard"
-msgstr ""
+msgstr "Вставить буфер обмена"
 
 #: ../plugins/glade/plugin.c:4119
 msgid "Delete the selection"
@@ -5324,18 +5246,16 @@ msgid "Glade designer operations"
 msgstr "Операции дизайнера Glade"
 
 #: ../plugins/glade/plugin.c:4397
-#, fuzzy
 msgid "Go back in undo history"
-msgstr "Перейти к следующей истории"
+msgstr "Перейти назад в истории откатов"
 
 #: ../plugins/glade/plugin.c:4399
-#, fuzzy
 msgid "Go forward in undo history"
-msgstr "Перейти к следующей истории"
+msgstr "Перейти вперёд в истории откатов"
 
 #: ../plugins/glade/plugin.c:4413
 msgid "Glade Clipboard"
-msgstr ""
+msgstr "Буфер обмена Glade"
 
 #: ../plugins/glade/plugin.c:4418
 msgid "Widgets"
@@ -5361,7 +5281,7 @@ msgstr "Не удалось создать новый проект glade."
 
 #: ../plugins/glade/plugin.c:5019 ../plugins/glade/plugin.c:5044
 msgid "Glade GUI Designer"
-msgstr "Дизайнер интерфейса Glade"
+msgstr "Редактор интерфейса Glade"
 
 #: ../plugins/glade/anjuta-design-document.c:371
 #: ../plugins/glade/anjuta-design-document.c:399
@@ -5465,7 +5385,7 @@ msgstr "Необходимо выбрать запись для удаления
 
 #: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected todo item?"
-msgstr "Вы уверены, что хотите удалить выделенную задачу?"
+msgstr "Уверены, что хотите удалить выделенную задачу?"
 
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:100
 msgid "Remove"
@@ -5474,14 +5394,14 @@ msgstr "Удалить"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr "Вы уверены, что хотите удалить все завершённые задачи?"
+msgstr "Уверены, что хотите удалить все завершённые задачи?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
 msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
-msgstr "Вы уверены, что хотите удалить все завершённые записи в категории «%s»?"
+msgstr "Уверены, что хотите удалить все завершённые записи в категории «%s»?"
 
 #: ../plugins/gtodo/export.c:47
 msgid "Export task list"
@@ -5597,11 +5517,12 @@ msgid "<New category (%d)>"
 msgstr "<Новая категория (%d)>"
 
 #: ../plugins/gtodo/notification.c:67
-#, fuzzy, c-format
+#, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] "Это событие произойдёт через %i минут"
-msgstr[1] "Это событие произойдёт через %i минут"
+msgstr[0] "Следующее событие наступит в течении %i минуты:"
+msgstr[1] "Следующее событие наступит в течении %i минут:"
+msgstr[2] "Следующее событие наступит в течении %i минут:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
@@ -5642,11 +5563,11 @@ msgstr "Скрывать задачи без времени истечения"
 
 #: ../plugins/gtodo/plugin.c:122
 msgid "Tasks manager"
-msgstr "Менеджер задач"
+msgstr "Диспетчер задач"
 
 #: ../plugins/gtodo/plugin.c:128
 msgid "Tasks manager view"
-msgstr "Вид менеджера задач"
+msgstr "Вид диспетчера задач"
 
 #: ../plugins/gtodo/plugin.c:134
 msgid "Tasks"
@@ -5677,9 +5598,8 @@ msgid "Show priority column"
 msgstr "Показывать столбец приоритета"
 
 #: ../plugins/gtodo/preferences.c:106
-#, fuzzy
 msgid "Tooltips in list"
-msgstr "Открыть список задач"
+msgstr "Показывать всплывающие подсказки"
 
 #: ../plugins/gtodo/preferences.c:117 ../plugins/gtodo/preferences.c:119
 msgid "Show in main window"
@@ -5701,11 +5621,12 @@ msgstr "Задачи, время которых истекло"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] "Задачи, время которых истечёт в течении %i дней"
-msgstr[1] "Задачи, время которых истечёт в течении %i дней"
+msgstr[0] "Задачи, время которых истечёт в течении %i дня:"
+msgstr[1] "Задачи, время которых истечёт в течении %i дней:"
+msgstr[2] "Задачи, время которых истечёт в течении %i дней:"
 
 #: ../plugins/gtodo/preferences.c:168
 msgid "Misc"
@@ -5734,13 +5655,12 @@ msgid "Notification"
 msgstr "Уведомление"
 
 #: ../plugins/gtodo/preferences.c:218
-#, fuzzy, c-format
+#, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-"Оповещать меня, когда до истечения времени задания осталось %i минут."
-msgstr[1] ""
-"Оповещать меня, когда до истечения времени задания осталось %i минут."
+msgstr[0] "Оповещать, когда до истечения времени задания осталось %i минута"
+msgstr[1] "Оповещать, когда до истечения времени задания осталось %i минуты"
+msgstr[2] "Оповещать, когда до истечения времени задания осталось %i минут"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -5797,6 +5717,9 @@ msgid ""
 "Category:\t %s\n"
 "Shortcut:\t %c\n"
 msgstr ""
+"Имя:\t %s\n"
+"Категория:\t %s\n"
+"Комбинация клавиш:\t %c\n"
 
 #: ../plugins/macro/macro-dialog.c:264
 msgid "Insert"
@@ -5901,6 +5824,11 @@ msgid ""
 "Diagonal\n"
 "Strike-Out"
 msgstr ""
+"Подчёркнуть\n"
+"Подчёркнуть волной\n"
+"Подчёркнуть прерывистой \n"
+"По диагонали\n"
+"Перечеркнуть"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
@@ -5911,15 +5839,13 @@ msgid "Warnings:"
 msgstr "Предупреждения:"
 
 #: ../plugins/message-view/anjuta-msgman.c:71
-#, fuzzy
 msgid "Close all message tabs"
-msgstr "Следующее/предыдущее сообщение"
+msgstr "Закрыть все вкладки сообщений"
 
 #: ../plugins/message-view/message-view.c:324
 #: ../plugins/message-view/message-view.c:358
-#, fuzzy
 msgid "No message details"
-msgstr "Следующее/предыдущее сообщение"
+msgstr "Нет информации о сообщении"
 
 #: ../plugins/message-view/message-view.c:730
 msgid "No Messages"
@@ -5985,14 +5911,12 @@ msgstr[1] "%d ошибки"
 msgstr[2] "%d ошибок"
 
 #: ../plugins/message-view/plugin.c:78
-#, fuzzy
 msgid "_Copy Message"
-msgstr "0 Сообщений"
+msgstr "_Копировать сообщение"
 
 #: ../plugins/message-view/plugin.c:79
-#, fuzzy
 msgid "Copy message"
-msgstr "Сообщение журнала:"
+msgstr "Копировать сообщение"
 
 #: ../plugins/message-view/plugin.c:82
 msgid "_Next Message"
@@ -6032,7 +5956,7 @@ msgstr "Файла заплатки"
 
 #: ../plugins/patch/patch-plugin.c:111
 msgid "Patches"
-msgstr "Патчи"
+msgstr "Заплатки"
 
 #: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
@@ -6052,9 +5976,8 @@ msgid "Patching...\n"
 msgstr "Применение заплатки...\n"
 
 #: ../plugins/patch/patch-plugin.c:204
-#, fuzzy
 msgid "Patching..."
-msgstr "Применение заплатки...\n"
+msgstr "Применение заплатки..."
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "There are unfinished jobs, please wait until they are finished."
@@ -6066,16 +5989,18 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
+"Не удалось наложить заплатку.\n"
+"Проверьте сообщения об ошибках.\n"
+"Изучите причины проблем и удалите отклонёные файлы.\n"
 
 #: ../plugins/patch/patch-plugin.c:257
-#, fuzzy
 msgid "Patching complete"
-msgstr "Поиск завершен"
+msgstr "Применение заплатки завершено"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Dry run"
-msgstr ""
+msgstr "Чистый запуск"
 
 #: ../plugins/patch/patch-plugin.glade.h:2
 msgid "File/Directory to patch:"
@@ -6086,9 +6011,8 @@ msgid "Patch file:"
 msgstr "Файл заплатки:"
 
 #: ../plugins/patch/patch-plugin.glade.h:5
-#, fuzzy
 msgid "Patch level:"
-msgstr "Файла заплатки"
+msgstr "Уровень заплатки:"
 
 #. Action name
 #. Stock icon, if any
@@ -6143,14 +6067,13 @@ msgstr "% Время"
 
 #: ../plugins/profiler/gprof-flat-profile-view.c:82
 msgid "Cumulative Seconds"
-msgstr "Общее время в секундах"
+msgstr "Общее время"
 
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
 #: ../plugins/profiler/gprof-flat-profile-view.c:99
-#, fuzzy
 msgid "Self Seconds"
-msgstr "Секунда"
+msgstr "Собственное время"
 
 #. The average number of milliseconds spent in a function, excluding
 #. * the functions that it calls.
@@ -6231,14 +6154,12 @@ msgid "Function Call Chart"
 msgstr "Диаграмма вызовов функции"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:1
-#, fuzzy
 msgid "<b>Called By</b>"
-msgstr "<b>Параметры</b>"
+msgstr "<b>Вызывано из</b>"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:2
-#, fuzzy
 msgid "<b>Called</b>"
-msgstr "<b>Подсветка</b>"
+msgstr "<b>Вызвано</b>"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:3
 msgid "<b>Functions</b>"
@@ -6257,9 +6178,8 @@ msgid "<b>Symbols</b>"
 msgstr "<b>Символы</b>"
 
 #: ../plugins/profiler/profiler.glade.h:4
-#, fuzzy
 msgid "<b>Time Propagation</b>"
-msgstr "<b>Доп. параметры</b>"
+msgstr "<b>Разделение времени</b>"
 
 #: ../plugins/profiler/profiler.glade.h:5
 msgid "Automatically refresh profile data display"
@@ -6272,7 +6192,7 @@ msgstr "Обзор..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgstr "Не разделять время на эти символы:"
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
@@ -6289,6 +6209,10 @@ msgid ""
 "For information on symbol specifications, see section \n"
 "4.5 of the gprof info page."
 msgstr ""
+"Задайте один символ на строчку.\n"
+"\n"
+"Для получения информации о формате символов, прочитайте\n"
+"раздел 4.5 страницы информации info по приложению gprof."
 
 #: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
@@ -6301,11 +6225,11 @@ msgstr "Параметры профилирования"
 
 #: ../plugins/profiler/profiler.glade.h:18
 msgid "Propagate time for all symbols"
-msgstr ""
+msgstr "Разделять время на все символы"
 
 #: ../plugins/profiler/profiler.glade.h:19
 msgid "Propagate time for only these symbols:"
-msgstr ""
+msgstr "Разделять время только на эти символы:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
@@ -6336,20 +6260,20 @@ msgid "Use this profiling data file:"
 msgstr "Использовать этот файл с информацией о профилировании:"
 
 #: ../plugins/project-import/project-import.c:109
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "Не удалось найти внутренний компонент для данного проекта (%s). Выберите "
-"другой каталог или обновите оболочку Gnome Build."
+"другой каталог или обновитесь до более новой версии Anjuta."
 
 #.
 #. * Now we can't apply
 #.
 #: ../plugins/project-import/project-import.c:130
 msgid "Please, fix the configuration"
-msgstr ""
+msgstr "Исправьте конфигурацию"
 
 #: ../plugins/project-import/project-import.c:142
 #, c-format
@@ -6434,11 +6358,11 @@ msgstr "Файлы исходных текстов:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:6
 msgid "Specify _where to create the group:"
-msgstr "_Определите, где создать группу:"
+msgstr "_Задайте, где создать группу:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:7
 msgid "Specify _where to create the target:"
-msgstr "_Определите, где создать цель:"
+msgstr "_Задайте, где создать цель:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:8
 msgid "Target _name:"
@@ -6449,9 +6373,8 @@ msgid "Target _type:"
 msgstr "_Тип цели:"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:10
-#, fuzzy
 msgid "TargetTypes"
-msgstr "Цель: %s"
+msgstr "ТипыЦелей"
 
 #: ../plugins/project-manager/create_dialogs.glade.h:11
 msgid "_Group name:"
@@ -6539,7 +6462,7 @@ msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
 msgstr ""
-"Вы уверены, что хотите удалить группу из проекта?\n"
+"Уверены, что хотите удалить группу из проекта?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:664
@@ -6558,7 +6481,7 @@ msgid ""
 "Are you sure you want to remove the following target from project?\n"
 "\n"
 msgstr ""
-"Вы уверены, что хотите удалить элемент из проекта?\n"
+"Уверены, что хотите удалить элемент из проекта?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:668
@@ -6571,7 +6494,7 @@ msgid ""
 "Are you sure you want to remove the following source file from project?\n"
 "\n"
 msgstr ""
-"Вы уверены, что хотите удалить файл из проекта?\n"
+"Уверены, что хотите удалить файл из проекта?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:672
@@ -6595,11 +6518,9 @@ msgstr ""
 "%s"
 
 #: ../plugins/project-manager/plugin.c:784
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve URI info of %s: %s"
-msgstr ""
-"Не удалось удалить '%s':\n"
-"%s"
+msgstr "Не удалось получить информацию о ресурсе %s: %s"
 
 #: ../plugins/project-manager/plugin.c:822
 msgid "_Project"
@@ -6616,7 +6537,7 @@ msgstr "_Обновить"
 
 #: ../plugins/project-manager/plugin.c:831
 msgid "Refresh project manager tree"
-msgstr "Обновить дерево менеджера проекта"
+msgstr "Обновить дерево диспетчера проекта"
 
 #: ../plugins/project-manager/plugin.c:836
 msgid "Add _Group..."
@@ -6707,11 +6628,11 @@ msgstr "Ошибка при закрытии проекта: %s"
 
 #: ../plugins/project-manager/plugin.c:1536
 msgid "Project manager actions"
-msgstr "Действия менеджера проекта"
+msgstr "Действия диспетчера проекта"
 
 #: ../plugins/project-manager/plugin.c:1544
 msgid "Project manager popup actions"
-msgstr "Всплывающие команды менеджера проекта"
+msgstr "Всплывающие команды диспетчера проекта"
 
 #: ../plugins/project-manager/plugin.c:2641
 msgid "Initializing Project..."
@@ -6721,13 +6642,18 @@ msgstr "Инициализация проекта..."
 msgid "Project Loaded"
 msgstr "Проект загружен"
 
-#: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
-msgid "Warning"
-msgstr "Предупреждение"
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
+msgid "<b>Details</b>"
+msgstr "<b>Детали</b>"
 
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
 msgid "Error"
 msgstr "Ошибка"
+
+#: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
+msgid "Warning"
+msgstr "Предупреждение"
 
 #: ../plugins/project-wizard/druid.c:151
 msgid "Message"
@@ -6782,21 +6708,21 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"Папка \"%s\" не пуста. Проект может не быть создан, если нельзя будет "
-"записать некоторые файлы. Продолжить?"
+"Папка «%s» не пуста. Проект может не быть создан, если нельзя будет записать "
+"некоторые файлы. Продолжить?"
 
 #: ../plugins/project-wizard/druid.c:637
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr "Файл \"%s\" уже существует. Хотите переписать его?"
+msgstr "Файл «%s» уже существует. Хотите переписать его?"
 
 #: ../plugins/project-wizard/druid.c:668
 msgid "Invalid entry"
-msgstr ""
+msgstr "Некорреткный элемент"
 
 #: ../plugins/project-wizard/druid.c:679
 msgid "Dubious entry"
-msgstr ""
+msgstr "Ошибочные данные"
 
 #: ../plugins/project-wizard/druid.c:789
 #, c-format
@@ -6835,15 +6761,21 @@ msgid ""
 "suffix in package names and can be found by searching in your Application "
 "Manager."
 msgstr ""
+"Отсутствующие пакеты часто входят в состав пакетов в дистрибутиве и могут "
+"быть установлены, как любые программы, с помощью диспетчера пакетов. В "
+"пакетах дистрибутива присутствуют пакеты для разработчиков, позволяя "
+"создавать приложения с использованием библиотек дистрибутива. Они часто "
+"имеют суффикс -dev или -devel в названии пакета и также могут быть найдены в "
+"диспетчере пакетов."
 
 #: ../plugins/project-wizard/druid.c:822
 msgid "Missing components"
 msgstr "Отсутствующие компоненты"
 
 #: ../plugins/project-wizard/druid.c:954
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build project assistant user interface reading %s."
-msgstr "Не удалось создать пользовательский интерфейс мастера проекта"
+msgstr "Не удалось прочитать интерфейс помощника создания проектов из %s."
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -6915,49 +6847,49 @@ msgstr "Проект апплета GNOME"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "A generic C++ project"
-msgstr "Обычный проект C++"
+msgstr "Проект C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
-msgstr "Обычный проект GTK+"
+msgstr "Проект GTK+"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
-msgstr "Обычный проект GTKmm (C++)"
+msgstr "Проект GTKmm (C++)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
-msgstr "Обычный док-апплет Xlib"
+msgstr "Док-апплет Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
-msgstr "Обычный проект Xlib"
+msgstr "Проект Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
-msgstr ""
+msgstr "Проект на Java, использующий систему сборки automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
-#, fuzzy
 msgid "A generic minimal and flat project"
-msgstr "Добавить к проекту"
+msgstr "Проект"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
+"Проект, компилируемые в исполняемый код с помощью компилятора GNU Java (gcj)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
-msgstr "Обычный проект"
+msgstr "Проект"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
-msgstr ""
+msgstr "Проект на Python, использующий систему сборки automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
-msgstr ""
+msgstr "Проект wxWidgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
 msgid "A sample SDL project"
@@ -6998,7 +6930,6 @@ msgstr ""
 "языки"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#: ../src/about.c:237
 msgid "Anjuta Plugin"
 msgstr "Модуль Anjuta"
 
@@ -7109,7 +7040,7 @@ msgstr "Обычный C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "Проект Java, использующий gcj"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Generic java (automake)"
@@ -7421,7 +7352,7 @@ msgstr "Параметры программы..."
 
 #: ../plugins/run-program/plugin.c:241
 msgid "Set current program, arguments and so on"
-msgstr ""
+msgstr "Установить текущую программу, аргументы и т.д."
 
 #: ../plugins/run-program/plugin.c:266
 msgid "Run operations"
@@ -7437,7 +7368,7 @@ msgstr "_Образец действия"
 #. short-cut
 #: ../plugins/sample1/plugin.c:58
 msgid "Sample action"
-msgstr "Образец действияе"
+msgstr "Образец действия"
 
 #: ../plugins/sample1/plugin.c:79
 msgid "Sample file operations"
@@ -7510,9 +7441,8 @@ msgid "Bold"
 msgstr "Полужирный"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:16
-#, fuzzy
 msgid "Calltip background:"
-msgstr "Цвет фона для выделения:"
+msgstr "Цвет подсказки вызова:"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:17
 msgid "Caret (cursor) color:"
@@ -7589,7 +7519,7 @@ msgstr "Включить свёртывание комментарием python"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:37
 msgid "Enable python quoted strings folding"
-msgstr ""
+msgstr "Включить свёртывание строк Python"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:38
 msgid "Filter extraneous characters in DOS mode"
@@ -7633,22 +7563,20 @@ msgstr "Ширина отступа в точках растра для номе
 
 #. If the user presses enter, the indentation of the current line will automatically be added to the next line
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:50
-#, fuzzy
 msgid "Maintain past Indentation"
-msgstr "Размер отступа в пробелах:"
+msgstr "Использовать предыдущие отступы"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
-msgstr ""
+msgstr "Показать границу переноса"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
-msgstr ""
+msgstr "Показать границу номеров строк"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:53
-#, fuzzy
 msgid "Margin Marker visible"
-msgstr "Переключить маркеры"
+msgstr "Показать границу отметок"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
@@ -7734,14 +7662,13 @@ msgid "View Whitespaces"
 msgstr "Показывать символы пробела и табуляции"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:75
-#, fuzzy
 msgid "View indentation whitespaces"
-msgstr "Размер отступа в пробелах:"
+msgstr "Показывать символы выравнивания"
 
 #. Next bookmark at the end of the file will jump to the first bookmark from the beginning
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:77
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Начинать поиск закладок сначала"
 
 #: ../plugins/scintilla/print.c:658
 #, c-format
@@ -7785,6 +7712,8 @@ msgid ""
 "The file '%s' has been deleted.\n"
 "Do you confirm and close it ?"
 msgstr ""
+"Файл «%s» удалён.\n"
+"Всё равно закрыть файл?"
 
 #: ../plugins/scintilla/text_editor.c:441
 #, c-format
@@ -7886,7 +7815,7 @@ msgstr "Версия Scratchbox:"
 msgid "Select Scratchbox Folder"
 msgstr "Выберите папку Scratchbox"
 
-#: ../plugins/scratchbox/plugin.c:456 ../plugins/scratchbox/plugin.c:478
+#: ../plugins/scratchbox/plugin.c:458 ../plugins/scratchbox/plugin.c:481
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:2
 msgid "Scratchbox"
 msgstr "Scratchbox"
@@ -7911,9 +7840,8 @@ msgstr "<b>Видимость</b>"
 
 #. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.glade.h:7
-#, fuzzy
 msgid "<b>Search variable</b>"
-msgstr "Список переменных"
+msgstr "<b>Переменные поиска</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:8
 #: ../plugins/search/search-replace.c:92
@@ -7921,9 +7849,8 @@ msgid "Backward"
 msgstr "Назад"
 
 #: ../plugins/search/anjuta-search.glade.h:9
-#, fuzzy
 msgid "Basic Search & Replace"
-msgstr "Поиск справки Anjuta"
+msgstr "Простой поиск и замена"
 
 #: ../plugins/search/anjuta-search.glade.h:10
 msgid "Choose Directories:"
@@ -7935,7 +7862,7 @@ msgstr "Выбрать файлы:"
 
 #: ../plugins/search/anjuta-search.glade.h:12
 msgid "Expand regex back references"
-msgstr ""
+msgstr "Раскрывать ссылки в шаблонах"
 
 #: ../plugins/search/anjuta-search.glade.h:13
 msgid "Find & Replace"
@@ -7955,7 +7882,7 @@ msgstr "Весь буфер"
 
 #: ../plugins/search/anjuta-search.glade.h:16
 msgid "Greedy matching"
-msgstr ""
+msgstr "Жадный поиск"
 
 #: ../plugins/search/anjuta-search.glade.h:17
 msgid "Ignore Binary Files"
@@ -7982,9 +7909,8 @@ msgid "Match at start of word"
 msgstr "С начала слова"
 
 #: ../plugins/search/anjuta-search.glade.h:24
-#, fuzzy
 msgid "Match complete lines"
-msgstr "Гудок при завершении задании"
+msgstr "Строки целиком"
 
 #: ../plugins/search/anjuta-search.glade.h:25
 msgid "Match complete words"
@@ -8094,9 +8020,8 @@ msgid "Searching..."
 msgstr "Поиск..."
 
 #: ../plugins/search/search_preferences.c:44
-#, fuzzy
 msgid "Basic Search"
-msgstr "Инкрементальный поиск"
+msgstr "Обычный поиск"
 
 #: ../plugins/search/search-replace.c:97
 msgid "Current Buffer"
@@ -8205,13 +8130,13 @@ msgstr ""
 "Хотите перезагрузить его?"
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"Файл '%s' на диске новее, чем в текущем буфере.\n"
-"Хотите перезагрузить его?"
+"Файл «%s» удалён с диска.\n"
+"Закрыть его?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:438
@@ -8230,7 +8155,7 @@ msgstr "Файл «%s» только для чтения! Всё равно пр
 msgid "Could not save %s: %s"
 msgstr "Не удалось сохранить %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Не удалось сохранить файл, так как не задано имя файла"
@@ -8410,9 +8335,8 @@ msgid "Diff to Previous"
 msgstr "Сравнить с предыдущим"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
-#, fuzzy
 msgid "Ignore ancestry"
-msgstr "Игнорировать файлы"
+msgstr "Игнорировать предшественников"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Merge changes into working copy"
@@ -8524,7 +8448,7 @@ msgstr "Удалить файл/каталог из дерева Subversion"
 #. short-cut
 #: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
-msgstr "Зафиксировать изменения в дереве Subversion"
+msgstr "Опубликовать изменения в дереве Subversion"
 
 #. Action name
 #. Stock icon, if any
@@ -8542,7 +8466,7 @@ msgstr "Отменить изменения в рабочей копии."
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:92
 msgid "_Resolve Conflicts..."
-msgstr "_Разрешить конфликты"
+msgstr "_Разрешить конфликты..."
 
 #. Display label
 #. short-cut
@@ -8648,15 +8572,15 @@ msgstr "Журнал Subversion"
 
 #: ../plugins/subversion/subversion-add-dialog.c:39
 msgid "Subversion: File will be added on next commit."
-msgstr "Subversion: файл будет добавлен при следующий фиксации"
+msgstr "Subversion: файл будет добавлен при следующем опубликовании"
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
-msgstr "Subversion: фиксация изменения завершена."
+msgstr "Subversion: опубликование завершено."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
 msgid "Subversion: Committing changes to the repository..."
-msgstr "Subversion: фиксация изменений в репозитории"
+msgstr "Subversion: опубликование изменений в репозитории..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
@@ -8671,9 +8595,8 @@ msgid "Please enter a destination path."
 msgstr "Введите путь назначения"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:44
-#, fuzzy
 msgid "[Head/Working Copy]"
-msgstr "Рабочая копия:"
+msgstr "[Репозиторий/Рабочая копия]"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:59
 #: ../plugins/subversion/subversion-log-dialog.c:424
@@ -8732,7 +8655,7 @@ msgstr "Введите конечную правку"
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
-msgstr "Subversion: файл будет удалён при следующей фиксации."
+msgstr "Subversion: файл будет удалён при следующем опубликовании."
 
 #: ../plugins/subversion/subversion-resolve-dialog.c:36
 msgid "Subversion: Resolve complete."
@@ -8808,7 +8731,7 @@ msgstr "Добавлен: %s"
 #: ../plugins/subversion/svn-command.c:339
 #, c-format
 msgid "Resolved: %s"
-msgstr "Разрешен конфликт: %s"
+msgstr "Разрешён конфликт: %s"
 
 #: ../plugins/subversion/svn-command.c:345
 #, c-format
@@ -8818,7 +8741,7 @@ msgstr "Обновлен: %s"
 #: ../plugins/subversion/svn-command.c:351
 #, c-format
 msgid "Externally Updated: %s"
-msgstr ""
+msgstr "Обновлён извне: %s"
 
 #: ../plugins/subversion/svn-command.c:385
 #, c-format
@@ -8833,7 +8756,7 @@ msgstr "Слияние завершено: %s"
 #: ../plugins/subversion/svn-command.c:391
 #, c-format
 msgid "Conflicted: %s"
-msgstr ""
+msgstr "Конфликтует: %s"
 
 #: ../plugins/subversion/svn-command.c:395
 #, c-format
@@ -8843,25 +8766,25 @@ msgstr "Потерян: %s"
 #: ../plugins/subversion/svn-command.c:398
 #, c-format
 msgid "Obstructed: %s"
-msgstr ""
+msgstr "Преграждён: %s"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/symbol-db-prefs.c:265
 msgid "Package is not parseable"
-msgstr ""
+msgstr "Не удалось разобрать пакет"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:419
-#: ../plugins/symbol-db/symbol-db-prefs.c:579
+#: ../plugins/symbol-db/symbol-db-prefs.c:362
+#: ../plugins/symbol-db/symbol-db-prefs.c:496
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "База символьных данных"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:446
 msgid "API Tags"
 msgstr "Теги API"
 
 #: ../plugins/symbol-db/symbol-db-system.c:786
 msgid "Resuming glb scan."
-msgstr ""
+msgstr "Продолжение сканирования glb."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
@@ -8877,7 +8800,7 @@ msgstr "Автоматически обновлять символы без со
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
 msgid "Checking if package is parseable..."
-msgstr ""
+msgstr "Проверка возможности разбора пакета..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
 msgid "Ctags executable:"
@@ -8885,7 +8808,7 @@ msgstr "Исполняемый файл ctags:"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
 msgid "Parallel scan of project and global symbols"
-msgstr ""
+msgstr "Параллельное сканирование проекта и глобальных символов"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
@@ -8979,16 +8902,15 @@ msgstr "_Переменные..."
 #: ../plugins/tools/dialog.c:176
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr "Вы уверены, что хотите удалить инструмент '%s'?"
+msgstr "Уверены, что хотите удалить инструмент «%s»?"
 
 #: ../plugins/tools/dialog.c:335
 msgid "Tool"
 msgstr "Инструмент"
 
 #: ../plugins/tools/editor.c:302
-#, fuzzy
 msgid "ask at runtime"
-msgstr "Переключить точку останова в текущей позиции"
+msgstr "спросить во время выполнения"
 
 #: ../plugins/tools/editor.c:307
 msgid "undefined"
@@ -8999,9 +8921,8 @@ msgid "Unable to build user interface for tool variable"
 msgstr "Не удалось создать интерфейс пользователя для переменной инструмента"
 
 #: ../plugins/tools/editor.c:457
-#, fuzzy
 msgid "Meaning"
-msgstr "Предупреждения"
+msgstr "Значение"
 
 #: ../plugins/tools/editor.c:532
 msgid "Disabled"
@@ -9029,7 +8950,7 @@ msgstr ""
 
 #: ../plugins/tools/editor.c:815
 msgid "Unable to edit script"
-msgstr "Не удаётся редактировать сценарий: %s."
+msgstr "Не удалось отредактировать сценарий: %s."
 
 #: ../plugins/tools/editor.c:951
 msgid "New accelerator..."
@@ -9062,14 +8983,14 @@ msgstr "(error)"
 
 #. Display the name of the command
 #: ../plugins/tools/execute.c:468
-#, fuzzy, c-format
+#, c-format
 msgid "Running command: %s...\n"
-msgstr "Команда запуска:"
+msgstr "Запуск команды: %s...\n"
 
 #: ../plugins/tools/execute.c:508
-#, fuzzy, c-format
+#, c-format
 msgid "Completed unsuccessfully with status code %d\n"
-msgstr "Завершено неуспешно с кодом ·%d\n"
+msgstr "Завершено с ошибкой с кодом %d\n"
 
 #: ../plugins/tools/execute.c:628
 msgid "Unable to create a buffer, command aborted"
@@ -9116,9 +9037,8 @@ msgid "Command line parameters"
 msgstr "Параметры командной строки"
 
 #: ../plugins/tools/tool.c:81
-#, fuzzy
 msgid "Same as output"
-msgstr "Стандартный вывод:"
+msgstr "Также, как и стандартный вывод"
 
 #: ../plugins/tools/tool.c:82
 msgid "Existing message pane"
@@ -9150,14 +9070,12 @@ msgstr "Заменить выделение"
 
 #. Translators: Checkbox if a dialog should be shown after some operation finishes, so translate as "to pop up a dialog"
 #: ../plugins/tools/tool.c:90
-#, fuzzy
 msgid "Popup dialog"
-msgstr "dialog1"
+msgstr "Представлять диалог"
 
 #: ../plugins/tools/tool.c:91
-#, fuzzy
 msgid "Discard output"
-msgstr "Стандартный вывод:"
+msgstr "Отбрасывать вывод"
 
 #: ../plugins/tools/tool.c:96
 msgid "None"
@@ -9299,12 +9217,12 @@ msgstr "строк выше и ниже целевой строки"
 #: ../plugins/valgrind/process.c:55
 #, c-format
 msgid "Failed to create pipe to '%s': %s"
-msgstr "Не удалось создать канал для '%s': %s"
+msgstr "Не удалось создать канал для «%s»: %s"
 
 #: ../plugins/valgrind/process.c:110
 #, c-format
 msgid "Failed to create child process '%s': %s"
-msgstr "Сбой при создании дочернего процесса %s: %s"
+msgstr "Сбой при создании дочернего процесса «%s»: %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
@@ -9340,6 +9258,8 @@ msgid ""
 "Invalid syntax in settings '%s'.\n"
 "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
 msgstr ""
+"Некорреткный формат настройки «%s».\n"
+"Введите значения вида <целое>,<целое>,<целое>."
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:234
 msgid "Override default settings"
@@ -9349,7 +9269,7 @@ msgstr "Не использовать параметры, заданные по 
 #. * inside the <>
 #: ../plugins/valgrind/vgcachegrindprefs.c:246
 msgid "Enter <size>,<assoc>,<line_size>:"
-msgstr ""
+msgstr "Введите <размер>,<связь>,<размер строки>:"
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:280
 msgid "Cachegrind"
@@ -9374,7 +9294,7 @@ msgstr "Файлы исходных текстов, содержащие:"
 #: ../plugins/valgrind/vgdefaultview.c:229
 #, c-format
 msgid "Invalid regular expression: '%s': %s"
-msgstr "Неверное регулярное выражение: '%s': %s"
+msgstr "Неверное регулярное выражение: «%s»: %s"
 
 #. FIXME: we should really get this title from somewhere else?
 #: ../plugins/valgrind/vgdefaultview.c:773
@@ -9392,9 +9312,8 @@ msgid "Cu_t"
 msgstr "_Вырезать"
 
 #: ../plugins/valgrind/vgdefaultview.c:1170
-#, fuzzy
 msgid "Suppress"
-msgstr "Поддержка"
+msgstr "Подавление"
 
 #: ../plugins/valgrind/vgdefaultview.c:1172
 msgid "Edit in Custom Editor"
@@ -9411,7 +9330,7 @@ msgstr "Показать"
 
 #: ../plugins/valgrind/vggeneralprefs.c:199
 msgid "callers in stack trace"
-msgstr ""
+msgstr "вызывающие функции в журнале вызовов"
 
 #: ../plugins/valgrind/vggeneralprefs.c:206
 msgid "Stop showing errors if there are too many"
@@ -9440,9 +9359,8 @@ msgid "Call __libc_freeres() at exit before checking for memory leaks"
 msgstr "Вызвать __libc_freeres() при выходе до проверки утечек памяти"
 
 #: ../plugins/valgrind/vggeneralprefs.c:254
-#, fuzzy
 msgid "Suppressions File:"
-msgstr "Уровень сжатия CVS:"
+msgstr "Файл подавления:"
 
 #: ../plugins/valgrind/vggeneralprefs.c:274
 msgid "Choose Valgrind Suppressions File..."
@@ -9454,7 +9372,7 @@ msgstr "Helgrind"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:170
 msgid "Assume thread stacks are used privately"
-msgstr ""
+msgstr "Предполагать, что стек потока используется только им"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
@@ -9474,33 +9392,31 @@ msgstr "Проверка утечек:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:210
 msgid "Show reachable blocks in leak check"
-msgstr ""
+msgstr "Показывать доступные блоки при проверке утечек"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
-#, fuzzy
 msgid "Leak resolution:"
-msgstr "Направление поиска:"
+msgstr "Разрешение утечек:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
-msgstr ""
+msgstr "Хранить до"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
-msgstr ""
+msgstr "байтов в очереди после освобождения памяти"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
 msgstr "Обходить ошибки, созданные gcc 2.96"
 
 #: ../plugins/valgrind/vgrule-editor.c:197
-#, fuzzy
 msgid "Grow"
-msgstr "Перейти"
+msgstr "Растянуть"
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr ""
+msgstr "Сжать"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 msgid "Rule name:"
@@ -9524,9 +9440,9 @@ msgstr "Последовательность вызова:"
 
 #: ../plugins/valgrind/vgrule-editor.c:529
 #: ../plugins/valgrind/vgrule-editor.c:544
-#, fuzzy, c-format
+#, c-format
 msgid "Error saving to suppression file '%s': %s"
-msgstr "Ошибка записи в файл: %s."
+msgstr "Ошибка записи в файл подавления «%s»: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:177 ../plugins/valgrind/vgrule-list.c:246
 msgid "You have forgotten to name your suppression rule."
@@ -9541,11 +9457,11 @@ msgstr "Не удалось сохранить правила подавлени
 msgid "You have not set a suppressions file in your settings."
 msgstr "В параметрах не задан файл для сохранения правил подавления"
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (С) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Сеанс загружен..."
 
@@ -9649,7 +9565,7 @@ msgstr "Сбр_осить панели"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr ""
+msgstr "Сбросить расположение панелей на расположение по умолчанию"
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
@@ -9665,7 +9581,7 @@ msgstr "_Заблокировать панели"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr ""
+msgstr "Заблокировать расположение панелей, запретив их перемещния"
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
@@ -9761,15 +9677,15 @@ msgstr "Изменить"
 msgid "View"
 msgstr "Просмотр"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:659
 msgid "Installed plugins"
 msgstr "Установленные дополнения"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:663
 msgid "Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:735
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Значение не существует"
@@ -9803,6 +9719,7 @@ msgstr "Не открывать последний проект и файлы н
 #: ../src/main.c:94
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr ""
+"Завершать работу anjuta, последовательно освобождая все ресурсы (для отладки)"
 
 #: ../src/main.c:156
 msgid "- Integrated Development Environment"
@@ -9817,9 +9734,8 @@ msgid "<b>Autocompletion (C/C++/Java only)</b>"
 msgstr "<b>Автодополнение (только для C/C++/Java)</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
-#, fuzzy
 msgid "<b>Calltips</b>"
-msgstr "<b>Параметры</b>"
+msgstr "<b>Подсказки вызовов</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
 msgid "<b>Indentation parameters</b>"
@@ -9846,38 +9762,34 @@ msgid "Brace indentation size in spaces:"
 msgstr "Отступ скобки в пробелах:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
-#, fuzzy
 msgid "Enable adaptive indentation"
-msgstr "Включить проверку скобок"
+msgstr "Включить адаптивное выравнивание"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:11
 msgid "Enable code completion"
 msgstr "Включить завершение кода"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
-#, fuzzy
 msgid "Enable smart brace completion"
-msgstr "Включить завершение кода"
+msgstr "Включить интеллектуальное дополнение скобок"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
 msgid "Enable smart indentation"
-msgstr "Включить \"умные\" отступы"
+msgstr "Включить «умные» отступы"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
 msgid "Pressing tab indents"
-msgstr "Нажатие \"Tab\" вставляет отступ"
+msgstr "Нажатие «Tab» вставляет отступ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
-#, fuzzy
 msgid "Show calltips"
-msgstr "Подсказка по ф_ункции"
+msgstr "Показывать подсказу по функциям"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
 msgid "Smart Indentation"
-msgstr "\"Умные\" отступы"
+msgstr "«Умные» отступы"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
-#, fuzzy
 msgid "Statement indentation size in spaces:"
 msgstr "Размер отступа в пробелах:"
 
@@ -9896,6 +9808,8 @@ msgstr "Отступы"
 #: ../plugins/language-support-cpp-java/plugin.c:1907
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
+"Автоматически выравнивать текущую строку или выделение на основе настроек "
+"выравнивания"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1912
 msgid "Swap .h/.c"
@@ -9952,7 +9866,7 @@ msgstr "Мастер файлов"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:2
 msgid "File manager for project and single files"
-msgstr "Менеджер файлов для проекта и отдельных файлов"
+msgstr "Диспетчер файлов для проекта и отдельных файлов"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
@@ -9976,11 +9890,11 @@ msgstr "Модуль Glade для Anjuta"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
 msgid "Glade interface designer"
-msgstr "Дизайнер интерфейса Glade"
+msgstr "Редактор интерфейса Glade"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:1
 msgid "Task Manager"
-msgstr "Менеджер задач"
+msgstr "Диспетчер задач"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
@@ -10060,7 +9974,7 @@ msgstr "Альтернативный редактор, основанный на
 
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:1
 msgid "Change build commands to use scratchbox 1 or 2"
-msgstr ""
+msgstr "Использовать команды для сборки  scratchbox 1 или 2"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
@@ -10110,11 +10024,11 @@ msgstr "Генератор классов"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
-msgstr "Менеджер проекта"
+msgstr "Диспетчер проекта"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:2
 msgid "Project Manager Plugin for Anjuta."
-msgstr "Модуль менеджера проекта для Anjuta"
+msgstr "Модуль диспетчера проекта для Anjuta"
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
 msgid "Symbol Database Plugin for Anjuta (unstable)."
@@ -10126,7 +10040,7 @@ msgstr "Управляет сообщениями от внешних прило
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:2
 msgid "Message Manager"
-msgstr "Менеджер сообщений"
+msgstr "Диспетчер сообщений"
 
 #: ../plugins/valgrind/anjuta-valgrind.plugin.in.h:1
 msgid "Powerful debugging tool."
@@ -10154,26 +10068,24 @@ msgstr "Запуск программ"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:1
 msgid "Language Manager"
-msgstr "Менеджер языков"
+msgstr "Диспетчер языков"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
-msgstr ""
+msgstr "Модуль для отслеживания связей нескольких языков программирования"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:1
-#, fuzzy
 msgid "Makefile backend"
-msgstr "Сценарии сборки (Makefiles)"
+msgstr "Модуль сценариев (Makefiles)"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:2
-#, fuzzy
 msgid "Makefile backend for project manager"
-msgstr "Проект, собираемый с помощью Makefile"
+msgstr "Модуль работы с сценариями сборки для диспетчера проектов"
 
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:1
 msgid "Autotools backend"
-msgstr ""
+msgstr "Модуль Autotools"
 
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
-msgstr ""
+msgstr "Модуль Autotools для диспетчера проектов"
