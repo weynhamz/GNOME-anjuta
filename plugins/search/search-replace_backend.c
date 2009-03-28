@@ -222,32 +222,26 @@ file_buffer_new_from_uri (const gchar *uri)
 static long
 file_buffer_line_from_pos(FileBuffer *fb, gint pos)
 {
-	gint lineno = -1;
-	
 	g_return_val_if_fail(fb && pos >= 0, 1);
 	
 	if (FB_FILE == fb->type)
 	{
 		GList *tmp;
+		gint lineno = 0;
 		
 		if (fb->lines == NULL)
 		{
 			gint i;
 			/* First line starts at column 0 */
 			fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(0));
-			lineno = 0;
 			for (i=0; i < fb->len; ++i)
 			{
 				if ('\n' == fb->buf[i] && '\0' != fb->buf[i+1])
 				{
 					fb->lines = g_list_prepend(fb->lines, GINT_TO_POINTER(i + 1));
-					if (0 == fb->line && fb->pos > i)
-						fb->line = lineno;
-					++ lineno;
 				}
 			}
 			fb->lines = g_list_reverse(fb->lines);
-			lineno = -1;
 		}
 		
 		for (tmp = fb->lines; tmp; tmp = g_list_next(tmp))
@@ -262,6 +256,7 @@ file_buffer_line_from_pos(FileBuffer *fb, gint pos)
 	{
 		IAnjutaIterable *position;
 		gint offset;
+		gint lineno;
 		
 		offset = g_utf8_strlen (fb->buf, pos);
 		position = ianjuta_editor_get_position_from_offset (fb->te, offset, NULL);

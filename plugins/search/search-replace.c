@@ -654,9 +654,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 	int line = mi->line;
 	gchar *buf;
 	gchar *path = NULL;
-	
-	if (se->type == SE_FILE)
-		++line;
+
 	if (fb->file != NULL)
 	{
 		gchar *dir_uri = NULL;	
