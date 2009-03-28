@@ -37,13 +37,12 @@ static char *
 get_date_time(void)
 {
 	time_t cur_time = time(NULL);
-	gchar *DateTime;
+	const gchar *DateTime;
 	gchar *buffer;
 
-	DateTime = g_new(gchar, 100);
-	sprintf("%s", DateTime,ctime(&cur_time));
+	DateTime = ctime(&cur_time);
+	/* Remove new line at the end */
 	buffer = g_strndup(DateTime, strlen(DateTime) - 1);
-	g_free(DateTime);
 	return buffer;
 }
 
