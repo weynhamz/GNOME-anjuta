@@ -1,3 +1,12 @@
+2009-03-28  Iasen Karakashev  <ikarakashev@yahoo.com>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/search/search-replace_backend.c
+	(file_buffer_line_from_pos):
+	#576959 - Search does not point to correct line number on first match
+	when file is not opened in editor.
+
 2009-03-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/macro/macro-util.c:
