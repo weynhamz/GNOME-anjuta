@@ -557,37 +557,40 @@ iiter_foreach (IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 static gboolean
 iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
-	gint i;
 	gboolean within_range = TRUE;
-	gint old_byte_position = 0, new_byte_position = 0;
+	gint new_byte_position = 0;
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
+
+	if (position > 0)
+	{
+		const gchar *buffer;
+		glong length;
+
+		buffer = (const gchar *)scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla), SCI_GETCHARACTERPOINTER, 0, 0);
+		length = g_utf8_strlen (buffer, -1);
+
+		if (position < length)	
+		{
+			gchar *pos;
+
+			pos = g_utf8_offset_to_pointer (buffer, position);
+			new_byte_position = pos - buffer;
+		}
+		else
+		{
+			position = -1;
+			within_range = FALSE;
+		}
+	}
 	
 	if (position < 0)
 	{
 		/* Set to end-iter (length of the doc) */
-		cell->priv->position =
-			scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
-									SCI_GETLENGTH, 0, 0);
-		return within_range;
-	}
-	
-	/* FIXME: Find more optimal solution */
-	/* Iterate untill the we reach given character position */
-	old_byte_position = 0;
-	for (i = 0; i < position; i++)
-	{
 		new_byte_position =
 			scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
-									SCI_POSITIONAFTER, old_byte_position, 0);	
-		if (old_byte_position == new_byte_position)
-		{
-			/* Out of range. set to end-iter */
-			DEBUG_PRINT ("Out of range: setting pos at %d", new_byte_position);
-			within_range = FALSE;
-			break;
-		}
-		old_byte_position = new_byte_position;
+									SCI_GETLENGTH, 0, 0);
 	}
+
 	cell->priv->position = new_byte_position;
 	DEBUG_PRINT ("Editor byte position set at: %d", cell->priv->position);
 	return within_range;
