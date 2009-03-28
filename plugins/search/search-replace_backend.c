@@ -247,6 +247,7 @@ file_buffer_line_from_pos(FileBuffer *fb, gint pos)
 				}
 			}
 			fb->lines = g_list_reverse(fb->lines);
+			lineno = -1;
 		}
 		
 		for (tmp = fb->lines; tmp; tmp = g_list_next(tmp))
