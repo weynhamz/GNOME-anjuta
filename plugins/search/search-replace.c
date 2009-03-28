@@ -1997,6 +1997,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 {
 	GtkWidget *notebook;
 	GtkWidget *search_entry;
+	GtkWidget *search_button;
 	IAnjutaDocument *doc;
 	IAnjutaEditor *te;
 
@@ -2009,6 +2010,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	reset_flags_and_search_button();
 	
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
+	search_button = sr_get_gladewidget(SEARCH_BUTTON)->widget;
 	doc = ianjuta_document_manager_get_current_document(sr->docman, NULL);
 	te = (IANJUTA_IS_EDITOR (doc)) ? IANJUTA_EDITOR (doc) : NULL;
 	if (te && search_entry && sr->search.range.type != SR_SELECTION)
@@ -2069,5 +2071,12 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	/* Show the dialog */
 	if (search_entry)
 	gtk_widget_grab_focus (search_entry);
+
+	/* Set default button */
+	if (search_button)
+	{
+		GTK_WIDGET_SET_FLAGS (search_button, GTK_CAN_DEFAULT);
+		gtk_widget_grab_default(search_button);
+	}
 	show_dialog();
 }

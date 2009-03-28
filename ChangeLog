@@ -1,3 +1,10 @@
+2009-03-28  Deniz Koçak  <deniz.kocak@linux.org.tr>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/search/search-replace.c:
+	Fix #567588 – highlight default button in Find dialog
+
 2009-03-28  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c,
