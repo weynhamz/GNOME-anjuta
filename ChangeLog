@@ -1,8 +1,12 @@
-2009-03-28  James Liggett  <jim@jim-desktop>
+2009-03-28  James Liggett  <jrliggett@cox.net>
 
-	reviewed by: <delete if not using a buddy>
+	* ChangeLog:
+	Fix up ChangeLog from last commit.
+
+2009-03-28  James Liggett  <jrliggett@cox.net>
 
 	* plugins/git/git-vcs-interface.c (on_status_command_data_arrived):
+	Fix an object leak.
 
 2009-03-28  Deniz Koçak  <deniz.kocak@linux.org.tr>
 
