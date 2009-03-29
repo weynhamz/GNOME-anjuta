@@ -1,3 +1,9 @@
+2009-03-28  James Liggett  <jim@jim-desktop>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/git/git-vcs-interface.c (on_status_command_data_arrived):
+
 2009-03-28  Deniz Koçak  <deniz.kocak@linux.org.tr>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
