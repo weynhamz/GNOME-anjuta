@@ -1,3 +1,11 @@
+2009-03-30  Mario Blättermann  <mariobl@svn.gnome.org>
+
+	* manuals/anjuta-manual/de/de.po:
+	  Added partial German translation
+
+	* manuals/anjuta-manual/Makefile.am:
+	  Added de.
+
 2009-03-28  James Liggett  <jrliggett@cox.net>
 
 	* ChangeLog:
