@@ -6,12 +6,16 @@ void open_playlist(void)
 {
 	GtkWidget *selection = NULL;
 	gchar *path = NULL;
-	selection = gtk_file_selection_new(_("Open a Task List"));
+	selection = gtk_file_chooser_dialog_new (_("Open a Task List"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN,
+				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+				      NULL);
+
 
 	switch(gtk_dialog_run(GTK_DIALOG(selection)))
 	{
 		case GTK_RESPONSE_OK:
-			path = g_strdup_printf("gtodo \"%s\"",gtk_file_selection_get_filename(GTK_FILE_SELECTION(selection)));
+			path = g_strdup_printf("gtodo \"%s\"",gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (selection)));
 			g_print("%s\n", path);
 			g_spawn_command_line_async(path, NULL);	
 			g_free(path);
@@ -27,12 +31,15 @@ void create_playlist(void)
 {
 	GtkWidget *selection = NULL;
 	gchar *path = NULL;
-	selection = gtk_file_selection_new(_("Create a Task List"));
+	selection = gtk_file_chooser_dialog_new (_("Create a Task List"), NULL, GTK_FILE_CHOOSER_ACTION_SAVE,
+				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      GTK_STOCK_SAVE, GTK_RESPONSE_OK,
+				      NULL);
 
 	switch(gtk_dialog_run(GTK_DIALOG(selection)))
 	{
 		case GTK_RESPONSE_OK:
-			path = g_strdup_printf("gtodo %s",gtk_file_selection_get_filename(GTK_FILE_SELECTION(selection)));
+			path = g_strdup_printf("gtodo %s",gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (selection)));
 			g_print("%s\n", path);
 			g_spawn_command_line_async(path, NULL);	
 			g_free(path);

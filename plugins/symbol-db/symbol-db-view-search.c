@@ -539,7 +539,7 @@ sdb_view_search_init (SymbolDBViewSearch * search)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->hitlist), FALSE);
 
 	gtk_container_add (GTK_CONTAINER (list_sw), priv->hitlist);
-	gtk_box_pack_end_defaults (GTK_BOX (search), frame);
+	gtk_box_pack_end (GTK_BOX (search), frame, TRUE, TRUE, 0);
 
 	gtk_widget_show_all (GTK_WIDGET (search));
 }

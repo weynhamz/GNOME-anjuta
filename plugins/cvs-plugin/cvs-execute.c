@@ -27,6 +27,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
 
+#include <unistd.h>
 #include <glade/glade.h>
 
 #define CVS_ICON ""

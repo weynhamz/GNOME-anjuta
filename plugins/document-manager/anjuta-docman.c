@@ -29,6 +29,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 
+#include <stdlib.h>
 #include <gtk/gtk.h>
 
 #include "anjuta-docman.h"

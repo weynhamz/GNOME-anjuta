@@ -5,13 +5,25 @@
 int categorys = 0;
 
 
+static gboolean
+RowSeparatorFunc (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+{
+	gboolean ret = FALSE;
+	int i, size = gtk_tree_model_iter_n_children (model, NULL);
+	gchar *path = gtk_tree_model_get_string_from_iter (model, iter);
+	sscanf (path, "%d", &i);
+	if (i == 1 || i == size - 2)
+		ret = TRUE;
+	g_free (path);
+	return ret;
+}
 
 void read_categorys (void)
 {
 	int last_category;
 	GTodoList *list;
 
-	last_category = gtk_option_menu_get_history (GTK_OPTION_MENU (mw.option));
+	last_category = gtk_combo_box_get_active (GTK_COMBO_BOX (mw.option));
 	if (mw.mitems != NULL)
 	{
 		int i;
@@ -19,8 +31,7 @@ void read_categorys (void)
 		{
 			if (mw.mitems[i]->date != NULL)
 				g_free (mw.mitems[i]->date);
-
-			gtk_widget_destroy (mw.mitems[i]->item);
+			gtk_combo_box_remove_text (GTK_COMBO_BOX (mw.option), 2);
 			g_free (mw.mitems[i]);
 		}
 		categorys = 0;
@@ -36,13 +47,11 @@ void read_categorys (void)
 			mw.mitems = g_realloc (mw.mitems, (categorys + 2) * sizeof (int *));
 			mw.mitems[categorys + 1] = NULL;
 			mw.mitems[categorys] = g_malloc (sizeof (catitems));
-			mw.mitems[categorys]->item =
-				gtk_menu_item_new_with_label (gtodo_client_get_category_from_list
-						(list));
+
+			gtk_combo_box_append_text (GTK_COMBO_BOX (mw.option),
+					gtodo_client_get_category_from_list (list));
 			mw.mitems[categorys]->date =
 				g_strdup (gtodo_client_get_category_from_list (list));
-			gtk_menu_shell_append (GTK_MENU_SHELL (mw.menu),
-					mw.mitems[categorys]->item);
 			categorys++;
 		}
 		while (gtodo_client_get_list_next (list));
@@ -57,32 +66,22 @@ void read_categorys (void)
 
 
 		mw.mitems[categorys] = g_malloc (sizeof (catitems));
-		mw.mitems[categorys]->item = gtk_separator_menu_item_new ();
+		gtk_combo_box_append_text (GTK_COMBO_BOX (mw.option), "");
 		mw.mitems[categorys]->date = g_strdup ("");
-		gtk_menu_shell_append (GTK_MENU_SHELL (mw.menu),
-				mw.mitems[categorys]->item);
-
-
 
 		mw.mitems[categorys + 1] = g_malloc (sizeof (catitems));
 
-		mw.mitems[categorys + 1]->item =
-			gtk_menu_item_new_with_label (_("Edit Categories"));
-		gtk_menu_item_new_with_label (_("Edit Categories"));	
 		mw.mitems[categorys + 1]->date = g_strdup (("Edit"));
-
-
-		gtk_menu_shell_append (GTK_MENU_SHELL (mw.menu),
-				mw.mitems[categorys + 1]->item);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (mw.option), _("Edit Categories"));
 	}
-
-	gtk_widget_show_all (mw.menu);
+	gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (mw.option), RowSeparatorFunc, NULL, NULL);
+	gtk_widget_show_all (mw.option);
 	if (categorys > 0)
 	{
 		if (last_category != -1 && last_category <= categorys + 1)
-			gtk_option_menu_set_history (GTK_OPTION_MENU (mw.option), last_category);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (mw.option), last_category);
 		else
-			gtk_option_menu_set_history (GTK_OPTION_MENU (mw.option), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (mw.option), 0);
 	}
 }
 
@@ -96,11 +95,11 @@ load_category (void)
 	GTodoList *list;
 	gboolean all = FALSE;
 	gchar *category;
-	if (gtk_option_menu_get_history (GTK_OPTION_MENU (mw.option)) == 0)
+	if (gtk_combo_box_get_active (GTK_COMBO_BOX (mw.option)) == 0)
 		all = TRUE;
 	if (!all)
 		category =
-			mw.mitems[gtk_option_menu_get_history (GTK_OPTION_MENU (mw.option)) -
+			mw.mitems[gtk_combo_box_get_active (GTK_COMBO_BOX (mw.option)) -
 			2]->date;
 	else
 		category = NULL;

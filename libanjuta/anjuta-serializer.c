@@ -28,6 +28,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <anjuta-enum-types.h>
 #include "anjuta-serializer.h"
  

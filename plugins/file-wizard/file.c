@@ -170,8 +170,6 @@ static gboolean
 create_new_file_dialog(IAnjutaDocumentManager *docman)
 {
 	GtkWidget *optionmenu;
-	GtkWidget *menu;
-	GtkWidget *menuitem;
 	gint i;
 
 	nfg = g_new0(NewFileGUI, 1);
@@ -188,28 +186,22 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	nfg->showing = FALSE;
 	
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
-	menu = gtk_menu_new();
 	for (i=0; i < (sizeof(new_file_type) / sizeof(NewfileType)); i++)
 	{
-		menuitem = gtk_menu_item_new_with_label(new_file_type[i].name);
-		gtk_menu_append(GTK_MENU(menu), menuitem);
-		gtk_widget_show(menuitem);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_file_type[i].name);
 	}
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu), menu);
-	
+	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
+
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
-	menu = gtk_menu_new();
 	for (i=0; i < (sizeof(new_license_type) / sizeof(NewlicenseType)); i++)
 	{
-		menuitem = gtk_menu_item_new_with_label(new_license_type[i].name);
-		gtk_menu_append(GTK_MENU(menu), menuitem);
-		gtk_widget_show(menuitem);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_license_type[i].name);
 	}
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu), menu);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
 	
 	g_object_set_data (G_OBJECT (nfg->dialog), "IAnjutaDocumentManager", docman);
 	glade_xml_signal_autoconnect(nfg->xml);
-	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
+	g_signal_emit_by_name(G_OBJECT (optionmenu), "changed");
 	
 	return TRUE;
 }
@@ -265,7 +257,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	
 	/* Create header file */
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
-	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
+	source_type = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 	
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
@@ -312,7 +304,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
 		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
-		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
+		sel = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 		license_type = new_license_type[sel].type;
 		comment_type = new_file_type[source_type].comment;
 		                                  
@@ -409,7 +401,7 @@ on_new_file_entry_changed (GtkEditable *entry, gpointer user_data)
 	if (last_length != 2 && length == 1)
 	{
 		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
-		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
+		sel = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 		name = g_strconcat (name, new_file_type[sel].ext, NULL);
 		gtk_entry_set_text (GTK_ENTRY(entry), name);
 	}
@@ -419,14 +411,14 @@ on_new_file_entry_changed (GtkEditable *entry, gpointer user_data)
 }
 
 void
-on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data)
+on_new_file_type_changed (GtkComboBox   *optionmenu, gpointer user_data)
 {
 	gint sel;
 	char *name, *tmp;
 	GtkWidget *widget;
 	GtkWidget *entry;
 	
-	sel = gtk_option_menu_get_history(optionmenu);
+	sel = gtk_combo_box_get_active(optionmenu);
 	
 	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
 	gtk_widget_set_sensitive(widget, new_file_type[sel].header >= 0);

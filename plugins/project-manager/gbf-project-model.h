@@ -29,10 +29,10 @@
 #include "gbf-tree-data.h"
 
 #define GBF_TYPE_PROJECT_MODEL            (gbf_project_model_get_type ())
-#define GBF_PROJECT_MODEL(obj)	          (GTK_CHECK_CAST ((obj), GBF_TYPE_PROJECT_MODEL, GbfProjectModel))
-#define GBF_PROJECT_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GBF_TYPE_PROJECT_MODEL, GbfProjectModelClass))
-#define GBF_IS_PROJECT_MODEL(obj)	      (GTK_CHECK_TYPE ((obj), GBF_TYPE_PROJECT_MODEL))
-#define GBF_IS_PROJECT_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GBF_TYPE_PROJECT_MODEL))
+#define GBF_PROJECT_MODEL(obj)	          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GBF_TYPE_PROJECT_MODEL, GbfProjectModel))
+#define GBF_PROJECT_MODEL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GBF_TYPE_PROJECT_MODEL, GbfProjectModelClass))
+#define GBF_IS_PROJECT_MODEL(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GBF_TYPE_PROJECT_MODEL))
+#define GBF_IS_PROJECT_MODEL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GBF_TYPE_PROJECT_MODEL))
 
 typedef struct _GbfProjectModel        GbfProjectModel;
 typedef struct _GbfProjectModelClass   GbfProjectModelClass;

@@ -6,7 +6,7 @@
 guint64 julian=0, start_jul=0, stop_jul=0;
 void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel);
 
-void add_edit_option_changed(GtkOptionMenu *option, GtkWidget *menu);
+void add_edit_option_changed(GtkComboBox *option, gpointer data);
 
 static
 void check_length(GtkWidget *entry, GtkWidget *button)
@@ -56,6 +56,15 @@ void date_time_changed(GtkWidget *eg, GtkWidget *notify)
 	else gtk_widget_set_sensitive(notify, TRUE);    
 }
 
+static gboolean
+RowSeparatorFunc (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+{
+	int n, col = gtk_tree_model_iter_n_children (model, NULL);
+	gchar *path = gtk_tree_model_get_string_from_iter (model, iter);
+	sscanf (path, "%d", &n);
+	g_free (path);
+	return col - 2 == n;
+}
 
 void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	GtkWidget *dialog;
@@ -64,8 +73,7 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	GtkWidget *priority;
 	GtkWidget *label;
 	GtkWidget *text_view;
-	GtkWidget *menus; 
-	GtkWidget *option, *menu;
+	GtkWidget *option;
 	GtkWidget *vbox, *hbox2, *vbox2;
 	GtkTreeIter iter;
 	GtkTextBuffer *buffer;
@@ -77,7 +85,7 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	GtkWidget *rlabel=NULL, *notify_cb, *llabel=NULL;
 	gchar *tempstr;
 	guint64 idvalue;
-	int i;
+	int i, k;
 	int edit = GPOINTER_TO_INT(data);
 	GtkTreeSelection *selection;
 	GtkTreeModel *model = mw.sortmodel;
@@ -167,28 +175,28 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	gtk_size_group_add_widget(sglabel, label);
 
 	/* option menu */
-	option = gtk_option_menu_new();
+	option = gtk_combo_box_new_text();
 
-	menu = gtk_menu_new();
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(option), menu);
-	for(i = 0; i < (categorys); i++)
+	for(i = 0, k = 0; i < (categorys); i++)
 	{
-		menus = gtk_menu_item_new_with_label(mw.mitems[i]->date);
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menus);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (option), mw.mitems[i]->date);
 		if(edit){
 			if(!g_utf8_collate(gtodo_todo_item_get_category(item), mw.mitems[i]->date))
 			{
-				gtk_option_menu_set_history(GTK_OPTION_MENU(option), i);
+				k = i;
 			}
 		}
 	}
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_menu_item_new_with_label(_("Edit Categories")));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(option), k);
+
+	gtk_combo_box_append_text (GTK_COMBO_BOX (option), "");
+	gtk_combo_box_append_text (GTK_COMBO_BOX (option), _("Edit Categories"));
+	gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (option), RowSeparatorFunc, NULL, NULL);
 
 	g_free(category);
 
-	g_signal_connect(G_OBJECT(option), "changed", G_CALLBACK( add_edit_option_changed ), menu);
-	if(!edit)gtk_option_menu_set_history(GTK_OPTION_MENU(option), gtk_option_menu_get_history(GTK_OPTION_MENU(mw.option))-2);
+	g_signal_connect(G_OBJECT(option), "changed", G_CALLBACK( add_edit_option_changed ), NULL);
+	if(!edit)gtk_combo_box_set_active(GTK_COMBO_BOX(option), gtk_combo_box_get_active(GTK_COMBO_BOX (mw.option))-2);
 	gtk_box_pack_start(GTK_BOX(hbox2), option, TRUE, TRUE, 0);
 	gtk_size_group_add_widget(sgdd, option);
 
@@ -233,19 +241,13 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 
 	/* fixme move pmenu and menui up */
 	{
-		GtkWidget *pmenu, *menui;
-		priority = gtk_option_menu_new();
+		priority = gtk_combo_box_new_text();
 
-		pmenu = gtk_menu_new();
-		gtk_option_menu_set_menu(GTK_OPTION_MENU(priority), pmenu);
-		menui = gtk_menu_item_new_with_label(_("High"));
-		gtk_menu_shell_append (GTK_MENU_SHELL (pmenu), menui);
-		menui = gtk_menu_item_new_with_label(_("Medium"));
-		gtk_menu_shell_append (GTK_MENU_SHELL (pmenu), menui);
-		menui = gtk_menu_item_new_with_label(_("Low"));    
-		gtk_menu_shell_append (GTK_MENU_SHELL (pmenu), menui);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (priority), "High");
+		gtk_combo_box_append_text (GTK_COMBO_BOX (priority), "Medium");
+		gtk_combo_box_append_text (GTK_COMBO_BOX (priority), "Low");
 
-		gtk_option_menu_set_history(GTK_OPTION_MENU(priority), 1);
+		gtk_combo_box_set_active (GTK_COMBO_BOX (priority), 1);
 		gtk_box_pack_start(GTK_BOX(hbox2), priority,TRUE, TRUE, 0);
 		gtk_size_group_add_widget(sgdd, priority);
 	}
@@ -322,7 +324,7 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 
 		/* make sure  that the calendar is insensitive when needed */
 		gtk_entry_set_text(GTK_ENTRY(summary), gtodo_todo_item_get_summary(item));
-		gtk_option_menu_set_history(GTK_OPTION_MENU(priority), 2-gtodo_todo_item_get_priority(item));
+		gtk_combo_box_set_active(GTK_COMBO_BOX(priority), 2-gtodo_todo_item_get_priority(item));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(done_check), gtodo_todo_item_get_done(item));
 		gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view)), gtodo_todo_item_get_comment(item), -1);
 		{
@@ -364,8 +366,8 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	gtk_text_buffer_get_iter_at_offset (buffer, &first, 0);
 	gtk_text_buffer_get_iter_at_offset (buffer, &last, -1);
 
-	gtodo_todo_item_set_category(item, mw.mitems[gtk_option_menu_get_history(GTK_OPTION_MENU(option))]->date);
-	gtodo_todo_item_set_priority(item, 2-gtk_option_menu_get_history(GTK_OPTION_MENU(priority)));
+	gtodo_todo_item_set_category(item, mw.mitems[gtk_combo_box_get_active(GTK_COMBO_BOX(option))]->date);
+	gtodo_todo_item_set_priority(item, 2-gtk_combo_box_get_active(GTK_COMBO_BOX(priority)));
 	if(edit) gtodo_todo_item_set_done(item, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(done_check)));
 	/*( COMPLETED_DATE */
 	/*    if(edit)
@@ -449,25 +451,27 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel)
 	g_free(tempstr);
 }
 
-void add_edit_option_changed(GtkOptionMenu *option, GtkWidget *menu)
+void add_edit_option_changed(GtkComboBox *option, gpointer data)
 {
-	int i = gtk_option_menu_get_history(option);    
-	GtkWidget *menus;
+	int i = gtk_combo_box_get_active(option);    
 	if(i == categorys +1)
 	{
 		category_manager();
-		gtk_widget_destroy(menu);
-		menu = gtk_menu_new();
-		gtk_option_menu_set_menu(GTK_OPTION_MENU(option), menu);
+
+		while (gtk_tree_model_iter_n_children (gtk_combo_box_get_model (option), NULL) > 0) {
+			gtk_combo_box_remove_text (option, 0);
+		}
+
 		for(i = 0; i < (categorys); i++)
 		{
-			menus = gtk_menu_item_new_with_label(mw.mitems[i]->date);
-			gtk_menu_shell_append (GTK_MENU_SHELL (menu), menus);
+			gtk_combo_box_append_text (option, mw.mitems[i]->date);
 		}
-		gtk_option_menu_set_history(GTK_OPTION_MENU(option), 0);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_menu_item_new_with_label(_("Edit Categories")));
-		gtk_widget_show_all(GTK_WIDGET(option));
+		gtk_combo_box_set_active(GTK_COMBO_BOX(option), 0);	
 
+		gtk_combo_box_append_text (option, "");
+		gtk_combo_box_append_text (option, _("Edit Categories"));
+		gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (option), RowSeparatorFunc, NULL, NULL);
+
+		gtk_widget_show_all(GTK_WIDGET(option));
 	}
 }

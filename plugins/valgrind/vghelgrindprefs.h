@@ -45,7 +45,7 @@ struct _VgHelgrindPrefs {
 	VgToolPrefs parent_object;
 	
 	GtkToggleButton *private_stacks;
-	GtkOptionMenu *show_last_access;
+	GtkComboBox *show_last_access;
 };
 
 struct _VgHelgrindPrefsClass {

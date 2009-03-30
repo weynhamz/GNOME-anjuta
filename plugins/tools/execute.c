@@ -35,9 +35,11 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libgnome/libgnome.h>
 
 #include <glib.h>
-
+#include <stdlib.h>
+#include <unistd.h>
 #include <ctype.h>
 
 /*---------------------------------------------------------------------------*/

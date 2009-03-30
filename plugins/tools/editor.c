@@ -25,7 +25,8 @@
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
-
+#include <errno.h>
+#include <sys/stat.h>
 #include "editor.h"
 
 #include "dialog.h"
@@ -36,9 +37,13 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
-
+#include <glib.h>
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
-
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <gnome.h>
 #include <string.h>
 
 /*---------------------------------------------------------------------------*/
@@ -463,8 +468,8 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 	atp_variable_dialog_populate (this, flag);
 
 	/* Connect all signals */	
-	glade_xml_signal_connect_data (xml, VARIABLE_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_variable_response), this);
-	glade_xml_signal_connect_data (xml, VARIABLE_ACTIVATE_SIGNAL, GTK_SIGNAL_FUNC (on_variable_activate), this);
+	glade_xml_signal_connect_data (xml, VARIABLE_RESPONSE_SIGNAL, G_CALLBACK (on_variable_response), this);
+	glade_xml_signal_connect_data (xml, VARIABLE_ACTIVATE_SIGNAL, G_CALLBACK (on_variable_activate), this);
 	g_signal_connect (G_OBJECT (this->dialog), "delete_event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 
 	g_object_unref (xml);
@@ -1012,14 +1017,14 @@ atp_tool_editor_show (ATPToolEditor* this)
 	atp_update_sensitivity (this);
 
 	/* Connect all signals */	
-	glade_xml_signal_connect_data (xml, EDITOR_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_response), this);
-	glade_xml_signal_connect_data (xml, EDITOR_PARAM_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_param_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_dir_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_shortcut_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, GTK_SIGNAL_FUNC (on_editor_terminal_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SCRIPT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_script_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_changed), this);
+	glade_xml_signal_connect_data (xml, EDITOR_RESPONSE_SIGNAL, G_CALLBACK (on_editor_response), this);
+	glade_xml_signal_connect_data (xml, EDITOR_PARAM_VARIABLE_SIGNAL, G_CALLBACK (on_editor_param_variable_show), this);
+	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, G_CALLBACK (on_editor_dir_variable_show), this);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, G_CALLBACK (on_editor_shortcut_toggle), this);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, G_CALLBACK (on_editor_terminal_toggle), this);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SCRIPT_SIGNAL, G_CALLBACK (on_editor_script_toggle), this);
+	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, G_CALLBACK (on_editor_input_variable_show), this);
+	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, G_CALLBACK (on_editor_input_changed), this);
 
 	g_object_unref (xml);
 

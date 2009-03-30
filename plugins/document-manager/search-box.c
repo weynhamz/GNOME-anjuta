@@ -25,6 +25,7 @@
 #include <glib/gi18n.h>
 #include "search-box.h"
 
+#include <stdlib.h>
 #include <gtk/gtk.h>
 
 #include <libanjuta/anjuta-shell.h>

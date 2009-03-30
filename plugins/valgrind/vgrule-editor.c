@@ -46,6 +46,12 @@ static void vg_rule_editor_finalize (GObject *obj);
 
 static GtkVBoxClass *parent_class = NULL;
 
+enum {
+  COLUMN_STRING,
+  COLUMN_INT,
+  N_COLUMNS
+};
+
 
 GType
 vg_rule_editor_get_type (void)
@@ -85,36 +91,42 @@ vg_rule_editor_class_init (VgRuleEditorClass *klass)
 
 
 static void
-type_menu_changed (GtkMenuItem *item, gpointer user_data)
+type_menu_changed (GtkComboBox *widget, gpointer user_data)
 {
 	VgRuleEditor *editor = user_data;
 	vgrule_t type;
+	GtkTreeIter iter;
 	
-	type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "vgrule_t"));
-	
+	gtk_combo_box_get_active_iter (widget, &iter);
+	gtk_tree_model_get (gtk_combo_box_get_model (widget), &iter, 1, &type, -1);
+
 	gtk_widget_set_sensitive (GTK_WIDGET (editor->syscall), type == VG_RULE_PARAM);
 }
 
 static GtkWidget *
 rule_type_menu_new (VgRuleEditor *editor)
 {
-	GtkWidget *omenu, *menu, *item;
+	GtkListStore *list_store;
+	GtkWidget *omenu;
 	int i;
-	
-	omenu = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
+	GtkTreeIter iter;
+	GtkCellRenderer *cell;
+
+	list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
 	
 	for (i = 0; i < VG_RULE_LAST; i++) {
-		item = gtk_menu_item_new_with_label (vg_rule_type_to_name (i));
-		g_object_set_data (G_OBJECT (item), "vgrule_t", GINT_TO_POINTER (i));
-		g_signal_connect (item, "activate", G_CALLBACK (type_menu_changed), editor);
-		gtk_widget_show (item);
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-		editor->types[i] = item;
+		gtk_list_store_append (list_store, &iter);
+		gtk_list_store_set (list_store, &iter, COLUMN_STRING, vg_rule_type_to_name (i), COLUMN_INT, i, -1);
 	}
-	
-	gtk_widget_show (menu);
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+	omenu = gtk_combo_box_new_with_model(GTK_TREE_MODEL(list_store));
+
+	cell = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(omenu), cell, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(omenu), cell, "text", 0, NULL);
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), 0);	
+	g_signal_connect (omenu, "changed", G_CALLBACK (type_menu_changed), editor);
 	
 	return omenu;
 }
@@ -122,27 +134,27 @@ rule_type_menu_new (VgRuleEditor *editor)
 static GtkWidget *
 call_stack_frame_new (vgcaller_t type, const char *name)
 {
+	GtkListStore *list_store;
 	GtkWidget *hbox, *omenu, *entry;
-	GtkWidget *menu, *item;
-	
+	GtkTreeIter iter;
+	GtkCellRenderer *cell;
+
 	hbox = gtk_hbox_new (FALSE, 6);
+	list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
+
+	gtk_list_store_append (list_store, &iter);
+	gtk_list_store_set (list_store, &iter, COLUMN_STRING, _("Function"), COLUMN_INT, VG_CALLER_FUNCTION, -1);
+
+	gtk_list_store_append (list_store, &iter);
+	gtk_list_store_set (list_store, &iter, COLUMN_STRING, _("Shared Object"), COLUMN_INT, VG_CALLER_OBJECT, -1);
+
+	omenu = gtk_combo_box_new_with_model(GTK_TREE_MODEL(list_store));
+
+	cell = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(omenu), cell, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(omenu), cell, "text", 0, NULL);
 	
-	omenu = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
-	
-	item = gtk_menu_item_new_with_label (_("Function"));
-	gtk_widget_show (item);
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-	g_object_set_data (G_OBJECT (item), "vgcaller_t", GINT_TO_POINTER (VG_CALLER_FUNCTION));
-	
-	item = gtk_menu_item_new_with_label (_("Shared Object"));
-	gtk_widget_show (item);
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-	g_object_set_data (G_OBJECT (item), "vgcaller_t", GINT_TO_POINTER (VG_CALLER_OBJECT));
-	
-	gtk_widget_show (menu);
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), (int) type);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), (int) type);
 	
 	gtk_widget_show (omenu);
 	gtk_box_pack_start (GTK_BOX (hbox), omenu, FALSE, FALSE, 0);
@@ -237,7 +249,7 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	label = gtk_label_new (_("Suppress messages of type:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	editor->type = GTK_OPTION_MENU (widget = rule_type_menu_new (editor));
+	editor->type = GTK_COMBO_BOX (widget = rule_type_menu_new (editor));
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show (hbox);
@@ -444,8 +456,7 @@ vg_rule_editor_set_name (VgRuleEditor *editor, const char *name)
 void
 vg_rule_editor_set_type (VgRuleEditor *editor, vgrule_t type)
 {
-	gtk_option_menu_set_history (editor->type, (int) type);
-	g_signal_emit_by_name (editor->types[type], "activate", editor);
+	gtk_combo_box_set_active (editor->type, (int) type);
 }
 
 void
@@ -477,7 +488,7 @@ vg_rule_editor_get_rule (VgRuleEditor *editor)
 	int type, i;
 	
 	name = gtk_entry_get_text (editor->name);
-	type = gtk_option_menu_get_history (editor->type);
+	type = gtk_combo_box_get_active (editor->type);
 	rule = vg_rule_new (type, name);
 	
 	if (type == VG_RULE_PARAM)
@@ -502,7 +513,7 @@ vg_rule_editor_get_rule (VgRuleEditor *editor)
 		entry = g_object_get_data (G_OBJECT (editor->callers->pdata[i]), "entry");
 		
 		name = gtk_entry_get_text (GTK_ENTRY (entry));
-		type = gtk_option_menu_get_history (GTK_OPTION_MENU (omenu));
+		type = gtk_combo_box_get_active (GTK_COMBO_BOX (omenu));
 		
 		caller = vg_caller_new (type, name);
 		tail->next = caller;

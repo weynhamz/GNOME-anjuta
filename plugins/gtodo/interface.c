@@ -89,7 +89,7 @@ void gtodo_update_settings()
 		int i =  gconf_client_get_int(client, "/apps/gtodo/view/last-category",NULL);
 		debug_printf(DEBUG_INFO, "Reading categories");
 		read_categorys();
-		gtk_option_menu_set_history(GTK_OPTION_MENU(mw.option),i);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(mw.option),i);
 	}
 	/* nasty thing to fix the tooltip in the list */
 	if(gconf_client_get_bool(client, "/apps/gtodo/prefs/show-tooltip",NULL))
@@ -139,17 +139,16 @@ GtkWidget * gui_create_todo_widget()
 	gtk_container_set_border_width(GTK_CONTAINER(mw.toolbar), 6);
 
 	/* add drop down menu's */
-	mw.option = gtk_option_menu_new();
-	mw.menu = gtk_menu_new();
+	mw.option = gtk_combo_box_new_text();
 	// gtk_widget_set_size_request(mw.option, 120 , -1);
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(mw.option), mw.menu);
 	gtk_box_pack_start(GTK_BOX(mw.toolbar), mw.option, FALSE, FALSE, 0); 
 
-	gtk_menu_shell_insert (GTK_MENU_SHELL (mw.menu), gtk_menu_item_new_with_label (_("All")), 0);
-	gtk_menu_shell_insert (GTK_MENU_SHELL (mw.menu), gtk_separator_menu_item_new(), 1);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (mw.option), _("All"));
+	gtk_combo_box_append_text (GTK_COMBO_BOX (mw.option), "");
 	mw.mitems = g_malloc(1*sizeof(GtkWidget *));
 	mw.mitems[0] = NULL;
 	/* shand can be removed?? */
+	gtk_combo_box_set_active (GTK_COMBO_BOX (mw.option), 0);
 	shand = g_signal_connect(G_OBJECT(mw.option), "changed", G_CALLBACK(category_changed), NULL);
 
 	/* the buttonbox buttons */

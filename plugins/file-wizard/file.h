@@ -30,7 +30,9 @@ extern "C"
 {
 #endif
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -44,7 +46,7 @@ gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 			                          gboolean user_data);	
 void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);	
-void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);	
+void on_new_file_type_changed (GtkComboBox   *optionmenu, gpointer user_data);	
 void on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data);
 
 typedef enum _Lge

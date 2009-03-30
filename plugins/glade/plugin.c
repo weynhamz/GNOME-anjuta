@@ -4402,10 +4402,18 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_toolbar_insert (GTK_TOOLBAR (priv->designer_toolbar), GTK_TOOL_ITEM (priv->button_redo), 7);
 
 	action = gtk_action_group_get_action (priv->action_group, "ActionGladeUndo");
+#if GTK_MINOR_VERSION < 16
 	gtk_action_connect_proxy (action, GTK_WIDGET (priv->button_undo));
+#else
+	gtk_activatable_set_related_action (GTK_ACTIVATABLE (priv->button_undo), action);
+#endif
 
 	action = gtk_action_group_get_action (priv->action_group, "ActionGladeRedo");
+#if GTK_MINOR_VERSION < 16
 	gtk_action_connect_proxy (action, GTK_WIDGET (priv->button_redo));
+#else
+	gtk_activatable_set_related_action (GTK_ACTIVATABLE (priv->button_redo), action);
+#endif
 	
 	if (!GTK_IS_WINDOW (glade_app_get_clipboard_view()))
 		anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,

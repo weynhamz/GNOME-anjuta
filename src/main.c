@@ -27,13 +27,13 @@
 #endif
 
 #include <sys/stat.h>
+#include <stdlib.h>
 
 #include <gtk/gtk.h>
 #include <unique/unique.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
-#include <gnome.h>
 
 #include "anjuta.h"
 
@@ -164,15 +164,8 @@ main (int argc, char *argv[])
 	g_option_context_add_main_entries (context, anjuta_options, NULL);
 #endif
 	
-	/* gnome_program_init() does this for us - enable when it's removed */
-	/* g_option_context_add_group (context, gtk_get_option_group (TRUE));*/
-	/* Init Gnome - remove once we get rid of libgnome */
-	gnome_program_init (PACKAGE, VERSION,
-	                    LIBGNOMEUI_MODULE, argc, argv,
-	                    GNOME_PARAM_GOPTION_CONTEXT, context,
-	                    GNOME_PARAM_HUMAN_READABLE_NAME,
-	                    _("Integrated Development Environment"),
-	                    GNOME_PARAM_NONE);
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
+	gtk_init (&argc, &argv);
 	
     /* Initialize threads, if possible */
 #ifdef G_THREADS_ENABLED    

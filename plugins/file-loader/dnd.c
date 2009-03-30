@@ -30,7 +30,9 @@
 #endif
 
 #include <stdarg.h>
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 
 #include "dnd.h"
 

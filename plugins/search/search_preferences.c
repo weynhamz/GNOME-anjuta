@@ -30,9 +30,9 @@
 
 #include <string.h>
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-
+#include <glib/gi18n.h>
 #include "search-replace_backend.h"
 #include "search-replace.h"
 #include "search_preferences.h"

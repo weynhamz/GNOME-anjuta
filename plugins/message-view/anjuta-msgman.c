@@ -309,7 +309,7 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 					  G_CALLBACK (on_message_view_destroy), msgman);
 
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 GTK_SIGNAL_FUNC
+									 G_CALLBACK
 									 (on_notebook_switch_page), msgman);
 
 	page_num =
@@ -325,7 +325,7 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 		anjuta_msgman_set_current_view (msgman, NULL);
 
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   GTK_SIGNAL_FUNC
+									   G_CALLBACK
 									   (on_notebook_switch_page), msgman);
 }
 
@@ -344,7 +344,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	gtk_widget_show_all (page->box);
 	
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 GTK_SIGNAL_FUNC
+									 G_CALLBACK
 									 (on_notebook_switch_page), msgman);
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
@@ -355,7 +355,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   GTK_SIGNAL_FUNC
+									   G_CALLBACK
 									   (on_notebook_switch_page), msgman);
 	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
@@ -398,7 +398,7 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 	AnjutaMsgmanPage *page;
 	
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 GTK_SIGNAL_FUNC
+									 G_CALLBACK
 									 (on_notebook_switch_page), msgman);
 	views = NULL;
 	node = msgman->priv->views;
@@ -421,7 +421,7 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 	msgman->priv->views = NULL;
 	anjuta_msgman_set_current_view (msgman, NULL);
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   GTK_SIGNAL_FUNC
+									   G_CALLBACK
 									   (on_notebook_switch_page), msgman);
 }
 

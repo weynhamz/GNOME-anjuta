@@ -28,6 +28,10 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include "plugin.h"
+#include <glib.h>
+#include <glib/gi18n.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "debugger.h"
 

@@ -49,7 +49,7 @@ typedef struct _VgSearchBarItem {
 struct _VgSearchBar {
 	GtkHBox parent_object;
 	
-	GtkOptionMenu *menu;
+	GtkComboBox *menu;
 	GtkEntry *entry;
 	GtkWidget *clear;
 	

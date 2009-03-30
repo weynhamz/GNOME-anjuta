@@ -238,7 +238,7 @@ assist_window_init(AssistWindow *obj)
 	obj->priv->scrolled_window = scroll;
   
   obj->priv->suggestions = GTK_TREE_MODEL(gtk_list_store_new(ASSIST_WINDOW_COLUMN_END,
-                                              GTK_TYPE_STRING, GTK_TYPE_INT));
+                                              G_TYPE_STRING, G_TYPE_INT));
   gtk_tree_view_set_model(obj->priv->view, obj->priv->suggestions);
   renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("Suggestions", 

@@ -48,7 +48,7 @@ void category_manager(void)
 	/* the buttonbox */
 	vbutbox = gtk_vbutton_box_new();
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(vbutbox), GTK_BUTTONBOX_START);    
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(vbutbox), 6);
+	gtk_box_set_spacing (GTK_BOX(vbutbox), 6);
 	gtk_box_pack_start(GTK_BOX(hbox), vbutbox, FALSE, TRUE, 0);
 
 

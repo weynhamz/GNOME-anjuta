@@ -20,7 +20,9 @@
 #ifndef _ANJUTA_PREFERENCES_H_
 #define _ANJUTA_PREFERENCES_H_
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-preferences-dialog.h>

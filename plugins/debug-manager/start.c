@@ -44,7 +44,8 @@
 
 #include <glade/glade-xml.h>
 #include <gio/gio.h>
-
+#include <glib/gi18n.h>
+#include <stdlib.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <ctype.h>
@@ -1273,7 +1274,7 @@ add_source_show (DmaStart *this)
 	gtk_tree_view_append_column (dlg.tree, column);
 	gtk_tree_view_set_expander_column(dlg.tree, column);
 	
-	dlg.model = gtk_list_store_new (1, GTK_TYPE_STRING);
+	dlg.model = gtk_list_store_new (1, G_TYPE_STRING);
 	gtk_tree_view_set_model (dlg.tree, GTK_TREE_MODEL (dlg.model));
 	
 	gtk_window_set_transient_for (GTK_WINDOW (widget), parent);

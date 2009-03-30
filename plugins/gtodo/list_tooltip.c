@@ -18,7 +18,7 @@ gchar *get_tooltip_text()
 	GtkTreePath *path;
 	GtkTreeIter iterp, iter;
 	GTodoItem *item;
-	int i = gtk_option_menu_get_history(GTK_OPTION_MENU(mw.option));
+	int i = gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option));
 	string = g_string_new("");
 	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(mw.treeview), rect.x, rect.y, &path, NULL, NULL, NULL))
 	{

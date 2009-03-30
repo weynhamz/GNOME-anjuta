@@ -18,6 +18,7 @@
  */
 
 #include "macro-util.h"
+#include <stdlib.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 

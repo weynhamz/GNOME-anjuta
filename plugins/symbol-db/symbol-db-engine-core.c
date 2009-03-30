@@ -104,6 +104,7 @@ select symbol_id_base, symbol.name from heritage
 #include <time.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/mman.h>
 #include <signal.h>
 #include <fcntl.h>           /* For O_* constants */

@@ -26,6 +26,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#include <glib/gi18n.h>
+#include <gdk/gdkkeysyms.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/resources.h>
 
@@ -363,10 +365,10 @@ create_signals_gui (Signals *sg)
 	tv = signals_create_list_store_and_treeview (sg);
 	gtk_widget_show (tv);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow4), tv);
-	gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-						GTK_SIGNAL_FUNC (on_signals_delete_event),sg);
-	gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
-						GTK_SIGNAL_FUNC (on_signals_key_press_event), sg);
+	g_signal_connect (G_OBJECT (window3), "delete_event",
+						G_CALLBACK (on_signals_delete_event),sg);
+	g_signal_connect (G_OBJECT (window3), "key-press-event",
+						G_CALLBACK (on_signals_key_press_event), sg);
 	
 	sg->widgets.window = window3;
 	sg->widgets.treeview = tv;
@@ -421,7 +423,7 @@ signals_show (Signals * sg)
 		}
 		else
 		{
-			gtk_widget_set_uposition (sg->widgets.window, sg->win_pos_x,
+			gdk_window_move (sg->widgets.window->window, sg->win_pos_x,
 									  sg->win_pos_y);
 			gtk_window_set_default_size (GTK_WINDOW (sg->widgets.window),
 										 sg->win_width, sg->win_height);
@@ -444,7 +446,7 @@ signals_hide (Signals * sg)
 			return;
 		gdk_window_get_root_origin (sg->widgets.window->window, &sg->win_pos_x,
 									&sg->win_pos_y);
-		gdk_window_get_size (sg->widgets.window->window, &sg->win_width,
+		gdk_drawable_get_size (sg->widgets.window->window, &sg->win_width,
 							 &sg->win_height);
 		gtk_widget_hide (sg->widgets.window);
 		sg->is_showing = FALSE;

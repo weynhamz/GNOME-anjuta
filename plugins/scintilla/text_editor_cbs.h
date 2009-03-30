@@ -19,7 +19,8 @@
 #ifndef _TEXT_EDITOR_CBS_H_
 #define _TEXT_EDITOR_CBS_H_
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
 #include "text_editor.h"
 
 gboolean

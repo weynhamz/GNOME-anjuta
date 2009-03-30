@@ -627,7 +627,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	g_object_unref (gxml);
 
 	/* Fill parameter combo box */
-	model = GTK_TREE_MODEL (gtk_list_store_new (1, GTK_TYPE_STRING));
+	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->args, model);
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(dlg->args), 0);
 	g_list_foreach (plugin->recent_args, on_add_string_in_model, model);
@@ -642,7 +642,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	if (plugin->recent_dirs != NULL) gtk_file_chooser_set_uri (dlg->dirs, (const char *)plugin->recent_dirs->data);
 	
 	/* Fill target combo box */
-	model = GTK_TREE_MODEL (gtk_list_store_new (1, GTK_TYPE_STRING));
+	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->target, model);
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(dlg->target), 0);
 	g_list_foreach (plugin->recent_target, on_add_uri_in_model, model);

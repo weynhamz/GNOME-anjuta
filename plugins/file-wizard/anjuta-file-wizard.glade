@@ -105,10 +105,10 @@ The extension will be added according to the type.</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkOptionMenu" id="new.file.type">
+                          <widget class="GtkComboBox" id="new.file.type">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="response_id">0</property>
+			    <property name="items" translatable="no"></property>
                             <signal name="changed" handler="on_new_file_type_changed"/>
                           </widget>
                           <packing>
@@ -197,11 +197,11 @@ The extension will be added according to the type.</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkOptionMenu" id="new.file.menu.license">
+                          <widget class="GtkComboBox" id="new.file.menu.license">
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
-                            <property name="response_id">0</property>
+                            <property name="items" translatable="no"></property>
                           </widget>
                           <packing>
                             <property name="left_attach">1</property>

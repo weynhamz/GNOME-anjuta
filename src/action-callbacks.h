@@ -20,7 +20,7 @@
 #ifndef _MAINMENU_CALLBACKS_H_
 #define _MAINMENU_CALLBACKS_H_
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 
 void on_exit1_activate (GtkAction * action, AnjutaApp *app);
 void on_fullscreen_toggle (GtkAction *action, AnjutaApp *app);

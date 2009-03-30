@@ -1,3 +1,136 @@
+2009-03-30  Johannes Schmid  <jhs@gnome.org>
+
+  Patch from Maxim Ermilov <zaspire@rambler.ru>:
+	* configure.in:
+	* libanjuta/anjuta-launcher.c (create_password_dialog):
+	* libanjuta/anjuta-plugin.c (anjuta_plugin_class_init),
+	(anjuta_plugin_init):
+	* libanjuta/anjuta-preferences.c
+	(block_update_property_on_change_str),
+	(unblock_update_property_on_change_str):
+	* libanjuta/anjuta-preferences.h:
+	* libanjuta/anjuta-serializer.c:
+	* libanjuta/cell-renderer-captioned-image.h:
+	* libanjuta/e-splash.h:
+	* plugins/build-basic-autotools/plugin.c:
+	* plugins/class-gen/window.c:
+	* plugins/class-inheritance/class-inherit.h:
+	* plugins/class-inheritance/plugin.c:
+	* plugins/cvs-plugin/cvs-execute.c:
+	* plugins/debug-manager/breakpoints.c:
+	* plugins/debug-manager/data_view.c (dma_data_view_child_type):
+	* plugins/debug-manager/memory.c:
+	* plugins/debug-manager/plugin.c:
+	* plugins/debug-manager/sharedlib.c (sharedlibs_show),
+	(sharedlibs_hide):
+	* plugins/debug-manager/signals.c (create_signals_gui),
+	(signals_show), (signals_hide):
+	* plugins/debug-manager/stack_trace.c:
+	* plugins/debug-manager/start.c (add_source_show):
+	* plugins/debug-manager/threads.c:
+	* plugins/debug-manager/watch.c:
+	* plugins/document-manager/anjuta-bookmarks.c
+	(anjuta_bookmarks_init):
+	* plugins/document-manager/anjuta-docman.c:
+	* plugins/document-manager/plugin.c (activate_plugin):
+	* plugins/document-manager/search-box.c:
+	* plugins/file-loader/dnd.c:
+	* plugins/file-loader/dnd.h:
+	* plugins/file-loader/plugin.c (RowSeparatorFunc),
+	(open_with_dialog), (create_open_with_submenu):
+	* plugins/file-wizard/anjuta-file-wizard.glade:
+	* plugins/file-wizard/file.c (create_new_file_dialog),
+	(on_new_file_okbutton_clicked), (on_new_file_entry_changed),
+	(on_new_file_type_changed):
+	* plugins/file-wizard/file.h:
+	* plugins/gdb/debugger.c:
+	* plugins/gdb/plugin.c:
+	* plugins/gdb/utilities.c:
+	* plugins/gdb/utilities.h:
+	* plugins/glade/designer-associations-item.c
+	(associations_file_from_xml):
+	* plugins/glade/plugin.c (activate_plugin):
+	* plugins/gtodo/add_edit_item.c (RowSeparatorFunc),
+	(gui_add_todo_item), (add_edit_option_changed):
+	* plugins/gtodo/callback.c (category_changed), (purge_category):
+	* plugins/gtodo/export.c (export_gui):
+	* plugins/gtodo/interface.c (gtodo_update_settings),
+	(gui_create_todo_widget):
+	* plugins/gtodo/list_tooltip.c (get_tooltip_text):
+	* plugins/gtodo/main.h:
+	* plugins/gtodo/mcategory.c (category_manager):
+	* plugins/gtodo/tasklists.c (open_playlist), (create_playlist):
+	* plugins/gtodo/todo_db.c (RowSeparatorFunc), (read_categorys),
+	(load_category):
+	* plugins/indent/indent-dialog.c (indent_connect_items),
+	(on_indent_checkbutton_toggled),
+	(on_indent_spinbutton_value_changed), (create_dialog):
+	* plugins/language-support-cpp-java/plugin.c:
+	* plugins/macro/macro-actions.c (on_menu_insert_macro):
+	* plugins/macro/macro-util.c:
+	* plugins/message-view/anjuta-msgman.c (on_message_view_destroy),
+	(anjuta_msgman_append_view), (anjuta_msgman_remove_all_views):
+	* plugins/message-view/message-view.h:
+	* plugins/patch/patch-plugin.c (patch_show_gui):
+	* plugins/project-manager/gbf-project-model.h:
+	* plugins/project-manager/gbf-project-view.h:
+	* plugins/project-wizard/autogen.c:
+	* plugins/project-wizard/druid.c (cb_druid_add_property),
+	(npw_druid_new), (npw_druid_free):
+	* plugins/project-wizard/property.c:
+	* plugins/run-program/parameters.c (run_dialog_init):
+	* plugins/scintilla/anjuta-editor-scintilla.glade:
+	* plugins/scintilla/print.c:
+	* plugins/scintilla/scintilla/PlatGTK.cxx:
+	* plugins/scintilla/scintilla/ScintillaGTK.cxx:
+	* plugins/scintilla/scintilla/include/ScintillaWidget.h:
+	* plugins/scintilla/style-editor.c (on_hilite_style_entry_changed),
+	(sync_from_props), (sync_to_props), (create_style_editor_gui):
+	* plugins/scintilla/text-editor-iterable.c:
+	* plugins/scintilla/text_editor.c:
+	* plugins/scintilla/text_editor_cbs.c:
+	* plugins/scintilla/text_editor_cbs.h:
+	* plugins/search/plugin.c:
+	* plugins/search/plugin.h:
+	* plugins/search/search-replace.c:
+	* plugins/search/search-replace_backend.c:
+	* plugins/search/search-replace_backend.h:
+	* plugins/search/search_preferences.c:
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/assist-window.c (assist_window_init):
+	* plugins/symbol-db/symbol-db-engine-core.c:
+	* plugins/symbol-db/symbol-db-view-search.c (sdb_view_search_init):
+	* plugins/terminal/terminal.c:
+	* plugins/tools/dialog.c (atp_tool_dialog_show):
+	* plugins/tools/editor.c (atp_variable_dialog_show),
+	(atp_tool_editor_show):
+	* plugins/tools/execute.c:
+	* plugins/valgrind/vggeneralprefs.h:
+	* plugins/valgrind/vghelgrindprefs.c (menu_item_activated),
+	(show_last_access_new), (vg_helgrind_prefs_init):
+	* plugins/valgrind/vghelgrindprefs.h:
+	* plugins/valgrind/vgmemcheckprefs.c (menu_item_activated),
+	(combo_box_new), (vg_memcheck_prefs_init):
+	* plugins/valgrind/vgmemcheckprefs.h:
+	* plugins/valgrind/vgrule-editor.c (type_menu_changed),
+	(rule_type_menu_new), (call_stack_frame_new),
+	(vg_rule_editor_init), (vg_rule_editor_set_type),
+	(vg_rule_editor_get_rule):
+	* plugins/valgrind/vgrule-editor.h:
+	* plugins/valgrind/vgsearchbar.c (clear_clicked),
+	(vg_search_bar_init), (item_activate), (search_bar_set_menu_items):
+	* plugins/valgrind/vgsearchbar.h:
+	* src/about.c (on_about_plugin_activate):
+	* src/action-callbacks.h:
+	* src/anjuta-app.c (anjuta_app_add_widget_full):
+	* src/main.c (main):
+	* src/shell.c (on_shortcuts_activate),
+	(anjuta_test_shell_instance_init):
+	* src/start-with.c (on_application_wizard_clicked),
+	(on_import_wizard_clicked), (on_open_project_clicked),
+	(on_open_file_clicked), (on_new_file_clicked):
+	#572754 – Remove deprecated GTK+ symbols
+
 2009-03-30  Mario Blättermann  <mariobl@svn.gnome.org>
 
 	* manuals/anjuta-manual/de/de.po:

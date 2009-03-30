@@ -29,10 +29,11 @@
 
 #include <glib.h>
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-
+#include <gnome.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>

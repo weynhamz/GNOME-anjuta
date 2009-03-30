@@ -27,7 +27,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <stdlib.h>
+#include <glib/gi18n.h>
 #include <gio/gio.h>
 
 /*#define DEBUG*/

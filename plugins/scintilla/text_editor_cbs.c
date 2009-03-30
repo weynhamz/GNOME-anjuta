@@ -20,7 +20,9 @@
 #  include <config.h>
 #endif
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <ctype.h>
 
 #include <libanjuta/resources.h>

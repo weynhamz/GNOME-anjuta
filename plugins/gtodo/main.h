@@ -36,7 +36,6 @@ enum
 };
 
 typedef struct{
-	GtkWidget *item;
 	gchar *date;
 } catitems;
 
@@ -52,10 +51,9 @@ typedef struct{
 	GtkWidget *tbdelbut, *tbaddbut, *tbeditbut;
 	GtkWidget *tbeditlb;
 	GtkWidget *tbexport;
-	GtkWidget *option, *menu;
+	GtkWidget *option;
 	catitems **mitems;
 	GtkAccelGroup *accel_group;
-	GtkItemFactory *item_factory;
 
 } mwindow;
 

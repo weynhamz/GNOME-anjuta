@@ -24,7 +24,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
-
+#include <gnome.h>
 #include "shell.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-shell.ui"
@@ -76,7 +76,7 @@ on_shortcuts_activate (GtkAction *action, AnjutaTestShell *shell)
 	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (shell),
 									   GTK_DIALOG_DESTROY_WITH_PARENT,
 									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
-	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), accel_editor);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(win)->vbox), accel_editor, TRUE, TRUE, 0);
 	gtk_window_set_default_size (GTK_WINDOW (win), 500, 400);
 	gtk_dialog_run (GTK_DIALOG (win));
 	gtk_widget_destroy (win);
@@ -163,7 +163,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	g_list_free (plugins_dirs);
 	
 	plugins = anjuta_plugin_manager_get_plugins_page (shell->plugin_manager);
-	gtk_box_pack_end_defaults (GTK_BOX (shell->box), plugins);
+	gtk_box_pack_end (GTK_BOX (shell->box), plugins, TRUE, TRUE, 0);
 	
 	/* Preferencesnces */
 	shell->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new (shell->plugin_manager));

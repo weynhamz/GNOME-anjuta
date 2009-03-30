@@ -278,11 +278,11 @@ GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
 											   const gchar *iconfile,
 											   const gchar *label,
 											   const gchar *tooltip,
-											   GtkSignalFunc callback,
+											   GCallBack callback,
 											   gpointer user_data);
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-								  const gchar *tooltip, GtkSignalFunc callback, 
+								  const gchar *tooltip, GCallBack callback, 
 								  gpointer user_data);
 
 GtkWidget*

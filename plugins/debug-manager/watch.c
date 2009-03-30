@@ -26,6 +26,7 @@
 #include "utilities.h"
 
 /*#define DEBUG*/
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>

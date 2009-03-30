@@ -344,12 +344,12 @@ atp_tool_dialog_show (ATPToolDialog* this, GladeXML *xml)
 	this->down_bt = glade_xml_get_widget(xml, TOOL_DOWN_BUTTON);
 
 	/* Connect all signals */
-	glade_xml_signal_connect_data (xml, TOOL_ADD_SIGNAL, GTK_SIGNAL_FUNC (on_tool_add), this);
-	glade_xml_signal_connect_data (xml, TOOL_ACTIVATED_SIGNAL, GTK_SIGNAL_FUNC (on_tool_activated), this);
-	glade_xml_signal_connect_data (xml, TOOL_EDIT_SIGNAL, GTK_SIGNAL_FUNC (on_tool_edit), this);
-	glade_xml_signal_connect_data (xml, TOOL_DELETE_SIGNAL, GTK_SIGNAL_FUNC (on_tool_delete), this);
-	glade_xml_signal_connect_data (xml, TOOL_UP_SIGNAL, GTK_SIGNAL_FUNC (on_tool_up), this);
-	glade_xml_signal_connect_data (xml, TOOL_DOWN_SIGNAL, GTK_SIGNAL_FUNC (on_tool_down), this);
+	glade_xml_signal_connect_data (xml, TOOL_ADD_SIGNAL, G_CALLBACK (on_tool_add), this);
+	glade_xml_signal_connect_data (xml, TOOL_ACTIVATED_SIGNAL, G_CALLBACK (on_tool_activated), this);
+	glade_xml_signal_connect_data (xml, TOOL_EDIT_SIGNAL, G_CALLBACK (on_tool_edit), this);
+	glade_xml_signal_connect_data (xml, TOOL_DELETE_SIGNAL, G_CALLBACK (on_tool_delete), this);
+	glade_xml_signal_connect_data (xml, TOOL_UP_SIGNAL, G_CALLBACK (on_tool_up), this);
+	glade_xml_signal_connect_data (xml, TOOL_DOWN_SIGNAL, G_CALLBACK (on_tool_down), this);
 	selection = gtk_tree_view_get_selection (this->view);
 	this->changed_sig = g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (on_tool_selection_changed), this);
 

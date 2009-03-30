@@ -28,7 +28,8 @@
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
-
+#include <sys/types.h>
+#include <unistd.h>
 #include <signal.h>
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal-plugin.ui"

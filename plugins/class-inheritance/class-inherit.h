@@ -21,6 +21,7 @@
 #define _CLASS_INHERIT_H
 
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <gnome.h>
 
 #include "plugin.h"
 

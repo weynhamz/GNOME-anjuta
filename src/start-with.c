@@ -29,7 +29,7 @@ static void
 on_application_wizard_clicked (GtkButton *button, gpointer data)
 {
 	GtkWidget *dialog = GTK_WIDGET (data);
-	gtk_signal_emit_by_name (GTK_OBJECT (app->menubar.file.new_project),
+	g_signal_emit_by_name (G_OBJECT (app->menubar.file.new_project),
 							 "activate", NULL);
 	gtk_widget_destroy (dialog);
 }
@@ -38,7 +38,7 @@ static void
 on_import_wizard_clicked (GtkButton *button, gpointer data)
 {
 	GtkWidget *dialog = GTK_WIDGET (data);
-	gtk_signal_emit_by_name (GTK_OBJECT (app->menubar.file.import_project),
+	g_signal_emit_by_name (G_OBJECT (app->menubar.file.import_project),
 							 "activate", NULL);
 	gtk_widget_destroy (dialog);
 }
@@ -47,7 +47,7 @@ static void
 on_open_project_clicked (GtkButton *button, gpointer data)
 {
 	GtkWidget *dialog = GTK_WIDGET (data);
-	gtk_signal_emit_by_name (GTK_OBJECT (app->menubar.file.open_project),
+	g_signal_emit_by_name (G_OBJECT (app->menubar.file.open_project),
 							 "activate", NULL);
 	gtk_widget_destroy (dialog);
 }
@@ -72,7 +72,7 @@ static void
 on_open_file_clicked (GtkButton *button, gpointer data)
 {
 	GtkWidget *dialog = GTK_WIDGET (data);
-	gtk_signal_emit_by_name (GTK_OBJECT (app->menubar.file.open_file),
+	g_signal_emit_by_name (G_OBJECT (app->menubar.file.open_file),
 							 "activate", NULL);
 	gtk_widget_destroy (dialog);
 }
@@ -81,7 +81,7 @@ static void
 on_new_file_clicked (GtkButton *button, gpointer data)
 {
 	GtkWidget *dialog = GTK_WIDGET (data);
-	gtk_signal_emit_by_name (GTK_OBJECT (app->menubar.file.new_file),
+	g_signal_emit_by_name (G_OBJECT (app->menubar.file.new_file),
 							 "activate", NULL);
 	gtk_widget_destroy (dialog);
 }

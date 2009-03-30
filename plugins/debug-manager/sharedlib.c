@@ -287,7 +287,7 @@ sharedlibs_show (Sharedlibs* sl)
 		}
 		else
 		{
-			gtk_widget_set_uposition(sl->widgets.window, sl->win_pos_x,
+			gdk_window_move(sl->widgets.window->window, sl->win_pos_x,
 									 sl->win_pos_y);
 			gtk_window_set_default_size(GTK_WINDOW(sl->widgets.window),
 										sl->win_width, sl->win_height);
@@ -309,7 +309,7 @@ sharedlibs_hide (Sharedlibs* sl)
 		if(sl->is_showing == FALSE) return;
 			gdk_window_get_root_origin(sl->widgets.window->window,
 									   &sl->win_pos_x, &sl->win_pos_y);
-		gdk_window_get_size(sl ->widgets.window->window, &sl->win_width,
+		gdk_drawable_get_size(sl ->widgets.window->window, &sl->win_width,
 							&sl->win_height);
 		gtk_widget_hide(sl->widgets.window);
 		sl->is_showing = FALSE;

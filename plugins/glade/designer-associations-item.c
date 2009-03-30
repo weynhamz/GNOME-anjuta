@@ -470,7 +470,7 @@ associations_file_from_xml (xmlDocPtr xml_doc, xmlNodePtr node,
 		else
 		{
 			i = g_ascii_strtoll ((gchar *)value, NULL, 10);
-			if (errno != 0)
+			if (error != NULL)
 			{
 				g_set_error (error,
 				             DESIGNER_ASSOCIATIONS_ERROR,

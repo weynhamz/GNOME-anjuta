@@ -39,13 +39,14 @@ void category_changed(void)
 {
 	if(cl != NULL)
 	{
-		int i = gtk_option_menu_get_history(GTK_OPTION_MENU(mw.option));
+		int i = gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option));
+		if (i < 0) return;
 		if(i != 0)if( mw.mitems == NULL || mw.mitems[i-2] == NULL) return;
 		if(i == categorys+3)
 		{
 			int j =  gconf_client_get_int(client, "/apps/gtodo/view/last-category",NULL);
 			category_manager();
-			if(j < categorys+3 && mw.mitems != NULL && mw.mitems[j-2] != NULL) gtk_option_menu_set_history(GTK_OPTION_MENU(mw.option),j);
+			if(j < categorys+3 && mw.mitems != NULL && mw.mitems[j-2] != NULL) gtk_combo_box_set_active(GTK_COMBO_BOX(mw.option),j);
 			gtk_list_store_clear(mw.list);
 			load_category();
 			return;
@@ -94,8 +95,8 @@ void purge_category(void)
 	gchar *category;
 	gchar *tm;
 
-	if(gtk_option_menu_get_history(GTK_OPTION_MENU(mw.option))== 0)tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items?"));
-	else tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items in the category \"%s\"?"), mw.mitems[gtk_option_menu_get_history(GTK_OPTION_MENU(mw.option))-2]->date);
+	if(gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))== 0)tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items?"));
+	else tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items in the category \"%s\"?"), mw.mitems[gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))-2]->date);
 
 	if(!message_box( tm, _("Remove"), GTK_MESSAGE_WARNING))
 	{

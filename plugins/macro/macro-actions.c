@@ -137,8 +137,8 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 
 	gtk_container_add(GTK_CONTAINER(window), hbox);
-	gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
-	gtk_box_pack_end_defaults(GTK_BOX(hbox), entry);
+	gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(hbox), entry, TRUE, TRUE, 0);
 	g_signal_connect (G_OBJECT (window), "key-press-event",
 			  G_CALLBACK (on_shortcut_pressed), plugin);
 	gtk_widget_grab_focus (entry);

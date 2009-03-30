@@ -1192,9 +1192,9 @@ Squares</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkCombo" id="combo">
+                          <widget class="GtkComboBox" id="comboBox">
                             <property name="visible">True</property>
-                            <property name="enable_arrows_always">False</property>
+			    <property name="items" translatable="no"></property>
                           </widget>
                           <packing>
                             <property name="position">1</property>

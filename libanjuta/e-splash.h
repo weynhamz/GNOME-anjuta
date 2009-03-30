@@ -30,10 +30,10 @@
 G_BEGIN_DECLS
 
 #define E_TYPE_SPLASH			(e_splash_get_type ())
-#define E_SPLASH(obj)			(GTK_CHECK_CAST ((obj), E_TYPE_SPLASH, ESplash))
-#define E_SPLASH_CLASS(klass)		(GTK_CHECK_CLASS_CAST ((klass), E_TYPE_SPLASH, ESplashClass))
-#define E_IS_SPLASH(obj)			(GTK_CHECK_TYPE ((obj), E_TYPE_SPLASH))
-#define E_IS_SPLASH_CLASS(klass)		(GTK_CHECK_CLASS_TYPE ((obj), E_TYPE_SPLASH))
+#define E_SPLASH(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_SPLASH, ESplash))
+#define E_SPLASH_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_SPLASH, ESplashClass))
+#define E_IS_SPLASH(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_TYPE_SPLASH))
+#define E_IS_SPLASH_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_SPLASH))
 
 typedef struct _ESplash        ESplash;
 typedef struct _ESplashPrivate ESplashPrivate;
@@ -49,7 +49,7 @@ struct _ESplashClass {
 	GtkWindowClass parent_class;
 };
 
-GtkType    e_splash_get_type            (void);
+GType    e_splash_get_type            (void);
 void       e_splash_construct           (ESplash   *splash,
 										 GdkPixbuf *splash_image_pixbuf,
 										 gint progressbar_position);

@@ -992,7 +992,11 @@ void ScintillaGTK::SetTicking(bool on) {
 	if (timer.ticking != on) {
 		timer.ticking = on;
 		if (timer.ticking) {
+#if GLIB_MAJOR_VERSION < 2
 			timer.tickerID = reinterpret_cast<TickerID>(gtk_timeout_add(timer.tickSize, (GtkFunction)TimeOut, this));
+#else
+			timer.tickerID = reinterpret_cast<TickerID>(g_timeout_add(timer.tickSize, (GSourceFunc)TimeOut, this));
+#endif
 		} else {
 			gtk_timeout_remove(GPOINTER_TO_UINT(timer.tickerID));
 		}

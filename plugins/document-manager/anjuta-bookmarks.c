@@ -236,8 +236,8 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	g_signal_connect (G_OBJECT(priv->button_remove), "clicked", G_CALLBACK(on_remove_clicked), bookmarks);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->button_add), FALSE);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->button_remove), FALSE);
-	gtk_box_pack_start_defaults (GTK_BOX(button_box), priv->button_add);
-	gtk_box_pack_start_defaults (GTK_BOX(button_box), priv->button_remove);
+	gtk_box_pack_start (GTK_BOX(button_box), priv->button_add, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(button_box), priv->button_remove, TRUE, TRUE, 0);
 
 	gtk_box_pack_start(GTK_BOX(priv->window), 
 					   button_box,

@@ -48,8 +48,7 @@ struct _VgRuleEditor {
 	GtkVBox parent_object;
 	
 	GtkEntry *name;
-	GtkOptionMenu *type;
-	GtkWidget *types[VG_RULE_LAST];
+	GtkComboBox *type;
 	GtkEntry *syscall;
 	
 	GtkToggleButton *addrcheck;

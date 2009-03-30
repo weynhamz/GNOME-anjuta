@@ -64,6 +64,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <glade/glade-parser.h>
 #include <gconf/gconf-client.h>
@@ -911,7 +912,7 @@ block_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
 {
 	AnjutaProperty *p = (AnjutaProperty *) user_data;
 
-	gtk_signal_handler_block_by_func (GTK_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
+	g_signal_handlers_block_by_func (G_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
 	return FALSE;
 }
 
@@ -921,7 +922,7 @@ unblock_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
 {
 	AnjutaProperty *p = (AnjutaProperty *) user_data;
 
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
+	g_signal_handlers_unblock_by_func (G_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
 	return FALSE;
 }
 

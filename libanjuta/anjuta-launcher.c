@@ -561,7 +561,7 @@ create_password_dialog (const gchar* prompt)
 	
 	icon = anjuta_res_get_image (ANJUTA_PIXMAP_PASSWORD);
 	gtk_widget_show (icon);
-	gtk_box_pack_start_defaults (GTK_BOX(hbox), icon);
+	gtk_box_pack_start (GTK_BOX(hbox), icon, TRUE, TRUE, 0);
 	
 	if (strlen (prompt) < 20) {
 		box = gtk_hbox_new (FALSE, 5);
@@ -569,7 +569,7 @@ create_password_dialog (const gchar* prompt)
 		box = gtk_vbox_new (FALSE, 5);
 	}
 	gtk_widget_show (box);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), box);
+	gtk_box_pack_start (GTK_BOX (hbox), box, TRUE, TRUE, 0);
 	
 	label = gtk_label_new (_(prompt));
 	gtk_widget_show (label);

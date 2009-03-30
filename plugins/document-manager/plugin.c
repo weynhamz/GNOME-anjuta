@@ -1708,7 +1708,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	dplugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	dplugin->vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (dplugin->vbox);
-	gtk_box_pack_start_defaults (GTK_BOX(dplugin->vbox), docman);
+	gtk_box_pack_start (GTK_BOX(dplugin->vbox), docman, TRUE, TRUE, 0);
 	anjuta_shell_add_widget_full (plugin->shell, dplugin->vbox,
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon", 

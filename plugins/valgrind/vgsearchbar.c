@@ -36,6 +36,12 @@ enum {
 	LAST_SIGNAL
 };
 
+enum {
+  COLUMN_STRING,
+  COLUMN_INT,
+  N_COLUMNS
+};
+
 static int search_bar_signals[LAST_SIGNAL] = { 0, };
 
 
@@ -119,7 +125,7 @@ static void
 clear_clicked (GtkWidget *widget, VgSearchBar *bar)
 {
 	gtk_entry_set_text (bar->entry, "");
-	gtk_option_menu_set_history (bar->menu, 0);
+	gtk_combo_box_set_active (bar->menu, 0);
 	g_signal_emit (bar, search_bar_signals[CLEAR], 0);
 }
 
@@ -132,7 +138,7 @@ vg_search_bar_init (VgSearchBar *bar)
 	
 	bar->item_id = -1;
 	
-	bar->menu = GTK_OPTION_MENU (widget = gtk_option_menu_new ());
+	bar->menu = GTK_COMBO_BOX (widget = gtk_combo_box_new ());
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (bar), widget, FALSE, FALSE, 0);
 	
@@ -168,34 +174,42 @@ vg_search_bar_new (void)
 
 
 static void
-item_activate (GtkMenuItem *item, VgSearchBar *bar)
+item_activate (GtkComboBox *widget, VgSearchBar *bar)
 {
-	bar->item_id = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "item_id"));
+	GtkTreeIter iter;
+
+	gtk_combo_box_get_active_iter (widget, &iter);
+	gtk_tree_model_get (gtk_combo_box_get_model (widget), &iter, 1, &bar->item_id, -1);
 }
 
 static void
 search_bar_set_menu_items (VgSearchBar *bar, VgSearchBarItem *items)
 {
-	GtkWidget *menu, *item;
+	GtkTreeIter iter;
+	GtkCellRenderer *cell;
+	GtkListStore *list_store;
 	int i;
-	
+
 	g_return_if_fail (VG_IS_SEARCH_BAR (bar));
 	g_return_if_fail (items != NULL);
-	
-	menu = gtk_menu_new ();
+
+	list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
+
 	bar->item_id = items->id;
-	
+
 	for (i = 0; items[i].label != NULL; i++) {
-		item = gtk_menu_item_new_with_label (_(items[i].label));
-		g_object_set_data (G_OBJECT (item), "item_id", GINT_TO_POINTER (items[i].id));
-		g_signal_connect (item, "activate", G_CALLBACK (item_activate), bar);
-		gtk_widget_show (item);
-		
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		gtk_list_store_append (list_store, &iter);
+		gtk_list_store_set (list_store, &iter, COLUMN_STRING, _(items[i].label), COLUMN_INT, items[i].id, -1);
 	}
 	
-	gtk_option_menu_set_menu (bar->menu, menu);
-	gtk_option_menu_set_history (bar->menu, 0);
+	gtk_combo_box_set_model (bar->menu, GTK_TREE_MODEL (list_store));
+
+	cell = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(bar->menu), cell, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(bar->menu), cell, "text", 0, NULL);
+
+	g_signal_connect (bar->menu, "changed", G_CALLBACK (item_activate), bar);
+	gtk_combo_box_set_active (bar->menu, 0);
 }
 
 

@@ -32,7 +32,9 @@
 #include <glib.h>
 
 #include <gtk/gtk.h>
-#include <gnome.h>
+#include <gdk/gdk.h>
+#include <glib.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>

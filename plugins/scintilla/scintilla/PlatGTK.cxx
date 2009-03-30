@@ -1787,7 +1787,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	if (oy + sizey > screenHeight)
 		oy = screenHeight - sizey;
 
-	gtk_widget_set_uposition(PWidget(id), ox, oy);
+	gdk_window_move(PWidget(id)->window, ox, oy);
 #if 0
 
 	GtkAllocation alloc;

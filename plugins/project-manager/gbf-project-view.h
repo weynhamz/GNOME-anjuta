@@ -29,10 +29,10 @@
 G_BEGIN_DECLS
 
 #define GBF_TYPE_PROJECT_VIEW		  (gbf_project_view_get_type ())
-#define GBF_PROJECT_VIEW(obj)		  (GTK_CHECK_CAST ((obj), GBF_TYPE_PROJECT_VIEW, GbfProjectView))
-#define GBF_PROJECT_VIEW_CLASS(klass)	  (GTK_CHECK_CLASS_CAST ((klass), GBF_TYPE_PROJECT_VIEW, GbfProjectViewClass))
-#define GBF_IS_PROJECT_VIEW(obj)	  (GTK_CHECK_TYPE ((obj), GBF_TYPE_PROJECT_VIEW))
-#define GBF_IS_PROJECT_VIEW_CLASS(klass)  (GTK_CHECK_CLASS_TYPE ((obj), GBF_TYPE_PROJECT_VIEW))
+#define GBF_PROJECT_VIEW(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GBF_TYPE_PROJECT_VIEW, GbfProjectView))
+#define GBF_PROJECT_VIEW_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), GBF_TYPE_PROJECT_VIEW, GbfProjectViewClass))
+#define GBF_IS_PROJECT_VIEW(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GBF_TYPE_PROJECT_VIEW))
+#define GBF_IS_PROJECT_VIEW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((obj), GBF_TYPE_PROJECT_VIEW))
 
 typedef struct _GbfProjectView        GbfProjectView;
 typedef struct _GbfProjectViewPrivate GbfProjectViewPrivate;

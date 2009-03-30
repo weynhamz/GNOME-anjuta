@@ -214,7 +214,7 @@ static guint plugin_signals[LAST_SIGNAL] = { 0 };
 static void anjuta_plugin_finalize (GObject *object);
 static void anjuta_plugin_class_init (AnjutaPluginClass *class);
 
-GNOME_CLASS_BOILERPLATE (AnjutaPlugin, anjuta_plugin, GObject, G_TYPE_OBJECT);
+G_DEFINE_TYPE (AnjutaPlugin, anjuta_plugin, G_TYPE_OBJECT);
 
 static void
 destroy_watch (Watch *watch)
@@ -310,7 +310,7 @@ static void
 anjuta_plugin_class_init (AnjutaPluginClass *class) 
 {
 	GObjectClass *object_class = (GObjectClass*) class;
-	parent_class = g_type_class_peek_parent (class);
+	GObjectClass *parent_class = g_type_class_peek_parent (class);
     
 	object_class->dispose = anjuta_plugin_dispose;
 	object_class->finalize = anjuta_plugin_finalize;
@@ -350,7 +350,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 }
 
 static void
-anjuta_plugin_instance_init (AnjutaPlugin *plugin)
+anjuta_plugin_init (AnjutaPlugin *plugin)
 {
 	plugin->priv = g_new0 (AnjutaPluginPrivate, 1);
 }

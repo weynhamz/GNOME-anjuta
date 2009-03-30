@@ -26,7 +26,9 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>

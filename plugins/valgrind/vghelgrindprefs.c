@@ -47,6 +47,11 @@ static void helgrind_prefs_get_argv (VgToolPrefs *prefs, const char *tool, GPtrA
 
 static VgToolPrefsClass *parent_class = NULL;
 
+enum {
+  COLUMN_STRING,
+  COLUMN_INT,
+  N_COLUMNS
+};
 
 GType
 vg_helgrind_prefs_get_type (void)
@@ -105,14 +110,19 @@ toggle_button_toggled (GtkToggleButton *toggle, const char *key)
 }
 
 static void
-menu_item_activated (GtkMenuItem *item, const char *key)
+menu_item_activated (GtkComboBox *widget, const char *key)
 {
 	GConfClient *gconf;
 	const char *str;
+	gint i;
+	GtkTreeIter iter;
 	
 	gconf = gconf_client_get_default ();
+
+	gtk_combo_box_get_active_iter (widget, &iter);
+	gtk_tree_model_get (gtk_combo_box_get_model (widget), &iter, COLUMN_INT, &i, -1);
 	
-	str = g_object_get_data (G_OBJECT (item), "value");
+	str = GINT_TO_POINTER (i);
 	gconf_client_set_string (gconf, key, str, NULL);
 	
 	g_object_unref (gconf);
@@ -123,30 +133,35 @@ static char *show_last_access_opts[] = { "no", "some", "all" };
 static GtkWidget *
 show_last_access_new (GConfClient *gconf)
 {
-	GtkWidget *omenu, *menu, *item;
+	GtkListStore *list_store;
+	GtkWidget *omenu;
 	int history = 0;
 	char *str;
 	int i;
+	GtkTreeIter iter;
+	GtkCellRenderer *cell;
+
+	list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
 	
+
 	str = gconf_client_get_string (gconf, SHOW_LAST_ACCESS_KEY, NULL);
 	
-	menu = gtk_menu_new ();
 	for (i = 0; i < 3; i++) {
 		if (str && !strcmp (show_last_access_opts[i], str))
 			history = i;
 		
-		item = gtk_menu_item_new_with_label (show_last_access_opts[i]);
-		g_object_set_data (G_OBJECT (item), "value", show_last_access_opts[i]);
-		g_signal_connect (item, "activate", G_CALLBACK (menu_item_activated), SHOW_LAST_ACCESS_KEY);
-		gtk_widget_show (item);
-		
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		gtk_list_store_append (list_store, &iter);
+		gtk_list_store_set (list_store, &iter, COLUMN_STRING, show_last_access_opts[i], COLUMN_INT, GPOINTER_TO_INT (g_strdup (show_last_access_opts[i])), -1);
 	}
-	
-	gtk_widget_show (menu);
-	omenu = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), history);
+
+	omenu = gtk_combo_box_new_with_model(GTK_TREE_MODEL(list_store));
+
+	cell = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(omenu), cell, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(omenu), cell, "text", 0, NULL);
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), history);
+	g_signal_connect (omenu, "changed", G_CALLBACK (menu_item_activated), SHOW_LAST_ACCESS_KEY);
 	
 	g_free (str);
 	
@@ -181,7 +196,7 @@ vg_helgrind_prefs_init (VgHelgrindPrefs *prefs)
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	
 	widget = show_last_access_new (gconf);
-	prefs->show_last_access = GTK_OPTION_MENU (widget);
+	prefs->show_last_access = GTK_COMBO_BOX (widget);
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	

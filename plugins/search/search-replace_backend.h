@@ -24,6 +24,7 @@ extern "C"
 
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <glib/gi18n.h>
 
 /* Search expression options */
 typedef struct _SearchExpression

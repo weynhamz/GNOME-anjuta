@@ -751,7 +751,7 @@ dma_data_view_refresh (DmaDataView *view)
 static GType
 dma_data_view_child_type (GtkContainer *container)
 {
-	return GTK_TYPE_NONE;
+	return G_TYPE_NONE;
 }
 
 static void

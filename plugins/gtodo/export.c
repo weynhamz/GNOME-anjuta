@@ -94,7 +94,7 @@ void export_gui()
 	{
 		int i= 0, cat = 0;
 		for(i=0;param_string[i] != NULL;i++);
-		cat = gtk_option_menu_get_history (GTK_OPTION_MENU (mw.option));
+		cat = gtk_combo_box_get_active (GTK_COMBO_BOX (mw.option));
 
 		if(cat != 0)
 		{

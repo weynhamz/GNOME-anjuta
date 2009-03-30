@@ -81,7 +81,7 @@ struct _AnjutaViewClass
 /*
  * Public methods
  */
-GtkType		 anjuta_view_get_type     	(void) G_GNUC_CONST;
+GType		 anjuta_view_get_type     	(void) G_GNUC_CONST;
 
 GtkWidget	*anjuta_view_new			(Sourceview   *sv);
 

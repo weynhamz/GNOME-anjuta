@@ -21,7 +21,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>

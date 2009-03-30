@@ -35,6 +35,7 @@
 #include <fcntl.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>

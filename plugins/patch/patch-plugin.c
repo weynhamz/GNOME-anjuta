@@ -123,7 +123,7 @@ patch_show_gui (PatchPlugin *plugin)
 	scale = glade_xml_get_widget(gxml, "patch_level_scale");
 	adj = gtk_range_get_adjustment(GTK_RANGE(scale));
 	g_signal_connect (G_OBJECT(adj), "value_changed",
-			    GTK_SIGNAL_FUNC (patch_level_changed), NULL);
+			    G_CALLBACK (patch_level_changed), NULL);
 		
 	plugin->patch_button = glade_xml_get_widget(gxml, "patch_button");
 	plugin->cancel_button = glade_xml_get_widget(gxml, "cancel_button");

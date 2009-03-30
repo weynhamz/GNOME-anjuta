@@ -23,7 +23,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
-
+#include <glib/gi18n.h>
 #include "plugin.h"
 #include "search-replace.h"
 #include "search-replace_backend.h"

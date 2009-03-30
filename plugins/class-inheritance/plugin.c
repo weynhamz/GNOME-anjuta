@@ -27,7 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/anjuta-debug.h>
-
+#include <gnome.h>
 #include "plugin.h"
 #include "class-inherit.h"
 

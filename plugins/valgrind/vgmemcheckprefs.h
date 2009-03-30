@@ -44,9 +44,9 @@ typedef struct _VgMemcheckPrefsClass VgMemcheckPrefsClass;
 struct _VgMemcheckPrefs {
 	VgToolPrefs parent_object;
 	
-	GtkOptionMenu *leak_check;
+	GtkComboBox *leak_check;
 	GtkToggleButton *show_reachable;
-	GtkOptionMenu *leak_resolution;
+	GtkComboBox *leak_resolution;
 	GtkSpinButton *freelist_vol;
 	GtkToggleButton *workaround_gcc296_bugs;
 	GtkToggleButton *avoid_strlen_errors;

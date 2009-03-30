@@ -25,7 +25,7 @@
 #ifndef __VG_GENERAL_PREFS_H__
 #define __VG_GENERAL_PREFS_H__
 
-#include <libgnomeui/gnome-file-entry.h>
+#include <gtk/gtk.h>
 
 #include "vgtoolprefs.h"
 

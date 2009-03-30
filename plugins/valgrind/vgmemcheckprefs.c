@@ -52,6 +52,11 @@ static void memcheck_prefs_get_argv (VgToolPrefs *prefs, const char *tool, GPtrA
 
 static VgToolPrefsClass *parent_class = NULL;
 
+enum {
+  COLUMN_STRING,
+  COLUMN_INT,
+  N_COLUMNS
+};
 
 GType
 vg_memcheck_prefs_get_type (void)
@@ -110,14 +115,20 @@ toggle_button_toggled (GtkToggleButton *toggle, const char *key)
 }
 
 static void
-menu_item_activated (GtkMenuItem *item, const char *key)
+menu_item_activated (GtkComboBox *widget, const char *key)
 {
+	int i = 0;
 	GConfClient *gconf;
 	const char *str;
+	GtkTreeIter iter;
 	
 	gconf = gconf_client_get_default ();
-	
-	str = g_object_get_data (G_OBJECT (item), "value");
+
+	gtk_combo_box_get_active_iter (widget, &iter);
+	gtk_tree_model_get (gtk_combo_box_get_model (widget), &iter, 1, &i, -1);
+
+	str = GINT_TO_POINTER (i);
+
 	gconf_client_set_string (gconf, key, str, NULL);
 	
 	g_object_unref (gconf);
@@ -140,32 +151,36 @@ spin_focus_out (GtkSpinButton *spin, GdkEventFocus *event, const char *key)
 }
 
 static GtkWidget *
-option_menu_new (GConfClient *gconf, char *key, char **values, int n, int def)
+combo_box_new (GConfClient *gconf, char *key, char **values, int n, int def)
 {
-	GtkWidget *omenu, *menu, *item;
+	GtkListStore *list_store;
+	GtkWidget *omenu;
+	GtkTreeIter iter;
+	GtkCellRenderer *cell;
 	int history = def;
 	char *str;
 	int i;
 	
+
+	list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
 	str = gconf_client_get_string (gconf, key, NULL);
 	
-	menu = gtk_menu_new ();
 	for (i = 0; i < n; i++) {
 		if (str && !strcmp (values[i], str))
 			history = i;
 		
-		item = gtk_menu_item_new_with_label (_(values[i]));
-		g_object_set_data (G_OBJECT (item), "value", _(values[i]));
-		g_signal_connect (item, "activate", G_CALLBACK (menu_item_activated), key);
-		gtk_widget_show (item);
-		
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		gtk_list_store_append (list_store, &iter);
+		gtk_list_store_set (list_store, &iter, COLUMN_STRING, _(values[i]), COLUMN_INT, GPOINTER_TO_INT (g_strdup (_(values[i]))), -1);
 	}
 	
-	gtk_widget_show (menu);
-	omenu = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), history);
+	omenu = gtk_combo_box_new_with_model(GTK_TREE_MODEL(list_store));
+
+	cell = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(omenu), cell, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(omenu), cell, "text", 0, NULL);
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), history);
+	g_signal_connect (omenu, "changed", G_CALLBACK (menu_item_activated), key);
 	
 	g_free (str);
 	
@@ -199,8 +214,8 @@ vg_memcheck_prefs_init (VgMemcheckPrefs *prefs)
 	label = gtk_label_new (_("Leak check:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	widget = option_menu_new (gconf, LEAK_CHECK_KEY, leak_checks, G_N_ELEMENTS (leak_checks), 1);
-	prefs->leak_check = GTK_OPTION_MENU (widget);
+	widget = combo_box_new (gconf, LEAK_CHECK_KEY, leak_checks, G_N_ELEMENTS (leak_checks), 1);
+	prefs->leak_check = GTK_COMBO_BOX (widget);
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
@@ -218,8 +233,8 @@ vg_memcheck_prefs_init (VgMemcheckPrefs *prefs)
 	label = gtk_label_new (_("Leak resolution:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	widget = option_menu_new (gconf, LEAK_RESOLUTION_KEY, leak_resolutions, G_N_ELEMENTS (leak_resolutions), 0);
-	prefs->leak_resolution = GTK_OPTION_MENU (widget);
+	widget = combo_box_new (gconf, LEAK_RESOLUTION_KEY, leak_resolutions, G_N_ELEMENTS (leak_resolutions), 0);
+	prefs->leak_resolution = GTK_COMBO_BOX (widget);
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);

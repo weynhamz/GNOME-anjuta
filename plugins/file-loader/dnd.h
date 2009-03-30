@@ -23,7 +23,9 @@
  * USA.
  */
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 
 #ifndef _DND_H_
 #define _DND_H_

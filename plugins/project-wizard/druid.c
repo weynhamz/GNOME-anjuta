@@ -37,9 +37,10 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
-
-#include <gnome.h>
+#include <stdlib.h>
 #include <glib/gi18n.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 
 #include <gtk/gtk.h>
 
@@ -86,8 +87,6 @@ struct _NPWDruid
 	GtkLabel *error_message;
 	GtkWidget *error_detail;
 
-	GtkTooltips *tooltips;
-	
 	const gchar* project_file;
 	NPWPlugin* plugin;
 	
@@ -419,17 +418,7 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 		/* Set description tooltip */
 		if (description && (*description != '\0'))
 		{
-			GtkTooltips *tooltips;
-		
-			tooltips = data->druid->tooltips;
-			if (!tooltips)
-			{
-				tooltips = data->druid->tooltips = gtk_tooltips_new ();
-				data->druid->tooltips = tooltips;
-				g_object_ref (tooltips);
-				gtk_object_sink (GTK_OBJECT (tooltips));
-			}
-			gtk_tooltips_set_tip (tooltips, entry, description, NULL);
+			gtk_widget_set_tooltip_text (entry, description);
 		}
 
 		/* Add label and entry */
@@ -1054,7 +1043,6 @@ npw_druid_new (NPWPlugin* plugin)
 
 	druid = g_new0(NPWDruid, 1);
 	druid->plugin = plugin;
-	druid->tooltips = NULL;
 	druid->project_file = NULL;
 	druid->busy = FALSE;
 	druid->page_list = g_queue_new ();
@@ -1081,12 +1069,6 @@ npw_druid_free (NPWDruid* druid)
 
 	g_return_if_fail (druid != NULL);
 
-	if (druid->tooltips)
-	{
-		g_object_unref (druid->tooltips);
-		druid->tooltips = NULL;
-	}
-	
 	/* Delete page list */
 	druid->next_page = PROPERTY_PAGE;
 	npw_druid_remove_following_page (druid);

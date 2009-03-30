@@ -25,9 +25,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <gio/gio.h>
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
 #include <errno.h>
 
 #include <libanjuta/resources.h>

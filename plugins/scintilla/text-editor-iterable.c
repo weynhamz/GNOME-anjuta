@@ -23,6 +23,7 @@
 #endif
 
 #include <ctype.h>
+#include <stdlib.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>

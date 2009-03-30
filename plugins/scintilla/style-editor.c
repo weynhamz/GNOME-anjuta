@@ -21,7 +21,10 @@
 #endif
 
 #include <ctype.h>
-#include <gnome.h>
+#include <stdlib.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
@@ -83,7 +86,7 @@ struct _StyleEditorPriv
 {
 	/* Widgets */
 	GtkWidget *dialog;
-	GtkWidget *hilite_item_combo;
+	GtkWidget *hilite_item_combobox;
 	GtkWidget *font_picker;
 	GtkWidget *font_bold_check;
 	GtkWidget *font_italics_check;
@@ -562,7 +565,7 @@ on_use_default_back_toggled (GtkToggleButton * tb, gpointer data)
 }
 
 static void
-on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
+on_hilite_style_entry_changed (GtkComboBox * combobox, gpointer user_data)
 {
 	StyleEditor *p;
 	const gchar *style_item;
@@ -570,7 +573,7 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 	g_return_if_fail (user_data);
 	p = user_data;
 
-	style_item = gtk_entry_get_text (GTK_ENTRY (editable));
+	style_item = gtk_combo_box_get_active_text (combobox);
 	if (!style_item || strlen (style_item) <= 0)
 		return;
 	if (p->priv->current_style)
@@ -689,15 +692,14 @@ sync_from_props (StyleEditor *se)
 		style_data_set_item (sdata, hilite_style[i]);
 		g_object_set_data_full (G_OBJECT (se->priv->dialog),
 					  hilite_style[i], sdata,
-					  (GtkDestroyNotify)style_data_destroy);
+					  (GDestroyNotify)style_data_destroy);
 	}
 	se->priv->default_style =
-		gtk_object_get_data (GTK_OBJECT (se->priv->dialog),
+		g_object_get_data (G_OBJECT (se->priv->dialog),
 				     hilite_style[0]);
 	se->priv->current_style = NULL;
 
-	on_hilite_style_entry_changed (GTK_EDITABLE (GTK_COMBO
-					(se->priv->hilite_item_combo)->entry), se);
+	on_hilite_style_entry_changed (GTK_COMBO_BOX (se->priv->hilite_item_combobox), se);
 
 	str = sci_prop_get (se->props, CARET_FORE_COLOR);
 	if(str)
@@ -800,8 +802,7 @@ sync_to_props (StyleEditor *se)
 
 	g_return_if_fail (se);
 	/* Sync the current item */	
-	on_hilite_style_entry_changed (GTK_EDITABLE (GTK_COMBO
-					(se->priv->hilite_item_combo)->entry), se);
+	on_hilite_style_entry_changed (GTK_COMBO_BOX (se->priv->hilite_item_combobox), se);
 	
 	/* Transfer to props */
 	for (i = 0;; i += 2)
@@ -811,7 +812,7 @@ sync_to_props (StyleEditor *se)
 		if (hilite_style[i] == NULL)
 			break;
 		sdata =
-			gtk_object_get_data (GTK_OBJECT (se->priv->dialog),
+			g_object_get_data (G_OBJECT (se->priv->dialog),
 								 hilite_style[i]);
 		str = style_data_get_string (sdata);
 		if (str)
@@ -883,7 +884,6 @@ create_style_editor_gui (StyleEditor * se)
 {
 	GladeXML *gxml;
 	GtkWidget *pref_dialog;
-	GList *list = NULL;
 	gint i;
 
 	g_return_if_fail (se);
@@ -893,7 +893,7 @@ create_style_editor_gui (StyleEditor * se)
 	se->priv->dialog = glade_xml_get_widget (gxml, "style_editor_dialog");
 	gtk_widget_show (se->priv->dialog);
 	se->priv->font_picker = glade_xml_get_widget (gxml, "font");
-	se->priv->hilite_item_combo = glade_xml_get_widget (gxml, "combo");
+	se->priv->hilite_item_combobox = glade_xml_get_widget (gxml, "comboBox");
 	se->priv->font_bold_check = glade_xml_get_widget (gxml, "bold");
 	se->priv->font_italics_check = glade_xml_get_widget (gxml, "italic");
 	se->priv->font_underlined_check = glade_xml_get_widget (gxml, "underlined");
@@ -912,17 +912,15 @@ create_style_editor_gui (StyleEditor * se)
 	{
 		if (hilite_style[i] == NULL)
 			break;
-		list = g_list_append (list, hilite_style[i]);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (se->priv->hilite_item_combobox), hilite_style[i]);
+
 	}
-	gtk_combo_set_popdown_strings (GTK_COMBO (se->priv->hilite_item_combo), list);
-	g_list_free (list);
 	
 	pref_dialog = anjuta_preferences_get_dialog (se->prefs);
 	gtk_window_set_transient_for (GTK_WINDOW (se->priv->dialog),
 								  GTK_WINDOW (pref_dialog));
 	
-	g_signal_connect (G_OBJECT (GTK_COMBO(se->priv->hilite_item_combo)->entry),
-					  "changed", G_CALLBACK (on_hilite_style_entry_changed),
+	g_signal_connect (se->priv->hilite_item_combobox, "changed", G_CALLBACK (on_hilite_style_entry_changed),
 					  se);
 	g_signal_connect (G_OBJECT (se->priv->font_use_default_check),
 					  "toggled", G_CALLBACK (on_use_default_font_toggled),

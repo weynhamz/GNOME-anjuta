@@ -161,12 +161,12 @@ indent_connect_items(gpointer key, gpointer data, IndentData *idt)
 
 	ptrdata = data;
 	indent_widget_signal_connect(ptrdata->checkbutton,  "toggled",
-	                 GTK_SIGNAL_FUNC(on_indent_checkbutton_toggled), 
+	                 G_CALLBACK(on_indent_checkbutton_toggled), 
 	                 idt);
 	
 	if (ptrdata->spinbutton)
 		indent_widget_signal_connect(ptrdata->spinbutton, "value_changed",
-	                 GTK_SIGNAL_FUNC(on_indent_spinbutton_value_changed), 
+	                 G_CALLBACK(on_indent_spinbutton_value_changed), 
 	                 idt);
 }
 
@@ -276,11 +276,11 @@ on_indent_checkbutton_toggled(GtkToggleButton *button, IndentData *idt)
 		}
 	}
 	indent_block_widget(PARAMETERS_ENTRY, 
-	                    GTK_SIGNAL_FUNC (on_indent_parameters_entry_changed),
+	                    G_CALLBACK (on_indent_parameters_entry_changed),
                         TRUE, idt);
 	indent_entry_set_chars(line, idt);
 	indent_block_widget(PARAMETERS_ENTRY, 
-	                    GTK_SIGNAL_FUNC (on_indent_parameters_entry_changed),
+	                    G_CALLBACK (on_indent_parameters_entry_changed),
                         FALSE, idt);
 	g_free(line);
 }
@@ -304,11 +304,11 @@ on_indent_spinbutton_value_changed(GtkSpinButton *button, IndentData *idt)
 	line = indent_insert_option(line, option);
 	g_free(option);
 	indent_block_widget(PARAMETERS_ENTRY, 
-	                    GTK_SIGNAL_FUNC (on_indent_parameters_entry_changed),
+	                    G_CALLBACK (on_indent_parameters_entry_changed),
                         TRUE, idt);
 	indent_entry_set_chars(line, idt);
 	indent_block_widget(PARAMETERS_ENTRY, 
-	                    GTK_SIGNAL_FUNC (on_indent_parameters_entry_changed),
+	                    G_CALLBACK (on_indent_parameters_entry_changed),
                         FALSE, idt);
 	g_free(line);
 }
@@ -364,10 +364,10 @@ GtkWidget *create_dialog(IndentData *idt)
 	indent_set_style_combo(idt->style_active, idt);
 	
 	g_signal_connect(GTK_OBJECT(idt->dialog), "delete_event",
-                     (GtkSignalFunc)indent_exit,
+                     (GCallBack)indent_exit,
                      NULL);
 	g_signal_connect(GTK_OBJECT(idt->dialog), "destroy",
-                     (GtkSignalFunc)indent_exit,
+                     (GCallBack)indent_exit,
                      NULL);
 	return idt->dialog;
 }

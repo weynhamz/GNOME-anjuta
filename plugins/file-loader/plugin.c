@@ -20,6 +20,8 @@
 
 #include <config.h>
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <glib/gi18n.h>
 
 #include <libanjuta/anjuta-shell.h>
@@ -190,19 +192,29 @@ get_available_plugins_for_mime (AnjutaPlugin* plugin,
 	return plugin_descs;
 }
 
+static gboolean
+RowSeparatorFunc (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+{
+	int n = GPOINTER_TO_INT(data), k;
+	gchar *path = gtk_tree_model_get_string_from_iter (model, iter);
+	sscanf (path, "%d", &k);
+	g_free (path);
+	return n == k;
+}
+
 static void
 open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				  const gchar *mime_type)
 {
 	GList *plugin_descs, *snode;
 	GList *mime_apps, *node;
-	GtkWidget *menu, *menuitem;
 	GAppInfo *mime_app;
 	
 	GtkWidget *dialog, *parent, *hbox, *label;
 	GtkWidget *options;
 	gchar *message;
 	gchar *basename;
+	gint col = -1;
 	AnjutaPluginManager *plugin_manager;
 	
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
@@ -232,15 +244,13 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dialog)->vbox), hbox,
 						FALSE, FALSE, 5);
 	label = gtk_label_new (_("Open with:"));
-	options = gtk_option_menu_new ();
+	options = gtk_combo_box_new_text ();
 	gtk_box_pack_end (GTK_BOX(hbox), options, FALSE, FALSE, 10);
 	gtk_box_pack_end (GTK_BOX(hbox), label, FALSE, FALSE, 10);
 	
-	menu = gtk_menu_new ();
-	
 	/* Document manager plugin */
-	menuitem = gtk_menu_item_new_with_label (_("Document Manager"));
-	gtk_menu_append (menu, menuitem);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (options), _("Document Manager"));
+	col ++;
 	
 	/* Open with plugins menu items */
 	plugin_descs = get_available_plugins_for_mime (ANJUTA_PLUGIN (plugin), mime_type);
@@ -267,8 +277,8 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Location", &name);
 		}
-		menuitem = gtk_menu_item_new_with_label (name);
-		gtk_menu_append (menu, menuitem);
+		gtk_combo_box_append_text (GTK_COMBO_BOX (options), name);
+		col ++;
 		g_free (name);
 		snode = g_list_next (snode);
 	}
@@ -278,8 +288,9 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	if (mime_apps)
 	{
 		/* Separator */
-		menuitem = gtk_menu_item_new ();
-		gtk_menu_append (menu, menuitem);
+		col++;
+		gtk_combo_box_append_text (GTK_COMBO_BOX (options), "");
+		gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (options), RowSeparatorFunc, GINT_TO_POINTER(col), NULL);
 	}	
 	node = mime_apps;
 	while (node)
@@ -287,21 +298,18 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 		mime_app = (GAppInfo *)(node->data);
 		if (g_app_info_should_show (mime_app))
 		{
-			menuitem = gtk_menu_item_new_with_label (
-					g_app_info_get_name (mime_app));
-			gtk_menu_append (menu, menuitem);
+			gtk_combo_box_append_text (GTK_COMBO_BOX (options), g_app_info_get_name (mime_app));
 		}
 		node = g_list_next (node);
 	}
-	
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (options), menu);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (options), 0);
 	gtk_widget_show_all (hbox);
 	
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
 	{
 		gint option;
 		
-		option = gtk_option_menu_get_history(GTK_OPTION_MENU (options));
+		option = gtk_combo_box_get_active(GTK_COMBO_BOX (options));
 		if (option == 0)
 		{
 			IAnjutaDocumentManager *docman;
@@ -935,7 +943,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 		g_object_set_data (G_OBJECT (menuitem), "mime_type", mime_type);			
 		g_signal_connect (G_OBJECT (menuitem), "activate",
 						  G_CALLBACK (callback), callback_data);
-		gtk_menu_append (menu, menuitem);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 		g_free (name);
 	}
 	g_list_free (plugin_descs);
@@ -945,7 +953,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	if (plugin_descs && mime_apps)
 	{
 		menuitem = gtk_menu_item_new ();
-		gtk_menu_append (menu, menuitem);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 	}
 	
 	for (node = mime_apps; node != NULL; node = g_list_next (node))
@@ -960,7 +968,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 			g_object_set_data (G_OBJECT (menuitem), "mime_type", mime_type);			
 			g_signal_connect (G_OBJECT (menuitem), "activate",
 							  G_CALLBACK (callback), callback_data);
-			gtk_menu_append (menu, menuitem);
+			gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 		}
 		else
 		{

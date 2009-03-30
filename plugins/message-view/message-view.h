@@ -18,7 +18,10 @@
 #ifndef MESSAGE_VIEW_H
 #define MESSAGE_VIEW_H
 
-#include <gnome.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-serializer.h>
 
