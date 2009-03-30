@@ -457,6 +457,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* create toolbar */	
 	app->toolbar = gtk_ui_manager_get_widget (GTK_UI_MANAGER (app->ui),
 										 "/ToolbarMain");
+    if (!anjuta_preferences_get_bool (app->preferences, "anjuta.toolbar.visible"))
+		gtk_widget_hide (app->toolbar);
 	gtk_box_pack_start (GTK_BOX (main_box), app->toolbar, FALSE, FALSE, 0);
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
 										"/MenuMain/MenuView/Toolbar");

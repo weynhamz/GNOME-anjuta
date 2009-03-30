@@ -1,3 +1,10 @@
+2009-03-30  Maxim Ermilov <zaspire@rambler.ru>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* src/anjuta-app.c (anjuta_app_instance_init):
+	#574711 – Menu Toolbar unchecked at the first time while toolbar shown
+
 2009-03-30  Johannes Schmid  <jhs@gnome.org>
 
   Patch from Maxim Ermilov <zaspire@rambler.ru>:
