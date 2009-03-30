@@ -1,3 +1,22 @@
+Anjuta 2.26.0.1 (1 April 2009) -- Johannes Schmid
+
+Updates:
+- Huge improvements in the tooltip area
+- Do not hang when pressing backspace in editor
+
+Bugs fixed:
+#574607 – Replace function selects text uncorrectly
+#576959 - Search does not point to correct line number on first match
+	when file is not opened in editor.
+#574711 – Menu Toolbar unchecked at the first time while toolbar shown
+#574802 – show calltips makes the editing lag
+#576057 – doesn't build with graphviz 2.22.2
+#575893 – plugins schema files are not installed
+#575617 – Update FSF address
+
+Translations:
+- German translation of the manual started (Mario Blättermann)
+
 Anjuta 2.26.0 (16 March 2009) -- Johannes Schmid
 
 Bugs fixed:

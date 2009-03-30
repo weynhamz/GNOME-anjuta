@@ -179,10 +179,9 @@ on_status_command_data_arrived (AnjutaCommand *command,
 			callback (file, 
 					  git_status_get_vcs_status (status),
 					  g_object_get_data (G_OBJECT (command), "user-data"));
-			
-			g_object_unref (file);
 		}
 		
+		g_object_unref (file);
 		g_object_unref (status);
 		g_free (status_relative_path);
 		g_free (path);

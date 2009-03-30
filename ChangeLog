@@ -1,3 +1,15 @@
+2009-03-30  Maxim Ermilov <zaspire@rambler.ru>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* src/anjuta-app.c (anjuta_app_instance_init):
+	#574711 – Menu Toolbar unchecked at the first time while toolbar shown
+
+2009-03-28  James Liggett  <jim@jim-desktop>
+
+	* plugins/git/git-vcs-interface.c (on_status_command_data_arrived):
+	Fix an object leak.
+
 2009-03-30  Mario Blättermann  <mariobl@svn.gnome.org>
 
 	* manuals/anjuta-manual/de/de.po:
@@ -19,8 +31,6 @@
 
 	* plugins/scintilla/text-editor-iterable.c:
 	Fix #574607 – Replace function selects text uncorrectly
-
-=== 2.26.0.1 ===
 
 2009-03-25  Johannes Schmid  <jhs@gnome.org>
 
