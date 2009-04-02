@@ -941,7 +941,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			context->locations = g_slist_prepend (context->locations, loc);
 			
 			/* If current editor file is same as indicator file, set indicator */
-			if (anjuta_preferences_get_int (anjuta_shell_get_preferences (context->plugin->shell, NULL), PREF_INDICATORS_AUTOMATIC))
+			if (anjuta_preferences_get_bool (anjuta_shell_get_preferences (context->plugin->shell, NULL), PREF_INDICATORS_AUTOMATIC))
 			{
 				build_indicator_location_set (loc, p->current_editor,
 											  p->current_editor_filename);
