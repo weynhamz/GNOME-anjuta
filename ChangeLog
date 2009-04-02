@@ -1,3 +1,9 @@
+2009-04-02  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/symbol-db/symbol-db-system.c (sdb_system_do_engine_scan),
+	(on_engine_package_scan_end), (on_pkg_config_exit):
+	fixed a bug that was breaking the queue scan of system packages in some cases.
+
 2009-04-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/plugin.c (on_build_mesg_format):

@@ -484,10 +484,12 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	GPtrArray *files_to_scan_array; 
 	GPtrArray *languages_array;
 	gint proc_id;
+	gboolean special_abort_scan; 
 	
 	priv = sdbs->priv;
+	special_abort_scan = es_data->special_abort_scan ;
 
-	if (es_data->special_abort_scan == FALSE)
+	if (special_abort_scan == FALSE)
 	{
 		files_to_scan_array = g_ptr_array_new ();
 		languages_array = g_ptr_array_new();
@@ -518,7 +520,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 							languages_array,
 							es_data->special_abort_scan == FALSE ? 
 									FALSE : TRUE);
-
+		
 	if (proc_id > 0)
 	{
 		/* will be disconnected automatically when callback is called. */
@@ -532,20 +534,8 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 					   files_to_scan_array->len,
 					   es_data->package_name); 
 	}
-	
-	/* hey, destroy_engine_scan_data () will take care of destroying these for us,
-	 * in case we're on a special_abort_scan
-	 */
-	if (es_data->special_abort_scan == FALSE)
-	{
-		g_ptr_array_foreach (files_to_scan_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (files_to_scan_array, TRUE);
-			
-		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (languages_array, TRUE);	
-	}
 	/* if no scan has started destroy the engine data here */
-	else if (proc_id <= 0) 			
+	else 
 	{
 		g_queue_remove (priv->engine_queue, es_data);
 		destroy_engine_scan_data (es_data);
@@ -555,8 +545,25 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 		 * likely that the queue won't be processed more. So here it is the call
 		 * to unlock it
 		 */
-		sdb_system_do_scan_next_package (sdbs);
+		/* have we got something left in the queue? */
+		if (g_queue_get_length (priv->engine_queue) > 0)
+		{				
+			/* peek the head */
+			es_data = g_queue_peek_head (priv->engine_queue);
+
+			DEBUG_PRINT ("adding %s", es_data->package_name);
+			sdb_system_do_engine_scan (sdbs, es_data);
+		}
 	}	
+
+	if (special_abort_scan == FALSE)
+	{
+		g_ptr_array_foreach (files_to_scan_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (files_to_scan_array, TRUE);
+			
+		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (languages_array, TRUE);
+	}
 }
 
 static void
@@ -578,7 +585,7 @@ on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_
 	g_signal_emit (sdbs, signals[SCAN_PACKAGE_END], 0, es_data->package_name); 
 	
 	/* remove the data from the queue */
-	DEBUG_PRINT ("removing on_engine_package_scan_end %s", es_data->package_name);
+	DEBUG_PRINT ("removing %s", es_data->package_name);
 	g_queue_remove (priv->engine_queue, es_data);
 	destroy_engine_scan_data (es_data);	
 	
@@ -587,7 +594,8 @@ on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_
 	{				
 		/* peek the head */
 		es_data = g_queue_peek_head (priv->engine_queue);
-	
+
+		DEBUG_PRINT ("adding %s", es_data->package_name);
 		sdb_system_do_engine_scan (sdbs, es_data);
 	}
 }
@@ -632,6 +640,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 	sdbs = ss_data->sdbs;
 	priv = sdbs->priv;	
 	
+	DEBUG_PRINT ("");
 	/* first of all disconnect the signals */
 	g_signal_handlers_disconnect_by_func (launcher, on_pkg_config_exit,
 										  user_data);
@@ -672,6 +681,15 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 						 g_queue_get_length (priv->engine_queue),
 						 es_data->package_name);
 			g_queue_push_tail (priv->engine_queue, es_data);
+			
+			gint i;			
+			for (i = 0; i < g_queue_get_length (priv->engine_queue); i++)
+			{
+				EngineScanData *node;
+				node = g_queue_peek_nth (priv->engine_queue, i);
+				DEBUG_PRINT ("DEBUG queue engine [%d]: %s", i, 
+							 node->package_name);
+			}
 		}
 		else
 		{
