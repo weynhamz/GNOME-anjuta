@@ -219,7 +219,6 @@ file_model_vcs_status_callback(GFile *file,
 					break;
 				if (g_file_equal (file, child_file))
 				{
-
 					if (priv->filter_unversioned &&
 					    (status == ANJUTA_VCS_STATUS_UNVERSIONED ||
 					     status == ANJUTA_VCS_STATUS_IGNORED))

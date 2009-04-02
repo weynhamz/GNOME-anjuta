@@ -221,7 +221,7 @@ subversion_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	SvnStatusCommand *status_command;
 	
 	path = g_file_get_path (file);
-	status_command = svn_status_command_new (path, TRUE, TRUE);
+	status_command = svn_status_command_new (path, FALSE, TRUE);
 	
 	g_free (path);
 	

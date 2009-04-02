@@ -1,3 +1,10 @@
+2009-04-02  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_query_status):
+	Do not work recursive - saves some cycles as we skip the recursive files
+	anyway
+
 2009-04-02  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/symbol-db/symbol-db-system.c (sdb_system_do_engine_scan),
