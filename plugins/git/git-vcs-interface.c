@@ -209,15 +209,6 @@ on_status_command_data_arrived (AnjutaCommand *command,
 		file = g_file_new_for_path (path);
 		given_file = g_object_get_data (G_OBJECT (command), "file");
 		
-		/* Since git only works on directories, and clients only ask for files,
-		 * only emit the callback if this is the file that was asked for. */
-		if (g_file_equal (file, given_file))
-		{
-			callback (file, 
-					  git_status_get_vcs_status (status),
-					  g_object_get_data (G_OBJECT (command), "user-data"));
-		}
-		
 		g_object_unref (file);
 		g_object_unref (status);
 		g_free (status_relative_path);

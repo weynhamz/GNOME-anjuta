@@ -1,3 +1,15 @@
+2009-04-02  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-model.c (file_model_add_dummy),
+	(file_model_vcs_status_callback), (file_model_update_file),
+	(file_model_add_file), (on_file_model_changed),
+	(on_row_expanded_async), (file_model_new):
+	* plugins/file-manager/file-model.h:
+	* plugins/git/git-vcs-interface.c (on_status_command_data_arrived):
+	
+	Use query_status() only on directories. Works fine with svn and should make
+	git interface easier. git still has some problems there though.
+
 2009-04-02  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
 
 	* plugins/git/Makefile.am:

@@ -118,6 +118,7 @@ file_model_add_dummy (FileModel* model,
 	gtk_tree_store_set (store, &dummy, 
 					    COLUMN_FILENAME, _("Loading..."),
 						COLUMN_SORT, -1,
+	                    COLUMN_DUMMY, TRUE,
 					    -1);
 }
 
@@ -182,66 +183,98 @@ file_model_vcs_status_callback(GFile *file,
 	VcsData* data = user_data;
 	FileModelPrivate *priv = FILE_MODEL_GET_PRIVATE (data->model);
 	gchar* path = g_file_get_path (file);
-		
+	
 	GtkTreePath* tree_path = gtk_tree_row_reference_get_path (data->ref);
 	if (tree_path)
 	{
+		GFile* dir;
+		GFile* parent;
 		GdkPixbuf* file_icon = NULL;
 		GdkPixbuf* emblem = NULL;
 		GtkTreeIter iter;
+		GtkTreeIter child;
 		GtkTreeModel* model = gtk_tree_row_reference_get_model (data->ref);
 
 		gtk_tree_model_get_iter (model,
 								 &iter,
 								 tree_path);
-		
-		if (priv->filter_unversioned &&
-			(status == ANJUTA_VCS_STATUS_UNVERSIONED ||
-			 status == ANJUTA_VCS_STATUS_IGNORED))
-		{
-			gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
-		}
-		else
-		{
-			emblem = get_vcs_emblem (status);
-			if (emblem)
-			{
-				gtk_tree_model_get (model, &iter,
-									COLUMN_PIXBUF, &file_icon,
-									-1);
-				if (file_icon)
-				{
-					GdkPixbuf *new_icon;
+		gtk_tree_model_get (model, &iter,
+		                    COLUMN_FILE, &dir, -1);
 
-					new_icon = gdk_pixbuf_copy (file_icon);
-					gdk_pixbuf_composite (emblem,
-										  new_icon,
-										  0, 0,
-										  gdk_pixbuf_get_width (file_icon),
-										  gdk_pixbuf_get_height (file_icon),
-										  0, 0,
-										  1, 1,
-										  GDK_INTERP_BILINEAR,
-										  COMPOSITE_ALPHA);
-					gtk_tree_store_set (GTK_TREE_STORE (model),
-										&iter,
-										COLUMN_PIXBUF,
-										new_icon,
-										-1);
-					DEBUG_PRINT ("%s", "setting emblem");
-					g_object_unref (new_icon);
-					g_object_unref (file_icon);
+		parent = g_file_get_parent (file);
+		
+		if (gtk_tree_model_iter_children (model, &child, &iter) &&
+		    g_file_equal (dir, parent))
+		{
+			do
+			{
+				GFile* child_file;
+				gboolean dummy;
+				gtk_tree_model_get (model, &child,
+				                    COLUMN_FILE,
+				                    &child_file,
+				                    COLUMN_DUMMY,
+				                    &dummy, -1);
+				if (dummy)
+					break;
+				if (g_file_equal (file, child_file))
+				{
+
+					if (priv->filter_unversioned &&
+					    (status == ANJUTA_VCS_STATUS_UNVERSIONED ||
+					     status == ANJUTA_VCS_STATUS_IGNORED))
+					{
+						gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
+					}
+					else
+					{
+						emblem = get_vcs_emblem (status);
+						if (emblem)
+						{
+							gtk_tree_model_get (model, &child,
+							                    COLUMN_PIXBUF, &file_icon,
+							                    -1);
+							if (file_icon)
+							{
+								GdkPixbuf *new_icon;
+
+								new_icon = gdk_pixbuf_copy (file_icon);
+								gdk_pixbuf_composite (emblem,
+								                      new_icon,
+								                      0, 0,
+								                      gdk_pixbuf_get_width (file_icon),
+								                      gdk_pixbuf_get_height (file_icon),
+								                      0, 0,
+								                      1, 1,
+								                      GDK_INTERP_BILINEAR,
+								                      COMPOSITE_ALPHA);
+								gtk_tree_store_set (GTK_TREE_STORE (model),
+								                    &child,
+								                    COLUMN_PIXBUF,
+								                    new_icon,
+								                    -1);
+								DEBUG_PRINT ("%s", "setting emblem");
+								g_object_unref (new_icon);
+								g_object_unref (file_icon);
+							}
+							g_object_unref (emblem);
+						}
+
+						gtk_tree_store_set (GTK_TREE_STORE (model),
+						                    &child,
+						                    COLUMN_STATUS,
+						                    status,
+						                    -1);
+					}
+					g_object_unref (child_file);
+					break;
 				}
-				g_object_unref (emblem);
 			}
-			
-			gtk_tree_store_set (GTK_TREE_STORE (model),
-								&iter,
-								COLUMN_STATUS,
-								status,
-								-1);
+			while (gtk_tree_model_iter_next (model, &child));
 		}
 		gtk_tree_path_free (tree_path);
+		g_object_unref (dir);
+		g_object_unref (parent);
 	}
 	g_free(path);
 }
@@ -288,7 +321,8 @@ static void
 file_model_update_file (FileModel* model,
 						GtkTreeIter* iter,
 						GFile* file,
-						GFileInfo* file_info)
+						GFileInfo* file_info,
+                        gboolean add)
 {
 	GtkTreeStore* store = GTK_TREE_STORE(model);
 	gboolean is_dir = FALSE;
@@ -328,12 +362,24 @@ file_model_update_file (FileModel* model,
 						COLUMN_STATUS, ANJUTA_VCS_STATUS_NONE,
 						COLUMN_IS_DIR, is_dir,
 						COLUMN_SORT, g_file_info_get_sort_order(file_info),
+	                    COLUMN_DUMMY, FALSE,
 						-1);
 	
 	if (is_dir)
+	{
 		file_model_add_dummy(model, iter);
-	else
 		file_model_get_vcs_status (model, iter, file);
+	}
+	if (!is_dir && !add)
+	{
+		GtkTreeIter parent;
+		GFile* dir;
+		gtk_tree_model_iter_parent (GTK_TREE_MODEL (model), &parent, iter);
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &parent,
+		                    COLUMN_FILE, &dir, -1);
+		file_model_get_vcs_status (model, &parent, dir);
+		g_object_unref (dir);
+	}
 	
 	if (pixbuf)
 		g_object_unref (pixbuf);
@@ -352,7 +398,7 @@ file_model_add_file (FileModel* model,
 	if (file_model_filter_file (model, file_info))
 	{
 		gtk_tree_store_append (store, &iter, parent);
-		file_model_update_file (model, &iter, file, file_info);
+		file_model_update_file (model, &iter, file, file_info, TRUE);
 	}
 }
 
@@ -418,7 +464,7 @@ on_file_model_changed (GFileMonitor* monitor,
 				if (!found)
 					file_model_add_file (model, &iter, file, file_info);
 				else
-					file_model_update_file (model, &file_iter, file, file_info);
+					file_model_update_file (model, &file_iter, file, file_info, FALSE);
 				g_object_unref (file_info);
 			}
 			break;
@@ -509,6 +555,7 @@ on_row_expanded_async (GObject* source_object,
 	gtk_tree_store_remove (GTK_TREE_STORE(model), &dummy);
 
 	file_model_add_watch (model, path);
+	file_model_get_vcs_status (model, &real_iter, dir);
 	gtk_tree_path_free (path);
 	gtk_tree_row_reference_free (ref);
 	g_object_unref(files);
@@ -721,7 +768,7 @@ file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
 		g_object_new (FILE_TYPE_MODEL, "base_uri", base_uri, NULL);
 	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING,
 		G_TYPE_STRING, G_TYPE_UINT, G_TYPE_OBJECT,
-		G_TYPE_BOOLEAN, G_TYPE_INT};
+		G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_BOOLEAN};
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
 	
 	g_signal_connect (G_OBJECT (tree_view), "row-collapsed", 
