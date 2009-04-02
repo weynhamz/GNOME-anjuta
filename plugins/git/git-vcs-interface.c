@@ -75,7 +75,44 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 				   GCancellable *cancel,
 				   AnjutaAsyncNotify *notify, GError **err)
 {
-	/* TODO */
+	GFile *parent;
+	gchar *path, *dir_name;
+	GitCloneCommand *clone_command;
+	Git *plugin;
+
+	parent = g_file_get_parent (dest);
+	path = g_file_get_path (parent);
+	dir_name = g_file_get_basename (dest);
+	
+	clone_command = git_clone_command_new (repository_location, path, dir_name);
+	plugin = ANJUTA_PLUGIN_GIT (obj);
+
+	g_object_unref (parent);
+	g_free (path);
+	g_free (dir_name);
+
+	git_create_message_view (plugin);
+
+	g_signal_connect (G_OBJECT (clone_command), "data-arrived",
+	                  G_CALLBACK (on_git_command_info_arrived),
+	                  plugin);
+
+	if (cancel)
+	{
+		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
+		                          G_CALLBACK (anjuta_command_cancel),
+		                          clone_command);
+	}
+
+	if (notify)
+	{
+		g_signal_connect_swapped (G_OBJECT (clone_command), 
+		                          "command-finished",
+		                          G_CALLBACK (anjuta_async_notify_notify_finished),
+		                          notify);
+	}
+
+	anjuta_command_start (ANJUTA_COMMAND (clone_command));
 }
 
 static void

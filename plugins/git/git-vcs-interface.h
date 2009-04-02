@@ -32,6 +32,7 @@
 #include "git-diff-command.h"
 #include "git-status-command.h"
 #include "git-remove-command.h"
+#include "git-clone-command.h"
 
 #include "git-ui-utils.h"
 

@@ -1,3 +1,35 @@
+2009-04-02  Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
+
+	* plugins/git/Makefile.am:
+	* plugins/git/git-vcs-interface.c (git_ivcs_checkout):
+	* plugins/git/git-vcs-interface.h:
+	* plugins/subversion/subversion-vcs-interface.c
+	(subversion_ivcs_checkout):
+	Implement checkout option for git and change it for svn so that it
+	works for project-import
+
+	* plugins/project-import/Makefile.am:
+	* plugins/project-import/plugin.c (project_import_generate_file),
+	(project_import_import_project), (checkout_finished),
+	(project_import_checkout_project), (import_dialog_response),
+	(finalize), (iwizard_activate), (ifile_open):
+	* plugins/project-import/plugin.h:
+	* plugins/project-import/project-import-dialog.c
+	(vcs_entry_changed), (name_entry_changed), (folder_radio_toggled),
+	(vcs_radio_toggled), (project_import_dialog_get_vcs_id),
+	(project_import_dialog_get_vcs_uri),
+	(project_import_dialog_get_dest_dir),
+	(project_import_dialog_get_source_dir),
+	(project_import_dialog_get_name), (project_import_dialog_new),
+	(project_import_dialog_init), (project_import_dialog_finalize),
+	(project_import_dialog_class_init):
+	* plugins/project-import/project-import-dialog.h:
+	* plugins/project-import/project-import.c:
+	* plugins/project-import/project-import.glade:
+	* plugins/project-import/project-import.h:
+	Remove project import wizard and replace with simpler dialog
+	that allows to import directly from a version control system.
+
 2009-03-30  Maxim Ermilov <zaspire@rambler.ru>
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>

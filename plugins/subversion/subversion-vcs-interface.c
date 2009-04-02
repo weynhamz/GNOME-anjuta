@@ -67,9 +67,22 @@ subversion_ivcs_checkout (IAnjutaVcs *obj,
 						  GCancellable *cancel,
 						  AnjutaAsyncNotify *notify, GError **err)
 {
+	GError *error;
 	gchar *path;
 	SvnCheckoutCommand *checkout_command;
 	Subversion *plugin;
+
+	error = NULL;
+	g_file_make_directory (dest, NULL, &error);
+	if (error)
+	{
+		if (error->code != G_IO_ERROR_EXISTS)
+		{
+			g_propagate_error (err, error);
+			return;
+		}
+		g_error_free (error);
+	}
 	
 	path = g_file_get_path (dest);
 	checkout_command = svn_checkout_command_new (repository_location, path);
