@@ -1,5 +1,10 @@
 2009-04-02  Johannes Schmid  <jhs@gnome.org>
 
+	* src/main.c (main):
+	Bring back gnome_program_init(). It's needed until all gnome widgets are gone
+
+2009-04-02  Johannes Schmid  <jhs@gnome.org>
+
 	* plugins/file-manager/file-model.c (file_model_add_dummy),
 	(file_model_vcs_status_callback), (file_model_update_file),
 	(file_model_add_file), (on_file_model_changed),
