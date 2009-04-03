@@ -1,3 +1,10 @@
+2009-04-03  Massimo Cora'  <mcora@svn.gnome.org>
+	
+	* plugins/symbol-db/symbol-db-system.c (sdb_system_do_engine_scan),
+	(on_engine_package_scan_end), (on_pkg_config_exit):
+    fixed a bug that was breaking the queue scan of system packages in some 
+	cases. (backport from trunk).
+
 2009-03-30  Maxim Ermilov <zaspire@rambler.ru>
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>
