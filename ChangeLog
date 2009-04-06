@@ -1,3 +1,10 @@
+2009-04-06  Maxim Ermilov <zaspire@rambler.ru>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-view.c (file_view_query_tooltip):
+	#564002 – Files view shows useless tooltip
+
 2009-04-06  Johannes Schmid  <jhs@gnome.org>
 
 	* AUTHORS:

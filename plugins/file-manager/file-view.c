@@ -395,6 +395,12 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 	GtkTreeIter iter;
 	GtkTreeIter real_iter;
 	gchar* filename;
+	gboolean result = TRUE;
+	GdkRectangle visible_rect, column_rect;
+	GdkScreen *screen = gdk_screen_get_default ();
+	PangoContext *context;
+	PangoLayout *layout;
+	gint width, height;
 	
 	if (!gtk_tree_view_get_tooltip_context (GTK_TREE_VIEW (view),
 											&x, &y, keyboard,
@@ -407,15 +413,35 @@ file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
 											&real_iter, &iter);
 	
 	filename = file_model_get_filename (FILE_MODEL (file_model), &real_iter);
-	gtk_tooltip_set_text (tooltip, filename);
-	gtk_tree_view_set_tooltip_row (GTK_TREE_VIEW (view),
-								   tooltip,
-								   path);
-	
+
+	context = gdk_pango_context_get_for_screen (screen);
+	layout = pango_layout_new (context);
+
+	pango_layout_set_text (layout, filename, -1);
+	pango_layout_get_pixel_size (layout, &width, &height);
+
+	gtk_tree_view_get_visible_rect (GTK_TREE_VIEW (view), &visible_rect);
+	gtk_tree_view_get_cell_area (GTK_TREE_VIEW (view), path,
+								 gtk_tree_view_get_column (GTK_TREE_VIEW (view), 0), &column_rect);
+
+	if (column_rect.x + width > visible_rect.x + visible_rect.width ||
+		column_rect.x < visible_rect.x)
+	{
+		gtk_tooltip_set_text (tooltip, filename);
+		gtk_tree_view_set_tooltip_row (GTK_TREE_VIEW (view),
+									   tooltip,
+									   path);
+	} else
+	{
+		result = FALSE;
+	}
+
 	g_free (filename);
 	gtk_tree_path_free (path);
+	g_object_unref (layout);
+	g_object_unref (context);
 	
-	return TRUE;
+	return result;
 }
 
 static int
