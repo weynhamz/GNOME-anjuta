@@ -168,7 +168,8 @@ plugins/profiler/profiler-flat-profile.glade
 plugins/profiler/profiler-function-call-tree.glade
 plugins/profiler/profiler.glade
 plugins/profiler/string-utils.c
-plugins/project-import/project-import.c
+plugins/project-import/project-import.glade
+plugins/project-import/project-import-dialog.c
 plugins/project-manager/create_dialogs.glade
 plugins/project-manager/gbf-project-model.c
 plugins/project-manager/gbf-project-util.c
@@ -216,8 +217,11 @@ plugins/subversion/subversion-switch-dialog.c
 plugins/subversion/subversion-ui-utils.c
 plugins/subversion/subversion-update-dialog.c
 plugins/subversion/svn-command.c
+plugins/symbol-db/plugin.c
 plugins/symbol-db/symbol-db-prefs.c
 plugins/symbol-db/symbol-db-system.c
+plugins/symbol-db/symbol-db-view-locals.c
+plugins/symbol-db/symbol-db-view.c
 plugins/symbol-db/anjuta-symbol-db.glade
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c

@@ -1,3 +1,8 @@
+2009-04-06  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/project-wizard/anjuta-project-wizard.ui:
+	Mark a missing string for translation
+
 2009-04-06  Maxim Ermilov <zaspire@rambler.ru>
 
 	reviewed by: Johannes Schmid  <jhs@gnome.org>

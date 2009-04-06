@@ -1,3 +1,11 @@
+2009-04-06  Johannes Schmid  <jhs@Obelix>
+
+  Patch from Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* POTFILES.in:
+	* POTFILES.skip:
+	Add missing files
+
 2009-03-26  Nickolay V. Shmyrev  <nshmyrev@yandex.ru>
 
 	* ru.po: Updated Russian translation by Yuriy Penkin.

@@ -22,9 +22,6 @@ plugins/project-wizard/templates/gnome/src/project.glade
 plugins/project-wizard/templates/gtk/src/project.glade
 plugins/project-wizard/templates/gtkmm/src/project.glade
 plugins/scintilla/text_editor_cbs.c
-plugins/symbol-db/plugin.c
-plugins/symbol-db/symbol-db-view-locals.c
-plugins/symbol-db/symbol-db-view.c
 plugins/symbol-db/symbol-db.glade
 libegg/egg-combo-action.c
 libegg/egg-entry-action.c
