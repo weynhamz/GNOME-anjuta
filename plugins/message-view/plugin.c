@@ -393,6 +393,26 @@ ianjuta_msgman_set_view_title (IAnjutaMessageManager *plugin,
 }
 
 static void
+ianjuta_msgman_set_view_icon_from_stock (IAnjutaMessageManager *plugin,
+							  IAnjutaMessageView *message_view,
+							  const gchar *icon, GError ** e)
+{
+	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
+	anjuta_msgman_set_view_icon_from_stock (ANJUTA_MSGMAN (msgman),
+								  MESSAGE_VIEW (message_view), icon);
+}
+
+static void
+ianjuta_msgman_set_view_icon (IAnjutaMessageManager *plugin,
+							  IAnjutaMessageView *message_view,
+							  GdkPixbufAnimation *icon, GError ** e)
+{
+	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
+	anjuta_msgman_set_view_icon (ANJUTA_MSGMAN (msgman),
+								 MESSAGE_VIEW (message_view), icon);
+}
+
+static void
 ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 {
 	iface->add_view = ianjuta_msgman_add_view;
@@ -402,6 +422,8 @@ ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 	iface->set_current_view = ianjuta_msgman_set_current_view;
 	iface->get_all_views = ianjuta_msgman_get_all_views;
 	iface->set_view_title = ianjuta_msgman_set_view_title;
+	iface->set_view_icon = ianjuta_msgman_set_view_icon;
+	iface->set_view_icon_from_stock = ianjuta_msgman_set_view_icon_from_stock;
 }
 
 static guint notify_id;

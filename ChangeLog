@@ -1,5 +1,36 @@
 2009-04-06  Johannes Schmid  <jhs@gnome.org>
 
+	Based on patch from : Maxim Ermilov <zaspire@rambler.ru>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/build-basic-autotools/plugin.c
+	(build_context_destroy_view), (build_regex_load),
+	(on_build_terminated), (build_set_animation),
+	(build_get_context_with_message):
+	* plugins/message-view/anjuta-msgman.c
+	(anjuta_msgman_set_view_icon),
+	(anjuta_msgman_set_view_icon_from_stock):
+	* plugins/message-view/anjuta-msgman.h:
+	* plugins/message-view/plugin.c
+	(ianjuta_msgman_set_view_icon_from_stock),
+	(ianjuta_msgman_set_view_icon), (ianjuta_msgman_iface_init):
+  Add animation for running builds. Automatically cancel build once the
+  message tab is destroyed. (#564128)	
+
+2009-04-06  Yuriy Penkin <yuriy.penkin@gmail.com>
+
+	* plugins/project-wizard/anjuta-project-wizard.ui:
+	Mark a missing string for translation
+
+2009-04-06  Maxim Ermilov <zaspire@rambler.ru>
+
+	reviewed by: Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/file-manager/file-view.c (file_view_query_tooltip):
+	#564002 – Files view shows useless tooltip
+
+2009-04-06  Johannes Schmid  <jhs@gnome.org>
+
 	* AUTHORS:
 	#578087 – Artwork for Symbol Database is actually not from Monodevelop team
 

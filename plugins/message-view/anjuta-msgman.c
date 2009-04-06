@@ -499,6 +499,35 @@ anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 	gtk_label_set_text (GTK_LABEL (page->label), title);
 }
 
+void
+anjuta_msgman_set_view_icon (AnjutaMsgman *msgman, MessageView *view,
+							  GdkPixbufAnimation *icon)
+{
+	AnjutaMsgmanPage *page;
+	
+	g_return_if_fail (icon != NULL);
+	
+	page = anjuta_msgman_page_from_widget (msgman, view);
+	g_return_if_fail (page != NULL);
+	
+	gtk_image_set_from_animation (GTK_IMAGE (page->pixmap), icon);
+}
+
+void
+anjuta_msgman_set_view_icon_from_stock (AnjutaMsgman *msgman, MessageView *view,
+							  const gchar *icon)
+{
+	AnjutaMsgmanPage *page;
+	
+	g_return_if_fail (icon != NULL);
+	
+	page = anjuta_msgman_page_from_widget (msgman, view);
+	g_return_if_fail (page != NULL);
+	
+	gtk_image_set_from_stock (GTK_IMAGE (page->pixmap), icon,
+							  GTK_ICON_SIZE_MENU);
+}
+
 gboolean
 anjuta_msgman_serialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
 {

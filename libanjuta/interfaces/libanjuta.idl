@@ -2688,7 +2688,8 @@ interface IAnjutaMessageView
 interface IAnjutaMessageManager
 {
 	#include "ianjuta-message-view.h"
-	
+	#include <gdk/gdk.h>
+
 	enum Error
 	{
 		DOESNT_EXIST
@@ -2777,6 +2778,30 @@ interface IAnjutaMessageManager
 	 *
 	 */
 	void set_view_title (IAnjutaMessageView *view, const gchar *title);
+
+	/**
+	 * ianjuta_message_manager_set_view_icon:
+	 * @obj: Self
+	 * @view: A message view
+	 * @icon: Sets the icon of view.
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets the icon of view.
+	 *
+	 */
+	void set_view_icon (IAnjutaMessageView *view, GdkPixbufAnimation *icon);
+
+	/**
+	 * ianjuta_message_manager_set_view_icon_from_stock:
+	 * @obj: Self
+	 * @view: A message view
+	 * @icon: Sets the icon of view.
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets the icon of view.
+	 *
+	 */
+	void set_view_icon_from_stock (IAnjutaMessageView *view, const gchar *icon);
 }
 
 /**

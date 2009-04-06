@@ -460,6 +460,7 @@ build_context_destroy_command (BuildContext *context)
 static gboolean
 build_context_destroy_view (BuildContext *context)
 {
+	BasicAutotoolsPlugin* plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin);
 	if (context->message_view)
 	{
 		gtk_widget_destroy (GTK_WIDGET (context->message_view));
@@ -481,21 +482,22 @@ build_context_destroy_view (BuildContext *context)
 					 NULL);
 	g_slist_free (context->locations);
 	context->locations = NULL;
-	
+
 	/* Empty context, remove from pool */
 	if (context->launcher == NULL)
-	{
-		ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin)->contexts_pool =
-			g_list_remove (ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin)->contexts_pool,
-							context);
+	{	
+		plugin->contexts_pool =
+			g_list_remove (plugin->contexts_pool,
+			               context);
 		g_free (context);
-		
-		return TRUE;
 	}
 	else
 	{
-		return FALSE;
+		/* Kill process */
+		anjuta_launcher_signal (context->launcher, SIGKILL);
 	}
+
+	return TRUE;
 }
 	
 static void
@@ -545,8 +547,7 @@ build_regex_load ()
 		gchar **tokens;
 		BuildPattern *pattern;
 		
-		fgets (buffer, 1024, fp);
-		if (ferror (fp))
+		if (!fgets (buffer, 1024, fp))
 			break;
 		tokens = g_strsplit (buffer, "|||", 3);
 		
@@ -1056,19 +1057,28 @@ on_build_terminated (AnjutaLauncher *launcher,
 	/* Message view could have been destroyed before */
 	if (context->message_view)
 	{
+		IAnjutaMessageManager *mesg_manager;
 		gchar *buff1;
 	
 		buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"),
 								 time_taken);
+		mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (context->plugin)->shell,
+									IAnjutaMessageManager, NULL);
 		if (status)
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
 									_("Completed unsuccessfully\n"), NULL);
+			ianjuta_message_manager_set_view_icon_from_stock (mesg_manager,
+									context->message_view,
+									GTK_STOCK_STOP, NULL);
 		}
 		else
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
 									   _("Completed successfully\n"), NULL);
+			ianjuta_message_manager_set_view_icon_from_stock (mesg_manager,
+									context->message_view,
+									GTK_STOCK_APPLY, NULL);
 		}
 		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
 		g_free (buff1);
@@ -1098,6 +1108,45 @@ g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
 {
 	return TRUE;
 }
+
+static void
+build_set_animation (IAnjutaMessageManager* mesg_manager, BuildContext* context)
+{
+	GtkIconTheme *icon_theme = gtk_icon_theme_get_default ();
+	GtkIconInfo *icon_info;
+	const gchar *name;
+	icon_info = gtk_icon_theme_lookup_icon (icon_theme, "process-working", 16, 0);
+	name = gtk_icon_info_get_filename (icon_info);
+	if (name != NULL)
+	{
+		int size = gtk_icon_info_get_base_size (icon_info);
+		GdkPixbufSimpleAnim* anim = gdk_pixbuf_simple_anim_new (size, size, 5);
+		GdkPixbuf *image = gdk_pixbuf_new_from_file (name, NULL);
+		if (image)
+		{
+			int grid_width = gdk_pixbuf_get_width (image);
+			int grid_height = gdk_pixbuf_get_height (image);
+			int x,y;
+			for (y = 0; y < grid_height; y += size)
+			{
+				for (x = 0; x < grid_width ; x += size)
+				{
+					GdkPixbuf *pixbuf = gdk_pixbuf_new_subpixbuf (image, x, y, size,size);
+					if (pixbuf)
+					{
+						gdk_pixbuf_simple_anim_add_frame (anim, pixbuf);
+					}
+				}
+			}
+			ianjuta_message_manager_set_view_icon (mesg_manager,
+			                                       context->message_view,
+			                                       GDK_PIXBUF_ANIMATION (anim), NULL);
+			g_object_unref (image);
+		}
+	}
+	gtk_icon_info_free (icon_info);
+}
+
 
 static BuildContext*
 build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
@@ -1149,6 +1198,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	}
 	else
 	{
+		
 		/* If no free context found, create one */
 		context = g_new0 (BuildContext, 1);
 		context->plugin = ANJUTA_PLUGIN(plugin);
@@ -1158,6 +1208,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 		context->message_view =
 			ianjuta_message_manager_add_view (mesg_manager, mname,
 											  ICON_FILE, NULL);
+
 		g_signal_connect (G_OBJECT (context->message_view), "buffer_flushed",
 						  G_CALLBACK (on_build_mesg_format), context);
 		g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
@@ -1165,6 +1216,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 		g_object_weak_ref (G_OBJECT (context->message_view),
 						   (GWeakNotify)on_message_view_destroyed, context);
 	}
+	build_set_animation (mesg_manager, context);
 
 	ianjuta_message_manager_set_current_view (mesg_manager,
 											  context->message_view, NULL);

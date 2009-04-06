@@ -68,6 +68,12 @@ GList *anjuta_msgman_get_all_views (AnjutaMsgman * msgman);
 void anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 								   const gchar *title);
 
+void anjuta_msgman_set_view_icon (AnjutaMsgman *msgman, MessageView *view,
+								  GdkPixbufAnimation *icon);
+
+void anjuta_msgman_set_view_icon_from_stock (AnjutaMsgman *msgman, MessageView *view,
+								             const gchar *icon);
+
 gboolean anjuta_msgman_serialize (AnjutaMsgman *msgman,
 								  AnjutaSerializer *serializer);
 gboolean anjuta_msgman_deserialize (AnjutaMsgman *msgman,

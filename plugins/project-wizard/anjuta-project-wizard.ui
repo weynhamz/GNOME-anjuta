@@ -47,7 +47,7 @@
       </object>
       <packing>
         <property name="page_type">GTK_ASSISTANT_PAGE_INTRO</property>
-        <property name="title">Select project type</property>
+        <property name="title" translatable="yes">Select project type</property>
         <property name="header_image">applogo.png</property>
       </packing>
     </child>
