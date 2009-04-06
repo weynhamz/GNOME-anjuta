@@ -1,3 +1,8 @@
+2009-04-06  Johannes Schmid  <jhs@gnome.org>
+
+	* AUTHORS:
+	#578087 – Artwork for Symbol Database is actually not from Monodevelop team
+
 2009-04-02  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/subversion/subversion-vcs-interface.c
