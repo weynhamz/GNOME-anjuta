@@ -9,9 +9,6 @@ plugins/build/configurer.c
 plugins/build/executer.c
 plugins/gtodo/egg-datetime.c
 plugins/gtodo/eggtrayicon.c
-plugins/indent/indent-dialog.c
-plugins/indent/indent.glade
-plugins/indent/plugin.c
 plugins/macro/macros.xml
 plugins/profiler/gprof-function-call-chart-view.c
 plugins/profiler/main.c
@@ -23,13 +20,6 @@ plugins/project-wizard/templates/gtk/src/project.glade
 plugins/project-wizard/templates/gtkmm/src/project.glade
 plugins/scintilla/text_editor_cbs.c
 plugins/symbol-db/symbol-db.glade
-libegg/egg-combo-action.c
-libegg/egg-entry-action.c
-libegg/eggcellrendererkeys.c
-libegg/eggtreemodelfilter.c
-libegg/eggtreeviewstate.c
-libegg/layout.glade
-libegg/test-actions.c
 src/anjuta_cbs.c
 src/utilities.c
 src/shell.c

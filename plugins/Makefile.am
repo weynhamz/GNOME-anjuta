@@ -13,7 +13,6 @@ SUBDIRS = . \
 	file-wizard \
 	project-wizard \
 	project-manager \
-	sample1 \
 	cvs-plugin \
 	macro \
 	class-gen \
@@ -21,22 +20,16 @@ SUBDIRS = . \
 	subversion \
 	project-import \
 	tools \
-	class-inheritance \
 	document-manager \
 	search \
-	valgrind \
 	language-support-cpp-java \
 	glade \
 	devhelp \
-	profiler \
 	language-manager \
 	symbol-db \
 	git \
 	sourceview \
 	run-program \
-	scratchbox \
 	gbf-am \
 	gbf-mkfile \
 	starter
-
-# indent

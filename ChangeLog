@@ -1,5 +1,12 @@
 2009-04-07  Johannes Schmid  <jhs@gnome.org>
 
+	* configure.in:
+	* plugins/Makefile.am:
+	Moved sample1, indent, class-inheritance, valgrind and profiler to
+	anjuta-extras repository.
+
+2009-04-07  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c
 	(anjuta_preferences_register_all_properties_from_builder_xml),
 	(anjuta_preferences_add_from_builder):

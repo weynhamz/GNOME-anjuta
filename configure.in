@@ -36,19 +36,15 @@ LIBXML_REQUIRED=2.4.23
 LIBDEVHELP_REQUIRED=0.22
 GDL_REQUIRED=2.24.0
 GLADEUI_REQUIRED=3.6.0
-LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.28.2
 SVN_MAJOR=1
 SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 GTKSOURCEVIEW_REQUIRED=2.4.0
-BINUTILS_REQUIRED=2.15.92
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
-
-dnl LIBGTODO_REQUIRED=0.15
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
@@ -63,16 +59,12 @@ AC_SUBST(VTE_NEW_REQUIRED)
 AC_SUBST(LIBDEVHELP_REQUIRED)
 AC_SUBST(GDL_REQUIRED)
 AC_SUBST(GLADEUI_REQUIRED)
-AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 AC_SUBST(NEON_REQUIRED)
 AC_SUBST(SUBVERSION_REQUIRED)
 AC_SUBST(GTKSOURCEVIEW_REQUIRED)
-AC_SUBST(BINUTILS_REQUIRED)
 AC_SUBST(LIBWNCK_REQUIRED)
 AC_SUBST(GDA_REQUIRED)
 AC_SUBST(UNIQUE_REQUIRED)
-
-dnl AC_SUBST(LIBGTODO_REQUIRED)
 
 AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
 AC_CONFIG_HEADERS(config.h)
@@ -256,62 +248,6 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$gladeui_found = xyes])
 
-dnl Check for graphviz (class inheritance and profiler plugins)
-dnl --------------------------------------------------------------------------
-dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
-dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
-dnl makes pkgconfig check fail if we don't add the above path in
-dnl PKG_CONFIG_PATH. We have added both /usr/lib/graphviz/pkgconfig and
-dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
-dnl (other than /usr or /usr/local or the current installation prefix),
-dnl following pkgconfig check will fail.
-dnl --------------------------------------------------------------------------
-AC_ARG_ENABLE(graphviz,
-	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]), 
-	[ if test "$enableval" = "no"; then
-		user_disabled_graphviz=1
-	  fi ],
-	[ user_disabled_graphviz=0 ])
-
-AC_MSG_CHECKING(if GraphViz support is disabled)
-if test "$user_disabled_graphviz" = 1; then
-	AC_MSG_RESULT(yes)
-	libgraphviz_found="no"
-else
-	AC_MSG_RESULT(no)
-	
-	dnl Set pkgconfig path
-	ANJUTA_PKG_CONFIG_PATH_SAVE="${PKG_CONFIG_PATH}"
-	PKG_CONFIG_PATH="/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
-	PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
-	PKG_CONFIG_PATH="/usr/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
-	PKG_CONFIG_PATH="/usr/local/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
-	
-	anjuta_save_prefix="$prefix"
-	test "x$prefix" = xNONE && prefix=$ac_default_prefix
-	graphviz_pkgconfig=`eval echo ${libdir}/graphviz/pkgconfig`
-	PKG_CONFIG_PATH="$graphviz_pkgconfig:$PKG_CONFIG_PATH"
-	prefix="$anjuta_save_prefix"
-
-	export PKG_CONFIG_PATH
-	PKG_CHECK_MODULES(GRAPHVIZ,
-		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED], 
-		[libgraphviz_found="yes"],
-		[libgraphviz_found="no"])
-	
-	dnl Restore pkgconfig path
-	PKG_CONFIG_PATH="${ANJUTA_PKG_CONFIG_PATH_SAVE}"
-	export PKG_CONFIG_PATH
-fi
-
-AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
-
-dnl Define HAVE_GRAPHVIZ to disable Function Call Chart in the Profiler if 
-dnl Graphviz isn't on the system
-if test "$libgraphviz_found" = yes; then
-	AC_DEFINE(HAVE_GRAPHVIZ, [], [Define if we have GraphViz >= 2.6.0])
-fi
-
 dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
 dnl -------------------------------------------------------------
 
@@ -359,67 +295,6 @@ AM_CONDITIONAL(HAVE_PLUGIN_SCINTILLA, [test x$scintilla = xyes])
 
 PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 		[libgda-4.0 >= $GDA_REQUIRED])
-
-dnl Valgrind plugin
-dnl check for libbfd
-dnl -------------------------------------------------------------
-
-AC_ARG_ENABLE(plugin-valgrind,
-	AC_HELP_STRING([--disable-plugin-valgrind],[Disable Valgrind plugin]), 
-	[ if test "$enableval" = "no"; then
-		user_disabled_valgrind=1
-	  fi ],
-	[ user_disabled_valgrind=0 ])
-
-AC_MSG_CHECKING(if valgrind plugin is disabled)
-if test "$user_disabled_valgrind" = 1; then
-	AC_MSG_RESULT(yes)
-	valgrind="no"
-else
-	AC_MSG_RESULT(no)
-	valgrind="yes"
-fi
-
-AC_CHECK_LIB(bfd, bfd_get_error, [PLUGIN_VALGRIND_LIBS="-Wl,-Bstatic -lbfd -liberty -Wl,-Bdynamic"],
-   valgrind="no",
-  -liberty)
-
-AC_SUBST(PLUGIN_VALGRIND_LIBS)
-AM_CONDITIONAL(HAVE_PLUGIN_VALGRIND, [test x$valgrind = xyes])
-
-
-
-
-dnl we need gconftool-2 in order to install the schema
-AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
-
-if test "x$GCONFTOOL" = "xno"; then
-  AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
-fi
-
-AM_GCONF_SOURCE_2
-
-
-
-
-dnl check for bfd_get_section_size_before_reloc() in libbfd
-AC_MSG_CHECKING(for bfd_get_section_size_before_reloc)
-AC_TRY_LINK([
-        #include <bfd.h>
-        ], [
-        asection *section;
-
-        bfd_get_section_size_before_reloc (section);
-        ],
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(HAVE_BFD_GET_SECTION_SIZE_BEFORE_RELOC, [], [Define if libbfd
-contains the function bfd_get_section_size_before_reloc])
-,
-        AC_MSG_RESULT(no)
-)
-
-
-
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
@@ -889,7 +764,6 @@ doc/Makefile
 scripts/Makefile
 launcher/Makefile
 plugins/Makefile
-plugins/sample1/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
@@ -913,7 +787,6 @@ plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
-plugins/profiler/Makefile
 plugins/project-manager/Makefile
 plugins/gbf-am/Makefile
 plugins/gbf-am/gbf-am-parse
@@ -932,8 +805,6 @@ plugins/git/Makefile
 plugins/sourceview/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
-plugins/class-inheritance/Makefile
-plugins/valgrind/Makefile
 plugins/language-manager/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
@@ -986,7 +857,6 @@ plugins/project-wizard/templates/gnome-applet/po/Makefile
 plugins/project-wizard/templates/m4/Makefile
 plugins/language-support-cpp-java/Makefile
 plugins/run-program/Makefile
-plugins/scratchbox/Makefile
 plugins/starter/Makefile
 anjuta.desktop.in
 manuals/Makefile
@@ -1026,23 +896,6 @@ if [ test x$devhelp_enabled = xyes ]; then
 else
        echo "Building devhelp plugin: ...............................NO"
        echo "        Requires devhelp >= 0.22"
-fi
-
-if [ test x$libgraphviz_found = xyes ]; then
-        echo "Building class inheritance plugin: .....................YES"
-        echo "Building performance profiler with function call chart: YES"
-else
-        echo "Building class inheritance plugin: .....................NO"
-        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
-        echo "Building performance profiler with function call chart: NO"
-	 echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
-fi
-
-if [ test x$valgrind = xyes ]; then
-        echo "Building Valgrind debugger plugin: .....................YES"
-else
-        echo "Building Valgrind debugger plugin: .....................NO"
-	echo "		Requires binutils-dev"
 fi
 
 if [ test x$sourceview = xyes ]; then

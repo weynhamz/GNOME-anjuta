@@ -31,8 +31,6 @@ plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c
 plugins/build-basic-autotools/plugin.c
 plugins/build-basic-autotools/program.c
-plugins/class-inheritance/class-inherit.c
-plugins/class-inheritance/plugin.c
 plugins/class-gen/anjuta-class-gen-plugin.glade
 plugins/class-gen/cell-renderer-flags.c
 plugins/class-gen/combo-flags.c
@@ -150,24 +148,6 @@ plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
 plugins/patch/patch-plugin.glade
 plugins/patch/plugin.c
-plugins/profiler/gprof-call-graph-block.c
-plugins/profiler/gprof-call-graph-block-entry.c
-plugins/profiler/gprof-call-graph.c
-plugins/profiler/gprof-call-graph-view.c
-plugins/profiler/gprof-flat-profile.c
-plugins/profiler/gprof-flat-profile-entry.c
-plugins/profiler/gprof-flat-profile.h
-plugins/profiler/gprof-flat-profile-view.c
-plugins/profiler/gprof-function-call-tree-view.c
-plugins/profiler/gprof-profile-data.c
-plugins/profiler/gprof-view.c
-plugins/profiler/gprof-view-manager.c
-plugins/profiler/plugin.c
-plugins/profiler/profiler-call-graph.glade
-plugins/profiler/profiler-flat-profile.glade
-plugins/profiler/profiler-function-call-tree.glade
-plugins/profiler/profiler.glade
-plugins/profiler/string-utils.c
 plugins/project-import/plugin.c
 plugins/project-import/project-import.glade
 plugins/project-import/project-import-dialog.c
@@ -185,7 +165,6 @@ plugins/run-program/anjuta-run-program.glade
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
-plugins/sample1/plugin.c
 plugins/scintilla/anjuta-editor-scintilla.glade
 plugins/scintilla/print.c
 plugins/scintilla/plugin.c
@@ -234,18 +213,6 @@ plugins/tools/fileop.c
 plugins/tools/plugin.c
 plugins/tools/variable.c
 plugins/tools/tool.c
-plugins/valgrind/anjuta-valgrind.glade
-plugins/valgrind/plugin.c
-plugins/valgrind/preferences.c
-plugins/valgrind/process.c
-plugins/valgrind/vgactions.c
-plugins/valgrind/vgcachegrindprefs.c
-plugins/valgrind/vgdefaultview.c
-plugins/valgrind/vggeneralprefs.c
-plugins/valgrind/vghelgrindprefs.c
-plugins/valgrind/vgmemcheckprefs.c
-plugins/valgrind/vgrule-editor.c
-plugins/valgrind/vgrule-list.c
 src/about.c
 src/action-callbacks.c
 src/anjuta.c
@@ -275,13 +242,11 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/file-wizard/anjuta-file-wizard.plugin.in
 [type: gettext/ini]plugins/file-manager/file-manager.plugin.in
 [type: gettext/ini]plugins/subversion/anjuta-subversion.plugin.in
-[type: gettext/ini]plugins/class-inheritance/anjuta-class-inheritance.plugin.in
 [type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
 [type: gettext/ini]plugins/gtodo/anjuta-gtodo.plugin.in
 [type: gettext/ini]plugins/macro/anjuta-macro.plugin.in
 [type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
 [type: gettext/ini]plugins/tools/anjuta-tools.plugin.in
-[type: gettext/ini]plugins/sample1/anjuta-sample.plugin.in
 [type: gettext/ini]plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in
 [type: gettext/ini]plugins/terminal/anjuta-terminal.plugin.in
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
@@ -292,13 +257,11 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/starter/anjuta-starter.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
-[type: gettext/ini]plugins/profiler/profiler.plugin.in
 [type: gettext/ini]plugins/search/anjuta-search.plugin.in
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in
 [type: gettext/ini]plugins/symbol-db/symbol-db.plugin.in
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
-[type: gettext/ini]plugins/valgrind/anjuta-valgrind.plugin.in
 [type: gettext/ini]plugins/file-loader/anjuta-loader.plugin.in
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
