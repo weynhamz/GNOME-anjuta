@@ -1,5 +1,10 @@
 2009-04-07  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/sourceview/plugin.c (ipreferences_merge):
+	Fixed error->msg vs. error->message problem in DEBUG_PRINT macro
+
+2009-04-07  Johannes Schmid  <jhs@gnome.org>
+
 	* configure.in:
 	* plugins/Makefile.am:
 	Moved sample1, indent, class-inheritance, valgrind and profiler to

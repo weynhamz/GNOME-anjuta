@@ -222,7 +222,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file(builder, PREFS_GLADE, &error))
 	{
-		DEBUG_PRINT ("Could load sourceview preferences: %s", error->msg);
+		DEBUG_PRINT ("Could load sourceview preferences: %s", error->message);
 		g_error_free (error);
 		return;
 	}
