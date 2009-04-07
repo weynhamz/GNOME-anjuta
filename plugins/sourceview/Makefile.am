@@ -1,8 +1,8 @@
 if HAVE_PLUGIN_SOURCEVIEW
 
 # Plugin glade file
-sourceview_gladedir = $(anjuta_glade_dir)
-sourceview_glade_DATA = anjuta-editor-sourceview.glade
+sourceview_xmldir = $(anjuta_glade_dir)
+sourceview_xml_DATA = anjuta-editor-sourceview.ui
 
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
@@ -80,7 +80,7 @@ libanjuta_sourceview_la_LIBADD = \
 	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
-prefs_glade_files = anjuta-editor-sourceview.glade
+prefs_ui_files = anjuta-editor-sourceview.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 endif
@@ -90,6 +90,6 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(sourceview_plugin_DATA) \
 	$(sourceview_pixmaps_DATA) \
-	$(sourceview_glade_DATA)
+	$(sourceview_xml_DATA)
 
 

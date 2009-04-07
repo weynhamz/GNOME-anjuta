@@ -705,14 +705,12 @@ the file will be loaded in the buffer */
 Sourceview *
 sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 {
-	AnjutaShell* shell;
 	GtkAdjustment* v_adj;
 	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
 	/* Apply Preferences */
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	sv->priv->prefs = anjuta_shell_get_preferences(shell, NULL);
+	sv->priv->prefs = anjuta_preferences_default();
 	sourceview_prefs_init(sv);
 	sv->priv->plugin = plugin;
 	

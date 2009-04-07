@@ -8,3 +8,5 @@ EXTRA_DIST = $(anjuta_data_DATA)
 dist-hook:
 	cp $(srcdir)/glade2schema.pl $(distdir)
 	chmod +x $(distdir)/glade2schema.pl
+	cp $(srcdir)/builder2schema.pl $(distdir)
+	chmod +x $(distdir)/builder2schema.pl

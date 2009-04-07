@@ -38,7 +38,7 @@
 #include "sourceview.h"
 #include "sourceview-private.h"
 
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-editor-sourceview.glade"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-editor-sourceview.ui"
 #define ICON_FILE "anjuta-editor-sourceview-plugin-48.png"
 
 #define COMBO_STYLES "combo_styles"
@@ -49,13 +49,13 @@
 
 static gpointer parent_class;
 
-static GladeXML* gxml = NULL;
+static GtkBuilder* builder = NULL;
 
 static void
-on_font_check_toggled(GtkToggleButton* button, GladeXML* gxml)
+on_font_check_toggled(GtkToggleButton* button, GtkBuilder* builder)
 {
 	GtkWidget* font_button;
-	font_button = glade_xml_get_widget(gxml, FONT_BUTTON);
+	font_button = GTK_WIDGET (gtk_builder_get_object (builder, FONT_BUTTON));
 	gtk_widget_set_sensitive(font_button, !gtk_toggle_button_get_active(button));
 }
 
@@ -218,16 +218,28 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkCellRenderer* renderer_name = gtk_cell_renderer_text_new ();
 	GtkCellRenderer* renderer_desc = gtk_cell_renderer_text_new ();
 	GtkTreeIter* iter = NULL;
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-	anjuta_preferences_add_page (prefs,
-								 gxml, "Editor", _("GtkSourceView Editor"), ICON_FILE);
+	GError* error = NULL;
+	builder = gtk_builder_new ();
+	if (!gtk_builder_add_from_file(builder, PREFS_GLADE, &error))
+	{
+		DEBUG_PRINT ("Could load sourceview preferences: %s", error->msg);
+		g_error_free (error);
+		return;
+	}
+	anjuta_preferences_add_from_builder (prefs,
+	                                     builder, 
+	                                     "Editor", 
+	                                     _("GtkSourceView Editor"), 
+	                                     ICON_FILE);
 	
-	plugin->check_font = glade_xml_get_widget(gxml, FONT_USE_THEME_BUTTON);
-	g_signal_connect(G_OBJECT(plugin->check_font), "toggled", G_CALLBACK(on_font_check_toggled), gxml);
-	on_font_check_toggled (GTK_TOGGLE_BUTTON (plugin->check_font), gxml);
+	plugin->check_font = GTK_WIDGET (gtk_builder_get_object (builder, 
+	                                                         FONT_USE_THEME_BUTTON));
+	g_signal_connect(G_OBJECT(plugin->check_font), "toggled", 
+	                 G_CALLBACK(on_font_check_toggled), builder);
+	on_font_check_toggled (GTK_TOGGLE_BUTTON (plugin->check_font), builder);
 	
 	/* Init styles combo */
-	plugin->combo_styles = glade_xml_get_widget (gxml, COMBO_STYLES);
+	plugin->combo_styles = GTK_WIDGET (gtk_builder_get_object (builder, COMBO_STYLES));
 	gtk_combo_box_set_model (GTK_COMBO_BOX (plugin->combo_styles),
 							 create_style_model(prefs, &iter));
 	g_signal_connect (plugin->combo_styles, "changed", G_CALLBACK (on_style_changed), plugin);
@@ -254,13 +266,13 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 {
 	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (ipref);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_font), 
-		G_CALLBACK(on_font_check_toggled), gxml);
+		G_CALLBACK(on_font_check_toggled), builder);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->combo_styles), 
-		G_CALLBACK(on_style_changed), gxml);
+		G_CALLBACK(on_style_changed), builder);
 	
 	anjuta_preferences_remove_page(prefs, _("GtkSourceView Editor"));
-	g_object_unref(gxml);
-	gxml = NULL;
+	g_object_unref(builder);
+	builder = NULL;
 }
 
 static void

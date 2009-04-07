@@ -94,6 +94,11 @@ void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
                                   const gchar* glade_widget_name,
                                   const gchar* title,
                                   const gchar *icon_filename);
+void anjuta_preferences_add_from_builder (AnjutaPreferences* pr,GtkBuilder *builder,
+                                          const gchar* glade_widget_name,
+                                          const gchar* title,
+                                          const gchar *icon_filename);
+
 void anjuta_preferences_remove_page (AnjutaPreferences *pr, 
                                      const gchar *page_name);
 
@@ -104,6 +109,13 @@ void anjuta_preferences_remove_page (AnjutaPreferences *pr,
 void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
                                                                 GladeXML *gxml,
                                                                 GtkWidget *parent);
+/*
+ * Registers all properties defined for widgets below the 'parent' widget
+ * in the given gtkbuilder UI tree
+ */
+void anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences* pr,
+                                                                  GtkBuilder* builder,
+                                                                  GtkWidget *parent);
 gboolean
 anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
                                                   GtkWidget *object,

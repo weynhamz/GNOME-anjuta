@@ -1,3 +1,25 @@
+2009-04-07  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/anjuta-preferences.c
+	(anjuta_preferences_register_all_properties_from_builder_xml),
+	(anjuta_preferences_add_from_builder):
+	* libanjuta/anjuta-preferences.h:
+	Added methods to add pages from gtkbuilder instead of glade
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/anjuta-editor-sourceview.ui:
+	* plugins/sourceview/plugin.c (on_font_check_toggled),
+	(ipreferences_merge), (ipreferences_unmerge):
+	* plugins/sourceview/sourceview.c (sourceview_new):
+	Replace libglade with gtkbuilder
+
+	* scripts/build-schemas.mk:
+	* scripts/builder2schema.pl:
+	* scripts/Makefile.am
+	Add a new script to generate schemas from gtkbuilder instead of glade
+	files and adjusted Makefile.
+
 2009-04-06  Johannes Schmid  <jhs@gnome.org>
 
 	Based on patch from : Maxim Ermilov <zaspire@rambler.ru>

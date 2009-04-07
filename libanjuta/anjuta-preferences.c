@@ -1513,6 +1513,64 @@ anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences *pr
 }
 
 /**
+ * anjuta_preferences_register_all_properties_from_builder_xml:
+ * @pr: a #AnjutaPreferences Object
+ * @builder: GtkBuilder object containing the properties widgets.
+ * @parent: Parent widget in the builder object
+ *
+ * This will register all the properties names of the format described above
+ * without considering the UI. Useful if you have the widgets shown elsewhere
+ * but you want them to be part of preferences system.
+ */
+void
+anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *pr,
+                                                             GtkBuilder *builder,
+                                                             GtkWidget *parent)
+{
+	GSList *widgets;
+	GSList *node;
+	
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (builder != NULL);
+	
+	widgets = gtk_builder_get_objects (builder);
+	for (node = widgets; node != NULL; node = g_slist_next (node))
+	{
+		const gchar *name;
+		const gchar *property;
+		GtkWidget *widget, *p;
+		gboolean cont_flag = FALSE;
+
+		if (!GTK_IS_WIDGET (node->data))
+			continue;
+		
+		widget = node->data;
+		name = gtk_widget_get_name (widget);
+
+		if (!g_str_has_prefix (name, PREFERENCE_PROPERTY_PREFIX))
+			continue;
+		
+		p = gtk_widget_get_parent (widget);
+		/* Added only if it's a desendend child of the parent */
+		while (p != parent)
+		{
+			if (p == NULL)
+			{
+				cont_flag = TRUE;
+				break;
+			}
+			p = gtk_widget_get_parent (p);
+		}
+		if (cont_flag)
+			continue;
+
+		property = &name[strlen (PREFERENCE_PROPERTY_PREFIX)];
+		anjuta_preferences_register_property_from_string (pr, widget,
+		                                                  property);
+	}
+}
+
+/**
  * anjuta_preferences_reset_defaults:
  * @pr: a #AnjutaPreferences object.
  *
@@ -1644,6 +1702,86 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr->priv->prefs_dialog),
 										glade_widget_name, title, pixbuf, page);
 	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml, page);
+	g_object_unref (page);
+	g_free (image_path);
+	g_object_unref (pixbuf);
+}
+
+/**
+ * anjuta_preferences_add_page:
+ * @pr: a #AnjutaPreferences object
+ * @builder: #GtkBuilder object containing the preferences page
+ * @gwidget_name: Page widget name (as give with glade interface editor).
+ * The widget will be searched with the given name and detached
+ * (that is, removed from the container, if present) from it's parent.
+ * @icon_filename: File name (of the form filename.png) of the icon representing
+ * the preference page.
+ * 
+ * Add a page to the preferences sytem.
+ * builder is the GtkBuilder object of the dialog containing the page widget.
+ * The dialog will contain the layout of the preferences widgets.
+ * The widgets which are preference widgets (e.g. toggle button) should have
+ * widget names of the form:
+ *
+ * <programlisting>
+ *     preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
+ *     where,
+ *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color', 'font' or 'file' .
+ *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.
+ *       DEFAULT    is the default value (in the appropriate format). The format
+ *                     for color is '#XXXXXX' representing RGB value and for
+ *                     font, it is the pango font description.
+ *       FLAGS      is any flag associated with the property. Currently it
+ *                     has only two values -- 0 and 1. For normal preference
+ *                     property which is saved/retrieved globally, the flag = 0.
+ *                     For preference property which is also saved/retrieved
+ *                     along with the project, the flag = 1.
+ *       PROPERTYKEY is the property key. e.g - 'tab.size'.
+ * </programlisting>
+ *
+ * All widgets having the above names in the gxml tree will be registered
+ * and will become part of auto saving/loading. For example, refer to
+ * anjuta preferences dialogs and study the widget names.
+ */
+void
+anjuta_preferences_add_from_builder (AnjutaPreferences* pr, 
+                                     GtkBuilder* builder,
+                                     const gchar* widget_name,
+                                     const gchar* title,
+                                     const gchar *icon_filename)
+{
+	GtkWidget *parent;
+	GtkWidget *page;
+	GdkPixbuf *pixbuf;
+	gchar *image_path;
+	
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (widget_name != NULL);
+	g_return_if_fail (icon_filename != NULL);
+	
+	page = GTK_WIDGET(gtk_builder_get_object (builder, widget_name));
+	g_object_ref (page);
+	g_return_if_fail (GTK_IS_WIDGET (page));
+	parent = gtk_widget_get_parent (page);
+	if (parent && GTK_IS_CONTAINER (parent))
+	{
+		if (GTK_IS_NOTEBOOK (parent))
+		{
+			gint page_num;
+			
+			page_num = gtk_notebook_page_num (GTK_NOTEBOOK (parent), page);
+			gtk_notebook_remove_page (GTK_NOTEBOOK (parent), page_num);
+		}
+		else
+		{
+			gtk_container_remove (GTK_CONTAINER (parent), page);
+		}
+	}
+	image_path = anjuta_res_get_pixmap_file (icon_filename);
+	pixbuf = gdk_pixbuf_new_from_file (image_path, NULL);
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr->priv->prefs_dialog),
+										widget_name, title, pixbuf, page);
+	anjuta_preferences_register_all_properties_from_builder_xml (pr, builder, page);
 	g_object_unref (page);
 	g_free (image_path);
 	g_object_unref (pixbuf);

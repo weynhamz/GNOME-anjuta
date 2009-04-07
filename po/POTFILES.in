@@ -168,6 +168,7 @@ plugins/profiler/profiler-flat-profile.glade
 plugins/profiler/profiler-function-call-tree.glade
 plugins/profiler/profiler.glade
 plugins/profiler/string-utils.c
+plugins/project-import/plugin.c
 plugins/project-import/project-import.glade
 plugins/project-import/project-import-dialog.c
 plugins/project-manager/create_dialogs.glade
@@ -199,7 +200,7 @@ plugins/search/search-replace_backend.c
 plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
-plugins/sourceview/anjuta-editor-sourceview.glade
+plugins/sourceview/anjuta-editor-sourceview.ui
 plugins/starter/plugin.c
 plugins/starter/starter.c
 plugins/subversion/anjuta-subversion.glade
