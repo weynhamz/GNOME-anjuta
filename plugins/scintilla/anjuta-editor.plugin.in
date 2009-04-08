@@ -1,8 +1,0 @@
-[Anjuta Plugin]
-_Name=Scintilla Editor
-_Description=An alternate editor based on Scintilla
-Location=anjuta-editor:EditorPlugin
-Version=0.1
-Icon=anjuta-editor-scintilla-plugin-48.png
-Interfaces=IAnjutaEditorFactory
-UserActivatable=no

@@ -165,10 +165,6 @@ plugins/run-program/anjuta-run-program.glade
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
-plugins/scintilla/anjuta-editor-scintilla.glade
-plugins/scintilla/print.c
-plugins/scintilla/plugin.c
-plugins/scintilla/text_editor.c
 plugins/scratchbox/anjuta-scratchbox.glade
 plugins/scratchbox/plugin.c
 plugins/search/anjuta-search.glade
@@ -252,8 +248,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
 [type: gettext/ini]plugins/project-import/anjuta-project-import.plugin.in
 [type: gettext/ini]plugins/sourceview/sourceview.plugin.in
-[type: gettext/ini]plugins/scintilla/anjuta-editor.plugin.in
-[type: gettext/ini]plugins/scratchbox/anjuta-scratchbox.plugin.in
 [type: gettext/ini]plugins/starter/anjuta-starter.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
