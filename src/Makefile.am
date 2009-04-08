@@ -26,9 +26,6 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" \
 	-DG_LOG_DOMAIN=\"Anjuta\"
 
-
-include $(top_srcdir)/plugins/scintilla/scintilla/lexers.make
-
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
