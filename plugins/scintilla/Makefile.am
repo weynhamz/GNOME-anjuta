@@ -26,7 +26,7 @@ AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GNOME_CFLAGS) \
-	-I$(srcdir)/scintilla/include
+	-I$(srcdir)/scintilla/include \
 	-DG_LOG_DOMAIN=\"libanjuta-editor\"
 
 libanjuta_editor_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

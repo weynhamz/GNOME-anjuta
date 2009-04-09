@@ -1,3 +1,8 @@
+2009-04-09  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* plugins/scintilla/Makefile.am:
+	small fix.
+
 2009-04-06  Johannes Schmid  <jhs@gnome.org>
 
 	Based on patch from : Maxim Ermilov <zaspire@rambler.ru>
