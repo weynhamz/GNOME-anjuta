@@ -1,3 +1,13 @@
+2009-04-11  James Liggett  <jrliggett@cox.net>
+
+	* plugins/project-import/project-import.glade:
+	Don't use a separate label for the option buttons in the project import
+	dialog. 
+	
+	Use the built-in label property of the option buttons instead
+	so users can click on that, and not have to click directly on the button 
+	itself, so that it's more consistent with usual behavior. 
+
 2009-04-10  Ritesh Khadgaray  <baby.linux@gmail.com>
 
 	reviewed by: James Liggett <jrliggett@cox.net>
