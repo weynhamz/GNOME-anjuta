@@ -1,5 +1,10 @@
 2009-04-11  James Liggett  <jrliggett@cox.net>
 
+	* libanjuta/anjuta-glade.xml:
+	Support both libglade and GtkBuilder in the widget catalog.
+
+2009-04-11  James Liggett  <jrliggett@cox.net>
+
 	* plugins/project-import/project-import.glade:
 	Don't use a separate label for the option buttons in the project import
 	dialog. 
