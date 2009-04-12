@@ -15,8 +15,11 @@
 						<value id="ANJUTA_VCS_STATUS_ADDED" name="Added" />
 						<value id="ANJUTA_VCS_STATUS_DELETED" name="Deleted" />
 						<value id="ANJUTA_VCS_STATUS_CONFLICTED" name="Conflicted" />
+						<value id="ANJUTA_VCS_STATUS_UPTODATE" name="Up to date" />
+						<value id="ANJUTA_VCS_STATUS_LOCKED" name="Locked" />
 						<value id="ANJUTA_VCS_STATUS_MISSING" name="Missing" />
 						<value id="ANJUTA_VCS_STATUS_UNVERSIONED" name="Unversioned" />
+						<value id="ANJUTA_VCS_STATUS_IGNORED" name="Ignored" />
 					</displayable-values>
 				</property>
 			</properties>

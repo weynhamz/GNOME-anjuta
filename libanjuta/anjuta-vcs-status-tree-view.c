@@ -303,6 +303,14 @@ anjuta_vcs_status_tree_view_add (AnjutaVcsStatusTreeView *self, gchar *path,
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									_("Conflicted"), -1);
 				break;
+			case ANJUTA_VCS_STATUS_UPTODATE:
+				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
+				                    _("Up to date"), -1);
+				break;
+			case ANJUTA_VCS_STATUS_LOCKED:
+				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
+				                    _("Locked"), -1);
+				break;	
 			case ANJUTA_VCS_STATUS_MISSING:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									_("Missing"), -1);
@@ -310,6 +318,10 @@ anjuta_vcs_status_tree_view_add (AnjutaVcsStatusTreeView *self, gchar *path,
 			case ANJUTA_VCS_STATUS_UNVERSIONED:
 				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
 									_("Unversioned"), -1);
+				break;
+			case ANJUTA_VCS_STATUS_IGNORED:
+				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
+				                    _("Ignored"), -1);
 				break;
 			case ANJUTA_VCS_STATUS_NONE:
 			default:

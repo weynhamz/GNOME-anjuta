@@ -1,6 +1,14 @@
 2009-04-11  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-glade.xml:
+	* libanjuta/anjuta-vcs-status-tree-view.c
+	(anjuta_vcs_status_tree_view_add):
+	Support Up to date, Locked, and Ignored VCS status codes in 
+	AnjutaVcsStatusTreeView.
+
+2009-04-11  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/anjuta-glade.xml:
 	Status tree view properties should be in the General tab, not Common.
 	
 	Try to be more consistent with other GTK widgets. 
