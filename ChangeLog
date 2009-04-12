@@ -1,6 +1,13 @@
 2009-04-11  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-glade.xml:
+	Status tree view properties should be in the General tab, not Common.
+	
+	Try to be more consistent with other GTK widgets. 
+
+2009-04-11  James Liggett  <jrliggett@cox.net>
+
+	* libanjuta/anjuta-glade.xml:
 	Support both libglade and GtkBuilder in the widget catalog.
 
 2009-04-11  James Liggett  <jrliggett@cox.net>

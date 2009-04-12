@@ -8,8 +8,8 @@
 		 generic-name="vcsstatus">
 
 			<properties>
-				<property id="show-status" common="True" default="True" />
-				<property id="status-codes" common="True" ignore="True">
+				<property id="show-status" default="True" />
+				<property id="status-codes" ignore="True">
 					<displayable-values>
 						<value id="ANJUTA_VCS_STATUS_MODIFIED" name="Modified" />
 						<value id="ANJUTA_VCS_STATUS_ADDED" name="Added" />
