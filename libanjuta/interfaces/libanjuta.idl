@@ -5048,6 +5048,7 @@ interface IAnjutaSymbol
  */
 interface IAnjutaSymbolManager
 {
+	#include <libanjuta/anjuta-async-notify.h>	
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
@@ -5098,7 +5099,33 @@ interface IAnjutaSymbolManager
 	* 
 	*/	
 	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
-		
+
+	/**
+	* ianjuta_symbol_manager_search_project_async:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
+	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
+	* @callback: #SearchCallback callback to call when query result data from database is available
+	* @callback_user_data: User data passed to callback	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched in the global packages (system) context.
+	* 
+	* Returns: guint handle to identify the query result. It would infact be possible to have
+	* more async queries at the same time. This is for identify them. Returns 0 on error.
+	* 
+    */
+	guint search_system_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
+	
 	/**
 	* ianjuta_symbol_manager_search_project:
 	* @obj: Self
@@ -5119,9 +5146,35 @@ interface IAnjutaSymbolManager
 	* 
 	*/	
 	IAnjutaIterable* search_project (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
+
+	/**
+	* ianjuta_symbol_manager_search_project_async:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
+	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
+	* @callback: #SearchCallback callback to call when query result data from database is available
+	* @callback_user_data: User data passed to callback	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched only in the opened project's context.
+	* 
+	* Returns: guint handle to identify the query result. It would infact be possible to have
+	* more async queries at the same time. This is for identify them. Returns 0 on error.
+	* 
+    */	
+	guint search_project_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
 	
 	/**
-	* ianjuta_symbol_manager_search_project:
+	* ianjuta_symbol_manager_search_file:
 	* @obj: Self
 	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
@@ -5135,13 +5188,51 @@ interface IAnjutaSymbolManager
 	* @err: Error propagation and reporting.	 
 	*
 	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched in the specified file.
+	* The search is case sensitive. Symbols are searched only in the specified file.
 	* 
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
 	*/		
 	IAnjutaIterable* search_file (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, const GFile *file, gint results_limit, gint results_offset);
-		
+
+	/**
+	* ianjuta_symbol_manager_search_file_async:
+	* @obj: Self
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
+	*				  FALSE to exclude. For example use may want all symbols but classes.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
+	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
+	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
+	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
+	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
+	* @callback: #SearchCallback callback to call when query result data from database is available
+	* @callback_user_data: User data passed to callback	 
+	* @err: Error propagation and reporting.	 
+	*
+	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
+	* The search is case sensitive. Symbols are searched only in the specified file.
+	* 
+	* Returns: guint handle to identify the query result. It would infact be possible to have
+	* more async queries at the same time. This is for identify them. Returns 0 on error.
+	* 
+    */
+	guint search_file_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, const GFile *file, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
+
+	/**
+    * IAnjutaSymbolManagerSearchCallback:
+    * @search_id: id that identifies uniquely the async query.
+    * @result: #IAnjutaIterable iterator object that contains the database query result.
+    * @user_data: User data
+    *
+    * Callback called for an async query to the database.
+	*/
+	typedef void (*SearchCallback) (guint search_id, IAnjutaIterable* result, gpointer user_data);
+	
+	
 	/**
 	* ianjuta_symbol_manager_get_members:
 	* @obj: Self

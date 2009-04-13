@@ -639,8 +639,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 	ss_data = (SingleScanData *)user_data;
 	sdbs = ss_data->sdbs;
 	priv = sdbs->priv;	
-	
-	DEBUG_PRINT ("");
+		
 	/* first of all disconnect the signals */
 	g_signal_handlers_disconnect_by_func (launcher, on_pkg_config_exit,
 										  user_data);
@@ -681,7 +680,8 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 						 g_queue_get_length (priv->engine_queue),
 						 es_data->package_name);
 			g_queue_push_tail (priv->engine_queue, es_data);
-			
+
+/*			
 			gint i;			
 			for (i = 0; i < g_queue_get_length (priv->engine_queue); i++)
 			{
@@ -690,6 +690,7 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 				DEBUG_PRINT ("DEBUG queue engine [%d]: %s", i, 
 							 node->package_name);
 			}
+*/		
 		}
 		else
 		{

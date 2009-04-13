@@ -421,7 +421,6 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 
 	if (node->stmt == NULL)
 	{
-		/*DEBUG_PRINT ("generating new statement.. %d", query_id);*/
 		/* create a new GdaStatement */
 		node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, node->query_str, NULL, 

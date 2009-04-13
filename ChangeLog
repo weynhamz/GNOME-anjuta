@@ -1,3 +1,34 @@
+2009-04-13  Massimo Cora'  <mcora@svn.gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c (on_prefs_buffer_update_toggled):
+	* plugins/symbol-db/symbol-db-engine-core.c
+	(sdb_engine_get_statement_by_query_id):
+	* plugins/symbol-db/symbol-db-iface.c (isymbol_manager_search),
+	(isymbol_manager_get_members), (isymbol_manager_get_class_parents),
+	(isymbol_manager_get_scope), (isymbol_manager_get_parent_scope),
+	(isymbol_manager_get_symbol_more_info),
+	(isymbol_manager_get_symbol_by_id), (do_search_prj_glb),
+	(isymbol_manager_search_system), (get_unique_async_command_id),
+	(on_sdb_search_command_data_arrived), (do_search_prj_glb_async),
+	(isymbol_manager_search_system_async),
+	(isymbol_manager_search_project),
+	(isymbol_manager_search_project_async),
+	(isymbol_manager_search_file), (isymbol_manager_search_file_async),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/symbol-db-iface.h:
+	* plugins/symbol-db/symbol-db-search-command.c
+	(sdb_search_command_init), (sdb_search_command_finalize),
+	(do_search_file), (do_search_prj_glb), (sdb_search_command_run),
+	(sdb_search_command_class_init), (symbol_db_search_command_new),
+	(symbol_db_search_command_set_file),
+	(symbol_db_search_command_set_session_packages),
+	(symbol_db_search_command_get_iterator_result):
+	* plugins/symbol-db/symbol-db-search-command.h:
+	* plugins/symbol-db/symbol-db-system.c (on_pkg_config_exit):
+	Implemented async interface to search database. Needs test.
+
 2009-04-11  James Liggett  <jrliggett@cox.net>
 
 	* libanjuta/anjuta-glade.xml:
