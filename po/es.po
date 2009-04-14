@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-02-28 21:52+0000\n"
-"PO-Revision-Date: 2009-03-07 16:43+0100\n"
+"POT-Creation-Date: 2009-04-14 08:28+0000\n"
+"PO-Revision-Date: 2009-04-14 18:38+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "EID Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Software de desarrollo en un entorno integrado de desarrollo"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Entorno Integrado de Desarrollo"
 
@@ -213,7 +213,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2306
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2310
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -240,7 +240,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:520
+#: ../plugins/symbol-db/symbol-db-prefs.c:438
 msgid "Load"
 msgstr "Carga"
 
@@ -249,7 +249,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:663
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -293,47 +293,47 @@ msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2287
+#: ../libanjuta/anjuta-plugin-manager.c:2291
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2288
+#: ../libanjuta/anjuta-plugin-manager.c:2292
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2293
+#: ../libanjuta/anjuta-plugin-manager.c:2297
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2294
+#: ../libanjuta/anjuta-plugin-manager.c:2298
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2300
+#: ../libanjuta/anjuta-plugin-manager.c:2304
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2301
+#: ../libanjuta/anjuta-plugin-manager.c:2305
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2307
+#: ../libanjuta/anjuta-plugin-manager.c:2311
 msgid "Anjuta shell for which the plugins are"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2315
+#: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2316
+#: ../libanjuta/anjuta-plugin-manager.c:2320
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2476
+#: ../libanjuta/anjuta-plugin-manager.c:2480
 msgid "Loaded:"
 msgstr "Cargado:"
 
@@ -397,7 +397,7 @@ msgstr ""
 "Falló al leer «%s»: Faltan los siguientes complementos obligatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1450
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -407,7 +407,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:194
+#: ../libanjuta/anjuta-preferences.c:1454 ../plugins/git/plugin.c:194
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -422,7 +422,7 @@ msgstr "Categoría"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:650
 msgid "General"
 msgstr "General"
 
@@ -729,269 +729,269 @@ msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:817
+#: ../plugins/build-basic-autotools/plugin.c:826
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando en: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:853
+#: ../plugins/build-basic-autotools/plugin.c:862
 #, c-format
 msgid "Leaving: %s"
 msgstr "Dejando: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:886
+#: ../plugins/build-basic-autotools/plugin.c:895
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/plugin.c:892
+#: ../plugins/build-basic-autotools/plugin.c:901
 #: ../plugins/tools/execute.c:334
 msgid "error:"
 msgstr "error:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1009
+#: ../plugins/build-basic-autotools/plugin.c:1018
 #, c-format
 msgid "Command exited with status %d"
 msgstr "El comando salió con estado %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1019
+#: ../plugins/build-basic-autotools/plugin.c:1028
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado por el usuario"
 
-#: ../plugins/build-basic-autotools/plugin.c:1024
+#: ../plugins/build-basic-autotools/plugin.c:1033
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando abortado por el usuario"
 
-#: ../plugins/build-basic-autotools/plugin.c:1029
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Comando terminado con la señal %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1046
 msgid "Command terminated for an unknown reason"
 msgstr "Comando terminado por razón desconocida"
 
-#: ../plugins/build-basic-autotools/plugin.c:1053
+#: ../plugins/build-basic-autotools/plugin.c:1063
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tiempo total empleado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1058
+#: ../plugins/build-basic-autotools/plugin.c:1070
 msgid "Completed unsuccessfully\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1063
+#: ../plugins/build-basic-autotools/plugin.c:1078
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1109
+#: ../plugins/build-basic-autotools/plugin.c:1166
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1682
+#: ../plugins/build-basic-autotools/plugin.c:1742
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
 "tipo de archivo."
 
-#: ../plugins/build-basic-autotools/plugin.c:1808
+#: ../plugins/build-basic-autotools/plugin.c:1868
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2227
-#: ../plugins/build-basic-autotools/plugin.c:2301
-#: ../plugins/build-basic-autotools/plugin.c:2311
-#: ../plugins/build-basic-autotools/plugin.c:2329
-#: ../plugins/build-basic-autotools/plugin.c:2339
-#: ../plugins/build-basic-autotools/plugin.c:2396
+#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2361
+#: ../plugins/build-basic-autotools/plugin.c:2371
+#: ../plugins/build-basic-autotools/plugin.c:2389
+#: ../plugins/build-basic-autotools/plugin.c:2399
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/plugin.c:2231
+#: ../plugins/build-basic-autotools/plugin.c:2291
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2232
+#: ../plugins/build-basic-autotools/plugin.c:2292
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2237
+#: ../plugins/build-basic-autotools/plugin.c:2297
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2238
+#: ../plugins/build-basic-autotools/plugin.c:2298
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2243
+#: ../plugins/build-basic-autotools/plugin.c:2303
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2244
+#: ../plugins/build-basic-autotools/plugin.c:2304
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2249
+#: ../plugins/build-basic-autotools/plugin.c:2309
 msgid "C_onfigure Project..."
 msgstr "C_onfigurar el proyecto…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2250
+#: ../plugins/build-basic-autotools/plugin.c:2310
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2255
+#: ../plugins/build-basic-autotools/plugin.c:2315
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2256
+#: ../plugins/build-basic-autotools/plugin.c:2316
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2261
+#: ../plugins/build-basic-autotools/plugin.c:2321
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2262
+#: ../plugins/build-basic-autotools/plugin.c:2322
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2267
+#: ../plugins/build-basic-autotools/plugin.c:2327
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2268
+#: ../plugins/build-basic-autotools/plugin.c:2328
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2333
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2274
+#: ../plugins/build-basic-autotools/plugin.c:2334
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2279
+#: ../plugins/build-basic-autotools/plugin.c:2339
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2280
+#: ../plugins/build-basic-autotools/plugin.c:2340
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2285
+#: ../plugins/build-basic-autotools/plugin.c:2345
 msgid "Select Configuration"
 msgstr "Seleccionar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2286
+#: ../plugins/build-basic-autotools/plugin.c:2346
 msgid "Select current configuration"
 msgstr "Seleccionar la configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2291
+#: ../plugins/build-basic-autotools/plugin.c:2351
 msgid "Remove Configuration"
 msgstr "Eliminar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2292
+#: ../plugins/build-basic-autotools/plugin.c:2352
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpiar el proyecto (distclean) y eliminar el directorio de configuración si "
 "es posible"
 
-#: ../plugins/build-basic-autotools/plugin.c:2305
-#: ../plugins/build-basic-autotools/plugin.c:2333
+#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2393
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2306
-#: ../plugins/build-basic-autotools/plugin.c:2334
+#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2394
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2312
-#: ../plugins/build-basic-autotools/plugin.c:2340
+#: ../plugins/build-basic-autotools/plugin.c:2372
+#: ../plugins/build-basic-autotools/plugin.c:2400
 msgid "Build module"
 msgstr "Construir un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2317
-#: ../plugins/build-basic-autotools/plugin.c:2345
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2377
+#: ../plugins/build-basic-autotools/plugin.c:2405
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2318
-#: ../plugins/build-basic-autotools/plugin.c:2346
+#: ../plugins/build-basic-autotools/plugin.c:2378
+#: ../plugins/build-basic-autotools/plugin.c:2406
 msgid "Install module"
 msgstr "Instalar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2323
-#: ../plugins/build-basic-autotools/plugin.c:2351
-#: ../plugins/build-basic-autotools/plugin.c:2410
+#: ../plugins/build-basic-autotools/plugin.c:2383
+#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2324
-#: ../plugins/build-basic-autotools/plugin.c:2352
+#: ../plugins/build-basic-autotools/plugin.c:2384
+#: ../plugins/build-basic-autotools/plugin.c:2412
 msgid "Clean module"
 msgstr "Limpiar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2357
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "_Cancel command"
 msgstr "Comando _cancelar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2358
+#: ../plugins/build-basic-autotools/plugin.c:2418
 msgid "Cancel build command"
 msgstr "Comando cancelar construcción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2396
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2410
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2954
+#: ../plugins/build-basic-autotools/plugin.c:3014
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2963
+#: ../plugins/build-basic-autotools/plugin.c:3023
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3320
-#: ../plugins/build-basic-autotools/plugin.c:3338
+#: ../plugins/build-basic-autotools/plugin.c:3380
+#: ../plugins/build-basic-autotools/plugin.c:3398
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
@@ -1004,13 +1004,13 @@ msgstr "Comando abortado"
 msgid "Fixed data-view"
 msgstr "Vista de datos fijos"
 
-#: ../plugins/class-inheritance/class-inherit.c:1099
+#: ../plugins/class-inheritance/class-inherit.c:1108
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:330
 msgid "Update"
 msgstr "Actualizar"
 
-#: ../plugins/class-inheritance/class-inherit.c:1100
+#: ../plugins/class-inheritance/class-inherit.c:1109
 msgid "Update the graph"
 msgstr "Actualizar la gráfica"
 
@@ -2503,7 +2503,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:76
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:308
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2547,7 +2547,7 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1709
 #: ../plugins/search/search-replace.c:1716
 #: ../plugins/search/search-replace.c:1728
-#: ../plugins/search/search-replace.c:2055
+#: ../plugins/search/search-replace.c:2055 ../plugins/symbol-db/plugin.c:2275
 msgid "Search"
 msgstr "Buscar"
 
@@ -3536,6 +3536,7 @@ msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
 #: ../plugins/file-manager/file-model.c:119
+#: ../plugins/symbol-db/symbol-db-view.c:799
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -3571,15 +3572,15 @@ msgstr "_Renombrar"
 msgid "Rename file or directory"
 msgstr "Renombrar el archivo o directorio"
 
-#: ../plugins/file-manager/plugin.c:285
+#: ../plugins/file-manager/plugin.c:290
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:318
+#: ../plugins/file-manager/plugin.c:323
 msgid "Files"
 msgstr "Archivos"
 
-#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
+#: ../plugins/file-manager/plugin.c:447 ../plugins/file-manager/plugin.c:456
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Gestor de archivos"
@@ -5517,7 +5518,7 @@ msgstr "No archivado"
 msgid "No Gtodo Client to save."
 msgstr "No hay un cliente GTodo para guardar."
 
-#: ../plugins/gtodo/libgtodo.c:851
+#: ../plugins/gtodo/libgtodo.c:852
 #, c-format
 msgid "No filename supplied."
 msgstr "No se ha proporcionado ningún nombre de archivo."
@@ -5888,8 +5889,8 @@ msgid "Icon"
 msgstr "Icono"
 
 #: ../plugins/message-view/message-view.c:823
-#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
-#: ../plugins/message-view/plugin.c:429
+#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:439
+#: ../plugins/message-view/plugin.c:451
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -6661,14 +6662,19 @@ msgstr "Inicializando el proyecto…"
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Detalles</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
 msgid "Error"
 msgstr "Error"
+
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
+#| msgid "Select project directory"
+msgid "Select project type"
+msgstr "Seleccionar el tipo de proyecto"
 
 #: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
 msgid "Warning"
@@ -6952,7 +6958,6 @@ msgstr ""
 "traducirse a diferentes idiomas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#: ../src/about.c:237
 msgid "Anjuta Plugin"
 msgstr "Complemento de Anjuta"
 
@@ -7847,7 +7852,7 @@ msgstr "Versión de Scratchbox:"
 msgid "Select Scratchbox Folder"
 msgstr "Seleccionar el directorio Scratchbox"
 
-#: ../plugins/scratchbox/plugin.c:456 ../plugins/scratchbox/plugin.c:478
+#: ../plugins/scratchbox/plugin.c:458 ../plugins/scratchbox/plugin.c:481
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:2
 msgid "Scratchbox"
 msgstr "Scratchbox"
@@ -8188,7 +8193,7 @@ msgstr "El archivo «%s» es de sólo lectura. ¿Editarlo de todas formas?"
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
@@ -8803,23 +8808,102 @@ msgstr "Faltan: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/plugin.c:312
+msgid "Tag De_claration"
+msgstr "Declaración de _etiqueta"
+
+#: ../plugins/symbol-db/plugin.c:314
+msgid "Goto symbol declaration"
+msgstr "Ir a declaración del símbolo"
+
+#: ../plugins/symbol-db/plugin.c:320
+#| msgid "Tag _Definition"
+msgid "Tag _Implementation"
+msgstr "_Implementación de etiquetas"
+
+#: ../plugins/symbol-db/plugin.c:322
+msgid "Goto symbol definition"
+msgstr "Ir a definición del símbolo"
+
+#: ../plugins/symbol-db/plugin.c:328
+#| msgid "_Find..."
+msgid "_Find Symbol..."
+msgstr "_Buscar símbolo…"
+
+#: ../plugins/symbol-db/plugin.c:329
+#| msgid "Symbol"
+msgid "Find Symbol"
+msgstr "Buscar símbolo"
+
+#: ../plugins/symbol-db/plugin.c:1107
+#, c-format
+msgid "%s: Generating inheritances..."
+msgstr "%s: Generando herencias…"
+
+#: ../plugins/symbol-db/plugin.c:1112
+#, c-format
+msgid "%s: %d files scanned out of %d"
+msgstr "%s: %d archivos analizados de %d"
+
+#: ../plugins/symbol-db/plugin.c:1143
+#, c-format
+msgid "Generating inheritances..."
+msgstr "Generando herencias…"
+
+#: ../plugins/symbol-db/plugin.c:1145
+#, c-format
+msgid "%d files scanned out of %d"
+msgstr "%d archivos analizados de %d"
+
+#: ../plugins/symbol-db/plugin.c:1905
+#| msgid "Created symbols..."
+msgid "Populating symbols' db..."
+msgstr "Llenando la BB DD de símbolos…"
+
+#: ../plugins/symbol-db/plugin.c:2225
+msgid "Local"
+msgstr "Local"
+
+#: ../plugins/symbol-db/plugin.c:2251
+msgid "Global"
+msgstr "Global"
+
+#: ../plugins/symbol-db/plugin.c:2308
+msgid "Symbols"
+msgstr "Símbolos"
+
+#: ../plugins/symbol-db/plugin.c:2316
+#| msgid "Symbol browser popup actions"
+msgid "SymbolDb popup actions"
+msgstr "Acciones emergentes de la BB DD de símbolos"
+
+#: ../plugins/symbol-db/plugin.c:2324
+#| msgid "Symbol browser actions"
+msgid "SymbolDb menu actions"
+msgstr "Acciones del menú de la BB DD de símbolos"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:265
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:419
-#: ../plugins/symbol-db/symbol-db-prefs.c:579
+#: ../plugins/symbol-db/symbol-db-prefs.c:362
+#: ../plugins/symbol-db/symbol-db-prefs.c:496
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:446
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
-#: ../plugins/symbol-db/symbol-db-system.c:786
+#: ../plugins/symbol-db/symbol-db-system.c:805
 msgid "Resuming glb scan."
 msgstr "Resumiendo el análisis glb."
+
+#: ../plugins/symbol-db/symbol-db-view-locals.c:294
+#: ../plugins/symbol-db/symbol-db-view.c:1426
+msgid "Symbol"
+msgstr "Símbolo"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
@@ -9494,11 +9578,11 @@ msgstr "No se pueden guardar las reglas de supresión: %s"
 msgid "You have not set a suppressions file in your settings."
 msgstr "No ha establecido un archivo de supresiones en su configuración."
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Sesión cargada…"
 
@@ -9716,15 +9800,15 @@ msgstr "Editar"
 msgid "View"
 msgstr "Vista"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:661
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:665
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:737
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
@@ -10303,9 +10387,6 @@ msgstr "Backend de autotools para el gestor de proyectos"
 #~ msgid "Find the previous occurrence of current word"
 #~ msgstr "Buscar la coincidencia anterior de la palabra actual"
 
-#~ msgid "Symbol"
-#~ msgstr "Símbolo"
-
 #~ msgid "Directories to scan"
 #~ msgstr "Directorios que escrutar"
 
@@ -10348,18 +10429,6 @@ msgstr "Backend de autotools para el gestor de proyectos"
 #~ msgid "Update Global Tags"
 #~ msgstr "Actualizar etiquetas globales"
 
-#~ msgid "Tag _Definition"
-#~ msgstr "_Definición de etiqueta"
-
-#~ msgid "Goto symbol definition"
-#~ msgstr "Ir a definición del símbolo"
-
-#~ msgid "Tag De_claration"
-#~ msgstr "Declaración de _etiqueta"
-
-#~ msgid "Goto symbol declaration"
-#~ msgstr "Ir a declaración del símbolo"
-
 #~ msgid "Goto _Definition"
 #~ msgstr "_Definición goto"
 
@@ -10375,26 +10444,8 @@ msgstr "Backend de autotools para el gestor de proyectos"
 #~ msgid "Refresh symbol browser tree"
 #~ msgstr "Refrescar el árbol del explorador de símbolos"
 
-#~ msgid "Created symbols..."
-#~ msgstr "Símbolos creados…"
-
-#~ msgid "Local"
-#~ msgstr "Local"
-
-#~ msgid "Global"
-#~ msgstr "Global"
-
-#~ msgid "Symbol browser actions"
-#~ msgstr "Acciones del explorador de símbolos"
-
-#~ msgid "Symbol browser popup actions"
-#~ msgstr "Acciones emergentes el explorador de símbolos"
-
 #~ msgid "Symbol navigations"
 #~ msgstr "Navegación de símbolos"
-
-#~ msgid "Symbols"
-#~ msgstr "Símbolos"
 
 #~ msgid "Symbol Browser Plugin for Anjuta."
 #~ msgstr "Complemento examinador de símbolos para Anjuta."
