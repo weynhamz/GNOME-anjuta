@@ -1,4 +1,8 @@
-2009-04-06  Johannes Schmid  <jhs@Obelix>
+2009-04-14  Johannes Schmid  <jhs@gnome.org>
+
+	* POTFILES.in: Fixed distcheck
+
+2009-04-06  Johannes Schmid  <jhs@gnome.org>
 
   Patch from Yuriy Penkin <yuriy.penkin@gmail.com>
 
