@@ -1,3 +1,12 @@
+Anjuta 2.26.1 (14 April 2009) -- Johannes Schmid
+
+Updates:
+- New animation to identify running builds
+
+Bugs fixed:
+#578087 – Artwork for Symbol Database is actually not from Monodevelop team
+#564002 – Files view shows useless tooltip
+
 Anjuta 2.26.0.1 (1 April 2009) -- Johannes Schmid
 
 Updates:

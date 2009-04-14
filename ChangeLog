@@ -1,3 +1,11 @@
+=== 2.26.1 ===
+
+2009-04-14  Johannes Schmid  <jhs@gnome.org>
+
+  * configure.in:
+  * NEWS:
+  Updated for release
+
 2009-04-09  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* plugins/scintilla/Makefile.am:
