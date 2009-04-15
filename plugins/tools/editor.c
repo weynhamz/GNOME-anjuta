@@ -43,7 +43,6 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <gnome.h>
 #include <string.h>
 
 /*---------------------------------------------------------------------------*/
@@ -93,7 +92,7 @@ struct _ATPToolEditor
 	ATPVariableDialog input_file_var;
 	ATPVariableDialog input_string_var;
 	GtkToggleButton *shortcut_bt;
-	GnomeIconEntry *icon_en;
+	GtkButton *icon_en;
 	gchar* shortcut;
 	ATPUserTool *tool;
 	ATPToolDialog* parent;
@@ -122,6 +121,8 @@ struct _ATPToolEditor
 #define TOOL_INPUT_VARIABLE "input_button"
 #define TOOL_SHORTCUT "shortcut_bt"
 #define TOOL_ICON "icon_entry"
+#define TOOL_BROWSE_WORKING_DIR "browse_button_directory_entry"
+#define TOOL_BROWSE_COMMAND "browse_button_command_entry"
 
 #define EDITOR_RESPONSE_SIGNAL "on_editor_dialog_response"
 #define EDITOR_PARAM_VARIABLE_SIGNAL "on_variable_parameter"
@@ -131,6 +132,7 @@ struct _ATPToolEditor
 #define EDITOR_TOGGLE_TERMINAL_SIGNAL "on_toggle_terminal"
 #define EDITOR_TOGGLE_SHORCUT_SIGNAL "on_toggle_shorcut"
 #define EDITOR_TOGGLE_SCRIPT_SIGNAL "on_toggle_script"
+#define EDITOR_ICON_ENTRY_CLICKED "on_editor_icon_entry_clicked"
 
 #define TOOL_VARIABLE "variable_dialog"
 #define VARIABLE_TREEVIEW "variable_treeview"
@@ -481,6 +483,31 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
  *---------------------------------------------------------------------------*/
 
 static void
+on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data)
+{
+	ATPToolEditor *this = (ATPToolEditor *)user_data;
+	GtkWidget *dialog;
+	dialog = gtk_file_chooser_dialog_new ("Open File",
+								NULL,
+								GTK_FILE_CHOOSER_ACTION_OPEN,
+								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+								GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+								NULL);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		char *filename;
+		GtkWidget* image;
+
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		image = gtk_image_new_from_file (filename);
+		gtk_button_set_image (button, image);
+		atp_user_tool_set_icon (this->tool, filename);
+		g_free (filename);
+	}
+	gtk_widget_destroy (dialog);
+}
+
+static void
 atp_clear_tool_editor(ATPToolEditor* this)
 {
 	g_return_if_fail (this != NULL);
@@ -608,7 +635,12 @@ atp_populate_tool_editor(ATPToolEditor* this)
 	}
 	atp_editor_update_shortcut (this);
 
-	gnome_icon_entry_set_filename (this->icon_en, atp_user_tool_get_icon (this->tool));
+	if (atp_user_tool_get_icon (this->tool))
+	{
+		GtkWidget* image;
+		image = gtk_image_new_from_file (atp_user_tool_get_icon (this->tool));
+		gtk_button_set_image (this->icon_en, image);
+	}
 }
 
 static void
@@ -683,7 +715,6 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 	gchar* name;
 	gchar* data;
 	ATPInputType in_type;
-	gchar* value;
 	guint accel_key;
 	GdkModifierType accel_mods;
 	GtkAccelGroup* group;
@@ -772,10 +803,6 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		}
 
 		atp_user_tool_set_accelerator (this->tool, accel_key, accel_mods);
-
-		value = gnome_icon_entry_get_filename (this->icon_en);	
-		atp_user_tool_set_icon (this->tool, value);
-		g_free (value);	
 
 		/* Open script in editor if requested */
 		if (gtk_toggle_button_get_active (this->script_tb))
@@ -964,9 +991,54 @@ on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
 	}
 }
 
+static void
+on_editor_browse_button_clicked (GtkButton *button, GtkEntry *entry)
+{
+	GtkWidget *dialog;
+	dialog = gtk_file_chooser_dialog_new ("Open File",
+					      NULL,
+					      GTK_FILE_CHOOSER_ACTION_OPEN,
+					      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					      NULL);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		char *filename;
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+
+		gtk_entry_set_text (entry, filename);
+
+		g_free (filename);
+	}
+	gtk_widget_destroy(dialog);
+}
+
+static void
+on_editor_browse_button_dir_clicked (GtkButton *button, GtkEntry *entry)
+{
+	GtkWidget *dialog;
+	dialog = gtk_file_chooser_dialog_new ("Open",
+					      NULL,
+					      GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+					      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					      NULL);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		char *filename;
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+
+		gtk_entry_set_text (entry, filename);
+
+		g_free (filename);
+	}
+	gtk_widget_destroy(dialog);
+}
+
 gboolean
 atp_tool_editor_show (ATPToolEditor* this)
 {
+	GtkWidget *button;
 	GladeXML *xml;
 
 	if (this->dialog != NULL)
@@ -1005,7 +1077,14 @@ atp_tool_editor_show (ATPToolEditor* this)
 	this->shortcut_bt = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_SHORTCUT));
 	atp_variable_dialog_set_entry (&this->input_file_var, this->input_en);
 	atp_variable_dialog_set_entry (&this->input_string_var, this->input_en);
-	this->icon_en = GNOME_ICON_ENTRY (glade_xml_get_widget(xml, TOOL_ICON));
+	this->icon_en = GTK_BUTTON (glade_xml_get_widget(xml, TOOL_ICON));
+
+	button = GTK_WIDGET (glade_xml_get_widget (xml, TOOL_BROWSE_WORKING_DIR));
+	g_signal_connect(G_OBJECT(button), "clicked", 
+					G_CALLBACK(on_editor_browse_button_dir_clicked), this->dir_en);
+	button = GTK_WIDGET (glade_xml_get_widget (xml, TOOL_BROWSE_COMMAND));
+	g_signal_connect(G_OBJECT(button), "clicked", 
+					G_CALLBACK(on_editor_browse_button_clicked), this->command_en);
 
 	/* Add combox box value */
 	set_combo_box_enum_model (this->error_com, atp_get_error_type_list());
@@ -1025,6 +1104,7 @@ atp_tool_editor_show (ATPToolEditor* this)
 	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SCRIPT_SIGNAL, G_CALLBACK (on_editor_script_toggle), this);
 	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, G_CALLBACK (on_editor_input_variable_show), this);
 	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, G_CALLBACK (on_editor_input_changed), this);
+	glade_xml_signal_connect_data (xml, EDITOR_ICON_ENTRY_CLICKED, G_CALLBACK (on_editor_icon_entry_clicked), this);
 
 	g_object_unref (xml);
 

@@ -10,7 +10,7 @@ First thing to do is to get a build working. Anjuta can be built using jhbuild,
 which is the recommended way to build GNOME 2.x and Anjuta. It is advisable to
 use '--enable-warnings --enable-debug' with configure while building anjuta if
 you want to hack on it. Anjuta can be used to hack on Anjuta, and there is a
-anjuta.anjuta project file in CVS for this purpose.
+anjuta.anjuta project file in git for this purpose.
 
 Once you have got anjuta built and loaded in itself, the most important thing
 is to decide what to work on (the TODO, as you say). There are many directions
@@ -37,22 +37,26 @@ and RFE database at http://bugzilla.gnome.org (the module is called anjuta).
 You can also have a look at the reasonably up-to-date TODO file we maintain
 in the source code or view it with Task Manager in Anjuta.
 
-4. Working on the porting anjuta 1.2 features to anjuta2. This is a noble
-undertaking but likely to be hard work, and probably not suitable for
-newbie developers. Note that this is most code and plugins are ported but 
-they might not yet be as good as in anjuta 1.2.
-
 Resources:
 ----------
 - Homepage: http://www.anjuta.org/
 - Project details page: http://sourceforge.net/projects/anjuta/
-- CVS snapshots: http://www.anjuta.org/cvs/
-- Anonymous CVS Access: cvs -z3 -d:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome co anjuta
+- git: http://git.gnome.org/cgit/
+- Anonymous CVS Access: git clone git://git.gnome.org/anjuta
 - Mailing Lists: http://sourceforge.net/mail/?group_id=14222
 - Bug database: http://bugzilla.gnome.org (the module is called anjuta)
 - Feature Requests: See Bug database above
 - Forums: http://sourceforge.net/forum/?group_id=14222
 - IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
+
+Log messages:
+-------------
+Log messages for git should have the following format:
+
+"A short summary of the changes (should contain bug number)
+(empty line)
+[optional] A more detailed description of the changes made. Can have multiple
+lines and should contain patch contributer, etc."
 
 Tools:
 -----
@@ -69,37 +73,15 @@ Patches are good, and patches are always welcome! Small, self-contained
 patches are preferred - larger patches which touch on a large number 
 of areas of the source tree are more complex to apply and test. 
 
-Patches may be submitted to the project website, to the mailing lists, 
-or directly to the project maintainer.
+Patches may be submitted to the to the mailing lists of preferable to GNOME
+bugzilla.
 
 The six-step plan to patching happiness is as follows:
 ------------------------------------------------------
-1) All patches should be submitted in *unified* form, i.e. created 
-with the command "diff -u" or "cvs diff -u"). 
+1) Create your patches directly using the git features -> don't write
+patches against the tarball.
 
-Make your changes in all files (including the ChangeLog file) and run
-"cvs diff -u > patch.diff" in the top level anjuta/ directory. This diff
-file will contain patches for all of the files together.
-
-Remember to run the cvs diff for the *top* project directory. It will
-automatically recurse into the subdirectories and generate the patches.
-
-We ask for patches in this format because:
-- more often then not, patches are out of sync with current CVS. This 
-can happen because someone is submitting a patch taken against an old 
-version of Anjuta, or against anonymous CVS (which is usually out of 
-sync for 24 hours). Therefore, the maintainers have to review patches 
-manually.
-- if a patch file is opened in Anjuta (or editors such as Nedit) in 
-"Diff" mode, *unified* formats are more readable and errors and 
-mis-syncs are easily detected. Non-unified formats are hard to read.
-- unified patches are more intelligent in recognizing changed lines
-(because by default there is a 3-line context buffer).
-
-2) Diffs taken against CVS should be preceded by "cvs -z3 up" in 
-*all* cases.
-
-(Note: You can of course use the cvs plugin for all this stuff)
+2) Use an up-to-date copy for the diffs
 
 3) If the patch is big or is not high priority (i.e. things other than 
 stability patches), then either send it to the lead developers directly 
@@ -108,14 +90,12 @@ stability patches), then either send it to the lead developers directly
 subscribers and are liable to be rejected by the list server. Send
 a reference email to the list mentioning that you have sent a patch.
 
-4) *Always* include a ChangeLog entry as part of the diff to ensure that
-your entry is also committed directly with your name mentioned.
+4) Include a good log message to the patch.
 
-5) Name the patch with a useful filename. e.g. avoid calling your patch
-patch.diff, anjuta.diff or something like that. It is easier to manage
-a queue of patches named things like biswa-print-20020605.diff and 
-bug-544912.diff as the names are more meaningful. Include the bug number
-or your name and the date in the name of the file. Thanks!
+5) Name the patch with a useful filename. For example:
+ * 123456-foo-feature.patch or
+ * 987654-fixed-editor-crash
+It's ok to include the 000x that git puts in front of the patch name
 
 Coding style:
 --------------
@@ -201,30 +181,6 @@ Key elements:
 * mime/ - Mime related files.
 * global-tags/ - System tags.
 * manuals/ - All sorts of sgml documents (API and user).
-
-Scintilla:
----------
-The editing component in Anjuta is Scintilla (www.scintilla.org). 
-The Scintilla sources are imported to the scintilla/ directory in the
-Anjuta source tree - some reorganization is required:
-
-<pre>
-Scintilla		Anjuta
----------		------
-src/		->	scintilla/
-gtk/		->	scintilla/
-include/	->	scintilla/include
-</pre>
-
-These are used to compile libscintilla.a, the library which provides
-the bulk of Anjuta's editing functions.
-
-The interface into Scintilla is in src/aneditor-*.cxx. This is based on
-SciTE and a lot of care needs to be taken when merging code, since it
-combines several different files from the SciTE source tree and is
-quite flexible in the ways that they are used. Also, note that lexer
-objects from Scintilla must be referenced in src/Makefile.am in order 
-to get linked into Anjuta.
 
 Messages and translations:
 -------------------------

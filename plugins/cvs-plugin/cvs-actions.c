@@ -30,6 +30,14 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
+#define BROWSE_BUTTON_ADD_DIALOG	"browse_button_add_dialog"
+#define BROWSE_BUTTON_REMOVE_DIALOG	"browse_button_remove_dialog"
+#define BROWSE_BUTTON_COMMIT_DIALOG	"browse_button_commit_dialog"
+#define BROWSE_BUTTON_UPDATE_DIALOG	"browse_button_update_dialog"
+#define BROWSE_BUTTON_DIFF_DIALOG	"browse_button_diff_dialog"
+#define BROWSE_BUTTON_STATUS_DIALOG	"browse_button_status_dialog"
+#define BROWSE_BUTTON_LOG_DIALOG	"browse_button_log_dialog"
+
 void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 void cvs_commit_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
@@ -97,11 +105,34 @@ static void on_whole_project_toggled(GtkToggleButton* project, CVSPlugin *plugin
 		gtk_widget_set_sensitive(GTK_WIDGET(fileentry), TRUE);	
 }
 
+static void
+on_browse_button_clicked(GtkButton *button, GtkEntry *entry)
+{
+	GtkWidget *dialog;
+	dialog = gtk_file_chooser_dialog_new("Open File",
+					      NULL,
+					      GTK_FILE_CHOOSER_ACTION_OPEN,
+					      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					      NULL);
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		char *filename;
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog));
+
+		gtk_entry_set_text(entry, filename);
+
+		g_free(filename);
+	}
+	gtk_widget_destroy(dialog);
+}
+
 void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* button;
 	CVSData* data;
 	gxml = glade_xml_new(GLADE_FILE, "cvs_add", NULL);
 	
@@ -110,6 +141,10 @@ void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_ADD_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_add_response), data);
@@ -122,6 +157,7 @@ void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* button;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_remove", NULL);
@@ -130,6 +166,10 @@ void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_REMOVE_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
 
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -145,6 +185,7 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
+	GtkWidget* button;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_commit", NULL);
@@ -159,7 +200,11 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_COMMIT_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_commit_response), data);
@@ -174,6 +219,7 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
+	GtkWidget* button;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_update", NULL);
@@ -188,7 +234,11 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_UPDATE_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_update_response), data);
@@ -204,6 +254,7 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* diff_type;
 	GtkWidget* unified_diff;
 	GtkWidget* project;
+	GtkWidget* button;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_diff", NULL);
@@ -224,7 +275,11 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
 	g_signal_connect(G_OBJECT(diff_type), "changed", 
 		G_CALLBACK(on_diff_type_changed), unified_diff);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_DIFF_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_diff_response), data);
@@ -238,6 +293,7 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
+	GtkWidget* button;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_status", NULL);
@@ -252,13 +308,16 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_STATUS_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_status_response), data);
 	
 	gtk_widget_show(dialog);	
-
 }
 
 void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
@@ -267,6 +326,7 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
+	GtkWidget* button;
 	CVSData* data;
 
 	gxml = glade_xml_new(GLADE_FILE, "cvs_logdialog", NULL);
@@ -281,7 +341,11 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_LOG_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_browse_button_clicked), fileentry);
+
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_log_response), data);
@@ -323,14 +387,14 @@ void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
-	GtkWidget* direntry;
+	GtkFileChooser* dir;
 	GtkWidget* typecombo;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_import", NULL);
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_import");
-	direntry = glade_xml_get_widget(gxml, "cvs_rootdir");
+	dir = GTK_FILE_CHOOSER (glade_xml_get_widget(gxml, "cvs_rootdir"));
 	typecombo = glade_xml_get_widget(gxml, "cvs_server_type");
 	
 	g_signal_connect (G_OBJECT(typecombo), "changed", 
@@ -338,7 +402,7 @@ void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(typecombo), SERVER_LOCAL);
 	
 	if (plugin->project_root_dir)
-		gtk_entry_set_text(GTK_ENTRY(direntry), plugin->project_root_dir);
+		gtk_file_chooser_set_filename(dir, plugin->project_root_dir);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 

@@ -24,6 +24,8 @@
 
 #include "subversion-switch-dialog.h"
 
+#define BROWSE_BUTTON_SWITCH_DIALOG "browse_button_switch_dialog"
+
 static void
 on_switch_other_revision_radio_toggled (GtkToggleButton *toggle_button,
 									    SubversionData *data)
@@ -157,6 +159,7 @@ subversion_switch_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *subversion_switch;
 	GtkWidget *switch_working_copy_entry;
 	GtkWidget *switch_other_revision_radio;
+	GtkWidget *button;
 	SubversionData *data;
 	
 	gxml = glade_xml_new (GLADE_FILE, "subversion_switch", NULL);
@@ -167,7 +170,11 @@ subversion_switch_dialog (GtkAction *action, Subversion *plugin)
 													    "switch_other_revision_radio");
 	
 	data = subversion_data_new (plugin, gxml);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_SWITCH_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), switch_working_copy_entry);
+
 	g_signal_connect (G_OBJECT (subversion_switch), "response",
 					  G_CALLBACK (on_subversion_switch_response),
 					  data);

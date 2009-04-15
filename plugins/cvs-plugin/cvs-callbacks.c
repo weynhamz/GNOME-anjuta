@@ -66,7 +66,6 @@ static gboolean check_entry(GtkDialog* dialog, GtkWidget* entry,
 		return FALSE;
 	}
 	return TRUE;
-	return FALSE;
 }
 
 static gboolean 
@@ -411,6 +410,7 @@ on_cvs_log_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	gchar* dirname = NULL;
 	if (is_busy(data->plugin, dialog))
 		return;
 	
@@ -426,7 +426,7 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			GtkWidget* releasetag;
 			GtkWidget* logtext;
 			GtkWidget* typecombo;
-			GtkWidget* direntry;
+			GtkFileChooser* dir;
 			gchar* log;
 			
 			username = glade_xml_get_widget(data->gxml, "cvs_username");
@@ -445,8 +445,9 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			if (!check_entry(dialog, releasetag, _("Release")))
 				break;
 			typecombo = glade_xml_get_widget(data->gxml, "cvs_server_type");
-			direntry = glade_xml_get_widget(data->gxml, "cvs_rootdir");
-			if (!check_entry(dialog, direntry, _("Directory")))
+			dir = GTK_FILE_CHOOSER(glade_xml_get_widget(data->gxml, "cvs_rootdir"));
+			dirname = gtk_file_chooser_get_filename (dir);
+			if (!dirname)
 				break;
 			
 			logtext = glade_xml_get_widget(data->gxml, "cvs_log");
@@ -465,7 +466,7 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			}
 			
 			anjuta_cvs_import(ANJUTA_PLUGIN(data->plugin),
-				gtk_entry_get_text(GTK_ENTRY(direntry)),
+				dirname,
 				gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)),
 				gtk_entry_get_text(GTK_ENTRY(module_entry)),
 				gtk_entry_get_text(GTK_ENTRY(vendortag)),
@@ -484,4 +485,5 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			gtk_widget_destroy(GTK_WIDGET(dialog));
 			break;
 	}
+	g_free(dirname);
 }

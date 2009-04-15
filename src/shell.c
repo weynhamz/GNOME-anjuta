@@ -24,7 +24,6 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
-#include <gnome.h>
 #include "shell.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-shell.ui"
@@ -370,7 +369,7 @@ static void
 anjuta_test_shell_dispose (GObject *widget)
 {
 	/* FIXME */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (widget));
+	G_OBJECT_CLASS (parent_class)->dispose (widget);
 }
 
 static void
@@ -381,7 +380,7 @@ anjuta_test_shell_finalize (GObject *widget)
 	g_hash_table_destroy (shell->values);
 	g_hash_table_destroy (shell->widgets);
 	/* FIXME */
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (widget));
+	G_OBJECT_CLASS (parent_class)->finalize (widget);
 }
 
 static void
@@ -421,28 +420,17 @@ int
 main (int argc, char *argv[])
 {
 	GtkWidget *shell;
-	GnomeProgram *program;
-	gchar *data_dir;
-	// GList* command_args;
-
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 #endif
 	
-	data_dir = g_strdup (PACKAGE_DATA_DIR);
-	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
-	
-	/* Initialize gnome program */
-	program = gnome_program_init ("Anjuta Test Shell", VERSION,
-			    LIBGNOMEUI_MODULE, argc, argv,
-			    GNOME_PARAM_POPT_TABLE, NULL,
-			    GNOME_PARAM_HUMAN_READABLE_NAME,
-		            _("Anjuta test shell"),
-			    GNOME_PARAM_APP_DATADIR, data_dir,
-			    NULL);
-	g_free (data_dir);
+	/* Init gtk+ */
+	gtk_init (&argc, &argv);
+	g_set_application_name (_("Anjuta Shell Test"));
+	gtk_window_set_default_icon_name ("anjuta-shell");
+	gtk_window_set_auto_startup_notification(FALSE);
 	
 	shell = anjuta_test_shell_new ();
 	g_signal_connect (G_OBJECT (shell), "delete-event",

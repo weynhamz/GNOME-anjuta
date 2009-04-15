@@ -79,4 +79,5 @@ void disconnect_data_arrived_signals (AnjutaCommand *command, GObject *object);
 void cancel_data_arrived_signal_disconnect (AnjutaCommand *command, 
 											guint return_code,
 											GObject *signal_target);
+void on_subversion_browse_button_clicked (GtkButton *button, GtkEntry *entry);
 #endif

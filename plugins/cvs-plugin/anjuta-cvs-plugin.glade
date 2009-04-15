@@ -2,7 +2,6 @@
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
 <!--*- mode: xml -*-->
 <glade-interface>
-  <requires lib="gnome"/>
   <widget class="GtkWindow" id="preferences_cvs">
     <property name="visible">True</property>
     <property name="title" translatable="yes">CVS Preferences</property>
@@ -44,17 +43,8 @@
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry1">
+              <widget class="GtkFileChooserButton" id="preferences_file:text:/usr/bin/cvs:0:cvs.path">
                 <property name="visible">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
-                  <widget class="GtkEntry" id="preferences_entry:text:/usr/bin/cvs:0:cvs.path">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
-                    <property name="text">/usr/bin/cvs</property>
-                  </widget>
-                </child>
               </widget>
               <packing>
                 <property name="left_attach">1</property>
@@ -162,18 +152,30 @@
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="gnomefileentry">
+              <widget class="GtkHBox" id="hbox01">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
-                    <property name="width_request">260</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_add_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -265,17 +267,30 @@
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry2">
+              <widget class="GtkHBox" id="hbox02">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_remove_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -369,17 +384,30 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry3">
+              <widget class="GtkHBox" id="hbox03">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_commit_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -468,16 +496,10 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                               </packing>
                             </child>
                             <child>
-                              <widget class="GnomeEntry" id="entry2">
+                              <widget class="GtkEntry" id="cvs_revision">
                                 <property name="visible">True</property>
-                                <property name="max_saved">10</property>
-                                <child internal-child="entry">
-                                  <widget class="GtkEntry" id="cvs_revision">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">*</property>
-                                  </widget>
-                                </child>
+                                <property name="can_focus">True</property>
+                                <property name="invisible_char">*</property>
                               </widget>
                               <packing>
                                 <property name="position">1</property>
@@ -588,18 +610,30 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry4">
+              <widget class="GtkHBox" id="hbox04">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
-                    <property name="width_request">260</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_update_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -711,16 +745,10 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                               </packing>
                             </child>
                             <child>
-                              <widget class="GnomeEntry" id="entry5">
+                              <widget class="GtkEntry" id="cvs_revision">
                                 <property name="visible">True</property>
-                                <property name="max_saved">10</property>
-                                <child internal-child="entry">
-                                  <widget class="GtkEntry" id="cvs_revision">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">*</property>
-                                  </widget>
-                                </child>
+                                <property name="can_focus">True</property>
+                                <property name="invisible_char">*</property>
                               </widget>
                               <packing>
                                 <property name="position">1</property>
@@ -841,18 +869,30 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry5">
+              <widget class="GtkHBox" id="hbox05">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
-                    <property name="width_request">260</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_status_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -1004,18 +1044,30 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry6">
+              <widget class="GtkHBox" id="hbox06">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
-                    <property name="width_request">260</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_diff_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -1094,16 +1146,10 @@ Patch-Style diff</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GnomeEntry" id="entry4">
+                              <widget class="GtkEntry" id="cvs_revision">
                                 <property name="visible">True</property>
-                                <property name="max_saved">10</property>
-                                <child internal-child="entry">
-                                  <widget class="GtkEntry" id="cvs_revision">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">*</property>
-                                  </widget>
-                                </child>
+                                <property name="can_focus">True</property>
+                                <property name="invisible_char">*</property>
                               </widget>
                               <packing>
                                 <property name="position">1</property>
@@ -1218,17 +1264,30 @@ Patch-Style diff</property>
               </packing>
             </child>
             <child>
-              <widget class="GnomeFileEntry" id="fileentry7">
+              <widget class="GtkHBox" id="hbox07">
                 <property name="visible">True</property>
-                <property name="modal">True</property>
-                <property name="use_filechooser">True</property>
-                <property name="max_saved">10</property>
-                <child internal-child="entry">
+                <child>
                   <widget class="GtkEntry" id="cvs_filename">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">*</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="width_request">260</property>
                   </widget>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="browse_button_log_dialog">
+                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
@@ -1461,19 +1520,9 @@ Patch-Style diff</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GnomeFileEntry" id="fileentry8">
+                      <widget class="GtkFileChooserButton" id="cvs_rootdir">
                         <property name="visible">True</property>
-                        <property name="directory_entry">True</property>
-                        <property name="modal">True</property>
-                        <property name="use_filechooser">True</property>
-                        <property name="max_saved">10</property>
-                        <child internal-child="entry">
-                          <widget class="GtkEntry" id="cvs_rootdir">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="invisible_char">*</property>
-                          </widget>
-                        </child>
+                        <property name="action">select-folder</property>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>

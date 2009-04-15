@@ -27,6 +27,8 @@
 
 #include "subversion-update-dialog.h"
 
+#define BROWSE_BUTTON_UPDATE_DIALOG "browse_button_update_dialog"
+
 static void
 on_update_command_finished (AnjutaCommand *command, guint return_code,
 							Subversion *plugin)
@@ -103,6 +105,7 @@ subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
+	GtkWidget* button;
 	SubversionData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "subversion_update", NULL);
@@ -117,7 +120,11 @@ subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project, !filename);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_UPDATE_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), fileentry);
+
 	data = subversion_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_update_response), data);

@@ -27,6 +27,8 @@
 
 #include "subversion-add-dialog.h"
 
+#define BROWSE_BUTTON_ADD_DIALOG "browse_button_add_dialog"
+
 static void
 on_add_command_finished (AnjutaCommand *command, guint return_code, 
 						 Subversion *plugin)
@@ -93,6 +95,7 @@ subversion_add_dialog(GtkAction* action, Subversion* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* button;
 	SubversionData* data;
 	gxml = glade_xml_new(GLADE_FILE, "subversion_add", NULL);
 	
@@ -100,7 +103,11 @@ subversion_add_dialog(GtkAction* action, Subversion* plugin, gchar *filename)
 	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_ADD_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), fileentry);
+
 	data = subversion_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_add_response), data);

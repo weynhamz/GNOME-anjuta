@@ -1,3 +1,54 @@
+This is the end of the ChangeLog. After more than nine years of development
+the anjuta project (as the whole GNOME project) is switching to git and we
+will no longer maintain a seperate ChangeLog file but use the git log instead.
+Please still write good messages into the git log, see HACKING for details!
+
+So long and thanks for the fish!
+
+2009-04-16  Johannes Schmid  <jhs@gnome.org>
+
+  * HACKING: Updated for git
+
+2009-04-16  Johannes Schmid  <jhs@gnome.org>
+
+  Based on patch from : Maxim Ermilov <zaspire@rambler.ru>
+  
+	* configure.in:
+	Added some (disabled) option to build with DISABLE_DEPRECATED
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/cvs-plugin/cvs-actions.c (on_browse_button_clicked),
+	(cvs_add_dialog), (cvs_remove_dialog), (cvs_commit_dialog),
+	(cvs_update_dialog), (cvs_diff_dialog), (cvs_status_dialog),
+	(cvs_log_dialog), (on_menu_cvs_import):
+	* plugins/cvs-plugin/cvs-callbacks.c (check_entry),
+	(on_cvs_import_response):
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/subversion/subversion-add-dialog.c
+	(subversion_add_dialog):
+	* plugins/subversion/subversion-diff-dialog.c
+	(subversion_diff_dialog):
+	* plugins/subversion/subversion-log-dialog.c
+	(subversion_log_window_create):
+	* plugins/subversion/subversion-merge-dialog.c
+	(subversion_merge_dialog):
+	* plugins/subversion/subversion-switch-dialog.c
+	(subversion_switch_dialog):
+	* plugins/subversion/subversion-ui-utils.c
+	(on_subversion_browse_button_clicked):
+	* plugins/subversion/subversion-ui-utils.h:
+	* plugins/subversion/subversion-update-dialog.c
+	(subversion_update_dialog):
+	* plugins/tools/anjuta-tools.glade:
+	* plugins/tools/editor.c (on_editor_icon_entry_clicked),
+	(atp_populate_tool_editor), (on_editor_response),
+	(on_editor_browse_button_clicked),
+	(on_editor_browse_button_dir_clicked), (atp_tool_editor_show):
+	* src/main.c (main):
+	* src/shell.c (anjuta_test_shell_dispose),
+	(anjuta_test_shell_finalize), (main):
+	#572754 – Remove deprecated GTK+ symbols
+
 2009-04-13  Massimo Cora'  <mcora@svn.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

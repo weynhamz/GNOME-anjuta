@@ -24,6 +24,8 @@
 
 #include "subversion-log-dialog.h"
 
+#define BROWSE_BUTTON_LOG_DIALOG "browse_button_log_dialog"
+
 typedef struct
 {
 	glong revisions[2];
@@ -569,6 +571,7 @@ subversion_log_window_create (Subversion *plugin)
 	GtkWidget *log_diff_previous_button;
 	GtkWidget *log_diff_selected_button;
 	GtkWidget *log_view_selected_button;
+	GtkWidget *button;
 	GtkListStore *log_list_store;
 	GtkTreeSelection *selection;
 	
@@ -592,7 +595,10 @@ subversion_log_window_create (Subversion *plugin)
 													 "log_diff_selected_button");
 	log_view_selected_button = glade_xml_get_widget (plugin->log_gxml,
 													 "log_view_selected_button");
-	
+	button = glade_xml_get_widget(plugin->log_gxml, BROWSE_BUTTON_LOG_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), log_file_entry);
+
 	g_signal_connect (G_OBJECT (log_view_button), "clicked",
 					  G_CALLBACK (on_log_view_button_clicked),
 					  data);

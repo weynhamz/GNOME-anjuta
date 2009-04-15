@@ -24,6 +24,8 @@
 
 #include "subversion-merge-dialog.h"
 
+#define BROWSE_BUTTON_MERGE_DIALOG "browse_button_merge_dialog"
+
 static void
 on_merge_command_finished (AnjutaCommand *command, guint return_code,
 						   Subversion *plugin)
@@ -314,6 +316,7 @@ subversion_merge_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *merge_working_copy_path_entry;
 	GtkWidget *merge_start_revision_radio;
 	GtkWidget *merge_end_revision_radio;
+	GtkWidget *button;
 	SubversionData *data;
 	
 	gxml = glade_xml_new (GLADE_FILE, "subversion_merge", NULL);
@@ -341,7 +344,11 @@ subversion_merge_dialog (GtkAction *action, Subversion *plugin)
 	g_signal_connect (G_OBJECT (subversion_merge), "response",
 					  G_CALLBACK (on_subversion_merge_response),
 					  data);
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_MERGE_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), merge_working_copy_path_entry);
+
 	g_signal_connect (G_OBJECT (merge_first_path_browse_button), "clicked",
 					  G_CALLBACK (on_merge_first_path_browse_button_clicked),
 					  data);

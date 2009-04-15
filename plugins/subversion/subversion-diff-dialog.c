@@ -27,6 +27,8 @@
 
 #include "subversion-diff-dialog.h"
 
+#define BROWSE_BUTTON_DIFF_DIALOG "browse_button_diff_dialog"
+
 static void
 subversion_show_diff (const gchar *path, gboolean recursive, 
 					  gboolean save_files, Subversion *plugin)
@@ -141,6 +143,7 @@ subversion_diff_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 	GtkWidget *subversion_diff; 
 	GtkWidget *diff_path_entry;
 	GtkWidget *diff_whole_project_check;
+	GtkWidget *button;
 	SubversionData *data;
 	
 	gxml = glade_xml_new (GLADE_FILE, "subversion_diff", NULL);
@@ -161,8 +164,11 @@ subversion_diff_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 					 G_CALLBACK (on_whole_project_toggled), 
 					 plugin);
 	init_whole_project (plugin, diff_whole_project_check, !filename);
-	
-	
+
+	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_DIFF_DIALOG);
+	g_signal_connect(G_OBJECT(button), "clicked", 
+		G_CALLBACK(on_subversion_browse_button_clicked), diff_path_entry);
+
 	g_signal_connect (G_OBJECT (subversion_diff), "response", 
 					  G_CALLBACK (on_subversion_diff_response), 
 					  data);
