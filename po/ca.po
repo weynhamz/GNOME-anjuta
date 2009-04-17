@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-11 16:41+0100\n"
-"PO-Revision-Date: 2009-02-10 23:11+0100\n"
+"POT-Creation-Date: 2009-04-17 14:09+0200\n"
+"PO-Revision-Date: 2009-04-15 22:54+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "EID Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Desenvolupeu programari en un entorn integrat de desenvolupament"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Entorn integrat de desenvolupament"
 
@@ -187,8 +187,8 @@ msgid "Thai"
 msgstr "Tailandès"
 
 #: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3205
-#: ../plugins/gbf-am/gbf-am-properties.c:128
-#: ../plugins/gbf-am/gbf-am-properties.c:172
+#: ../plugins/gbf-am/gbf-am-properties.c:130
+#: ../plugins/gbf-am/gbf-am-properties.c:174
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
@@ -205,7 +205,7 @@ msgstr "No es pot executar l'ordre: «%s»"
 msgid "execvp failed"
 msgstr "Ha fallat la crida execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2306
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2310
 msgid "Anjuta Shell"
 msgstr "Intèrpret d'ordres de l'Anjuta"
 
@@ -232,7 +232,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:520
+#: ../plugins/symbol-db/symbol-db-prefs.c:438
 msgid "Load"
 msgstr "Carrega"
 
@@ -241,7 +241,7 @@ msgstr "Carrega"
 msgid "Available Plugins"
 msgstr "Connectors disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:663
 msgid "Preferred plugins"
 msgstr "Connectors preferits"
 
@@ -284,45 +284,45 @@ msgstr "No existeix cap connector capaç de carregar altres connectors a %s"
 msgid "Remember this selection"
 msgstr "Recorda aquesta selecció"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2287
+#: ../libanjuta/anjuta-plugin-manager.c:2291
 msgid "Profiles"
 msgstr "Perfils"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2288
+#: ../libanjuta/anjuta-plugin-manager.c:2292
 msgid "Current stack of profiles"
 msgstr "Pila de perfils actuals"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2293
+#: ../libanjuta/anjuta-plugin-manager.c:2297
 msgid "Available plugins"
 msgstr "Connectors disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2294
+#: ../libanjuta/anjuta-plugin-manager.c:2298
 msgid "Currently available plugins found in plugin paths"
 msgstr "Connectors trobats actualment en els camins de connectors"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2300
+#: ../libanjuta/anjuta-plugin-manager.c:2304
 msgid "Activated plugins"
 msgstr "Connectors activats"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2301
+#: ../libanjuta/anjuta-plugin-manager.c:2305
 msgid "Currently activated plugins"
 msgstr "Connectors activats actualment"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2307
+#: ../libanjuta/anjuta-plugin-manager.c:2311
 msgid "Anjuta shell for which the plugins are"
 msgstr "Intèrpret d'ordres de l'Anjuta que contindrà el connector"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2315
+#: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
 msgstr "Estat de l'Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2316
+#: ../libanjuta/anjuta-plugin-manager.c:2320
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Estat de l'Anjuta a utilitzar en carregar i descarregar connectors"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2476
+#: ../libanjuta/anjuta-plugin-manager.c:2480
 msgid "Loaded:"
 msgstr "Carregats:"
 
@@ -386,7 +386,7 @@ msgstr ""
 "No s'ha pogut llegir «%s»: falten els connectors obligatoris següents:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1456
+#: ../libanjuta/anjuta-preferences.c:1450
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -396,7 +396,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1460 ../plugins/git/plugin.c:193
+#: ../libanjuta/anjuta-preferences.c:1454 ../plugins/git/plugin.c:194
 msgid "_Reset"
 msgstr "_Reinicia"
 
@@ -411,7 +411,7 @@ msgstr "Categoria"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:650
 msgid "General"
 msgstr "General"
 
@@ -548,8 +548,8 @@ msgstr "Objecte de memòria de píxels"
 msgid "The pixbuf to render."
 msgstr "Memòria de píxels que s'ha de dibuixar."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3020
-#: ../plugins/glade/plugin.c:3055
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
+#: ../plugins/glade/plugin.c:3066
 #, c-format
 msgid "Widget not found: %s"
 msgstr "No s'ha trobat el giny d'interfície gràfica: %s"
@@ -696,11 +696,11 @@ msgstr "L'executable «%s» no està actualitzat."
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:154
+#: ../plugins/build-basic-autotools/plugin.c:166
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+S'està\\s+entrant\\s+al\\s+directori\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:155
+#: ../plugins/build-basic-autotools/plugin.c:167
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+S'està\\s+entrant\\s+al\\s+directori\\s+'(.+)'"
 
@@ -709,271 +709,276 @@ msgstr "make(\\[\\d+\\])?:\\s+S'està\\s+entrant\\s+al\\s+directori\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:163
+#: ../plugins/build-basic-autotools/plugin.c:175
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+S'està\\s+sortint\\s+del\\s+directori\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:164
+#: ../plugins/build-basic-autotools/plugin.c:176
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+S'està\\s+sortint\\s+del\\s+directori\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:710
+#: ../plugins/build-basic-autotools/plugin.c:826
 #, c-format
 msgid "Entering: %s"
 msgstr "S'està entrant: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:746
+#: ../plugins/build-basic-autotools/plugin.c:862
 #, c-format
 msgid "Leaving: %s"
 msgstr "S'està sortint: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:779
+#: ../plugins/build-basic-autotools/plugin.c:895
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "avís:"
 
-#: ../plugins/build-basic-autotools/plugin.c:896
+#: ../plugins/build-basic-autotools/plugin.c:901
+#: ../plugins/tools/execute.c:334
+msgid "error:"
+msgstr "errors:"
+
+#: ../plugins/build-basic-autotools/plugin.c:1018
 #, c-format
 msgid "Command exited with status %d"
 msgstr "L'ordre ha sortit amb l'estat %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:906
+#: ../plugins/build-basic-autotools/plugin.c:1028
 #, c-format
 msgid "Command canceled by user"
 msgstr "Ordre cancel·lada per l'usuari"
 
-#: ../plugins/build-basic-autotools/plugin.c:911
+#: ../plugins/build-basic-autotools/plugin.c:1033
 #, c-format
 msgid "Command aborted by user"
 msgstr "Ordre interrompuda per l'usuari"
 
-#: ../plugins/build-basic-autotools/plugin.c:916
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "L'ordre ha acabat amb el senyal %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:924
+#: ../plugins/build-basic-autotools/plugin.c:1046
 msgid "Command terminated for an unknown reason"
 msgstr "Ordre acabada per una raó desconeguda"
 
-#: ../plugins/build-basic-autotools/plugin.c:940
+#: ../plugins/build-basic-autotools/plugin.c:1063
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Temps total: %lu segons\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:945
+#: ../plugins/build-basic-autotools/plugin.c:1070
 msgid "Completed unsuccessfully\n"
 msgstr "No s'ha completat correctament\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:950
+#: ../plugins/build-basic-autotools/plugin.c:1078
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "S'ha completat correctament\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:996
+#: ../plugins/build-basic-autotools/plugin.c:1166
 #, c-format
 msgid "Build %d: %s"
 msgstr "Munta %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1565
+#: ../plugins/build-basic-autotools/plugin.c:1742
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No es pot compilar «%s»: No s'ha definit cap regla de compilació per a aquest "
 "tipus de fitxer."
 
-#: ../plugins/build-basic-autotools/plugin.c:1636
+#: ../plugins/build-basic-autotools/plugin.c:1868
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr "No es pot configurar el projecte: manca l'script de configuració a %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2019
-#: ../plugins/build-basic-autotools/plugin.c:2093
-#: ../plugins/build-basic-autotools/plugin.c:2103
-#: ../plugins/build-basic-autotools/plugin.c:2121
-#: ../plugins/build-basic-autotools/plugin.c:2131
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2361
+#: ../plugins/build-basic-autotools/plugin.c:2371
+#: ../plugins/build-basic-autotools/plugin.c:2389
+#: ../plugins/build-basic-autotools/plugin.c:2399
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build"
 msgstr "_Munta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2023
+#: ../plugins/build-basic-autotools/plugin.c:2291
 msgid "_Build Project"
 msgstr "_Munta el projecte"
 
-#: ../plugins/build-basic-autotools/plugin.c:2024
+#: ../plugins/build-basic-autotools/plugin.c:2292
 msgid "Build whole project"
 msgstr "Munta el projecte sencer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2029
+#: ../plugins/build-basic-autotools/plugin.c:2297
 msgid "_Install Project"
 msgstr "_Instal·la el projecte"
 
-#: ../plugins/build-basic-autotools/plugin.c:2030
+#: ../plugins/build-basic-autotools/plugin.c:2298
 msgid "Install whole project"
 msgstr "Instal·la el projecte sencer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2035
+#: ../plugins/build-basic-autotools/plugin.c:2303
 msgid "_Clean Project"
 msgstr "Neteja el proje_cte"
 
-#: ../plugins/build-basic-autotools/plugin.c:2036
+#: ../plugins/build-basic-autotools/plugin.c:2304
 msgid "Clean whole project"
 msgstr "Neteja el projecte sencer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2041
+#: ../plugins/build-basic-autotools/plugin.c:2309
 msgid "C_onfigure Project..."
 msgstr "C_onfigura el projecte..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2042
+#: ../plugins/build-basic-autotools/plugin.c:2310
 msgid "Configure project"
 msgstr "Configura el projecte"
 
-#: ../plugins/build-basic-autotools/plugin.c:2047
+#: ../plugins/build-basic-autotools/plugin.c:2315
 msgid "Build _Tarball"
 msgstr "Mun_ta un fitxer tar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2048
+#: ../plugins/build-basic-autotools/plugin.c:2316
 msgid "Build project tarball distribution"
 msgstr "Munta el fitxer tar de distribució"
 
-#: ../plugins/build-basic-autotools/plugin.c:2053
+#: ../plugins/build-basic-autotools/plugin.c:2321
 msgid "_Build Module"
 msgstr "_Munta el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2054
+#: ../plugins/build-basic-autotools/plugin.c:2322
 msgid "Build module associated with current file"
 msgstr "Munta el mòdul associat al fitxer actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2059
+#: ../plugins/build-basic-autotools/plugin.c:2327
 msgid "_Install Module"
 msgstr "_Instal·la el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2060
+#: ../plugins/build-basic-autotools/plugin.c:2328
 msgid "Install module associated with current file"
 msgstr "Instal·la el mòdul associat al fitxer actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2065
+#: ../plugins/build-basic-autotools/plugin.c:2333
 msgid "_Clean Module"
 msgstr "_Neteja el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2066
+#: ../plugins/build-basic-autotools/plugin.c:2334
 msgid "Clean module associated with current file"
 msgstr "Neteja el mòdul associat al fitxer actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2071
+#: ../plugins/build-basic-autotools/plugin.c:2339
 msgid "Co_mpile File"
 msgstr "Co_mpila el fitxer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2072
+#: ../plugins/build-basic-autotools/plugin.c:2340
 msgid "Compile current editor file"
 msgstr "Compila el fitxer actual de l'editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2077
+#: ../plugins/build-basic-autotools/plugin.c:2345
 msgid "Select Configuration"
 msgstr "Seleccioneu la configuració"
 
-#: ../plugins/build-basic-autotools/plugin.c:2078
+#: ../plugins/build-basic-autotools/plugin.c:2346
 msgid "Select current configuration"
 msgstr "Selecciona la configuració actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2083
+#: ../plugins/build-basic-autotools/plugin.c:2351
 msgid "Remove Configuration"
 msgstr "Suprimeix la configuració"
 
-#: ../plugins/build-basic-autotools/plugin.c:2084
+#: ../plugins/build-basic-autotools/plugin.c:2352
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Neteja el projecte (distclean) i suprimeix el directori de configuració si "
 "és possible"
 
-#: ../plugins/build-basic-autotools/plugin.c:2097
-#: ../plugins/build-basic-autotools/plugin.c:2125
+#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2393
 msgid "_Compile"
 msgstr "_Compila"
 
-#: ../plugins/build-basic-autotools/plugin.c:2098
-#: ../plugins/build-basic-autotools/plugin.c:2126
+#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2394
 msgid "Compile file"
 msgstr "Compila el fitxer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2104
-#: ../plugins/build-basic-autotools/plugin.c:2132
+#: ../plugins/build-basic-autotools/plugin.c:2372
+#: ../plugins/build-basic-autotools/plugin.c:2400
 msgid "Build module"
 msgstr "Munta el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2109
-#: ../plugins/build-basic-autotools/plugin.c:2137
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2377
+#: ../plugins/build-basic-autotools/plugin.c:2405
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install"
 msgstr "_Instal·la"
 
-#: ../plugins/build-basic-autotools/plugin.c:2110
-#: ../plugins/build-basic-autotools/plugin.c:2138
+#: ../plugins/build-basic-autotools/plugin.c:2378
+#: ../plugins/build-basic-autotools/plugin.c:2406
 msgid "Install module"
 msgstr "Instal·la el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2115
-#: ../plugins/build-basic-autotools/plugin.c:2143
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2383
+#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean"
 msgstr "Nete_ja"
 
-#: ../plugins/build-basic-autotools/plugin.c:2116
-#: ../plugins/build-basic-autotools/plugin.c:2144
+#: ../plugins/build-basic-autotools/plugin.c:2384
+#: ../plugins/build-basic-autotools/plugin.c:2412
 msgid "Clean module"
 msgstr "Neteja el mòdul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2149
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "_Cancel command"
 msgstr "_Cancel·la l'ordre"
 
-#: ../plugins/build-basic-autotools/plugin.c:2150
+#: ../plugins/build-basic-autotools/plugin.c:2418
 msgid "Cancel build command"
 msgstr "Cancel·la l'ordre de muntatge"
 
-#: ../plugins/build-basic-autotools/plugin.c:2259
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Munta (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2266
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instal·la (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2273
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean (%s)"
 msgstr "Nete_ja (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpila (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpila"
 
-#: ../plugins/build-basic-autotools/plugin.c:2794
+#: ../plugins/build-basic-autotools/plugin.c:3014
 msgid "Build commands"
 msgstr "Ordres per a muntar"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2803
+#: ../plugins/build-basic-autotools/plugin.c:3023
 msgid "Build popup commands"
 msgstr "Ordres emergents per a muntar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3160
-#: ../plugins/build-basic-autotools/plugin.c:3178
+#: ../plugins/build-basic-autotools/plugin.c:3380
+#: ../plugins/build-basic-autotools/plugin.c:3398
 msgid "Build Autotools"
 msgstr "Munta les autotools"
 
@@ -986,13 +991,13 @@ msgstr "Ordre interrompuda"
 msgid "Fixed data-view"
 msgstr "Visualització de dades fixa"
 
-#: ../plugins/class-inheritance/class-inherit.c:1099
+#: ../plugins/class-inheritance/class-inherit.c:1108
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:330
 msgid "Update"
 msgstr "Actualitza"
 
-#: ../plugins/class-inheritance/class-inherit.c:1100
+#: ../plugins/class-inheritance/class-inherit.c:1109
 msgid "Update the graph"
 msgstr "Actualitza el graf"
 
@@ -1096,7 +1101,7 @@ msgid "Member Functions/Variables"
 msgstr "Membre de funcions/variables"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-#: ../plugins/glade/plugin.c:4418
+#: ../plugins/glade/plugin.c:4428
 msgid "Properties"
 msgstr "Propietats"
 
@@ -1142,12 +1147,12 @@ msgstr ""
 "No s'ha pogut trobar l'autogen versió 5. Instal·leu el paquet autogen. Podeu "
 "obtenir-lo d'http://autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:269 ../plugins/class-gen/plugin.c:427
+#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:412
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "No es pot executar el autogen: %s"
 
-#: ../plugins/class-gen/window.c:816
+#: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
 msgstr "Descripció XML de la interfície d'usuari"
 
@@ -1404,7 +1409,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:439
-#: ../plugins/gbf-am/gbf-am-properties.c:1216
+#: ../plugins/gbf-am/gbf-am-properties.c:1227
 msgid "Module"
 msgstr "Mòdul"
 
@@ -1614,7 +1619,7 @@ msgstr "Ordre del depurador:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
 #: ../plugins/gdb/anjuta-gdb.glade.h:9
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Description:"
 msgstr "Descripció:"
 
@@ -1705,7 +1710,7 @@ msgid "Set Signal Property"
 msgstr "Estableix les propietats del senyal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
-#: ../plugins/debug-manager/sharedlib.c:215
+#: ../plugins/debug-manager/sharedlib.c:214
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Biblioteques compartides"
@@ -1947,14 +1952,14 @@ msgid "_Goto address"
 msgstr "_Vés a l'adreça"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/gbf-am/gbf-am-properties.c:954 ../plugins/tools/editor.c:454
+#: ../plugins/gbf-am/gbf-am-properties.c:964 ../plugins/tools/editor.c:454
 msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:963
-#: ../plugins/run-program/parameters.c:720 ../plugins/tools/editor.c:460
+#: ../plugins/gbf-am/gbf-am-properties.c:974
+#: ../plugins/run-program/parameters.c:741 ../plugins/tools/editor.c:460
 msgid "Value"
 msgstr "Valor"
 
@@ -2248,7 +2253,7 @@ msgstr "A"
 msgid "Symbols read"
 msgstr "Símbols llegits"
 
-#: ../plugins/debug-manager/sharedlib.c:339
+#: ../plugins/debug-manager/sharedlib.c:338
 msgid "Shared library operations"
 msgstr "Operacions amb biblioteques compartides"
 
@@ -2403,7 +2408,7 @@ msgstr "Falta el fitxer %s"
 msgid "Path"
 msgstr "Camí"
 
-#: ../plugins/debug-manager/start.c:1319 ../plugins/gdb/debugger.c:1694
+#: ../plugins/debug-manager/start.c:1319 ../plugins/gdb/debugger.c:1698
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2484,7 +2489,7 @@ msgid "Search Help:"
 msgstr "Cerca ajuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:76
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:308
 msgid "_Goto"
 msgstr "_Vés a"
 
@@ -2524,11 +2529,11 @@ msgstr "En línia"
 msgid "Contents"
 msgstr "Contingut"
 
-#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1017
-#: ../plugins/search/search-replace.c:1686
-#: ../plugins/search/search-replace.c:1693
-#: ../plugins/search/search-replace.c:1705
-#: ../plugins/search/search-replace.c:2023
+#: ../plugins/devhelp/plugin.c:398 ../plugins/search/search-replace.c:1036
+#: ../plugins/search/search-replace.c:1709
+#: ../plugins/search/search-replace.c:1716
+#: ../plugins/search/search-replace.c:1728
+#: ../plugins/search/search-replace.c:2055 ../plugins/symbol-db/plugin.c:2275
 msgid "Search"
 msgstr "Cerca"
 
@@ -2567,8 +2572,8 @@ msgid "Path:"
 msgstr "Camí:"
 
 #: ../plugins/document-manager/anjuta-docman.c:564
-#: ../plugins/file-loader/plugin.c:555 ../plugins/file-loader/plugin.c:831
-#: ../plugins/file-loader/plugin.c:841 ../plugins/file-loader/plugin.c:854
+#: ../plugins/file-loader/plugin.c:555 ../plugins/file-loader/plugin.c:853
+#: ../plugins/file-loader/plugin.c:863 ../plugins/file-loader/plugin.c:876
 msgid "Open file"
 msgstr "Obre un fitxer"
 
@@ -2898,7 +2903,7 @@ msgstr "Repeteix la cerca ràpida"
 
 #: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:169
 #: ../plugins/valgrind/vgrule-list.c:406 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1857
+#: ../plugins/language-support-cpp-java/plugin.c:1893
 msgid "_Edit"
 msgstr "_Edita"
 
@@ -2927,7 +2932,7 @@ msgstr "Suprimeix la visualització actual de l'editor"
 msgid "U_ndo"
 msgstr "Des_fés"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4064
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
 msgid "Undo the last action"
 msgstr "Desfés l'última acció"
 
@@ -2949,7 +2954,7 @@ msgstr "Retalla el text seleccionat de l'editor al porta-retalls"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:539
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:540
 #: ../plugins/valgrind/vgdefaultview.c:1167
 msgid "_Copy"
 msgstr "_Copia"
@@ -2958,7 +2963,7 @@ msgstr "_Copia"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el text seleccionat al porta-retalls"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:547
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:548
 #: ../plugins/valgrind/vgdefaultview.c:1168
 msgid "_Paste"
 msgstr "_Enganxa"
@@ -3407,80 +3412,80 @@ msgstr "Fitxers Lua"
 msgid "Diff files"
 msgstr "Fitxers de diferències"
 
-#: ../plugins/file-loader/plugin.c:760
+#: ../plugins/file-loader/plugin.c:782
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "No es pot activar el connector: %s"
 
-#: ../plugins/file-loader/plugin.c:821
+#: ../plugins/file-loader/plugin.c:843
 msgid "_New"
 msgstr "_Nou"
 
-#: ../plugins/file-loader/plugin.c:823
+#: ../plugins/file-loader/plugin.c:845
 msgid "New empty file"
 msgstr "Fitxer buit nou"
 
-#: ../plugins/file-loader/plugin.c:829
+#: ../plugins/file-loader/plugin.c:851
 msgid "_Open..."
 msgstr "_Obre..."
 
-#: ../plugins/file-loader/plugin.c:840 ../plugins/file-loader/plugin.c:853
+#: ../plugins/file-loader/plugin.c:862 ../plugins/file-loader/plugin.c:875
 msgid "_Open"
 msgstr "_Obre"
 
-#: ../plugins/file-loader/plugin.c:847 ../plugins/file-loader/plugin.c:860
+#: ../plugins/file-loader/plugin.c:869 ../plugins/file-loader/plugin.c:882
 msgid "Open _With"
 msgstr "Obre a_mb"
 
-#: ../plugins/file-loader/plugin.c:848 ../plugins/file-loader/plugin.c:861
+#: ../plugins/file-loader/plugin.c:870 ../plugins/file-loader/plugin.c:883
 msgid "Open with"
 msgstr "Obre amb"
 
-#: ../plugins/file-loader/plugin.c:1182 ../plugins/file-loader/plugin.c:1188
+#: ../plugins/file-loader/plugin.c:1204 ../plugins/file-loader/plugin.c:1210
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Carregador de fitxer"
 
-#: ../plugins/file-loader/plugin.c:1192
+#: ../plugins/file-loader/plugin.c:1214
 msgid "New"
 msgstr "Nou"
 
-#: ../plugins/file-loader/plugin.c:1193
+#: ../plugins/file-loader/plugin.c:1215
 msgid "New file, project and project components."
 msgstr "Fitxer, projecte i components del projecte nous."
 
-#: ../plugins/file-loader/plugin.c:1201 ../plugins/file-loader/plugin.c:1241
+#: ../plugins/file-loader/plugin.c:1222 ../plugins/file-loader/plugin.c:1262
 msgid "Open"
 msgstr "Obre"
 
-#: ../plugins/file-loader/plugin.c:1205
+#: ../plugins/file-loader/plugin.c:1226
 msgid "Open _Recent"
 msgstr "Ob_re'n un recent"
 
-#: ../plugins/file-loader/plugin.c:1206 ../plugins/file-loader/plugin.c:1243
+#: ../plugins/file-loader/plugin.c:1227 ../plugins/file-loader/plugin.c:1264
 msgid "Open recent file"
 msgstr "Obre un fitxer recent"
 
-#: ../plugins/file-loader/plugin.c:1213
+#: ../plugins/file-loader/plugin.c:1233
 msgid "Open recent files"
 msgstr "Obre fitxers recents"
 
-#: ../plugins/file-loader/plugin.c:1242
+#: ../plugins/file-loader/plugin.c:1263
 msgid "Open a file"
 msgstr "Obre un fitxer"
 
-#: ../plugins/file-loader/plugin.c:1350 ../plugins/file-loader/plugin.c:1352
+#: ../plugins/file-loader/plugin.c:1372 ../plugins/file-loader/plugin.c:1374
 #, c-format
 msgid "File not found"
 msgstr "No s'ha trobat el fitxer"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1371
+#: ../plugins/file-loader/plugin.c:1393
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccioneu un connector per a obrir <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1375
+#: ../plugins/file-loader/plugin.c:1397
 msgid "Open With"
 msgstr "Obre amb"
 
@@ -3518,6 +3523,7 @@ msgid "Root directory if no project is open:"
 msgstr "Directori arrel si no hi ha cap projecte obert:"
 
 #: ../plugins/file-manager/file-model.c:119
+#: ../plugins/symbol-db/symbol-db-view.c:799
 msgid "Loading..."
 msgstr "S'està carregant..."
 
@@ -3553,16 +3559,16 @@ msgstr "Canvia el _nom"
 msgid "Rename file or directory"
 msgstr "Canvia el nom del fitxer o directori"
 
-#: ../plugins/file-manager/plugin.c:285
+#: ../plugins/file-manager/plugin.c:290
 msgid "File manager popup actions"
 msgstr "Accions emergents del gestor de fitxers"
 
 # Mozilla 1.3->sidebar.files.label
-#: ../plugins/file-manager/plugin.c:318
+#: ../plugins/file-manager/plugin.c:323
 msgid "Files"
 msgstr "Fitxers"
 
-#: ../plugins/file-manager/plugin.c:442 ../plugins/file-manager/plugin.c:451
+#: ../plugins/file-manager/plugin.c:447 ../plugins/file-manager/plugin.c:456
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Gestor de fitxers"
@@ -3608,7 +3614,7 @@ msgid "New File"
 msgstr "Fitxer nou"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1506
+#: ../plugins/gbf-am/gbf-am-properties.c:1517
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Type:"
 msgstr "Tipus:"
@@ -3617,57 +3623,57 @@ msgstr "Tipus:"
 msgid "Use Template for the Header file"
 msgstr "Utilitza la plantilla per al fitxer de capçalera"
 
-#: ../plugins/file-wizard/file.c:80
+#: ../plugins/file-wizard/file.c:81
 msgid "C Source File"
 msgstr "Fitxer de codi C"
 
-#: ../plugins/file-wizard/file.c:81
+#: ../plugins/file-wizard/file.c:82
 msgid "C/C++ Header File"
 msgstr "Fitxer de capçalera C/C++"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:83
 msgid "C++ Source File"
 msgstr "Fitxer de codi C++"
 
-#: ../plugins/file-wizard/file.c:83
+#: ../plugins/file-wizard/file.c:84
 msgid "C# Source File"
 msgstr "Fitxer de codi C#"
 
-#: ../plugins/file-wizard/file.c:84
+#: ../plugins/file-wizard/file.c:85
 msgid "Java Source File"
 msgstr "Fitxer de codi Java"
 
-#: ../plugins/file-wizard/file.c:85
+#: ../plugins/file-wizard/file.c:86
 msgid "Perl Source File"
 msgstr "Fitxer de codi Perl"
 
-#: ../plugins/file-wizard/file.c:86
+#: ../plugins/file-wizard/file.c:87
 msgid "Python Source File"
 msgstr "Fitxer de codi Python"
 
-#: ../plugins/file-wizard/file.c:87
+#: ../plugins/file-wizard/file.c:88
 msgid "Shell Script File"
 msgstr "Fitxer d'script per al intèrpret d'ordres"
 
-#: ../plugins/file-wizard/file.c:88
+#: ../plugins/file-wizard/file.c:89
 msgid "Other"
 msgstr "Altres"
 
-#: ../plugins/file-wizard/file.c:99
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/file-wizard/file.c:100
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "General Public License (GPL)"
 msgstr "Llicència pública general (GPL)"
 
-#: ../plugins/file-wizard/file.c:100
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/file-wizard/file.c:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Lesser General Public License (LGPL)"
 msgstr "Llicència pública general menor (LGPL)"
 
-#: ../plugins/file-wizard/file.c:101
+#: ../plugins/file-wizard/file.c:102
 msgid "BSD Public License"
 msgstr "Llicència Pública BSD"
 
-#: ../plugins/file-wizard/file.c:167
+#: ../plugins/file-wizard/file.c:180
 msgid "Unable to build user interface for New File"
 msgstr "No es pot muntar la interfície d'usuari per al fitxer nou"
 
@@ -3909,22 +3915,22 @@ msgstr "No s'ha pogut eliminar la font"
 msgid "Project directory"
 msgstr "Directori del projecte"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:338
-#: ../plugins/gbf-am/gbf-am-properties.c:390
+#: ../plugins/gbf-am/gbf-am-properties.c:342
+#: ../plugins/gbf-am/gbf-am-properties.c:394
 msgid "Enter new module"
 msgstr "Introduïu el mòdul nou"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:426
-#: ../plugins/gbf-am/gbf-am-properties.c:914
+#: ../plugins/gbf-am/gbf-am-properties.c:430
+#: ../plugins/gbf-am/gbf-am-properties.c:923
 msgid "Module/Packages"
 msgstr "Mòdul/paquets"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:432
-#: ../plugins/gbf-am/gbf-am-properties.c:922
+#: ../plugins/gbf-am/gbf-am-properties.c:437
+#: ../plugins/gbf-am/gbf-am-properties.c:932
 msgid "Version"
 msgstr "Versió"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:518
+#: ../plugins/gbf-am/gbf-am-properties.c:523
 #, c-format
 msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
@@ -3932,138 +3938,138 @@ msgid ""
 msgstr ""
 "Segur que voleu suprimir el mòdul «%s» i tots els seus paquets associats?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:520
+#: ../plugins/gbf-am/gbf-am-properties.c:525
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "Segur que voleu suprimir el paquet «%s»?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:576
-#: ../plugins/gbf-am/gbf-am-properties.c:658
+#: ../plugins/gbf-am/gbf-am-properties.c:583
+#: ../plugins/gbf-am/gbf-am-properties.c:665
 msgid "Enter new variable"
 msgstr "Introduïu la variable nova"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:689
+#: ../plugins/gbf-am/gbf-am-properties.c:696
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "Segur que voleu suprimir la variable «%s»?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:838
+#: ../plugins/gbf-am/gbf-am-properties.c:847
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
 msgid "Project:"
 msgstr "Projecte:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:841
+#: ../plugins/gbf-am/gbf-am-properties.c:850
 msgid "Package name:"
 msgstr "Nom del paquet:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:844
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
+#: ../plugins/gbf-am/gbf-am-properties.c:853
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
 msgid "Version:"
 msgstr "Versió:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:847
+#: ../plugins/gbf-am/gbf-am-properties.c:856
 msgid "Url:"
 msgstr "URL:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1211
+#: ../plugins/gbf-am/gbf-am-properties.c:1222
 msgid "Use"
 msgstr "Ús"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1303
+#: ../plugins/gbf-am/gbf-am-properties.c:1314
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
 msgid "Group name:"
 msgstr "Nom del grup:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1306
+#: ../plugins/gbf-am/gbf-am-properties.c:1317
 msgid "Advanced"
 msgstr "Avançat"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1311
-#: ../plugins/gbf-am/gbf-am-properties.c:1401
+#: ../plugins/gbf-am/gbf-am-properties.c:1322
+#: ../plugins/gbf-am/gbf-am-properties.c:1412
 msgid "C compiler flags:"
 msgstr "Indicadors del compilador de C:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1313
+#: ../plugins/gbf-am/gbf-am-properties.c:1324
 msgid "C preprocessor flags:"
 msgstr "Indicadors del preprocessador de C:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1315
+#: ../plugins/gbf-am/gbf-am-properties.c:1326
 msgid "C++ compiler flags:"
 msgstr "Indicadors del compilador de C++:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1317
+#: ../plugins/gbf-am/gbf-am-properties.c:1328
 msgid "gcj compiler flags (ahead-of-time):"
 msgstr "Indicadors del compilador gcj (ahead-of-time):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1319
+#: ../plugins/gbf-am/gbf-am-properties.c:1330
 msgid "Java compiler flags (just-in-time):"
 msgstr "Indicadors del compilador de Java (just-in-time):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1321
-#: ../plugins/gbf-am/gbf-am-properties.c:1409
+#: ../plugins/gbf-am/gbf-am-properties.c:1332
+#: ../plugins/gbf-am/gbf-am-properties.c:1420
 msgid "Fortran compiler flags:"
 msgstr "Indicadors del compilador de Fortran:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-am/gbf-am-properties.c:1335
 msgid "Includes (deprecated):"
 msgstr "Inclusions (obsolet):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1335
+#: ../plugins/gbf-am/gbf-am-properties.c:1346
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
 msgid "Install directories:"
 msgstr "Directoris d'instal·lació:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1403
+#: ../plugins/gbf-am/gbf-am-properties.c:1414
 msgid "C preprocessor flags"
 msgstr "Indicadors del preprocessador de C"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1405
+#: ../plugins/gbf-am/gbf-am-properties.c:1416
 msgid "C++ compiler flags"
 msgstr "Indicadors del compilador de C++"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1407
+#: ../plugins/gbf-am/gbf-am-properties.c:1418
 msgid "gcj compiler flags (ahead-of-time)"
 msgstr "Indicadors del compilador gcj (ahead-of-time)"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1413
+#: ../plugins/gbf-am/gbf-am-properties.c:1424
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
 msgid "Linker flags:"
 msgstr "Indicadors de l'enllaçador:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1419
+#: ../plugins/gbf-am/gbf-am-properties.c:1430
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
 msgid "Libraries:"
 msgstr "Biblioteques:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1425
+#: ../plugins/gbf-am/gbf-am-properties.c:1436
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
 msgid "Dependencies:"
 msgstr "Dependències:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1428
+#: ../plugins/gbf-am/gbf-am-properties.c:1439
 msgid "Advanced options"
 msgstr "Opcions avançades"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1503
+#: ../plugins/gbf-am/gbf-am-properties.c:1514
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
 msgid "Target name:"
 msgstr "Nom de l'objectiu:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1512
+#: ../plugins/gbf-am/gbf-am-properties.c:1523
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
 msgid "Group:"
 msgstr "Grup:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1530
-#: ../plugins/gbf-am/gbf-am-properties.c:1546
-#: ../plugins/gbf-am/gbf-am-properties.c:1553
+#: ../plugins/gbf-am/gbf-am-properties.c:1541
+#: ../plugins/gbf-am/gbf-am-properties.c:1557
+#: ../plugins/gbf-am/gbf-am-properties.c:1564
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
 msgid "Install directory:"
 msgstr "Directori d'instal·lació:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1565
+#: ../plugins/gbf-am/gbf-am-properties.c:1576
 msgid "Advanced..."
 msgstr "Avançat..."
 
@@ -4146,7 +4152,7 @@ msgstr "S'està carregant l'executable: %s\n"
 msgid "Loading Core: %s\n"
 msgstr "S'està carregant el nucli: %s\n"
 
-#: ../plugins/gdb/debugger.c:799
+#: ../plugins/gdb/debugger.c:803
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4157,59 +4163,59 @@ msgstr ""
 "No es pot inicialitzar el depurador.\n"
 "Assegureu-vos que l'Anjuta està instal·lat correctament."
 
-#: ../plugins/gdb/debugger.c:928
+#: ../plugins/gdb/debugger.c:932
 msgid "Getting ready to start debugging session...\n"
 msgstr "S'està preparant l'inici de la sessió de depuració...\n"
 
-#: ../plugins/gdb/debugger.c:934
+#: ../plugins/gdb/debugger.c:938
 msgid "Loading Executable: "
 msgstr "S'està carregant l'executable: "
 
-#: ../plugins/gdb/debugger.c:943
+#: ../plugins/gdb/debugger.c:947
 msgid "No executable specified.\n"
 msgstr "No s'ha especificat cap executable.\n"
 
-#: ../plugins/gdb/debugger.c:946
+#: ../plugins/gdb/debugger.c:950
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Obre un executable o adjunta a un procés per a començar la depuració.\n"
 
-#: ../plugins/gdb/debugger.c:955
+#: ../plugins/gdb/debugger.c:959
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "S'ha produït un error en llançar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:959
+#: ../plugins/gdb/debugger.c:963
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Assegureu-vos que el «gdb» està instal·lat al sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1250
+#: ../plugins/gdb/debugger.c:1254
 msgid "Program exited normally\n"
 msgstr "El programa ha sortit normalment\n"
 
-#: ../plugins/gdb/debugger.c:1261
+#: ../plugins/gdb/debugger.c:1265
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa ha sortit amb el codi d'error %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1276
+#: ../plugins/gdb/debugger.c:1280
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "S'ha arribat al punt de trencament %s\n"
 
-#: ../plugins/gdb/debugger.c:1285
+#: ../plugins/gdb/debugger.c:1289
 msgid "Function finished\n"
 msgstr "S'ha acabat la funció\n"
 
-#: ../plugins/gdb/debugger.c:1291
+#: ../plugins/gdb/debugger.c:1295
 msgid "Stepping finished\n"
 msgstr "S'ha acabat d'avançar\n"
 
-#: ../plugins/gdb/debugger.c:1297
+#: ../plugins/gdb/debugger.c:1301
 msgid "Location reached\n"
 msgstr "S'ha arribat a la ubicació\n"
 
-#: ../plugins/gdb/debugger.c:1691
+#: ../plugins/gdb/debugger.c:1695
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4219,7 +4225,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:1852
+#: ../plugins/gdb/debugger.c:1856
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4228,20 +4234,20 @@ msgstr ""
 "No s'ha pogut connectar a l'objectiu remot: %s\n"
 "Voleu tornar-ho a intentar?"
 
-#: ../plugins/gdb/debugger.c:1870
+#: ../plugins/gdb/debugger.c:1874
 msgid "Debugger connected\n"
 msgstr "S'ha connectat el depurador\n"
 
-#: ../plugins/gdb/debugger.c:1944
+#: ../plugins/gdb/debugger.c:1948
 msgid "Program attached\n"
 msgstr "S'ha adjuntat el programa \n"
 
-#: ../plugins/gdb/debugger.c:1965
+#: ../plugins/gdb/debugger.c:1969
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "S'està adjuntant al procés: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1991
+#: ../plugins/gdb/debugger.c:1995
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4249,33 +4255,33 @@ msgstr ""
 "Ja hi ha un procés executant-se.\n"
 "Voleu finalitzar-lo i adjuntar-vos al procés nou?"
 
-#: ../plugins/gdb/debugger.c:2008
+#: ../plugins/gdb/debugger.c:2012
 msgid "Anjuta is unable to attach to itself."
 msgstr "L'Anjuta no pot adjuntar-se a si mateix."
 
-#: ../plugins/gdb/debugger.c:2058
+#: ../plugins/gdb/debugger.c:2062
 msgid "Program terminated\n"
 msgstr "El programa ha acabat\n"
 
-#: ../plugins/gdb/debugger.c:2073
+#: ../plugins/gdb/debugger.c:2077
 msgid "Program detached\n"
 msgstr "El programa s'ha separat\n"
 
-#: ../plugins/gdb/debugger.c:2093
+#: ../plugins/gdb/debugger.c:2097
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "S'està separant el procés...\n"
 
-#: ../plugins/gdb/debugger.c:2114
+#: ../plugins/gdb/debugger.c:2118
 msgid "Interrupting the process\n"
 msgstr "S'està interrompent el procés\n"
 
-#: ../plugins/gdb/debugger.c:3905
+#: ../plugins/gdb/debugger.c:3909
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "S'està enviant el senyal %s al procés: %d"
 
-#: ../plugins/gdb/debugger.c:3931
+#: ../plugins/gdb/debugger.c:3935
 msgid "Error whilst signaling the process."
 msgstr "Hi ha hagut un error en enviar el senyal al procés."
 
@@ -4442,7 +4448,7 @@ msgid "Author/Grep"
 msgstr "Autor/Grep"
 
 #: ../plugins/git/anjuta-git.glade.h:40
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Autor:"
 
@@ -4769,224 +4775,224 @@ msgstr "Git: s'han tret els fitxers de l'índex."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:57 ../plugins/git/plugin.c:402
+#: ../plugins/git/plugin.c:58 ../plugins/git/plugin.c:403
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:65 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:66 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "Publica els _canvis..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:73
+#: ../plugins/git/plugin.c:74
 msgid "_Fetch"
 msgstr "_Recull"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:81
+#: ../plugins/git/plugin.c:82
 msgid "_Rebase"
 msgstr "_Ajusta a la base"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:185
+#: ../plugins/git/plugin.c:90 ../plugins/git/plugin.c:186
 msgid "_Start..."
 msgstr "_Inicia..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:97
+#: ../plugins/git/plugin.c:98
 msgid "_Continue"
 msgstr "_Continua"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:105
+#: ../plugins/git/plugin.c:106
 msgid "_Skip"
 msgstr "_Omet"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:113
+#: ../plugins/git/plugin.c:114
 msgid "_Abort"
 msgstr "_Interromp"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:121
+#: ../plugins/git/plugin.c:122
 msgid "_Pull..."
 msgstr "_Estira..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:129
+#: ../plugins/git/plugin.c:130
 msgid "_Unstage files..."
 msgstr "_Treu fitxers de l'índex..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:137
+#: ../plugins/git/plugin.c:138
 msgid "_Check out files..."
 msgstr "_Obté els fitxers..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:145
+#: ../plugins/git/plugin.c:146
 msgid "_Resolve conflicts..."
 msgstr "_Resol els conflictes..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:153
+#: ../plugins/git/plugin.c:154
 msgid "Create patch series..."
 msgstr "Crea una sèrie de pedaços..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:161 ../plugins/git/plugin.c:358
+#: ../plugins/git/plugin.c:162 ../plugins/git/plugin.c:359
 msgid "_Reset tree..."
 msgstr "_Reinicia l'arbre..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:169 ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:170 ../plugins/git/plugin.c:367
 msgid "_Revert commit..."
 msgstr "_Desfés la publicació..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:177 ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:178 ../plugins/git/plugin.c:375
 msgid "_Bisect"
 msgstr "_Biseca"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:201
+#: ../plugins/git/plugin.c:202
 msgid "_Good"
 msgstr "_Bona"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:209
+#: ../plugins/git/plugin.c:210
 msgid "_Bad"
 msgstr "_Dolenta"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:217 ../plugins/git/plugin.c:410
+#: ../plugins/git/plugin.c:218 ../plugins/git/plugin.c:411
 msgid "_View log..."
 msgstr "_Visualitza el registre..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:225 ../plugins/git/plugin.c:290
-#: ../plugins/git/plugin.c:418 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:226 ../plugins/git/plugin.c:291
+#: ../plugins/git/plugin.c:419 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Afegeix..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:233 ../plugins/git/plugin.c:426
+#: ../plugins/git/plugin.c:234 ../plugins/git/plugin.c:427
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "_Suprimeix..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:241
+#: ../plugins/git/plugin.c:242
 msgid "_Ignore..."
 msgstr "_Ignora..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:250 ../plugins/git/plugin.c:342
+#: ../plugins/git/plugin.c:251 ../plugins/git/plugin.c:343
 msgid "_Create branch..."
 msgstr "_Crea una branca..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:258
+#: ../plugins/git/plugin.c:259
 msgid "_Delete branch..."
 msgstr "_Suprimeix una branca..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:266
+#: ../plugins/git/plugin.c:267
 msgid "_Switch to another branch..."
 msgstr "_Commuta a una altra branca..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:274
+#: ../plugins/git/plugin.c:275
 msgid "_Merge..."
 msgstr "_Combina..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:282
+#: ../plugins/git/plugin.c:283
 msgid "_Remote branches"
 msgstr "Branques _remotes"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:298
+#: ../plugins/git/plugin.c:299
 msgid "_Delete..."
 msgstr "_Suprimeix..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:306 ../plugins/git/plugin.c:350
+#: ../plugins/git/plugin.c:307 ../plugins/git/plugin.c:351
 msgid "_Create tag..."
 msgstr "_Crea una etiqueta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:314
+#: ../plugins/git/plugin.c:315
 msgid "_Diff uncommitted changes"
 msgstr "Mostra la _diferència dels canvis no publicats"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:326
+#: ../plugins/git/plugin.c:327
 msgid "_Show commit diff"
 msgstr "_Mostra la diferència de la publicació"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:334
+#: ../plugins/git/plugin.c:335
 msgid "_View selected revision"
 msgstr "_Visualitza la revisió seleccionada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:382
+#: ../plugins/git/plugin.c:383
 msgid "_Set good revision"
 msgstr "_Estableix com a revisió bona"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:391
 msgid "_Set bad revision"
 msgstr "_Estableix com a revisió dolenta"
 
-#: ../plugins/git/plugin.c:580
+#: ../plugins/git/plugin.c:581
 msgid "Git operations"
 msgstr "Operacions del Git"
 
-#: ../plugins/git/plugin.c:585
+#: ../plugins/git/plugin.c:586
 msgid "Git log operations"
 msgstr "Operacions del registre del Git"
 
-#: ../plugins/git/plugin.c:590
+#: ../plugins/git/plugin.c:591
 msgid "Git FM operations"
 msgstr "Operacions FM del Git"
 
-#: ../plugins/git/plugin.c:605
+#: ../plugins/git/plugin.c:606
 msgid "Git Log"
 msgstr "Registre del Git"
 
@@ -5010,7 +5016,7 @@ msgstr "Associa"
 msgid "Automatically add resources"
 msgstr "Afegeix recursos automàticament"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
 msgid "Designer"
 msgstr "Dissenyador"
 
@@ -5078,64 +5084,64 @@ msgstr "el valor de la propietat %s no és vàlid"
 msgid "Association item filename has no path"
 msgstr "El nom de fitxer de l'element d'associació no té camí"
 
-#: ../plugins/glade/plugin.c:836
+#: ../plugins/glade/plugin.c:847
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr "No s'ha inicialitzat cap associació, no hi ha res a desar"
 
-#: ../plugins/glade/plugin.c:843
+#: ../plugins/glade/plugin.c:854
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr ""
 "No s'han pogut desar les associacions perquè no s'ha establert el projecte "
 "arrel"
 
-#: ../plugins/glade/plugin.c:865
+#: ../plugins/glade/plugin.c:876
 #, c-format
 msgid "Failed to save associations"
 msgstr "No s'han pogut desar les associacions"
 
-#: ../plugins/glade/plugin.c:1349
+#: ../plugins/glade/plugin.c:1360
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "No s'ha pogut inspeccionar la senyal"
 
-#: ../plugins/glade/plugin.c:1371
+#: ../plugins/glade/plugin.c:1382
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "El llenguatge Python no és compatible encara"
 
-#: ../plugins/glade/plugin.c:1384
+#: ../plugins/glade/plugin.c:1395
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "El llenguatge Vala no és compatible encara"
 
-#: ../plugins/glade/plugin.c:1943
+#: ../plugins/glade/plugin.c:1954
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "No hi ha cap editor associat per al dissenyador"
 
-#: ../plugins/glade/plugin.c:1961
+#: ../plugins/glade/plugin.c:1972
 #, c-format
 msgid "Unknown language of the editor \"%s\""
 msgstr "El llenguatge de l'editor «%s» no és conegut"
 
-#: ../plugins/glade/plugin.c:2028 ../plugins/glade/plugin.c:2105
-#: ../plugins/glade/plugin.c:2230
+#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
+#: ../plugins/glade/plugin.c:2241
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "S'ha produït un error en afegir un gestor d'estub nou: %s"
 
-#: ../plugins/glade/plugin.c:2035 ../plugins/glade/plugin.c:2119
+#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
 msgid "Couldn't find a signal information"
 msgstr "No s'ha pogut trobar una senyal d'informació"
 
-#: ../plugins/glade/plugin.c:2062
+#: ../plugins/glade/plugin.c:2073
 msgid "Error while adding a new handler stub: No current editor"
 msgstr ""
 "S'ha produït un error en afegir un gestor d'estub nou: Sense editor actual"
 
-#: ../plugins/glade/plugin.c:2233
+#: ../plugins/glade/plugin.c:2244
 #, c-format
 msgid ""
 "To avoid this messages turn off \"Insert handler on edit\" flag in "
@@ -5144,142 +5150,142 @@ msgstr ""
 "Per a evitar aquests missatges desactiveu l'indicador «Insereix un gestor en "
 "editar» a Preferències->Dissenyador d'IGU Glade"
 
-#: ../plugins/glade/plugin.c:2369
+#: ../plugins/glade/plugin.c:2380
 msgid "Those documents are already associated"
 msgstr "Aquests documents ja estan associats"
 
-#: ../plugins/glade/plugin.c:2407
+#: ../plugins/glade/plugin.c:2418
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No es pot llegir el fitxer: %s."
 
-#: ../plugins/glade/plugin.c:3665
+#: ../plugins/glade/plugin.c:3676
 msgid "Couldn't find a default signal name"
 msgstr "No s'ha pogut trobar un nom de senyal predeterminat"
 
-#: ../plugins/glade/plugin.c:3871
+#: ../plugins/glade/plugin.c:3886
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr "El projecte %s no té ginys obsolets o desajustos entre versions."
 
-#: ../plugins/glade/plugin.c:3888
+#: ../plugins/glade/plugin.c:3903
 msgid "There is no Glade project"
 msgstr "No hi ha cap projecte del Glade"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3974
+#: ../plugins/glade/plugin.c:3989
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3982 ../plugins/glade/plugin.c:3984
+#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
 msgid "Switch between designer/code"
 msgstr "Commuta entre dissenyador/codi"
 
-#: ../plugins/glade/plugin.c:3990 ../plugins/glade/plugin.c:3992
+#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
 msgid "Insert handler stub"
 msgstr "Insereix un gestor d'estub"
 
-#: ../plugins/glade/plugin.c:3998 ../plugins/glade/plugin.c:4000
+#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
 msgid "Insert handler stub, autoposition"
 msgstr "Insereix un gestor d'estub, posiciona automàticament"
 
-#: ../plugins/glade/plugin.c:4006
+#: ../plugins/glade/plugin.c:4021
 msgid "Associate last designer and last editor"
 msgstr "Associa l'últim dissenyador i l'últim editor"
 
-#: ../plugins/glade/plugin.c:4008
+#: ../plugins/glade/plugin.c:4023
 msgid "Associate last designer and editor"
 msgstr "Associa l'últim dissenyador i l'editor"
 
-#: ../plugins/glade/plugin.c:4014 ../plugins/glade/plugin.c:4016
+#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
 msgid "Associations dialog..."
 msgstr "Diàleg d'associacions..."
 
-#: ../plugins/glade/plugin.c:4022
+#: ../plugins/glade/plugin.c:4037
 msgid "Versioning..."
 msgstr "Versionat..."
 
-#: ../plugins/glade/plugin.c:4024
+#: ../plugins/glade/plugin.c:4039
 msgid "Switch between library versions and check deprecations"
 msgstr ""
 "Commuta entre les versions de les biblioteques i comprova les obsolescències"
 
-#: ../plugins/glade/plugin.c:4030 ../plugins/glade/plugin.c:4032
+#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
 msgid "Set as default resource target"
 msgstr "Estableix com a objectiu de recursos predeterminat"
 
-#: ../plugins/glade/plugin.c:4040
+#: ../plugins/glade/plugin.c:4055
 msgid "Current default target"
 msgstr "Objectiu actual predeterminat"
 
-#: ../plugins/glade/plugin.c:4048
+#: ../plugins/glade/plugin.c:4063
 msgid "Close the current file"
 msgstr "Tanca el fitxer actual"
 
-#: ../plugins/glade/plugin.c:4056
+#: ../plugins/glade/plugin.c:4071
 msgid "Save the current file"
 msgstr "Desa el fitxer actual"
 
-#: ../plugins/glade/plugin.c:4072
+#: ../plugins/glade/plugin.c:4087
 msgid "Redo the last action"
 msgstr "Refés l'última acció"
 
-#: ../plugins/glade/plugin.c:4080
+#: ../plugins/glade/plugin.c:4095
 msgid "Cut the selection"
 msgstr "Retalla la selecció"
 
-#: ../plugins/glade/plugin.c:4088
+#: ../plugins/glade/plugin.c:4103
 msgid "Copy the selection"
 msgstr "Copia la selecció"
 
-#: ../plugins/glade/plugin.c:4096
+#: ../plugins/glade/plugin.c:4111
 msgid "Paste the clipboard"
 msgstr "Enganxa el porta-retalls"
 
-#: ../plugins/glade/plugin.c:4104
+#: ../plugins/glade/plugin.c:4119
 msgid "Delete the selection"
 msgstr "Suprimeix la selecció"
 
-#: ../plugins/glade/plugin.c:4282
+#: ../plugins/glade/plugin.c:4297
 msgid "Glade designer operations"
 msgstr "Operacions del dissenyador Glade"
 
-#: ../plugins/glade/plugin.c:4382
+#: ../plugins/glade/plugin.c:4397
 msgid "Go back in undo history"
 msgstr "Vés enrere a l'historial de desfer"
 
-#: ../plugins/glade/plugin.c:4384
+#: ../plugins/glade/plugin.c:4399
 msgid "Go forward in undo history"
 msgstr "Vés endavant a l'historial de desfer"
 
-#: ../plugins/glade/plugin.c:4403
+#: ../plugins/glade/plugin.c:4413
 msgid "Glade Clipboard"
 msgstr "Porta-retalls del Glade"
 
-#: ../plugins/glade/plugin.c:4408
+#: ../plugins/glade/plugin.c:4418
 msgid "Widgets"
 msgstr "Ginys"
 
-#: ../plugins/glade/plugin.c:4413
+#: ../plugins/glade/plugin.c:4423
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:4663
+#: ../plugins/glade/plugin.c:4677
 #, c-format
 msgid "Not local file: %s"
 msgstr "No és un fitxer local: %s"
 
-#: ../plugins/glade/plugin.c:4684
+#: ../plugins/glade/plugin.c:4698
 #, c-format
 msgid "Could not open %s"
 msgstr "No s'ha pogut obrir %s"
 
-#: ../plugins/glade/plugin.c:4737
+#: ../plugins/glade/plugin.c:4749
 msgid "Could not create a new glade project."
 msgstr "No s'ha pogut crear un projecte nou del Glade."
 
-#: ../plugins/glade/plugin.c:5009 ../plugins/glade/plugin.c:5034
+#: ../plugins/glade/plugin.c:5019 ../plugins/glade/plugin.c:5044
 msgid "Glade GUI Designer"
 msgstr "Dissenyador d'IGU Glade"
 
@@ -5312,70 +5318,70 @@ msgid "Summary:"
 msgstr "Resum:"
 
 #. option menu label
-#: ../plugins/gtodo/add_edit_item.c:162
+#: ../plugins/gtodo/add_edit_item.c:164
 #: ../plugins/macro/anjuta-macro.glade.h:4
 msgid "Category:"
 msgstr "Categoria:"
 
-#: ../plugins/gtodo/add_edit_item.c:184 ../plugins/gtodo/add_edit_item.c:467
+#: ../plugins/gtodo/add_edit_item.c:186 ../plugins/gtodo/add_edit_item.c:469
 #: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:70
 #: ../plugins/gtodo/todo_db.c:71
 msgid "Edit Categories"
 msgstr "Edita les categories"
 
-#: ../plugins/gtodo/add_edit_item.c:195 ../plugins/gtodo/list_tooltip.c:48
+#: ../plugins/gtodo/add_edit_item.c:197 ../plugins/gtodo/list_tooltip.c:48
 #: ../plugins/gtodo/list_tooltip.c:54
 msgid "Due date:"
 msgstr "Data de venciment:"
 
-#: ../plugins/gtodo/add_edit_item.c:214
+#: ../plugins/gtodo/add_edit_item.c:216
 msgid "Notify when due"
 msgstr "Notifica quan venci"
 
 #. label
-#: ../plugins/gtodo/add_edit_item.c:227 ../plugins/gtodo/list_tooltip.c:64
+#: ../plugins/gtodo/add_edit_item.c:229 ../plugins/gtodo/list_tooltip.c:64
 #: ../plugins/gtodo/list_tooltip.c:71 ../plugins/gtodo/list_tooltip.c:77
 msgid "Priority:"
 msgstr "Prioritat:"
 
-#: ../plugins/gtodo/add_edit_item.c:239 ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:241 ../plugins/gtodo/list_tooltip.c:77
 #: ../plugins/gtodo/todo_db.c:132
 msgid "High"
 msgstr "Alta"
 
-#: ../plugins/gtodo/add_edit_item.c:241 ../plugins/gtodo/list_tooltip.c:71
+#: ../plugins/gtodo/add_edit_item.c:243 ../plugins/gtodo/list_tooltip.c:71
 #: ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
 msgstr "Mitjana"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:243 ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:245 ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:130
 msgid "Low"
 msgstr "Baixa"
 
-#: ../plugins/gtodo/add_edit_item.c:254 ../plugins/gtodo/add_edit_item.c:255
+#: ../plugins/gtodo/add_edit_item.c:256 ../plugins/gtodo/add_edit_item.c:257
 #: ../plugins/gtodo/list_tooltip.c:81
 msgid "Comment:"
 msgstr "Comentari:"
 
-#: ../plugins/gtodo/add_edit_item.c:279
+#: ../plugins/gtodo/add_edit_item.c:281
 msgid "Completed"
 msgstr "Completat"
 
-#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:331
-#: ../plugins/gtodo/add_edit_item.c:444
+#: ../plugins/gtodo/add_edit_item.c:287 ../plugins/gtodo/add_edit_item.c:333
+#: ../plugins/gtodo/add_edit_item.c:446
 msgid "started:"
 msgstr "iniciat:"
 
-#: ../plugins/gtodo/add_edit_item.c:285 ../plugins/gtodo/add_edit_item.c:292
-#: ../plugins/gtodo/add_edit_item.c:328 ../plugins/gtodo/add_edit_item.c:329
+#: ../plugins/gtodo/add_edit_item.c:287 ../plugins/gtodo/add_edit_item.c:294
+#: ../plugins/gtodo/add_edit_item.c:330 ../plugins/gtodo/add_edit_item.c:331
 #, c-format
 msgid "n/a"
 msgstr "n/d"
 
-#: ../plugins/gtodo/add_edit_item.c:292 ../plugins/gtodo/add_edit_item.c:335
-#: ../plugins/gtodo/add_edit_item.c:444
+#: ../plugins/gtodo/add_edit_item.c:294 ../plugins/gtodo/add_edit_item.c:337
+#: ../plugins/gtodo/add_edit_item.c:446
 msgid "stopped:"
 msgstr "aturat:"
 
@@ -5500,7 +5506,7 @@ msgstr "Sense emplenar"
 msgid "No Gtodo Client to save."
 msgstr "No hi ha cap client Gtodo per a desar."
 
-#: ../plugins/gtodo/libgtodo.c:851
+#: ../plugins/gtodo/libgtodo.c:852
 #, c-format
 msgid "No filename supplied."
 msgstr "No s'ha proporcionat cap nom de fitxer."
@@ -5696,11 +5702,11 @@ msgstr "Edita..."
 msgid "Shortcut:"
 msgstr "Drecera:"
 
-#: ../plugins/macro/macro-actions.c:126
+#: ../plugins/macro/macro-actions.c:127
 msgid "Press macro shortcut..."
 msgstr "Premeu la drecera per a la macro..."
 
-#: ../plugins/macro/macro-actions.c:133
+#: ../plugins/macro/macro-actions.c:134
 msgid "Press shortcut"
 msgstr "Premeu la drecera"
 
@@ -5870,8 +5876,8 @@ msgid "Icon"
 msgstr "Icona"
 
 #: ../plugins/message-view/message-view.c:823
-#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
-#: ../plugins/message-view/plugin.c:429
+#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:439
+#: ../plugins/message-view/plugin.c:451
 msgid "Messages"
 msgstr "Missatges"
 
@@ -6645,14 +6651,18 @@ msgstr "S'està inicialitzant el projecte..."
 msgid "Project Loaded"
 msgstr "S'ha carregat el projecte"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Detalls</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:148
 msgid "Error"
 msgstr "Error"
+
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
+msgid "Select project type"
+msgstr "Seleccioneu el tipus de projecte"
 
 #: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
 msgid "Warning"
@@ -6858,86 +6868,82 @@ msgid "A generic C++ project"
 msgstr "Un projecte genèric de C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "A generic GNOME project"
-msgstr "Un projecte genèric del GNOME"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTK+ project"
 msgstr "Un projecte genèric de GTK+"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
 msgstr "Un projecte genèric de GTKmm (C++)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "A generic Xlib dock applet"
 msgstr "Una miniaplicació genèrica d'acoblador Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "A generic Xlib project"
 msgstr "Un projecte genèric d'Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid "A generic java project using automake project management"
 msgstr ""
 "Un projecte genèric de Java utilitzant la gestió de projectes de l'automake"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "A generic minimal and flat project"
 msgstr "Un projecte genèric mínim"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Un projecte genèric compilat en Java nadiu utilitzant el compilador de Java "
 "de GNU (gcj)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "A generic project"
 msgstr "Un projecte genèric"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid "A generic python project using automake project management"
 msgstr ""
 "Un projecte genèric de Python utilitzant la gestió de projectes de l'automake"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "A generic wx Widgets project"
 msgstr "Un projecte genèric de wx Widgets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
 msgid "A sample SDL project"
 msgstr "Un projecte de mostra SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Add C++ support:"
 msgstr "Afegeix compatibilitat C++:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add gtk-doc system:"
 msgstr "Afegeix el sistema gtk-doc:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Add internationalization:"
 msgstr "Afegeix internacionalització:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
 msgid "Add shared library support:"
 msgstr "Afegeix compatibilitat per a les biblioteques compartides:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 "Afegeix compatibilitat C++ al projecte de manera que es puguin construir els "
 "fitxers de codi C++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 "Afegeix compatibilitat per a muntar biblioteques compartides en el projecte"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
@@ -6945,29 +6951,28 @@ msgstr ""
 "Afegeix compatibilitat per a la internacionalització de manera que el "
 "projecte pugui traduir-se en diferents idiomes"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
-#: ../src/about.c:237
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "Anjuta Plugin"
 msgstr "Connector de l'Anjuta"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr ""
 "Projecte de connector de l'Anjuta que utilitza l'entorn de treball libanjuta"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Applet Title:"
 msgstr "Títol de la miniaplicació:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Basic information"
 msgstr "Informació bàsica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Llicència de distribució de programari Berkeley (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
@@ -6976,104 +6981,100 @@ msgstr ""
 "connector. Pot ser el nom de l'interfície primària o la ubicació del "
 "connector (biblioteca:classe)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Configure external packages"
 msgstr "Configura els paquets externs"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Configure external packages:"
 msgstr "Configura els paquets externs:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Create a template glade interface file"
 msgstr "Crea un fitxer de plantilla d'interfície Glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 msgid "Create glade interface file"
 msgstr "Crea un fitxer d'interfície Glade"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Destinació:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Display description of the applet"
 msgstr "Mostra la descripció de la miniaplicació"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Display description of the plugin"
 msgstr "Mostra la descripció del connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Display title of the applet"
 msgstr "Mostra el títol de la miniaplicació"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Display title of the plugin"
 msgstr "Mostra el títol del connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Django Project"
 msgstr "Projecte Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Django Project information"
 msgstr "Informació del projecte Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "Email address:"
 msgstr "Adreça de correu electrònic:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "El GCJ necessita saber quina classe conté la funció main()"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "GNOME Applet"
 msgstr "Miniaplicació del GNOME"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "GTKmm"
 msgstr "GTKmm"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "General Project Information"
 msgstr "Informació general del projecte"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Generic"
 msgstr "Genèric"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic (Minimal)"
 msgstr "Genèric (mínim)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Generic C++"
 msgstr "C++ genèric"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic gcj compiled java"
 msgstr "Java genèric compilat amb gcj"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Generic java (automake)"
 msgstr "Java genèric (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Generic python (automake)"
 msgstr "Python genèric (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7083,103 +7084,103 @@ msgstr ""
 "és la versió necessària del paquet. Per exemple, «libgnomeui-2.0» o "
 "«libgnomeui-2.0 >= 2.2.0»"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Icon File:"
 msgstr "Fitxer de la icona:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Icon file for the plugin"
 msgstr "Fitxer de la icona per al connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Implement plugin interfaces"
 msgstr "Implementa les interfícies del connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Interface implemented by the plugin"
 msgstr "Interfície implementada pel connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Interface:"
 msgstr "Interfície:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "License"
 msgstr "Llicència"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Main Class:"
 msgstr "Classe principal:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Main class"
 msgstr "Classe principal"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Makefile project"
 msgstr "Projecte makefile"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Makefile-based project"
 msgstr "Projecte basat en el makefile"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Mininum SDL version required"
 msgstr "Versió mínima necessària de l'SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Name of the value to watch"
 msgstr "Nom del valor a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "No license"
 msgstr "Sense llicència"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Options for project build system"
 msgstr "Opcions per al sistema de muntatge del projecte"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Plugin Class Name:"
 msgstr "Nom de la classe del connector:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin Dependencies:"
 msgstr "Dependències del connector:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin Description:"
 msgstr "Descripció del connector:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Plugin Title:"
 msgstr "Títol del connector:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Plugin class name"
 msgstr "Nom de la classe del connector"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Plugin has menus or/and toolbars"
 msgstr "El connector té menús i/o barres d'eines"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid "Plugin interfaces to implement"
 msgstr "Interfícies del connector a implementar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Project Name:"
 msgstr "Nom del projecte:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project directory, output file etc."
 msgstr "Directori del projecte, fitxer de sortida, etc."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Project directory:"
 msgstr "Directori del projecte:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -7187,126 +7188,115 @@ msgstr ""
 "El nom del projecte no pot contenir espais perquè serà el nom del projecte "
 "objectiu a muntar (executable, biblioteca, etc.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Project name:"
 msgstr "Nom del projecte:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Project options"
 msgstr "Opcions del projecte"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Python webproject using Django Web Framework"
 msgstr "Projecte web Python que utilitza l'entorn de treball web Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Require Package:"
 msgstr "Necessita el paquet:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require SDL version:"
 msgstr "Necessita la versió SDL:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL_gfx library"
 msgstr "Necessita la biblioteca SDL_gfx"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_gfx:"
 msgstr "Necessita la SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_image library"
 msgstr "Necessita la biblioteca SDL_image"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_image:"
 msgstr "Necessita la SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_mixer library"
 msgstr "Necessita la biblioteca SDL_mixer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_mixer:"
 msgstr "Necessita la SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "Require SDL_net library"
 msgstr "Necessita la biblioteca SDL_net"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Require SDL_net:"
 msgstr "Necessita el SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Require SDL_ttf library"
 msgstr "Necessita la biblioteca SDL_ttf"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Require SDL_ttf:"
 msgstr "Necessita la SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "SDL"
 msgstr "SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Select code license"
 msgstr "Selecciona la llicència del codi"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Shell values to watch"
 msgstr "Valors de l'intèrpret d'ordres a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
-msgid "Use libglade for the UI"
-msgstr "Utilitza la libglade per la UI"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 "Utilitzeu el pkg-config per a afegir compatibilitat per a biblioteques des "
 "d'altres paquets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
-msgid ""
-"Use the libglade-2.0 library to load the glade interface file at runtime"
-msgstr ""
-"Utilitza la biblioteca libglade-2.0 per a carregar el fitxer .glade en "
-"executar"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Value Name:"
 msgstr "Nom del valor:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Values to watch"
 msgstr "Valors a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Si el connector té menú o barres d'eines"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Wx Widgets"
 msgstr "Wx Widgets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:108
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "Xlib"
 msgstr "Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:109
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Xlib dock"
 msgstr "Acoblador Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:110
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "El gtk-doc s'utilitza per a compilar la documentació de l'API per a les "
 "classes basades en GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:111
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
 msgid "project name"
 msgstr "nom del projecte"
 
@@ -7349,7 +7339,7 @@ msgstr "El directori del programa «%s» no és local"
 msgid "Load Target to run"
 msgstr "Carrega l'objectiu a executar"
 
-#: ../plugins/run-program/parameters.c:711
+#: ../plugins/run-program/parameters.c:732
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nom"
@@ -7727,7 +7717,7 @@ msgstr "No hi ha cap fitxer per a imprimir"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/scintilla/text_editor.c:404
+#: ../plugins/scintilla/text_editor.c:408
 #, c-format
 msgid ""
 "The file '%s' has been changed.\n"
@@ -7736,7 +7726,7 @@ msgstr ""
 "S'ha modificat el fitxer «%s».\n"
 "Voleu tornar-lo a carregar?"
 
-#: ../plugins/scintilla/text_editor.c:410
+#: ../plugins/scintilla/text_editor.c:414
 #, c-format
 msgid ""
 "The file '%s' has been changed.\n"
@@ -7745,7 +7735,7 @@ msgstr ""
 "S'ha modificat el fitxer «%s».\n"
 "Voleu perdre els vostres canvis i tornar-lo a carregar?"
 
-#: ../plugins/scintilla/text_editor.c:430
+#: ../plugins/scintilla/text_editor.c:434
 #, c-format
 msgid ""
 "The file '%s' has been deleted.\n"
@@ -7754,7 +7744,7 @@ msgstr ""
 "S'ha suprimit el fitxer «%s».\n"
 "Voleu confirmar-ho i tancar-lo?"
 
-#: ../plugins/scintilla/text_editor.c:437
+#: ../plugins/scintilla/text_editor.c:441
 #, c-format
 msgid ""
 "The file '%s' has been deleted.\n"
@@ -7763,24 +7753,24 @@ msgstr ""
 "S'ha suprimit el fitxer «%s».\n"
 "Voleu perdre els vostres canvis i tancar-lo?"
 
-#: ../plugins/scintilla/text_editor.c:1354
+#: ../plugins/scintilla/text_editor.c:1360
 msgid "Could not get file info"
 msgstr "No s'ha pogut obtenir la informació del fitxer"
 
 #. DEBUG_PRINT ("%s", "This file is too big. Unable to allocate memory.");
-#: ../plugins/scintilla/text_editor.c:1366
+#: ../plugins/scintilla/text_editor.c:1372
 msgid "This file is too big. Unable to allocate memory."
 msgstr "El fitxer és massa gran. No es pot obtenir la memòria necessària."
 
-#: ../plugins/scintilla/text_editor.c:1375
+#: ../plugins/scintilla/text_editor.c:1381
 msgid "Could not open file"
 msgstr "No s'ha pogut obrir el fitxer"
 
-#: ../plugins/scintilla/text_editor.c:1386
+#: ../plugins/scintilla/text_editor.c:1392
 msgid "Error while reading from file"
 msgstr "S'ha produït un error en llegir del fitxer"
 
-#: ../plugins/scintilla/text_editor.c:1432
+#: ../plugins/scintilla/text_editor.c:1438
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -7790,11 +7780,11 @@ msgstr ""
 "codificació utilitzada. Comproveu que la codificació es troba entre les "
 "codificacions disponibles. En cas contrari, afegiu-la a les preferències."
 
-#: ../plugins/scintilla/text_editor.c:1579
+#: ../plugins/scintilla/text_editor.c:1585
 msgid "Loading file..."
 msgstr "S'està carregant el fitxer..."
 
-#: ../plugins/scintilla/text_editor.c:1588
+#: ../plugins/scintilla/text_editor.c:1594
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -7805,24 +7795,24 @@ msgstr ""
 "\n"
 "Motius: %s"
 
-#: ../plugins/scintilla/text_editor.c:1609
+#: ../plugins/scintilla/text_editor.c:1615
 msgid "File loaded successfully"
 msgstr "S'ha carregat correctament el fitxer"
 
-#: ../plugins/scintilla/text_editor.c:1627
+#: ../plugins/scintilla/text_editor.c:1633
 msgid "Saving file..."
 msgstr "S'està desant el fitxer..."
 
-#: ../plugins/scintilla/text_editor.c:1636
+#: ../plugins/scintilla/text_editor.c:1642
 #, c-format
 msgid "Could not save intermediate file %s: %s"
 msgstr "No s'ha pogut desar el fitxer intermig %s: %s"
 
-#: ../plugins/scintilla/text_editor.c:1652
+#: ../plugins/scintilla/text_editor.c:1658
 msgid "File saved successfully"
 msgstr "El fitxer s'ha desat correctament"
 
-#: ../plugins/scintilla/text_editor.c:2025
+#: ../plugins/scintilla/text_editor.c:2031
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -7856,7 +7846,7 @@ msgstr "Versió de l'Scratchbox:"
 msgid "Select Scratchbox Folder"
 msgstr "Seleccioneu la carpeta de l'Scratchbox"
 
-#: ../plugins/scratchbox/plugin.c:456 ../plugins/scratchbox/plugin.c:478
+#: ../plugins/scratchbox/plugin.c:458 ../plugins/scratchbox/plugin.c:481
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:2
 msgid "Scratchbox"
 msgstr "Scratchbox"
@@ -7885,7 +7875,7 @@ msgid "<b>Search variable</b>"
 msgstr "<b>Variable de cerca</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:8
-#: ../plugins/search/search-replace.c:91
+#: ../plugins/search/search-replace.c:92
 msgid "Backward"
 msgstr "Endarrere"
 
@@ -7910,14 +7900,14 @@ msgid "Find & Replace"
 msgstr "Cerca i reemplaça"
 
 #: ../plugins/search/anjuta-search.glade.h:14
-#: ../plugins/search/search-replace.c:90
+#: ../plugins/search/search-replace.c:91
 msgid "Forward"
 msgstr "Endavant"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
 #: ../plugins/search/anjuta-search.glade.h:15
-#: ../plugins/search/search-replace.c:89
+#: ../plugins/search/search-replace.c:90
 msgid "Full Buffer"
 msgstr "Memòria intermèdia completa"
 
@@ -8065,99 +8055,99 @@ msgstr "S'està cercant..."
 msgid "Basic Search"
 msgstr "Cerca bàsica"
 
-#: ../plugins/search/search-replace.c:96
+#: ../plugins/search/search-replace.c:97
 msgid "Current Buffer"
 msgstr "Memòria intermèdia actual"
 
-#: ../plugins/search/search-replace.c:97
+#: ../plugins/search/search-replace.c:98
 msgid "Current Selection"
 msgstr "Selecció actual"
 
-#: ../plugins/search/search-replace.c:98
+#: ../plugins/search/search-replace.c:99
 msgid "Current Block"
 msgstr "Bloc actual"
 
-#: ../plugins/search/search-replace.c:99
+#: ../plugins/search/search-replace.c:100
 msgid "Current Function"
 msgstr "Funció actual"
 
-#: ../plugins/search/search-replace.c:100
+#: ../plugins/search/search-replace.c:101
 msgid "All Open Buffers"
 msgstr "Totes les memòries intermèdies obertes"
 
-#: ../plugins/search/search-replace.c:101
+#: ../plugins/search/search-replace.c:102
 msgid "All Project Files"
 msgstr "Tots els fitxers del projecte"
 
 #. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:103
+#: ../plugins/search/search-replace.c:104
 msgid "Specify File Patterns"
 msgstr "Especifica els patrons de fitxer"
 
-#: ../plugins/search/search-replace.c:108
+#: ../plugins/search/search-replace.c:109
 msgid "Select next match"
 msgstr "Selecciona la concordança següent"
 
-#: ../plugins/search/search-replace.c:109
+#: ../plugins/search/search-replace.c:110
 msgid "Bookmark all matched lines"
 msgstr "Marca totes les línies amb concordances"
 
-#: ../plugins/search/search-replace.c:110
+#: ../plugins/search/search-replace.c:111
 msgid "Mark all matches"
 msgstr "Marca totes les concordances"
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:112
 msgid "List matches in find pane"
 msgstr "Llista les concordances en la subfinestra de cerca"
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:113
 msgid "Replace next match"
 msgstr "Reemplaça la concordança següent"
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:114
 msgid "Replace all matches"
 msgstr "Reemplaça totes les concordances"
 
 #. Avoid space in translated string
-#: ../plugins/search/search-replace.c:318
+#: ../plugins/search/search-replace.c:319
 msgid "Find:"
 msgstr "Cerca:"
 
-#: ../plugins/search/search-replace.c:500
+#: ../plugins/search/search-replace.c:501
 msgid "Replace"
 msgstr "Reemplaça"
 
-#: ../plugins/search/search-replace.c:629
+#: ../plugins/search/search-replace.c:630
 msgid "Search complete"
 msgstr "S'ha completat la cerca"
 
-#: ../plugins/search/search-replace.c:1020
-#: ../plugins/search/search-replace.c:1700
+#: ../plugins/search/search-replace.c:1039
+#: ../plugins/search/search-replace.c:1723
 msgid "Replace All"
 msgstr "Reemplaça'ls tots"
 
-#: ../plugins/search/search-replace.c:1059
+#: ../plugins/search/search-replace.c:1078
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "No s'ha trobat «%s». Voleu començar la cerca des del principi?"
 
-#: ../plugins/search/search-replace.c:1079
+#: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "No s'ha trobat «%s»."
 
-#: ../plugins/search/search-replace.c:1094
+#: ../plugins/search/search-replace.c:1113
 msgid "The maximum number of results has been reached."
 msgstr "S'ha obtingut el nombre màxim de resultats."
 
-#: ../plugins/search/search-replace.c:1107
+#: ../plugins/search/search-replace.c:1126
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "s'ha reeemplaçat %d concordança."
 msgstr[1] "s'han reeemplaçat %d concordances."
 
-#: ../plugins/search/search-replace.c:1273
+#: ../plugins/search/search-replace.c:1292
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No es pot muntar la interfície d'usuari per a cercar i reemplaçar"
 
@@ -8197,7 +8187,7 @@ msgstr "El fitxer «%s» només és de lectura. El voleu editar igualment?"
 msgid "Could not save %s: %s"
 msgstr "No s'ha pogut desar %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
@@ -8811,23 +8801,96 @@ msgstr "Falta: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruït: %s"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/plugin.c:312
+msgid "Tag De_claration"
+msgstr "De_claració d'etiqueta"
+
+#: ../plugins/symbol-db/plugin.c:314
+msgid "Goto symbol declaration"
+msgstr "Vés a la declaració del símbol"
+
+#: ../plugins/symbol-db/plugin.c:320
+msgid "Tag _Implementation"
+msgstr "_Implementació de l'etiqueta"
+
+#: ../plugins/symbol-db/plugin.c:322
+msgid "Goto symbol definition"
+msgstr "Vés a la definició del símbol"
+
+#: ../plugins/symbol-db/plugin.c:328
+msgid "_Find Symbol..."
+msgstr "Ce_rca el símbol..."
+
+#: ../plugins/symbol-db/plugin.c:329
+msgid "Find Symbol"
+msgstr "Cerca el símbol"
+
+#: ../plugins/symbol-db/plugin.c:1107
+#, c-format
+msgid "%s: Generating inheritances..."
+msgstr "%s: S'estan generant les herències..."
+
+#: ../plugins/symbol-db/plugin.c:1112
+#, c-format
+msgid "%s: %d files scanned out of %d"
+msgstr "%s: %d de %d fitxers escanejats"
+
+#: ../plugins/symbol-db/plugin.c:1143
+#, c-format
+msgid "Generating inheritances..."
+msgstr "S'estan generant les herències..."
+
+#: ../plugins/symbol-db/plugin.c:1145
+#, c-format
+msgid "%d files scanned out of %d"
+msgstr "%d de %d fitxers escanejats"
+
+#: ../plugins/symbol-db/plugin.c:1905
+msgid "Populating symbols' db..."
+msgstr "S'està creant la base de dades de símbols..."
+
+#: ../plugins/symbol-db/plugin.c:2225
+msgid "Local"
+msgstr "Local"
+
+#: ../plugins/symbol-db/plugin.c:2251
+msgid "Global"
+msgstr "Global"
+
+#: ../plugins/symbol-db/plugin.c:2308
+msgid "Symbols"
+msgstr "Símbols"
+
+#: ../plugins/symbol-db/plugin.c:2316
+msgid "SymbolDb popup actions"
+msgstr "Accions emergents de la base de dades de símbols"
+
+#: ../plugins/symbol-db/plugin.c:2324
+msgid "SymbolDb menu actions"
+msgstr "Accions del menú de la base de dades de símbols"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:265
 msgid "Package is not parseable"
 msgstr "No es pot analitzar el paquet"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:419
-#: ../plugins/symbol-db/symbol-db-prefs.c:579
+#: ../plugins/symbol-db/symbol-db-prefs.c:362
+#: ../plugins/symbol-db/symbol-db-prefs.c:496
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de dades de símbols"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:446
 msgid "API Tags"
 msgstr "Etiquetes de l'API"
 
-#: ../plugins/symbol-db/symbol-db-system.c:786
+#: ../plugins/symbol-db/symbol-db-system.c:805
 msgid "Resuming glb scan."
 msgstr "S'està reprenent l'escaneig glb."
+
+#: ../plugins/symbol-db/symbol-db-view-locals.c:294
+#: ../plugins/symbol-db/symbol-db-view.c:1426
+msgid "Symbol"
+msgstr "Símbol"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
@@ -8873,12 +8936,12 @@ msgstr "Utilitza el perfil de terminal del GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Fes servir el perfil actual del terminal del GNOME"
 
-#: ../plugins/terminal/terminal.c:686
+#: ../plugins/terminal/terminal.c:687
 msgid "terminal operations"
 msgstr "operacions del terminal"
 
-#: ../plugins/terminal/terminal.c:704 ../plugins/terminal/terminal.c:862
-#: ../plugins/terminal/terminal.c:915
+#: ../plugins/terminal/terminal.c:705 ../plugins/terminal/terminal.c:863
+#: ../plugins/terminal/terminal.c:916
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -9007,10 +9070,6 @@ msgstr "No es pot muntar la interfície d'usuari per a l'editor d'eines"
 #, c-format
 msgid "Opening %s"
 msgstr "S'està obrint %s"
-
-#: ../plugins/tools/execute.c:334
-msgid "error:"
-msgstr "errors:"
 
 #. This is append to the tool name to give something
 #. * like "My tools (output)". It's used to name the message
@@ -9506,11 +9565,11 @@ msgstr "No es pot desar les regles de supressió: %s"
 msgid "You have not set a suppressions file in your settings."
 msgstr "No heu establert cap fitxer de supressions en la configuració."
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "S'ha carregat la sessió..."
 
@@ -9730,15 +9789,15 @@ msgstr "Edita"
 msgid "View"
 msgstr "Visualitza"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:661
 msgid "Installed plugins"
 msgstr "Connectors instal·lats"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:665
 msgid "Shortcuts"
 msgstr "Dreceres"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:737
 #, c-format
 msgid "Value doesn't exist"
 msgstr "No existeix el valor"
@@ -9848,38 +9907,38 @@ msgstr "Sagnat intel·ligent"
 msgid "Statement indentation size in spaces:"
 msgstr "Mida del sagnat de la sentència en espais:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1863
+#: ../plugins/language-support-cpp-java/plugin.c:1899
 msgid "_AutoComplete"
 msgstr "Completa _automàticament"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1864
+#: ../plugins/language-support-cpp-java/plugin.c:1900
 msgid "AutoComplete the current word"
 msgstr "Completa automàticament la paraula actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1870
+#: ../plugins/language-support-cpp-java/plugin.c:1906
 msgid "Auto Indent"
 msgstr "Sagnat automàtic"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1871
+#: ../plugins/language-support-cpp-java/plugin.c:1907
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sagnat automàtic de la línia actual o selecció basada en la configuració del "
 "sagnat"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1876
+#: ../plugins/language-support-cpp-java/plugin.c:1912
 msgid "Swap .h/.c"
 msgstr "Alterna capçalera/codi"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1877
+#: ../plugins/language-support-cpp-java/plugin.c:1913
 msgid "Swap c header and source files"
 msgstr "Alterna entre el fitxer de capçalera de C i els fitxers de codi"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1920
+#: ../plugins/language-support-cpp-java/plugin.c:1956
 msgid "C++/Java Assistance"
 msgstr "Assistència per a C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2008
-#: ../plugins/language-support-cpp-java/plugin.c:2017
+#: ../plugins/language-support-cpp-java/plugin.c:2044
+#: ../plugins/language-support-cpp-java/plugin.c:2053
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -10146,6 +10205,21 @@ msgstr "Rerefons de les autotools"
 msgid "Autotools backend for project manager"
 msgstr "Rerefons de les autotools per al gestor de projectes"
 
+#~ msgid "A generic GNOME project"
+#~ msgstr "Un projecte genèric del GNOME"
+
+#~ msgid "GNOME"
+#~ msgstr "GNOME"
+
+#~ msgid "Use libglade for the UI"
+#~ msgstr "Utilitza la libglade per la UI"
+
+#~ msgid ""
+#~ "Use the libglade-2.0 library to load the glade interface file at runtime"
+#~ msgstr ""
+#~ "Utilitza la biblioteca libglade-2.0 per a carregar el fitxer .glade en "
+#~ "executar"
+
 #~ msgid "Preferences"
 #~ msgstr "Preferències"
 
@@ -10350,9 +10424,6 @@ msgstr "Rerefons de les autotools per al gestor de projectes"
 #~ msgid "Find the previous occurrence of current word"
 #~ msgstr "Troba la ocurrència anterior de la paraula actual"
 
-#~ msgid "Symbol"
-#~ msgstr "Símbol"
-
 #~ msgid "Directories to scan"
 #~ msgstr "Directoris a escanejar"
 
@@ -10395,18 +10466,6 @@ msgstr "Rerefons de les autotools per al gestor de projectes"
 #~ msgid "Update Global Tags"
 #~ msgstr "Actualitza les etiquetes globals"
 
-#~ msgid "Tag _Definition"
-#~ msgstr "_Definició d'etiqueta"
-
-#~ msgid "Goto symbol definition"
-#~ msgstr "Vés a la definició del símbol"
-
-#~ msgid "Tag De_claration"
-#~ msgstr "De_claració d'etiqueta"
-
-#~ msgid "Goto symbol declaration"
-#~ msgstr "Vés a la declaració del símbol"
-
 #~ msgid "Goto _Definition"
 #~ msgstr "Vés a la _definició"
 
@@ -10425,23 +10484,8 @@ msgstr "Rerefons de les autotools per al gestor de projectes"
 #~ msgid "Created symbols..."
 #~ msgstr "Símbols creats..."
 
-#~ msgid "Local"
-#~ msgstr "Local"
-
-#~ msgid "Global"
-#~ msgstr "Global"
-
-#~ msgid "Symbol browser actions"
-#~ msgstr "Accions del navegador de símbols"
-
-#~ msgid "Symbol browser popup actions"
-#~ msgstr "Accions emergents del navegador de símbols"
-
 #~ msgid "Symbol navigations"
 #~ msgstr "Navegacions de símbol"
-
-#~ msgid "Symbols"
-#~ msgstr "Símbols"
 
 #~ msgid "Symbol Browser Plugin for Anjuta."
 #~ msgstr "Connector del navegador de símbols per a l'Anjuta."
@@ -10731,9 +10775,6 @@ msgstr "Rerefons de les autotools per al gestor de projectes"
 
 #~ msgid "New advance search And replace stuff"
 #~ msgstr "Funcionalitats noves de cerca i reemplaçament avançat"
-
-#~ msgid "Populating symbols' db..."
-#~ msgstr "S'està creant la base de dades de símbols..."
 
 #~ msgid "Anjuta Plugin User Interface"
 #~ msgstr "Connector d'interfície d'usuari de l'Anjuta"
