@@ -6,7 +6,21 @@
 			<placeholder name="PlaceholderGitMenus">
 				<menuitem name="Commit..." action="ActionGitCommit" />
 				<menuitem name="Fetch" action="ActionGitFetch" />
-				<placeholder name="PlaceholderRebaseMenu">
+				
+				<menuitem name="Pull..." action="ActionGitPull" />
+				<placeholder name="PlaceholderBranches"/>
+				<menu name="BranchesMenu">
+				  <menuitem name="Create branch..." action="ActionGitCreateBranch" />
+				  <menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
+				  <menuitem name="Switch to another branch..." action="ActionGitSwitch" />
+				  <menuitem name="Merge..." action="ActionGitMerge" />
+				  <placeholder name="PlaceholderRemoteMenu">
+					  <menu name="Remote branches" action="ActionMenuGitRemoteBranches">
+						  <menuitem name="Add..." action="ActionGitRemoteAdd" />
+						  <menuitem name="Delete..." action="ActionGitRemoteDelete" />
+					  </menu>
+					</placeholder>
+					<placeholder name="PlaceholderRebaseMenu">
 					<menu name="Rebase" action="ActionMenuGitRebase">
 						<menuitem name="Start..." action="ActionGitRebaseStart" />
 						<separator name="rebase_separator1" />
@@ -14,8 +28,9 @@
 						<menuitem name="Skip" action="ActionGitRebaseSkip" />
 						<menuitem name="Abort" action="ActionGitRebaseAbort" />
 					</menu>
-				</placeholder>
-				<menuitem name="Pull..." action="ActionGitPull" />
+  				</placeholder>
+  		  </menu>
+  		  </placeholder>
 				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
 				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
 				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
@@ -39,17 +54,6 @@
 				<menuitem name="Add..." action="ActionGitAdd" />
 				<menuitem name="Remove..." action="ActionGitRemove" />
 				<menuitem name="Ignore..." action="ActionGitIgnore" />
-				<separator name="separator5" />
-				<menuitem name="Create branch..." action="ActionGitCreateBranch" />
-				<menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
-				<menuitem name="Switch to another branch..." action="ActionGitSwitch" />
-				<menuitem name="Merge..." action="ActionGitMerge" />
-				<placeholder name="PlaceholderRemoteMenu">
-					<menu name="Remote branches" action="ActionMenuGitRemoteBranches">
-						<menuitem name="Add..." action="ActionGitRemoteAdd" />
-						<menuitem name="Delete..." action="ActionGitRemoteDelete" />
-					</menu>
-				</placeholder>
 				<separator name="separator6" />
 				<menuitem name="Create tag..." action="ActionGitCreateTag" />
 				<separator name="separator7" />
