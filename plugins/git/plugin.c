@@ -173,9 +173,17 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_revert)    /* action callback */
 	},
 	{
+		"ActionMenuGitBranches",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Branches"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionMenuGitBisect",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Bisect"),                     /* Display label */
+		N_("Bisect"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
 		NULL    /* action callback */

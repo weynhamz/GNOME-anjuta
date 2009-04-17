@@ -6,10 +6,9 @@
 			<placeholder name="PlaceholderGitMenus">
 				<menuitem name="Commit..." action="ActionGitCommit" />
 				<menuitem name="Fetch" action="ActionGitFetch" />
-				
 				<menuitem name="Pull..." action="ActionGitPull" />
-				<placeholder name="PlaceholderBranches"/>
-				<menu name="BranchesMenu">
+				<placeholder name="PlaceholderBranches">
+				<menu name="BranchesMenu" action="ActionMenuGitBranches">
 				  <menuitem name="Create branch..." action="ActionGitCreateBranch" />
 				  <menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
 				  <menuitem name="Switch to another branch..." action="ActionGitSwitch" />
@@ -31,13 +30,20 @@
   				</placeholder>
   		  </menu>
   		  </placeholder>
-				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
-				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
-				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
 				<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
+				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+  		  <separator />
+				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
 				<separator name="separator1" />
+				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
 				<menuitem name="Reset tree..." action="ActionGitReset" />
 				<menuitem name="Revert commit..." action="ActionGitRevert" />
+				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
+				<separator name="separator4" />
+				<menuitem name="Add..." action="ActionGitAdd" />
+				<menuitem name="Remove..." action="ActionGitRemove" />
+				<menuitem name="Ignore..." action="ActionGitIgnore" />
+				<menuitem name="Create tag..." action="ActionGitCreateTag" />
 				<separator name="separator2" />
 				<placeholder name="PlaceholderBisectMenu">
 					<menu name="Bisect" action="ActionMenuGitBisect">
@@ -50,14 +56,6 @@
 				</placeholder>
 				<separator name="separator3" />
 				<menuitem name="View log..." action="ActionGitLog" />
-				<separator name="separator4" />
-				<menuitem name="Add..." action="ActionGitAdd" />
-				<menuitem name="Remove..." action="ActionGitRemove" />
-				<menuitem name="Ignore..." action="ActionGitIgnore" />
-				<separator name="separator6" />
-				<menuitem name="Create tag..." action="ActionGitCreateTag" />
-				<separator name="separator7" />
-				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
 			</placeholder>
 		</menu>
 		</placeholder>
