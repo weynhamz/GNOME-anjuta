@@ -4852,7 +4852,7 @@ msgstr "Dateien _zurücknehmen …"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:138
 msgid "_Check out files..."
-msgstr "_Änderungen zurücknehmen"
+msgstr "_Änderungen zurücknehmen …"
 
 #. Action name
 #. Stock icon, if any
