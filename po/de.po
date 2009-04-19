@@ -4468,7 +4468,7 @@ msgstr "Zweig muss vollständig eingepflegt sein"
 
 #: ../plugins/git/anjuta-git.glade.h:42
 msgid "Check Out Files"
-msgstr "Arbeitskopie erstellen"
+msgstr "Änderungen zurücknehmen"
 
 #: ../plugins/git/anjuta-git.glade.h:43
 msgid "Check out the branch after it is created"
@@ -4677,7 +4677,7 @@ msgstr "Git: Datei erhalten."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr "Git: Arbeitskopie ist erstellt worden."
+msgstr "Git: Änderungen wurden zurückgenommen."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
@@ -4852,7 +4852,7 @@ msgstr "Dateien _zurücknehmen …"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:138
 msgid "_Check out files..."
-msgstr "_Arbeitskopie erstellen ..."
+msgstr "_Änderungen zurücknehmen"
 
 #. Action name
 #. Stock icon, if any
