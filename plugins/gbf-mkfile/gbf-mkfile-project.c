@@ -3237,8 +3237,13 @@ impl_add_source (GbfProject  *_project,
 	/* if the uri is relative, resolve it against the target's
 	 * group directory; we need to compute the group's uri
 	 * first */
-	group_uri = uri_normalize (g_path_skip_root (GBF_MKFILE_NODE (g_node->parent)->id),
-				   project->project_root_uri);
+        if (g_path_is_absolute (GBF_MKFILE_NODE (g_node->parent)->id)) {
+          group_uri = uri_normalize (g_path_skip_root (GBF_MKFILE_NODE (g_node->parent)->id),
+                                     project->project_root_uri);
+        } else {
+          group_uri = uri_normalize (GBF_MKFILE_NODE (g_node->parent)->id,
+                                                   project->project_root_uri);
+        }
 	full_uri = uri_normalize (uri, group_uri);
 	g_free (group_uri);
 	
