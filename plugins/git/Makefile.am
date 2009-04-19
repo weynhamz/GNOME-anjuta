@@ -181,7 +181,11 @@ libanjuta_git_la_SOURCES = \
 	git-vcs-interface.c \
 	git-vcs-interface.h \
 	git-clone-command.h \
-	git-clone-command.c
+	git-clone-command.c \
+	git-push-command.c \
+	git-push-command.h \
+	git-push-dialog.c \
+	git-push-dialog.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

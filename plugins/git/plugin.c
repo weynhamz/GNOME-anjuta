@@ -45,6 +45,7 @@
 #include "git-create-patch-series-dialog.h"
 #include "git-pull-dialog.h"
 #include "git-cat-file-menu.h"
+#include "git-push-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.ui"
 
@@ -324,6 +325,14 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
 		G_CALLBACK (on_menu_git_diff)    /* action callback */
+	},
+	{
+		"ActionGitPush",                       /* Action name */
+		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
+		N_("_Push..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_push)    /* action callback */
 	}
 };
 

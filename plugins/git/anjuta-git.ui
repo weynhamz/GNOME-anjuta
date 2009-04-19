@@ -15,6 +15,7 @@
 						<menuitem name="Abort" action="ActionGitRebaseAbort" />
 					</menu>
   				</placeholder>
+  				<menuitem name="Push..." action="ActionGitPush" />
 				<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
 				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
 				<separator />
