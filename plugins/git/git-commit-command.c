@@ -29,6 +29,8 @@ struct _GitCommitCommandPriv
 	GList *paths;
 	gboolean resolve_merge;
 	gchar *log;
+	gchar *author_name;
+	gchar *author_email;
 };
 
 G_DEFINE_TYPE (GitCommitCommand, git_commit_command, GIT_TYPE_COMMAND);
@@ -37,10 +39,21 @@ static guint
 git_commit_command_run (AnjutaCommand *command)
 {
 	GitCommitCommand *self;
+	gchar *author;
 	
 	self = GIT_COMMIT_COMMAND (command);
 	
 	git_command_add_arg (GIT_COMMAND (self), "commit");
+
+	if (self->priv->author_name && self->priv->author_email)
+	{
+		author = g_strdup_printf ("--author=%s <%s>", self->priv->author_name,
+		                          self->priv->author_email);
+		git_command_add_arg (GIT_COMMAND (self), author);
+
+		g_free (author);
+	}
+	
 	git_command_add_arg (GIT_COMMAND (self), "-m");
 	git_command_add_arg (GIT_COMMAND (self), self->priv->log);
 	
@@ -67,6 +80,8 @@ git_commit_command_finalize (GObject *object)
 	
 	git_command_free_path_list (self->priv->paths);
 	g_free (self->priv->log);
+	g_free (self->priv->author_name);
+	g_free (self->priv->author_email);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_commit_command_parent_class)->finalize (object);
@@ -87,7 +102,10 @@ git_commit_command_class_init (GitCommitCommandClass *klass)
 
 GitCommitCommand *
 git_commit_command_new (const gchar *working_directory, gboolean resolve_merge,
-						const gchar *log, GList *paths)
+						const gchar *log, 
+                        const gchar *author_name, 
+                        const gchar *author_email,
+                        GList *paths)
 {
 	GitCommitCommand *self;
 	
@@ -99,6 +117,8 @@ git_commit_command_new (const gchar *working_directory, gboolean resolve_merge,
 	self->priv->paths = git_command_copy_path_list (paths);
 	self->priv->resolve_merge = resolve_merge;
 	self->priv->log = g_strdup (log);
+	self->priv->author_name = g_strdup (author_name);
+	self->priv->author_email = g_strdup (author_email);
 	
 	return self;
 }

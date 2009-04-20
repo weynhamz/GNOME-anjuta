@@ -50,6 +50,12 @@ on_commit_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *log_prompt_dialog;
 	gint prompt_response;
 	GtkWidget *commit_status_view;
+	GtkWidget *commit_custom_author_info_check;
+	GtkWidget *commit_author_info_alignment;
+	GtkWidget *commit_author_name_entry;
+	GtkWidget *commit_author_email_entry;
+	gchar *author_name;
+	gchar *author_email;
 	GtkWidget *resolve_check;
 	GList *selected_paths;
 	GitCommitCommand *commit_command;
@@ -74,12 +80,50 @@ on_commit_dialog_response (GtkDialog *dialog, gint response_id,
 				return;
 		}
 		
+		commit_custom_author_info_check = glade_xml_get_widget (data->gxml, 
+		                                                        "commit_custom_author_info_check");
+		commit_author_info_alignment = glade_xml_get_widget (data->gxml,
+		                                                     "commit_author_info_alignment");
+		commit_author_name_entry = glade_xml_get_widget (data->gxml,
+		                                                 "commit_author_name_entry");
+		commit_author_email_entry = glade_xml_get_widget (data->gxml,
+		                                                  "commit_author_email_entry");
+
+		author_name = NULL;
+		author_email = NULL;
+
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (commit_custom_author_info_check)))
+		{
+			author_name = gtk_editable_get_chars (GTK_EDITABLE (commit_author_name_entry), 0, -1);
+			if (!git_check_input (GTK_WIDGET (dialog), commit_author_name_entry,
+			                      author_name,
+			                      _("Please enter the commit author's name.")))
+			{
+				g_free (log);
+				return;
+			}
+
+			author_email = gtk_editable_get_chars (GTK_EDITABLE (commit_author_email_entry), 0, -1);
+
+			if (!git_check_input (GTK_WIDGET (dialog), commit_author_email_entry,
+			                      author_email,
+			                      _("Please enter the commit author's e-mail address.")))
+			{
+				g_free (log);
+				g_free (author_name);
+				return;
+			}
+		}
+		   
+
 		commit_status_view = glade_xml_get_widget (data->gxml, "commit_status_view");
 		resolve_check = glade_xml_get_widget (data->gxml, "resolve_check");
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (commit_status_view));
 		commit_command = git_commit_command_new (data->plugin->project_root_directory,
 												 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (resolve_check)),
 												 log,
+		                                         author_name,
+		                                         author_email,
 												 selected_paths);
 		
 		g_free (log);
@@ -110,10 +154,20 @@ select_all_files (AnjutaCommand *command, guint return_code,
 }
 
 static void
+set_author_info_alignment_sensitive (GtkToggleButton *button,
+                            		 GtkWidget *commit_author_info_alignment)
+{
+	gtk_widget_set_sensitive (commit_author_info_alignment,
+	                          gtk_toggle_button_get_active (button));
+}
+
+static void
 commit_dialog (Git *plugin)
 {
 	GladeXML *gxml;
 	GtkWidget *dialog;
+	GtkWidget *commit_custom_author_info_check;
+	GtkWidget *commit_author_info_alignment;
 	GtkWidget *commit_select_all_button;
 	GtkWidget *commit_clear_button;
 	GtkWidget *commit_status_view;
@@ -124,6 +178,8 @@ commit_dialog (Git *plugin)
 	gxml = glade_xml_new (GLADE_FILE, "commit_dialog", NULL);
 	
 	dialog = glade_xml_get_widget (gxml, "commit_dialog");
+	commit_custom_author_info_check = glade_xml_get_widget (gxml, "commit_custom_author_info_check");
+	commit_author_info_alignment = glade_xml_get_widget (gxml, "commit_author_info_alignment");
 	commit_select_all_button = glade_xml_get_widget (gxml, "commit_select_all_button");
 	commit_clear_button = glade_xml_get_widget (gxml, "commit_clear_button");
 	commit_status_view = glade_xml_get_widget (gxml, "commit_status_view");
@@ -132,6 +188,10 @@ commit_dialog (Git *plugin)
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_MODIFIED);
 	
+	g_signal_connect (G_OBJECT (commit_custom_author_info_check), "toggled",
+	                  G_CALLBACK (set_author_info_alignment_sensitive),
+	                  commit_author_info_alignment);
+
 	g_signal_connect (G_OBJECT (commit_select_all_button), "clicked",
 					  G_CALLBACK (git_select_all_status_items),
 					  commit_status_view);
@@ -165,6 +225,8 @@ commit_dialog (Git *plugin)
 	g_object_weak_ref (G_OBJECT (commit_status_view),
 					   (GWeakNotify) git_disconnect_data_arrived_signals,
 					   status_command);
+
+	
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
