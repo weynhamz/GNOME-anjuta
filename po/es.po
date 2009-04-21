@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-04-18 16:16+0000\n"
-"PO-Revision-Date: 2009-04-18 20:55+0200\n"
+"POT-Creation-Date: 2009-04-20 01:26+0000\n"
+"PO-Revision-Date: 2009-04-21 20:57+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -407,7 +407,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1593 ../plugins/git/plugin.c:202
+#: ../libanjuta/anjuta-preferences.c:1593 ../plugins/git/plugin.c:203
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -533,7 +533,6 @@ msgid "Conflicted"
 msgstr "En conflicto"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:308
-#| msgid "Up-to-date"
 msgid "Up to date"
 msgstr "Actualizado"
 
@@ -1349,7 +1348,7 @@ msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:72
+#: ../plugins/git/anjuta-git.glade.h:78
 #: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
 msgstr "Revisión:"
@@ -1385,7 +1384,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:85
+#: ../plugins/git/anjuta-git.glade.h:92
 #: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Proyecto completo"
@@ -1408,7 +1407,7 @@ msgid "Unable to delete file"
 msgstr "No se puede borrar el archivo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:245
-#: ../plugins/git/git-commit-dialog.c:68
+#: ../plugins/git/git-commit-dialog.c:74
 #: ../plugins/git/git-create-tag-dialog.c:127
 #: ../plugins/git/git-merge-dialog.c:80
 #: ../plugins/subversion/subversion-commit-dialog.c:70
@@ -2250,12 +2249,12 @@ msgid "Shared Object"
 msgstr "Objeto compartido"
 
 #: ../plugins/debug-manager/sharedlib.c:173
-#: ../plugins/git/anjuta-git.glade.h:56
+#: ../plugins/git/anjuta-git.glade.h:58
 msgid "From"
 msgstr "De"
 
 #: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.glade.h:80
+#: ../plugins/git/anjuta-git.glade.h:86
 msgid "To"
 msgstr "Para"
 
@@ -3596,6 +3595,7 @@ msgstr ""
 "La extensión será añadida de acuerdo con el tipo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: ../plugins/git/anjuta-git.glade.h:66
 #: ../plugins/macro/anjuta-macro.glade.h:6
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Name:"
@@ -3740,8 +3740,8 @@ msgstr "El objetivo no existe"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
 msgid "Unable to update project"
 msgstr "No se pudo actualizar el proyecto"
 
@@ -3874,7 +3874,7 @@ msgstr "Módulo Python"
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
 msgid "Source doesn't exist"
 msgstr "El código fuente no existe"
 
@@ -3903,8 +3903,8 @@ msgstr "El código no pudo ser eliminado"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "Directorio del proyecto"
 
@@ -4088,20 +4088,20 @@ msgstr "No se pudo crear el objetivo"
 msgid "Target coudn't be removed"
 msgstr "No se pudo eliminar el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Source file must be inside the project directory"
 msgstr "El archivo de código debe estar dentro del directorio del proyecto"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Source is already in target"
 msgstr "El código ya se encuentra en el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
 msgid "Source couldn't be added"
 msgstr "No se pudo añadir el código"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
 msgid "Source coudn't be removed"
 msgstr "No se pudo eliminar el código"
 
@@ -4361,255 +4361,283 @@ msgid "<b>Repository to pull from:</b>"
 msgstr "<b>Repositorio desde el que actualizar:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
+#| msgid "<b>Repository to pull from:</b>"
+msgid "<b>Repository to push to:</b>"
+msgstr "<b>Repositorio al que actualizar:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:20
 msgid "<b>Reset to:</b>"
 msgstr "<b>Restablecer a:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:20
+#: ../plugins/git/anjuta-git.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "<b>Revision:</b>"
 msgstr "<b>Revisión:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:21
+#: ../plugins/git/anjuta-git.glade.h:22
 msgid "<b>Select Files to Check Out:</b>"
 msgstr "<b>Seleccione archivos para descargar (checkout):</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:22
+#: ../plugins/git/anjuta-git.glade.h:23
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
 msgstr "<b>Seleccione archivos para subir:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:23
+#: ../plugins/git/anjuta-git.glade.h:24
 msgid "<b>Select Files to Ignore:</b>"
 msgstr "<b>Seleccione archivos para ignorar:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:24
+#: ../plugins/git/anjuta-git.glade.h:25
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:25
+#: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select Files to Unstage:</b>"
 msgstr "<b>Seleccionar los archivos sobre los que realizar «unstage»:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:26
+#: ../plugins/git/anjuta-git.glade.h:27
 msgid "<b>Select file to add:</b>"
 msgstr "<b>Seleccione archivos para añadir:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:27
+#: ../plugins/git/anjuta-git.glade.h:28
 msgid "<b>Select file to remove:</b>"
 msgstr "<b>Seleccione archivos para quitar:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:28
+#: ../plugins/git/anjuta-git.glade.h:29
 msgid "<b>Tag name:</b>"
 msgstr "<b>Nombre de la etiqueta:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:29
+#: ../plugins/git/anjuta-git.glade.h:30
 msgid "<b>URL:</b>"
 msgstr "<b>URL:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:30
+#: ../plugins/git/anjuta-git.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
 msgstr "<b>Ver el registro para el/la archivo/carpeta:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:31
+#: ../plugins/git/anjuta-git.glade.h:32
 msgid "Add File"
 msgstr "Añadir archivo"
 
-#: ../plugins/git/anjuta-git.glade.h:32
+#: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add Remote Branch"
 msgstr "Añadir rama remota"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.glade.h:34
+#: ../plugins/git/anjuta-git.glade.h:35
 msgid "Add signed off by line"
 msgstr "Añadir la línea «asignado por»"
 
-#: ../plugins/git/anjuta-git.glade.h:35
+#: ../plugins/git/anjuta-git.glade.h:36
 msgid "Annotate this tag"
 msgstr "Anotar esta etiqueta"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.glade.h:37
+#: ../plugins/git/anjuta-git.glade.h:38
 msgid "Append fetch data"
 msgstr "Añadir fecha de obtención"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.glade.h:39
+#: ../plugins/git/anjuta-git.glade.h:40
 msgid "Author/Grep"
 msgstr "Autor/Grep"
 
-#: ../plugins/git/anjuta-git.glade.h:40
+#: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../plugins/git/anjuta-git.glade.h:41
+#: ../plugins/git/anjuta-git.glade.h:42
 msgid "Branch must be fully merged"
 msgstr "La rama debe estar completamente mezclada"
 
-#: ../plugins/git/anjuta-git.glade.h:42
+#: ../plugins/git/anjuta-git.glade.h:43
 msgid "Check Out Files"
 msgstr "Descargar (checkout) archivos"
 
-#: ../plugins/git/anjuta-git.glade.h:43
+#: ../plugins/git/anjuta-git.glade.h:44
 msgid "Check out the branch after it is created"
 msgstr "Descargar (checkout) la rama después de que se haya creado"
 
-#: ../plugins/git/anjuta-git.glade.h:44
+#: ../plugins/git/anjuta-git.glade.h:45
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Commit Changes"
 msgstr "Efectuar cambios"
 
-#: ../plugins/git/anjuta-git.glade.h:45
+#: ../plugins/git/anjuta-git.glade.h:46
 msgid "Commit on fast-forward merges"
 msgstr "Commit al mezclar en modo rápido"
 
-#: ../plugins/git/anjuta-git.glade.h:46
+#: ../plugins/git/anjuta-git.glade.h:47
 msgid "Create Branch"
 msgstr "Crear rama"
 
-#: ../plugins/git/anjuta-git.glade.h:47
+#: ../plugins/git/anjuta-git.glade.h:48
 msgid "Create Tag"
 msgstr "Crear etiqueta"
 
-#: ../plugins/git/anjuta-git.glade.h:48
+#: ../plugins/git/anjuta-git.glade.h:49
 msgid "Create patch series"
 msgstr "Crear serie de parches"
 
-#: ../plugins/git/anjuta-git.glade.h:49 ../plugins/git/git-log-dialog.c:188
+#: ../plugins/git/anjuta-git.glade.h:50 ../plugins/git/git-log-dialog.c:188
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Fecha"
 
-#: ../plugins/git/anjuta-git.glade.h:50
+#: ../plugins/git/anjuta-git.glade.h:51
 msgid "Delete Branch"
 msgstr "Borrar rama"
 
-#: ../plugins/git/anjuta-git.glade.h:51
+#: ../plugins/git/anjuta-git.glade.h:52
 msgid "Delete Remote Branch"
 msgstr "Borrar rama remota"
 
-#: ../plugins/git/anjuta-git.glade.h:52
+#: ../plugins/git/anjuta-git.glade.h:53
 msgid "Do not commit"
 msgstr "No efectuar commit"
 
-#: ../plugins/git/anjuta-git.glade.h:53
+#: ../plugins/git/anjuta-git.glade.h:54
 msgid "Do not follow tags"
 msgstr "No seguir etiquetas"
 
-#: ../plugins/git/anjuta-git.glade.h:54
+#: ../plugins/git/anjuta-git.glade.h:55
+#| msgid "Author Email:"
+msgid "E-mail:"
+msgstr "Correo-e:"
+
+#: ../plugins/git/anjuta-git.glade.h:56
 msgid "Fetch remote branches after creation"
 msgstr "Obtener ramas remotas después de crearlas"
 
-#: ../plugins/git/anjuta-git.glade.h:55
+#: ../plugins/git/anjuta-git.glade.h:57
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/git/anjuta-git.glade.h:57
+#: ../plugins/git/anjuta-git.glade.h:59
 msgid "From:"
 msgstr "De:"
 
-#: ../plugins/git/anjuta-git.glade.h:58
+#: ../plugins/git/anjuta-git.glade.h:60
 msgid "Grep:"
 msgstr "Grep:"
 
-#: ../plugins/git/anjuta-git.glade.h:59
+#: ../plugins/git/anjuta-git.glade.h:61
 msgid "Hard"
 msgstr "Duro"
 
-#: ../plugins/git/anjuta-git.glade.h:60
+#: ../plugins/git/anjuta-git.glade.h:62
 msgid "Head"
 msgstr "Cabecera"
 
-#: ../plugins/git/anjuta-git.glade.h:61
+#: ../plugins/git/anjuta-git.glade.h:63
 msgid "Ignore Files"
 msgstr "Ignorar archivos"
 
-#: ../plugins/git/anjuta-git.glade.h:62
+#: ../plugins/git/anjuta-git.glade.h:64
 msgid "Merge"
 msgstr "Mezclar"
 
-#: ../plugins/git/anjuta-git.glade.h:63
+#: ../plugins/git/anjuta-git.glade.h:65
 msgid "Mixed"
 msgstr "Mezclado"
 
-#: ../plugins/git/anjuta-git.glade.h:64
+#: ../plugins/git/anjuta-git.glade.h:67
 msgid "Previous commit"
 msgstr "Commit anterior"
 
-#: ../plugins/git/anjuta-git.glade.h:65
+#: ../plugins/git/anjuta-git.glade.h:68
 msgid "Pull"
 msgstr "Descargar (pull)"
 
-#: ../plugins/git/anjuta-git.glade.h:66
+#: ../plugins/git/anjuta-git.glade.h:69
+#| msgid "Squash"
+msgid "Push"
+msgstr "Empujar"
+
+#: ../plugins/git/anjuta-git.glade.h:70
+msgid "Push all refs"
+msgstr "Empujar todas las referencias"
+
+#: ../plugins/git/anjuta-git.glade.h:71
+msgid "Push tags"
+msgstr "Empujar etiquetas"
+
+#: ../plugins/git/anjuta-git.glade.h:72
 msgid "Rebase"
 msgstr "Ajustar a base (rebase)"
 
-#: ../plugins/git/anjuta-git.glade.h:67
+#: ../plugins/git/anjuta-git.glade.h:73
 msgid "Remove File"
 msgstr "Quitar archivo"
 
-#: ../plugins/git/anjuta-git.glade.h:68
+#: ../plugins/git/anjuta-git.glade.h:74
 msgid "Reset Tree"
 msgstr "Restablecer árbol"
 
-#: ../plugins/git/anjuta-git.glade.h:69
+#: ../plugins/git/anjuta-git.glade.h:75
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
 msgstr "Obteniendo el estado…"
 
-#: ../plugins/git/anjuta-git.glade.h:70
+#: ../plugins/git/anjuta-git.glade.h:76
 msgid "Revert Commit"
 msgstr "Revertir commit"
 
-#: ../plugins/git/anjuta-git.glade.h:71
+#: ../plugins/git/anjuta-git.glade.h:77
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
-#: ../plugins/git/anjuta-git.glade.h:73
+#: ../plugins/git/anjuta-git.glade.h:79
 msgid "Select A Folder"
 msgstr "Seleccionar una carpeta"
 
-#: ../plugins/git/anjuta-git.glade.h:74
+#: ../plugins/git/anjuta-git.glade.h:80
 #: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
 msgstr "Establecer conflictos como resueltos"
 
-#: ../plugins/git/anjuta-git.glade.h:75
+#: ../plugins/git/anjuta-git.glade.h:81
 msgid "Soft"
 msgstr "Blando"
 
-#: ../plugins/git/anjuta-git.glade.h:76
+#: ../plugins/git/anjuta-git.glade.h:82
 msgid "Squash"
 msgstr "Aplastar (squash)"
 
-#: ../plugins/git/anjuta-git.glade.h:77
+#: ../plugins/git/anjuta-git.glade.h:83
 msgid "Switch to Another Branch"
 msgstr "Cambiar a otra rama"
 
-#: ../plugins/git/anjuta-git.glade.h:78
+#: ../plugins/git/anjuta-git.glade.h:84
 msgid "Tag/Commit"
 msgstr "Etiqueta/Commit"
 
-#: ../plugins/git/anjuta-git.glade.h:79
+#: ../plugins/git/anjuta-git.glade.h:85
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
-#: ../plugins/git/anjuta-git.glade.h:81
+#: ../plugins/git/anjuta-git.glade.h:87
 msgid "To:"
 msgstr "Para:"
 
-#: ../plugins/git/anjuta-git.glade.h:82
+#: ../plugins/git/anjuta-git.glade.h:88
 msgid "Unstage Files"
 msgstr "Realizar «unstage» de archivos"
 
-#: ../plugins/git/anjuta-git.glade.h:83
+#: ../plugins/git/anjuta-git.glade.h:89
 msgid "Use a custom log message"
 msgstr "Usar un mensaje de registro personalizado"
 
-#: ../plugins/git/anjuta-git.glade.h:84
+#: ../plugins/git/anjuta-git.glade.h:90
+#| msgid "Repository authorization"
+msgid "Use custom author information:"
+msgstr "Usar información personalizada del autor:"
+
+#: ../plugins/git/anjuta-git.glade.h:91
 msgid "View log"
 msgstr "Ver el registro"
 
@@ -4660,6 +4688,16 @@ msgstr "Git: Archivos descargados (checkout)."
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
 msgstr "Git: Commit completo."
+
+#: ../plugins/git/git-commit-dialog.c:100
+#| msgid "Please enter the first path."
+msgid "Please enter the commit author's name."
+msgstr "Introduzca el nombre del autor del cambio."
+
+#: ../plugins/git/git-commit-dialog.c:110
+#| msgid "Please enter the first path."
+msgid "Please enter the commit author's e-mail address."
+msgstr "Introduzca el correo-e del autor del cambio."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
@@ -4767,238 +4805,243 @@ msgstr "Git: Archivos «unstaged»"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:58 ../plugins/git/plugin.c:411
+#: ../plugins/git/plugin.c:59 ../plugins/git/plugin.c:420
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:66 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:67 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "_Efectuar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:75
 msgid "_Fetch"
 msgstr "_Obtener"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:83
 msgid "_Rebase"
 msgstr "Ajustar a _base"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:90 ../plugins/git/plugin.c:194
+#: ../plugins/git/plugin.c:91 ../plugins/git/plugin.c:195
 msgid "_Start..."
 msgstr "_Iniciar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:98
+#: ../plugins/git/plugin.c:99
 msgid "_Continue"
 msgstr "_Continuar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:106
+#: ../plugins/git/plugin.c:107
 msgid "_Skip"
 msgstr "_Saltar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:114
+#: ../plugins/git/plugin.c:115
 msgid "_Abort"
 msgstr "_Abortar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:122
+#: ../plugins/git/plugin.c:123
 msgid "_Pull..."
 msgstr "Ca_rgar (pull)…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:130
+#: ../plugins/git/plugin.c:131
 msgid "_Unstage files..."
 msgstr "Realizar «unstage» de archivos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:138
+#: ../plugins/git/plugin.c:139
 msgid "_Check out files..."
 msgstr "_Descargar (checkout) archivos…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:146
+#: ../plugins/git/plugin.c:147
 msgid "_Resolve conflicts..."
 msgstr "_Resolver conflictos…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:154
+#: ../plugins/git/plugin.c:155
 msgid "Create patch series..."
 msgstr "Crear serie de parches…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:162 ../plugins/git/plugin.c:367
+#: ../plugins/git/plugin.c:163 ../plugins/git/plugin.c:376
 msgid "_Reset tree..."
 msgstr "_Restablecer árbol…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:170 ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:171 ../plugins/git/plugin.c:384
 msgid "_Revert commit..."
 msgstr "_Revertir commit…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:178
-#| msgid "_Remote branches"
+#: ../plugins/git/plugin.c:179
 msgid "_Branches"
 msgstr "_Ramas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:186
-#| msgid "_Bisect"
+#: ../plugins/git/plugin.c:187
 msgid "Bisect"
 msgstr "Viviseccionar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:210
+#: ../plugins/git/plugin.c:211
 msgid "_Good"
 msgstr "_Buena"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:218
+#: ../plugins/git/plugin.c:219
 msgid "_Bad"
 msgstr "_Mala"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:226 ../plugins/git/plugin.c:419
+#: ../plugins/git/plugin.c:227 ../plugins/git/plugin.c:428
 msgid "_View log..."
 msgstr "_Ver el registro…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:234 ../plugins/git/plugin.c:299
-#: ../plugins/git/plugin.c:427 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:235 ../plugins/git/plugin.c:300
+#: ../plugins/git/plugin.c:436 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Añadir…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:242 ../plugins/git/plugin.c:435
+#: ../plugins/git/plugin.c:243 ../plugins/git/plugin.c:444
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "_Eliminar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:250
+#: ../plugins/git/plugin.c:251
 msgid "_Ignore..."
 msgstr "_Ignorar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:259 ../plugins/git/plugin.c:351
+#: ../plugins/git/plugin.c:260 ../plugins/git/plugin.c:360
 msgid "_Create branch..."
 msgstr "_Crear rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:267
+#: ../plugins/git/plugin.c:268
 msgid "_Delete branch..."
 msgstr "_Borrar rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:275
+#: ../plugins/git/plugin.c:276
 msgid "_Switch to another branch..."
 msgstr "Cambia_r a otra rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:283
+#: ../plugins/git/plugin.c:284
 msgid "_Merge..."
 msgstr "_Mezclar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:291
+#: ../plugins/git/plugin.c:292
 msgid "_Remote branches"
 msgstr "Ramas _remotas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:307
+#: ../plugins/git/plugin.c:308
 msgid "_Delete..."
 msgstr "_Borrar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:315 ../plugins/git/plugin.c:359
+#: ../plugins/git/plugin.c:316 ../plugins/git/plugin.c:368
 msgid "_Create tag..."
 msgstr "_Crear etiqueta…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:323
+#: ../plugins/git/plugin.c:324
 msgid "_Diff uncommitted changes"
 msgstr "_Diff de los cambios sin subir"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:335
+#: ../plugins/git/plugin.c:332
+#| msgid "_Pull..."
+msgid "_Push..."
+msgstr "E_mpujar…"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:344
 msgid "_Show commit diff"
 msgstr "_Mostrar el diff del commit"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:343
+#: ../plugins/git/plugin.c:352
 msgid "_View selected revision"
 msgstr "_Ver la revisión seleccionada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:383
+#: ../plugins/git/plugin.c:392
 msgid "_Bisect"
 msgstr "_Vivisección (bisect)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:391
+#: ../plugins/git/plugin.c:400
 msgid "_Set good revision"
 msgstr "_Establecer como revisión buena"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:399
+#: ../plugins/git/plugin.c:408
 msgid "_Set bad revision"
 msgstr "_Establecer como revisión mala"
 
-#: ../plugins/git/plugin.c:589
+#: ../plugins/git/plugin.c:598
 msgid "Git operations"
 msgstr "Operaciones de Git"
 
-#: ../plugins/git/plugin.c:594
+#: ../plugins/git/plugin.c:603
 msgid "Git log operations"
 msgstr "Operaciones de registro de Git"
 
-#: ../plugins/git/plugin.c:599
+#: ../plugins/git/plugin.c:608
 msgid "Git FM operations"
 msgstr "Operaciones FM de Git"
 
-#: ../plugins/git/plugin.c:614
+#: ../plugins/git/plugin.c:623
 msgid "Git Log"
 msgstr "Registro de Git"
 
@@ -6074,12 +6117,10 @@ msgstr ""
 "No se pudo descargar el URI proporcionado «%s», el error devuelto fue: «%s»"
 
 #: ../plugins/project-import/project-import.glade.h:1
-#| msgid "<b>Print options</b>"
 msgid "<b>Import options</b>"
 msgstr "<b>Opciones de importación</b>"
 
 #: ../plugins/project-import/project-import.glade.h:2
-#| msgid "<b>Project Defaults</b>"
 msgid "<b>Project name</b>"
 msgstr "<b>Nombre del proyecto</b>"
 
@@ -6090,27 +6131,22 @@ msgid "Destination:"
 msgstr "Destino:"
 
 #: ../plugins/project-import/project-import.glade.h:4
-#| msgid "Import Project"
 msgid "Import from folder"
 msgstr "Importar desde una carpeta"
 
 #: ../plugins/project-import/project-import.glade.h:5
-#| msgid "A version control system plugin"
 msgid "Import from version control system"
 msgstr "Importar desde un sistema de control de versiones"
 
 #: ../plugins/project-import/project-import.glade.h:6
-#| msgid "_Location:"
 msgid "Location:"
 msgstr "Ubicación:"
 
 #: ../plugins/project-import/project-import-dialog.c:269
-#| msgid "Import Project"
 msgid "Import project"
 msgstr "Importar proyecto"
 
 #: ../plugins/project-import/project-import-dialog.c:273
-#| msgid "CVS: Import"
 msgid "Import"
 msgstr "Importar"
 
@@ -6430,7 +6466,6 @@ msgid "Error"
 msgstr "Error"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
-#| msgid "Select project directory"
 msgid "Select project type"
 msgstr "Seleccionar el tipo de proyecto"
 
@@ -8057,7 +8092,6 @@ msgid "Goto symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
 #: ../plugins/symbol-db/plugin.c:321
-#| msgid "Tag _Definition"
 msgid "Tag _Implementation"
 msgstr "_Implementación de etiquetas"
 
@@ -8066,12 +8100,10 @@ msgid "Goto symbol definition"
 msgstr "Ir a definición del símbolo"
 
 #: ../plugins/symbol-db/plugin.c:330
-#| msgid "_Find..."
 msgid "_Find Symbol..."
 msgstr "_Buscar símbolo…"
 
 #: ../plugins/symbol-db/plugin.c:331
-#| msgid "Symbol"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
@@ -8096,7 +8128,6 @@ msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1908
-#| msgid "Created symbols..."
 msgid "Populating symbols' db..."
 msgstr "Llenando la BB DD de símbolos…"
 
@@ -8113,12 +8144,10 @@ msgid "Symbols"
 msgstr "Símbolos"
 
 #: ../plugins/symbol-db/plugin.c:2319
-#| msgid "Symbol browser popup actions"
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
 #: ../plugins/symbol-db/plugin.c:2327
-#| msgid "Symbol browser actions"
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
