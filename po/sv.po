@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-18 21:21+0200\n"
-"PO-Revision-Date: 2009-04-18 21:25+0100\n"
+"POT-Creation-Date: 2009-04-21 14:42+0200\n"
+"PO-Revision-Date: 2009-04-21 14:48+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -410,7 +410,7 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../libanjuta/anjuta-preferences.c:1593
-#: ../plugins/git/plugin.c:202
+#: ../plugins/git/plugin.c:203
 msgid "_Reset"
 msgstr "_Återställ"
 
@@ -1333,7 +1333,7 @@ msgid "Reset sticky tags"
 msgstr "Återställ klistriga taggar"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:72
+#: ../plugins/git/anjuta-git.glade.h:78
 #: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
 msgstr "Revision:"
@@ -1369,7 +1369,7 @@ msgid "Vendor tag:"
 msgstr "Leverantörstagg:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:85
+#: ../plugins/git/anjuta-git.glade.h:92
 #: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Hela projektet"
@@ -1392,7 +1392,7 @@ msgid "Unable to delete file"
 msgstr "Kunde inte ta bort fil"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:245
-#: ../plugins/git/git-commit-dialog.c:68
+#: ../plugins/git/git-commit-dialog.c:74
 #: ../plugins/git/git-create-tag-dialog.c:127
 #: ../plugins/git/git-merge-dialog.c:80
 #: ../plugins/subversion/subversion-commit-dialog.c:70
@@ -2251,12 +2251,12 @@ msgid "Shared Object"
 msgstr "Delat objekt"
 
 #: ../plugins/debug-manager/sharedlib.c:173
-#: ../plugins/git/anjuta-git.glade.h:56
+#: ../plugins/git/anjuta-git.glade.h:58
 msgid "From"
 msgstr "Från"
 
 #: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.glade.h:80
+#: ../plugins/git/anjuta-git.glade.h:86
 msgid "To"
 msgstr "Till"
 
@@ -3616,6 +3616,7 @@ msgstr ""
 "Filändelsen kommer att läggas till enligt filtypen."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: ../plugins/git/anjuta-git.glade.h:66
 #: ../plugins/macro/anjuta-macro.glade.h:6
 #: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Name:"
@@ -3761,8 +3762,8 @@ msgstr "Målet finns inte"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
 msgid "Unable to update project"
 msgstr "Kan inte uppdatera projektet"
 
@@ -3888,7 +3889,7 @@ msgstr "Python-modul"
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
 msgid "Source doesn't exist"
 msgstr "Källkoden finns inte"
 
@@ -3914,8 +3915,8 @@ msgstr "Källkoden kunde inte tas bort"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "Projektkatalog"
 
@@ -4097,20 +4098,20 @@ msgstr "Målet kunde inte skapas"
 msgid "Target coudn't be removed"
 msgstr "Målet kunde inte tas bort"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Source file must be inside the project directory"
 msgstr "Källkodsfilen måste finnas i projektkatalogen"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Source is already in target"
 msgstr "Källkoden finns redan i målet"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
 msgid "Source couldn't be added"
 msgstr "Källkoden kunde inte läggas till"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
 msgid "Source coudn't be removed"
 msgstr "Källkoden kunde inte tas bort"
 
@@ -4366,257 +4367,281 @@ msgid "<b>Repository to pull from:</b>"
 msgstr "<b>Förråd att hämta från:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:19
+msgid "<b>Repository to push to:</b>"
+msgstr "<b>Förråd att trycka (push) till:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:20
 msgid "<b>Reset to:</b>"
 msgstr "<b>Återställ till:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:20
+#: ../plugins/git/anjuta-git.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "<b>Revision:</b>"
 msgstr "<b>Revision:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:21
+#: ../plugins/git/anjuta-git.glade.h:22
 msgid "<b>Select Files to Check Out:</b>"
 msgstr "<b>Välj filer att checka ut:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:22
+#: ../plugins/git/anjuta-git.glade.h:23
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
 msgstr "<b>Välj filer att verkställa:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:23
+#: ../plugins/git/anjuta-git.glade.h:24
 msgid "<b>Select Files to Ignore:</b>"
 msgstr "<b>Välj filer att ignorera:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:24
+#: ../plugins/git/anjuta-git.glade.h:25
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Välj filer att markera som lösta:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:25
+#: ../plugins/git/anjuta-git.glade.h:26
 msgid "<b>Select Files to Unstage:</b>"
 msgstr "<b>Välj filer att avköa:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:26
+#: ../plugins/git/anjuta-git.glade.h:27
 msgid "<b>Select file to add:</b>"
 msgstr "<b>Välj fil att lägga till:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:27
+#: ../plugins/git/anjuta-git.glade.h:28
 msgid "<b>Select file to remove:</b>"
 msgstr "<b>Välj fil att ta bort:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:28
+#: ../plugins/git/anjuta-git.glade.h:29
 msgid "<b>Tag name:</b>"
 msgstr "<b>Taggnamn:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:29
+#: ../plugins/git/anjuta-git.glade.h:30
 msgid "<b>URL:</b>"
 msgstr "<b>URL:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:30
+#: ../plugins/git/anjuta-git.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
 msgstr "<b>Visa loggen för fil/mapp:</b>"
 
-#: ../plugins/git/anjuta-git.glade.h:31
+#: ../plugins/git/anjuta-git.glade.h:32
 msgid "Add File"
 msgstr "Lägg till fil"
 
-#: ../plugins/git/anjuta-git.glade.h:32
+#: ../plugins/git/anjuta-git.glade.h:33
 msgid "Add Remote Branch"
 msgstr "Lägg till fjärrgren"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.glade.h:34
+#: ../plugins/git/anjuta-git.glade.h:35
 msgid "Add signed off by line"
 msgstr "Lägg till Signed-off-by-rad"
 
-#: ../plugins/git/anjuta-git.glade.h:35
+#: ../plugins/git/anjuta-git.glade.h:36
 msgid "Annotate this tag"
 msgstr "Kommentera denna tagg"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.glade.h:37
+#: ../plugins/git/anjuta-git.glade.h:38
 msgid "Append fetch data"
 msgstr "Lägg till hämtat data"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.glade.h:39
+#: ../plugins/git/anjuta-git.glade.h:40
 msgid "Author/Grep"
 msgstr "Upphovsman/Grep"
 
-#: ../plugins/git/anjuta-git.glade.h:40
+#: ../plugins/git/anjuta-git.glade.h:41
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Författare:"
 
-#: ../plugins/git/anjuta-git.glade.h:41
+#: ../plugins/git/anjuta-git.glade.h:42
 msgid "Branch must be fully merged"
 msgstr "Grenen måste vara fullständigt sammanfogad"
 
-#: ../plugins/git/anjuta-git.glade.h:42
+#: ../plugins/git/anjuta-git.glade.h:43
 msgid "Check Out Files"
 msgstr "Checka ut filer"
 
-#: ../plugins/git/anjuta-git.glade.h:43
+#: ../plugins/git/anjuta-git.glade.h:44
 msgid "Check out the branch after it is created"
 msgstr "Checka ut grenen efter att den skapats"
 
-#: ../plugins/git/anjuta-git.glade.h:44
+#: ../plugins/git/anjuta-git.glade.h:45
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Commit Changes"
 msgstr "Verkställ ändringar"
 
 # fast-forward merge är en underlig term i git
-#: ../plugins/git/anjuta-git.glade.h:45
+#: ../plugins/git/anjuta-git.glade.h:46
 msgid "Commit on fast-forward merges"
 msgstr "Verkställ på snabbspolade sammanfogningar"
 
-#: ../plugins/git/anjuta-git.glade.h:46
+#: ../plugins/git/anjuta-git.glade.h:47
 msgid "Create Branch"
 msgstr "Skapa gren"
 
-#: ../plugins/git/anjuta-git.glade.h:47
+#: ../plugins/git/anjuta-git.glade.h:48
 msgid "Create Tag"
 msgstr "Skapa tagg"
 
-#: ../plugins/git/anjuta-git.glade.h:48
+#: ../plugins/git/anjuta-git.glade.h:49
 msgid "Create patch series"
 msgstr "Skapa patchserie"
 
-#: ../plugins/git/anjuta-git.glade.h:49
+#: ../plugins/git/anjuta-git.glade.h:50
 #: ../plugins/git/git-log-dialog.c:188
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Datum"
 
-#: ../plugins/git/anjuta-git.glade.h:50
+#: ../plugins/git/anjuta-git.glade.h:51
 msgid "Delete Branch"
 msgstr "Ta bort gren"
 
-#: ../plugins/git/anjuta-git.glade.h:51
+#: ../plugins/git/anjuta-git.glade.h:52
 msgid "Delete Remote Branch"
 msgstr "Ta bort fjärrgren"
 
-#: ../plugins/git/anjuta-git.glade.h:52
+#: ../plugins/git/anjuta-git.glade.h:53
 msgid "Do not commit"
 msgstr "Verkställ inte"
 
-#: ../plugins/git/anjuta-git.glade.h:53
+#: ../plugins/git/anjuta-git.glade.h:54
 msgid "Do not follow tags"
 msgstr "Följ inte taggar"
 
-#: ../plugins/git/anjuta-git.glade.h:54
+#: ../plugins/git/anjuta-git.glade.h:55
+msgid "E-mail:"
+msgstr "E-post:"
+
+#: ../plugins/git/anjuta-git.glade.h:56
 msgid "Fetch remote branches after creation"
 msgstr "Hämta fjärrgrenar efter skapandet"
 
-#: ../plugins/git/anjuta-git.glade.h:55
+#: ../plugins/git/anjuta-git.glade.h:57
 #: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Force"
 msgstr "Tvinga"
 
-#: ../plugins/git/anjuta-git.glade.h:57
+#: ../plugins/git/anjuta-git.glade.h:59
 msgid "From:"
 msgstr "Från:"
 
-#: ../plugins/git/anjuta-git.glade.h:58
+#: ../plugins/git/anjuta-git.glade.h:60
 msgid "Grep:"
 msgstr "Grep:"
 
-#: ../plugins/git/anjuta-git.glade.h:59
+#: ../plugins/git/anjuta-git.glade.h:61
 msgid "Hard"
 msgstr "Hård"
 
-#: ../plugins/git/anjuta-git.glade.h:60
+#: ../plugins/git/anjuta-git.glade.h:62
 msgid "Head"
 msgstr "Head"
 
-#: ../plugins/git/anjuta-git.glade.h:61
+#: ../plugins/git/anjuta-git.glade.h:63
 msgid "Ignore Files"
 msgstr "Ignorera filer"
 
-#: ../plugins/git/anjuta-git.glade.h:62
+#: ../plugins/git/anjuta-git.glade.h:64
 msgid "Merge"
 msgstr "Sammanfoga"
 
-#: ../plugins/git/anjuta-git.glade.h:63
+#: ../plugins/git/anjuta-git.glade.h:65
 msgid "Mixed"
 msgstr "Blandad"
 
-#: ../plugins/git/anjuta-git.glade.h:64
+#: ../plugins/git/anjuta-git.glade.h:67
 msgid "Previous commit"
 msgstr "Föregående incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:65
+#: ../plugins/git/anjuta-git.glade.h:68
 msgid "Pull"
 msgstr "Hämta"
 
-#: ../plugins/git/anjuta-git.glade.h:66
+#: ../plugins/git/anjuta-git.glade.h:69
+msgid "Push"
+msgstr "Tryck (push)"
+
+#: ../plugins/git/anjuta-git.glade.h:70
+msgid "Push all refs"
+msgstr "Tryck (push) alla referenser"
+
+#: ../plugins/git/anjuta-git.glade.h:71
+msgid "Push tags"
+msgstr "Tryck (push) taggar"
+
+#: ../plugins/git/anjuta-git.glade.h:72
 msgid "Rebase"
 msgstr "Ändra bas"
 
-#: ../plugins/git/anjuta-git.glade.h:67
+#: ../plugins/git/anjuta-git.glade.h:73
 msgid "Remove File"
 msgstr "Ta bort fil"
 
-#: ../plugins/git/anjuta-git.glade.h:68
+#: ../plugins/git/anjuta-git.glade.h:74
 msgid "Reset Tree"
 msgstr "Återställ träd"
 
-#: ../plugins/git/anjuta-git.glade.h:69
+#: ../plugins/git/anjuta-git.glade.h:75
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
 msgstr "Hämtar status..."
 
-#: ../plugins/git/anjuta-git.glade.h:70
+#: ../plugins/git/anjuta-git.glade.h:76
 msgid "Revert Commit"
 msgstr "Återställ incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:71
+#: ../plugins/git/anjuta-git.glade.h:77
 msgid "Revision/Tag:"
 msgstr "Revision/Tagg:"
 
-#: ../plugins/git/anjuta-git.glade.h:73
+#: ../plugins/git/anjuta-git.glade.h:79
 msgid "Select A Folder"
 msgstr "Välj en mapp"
 
-#: ../plugins/git/anjuta-git.glade.h:74
+#: ../plugins/git/anjuta-git.glade.h:80
 #: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
 msgstr "Ställ in konflikter som lösta"
 
-#: ../plugins/git/anjuta-git.glade.h:75
+#: ../plugins/git/anjuta-git.glade.h:81
 msgid "Soft"
 msgstr "Mjuk"
 
-#: ../plugins/git/anjuta-git.glade.h:76
+#: ../plugins/git/anjuta-git.glade.h:82
 msgid "Squash"
 msgstr "Squash"
 
-#: ../plugins/git/anjuta-git.glade.h:77
+#: ../plugins/git/anjuta-git.glade.h:83
 msgid "Switch to Another Branch"
 msgstr "Växla till en annan gren"
 
-#: ../plugins/git/anjuta-git.glade.h:78
+#: ../plugins/git/anjuta-git.glade.h:84
 msgid "Tag/Commit"
 msgstr "Tagg/Incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:79
+#: ../plugins/git/anjuta-git.glade.h:85
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Detta verkställande innehåller en misslyckad sammanfogning (använd -i)"
 
-#: ../plugins/git/anjuta-git.glade.h:81
+#: ../plugins/git/anjuta-git.glade.h:87
 msgid "To:"
 msgstr "Till:"
 
-#: ../plugins/git/anjuta-git.glade.h:82
+#: ../plugins/git/anjuta-git.glade.h:88
 msgid "Unstage Files"
 msgstr "Avköa filer"
 
-#: ../plugins/git/anjuta-git.glade.h:83
+#: ../plugins/git/anjuta-git.glade.h:89
 msgid "Use a custom log message"
 msgstr "Använd ett anpassat loggmeddelande"
 
-#: ../plugins/git/anjuta-git.glade.h:84
+#: ../plugins/git/anjuta-git.glade.h:90
+msgid "Use custom author information:"
+msgstr "Använd anpassad upphovsinformation:"
+
+#: ../plugins/git/anjuta-git.glade.h:91
 msgid "View log"
 msgstr "Visa logg"
 
@@ -4669,6 +4694,14 @@ msgstr "Git: Filer utcheckade."
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
 msgstr "Git: Verkställning färdig."
+
+#: ../plugins/git/git-commit-dialog.c:100
+msgid "Please enter the commit author's name."
+msgstr "Ange upphovsmannens namn."
+
+#: ../plugins/git/git-commit-dialog.c:110
+msgid "Please enter the commit author's e-mail address."
+msgstr "Ange upphovsmannens e-postadress."
 
 #: ../plugins/git/git-create-branch-dialog.c:41
 #, c-format
@@ -4777,136 +4810,136 @@ msgstr "Git: Filer avköade."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:58
-#: ../plugins/git/plugin.c:411
+#: ../plugins/git/plugin.c:59
+#: ../plugins/git/plugin.c:420
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:66
+#: ../plugins/git/plugin.c:67
 #: ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "_Verkställ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:75
 msgid "_Fetch"
 msgstr "_Hämta"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:83
 msgid "_Rebase"
 msgstr "_Ändra bas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:90
-#: ../plugins/git/plugin.c:194
+#: ../plugins/git/plugin.c:91
+#: ../plugins/git/plugin.c:195
 msgid "_Start..."
 msgstr "_Starta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:98
+#: ../plugins/git/plugin.c:99
 msgid "_Continue"
 msgstr "_Fortsätt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:106
+#: ../plugins/git/plugin.c:107
 msgid "_Skip"
 msgstr "_Hoppa över"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:114
+#: ../plugins/git/plugin.c:115
 msgid "_Abort"
 msgstr "_Avbryt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:122
+#: ../plugins/git/plugin.c:123
 msgid "_Pull..."
 msgstr "_Hämta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:130
+#: ../plugins/git/plugin.c:131
 msgid "_Unstage files..."
 msgstr "A_vköa filer..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:138
+#: ../plugins/git/plugin.c:139
 msgid "_Check out files..."
 msgstr "_Checka ut filer..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:146
+#: ../plugins/git/plugin.c:147
 msgid "_Resolve conflicts..."
 msgstr "Lös _konflikter..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:154
+#: ../plugins/git/plugin.c:155
 msgid "Create patch series..."
 msgstr "Skapa patchserie..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:162
-#: ../plugins/git/plugin.c:367
+#: ../plugins/git/plugin.c:163
+#: ../plugins/git/plugin.c:376
 msgid "_Reset tree..."
 msgstr "_Återställ träd..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:170
-#: ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:171
+#: ../plugins/git/plugin.c:384
 msgid "_Revert commit..."
 msgstr "_Återställ incheckning..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:178
+#: ../plugins/git/plugin.c:179
 msgid "_Branches"
 msgstr "_Grenar"
 
 # Dela upp i bra och dålig
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:186
+#: ../plugins/git/plugin.c:187
 msgid "Bisect"
 msgstr "Dela upp"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:210
+#: ../plugins/git/plugin.c:211
 msgid "_Good"
 msgstr "_Bra"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:218
+#: ../plugins/git/plugin.c:219
 msgid "_Bad"
 msgstr "_Dålig"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:226
-#: ../plugins/git/plugin.c:419
+#: ../plugins/git/plugin.c:227
+#: ../plugins/git/plugin.c:428
 msgid "_View log..."
 msgstr "_Visa logg..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:234
-#: ../plugins/git/plugin.c:299
-#: ../plugins/git/plugin.c:427
+#: ../plugins/git/plugin.c:235
+#: ../plugins/git/plugin.c:300
+#: ../plugins/git/plugin.c:436
 #: ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
@@ -4914,8 +4947,8 @@ msgstr "_Lägg till..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:242
-#: ../plugins/git/plugin.c:435
+#: ../plugins/git/plugin.c:243
+#: ../plugins/git/plugin.c:444
 #: ../plugins/subversion/plugin.c:68
 #: ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
@@ -4923,104 +4956,110 @@ msgstr "_Ta bort..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:250
+#: ../plugins/git/plugin.c:251
 msgid "_Ignore..."
 msgstr "_Ignorera..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:259
-#: ../plugins/git/plugin.c:351
+#: ../plugins/git/plugin.c:260
+#: ../plugins/git/plugin.c:360
 msgid "_Create branch..."
 msgstr "_Skapa gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:267
+#: ../plugins/git/plugin.c:268
 msgid "_Delete branch..."
 msgstr "_Ta bort gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:275
+#: ../plugins/git/plugin.c:276
 msgid "_Switch to another branch..."
 msgstr "_Växla till en annan gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:283
+#: ../plugins/git/plugin.c:284
 msgid "_Merge..."
 msgstr "Sa_mmanfoga..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:291
+#: ../plugins/git/plugin.c:292
 msgid "_Remote branches"
 msgstr "_Fjärrgrenar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:307
+#: ../plugins/git/plugin.c:308
 msgid "_Delete..."
 msgstr "_Ta bort..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:315
-#: ../plugins/git/plugin.c:359
+#: ../plugins/git/plugin.c:316
+#: ../plugins/git/plugin.c:368
 msgid "_Create tag..."
 msgstr "_Skapa tagg..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:323
+#: ../plugins/git/plugin.c:324
 msgid "_Diff uncommitted changes"
 msgstr "Kör _diff mot lokala ändringar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:335
+#: ../plugins/git/plugin.c:332
+msgid "_Push..."
+msgstr "_Tryck (push)..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:344
 msgid "_Show commit diff"
 msgstr "_Visa diff för incheckning"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:343
+#: ../plugins/git/plugin.c:352
 msgid "_View selected revision"
 msgstr "_Visa vald revision"
 
 # Dela upp i bra och dålig
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:383
+#: ../plugins/git/plugin.c:392
 msgid "_Bisect"
 msgstr "_Dela upp"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:391
+#: ../plugins/git/plugin.c:400
 msgid "_Set good revision"
 msgstr "_Ange bra revision"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:399
+#: ../plugins/git/plugin.c:408
 msgid "_Set bad revision"
 msgstr "_Ange dålig revision"
 
-#: ../plugins/git/plugin.c:589
+#: ../plugins/git/plugin.c:598
 msgid "Git operations"
 msgstr "Git-operationer"
 
-#: ../plugins/git/plugin.c:594
+#: ../plugins/git/plugin.c:603
 msgid "Git log operations"
 msgstr "Logg för Git-operationer"
 
-#: ../plugins/git/plugin.c:599
+#: ../plugins/git/plugin.c:608
 msgid "Git FM operations"
 msgstr "Git FM-operationer"
 
-#: ../plugins/git/plugin.c:614
+#: ../plugins/git/plugin.c:623
 msgid "Git Log"
 msgstr "Git-logg"
 
@@ -11446,8 +11485,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Toppnivå Makefile.am"
 #~ msgid "Update tags image automatically"
 #~ msgstr "Uppdatera automatiskt taggbilder"
-#~ msgid "User information"
-#~ msgstr "Användarinformation"
 #~ msgid "Warn when an undefined variable is referenced in the Makefile"
 #~ msgstr "Varna då en odefinierad variabel refereras i Makefile"
 #~ msgid "Warnings messages:"
