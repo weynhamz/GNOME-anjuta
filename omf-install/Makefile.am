@@ -26,3 +26,5 @@ uninstall-local:
         done
 	-rmdir $(omf_dest_dir)
 	-scrollkeeper-update -p $(scrollkeeper_localstate_dir) 
+
+-include $(top_srcdir)/git.mk

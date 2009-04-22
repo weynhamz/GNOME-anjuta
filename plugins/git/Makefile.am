@@ -200,3 +200,5 @@ EXTRA_DIST = \
 	$(git_ui_DATA) \
 	$(git_glade_DATA) \
 	$(git_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

@@ -15,3 +15,5 @@ symbol_browser_icons_DATA = \
 	element-property-16.png \
 	element-structure-16.png
 EXTRA_DIST = $(symbol_browser_icons_DATA)
+
+-include $(top_srcdir)/git.mk

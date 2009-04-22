@@ -52,3 +52,5 @@ EXTRA_DIST = \
 	$(patch_ui_DATA) \
 	$(patch_pixmaps_DATA) \
 	$(patch_glade_DATA)
+
+-include $(top_srcdir)/git.mk

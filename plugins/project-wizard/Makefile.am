@@ -78,3 +78,5 @@ EXTRA_DIST = \
 ## uninstall-local:
 ##	@rm -fv $(*:%=$(templates_dir)/%)
 ##	-if test -d $(templates_dir); then rmdir $(templates_dir); fi
+
+-include $(top_srcdir)/git.mk

@@ -43,3 +43,5 @@ translatable-strings.h: $(wizard_files_DATA)
 	perl $(srcdir)/extract-translatable-strings.pl $(wizard_files_DATA) > translatable-strings.h
 
 EXTRA_DIST = $(wizard_files_DATA) $(BUILT_SOURCES)
+
+-include $(top_srcdir)/git.mk

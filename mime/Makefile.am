@@ -27,3 +27,5 @@ uninstall-local:
 	    update-mime-database $(DESTDIR)$(datadir)/mime; \
 	  fi \
 	fi
+
+-include $(top_srcdir)/git.mk

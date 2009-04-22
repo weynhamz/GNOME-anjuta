@@ -32,3 +32,5 @@ SUBDIRS = . \
 	gbf-am \
 	gbf-mkfile \
 	starter
+
+-include $(top_srcdir)/git.mk

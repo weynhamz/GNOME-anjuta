@@ -56,3 +56,5 @@ EXTRA_DIST = \
 	$(file_manager_ui_DATA) \
 	$(file_manager_glade_DATA) \
 	$(file_manager_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

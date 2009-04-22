@@ -52,3 +52,5 @@ EXTRA_DIST = \
 	$(cvs_plugin_plugin_DATA) \
 	$(cvs_plugin_ui_DATA) \
 	$(cvs_plugin_glade_DATA)
+
+-include $(top_srcdir)/git.mk

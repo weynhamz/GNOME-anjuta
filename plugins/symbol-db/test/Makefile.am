@@ -46,3 +46,5 @@ benchmark_LDFLAGS = \
 
 
 
+
+-include $(top_srcdir)/git.mk

@@ -42,3 +42,5 @@ EXTRA_DIST = $(anjuta_pixmaps_DATA) \
 						$(icon_DATA) \
 						$(svgicon_DATA)
 
+
+-include $(top_srcdir)/git.mk

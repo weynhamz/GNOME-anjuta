@@ -109,3 +109,5 @@ EXTRA_DIST = \
 	$(subversion_ui_DATA) \
 	$(subversion_glade_DATA) \
 	$(subversion_pixmaps_DATA) 
+
+-include $(top_srcdir)/git.mk

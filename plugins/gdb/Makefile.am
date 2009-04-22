@@ -60,3 +60,5 @@ EXTRA_DIST = \
 SUBDIRS = \
 	images 
 
+
+-include $(top_srcdir)/git.mk

@@ -15,3 +15,5 @@ DOC_FIGURES = figures/autotools-process.png \
               figures/configure-dialog.png \
               figures/new-project-basic.png \
               figures/new-project-summary.png
+
+-include $(top_srcdir)/git.mk

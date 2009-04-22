@@ -48,3 +48,5 @@ EXTRA_DIST = \
 	$(language_manager_pixmaps_DATA) \
 	languages.xml
 
+
+-include $(top_srcdir)/git.mk

@@ -40,3 +40,5 @@ EXTRA_DIST = \
 	$(wizard_pixmaps_DATA) \
 	$(wizard_plugin_DATA) \
 	$(wizard_glade_DATA)
+
+-include $(top_srcdir)/git.mk

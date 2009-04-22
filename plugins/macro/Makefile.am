@@ -54,3 +54,5 @@ EXTRA_DIST = \
 	$(macro_ui_DATA) \
 	$(macro_glade_DATA) \
 	$(macro_macros_DATA)
+
+-include $(top_srcdir)/git.mk

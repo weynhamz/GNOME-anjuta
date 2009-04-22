@@ -64,3 +64,5 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
 	$(project_plugin_DATA) \
 	$(project_in_files)
+
+-include $(top_srcdir)/git.mk

@@ -71,3 +71,5 @@ EXTRA_DIST = \
 	$(cpp_java_ui_DATA) \
 	$(cpp_java_pixmaps_DATA) \
 	$(cpp_java_glade_DATA)
+
+-include $(top_srcdir)/git.mk

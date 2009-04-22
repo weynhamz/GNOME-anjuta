@@ -93,3 +93,5 @@ EXTRA_DIST = \
 	$(sourceview_xml_DATA)
 
 
+
+-include $(top_srcdir)/git.mk

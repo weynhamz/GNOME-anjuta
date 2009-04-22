@@ -8,3 +8,5 @@ clsgen_appdata_DATA = \
 
 EXTRA_DIST = \
 	$(clsgen_appdata_DATA)
+
+-include $(top_srcdir)/git.mk

@@ -14,3 +14,5 @@ man_MANS = \
 	anjuta_launcher.1
 
 EXTRA_DIST = $(anjuta_doc_DATA) $(man_MANS)
+
+-include $(top_srcdir)/git.mk

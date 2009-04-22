@@ -7,3 +7,5 @@ wizard_files_DATA = \
 	acinclude.m4.tpl
 
 EXTRA_DIST = $(wizard_files_DATA)
+
+-include $(top_srcdir)/git.mk

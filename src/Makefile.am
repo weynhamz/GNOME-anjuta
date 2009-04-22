@@ -64,3 +64,5 @@ EXTRA_DIST = \
 	$(anjuta_layout_DATA) \
 	$(anjuta_glade_DATA) \
 	$(anjuta_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

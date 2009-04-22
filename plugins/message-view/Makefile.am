@@ -52,3 +52,5 @@ EXTRA_DIST = \
 	$(message_view_plugin_DATA) \
 	$(message_view_ui_DATA) \
 	$(message_view_glade_DATA)
+
+-include $(top_srcdir)/git.mk

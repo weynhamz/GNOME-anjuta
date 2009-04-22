@@ -49,3 +49,5 @@ EXTRA_DIST = \
 	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA)
+
+-include $(top_srcdir)/git.mk

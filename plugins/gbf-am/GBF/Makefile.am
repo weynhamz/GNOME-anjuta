@@ -3,3 +3,5 @@ perlmodules_DATA = AmFiles.pm General.pm
 
 EXTRA_DIST = $(perlmodules_DATA)
 
+
+-include $(top_srcdir)/git.mk

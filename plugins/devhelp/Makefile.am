@@ -53,3 +53,5 @@ EXTRA_DIST = \
 	$(devhelp_plugin_DATA) \
 	$(devhelp_ui_DATA) \
 	$(devhelp_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

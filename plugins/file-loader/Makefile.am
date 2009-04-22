@@ -51,3 +51,5 @@ EXTRA_DIST = \
 	$(loader_plugin_DATA) \
 	$(loader_ui_DATA) \
 	$(loader_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

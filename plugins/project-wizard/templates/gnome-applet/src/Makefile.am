@@ -5,3 +5,5 @@ wizard_files_DATA = main.c \
 		    GNOME_Applet.server.in.in 
 
 EXTRA_DIST = $(wizard_files_DATA)
+
+-include $(top_srcdir)/git.mk

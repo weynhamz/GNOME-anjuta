@@ -71,3 +71,5 @@ DISTCLEANFILES = \
 	$(plugin_DATA)
 SUBDIRS = GBF
 
+
+-include $(top_srcdir)/git.mk

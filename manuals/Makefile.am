@@ -3,3 +3,5 @@
 ##########################################
 
 SUBDIRS = reference anjuta-manual anjuta-faqs anjuta-build-tutorial
+
+-include $(top_srcdir)/git.mk

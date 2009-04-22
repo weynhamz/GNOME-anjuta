@@ -59,3 +59,5 @@ EXTRA_DIST = \
 	$(clsgen_pixmaps_DATA) \
 	$(clsgen_glade_DATA) \
 	$(clsgen_plugin_DATA)
+
+-include $(top_srcdir)/git.mk

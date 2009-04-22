@@ -81,3 +81,5 @@ EXTRA_DIST = \
 	$(file_manager_glade_DATA) \
 	file-view-marshal.list
 
+
+-include $(top_srcdir)/git.mk

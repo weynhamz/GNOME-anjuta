@@ -4,3 +4,5 @@ DOC_MODULE = anjuta-faqs
 DOC_ENTITIES = legal.xml 
 DOC_AM_CPPFLAGS =
 DOC_FIGURES =
+
+-include $(top_srcdir)/git.mk

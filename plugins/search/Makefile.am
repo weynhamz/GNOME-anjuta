@@ -53,3 +53,5 @@ EXTRA_DIST = \
 	$(search_ui_DATA) \
 	$(search_pixmaps_DATA) \
 	$(search_glade_DATA)
+
+-include $(top_srcdir)/git.mk

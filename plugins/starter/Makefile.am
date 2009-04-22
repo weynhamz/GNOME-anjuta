@@ -39,3 +39,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(starter_plugin_DATA) \
 	$(starter_pixmaps_DATA) 
+
+-include $(top_srcdir)/git.mk

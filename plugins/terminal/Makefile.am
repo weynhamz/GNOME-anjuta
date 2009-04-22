@@ -53,3 +53,5 @@ EXTRA_DIST = \
 	$(terminal_pixmaps_DATA) \
 	$(terminal_ui_DATA) \
 	$(terminal_glade_DATA)
+
+-include $(top_srcdir)/git.mk

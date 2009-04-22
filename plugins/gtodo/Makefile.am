@@ -70,3 +70,5 @@ EXTRA_DIST = \
 	$(gtodo_plugin_DATA) \
 	$(gtodo_ui_DATA) \
 	$(gtodo_data_DATA)
+
+-include $(top_srcdir)/git.mk

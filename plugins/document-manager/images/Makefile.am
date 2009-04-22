@@ -42,3 +42,5 @@ document_manager_pixmaps_DATA = \
 
 EXTRA_DIST = $(document_manager_pixmaps_DATA)
 
+
+-include $(top_srcdir)/git.mk

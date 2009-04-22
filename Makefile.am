@@ -56,3 +56,5 @@ DISTCLEANFILES = \
 	intltool-merge \
 	intltool-update \
 	$(gnomemenu_DATA)
+
+-include $(top_srcdir)/git.mk

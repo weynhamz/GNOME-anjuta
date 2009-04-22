@@ -8,3 +8,5 @@ wizard_files_DATA = \
 	plugin.ui
 
 EXTRA_DIST = $(wizard_files_DATA)
+
+-include $(top_srcdir)/git.mk

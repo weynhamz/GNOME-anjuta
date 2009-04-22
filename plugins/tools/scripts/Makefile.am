@@ -27,3 +27,4 @@ tools-2.xml: Makefile
 tools-2.xml: tools-2.xml.in
 
 CLEANFILES = tools-2.xml
+-include $(top_srcdir)/git.mk

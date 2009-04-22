@@ -69,3 +69,5 @@ EXTRA_DIST = \
 	$(build_pixmaps_DATA) \
 	$(build_glade_DATA) \
 	$(build_data_DATA)
+
+-include $(top_srcdir)/git.mk

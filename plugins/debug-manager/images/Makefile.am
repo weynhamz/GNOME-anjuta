@@ -28,3 +28,5 @@ images_DATA = \
 	anjuta-watch.svg
 
 EXTRA_DIST = $(images_DATA)
+
+-include $(top_srcdir)/git.mk

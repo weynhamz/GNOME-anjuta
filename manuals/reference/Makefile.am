@@ -3,3 +3,5 @@
 SUBDIRS = libanjuta
 
 
+
+-include $(top_srcdir)/git.mk

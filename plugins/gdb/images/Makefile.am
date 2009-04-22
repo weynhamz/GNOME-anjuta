@@ -7,3 +7,5 @@ images_DATA = \
 	stack.png
 
 EXTRA_DIST = $(images_DATA)
+
+-include $(top_srcdir)/git.mk

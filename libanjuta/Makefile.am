@@ -196,3 +196,5 @@ DISTCLEANFILES = \
   anjuta-enum-types.h \
   anjuta-enum-types.c \
   stamp-anjuta-enum-types.h
+
+-include $(top_srcdir)/git.mk
