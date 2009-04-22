@@ -188,31 +188,40 @@ on_status_command_data_arrived (AnjutaCommand *command,
 {
 	GQueue *status_queue;
 	GitStatus *status;
-	GFile *parent_file;
-	gchar *parent_path;
-	gchar *status_relative_path;
 	gchar *path;
+	gchar *full_path;
 	GFile *file;
-	GFile *given_file;
 	
 	status_queue = git_status_command_get_status_queue (GIT_STATUS_COMMAND (command));
 	
 	while (g_queue_peek_head (status_queue))
 	{
 		status = g_queue_pop_head (status_queue);
-		parent_file = g_object_get_data (G_OBJECT (command), "parent-file");
-		parent_path = g_file_get_path (parent_file);
-		status_relative_path = git_status_get_path (status);
-		path = g_strconcat (parent_path, G_DIR_SEPARATOR_S,
-		              		status_relative_path, NULL);
-		g_free (parent_path);
-		file = g_file_new_for_path (path);
-		given_file = g_object_get_data (G_OBJECT (command), "file");
+
+		if (git_status_is_working_directory_descendant (status))
+		{
+			path = git_status_get_path (status);
+			full_path = g_strconcat (g_object_get_data (G_OBJECT (command), "working-directory"),
+			                         G_DIR_SEPARATOR_S, path, NULL);
+			file = g_file_new_for_path (full_path);
+
+			g_print ("Working directory: %s\n", (gchar *) g_object_get_data (G_OBJECT (command), "working-directory"));
+			g_print ("File %s Status %i\n", full_path, git_status_get_vcs_status (status));
+
+			if (file)
+			{
+				callback (file, 
+				          git_status_get_vcs_status (status),
+				          g_object_get_data (G_OBJECT (command), "user-data"));
+
+				g_object_unref (file);
+			}
+
+			g_free (path);
+		}
 		
-		g_object_unref (file);
 		g_object_unref (status);
-		g_free (status_relative_path);
-		g_free (path);
+		
 	}
 }
 
@@ -222,67 +231,44 @@ git_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 					   gpointer user_data, GCancellable *cancel,
 					   AnjutaAsyncNotify *notify, GError **err)
 {
-	gchar *project_root_directory;
-	GFile *project_root_file;
-	GFile *parent_file;
 	gchar *path;
 	GitStatusCommand *status_command;
-	
-	project_root_directory = ANJUTA_PLUGIN_GIT (obj)->project_root_directory;
-	
-	if (project_root_directory)
-	{
-		project_root_file = g_file_new_for_path (project_root_directory);
-		
-		/* It is assumed that clients will only get the status of individual 
-		 * files, but git only works on directories. So give git the path of 
-		 * the given file's parent folder. */
-		parent_file = g_file_get_parent (file);
-		path = g_file_get_path (parent_file);
-		status_command = git_status_command_new (path, 
-		                                         ~0);
-		
-		g_free (path);
-		
-		g_object_set_data (G_OBJECT (status_command), "user-data", user_data);
-		g_object_set_data_full (G_OBJECT (status_command), 
-		                        "parent-file", 
-		                        g_object_ref (parent_file), 
-		                        (GDestroyNotify) g_object_unref);
-		g_object_set_data_full (G_OBJECT (status_command), "file", 
-								g_object_ref (file),
-								(GDestroyNotify) g_object_unref);
-		
-		g_object_unref (project_root_file);
-		g_object_unref (parent_file);
-		
-		g_signal_connect (G_OBJECT (status_command), "data-arrived",
-		                  G_CALLBACK (on_status_command_data_arrived),
-		                  callback);
-		
-		g_signal_connect (G_OBJECT (status_command), "command-finished",
-		                  G_CALLBACK (g_object_unref),
-		                  NULL);
-		
+
+	path = g_file_get_path (file);
+	status_command = git_status_command_new (path, ~0);
+
+	g_free (path);
+
+	g_object_set_data (G_OBJECT (status_command), "user-data", user_data);
+	g_object_set_data_full (G_OBJECT (status_command), "working-directory",
+	                        g_file_get_path (file),
+	                        (GDestroyNotify) g_free);
+
+	g_signal_connect (G_OBJECT (status_command), "data-arrived",
+	                  G_CALLBACK (on_status_command_data_arrived),
+	                  callback);
+
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
+	                  G_CALLBACK (g_object_unref),
+	                  NULL);
+
 #if 0
-		if (cancel)
-		{
-			g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
-			                          G_CALLBACK (anjuta_command_cancel),
-			                          status_command);
-		}
-#endif
-		
-		if (notify)
-		{
-			g_signal_connect_swapped (G_OBJECT (status_command), "command-finished",
-			                          G_CALLBACK (anjuta_async_notify_notify_finished),
-			                          notify);
-		}
-		
-		anjuta_command_start (ANJUTA_COMMAND (status_command));
+	if (cancel)
+	{
+		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
+		                          G_CALLBACK (anjuta_command_cancel),
+		                          status_command);
 	}
-	
+#endif
+
+	if (notify)
+	{
+		g_signal_connect_swapped (G_OBJECT (status_command), "command-finished",
+		                          G_CALLBACK (anjuta_async_notify_notify_finished),
+		                          notify);
+	}
+
+	anjuta_command_start (ANJUTA_COMMAND (status_command));
 }
 
 void 

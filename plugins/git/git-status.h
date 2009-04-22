@@ -57,6 +57,7 @@ GType git_status_get_type (void) G_GNUC_CONST;
 GitStatus *git_status_new (const gchar *path, const gchar *status);
 gchar *git_status_get_path (GitStatus *self);
 AnjutaVcsStatus git_status_get_vcs_status (GitStatus *self);
+gboolean git_status_is_working_directory_descendant (GitStatus *self);
 
 G_END_DECLS
 

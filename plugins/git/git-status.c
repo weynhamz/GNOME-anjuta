@@ -109,3 +109,10 @@ git_status_get_vcs_status (GitStatus *self)
 {
 	return self->priv->status;
 }
+
+gboolean
+git_status_is_working_directory_descendant (GitStatus *self)
+{
+	return (!g_str_has_prefix (self->priv->path, "../") && 
+			!g_str_has_prefix (self->priv->path, "./"));
+}
