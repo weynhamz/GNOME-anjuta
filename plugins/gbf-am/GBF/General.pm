@@ -37,11 +37,10 @@ sub report_warning
 
 sub canonicalize_name
 {
-    my ($name);
+    my ($name) = @_;
 
-    $name = $_[0];
-    $name =~ tr/\.-/_/;
-    
+    $name =~ s'[^0-9@A-Z_a-z]'_'g;
+
     return $name;
 }
 
