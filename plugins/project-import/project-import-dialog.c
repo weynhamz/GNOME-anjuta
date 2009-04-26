@@ -24,6 +24,7 @@
 
 #include "project-import-dialog.h"
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 
 #define BUILDER_FILE PACKAGE_DATA_DIR"/glade/project-import.glade"
 
@@ -60,6 +61,25 @@ vcs_entry_changed (GtkEditable *editable, gpointer user_data)
 	}
 	else
 		gtk_widget_set_sensitive (priv->import_button, FALSE);
+}
+
+static void
+source_dir_changed (GtkFileChooserButton *widget, gpointer user_data)
+{
+	gchar *full_folder_uri, *folder_basename;
+	GFile *dir;
+	ProjectImportDialog *project_import = (ProjectImportDialog *)user_data;
+	ProjectImportDialogPrivate *priv = GET_PRIVATE (project_import);
+
+	full_folder_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (priv->source_dir_button));
+
+	dir = g_file_new_for_path (full_folder_uri);
+	folder_basename = g_file_get_basename(dir);
+	gtk_entry_set_text (priv->name_entry, folder_basename);
+	g_object_unref (dir);
+
+	g_free (full_folder_uri);
+	g_free (folder_basename);
 }
 
 static void
@@ -257,6 +277,9 @@ project_import_dialog_init (ProjectImportDialog *import_dialog)
 	g_signal_connect (priv->name_entry, "changed", G_CALLBACK (name_entry_changed),
 	                  import_dialog);
 	g_signal_connect (priv->vcs_entry, "changed", G_CALLBACK (vcs_entry_changed),
+	                  import_dialog);
+
+	g_signal_connect (priv->source_dir_button, "file-set", G_CALLBACK (source_dir_changed),
 	                  import_dialog);
 	
 	g_signal_connect (priv->folder_radio, "toggled",
