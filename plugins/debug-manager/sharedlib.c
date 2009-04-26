@@ -287,7 +287,7 @@ sharedlibs_show (Sharedlibs* sl)
 		}
 		else
 		{
-			gdk_window_move(sl->widgets.window->window, sl->win_pos_x,
+			gtk_window_move(GTK_WINDOW(sl->widgets.window), sl->win_pos_x,
 									 sl->win_pos_y);
 			gtk_window_set_default_size(GTK_WINDOW(sl->widgets.window),
 										sl->win_width, sl->win_height);

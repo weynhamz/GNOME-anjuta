@@ -423,7 +423,7 @@ signals_show (Signals * sg)
 		}
 		else
 		{
-			gdk_window_move (sg->widgets.window->window, sg->win_pos_x,
+			gtk_window_move (GTK_WINDOW (sg->widgets.window), sg->win_pos_x,
 									  sg->win_pos_y);
 			gtk_window_set_default_size (GTK_WINDOW (sg->widgets.window),
 										 sg->win_width, sg->win_height);
