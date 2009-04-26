@@ -142,8 +142,9 @@ patch_show_gui (PatchPlugin *plugin)
 static void 
 on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 {
-	const gchar* directory;
-	const gchar* patch_file;
+	gchar* tmp;
+	gchar* directory;
+	gchar* patch_file;
 	GString* command = g_string_new (NULL);
 	gchar* message;
 	IAnjutaMessageManager *mesg_manager;
@@ -164,8 +165,13 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	g_signal_connect (G_OBJECT (p_plugin->mesg_view), "buffer-flushed",
 						  G_CALLBACK (on_msg_buffer), p_plugin);
 
-	directory = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
-	patch_file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));						
+	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
+	directory = g_shell_quote (tmp);
+	g_free (tmp);
+	
+	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));
+	patch_file = g_shell_quote (tmp);
+	g_free (tmp);
 	
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
 	{
@@ -185,6 +191,9 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	message = g_strdup_printf (_("Patching %s using %s\n"), 
 			  directory, patch_file);
 
+	g_free (patch_file);
+	g_free (directory);
+	
 	ianjuta_message_view_append (p_plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 message, "", NULL);
