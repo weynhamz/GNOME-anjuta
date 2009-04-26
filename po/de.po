@@ -8955,7 +8955,7 @@ msgstr "Ein bereits existierendes Autotools-Projekt in Anjuta importieren"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
-msgstr "Projekt aus vorhadenen Quellen"
+msgstr "Projekt aus vorhandenen Quellen"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 msgid "Project Import Assistant"
