@@ -1582,7 +1582,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 				symbol_db_engine_iterator_node_get_symbol_extra_string (dbin,
 													SYMINFO_FILE_PATH);
 			
-			if (g_hash_table_remove (prj_elements_hash, file) == FALSE)
+			if (file && g_hash_table_remove (prj_elements_hash, file) == FALSE)
 			{
 				/* hey, we dind't find an element to remove the the project list.
 				 * So, probably, this is a new file added in offline mode via Makefile.am
