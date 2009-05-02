@@ -12,17 +12,18 @@
 # Rodrigo Flores <rodrigomarquesflores@gmail.com>, 2007, 2009.
 # Jonh Wendell <wendell@bani.com.br>, 2008.
 # Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2008, 2009.
+# André Gondim <andregondim@ubuntu.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-06 14:00-0300\n"
-"PO-Revision-Date: 2009-03-05 20:38-0300\n"
-"Last-Translator: Rodrigo Flores <rodrigomarquesflores@gmail.com>\n"
+"POT-Creation-Date: 2009-05-02 13:58-0400\n"
+"PO-Revision-Date: 2009-04-14 12:33-0300\n"
+"Last-Translator: André Gondim <andregondim@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -33,7 +34,7 @@ msgstr "IDE Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Desenvolva software em um IDE (ambiente de desenvolvimento integrado)"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:174
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:203 ../src/main.c:174
 msgid "Integrated Development Environment"
 msgstr "Ambiente de desenvolvimento integrado (IDE)"
 
@@ -242,7 +243,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:520
+#: ../plugins/symbol-db/symbol-db-prefs.c:438
 msgid "Load"
 msgstr "Carregar"
 
@@ -251,7 +252,7 @@ msgstr "Carregar"
 msgid "Available Plugins"
 msgstr "Plug-ins disponíveis"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:659
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:663
 msgid "Preferred plugins"
 msgstr "Plug-ins preferenciais"
 
@@ -421,7 +422,7 @@ msgstr "Categoria"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:646
+#: ../src/anjuta-app.c:650
 msgid "General"
 msgstr "Geral"
 
@@ -725,268 +726,268 @@ msgstr "make(\\[\\d+\\])?:\\s+Saindo\\s+do\\s+diretório\\s+`(.+)\""
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Saindo\\s+do\\s+diretório\\s+`(.+)\""
 
-#: ../plugins/build-basic-autotools/plugin.c:825
+#: ../plugins/build-basic-autotools/plugin.c:826
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:861
+#: ../plugins/build-basic-autotools/plugin.c:862
 #, c-format
 msgid "Leaving: %s"
 msgstr "Saindo: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:894
+#: ../plugins/build-basic-autotools/plugin.c:895
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/plugin.c:900
+#: ../plugins/build-basic-autotools/plugin.c:901
 #: ../plugins/tools/execute.c:334
 msgid "error:"
 msgstr "erro:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1017
+#: ../plugins/build-basic-autotools/plugin.c:1018
 #, c-format
 msgid "Command exited with status %d"
 msgstr "O comando saiu com status %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1027
+#: ../plugins/build-basic-autotools/plugin.c:1028
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado pelo usuário"
 
-#: ../plugins/build-basic-autotools/plugin.c:1032
+#: ../plugins/build-basic-autotools/plugin.c:1033
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando interrompido pelo usuário"
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "O comando terminou com sinal %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1045
+#: ../plugins/build-basic-autotools/plugin.c:1046
 msgid "Command terminated for an unknown reason"
 msgstr "O comando terminou por uma razão desconhecida"
 
-#: ../plugins/build-basic-autotools/plugin.c:1061
+#: ../plugins/build-basic-autotools/plugin.c:1063
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total utilizado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1066
+#: ../plugins/build-basic-autotools/plugin.c:1070
 msgid "Completed unsuccessfully\n"
 msgstr "Concluído sem sucesso\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1071
+#: ../plugins/build-basic-autotools/plugin.c:1078
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "Concluído com sucesso\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1117
+#: ../plugins/build-basic-autotools/plugin.c:1166
 #, c-format
 msgid "Build %d: %s"
 msgstr "Compilar %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1690
+#: ../plugins/build-basic-autotools/plugin.c:1742
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Não foi possível compilar \"%s\": Nenhuma regra de compilação definida para "
 "esse tipo de arquivo."
 
-#: ../plugins/build-basic-autotools/plugin.c:1816
+#: ../plugins/build-basic-autotools/plugin.c:1868
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "Não foi possível configurar o projeto: Falta o script de configuração em %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2235
-#: ../plugins/build-basic-autotools/plugin.c:2309
-#: ../plugins/build-basic-autotools/plugin.c:2319
-#: ../plugins/build-basic-autotools/plugin.c:2337
-#: ../plugins/build-basic-autotools/plugin.c:2347
-#: ../plugins/build-basic-autotools/plugin.c:2404
+#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2361
+#: ../plugins/build-basic-autotools/plugin.c:2371
+#: ../plugins/build-basic-autotools/plugin.c:2389
+#: ../plugins/build-basic-autotools/plugin.c:2399
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2239
+#: ../plugins/build-basic-autotools/plugin.c:2291
 msgid "_Build Project"
 msgstr "Compilar _projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2240
+#: ../plugins/build-basic-autotools/plugin.c:2292
 msgid "Build whole project"
 msgstr "Compila todo o projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2245
+#: ../plugins/build-basic-autotools/plugin.c:2297
 msgid "_Install Project"
 msgstr "_Instalar projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2246
+#: ../plugins/build-basic-autotools/plugin.c:2298
 msgid "Install whole project"
 msgstr "Instala todo o projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2251
+#: ../plugins/build-basic-autotools/plugin.c:2303
 msgid "_Clean Project"
 msgstr "_Limpar projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2252
+#: ../plugins/build-basic-autotools/plugin.c:2304
 msgid "Clean whole project"
 msgstr "Limpa todo o projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2257
+#: ../plugins/build-basic-autotools/plugin.c:2309
 msgid "C_onfigure Project..."
 msgstr "_Configurar projeto..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2258
+#: ../plugins/build-basic-autotools/plugin.c:2310
 msgid "Configure project"
 msgstr "Configura o projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2263
+#: ../plugins/build-basic-autotools/plugin.c:2315
 msgid "Build _Tarball"
 msgstr "Compilar _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2264
+#: ../plugins/build-basic-autotools/plugin.c:2316
 msgid "Build project tarball distribution"
 msgstr "Compila o arquivo .tar.gz (tarball) para distribuição do projeto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2269
+#: ../plugins/build-basic-autotools/plugin.c:2321
 msgid "_Build Module"
 msgstr "_Compilar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2270
+#: ../plugins/build-basic-autotools/plugin.c:2322
 msgid "Build module associated with current file"
 msgstr "Compila o módulo associado com o arquivo atual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2275
+#: ../plugins/build-basic-autotools/plugin.c:2327
 msgid "_Install Module"
 msgstr "Instalar _módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2276
+#: ../plugins/build-basic-autotools/plugin.c:2328
 msgid "Install module associated with current file"
 msgstr "Instala o módulo associado com o arquivo atual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2333
 msgid "_Clean Module"
 msgstr "_Limpar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2282
+#: ../plugins/build-basic-autotools/plugin.c:2334
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo associado ao arquivo atual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2339
 msgid "Co_mpile File"
 msgstr "Co_mpilar Arquivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2288
+#: ../plugins/build-basic-autotools/plugin.c:2340
 msgid "Compile current editor file"
 msgstr "Compila o arquivo de código atualmente no editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2293
+#: ../plugins/build-basic-autotools/plugin.c:2345
 msgid "Select Configuration"
 msgstr "Selecione uma configuração"
 
-#: ../plugins/build-basic-autotools/plugin.c:2294
+#: ../plugins/build-basic-autotools/plugin.c:2346
 msgid "Select current configuration"
 msgstr "Seleciona a configuração corrente"
 
-#: ../plugins/build-basic-autotools/plugin.c:2299
+#: ../plugins/build-basic-autotools/plugin.c:2351
 msgid "Remove Configuration"
 msgstr "Remover configuração"
 
-#: ../plugins/build-basic-autotools/plugin.c:2300
+#: ../plugins/build-basic-autotools/plugin.c:2352
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpa o projeto (distclean) e remove o diretório da configuração se possível"
 
-#: ../plugins/build-basic-autotools/plugin.c:2313
-#: ../plugins/build-basic-autotools/plugin.c:2341
+#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2393
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2314
-#: ../plugins/build-basic-autotools/plugin.c:2342
+#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2394
 msgid "Compile file"
 msgstr "Compila o arquivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2320
-#: ../plugins/build-basic-autotools/plugin.c:2348
+#: ../plugins/build-basic-autotools/plugin.c:2372
+#: ../plugins/build-basic-autotools/plugin.c:2400
 msgid "Build module"
 msgstr "Compila um módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2325
-#: ../plugins/build-basic-autotools/plugin.c:2353
-#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2377
+#: ../plugins/build-basic-autotools/plugin.c:2405
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install"
 msgstr "I_nstalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2326
-#: ../plugins/build-basic-autotools/plugin.c:2354
+#: ../plugins/build-basic-autotools/plugin.c:2378
+#: ../plugins/build-basic-autotools/plugin.c:2406
 msgid "Install module"
 msgstr "Instala o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2331
-#: ../plugins/build-basic-autotools/plugin.c:2359
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2383
+#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2332
-#: ../plugins/build-basic-autotools/plugin.c:2360
+#: ../plugins/build-basic-autotools/plugin.c:2384
+#: ../plugins/build-basic-autotools/plugin.c:2412
 msgid "Clean module"
 msgstr "Limpa o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "_Cancel command"
 msgstr "C_ancelar comando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2418
 msgid "Cancel build command"
 msgstr "Cancela o comando de compilação"
 
-#: ../plugins/build-basic-autotools/plugin.c:2404
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Compilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install (%s)"
 msgstr "I_nstalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2426
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2426
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2962
+#: ../plugins/build-basic-autotools/plugin.c:3014
 msgid "Build commands"
 msgstr "Comandos de compilação"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2971
+#: ../plugins/build-basic-autotools/plugin.c:3023
 msgid "Build popup commands"
 msgstr "Comandos do menu de contexto de compilação"
 
-#: ../plugins/build-basic-autotools/plugin.c:3328
-#: ../plugins/build-basic-autotools/plugin.c:3346
+#: ../plugins/build-basic-autotools/plugin.c:3380
+#: ../plugins/build-basic-autotools/plugin.c:3398
 msgid "Build Autotools"
 msgstr "Opções de construção"
 
@@ -999,13 +1000,13 @@ msgstr "Comando interrompido"
 msgid "Fixed data-view"
 msgstr "Visualização de dados fixa"
 
-#: ../plugins/class-inheritance/class-inherit.c:1099
+#: ../plugins/class-inheritance/class-inherit.c:1108
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:330
 msgid "Update"
 msgstr "Atualizar"
 
-#: ../plugins/class-inheritance/class-inherit.c:1100
+#: ../plugins/class-inheritance/class-inherit.c:1109
 msgid "Update the graph"
 msgstr "Atualizar o gráfico"
 
@@ -1341,11 +1342,11 @@ msgstr "Diretório raiz do projeto:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
 msgid "Release tag:"
-msgstr "Tag da versão:"
+msgstr "Etiqueta da versão:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
-msgstr "Redefine todas as tags associadas"
+msgstr "Redefine todas as etiquetas associadas"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 #: ../plugins/git/anjuta-git.glade.h:72
@@ -1368,7 +1369,7 @@ msgstr "Formato especial ao invés de formato de contexto"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag:"
-msgstr "Utilizar revisão/tag:"
+msgstr "Utilizar revisão/etiqueta:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
 msgid "Use revision:"
@@ -1381,7 +1382,7 @@ msgstr "Nome do usuário:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
-msgstr "Tag do fabricante:"
+msgstr "Etiqueta do fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
 #: ../plugins/git/anjuta-git.glade.h:85
@@ -2497,7 +2498,7 @@ msgid "Search Help:"
 msgstr "Pesquisar ajuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:76
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:308
 msgid "_Goto"
 msgstr "I_r para"
 
@@ -2541,7 +2542,7 @@ msgstr "Conteúdo"
 #: ../plugins/search/search-replace.c:1709
 #: ../plugins/search/search-replace.c:1716
 #: ../plugins/search/search-replace.c:1728
-#: ../plugins/search/search-replace.c:2055
+#: ../plugins/search/search-replace.c:2055 ../plugins/symbol-db/plugin.c:2275
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -3534,6 +3535,7 @@ msgid "Root directory if no project is open:"
 msgstr "Diretório raiz se nenhum projeto estiver aberto:"
 
 #: ../plugins/file-manager/file-model.c:119
+#: ../plugins/symbol-db/symbol-db-view.c:799
 msgid "Loading..."
 msgstr "Carregando..."
 
@@ -3755,8 +3757,8 @@ msgstr "O alvo não existe"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
 msgid "Unable to update project"
 msgstr "Impossível atualizar o projeto"
 
@@ -3884,7 +3886,7 @@ msgstr "Módulo Python"
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
 msgid "Source doesn't exist"
 msgstr "O código-fonte não existe"
 
@@ -3913,8 +3915,8 @@ msgstr "Não foi possível remover o código-fonte"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "Diretório do projeto"
 
@@ -4099,20 +4101,20 @@ msgstr "Não foi possível criar o alvo"
 msgid "Target coudn't be removed"
 msgstr "Não foi possível remover o alvo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Source file must be inside the project directory"
 msgstr "O arquivo do código-fonte deve estar dentro do diretório do projeto"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Source is already in target"
 msgstr "O código-fonte já está no destino"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
 msgid "Source couldn't be added"
 msgstr "Não foi possível adicionar o código-fonte"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
 msgid "Source coudn't be removed"
 msgstr "Não foi possível remover o código-fonte"
 
@@ -4417,7 +4419,7 @@ msgstr "<b>Remover os arquivos:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:28
 msgid "<b>Tag name:</b>"
-msgstr "<b>Nome do Tag:</b>"
+msgstr "<b>Nome da etiqueta:</b>"
 
 #: ../plugins/git/anjuta-git.glade.h:29
 msgid "<b>URL:</b>"
@@ -4443,7 +4445,7 @@ msgstr "Adiciona aprovados por linha"
 
 #: ../plugins/git/anjuta-git.glade.h:35
 msgid "Annotate this tag"
-msgstr "Comentar esta tag"
+msgstr "Comentar esta etiqueta"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
 #: ../plugins/git/anjuta-git.glade.h:37
@@ -4487,7 +4489,7 @@ msgstr "Criar ramo"
 
 #: ../plugins/git/anjuta-git.glade.h:47
 msgid "Create Tag"
-msgstr "Criar tag"
+msgstr "Criar etiqueta"
 
 #: ../plugins/git/anjuta-git.glade.h:48
 msgid "Create patch series"
@@ -4512,7 +4514,7 @@ msgstr "Não submeter"
 
 #: ../plugins/git/anjuta-git.glade.h:53
 msgid "Do not follow tags"
-msgstr "Não seguir as tags"
+msgstr "Não seguir as etiquetas"
 
 #: ../plugins/git/anjuta-git.glade.h:54
 msgid "Fetch remote branches after creation"
@@ -4582,7 +4584,7 @@ msgstr "Reverter a submissão"
 
 #: ../plugins/git/anjuta-git.glade.h:71
 msgid "Revision/Tag:"
-msgstr "Revisão/Tag:"
+msgstr "Revisão/Etiqueta:"
 
 #: ../plugins/git/anjuta-git.glade.h:73
 msgid "Select A Folder"
@@ -4607,7 +4609,7 @@ msgstr "Trocar para outro ramo"
 
 #: ../plugins/git/anjuta-git.glade.h:78
 msgid "Tag/Commit"
-msgstr "Tag/Submissão"
+msgstr "Etiqueta/Submissão"
 
 #: ../plugins/git/anjuta-git.glade.h:79
 msgid "This commit concludes a failed merge (use -i)"
@@ -4685,11 +4687,11 @@ msgstr "Git: Ramo \"%s\" criado."
 #: ../plugins/git/git-create-tag-dialog.c:41
 #, c-format
 msgid "Git: Created tag \"%s\"."
-msgstr "Git: Tag \"%s\" criada."
+msgstr "Git: Etiqueta \"%s\" criada."
 
 #: ../plugins/git/git-create-tag-dialog.c:108
 msgid "Please enter a tag name."
-msgstr "Favor digitar um nome de tag."
+msgstr "Favor digitar um nome de etiqueta."
 
 #: ../plugins/git/git-delete-branch-dialog.c:41
 #, c-format
@@ -4733,7 +4735,7 @@ msgstr "<b>Ramo:</b> %s"
 #: ../plugins/git/git-log-dialog.c:510
 #, c-format
 msgid "<b>Tag:</b> %s"
-msgstr "<b>Tag:</b> %s"
+msgstr "<b>Etiqueta:</b> %s"
 
 #: ../plugins/git/git-log-dialog.c:515
 #, c-format
@@ -4956,7 +4958,7 @@ msgstr "_Excluir..."
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:307 ../plugins/git/plugin.c:351
 msgid "_Create tag..."
-msgstr "_Criar tag..."
+msgstr "_Criar etiqueta..."
 
 #. Action name
 #. Stock icon, if any
@@ -5882,8 +5884,8 @@ msgid "Icon"
 msgstr "ícone"
 
 #: ../plugins/message-view/message-view.c:823
-#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
-#: ../plugins/message-view/plugin.c:429
+#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:439
+#: ../plugins/message-view/plugin.c:451
 msgid "Messages"
 msgstr "Mensagens"
 
@@ -5968,32 +5970,32 @@ msgstr "Arquivo de correção"
 msgid "Patches"
 msgstr "Correções"
 
-#: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
+#: ../plugins/patch/patch-plugin.c:160 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
 msgstr "Patch"
 
-#: ../plugins/patch/patch-plugin.c:174
+#: ../plugins/patch/patch-plugin.c:180
 msgid "Please select the directory where the patch should be applied"
 msgstr "Selecione o diretório onde deverá ser aplicado o patch"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:191
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Aplicando o patch em %s utilizando %s\n"
 
-#: ../plugins/patch/patch-plugin.c:194
+#: ../plugins/patch/patch-plugin.c:203
 msgid "Patching...\n"
 msgstr "Aplicando correção...\n"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:213
 msgid "Patching..."
 msgstr "Aplicando correção..."
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:218
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Existem tarefas não concluídas, aguarde até elase serem concluídas."
 
-#: ../plugins/patch/patch-plugin.c:251
+#: ../plugins/patch/patch-plugin.c:260
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6003,7 +6005,7 @@ msgstr ""
 "Por favor, verifique as mensagens de erro.\n"
 "Examine e remova qualquer arquivo rejeitado.\n"
 
-#: ../plugins/patch/patch-plugin.c:257
+#: ../plugins/patch/patch-plugin.c:266
 msgid "Patching complete"
 msgstr "Correção completada"
 
@@ -6664,6 +6666,10 @@ msgstr "<b>Detalhes</b>"
 msgid "Error"
 msgstr "Erro"
 
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
+msgid "Select project type"
+msgstr "Selecione o tipo do projeto"
+
 #: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
 msgid "Warning"
 msgstr "Avisos"
@@ -6947,7 +6953,6 @@ msgstr ""
 "traduzido em diferentes idiomas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#: ../src/about.c:237
 msgid "Anjuta Plugin"
 msgstr "Plug-in do Anjuta"
 
@@ -7442,7 +7447,7 @@ msgstr "Atributos:"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:11
 msgid "Autocomplete XML/HTML closing tags"
-msgstr "Completar automaticamente tags de encerramento XML/HTML"
+msgstr "Completar automaticamente marcas de encerramento XML/HTML"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:12
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
@@ -7512,7 +7517,7 @@ msgstr "Largura do cursor de edição em pixels"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:30
 msgid "Enable HTML tags folding"
-msgstr "Habilitar dobra de tags HTML"
+msgstr "Habilitar dobra de marcas HTML"
 
 #: ../plugins/scintilla/anjuta-editor-scintilla.glade.h:31
 msgid "Enable automatic indentation"
@@ -7837,7 +7842,7 @@ msgstr "Versão do scratchbox:"
 msgid "Select Scratchbox Folder"
 msgstr "Selecionar pasta do scratchbox"
 
-#: ../plugins/scratchbox/plugin.c:456 ../plugins/scratchbox/plugin.c:478
+#: ../plugins/scratchbox/plugin.c:458 ../plugins/scratchbox/plugin.c:481
 #: ../plugins/scratchbox/anjuta-scratchbox.plugin.in.h:2
 msgid "Scratchbox"
 msgstr "Scratchbox"
@@ -8183,7 +8188,7 @@ msgstr "O Arquivo \\\"%s\\\" é somente leitura! Editar mesmo assim?"
 msgid "Could not save %s: %s"
 msgstr "Não foi possível salvar o arquivo %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:270
+#: ../plugins/sourceview/sourceview-io.c:274
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
@@ -8302,7 +8307,7 @@ msgstr "Documentação on-line da API do GNOME"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
-msgstr "<b>URL do Branch/Tag</b>"
+msgstr "<b>URL do Branch/Etiqueta</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>End Revision:</b>"
@@ -8422,7 +8427,7 @@ msgstr "Preferências do Subversion"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Switch to branch/tag"
-msgstr "Mudar para ramo/tag"
+msgstr "Mudar para ramo/etiqueta"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
@@ -8532,13 +8537,13 @@ msgstr "Copia arquivos/pastas no repositório"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:116
 msgid "Switch to a Branch/Tag..."
-msgstr "Alternar para a versão/tag..."
+msgstr "Alternar para a versão/etiqueta..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
-msgstr "Alterna a sua cópia local para uma versão ou tag no repositório"
+msgstr "Alterna a sua cópia local para uma versão ou etiqueta no repositório"
 
 #. Action name
 #. Stock icon, if any
@@ -8701,7 +8706,7 @@ msgstr "Subversion: Mudança concluída."
 
 #: ../plugins/subversion/subversion-switch-dialog.c:106
 msgid "Please enter a branch/tag URL."
-msgstr "Digite uma URL de ramificação/tag."
+msgstr "Digite uma URL de ramificação/etiqueta."
 
 #: ../plugins/subversion/subversion-ui-utils.c:64
 #: ../plugins/subversion/subversion-ui-utils.c:69
@@ -8798,23 +8803,96 @@ msgstr "Faltando: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruído: %s"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/plugin.c:312
+msgid "Tag De_claration"
+msgstr "Marcação de de_claração"
+
+#: ../plugins/symbol-db/plugin.c:314
+msgid "Goto symbol declaration"
+msgstr "Ir para declaração de símbolo"
+
+#: ../plugins/symbol-db/plugin.c:320
+msgid "Tag _Implementation"
+msgstr "Marcação de _implementação"
+
+#: ../plugins/symbol-db/plugin.c:322
+msgid "Goto symbol definition"
+msgstr "Ir para definição de símbolo"
+
+#: ../plugins/symbol-db/plugin.c:328
+msgid "_Find Symbol..."
+msgstr "_Localizar símbolo..."
+
+#: ../plugins/symbol-db/plugin.c:329
+msgid "Find Symbol"
+msgstr "Localizar símbolo"
+
+#: ../plugins/symbol-db/plugin.c:1107
+#, c-format
+msgid "%s: Generating inheritances..."
+msgstr "%s: Gerando heranças..."
+
+#: ../plugins/symbol-db/plugin.c:1112
+#, c-format
+msgid "%s: %d files scanned out of %d"
+msgstr "%s: %d arquivos varridos de %d"
+
+#: ../plugins/symbol-db/plugin.c:1143
+#, c-format
+msgid "Generating inheritances..."
+msgstr "Gerando heranças..."
+
+#: ../plugins/symbol-db/plugin.c:1145
+#, c-format
+msgid "%d files scanned out of %d"
+msgstr "%d arquivos varridos de %d"
+
+#: ../plugins/symbol-db/plugin.c:1905
+msgid "Populating symbols' db..."
+msgstr "Populando banco de dados de símbolos..."
+
+#: ../plugins/symbol-db/plugin.c:2225
+msgid "Local"
+msgstr "Local"
+
+#: ../plugins/symbol-db/plugin.c:2251
+msgid "Global"
+msgstr "Global"
+
+#: ../plugins/symbol-db/plugin.c:2308
+msgid "Symbols"
+msgstr "Símbolos"
+
+#: ../plugins/symbol-db/plugin.c:2316
+msgid "SymbolDb popup actions"
+msgstr "Ações do menu de contexto do SymbolDb"
+
+#: ../plugins/symbol-db/plugin.c:2324
+msgid "SymbolDb menu actions"
+msgstr "Ações de menu do SymbolDb"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:265
 msgid "Package is not parseable"
 msgstr "O pacote não é analisável sintaticamente"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:419
-#: ../plugins/symbol-db/symbol-db-prefs.c:579
+#: ../plugins/symbol-db/symbol-db-prefs.c:362
+#: ../plugins/symbol-db/symbol-db-prefs.c:496
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de dados de símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:528
+#: ../plugins/symbol-db/symbol-db-prefs.c:446
 msgid "API Tags"
 msgstr "Tags API"
 
-#: ../plugins/symbol-db/symbol-db-system.c:786
+#: ../plugins/symbol-db/symbol-db-system.c:805
 msgid "Resuming glb scan."
 msgstr "Continuando o glb scan."
+
+#: ../plugins/symbol-db/symbol-db-view-locals.c:294
+#: ../plugins/symbol-db/symbol-db-view.c:1426
+msgid "Symbol"
+msgstr "Símbolo"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
@@ -9487,11 +9565,11 @@ msgstr "Erro ao salvar as regras de supressão: %s"
 msgid "You have not set a suppressions file in your settings."
 msgstr "Você não configurou um arquivo de supressão em seus ajustes."
 
-#: ../src/about.c:185
+#: ../src/about.c:201
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:419
+#: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Sessão carregada..."
 
@@ -9709,15 +9787,15 @@ msgstr "Editar"
 msgid "View"
 msgstr "Vista"
 
-#: ../src/anjuta-app.c:657
+#: ../src/anjuta-app.c:661
 msgid "Installed plugins"
 msgstr "Plug-ins instalados"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:665
 msgid "Shortcuts"
 msgstr "Atalhos"
 
-#: ../src/anjuta-app.c:733
+#: ../src/anjuta-app.c:737
 #, c-format
 msgid "Value doesn't exist"
 msgstr "O valor não existe"
