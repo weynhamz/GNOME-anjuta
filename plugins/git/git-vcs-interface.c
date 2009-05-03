@@ -205,8 +205,8 @@ on_status_command_data_arrived (AnjutaCommand *command,
 			                         G_DIR_SEPARATOR_S, path, NULL);
 			file = g_file_new_for_path (full_path);
 
-			g_print ("Working directory: %s\n", (gchar *) g_object_get_data (G_OBJECT (command), "working-directory"));
-			g_print ("File %s Status %i\n", full_path, git_status_get_vcs_status (status));
+			DEBUG_PRINT ("Working directory: %s\n", (gchar *) g_object_get_data (G_OBJECT (command), "working-directory"));
+			DEBUG_PRINT ("File %s Status %i\n", full_path, git_status_get_vcs_status (status));
 
 			if (file)
 			{

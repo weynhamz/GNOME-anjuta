@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <libanjuta/anjuta-debug.h>
 #include "main.h"
 
 
@@ -16,7 +17,7 @@ void open_playlist(void)
 	{
 		case GTK_RESPONSE_OK:
 			path = g_strdup_printf("gtodo \"%s\"",gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (selection)));
-			g_print("%s\n", path);
+			DEBUG_PRINT ("%s\n", path);
 			g_spawn_command_line_async(path, NULL);	
 			g_free(path);
 		default:
@@ -40,7 +41,7 @@ void create_playlist(void)
 	{
 		case GTK_RESPONSE_OK:
 			path = g_strdup_printf("gtodo %s",gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (selection)));
-			g_print("%s\n", path);
+			DEBUG_PRINT ("%s\n", path);
 			g_spawn_command_line_async(path, NULL);	
 			g_free(path);
 		default:

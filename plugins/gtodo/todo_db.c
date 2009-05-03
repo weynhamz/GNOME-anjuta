@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include <string.h>
+#include <libanjuta/anjuta-debug.h>
 #include "main.h"
 
 int categorys = 0;
@@ -278,7 +279,7 @@ get_all_past_purge (void)
 			{
 				if (i < (today - settings.purge_days))
 				{
-					g_print ("auto-purge delete %i\n",
+					DEBUG_PRINT ("auto-purge delete %i\n",
 							gtodo_todo_item_get_id (item));
 					gtodo_client_delete_todo_by_id (cl,
 							gtodo_todo_item_get_id

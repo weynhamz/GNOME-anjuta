@@ -14,12 +14,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include "libgtodo.h"
 
-#ifdef DEBUG
-short int debug = 1;
-#else
-short int debug = 0;
-#endif
-
 typedef struct _GTodoCategory{
 	gchar *name;
 	gint id;
@@ -660,7 +654,7 @@ gboolean gtodo_client_check_file(GTodoClient *cl, GError **error)
 	else if ((file_error->domain == G_IO_ERROR) && (file_error->code == G_IO_ERROR_NOT_FOUND))
 	{
 		xmlNodePtr newn;
-		if(debug) g_print("Trying to create new file\n");
+		DEBUG_PRINT ("Trying to create new file\n");
 		cl->gtodo_doc = xmlNewDoc((xmlChar *)"1.0");
 		cl->root = xmlNewDocNode(cl->gtodo_doc, NULL, (xmlChar *)"gtodo", NULL);	 
 		xmlDocSetRootElement(cl->gtodo_doc, cl->root);
@@ -846,7 +840,7 @@ GTodoClient * gtodo_client_new_from_file(char *filename, GError **error)
 	GTodoClient *cl = NULL;
 	/* check if the error is good or wrong. */
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
-	if(debug)g_print("Trying to create a new client %s\n", filename);
+	DEBUG_PRINT ("Trying to create a new client %s\n", filename);
 	if(filename == NULL)
 	{
 		g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_NO_FILENAME,_("No filename supplied.") );
