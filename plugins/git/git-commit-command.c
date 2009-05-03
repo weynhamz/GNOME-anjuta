@@ -27,6 +27,7 @@
 struct _GitCommitCommandPriv
 {
 	GList *paths;
+	gboolean amend;
 	gboolean resolve_merge;
 	gchar *log;
 	gchar *author_name;
@@ -45,6 +46,9 @@ git_commit_command_run (AnjutaCommand *command)
 	
 	git_command_add_arg (GIT_COMMAND (self), "commit");
 
+	if (self->priv->amend)
+		git_command_add_arg (GIT_COMMAND (self), "--amend");
+
 	if (self->priv->author_name && self->priv->author_email)
 	{
 		author = g_strdup_printf ("--author=%s <%s>", self->priv->author_name,
@@ -53,7 +57,7 @@ git_commit_command_run (AnjutaCommand *command)
 
 		g_free (author);
 	}
-	
+
 	git_command_add_arg (GIT_COMMAND (self), "-m");
 	git_command_add_arg (GIT_COMMAND (self), self->priv->log);
 	
@@ -101,8 +105,8 @@ git_commit_command_class_init (GitCommitCommandClass *klass)
 
 
 GitCommitCommand *
-git_commit_command_new (const gchar *working_directory, gboolean resolve_merge,
-						const gchar *log, 
+git_commit_command_new (const gchar *working_directory, gboolean amend, 
+						gboolean resolve_merge, const gchar *log, 
                         const gchar *author_name, 
                         const gchar *author_email,
                         GList *paths)
@@ -115,6 +119,7 @@ git_commit_command_new (const gchar *working_directory, gboolean resolve_merge,
 						 NULL);
 	
 	self->priv->paths = git_command_copy_path_list (paths);
+	self->priv->amend = amend;
 	self->priv->resolve_merge = resolve_merge;
 	self->priv->log = g_strdup (log);
 	self->priv->author_name = g_strdup (author_name);

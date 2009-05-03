@@ -55,7 +55,8 @@ struct _GitCommitCommand
 
 GType git_commit_command_get_type (void) G_GNUC_CONST;
 GitCommitCommand *git_commit_command_new (const gchar *working_directory,
-										  gboolean resolve_merge, 
+										  gboolean amend,
+										  gboolean resolve_merge,
 										  const gchar *log, 
 										  const gchar *author_name,
                                           const gchar *author_email,

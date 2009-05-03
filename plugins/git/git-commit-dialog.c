@@ -45,6 +45,8 @@ static void
 on_commit_dialog_response (GtkDialog *dialog, gint response_id, 
 						   GitUIData *data)
 {
+	GtkWidget *commit_amend_check;
+	gboolean amend;
 	GtkWidget *commit_log_view;
 	gchar *log;
 	GtkWidget *log_prompt_dialog;
@@ -62,6 +64,9 @@ on_commit_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
+		commit_amend_check = glade_xml_get_widget (data->gxml, 
+		                                           "commit_amend_check");
+		amend = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (commit_amend_check));
 		commit_log_view = glade_xml_get_widget (data->gxml, "commit_log_view");
 		log = git_get_log_from_textview (commit_log_view);
 		
@@ -120,6 +125,7 @@ on_commit_dialog_response (GtkDialog *dialog, gint response_id,
 		resolve_check = glade_xml_get_widget (data->gxml, "resolve_check");
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (commit_status_view));
 		commit_command = git_commit_command_new (data->plugin->project_root_directory,
+		                                         amend,
 												 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (resolve_check)),
 												 log,
 		                                         author_name,
