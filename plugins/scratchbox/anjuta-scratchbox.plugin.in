@@ -1,6 +1,0 @@
-[Anjuta Plugin]
-_Name=Scratchbox
-_Description=Change build commands to use scratchbox 1 or 2
-Location=anjuta-scratchbox:ScratchboxPlugin
-Icon=anjuta-scratchbox-48.png
-Interfaces=IAnjutaEnvironment
