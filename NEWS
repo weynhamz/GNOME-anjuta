@@ -1,3 +1,22 @@
+Anjuta 2.27.0 (4 April 2009) -- Johannes Schmid
+
+Updates:
+- Improvements in git plugin
+- Improvements with auto-completion speed
+
+Bugs fixed:
+#580013 – patch plugin doesn't handle patch-files with whitespace
+#568779 – project wizard should infer project name from base path
+#577721 – tooltips appears in wrong position
+#579118 – Segmentation fault when adding file to project
+#578087 – Artwork for Symbol Database is actually not from Monodevelop
+#567588 – highlight default button in Find dialog
+#576959 - Search does not point to correct line number on first match when file is not opened in editor.
+#577006 – crash creating new file
+#574607 – Replace function selects text uncorrectly
+#576057 – doesn't build with graphviz 2.22.2
+#575617 – Update FSF address
+
 Anjuta 2.26.0 (16 March 2009) -- Johannes Schmid
 
 Bugs fixed:
