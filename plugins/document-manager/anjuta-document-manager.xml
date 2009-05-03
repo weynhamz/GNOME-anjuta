@@ -1,0 +1,152 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
+			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="Save" action="ActionFileSave" />
+				<menuitem name="SaveAs" action="ActionFileSaveAs" />
+				<menuitem name="Close" action="ActionFileClose" />
+				<menuitem name="Reload" action="ActionFileReload" />
+				<separator name="separator4"/>
+			</placeholder>
+			<placeholder name="PlaceholderPrintMenus">
+				<menuitem name="Print" action="ActionPrintFile" />
+				<menuitem name="PrintPreview" action="ActionPrintPreview" />
+				<separator name="separator5"/>
+			</placeholder>
+			<placeholder name="PlaceholderRecentMenus">
+				<menu name="RecentFiles" action="ActionMenuFileRecentFiles" />
+			</placeholder>
+		</menu>
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderEditMenus">
+				<menuitem name="Undo" action="ActionEditUndo" />
+				<menuitem name="Redo" action="ActionEditRedo" />
+				<separator name="separator6"/>
+				<menuitem name="Cut" action="ActionEditCut" />
+				<menuitem name="Copy" action="ActionEditCopy" />
+				<menuitem name="Paste" action="ActionEditPaste" />
+				<menuitem name="Clear" action="ActionEditClear" />
+				<separator name="separator7"/>
+				<menu name="Transform" action="ActionMenuEditTransform">
+					<menuitem name="UpperCase" action="ActionEditMakeSelectionUppercase" />
+					<menuitem name="LowerCase" action="ActionEditMakeSelectionLowercase" />
+					<menuitem name="ConvertCRLF" action="ActionEditConvertCRLF" />
+					<menuitem name="ConvertLF" action="ActionEditConvertLF" />
+					<menuitem name="ConvertCR" action="ActionEditConvertCR" />
+					<menuitem name="ConvertEOL" action="ActionEditConvertEOL" />
+				</menu>
+				<menu name="Comment" action="ActionMenuEditComment">
+					<menuitem name="Block" action="ActionEditCommentBlock" />
+					<menuitem name="Box" action="ActionEditCommentBox" />
+					<menuitem name="Stream" action="ActionEditCommentStream" />
+				</menu>
+				<placeholder name="PlaceholderEditSearchMenus">			
+					<menu name="Search" action="ActionMenuEditSearch">
+						<placeholder name="PlaceholderQuickSearchMenu">
+							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
+							<menuitem name="QuickReSearch" action="ActionEditSearchQuickSearchAgain"/>
+							<separator name="separator8"/>
+						</placeholder>
+					</menu>
+				</placeholder>
+			</placeholder>
+			<placeholder name="PlaceholderSelectMenus">
+				<menu name="Select" action="ActionMenuEditSelect">
+					<menuitem name="SelectAll" action="ActionEditSelectAll" />
+					<menuitem name="SelectBlock" action="ActionEditSelectBlock" />
+				</menu>
+			</placeholder>
+			<placeholder name="PlaceholderInsertMenus"/>
+			<placeholder name="PlaceholderOperationMenus"/>
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+			<menu name="MenuViewEditor" action="ActionMenuViewEditor">
+				<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+				<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+				<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+				<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+				<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
+				<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
+				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+				<separator name="separator9"/>
+				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
+				<menuitem name="AddView" action="ActionViewEditorAddView" />
+				<menuitem name="RemoveView" action="ActionViewEditorRemoveView" />
+				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
+				<separator name="separator10"/>
+				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
+				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
+				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
+			</menu>
+			<menu name="Goto" action="ActionMenuGoto">
+				<menuitem name="Line" action="ActionEditGotoLine" />
+				<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
+				<separator name="separator13"/>
+				<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
+				<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
+				<separator name="separator14"/>
+				<menuitem name="PreviousHistory" action="ActionEditGotoHistoryPrev" />
+				<menuitem name="NextHistory" action="ActionEditGotoHistoryNext" />
+				<separator name="separator15"/>
+				<placeholder name="PlaceholderGotoMenus"/>
+				<separator />
+				<placeholder name="PlaceholderGotoMessages" />
+				<separator />
+				<placeholder name="PlaceholderGotoSymbol" />
+			</menu>
+		</menu>
+		<placeholder name="PlaceHolderDocumentsMenus">
+			<menu name="Documents" action="ActionMenuDocuments">
+				<menuitem name="SaveAll" action="ActionFileSaveAll" />
+				<menuitem name="CloseAll" action="ActionFileCloseAll" />
+				<separator />
+				<menu name="DocumentsBookmarks" action="ActionMenuBookmark">
+				  <menuitem name="AddBookmark" action="ActionBookmarkAdd" />
+				  <separator />
+				  <menuitem name="NextBookmark" action="ActionBookmarkNext" />				  
+				  <menuitem name="PrevBookmark" action="ActionBookmarkPrev" />
+				  <separator />
+				  <menuitem name="ClearBookmarks" action="ActionBookmarksClear" />
+				</menu>
+				<separator />	  
+				<menuitem name="PreviousDocument" action="ActionDocumentsPrevious" />
+				<menuitem name="NextDocument" action="ActionDocumentsNext" />
+				<separator />
+				<placeholder name="PlaceholderDocuments" />
+			</menu>
+		</placeholder>
+	</menubar>
+	<toolbar name="ToolbarMain">
+		<placeholder name="PlaceholderFileToolbar">
+			<toolitem name="Save" action="ActionFileSave" />
+			<separator />
+			<toolitem name="Undo" action="ActionEditUndo" />
+			<toolitem name="Redo" action="ActionEditRedo" />
+			<separator />
+		</placeholder>
+	</toolbar>
+	<popup name="PopupDocumentManager">
+		<menuitem name="Cut" action="ActionEditCut" />
+		<menuitem name="Copy" action="ActionEditCopy" />
+		<menuitem name="Paste" action="ActionEditPaste" />
+		<separator name="separator26"/>
+		<menu name="Goto" action="ActionMenuGoto">
+				<separator name="separator27"/>
+				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
+				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+			<separator name="separator28"/>
+			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
+		</menu>
+		<menuitem name="Close" action="ActionFileClose" />
+	</popup>
+</ui>

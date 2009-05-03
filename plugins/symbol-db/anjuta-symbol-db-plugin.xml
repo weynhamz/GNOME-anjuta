@@ -1,0 +1,20 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderEditMenus">
+				<placeholder name="PlaceholderEditSearchMenus">			
+					<menu name="Search" action="ActionMenuEditSearch">
+						<menuitem name="FindSymbol" action="ActionEditSearchFindSymbol"/>
+					</menu>
+				</placeholder>
+			</placeholder>
+		</menu>
+	</menubar>
+	<popup name="PopupDocumentManager">
+		<menu name="Goto" action="ActionMenuGoto">
+			<menuitem name="TagDecl" action="ActionSymbolDBGotoDecl" />
+			<menuitem name="TagImpl" action="ActionSymbolDBGotoImpl" />
+		</menu>
+	</popup>
+</ui>
