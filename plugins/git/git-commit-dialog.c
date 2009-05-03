@@ -160,8 +160,8 @@ select_all_files (AnjutaCommand *command, guint return_code,
 }
 
 static void
-set_author_info_alignment_sensitive (GtkToggleButton *button,
-                            		 GtkWidget *commit_author_info_alignment)
+on_commit_custom_author_info_check_toggled (GtkToggleButton *button,
+                            				GtkWidget *commit_author_info_alignment)
 {
 	gtk_widget_set_sensitive (commit_author_info_alignment,
 	                          gtk_toggle_button_get_active (button));
@@ -195,7 +195,7 @@ commit_dialog (Git *plugin)
 											 GIT_STATUS_SECTION_MODIFIED);
 	
 	g_signal_connect (G_OBJECT (commit_custom_author_info_check), "toggled",
-	                  G_CALLBACK (set_author_info_alignment_sensitive),
+	                  G_CALLBACK (on_commit_custom_author_info_check_toggled),
 	                  commit_author_info_alignment);
 
 	g_signal_connect (G_OBJECT (commit_select_all_button), "clicked",
