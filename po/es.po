@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2009-05-03 09:22+0000\n"
-"PO-Revision-Date: 2009-05-03 11:28+0200\n"
+"PO-Revision-Date: 2009-05-03 18:59+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2563,7 +2563,7 @@ msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:285
 msgid "_Reload"
-msgstr "_Recargar"
+msgstr "Re_cargar"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:282
 #: ../plugins/document-manager/plugin.c:411
@@ -3437,7 +3437,7 @@ msgstr "_Abrir"
 
 #: ../plugins/file-loader/plugin.c:878 ../plugins/file-loader/plugin.c:891
 msgid "Open _With"
-msgstr "Abrir _con"
+msgstr "Abrir c_on"
 
 #: ../plugins/file-loader/plugin.c:879 ../plugins/file-loader/plugin.c:892
 msgid "Open with"
