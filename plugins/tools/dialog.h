@@ -49,7 +49,7 @@ void atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select);
 
 ATPVariable* atp_tool_dialog_get_variable (const ATPToolDialog *this);
 
-void atp_tool_dialog_show (ATPToolDialog *this, GladeXML *xml);
+void atp_tool_dialog_show (ATPToolDialog *this, GtkBuilder *xml);
 void atp_tool_dialog_close (ATPToolDialog *this);
 
 #endif

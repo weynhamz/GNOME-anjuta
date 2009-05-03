@@ -25,7 +25,7 @@
 #include <config.h>
 #include <libanjuta/anjuta-plugin.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.ui"
 #define CLASS_TEMPLATE PACKAGE_DATA_DIR"/class-templates/"
 
 extern GType class_gen_plugin_get_type (GTypeModule *module);

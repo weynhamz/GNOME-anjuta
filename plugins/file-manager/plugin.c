@@ -23,7 +23,6 @@
  */
 
 #include <config.h>
-#include <glade/glade-xml.h>
 #include <gio/gio.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -35,10 +34,10 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include "plugin.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.xml"
 #define ICON_FILE "anjuta-file-manager-plugin-48.png"
-#define FILE_MANAGER_GLADE PACKAGE_DATA_DIR"/glade/file-manager.glade"
-#define FILE_MANAGER_GLADE_ROOT "filemanager_prefs"
+#define FILE_MANAGER_BUILDER PACKAGE_DATA_DIR"/glade/file-manager.ui"
+#define FILE_MANAGER_BUILDER_ROOT "filemanager_prefs"
 
 #define PREF_ROOT "filemanager.root"
 #define PREF_FILTER_BINARY "filemanager.filter.binary"
@@ -445,11 +444,16 @@ ipreferences_merge (IAnjutaPreferences* ipref,
 					AnjutaPreferences* prefs,
 					GError** e)
 {
-	GladeXML* gxml;
-	
-	gxml = glade_xml_new (FILE_MANAGER_GLADE, FILE_MANAGER_GLADE_ROOT, NULL);
-	
-	anjuta_preferences_add_page (prefs, gxml, FILE_MANAGER_GLADE_ROOT, _("File Manager"),
+	GError* error = NULL;
+	GtkBuilder* bxml = gtk_builder_new ();
+
+	if (!gtk_builder_add_from_file (bxml, FILE_MANAGER_BUILDER, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	anjuta_preferences_add_from_builder (prefs, bxml, FILE_MANAGER_BUILDER_ROOT, _("File Manager"),
 								 ICON_FILE);
 }
 

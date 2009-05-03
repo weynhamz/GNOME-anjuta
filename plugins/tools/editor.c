@@ -123,21 +123,20 @@ struct _ATPToolEditor
 #define TOOL_ICON "icon_entry"
 #define TOOL_BROWSE_WORKING_DIR "browse_button_directory_entry"
 #define TOOL_BROWSE_COMMAND "browse_button_command_entry"
-
-#define EDITOR_RESPONSE_SIGNAL "on_editor_dialog_response"
-#define EDITOR_PARAM_VARIABLE_SIGNAL "on_variable_parameter"
-#define EDITOR_DIR_VARIABLE_SIGNAL "on_variable_directory"
-#define EDITOR_INPUT_VARIABLE_SIGNAL "on_variable_input"
-#define EDITOR_INPUT_CHANGED_SIGNAL "on_input_changed"
-#define EDITOR_TOGGLE_TERMINAL_SIGNAL "on_toggle_terminal"
-#define EDITOR_TOGGLE_SHORCUT_SIGNAL "on_toggle_shorcut"
-#define EDITOR_TOGGLE_SCRIPT_SIGNAL "on_toggle_script"
-#define EDITOR_ICON_ENTRY_CLICKED "on_editor_icon_entry_clicked"
-
 #define TOOL_VARIABLE "variable_dialog"
 #define VARIABLE_TREEVIEW "variable_treeview"
-#define VARIABLE_RESPONSE_SIGNAL "on_variable_dialog_response"
-#define VARIABLE_ACTIVATE_SIGNAL "on_variable_activate_row"
+
+void on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
+void on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
+void on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data);
+void on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data);
+void on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data);
+void on_editor_input_changed (GtkComboBox *combo, gpointer user_data);
+void on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
+void on_editor_param_variable_show (GtkButton *button, gpointer user_data);
+void on_editor_dir_variable_show (GtkButton *button, gpointer user_data);
+void on_editor_input_variable_show (GtkButton *button, gpointer user_data);
+void on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data);
 
 /* Add helper function
  *---------------------------------------------------------------------------*/
@@ -391,8 +390,8 @@ get_current_name (GtkTreeView *view)
 	return NULL;
 }
 
-static void
-on_variable_activate (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
+void
+on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
 {
 	ATPVariableDialog *this = (ATPVariableDialog*)user_data;
 	GtkTreeIter iter;
@@ -409,8 +408,8 @@ on_variable_activate (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColum
 	gtk_widget_hide (GTK_WIDGET (this->dialog));
 }
 
-static void
-on_variable_response (GtkDialog *dialog, gint response, gpointer user_data)
+void
+on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPVariableDialog *this = (ATPVariableDialog *)user_data;
 	gchar* name;
@@ -431,10 +430,11 @@ on_variable_response (GtkDialog *dialog, gint response, gpointer user_data)
 static gboolean
 atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 {
-	GladeXML *xml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
+	GError* error = NULL;
 
 	if (this->dialog != NULL)
 	{
@@ -442,18 +442,20 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 		if (this->dialog) gtk_window_present (GTK_WINDOW (this->dialog));
 		return TRUE;
 	}
-	
-	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_VARIABLE, NULL)))
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
 	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
 		anjuta_util_dialog_error (GTK_WINDOW (this->editor->dialog), _("Unable to build user interface for tool variable"));
 		return FALSE;
 	}
-	this->dialog = GTK_DIALOG (glade_xml_get_widget(xml, TOOL_VARIABLE));
+	this->dialog = GTK_DIALOG (gtk_builder_get_object (bxml, TOOL_VARIABLE));
 	gtk_widget_show (GTK_WIDGET (this->dialog));
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), GTK_WINDOW (this->editor->dialog));
 
 	/* Create variable list */
-	this->view = GTK_TREE_VIEW (glade_xml_get_widget(xml, VARIABLE_TREEVIEW));
+	this->view = GTK_TREE_VIEW (gtk_builder_get_object (bxml, VARIABLE_TREEVIEW));
 	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_VARIABLE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING));
 	gtk_tree_view_set_model (this->view, model);
 
@@ -469,12 +471,11 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 	g_object_unref (model);
 	atp_variable_dialog_populate (this, flag);
 
-	/* Connect all signals */	
-	glade_xml_signal_connect_data (xml, VARIABLE_RESPONSE_SIGNAL, G_CALLBACK (on_variable_response), this);
-	glade_xml_signal_connect_data (xml, VARIABLE_ACTIVATE_SIGNAL, G_CALLBACK (on_variable_activate), this);
+	/* Connect all signals */
+	gtk_builder_connect_signals (bxml, this);
 	g_signal_connect (G_OBJECT (this->dialog), "delete_event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 
-	g_object_unref (xml);
+	g_object_unref (bxml);
 
 	return TRUE;
 }
@@ -482,7 +483,7 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 /* Tool editor dialog
  *---------------------------------------------------------------------------*/
 
-static void
+void
 on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -643,7 +644,7 @@ atp_populate_tool_editor(ATPToolEditor* this)
 	}
 }
 
-static void
+void
 on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -651,7 +652,7 @@ on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 	atp_update_sensitivity (this);
 }
 
-static void
+void
 on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -700,7 +701,7 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 	}
 }
 
-static void
+void
 on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -708,8 +709,8 @@ on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
 	atp_update_sensitivity (this);
 }
 
-static void
-on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
+void
+on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 	gchar* name;
@@ -875,7 +876,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 	atp_tool_editor_free (this);
 }
 
-static void
+void
 on_editor_param_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
@@ -883,7 +884,7 @@ on_editor_param_variable_show (GtkButton *button, gpointer user_data)
 	atp_variable_dialog_show (&this->param_var, ATP_DEFAULT_VARIABLE);	
 }
 
-static void
+void
 on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
@@ -891,7 +892,7 @@ on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 	atp_variable_dialog_show (&this->dir_var, ATP_DIRECTORY_VARIABLE);
 }
 
-static void
+void
 on_editor_input_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
@@ -970,7 +971,7 @@ on_editor_get_keys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 	return TRUE;
 }
 
-static void
+void
 on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -1039,7 +1040,8 @@ gboolean
 atp_tool_editor_show (ATPToolEditor* this)
 {
 	GtkWidget *button;
-	GladeXML *xml;
+	GtkBuilder *bxml = gtk_builder_new ();
+	GError* error = NULL;
 
 	if (this->dialog != NULL)
 	{
@@ -1048,41 +1050,42 @@ atp_tool_editor_show (ATPToolEditor* this)
 		return TRUE;
 	}
 
-	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_EDITOR, NULL)))
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
 	{
+		g_warning ("Couldn't load builder file: %s", error->message);
 		anjuta_util_dialog_error (atp_tool_dialog_get_window (this->parent), _("Unable to build user interface for tool editor"));
 		g_free(this);
-
+		g_error_free (error);
 		return FALSE;
 	}
-	this->dialog = glade_xml_get_widget(xml, TOOL_EDITOR);
+	this->dialog = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_EDITOR));
 	gtk_widget_show (this->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->parent->plugin));
 
-	this->name_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_NAME));
-	this->command_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_COMMAND));
-	this->param_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_PARAM));
+	this->name_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_NAME));
+	this->command_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_COMMAND));
+	this->param_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_PARAM));
 	atp_variable_dialog_set_entry (&this->param_var, this->param_en);
-	this->dir_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_WORKING_DIR));
+	this->dir_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_WORKING_DIR));
 	atp_variable_dialog_set_entry (&this->dir_var, this->dir_en);
-	this->enabled_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget (xml, TOOL_ENABLED));
-	this->terminal_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_TERMINAL));
-	this->autosave_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_AUTOSAVE));
-	this->script_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_SCRIPT));
-	this->output_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_OUTPUT));
-	this->error_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_ERROR));
-	this->input_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_INPUT));
-	this->input_en = GTK_EDITABLE (glade_xml_get_widget(xml, TOOL_INPUT_VALUE));
-	this->input_var_bt = GTK_BUTTON (glade_xml_get_widget(xml, TOOL_INPUT_VARIABLE));
-	this->shortcut_bt = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_SHORTCUT));
+	this->enabled_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_ENABLED));
+	this->terminal_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_TERMINAL));
+	this->autosave_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_AUTOSAVE));
+	this->script_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_SCRIPT));
+	this->output_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_OUTPUT));
+	this->error_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_ERROR));
+	this->input_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_INPUT));
+	this->input_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_INPUT_VALUE));
+	this->input_var_bt = GTK_BUTTON (gtk_builder_get_object (bxml, TOOL_INPUT_VARIABLE));
+	this->shortcut_bt = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_SHORTCUT));
 	atp_variable_dialog_set_entry (&this->input_file_var, this->input_en);
 	atp_variable_dialog_set_entry (&this->input_string_var, this->input_en);
-	this->icon_en = GTK_BUTTON (glade_xml_get_widget(xml, TOOL_ICON));
+	this->icon_en = GTK_BUTTON (gtk_builder_get_object (bxml, TOOL_ICON));
 
-	button = GTK_WIDGET (glade_xml_get_widget (xml, TOOL_BROWSE_WORKING_DIR));
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_BROWSE_WORKING_DIR));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 					G_CALLBACK(on_editor_browse_button_dir_clicked), this->dir_en);
-	button = GTK_WIDGET (glade_xml_get_widget (xml, TOOL_BROWSE_COMMAND));
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_BROWSE_COMMAND));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 					G_CALLBACK(on_editor_browse_button_clicked), this->command_en);
 
@@ -1095,18 +1098,10 @@ atp_tool_editor_show (ATPToolEditor* this)
 	atp_populate_tool_editor (this);
 	atp_update_sensitivity (this);
 
-	/* Connect all signals */	
-	glade_xml_signal_connect_data (xml, EDITOR_RESPONSE_SIGNAL, G_CALLBACK (on_editor_response), this);
-	glade_xml_signal_connect_data (xml, EDITOR_PARAM_VARIABLE_SIGNAL, G_CALLBACK (on_editor_param_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, G_CALLBACK (on_editor_dir_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, G_CALLBACK (on_editor_shortcut_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, G_CALLBACK (on_editor_terminal_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SCRIPT_SIGNAL, G_CALLBACK (on_editor_script_toggle), this);
-	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, G_CALLBACK (on_editor_input_variable_show), this);
-	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, G_CALLBACK (on_editor_input_changed), this);
-	glade_xml_signal_connect_data (xml, EDITOR_ICON_ENTRY_CLICKED, G_CALLBACK (on_editor_icon_entry_clicked), this);
+	/* Connect all signals */
+	gtk_builder_connect_signals (bxml, this);
 
-	g_object_unref (xml);
+	g_object_unref (bxml);
 
 	return TRUE;
 }

@@ -22,7 +22,6 @@
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <glade/glade-xml.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-shell.h>
 #include <string.h>
@@ -30,7 +29,7 @@
 /* Constants
  *---------------------------------------------------------------------------*/
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.ui"
 
 #define CONFIGURE_DIALOG "configure_dialog"
 #define RUN_AUTOGEN_CHECK "force_autogen_check"
@@ -306,20 +305,26 @@ fill_dialog (BuildConfigureDialog *dlg)
 gboolean
 build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildConfigurationList *config_list, gboolean *run_autogen)
 {
-	GladeXML* gxml;
+	GError* error = NULL;
+	GtkBuilder* bxml;
 	BuildConfigureDialog dlg;
 	BuildConfiguration *cfg = NULL;
 	gint response;
 	
 	/* Get all dialog widgets */
-	gxml = glade_xml_new (GLADE_FILE, CONFIGURE_DIALOG, NULL);
-	dlg.win = glade_xml_get_widget (gxml, CONFIGURE_DIALOG);
-	dlg.combo = glade_xml_get_widget(gxml, CONFIGURATION_COMBO);
-	dlg.autogen = glade_xml_get_widget(gxml, RUN_AUTOGEN_CHECK);
-	dlg.build_dir_chooser = glade_xml_get_widget(gxml, BUILD_DIR_CHOOSER);
-	dlg.args = glade_xml_get_widget(gxml, CONFIGURE_ARGS_ENTRY);
-	dlg.ok = glade_xml_get_widget(gxml, OK_BUTTON);
-	g_object_unref (gxml);
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	dlg.win = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURE_DIALOG));
+	dlg.combo = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURATION_COMBO));
+	dlg.autogen = GTK_WIDGET (gtk_builder_get_object (bxml, RUN_AUTOGEN_CHECK));
+	dlg.build_dir_chooser = GTK_WIDGET (gtk_builder_get_object (bxml, BUILD_DIR_CHOOSER));
+	dlg.args = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURE_ARGS_ENTRY));
+	dlg.ok = GTK_WIDGET (gtk_builder_get_object (bxml, OK_BUTTON));
+	g_object_unref (bxml);
 	
 	dlg.config_list = config_list;
 	dlg.project_uri = project_root_uri;

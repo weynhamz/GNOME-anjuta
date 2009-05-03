@@ -5,11 +5,11 @@ symbol_db_data_DATA = tables.sql
 
 # Plugin UI file
 symbol_db_uidir = $(anjuta_ui_dir)
-symbol_db_ui_DATA = anjuta-symbol-db-plugin.ui
+symbol_db_ui_DATA = anjuta-symbol-db-plugin.xml
 
 # Plugin Glade file
 symbol_db_gladedir = $(anjuta_glade_dir)
-symbol_db_glade_DATA =  anjuta-symbol-db.glade
+symbol_db_glade_DATA =  anjuta-symbol-db.ui
 
 # Plugin Icon file
 symbol_db_pixmapsdir = $(anjuta_image_dir)
@@ -76,7 +76,7 @@ libanjuta_symbol_db_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
 
-prefs_glade_files = anjuta-symbol-db.glade
+prefs_ui_files = anjuta-symbol-db.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

@@ -36,7 +36,7 @@ void on_menu_subversion_log (GtkAction* action, Subversion* plugin);
 void on_fm_subversion_log (GtkAction *action, Subversion *plugin);
 
 GtkWidget *subversion_log_window_create (Subversion *plugin);
-void subversion_log_set_whole_project_sensitive (GladeXML *log_gxml,
+void subversion_log_set_whole_project_sensitive (GtkBuilder *log_bxml,
 												 gboolean sensitive);
 
 #endif

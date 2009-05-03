@@ -41,7 +41,7 @@
 #include "subversion-merge-dialog.h"
 #include "subversion-resolve-dialog.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-subversion.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-subversion.xml"
 
 static gpointer parent_class;
 
@@ -343,7 +343,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		if (bb_plugin->project_root_dir)
 		{
 			// update_project_ui (bb_plugin);
-			subversion_log_set_whole_project_sensitive (bb_plugin->log_gxml,
+			subversion_log_set_whole_project_sensitive (bb_plugin->log_bxml,
 														TRUE);
 			gtk_action_set_sensitive (commit_action, TRUE);
 			gtk_action_set_sensitive (revert_action, TRUE);
@@ -382,7 +382,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	bb_plugin->project_root_dir = NULL;
 	// update_project_ui (bb_plugin);
 	
-	subversion_log_set_whole_project_sensitive (bb_plugin->log_gxml,
+	subversion_log_set_whole_project_sensitive (bb_plugin->log_bxml,
 												FALSE);
 	gtk_action_set_sensitive (commit_action, FALSE);
 	gtk_action_set_sensitive (revert_action, FALSE);
@@ -442,6 +442,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *commit_action;
 	GtkAction *revert_action;
 	GtkAction *resolve_action;
+	GError* error = NULL;
 	
 	DEBUG_PRINT ("%s", "Subversion: Activating Subversion plugin ...");
 	subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
@@ -465,9 +466,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Merge UI */
 	subversion->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
-	subversion->log_gxml = glade_xml_new (GLADE_FILE, "subversion_log", 
-										  NULL);
-	
+	subversion->log_bxml = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (subversion->log_bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
 	/* Add watches */
 	subversion->fm_watch_id = 
 		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
@@ -532,7 +537,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 								ANJUTA_PLUGIN_SUBVERSION (plugin)->log_viewer,
 								NULL);
 	
-	g_object_unref (ANJUTA_PLUGIN_SUBVERSION (plugin)->log_gxml);
+	g_object_unref (ANJUTA_PLUGIN_SUBVERSION (plugin)->log_bxml);
 	
 	return TRUE;
 }
@@ -561,7 +566,7 @@ subversion_instance_init (GObject *obj)
 	plugin->fm_current_filename = NULL;
 	plugin->project_root_dir = NULL;
 	plugin->current_editor_filename = NULL;
-	plugin->log_gxml = NULL;
+	plugin->log_bxml = NULL;
 	plugin->log_viewer = NULL;
 	
 	apr_initialize ();

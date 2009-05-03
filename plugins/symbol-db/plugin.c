@@ -48,7 +48,7 @@
 #include "symbol-db-iface.h"
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.xml"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5

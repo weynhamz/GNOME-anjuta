@@ -43,12 +43,12 @@
 #define TOOL_UP_BUTTON "up_bt"
 #define TOOL_DOWN_BUTTON "down_bt"
 
-#define TOOL_ADD_SIGNAL "on_tool_add"
-#define TOOL_ACTIVATED_SIGNAL "on_tool_activated"
-#define TOOL_EDIT_SIGNAL "on_tool_edit"
-#define TOOL_DELETE_SIGNAL "on_tool_delete"
-#define TOOL_UP_SIGNAL "on_tool_up"
-#define TOOL_DOWN_SIGNAL "on_tool_down"
+void on_tool_add (GtkButton *button, gpointer user_data);
+void on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data);
+void on_tool_edit (GtkButton *button, gpointer user_data);
+void on_tool_delete (GtkButton *button, gpointer user_data);
+void on_tool_up (GtkButton *button, gpointer user_data);
+void on_tool_down (GtkButton *button, gpointer user_data);
 
 /* column of the list view */
 enum {
@@ -123,7 +123,7 @@ get_current_writable_tool (ATPToolDialog *this)
 /* Call backs
  *---------------------------------------------------------------------------*/
 
-static void
+void
 on_tool_add (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
@@ -147,7 +147,7 @@ on_tool_add (GtkButton *button, gpointer user_data)
 	atp_tool_editor_show (ted);
 }
 
-static void
+void
 on_tool_edit (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
@@ -164,7 +164,7 @@ on_tool_edit (GtkButton *button, gpointer user_data)
 	}
 }
 
-static void
+void
 on_tool_delete (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
@@ -181,7 +181,7 @@ on_tool_delete (GtkButton *button, gpointer user_data)
 	}	
 }
 
-static void
+void
 on_tool_up (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
@@ -205,7 +205,7 @@ on_tool_up (GtkButton *button, gpointer user_data)
 	}
 }
 
-static void
+void
 on_tool_down (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
@@ -243,7 +243,7 @@ on_tool_enable (GtkCellRendererToggle *cell_renderer, const gchar *path, gpointe
 	}	
 }
 
-static void
+void
 on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data)
 {
 	on_tool_edit (NULL, user_data);
@@ -309,18 +309,18 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 /* Start the tool lister and editor */
 
 void
-atp_tool_dialog_show (ATPToolDialog* this, GladeXML *xml)
+atp_tool_dialog_show (ATPToolDialog* this, GtkBuilder *bxml)
 {
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 
-	this->dialog = GTK_WINDOW (glade_xml_get_widget(xml, TOOL_LIST));
+	this->dialog = GTK_WINDOW (gtk_builder_get_object (bxml, TOOL_LIST));
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->plugin));
 
 	/* Create tree view */	
-	this->view = GTK_TREE_VIEW (glade_xml_get_widget(xml, TOOL_TREEVIEW));
+	this->view = GTK_TREE_VIEW (gtk_builder_get_object (bxml, TOOL_TREEVIEW));
 	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_TOOLS_COLUMNS,
 		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER));
 	gtk_tree_view_set_model (this->view, model);
@@ -338,18 +338,13 @@ atp_tool_dialog_show (ATPToolDialog* this, GladeXML *xml)
 	g_object_unref (model);
 
 	/* Get all buttons */
-	this->edit_bt = glade_xml_get_widget(xml, TOOL_EDIT_BUTTON);
-	this->delete_bt = glade_xml_get_widget(xml, TOOL_DELETE_BUTTON);
-	this->up_bt = glade_xml_get_widget(xml, TOOL_UP_BUTTON);
-	this->down_bt = glade_xml_get_widget(xml, TOOL_DOWN_BUTTON);
+	this->edit_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_EDIT_BUTTON));
+	this->delete_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_DELETE_BUTTON));
+	this->up_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_UP_BUTTON));
+	this->down_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_DOWN_BUTTON));
 
 	/* Connect all signals */
-	glade_xml_signal_connect_data (xml, TOOL_ADD_SIGNAL, G_CALLBACK (on_tool_add), this);
-	glade_xml_signal_connect_data (xml, TOOL_ACTIVATED_SIGNAL, G_CALLBACK (on_tool_activated), this);
-	glade_xml_signal_connect_data (xml, TOOL_EDIT_SIGNAL, G_CALLBACK (on_tool_edit), this);
-	glade_xml_signal_connect_data (xml, TOOL_DELETE_SIGNAL, G_CALLBACK (on_tool_delete), this);
-	glade_xml_signal_connect_data (xml, TOOL_UP_SIGNAL, G_CALLBACK (on_tool_up), this);
-	glade_xml_signal_connect_data (xml, TOOL_DOWN_SIGNAL, G_CALLBACK (on_tool_down), this);
+	gtk_builder_connect_signals (bxml, this);
 	selection = gtk_tree_view_get_selection (this->view);
 	this->changed_sig = g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (on_tool_selection_changed), this);
 

@@ -23,7 +23,7 @@
 
 #include "tool.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-tools.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-tools.ui"
 
 typedef struct _ATPToolEditor ATPToolEditor;
 typedef struct _ATPToolEditorList ATPToolEditorList;

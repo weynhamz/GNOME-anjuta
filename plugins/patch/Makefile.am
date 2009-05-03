@@ -1,10 +1,10 @@
 # Plugin UI file
 patch_uidir = $(anjuta_ui_dir)
-patch_ui_DATA = anjuta-patch.ui
+patch_ui_DATA = anjuta-patch.xml
 
 # Plugin glade file
 patch_gladedir = $(anjuta_glade_dir)
-patch_glade_DATA = patch-plugin.glade
+patch_glade_DATA = patch-plugin.ui
 
 # Plugin Icon file
 patch_pixmapsdir = $(anjuta_image_dir)
@@ -43,7 +43,6 @@ libanjuta_patch_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_patch_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS) 
 
 EXTRA_DIST = \

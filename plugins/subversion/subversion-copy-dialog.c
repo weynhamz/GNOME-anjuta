@@ -32,10 +32,10 @@ on_copy_other_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *subversion_copy;
 	gboolean active;
 	
-	copy_revision_entry = glade_xml_get_widget (data->gxml, 
-												"copy_revision_entry");
-	subversion_copy = glade_xml_get_widget (data->gxml,
-											"subversion_copy");
+	copy_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+												"copy_revision_entry"));
+	subversion_copy = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+											"subversion_copy"));
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (copy_revision_entry, active);
 	
@@ -55,8 +55,8 @@ on_copy_browse_button_clicked (GtkButton *button, SubversionData *data)
 	GtkWidget *file_chooser_dialog;
 	gchar *selected_path;
 	
-	subversion_copy = glade_xml_get_widget (data->gxml, "subversion_copy");
-	copy_source_entry = glade_xml_get_widget (data->gxml, "copy_source_entry");
+	subversion_copy = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_copy"));
+	copy_source_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "copy_source_entry"));
 	file_chooser_dialog = gtk_file_chooser_dialog_new ("Select file or folder",
 													   GTK_WINDOW (subversion_copy),
 													   GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -90,8 +90,8 @@ on_copy_dest_entry_focus_in (GtkWidget *widget, GdkEventFocus *event,
 	gchar *source_path_parent;
 	gchar *suggested_path;  /* source_path_parent with a slash (/) after it */
 	
-	copy_source_entry = glade_xml_get_widget (data->gxml, "copy_source_entry");
-	copy_dest_entry = glade_xml_get_widget (data->gxml, "copy_dest_entry");
+	copy_source_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "copy_source_entry"));
+	copy_dest_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "copy_dest_entry"));
 	source_path = gtk_editable_get_chars (GTK_EDITABLE (copy_source_entry), 0, 
 										  -1);
 	dest_path = gtk_editable_get_chars (GTK_EDITABLE (copy_dest_entry), 0, 
@@ -162,18 +162,18 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 	
 	if (response == GTK_RESPONSE_OK)
 	{
-		copy_source_entry = glade_xml_get_widget (data->gxml, 
-												  "copy_source_entry");
-		copy_dest_entry = glade_xml_get_widget (data->gxml,
-												"copy_dest_entry");
-		copy_working_copy_radio = glade_xml_get_widget (data->gxml,
-														"copy_working_copy_radio");
-		copy_repository_head_radio = glade_xml_get_widget (data->gxml,
-														   "copy_repository_head_radio");
-		copy_other_revision_radio = glade_xml_get_widget (data->gxml,
-														  "copy_other_revision_radio");
-		copy_log_view = glade_xml_get_widget (data->gxml,
-											  "copy_log_view");
+		copy_source_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+												  "copy_source_entry"));
+		copy_dest_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+												"copy_dest_entry"));
+		copy_working_copy_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														"copy_working_copy_radio"));
+		copy_repository_head_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														   "copy_repository_head_radio"));
+		copy_other_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														  "copy_other_revision_radio"));
+		copy_log_view = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+											  "copy_log_view"));
 		
 		source_path = gtk_editable_get_chars (GTK_EDITABLE (copy_source_entry),
 											  0, -1);
@@ -200,8 +200,8 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (copy_other_revision_radio)))
 		{
-			copy_revision_entry = glade_xml_get_widget (data->gxml, 
-														"copy_revision_entry");
+			copy_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														"copy_revision_entry"));
 			
 			if (!check_input (GTK_WIDGET (dialog), copy_revision_entry,
 						  	  _("Please enter a revision.")))
@@ -241,23 +241,29 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 static void
 subversion_copy_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *subversion_copy;
 	GtkWidget *copy_source_entry;
 	GtkWidget *copy_dest_entry;
 	GtkWidget *copy_browse_button;
 	GtkWidget *copy_other_revision_radio;
 	SubversionData *data;
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	subversion_copy = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_copy"));
+	copy_source_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "copy_source_entry"));
+	copy_dest_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "copy_dest_entry"));
+	copy_browse_button = GTK_WIDGET (gtk_builder_get_object (bxml, "copy_browse_button"));
+	copy_other_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml,
+													  "copy_other_revision_radio"));
 	
-	gxml = glade_xml_new (GLADE_FILE, "subversion_copy", NULL);
-	subversion_copy = glade_xml_get_widget (gxml, "subversion_copy");
-	copy_source_entry = glade_xml_get_widget (gxml, "copy_source_entry");
-	copy_dest_entry = glade_xml_get_widget (gxml, "copy_dest_entry");
-	copy_browse_button = glade_xml_get_widget (gxml, "copy_browse_button");
-	copy_other_revision_radio = glade_xml_get_widget (gxml,
-													  "copy_other_revision_radio");
-	
-	data = subversion_data_new (plugin, gxml);
+	data = subversion_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (subversion_copy), "response",
 					  G_CALLBACK (on_subversion_copy_response),

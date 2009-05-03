@@ -37,11 +37,11 @@
 
 typedef struct
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	Subversion* plugin;
 } SubversionData;
 
-SubversionData* subversion_data_new (Subversion* plugin, GladeXML* gxml);
+SubversionData* subversion_data_new (Subversion* plugin, GtkBuilder* bxml);
 void subversion_data_free (SubversionData* data);
 void create_message_view (Subversion* plugin);
 gboolean check_input (GtkWidget *parent, GtkWidget *entry, 

@@ -63,9 +63,9 @@ typedef struct _InspectDialog InspectDialog;
 #define ADD_WATCH_DIALOG "add_watch_dialog"
 #define CHANGE_WATCH_DIALOG "change_watch_dialog"
 #define INSPECT_EVALUATE_DIALOG "watch_dialog"
-#define NAME_ENTRY "name_entry"
+#define NAME_ENTRY "add_watch_name_entry"
 #define VALUE_ENTRY "value_entry"
-#define VALUE_TREE "value_treeview"
+#define VALUE_TREE "inspect_evaluate_value_treeview"
 #define AUTO_UPDATE_CHECK "auto_update_check"
 
 /* Private functions
@@ -85,19 +85,25 @@ on_entry_updated (const gchar *value, gpointer user_data, GError *err)
 static void
 debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	gint reply;
 	gchar *new_expr;
 	// const gchar *value;
 	InspectDialog dlg;
 	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, -1};
+	GError* error = NULL;
 
-	gxml = glade_xml_new (GLADE_FILE, INSPECT_EVALUATE_DIALOG, NULL);
-	dlg.dialog = glade_xml_get_widget (gxml, INSPECT_EVALUATE_DIALOG);
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dlg.dialog = GTK_WIDGET (gtk_builder_get_object (bxml, INSPECT_EVALUATE_DIALOG));
 	gtk_window_set_transient_for (GTK_WINDOW (dlg.dialog),
 								  NULL);
-	dlg.treeview = glade_xml_get_widget (gxml, VALUE_TREE);
-	g_object_unref (gxml);
+	dlg.treeview = GTK_WIDGET (gtk_builder_get_object (bxml, VALUE_TREE));
+	g_object_unref (bxml);
 
 	/* Create debug tree */
 	dlg.tree = debug_tree_new_with_view (ANJUTA_PLUGIN (ew->plugin), GTK_TREE_VIEW (dlg.treeview));
@@ -141,20 +147,26 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 static void
 debug_tree_add_watch_dialog (ExprWatch *ew, const gchar* expression)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *dialog;
 	GtkWidget *name_entry;
 	GtkWidget *auto_update_check;
 	gint reply;
 	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, -1};
+	GError* error = NULL;
 
-	gxml = glade_xml_new (GLADE_FILE, ADD_WATCH_DIALOG, NULL);
-	dialog = glade_xml_get_widget (gxml, ADD_WATCH_DIALOG);
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, ADD_WATCH_DIALOG));
 	gtk_window_set_transient_for (GTK_WINDOW (dialog),
 								  NULL);
-	auto_update_check = glade_xml_get_widget (gxml, AUTO_UPDATE_CHECK);
-	name_entry = glade_xml_get_widget (gxml, NAME_ENTRY);
-	g_object_unref (gxml);
+	auto_update_check = GTK_WIDGET (gtk_builder_get_object (bxml, AUTO_UPDATE_CHECK));
+	name_entry = GTK_WIDGET (gtk_builder_get_object (bxml, NAME_ENTRY));
+	g_object_unref (bxml);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auto_update_check), TRUE);
 	gtk_entry_set_text (GTK_ENTRY (name_entry), expression == NULL ? "" : expression);

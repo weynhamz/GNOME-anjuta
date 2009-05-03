@@ -192,10 +192,17 @@ static void
 macro_edit_init (MacroEdit * edit)
 {
 	GtkWidget *table;
+	GError* error = NULL;
 
-	edit->gxml = glade_xml_new (GLADE_FILE, "macro_edit_table", NULL);
+	edit->bxml = gtk_builder_new ();
 
-	table = glade_xml_get_widget (edit->gxml, "macro_edit_table");
+	if (!gtk_builder_add_from_file (edit->bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	table = GTK_WIDGET (gtk_builder_get_object (edit->bxml, "macro_edit_table"));
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (edit)->vbox), table);
 	gtk_dialog_add_buttons (GTK_DIALOG (edit), GTK_STOCK_OK, OK,
 				GTK_STOCK_CANCEL, CANCEL, NULL);
@@ -203,14 +210,14 @@ macro_edit_init (MacroEdit * edit)
 			  G_CALLBACK (on_dialog_response), edit);
 	gtk_window_set_title (GTK_WINDOW (edit), _("Add/Edit macro"));
 
-	edit->name_entry = glade_xml_get_widget (edit->gxml, "macro_name");
+	edit->name_entry = GTK_WIDGET (gtk_builder_get_object (edit->bxml, "macro_name"));
 	edit->category_entry = gtk_combo_box_entry_new_text ();
 	gtk_widget_show (edit->category_entry);
 	gtk_table_attach_defaults (GTK_TABLE (table),
 				   edit->category_entry, 1, 2, 2, 3);
 	edit->shortcut_entry =
-		glade_xml_get_widget (edit->gxml, "macro_shortcut");
-	edit->text = glade_xml_get_widget (edit->gxml, "macro_text");
+		GTK_WIDGET (gtk_builder_get_object (edit->bxml, "macro_shortcut"));
+	edit->text = GTK_WIDGET (gtk_builder_get_object (edit->bxml, "macro_text"));
 
 }
 

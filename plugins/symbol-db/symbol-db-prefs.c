@@ -32,8 +32,8 @@
 
 #include "symbol-db-prefs.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-db.glade"
-#define GLADE_ROOT "symbol_prefs"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-db.ui"
+#define BUILDER_ROOT "symbol_prefs"
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
 
@@ -55,7 +55,7 @@ static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 struct _SymbolDBPrefsPriv {
 	GtkListStore *prefs_list_store;
-	GladeXML *prefs_gxml;
+	GtkBuilder *prefs_bxml;
 	AnjutaLauncher *pkg_config_launcher;	
 	AnjutaPreferences *prefs;
 	
@@ -106,7 +106,7 @@ on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
 	if (new_file != NULL) 
 	{
 		GtkWidget *fchooser;
-		fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS);	
+		fchooser = 	GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, CTAGS_PREFS));	
 		/*gtk_widget_set_sensitive (fchooser, TRUE);*/
 		
 		anjuta_preferences_set (priv->prefs, CTAGS_PREFS_KEY,
@@ -190,7 +190,7 @@ on_listall_exit (AnjutaLauncher * launcher, int child_pid,
 	g_signal_handlers_disconnect_by_func (launcher, on_listall_exit,
 										  user_data);	
 
-	treeview = glade_xml_get_widget (priv->prefs_gxml, "tags_treeview");
+	treeview = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "tags_treeview"));
 	gtk_widget_set_sensitive (treeview, TRUE);
 	
 	/* we should have pkg_list filled with packages names 
@@ -253,9 +253,9 @@ on_tag_load_toggled_parseable_cb (SymbolDBSystem *sdbs,
 	priv = sdbp->priv;
 	
 	DEBUG_PRINT ("on_tag_load_toggled_parseable_cb %d", is_parseable);
-	prefs_window = GTK_WINDOW (glade_xml_get_widget (priv->prefs_gxml, "symbol_db_pref_window"));
-	treeview = glade_xml_get_widget (priv->prefs_gxml, "tags_treeview");
-	prefs_progressbar = glade_xml_get_widget (priv->prefs_gxml, "prefs_progressbar");
+	prefs_window = GTK_WINDOW (gtk_builder_get_object (priv->prefs_bxml, "symbol_db_pref_window"));
+	treeview = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "tags_treeview"));
+	prefs_progressbar = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "prefs_progressbar"));
 
 	store = priv->prefs_list_store;
 	path = gtk_tree_path_new_from_string (path_str);
@@ -332,13 +332,13 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 						-1);
 	gtk_tree_path_free (path);
 	
-	prefs_progressbar = glade_xml_get_widget (priv->prefs_gxml, "prefs_progressbar");
+	prefs_progressbar = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "prefs_progressbar"));
 	gtk_widget_show_all (prefs_progressbar);	
 	
 	gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (prefs_progressbar), 1.0);
 	gtk_progress_bar_pulse (GTK_PROGRESS_BAR (prefs_progressbar));
 	
-	treeview = glade_xml_get_widget (priv->prefs_gxml, "tags_treeview");
+	treeview = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "tags_treeview"));
 	gtk_widget_set_sensitive (treeview, FALSE);
 	
 	pdata = g_new0 (ParseableData, 1);
@@ -359,15 +359,15 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 
 	priv = sdbp->priv;
 
-	fchooser = 	glade_xml_get_widget (priv->prefs_gxml, CTAGS_PREFS);
+	fchooser = 	GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, CTAGS_PREFS));
 	/* we will reactivate it after the listall has been finished */
 	/*gtk_widget_set_sensitive (fchooser, FALSE);*/
 			
-	anjuta_preferences_add_page (priv->prefs, 
-								 priv->prefs_gxml, 
-								 GLADE_ROOT, 
-								 _("Symbol Database"),  
-								 ICON_FILE);
+	anjuta_preferences_add_from_builder (priv->prefs, 
+									 priv->prefs_bxml, 
+									 BUILDER_ROOT, 
+									 _("Symbol Database"),  
+									 ICON_FILE);
 	
 	ctags_value = anjuta_preferences_get (priv->prefs, CTAGS_PREFS_KEY);
 	
@@ -424,10 +424,16 @@ sdb_prefs_init (SymbolDBPrefs *object)
 	
 	DEBUG_PRINT ("%s", "symbol_db_prefs_init ()");
 	
-	if (priv->prefs_gxml == NULL)
+	if (priv->prefs_bxml == NULL)
 	{
+		GError* error = NULL;
 		/* Create the preferences page */
-		priv->prefs_gxml = glade_xml_new (GLADE_FILE, GLADE_ROOT, NULL);	
+		priv->prefs_bxml = gtk_builder_new ();
+		if (!gtk_builder_add_from_file (priv->prefs_bxml, BUILDER_FILE, &error))
+		{
+			g_warning ("Couldn't load builder file: %s", error->message);
+			g_error_free(error);
+		}		
 	}		
 
 	/* init GtkListStore */
@@ -438,7 +444,7 @@ sdb_prefs_init (SymbolDBPrefs *object)
 		require_scan = TRUE;
 	}
 	
-	treeview = glade_xml_get_widget (priv->prefs_gxml, "tags_treeview");
+	treeview = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "tags_treeview"));
 	/* on_listall_exit will reactivate this */
 	gtk_widget_set_sensitive (treeview, FALSE);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
@@ -467,10 +473,10 @@ sdb_prefs_init (SymbolDBPrefs *object)
 	
 	/* frame3 show all */
 	GtkWidget *frame3;
-	frame3 = glade_xml_get_widget (priv->prefs_gxml, "frame3");
+	frame3 = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, "frame3"));
 	gtk_widget_show_all (frame3);
-	GtkWidget *prefs_progressbar = glade_xml_get_widget (priv->prefs_gxml, 
-														 "prefs_progressbar");
+	GtkWidget *prefs_progressbar = GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, 
+														 "prefs_progressbar"));
 	gtk_widget_hide (prefs_progressbar);	
 	
 	/* listall launcher thing */
@@ -518,8 +524,8 @@ sdb_prefs_finalize (GObject *object)
 	g_list_free (priv->pkg_list);
 	priv->pkg_list = NULL;
 
-	if (priv->prefs_gxml != NULL)
-		g_object_unref (priv->prefs_gxml);
+	if (priv->prefs_bxml != NULL)
+		g_object_unref (priv->prefs_bxml);
 
 	if (priv->prefs_list_store != NULL)
 		g_object_unref (priv->prefs_list_store);

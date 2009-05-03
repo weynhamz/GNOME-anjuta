@@ -1,6 +1,6 @@
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
-wizard_glade_DATA = project-import.glade
+wizard_glade_DATA = project-import.ui
 
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)

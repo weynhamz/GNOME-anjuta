@@ -59,7 +59,7 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 			SvnCommitCommand *commit_command;
 			guint pulse_timer_id;
 			
-			logtext = glade_xml_get_widget(data->gxml, "subversion_log_view");
+			logtext = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_log_view"));
 			log = get_log_from_textview(logtext);
 			if (!g_utf8_strlen(log, -1))
 			{
@@ -74,10 +74,10 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 					break;
 			}
 			
-			norecurse = glade_xml_get_widget(data->gxml, "subversion_norecurse");
+			norecurse = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_commit_norecurse"));
 			
-			commit_status_view = glade_xml_get_widget (data->gxml, 
-													   "commit_status_view");
+			commit_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													   "commit_status_view"));
 			
 			selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (commit_status_view));
 
@@ -133,7 +133,7 @@ static void
 subversion_commit_dialog (GtkAction* action, Subversion* plugin, 
 						  gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml = gtk_builder_new ();
 	GtkWidget* dialog; 
 	GtkWidget *commit_select_all_button;
 	GtkWidget *commit_clear_button;
@@ -141,17 +141,22 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	GtkWidget *commit_status_progress_bar;
 	SvnStatusCommand *status_command;
 	SubversionData* data;
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "subversion_commit", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "subversion_commit");
-	commit_select_all_button = glade_xml_get_widget (gxml, 
-													 "commit_select_all_button");
-	commit_clear_button = glade_xml_get_widget (gxml,
-												"commit_clear_button");
-	commit_status_view = glade_xml_get_widget (gxml, "commit_status_view");
-	commit_status_progress_bar = glade_xml_get_widget (gxml,
-													   "commit_status_progress_bar");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_commit"));
+	commit_select_all_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+													 "commit_select_all_button"));
+	commit_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+												"commit_clear_button"));
+	commit_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_status_view"));
+	commit_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "commit_status_progress_bar"));
 	
 	status_command = svn_status_command_new (plugin->project_root_dir, 
 											 TRUE, TRUE);
@@ -192,7 +197,7 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
-	data = subversion_data_new(plugin, gxml);
+	data = subversion_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_commit_response), data);
 	

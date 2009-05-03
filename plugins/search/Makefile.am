@@ -1,6 +1,6 @@
 # Plugin glade file
 search_gladedir = $(anjuta_glade_dir)
-search_glade_DATA = anjuta-search.glade
+search_glade_DATA = anjuta-search.ui
 
 # Plugin Icon file
 search_pixmapsdir = $(anjuta_image_dir)
@@ -19,7 +19,7 @@ plugin_LTLIBRARIES = libanjuta-search.la
 
 # Plugin UI file
 search_uidir = $(anjuta_ui_dir)
-search_ui_DATA = anjuta-search.ui
+search_ui_DATA = anjuta-search.xml
 
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
@@ -34,7 +34,6 @@ libanjuta_search_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_search_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_search_la_SOURCES= \

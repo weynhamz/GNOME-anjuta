@@ -23,7 +23,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -42,9 +41,9 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <glib/gi18n.h>
 
-#define GLADE_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-search.glade"
+#define BUILDER_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-search.ui"
 
-/* LibGlade's auto-signal-connect will connect to these signals.
+/* GtkBuilder's auto-signal-connect will connect to these signals.
  * Do not declare them static.
  */
 gboolean
@@ -119,7 +118,7 @@ AnjutaUtilStringMap search_action_strings[] = {
 
 typedef struct _SearchReplaceGUI
 {
-	GladeXML *xml;
+	GtkBuilder *bxml;
 	GtkWidget *dialog;
 	gboolean showing;
 } SearchReplaceGUI;
@@ -1277,6 +1276,7 @@ void translate_dialog_strings (AnjutaUtilStringMap labels[])
 static gboolean
 create_dialog(void)
 {
+	GError* error = NULL;
 	GladeWidget *w;
 	GtkWidget *widget;
 	int i;
@@ -1285,15 +1285,17 @@ create_dialog(void)
 	if (NULL != sg) return TRUE;
 	sg = g_new0(SearchReplaceGUI, 1);
 
-	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_SEARCH_REPLACE,
-		SEARCH_REPLACE_DIALOG, NULL)))
+	sg->bxml = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (sg->bxml, BUILDER_FILE_SEARCH_REPLACE, &error))
 	{
 		anjuta_util_dialog_error(NULL, _("Unable to build user interface for Search And Replace"));
 		g_free(sg);
 		sg = NULL;
+		g_error_free (error);
 		return FALSE;
 	}
-	sg->dialog = glade_xml_get_widget(sg->xml, SEARCH_REPLACE_DIALOG);
+
+	sg->dialog = GTK_WIDGET (gtk_builder_get_object (sg->bxml, SEARCH_REPLACE_DIALOG));
 	/* gtk_window_set_transient_for (GTK_WINDOW(sg->dialog)
 	  , GTK_WINDOW(app->widgets.window)); */
 		
@@ -1308,7 +1310,7 @@ create_dialog(void)
 	for (i=0; NULL != glade_widgets[i].name; ++i)
 	{
 		w = &(glade_widgets[i]);
-		w->widget = glade_xml_get_widget(sg->xml, w->name);
+		w->widget = GTK_WIDGET (gtk_builder_get_object (sg->bxml, w->name));
 		if (GE_COMBO_ENTRY == w->type)
 		{
 			/* Get child of GtkComboBoxEntry */
@@ -1341,8 +1343,8 @@ create_dialog(void)
 
 	search_preferences_initialize_setting_treeview(sg->dialog);
 	search_preferences_init();
-	
-	glade_xml_signal_autoconnect(sg->xml);
+
+	gtk_builder_connect_signals (sg->bxml, NULL);
 	return TRUE;
 }
 

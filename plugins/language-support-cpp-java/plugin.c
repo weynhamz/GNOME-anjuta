@@ -49,8 +49,8 @@
 #define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
 #define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.xml"
+#define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
 /* Preferences keys */
@@ -2037,14 +2037,19 @@ static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
-	GladeXML* gxml;
+	GError* error = NULL;
+	GtkBuilder* bxml = gtk_builder_new ();
 		
 	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-	anjuta_preferences_add_page (prefs,
-								 gxml, "preferences", _("C/C++/Java/Vala"),
+	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	anjuta_preferences_add_from_builder (prefs,
+								 bxml, "preferences", _("C/C++/Java/Vala"),
 								 ICON_FILE);
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 }
 
 static void

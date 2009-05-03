@@ -1,6 +1,6 @@
 # Plugin glade file
 message_view_gladedir = $(anjuta_glade_dir)
-message_view_glade_DATA = anjuta-message-manager-plugin.glade
+message_view_glade_DATA = anjuta-message-manager-plugin.ui
 
 message_view_pixmapsdir = $(anjuta_image_dir)
 message_view_pixmaps_DATA = \
@@ -12,7 +12,7 @@ message_view_pixmaps_DATA = \
 	anjuta-go-message-next-24.png
 
 message_view_uidir = $(anjuta_ui_dir)
-message_view_ui_DATA = anjuta-message-manager.ui
+message_view_ui_DATA = anjuta-message-manager.xml
 
 plugin_in_files = anjuta-message-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -31,7 +31,6 @@ plugin_LTLIBRARIES = libanjuta-message-view.la
 libanjuta_message_view_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_message_view_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
@@ -43,7 +42,7 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.c\
 	message-view.h
 
-prefs_glade_files = anjuta-message-manager-plugin.glade
+prefs_ui_files = anjuta-message-manager-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

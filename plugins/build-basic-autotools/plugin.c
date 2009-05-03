@@ -56,7 +56,7 @@
 #define ANJUTA_PIXMAP_BUILD            "anjuta-build"
 #define ANJUTA_STOCK_BUILD             "anjuta-build"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.xml"
 #define MAX_BUILD_PANES 3
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 #define PREF_INSTALL_ROOT "build.install.root"
@@ -3343,26 +3343,35 @@ ibuilder_iface_init (IAnjutaBuilderIface *iface)
 /* IAnjutaPreferences implementation
  *---------------------------------------------------------------------------*/
 
-static GladeXML *gxml;
+static GtkBuilder *bxml;
 
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
+	GError* error = NULL;
 	GtkWidget *root_check;
 	GtkWidget *entry;
 		
 	/* Create the preferences page */
-	gxml = glade_xml_new (GLADE_FILE, BUILD_PREFS_DIALOG, NULL);
-	root_check = glade_xml_get_widget(gxml, INSTALL_ROOT_CHECK);
-	entry = glade_xml_get_widget(gxml, INSTALL_ROOT_ENTRY);
+	bxml =  gtk_builder_new();
+
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_CHECK));
+	entry = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_ENTRY));
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
 	on_root_check_toggled (root_check, entry);
-	root_check = glade_xml_get_widget(gxml, PARALLEL_MAKE_CHECK);
-	entry = glade_xml_get_widget(gxml, PARALLEL_MAKE_SPIN);
+
+	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_CHECK));
+	entry = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_SPIN));
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
 	on_root_check_toggled (root_check, entry);
 	
-	anjuta_preferences_add_page (prefs, gxml, BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
+	anjuta_preferences_add_from_builder (prefs, bxml, BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
 }
 
 static void
@@ -3371,18 +3380,19 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	GtkWidget *root_check;
 	GtkWidget *entry;
 
-	root_check = glade_xml_get_widget(gxml, INSTALL_ROOT_CHECK);
-	entry = glade_xml_get_widget(gxml, INSTALL_ROOT_ENTRY);
+	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_CHECK));
+	entry = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_ENTRY));
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_root_check_toggled), entry);
-	root_check = glade_xml_get_widget(gxml, PARALLEL_MAKE_CHECK);
-	entry = glade_xml_get_widget(gxml, PARALLEL_MAKE_SPIN);
+
+	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_CHECK));
+	entry = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_SPIN));
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_root_check_toggled), entry);
 		
 	anjuta_preferences_remove_page(prefs, _("Build Autotools"));
 	
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 }
 
 static void

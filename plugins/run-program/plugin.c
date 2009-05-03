@@ -37,7 +37,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.xml"
 
 #define MAX_RECENT_ITEM	10
 

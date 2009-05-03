@@ -102,7 +102,7 @@ R7: Tool Storage
 /*---------------------------------------------------------------------------*/
 
 #define ICON_FILE "anjuta-tools-plugin-48.png"
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-tools.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-tools.xml"
 
 /*---------------------------------------------------------------------------*/
 
@@ -235,22 +235,26 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 {
 	/* Create the tools preferences page */
 	ATPPlugin* atp_plugin;
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
+	GError* error = NULL;
 
 	atp_plugin = ANJUTA_PLUGIN_ATP (obj);
 	atp_plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(obj)->shell,
 														NULL);
 
 	/* Load glade file */
-	gxml = glade_xml_new (GLADE_FILE, "list_tools", NULL);
-	if (gxml == NULL)
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
 		return;
+	}
 
-	atp_tool_dialog_show(&atp_plugin->dialog, gxml);
+	atp_tool_dialog_show (&atp_plugin->dialog, bxml);
 
-	anjuta_preferences_add_page (atp_plugin->prefs, gxml,
+	anjuta_preferences_add_from_builder (atp_plugin->prefs, bxml,
 									"Tools", _("Tools"), ICON_FILE);
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 }
 
 static void

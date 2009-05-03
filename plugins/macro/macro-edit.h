@@ -49,7 +49,7 @@ struct _MacroEdit
 	GtkWidget *text;
 
 	MacroDB *macro_db;
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 	gint type;
 	GtkTreeSelection *select;
 };

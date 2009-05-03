@@ -2,11 +2,11 @@ SUBDIRS = images
 
 # Plugin glade file
 document_manager_gladedir = $(anjuta_glade_dir)
-document_manager_glade_DATA = anjuta-document-manager.glade
+document_manager_glade_DATA = anjuta-document-manager.ui
 
 # Plugin UI file
 document_manager_uidir = $(anjuta_ui_dir)
-document_manager_ui_DATA = anjuta-document-manager.ui
+document_manager_ui_DATA = anjuta-document-manager.xml
 
 # Plugin file
 plugin_in_files = anjuta-document-manager.plugin.in
@@ -49,7 +49,7 @@ libanjuta_document_manager_la_SOURCES= \
 	anjuta-bookmarks.h \
 	anjuta-bookmarks.c
 	
-prefs_glade_files = anjuta-document-manager.glade
+prefs_ui_files = anjuta-document-manager.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

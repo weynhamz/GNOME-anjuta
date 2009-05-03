@@ -100,14 +100,14 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 	{
 		case GTK_RESPONSE_OK:
 		{
-			diff_path_entry = glade_xml_get_widget (data->gxml, 
-													"diff_path_entry");
-			diff_no_recursive_check = glade_xml_get_widget (data->gxml, 
-															"diff_no_recursive_check");
-			diff_revision_entry = glade_xml_get_widget (data->gxml, 
-														"diff_revision_entry");
-			diff_save_open_files_check = glade_xml_get_widget (data->gxml,
-															   "diff_save_open_files_check");
+			diff_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													"diff_path_entry"));
+			diff_no_recursive_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															"diff_no_recursive_check"));
+			diff_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														"diff_revision_entry"));
+			diff_save_open_files_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															   "diff_save_open_files_check"));
 			path = g_strdup (gtk_entry_get_text (GTK_ENTRY (diff_path_entry)));
 			revision_text = gtk_entry_get_text (GTK_ENTRY (diff_revision_entry));
 			revision = atol (revision_text);
@@ -139,19 +139,25 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 static void
 subversion_diff_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *subversion_diff; 
 	GtkWidget *diff_path_entry;
 	GtkWidget *diff_whole_project_check;
 	GtkWidget *button;
 	SubversionData *data;
-	
-	gxml = glade_xml_new (GLADE_FILE, "subversion_diff", NULL);
-	subversion_diff = glade_xml_get_widget(gxml, "subversion_diff");
-	diff_path_entry = glade_xml_get_widget(gxml, "diff_path_entry");
-	diff_whole_project_check = glade_xml_get_widget(gxml, 
-													"diff_whole_project_check");
-	data = subversion_data_new (plugin, gxml);
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	subversion_diff = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_diff"));
+	diff_path_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "diff_path_entry"));
+	diff_whole_project_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+													"diff_whole_project_check"));
+	data = subversion_data_new (plugin, bxml);
 	
 	g_object_set_data (G_OBJECT (diff_whole_project_check), "fileentry", 
 					   diff_path_entry);
@@ -165,7 +171,7 @@ subversion_diff_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 					 plugin);
 	init_whole_project (plugin, diff_whole_project_check, !filename);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_DIFF_DIALOG);
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, BROWSE_BUTTON_DIFF_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), diff_path_entry);
 

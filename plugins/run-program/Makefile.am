@@ -1,10 +1,10 @@
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-run-program.glade
+anjuta_glade_DATA = anjuta-run-program.ui
 
 # Plugin UI file
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA =  anjuta-run-program.ui
+anjuta_ui_DATA =  anjuta-run-program.xml
 
 # Plugin Icon file
 anjuta_pixmapsdir = $(anjuta_image_dir)
@@ -30,7 +30,6 @@ libanjuta_run_program_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_run_program_la_LIBADD = \
 	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_run_program_la_SOURCES = \

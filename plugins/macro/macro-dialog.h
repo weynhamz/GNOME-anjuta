@@ -41,7 +41,7 @@ struct _MacroDialog
 
 	MacroDB *macro_db;
 	MacroPlugin *plugin;
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 };
 
 struct _MacroDialogClass

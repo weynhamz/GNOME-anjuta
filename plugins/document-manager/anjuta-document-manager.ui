@@ -1,152 +1,303 @@
-<!--*- xml -*-->
-<ui>
-	<menubar name="MenuMain">
-		<menu name="MenuFile" action="ActionMenuFile">
-			<placeholder name="PlaceholderFileMenus">
-				<menuitem name="Save" action="ActionFileSave" />
-				<menuitem name="SaveAs" action="ActionFileSaveAs" />
-				<menuitem name="Close" action="ActionFileClose" />
-				<menuitem name="Reload" action="ActionFileReload" />
-				<separator name="separator4"/>
-			</placeholder>
-			<placeholder name="PlaceholderPrintMenus">
-				<menuitem name="Print" action="ActionPrintFile" />
-				<menuitem name="PrintPreview" action="ActionPrintPreview" />
-				<separator name="separator5"/>
-			</placeholder>
-			<placeholder name="PlaceholderRecentMenus">
-				<menu name="RecentFiles" action="ActionMenuFileRecentFiles" />
-			</placeholder>
-		</menu>
-		<menu name="MenuEdit" action="ActionMenuEdit">
-			<placeholder name="PlaceholderEditMenus">
-				<menuitem name="Undo" action="ActionEditUndo" />
-				<menuitem name="Redo" action="ActionEditRedo" />
-				<separator name="separator6"/>
-				<menuitem name="Cut" action="ActionEditCut" />
-				<menuitem name="Copy" action="ActionEditCopy" />
-				<menuitem name="Paste" action="ActionEditPaste" />
-				<menuitem name="Clear" action="ActionEditClear" />
-				<separator name="separator7"/>
-				<menu name="Transform" action="ActionMenuEditTransform">
-					<menuitem name="UpperCase" action="ActionEditMakeSelectionUppercase" />
-					<menuitem name="LowerCase" action="ActionEditMakeSelectionLowercase" />
-					<menuitem name="ConvertCRLF" action="ActionEditConvertCRLF" />
-					<menuitem name="ConvertLF" action="ActionEditConvertLF" />
-					<menuitem name="ConvertCR" action="ActionEditConvertCR" />
-					<menuitem name="ConvertEOL" action="ActionEditConvertEOL" />
-				</menu>
-				<menu name="Comment" action="ActionMenuEditComment">
-					<menuitem name="Block" action="ActionEditCommentBlock" />
-					<menuitem name="Box" action="ActionEditCommentBox" />
-					<menuitem name="Stream" action="ActionEditCommentStream" />
-				</menu>
-				<placeholder name="PlaceholderEditSearchMenus">			
-					<menu name="Search" action="ActionMenuEditSearch">
-						<placeholder name="PlaceholderQuickSearchMenu">
-							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
-							<menuitem name="QuickReSearch" action="ActionEditSearchQuickSearchAgain"/>
-							<separator name="separator8"/>
-						</placeholder>
-					</menu>
-				</placeholder>
-			</placeholder>
-			<placeholder name="PlaceholderSelectMenus">
-				<menu name="Select" action="ActionMenuEditSelect">
-					<menuitem name="SelectAll" action="ActionEditSelectAll" />
-					<menuitem name="SelectBlock" action="ActionEditSelectBlock" />
-				</menu>
-			</placeholder>
-			<placeholder name="PlaceholderInsertMenus"/>
-			<placeholder name="PlaceholderOperationMenus"/>
-		</menu>
-		<menu name="MenuView" action="ActionMenuView">
-			<menu name="MenuViewEditor" action="ActionMenuViewEditor">
-				<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-				<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-				<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-				<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-				<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
-				<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
-				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-				<separator name="separator9"/>
-				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
-				<menuitem name="AddView" action="ActionViewEditorAddView" />
-				<menuitem name="RemoveView" action="ActionViewEditorRemoveView" />
-				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
-				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
-				<separator name="separator10"/>
-				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
-				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
-				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
-			</menu>
-			<menu name="Goto" action="ActionMenuGoto">
-				<menuitem name="Line" action="ActionEditGotoLine" />
-				<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
-				<separator name="separator13"/>
-				<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
-				<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
-				<separator name="separator14"/>
-				<menuitem name="PreviousHistory" action="ActionEditGotoHistoryPrev" />
-				<menuitem name="NextHistory" action="ActionEditGotoHistoryNext" />
-				<separator name="separator15"/>
-				<placeholder name="PlaceholderGotoMenus"/>
-				<separator />
-				<placeholder name="PlaceholderGotoMessages" />
-				<separator />
-				<placeholder name="PlaceholderGotoSymbol" />
-			</menu>
-		</menu>
-		<placeholder name="PlaceHolderDocumentsMenus">
-			<menu name="Documents" action="ActionMenuDocuments">
-				<menuitem name="SaveAll" action="ActionFileSaveAll" />
-				<menuitem name="CloseAll" action="ActionFileCloseAll" />
-				<separator />
-				<menu name="DocumentsBookmarks" action="ActionMenuBookmark">
-				  <menuitem name="AddBookmark" action="ActionBookmarkAdd" />
-				  <separator />
-				  <menuitem name="NextBookmark" action="ActionBookmarkNext" />				  
-				  <menuitem name="PrevBookmark" action="ActionBookmarkPrev" />
-				  <separator />
-				  <menuitem name="ClearBookmarks" action="ActionBookmarksClear" />
-				</menu>
-				<separator />	  
-				<menuitem name="PreviousDocument" action="ActionDocumentsPrevious" />
-				<menuitem name="NextDocument" action="ActionDocumentsNext" />
-				<separator />
-				<placeholder name="PlaceholderDocuments" />
-			</menu>
-		</placeholder>
-	</menubar>
-	<toolbar name="ToolbarMain">
-		<placeholder name="PlaceholderFileToolbar">
-			<toolitem name="Save" action="ActionFileSave" />
-			<separator />
-			<toolitem name="Undo" action="ActionEditUndo" />
-			<toolitem name="Redo" action="ActionEditRedo" />
-			<separator />
-		</placeholder>
-	</toolbar>
-	<popup name="PopupDocumentManager">
-		<menuitem name="Cut" action="ActionEditCut" />
-		<menuitem name="Copy" action="ActionEditCopy" />
-		<menuitem name="Paste" action="ActionEditPaste" />
-		<separator name="separator26"/>
-		<menu name="Goto" action="ActionMenuGoto">
-				<separator name="separator27"/>
-				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
-				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
-		</menu>
-		<menu name="MenuView" action="ActionMenuView">
-			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-			<separator name="separator28"/>
-			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
-			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
-		</menu>
-		<menuitem name="Close" action="ActionFileClose" />
-	</popup>
-</ui>
+<?xml version="1.0"?>
+<!--*- mode: xml -*-->
+<interface>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">1000</property>
+    <property name="lower">1</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">1000</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">10</property>
+  </object>
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Top</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Bottom</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Left</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Right</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkWindow" id="preferences_dialog">
+    <property name="title" translatable="yes">window1</property>
+    <child>
+      <object class="GtkHBox" id="Documents">
+        <property name="visible">True</property>
+        <property name="border_width">5</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkVBox" id="vbox31">
+            <property name="visible">True</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkFrame" id="frame46">
+                <property name="visible">True</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">GTK_SHADOW_NONE</property>
+                <child>
+                  <object class="GtkVBox" id="vbox1119">
+                    <property name="visible">True</property>
+                    <property name="border_width">5</property>
+                    <property name="spacing">5</property>
+                    <child>
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:save.automatic">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Enable files autosave</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkTable" id="table28">
+                        <property name="visible">True</property>
+                        <property name="n_rows">2</property>
+                        <property name="n_columns">2</property>
+                        <property name="column_spacing">5</property>
+                        <property name="row_spacing">5</property>
+                        <child>
+                          <object class="GtkLabel" id="label115">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Save files interval in minutes</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label116">
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Save session interval in minutes</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="preferences_spin:int:10:0:autosave.timer">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="adjustment">adjustment1</property>
+                            <property name="climb_rate">1</property>
+                            <property name="numeric">True</property>
+                          </object>
+                          <packing>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="preferences_spin:int:10:0:save.session.timer">
+                            <property name="can_focus">True</property>
+                            <property name="adjustment">adjustment2</property>
+                            <property name="climb_rate">1</property>
+                            <property name="numeric">True</property>
+                          </object>
+                          <packing>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label12335">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Autosave&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkVBox" id="vbox32">
+            <property name="visible">True</property>
+            <property name="spacing">5</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkFrame" id="frame31">
+                <property name="visible">True</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">GTK_SHADOW_NONE</property>
+                <child>
+                  <object class="GtkVBox" id="vbox33">
+                    <property name="visible">True</property>
+                    <property name="border_width">5</property>
+                    <property name="spacing">5</property>
+                    <child>
+                      <object class="GtkRadioButton" id="radiobutton9">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Sorted in opening order</property>
+                        <property name="use_underline">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="preferences_toggle:bool:0:0:editor.tabs.recent.first">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Sorted by most recent use</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">radiobutton9</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="preferences_toggle:bool:0:0:editor.tabs.ordering">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Sorted in alphabetical order</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">radiobutton9</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="preferences_toggle:bool:0:0:editor.tabs.hide">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="label" translatable="yes">Do not show tabs</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">radiobutton9</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox27">
+                        <property name="visible">True</property>
+                        <property name="border_width">5</property>
+                        <property name="spacing">5</property>
+                        <child>
+                          <object class="GtkLabel" id="label117">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Position:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="preferences_combo:text:Top,Bottom,Left,Right:0:editor.tabs.pos">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="model">model1</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="renderer1"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label113">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Editor tabs&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

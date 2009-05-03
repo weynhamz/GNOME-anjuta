@@ -1,10 +1,10 @@
 # Plugin glade file
 file_manager_gladedir = $(anjuta_glade_dir)
-file_manager_glade_DATA = file-manager.glade
+file_manager_glade_DATA = file-manager.ui
 
 # Plugin UI file
 file_manager_uidir = $(anjuta_ui_dir)
-file_manager_ui_DATA =  file-manager.ui
+file_manager_ui_DATA =  file-manager.xml
 
 # Plugin Icon file
 file_manager_pixmapsdir = $(anjuta_image_dir)
@@ -70,7 +70,7 @@ file-view-marshal.c: file-view-marshal.h file-view-marshal.list
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc	
 
-prefs_glade_files = file-manager.glade
+prefs_ui_files = file-manager.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

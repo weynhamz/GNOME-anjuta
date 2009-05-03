@@ -57,8 +57,8 @@
  *---------------------------------------------------------------------------*/
 
 #define ICON_FILE "anjuta-debug-manager-plugin-48.png"
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.ui"
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.xml"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.ui"
 
 /* Plugin type
  *---------------------------------------------------------------------------*/
@@ -706,12 +706,17 @@ on_debugger_command_entry_activate (GtkEntry *entry, DebugManagerPlugin *plugin)
 static void
 on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
-        GladeXML *gxml;
+        GtkBuilder *bxml = gtk_builder_new ();
         GtkWidget *win, *entry;
+		GError* error = NULL;
 
-        gxml = glade_xml_new (GLADE_FILE, "debugger_command_dialog", NULL);
-        win = glade_xml_get_widget (gxml, "debugger_command_dialog");
-        entry = glade_xml_get_widget (gxml, "debugger_command_entry");
+		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+		{
+			g_warning ("Couldn't load builder file: %s", error->message);
+			g_error_free (error);
+		}
+        win = GTK_WIDGET (gtk_builder_get_object (bxml, "debugger_command_dialog"));
+        entry = GTK_WIDGET (gtk_builder_get_object (bxml, "debugger_command_entry"));
 
         gtk_window_set_transient_for (GTK_WINDOW (win),
                                                                   GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
@@ -721,7 +726,7 @@ on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plu
         g_signal_connect (entry, "activate",
                                           G_CALLBACK (on_debugger_command_entry_activate),
                                           plugin);
-        g_object_unref (gxml);
+        g_object_unref (bxml);
 }
 
 /* Info callbacks

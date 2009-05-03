@@ -4,7 +4,7 @@ plugin_ui_DATA =
 
 # Plugin glade file
 plugin_gladedir = $(anjuta_glade_dir)
-plugin_glade_DATA = gbf-am-dialogs.glade
+plugin_glade_DATA = gbf-am-dialogs.ui
 
 # Plugin icon file
 plugin_pixmapsdir = $(anjuta_image_dir)

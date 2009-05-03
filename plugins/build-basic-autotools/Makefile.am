@@ -1,11 +1,11 @@
 
 # Plugin glade file
 build_gladedir = $(anjuta_glade_dir)
-build_glade_DATA = anjuta-build-basic-autotools-plugin.glade
+build_glade_DATA = anjuta-build-basic-autotools-plugin.ui
 
 # Plugin UI file
 build_uidir = $(anjuta_ui_dir)
-build_ui_DATA = anjuta-build-basic-autotools-plugin.ui
+build_ui_DATA = anjuta-build-basic-autotools-plugin.xml
 
 # Plugin Icon file
 build_pixmapsdir = $(anjuta_image_dir)
@@ -53,13 +53,12 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-prefs_glade_files = anjuta-build-basic-autotools-plugin.glade
+prefs_ui_files = anjuta-build-basic-autotools-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

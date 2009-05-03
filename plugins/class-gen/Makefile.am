@@ -1,6 +1,6 @@
 # Plugin glade file
 clsgen_gladedir = $(anjuta_glade_dir)
-clsgen_glade_DATA = anjuta-class-gen-plugin.glade
+clsgen_glade_DATA = anjuta-class-gen-plugin.ui
 
 # Templates
 SUBDIRS = templates
@@ -32,7 +32,6 @@ libanjuta_class_gen_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_class_gen_la_LIBADD = \
 	${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

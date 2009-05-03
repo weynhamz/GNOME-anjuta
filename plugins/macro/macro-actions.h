@@ -19,7 +19,6 @@
 #define MACRO_ACTIONS_H
 
 #include "plugin.h"
-#include <glade/glade.h>
 
 void on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin);
 void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin);

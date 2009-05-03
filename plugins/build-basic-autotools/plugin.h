@@ -26,7 +26,7 @@
 
 #include "configuration-list.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.ui"
 
 extern GType basic_autotools_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_BASIC_AUTOTOOLS         (basic_autotools_plugin_get_type (NULL))

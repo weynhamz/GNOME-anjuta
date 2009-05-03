@@ -42,7 +42,6 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
-#include <glade/glade-xml.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -137,7 +136,7 @@ struct _DmaStart
 #define ADD_SOURCE_DIALOG "source_paths_dialog"
 #define SOURCE_ENTRY "src_entry"
 #define SOURCE_LIST "src_clist"
-#define ADD_BUTTON "add_button"
+#define ADD_BUTTON "source_paths_add_button"
 #define REMOVE_BUTTON "remove_button"
 #define UP_BUTTON "up_button"
 #define DOWN_BUTTON "down_button"
@@ -720,7 +719,6 @@ on_toggle_process_tree (GtkToggleButton *togglebutton, AttachProcess * ap)
 static pid_t
 attach_process_show (AttachProcess * ap, GtkWindow *parent)
 {
-	GladeXML *gxml;
 	GtkTreeView *view;
 	GtkTreeStore *store;
 	GtkCellRenderer *renderer;
@@ -735,16 +733,23 @@ attach_process_show (AttachProcess * ap, GtkWindow *parent)
 
 	if (!ap->dialog)
 	{
-		gxml = glade_xml_new (GLADE_FILE, "attach_process_dialog", NULL);
-		ap->dialog = glade_xml_get_widget (gxml, "attach_process_dialog");
-		ap->treeview = glade_xml_get_widget (gxml, "attach_process_tv");
+		GtkBuilder *bxml = gtk_builder_new ();
+		GError* error = NULL;
+
+		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+		{
+			g_warning ("Couldn't load builder file: %s", error->message);
+			g_error_free (error);
+		}
+		ap->dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "attach_process_dialog"));
+		ap->treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "attach_process_tv"));
 		checkb_hide_paths = GTK_CHECK_BUTTON (
-								glade_xml_get_widget (gxml, "checkb_hide_paths"));
+								gtk_builder_get_object (bxml, "checkb_hide_paths"));
 		checkb_hide_params = GTK_CHECK_BUTTON (
-								glade_xml_get_widget (gxml, "checkb_hide_params"));
+								gtk_builder_get_object (bxml, "checkb_hide_params"));
 		checkb_process_tree = GTK_CHECK_BUTTON (
-								glade_xml_get_widget (gxml, "checkb_process_tree"));
-		g_object_unref (gxml);
+								gtk_builder_get_object (bxml, "checkb_process_tree"));
+		g_object_unref (bxml);
 	
 		view = GTK_TREE_VIEW (ap->treeview);
 		store = gtk_tree_store_new (COLUMNS_NB,
@@ -1040,7 +1045,7 @@ static void on_radio_toggled(GtkWidget* toggle_button, GtkWidget* container)
 static gboolean
 show_remote_dialog (DmaStart *this)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWindow *parent;
 	GtkWidget *dialog;
 	GtkEntry *tcpip_address_entry;
@@ -1049,31 +1054,33 @@ show_remote_dialog (DmaStart *this)
 	GtkToggleButton *serial_radio;
 	GtkToggleButton *tcpip_radio;
 	GtkWidget *container;
-	
+	GError* error = NULL;
 	gint res;
 
 	parent = GTK_WINDOW (this->plugin->shell);
-	gxml = glade_xml_new (GLADE_FILE, REMOTE_DEBUG_DIALOG, NULL);
-	if (gxml == NULL)
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
 	{
+		g_warning ("Couldn't load builder file: %s", error->message);
 		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+		g_error_free (error);
 		return FALSE;
 	}
 
 	/* Fetch out the widget we care about for now */
-	dialog = glade_xml_get_widget (gxml, REMOTE_DEBUG_DIALOG);
-	tcpip_address_entry = GTK_ENTRY (glade_xml_get_widget (gxml, TCPIP_ADDRESS_ENTRY));
-	tcpip_port_entry = GTK_ENTRY (glade_xml_get_widget (gxml, TCPIP_PORT_ENTRY));
-	serial_port_entry = GTK_ENTRY (glade_xml_get_widget (gxml, SERIAL_PORT_ENTRY));
-	tcpip_radio = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, TCPIP_RADIO));
-	serial_radio = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, SERIAL_RADIO));
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, REMOTE_DEBUG_DIALOG));
+	tcpip_address_entry = GTK_ENTRY (gtk_builder_get_object (bxml, TCPIP_ADDRESS_ENTRY));
+	tcpip_port_entry = GTK_ENTRY (gtk_builder_get_object (bxml, TCPIP_PORT_ENTRY));
+	serial_port_entry = GTK_ENTRY (gtk_builder_get_object (bxml, SERIAL_PORT_ENTRY));
+	tcpip_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TCPIP_RADIO));
+	serial_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, SERIAL_RADIO));
 	
 	/* Connect signals */	
-	container = glade_xml_get_widget (gxml, TCPIP_CONTAINER);
+	container = GTK_WIDGET (gtk_builder_get_object (bxml, TCPIP_CONTAINER));
 	g_signal_connect (G_OBJECT (tcpip_radio), "toggled", G_CALLBACK (on_radio_toggled), container);
-	container = glade_xml_get_widget (gxml, SERIAL_CONTAINER);
+	container = GTK_WIDGET (gtk_builder_get_object (bxml, SERIAL_CONTAINER));
 	g_signal_connect (G_OBJECT (serial_radio), "toggled", G_CALLBACK (on_radio_toggled), container);	
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 
 	/* Populate the remote target */
 	if (this->remote_debugger)
@@ -1237,36 +1244,39 @@ static void
 add_source_show (DmaStart *this)
 {
 	AddSourceDialog dlg;
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *widget;
 	GtkWindow *parent;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GObject *button;
-	
+	GError* error = NULL;
+
 	parent = GTK_WINDOW (this->plugin->shell);
-	gxml = glade_xml_new (GLADE_FILE, ADD_SOURCE_DIALOG, NULL);
-	if (gxml == NULL)
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
 	{
+		g_warning ("Couldn't load builder file: %s", error->message);
 		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+		g_error_free (error);
 		return;
 	}
 		
-	widget = glade_xml_get_widget (gxml, ADD_SOURCE_DIALOG);
-	dlg.tree = GTK_TREE_VIEW (glade_xml_get_widget (gxml, SOURCE_LIST));
-	dlg.entry = GTK_FILE_CHOOSER (glade_xml_get_widget (gxml, SOURCE_ENTRY));
+	widget = GTK_WIDGET (gtk_builder_get_object (bxml, ADD_SOURCE_DIALOG));
+	dlg.tree = GTK_TREE_VIEW (gtk_builder_get_object (bxml, SOURCE_LIST));
+	dlg.entry = GTK_FILE_CHOOSER (gtk_builder_get_object (bxml, SOURCE_ENTRY));
 	
 	/* Connect signals */	
-	button = G_OBJECT (glade_xml_get_widget (gxml, ADD_BUTTON));
+	button = gtk_builder_get_object (bxml, ADD_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_source_add_button), &dlg);
-	button = G_OBJECT (glade_xml_get_widget (gxml, REMOVE_BUTTON));
+	button = gtk_builder_get_object (bxml, REMOVE_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_source_remove_button), &dlg);
-	button = G_OBJECT (glade_xml_get_widget (gxml, UP_BUTTON));
+	button = gtk_builder_get_object (bxml, UP_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_source_up_button), &dlg);
-	button = G_OBJECT (glade_xml_get_widget (gxml, DOWN_BUTTON));
+	button = gtk_builder_get_object (bxml, DOWN_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_source_down_button), &dlg);
 	
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Path"), renderer, "text", 0, NULL);

@@ -29,7 +29,7 @@
 #include "search-replace_backend.h"
 #include "config.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.xml"
 #define ICON_FILE "anjuta-search-plugin-48.png"
 
 static void

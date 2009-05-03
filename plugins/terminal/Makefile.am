@@ -1,10 +1,10 @@
 # Plugin glade file
 terminal_gladedir = $(anjuta_glade_dir)
-terminal_glade_DATA = anjuta-terminal-plugin.glade
+terminal_glade_DATA = anjuta-terminal-plugin.ui
 
 # Plugin ui file
 terminal_uidir = $(anjuta_ui_dir)
-terminal_ui_DATA = anjuta-terminal-plugin.ui
+terminal_ui_DATA = anjuta-terminal-plugin.xml
 
 # Plugin Icon file
 terminal_pixmapsdir = $(anjuta_image_dir)
@@ -40,11 +40,10 @@ libanjuta_terminal_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 # Plugin dependencies
 libanjuta_terminal_la_LIBADD = \
 	$(GCONF_LIBS) \
-	$(GLADE_LIBS) \
 	$(VTE_LIBS) \
 	$(LIBANJUTA_LIBS)
 	
-prefs_glade_files = anjuta-terminal-plugin.glade
+prefs_ui_files = anjuta-terminal-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

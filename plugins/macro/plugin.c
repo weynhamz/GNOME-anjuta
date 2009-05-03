@@ -23,7 +23,7 @@
 #include <libanjuta/interfaces/ianjuta-macro.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.xml"
 #define ICON_FILE "anjuta-macro.png"
 
 static gpointer parent_class;

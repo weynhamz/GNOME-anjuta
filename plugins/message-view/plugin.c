@@ -27,8 +27,8 @@
 #include "plugin.h"
 #include "anjuta-msgman.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.xml"
+#define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.ui"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_MESSAGES                "anjuta-messages-plugin-48.png"
@@ -431,17 +431,23 @@ static guint notify_id;
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-		GladeXML *gxml;
-		MessageViewPlugin* plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (ipref);
-		/* Create the messages preferences page */
-		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
-		anjuta_preferences_add_page (prefs, gxml,
+	GtkBuilder *bxml = gtk_builder_new ();
+	GError* error = NULL;
+	MessageViewPlugin* plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (ipref);
+	/* Create the messages preferences page */
+
+	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	anjuta_preferences_add_from_builder (prefs, bxml,
 									"Messages", _("Messages"),
 									 ANJUTA_PIXMAP_MESSAGES);
-		notify_id = anjuta_preferences_notify_add_string (prefs, MESSAGES_TABS_POS, 
-		                                                on_notify_message_pref, plugin->msgman, NULL);
+	notify_id = anjuta_preferences_notify_add_string (prefs, MESSAGES_TABS_POS, 
+	                                                on_notify_message_pref, plugin->msgman, NULL);
 		
-		g_object_unref (gxml);
+	g_object_unref (bxml);
 }
 
 static void

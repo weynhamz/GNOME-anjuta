@@ -50,8 +50,8 @@ on_subversion_revert_response (GtkDialog *dialog, gint response,
 	
 	if (response == GTK_RESPONSE_OK)
 	{
-		revert_status_view = glade_xml_get_widget (data->gxml,
-												   "revert_status_view");
+		revert_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+												   "revert_status_view"));
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (revert_status_view));
 		revert_command = svn_revert_command_new_list (selected_paths, TRUE);
 		
@@ -77,7 +77,7 @@ on_subversion_revert_response (GtkDialog *dialog, gint response,
 static void 
 subversion_revert_dialog (GtkAction *action, Subversion *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *subversion_revert;
 	GtkWidget *revert_select_all_button;
 	GtkWidget *revert_clear_button;
@@ -85,24 +85,29 @@ subversion_revert_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *revert_status_progress_bar;
 	SvnStatusCommand *status_command;
 	SubversionData *data;
-	
-	gxml = glade_xml_new (GLADE_FILE, "subversion_revert", NULL);
-	
-	subversion_revert = glade_xml_get_widget (gxml,
-											  "subversion_revert");
-	revert_select_all_button = glade_xml_get_widget (gxml,
-													 "revert_select_all_button");
-	revert_clear_button = glade_xml_get_widget (gxml,
-												"revert_clear_button");
-	revert_status_view = glade_xml_get_widget (gxml,
-											   "revert_status_view");
-	revert_status_progress_bar = glade_xml_get_widget (gxml,
-													   "revert_status_progress_bar");
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	subversion_revert = GTK_WIDGET (gtk_builder_get_object (bxml,
+											  "subversion_revert"));
+	revert_select_all_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+													 "revert_select_all_button"));
+	revert_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+												"revert_clear_button"));
+	revert_status_view = GTK_WIDGET (gtk_builder_get_object (bxml,
+											   "revert_status_view"));
+	revert_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "revert_status_progress_bar"));
 	
 	status_command = svn_status_command_new (plugin->project_root_dir, TRUE,
 											 FALSE);
 	
-	data = subversion_data_new (plugin, gxml);
+	data = subversion_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (subversion_revert), "response",
 					  G_CALLBACK (on_subversion_revert_response),

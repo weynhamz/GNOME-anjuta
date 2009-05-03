@@ -97,15 +97,28 @@ typedef struct
 static gboolean
 simple_prompt (SimplePromptArgs *args)
 {
-	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_user_auth", NULL);
-	GtkWidget* svn_user_auth = glade_xml_get_widget(gxml, "svn_user_auth");
-	GtkWidget* auth_realm = glade_xml_get_widget(gxml, "auth_realm");
-	GtkWidget* username_entry = glade_xml_get_widget(gxml, "username_entry");
-	GtkWidget* password_entry = glade_xml_get_widget(gxml, "password_entry");
-	GtkWidget* remember_pwd = glade_xml_get_widget(gxml, "remember_pwd");
+	GtkBuilder* bxml = gtk_builder_new ();
+	GtkWidget* svn_user_auth;
+	GtkWidget* auth_realm;
+	GtkWidget* username_entry;
+	GtkWidget* password_entry;
+	GtkWidget* remember_pwd;
 	svn_error_t *err = NULL;
 	SvnCommand *svn_command;
-	
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	svn_user_auth = GTK_WIDGET (gtk_builder_get_object (bxml, "svn_user_auth"));
+	auth_realm = GTK_WIDGET (gtk_builder_get_object (bxml, "auth_realm"));
+	username_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "username_entry"));
+	password_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "password_entry"));
+	remember_pwd = GTK_WIDGET (gtk_builder_get_object (bxml, "remember_pwd"));
+
 	gtk_dialog_set_default_response (GTK_DIALOG (svn_user_auth), GTK_RESPONSE_OK);
 	
 	if (args->realm)
@@ -159,15 +172,26 @@ simple_prompt (SimplePromptArgs *args)
 static gboolean
 ssl_server_trust_prompt (SSLServerTrustArgs *args)
 {
-	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_server_trust", NULL);
-	GtkWidget* svn_server_trust = glade_xml_get_widget(gxml, "svn_server_trust");
-	GtkWidget* auth_realm = glade_xml_get_widget(gxml, "realm_label");
-	GtkWidget* server_info = glade_xml_get_widget(gxml, "server_info_label");
-	GtkWidget* remember_check = glade_xml_get_widget(gxml, "remember_check");
+	GtkBuilder* bxml = gtk_builder_new ();
+	GtkWidget* svn_server_trust;
+	GtkWidget* auth_realm;
+	GtkWidget* server_info;
+	GtkWidget* remember_check;
 	svn_error_t *err = NULL;
 	gchar* info;
 	SvnCommand *svn_command;
-	
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	svn_server_trust = GTK_WIDGET (gtk_builder_get_object (bxml, "svn_server_trust"));
+	auth_realm = GTK_WIDGET (gtk_builder_get_object (bxml, "realm_label"));
+	server_info = GTK_WIDGET (gtk_builder_get_object (bxml, "server_info_label"));
+	remember_check = GTK_WIDGET (gtk_builder_get_object (bxml, "remember_check"));
+
 	if (args->realm)
 		gtk_label_set_text (GTK_LABEL (auth_realm), args->realm);
 	

@@ -1,10 +1,10 @@
 # Plugin UI file
 project_uidir = $(anjuta_ui_dir)
-project_ui_DATA = anjuta-project-manager.ui
+project_ui_DATA = anjuta-project-manager.xml
 
 # Plugin glade file
 project_gladedir = $(anjuta_glade_dir)
-project_glade_DATA = create_dialogs.glade
+project_glade_DATA = create_dialogs.ui
 
 # Plugin Icon file
 project_pixmapsdir = $(anjuta_image_dir)

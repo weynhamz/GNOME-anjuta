@@ -26,7 +26,7 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/project-import.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/project-import.ui"
 
 G_DEFINE_TYPE (ProjectImportDialog, project_import_dialog, GTK_TYPE_DIALOG);
 

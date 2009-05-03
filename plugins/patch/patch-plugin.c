@@ -22,7 +22,7 @@
 #include "plugin.h"
 #include "patch-plugin.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/patch-plugin.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/patch-plugin.ui"
 
 static void patch_level_changed (GtkAdjustment *adj);
 
@@ -73,17 +73,22 @@ patch_show_gui (PatchPlugin *plugin)
 	GtkWidget* table;
 	GtkWidget* scale;
 	GtkAdjustment* adj;
-  gchar* uri = get_project_uri(plugin);
-  GtkFileFilter* filter;
+	GError* error = NULL;
+	gchar* uri = get_project_uri(plugin);
+	GtkFileFilter* filter;
 	
-	GladeXML* gxml;
+	GtkBuilder* bxml = gtk_builder_new ();
+
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	plugin->dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_dialog"));
+	plugin->output_label = GTK_WIDGET (gtk_builder_get_object (bxml, "output"));
 	
-	gxml = glade_xml_new(GLADE_FILE, "patch_dialog", NULL);
-	
-	plugin->dialog = glade_xml_get_widget(gxml, "patch_dialog");
-	plugin->output_label = glade_xml_get_widget(gxml, "output");
-	
-	table = glade_xml_get_widget(gxml, "patch_table");
+	table = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_table"));
 
 	plugin->file_chooser = gtk_file_chooser_button_new(_("File/Directory to patch"),
 																										 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -120,14 +125,14 @@ patch_show_gui (PatchPlugin *plugin)
 	gtk_table_attach_defaults(GTK_TABLE(table), plugin->file_chooser, 1, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), plugin->patch_chooser, 1, 2, 1, 2);
 	
-	scale = glade_xml_get_widget(gxml, "patch_level_scale");
+	scale = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_level_scale"));
 	adj = gtk_range_get_adjustment(GTK_RANGE(scale));
 	g_signal_connect (G_OBJECT(adj), "value_changed",
 			    G_CALLBACK (patch_level_changed), NULL);
 		
-	plugin->patch_button = glade_xml_get_widget(gxml, "patch_button");
-	plugin->cancel_button = glade_xml_get_widget(gxml, "cancel_button");
-	plugin->dry_run_check = glade_xml_get_widget(gxml, "dryrun");
+	plugin->patch_button = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_button"));
+	plugin->cancel_button = GTK_WIDGET (gtk_builder_get_object (bxml, "cancel_button"));
+	plugin->dry_run_check = GTK_WIDGET (gtk_builder_get_object (bxml, "dryrun"));
 	
 	g_signal_connect (G_OBJECT (plugin->patch_button), "clicked", 
 			G_CALLBACK(on_ok_clicked), plugin);

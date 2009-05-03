@@ -54,9 +54,9 @@ on_subversion_add_response(GtkDialog* dialog, gint response, SubversionData* dat
 	{
 		case GTK_RESPONSE_OK:
 		{
-			GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "subversion_filename");
-			GtkWidget* force = glade_xml_get_widget(data->gxml, "subversion_force");
-			GtkWidget* recurse = glade_xml_get_widget(data->gxml, "subversion_recurse");
+			GtkWidget* fileentry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_add_filename"));
+			GtkWidget* force = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_force"));
+			GtkWidget* recurse = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_recurse"));
 			
 			const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 			SvnAddCommand *add_command;
@@ -92,23 +92,29 @@ on_subversion_add_response(GtkDialog* dialog, gint response, SubversionData* dat
 static void
 subversion_add_dialog(GtkAction* action, Subversion* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml = gtk_builder_new ();
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* button;
 	SubversionData* data;
-	gxml = glade_xml_new(GLADE_FILE, "subversion_add", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "subversion_add");
-	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_add"));
+	fileentry = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_add_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_ADD_DIALOG);
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, BROWSE_BUTTON_ADD_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), fileentry);
 
-	data = subversion_data_new(plugin, gxml);
+	data = subversion_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_add_response), data);
 	

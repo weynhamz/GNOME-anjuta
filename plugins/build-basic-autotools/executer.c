@@ -24,8 +24,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <glade/glade.h>
-
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
@@ -46,7 +44,8 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 						gchar **program_args,
 						gboolean *run_in_terminal)
 {
-	GladeXML *gxml;
+	GError* error = NULL;
+	GtkBuilder *bxml;
 	GtkWidget *dlg, *treeview, *use_terminal_check, *arguments_entry;
 	GtkWidget *treeview_frame;
 	GtkTreeViewColumn *column;
@@ -79,13 +78,18 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	{
 		exec_targets = NULL;
 	}
-		
-	gxml = glade_xml_new (GLADE_FILE, "execute_dialog", NULL);
-	dlg = glade_xml_get_widget (gxml, "execute_dialog");
-	treeview = glade_xml_get_widget (gxml, "programs_treeview");
-	treeview_frame = glade_xml_get_widget (gxml, "treeview_frame");
-	use_terminal_check = glade_xml_get_widget (gxml, "program_run_in_terminal");
-	arguments_entry = glade_xml_get_widget (gxml, "program_arguments");
+
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}		
+	dlg = GTK_WIDGET (gtk_builder_get_object (bxml, "execute_dialog"));
+	treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "programs_treeview"));
+	treeview_frame = GTK_WIDGET (gtk_builder_get_object (bxml, "treeview_frame"));
+	use_terminal_check = GTK_WIDGET (gtk_builder_get_object (bxml, "program_run_in_terminal"));
+	arguments_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "program_arguments"));
 	
 	gtk_window_set_transient_for (GTK_WINDOW (dlg),
 								  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
@@ -210,7 +214,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		}
 	}
 	gtk_widget_destroy (dlg);
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 	return success;
 }
 

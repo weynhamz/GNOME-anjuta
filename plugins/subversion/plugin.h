@@ -39,7 +39,7 @@ extern GType subversion_get_type (GTypeModule *module);
 typedef struct _Subversion Subversion;
 typedef struct _SubversionClass SubversionClass;
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-subversion.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-subversion.ui"
 #define ICON_FILE "anjuta-subversion-plugin-48.png"
 
 struct _Subversion{
@@ -66,7 +66,7 @@ struct _Subversion{
 	gchar *current_editor_filename;
 	
 	/* Log viewer */
-	GladeXML *log_gxml;
+	GtkBuilder *log_bxml;
 	GtkWidget *log_viewer;
 };
 

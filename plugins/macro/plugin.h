@@ -24,7 +24,7 @@
 
 //#include "macro-db.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-macro.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-macro.ui"
 
 extern GType macro_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_MACRO         (macro_plugin_get_type (NULL))

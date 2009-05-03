@@ -35,11 +35,11 @@ typedef struct
 } PulseProgressData;
 
 SubversionData* 
-subversion_data_new (Subversion* plugin, GladeXML* gxml)
+subversion_data_new (Subversion* plugin, GtkBuilder* bxml)
 {
 	SubversionData* data = g_new0(SubversionData, 1);
 	data->plugin = plugin;
-	data->gxml = gxml;
+	data->bxml = bxml;
 	
 	return data;
 }

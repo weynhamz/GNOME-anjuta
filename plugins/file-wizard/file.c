@@ -42,7 +42,7 @@
 #include "plugin.h"
 #include "file.h"
 
-#define GLADE_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-file-wizard.glade"
+#define BUILDER_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-file-wizard.ui"
 #define NEW_FILE_DIALOG "dialog.new.file"
 #define NEW_FILE_ENTRY "new.file.entry"
 #define NEW_FILE_TYPE "new.file.type"
@@ -55,7 +55,7 @@
 
 typedef struct _NewFileGUI
 {
-	GladeXML *xml;
+	GtkBuilder *bxml;
 	GtkWidget *dialog;
 	GtkWidget *add_to_project;
 	GtkWidget *add_to_repository;
@@ -173,26 +173,27 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	gint i;
 
 	nfg = g_new0(NewFileGUI, 1);
-	if (NULL == (nfg->xml = glade_xml_new(GLADE_FILE_FILE, NEW_FILE_DIALOG, NULL)))	
+	nfg->bxml =  gtk_builder_new ();
+	if (!gtk_builder_add_from_file (nfg->bxml, BUILDER_FILE_FILE, NULL))
 	{
 		anjuta_util_dialog_error(NULL, _("Unable to build user interface for New File"));
 		g_free(nfg);
 		nfg = NULL;
 		return FALSE;
 	}
-	nfg->dialog = glade_xml_get_widget(nfg->xml, NEW_FILE_DIALOG);
-	nfg->add_to_project = glade_xml_get_widget (nfg->xml, NEW_FILE_ADD_TO_PROJECT);
-	nfg->add_to_repository = glade_xml_get_widget (nfg->xml, NEW_FILE_ADD_TO_REPOSITORY);
+	nfg->dialog = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_DIALOG));
+	nfg->add_to_project = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_PROJECT));
+	nfg->add_to_repository = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_REPOSITORY));
 	nfg->showing = FALSE;
 	
-	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
+	optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE));
 	for (i=0; i < (sizeof(new_file_type) / sizeof(NewfileType)); i++)
 	{
 		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_file_type[i].name);
 	}
 	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
 
-	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
+	optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));
 	for (i=0; i < (sizeof(new_license_type) / sizeof(NewlicenseType)); i++)
 	{
 		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_license_type[i].name);
@@ -200,7 +201,7 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
 	
 	g_object_set_data (G_OBJECT (nfg->dialog), "IAnjutaDocumentManager", docman);
-	glade_xml_signal_autoconnect(nfg->xml);
+	gtk_builder_connect_signals (nfg->bxml, NULL);
 	g_signal_emit_by_name(G_OBJECT (optionmenu), "changed");
 	
 	return TRUE;
@@ -243,7 +244,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 										"IAnjutaDocumentManager"));
 	macro = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
 		                       IAnjutaMacro, NULL);
-	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
+	entry = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ENTRY));
 	name = gtk_entry_get_text(GTK_ENTRY(entry));
 
 	/* Create main file */
@@ -256,10 +257,10 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		return FALSE;
 	
 	/* Create header file */
-	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
+	optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE));
 	source_type = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
+	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_HEADER));
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
@@ -286,7 +287,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
 	}
 
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
+	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TEMPLATE));
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
@@ -299,11 +300,11 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		}
 	}
 	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
+	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_LICENSE));
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
+		optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));
 		sel = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 		license_type = new_license_type[sel].type;
 		comment_type = new_file_type[source_type].comment;
@@ -400,7 +401,7 @@ on_new_file_entry_changed (GtkEditable *entry, gpointer user_data)
 	
 	if (last_length != 2 && length == 1)
 	{
-		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
+		optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE));
 		sel = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 		name = g_strconcat (name, new_file_type[sel].ext, NULL);
 		gtk_entry_set_text (GTK_ENTRY(entry), name);
@@ -420,15 +421,15 @@ on_new_file_type_changed (GtkComboBox   *optionmenu, gpointer user_data)
 	
 	sel = gtk_combo_box_get_active(optionmenu);
 	
-	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
+	widget = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_HEADER));
 	gtk_widget_set_sensitive(widget, new_file_type[sel].header >= 0);
-	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
+	widget = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_LICENSE));
 	gtk_widget_set_sensitive(widget, new_file_type[sel].gpl);
-	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
+	widget = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TEMPLATE));
 	gtk_widget_set_sensitive(widget, new_file_type[sel].template);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), FALSE);
 	
-	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
+	entry = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ENTRY));
 	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 	if (strlen(name) > 0)
 	{
@@ -446,7 +447,7 @@ on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data)
 {
 	GtkWidget *widget;
 	
-	widget = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
+	widget = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));
 	gtk_widget_set_sensitive(widget, gtk_toggle_button_get_active(button));
 }
 

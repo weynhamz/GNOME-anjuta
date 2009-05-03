@@ -1,9 +1,9 @@
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-debug-manager.glade
+anjuta_glade_DATA = anjuta-debug-manager.ui
 
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA =  anjuta-debug-manager.ui
+anjuta_ui_DATA =  anjuta-debug-manager.xml
 
 plugin_in_files = anjuta-debug-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -22,7 +22,6 @@ plugin_LTLIBRARIES = libanjuta-debug-manager.la
 libanjuta_debug_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_debug_manager_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

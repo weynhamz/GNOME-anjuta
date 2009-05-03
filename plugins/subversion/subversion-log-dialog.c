@@ -34,7 +34,7 @@ typedef struct
 
 typedef struct
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 	Subversion *plugin;
 	gchar *path;
 	GtkListStore *log_store;
@@ -69,8 +69,8 @@ on_diff_selected_column_toggled (GtkCellRendererToggle *renderer,
 						COL_REVISION, &revision,
 						-1);
 	
-	log_diff_selected_button = glade_xml_get_widget (data->gxml,
-													 "log_diff_selected_button");
+	log_diff_selected_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													 "log_diff_selected_button"));
 		
 	selected = !selected;
 		
@@ -110,7 +110,7 @@ create_columns (LogData *data)
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	
 	/* Selected for diff  */
 	column = gtk_tree_view_column_new ();
@@ -179,7 +179,7 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 	gchar *full_log;
 		
 	g_object_ref (data->log_store);
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_changes_view), NULL);
 	g_hash_table_remove_all (data->selected_diff_revisions);
 	
@@ -233,14 +233,14 @@ subversion_show_log (LogData *data)
 	SvnLogCommand *log_command;
 	guint pulse_timer_id;
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
-	log_file_entry = glade_xml_get_widget (data->gxml, "log_file_entry");
-	log_diff_previous_button = glade_xml_get_widget (data->gxml,
-													 "log_diff_previous_button");
-	log_diff_selected_button = glade_xml_get_widget (data->gxml,
-													 "log_diff_selected_button");
-	log_view_selected_button = glade_xml_get_widget (data->gxml,
-													 "log_view_selected_button");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
+	log_file_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_file_entry"));
+	log_diff_previous_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													 "log_diff_previous_button"));
+	log_diff_selected_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													 "log_diff_selected_button"));
+	log_view_selected_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													 "log_view_selected_button"));
 	path = gtk_entry_get_text (GTK_ENTRY (log_file_entry));
 	
 	if (data->path)
@@ -328,7 +328,7 @@ on_log_view_selected_button_clicked (GtkButton *button, LogData *data)
 	IAnjutaEditor *editor;
 	guint pulse_timer_id;
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (log_changes_view));
 	gtk_tree_selection_get_selected (selection, &log_store, &selected_iter);
 	
@@ -464,7 +464,7 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 	IAnjutaEditor *editor;
 	guint pulse_timer_id;
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (log_changes_view));
 	gtk_tree_selection_get_selected (selection, &log_store, &selected_iter);
 	
@@ -535,11 +535,11 @@ on_log_changes_view_row_selected (GtkTreeSelection *selection,
 	gchar *log_message;
 	
 	gtk_tree_model_get_iter (model, &iter, path);
-	log_message_text = glade_xml_get_widget (data->gxml, "log_message_text");
-	log_diff_previous_button = glade_xml_get_widget (data->gxml, 
-													 "log_diff_previous_button");
-	log_view_selected_button = glade_xml_get_widget (data->gxml,
-													 "log_view_selected_button");
+	log_message_text = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_message_text"));
+	log_diff_previous_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													 "log_diff_previous_button"));
+	log_view_selected_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													 "log_view_selected_button"));
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (log_message_text));
 	gtk_tree_model_get (model, &iter, 
 						COL_FULL_LOG, &log_message,
@@ -576,26 +576,26 @@ subversion_log_window_create (Subversion *plugin)
 	GtkTreeSelection *selection;
 	
 	data = g_new0 (LogData, 1);
-	data->gxml = plugin->log_gxml;
+	data->bxml = plugin->log_bxml;
 	data->selected_diff_revisions = g_hash_table_new (g_direct_hash, 
 													  g_direct_equal);
 	data->plugin = plugin;
 	data->path = NULL;
 	
-	subversion_log = glade_xml_get_widget (plugin->log_gxml, "subversion_log");
-	subversion_log_vbox = glade_xml_get_widget (plugin->log_gxml, "subversion_log_vbox");
-	log_changes_view = glade_xml_get_widget (plugin->log_gxml, "log_changes_view");
-	log_whole_project_check = glade_xml_get_widget (plugin->log_gxml, 
-													"log_whole_project_check");
-	log_file_entry = glade_xml_get_widget (plugin->log_gxml, "log_file_entry");
-	log_view_button = glade_xml_get_widget (plugin->log_gxml, "log_view_button");
-	log_diff_previous_button = glade_xml_get_widget (plugin->log_gxml, 
-													 "log_diff_previous_button");
-	log_diff_selected_button = glade_xml_get_widget (plugin->log_gxml,
-													 "log_diff_selected_button");
-	log_view_selected_button = glade_xml_get_widget (plugin->log_gxml,
-													 "log_view_selected_button");
-	button = glade_xml_get_widget(plugin->log_gxml, BROWSE_BUTTON_LOG_DIALOG);
+	subversion_log = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "subversion_log"));
+	subversion_log_vbox = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "subversion_log_vbox"));
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "log_changes_view"));
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, 
+													"log_whole_project_check"));
+	log_file_entry = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "log_file_entry"));
+	log_view_button = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "log_view_button"));
+	log_diff_previous_button = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, 
+													 "log_diff_previous_button"));
+	log_diff_selected_button = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml,
+													 "log_diff_selected_button"));
+	log_view_selected_button = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml,
+													 "log_view_selected_button"));
+	button = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, BROWSE_BUTTON_LOG_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), log_file_entry);
 
@@ -666,9 +666,9 @@ on_fm_subversion_log (GtkAction *action, Subversion *plugin)
 	GtkWidget *log_file_entry;
 	GtkWidget *log_whole_project_check;
 	
-	log_file_entry = glade_xml_get_widget (plugin->log_gxml, "log_file_entry");
-	log_whole_project_check = glade_xml_get_widget (plugin->log_gxml,
-													"log_whole_project_check");
+	log_file_entry = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml, "log_file_entry"));
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (plugin->log_bxml,
+													"log_whole_project_check"));
 	
 	gtk_entry_set_text (GTK_ENTRY (log_file_entry), 
 						plugin->fm_current_filename);
@@ -683,13 +683,13 @@ on_fm_subversion_log (GtkAction *action, Subversion *plugin)
 }
 
 void
-subversion_log_set_whole_project_sensitive (GladeXML *log_gxml, 
+subversion_log_set_whole_project_sensitive (GtkBuilder *log_bxml, 
 											gboolean sensitive)
 {
 	GtkWidget *log_whole_project_check;
 	
-	log_whole_project_check = glade_xml_get_widget (log_gxml,
-													"log_whole_project_check");
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (log_bxml,
+													"log_whole_project_check"));
 	
 	gtk_widget_set_sensitive (log_whole_project_check, sensitive);
 	

@@ -1,6 +1,6 @@
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
-wizard_glade_DATA =  anjuta-file-wizard.glade
+wizard_glade_DATA =  anjuta-file-wizard.ui
 
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)
@@ -25,7 +25,6 @@ AM_CPPFLAGS = \
 libanjuta_file_wizard_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_file_wizard_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

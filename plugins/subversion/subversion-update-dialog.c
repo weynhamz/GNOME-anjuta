@@ -56,12 +56,12 @@ on_subversion_update_response(GtkDialog* dialog, gint response, SubversionData* 
 		
 			GtkWidget* norecurse;
 			GtkWidget* revisionentry;
-			GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "subversion_filename");
+			GtkWidget* fileentry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_update_filename"));
 			const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 			SvnUpdateCommand *update_command;
 			
-			norecurse = glade_xml_get_widget(data->gxml, "subversion_norecurse");
-			revisionentry = glade_xml_get_widget(data->gxml, "subversion_revision");
+			norecurse = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_update_norecurse"));
+			revisionentry = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_revision"));
 			revision = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 			
 			if (!check_input (GTK_WIDGET (dialog), 
@@ -101,31 +101,36 @@ on_subversion_update_response(GtkDialog* dialog, gint response, SubversionData* 
 static void
 subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml = gtk_builder_new ();
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
 	GtkWidget* button;
 	SubversionData* data;
-	
-	gxml = glade_xml_new(GLADE_FILE, "subversion_update", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "subversion_update");
-	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_update"));
+	fileentry = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_update_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	project = glade_xml_get_widget(gxml, "subversion_project");
+	project = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project, !filename);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_UPDATE_DIALOG);
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, BROWSE_BUTTON_UPDATE_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), fileentry);
 
-	data = subversion_data_new(plugin, gxml);
+	data = subversion_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_update_response), data);
 	

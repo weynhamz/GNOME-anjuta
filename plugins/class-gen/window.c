@@ -28,7 +28,7 @@
 
 #include <ctype.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.ui"
 
 #define CC_HEADER_TEMPLATE PACKAGE_DATA_DIR"/class-templates/cc-header.tpl"
 #define CC_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/cc-source.tpl"
@@ -39,7 +39,7 @@
 typedef struct _CgWindowPrivate CgWindowPrivate;
 struct _CgWindowPrivate
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 	GtkWidget *window;
 	
 	CgElementEditor *editor_cc;
@@ -61,7 +61,7 @@ enum {
 	PROP_0,
 
 	/* Construct only */
-	PROP_GLADE_XML
+	PROP_BUILDER_XML
 };
 
 static GObjectClass *parent_class = NULL;
@@ -171,7 +171,7 @@ cg_window_fetch_string (CgWindow *window,
 	CgWindowPrivate *priv;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	widget = glade_xml_get_widget (priv->gxml, id);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, id));
 
 	g_return_val_if_fail (widget != NULL, NULL);
 
@@ -191,7 +191,7 @@ cg_window_fetch_integer (CgWindow *window,
 	CgWindowPrivate *priv;
 	
 	priv = CG_WINDOW_PRIVATE(window);
-	widget = glade_xml_get_widget(priv->gxml, id);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, id));
 	
 	g_return_val_if_fail(widget != NULL, 0);
 	
@@ -213,7 +213,7 @@ cg_window_fetch_boolean (CgWindow *window,
 	CgWindowPrivate *priv;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	widget = glade_xml_get_widget (priv->gxml, id);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, id));
 	
 	g_return_val_if_fail (widget != NULL, FALSE);
 	
@@ -269,10 +269,10 @@ cg_window_validate_cc (CgWindow *window)
 	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
 	
 	priv->validator = cg_validator_new (
-		glade_xml_get_widget (priv->gxml, "create_button"),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "cc_name")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "header_file")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "source_file")), NULL);
+		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "cc_name")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file")), NULL);
 }
 
 static void
@@ -284,13 +284,13 @@ cg_window_validate_go (CgWindow *window)
 	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
 	
 	priv->validator = cg_validator_new (
-		glade_xml_get_widget (priv->gxml, "create_button"),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "go_name")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "go_prefix")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "go_type")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "go_func_prefix")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "header_file")),
-		GTK_ENTRY (glade_xml_get_widget (priv->gxml, "source_file")), NULL);
+		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "go_name")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "go_prefix")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "go_type")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "go_func_prefix")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file")), NULL);
 }
 
 static void
@@ -351,15 +351,15 @@ cg_window_add_project_toggled_cb (GtkToggleButton *button,
 
 	if (gtk_toggle_button_get_active (button) == FALSE)
 	{
-		GtkWidget* widget = glade_xml_get_widget(priv->gxml, "add_repository");
+		GtkWidget* widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_repository"));
 		gtk_widget_set_sensitive (widget, FALSE);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
 		                              FALSE);
 	}
 	else
 	{
-		gtk_widget_set_sensitive (glade_xml_get_widget (
-			priv->gxml, "add_repository"), TRUE);
+		gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (
+			priv->bxml, "add_repository")), TRUE);
 	}
 }
 
@@ -379,8 +379,8 @@ cg_window_cc_name_changed_cb (GtkEntry *entry,
 	window = CG_WINDOW (user_data);
 	priv = CG_WINDOW_PRIVATE (window);
 
-	file_header = glade_xml_get_widget (priv->gxml, "header_file");
-	file_source = glade_xml_get_widget (priv->gxml, "source_file");
+	file_header = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "header_file"));
+	file_source = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "source_file"));
 
 	str_filebase = cg_window_class_name_to_file_name (
 		gtk_entry_get_text (GTK_ENTRY (entry)));
@@ -421,12 +421,12 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 	window = CG_WINDOW (user_data);
 	priv = CG_WINDOW_PRIVATE (window);
 	
-	type_prefix = glade_xml_get_widget (priv->gxml, "go_prefix");
-	type_name = glade_xml_get_widget (priv->gxml, "go_type");
-	func_prefix = glade_xml_get_widget (priv->gxml, "go_func_prefix");
+	type_prefix = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_prefix"));
+	type_name = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_type"));
+	func_prefix = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_func_prefix"));
 
-	file_header = glade_xml_get_widget (priv->gxml, "header_file");
-	file_source = glade_xml_get_widget (priv->gxml, "source_file");
+	file_header = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "header_file"));
+	file_source = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "source_file"));
 
 	name = gtk_entry_get_text (GTK_ENTRY (entry));
 	cg_transform_custom_c_type_to_g_type (name, &str_type_prefix,
@@ -472,16 +472,16 @@ cg_window_associate_browse_button (GladeXML *xml,
 #endif
 
 static void
-cg_window_set_glade_xml (CgWindow *window,
-                         GladeXML *xml)
+cg_window_set_builder (CgWindow *window,
+                         GtkBuilder *xml)
 {
 	CgWindowPrivate *priv;
 	priv = CG_WINDOW_PRIVATE (window);
 
-	priv->gxml = xml;
-	g_object_ref (priv->gxml);
+	priv->bxml = xml;
+	g_object_ref (priv->bxml);
 
-	priv->window = glade_xml_get_widget (priv->gxml, "classgen_main");
+	priv->window = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "classgen_main"));
 
 #if 0
 	cg_window_associate_browse_button (priv->gxml, "browse_header",
@@ -492,9 +492,9 @@ cg_window_set_glade_xml (CgWindow *window,
 #endif
 
 	priv->editor_cc = cg_element_editor_new (
-		GTK_TREE_VIEW (glade_xml_get_widget (priv->gxml, "cc_elements")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "cc_elements_add")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "cc_elements_remove")),
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "cc_elements")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "cc_elements_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "cc_elements_remove")),
 		5,
 		"Scope", CG_ELEMENT_EDITOR_COLUMN_LIST, CC_SCOPE_LIST,
 		"Implementation", CG_ELEMENT_EDITOR_COLUMN_LIST, CC_IMPLEMENTATION_LIST,
@@ -503,9 +503,9 @@ cg_window_set_glade_xml (CgWindow *window,
 		"Arguments", CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
 	
 	priv->editor_go_members = cg_element_editor_new (
-		GTK_TREE_VIEW (glade_xml_get_widget (priv->gxml, "go_members")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_members_add")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_members_remove")),
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_members")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_members_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_members_remove")),
 		4,
 		"Scope", CG_ELEMENT_EDITOR_COLUMN_LIST, GO_SCOPE_LIST,
 		"Type", CG_ELEMENT_EDITOR_COLUMN_STRING,
@@ -513,9 +513,9 @@ cg_window_set_glade_xml (CgWindow *window,
 		"Arguments", CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
 	
 	priv->editor_go_properties = cg_element_editor_new(
-		GTK_TREE_VIEW (glade_xml_get_widget (priv->gxml, "go_properties")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_properties_add")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_properties_remove")),
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_properties")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_properties_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_properties_remove")),
 		7,
 		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
 		"Nick", CG_ELEMENT_EDITOR_COLUMN_STRING,
@@ -526,9 +526,9 @@ cg_window_set_glade_xml (CgWindow *window,
 		"Flags", CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_PROPERTY_FLAGS);
 	
 	priv->editor_go_signals = cg_element_editor_new(
-		GTK_TREE_VIEW (glade_xml_get_widget (priv->gxml, "go_signals")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_signals_add")),
-		GTK_BUTTON (glade_xml_get_widget (priv->gxml, "go_signals_remove")),
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_signals")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_signals_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_signals_remove")),
 		5,
 		"Type", CG_ELEMENT_EDITOR_COLUMN_STRING,
 		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
@@ -539,32 +539,32 @@ cg_window_set_glade_xml (CgWindow *window,
 	/* Active item property in glade cannot be set because no GtkTreeModel
 	 * is assigned. */
 	gtk_combo_box_set_active (
-		GTK_COMBO_BOX (glade_xml_get_widget (priv->gxml, "license")), 0);
+		GTK_COMBO_BOX (gtk_builder_get_object (priv->bxml, "license")), 0);
 
 	gtk_combo_box_set_active (
-		GTK_COMBO_BOX (glade_xml_get_widget (priv->gxml, "cc_inheritance")),
+		GTK_COMBO_BOX (gtk_builder_get_object (priv->bxml, "cc_inheritance")),
 		0);
 
 	/* This revalidates the appropriate validator */
 	g_signal_connect (
-		G_OBJECT (glade_xml_get_widget (priv->gxml, "top_notebook")),
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "top_notebook")),
 		"switch-page", G_CALLBACK (cg_window_top_notebook_switch_page_cb),
 		window);
 	
 	g_signal_connect (
-		G_OBJECT (glade_xml_get_widget (priv->gxml, "go_name")), "changed",
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "go_name")), "changed",
 		G_CALLBACK (cg_window_go_name_changed_cb), window);
 
 	g_signal_connect (
-		G_OBJECT (glade_xml_get_widget (priv->gxml, "cc_name")), "changed",
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "cc_name")), "changed",
 		G_CALLBACK (cg_window_cc_name_changed_cb), window);
 
 	g_signal_connect (
-		G_OBJECT (glade_xml_get_widget(priv->gxml, "add_project")), "toggled",
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "add_project")), "toggled",
 		G_CALLBACK (cg_window_add_project_toggled_cb), window);
 
 	cg_window_add_project_toggled_cb (GTK_TOGGLE_BUTTON (
-		glade_xml_get_widget (priv->gxml, "add_project")), window);
+		gtk_builder_get_object (priv->bxml, "add_project")), window);
 
 	/* Selected page is CC */
 	cg_window_validate_cc (window);
@@ -708,7 +708,7 @@ cg_window_init (CgWindow *window)
 	CgWindowPrivate *priv;
 	priv = CG_WINDOW_PRIVATE (window);
 
-	priv->gxml = NULL;
+	priv->bxml = NULL;
 	priv->window = NULL;
 	
 	priv->editor_cc = NULL;
@@ -740,8 +740,8 @@ cg_window_finalize (GObject *object)
 	if (priv->validator != NULL)
 		g_object_unref (G_OBJECT (priv->validator));
 
-	if (priv->gxml != NULL)
-		g_object_unref (G_OBJECT (priv->gxml));
+	if (priv->bxml != NULL)
+		g_object_unref (G_OBJECT (priv->bxml));
 
 	gtk_widget_destroy(priv->window);
 
@@ -764,9 +764,9 @@ cg_window_set_property (GObject *object,
 
 	switch (prop_id)
 	{
-	case PROP_GLADE_XML:
-		cg_window_set_glade_xml (window,
-		                         GLADE_XML (g_value_get_object (value)));
+	case PROP_BUILDER_XML:
+		cg_window_set_builder (window,
+		                         GTK_BUILDER (g_value_get_object (value)));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -790,8 +790,8 @@ cg_window_get_property (GObject *object,
 
 	switch (prop_id)
 	{
-	case PROP_GLADE_XML:
-		g_value_set_object (value, G_OBJECT (priv->gxml));
+	case PROP_BUILDER_XML:
+		g_value_set_object (value, G_OBJECT (priv->bxml));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -812,11 +812,11 @@ cg_window_class_init (CgWindowClass *klass)
 	object_class->get_property = cg_window_get_property;
 
 	g_object_class_install_property (object_class,
-	                                 PROP_GLADE_XML,
-	                                 g_param_spec_object ("glade-xml",
-	                                                      "Glade XML description",
+	                                 PROP_BUILDER_XML,
+	                                 g_param_spec_object ("builder-xml",
+	                                                      "GtkBuilder",
 	                                                      _("XML description of the user interface"),
-	                                                      GLADE_TYPE_XML,
+	                                                      G_TYPE_OBJECT,
 	                                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
@@ -851,13 +851,18 @@ cg_window_get_type (void)
 CgWindow *
 cg_window_new (void)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new();
 	GObject *window;
+	GError* error = NULL;
 
-	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
-	if (gxml == NULL) return NULL;
-	
-	window = g_object_new (CG_TYPE_WINDOW, "glade-xml", gxml, NULL);
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+		return NULL;
+	}
+
+	window = g_object_new (CG_TYPE_WINDOW, "builder-xml", bxml, NULL);
 	return CG_WINDOW (window);
 }
 
@@ -892,7 +897,7 @@ cg_window_create_value_heap (CgWindow *window)
 	gchar *base_suffix;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	notebook = GTK_NOTEBOOK (glade_xml_get_widget (priv->gxml,
+	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
 
 	values = npw_value_heap_new ();
@@ -1029,7 +1034,7 @@ cg_window_get_header_template (CgWindow *window)
 	GtkNotebook *notebook;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	notebook = GTK_NOTEBOOK (glade_xml_get_widget (priv->gxml,
+	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
 	
 	g_return_val_if_fail (GTK_IS_NOTEBOOK (notebook), NULL);
@@ -1053,7 +1058,7 @@ cg_window_get_header_file(CgWindow *window)
 	GtkEntry *entry;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	entry = GTK_ENTRY (glade_xml_get_widget (priv->gxml, "header_file"));
+	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file"));
 	
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
 	return gtk_entry_get_text (entry);
@@ -1066,7 +1071,7 @@ cg_window_get_source_template(CgWindow *window)
 	GtkNotebook *notebook;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	notebook = GTK_NOTEBOOK (glade_xml_get_widget (priv->gxml,
+	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
 	
 	g_return_val_if_fail (GTK_IS_NOTEBOOK (notebook), NULL);
@@ -1090,7 +1095,7 @@ cg_window_get_source_file (CgWindow *window)
 	GtkEntry *entry;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	entry = GTK_ENTRY (glade_xml_get_widget (priv->gxml, "source_file"));
+	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file"));
 	
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
 	return gtk_entry_get_text (entry);
@@ -1104,7 +1109,7 @@ cg_window_set_add_to_project (CgWindow *window,
 	GtkCheckButton *button;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	button = GTK_CHECK_BUTTON (glade_xml_get_widget (priv->gxml,
+	button = GTK_CHECK_BUTTON (gtk_builder_get_object (priv->bxml,
 	                                                 "add_project"));
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
@@ -1118,7 +1123,7 @@ cg_window_set_add_to_repository (CgWindow *window,
 	GtkCheckButton *button;
 
 	priv = CG_WINDOW_PRIVATE (window);
-	button = GTK_CHECK_BUTTON (glade_xml_get_widget (priv->gxml,
+	button = GTK_CHECK_BUTTON (gtk_builder_get_object (priv->bxml,
 	                                                 "add_repository"));
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
@@ -1150,7 +1155,7 @@ cg_window_enable_add_to_project (CgWindow *window,
 	GtkWidget *widget;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	widget = glade_xml_get_widget (priv->gxml, "add_project");
+	widget = gtk_builder_get_object (priv->bxml, "add_project");
 	
 	gtk_widget_set_sensitive (widget, enable);
 }
@@ -1163,7 +1168,7 @@ cg_window_enable_add_to_repository (CgWindow *window,
 	GtkWidget *widget;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	widget = glade_xml_get_widget (priv->gxml, "add_repository");
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_repository"));
 	
 	gtk_widget_set_sensitive (widget, enable);
 }
@@ -1176,7 +1181,7 @@ cg_window_set_author (CgWindow *window,
 	GtkEntry* entry;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	entry = GTK_ENTRY(glade_xml_get_widget (priv->gxml, "author_name"));
+	entry = GTK_ENTRY(gtk_builder_get_object (priv->bxml, "author_name"));
 	
 	gtk_entry_set_text (entry, author);
 }
@@ -1189,7 +1194,7 @@ cg_window_set_email (CgWindow *window,
 	GtkEntry* entry;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	entry = GTK_ENTRY(glade_xml_get_widget (priv->gxml, "author_email"));
+	entry = GTK_ENTRY(gtk_builder_get_object (priv->bxml, "author_email"));
 	
 	gtk_entry_set_text (entry, email);
 }

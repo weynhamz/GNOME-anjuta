@@ -3,7 +3,7 @@ if BUILD_SVN
 
 # Plugin glade file
 subversion_gladedir = $(anjuta_glade_dir)
-subversion_glade_DATA = anjuta-subversion.glade
+subversion_glade_DATA = anjuta-subversion.ui
 
 subversion_pixmapsdir = $(anjuta_image_dir)
 subversion_pixmaps_DATA = \
@@ -11,7 +11,7 @@ subversion_pixmaps_DATA = \
 	anjuta-subversion-plugin-48.png
 
 subversion_uidir = $(anjuta_ui_dir)
-subversion_ui_DATA = anjuta-subversion.ui
+subversion_ui_DATA = anjuta-subversion.xml
 
 plugin_in_files = anjuta-subversion.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -33,8 +33,7 @@ plugin_LTLIBRARIES = libanjuta-subversion.la
 libanjuta_subversion_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_subversion_la_LIBADD = \
-	$(GLADE_LIBS) \
-  $(GIO_LIBS) \
+ $(GIO_LIBS) \
 	$(LIBANJUTA_LIBS) $(SVN_LIB)
 
 libanjuta_subversion_la_SOURCES = \

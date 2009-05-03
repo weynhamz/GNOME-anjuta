@@ -1,11 +1,11 @@
 
 # Plugin glade file
 tools_gladedir = $(anjuta_glade_dir)
-tools_glade_DATA = anjuta-tools.glade
+tools_glade_DATA = anjuta-tools.ui
 
 # Plugin UI file
 tools_uidir = $(anjuta_ui_dir)
-tools_ui_DATA = anjuta-tools.ui 
+tools_ui_DATA = anjuta-tools.xml
 
 # Plugin pixmaps
 tools_pixmapsdir = $(anjuta_image_dir)
@@ -32,7 +32,6 @@ libanjuta_tools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_tools_la_LIBADD = \
 	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_tools_la_SOURCES= \

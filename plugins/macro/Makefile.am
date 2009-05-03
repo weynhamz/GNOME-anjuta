@@ -1,6 +1,6 @@
 # Plugin glade file
 macro_gladedir = $(anjuta_glade_dir)
-macro_glade_DATA = anjuta-macro.glade
+macro_glade_DATA = anjuta-macro.ui
 
 macro_macrosdir = $(anjuta_data_dir)
 macro_macros_DATA = macros.xml
@@ -10,7 +10,7 @@ macro_pixmaps_DATA = \
 	anjuta-macro.png
 
 macro_uidir = $(anjuta_ui_dir)
-macro_ui_DATA = anjuta-macro.ui
+macro_ui_DATA = anjuta-macro.xml
 
 plugin_in_files = anjuta-macro.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -29,7 +29,6 @@ plugin_LTLIBRARIES = libanjuta-macro.la
 libanjuta_macro_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_macro_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

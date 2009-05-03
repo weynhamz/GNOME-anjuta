@@ -68,28 +68,28 @@ on_subversion_merge_response (GtkDialog *dialog, gint response,
 	
 	if (response == GTK_RESPONSE_OK)
 	{
-		merge_first_path_entry = glade_xml_get_widget (data->gxml, 
-													   "merge_first_path_entry");
-		merge_second_path_entry = glade_xml_get_widget (data->gxml,
-														"merge_second_path_entry");
-		merge_working_copy_path_entry = glade_xml_get_widget (data->gxml,
-															  "merge_working_copy_path_entry");
-		merge_start_revision_radio = glade_xml_get_widget (data->gxml,
-														   "merge_start_revision_radio");
-		merge_start_revision_entry = glade_xml_get_widget (data->gxml,
-														   "merge_start_revision_entry");
-		merge_end_revision_radio = glade_xml_get_widget (data->gxml,
-														 "merge_end_revision_radio");
-		merge_end_revision_entry = glade_xml_get_widget (data->gxml,
-														 "merge_end_revision_entry");
-		merge_no_recursive_check = glade_xml_get_widget (data->gxml,
-														 "merge_no_recursive_check");
-		merge_ignore_ancestry_check = glade_xml_get_widget (data->gxml,
-															"merge_ignore_ancestry_check");
-		merge_force_check = glade_xml_get_widget (data->gxml, 
-												  "merge_force_check");
-		merge_dry_run_check = glade_xml_get_widget (data->gxml,
-													"merge_dry_run_check");
+		merge_first_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													   "merge_first_path_entry"));
+		merge_second_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														"merge_second_path_entry"));
+		merge_working_copy_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "merge_working_copy_path_entry"));
+		merge_start_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														   "merge_start_revision_radio"));
+		merge_start_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														   "merge_start_revision_entry"));
+		merge_end_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														 "merge_end_revision_radio"));
+		merge_end_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														 "merge_end_revision_entry"));
+		merge_no_recursive_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														 "merge_no_recursive_check"));
+		merge_ignore_ancestry_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															"merge_ignore_ancestry_check"));
+		merge_force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+												  "merge_force_check"));
+		merge_dry_run_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													"merge_dry_run_check"));
 		
 		if (!check_input (GTK_WIDGET (dialog), merge_first_path_entry,
 						  _("Please enter the first path.")))
@@ -179,9 +179,9 @@ on_merge_first_path_browse_button_clicked (GtkButton *button,
 	GtkWidget *file_chooser_dialog;
 	gchar *selected_path;
 	
-	subversion_merge = glade_xml_get_widget (data->gxml, "subversion_merge");
-	merge_first_path_entry = glade_xml_get_widget (data->gxml, 
-												   "merge_first_path_entry");
+	subversion_merge = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_merge"));
+	merge_first_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+												   "merge_first_path_entry"));
 	file_chooser_dialog = gtk_file_chooser_dialog_new ("Select file or folder",
 													   GTK_WINDOW (subversion_merge),
 													   GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -210,9 +210,9 @@ on_merge_second_path_browse_button_clicked (GtkButton *button,
 	GtkWidget *file_chooser_dialog;
 	gchar *selected_path;
 	
-	subversion_merge = glade_xml_get_widget (data->gxml, "subversion_merge");
-	merge_second_path_entry = glade_xml_get_widget (data->gxml, 
-												    "merge_second_path_entry");
+	subversion_merge = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_merge"));
+	merge_second_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+												    "merge_second_path_entry"));
 	file_chooser_dialog = gtk_file_chooser_dialog_new ("Select file or folder",
 													   GTK_WINDOW (subversion_merge),
 													   GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -241,15 +241,15 @@ on_merge_use_first_path_check_toggled (GtkToggleButton *toggle_button,
 	gboolean active;
 	const gchar *first_path;
 	
-	merge_second_path_entry = glade_xml_get_widget (data->gxml,
-													"merge_second_path_entry");
+	merge_second_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													"merge_second_path_entry"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	
 	if (active)
 	{
-		merge_first_path_entry = glade_xml_get_widget (data->gxml,
-													   "merge_first_path_entry");
+		merge_first_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+													   "merge_first_path_entry"));
 		first_path = gtk_entry_get_text (GTK_ENTRY (merge_first_path_entry));
 		
 		gtk_entry_set_text (GTK_ENTRY (merge_second_path_entry), first_path);
@@ -267,9 +267,9 @@ on_merge_start_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *subversion_merge;
 	gboolean active;
 	
-	merge_start_revision_entry = glade_xml_get_widget (data->gxml, 
-													   "merge_start_revision_entry");
-	subversion_merge = glade_xml_get_widget (data->gxml, "subversion_merge");
+	merge_start_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													   "merge_start_revision_entry"));
+	subversion_merge = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_merge"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	
@@ -290,9 +290,9 @@ on_merge_end_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *subversion_merge;
 	gboolean active;
 	
-	merge_end_revision_entry = glade_xml_get_widget (data->gxml, 
-													   "merge_end_revision_entry");
-	subversion_merge = glade_xml_get_widget (data->gxml, "subversion_merge");
+	merge_end_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													   "merge_end_revision_entry"));
+	subversion_merge = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_merge"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	
@@ -308,7 +308,7 @@ on_merge_end_revision_radio_toggled (GtkToggleButton *toggle_button,
 static void 
 subversion_merge_dialog (GtkAction *action, Subversion *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *subversion_merge;
 	GtkWidget *merge_first_path_browse_button;
 	GtkWidget *merge_second_path_browse_button;
@@ -318,25 +318,29 @@ subversion_merge_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *merge_end_revision_radio;
 	GtkWidget *button;
 	SubversionData *data;
+	GError* error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	subversion_merge = GTK_WIDGET (gtk_builder_get_object (bxml,
+											  "subversion_merge"));
+	merge_first_path_browse_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+														   "merge_first_path_browse_button"));
+	merge_second_path_browse_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															"merge_second_path_browse_button"));
+	merge_use_first_path_check = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "merge_use_first_path_check"));
+	merge_working_copy_path_entry = GTK_WIDGET (gtk_builder_get_object (bxml,
+														  "merge_working_copy_path_entry"));
+	merge_start_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "merge_start_revision_radio"));
+	merge_end_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml,
+													 "merge_end_revision_radio"));
 	
-	gxml = glade_xml_new (GLADE_FILE, "subversion_merge", NULL);
-	
-	subversion_merge = glade_xml_get_widget (gxml,
-											  "subversion_merge");
-	merge_first_path_browse_button = glade_xml_get_widget (gxml,
-														   "merge_first_path_browse_button");
-	merge_second_path_browse_button = glade_xml_get_widget (gxml, 
-															"merge_second_path_browse_button");
-	merge_use_first_path_check = glade_xml_get_widget (gxml,
-													   "merge_use_first_path_check");
-	merge_working_copy_path_entry = glade_xml_get_widget (gxml,
-														  "merge_working_copy_path_entry");
-	merge_start_revision_radio = glade_xml_get_widget (gxml,
-													   "merge_start_revision_radio");
-	merge_end_revision_radio = glade_xml_get_widget (gxml,
-													 "merge_end_revision_radio");
-	
-	data = subversion_data_new (plugin, gxml);
+	data = subversion_data_new (plugin, bxml);
 	
 	gtk_entry_set_text (GTK_ENTRY (merge_working_copy_path_entry),
 						plugin->project_root_dir);
@@ -345,7 +349,7 @@ subversion_merge_dialog (GtkAction *action, Subversion *plugin)
 					  G_CALLBACK (on_subversion_merge_response),
 					  data);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_MERGE_DIALOG);
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, BROWSE_BUTTON_MERGE_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), merge_working_copy_path_entry);
 

@@ -32,8 +32,8 @@
 #include <unistd.h>
 #include <signal.h>
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal-plugin.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal-plugin.xml"
+#define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.ui"
 #define ICON_FILE "anjuta-terminal-plugin-48.png"
 
 /* Some desktop/gnome-terminal gconf keys. */
@@ -867,17 +867,26 @@ on_concat_string (gpointer data, gpointer user_data)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
+	GError* error = NULL;
 	GSList *profiles;
 	GConfClient *client;	
 	
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
-	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
-	anjuta_preferences_add_page (term_plugin->prefs, gxml,
+	GtkBuilder *bxml = gtk_builder_new ();
+
+	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+
+	anjuta_preferences_add_from_builder (term_plugin->prefs, bxml,
 									"Terminal", _("Terminal"), ICON_FILE);
 	
-	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
-	term_plugin->pref_default_button = glade_xml_get_widget (gxml, "preferences_toggle:bool:1:0:terminal.default.profile");
+	term_plugin->pref_profile_combo = GTK_WIDGET (gtk_builder_get_object (bxml, "profile_list_combo"));
+	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal.default.profile"));
 
 	/* Update the currently available list of terminal profiles */
 	client = gconf_client_get_default ();
@@ -918,7 +927,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		gtk_widget_set_sensitive (term_plugin->pref_default_button, FALSE);
 	}
 	
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 }
 
 static void

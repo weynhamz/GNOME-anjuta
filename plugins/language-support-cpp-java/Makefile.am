@@ -1,11 +1,11 @@
 
 # Plugin glade file
 cpp_java_gladedir = $(anjuta_glade_dir)
-cpp_java_glade_DATA = anjuta-language-cpp-java.glade
+cpp_java_glade_DATA = anjuta-language-cpp-java.ui
 
 # Plugin UI file
 cpp_java_uidir = $(anjuta_ui_dir)
-cpp_java_ui_DATA = anjuta-language-support-cpp-java.ui
+cpp_java_ui_DATA = anjuta-language-support-cpp-java.xml
 
 # Plugin Icon file
 cpp_java_pixmapsdir = $(anjuta_image_dir)
@@ -62,7 +62,7 @@ libanjuta_language_cpp_java_la_LIBADD = \
 	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 	
-prefs_glade_files = anjuta-language-cpp-java.glade
+prefs_ui_files = anjuta-language-cpp-java.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

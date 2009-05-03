@@ -33,8 +33,8 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.ui"
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-run-program.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.xml"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-run-program.ui"
 
 #define PARAMETERS_DIALOG "parameters_dialog"
 #define TERMINAL_CHECK_BUTTON "parameter_run_in_term_check"
@@ -583,7 +583,7 @@ on_environment_value_edited (GtkCellRendererText *cell,
 static RunDialog*
 run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 	GtkWindow *parent;
 	GtkCellRenderer *renderer;	
 	GtkTreeModel* model;
@@ -592,39 +592,43 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	GObject *button;
 	GValue value = {0,};
 	const gchar *project_root_uri;
+	GError* error = NULL;
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-	gxml = glade_xml_new (GLADE_FILE, PARAMETERS_DIALOG, NULL);
-	if (gxml == NULL)
+	bxml = gtk_builder_new ();
+
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
 	{
-		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+		g_warning ("Couldn't load builder file: %s", error->message);
+		anjuta_util_dialog_error(parent, _("Missing file %s"), BUILDER_FILE);
+		g_error_free (error);
 		return NULL;
 	}
 	
 	dlg->plugin = plugin;
 		
-	dlg->win = glade_xml_get_widget (gxml, PARAMETERS_DIALOG);
-	dlg->term = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, TERMINAL_CHECK_BUTTON));
-	dlg->args = GTK_COMBO_BOX (glade_xml_get_widget (gxml, PARAMETER_COMBO));
-	dlg->target = GTK_COMBO_BOX (glade_xml_get_widget (gxml, TARGET_COMBO));
-	dlg->vars = GTK_TREE_VIEW (glade_xml_get_widget (gxml, VAR_TREEVIEW));
-	dlg->dirs = GTK_FILE_CHOOSER (glade_xml_get_widget (gxml, DIR_CHOOSER));
-	dlg->remove_button = glade_xml_get_widget (gxml, REMOVE_VAR_BUTTON);
-	dlg->edit_button = glade_xml_get_widget (gxml, EDIT_VAR_BUTTON);
+	dlg->win = GTK_WIDGET (gtk_builder_get_object (bxml, PARAMETERS_DIALOG));
+	dlg->term = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TERMINAL_CHECK_BUTTON));
+	dlg->args = GTK_COMBO_BOX (gtk_builder_get_object (bxml, PARAMETER_COMBO));
+	dlg->target = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TARGET_COMBO));
+	dlg->vars = GTK_TREE_VIEW (gtk_builder_get_object (bxml, VAR_TREEVIEW));
+	dlg->dirs = GTK_FILE_CHOOSER (gtk_builder_get_object (bxml, DIR_CHOOSER));
+	dlg->remove_button = GTK_WIDGET (gtk_builder_get_object (bxml, REMOVE_VAR_BUTTON));
+	dlg->edit_button = GTK_WIDGET (gtk_builder_get_object (bxml, EDIT_VAR_BUTTON));
 
 	/* Connect signals */	
-	button = G_OBJECT (glade_xml_get_widget (gxml, TARGET_BUTTON));
+	button = gtk_builder_get_object (bxml, TARGET_BUTTON);
 	g_signal_connect_swapped (button, "clicked", G_CALLBACK (on_select_target), dlg);
-	button = G_OBJECT (glade_xml_get_widget (gxml, ADD_VAR_BUTTON));
+	button = gtk_builder_get_object (bxml, ADD_VAR_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_add_button), dlg->vars);
-	button = G_OBJECT (glade_xml_get_widget (gxml, EDIT_VAR_BUTTON));
+	button = gtk_builder_get_object (bxml, EDIT_VAR_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_edit_button), dlg->vars);
-	button = G_OBJECT (glade_xml_get_widget (gxml, REMOVE_VAR_BUTTON));
+	button = gtk_builder_get_object (bxml, REMOVE_VAR_BUTTON);
 	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_remove_button), dlg);
 	selection = gtk_tree_view_get_selection (dlg->vars);
 	g_signal_connect (selection, "changed", G_CALLBACK (on_environment_selection_changed), dlg);
 	
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 
 	/* Fill parameter combo box */
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));

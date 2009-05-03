@@ -25,7 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.ui"
 
 extern GType dma_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_DEBUG_MANAGER         (dma_plugin_get_type (NULL))

@@ -31,7 +31,6 @@
 #include <stdlib.h>
 
 #include <gtk/gtk.h>
-#include <glade/glade-xml.h>
 
 #include <glib/gi18n.h>
 
@@ -40,7 +39,7 @@
 #include "gbf-am-config.h"
 #include "gbf-am-properties.h"
 
-#define GLADE_FILE  PACKAGE_DATA_DIR "/glade/gbf-am-dialogs.glade"
+#define GLADE_FILE  PACKAGE_DATA_DIR "/glade/gbf-am-dialogs.ui"
 
 typedef enum {
 	GBF_AM_CONFIG_LABEL,
@@ -407,7 +406,7 @@ add_package_module_clicked_cb (GtkWidget *button, GbfAmProject *project)
 static void
 add_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkTreeView *treeview;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter, parent;
@@ -420,12 +419,17 @@ add_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 	GtkTreeViewColumn *col;
 	gchar *pkg_to_add = NULL;
 	GbfAmConfigMapping *config;
+	GError* error = NULL;
 	
 	/* Let user select a package */
-	gxml = glade_xml_new (GLADE_FILE, "package_selection_dialog",
-			      GETTEXT_PACKAGE);
-	dlg = glade_xml_get_widget (gxml, "package_selection_dialog");
-	pkg_treeview = glade_xml_get_widget (gxml, "pkg_treeview");
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dlg = GTK_WIDGET (gtk_builder_get_object (bxml, "package_selection_dialog"));
+	pkg_treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "pkg_treeview"));
 	renderer = gtk_cell_renderer_text_new ();
 	col = gtk_tree_view_column_new_with_attributes (_("Module/Packages"),
 							renderer,
@@ -771,7 +775,7 @@ on_project_widget_destroy (GtkWidget *wid, GtkWidget *top_level)
 GtkWidget*
 gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GbfAmConfigMapping *config;
 	GbfAmConfigValue *value;
 	GtkWidget *top_level;
@@ -799,10 +803,13 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 		g_propagate_error (error, err);
 		return NULL;
 	}
-	
-	gxml = glade_xml_new (GLADE_FILE, "project_properties_dialog",
-			      GETTEXT_PACKAGE);
-	top_level = glade_xml_get_widget (gxml, "top_level");
+
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &err))
+	{
+		g_warning ("Couldn't load builder file: %s", err->message);
+		g_error_free (err);
+	}
+	top_level = GTK_WIDGET (gtk_builder_get_object (bxml, "top_level"));
         
 	g_object_set_data (G_OBJECT (top_level), "__project", project);
 	g_object_set_data_full (G_OBJECT (top_level), "__config", config,
@@ -811,15 +818,15 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 			  G_CALLBACK (on_project_widget_destroy), top_level);
 	g_object_ref (top_level);
         
-	add_module_button = glade_xml_get_widget (gxml, "add_module_button");
+	add_module_button = GTK_WIDGET (gtk_builder_get_object (bxml, "add_module_button"));
 	g_object_set_data (G_OBJECT (project), "__add_module_button",
 			   add_module_button);
 	
-	add_package_button = glade_xml_get_widget (gxml, "add_package_button");
+	add_package_button = GTK_WIDGET (gtk_builder_get_object (bxml, "add_package_button"));
 	g_object_set_data (G_OBJECT (project), "__add_package_button",
 			   add_package_button);
 	
-	remove_button = glade_xml_get_widget (gxml, "remove_button");
+	remove_button = GTK_WIDGET (gtk_builder_get_object (bxml, "remove_button"));
 	g_object_set_data (G_OBJECT (project), "__remove_button",
 			   remove_button);
 	
@@ -827,7 +834,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 	gtk_widget_set_sensitive (add_package_button, FALSE);
 	gtk_widget_set_sensitive (remove_button, FALSE);
 	
-	table = glade_xml_get_widget (gxml, "general_properties_table");
+	table = GTK_WIDGET (gtk_builder_get_object (bxml, "general_properties_table"));
 	
 	g_object_ref (top_level);
 	gtk_container_remove (GTK_CONTAINER(top_level->parent), top_level);
@@ -909,7 +916,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 		g_strfreev (modules);
 	}
 	
-	treeview = glade_xml_get_widget (gxml, "packages_treeview");
+	treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "packages_treeview"));
 	
 	g_object_set_data (G_OBJECT (project), "__packages_treeview", treeview);
 	g_object_set_data (G_OBJECT (project), "__config", config);
@@ -952,7 +959,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 					       variables_store);
 	}
 	
-	treeview = glade_xml_get_widget (gxml, "variables_treeview");
+	treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "variables_treeview"));
 	g_object_set_data (G_OBJECT (project), "__variables_treeview",
 			   treeview);
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview),
@@ -983,11 +990,11 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 			  G_CALLBACK (variables_treeview_selection_changed_cb),
 			  project);
 
-	add_variable_button = glade_xml_get_widget (gxml, "add_variable_button");
+	add_variable_button = GTK_WIDGET (gtk_builder_get_object (bxml, "add_variable_button"));
 	g_object_set_data (G_OBJECT (project), "__add_variable_button",
 			   add_variable_button);
 	
-	remove_variable_button = glade_xml_get_widget (gxml, "remove_variable_button");
+	remove_variable_button = GTK_WIDGET (gtk_builder_get_object (bxml, "remove_variable_button"));
 	g_object_set_data (G_OBJECT (project), "__remove_variable_button",
 			   remove_variable_button);
 	gtk_widget_set_sensitive (add_variable_button, TRUE);
@@ -1004,7 +1011,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 	
 	g_object_unref (variables_store);
 	g_object_unref (store);
-	g_object_unref (gxml);
+	g_object_unref (bxml);
 	return top_level;
 }
 

@@ -50,8 +50,8 @@
 #include "search-box.h"
 #include "anjuta-bookmarks.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.xml"
+#define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-document-manager.ui"
 #define ICON_FILE "anjuta-document-manager-plugin-48.png"
 
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle"
@@ -2116,15 +2116,20 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GladeXML* gxml;
+	GError* error = NULL;
+	GtkBuilder* bxml = gtk_builder_new ();
 	
 	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-		
-	anjuta_preferences_add_page (prefs,
-									gxml, "Documents", _("Documents"),  ICON_FILE);
-				
-	g_object_unref (G_OBJECT (gxml));
+	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	anjuta_preferences_add_from_builder (prefs,
+									bxml, "Documents", _("Documents"),  ICON_FILE);
+
+	g_object_unref (G_OBJECT (bxml));
 }
 
 static void

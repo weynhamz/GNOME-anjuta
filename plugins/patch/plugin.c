@@ -23,7 +23,7 @@
 #include "plugin.h"
 #include "patch-plugin.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-patch.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-patch.xml"
 
 static gpointer parent_class;
 

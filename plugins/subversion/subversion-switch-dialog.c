@@ -34,10 +34,10 @@ on_switch_other_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *subversion_switch;
 	gboolean active;
 	
-	switch_revision_entry = glade_xml_get_widget (data->gxml, 
-												  "switch_revision_entry");
-	subversion_switch = glade_xml_get_widget (data->gxml,
-											  "subversion_switch");
+	switch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+												  "switch_revision_entry"));
+	subversion_switch = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+											  "subversion_switch"));
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (switch_revision_entry, active);
 	
@@ -82,16 +82,16 @@ on_subversion_switch_response (GtkDialog *dialog, gint response,
 	
 	if (response == GTK_RESPONSE_OK)
 	{
-		switch_working_copy_entry = glade_xml_get_widget (data->gxml, 
-												  		  "switch_working_copy_entry");
-		switch_url_entry = glade_xml_get_widget (data->gxml,
-												 "switch_url_entry");
-		switch_head_revision_radio = glade_xml_get_widget (data->gxml,
-														   "switch_head_revision_radio");
-		switch_other_revision_radio = glade_xml_get_widget (data->gxml,
-														    "switch_other_revision_radio");
-		switch_no_recursive_check = glade_xml_get_widget (data->gxml,
-														  "switch_no_recursive_check");
+		switch_working_copy_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+												  		  "switch_working_copy_entry"));
+		switch_url_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+												 "switch_url_entry"));
+		switch_head_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														   "switch_head_revision_radio"));
+		switch_other_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														    "switch_other_revision_radio"));
+		switch_no_recursive_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														  "switch_no_recursive_check"));
 		
 		working_copy_path = gtk_editable_get_chars (GTK_EDITABLE (switch_working_copy_entry),
 											  		0, -1);
@@ -115,8 +115,8 @@ on_subversion_switch_response (GtkDialog *dialog, gint response,
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (switch_other_revision_radio)))
 		{
-			switch_revision_entry = glade_xml_get_widget (data->gxml, 
-														  "switch_revision_entry");
+			switch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														  "switch_revision_entry"));
 			
 			if (!check_input (GTK_WIDGET (dialog), switch_revision_entry,
 						  	  _("Please enter a revision.")))
@@ -155,23 +155,29 @@ on_subversion_switch_response (GtkDialog *dialog, gint response,
 static void
 subversion_switch_dialog (GtkAction *action, Subversion *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *subversion_switch;
 	GtkWidget *switch_working_copy_entry;
 	GtkWidget *switch_other_revision_radio;
 	GtkWidget *button;
 	SubversionData *data;
-	
-	gxml = glade_xml_new (GLADE_FILE, "subversion_switch", NULL);
-	subversion_switch = glade_xml_get_widget (gxml, "subversion_switch");
-	switch_working_copy_entry = glade_xml_get_widget (gxml,
-													  "switch_working_copy_entry");
-	switch_other_revision_radio = glade_xml_get_widget (gxml,
-													    "switch_other_revision_radio");
-	
-	data = subversion_data_new (plugin, gxml);
+	GError* error = NULL;
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_SWITCH_DIALOG);
+	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	subversion_switch = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_switch"));
+	switch_working_copy_entry = GTK_WIDGET (gtk_builder_get_object (bxml,
+													  "switch_working_copy_entry"));
+	switch_other_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml,
+													    "switch_other_revision_radio"));
+	
+	data = subversion_data_new (plugin, bxml);
+
+	button = GTK_WIDGET (gtk_builder_get_object (bxml, BROWSE_BUTTON_SWITCH_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_subversion_browse_button_clicked), switch_working_copy_entry);
 

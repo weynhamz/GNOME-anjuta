@@ -26,7 +26,6 @@
 
 #include <string.h>
 #include <stdarg.h>
-#include <glade/glade-xml.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -38,7 +37,7 @@
 
 #define ICON_SIZE 16
 
-#define GLADE_FILE PACKAGE_DATA_DIR  "/glade/create_dialogs.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR  "/glade/create_dialogs.ui"
 
 enum {
     COLUMN_FILE,
@@ -46,42 +45,19 @@ enum {
     N_COLUMNS
 };
 
-static GtkWidget *
-custom_widget_handler (GladeXML *xml,
-                       gchar    *func_name,
-                       gchar    *name,
-                       gchar    *string1,
-                       gchar    *string2,
-                       gint      int1,
-                       gint      int2,
-                       gpointer  user_data)
-{
-    GtkWidget *wid = NULL;
-
-    if (!strcmp (string1, "GtkComboBox")) {
-        wid = gtk_combo_box_new ();
-    } else if (!strcmp (string1, "GbfProjectView")) {
-        wid = gbf_project_view_new ();
-    } else {
-        g_warning ("Unknown custom widget type '%s'", string1);
-    }
-
-    return wid;
-}
-
-static GladeXML *
+static GtkBuilder *
 load_interface (const gchar *top_widget)
 {
-    GladeXML *xml;
+    GtkBuilder *xml = gtk_builder_new ();
+    GError* error = NULL;
 
-    glade_set_custom_handler (custom_widget_handler, NULL);
-    xml = glade_xml_new (GLADE_FILE, top_widget, GETTEXT_PACKAGE);
-
-    if (!xml) {
-        g_warning ("%s", _("Couldn't load glade file"));
+    if (!gtk_builder_add_from_file (xml, GLADE_FILE, &error))
+    {
+        g_warning ("Couldn't load builder file: %s", error->message);
+        g_error_free (error);
         return NULL;
     }
-    
+
     return xml;
 }
 
@@ -193,7 +169,7 @@ gbf_project_util_new_group (GbfProjectModel *model,
                             const gchar     *default_group,
                             const gchar     *default_group_name_to_add)
 {
-    GladeXML *gui;
+    GtkBuilder *gui;
     GtkWidget *dialog, *group_name_entry, *ok_button;
     GtkWidget *groups_view;
     gint response;
@@ -211,10 +187,10 @@ gbf_project_util_new_group (GbfProjectModel *model,
     g_return_val_if_fail (gui != NULL, NULL);
     
     /* get all needed widgets */
-    dialog = glade_xml_get_widget (gui, "new_group_dialog");
-    groups_view = glade_xml_get_widget (gui, "groups_view");
-    group_name_entry = glade_xml_get_widget (gui, "group_name_entry");
-    ok_button = glade_xml_get_widget (gui, "ok_button");
+    dialog = GTK_WIDGET (gtk_builder_get_object (gui, "new_group_dialog"));
+    groups_view = GTK_WIDGET (gtk_builder_get_object (gui, "groups_view"));
+    group_name_entry = GTK_WIDGET (gtk_builder_get_object (gui, "group_name_entry"));
+    ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_group_button"));
     
     /* set up dialog */
     if (default_group_name_to_add)
@@ -338,7 +314,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
                              const gchar     *default_group,
                              const gchar     *default_target_name_to_add)
 {
-    GladeXML *gui;
+    GtkBuilder *gui;
     GtkWidget *dialog, *target_name_entry, *ok_button;
     GtkWidget *target_type_combo, *groups_view;
     GtkListStore *types_store;
@@ -358,11 +334,11 @@ gbf_project_util_new_target (GbfProjectModel *model,
     g_return_val_if_fail (gui != NULL, NULL);
     
     /* get all needed widgets */
-    dialog = glade_xml_get_widget (gui, "new_target_dialog");
-    groups_view = glade_xml_get_widget (gui, "groups_view");
-    target_name_entry = glade_xml_get_widget (gui, "target_name_entry");
-    target_type_combo = glade_xml_get_widget (gui, "target_type_combo");
-    ok_button = glade_xml_get_widget (gui, "ok_button");
+    dialog = GTK_WIDGET (gtk_builder_get_object (gui, "new_target_dialog"));
+    groups_view = GTK_WIDGET (gtk_builder_get_object (gui, "target_groups_view"));
+    target_name_entry = GTK_WIDGET (gtk_builder_get_object (gui, "target_name_entry"));
+    target_type_combo = GTK_WIDGET (gtk_builder_get_object (gui, "target_type_combo"));
+    ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_target_button"));
     
     /* set up dialog */
     if (default_target_name_to_add)
@@ -653,7 +629,7 @@ gbf_project_util_add_source_multi (GbfProjectModel *model,
 				   const gchar     *default_group,
 				   GList     *uris_to_add)
 {
-    GladeXML *gui;
+    GtkBuilder *gui;
     GtkWidget *dialog, *source_file_tree;
     GtkWidget *ok_button, *browse_button;
     GtkWidget *targets_view;
@@ -677,11 +653,11 @@ gbf_project_util_add_source_multi (GbfProjectModel *model,
     g_return_val_if_fail (gui != NULL, NULL);
     
     /* get all needed widgets */
-    dialog = glade_xml_get_widget (gui, "add_source_dialog");
-    targets_view = glade_xml_get_widget (gui, "targets_view");
-    source_file_tree = glade_xml_get_widget (gui, "source_file_tree");
-    browse_button = glade_xml_get_widget (gui, "browse_button");
-    ok_button = glade_xml_get_widget (gui, "ok_button");
+    dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_source_dialog"));
+    targets_view = GTK_WIDGET (gtk_builder_get_object (gui, "targets_view"));
+    source_file_tree = GTK_WIDGET (gtk_builder_get_object (gui, "source_file_tree"));
+    browse_button = GTK_WIDGET (gtk_builder_get_object (gui, "browse_button"));
+    ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_source_button"));
     
     /* Prepare file tree */
     list = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);

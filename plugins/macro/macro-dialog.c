@@ -20,6 +20,10 @@
 #include "macro-actions.h"
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+void on_add_clicked (GtkButton * add, MacroDialog * dialog);
+void on_remove_clicked (GtkButton * remove, MacroDialog * dialog);
+void on_edit_clicked (GtkButton * ok, MacroDialog * dialog);
+
 enum
 {
 	OK,
@@ -115,8 +119,8 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 		gtk_text_view_get_buffer (GTK_TEXT_VIEW
 					  (dialog->preview_text));
 
-	edit = glade_xml_get_widget (dialog->gxml, "macro_edit");
-	remove = glade_xml_get_widget (dialog->gxml, "macro_remove");
+	edit = GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_edit"));
+	remove = GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_remove"));
 
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
@@ -165,7 +169,7 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 	gtk_widget_set_sensitive (remove, FALSE);
 }
 
-static void
+void
 on_add_clicked (GtkButton * add, MacroDialog * dialog)
 {
 	g_return_if_fail (dialog != NULL);
@@ -175,7 +179,7 @@ on_add_clicked (GtkButton * add, MacroDialog * dialog)
 	gtk_widget_show (GTK_WIDGET (edit));
 }
 
-static void
+void
 on_remove_clicked (GtkButton * remove, MacroDialog * dialog)
 {
 	GtkTreeSelection *selection = gtk_tree_view_get_selection
@@ -199,7 +203,7 @@ on_remove_clicked (GtkButton * remove, MacroDialog * dialog)
 	}
 }
 
-static void
+void
 on_edit_clicked (GtkButton * ok, MacroDialog * dialog)
 {
 	GtkTreeSelection *select = gtk_tree_view_get_selection
@@ -222,10 +226,10 @@ static void
 macro_dialog_dispose (GObject * object)
 {
 	MacroDialog *dialog = MACRO_DIALOG (object);
-	if (dialog->gxml)
+	if (dialog->bxml)
 	{
-		g_object_unref (dialog->gxml);
-		dialog->gxml = NULL;
+		g_object_unref (dialog->bxml);
+		dialog->bxml = NULL;
 	}
 	if (dialog->macro_db)
 	{
@@ -254,11 +258,19 @@ static void
 macro_dialog_init (MacroDialog * dialog)
 {
 	GtkTreeSelection *select;
-	dialog->gxml = glade_xml_new (GLADE_FILE, "macro_dialog_table", NULL);
-	GtkWidget *table =
-		glade_xml_get_widget (dialog->gxml, "macro_dialog_table");
+	GtkWidget *table;
+	GError* error = NULL;
 
 	g_return_if_fail (dialog != NULL);
+
+	dialog->bxml = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (dialog->bxml, GLADE_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	table = GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_dialog_table"));
 
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("Insert"), OK,
@@ -267,19 +279,13 @@ macro_dialog_init (MacroDialog * dialog)
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Insert macro"));
 
 	dialog->macro_tree =
-		glade_xml_get_widget (dialog->gxml, "macro_tree");
+		GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_tree"));
 	dialog->preview_text =
-		glade_xml_get_widget (dialog->gxml, "macro_preview");
+		GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_preview"));
 	dialog->details_label =
-		glade_xml_get_widget (dialog->gxml, "macro_details");
-			
-	glade_xml_signal_connect_data (dialog->gxml, "on_edit_clicked",
-				       G_CALLBACK (on_edit_clicked), dialog);
-	glade_xml_signal_connect_data (dialog->gxml, "on_add_clicked",
-				       G_CALLBACK (on_add_clicked), dialog);
-	glade_xml_signal_connect_data (dialog->gxml, "on_remove_clicked",
-				       G_CALLBACK (on_remove_clicked),
-				       dialog);
+		GTK_WIDGET (gtk_builder_get_object (dialog->bxml, "macro_details"));
+
+	gtk_builder_connect_signals (dialog->bxml, dialog);
 
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (dialog->macro_tree));
