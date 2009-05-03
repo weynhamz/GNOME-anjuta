@@ -16,6 +16,7 @@
 					</menu>
   				</placeholder>
   				<menuitem name="Push..." action="ActionGitPush" />
+  				<menuitem name="Pull..." action="ActionGitPull" />
 				<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
 				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
 				<separator />
@@ -25,7 +26,6 @@
 				  		<menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
 				  		<menuitem name="Switch to another branch..." action="ActionGitSwitch" />
 				  		<menuitem name="Merge..." action="ActionGitMerge" />
-				  		<menuitem name="Pull..." action="ActionGitPull" />
 				  		<placeholder name="PlaceholderRemoteMenu">
 							<menu name="Remote branches" action="ActionMenuGitRemoteBranches">
 						  		<menuitem name="Add..." action="ActionGitRemoteAdd" />
