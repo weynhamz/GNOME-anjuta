@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-04-14 08:28+0000\n"
-"PO-Revision-Date: 2009-04-14 18:38+0200\n"
+"POT-Creation-Date: 2009-04-26 21:28+0000\n"
+"PO-Revision-Date: 2009-05-03 18:59+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2570,7 +2570,7 @@ msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:285
 msgid "_Reload"
-msgstr "_Recargar"
+msgstr "Re_cargar"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:282
 #: ../plugins/document-manager/plugin.c:411
@@ -3448,7 +3448,7 @@ msgstr "_Abrir"
 
 #: ../plugins/file-loader/plugin.c:869 ../plugins/file-loader/plugin.c:882
 msgid "Open _With"
-msgstr "Abrir _con"
+msgstr "Abrir c_on"
 
 #: ../plugins/file-loader/plugin.c:870 ../plugins/file-loader/plugin.c:883
 msgid "Open with"
@@ -5975,32 +5975,32 @@ msgstr "Archivo parche"
 msgid "Patches"
 msgstr "Parches"
 
-#: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
+#: ../plugins/patch/patch-plugin.c:160 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
 msgstr "Parchear"
 
-#: ../plugins/patch/patch-plugin.c:174
+#: ../plugins/patch/patch-plugin.c:180
 msgid "Please select the directory where the patch should be applied"
 msgstr "Seleccione el directorio donde el parche debería ser aplicado"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:191
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Parcheando %s usando %s\n"
 
-#: ../plugins/patch/patch-plugin.c:194
+#: ../plugins/patch/patch-plugin.c:203
 msgid "Patching...\n"
 msgstr "Parcheando…\n"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:213
 msgid "Patching..."
 msgstr "Parcheando…"
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:218
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Hay trabajos no finalizados, espere hasta que estén terminados."
 
-#: ../plugins/patch/patch-plugin.c:251
+#: ../plugins/patch/patch-plugin.c:260
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6010,7 +6010,7 @@ msgstr ""
 "Revise los mensajes de fallo.\n"
 "Examine y quite cualquier archivo rechazado.\n"
 
-#: ../plugins/patch/patch-plugin.c:257
+#: ../plugins/patch/patch-plugin.c:266
 msgid "Patching complete"
 msgstr "Aplicación del parche completado"
 
@@ -6672,7 +6672,6 @@ msgid "Error"
 msgstr "Error"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
-#| msgid "Select project directory"
 msgid "Select project type"
 msgstr "Seleccionar el tipo de proyecto"
 
@@ -8817,7 +8816,6 @@ msgid "Goto symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
 #: ../plugins/symbol-db/plugin.c:320
-#| msgid "Tag _Definition"
 msgid "Tag _Implementation"
 msgstr "_Implementación de etiquetas"
 
@@ -8826,12 +8824,10 @@ msgid "Goto symbol definition"
 msgstr "Ir a definición del símbolo"
 
 #: ../plugins/symbol-db/plugin.c:328
-#| msgid "_Find..."
 msgid "_Find Symbol..."
 msgstr "_Buscar símbolo…"
 
 #: ../plugins/symbol-db/plugin.c:329
-#| msgid "Symbol"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
@@ -8856,7 +8852,6 @@ msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1905
-#| msgid "Created symbols..."
 msgid "Populating symbols' db..."
 msgstr "Llenando la BB DD de símbolos…"
 
@@ -8873,12 +8868,10 @@ msgid "Symbols"
 msgstr "Símbolos"
 
 #: ../plugins/symbol-db/plugin.c:2316
-#| msgid "Symbol browser popup actions"
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
 #: ../plugins/symbol-db/plugin.c:2324
-#| msgid "Symbol browser actions"
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
