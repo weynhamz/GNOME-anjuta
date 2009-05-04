@@ -39,4 +39,4 @@ install-data-local:
 uninstall-local:
 endif
 
-CLEANFILES = $(prefs_glade_schemas)
+CLEANFILES = $(prefs_glade_schemas) $(prefs_ui_schemas)
