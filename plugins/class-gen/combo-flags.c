@@ -106,7 +106,7 @@ cg_combo_flags_cell_layout_pack_start (GtkCellLayout *layout,
 	priv = CG_COMBO_FLAGS_PRIVATE (combo);
 
 	g_object_ref (cell);
-	gtk_object_sink (GTK_OBJECT (cell));
+	g_object_ref_sink (cell);
 
 	info = g_new0 (CgComboFlagsCellInfo, 1);
 	info->cell = cell;
@@ -132,7 +132,7 @@ cg_combo_flags_cell_layout_pack_end (GtkCellLayout *layout,
 	priv = CG_COMBO_FLAGS_PRIVATE (combo);
 
 	g_object_ref (cell);
-	gtk_object_sink (GTK_OBJECT (cell));
+	g_object_ref_sink (cell);
 
 	info = g_new0 (CgComboFlagsCellInfo, 1);
 	info->cell = cell;
