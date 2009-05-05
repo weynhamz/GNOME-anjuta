@@ -765,7 +765,7 @@ void anjuta_shell_saving_push	    (AnjutaShell* shell)
 {
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 	
-	return ANJUTA_SHELL_GET_IFACE (shell)->saving_push (shell);
+	ANJUTA_SHELL_GET_IFACE (shell)->saving_push (shell);
 }
 
 /**
@@ -779,7 +779,7 @@ void anjuta_shell_saving_pop	    (AnjutaShell* shell)
 {
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 
-	return ANJUTA_SHELL_GET_IFACE (shell)->saving_pop (shell);
+	ANJUTA_SHELL_GET_IFACE (shell)->saving_pop (shell);
 }
 
 void
