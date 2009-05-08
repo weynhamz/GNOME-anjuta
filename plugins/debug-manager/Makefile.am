@@ -31,11 +31,11 @@ BUILT_SOURCES = 			\
 	anjuta-marshal.h              
 
 anjuta-marshal.h: anjuta-marshal.list
-	glib-genmarshal anjuta-marshal.list --header --prefix=anjuta_marshal > $@
+	glib-genmarshal $< --header --prefix=anjuta_marshal > $@
 
 anjuta-marshal.c: anjuta-marshal.list
 	echo "#include \"anjuta-marshal.h\"" > $@ && \
-	glib-genmarshal anjuta-marshal.list --body --prefix=anjuta_marshal >> $@
+	glib-genmarshal $< --body --prefix=anjuta_marshal >> $@
 
 libanjuta_debug_manager_la_SOURCES = \
 	$(BUILT_SOURCES) \

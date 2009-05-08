@@ -28,11 +28,11 @@ marshallers_SOURCES = \
 	anjuta-glade-marshallers.h
 
 anjuta-glade-marshallers.h: anjuta-glade-marshallers.list
-	glib-genmarshal anjuta-glade-marshallers.list --header --prefix=anjuta_glade_marshallers > $@
+	glib-genmarshal $< --header --prefix=anjuta_glade_marshallers > $@
 
 anjuta-glade-marshallers.c: anjuta-glade-marshallers.list anjuta-glade-marshallers.h
 	echo "#include \"anjuta-glade-marshallers.h\"" > $@ && \
-	glib-genmarshal anjuta-glade-marshallers.list --body --prefix=anjuta_glade_marshallers >> $@
+	glib-genmarshal $< --body --prefix=anjuta_glade_marshallers >> $@
 
 # Include paths
 AM_CPPFLAGS = \

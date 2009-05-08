@@ -5,14 +5,14 @@ prefs_glade_schemas = $(prefs_glade_files:.glade=.schemas)
 prefs_glade_schemas_DATA = $(prefs_glade_schemas)
 
 %.schemas: %.glade
-	$(top_srcdir)/scripts/glade2schema.pl $(srcdir)/$(?) > $(@)
+	$(top_srcdir)/scripts/glade2schema.pl $< > $@
 
 prefs_ui_schemasdir = @GCONF_SCHEMA_FILE_DIR@
 prefs_ui_schemas = $(prefs_ui_files:.ui=.schemas)
 prefs_ui_schemas_DATA = $(prefs_ui_schemas)
 
 %.schemas: %.ui
-	$(top_srcdir)/scripts/builder2schema.pl $(srcdir)/$(?) > $(@)
+	$(top_srcdir)/scripts/builder2schema.pl $< > $@
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local: $(prefs_glade_schemas) $(prefs_ui_schemas)

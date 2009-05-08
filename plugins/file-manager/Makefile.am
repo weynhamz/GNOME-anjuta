@@ -59,14 +59,14 @@ libfile_manager_la_LIBADD = \
 
 file-view-marshal.h: file-view-marshal.list
 	@GLIB_GENMARSHAL@ \
-	        --prefix=file_view_cclosure_marshal file-view-marshal.list --header > xgen-gmc \
+	        --prefix=file_view_cclosure_marshal $< --header > xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 
-file-view-marshal.c: file-view-marshal.h file-view-marshal.list
+file-view-marshal.c: file-view-marshal.list
 	echo "#include \"file-view-marshal.h\"" > xgen-gmc \
 	&& @GLIB_GENMARSHAL@ \
-	        --prefix=file_view_cclosure_marshal file-view-marshal.list --body >> xgen-gmc \
+	        --prefix=file_view_cclosure_marshal $< --body >> xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc	
 
