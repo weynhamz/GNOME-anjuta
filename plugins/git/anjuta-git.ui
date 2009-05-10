@@ -17,8 +17,22 @@
   				</placeholder>
   				<menuitem name="Push..." action="ActionGitPush" />
   				<menuitem name="Pull..." action="ActionGitPull" />
-				<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
-				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+  				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+  				<separator />
+  				<placeholder name="PlaceholderPatchMenu">
+  					<menu name="Patches" action="ActionMenuGitPatches">
+  						<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
+  						<placeholder name="PlaceholderApplyMailboxMenu">
+  							<menu name="Apply from mailbox files" action="ActionMenuGitApplyMailboxFiles">
+  								<menuitem name="Apply" action="ActionGitApplyMailboxApply" />
+  								<separator />
+  								<menuitem name="Continue with resolved conflicts" action="ActionGitApplyMailboxContinue" />
+  								<menuitem name="Skip current patch" action="ActionGitApplyMailboxSkip" />
+  								<menuitem name="Abort" action="ActionGitApplyMailboxAbort" />
+  							</menu> 
+  						</placeholder>
+  					</menu>
+  				</placeholder>
 				<separator />
 				<placeholder name="PlaceholderBranches">
 					<menu name="BranchesMenu" action="ActionMenuGitBranches">

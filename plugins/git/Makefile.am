@@ -185,7 +185,13 @@ libanjuta_git_la_SOURCES = \
 	git-push-command.c \
 	git-push-command.h \
 	git-push-dialog.c \
-	git-push-dialog.h
+	git-push-dialog.h \
+	git-apply-mailbox-command.c \
+	git-apply-mailbox-command.h \
+	git-apply-mailbox-continue-command.c \
+	git-apply-mailbox-continue-command.h \
+	git-apply-mailbox-dialog.c \
+	git-apply-mailbox-dialog.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

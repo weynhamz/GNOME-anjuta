@@ -46,6 +46,7 @@
 #include "git-pull-dialog.h"
 #include "git-cat-file-menu.h"
 #include "git-push-dialog.h"
+#include "git-apply-mailbox-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.ui"
 
@@ -333,6 +334,55 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
 		G_CALLBACK (on_menu_git_push)    /* action callback */
+	},
+	{
+		"ActionMenuGitPatches",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Patches"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionMenuGitApplyMailboxFiles",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Apply mailbox files"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	
+	{
+		"ActionGitApplyMailboxApply",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Apply..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_apply)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxContinue",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Continue with resolved conflicts"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_resolved)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxSkip",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Skip current patch"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_skip)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxAbort",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Abort"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_abort)    /* action callback */
 	}
 };
 
