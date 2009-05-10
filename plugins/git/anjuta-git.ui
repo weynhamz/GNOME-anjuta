@@ -19,6 +19,14 @@
   				<menuitem name="Pull..." action="ActionGitPull" />
   				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
   				<separator />
+				<menuitem name="Add..." action="ActionGitAdd" />
+				<menuitem name="Remove..." action="ActionGitRemove" />
+				<menuitem name="Ignore..." action="ActionGitIgnore" />
+				<separator />
+				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
+				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
+				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
+				<separator />
   				<placeholder name="PlaceholderPatchMenu">
   					<menu name="Patches" action="ActionMenuGitPatches">
   						<menuitem name="Create patch series..." action="ActionGitCreatePatchSeries" />
@@ -49,19 +57,11 @@
   		  			</menu>
 				</placeholder>
 				<separator />
-				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
-				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
-				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
-				<separator name="separator1" />
+				<menuitem name="Create tag..." action="ActionGitCreateTag" />
+				<separator />
 				<menuitem name="Reset tree..." action="ActionGitReset" />
 				<menuitem name="Revert commit..." action="ActionGitRevert" />
-				<separator name="separator4" />
-				<menuitem name="Add..." action="ActionGitAdd" />
-				<menuitem name="Remove..." action="ActionGitRemove" />
-				<menuitem name="Ignore..." action="ActionGitIgnore" />
 				<separator />
-				<menuitem name="Create tag..." action="ActionGitCreateTag" />
-				<separator name="separator2" />
 				<placeholder name="PlaceholderBisectMenu">
 					<menu name="Bisect" action="ActionMenuGitBisect">
 						<menuitem name="Start..." action="ActionGitBisectStart" />
@@ -71,7 +71,7 @@
 						<menuitem name="Bad" action="ActionGitBisectBad" />
 					</menu>
 				</placeholder>
-				<separator name="separator3" />
+				<separator />
 				<menuitem name="View log..." action="ActionGitLog" />
 			</placeholder>
 		</menu>
@@ -81,13 +81,13 @@
 	<popup name="PopupLog">
 		<menuitem name="Commit diff" action="ActionGitLogCommitDiff" />
 		<menuitem name="View Selected Revision" action="ActionGitLogViewRevision" />
-		<separator name="log_separator1" />
+		<separator />
 		<menuitem name="Create branch..." action="ActionGitLogCreateBranch" />
 		<menuitem name="Create tag..." action="ActionGitLogCreateTag" />
 		<separator name ="log_separator2" />
 		<menuitem name="Reset tree..." action="ActionGitLogReset" />
 		<menuitem name="Revert commit..." action="ActionGitLogRevert" />
-		<separator name="log_separator3" />
+		<separator />
 		<placeholder name="PlaceholderLogBisectMenu">
 			<menu name="Bisect" action="ActionMenuGitLogBisect">
 				<menuitem name="Set good revision" action="ActionGitLogBisectGood" />

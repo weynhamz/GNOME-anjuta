@@ -118,6 +118,14 @@ static GtkActionEntry actions_git[] =
 		NULL,                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
 	},
+		{
+		"ActionGitPush",                       /* Action name */
+		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
+		N_("_Push..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_push)    /* action callback */
+	},
 	{
 		"ActionGitPull",                       /* Action name */
 		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
@@ -127,108 +135,12 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_pull)    /* action callback */
 	},
 	{
-		"ActionGitUnstageFiles",                       /* Action name */
-		GTK_STOCK_CANCEL,                            /* Stock icon, if any */
-		N_("_Unstage files..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_unstage)    /* action callback */
-	},
-	{
-		"ActionGitCheckoutFiles",                       /* Action name */
-		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Check out files..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_checkout_files)    /* action callback */
-	},
-	{
-		"ActionGitResolve",                       /* Action name */
-		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
-		N_("_Resolve conflicts..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_resolve)    /* action callback */
-	},
-	{
-		"ActionGitCreatePatchSeries",                       /* Action name */
-		GTK_STOCK_DND_MULTIPLE,                            /* Stock icon, if any */
-		N_("Create patch series..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_create_patch_series)    /* action callback */
-	},
-	{
-		"ActionGitReset",                       /* Action name */
-		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Reset tree..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_reset)    /* action callback */
-	},
-	{
-		"ActionGitRevert",                       /* Action name */
-		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Revert commit..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_revert)    /* action callback */
-	},
-	{
-		"ActionMenuGitBranches",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Branches"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	{
-		"ActionMenuGitBisect",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("Bisect"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	{
-		"ActionGitBisectStart",                       /* Action name */
-		GTK_STOCK_MEDIA_PLAY,                            /* Stock icon, if any */
-		N_("_Start..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_bisect_start)    /* action callback */
-	},
-	{
-		"ActionGitBisectReset",                       /* Action name */
-		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Reset"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_bisect_reset)    /* action callback */
-	},
-	{
-		"ActionGitBisectGood",                       /* Action name */
-		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Good"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_bisect_good)    /* action callback */
-	},
-	{
-		"ActionGitBisectBad",                       /* Action name */
-		GTK_STOCK_NO,                            /* Stock icon, if any */
-		N_("_Bad"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_bisect_bad)    /* action callback */
-	},
-	{
-		"ActionGitLog",                       /* Action name */
+		"ActionGitDiffUncommitted",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View log..."),                     /* Display label */
+		N_("_Diff uncommitted changes"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_log)    /* action callback */
+		G_CALLBACK (on_menu_git_diff)    /* action callback */
 	},
 	{
 		"ActionGitAdd",                       /* Action name */
@@ -254,7 +166,94 @@ static GtkActionEntry actions_git[] =
 		NULL,                      /* Tooltip */
 		G_CALLBACK (on_menu_git_ignore)    /* action callback */
 	},
-	
+	{
+		"ActionGitCheckoutFiles",                       /* Action name */
+		GTK_STOCK_UNDO,                            /* Stock icon, if any */
+		N_("_Check out files..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_checkout_files)    /* action callback */
+	},
+	{
+		"ActionGitUnstageFiles",                       /* Action name */
+		GTK_STOCK_CANCEL,                            /* Stock icon, if any */
+		N_("_Unstage files..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_unstage)    /* action callback */
+	},
+	{
+		"ActionGitResolve",                       /* Action name */
+		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
+		N_("_Resolve conflicts..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_resolve)    /* action callback */
+	},
+	{
+		"ActionMenuGitPatches",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Patches"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitCreatePatchSeries",                       /* Action name */
+		GTK_STOCK_DND_MULTIPLE,                            /* Stock icon, if any */
+		N_("Create patch series..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_create_patch_series)    /* action callback */
+	},
+	{
+		"ActionMenuGitApplyMailboxFiles",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Apply mailbox files"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxApply",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Apply..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_apply)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxContinue",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Continue with resolved conflicts"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_resolved)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxSkip",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Skip current patch"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_skip)    /* action callback */
+	},
+	{
+		"ActionGitApplyMailboxAbort",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Abort"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_mailbox_abort)    /* action callback */
+	},
+	{
+		"ActionMenuGitBranches",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Branches"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
 	{
 		"ActionGitCreateBranch",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
@@ -320,69 +319,68 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_create_tag)    /* action callback */
 	},
 	{
-		"ActionGitDiffUncommitted",                       /* Action name */
+		"ActionGitReset",                       /* Action name */
+		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
+		N_("_Reset tree..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_reset)    /* action callback */
+	},
+	{
+		"ActionGitRevert",                       /* Action name */
+		GTK_STOCK_UNDO,                            /* Stock icon, if any */
+		N_("_Revert commit..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_revert)    /* action callback */
+	},
+	{
+		"ActionMenuGitBisect",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Bisect"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitBisectStart",                       /* Action name */
+		GTK_STOCK_MEDIA_PLAY,                            /* Stock icon, if any */
+		N_("_Start..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_bisect_start)    /* action callback */
+	},
+	{
+		"ActionGitBisectReset",                       /* Action name */
+		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
+		N_("_Reset"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_bisect_reset)    /* action callback */
+	},
+	{
+		"ActionGitBisectGood",                       /* Action name */
+		GTK_STOCK_YES,                            /* Stock icon, if any */
+		N_("_Good"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_bisect_good)    /* action callback */
+	},
+	{
+		"ActionGitBisectBad",                       /* Action name */
+		GTK_STOCK_NO,                            /* Stock icon, if any */
+		N_("_Bad"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_bisect_bad)    /* action callback */
+	},
+	{
+		"ActionGitLog",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_Diff uncommitted changes"),                     /* Display label */
+		N_("_View log..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_diff)    /* action callback */
-	},
-	{
-		"ActionGitPush",                       /* Action name */
-		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
-		N_("_Push..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_push)    /* action callback */
-	},
-	{
-		"ActionMenuGitPatches",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("Patches"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	{
-		"ActionMenuGitApplyMailboxFiles",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("Apply mailbox files"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	
-	{
-		"ActionGitApplyMailboxApply",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Apply..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_apply_mailbox_apply)    /* action callback */
-	},
-	{
-		"ActionGitApplyMailboxContinue",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Continue with resolved conflicts"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_apply_mailbox_resolved)    /* action callback */
-	},
-	{
-		"ActionGitApplyMailboxSkip",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Skip current patch"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_apply_mailbox_skip)    /* action callback */
-	},
-	{
-		"ActionGitApplyMailboxAbort",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Abort"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		G_CALLBACK (on_menu_git_apply_mailbox_abort)    /* action callback */
+		G_CALLBACK (on_menu_git_log)    /* action callback */
 	}
 };
 
