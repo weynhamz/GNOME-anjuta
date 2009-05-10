@@ -29,8 +29,7 @@
  * @ANJUTA_VCS_STATUS_MISSING: File is missing 
  * @ANJUTA_VCS_STATUS_UNVERSIONED: File is ignored by VCS system
  *
- * This enumeration is used to specify the status of a file. A file can
- * have multiple status flags assigned (MODIFIED and CONFLICT, for example)
+ * This enumeration is used to specify the status of a file. 
  */
 typedef enum
 {
