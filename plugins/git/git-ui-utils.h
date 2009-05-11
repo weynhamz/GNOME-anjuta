@@ -81,6 +81,7 @@ void git_select_all_status_items (GtkButton *select_all_button,
 								  AnjutaVcsStatusTreeView *tree_view);
 void git_clear_all_status_selections (GtkButton *clear_button,
 									  AnjutaVcsStatusTreeView *tree_view);
+void on_git_origin_check_toggled (GtkToggleButton *button, GtkWidget *widget);
 
 void git_init_whole_project (Git *plugin, GtkWidget* project,
 							 gboolean active);

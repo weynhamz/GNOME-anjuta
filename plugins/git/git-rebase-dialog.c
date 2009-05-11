@@ -29,6 +29,7 @@ on_rebase_dialog_response (GtkDialog *dialog, gint response_id,
 						   GitBranchComboData *data)
 {
 	GtkWidget *rebase_branch_combo;
+	GtkWidget *rebase_origin_check;
 	gchar *branch;
 	GtkTreeIter iter;
 	GitRebaseStartCommand *rebase_command;
@@ -38,11 +39,18 @@ on_rebase_dialog_response (GtkDialog *dialog, gint response_id,
 	{	
 		rebase_branch_combo = glade_xml_get_widget (data->gxml, 
 													"rebase_branch_combo");
+		rebase_origin_check = glade_xml_get_widget (data->gxml,
+		                                            "rebase_origin_check");
 
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (rebase_branch_combo), 
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rebase_origin_check)))
+		    branch = g_strdup ("origin");
+		else
+		{
+			gtk_combo_box_get_active_iter (GTK_COMBO_BOX (rebase_branch_combo), 
 									   &iter);
-		branch = git_branch_combo_model_get_branch (data->model, &iter);
-		
+			branch = git_branch_combo_model_get_branch (data->model, &iter);
+		}
+
 		rebase_command = git_rebase_start_command_new (data->plugin->project_root_directory,
 													   branch);
 		progress_data = git_progress_data_new (data->plugin,
@@ -82,6 +90,7 @@ rebase_dialog (Git *plugin)
 	GladeXML *gxml;
 	GtkWidget *dialog;
 	GtkWidget *rebase_branch_combo;
+	GtkWidget *rebase_origin_check;
 	GtkListStore *branch_list_store;
 	GitBranchComboData *data;
 	GitBranchListCommand *list_command;
@@ -90,6 +99,7 @@ rebase_dialog (Git *plugin)
 	
 	dialog = glade_xml_get_widget (gxml, "rebase_dialog");
 	rebase_branch_combo = glade_xml_get_widget (gxml, "rebase_branch_combo");
+	rebase_origin_check = glade_xml_get_widget (gxml, "rebase_origin_check");
 	branch_list_store = git_branch_combo_model_new ();
 	
 	gtk_combo_box_set_model (GTK_COMBO_BOX (rebase_branch_combo), 
@@ -116,6 +126,10 @@ rebase_dialog (Git *plugin)
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_rebase_dialog_response), 
 					  data);
+
+	g_signal_connect (G_OBJECT (rebase_origin_check), "toggled",
+	                  G_CALLBACK (on_git_origin_check_toggled),
+	                  rebase_branch_combo);
 	
 	gtk_widget_show_all (dialog);
 }

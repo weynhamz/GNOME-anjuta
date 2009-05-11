@@ -28,6 +28,7 @@ static void
 on_create_patch_series_dialog_response (GtkDialog *dialog, gint response_id, 
 										GitBranchComboData *data)
 {
+	GtkWidget *patch_series_origin_check;
 	GtkWidget *patch_series_branch_combo;
 	GtkWidget *patch_series_file_chooser_button;
 	GtkWidget *patch_series_signoff_check;
@@ -38,6 +39,8 @@ on_create_patch_series_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
+		patch_series_origin_check = glade_xml_get_widget (data->gxml, 
+		                                                  "patch_series_origin_check");
 		patch_series_branch_combo = glade_xml_get_widget (data->gxml, 
 														  "patch_series_branch_combo");
 		patch_series_file_chooser_button = glade_xml_get_widget (data->gxml, 
@@ -45,9 +48,15 @@ on_create_patch_series_dialog_response (GtkDialog *dialog, gint response_id,
 		patch_series_signoff_check = glade_xml_get_widget (data->gxml, 
 														   "patch_series_signoff_check");
 		
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (patch_series_branch_combo), 
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (patch_series_origin_check)))
+		    branch = g_strdup ("origin");
+		else
+		{
+			gtk_combo_box_get_active_iter (GTK_COMBO_BOX (patch_series_branch_combo), 
 									   &iter);
-		branch = git_branch_combo_model_get_branch (data->model, &iter);
+			branch = git_branch_combo_model_get_branch (data->model, &iter);
+		}
+		    
 		output_directory = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (patch_series_file_chooser_button));
 		
 		format_patch_command = git_format_patch_command_new (data->plugin->project_root_directory,
@@ -80,6 +89,7 @@ create_patch_series_dialog (Git *plugin)
 {
 	GladeXML *gxml;
 	GtkWidget *dialog;
+	GtkWidget *patch_series_origin_check;
 	GtkWidget *patch_series_branch_combo;
 	GtkListStore *branch_list_store;
 	GitBranchComboData *data;
@@ -88,6 +98,8 @@ create_patch_series_dialog (Git *plugin)
 	gxml = glade_xml_new (GLADE_FILE, "patch_series_dialog", NULL);
 	
 	dialog = glade_xml_get_widget (gxml, "patch_series_dialog");
+	patch_series_origin_check = glade_xml_get_widget (gxml, 
+	                                                  "patch_series_origin_check");
 	patch_series_branch_combo = glade_xml_get_widget (gxml, 
 													  "patch_series_branch_combo");
 	branch_list_store = git_branch_combo_model_new ();
@@ -116,6 +128,10 @@ create_patch_series_dialog (Git *plugin)
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_create_patch_series_dialog_response), 
 					  data);
+
+	g_signal_connect (G_OBJECT (patch_series_origin_check), "toggled",
+	                  G_CALLBACK (on_git_origin_check_toggled),
+	                  patch_series_branch_combo);
 	
 	gtk_widget_show_all (dialog);
 }

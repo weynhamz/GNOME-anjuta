@@ -45,6 +45,7 @@ static void
 on_pull_dialog_response (GtkDialog *dialog, gint response_id, 
 						 GitUIData *data)
 {
+	GtkWidget *pull_origin_check;
 	GtkWidget *pull_url_entry;
 	GtkWidget *pull_no_commit_check;
 	GtkWidget *pull_squash_check;
@@ -57,6 +58,8 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
+		pull_origin_check = glade_xml_get_widget (data->gxml, 
+		                                          "pull_origin_check");
 		pull_url_entry = glade_xml_get_widget (data->gxml, "pull_url_entry");
 		pull_no_commit_check = glade_xml_get_widget (data->gxml, 
 													 "pull_no_commit_check");
@@ -71,7 +74,10 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 		pull_no_follow_tags_check = glade_xml_get_widget (data->gxml,
 														  "pull_no_follow_tags_check");
 		
-		url = gtk_editable_get_chars (GTK_EDITABLE (pull_url_entry), 0, -1);
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_origin_check)))
+		    url = g_strdup ("origin");
+		else
+		    url = gtk_editable_get_chars (GTK_EDITABLE (pull_url_entry), 0, -1);
 		
 		if (!git_check_input (GTK_WIDGET (dialog), pull_url_entry, url,
 							  _("Please enter the URL of the repository to pull" 
@@ -116,15 +122,23 @@ pull_dialog (Git *plugin)
 {
 	GladeXML *gxml;
 	GtkWidget *dialog;
+	GtkWidget *pull_origin_check;
+	GtkWidget *pull_url_entry;
 	GitUIData *data;
 	
 	gxml = glade_xml_new (GLADE_FILE, "pull_dialog", NULL);
 	dialog = glade_xml_get_widget (gxml, "pull_dialog");
+	pull_origin_check = glade_xml_get_widget (gxml, "pull_origin_check");
+	pull_url_entry = glade_xml_get_widget (gxml, "pull_url_entry");
 	data = git_ui_data_new (plugin, gxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_pull_dialog_response), 
 					  data);
+
+	g_signal_connect (G_OBJECT (pull_origin_check), "toggled",
+	                  G_CALLBACK (on_git_origin_check_toggled),
+	                  pull_url_entry);
 	
 	gtk_widget_show_all (dialog);
 }

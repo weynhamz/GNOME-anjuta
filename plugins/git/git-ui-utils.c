@@ -385,6 +385,12 @@ git_clear_all_status_selections (GtkButton *clear_button,
 	anjuta_vcs_status_tree_view_unselect_all (tree_view);
 }
 
+void
+on_git_origin_check_toggled (GtkToggleButton *button, GtkWidget *widget)
+{
+	gtk_widget_set_sensitive (widget, !gtk_toggle_button_get_active (button));
+}
+
 void 
 git_init_whole_project (Git *plugin, GtkWidget* project, gboolean active)
 {
