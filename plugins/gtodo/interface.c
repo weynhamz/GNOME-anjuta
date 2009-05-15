@@ -104,7 +104,7 @@ void gtodo_update_settings()
 	}
 	
 	gtodo_client_set_changed_callback(cl,(void *)backend_changed ,NULL);
-	g_timeout_add(300000, (GSourceFunc)check_for_notification_event, NULL);
+	g_timeout_add_seconds (300, (GSourceFunc)check_for_notification_event, NULL);
 
 	check_for_notification_event();
 }

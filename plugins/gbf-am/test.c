@@ -209,7 +209,7 @@ main (int argc, char *argv[])
 		g_free (file);
 	}
 
-	g_timeout_add (3000, (GSourceFunc) gtk_main_quit, NULL);
+	g_timeout_add_seconds (3, (GSourceFunc) gtk_main_quit, NULL);
 	gtk_main ();
 	
   out:
