@@ -43,6 +43,17 @@ on_commit_command_finished (AnjutaCommand *command, guint return_code,
 	svn_commit_command_destroy (SVN_COMMIT_COMMAND (command));
 }
 
+static GList*
+subversion_commit_prepend_log (GList *logs, gchar *data)
+{
+	logs = g_list_prepend(logs, data);	
+		
+	if (g_list_length(logs) > MAX_LOG_NUM)
+		logs = g_list_remove(logs, g_list_last(logs)->data);
+			
+	return logs; 
+}
+
 static void
 on_subversion_commit_response(GtkDialog* dialog, gint response, 
 							  SubversionData* data)
@@ -54,14 +65,21 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 			gchar* log;
 			GtkWidget* logtext;
 			GtkWidget* norecurse;
+			GtkWidget* commit_prev_msg_enable;
+			GtkWidget* commit_prev_msg_combo;
 			GtkWidget *commit_status_view;
 			GList *selected_paths;
 			SvnCommitCommand *commit_command;
 			guint pulse_timer_id;
+			gboolean msg_enable_selected;
 			
 			logtext = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_log_view"));
+			commit_prev_msg_enable = GTK_WIDGET (gtk_builder_get_object (data->bxml, "commit_prev_msg_enable"));
+			
 			log = get_log_from_textview(logtext);
-			if (!g_utf8_strlen(log, -1))
+			msg_enable_selected = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(commit_prev_msg_enable));
+			
+			if (!g_utf8_strlen(log, -1) && (msg_enable_selected == FALSE))
 			{
 				gint result;
 				GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
@@ -74,6 +92,8 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 					break;
 			}
 			
+			commit_prev_msg_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, "commit_prev_msg_combo"));
+													   
 			norecurse = GTK_WIDGET (gtk_builder_get_object (data->bxml, "subversion_commit_norecurse"));
 			
 			commit_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
@@ -81,9 +101,19 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 			
 			selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (commit_status_view));
 
-			commit_command = svn_commit_command_new (selected_paths, 
+			
+			if (msg_enable_selected == TRUE)
+			{
+				commit_command = svn_commit_command_new (selected_paths, 
+													 gtk_combo_box_get_active_text(GTK_COMBO_BOX(commit_prev_msg_combo)),
+													 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
+			}
+			else
+			{
+				commit_command = svn_commit_command_new (selected_paths, 
 													 (gchar *) log,
 													 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
+			}
 			
 			svn_command_free_path_list (selected_paths);
 			
@@ -108,7 +138,10 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 							  data->plugin);
 			
 			anjuta_command_start (ANJUTA_COMMAND (commit_command));
-		
+			
+			if (g_utf8_strlen(log, -1) && msg_enable_selected == FALSE)
+				data->plugin->svn_commit_logs = subversion_commit_prepend_log(data->plugin->svn_commit_logs, log);
+				
 			subversion_data_free(data);
 			gtk_widget_destroy (GTK_WIDGET(dialog));
 			break;
@@ -129,16 +162,40 @@ select_all_files (AnjutaCommand *command, guint return_code,
 	anjuta_vcs_status_tree_view_select_all (status_view);
 }
 
+static void 
+on_prev_message_enable_clicked (GtkToggleButton *button, gpointer data)
+{
+	if (gtk_toggle_button_get_active(button) == FALSE)
+	{
+		gtk_widget_set_sensitive(GTK_WIDGET(data), TRUE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(GTK_WIDGET(data), FALSE);
+	}
+}
+
+static void
+subversion_commit_dialog_populate_logs (gpointer msg, gpointer user_data)
+{
+	gtk_combo_box_append_text(GTK_COMBO_BOX(user_data), (gchar*) msg);
+}
+
 static void
 subversion_commit_dialog (GtkAction* action, Subversion* plugin, 
 						  gchar *filename)
 {
 	GtkBuilder* bxml = gtk_builder_new ();
 	GtkWidget* dialog; 
+	GtkWidget *logtext; 
 	GtkWidget *commit_select_all_button;
 	GtkWidget *commit_clear_button;
 	GtkWidget *commit_status_view;
 	GtkWidget *commit_status_progress_bar;
+	GtkWidget *commit_prev_msg_enable;
+	GtkWidget *commit_prev_msg_combo;
+	GtkCellRenderer *cell;
+  	GtkListStore *store;
 	SvnStatusCommand *status_command;
 	SubversionData* data;
 	GError* error = NULL;
@@ -157,10 +214,14 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	commit_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_status_view"));
 	commit_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml,
 													   "commit_status_progress_bar"));
-	
+	logtext = GTK_WIDGET (gtk_builder_get_object (bxml, "subversion_log_view"));
 	status_command = svn_status_command_new (plugin->project_root_dir, 
 											 TRUE, TRUE);
-	
+	commit_prev_msg_enable = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "commit_prev_msg_enable"));
+	commit_prev_msg_combo = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "commit_prev_msg_combo"));
+													   
 	g_signal_connect (G_OBJECT (commit_select_all_button), "clicked",
 					  G_CALLBACK (select_all_status_items),
 					  commit_status_view);
@@ -173,6 +234,10 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 					  G_CALLBACK (select_all_files),
 					  commit_status_view);
 	
+	g_signal_connect(G_OBJECT (commit_prev_msg_enable), "toggled",
+	                 G_CALLBACK(on_prev_message_enable_clicked),
+	                 logtext);
+
 	pulse_progress_bar (GTK_PROGRESS_BAR (commit_status_progress_bar));
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
@@ -201,8 +266,24 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_subversion_commit_response), data);
 	
+	store = gtk_list_store_new (1, G_TYPE_STRING);
+	cell = gtk_cell_renderer_text_new ();
+  	gtk_cell_layout_clear(GTK_CELL_LAYOUT(commit_prev_msg_combo));
+    gtk_combo_box_set_model(GTK_COMBO_BOX(commit_prev_msg_combo), NULL);                              
+	gtk_combo_box_set_model(GTK_COMBO_BOX(commit_prev_msg_combo), GTK_TREE_MODEL(store));
+	
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (commit_prev_msg_combo), cell, FALSE);
+	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (commit_prev_msg_combo), cell,
+                                  "text", 0,
+                                  NULL);
+	g_object_unref (store);
+	
 	gtk_widget_show_all (dialog);
 	
+	
+	
+	g_list_foreach(plugin->svn_commit_logs, subversion_commit_dialog_populate_logs, commit_prev_msg_combo);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(commit_prev_msg_combo), 0);
 }
 
 void 

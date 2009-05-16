@@ -68,6 +68,8 @@ struct _Subversion{
 	/* Log viewer */
 	GtkBuilder *log_bxml;
 	GtkWidget *log_viewer;
+	
+	GList *svn_commit_logs;
 };
 
 struct _SubversionClass{

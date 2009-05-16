@@ -421,6 +421,12 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	}
 }
 
+static void 
+subversion_plugin_load_commit_logs(Subversion *plugin, AnjutaSession *session)
+{
+	plugin->svn_commit_logs = anjuta_session_get_string_list (session, "Commit Logs", "Logs");
+}
+
 static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
@@ -434,6 +440,33 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	// update_module_ui (subversion);
 }
 
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+                 AnjutaSession *session, Subversion *plugin)
+{
+	
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	DEBUG_PRINT ("Loading session");
+	subversion_plugin_load_commit_logs(plugin, session);
+	
+	
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, Subversion *plugin)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	DEBUG_PRINT ("Saving session");	
+	anjuta_session_set_string_list(session, "Commit Logs",
+								   "Logs", plugin->svn_commit_logs);					
+}
+				 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -516,6 +549,11 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_action_set_sensitive (revert_action, FALSE);
 		gtk_action_set_sensitive (resolve_action, FALSE);
 	}
+	
+	g_signal_connect (plugin->shell, "save-session",
+					  G_CALLBACK (on_session_save), plugin);
+    g_signal_connect (plugin->shell, "load_session",
+					  G_CALLBACK (on_session_load), plugin);
 							 
 	return TRUE;
 }
@@ -538,6 +576,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 								NULL);
 	
 	g_object_unref (ANJUTA_PLUGIN_SUBVERSION (plugin)->log_bxml);
+	g_list_free(ANJUTA_PLUGIN_SUBVERSION (plugin)->svn_commit_logs);
 	
 	return TRUE;
 }

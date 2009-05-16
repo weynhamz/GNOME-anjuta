@@ -27,6 +27,7 @@
 
 #ifndef SUBVERSION_COMMIT_DIALOG_H
 #define SUBVERSION_COMMIT_DIALOG_H
+#define MAX_LOG_NUM 10
 
 #include "subversion-ui-utils.h"
 #include "svn-commit-command.h"
