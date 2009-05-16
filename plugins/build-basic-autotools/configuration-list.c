@@ -58,10 +58,10 @@ struct  _DefaultBuildConfiguration
 };
 
 const DefaultBuildConfiguration default_config[] = {
-	{N_("Default"), NULL, NULL},
-	{N_("Debug"), "Debug", "'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},
-	{N_("Profiling"), "Profiling", "'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'"},
-	{N_("Optimized"), "Optimized", "'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'"},
+	{N_("Default"), NULL, "--enable-maintainer-mode"},
+	{N_("Debug"), "Debug", "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},
+	{N_("Profiling"), "Profiling", "--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'"},
+	{N_("Optimized"), "Optimized", "--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'"},
 	{NULL, NULL, NULL}
 };
 
