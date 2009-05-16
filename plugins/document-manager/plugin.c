@@ -492,7 +492,7 @@ update_title (DocmanPlugin* doc_plugin)
 			if (dir)
 				title = g_strdup_printf ("%s (%s)", real_filename, dir);
 			else
-				title = g_strdup_printf ("%s (%s)", real_filename, dir);				
+				title = g_strdup_printf ("%s", real_filename);
 		}
 		g_free (real_filename);
 		g_free (dir);
