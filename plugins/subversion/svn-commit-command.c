@@ -99,6 +99,7 @@ svn_commit_command_run (AnjutaCommand *command)
 								   g_list_length (self->priv->paths), 
 								   sizeof (char *));
 	error = NULL;
+	commit_info = NULL;
 	
 	while (current_path)
 	{
