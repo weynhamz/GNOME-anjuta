@@ -53,10 +53,16 @@ Log messages:
 -------------
 Log messages for git should have the following format:
 
-"A short summary of the changes (should contain bug number)
+"[Plugin/module name]: A short summary of the changes (should contain bug number)
 (empty line)
 [optional] A more detailed description of the changes made. Can have multiple
 lines and should contain patch contributer, etc."
+
+As an example, a typical commit against the Subversion plugin looks like this:
+ 
+    Subversion: Don't show a commit number in the info pane if no files are given
+    
+    When no files are selected, the commit isn't done and the commit number is just uninitialized junk.
 
 Tools:
 -----
