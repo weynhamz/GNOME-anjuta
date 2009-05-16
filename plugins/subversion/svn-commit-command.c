@@ -98,6 +98,7 @@ svn_commit_command_run (AnjutaCommand *command)
 	commit_paths = apr_array_make (svn_command_get_pool (svn_command),
 								   g_list_length (self->priv->paths), 
 								   sizeof (char *));
+	error = NULL;
 	
 	while (current_path)
 	{
@@ -106,12 +107,15 @@ svn_commit_command_run (AnjutaCommand *command)
 		current_path = g_list_next (current_path);
 	}
 	
-	error = svn_client_commit3 (&commit_info, 
-								commit_paths, 
-								self->priv->recursive,
-								TRUE,
-								svn_command_get_client_context (svn_command), 
-								svn_command_get_pool (svn_command));
+	if (self->priv->paths)
+	{
+		error = svn_client_commit3 (&commit_info, 
+		                            commit_paths, 
+		                            self->priv->recursive,
+		                            TRUE,
+		                            svn_command_get_client_context (svn_command), 
+		                            svn_command_get_pool (svn_command));
+	}
 
 	if (error)
 	{
