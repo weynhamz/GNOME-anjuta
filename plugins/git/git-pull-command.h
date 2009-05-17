@@ -55,7 +55,8 @@ struct _GitPullCommand
 
 GType git_pull_command_get_type (void) G_GNUC_CONST;
 GitPullCommand *git_pull_command_new (const gchar *working_directory,
-									  const gchar *url, 
+									  const gchar *url,
+                                      gboolean rebase,
 									  gboolean no_commit, gboolean squash, 
 									  gboolean commit_fast_forward,
 									  gboolean append_fetch_data, 

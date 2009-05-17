@@ -26,7 +26,8 @@
 
 struct _GitPullCommandPriv
 {
-	gchar *url; 
+	gchar *url;
+	gboolean rebase;
 	gboolean no_commit; 
 	gboolean squash; 
 	gboolean commit_fast_forward;
@@ -64,6 +65,9 @@ git_pull_command_run (AnjutaCommand *command)
 	self = GIT_PULL_COMMAND (command);
 	
 	git_command_add_arg (GIT_COMMAND (command), "pull");
+
+	if (self->priv->rebase)
+		git_command_add_arg (GIT_COMMAND (command), "--rebase");
 	
 	if (self->priv->no_commit)
 		git_command_add_arg (GIT_COMMAND (command), "--no-commit");
@@ -104,6 +108,7 @@ git_pull_command_class_init (GitPullCommandClass *klass)
 GitPullCommand *
 git_pull_command_new (const gchar *working_directory,
 					  const gchar *url, 
+                      gboolean rebase,
 					  gboolean no_commit, gboolean squash, 
 					  gboolean commit_fast_forward,
 					  gboolean append_fetch_data, 
@@ -117,6 +122,7 @@ git_pull_command_new (const gchar *working_directory,
 						  NULL);
 	
 	self->priv->url = g_strdup (url);
+	self->priv->rebase = rebase;
 	self->priv->no_commit = no_commit;
 	self->priv->squash = squash;
 	self->priv->commit_fast_forward = commit_fast_forward;

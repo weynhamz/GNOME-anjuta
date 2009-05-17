@@ -46,6 +46,7 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 						 GitUIData *data)
 {
 	GtkWidget *pull_origin_check;
+	GtkWidget *pull_rebase_check;
 	GtkWidget *pull_url_entry;
 	GtkWidget *pull_no_commit_check;
 	GtkWidget *pull_squash_check;
@@ -60,6 +61,8 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 	{	
 		pull_origin_check = glade_xml_get_widget (data->gxml, 
 		                                          "pull_origin_check");
+		pull_rebase_check = glade_xml_get_widget (data->gxml,
+		                                          "pull_rebase_check");
 		pull_url_entry = glade_xml_get_widget (data->gxml, "pull_url_entry");
 		pull_no_commit_check = glade_xml_get_widget (data->gxml, 
 													 "pull_no_commit_check");
@@ -87,10 +90,9 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 			return;
 		}
 		
-		
-		
 		pull_command = git_pull_command_new (data->plugin->project_root_directory,
 											 url,
+		                                     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_rebase_check)),
 											 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_no_commit_check)),
 											 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_squash_check)),
 											 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_fast_forward_commit_check)),
