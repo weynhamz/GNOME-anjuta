@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-05-10 06:06+0000\n"
-"PO-Revision-Date: 2009-05-10 11:59+0200\n"
+"POT-Creation-Date: 2009-05-16 20:44+0000\n"
+"PO-Revision-Date: 2009-05-17 22:26+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1155,7 +1155,7 @@ msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:82
+#: ../plugins/git/anjuta-git.glade.h:84
 msgid "Revision:"
 msgstr "Revisión:"
 
@@ -1188,7 +1188,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:97
+#: ../plugins/git/anjuta-git.glade.h:99
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -1840,7 +1840,7 @@ msgid "From"
 msgstr "De"
 
 #: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.glade.h:91
+#: ../plugins/git/anjuta-git.glade.h:93
 msgid "To"
 msgstr "Para"
 
@@ -3984,7 +3984,6 @@ msgstr "Añadir fecha de obtención"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/anjuta-git.glade.h:42 ../plugins/git/plugin.c:212
-#| msgid "All files"
 msgid "Apply mailbox files"
 msgstr "Aplicar archivos del buzón de correo"
 
@@ -4124,80 +4123,88 @@ msgid "Remove File"
 msgstr "Quitar archivo"
 
 #: ../plugins/git/anjuta-git.glade.h:78
+#| msgid "Repository authorization"
+msgid "Repositiory origin"
+msgstr "Origen del repositorio"
+
+#: ../plugins/git/anjuta-git.glade.h:79
+#| msgid "Repository authorization"
+msgid "Repository origin"
+msgstr "Origen del repositorio"
+
+#: ../plugins/git/anjuta-git.glade.h:80
 msgid "Reset Tree"
 msgstr "Restablecer árbol"
 
-#: ../plugins/git/anjuta-git.glade.h:79
+#: ../plugins/git/anjuta-git.glade.h:81
 msgid "Retrieving status..."
 msgstr "Obteniendo el estado…"
 
-#: ../plugins/git/anjuta-git.glade.h:80
+#: ../plugins/git/anjuta-git.glade.h:82
 msgid "Revert Commit"
 msgstr "Revertir commit"
 
-#: ../plugins/git/anjuta-git.glade.h:81
+#: ../plugins/git/anjuta-git.glade.h:83
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
-#: ../plugins/git/anjuta-git.glade.h:83
+#: ../plugins/git/anjuta-git.glade.h:85
 msgid "Select A Folder"
 msgstr "Seleccionar una carpeta"
 
-#: ../plugins/git/anjuta-git.glade.h:84
-#| msgid "Select Scratchbox Folder"
+#: ../plugins/git/anjuta-git.glade.h:86
 msgid "Select Mailbox File"
 msgstr "Seleccionar el archivo del buzón de correo"
 
-#: ../plugins/git/anjuta-git.glade.h:85
+#: ../plugins/git/anjuta-git.glade.h:87
 msgid "Set Conflicts as Resolved"
 msgstr "Establecer conflictos como resueltos"
 
-#: ../plugins/git/anjuta-git.glade.h:86
+#: ../plugins/git/anjuta-git.glade.h:88
 msgid "Soft"
 msgstr "Blando"
 
-#: ../plugins/git/anjuta-git.glade.h:87
+#: ../plugins/git/anjuta-git.glade.h:89
 msgid "Squash"
 msgstr "Aplastar (squash)"
 
-#: ../plugins/git/anjuta-git.glade.h:88
+#: ../plugins/git/anjuta-git.glade.h:90
 msgid "Switch to Another Branch"
 msgstr "Cambiar a otra rama"
 
-#: ../plugins/git/anjuta-git.glade.h:89
+#: ../plugins/git/anjuta-git.glade.h:91
 msgid "Tag/Commit"
 msgstr "Etiqueta/Commit"
 
-#: ../plugins/git/anjuta-git.glade.h:90
+#: ../plugins/git/anjuta-git.glade.h:92
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
-#: ../plugins/git/anjuta-git.glade.h:92
+#: ../plugins/git/anjuta-git.glade.h:94
 msgid "To:"
 msgstr "Para:"
 
-#: ../plugins/git/anjuta-git.glade.h:93
+#: ../plugins/git/anjuta-git.glade.h:95
 msgid "Unstage Files"
 msgstr "Realizar «unstage» de archivos"
 
-#: ../plugins/git/anjuta-git.glade.h:94
+#: ../plugins/git/anjuta-git.glade.h:96
 msgid "Use a custom log message"
 msgstr "Usar un mensaje de registro personalizado"
 
-#: ../plugins/git/anjuta-git.glade.h:95
+#: ../plugins/git/anjuta-git.glade.h:97
 msgid "Use custom author information:"
 msgstr "Usar información personalizada del autor:"
 
-#: ../plugins/git/anjuta-git.glade.h:96
+#: ../plugins/git/anjuta-git.glade.h:98
 msgid "View log"
 msgstr "Ver el registro"
 
-#: ../plugins/git/anjuta-git.glade.h:98
-#| msgid "gtk-save"
+#: ../plugins/git/anjuta-git.glade.h:100
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: ../plugins/git/anjuta-git.glade.h:99
+#: ../plugins/git/anjuta-git.glade.h:101
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
@@ -4328,7 +4335,7 @@ msgstr "Git: Mezcla completada."
 msgid "Git: Pull complete."
 msgstr "Git: Carga completa"
 
-#: ../plugins/git/git-pull-dialog.c:77
+#: ../plugins/git/git-pull-dialog.c:83
 msgid "Please enter the URL of the repository to pull from."
 msgstr "Introduzca el URL del repositorio del que descargar."
 
@@ -4336,15 +4343,15 @@ msgstr "Introduzca el URL del repositorio del que descargar."
 msgid "Git: Push complete."
 msgstr "Git: Subida completa."
 
-#: ../plugins/git/git-push-dialog.c:64
+#: ../plugins/git/git-push-dialog.c:72
 msgid "Please enter the URL of the repository to push to."
 msgstr "Introduzca el URL del repositorio en el que subir."
 
-#: ../plugins/git/git-push-dialog.c:70
+#: ../plugins/git/git-push-dialog.c:82
 msgid "Git: Pushing..."
 msgstr "Git: Subiendo…"
 
-#: ../plugins/git/git-rebase-dialog.c:49
+#: ../plugins/git/git-rebase-dialog.c:57
 msgid "Git: Rebasing"
 msgstr "Git: Ajustar a una base"
 
@@ -4365,7 +4372,7 @@ msgstr "Git: Descarga (checkout) de rama completa."
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:438
+#: ../plugins/git/git-ui-utils.c:444
 msgid "Git: Diff complete."
 msgstr "Git: Diff completado."
 
@@ -4493,21 +4500,18 @@ msgstr "Crear serie de parches…"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:220
-#| msgid "_Add..."
 msgid "_Apply..."
 msgstr "_Aplicar…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:228
-#| msgid "_Resolve conflicts..."
 msgid "_Continue with resolved conflicts"
 msgstr "_Continuar con los conflictos resueltos…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:236
-#| msgid "Set current thread"
 msgid "_Skip current patch"
 msgstr "_Saltar el parche actual"
 
@@ -8624,9 +8628,6 @@ msgstr "Backend de autotools para el gestor de proyectos"
 
 #~ msgid "Repository Head"
 #~ msgstr "Repositorio"
-
-#~ msgid "Repository authorization"
-#~ msgstr "Autorización del repositorio"
 
 #~ msgid "Revert Changes"
 #~ msgstr "Revertir cambios"
