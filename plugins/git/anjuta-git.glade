@@ -2299,6 +2299,7 @@
                           <widget class="GtkTextView" id="log_text_view">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="editable">False</property>
                           </widget>
                         </child>
                       </widget>
