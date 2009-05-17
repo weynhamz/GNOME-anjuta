@@ -3880,7 +3880,7 @@
                         </child>
                         <child>
                           <widget class="GtkCheckButton" id="pull_origin_check">
-                            <property name="label" translatable="yes">Repositiory origin</property>
+                            <property name="label" translatable="yes">Repository origin</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
