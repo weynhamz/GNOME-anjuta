@@ -1,3 +1,16 @@
+Anjuta 2.26.2 (18 April 2009) -- Johannes Schmid
+
+Bugs fixed:
+Subversion: Don't show a commit number in the info pane if no files are given
+Subversion: Don't crash if no paths are selected for committing.
+#577883 – SIGSEGV starting anjuta
+#579118 – Segmentation fault when adding file to project
+#580013 – patch plugin doesn't handle patch-files with whitespace
+#580247 - Make gbf-am-parse work with subdirectory targets
+
+Thanks to: James Liggett, Sébastien Granjoux, Carl-Anton-Ingmarsson,
+	Daniel Elstner
+
 Anjuta 2.26.1 (14 April 2009) -- Johannes Schmid
 
 Updates:
