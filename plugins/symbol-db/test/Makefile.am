@@ -15,8 +15,6 @@ AM_CPPFLAGS = \
 	$(GDL_CFLAGS) \
 	-DDEBUG
 
-AM_CFLAGS = -g -pg
-
 benchmark_SOURCES = \
 	benchmark.c       \
 	../readtags.c       \
