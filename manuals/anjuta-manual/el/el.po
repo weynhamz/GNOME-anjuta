@@ -1,15 +1,16 @@
-#
+# Jennie Petoumenou <epetoumenou@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: evince greek help 1\n"
+"Project-Id-Version: packagename\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-17 12:13+0000\n"
-"PO-Revision-Date: 2009-05-15 03:24+0100\n"
+"PO-Revision-Date: 2009-05-18 23:23+0100\n"
 "Last-Translator: Simos Xenitellis <simos@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: C/anjuta-manual.xml:27(title)
@@ -74,7 +75,7 @@ msgstr "Johannes Schmid"
 
 #: C/anjuta-manual.xml:58(para)
 msgid "Permission is granted to copy, distribute and/or modify this document under the terms of the <citetitle>GNU Free Documentation License</citetitle>, Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy of the <citetitle>GNU Free Documentation License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\">their Web site</ulink> or by writing to: Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-msgstr ""
+msgstr "Χορηγείται άδεια αντιγραφής, διανομής και/ή τροποποίησης του παρόντος εγγράφου υπό τους όρους της έκδοσης 1.1 της <citetitle>Ελεύθερης Άδειας Τεκμηρίωσης GNU (GFDL)</citetitle>, ή οποιασδήποτε μεταγενέστερης έκδοσής αυτής από το Ίδρυμα Ελεύθερου Λογισμικού (FSF), χωρίς αμετάβλητα τμήματα, κείμενα εξωφύλλου και κείμενα οπισθοφύλλου. Αντίγραφο της <citetitle>άδειας GFDL</citetitle> είναι διαθέσιμο στον ακόλουθο <ulink type=\"help\" url=\"ghelp:fdl\">σύνδεσμο</ulink>, ή στο αρχείο COPYING-DOCS που διανέμεται μαζί με το παρόν εγχειρίδιο."
 
 #: C/anjuta-manual.xml:70(para)
 msgid "Many of the names used by companies to distinguish their products and services are claimed as trademarks. Where those names appear in any GNOME documentation, and those trademarks are made aware to the members of the GNOME Documentation Project, the names have been printed in caps or initial caps."
@@ -103,7 +104,7 @@ msgstr "Εισαγωγή"
 
 #: C/anjuta-manual.xml:4(para)
 msgid "<application>Anjuta</application> is a versatile Integrated Development Environment (IDE) for the GNOME desktop. It features a number of advanced programming facilities includes project management, application wizards, an interactive debugger, an integrated Glade UI designer, integrated Devhelp API help, an integrated Valgrind memory profiler, an integrated gprof performance profiler, a class generator, a powerful source editor, source browsing, and more."
-msgstr ""
+msgstr "Η εφαρμογή <application>Anjuta</application> είναι ένα Ενσωματωμένο Περιβάλλον Ανάπτυξης Λογισμικού (IDE) για την πλατφόρμα GNOME. Παρέχει μια σειρά από προχωρημένες προγραμματιστικές δυνατότητες, όπως διαχείριση έργου, οδηγοί ρύθμισης έργων, διαδραστικό έλεγχο σφαλμάτων (debugger), ενσωματωμένο σχεδιαστή γραφικού περιβάλλοντος Glade, ενσωματωμένη βοήθεια API Devhelp, ενσωματωμένο έλεγχο μνήμης εκτελούμενου προγράμματος Valgrind, ενσωματωμένο έλεγχο απόδοσης εκτελούμενου προγράμματος gprof, γεννήτρια κλάσης, δυνατό επεξεργαστή κειμένου για τον πηγαίο κώδικα, περιήγηση πηγαίου κώδικα και πολλά άλλα."
 
 #: C/anjuta-manual.xml:14(para)
 msgid "Anjuta DevStudio has been designed to be simple to operate yet powerful enough to fulfill all your programming needs. We've added many new features to Anjuta over the course of its development. Our focus is on delivering power and usability at the same time and making your software development enjoyable without overloading your senses. We intend to continue improving and stabilizing Anjuta to give you the best IDE experience possible. We hope you will have a good time using Anjuta. If not, please help us make it better by reporting bugs and suggestions."
@@ -144,12 +145,12 @@ msgstr "Γραμμή μενού"
 
 #: C/anjuta-manual.xml:17(screeninfo)
 msgid "Anjuta menubar"
-msgstr ""
+msgstr "Γραμμή μενού Anjuta"
 
 #: C/anjuta-manual.xml:23(title)
 #: C/anjuta-manual.xml:25(screeninfo)
 msgid "File menu"
-msgstr ""
+msgstr "Μενού αρχείων"
 
 #: C/anjuta-manual.xml:30(para)
 msgid "Shortcut keys are available for many menu items. All shortcut keys are shown alongside the corresponding menu items. Some other useful shortcuts are listed here."
@@ -173,7 +174,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:75(title)
 msgid "Customize shortcuts"
-msgstr ""
+msgstr "Παραμετροποίηση συντομεύσεων"
 
 #: C/anjuta-manual.xml:76(para)
 msgid "You can change the default shortcuts by choosing <menuchoice><guisubmenu>Edit</guisubmenu><guimenuitem>Preferences</guimenuitem></menuchoice> and selecting the <interface> Shortcuts</interface> tab."
@@ -241,11 +242,11 @@ msgstr "Λειτουργίες αρχείου"
 
 #: C/anjuta-manual.xml:6(title)
 msgid "Creating a new file and inserting text"
-msgstr ""
+msgstr "Δημιουργία νέου αρχείου και εισαγωγή κειμένου"
 
 #: C/anjuta-manual.xml:8(title)
 msgid "Creating a New File"
-msgstr ""
+msgstr "Δημιουργία νέου αρχείου"
 
 #: C/anjuta-manual.xml:9(para)
 msgid "To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>New</guimenuitem></menuchoice> from the menu bar, or click on the <guibutton>New File</guibutton> button on the main toolbar. A new page will appear in the editor (or a new window if the parent document is windowed). New documents will be named <filename>newfile#1</filename>, <filename>newfile#2</filename>, <filename>newfile#3</filename> and so on."
@@ -261,16 +262,16 @@ msgstr ""
 
 #: C/anjuta-manual.xml:27(title)
 msgid "File Wizard"
-msgstr ""
+msgstr "Οδηγός αρχείου"
 
 #: C/anjuta-manual.xml:38(title)
 msgid "New File Wizard"
-msgstr ""
+msgstr "Οδηγός δημιουργίας νέου αρχείου"
 
 #: C/anjuta-manual.xml:40(screeninfo)
 #: C/anjuta-manual.xml:153(screeninfo)
 msgid "The Open File dialog"
-msgstr ""
+msgstr "Ο διάλογος Άνοιγμα αρχείου"
 
 #: C/anjuta-manual.xml:28(para)
 msgid "A wizard can also be used to create a new file. To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu><guimenuitem>File</guimenuitem></menuchoice> from the menu bar. This will open the New File dialog. Select the file type. Enter the filename. The suffix will be automatically added. You can add license information (according to your license choice) and a header. In case of a C/C++ header file, you can also add an header template. Click <guibutton>OK</guibutton> to validate the creation. <placeholder-1/>"
@@ -282,7 +283,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:54(title)
 msgid "Inserting Macros"
-msgstr ""
+msgstr "Εισαγωγή μακροεντολών"
 
 #: C/anjuta-manual.xml:55(para)
 msgid "You can use <emphasis>macros</emphasis> to quickly edit repetitive sequences of text."
@@ -294,7 +295,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:64(title)
 msgid "Inserting"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: C/anjuta-manual.xml:65(para)
 msgid "Two types of macros are available: Anjuta macros and user macros (displayed as \"My macros\"). Anjuta macros are not modifiable, but you can define and modify your own user macros."
@@ -306,11 +307,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:82(title)
 msgid "Macro"
-msgstr ""
+msgstr "Μακροεντολή"
 
 #: C/anjuta-manual.xml:84(screeninfo)
 msgid "The Macro dialog"
-msgstr ""
+msgstr "Ο διάλογος Μακροεντολών"
 
 #: C/anjuta-manual.xml:77(para)
 msgid "Another way to insert a macro is to select <menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Insert Macro...</guimenuitem></menuchoice>, then to press the desired macro shortcut. <placeholder-1/>"
@@ -318,7 +319,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:91(title)
 msgid "Defining Macros"
-msgstr ""
+msgstr "Ορισμός μακροεντολών"
 
 #: C/anjuta-manual.xml:92(para)
 msgid "From the Insert Macro window, choose <guibutton>Add</guibutton> or select <menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Add Macro... </guimenuitem></menuchoice>. The Add/Edit window appears. Enter the macro name, choose or define a category and enter a shortcut. Then edit text relative to your macro. The character ' | ' will indicate the cursor position after the macro insertion. Choose <guibutton>OK</guibutton>. The macro is added to the list."
@@ -330,11 +331,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:108(title)
 msgid "Add/Edit Macro"
-msgstr ""
+msgstr "Προσθήκη/Επεξεργασία μακροεντολών"
 
 #: C/anjuta-manual.xml:110(screeninfo)
 msgid "Add Edit dialog"
-msgstr ""
+msgstr "Προσθήκη διαλόγου Επεξεργασία"
 
 #: C/anjuta-manual.xml:104(para)
 msgid "Similarly, you can edit and modify a macro by selecting it in the list and choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
@@ -342,31 +343,31 @@ msgstr ""
 
 #: C/anjuta-manual.xml:117(title)
 msgid "Macro Keywords"
-msgstr ""
+msgstr "Εντολές μακροεντολών"
 
 #: C/anjuta-manual.xml:118(para)
 msgid "Macro keywords are available. They can be included in macro definitions. These macro keywords start and finish with the character ' @ '."
-msgstr ""
+msgstr "Υπάχουν εντολές μακροεντολών. Μπορούν να χρησιμοποιηθούν στους ορισμούς μακροεντολών. Αυτές οι εντολές μακροεντολών ξεκινούν και τερματίζουν με τον χαρακτήρα ' @ '."
 
 #: C/anjuta-manual.xml:126(title)
 msgid "Keyword Macro"
-msgstr ""
+msgstr "Μακροεντολή Keyword"
 
 #: C/anjuta-manual.xml:128(screeninfo)
 msgid "The Keyword macro"
-msgstr ""
+msgstr "Η μακροεντολή Keyword"
 
 #: C/anjuta-manual.xml:122(para)
 msgid "Available macro keywords are @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, @INDENTSIZE@, and @USETABS@. <placeholder-1/>"
-msgstr ""
+msgstr "Οι διαθέσιμες εντολές μακροεντολών είναι are @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, @INDENTSIZE@ και @USETABS@. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:139(title)
 msgid "Opening and Saving Files"
-msgstr ""
+msgstr "Άνοιγμα και αποθήκευση αρχείων"
 
 #: C/anjuta-manual.xml:151(title)
 msgid "Open File dialog"
-msgstr ""
+msgstr "Διάλογος ανοίγματος αρχείου"
 
 #: C/anjuta-manual.xml:143(para)
 msgid "<emphasis>Opening a file:</emphasis> To open an existing file, choose <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Open</guimenuitem></menuchoice> from the menu bar, click on the <guibutton>Open</guibutton> button on the toolbar, or press <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>. This will display the <interface>Open File</interface> dialog. <placeholder-1/> Select or enter the name of file you want to open, then click <guibutton>Open</guibutton>. To open more than one file at once, select multiple files to open by holding down the <keycap>Ctrl</keycap> key and clicking each file in turn; then press <guibutton>Open</guibutton>. If you change your mind, click <guibutton>Cancel</guibutton> to dismiss the dialog without opening the file."
@@ -374,7 +375,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:166(title)
 msgid "Open Multiple File dialog"
-msgstr ""
+msgstr "Διάλογος ανοίγματος πολλαπλών αρχείων"
 
 #: C/anjuta-manual.xml:168(screeninfo)
 msgid "The Open File dialog in multiple-select mode"
@@ -386,7 +387,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:194(screeninfo)
 msgid "The Save As File"
-msgstr ""
+msgstr "Διάλογος αποθήκευσης αρχείου ως"
 
 #: C/anjuta-manual.xml:184(para)
 msgid "<emphasis>Saving a file:</emphasis> To save a file, choose <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save</guimenuitem></menuchoice> from the menu bar, click on the <guibutton>Save</guibutton> button on the toolbar, or press <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. This will save the file. If the file is new, a <interface>Save As</interface> dialog will appear. Enter a filename and click <guibutton>Save</guibutton> to save the new file with the name supplied. <placeholder-1/>"
@@ -394,7 +395,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:199(title)
 msgid "File autosave"
-msgstr ""
+msgstr "Aυτόματη αποθήκευση αρχείου"
 
 #: C/anjuta-manual.xml:200(para)
 msgid "If you have enabled autosave, Anjuta will not autosave any new files. You must first save them manually. The same applies to the <guimenuitem>Save All</guimenuitem> option: Anjuta will not save new files, if you haven't saved them first manually. <emphasis>You must save a file manually before autosave or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>"
@@ -406,7 +407,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:219(title)
 msgid "File save as overwrite"
-msgstr ""
+msgstr "Αποθήκευση αρχείου με αντικατάσταση υπαρχόντος"
 
 #: C/anjuta-manual.xml:220(para)
 msgid "When you use <guimenuitem>Save As</guimenuitem> with an existing file, the original is not deleted. It is left unchanged since the last save. If a file with the new filename already exists, a confirmation dialog will appear to ensure that you want to overwrite it. Clicking <guibutton>Yes</guibutton> will overwrite the file with the file you are saving."
@@ -427,12 +428,12 @@ msgstr ""
 #: C/anjuta-manual.xml:256(title)
 #: C/anjuta-manual.xml:265(title)
 msgid "Editor Margins"
-msgstr ""
+msgstr "Περιθώρια επεξεργαστή κειμένου"
 
 #: C/anjuta-manual.xml:267(screeninfo)
 #: C/anjuta-manual.xml:315(screeninfo)
 msgid "The Tags toolbar"
-msgstr ""
+msgstr "Η εργαλειοθήκη ετικέτων"
 
 #: C/anjuta-manual.xml:257(para)
 msgid "<emphasis>Editor Margins:</emphasis> Editor margins appear to the left of the editor and are used for some special purposes. There are three editor margins available: the <emphasis>line number margin</emphasis>, the <emphasis>marker margin</emphasis> and the <emphasis>code fold margin</emphasis>. By default (that is, when you run <application>Anjuta</application> for the first time) only the code fold margin will be visible. The rest can be made visible via <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu></menuchoice>. <placeholder-1/>"
@@ -477,7 +478,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:341(title)
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "Χρωματισμός σύνταξης κειμένου"
 
 #: C/anjuta-manual.xml:342(para)
 msgid "<application>Anjuta</application> can highlight the syntax of many different languages. This is usually done automatically by determining the type of a file from its extension. If <application>Anjuta</application> cannot determine the type of a file, there will be no syntax highlighting. You can explicitly force a particular highlight style by selecting the style from the menu <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guisubmenu> Highlight Mode</guisubmenu></menuchoice>."
@@ -489,7 +490,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:365(title)
 msgid "Code folding"
-msgstr ""
+msgstr "Αναδίπλωση κώδικα"
 
 #: C/anjuta-manual.xml:366(para)
 msgid "Anjuta can display <emphasis>code folds</emphasis> for source files in block-structured languages (such as C, C++, Pascal, and Java). All code blocks in a source file can be folded or unfolded by clicking on the fold points in the code fold margin of the <interface>Editor</interface> window (usually a +/- symbol or up/down arrow). These fold points automatically appear for source files which use code blocks."
@@ -505,7 +506,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:387(title)
 msgid "Auto-formatting source code"
-msgstr ""
+msgstr "Αυτόματη μορφοποίηση πηγαίου κώδικα"
 
 #: C/anjuta-manual.xml:388(para)
 msgid "Anjuta can automatically indent (auto-format) C or C++ source or header files. This gives a clean look to the source code, increases legibility, reduces the likelihood of syntax errors, and above all saves time. To auto-indent the current source file, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Auto Indent </guimenuitem></menuchoice> on the menu bar. You can change the style of formatting by customizing the choices in the preferences."
@@ -513,7 +514,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:401(title)
 msgid "The Symbol Browser"
-msgstr ""
+msgstr "Ο περιηγητής συμβόλων"
 
 #: C/anjuta-manual.xml:402(para)
 msgid "You can browse C and C++ source and header files using <emphasis>tags</emphasis> in the files. A tag (or <emphasis>symbol</emphasis>) refers to a named entity such as a function definition, structure, or macro. Anjuta scans open C and C++ source and header files for available tags."
@@ -522,7 +523,7 @@ msgstr ""
 #: C/anjuta-manual.xml:415(title)
 #: C/anjuta-manual.xml:417(screeninfo)
 msgid "Symbol browser"
-msgstr ""
+msgstr "Περιηγητής συμβόλων"
 
 #: C/anjuta-manual.xml:407(para)
 msgid "<application>Anjuta</application> will automatically scan for tags in all of the source and header files of any open project. You can jump to any function definition, structure definition, class definition or other tag without manually opening the containing file. You don't even have to know which file the tag is found in. The symbol browser lists all available symbols in the project. <placeholder-1/>"
@@ -530,7 +531,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:423(title)
 msgid "Tag synchronization"
-msgstr ""
+msgstr "Συγχρονισμός ετικέτων"
 
 #: C/anjuta-manual.xml:424(para)
 msgid "You don't have to worry about the synchronization and update of the tag database. <application>Anjuta</application> will take care of everything. You just have to decide which tag you want to go to!"
@@ -538,7 +539,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:435(title)
 msgid "Searching for and Replacing text in files"
-msgstr ""
+msgstr "Αναζήτηση και αντικατάσταση κειμένου σε αρχεία"
 
 #: C/anjuta-manual.xml:437(title)
 msgid "Searching"
@@ -562,15 +563,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:465(title)
 msgid "Search Text dialog"
-msgstr ""
+msgstr "Διάλογος αναζήτησης κειμένου"
 
 #: C/anjuta-manual.xml:470(para)
 msgid "To stop a long search, press the <guibutton>Stop</guibutton> button."
-msgstr ""
+msgstr "Για να διακόψετε μια μεγάλη αναζήτηση, πατήστε το κουμπί <guibutton>Διακοπή</guibutton>"
 
 #: C/anjuta-manual.xml:475(title)
 msgid "Specifying Search Range"
-msgstr ""
+msgstr "Καθορισμός ορίων αναζήτησης"
 
 #: C/anjuta-manual.xml:476(para)
 msgid "In the <interface>Search Target</interface> tab, define the search location and the action to be performed if the search succeeds."
@@ -582,23 +583,23 @@ msgstr ""
 
 #: C/anjuta-manual.xml:484(title)
 msgid "Search Target dialog"
-msgstr ""
+msgstr "Διάλογος αναζήτησης στόχου"
 
 #: C/anjuta-manual.xml:489(para)
 msgid "You can select which text will be searched."
-msgstr ""
+msgstr "Μπορείτε να επιλέξετε το κείμενο θα αναζητηθεί."
 
 #: C/anjuta-manual.xml:493(title)
 msgid "Search Target In choice"
-msgstr ""
+msgstr "Αναζήτηση στόχου στην επιλογή"
 
 #: C/anjuta-manual.xml:499(title)
 msgid "Searching in Files"
-msgstr ""
+msgstr "Αναζήτηση μέσα σε αρχεία"
 
 #: C/anjuta-manual.xml:500(para)
 msgid "To find text in your project, set <guilabel>Search In</guilabel> to All Project Files."
-msgstr ""
+msgstr "Για να αναζητήσετε κείμενο στο έργο σας, καθορίστε το <guilabel>Αναζήτηση σε</guilabel> στο Όλα τα αρχεία έργου."
 
 #: C/anjuta-manual.xml:504(para)
 msgid "In the <guilabel>Search Expression</guilabel> tab, enter the text you want to search for and specify search options, such as the <guilabel>Match case</guilabel> or <guilabel>Match complete words</guilabel> options. Click <guibutton>Search</guibutton> to start searching."
@@ -610,15 +611,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:515(title)
 msgid "Search File Pattern"
-msgstr ""
+msgstr "Μορφή αναζήτησης αρχείου"
 
 #: C/anjuta-manual.xml:525(title)
 msgid "Specifying a Search Action"
-msgstr ""
+msgstr "Καθορισμός Ενέργειας αναζήτησης"
 
 #: C/anjuta-manual.xml:526(para)
 msgid "You can select which action will be performed when a search succeeds."
-msgstr ""
+msgstr "Μπορείτε να επιλέξετε την ενέργεια που θα εκτελεστεί κατά την επιτυχία της αναζήτησης."
 
 #: C/anjuta-manual.xml:529(para)
 msgid "Depending on the previous selections (<guilabel>Search In</guilabel>, <guilabel>Search Direction</guilabel> , and so on), some actions may be unavailable."
@@ -631,7 +632,7 @@ msgstr ""
 #: C/anjuta-manual.xml:543(title)
 #: C/anjuta-manual.xml:551(title)
 msgid "Replacing"
-msgstr ""
+msgstr "Αντικατάσταση"
 
 #: C/anjuta-manual.xml:544(para)
 msgid "Searching and replacing is similar to just finding text, except that you also specify the replacement text in the <guilabel>Replace With</guilabel> text box, and also specify whether or not you want to be prompted before each replacement takes place (Replace First Match or Replace All Matches)."
@@ -643,11 +644,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:563(title)
 msgid "Search Setting"
-msgstr ""
+msgstr "Ρύθμιση αναζήτησης"
 
 #: C/anjuta-manual.xml:564(para)
 msgid "You may also save search options."
-msgstr ""
+msgstr "Μπορείτε να αποθηκεύσετε και επιλογές αναζήτησης."
 
 #: C/anjuta-manual.xml:567(para)
 msgid "The item highlighted in red is the active item. The default item specifies search settings which are loaded when Anjuta launches."
@@ -655,15 +656,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:572(title)
 msgid "Search Setting dialog"
-msgstr ""
+msgstr "Διάλογος αναζήτησης ρύθμισης"
 
 #: C/anjuta-manual.xml:583(title)
 msgid "Printing a file"
-msgstr ""
+msgstr "Εκτύπωση αρχείου"
 
 #: C/anjuta-manual.xml:592(title)
 msgid "Print preview of a C file"
-msgstr ""
+msgstr "Προεπισκόπηση εκτύπωσης αρχείου C"
 
 #: C/anjuta-manual.xml:594(screeninfo)
 msgid "Print preview"
@@ -675,11 +676,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:601(title)
 msgid "Print Preferences"
-msgstr ""
+msgstr "Προτιμήσεις εκτύπωσης"
 
 #: C/anjuta-manual.xml:603(screeninfo)
 msgid "Print preferences"
-msgstr ""
+msgstr "Προτιμήσεις εκτύπωσης"
 
 #: C/anjuta-manual.xml:608(para)
 msgid "When you are ready to print and satisfied with the preview, select <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></menuchoice> or <guibutton>Print</guibutton> from the print preview window. This will bring up the actual print dialog as shown below. Select the appropriate print parameters and press <guibutton>Print</guibutton> to print the file."
@@ -696,11 +697,11 @@ msgstr "Διάλογος Εκτύπωσης"
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Project Management"
-msgstr ""
+msgstr "Διαχείριση έργου"
 
 #: C/anjuta-manual.xml:5(para)
 msgid "Anjuta has a powerful Project Manager plugin which can open most <ulink type=\"info\" url=\"info:automake\">automake/autoconf</ulink>-based projects. It might fail on some oddly-configured projects, but as long as the project uses automake/autoconf in a typical way, it should work."
-msgstr ""
+msgstr "Η εφαρμογή Anjuta έχει ένα ισχυρό πρόσθετο για Διαχείριση έργου που μπορεί να ανοίξει τα περισσότερα έργα που βασίζονται σε <ulink type=\"info\" url=\"info:automake\">automake/autoconf</ulink>. Μπορεί να αποτύχει σε μερικά έργα που έχουν μη-τυπικές ρυθμίσεις, αλλά όσο το έργο χρησιμοποιεί τα automake/autoconf με το τυπικό τρόπο, πρέπει να δουλέψει."
 
 #: C/anjuta-manual.xml:13(para)
 msgid "The neat thing is that Anjuta does not store any project information beyond what is already available in the project structure. That is, there is no separate project data maintained by Anjuta and all project processing is done directly within the project structure. This allows a project to be maintained or developed outside Anjuta without any need to convert to or from an Anjuta-specific format. Since technically Anjuta projects are just automake projects, mixed development (with both Anjuta and non-Anjuta users) or switching back and forth between Anjuta and other tools is quite possible without any hindrance."
@@ -712,7 +713,7 @@ msgstr "Δημιουργία νέου έργου"
 
 #: C/anjuta-manual.xml:28(title)
 msgid "Creating a project from a template"
-msgstr ""
+msgstr "Δημιουργία έργου από πρότυπο"
 
 #: C/anjuta-manual.xml:29(para)
 msgid "The project wizard plugin uses a powerful template processing engine called <application>autogen</application>. All new projects are created from templates that are written in <application>autogen</application> syntax. The project wizard lets you create new projects from a selection of project templates. The selection includes simple generic, flat (no subdirectory), GTK+, GNOME, Java, Python projects and more. New templates can be easily downloaded and installed since each template is just a collection of text files."
@@ -744,7 +745,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:92(title)
 msgid "Importing Projects"
-msgstr ""
+msgstr "Εισαγωγή έργων"
 
 #: C/anjuta-manual.xml:93(para)
 msgid "The import project feature is used to import an already existing project and convert it into an <application>Anjuta</application> project. Activate the import project wizard via <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu><guimenuitem>Project from existing sources</guimenuitem></menuchoice> and follow the instructions dictated by the wizard. Once a project has been imported, it can be opened in <application>Anjuta</application> subsequently just like any other <application> Anjuta</application> project."
@@ -756,11 +757,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:113(title)
 msgid "Loading and Saving Projects"
-msgstr ""
+msgstr "Φόρτωση και αποθήκευση έργων"
 
 #: C/anjuta-manual.xml:115(title)
 msgid "Loading Projects"
-msgstr ""
+msgstr "Φόρτωση έργων"
 
 #: C/anjuta-manual.xml:116(para)
 msgid "To open a project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Open …</guimenuitem></menuchoice>. Select the project file (<filename>*.anjuta</filename>) in the dialog and click <guibutton>OK</guibutton>."
@@ -772,31 +773,31 @@ msgstr ""
 
 #: C/anjuta-manual.xml:128(para)
 msgid "As soon as a project is opened, <application>Anjuta</application> will enter <emphasis>Project mode</emphasis>. There are three panes in the project window. The first is the project pane and lists project files organized by file type. The second is the symbol browser, which has already been discussed in the section <emphasis>The Symbol Browser</emphasis>. The third pane is the file view of the project and is more or less similar to a mini file-manager. In the file view, all the files present in the project tree are visible. Right-clicking on these files will pop up a context menu with file operations."
-msgstr ""
+msgstr "Μόλις ανοίξει ένα έργο, η εφαρμογή <application>Anjuta</application> μπαίνει σε <emphasis>Κατάσταση έργου</emphasis>. Υπάρχουν τρία πλαίσια στο παράθυρο έργου. Το πρώτο είναι το πλαίσιο έργου και παραθέτει αρχεία έργου οργανωμένα κατά είδος αρχείου. Το δεύτερο είναι ο περιηγητής συμβόλων, που έχουμε ήδη περιγράψει στο τμήμα <emphasis>Ο περιηγητής συμβόλων</emphasis>. Το τρίτο είναι η προβολή αρχείων του έργου και αποτελεί ένα μικρό διαχειριστή αρχείων. Στην προβολή αρχείων, όλα τα αρχεία του έργου εμφανίζονται στο δέντρο έργου. Με δεξί κλικ στα αρχεία αναδύεται ένα σχετικό μενού επιλογών με λειτουργίες αρχείων."
 
 #: C/anjuta-manual.xml:137(para)
 msgid "If the project is also a CVS tree, then corresponding file revision numbers are also listed to the right of file names in the file view pane."
-msgstr ""
+msgstr "Αν το έργο είναι επίσης και ένα δένδρο CVS, τότε και οι αντίστοιχοι αριθμοί αναθεώρησης αρχείου εμφανίζονται στα δεξιά των ονομάτων αρχείων στο πλαίσιο προβολής αρχείων."
 
 #: C/anjuta-manual.xml:143(title)
 msgid "Saving Projects"
-msgstr ""
+msgstr "Αποθήκευση έργων"
 
 #: C/anjuta-manual.xml:144(para)
 msgid "The project is automatically saved when you close because all changes are made directly in the project structure."
-msgstr ""
+msgstr "Το έργο αποθηκεύεται αυτόματα όταν κλείνεται την εφαρμογή διότι όλες οι αλλαγές γίνονται άμεσα στην ίδια δομή του έργου."
 
 #: C/anjuta-manual.xml:152(title)
 msgid "Project structure"
-msgstr ""
+msgstr "Δομή έργου"
 
 #: C/anjuta-manual.xml:158(title)
 msgid "Project window"
-msgstr ""
+msgstr "Παράθυρο έργου"
 
 #: C/anjuta-manual.xml:160(screeninfo)
 msgid "The Project window"
-msgstr ""
+msgstr "Το παράθυρο έργου"
 
 #: C/anjuta-manual.xml:153(para)
 msgid "Here is the <interface>Project window</interface> with its context menu (accessible by clicking on the right mouse button). <placeholder-1/>"
@@ -836,11 +837,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:244(title)
 msgid "Groups and targets"
-msgstr ""
+msgstr "Ομάδες και στόχοι"
 
 #: C/anjuta-manual.xml:247(title)
 msgid "Adding Groups"
-msgstr ""
+msgstr "Προσθήκη ομάδων"
 
 #: C/anjuta-manual.xml:252(para)
 msgid "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to add a new group will pop up."
@@ -848,11 +849,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:259(para)
 msgid "Select the group under which to add the new group."
-msgstr ""
+msgstr "Επιλέξτε την ομάδα κάτω από την οποία θα προσθέσετε τη νέα ομάδα."
 
 #: C/anjuta-manual.xml:262(para)
 msgid "Enter the name of the new group and click <guibutton>Add</guibutton>."
-msgstr ""
+msgstr "Εισάγετε το όνομα της νέας ομάδας και πατήστε <guibutton>Προσθήκη</guibutton>."
 
 #: C/anjuta-manual.xml:248(para)
 msgid "To add a new group (which is a directory in automake-based projects): <placeholder-1/>"
@@ -868,20 +869,20 @@ msgstr ""
 
 #: C/anjuta-manual.xml:279(title)
 msgid "Removing Groups"
-msgstr ""
+msgstr "Απομάκρυνση ομάδων"
 
 #: C/anjuta-manual.xml:284(para)
 msgid "Right-click the group in the <interface>Project Manager</interface> view."
-msgstr ""
+msgstr "Κάντε δεξί κλικ στην ομάδα μέσα στην προβολή <interface>Διαχειριστής έργου</interface>."
 
 #: C/anjuta-manual.xml:287(para)
 #: C/anjuta-manual.xml:426(para)
 msgid "Select <guimenuitem>Remove</guimenuitem> from the context menu."
-msgstr ""
+msgstr "Επιλέξτε <guimenuitem>Απομάκρυνση</guimenuitem> από το σχετικό αναδυόμενο μενού."
 
 #: C/anjuta-manual.xml:280(para)
 msgid "To remove a group: <placeholder-1/>"
-msgstr ""
+msgstr "Για την απομάκρυνση μιας ομάδας: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:292(para)
 msgid "The target and sources associated with the group will also be removed from the project. (They are not deleted from the file system, though. You can add them to the project again later if you like.)"
@@ -889,19 +890,19 @@ msgstr ""
 
 #: C/anjuta-manual.xml:300(title)
 msgid "Adding Targets"
-msgstr ""
+msgstr "Προσθήκη στόχων"
 
 #: C/anjuta-manual.xml:305(para)
 msgid "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to add a new target will popup."
-msgstr ""
+msgstr "Επιλέξτε <menuchoice><guisubmenu>Έργο</guisubmenu><guimenuitem>Προσθήκη στόχου</guimenuitem></menuchoice> και ένας διάλογος για την προσθήκη νέου στόχου θα αναδυθεί."
 
 #: C/anjuta-manual.xml:310(para)
 msgid "Select the group under which to add the target."
-msgstr ""
+msgstr "Επιλογή της ομάδας κάτω από την οποία να προστεθεί ο στόχος."
 
 #: C/anjuta-manual.xml:313(para)
 msgid "Select the target type."
-msgstr ""
+msgstr "Επιλογή ενός είδους στόχου."
 
 #: C/anjuta-manual.xml:316(para)
 msgid "Enter a name for the new target and click <guibutton>Add</guibutton>."
@@ -909,7 +910,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:301(para)
 msgid "To add a new target: <placeholder-1/>"
-msgstr ""
+msgstr "Για να προσθέσετε ένα νέο στόχο: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:320(para)
 msgid "You can also add a new target from the <interface>Project</interface> window directly. Right-click the group under which to add the target, then select <guimenuitem>Add target</guimenuitem> from the context menu."
@@ -965,7 +966,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:418(title)
 msgid "Removing Targets"
-msgstr ""
+msgstr "Απομάκρυνση στόχων"
 
 #: C/anjuta-manual.xml:423(para)
 msgid "Right-click the target in the <interface>Project Manager</interface> view."
@@ -973,7 +974,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:419(para)
 msgid "To remove a target: <placeholder-1/>"
-msgstr ""
+msgstr "Για την απομάκρυνση στόχου: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:431(para)
 msgid "The sources associated with the targets will also be removed from the project (they are not deleted from the file system, though)."
@@ -981,11 +982,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:440(title)
 msgid "Adding and Removing Files"
-msgstr ""
+msgstr "Προσθήκη και απομάκρυνση αρχείων"
 
 #: C/anjuta-manual.xml:442(title)
 msgid "Adding Source Files"
-msgstr ""
+msgstr "Προσθήκη αρχείων πηγαίου κώδικα"
 
 #: C/anjuta-manual.xml:443(para)
 msgid "Select the menu item <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Source File</guimenuitem></menuchoice>. From the dialog, select the target to which the file should be added and the file itself. You can add multiple files at once. To do that, select multiple files from the file selection dialog using either the <keycap>Shift</keycap> or <keycap>Ctrl</keycap> key. Then click <guibutton>Add</guibutton> to add the files to the project."
@@ -1005,7 +1006,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:472(title)
 msgid "Removing Source Files"
-msgstr ""
+msgstr "Απομάκρυνση αρχείων πηγαίου κώδικα"
 
 #: C/anjuta-manual.xml:473(para)
 msgid "To remove a file from the project, right-click the file you want to remove in the <interface>Project window</interface> and choose <guimenuitem>Remove</guimenuitem> from the context menu."
@@ -1017,7 +1018,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:483(title)
 msgid "The file is not deleted!"
-msgstr ""
+msgstr "Το αρχείο δε διαγράφεται!"
 
 #: C/anjuta-manual.xml:484(para)
 msgid "The file is not deleted from the filesystem. It still exists, and you can add it back again later if you so wish. The file is only removed from the project listing, and will not take part in any project operations such as compiling, building, or distribution."
@@ -1025,7 +1026,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:495(title)
 msgid "Project Configuration"
-msgstr ""
+msgstr "Ρύθμιση έργου"
 
 #: C/anjuta-manual.xml:496(para)
 msgid "Project configuration involves setting the correct build flags for targets, groups and the project itself. You can set these flags in their respective properties dialogs."
@@ -1041,7 +1042,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:524(para)
 msgid "<emphasis>$(bindir)</emphasis>: The installation directory for executable binaries. All your executable and script targets will be installed in this directory. By default, it is $(prefix)/bin."
-msgstr ""
+msgstr "<emphasis>$(bindir)</emphasis>: Ο κατάλογος εγκατάστασης για εκτελέσιμα αρχεία. Όλοι οι στόχοι για εκτελέσιμα αρχεία και προγράμματα εντολών εγκαθίστανται σε αυτόν τον κατάλογο. Η προεπιλογή είναι $(prefix)/bin."
 
 #: C/anjuta-manual.xml:531(para)
 msgid "<emphasis>$(libdir)</emphasis>: The installation directory for libraries. All your library targets (both shared and static) will be installed in this directory or a subdirectory below it. By default, it is $(prefix)/lib."
@@ -1079,7 +1080,7 @@ msgstr ""
 #: C/anjuta-manual.xml:588(title)
 #: C/anjuta-manual.xml:590(screeninfo)
 msgid "Project properties dialog"
-msgstr ""
+msgstr "Διάλογος ιδιοτήτων έργου"
 
 #: C/anjuta-manual.xml:580(para)
 msgid "Dependencies are external packages that the project uses and are hence required to build it. Only packages installed using <ulink url=\"info:pkg-config\">pkg-config</ulink> can be added from this interface. For others, the configure.ac file can be edited manually. <placeholder-1/>"
@@ -1095,7 +1096,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:617(para)
 msgid "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Properties</guimenuitem></menuchoice> to bring up the project properties dialog."
-msgstr ""
+msgstr "Επιλέξτε <menuchoice><guisubmenu>Έργο</guisubmenu><guimenuitem>Ιδιότητες</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο ιδιοτήτων έργου."
 
 #: C/anjuta-manual.xml:624(para)
 msgid "Select the tab <guibutton>Packages</guibutton> to bring up the Packages page."
@@ -1107,11 +1108,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:638(para)
 msgid "Click <guibutton>Add Package</guibutton> to bring up the package selection dialog."
-msgstr ""
+msgstr "Πατήστε <guibutton>Προσθήκη πακέτου</guibutton> για να εμφανίσετε το διάλογο επιλογής πακέτου."
 
 #: C/anjuta-manual.xml:641(para)
 msgid "Select the package to add and click <guibutton>Add</guibutton>."
-msgstr ""
+msgstr "Επιλέξτε το πακέτο για να προσθέσετε και πατήστε <guibutton>Προσθήκη</guibutton>."
 
 #: C/anjuta-manual.xml:644(para)
 msgid "Click <guibutton>Close</guibutton> to close the properties dialog."
@@ -1119,7 +1120,7 @@ msgstr "Πατήστε <guibutton>Κλείσιμο</guibutton> για να κλ�
 
 #: C/anjuta-manual.xml:613(para)
 msgid "To add a package dependency: <placeholder-1/>"
-msgstr ""
+msgstr "Για να προσθέσετε μια εξάρτηση πακέτου: <placeholder-1/>"
 
 #
 #: C/anjuta-manual.xml:651(title)
@@ -1129,7 +1130,7 @@ msgstr "Ιδιότητες ομάδας"
 #: C/anjuta-manual.xml:658(title)
 #: C/anjuta-manual.xml:660(screeninfo)
 msgid "Group properties dialog"
-msgstr ""
+msgstr "Διάλογος ιδιοτήτων ομάδας"
 
 #: C/anjuta-manual.xml:652(para)
 msgid "To edit a group's properties, double-click the group in the <interface>Project</interface> window to open the <interface>Group Properties</interface> dialog. (You can alternatively right-click the group and select <guimenuitem>Properties</guimenuitem> from the context menu.) <placeholder-1/>"
@@ -1165,7 +1166,7 @@ msgstr ""
 #: C/anjuta-manual.xml:743(title)
 #: C/anjuta-manual.xml:745(screeninfo)
 msgid "Target properties dialog"
-msgstr ""
+msgstr "Διάλογος ιδιοτήτων στόχου"
 
 #: C/anjuta-manual.xml:715(para)
 msgid "To set a target's properties, double-click the target in the <interface>Project window</interface> to open the Target Properties dialog. (You can alternatively right-click the target and select <guimenuitem>Properties</guimenuitem> from the context menu.) <placeholder-1/>"
@@ -1177,7 +1178,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:735(title)
 msgid "Advanced target options"
-msgstr ""
+msgstr "Προχωρημένες επιλογές στόχου"
 
 #: C/anjuta-manual.xml:736(para)
 msgid "The following fields are available in the advanced target configuration that you reach when you clicked the <guibutton>Advanded...</guibutton> button in the target properties dialog."
@@ -1193,7 +1194,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:769(para)
 msgid "<emphasis>Libraries</emphasis>: Set the libraries that the target depends on."
-msgstr ""
+msgstr "<emphasis>Βιβλιοθήκες</emphasis>: Καθορίστε τις βιβλιοθήκες από όπου εξαρτάται ο στόχος."
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Building"
@@ -1205,11 +1206,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:10(para)
 msgid "An autotools project is built in three steps:"
-msgstr ""
+msgstr "Ένα έργο που βασίζεται σε autotools κατασκευάζεται σε τρία βήματα:"
 
 #: C/anjuta-manual.xml:15(para)
 msgid "Generate"
-msgstr ""
+msgstr "Δημιουργία"
 
 #: C/anjuta-manual.xml:16(para)
 msgid "Configure"
@@ -1237,11 +1238,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:75(title)
 msgid "Generate and Configure"
-msgstr ""
+msgstr "Δημιουργία και ρύθμιση"
 
 #: C/anjuta-manual.xml:77(title)
 msgid "Configure a project"
-msgstr ""
+msgstr "Ρύθμιση έργου"
 
 #: C/anjuta-manual.xml:78(para)
 msgid "You need to run this step before being able to build your project. This is usually run only once at the beginning of the first build process — for example, just after you have extracted a source tarball of a project distribution. After that, configuration is automatically handled by the subsequent build processes. If you have used the <emphasis>Application Wizard</emphasis> to create the application, then you will not need to run this separately: the wizard will run it as a part of the project generation process."
@@ -1253,7 +1254,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:100(para)
 msgid "Whether you want to run the generate step or not"
-msgstr ""
+msgstr "Αν θέλετε να εκτελέσετε το βήμα της δημιουργίας ή όχι"
 
 #: C/anjuta-manual.xml:101(para)
 msgid "The generate step needs to be run once at the beginning of the project; then it is automatically handled by the build process. You can force it to run by checking the checkbox <interface>Regenerate project</interface>; you might do this if you encounter difficulties while building a project (e.g. if you receive build errors after you've modified lots of build files)."
@@ -1261,19 +1262,19 @@ msgstr ""
 
 #: C/anjuta-manual.xml:109(para)
 msgid "The configuration name"
-msgstr ""
+msgstr "Το όνομα των ρυθμίσεων"
 
 #: C/anjuta-manual.xml:110(para)
 msgid "This name is used to refer to each configuration. Some configurations (Default, Debug, Optimized) are already defined by default. One configuration includes a build directory and some configuration options."
-msgstr ""
+msgstr "Αυτό το όνομα χρησιμοποιείται για την αναγνώριση κάθε συνόλου ρυθμίσεων. Μερικά σύνολα ρυθμίσεων (Προεπιλογή, Εκσφαλμάτωση, Βελτιστοποιημένο) είναι ήδη καθορισμένα και έτοιμα. Ένα σύνολο ρυθμίσεων περιλαμβάνει τον κατάλογο κατασκευής και μερικές επιλογές ρυθμίσεων."
 
 #: C/anjuta-manual.xml:116(para)
 msgid "The build directory"
-msgstr ""
+msgstr "Ο κατάλογος κατασκευής"
 
 #: C/anjuta-manual.xml:117(para)
 msgid "This is the build directory name. In the Default configuration, it is the same directory as the source directory but autotools supports building in a different directory."
-msgstr ""
+msgstr "Αυτό είναι το όνομα του καταλόγου κατασκευής. Στο σύνολο ρυθμίσεων Προεπιλογή, είναι ο ίδιος κατάλογος με τον πηγαίο κατάλογο, ωστόσο το autotools επιτρέπουν την κατασκευή σε διαφορετικό κατάλογο."
 
 #: C/anjuta-manual.xml:122(para)
 msgid "Each configuration must have a different build directory and if one configuration uses the source directory, you cannot have other configurations at the same time. You need to run <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Remove Configuration</guimenuitem></menuchoice> on the configuration using the source directory before adding a new configuration."
@@ -1281,15 +1282,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:130(para)
 msgid "Configure options"
-msgstr ""
+msgstr "Επιλογής για το configure"
 
 #: C/anjuta-manual.xml:131(para)
 msgid "These options are passed to the <filename>configure</filename> script. Some are standard, such as --prefix and CFLAGS; others depend on the project. You can get a list of allowed configuration options by running the <filename>configure</filename> script with the <option>--help</option> argument."
-msgstr ""
+msgstr "Αυτές οι επιλογές περνάνε στο πρόγραμμα εντολών <filename>configure</filename>. Μερικές είναι τυπικές, όπως τα --prefix και CFLAGS· όλες εξαρτώνται από το έργο. Μπορείτε να λάβετε μια πλήρη λίστα των επιτρεπόμενων επιλογών ρύθμισης εκτελώντας το πρόγραμμα εντολών <filename>configure</filename> με την επιλογή <option>--help</option>."
 
 #: C/anjuta-manual.xml:94(para)
 msgid "Both generate and configure steps are launched with a single menu item: <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Configure Project…</guimenuitem></menuchoice>. This menu item brings a dialog where you can choose: <placeholder-1/>"
-msgstr ""
+msgstr "Και τα δύο βήματα δημιουργίας και ρύθμισης (μέσω configure) εκτελούνται με το κοινό αντικείμενο μενού: <menuchoice><guisubmenu>Κατασκευή</guisubmenu><guimenuitem>Ρύθμιση έργου…</guimenuitem></menuchoice>. Αυτό το αντικείμενο μενού εμφανίζει ένα διάλογο από όπου μπορείτε να επιλέξετε: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:140(title)
 msgid "Select a configuration"
@@ -1417,16 +1418,16 @@ msgstr ""
 
 #: C/anjuta-manual.xml:35(title)
 msgid "Start and stop"
-msgstr ""
+msgstr "Έναρξη και διακοπή"
 
 #: C/anjuta-manual.xml:40(emphasis)
 #: C/anjuta-manual.xml:56(title)
 msgid "Running an executable"
-msgstr ""
+msgstr "Εκτέλεση ενός εκτελέσιμου"
 
 #: C/anjuta-manual.xml:41(emphasis)
 msgid "Attaching to a process"
-msgstr ""
+msgstr "Προσκόλληση σε διεργασία"
 
 #: C/anjuta-manual.xml:44(para)
 msgid "Almost every feature of Anjuta is provided by a plugin. If you do not see the menus described here. It is probably because the debugger plugin is not loaded. Go in <menuchoice><guisubmenu>Edit</guisubmenu><guimenuitem>Preferences</guimenuitem><guimenuitem>General</guimenuitem><guimenuitem>Installed plugins</guimenuitem></menuchoice> and check that the debugger plugin is loaded. It is an user activatable plugin, so loaded or unloaded on request."
@@ -1446,7 +1447,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:76(para)
 msgid "The program that you want to debug"
-msgstr ""
+msgstr "Το πρόγραμμα για το οποίο θέλετε να κάνετε εκσφαλμάτωση"
 
 #: C/anjuta-manual.xml:77(para)
 msgid "The drop-down menu of the target drop-down combination box is pre-filled with all executables of the current project. But you can alternatively select another executable which is not part of the project. The debugger also accepts libtool executables; these are scripts generated by libtool which wrap real executables."
@@ -1454,15 +1455,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:84(para)
 msgid "The command-line parameters"
-msgstr ""
+msgstr "Οι παράμετροι της γραμμής εντολής"
 
 #: C/anjuta-manual.xml:85(para)
 msgid "The working directory"
-msgstr ""
+msgstr "Ο κατάλογος εργασίας"
 
 #: C/anjuta-manual.xml:86(para)
 msgid "Environment variables"
-msgstr ""
+msgstr "Μεταβλητές περιβάλλοντος"
 
 #: C/anjuta-manual.xml:87(para)
 msgid "Environment variables displayed in light gray are the current environment variables. You can add, modify or remove environment variables here."
@@ -1482,7 +1483,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:102(title)
 msgid "Attaching to a Process"
-msgstr ""
+msgstr "Γίνεται προσκόλληση σε διεργασία"
 
 #: C/anjuta-manual.xml:103(para)
 msgid "It is also possible to attach to a running process and debug it by choosing the menu item <menuchoice><guisubmenu>Run</guisubmenu><guimenuitem>Debug Process …</guimenuitem></menuchoice>. A list of all processes running on the system will appear."
@@ -1491,7 +1492,7 @@ msgstr ""
 #: C/anjuta-manual.xml:110(title)
 #: C/anjuta-manual.xml:112(screeninfo)
 msgid "Attach to Process dialog"
-msgstr ""
+msgstr "Διάλογος για προσκόλληση σε διεργασία"
 
 #: C/anjuta-manual.xml:116(para)
 msgid "Select the process to attach to and click <guibutton>OK</guibutton> to start the debugger, attach to the selected process and stop it."
@@ -1503,7 +1504,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:129(title)
 msgid "Stopping the Debugger"
-msgstr ""
+msgstr "Διακοπή της εκσφαλμάτωσης"
 
 #: C/anjuta-manual.xml:130(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Run</guisubmenu><guimenuitem>Stop Debugger</guimenuitem></menuchoice> to stop the debugger. This will kill the program which is being debugged. If the debugger has been attached to a running process, the debugger will just detach from it without killing it. You will get a confirmation box if a program is currently attached or running."
@@ -1511,7 +1512,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:140(title)
 msgid "Adding source directories"
-msgstr ""
+msgstr "Προσθήκη καταλόγων με αρχεία πηγαίου κώδικα"
 
 #: C/anjuta-manual.xml:141(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Add source paths…</guimenuitem></menuchoice> to display a dialog box allowing you to add and remove source directories."
@@ -1523,7 +1524,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:162(title)
 msgid "Execution"
-msgstr ""
+msgstr "Εκτέλεση"
 
 #: C/anjuta-manual.xml:163(para)
 msgid "Execution of a program in the debugger can be finely controlled. The program can be executed in single steps, or allowed to continue until it encounters a breakpoint. Executing like this is essential for tracking program behavior. Like a video editing session, the program can be executed in <emphasis>slow motion</emphasis> with the ability to go forward, pause, stop, and so on. You cannot go backward yet though."
@@ -1535,7 +1536,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:177(title)
 msgid "Single stepping (step in)"
-msgstr ""
+msgstr "Βηματισμός ενός βήματος (βήμα εντός)"
 
 #: C/anjuta-manual.xml:178(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Step In</guimenuitem></menuchoice> or click on the <guibutton>Step In</guibutton> icon in the <interface>Debug toolbar</interface> to step into a program."
@@ -1551,7 +1552,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:198(title)
 msgid "Single stepping (step over)"
-msgstr ""
+msgstr "Βηματισμός ενός βήματος (βήμα από πάνω)"
 
 #: C/anjuta-manual.xml:199(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Step Over</guimenuitem></menuchoice> or click on the <guibutton>Step Over</guibutton> icon in the <interface>Debug toolbar</interface> to step over statements in a program."
@@ -1571,7 +1572,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:225(title)
 msgid "Single stepping (step out)"
-msgstr ""
+msgstr "Βηματισμός ενός βήματος (βήμα εκτός)"
 
 #: C/anjuta-manual.xml:226(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Step Out</guimenuitem></menuchoice> or click on the <guibutton>Step Out</guibutton> icon in the <interface>Debug toolbar</interface> to step out in a program."
@@ -1583,7 +1584,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:242(title)
 msgid "Run/Continue"
-msgstr ""
+msgstr "Εκτέλεση/Συνέχιση"
 
 #: C/anjuta-manual.xml:243(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Run/Continue</guimenuitem></menuchoice> or click on the <guibutton>Run/Continue</guibutton> icon in the <interface>Debug toolbar</interface> to continue the execution of a program."
@@ -1595,7 +1596,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:256(title)
 msgid "Run To"
-msgstr ""
+msgstr "Εκτέλεση ως"
 
 #: C/anjuta-manual.xml:257(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Run to Cursor</guimenuitem></menuchoice> or click on the <guibutton>Run to Cursor</guibutton> icon in the <interface>Debug toolbar</interface> to run until the line at the cursor is reached."
@@ -1624,7 +1625,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:298(title)
 msgid "Listing Breakpoints"
-msgstr ""
+msgstr "Λίστα σημείων διακοπής (breakpoints)"
 
 #: C/anjuta-manual.xml:299(para)
 msgid "The <interface>Breakpoint list window</interface> can be opened by choosing <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Breakpoints</guimenuitem></menuchoice>"
@@ -1633,7 +1634,7 @@ msgstr ""
 #: C/anjuta-manual.xml:306(title)
 #: C/anjuta-manual.xml:308(screeninfo)
 msgid "Breakpoint view"
-msgstr ""
+msgstr "Προβολή σημείων διακοπής"
 
 # #-#-#-#-#  libgnomeprintui.master.el.po (el)  #-#-#-#-#
 #
@@ -1688,7 +1689,7 @@ msgstr "Διεύθυνση"
 
 #: C/anjuta-manual.xml:329(para)
 msgid "This field is filled with the address of the breakpoint when it is set by the debugger."
-msgstr ""
+msgstr "Αυτό το πεδίο συμπληρώνεται με τη διεύθυνση του σημείου διακοπής όταν το ενεργοποιεί το πρόγραμμα εκσφαλμάτωσης."
 
 # #-#-#-#-#  gimp.gimp-2-6.el.po (GIMP 2.6)  #-#-#-#-#
 #
@@ -1775,7 +1776,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:391(title)
 msgid "Adding or Setting Breakpoints"
-msgstr ""
+msgstr "Προσθήκη ή ρύθμιση σημείων διακοπής"
 
 #: C/anjuta-manual.xml:392(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> or <menuchoice><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> in the breakpoint list popup menu to open the <interface>add breakpoint</interface> dialog."
@@ -1820,7 +1821,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:462(term)
 msgid "Pass Count"
-msgstr ""
+msgstr "Αριθμός περασμάτων"
 
 #: C/anjuta-manual.xml:464(para)
 msgid "The <emphasis>Pass count</emphasis> is an integer (unsigned) value which tells the debugger to skip the breakpoint that number of times before it is considered. <emphasis>Pass count</emphasis> has a higher priority than the <emphasis>Break condition</emphasis>. Only when the <emphasis>Pass count</emphasis> reaches zero will the debugger evaluate the <emphasis>Break condition</emphasis> (if any condition is present). If there is no condition, the debugger will break the execution once the <emphasis>Pass count</emphasis> counts down to zero."
@@ -1856,7 +1857,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:513(title)
 msgid "Deleting Breakpoints"
-msgstr ""
+msgstr "Διαγραφή σημείων διακοπής"
 
 #: C/anjuta-manual.xml:514(para)
 msgid "Select the breakpoint in the breakpoint list view and click on <menuchoice><guimenuitem>Remove Breakpoint</guimenuitem></menuchoice> to delete it."
@@ -1872,7 +1873,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:536(title)
 msgid "Enabling or Disabling Breakpoints"
-msgstr ""
+msgstr "Ενεργοποίηση ή απενεργοποίηση σημείων διακοπής"
 
 #: C/anjuta-manual.xml:537(para)
 msgid "Click on the Enable column of the <interface>Breakpoint list window</interface> or in the context menu item <menuchoice><guimenuitem>Enable Breakpoint</guimenuitem></menuchoice> to enable or disable the selected breakpoint. The breakpoint will be enabled or disabled, depending on its current state."
@@ -1884,11 +1885,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:554(title)
 msgid "Expressions"
-msgstr ""
+msgstr "Εκφράσεις"
 
 #: C/anjuta-manual.xml:557(title)
 msgid "Listing local variables"
-msgstr ""
+msgstr "Λίστα τοπικών μεταβλητών"
 
 #: C/anjuta-manual.xml:558(para)
 msgid "When a program is running under the control of the debugger, the <interface>Locals list window</interface> can be opened by choosing <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Locals</guimenuitem></menuchoice>."
@@ -1897,7 +1898,7 @@ msgstr ""
 #: C/anjuta-manual.xml:572(title)
 #: C/anjuta-manual.xml:574(screeninfo)
 msgid "Local variables"
-msgstr ""
+msgstr "Τοπικές μεταβλητές"
 
 #: C/anjuta-manual.xml:564(para)
 msgid "Local variables of the current frame (the current function in which the program control is present) are displayed in the <interface>Locals window</interface>. During execution of the program (e.g. during single stepping), local variables will be updated. If any variable value was changed in the last debugging step, its value will be highlighted in red. Variables are presented in a tree form for easy view. <placeholder-1/>"
@@ -1913,7 +1914,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:594(title)
 msgid "Listing watched expressions"
-msgstr ""
+msgstr "Λίστα παρακολουθούμενων εκφράσεων"
 
 #: C/anjuta-manual.xml:595(para)
 msgid "Inspecting or evaluating an expression provides the result only once. To continuously monitor some variables or expressions, use <emphasis>expression watches</emphasis>."
@@ -1925,7 +1926,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:606(title)
 msgid "Adding an expression to watch"
-msgstr ""
+msgstr "Προσθήκη έκφρασης για παρακολούθηση"
 
 #: C/anjuta-manual.xml:607(para)
 msgid "Right-click on the <interface>Watches window</interface> to open the context menu. Choose the menu item <guimenuitem>Add Watch…</guimenuitem>. Alternatively, you can use <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Add Watch…</guimenuitem></menuchoice> A dialog prompting for the expression will appear. Enter the expression and click <guibutton>OK</guibutton>."
@@ -1953,7 +1954,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:647(title)
 msgid "Evaluating expressions"
-msgstr ""
+msgstr "Αποτίμηση εκφράσεων"
 
 #: C/anjuta-manual.xml:648(para)
 msgid "When control is returned from a program — possibly at a breakpoint — it is possible to evaluate expressions or inspect the values of variables in the program. Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Inspect/Evaluate …</guimenuitem></menuchoice>, <menuchoice><guimenuitem>Inspect/Evaluate …</guimenuitem></menuchoice> in the context menu of the editor or click the <guibutton>Inspect</guibutton> button on the <interface>Debug Toolbar</interface>."
@@ -1981,11 +1982,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:686(title)
 msgid "Stack Trace"
-msgstr "Παρακολούθηση Στοίβας"
+msgstr "Παρακολούθηση στοίβας"
 
 #: C/anjuta-manual.xml:689(title)
 msgid "Stack Window"
-msgstr ""
+msgstr "Παράθυρο στοίβας"
 
 #: C/anjuta-manual.xml:690(para)
 msgid "The <interface>stack trace window</interface> shows the contents of the program stack. It lists all functions and their arguments in the sequence they were called. There is also a number representing each call. This number is called the <emphasis>frame</emphasis>. Each call in the trace exists in a different frame. This starts from frame 0 (the last function called) and grows higher as function nesting becomes deeper."
@@ -1998,7 +1999,7 @@ msgstr ""
 #: C/anjuta-manual.xml:705(title)
 #: C/anjuta-manual.xml:707(screeninfo)
 msgid "Stack trace window"
-msgstr ""
+msgstr "Παράθυρο παρακολούθησης στοίβας"
 
 #: C/anjuta-manual.xml:712(para)
 msgid "A small arrow points to the currently selected frame in the stack trace. By default, this will be frame 0, the last function called. All evaluation and inspection of expressions or variables will be with reference to this selected frame. The scope of variables or expressions being evaluated will be limited to the selected frame only. The same applies for new expressions only in the watch."
@@ -2022,7 +2023,7 @@ msgstr "Νήμα"
 
 #: C/anjuta-manual.xml:744(title)
 msgid "Thread Window"
-msgstr ""
+msgstr "Παράθυρο νημάτων"
 
 #: C/anjuta-manual.xml:745(para)
 msgid "The <interface>Thread window</interface> shows all threads used by the program and indicates the current thread. Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Thread</guimenuitem></menuchoice> to open this window."
@@ -2052,7 +2053,7 @@ msgstr "CPU"
 
 #: C/anjuta-manual.xml:780(title)
 msgid "Register window"
-msgstr ""
+msgstr "Παράθυρο καταχωρητών"
 
 #: C/anjuta-manual.xml:781(para)
 msgid "It is possible to examine the contents of the internal registers of the CPU (microprocessor). Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Registers</guimenuitem></menuchoice>. A window listing all available registers in the microprocessor and their corresponding contents will appear."
@@ -2064,7 +2065,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:796(title)
 msgid "Memory window"
-msgstr ""
+msgstr "Παράθυρο μνήμης"
 
 #: C/anjuta-manual.xml:797(para)
 msgid "Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Memory </guimenuitem></menuchoice> to open the <interface>memory window</interface> for the program being debugged. This window shows the contents of all memory."
@@ -2108,7 +2109,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:848(title)
 msgid "Dynamically loaded Libraries"
-msgstr ""
+msgstr "Δυναμικά φορτωμένες βιβλιοθήκες"
 
 #: C/anjuta-manual.xml:849(para)
 msgid "To obtain a list of the dynamic libraries used by a program, choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Info</guisubmenu><guimenuitem>Shared Libraries</guimenuitem></menuchoice>. This will bring open a window which will list all shared libraries the program has loaded and their locations in memory. It also shows whether each library's symbol table is loaded or not (Yes/No)."
@@ -2117,7 +2118,7 @@ msgstr ""
 #: C/anjuta-manual.xml:859(title)
 #: C/anjuta-manual.xml:861(screeninfo)
 msgid "Shared Libraries window"
-msgstr ""
+msgstr "Παράθυρο διαμοιραζόμενων βιβλιοθηκών"
 
 #: C/anjuta-manual.xml:869(title)
 msgid "Kernel Signals"
@@ -2130,23 +2131,23 @@ msgstr ""
 #: C/anjuta-manual.xml:879(title)
 #: C/anjuta-manual.xml:881(screeninfo)
 msgid "Kernel Signals window"
-msgstr ""
+msgstr "Παράθυρο σημάτων πυρήνα"
 
 #: C/anjuta-manual.xml:886(para)
 msgid "There are three columns which specify what to do when a signal is received:"
-msgstr ""
+msgstr "Υπάρχουν τρεις στήλες που περιγράφουν τι να γίνει όταν ληφθεί ένα σήμα:"
 
 #: C/anjuta-manual.xml:892(para)
 msgid "<emphasis>Stop</emphasis> — this tells the debugger whether to stop the program execution (and return control) when the program receives this signal."
-msgstr ""
+msgstr "<emphasis>Διακοπή</emphasis> — καθορίζει αν η εκσφαλμάτωση θα σταματήσει την εκτέλεση του προγράμματος (και επιστρέψει τον έλεγχο) όταν το πρόγραμμα λάβει το σήμα αυτό."
 
 #: C/anjuta-manual.xml:898(para)
 msgid "<emphasis>Print</emphasis> — this tells the debugger whether to display the received signal."
-msgstr ""
+msgstr "<emphasis>Εκτύπωση</emphasis> — καθορίζει αν η εκσφαλμάτωση θα εμφανίσει το σήμα που έχει ληφθεί."
 
 #: C/anjuta-manual.xml:903(para)
 msgid "<emphasis>Pass</emphasis> — this tells the debugger whether to pass the signal to the program."
-msgstr ""
+msgstr "<emphasis>Συνέχιση</emphasis> — καθορίζει αν η εκσφαλμάτωση θα περάσει το σήμα στο πρόγραμμα."
 
 #: C/anjuta-manual.xml:909(para)
 msgid "The context menu that is displayed when you click on the right mouse button has all its items disabled because the corresponding functions are not implemented yet."
@@ -2154,7 +2155,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:918(title)
 msgid "Information about used files"
-msgstr ""
+msgstr "Πληροφορίες για χρησιμοποιούμενα αρχεία"
 
 #: C/anjuta-manual.xml:919(para)
 msgid "You can get some information about the files used by the debugged program by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Target files</guimenuitem></menuchoice>. A window will open displaying this information."
@@ -2162,7 +2163,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:928(title)
 msgid "Information about debugged program"
-msgstr ""
+msgstr "Πληροφορίες για την εφαρμογή κάτω από εκσφαλμάτωση"
 
 #: C/anjuta-manual.xml:929(para)
 msgid "You can get some information about the debugged program by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Program</guimenuitem></menuchoice>. A window will open displaying this information."
@@ -2170,7 +2171,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:938(title)
 msgid "Information about kernel structure"
-msgstr ""
+msgstr "Πληροφορίες για τη δομή πυρήνα"
 
 #: C/anjuta-manual.xml:939(para)
 msgid "You can get some information about kernel data for the current process by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Kernel user struct</guimenuitem></menuchoice>. A window will open displaying this information."
@@ -2178,7 +2179,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:948(title)
 msgid "Information about global variables"
-msgstr ""
+msgstr "Πληροφορίες για τις καθολικές μεταβλητές"
 
 #: C/anjuta-manual.xml:949(para)
 msgid "You can list all global variables by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Info Global Variable</guimenuitem></menuchoice>. A window will open listing all global variables."
@@ -2186,7 +2187,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:958(title)
 msgid "Information about the current frame"
-msgstr ""
+msgstr "Πληροφορίες για το τρέχον πλαίσιο"
 
 #: C/anjuta-manual.xml:959(para)
 msgid "You can obtain information about the currently selected frame by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Info Current Frame</guimenuitem></menuchoice>. A window will open describing the current frame."
@@ -2194,7 +2195,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:968(title)
 msgid "Information about the current function arguments"
-msgstr ""
+msgstr "Πληροφορίες για τα ορίσματα της τρέχουσας συνάρτησης"
 
 #: C/anjuta-manual.xml:969(para)
 msgid "You can obtain information about the arguments of the current function by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Arguments</guimenuitem></menuchoice>. A window will open describing the arguments."
@@ -2202,7 +2203,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:978(title)
 msgid "User command"
-msgstr ""
+msgstr "Εντολή χρήστη"
 
 #: C/anjuta-manual.xml:979(para)
 msgid "To send directly a command to the back end choose the menu item <menuchoice><guimenu>Debug</guimenu><guimenuitem>Debugger command</guimenuitem></menuchoice>. This will bring a small dialog where you can enter commands that will be send to the debugger when you press <keycap>Return</keycap>."
@@ -2218,11 +2219,11 @@ msgstr "Εργαλείο σχεδίασης διεπαφών Glade"
 
 #: C/anjuta-manual.xml:5(title)
 msgid "Quick start"
-msgstr ""
+msgstr "Γρήγορο ξεκίνημα"
 
 #: C/anjuta-manual.xml:10(para)
 msgid "You should have a project containing Glade file opened;"
-msgstr ""
+msgstr "Πρέπει να έχετε ανοιχτό ένα έργο που να περιλαμβάνει ένα αρχείο Glade·"
 
 #: C/anjuta-manual.xml:13(para)
 msgid "Unlike original Glade designer, Anjuta plugin uses double click for creating handlers for default signal. You can perform a click on widgets (e.g. switch current tab in a GtkNotebook) by keeping \"Windows\" or \"Super\" key pressed;"
@@ -2246,11 +2247,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:6(para)
 msgid "If you don't want to read all this boring manual, here is few steps to get all things ready for use: <placeholder-1/>"
-msgstr ""
+msgstr "Αν δε θέλετε να διαβάσετε όλο αυτό το βαρετό εγχειρίδιο, δείτε τα παρακάτω βασικά βήματα για να ξεκινήσετε γρήγορα: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:52(title)
 msgid "Glade general usage questions"
-msgstr ""
+msgstr "Γενικές ερωτήσεις χρήσης του Glade"
 
 #: C/anjuta-manual.xml:53(para)
 msgid "Glade plugin mostly copies functionality of standalone Glade designer, but there are some special features. The four windows of the Glade desinger are design area, palette, widgets inspector and property editor. They have the same purpose as in the standalone designer, so please consult <ulink type=\"help\" url=\"ghelp:glade\">Glade Interface Designer Manual</ulink> for their description. An extra functionality allows you to use infrastructure of Anjuta more effectively and is described here."
@@ -2258,7 +2259,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:66(title)
 msgid "Editor and designer association"
-msgstr ""
+msgstr "Συσχετισμός επεξεργαστή κειμένου και σχεδιαστή"
 
 #: C/anjuta-manual.xml:67(para)
 msgid "You can associate text editor and Glade designer so you will easily switch between them and automatically insert handler stubs for newly entered handlers. You can associate more then one editor to a designer. The most recent editor or associated with the current toplevel widget will be used. There are two ways of associating editor and designer. The first way is using associations dialog. The second way is to choose designer and editor document in any order and then press <menuchoice><guimenuitem>Glade</guimenuitem><guimenuitem>Associate last designer and editor</guimenuitem></menuchoice> menu item."
@@ -2266,11 +2267,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:83(title)
 msgid "Associations dialog"
-msgstr ""
+msgstr "Διάλογος συσχετισμών"
 
 #: C/anjuta-manual.xml:94(guilabel)
 msgid "Spec regexp"
-msgstr ""
+msgstr "Ειδική καν. έκφραση"
 
 #: C/anjuta-manual.xml:95(para)
 msgid "Shortened from \"special regular expression\". Used for defining a custom position for inserting stubs."
@@ -2298,7 +2299,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:122(title)
 msgid "Default signal"
-msgstr ""
+msgstr "Προεπιλεγμένο σήμα"
 
 #: C/anjuta-manual.xml:123(para)
 msgid "Double click on a widget in the design area will create a new handler for default signal using a predefined template for its naming. For example, the default signal is \"clicked\" for button, \"toggled\" for check box, etc. If <guilabel>Insert handler on edit</guilabel> option is enabled then a new handler stub will be inserted to the position which depends on <guilabel>Position type</guilabel> setting."
@@ -2306,7 +2307,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:134(title)
 msgid "Inserting a stub"
-msgstr ""
+msgstr "Εισαγωγή αρχικού κώδικα"
 
 #: C/anjuta-manual.xml:135(para)
 msgid "One of the most valuable goal of <application>Anjuta</application> and <application>Glade</application> integration is automatical creating of handler stubs, so you will not need to do a lot of routine work for that, it will be done automatically."
@@ -2326,7 +2327,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:141(para)
 msgid "There are several ways to create a stub: <placeholder-1/>"
-msgstr ""
+msgstr "Υπάρχουν διάφοροι τρόπου για να δημιουργήσετε αρχικό κώδικα: <placeholder-1/>"
 
 # #-#-#-#-#  gimp.gimp-2-6.el.po (GIMP 2.6)  #-#-#-#-#
 #
@@ -2363,7 +2364,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:190(guilabel)
 msgid "Handler template"
-msgstr ""
+msgstr "Πρότυπο χειριστή (handler)"
 
 #: C/anjuta-manual.xml:191(para)
 msgid "You can choose between the two formats of automatic naming of signal handler."
@@ -2452,7 +2453,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
 msgid "User-defined Tools"
-msgstr ""
+msgstr "Εργαλεία από το χρήστη"
 
 #: C/anjuta-manual.xml:7(para)
 msgid "You'll sometimes find the built-in functionality provided by Anjuta to be insufficient. In these cases, you might be tempted to either add the feature yourself to the Anjuta codebase or submit a feature request to implement the feature. However, both approaches are likely to be slow and problematic, especially if your tool is a specialized one. In these circumstances, it is advisable to use the Anjuta tools framework instead."
@@ -2464,11 +2465,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:24(para)
 msgid "The tools plugin has to be enabled to use this feature!"
-msgstr ""
+msgstr "Το πρόσθετο εργαλείων έχει ενεργοποιηθεί για να χρησιμοποιεί αυτό το χαρακτηριστικό!"
 
 #: C/anjuta-manual.xml:31(title)
 msgid "Tools Examples"
-msgstr ""
+msgstr "Παραδείγματα εργαλείων"
 
 #: C/anjuta-manual.xml:32(para)
 msgid "This is a simple example how to use the tools plugin to integrate the GNOME ChangeLog generation script."
@@ -2477,7 +2478,7 @@ msgstr ""
 #: C/anjuta-manual.xml:38(title)
 #: C/anjuta-manual.xml:40(screeninfo)
 msgid "The tool editor"
-msgstr ""
+msgstr "Επεξεργαστής εργαλείων"
 
 #: C/anjuta-manual.xml:2(title)
 msgid "Authors"
@@ -2501,731 +2502,16 @@ msgstr "Άδεια χρήσης"
 
 #: C/anjuta-manual.xml:3(para)
 msgid "This program is free software; you can redistribute it and/or modify it under the terms of the <ulink type=\"ghelp\" url=\"gnome-help:gpl\">GNU General Public License</ulink> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-msgstr ""
+msgstr "Αυτό το πρόγραμμα είναι ελεύθερο λογισμικό· επιτρέπεται η αναδιανομή ή/και τροποποίησή του υπό τους όρους της <ulink type=\"ghelp\" url=\"gnome-help:gpl\">Γενικής Άδειας Δημόσιας Χρήσης GNU (GPL)</ulink>, όπως αυτή έχει δημοσιευτεί από το Ίδρυμα Ελεύθερου Λογισμικού (FSF) — είτε της έκδοσης 2 της Άδειας, είτε (κατ' επιλογήν σας) οποιασδήποτε μεταγενέστερης έκδοσης."
 
 #: C/anjuta-manual.xml:10(para)
 msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <citetitle>GNU General Public License</citetitle> for more details."
-msgstr "Το πρόγραμμα αυτό διανέμεται με την ελπίδα ότι θα αποδειχθεί χρήσιμο, παρόλα αυτά ΧΩΡΙΣ ΚΑΜΙΑ ΕΓΓΥΗΣΗ — χωρίς ούτε και την σιωπηρή εγγύηση ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΕΙΔΙΚΟ ΣΚΟΠΟ. Για περισσότερες λεπτομέρειες ανατρέξτε στη <citetitle>Γενική ‘Αδεια Δημόσιας Χρήσης GNU (GPL)</citetitle>."
+msgstr "Το πρόγραμμα αυτό διανέμεται με την ελπίδα ότι θα αποδειχθεί χρήσιμο, παρόλα αυτά ΧΩΡΙΣ ΚΑΜΙΑ ΕΓΓΥΗΣΗ — χωρίς ούτε και την σιωπηρή εγγύηση ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΕΙΔΙΚΟ ΣΚΟΠΟ. Για περισσότερες λεπτομέρειες ανατρέξτε στη <citetitle>Γενική Άδεια Δημόσιας Χρήσης GNU (GPL)</citetitle>."
 
 #: C/anjuta-manual.xml:16(para)
 msgid "A copy of the <citetitle>GNU General Public License</citetitle> is included as an appendix to the <citetitle>GNOME Users Guide</citetitle>. You may also obtain a copy of the <citetitle>GNU General Public License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\"> their Web site</ulink> or by writing to <address> Free Software Foundation, Inc. <street>51 Franklin Street</street> Fifth Floor <city>Boston</city>, <state>MA</state><postcode>02110-1301</postcode><country>USA</country></address>"
-msgstr ""
+msgstr "Αντίγραφο της <citetitle>Γενικής Άδειας Δημόσιας Χρήσης GNU (GPL)</citetitle> περιλαμβάνεται ως παράρτημα στον <citetitle>Οδηγό χρήστη GNOME</citetitle>. Επίσης, αντίγραφο της <citetitle>Γενικής Άδειας Δημόσιας Χρήσης GNU (GPL)</citetitle> μπορείτε να παραλάβετε από το Ίδρυμα Ελεύθερου Λογισμικού (FSF), είτε επισκεπτόμενοι τον <ulink type=\"http\" url=\"http://www.fsf.org\">ιστοχώρο</ulink> του, είτε γράφοντας στη διεύθυνση <address> Free Software Foundation, Inc. <street>51 Franklin Street, Fifth Floor</street> <city>Boston</city>, <state>MA</state><postcode>02110-1301</postcode><country>USA</country></address>"
 
-# #-#-#-#-#  gnotski.gnome-2-26.el.po (packagename)  #-#-#-#-#
-# άλλαξα λίγο την διατύπωση
-# #-#-#-#-#  workspace-switcher.master.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  system-admin-guide.master.el.po (system-admin-guide.HEAD)  #-#-#-#-#
-# #-#-#-#-#  stickynotes_applet.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  user-guide.master.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  stickynotes_applet.gnome-2-26.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  seahorse-plugins-help.gnome-2-26.el.po (seahorse-plugins-help.master)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.gnome-2-26.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  clock.master.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  accerciser.gnome-2-26.el.po (accerciser.HEAD.el)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnect.gnome-2-26.el.po (packagename)  #-#-#-#-#
-# άλλαξα λίγο την διατύπωση
-# #-#-#-#-#  window-list.master.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  swfdec-gnome.master.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.gnome-2-22.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  stickynotes_applet.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  accessibility-guide.master.el.po (accessibility-guide.master)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  evolution-help.gnome-2-26.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  fish.master.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  tracker.master.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.gnome-2-22.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  stickynotes_applet.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  user-guide.HEAD.el.po (user-guide.docs)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  workspace-switcher.HEAD.el.po (workspace-switcher)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  fish.HEAD.el.po (fish)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  window-list.HEAD.el.po (window-list)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  clock.HEAD.el.po (clock)  #-#-#-#-#
-# #-#-#-#-#  accerciser.HEAD.el.po (accerciser)  #-#-#-#-#
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-system-monitor.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.HEAD.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-##
-# #-#-#-#-#  gnome-power-manager.gnome-2-26.el.po (el)  #-#-#-#-#
-# #-#-#-#-#  nautilus.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  procman.HEAD.el.po (el)  #-#-#-#-#
-#
-# #-#-#-#-#  nautilus.gnome-2-26.el.po (el)  #-#-#-#-#
-#
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
