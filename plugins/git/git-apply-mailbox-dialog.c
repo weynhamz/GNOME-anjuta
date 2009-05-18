@@ -35,10 +35,10 @@ on_apply_mailbox_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
-		apply_mailbox_file_chooser_button = glade_xml_get_widget (data->gxml,
-		                                                          "apply_mailbox_file_chooser_button");
-		apply_mailbox_signoff_check = glade_xml_get_widget (data->gxml,
-		                                                    "apply_mailbox_signoff_check");
+		apply_mailbox_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                      					"apply_mailbox_file_chooser_button"));
+		apply_mailbox_signoff_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                				  "apply_mailbox_signoff_check"));
 		path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (apply_mailbox_file_chooser_button));
 
 		if (git_check_input (GTK_WIDGET (dialog), apply_mailbox_file_chooser_button, path, 
@@ -74,14 +74,25 @@ on_apply_mailbox_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 apply_mailbox_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"apply_mailbox_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GitUIData *data;
+
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	gxml = glade_xml_new (GLADE_FILE, "apply_mailbox_dialog", NULL);
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
-	dialog = glade_xml_get_widget (gxml, "apply_mailbox_dialog");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "apply_mailbox_dialog"));
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_apply_mailbox_dialog_response), 

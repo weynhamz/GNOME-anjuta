@@ -59,12 +59,16 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		merge_branch_combo = glade_xml_get_widget (data->gxml, "merge_branch_combo");
-		no_commit_check = glade_xml_get_widget (data->gxml, "no_commit_check");
-		squash_check = glade_xml_get_widget (data->gxml, "squash_check");
-		use_custom_log_check = glade_xml_get_widget (data->gxml,
-													 "use_custom_log_check");
-		merge_log_view = glade_xml_get_widget (data->gxml, "merge_log_view");
+		merge_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                         "merge_branch_combo"));
+		no_commit_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                      "no_commit_check"));
+		squash_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                   "squash_check"));
+		use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																   "use_custom_log_check"));
+		merge_log_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                     "merge_log_view"));
 		log = NULL;
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_custom_log_check)))
@@ -126,7 +130,9 @@ on_use_custom_log_check_toggled (GtkToggleButton *toggle_button, GtkWidget *merg
 static void
 merge_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"merge_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *merge_branch_combo;
 	GtkWidget *use_custom_log_check;
@@ -135,13 +141,21 @@ merge_dialog (Git *plugin)
 	GitBranchComboData *data;
 	GitBranchListCommand *list_command;
 	
-	gxml = glade_xml_new (GLADE_FILE, "merge_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "merge_dialog");
-	merge_branch_combo = glade_xml_get_widget (gxml, "merge_branch_combo");
-	use_custom_log_check = glade_xml_get_widget (gxml, 
-												 "use_custom_log_check");
-	merge_log_view = glade_xml_get_widget (gxml, "merge_log_view");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "merge_dialog"));
+	merge_branch_combo = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                         "merge_branch_combo"));
+	use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															   "use_custom_log_check"));
+	merge_log_view = GTK_WIDGET (gtk_builder_get_object (bxml, "merge_log_view"));
 	branch_list_store = git_branch_combo_model_new ();
 	
 	gtk_combo_box_set_model (GTK_COMBO_BOX (merge_branch_combo), 
@@ -149,7 +163,7 @@ merge_dialog (Git *plugin)
 	git_branch_combo_model_setup_widget (merge_branch_combo);
 	
 	data = git_branch_combo_data_new (branch_list_store, 
-									  GTK_COMBO_BOX (merge_branch_combo), gxml, 
+									  GTK_COMBO_BOX (merge_branch_combo), bxml, 
 									  plugin);
 	
 	list_command = git_branch_list_command_new (plugin->project_root_directory,

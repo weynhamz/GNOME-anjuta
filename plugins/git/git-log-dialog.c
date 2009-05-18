@@ -35,7 +35,7 @@ enum
 typedef struct
 {
 	Git *plugin;
-	GladeXML *gxml;
+	GtkBuilder *bxml;
 	GtkListStore *list_store;
 	GtkCellRenderer *graph_renderer;
 	gchar *path;
@@ -125,7 +125,7 @@ create_columns (LogData *data)
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	font_size = PANGO_PIXELS (pango_font_description_get_size (GTK_WIDGET (log_changes_view)->style->font_desc));
 	
 	/* Ref info */
@@ -210,7 +210,7 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 		return;
 	}
 	
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	
 	g_object_ref (data->list_store);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_changes_view), NULL);
@@ -273,7 +273,7 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	/* If the user is using any filters or getting the log of an individual,
 	 * file or folder, hide the graph column, because we can't be assured that  
 	 * the graph will be correct in these cases */
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
 	graph_column = gtk_tree_view_get_column (GTK_TREE_VIEW (log_changes_view),
 											 1);
 	
@@ -329,12 +329,13 @@ on_log_view_button_clicked (GtkButton *button, LogData *data)
 	
 	path = NULL;
 	
-	log_whole_project_check = glade_xml_get_widget (data->gxml,
-													"log_whole_project_check");
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+										  "log_whole_project_check"));
 	
 	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (log_whole_project_check)))
 	{
-		log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
+		log_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                     "log_path_entry"));
 		path = gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
 		
 		/* Log widget belongs to the shell at this point. */
@@ -376,10 +377,41 @@ on_log_view_button_clicked (GtkButton *button, LogData *data)
 }
 
 static void
+on_log_browse_button_clicked (GtkButton *button, LogData *data)
+{
+	GtkWidget *log_file_entry;
+	GtkWidget *file_chooser_dialog;
+	gchar *filename;
+	gint response;
+
+	log_file_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                     "log_path_entry"));
+
+	file_chooser_dialog = gtk_file_chooser_dialog_new (_("Select a file"),
+	                                                   NULL,
+	                                                   GTK_FILE_CHOOSER_ACTION_OPEN,
+				  									   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				  									   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				  									   NULL);
+
+	response = gtk_dialog_run (GTK_DIALOG (file_chooser_dialog));
+
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (file_chooser_dialog));
+		gtk_entry_set_text (GTK_ENTRY (log_file_entry), filename);
+
+		g_free (filename);
+	}
+
+	gtk_widget_destroy (file_chooser_dialog);
+}
+
+static void
 on_log_vbox_destroy (GtkObject *log_vbox, LogData *data)
 {
 	g_free (data->path);
-	g_object_unref (data->gxml);
+	g_object_unref (data->bxml);
 	
 	if (data->refs)
 		g_hash_table_unref (data->refs);
@@ -397,7 +429,7 @@ on_log_message_command_finished (AnjutaCommand *command, guint return_code,
 	GtkTextBuffer *buffer;
 	gchar *log_message;
 	
-	log_text_view = glade_xml_get_widget (data->gxml, "log_text_view");
+	log_text_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_text_view"));
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (log_text_view));
 	log_message = git_log_message_command_get_message (GIT_LOG_MESSAGE_COMMAND (command));
 	
@@ -628,18 +660,18 @@ on_log_filter_clear_button_clicked (GtkButton *button, LogData *data)
 	GtkWidget *log_filter_from_entry;
 	GtkWidget *log_filter_to_entry;
 	
-	log_filter_author_entry = glade_xml_get_widget (data->gxml,
-													"log_filter_author_entry");
-	log_filter_grep_entry = glade_xml_get_widget (data->gxml,
-												  "log_filter_grep_entry");
-	log_filter_from_check = glade_xml_get_widget (data->gxml,
-												  "log_filter_from_check");
-	log_filter_to_check = glade_xml_get_widget (data->gxml,
-												"log_filter_to_check");
-	log_filter_from_entry = glade_xml_get_widget (data->gxml,
-												  "log_filter_from_entry");
-	log_filter_to_entry = glade_xml_get_widget (data->gxml,
-												"log_filter_to_entry");
+	log_filter_author_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "log_filter_author_entry"));
+	log_filter_grep_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_grep_entry"));
+	log_filter_from_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_from_check"));
+	log_filter_to_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "log_filter_to_check"));
+	log_filter_from_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_from_entry"));
+	log_filter_to_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "log_filter_to_entry"));
 	
 	gtk_entry_set_text (GTK_ENTRY (log_filter_author_entry), "");
 	gtk_entry_set_text (GTK_ENTRY (log_filter_grep_entry), "");
@@ -670,24 +702,24 @@ setup_filters (LogData *data)
 	data->filters = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
 										   g_free);
 	
-	log_filter_author_entry = glade_xml_get_widget (data->gxml,
-													"log_filter_author_entry");
-	log_filter_grep_entry = glade_xml_get_widget (data->gxml,
-												  "log_filter_grep_entry");
-	log_filter_from_check = glade_xml_get_widget (data->gxml,
-												  "log_filter_from_check");
-	log_filter_to_check = glade_xml_get_widget (data->gxml,
-												"log_filter_to_check");
-	log_filter_from_calendar = glade_xml_get_widget (data->gxml,
-													 "log_filter_from_calendar");
-	log_filter_to_calendar = glade_xml_get_widget (data->gxml,
-												   "log_filter_to_calendar");
-	log_filter_from_entry = glade_xml_get_widget (data->gxml,
-												  "log_filter_from_entry");
-	log_filter_to_entry = glade_xml_get_widget (data->gxml,
-												"log_filter_to_entry");
-	log_filter_clear_button = glade_xml_get_widget (data->gxml,
-													"log_filter_clear_button");
+	log_filter_author_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "log_filter_author_entry"));
+	log_filter_grep_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_grep_entry"));
+	log_filter_from_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_from_check"));
+	log_filter_to_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "log_filter_to_check"));
+	log_filter_from_calendar = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																   "log_filter_from_calendar"));
+	log_filter_to_calendar = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															     "log_filter_to_calendar"));
+	log_filter_from_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"log_filter_from_entry"));
+	log_filter_to_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "log_filter_to_entry"));
+	log_filter_clear_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "log_filter_clear_button"));
 	
 	/* Each widget that has some kind of filter must have a "filter name"
 	 * associated with it so that we can generically see how many filters 
@@ -764,29 +796,47 @@ GtkWidget *
 git_log_window_create (Git *plugin)
 {
 	LogData *data;
+	gchar *objects[] = {"log_window", NULL};
+	GError *error;
 	GtkWidget *log_window;
 	GtkWidget *log_vbox;
 	GtkWidget *log_changes_view;
 	GtkWidget *log_view_button;
+	GtkWidget *log_browse_button;
 	GtkWidget *log_whole_project_check;
 	GtkWidget *log_path_entry;
+	GtkWidget *log_path_entry_hbox;
 	GtkTreeSelection *selection;
 	
 	data = g_new0 (LogData, 1);
-	data->gxml = glade_xml_new (GLADE_FILE, "log_window", NULL);
+	data->bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (data->bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
 	data->plugin = plugin;
 	data->path = NULL;
 	data->graph_renderer = giggle_graph_renderer_new ();
 	
-	log_window = glade_xml_get_widget (data->gxml, "log_window");
-	log_vbox = glade_xml_get_widget (data->gxml, "log_vbox");
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
-	log_whole_project_check = glade_xml_get_widget (data->gxml, 
-													"log_whole_project_check");
-	log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
-	log_view_button = glade_xml_get_widget (data->gxml, 
-											"log_view_button");
+	log_window = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_window"));
+	log_vbox = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_vbox"));
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                       "log_changes_view"));
+	log_view_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														  "log_view_button"));
+	log_browse_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                        "log_browse_button"));
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																  "log_whole_project_check"));
+	log_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                     "log_path_entry"));
+	log_path_entry_hbox = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                          "log_path_entry_hbox"));
 	
 	g_object_set_data (G_OBJECT (log_vbox), "log-data", data);
 	
@@ -795,6 +845,7 @@ git_log_window_create (Git *plugin)
 	g_signal_connect (G_OBJECT (log_changes_view), "query-tooltip",
 					  G_CALLBACK (on_log_changes_view_query_tooltip),
 					  data);
+	
 	g_signal_connect (G_OBJECT (log_changes_view), "button-press-event",
 					  G_CALLBACK (on_log_changes_view_button_press_event),
 					  plugin);
@@ -803,9 +854,14 @@ git_log_window_create (Git *plugin)
 	g_signal_connect (G_OBJECT (log_view_button), "clicked",
 					  G_CALLBACK (on_log_view_button_clicked),
 					  data);
+
+	g_signal_connect (G_OBJECT (log_browse_button), "clicked",
+	                  G_CALLBACK (on_log_browse_button_clicked),
+	                  data);
 	
 	g_object_set_data (G_OBJECT (log_whole_project_check), "file-entry",
-					   log_path_entry);
+					   log_path_entry_hbox);
+	                  
 	g_signal_connect (G_OBJECT (log_whole_project_check), "toggled",
 					  G_CALLBACK (on_git_whole_project_toggled), plugin);
 	
@@ -846,10 +902,10 @@ on_fm_git_log (GtkAction *action, Git *plugin)
 	GtkWidget *log_whole_project_check;
 	
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
-	log_path_entry = glade_xml_get_widget (data->gxml, 
-										   "log_path_entry");
-	log_whole_project_check = glade_xml_get_widget (data->gxml,
-													"log_whole_project_check");
+	log_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														 "log_path_entry"));
+	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "log_whole_project_check"));
 	
 	gtk_entry_set_text (GTK_ENTRY (log_path_entry), 
 						plugin->current_fm_filename);
@@ -868,7 +924,7 @@ git_log_window_clear (Git *plugin)
 	GtkTextBuffer *buffer;
 	
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
-	log_text_view = glade_xml_get_widget (data->gxml, "log_text_view");
+	log_text_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_text_view"));
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (log_text_view));
 	
 	gtk_list_store_clear (data->list_store);
@@ -886,7 +942,8 @@ git_log_get_selected_revision (Git *plugin)
 	GtkTreeIter iter;
 	
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
-	log_changes_view = glade_xml_get_widget (data->gxml, "log_changes_view");
+	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                       "log_changes_view"));
 	revision = NULL;
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (log_changes_view));
@@ -905,7 +962,8 @@ git_log_get_path (Git *plugin)
 	GtkWidget *log_path_entry;
 	
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
-	log_path_entry = glade_xml_get_widget (data->gxml, "log_path_entry");
+	log_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                     "log_path_entry"));
 	
 	return gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
 }

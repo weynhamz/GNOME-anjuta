@@ -34,14 +34,14 @@ enum
 
 GitBranchComboData *
 git_branch_combo_data_new (GtkListStore *model, GtkComboBox *combo_box,
-						   GladeXML *gxml, Git *plugin)
+						   GtkBuilder *bxml, Git *plugin)
 {
 	GitBranchComboData *data;
 	
 	data = g_new0 (GitBranchComboData, 1);
 	data->model = model;
 	data->combo_box = combo_box;
-	data->gxml = gxml;
+	data->bxml = bxml;
 	data->plugin = plugin;
 	
 	return data;
@@ -50,7 +50,7 @@ git_branch_combo_data_new (GtkListStore *model, GtkComboBox *combo_box,
 void
 git_branch_combo_data_free (GitBranchComboData *data)
 {
-	g_object_unref (data->gxml);
+	g_object_unref (data->bxml);
 	g_free (data);
 }
 

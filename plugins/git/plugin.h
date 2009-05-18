@@ -43,7 +43,7 @@ extern GType git_get_type (GTypeModule *module);
 typedef struct _Git Git;
 typedef struct _GitClass GitClass;
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-git.glade"
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-git.ui"
 #define ICON_FILE "anjuta-git-plugin-48.png"
 
 struct _Git

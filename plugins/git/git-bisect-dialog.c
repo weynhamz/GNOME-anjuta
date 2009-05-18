@@ -37,12 +37,12 @@ on_bisect_start_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		bisect_start_revision_radio = glade_xml_get_widget (data->gxml,
-															"bisect_start_revision_radio");
-		bisect_start_bad_revision_entry = glade_xml_get_widget (data->gxml,
-																"bisect_start_bad_revision_entry");
-		bisect_start_good_revision_entry = glade_xml_get_widget (data->gxml,
-																 "bisect_start_good_revision_entry");
+		bisect_start_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																		  "bisect_start_revision_radio"));
+		bisect_start_bad_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																			  "bisect_start_bad_revision_entry"));
+		bisect_start_good_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																			 "bisect_start_good_revision_entry"));
 		bad_revision = "";
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (bisect_start_revision_radio)))
@@ -97,10 +97,10 @@ on_bisect_start_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *bisect_start_revision_entry;
 	gboolean active;
 	
-	bisect_start_dialog = glade_xml_get_widget (data->gxml, 
-												"bisect_start_dialog");
-	bisect_start_revision_entry = glade_xml_get_widget (data->gxml,
-														"bisect_start_bad_revision_entry");
+	bisect_start_dialog = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															  "bisect_start_dialog"));
+	bisect_start_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														              "bisect_start_bad_revision_entry"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (bisect_start_revision_entry, active);
@@ -116,16 +116,27 @@ on_bisect_start_revision_radio_toggled (GtkToggleButton *toggle_button,
 static void
 bisect_start_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"bisect_start_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *bisect_start_revision_radio;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "bisect_start_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "bisect_start_dialog");
-	bisect_start_revision_radio = glade_xml_get_widget (gxml, 
-														"bisect_start_revision_radio");
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "bisect_start_dialog"));
+	bisect_start_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml, 
+																	  "bisect_start_revision_radio"));
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_bisect_start_dialog_response), 

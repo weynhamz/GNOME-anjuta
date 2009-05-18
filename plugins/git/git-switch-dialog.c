@@ -52,7 +52,8 @@ on_switch_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		switch_branch_combo = glade_xml_get_widget (data->gxml, "switch_branch_combo");
+		switch_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                          "switch_branch_combo"));
 
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (switch_branch_combo), &iter);
 		branch = git_branch_combo_model_get_branch (data->model, &iter);
@@ -82,17 +83,28 @@ on_switch_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 switch_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"switch_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *switch_branch_combo;
 	GtkListStore *branch_list_store;
 	GitBranchComboData *data;
 	GitBranchListCommand *list_command;
 	
-	gxml = glade_xml_new (GLADE_FILE, "switch_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "switch_dialog");
-	switch_branch_combo = glade_xml_get_widget (gxml, "switch_branch_combo");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "switch_dialog"));
+	switch_branch_combo = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                          "switch_branch_combo"));
 	branch_list_store = git_branch_combo_model_new ();
 	
 	gtk_combo_box_set_model (GTK_COMBO_BOX (switch_branch_combo), 
@@ -100,7 +112,7 @@ switch_dialog (Git *plugin)
 	git_branch_combo_model_setup_widget (switch_branch_combo);
 	
 	data = git_branch_combo_data_new (branch_list_store, 
-									  GTK_COMBO_BOX (switch_branch_combo), gxml, 
+									  GTK_COMBO_BOX (switch_branch_combo), bxml, 
 									  plugin);
 	
 	list_command = git_branch_list_command_new (plugin->project_root_directory,

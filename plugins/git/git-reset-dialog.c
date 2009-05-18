@@ -38,14 +38,14 @@ on_reset_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		reset_revision_radio = glade_xml_get_widget (data->gxml, 
-													 "reset_revision_radio");
-		reset_revision_entry = glade_xml_get_widget (data->gxml, 
-													 "reset_revision_entry");
-		reset_soft_radio = glade_xml_get_widget (data->gxml,
-												 "reset_soft_radio");
-		reset_hard_radio = glade_xml_get_widget (data->gxml,
-												 "reset_hard_radio");
+		reset_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																   "reset_revision_radio"));
+		reset_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																   "reset_revision_entry"));
+		reset_soft_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															   "reset_soft_radio"));
+		reset_hard_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															   "reset_hard_radio"));
 		revision = NULL;
 		mode = GIT_RESET_TREE_MODE_MIXED;
 		
@@ -105,10 +105,10 @@ on_reset_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *reset_revision_entry;
 	gboolean active;
 	
-	reset_dialog = glade_xml_get_widget (data->gxml, 
-										 "reset_dialog");
-	reset_revision_entry = glade_xml_get_widget (data->gxml,
-												 "reset_revision_entry");
+	reset_dialog = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+													   "reset_dialog"));
+	reset_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															   "reset_revision_entry"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (reset_revision_entry, active);
@@ -124,19 +124,30 @@ on_reset_revision_radio_toggled (GtkToggleButton *toggle_button,
 static void
 reset_dialog (Git *plugin, const gchar *revision)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"reset_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *reset_revision_radio;
 	GtkWidget *reset_revision_entry;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "reset_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "reset_dialog");
-	reset_revision_radio = glade_xml_get_widget (gxml, 
-												 "reset_revision_radio");
-	reset_revision_entry = glade_xml_get_widget (gxml, 
-												 "reset_revision_entry");
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "reset_dialog"));
+	reset_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															   "reset_revision_radio"));
+	reset_revision_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															   "reset_revision_entry"));
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_reset_dialog_response), 

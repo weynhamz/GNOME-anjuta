@@ -73,18 +73,18 @@ on_create_tag_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		tag_name_entry = glade_xml_get_widget (data->gxml, 
-											   "tag_name_entry");
-		tag_revision_radio = glade_xml_get_widget (data->gxml, 
-												   "tag_revision_radio");
-		tag_revision_entry = glade_xml_get_widget (data->gxml, 
-												   "tag_revision_entry");
-		tag_force_check = glade_xml_get_widget (data->gxml,
-												"tag_force_check");
-		tag_annotate_check = glade_xml_get_widget (data->gxml,
-												   "tag_annotate_check");
-		tag_log_view = glade_xml_get_widget (data->gxml,
-											 "tag_log_view");
+		tag_name_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															 "tag_name_entry"));
+		tag_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															     "tag_revision_radio"));
+		tag_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																 "tag_revision_entry"));
+		tag_force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "tag_force_check"));
+		tag_annotate_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																 "tag_annotate_check"));
+		tag_log_view = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														   "tag_log_view"));
 		
 		tag_name = gtk_editable_get_chars (GTK_EDITABLE (tag_name_entry),
 										   0, -1);
@@ -168,10 +168,10 @@ on_tag_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *tag_revision_entry;
 	gboolean active;
 	
-	create_tag_dialog = glade_xml_get_widget (data->gxml, 
-											  "create_tag_dialog");
-	tag_revision_entry = glade_xml_get_widget (data->gxml,
-											   "tag_revision_entry");
+	create_tag_dialog = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														    "create_tag_dialog"));
+	tag_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															 "tag_revision_entry"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (tag_revision_entry, active);
@@ -195,7 +195,9 @@ on_tag_annotate_check_toggled (GtkToggleButton *toggle_button,
 static void
 create_tag_dialog (Git *plugin, const gchar *revision)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"create_tag_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *tag_revision_radio;
 	GtkWidget *tag_revision_entry;
@@ -203,17 +205,26 @@ create_tag_dialog (Git *plugin, const gchar *revision)
 	GtkWidget *tag_log_view;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "create_tag_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "create_tag_dialog");
-	tag_revision_radio = glade_xml_get_widget (gxml, 
-											   "tag_revision_radio");
-	tag_revision_entry = glade_xml_get_widget (gxml, 
-											   "tag_revision_entry");
-	tag_annotate_check = glade_xml_get_widget (gxml, 
-											   "tag_annotate_check");
-	tag_log_view = glade_xml_get_widget (gxml,
-										 "tag_log_view");
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects,
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "create_tag_dialog"));
+	tag_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml, 
+														     "tag_revision_radio"));
+	tag_revision_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+														     "tag_revision_entry"));
+	tag_annotate_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+														     "tag_annotate_check"));
+	tag_log_view = GTK_WIDGET (gtk_builder_get_object (bxml,
+													   "tag_log_view"));
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_create_tag_dialog_response), 

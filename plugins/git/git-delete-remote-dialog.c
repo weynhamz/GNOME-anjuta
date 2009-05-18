@@ -35,8 +35,8 @@ on_delete_remote_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		delete_remote_branch_combo = glade_xml_get_widget (data->gxml, 
-														   "delete_remote_combo");
+		delete_remote_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																		 "delete_remote_combo"));
 
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (delete_remote_branch_combo), 
 									   &iter);
@@ -89,10 +89,10 @@ on_remote_list_command_finished (AnjutaCommand *command, guint return_code,
 	GtkWidget *delete_remote_combo;
 	GtkTreeIter iter;
 	
-	delete_remote_ok_button = glade_xml_get_widget (data->gxml, 
-													"delete_remote_ok_button");
-	delete_remote_combo = glade_xml_get_widget (data->gxml,
-												"delete_remote_combo");
+	delete_remote_ok_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																  "delete_remote_ok_button"));
+	delete_remote_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															  "delete_remote_combo"));
 	
 	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (data->model), 
 									   &iter))
@@ -105,18 +105,28 @@ on_remote_list_command_finished (AnjutaCommand *command, guint return_code,
 static void
 delete_remote_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"delete_remote_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *delete_remote_combo;
 	GtkListStore *branch_list_store;
 	GitBranchComboData *data;
 	GitRemoteListCommand *list_command;
 	
-	gxml = glade_xml_new (GLADE_FILE, "delete_remote_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "delete_remote_dialog");
-	delete_remote_combo = glade_xml_get_widget (gxml, 
-												"delete_remote_combo");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_remote_dialog"));
+	delete_remote_combo = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															  "delete_remote_combo"));
 	branch_list_store = git_branch_combo_model_new ();
 	
 	gtk_combo_box_set_model (GTK_COMBO_BOX (delete_remote_combo), 
@@ -124,7 +134,7 @@ delete_remote_dialog (Git *plugin)
 	git_branch_combo_model_setup_widget (delete_remote_combo);
 	
 	data = git_branch_combo_data_new (branch_list_store, 
-									  GTK_COMBO_BOX (delete_remote_combo), gxml, 
+									  GTK_COMBO_BOX (delete_remote_combo), bxml, 
 									  plugin);
 	
 	list_command = git_remote_list_command_new (plugin->project_root_directory);

@@ -32,11 +32,11 @@ typedef struct
 } PulseProgressData;
 
 GitUIData* 
-git_ui_data_new (Git* plugin, GladeXML* gxml)
+git_ui_data_new (Git* plugin, GtkBuilder *bxml)
 {
 	GitUIData* data = g_new0 (GitUIData, 1);
 	data->plugin = plugin;
-	data->gxml = gxml;
+	data->bxml = bxml;
 	
 	return data;
 }
@@ -44,7 +44,7 @@ git_ui_data_new (Git* plugin, GladeXML* gxml)
 void 
 git_ui_data_free (GitUIData* data)
 {
-	g_object_unref (data->gxml);
+	g_object_unref (data->bxml);
 	g_free (data);
 }
 

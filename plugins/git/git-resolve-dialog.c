@@ -51,7 +51,8 @@ on_resolve_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		resolve_status_view = glade_xml_get_widget (data->gxml, "resolve_status_view");
+		resolve_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                          "resolve_status_view"));
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (resolve_status_view));
 		add_command = git_add_command_new_list (data->plugin->project_root_directory,
 												selected_paths, FALSE);
@@ -72,7 +73,9 @@ on_resolve_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 resolve_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"resolve_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *resolve_select_all_button;
 	GtkWidget *resolve_clear_button;
@@ -81,13 +84,24 @@ resolve_dialog (Git *plugin)
 	GitStatusCommand *status_command;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "resolve_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "resolve_dialog");
-	resolve_select_all_button = glade_xml_get_widget (gxml, "resolve_select_all_button");
-	resolve_clear_button = glade_xml_get_widget (gxml, "resolve_clear_button");
-	resolve_status_view = glade_xml_get_widget (gxml, "resolve_status_view");
-	resolve_status_progress_bar = glade_xml_get_widget (gxml, "resolve_status_progress_bar");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "resolve_dialog"));
+	resolve_select_all_button = GTK_WIDGET(gtk_builder_get_object (bxml, "resolve_select_all_button"));
+	resolve_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                           "resolve_clear_button"));
+	resolve_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                          "resolve_status_view"));
+	resolve_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                                  "resolve_status_progress_bar"));
 	
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_NOT_UPDATED);
@@ -124,7 +138,7 @@ resolve_dialog (Git *plugin)
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_resolve_dialog_response), 

@@ -59,23 +59,24 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		pull_origin_check = glade_xml_get_widget (data->gxml, 
-		                                          "pull_origin_check");
-		pull_rebase_check = glade_xml_get_widget (data->gxml,
-		                                          "pull_rebase_check");
-		pull_url_entry = glade_xml_get_widget (data->gxml, "pull_url_entry");
-		pull_no_commit_check = glade_xml_get_widget (data->gxml, 
-													 "pull_no_commit_check");
-		pull_squash_check = glade_xml_get_widget (data->gxml,
-												  "pull_squash_check");
-		pull_fast_forward_commit_check = glade_xml_get_widget (data->gxml,
-															   "pull_fast_forward_commit_check");
-		pull_append_fetch_data_check = glade_xml_get_widget (data->gxml,
-															 "pull_append_fetch_data_check");
-		pull_force_check = glade_xml_get_widget (data->gxml, 
-												 "pull_force_check");
-		pull_no_follow_tags_check = glade_xml_get_widget (data->gxml,
-														  "pull_no_follow_tags_check");
+		pull_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                      					"pull_origin_check"));
+		pull_rebase_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                      					"pull_rebase_check"));
+		pull_url_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                     "pull_url_entry"));
+		pull_no_commit_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																   "pull_no_commit_check"));
+		pull_squash_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																"pull_squash_check"));
+		pull_fast_forward_commit_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																			 "pull_fast_forward_commit_check"));
+		pull_append_fetch_data_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																			"pull_append_fetch_data_check"));
+		pull_force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															   "pull_force_check"));
+		pull_no_follow_tags_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																		"pull_no_follow_tags_check"));
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pull_origin_check)))
 		    url = g_strdup ("origin");
@@ -122,17 +123,30 @@ on_pull_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 pull_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"pull_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *pull_origin_check;
 	GtkWidget *pull_url_entry;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "pull_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "pull_dialog");
-	pull_origin_check = glade_xml_get_widget (gxml, "pull_origin_check");
-	pull_url_entry = glade_xml_get_widget (gxml, "pull_url_entry");
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "pull_dialog"));
+	pull_origin_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                        "pull_origin_check"));
+	pull_url_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                     "pull_url_entry"));
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_pull_dialog_response), 

@@ -54,7 +54,7 @@ on_remote_add_command_finished (AnjutaCommand *command, guint return_code,
 
 static void
 on_add_remote_dialog_response (GtkDialog *dialog, gint response_id, 
-								  GitUIData *data)
+							   GitUIData *data)
 {
 	GtkWidget *add_remote_name_entry;
 	GtkWidget *add_remote_url_entry;
@@ -67,12 +67,12 @@ on_add_remote_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		add_remote_name_entry = glade_xml_get_widget (data->gxml, 
-													  "add_remote_name_entry");
-		add_remote_url_entry = glade_xml_get_widget (data->gxml, 
-													 "add_remote_url_entry");
-		add_remote_fetch_check = glade_xml_get_widget (data->gxml, 
-													   "add_remote_fetch_check");
+		add_remote_name_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	"add_remote_name_entry"));
+		add_remote_url_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																   "add_remote_url_entry"));
+		add_remote_fetch_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	 "add_remote_fetch_check"));
 	
 		branch_name = gtk_editable_get_chars (GTK_EDITABLE (add_remote_name_entry),
 											  0, -1);
@@ -143,14 +143,25 @@ on_add_remote_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 add_remote_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"add_remote_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GitUIData *data;
-	
-	gxml = glade_xml_new (GLADE_FILE, "add_remote_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "add_remote_dialog");
 
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "add_remote_dialog"));
+
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_add_remote_dialog_response), 

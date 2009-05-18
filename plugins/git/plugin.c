@@ -48,7 +48,7 @@
 #include "git-push-dialog.h"
 #include "git-apply-mailbox-dialog.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
 static gpointer parent_class;
 

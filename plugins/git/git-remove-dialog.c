@@ -53,9 +53,10 @@ on_remove_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
-		remove_file_chooser_button = glade_xml_get_widget (data->gxml, 
-													"remove_file_chooser_button");
-		force_check = glade_xml_get_widget (data->gxml, "force_check");
+		remove_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	     "remove_file_chooser_button"));
+		force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                  "force_check"));
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (remove_file_chooser_button));
 		
 		if (git_check_input (GTK_WIDGET (dialog), remove_file_chooser_button, filename, 
@@ -87,23 +88,33 @@ on_remove_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 remove_dialog (Git *plugin, const gchar *filename)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"remove_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *remove_file_chooser_button;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "remove_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "remove_dialog");
-	remove_file_chooser_button = glade_xml_get_widget (gxml, 
-													   "remove_file_chooser_button");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "remove_dialog"));
+	remove_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+																	 "remove_file_chooser_button"));
 	if (filename)
 	{
 		gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (remove_file_chooser_button),
 									   filename);
 	}
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_remove_dialog_response), 

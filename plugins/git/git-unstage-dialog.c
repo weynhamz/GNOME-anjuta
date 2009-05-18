@@ -51,7 +51,8 @@ on_unstage_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		unstage_status_view = glade_xml_get_widget (data->gxml, "unstage_status_view");
+		unstage_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                          "unstage_status_view"));
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (unstage_status_view));
 		reset_files_command = git_reset_files_command_new (data->plugin->project_root_directory,
 														   GIT_RESET_FILES_HEAD,
@@ -73,7 +74,8 @@ on_unstage_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 unstage_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *unstage_select_all_button;
 	GtkWidget *unstage_clear_button;
@@ -82,13 +84,24 @@ unstage_dialog (Git *plugin)
 	GitStatusCommand *status_command;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "unstage_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "unstage_dialog");
-	unstage_select_all_button = glade_xml_get_widget (gxml, "unstage_select_all_button");
-	unstage_clear_button = glade_xml_get_widget (gxml, "unstage_clear_button");
-	unstage_status_view = glade_xml_get_widget (gxml, "unstage_status_view");
-	unstage_status_progress_bar = glade_xml_get_widget (gxml, "unstage_status_progress_bar");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "unstage_dialog"));
+	unstage_select_all_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                                "unstage_select_all_button"));
+	unstage_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                           "unstage_clear_button"));
+	unstage_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                          "unstage_status_view"));
+	unstage_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                                  "unstage_status_progress_bar"));
 	
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_COMMIT);
@@ -125,7 +138,7 @@ unstage_dialog (Git *plugin)
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_unstage_dialog_response), 

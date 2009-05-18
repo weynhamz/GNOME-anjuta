@@ -37,7 +37,7 @@
 
 typedef struct
 {
-	GladeXML* gxml;
+	GtkBuilder *bxml;
 	Git* plugin;
 } GitUIData;
 
@@ -48,7 +48,7 @@ typedef struct
 	gchar *text;
 } GitProgressData;
 
-GitUIData* git_ui_data_new (Git* plugin, GladeXML* gxml);
+GitUIData* git_ui_data_new (Git* plugin, GtkBuilder *bxml);
 void git_ui_data_free (GitUIData* data);
 GitProgressData *git_progress_data_new (Git *plugin, const gchar *text);
 void git_progress_data_free (GitProgressData *data);

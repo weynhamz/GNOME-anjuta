@@ -55,11 +55,14 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
-		push_origin_check = glade_xml_get_widget (data->gxml, 
-		                                          "push_origin_check");
-		push_url_entry = glade_xml_get_widget (data->gxml, "push_url_entry");
-		push_all_check = glade_xml_get_widget (data->gxml, "push_all_check");
-		push_tags_check = glade_xml_get_widget (data->gxml, "push_tags_check");
+		push_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                      					"push_origin_check"));
+		push_url_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                     "push_url_entry"));
+		push_all_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                     "push_all_check"));
+		push_tags_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                      "push_tags_check"));
 
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_origin_check)))
 			url = g_strdup ("origin");
@@ -108,19 +111,31 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 push_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"push_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *push_origin_check;
 	GtkWidget *push_url_entry;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "push_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "push_dialog");
-	push_origin_check = glade_xml_get_widget (gxml, "push_origin_check");
-	push_url_entry = glade_xml_get_widget (gxml, "push_url_entry");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "push_dialog"));
+	push_origin_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                        "push_origin_check"));
+	push_url_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                     "push_url_entry"));
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_push_dialog_response), 

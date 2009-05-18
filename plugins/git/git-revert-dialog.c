@@ -35,10 +35,10 @@ on_revert_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
-		revert_revision_entry = glade_xml_get_widget (data->gxml, 
-													  "revert_revision_entry");
-		revert_no_commit_check = glade_xml_get_widget (data->gxml, 
-													   "revert_no_commit_check");
+		revert_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	"revert_revision_entry"));
+		revert_no_commit_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	 "revert_no_commit_check"));
 		revision = gtk_editable_get_chars (GTK_EDITABLE (revert_revision_entry),
 										   0, -1);
 		
@@ -77,18 +77,28 @@ on_revert_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 revert_dialog (Git *plugin, const gchar *revision)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"revert_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *revert_revision_entry;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "revert_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "revert_dialog");
-	revert_revision_entry = glade_xml_get_widget (gxml, 
-												  "revert_revision_entry");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "revert_dialog"));
+	revert_revision_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+																"revert_revision_entry"));
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	if (revision)
 		gtk_entry_set_text (GTK_ENTRY (revert_revision_entry), revision);

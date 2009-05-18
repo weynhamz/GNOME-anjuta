@@ -51,7 +51,7 @@ on_checkout_files_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		checkout_status_view = glade_xml_get_widget (data->gxml, "checkout_status_view");
+		checkout_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "checkout_status_view"));
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (checkout_status_view));
 		checkout_files_command = git_checkout_files_command_new (data->plugin->project_root_directory,
 																 selected_paths);
@@ -72,7 +72,9 @@ on_checkout_files_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 checkout_files_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"checkout_files_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *checkout_select_all_button;
 	GtkWidget *checkout_clear_button;
@@ -81,13 +83,21 @@ checkout_files_dialog (Git *plugin)
 	GitStatusCommand *status_command;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "checkout_files_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "checkout_files_dialog");
-	checkout_select_all_button = glade_xml_get_widget (gxml, "checkout_select_all_button");
-	checkout_clear_button = glade_xml_get_widget (gxml, "checkout_clear_button");
-	checkout_status_view = glade_xml_get_widget (gxml, "checkout_status_view");
-	checkout_status_progress_bar = glade_xml_get_widget (gxml, "checkout_status_progress_bar");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_files_dialog"));
+	checkout_select_all_button = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_select_all_button"));
+	checkout_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_clear_button"));
+	checkout_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_status_view"));
+	checkout_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_status_progress_bar"));
 	
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_NOT_UPDATED);
@@ -124,7 +134,7 @@ checkout_files_dialog (Git *plugin)
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_checkout_files_dialog_response), 

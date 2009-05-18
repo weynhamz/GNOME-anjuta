@@ -53,9 +53,9 @@ on_add_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
-		add_file_chooser_button = glade_xml_get_widget (data->gxml, 
-													"add_file_chooser_button");
-		force_check = glade_xml_get_widget (data->gxml, "force_check");
+		add_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	  "add_file_chooser_button"));
+		force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, "force_check"));
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (add_file_chooser_button));
 		
 		if (git_check_input (GTK_WIDGET (dialog), add_file_chooser_button, filename, 
@@ -87,16 +87,26 @@ on_add_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 add_dialog (Git *plugin, const gchar *filename)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"add_dialog", NULL};;
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *add_file_chooser_button;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "add_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "add_dialog");
-	add_file_chooser_button = glade_xml_get_widget (gxml, 
-													"add_file_chooser_button");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "add_dialog"));
+	add_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                              "add_file_chooser_button"));
 	
 	if (filename)
 	{
@@ -104,7 +114,7 @@ add_dialog (Git *plugin, const gchar *filename)
 									   filename);
 	}
 	
-	data = git_ui_data_new (plugin, gxml);
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_add_dialog_response), 

@@ -34,14 +34,14 @@ typedef struct
 {
 	GtkListStore *model;
 	GtkComboBox *combo_box;
-	GladeXML *gxml;  /* Seems redundant, but we don't know what the combo box
+	GtkBuilder *bxml;  /* Seems redundant, but we don't know what the combo box
 					  * is called in the glade file. */
 	Git *plugin;
 } GitBranchComboData;
 
 GitBranchComboData *git_branch_combo_data_new (GtkListStore *model, 
 											   GtkComboBox *combo_box, 
-											   GladeXML *gxml, Git *plugin);
+											   GtkBuilder *bxml, Git *plugin);
 void git_branch_combo_data_free (GitBranchComboData *data);
 GtkListStore *git_branch_combo_model_new (void);
 void git_branch_combo_model_setup_widget (GtkWidget *widget);

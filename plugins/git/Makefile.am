@@ -2,11 +2,11 @@
 
 # Plugin glade file
 git_gladedir = $(anjuta_glade_dir)
-git_glade_DATA = anjuta-git.glade
+git_glade_DATA = anjuta-git.ui
 
 # Plugin UI file
 git_uidir = $(anjuta_ui_dir)
-git_ui_DATA =  anjuta-git.ui
+git_ui_DATA =  anjuta-git.xml
 
 # Plugin Icon file
 git_pixmapsdir = $(anjuta_image_dir)

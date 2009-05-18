@@ -69,14 +69,14 @@ on_create_branch_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		branch_name_entry = glade_xml_get_widget (data->gxml, 
-												  "branch_name_entry");
-		branch_checkout_check = glade_xml_get_widget (data->gxml, 
-													  "branch_checkout_check");
-		branch_revision_radio = glade_xml_get_widget (data->gxml, 
-													  "branch_revision_radio");
-		branch_revision_entry = glade_xml_get_widget (data->gxml, 
-													  "branch_revision_entry");
+		branch_name_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																"branch_name_entry"));
+		branch_checkout_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	"branch_checkout_check"));
+		branch_revision_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	"branch_revision_radio"));
+		branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																    "branch_revision_entry"));
 		branch_name = gtk_editable_get_chars (GTK_EDITABLE (branch_name_entry),
 											  0, -1);
 		revision = NULL;
@@ -138,10 +138,10 @@ on_branch_revision_radio_toggled (GtkToggleButton *toggle_button,
 	GtkWidget *branch_revision_entry;
 	gboolean active;
 	
-	create_branch_dialog = glade_xml_get_widget (data->gxml, 
-												 "create_branch_dialog");
-	branch_revision_entry = glade_xml_get_widget (data->gxml,
-												  "branch_revision_entry");
+	create_branch_dialog = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+															   "create_branch_dialog"));
+	branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+															    "branch_revision_entry"));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (branch_revision_entry, active);
@@ -157,19 +157,30 @@ on_branch_revision_radio_toggled (GtkToggleButton *toggle_button,
 static void
 create_branch_dialog (Git *plugin, const gchar *revision)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"create_branch_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *branch_revision_radio;
 	GtkWidget *branch_revision_entry;
 	GitUIData *data;
 	
-	gxml = glade_xml_new (GLADE_FILE, "create_branch_dialog", NULL);
-	dialog = glade_xml_get_widget (gxml, "create_branch_dialog");
-	branch_revision_radio = glade_xml_get_widget (gxml, 
-												  "branch_revision_radio");
-	branch_revision_entry = glade_xml_get_widget (gxml, 
-												  "branch_revision_entry");
-	data = git_ui_data_new (plugin, gxml);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+	
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "create_branch_dialog"));
+	branch_revision_radio = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															    "branch_revision_radio"));
+	branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
+																"branch_revision_entry"));
+	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_create_branch_dialog_response), 

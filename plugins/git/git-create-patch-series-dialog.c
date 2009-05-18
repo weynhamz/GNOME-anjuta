@@ -39,14 +39,14 @@ on_create_patch_series_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		patch_series_origin_check = glade_xml_get_widget (data->gxml, 
-		                                                  "patch_series_origin_check");
-		patch_series_branch_combo = glade_xml_get_widget (data->gxml, 
-														  "patch_series_branch_combo");
-		patch_series_file_chooser_button = glade_xml_get_widget (data->gxml, 
-																 "patch_series_file_chooser_button");
-		patch_series_signoff_check = glade_xml_get_widget (data->gxml, 
-														   "patch_series_signoff_check");
+		patch_series_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                              				    "patch_series_origin_check"));
+		patch_series_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	    "patch_series_branch_combo"));
+		patch_series_file_chooser_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																			   "patch_series_file_chooser_button"));
+		patch_series_signoff_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																		 "patch_series_signoff_check"));
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (patch_series_origin_check)))
 		    branch = g_strdup ("origin");
@@ -87,7 +87,9 @@ on_create_patch_series_dialog_response (GtkDialog *dialog, gint response_id,
 static void
 create_patch_series_dialog (Git *plugin)
 {
-	GladeXML *gxml;
+	GtkBuilder *bxml;
+	gchar *objects[] = {"patch_series_dialog", NULL};
+	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *patch_series_origin_check;
 	GtkWidget *patch_series_branch_combo;
@@ -95,13 +97,21 @@ create_patch_series_dialog (Git *plugin)
 	GitBranchComboData *data;
 	GitBranchListCommand *list_command;
 	
-	gxml = glade_xml_new (GLADE_FILE, "patch_series_dialog", NULL);
+	bxml = gtk_builder_new ();
+	error = NULL;
+
+	if (!gtk_builder_add_objects_from_file (bxml, BUILDER_FILE, objects, 
+	                                        &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
 	
-	dialog = glade_xml_get_widget (gxml, "patch_series_dialog");
-	patch_series_origin_check = glade_xml_get_widget (gxml, 
-	                                                  "patch_series_origin_check");
-	patch_series_branch_combo = glade_xml_get_widget (gxml, 
-													  "patch_series_branch_combo");
+	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_series_dialog"));
+	patch_series_origin_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                              				    "patch_series_origin_check"));
+	patch_series_branch_combo = GTK_WIDGET (gtk_builder_get_object (bxml, 
+																    "patch_series_branch_combo"));
 	branch_list_store = git_branch_combo_model_new ();
 	
 	gtk_combo_box_set_model (GTK_COMBO_BOX (patch_series_branch_combo), 
@@ -110,7 +120,7 @@ create_patch_series_dialog (Git *plugin)
 	
 	data = git_branch_combo_data_new (branch_list_store, 
 									  GTK_COMBO_BOX (patch_series_branch_combo),  
-									  gxml, plugin);
+									  bxml, plugin);
 	
 	list_command = git_branch_list_command_new (plugin->project_root_directory,
 												GIT_BRANCH_TYPE_ALL);
