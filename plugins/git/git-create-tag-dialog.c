@@ -62,6 +62,7 @@ on_create_tag_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *tag_revision_radio;
 	GtkWidget *tag_revision_entry;
 	GtkWidget *tag_force_check;
+	GtkWidget *tag_sign_check;
 	GtkWidget *tag_annotate_check;
 	GtkWidget *tag_log_view;
 	gchar *log;
@@ -81,6 +82,8 @@ on_create_tag_dialog_response (GtkDialog *dialog, gint response_id,
 																 "tag_revision_entry"));
 		tag_force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 															  "tag_force_check"));
+		tag_sign_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                     "tag_sign_check"));
 		tag_annotate_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 																 "tag_annotate_check"));
 		tag_log_view = GTK_WIDGET (gtk_builder_get_object (data->bxml,
@@ -143,6 +146,7 @@ on_create_tag_dialog_response (GtkDialog *dialog, gint response_id,
 													 tag_name,
 													 revision,
 													 log,
+		                                             gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tag_sign_check)),
 													 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tag_force_check)));
 		
 		g_free (tag_name);

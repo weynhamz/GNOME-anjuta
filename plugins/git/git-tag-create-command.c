@@ -29,6 +29,7 @@ struct _GitTagCreateCommandPriv
 	gchar *name;
 	gchar *revision;
 	gchar *log;
+	gboolean sign;
 	gboolean force;
 };
 
@@ -70,6 +71,9 @@ git_tag_create_command_run (AnjutaCommand *command)
 		git_command_add_arg (GIT_COMMAND (command), "-m");
 		git_command_add_arg (GIT_COMMAND (command), self->priv->log);
 	}
+
+	if (self->priv->sign)
+		git_command_add_arg (GIT_COMMAND (command), "-s");
 	
 	if (self->priv->force)
 		git_command_add_arg (GIT_COMMAND (command), "-f");
@@ -98,7 +102,8 @@ git_tag_create_command_class_init (GitTagCreateCommandClass *klass)
 GitTagCreateCommand *
 git_tag_create_command_new (const gchar *working_directory, 
 							const gchar *name, const gchar *revision,
-							const gchar *log, gboolean force)
+							const gchar *log, 
+                            gboolean sign, gboolean force)
 {
 	GitTagCreateCommand *self;
 	
@@ -110,6 +115,7 @@ git_tag_create_command_new (const gchar *working_directory,
 	self->priv->name = g_strdup (name);
 	self->priv->revision = g_strdup (revision);
 	self->priv->log = g_strdup (log);
+	self->priv->sign = sign;
 	self->priv->force = force;
 	
 	return self;

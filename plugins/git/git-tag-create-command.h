@@ -58,6 +58,7 @@ GitTagCreateCommand *git_tag_create_command_new (const gchar *working_directory,
 												 const gchar *name,
 												 const gchar *revision, 
 												 const gchar *log,
+                                                 gboolean sign,
 												 gboolean force);
 gchar *git_tag_create_command_get_tag_name (GitTagCreateCommand *self);
 
