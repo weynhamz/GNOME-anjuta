@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-05-16 20:44+0000\n"
-"PO-Revision-Date: 2009-05-17 22:26+0200\n"
+"POT-Creation-Date: 2009-05-18 22:39+0000\n"
+"PO-Revision-Date: 2009-05-19 20:28+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1155,7 +1155,7 @@ msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:84
+#: ../plugins/git/anjuta-git.glade.h:83
 msgid "Revision:"
 msgstr "Revisión:"
 
@@ -1188,7 +1188,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:99
+#: ../plugins/git/anjuta-git.glade.h:98
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -1212,8 +1212,8 @@ msgstr "No se puede borrar el archivo"
 #: ../plugins/cvs-plugin/cvs-callbacks.c:245
 #: ../plugins/git/git-commit-dialog.c:79
 #: ../plugins/git/git-create-tag-dialog.c:127
-#: ../plugins/git/git-merge-dialog.c:80
-#: ../plugins/subversion/subversion-commit-dialog.c:70
+#: ../plugins/git/git-merge-dialog.c:84
+#: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "¿Seguro que quiere pasar un un mensaje vacío de registro?"
 
@@ -1840,7 +1840,7 @@ msgid "From"
 msgstr "De"
 
 #: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.glade.h:93
+#: ../plugins/git/anjuta-git.glade.h:92
 msgid "To"
 msgstr "Para"
 
@@ -4123,88 +4123,82 @@ msgid "Remove File"
 msgstr "Quitar archivo"
 
 #: ../plugins/git/anjuta-git.glade.h:78
-#| msgid "Repository authorization"
-msgid "Repositiory origin"
-msgstr "Origen del repositorio"
-
-#: ../plugins/git/anjuta-git.glade.h:79
-#| msgid "Repository authorization"
 msgid "Repository origin"
 msgstr "Origen del repositorio"
 
-#: ../plugins/git/anjuta-git.glade.h:80
+#: ../plugins/git/anjuta-git.glade.h:79
 msgid "Reset Tree"
 msgstr "Restablecer árbol"
 
-#: ../plugins/git/anjuta-git.glade.h:81
+#: ../plugins/git/anjuta-git.glade.h:80
 msgid "Retrieving status..."
 msgstr "Obteniendo el estado…"
 
-#: ../plugins/git/anjuta-git.glade.h:82
+#: ../plugins/git/anjuta-git.glade.h:81
 msgid "Revert Commit"
 msgstr "Revertir commit"
 
-#: ../plugins/git/anjuta-git.glade.h:83
+#: ../plugins/git/anjuta-git.glade.h:82
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
-#: ../plugins/git/anjuta-git.glade.h:85
+#: ../plugins/git/anjuta-git.glade.h:84
 msgid "Select A Folder"
 msgstr "Seleccionar una carpeta"
 
-#: ../plugins/git/anjuta-git.glade.h:86
+#: ../plugins/git/anjuta-git.glade.h:85
 msgid "Select Mailbox File"
 msgstr "Seleccionar el archivo del buzón de correo"
 
-#: ../plugins/git/anjuta-git.glade.h:87
+#: ../plugins/git/anjuta-git.glade.h:86
 msgid "Set Conflicts as Resolved"
 msgstr "Establecer conflictos como resueltos"
 
-#: ../plugins/git/anjuta-git.glade.h:88
+#: ../plugins/git/anjuta-git.glade.h:87
 msgid "Soft"
 msgstr "Blando"
 
-#: ../plugins/git/anjuta-git.glade.h:89
+#: ../plugins/git/anjuta-git.glade.h:88
 msgid "Squash"
 msgstr "Aplastar (squash)"
 
-#: ../plugins/git/anjuta-git.glade.h:90
+#: ../plugins/git/anjuta-git.glade.h:89
 msgid "Switch to Another Branch"
 msgstr "Cambiar a otra rama"
 
-#: ../plugins/git/anjuta-git.glade.h:91
+#: ../plugins/git/anjuta-git.glade.h:90
 msgid "Tag/Commit"
 msgstr "Etiqueta/Commit"
 
-#: ../plugins/git/anjuta-git.glade.h:92
+#: ../plugins/git/anjuta-git.glade.h:91
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
-#: ../plugins/git/anjuta-git.glade.h:94
+#: ../plugins/git/anjuta-git.glade.h:93
 msgid "To:"
 msgstr "Para:"
 
-#: ../plugins/git/anjuta-git.glade.h:95
+#: ../plugins/git/anjuta-git.glade.h:94
 msgid "Unstage Files"
 msgstr "Realizar «unstage» de archivos"
 
-#: ../plugins/git/anjuta-git.glade.h:96
+#: ../plugins/git/anjuta-git.glade.h:95
 msgid "Use a custom log message"
 msgstr "Usar un mensaje de registro personalizado"
 
-#: ../plugins/git/anjuta-git.glade.h:97
+#: ../plugins/git/anjuta-git.glade.h:96
 msgid "Use custom author information:"
 msgstr "Usar información personalizada del autor:"
 
-#: ../plugins/git/anjuta-git.glade.h:98
+#: ../plugins/git/anjuta-git.glade.h:97
 msgid "View log"
 msgstr "Ver el registro"
 
-#: ../plugins/git/anjuta-git.glade.h:100
+#: ../plugins/git/anjuta-git.glade.h:99
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: ../plugins/git/anjuta-git.glade.h:101
+#: ../plugins/git/anjuta-git.glade.h:100
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
@@ -4212,7 +4206,7 @@ msgstr "gtk-ok"
 msgid "Git: File staged for add."
 msgstr "Git: Archivo «staged» que añadir."
 
-#: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:62
+#: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:63
 msgid "Please select a file."
 msgstr "Seleccione un archivo."
 
@@ -4304,7 +4298,7 @@ msgstr "Autor"
 msgid "Git: Retrieving log..."
 msgstr "Git: Obteniendo el registro…"
 
-#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/git/git-log-dialog.c:345
 #: ../plugins/subversion/subversion-add-dialog.c:65
 #: ../plugins/subversion/subversion-diff-dialog.c:116
 #: ../plugins/subversion/subversion-remove-dialog.c:98
@@ -4312,17 +4306,22 @@ msgstr "Git: Obteniendo el registro…"
 msgid "Please enter a path."
 msgstr "Introduzca una ruta."
 
-#: ../plugins/git/git-log-dialog.c:505
+#: ../plugins/git/git-log-dialog.c:390
+#| msgid "Select file"
+msgid "Select a file"
+msgstr "Seleccionar un archivo"
+
+#: ../plugins/git/git-log-dialog.c:537
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Rama:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:510
+#: ../plugins/git/git-log-dialog.c:542
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Etiqueta:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:515
+#: ../plugins/git/git-log-dialog.c:547
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
@@ -4335,7 +4334,7 @@ msgstr "Git: Mezcla completada."
 msgid "Git: Pull complete."
 msgstr "Git: Carga completa"
 
-#: ../plugins/git/git-pull-dialog.c:83
+#: ../plugins/git/git-pull-dialog.c:87
 msgid "Please enter the URL of the repository to pull from."
 msgstr "Introduzca el URL del repositorio del que descargar."
 
@@ -4343,11 +4342,11 @@ msgstr "Introduzca el URL del repositorio del que descargar."
 msgid "Git: Push complete."
 msgstr "Git: Subida completa."
 
-#: ../plugins/git/git-push-dialog.c:72
+#: ../plugins/git/git-push-dialog.c:75
 msgid "Please enter the URL of the repository to push to."
 msgstr "Introduzca el URL del repositorio en el que subir."
 
-#: ../plugins/git/git-push-dialog.c:82
+#: ../plugins/git/git-push-dialog.c:85
 msgid "Git: Pushing..."
 msgstr "Git: Subiendo…"
 
@@ -6958,15 +6957,15 @@ msgstr "Copiar…"
 msgid "Diff..."
 msgstr "Diff…"
 
-#: ../plugins/subversion/plugin.c:455
+#: ../plugins/subversion/plugin.c:488
 msgid "Subversion operations"
 msgstr "Operaciones de Subversion"
 
-#: ../plugins/subversion/plugin.c:461
+#: ../plugins/subversion/plugin.c:494
 msgid "Subversion popup operations"
 msgstr "Operaciones emergentes de Subversion"
 
-#: ../plugins/subversion/plugin.c:493
+#: ../plugins/subversion/plugin.c:526
 msgid "Subversion Log"
 msgstr "Registro de Subversion"
 
@@ -6978,7 +6977,7 @@ msgstr "Subversion: El archivo se añadirá en la siguiente operación."
 msgid "Subversion: Commit complete."
 msgstr "Subversion: Carga completada."
 
-#: ../plugins/subversion/subversion-commit-dialog.c:93
+#: ../plugins/subversion/subversion-commit-dialog.c:123
 msgid "Subversion: Committing changes to the repository..."
 msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
 
@@ -7997,6 +7996,10 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~| msgid "Repository authorization"
+#~ msgid "Repositiory origin"
+#~ msgstr "Origen del repositorio"
 
 #~ msgid "<b>Build</b>"
 #~ msgstr "<b>Construir</b>"
