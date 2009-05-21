@@ -60,6 +60,8 @@
 #define PREF_INDENT_TAB_INDENTS "language.cpp.indent.tab.indents"
 #define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
+#define PREF_INDENT_PARANTHESE_LINEUP "language.cpp.indent.paranthese.lineup"
+#define PREF_INDENT_PARANTHESE_SIZE "language.cpp.indent.paranthese.size"
 #define PREF_BRACE_AUTOCOMPLETION "language.cpp.brace.autocompletion"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
@@ -1066,22 +1068,36 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		else if (point_ch == '(' || point_ch == '[')
 		{
 			line_indent = 0;
-			while (ianjuta_iterable_previous (iter, NULL))
+			if (anjuta_preferences_get_bool (plugin->prefs,
+			                                 PREF_INDENT_PARANTHESE_LINEUP))
 			{
-				gchar dummy_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-														 NULL);
-				if (iter_is_newline (iter, dummy_ch))
+				while (ianjuta_iterable_previous (iter, NULL))
 				{
-					skip_iter_to_newline_head (iter, dummy_ch);
-					break;
+					gchar dummy_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+					                                               NULL);
+					if (iter_is_newline (iter, dummy_ch))
+					{
+						skip_iter_to_newline_head (iter, dummy_ch);
+						break;
+					}
+					if (dummy_ch == '\t')
+						line_indent += TAB_SIZE;
+					else
+						(*line_indent_spaces)++;
 				}
-				if (dummy_ch == '\t')
-					line_indent += TAB_SIZE;
-				else
-					(*line_indent_spaces)++;
+				(*line_indent_spaces)++;
+				line_indent += extra_indent;
 			}
-			(*line_indent_spaces)++;
-			line_indent += extra_indent;
+			else
+			{
+				gint line_for_indent =
+					ianjuta_editor_get_line_from_position (editor, iter, NULL);
+				line_indent = get_line_indentation (editor, line_for_indent);
+				line_indent += extra_indent;
+
+				(*line_indent_spaces) += anjuta_preferences_get_int (plugin->prefs,
+				                                                     PREF_INDENT_PARANTHESE_SIZE);
+			}
 			
 			/* Although statement is incomplete at this point, we don't
 			 * set it to incomplete and just leave it to unknown to avaoid
