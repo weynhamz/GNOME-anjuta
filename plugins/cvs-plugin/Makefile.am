@@ -1,6 +1,6 @@
 # Plugin glade file
 cvs_plugin_gladedir = $(anjuta_glade_dir)
-cvs_plugin_glade_DATA = anjuta-cvs-plugin.glade
+cvs_plugin_glade_DATA = anjuta-cvs-plugin.ui
 
 cvs_plugin_pixmapsdir = $(anjuta_image_dir)
 cvs_plugin_pixmaps_DATA = \
@@ -27,8 +27,7 @@ plugin_LTLIBRARIES = libanjuta-cvs-plugin.la
 libanjuta_cvs_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_cvs_plugin_la_LIBADD = \
-	$(GLADE_LIBS) \
-  $(GIO_LIBS) \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_cvs_plugin_la_SOURCES = \
@@ -43,7 +42,7 @@ libanjuta_cvs_plugin_la_SOURCES = \
 	cvs-interface.c \
 	cvs-interface.h
 	
-prefs_glade_files = anjuta-cvs-plugin.glade
+prefs_ui_files = anjuta-cvs-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

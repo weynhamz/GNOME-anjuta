@@ -22,7 +22,7 @@
 
 typedef struct
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	CVSPlugin* plugin;
 } CVSData;
 
@@ -39,7 +39,7 @@ enum
 	SERVER_PASSWORD = 2,
 };
 
-CVSData* cvs_data_new(CVSPlugin* plugin, GladeXML* gxml);
+CVSData* cvs_data_new(CVSPlugin* plugin, GtkBuilder* bxml);
 void cvs_data_free(CVSData* data);
 
 void

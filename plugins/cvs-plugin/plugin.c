@@ -457,10 +457,15 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	/* Create the messages preferences page */
-	GladeXML* gxml;
-	gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
-	anjuta_preferences_add_page (prefs, gxml, "cvs", _("CVS"), ICON_FILE);
-	g_object_unref (gxml);
+	GError* error = NULL;
+	GtkBuilder *bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
+	anjuta_preferences_add_from_builder (prefs, bxml, "cvs", _("CVS"), ICON_FILE);
+	g_object_unref (bxml);
 }
 
 static void

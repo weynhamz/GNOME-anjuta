@@ -40,7 +40,7 @@ plugins/class-gen/plugin.c
 plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
-plugins/cvs-plugin/anjuta-cvs-plugin.glade
+plugins/cvs-plugin/anjuta-cvs-plugin.ui
 plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-callbacks.c
 plugins/cvs-plugin/cvs-execute.c

@@ -23,7 +23,6 @@
 #include "cvs-execute.h"
 #include "cvs-callbacks.h"
 
-#include "glade/glade.h"
 #include "libgen.h"
 
 #include <libanjuta/anjuta-preferences.h>
@@ -46,13 +45,13 @@ void cvs_diff_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 void cvs_status_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 void cvs_log_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 
-static void on_server_type_changed(GtkComboBox* combo, GladeXML* gxml)
+static void on_server_type_changed(GtkComboBox* combo, GtkBuilder* bxml)
 {
 	GtkWidget* username;
 	GtkWidget* password;
 	
-	username = glade_xml_get_widget(gxml, "cvs_username");
-	password = glade_xml_get_widget(gxml, "cvs_password");
+	username = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_username"));
+	password = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_password"));
 	
 	switch (gtk_combo_box_get_active(combo))
 	{
@@ -129,23 +128,29 @@ on_browse_button_clicked(GtkButton *button, GtkEntry *entry)
 
 void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* button;
 	CVSData* data;
-	gxml = glade_xml_new(GLADE_FILE, "cvs_add", NULL);
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	dialog = glade_xml_get_widget(gxml, "cvs_add");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_add"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_add_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_ADD_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_ADD_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_add_response), data);
 	
@@ -154,24 +159,29 @@ void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* button;
 	CVSData* data;
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_remove", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "cvs_remove");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_remove"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_remove_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_REMOVE_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_REMOVE_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_remove_response), data);
 	
@@ -181,31 +191,36 @@ void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
 	GtkWidget* button;
 	CVSData* data;
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_commit", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "cvs_commit");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_commit"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_commit_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	project = glade_xml_get_widget(gxml, "cvs_project");
+	project = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_commit_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_COMMIT_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_COMMIT_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_commit_response), data);
 	
@@ -215,31 +230,36 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
 	GtkWidget* button;
 	CVSData* data;
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_update", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "cvs_update");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_update"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_update_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	project = glade_xml_get_widget(gxml, "cvs_project");
+	project = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_update_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_UPDATE_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_UPDATE_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_update_response), data);
 	
@@ -248,7 +268,7 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* diff_type;
@@ -256,31 +276,36 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* project;
 	GtkWidget* button;
 	CVSData* data;
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_diff", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "cvs_diff");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_diff"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_diff_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	project = glade_xml_get_widget(gxml, "cvs_project");
+	project = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_diff_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
 	
-	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
-	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
+	diff_type = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_diff_type"));
+	unified_diff = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_unified"));
 	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
 	g_signal_connect(G_OBJECT(diff_type), "changed", 
 		G_CALLBACK(on_diff_type_changed), unified_diff);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_DIFF_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_DIFF_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_diff_response), data);
 	
@@ -289,31 +314,36 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
 	GtkWidget* button;
 	CVSData* data;
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_status", NULL);
-	
-	dialog = glade_xml_get_widget(gxml, "cvs_status");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_status"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_status_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
-	project = glade_xml_get_widget(gxml, "cvs_project");
+	project = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_status_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_STATUS_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_STATUS_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_status_response), data);
 	
@@ -322,31 +352,36 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 
 void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
 	GtkWidget* project;
 	GtkWidget* button;
 	CVSData* data;
-
-	gxml = glade_xml_new(GLADE_FILE, "cvs_logdialog", NULL);
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	dialog = glade_xml_get_widget(gxml, "cvs_logdialog");
-	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_logdialog"));
+	fileentry = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_logdialog_filename"));
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
-	project = glade_xml_get_widget(gxml, "cvs_project");
+	project = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_logdialog_project"));
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
 	init_whole_project(plugin, project);
 
-	button = glade_xml_get_widget(gxml, BROWSE_BUTTON_LOG_DIALOG);
+	button = GTK_WIDGET(gtk_builder_get_object(bxml, BROWSE_BUTTON_LOG_DIALOG));
 	g_signal_connect(G_OBJECT(button), "clicked", 
 		G_CALLBACK(on_browse_button_clicked), fileentry);
 
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_log_response), data);
 	
@@ -385,26 +420,32 @@ void on_menu_cvs_status (GtkAction* action, CVSPlugin* plugin)
 
 void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* dialog; 
 	GtkFileChooser* dir;
 	GtkWidget* typecombo;
 	CVSData* data;
 	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_import", NULL);
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
 	
-	dialog = glade_xml_get_widget(gxml, "cvs_import");
-	dir = GTK_FILE_CHOOSER (glade_xml_get_widget(gxml, "cvs_rootdir"));
-	typecombo = glade_xml_get_widget(gxml, "cvs_server_type");
+	dialog = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_import"));
+	dir = GTK_FILE_CHOOSER (gtk_builder_get_object(bxml, "cvs_rootdir"));
+	typecombo = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_server_type"));
 	
 	g_signal_connect (G_OBJECT(typecombo), "changed", 
-		G_CALLBACK(on_server_type_changed), gxml);
+		G_CALLBACK(on_server_type_changed), bxml);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(typecombo), SERVER_LOCAL);
 	
 	if (plugin->project_root_dir)
 		gtk_file_chooser_set_filename(dir, plugin->project_root_dir);
 	
-	data = cvs_data_new(plugin, gxml);
+	data = cvs_data_new(plugin, bxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_import_response), data);
 	

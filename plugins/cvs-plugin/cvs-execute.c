@@ -28,7 +28,6 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include <unistd.h>
-#include <glade/glade.h>
 
 #define CVS_ICON ""
 #define CVS_INFO_REGEXP "(cvs update:.|cvs server:.)"
@@ -268,12 +267,18 @@ cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 void
 cvs_execute_status(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 {
-	GladeXML* gxml;
+	GtkBuilder* bxml;
 	GtkWidget* window;
-	
-	gxml = glade_xml_new(GLADE_FILE, "cvs_status_output", NULL);
-	window = glade_xml_get_widget(gxml, "cvs_status_output");
-	status_text = glade_xml_get_widget(gxml, "cvs_status_text");
+	GError* error = NULL;
+	bxml = gtk_builder_new();
+	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
+	{
+		g_warning("Couldn't load builder file: %s", error->message);
+		g_error_free(error);
+	}
+
+	window = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_status_output"));
+	status_text = GTK_WIDGET(gtk_builder_get_object(bxml, "cvs_status_text"));
 	
 	g_signal_connect(G_OBJECT(window), "delete-event", 
 		G_CALLBACK(on_cvs_status_destroy), status_text);

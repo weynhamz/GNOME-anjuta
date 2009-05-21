@@ -5,7 +5,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_CFLAGS) \
-	$(GLADE_CFLAGS) \
+	$(GLADE_DEPRECATED_CFLAGS) \
 	$(LIBXML_CFLAGS) \
 	-I$(top_srcdir) \
 	-DDATADIR="\"$(datadir)\"" \
@@ -20,7 +20,7 @@ libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
 	$(GNOME_LIBS) \
-	$(GLADE_LIBS) \
+	$(GLADE_DEPRECATED_LIBS) \
 	$(GLIB_LIBS)
 
 libanjuta_la_SOURCES= \

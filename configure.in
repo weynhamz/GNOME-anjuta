@@ -139,7 +139,7 @@ PKG_CHECK_MODULES(GDK_PIXBUF, gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED)
 
 PKG_CHECK_MODULES(ORBIT, ORBit-2.0 >= $ORBIT_REQUIRED)
 
-PKG_CHECK_MODULES(GLADE, libglade-2.0 >= $LIBGLADE_REQUIRED)
+PKG_CHECK_MODULES(GLADE_DEPRECATED, libglade-2.0 >= $LIBGLADE_REQUIRED)
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED libgnomeui-2.0 >= $GNOME_REQUIRED)
 
@@ -267,7 +267,7 @@ PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(GLIB_CFLAGS) $(GTK_CFLAGS) $(GDL_CFLAGS) $(GNOME_CFLAGS) $(GLADE_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
+LIBANJUTA_CFLAGS='$(GLIB_CFLAGS) $(GTK_CFLAGS) $(GDL_CFLAGS) $(GNOME_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)

@@ -27,7 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.ui"
 
 extern GType cvs_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_CVS         (cvs_plugin_get_type (NULL))

@@ -18,7 +18,6 @@
 #include "cvs-callbacks.h"
 #include "cvs-execute.h"
 #include "cvs-interface.h"
-#include "glade/glade.h"
 
 static gchar* get_log_from_textview(GtkWidget* textview)
 {
@@ -84,11 +83,11 @@ is_busy (CVSPlugin* plugin, GtkDialog* dialog)
 	return FALSE;
 }
 
-CVSData* cvs_data_new(CVSPlugin* plugin, GladeXML* gxml)
+CVSData* cvs_data_new(CVSPlugin* plugin, GtkBuilder* bxml)
 {
 	CVSData* data = g_new0(CVSData, 1);
 	data->plugin = plugin;
-	data->gxml = gxml;
+	data->bxml = bxml;
 	
 	return data;
 }
@@ -108,8 +107,8 @@ on_cvs_add_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		GtkWidget* binary = glade_xml_get_widget(data->gxml, "cvs_binary");
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* binary = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_binary"));
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_add_filename"));
 	
 		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 		if (!check_filename(dialog, filename))
@@ -140,7 +139,7 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_remove_filename"));
 		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 		
 		if (!check_filename(dialog, filename))
@@ -185,15 +184,15 @@ on_cvs_update_response(GtkDialog* dialog, gint response, CVSData* data)
 		GtkWidget* norecurse;
 		GtkWidget* removesticky;
 		GtkWidget* revisionentry;
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_update_filename"));
 		const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		removedir = glade_xml_get_widget(data->gxml, "cvs_removedir");
-		createdir = glade_xml_get_widget(data->gxml, "cvs_createdir");
-		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
+		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_update_norecurse"));
+		removedir = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_removedir"));
+		createdir = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_createdir"));
+		revisionentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_update_revision"));
 		revision = gtk_entry_get_text(GTK_ENTRY(revisionentry));
-		removesticky = glade_xml_get_widget(data->gxml, "cvs_removesticky");
+		removesticky = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_removesticky"));
 				
 		if (!check_filename(dialog, filename))
 			break;	
@@ -231,10 +230,10 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 		GtkWidget* logtext;
 		GtkWidget* revisionentry;
 		GtkWidget* norecurse;
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_commit_filename"));
 		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 				
-		logtext = glade_xml_get_widget(data->gxml, "cvs_log");
+		logtext = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_commit_log"));
 		log = get_log_from_textview(logtext);
 		if (!g_utf8_strlen(log, -1))
 		{
@@ -253,10 +252,10 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 			gtk_widget_destroy(dlg);
 		}
 		
-		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
+		revisionentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_commit_revision"));
 		rev = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
+		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_commit_norecurse"));
 		
 		if (!check_filename(dialog, filename))
 			break;	
@@ -295,16 +294,16 @@ on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 		GtkWidget* diff_type;
 		GtkWidget* unified_diff;
 		
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_filename"));
 		const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		
 
-		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
+		revisionentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_revision"));
 		rev = gtk_entry_get_text(GTK_ENTRY(revisionentry));
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
+		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_norecurse"));
 		
-		diff_type = glade_xml_get_widget(data->gxml, "cvs_diff_type");
-		unified_diff = glade_xml_get_widget(data->gxml, "cvs_unified");
+		diff_type = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_type"));
+		unified_diff = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_unified"));
 		diff_type_nr = gtk_combo_box_get_active(GTK_COMBO_BOX(diff_type));
 		if (diff_type_nr == DIFF_PATCH)
 		{
@@ -343,11 +342,11 @@ on_cvs_status_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 		GtkWidget* norecurse;
 		GtkWidget* verbose;
-		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_status_filename"));
 		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		verbose = glade_xml_get_widget(data->gxml, "cvs_verbose");
+		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_status_norecurse"));
+		verbose = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_status_verbose"));
 
 		
 		if (!check_filename(dialog, filename))
@@ -383,10 +382,10 @@ on_cvs_log_response(GtkDialog* dialog, gint response, CVSData* data)
 		GtkWidget* verbose;
 		GtkWidget* fileentry;
 		
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		verbose = glade_xml_get_widget(data->gxml, "cvs_verbose");
+		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_logdialog_norecurse"));
+		verbose = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_logdialog_verbose"));
 		
-		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_logdialog_filename"));
 		filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 		if (!check_filename(dialog, filename))
 			break;
@@ -429,28 +428,28 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			GtkFileChooser* dir;
 			gchar* log;
 			
-			username = glade_xml_get_widget(data->gxml, "cvs_username");
-			password = glade_xml_get_widget(data->gxml, "cvs_password");
+			username = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_username"));
+			password = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_password"));
 			
-			cvsroot_entry = glade_xml_get_widget(data->gxml, "cvs_cvsroot");
+			cvsroot_entry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_cvsroot"));
 			if (!check_entry(dialog, cvsroot_entry, _("CVSROOT")))
 				break;
-			module_entry = glade_xml_get_widget(data->gxml, "cvs_module");
+			module_entry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_module"));
 			if (!check_entry(dialog, module_entry, _("Module")))
 				break;
-			vendortag = glade_xml_get_widget(data->gxml, "cvs_vendor");
+			vendortag = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_vendor"));
 			if (!check_entry(dialog, vendortag, _("Vendor")))
 				break;
-			releasetag = glade_xml_get_widget(data->gxml, "cvs_release");
+			releasetag = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_release"));
 			if (!check_entry(dialog, releasetag, _("Release")))
 				break;
-			typecombo = glade_xml_get_widget(data->gxml, "cvs_server_type");
-			dir = GTK_FILE_CHOOSER(glade_xml_get_widget(data->gxml, "cvs_rootdir"));
+			typecombo = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_server_type"));
+			dir = GTK_FILE_CHOOSER(gtk_builder_get_object(data->bxml, "cvs_rootdir"));
 			dirname = gtk_file_chooser_get_filename (dir);
 			if (!dirname)
 				break;
 			
-			logtext = glade_xml_get_widget(data->gxml, "cvs_log");
+			logtext = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_import_log"));
 			log = get_log_from_textview(logtext);
 			if (!strlen(log))
 			{
