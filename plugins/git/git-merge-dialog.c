@@ -43,13 +43,14 @@ on_merge_command_finished (AnjutaCommand *command, guint return_code,
 
 static void
 on_merge_dialog_response (GtkDialog *dialog, gint response_id, 
-						  GitBranchComboData *data)
+						  GitUIData *data)
 {
 	GtkWidget *merge_branch_combo;
 	GtkWidget *no_commit_check;
 	GtkWidget *squash_check;
 	GtkWidget *use_custom_log_check;
 	GtkWidget *merge_log_view;
+	GtkTreeModel *branch_combo_model;
 	gchar *log;
 	GtkWidget *log_prompt_dialog;
 	gint prompt_response;
@@ -69,6 +70,8 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 																   "use_custom_log_check"));
 		merge_log_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                                     "merge_log_view"));
+		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+		                                                             "branch_combo_model"));
 		log = NULL;
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_custom_log_check)))
@@ -92,9 +95,9 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 			
 			g_free (log);
 		}
-		
+
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (merge_branch_combo), &iter);
-		branch = git_branch_combo_model_get_branch (data->model, &iter);
+		gtk_tree_model_get (branch_combo_model, &iter, 0, &branch, -1);
 		
 		merge_command = git_merge_command_new (data->plugin->project_root_directory,
 											   branch, log,
@@ -117,7 +120,7 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 	}
 	
 	gtk_widget_destroy (GTK_WIDGET (dialog));
-	git_branch_combo_data_free (data);
+	git_ui_data_free (data);
 }
 
 static void
@@ -131,14 +134,14 @@ static void
 merge_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"merge_dialog", NULL};
+	gchar *objects[] = {"merge_dialog", "branch_combo_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *merge_branch_combo;
 	GtkWidget *use_custom_log_check;
 	GtkWidget *merge_log_view;
-	GtkListStore *branch_list_store;
-	GitBranchComboData *data;
+	GtkListStore *branch_combo_model;
+	GitUIData *data;
 	GitBranchListCommand *list_command;
 	
 	bxml = gtk_builder_new ();
@@ -156,26 +159,20 @@ merge_dialog (Git *plugin)
 	use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
 															   "use_custom_log_check"));
 	merge_log_view = GTK_WIDGET (gtk_builder_get_object (bxml, "merge_log_view"));
-	branch_list_store = git_branch_combo_model_new ();
+	branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, "branch_combo_model"));
 	
-	gtk_combo_box_set_model (GTK_COMBO_BOX (merge_branch_combo), 
-							 GTK_TREE_MODEL (branch_list_store));
-	git_branch_combo_model_setup_widget (merge_branch_combo);
-	
-	data = git_branch_combo_data_new (branch_list_store, 
-									  GTK_COMBO_BOX (merge_branch_combo), bxml, 
-									  plugin);
+	data = git_ui_data_new (plugin, bxml);
 	
 	list_command = git_branch_list_command_new (plugin->project_root_directory,
 												GIT_BRANCH_TYPE_ALL);
 	
 	g_signal_connect (G_OBJECT (list_command), "data-arrived", 
-					  G_CALLBACK (on_git_list_branch_command_data_arrived), 
-					  data);
+					  G_CALLBACK (on_git_list_branch_combo_command_data_arrived), 
+					  branch_combo_model);
 	
 	g_signal_connect (G_OBJECT (list_command), "command-finished", 
-					  G_CALLBACK (on_git_list_branch_command_finished), 
-					  data);
+					  G_CALLBACK (on_git_list_branch_combo_command_finished), 
+					  merge_branch_combo);
 	
 	anjuta_command_start (ANJUTA_COMMAND (list_command));
 	

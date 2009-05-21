@@ -76,8 +76,6 @@ libanjuta_git_la_SOURCES = \
 	git-branch-list-command.c \
 	git-merge-command.h \
 	git-merge-command.c \
-	git-branch-combo-model.c \
-	git-branch-combo-model.h \
 	git-merge-dialog.h \
 	git-merge-dialog.c \
 	git-branch-checkout-command.h \

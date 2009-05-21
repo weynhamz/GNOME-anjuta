@@ -3,6 +3,28 @@
   <requires lib="gtk+" version="2.16"/>
   <requires lib="anjuta" version="2366.5320"/>
   <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkListStore" id="log_branch_combo_model">
+    <columns>
+      <!-- column-name active_icon -->
+      <column type="gchararray"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="branch_list_model">
+    <columns>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="branch_combo_model">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="commit_dialog">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="border_width">5</property>
@@ -846,6 +868,13 @@
                       <object class="GtkComboBox" id="merge_branch_combo">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="model">branch_combo_model</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="merge_branch_combo_name"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -1075,6 +1104,13 @@
                 <child>
                   <object class="GtkComboBox" id="switch_branch_combo">
                     <property name="visible">True</property>
+                    <property name="model">branch_combo_model</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="switch_branch_combo_name"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -1360,6 +1396,13 @@
                 <child>
                   <object class="GtkComboBox" id="delete_branch_combo">
                     <property name="visible">True</property>
+                    <property name="model">branch_combo_model</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="delete_branch_combo_name"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -2917,6 +2960,13 @@
                       <object class="GtkComboBox" id="rebase_branch_combo">
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
+                        <property name="model">branch_combo_model</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="rebase_branch_combo_name"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                       <packing>
                         <property name="position">0</property>
@@ -3511,6 +3561,13 @@
                 <child>
                   <object class="GtkComboBox" id="delete_remote_combo">
                     <property name="visible">True</property>
+                    <property name="model">branch_combo_model</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="delete_remote_combo_name"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -3609,6 +3666,13 @@
                           <object class="GtkComboBox" id="patch_series_branch_combo">
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
+                            <property name="model">branch_combo_model</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="patch_series_branch_combo_name"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
                           </object>
                           <packing>
                             <property name="position">0</property>

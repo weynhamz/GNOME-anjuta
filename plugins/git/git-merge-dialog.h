@@ -27,7 +27,6 @@
 
 #include "git-merge-command.h"
 #include "git-ui-utils.h"
-#include "git-branch-combo-model.h"
 #include "git-branch-list-command.h"
 
 void on_menu_git_merge (GtkAction *action, Git *plugin);

@@ -28,7 +28,6 @@
 #include "git-remote-list-command.h"
 #include "git-remote-delete-command.h"
 #include "git-ui-utils.h"
-#include "git-branch-combo-model.h"
 
 void on_menu_git_delete_remote (GtkAction *action, Git *plugin);
 

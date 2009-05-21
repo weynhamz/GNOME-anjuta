@@ -28,7 +28,6 @@
 #include "git-branch-list-command.h"
 #include "git-branch-delete-command.h"
 #include "git-ui-utils.h"
-#include "git-branch-combo-model.h"
 
 void on_menu_git_delete_branch (GtkAction *action, Git *plugin);
 

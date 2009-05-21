@@ -28,7 +28,6 @@
 #include "git-rebase-start-command.h"
 #include "git-rebase-continue-command.h"
 #include "git-ui-utils.h"
-#include "git-branch-combo-model.h"
 
 void on_menu_git_rebase_start (GtkAction *action, Git *plugin);
 void on_menu_git_rebase_continue (GtkAction *action, Git *plugin);

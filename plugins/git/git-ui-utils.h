@@ -33,7 +33,6 @@
 #include "git-status-command.h"
 #include "git-diff-command.h"
 #include "git-branch-list-command.h"
-#include "git-branch-combo-model.h"
 
 typedef struct
 {
@@ -72,11 +71,11 @@ void on_git_status_command_data_arrived (AnjutaCommand *command,
 void on_git_command_info_arrived (AnjutaCommand *command, Git *plugin);
 void on_git_command_progress (AnjutaCommand *command, gfloat progress, 
 							  GitProgressData *data);
-void on_git_list_branch_command_data_arrived (AnjutaCommand *command, 
-											  GitBranchComboData *data);
-void on_git_list_branch_command_finished (AnjutaCommand *command, 
-										  guint return_code, 
-										  GitBranchComboData *data);
+void on_git_list_branch_combo_command_data_arrived (AnjutaCommand *command,
+                                                    GtkListStore *branch_combo_model);
+void on_git_list_branch_combo_command_finished (AnjutaCommand *command,
+                                                guint return_code,
+                                                GtkComboBox *combo_box);
 void git_select_all_status_items (GtkButton *select_all_button, 
 								  AnjutaVcsStatusTreeView *tree_view);
 void git_clear_all_status_selections (GtkButton *clear_button,

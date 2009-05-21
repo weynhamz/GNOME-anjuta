@@ -28,7 +28,6 @@
 #include "git-branch-list-command.h"
 #include "git-format-patch-command.h"
 #include "git-ui-utils.h"
-#include "git-branch-combo-model.h"
 
 void on_menu_git_create_patch_series (GtkAction *action, Git *plugin);
 

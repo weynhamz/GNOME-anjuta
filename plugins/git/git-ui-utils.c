@@ -345,27 +345,38 @@ on_git_command_progress (AnjutaCommand *command, gfloat progress,
 }
 
 void
-on_git_list_branch_command_data_arrived (AnjutaCommand *command,
-										 GitBranchComboData *data)
+on_git_list_branch_combo_command_data_arrived (AnjutaCommand *command,
+                                               GtkListStore *branch_combo_model)
 {
 	GQueue *output_queue;
 	GitBranch *branch;
+	GtkTreeIter iter;
+	gchar *name;
 	
 	output_queue = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
 
 	while (g_queue_peek_head (output_queue))
 	{
 		branch = g_queue_pop_head (output_queue);
-		git_branch_combo_model_append (data->model, branch);
+		name = git_branch_get_name (branch);
+
+		if (!git_branch_is_active (branch))
+		{
+			gtk_list_store_append (branch_combo_model, &iter);
+			gtk_list_store_set (branch_combo_model, &iter, 0, name, -1);
+		}
+
 		g_object_unref (branch);
+		g_free (name);
 	}
 }
 
 void
-on_git_list_branch_command_finished (AnjutaCommand *command, guint return_code,
-									 GitBranchComboData *data)
+on_git_list_branch_combo_command_finished (AnjutaCommand *command, 
+                                           guint return_code,
+                                           GtkComboBox *combo_box)
 {
-	gtk_combo_box_set_active (data->combo_box, 0);
+	gtk_combo_box_set_active (combo_box, 0);
 	
 	git_report_errors (command, return_code);
 	g_object_unref (command);
