@@ -214,7 +214,7 @@
                             <property name="row_spacing">5</property>
                             <child>
                               <object class="GtkRadioButton" id="preferences_toggle:bool:0:0:language.cpp.indent.paranthese.lineup">
-                                <property name="label" translatable="yes">Line up parantheses:</property>
+                                <property name="label" translatable="yes">Line up parantheses</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
