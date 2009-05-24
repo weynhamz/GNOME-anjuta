@@ -62,7 +62,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text">This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)</property>
+                            <property name="tooltip_text" translatable="yes">This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)</property>
                             <property name="label" translatable="yes">Automatically scan project's packages</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -80,7 +80,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text">This option means that the global system packages will be scanned contemporary with the project's ones</property>
+                            <property name="tooltip_text" translatable="yes">This option means that the global system packages will be scanned contemporary with the project's ones</property>
                             <property name="label" translatable="yes">Parallel scan of project and global symbols</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -98,7 +98,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text">Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user.</property>
+                            <property name="tooltip_text" translatable="yes">Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user.</property>
                             <property name="label" translatable="yes">Automatically update symbols without saving file</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
