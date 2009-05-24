@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta trunk\n"
+"Project-Id-Version: anjuta gnome-2-26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-24 15:31+0900\n"
-"PO-Revision-Date: 2009-03-24 15:31+0900\n"
+"POT-Creation-Date: 2009-05-24 20:23+0900\n"
+"PO-Revision-Date: 2009-05-24 20:23+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:451
+#: ../plugins/symbol-db/symbol-db-prefs.c:438
 msgid "Load"
 msgstr "使用中"
 
@@ -239,7 +239,7 @@ msgstr "使用中"
 msgid "Available Plugins"
 msgstr "利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:661
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:663
 msgid "Preferred plugins"
 msgstr "お気に入りのプラグイン"
 
@@ -409,7 +409,7 @@ msgstr "カテゴリ"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:648
+#: ../src/anjuta-app.c:650
 msgid "General"
 msgstr "全般"
 
@@ -712,269 +712,269 @@ msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:825
+#: ../plugins/build-basic-autotools/plugin.c:826
 #, c-format
 msgid "Entering: %s"
 msgstr "%s に入ります"
 
-#: ../plugins/build-basic-autotools/plugin.c:861
+#: ../plugins/build-basic-autotools/plugin.c:862
 #, c-format
 msgid "Leaving: %s"
 msgstr "%s から出ます"
 
-#: ../plugins/build-basic-autotools/plugin.c:894
+#: ../plugins/build-basic-autotools/plugin.c:895
 #: ../plugins/tools/execute.c:329
 msgid "warning:"
 msgstr "警告:"
 
-#: ../plugins/build-basic-autotools/plugin.c:900
+#: ../plugins/build-basic-autotools/plugin.c:901
 #: ../plugins/tools/execute.c:334
 msgid "error:"
 msgstr "エラー:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1017
+#: ../plugins/build-basic-autotools/plugin.c:1018
 #, c-format
 msgid "Command exited with status %d"
 msgstr "コマンドの実行がステータス %d で完了しました"
 
-#: ../plugins/build-basic-autotools/plugin.c:1027
+#: ../plugins/build-basic-autotools/plugin.c:1028
 #, c-format
 msgid "Command canceled by user"
 msgstr "ユーザがコマンドの実行をキャンセルしました"
 
-#: ../plugins/build-basic-autotools/plugin.c:1032
+#: ../plugins/build-basic-autotools/plugin.c:1033
 #, c-format
 msgid "Command aborted by user"
 msgstr "ユーザがコマンドの実行を中止しました"
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "コマンドがシグナル %d で強制終了しました"
 
-#: ../plugins/build-basic-autotools/plugin.c:1045
+#: ../plugins/build-basic-autotools/plugin.c:1046
 msgid "Command terminated for an unknown reason"
 msgstr "コマンドが強制終了しました (原因は不明)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1061
+#: ../plugins/build-basic-autotools/plugin.c:1063
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "所要時間: %lu秒\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1066
+#: ../plugins/build-basic-autotools/plugin.c:1070
 msgid "Completed unsuccessfully\n"
 msgstr "完了しました (失敗です)\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1071
+#: ../plugins/build-basic-autotools/plugin.c:1078
 #: ../plugins/tools/execute.c:515
 msgid "Completed successfully\n"
 msgstr "完了しました (成功です)\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1117
+#: ../plugins/build-basic-autotools/plugin.c:1166
 #, c-format
 msgid "Build %d: %s"
 msgstr "ビルド %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1690
+#: ../plugins/build-basic-autotools/plugin.c:1742
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "\"%s\" をコンパイルできません: この種類のファイルをコンパイルするルールが定義"
 "されていません"
 
-#: ../plugins/build-basic-autotools/plugin.c:1816
+#: ../plugins/build-basic-autotools/plugin.c:1868
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "プロジェクトの構成を実施できません: %s には configure スクリプトがありません"
 
-#: ../plugins/build-basic-autotools/plugin.c:2235
-#: ../plugins/build-basic-autotools/plugin.c:2309
-#: ../plugins/build-basic-autotools/plugin.c:2319
-#: ../plugins/build-basic-autotools/plugin.c:2337
-#: ../plugins/build-basic-autotools/plugin.c:2347
-#: ../plugins/build-basic-autotools/plugin.c:2404
+#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2361
+#: ../plugins/build-basic-autotools/plugin.c:2371
+#: ../plugins/build-basic-autotools/plugin.c:2389
+#: ../plugins/build-basic-autotools/plugin.c:2399
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build"
 msgstr "ビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2239
+#: ../plugins/build-basic-autotools/plugin.c:2291
 msgid "_Build Project"
 msgstr "プロジェクトのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2240
+#: ../plugins/build-basic-autotools/plugin.c:2292
 msgid "Build whole project"
 msgstr "プロジェクト全体をビルドします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2245
+#: ../plugins/build-basic-autotools/plugin.c:2297
 msgid "_Install Project"
 msgstr "プロジェクトのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2246
+#: ../plugins/build-basic-autotools/plugin.c:2298
 msgid "Install whole project"
 msgstr "プロジェクト全体をインストールします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2251
+#: ../plugins/build-basic-autotools/plugin.c:2303
 msgid "_Clean Project"
 msgstr "プロジェクトのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2252
+#: ../plugins/build-basic-autotools/plugin.c:2304
 msgid "Clean whole project"
 msgstr "プロジェクト全体をクリーンします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2257
+#: ../plugins/build-basic-autotools/plugin.c:2309
 msgid "C_onfigure Project..."
 msgstr "プロジェクトの構成(_O)..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2258
+#: ../plugins/build-basic-autotools/plugin.c:2310
 msgid "Configure project"
 msgstr "ビルドの準備をします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2263
+#: ../plugins/build-basic-autotools/plugin.c:2315
 msgid "Build _Tarball"
 msgstr "Tarball の生成(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2264
+#: ../plugins/build-basic-autotools/plugin.c:2316
 msgid "Build project tarball distribution"
 msgstr "配布用の Tarball を生成します"
 
-#: ../plugins/build-basic-autotools/plugin.c:2269
+#: ../plugins/build-basic-autotools/plugin.c:2321
 msgid "_Build Module"
 msgstr "モジュールのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2270
+#: ../plugins/build-basic-autotools/plugin.c:2322
 msgid "Build module associated with current file"
 msgstr "このファイルに関連するモジュールをビルドします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2275
+#: ../plugins/build-basic-autotools/plugin.c:2327
 msgid "_Install Module"
 msgstr "モジュールのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2276
+#: ../plugins/build-basic-autotools/plugin.c:2328
 msgid "Install module associated with current file"
 msgstr "このファイルに関連するモジュールをインストールします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2281
+#: ../plugins/build-basic-autotools/plugin.c:2333
 msgid "_Clean Module"
 msgstr "モジュールのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2282
+#: ../plugins/build-basic-autotools/plugin.c:2334
 msgid "Clean module associated with current file"
 msgstr "このファイルに関連するモジュールをクリーンします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2287
+#: ../plugins/build-basic-autotools/plugin.c:2339
 msgid "Co_mpile File"
 msgstr "単一コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2288
+#: ../plugins/build-basic-autotools/plugin.c:2340
 msgid "Compile current editor file"
 msgstr "現在編集中のファイルをコンパイルします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2293
+#: ../plugins/build-basic-autotools/plugin.c:2345
 msgid "Select Configuration"
 msgstr "構成の選択"
 
-#: ../plugins/build-basic-autotools/plugin.c:2294
+#: ../plugins/build-basic-autotools/plugin.c:2346
 msgid "Select current configuration"
 msgstr "現在の構成を選択します"
 
-#: ../plugins/build-basic-autotools/plugin.c:2299
+#: ../plugins/build-basic-autotools/plugin.c:2351
 msgid "Remove Configuration"
 msgstr "構成内容の削除"
 
-#: ../plugins/build-basic-autotools/plugin.c:2300
+#: ../plugins/build-basic-autotools/plugin.c:2352
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "可能ならばプロジェクトをクリーンして (distclean に相当) configure 時に生成し"
 "たフォルダ等を削除します"
 
-#: ../plugins/build-basic-autotools/plugin.c:2313
-#: ../plugins/build-basic-autotools/plugin.c:2341
+#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2393
 msgid "_Compile"
 msgstr "コンパイル(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2314
-#: ../plugins/build-basic-autotools/plugin.c:2342
+#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2394
 msgid "Compile file"
 msgstr "ファイルのコンパイル"
 
-#: ../plugins/build-basic-autotools/plugin.c:2320
-#: ../plugins/build-basic-autotools/plugin.c:2348
+#: ../plugins/build-basic-autotools/plugin.c:2372
+#: ../plugins/build-basic-autotools/plugin.c:2400
 msgid "Build module"
 msgstr "モジュールのビルド"
 
-#: ../plugins/build-basic-autotools/plugin.c:2325
-#: ../plugins/build-basic-autotools/plugin.c:2353
-#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2377
+#: ../plugins/build-basic-autotools/plugin.c:2405
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install"
 msgstr "インストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2326
-#: ../plugins/build-basic-autotools/plugin.c:2354
+#: ../plugins/build-basic-autotools/plugin.c:2378
+#: ../plugins/build-basic-autotools/plugin.c:2406
 msgid "Install module"
 msgstr "モジュールのインストール"
 
-#: ../plugins/build-basic-autotools/plugin.c:2331
-#: ../plugins/build-basic-autotools/plugin.c:2359
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2383
+#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean"
 msgstr "クリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2332
-#: ../plugins/build-basic-autotools/plugin.c:2360
+#: ../plugins/build-basic-autotools/plugin.c:2384
+#: ../plugins/build-basic-autotools/plugin.c:2412
 msgid "Clean module"
 msgstr "モジュールのクリーン"
 
-#: ../plugins/build-basic-autotools/plugin.c:2365
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "_Cancel command"
 msgstr "実行のキャンセル(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2366
+#: ../plugins/build-basic-autotools/plugin.c:2418
 msgid "Cancel build command"
 msgstr "現在実行中のビルド・コマンドをキャンセルします"
 
-#: ../plugins/build-basic-autotools/plugin.c:2404
+#: ../plugins/build-basic-autotools/plugin.c:2456
 #, c-format
 msgid "_Build (%s)"
 msgstr "ビルド(_B) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2463
 #, c-format
 msgid "_Install (%s)"
 msgstr "インストール(_I) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2418
+#: ../plugins/build-basic-autotools/plugin.c:2470
 #, c-format
 msgid "_Clean (%s)"
 msgstr "クリーン(_C) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2426
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "コンパイル(_M) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2426
+#: ../plugins/build-basic-autotools/plugin.c:2478
 #, c-format
 msgid "Co_mpile"
 msgstr "コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2962
+#: ../plugins/build-basic-autotools/plugin.c:3014
 msgid "Build commands"
 msgstr "ビルドのコマンド"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2971
+#: ../plugins/build-basic-autotools/plugin.c:3023
 msgid "Build popup commands"
 msgstr "ビルドの操作"
 
-#: ../plugins/build-basic-autotools/plugin.c:3328
-#: ../plugins/build-basic-autotools/plugin.c:3346
+#: ../plugins/build-basic-autotools/plugin.c:3380
+#: ../plugins/build-basic-autotools/plugin.c:3398
 msgid "Build Autotools"
 msgstr "Autotools"
 
@@ -2480,7 +2480,7 @@ msgid "Search Help:"
 msgstr "ヘルプの検索:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:76
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:308
 msgid "_Goto"
 msgstr "ジャンプ(_G)"
 
@@ -2524,7 +2524,7 @@ msgstr "目次"
 #: ../plugins/search/search-replace.c:1709
 #: ../plugins/search/search-replace.c:1716
 #: ../plugins/search/search-replace.c:1728
-#: ../plugins/search/search-replace.c:2055
+#: ../plugins/search/search-replace.c:2055 ../plugins/symbol-db/plugin.c:2275
 msgid "Search"
 msgstr "検索"
 
@@ -3518,6 +3518,7 @@ msgid "Root directory if no project is open:"
 msgstr "デフォルトのルート・フォルダ:"
 
 #: ../plugins/file-manager/file-model.c:119
+#: ../plugins/symbol-db/symbol-db-view.c:799
 msgid "Loading..."
 msgstr "読み込み中 ..."
 
@@ -3739,8 +3740,8 @@ msgstr "ターゲットが存在しません"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
 msgid "Unable to update project"
 msgstr "プロジェクトを更新できません"
 
@@ -3867,7 +3868,7 @@ msgstr "Python のモジュール"
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
 msgid "Source doesn't exist"
 msgstr "ソースが存在しません"
 
@@ -3896,8 +3897,8 @@ msgstr "ソースを削除できませんでした"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "プロジェクトのフォルダ"
 
@@ -4082,20 +4083,20 @@ msgstr "ターゲットを生成できませんでした"
 msgid "Target coudn't be removed"
 msgstr "ターゲットを削除できませんでした"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Source file must be inside the project directory"
 msgstr "ソース・ファイルはプロジェクトの中にあるものにして下さい"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Source is already in target"
 msgstr "既にターゲットの中にソースがあります"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
 msgid "Source couldn't be added"
 msgstr "ソースを追加できませんでした"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
 msgid "Source coudn't be removed"
 msgstr "ソースを削除できませんでした"
 
@@ -5861,8 +5862,8 @@ msgid "Icon"
 msgstr "アイコン"
 
 #: ../plugins/message-view/message-view.c:823
-#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:417
-#: ../plugins/message-view/plugin.c:429
+#: ../plugins/message-view/plugin.c:325 ../plugins/message-view/plugin.c:439
+#: ../plugins/message-view/plugin.c:451
 msgid "Messages"
 msgstr "メッセージ"
 
@@ -5947,33 +5948,33 @@ msgstr "パッチ・ファイル"
 msgid "Patches"
 msgstr "パッチ"
 
-#: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
+#: ../plugins/patch/patch-plugin.c:160 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
 msgstr "パッチ"
 
-#: ../plugins/patch/patch-plugin.c:174
+#: ../plugins/patch/patch-plugin.c:180
 msgid "Please select the directory where the patch should be applied"
 msgstr "パッチを適用するフォルダを選択して下さい"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:191
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "%2$s で %1$s にパッチを適用します...\n"
 
-#: ../plugins/patch/patch-plugin.c:194
+#: ../plugins/patch/patch-plugin.c:203
 msgid "Patching...\n"
 msgstr "パッチの適用中...\n"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:213
 msgid "Patching..."
 msgstr "パッチの適用中..."
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:218
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr ""
 "完了していない処理があります (これらの処理が完了するまでしばらくお待ち下さい)"
 
-#: ../plugins/patch/patch-plugin.c:251
+#: ../plugins/patch/patch-plugin.c:260
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -5983,7 +5984,7 @@ msgstr ""
 "エラーメッセージを確認して下さい。\n"
 "リジェクトされたファイルを調べて削除して下さい。\n"
 
-#: ../plugins/patch/patch-plugin.c:257
+#: ../plugins/patch/patch-plugin.c:266
 msgid "Patching complete"
 msgstr "パッチを適用しました"
 
@@ -6644,6 +6645,10 @@ msgstr "<b>詳細</b>"
 #: ../plugins/project-wizard/druid.c:148
 msgid "Error"
 msgstr "エラー"
+
+#: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
+msgid "Select project type"
+msgstr "プロジェクトの種類"
 
 #: ../plugins/project-wizard/druid.c:140 ../plugins/project-wizard/druid.c:144
 msgid "Warning"
@@ -8768,23 +8773,96 @@ msgstr "不明: %s"
 msgid "Obstructed: %s"
 msgstr "衝突の原因: %s"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/plugin.c:312
+msgid "Tag De_claration"
+msgstr "シンボルの宣言(_C)"
+
+#: ../plugins/symbol-db/plugin.c:314
+msgid "Goto symbol declaration"
+msgstr "シンボルの宣言へジャンプします"
+
+#: ../plugins/symbol-db/plugin.c:320
+msgid "Tag _Implementation"
+msgstr "シンボルの実装(_I)"
+
+#: ../plugins/symbol-db/plugin.c:322
+msgid "Goto symbol definition"
+msgstr "シンボルの定義へジャンプします"
+
+#: ../plugins/symbol-db/plugin.c:328
+msgid "_Find Symbol..."
+msgstr "シンボルの検索(_F) ..."
+
+#: ../plugins/symbol-db/plugin.c:329
+msgid "Find Symbol"
+msgstr "シンボルの検索"
+
+#: ../plugins/symbol-db/plugin.c:1107
+#, c-format
+msgid "%s: Generating inheritances..."
+msgstr "%s: 継承関係の生成中..."
+
+#: ../plugins/symbol-db/plugin.c:1112
+#, c-format
+msgid "%s: %d files scanned out of %d"
+msgstr "%s: %d/%d 個のファイルをスキャンしました"
+
+#: ../plugins/symbol-db/plugin.c:1143
+#, c-format
+msgid "Generating inheritances..."
+msgstr "継承関係の生成中..."
+
+#: ../plugins/symbol-db/plugin.c:1145
+#, c-format
+msgid "%d files scanned out of %d"
+msgstr "%d/%d 個のファイルをスキャンしました"
+
+#: ../plugins/symbol-db/plugin.c:1905
+msgid "Populating symbols' db..."
+msgstr "シンボル DB の構築中..."
+
+#: ../plugins/symbol-db/plugin.c:2225
+msgid "Local"
+msgstr "ローカル"
+
+#: ../plugins/symbol-db/plugin.c:2251
+msgid "Global"
+msgstr "グローバル"
+
+#: ../plugins/symbol-db/plugin.c:2308
+msgid "Symbols"
+msgstr "シンボル"
+
+#: ../plugins/symbol-db/plugin.c:2316
+msgid "SymbolDb popup actions"
+msgstr "シンボル DB のポップアップ項目"
+
+#: ../plugins/symbol-db/plugin.c:2324
+msgid "SymbolDb menu actions"
+msgstr "シンボル DB のメニュー項目"
+
+#: ../plugins/symbol-db/symbol-db-prefs.c:265
 msgid "Package is not parseable"
 msgstr "パッケージを解析できません"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:369
-#: ../plugins/symbol-db/symbol-db-prefs.c:510
+#: ../plugins/symbol-db/symbol-db-prefs.c:362
+#: ../plugins/symbol-db/symbol-db-prefs.c:496
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "シンボル・データベース"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:459
+#: ../plugins/symbol-db/symbol-db-prefs.c:446
 msgid "API Tags"
 msgstr "API のタグ"
 
-#: ../plugins/symbol-db/symbol-db-system.c:786
+#: ../plugins/symbol-db/symbol-db-system.c:805
 msgid "Resuming glb scan."
 msgstr "glb のスキャンを再開します"
+
+#: ../plugins/symbol-db/symbol-db-view-locals.c:294
+#: ../plugins/symbol-db/symbol-db-view.c:1426
+msgid "Symbol"
+msgstr "シンボル"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
 msgid "<b>Available API tags</b>"
@@ -9671,15 +9749,15 @@ msgstr "編集"
 msgid "View"
 msgstr "表示"
 
-#: ../src/anjuta-app.c:659
+#: ../src/anjuta-app.c:661
 msgid "Installed plugins"
 msgstr "インストール済のプラグイン"
 
-#: ../src/anjuta-app.c:663
+#: ../src/anjuta-app.c:665
 msgid "Shortcuts"
 msgstr "ショートカット"
 
-#: ../src/anjuta-app.c:735
+#: ../src/anjuta-app.c:737
 #, c-format
 msgid "Value doesn't exist"
 msgstr "値が存在しません"
