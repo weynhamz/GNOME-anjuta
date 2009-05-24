@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-05-18 22:39+0000\n"
-"PO-Revision-Date: 2009-05-19 20:28+0200\n"
+"POT-Creation-Date: 2009-05-24 07:35+0000\n"
+"PO-Revision-Date: 2009-05-24 13:09+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -407,7 +407,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1593 ../plugins/git/plugin.c:356
+#: ../libanjuta/anjuta-preferences.c:1593 ../plugins/git/plugin.c:365
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -976,286 +976,70 @@ msgstr "Fallo al ejecutar autogen: %s"
 msgid "XML description of the user interface"
 msgstr "Descripción XML del interfaz de usuario"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
-msgid "<b>CVS Options</b>"
-msgstr "<b>Opciones del CVS</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
-msgid "<b>Module Details:</b>"
-msgstr "<b>Detalles del módulo:</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
-#: ../plugins/git/anjuta-git.glade.h:16
-msgid "<b>Options:</b>"
-msgstr "<b>Opciones:</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
-#: ../plugins/git/anjuta-git.glade.h:17
-msgid "<b>Options</b>"
-msgstr "<b>Opciones</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-msgid ""
-"<b>Please note: </b>\n"
-"\n"
-"Pressing OK will delete the file from disk and from CVS. Of course the file "
-"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
-"</b>"
-msgstr ""
-"<b>Tenga en cuenta lo siguiente: </b>\n"
-"\n"
-"Al pulsar en Aceptar se borrará el archivo del disco y del CVS. Por supuesto "
-"el archivo no será eliminado del CVS antes de que realice un CVS commit. "
-"<b>Está advertido</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
-msgid "<b>Repository: </b>"
-msgstr "<b>Repositorio:</b>"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
-msgid "Be verbose"
-msgstr "Ser prolijo"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
-msgid "Browse..."
-msgstr "Examinar…"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
-msgid "CVS Preferences"
-msgstr "Preferencias del CVS"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
-msgid "CVS: Add file/directory"
-msgstr "CVS: Añadir archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
-msgid "CVS: Commit file/directory"
-msgstr "CVS: Efectuar archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
-msgid "CVS: Diff file/directory"
-msgstr "CVS: Diferencias del archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
-msgid "CVS: Import"
-msgstr "CVS: Importar"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
-msgid "CVS: Log file/directory"
-msgstr "CVS: Archivo de registro/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
-msgid "CVS: Remove file/directory"
-msgstr "CVS: Eliminar archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
-msgid "CVS: Status"
-msgstr "CVS: Estado"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
-msgid "CVS: Status from file/directory"
-msgstr "CVS: Estado del archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
-msgid "CVS: Update file/directory"
-msgstr "CVS: Actualizar archivo/directorio"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
-msgid "CVSROOT:"
-msgstr "CVSROOT:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
-msgid "Choose file or directory to add:"
-msgstr "Elegir archivo o directorio para añadir:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-msgid "Choose file or directory to commit:"
-msgstr "Elija un archivo o directorio que efectuar:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-msgid "Choose file or directory to diff:"
-msgstr "Elija el archivo o directorio del que sacar diferencias:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
-msgid "Choose file or directory to get log:"
-msgstr "Elija el archivo o directorio del que obtener el registro:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
-msgid "Choose file or directory to get the status from:"
-msgstr "Elija el archivo o directorio del que obtener el estado:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
-msgid "Choose file or directory to remove:"
-msgstr "Elija el archivo o directorio a eliminar:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-msgid "Choose file or directory to update:"
-msgstr "Elija el archivo o directorio para actualizar:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-msgid "Compression Level (0=off, 10=max):"
-msgstr "Nivel de compresión (0=ninguna, 10=máx):"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
-msgid "Create new directories"
-msgstr "Crear directorios nuevos"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
-msgid "Delete empty directories"
-msgstr "Borrar directorios vacíos"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
-msgid "Do not act recursively"
-msgstr "No actuar recursivamente"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-msgid "File is binary"
-msgstr "El archivo es binario"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
-msgid "Ignore .cvsrc file (recommended)"
-msgstr "Ignorar el archivo .cvsrc (recomendado)"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
-msgid ""
-"Local\n"
-"Extern (rsh)\n"
-"Password server (pserver)\n"
-msgstr ""
-"Local\n"
-"Externo (rsh)\n"
-"Servidor de contraseñas (pserver)\n"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
-msgid "Log message:"
-msgstr "Mensaje de registro:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-msgid "Module name:"
-msgstr "Nombre del módulo:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
-msgid "Password:"
-msgstr "Contraseña:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
-msgid "Path to \"cvs\" command"
-msgstr "Ruta hasta el comando «cvs»"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
-msgid "Project root directory:"
-msgstr "Directorio raíz del proyecto:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
-msgid "Release tag:"
-msgstr "Etiqueta de publicación [Release]:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-msgid "Reset sticky tags"
-msgstr "Restablecer etiquetas persistentes"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:83
-msgid "Revision:"
-msgstr "Revisión:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:47
-msgid ""
-"Standard diff\n"
-"Patch-Style diff"
-msgstr ""
-"Diff estándar\n"
-"Diff estilo patch"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-msgid "Unified format instead of context format"
-msgstr "Formato unificado en vez de formato contextual"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-msgid "Use revision/tag:"
-msgstr "Usar revisión/etiqueta:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-msgid "Use revision:"
-msgstr "Usar revisión:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
-msgid "Username:"
-msgstr "Usuario:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-msgid "Vendor tag:"
-msgstr "Etiqueta del fabricante:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:98
-msgid "Whole project"
-msgstr "Proyecto completo"
-
-#: ../plugins/cvs-plugin/cvs-callbacks.c:47
+#: ../plugins/cvs-plugin/cvs-callbacks.c:46
 msgid "Please enter a filename!"
 msgstr "Introduzca un nombre de archivo."
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:60
+#: ../plugins/cvs-plugin/cvs-callbacks.c:59
 #, c-format
 msgid "Please fill field: %s"
 msgstr "Rellene el valor: %s"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:79
+#: ../plugins/cvs-plugin/cvs-callbacks.c:78
 msgid "CVS command is running! Please wait until it is finished!"
 msgstr "Hay un comando CVS en ejecución ; espere hasta que termine."
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:153
+#: ../plugins/cvs-plugin/cvs-callbacks.c:152
 msgid "Unable to delete file"
 msgstr "No se puede borrar el archivo"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:245
+#: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/git/git-commit-dialog.c:79
-#: ../plugins/git/git-create-tag-dialog.c:127
-#: ../plugins/git/git-merge-dialog.c:84
+#: ../plugins/git/git-create-tag-dialog.c:130
+#: ../plugins/git/git-merge-dialog.c:87
 #: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "¿Seguro que quiere pasar un un mensaje vacío de registro?"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:436
+#: ../plugins/cvs-plugin/cvs-callbacks.c:435
 msgid "CVSROOT"
 msgstr "CVSROOT"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:439
+#: ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/gbf-am/gbf-am-properties.c:1234
 msgid "Module"
 msgstr "Módulo"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:442
+#: ../plugins/cvs-plugin/cvs-callbacks.c:441
 msgid "Vendor"
 msgstr "Fabricante"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:445
+#: ../plugins/cvs-plugin/cvs-callbacks.c:444
 msgid "Release"
 msgstr "Publicación"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:461
+#: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
 msgstr "¿Seguro que no quiere un mensaje de registro?"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:126
+#: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
 msgstr "El comando CVS ha fallado. Mire arriba para los detalles"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:131
+#: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
 msgstr[0] "Comando CVS exitoso; Tiempo empleado: %ld segundo"
 msgstr[1] "Comando CVS exitoso; Tiempo empleado: %ld segundos"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:222
+#: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
-#: ../plugins/cvs-plugin/cvs-execute.c:234 ../plugins/cvs-plugin/plugin.c:462
-#: ../plugins/cvs-plugin/plugin.c:469
+#: ../plugins/cvs-plugin/cvs-execute.c:229
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
+#: ../plugins/cvs-plugin/plugin.c:474
 msgid "CVS"
 msgstr "CVS"
 
@@ -2446,7 +2230,7 @@ msgstr "Repetir la búsqueda rápida"
 
 #: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1894
+#: ../plugins/language-support-cpp-java/plugin.c:1910
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3891,6 +3675,14 @@ msgstr "<b>Archivo del buzón de correo que contiene los parches:</b>"
 msgid "<b>Mode:</b>"
 msgstr "<b>Modo:</b>"
 
+#: ../plugins/git/anjuta-git.glade.h:16
+msgid "<b>Options:</b>"
+msgstr "<b>Opciones:</b>"
+
+#: ../plugins/git/anjuta-git.glade.h:17
+msgid "<b>Options</b>"
+msgstr "<b>Opciones</b>"
+
 #: ../plugins/git/anjuta-git.glade.h:18
 msgid "<b>Remote branch to rebase from:</b>"
 msgstr "<b>Rama remota que utilizar como base:</b>"
@@ -3983,7 +3775,7 @@ msgstr "Añadir fecha de obtención"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.glade.h:42 ../plugins/git/plugin.c:212
+#: ../plugins/git/anjuta-git.glade.h:42 ../plugins/git/plugin.c:213
 msgid "Apply mailbox files"
 msgstr "Aplicar archivos del buzón de correo"
 
@@ -4142,6 +3934,10 @@ msgstr "Revertir commit"
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
+#: ../plugins/git/anjuta-git.glade.h:83
+msgid "Revision:"
+msgstr "Revisión:"
+
 #: ../plugins/git/anjuta-git.glade.h:84
 msgid "Select A Folder"
 msgstr "Seleccionar una carpeta"
@@ -4194,6 +3990,10 @@ msgstr "Usar información personalizada del autor:"
 msgid "View log"
 msgstr "Ver el registro"
 
+#: ../plugins/git/anjuta-git.glade.h:98
+msgid "Whole project"
+msgstr "Proyecto completo"
+
 #: ../plugins/git/anjuta-git.glade.h:99
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
@@ -4231,7 +4031,7 @@ msgstr "Git: Obteniendo…"
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-create-branch-dialog.c:89
-#: ../plugins/git/git-create-tag-dialog.c:99
+#: ../plugins/git/git-create-tag-dialog.c:102
 #: ../plugins/git/git-reset-dialog.c:57 ../plugins/git/git-revert-dialog.c:46
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
@@ -4268,7 +4068,7 @@ msgstr "Git: Rama «%s» creada."
 msgid "Git: Created tag \"%s\"."
 msgstr "Git: Etiqueta «%s» creada."
 
-#: ../plugins/git/git-create-tag-dialog.c:108
+#: ../plugins/git/git-create-tag-dialog.c:111
 msgid "Please enter a tag name."
 msgstr "Introduzca un nombre de etiqueta."
 
@@ -4294,11 +4094,11 @@ msgstr "Registro corto"
 msgid "Author"
 msgstr "Autor"
 
-#: ../plugins/git/git-log-dialog.c:305
+#: ../plugins/git/git-log-dialog.c:316
 msgid "Git: Retrieving log..."
 msgstr "Git: Obteniendo el registro…"
 
-#: ../plugins/git/git-log-dialog.c:345
+#: ../plugins/git/git-log-dialog.c:356
 #: ../plugins/subversion/subversion-add-dialog.c:65
 #: ../plugins/subversion/subversion-diff-dialog.c:116
 #: ../plugins/subversion/subversion-remove-dialog.c:98
@@ -4306,22 +4106,21 @@ msgstr "Git: Obteniendo el registro…"
 msgid "Please enter a path."
 msgstr "Introduzca una ruta."
 
-#: ../plugins/git/git-log-dialog.c:390
-#| msgid "Select file"
+#: ../plugins/git/git-log-dialog.c:401
 msgid "Select a file"
 msgstr "Seleccionar un archivo"
 
-#: ../plugins/git/git-log-dialog.c:537
+#: ../plugins/git/git-log-dialog.c:548
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Rama:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:542
+#: ../plugins/git/git-log-dialog.c:553
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Etiqueta:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:547
+#: ../plugins/git/git-log-dialog.c:558
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
@@ -4350,7 +4149,7 @@ msgstr "Introduzca el URL del repositorio en el que subir."
 msgid "Git: Pushing..."
 msgstr "Git: Subiendo…"
 
-#: ../plugins/git/git-rebase-dialog.c:57
+#: ../plugins/git/git-rebase-dialog.c:60
 msgid "Git: Rebasing"
 msgstr "Git: Ajustar a una base"
 
@@ -4371,7 +4170,7 @@ msgstr "Git: Descarga (checkout) de rama completa."
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:444
+#: ../plugins/git/git-ui-utils.c:455
 msgid "Git: Diff complete."
 msgstr "Git: Diff completado."
 
@@ -4381,266 +4180,272 @@ msgstr "Git: Archivos «unstaged»"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:60 ../plugins/git/plugin.c:468
+#: ../plugins/git/plugin.c:61 ../plugins/git/plugin.c:485
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:68 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:69 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "_Efectuar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:76
+#: ../plugins/git/plugin.c:77
 msgid "_Fetch"
 msgstr "_Obtener"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:84
+#: ../plugins/git/plugin.c:85
 msgid "_Rebase"
 msgstr "Ajustar a _base"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:92 ../plugins/git/plugin.c:348
+#: ../plugins/git/plugin.c:93 ../plugins/git/plugin.c:357
 msgid "_Start..."
 msgstr "_Iniciar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:100
+#: ../plugins/git/plugin.c:101
 msgid "_Continue"
 msgstr "_Continuar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:108
+#: ../plugins/git/plugin.c:109
 msgid "_Skip"
 msgstr "_Saltar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:116 ../plugins/git/plugin.c:244
+#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:245
 msgid "_Abort"
 msgstr "_Abortar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:124
+#: ../plugins/git/plugin.c:125
 msgid "_Push..."
 msgstr "E_mpujar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:132
+#: ../plugins/git/plugin.c:133
 msgid "_Pull..."
 msgstr "Ca_rgar (pull)…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:140
+#: ../plugins/git/plugin.c:141
 msgid "_Diff uncommitted changes"
 msgstr "_Diff de los cambios sin subir"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:148 ../plugins/git/plugin.c:300
-#: ../plugins/git/plugin.c:484 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:149 ../plugins/git/plugin.c:309
+#: ../plugins/git/plugin.c:501 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Añadir…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:156 ../plugins/git/plugin.c:492
+#: ../plugins/git/plugin.c:157 ../plugins/git/plugin.c:509
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "_Eliminar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:164
+#: ../plugins/git/plugin.c:165
 msgid "_Ignore..."
 msgstr "_Ignorar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:172
+#: ../plugins/git/plugin.c:173
 msgid "_Check out files..."
 msgstr "_Descargar (checkout) archivos…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:180
+#: ../plugins/git/plugin.c:181
 msgid "_Unstage files..."
 msgstr "Realizar «unstage» de archivos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:188
+#: ../plugins/git/plugin.c:189
 msgid "_Resolve conflicts..."
 msgstr "_Resolver conflictos…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:196 ../plugins/patch/patch-plugin.c:116
+#: ../plugins/git/plugin.c:197 ../plugins/patch/patch-plugin.c:116
 msgid "Patches"
 msgstr "Parches"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:204
+#: ../plugins/git/plugin.c:205
 msgid "Create patch series..."
 msgstr "Crear serie de parches…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:220
+#: ../plugins/git/plugin.c:221
 msgid "_Apply..."
 msgstr "_Aplicar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:228
+#: ../plugins/git/plugin.c:229
 msgid "_Continue with resolved conflicts"
 msgstr "_Continuar con los conflictos resueltos…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:236
+#: ../plugins/git/plugin.c:237
 msgid "_Skip current patch"
 msgstr "_Saltar el parche actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:252
+#: ../plugins/git/plugin.c:253
 msgid "_Branches"
 msgstr "_Ramas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:260 ../plugins/git/plugin.c:408
+#: ../plugins/git/plugin.c:261 ../plugins/git/plugin.c:417
 msgid "_Create branch..."
 msgstr "_Crear rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:268
+#: ../plugins/git/plugin.c:269
 msgid "_Delete branch..."
 msgstr "_Borrar rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:276
+#: ../plugins/git/plugin.c:277
 msgid "_Switch to another branch..."
 msgstr "Cambia_r a otra rama…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:284
+#: ../plugins/git/plugin.c:285
 msgid "_Merge..."
 msgstr "_Mezclar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:292
+#: ../plugins/git/plugin.c:293 ../plugins/git/plugin.c:449
+msgid "_Cherry pick..."
+msgstr "_Cherry pick…"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:301
 msgid "_Remote branches"
 msgstr "Ramas _remotas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:308
+#: ../plugins/git/plugin.c:317
 msgid "_Delete..."
 msgstr "_Borrar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:316 ../plugins/git/plugin.c:416
+#: ../plugins/git/plugin.c:325 ../plugins/git/plugin.c:425
 msgid "_Create tag..."
 msgstr "_Crear etiqueta…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:324 ../plugins/git/plugin.c:424
+#: ../plugins/git/plugin.c:333 ../plugins/git/plugin.c:433
 msgid "_Reset tree..."
 msgstr "_Restablecer árbol…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:332 ../plugins/git/plugin.c:432
+#: ../plugins/git/plugin.c:341 ../plugins/git/plugin.c:441
 msgid "_Revert commit..."
 msgstr "_Revertir commit…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:340
+#: ../plugins/git/plugin.c:349
 msgid "Bisect"
 msgstr "Viviseccionar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:364
+#: ../plugins/git/plugin.c:373
 msgid "_Good"
 msgstr "_Buena"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:372
+#: ../plugins/git/plugin.c:381
 msgid "_Bad"
 msgstr "_Mala"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:380 ../plugins/git/plugin.c:476
+#: ../plugins/git/plugin.c:389 ../plugins/git/plugin.c:493
 msgid "_View log..."
 msgstr "_Ver el registro…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:392
+#: ../plugins/git/plugin.c:401
 msgid "_Show commit diff"
 msgstr "_Mostrar el diff del commit"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:400
+#: ../plugins/git/plugin.c:409
 msgid "_View selected revision"
 msgstr "_Ver la revisión seleccionada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:440
+#: ../plugins/git/plugin.c:457
 msgid "_Bisect"
 msgstr "_Vivisección (bisect)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:448
+#: ../plugins/git/plugin.c:465
 msgid "_Set good revision"
 msgstr "_Establecer como revisión buena"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:456
+#: ../plugins/git/plugin.c:473
 msgid "_Set bad revision"
 msgstr "_Establecer como revisión mala"
 
-#: ../plugins/git/plugin.c:646
+#: ../plugins/git/plugin.c:666
 msgid "Git operations"
 msgstr "Operaciones de Git"
 
-#: ../plugins/git/plugin.c:651
+#: ../plugins/git/plugin.c:671
 msgid "Git log operations"
 msgstr "Operaciones de registro de Git"
 
-#: ../plugins/git/plugin.c:656
+#: ../plugins/git/plugin.c:676
 msgid "Git FM operations"
 msgstr "Operaciones FM de Git"
 
-#: ../plugins/git/plugin.c:671
+#: ../plugins/git/plugin.c:691
 msgid "Git Log"
 msgstr "Registro de Git"
 
@@ -7738,38 +7543,38 @@ msgstr "- Entorno Integrado de Desarrollo"
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1900
+#: ../plugins/language-support-cpp-java/plugin.c:1916
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1901
+#: ../plugins/language-support-cpp-java/plugin.c:1917
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1907
+#: ../plugins/language-support-cpp-java/plugin.c:1923
 msgid "Auto Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1908
+#: ../plugins/language-support-cpp-java/plugin.c:1924
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1913
+#: ../plugins/language-support-cpp-java/plugin.c:1929
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1914
+#: ../plugins/language-support-cpp-java/plugin.c:1930
 msgid "Swap c header and source files"
 msgstr "Intercambia la cabecera c y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1957
+#: ../plugins/language-support-cpp-java/plugin.c:1973
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2050
-#: ../plugins/language-support-cpp-java/plugin.c:2059
+#: ../plugins/language-support-cpp-java/plugin.c:2066
+#: ../plugins/language-support-cpp-java/plugin.c:2075
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -7996,6 +7801,158 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "<b>CVS Options</b>"
+#~ msgstr "<b>Opciones del CVS</b>"
+
+#~ msgid "<b>Module Details:</b>"
+#~ msgstr "<b>Detalles del módulo:</b>"
+
+#~ msgid ""
+#~ "<b>Please note: </b>\n"
+#~ "\n"
+#~ "Pressing OK will delete the file from disk and from CVS. Of course the "
+#~ "file won't be removed from CVS before you use CVS Commit. <b>You have "
+#~ "been warned!</b>"
+#~ msgstr ""
+#~ "<b>Tenga en cuenta lo siguiente: </b>\n"
+#~ "\n"
+#~ "Al pulsar en Aceptar se borrará el archivo del disco y del CVS. Por "
+#~ "supuesto el archivo no será eliminado del CVS antes de que realice un CVS "
+#~ "commit. <b>Está advertido</b>"
+
+#~ msgid "<b>Repository: </b>"
+#~ msgstr "<b>Repositorio:</b>"
+
+#~ msgid "Be verbose"
+#~ msgstr "Ser prolijo"
+
+#~ msgid "Browse..."
+#~ msgstr "Examinar…"
+
+#~ msgid "CVS Preferences"
+#~ msgstr "Preferencias del CVS"
+
+#~ msgid "CVS: Add file/directory"
+#~ msgstr "CVS: Añadir archivo/directorio"
+
+#~ msgid "CVS: Commit file/directory"
+#~ msgstr "CVS: Efectuar archivo/directorio"
+
+#~ msgid "CVS: Diff file/directory"
+#~ msgstr "CVS: Diferencias del archivo/directorio"
+
+#~ msgid "CVS: Import"
+#~ msgstr "CVS: Importar"
+
+#~ msgid "CVS: Log file/directory"
+#~ msgstr "CVS: Archivo de registro/directorio"
+
+#~ msgid "CVS: Remove file/directory"
+#~ msgstr "CVS: Eliminar archivo/directorio"
+
+#~ msgid "CVS: Status"
+#~ msgstr "CVS: Estado"
+
+#~ msgid "CVS: Status from file/directory"
+#~ msgstr "CVS: Estado del archivo/directorio"
+
+#~ msgid "CVS: Update file/directory"
+#~ msgstr "CVS: Actualizar archivo/directorio"
+
+#~ msgid "CVSROOT:"
+#~ msgstr "CVSROOT:"
+
+#~ msgid "Choose file or directory to add:"
+#~ msgstr "Elegir archivo o directorio para añadir:"
+
+#~ msgid "Choose file or directory to commit:"
+#~ msgstr "Elija un archivo o directorio que efectuar:"
+
+#~ msgid "Choose file or directory to diff:"
+#~ msgstr "Elija el archivo o directorio del que sacar diferencias:"
+
+#~ msgid "Choose file or directory to get log:"
+#~ msgstr "Elija el archivo o directorio del que obtener el registro:"
+
+#~ msgid "Choose file or directory to get the status from:"
+#~ msgstr "Elija el archivo o directorio del que obtener el estado:"
+
+#~ msgid "Choose file or directory to remove:"
+#~ msgstr "Elija el archivo o directorio a eliminar:"
+
+#~ msgid "Choose file or directory to update:"
+#~ msgstr "Elija el archivo o directorio para actualizar:"
+
+#~ msgid "Compression Level (0=off, 10=max):"
+#~ msgstr "Nivel de compresión (0=ninguna, 10=máx):"
+
+#~ msgid "Create new directories"
+#~ msgstr "Crear directorios nuevos"
+
+#~ msgid "Delete empty directories"
+#~ msgstr "Borrar directorios vacíos"
+
+#~ msgid "Do not act recursively"
+#~ msgstr "No actuar recursivamente"
+
+#~ msgid "File is binary"
+#~ msgstr "El archivo es binario"
+
+#~ msgid "Ignore .cvsrc file (recommended)"
+#~ msgstr "Ignorar el archivo .cvsrc (recomendado)"
+
+#~ msgid ""
+#~ "Local\n"
+#~ "Extern (rsh)\n"
+#~ "Password server (pserver)\n"
+#~ msgstr ""
+#~ "Local\n"
+#~ "Externo (rsh)\n"
+#~ "Servidor de contraseñas (pserver)\n"
+
+#~ msgid "Log message:"
+#~ msgstr "Mensaje de registro:"
+
+#~ msgid "Module name:"
+#~ msgstr "Nombre del módulo:"
+
+#~ msgid "Password:"
+#~ msgstr "Contraseña:"
+
+#~ msgid "Path to \"cvs\" command"
+#~ msgstr "Ruta hasta el comando «cvs»"
+
+#~ msgid "Project root directory:"
+#~ msgstr "Directorio raíz del proyecto:"
+
+#~ msgid "Release tag:"
+#~ msgstr "Etiqueta de publicación [Release]:"
+
+#~ msgid "Reset sticky tags"
+#~ msgstr "Restablecer etiquetas persistentes"
+
+#~ msgid ""
+#~ "Standard diff\n"
+#~ "Patch-Style diff"
+#~ msgstr ""
+#~ "Diff estándar\n"
+#~ "Diff estilo patch"
+
+#~ msgid "Unified format instead of context format"
+#~ msgstr "Formato unificado en vez de formato contextual"
+
+#~ msgid "Use revision/tag:"
+#~ msgstr "Usar revisión/etiqueta:"
+
+#~ msgid "Use revision:"
+#~ msgstr "Usar revisión:"
+
+#~ msgid "Username:"
+#~ msgstr "Usuario:"
+
+#~ msgid "Vendor tag:"
+#~ msgstr "Etiqueta del fabricante:"
 
 #~| msgid "Repository authorization"
 #~ msgid "Repositiory origin"
