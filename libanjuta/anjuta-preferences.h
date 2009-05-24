@@ -23,7 +23,6 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
-#include <glade/glade.h>
 
 #include <libanjuta/anjuta-preferences-dialog.h>
 #include <libanjuta/anjuta-plugin-manager.h>
@@ -90,10 +89,6 @@ GType anjuta_preferences_get_type (void);
 AnjutaPreferences *anjuta_preferences_new (AnjutaPluginManager *plugin_manager);
 AnjutaPreferences *anjuta_preferences_default (void);
 
-void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
-                                  const gchar* glade_widget_name,
-                                  const gchar* title,
-                                  const gchar *icon_filename);
 void anjuta_preferences_add_from_builder (AnjutaPreferences* pr,GtkBuilder *builder,
                                           const gchar* glade_widget_name,
                                           const gchar* title,
@@ -102,13 +97,6 @@ void anjuta_preferences_add_from_builder (AnjutaPreferences* pr,GtkBuilder *buil
 void anjuta_preferences_remove_page (AnjutaPreferences *pr, 
                                      const gchar *page_name);
 
-/*
- * Registers all properties defined for widgets below the 'parent' widget
- * in the given gxml glade UI tree
- */
-void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
-                                                                GladeXML *gxml,
-                                                                GtkWidget *parent);
 /*
  * Registers all properties defined for widgets below the 'parent' widget
  * in the given gtkbuilder UI tree

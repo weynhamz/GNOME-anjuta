@@ -49,8 +49,6 @@ struct _PatchPlugin {
 	GtkWidget* patch_button;
 	GtkWidget* cancel_button;
 	GtkWidget* dry_run_check;
-	GladeXML* gxml;
-	
 
 	gboolean executing;
 	gint uiid;

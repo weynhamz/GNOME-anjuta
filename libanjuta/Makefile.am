@@ -63,8 +63,6 @@ libanjuta_la_SOURCES= \
 	anjuta-vcs-status.h \
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
-	anjuta-widgets.c \
-	anjuta-widgets.h \
 	anjuta-command.c \
 	anjuta-command.h \
 	anjuta-async-command.c \

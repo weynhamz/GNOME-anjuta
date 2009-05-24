@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta.glade
+anjuta_glade_DATA = preferences.ui
 
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA = anjuta.ui
@@ -49,7 +49,7 @@ anjuta_LDADD =  \
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 
-prefs_glade_files = anjuta.glade
+prefs_ui_files = preferences.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 noinst_PROGRAMS =  anjuta-shell

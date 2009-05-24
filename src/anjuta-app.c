@@ -27,12 +27,9 @@
 #include <ctype.h>
 #include <sys/wait.h>
 
-#include <glade/glade-xml.h>
 #include <gtk/gtk.h>
 
-#include <gdl/gdl-dock.h>
-#include <gdl/gdl-dock-bar.h>
-#include <gdl/gdl-switcher.h>
+#include <gdl/gdl.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
@@ -46,7 +43,7 @@
 #include "about.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/preferences.ui"
 #define ICON_FILE "anjuta-preferences-general-48.png"
 
 static void anjuta_app_layout_load (AnjutaApp *app,
@@ -643,14 +640,22 @@ anjuta_app_layout_reset (AnjutaApp *app)
 void 
 anjuta_app_install_preferences (AnjutaApp *app)
 {
-	GladeXML *gxml;	
+	GtkBuilder* builder = gtk_builder_new ();
+	GError* error = NULL;
 	GtkWidget *notebook, *shortcuts, *plugins, *remember_plugins;
 	
 	/* Create preferences page */
-	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
-	anjuta_preferences_add_page (app->preferences, gxml,
+	gtk_builder_add_from_file (builder, GLADE_FILE, &error);
+	if (error)
+	{
+		g_warning("Could not load general preferences: %s",
+			  error->message);
+		g_error_free (error);
+		return;
+	}
+	anjuta_preferences_add_from_builder (app->preferences, builder, 
 								 "General", _("General"), ICON_FILE);
-	notebook = 	glade_xml_get_widget (gxml, "General");
+	notebook = 	GTK_WIDGET (gtk_builder_get_object (builder, "General"));
 	shortcuts = anjuta_ui_get_accel_editor (ANJUTA_UI (app->ui));
 	plugins = anjuta_plugin_manager_get_plugins_page (app->plugin_manager);
 	remember_plugins = anjuta_plugin_manager_get_remembered_plugins_page (app->plugin_manager);
@@ -666,7 +671,7 @@ anjuta_app_install_preferences (AnjutaApp *app)
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), shortcuts,
 							  gtk_label_new (_("Shortcuts")));
 	
-	g_object_unref (gxml);
+	g_object_unref (builder);
 }
 
 /* AnjutaShell Implementation */
