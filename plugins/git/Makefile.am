@@ -189,7 +189,11 @@ libanjuta_git_la_SOURCES = \
 	git-apply-mailbox-continue-command.c \
 	git-apply-mailbox-continue-command.h \
 	git-apply-mailbox-dialog.c \
-	git-apply-mailbox-dialog.h
+	git-apply-mailbox-dialog.h \
+	git-cherry-pick-command.c \
+	git-cherry-pick-command.h \
+	git-cherry-pick-dialog.c \
+	git-cherry-pick-dialog.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

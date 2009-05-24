@@ -48,6 +48,7 @@
 				  		<menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
 				  		<menuitem name="Switch to another branch..." action="ActionGitSwitch" />
 				  		<menuitem name="Merge..." action="ActionGitMerge" />
+				  		<menuitem name="Cherry pick..." action="ActionGitCherryPick" />
 				  		<placeholder name="PlaceholderRemoteMenu">
 							<menu name="Remote branches" action="ActionMenuGitRemoteBranches">
 						  		<menuitem name="Add..." action="ActionGitRemoteAdd" />
@@ -87,6 +88,8 @@
 		<separator name ="log_separator2" />
 		<menuitem name="Reset tree..." action="ActionGitLogReset" />
 		<menuitem name="Revert commit..." action="ActionGitLogRevert" />
+		<separator />
+		<menuitem name="Cherry pick..." action="ActionGitLogCherryPick" />
 		<separator />
 		<placeholder name="PlaceholderLogBisectMenu">
 			<menu name="Bisect" action="ActionMenuGitLogBisect">

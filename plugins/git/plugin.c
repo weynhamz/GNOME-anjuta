@@ -47,6 +47,7 @@
 #include "git-cat-file-menu.h"
 #include "git-push-dialog.h"
 #include "git-apply-mailbox-dialog.h"
+#include "git-cherry-pick-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -287,6 +288,14 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_merge)    /* action callback */
 	},
 	{
+		"ActionGitCherryPick",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Cherry pick..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_menu_git_cherry_pick)    /* action callback */
+	},
+	{
 		"ActionMenuGitRemoteBranches",                       /* Action name */
 		GTK_STOCK_NETWORK,                            /* Stock icon, if any */
 		N_("_Remote branches"),                     /* Display label */
@@ -433,6 +442,14 @@ static GtkActionEntry actions_log[] =
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_revert)    /* action callback */
+	},
+	{
+		"ActionGitLogCherryPick",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Cherry pick..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		G_CALLBACK (on_log_menu_git_cherry_pick)    /* action callback */
 	},
 	{
 		"ActionMenuGitLogBisect",                       /* Action name */
