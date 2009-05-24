@@ -530,6 +530,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_free (project_root_uri);
 	
 	git_plugin->bisect_file_monitor = bisect_menus_init (git_plugin);
+	git_plugin->log_refresh_monitor = git_log_setup_refresh_monitor (git_plugin);
+	git_log_refresh_branches (git_plugin);
 }
 
 static void
@@ -561,6 +563,7 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	git_log_window_clear (git_plugin);
 	
 	g_file_monitor_cancel (git_plugin->bisect_file_monitor);
+	g_file_monitor_cancel (git_plugin->log_refresh_monitor);
 	g_object_unref (git_plugin->bisect_file_monitor);
 }
 

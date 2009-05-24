@@ -38,5 +38,7 @@ GtkWidget *git_log_window_create (Git *plugin);
 void git_log_window_clear (Git *plugin);
 GitRevision *git_log_get_selected_revision (Git *plugin);
 gchar *git_log_get_path (Git *plugin);
+GFileMonitor *git_log_setup_refresh_monitor (Git *plugin);
+void git_log_refresh_branches (Git *plugin);
 
 #endif

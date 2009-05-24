@@ -57,6 +57,7 @@ struct _GitLogCommand
 
 GType git_log_command_get_type (void) G_GNUC_CONST;
 GitLogCommand *git_log_command_new (const gchar *working_directory,
+                                    const gchar *branch,
 									const gchar *path,
 									const gchar *author,
 									const gchar *grep,

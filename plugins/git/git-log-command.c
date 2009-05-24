@@ -40,6 +40,7 @@ struct _GitLogCommandPriv
 	GRegex *author_regex;
 	GRegex *time_regex;
 	GRegex *short_log_regex;
+	gchar *branch;
 	gchar *path;
 	
 	/* Filters */
@@ -89,6 +90,7 @@ git_log_command_finalize (GObject *object)
 	g_regex_unref (self->priv->author_regex);
 	g_regex_unref (self->priv->time_regex);
 	g_regex_unref (self->priv->short_log_regex);
+	g_free (self->priv->branch);
 	g_free (self->priv->path);
 	
 	g_free (self->priv->author);
@@ -164,6 +166,9 @@ git_log_command_run (AnjutaCommand *command)
 		
 		g_string_free (commit_range, TRUE);
 	}
+
+	if (self->priv->branch)
+		git_command_add_arg (GIT_COMMAND (command), self->priv->branch);
 	else
 		git_command_add_arg (GIT_COMMAND (command), "HEAD");
 	
@@ -285,7 +290,7 @@ git_log_command_class_init (GitLogCommandClass *klass)
 
 GitLogCommand *
 git_log_command_new (const gchar *working_directory,
-					 const gchar *path,
+					 const gchar *branch, const gchar *path,
 					 const gchar *author, const gchar *grep,
 					 const gchar *since_date, const gchar *until_date,
 					 const gchar *since_commit,
@@ -300,6 +305,7 @@ git_log_command_new (const gchar *working_directory,
 	
 	self->priv->author = g_strdup (author);
 	self->priv->path = g_strdup (path);
+	self->priv->branch = g_strdup (branch);
 	self->priv->grep = g_strdup (grep);
 	self->priv->since_date = g_strdup (since_date);
 	self->priv->until_date = g_strdup (until_date);

@@ -242,6 +242,10 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 {
 	gchar *path;
 	const gchar *relative_path;
+	GtkWidget *log_branch_combo;
+	GtkTreeModel *log_branch_combo_model;
+	GtkTreeIter iter;
+	gchar *branch;
 	GtkWidget *log_changes_view;
 	GtkTreeViewColumn *graph_column;
 	gchar *author;
@@ -274,8 +278,15 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	 * file or folder, hide the graph column, because we can't be assured that  
 	 * the graph will be correct in these cases */
 	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
+	log_branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml, 
+	                                                                 "log_branch_combo_model"));
+	log_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                       "log_branch_combo"));
 	graph_column = gtk_tree_view_get_column (GTK_TREE_VIEW (log_changes_view),
 											 1);
+
+	gtk_combo_box_get_active_iter (GTK_COMBO_BOX (log_branch_combo), &iter);
+	gtk_tree_model_get (log_branch_combo_model, &iter, 1, &branch, -1);
 	
 	if (g_hash_table_size (data->filters) > 0 || path)
 		gtk_tree_view_column_set_visible (graph_column, FALSE);
@@ -295,7 +306,7 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	
 	data->refs = git_ref_command_get_refs (GIT_REF_COMMAND (command));
 	log_command = git_log_command_new (data->plugin->project_root_directory,
-									   relative_path,
+									   branch, relative_path,
 									   author, grep, since_date, until_date,
 									   since_commit, until_commit);
 	
@@ -792,11 +803,117 @@ setup_filters (LogData *data)
 					  data);
 }
 
+static void
+on_log_list_branch_command_data_arrived (AnjutaCommand *command,
+                                         GtkBuilder *bxml)
+{
+	GtkListStore *log_branch_combo_model;
+	GtkComboBox *log_branch_combo;
+	GHashTable *branches_table;
+	GQueue *output_queue;
+	GitBranch *branch;
+	GtkTreeIter iter;
+	gchar *name;
+	
+	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
+	                                                                 "log_branch_combo_model"));
+	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (bxml,
+	                                                          "log_branch_combo"));
+	branches_table = g_object_get_data (G_OBJECT (log_branch_combo), 
+	                                    "branches-table");
+	output_queue = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
+
+	while (g_queue_peek_head (output_queue))
+	{
+		branch = g_queue_pop_head (output_queue);
+		name = git_branch_get_name (branch);
+
+		gtk_list_store_append (log_branch_combo_model, &iter);
+		
+		if (git_branch_is_active (branch))
+		{
+			gtk_list_store_set (log_branch_combo_model, &iter, 0, 
+			                    GTK_STOCK_APPLY, -1);
+			gtk_combo_box_set_active_iter (log_branch_combo, &iter);
+		}
+		
+		gtk_list_store_set (log_branch_combo_model, &iter, 1, name, -1);
+		g_hash_table_insert (branches_table, g_strdup (name), 
+		                     g_memdup (&iter, sizeof (GtkTreeIter)));
+
+		g_object_unref (branch);
+		g_free (name);
+	}
+}
+
+static void
+on_log_list_branch_command_finished (AnjutaCommand *command, guint return_code,
+                                     GtkBuilder *bxml)
+{
+	GtkComboBox *log_branch_combo;
+	GHashTable *branches_table;
+	gchar *selected_branch;
+	GtkTreeIter *iter;
+
+	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (bxml,
+	                                                          "log_branch_combo"));
+	branches_table = g_object_get_data (G_OBJECT (log_branch_combo),
+	                                    "branches-table");
+	selected_branch = g_object_get_data (G_OBJECT (log_branch_combo),
+	                                     "selected-branch");
+
+	if (selected_branch)
+	{	
+		if (g_hash_table_lookup_extended (branches_table, selected_branch, NULL,
+		                                  (gpointer *) &iter))
+		{
+			gtk_combo_box_set_active_iter (log_branch_combo, iter);
+		}
+	}
+
+	g_object_set_data (G_OBJECT (log_branch_combo), "being-refreshed",
+	                   GINT_TO_POINTER (FALSE));
+
+	g_object_unref (command);
+	
+}
+
+static void
+on_log_branch_combo_changed (GtkComboBox *combo_box, gpointer user_data)
+{
+	GtkTreeModel *log_branch_combo_model;
+	gchar *branch;
+	GtkTreeIter iter;
+
+	log_branch_combo_model = gtk_combo_box_get_model (combo_box);
+
+	if (gtk_combo_box_get_active_iter (combo_box, &iter))
+	{
+		gtk_tree_model_get (log_branch_combo_model, &iter, 1, &branch, -1);
+
+		g_object_set_data_full (G_OBJECT (combo_box), "selected-branch", 
+		                        branch, (GDestroyNotify) g_free);
+	}
+}
+
+static void 
+on_log_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
+								GFile *other_file, GFileMonitorEvent event_type,
+								Git *plugin)
+{
+	if (event_type == G_FILE_MONITOR_EVENT_CREATED ||
+	    event_type == G_FILE_MONITOR_EVENT_DELETED)
+	{
+		git_log_refresh_branches (plugin);
+	}
+}
+
+
 GtkWidget *
 git_log_window_create (Git *plugin)
 {
 	LogData *data;
-	gchar *objects[] = {"log_window", NULL};
+	gchar *objects[] = {"log_window", "log_branch_combo_model", NULL};
 	GError *error;
 	GtkWidget *log_window;
 	GtkWidget *log_vbox;
@@ -806,6 +923,7 @@ git_log_window_create (Git *plugin)
 	GtkWidget *log_whole_project_check;
 	GtkWidget *log_path_entry;
 	GtkWidget *log_path_entry_hbox;
+	GtkWidget *log_branch_combo;
 	GtkTreeSelection *selection;
 	
 	data = g_new0 (LogData, 1);
@@ -837,6 +955,8 @@ git_log_window_create (Git *plugin)
 	                                                     "log_path_entry"));
 	log_path_entry_hbox = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 	                                                          "log_path_entry_hbox"));
+	log_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                       "log_branch_combo"));
 	
 	g_object_set_data (G_OBJECT (log_vbox), "log-data", data);
 	
@@ -864,6 +984,10 @@ git_log_window_create (Git *plugin)
 	                  
 	g_signal_connect (G_OBJECT (log_whole_project_check), "toggled",
 					  G_CALLBACK (on_git_whole_project_toggled), plugin);
+
+	g_signal_connect (G_OBJECT (log_branch_combo), "changed",
+	                  G_CALLBACK (on_log_branch_combo_changed),
+	                  NULL);
 	
 	data->list_store = gtk_list_store_new (NUM_COLS,
 										   G_TYPE_OBJECT);
@@ -966,4 +1090,89 @@ git_log_get_path (Git *plugin)
 	                                                     "log_path_entry"));
 	
 	return gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
+}
+
+GFileMonitor *
+git_log_setup_refresh_monitor (Git *plugin)
+{
+	gchar *git_ref_path;
+	GFile *git_ref_file;
+	GFileMonitor *git_ref_monitor;
+
+	git_ref_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                          plugin->project_root_directory,
+	                          ".git",
+	                          "refs",
+	                          "heads",
+	                          NULL);
+
+	git_ref_file = g_file_new_for_path (git_ref_path);
+	git_ref_monitor = g_file_monitor_directory (git_ref_file, 0, NULL, NULL);
+
+	g_file_monitor_set_rate_limit (git_ref_monitor, 1000);
+
+	
+
+	g_signal_connect (G_OBJECT (git_ref_monitor), "changed",
+	                  G_CALLBACK (on_log_refresh_monitor_changed),
+	                  plugin);
+
+	g_free (git_ref_path);
+	g_object_unref (git_ref_file);
+
+	return git_ref_monitor;
+}
+
+void
+git_log_refresh_branches (Git *plugin)
+{
+	LogData *data;
+	GtkWidget *log_branch_combo;
+	gboolean being_refreshed;
+	GtkListStore *log_branch_combo_model;
+	GHashTable *branches_table;
+	GitBranchListCommand *branch_list_command;
+
+	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
+	log_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                       "log_branch_combo"));
+	/* Don't refresh if another refresh is already in progress. The file monitor
+	 * may trigger more than one concurrent refresh, which would populate the  
+	 * combo box several times. The command-finished handler will set the 
+	 * being-refreshed  flag to FALSE when this refresh finishes,  
+	 * allowing the next refresh to go forward. */
+	being_refreshed = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (log_branch_combo),
+	                                                      "being-refreshed"));
+
+	if (!being_refreshed)
+	{
+		log_branch_combo_model = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (log_branch_combo)));
+		branches_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, 
+		                                        g_free);
+		branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
+		                                                   GIT_BRANCH_TYPE_ALL);
+
+		gtk_list_store_clear (log_branch_combo_model);
+
+		/* The branches table keeps track of branch names and iters in the combo
+		 * model, so that the branch that was selected before we refreshed can be
+		 * selected again automatically. If that branch doesn't exist, then
+		 * the currently active branch will be selected. */
+		g_object_set_data_full (G_OBJECT (log_branch_combo), "branches-table",
+		                        branches_table, (GDestroyNotify) g_hash_table_destroy);
+
+		g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
+		                  G_CALLBACK (on_log_list_branch_command_data_arrived),
+		                  data->bxml);
+
+		g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
+		                  G_CALLBACK (on_log_list_branch_command_finished),
+		                  data->bxml);
+
+		g_object_set_data (G_OBJECT (log_branch_combo), "being-refreshed",
+		                   GINT_TO_POINTER (TRUE));
+
+		anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
+	}
+	
 }
