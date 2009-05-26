@@ -169,12 +169,72 @@ on_commit_custom_author_info_check_toggled (GtkToggleButton *button,
 }
 
 static void
+on_commit_amend_check_toggled (GtkToggleButton *toggle_button, GitUIData *data)
+{
+	GtkTextView *commit_log_view;
+	GtkTextBuffer *buffer;
+	gchar *commit_message_path;
+	GFile *commit_message_file;
+	GFileInfo *file_info;
+	gchar *commit_message;
+	guint64 file_size;
+	GFileInputStream *stream;
+
+	commit_log_view = GTK_TEXT_VIEW (gtk_builder_get_object (data->bxml,
+	                                                         "commit_log_view"));
+	buffer = gtk_text_view_get_buffer (commit_log_view);
+
+	if (gtk_toggle_button_get_active (toggle_button))
+	{
+		commit_message_path = g_strjoin (G_DIR_SEPARATOR_S,
+		                                 data->plugin->project_root_directory,
+		                                 ".git",
+		                                 "COMMIT_EDITMSG",
+		                                 NULL);
+		commit_message_file = g_file_new_for_path (commit_message_path);
+
+		file_info = g_file_query_info (commit_message_file,
+		                               G_FILE_ATTRIBUTE_STANDARD_SIZE,
+		                               0, NULL, NULL);
+
+		if (file_info)
+		{
+			file_size = g_file_info_get_size (file_info);
+			stream = g_file_read (commit_message_file, NULL, NULL);
+
+			if (stream)
+			{
+				commit_message = g_new (gchar, file_size);
+				g_input_stream_read (G_INPUT_STREAM (stream), commit_message, 
+				                     file_size, NULL, NULL);
+				g_input_stream_close (G_INPUT_STREAM (stream), NULL, NULL);
+				g_object_unref (stream);
+
+				gtk_text_buffer_set_text (buffer, commit_message, file_size);
+
+				g_free (commit_message);
+
+			}
+
+			g_object_unref (file_info);
+
+		}
+
+		g_free (commit_message_path);
+		g_object_unref (commit_message_file);
+	}
+	else
+		gtk_text_buffer_set_text (buffer, "", 0);
+}
+
+static void
 commit_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
 	gchar *objects[] = {"commit_dialog", NULL};
 	GError *error;
 	GtkWidget *dialog;
+	GtkWidget *commit_amend_check;
 	GtkWidget *commit_custom_author_info_check;
 	GtkWidget *commit_author_info_alignment;
 	GtkWidget *commit_select_all_button;
@@ -195,6 +255,7 @@ commit_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_dialog"));
+	commit_amend_check = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_amend_check"));
 	commit_custom_author_info_check = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_custom_author_info_check"));
 	commit_author_info_alignment = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_author_info_alignment"));
 	commit_select_all_button = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_select_all_button"));
@@ -204,7 +265,13 @@ commit_dialog (Git *plugin)
 	
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_MODIFIED);
+
+	data = git_ui_data_new (plugin, bxml);
 	
+	g_signal_connect (G_OBJECT (commit_amend_check), "toggled",
+	                  G_CALLBACK (on_commit_amend_check_toggled),
+	                  data);
+
 	g_signal_connect (G_OBJECT (commit_custom_author_info_check), "toggled",
 	                  G_CALLBACK (on_commit_custom_author_info_check_toggled),
 	                  commit_author_info_alignment);
@@ -247,7 +314,6 @@ commit_dialog (Git *plugin)
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
-	data = git_ui_data_new (plugin, bxml);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_commit_dialog_response), 
