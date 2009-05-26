@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<glade-catalog name="anjuta" supports="libglade,gtkbuilder" 
+<glade-catalog name="anjuta" supports="gtkbuilder" 
  library="gladeanjuta" depends="gtk+">
 
 	<glade-widget-classes>
