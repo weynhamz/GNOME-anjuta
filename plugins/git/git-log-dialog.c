@@ -309,6 +309,8 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 									   branch, relative_path,
 									   author, grep, since_date, until_date,
 									   since_commit, until_commit);
+
+	g_free (branch);
 	
 	gtk_list_store_clear (data->list_store);
 	
