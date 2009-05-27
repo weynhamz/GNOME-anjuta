@@ -95,7 +95,6 @@ plugins/gdb/anjuta-gdb.glade
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
-plugins/git/anjuta-git.glade
 [type: gettext/glade]plugins/git/anjuta-git.ui
 plugins/git/git-add-dialog.c
 plugins/git/git-add-remote-dialog.c

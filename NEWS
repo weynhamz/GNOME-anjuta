@@ -1,3 +1,19 @@
+Anjuta 2.27.2 (26 May 2009) -- Johannes Schmid
+
+Updates:
+- Lots of git improvements
+- Subversion improvements
+- Removed libglade dependency
+
+#581416 - Fix void function cannot return value
+#581869 - anjuta fails to build outside source tree
+#582710 - Please consider using g_timeout_add_seconds to reduce wakeups
+#582977 – String misspelled
+#581421 - build fail on symbol-db/test
+#530740 – Use GtkBuilder instead of libglade
+#583589 – Some untranslated strings
+#580340 - Reuse the last commit message when amending commits
+
 Anjuta 2.27.1 (4 May 2009) -- Johannes Schmid
 
 Updates:
