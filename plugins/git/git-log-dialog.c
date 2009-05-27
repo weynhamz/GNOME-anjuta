@@ -836,7 +836,10 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 		{
 			gtk_list_store_set (log_branch_combo_model, &iter, 0, 
 			                    GTK_STOCK_APPLY, -1);
-			gtk_combo_box_set_active_iter (log_branch_combo, &iter);
+			g_object_set_data_full (G_OBJECT (log_branch_combo), 
+			                        "active-branch-iter",
+			                        g_memdup (&iter, sizeof (GtkTreeIter)), 
+			                        g_free);
 		}
 		
 		gtk_list_store_set (log_branch_combo_model, &iter, 1, name, -1);
@@ -864,14 +867,16 @@ on_log_list_branch_command_finished (AnjutaCommand *command, guint return_code,
 	selected_branch = g_object_get_data (G_OBJECT (log_branch_combo),
 	                                     "selected-branch");
 
-	if (selected_branch)
+	if (selected_branch && g_hash_table_lookup_extended (branches_table, 
+	                                                     selected_branch, NULL,
+		                              					 (gpointer *) &iter))
 	{	
-		if (g_hash_table_lookup_extended (branches_table, selected_branch, NULL,
-		                                  (gpointer *) &iter))
-		{
-			gtk_combo_box_set_active_iter (log_branch_combo, iter);
-		}
+		gtk_combo_box_set_active_iter (log_branch_combo, iter);
 	}
+	else
+		gtk_combo_box_set_active_iter (log_branch_combo,
+		                               g_object_get_data (G_OBJECT (log_branch_combo),
+		                                                  "active-branch-iter"));
 
 	g_object_set_data (G_OBJECT (log_branch_combo), "being-refreshed",
 	                   GINT_TO_POINTER (FALSE));
@@ -1138,6 +1143,7 @@ git_log_refresh_branches (Git *plugin)
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
 	log_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 	                                                       "log_branch_combo"));
+	
 	/* Don't refresh if another refresh is already in progress. The file monitor
 	 * may trigger more than one concurrent refresh, which would populate the  
 	 * combo box several times. The command-finished handler will set the 
