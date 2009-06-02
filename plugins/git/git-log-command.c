@@ -240,6 +240,7 @@ git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 									self->priv->current_revision);
 		}
 		
+		g_free (parents);
 		g_strfreev (parent_shas);
 	}
 	else if (g_regex_match (self->priv->author_regex, output, 0, &match_info))
