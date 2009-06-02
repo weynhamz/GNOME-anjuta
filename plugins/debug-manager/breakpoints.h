@@ -23,7 +23,6 @@
 
 #include "plugin.h"
 
-#include <glade/glade.h>
 #include <stdio.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>

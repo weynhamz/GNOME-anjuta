@@ -77,7 +77,6 @@ libanjuta_sourceview_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GIO_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 prefs_ui_files = anjuta-editor-sourceview.ui

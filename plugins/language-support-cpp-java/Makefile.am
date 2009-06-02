@@ -59,7 +59,6 @@ libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 	
 prefs_ui_files = anjuta-language-cpp-java.ui

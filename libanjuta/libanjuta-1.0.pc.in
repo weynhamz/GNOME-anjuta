@@ -9,6 +9,6 @@ idldir=@datadir@/idl/libanjuta-1.0
 Name: libanjuta
 Description: Libraries for developing Anjuta plugins.
 Version: @VERSION@
-Requires: libgnomeui-2.0 libglade-2.0
+Requires: libgnomeui-2.0
 Libs: -L${libdir} -lanjuta
 Cflags: -I${includedir}

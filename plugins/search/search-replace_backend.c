@@ -38,7 +38,6 @@
 #include <sys/stat.h>
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-shell.h>

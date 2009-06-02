@@ -37,7 +37,6 @@ libanjuta_project_wizard_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_project_wizard_la_LIBADD = \
 	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_project_wizard_la_SOURCES= \
