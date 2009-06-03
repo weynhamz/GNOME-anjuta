@@ -414,7 +414,7 @@ get_initial_status (GHashTable *visible_paths)
 static void
 free_paths_state (GArray *array)
 {
-	g_array_free (array, FALSE);
+	g_array_free (array, TRUE);
 }
 
 static void
