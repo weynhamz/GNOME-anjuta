@@ -180,7 +180,11 @@ static void
 git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 {
 	GitLogCommand *self;
-	GMatchInfo *match_info;
+	GMatchInfo *commit_match_info;
+	GMatchInfo *parent_match_info;
+	GMatchInfo *author_match_info;
+	GMatchInfo *time_match_info;
+	GMatchInfo *short_log_match_info;
 	gchar *commit_sha;
 	gchar *parents;
 	gchar **parent_shas;
@@ -191,6 +195,12 @@ git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 	gchar *short_log;
 	
 	self = GIT_LOG_COMMAND (git_command);
+
+	commit_match_info = NULL;
+	parent_match_info = NULL;
+	author_match_info = NULL;
+	time_match_info = NULL;
+	short_log_match_info = NULL;
 	
 	/* Entries are delimited by the hex value 0x0c */
 	if (*output == 0x0c && self->priv->current_revision)
@@ -200,9 +210,9 @@ git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 		anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
 	}
 	
-	if (g_regex_match (self->priv->commit_regex, output, 0, &match_info))
+	if (g_regex_match (self->priv->commit_regex, output, 0, &commit_match_info))
 	{
-		commit_sha = g_match_info_fetch (match_info, 1);
+		commit_sha = g_match_info_fetch (commit_match_info, 1);
 		
 		self->priv->current_revision = g_hash_table_lookup (self->priv->revisions, 
 															commit_sha);
@@ -217,9 +227,10 @@ git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 		
 		g_free (commit_sha);
 	}
-	else if (g_regex_match (self->priv->parent_regex, output, 0, &match_info))
+	else if (g_regex_match (self->priv->parent_regex, output, 0, 
+							&parent_match_info))
 	{	
-		parents = g_match_info_fetch (match_info, 1);
+		parents = g_match_info_fetch (parent_match_info, 1);
 		parent_shas = g_strsplit (parents, " ", -1);
 		
 		for (i = 0; parent_shas[i]; i++)
@@ -243,32 +254,45 @@ git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 		g_free (parents);
 		g_strfreev (parent_shas);
 	}
-	else if (g_regex_match (self->priv->author_regex, output, 0, &match_info))
+	else if (g_regex_match (self->priv->author_regex, output, 0, 
+			 &author_match_info))
 	{
-		author = g_match_info_fetch (match_info, 1);
+		author = g_match_info_fetch (author_match_info, 1);
 		git_revision_set_author (self->priv->current_revision, author);
 		
 		g_free (author);
 	}
-	else if (g_regex_match (self->priv->time_regex, output, 0, &match_info))
+	else if (g_regex_match (self->priv->time_regex, output, 0, 
+			 &time_match_info))
 	{
-		time = g_match_info_fetch (match_info, 1);
+		time = g_match_info_fetch (time_match_info, 1);
 		git_revision_set_date (self->priv->current_revision, atol (time));
 		
 		g_free (time);
 	}
 	else if (g_regex_match (self->priv->short_log_regex, output, 0, 
-							&match_info))
+							&short_log_match_info))
 	{
-		short_log = g_match_info_fetch (match_info, 1);
+		short_log = g_match_info_fetch (short_log_match_info, 1);
 		git_revision_set_short_log (self->priv->current_revision, short_log);
 		
 		g_free (short_log);
 	}
 	
-	if (match_info)
-		g_match_info_free (match_info);
-				 
+	if (commit_match_info)
+		g_match_info_free (commit_match_info);
+
+	if (parent_match_info)
+		g_match_info_free (parent_match_info);
+
+	if (author_match_info)
+		g_match_info_free (author_match_info);
+
+	if (time_match_info)
+		g_match_info_free (time_match_info);
+
+	if (short_log_match_info)
+		g_match_info_free (short_log_match_info);
 }
 
 static void
