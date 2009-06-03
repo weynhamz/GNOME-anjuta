@@ -120,8 +120,9 @@ git_status_command_handle_output (GitCommand *git_command, const gchar *output)
 			
 			g_free (status);
 			g_free (path);
-			g_match_info_free (match_info);
 		}
+
+		g_match_info_free (match_info);
 	}
 }
 
