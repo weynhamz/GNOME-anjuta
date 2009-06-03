@@ -104,34 +104,43 @@ git_branch_list_command_handle_output (GitCommand *git_command,
 									   const gchar *output)
 {
 	GitBranchListCommand *self;
-	GMatchInfo *match_info;
+	GMatchInfo *active_match_info;
+	GMatchInfo *regular_match_info;
 	gchar *branch_name;
 	GitBranch *branch;
 	gboolean active;
+
+	self = GIT_BRANCH_LIST_COMMAND (git_command);
 	
-	match_info = NULL;
+	active_match_info = NULL;
+	regular_match_info = NULL;
 	branch_name = NULL;
 	branch = NULL;
 	active = FALSE;
 	
-	self = GIT_BRANCH_LIST_COMMAND (git_command);
-	
-	if (g_regex_match (self->priv->active_branch_regex, output, 0, &match_info))
+	if (g_regex_match (self->priv->active_branch_regex, output, 0, 
+					   &active_match_info))
 	{
-		branch_name = g_match_info_fetch (match_info, 1);
+		branch_name = g_match_info_fetch (active_match_info, 1);
 		active = TRUE;
 	}
 	else if (g_regex_match (self->priv->regular_branch_regex, output, 0,
-							&match_info))
+							&regular_match_info))
 	{
-		branch_name = g_match_info_fetch (match_info, 1);
+		branch_name = g_match_info_fetch (regular_match_info, 1);
 	}
 	
 	if (branch_name)
 		branch = git_branch_new (branch_name, active);
 	
 	g_free (branch_name);
-	g_match_info_free (match_info);
+
+
+	if (active_match_info)
+		g_match_info_free (active_match_info);
+
+	if (regular_match_info)
+		g_match_info_free (regular_match_info);
 	
 	g_queue_push_head (self->priv->output, branch);
 	anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
