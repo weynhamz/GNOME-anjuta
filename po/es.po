@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-05-30 15:27+0000\n"
-"PO-Revision-Date: 2009-06-02 20:15+0200\n"
+"POT-Creation-Date: 2009-06-03 06:48+0000\n"
+"PO-Revision-Date: 2009-06-03 19:52+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1107,7 +1107,6 @@ msgid "Member Functions/Variables"
 msgstr "Funciones/Variables del miembro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
-#| msgid "No license"
 msgid "No License"
 msgstr "Sin licencia"
 
@@ -1129,12 +1128,10 @@ msgid "Source/Header Headings:"
 msgstr "Titulares de Fuente/Cabecera:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
-#| msgid "Update"
 msgid "private"
 msgstr "privativa"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
-#| msgid "project name"
 msgid "protected"
 msgstr "protegida"
 
@@ -1349,10 +1346,6 @@ msgid "Module name:"
 msgstr "Nombre del módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:39
-#| msgid ""
-#| "Local\n"
-#| "Extern (rsh)\n"
-#| "Password server (pserver)\n"
 msgid "Password server (pserver)"
 msgstr "Servidor de contraseñas (pserver)"
 
@@ -1362,9 +1355,6 @@ msgid "Password:"
 msgstr "Contraseña:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:41
-#| msgid ""
-#| "Standard diff\n"
-#| "Patch-Style diff"
 msgid "Patch-Style diff"
 msgstr "Diff estilo patch"
 
@@ -1391,7 +1381,6 @@ msgid "Revision:"
 msgstr "Revisión:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:47
-#| msgid "Standard input:"
 msgid "Standard diff"
 msgstr "Diff estándar"
 
@@ -2647,7 +2636,6 @@ msgstr "<b>Solapas del editor</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:3
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
-#| msgid "Goto"
 msgid "Bottom"
 msgstr "Inferior"
 
@@ -2670,7 +2658,6 @@ msgstr "Posición:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
-#| msgid "High"
 msgid "Right"
 msgstr "Derecha"
 
@@ -2696,7 +2683,6 @@ msgstr "Ordenadas en orden de apertura"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
-#| msgid "To"
 msgid "Top"
 msgstr "Superior"
 
@@ -4346,7 +4332,6 @@ msgid "<b>Changes:</b>"
 msgstr "<b>Cambios:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:7
-#| msgid "<b>Commit to revert:</b>"
 msgid "<b>Commit to Cherry Pick:</b>"
 msgstr "<b>Commit a Cherry Pick:</b>"
 
@@ -4469,7 +4454,6 @@ msgid "Add signed off by line"
 msgstr "Añadir la línea «asignado por»"
 
 #: ../plugins/git/anjuta-git.ui.h:39
-#| msgid "Add signed off by line"
 msgid "Add signed-off by line"
 msgstr "Añadir la línea «revisado por»"
 
@@ -4515,7 +4499,6 @@ msgid "Check out the branch after it is created"
 msgstr "Descargar (checkout) la rama después de que se haya creado"
 
 #: ../plugins/git/anjuta-git.ui.h:52
-#| msgid "_Cherry pick..."
 msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
@@ -4669,7 +4652,6 @@ msgid "Show source revision in log message"
 msgstr "Mostrar la revisión de los fuentes en el mensaje de log"
 
 #: ../plugins/git/anjuta-git.ui.h:92
-#| msgid "Annotate this tag"
 msgid "Sign this tag"
 msgstr "Firmar esta etiqueta"
 
@@ -4749,7 +4731,6 @@ msgid "Git: Fetching..."
 msgstr "Git: Obteniendo…"
 
 #: ../plugins/git/git-apply-mailbox-dialog.c:45
-#| msgid "Please select a file."
 msgid "Please select a mailbox file."
 msgstr "Seleccione un archivo mbox."
 
@@ -5971,7 +5952,6 @@ msgid "<b>Messages options</b>"
 msgstr "<b>Opciones de mensajes</b>"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
-#| msgid "Signal"
 msgid "Diagonal"
 msgstr "Diagonal"
 
@@ -7699,7 +7679,6 @@ msgid "<b>Indentation and auto-format options</b>"
 msgstr "<b>Opciones de sangría y autoformato</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
-#| msgid "<b>Terminal options</b>"
 msgid "<b>Print options</b>"
 msgstr "<b>Opciones de impresión</b>"
 
@@ -7825,7 +7804,6 @@ msgid "<b>First Path:</b>"
 msgstr "<b>Primera ruta:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:10
-#| msgid "<b>Log Message:</b>"
 msgid "<b>Previous Commit Messages:</b>"
 msgstr "<b>Mensaje de commit anteriores:</b>"
 
@@ -7910,7 +7888,6 @@ msgid "Repository Head"
 msgstr "Repositorio"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:44
-#| msgid "Repository origin"
 msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
@@ -7947,7 +7924,6 @@ msgid "Use first path"
 msgstr "Usar la primera ruta"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:56
-#| msgid "Previous message"
 msgid "Use previous message"
 msgstr "Usar el mensaje anterior"
 
@@ -8429,18 +8405,26 @@ msgid ""
 "This option enables the default packages required by your opened project, e."
 "g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)"
 msgstr ""
+"Esta opción activa los paquetes predeterminados necesarios por su proyecto "
+"abierto, ej. glib y gtk+ y crea un proyecto GTK+ (puede necesitar más "
+"trabajo de CPU)"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
 msgid ""
 "This option means that the global system packages will be scanned "
 "contemporary with the project's ones"
 msgstr ""
+"Esta opción significa que los paquetes globales del sistema se analizarán a "
+"la vez que los del proyecto"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:10
 msgid ""
 "Update automatically the file's symbols without saving. The update occurs "
 "after 10 seconds of no keypress by user."
 msgstr ""
+"Actualizar automáticamente los símbolos de los archivos sin guardar. La "
+"actualización sucede después de 10 segundos si el usuario no pulsa ninguna "
+"tecla."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 msgid "<b>Terminal options</b>"
@@ -8958,12 +8942,10 @@ msgid "Gnome toolbar setting"
 msgstr "Configuración de la barra de herramientas de GNOME"
 
 #: ../src/preferences.ui.h:14
-#| msgid "Icon"
 msgid "Icons"
 msgstr "Iconos"
 
 #: ../src/preferences.ui.h:15
-#| msgid "Icon File:"
 msgid "Icons only"
 msgstr "Sólo iconos"
 
@@ -8972,7 +8954,6 @@ msgid "Select projects directory"
 msgstr "Seleccionar el directorio de proyectos"
 
 #: ../src/preferences.ui.h:17
-#| msgid "Tasks"
 msgid "Tabs"
 msgstr "Solapas"
 
@@ -8989,7 +8970,6 @@ msgid "Text beside icons"
 msgstr "Texto junto a los iconos"
 
 #: ../src/preferences.ui.h:22
-#| msgid "Text"
 msgid "Text only"
 msgstr "Sólo texto"
 
@@ -9011,7 +8991,6 @@ msgid "<b>Indentation parameters</b>"
 msgstr "<b>Parámetros de la sangría</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#| msgid "<b>Smart Indentation</b>"
 msgid "<b>Paranthese indentation </b>"
 msgstr "<b>Sangrado de paréntesis</b>"
 
@@ -9057,12 +9036,10 @@ msgid "Enable smart indentation"
 msgstr "Activar sangría inteligente"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#| msgid "Auto Indent"
 msgid "Indent:"
 msgstr "Sangrado:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#| msgid "_Line End Characters"
 msgid "Line up parantheses"
 msgstr "Alinear paréntesis"
 
