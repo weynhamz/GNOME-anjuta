@@ -350,6 +350,12 @@ msgid ""
 "have a lot of files opened, but not all of them are visible in the page tab "
 "area."
 msgstr ""
+"У вікні <interface>Вікно документу</interface> одночасно може бути активним лише один документ "
+"(якщо відкриті якісь файли). Усі команди роботи з файлами застосовуються до "
+"цього активного документу. Можна перейти до іншого документу, клацнувши на його вкладці. Те ж саме "
+"можна зробити клацанням правою кнопкою на вкладках сторінки та обираючи документ "
+"з розкривного меню, що з'явиться. Це особливо зручно якщо ви відкрили багато файлів, "
+"але не всі з них показані у області вкладок сторінки."
 
 #: C/anjuta-manual.xml:108(para)
 msgid ""
@@ -587,16 +593,19 @@ msgid ""
 "dialog window. Choose <guibutton>Insert</guibutton>. The expanded macro text "
 "is inserted at the cursor position."
 msgstr ""
+"Щоб вставити макрос, помістіть курсор на бажане місце. Виберіть "
+"<menuchoice><guisubmenu>Правка</guisubmenu><guisubmenu>Макроси</"
+"guisubmenu><guimenuitem>Макрос...</guimenuitem></menuchoice>. Відкриється діалогове вікно. Виберіть бажаний макрос зі списку, у вікні з'явиться "
+"текст макросу, а у діалоговому вікні буде показано зведення. Виберіть <guibutton>Вставити</guibutton>. У позиції курсору буде вставлено "
+"виконаний макрос."
 
 #: C/anjuta-manual.xml:82(title)
-#, fuzzy
 msgid "Macro"
-msgstr "Макро"
+msgstr "Макрос"
 
 #: C/anjuta-manual.xml:84(screeninfo)
-#, fuzzy
 msgid "The Macro dialog"
-msgstr "Відкриття редактора діалогових вікон"
+msgstr "Діалогове вікно макросу"
 
 #: C/anjuta-manual.xml:77(para)
 msgid ""
@@ -605,11 +614,14 @@ msgid ""
 "guimenuitem></menuchoice>, then to press the desired macro shortcut. "
 "<placeholder-1/>"
 msgstr ""
+"Інший спосіб вставити макрос - виберіть <menuchoice><guisubmenu>Правка</"
+"guisubmenu><guisubmenu>Макрос</guisubmenu><guimenuitem>Вставити макрос...</"
+"guimenuitem></menuchoice>, і потім натисніть комбінацію клавіш, що відповідає макросу. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:91(title)
-#, fuzzy
 msgid "Defining Macros"
-msgstr "Налаштовування макросів"
+msgstr "Визначення нових макросів"
 
 #: C/anjuta-manual.xml:92(para)
 msgid ""
@@ -621,6 +633,13 @@ msgid ""
 "will indicate the cursor position after the macro insertion. Choose "
 "<guibutton>OK</guibutton>. The macro is added to the list."
 msgstr ""
+"У вікні Вставити макрос виберіть <guibutton>Додати</guibutton> або виберіть"
+"<menuchoice><guisubmenu>Правка</guisubmenu><guisubmenu>Макроси</"
+"guisubmenu><guimenuitem>Додати макрос... </guimenuitem></menuchoice>. Відкриється діалогове вікно Додати/змінити макрос. "
+"Введіть назву макросу, виберіть або визначте категорію та введіть "
+"комбінацію клавіш. Потім введіть текст макросу. Символ ' | ' "
+"означатиме, позицію курсору після вставки макросу. Натисніть "
+"<guibutton>Гаразд</guibutton>. Макрос буде додано до списку."
 
 #: C/anjuta-manual.xml:100(para)
 msgid ""
@@ -628,43 +647,45 @@ msgid ""
 "<guibutton>Remove</guibutton>. This only works for user macros (My Macros), "
 "of course."
 msgstr ""
+"Також можна видалити макрос обравши його у списку та натиснувши "
+"<guibutton>Видалити</guibutton>. Працює лише для визначених користувачем макросів (Мої макроси), "
+"of course."
 
 #: C/anjuta-manual.xml:108(title)
-#, fuzzy
 msgid "Add/Edit Macro"
-msgstr "Додати новий макрос"
+msgstr "Додати/змінити макрос"
 
 #: C/anjuta-manual.xml:110(screeninfo)
-#, fuzzy
 msgid "Add Edit dialog"
-msgstr "Вікно додавання файлів"
+msgstr "Діалог додавання та зміни макросу"
 
 #: C/anjuta-manual.xml:104(para)
 msgid ""
 "Similarly, you can edit and modify a macro by selecting it in the list and "
 "choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
 msgstr ""
+"Подібним чином, ви можете змінити макрос, обравши його у списку та "
+"обрати <guibutton>Змінити</guibutton>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:117(title)
-#, fuzzy
 msgid "Macro Keywords"
-msgstr "Немає ключових слів."
+msgstr "Ключові слова макросу"
 
 #: C/anjuta-manual.xml:118(para)
 msgid ""
 "Macro keywords are available. They can be included in macro definitions. "
 "These macro keywords start and finish with the character ' @ '."
 msgstr ""
+"У макросах підтримуються ключові слова. Їх можна включати у визначення макросів. "
+"Такі слова починаються та закінчуються символом ' @ '."
 
 #: C/anjuta-manual.xml:126(title)
-#, fuzzy
 msgid "Keyword Macro"
-msgstr "'MACRO EXPR'"
+msgstr "Макрос з ключовим словом"
 
 #: C/anjuta-manual.xml:128(screeninfo)
-#, fuzzy
 msgid "The Keyword macro"
-msgstr "'MACRO EXPR'"
+msgstr "Макрос з ключовим словом"
 
 #: C/anjuta-manual.xml:122(para)
 msgid ""
@@ -672,16 +693,17 @@ msgid ""
 "@FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, "
 "@INDENTSIZE@, and @USETABS@. <placeholder-1/>"
 msgstr ""
+"Доступні ключові слова @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, "
+"@FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, "
+"@INDENTSIZE@, and @USETABS@. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:139(title)
-#, fuzzy
 msgid "Opening and Saving Files"
-msgstr "Створення та видалення файлів"
+msgstr "Відкривання та збереження файлів"
 
 #: C/anjuta-manual.xml:151(title)
-#, fuzzy
 msgid "Open File dialog"
-msgstr "_Діалог відкривання файлу"
+msgstr "Діалог відкривання файлу"
 
 #: C/anjuta-manual.xml:143(para)
 msgid ""
@@ -699,13 +721,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:166(title)
-#, fuzzy
 msgid "Open Multiple File dialog"
-msgstr "Заголовок діалогового вікна вибору файла."
+msgstr "Діалог відкривання файлу"
 
 #: C/anjuta-manual.xml:168(screeninfo)
 msgid "The Open File dialog in multiple-select mode"
-msgstr ""
+msgstr "Діалог відкривання файлу у режимі з множинним виділенням"
 
 #: C/anjuta-manual.xml:173(para)
 msgid ""
@@ -719,9 +740,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:194(screeninfo)
-#, fuzzy
 msgid "The Save As File"
-msgstr "Зберегти як %s файл:"
+msgstr "Діалог збереження файлу"
 
 #: C/anjuta-manual.xml:184(para)
 msgid ""
@@ -736,9 +756,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:199(title)
-#, fuzzy
 msgid "File autosave"
-msgstr "Автоматично збережений файл новіший."
+msgstr "Автоматичне збереження файлу"
 
 #: C/anjuta-manual.xml:200(para)
 msgid ""
@@ -785,9 +804,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:249(title)
-#, fuzzy
 msgid "Editing Files"
-msgstr "Редагування PO-файлів"
+msgstr "Редагування файлів"
 
 #: C/anjuta-manual.xml:250(para)
 msgid ""
@@ -797,14 +815,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:256(title) C/anjuta-manual.xml:265(title)
-#, fuzzy
 msgid "Editor Margins"
 msgstr "Поля сторінки"
 
 #: C/anjuta-manual.xml:267(screeninfo) C/anjuta-manual.xml:315(screeninfo)
-#, fuzzy
 msgid "The Tags toolbar"
-msgstr "select_toolbar|X"
+msgstr ""
 
 #: C/anjuta-manual.xml:257(para)
 msgid ""
