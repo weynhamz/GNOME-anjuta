@@ -124,18 +124,24 @@ static void
 git_ref_command_handle_output (GitCommand *git_command, const gchar *output)
 {
 	GitRefCommand *self;
-	GMatchInfo *match_info;
+	GMatchInfo *branch_match_info;
+	GMatchInfo *tag_match_info;
+	GMatchInfo *remote_match_info;
 	gchar *sha;
 	gchar *name;
 	GitRef *ref;
 	
 	self = GIT_REF_COMMAND (git_command);
-	match_info = NULL;
+
+	branch_match_info = NULL;
+	tag_match_info = NULL;
+	remote_match_info = NULL;
 	
-	if (g_regex_match (self->priv->branch_ref_regex, output, 0, &match_info))
+	if (g_regex_match (self->priv->branch_ref_regex, output, 0, 
+					   &branch_match_info))
 	{
-		sha = g_match_info_fetch (match_info, 1);
-		name = g_match_info_fetch (match_info, 2);
+		sha = g_match_info_fetch (branch_match_info, 1);
+		name = g_match_info_fetch (branch_match_info, 2);
 		ref = git_ref_new (name, GIT_REF_TYPE_BRANCH);
 		
 		git_ref_command_insert_ref (self, sha, ref);
@@ -143,10 +149,11 @@ git_ref_command_handle_output (GitCommand *git_command, const gchar *output)
 		g_free (sha);
 		g_free (name);
 	}
-	else if (g_regex_match (self->priv->tag_ref_regex, output, 0, &match_info))
+	else if (g_regex_match (self->priv->tag_ref_regex, output, 0, 
+							&tag_match_info))
 	{
-		sha = g_match_info_fetch (match_info, 1);
-		name = g_match_info_fetch (match_info, 2);
+		sha = g_match_info_fetch (tag_match_info, 1);
+		name = g_match_info_fetch (tag_match_info, 2);
 		
 		if (g_str_has_suffix (name, "^{}"))
 			(g_strrstr (name, "^{}")) [0] = '\0';
@@ -160,10 +167,10 @@ git_ref_command_handle_output (GitCommand *git_command, const gchar *output)
 		g_free (name);
 	}
 	else if (g_regex_match (self->priv->remote_ref_regex, output, 0, 
-							&match_info))
+							&remote_match_info))
 	{
-		sha = g_match_info_fetch (match_info, 1);
-		name = g_match_info_fetch (match_info, 2);
+		sha = g_match_info_fetch (remote_match_info, 1);
+		name = g_match_info_fetch (remote_match_info, 2);
 		ref = git_ref_new (name, GIT_REF_TYPE_REMOTE);
 		
 		git_ref_command_insert_ref (self, sha, ref);
@@ -172,8 +179,14 @@ git_ref_command_handle_output (GitCommand *git_command, const gchar *output)
 		g_free (name);
 	}
 	
-	if (match_info)
-		g_match_info_free (match_info);
+	if (branch_match_info)
+		g_match_info_free (branch_match_info);
+
+	if (tag_match_info)
+		g_match_info_free (tag_match_info);
+
+	if (remote_match_info)
+		g_match_info_free (remote_match_info);
 }
 
 static void
