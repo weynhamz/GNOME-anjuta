@@ -856,31 +856,16 @@ on_widget_removed_from_hash (gpointer widget)
 	g_object_unref (G_OBJECT (widget));
 }
 
-static void 
-anjuta_app_add_widget_full (AnjutaShell *shell, 
-					   GtkWidget *widget,
-					   const char *name,
-					   const char *title,
-					   const char *stock_id,
-					   AnjutaShellPlacement placement,
-					   gboolean locked,
-					   GError **error)
+static void
+anjuta_app_setup_widget (AnjutaApp* app,
+                         const gchar* name,
+                         GtkWidget *widget,
+                         GtkWidget* item,
+                         const gchar* title,
+                         gboolean locked)
 {
-	AnjutaApp *app;
-	GtkWidget *item;
 	GtkCheckMenuItem* menuitem;
 
-	g_return_if_fail (ANJUTA_IS_APP (shell));
-	g_return_if_fail (GTK_IS_WIDGET (widget));
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (title != NULL);
-
-	app = ANJUTA_APP (shell);
-	
-	/*
-	anjuta_shell_add (shell, name, G_TYPE_FROM_INSTANCE (widget),
-					  widget, NULL);
-	*/
 
 	/* Add the widget to hash */
 	if (app->widgets == NULL)
@@ -891,31 +876,6 @@ anjuta_app_add_widget_full (AnjutaShell *shell,
 	}
 	g_hash_table_insert (app->widgets, g_strdup (name), widget);
 	g_object_ref (widget);
-	
-	/* Add the widget to dock */
-	if (stock_id == NULL)
-		item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
-	else
-		item = gdl_dock_item_new_with_stock (name, title, stock_id,
-											 GDL_DOCK_ITEM_BEH_NORMAL);
-	if (locked)
-	{
-		guint flags = 0;
-		flags |= GDL_DOCK_ITEM_BEH_NEVER_FLOATING;
-		flags |= GDL_DOCK_ITEM_BEH_CANT_CLOSE;
-		flags |= GDL_DOCK_ITEM_BEH_CANT_ICONIFY;
-		flags |= GDL_DOCK_ITEM_BEH_NO_GRIP;
-		g_object_set(G_OBJECT(item), "behavior", flags, NULL);
-	}
-	
-	gtk_container_add (GTK_CONTAINER (item), widget);
-    gdl_dock_add_item (GDL_DOCK (app->dock),
-                       GDL_DOCK_ITEM (item), placement);
-	
-	if (locked)
-		gdl_dock_item_set_default_position(GDL_DOCK_ITEM(item), GDL_DOCK_OBJECT(app->dock));
-	
-	gtk_widget_show_all (item);
 	
 	/* Add toggle button for the widget */
 	menuitem = GTK_CHECK_MENU_ITEM (gtk_check_menu_item_new_with_label (title));
@@ -943,6 +903,89 @@ anjuta_app_add_widget_full (AnjutaShell *shell,
 					  G_CALLBACK (on_widget_remove), app);
 	g_signal_connect_after (G_OBJECT (widget), "destroy",
 					  G_CALLBACK (on_widget_destroy), app);
+
+	gtk_widget_show_all (item);
+}
+                         
+
+static void 
+anjuta_app_add_widget_full (AnjutaShell *shell, 
+					   GtkWidget *widget,
+					   const char *name,
+					   const char *title,
+					   const char *stock_id,
+					   AnjutaShellPlacement placement,
+					   gboolean locked,
+					   GError **error)
+{
+	AnjutaApp *app;
+	GtkWidget *item;
+
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+	g_return_if_fail (name != NULL);
+	g_return_if_fail (title != NULL);
+
+	app = ANJUTA_APP (shell);
+	
+	/* Add the widget to dock */
+	if (stock_id == NULL)
+		item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+	else
+		item = gdl_dock_item_new_with_stock (name, title, stock_id,
+											 GDL_DOCK_ITEM_BEH_NORMAL);
+	if (locked)
+	{
+		guint flags = 0;
+		flags |= GDL_DOCK_ITEM_BEH_NEVER_FLOATING;
+		flags |= GDL_DOCK_ITEM_BEH_CANT_CLOSE;
+		flags |= GDL_DOCK_ITEM_BEH_CANT_ICONIFY;
+		flags |= GDL_DOCK_ITEM_BEH_NO_GRIP;
+		g_object_set(G_OBJECT(item), "behavior", flags, NULL);
+	}
+	
+	gtk_container_add (GTK_CONTAINER (item), widget);
+    gdl_dock_add_item (GDL_DOCK (app->dock),
+                       GDL_DOCK_ITEM (item), placement);
+	
+	if (locked)
+		gdl_dock_item_set_default_position(GDL_DOCK_ITEM(item), GDL_DOCK_OBJECT(app->dock));
+
+	anjuta_app_setup_widget (app, name, widget, item, title, locked);
+}
+
+static void
+anjuta_app_add_widget_custom (AnjutaShell *shell, 
+                              GtkWidget *widget,
+                              const char *name,
+                              const char *title,
+                              GtkWidget *label,
+                              AnjutaShellPlacement placement,
+                              GError **error)
+{
+	AnjutaApp *app;
+	GtkWidget *item;
+	GtkWidget *grip;
+	
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+	g_return_if_fail (name != NULL);
+	g_return_if_fail (title != NULL);
+
+	app = ANJUTA_APP (shell);
+
+	/* Add the widget to dock */
+	item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+
+	gtk_container_add (GTK_CONTAINER (item), widget);
+    gdl_dock_add_item (GDL_DOCK (app->dock),
+                       GDL_DOCK_ITEM (item), placement);
+	
+	grip = gdl_dock_item_get_grip (GDL_DOCK_ITEM (item));
+
+	gdl_dock_item_grip_set_label (GDL_DOCK_ITEM_GRIP (grip), label);
+
+	anjuta_app_setup_widget (app, name, widget, item, title, FALSE);
 }
 
 static void 
@@ -1055,6 +1098,7 @@ static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
 	iface->add_widget_full = anjuta_app_add_widget_full;
+	iface->add_widget_custom = anjuta_app_add_widget_custom;
 	iface->remove_widget = anjuta_app_remove_widget;
 	iface->present_widget = anjuta_app_present_widget;
 	iface->add_value = anjuta_app_add_value;

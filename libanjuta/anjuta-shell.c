@@ -294,6 +294,34 @@ anjuta_shell_add_widget_full (AnjutaShell *shell,
 }
 
 /**
+ * anjuta_shell_add_widget_full:
+ * @shell: A #AnjutaShell interface.
+ * @widget: Then widget to add
+ * @name: Name of the widget. None translated string used to identify it in 
+ * the shell.
+ * @title: title of the widget (translated)
+ * @label: Label widget to use
+ * @placement: Placement of the widget in shell.
+ * @error: Error propagation object.
+ *
+ * Adds @widget in the shell. The @placement tells where the widget should
+ * appear, but generally it will be overridden by the container
+ * (dock, notebook, GtkContainer etc.) saved layout.
+ * use locking. Using this method you can pass a custom widget as label
+ */
+void   anjuta_shell_add_widget_custom (AnjutaShell   *shell,
+                                       GtkWidget     *widget,
+                                       const char      *name,
+                                       const char      *title,
+                                       GtkWidget     *label,
+                                       AnjutaShellPlacement placement,
+                                       GError        **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->add_widget_custom (shell, widget, name, title, label,
+	                                                   placement, error);
+}
+
+/**
  * anjuta_shell_remove_widget:
  * @shell: A #AnjutaShell interface
  * @widget: The widget to remove
