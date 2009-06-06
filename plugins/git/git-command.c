@@ -60,20 +60,30 @@ git_command_multi_line_output_arrived (AnjutaLauncher *launcher,
 									   const gchar *chars, GitCommand *self)
 {	
 	GitCommandClass *klass;
+	gchar *utf8_output;
 	
 	klass = GIT_COMMAND_GET_CLASS (self);
-	
-	switch (output_type)
+	utf8_output = g_locale_to_utf8 (chars, -1, NULL, NULL, NULL);
+
+	if (utf8_output)
 	{
-		case ANJUTA_LAUNCHER_OUTPUT_STDOUT:
-			if (klass->output_handler)
-				GIT_COMMAND_GET_CLASS (self)->output_handler (self, chars);
-			break;
-		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			GIT_COMMAND_GET_CLASS (self)->error_handler (self, chars);
-			break;
-		default:
-			break;
+		switch (output_type)
+		{
+			case ANJUTA_LAUNCHER_OUTPUT_STDOUT:
+				if (klass->output_handler)
+				{
+					GIT_COMMAND_GET_CLASS (self)->output_handler (self, 
+										   utf8_output);
+				}
+				break;
+			case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+				GIT_COMMAND_GET_CLASS (self)->error_handler (self, utf8_output);
+				break;
+			default:
+				break;
+		}
+
+		g_free (utf8_output);
 	}
 }
 
@@ -146,6 +156,8 @@ git_command_single_line_output_arrived (AnjutaLauncher *launcher,
 	void (*output_handler) (GitCommand *git_command, const gchar *output);
 	gchar **lines;
 	gchar **current_line;
+	gchar *utf8_output;
+
 		
 	switch (output_type)
 	{
@@ -165,7 +177,18 @@ git_command_single_line_output_arrived (AnjutaLauncher *launcher,
 		lines = split_lines (chars, self->priv->strip_newlines);
 		
 		for (current_line = lines; *current_line; current_line++)
-			output_handler (self, *current_line);
+		{
+			utf8_output = g_locale_to_utf8 (*current_line, -1, NULL, NULL, 
+											NULL);
+
+			if (utf8_output)
+			{
+				output_handler (self, utf8_output);
+				g_free (utf8_output);
+			}
+
+			
+		}
 		
 		g_strfreev (lines);
 	}
