@@ -46,7 +46,6 @@ static void
 git_revision_finalize (GObject *object)
 {
 	GitRevision *self;
-	GList *current_child;
 	
 	self = GIT_REVISION (object);
 	
@@ -54,14 +53,6 @@ git_revision_finalize (GObject *object)
 	g_free (self->priv->author);
 	g_free (self->priv->date);
 	g_free (self->priv->short_log);
-	
-	current_child = self->priv->children;
-	
-	while (current_child)
-	{
-		g_object_unref (current_child->data);
-		current_child = g_list_next (current_child);
-	}
 	
 	g_list_free (self->priv->children);
 	g_free (self->priv);
@@ -214,7 +205,7 @@ void
 git_revision_add_child (GitRevision *self, GitRevision *child)
 {
 	self->priv->children = g_list_prepend (self->priv->children,
-										  g_object_ref (child));
+										  child);
 	git_revision_set_has_parents (child, TRUE);
 }
 
