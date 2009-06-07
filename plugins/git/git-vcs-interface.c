@@ -218,6 +218,7 @@ on_status_command_data_arrived (AnjutaCommand *command,
 			}
 
 			g_free (path);
+			g_free (full_path);
 		}
 		
 		g_object_unref (status);
