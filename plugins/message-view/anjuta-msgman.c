@@ -42,6 +42,7 @@ struct _AnjutaMsgmanPage
 	GtkWidget *label;
 	GtkWidget *button;
 	GtkWidget *box;
+	GtkWidget *frame;
 	GtkWidget *close_button;
 	GtkWidget *close_icon;
 };
@@ -187,9 +188,13 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->box = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->button, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
+
+	page->frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME(page->frame),
+	                           GTK_SHADOW_OUT);
+	gtk_container_add (GTK_CONTAINER (page->frame), page->box);
 	
-	
-	gtk_widget_show_all (page->box);
+	gtk_widget_show_all (page->frame);
 	
 	return page;
 }
@@ -197,7 +202,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 static void
 anjuta_msgman_page_destroy (AnjutaMsgmanPage * page)
 {
-	gtk_widget_destroy (page->box);
+	gtk_widget_destroy (page->frame);
 	g_free (page);
 }
 
@@ -279,7 +284,7 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
 	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
-	msgman->priv->hbox = gtk_hbox_new (FALSE, 5);
+	msgman->priv->hbox = gtk_hbox_new (FALSE, 1);
 	msgman->priv->button_group = NULL;
 	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
                        G_CALLBACK(on_msgman_popup_menu), msgman);
@@ -413,7 +418,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	page_num = gtk_notebook_append_page (GTK_NOTEBOOK (msgman), mv, NULL);
 
-	gtk_box_pack_start (GTK_BOX(msgman->priv->hbox), page->box, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(msgman->priv->hbox), page->frame, FALSE, FALSE, 0);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
