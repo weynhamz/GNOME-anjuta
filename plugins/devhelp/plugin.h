@@ -52,12 +52,16 @@ struct _AnjutaDevhelp{
 	GtkWidget      *view;
 	GtkWidget      *view_sw;
 	GtkWidget      *control_notebook; 
-	GtkWidget      *main_vbox;
+	GtkWidget      *tab_hbox;
+	GtkWidget      *custom_label;
 	GtkWidget      *book_tree;
 	GtkWidget      *search;
 	GtkWidget      *go_back;
 	GtkWidget      *go_forward;
 	GtkWidget      *online;
+
+	GtkWidget      *button_tree;
+	GtkWidget      *button_search;	
 	
 	IAnjutaEditor	*editor;
 	guint editor_watch_id;
