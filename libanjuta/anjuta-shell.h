@@ -91,12 +91,13 @@ struct _AnjutaShellIface {
 							   gboolean locked,
 							   GError      **error);
 	void (*add_widget_custom)  (AnjutaShell  *shell,
-							   GtkWidget    *widget,
-							   const char   *name,
-							   const char   *title,
-							   GtkWidget    *label,
-							   AnjutaShellPlacement placement,
-							   GError      **error);
+	                            GtkWidget    *widget,
+	                            const char   *name,
+	                            const char   *title,
+	                            const char   *stock_id,
+	                            GtkWidget    *label,
+	                            AnjutaShellPlacement placement,
+	                            GError      **error);
 	
 	void (*remove_widget)     (AnjutaShell  *shell,
 							   GtkWidget    *widget,
@@ -151,8 +152,9 @@ void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 
 void   anjuta_shell_add_widget_custom (AnjutaShell   *shell,
                                        GtkWidget     *widget,
-                                       const char      *name,
-                                       const char      *title,
+                                       const char    *name,
+                                       const char    *title,
+                                       const char    *stock_id,
                                        GtkWidget     *label,
                                        AnjutaShellPlacement placement,
                                        GError        **error);

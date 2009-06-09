@@ -959,6 +959,7 @@ anjuta_app_add_widget_custom (AnjutaShell *shell,
                               GtkWidget *widget,
                               const char *name,
                               const char *title,
+                              const char   *stock_id,
                               GtkWidget *label,
                               AnjutaShellPlacement placement,
                               GError **error)
@@ -975,7 +976,12 @@ anjuta_app_add_widget_custom (AnjutaShell *shell,
 	app = ANJUTA_APP (shell);
 
 	/* Add the widget to dock */
-	item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+	/* Add the widget to dock */
+	if (stock_id == NULL)
+		item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+	else
+		item = gdl_dock_item_new_with_stock (name, title, stock_id,
+											 GDL_DOCK_ITEM_BEH_NORMAL);
 
 	gtk_container_add (GTK_CONTAINER (item), widget);
     gdl_dock_add_item (GDL_DOCK (app->dock),

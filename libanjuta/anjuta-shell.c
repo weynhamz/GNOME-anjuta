@@ -313,11 +313,12 @@ void   anjuta_shell_add_widget_custom (AnjutaShell   *shell,
                                        GtkWidget     *widget,
                                        const char      *name,
                                        const char      *title,
+                                       const char      *stock_id,
                                        GtkWidget     *label,
                                        AnjutaShellPlacement placement,
                                        GError        **error)
 {
-	ANJUTA_SHELL_GET_IFACE (shell)->add_widget_custom (shell, widget, name, title, label,
+	ANJUTA_SHELL_GET_IFACE (shell)->add_widget_custom (shell, widget, name, title, stock_id, label,
 	                                                   placement, error);
 }
 
