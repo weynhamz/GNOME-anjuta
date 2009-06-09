@@ -2092,12 +2092,53 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 	}	
 }
 
+static void
+on_notebook_button_toggled (GtkToggleButton *button,
+                            SymbolDBPlugin *sdb_plugin)
+{
+	int page = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "__page"));
+	gtk_notebook_set_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
+}
+
+static void
+on_notebook_switch_page (GtkNotebook* notebook,
+                         GtkNotebookPage* page,
+                         guint page_num,
+                         SymbolDBPlugin *sdb_plugin)
+{
+	g_signal_handlers_block_by_func (sdb_plugin->local_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+	g_signal_handlers_block_by_func (sdb_plugin->global_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+	g_signal_handlers_block_by_func (sdb_plugin->search_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->local_button),
+	                              page_num == 0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->global_button),
+	                              page_num == 1);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->search_button),
+	                              page_num == 2);
+	g_signal_handlers_unblock_by_func (sdb_plugin->local_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+	g_signal_handlers_unblock_by_func (sdb_plugin->global_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+	g_signal_handlers_unblock_by_func (sdb_plugin->search_button,
+	                                on_notebook_button_toggled,
+	                                sdb_plugin);
+}
+
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *sdb_plugin;
 	gchar *anjuta_cache_path;
 	gchar *ctags_path;
+	GtkWidget *label;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
 	
@@ -2198,6 +2239,46 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* Create widgets */
 	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
 	sdb_plugin->dbv_notebook = gtk_notebook_new();
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
+	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
+
+	sdb_plugin->local_button = gtk_toggle_button_new_with_label (_("Local"));
+	sdb_plugin->global_button = gtk_toggle_button_new_with_label (_("Global"));
+	sdb_plugin->search_button = gtk_toggle_button_new_with_label (_("Search"));
+
+	g_object_set_data (G_OBJECT(sdb_plugin->local_button), "__page", GINT_TO_POINTER(0));
+	g_object_set_data (G_OBJECT(sdb_plugin->global_button), "__page", GINT_TO_POINTER(1));
+	g_object_set_data (G_OBJECT(sdb_plugin->search_button), "__page", GINT_TO_POINTER(2));
+
+	g_signal_connect (sdb_plugin->local_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	                  sdb_plugin);
+	g_signal_connect (sdb_plugin->global_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	                  sdb_plugin);
+	g_signal_connect (sdb_plugin->search_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	                  sdb_plugin);
+	g_signal_connect (sdb_plugin->dbv_notebook,
+	                  "switch-page",
+	                  G_CALLBACK(on_notebook_switch_page),
+	                  sdb_plugin);
+
+	label = gtk_label_new (_("Symbols"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), 
+	                    gtk_image_new_from_stock ("symbol-db-plugin-icon",
+	                                              GTK_ICON_SIZE_MENU),
+	                    FALSE, FALSE, 0);	
+	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), label,
+	                    TRUE, TRUE, 0);	
+	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->local_button,
+	                    FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->global_button,
+	                    FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->search_button,
+	                    FALSE, FALSE, 0);
+
+	gtk_widget_show_all (sdb_plugin->dbv_hbox);
+	
 	sdb_plugin->progress_bar_project = gtk_progress_bar_new();
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_project),
 									PANGO_ELLIPSIZE_MIDDLE);
@@ -2207,7 +2288,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_system),
 									PANGO_ELLIPSIZE_MIDDLE);
 	g_object_ref (sdb_plugin->progress_bar_system);
-		
+	
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->dbv_notebook,
 						TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->progress_bar_project,
@@ -2307,10 +2388,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	/* Added widgets */
-	anjuta_shell_add_widget (plugin->shell, sdb_plugin->dbv_main,
-							 "AnjutaSymbolDB", _("Symbols"),
-							 "symbol-db-plugin-icon",
-							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);	
+	anjuta_shell_add_widget_custom (plugin->shell, sdb_plugin->dbv_main,
+	                                "AnjutaSymbolDB", _("Symbols"),
+	                                "symbol-db-plugin-icon",
+	                                sdb_plugin->dbv_hbox,
+	                                ANJUTA_SHELL_PLACEMENT_LEFT, NULL);	
 
 	/* Add action group */
 	sdb_plugin->popup_action_group = 

@@ -88,9 +88,15 @@ struct _SymbolDBPlugin {
 	SymbolDBPrefs *sdbp;
 	
 	GtkWidget *dbv_main;					/* symbol main window [gtk_box] */
-	GtkWidget *dbv_notebook;          		/* main notebook */	
+	GtkWidget *dbv_notebook;          		/* main notebook */
+	GtkWidget *dbv_hbox;					/* hbox for notebook buttons */
 	GtkWidget *scrolled_global; 			/* symbol view scrolledwindow for global
 										   	symbols */
+
+	GtkWidget *local_button;
+	GtkWidget *global_button;
+	GtkWidget *search_button;
+	
 	GtkWidget *scrolled_locals;
 	GtkWidget *scrolled_search;
 	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
