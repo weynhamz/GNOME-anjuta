@@ -322,16 +322,16 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	if (ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown == FALSE)
 	{
 		GtkWidget* label = gtk_label_new (_("Messages"));
-		GtkImage* image = gtk_image_new_from_stock ("message-manager-plugin-icon",
+		GtkWidget* image = gtk_image_new_from_stock ("message-manager-plugin-icon",
 		                                            GTK_ICON_SIZE_MENU);
-		GtkWidget* hbox = anjuta_msgman_get_hbox (msgman);
+		GtkWidget* hbox = anjuta_msgman_get_hbox (ANJUTA_MSGMAN(msgman));
 		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 		gtk_widget_show_all (hbox);
 		
 		anjuta_shell_add_widget_custom (shell, msgman,
 							 "AnjutaMessageView", _("Messages"),
-							 hbox,
+							 "message-manager-plugin-icon", hbox,
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 		ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown = TRUE;
 	}
