@@ -203,6 +203,39 @@ RowSeparatorFunc (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 }
 
 static void
+on_value_added_current_doc (AnjutaPlugin *plugin, const gchar *name,
+                            const GValue *value, gpointer data)
+{
+	AnjutaFileLoaderPlugin *fplugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
+	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
+
+	g_free (fplugin->dm_current_uri);
+
+	if (IANJUTA_IS_FILE (doc))
+	{
+		GFile* file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL);
+		GFile* parent = g_file_get_parent (file);
+		fplugin->dm_current_uri = g_file_get_uri (parent);
+		g_object_unref (parent);
+		g_object_unref (file);
+	}
+	else
+	{
+
+		fplugin->dm_current_uri = NULL;
+	}	
+}
+
+static void
+on_value_removed_current_doc (AnjutaPlugin *plugin, const gchar *name,
+                              gpointer data)
+{
+	AnjutaFileLoaderPlugin *fplugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
+	g_free (fplugin->dm_current_uri);
+	fplugin->dm_current_uri = NULL;
+}
+
+static void
 open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				  const gchar *mime_type)
 {
@@ -388,16 +421,9 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 static void
 open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 {
-	gchar *dirname;
-	gchar *path;
 	GFile* file;
 	
 	file = g_file_new_for_uri (uri);
-	path = g_file_get_path (file);
-	dirname = g_path_get_dirname (uri);
-	chdir (dirname);
-	g_free (path);
-	g_free (dirname);
 	
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 							  file, FALSE, NULL);
@@ -568,6 +594,11 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									NULL);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
+	if (plugin->dm_current_uri)
+	{
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog),
+		                                         plugin->dm_current_uri);
+	}
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW(dialog), TRUE);
@@ -1287,6 +1318,12 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								 value_added_pm_current_uri,
 								 value_removed_pm_current_uri, NULL);
+	loader_plugin->dm_watch_id = 
+		anjuta_plugin_add_watch (plugin,
+								  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+								 on_value_added_current_doc,
+								 on_value_removed_current_doc,
+								 plugin);
 	
 	/* Connect to session */
 	g_signal_connect (G_OBJECT (plugin->shell), "load_session",
@@ -1343,6 +1380,7 @@ anjuta_file_loader_plugin_instance_init (GObject *obj)
 	
 	plugin->fm_current_uri = NULL;
 	plugin->pm_current_uri = NULL;
+	plugin->dm_current_uri = NULL;	
 }
 
 static void

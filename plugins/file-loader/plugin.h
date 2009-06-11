@@ -23,11 +23,14 @@ struct _AnjutaFileLoaderPlugin{
 	
 	gchar *fm_current_uri;
 	gchar *pm_current_uri;
-	
+	gchar *dm_current_uri;
+  
 	gint fm_watch_id;
 	gint pm_watch_id;
+  	gint dm_watch_id;
 	
 	gint uiid;
+
 };
 
 struct _AnjutaFileLoaderPluginClass{
