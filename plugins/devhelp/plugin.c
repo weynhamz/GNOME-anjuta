@@ -299,7 +299,7 @@ on_notebook_button_toggled (GtkToggleButton *button,
                             AnjutaDevhelp *devhelp)
 {
 	int page = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "__page"));
-	gtk_notebook_set_page (GTK_NOTEBOOK(devhelp->control_notebook), page);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK(devhelp->control_notebook), page);
 }
 
 static void
