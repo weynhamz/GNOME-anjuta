@@ -74,6 +74,7 @@ GNOME_DOC_INIT
 AC_PROG_CC
 AC_PROG_CPP
 AC_LANG_C
+AC_PROG_CXX
 
 GNOME_COMPILE_WARNINGS(maximum)
 AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
@@ -757,6 +758,7 @@ plugins/gbf-mkfile/gbf-mkfile-parse
 plugins/gbf-mkfile/GBF/Makefile
 plugins/symbol-db/test/Makefile
 plugins/symbol-db/images/Makefile
+plugins/symbol-db/cxxparser/Makefile
 plugins/symbol-db/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
