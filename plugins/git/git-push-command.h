@@ -55,7 +55,8 @@ struct _GitPushCommand
 
 GType git_push_command_get_type (void) G_GNUC_CONST;
 GitPushCommand *git_push_command_new (const gchar *working_directory,
-									  const gchar *url, 
+									  const gchar *url,
+									  GList *refs,
 									  gboolean push_all, 
                                       gboolean push_tags);
 

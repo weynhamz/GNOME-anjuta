@@ -26,7 +26,8 @@
 
 struct _GitPushCommandPriv
 {
-	gchar *url; 
+	gchar *url;
+	GList *refs;
 	gboolean push_all;
 	gboolean push_tags;
 };
@@ -47,6 +48,7 @@ git_push_command_finalize (GObject *object)
 	self = GIT_PUSH_COMMAND (object);
 	
 	g_free (self->priv->url);
+	git_command_free_path_list (self->priv->refs);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_push_command_parent_class)->finalize (object);
@@ -68,6 +70,9 @@ git_push_command_run (AnjutaCommand *command)
 		git_command_add_arg (GIT_COMMAND (command), "--tags");
 	
 	git_command_add_arg (GIT_COMMAND (command), self->priv->url);
+
+	if (self->priv->refs)
+		git_command_add_list_to_args (GIT_COMMAND (command), self->priv->refs);
 	
 	return 0;
 }
@@ -87,7 +92,8 @@ git_push_command_class_init (GitPushCommandClass *klass)
 
 GitPushCommand *
 git_push_command_new (const gchar *working_directory,
-					  const gchar *url, 
+					  const gchar *url,
+					  GList *refs,
 					  gboolean push_all, 
                       gboolean push_tags)
 {
@@ -99,6 +105,7 @@ git_push_command_new (const gchar *working_directory,
 						  NULL);
 	
 	self->priv->url = g_strdup (url);
+	self->priv->refs = git_command_copy_path_list (refs);
 	self->priv->push_all = push_all;
 	self->priv->push_tags = push_tags;
 	
