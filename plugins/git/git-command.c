@@ -538,7 +538,7 @@ git_command_send_output_to_info (GitCommand *git_command, const gchar *output)
 }
 
 GList *
-git_command_copy_path_list (GList *list)
+git_command_copy_string_list (GList *list)
 {
 	GList *current_path;
 	GList *new_list;
@@ -556,7 +556,7 @@ git_command_copy_path_list (GList *list)
 }
 
 void
-git_command_free_path_list (GList *list)
+git_command_free_string_list (GList *list)
 {
 	GList *current_path;
 	

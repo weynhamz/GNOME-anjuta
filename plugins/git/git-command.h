@@ -74,8 +74,8 @@ void git_command_send_output_to_info (GitCommand *git_command,
 									  const gchar *output);
 									  
 /* Static helper methods */
-GList *git_command_copy_path_list (GList *path_list);
-void git_command_free_path_list (GList *path_list);
+GList *git_command_copy_string_list (GList *path_list);
+void git_command_free_string_list (GList *path_list);
 
 G_END_DECLS
 

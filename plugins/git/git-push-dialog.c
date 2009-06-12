@@ -96,7 +96,7 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		progress_data = git_progress_data_new (data->plugin, _("Git: Pushing..."));
 
 		g_free (url);
-		git_command_free_path_list (selected_refs);
+		git_command_free_string_list (selected_refs);
 
 		git_create_message_view (data->plugin);
 

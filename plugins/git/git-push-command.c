@@ -48,7 +48,7 @@ git_push_command_finalize (GObject *object)
 	self = GIT_PUSH_COMMAND (object);
 	
 	g_free (self->priv->url);
-	git_command_free_path_list (self->priv->refs);
+	git_command_free_string_list (self->priv->refs);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_push_command_parent_class)->finalize (object);
@@ -105,7 +105,7 @@ git_push_command_new (const gchar *working_directory,
 						  NULL);
 	
 	self->priv->url = g_strdup (url);
-	self->priv->refs = git_command_copy_path_list (refs);
+	self->priv->refs = git_command_copy_string_list (refs);
 	self->priv->push_all = push_all;
 	self->priv->push_tags = push_tags;
 	

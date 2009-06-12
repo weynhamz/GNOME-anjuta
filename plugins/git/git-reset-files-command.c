@@ -59,7 +59,7 @@ git_reset_files_command_finalize (GObject *object)
 	
 	self = GIT_RESET_FILES_COMMAND (object);
 	
-	git_command_free_path_list (self->priv->paths);
+	git_command_free_string_list (self->priv->paths);
 	g_free (self->priv->revision);
 	g_free (self->priv);
 
@@ -90,7 +90,7 @@ git_reset_files_command_new (const gchar *working_directory,
 						 "single-line-output", TRUE,
 						 NULL);
 	
-	self->priv->paths = git_command_copy_path_list (paths);
+	self->priv->paths = git_command_copy_string_list (paths);
 	self->priv->revision = g_strdup (revision);
 	
 	return self;

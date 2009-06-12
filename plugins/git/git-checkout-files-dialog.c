@@ -56,7 +56,7 @@ on_checkout_files_dialog_response (GtkDialog *dialog, gint response_id,
 		checkout_files_command = git_checkout_files_command_new (data->plugin->project_root_directory,
 																 selected_paths);
 		
-		git_command_free_path_list (selected_paths);
+		git_command_free_string_list (selected_paths);
 		
 		g_signal_connect (G_OBJECT (checkout_files_command), "command-finished",
 						  G_CALLBACK (on_checkout_files_command_finished),
