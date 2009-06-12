@@ -30,9 +30,7 @@
 #include <glade/glade-xml.h>
 #include <gtk/gtk.h>
 
-#include <gdl/gdl-dock.h>
-#include <gdl/gdl-dock-bar.h>
-#include <gdl/gdl-switcher.h>
+#include <gdl/gdl.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
