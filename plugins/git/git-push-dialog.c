@@ -26,7 +26,7 @@
 
 static void
 on_push_command_finished (AnjutaCommand *command, guint return_code,
-							Git *plugin)
+						  Git *plugin)
 {
 	AnjutaStatus *status;
 	
@@ -112,6 +112,10 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		g_signal_connect (G_OBJECT (push_command), "command-finished",
 		                  G_CALLBACK (on_push_command_finished),
 		                  data->plugin);
+		
+		g_signal_connect_swapped (G_OBJECT (push_command), "command-finished",
+								  G_CALLBACK (git_progress_data_free),
+								  progress_data);
 
 		anjuta_command_start (ANJUTA_COMMAND (push_command));
 	}
