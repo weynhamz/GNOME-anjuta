@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-12 11:59+0200\n"
-"PO-Revision-Date: 2009-06-12 12:07+0200\n"
+"POT-Creation-Date: 2009-06-12 13:50+0200\n"
+"PO-Revision-Date: 2009-06-12 13:56+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -425,7 +425,7 @@ msgstr "Catégorie"
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:4 ../src/anjuta-app.c:657
-#: ../src/preferences.ui.h:12
+#: ../src/preferences.ui.h:10
 msgid "General"
 msgstr "Général"
 
@@ -662,7 +662,7 @@ msgstr "Traduire les messages"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "Par défaut"
 
@@ -1200,15 +1200,12 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Détails du module :</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "<b>Options:</b>"
 msgstr "<b>Options :</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
 #: ../plugins/search/anjuta-search.ui.h:7
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
-#: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "<b>Options</b>"
 msgstr "<b>Options</b>"
 
@@ -1236,7 +1233,7 @@ msgstr "Mode bavard"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 #: ../plugins/git/anjuta-git.ui.h:21
-#: ../plugins/subversion/anjuta-subversion.ui.h:22
+#: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Browse..."
 msgstr "Parcourir..."
@@ -1287,7 +1284,7 @@ msgid "CVSROOT:"
 msgstr "CVSROOT :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:22
-#: ../plugins/subversion/anjuta-subversion.ui.h:23
+#: ../plugins/subversion/anjuta-subversion.ui.h:5
 msgid "Choose file or directory to add:"
 msgstr "Choisissez les fichiers ou répertoires à ajouter :"
 
@@ -1312,7 +1309,7 @@ msgid "Choose file or directory to remove:"
 msgstr "Choisissez les fichiers ou répertoires à supprimer :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:28
-#: ../plugins/subversion/anjuta-subversion.ui.h:24
+#: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Choose file or directory to update:"
 msgstr "Choisissez les fichiers ou répertoires à mettre à jour :"
 
@@ -1329,7 +1326,7 @@ msgid "Delete empty directories"
 msgstr "Supprimer les répertoires vides"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/subversion/anjuta-subversion.ui.h:31
+#: ../plugins/subversion/anjuta-subversion.ui.h:13
 msgid "Do not act recursively"
 msgstr "Ne pas agir de manière récursive"
 
@@ -1364,7 +1361,7 @@ msgid "Password server (pserver)"
 msgstr "Serveur de mot de passe (pserver)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:40
-#: ../plugins/subversion/anjuta-subversion.ui.h:37
+#: ../plugins/subversion/anjuta-subversion.ui.h:26
 msgid "Password:"
 msgstr "Mot de passe :"
 
@@ -1390,7 +1387,7 @@ msgstr "Réinitialiser les étiquettes collantes (sticky tags)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
 #: ../plugins/git/anjuta-git.ui.h:77
-#: ../plugins/subversion/anjuta-subversion.ui.h:47
+#: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revision:"
 msgstr "Révision : "
 
@@ -1403,7 +1400,7 @@ msgid "Unified format instead of context format"
 msgstr "Utiliser le format unifié au lieu du format contextuel"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:49
-#: ../plugins/subversion/anjuta-subversion.ui.h:57
+#: ../plugins/subversion/anjuta-subversion.ui.h:54
 msgid "Use revision/tag:"
 msgstr "Utiliser la révision/étiquette :"
 
@@ -1412,7 +1409,7 @@ msgid "Use revision:"
 msgstr "Utiliser la révision :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:51
-#: ../plugins/subversion/anjuta-subversion.ui.h:58
+#: ../plugins/subversion/anjuta-subversion.ui.h:55
 msgid "Username:"
 msgstr "Nom d'utilisateur :"
 
@@ -1422,7 +1419,7 @@ msgstr "Étiquette du distributeur : "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
 #: ../plugins/git/anjuta-git.ui.h:104
-#: ../plugins/subversion/anjuta-subversion.ui.h:62
+#: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "L'ensemble du projet"
 
@@ -3548,33 +3545,33 @@ msgid "Open With"
 msgstr "Ouvrir avec"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
-msgid "<b>Filter</b>"
-msgstr "<b>Filtre</b>"
-
-#: ../plugins/file-manager/file-manager.ui.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
-msgid "<b>Global</b>"
-msgstr "<b>Général</b>"
-
-#: ../plugins/file-manager/file-manager.ui.h:3
 msgid "Choose Directory to show if no project is open"
 msgstr "Choisissez le répertoire à afficher si aucun projet n'est ouvert"
 
-#: ../plugins/file-manager/file-manager.ui.h:4
+#: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
 msgstr "Ne pas afficher les fichiers de sauvegarde"
 
-#: ../plugins/file-manager/file-manager.ui.h:5
+#: ../plugins/file-manager/file-manager.ui.h:3
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "Ne pas afficher les fichiers binaires (.o, .la, etc.)"
 
-#: ../plugins/file-manager/file-manager.ui.h:6
+#: ../plugins/file-manager/file-manager.ui.h:4
 msgid "Do not show hidden files"
 msgstr "Ne pas afficher les fichiers cachés"
 
-#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show unversioned files"
 msgstr "Ne pas afficher les fichiers non versionnés"
+
+#: ../plugins/file-manager/file-manager.ui.h:6
+msgid "Filter"
+msgstr "Filtre"
+
+#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/symbol-db/plugin.c:2246 ../plugins/symbol-db/plugin.c:2335
+msgid "Global"
+msgstr "Global"
 
 #: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
@@ -4416,6 +4413,7 @@ msgid "Branches"
 msgstr "Branches"
 
 #: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Modifications :"
 
@@ -4432,7 +4430,7 @@ msgid "Cherry Pick"
 msgstr "Picorer"
 
 #: ../plugins/git/anjuta-git.ui.h:26
-#: ../plugins/subversion/anjuta-subversion.ui.h:25
+#: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
 msgstr "Commiter les modifications"
 
@@ -4499,7 +4497,7 @@ msgid "Folder to create patches in:"
 msgstr "Dossier dans lequel créer des correctifs :"
 
 #: ../plugins/git/anjuta-git.ui.h:42
-#: ../plugins/subversion/anjuta-subversion.ui.h:33
+#: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Forcer"
 
@@ -4534,6 +4532,7 @@ msgid "Ignore Files"
 msgstr "Ignorer les fichiers"
 
 #: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Message du journal :"
 
@@ -4554,10 +4553,13 @@ msgid "Mode:"
 msgstr "Mode :"
 
 #: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Options"
 
 #: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Options :"
 
@@ -4618,7 +4620,7 @@ msgid "Reset to:"
 msgstr "Réinitialiser à :"
 
 #: ../plugins/git/anjuta-git.ui.h:74
-#: ../plugins/subversion/anjuta-subversion.ui.h:45
+#: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Récupération de l'état..."
 
@@ -4639,6 +4641,7 @@ msgid "Select Files to Check Out:"
 msgstr "Sélection des fichiers à extraire :"
 
 #: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Files to Commit:"
 msgstr "Sélection des fichiers à commiter :"
 
@@ -4647,6 +4650,7 @@ msgid "Select Files to Ignore:"
 msgstr "Sélection des fichiers à ignorer :"
 
 #: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "Select Files to Mark as Resolved:"
 msgstr "Sélection des fichiers à marquer comme résolus :"
 
@@ -4667,7 +4671,7 @@ msgid "Select file to remove:"
 msgstr "Sélectionner un fichier à enlever :"
 
 #: ../plugins/git/anjuta-git.ui.h:87
-#: ../plugins/subversion/anjuta-subversion.ui.h:49
+#: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Marquer les conflits comme résolus"
 
@@ -4728,6 +4732,7 @@ msgid "View log"
 msgstr "Voir le journal"
 
 #: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "View the Log for File/Folder:"
 msgstr "Afficher le journal du fichier/dossier :"
 
@@ -5208,7 +5213,7 @@ msgid "Designer"
 msgstr "Concepteur"
 
 #: ../plugins/glade/anjuta-glade.glade.h:7
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Éditeur"
 
@@ -6185,7 +6190,7 @@ msgid "Patching complete"
 msgstr "Correction effectuée"
 
 #: ../plugins/patch/patch-plugin.ui.h:1
-#: ../plugins/subversion/anjuta-subversion.ui.h:32
+#: ../plugins/subversion/anjuta-subversion.ui.h:14
 msgid "Dry run"
 msgstr "Essai à blanc"
 
@@ -6268,7 +6273,7 @@ msgstr "<b>Nom du projet</b>"
 
 #: ../plugins/project-import/project-import.ui.h:3
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
-#: ../plugins/subversion/anjuta-subversion.ui.h:27
+#: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Destination :"
 
@@ -7698,88 +7703,89 @@ msgid "Preparing pages for printing"
 msgstr "Préparation des pages pour l'impression"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-msgid "<b>Color scheme:</b>"
-msgstr "<b>Jeu de couleurs :</b>"
+msgid "Color scheme:"
+msgstr "Jeu de couleurs :"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
-msgid "<b>Font:</b>"
-msgstr "<b>Police :</b>"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
-msgid "<b>Indentation and auto-format options</b>"
-msgstr "<b>Options d'indentation et de formatage automatique</b>"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
-msgid "<b>Print options</b>"
-msgstr "<b>Options d'impression</b>"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
-msgid "<b>View</b>"
-msgstr "<b>Affichage</b>"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Create backup files"
 msgstr "Créer des fichiers de sauvegarde"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Font"
 msgstr "Police"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+msgid "Font:"
+msgstr "Police :"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Highlight current line"
 msgstr "Mettre en surbrillance la ligne actuelle"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Highlight matching brackets"
 msgstr "Mettre en surbrillance les parenthèses correspondantes"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Highlight syntax"
 msgstr "Mettre en surbrillance la syntaxe"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+msgid "Indentation and auto-format options"
+msgstr "Options d'indentation et de formatage automatique"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 msgid "Print Linenumbers"
 msgstr "Imprimer les numéros de ligne"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+msgid "Print options"
+msgstr "Options d'impression"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Print page footer"
 msgstr "Imprimer le pied de page"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Print page header"
 msgstr "Imprimer l'en-tête"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Printing"
 msgstr "Impression"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Right margin position in characters"
 msgstr "Position de la marge droite en caractères"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Show line numbers"
 msgstr "Afficher les numéros de ligne"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Show marks"
 msgstr "Afficher les marqueurs"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Show right margin"
 msgstr "Afficher la marge droite"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Tab size in spaces:"
 msgstr "Taille des tabulations en espaces :"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
 msgid "Use tabs for indentation"
 msgstr "Utiliser des tabulations pour l'indentation"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
 msgid "Use theme font"
 msgstr "Utiliser la police du thème"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
+#: ../src/anjuta-app.c:427 ../src/anjuta-app.c:432
+msgid "View"
+msgstr "Affichage"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
 msgid "Wrap long lines to fit on paper"
@@ -7816,192 +7822,168 @@ msgstr "Manuel d'Anjuta"
 msgid "Gnome Online API Documentation"
 msgstr "Documentation en ligne des API GNOME"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:1
-msgid "<b>Branch/Tag URL:</b>"
-msgstr "<b>URL de la branche/étiquette :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:2
-msgid "<b>Changes:</b>"
-msgstr "<b>Modifications :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:3
-msgid "<b>End Revision:</b>"
-msgstr "<b>Dernière révision :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:4
-msgid "<b>File or directory to diff:</b>"
-msgstr "<b>Fichier ou répertoire à comparer :"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:5
-msgid "<b>File/URL to Remove:</b>"
-msgstr "<b>Fichier/URL à enlever :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:6
-msgid "<b>First Path:</b>"
-msgstr "<b>Premier chemin :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:7
-msgid "<b>Log Message:</b>"
-msgstr "<b>Message du journal : </b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:10
-msgid "<b>Previous Commit Messages:</b>"
-msgstr "<b>Messages de commit précédents :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:11
-msgid "<b>Revision:</b>"
-msgstr "<b>Révision :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:12
-msgid "<b>Second Path:</b>"
-msgstr "<b>Second chemin :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:13
-msgid "<b>Select Changes to Revert:</b>"
-msgstr "<b>Sélection des modifications à annuler :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:14
-msgid "<b>Select Files to Commit:</b>"
-msgstr "<b>Sélection des fichiers à commiter :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:15
-msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr "<b>Sélection des fichiers à marquer comme résolus :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:16
-msgid "<b>Source/Destination Paths:</b>"
-msgstr "<b>Chemins des sources/destinations :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:17
-msgid "<b>Start Revision:</b>"
-msgstr "<b>Révision initiale :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:18
-msgid "<b>Subversion Options</b>"
-msgstr "<b>Options de Subversion</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:19
-msgid "<b>View the Log for File/Folder:</b>"
-msgstr "<b>Afficher le journal du fichier/dossier :</b>"
-
-#: ../plugins/subversion/anjuta-subversion.ui.h:20
-msgid "<b>Working Copy Path:</b>"
-msgstr "<b>Chemin de la copie de travail :</b>"
-
 # Utiliser comme titre de boîte de dialogue
-#: ../plugins/subversion/anjuta-subversion.ui.h:21
+#: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
 msgstr "Ajout de fichiers ou répertoires"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:26
+#: ../plugins/subversion/anjuta-subversion.ui.h:2
+msgid "Branch/Tag URL:"
+msgstr "URL de la branche/étiquette :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Copy files/folders"
 msgstr "Copier les fichiers/dossiers"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:28
+#: ../plugins/subversion/anjuta-subversion.ui.h:10
 msgid "Diff Selected Revisions"
 msgstr "Différences entre les révisions sélectionnées"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:29
+#: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Diff file/directory"
 msgstr "Comparaison de fichiers ou répertoires"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:30
+#: ../plugins/subversion/anjuta-subversion.ui.h:12
 msgid "Diff to Previous"
 msgstr "Différence avec la précédente"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:34
+#: ../plugins/subversion/anjuta-subversion.ui.h:15
+msgid "End Revision:"
+msgstr "Dernière révision :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:16
+msgid "File or directory to diff:"
+msgstr "Fichier ou répertoire à comparer :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:17
+msgid "File/URL to Remove:"
+msgstr "Fichier/URL à enlever :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:18
+msgid "First Path:"
+msgstr "Premier chemin :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
 msgstr "Ignorer les parents"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:35
+#: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
 msgstr "Fusionne les modifications dans votre copie de travail"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:36
+#: ../plugins/subversion/anjuta-subversion.ui.h:25
 msgid "Other Revision:"
 msgstr "Autre révision : "
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:38
+#: ../plugins/subversion/anjuta-subversion.ui.h:27
+msgid "Previous Commit Messages:"
+msgstr "Messages de commit précédents :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:28
 msgid "Realm:"
 msgstr "Zone :"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:39
+#: ../plugins/subversion/anjuta-subversion.ui.h:29
 msgid "Recurse"
 msgstr "Récursif"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:40
+#: ../plugins/subversion/anjuta-subversion.ui.h:30
 msgid "Remember Password"
 msgstr "Se souvenir du mot de passe"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:41
+#: ../plugins/subversion/anjuta-subversion.ui.h:31
 msgid "Remember this decision"
 msgstr "Se souvenir du choix"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:42
+#: ../plugins/subversion/anjuta-subversion.ui.h:32
 msgid "Remove file/directory"
 msgstr "Suppression des fichiers ou répertoires"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:43
+#: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Repository Head"
 msgstr "Sommet du dépôt (head)"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:44
+#: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Repository authorization"
 msgstr "Autorisation sur le dépôt"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:46
+#: ../plugins/subversion/anjuta-subversion.ui.h:36
 msgid "Revert Changes"
 msgstr "Annulation de modifications"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:48
+#: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Save open files before diffing"
 msgstr "Enregistrer les fichiers ouverts avant la comparaison"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:50
+#: ../plugins/subversion/anjuta-subversion.ui.h:39
+msgid "Second Path:"
+msgstr "Second chemin :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:40
+msgid "Select Changes to Revert:"
+msgstr "Sélection des modifications à annuler :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:44
+msgid "Source/Destination Paths:"
+msgstr "Chemins des sources/destinations :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:45
 msgid "Source:"
 msgstr "Source :"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:51
-msgid "Subversion Preferences"
-msgstr "Préférences de subversion"
+#: ../plugins/subversion/anjuta-subversion.ui.h:46
+msgid "Start Revision:"
+msgstr "Révision initiale :"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:52
+#: ../plugins/subversion/anjuta-subversion.ui.h:47
+msgid "Subversion Options"
+msgstr "Options de Subversion"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:48
+msgid "Subversion Preferences"
+msgstr "Préférences de Subversion"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:49
 msgid "Switch to branch/tag"
 msgstr "Changer de branche/étiquette"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:53
+#: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Trust server"
 msgstr "Serveur de confiance"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:54
+#: ../plugins/subversion/anjuta-subversion.ui.h:51
 msgid "Update file/directory"
 msgstr "Mise à jour des fichiers/répertoires"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:55
+#: ../plugins/subversion/anjuta-subversion.ui.h:52
 msgid "Use first path"
 msgstr "Utiliser le premier chemin"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:56
+#: ../plugins/subversion/anjuta-subversion.ui.h:53
 msgid "Use previous message"
 msgstr "Utiliser le message précédent"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:59
+#: ../plugins/subversion/anjuta-subversion.ui.h:56
 msgid "View Log"
 msgstr "Voir le journal"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:60
+#: ../plugins/subversion/anjuta-subversion.ui.h:57
 msgid "View Selected Revision"
 msgstr "Voir la révision sélectionnée"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:61
+#: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "Whole Project"
 msgstr "L'ensemble du projet"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:63
+#: ../plugins/subversion/anjuta-subversion.ui.h:61
 msgid "Working Copy"
 msgstr "Copie de travail"
 
-#: ../plugins/subversion/anjuta-subversion.ui.h:64
+#: ../plugins/subversion/anjuta-subversion.ui.h:62
+msgid "Working Copy Path:"
+msgstr "Chemin de la copie de travail :"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:63
 msgid "realm"
 msgstr "zone"
 
@@ -8396,10 +8378,6 @@ msgstr "%d fichiers analysés sur %d"
 msgid "Populating symbols' db..."
 msgstr "Remplissage de la base de données des symboles..."
 
-#: ../plugins/symbol-db/plugin.c:2246 ../plugins/symbol-db/plugin.c:2335
-msgid "Global"
-msgstr "Global"
-
 #: ../plugins/symbol-db/plugin.c:2264 ../plugins/symbol-db/plugin.c:2392
 msgid "Symbols"
 msgstr "Symboles"
@@ -8438,6 +8416,10 @@ msgstr "Symbole"
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "<b>Available API tags</b>"
 msgstr "<b>Étiquettes d'API disponibles</b>"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
+msgid "<b>Global</b>"
+msgstr "<b>Général</b>"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Automatically scan project's packages"
@@ -8903,10 +8885,6 @@ msgstr "À propos des greffons tiers d'Anjuta"
 msgid "Edit"
 msgstr "Édition"
 
-#: ../src/anjuta-app.c:427 ../src/anjuta-app.c:432
-msgid "View"
-msgstr "Affichage"
-
 #: ../src/anjuta-app.c:668
 msgid "Installed plugins"
 msgstr "Greffons installés"
@@ -8962,57 +8940,57 @@ msgid "Anjuta"
 msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
-msgid "<b>Appearance</b>"
-msgstr "<b>Apparence</b>"
-
-#: ../src/preferences.ui.h:2
-msgid "<b>Project Defaults</b>"
-msgstr "<b>Paramètres par défaut du projet</b>"
+msgid "Appearance"
+msgstr "Apparence"
 
 #: ../src/preferences.ui.h:3
-msgid "<b>Session</b>"
-msgstr "<b>Session</b>"
-
-#: ../src/preferences.ui.h:5
 msgid "Default project directory:"
 msgstr "Répertoire par défaut du projet :"
 
-#: ../src/preferences.ui.h:6
+#: ../src/preferences.ui.h:4
 msgid "Developer email address:"
 msgstr "Adresse électronique du développeur :"
 
-#: ../src/preferences.ui.h:7
+#: ../src/preferences.ui.h:5
 msgid "Developer name:"
 msgstr "Nom du développeur :"
 
-#: ../src/preferences.ui.h:8
+#: ../src/preferences.ui.h:6
 msgid "Do not load last project and files on startup"
 msgstr "Ne par charger le dernier projet et les fichiers au démarrage"
 
-#: ../src/preferences.ui.h:9
+#: ../src/preferences.ui.h:7
 msgid "Do not load last session on startup"
 msgstr "Ne pas charger la dernière session au démarrage"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
-#: ../src/preferences.ui.h:11
+#: ../src/preferences.ui.h:9
 msgid "Dock switcher style:"
 msgstr "Style du changement d'ancrage :"
 
-#: ../src/preferences.ui.h:13
+#: ../src/preferences.ui.h:11
 msgid "Gnome toolbar setting"
 msgstr "Paramètres de barre d'outils GNOME"
 
-#: ../src/preferences.ui.h:14
+#: ../src/preferences.ui.h:12
 msgid "Icons"
 msgstr "Icônes"
 
-#: ../src/preferences.ui.h:15
+#: ../src/preferences.ui.h:13
 msgid "Icons only"
 msgstr "Icônes seulement"
 
-#: ../src/preferences.ui.h:16
+#: ../src/preferences.ui.h:14
+msgid "Project Defaults"
+msgstr "Paramètres par défaut du projet"
+
+#: ../src/preferences.ui.h:15
 msgid "Select projects directory"
 msgstr "Sélectionnez le répertoire des projets"
+
+#: ../src/preferences.ui.h:16
+msgid "Session"
+msgstr "Session"
 
 #: ../src/preferences.ui.h:17
 msgid "Tabs"
@@ -9040,85 +9018,81 @@ msgid "Toolbar button labels:"
 msgstr "Étiquettes des boutons de barre d'outils :"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr "<b>Complétion automatique (uniquement C/C++/Java)</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Astuces d'appel</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Paramètres d'indentation</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "<b>Paranthese indentation </b>"
-msgstr "<b>Indentation des parenthèses</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Indentation intelligente</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Add '(' after function call autocompletion"
 msgstr ""
 "Ajouter une « ( » après la complétion automatique d'un appel de fonction"
 
 # Espace est féminin en typographie (pas évident dans un contexte de dev)
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr ""
 "Ajouter une espace après la complétion automatique d'un appel de fonction"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Autocomplete"
 msgstr "Complé_ter automatiquement"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+msgid "Autocompletion (C/C++/Java only)"
+msgstr "Complétion automatique (uniquement C/C++/Java)"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 msgid "Autocompletion pop up choices"
 msgstr "Propositions contextuelles pour la complétion"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Brace indentation size in spaces:"
 msgstr "Indentation des parenthèses en espaces :"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+msgid "Calltips"
+msgstr "Astuces d'appel"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable adaptive indentation"
 msgstr "Activer l'indentation adaptative"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable code completion"
 msgstr "Activer la complétion du code"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Enable smart brace completion"
 msgstr "Activer la complétion intelligente des accolades"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Enable smart indentation"
 msgstr "Activer l'indentation intelligente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Indent:"
 msgstr "Indentation :"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-msgid "Line up parantheses"
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+msgid "Indentation parameters"
+msgstr "Paramètres d'indentation"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+msgid "Line up parentheses"
 msgstr "Aligner les parenthèses"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+msgid "Parenthese indentation"
+msgstr "Indentation des parenthèses"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Pressing tab indents"
 msgstr "Utiliser « Tab » pour indenter"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Show calltips"
 msgstr "Afficher l'aide des appels"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 msgid "Smart Indentation"
 msgstr "Indentation intelligente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Statement indentation size in spaces:"
 msgstr "Taille de l'indentation de la déclaration en espaces :"
 
