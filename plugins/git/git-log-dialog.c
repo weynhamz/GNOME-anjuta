@@ -1052,14 +1052,23 @@ git_log_window_clear (Git *plugin)
 {
 	LogData *data;
 	GtkWidget *log_text_view;
+	GtkWidget *log_branch_combo;
+	GtkListStore *log_branch_combo_model;
 	GtkTextBuffer *buffer;
 	
 	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
 	log_text_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_text_view"));
+	log_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+														   "log_branch_combo"));
+	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
+																	 "log_branch_combo_model"));
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (log_text_view));
 	
 	gtk_list_store_clear (data->list_store);
+	gtk_list_store_clear (log_branch_combo_model);
 	gtk_text_buffer_set_text (buffer, "", 0);
+
+	g_object_set_data (G_OBJECT (log_branch_combo), "selected-branch", NULL);
 }
 
 GitRevision *
