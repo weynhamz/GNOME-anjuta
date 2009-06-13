@@ -29,21 +29,12 @@ on_delete_command_finished (AnjutaCommand *command, guint return_code,
 							Git *plugin)
 {
 	AnjutaStatus *status;
-	gchar *branch_name;
-	gchar *status_message;
-	
+
 	if (return_code == 0)
 	{
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell,
 										  NULL);
-		
-		branch_name = git_branch_delete_command_get_branch_name (GIT_BRANCH_DELETE_COMMAND (command));
-		status_message = g_strdup_printf (_("Git: Deleted branch \"%s\"."), 
-										  branch_name);
-		anjuta_status (status, status_message, 5);
-		
-		g_free (branch_name);
-		g_free (status_message);
+		anjuta_status (status, _("Git: Deleted selected branches."), 5);
 	}
 	
 	git_report_errors (command, return_code);
@@ -51,35 +42,62 @@ on_delete_command_finished (AnjutaCommand *command, guint return_code,
 	g_object_unref (command);
 }
 
+static void
+on_list_branch_command_data_arrived (AnjutaCommand *command,
+                                     GtkListStore *branch_list_model)
+{
+	GQueue *output_queue;
+	GitBranch *branch;
+	GtkTreeIter iter;
+	gchar *name;
+	
+	output_queue = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
+
+	while (g_queue_peek_head (output_queue))
+	{
+		branch = g_queue_pop_head (output_queue);
+		name = git_branch_get_name (branch);
+
+		if (!git_branch_is_active (branch))
+		{
+			gtk_list_store_append (branch_list_model, &iter);
+			gtk_list_store_set (branch_list_model, &iter, 1, name, -1);
+		}
+
+		g_object_unref (branch);
+		g_free (name);
+	}
+}
 
 static void
 on_delete_branch_dialog_response (GtkDialog *dialog, gint response_id, 
 								  GitUIData *data)
 {
-	GtkWidget *delete_branch_combo;
+	GtkWidget *delete_branch_view;
 	GtkWidget *require_merged_check;
-	GtkTreeModel *branch_combo_model;
-	gchar *branch;
-	GtkTreeIter iter;
+	GtkTreeModel *branch_list_model;
+	GList *selected_branches;
 	GitBranchDeleteCommand *delete_command;
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
-		delete_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
-		                                                          "delete_branch_combo"));
+		delete_branch_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+		                                                         "delete_branch_view"));
 		require_merged_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 																   "require_merged_check"));
-		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
-		                                                             "branch_combo_model"));
+		branch_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+		                                                             "branch_list_model"));
 
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (delete_branch_combo), &iter);
-		gtk_tree_model_get (branch_combo_model, &iter, 0, &branch, -1);
+		selected_branches = NULL;
+		gtk_tree_model_foreach (branch_list_model, 
+								(GtkTreeModelForeachFunc) git_get_selected_refs,
+								&selected_branches);
 		
 		delete_command = git_branch_delete_command_new (data->plugin->project_root_directory,
-														branch,
+														selected_branches,
 														gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (require_merged_check)));
 		
-		g_free (branch);
+		git_command_free_string_list (selected_branches);
 		
 		git_create_message_view (data->plugin);
 		
@@ -102,11 +120,12 @@ static void
 delete_branch_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"delete_branch_dialog", "branch_combo_model", NULL};
+	gchar *objects[] = {"delete_branch_dialog", "branch_list_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
-	GtkWidget *delete_branch_combo;
-	GtkListStore *branch_combo_model;
+	GtkWidget *delete_branch_view;
+	GtkListStore *branch_list_model;
+	GtkCellRenderer *delete_branch_selected_renderer;
 	GitUIData *data;
 	GitBranchListCommand *list_command;
 	
@@ -121,9 +140,11 @@ delete_branch_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_branch_dialog"));
-	delete_branch_combo = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_branch_combo"));
-	branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
-	                                                             "branch_combo_model"));
+	delete_branch_view = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_branch_view"));
+	branch_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
+	                                                            "branch_list_model"));
+	delete_branch_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (bxml,
+																				 "delete_branch_selected_renderer")),
 	
 	data = git_ui_data_new (plugin, bxml);
 	                                     
@@ -131,18 +152,22 @@ delete_branch_dialog (Git *plugin)
 												GIT_BRANCH_TYPE_LOCAL);
 	
 	g_signal_connect (G_OBJECT (list_command), "data-arrived", 
-					  G_CALLBACK (on_git_list_branch_combo_command_data_arrived), 
-					  branch_combo_model);
+					  G_CALLBACK (on_list_branch_command_data_arrived), 
+					  branch_list_model);
 	
 	g_signal_connect (G_OBJECT (list_command), "command-finished", 
-					  G_CALLBACK (on_git_list_branch_combo_command_finished), 
-					  delete_branch_combo);
+					  G_CALLBACK (on_git_command_finished), 
+					  NULL);
 	
 	anjuta_command_start (ANJUTA_COMMAND (list_command));
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_delete_branch_dialog_response), 
 					  data);
+
+	g_signal_connect (G_OBJECT (delete_branch_selected_renderer), "toggled",
+					  G_CALLBACK (on_git_selected_column_toggled),
+					  branch_list_model);
 	
 	gtk_widget_show_all (dialog);
 }
