@@ -57,7 +57,7 @@ on_resolve_dialog_response (GtkDialog *dialog, gint response_id,
 		add_command = git_add_command_new_list (data->plugin->project_root_directory,
 												selected_paths, FALSE);
 		
-		git_command_free_path_list (selected_paths);
+		git_command_free_string_list (selected_paths);
 		
 		g_signal_connect (G_OBJECT (add_command), "command-finished",
 						  G_CALLBACK (on_add_command_finished),

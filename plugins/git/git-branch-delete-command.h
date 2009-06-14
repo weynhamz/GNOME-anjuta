@@ -55,9 +55,8 @@ struct _GitBranchDeleteCommand
 
 GType git_branch_delete_command_get_type (void) G_GNUC_CONST;
 GitBranchDeleteCommand *git_branch_delete_command_new (const gchar *working_directory, 
-													   const gchar *branch_name,
+													   GList *branches,
 													   gboolean require_merged);
-gchar *git_branch_delete_command_get_branch_name (GitBranchDeleteCommand *self);
 
 G_END_DECLS
 

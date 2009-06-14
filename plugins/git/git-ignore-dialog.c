@@ -39,7 +39,7 @@ on_ignore_dialog_response (GtkDialog *dialog, gint response_id,
 		ignore_command = git_ignore_command_new_list (data->plugin->project_root_directory,
 													  selected_paths);
 		
-		git_command_free_path_list (selected_paths);
+		git_command_free_string_list (selected_paths);
 		
 		g_signal_connect (G_OBJECT (ignore_command), "command-finished",
 						  G_CALLBACK (on_git_command_finished),

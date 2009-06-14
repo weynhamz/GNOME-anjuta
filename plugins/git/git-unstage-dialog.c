@@ -58,7 +58,7 @@ on_unstage_dialog_response (GtkDialog *dialog, gint response_id,
 														   GIT_RESET_FILES_HEAD,
 														   selected_paths);
 		
-		git_command_free_path_list (selected_paths);
+		git_command_free_string_list (selected_paths);
 		
 		g_signal_connect (G_OBJECT (reset_files_command), "command-finished",
 						  G_CALLBACK (on_reset_files_command_finished),

@@ -371,6 +371,31 @@ on_git_list_branch_combo_command_data_arrived (AnjutaCommand *command,
 	}
 }
 
+/* This function is used for selection lists. */
+void
+on_git_list_branch_command_data_arrived (AnjutaCommand *command,
+										 GtkListStore *branch_list_model)
+{
+	GQueue *output_queue;
+	GitBranch *branch;
+	GtkTreeIter iter;
+	gchar *name;
+	
+	output_queue = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
+
+	while (g_queue_peek_head (output_queue))
+	{
+		branch = g_queue_pop_head (output_queue);
+		name = git_branch_get_name (branch);
+
+		gtk_list_store_append (branch_list_model, &iter);
+		gtk_list_store_set (branch_list_model, &iter, 1, name, -1);
+		
+		g_object_unref (branch);
+		g_free (name);
+	}
+}
+
 void
 on_git_list_branch_combo_command_finished (AnjutaCommand *command, 
                                            guint return_code,
@@ -520,4 +545,39 @@ git_cancel_data_arrived_signal_disconnect (AnjutaCommand *command,
 	g_object_weak_unref (signal_target, 
 						 (GWeakNotify) git_disconnect_data_arrived_signals,
 						 command);
+}
+
+
+gboolean
+git_get_selected_refs (GtkTreeModel *model, GtkTreePath *path, 
+					   GtkTreeIter *iter, GList **selected_list)
+{
+	gboolean selected;
+	gchar *name;
+
+	gtk_tree_model_get (model, iter, 
+						0, &selected,
+						1, &name,
+						-1);
+
+	if (selected)
+		*selected_list = g_list_append (*selected_list, name);
+
+	return FALSE;
+}
+
+void
+on_git_selected_column_toggled (GtkCellRendererToggle *renderer, gchar *path,
+								GtkListStore *list_store)
+{
+	GtkTreeIter iter;
+	gboolean selected;
+
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (list_store), &iter, 
+										 path);
+
+	gtk_tree_model_get (GTK_TREE_MODEL (list_store), &iter, 0, &selected, -1);
+	
+	gtk_list_store_set (list_store, &iter, 0, !selected, -1);
+	
 }

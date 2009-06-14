@@ -26,7 +26,7 @@
 
 struct _GitBranchDeleteCommandPriv
 {
-	gchar *branch_name;
+	GList *branches;
 	gboolean require_merged;
 };
 
@@ -45,7 +45,7 @@ git_branch_delete_command_finalize (GObject *object)
 	
 	self = GIT_BRANCH_DELETE_COMMAND (object);
 	
-	g_free (self->priv->branch_name);
+	git_command_free_string_list (self->priv->branches);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_branch_delete_command_parent_class)->finalize (object);
@@ -65,7 +65,7 @@ git_branch_delete_command_run (AnjutaCommand *command)
 	else
 		git_command_add_arg (GIT_COMMAND (command), "-D");
 	
-	git_command_add_arg (GIT_COMMAND (command), self->priv->branch_name);
+	git_command_add_list_to_args (GIT_COMMAND (command), self->priv->branches);
 	
 	return 0;
 }
@@ -85,7 +85,7 @@ git_branch_delete_command_class_init (GitBranchDeleteCommandClass *klass)
 
 GitBranchDeleteCommand *
 git_branch_delete_command_new (const gchar *working_directory, 
-							   const gchar *branch_name, 
+							   GList *branches, 
 							   gboolean require_merged)
 {
 	GitBranchDeleteCommand *self;
@@ -95,14 +95,9 @@ git_branch_delete_command_new (const gchar *working_directory,
 						 "single-line-output", TRUE,
 						 NULL);
 	
-	self->priv->branch_name = g_strdup (branch_name);
+	self->priv->branches = git_command_copy_string_list (branches);
 	self->priv->require_merged = require_merged;
 	
 	return self;
 }
 
-gchar *
-git_branch_delete_command_get_branch_name (GitBranchDeleteCommand *self)
-{
-	return g_strdup (self->priv->branch_name);
-}

@@ -73,6 +73,8 @@ void on_git_command_progress (AnjutaCommand *command, gfloat progress,
 							  GitProgressData *data);
 void on_git_list_branch_combo_command_data_arrived (AnjutaCommand *command,
                                                     GtkListStore *branch_combo_model);
+void on_git_list_branch_command_data_arrived (AnjutaCommand *command,
+											  GtkListStore *branch_list_model);
 void on_git_list_branch_combo_command_finished (AnjutaCommand *command,
                                                 guint return_code,
                                                 GtkComboBox *combo_box);
@@ -98,4 +100,8 @@ void git_disconnect_data_arrived_signals (AnjutaCommand *command, GObject *objec
 void git_cancel_data_arrived_signal_disconnect (AnjutaCommand *command, 
 												guint return_code,
 												GObject *signal_target);
+gboolean git_get_selected_refs (GtkTreeModel *model, GtkTreePath *path, 
+							    GtkTreeIter *iter, GList **selected_list);
+void on_git_selected_column_toggled (GtkCellRendererToggle *renderer,
+									 gchar *path, GtkListStore *list_store);
 #endif

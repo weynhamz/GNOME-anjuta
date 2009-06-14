@@ -57,7 +57,7 @@ git_checkout_files_command_finalize (GObject *object)
 	
 	self = GIT_CHECKOUT_FILES_COMMAND (object);
 	
-	git_command_free_path_list (self->priv->paths);
+	git_command_free_string_list (self->priv->paths);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_checkout_files_command_parent_class)->finalize (object);
@@ -85,7 +85,7 @@ git_checkout_files_command_new (const gchar *working_directory, GList *paths)
 						 "working-directory", working_directory,
 						 NULL);
 	
-	self->priv->paths = git_command_copy_path_list (paths);
+	self->priv->paths = git_command_copy_string_list (paths);
 	
 	return self;
 }

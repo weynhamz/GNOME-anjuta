@@ -82,7 +82,7 @@ git_commit_command_finalize (GObject *object)
 	
 	self = GIT_COMMIT_COMMAND (object);
 	
-	git_command_free_path_list (self->priv->paths);
+	git_command_free_string_list (self->priv->paths);
 	g_free (self->priv->log);
 	g_free (self->priv->author_name);
 	g_free (self->priv->author_email);
@@ -118,7 +118,7 @@ git_commit_command_new (const gchar *working_directory, gboolean amend,
 						 "single-line-output", TRUE,
 						 NULL);
 	
-	self->priv->paths = git_command_copy_path_list (paths);
+	self->priv->paths = git_command_copy_string_list (paths);
 	self->priv->amend = amend;
 	self->priv->resolve_merge = resolve_merge;
 	self->priv->log = g_strdup (log);

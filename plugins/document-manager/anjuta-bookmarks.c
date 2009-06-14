@@ -51,7 +51,8 @@ struct _AnjutaBookmarksPrivate
 	GtkTreeViewColumn* column;
 	
 	GtkWidget* button_add;
-	GtkWidget* button_remove;	
+	GtkWidget* button_remove;
+	GtkWidget* grip;
 	
 	DocmanPlugin* docman;
 };
@@ -194,7 +195,6 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 {
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	GtkWidget* scrolled_window;
-	GtkWidget* button_box;
 	GtkTreeSelection* selection;
 	
 	priv->window = gtk_vbox_new (FALSE, 5);
@@ -229,19 +229,35 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	g_signal_connect (G_OBJECT(selection), "changed", G_CALLBACK(on_selection_changed),
 					  bookmarks);
 	
-	button_box = gtk_hbutton_box_new ();
-	priv->button_add = gtk_button_new_from_stock (GTK_STOCK_ADD);
-	priv->button_remove = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+	priv->grip = gtk_hbox_new (FALSE, 0);
+	priv->button_add = gtk_button_new();
+	gtk_widget_set_tooltip_text (priv->button_add,
+	                             _("Add bookmark"));
+	gtk_container_add (GTK_CONTAINER (priv->button_add),
+	                   gtk_image_new_from_stock (GTK_STOCK_ADD,
+	                                             GTK_ICON_SIZE_MENU));
+	priv->button_remove = gtk_button_new();
+	gtk_widget_set_tooltip_text (priv->button_remove,
+	                             _("Remove bookmark"));
+	gtk_container_add (GTK_CONTAINER (priv->button_remove),
+	                   gtk_image_new_from_stock (GTK_STOCK_REMOVE,
+	                                             GTK_ICON_SIZE_MENU));
 	g_signal_connect (G_OBJECT(priv->button_add), "clicked", G_CALLBACK(on_add_clicked), bookmarks);
 	g_signal_connect (G_OBJECT(priv->button_remove), "clicked", G_CALLBACK(on_remove_clicked), bookmarks);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->button_add), FALSE);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->button_remove), FALSE);
-	gtk_box_pack_start (GTK_BOX(button_box), priv->button_add, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX(button_box), priv->button_remove, TRUE, TRUE, 0);
 
-	gtk_box_pack_start(GTK_BOX(priv->window), 
-					   button_box,
-					   FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(priv->grip),
+	                    gtk_image_new_from_stock (ANJUTA_STOCK_BOOKMARK_TOGGLE,
+	                                              GTK_ICON_SIZE_MENU),
+	                    FALSE, FALSE, 1);
+	gtk_box_pack_start (GTK_BOX(priv->grip),
+	                    gtk_label_new (_("Bookmarks")),
+	                    FALSE, FALSE, 1);
+	gtk_box_pack_start (GTK_BOX(priv->grip), priv->button_add, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(priv->grip), priv->button_remove, FALSE, FALSE, 0);
+	gtk_widget_show_all (priv->grip);
+	
 	gtk_widget_show_all (priv->window);
 }
 
@@ -275,14 +291,17 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 																 NULL));
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	priv->docman = docman;
+
 	
-	anjuta_shell_add_widget (ANJUTA_PLUGIN(docman)->shell,
-							 priv->window,
-							 "bookmarks",
-							 _("Bookmarks"),
-							 ANJUTA_STOCK_BOOKMARK_TOGGLE,
-							 ANJUTA_SHELL_PLACEMENT_RIGHT,
-							 NULL);
+	
+	anjuta_shell_add_widget_custom (ANJUTA_PLUGIN(docman)->shell,
+	                                priv->window,
+	                                "bookmarks",
+	                                _("Bookmarks"),
+	                                ANJUTA_STOCK_BOOKMARK_TOGGLE,
+	                                priv->grip,
+	                                ANJUTA_SHELL_PLACEMENT_RIGHT,
+	                                NULL);
 	
 	g_signal_connect (G_OBJECT(docman->docman), "document-changed",
 					  G_CALLBACK(on_document_changed), bookmarks);

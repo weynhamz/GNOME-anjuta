@@ -2097,7 +2097,7 @@ on_notebook_button_toggled (GtkToggleButton *button,
                             SymbolDBPlugin *sdb_plugin)
 {
 	int page = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "__page"));
-	gtk_notebook_set_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
 }
 
 static void

@@ -134,7 +134,7 @@ on_commit_dialog_response (GtkDialog *dialog, gint response_id,
 												 selected_paths);
 		
 		g_free (log);
-		git_command_free_path_list (selected_paths);
+		git_command_free_string_list (selected_paths);
 		
 		git_create_message_view (data->plugin);
 		
