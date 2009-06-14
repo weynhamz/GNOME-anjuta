@@ -818,7 +818,8 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 		{
 			if (ianjuta_editor_assist_tip_shown (IANJUTA_EDITOR_ASSIST (editor), NULL))
 			{
-				if (!g_str_equal (call_context, assist->priv->calltip_context))
+				if (assist->priv->calltip_context &&
+				    !g_str_equal (call_context, assist->priv->calltip_context))
 				{
 					cpp_java_assist_show_calltip (assist, call_context,
 					                              iter);
