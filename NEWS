@@ -1,3 +1,16 @@
+Anjuta 2.27.3 (14 June 2009) -- Johannes Schmid
+
+Updates:
+- Pixel-saving UI for tabs
+- Remove markup from translatable strings
+
+Bugs fixed:
+- Lots of git bugs fixed
+#584013 – libanjuta-1.0.pc.in still requires libglade-2.0
+#584347 – Don't reference child revisions
+#567214 - bookmarks window wastes too much space
+#582464 – crash in Anjuta IDE: Hacking on Empathy, dele...
+
 Anjuta 2.27.2 (26 May 2009) -- Johannes Schmid
 
 Updates:

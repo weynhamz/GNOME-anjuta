@@ -137,8 +137,7 @@ libanjuta_include = \
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjuta-enum-types.h \
-	anjuta-vcs-status.h
+	anjuta-enum-types.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 

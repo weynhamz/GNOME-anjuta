@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-21 14:42+0200\n"
-"PO-Revision-Date: 2009-04-21 14:48+0100\n"
+"POT-Creation-Date: 2009-06-14 11:13+0200\n"
+"PO-Revision-Date: 2009-06-14 21:42+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -207,8 +207,8 @@ msgstr "Thailändsk"
 
 #: ../libanjuta/anjuta-encodings.c:441
 #: ../plugins/gbf-am/gbf-am-project.c:3205
-#: ../plugins/gbf-am/gbf-am-properties.c:130
-#: ../plugins/gbf-am/gbf-am-properties.c:174
+#: ../plugins/gbf-am/gbf-am-properties.c:129
+#: ../plugins/gbf-am/gbf-am-properties.c:173
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
@@ -253,7 +253,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:451
+#: ../plugins/symbol-db/symbol-db-prefs.c:457
 msgid "Load"
 msgstr "Läs in"
 
@@ -263,7 +263,7 @@ msgid "Available Plugins"
 msgstr "Tillgängliga instick"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1036
-#: ../src/anjuta-app.c:665
+#: ../src/anjuta-app.c:670
 msgid "Preferred plugins"
 msgstr "Föredragna instick"
 
@@ -399,7 +399,7 @@ msgstr ""
 "Misslyckades med att läsa \"%s\": Följande obligatoriska instick saknas:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1589
+#: ../libanjuta/anjuta-preferences.c:1528
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -409,8 +409,8 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1593
-#: ../plugins/git/plugin.c:203
+#: ../libanjuta/anjuta-preferences.c:1532
+#: ../plugins/git/plugin.c:365
 msgid "_Reset"
 msgstr "_Återställ"
 
@@ -423,9 +423,9 @@ msgstr "Kategori"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
-#: ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:652
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:4
+#: ../src/anjuta-app.c:657
+#: ../src/preferences.ui.h:10
 msgid "General"
 msgstr "Allmänt"
 
@@ -551,6 +551,7 @@ msgid "Ignored"
 msgstr "Ignoreras"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:218
+#: ../src/preferences.ui.h:18
 msgid "Text"
 msgstr "Text"
 
@@ -579,78 +580,80 @@ msgstr "Widget kunde inte hittas: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Kan inte hitta programpixmapfil: %s"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 msgid "<b>Build</b>"
 msgstr "<b>Bygg</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
 msgid "<b>Configuration:</b>"
 msgstr "<b>Konfiguration:</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "<b>Install</b>"
 msgstr "<b>Installera</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
 msgid "<b>Regenerate project</b>"
 msgstr "<b>Generera om projektet</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:5
 msgid "<b>Select Program to run:</b>"
 msgstr "<b>Välj program att köra:</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
-#: ../plugins/run-program/anjuta-run-program.glade.h:1
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
+#: ../plugins/run-program/anjuta-run-program.ui.h:1
 msgid "Arguments:"
 msgstr "Argument:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 msgid "Build Directory:"
 msgstr "Byggkatalog:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
 msgid "Configure Options:"
 msgstr "Konfigurationsalternativ:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Configure Project"
 msgstr "Konfigurera projekt"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "Continue on errors"
 msgstr "Fortsätt vid fel"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "Highlight message locations in editor"
 msgstr "Färgmarkera meddelandeplatser i redigeraren"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 msgid "Install as root:"
 msgstr "Installera som root:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
-#: ../plugins/tools/anjuta-tools.glade.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
+#: ../plugins/tools/anjuta-tools.ui.h:9
 msgid "Run in terminal"
 msgstr "Kör i terminal"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:14
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
 msgid "Run several commands at a time:"
 msgstr "Kör flera kommandon samtidigt:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:15
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Select Program"
 msgstr "Välj program"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:16
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Select a build directory"
 msgstr "Välj en byggkatalog"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:17
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Translate messages"
 msgstr "Översätt meddelanden"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:61
 #: ../plugins/search/search_preferences.c:523
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
+#: ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "Standardvärde"
 
@@ -667,44 +670,43 @@ msgstr "Profilering"
 msgid "Optimized"
 msgstr "Optimerad"
 
-#: ../plugins/build-basic-autotools/executer.c:74
+#: ../plugins/build-basic-autotools/executer.c:73
 msgid "No executables in this project!"
 msgstr "Inga körbara filer i detta projekt!"
 
-#: ../plugins/build-basic-autotools/executer.c:152
+#: ../plugins/build-basic-autotools/executer.c:156
 #: ../plugins/gbf-am/gbf-am-project.c:3195
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
 msgid "Program"
 msgstr "Program"
 
-#: ../plugins/build-basic-autotools/executer.c:253
+#: ../plugins/build-basic-autotools/executer.c:257
 msgid "No file or project currently opened."
 msgstr "Ingen fil eller projekt är för närvarande öppnade."
 
 #. Only local program are supported
-#: ../plugins/build-basic-autotools/executer.c:293
+#: ../plugins/build-basic-autotools/executer.c:297
 #: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "Programmet \"%s\" är inte en lokal fil"
 
-#: ../plugins/build-basic-autotools/executer.c:308
-#: ../plugins/scratchbox/plugin.c:213
+#: ../plugins/build-basic-autotools/executer.c:312
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "Programmet \"%s\" finns inte"
 
-#: ../plugins/build-basic-autotools/executer.c:316
+#: ../plugins/build-basic-autotools/executer.c:320
 #: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "Programmet \"%s\" har inte körrättigheter"
 
-#: ../plugins/build-basic-autotools/executer.c:348
+#: ../plugins/build-basic-autotools/executer.c:352
 msgid "No executable for this file."
 msgstr "Ingen körbar fil för denna fil."
 
-#: ../plugins/build-basic-autotools/executer.c:354
+#: ../plugins/build-basic-autotools/executer.c:358
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "Körbara filen \"%s\" är inte uppdaterad."
@@ -990,8 +992,8 @@ msgstr "Byggkommandon"
 msgid "Build popup commands"
 msgstr "Bygg popup-kommandon"
 
-#: ../plugins/build-basic-autotools/plugin.c:3365
-#: ../plugins/build-basic-autotools/plugin.c:3383
+#: ../plugins/build-basic-autotools/plugin.c:3374
+#: ../plugins/build-basic-autotools/plugin.c:3393
 msgid "Build Autotools"
 msgstr "Bygg Autotools"
 
@@ -999,117 +1001,135 @@ msgstr "Bygg Autotools"
 msgid "Command aborted"
 msgstr "Kommandot avbröts"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:1
 msgid "<b>Class Elements</b>"
 msgstr "<b>Klasselement</b>"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "<b>General Class Properties</b>"
 msgstr "<b>Egenskaper för allmän klass</b>"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
 msgid "Add to Project"
 msgstr "Lägg till i projekt"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
 msgid "Add to Repository"
 msgstr "Lägg till i förråd"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
 msgid "Author Email:"
 msgstr "E-post för upphovman:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:6
 msgid "Author Name:"
 msgstr "Upphovsman:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:7
 msgid "Author/Date-Time"
 msgstr "Upphovsman/Datum-Tid"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:8
 msgid "Author/Date/Time"
 msgstr "Upphovsman/Datum/Tid"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 msgid "Base Class Inheritance:"
 msgstr "Basklassarv:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
 msgid "Base Class:"
 msgstr "Basklass:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:11
 msgid "Class Function Prefix:"
 msgstr "Prefix för klassfunktion:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
 msgid "Class Name:"
 msgstr "Klassnamn:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Options:"
 msgstr "Klassalternativ:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Create"
 msgstr "Skapa"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "GObject Class\t"
 msgstr "GObject-klass\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Prefix and Type:"
 msgstr "GObject-prefix och typ:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
-msgid ""
-"General Public License (GPL)\n"
-"Lesser General Public License (LGPL)\n"
-"No License"
-msgstr ""
-"General Public License (GPL)\n"
-"Lesser General Public License (LGPL)\n"
-"Ingen licens"
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/file-wizard/file.c:100
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "General Public License (GPL)"
+msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 msgid "Generic C++ Class"
 msgstr "Allmän C++-klass"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Header File:"
 msgstr "Header-fil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Inline the declaration and implementation"
 msgstr "Infoga deklarationen och implementationen"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:9
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/file-wizard/file.c:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Lesser General Public License (LGPL)"
+msgstr "Lesser General Public License (LGPL)"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Licens:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 msgid "Member Functions/Variables"
 msgstr "Medlemsfunktioner/Variabler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+msgid "No License"
+msgstr "Ingen licens"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 #: ../plugins/glade/plugin.c:4436
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 msgid "Signals"
 msgstr "Signaler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Source File:"
 msgstr "Källkodsfil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source/Header Headings:"
 msgstr "Rubriker för källkod/header:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+msgid "private"
+msgstr "privat"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+msgid "protected"
+msgstr "skyddad"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+msgid "public"
+msgstr ""
 
 #: ../plugins/class-gen/generator.c:132
 #, c-format
@@ -1149,28 +1169,25 @@ msgstr "Misslyckades med att köra autogen: %s"
 msgid "XML description of the user interface"
 msgstr "XML-beskrivning för användargränssnittet"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid "<b>CVS Options</b>"
 msgstr "<b>CVS-alternativ</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:2
 msgid "<b>Module Details:</b>"
 msgstr "<b>Moduldetaljer:</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
-#: ../plugins/git/anjuta-git.glade.h:15
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
 msgid "<b>Options:</b>"
 msgstr "<b>Alternativ:</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
-#: ../plugins/search/anjuta-search.glade.h:3
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
+#: ../plugins/search/anjuta-search.ui.h:7
 msgid "<b>Options</b>"
 msgstr "<b>Alternativ</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:5
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
@@ -1180,265 +1197,280 @@ msgstr ""
 "\n"
 "Tryck OK innebär att filen tas bort från disken och från CVS. Så klart kommer filen inte att tas bort från CVS innan du använder CVS Commit. <b>Du har blivit varnad!</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:8
 msgid "<b>Repository: </b>"
 msgstr "<b>Förråd: </b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:9
 msgid "Be verbose"
 msgstr "Var informativ"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
-#: ../plugins/tools/anjuta-tools.glade.h:2
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
+#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/subversion/anjuta-subversion.ui.h:3
+#: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Browse..."
 msgstr "Bläddra..."
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:11
 msgid "CVS Preferences"
 msgstr "CVS-inställningar"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:12
 msgid "CVS: Add file/directory"
 msgstr "CVS: Lägg till fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:13
 msgid "CVS: Commit file/directory"
 msgstr "CVS: Verkställ fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:14
 msgid "CVS: Diff file/directory"
 msgstr "CVS: Diff:a fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:15
 msgid "CVS: Import"
 msgstr "CVS: Importera"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:16
 msgid "CVS: Log file/directory"
 msgstr "CVS: Loggfil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:17
 msgid "CVS: Remove file/directory"
 msgstr "CVS: Ta bort fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:18
 msgid "CVS: Status"
 msgstr "CVS: Status"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:19
 msgid "CVS: Status from file/directory"
 msgstr "CVS: Status från fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Update file/directory"
 msgstr "CVS: Uppdatera fil/katalog"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:21
 msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:22
+#: ../plugins/subversion/anjuta-subversion.ui.h:5
 msgid "Choose file or directory to add:"
 msgstr "Välj fil eller katalog att lägga till:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to commit:"
 msgstr "Välj fil eller katalog att verkställa:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 msgid "Choose file or directory to diff:"
 msgstr "Välj fil eller katalog att köra diff på:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:25
 msgid "Choose file or directory to get log:"
 msgstr "Välj fil eller katalog att få logg på:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
 msgid "Choose file or directory to get the status from:"
 msgstr "Välj fil eller katalog att hämta statusen från:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:27
 msgid "Choose file or directory to remove:"
 msgstr "Välj fil eller katalog att ta bort:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:28
+#: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Choose file or directory to update:"
 msgstr "Välj fil eller katalog att uppdatera:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:29
 msgid "Compression Level (0=off, 10=max):"
 msgstr "Komprimeringsnivå (0=av, 10=maximal):"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:30
 msgid "Create new directories"
 msgstr "Skapa nya kataloger"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:31
 msgid "Delete empty directories"
 msgstr "Ta bort tomma kataloger"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
-#: ../plugins/subversion/anjuta-subversion.glade.h:30
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
+#: ../plugins/subversion/anjuta-subversion.ui.h:13
 msgid "Do not act recursively"
 msgstr "Agera inte rekursivt"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:33
+msgid "Extern (rsh)"
+msgstr ""
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:34
 msgid "File is binary"
 msgstr "Filen är binär"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:35
 msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorera .cvsrc-fil (rekommenderas)"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
-msgid ""
-"Local\n"
-"Extern (rsh)\n"
-"Password server (pserver)\n"
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
+#: ../plugins/symbol-db/plugin.c:2245
+#: ../plugins/symbol-db/plugin.c:2309
+msgid "Local"
+msgstr "Lokala"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:52
+msgid "Log message:"
+msgstr "Loggmeddelande:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:38
+msgid "Module name:"
+msgstr "Modulnamn:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:39
+#, fuzzy
+msgid "Password server (pserver)"
 msgstr ""
 "Lokalt\n"
 "Externt (rsh)\n"
 "Lösenord på server (pserver)\n"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
-msgid "Log message:"
-msgstr "Loggmeddelande:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-msgid "Module name:"
-msgstr "Modulnamn:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
-#: ../plugins/subversion/anjuta-subversion.glade.h:36
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:40
+#: ../plugins/subversion/anjuta-subversion.ui.h:26
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
-msgid "Path to \"cvs\" command"
-msgstr "Sökväg till kommandot \"cvs\""
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
-msgid "Project root directory:"
-msgstr "Projektets rotkatalog:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
-msgid "Release tag:"
-msgstr "Utgåvetagg:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-msgid "Reset sticky tags"
-msgstr "Återställ klistriga taggar"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
-#: ../plugins/git/anjuta-git.glade.h:78
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
-msgid "Revision:"
-msgstr "Revision:"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:47
-msgid ""
-"Standard diff\n"
-"Patch-Style diff"
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:41
+#, fuzzy
+msgid "Patch-Style diff"
 msgstr ""
 "Standard diff\n"
 "Patch-liknande diff"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:42
+msgid "Path to \"cvs\" command"
+msgstr "Sökväg till kommandot \"cvs\""
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
+msgid "Project root directory:"
+msgstr "Projektets rotkatalog:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:44
+msgid "Release tag:"
+msgstr "Utgåvetagg:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:45
+msgid "Reset sticky tags"
+msgstr "Återställ klistriga taggar"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:77
+#: ../plugins/subversion/anjuta-subversion.ui.h:37
+msgid "Revision:"
+msgstr "Revision:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:47
+#, fuzzy
+msgid "Standard diff"
+msgstr "Standardindata:"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:48
 msgid "Unified format instead of context format"
 msgstr "Enhetligt format istället för sammanhangsformat"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:49
+#: ../plugins/subversion/anjuta-subversion.ui.h:54
 msgid "Use revision/tag:"
 msgstr "Använd revision/tagg:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:50
 msgid "Use revision:"
 msgstr "Använd revision:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:51
+#: ../plugins/subversion/anjuta-subversion.ui.h:55
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:52
 msgid "Vendor tag:"
 msgstr "Leverantörstagg:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
-#: ../plugins/git/anjuta-git.glade.h:92
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:104
+#: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "Hela projektet"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:47
+#: ../plugins/cvs-plugin/cvs-callbacks.c:46
 msgid "Please enter a filename!"
 msgstr "Ange ett filnamn!"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:60
+#: ../plugins/cvs-plugin/cvs-callbacks.c:59
 #, c-format
 msgid "Please fill field: %s"
 msgstr "Fyll i fältet: %s"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:79
+#: ../plugins/cvs-plugin/cvs-callbacks.c:78
 msgid "CVS command is running! Please wait until it is finished!"
 msgstr "CVS-kommando körs. Vänta tills det är färdigt!"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:153
+#: ../plugins/cvs-plugin/cvs-callbacks.c:152
 msgid "Unable to delete file"
 msgstr "Kunde inte ta bort fil"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:245
-#: ../plugins/git/git-commit-dialog.c:74
-#: ../plugins/git/git-create-tag-dialog.c:127
-#: ../plugins/git/git-merge-dialog.c:80
-#: ../plugins/subversion/subversion-commit-dialog.c:70
+#: ../plugins/cvs-plugin/cvs-callbacks.c:244
+#: ../plugins/git/git-commit-dialog.c:79
+#: ../plugins/git/git-create-tag-dialog.c:130
+#: ../plugins/git/git-merge-dialog.c:87
+#: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "Är du säker på att du vill skicka ett tomt loggmeddelande?"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:436
+#: ../plugins/cvs-plugin/cvs-callbacks.c:435
 msgid "CVSROOT"
 msgstr "CVSROOT"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:439
-#: ../plugins/gbf-am/gbf-am-properties.c:1227
+#: ../plugins/cvs-plugin/cvs-callbacks.c:438
+#: ../plugins/gbf-am/gbf-am-properties.c:1234
 msgid "Module"
 msgstr "Modul"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:442
+#: ../plugins/cvs-plugin/cvs-callbacks.c:441
 msgid "Vendor"
 msgstr "Tillverkare"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:445
+#: ../plugins/cvs-plugin/cvs-callbacks.c:444
 msgid "Release"
 msgstr "Utgåva"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:461
+#: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
 msgstr "Är du säker på att du inte vill ha ett loggmeddelande?"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:126
+#: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed - See above for details"
 msgstr "CVS-kommandot misslyckades! - Se ovan för detaljer"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:131
+#: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
 msgstr[0] "CVS-kommando lyckades! - Använd tid: %ld sekunder"
 msgstr[1] "CVS-kommando lyckades! - Använd tid: %ld sekund"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:222
+#: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "CVS-kommando körs - vänta tills det är färdigt!"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
-#: ../plugins/cvs-plugin/cvs-execute.c:234
-#: ../plugins/cvs-plugin/plugin.c:462
-#: ../plugins/cvs-plugin/plugin.c:469
+#: ../plugins/cvs-plugin/cvs-execute.c:229
+#: ../plugins/cvs-plugin/cvs-execute.c:233
+#: ../plugins/cvs-plugin/plugin.c:467
+#: ../plugins/cvs-plugin/plugin.c:474
+#: ../plugins/search/anjuta-search.ui.h:13
 msgid "CVS"
 msgstr "CVS"
 
@@ -1491,7 +1523,7 @@ msgstr "Verkställ dina ändringar till CVS-trädet"
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:76
 #: ../plugins/cvs-plugin/plugin.c:135
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:50
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:49
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
 msgstr "_Uppdatera"
@@ -1565,388 +1597,387 @@ msgstr "CVS-operationer"
 msgid "CVS popup operations"
 msgstr "Popup för CVS-operationer"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid "<b>Debugger:</b>"
 msgstr "<b>Felsökare:</b>"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:2
 msgid "<b>Remote debugging</b>"
 msgstr "<b>Fjärrfelsökning</b>"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:3
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:3
 msgid "Add Watch"
 msgstr "Lägg till bevakare"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
 msgid "Address:"
 msgstr "Adress:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:2
 msgid "Attach to process"
 msgstr "Anslut till process"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 #: ../plugins/gdb/anjuta-gdb.glade.h:3
 msgid "Breakpoint properties"
 msgstr "Brytpunktsegenskaper"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:7
-#: ../plugins/debug-manager/breakpoints.c:1977
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
+#: ../plugins/debug-manager/breakpoints.c:1981
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Brytpunkter"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 #: ../plugins/gdb/anjuta-gdb.glade.h:5
 msgid "CPU Registers"
 msgstr "Processorregister"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:9
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
 msgid "Change Watch"
 msgstr "Ändra bevakare"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
 msgid "Connect to remote target"
 msgstr "Anslut till fjärrmål"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
 msgid "Debugger command"
 msgstr "Felsökningskommando"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:12
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
 #: ../plugins/gdb/anjuta-gdb.glade.h:8
 msgid "Debugger command:"
 msgstr "Felsökningskommando:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:13
 #: ../plugins/gdb/anjuta-gdb.glade.h:9
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
 msgid "Disable"
 msgstr "Inaktivera"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
 #: ../plugins/gdb/anjuta-gdb.glade.h:10
 msgid "Display process _tree"
 msgstr "Visa process_träd"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:11
 msgid "Enable _all"
 msgstr "Aktivera _alla"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:17
 msgid "Enter an address in hexadecimal or select one in the data"
 msgstr "Ange en hexadecimal adress eller välj en i datat"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
 msgstr "Dölj processpara_metrar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
 msgstr "Inspektera"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
 msgid "Inspect/Evaluate"
 msgstr "Inspektera/Evaluera"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/plugin.c:926
-#: ../plugins/debug-manager/plugin.c:1026
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
+#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:1031
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Kärnsignaler"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/breakpoints.c:1904
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
+#: ../plugins/debug-manager/breakpoints.c:1908
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Plats"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:23
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:23
 #: ../plugins/debug-manager/memory.c:180
 #: ../plugins/gdb/anjuta-gdb.glade.h:18
 msgid "Memory"
 msgstr "Minne"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:24
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
 #: ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
 msgstr "Pass:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
 msgid "Port:"
 msgstr "Port:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
 #: ../plugins/gdb/anjuta-gdb.glade.h:20
 msgid "Print:"
 msgstr "Skriv ut:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:27
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
 #: ../plugins/gdb/anjuta-gdb.glade.h:21
 msgid "Program Interrupt"
 msgstr "Programavbrott"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
 #: ../plugins/gdb/anjuta-gdb.glade.h:23
 msgid "SIGINT"
 msgstr "SIGINT"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:29
 msgid "Select one directory"
 msgstr "Välj en katalog"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
 msgid "Serial Line Connection"
 msgstr "Serielinjesanslutning"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
 #: ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
 msgstr "Ställ in signalegenskap"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 #: ../plugins/debug-manager/sharedlib.c:214
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Delade bibliotek"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
 #: ../plugins/gdb/anjuta-gdb.glade.h:26
 msgid "Signal:"
 msgstr "Signal:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
 #: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Source Directories"
 msgstr "Källkodskataloger"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
 msgid "Start Debugger"
 msgstr "Starta felsökare"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "Stoppa:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
 msgid "TCP/IP Connection"
 msgstr "TCP/IP-anslutning"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
 #: ../plugins/gdb/anjuta-gdb.glade.h:29
 #: ../plugins/project-wizard/property.c:287
 msgid "Yes"
 msgstr "Ja"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
 #: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
 msgstr "_Anslut"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:40
 msgid "_Automatic update"
 msgstr "_Automatisk uppdatering"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:41
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
 msgstr "_Villkor:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
 #: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Disable all"
 msgstr "_Inaktivera alla"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
 #: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Hide paths"
 msgstr "_Dölj sökvägar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:44
 #: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Location:"
 msgstr "_Plats:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
 msgid "_Name:"
 msgstr "_Namn:"
 
-#. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:47
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
 msgid "_Pass count:"
 msgstr "Antal k_örningar:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:48
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
 #: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
 msgstr "_Process att ansluta till:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:49
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
 msgstr "_Ta bort alla"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:51
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:50
 msgid "_Value:"
 msgstr "_Värde:"
 
-#: ../plugins/debug-manager/breakpoints.c:1670
+#: ../plugins/debug-manager/breakpoints.c:1674
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Är du säker på att du vill ta bort alla brytpunkter?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1767
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "_Breakpoints"
 msgstr "_Brytpunkter"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1775
+#: ../plugins/debug-manager/breakpoints.c:1779
 msgid "Toggle Breakpoint"
 msgstr "Växla brytpunkt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1777
+#: ../plugins/debug-manager/breakpoints.c:1781
 msgid "Toggle breakpoint at the current location"
 msgstr "Växla brytpunkt på den aktuella platsen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1783
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Add Breakpoint..."
 msgstr "Lägg till brytpunkt..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1785
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Add a breakpoint"
 msgstr "Lägg till en brytpunkt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1791
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "Remove Breakpoint"
 msgstr "Ta bort brytpunkt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1793
+#: ../plugins/debug-manager/breakpoints.c:1797
 msgid "Remove a breakpoint"
 msgstr "Ta bort en brytpunkt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1799
+#: ../plugins/debug-manager/breakpoints.c:1803
 msgid "Edit Breakpoint"
 msgstr "Redigera brytpunkt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1805
 msgid "Edit breakpoint properties"
 msgstr "Redigera egenskaper för brytpunkt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1807
-#: ../plugins/debug-manager/breakpoints.c:1878
+#: ../plugins/debug-manager/breakpoints.c:1811
+#: ../plugins/debug-manager/breakpoints.c:1882
 msgid "Enable Breakpoint"
 msgstr "Aktivera brytpunkt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1809
-#: ../plugins/debug-manager/breakpoints.c:1879
+#: ../plugins/debug-manager/breakpoints.c:1813
+#: ../plugins/debug-manager/breakpoints.c:1883
 msgid "Enable a breakpoint"
 msgstr "Aktivera en brytpunkt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1815
+#: ../plugins/debug-manager/breakpoints.c:1819
 msgid "Disable All Breakpoints"
 msgstr "Inaktivera alla brytpunkter"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1817
+#: ../plugins/debug-manager/breakpoints.c:1821
 msgid "Deactivate all breakpoints"
 msgstr "Inaktivera alla brytpunkter"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1827
 msgid "R_emove All Breakpoints"
 msgstr "Ta b_ort alla brytpunkter"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1825
+#: ../plugins/debug-manager/breakpoints.c:1829
 msgid "Remove all breakpoints"
 msgstr "Ta bort alla brytpunkter"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1834
+#: ../plugins/debug-manager/breakpoints.c:1838
 msgid "Jump to Breakpoint"
 msgstr "Hoppa till brytpunkt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1836
+#: ../plugins/debug-manager/breakpoints.c:1840
 msgid "Jump to breakpoint location"
 msgstr "Hoppa till brytpunktsplats"
 
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Disable Breakpoint"
 msgstr "Inaktivera brytpunkt"
 
-#: ../plugins/debug-manager/breakpoints.c:1874
+#: ../plugins/debug-manager/breakpoints.c:1878
 msgid "Disable a breakpoint"
 msgstr "Inaktivera en brytpunkt"
 
-#: ../plugins/debug-manager/breakpoints.c:1904
-#: ../plugins/tools/anjuta-tools.glade.h:6
+#: ../plugins/debug-manager/breakpoints.c:1908
+#: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Enabled"
 msgstr "Påslaget"
 
-#: ../plugins/debug-manager/breakpoints.c:1904
+#: ../plugins/debug-manager/breakpoints.c:1908
 #: ../plugins/debug-manager/stack_trace.c:667
 #: ../plugins/debug-manager/threads.c:481
 msgid "Address"
 msgstr "Adress"
 
-#: ../plugins/debug-manager/breakpoints.c:1904
+#: ../plugins/debug-manager/breakpoints.c:1908
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Typ"
 
-#: ../plugins/debug-manager/breakpoints.c:1905
+#: ../plugins/debug-manager/breakpoints.c:1909
 msgid "Condition"
 msgstr "Villkor"
 
-#: ../plugins/debug-manager/breakpoints.c:1905
+#: ../plugins/debug-manager/breakpoints.c:1909
 msgid "Pass count"
 msgstr "Körningar"
 
-#: ../plugins/debug-manager/breakpoints.c:1905
+#: ../plugins/debug-manager/breakpoints.c:1909
 msgid "State"
 msgstr "Tillstånd"
 
-#: ../plugins/debug-manager/breakpoints.c:1954
-#: ../plugins/debug-manager/breakpoints.c:1960
+#: ../plugins/debug-manager/breakpoints.c:1958
+#: ../plugins/debug-manager/breakpoints.c:1964
 msgid "Breakpoint operations"
 msgstr "Brytpunktsoperationer"
 
@@ -1957,16 +1988,16 @@ msgid "_Goto address"
 msgstr "_Gå till adress"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/gbf-am/gbf-am-properties.c:964
-#: ../plugins/tools/editor.c:461
+#: ../plugins/gbf-am/gbf-am-properties.c:971
+#: ../plugins/tools/editor.c:463
 msgid "Variable"
 msgstr "Variabel"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:974
-#: ../plugins/run-program/parameters.c:741
-#: ../plugins/tools/editor.c:467
+#: ../plugins/gbf-am/gbf-am-properties.c:981
+#: ../plugins/run-program/parameters.c:745
+#: ../plugins/tools/editor.c:469
 msgid "Value"
 msgstr "Värde"
 
@@ -2035,196 +2066,196 @@ msgstr "Programmet tog emot en signal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:810
+#: ../plugins/debug-manager/plugin.c:815
 msgid "_Debug"
 msgstr "Fels_ök"
 
-#: ../plugins/debug-manager/plugin.c:818
+#: ../plugins/debug-manager/plugin.c:823
 msgid "_Start Debugger"
 msgstr "_Starta felsökare"
 
-#: ../plugins/debug-manager/plugin.c:826
+#: ../plugins/debug-manager/plugin.c:831
 msgid "_Debug Program"
 msgstr "_Felsök program"
 
-#: ../plugins/debug-manager/plugin.c:828
+#: ../plugins/debug-manager/plugin.c:833
 msgid "Start debugger and load the program"
 msgstr "Starta felsökaren och läs in programmet"
 
-#: ../plugins/debug-manager/plugin.c:834
+#: ../plugins/debug-manager/plugin.c:839
 msgid "_Debug Process..."
 msgstr "_Felsök process..."
 
-#: ../plugins/debug-manager/plugin.c:836
+#: ../plugins/debug-manager/plugin.c:841
 msgid "Start debugger and attach to a running program"
 msgstr "Starta felsökaren och fäst till ett körande program"
 
-#: ../plugins/debug-manager/plugin.c:842
+#: ../plugins/debug-manager/plugin.c:847
 msgid "Debug _Remote Target..."
 msgstr "Felsök _fjärrmål..."
 
-#: ../plugins/debug-manager/plugin.c:844
+#: ../plugins/debug-manager/plugin.c:849
 msgid "Connect to a remote debugging target"
 msgstr "Anslut till ett mål för fjärrfelsökning"
 
-#: ../plugins/debug-manager/plugin.c:850
+#: ../plugins/debug-manager/plugin.c:855
 msgid "Stop Debugger"
 msgstr "Stoppa felsökaren"
 
-#: ../plugins/debug-manager/plugin.c:852
+#: ../plugins/debug-manager/plugin.c:857
 msgid "Say goodbye to the debugger"
 msgstr "Säg hejdå till felsökaren"
 
-#: ../plugins/debug-manager/plugin.c:858
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Add source paths..."
 msgstr "Lägg till källkodskataloger..."
 
-#: ../plugins/debug-manager/plugin.c:860
+#: ../plugins/debug-manager/plugin.c:865
 msgid "Add additional source paths"
 msgstr "Lägg till ytterligare källkodskataloger"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:870
-#: ../plugins/debug-manager/plugin.c:978
+#: ../plugins/debug-manager/plugin.c:875
+#: ../plugins/debug-manager/plugin.c:983
 msgid "Debugger Command..."
 msgstr "Felsökarkommando..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:872
-#: ../plugins/debug-manager/plugin.c:980
+#: ../plugins/debug-manager/plugin.c:877
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Custom debugger command"
 msgstr "Anpassat felsökningskommando"
 
-#: ../plugins/debug-manager/plugin.c:878
-#: ../plugins/debug-manager/plugin.c:986
+#: ../plugins/debug-manager/plugin.c:883
+#: ../plugins/debug-manager/plugin.c:991
 msgid "_Info"
 msgstr "_Information"
 
-#: ../plugins/debug-manager/plugin.c:886
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Info _Target Files"
 msgstr "Info_målsidor"
 
-#: ../plugins/debug-manager/plugin.c:888
+#: ../plugins/debug-manager/plugin.c:893
 msgid "Display information on the files the debugger is active with"
 msgstr "VIsa information om filerna som felsökaren är aktiv med"
 
-#: ../plugins/debug-manager/plugin.c:894
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Info _Program"
 msgstr "_Programinformation"
 
-#: ../plugins/debug-manager/plugin.c:896
+#: ../plugins/debug-manager/plugin.c:901
 msgid "Display information on the execution status of the program"
 msgstr "Visa information om körningsstatusen av programmet"
 
-#: ../plugins/debug-manager/plugin.c:902
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Info _Kernel User Struct"
 msgstr "Information om _kärnans \"User Struct\""
 
-#: ../plugins/debug-manager/plugin.c:904
+#: ../plugins/debug-manager/plugin.c:909
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Visa innehållet i kärnans \"struct user\" för aktuellt barn"
 
-#: ../plugins/debug-manager/plugin.c:918
-#: ../plugins/debug-manager/plugin.c:1018
+#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Shared Libraries"
 msgstr "Delade bibliotek"
 
-#: ../plugins/debug-manager/plugin.c:920
-#: ../plugins/debug-manager/plugin.c:1020
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "Show shared libraries mappings"
 msgstr "Visa delade biblioteksmappningar"
 
-#: ../plugins/debug-manager/plugin.c:928
-#: ../plugins/debug-manager/plugin.c:1028
+#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Show kernel signals"
 msgstr "Visa kärnsignaler"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:938
+#: ../plugins/debug-manager/plugin.c:943
 msgid "Run/_Continue"
 msgstr "Kör/_Fortsätt"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:940
+#: ../plugins/debug-manager/plugin.c:945
 msgid "Continue the execution of the program"
 msgstr "Fortsätt körningen av programmet"
 
-#: ../plugins/debug-manager/plugin.c:946
+#: ../plugins/debug-manager/plugin.c:951
 msgid "Step _In"
 msgstr "Stega _in"
 
-#: ../plugins/debug-manager/plugin.c:948
+#: ../plugins/debug-manager/plugin.c:953
 msgid "Single step into function"
 msgstr "Enkelstega in i funktion"
 
-#: ../plugins/debug-manager/plugin.c:954
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Step O_ver"
 msgstr "Stega _över"
 
-#: ../plugins/debug-manager/plugin.c:956
+#: ../plugins/debug-manager/plugin.c:961
 msgid "Single step over function"
 msgstr "Enkelstega över funktion"
 
-#: ../plugins/debug-manager/plugin.c:962
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Step _Out"
 msgstr "Stega _ut"
 
-#: ../plugins/debug-manager/plugin.c:964
+#: ../plugins/debug-manager/plugin.c:969
 msgid "Single step out of the function"
 msgstr "Enkelstega ut ur funktionen"
 
-#: ../plugins/debug-manager/plugin.c:970
+#: ../plugins/debug-manager/plugin.c:975
 msgid "_Run to Cursor"
 msgstr "_Kör till markör"
 
-#: ../plugins/debug-manager/plugin.c:972
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Run to the cursor"
 msgstr "Kör till markören"
 
-#: ../plugins/debug-manager/plugin.c:994
+#: ../plugins/debug-manager/plugin.c:999
 msgid "Info _Global Variables"
 msgstr "Information om a_llmänna variabler"
 
-#: ../plugins/debug-manager/plugin.c:996
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "Display all global and static variables of the program"
 msgstr "Visa alla allmänna och statiska variabler för programmet"
 
-#: ../plugins/debug-manager/plugin.c:1002
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Info _Current Frame"
 msgstr "Information om _aktuell ram"
 
-#: ../plugins/debug-manager/plugin.c:1004
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "Display information about the current frame of execution"
 msgstr "Visa information om den aktuella körningsramen"
 
-#: ../plugins/debug-manager/plugin.c:1010
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Info Function _Arguments"
 msgstr "Information om funktions_argument"
 
-#: ../plugins/debug-manager/plugin.c:1012
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Display function arguments of the current frame"
 msgstr "Visa funktionsargument för den aktuella ramen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1038
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Pa_use Program"
 msgstr "Gör pa_us i program"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1040
+#: ../plugins/debug-manager/plugin.c:1045
 msgid "Pauses the execution of the program"
 msgstr "Gör paus i körningen av programmet"
 
-#: ../plugins/debug-manager/plugin.c:1080
-#: ../plugins/debug-manager/plugin.c:1086
-#: ../plugins/debug-manager/plugin.c:1092
-#: ../plugins/debug-manager/plugin.c:1098
+#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1091
+#: ../plugins/debug-manager/plugin.c:1097
+#: ../plugins/debug-manager/plugin.c:1103
 msgid "Debugger operations"
 msgstr "Felsökaroperationer"
 
@@ -2251,12 +2282,12 @@ msgid "Shared Object"
 msgstr "Delat objekt"
 
 #: ../plugins/debug-manager/sharedlib.c:173
-#: ../plugins/git/anjuta-git.glade.h:58
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "From"
 msgstr "Från"
 
 #: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.glade.h:86
+#: ../plugins/git/anjuta-git.ui.h:96
 msgid "To"
 msgstr "Till"
 
@@ -2343,7 +2374,7 @@ msgstr "Ram"
 #: ../plugins/debug-manager/stack_trace.c:631
 #: ../plugins/debug-manager/threads.c:451
 #: ../plugins/tools/tool.c:100
-#: ../src/anjuta-app.c:422
+#: ../src/anjuta-app.c:419
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Fil"
@@ -2371,54 +2402,54 @@ msgstr "Stack"
 msgid "Stack frame operations"
 msgstr "Stackramsoperationer"
 
-#: ../plugins/debug-manager/start.c:97
+#: ../plugins/debug-manager/start.c:96
 msgid "Pid"
 msgstr "Pid"
 
-#: ../plugins/debug-manager/start.c:97
+#: ../plugins/debug-manager/start.c:96
 msgid "User"
 msgstr "Användare"
 
-#: ../plugins/debug-manager/start.c:97
+#: ../plugins/debug-manager/start.c:96
 msgid "Time"
 msgstr "Tid"
 
-#: ../plugins/debug-manager/start.c:97
+#: ../plugins/debug-manager/start.c:96
 msgid "Command"
 msgstr "Kommando"
 
-#: ../plugins/debug-manager/start.c:621
+#: ../plugins/debug-manager/start.c:620
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Kan inte köra: %s."
 
-#: ../plugins/debug-manager/start.c:635
+#: ../plugins/debug-manager/start.c:634
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Kan inte öppna filen: %s\n"
 
-#: ../plugins/debug-manager/start.c:913
+#: ../plugins/debug-manager/start.c:918
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "Kunde inte öppna %s. Felsökaren kan inte starta."
 
-#: ../plugins/debug-manager/start.c:923
+#: ../plugins/debug-manager/start.c:928
 #, c-format
 msgid "Unable to detect mime-type of %s. Debugger cannot start."
 msgstr "Kunde inte detektera mime-typen för %s. Felsökaren kan inte starta."
 
-#: ../plugins/debug-manager/start.c:1059
-#: ../plugins/debug-manager/start.c:1251
-#: ../plugins/run-program/parameters.c:600
+#: ../plugins/debug-manager/start.c:1065
+#: ../plugins/debug-manager/start.c:1260
+#: ../plugins/run-program/parameters.c:603
 #, c-format
 msgid "Missing file %s"
 msgstr "Saknar filen %s"
 
-#: ../plugins/debug-manager/start.c:1272
+#: ../plugins/debug-manager/start.c:1282
 msgid "Path"
 msgstr "Sökväg"
 
-#: ../plugins/debug-manager/start.c:1320
+#: ../plugins/debug-manager/start.c:1330
 #: ../plugins/gdb/debugger.c:1699
 msgid ""
 "The program is running.\n"
@@ -2447,52 +2478,52 @@ msgstr "Trådoperationer"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:378
+#: ../plugins/debug-manager/watch.c:390
 msgid "Ins_pect/Evaluate..."
 msgstr "Ins_pektera/Evaluera..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:392
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspektera eller evaluera ett uttryck eller en variabel"
 
-#: ../plugins/debug-manager/watch.c:386
+#: ../plugins/debug-manager/watch.c:398
 msgid "Add Watch..."
 msgstr "Lägg till bevakare..."
 
-#: ../plugins/debug-manager/watch.c:394
+#: ../plugins/debug-manager/watch.c:406
 msgid "Remove Watch"
 msgstr "Ta bort bevakare"
 
-#: ../plugins/debug-manager/watch.c:402
+#: ../plugins/debug-manager/watch.c:414
 msgid "Update Watch"
 msgstr "Uppdatera bevakare"
 
-#: ../plugins/debug-manager/watch.c:410
+#: ../plugins/debug-manager/watch.c:422
 msgid "Change Value"
 msgstr "Ändra värde"
 
-#: ../plugins/debug-manager/watch.c:418
+#: ../plugins/debug-manager/watch.c:430
 msgid "Update all"
 msgstr "Uppdatera alla"
 
-#: ../plugins/debug-manager/watch.c:426
+#: ../plugins/debug-manager/watch.c:438
 msgid "Remove all"
 msgstr "Ta bort alla"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:437
+#: ../plugins/debug-manager/watch.c:449
 msgid "Automatic update"
 msgstr "Automatisk uppdatering"
 
-#: ../plugins/debug-manager/watch.c:463
-#: ../plugins/debug-manager/watch.c:469
+#: ../plugins/debug-manager/watch.c:475
+#: ../plugins/debug-manager/watch.c:481
 msgid "Watch operations"
 msgstr "Bevaka operationer"
 
-#: ../plugins/debug-manager/watch.c:541
+#: ../plugins/debug-manager/watch.c:553
 msgid "Watches"
 msgstr "Bevakare"
 
@@ -2531,36 +2562,39 @@ msgstr "_Sök hjälp"
 msgid "Search for a term in help"
 msgstr "Sök efter en term i hjälpen"
 
-#: ../plugins/devhelp/plugin.c:325
+#: ../plugins/devhelp/plugin.c:358
 msgid "Help operations"
 msgstr "Hjälpoperationer"
 
-#: ../plugins/devhelp/plugin.c:355
-msgid "Online"
-msgstr "Ansluten"
-
-#: ../plugins/devhelp/plugin.c:396
+#: ../plugins/devhelp/plugin.c:368
 msgid "Contents"
 msgstr "Innehåll"
 
-#: ../plugins/devhelp/plugin.c:398
-#: ../plugins/search/search-replace.c:1035
-#: ../plugins/search/search-replace.c:1708
-#: ../plugins/search/search-replace.c:1715
-#: ../plugins/search/search-replace.c:1727
-#: ../plugins/search/search-replace.c:2056
-#: ../plugins/symbol-db/plugin.c:2278
+#: ../plugins/devhelp/plugin.c:369
+#: ../plugins/search/search-replace.c:1034
+#: ../plugins/search/search-replace.c:1710
+#: ../plugins/search/search-replace.c:1717
+#: ../plugins/search/search-replace.c:1729
+#: ../plugins/search/search-replace.c:2058
+#: ../plugins/symbol-db/plugin.c:2247
+#: ../plugins/symbol-db/plugin.c:2359
 msgid "Search"
 msgstr "Sök"
 
-#: ../plugins/devhelp/plugin.c:420
-#: ../src/anjuta-app.c:439
+#: ../plugins/devhelp/plugin.c:375
+#: ../plugins/devhelp/plugin.c:495
+#: ../src/anjuta-app.c:436
 msgid "Help"
 msgstr "Hjälp"
 
-#: ../plugins/devhelp/plugin.c:424
+#: ../plugins/devhelp/plugin.c:405
+#: ../plugins/devhelp/plugin.c:500
 msgid "Help display"
 msgstr "Hjälpvisning"
+
+#: ../plugins/devhelp/plugin.c:422
+msgid "Online"
+msgstr "Ansluten"
 
 #: ../plugins/document-manager/action-callbacks.c:276
 #, c-format
@@ -2575,7 +2609,16 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Läs om"
 
-#: ../plugins/document-manager/anjuta-bookmarks.c:282
+#: ../plugins/document-manager/anjuta-bookmarks.c:235
+msgid "Add bookmark"
+msgstr "Lägg till bokmärke"
+
+#: ../plugins/document-manager/anjuta-bookmarks.c:241
+msgid "Remove bookmark"
+msgstr "Ta bort bokmärke"
+
+#: ../plugins/document-manager/anjuta-bookmarks.c:255
+#: ../plugins/document-manager/anjuta-bookmarks.c:300
 #: ../plugins/document-manager/plugin.c:411
 msgid "Bookmarks"
 msgstr "Bokmärken"
@@ -2589,10 +2632,10 @@ msgid "Path:"
 msgstr "Sökväg:"
 
 #: ../plugins/document-manager/anjuta-docman.c:565
-#: ../plugins/file-loader/plugin.c:564
-#: ../plugins/file-loader/plugin.c:862
-#: ../plugins/file-loader/plugin.c:872
-#: ../plugins/file-loader/plugin.c:885
+#: ../plugins/file-loader/plugin.c:590
+#: ../plugins/file-loader/plugin.c:893
+#: ../plugins/file-loader/plugin.c:903
+#: ../plugins/file-loader/plugin.c:916
 msgid "Open file"
 msgstr "Öppna fil"
 
@@ -2618,58 +2661,65 @@ msgstr "_Ersätt"
 msgid "[read-only]"
 msgstr "[skrivskyddad]"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:1
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:1
 msgid "<b>Autosave</b>"
 msgstr "<b>Automatisk sparning</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:2
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Redigerarflikar</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:3
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:3
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
+msgid "Bottom"
+msgstr "Nederst"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:4
 msgid "Do not show tabs"
 msgstr "Visa inte flikar"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
 msgstr "Aktivera automatiskt sparande av filer"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:6
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
+msgid "Left"
+msgstr "Vänster"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:7
 msgid "Position:"
 msgstr "Position:"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:8
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
+msgid "Right"
+msgstr "Höger"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:9
 msgid "Save files interval in minutes"
 msgstr "Tidsintervall i minuter för filsparande"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:10
 msgid "Save session interval in minutes"
 msgstr "Tidsintervall i minuter för sessionssparande"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:11
 msgid "Sorted by most recent use"
 msgstr "Sorterat efter senaste användning"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:12
 msgid "Sorted in alphabetical order"
 msgstr "Sorterade i alfabetisk ordning"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:13
 msgid "Sorted in opening order"
 msgstr "Sorterade i öppningsordning"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
-msgid ""
-"Top\n"
-"Bottom\n"
-"Left\n"
-"Right"
-msgstr ""
-"Överst\n"
-"Nederst\n"
-"Vänster\n"
-"Höger"
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:14
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
+msgid "Top"
+msgstr "Överst"
 
 #: ../plugins/document-manager/plugin.c:147
 msgid "_Save"
@@ -2921,7 +2971,7 @@ msgstr "Upprepa snabbsökning"
 #: ../plugins/document-manager/plugin.c:268
 #: ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1894
+#: ../plugins/language-support-cpp-java/plugin.c:1910
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -3202,8 +3252,8 @@ msgstr "Enkel sökning"
 
 #: ../plugins/document-manager/plugin.c:410
 #: ../plugins/document-manager/plugin.c:1713
-#: ../plugins/document-manager/plugin.c:2125
-#: ../plugins/document-manager/plugin.c:2135
+#: ../plugins/document-manager/plugin.c:2130
+#: ../plugins/document-manager/plugin.c:2140
 msgid "Documents"
 msgstr "Dokument"
 
@@ -3266,7 +3316,7 @@ msgid "Search for \"%s\" reached end and was continued on top but no new match w
 msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början men inga nya sökträffar hittades."
 
 #: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.glade.h:23
+#: ../plugins/search/anjuta-search.ui.h:28
 msgid "Match case"
 msgstr "Matcha skiftläge"
 
@@ -3339,7 +3389,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:223
+#: ../plugins/file-loader/plugin.c:256
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3359,188 +3409,189 @@ msgstr ""
 "\n"
 "Du kan välja att försöka öppna den med följande instick eller program."
 
-#: ../plugins/file-loader/plugin.c:246
+#: ../plugins/file-loader/plugin.c:279
 msgid "Open with:"
 msgstr "Öppna med:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:252
+#: ../plugins/file-loader/plugin.c:285
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Dokumenthanterare"
 
-#: ../plugins/file-loader/plugin.c:470
-#: ../plugins/patch/patch-plugin.c:116
+#: ../plugins/file-loader/plugin.c:496
+#: ../plugins/patch/patch-plugin.c:121
 #: ../plugins/run-program/parameters.c:308
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../plugins/file-loader/plugin.c:475
+#: ../plugins/file-loader/plugin.c:501
 msgid "Anjuta Projects"
 msgstr "Anjuta-projekt"
 
-#: ../plugins/file-loader/plugin.c:481
+#: ../plugins/file-loader/plugin.c:507
 msgid "C/C++ source files"
 msgstr "C/C++-källfiler"
 
-#: ../plugins/file-loader/plugin.c:493
+#: ../plugins/file-loader/plugin.c:519
 msgid "C# source files"
 msgstr "C#-källfiler"
 
-#: ../plugins/file-loader/plugin.c:499
+#: ../plugins/file-loader/plugin.c:525
 msgid "Java source files"
 msgstr "Java-källfiler"
 
-#: ../plugins/file-loader/plugin.c:505
+#: ../plugins/file-loader/plugin.c:531
 msgid "Pascal source files"
 msgstr "Pascal-källfiler"
 
-#: ../plugins/file-loader/plugin.c:510
+#: ../plugins/file-loader/plugin.c:536
 msgid "PHP source files"
 msgstr "PHP-källfiler"
 
-#: ../plugins/file-loader/plugin.c:517
+#: ../plugins/file-loader/plugin.c:543
 msgid "Perl source files"
 msgstr "Perl-källfiler"
 
-#: ../plugins/file-loader/plugin.c:523
+#: ../plugins/file-loader/plugin.c:549
 msgid "Python source files"
 msgstr "Python-källfiler"
 
-#: ../plugins/file-loader/plugin.c:528
+#: ../plugins/file-loader/plugin.c:554
 msgid "Hyper text markup files"
 msgstr "HTML-filer"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:563
 msgid "Shell scripts files"
 msgstr "Skalskriptsfiler"
 
-#: ../plugins/file-loader/plugin.c:542
+#: ../plugins/file-loader/plugin.c:568
 msgid "Makefiles"
 msgstr "Makefiler"
 
-#: ../plugins/file-loader/plugin.c:548
+#: ../plugins/file-loader/plugin.c:574
 msgid "Lua files"
 msgstr "Lua-filer"
 
-#: ../plugins/file-loader/plugin.c:553
+#: ../plugins/file-loader/plugin.c:579
 msgid "Diff files"
 msgstr "Diff-filer"
 
-#: ../plugins/file-loader/plugin.c:791
+#: ../plugins/file-loader/plugin.c:822
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Misslyckades med att aktivera instick: %s"
 
-#: ../plugins/file-loader/plugin.c:852
+#: ../plugins/file-loader/plugin.c:883
 msgid "_New"
 msgstr "_Ny"
 
-#: ../plugins/file-loader/plugin.c:854
+#: ../plugins/file-loader/plugin.c:885
 msgid "New empty file"
 msgstr "Ny tom fil"
 
-#: ../plugins/file-loader/plugin.c:860
+#: ../plugins/file-loader/plugin.c:891
 msgid "_Open..."
 msgstr "_Öppna..."
 
-#: ../plugins/file-loader/plugin.c:871
-#: ../plugins/file-loader/plugin.c:884
+#: ../plugins/file-loader/plugin.c:902
+#: ../plugins/file-loader/plugin.c:915
 msgid "_Open"
 msgstr "_Öppna"
 
-#: ../plugins/file-loader/plugin.c:878
-#: ../plugins/file-loader/plugin.c:891
+#: ../plugins/file-loader/plugin.c:909
+#: ../plugins/file-loader/plugin.c:922
 msgid "Open _With"
 msgstr "Öppna _med"
 
-#: ../plugins/file-loader/plugin.c:879
-#: ../plugins/file-loader/plugin.c:892
+#: ../plugins/file-loader/plugin.c:910
+#: ../plugins/file-loader/plugin.c:923
 msgid "Open with"
 msgstr "Öppna med"
 
-#: ../plugins/file-loader/plugin.c:1213
-#: ../plugins/file-loader/plugin.c:1219
+#: ../plugins/file-loader/plugin.c:1244
+#: ../plugins/file-loader/plugin.c:1250
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Filinläsare"
 
-#: ../plugins/file-loader/plugin.c:1223
+#: ../plugins/file-loader/plugin.c:1254
 msgid "New"
 msgstr "Ny"
 
-#: ../plugins/file-loader/plugin.c:1224
+#: ../plugins/file-loader/plugin.c:1255
 msgid "New file, project and project components."
 msgstr "Ny fil, projekt och projektkomponenter."
 
-#: ../plugins/file-loader/plugin.c:1231
-#: ../plugins/file-loader/plugin.c:1271
+#: ../plugins/file-loader/plugin.c:1262
+#: ../plugins/file-loader/plugin.c:1302
 msgid "Open"
 msgstr "Öppna"
 
-#: ../plugins/file-loader/plugin.c:1235
+#: ../plugins/file-loader/plugin.c:1266
 msgid "Open _Recent"
 msgstr "Öppna _tidigare"
 
-#: ../plugins/file-loader/plugin.c:1236
-#: ../plugins/file-loader/plugin.c:1273
+#: ../plugins/file-loader/plugin.c:1267
+#: ../plugins/file-loader/plugin.c:1304
 msgid "Open recent file"
 msgstr "Öppna tidigare fil"
 
-#: ../plugins/file-loader/plugin.c:1242
+#: ../plugins/file-loader/plugin.c:1273
 msgid "Open recent files"
 msgstr "Öppna tidigare filer"
 
-#: ../plugins/file-loader/plugin.c:1272
+#: ../plugins/file-loader/plugin.c:1303
 msgid "Open a file"
 msgstr "Öppna en fil"
 
-#: ../plugins/file-loader/plugin.c:1381
-#: ../plugins/file-loader/plugin.c:1383
+#: ../plugins/file-loader/plugin.c:1419
+#: ../plugins/file-loader/plugin.c:1421
 #, c-format
 msgid "File not found"
 msgstr "Filen hittades inte"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1402
+#: ../plugins/file-loader/plugin.c:1440
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Välj ett instick för att öppna <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1406
+#: ../plugins/file-loader/plugin.c:1444
 msgid "Open With"
 msgstr "Öppna med"
 
-#: ../plugins/file-manager/file-manager.glade.h:1
-msgid "<b>Filter</b>"
-msgstr "<b>Filter</b>"
-
-#: ../plugins/file-manager/file-manager.glade.h:2
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:2
-msgid "<b>Global</b>"
-msgstr "<b>Allmänt</b>"
-
-#: ../plugins/file-manager/file-manager.glade.h:3
+#: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
 msgstr "Välj katalog att visa om inget projekt har öppnats"
 
-#: ../plugins/file-manager/file-manager.glade.h:4
+#: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
 msgstr "Visa inte säkerhetskopior"
 
-#: ../plugins/file-manager/file-manager.glade.h:5
+#: ../plugins/file-manager/file-manager.ui.h:3
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "Visa inte säkerhetskopior (.o, .la, etc.)"
 
-#: ../plugins/file-manager/file-manager.glade.h:6
+#: ../plugins/file-manager/file-manager.ui.h:4
 msgid "Do not show hidden files"
 msgstr "Visa inte dolda filer"
 
-#: ../plugins/file-manager/file-manager.glade.h:7
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show unversioned files"
 msgstr "Visa inte filer som inte versionshanteras"
 
-#: ../plugins/file-manager/file-manager.glade.h:8
+#: ../plugins/file-manager/file-manager.ui.h:6
+msgid "Filter"
+msgstr "Filter"
+
+#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/symbol-db/plugin.c:2246
+#: ../plugins/symbol-db/plugin.c:2335
+msgid "Global"
+msgstr "Allmänna"
+
+#: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
 msgstr "Rotkatalog om inget projekt har öppnats:"
 
@@ -3565,49 +3616,49 @@ msgstr "Bas-uri"
 msgid "Uri of the top-most path displayed"
 msgstr "Uri för översta visade sökvägen"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:74
 msgid "_Rename"
 msgstr "_Byt namn"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:74
 msgid "Rename file or directory"
 msgstr "Byt namn på fil eller katalog"
 
-#: ../plugins/file-manager/plugin.c:295
+#: ../plugins/file-manager/plugin.c:294
 msgid "File manager popup actions"
 msgstr "Popupåtgärder för filhanterare"
 
-#: ../plugins/file-manager/plugin.c:328
+#: ../plugins/file-manager/plugin.c:327
 msgid "Files"
 msgstr "Filer"
 
-#: ../plugins/file-manager/plugin.c:452
-#: ../plugins/file-manager/plugin.c:461
+#: ../plugins/file-manager/plugin.c:456
+#: ../plugins/file-manager/plugin.c:465
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Filhanterare"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:1
 msgid "<b>File Information</b>"
 msgstr "<b>Filinformation</b>"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:3
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:3
 msgid "Add License Information"
 msgstr "Lägg till licensinformation"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:4
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:4
 msgid "Add to project"
 msgstr "Lägg till i projekt"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
 msgid "Add to repository"
 msgstr "Lägg till i förråd"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
 msgid "Create corresponding header file"
 msgstr "Skapa motsvarande header-fil"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -3615,25 +3666,25 @@ msgstr ""
 "Ange filnamnet.\n"
 "Filändelsen kommer att läggas till enligt filtypen."
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
-#: ../plugins/git/anjuta-git.glade.h:66
-#: ../plugins/macro/anjuta-macro.glade.h:6
-#: ../plugins/tools/anjuta-tools.glade.h:7
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
+#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Namn:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
 #: ../plugins/starter/starter.c:404
 msgid "New File"
 msgstr "Ny fil"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1517
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
+#: ../plugins/gbf-am/gbf-am-properties.c:1524
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:13
 msgid "Use Template for the Header file"
 msgstr "Använd mall för header-filen"
 
@@ -3673,21 +3724,11 @@ msgstr "Skalskriptsfil"
 msgid "Other"
 msgstr "Annan"
 
-#: ../plugins/file-wizard/file.c:100
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
-msgid "General Public License (GPL)"
-msgstr "General Public License (GPL)"
-
-#: ../plugins/file-wizard/file.c:101
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
-msgid "Lesser General Public License (LGPL)"
-msgstr "Lesser General Public License (LGPL)"
-
 #: ../plugins/file-wizard/file.c:102
 msgid "BSD Public License"
 msgstr "BSD Public License"
 
-#: ../plugins/file-wizard/file.c:178
+#: ../plugins/file-wizard/file.c:179
 msgid "Unable to build user interface for New File"
 msgstr "Kan inte bygga användargränssnitt för Ny fil"
 
@@ -3696,27 +3737,27 @@ msgstr "Kan inte bygga användargränssnitt för Ny fil"
 msgid "Invalid GbfAmConfigValue type"
 msgstr "Ogiltig GbfAmConfigValue-typ"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:1
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:1
 msgid "<b>Select Package to add:</b>"
 msgstr "<b>Välj paket att lägga till:</b>"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:2
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:2
 msgid "Add _Package"
 msgstr "Lägg till _paket"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:3
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3
 msgid "Add _module"
 msgstr "Lägg till _modul"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:5
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:5
 msgid "Packages"
 msgstr "Paket"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:6
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
 msgid "Select package"
 msgstr "Välj paket"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.glade.h:7
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:7
 msgid "Variables"
 msgstr "Variabler"
 
@@ -3920,159 +3961,159 @@ msgstr "Källkoden kunde inte tas bort"
 msgid "Project directory"
 msgstr "Projektkatalog"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:342
-#: ../plugins/gbf-am/gbf-am-properties.c:394
+#: ../plugins/gbf-am/gbf-am-properties.c:341
+#: ../plugins/gbf-am/gbf-am-properties.c:393
 msgid "Enter new module"
 msgstr "Ange ny modul"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:430
-#: ../plugins/gbf-am/gbf-am-properties.c:923
+#: ../plugins/gbf-am/gbf-am-properties.c:434
+#: ../plugins/gbf-am/gbf-am-properties.c:930
 msgid "Module/Packages"
 msgstr "Modul/Paket"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:437
-#: ../plugins/gbf-am/gbf-am-properties.c:932
+#: ../plugins/gbf-am/gbf-am-properties.c:441
+#: ../plugins/gbf-am/gbf-am-properties.c:939
 msgid "Version"
 msgstr "Version"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:523
+#: ../plugins/gbf-am/gbf-am-properties.c:527
 #, c-format
 msgid "Are you sure you want to remove module \"%s\" and all its associated packages?"
 msgstr "Är du säker på att du vill ta bort modulen \"%s\" och alla dess associerade paket?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:525
+#: ../plugins/gbf-am/gbf-am-properties.c:529
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "Är du säker på att du vill ta bort paketet \"%s\"?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:583
-#: ../plugins/gbf-am/gbf-am-properties.c:665
+#: ../plugins/gbf-am/gbf-am-properties.c:587
+#: ../plugins/gbf-am/gbf-am-properties.c:669
 msgid "Enter new variable"
 msgstr "Ange ny variabel"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:696
+#: ../plugins/gbf-am/gbf-am-properties.c:700
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "Är du säker på att du vill ta bort variabeln \"%s\"?"
 
 # src/header_stuff.c:443 src/header_stuff.c:448
-#: ../plugins/gbf-am/gbf-am-properties.c:847
+#: ../plugins/gbf-am/gbf-am-properties.c:854
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
 msgid "Project:"
 msgstr "Projekt:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:850
+#: ../plugins/gbf-am/gbf-am-properties.c:857
 msgid "Package name:"
 msgstr "Paketnamn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:853
+#: ../plugins/gbf-am/gbf-am-properties.c:860
 #: ../plugins/project-wizard/templates/translatable-strings.h:101
 msgid "Version:"
 msgstr "Version:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:856
+#: ../plugins/gbf-am/gbf-am-properties.c:863
 msgid "Url:"
 msgstr "Url:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1222
+#: ../plugins/gbf-am/gbf-am-properties.c:1229
 msgid "Use"
 msgstr "Använd"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1314
+#: ../plugins/gbf-am/gbf-am-properties.c:1321
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
 msgid "Group name:"
 msgstr "Gruppnamn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1317
+#: ../plugins/gbf-am/gbf-am-properties.c:1324
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1322
-#: ../plugins/gbf-am/gbf-am-properties.c:1412
+#: ../plugins/gbf-am/gbf-am-properties.c:1329
+#: ../plugins/gbf-am/gbf-am-properties.c:1419
 msgid "C compiler flags:"
 msgstr "Flaggor för C-kompilator:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-am/gbf-am-properties.c:1331
 msgid "C preprocessor flags:"
 msgstr "Flaggor för C-preprocessor:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1326
+#: ../plugins/gbf-am/gbf-am-properties.c:1333
 msgid "C++ compiler flags:"
 msgstr "Flaggor för C++-kompilator:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1328
+#: ../plugins/gbf-am/gbf-am-properties.c:1335
 msgid "gcj compiler flags (ahead-of-time):"
 msgstr "Flaggor för gcj-kompilator (ahead-of-time):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1330
+#: ../plugins/gbf-am/gbf-am-properties.c:1337
 msgid "Java compiler flags (just-in-time):"
 msgstr "Flaggor för Java-kompilator (just-in-time):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1332
-#: ../plugins/gbf-am/gbf-am-properties.c:1420
+#: ../plugins/gbf-am/gbf-am-properties.c:1339
+#: ../plugins/gbf-am/gbf-am-properties.c:1427
 msgid "Fortran compiler flags:"
 msgstr "Flaggor för Fortran-kompilator:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1335
+#: ../plugins/gbf-am/gbf-am-properties.c:1342
 msgid "Includes (deprecated):"
 msgstr "Include-filer (föråldrat):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1346
+#: ../plugins/gbf-am/gbf-am-properties.c:1353
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
 msgid "Install directories:"
 msgstr "Installationskataloger:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1414
+#: ../plugins/gbf-am/gbf-am-properties.c:1421
 msgid "C preprocessor flags"
 msgstr "Flaggor för C preprocessor"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1416
+#: ../plugins/gbf-am/gbf-am-properties.c:1423
 msgid "C++ compiler flags"
 msgstr "Flaggor för C++-kompilator"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1418
+#: ../plugins/gbf-am/gbf-am-properties.c:1425
 msgid "gcj compiler flags (ahead-of-time)"
 msgstr "Flaggor för gcj-kompilator (ahead-of-time)"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1424
+#: ../plugins/gbf-am/gbf-am-properties.c:1431
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
 msgid "Linker flags:"
 msgstr "Flaggor för länkare:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1430
+#: ../plugins/gbf-am/gbf-am-properties.c:1437
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
 msgid "Libraries:"
 msgstr "Bibliotek:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1436
+#: ../plugins/gbf-am/gbf-am-properties.c:1443
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
 msgid "Dependencies:"
 msgstr "Beroenden:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1439
+#: ../plugins/gbf-am/gbf-am-properties.c:1446
 msgid "Advanced options"
 msgstr "Avancerade flaggor"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1514
+#: ../plugins/gbf-am/gbf-am-properties.c:1521
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
 msgid "Target name:"
 msgstr "Målnamn:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1523
+#: ../plugins/gbf-am/gbf-am-properties.c:1530
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
 msgid "Group:"
 msgstr "Grupp:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1541
-#: ../plugins/gbf-am/gbf-am-properties.c:1557
+#: ../plugins/gbf-am/gbf-am-properties.c:1548
 #: ../plugins/gbf-am/gbf-am-properties.c:1564
+#: ../plugins/gbf-am/gbf-am-properties.c:1571
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
 msgid "Install directory:"
 msgstr "Installationskatalog:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1576
+#: ../plugins/gbf-am/gbf-am-properties.c:1583
 msgid "Advanced..."
 msgstr "Avancerat..."
 
@@ -4296,361 +4337,436 @@ msgstr "Misslyckades med att skapa fifo-filen med namnet %s. Programmet kommer a
 msgid "Cannot start terminal for debugging."
 msgstr "Kan inte starta terminal för felsökning."
 
-#: ../plugins/git/anjuta-git.glade.h:1
-msgid "<b>Bad revision:</b>"
-msgstr "<b>Dålig revision:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:2
-msgid "<b>Branch name:</b>"
-msgstr "<b>Grennamn:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:3
-msgid "<b>Branch to delete:</b>"
-msgstr "<b>Gren att ta bort:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:4
-msgid "<b>Branch to switch to:</b>"
-msgstr "<b>Gren att växla till:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:5
-msgid "<b>Branch:</b>"
-msgstr "<b>Gren:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:6
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
-msgid "<b>Changes:</b>"
-msgstr "<b>Ändringar:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:7
-msgid "<b>Commit to revert:</b>"
-msgstr "<b>Incheckning att återställa:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:8
-msgid "<b>Filters</b>"
-msgstr "<b>Filter</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:9
-msgid "<b>Folder to create patches in:</b>"
-msgstr "<b>Mapp att skapa patchar i:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:10
-msgid "<b>Generate patches relative to:</b>"
-msgstr "<b>Generera patchar relativa till:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:11
-msgid "<b>Good revision:</b>"
-msgstr "<b>Bra revision:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:12
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
-msgid "<b>Log Message:</b>"
-msgstr "<b>Loggmeddelande:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:13
-msgid "<b>Log message:</b>"
-msgstr "<b>Loggmeddelande:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:14
-msgid "<b>Mode:</b>"
-msgstr "<b>Läge:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:16
-msgid "<b>Remote branch to rebase from:</b>"
-msgstr "<b>Fjärrgren att ändra bas från:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:17
-msgid "<b>Remote to delete:</b>"
-msgstr "<b>Fjärr att ta bort:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:18
-msgid "<b>Repository to pull from:</b>"
-msgstr "<b>Förråd att hämta från:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:19
-msgid "<b>Repository to push to:</b>"
-msgstr "<b>Förråd att trycka (push) till:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:20
-msgid "<b>Reset to:</b>"
-msgstr "<b>Återställ till:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:21
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
-msgid "<b>Revision:</b>"
-msgstr "<b>Revision:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:22
-msgid "<b>Select Files to Check Out:</b>"
-msgstr "<b>Välj filer att checka ut:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
-msgid "<b>Select Files to Commit:</b>"
-msgstr "<b>Välj filer att verkställa:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:24
-msgid "<b>Select Files to Ignore:</b>"
-msgstr "<b>Välj filer att ignorera:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:25
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
-msgid "<b>Select Files to Mark as Resolved:</b>"
-msgstr "<b>Välj filer att markera som lösta:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:26
-msgid "<b>Select Files to Unstage:</b>"
-msgstr "<b>Välj filer att avköa:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:27
-msgid "<b>Select file to add:</b>"
-msgstr "<b>Välj fil att lägga till:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:28
-msgid "<b>Select file to remove:</b>"
-msgstr "<b>Välj fil att ta bort:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:29
-msgid "<b>Tag name:</b>"
-msgstr "<b>Taggnamn:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:30
-msgid "<b>URL:</b>"
-msgstr "<b>URL:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:31
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
-msgid "<b>View the Log for File/Folder:</b>"
-msgstr "<b>Visa loggen för fil/mapp:</b>"
-
-#: ../plugins/git/anjuta-git.glade.h:32
+#: ../plugins/git/anjuta-git.ui.h:1
 msgid "Add File"
 msgstr "Lägg till fil"
 
-#: ../plugins/git/anjuta-git.glade.h:33
+#: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add Remote Branch"
 msgstr "Lägg till fjärrgren"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.glade.h:35
+#: ../plugins/git/anjuta-git.ui.h:4
 msgid "Add signed off by line"
 msgstr "Lägg till Signed-off-by-rad"
 
-#: ../plugins/git/anjuta-git.glade.h:36
+#: ../plugins/git/anjuta-git.ui.h:5
+#, fuzzy
+msgid "Add signed-off by line"
+msgstr "Lägg till Signed-off-by-rad"
+
+#: ../plugins/git/anjuta-git.ui.h:6
+#, fuzzy
+msgid "Amend the previous commit"
+msgstr "Föregående incheckning"
+
+#: ../plugins/git/anjuta-git.ui.h:7
 msgid "Annotate this tag"
 msgstr "Kommentera denna tagg"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.glade.h:38
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Append fetch data"
 msgstr "Lägg till hämtat data"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/anjuta-git.ui.h:10
+#: ../plugins/git/plugin.c:213
+#, fuzzy
+msgid "Apply mailbox files"
+msgstr "Alla filer"
+
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.glade.h:40
+#: ../plugins/git/anjuta-git.ui.h:12
 msgid "Author/Grep"
 msgstr "Upphovsman/Grep"
 
-#: ../plugins/git/anjuta-git.glade.h:41
+#: ../plugins/git/anjuta-git.ui.h:13
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Författare:"
 
-#: ../plugins/git/anjuta-git.glade.h:42
-msgid "Branch must be fully merged"
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Bad revision:"
+msgstr "Felaktig revision:"
+
+#: ../plugins/git/anjuta-git.ui.h:15
+msgid "Branch name:"
+msgstr "Grennamn:"
+
+#: ../plugins/git/anjuta-git.ui.h:16
+msgid "Branch to switch to:"
+msgstr "Gren att växla till:"
+
+#: ../plugins/git/anjuta-git.ui.h:17
+msgid "Branch:"
+msgstr "Gren:"
+
+#: ../plugins/git/anjuta-git.ui.h:18
+msgid "Branches"
+msgstr "Grenar"
+
+#: ../plugins/git/anjuta-git.ui.h:19
+#, fuzzy
+msgid "Branches must be fully merged"
 msgstr "Grenen måste vara fullständigt sammanfogad"
 
-#: ../plugins/git/anjuta-git.glade.h:43
+#: ../plugins/git/anjuta-git.ui.h:20
+msgid "Branches to delete:"
+msgstr "Grenar att ta bort:"
+
+#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/subversion/anjuta-subversion.ui.h:4
+msgid "Changes:"
+msgstr "Ändringar:"
+
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Check Out Files"
 msgstr "Checka ut filer"
 
-#: ../plugins/git/anjuta-git.glade.h:44
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Check out the branch after it is created"
 msgstr "Checka ut grenen efter att den skapats"
 
-#: ../plugins/git/anjuta-git.glade.h:45
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/git/anjuta-git.ui.h:25
+msgid "Cherry Pick"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
 msgstr "Verkställ ändringar"
 
 # fast-forward merge är en underlig term i git
-#: ../plugins/git/anjuta-git.glade.h:46
+#: ../plugins/git/anjuta-git.ui.h:27
 msgid "Commit on fast-forward merges"
 msgstr "Verkställ på snabbspolade sammanfogningar"
 
-#: ../plugins/git/anjuta-git.glade.h:47
+#: ../plugins/git/anjuta-git.ui.h:28
+msgid "Commit to Cherry Pick:"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:29
+msgid "Commit to revert:"
+msgstr "Incheckning att återställa:"
+
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Create Branch"
 msgstr "Skapa gren"
 
-#: ../plugins/git/anjuta-git.glade.h:48
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Create Tag"
 msgstr "Skapa tagg"
 
-#: ../plugins/git/anjuta-git.glade.h:49
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Create patch series"
 msgstr "Skapa patchserie"
 
-#: ../plugins/git/anjuta-git.glade.h:50
+#: ../plugins/git/anjuta-git.ui.h:33
 #: ../plugins/git/git-log-dialog.c:188
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Datum"
 
-#: ../plugins/git/anjuta-git.glade.h:51
+#: ../plugins/git/anjuta-git.ui.h:34
 msgid "Delete Branch"
 msgstr "Ta bort gren"
 
-#: ../plugins/git/anjuta-git.glade.h:52
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Delete Remote Branch"
 msgstr "Ta bort fjärrgren"
 
-#: ../plugins/git/anjuta-git.glade.h:53
+#: ../plugins/git/anjuta-git.ui.h:36
 msgid "Do not commit"
 msgstr "Verkställ inte"
 
-#: ../plugins/git/anjuta-git.glade.h:54
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Do not follow tags"
 msgstr "Följ inte taggar"
 
-#: ../plugins/git/anjuta-git.glade.h:55
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "E-mail:"
 msgstr "E-post:"
 
-#: ../plugins/git/anjuta-git.glade.h:56
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Fetch remote branches after creation"
 msgstr "Hämta fjärrgrenar efter skapandet"
 
-#: ../plugins/git/anjuta-git.glade.h:57
-#: ../plugins/subversion/anjuta-subversion.glade.h:32
+#: ../plugins/git/anjuta-git.ui.h:40
+msgid "Filters"
+msgstr "Filter"
+
+#: ../plugins/git/anjuta-git.ui.h:41
+#, fuzzy
+msgid "Folder to create patches in:"
+msgstr "<b>Mapp att skapa patchar i:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Tvinga"
 
-#: ../plugins/git/anjuta-git.glade.h:59
+#: ../plugins/git/anjuta-git.ui.h:44
 msgid "From:"
 msgstr "Från:"
 
-#: ../plugins/git/anjuta-git.glade.h:60
+#: ../plugins/git/anjuta-git.ui.h:45
+#, fuzzy
+msgid "Generate patches relative to:"
+msgstr "<b>Generera patchar relativa till:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:46
+#, fuzzy
+msgid "Good revision:"
+msgstr "<b>Bra revision:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Grep:"
 msgstr "Grep:"
 
-#: ../plugins/git/anjuta-git.glade.h:61
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Hard"
 msgstr "Hård"
 
-#: ../plugins/git/anjuta-git.glade.h:62
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Head"
 msgstr "Head"
 
-#: ../plugins/git/anjuta-git.glade.h:63
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Ignore Files"
 msgstr "Ignorera filer"
 
-#: ../plugins/git/anjuta-git.glade.h:64
+#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/subversion/anjuta-subversion.ui.h:21
+#, fuzzy
+msgid "Log Message:"
+msgstr "Loggmeddelande:"
+
+#: ../plugins/git/anjuta-git.ui.h:53
+msgid "Mailbox file containing patches:"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Merge"
 msgstr "Sammanfoga"
 
-#: ../plugins/git/anjuta-git.glade.h:65
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Mixed"
 msgstr "Blandad"
 
-#: ../plugins/git/anjuta-git.glade.h:67
+#: ../plugins/git/anjuta-git.ui.h:56
+msgid "Mode:"
+msgstr "Läge:"
+
+#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/subversion/anjuta-subversion.ui.h:23
+msgid "Options"
+msgstr "Alternativ"
+
+#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/subversion/anjuta-subversion.ui.h:24
+#, fuzzy
+msgid "Options:"
+msgstr "Alternativ"
+
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Previous commit"
 msgstr "Föregående incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:68
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Pull"
 msgstr "Hämta"
 
-#: ../plugins/git/anjuta-git.glade.h:69
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Push"
 msgstr "Tryck (push)"
 
-#: ../plugins/git/anjuta-git.glade.h:70
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Push all refs"
 msgstr "Tryck (push) alla referenser"
 
-#: ../plugins/git/anjuta-git.glade.h:71
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Push tags"
 msgstr "Tryck (push) taggar"
 
-#: ../plugins/git/anjuta-git.glade.h:72
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Rebase"
 msgstr "Ändra bas"
 
-#: ../plugins/git/anjuta-git.glade.h:73
+#: ../plugins/git/anjuta-git.ui.h:66
+#, fuzzy
+msgid "Remote branch to rebase from:"
+msgstr "<b>Fjärrgren att ändra bas från:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:67
+#, fuzzy
+msgid "Remote to delete:"
+msgstr "<b>Fjärr att ta bort:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid "Remove File"
 msgstr "Ta bort fil"
 
-#: ../plugins/git/anjuta-git.glade.h:74
+#: ../plugins/git/anjuta-git.ui.h:69
+#, fuzzy
+msgid "Repository origin"
+msgstr "Förrådsbehörighet"
+
+#: ../plugins/git/anjuta-git.ui.h:70
+#, fuzzy
+msgid "Repository to pull from:"
+msgstr "<b>Förråd att hämta från:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:71
+#, fuzzy
+msgid "Repository to push to:"
+msgstr "<b>Förråd att trycka (push) till:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:72
 msgid "Reset Tree"
 msgstr "Återställ träd"
 
-#: ../plugins/git/anjuta-git.glade.h:75
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/git/anjuta-git.ui.h:73
+#, fuzzy
+msgid "Reset to:"
+msgstr "<b>Återställ till:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:74
+#: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Hämtar status..."
 
-#: ../plugins/git/anjuta-git.glade.h:76
+#: ../plugins/git/anjuta-git.ui.h:75
 msgid "Revert Commit"
 msgstr "Återställ incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:77
+#: ../plugins/git/anjuta-git.ui.h:76
 msgid "Revision/Tag:"
 msgstr "Revision/Tagg:"
 
-#: ../plugins/git/anjuta-git.glade.h:79
+#: ../plugins/git/anjuta-git.ui.h:78
 msgid "Select A Folder"
 msgstr "Välj en mapp"
 
-#: ../plugins/git/anjuta-git.glade.h:80
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
+#: ../plugins/git/anjuta-git.ui.h:79
+#, fuzzy
+msgid "Select Files to Check Out:"
+msgstr "<b>Välj filer att checka ut:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/subversion/anjuta-subversion.ui.h:41
+#, fuzzy
+msgid "Select Files to Commit:"
+msgstr "<b>Välj filer att verkställa:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:81
+#, fuzzy
+msgid "Select Files to Ignore:"
+msgstr "<b>Välj filer att ignorera:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/subversion/anjuta-subversion.ui.h:42
+#, fuzzy
+msgid "Select Files to Mark as Resolved:"
+msgstr "<b>Välj filer att markera som lösta:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:83
+#, fuzzy
+msgid "Select Files to Unstage:"
+msgstr "<b>Välj filer att avköa:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:84
+#, fuzzy
+msgid "Select Mailbox File"
+msgstr "Välj Scratchbox-mapp"
+
+#: ../plugins/git/anjuta-git.ui.h:85
+#, fuzzy
+msgid "Select file to add:"
+msgstr "_Välj fil att lägga till..."
+
+#: ../plugins/git/anjuta-git.ui.h:86
+#, fuzzy
+msgid "Select file to remove:"
+msgstr "<b>Välj fil att ta bort:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:87
+#: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Ställ in konflikter som lösta"
 
-#: ../plugins/git/anjuta-git.glade.h:81
+#: ../plugins/git/anjuta-git.ui.h:88
+msgid "Show source revision in log message"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:89
+#, fuzzy
+msgid "Sign this tag"
+msgstr "Kommentera denna tagg"
+
+#: ../plugins/git/anjuta-git.ui.h:90
 msgid "Soft"
 msgstr "Mjuk"
 
-#: ../plugins/git/anjuta-git.glade.h:82
+#: ../plugins/git/anjuta-git.ui.h:91
 msgid "Squash"
 msgstr "Squash"
 
-#: ../plugins/git/anjuta-git.glade.h:83
+#: ../plugins/git/anjuta-git.ui.h:92
 msgid "Switch to Another Branch"
 msgstr "Växla till en annan gren"
 
-#: ../plugins/git/anjuta-git.glade.h:84
+#: ../plugins/git/anjuta-git.ui.h:93
+#, fuzzy
+msgid "Tag name:"
+msgstr "Målnamn:"
+
+#: ../plugins/git/anjuta-git.ui.h:94
 msgid "Tag/Commit"
 msgstr "Tagg/Incheckning"
 
-#: ../plugins/git/anjuta-git.glade.h:85
+#: ../plugins/git/anjuta-git.ui.h:95
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Detta verkställande innehåller en misslyckad sammanfogning (använd -i)"
 
-#: ../plugins/git/anjuta-git.glade.h:87
+#: ../plugins/git/anjuta-git.ui.h:97
 msgid "To:"
 msgstr "Till:"
 
-#: ../plugins/git/anjuta-git.glade.h:88
+#: ../plugins/git/anjuta-git.ui.h:98
+msgid "URL:"
+msgstr "URL:"
+
+#: ../plugins/git/anjuta-git.ui.h:99
 msgid "Unstage Files"
 msgstr "Avköa filer"
 
-#: ../plugins/git/anjuta-git.glade.h:89
+#: ../plugins/git/anjuta-git.ui.h:100
 msgid "Use a custom log message"
 msgstr "Använd ett anpassat loggmeddelande"
 
-#: ../plugins/git/anjuta-git.glade.h:90
+#: ../plugins/git/anjuta-git.ui.h:101
 msgid "Use custom author information:"
 msgstr "Använd anpassad upphovsinformation:"
 
-#: ../plugins/git/anjuta-git.glade.h:91
+#: ../plugins/git/anjuta-git.ui.h:102
 msgid "View log"
 msgstr "Visa logg"
+
+#: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/subversion/anjuta-subversion.ui.h:58
+#, fuzzy
+msgid "View the Log for File/Folder:"
+msgstr "<b>Visa loggen för fil/mapp:</b>"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
 msgstr "Git: Filen köad för att läggas till."
 
 #: ../plugins/git/git-add-dialog.c:62
-#: ../plugins/git/git-remove-dialog.c:62
+#: ../plugins/git/git-remove-dialog.c:63
 msgid "Please select a file."
 msgstr "Välj en fil."
 
@@ -4673,9 +4789,15 @@ msgstr "Ange en URL."
 msgid "Git: Fetching..."
 msgstr "Git: Hämtar..."
 
+#: ../plugins/git/git-apply-mailbox-dialog.c:45
+#, fuzzy
+msgid "Please select a mailbox file."
+msgstr "Välj en fil."
+
 #: ../plugins/git/git-bisect-dialog.c:54
+#: ../plugins/git/git-cherry-pick-dialog.c:52
 #: ../plugins/git/git-create-branch-dialog.c:89
-#: ../plugins/git/git-create-tag-dialog.c:99
+#: ../plugins/git/git-create-tag-dialog.c:102
 #: ../plugins/git/git-reset-dialog.c:57
 #: ../plugins/git/git-revert-dialog.c:46
 #: ../plugins/subversion/subversion-copy-dialog.c:207
@@ -4695,11 +4817,11 @@ msgstr "Git: Filer utcheckade."
 msgid "Git: Commit complete."
 msgstr "Git: Verkställning färdig."
 
-#: ../plugins/git/git-commit-dialog.c:100
+#: ../plugins/git/git-commit-dialog.c:105
 msgid "Please enter the commit author's name."
 msgstr "Ange upphovsmannens namn."
 
-#: ../plugins/git/git-commit-dialog.c:110
+#: ../plugins/git/git-commit-dialog.c:115
 msgid "Please enter the commit author's e-mail address."
 msgstr "Ange upphovsmannens e-postadress."
 
@@ -4713,13 +4835,13 @@ msgstr "Git: Skapade grenen \"%s\"."
 msgid "Git: Created tag \"%s\"."
 msgstr "Git: Skapade taggen \"%s\"."
 
-#: ../plugins/git/git-create-tag-dialog.c:108
+#: ../plugins/git/git-create-tag-dialog.c:111
 msgid "Please enter a tag name."
 msgstr "Ange ett taggnamn."
 
-#: ../plugins/git/git-delete-branch-dialog.c:41
-#, c-format
-msgid "Git: Deleted branch \"%s\"."
+#: ../plugins/git/git-delete-branch-dialog.c:37
+#, fuzzy
+msgid "Git: Deleted selected branches."
 msgstr "Git: Tog bort grenen \"%s\"."
 
 #: ../plugins/git/git-fetch-dialog.c:40
@@ -4739,11 +4861,11 @@ msgstr "Kort logg"
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../plugins/git/git-log-dialog.c:305
+#: ../plugins/git/git-log-dialog.c:318
 msgid "Git: Retrieving log..."
 msgstr "Git: Hämtar logg..."
 
-#: ../plugins/git/git-log-dialog.c:344
+#: ../plugins/git/git-log-dialog.c:358
 #: ../plugins/subversion/subversion-add-dialog.c:65
 #: ../plugins/subversion/subversion-diff-dialog.c:116
 #: ../plugins/subversion/subversion-remove-dialog.c:98
@@ -4751,17 +4873,21 @@ msgstr "Git: Hämtar logg..."
 msgid "Please enter a path."
 msgstr "Ange en sökväg."
 
-#: ../plugins/git/git-log-dialog.c:505
+#: ../plugins/git/git-log-dialog.c:403
+msgid "Select a file"
+msgstr "Välj en fil"
+
+#: ../plugins/git/git-log-dialog.c:550
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Gren:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:510
+#: ../plugins/git/git-log-dialog.c:555
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Tagg:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:515
+#: ../plugins/git/git-log-dialog.c:560
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Fjärr:</b> %s"
@@ -4774,11 +4900,26 @@ msgstr "Git: Sammanfogning färdig."
 msgid "Git: Pull complete."
 msgstr "Git: Hämtning färdig."
 
-#: ../plugins/git/git-pull-dialog.c:77
+#: ../plugins/git/git-pull-dialog.c:87
 msgid "Please enter the URL of the repository to pull from."
 msgstr "Ange URL:en till förrådet att hämta från."
 
-#: ../plugins/git/git-rebase-dialog.c:49
+#: ../plugins/git/git-push-dialog.c:36
+#, fuzzy
+msgid "Git: Push complete."
+msgstr "Git: Hämtning färdig."
+
+#: ../plugins/git/git-push-dialog.c:79
+#, fuzzy
+msgid "Please enter the URL of the repository to push to."
+msgstr "Ange URL:en till förrådet att hämta från."
+
+#: ../plugins/git/git-push-dialog.c:96
+#, fuzzy
+msgid "Git: Pushing..."
+msgstr "Git: Hämtar..."
+
+#: ../plugins/git/git-rebase-dialog.c:60
 msgid "Git: Rebasing"
 msgstr "Git: Ändrar bas"
 
@@ -4800,7 +4941,7 @@ msgstr "Git: Utcheckning av gren färdig."
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:438
+#: ../plugins/git/git-ui-utils.c:480
 msgid "Git: Diff complete."
 msgstr "Git: Diff färdig."
 
@@ -4810,136 +4951,79 @@ msgstr "Git: Filer avköade."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:59
-#: ../plugins/git/plugin.c:420
+#: ../plugins/git/plugin.c:61
+#: ../plugins/git/plugin.c:485
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:67
+#: ../plugins/git/plugin.c:69
 #: ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "_Verkställ..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:75
+#: ../plugins/git/plugin.c:77
 msgid "_Fetch"
 msgstr "_Hämta"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:83
+#: ../plugins/git/plugin.c:85
 msgid "_Rebase"
 msgstr "_Ändra bas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:91
-#: ../plugins/git/plugin.c:195
+#: ../plugins/git/plugin.c:93
+#: ../plugins/git/plugin.c:357
 msgid "_Start..."
 msgstr "_Starta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:99
+#: ../plugins/git/plugin.c:101
 msgid "_Continue"
 msgstr "_Fortsätt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:107
+#: ../plugins/git/plugin.c:109
 msgid "_Skip"
 msgstr "_Hoppa över"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:115
+#: ../plugins/git/plugin.c:117
+#: ../plugins/git/plugin.c:245
 msgid "_Abort"
 msgstr "_Avbryt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:123
+#: ../plugins/git/plugin.c:125
+msgid "_Push..."
+msgstr "_Tryck (push)..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:133
 msgid "_Pull..."
 msgstr "_Hämta..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:131
-msgid "_Unstage files..."
-msgstr "A_vköa filer..."
+#: ../plugins/git/plugin.c:141
+msgid "_Diff uncommitted changes"
+msgstr "Kör _diff mot lokala ändringar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:139
-msgid "_Check out files..."
-msgstr "_Checka ut filer..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:147
-msgid "_Resolve conflicts..."
-msgstr "Lös _konflikter..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:155
-msgid "Create patch series..."
-msgstr "Skapa patchserie..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:163
-#: ../plugins/git/plugin.c:376
-msgid "_Reset tree..."
-msgstr "_Återställ träd..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:171
-#: ../plugins/git/plugin.c:384
-msgid "_Revert commit..."
-msgstr "_Återställ incheckning..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:179
-msgid "_Branches"
-msgstr "_Grenar"
-
-# Dela upp i bra och dålig
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:187
-msgid "Bisect"
-msgstr "Dela upp"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:211
-msgid "_Good"
-msgstr "_Bra"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:219
-msgid "_Bad"
-msgstr "_Dålig"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:227
-#: ../plugins/git/plugin.c:428
-msgid "_View log..."
-msgstr "_Visa logg..."
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:235
-#: ../plugins/git/plugin.c:300
-#: ../plugins/git/plugin.c:436
+#: ../plugins/git/plugin.c:149
+#: ../plugins/git/plugin.c:309
+#: ../plugins/git/plugin.c:501
 #: ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
@@ -4947,8 +5031,8 @@ msgstr "_Lägg till..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:243
-#: ../plugins/git/plugin.c:444
+#: ../plugins/git/plugin.c:157
+#: ../plugins/git/plugin.c:509
 #: ../plugins/subversion/plugin.c:68
 #: ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
@@ -4956,110 +5040,202 @@ msgstr "_Ta bort..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:251
+#: ../plugins/git/plugin.c:165
 msgid "_Ignore..."
 msgstr "_Ignorera..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:260
-#: ../plugins/git/plugin.c:360
+#: ../plugins/git/plugin.c:173
+msgid "_Check out files..."
+msgstr "_Checka ut filer..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:181
+msgid "_Unstage files..."
+msgstr "A_vköa filer..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:189
+msgid "_Resolve conflicts..."
+msgstr "Lös _konflikter..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:197
+#: ../plugins/patch/patch-plugin.c:116
+msgid "Patches"
+msgstr "Patchar"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:205
+msgid "Create patch series..."
+msgstr "Skapa patchserie..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:221
+msgid "_Apply..."
+msgstr "_Verkställ..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:229
+#, fuzzy
+msgid "_Continue with resolved conflicts"
+msgstr "Lös _konflikter..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:237
+#, fuzzy
+msgid "_Skip current patch"
+msgstr "Ställ in aktuell tråd"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:253
+msgid "_Branches"
+msgstr "_Grenar"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:261
+#: ../plugins/git/plugin.c:417
 msgid "_Create branch..."
 msgstr "_Skapa gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:268
+#: ../plugins/git/plugin.c:269
 msgid "_Delete branch..."
 msgstr "_Ta bort gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:276
+#: ../plugins/git/plugin.c:277
 msgid "_Switch to another branch..."
 msgstr "_Växla till en annan gren..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:284
+#: ../plugins/git/plugin.c:285
 msgid "_Merge..."
 msgstr "Sa_mmanfoga..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:292
+#: ../plugins/git/plugin.c:293
+#: ../plugins/git/plugin.c:449
+msgid "_Cherry pick..."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:301
 msgid "_Remote branches"
 msgstr "_Fjärrgrenar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:308
+#: ../plugins/git/plugin.c:317
 msgid "_Delete..."
 msgstr "_Ta bort..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:316
-#: ../plugins/git/plugin.c:368
+#: ../plugins/git/plugin.c:325
+#: ../plugins/git/plugin.c:425
 msgid "_Create tag..."
 msgstr "_Skapa tagg..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:324
-msgid "_Diff uncommitted changes"
-msgstr "Kör _diff mot lokala ändringar"
+#: ../plugins/git/plugin.c:333
+#: ../plugins/git/plugin.c:433
+msgid "_Reset tree..."
+msgstr "_Återställ träd..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:332
-msgid "_Push..."
-msgstr "_Tryck (push)..."
+#: ../plugins/git/plugin.c:341
+#: ../plugins/git/plugin.c:441
+msgid "_Revert commit..."
+msgstr "_Återställ incheckning..."
+
+# Dela upp i bra och dålig
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:349
+msgid "Bisect"
+msgstr "Dela upp"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:344
+#: ../plugins/git/plugin.c:373
+msgid "_Good"
+msgstr "_Bra"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:381
+msgid "_Bad"
+msgstr "_Dålig"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:389
+#: ../plugins/git/plugin.c:493
+msgid "_View log..."
+msgstr "_Visa logg..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:401
 msgid "_Show commit diff"
 msgstr "_Visa diff för incheckning"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:352
+#: ../plugins/git/plugin.c:409
 msgid "_View selected revision"
 msgstr "_Visa vald revision"
 
 # Dela upp i bra och dålig
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:392
+#: ../plugins/git/plugin.c:457
 msgid "_Bisect"
 msgstr "_Dela upp"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:400
+#: ../plugins/git/plugin.c:465
 msgid "_Set good revision"
 msgstr "_Ange bra revision"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:408
+#: ../plugins/git/plugin.c:473
 msgid "_Set bad revision"
 msgstr "_Ange dålig revision"
 
-#: ../plugins/git/plugin.c:598
+#: ../plugins/git/plugin.c:666
 msgid "Git operations"
 msgstr "Git-operationer"
 
-#: ../plugins/git/plugin.c:603
+#: ../plugins/git/plugin.c:671
 msgid "Git log operations"
 msgstr "Logg för Git-operationer"
 
-#: ../plugins/git/plugin.c:608
+#: ../plugins/git/plugin.c:676
 msgid "Git FM operations"
 msgstr "Git FM-operationer"
 
-#: ../plugins/git/plugin.c:623
+#: ../plugins/git/plugin.c:691
 msgid "Git Log"
 msgstr "Git-logg"
 
@@ -5089,6 +5265,7 @@ msgid "Designer"
 msgstr "Designer"
 
 #: ../plugins/glade/anjuta-glade.glade.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Redigerare"
 
@@ -5387,14 +5564,14 @@ msgstr "Sammanfattning:"
 
 #. option menu label
 #: ../plugins/gtodo/add_edit_item.c:172
-#: ../plugins/macro/anjuta-macro.glade.h:4
+#: ../plugins/macro/anjuta-macro.ui.h:4
 msgid "Category:"
 msgstr "Kategori:"
 
 #: ../plugins/gtodo/add_edit_item.c:193
 #: ../plugins/gtodo/add_edit_item.c:472
 #: ../plugins/gtodo/mcategory.c:20
-#: ../plugins/gtodo/todo_db.c:75
+#: ../plugins/gtodo/todo_db.c:76
 msgid "Edit Categories"
 msgstr "Redigera kategorier"
 
@@ -5527,62 +5704,62 @@ msgstr "Klar den"
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: ../plugins/gtodo/libgtodo.c:609
+#: ../plugins/gtodo/libgtodo.c:603
 #, c-format
 msgid "No permission to read the file."
 msgstr "Ingen rättighet att läsa filen."
 
-#: ../plugins/gtodo/libgtodo.c:624
+#: ../plugins/gtodo/libgtodo.c:618
 #, c-format
 msgid "Failed to read file"
 msgstr "Misslyckades med att läsa filen"
 
-#: ../plugins/gtodo/libgtodo.c:632
-#: ../plugins/gtodo/libgtodo.c:643
+#: ../plugins/gtodo/libgtodo.c:626
+#: ../plugins/gtodo/libgtodo.c:637
 #, c-format
 msgid "Failed to parse xml structure"
 msgstr "Misslyckades med att tolka xml-struktur"
 
-#: ../plugins/gtodo/libgtodo.c:652
+#: ../plugins/gtodo/libgtodo.c:646
 #, c-format
 msgid "File is not a valid gtodo file"
 msgstr "Filen är inte en giltig gtodo-fil"
 
-#: ../plugins/gtodo/libgtodo.c:668
+#: ../plugins/gtodo/libgtodo.c:662
 msgid "Personal"
 msgstr "Personlig"
 
-#: ../plugins/gtodo/libgtodo.c:670
+#: ../plugins/gtodo/libgtodo.c:664
 msgid "Business"
 msgstr "Arbete"
 
-#: ../plugins/gtodo/libgtodo.c:672
+#: ../plugins/gtodo/libgtodo.c:666
 msgid "Unfiled"
 msgstr "Ej arkiverad"
 
-#: ../plugins/gtodo/libgtodo.c:761
+#: ../plugins/gtodo/libgtodo.c:755
 #, c-format
 msgid "No Gtodo Client to save."
 msgstr "Ingen Gtodo-klient att spara."
 
-#: ../plugins/gtodo/libgtodo.c:852
+#: ../plugins/gtodo/libgtodo.c:846
 #, c-format
 msgid "No filename supplied."
 msgstr "Inget filnamn angivet."
 
 #. create a priority string
 #: ../plugins/gtodo/list_tooltip.c:65
-#: ../plugins/gtodo/todo_db.c:129
+#: ../plugins/gtodo/todo_db.c:130
 msgid "Low"
 msgstr "Låg"
 
 #: ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/todo_db.c:130
+#: ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
 msgstr "Medel"
 
 #: ../plugins/gtodo/list_tooltip.c:77
-#: ../plugins/gtodo/todo_db.c:131
+#: ../plugins/gtodo/todo_db.c:132
 msgid "High"
 msgstr "Hög"
 
@@ -5748,35 +5925,35 @@ msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
 msgstr[0] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara inom %i minut"
 msgstr[1] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara inom %i minuter"
 
-#: ../plugins/gtodo/tasklists.c:9
+#: ../plugins/gtodo/tasklists.c:10
 msgid "Open a Task List"
 msgstr "Öppna en uppgiftslista"
 
-#: ../plugins/gtodo/tasklists.c:34
+#: ../plugins/gtodo/tasklists.c:35
 msgid "Create a Task List"
 msgstr "Skapa en uppgiftslista"
 
-#: ../plugins/gtodo/todo_db.c:164
+#: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
 msgstr "Inget datum"
 
-#: ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/macro/anjuta-macro.ui.h:1
 msgid "<b>Macro details:</b>"
 msgstr "<b>Makrodetaljer:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:2
+#: ../plugins/macro/anjuta-macro.ui.h:2
 msgid "<b>Macro text:</b>"
 msgstr "<b>Makrotext:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:3
+#: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "<b>Macros:</b>"
 msgstr "<b>Makron:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:5
+#: ../plugins/macro/anjuta-macro.ui.h:5
 msgid "Edit..."
 msgstr "Redigera..."
 
-#: ../plugins/macro/anjuta-macro.glade.h:7
+#: ../plugins/macro/anjuta-macro.ui.h:7
 msgid "Shortcut:"
 msgstr "Genväg:"
 
@@ -5796,7 +5973,7 @@ msgstr "Anjuta-makron"
 msgid "My macros"
 msgstr "Mina makron"
 
-#: ../plugins/macro/macro-dialog.c:141
+#: ../plugins/macro/macro-dialog.c:145
 #, c-format
 msgid ""
 "Name:\t %s\n"
@@ -5807,15 +5984,15 @@ msgstr ""
 "Kategori:\t %s\n"
 "Genväg:\t %c\n"
 
-#: ../plugins/macro/macro-dialog.c:264
+#: ../plugins/macro/macro-dialog.c:276
 msgid "Insert"
 msgstr "Infoga"
 
-#: ../plugins/macro/macro-dialog.c:267
+#: ../plugins/macro/macro-dialog.c:279
 msgid "Insert macro"
 msgstr "Infoga makro"
 
-#: ../plugins/macro/macro-edit.c:204
+#: ../plugins/macro/macro-edit.c:211
 msgid "Add/Edit macro"
 msgstr "Lägg till/Redigera makro"
 
@@ -5861,70 +6038,77 @@ msgstr "Lägg till/Redigera/Ta bort makron"
 msgid "Macro operations"
 msgstr "Makrooperationer"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:1
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
 msgid "<b>Indicators</b>"
 msgstr "<b>Indikatorer</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:2
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:2
 msgid "<b>Message colors</b>"
 msgstr "<b>Meddelandefärger</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:3
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
 msgid "<b>Messages options</b>"
 msgstr "<b>Meddelandealternativ</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:4
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
+msgid "Diagonal"
+msgstr "Diagonal"
+
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
 msgid "Error message indicator style:"
 msgstr "Stil för felmeddelandeindikator:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:5
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:7
 msgid "Errors:"
 msgstr "Fel:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:6
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
 msgid "Normal message indicator style:"
 msgstr "Stil för normal meddelandeindikator:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Number of first characters to show:"
 msgstr "Antal första tecken att visa:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:11
 msgid "Number of last characters to show:"
 msgstr "Antal sista tecken att visa:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
+msgid "Strike-Out"
+msgstr "Genomstrykning"
+
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:14
 msgid "Tabs position:"
 msgstr "Tabulatorposition:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:14
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:16
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
-#. Error/Warning indication style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:16
-msgid ""
-"Underline-Plain\n"
-"Underline-Squiggle\n"
-"Underline-TT\n"
-"Diagonal\n"
-"Strike-Out"
-msgstr ""
-"Understruken-Vanlig\n"
-"Understruken-Squiggle\n"
-"Understruken-TT\n"
-"Diagonal\n"
-"Genomstruken"
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
+#, fuzzy
+msgid "Underline-Plain"
+msgstr "Understruken-normal"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:18
+#, fuzzy
+msgid "Underline-Squiggle"
+msgstr "Understruken-snirklig"
+
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
+msgid "Underline-TT"
+msgstr "Understruken-TT"
+
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
 msgid "Warning message indicator style:"
 msgstr "Stil för varningsmeddelandeindikator:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:22
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:21
 msgid "Warnings:"
 msgstr "Varningar:"
 
-#: ../plugins/message-view/anjuta-msgman.c:71
+#: ../plugins/message-view/anjuta-msgman.c:99
 msgid "Close all message tabs"
 msgstr "Stäng alla meddelandeflikar"
 
@@ -5949,9 +6133,10 @@ msgid "Icon"
 msgstr "Ikon"
 
 #: ../plugins/message-view/message-view.c:583
-#: ../plugins/message-view/plugin.c:325
-#: ../plugins/message-view/plugin.c:439
-#: ../plugins/message-view/plugin.c:451
+#: ../plugins/message-view/plugin.c:324
+#: ../plugins/message-view/plugin.c:333
+#: ../plugins/message-view/plugin.c:453
+#: ../plugins/message-view/plugin.c:465
 msgid "Messages"
 msgstr "Meddelanden"
 
@@ -6024,46 +6209,42 @@ msgstr "Spara meddelande"
 msgid "Next/Previous Message"
 msgstr "Nästa/Föregående meddelande"
 
-#: ../plugins/patch/patch-plugin.c:88
+#: ../plugins/patch/patch-plugin.c:93
 msgid "File/Directory to patch"
 msgstr "Fil/Katalog att patcha"
 
 # Osäker på sammanhang
-#: ../plugins/patch/patch-plugin.c:91
+#: ../plugins/patch/patch-plugin.c:96
 msgid "Patch file"
 msgstr "Patchfil"
 
-#: ../plugins/patch/patch-plugin.c:111
-msgid "Patches"
-msgstr "Patchar"
-
-#: ../plugins/patch/patch-plugin.c:159
-#: ../plugins/patch/patch-plugin.glade.h:3
+#: ../plugins/patch/patch-plugin.c:165
+#: ../plugins/patch/patch-plugin.ui.h:3
 msgid "Patch"
 msgstr "Patch"
 
-#: ../plugins/patch/patch-plugin.c:174
+#: ../plugins/patch/patch-plugin.c:185
 msgid "Please select the directory where the patch should be applied"
 msgstr "Välj den katalog där patchen ska tillämpas"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:196
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Patchar %s med %s\n"
 
-#: ../plugins/patch/patch-plugin.c:194
+#: ../plugins/patch/patch-plugin.c:208
 msgid "Patching...\n"
 msgstr "Patchar...\n"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:218
 msgid "Patching..."
 msgstr "Patchar..."
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:223
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Det finns oavslutade arbeten. Vänta tills de avslutats."
 
-#: ../plugins/patch/patch-plugin.c:251
+#: ../plugins/patch/patch-plugin.c:265
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6073,26 +6254,26 @@ msgstr ""
 "Granska felmeddelandena.\n"
 "Granska och ta bort alla avvisade filer.\n"
 
-#: ../plugins/patch/patch-plugin.c:257
+#: ../plugins/patch/patch-plugin.c:271
 msgid "Patching complete"
 msgstr "Patchning färdig"
 
-#: ../plugins/patch/patch-plugin.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:31
+#: ../plugins/patch/patch-plugin.ui.h:1
+#: ../plugins/subversion/anjuta-subversion.ui.h:14
 msgid "Dry run"
 msgstr "Torrkörning"
 
-#: ../plugins/patch/patch-plugin.glade.h:2
+#: ../plugins/patch/patch-plugin.ui.h:2
 msgid "File/Directory to patch:"
 msgstr "Fil/Katalog att patcha:"
 
 # Osäker på sammanhang
-#: ../plugins/patch/patch-plugin.glade.h:4
+#: ../plugins/patch/patch-plugin.ui.h:4
 msgid "Patch file:"
 msgstr "Patchfil:"
 
 # Osäker på sammanhang
-#: ../plugins/patch/patch-plugin.glade.h:5
+#: ../plugins/patch/patch-plugin.ui.h:5
 msgid "Patch level:"
 msgstr "Patchnivå:"
 
@@ -6138,85 +6319,85 @@ msgstr "Kunde inte hitta en giltig projektbakände för angiven katalog (%s). V�
 msgid "Couldn't checkout the supplied uri \"%s\", the error returned was: \"%s\""
 msgstr "Kunde inte checka ut angivna uri:n \"%s\", felet som returnerades var: \"%s\""
 
-#: ../plugins/project-import/project-import.glade.h:1
+#: ../plugins/project-import/project-import.ui.h:1
 msgid "<b>Import options</b>"
 msgstr "<b>Importalternativ</b>"
 
-#: ../plugins/project-import/project-import.glade.h:2
+#: ../plugins/project-import/project-import.ui.h:2
 msgid "<b>Project name</b>"
 msgstr "<b>Projektnamn</b>"
 
-#: ../plugins/project-import/project-import.glade.h:3
+#: ../plugins/project-import/project-import.ui.h:3
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Mål:"
 
-#: ../plugins/project-import/project-import.glade.h:4
+#: ../plugins/project-import/project-import.ui.h:4
 msgid "Import from folder"
 msgstr "Importera från mapp"
 
-#: ../plugins/project-import/project-import.glade.h:5
+#: ../plugins/project-import/project-import.ui.h:5
 msgid "Import from version control system"
 msgstr "Importera från versionshanteringssystem"
 
-#: ../plugins/project-import/project-import.glade.h:6
+#: ../plugins/project-import/project-import.ui.h:6
 msgid "Location:"
 msgstr "Plats:"
 
-#: ../plugins/project-import/project-import-dialog.c:269
+#: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
 msgstr "Importera projekt"
 
-#: ../plugins/project-import/project-import-dialog.c:273
+#: ../plugins/project-import/project-import-dialog.c:296
 msgid "Import"
 msgstr "Importera"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:1
+#: ../plugins/project-manager/create_dialogs.ui.h:1
 msgid "Add Source"
 msgstr "Lägg till källkod"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:2
+#: ../plugins/project-manager/create_dialogs.ui.h:2
 msgid "New Group"
 msgstr "Ny grupp"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:3
+#: ../plugins/project-manager/create_dialogs.ui.h:3
 msgid "New Target"
 msgstr "Nytt mål"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:4
+#: ../plugins/project-manager/create_dialogs.ui.h:4
 msgid "Select the _target for the new source files:"
 msgstr "Välj _målet för de nya källkodsfilerna:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:5
+#: ../plugins/project-manager/create_dialogs.ui.h:5
 msgid "Source files:"
 msgstr "Källkodsfiler:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:6
+#: ../plugins/project-manager/create_dialogs.ui.h:6
 msgid "Specify _where to create the group:"
 msgstr "Ange _var gruppen ska skapas:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:7
+#: ../plugins/project-manager/create_dialogs.ui.h:7
 msgid "Specify _where to create the target:"
 msgstr "Ange _var målet ska skapas:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:8
+#: ../plugins/project-manager/create_dialogs.ui.h:8
 msgid "Target _name:"
 msgstr "Mål_namn:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:9
+#: ../plugins/project-manager/create_dialogs.ui.h:9
 msgid "Target _type:"
 msgstr "Mål_typ:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:10
+#: ../plugins/project-manager/create_dialogs.ui.h:10
 msgid "TargetTypes"
 msgstr "Måltyper"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:11
+#: ../plugins/project-manager/create_dialogs.ui.h:11
 msgid "_Group name:"
 msgstr "_Gruppnamn:"
 
-#: ../plugins/project-manager/create_dialogs.glade.h:12
+#: ../plugins/project-manager/create_dialogs.ui.h:12
 msgid "_Select file to add..."
 msgstr "_Välj fil att lägga till..."
 
@@ -6238,38 +6419,34 @@ msgstr "GbfProject-objekt"
 msgid "No project loaded"
 msgstr "Inget projekt har lästs in"
 
-#: ../plugins/project-manager/gbf-project-util.c:81
-msgid "Couldn't load glade file"
-msgstr "Kunde inte läsa in glade-filen"
-
-#: ../plugins/project-manager/gbf-project-util.c:260
-#: ../plugins/project-manager/gbf-project-util.c:268
+#: ../plugins/project-manager/gbf-project-util.c:236
+#: ../plugins/project-manager/gbf-project-util.c:244
 msgid "Can not add group"
 msgstr "Kan inte lägga till grupp"
 
-#: ../plugins/project-manager/gbf-project-util.c:269
+#: ../plugins/project-manager/gbf-project-util.c:245
 msgid "No parent group selected"
 msgstr "Ingen föräldergrupp är vald"
 
-#: ../plugins/project-manager/gbf-project-util.c:441
-#: ../plugins/project-manager/gbf-project-util.c:450
+#: ../plugins/project-manager/gbf-project-util.c:417
+#: ../plugins/project-manager/gbf-project-util.c:426
 msgid "Can not add target"
 msgstr "Kan inte lägga till mål"
 
-#: ../plugins/project-manager/gbf-project-util.c:451
+#: ../plugins/project-manager/gbf-project-util.c:427
 msgid "No group selected"
 msgstr "Ingen grupp vald"
 
-#: ../plugins/project-manager/gbf-project-util.c:556
+#: ../plugins/project-manager/gbf-project-util.c:532
 msgid "Select sources..."
 msgstr "Välj källkod..."
 
-#: ../plugins/project-manager/gbf-project-util.c:796
-#: ../plugins/project-manager/gbf-project-util.c:803
+#: ../plugins/project-manager/gbf-project-util.c:772
+#: ../plugins/project-manager/gbf-project-util.c:779
 msgid "Can not add source files"
 msgstr "Kan inte lägga till källkodsfiler"
 
-#: ../plugins/project-manager/gbf-project-util.c:804
+#: ../plugins/project-manager/gbf-project-util.c:780
 msgid "No target has been selected"
 msgstr "Inget mål har valts"
 
@@ -7060,27 +7237,27 @@ msgstr "gtk-doc används för att kompilera API-dokumentation för GObject-baser
 msgid "project name"
 msgstr "projektnamn"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:2
+#: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
 msgstr "Välj en arbetskatalog"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:3
+#: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Environment Variables:"
 msgstr "Miljövariabler:"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:4
+#: ../plugins/run-program/anjuta-run-program.ui.h:4
 msgid "Program Parameters"
 msgstr "Programparametrar"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:5
+#: ../plugins/run-program/anjuta-run-program.ui.h:5
 msgid "Program:"
 msgstr "Program:"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:6
+#: ../plugins/run-program/anjuta-run-program.ui.h:6
 msgid "Run In Terminal"
 msgstr "Kör i terminal"
 
-#: ../plugins/run-program/anjuta-run-program.glade.h:7
+#: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Working Directory:"
 msgstr "Arbetskatalog:"
 
@@ -7099,7 +7276,7 @@ msgstr "Programkatalogen \"%s\" är inte lokal"
 msgid "Load Target to run"
 msgstr "Läs in mål att köra"
 
-#: ../plugins/run-program/parameters.c:732
+#: ../plugins/run-program/parameters.c:736
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Namn"
@@ -7147,182 +7324,176 @@ msgstr "Ställ in aktuellt program, argument och så vidare"
 msgid "Run operations"
 msgstr "Köroperationer"
 
-#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:1
-msgid "<b>Scratchbox Options</b>\n"
-msgstr "<b>Alternativ för Scratchbox</b>\n"
+#: ../plugins/search/anjuta-search.ui.h:1
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:3
-msgid "Scratchbox directory:"
-msgstr "Scratchbox-katalog:"
+#: ../plugins/search/anjuta-search.ui.h:2
+msgid "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
+msgstr "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
 
-#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:4
-msgid "Scratchbox target:"
-msgstr "Scratchbox-mål:"
+#: ../plugins/search/anjuta-search.ui.h:3
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
 
-#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:5
-msgid "Scratchbox version:"
-msgstr "Scratchbox-version:"
+#: ../plugins/search/anjuta-search.ui.h:4
+msgid "*\\.*"
+msgstr "*\\.*"
 
-#: ../plugins/scratchbox/anjuta-scratchbox.glade.h:6
-msgid "Select Scratchbox Folder"
-msgstr "Välj Scratchbox-mapp"
-
-#: ../plugins/scratchbox/plugin.c:458
-#: ../plugins/scratchbox/plugin.c:480
-msgid "Scratchbox"
-msgstr "Scratchbox"
-
-#. Public functions
-#. *---------------------------------------------------------------------------
-#: ../plugins/search/anjuta-search.glade.h:1
+#: ../plugins/search/anjuta-search.ui.h:5
 msgid "<b>Actions</b>"
 msgstr "<b>Åtgärder</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:2
+#: ../plugins/search/anjuta-search.ui.h:6
 msgid "<b>File Filter</b>"
 msgstr "<b>Filfilter</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:4
+#: ../plugins/search/anjuta-search.ui.h:8
 msgid "<b>Parameters</b>"
 msgstr "<b>Parametrar</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:5
+#: ../plugins/search/anjuta-search.ui.h:9
 msgid "<b>Scope</b>"
 msgstr "<b>Omfång</b>"
 
-#. User can select variables that contain lists of files, so this is a combined noun
-#: ../plugins/search/anjuta-search.glade.h:7
+#: ../plugins/search/anjuta-search.ui.h:10
 msgid "<b>Search variable</b>"
 msgstr "<b>Sökvariabel</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:8
-#: ../plugins/search/search-replace.c:93
+#: ../plugins/search/anjuta-search.ui.h:11
+#: ../plugins/search/search-replace.c:92
 msgid "Backward"
 msgstr "Bakåt"
 
-#: ../plugins/search/anjuta-search.glade.h:9
+#: ../plugins/search/anjuta-search.ui.h:12
 msgid "Basic Search & Replace"
 msgstr "Enkel sök och ersätt"
 
-#: ../plugins/search/anjuta-search.glade.h:10
+#: ../plugins/search/anjuta-search.ui.h:14
+#, fuzzy
+msgid "CVS intl po "
+msgstr ""
+"\n"
+"CVS\n"
+"CVS intl po "
+
+#: ../plugins/search/anjuta-search.ui.h:15
 msgid "Choose Directories:"
 msgstr "Välj kataloger:"
 
-#: ../plugins/search/anjuta-search.glade.h:11
+#: ../plugins/search/anjuta-search.ui.h:16
 msgid "Choose Files:"
 msgstr "Välj filer:"
 
-#: ../plugins/search/anjuta-search.glade.h:12
+#: ../plugins/search/anjuta-search.ui.h:17
 msgid "Expand regex back references"
 msgstr "Expandera bakåtreferenser i reguljära uttryck"
 
-#: ../plugins/search/anjuta-search.glade.h:13
+#: ../plugins/search/anjuta-search.ui.h:18
 msgid "Find & Replace"
 msgstr "Sök och ersätt"
 
-#: ../plugins/search/anjuta-search.glade.h:14
-#: ../plugins/search/search-replace.c:92
+#: ../plugins/search/anjuta-search.ui.h:19
+#: ../plugins/search/search-replace.c:91
 msgid "Forward"
 msgstr "Framåt"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
-#: ../plugins/search/anjuta-search.glade.h:15
-#: ../plugins/search/search-replace.c:91
+#: ../plugins/search/anjuta-search.ui.h:20
+#: ../plugins/search/search-replace.c:90
 msgid "Full Buffer"
 msgstr "Full buffert"
 
-#: ../plugins/search/anjuta-search.glade.h:16
+#: ../plugins/search/anjuta-search.ui.h:21
 msgid "Greedy matching"
 msgstr "Girig matchning"
 
-#: ../plugins/search/anjuta-search.glade.h:17
+#: ../plugins/search/anjuta-search.ui.h:22
 msgid "Ignore Binary Files"
 msgstr "Ignorera binära filer"
 
-#: ../plugins/search/anjuta-search.glade.h:18
+#: ../plugins/search/anjuta-search.ui.h:23
 msgid "Ignore Directories:"
 msgstr "Ignorera kataloger:"
 
-#: ../plugins/search/anjuta-search.glade.h:19
+#: ../plugins/search/anjuta-search.ui.h:24
 msgid "Ignore Files:"
 msgstr "Ignorera filer:"
 
-#: ../plugins/search/anjuta-search.glade.h:20
+#: ../plugins/search/anjuta-search.ui.h:25
 msgid "Ignore Hidden Directories"
 msgstr "Ignorera dolda kataloger"
 
-#: ../plugins/search/anjuta-search.glade.h:21
+#: ../plugins/search/anjuta-search.ui.h:26
 msgid "Ignore Hidden Files"
 msgstr "Ignorera dolda filer"
 
-#: ../plugins/search/anjuta-search.glade.h:22
+#: ../plugins/search/anjuta-search.ui.h:27
 msgid "Match at start of word"
 msgstr "Matcha början på ord"
 
-#: ../plugins/search/anjuta-search.glade.h:24
+#: ../plugins/search/anjuta-search.ui.h:29
 msgid "Match complete lines"
 msgstr "Matcha hela rader"
 
-#: ../plugins/search/anjuta-search.glade.h:25
+#: ../plugins/search/anjuta-search.ui.h:30
 msgid "Match complete words"
 msgstr "Matcha hela ord"
 
-#: ../plugins/search/anjuta-search.glade.h:26
+#: ../plugins/search/anjuta-search.ui.h:31
 msgid "Maximum Actions"
 msgstr "Maximalt antal åtgärder"
 
-#: ../plugins/search/anjuta-search.glade.h:27
+#: ../plugins/search/anjuta-search.ui.h:32
 msgid "Modify"
 msgstr "Modifera"
 
-#: ../plugins/search/anjuta-search.glade.h:28
+#: ../plugins/search/anjuta-search.ui.h:33
 msgid "New Name:"
 msgstr "Nytt namn:"
 
-#: ../plugins/search/anjuta-search.glade.h:29
+#: ../plugins/search/anjuta-search.ui.h:34
 msgid "No Limit"
 msgstr "Ingen gräns"
 
-#: ../plugins/search/anjuta-search.glade.h:30
+#: ../plugins/search/anjuta-search.ui.h:35
 msgid "Regular expression"
 msgstr "Reguljärt uttryck"
 
-#: ../plugins/search/anjuta-search.glade.h:31
+#: ../plugins/search/anjuta-search.ui.h:36
 msgid "Replace With:"
 msgstr "Ersätt med:"
 
-#: ../plugins/search/anjuta-search.glade.h:32
+#: ../plugins/search/anjuta-search.ui.h:37
 msgid "Search Action:"
 msgstr "Sökåtgärd:"
 
-#: ../plugins/search/anjuta-search.glade.h:33
+#: ../plugins/search/anjuta-search.ui.h:38
 msgid "Search Direction:"
 msgstr "Sökriktning:"
 
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.glade.h:35
+#: ../plugins/search/anjuta-search.ui.h:39
 msgid "Search Expression"
 msgstr "Sökuttryck"
 
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.glade.h:37
+#: ../plugins/search/anjuta-search.ui.h:40
 msgid "Search Expression:"
 msgstr "Sökuttryck:"
 
-#: ../plugins/search/anjuta-search.glade.h:38
+#: ../plugins/search/anjuta-search.ui.h:41
 msgid "Search In:"
 msgstr "Sök i:"
 
-#: ../plugins/search/anjuta-search.glade.h:39
+#: ../plugins/search/anjuta-search.ui.h:42
 msgid "Search Recursively"
 msgstr "Sök rekursivt"
 
-#: ../plugins/search/anjuta-search.glade.h:40
+#: ../plugins/search/anjuta-search.ui.h:43
 msgid "Search Target"
 msgstr "Sökmål"
 
-#: ../plugins/search/anjuta-search.glade.h:41
+#: ../plugins/search/anjuta-search.ui.h:44
 msgid "Setting"
 msgstr "Inställning"
 
@@ -7376,92 +7547,92 @@ msgstr "Söker..."
 msgid "Basic Search"
 msgstr "Enkel sökning"
 
-#: ../plugins/search/search-replace.c:98
+#: ../plugins/search/search-replace.c:97
 msgid "Current Buffer"
 msgstr "Aktuell buffert"
 
-#: ../plugins/search/search-replace.c:99
+#: ../plugins/search/search-replace.c:98
 msgid "Current Selection"
 msgstr "Aktuell markering"
 
-#: ../plugins/search/search-replace.c:100
+#: ../plugins/search/search-replace.c:99
 msgid "Current Block"
 msgstr "Aktuellt block"
 
-#: ../plugins/search/search-replace.c:101
+#: ../plugins/search/search-replace.c:100
 msgid "Current Function"
 msgstr "Aktuell funktion"
 
-#: ../plugins/search/search-replace.c:102
+#: ../plugins/search/search-replace.c:101
 msgid "All Open Buffers"
 msgstr "Alla öppna buffertar"
 
-#: ../plugins/search/search-replace.c:103
+#: ../plugins/search/search-replace.c:102
 msgid "All Project Files"
 msgstr "Alla projektfiler"
 
 #. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:105
+#: ../plugins/search/search-replace.c:104
 msgid "Specify File Patterns"
 msgstr "Ange filmönster"
 
-#: ../plugins/search/search-replace.c:110
+#: ../plugins/search/search-replace.c:109
 msgid "Select next match"
 msgstr "Välj nästa sökträff"
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:110
 msgid "Bookmark all matched lines"
 msgstr "Bokmärk alla matchade rader"
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:111
 msgid "Mark all matches"
 msgstr "Markera alla sökträffar"
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:112
 msgid "List matches in find pane"
 msgstr "Lista sökträffar i sökpanel"
 
-#: ../plugins/search/search-replace.c:114
+#: ../plugins/search/search-replace.c:113
 msgid "Replace next match"
 msgstr "Ersätt nästa sökträff"
 
-#: ../plugins/search/search-replace.c:115
+#: ../plugins/search/search-replace.c:114
 msgid "Replace all matches"
 msgstr "Ersätt alla sökträffar"
 
 #. Avoid space in translated string
-#: ../plugins/search/search-replace.c:320
+#: ../plugins/search/search-replace.c:319
 msgid "Find:"
 msgstr "Sök:"
 
-#: ../plugins/search/search-replace.c:502
+#: ../plugins/search/search-replace.c:501
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../plugins/search/search-replace.c:631
+#: ../plugins/search/search-replace.c:630
 msgid "Search complete"
 msgstr "Sökning färdig"
 
-#: ../plugins/search/search-replace.c:1038
-#: ../plugins/search/search-replace.c:1722
+#: ../plugins/search/search-replace.c:1037
+#: ../plugins/search/search-replace.c:1724
 msgid "Replace All"
 msgstr "Ersätt alla"
 
-#: ../plugins/search/search-replace.c:1077
+#: ../plugins/search/search-replace.c:1076
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "Matchningen \"%s\" hittades inte. Fortsätt sökningen i början av dokumentet?"
 
-#: ../plugins/search/search-replace.c:1097
+#: ../plugins/search/search-replace.c:1096
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Matchningen \"%s\" hittades inte."
 
-#: ../plugins/search/search-replace.c:1112
+#: ../plugins/search/search-replace.c:1111
 msgid "The maximum number of results has been reached."
 msgstr "Det maximala antalet resultat har nåtts."
 
-#: ../plugins/search/search-replace.c:1125
+#: ../plugins/search/search-replace.c:1124
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
@@ -7521,6 +7692,99 @@ msgstr "Ny fil %d"
 msgid "Preparing pages for printing"
 msgstr "Förbereder sidor för utskrift"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
+#, fuzzy
+msgid "Color scheme:"
+msgstr "<b>Färgschema:</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
+msgid "Create backup files"
+msgstr "Skapa säkerhetskopior"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+msgid "Font"
+msgstr "Typsnitt"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+msgid "Font:"
+msgstr "Typsnitt:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+msgid "Highlight current line"
+msgstr "Färgmarkera aktuell rad"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+msgid "Highlight matching brackets"
+msgstr "Färgmarkera matchande klamrar"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+msgid "Highlight syntax"
+msgstr "Färgmarkera syntax"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#, fuzzy
+msgid "Indentation and auto-format options"
+msgstr "<b>Alternativ för indentering och automatisk formatering</b>"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+msgid "Print Linenumbers"
+msgstr "Skriv ut radnummer"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#, fuzzy
+msgid "Print options"
+msgstr "Projektalternativ"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+msgid "Print page footer"
+msgstr "Skriv ut sidfot"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+msgid "Print page header"
+msgstr "Skriv ut sidhuvud"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+msgid "Printing"
+msgstr "Skriver ut"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+msgid "Right margin position in characters"
+msgstr "Position för högermarginal, i tecken."
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+msgid "Show line numbers"
+msgstr "Visa radnummer"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+msgid "Show marks"
+msgstr "Visa markeringar"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+msgid "Show right margin"
+msgstr "Visa högermarginal"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
+msgid "Tab size in spaces:"
+msgstr "Tabulatorstorlek i blanksteg:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
+msgid "Use tabs for indentation"
+msgstr "Använd tabulatorer för indentering"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
+msgid "Use theme font"
+msgstr "Använd tematypsnitt"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
+#: ../src/anjuta-app.c:427
+#: ../src/anjuta-app.c:432
+msgid "View"
+msgstr "Visning"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
+msgid "Wrap long lines to fit on paper"
+msgstr "Radbryt långa rader för att passa pappret"
+
 #: ../plugins/starter/plugin.c:50
 #: ../plugins/starter/starter.c:344
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
@@ -7551,159 +7815,179 @@ msgstr "Användarhandbok för Anjuta"
 msgid "Gnome Online API Documentation"
 msgstr "Gnome Online API-dokumentation"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
-msgid "<b>Branch/Tag URL:</b>"
-msgstr "<b>Url för gren/tagg:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
-msgid "<b>End Revision:</b>"
-msgstr "<b>Slutrevision:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
-msgid "<b>File or directory to diff:</b>"
-msgstr "<b>Fil eller katalog att diff:a:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
-msgid "<b>File/URL to Remove:</b>"
-msgstr "<b>Fil/url att ta bort:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
-msgid "<b>First Path:</b>"
-msgstr "<b>Första sökvägen:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
-msgid "<b>Second Path:</b>"
-msgstr "<b>Andra sökvägen:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
-msgid "<b>Select Changes to Revert:</b>"
-msgstr "<b>Välj ändringar att återställa:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
-msgid "<b>Source/Destination Paths:</b>"
-msgstr "<b>Sökvägar för källa/mål:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
-msgid "<b>Start Revision:</b>"
-msgstr "<b>Startrevision:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
-msgid "<b>Subversion Options</b>"
-msgstr "<b>Alternativ för Subversion</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
-msgid "<b>Working Copy Path:</b>"
-msgstr "<b>Sökväg för arbetskopia:</b>"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
 msgstr "Lägg till fil/katalog"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.ui.h:2
+#, fuzzy
+msgid "Branch/Tag URL:"
+msgstr "<b>Url för gren/tagg:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Copy files/folders"
 msgstr "Kopiera filer/mappar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.ui.h:10
 msgid "Diff Selected Revisions"
 msgstr "Kör diff på valda revisioner"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:28
+#: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Diff file/directory"
 msgstr "Diff:a fil/katalog"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.ui.h:12
 msgid "Diff to Previous"
 msgstr "Diff till föregående"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:33
+#: ../plugins/subversion/anjuta-subversion.ui.h:15
+#, fuzzy
+msgid "End Revision:"
+msgstr "Revision:"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:16
+#, fuzzy
+msgid "File or directory to diff:"
+msgstr "<b>Fil eller katalog att diff:a:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:17
+#, fuzzy
+msgid "File/URL to Remove:"
+msgstr "<b>Fil/url att ta bort:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:18
+#, fuzzy
+msgid "First Path:"
+msgstr "<b>Första sökvägen:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
 msgstr "Ignorera arv"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:34
+#: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
 msgstr "Sammanfoga ändringar i arbetskopia"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:35
+#: ../plugins/subversion/anjuta-subversion.ui.h:25
 msgid "Other Revision:"
 msgstr "Annan revision:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:37
+#: ../plugins/subversion/anjuta-subversion.ui.h:27
+#, fuzzy
+msgid "Previous Commit Messages:"
+msgstr "Föregående meddelande"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:28
 msgid "Realm:"
 msgstr "Domän:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:38
+#: ../plugins/subversion/anjuta-subversion.ui.h:29
 msgid "Recurse"
 msgstr "Rekursivt"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:39
+#: ../plugins/subversion/anjuta-subversion.ui.h:30
 msgid "Remember Password"
 msgstr "Kom ihåg lösenordet"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.ui.h:31
 msgid "Remember this decision"
 msgstr "Kom ihåg det här beslutet"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.ui.h:32
 msgid "Remove file/directory"
 msgstr "Ta bort fil/katalog"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Repository Head"
 msgstr "Förrådshuvud"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Repository authorization"
 msgstr "Förrådsbehörighet"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.ui.h:36
 msgid "Revert Changes"
 msgstr "Återställ ändringar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
+#: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Save open files before diffing"
 msgstr "Spara öppna filer innan diff"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
+#: ../plugins/subversion/anjuta-subversion.ui.h:39
+#, fuzzy
+msgid "Second Path:"
+msgstr "<b>Andra sökvägen:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:40
+#, fuzzy
+msgid "Select Changes to Revert:"
+msgstr "<b>Välj ändringar att återställa:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:44
+#, fuzzy
+msgid "Source/Destination Paths:"
+msgstr "<b>Sökvägar för källa/mål:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:45
 msgid "Source:"
 msgstr "Källa:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
+#: ../plugins/subversion/anjuta-subversion.ui.h:46
+#, fuzzy
+msgid "Start Revision:"
+msgstr "<b>Startrevision:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:47
+#, fuzzy
+msgid "Subversion Options"
+msgstr "Subversion-operationer"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:48
 msgid "Subversion Preferences"
 msgstr "Inställningar för Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
+#: ../plugins/subversion/anjuta-subversion.ui.h:49
 msgid "Switch to branch/tag"
 msgstr "Växla till gren/tagg"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Trust server"
 msgstr "Tillitsserver"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.ui.h:51
 msgid "Update file/directory"
 msgstr "Uppdatera fil/katalog"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
+#: ../plugins/subversion/anjuta-subversion.ui.h:52
 msgid "Use first path"
 msgstr "Använd första sökvägen"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.ui.h:53
+msgid "Use previous message"
+msgstr "Använd föregående meddelande"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:56
 msgid "View Log"
 msgstr "Visa logg"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.ui.h:57
 msgid "View Selected Revision"
 msgstr "Visa vald revision"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "Whole Project"
 msgstr "Hela projektet"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.ui.h:61
 msgid "Working Copy"
 msgstr "Arbetskopia"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.ui.h:62
+#, fuzzy
+msgid "Working Copy Path:"
+msgstr "<b>Sökväg för arbetskopia:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.ui.h:63
 msgid "realm"
 msgstr "domän"
 
@@ -7850,15 +8134,15 @@ msgstr "Kopiera..."
 msgid "Diff..."
 msgstr "Diff..."
 
-#: ../plugins/subversion/plugin.c:454
+#: ../plugins/subversion/plugin.c:488
 msgid "Subversion operations"
 msgstr "Subversion-operationer"
 
-#: ../plugins/subversion/plugin.c:460
+#: ../plugins/subversion/plugin.c:494
 msgid "Subversion popup operations"
 msgstr "Subversion popup-operationer"
 
-#: ../plugins/subversion/plugin.c:488
+#: ../plugins/subversion/plugin.c:526
 msgid "Subversion Log"
 msgstr "Subversion-logg"
 
@@ -7870,7 +8154,7 @@ msgstr "Subversion: Filen kommer att läggas till vid nästa verkställning."
 msgid "Subversion: Commit complete."
 msgstr "Subversion: Verkställning färdig."
 
-#: ../plugins/subversion/subversion-commit-dialog.c:93
+#: ../plugins/subversion/subversion-commit-dialog.c:123
 msgid "Subversion: Committing changes to the repository..."
 msgstr "Subversion: Verkställer ändringar till förrådet..."
 
@@ -7979,83 +8263,83 @@ msgstr "Subversion: Diff färdig."
 msgid "Subversion: Update complete."
 msgstr "Subversion: Uppdatering färdig."
 
-#: ../plugins/subversion/svn-command.c:145
-#: ../plugins/subversion/svn-command.c:201
+#: ../plugins/subversion/svn-command.c:158
+#: ../plugins/subversion/svn-command.c:225
 msgid "Authentication canceled"
 msgstr "Autentisering avbröts"
 
-#: ../plugins/subversion/svn-command.c:174
+#: ../plugins/subversion/svn-command.c:198
 msgid "Hostname:"
 msgstr "Värdnamn:"
 
-#: ../plugins/subversion/svn-command.c:175
+#: ../plugins/subversion/svn-command.c:199
 msgid "Fingerprint:"
 msgstr "Fingeravtryck:"
 
-#: ../plugins/subversion/svn-command.c:176
+#: ../plugins/subversion/svn-command.c:200
 msgid "Valid from:"
 msgstr "Giltigt från:"
 
-#: ../plugins/subversion/svn-command.c:177
+#: ../plugins/subversion/svn-command.c:201
 msgid "Valid until:"
 msgstr "Giltigt till:"
 
-#: ../plugins/subversion/svn-command.c:178
+#: ../plugins/subversion/svn-command.c:202
 msgid "Issuer DN:"
 msgstr "Utfärdarens DN:"
 
-#: ../plugins/subversion/svn-command.c:179
+#: ../plugins/subversion/svn-command.c:203
 msgid "DER certificate:"
 msgstr "DER-certifikat:"
 
-#: ../plugins/subversion/svn-command.c:326
-#: ../plugins/subversion/svn-command.c:342
+#: ../plugins/subversion/svn-command.c:350
+#: ../plugins/subversion/svn-command.c:366
 #, c-format
 msgid "Deleted: %s"
 msgstr "Tog bort: %s"
 
-#: ../plugins/subversion/svn-command.c:329
-#: ../plugins/subversion/svn-command.c:348
+#: ../plugins/subversion/svn-command.c:353
+#: ../plugins/subversion/svn-command.c:372
 #, c-format
 msgid "Added: %s"
 msgstr "Lade till: %s"
 
-#: ../plugins/subversion/svn-command.c:339
+#: ../plugins/subversion/svn-command.c:363
 #, c-format
 msgid "Resolved: %s"
 msgstr "Löste: %s"
 
-#: ../plugins/subversion/svn-command.c:345
+#: ../plugins/subversion/svn-command.c:369
 #, c-format
 msgid "Updated: %s"
 msgstr "Uppdaterade: %s"
 
-#: ../plugins/subversion/svn-command.c:351
+#: ../plugins/subversion/svn-command.c:375
 #, c-format
 msgid "Externally Updated: %s"
 msgstr "Externt uppdaterad: %s"
 
-#: ../plugins/subversion/svn-command.c:385
+#: ../plugins/subversion/svn-command.c:409
 #, c-format
 msgid "Modified: %s"
 msgstr "Ändrade: %s"
 
-#: ../plugins/subversion/svn-command.c:388
+#: ../plugins/subversion/svn-command.c:412
 #, c-format
 msgid "Merged: %s"
 msgstr "Sammanfogade: %s"
 
-#: ../plugins/subversion/svn-command.c:391
+#: ../plugins/subversion/svn-command.c:415
 #, c-format
 msgid "Conflicted: %s"
 msgstr "Konflikt: %s"
 
-#: ../plugins/subversion/svn-command.c:395
+#: ../plugins/subversion/svn-command.c:419
 #, c-format
 msgid "Missing: %s"
 msgstr "Saknade: %s"
 
-#: ../plugins/subversion/svn-command.c:398
+#: ../plugins/subversion/svn-command.c:422
 #, c-format
 msgid "Obstructed: %s"
 msgstr "Blockerad: %s"
@@ -8108,23 +8392,16 @@ msgstr "%d filer genomsökta utav %d"
 msgid "Populating symbols' db..."
 msgstr "Befolkar symbolsdatabas..."
 
-#: ../plugins/symbol-db/plugin.c:2228
-msgid "Local"
-msgstr "Lokala"
-
-#: ../plugins/symbol-db/plugin.c:2254
-msgid "Global"
-msgstr "Allmänna"
-
-#: ../plugins/symbol-db/plugin.c:2311
+#: ../plugins/symbol-db/plugin.c:2264
+#: ../plugins/symbol-db/plugin.c:2392
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2319
+#: ../plugins/symbol-db/plugin.c:2401
 msgid "SymbolDb popup actions"
 msgstr "Popupåtgärder för symboldatabas"
 
-#: ../plugins/symbol-db/plugin.c:2327
+#: ../plugins/symbol-db/plugin.c:2409
 msgid "SymbolDb menu actions"
 msgstr "Menyåtgärder för symboldatabas"
 
@@ -8133,12 +8410,12 @@ msgid "Package is not parseable"
 msgstr "Paketet är inte tolkningsbart"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:369
-#: ../plugins/symbol-db/symbol-db-prefs.c:510
+#: ../plugins/symbol-db/symbol-db-prefs.c:516
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Symboldatabas"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:459
+#: ../plugins/symbol-db/symbol-db-prefs.c:465
 msgid "API Tags"
 msgstr "API-taggar"
 
@@ -8151,47 +8428,55 @@ msgstr "Återupptar glb-avsökning."
 msgid "Symbol"
 msgstr "Symbol"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:1
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "<b>Available API tags</b>"
 msgstr "<b>Tillgängliga API-taggar</b>"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:3
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
+msgid "<b>Global</b>"
+msgstr "<b>Allmänt</b>"
+
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Automatically scan project's packages"
 msgstr "Sök automatiskt av projektets paket"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:4
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
 msgid "Automatically update symbols without saving file"
 msgstr "Uppdatera automatiskt symboler utan att spara filen"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:5
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
 msgid "Checking if package is parseable..."
 msgstr "Kontrollerar om paketet är tolkningsbart..."
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:6
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Ctags executable:"
 msgstr "Ctags-binärfil:"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.glade.h:7
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:7
 msgid "Parallel scan of project and global symbols"
 msgstr "Parallell avsökning av projekt- och allmänna symboler"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
+msgid "This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)"
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
+msgid "This option means that the global system packages will be scanned contemporary with the project's ones"
+msgstr ""
+
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:10
+msgid "Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user."
+msgstr ""
+
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 msgid "<b>Terminal options</b>"
 msgstr "<b>Terminalalternativ</b>"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
-msgid ""
-"Default\n"
-"\n"
-msgstr ""
-"Standard\n"
-"\n"
-
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
 msgid "Use GNOME terminal profile:"
 msgstr "Använd GNOME:s terminalprofil:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:6
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:4
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Använd för tillfället vald profil i GNOME-terminalen"
 
@@ -8200,68 +8485,65 @@ msgid "terminal operations"
 msgstr "terminaloperationer"
 
 #: ../plugins/terminal/terminal.c:719
-#: ../plugins/terminal/terminal.c:877
-#: ../plugins/terminal/terminal.c:930
+#: ../plugins/terminal/terminal.c:886
+#: ../plugins/terminal/terminal.c:939
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../plugins/tools/anjuta-tools.glade.h:1
+#: ../plugins/tools/anjuta-tools.ui.h:1
 msgid "<b>Tools</b>"
 msgstr "<b>Verktyg</b>"
 
-#: ../plugins/tools/anjuta-tools.glade.h:3
+#: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Command:"
 msgstr "Kommando:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:4
+#: ../plugins/tools/anjuta-tools.ui.h:4
 msgid "Edit as script"
 msgstr "Redigera som skript"
 
-#: ../plugins/tools/anjuta-tools.glade.h:5
+#: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Edit command as script in Anjuta on close"
 msgstr "Redigera kommando som skript i Anjuta vid stängning"
 
-#: ../plugins/tools/anjuta-tools.glade.h:8
+#: ../plugins/tools/anjuta-tools.ui.h:8
 msgid "Parameters:"
 msgstr "Parametrar:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:10
+#: ../plugins/tools/anjuta-tools.ui.h:10
 msgid "Save all files"
 msgstr "Spara alla filer"
 
-#: ../plugins/tools/anjuta-tools.glade.h:11
+#: ../plugins/tools/anjuta-tools.ui.h:11
 msgid "Short cut:"
 msgstr "Genväg:"
 
-#. This is the Unix stderr, see http://en.wikipedia.org/wiki/Standard_streams
-#: ../plugins/tools/anjuta-tools.glade.h:13
+#: ../plugins/tools/anjuta-tools.ui.h:12
 msgid "Standard error:"
 msgstr "Standardfel:"
 
-#. This is the Unix stdin. See http://en.wikipedia.org/wiki/Standard_streams
-#: ../plugins/tools/anjuta-tools.glade.h:15
+#: ../plugins/tools/anjuta-tools.ui.h:13
 msgid "Standard input:"
 msgstr "Standardindata:"
 
-#. This is the standard Unis stdout, see http://en.wikipedia.org/wiki/Standard_streams
-#: ../plugins/tools/anjuta-tools.glade.h:17
+#: ../plugins/tools/anjuta-tools.ui.h:14
 msgid "Standard output:"
 msgstr "Standardutdata:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../plugins/tools/anjuta-tools.ui.h:15
 msgid "Tool Editor"
 msgstr "Verktygsredigerare"
 
-#: ../plugins/tools/anjuta-tools.glade.h:19
+#: ../plugins/tools/anjuta-tools.ui.h:16
 msgid "Variable list"
 msgstr "Variabellista"
 
-#: ../plugins/tools/anjuta-tools.glade.h:20
+#: ../plugins/tools/anjuta-tools.ui.h:17
 msgid "Working directory:"
 msgstr "Arbetskatalog:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:21
+#: ../plugins/tools/anjuta-tools.ui.h:18
 msgid "_Variable..."
 msgstr "_Variabel..."
 
@@ -8274,51 +8556,51 @@ msgstr "Är du säker på att du vill ta bort verktyget \"%s\"?"
 msgid "Tool"
 msgstr "Verktyg"
 
-#: ../plugins/tools/editor.c:309
+#: ../plugins/tools/editor.c:308
 msgid "ask at runtime"
 msgstr "fråga vid körtid"
 
-#: ../plugins/tools/editor.c:314
+#: ../plugins/tools/editor.c:313
 msgid "undefined"
 msgstr "odefinierad"
 
-#: ../plugins/tools/editor.c:448
+#: ../plugins/tools/editor.c:450
 msgid "Unable to build user interface for tool variable"
 msgstr "Kan inte bygga användargränssnitt för verktygsvariabel"
 
-#: ../plugins/tools/editor.c:464
+#: ../plugins/tools/editor.c:466
 msgid "Meaning"
 msgstr "Betydelse"
 
-#: ../plugins/tools/editor.c:564
+#: ../plugins/tools/editor.c:565
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: ../plugins/tools/editor.c:730
+#: ../plugins/tools/editor.c:731
 msgid "You must provide a tool name!"
 msgstr "Du måste ange ett verktygsnamn!"
 
-#: ../plugins/tools/editor.c:738
+#: ../plugins/tools/editor.c:739
 msgid "You must provide a tool command!"
 msgstr "Du måste ange ett verktygskommando!"
 
-#: ../plugins/tools/editor.c:746
+#: ../plugins/tools/editor.c:747
 msgid "A tool with the same name already exists!"
 msgstr "Ett verktyg med samma namn finns redan!"
 
-#: ../plugins/tools/editor.c:763
+#: ../plugins/tools/editor.c:764
 msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
 msgstr "Genvägen används redan av en annan komponent i Anjuta. Vill du behålla den ändå?"
 
-#: ../plugins/tools/editor.c:847
+#: ../plugins/tools/editor.c:848
 msgid "Unable to edit script"
 msgstr "Kunde inte redigera skript"
 
-#: ../plugins/tools/editor.c:983
+#: ../plugins/tools/editor.c:984
 msgid "New accelerator..."
 msgstr "Ny snabbtangent..."
 
-#: ../plugins/tools/editor.c:1053
+#: ../plugins/tools/editor.c:1056
 msgid "Unable to build user interface for tool editor"
 msgstr "Kan inte bygga användargränssnitt för verktygsredigerare"
 
@@ -8389,8 +8671,8 @@ msgstr "Kunde inte öppna %s för skrivning"
 msgid "Tool operations"
 msgstr "Verktygsoperationer"
 
-#: ../plugins/tools/plugin.c:252
-#: ../plugins/tools/plugin.c:259
+#: ../plugins/tools/plugin.c:256
+#: ../plugins/tools/plugin.c:263
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "Verktyg"
@@ -8463,80 +8745,6 @@ msgstr "Copyright © Naba Kumar"
 #: ../src/anjuta.c:428
 msgid "Loaded Session..."
 msgstr "Läste in session..."
-
-#: ../src/anjuta.glade.h:1
-msgid "<b>Appearance</b>"
-msgstr "<b>Utseende</b>"
-
-#: ../src/anjuta.glade.h:2
-msgid "<b>Project Defaults</b>"
-msgstr "<b>Standardvärden för projekt</b>"
-
-#: ../src/anjuta.glade.h:3
-msgid "<b>Session</b>"
-msgstr "<b>Session</b>"
-
-#: ../src/anjuta.glade.h:4
-msgid ""
-"Default\n"
-"Text below icons\n"
-"Text beside icons\n"
-"Icons only\n"
-"Text only"
-msgstr ""
-"Standard\n"
-"Text under ikoner\n"
-"Text bredvid ikoner\n"
-"Endast ikoner\n"
-"Endast text"
-
-#: ../src/anjuta.glade.h:9
-msgid "Default project directory:"
-msgstr "Standardkatalog för projekt:"
-
-#: ../src/anjuta.glade.h:10
-msgid "Developer email address:"
-msgstr "Utvecklarens e-postadress:"
-
-#: ../src/anjuta.glade.h:11
-msgid "Developer name:"
-msgstr "Utvecklarens namn:"
-
-#: ../src/anjuta.glade.h:12
-msgid "Do not load last project and files on startup"
-msgstr "Läs inte in senaste projektet och filer vid uppstart"
-
-#: ../src/anjuta.glade.h:13
-msgid "Do not load last session on startup"
-msgstr "Läs inte in senaste sessionen vid uppstart"
-
-#. Style of the buttons/tabs used to select docked windows in anjuta
-#: ../src/anjuta.glade.h:15
-msgid "Dock switcher style:"
-msgstr "Stil för dockväxlare:"
-
-#: ../src/anjuta.glade.h:17
-msgid "Select projects directory"
-msgstr "Välj projektets katalog"
-
-#: ../src/anjuta.glade.h:18
-msgid ""
-"Text\n"
-"Icons\n"
-"Text + Icons\n"
-"Gnome toolbar setting\n"
-"Tabs"
-msgstr ""
-"Text\n"
-"Ikoner\n"
-"Text + ikoner\n"
-"Gnome-verktygsradsinställning\n"
-"Flikar"
-
-#. translators: translate the same as in gnome-control-center
-#: ../src/anjuta.glade.h:24
-msgid "Toolbar button labels:"
-msgstr "Etiketter för verktygsradsknappar:"
 
 # #-#-#-#-#  gb.po (gnome-build)  #-#-#-#-#
 # Arkiv Arkiv Arkiv Arkiv Arkiv Arkiv Arkiv och inget annat än Arkiv!
@@ -8668,24 +8876,19 @@ msgstr "Om externa _instick"
 msgid "About third party Anjuta plugins"
 msgstr "Om tredjepartsinstick för Anjuta"
 
-#: ../src/anjuta-app.c:426
+#: ../src/anjuta-app.c:423
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/anjuta-app.c:430
-#: ../src/anjuta-app.c:435
-msgid "View"
-msgstr "Visning"
-
-#: ../src/anjuta-app.c:663
+#: ../src/anjuta-app.c:668
 msgid "Installed plugins"
 msgstr "Installerade instick"
 
-#: ../src/anjuta-app.c:667
+#: ../src/anjuta-app.c:672
 msgid "Shortcuts"
 msgstr "Genvägar"
 
-#: ../src/anjuta-app.c:739
+#: ../src/anjuta-app.c:744
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Värdet finns inte"
@@ -8728,104 +8931,195 @@ msgstr "- Integrerad utvecklingsmiljö (IDE)"
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
-msgid "<b>Autocompletion (C/C++/Java only)</b>"
-msgstr "<b>Automatisk komplettering (endast C/C++/Java)</b>"
+#: ../src/preferences.ui.h:1
+msgid "Appearance"
+msgstr "Utseende"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Anropstips</b>"
+#: ../src/preferences.ui.h:3
+msgid "Default project directory:"
+msgstr "Standardkatalog för projekt:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Indenteringsparametrar</b>"
+#: ../src/preferences.ui.h:4
+msgid "Developer email address:"
+msgstr "Utvecklarens e-postadress:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Smart indentering</b>"
+#: ../src/preferences.ui.h:5
+msgid "Developer name:"
+msgstr "Utvecklarens namn:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
+#: ../src/preferences.ui.h:6
+msgid "Do not load last project and files on startup"
+msgstr "Läs inte in senaste projektet och filer vid uppstart"
+
+#: ../src/preferences.ui.h:7
+msgid "Do not load last session on startup"
+msgstr "Läs inte in senaste sessionen vid uppstart"
+
+#. Style of the buttons/tabs used to select docked windows in anjuta
+#: ../src/preferences.ui.h:9
+msgid "Dock switcher style:"
+msgstr "Stil för dockväxlare:"
+
+#: ../src/preferences.ui.h:11
+msgid "Gnome toolbar setting"
+msgstr ""
+
+#: ../src/preferences.ui.h:12
+msgid "Icons"
+msgstr "Ikoner"
+
+#: ../src/preferences.ui.h:13
+msgid "Icons only"
+msgstr "Endast ikoner"
+
+#: ../src/preferences.ui.h:14
+#, fuzzy
+msgid "Project Defaults"
+msgstr "<b>Standardvärden för projekt</b>"
+
+#: ../src/preferences.ui.h:15
+msgid "Select projects directory"
+msgstr "Välj projektets katalog"
+
+#: ../src/preferences.ui.h:16
+msgid "Session"
+msgstr "Session"
+
+#: ../src/preferences.ui.h:17
+msgid "Tabs"
+msgstr "Flikar"
+
+#: ../src/preferences.ui.h:19
+msgid "Text + Icons"
+msgstr ""
+
+#: ../src/preferences.ui.h:20
+msgid "Text below icons"
+msgstr ""
+
+#: ../src/preferences.ui.h:21
+msgid "Text beside icons"
+msgstr ""
+
+#: ../src/preferences.ui.h:22
+msgid "Text only"
+msgstr "Endast text"
+
+#. translators: translate the same as in gnome-control-center
+#: ../src/preferences.ui.h:24
+msgid "Toolbar button labels:"
+msgstr "Etiketter för verktygsradsknappar:"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Lägg till \"(\" efter automatisk komplettering av funktionsanrop"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "Lägg till blanksteg efter automatisk komplettering av funktionsanrop"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Autocomplete"
 msgstr "Automatisk komplettering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+msgid "Autocompletion (C/C++/Java only)"
+msgstr "Automatisk komplettering (endast C/C++/Java)"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 msgid "Autocompletion pop up choices"
 msgstr "Automatiskt komplettera popupval"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Brace indentation size in spaces:"
 msgstr "Indenteringsstorlek för klammerparentes i blanksteg:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#, fuzzy
+msgid "Calltips"
+msgstr "Anrop"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable adaptive indentation"
 msgstr "Aktivera adaptiv indentering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable code completion"
 msgstr "Aktivera kodkomplettering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Enable smart brace completion"
 msgstr "Aktivera smart hakparanteskomplettering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Enable smart indentation"
 msgstr "Aktivera smart indentering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#, fuzzy
+msgid "Indent:"
+msgstr "Automatisk indentering"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#, fuzzy
+msgid "Indentation parameters"
+msgstr "<b>Indenteringsparametrar</b>"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+msgid "Line up parentheses"
+msgstr ""
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#, fuzzy
+msgid "Parenthese indentation"
+msgstr "Smart indentering"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Pressing tab indents"
 msgstr "Tryck på tabulatortangenten indenterar"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Show calltips"
 msgstr "Visa anropstips"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 msgid "Smart Indentation"
 msgstr "Smart indentering"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Statement indentation size in spaces:"
 msgstr "Indenteringsstorlek för uttryck i blanksteg:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1900
+#: ../plugins/language-support-cpp-java/plugin.c:1916
 msgid "_AutoComplete"
 msgstr "_Automatisk komplettering"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1901
+#: ../plugins/language-support-cpp-java/plugin.c:1917
 msgid "AutoComplete the current word"
 msgstr "Komplettera det aktuella ordet automatiskt"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1907
+#: ../plugins/language-support-cpp-java/plugin.c:1923
 msgid "Auto Indent"
 msgstr "Automatisk indentering"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1908
+#: ../plugins/language-support-cpp-java/plugin.c:1924
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "Indentera automatiskt aktuell rad eller markering baserat på indenteringsinställningar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1913
+#: ../plugins/language-support-cpp-java/plugin.c:1929
 msgid "Swap .h/.c"
 msgstr "Växla .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1914
+#: ../plugins/language-support-cpp-java/plugin.c:1930
 msgid "Swap c header and source files"
 msgstr "Växla mellan C-header och källkodsfiler"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1957
+#: ../plugins/language-support-cpp-java/plugin.c:1973
 msgid "C++/Java Assistance"
 msgstr "C++/Java-assistans"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2045
-#: ../plugins/language-support-cpp-java/plugin.c:2054
+#: ../plugins/language-support-cpp-java/plugin.c:2066
+#: ../plugins/language-support-cpp-java/plugin.c:2075
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9050,6 +9344,112 @@ msgstr "Autotools-bakände"
 msgid "Autotools backend for project manager"
 msgstr "Autotools-bakände för projekthanterare"
 
+#~ msgid ""
+#~ "General Public License (GPL)\n"
+#~ "Lesser General Public License (LGPL)\n"
+#~ "No License"
+#~ msgstr ""
+#~ "General Public License (GPL)\n"
+#~ "Lesser General Public License (LGPL)\n"
+#~ "Ingen licens"
+#~ msgid ""
+#~ "Top\n"
+#~ "Bottom\n"
+#~ "Left\n"
+#~ "Right"
+#~ msgstr ""
+#~ "Överst\n"
+#~ "Nederst\n"
+#~ "Vänster\n"
+#~ "Höger"
+#~ msgid "<b>Filter</b>"
+#~ msgstr "<b>Filter</b>"
+#~ msgid "<b>Bad revision:</b>"
+#~ msgstr "<b>Dålig revision:</b>"
+#~ msgid "<b>Branch:</b>"
+#~ msgstr "<b>Gren:</b>"
+#~ msgid "<b>Changes:</b>"
+#~ msgstr "<b>Ändringar:</b>"
+#~ msgid "<b>Filters</b>"
+#~ msgstr "<b>Filter</b>"
+#~ msgid "<b>Log Message:</b>"
+#~ msgstr "<b>Loggmeddelande:</b>"
+#~ msgid "<b>Log message:</b>"
+#~ msgstr "<b>Loggmeddelande:</b>"
+#~ msgid "<b>Mode:</b>"
+#~ msgstr "<b>Läge:</b>"
+#~ msgid "<b>Revision:</b>"
+#~ msgstr "<b>Revision:</b>"
+#~ msgid "<b>Select file to add:</b>"
+#~ msgstr "<b>Välj fil att lägga till:</b>"
+#~ msgid "<b>Tag name:</b>"
+#~ msgstr "<b>Taggnamn:</b>"
+#~ msgid "<b>URL:</b>"
+#~ msgstr "<b>URL:</b>"
+#~ msgid ""
+#~ "Underline-Plain\n"
+#~ "Underline-Squiggle\n"
+#~ "Underline-TT\n"
+#~ "Diagonal\n"
+#~ "Strike-Out"
+#~ msgstr ""
+#~ "Understruken-Vanlig\n"
+#~ "Understruken-Squiggle\n"
+#~ "Understruken-TT\n"
+#~ "Diagonal\n"
+#~ "Genomstruken"
+#~ msgid "Couldn't load glade file"
+#~ msgstr "Kunde inte läsa in glade-filen"
+#~ msgid "<b>Scratchbox Options</b>\n"
+#~ msgstr "<b>Alternativ för Scratchbox</b>\n"
+#~ msgid "Scratchbox directory:"
+#~ msgstr "Scratchbox-katalog:"
+#~ msgid "Scratchbox target:"
+#~ msgstr "Scratchbox-mål:"
+#~ msgid "Scratchbox version:"
+#~ msgstr "Scratchbox-version:"
+#~ msgid "Scratchbox"
+#~ msgstr "Scratchbox"
+#~ msgid "<b>End Revision:</b>"
+#~ msgstr "<b>Slutrevision:</b>"
+#~ msgid "<b>Subversion Options</b>"
+#~ msgstr "<b>Alternativ för Subversion</b>"
+#~ msgid ""
+#~ "Default\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Standard\n"
+#~ "\n"
+#~ msgid "<b>Session</b>"
+#~ msgstr "<b>Session</b>"
+#~ msgid ""
+#~ "Default\n"
+#~ "Text below icons\n"
+#~ "Text beside icons\n"
+#~ "Icons only\n"
+#~ "Text only"
+#~ msgstr ""
+#~ "Standard\n"
+#~ "Text under ikoner\n"
+#~ "Text bredvid ikoner\n"
+#~ "Endast ikoner\n"
+#~ "Endast text"
+#~ msgid ""
+#~ "Text\n"
+#~ "Icons\n"
+#~ "Text + Icons\n"
+#~ "Gnome toolbar setting\n"
+#~ "Tabs"
+#~ msgstr ""
+#~ "Text\n"
+#~ "Ikoner\n"
+#~ "Text + ikoner\n"
+#~ "Gnome-verktygsradsinställning\n"
+#~ "Flikar"
+#~ msgid "<b>Calltips</b>"
+#~ msgstr "<b>Anropstips</b>"
+#~ msgid "<b>Smart Indentation</b>"
+#~ msgstr "<b>Smart indentering</b>"
 #~ msgid "Fixed data-view"
 #~ msgstr "Fast datavy"
 #~ msgid "Update the graph"
@@ -9066,8 +9466,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Egen"
 #~ msgid "Children"
 #~ msgstr "Barn"
-#~ msgid "Calls"
-#~ msgstr "Anrop"
 #~ msgid "% Time"
 #~ msgstr "% Tid"
 #~ msgid "Cumulative Seconds"
@@ -9280,8 +9678,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Filtrera onödiga tecken i DOS-läge"
 #~ msgid "Fold style:"
 #~ msgstr "Inhängningsstil:"
-#~ msgid "Font:"
-#~ msgstr "Typsnitt:"
 #~ msgid "Fonts and colors for editor"
 #~ msgstr "Typsnitt och färger för redigerare"
 #~ msgid "Foreground color:"
@@ -9304,8 +9700,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Marginalens radnummer synliga"
 #~ msgid "Margin Marker visible"
 #~ msgstr "Marginalens markör synlig"
-#~ msgid "Mode:"
-#~ msgstr "Läge:"
 #~ msgid "Monochrome"
 #~ msgstr "Svartvit"
 #~ msgid ""
@@ -9322,8 +9716,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Tryck på bakåtsteg tar bort indentering"
 #~ msgid "Pressing tab inserts indentation"
 #~ msgstr "Tryck på tabulatortangenten indenterar"
-#~ msgid "Printing"
-#~ msgstr "Skriver ut"
 #~ msgid "Select highlight style to edit:"
 #~ msgstr "Välj färgningsstil att redigera:"
 #~ msgid "Selection background:"
@@ -9332,14 +9724,10 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Markeringsförgrund:"
 #~ msgid "Strip trailling spaces on file save"
 #~ msgstr "Ta bort eftersläpande blanksteg vid filsparande"
-#~ msgid "Tab size in spaces:"
-#~ msgstr "Tabulatorstorlek i blanksteg:"
 #~ msgid "Underlined"
 #~ msgstr "Understruken"
 #~ msgid "Use default"
 #~ msgstr "Använd standardvärde"
-#~ msgid "Use tabs for indentation"
-#~ msgstr "Använd tabulatorer för indentering"
 #~ msgid "View EOL chars"
 #~ msgstr "Visa EOL-tecken"
 #~ msgid "View Indentation Guides"
@@ -9428,42 +9816,10 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ "%s.\n"
 #~ "Detta kan orsaka felaktigt beteende eller instabiliteter.\n"
 #~ "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
-#~ msgid "<b>Color scheme:</b>"
-#~ msgstr "<b>Färgschema:</b>"
 #~ msgid "<b>Font:</b>"
 #~ msgstr "<b>Typsnitt:</b>"
-#~ msgid "<b>Indentation and auto-format options</b>"
-#~ msgstr "<b>Alternativ för indentering och automatisk formatering</b>"
 #~ msgid "<b>View</b>"
 #~ msgstr "<b>Visa</b>"
-#~ msgid "Create backup files"
-#~ msgstr "Skapa säkerhetskopior"
-#~ msgid "Font"
-#~ msgstr "Typsnitt"
-#~ msgid "Highlight current line"
-#~ msgstr "Färgmarkera aktuell rad"
-#~ msgid "Highlight matching brackets"
-#~ msgstr "Färgmarkera matchande klamrar"
-#~ msgid "Highlight syntax"
-#~ msgstr "Färgmarkera syntax"
-#~ msgid "Print Linenumbers"
-#~ msgstr "Skriv ut radnummer"
-#~ msgid "Print page footer"
-#~ msgstr "Skriv ut sidfot"
-#~ msgid "Print page header"
-#~ msgstr "Skriv ut sidhuvud"
-#~ msgid "Right margin position in characters"
-#~ msgstr "Position för högermarginal, i tecken."
-#~ msgid "Show line numbers"
-#~ msgstr "Visa radnummer"
-#~ msgid "Show marks"
-#~ msgstr "Visa markeringar"
-#~ msgid "Show right margin"
-#~ msgstr "Visa högermarginal"
-#~ msgid "Use theme font"
-#~ msgstr "Använd tematypsnitt"
-#~ msgid "Wrap long lines to fit on paper"
-#~ msgstr "Radbryt långa rader för att passa pappret"
 #~ msgid "<b>Program to test:</b>"
 #~ msgstr "<b>Program att testa:</b>"
 #~ msgid "<b>Valgrind</b>"
@@ -9480,8 +9836,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Välj verktyg:"
 #~ msgid "Select Valgrind Target"
 #~ msgstr "Välj Valgrind-mål"
-#~ msgid "Options"
-#~ msgstr "Alternativ"
 #~ msgid "Select debugging target"
 #~ msgstr "Välj felsökningsmål"
 #~ msgid "Valgrind"
@@ -9882,8 +10236,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Om detta program"
 #~ msgid "_About..."
 #~ msgstr "_Om..."
-#~ msgid "Test Controls"
-#~ msgstr "Testkontroller"
 #~ msgid "Could not initialize Bonobo"
 #~ msgstr "Kunde inte initiera Bonobo"
 #~ msgid "Not a proper project!"
@@ -10136,8 +10488,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Föregående medd."
 #~ msgid "Next mesg"
 #~ msgstr "Nästa medd."
-#~ msgid "Prev bookmark"
-#~ msgstr "Föregående bokmärke"
 #~ msgid "Next bookmark"
 #~ msgstr "Nästa bokmärke"
 #~ msgid "Toggle breakpoint"
@@ -10180,8 +10530,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Autoformatering"
 #~ msgid "Go"
 #~ msgstr "Gå"
-#~ msgid "Tags"
-#~ msgstr "Taggar"
 #~ msgid "Find Usage"
 #~ msgstr "Sök användning"
 #~ msgid "Docked"
@@ -10220,26 +10568,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr ""
 #~ "\n"
 #~ "$(module.source.files) $(module.include.files)"
-#~ msgid ""
-#~ "\n"
-#~ "CVS\n"
-#~ "CVS intl po "
-#~ msgstr ""
-#~ "\n"
-#~ "CVS\n"
-#~ "CVS intl po "
-#~ msgid "*.so *.o *.a *.la\n"
-#~ msgstr "*.so *.o *.a *.la\n"
-#~ msgid ""
-#~ "*\\.*\n"
-#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-#~ "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-#~ "README AUTHORS ChangeLog *.m4"
-#~ msgstr ""
-#~ "*\\.*\n"
-#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-#~ "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-#~ "README AUTHORS ChangeLog *.m4"
 #~ msgid "Font "
 #~ msgstr "Typsnitt "
 #~ msgid "Font: "
@@ -10579,8 +10907,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Enkel"
 #~ msgid "C"
 #~ msgstr "C"
-#~ msgid "Changelog"
-#~ msgstr "Ändringslogg"
 #~ msgid "Copyright"
 #~ msgstr "Copyright"
 
@@ -10766,10 +11092,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Verkställ postfix"
 
 #, fuzzy
-#~ msgid "Blame revision"
-#~ msgstr "Revision"
-
-#, fuzzy
 #~ msgid "Unknown notification"
 #~ msgstr "Notifiering"
 #~ msgid "Subversion command finished!"
@@ -10927,14 +11249,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "Visa ID för trådar kända för tillfället"
 #~ msgid "Do_n't save"
 #~ msgstr "Spara i_nte"
-#~ msgid "Bottom"
-#~ msgstr "Nederst"
-#~ msgid "Left"
-#~ msgstr "Vänster"
-#~ msgid "Right"
-#~ msgstr "Höger"
-#~ msgid "Top"
-#~ msgstr "Överst"
 #~ msgid "<b>Go to Line number:</b>"
 #~ msgstr "<b>Gå till radnummer:</b>"
 #~ msgid "Arrows"
@@ -10947,10 +11261,6 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "%d"
 #~ msgid "Rev"
 #~ msgstr "Rev"
-#~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-#~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-#~ msgid "*\\.*"
-#~ msgstr "*\\.*"
 #~ msgid "Directory "
 #~ msgstr "Katalog "
 #~ msgid "Do not show files ignored by version control"
@@ -11076,18 +11386,8 @@ msgstr "Autotools-bakände för projekthanterare"
 #~ msgstr "<b>Färgmarkera</b>"
 #~ msgid "<b>Auto Purge</b>"
 #~ msgstr "<b>Automatisk rensning</b>"
-#~ msgid "Diagonal"
-#~ msgstr "Diagonal"
 #~ msgid "Information:"
 #~ msgstr "Information:"
-#~ msgid "Strike-Out"
-#~ msgstr "Genomstrykning"
-#~ msgid "Underline Plain"
-#~ msgstr "Understruken-normal"
-#~ msgid "Underline Squiggle"
-#~ msgstr "Understruken-snirklig"
-#~ msgid "Underline-TT"
-#~ msgstr "Understruken-TT"
 #~ msgid ""
 #~ "Cannot open: %s\n"
 #~ "Does not look like a valid Anjuta project."
