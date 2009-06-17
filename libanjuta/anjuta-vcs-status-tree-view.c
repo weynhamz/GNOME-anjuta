@@ -126,6 +126,61 @@ anjuta_vcs_status_tree_view_status_function (GtkTreeViewColumn *tree_column,
 }
 
 static void
+anjuta_vcs_status_tree_view_icon_function (GtkTreeViewColumn *tree_column,
+                                           GtkCellRenderer *renderer,
+                                           GtkTreeModel *model,
+                                           GtkTreeIter *iter,
+                                           gpointer user_data)
+{
+	AnjutaVcsStatus status;
+
+	gtk_tree_model_get (model, iter, COL_STATUS, &status, -1);
+
+	switch (status)
+	{
+		case ANJUTA_VCS_STATUS_MODIFIED:
+			g_object_set (G_OBJECT (renderer), "stock-id", GTK_STOCK_EDIT, 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_ADDED:
+			g_object_set (G_OBJECT (renderer), "stock-id", GTK_STOCK_ADD, 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_DELETED:
+			g_object_set (G_OBJECT (renderer), "stock-id", GTK_STOCK_REMOVE, 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_CONFLICTED:
+			g_object_set (G_OBJECT (renderer), "stock-id",  
+						  GTK_STOCK_DIALOG_WARNING, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UPTODATE:
+			g_object_set (G_OBJECT (renderer), "stock-id", GTK_STOCK_APPLY, 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_LOCKED:
+			g_object_set (G_OBJECT (renderer), "stock-id",  
+						  GTK_STOCK_DIALOG_AUTHENTICATION, NULL);
+			break;	
+		case ANJUTA_VCS_STATUS_MISSING:
+			g_object_set (G_OBJECT (renderer), "stock-id",  
+						  GTK_STOCK_MISSING_IMAGE, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UNVERSIONED:
+			g_object_set (G_OBJECT (renderer), "stock-id",  
+						  GTK_STOCK_DIALOG_QUESTION, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_IGNORED:
+			g_object_set (G_OBJECT (renderer), "stock-id", GTK_STOCK_STOP, 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_NONE:
+		default:
+			break;
+	}
+}
+
+static void
 anjuta_vcs_status_tree_view_activatable_function (GtkTreeViewColumn *tree_column,
                                          		  GtkCellRenderer *renderer,
                                          		  GtkTreeModel *model,
@@ -164,6 +219,14 @@ anjuta_vcs_status_tree_view_create_columns (AnjutaVcsStatusTreeView *self)
 	
 	/* Status column */
 	column = gtk_tree_view_column_new ();
+
+	/* Icon */
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
+											 (GtkTreeCellDataFunc) anjuta_vcs_status_tree_view_icon_function,
+											 NULL, NULL);
+	/* Text */
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self), column);
