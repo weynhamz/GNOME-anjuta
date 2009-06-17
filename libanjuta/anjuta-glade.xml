@@ -9,6 +9,7 @@
 
 			<properties>
 				<property id="show-status" default="True" />
+				<property id="conflicted-selectable" default="True" />
 				<property id="status-codes" ignore="True">
 					<displayable-values>
 						<value id="ANJUTA_VCS_STATUS_MODIFIED" name="Modified" />

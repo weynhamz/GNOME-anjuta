@@ -25,6 +25,11 @@
 #include "anjuta-vcs-status-tree-view.h"
 #include <glib/gi18n.h>
 
+/* A clean way to find out if conflicted items should be selectable */
+#define IS_SELECTABLE(status, conflicted_selectable) ((status != ANJUTA_VCS_STATUS_CONFLICTED) || \
+													  (status == ANJUTA_VCS_STATUS_CONFLICTED && \
+													   conflicted_selectable))
+
 enum 
 {
 	COL_SELECTED,
@@ -36,15 +41,16 @@ enum
 enum
 {
 	ANJUTA_VCS_STATUS_TREE_VIEW_CONSTRUCT_STATUS_CODES = 1,
-	ANJUTA_VCS_STATUS_TREE_VIEW_SHOW_STATUS
+	ANJUTA_VCS_STATUS_TREE_VIEW_SHOW_STATUS,
+	ANJUTA_VCS_STATUS_TREE_VIEW_CONSTRUCT_CONFLICTED_SELECTABLE
 };
 
 struct _AnjutaVcsStatusTreeViewPriv
 {
 	GtkListStore *store;
-	GHashTable *selected_paths;
 	guint status_codes;
 	gboolean show_status;
+	gboolean conflicted_selectable;
 };
 
 G_DEFINE_TYPE (AnjutaVcsStatusTreeView, anjuta_vcs_status_tree_view, 
@@ -56,21 +62,83 @@ on_selected_column_toggled (GtkCellRendererToggle *renderer,
 							AnjutaVcsStatusTreeView *self)
 {
 	GtkTreeIter iter;
-	gchar *vcs_path;
 	gboolean selected;
 	
 	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (self->priv->store),
 										 &iter, tree_path);
 	
 	gtk_tree_model_get (GTK_TREE_MODEL (self->priv->store), &iter,
-						COL_PATH, &vcs_path,
 						COL_SELECTED, &selected, -1);
 	
 	gtk_list_store_set (self->priv->store, &iter, 
 						COL_SELECTED, !selected, -1);
 	
-	g_free (vcs_path);
-	
+}
+
+static void
+anjuta_vcs_status_tree_view_status_function (GtkTreeViewColumn *tree_column,
+                                             GtkCellRenderer *renderer,
+                                             GtkTreeModel *model,
+                                             GtkTreeIter *iter,
+                                             gpointer user_data)
+{
+	AnjutaVcsStatus status;
+
+	gtk_tree_model_get (model, iter, COL_STATUS, &status, -1);
+
+	switch (status)
+	{
+		case ANJUTA_VCS_STATUS_MODIFIED:
+			g_object_set (G_OBJECT (renderer), "text", _("Modified"), NULL);
+			break;
+		case ANJUTA_VCS_STATUS_ADDED:
+			g_object_set (G_OBJECT (renderer), "text", _("Added"), NULL);
+			break;
+		case ANJUTA_VCS_STATUS_DELETED:
+			g_object_set (G_OBJECT (renderer), "text", _("Deleted"), NULL);
+			break;
+		case ANJUTA_VCS_STATUS_CONFLICTED:
+			g_object_set (G_OBJECT (renderer), "text", _("Conflicted"), 
+									NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UPTODATE:
+			g_object_set (G_OBJECT (renderer), "text", _("Up to date"), 
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_LOCKED:
+			g_object_set (G_OBJECT (renderer), "text", _("Locked"), NULL);
+			break;	
+		case ANJUTA_VCS_STATUS_MISSING:
+			g_object_set (G_OBJECT (renderer), "text", _("Missing"), NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UNVERSIONED:
+			g_object_set (G_OBJECT (renderer), "text", _("Unversioned"), 
+									NULL);
+			break;
+		case ANJUTA_VCS_STATUS_IGNORED:
+			g_object_set (G_OBJECT (renderer), "text", _("Ignored"),
+						  NULL);
+			break;
+		case ANJUTA_VCS_STATUS_NONE:
+		default:
+			break;
+	}
+}
+
+static void
+anjuta_vcs_status_tree_view_activatable_function (GtkTreeViewColumn *tree_column,
+                                         		  GtkCellRenderer *renderer,
+                                         		  GtkTreeModel *model,
+                                         	      GtkTreeIter *iter,
+                                         		  AnjutaVcsStatusTreeView *self)
+{
+	AnjutaVcsStatus status;
+
+	gtk_tree_model_get (model, iter, COL_STATUS, &status, -1);
+
+	g_object_set (G_OBJECT (renderer), "activatable", IS_SELECTABLE (status,
+																	 self->priv->conflicted_selectable), 
+				  NULL);
 }
 
 static void
@@ -84,8 +152,11 @@ anjuta_vcs_status_tree_view_create_columns (AnjutaVcsStatusTreeView *self)
 	renderer = gtk_cell_renderer_toggle_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self), column);
-	gtk_tree_view_column_add_attribute (column, renderer, "active",
-										COL_SELECTED);
+	gtk_tree_view_column_add_attribute (column, renderer, "active", 
+	                                    COL_SELECTED);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
+											 (GtkTreeCellDataFunc)  anjuta_vcs_status_tree_view_activatable_function,
+											 self, NULL);
 	
 	g_signal_connect (G_OBJECT (renderer), "toggled",
 					  G_CALLBACK (on_selected_column_toggled),
@@ -96,8 +167,9 @@ anjuta_vcs_status_tree_view_create_columns (AnjutaVcsStatusTreeView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self), column);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										COL_STATUS);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
+											 (GtkTreeCellDataFunc)  anjuta_vcs_status_tree_view_status_function,
+											 self, NULL);
 	
 	/* Path column */
 	column = gtk_tree_view_column_new ();
@@ -140,12 +212,8 @@ anjuta_vcs_status_tree_view_init (AnjutaVcsStatusTreeView *self)
 	self->priv = g_new0 (AnjutaVcsStatusTreeViewPriv, 1);
 	self->priv->store = gtk_list_store_new (NUM_COLS,
 											G_TYPE_BOOLEAN,
-											G_TYPE_STRING,
+											ANJUTA_TYPE_VCS_STATUS,
 											G_TYPE_STRING);
-	self->priv->selected_paths = g_hash_table_new_full (g_str_hash,
-														g_str_equal,
-														g_free,
-														NULL);
 	
 	anjuta_vcs_status_tree_view_create_columns (self);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (self), FALSE);
@@ -164,7 +232,6 @@ anjuta_vcs_status_tree_view_finalize (GObject *object)
 	
 	self = ANJUTA_VCS_STATUS_TREE_VIEW (object);
 	
-	g_hash_table_destroy (self->priv->selected_paths);
 	g_free (self->priv);
 	
 	G_OBJECT_CLASS (anjuta_vcs_status_tree_view_parent_class)->finalize (object);
@@ -193,6 +260,9 @@ anjuta_vcs_status_tree_view_set_property (GObject *object, guint property_id,
 		
 			gtk_tree_view_column_set_visible (column, self->priv->show_status);
 			break;
+		case ANJUTA_VCS_STATUS_TREE_VIEW_CONSTRUCT_CONFLICTED_SELECTABLE:
+			self->priv->conflicted_selectable = g_value_get_boolean (value);
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, param_spec);
 			break;
@@ -214,6 +284,9 @@ anjuta_vcs_status_tree_view_get_property (GObject *object, guint property_id,
 			break;
 		case ANJUTA_VCS_STATUS_TREE_VIEW_SHOW_STATUS:
 			g_value_set_boolean (value, self->priv->show_status);
+			break;
+		case ANJUTA_VCS_STATUS_TREE_VIEW_CONSTRUCT_CONFLICTED_SELECTABLE:
+			g_value_set_boolean (value, self->priv->conflicted_selectable);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, param_spec);
@@ -249,6 +322,17 @@ anjuta_vcs_status_tree_view_class_init (AnjutaVcsStatusTreeViewClass *klass)
 	g_object_class_install_property (object_class,
 									 ANJUTA_VCS_STATUS_TREE_VIEW_SHOW_STATUS,
 									 param_spec);
+
+	param_spec = g_param_spec_boolean ("conflicted-selectable",
+	                                   "Conflicted items selectable",
+	                                   "Allow/disallow the user to select " 
+	                                   "Conflicted status items.",
+	                                   TRUE,
+	                                   G_PARAM_READWRITE |
+	                                   G_PARAM_CONSTRUCT_ONLY);
+	g_object_class_install_property (object_class,
+	                                 ANJUTA_VCS_STATUS_TREE_VIEW_CONSTRUCT_CONFLICTED_SELECTABLE,
+	                                 param_spec);
 }
 
 
@@ -275,59 +359,12 @@ anjuta_vcs_status_tree_view_add (AnjutaVcsStatusTreeView *self, gchar *path,
 		gtk_list_store_append (self->priv->store, &iter);
 		
 		gtk_list_store_set (self->priv->store, &iter,
-							COL_SELECTED, selected,
+							COL_SELECTED, (IS_SELECTABLE (status, 
+														  self->priv->conflicted_selectable) && 
+														  selected),
+							COL_STATUS, status,
 							COL_PATH, path, 
 							-1);
-		
-		if (selected)
-		{
-			g_hash_table_insert (self->priv->selected_paths, g_strdup (path), 
-								 NULL);
-		}
-		
-		switch (status)
-		{
-			case ANJUTA_VCS_STATUS_MODIFIED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Modified"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_ADDED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Added"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_DELETED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Deleted"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_CONFLICTED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Conflicted"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_UPTODATE:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
-				                    _("Up to date"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_LOCKED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
-				                    _("Locked"), -1);
-				break;	
-			case ANJUTA_VCS_STATUS_MISSING:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Missing"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_UNVERSIONED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS, 
-									_("Unversioned"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_IGNORED:
-				gtk_list_store_set (self->priv->store, &iter, COL_STATUS,
-				                    _("Ignored"), -1);
-				break;
-			case ANJUTA_VCS_STATUS_NONE:
-			default:
-				break;
-			
-		}
 	}
 }
 
@@ -335,9 +372,16 @@ static gboolean
 select_all_paths (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, 
 				  AnjutaVcsStatusTreeView *self)
 {	
-	gtk_list_store_set (self->priv->store, iter, 
-						COL_SELECTED, TRUE, 
-						-1);
+	AnjutaVcsStatus status;
+
+	gtk_tree_model_get (model, iter, COL_STATUS, &status, -1);
+
+	if (IS_SELECTABLE (status, self->priv->conflicted_selectable))
+	{
+		gtk_list_store_set (self->priv->store, iter, 
+							COL_SELECTED, TRUE, 
+							-1);
+	}
 	
 	return FALSE;
 }
