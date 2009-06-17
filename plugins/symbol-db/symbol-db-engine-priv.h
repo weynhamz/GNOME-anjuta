@@ -81,12 +81,13 @@
 #else
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); 
+		/*DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_queue_get_length (sdb_priv->mem_pool_string));*/
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
 	g_value_set_static_string (gvalue, DUMMY_VOID_STRING); \
 	g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
-
-
+	/*DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_queue_get_length (sdb_priv->mem_pool_string));*/
+	
 
 #define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_int); 

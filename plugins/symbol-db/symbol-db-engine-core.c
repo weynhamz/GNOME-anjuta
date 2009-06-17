@@ -492,11 +492,7 @@ sdb_engine_dyn_child_query_node_destroy (gpointer data)
 	g_free (node_to_destroy);
 }
 
-/**
- * WARNING: We suppose that before calling this function we already checked with
- * sdb_engine_get_dyn_query_node_by_id () that the node we're going to add 
- * isn't yet inserted.
- */
+
 GNUC_INLINE const DynChildQueryNode *
 sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
 									 	SymExtraInfo sym_info, gsize other_parameters,
@@ -541,7 +537,15 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		 * will be ignored
 		 */
 		DynChildQueryNode *dyn_node;
-				
+
+		/* check if a DynChildQueryNode already exists in the gtree */
+		if ( (dyn_node = g_tree_lookup (node->sym_extra_info_gtree, 
+		    GINT_TO_POINTER (sym_info))) == NULL) 
+		{
+			/* strange enough but we found something. Return it. */
+			return dyn_node;
+		}
+		
 		dyn_node = g_new0 (DynChildQueryNode, 1);
 		
 		/* create a new GdaStatement */
@@ -569,18 +573,27 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		/* ok, this is a slightly more complex case */
 		GTree *child_gtree;
 		DynChildQueryNode *dyn_node;
+		gboolean insert_into_main = FALSE;
 
-		child_gtree = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func,
-									 NULL,
-									 NULL, 
-									 sdb_engine_dyn_child_query_node_destroy); 
-				
+		if ((child_gtree = g_tree_lookup (node->sym_extra_info_gtree, 
+		    GINT_TO_POINTER (sym_info))) != NULL)
+		{
+			insert_into_main = FALSE;
+		}
+		else {
+			/* creating a new child_gtree.... */
+			insert_into_main = TRUE;
+			child_gtree = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func,
+ 									 NULL,
+ 									 NULL, 
+									 sdb_engine_dyn_child_query_node_destroy);			
+		}		
+			
 		dyn_node = g_new0 (DynChildQueryNode, 1);
 		
 		/* create a new GdaStatement */
 		dyn_node->plist = NULL;
-		dyn_node->stmt =
-			gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
+		dyn_node->stmt = gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
 										 NULL);
 
 		if (gda_statement_get_parameters ((GdaStatement*)dyn_node->stmt, 
@@ -590,16 +603,15 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		}
 		
 		dyn_node->query_str = g_strdup (sql);
-		
-/*		
-		DEBUG_PRINT ("inserting child into main_gtree's gtree child, "
-					 "other_parameters %d, sym_info %d, dyn_node %p", 
-					 other_parameters, sym_info, dyn_node);
-*/		
-		/* insert the dyn_node into child_gtree, then child_gtree into main_gtree */
+
+		/* insert the dyn_node into child_gtree, then child_gtree into main_gtree */	
 		g_tree_insert (child_gtree, GINT_TO_POINTER (other_parameters), dyn_node);
-		
-		g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), child_gtree);
+
+		if (insert_into_main == TRUE)
+		{
+			g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), 
+			    child_gtree);
+		}		
 		
 		/* return it */
 		return dyn_node;		
