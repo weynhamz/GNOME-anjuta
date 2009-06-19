@@ -540,7 +540,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 
 		/* check if a DynChildQueryNode already exists in the gtree */
 		if ( (dyn_node = g_tree_lookup (node->sym_extra_info_gtree, 
-		    GINT_TO_POINTER (sym_info))) == NULL) 
+		    GINT_TO_POINTER (sym_info))) != NULL) 
 		{
 			/* strange enough but we found something. Return it. */
 			return dyn_node;
