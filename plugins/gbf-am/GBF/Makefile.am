@@ -1,7 +1,6 @@
 perlmodulesdir = $(pkgdatadir)/GBF
-perlmodules_DATA = AmFiles.pm General.pm
-
-EXTRA_DIST = $(perlmodules_DATA)
+# Use General.pm from gbf-mkfile plugin
+dist_perlmodules_DATA = AmFiles.pm 
 
 
 -include $(top_srcdir)/git.mk
