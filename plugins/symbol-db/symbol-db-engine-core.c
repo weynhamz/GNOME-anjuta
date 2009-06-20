@@ -1236,9 +1236,11 @@ gboolean sdb_engine_udpated_scope_gtree_populate (gpointer key,
 	return FALSE;
 }
 
+#ifdef DEBUG
 static GTimer *sym_timer_DEBUG  = NULL;
 static gint tags_total_DEBUG = 0;
 static gdouble elapsed_total_DEBUG = 0;
+#endif
 
 /**
  * ### Thread note: this function inherits the mutex lock ###
@@ -1274,11 +1276,13 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		g_warning ("error in opening ctags file");
 	}
 
+#ifdef DEBUG
 	if (sym_timer_DEBUG == NULL)
 		sym_timer_DEBUG = g_timer_new ();
 	else
-		g_timer_reset (sym_timer_DEBUG);
+		g_timer_reset (sym_timer_DEBUG);	
 	gint tags_num_DEBUG = 0;
+#endif	
 	tag_entry.file = NULL;
 
 	while (tagsNext (tag_file, &tag_entry) != TagFailure)
@@ -1308,7 +1312,9 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		/* insert or update a symbol */
 		sdb_engine_add_new_symbol (dbe, &tag_entry, file_defined_id,
 								   force_sym_update);
+#ifdef DEBUG
 		tags_num_DEBUG++;
+#endif		
 		tag_entry.file = NULL;
 	}
 	g_free (tag_entry_file_cache);
@@ -1327,14 +1333,16 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 										 NULL,
 										 NULL);
 	}
-
+	
+#ifdef DEBUG
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
 	tags_total_DEBUG += tags_num_DEBUG;
 	elapsed_total_DEBUG += elapsed_DEBUG;
 	DEBUG_PRINT ("elapsed: %f for (%d) [%f sec/symbol] [av %f sec/symbol]", elapsed_DEBUG,
 				 tags_num_DEBUG, elapsed_DEBUG / tags_num_DEBUG, 
 				 elapsed_total_DEBUG / tags_total_DEBUG);
-
+#endif
+	
 	/* notify listeners that another file has been scanned */
 	g_async_queue_push (priv->signals_queue, GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1));
 	
