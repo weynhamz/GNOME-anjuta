@@ -1,5 +1,4 @@
 perlmodulesdir = $(pkgdatadir)/GBF
-perlmodules_DATA = Make.pm General.pm
-
-EXTRA_DIST = $(perlmodules_DATA)
+# General.pm is used by gbf-am plugin too
+dist_perlmodules_DATA = Make.pm General.pm
 
