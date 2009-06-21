@@ -57,6 +57,63 @@ static gpointer parent_class = NULL;
 static GtkToolbarStyle style = -1;
 
 static void
+menu_item_select_cb (GtkMenuItem *proxy,
+                     AnjutaApp *app)
+{
+	GtkAction *action;
+	char *message;
+
+	action = gtk_widget_get_action (GTK_WIDGET (proxy));
+	g_return_if_fail (action != NULL);
+
+	g_object_get (G_OBJECT (action), "tooltip", &message, NULL);
+	if (message)
+	{
+		anjuta_status_push (app->status, "%s", message);
+		g_free (message);
+	}
+}
+
+static void
+menu_item_deselect_cb (GtkMenuItem *proxy,
+                       AnjutaApp *app)
+{
+	anjuta_status_pop (app->status);
+}
+
+
+static void
+connect_proxy_cb (GtkUIManager *manager,
+                  GtkAction *action,
+                  GtkWidget *proxy,
+                  AnjutaApp *app)
+{
+	if (GTK_IS_MENU_ITEM (proxy))
+	{
+		g_signal_connect (proxy, "select",
+				  G_CALLBACK (menu_item_select_cb), app);
+		g_signal_connect (proxy, "deselect",
+				  G_CALLBACK (menu_item_deselect_cb), app);
+	}
+}
+
+static void
+disconnect_proxy_cb (GtkUIManager *manager,
+                     GtkAction *action,
+                     GtkWidget *proxy,
+	                 AnjutaApp *app)
+{
+	if (GTK_IS_MENU_ITEM (proxy))
+	{
+		g_signal_handlers_disconnect_by_func
+			(proxy, G_CALLBACK (menu_item_select_cb), app);
+		g_signal_handlers_disconnect_by_func
+			(proxy, G_CALLBACK (menu_item_deselect_cb), app);
+	}
+}
+
+
+static void
 on_toolbar_style_changed (AnjutaPreferences* prefs,
                           const gchar* key,
                           const gchar* tb_style,
@@ -393,6 +450,15 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
 	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer)&app->ui);
+	/* show tooltips in the statusbar */
+	g_signal_connect (app->ui,
+			  "connect_proxy",
+			  G_CALLBACK (connect_proxy_cb),
+			  app);
+	g_signal_connect (app->ui,
+			  "disconnect_proxy",
+			  G_CALLBACK (disconnect_proxy_cb),
+			  app);
 	
 	/* Plugin Manager */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
