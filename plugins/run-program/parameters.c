@@ -469,6 +469,29 @@ on_environment_remove_button (GtkButton *button, RunDialog *dlg)
 	}
 }
 
+static gboolean
+move_to_environment_value (gpointer data)
+{
+	GtkTreeView *view = GTK_TREE_VIEW (data);
+	GtkTreeSelection* sel;
+	GtkTreeModel *model;
+	GtkTreeIter iter;	
+	GtkTreeViewColumn *column;
+
+	sel = gtk_tree_view_get_selection (view);
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		GtkTreePath *path;
+		
+		path = gtk_tree_model_get_path (model, &iter);
+		column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
+		gtk_tree_view_set_cursor (view, path, column, TRUE);
+		gtk_tree_path_free (path);
+	}
+
+	return FALSE;
+}
+
 static void
 on_environment_variable_edited (GtkCellRendererText *cell,
 						  gchar *path,
@@ -484,7 +507,7 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 	text = g_strstrip (text);
 	
 	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	
+
 	valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path);
 	if (valid)
 	{
@@ -500,9 +523,6 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 		
 		if (strcmp(name, text) != 0)
 		{
-			GtkTreeSelection* sel;
-			GtkTreePath *path;
-			GtkTreeViewColumn *column;
 			
 			if (def_value != NULL)
 			{
@@ -541,16 +561,9 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 				{
 					gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, text,
 										-1);
-					niter = iter;
 				}
 			}
-			sel = gtk_tree_view_get_selection (view);
-			gtk_tree_selection_select_iter (sel, &niter);
-			path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &niter);
-			column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
-			gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
-			gtk_tree_view_set_cursor (view, path, column ,TRUE);
-			gtk_tree_path_free (path);
+			g_idle_add (move_to_environment_value, view);
 		}
 		g_free (name);
 		g_free (def_value);
