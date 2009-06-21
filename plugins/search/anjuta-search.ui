@@ -25,10 +25,10 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">CVS</col>
+        <col id="0" translatable="no">CVS</col>
       </row>
       <row>
-        <col id="0" translatable="yes">CVS intl po </col>
+        <col id="0" translatable="no">CVS intl po </col>
       </row>
     </data>
   </object>
@@ -38,7 +38,7 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">*.so *.o *.a *.la</col>
+        <col id="0" translatable="no">*.so *.o *.a *.la</col>
       </row>
     </data>
   </object>
@@ -48,13 +48,13 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">*\.*</col>
+        <col id="0" translatable="no">*\.*</col>
       </row>
       <row>
-        <col id="0" translatable="yes">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp</col>
+        <col id="0" translatable="no">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp</col>
       </row>
       <row>
-        <col id="0" translatable="yes">*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</col>
+        <col id="0" translatable="no">*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</col>
       </row>
     </data>
   </object>
