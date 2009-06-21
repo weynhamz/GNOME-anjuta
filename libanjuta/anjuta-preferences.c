@@ -231,6 +231,8 @@ anjuta_preferences_get_bool (AnjutaPreferences *pr, const gchar *key)
 			case GCONF_VALUE_BOOL:
 				ret_val = gconf_value_get_bool (value);
 				break;
+			case GCONF_VALUE_INT:
+				ret_val = (gboolean) gconf_value_get_int (value);
 			default:
 				g_warning ("Invalid gconf type for key: %s", key);
 		}
@@ -312,9 +314,11 @@ anjuta_preferences_get_bool_with_default (AnjutaPreferences *pr,
 	{
 		switch (value->type)
 		{
+			case GCONF_VALUE_INT:
+				ret_val = (gboolean) gconf_value_get_int (value);
+				break;
 			case GCONF_VALUE_BOOL:
 				ret_val = gconf_value_get_bool (value);
-				break;
 			default:
 				g_warning ("Invalid gconf type for key: %s", key);
 		}
@@ -519,6 +523,8 @@ anjuta_preferences_set_bool (AnjutaPreferences *pr, const gchar *key,
 		switch (gvalue->type)
 		{
 			case GCONF_VALUE_BOOL:
+				g_warning ("Invalid gconf type for key: %s", key);
+			case GCONF_VALUE_INT:
 				gconf_client_set_bool (pr->priv->gclient, build_key (key),
 									   value, NULL);
 				break;
