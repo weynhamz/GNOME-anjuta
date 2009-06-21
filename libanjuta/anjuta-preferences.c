@@ -314,11 +314,11 @@ anjuta_preferences_get_bool_with_default (AnjutaPreferences *pr,
 	{
 		switch (value->type)
 		{
-			case GCONF_VALUE_INT:
-				ret_val = (gboolean) gconf_value_get_int (value);
-				break;
 			case GCONF_VALUE_BOOL:
 				ret_val = gconf_value_get_bool (value);
+				break;
+			case GCONF_VALUE_INT:
+				ret_val = (gboolean) gconf_value_get_int (value);
 			default:
 				g_warning ("Invalid gconf type for key: %s", key);
 		}
