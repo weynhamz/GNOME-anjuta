@@ -240,7 +240,6 @@ static void
 on_ref_command_finished (AnjutaCommand *command, guint return_code, 
 						 LogData *data)
 {
-	gchar *path;
 	const gchar *relative_path;
 	GtkWidget *log_branch_combo;
 	GtkTreeModel *log_branch_combo_model;
@@ -257,7 +256,6 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	GitLogCommand *log_command;
 	gint pulse_timer_id;
 	
-	path = g_object_get_data (G_OBJECT (command), "path");
 	relative_path = NULL;
 	
 	if (return_code != 0)
@@ -268,9 +266,9 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 		return;
 	}
 	
-	if (path)
+	if (data->path)
 	{
-		relative_path = git_get_relative_path (path, 
+		relative_path = git_get_relative_path (data->path, 
 											   data->plugin->project_root_directory);
 	}
 	
@@ -288,7 +286,7 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	gtk_combo_box_get_active_iter (GTK_COMBO_BOX (log_branch_combo), &iter);
 	gtk_tree_model_get (log_branch_combo_model, &iter, 1, &branch, -1);
 	
-	if (g_hash_table_size (data->filters) > 0 || path)
+	if (g_hash_table_size (data->filters) > 0 || data->path)
 		gtk_tree_view_column_set_visible (graph_column, FALSE);
 	else
 		gtk_tree_view_column_set_visible (graph_column, TRUE);
@@ -334,13 +332,15 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 static void
 on_log_view_button_clicked (GtkButton *button, LogData *data)
 {
-	gchar *path;
 	AnjutaShell *shell;
 	GtkWidget *log_whole_project_check;
 	GtkWidget *log_path_entry;
 	GitRefCommand *ref_command;
 	
-	path = NULL;
+	if (data->path)
+		g_free (data->path);
+
+	data->path = NULL;
 	
 	log_whole_project_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 										  "log_whole_project_check"));
@@ -349,21 +349,23 @@ on_log_view_button_clicked (GtkButton *button, LogData *data)
 	{
 		log_path_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                                     "log_path_entry"));
-		path = gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, -1);
+		data->path = gtk_editable_get_chars (GTK_EDITABLE (log_path_entry), 0, 
+											 -1);
 		
 		/* Log widget belongs to the shell at this point. */
 		shell = ANJUTA_PLUGIN (data->plugin)->shell;
 		
-		if (!git_check_input (GTK_WIDGET (shell), log_path_entry, path, 
+		if (!git_check_input (GTK_WIDGET (shell), log_path_entry, data->path, 
 							  _("Please enter a path.")))
 		{
-			g_free (path);
+			g_free (data->path);
+			data->path = NULL;
 			return;
 		}
 		
 		/* Don't allow the user to try to view revisions of directories */
 		git_cat_file_menu_set_sensitive (data->plugin, 
-										 !g_file_test (path, 
+										 !g_file_test (data->path, 
 													   G_FILE_TEST_IS_DIR));
 	}
 	else
@@ -378,13 +380,6 @@ on_log_view_button_clicked (GtkButton *button, LogData *data)
 	g_signal_connect (G_OBJECT (ref_command), "command-finished",
 					  G_CALLBACK (on_ref_command_finished),
 					  data);
-	
-	
-	/* Attach path to this command so it can be passed to the log command. */
-	g_object_set_data_full (G_OBJECT (ref_command), "path", 
-							g_strdup (path), g_free);
-	
-	g_free (path);
 	
 	anjuta_command_start (ANJUTA_COMMAND (ref_command));
 }
