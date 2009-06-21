@@ -81,7 +81,7 @@ static const struct
 	char *help;
 	ATPFlags flag;
 } variable_list[] = {
- {"project_root_uri", "project root URI", ATP_DEFAULT_VARIABLE},
+ {IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, "project root URI", ATP_DEFAULT_VARIABLE},
  {"project_root_directory", "project root path", ATP_DIRECTORY_VARIABLE },
  {"file_manager_current_uri", "selected file manager URI", ATP_DEFAULT_VARIABLE },
  {"file_manager_current_directory", "selected file manager directory", ATP_DIRECTORY_VARIABLE },

@@ -189,7 +189,7 @@ get_source_directories (AnjutaPlugin *plugin)
 	g_free (cwd);
 
 	/* Check if a project is already open */
-	anjuta_shell_get_value (plugin->shell, "project_root_uri", &value, NULL);
+	anjuta_shell_get_value (plugin->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
 	
 	/* Set source file search directories */
 	if (g_value_get_string (&value) != NULL)

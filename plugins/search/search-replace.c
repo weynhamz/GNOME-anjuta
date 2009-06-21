@@ -660,7 +660,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 		gchar *dir_uri = NULL;	
 		
 		anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
-							  "project_root_uri", G_TYPE_STRING,
+							  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
 							  &dir_uri, NULL);
 		if (dir_uri != NULL)
 		{
@@ -722,7 +722,7 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 	line = atoi(nline);
 	
 	anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
-	                  "project_root_uri", G_TYPE_STRING,
+	                  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
 	                  &project_uri, NULL);
 	
 	if (project_uri && strlen(project_uri))
@@ -1870,7 +1870,7 @@ void search_replace_find_usage(const gchar *symbol)
 	g_object_get(G_OBJECT(sr->docman), "shell", &shell, NULL);
 	
 	anjuta_shell_get (shell,
-					  "project_root_uri", G_TYPE_STRING,
+					  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
 					  &project_root_uri, NULL);
 	
 	sr->search.range.type =

@@ -18,6 +18,7 @@
  
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 #include "plugin.h"
 #include "patch-plugin.h"
@@ -55,7 +56,7 @@ static gchar* get_project_uri(PatchPlugin *plugin)
 	gchar* uri;
 	GError* err = NULL;
 	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell,
-													"project_root_uri",
+													IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 													&value,
 													&err);
 	if (err)

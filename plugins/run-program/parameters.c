@@ -664,7 +664,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(dlg->target), 0);
 	g_list_foreach (plugin->recent_target, on_add_uri_in_model, model);
 
-    anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri", &value, NULL);
+    anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
 	project_root_uri = G_VALUE_HOLDS_STRING (&value) ? g_value_get_string (&value) : NULL;
 	if (project_root_uri != NULL)
 	{

@@ -290,7 +290,7 @@ get_project_file_list(void)
 	gchar *project_root_uri = NULL;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
-					  "project_root_uri", G_TYPE_STRING,
+					  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
 					  &project_root_uri, NULL);
 	
 	if (project_root_uri)
@@ -794,7 +794,7 @@ create_search_entries (Search *s)
 			gchar *dir_uri = NULL;		
 					
 			anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
-							  "project_root_uri", G_TYPE_STRING,
+							  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
 							  &dir_uri, NULL);
 			// FIXME : Replace Standard UNIX IO functions by gio 
 			if (dir_uri)			
