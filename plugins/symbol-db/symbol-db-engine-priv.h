@@ -41,9 +41,10 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"1.0"
+#define SYMBOL_DB_VERSION	"228"
 
-#define TABLES_SQL	PACKAGE_DATA_DIR"/tables.sql"
+#define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
+#define TABLES_SQL_1_TO_228	PACKAGE_DATA_DIR"/tables-from-1-to-228.sql"
 
 #define CTAGS_MARKER	"#_#\n"
 

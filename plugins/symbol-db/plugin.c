@@ -1068,13 +1068,14 @@ on_system_scan_package_start (SymbolDBEngine *dbe, guint num_files,
 	sdb_plugin->files_count_system_done = 0;
 	sdb_plugin->files_count_system += num_files;	
 	
-	DEBUG_PRINT ("********************* START [%s] with n %d files ", package, num_files);
-	
+		
 	/* show the global bar */
 	gtk_widget_show (sdb_plugin->progress_bar_system);
 	if (sdb_plugin->current_scanned_package != NULL)
 		g_free (sdb_plugin->current_scanned_package);
 	sdb_plugin->current_scanned_package = g_strdup (package);
+	
+	DEBUG_PRINT ("********************* START [%s] with n %d files ", package, num_files);
 }
 
 static void
@@ -1993,8 +1994,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 	gint task_registered;
 	
 	task_registered = GPOINTER_TO_INT (g_tree_lookup (sdb_plugin->proc_id_tree, 
-													   GINT_TO_POINTER (process_id)		
-													  ));
+									 GINT_TO_POINTER (process_id)));
 	/* hey, we haven't find anything */
 	if (task_registered <= 0)
 	{
@@ -2079,7 +2079,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
  	 * then activate the display of local view
  	 */
 	enable_view_signals (sdb_plugin, TRUE, FALSE);
-	
+
 	if (sdb_plugin->is_offline_scanning == FALSE &&
 		 sdb_plugin->is_project_importing == FALSE &&
 		 sdb_plugin->is_project_updating == FALSE &&
@@ -2087,7 +2087,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 	{
 		sdb_plugin->files_count_project_done = 0;
 		sdb_plugin->files_count_project = 0;
-		
 		clear_project_progress_bar (dbe, sdb_plugin);		
 	}	
 }

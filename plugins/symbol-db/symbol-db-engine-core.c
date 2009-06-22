@@ -337,7 +337,6 @@ sdb_engine_execute_unknown_sql (SymbolDBEngine *dbe, const gchar *sql)
 	}
 }
 
-#if 0
 static GdaDataModel *
 sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 {
@@ -353,7 +352,7 @@ sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 	if (stmt == NULL)
 		return NULL;
 	
-    res = gda_connection_statement_execute_select (priv->db_connection, 
+	res = gda_connection_statement_execute_select (priv->db_connection, 
 												   (GdaStatement*)stmt, NULL, NULL);
 	if (!res) 
 		DEBUG_PRINT ("Could not execute query: %s\n", sql);
@@ -364,11 +363,10 @@ sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar *sql)
 		sdb_engine_execute_select_sql (dbe, remain);
 	}	
 	
-    g_object_unref (stmt);
+	g_object_unref (stmt);
 	
 	return res;
 }
-#endif
 
 static gint
 sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar *sql)
@@ -542,6 +540,7 @@ sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type quer
 		if ( (dyn_node = g_tree_lookup (node->sym_extra_info_gtree, 
 		    GINT_TO_POINTER (sym_info))) != NULL) 
 		{
+			g_warning ("************************* returning already present object");
 			/* strange enough but we found something. Return it. */
 			return dyn_node;
 		}
@@ -1320,8 +1319,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	g_free (tag_entry_file_cache);
 
 	if (force_sym_update == TRUE)
-	{
-	
+	{	
 		/* any scope_updated symbols to the releative queue */
 		g_tree_foreach (priv->file_symbols_cache, 
 					sdb_engine_udpated_scope_gtree_populate, dbe);
@@ -1373,6 +1371,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 	remaining_chars = len_chars = strlen (chars_ptr);
 	len_marker = strlen (CTAGS_MARKER);	
 
+	/*DEBUG_PRINT ("program output [new version]: ==>%s<==", chars);*/
 	if (len_chars >= len_marker) 
 	{
 		gchar *marker_ptr = NULL;
@@ -1391,7 +1390,6 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 				/* set the length of the string parsed */
 				tmp_str_length = marker_ptr - chars_ptr;
 	
-				/*DEBUG_PRINT ("program output [new version]: ==>%s<==", chars_ptr);*/
 				/* write to shm_file all the chars_ptr received without the marker ones */
 				fwrite (chars_ptr, sizeof(gchar), tmp_str_length, priv->shared_mem_file);
 
@@ -1640,7 +1638,8 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 	
 	priv = dbe->priv;	
 	
-	DEBUG_PRINT ("***** ctags ended *****");
+	DEBUG_PRINT ("***** ctags ended (%s) (%s) *****", priv->ctags_path, 
+	    priv->cnc_string);
 	
 	if (priv->shutting_down == TRUE)
 		return;
@@ -1656,7 +1655,8 @@ sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 		
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("%s", "creating anjuta_launcher");
+	DEBUG_PRINT ("Creating anjuta_launcher with %s for %s", priv->ctags_path, 
+					priv->cnc_string);
 
 	priv->ctags_launcher = anjuta_launcher_new ();
 
@@ -1664,12 +1664,12 @@ sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 	anjuta_launcher_set_encoding (priv->ctags_launcher, NULL);
 		
 	g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
-						  G_CALLBACK (on_scan_files_end_1), NULL);
+						  G_CALLBACK (on_scan_files_end_1), dbe);
 
 	exe_string = g_strdup_printf ("%s --sort=no --fields=afmiKlnsStz --c++-kinds=+p "
 								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
 								  priv->ctags_path);
-		
+	DEBUG_PRINT ("Launching %s", exe_string);
 	anjuta_launcher_execute (priv->ctags_launcher,
 								 exe_string, sdb_engine_ctags_output_callback_1, 
 								 dbe);
@@ -1724,7 +1724,7 @@ sdb_engine_scan_files_2 (GFile *gfile,
 		return;
 	}
 	
-	/*DEBUG_PRINT ("sent to stdin %s", local_path);*/
+	DEBUG_PRINT ("sent to stdin %s", local_path);
 	anjuta_launcher_send_stdin (priv->ctags_launcher, local_path);
 	anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
 	
@@ -2234,12 +2234,13 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_SYMBOL_NEW,
 	 	"INSERT INTO symbol (file_defined_id, name, file_position, "
-	 	"is_file_scope, signature, scope_definition_id, scope_id, type_id, "
+	 	"is_file_scope, signature, returntype, scope_definition_id, scope_id, type_id, "
 	 	"kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
 	 	"## /* name:'filedefid' type:gint */, ## /* name:'name' "
 	 	"type:gchararray */, ## /* name:'fileposition' type:gint */, ## /* "
 	 	"name:'isfilescope' type:gint */, ## /* name:'signature' "
-	 	"type:gchararray */,## /* name:'scopedefinitionid' type:gint */, ## "
+	 	"type:gchararray */, ## /* name:'returntype' type:gchararray */, "
+		"## /* name:'scopedefinitionid' type:gint */, ## "
 	 	"/* name:'scopeid' type:gint */,## /* name:'typeid' type:gint */, ## "
 	 	"/* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
 	 	"## /* name:'implementationkindid' type:gint */, ## /* "
@@ -2306,6 +2307,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	 	"UPDATE symbol SET is_file_scope = ## /* name:'isfilescope' type:gint "
 	 	"*/, file_position = ## /* name:'fileposition' type:gint */, "
 	 	"signature = ## /* name:'signature' type:gchararray */, "
+	    "returntype = ## /* name:'returntype' type:gchararray */, "
 	 	"scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, "
 	 	"scope_id = ## /* name:'scopeid' type:gint */, kind_id = "
 	 	"## /* name:'kindid' type:gint */, access_kind_id = ## /* name:"
@@ -2855,6 +2857,8 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 	query = "INSERT INTO version VALUES ("SYMBOL_DB_VERSION")";
 	sdb_engine_execute_non_select_sql (dbe, query);	
 	
+	/* no need to free query of course */
+	
 	return TRUE;
 }
 
@@ -2943,6 +2947,79 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	return ret;
 }
 
+static gint 
+sdb_engine_get_db_version (SymbolDBEngine *dbe)
+{
+	GdaDataModel *data_model;
+	const GValue *value_id;
+	gchar *query;
+	gint version_id;
+	gint col;
+	
+	/* set the current symbol db database version. This may help if new tables/fields
+	 * are added/removed in future versions.
+	 */
+	query = "SELECT sdb_version FROM version";
+	if ((data_model = sdb_engine_execute_select_sql (dbe, query)) == NULL)
+	{
+		return -1;
+	}
+
+	col = gda_data_model_get_column_index(data_model, "sdb_version");
+	value_id = gda_data_model_get_value_at (data_model, col, 0, NULL);
+	version_id = g_value_get_int (value_id);
+	
+	g_object_unref (data_model);
+	/* no need to free query of course */
+	
+	return version_id;
+}
+
+static void
+sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
+{
+	gint version;
+	
+	version = sdb_engine_get_db_version (dbe);
+	DEBUG_PRINT ("Checking db version...");
+	if (version <= 0) 
+	{
+		/* some error occurred */
+		g_warning ("No version of db detected. This can produce many errors.");
+		return;
+	}
+	
+	/* FIXME: in the future versions, if the changes grow up, add a better 
+	 * automatic upgrading system 
+	 */
+	if (version < 228)
+	{
+		gchar *contents;
+		gchar *query;
+		gsize sizez;
+
+		DEBUG_PRINT	 ("Upgrading from version %d to 228", version);
+		
+		/* read the contents of the file */
+		if (g_file_get_contents (TABLES_SQL_1_TO_228, &contents, &sizez, NULL) == FALSE)
+		{
+			g_warning ("Something went wrong while trying to read %s",
+					TABLES_SQL_1_TO_228);
+			return;
+		}
+
+		sdb_engine_execute_non_select_sql (dbe, contents);	
+		g_free (contents);		
+		
+		query = "UPDATE version SET sdb_version = "SYMBOL_DB_VERSION;
+		sdb_engine_execute_non_select_sql (dbe, query);
+	}	
+	else
+	{
+		DEBUG_PRINT ("No need to upgrade.");
+	}
+}
+
 gboolean
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 						  const gchar * prj_directory)
@@ -2951,7 +3028,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	gboolean needs_tables_creation = FALSE;
 	gchar *cnc_string;
 
-	DEBUG_PRINT ("SymbolDBEngine: opening project %s with base dir %s", 
+	DEBUG_PRINT ("Opening project %s with base dir %s", 
 				 prj_directory, base_db_path);
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -2979,15 +3056,20 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
 								ANJUTA_DB_FILE);
 
-	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to "
+	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);
 	sdb_engine_connect_to_db (dbe, cnc_string);
 	g_free (cnc_string);
 
 	if (needs_tables_creation == TRUE)
 	{
-		DEBUG_PRINT ("%s", "symbol_db_engine_open_db (): creating tables: it needs tables...");
+		DEBUG_PRINT ("Creating tables: it needs tables...");
 		sdb_engine_create_db_tables (dbe, TABLES_SQL);
+	}
+	else 
+	{
+		/* check the version of the db. If it's old we should upgrade it */
+		sdb_engine_check_db_version_and_upgrade (dbe);
 	}
 
 	sdb_engine_set_defaults_db_parameters (dbe);
@@ -4761,12 +4843,12 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted;
-	const gchar *tmp_str;
 	gint table_id, symbol_id;
 	const gchar* name;
 	gint file_position = 0;
 	gint is_file_scope = 0;
 	const gchar *signature;
+	const gchar *returntype;
 	gint scope_definition_id = 0;
 	gint scope_id = 0;
 	gint type_id = 0;
@@ -4795,15 +4877,9 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	file_position = tag_entry->address.lineNumber;
 	is_file_scope = tag_entry->fileScope;
 
-	if ((tmp_str = tagsField (tag_entry, "signature")) != NULL)
-	{
-		signature = tmp_str;
-	}
-	else
-	{
-		signature = NULL;
-	}
-
+	signature = tagsField (tag_entry, "signature");	
+	returntype = tagsField (tag_entry, "returntype");	
+	
 	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
 
 	/* scope_definition_id tells what scope this symbol defines
@@ -4995,6 +5071,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	}
 	
 	MP_SET_HOLDER_BATCH_STR(priv, param, signature, ret_bool, ret_value);
+
+	/* returntype parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "returntype")) == NULL)	
+	{
+		g_warning ("param returntype is NULL from pquery!");
+		return -1;
+	}
+	
+	MP_SET_HOLDER_BATCH_STR(priv, param, returntype, ret_bool, ret_value);	
 	
 	/* scopedefinitionid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	

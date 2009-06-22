@@ -333,7 +333,8 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	
 		query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
-				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    	"symbol.returntype AS returntype "
 				"%s FROM heritage "
 				"JOIN symbol ON heritage.symbol_id_base = symbol.symbol_id %s "
 				"WHERE heritage.symbol_id_derived = ## /* name:'childklassid' type:gint */", 
@@ -442,7 +443,8 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 		{		
 			query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
-				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    "symbol.returntype AS returntype "
 				"%s FROM heritage "
 				"JOIN symbol ON heritage.symbol_id_base = symbol.symbol_id %s "
 				"WHERE symbol_id_derived = ("
@@ -463,7 +465,8 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 			query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, "
-				"symbol.signature AS signature %s FROM heritage "
+				"symbol.signature AS signature, symbol.returntype AS returntype "
+			    "%s FROM heritage "
 				"JOIN symbol ON heritage.symbol_id_base = symbol.symbol_id %s "
 				"WHERE symbol_id_derived = ("
 					"SELECT symbol_id FROM symbol "
@@ -631,7 +634,8 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, "
-				"symbol.signature AS signature, sym_kind.kind_name AS kind_name %s FROM symbol "
+				"symbol.signature AS signature, symbol.returntype AS returntype, "
+			    "sym_kind.kind_name AS kind_name %s FROM symbol "
 					"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
 							"%s %s %s", info_data->str, join_data->str,
@@ -703,6 +707,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    	"symbol.returntype AS returntype, "
 					"sym_kind.kind_name AS kind_name %s FROM symbol "
 					"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
@@ -941,6 +946,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 			"symbol.name AS name, "
 			"symbol.file_position AS file_position, "
 			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype, "
 			"sym_kind.kind_name AS kind_name %s "
 			"FROM symbol a, symbol symbol "
 			"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
@@ -1123,7 +1129,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	 	 */
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol a, symbol symbol "
 			"%s WHERE a.symbol_id = ## /* name:'scopeparentsymid' type:gint */ "
 			"AND symbol.scope_id = a.scope_definition_id "
@@ -1278,7 +1285,8 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol "
 			"%s WHERE scope_id = ## /* name:'defid' type:gint */", 
 									 info_data->str, join_data->str);
@@ -1378,7 +1386,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol "
 				"JOIN file ON file_defined_id = file_id "
 				"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */ "
@@ -1497,7 +1506,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	 	 */
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol "
 				"JOIN file ON symbol.file_defined_id = file.file_id "
 			"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */", 
@@ -1596,7 +1606,8 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol "
 			"%s WHERE symbol.symbol_id = ## /* name:'symid' type:gint */", 
 									info_data->str, join_data->str);
@@ -1701,7 +1712,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
 			"%s FROM symbol %s "
 			"WHERE symbol.name %s", info_data->str, join_data->str, match_str);
 		
@@ -2113,6 +2125,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 					"symbol.name AS name, symbol.file_position AS file_position, "
 					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    	"symbol.returntype AS returntype, "
 					"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.name %s AND symbol.file_defined_id IN "
@@ -2190,6 +2203,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
 				"symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    "symbol.returntype AS returntype, "
 				"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "					
 					"WHERE symbol.name %s AND symbol.file_defined_id IN "
@@ -2491,6 +2505,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 					"symbol.name AS name, symbol.file_position AS file_position, "
 					"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    	"symbol.returntype AS returntype, "
 					"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.name %s %s %s %s %s", 
@@ -2588,6 +2603,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, symbol.name AS name, "
 				"symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+			    "symbol.returntype AS returntype, "
 				"sym_kind.kind_name AS kind_name "
 					"%s FROM symbol %s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.name %s %s %s %s GROUP BY symbol.name %s %s", 

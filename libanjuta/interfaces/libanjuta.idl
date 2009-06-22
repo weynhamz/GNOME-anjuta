@@ -4986,13 +4986,26 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
  	 *
-	 * If symbol is has a kind of "function" then this will return a string with the args of the
+	 * If symbol has a kind "function" then this will return a string with the args of the
 	 * function itself.
 	 *
 	 * Returns: args as const string or NULL
 	 */	
 	const gchar *get_args ();
 
+	/**
+	 *ianjuta_symbol_get_returntype:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+ 	 *
+	 * If symbol has a kind "function" then this will return a string with the 
+	 * return type of the function itself.
+	 *
+	 * Returns: returntype as const string or NULL
+	 */	
+	const gchar *get_returntype ();	
+	
 	/**
 	 * ianjuta_symbol_get_sym_type:
 	 * @obj: Self

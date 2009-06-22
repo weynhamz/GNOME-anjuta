@@ -758,6 +758,7 @@ plugins/gbf-mkfile/GBF/Makefile
 plugins/symbol-db/test/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
+plugins/symbol-db/anjuta-tags/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile

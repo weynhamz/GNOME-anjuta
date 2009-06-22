@@ -558,6 +558,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 
 	if (special_abort_scan == FALSE)
 	{
+		DEBUG_PRINT ("special_abort_scan");
 		g_ptr_array_foreach (files_to_scan_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (files_to_scan_array, TRUE);
 			
@@ -581,6 +582,7 @@ on_engine_package_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer user_
 	g_signal_handlers_disconnect_by_func (dbe, on_engine_package_scan_end, 
 										  user_data);
 
+	DEBUG_PRINT ("emitting scan_package_end");
 	/* notify listeners that we ended the scan of the package */
 	g_signal_emit (sdbs, signals[SCAN_PACKAGE_END], 0, es_data->package_name); 
 	
@@ -821,9 +823,10 @@ symbol_db_system_parse_aborted_package (SymbolDBSystem *sdbs,
 	}
 	else
 	{
+		DEBUG_PRINT ("aborted package");
 		/* push the tail to signal a 'working engine' */
 		g_queue_push_tail (priv->engine_queue, es_data);
-		
+	
 		sdb_system_do_engine_scan (sdbs, es_data);
 	}
 }

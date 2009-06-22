@@ -30,6 +30,16 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-view.h"
 
+enum {	
+	FIELD_ID_POS = 0,
+	FIELD_NAME_POS,
+	FIELD_FILE_POS,
+	FIELD_FILE_SCOPE_POS,
+	FIELD_SIGNATURE_POS,
+	FIELD_RETURNTYPE_POS,
+	FIELD_POS_MAX
+};
+
 struct _SymbolDBEngineIteratorNodePriv
 {
 	GdaDataModelIter *data_iter;	
@@ -104,7 +114,7 @@ sdb_engine_iterator_node_class_init (SymbolDBEngineIteratorNodeClass *klass)
 }
 
 /** 
- * Symbol name must be always on column 0
+ * Symbol id must be always on column 0
  */
 gint
 symbol_db_engine_iterator_node_get_symbol_id (SymbolDBEngineIteratorNode *dbin)
@@ -114,8 +124,8 @@ symbol_db_engine_iterator_node_get_symbol_id (SymbolDBEngineIteratorNode *dbin)
 	
 	g_return_val_if_fail (dbin != NULL, -1);
 	priv = dbin->priv;
-	
-	value = gda_data_model_iter_get_value_at (priv->data_iter, 0);
+			
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_ID_POS);
 	
 	return value != NULL && G_VALUE_HOLDS_INT (value)
 		? g_value_get_int (value) : -1;
@@ -133,7 +143,7 @@ symbol_db_engine_iterator_node_get_symbol_name (SymbolDBEngineIteratorNode *dbin
 	g_return_val_if_fail (dbin != NULL, NULL);
 	priv = dbin->priv;
 
-	value = gda_data_model_iter_get_value_at (priv->data_iter, 1);
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_NAME_POS);
 
 	return value != NULL && G_VALUE_HOLDS_STRING (value)
 		? g_value_get_string (value) : NULL;
@@ -151,7 +161,7 @@ symbol_db_engine_iterator_node_get_symbol_file_pos (SymbolDBEngineIteratorNode *
 	g_return_val_if_fail (dbin != NULL, -1);
 	priv = dbin->priv;
 	
-	value = gda_data_model_iter_get_value_at (priv->data_iter, 2);
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_FILE_POS);
 	
 	return value != NULL && G_VALUE_HOLDS_INT (value)
 		? g_value_get_int (value) : -1;
@@ -169,7 +179,7 @@ symbol_db_engine_iterator_node_get_symbol_is_file_scope (SymbolDBEngineIteratorN
 	g_return_val_if_fail (dbin != NULL, FALSE);
 	priv = dbin->priv;
 	
-	value = gda_data_model_iter_get_value_at (priv->data_iter, 3);
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_FILE_SCOPE_POS);
 	
 	if (value != NULL && G_VALUE_HOLDS_INT (value))
 		return g_value_get_int (value) == 1 ? TRUE : FALSE;
@@ -189,7 +199,25 @@ symbol_db_engine_iterator_node_get_symbol_signature (SymbolDBEngineIteratorNode 
 	g_return_val_if_fail (dbin != NULL, NULL);
 	priv = dbin->priv;
 	
-	value = gda_data_model_iter_get_value_at (priv->data_iter, 4);
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_SIGNATURE_POS);
+	
+	return value != NULL && G_VALUE_HOLDS_STRING (value)
+		? g_value_get_string (value) : NULL;
+}
+
+/**
+ * Returntype must be always on column 5
+ */
+const gchar* 
+symbol_db_engine_iterator_node_get_symbol_returntype (SymbolDBEngineIteratorNode *dbin)
+{
+	SymbolDBEngineIteratorNodePriv *priv;
+	const GValue* value;
+	
+	g_return_val_if_fail (dbin != NULL, NULL);
+	priv = dbin->priv;
+	
+	value = gda_data_model_iter_get_value_at (priv->data_iter, FIELD_RETURNTYPE_POS);
 	
 	return value != NULL && G_VALUE_HOLDS_STRING (value)
 		? g_value_get_string (value) : NULL;
@@ -344,6 +372,16 @@ isymbol_get_args (IAnjutaSymbol *isymbol, GError **err)
 }
 
 static const gchar*
+isymbol_get_returntype (IAnjutaSymbol *isymbol, GError **err)
+{
+	SymbolDBEngineIteratorNode *s;
+
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR (isymbol),  NULL);
+	s = SYMBOL_DB_ENGINE_ITERATOR_NODE (isymbol);
+	return symbol_db_engine_iterator_node_get_symbol_returntype (s);
+}
+
+static const gchar*
 isymbol_get_extra_info_string (IAnjutaSymbol *isymbol, IAnjutaSymbolField sym_info,
 							   GError **err)
 {
@@ -454,6 +492,7 @@ isymbol_iface_init (IAnjutaSymbolIface *iface)
 	iface->get_sym_type = isymbol_get_sym_type;
 	iface->is_local = isymbol_is_local;
 	iface->get_args = isymbol_get_args;
+	iface->get_returntype = isymbol_get_returntype;
 	iface->get_extra_info_string = isymbol_get_extra_info_string;
 	iface->get_icon = isymbol_get_icon;
 }

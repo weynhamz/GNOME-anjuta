@@ -73,6 +73,9 @@ symbol_db_engine_iterator_node_get_symbol_is_file_scope (SymbolDBEngineIteratorN
 const gchar* 
 symbol_db_engine_iterator_node_get_symbol_signature (SymbolDBEngineIteratorNode *dbin);
 
+const gchar* 
+symbol_db_engine_iterator_node_get_symbol_returntype (SymbolDBEngineIteratorNode *dbin);
+
 /* just one SYMINFO_* per time. It is NOT possible to pass something like
  * SYMINFO_1 | SYMINFO_2 | ...
  */
