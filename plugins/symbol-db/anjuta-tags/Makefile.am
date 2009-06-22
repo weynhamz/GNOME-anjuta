@@ -10,7 +10,7 @@ AM_CPPFLAGS = \
 AM_CFLAGS =\
 	 -Wall
 
-bin_PROGRAMS = anjuta_tags
+bin_PROGRAMS = anjuta-tags
 
 anjuta_tags_SOURCES = \
 	main.c        \

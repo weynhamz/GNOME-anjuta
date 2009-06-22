@@ -1666,7 +1666,7 @@ sdb_engine_ctags_launcher_create (SymbolDBEngine * dbe)
 	g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
 						  G_CALLBACK (on_scan_files_end_1), dbe);
 
-	exe_string = g_strdup_printf ("%s --sort=no --fields=afmiKlnsStz --c++-kinds=+p "
+	exe_string = g_strdup_printf ("%s --sort=no --fields=afmiKlnsStTz --c++-kinds=+p "
 								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
 								  priv->ctags_path);
 	DEBUG_PRINT ("Launching %s", exe_string);

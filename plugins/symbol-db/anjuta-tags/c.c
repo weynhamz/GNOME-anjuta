@@ -2185,7 +2185,7 @@ static void parseReturnType (statementInfo *const st)
 	/* put and end marker */
 	vStringTerminate (ReturnType);
 
-	//*/
+	/*/
 	printf ("~~~~~ statement ---->\n");
 	ps (st);
 	printf ("FOUND ReturnType: %s\n", vStringValue (ReturnType));	
