@@ -162,15 +162,16 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	if (self->recent_dirs == NULL)
 	{
 		/* Use project directory by default */
-		gchar *project_root_uri;
-		
-		anjuta_shell_get (ANJUTA_PLUGIN(self)->shell,
+		GValue value = {0,};
+	
+		anjuta_shell_get_value (ANJUTA_PLUGIN(self)->shell,
 		    IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-		    G_TYPE_STRING,
-		    &project_root_uri,
+		    &value,
 		    NULL);
-
-		self->recent_dirs = g_list_append (NULL, project_root_uri);
+		if (G_VALUE_HOLDS_STRING (&value))
+		{
+			self->recent_dirs = g_list_append (NULL, g_value_dup_string (&value));
+		}
 	}
 
 	g_strfreev (self->environment_vars);
