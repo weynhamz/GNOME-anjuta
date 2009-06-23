@@ -1119,9 +1119,6 @@ git_log_setup_refresh_monitor (Git *plugin)
 
 	git_ref_file = g_file_new_for_path (git_ref_path);
 	git_ref_monitor = g_file_monitor_directory (git_ref_file, 0, NULL, NULL);
-
-	g_file_monitor_set_rate_limit (git_ref_monitor, 1000);
-
 	
 
 	g_signal_connect (G_OBJECT (git_ref_monitor), "changed",
