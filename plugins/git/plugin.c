@@ -68,7 +68,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_YES,                            /* Stock icon, if any */
 		N_("_Commit..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Commit changes to the local repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_commit)    /* action callback */
 	},
 	{
@@ -76,7 +76,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_CONNECT,                            /* Stock icon, if any */
 		N_("_Fetch"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Update remote branches"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_fetch)    /* action callback */
 	},
 	{
@@ -84,7 +84,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Rebase"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Merge your changes with an upstream remote branch"),                      /* Tooltip */
 		NULL    /* action callback */
 	},
 	{
@@ -92,7 +92,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Start..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Start a rebase"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_start)    /* action callback */
 	},
 	{
@@ -100,7 +100,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Continue"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Continue a rebase that stopped because of conflicts"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_continue)    /* action callback */
 	},
 	{
@@ -108,7 +108,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Skip"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Skip the current conflicted commmit and continue"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
 	},
 	{
@@ -116,7 +116,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Abort"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Abort the rebase and put the repository in its original state"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
 	},
 		{
@@ -124,7 +124,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
 		N_("_Push..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Push changes to a remote repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_push)    /* action callback */
 	},
 	{
@@ -132,7 +132,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
 		N_("_Pull..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Update the working copy"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_pull)    /* action callback */
 	},
 	{
@@ -140,7 +140,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
 		N_("_Diff uncommitted changes"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Show uncommitted changes"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_diff)    /* action callback */
 	},
 	{
@@ -148,7 +148,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
 		N_("_Add..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Add files to the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_add)    /* action callback */
 	},
 	{
@@ -156,7 +156,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
 		N_("_Remove..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Remove files from the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_remove)    /* action callback */
 	},
 	{
@@ -164,7 +164,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_DIALOG_ERROR,                            /* Stock icon, if any */
 		N_("_Ignore..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Ignore files"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_ignore)    /* action callback */
 	},
 	{
@@ -172,7 +172,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
 		N_("_Check out files..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Revert uncommitted changes to files"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_checkout_files)    /* action callback */
 	},
 	{
@@ -180,7 +180,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_CANCEL,                            /* Stock icon, if any */
 		N_("_Unstage files..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Remove files from the commit index"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_unstage)    /* action callback */
 	},
 	{
@@ -188,7 +188,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
 		N_("_Resolve conflicts..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Mark conflicted files as resolved"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_resolve)    /* action callback */
 	},
 	{
@@ -204,7 +204,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_DND_MULTIPLE,                            /* Stock icon, if any */
 		N_("Create patch series..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Generate patch files for submission upstream"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_patch_series)    /* action callback */
 	},
 	{
@@ -220,7 +220,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Apply..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Start applying a patch series"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_mailbox_apply)    /* action callback */
 	},
 	{
@@ -228,7 +228,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Continue with resolved conflicts"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Continue applying a series after resolving conflicts"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_mailbox_resolved)    /* action callback */
 	},
 	{
@@ -236,7 +236,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Skip current patch"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Skip the current patch in the series and continue"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_mailbox_skip)    /* action callback */
 	},
 	{
@@ -244,7 +244,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Abort"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Stop applying the series and return the repository to its original state"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_mailbox_abort)    /* action callback */
 	},
 	{
@@ -260,7 +260,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Create branch..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Create a branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_branch)    /* action callback */
 	},
 	{
@@ -268,7 +268,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_DELETE,                            /* Stock icon, if any */
 		N_("_Delete branch..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Delete branches"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_delete_branch)    /* action callback */
 	},
 	{
@@ -276,7 +276,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_JUMP_TO,                            /* Stock icon, if any */
 		N_("_Switch to another branch..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Switch to another branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_switch)    /* action callback */
 	},
 	{
@@ -284,7 +284,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_CONVERT,                            /* Stock icon, if any */
 		N_("_Merge..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Merge changes from another branch into the current one"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_merge)    /* action callback */
 	},
 	{
@@ -292,7 +292,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Cherry pick..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Selectively merge individual changes from other branches into the currrent one"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_cherry_pick)    /* action callback */
 	},
 	{
@@ -308,7 +308,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
 		N_("_Add..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Add a remote branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_add_remote)    /* action callback */
 	},
 	{
@@ -316,7 +316,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_DELETE,                            /* Stock icon, if any */
 		N_("_Delete..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Delete a remote branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_delete_remote)    /* action callback */
 	},
 	{
@@ -324,7 +324,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Create tag..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Create a tag"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_tag)    /* action callback */
 	},
 	{
@@ -332,7 +332,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Reset tree..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Reset repository head to any past state"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_reset)    /* action callback */
 	},
 	{
@@ -340,7 +340,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
 		N_("_Revert commit..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Revert a commit"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_revert)    /* action callback */
 	},
 	{
@@ -356,7 +356,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_MEDIA_PLAY,                            /* Stock icon, if any */
 		N_("_Start..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Start a bisect operation"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_start)    /* action callback */
 	},
 	{
@@ -364,7 +364,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Reset"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Stop the bisect and bring the tree back to normal"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_reset)    /* action callback */
 	},
 	{
@@ -372,7 +372,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_YES,                            /* Stock icon, if any */
 		N_("_Good"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Mark the current head revision as good"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_good)    /* action callback */
 	},
 	{
@@ -380,7 +380,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_NO,                            /* Stock icon, if any */
 		N_("_Bad"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Mark the current head revision as bad"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_bad)    /* action callback */
 	},
 	{
@@ -388,7 +388,7 @@ static GtkActionEntry actions_git[] =
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
 		N_("_View log..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("View change history"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_log)    /* action callback */
 	}
 };
@@ -400,7 +400,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
 		N_("_Show commit diff"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Show changes introduced by this commit"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_commit_diff)    /* action callback */
 	},
 	{
@@ -408,7 +408,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_FIND,                            /* Stock icon, if any */
 		N_("_View selected revision"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("View a copy of this file at this revision"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_cat_file)    /* action callback */
 	},
 	{
@@ -416,7 +416,7 @@ static GtkActionEntry actions_log[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Create branch..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Create a branch with the selected revision as its head"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_create_branch)    /* action callback */
 	},
 	{
@@ -424,7 +424,7 @@ static GtkActionEntry actions_log[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Create tag..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Create a tag at this revision"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_create_tag)    /* action callback */
 	},
 	{
@@ -432,7 +432,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Reset tree..."),               /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Reset repository head to this revision"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_reset)    /* action callback */
 	},
 	{
@@ -440,7 +440,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
 		N_("_Revert commit..."),               /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Revert this commit"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_revert)    /* action callback */
 	},
 	{
@@ -448,7 +448,7 @@ static GtkActionEntry actions_log[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Cherry pick..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Merge this commit into the current branch"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_cherry_pick)    /* action callback */
 	},
 	{
@@ -464,7 +464,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_YES,                            /* Stock icon, if any */
 		N_("_Set good revision"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Mark this revision as good"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_bisect_good)    /* action callback */
 	},
 	{
@@ -472,7 +472,7 @@ static GtkActionEntry actions_log[] =
 		GTK_STOCK_NO,                            /* Stock icon, if any */
 		N_("_Set bad revision"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Mark this revision as bad"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_bisect_bad)    /* action callback */
 	}
 };
@@ -492,7 +492,7 @@ static GtkActionEntry actions_fm[] =
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
 		N_("_View log..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("View changes to this file or folder"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_log)    /* action callback */
 	},
 	{
@@ -500,7 +500,7 @@ static GtkActionEntry actions_fm[] =
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
 		N_("_Add..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Add this file or folder to the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_add)    /* action callback */
 	},
 	{
@@ -508,7 +508,7 @@ static GtkActionEntry actions_fm[] =
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
 		N_("_Remove..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
+		N_("Reove this file or folder from the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_remove)    /* action callback */
 	}
 };
