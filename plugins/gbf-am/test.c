@@ -5,7 +5,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <gtk/gtk.h>
-#include <libgnome/gnome-init.h>
 #include "gbf-am-project.h"
 
 static void
@@ -103,9 +102,7 @@ main (int argc, char *argv[])
 	GError *error = NULL;
 	
 	/* Bootstrap */
-	gnome_program_init ("libgbf-am-test", VERSION, LIBGNOME_MODULE, 
-			    argc, argv, NULL,
-			    NULL);  /* Avoid GCC sentinel warning */
+	g_type_init ();
 
 	if (argc < 2) {
 		g_print ("! You need to specify a project path\n");

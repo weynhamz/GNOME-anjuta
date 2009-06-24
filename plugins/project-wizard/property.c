@@ -33,7 +33,6 @@
 #include <gdk/gdk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <gnome.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -318,12 +317,73 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
   	{
-    	char *filename;
+    	gchar *filename;
 
     	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 		gtk_entry_set_text (GTK_ENTRY (prop->widget), filename);
     	g_free (filename);
   	}
+	gtk_widget_destroy (dialog);
+}
+
+static void
+cb_preview_update (GtkFileChooser *fc,
+		   GtkImage *preview)
+{
+	char *filename;
+	GdkPixbuf *pixbuf;
+
+	filename = gtk_file_chooser_get_preview_filename (fc);
+	if (filename) {
+		pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
+
+		gtk_file_chooser_set_preview_widget_active (fc, pixbuf != NULL);
+		
+		if (pixbuf) {
+			gtk_image_set_from_pixbuf (preview, pixbuf);
+			g_object_unref (pixbuf);
+		}
+		
+		g_free (filename);
+	}
+}
+
+static void
+cb_icon_button_clicked (GtkButton *button, NPWProperty* prop)
+{
+	GtkWidget *dialog;
+	GtkFileFilter *filter;
+	GtkWidget *preview;
+	int res;
+
+	dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
+											GTK_WINDOW (gtk_widget_get_ancestor (prop->widget, GTK_TYPE_WINDOW)),
+					      					GTK_FILE_CHOOSER_ACTION_OPEN, 
+					      					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					      					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					      					NULL);
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
+	    									PACKAGE_PIXMAPS_DIR);
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_add_pixbuf_formats (filter);
+	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
+
+	preview = gtk_image_new ();
+	gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (dialog),
+	    								    preview);
+	g_signal_connect (dialog, "update-preview",
+			  								G_CALLBACK (cb_preview_update), preview);
+
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+
+	if (res == GTK_RESPONSE_ACCEPT) {
+    	gchar *filename;
+
+    	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		gtk_image_set_from_file (GTK_IMAGE (gtk_button_get_image (GTK_BUTTON (prop->widget))), filename);
+		gtk_button_set_label (GTK_BUTTON (prop->widget), filename == NULL ? _("Choose Icon") : NULL);
+	}
+
 	gtk_widget_destroy (dialog);
 }
 
@@ -400,8 +460,22 @@ npw_property_create_widget (NPWProperty* prop)
 		}
 		break;
 	case NPW_ICON_PROPERTY:
-		entry = gnome_icon_entry_new("icon_choice", _("Icon choice"));
-		if (value) gnome_icon_entry_set_filename (GNOME_ICON_ENTRY (entry), value);
+		{
+			GtkWidget *image;
+
+			image = gtk_image_new ();
+			entry = gtk_button_new ();
+			if (value)
+			{
+				gtk_image_set_from_file (GTK_IMAGE (image), value);
+			}
+			else
+			{
+				gtk_button_set_label (GTK_BUTTON(entry), _("Choose Icon"));
+			}
+			gtk_button_set_image (GTK_BUTTON (entry), image);
+			g_signal_connect (entry, "clicked", G_CALLBACK (cb_icon_button_clicked), prop);
+		}
 		break;
 	case NPW_LIST_PROPERTY:
 	{
@@ -519,7 +593,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		}
 		break;
 	case NPW_ICON_PROPERTY:
-		alloc_value = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (prop->widget));
+		g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (prop->widget))), "file", &alloc_value, NULL);	
 		value = alloc_value;
 		break;
 	case NPW_LIST_PROPERTY:

@@ -22,7 +22,6 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GDL_CFLAGS) \
-	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"libanjuta-document-manager\"
@@ -31,7 +30,6 @@ libanjuta_document_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_document_manager_la_LIBADD = \
 	$(GDL_LIBS) \
-	$(GNOME_PRINT_UI_LIBS) \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 

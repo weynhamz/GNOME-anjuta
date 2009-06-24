@@ -4,7 +4,8 @@ SUBDIRS = interfaces
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(GNOME_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(GCONF_CFLAGS) \
 	$(GLADE_DEPRECATED_CFLAGS) \
 	$(LIBXML_CFLAGS) \
 	-I$(top_srcdir) \
@@ -19,7 +20,8 @@ lib_LTLIBRARIES = libanjuta.la
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
-	$(GNOME_LIBS) \
+	$(GTK_LIBS) \
+	$(GCONF_LIBS) \
 	$(GLADE_DEPRECATED_LIBS) \
 	$(GLIB_LIBS)
 

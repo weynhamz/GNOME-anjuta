@@ -52,6 +52,8 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
+#include <gconf/gconf-client.h>
+
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -859,14 +861,14 @@ anjuta_util_create_dir (const gchar* path)
  * Returns: A newly allocated string that is the path to the shell.
  */
 /* copied from deprecated gnome_util_user_shell in libgnome */
-char *
+gchar *
 anjuta_util_user_shell (void)
 {
 #ifndef G_OS_WIN32
 	struct passwd *pw;
-	int i;
-	const char *shell;
-	const char shells [][14] = {
+	gint i;
+	const gchar *shell;
+	const gchar shells [][14] = {
 		/* Note that on some systems shells can also
 		 * be installed in /usr/bin */
 		"/bin/bash", "/usr/bin/bash",
@@ -874,7 +876,7 @@ anjuta_util_user_shell (void)
 		"/bin/tcsh", "/usr/bin/tcsh",
 		"/bin/ksh", "/usr/bin/ksh",
 		"/bin/csh", "/bin/sh"
-											};
+	};
 
 	if (geteuid () == getuid () &&
 	    getegid () == getgid ()) {
@@ -908,7 +910,7 @@ anjuta_util_user_shell (void)
  	 * and System32 directories, so it should always find either cmd.exe
  	 * or command.com.
  	 */
-	char *retval = g_find_program_in_path ("cmd.exe");
+	gchar *retval = g_find_program_in_path ("cmd.exe");
 
 	if (retval == NULL)
 		retval = g_find_program_in_path ("command.com");
@@ -916,6 +918,80 @@ anjuta_util_user_shell (void)
 	g_assert (retval != NULL);
 
 	return retval;
+#endif
+}
+
+/**
+ * anjuta_util_user_terminal:
+ *
+ * Retrieves the user's preferred terminal.
+ *
+ * Returns: A newly allocated strings list. The first argument is the terminal 
+ * program name. The following are the arguments needed to execute
+ * a command. The list has to be freed with g_strfreev
+ */
+/* copied from deprecated gnome_execute_terminal in libgnome */
+gchar **
+anjuta_util_user_terminal (void)
+{
+#ifndef G_OS_WIN32
+	GConfClient *client;
+	gchar *terminal = NULL;
+	gchar **argv = NULL;
+	static const gchar *terms[] = {
+		"xdg-terminal",
+		"gnome-terminal",
+		"nxterm",
+		"color-xterm",
+		"rxvt",
+		"xterm",
+		"dtterm",
+		NULL
+	};
+	const gchar **term;
+
+	client = gconf_client_get_default ();
+	terminal = gconf_client_get_string (client, "/desktop/gnome/applications/terminal/exec", NULL);
+	g_object_unref (client);
+	
+	if (terminal)
+	{
+		gchar *command_line;
+		gchar *exec_flag;
+
+		exec_flag = gconf_client_get_string (client, "/desktop/gnome/applications/terminal/exec_arg", NULL);
+		command_line = g_strconcat (terminal, " ", exec_flag, NULL);
+
+		g_shell_parse_argv (command_line, NULL, &argv, NULL);
+		g_free (terminal);
+		g_free (exec_flag);
+
+		return argv;
+	}
+
+
+	/* Search for common ones */
+	for (term = terms; *term != NULL; term++)
+	{
+		terminal = g_find_program_in_path (*term);
+		if (terminal != NULL) break;
+	}
+
+	/* Try xterm */
+	g_warning (_("Cannot find a terminal, using "
+			"xterm, even if it may not work"));
+	terminal = g_strdup ("xterm");
+
+	argv = g_new0 (char *, 3);
+	argv[0] = terminal;
+	/* Note that gnome-terminal takes -x and
+	 * as -e in gnome-terminal is broken we use that. */
+	argv[1] = g_strdup (term == &terms[2] ? "-x" : "-e");
+
+	return argv;
+#else
+	g_warning ("anjuta_util_user_terminal: Not implemented");
+	return NULL;
 #endif
 }
 
@@ -944,6 +1020,40 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 	if (pid < 0)
 		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
 	g_free (shell);
+
+	// Anjuta will take care of child exit automatically.
+	return pid;
+}
+
+pid_t
+anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command)
+{
+	pid_t pid;
+	gchar *shell;
+	gchar **term_argv;
+	gint err;
+	
+	g_return_val_if_fail (command != NULL, -1);
+	
+	shell = anjuta_util_user_shell ();
+	term_argv = anjuta_util_user_terminal ();
+	pid = fork();
+	if (pid == 0)
+	{
+		if(dir)
+		{
+			anjuta_util_create_dir (dir);
+			err = chdir (dir);
+		}
+		execlp (term_argv[0], term_argv[0], term_argv[1], shell, "-c", command, NULL);
+		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
+		_exit(1);
+	}
+	if (pid < 0)
+		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
+	g_free (shell);
+	g_strfreev (term_argv);
+
 	// Anjuta will take care of child exit automatically.
 	return pid;
 }

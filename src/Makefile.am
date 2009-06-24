@@ -41,7 +41,6 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	$(GNOME_LIBS) \
 	$(GCONF_LIBS) \
 	$(GDL_LIBS) \
 	$(GLADE_LIBS)\

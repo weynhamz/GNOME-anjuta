@@ -24,7 +24,6 @@ search_ui_DATA = anjuta-search.xml
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(GNOME_PRINT_UI_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)/tagmanager/include \
 	-DG_LOG_DOMAIN=\"libanjuta-search\"
@@ -32,8 +31,6 @@ AM_CPPFLAGS = \
 libanjuta_search_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_search_la_LIBADD = \
-	$(GNOME_PRINT_UI_LIBS) \
-	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_search_la_SOURCES= \

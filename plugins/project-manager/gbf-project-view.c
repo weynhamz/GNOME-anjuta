@@ -29,7 +29,6 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
-#include <libgnome/gnome-macros.h>
 #include <gio/gio.h>
 #include <string.h>
 
@@ -49,7 +48,7 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 static void gbf_project_view_class_init    (GbfProjectViewClass *klass);
-static void gbf_project_view_instance_init (GbfProjectView      *tree);
+static void gbf_project_view_init          (GbfProjectView      *tree);
 static void destroy                        (GtkObject           *object);
 
 static void set_pixbuf                     (GtkTreeViewColumn   *tree_column,
@@ -64,9 +63,7 @@ static void set_text                       (GtkTreeViewColumn   *tree_column,
 					    gpointer             data);
 
 
-GNOME_CLASS_BOILERPLATE(GbfProjectView, gbf_project_view,
-			GtkTreeView, GTK_TYPE_TREE_VIEW);
-
+G_DEFINE_TYPE(GbfProjectView, gbf_project_view, GTK_TYPE_TREE_VIEW);
 
 static void
 row_activated (GtkTreeView       *tree_view,
@@ -120,8 +117,8 @@ destroy (GtkObject *object)
 		tree->priv = NULL;
 	}
 	
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	if (GTK_OBJECT_CLASS (gbf_project_view_parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (gbf_project_view_parent_class)->destroy) (object);
 }
 
 static GdkPixbuf*
@@ -245,9 +242,9 @@ expose_event (GtkWidget *widget, GdkEventExpose *ev)
 	GtkTreeModel *model;
 	GtkTreeView *tree_view;
 	gint event_handled = FALSE;
-	
-	event_handled = GNOME_CALL_PARENT_WITH_DEFAULT (
-		GTK_WIDGET_CLASS, expose_event, (widget, ev), event_handled);
+
+	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->expose_event != NULL)
+		GTK_WIDGET_CLASS (gbf_project_view_parent_class)->expose_event (widget, ev);
 
 	tree_view = GTK_TREE_VIEW (widget);
 	model = gtk_tree_view_get_model (tree_view);
@@ -291,8 +288,6 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 	widget_class = GTK_WIDGET_CLASS (klass);
 	tree_view_class = GTK_TREE_VIEW_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
-
 	object_class->destroy = destroy;
 	widget_class->expose_event = expose_event;
 	tree_view_class->row_activated = row_activated;
@@ -328,7 +323,7 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 }
 
 static void 
-gbf_project_view_instance_init (GbfProjectView *tree)
+gbf_project_view_init (GbfProjectView *tree)
 {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;

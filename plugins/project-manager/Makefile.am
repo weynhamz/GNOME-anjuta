@@ -51,7 +51,6 @@ libanjuta_project_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_project_manager_la_LIBADD = \
-	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \

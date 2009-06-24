@@ -21,10 +21,9 @@
 #include <config.h>
 #endif
 
-#include <libgnome/gnome-macros.h>
 #include "gbf-project.h"
 
-GNOME_CLASS_BOILERPLATE (GbfProject, gbf_project, GObject, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GbfProject, gbf_project, G_TYPE_OBJECT);
 
 void 
 gbf_project_load (GbfProject  *project,
@@ -403,8 +402,6 @@ gbf_project_get_types (GbfProject *project)
 static void
 gbf_project_class_init (GbfProjectClass *klass) 
 {
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_signal_new ("project-updated",
 		      G_TYPE_FROM_CLASS (klass),
 		      G_SIGNAL_RUN_LAST,
@@ -415,7 +412,7 @@ gbf_project_class_init (GbfProjectClass *klass)
 }
 
 static void
-gbf_project_instance_init (GbfProject *project)
+gbf_project_init (GbfProject *project)
 {
 }
 

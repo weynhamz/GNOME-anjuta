@@ -29,7 +29,6 @@ AM_CPPFLAGS= \
 libanjuta_run_program_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_run_program_la_LIBADD = \
-	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_run_program_la_SOURCES = \

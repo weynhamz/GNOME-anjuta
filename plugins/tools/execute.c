@@ -35,7 +35,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
-#include <libgnome/libgnome.h>
 
 #include <glib.h>
 #include <stdlib.h>
@@ -979,7 +978,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 		/* Run in a terminal */
 		/* don't need a execution context, launch and forget */
 
-		gnome_execute_terminal_shell (dir, cmd);
+		anjuta_util_execute_terminal_shell (dir, cmd);
 	}
 	else
 	{

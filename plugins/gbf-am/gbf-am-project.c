@@ -34,7 +34,6 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <glib/gi18n.h>
-#include <libgnome/gnome-macros.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libanjuta/anjuta-debug.h>
@@ -3751,8 +3750,8 @@ gbf_am_project_dispose (GObject *object)
 	g_free (project->configure_command);
 	g_free (project->autogen_command);
 	g_free (project->install_prefix);
-	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
+
+	G_OBJECT_CLASS (parent_class)->dispose (object);	
 }
 
 static void
