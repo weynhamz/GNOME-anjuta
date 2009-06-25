@@ -23,6 +23,7 @@ libanjuta_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(GCONF_LIBS) \
 	$(GLADE_DEPRECATED_LIBS) \
+	$(LIBXML_LIBS) \
 	$(GLIB_LIBS)
 
 libanjuta_la_SOURCES= \
