@@ -46,7 +46,8 @@ libgbf_am_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libgbf_am_la_LIBADD = \
 	$(GIO_LIBS) \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+  $(LIBXML_LIBS)
 
 # Test program
 
@@ -57,7 +58,8 @@ test_SOURCES = \
 
 test_LDADD = \
 	libgbf-am.la \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+  $(LIBXML_LIBS)
 
 
 EXTRA_DIST = \
