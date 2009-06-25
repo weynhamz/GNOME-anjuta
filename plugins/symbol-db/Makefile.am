@@ -37,6 +37,7 @@ AM_CPPFLAGS = \
 	$(GDL_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \
+	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
 
 # Where to install the plugin

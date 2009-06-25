@@ -40,8 +40,10 @@ typedef struct _SymbolDBPrefsPriv SymbolDBPrefsPriv;
 #include "symbol-db-system.h"
 
 
+/*
 #define CTAGS_PREFS			 "preferences_entry:text:/usr/bin/ctags:0:symboldb.ctags"
 #define CTAGS_PREFS_KEY		 "symboldb.ctags"
+ */
 #define PROJECT_AUTOSCAN	 "symboldb.scan_prj_pkgs"
 #define PARALLEL_SCAN		 "symboldb.parallel_scan"
 #define BUFFER_AUTOSCAN		 "symboldb.buffer_update"

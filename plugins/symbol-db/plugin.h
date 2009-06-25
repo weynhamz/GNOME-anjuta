@@ -48,8 +48,10 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 #include "symbol-db-system.h"
 #include "symbol-db-prefs.h"
 
-/* a sort of 'default' value for ctags executable. User must have it installed */
-#define CTAGS_PATH			"/usr/bin/ctags"
+/* default value for ctags executable. User must have it installed. This is a 
+ * personalized version of ctags for Anjuta.
+ */
+#define CTAGS_PATH	PACKAGE_BIN_DIR"/anjuta-tags"
 
 struct _SymbolDBPlugin {
 	AnjutaPlugin parent;

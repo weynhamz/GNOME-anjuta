@@ -5192,6 +5192,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 }
 
 /**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
  * Select * from __tmp_removed and emits removed signals.
  */
 static void
@@ -5241,9 +5243,8 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		const GValue *val;
 		gint tmp;
 		val = gda_data_model_get_value_at (data_model, 0, i, NULL);
-		tmp = g_value_get_int (val);
-	
-		/*DEBUG_PRINT ("%s", "EMITTING symbol-removed");*/
+		tmp = g_value_get_int (val);	
+		
 		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(SYMBOL_REMOVED + 1));
 		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(tmp));
 	}
@@ -5389,8 +5390,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	gint i;
 	GValue *ret_value;
 	gboolean ret_bool;
-
-	DEBUG_PRINT ("%s", "");
 
 	g_return_if_fail (dbe != NULL);
 	g_return_if_fail (update_data != NULL);
@@ -5578,7 +5577,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	
 	SDB_LOCK(priv);
 
-	DEBUG_PRINT ("Updating project symbols...");
+	DEBUG_PRINT ("Updating project symbols (force %d)...", force_all_files);
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME))
 		== NULL)
@@ -5603,12 +5602,12 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	
 	/* execute the query with parametes just set */
 	GType gtype_array [6] = {	G_TYPE_INT, 
-							G_TYPE_STRING, 
-							G_TYPE_INT, 
-							G_TYPE_INT, 
-							GDA_TYPE_TIMESTAMP, 
-							G_TYPE_NONE
-						};
+								G_TYPE_STRING, 
+								G_TYPE_INT, 
+								G_TYPE_INT, 
+								GDA_TYPE_TIMESTAMP, 
+								G_TYPE_NONE
+							};
 	data_model = gda_connection_statement_execute_select_full (priv->db_connection, 
 												(GdaStatement*)stmt, 
 	    										(GdaSet*)plist,
@@ -5640,7 +5639,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		const gchar *file_name;
 		gchar *file_abs_path = NULL;
 		struct tm filetm;
-		time_t db_file_time;
+		time_t db_time;
 		GFile *gfile;
 		GFileInfo* gfile_info;
 		GFileInputStream* gfile_is;
@@ -5701,19 +5700,23 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		/* fill a struct tm with the date retrieved by the string. */
 		/* string is something like '2007-04-18 23:51:39' */
 		memset (&filetm, 0, sizeof (struct tm));
-		filetm.tm_year = timestamp->year;		
-		filetm.tm_mon = timestamp->month;
+		filetm.tm_year = timestamp->year - 1900;		
+		filetm.tm_mon = timestamp->month - 1;
 		filetm.tm_mday = timestamp->day;
 		filetm.tm_hour = timestamp->hour;
 		filetm.tm_min = timestamp->minute;
 		filetm.tm_sec = timestamp->second;
 
-		/* subtract one hour to the db_file_time. */
-		db_file_time = mktime (&filetm) /*- 3600*/;
-
-
-		if (difftime (db_file_time, g_file_info_get_attribute_uint64 (gfile_info, 
-										  G_FILE_ATTRIBUTE_TIME_MODIFIED)) < 0 ||
+		/* add one hour to the db_file_time. */
+		db_time = mktime (&filetm) - 3600;
+/*
+		DEBUG_PRINT ("%s %d ## %d", file_abs_path, db_time, 
+		    g_file_info_get_attribute_uint64 (gfile_info, 
+										  G_FILE_ATTRIBUTE_TIME_MODIFIED));
+*/
+		guint64 modified_time = g_file_info_get_attribute_uint64 (gfile_info, 
+										  G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		if (difftime (db_time, modified_time) < 0 ||
 		    force_all_files == TRUE)
 		{
 			g_ptr_array_add (files_to_scan, file_abs_path);

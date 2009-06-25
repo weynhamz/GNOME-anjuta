@@ -87,6 +87,7 @@ destroy_parseable_data (ParseableData *pdata)
 
 G_DEFINE_TYPE (SymbolDBPrefs, sdb_prefs, G_TYPE_OBJECT);
 
+#if 0
 static void 
 on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
                              gpointer user_data)
@@ -118,12 +119,14 @@ on_prefs_executable_changed (/*GtkFileChooser *chooser,*/ GtkComboBox *chooser,
 	}
 }
 
+
 static void
 on_notify_prefs (AnjutaPreferences* prefs, const gchar* key,
                  const gchar* value, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "on_notify_prefs ()");
 }
+#endif
 
 static void
 on_listall_output (AnjutaLauncher * launcher,
@@ -354,12 +357,14 @@ static void
 sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 {
 	SymbolDBPrefsPriv *priv;
-	GtkWidget *fchooser;
+/*	GtkWidget *fchooser;*/
 	gchar *ctags_value;
 
 	priv = sdbp->priv;
 
+#if 0	
 	fchooser = 	GTK_WIDGET (gtk_builder_get_object (priv->prefs_bxml, CTAGS_PREFS));
+#endif	
 	/* we will reactivate it after the listall has been finished */
 	/*gtk_widget_set_sensitive (fchooser, FALSE);*/
 			
@@ -368,7 +373,7 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 									 BUILDER_ROOT, 
 									 _("Symbol Database"),  
 									 ICON_FILE);
-	
+#if 0	
 	ctags_value = anjuta_preferences_get (priv->prefs, CTAGS_PREFS_KEY);
 	
 	if (ctags_value == NULL || strlen (ctags_value) <= 0) 
@@ -384,25 +389,26 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 	 * 
 	 */
 	
-#if 0
+
 	/* FIXME: wtf?! */
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (fchooser), ctags_value);
 	gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (fchooser), ctags_value);
 	
 	g_signal_connect (G_OBJECT (fchooser), "selection-changed",
 					  G_CALLBACK (on_prefs_executable_changed), sdbp);
-#endif
+
 	
 	g_signal_connect (G_OBJECT (fchooser), "changed",
 					  G_CALLBACK (on_prefs_executable_changed), sdbp);	
-	
+
 
 	priv->prefs_notify_id = anjuta_preferences_notify_add_string (priv->prefs, 
 	                                                              CTAGS_PREFS_KEY, 
 	                                                              on_notify_prefs, 
 	                                                              priv->prefs, NULL);
-	
 	g_free (ctags_value);
+#endif		
+	
 }
 
 static void

@@ -2151,8 +2151,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	sdb_plugin->project_opened = NULL;
 
-	ctags_path = anjuta_preferences_get (sdb_plugin->prefs, CTAGS_PREFS_KEY); 
+	ctags_path = NULL;
 
+	/* leaving here this code. Maybe in future ctags-devs will include our patches
+	 * upstream and this can be useful again.
+	 */
 	if (ctags_path == NULL) 
 	{
 		DEBUG_PRINT ("ctags is not in preferences. Trying a default one %s", 
