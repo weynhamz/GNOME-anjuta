@@ -188,7 +188,8 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
  * If force is true then update forcely all the files.
  */
 gint
-symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project);
+symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, 
+    const gchar *project_name, gboolean force_all_files);
 
 
 /** Remove a file, together with its symbols, from a project. */

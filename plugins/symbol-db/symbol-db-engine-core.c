@@ -2067,18 +2067,15 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
-		"SELECT * FROM file WHERE prj_id = (SELECT project_id FROM project "
-	 	"WHERE project_name = ## /* name:'prjname' type:gchararray */)");
+		"SELECT file_id, file_path AS db_file_path, prj_id, lang_id, "
+	    "file.analyse_time "
+		"FROM file JOIN project ON project.project_id = file.prj_id WHERE "
+		"project.project_name = ## /* name:'prjname' type:gchararray */");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID,
+									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID,	    
 		"SELECT file_id, file_path AS db_file_path, prj_id, lang_id, analyse_time FROM file "
-	 	"WHERE prj_id = ## /* name:'prjid' type:gint */");
-/*
-		"SELECT * FROM file JOIN project on project_id = prj_id WHERE "\
-		"project.name = ## / * name:'prjname' type:gchararray * /",
-*/
-									
+	 	"WHERE prj_id = ## /*name:'prjid' type:gint */");									
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_UPDATE_FILE_ANALYSE_TIME,
@@ -2978,7 +2975,10 @@ sdb_engine_get_db_version (SymbolDBEngine *dbe)
 static void
 sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
 {
+	SymbolDBEnginePriv *priv;
 	gint version;
+
+	priv = dbe->priv;
 	
 	version = sdb_engine_get_db_version (dbe);
 	DEBUG_PRINT ("Checking db version...");
@@ -3013,6 +3013,10 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
 		
 		query = "UPDATE version SET sdb_version = "SYMBOL_DB_VERSION;
 		sdb_engine_execute_non_select_sql (dbe, query);
+
+		// go on with the update of all the symbols in project
+		symbol_db_engine_update_project_symbols (dbe, priv->project_directory, 
+		    TRUE);
 	}	
 	else
 	{
@@ -5549,19 +5553,15 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
  * ~~~ Thread note: this function locks the mutex ~~~ *
  *
  * Update symbols of the whole project. It scans all file symbols etc. 
- * FIXME: libgda does not support nested prepared queries like 
- * PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME. When it will do please
- * remember to update this function.
  */
 gint
-symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project)
+symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, 
+    		const gchar *project_name, gboolean force_all_files)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GValue *value;
 	GdaDataModel *data_model;
-	gint project_id;
 	gint num_rows = 0;
 	gint i;
 	GPtrArray *files_to_scan;
@@ -5573,26 +5573,14 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	
 	priv = dbe->priv;
 	
-	g_return_val_if_fail (project != NULL, FALSE);
+	g_return_val_if_fail (project_name != NULL, FALSE);
 	g_return_val_if_fail (priv->project_directory != NULL, FALSE);
 	
 	SDB_LOCK(priv);
 
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, project);
-
-	/* get project id */
-	if ((project_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-									 PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
-									 "prjname",
-									 value)) <= 0)
-	{
-		SDB_UNLOCK(priv);
-		return FALSE;
-	}
-
+	DEBUG_PRINT ("Updating project symbols...");
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
-								 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID))
+								 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME))
 		== NULL)
 	{
 		g_warning ("query is null");
@@ -5601,21 +5589,32 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 	}
 
 	plist = sdb_engine_get_query_parameters_list (dbe, 
-								PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID);
+								PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME);
 
-	/* prjid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
+	/* prjname parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
 	{
 		g_warning ("param prjid is NULL from pquery!");
 		SDB_UNLOCK(priv);		
 		return FALSE;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, project_id, ret_bool, ret_value);	
 
+	MP_SET_HOLDER_BATCH_STR(priv, param, project_name, ret_bool, ret_value);	
+	
 	/* execute the query with parametes just set */
-	data_model = gda_connection_statement_execute_select (priv->db_connection, 
-												   (GdaStatement*)stmt, NULL, NULL);
+	GType gtype_array [6] = {	G_TYPE_INT, 
+							G_TYPE_STRING, 
+							G_TYPE_INT, 
+							G_TYPE_INT, 
+							GDA_TYPE_TIMESTAMP, 
+							G_TYPE_NONE
+						};
+	data_model = gda_connection_statement_execute_select_full (priv->db_connection, 
+												(GdaStatement*)stmt, 
+	    										(GdaSet*)plist,
+	    										GDA_STATEMENT_MODEL_RANDOM_ACCESS,
+	    										gtype_array,
+	    										NULL);
 
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
@@ -5623,6 +5622,11 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		if (data_model != NULL)
 			g_object_unref (data_model);
 		data_model = NULL;
+
+		DEBUG_PRINT ("Strange enough, no files in project ->%s<- found",
+		    project_name);
+		SDB_UNLOCK(priv);		
+		return FALSE;		    
 	}
 
 	/* initialize the array */
@@ -5630,13 +5634,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 
 	/* we can now scan each filename entry to check the last modification time. */
 	for (i = 0; i < num_rows; i++)
-	{
+	{	
 		const GValue *value, *value1;
+		const GdaTimestamp *timestamp;
 		const gchar *file_name;
 		gchar *file_abs_path = NULL;
 		struct tm filetm;
 		time_t db_file_time;
-		gchar *date_string;
 		GFile *gfile;
 		GFileInfo* gfile_info;
 		GFileInputStream* gfile_is;
@@ -5661,7 +5665,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		gfile = g_file_new_for_path (file_abs_path);
 		if (gfile == NULL)
 			continue;
-		
+
 		gfile_is = g_file_read (gfile, NULL, NULL);
 		/* retrieve data/time info */
 		if (gfile_is == NULL)
@@ -5691,34 +5695,26 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 			continue;
 		}
 
-		/* weirdly we have a strange libgda behaviour here too. 
-		 * as from ChangeLog GDA_TYPE_TIMESTAMP as SQLite does not impose a 
-		 * known format for dates (there is no date datatype).
-		 * We have then to do some hackery to retrieve the date.        
-		 */
-		date_string = (gchar *) g_value_get_string (value1);	
-	
+
+		timestamp = gda_value_get_timestamp (value1);
+
 		/* fill a struct tm with the date retrieved by the string. */
 		/* string is something like '2007-04-18 23:51:39' */
 		memset (&filetm, 0, sizeof (struct tm));
-		filetm.tm_year = atoi (date_string) - 1900;
-		date_string += 5;
-		filetm.tm_mon = atoi (date_string) - 1;
-		date_string += 3;
-		filetm.tm_mday = atoi (date_string);
-		date_string += 3;
-		filetm.tm_hour = atoi (date_string);
-		date_string += 3;
-		filetm.tm_min = atoi (date_string);
-		date_string += 3;
-		filetm.tm_sec = atoi (date_string);
-		
+		filetm.tm_year = timestamp->year;		
+		filetm.tm_mon = timestamp->month;
+		filetm.tm_mday = timestamp->day;
+		filetm.tm_hour = timestamp->hour;
+		filetm.tm_min = timestamp->minute;
+		filetm.tm_sec = timestamp->second;
+
 		/* subtract one hour to the db_file_time. */
 		db_file_time = mktime (&filetm) /*- 3600*/;
 
-		
-		if (difftime (db_file_time, g_file_info_get_attribute_uint32 (gfile_info, 
-										  G_FILE_ATTRIBUTE_TIME_MODIFIED)) < 0)
+
+		if (difftime (db_file_time, g_file_info_get_attribute_uint64 (gfile_info, 
+										  G_FILE_ATTRIBUTE_TIME_MODIFIED)) < 0 ||
+		    force_all_files == TRUE)
 		{
 			g_ptr_array_add (files_to_scan, file_abs_path);
 		}
@@ -5736,12 +5732,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *proje
 		SDB_UNLOCK(priv);
 		
 		/* at the end let the scanning function do its job */
-		return symbol_db_engine_update_files_symbols (dbe, project,
+		return symbol_db_engine_update_files_symbols (dbe, project_name,
 											   files_to_scan, TRUE);
 	}
 	
 	SDB_UNLOCK(priv);
-	
+
+	/* some error occurred */
 	return -1;
 }
 

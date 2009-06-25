@@ -1460,9 +1460,9 @@ static gboolean
 do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 {
 	gint proc_id;
-	/* Update the symbols */
+	/* Update the symbols */	
 	proc_id = symbol_db_engine_update_project_symbols (sdb_plugin->sdbe_project, 
-														 root_dir);
+														 root_dir, FALSE);
 	if (proc_id > 0)
 	{
 		sdb_plugin->is_project_updating = TRUE;		
