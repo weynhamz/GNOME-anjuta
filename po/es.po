@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-06-24 20:34+0000\n"
-"PO-Revision-Date: 2009-06-28 14:36+0200\n"
+"POT-Creation-Date: 2009-06-28 21:08+0000\n"
+"PO-Revision-Date: 2009-06-28 23:32+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +240,7 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:457
+#: ../plugins/symbol-db/symbol-db-prefs.c:463
 msgid "Load"
 msgstr "Carga"
 
@@ -1337,7 +1337,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/symbol-db/plugin.c:2244 ../plugins/symbol-db/plugin.c:2308
+#: ../plugins/symbol-db/plugin.c:2247 ../plugins/symbol-db/plugin.c:2311
 msgid "Local"
 msgstr "Local"
 
@@ -2561,8 +2561,8 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1710
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1729
-#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2246
-#: ../plugins/symbol-db/plugin.c:2358
+#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2249
+#: ../plugins/symbol-db/plugin.c:2361
 msgid "Search"
 msgstr "Buscar"
 
@@ -3559,7 +3559,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2245 ../plugins/symbol-db/plugin.c:2334
+#: ../plugins/symbol-db/plugin.c:2248 ../plugins/symbol-db/plugin.c:2337
 msgid "Global"
 msgstr "Global"
 
@@ -4912,7 +4912,6 @@ msgstr "_Efectuar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:71
-#| msgid "Subversion: Committing changes to the repository..."
 msgid "Commit changes to the local repository"
 msgstr "Efectuar los cambios sobre el repositorio local"
 
@@ -4925,7 +4924,6 @@ msgstr "_Obtener"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:79
-#| msgid "_Remote branches"
 msgid "Update remote branches"
 msgstr "Actualizar las ramas remotas"
 
@@ -4950,7 +4948,6 @@ msgstr "_Iniciar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:95
-#| msgid "Start Debugger"
 msgid "Start a rebase"
 msgstr "Iniciar un «rebase»"
 
@@ -4963,7 +4960,6 @@ msgstr "_Continuar"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:103
-#| msgid "_Continue with resolved conflicts"
 msgid "Continue a rebase that stopped because of conflicts"
 msgstr "Continuar un «rebase» parado debido a conflictos"
 
@@ -5000,7 +4996,6 @@ msgstr "E_mpujar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:127
-#| msgid "Subversion: Committing changes to the repository..."
 msgid "Push changes to a remote repository"
 msgstr "Empujar los cambios contra un repositorio remoto"
 
@@ -5013,7 +5008,6 @@ msgstr "Ca_rgar (pull)…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:135
-#| msgid "Update the graph"
 msgid "Update the working copy"
 msgstr "Actualizar la copia de trabajo"
 
@@ -5026,7 +5020,6 @@ msgstr "_Diff de los cambios sin subir"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:143
-#| msgid "_Diff uncommitted changes"
 msgid "Show uncommitted changes"
 msgstr "Mostrar los cambios sin subir"
 
@@ -5041,7 +5034,6 @@ msgstr "_Añadir…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:151
-#| msgid "Add to repository"
 msgid "Add files to the repository"
 msgstr "Añadir archivos al repositorio"
 
@@ -5055,7 +5047,6 @@ msgstr "_Quitar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:159
-#| msgid "Copy files/folders in the repository"
 msgid "Remove files from the repository"
 msgstr "Quitar archivos del repositorio"
 
@@ -5068,7 +5059,6 @@ msgstr "_Ignorar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:167
-#| msgid "Ignore Files"
 msgid "Ignore files"
 msgstr "Ignorar archivos"
 
@@ -5081,7 +5071,6 @@ msgstr "_Descargar (checkout) archivos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:175
-#| msgid "_Diff uncommitted changes"
 msgid "Revert uncommitted changes to files"
 msgstr "Revertir los cambios sin subir en los archivos"
 
@@ -5106,7 +5095,6 @@ msgstr "_Resolver conflictos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:191
-#| msgid "Set Conflicts as Resolved"
 msgid "Mark conflicted files as resolved"
 msgstr "Marcar como resuelto el conflicto entre archivos"
 
@@ -5137,7 +5125,6 @@ msgstr "_Aplicar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:223
-#| msgid "Create patch series"
 msgid "Start applying a patch series"
 msgstr "Comenzar a aplicar una serie de parches"
 
@@ -5150,7 +5137,6 @@ msgstr "_Continuar con los conflictos resueltos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:231
-#| msgid "_Continue with resolved conflicts"
 msgid "Continue applying a series after resolving conflicts"
 msgstr ""
 "Continuar aplicando la serie de parches después de resolver los conflictos"
@@ -5191,7 +5177,6 @@ msgstr "_Crear rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:263
-#| msgid "Create Branch"
 msgid "Create a branch"
 msgstr "Crear una rama"
 
@@ -5204,7 +5189,6 @@ msgstr "_Borrar rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:271
-#| msgid "Delete Branch"
 msgid "Delete branches"
 msgstr "Borrar ramas"
 
@@ -5217,7 +5201,6 @@ msgstr "Cambia_r a otra rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:279
-#| msgid "_Switch to another branch..."
 msgid "Switch to another branch"
 msgstr "Cambiar a otra rama"
 
@@ -5257,7 +5240,6 @@ msgstr "Ramas _remotas"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:311
-#| msgid "Add Remote Branch"
 msgid "Add a remote branch"
 msgstr "Añadir una rama remota"
 
@@ -5270,7 +5252,6 @@ msgstr "_Borrar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:319
-#| msgid "Delete Remote Branch"
 msgid "Delete a remote branch"
 msgstr "Borrar una rama remota"
 
@@ -5283,7 +5264,6 @@ msgstr "_Crear etiqueta…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:327
-#| msgid "Create Tag"
 msgid "Create a tag"
 msgstr "Crear una etiqueta"
 
@@ -5308,7 +5288,6 @@ msgstr "_Revertir commit…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:343
-#| msgid "Revert Commit"
 msgid "Revert a commit"
 msgstr "Revertir un commit"
 
@@ -5321,7 +5300,6 @@ msgstr "Viviseccionar"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:359
-#| msgid "Stack frame operations"
 msgid "Start a bisect operation"
 msgstr "Iniciar una operación de vivisección"
 
@@ -5364,7 +5342,6 @@ msgstr "_Ver el registro…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:391
-#| msgid "View file history"
 msgid "View change history"
 msgstr "Ver el histórico de cambios"
 
@@ -5401,21 +5378,18 @@ msgstr "Crear una rama con la revisión seleccionada como su cabecera"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:427
-#| msgid "Please enter a revision."
 msgid "Create a tag at this revision"
 msgstr "Crear una etiqueta en esta revisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:435
-#| msgid "Please enter the start revision."
 msgid "Reset repository head to this revision"
 msgstr "Restablecer la cabecera del repositorio a esta revisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:443
-#| msgid "Revert Commit"
 msgid "Revert this commit"
 msgstr "Revertir este commit"
 
@@ -5464,15 +5438,14 @@ msgstr "Ver cambios en este archivo o carpeta"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:503
-#| msgid "Copy files/folders in the repository"
 msgid "Add this file or folder to the repository"
 msgstr "Añadir este archivo o carpeta al repositorio"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:511
-#| msgid "Copy files/folders in the repository"
-msgid "Reove this file or folder from the repository"
+#| msgid "Reove this file or folder from the repository"
+msgid "Remove this file or folder from the repository"
 msgstr "Quitar este archivo o carpeta del repositorio"
 
 #: ../plugins/git/plugin.c:666
@@ -7093,13 +7066,11 @@ msgid "Select file"
 msgstr "Seleccionar archivo"
 
 #: ../plugins/project-wizard/property.c:359
-#| msgid "Select a file"
 msgid "Select an Image File"
 msgstr "Seleccionar un archivo de imagen"
 
 #: ../plugins/project-wizard/property.c:384
 #: ../plugins/project-wizard/property.c:474
-#| msgid "Choose directory"
 msgid "Choose Icon"
 msgstr "Elegir icono"
 
@@ -8649,29 +8620,29 @@ msgstr "%d archivos analizados de %d"
 msgid "Populating symbols' db..."
 msgstr "Llenando la BB DD de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2263 ../plugins/symbol-db/plugin.c:2391
+#: ../plugins/symbol-db/plugin.c:2266 ../plugins/symbol-db/plugin.c:2394
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2400
+#: ../plugins/symbol-db/plugin.c:2403
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2408
+#: ../plugins/symbol-db/plugin.c:2411
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:272
+#: ../plugins/symbol-db/symbol-db-prefs.c:275
 msgid "Package is not parseable"
 msgstr "El paquete no se puede analizar"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:369
-#: ../plugins/symbol-db/symbol-db-prefs.c:516
+#: ../plugins/symbol-db/symbol-db-prefs.c:374
+#: ../plugins/symbol-db/symbol-db-prefs.c:522
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:465
+#: ../plugins/symbol-db/symbol-db-prefs.c:471
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
