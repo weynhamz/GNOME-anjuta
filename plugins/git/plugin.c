@@ -508,7 +508,7 @@ static GtkActionEntry actions_fm[] =
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
 		N_("_Remove..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Reove this file or folder from the repository"),                      /* Tooltip */
+		N_("Remove this file or folder from the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_remove)    /* action callback */
 	}
 };
