@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-06-13 23:30+0000\n"
-"PO-Revision-Date: 2009-06-14 12:27+0200\n"
+"POT-Creation-Date: 2009-06-24 20:34+0000\n"
+"PO-Revision-Date: 2009-06-27 18:38+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -194,10 +194,10 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandés"
 
-#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3205
+#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3204
 #: ../plugins/gbf-am/gbf-am-properties.c:129
 #: ../plugins/gbf-am/gbf-am-properties.c:173
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3092
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
 msgid "Unknown"
@@ -249,7 +249,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:670
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:736
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -397,7 +397,7 @@ msgstr ""
 "Falló al leer «%s»: Faltan los siguientes complementos obligatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1528
+#: ../libanjuta/anjuta-preferences.c:1534
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -407,7 +407,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1532 ../plugins/git/plugin.c:365
+#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:365
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -419,7 +419,7 @@ msgstr "Categoría"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:4 ../src/anjuta-app.c:657
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:4 ../src/anjuta-app.c:723
 #: ../src/preferences.ui.h:10
 msgid "General"
 msgstr "General"
@@ -486,11 +486,11 @@ msgid "Shortcut"
 msgstr "Combinación de teclas"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:363
+#: ../libanjuta/anjuta-utils.c:365
 msgid "System:"
 msgstr "Sistema:"
 
-#: ../libanjuta/anjuta-utils.c:501
+#: ../libanjuta/anjuta-utils.c:503
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -499,12 +499,20 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:941 ../libanjuta/anjuta-utils.c:945
+#. Try xterm
+#: ../libanjuta/anjuta-utils.c:981
+msgid "Cannot find a terminal, using xterm, even if it may not work"
+msgstr ""
+"No se puede encontrar una terminal, usando xterm, aunque puede que no "
+"funcione"
+
+#: ../libanjuta/anjuta-utils.c:1017 ../libanjuta/anjuta-utils.c:1021
+#: ../libanjuta/anjuta-utils.c:1049 ../libanjuta/anjuta-utils.c:1053
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1577
+#: ../libanjuta/anjuta-utils.c:1687
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -512,46 +520,46 @@ msgstr ""
 "No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación "
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:292
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:92
 #: ../plugins/file-manager/file-view.c:65
 msgid "Modified"
 msgstr "Modificado"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:296
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:95
 #: ../plugins/file-manager/file-view.c:69
 msgid "Added"
 msgstr "Añadido"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:300
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:98
 #: ../plugins/file-manager/file-view.c:67
 msgid "Deleted"
 msgstr "Borrado"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:304
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:101
 #: ../plugins/file-manager/file-view.c:71
 msgid "Conflicted"
 msgstr "En conflicto"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:308
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:105
 msgid "Up to date"
 msgstr "Actualizado"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:312
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:109
 #: ../plugins/file-manager/file-view.c:75
 msgid "Locked"
 msgstr "Bloqueado"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:316
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:112
 #: ../plugins/file-manager/file-view.c:77
 msgid "Missing"
 msgstr "Faltante"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:320
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:115
 #: ../plugins/file-manager/file-view.c:79
 msgid "Unversioned"
 msgstr "Sin versión"
 
-#: ../libanjuta/anjuta-vcs-status-tree-view.c:324
+#: ../libanjuta/anjuta-vcs-status-tree-view.c:119
 #: ../plugins/file-manager/file-view.c:81
 msgid "Ignored"
 msgstr "Ignorado"
@@ -677,8 +685,8 @@ msgid "No executables in this project!"
 msgstr "No hay ejecutable para este proyecto."
 
 #: ../plugins/build-basic-autotools/executer.c:156
-#: ../plugins/gbf-am/gbf-am-project.c:3195
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
+#: ../plugins/gbf-am/gbf-am-project.c:3194
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3086
 msgid "Program"
 msgstr "Programa"
 
@@ -750,12 +758,12 @@ msgid "Leaving: %s"
 msgstr "Dejando: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:896
-#: ../plugins/tools/execute.c:331
+#: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "aviso:"
 
 #: ../plugins/build-basic-autotools/plugin.c:902
-#: ../plugins/tools/execute.c:336
+#: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "error:"
 
@@ -793,7 +801,7 @@ msgid "Completed unsuccessfully\n"
 msgstr "Completado incorrectamente\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:1079
-#: ../plugins/tools/execute.c:517
+#: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Completado correctamente\n"
 
@@ -1192,7 +1200,7 @@ msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
-#: ../plugins/search/anjuta-search.ui.h:7
+#: ../plugins/search/anjuta-search.ui.h:3
 msgid "<b>Options</b>"
 msgstr "<b>Opciones</b>"
 
@@ -1329,7 +1337,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/symbol-db/plugin.c:2245 ../plugins/symbol-db/plugin.c:2309
+#: ../plugins/symbol-db/plugin.c:2244 ../plugins/symbol-db/plugin.c:2308
 msgid "Local"
 msgstr "Local"
 
@@ -1472,7 +1480,7 @@ msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
-#: ../plugins/cvs-plugin/plugin.c:474 ../plugins/search/anjuta-search.ui.h:13
+#: ../plugins/cvs-plugin/plugin.c:474
 msgid "CVS"
 msgstr "CVS"
 
@@ -1766,7 +1774,7 @@ msgstr "Conexión TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
 #: ../plugins/gdb/anjuta-gdb.glade.h:29
-#: ../plugins/project-wizard/property.c:287
+#: ../plugins/project-wizard/property.c:286
 msgid "Yes"
 msgstr "Sí"
 
@@ -1971,8 +1979,8 @@ msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
 
 #. create goto menu_item.
-#: ../plugins/debug-manager/data_view.c:383
-#: ../plugins/debug-manager/sparse_view.c:491
+#: ../plugins/debug-manager/data_view.c:390
+#: ../plugins/debug-manager/sparse_view.c:498
 msgid "_Goto address"
 msgstr "_Ir a la dirección"
 
@@ -1984,7 +1992,7 @@ msgstr "Variable"
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/gbf-am/gbf-am-properties.c:981
-#: ../plugins/run-program/parameters.c:745 ../plugins/tools/editor.c:469
+#: ../plugins/run-program/parameters.c:758 ../plugins/tools/editor.c:469
 msgid "Value"
 msgstr "Valor"
 
@@ -2318,19 +2326,19 @@ msgstr "Señales del núcleo"
 msgid "Signal operations"
 msgstr "Operaciones con señales"
 
-#: ../plugins/debug-manager/sparse_view.c:1195
+#: ../plugins/debug-manager/sparse_view.c:1202
 msgid "Show Line Numbers"
 msgstr "Mostrar números de línea"
 
-#: ../plugins/debug-manager/sparse_view.c:1196
+#: ../plugins/debug-manager/sparse_view.c:1203
 msgid "Whether to display line numbers"
 msgstr "Si se deben mostrar los números de línea"
 
-#: ../plugins/debug-manager/sparse_view.c:1203
+#: ../plugins/debug-manager/sparse_view.c:1210
 msgid "Show Line Markers"
 msgstr "Mostrar los marcadores de línea"
 
-#: ../plugins/debug-manager/sparse_view.c:1204
+#: ../plugins/debug-manager/sparse_view.c:1211
 msgid "Whether to display line marker pixbufs"
 msgstr "Si se deben mostrar los marcadores de línea pixbuf"
 
@@ -2357,7 +2365,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:631
 #: ../plugins/debug-manager/threads.c:451 ../plugins/tools/tool.c:100
-#: ../src/anjuta-app.c:419
+#: ../src/anjuta-app.c:485
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Archivo"
@@ -2423,7 +2431,7 @@ msgstr ""
 "No se puede detectar el tipo MIME de %s. El depurador no puede iniciarse."
 
 #: ../plugins/debug-manager/start.c:1065 ../plugins/debug-manager/start.c:1260
-#: ../plugins/run-program/parameters.c:603
+#: ../plugins/run-program/parameters.c:616
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
@@ -2553,13 +2561,13 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1710
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1729
-#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2247
-#: ../plugins/symbol-db/plugin.c:2359
+#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2246
+#: ../plugins/symbol-db/plugin.c:2358
 msgid "Search"
 msgstr "Buscar"
 
 #: ../plugins/devhelp/plugin.c:375 ../plugins/devhelp/plugin.c:495
-#: ../src/anjuta-app.c:436
+#: ../src/anjuta-app.c:502
 msgid "Help"
 msgstr "Ayuda"
 
@@ -3289,7 +3297,7 @@ msgstr ""
 "encontró ninguna ocurrencia más."
 
 #: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.ui.h:28
+#: ../plugins/search/anjuta-search.ui.h:22
 msgid "Match case"
 msgstr "Coincidir con capitalización"
 
@@ -3392,7 +3400,7 @@ msgstr "Abrir con:"
 msgid "Document Manager"
 msgstr "Administrador de documentación"
 
-#: ../plugins/file-loader/plugin.c:496 ../plugins/patch/patch-plugin.c:121
+#: ../plugins/file-loader/plugin.c:496 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:308
 msgid "All files"
 msgstr "Todos los archivos"
@@ -3551,7 +3559,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2246 ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/symbol-db/plugin.c:2245 ../plugins/symbol-db/plugin.c:2334
 msgid "Global"
 msgstr "Global"
 
@@ -3722,213 +3730,213 @@ msgstr "Seleccionar el paquete"
 msgid "Variables"
 msgstr "Variables"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2392
-#: ../plugins/gbf-am/gbf-am-project.c:2470
-#: ../plugins/gbf-am/gbf-am-project.c:2679
-#: ../plugins/gbf-am/gbf-am-project.c:2888
-#: ../plugins/gbf-am/gbf-am-project.c:3038
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2332
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2410
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2638
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2824
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2972
+#: ../plugins/gbf-am/gbf-am-project.c:2391
+#: ../plugins/gbf-am/gbf-am-project.c:2469
+#: ../plugins/gbf-am/gbf-am-project.c:2678
+#: ../plugins/gbf-am/gbf-am-project.c:2887
+#: ../plugins/gbf-am/gbf-am-project.c:3037
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2331
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2409
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2637
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2823
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2971
 msgid "Group doesn't exist"
 msgstr "El grupo no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2412
-#: ../plugins/gbf-am/gbf-am-project.c:2515
-#: ../plugins/gbf-am/gbf-am-project.c:2931
-#: ../plugins/gbf-am/gbf-am-project.c:3153
-#: ../plugins/gbf-am/gbf-am-project.c:3373
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2352
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2455
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2867
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3047
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3233
+#: ../plugins/gbf-am/gbf-am-project.c:2411
+#: ../plugins/gbf-am/gbf-am-project.c:2514
+#: ../plugins/gbf-am/gbf-am-project.c:2930
+#: ../plugins/gbf-am/gbf-am-project.c:3152
+#: ../plugins/gbf-am/gbf-am-project.c:3372
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2351
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2454
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2866
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3046
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3232
 msgid "Target doesn't exist"
 msgstr "El objetivo no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2446
-#: ../plugins/gbf-am/gbf-am-project.c:2490
-#: ../plugins/gbf-am/gbf-am-project.c:2533
-#: ../plugins/gbf-am/gbf-am-project.c:2849
-#: ../plugins/gbf-am/gbf-am-project.c:2909
-#: ../plugins/gbf-am/gbf-am-project.c:3113
-#: ../plugins/gbf-am/gbf-am-project.c:3174
-#: ../plugins/gbf-am/gbf-am-project.c:3476
-#: ../plugins/gbf-am/gbf-am-project.c:3537
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2386
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2430
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2473
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2785
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
+#: ../plugins/gbf-am/gbf-am-project.c:2445
+#: ../plugins/gbf-am/gbf-am-project.c:2489
+#: ../plugins/gbf-am/gbf-am-project.c:2532
+#: ../plugins/gbf-am/gbf-am-project.c:2848
+#: ../plugins/gbf-am/gbf-am-project.c:2908
+#: ../plugins/gbf-am/gbf-am-project.c:3112
+#: ../plugins/gbf-am/gbf-am-project.c:3173
+#: ../plugins/gbf-am/gbf-am-project.c:3475
+#: ../plugins/gbf-am/gbf-am-project.c:3536
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2385
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2429
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2472
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2784
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2844
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3007
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3067
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3299
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3360
 msgid "Unable to update project"
 msgstr "No se pudo actualizar el proyecto"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2576
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2518
+#: ../plugins/gbf-am/gbf-am-project.c:2575
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2517
 msgid "Invalid or remote path (only local paths supported)"
 msgstr "Ruta no válida o remota (sólo se soportan rutas locales)"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2584
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2539
+#: ../plugins/gbf-am/gbf-am-project.c:2583
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2538
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2595
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
+#: ../plugins/gbf-am/gbf-am-project.c:2594
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2552
 msgid "Malformed project"
 msgstr "Proyecto deformado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2792
+#: ../plugins/gbf-am/gbf-am-project.c:2791
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2806
+#: ../plugins/gbf-am/gbf-am-project.c:2805
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o «.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2815
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2751
+#: ../plugins/gbf-am/gbf-am-project.c:2814
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2750
 msgid "Parent group doesn't exist"
 msgstr "El grupo padre no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2826
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2762
+#: ../plugins/gbf-am/gbf-am-project.c:2825
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2761
 msgid "Group already exists"
 msgstr "El grupo ya existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2836
-#: ../plugins/gbf-am/gbf-am-project.c:2863
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2772
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2799
+#: ../plugins/gbf-am/gbf-am-project.c:2835
+#: ../plugins/gbf-am/gbf-am-project.c:2862
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2771
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2798
 msgid "Group couldn't be created"
 msgstr "No se pudo crear el grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2896
+#: ../plugins/gbf-am/gbf-am-project.c:2895
 msgid "Group couldn't be removed"
 msgstr "No se pudo eliminar el grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3046
+#: ../plugins/gbf-am/gbf-am-project.c:3045
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3060
+#: ../plugins/gbf-am/gbf-am-project.c:3059
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-» "
 "o «.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3069
+#: ../plugins/gbf-am/gbf-am-project.c:3068
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3078
+#: ../plugins/gbf-am/gbf-am-project.c:3077
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 "El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
 "a»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3090
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2985
+#: ../plugins/gbf-am/gbf-am-project.c:3089
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2984
 msgid "Target already exists"
 msgstr "El objetivo ya existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3100
+#: ../plugins/gbf-am/gbf-am-project.c:3099
 msgid "General failure in target creation"
 msgstr "Fallo general al crear el objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3128
+#: ../plugins/gbf-am/gbf-am-project.c:3127
 msgid "Newly created target could not be identified"
 msgstr "No se pudo identificar el objetivo recién creado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3161
+#: ../plugins/gbf-am/gbf-am-project.c:3160
 msgid "Target couldn't be removed"
 msgstr "El objetivo no se ha podido eliminar"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3185
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
+#: ../plugins/gbf-am/gbf-am-project.c:3184
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3078
 msgid "Static Library"
 msgstr "Biblioteca estática"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3187
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
+#: ../plugins/gbf-am/gbf-am-project.c:3186
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3080
 msgid "Shared Library"
 msgstr "Biblioteca compartida"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3189
+#: ../plugins/gbf-am/gbf-am-project.c:3188
 msgid "Header Files"
 msgstr "Archivos de cabecera"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3191
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
+#: ../plugins/gbf-am/gbf-am-project.c:3190
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3082
 msgid "Man Documentation"
 msgstr "Documentación man"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3193
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
+#: ../plugins/gbf-am/gbf-am-project.c:3192
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3084
 msgid "Miscellaneous Data"
 msgstr "Datos misceláneos"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3197
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
+#: ../plugins/gbf-am/gbf-am-project.c:3196
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3088
 msgid "Script"
 msgstr "Script"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3199
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
+#: ../plugins/gbf-am/gbf-am-project.c:3198
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3090
 msgid "Info Documentation"
 msgstr "Documentación"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3201
+#: ../plugins/gbf-am/gbf-am-project.c:3200
 msgid "Java Module"
 msgstr "Módulo Java"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3203
+#: ../plugins/gbf-am/gbf-am-project.c:3202
 msgid "Python Module"
 msgstr "Módulo Python"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3261
-#: ../plugins/gbf-am/gbf-am-project.c:3514
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
+#: ../plugins/gbf-am/gbf-am-project.c:3260
+#: ../plugins/gbf-am/gbf-am-project.c:3513
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3142
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3337
 msgid "Source doesn't exist"
 msgstr "El código fuente no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3364
+#: ../plugins/gbf-am/gbf-am-project.c:3363
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "El nombre de archivo de origen sólo puede contener caracteres alfanuméricos, "
 "«_», «-» o «.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3441
+#: ../plugins/gbf-am/gbf-am-project.c:3440
 msgid "Source file is already in given target"
 msgstr "El archivo fuente ya encuentra en el objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3458
+#: ../plugins/gbf-am/gbf-am-project.c:3457
 msgid "General failure in adding source file"
 msgstr "Fallo general al añadir el archivo de código"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3491
+#: ../plugins/gbf-am/gbf-am-project.c:3490
 msgid "Newly added source file could not be identified"
 msgstr "No se pudo identificar el archivo fuente recién creado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3522
+#: ../plugins/gbf-am/gbf-am-project.c:3521
 msgid "Source couldn't be removed"
 msgstr "El código no pudo ser eliminado"
 
+#: ../plugins/gbf-am/gbf-am-project.c:3707
 #: ../plugins/gbf-am/gbf-am-project.c:3708
-#: ../plugins/gbf-am/gbf-am-project.c:3709
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3449
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "Directorio del proyecto"
 
@@ -4095,37 +4103,37 @@ msgstr "Avanzado…"
 msgid "Invalid GbfMkfileConfigValue type"
 msgstr "Tipo GbfMkfileConfigValue no válido"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2525
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2524
 msgid "Project doesn't exist"
 msgstr "El proyecto no existe"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2832
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2831
 msgid "Group coudn't be removed"
 msgstr "El grupo no se ha podido eliminar"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2995
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2994
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3021
 msgid "Target couldn't be created"
 msgstr "No se pudo crear el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3055
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3054
 msgid "Target coudn't be removed"
 msgstr "No se pudo eliminar el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3252
 msgid "Source file must be inside the project directory"
 msgstr "El archivo de código debe estar dentro del directorio del proyecto"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3264
 msgid "Source is already in target"
 msgstr "El código ya se encuentra en el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3281
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3313
 msgid "Source couldn't be added"
 msgstr "No se pudo añadir el código"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3345
 msgid "Source coudn't be removed"
 msgstr "No se pudo eliminar el código"
 
@@ -4381,12 +4389,10 @@ msgid "Branches"
 msgstr "Ramas"
 
 #: ../plugins/git/anjuta-git.ui.h:19
-#| msgid "Branch must be fully merged"
 msgid "Branches must be fully merged"
 msgstr "Las ramas se deben mezclar completamente"
 
 #: ../plugins/git/anjuta-git.ui.h:20
-#| msgid "Branch to delete:"
 msgid "Branches to delete:"
 msgstr "Ramas que borrar:"
 
@@ -4787,7 +4793,6 @@ msgid "Please enter a tag name."
 msgstr "Introduzca un nombre de etiqueta."
 
 #: ../plugins/git/git-delete-branch-dialog.c:37
-#| msgid "Git: Deleted branch \"%s\"."
 msgid "Git: Deleted selected branches."
 msgstr "Git: Borradas las ramas seleccionadas."
 
@@ -4808,11 +4813,11 @@ msgstr "Registro corto"
 msgid "Author"
 msgstr "Autor"
 
-#: ../plugins/git/git-log-dialog.c:318
+#: ../plugins/git/git-log-dialog.c:316
 msgid "Git: Retrieving log..."
 msgstr "Git: Obteniendo el registro…"
 
-#: ../plugins/git/git-log-dialog.c:358
+#: ../plugins/git/git-log-dialog.c:359
 #: ../plugins/subversion/subversion-add-dialog.c:65
 #: ../plugins/subversion/subversion-diff-dialog.c:116
 #: ../plugins/subversion/subversion-remove-dialog.c:98
@@ -4820,21 +4825,21 @@ msgstr "Git: Obteniendo el registro…"
 msgid "Please enter a path."
 msgstr "Introduzca una ruta."
 
-#: ../plugins/git/git-log-dialog.c:403
+#: ../plugins/git/git-log-dialog.c:398
 msgid "Select a file"
 msgstr "Seleccionar un archivo"
 
-#: ../plugins/git/git-log-dialog.c:550
+#: ../plugins/git/git-log-dialog.c:545
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Rama:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:555
+#: ../plugins/git/git-log-dialog.c:550
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Etiqueta:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:560
+#: ../plugins/git/git-log-dialog.c:555
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
@@ -4904,11 +4909,25 @@ msgstr "_Git"
 msgid "_Commit..."
 msgstr "_Efectuar…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:71
+#| msgid "Subversion: Committing changes to the repository..."
+msgid "Commit changes to the local repository"
+msgstr "Efectuar los cambios sobre el repositorio local"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:77
 msgid "_Fetch"
 msgstr "_Obtener"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:79
+#| msgid "_Remote branches"
+msgid "Update remote branches"
+msgstr "Actualizar las ramas remotas"
 
 #. Action name
 #. Stock icon, if any
@@ -4916,11 +4935,25 @@ msgstr "_Obtener"
 msgid "_Rebase"
 msgstr "Ajustar a _base"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:87
+msgid "Merge your changes with an upstream remote branch"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:93 ../plugins/git/plugin.c:357
 msgid "_Start..."
 msgstr "_Iniciar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:95
+#, fuzzy
+#| msgid "Start Debugger"
+msgid "Start a rebase"
+msgstr "Iniciar el depurador"
 
 #. Action name
 #. Stock icon, if any
@@ -4928,11 +4961,25 @@ msgstr "_Iniciar…"
 msgid "_Continue"
 msgstr "_Continuar"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:103
+#, fuzzy
+#| msgid "_Continue with resolved conflicts"
+msgid "Continue a rebase that stopped because of conflicts"
+msgstr "_Continuar con los conflictos resueltos…"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:109
 msgid "_Skip"
 msgstr "_Saltar"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:111
+msgid "Skip the current conflicted commmit and continue"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -4940,11 +4987,25 @@ msgstr "_Saltar"
 msgid "_Abort"
 msgstr "_Abortar"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:119
+msgid "Abort the rebase and put the repository in its original state"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:125
 msgid "_Push..."
 msgstr "E_mpujar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:127
+#, fuzzy
+#| msgid "Subversion: Committing changes to the repository..."
+msgid "Push changes to a remote repository"
+msgstr "Efectuando los cambios sobre el repositorio…"
 
 #. Action name
 #. Stock icon, if any
@@ -4952,11 +5013,25 @@ msgstr "E_mpujar…"
 msgid "_Pull..."
 msgstr "Ca_rgar (pull)…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:135
+#| msgid "Update the graph"
+msgid "Update the working copy"
+msgstr "Actualizar la copia de trabajo"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:141
 msgid "_Diff uncommitted changes"
 msgstr "_Diff de los cambios sin subir"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:143
+#| msgid "_Diff uncommitted changes"
+msgid "Show uncommitted changes"
+msgstr "Mostrar los cambios sin subir"
 
 #. Action name
 #. Stock icon, if any
@@ -4966,12 +5041,26 @@ msgstr "_Diff de los cambios sin subir"
 msgid "_Add..."
 msgstr "_Añadir…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:151
+#| msgid "Add to repository"
+msgid "Add files to the repository"
+msgstr "Añadir archivos al repositorio"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:157 ../plugins/git/plugin.c:509
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
-msgstr "_Eliminar…"
+msgstr "_Quitar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:159
+#| msgid "Copy files/folders in the repository"
+msgid "Remove files from the repository"
+msgstr "Quitar archivos del repositorio"
 
 #. Action name
 #. Stock icon, if any
@@ -4979,11 +5068,26 @@ msgstr "_Eliminar…"
 msgid "_Ignore..."
 msgstr "_Ignorar…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:167
+#| msgid "Ignore Files"
+msgid "Ignore files"
+msgstr "Ignorar archivos"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:173
 msgid "_Check out files..."
 msgstr "_Descargar (checkout) archivos…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:175
+#, fuzzy
+#| msgid "_Diff uncommitted changes"
+msgid "Revert uncommitted changes to files"
+msgstr "_Diff de los cambios sin subir"
 
 #. Action name
 #. Stock icon, if any
@@ -4991,15 +5095,29 @@ msgstr "_Descargar (checkout) archivos…"
 msgid "_Unstage files..."
 msgstr "Realizar «unstage» de archivos"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:183
+msgid "Remove files from the commit index"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:189
 msgid "_Resolve conflicts..."
 msgstr "_Resolver conflictos…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:191
+#, fuzzy
+#| msgid "Set Conflicts as Resolved"
+msgid "Mark conflicted files as resolved"
+msgstr "Establecer conflictos como resueltos"
+
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:197 ../plugins/patch/patch-plugin.c:116
+#: ../plugins/git/plugin.c:197 ../plugins/patch/patch-plugin.c:117
 msgid "Patches"
 msgstr "Parches"
 
@@ -5009,11 +5127,25 @@ msgstr "Parches"
 msgid "Create patch series..."
 msgstr "Crear serie de parches…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:207
+msgid "Generate patch files for submission upstream"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:221
 msgid "_Apply..."
 msgstr "_Aplicar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:223
+#, fuzzy
+#| msgid "Create patch series"
+msgid "Start applying a patch series"
+msgstr "Crear serie de parches"
 
 #. Action name
 #. Stock icon, if any
@@ -5021,11 +5153,32 @@ msgstr "_Aplicar…"
 msgid "_Continue with resolved conflicts"
 msgstr "_Continuar con los conflictos resueltos…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:231
+#, fuzzy
+#| msgid "_Continue with resolved conflicts"
+msgid "Continue applying a series after resolving conflicts"
+msgstr "_Continuar con los conflictos resueltos…"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:237
 msgid "_Skip current patch"
 msgstr "_Saltar el parche actual"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:239
+msgid "Skip the current patch in the series and continue"
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:247
+msgid ""
+"Stop applying the series and return the repository to its original state"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5039,16 +5192,40 @@ msgstr "_Ramas"
 msgid "_Create branch..."
 msgstr "_Crear rama…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:263
+#, fuzzy
+#| msgid "Create Branch"
+msgid "Create a branch"
+msgstr "Crear rama"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:269
 msgid "_Delete branch..."
 msgstr "_Borrar rama…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:271
+#, fuzzy
+#| msgid "Delete Branch"
+msgid "Delete branches"
+msgstr "Borrar rama"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:277
 msgid "_Switch to another branch..."
+msgstr "Cambia_r a otra rama…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:279
+#, fuzzy
+#| msgid "_Switch to another branch..."
+msgid "Switch to another branch"
 msgstr "Cambia_r a otra rama…"
 
 #. Action name
@@ -5057,11 +5234,25 @@ msgstr "Cambia_r a otra rama…"
 msgid "_Merge..."
 msgstr "_Mezclar…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:287
+msgid "Merge changes from another branch into the current one"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:293 ../plugins/git/plugin.c:449
 msgid "_Cherry pick..."
 msgstr "_Cherry pick…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:295
+msgid ""
+"Selectively merge individual changes from other branches into the currrent "
+"one"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5069,11 +5260,26 @@ msgstr "_Cherry pick…"
 msgid "_Remote branches"
 msgstr "Ramas _remotas"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:311
+#, fuzzy
+#| msgid "Add Remote Branch"
+msgid "Add a remote branch"
+msgstr "Añadir rama remota"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:317
 msgid "_Delete..."
 msgstr "_Borrar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:319
+#| msgid "Delete Remote Branch"
+msgid "Delete a remote branch"
+msgstr "Borrar una rama remota"
 
 #. Action name
 #. Stock icon, if any
@@ -5081,11 +5287,24 @@ msgstr "_Borrar…"
 msgid "_Create tag..."
 msgstr "_Crear etiqueta…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:327
+#| msgid "Create Tag"
+msgid "Create a tag"
+msgstr "Crear una etiqueta"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:333 ../plugins/git/plugin.c:433
 msgid "_Reset tree..."
 msgstr "_Restablecer árbol…"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:335
+msgid "Reset repository head to any past state"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5093,11 +5312,32 @@ msgstr "_Restablecer árbol…"
 msgid "_Revert commit..."
 msgstr "_Revertir commit…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:343
+#| msgid "Revert Commit"
+msgid "Revert a commit"
+msgstr "Revertir un commit"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:349
 msgid "Bisect"
 msgstr "Viviseccionar"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:359
+#, fuzzy
+#| msgid "Stack frame operations"
+msgid "Start a bisect operation"
+msgstr "Operaciones con la pila de marcos"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:367
+msgid "Stop the bisect and bring the tree back to normal"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5105,11 +5345,23 @@ msgstr "Viviseccionar"
 msgid "_Good"
 msgstr "_Buena"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:375
+msgid "Mark the current head revision as good"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:381
 msgid "_Bad"
 msgstr "_Mala"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:383
+msgid "Mark the current head revision as bad"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5117,17 +5369,73 @@ msgstr "_Mala"
 msgid "_View log..."
 msgstr "_Ver el registro…"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:391
+#, fuzzy
+#| msgid "View file history"
+msgid "View change history"
+msgstr "Ver el histórico del archivo"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:401
 msgid "_Show commit diff"
 msgstr "_Mostrar el diff del commit"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:403
+msgid "Show changes introduced by this commit"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:409
 msgid "_View selected revision"
 msgstr "_Ver la revisión seleccionada"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:411
+msgid "View a copy of this file at this revision"
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:419
+msgid "Create a branch with the selected revision as its head"
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:427
+#, fuzzy
+#| msgid "Please enter a revision."
+msgid "Create a tag at this revision"
+msgstr "Introduzca una revisión."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:435
+#, fuzzy
+#| msgid "Please enter the start revision."
+msgid "Reset repository head to this revision"
+msgstr "Introduzca la revisión inicial."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:443
+#, fuzzy
+#| msgid "Revert Commit"
+msgid "Revert this commit"
+msgstr "Revertir commit"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:451
+msgid "Merge this commit into the current branch"
+msgstr ""
 
 #. Action name
 #. Stock icon, if any
@@ -5141,11 +5449,45 @@ msgstr "_Vivisección (bisect)"
 msgid "_Set good revision"
 msgstr "_Establecer como revisión buena"
 
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:467
+msgid "Mark this revision as good"
+msgstr ""
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:473
 msgid "_Set bad revision"
 msgstr "_Establecer como revisión mala"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:475
+msgid "Mark this revision as bad"
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:495
+msgid "View changes to this file or folder"
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:503
+#, fuzzy
+#| msgid "Copy files/folders in the repository"
+msgid "Add this file or folder to the repository"
+msgstr "Copiar archivos/carpetas en el repositorio"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:511
+#, fuzzy
+#| msgid "Copy files/folders in the repository"
+msgid "Reove this file or folder from the repository"
+msgstr "Copiar archivos/carpetas en el repositorio"
 
 #: ../plugins/git/plugin.c:666
 msgid "Git operations"
@@ -6114,40 +6456,40 @@ msgstr "Guardar mensaje"
 msgid "Next/Previous Message"
 msgstr "Siguiente/Anterior mensaje"
 
-#: ../plugins/patch/patch-plugin.c:93
+#: ../plugins/patch/patch-plugin.c:94
 msgid "File/Directory to patch"
 msgstr "Archivo/Directorio para parchear"
 
-#: ../plugins/patch/patch-plugin.c:96
+#: ../plugins/patch/patch-plugin.c:97
 msgid "Patch file"
 msgstr "Archivo parche"
 
-#: ../plugins/patch/patch-plugin.c:165 ../plugins/patch/patch-plugin.ui.h:3
+#: ../plugins/patch/patch-plugin.c:166 ../plugins/patch/patch-plugin.ui.h:3
 msgid "Patch"
 msgstr "Parchear"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:186
 msgid "Please select the directory where the patch should be applied"
 msgstr "Seleccione el directorio donde el parche debería ser aplicado"
 
-#: ../plugins/patch/patch-plugin.c:196
+#: ../plugins/patch/patch-plugin.c:197
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Parcheando %s usando %s\n"
 
-#: ../plugins/patch/patch-plugin.c:208
+#: ../plugins/patch/patch-plugin.c:209
 msgid "Patching...\n"
 msgstr "Parcheando…\n"
 
-#: ../plugins/patch/patch-plugin.c:218
+#: ../plugins/patch/patch-plugin.c:219
 msgid "Patching..."
 msgstr "Parcheando…"
 
-#: ../plugins/patch/patch-plugin.c:223
+#: ../plugins/patch/patch-plugin.c:224
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Hay trabajos no finalizados, espere hasta que estén terminados."
 
-#: ../plugins/patch/patch-plugin.c:265
+#: ../plugins/patch/patch-plugin.c:266
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6157,7 +6499,7 @@ msgstr ""
 "Revise los mensajes de fallo.\n"
 "Examine y quite cualquier archivo rechazado.\n"
 
-#: ../plugins/patch/patch-plugin.c:271
+#: ../plugins/patch/patch-plugin.c:272
 msgid "Patching complete"
 msgstr "Aplicación del parche completado"
 
@@ -6751,30 +7093,39 @@ msgstr "Ejecutando: %s"
 msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
-#: ../plugins/project-wizard/property.c:289
-#: ../plugins/project-wizard/property.c:341
+#: ../plugins/project-wizard/property.c:288
+#: ../plugins/project-wizard/property.c:401
 msgid "No"
 msgstr "No"
 
-#: ../plugins/project-wizard/property.c:300
+#: ../plugins/project-wizard/property.c:299
 msgid "Select directory"
 msgstr "Seleccionar directorio"
 
-#: ../plugins/project-wizard/property.c:308
+#: ../plugins/project-wizard/property.c:307
 msgid "Select file"
 msgstr "Seleccionar archivo"
 
+#: ../plugins/project-wizard/property.c:359
+#, fuzzy
+#| msgid "Select a file"
+msgid "Select an Image File"
+msgstr "Seleccionar un archivo"
+
 #: ../plugins/project-wizard/property.c:384
+#: ../plugins/project-wizard/property.c:474
+#, fuzzy
+#| msgid "Choose directory"
+msgid "Choose Icon"
+msgstr "Elija un directorio"
+
+#: ../plugins/project-wizard/property.c:444
 msgid "Choose directory"
 msgstr "Elija un directorio"
 
-#: ../plugins/project-wizard/property.c:388
+#: ../plugins/project-wizard/property.c:448
 msgid "Choose file"
 msgstr "Elija un archivo"
-
-#: ../plugins/project-wizard/property.c:403
-msgid "Icon choice"
-msgstr "Elección del icono"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "A GNOME applet project"
@@ -7247,12 +7598,12 @@ msgstr "El directorio del programa «%s» no es local"
 msgid "Load Target to run"
 msgstr "Cargar objetivo que ejecutar"
 
-#: ../plugins/run-program/parameters.c:736
+#: ../plugins/run-program/parameters.c:749
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "Nombre"
 
-#: ../plugins/run-program/plugin.c:177
+#: ../plugins/run-program/plugin.c:191
 msgid ""
 "The program is running.\n"
 "Do you want to restart it?"
@@ -7262,209 +7613,185 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/run-program/plugin.c:215
+#: ../plugins/run-program/plugin.c:229
 msgid "_Run"
 msgstr "_Ejecutar"
 
-#: ../plugins/run-program/plugin.c:223
+#: ../plugins/run-program/plugin.c:237
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
 msgstr "Ejecutar"
 
-#: ../plugins/run-program/plugin.c:225
+#: ../plugins/run-program/plugin.c:239
 msgid "Run program without debugger"
 msgstr "Ejecutar el programa sin el depurador"
 
-#: ../plugins/run-program/plugin.c:231
+#: ../plugins/run-program/plugin.c:245
 msgid "Stop Program"
 msgstr "Parar programa"
 
-#: ../plugins/run-program/plugin.c:233
+#: ../plugins/run-program/plugin.c:247
 msgid "Kill program"
 msgstr "Matar programa"
 
-#: ../plugins/run-program/plugin.c:239
+#: ../plugins/run-program/plugin.c:253
 msgid "Program Parameters..."
 msgstr "Parámetros del programa…"
 
-#: ../plugins/run-program/plugin.c:241
+#: ../plugins/run-program/plugin.c:255
 msgid "Set current program, arguments and so on"
 msgstr "Establecer el programa actual, los argumentos y demás"
 
-#: ../plugins/run-program/plugin.c:266
+#: ../plugins/run-program/plugin.c:280
 msgid "Run operations"
 msgstr "Ejecutar operaciones"
 
 #: ../plugins/search/anjuta-search.ui.h:1
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-
-#: ../plugins/search/anjuta-search.ui.h:2
-msgid ""
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-msgstr ""
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-
-#: ../plugins/search/anjuta-search.ui.h:3
-msgid "*.so *.o *.a *.la"
-msgstr "*.so *.o *.a *.la"
-
-#: ../plugins/search/anjuta-search.ui.h:4
-msgid "*\\.*"
-msgstr "*\\.*"
-
-#: ../plugins/search/anjuta-search.ui.h:5
 msgid "<b>Actions</b>"
 msgstr "<b>Acciones</b>"
 
-#: ../plugins/search/anjuta-search.ui.h:6
+#: ../plugins/search/anjuta-search.ui.h:2
 msgid "<b>File Filter</b>"
 msgstr "<b>Filtro de archivo</b>"
 
-#: ../plugins/search/anjuta-search.ui.h:8
+#: ../plugins/search/anjuta-search.ui.h:4
 msgid "<b>Parameters</b>"
 msgstr "<b>Parámetros</b>"
 
-#: ../plugins/search/anjuta-search.ui.h:9
+#: ../plugins/search/anjuta-search.ui.h:5
 msgid "<b>Scope</b>"
 msgstr "<b>Ámbito</b>"
 
-#: ../plugins/search/anjuta-search.ui.h:10
+#: ../plugins/search/anjuta-search.ui.h:6
 msgid "<b>Search variable</b>"
 msgstr "<b>Variable de búsqueda</b>"
 
-#: ../plugins/search/anjuta-search.ui.h:11
+#: ../plugins/search/anjuta-search.ui.h:7
 #: ../plugins/search/search-replace.c:92
 msgid "Backward"
 msgstr "Hacia atrás"
 
-#: ../plugins/search/anjuta-search.ui.h:12
+#: ../plugins/search/anjuta-search.ui.h:8
 msgid "Basic Search & Replace"
 msgstr "Búsqueda y reemplazo básicos"
 
-#: ../plugins/search/anjuta-search.ui.h:14
-msgid "CVS intl po "
-msgstr "CVS intl po "
-
-#: ../plugins/search/anjuta-search.ui.h:15
+#: ../plugins/search/anjuta-search.ui.h:9
 msgid "Choose Directories:"
 msgstr "Elegir directorios:"
 
-#: ../plugins/search/anjuta-search.ui.h:16
+#: ../plugins/search/anjuta-search.ui.h:10
 msgid "Choose Files:"
 msgstr "Elegir archivos:"
 
-#: ../plugins/search/anjuta-search.ui.h:17
+#: ../plugins/search/anjuta-search.ui.h:11
 msgid "Expand regex back references"
 msgstr "Expandir referencias hacia atrás de regex"
 
-#: ../plugins/search/anjuta-search.ui.h:18
+#: ../plugins/search/anjuta-search.ui.h:12
 msgid "Find & Replace"
 msgstr "Buscar y reemplazar"
 
-#: ../plugins/search/anjuta-search.ui.h:19
+#: ../plugins/search/anjuta-search.ui.h:13
 #: ../plugins/search/search-replace.c:91
 msgid "Forward"
 msgstr "Hacia adelante"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
-#: ../plugins/search/anjuta-search.ui.h:20
+#: ../plugins/search/anjuta-search.ui.h:14
 #: ../plugins/search/search-replace.c:90
 msgid "Full Buffer"
 msgstr "Rellenar búfer"
 
-#: ../plugins/search/anjuta-search.ui.h:21
+#: ../plugins/search/anjuta-search.ui.h:15
 msgid "Greedy matching"
 msgstr "Coincidencia voraz"
 
-#: ../plugins/search/anjuta-search.ui.h:22
+#: ../plugins/search/anjuta-search.ui.h:16
 msgid "Ignore Binary Files"
 msgstr "Ignorar archivos binarios"
 
-#: ../plugins/search/anjuta-search.ui.h:23
+#: ../plugins/search/anjuta-search.ui.h:17
 msgid "Ignore Directories:"
 msgstr "Ignorar directorios:"
 
-#: ../plugins/search/anjuta-search.ui.h:24
+#: ../plugins/search/anjuta-search.ui.h:18
 msgid "Ignore Files:"
 msgstr "Ignorar archivos:"
 
-#: ../plugins/search/anjuta-search.ui.h:25
+#: ../plugins/search/anjuta-search.ui.h:19
 msgid "Ignore Hidden Directories"
 msgstr "Ignorar directorios ocultos"
 
-#: ../plugins/search/anjuta-search.ui.h:26
+#: ../plugins/search/anjuta-search.ui.h:20
 msgid "Ignore Hidden Files"
 msgstr "Ignorar archivos ocultos"
 
-#: ../plugins/search/anjuta-search.ui.h:27
+#: ../plugins/search/anjuta-search.ui.h:21
 msgid "Match at start of word"
 msgstr "Coincidir con el inicio de palabra"
 
-#: ../plugins/search/anjuta-search.ui.h:29
+#: ../plugins/search/anjuta-search.ui.h:23
 msgid "Match complete lines"
 msgstr "Coincidir con líneas completas"
 
-#: ../plugins/search/anjuta-search.ui.h:30
+#: ../plugins/search/anjuta-search.ui.h:24
 msgid "Match complete words"
 msgstr "Coincidir con palabras completas"
 
-#: ../plugins/search/anjuta-search.ui.h:31
+#: ../plugins/search/anjuta-search.ui.h:25
 msgid "Maximum Actions"
 msgstr "Acciones máximas"
 
-#: ../plugins/search/anjuta-search.ui.h:32
+#: ../plugins/search/anjuta-search.ui.h:26
 msgid "Modify"
 msgstr "Modificar"
 
-#: ../plugins/search/anjuta-search.ui.h:33
+#: ../plugins/search/anjuta-search.ui.h:27
 msgid "New Name:"
 msgstr "Nombre nuevo:"
 
-#: ../plugins/search/anjuta-search.ui.h:34
+#: ../plugins/search/anjuta-search.ui.h:28
 msgid "No Limit"
 msgstr "Sin límite"
 
-#: ../plugins/search/anjuta-search.ui.h:35
+#: ../plugins/search/anjuta-search.ui.h:29
 msgid "Regular expression"
 msgstr "Expresión regular"
 
-#: ../plugins/search/anjuta-search.ui.h:36
+#: ../plugins/search/anjuta-search.ui.h:30
 msgid "Replace With:"
 msgstr "Reemplazar con:"
 
-#: ../plugins/search/anjuta-search.ui.h:37
+#: ../plugins/search/anjuta-search.ui.h:31
 msgid "Search Action:"
 msgstr "Acción de búsqueda:"
 
-#: ../plugins/search/anjuta-search.ui.h:38
+#: ../plugins/search/anjuta-search.ui.h:32
 msgid "Search Direction:"
 msgstr "Dirección de búsqueda:"
 
-#: ../plugins/search/anjuta-search.ui.h:39
+#: ../plugins/search/anjuta-search.ui.h:33
 msgid "Search Expression"
 msgstr "Buscar expresión"
 
-#: ../plugins/search/anjuta-search.ui.h:40
+#: ../plugins/search/anjuta-search.ui.h:34
 msgid "Search Expression:"
 msgstr "Buscar expresión:"
 
-#: ../plugins/search/anjuta-search.ui.h:41
+#: ../plugins/search/anjuta-search.ui.h:35
 msgid "Search In:"
 msgstr "Buscar en:"
 
-#: ../plugins/search/anjuta-search.ui.h:42
+#: ../plugins/search/anjuta-search.ui.h:36
 msgid "Search Recursively"
 msgstr "Buscar recursivamente"
 
-#: ../plugins/search/anjuta-search.ui.h:43
+#: ../plugins/search/anjuta-search.ui.h:37
 msgid "Search Target"
 msgstr "Buscar objetivo"
 
-#: ../plugins/search/anjuta-search.ui.h:44
+#: ../plugins/search/anjuta-search.ui.h:38
 msgid "Setting"
 msgstr "Ajuste"
 
@@ -7747,7 +8074,7 @@ msgid "Use theme font"
 msgstr "Usar tipografía del tema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
-#: ../src/anjuta-app.c:427 ../src/anjuta-app.c:432
+#: ../src/anjuta-app.c:493 ../src/anjuta-app.c:498
 msgid "View"
 msgstr "Vista"
 
@@ -8314,39 +8641,39 @@ msgstr "_Buscar símbolo…"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1110
+#: ../plugins/symbol-db/plugin.c:1111
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: Generando herencias..."
 
-#: ../plugins/symbol-db/plugin.c:1115
+#: ../plugins/symbol-db/plugin.c:1116
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1146
+#: ../plugins/symbol-db/plugin.c:1147
 #, c-format
 msgid "Generating inheritances..."
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1148
+#: ../plugins/symbol-db/plugin.c:1149
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1908
+#: ../plugins/symbol-db/plugin.c:1909
 msgid "Populating symbols' db..."
 msgstr "Llenando la BB DD de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2264 ../plugins/symbol-db/plugin.c:2392
+#: ../plugins/symbol-db/plugin.c:2263 ../plugins/symbol-db/plugin.c:2391
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2401
+#: ../plugins/symbol-db/plugin.c:2400
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2409
+#: ../plugins/symbol-db/plugin.c:2408
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
@@ -8364,7 +8691,7 @@ msgstr "Base de datos de símbolos"
 msgid "API Tags"
 msgstr "Etiquetas del API"
 
-#: ../plugins/symbol-db/symbol-db-system.c:805
+#: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Resumiendo el análisis glb."
 
@@ -8568,7 +8895,7 @@ msgid "Unable to build user interface for tool editor"
 msgstr ""
 "No se pudo construir el interfaz de usuario para el editor de herramientas"
 
-#: ../plugins/tools/execute.c:315
+#: ../plugins/tools/execute.c:314
 #, c-format
 msgid "Opening %s"
 msgstr "Abriendo %s"
@@ -8577,7 +8904,7 @@ msgstr "Abriendo %s"
 #. * like "My tools (output)". It's used to name the message
 #. * pane where the output of the tool is send to
 #.
-#: ../plugins/tools/execute.c:410
+#: ../plugins/tools/execute.c:409
 msgid "(output)"
 msgstr "(salida)"
 
@@ -8585,30 +8912,30 @@ msgstr "(salida)"
 #. * like "My tools (error)". It's used to name the message
 #. * pane where the errors of the tool is send to
 #.
-#: ../plugins/tools/execute.c:418
+#: ../plugins/tools/execute.c:417
 msgid "(error)"
 msgstr "(error)"
 
 #. Display the name of the command
-#: ../plugins/tools/execute.c:470
+#: ../plugins/tools/execute.c:469
 #, c-format
 msgid "Running command: %s...\n"
 msgstr "Comando en ejecución: %s...\n"
 
-#: ../plugins/tools/execute.c:510
+#: ../plugins/tools/execute.c:509
 #, c-format
 msgid "Completed unsuccessfully with status code %d\n"
 msgstr "Completado incorrectamente con el código de estado %d\n"
 
-#: ../plugins/tools/execute.c:630
+#: ../plugins/tools/execute.c:629
 msgid "Unable to create a buffer, command aborted"
 msgstr "No se puede crear un búfer, comando abortado"
 
-#: ../plugins/tools/execute.c:642
+#: ../plugins/tools/execute.c:641
 msgid "No document currently open, command aborted"
 msgstr "Actualmente no hay ningún documento abierto, comando abortado"
 
-#: ../plugins/tools/execute.c:1020
+#: ../plugins/tools/execute.c:1019
 #, c-format
 msgid "Unable to open input file %s, command aborted"
 msgstr "No se puede abrir el archivo de entrada %s, comando abortado"
@@ -8841,19 +9168,19 @@ msgstr "Acerca de los com_plementos de Anjuta"
 msgid "About third party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
 
-#: ../src/anjuta-app.c:423
+#: ../src/anjuta-app.c:489
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:668
+#: ../src/anjuta-app.c:734
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:672
+#: ../src/anjuta-app.c:738
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:744
+#: ../src/anjuta-app.c:810
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
@@ -9311,6 +9638,28 @@ msgstr "Backend de autotools"
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
 
+#~ msgid "Icon choice"
+#~ msgstr "Elección del icono"
+
+#~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+#~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#~ msgid ""
+#~ "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+#~ "README AUTHORS ChangeLog *.m4"
+#~ msgstr ""
+#~ "*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+#~ "README AUTHORS ChangeLog *.m4"
+
+#~ msgid "*.so *.o *.a *.la"
+#~ msgstr "*.so *.o *.a *.la"
+
+#~ msgid "*\\.*"
+#~ msgstr "*\\.*"
+
+#~ msgid "CVS intl po "
+#~ msgstr "CVS intl po "
+
 #~ msgid "<b>Filter</b>"
 #~ msgstr "<b>Filtro</b>"
 
@@ -9458,9 +9807,6 @@ msgstr "Backend de autotools para el gestor de proyectos"
 
 #~ msgid "Fixed data-view"
 #~ msgstr "Vista de datos fijos"
-
-#~ msgid "Update the graph"
-#~ msgstr "Actualizar la gráfica"
 
 #~ msgid "Inheritance Graph"
 #~ msgstr "Gráfico de herencia"
