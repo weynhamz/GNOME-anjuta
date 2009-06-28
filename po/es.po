@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2009-06-24 20:34+0000\n"
-"PO-Revision-Date: 2009-06-27 18:38+0200\n"
+"PO-Revision-Date: 2009-06-28 14:36+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4939,7 +4939,7 @@ msgstr "Ajustar a _base"
 #. short-cut
 #: ../plugins/git/plugin.c:87
 msgid "Merge your changes with an upstream remote branch"
-msgstr ""
+msgstr "Mezclar los cambios con una rama remota en «upstream»"
 
 #. Action name
 #. Stock icon, if any
@@ -4950,10 +4950,9 @@ msgstr "_Iniciar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:95
-#, fuzzy
 #| msgid "Start Debugger"
 msgid "Start a rebase"
-msgstr "Iniciar el depurador"
+msgstr "Iniciar un «rebase»"
 
 #. Action name
 #. Stock icon, if any
@@ -4964,10 +4963,9 @@ msgstr "_Continuar"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:103
-#, fuzzy
 #| msgid "_Continue with resolved conflicts"
 msgid "Continue a rebase that stopped because of conflicts"
-msgstr "_Continuar con los conflictos resueltos…"
+msgstr "Continuar un «rebase» parado debido a conflictos"
 
 #. Action name
 #. Stock icon, if any
@@ -4979,7 +4977,7 @@ msgstr "_Saltar"
 #. short-cut
 #: ../plugins/git/plugin.c:111
 msgid "Skip the current conflicted commmit and continue"
-msgstr ""
+msgstr "Omitir el commit actual en conflicto y continuar"
 
 #. Action name
 #. Stock icon, if any
@@ -4991,7 +4989,7 @@ msgstr "_Abortar"
 #. short-cut
 #: ../plugins/git/plugin.c:119
 msgid "Abort the rebase and put the repository in its original state"
-msgstr ""
+msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
 
 #. Action name
 #. Stock icon, if any
@@ -5002,10 +5000,9 @@ msgstr "E_mpujar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:127
-#, fuzzy
 #| msgid "Subversion: Committing changes to the repository..."
 msgid "Push changes to a remote repository"
-msgstr "Efectuando los cambios sobre el repositorio…"
+msgstr "Empujar los cambios contra un repositorio remoto"
 
 #. Action name
 #. Stock icon, if any
@@ -5084,10 +5081,9 @@ msgstr "_Descargar (checkout) archivos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:175
-#, fuzzy
 #| msgid "_Diff uncommitted changes"
 msgid "Revert uncommitted changes to files"
-msgstr "_Diff de los cambios sin subir"
+msgstr "Revertir los cambios sin subir en los archivos"
 
 #. Action name
 #. Stock icon, if any
@@ -5099,7 +5095,7 @@ msgstr "Realizar «unstage» de archivos"
 #. short-cut
 #: ../plugins/git/plugin.c:183
 msgid "Remove files from the commit index"
-msgstr ""
+msgstr "Quitar archivos del índice del commit"
 
 #. Action name
 #. Stock icon, if any
@@ -5110,10 +5106,9 @@ msgstr "_Resolver conflictos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:191
-#, fuzzy
 #| msgid "Set Conflicts as Resolved"
 msgid "Mark conflicted files as resolved"
-msgstr "Establecer conflictos como resueltos"
+msgstr "Marcar como resuelto el conflicto entre archivos"
 
 #. Action name
 #. Stock icon, if any
@@ -5131,7 +5126,7 @@ msgstr "Crear serie de parches…"
 #. short-cut
 #: ../plugins/git/plugin.c:207
 msgid "Generate patch files for submission upstream"
-msgstr ""
+msgstr "Generar archivos de parches para enviar a «upstream»"
 
 #. Action name
 #. Stock icon, if any
@@ -5142,10 +5137,9 @@ msgstr "_Aplicar…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:223
-#, fuzzy
 #| msgid "Create patch series"
 msgid "Start applying a patch series"
-msgstr "Crear serie de parches"
+msgstr "Comenzar a aplicar una serie de parches"
 
 #. Action name
 #. Stock icon, if any
@@ -5156,10 +5150,10 @@ msgstr "_Continuar con los conflictos resueltos…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:231
-#, fuzzy
 #| msgid "_Continue with resolved conflicts"
 msgid "Continue applying a series after resolving conflicts"
-msgstr "_Continuar con los conflictos resueltos…"
+msgstr ""
+"Continuar aplicando la serie de parches después de resolver los conflictos"
 
 #. Action name
 #. Stock icon, if any
@@ -5171,7 +5165,7 @@ msgstr "_Saltar el parche actual"
 #. short-cut
 #: ../plugins/git/plugin.c:239
 msgid "Skip the current patch in the series and continue"
-msgstr ""
+msgstr "Omitir el parche actual de la serie y continuar"
 
 #. Display label
 #. short-cut
@@ -5179,6 +5173,8 @@ msgstr ""
 msgid ""
 "Stop applying the series and return the repository to its original state"
 msgstr ""
+"Parar la aplicación de la serie de parches y devolver el repositorio a su "
+"estado original"
 
 #. Action name
 #. Stock icon, if any
@@ -5195,10 +5191,9 @@ msgstr "_Crear rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:263
-#, fuzzy
 #| msgid "Create Branch"
 msgid "Create a branch"
-msgstr "Crear rama"
+msgstr "Crear una rama"
 
 #. Action name
 #. Stock icon, if any
@@ -5209,10 +5204,9 @@ msgstr "_Borrar rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:271
-#, fuzzy
 #| msgid "Delete Branch"
 msgid "Delete branches"
-msgstr "Borrar rama"
+msgstr "Borrar ramas"
 
 #. Action name
 #. Stock icon, if any
@@ -5223,10 +5217,9 @@ msgstr "Cambia_r a otra rama…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 #| msgid "_Switch to another branch..."
 msgid "Switch to another branch"
-msgstr "Cambia_r a otra rama…"
+msgstr "Cambiar a otra rama"
 
 #. Action name
 #. Stock icon, if any
@@ -5238,7 +5231,7 @@ msgstr "_Mezclar…"
 #. short-cut
 #: ../plugins/git/plugin.c:287
 msgid "Merge changes from another branch into the current one"
-msgstr ""
+msgstr "Mezclar cambios desde otra rama en la rama actual"
 
 #. Action name
 #. Stock icon, if any
@@ -5253,6 +5246,7 @@ msgid ""
 "Selectively merge individual changes from other branches into the currrent "
 "one"
 msgstr ""
+"Mezclar selectivamente cambios individuales de otras ramas en la rama actual"
 
 #. Action name
 #. Stock icon, if any
@@ -5263,10 +5257,9 @@ msgstr "Ramas _remotas"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:311
-#, fuzzy
 #| msgid "Add Remote Branch"
 msgid "Add a remote branch"
-msgstr "Añadir rama remota"
+msgstr "Añadir una rama remota"
 
 #. Action name
 #. Stock icon, if any
@@ -5304,7 +5297,7 @@ msgstr "_Restablecer árbol…"
 #. short-cut
 #: ../plugins/git/plugin.c:335
 msgid "Reset repository head to any past state"
-msgstr ""
+msgstr "Restablecer la cabecera del repositorio a cualquier estado pasado"
 
 #. Action name
 #. Stock icon, if any
@@ -5328,16 +5321,15 @@ msgstr "Viviseccionar"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:359
-#, fuzzy
 #| msgid "Stack frame operations"
 msgid "Start a bisect operation"
-msgstr "Operaciones con la pila de marcos"
+msgstr "Iniciar una operación de vivisección"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:367
 msgid "Stop the bisect and bring the tree back to normal"
-msgstr ""
+msgstr "Parar la vivisección y devolver el árbol a su estado normal"
 
 #. Action name
 #. Stock icon, if any
@@ -5349,7 +5341,7 @@ msgstr "_Buena"
 #. short-cut
 #: ../plugins/git/plugin.c:375
 msgid "Mark the current head revision as good"
-msgstr ""
+msgstr "Marcar la revisión de la cabecera actual como buena"
 
 #. Action name
 #. Stock icon, if any
@@ -5361,7 +5353,7 @@ msgstr "_Mala"
 #. short-cut
 #: ../plugins/git/plugin.c:383
 msgid "Mark the current head revision as bad"
-msgstr ""
+msgstr "Marcar la revisión de la cabecera actual como mala"
 
 #. Action name
 #. Stock icon, if any
@@ -5372,10 +5364,9 @@ msgstr "_Ver el registro…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:391
-#, fuzzy
 #| msgid "View file history"
 msgid "View change history"
-msgstr "Ver el histórico del archivo"
+msgstr "Ver el histórico de cambios"
 
 #. Action name
 #. Stock icon, if any
@@ -5387,7 +5378,7 @@ msgstr "_Mostrar el diff del commit"
 #. short-cut
 #: ../plugins/git/plugin.c:403
 msgid "Show changes introduced by this commit"
-msgstr ""
+msgstr "Mostrar los cambios introducidos por este «commit»"
 
 #. Action name
 #. Stock icon, if any
@@ -5399,43 +5390,40 @@ msgstr "_Ver la revisión seleccionada"
 #. short-cut
 #: ../plugins/git/plugin.c:411
 msgid "View a copy of this file at this revision"
-msgstr ""
+msgstr "Ver una copia de este archivo en esta revisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:419
 msgid "Create a branch with the selected revision as its head"
-msgstr ""
+msgstr "Crear una rama con la revisión seleccionada como su cabecera"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:427
-#, fuzzy
 #| msgid "Please enter a revision."
 msgid "Create a tag at this revision"
-msgstr "Introduzca una revisión."
+msgstr "Crear una etiqueta en esta revisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:435
-#, fuzzy
 #| msgid "Please enter the start revision."
 msgid "Reset repository head to this revision"
-msgstr "Introduzca la revisión inicial."
+msgstr "Restablecer la cabecera del repositorio a esta revisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:443
-#, fuzzy
 #| msgid "Revert Commit"
 msgid "Revert this commit"
-msgstr "Revertir commit"
+msgstr "Revertir este commit"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:451
 msgid "Merge this commit into the current branch"
-msgstr ""
+msgstr "Mezclar este «commit» en la rama actual"
 
 #. Action name
 #. Stock icon, if any
@@ -5453,7 +5441,7 @@ msgstr "_Establecer como revisión buena"
 #. short-cut
 #: ../plugins/git/plugin.c:467
 msgid "Mark this revision as good"
-msgstr ""
+msgstr "Marcar esta revisión como buena"
 
 #. Action name
 #. Stock icon, if any
@@ -5465,29 +5453,27 @@ msgstr "_Establecer como revisión mala"
 #. short-cut
 #: ../plugins/git/plugin.c:475
 msgid "Mark this revision as bad"
-msgstr ""
+msgstr "Marcar esta revisión como mala"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:495
 msgid "View changes to this file or folder"
-msgstr ""
+msgstr "Ver cambios en este archivo o carpeta"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:503
-#, fuzzy
 #| msgid "Copy files/folders in the repository"
 msgid "Add this file or folder to the repository"
-msgstr "Copiar archivos/carpetas en el repositorio"
+msgstr "Añadir este archivo o carpeta al repositorio"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:511
-#, fuzzy
 #| msgid "Copy files/folders in the repository"
 msgid "Reove this file or folder from the repository"
-msgstr "Copiar archivos/carpetas en el repositorio"
+msgstr "Quitar este archivo o carpeta del repositorio"
 
 #: ../plugins/git/plugin.c:666
 msgid "Git operations"
@@ -7107,25 +7093,23 @@ msgid "Select file"
 msgstr "Seleccionar archivo"
 
 #: ../plugins/project-wizard/property.c:359
-#, fuzzy
 #| msgid "Select a file"
 msgid "Select an Image File"
-msgstr "Seleccionar un archivo"
+msgstr "Seleccionar un archivo de imagen"
 
 #: ../plugins/project-wizard/property.c:384
 #: ../plugins/project-wizard/property.c:474
-#, fuzzy
 #| msgid "Choose directory"
 msgid "Choose Icon"
-msgstr "Elija un directorio"
+msgstr "Elegir icono"
 
 #: ../plugins/project-wizard/property.c:444
 msgid "Choose directory"
-msgstr "Elija un directorio"
+msgstr "Elegir un directorio"
 
 #: ../plugins/project-wizard/property.c:448
 msgid "Choose file"
-msgstr "Elija un archivo"
+msgstr "Elegir un archivo"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "A GNOME applet project"
