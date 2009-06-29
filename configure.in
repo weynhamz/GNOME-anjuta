@@ -581,7 +581,7 @@ else
 		else
 				AC_MSG_RESULT([not found])
 		fi
-		SVN_LIBS="/usr/local/lib /usr/lib"
+		SVN_LIBS="/usr/local/lib64 /usr/local/lib /usr/lib64 /usr/lib"
 		AC_ARG_WITH(svn-lib,
 						[[  --with-svn-lib=DIR  Use the given path to the subversion libraries.]],
 						[
