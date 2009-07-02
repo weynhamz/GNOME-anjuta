@@ -899,9 +899,9 @@ on_log_branch_combo_changed (GtkComboBox *combo_box, gpointer user_data)
 }
 
 static void 
-on_log_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
-								GFile *other_file, GFileMonitorEvent event_type,
-								Git *plugin)
+on_log_branch_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
+									   GFile *other_file, GFileMonitorEvent event_type,
+									   Git *plugin)
 {
 	if (event_type == G_FILE_MONITOR_EVENT_CREATED ||
 	    event_type == G_FILE_MONITOR_EVENT_DELETED)
@@ -1104,7 +1104,7 @@ git_log_get_path (Git *plugin)
 }
 
 GFileMonitor *
-git_log_setup_refresh_monitor (Git *plugin)
+git_log_setup_branch_refresh_monitor (Git *plugin)
 {
 	gchar *git_ref_path;
 	GFile *git_ref_file;
@@ -1122,7 +1122,7 @@ git_log_setup_refresh_monitor (Git *plugin)
 	
 
 	g_signal_connect (G_OBJECT (git_ref_monitor), "changed",
-	                  G_CALLBACK (on_log_refresh_monitor_changed),
+	                  G_CALLBACK (on_log_branch_refresh_monitor_changed),
 	                  plugin);
 
 	g_free (git_ref_path);
