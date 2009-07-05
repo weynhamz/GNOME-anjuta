@@ -138,6 +138,10 @@ GList *anjuta_util_convert_gfile_list_to_path_list (GList *list);
 GList *anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
 															 const gchar *parent);
 
+/* Helper functions to load a GtkBuilder file and get widgets */
+GtkBuilder *anjuta_util_builder_new (const gchar *filename, GError **error);
+gboolean anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,...);
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

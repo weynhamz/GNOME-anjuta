@@ -2086,3 +2086,96 @@ anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
 	return path_list;
 }
 
+
+/**
+ * anjuta_util_builder_new:
+ * @filename: Builder file name to open
+ * @error: Optional error object, if NULL display a dialog if the file is missing
+ *
+ * Create a new GtkBuilder object and load the file in it. Display an error
+ * if the file is missing. Use a dialog if error is NULL, just a warning
+ * if the error can be reported.
+  *
+ * Returns: The new GtkBuilder object
+ */
+GtkBuilder *
+anjuta_util_builder_new (const gchar *filename, GError **error)
+{
+	GtkBuilder *bxml = gtk_builder_new ();
+	GError *err = NULL;
+
+	/* Load glade file */
+	if (!gtk_builder_add_from_file (bxml, filename, &err))
+	{
+		g_object_unref (bxml);
+		bxml = NULL;
+
+		/* Display the error to the user if it cannot be reported to the caller */
+		if (error == NULL)
+		{
+			anjuta_util_dialog_error (NULL, _("Unable to load user interface file: %s"), err->message);
+		}
+		else
+		{
+			g_warning ("Couldn't load builder file: %s", err->message);
+		}
+		g_propagate_error (error, err);
+	}
+
+	/* Tag the builder object with the filename to allow better error message 
+	 * with the following function */
+	if (bxml != NULL)
+	{
+		g_object_set_data_full (G_OBJECT (bxml), "filename", g_strdup (filename), g_free);
+	}
+
+	return bxml;
+}
+
+/**
+ * anjuta_util_builder_get_objects:
+ * @builder: Builder object
+ * @first_widget: Name of first widget to get
+ * ...: Address to store the first widget pointer, followed optionally by
+ *		more name/pointer pairs, followed by NULL
+ *
+ * Create a new GtkBuilder object and load the file in it. Display an error
+ * if the file is missing. Use a dialog if error is NULL, just a warning
+ * if the error can be reported.
+  *
+ * Returns: TRUE is everything works as expected.
+ */
+gboolean
+anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,...)
+{
+	va_list args;
+	const gchar *name;
+	GObject **object_ptr;
+	gboolean missing = FALSE;
+
+	va_start (args, first_widget);
+
+	for (name = first_widget; name; name = va_arg (args, char *))
+	{
+		object_ptr = va_arg (args, void *);
+		*object_ptr = gtk_builder_get_object (builder, name);
+
+		/* Object not found, display a warning */
+		if (!*object_ptr)
+		{
+			const gchar *filename = (const gchar *)g_object_get_data (G_OBJECT (builder), "filename");
+			if (filename)
+			{
+				g_warning ("Missing widget '%s' in file %s", name, filename);
+			}
+			else
+			{
+				g_warning("Missing widget '%s'", name);
+			}
+			missing = TRUE;
+        }
+	}
+	 va_end (args);
+
+	return !missing;
+}
