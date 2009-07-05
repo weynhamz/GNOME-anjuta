@@ -3343,56 +3343,41 @@ ibuilder_iface_init (IAnjutaBuilderIface *iface)
 /* IAnjutaPreferences implementation
  *---------------------------------------------------------------------------*/
 
-static GtkBuilder *bxml;
-
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GError* error = NULL;
 	GtkWidget *root_check;
-	GtkWidget *entry;
+	GtkWidget *make_check;
+	GtkWidget *root_entry;
+	GtkWidget *make_entry;
+	GtkBuilder *bxml;
 		
 	/* Create the preferences page */
-	bxml =  gtk_builder_new();
+	bxml =  anjuta_util_builder_new (BUILDER_FILE, NULL);
+	if (!bxml) return;
 
-	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-	}
+	anjuta_util_builder_get_objects (bxml,
+	    INSTALL_ROOT_CHECK, &root_check,
+	    INSTALL_ROOT_ENTRY, &root_entry,
+	    PARALLEL_MAKE_CHECK, &make_check,
+	    PARALLEL_MAKE_SPIN, &make_entry,
+	    NULL);
+	
+	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), root_entry);
+	on_root_check_toggled (root_check, root_entry);
 
-	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_CHECK));
-	entry = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_ENTRY));
-	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
-	on_root_check_toggled (root_check, entry);
-
-	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_CHECK));
-	entry = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_SPIN));
-	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
-	on_root_check_toggled (root_check, entry);
+	g_signal_connect(G_OBJECT(make_check), "toggled", G_CALLBACK(on_root_check_toggled), make_entry);
+	on_root_check_toggled (make_check, make_entry);
 	
 	anjuta_preferences_add_from_builder (prefs, bxml, BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
+	
+	g_object_unref (bxml);
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GtkWidget *root_check;
-	GtkWidget *entry;
-
-	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_CHECK));
-	entry = GTK_WIDGET (gtk_builder_get_object (bxml, INSTALL_ROOT_ENTRY));
-	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
-		G_CALLBACK(on_root_check_toggled), entry);
-
-	root_check = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_CHECK));
-	entry = GTK_WIDGET (gtk_builder_get_object (bxml, PARALLEL_MAKE_SPIN));
-	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
-		G_CALLBACK(on_root_check_toggled), entry);
-		
 	anjuta_preferences_remove_page(prefs, _("Build Autotools"));
-	
-	g_object_unref (bxml);
 }
 
 static void

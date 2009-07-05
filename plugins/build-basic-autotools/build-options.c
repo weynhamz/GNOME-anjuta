@@ -24,6 +24,7 @@
 #include <gio/gio.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-utils.h>
 #include <string.h>
 
 /* Constants
@@ -305,25 +306,22 @@ fill_dialog (BuildConfigureDialog *dlg)
 gboolean
 build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildConfigurationList *config_list, gboolean *run_autogen)
 {
-	GError* error = NULL;
 	GtkBuilder* bxml;
 	BuildConfigureDialog dlg;
 	BuildConfiguration *cfg = NULL;
 	gint response;
 	
 	/* Get all dialog widgets */
-	bxml = gtk_builder_new();
-	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-	}
-	dlg.win = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURE_DIALOG));
-	dlg.combo = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURATION_COMBO));
-	dlg.autogen = GTK_WIDGET (gtk_builder_get_object (bxml, RUN_AUTOGEN_CHECK));
-	dlg.build_dir_chooser = GTK_WIDGET (gtk_builder_get_object (bxml, BUILD_DIR_CHOOSER));
-	dlg.args = GTK_WIDGET (gtk_builder_get_object (bxml, CONFIGURE_ARGS_ENTRY));
-	dlg.ok = GTK_WIDGET (gtk_builder_get_object (bxml, OK_BUTTON));
+	bxml = anjuta_util_builder_new (BUILDER_FILE, NULL);
+	if (bxml == NULL) return FALSE;
+	anjuta_util_builder_get_objects (bxml,
+	    CONFIGURE_DIALOG, &dlg.win,
+	    CONFIGURATION_COMBO, &dlg.combo,
+	    RUN_AUTOGEN_CHECK, &dlg.autogen,
+	    BUILD_DIR_CHOOSER, &dlg.build_dir_chooser,
+	    CONFIGURE_ARGS_ENTRY, &dlg.args,
+	    OK_BUTTON, &dlg.ok,
+	    NULL);
 	g_object_unref (bxml);
 	
 	dlg.config_list = config_list;
