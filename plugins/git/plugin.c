@@ -585,6 +585,8 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	g_file_monitor_cancel (git_plugin->log_refresh_monitor);
 	
 	g_object_unref (git_plugin->bisect_file_monitor);
+	g_object_unref (git_plugin->log_branch_refresh_monitor);
+	g_object_unref (git_plugin->log_refresh_monitor);
 }
 
 static void
