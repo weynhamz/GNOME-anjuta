@@ -31,6 +31,8 @@
 #include "git-ref-command.h"
 #include "giggle-graph-renderer.h"
 
+typedef void (*GitBranchRefreshFinishCallback) (gpointer user_data);
+
 void on_menu_git_log (GtkAction* action, Git *plugin);
 void on_fm_git_log (GtkAction *action, Git *plugin);
 
@@ -39,6 +41,10 @@ void git_log_window_clear (Git *plugin);
 GitRevision *git_log_get_selected_revision (Git *plugin);
 gchar *git_log_get_path (Git *plugin);
 GFileMonitor *git_log_setup_branch_refresh_monitor (Git *plugin);
+GFileMonitor *git_log_setup_log_refresh_monitor (Git *plugin);
+void git_log_refresh_branches_full (Git *plugin,
+									GitBranchRefreshFinishCallback finish_callback,
+									gpointer user_data);
 void git_log_refresh_branches (Git *plugin);
 
 #endif

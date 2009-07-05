@@ -3,14 +3,6 @@
   <requires lib="gtk+" version="2.16"/>
   <requires lib="anjuta" version="2366.5320"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="log_branch_combo_model">
-    <columns>
-      <!-- column-name active_icon -->
-      <column type="gchararray"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="branch_list_model">
     <columns>
       <!-- column-name selected -->
@@ -23,6 +15,16 @@
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="log_branch_combo_model">
+    <columns>
+      <!-- column-name active_icon -->
+      <column type="gchararray"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name active -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkDialog" id="commit_dialog">

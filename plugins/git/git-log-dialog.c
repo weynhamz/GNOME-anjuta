@@ -41,6 +41,7 @@ typedef struct
 	gchar *path;
 	GHashTable *refs;
 	GHashTable *filters;
+	gboolean viewing_active_branch;
 } LogData;
 
 static void
@@ -811,6 +812,7 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 	GitBranch *branch;
 	GtkTreeIter iter;
 	gchar *name;
+	gboolean active;
 	
 	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
 	                                                                 "log_branch_combo_model"));
@@ -824,20 +826,27 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 	{
 		branch = g_queue_pop_head (output_queue);
 		name = git_branch_get_name (branch);
+		active = FALSE;
 
 		gtk_list_store_append (log_branch_combo_model, &iter);
 		
 		if (git_branch_is_active (branch))
 		{
-			gtk_list_store_set (log_branch_combo_model, &iter, 0, 
-			                    GTK_STOCK_APPLY, -1);
+			gtk_list_store_set (log_branch_combo_model, &iter,  
+			                    0, GTK_STOCK_APPLY, -1);
 			g_object_set_data_full (G_OBJECT (log_branch_combo), 
 			                        "active-branch-iter",
 			                        g_memdup (&iter, sizeof (GtkTreeIter)), 
 			                        g_free);
+
+			active = TRUE;
 		}
 		
-		gtk_list_store_set (log_branch_combo_model, &iter, 1, name, -1);
+		gtk_list_store_set (log_branch_combo_model, &iter, 
+							1, name,
+		    				2, active, 
+							-1);
+		
 		g_hash_table_insert (branches_table, g_strdup (name), 
 		                     g_memdup (&iter, sizeof (GtkTreeIter)));
 
@@ -848,23 +857,29 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 
 static void
 on_log_list_branch_command_finished (AnjutaCommand *command, guint return_code,
-                                     GtkBuilder *bxml)
+                                     LogData *data)
 {
 	GtkComboBox *log_branch_combo;
 	GHashTable *branches_table;
 	gchar *selected_branch;
 	GtkTreeIter *iter;
+	GitBranchRefreshFinishCallback finish_callback;
+	gpointer user_data;
 
-	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (bxml,
+	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (data->bxml,
 	                                                          "log_branch_combo"));
 	branches_table = g_object_get_data (G_OBJECT (log_branch_combo),
 	                                    "branches-table");
 	selected_branch = g_object_get_data (G_OBJECT (log_branch_combo),
 	                                     "selected-branch");
 
-	if (selected_branch && g_hash_table_lookup_extended (branches_table, 
-	                                                     selected_branch, NULL,
-		                              					 (gpointer *) &iter))
+	/* If the user was looking at the active branch, switch to the new active
+	 * branch. If the user was looking at another branch, keep it selected if it
+	 * still exists, or just go back to the active branch. */
+	if ((!data->viewing_active_branch) && 
+	    (selected_branch && g_hash_table_lookup_extended (branches_table, 
+	                                                      selected_branch, NULL,
+		                              					  (gpointer *) &iter)))
 	{	
 		gtk_combo_box_set_active_iter (log_branch_combo, iter);
 	}
@@ -876,22 +891,34 @@ on_log_list_branch_command_finished (AnjutaCommand *command, guint return_code,
 	g_object_set_data (G_OBJECT (log_branch_combo), "being-refreshed",
 	                   GINT_TO_POINTER (FALSE));
 
+	finish_callback = g_object_get_data (G_OBJECT (command), "finish-callback");
+	user_data = g_object_get_data (G_OBJECT (command), "user-data");
+
+	if (finish_callback)
+		finish_callback (user_data);
+
 	g_object_unref (command);
 	
 }
 
 static void
-on_log_branch_combo_changed (GtkComboBox *combo_box, gpointer user_data)
+on_log_branch_combo_changed (GtkComboBox *combo_box, LogData *data)
 {
 	GtkTreeModel *log_branch_combo_model;
 	gchar *branch;
 	GtkTreeIter iter;
+	gboolean active;
 
 	log_branch_combo_model = gtk_combo_box_get_model (combo_box);
 
 	if (gtk_combo_box_get_active_iter (combo_box, &iter))
 	{
-		gtk_tree_model_get (log_branch_combo_model, &iter, 1, &branch, -1);
+		gtk_tree_model_get (log_branch_combo_model, &iter, 
+							1, &branch, 
+							2, &active, 
+							-1);
+
+		data->viewing_active_branch = active;
 
 		g_object_set_data_full (G_OBJECT (combo_box), "selected-branch", 
 		                        branch, (GDestroyNotify) g_free);
@@ -910,6 +937,68 @@ on_log_branch_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
 	}
 }
 
+static void 
+log_refresh (LogData *data)
+{
+	GtkComboBox *log_branch_combo;
+	GtkTreeModel *log_branch_combo_model;
+	GtkTreeIter iter;
+	GtkTreeIter first_log_iter;
+	gboolean active;
+	GitRefCommand *ref_command;
+
+	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (data->bxml,
+															  "log_branch_combo"));
+	log_branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+																	 "log_branch_combo_model"));
+
+	/* Don't refresh the log if the user is looking at an individual path 
+	 * log */
+	if (data->path)
+		return;
+
+	/* Don't refresh the log if the user isn't looking at the active 
+	 * branch */
+	gtk_combo_box_get_active_iter (log_branch_combo, &iter);
+	gtk_tree_model_get (log_branch_combo_model, &iter, 2, &active, -1);
+
+	if (!active)
+		return;
+
+	/* Don't refresh the log if the log view is empty */
+	if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (data->list_store), 
+	    &first_log_iter))
+	{
+		return;
+	}	
+
+	ref_command = git_ref_command_new (data->plugin->project_root_directory);
+
+	g_signal_connect (G_OBJECT (ref_command), "command-finished",
+					  G_CALLBACK (on_ref_command_finished),
+					  data);
+
+	anjuta_command_start (ANJUTA_COMMAND (ref_command));
+
+	
+}
+
+static void 
+on_log_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
+								GFile *other_file, GFileMonitorEvent event_type,
+								LogData *data)
+{
+	/* Git must overwrite this file during swtiches instead of just modifying 
+	 * it... */
+	if (event_type == G_FILE_MONITOR_EVENT_CREATED)
+	{
+		/* Always refresh the branch model to at least reflect that the 
+		 * active branch has probably changed */
+		git_log_refresh_branches_full (data->plugin, 
+									   (GitBranchRefreshFinishCallback) log_refresh,
+									   data);
+	}
+}
 
 GtkWidget *
 git_log_window_create (Git *plugin)
@@ -930,6 +1019,10 @@ git_log_window_create (Git *plugin)
 	
 	data = g_new0 (LogData, 1);
 	data->bxml = gtk_builder_new ();
+
+	/* Select the active branch by default */
+	data->viewing_active_branch = TRUE;
+
 	error = NULL;
 
 	if (!gtk_builder_add_objects_from_file (data->bxml, BUILDER_FILE, objects, 
@@ -989,7 +1082,7 @@ git_log_window_create (Git *plugin)
 
 	g_signal_connect (G_OBJECT (log_branch_combo), "changed",
 	                  G_CALLBACK (on_log_branch_combo_changed),
-	                  NULL);
+	                  data);
 	
 	data->list_store = gtk_list_store_new (NUM_COLS,
 										   G_TYPE_OBJECT);
@@ -1063,6 +1156,8 @@ git_log_window_clear (Git *plugin)
 	gtk_list_store_clear (log_branch_combo_model);
 	gtk_text_buffer_set_text (buffer, "", 0);
 
+	data->viewing_active_branch = TRUE;
+
 	g_object_set_data (G_OBJECT (log_branch_combo), "selected-branch", NULL);
 }
 
@@ -1131,8 +1226,40 @@ git_log_setup_branch_refresh_monitor (Git *plugin)
 	return git_ref_monitor;
 }
 
+GFileMonitor *
+git_log_setup_log_refresh_monitor (Git *plugin)
+{
+	gchar *git_head_path;
+	GFile *git_head_file;
+	GFileMonitor *git_head_monitor;
+	LogData *data;
+
+	git_head_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                           plugin->project_root_directory,
+	                           ".git",
+	                           "HEAD",
+	                           NULL);
+
+	git_head_file = g_file_new_for_path (git_head_path);
+	git_head_monitor = g_file_monitor_file (git_head_file, 0, NULL, NULL);
+
+	data = g_object_get_data (G_OBJECT (plugin->log_viewer), "log-data");
+	
+
+	g_signal_connect (G_OBJECT (git_head_monitor), "changed",
+	                  G_CALLBACK (on_log_refresh_monitor_changed),
+	                  data);
+
+	g_free (git_head_path);
+	g_object_unref (git_head_file);
+
+	return git_head_monitor;
+}
+
 void
-git_log_refresh_branches (Git *plugin)
+git_log_refresh_branches_full (Git *plugin, 
+							   GitBranchRefreshFinishCallback finish_callback,
+							   gpointer user_data)
 {
 	LogData *data;
 	GtkWidget *log_branch_combo;
@@ -1176,7 +1303,13 @@ git_log_refresh_branches (Git *plugin)
 
 		g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
 		                  G_CALLBACK (on_log_list_branch_command_finished),
-		                  data->bxml);
+		                  data);
+
+		g_object_set_data (G_OBJECT (branch_list_command), "finish-callback",
+						   finish_callback);
+
+		g_object_set_data (G_OBJECT (branch_list_command), "user-data",
+						   user_data);
 
 		g_object_set_data (G_OBJECT (log_branch_combo), "being-refreshed",
 		                   GINT_TO_POINTER (TRUE));
@@ -1184,4 +1317,10 @@ git_log_refresh_branches (Git *plugin)
 		anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
 	}
 	
+}
+
+void
+git_log_refresh_branches (Git *plugin)
+{
+	git_log_refresh_branches_full (plugin, NULL, NULL);
 }
