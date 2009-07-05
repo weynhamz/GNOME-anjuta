@@ -25,8 +25,6 @@
 #include <sys/types.h>
 #include <gio/gio.h>
 
-#include <libanjuta/anjuta-preferences.h>
-
 G_BEGIN_DECLS
 
 gboolean anjuta_util_copy_file (const gchar * src, const gchar * dest, gboolean show_error);
@@ -37,8 +35,6 @@ void anjuta_util_color_from_string (const gchar * val, guint16 * r,
 									guint16 * g, guint16 * b);
 
 gchar* anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b);
-
-GdkColor* anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name);
 
 GtkWidget* anjuta_util_button_new_with_stock_image (const gchar* text,
 													const gchar* stock_id);

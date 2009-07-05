@@ -170,16 +170,6 @@ anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b)
 	return g_strdup_printf("#%02x%02x%02x", r >> 8, g >> 8, b >> 8);
 }
 
-/* Get a GdkColor from preferences. Free the color with gdk_color_free() */
-GdkColor*
-anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
-{
-	GdkColor* color = g_new0(GdkColor, 1);
-	gchar* color_string = anjuta_preferences_get(prefs, pref_name);
-	gdk_color_parse(color_string, color);
-	return color;
-}
-
 GtkWidget* 
 anjuta_util_button_new_with_stock_image (const gchar* text,
 										 const gchar* stock_id)
