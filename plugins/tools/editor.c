@@ -126,17 +126,20 @@ struct _ATPToolEditor
 #define TOOL_VARIABLE "variable_dialog"
 #define VARIABLE_TREEVIEW "variable_treeview"
 
-void on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
-void on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
-void on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data);
-void on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data);
-void on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data);
-void on_editor_input_changed (GtkComboBox *combo, gpointer user_data);
-void on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
-void on_editor_param_variable_show (GtkButton *button, gpointer user_data);
-void on_editor_dir_variable_show (GtkButton *button, gpointer user_data);
-void on_editor_input_variable_show (GtkButton *button, gpointer user_data);
-void on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data);
+void atp_on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
+void atp_on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
+void atp_on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data);
+void atp_on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data);
+void atp_on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data);
+void atp_on_editor_input_changed (GtkComboBox *combo, gpointer user_data);
+void atp_on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data);
+void atp_on_editor_param_variable_show (GtkButton *button, gpointer user_data);
+void atp_on_editor_dir_variable_show (GtkButton *button, gpointer user_data);
+void atp_on_editor_input_variable_show (GtkButton *button, gpointer user_data);
+void atp_on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data);
+void atp_on_editor_browse_button_clicked (GtkButton *button, GtkEntry *entry);
+void atp_on_editor_browse_button_dir_clicked (GtkButton *button, GtkEntry *entry);
+
 
 /* Add helper function
  *---------------------------------------------------------------------------*/
@@ -190,6 +193,7 @@ static void
 set_combo_box_enum_model (GtkComboBox* combo_box, const ATPEnumType* list)
 {
 	GtkTreeModel *model;
+	GtkCellRenderer * renderer;
 
 	model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_INT));
 
@@ -201,6 +205,10 @@ set_combo_box_enum_model (GtkComboBox* combo_box, const ATPEnumType* list)
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, _(list->name), 1, list->id, -1);
 	}
 	gtk_combo_box_set_model (combo_box, model);
+	renderer = gtk_cell_renderer_text_new();
+	gtk_cell_layout_clear (GTK_CELL_LAYOUT(combo_box));
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT(combo_box), renderer, TRUE);
+    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT(combo_box), renderer, "text", 0 );
 }
 
 static gint
@@ -391,7 +399,7 @@ get_current_name (GtkTreeView *view)
 }
 
 void
-on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
+atp_on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
 {
 	ATPVariableDialog *this = (ATPVariableDialog*)user_data;
 	GtkTreeIter iter;
@@ -409,7 +417,7 @@ on_variable_activate_row (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewC
 }
 
 void
-on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
+atp_on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPVariableDialog *this = (ATPVariableDialog *)user_data;
 	gchar* name;
@@ -430,11 +438,10 @@ on_variable_dialog_response (GtkDialog *dialog, gint response, gpointer user_dat
 static gboolean
 atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 {
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GError* error = NULL;
 
 	if (this->dialog != NULL)
 	{
@@ -443,19 +450,17 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 		return TRUE;
 	}
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-		anjuta_util_dialog_error (GTK_WINDOW (this->editor->dialog), _("Unable to build user interface for tool variable"));
-		return FALSE;
-	}
-	this->dialog = GTK_DIALOG (gtk_builder_get_object (bxml, TOOL_VARIABLE));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return FALSE;
+	anjuta_util_builder_get_objects (bxml,
+	    TOOL_VARIABLE, &this->dialog,
+	    VARIABLE_TREEVIEW, &this->view,
+	    NULL);
+	
 	gtk_widget_show (GTK_WIDGET (this->dialog));
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), GTK_WINDOW (this->editor->dialog));
 
 	/* Create variable list */
-	this->view = GTK_TREE_VIEW (gtk_builder_get_object (bxml, VARIABLE_TREEVIEW));
 	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_VARIABLE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING));
 	gtk_tree_view_set_model (this->view, model);
 
@@ -483,28 +488,77 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 /* Tool editor dialog
  *---------------------------------------------------------------------------*/
 
+static void
+cb_preview_update (GtkFileChooser *fc,
+		   GtkImage *preview)
+{
+	char *filename;
+	GdkPixbuf *pixbuf;
+
+	filename = gtk_file_chooser_get_preview_filename (fc);
+	if (filename) {
+		pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
+
+		gtk_file_chooser_set_preview_widget_active (fc, pixbuf != NULL);
+		
+		if (pixbuf) {
+			gtk_image_set_from_pixbuf (preview, pixbuf);
+			g_object_unref (pixbuf);
+		}
+		
+		g_free (filename);
+	}
+}
+
 void
-on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data)
+atp_on_editor_icon_entry_clicked (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
 	GtkWidget *dialog;
-	dialog = gtk_file_chooser_dialog_new ("Open File",
-								NULL,
-								GTK_FILE_CHOOSER_ACTION_OPEN,
-								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-								GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-								NULL);
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
-	{
-		char *filename;
-		GtkWidget* image;
+	GtkFileFilter *filter;
+	GtkWidget *preview;
+	int res;
 
-		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-		image = gtk_image_new_from_file (filename);
-		gtk_button_set_image (button, image);
+	dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
+											NULL,
+					      					GTK_FILE_CHOOSER_ACTION_OPEN, 
+					      					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					      					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					      					NULL);
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
+	    									PACKAGE_PIXMAPS_DIR);
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_add_pixbuf_formats (filter);
+	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
+
+	preview = gtk_image_new ();
+	gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (dialog),
+	    								    preview);
+	g_signal_connect (dialog, "update-preview",
+			  								G_CALLBACK (cb_preview_update), preview);
+
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+
+	if (res == GTK_RESPONSE_ACCEPT) {
+    	gchar *filename;
+
+    	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		if (filename != NULL)
+		{
+			GtkWidget* image;
+			image = gtk_image_new_from_file (filename);
+			gtk_button_set_image (button, image);
+			gtk_button_set_label (button, NULL);
+		}
+		else
+		{
+			gtk_button_set_image (button, NULL);
+			gtk_button_set_label (button, _("Choose Icon"));
+		}
 		atp_user_tool_set_icon (this->tool, filename);
 		g_free (filename);
 	}
+
 	gtk_widget_destroy (dialog);
 }
 
@@ -641,11 +695,17 @@ atp_populate_tool_editor(ATPToolEditor* this)
 		GtkWidget* image;
 		image = gtk_image_new_from_file (atp_user_tool_get_icon (this->tool));
 		gtk_button_set_image (this->icon_en, image);
+		gtk_button_set_label (this->icon_en, NULL);
+	}
+	else
+	{
+		gtk_button_set_image (this->icon_en, NULL);
+		gtk_button_set_label (this->icon_en, _("Choose Icon"));
 	}
 }
 
 void
-on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
+atp_on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
 
@@ -653,7 +713,7 @@ on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 }
 
 void
-on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
+atp_on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
 	gchar* command;
@@ -702,7 +762,7 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 }
 
 void
-on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
+atp_on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
 
@@ -710,7 +770,7 @@ on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
 }
 
 void
-on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
+atp_on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 	gchar* name;
@@ -877,7 +937,7 @@ on_editor_dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 }
 
 void
-on_editor_param_variable_show (GtkButton *button, gpointer user_data)
+atp_on_editor_param_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
@@ -885,7 +945,7 @@ on_editor_param_variable_show (GtkButton *button, gpointer user_data)
 }
 
 void
-on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
+atp_on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
@@ -893,7 +953,7 @@ on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 }
 
 void
-on_editor_input_variable_show (GtkButton *button, gpointer user_data)
+atp_on_editor_input_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
@@ -972,7 +1032,7 @@ on_editor_get_keys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 }
 
 void
-on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
+atp_on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
 
@@ -992,8 +1052,8 @@ on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
 	}
 }
 
-static void
-on_editor_browse_button_clicked (GtkButton *button, GtkEntry *entry)
+void
+atp_on_editor_browse_button_clicked (GtkButton *button, GtkEntry *entry)
 {
 	GtkWidget *dialog;
 	dialog = gtk_file_chooser_dialog_new ("Open File",
@@ -1014,8 +1074,8 @@ on_editor_browse_button_clicked (GtkButton *button, GtkEntry *entry)
 	gtk_widget_destroy(dialog);
 }
 
-static void
-on_editor_browse_button_dir_clicked (GtkButton *button, GtkEntry *entry)
+void
+atp_on_editor_browse_button_dir_clicked (GtkButton *button, GtkEntry *entry)
 {
 	GtkWidget *dialog;
 	dialog = gtk_file_chooser_dialog_new ("Open",
@@ -1039,9 +1099,7 @@ on_editor_browse_button_dir_clicked (GtkButton *button, GtkEntry *entry)
 gboolean
 atp_tool_editor_show (ATPToolEditor* this)
 {
-	GtkWidget *button;
-	GtkBuilder *bxml = gtk_builder_new ();
-	GError* error = NULL;
+	GtkBuilder *bxml;
 
 	if (this->dialog != NULL)
 	{
@@ -1050,44 +1108,37 @@ atp_tool_editor_show (ATPToolEditor* this)
 		return TRUE;
 	}
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		anjuta_util_dialog_error (atp_tool_dialog_get_window (this->parent), _("Unable to build user interface for tool editor"));
-		g_free(this);
-		g_error_free (error);
-		return FALSE;
-	}
-	this->dialog = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_EDITOR));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return FALSE;
+
+	/* Get all objects */
+	anjuta_util_builder_get_objects (bxml,
+	    TOOL_EDITOR, &this->dialog,
+		TOOL_NAME, &this->name_en ,
+		TOOL_COMMAND, &this->command_en,
+		TOOL_PARAM, &this->param_en,
+		TOOL_WORKING_DIR, &this->dir_en,
+		TOOL_ENABLED, &this->enabled_tb,
+		TOOL_TERMINAL, &this->terminal_tb,
+		TOOL_AUTOSAVE, &this->autosave_tb,
+		TOOL_SCRIPT, &this->script_tb,
+		TOOL_OUTPUT, &this->output_com,
+		TOOL_ERROR, &this->error_com,
+		TOOL_INPUT, &this->input_com,
+		TOOL_INPUT_VALUE, &this->input_en,
+		TOOL_INPUT_VARIABLE, &this->input_var_bt,
+		TOOL_SHORTCUT, &this->shortcut_bt,
+		TOOL_ICON, &this->icon_en,
+	    NULL);
+	    
 	gtk_widget_show (this->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->parent->plugin));
 
-	this->name_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_NAME));
-	this->command_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_COMMAND));
-	this->param_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_PARAM));
+	/* Initialize entries */
 	atp_variable_dialog_set_entry (&this->param_var, this->param_en);
-	this->dir_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_WORKING_DIR));
 	atp_variable_dialog_set_entry (&this->dir_var, this->dir_en);
-	this->enabled_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_ENABLED));
-	this->terminal_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_TERMINAL));
-	this->autosave_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_AUTOSAVE));
-	this->script_tb = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_SCRIPT));
-	this->output_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_OUTPUT));
-	this->error_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_ERROR));
-	this->input_com = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TOOL_INPUT));
-	this->input_en = GTK_EDITABLE (gtk_builder_get_object (bxml, TOOL_INPUT_VALUE));
-	this->input_var_bt = GTK_BUTTON (gtk_builder_get_object (bxml, TOOL_INPUT_VARIABLE));
-	this->shortcut_bt = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TOOL_SHORTCUT));
 	atp_variable_dialog_set_entry (&this->input_file_var, this->input_en);
 	atp_variable_dialog_set_entry (&this->input_string_var, this->input_en);
-	this->icon_en = GTK_BUTTON (gtk_builder_get_object (bxml, TOOL_ICON));
-
-	button = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_BROWSE_WORKING_DIR));
-	g_signal_connect(G_OBJECT(button), "clicked", 
-					G_CALLBACK(on_editor_browse_button_dir_clicked), this->dir_en);
-	button = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_BROWSE_COMMAND));
-	g_signal_connect(G_OBJECT(button), "clicked", 
-					G_CALLBACK(on_editor_browse_button_clicked), this->command_en);
 
 	/* Add combox box value */
 	set_combo_box_enum_model (this->error_com, atp_get_error_type_list());
@@ -1100,7 +1151,7 @@ atp_tool_editor_show (ATPToolEditor* this)
 
 	/* Connect all signals */
 	gtk_builder_connect_signals (bxml, this);
-
+	
 	g_object_unref (bxml);
 
 	return TRUE;

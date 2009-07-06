@@ -33,7 +33,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-/* Widget and signal name found in glade file
+/* Widget and signal name found in gtk builder file
  *---------------------------------------------------------------------------*/
 
 #define TOOL_LIST "list_tools"
@@ -43,12 +43,13 @@
 #define TOOL_UP_BUTTON "up_bt"
 #define TOOL_DOWN_BUTTON "down_bt"
 
-void on_tool_add (GtkButton *button, gpointer user_data);
-void on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data);
-void on_tool_edit (GtkButton *button, gpointer user_data);
-void on_tool_delete (GtkButton *button, gpointer user_data);
-void on_tool_up (GtkButton *button, gpointer user_data);
-void on_tool_down (GtkButton *button, gpointer user_data);
+/* Gtk builder callbacks */
+void atp_on_tool_add (GtkButton *button, gpointer user_data);
+void atp_on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data);
+void atp_on_tool_edit (GtkButton *button, gpointer user_data);
+void atp_on_tool_delete (GtkButton *button, gpointer user_data);
+void atp_on_tool_up (GtkButton *button, gpointer user_data);
+void atp_on_tool_down (GtkButton *button, gpointer user_data);
 
 /* column of the list view */
 enum {
@@ -124,7 +125,7 @@ get_current_writable_tool (ATPToolDialog *this)
  *---------------------------------------------------------------------------*/
 
 void
-on_tool_add (GtkButton *button, gpointer user_data)
+atp_on_tool_add (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
@@ -148,7 +149,7 @@ on_tool_add (GtkButton *button, gpointer user_data)
 }
 
 void
-on_tool_edit (GtkButton *button, gpointer user_data)
+atp_on_tool_edit (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
@@ -165,7 +166,7 @@ on_tool_edit (GtkButton *button, gpointer user_data)
 }
 
 void
-on_tool_delete (GtkButton *button, gpointer user_data)
+atp_on_tool_delete (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
@@ -182,7 +183,7 @@ on_tool_delete (GtkButton *button, gpointer user_data)
 }
 
 void
-on_tool_up (GtkButton *button, gpointer user_data)
+atp_on_tool_up (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
@@ -206,7 +207,7 @@ on_tool_up (GtkButton *button, gpointer user_data)
 }
 
 void
-on_tool_down (GtkButton *button, gpointer user_data)
+atp_on_tool_down (GtkButton *button, gpointer user_data)
 {
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
@@ -222,6 +223,12 @@ on_tool_down (GtkButton *button, gpointer user_data)
 			atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 		}
 	}
+}
+
+void
+atp_on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data)
+{
+	atp_on_tool_edit (NULL, user_data);
 }
 
 static void
@@ -241,12 +248,6 @@ on_tool_enable (GtkCellRendererToggle *cell_renderer, const gchar *path, gpointe
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, ATP_TOOLS_ENABLED_COLUMN,
 				atp_user_tool_get_flag (tool, ATP_TOOL_ENABLE), -1);
 	}	
-}
-
-void
-on_tool_activated (GtkTreeView  *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data)
-{
-	on_tool_edit (NULL, user_data);
 }
 
 static void
@@ -316,11 +317,18 @@ atp_tool_dialog_show (ATPToolDialog* this, GtkBuilder *bxml)
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 
-	this->dialog = GTK_WINDOW (gtk_builder_get_object (bxml, TOOL_LIST));
+	/* Get widgets */
+	anjuta_util_builder_get_objects (bxml,
+	    TOOL_LIST, &this->dialog,
+	    TOOL_TREEVIEW, &this->view,
+	    TOOL_EDIT_BUTTON, &this->edit_bt, 
+	    TOOL_DELETE_BUTTON, &this->delete_bt,
+	    TOOL_UP_BUTTON, &this->up_bt,
+	    TOOL_DOWN_BUTTON, &	this->down_bt,
+	    NULL);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->plugin));
 
 	/* Create tree view */	
-	this->view = GTK_TREE_VIEW (gtk_builder_get_object (bxml, TOOL_TREEVIEW));
 	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_TOOLS_COLUMNS,
 		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER));
 	gtk_tree_view_set_model (this->view, model);
@@ -336,12 +344,6 @@ atp_tool_dialog_show (ATPToolDialog* this, GtkBuilder *bxml)
 	   "text", ATP_TOOLS_NAME_COLUMN, NULL);
 	gtk_tree_view_append_column (this->view, column);
 	g_object_unref (model);
-
-	/* Get all buttons */
-	this->edit_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_EDIT_BUTTON));
-	this->delete_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_DELETE_BUTTON));
-	this->up_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_UP_BUTTON));
-	this->down_bt = GTK_WIDGET (gtk_builder_get_object (bxml, TOOL_DOWN_BUTTON));
 
 	/* Connect all signals */
 	gtk_builder_connect_signals (bxml, this);
