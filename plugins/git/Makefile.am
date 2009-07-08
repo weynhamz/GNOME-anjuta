@@ -193,7 +193,13 @@ libanjuta_git_la_SOURCES = \
 	git-cherry-pick-command.c \
 	git-cherry-pick-command.h \
 	git-cherry-pick-dialog.c \
-	git-cherry-pick-dialog.h
+	git-cherry-pick-dialog.h \
+	git-delete-tag-dialog.c \
+	git-delete-tag-dialog.h \
+	git-tag-delete-command.c \
+	git-tag-delete-command.h \
+	git-tag-list-command.c \
+	git-tag-list-command.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

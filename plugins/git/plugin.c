@@ -48,6 +48,7 @@
 #include "git-push-dialog.h"
 #include "git-apply-mailbox-dialog.h"
 #include "git-cherry-pick-dialog.h"
+#include "git-delete-tag-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -320,12 +321,28 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_delete_remote)    /* action callback */
 	},
 	{
+		"ActionMenuGitTags",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("Tags"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionGitCreateTag",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
 		N_("_Create tag..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Create a tag"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_tag)    /* action callback */
+	},
+	{
+		"ActionGitDeleteTag",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Delete tag..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Delete tags"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_delete_tag)    /* action callback */
 	},
 	{
 		"ActionGitReset",                       /* Action name */

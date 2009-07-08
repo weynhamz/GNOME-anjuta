@@ -58,7 +58,12 @@
   		  			</menu>
 				</placeholder>
 				<separator />
-				<menuitem name="Create tag..." action="ActionGitCreateTag" />
+				<placeholder name="PlaceholderTags">
+					<menu name="TagsMenu" action="ActionMenuGitTags">
+						<menuitem name="Create tag..." action="ActionGitCreateTag" />
+						<menuitem name="Delete tag..." action="ActionGitDeleteTag" />
+					</menu>
+				</placeholder>
 				<separator />
 				<menuitem name="Reset tree..." action="ActionGitReset" />
 				<menuitem name="Revert commit..." action="ActionGitRevert" />
