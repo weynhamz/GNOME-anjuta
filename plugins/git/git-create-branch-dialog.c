@@ -62,8 +62,12 @@ on_create_branch_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *branch_checkout_check;
 	GtkWidget *branch_revision_radio;
 	GtkWidget *branch_revision_entry;
+	GtkWidget *branch_branch_radio;
+	GtkWidget *branch_branch_combo;
+	GtkTreeModel *branch_combo_model;
 	gchar *branch_name;
 	gchar *revision;
+	GtkTreeIter iter;
 	gboolean checkout;
 	GitBranchCreateCommand *create_command;
 	
@@ -77,6 +81,12 @@ on_create_branch_dialog_response (GtkDialog *dialog, gint response_id,
 																	"branch_revision_radio"));
 		branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 																    "branch_revision_entry"));
+		branch_branch_radio = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "branch_branch_radio"));
+		branch_branch_combo = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																  "branch_branch_combo"));
+		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+																	 "branch_combo_model"));
 		branch_name = gtk_editable_get_chars (GTK_EDITABLE (branch_name_entry),
 											  0, -1);
 		revision = NULL;
@@ -91,6 +101,15 @@ on_create_branch_dialog_response (GtkDialog *dialog, gint response_id,
 				g_free (revision);
 				g_free (branch_name);
 				return;
+			}
+		}
+		else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (branch_branch_radio)))
+		{
+			if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (branch_branch_combo), 
+											   &iter))
+			{
+				gtk_tree_model_get (branch_combo_model, &iter, 0, &revision, 
+									-1);
 			}
 		}
 		
@@ -132,24 +151,20 @@ on_create_branch_dialog_response (GtkDialog *dialog, gint response_id,
 
 static void
 on_branch_revision_radio_toggled (GtkToggleButton *toggle_button, 
-								  GitUIData *data)
+								  GtkWidget *widget)
 {
 	GtkWidget *create_branch_dialog;
-	GtkWidget *branch_revision_entry;
 	gboolean active;
 	
-	create_branch_dialog = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
-															   "create_branch_dialog"));
-	branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml,
-															    "branch_revision_entry"));
+	create_branch_dialog = gtk_widget_get_toplevel (GTK_WIDGET (toggle_button));
 	
 	active = gtk_toggle_button_get_active (toggle_button);
-	gtk_widget_set_sensitive (branch_revision_entry, active);
+	gtk_widget_set_sensitive (widget, active);
 	
-	if (active)
+	if (active && GTK_WIDGET_CAN_FOCUS (widget))
 	{
 		gtk_window_set_focus (GTK_WINDOW (create_branch_dialog),
-							  branch_revision_entry);
+							  widget);
 	}
 	
 }
@@ -158,12 +173,16 @@ static void
 create_branch_dialog (Git *plugin, const gchar *revision)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"create_branch_dialog", NULL};
+	gchar *objects[] = {"create_branch_dialog", "branch_combo_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *branch_revision_radio;
 	GtkWidget *branch_revision_entry;
+	GtkWidget *branch_branch_radio;
+	GtkWidget *branch_branch_combo;
+	GtkListStore *branch_combo_model;
 	GitUIData *data;
+	GitBranchListCommand *branch_list_command;
 	
 	bxml = gtk_builder_new ();
 	error = NULL;
@@ -180,7 +199,26 @@ create_branch_dialog (Git *plugin, const gchar *revision)
 															    "branch_revision_radio"));
 	branch_revision_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
 																"branch_revision_entry"));
+	branch_branch_radio = GTK_WIDGET (gtk_builder_get_object (bxml,
+															  "branch_branch_radio"));
+	branch_branch_combo = GTK_WIDGET (gtk_builder_get_object (bxml,
+															  "branch_branch_combo"));
+	branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
+																 "branch_combo_model"));
 	data = git_ui_data_new (plugin, bxml);
+
+	branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
+													   GIT_BRANCH_TYPE_ALL);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
+					  G_CALLBACK (on_git_list_branch_combo_command_data_arrived),
+					  branch_combo_model);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
+					  G_CALLBACK (on_git_list_branch_combo_command_finished),
+					  branch_branch_combo);
+
+	anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_create_branch_dialog_response), 
@@ -188,7 +226,11 @@ create_branch_dialog (Git *plugin, const gchar *revision)
 	
 	g_signal_connect (G_OBJECT (branch_revision_radio), "toggled",
 					  G_CALLBACK (on_branch_revision_radio_toggled),
-					  data);
+					  branch_revision_entry);
+
+	g_signal_connect (G_OBJECT (branch_branch_radio), "toggled",
+					  G_CALLBACK (on_branch_revision_radio_toggled),
+					  branch_branch_combo);
 	
 	if (revision)
 	{
