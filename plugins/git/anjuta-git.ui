@@ -4860,7 +4860,7 @@
   </object>
   <object class="GtkDialog" id="delete_tag_dialog">
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Delete Branch</property>
+    <property name="title" translatable="yes">Delete Tags</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
