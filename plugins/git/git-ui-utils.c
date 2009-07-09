@@ -407,6 +407,27 @@ on_git_list_branch_combo_command_finished (AnjutaCommand *command,
 	g_object_unref (command);
 }
 
+
+void
+on_git_list_tag_command_data_arrived (AnjutaCommand *command,
+                              		  GtkListStore *tag_list_model)
+{
+	GQueue *output_queue;
+	gchar *tag_name;
+	GtkTreeIter iter;
+	
+	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
+	
+	while (g_queue_peek_head (output_queue))
+	{
+		tag_name = g_queue_pop_head (output_queue);
+
+		gtk_list_store_append (tag_list_model, &iter);
+		gtk_list_store_set (tag_list_model, &iter, 1, tag_name, -1);
+		
+		g_free (tag_name);
+	}
+}
 void
 git_select_all_status_items (GtkButton *select_all_button,
 							 AnjutaVcsStatusTreeView *tree_view)

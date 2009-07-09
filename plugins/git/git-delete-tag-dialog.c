@@ -65,7 +65,7 @@ on_list_tag_command_data_arrived (AnjutaCommand *command,
 
 static void
 on_delete_tag_dialog_response (GtkDialog *dialog, gint response_id, 
-								  GitUIData *data)
+							   GitUIData *data)
 {
 	GtkWidget *delete_tag_view;
 	GtkWidget *require_merged_check;
@@ -144,7 +144,7 @@ delete_tag_dialog (Git *plugin)
 	list_command = git_tag_list_command_new (plugin->project_root_directory);
 	
 	g_signal_connect (G_OBJECT (list_command), "data-arrived", 
-					  G_CALLBACK (on_list_tag_command_data_arrived), 
+					  G_CALLBACK (on_git_list_tag_command_data_arrived), 
 					  tag_list_model);
 	
 	g_signal_connect (G_OBJECT (list_command), "command-finished", 

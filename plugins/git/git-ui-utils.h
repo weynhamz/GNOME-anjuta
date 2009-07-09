@@ -78,6 +78,8 @@ void on_git_list_branch_command_data_arrived (AnjutaCommand *command,
 void on_git_list_branch_combo_command_finished (AnjutaCommand *command,
                                                 guint return_code,
                                                 GtkComboBox *combo_box);
+void on_git_list_tag_command_data_arrived (AnjutaCommand *command, 
+									   GtkListStore *tag_list_model);
 void git_select_all_status_items (GtkButton *select_all_button, 
 								  AnjutaVcsStatusTreeView *tree_view);
 void git_clear_all_status_selections (GtkButton *clear_button,

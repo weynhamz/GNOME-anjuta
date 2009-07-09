@@ -40,6 +40,53 @@ on_push_command_finished (AnjutaCommand *command, guint return_code,
 	g_object_unref (command);
 }
 
+static void
+on_push_tags_check_toggled (GtkToggleButton *toggle_button,
+							GitUIData *data)
+{
+	GtkWidget *push_tags_scrolled_window;
+	GtkWidget *push_all_check;
+	gboolean active;
+
+	push_tags_scrolled_window = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	"push_tags_scrolled_window"));
+	push_all_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														 "push_all_check"));
+	active = gtk_toggle_button_get_active (toggle_button);
+
+	/* Leave the widget insensitive if the push all refs check is ticked. */
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_all_check)))
+		gtk_widget_set_sensitive (push_tags_scrolled_window, !active);
+}
+
+static void
+on_push_all_check_toggled (GtkToggleButton *toggle_button,
+						   GitUIData *data)
+{
+	GtkWidget *push_branches_scrolled_window;
+	GtkWidget *push_tags_scrolled_window;
+	GtkWidget *push_tags_check;
+	gboolean active;
+
+	push_branches_scrolled_window = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																		"push_branches_scrolled_window"));
+	push_tags_scrolled_window = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	"push_tags_scrolled_window"));
+	push_tags_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+														  "push_tags_check"));
+
+	active = gtk_toggle_button_get_active (toggle_button);
+
+	if (active)
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (push_tags_check), 
+									  FALSE);
+	}
+
+	gtk_widget_set_sensitive (push_branches_scrolled_window, !active);
+	gtk_widget_set_sensitive (push_tags_scrolled_window, !active);
+	gtk_widget_set_sensitive (push_tags_check, !active);
+}
 
 static void
 on_push_dialog_response (GtkDialog *dialog, gint response_id, 
@@ -50,7 +97,10 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *push_all_check;
 	GtkWidget *push_tags_check;
 	GtkTreeModel *branch_list_model;
+	GtkTreeModel *tag_list_model;
 	gchar *url;
+	gboolean push_all_tags;
+	gboolean push_all_refs;
 	GList *selected_refs;
 	GitPushCommand *push_command;
 	GitProgressData *progress_data;
@@ -67,6 +117,8 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		                                                      "push_tags_check"));
 		branch_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 																	"branch_list_model"));
+		tag_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+																  "tag_list_model"));
 
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_origin_check)))
 			url = g_strdup ("origin");
@@ -82,17 +134,30 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 			return;
 		}
 
+		push_all_tags = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_all_check));
+		push_all_refs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_tags_check));
+
 		selected_refs = NULL;
 
-		gtk_tree_model_foreach (branch_list_model, 
-								(GtkTreeModelForeachFunc) git_get_selected_refs,
-								&selected_refs);
+		if (!push_all_refs)
+		{
+			gtk_tree_model_foreach (branch_list_model, 
+									(GtkTreeModelForeachFunc) git_get_selected_refs,
+									&selected_refs);
+
+			if (!push_all_tags)
+			{
+				gtk_tree_model_foreach (tag_list_model, 
+										(GtkTreeModelForeachFunc) git_get_selected_refs,
+										&selected_refs);
+			}
+		}
 		
 		push_command = git_push_command_new (data->plugin->project_root_directory,
 		                                     url,
 											 selected_refs,
-		                                     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_all_check)),
-		                                     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_tags_check)));
+		                                     push_all_tags,
+		                                     push_all_refs);
 		progress_data = git_progress_data_new (data->plugin, _("Git: Pushing..."));
 
 		g_free (url);
@@ -128,14 +193,20 @@ static void
 push_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"push_dialog", "branch_list_model", NULL};
+	gchar *objects[] = {"push_dialog", "branch_list_model", "tag_list_model", 
+						NULL};
 	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *push_origin_check;
 	GtkWidget *push_url_entry;
+	GtkWidget *push_tags_check;
+	GtkWidget *push_all_check;
 	GtkListStore *branch_list_model;
+	GtkListStore *tag_list_model;
 	GtkCellRenderer *push_branches_view_selected_renderer;
+	GtkCellRenderer *push_tags_view_selected_renderer;
 	GitBranchListCommand *branch_list_command;
+	GitTagListCommand *tag_list_command;
 	GitUIData *data;
 	
 	bxml = gtk_builder_new ();
@@ -153,23 +224,42 @@ push_dialog (Git *plugin)
 	                                                        "push_origin_check"));
 	push_url_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
 	                                                     "push_url_entry"));
+	push_all_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+		                                                 "push_all_check"));
+	push_tags_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+		                                                  "push_tags_check"));
 	branch_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
 																"branch_list_model"));
+	tag_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
+															 "tag_list_model"));
+	
 	push_branches_view_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (bxml,
 																					  "push_branches_view_selected_renderer"));
+	push_tags_view_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (bxml,
+																				  "push_tags_view_selected_renderer"));
 
 	branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
 													   GIT_BRANCH_TYPE_LOCAL);
+	tag_list_command = git_tag_list_command_new (plugin->project_root_directory);
 
 	g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
 					  G_CALLBACK (on_git_list_branch_command_data_arrived),
 					  branch_list_model);
 
 	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
-					  G_CALLBACK (g_object_unref),
+					  G_CALLBACK (git_report_errors),
+					  NULL);
+
+	g_signal_connect (G_OBJECT (tag_list_command), "data-arrived",
+					  G_CALLBACK (on_git_list_tag_command_data_arrived),
+					  tag_list_model);
+
+	g_signal_connect (G_OBJECT (tag_list_command), "command-finished",
+					  G_CALLBACK (git_report_errors),
 					  NULL);
 
 	anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (tag_list_command));
 	
 	data = git_ui_data_new (plugin, bxml);
 
@@ -181,9 +271,21 @@ push_dialog (Git *plugin)
 	                  G_CALLBACK (on_git_origin_check_toggled),
 	                  push_url_entry);
 
+	g_signal_connect (G_OBJECT (push_tags_check), "toggled",
+					  G_CALLBACK (on_push_tags_check_toggled),
+					  data);
+
+	g_signal_connect (G_OBJECT (push_all_check), "toggled",
+					  G_CALLBACK (on_push_all_check_toggled),
+					  data);
+
 	g_signal_connect (G_OBJECT (push_branches_view_selected_renderer), "toggled",
 					  G_CALLBACK (on_git_selected_column_toggled),
 					  branch_list_model);
+
+	g_signal_connect (G_OBJECT (push_tags_view_selected_renderer), "toggled",
+					  G_CALLBACK (on_git_selected_column_toggled),
+					  tag_list_model);
 	
 	gtk_widget_show_all (dialog);
 }
