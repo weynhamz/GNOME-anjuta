@@ -3,13 +3,14 @@
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2008-2009
 #
 # wanderlust <wanderlust@ukr.net>, 2009.
+# Wanderlust <wanderlust@ukr.net>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta IDE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-08 10:55+0300\n"
-"PO-Revision-Date: 2009-07-06 09:23+0300\n"
-"Last-Translator: wanderlust <wanderlust@ukr.net>\n"
+"POT-Creation-Date: 2009-07-09 23:59+0300\n"
+"PO-Revision-Date: 2009-07-09 15:38+0300\n"
+"Last-Translator: Wanderlust <wanderlust@ukr.net>\n"
 "Language-Team: ukrainian <Ukrainian <uk@li.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1218,7 +1219,7 @@ msgid "Be verbose"
 msgstr "Докладний вывід"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:22
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Browse..."
@@ -1333,7 +1334,7 @@ msgid "Local"
 msgstr "Локальні"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Log message:"
 msgstr "Повідомлення журналу:"
 
@@ -1371,7 +1372,7 @@ msgid "Reset sticky tags"
 msgstr "Скинути липкі позначки"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:77
+#: ../plugins/git/anjuta-git.ui.h:79
 #: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revision:"
 msgstr "Правка:"
@@ -1403,7 +1404,7 @@ msgid "Vendor tag:"
 msgstr "Позначка постачальника:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
-#: ../plugins/git/anjuta-git.ui.h:105
+#: ../plugins/git/anjuta-git.ui.h:107
 #: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "Весь проект"
@@ -2263,11 +2264,11 @@ msgstr "Оновити"
 msgid "Shared Object"
 msgstr " Спільний об'єкт"
 
-#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:45
 msgid "From"
 msgstr "З"
 
-#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:97
+#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:99
 msgid "To"
 msgstr "До"
 
@@ -3628,7 +3629,7 @@ msgstr ""
 "Розширення буде додано відповідно до типу файлу."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:59 ../plugins/macro/anjuta-macro.ui.h:6
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Назва:"
@@ -4305,400 +4306,408 @@ msgid "Cannot start terminal for debugging."
 msgstr "Неможливо запустити термінал для налагодження."
 
 #: ../plugins/git/anjuta-git.ui.h:1
+msgid "<b>Tags</b>"
+msgstr "<b>Теги:</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add File"
 msgstr "Додати файл"
 
-#: ../plugins/git/anjuta-git.ui.h:2
+#: ../plugins/git/anjuta-git.ui.h:3
 msgid "Add Remote Branch"
 msgstr "Додати віддалену гілку"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.ui.h:4
+#: ../plugins/git/anjuta-git.ui.h:5
 msgid "Add signed off by line"
 msgstr "Додати підпис"
 
-#: ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/git/anjuta-git.ui.h:6
 msgid "Add signed-off by line"
 msgstr "Додати рядок підпису"
 
-#: ../plugins/git/anjuta-git.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:7
 msgid "Amend the previous commit"
 msgstr "Внести зміни до попередньої публікації"
 
-#: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/git/anjuta-git.ui.h:8
 msgid "Annotate this tag"
 msgstr "Позначити"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.ui.h:9
+#: ../plugins/git/anjuta-git.ui.h:10
 msgid "Append fetch data"
 msgstr "Додати отримані дані"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:214
+#: ../plugins/git/anjuta-git.ui.h:11 ../plugins/git/plugin.c:214
 msgid "Apply mailbox files"
 msgstr "Застосувати файли mailbox"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:13
 msgid "Author/Grep"
 msgstr "Автор/Шаблон"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Автор:"
 
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Bad revision:"
 msgstr "Неправильна правка:"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Branch name:"
 msgstr "Назва гілки:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:17
 msgid "Branch to switch to:"
 msgstr "Галка для перемикання на неї:"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Branch:"
 msgstr "Гілка:"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "Branches"
 msgstr "Гілки"
 
-#: ../plugins/git/anjuta-git.ui.h:19
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Branches must be fully merged"
 msgstr "Гілка має бути повністю об'єднана"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:21
 msgid "Branches to delete:"
 msgstr "Гілки для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:23
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Зміни:"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Check Out Files"
 msgstr "Отримати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:25
 msgid "Check out the branch after it is created"
 msgstr "Отримати гілку після створення"
 
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
 msgstr "Зафіксувати зміни"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:28
 msgid "Commit on fast-forward merges"
 msgstr "Зафіксувати після швидкого об'єднання"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Commit to Cherry Pick:"
 msgstr "Надіслати до Cherry Pick:"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Commit to revert:"
 msgstr "Зафіксувати у відкаті:"
 
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Create Branch"
 msgstr "Створити гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Create Tag"
 msgstr "Створити позначку"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:33
 msgid "Create patch series"
 msgstr "Створити серію латок"
 
-#: ../plugins/git/anjuta-git.ui.h:33 ../plugins/git/git-log-dialog.c:189
+#: ../plugins/git/anjuta-git.ui.h:34 ../plugins/git/git-log-dialog.c:189
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Дата"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Delete Branch"
 msgstr "Видалити гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:36
 msgid "Delete Remote Branch"
 msgstr "Видалити гілку у мережі"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:37
+msgid "Delete Tags"
+msgstr "Видалити теги"
+
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Do not commit"
 msgstr "Не публікувати"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Do not follow tags"
 msgstr "Не слідувати позначкам"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "E-mail:"
 msgstr "Ел. пошта:"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:41
 msgid "Fetch remote branches after creation"
 msgstr "Отримувати віддалені гілки після створення"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "Filters"
 msgstr "Фільтри"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Folder to create patches in:"
 msgstr "Каталог для створення латок у ньому:"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:44
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Примусово"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "From:"
 msgstr "З"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Generate patches relative to:"
 msgstr "Створити латки відносно:"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Good revision:"
 msgstr "Добра правка:"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Grep:"
 msgstr "Шаблон:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Hard"
 msgstr "Жорсткий"
 
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/git/anjuta-git.ui.h:51
 msgid "Head"
 msgstr "Остання версія"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Ignore Files"
 msgstr "Ігнорувати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:53
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Повідомлення журналу:"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Mailbox file containing patches:"
 msgstr "Файл поштової скриньки, що містить латки:"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Merge"
 msgstr "З об'єднанням"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Mixed"
 msgstr "Змішаний"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Mode:"
 msgstr "Модулі:"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:60
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Параметри"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:61
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Параметри:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Previous commit"
 msgstr "Попередня публікація"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Pull"
 msgstr "Отримання"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Push"
 msgstr "Надіслати"
 
-#: ../plugins/git/anjuta-git.ui.h:63
-msgid "Push all refs"
-msgstr "Надіслати усі refs"
-
-#: ../plugins/git/anjuta-git.ui.h:64
-msgid "Push tags"
-msgstr "Надіслати теги"
-
 #: ../plugins/git/anjuta-git.ui.h:65
+msgid "Push all branches and tags"
+msgstr "Надіслати усі гілки та теги"
+
+#: ../plugins/git/anjuta-git.ui.h:66
+msgid "Push all tags"
+msgstr "Надіслати усі теги"
+
+#: ../plugins/git/anjuta-git.ui.h:67
 msgid "Rebase"
 msgstr "Переміщення"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid "Remote branch to rebase from:"
 msgstr "Віддалена гілка для переносу:"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "Remote to delete:"
 msgstr "Віддалений для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "Remove File"
 msgstr "Видалити файл"
 
-#: ../plugins/git/anjuta-git.ui.h:69
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "Repository origin"
 msgstr "Джерело репозиторію"
 
-#: ../plugins/git/anjuta-git.ui.h:70
+#: ../plugins/git/anjuta-git.ui.h:72
 msgid "Repository to pull from:"
 msgstr "Репозиторій для завантаження:"
 
-#: ../plugins/git/anjuta-git.ui.h:71
+#: ../plugins/git/anjuta-git.ui.h:73
 msgid "Repository to push to:"
 msgstr "Репозиторій для надсилання:"
 
-#: ../plugins/git/anjuta-git.ui.h:72
+#: ../plugins/git/anjuta-git.ui.h:74
 msgid "Reset Tree"
 msgstr "Скинути дерево"
 
-#: ../plugins/git/anjuta-git.ui.h:73
+#: ../plugins/git/anjuta-git.ui.h:75
 msgid "Reset to:"
 msgstr "Скинути на:"
 
-#: ../plugins/git/anjuta-git.ui.h:74
+#: ../plugins/git/anjuta-git.ui.h:76
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Отримання статусу..."
 
-#: ../plugins/git/anjuta-git.ui.h:75
+#: ../plugins/git/anjuta-git.ui.h:77
 msgid "Revert Commit"
 msgstr "Скасувіии фіксацію"
 
-#: ../plugins/git/anjuta-git.ui.h:76
+#: ../plugins/git/anjuta-git.ui.h:78
 msgid "Revision/Tag:"
 msgstr "Правка/позначка:"
 
-#: ../plugins/git/anjuta-git.ui.h:78
+#: ../plugins/git/anjuta-git.ui.h:80
 msgid "Select A Folder"
 msgstr "Виберіть каталог"
 
-#: ../plugins/git/anjuta-git.ui.h:79
+#: ../plugins/git/anjuta-git.ui.h:81
 msgid "Select Files to Check Out:"
 msgstr "Виберіть файли для витягування:"
 
-#: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/git/anjuta-git.ui.h:82
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Files to Commit:"
 msgstr "Виберіть файли для фіксації:"
 
-#: ../plugins/git/anjuta-git.ui.h:81
+#: ../plugins/git/anjuta-git.ui.h:83
 msgid "Select Files to Ignore:"
 msgstr "Виберіть файли для ігнорування:"
 
-#: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/git/anjuta-git.ui.h:84
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "Select Files to Mark as Resolved:"
 msgstr "Виберіть файли, для яких конфлікт розв'язано:"
 
-#: ../plugins/git/anjuta-git.ui.h:83
+#: ../plugins/git/anjuta-git.ui.h:85
 msgid "Select Files to Unstage:"
 msgstr "Виберіть файли для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:84
+#: ../plugins/git/anjuta-git.ui.h:86
 msgid "Select Mailbox File"
 msgstr "Виберіть файл Mailbox"
 
-#: ../plugins/git/anjuta-git.ui.h:85
+#: ../plugins/git/anjuta-git.ui.h:87
 msgid "Select file to add:"
 msgstr "Виберіть файл для додавання:"
 
-#: ../plugins/git/anjuta-git.ui.h:86
+#: ../plugins/git/anjuta-git.ui.h:88
 msgid "Select file to remove:"
 msgstr "Виберіть файли для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:87
+#: ../plugins/git/anjuta-git.ui.h:89
 #: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Позначити конфлікти як розв'язані"
 
-#: ../plugins/git/anjuta-git.ui.h:88
+#: ../plugins/git/anjuta-git.ui.h:90
 msgid "Show source revision in log message"
 msgstr "Показати первинну правку у повідомленні журналу"
 
-#: ../plugins/git/anjuta-git.ui.h:89
+#: ../plugins/git/anjuta-git.ui.h:91
 msgid "Sign this tag"
 msgstr "Підписати цю ціль"
 
-#: ../plugins/git/anjuta-git.ui.h:90
+#: ../plugins/git/anjuta-git.ui.h:92
 msgid "Soft"
 msgstr "М'який"
 
-#: ../plugins/git/anjuta-git.ui.h:91
+#: ../plugins/git/anjuta-git.ui.h:93
 msgid "Squash"
 msgstr "Зіштовхуючий"
 
-#: ../plugins/git/anjuta-git.ui.h:92
+#: ../plugins/git/anjuta-git.ui.h:94
 msgid "Switch to Another Branch"
 msgstr "Перемикнутися на іншу гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:93
+#: ../plugins/git/anjuta-git.ui.h:95
 msgid "Tag name:"
 msgstr "Назва цілі:"
 
-#: ../plugins/git/anjuta-git.ui.h:94
+#: ../plugins/git/anjuta-git.ui.h:96
 msgid "Tag/Commit"
 msgstr "Позначити/Зафіксувати"
 
-#: ../plugins/git/anjuta-git.ui.h:95
+#: ../plugins/git/anjuta-git.ui.h:97
 msgid "Tags to delete:"
 msgstr "Цілі для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:96
+#: ../plugins/git/anjuta-git.ui.h:98
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Ця фіксація містить результат невдалого об'єднання (використовуйте -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:98
+#: ../plugins/git/anjuta-git.ui.h:100
 msgid "To:"
 msgstr "До:"
 
-#: ../plugins/git/anjuta-git.ui.h:99
+#: ../plugins/git/anjuta-git.ui.h:101
 msgid "URL:"
 msgstr "URL:"
 
-#: ../plugins/git/anjuta-git.ui.h:100
+#: ../plugins/git/anjuta-git.ui.h:102
 msgid "Unstage Files"
 msgstr "Прибрати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:101
+#: ../plugins/git/anjuta-git.ui.h:103
 msgid "Use a custom log message"
 msgstr "Додати повідомлення до журналу"
 
-#: ../plugins/git/anjuta-git.ui.h:102
+#: ../plugins/git/anjuta-git.ui.h:104
 msgid "Use custom author information:"
 msgstr "Власна інформація про автора:"
 
-#: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/git/anjuta-git.ui.h:105
 msgid "View log"
 msgstr "Показати журнал"
 
-#: ../plugins/git/anjuta-git.ui.h:104
+#: ../plugins/git/anjuta-git.ui.h:106
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "View the Log for File/Folder:"
 msgstr "Перегляд журналу для файлу/каталогу:"
@@ -4846,11 +4855,11 @@ msgstr "Введіть URL репозиторію для завантаженн�
 msgid "Git: Push complete."
 msgstr "Git: відвантаження завершено."
 
-#: ../plugins/git/git-push-dialog.c:79
+#: ../plugins/git/git-push-dialog.c:131
 msgid "Please enter the URL of the repository to push to."
 msgstr "Введіть URL репозиторію для відвантаження."
 
-#: ../plugins/git/git-push-dialog.c:96
+#: ../plugins/git/git-push-dialog.c:161
 msgid "Git: Pushing..."
 msgstr "Git: відвантаження..."
 
@@ -4875,7 +4884,7 @@ msgstr "Git: завантаження гілки завершено."
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:480
+#: ../plugins/git/git-ui-utils.c:501
 msgid "Git: Diff complete."
 msgstr "Git: пошук відмінностей завершено."
 
@@ -9652,5 +9661,3 @@ msgstr "Модуль Autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Модуль Autotools для менеджера проектів"
-
-
