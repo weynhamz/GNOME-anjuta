@@ -922,7 +922,7 @@ debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent)
 {
 	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	GtkTreeIter iter;
-	
+
 	gtk_tree_store_append(GTK_TREE_STORE(model), &iter, parent);
 	gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
 					   VARIABLE_COLUMN, "",
@@ -941,7 +941,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var,
 	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	GtkTreeIter iter;
 	DmaVariableData *data;
-	
+
 	/* Allocate data */
 	data = dma_variable_data_new(var->name, auto_update);
 	

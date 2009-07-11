@@ -101,6 +101,8 @@ struct _DebugManagerPlugin
 	DmaThreads *thread;
 	DmaVariableDBase *variable;
 	
+
+	GtkWidget *user_command_dialog;
 	
 	/* Logging view */
 	IAnjutaMessageView* view;
@@ -516,6 +518,9 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 	
 	state = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
 	anjuta_status_set_default (state, _("Debugger"), NULL);
+
+	/* Remove user command dialog if existing */
+	if (self->user_command_dialog) gtk_widget_destroy (GTK_WIDGET (self->user_command_dialog));
 	
 	/* Display a warning if debugger stop unexpectedly */
 	if (err != NULL)
@@ -706,27 +711,36 @@ on_debugger_command_entry_activate (GtkEntry *entry, DebugManagerPlugin *plugin)
 static void
 on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
-        GtkBuilder *bxml = gtk_builder_new ();
-        GtkWidget *win, *entry;
-		GError* error = NULL;
+	if (plugin->user_command_dialog == NULL)
+	{
+        GtkBuilder *bxml;
+        GtkWidget *entry;
 
-		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-		{
-			g_warning ("Couldn't load builder file: %s", error->message);
-			g_error_free (error);
-		}
-        win = GTK_WIDGET (gtk_builder_get_object (bxml, "debugger_command_dialog"));
-        entry = GTK_WIDGET (gtk_builder_get_object (bxml, "debugger_command_entry"));
+		bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+		if (!bxml) return;
+		anjuta_util_builder_get_objects (bxml,
+		    "debugger_command_dialog", &plugin->user_command_dialog,
+		    "debugger_command_entry", &entry,
+		    NULL);
+        g_object_unref (bxml);
 
-        gtk_window_set_transient_for (GTK_WINDOW (win),
-                                                                  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
-        g_signal_connect_swapped (win, "response",
+	    gtk_window_set_transient_for (GTK_WINDOW (plugin->user_command_dialog), GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
+
+		g_object_add_weak_pointer (G_OBJECT (plugin->user_command_dialog), (gpointer *)&plugin->user_command_dialog);
+	
+        g_signal_connect_swapped (plugin->user_command_dialog, "response",
                                                           G_CALLBACK (gtk_widget_destroy),
-                                                          win);
+                                                         plugin->user_command_dialog);
         g_signal_connect (entry, "activate",
                                           G_CALLBACK (on_debugger_command_entry_activate),
                                           plugin);
-        g_object_unref (bxml);
+
+		gtk_widget_show_all (GTK_WIDGET (plugin->user_command_dialog));
+	}
+	else
+	{
+		gtk_window_present (GTK_WINDOW (plugin->user_command_dialog));
+	}
 }
 
 /* Info callbacks
@@ -1261,6 +1275,8 @@ dma_plugin_instance_init (GObject* obj)
 	plugin->signals = NULL;
 	plugin->sharedlibs = NULL;
 	plugin->view = NULL;
+
+	plugin->user_command_dialog = NULL;
 	
 	/* plugin->uri = NULL; */
 }
@@ -1273,6 +1289,10 @@ dma_plugin_instance_init (GObject* obj)
 static void
 dma_plugin_dispose (GObject* obj)
 {
+	DebugManagerPlugin *plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (obj);
+	
+	if (plugin->user_command_dialog != NULL)	gtk_widget_destroy (GTK_WIDGET (plugin->user_command_dialog));
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 

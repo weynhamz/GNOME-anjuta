@@ -1424,7 +1424,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 static void
 breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 {
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	GtkWidget *dialog;
 	GtkWidget *location_label, *location_entry;
 	GtkWidget *condition_entry, *condition_label;
@@ -1433,22 +1433,22 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	gchar *location = NULL;
 	gchar *uri = NULL;
 	gboolean new_break = FALSE;
-	GError* error = NULL;
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-	}
-	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_properties_dialog"));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return;
+	anjuta_util_builder_get_objects (bxml,
+	    "breakpoint_properties_dialog", &dialog,
+	    "breakpoint_location_label", &location_label,
+	    "breakpoint_location_entry", &location_entry,
+	    "breakpoint_condition_entry", &condition_entry,
+		"breakpoint_condition_label", &condition_label,
+		"breakpoint_pass_entry", &pass_entry,
+		"breakpoint_pass_label", &pass_label,
+	    NULL);
+	g_object_unref (bxml);
+
 	gtk_window_set_transient_for (GTK_WINDOW (dialog),
 								  GTK_WINDOW (ANJUTA_PLUGIN (bd->plugin)->shell));
-	location_label = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_location_label"));
-	location_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_location_entry"));
-	condition_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_condition_entry"));
-	condition_label = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_condition_label"));
-	pass_entry = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_pass_entry"));
-	pass_label = GTK_WIDGET (gtk_builder_get_object (bxml, "breakpoint_pass_label"));
 
 	if (bd->debugger != NULL)
 	{
@@ -1592,7 +1592,6 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	g_free (uri);
 	g_free (location);
 	gtk_widget_destroy (dialog);
-	g_object_unref (bxml);
 }
 
 /* Breakpoint actions list

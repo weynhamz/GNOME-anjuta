@@ -740,22 +740,17 @@ attach_process_show (AttachProcess * ap, GtkWindow *parent)
 
 	if (!ap->dialog)
 	{
-		GtkBuilder *bxml = gtk_builder_new ();
-		GError* error = NULL;
+		GtkBuilder *bxml;
 
-		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-		{
-			g_warning ("Couldn't load builder file: %s", error->message);
-			g_error_free (error);
-		}
-		ap->dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "attach_process_dialog"));
-		ap->treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "attach_process_tv"));
-		checkb_hide_paths = GTK_CHECK_BUTTON (
-								gtk_builder_get_object (bxml, "checkb_hide_paths"));
-		checkb_hide_params = GTK_CHECK_BUTTON (
-								gtk_builder_get_object (bxml, "checkb_hide_params"));
-		checkb_process_tree = GTK_CHECK_BUTTON (
-								gtk_builder_get_object (bxml, "checkb_process_tree"));
+		bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+		if (!bxml) return 0;
+		anjuta_util_builder_get_objects (bxml,
+		    "attach_process_dialog", &ap->dialog,
+		    "attach_process_tv", &ap->treeview,
+		    "checkb_hide_paths", &checkb_hide_paths,
+		    "checkb_hide_params", &checkb_hide_params,
+ 			"checkb_process_tree", &checkb_process_tree,
+		    NULL);
 		g_object_unref (bxml);
 	
 		view = GTK_TREE_VIEW (ap->treeview);
@@ -840,12 +835,7 @@ static gboolean
 show_check_debug_dialog (DmaStart *this)
 {
 	GConfClient *client;
-	GtkBuilder *bxml = gtk_builder_new ();
-	GtkWindow *parent;
-	GtkWidget *dialog;
-	GtkToggleButton *do_not_show;
 	gboolean no_check_debug;
-	GError* error = NULL;
 	gint res = GTK_RESPONSE_OK;
 
 	client = gconf_client_get_default ();
@@ -853,19 +843,20 @@ show_check_debug_dialog (DmaStart *this)
 	
 	if (!no_check_debug)
 	{
+		GtkBuilder *bxml;
+		GtkWindow *parent;
+		GtkWidget *dialog;
+		GtkToggleButton *do_not_show;
+		
 		parent = GTK_WINDOW (this->plugin->shell);
 
-		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-		{
-			g_warning ("Couldn't load builder file: %s", error->message);
-			anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
-			g_error_free (error);
-			return FALSE;
-		}
-
 		/* Fetch out the widget we care about for now */
-		dialog = GTK_WIDGET (gtk_builder_get_object (bxml, CHECK_DEBUG_DIALOG));
-		do_not_show = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, DO_NOT_SHOW_CHECK));
+		bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+		if (!bxml) return FALSE;
+			anjuta_util_builder_get_objects (bxml,
+	    	CHECK_DEBUG_DIALOG, &dialog,
+	    	DO_NOT_SHOW_CHECK, &do_not_show,
+		    NULL);
 		g_object_unref (bxml);
 	
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -1115,7 +1106,7 @@ static void on_radio_toggled(GtkWidget* toggle_button, GtkWidget* container)
 static gboolean
 show_remote_dialog (DmaStart *this)
 {
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	GtkWindow *parent;
 	GtkWidget *dialog;
 	GtkEntry *tcpip_address_entry;
@@ -1123,34 +1114,30 @@ show_remote_dialog (DmaStart *this)
 	GtkEntry *serial_port_entry;
 	GtkToggleButton *serial_radio;
 	GtkToggleButton *tcpip_radio;
-	GtkWidget *container;
-	GError* error = NULL;
+	GtkWidget *tcpip_container;
+	GtkWidget *serial_container;
 	gint res;
 
 	parent = GTK_WINDOW (this->plugin->shell);
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
-		g_error_free (error);
-		return FALSE;
-	}
-
 	/* Fetch out the widget we care about for now */
-	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, REMOTE_DEBUG_DIALOG));
-	tcpip_address_entry = GTK_ENTRY (gtk_builder_get_object (bxml, TCPIP_ADDRESS_ENTRY));
-	tcpip_port_entry = GTK_ENTRY (gtk_builder_get_object (bxml, TCPIP_PORT_ENTRY));
-	serial_port_entry = GTK_ENTRY (gtk_builder_get_object (bxml, SERIAL_PORT_ENTRY));
-	tcpip_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TCPIP_RADIO));
-	serial_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, SERIAL_RADIO));
-	
-	/* Connect signals */	
-	container = GTK_WIDGET (gtk_builder_get_object (bxml, TCPIP_CONTAINER));
-	g_signal_connect (G_OBJECT (tcpip_radio), "toggled", G_CALLBACK (on_radio_toggled), container);
-	container = GTK_WIDGET (gtk_builder_get_object (bxml, SERIAL_CONTAINER));
-	g_signal_connect (G_OBJECT (serial_radio), "toggled", G_CALLBACK (on_radio_toggled), container);	
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return FALSE;
+	anjuta_util_builder_get_objects (bxml,
+	    REMOTE_DEBUG_DIALOG, &dialog,
+	    TCPIP_ADDRESS_ENTRY, &tcpip_address_entry,
+	    TCPIP_PORT_ENTRY, &tcpip_port_entry,
+	    SERIAL_PORT_ENTRY, &serial_port_entry,
+	    TCPIP_RADIO, &tcpip_radio,
+	    SERIAL_RADIO, &serial_radio,
+	    TCPIP_CONTAINER, &tcpip_container,
+	    SERIAL_CONTAINER, &serial_container,
+	    NULL);
 	g_object_unref (bxml);
+
+	/* Connect signals */	
+	g_signal_connect (G_OBJECT (tcpip_radio), "toggled", G_CALLBACK (on_radio_toggled), tcpip_container);
+	g_signal_connect (G_OBJECT (serial_radio), "toggled", G_CALLBACK (on_radio_toggled), serial_container);	
 
 	/* Populate the remote target */
 	if (this->remote_debugger)
@@ -1314,39 +1301,36 @@ static void
 add_source_show (DmaStart *this)
 {
 	AddSourceDialog dlg;
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	GtkWidget *widget;
 	GtkWindow *parent;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GObject *button;
-	GError* error = NULL;
+	GObject *add_button;
+	GObject *remove_button;
+	GObject *up_button;
+	GObject *down_button;
 
 	parent = GTK_WINDOW (this->plugin->shell);
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
-		g_error_free (error);
-		return;
-	}
-		
-	widget = GTK_WIDGET (gtk_builder_get_object (bxml, ADD_SOURCE_DIALOG));
-	dlg.tree = GTK_TREE_VIEW (gtk_builder_get_object (bxml, SOURCE_LIST));
-	dlg.entry = GTK_FILE_CHOOSER (gtk_builder_get_object (bxml, SOURCE_ENTRY));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return;
+	anjuta_util_builder_get_objects (bxml,
+	    ADD_SOURCE_DIALOG, &widget,
+	    SOURCE_LIST, &dlg.tree,
+	    SOURCE_ENTRY, &dlg.entry,
+	    ADD_BUTTON, &add_button,
+	    REMOVE_BUTTON, &remove_button,
+	    UP_BUTTON, &up_button,
+	    DOWN_BUTTON, &down_button,
+	    NULL),
+	g_object_unref (bxml);
 	
 	/* Connect signals */	
-	button = gtk_builder_get_object (bxml, ADD_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_source_add_button), &dlg);
-	button = gtk_builder_get_object (bxml, REMOVE_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_source_remove_button), &dlg);
-	button = gtk_builder_get_object (bxml, UP_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_source_up_button), &dlg);
-	button = gtk_builder_get_object (bxml, DOWN_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_source_down_button), &dlg);
-	
-	g_object_unref (bxml);
+	g_signal_connect (add_button, "clicked", G_CALLBACK (on_source_add_button), &dlg);
+	g_signal_connect (remove_button, "clicked", G_CALLBACK (on_source_remove_button), &dlg);
+	g_signal_connect (up_button, "clicked", G_CALLBACK (on_source_up_button), &dlg);
+	g_signal_connect (down_button, "clicked", G_CALLBACK (on_source_down_button), &dlg);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Path"), renderer, "text", 0, NULL);

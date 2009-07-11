@@ -25,7 +25,6 @@
 #include "debug_tree.h"
 #include "utilities.h"
 
-/*#define DEBUG*/
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -63,47 +62,31 @@ typedef struct _InspectDialog InspectDialog;
 #define ADD_WATCH_DIALOG "add_watch_dialog"
 #define CHANGE_WATCH_DIALOG "change_watch_dialog"
 #define INSPECT_EVALUATE_DIALOG "watch_dialog"
+#define VALUE_TREE "watch_value_treeview"
 #define NAME_ENTRY "add_watch_name_entry"
 #define VALUE_ENTRY "value_entry"
-#define VALUE_TREE "inspect_evaluate_value_treeview"
 #define AUTO_UPDATE_CHECK "auto_update_check"
 
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-#if 0
-static void
-on_entry_updated (const gchar *value, gpointer user_data, GError *err)
-{
-	GtkWidget *entry = GTK_WIDGET (user_data);
-	
-	gtk_entry_set_text (GTK_ENTRY (entry), value);
-	g_object_unref (entry);
-}
-#endif
-
 static void
 debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 {
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	gint reply;
 	gchar *new_expr;
-	// const gchar *value;
 	InspectDialog dlg;
 	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, -1};
-	GError* error = NULL;
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-	}
-
-	dlg.dialog = GTK_WIDGET (gtk_builder_get_object (bxml, INSPECT_EVALUATE_DIALOG));
-	gtk_window_set_transient_for (GTK_WINDOW (dlg.dialog),
-								  NULL);
-	dlg.treeview = GTK_WIDGET (gtk_builder_get_object (bxml, VALUE_TREE));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return;
+	anjuta_util_builder_get_objects (bxml,
+	    INSPECT_EVALUATE_DIALOG, &dlg.dialog,
+	    VALUE_TREE, &dlg.treeview,
+	    NULL);
 	g_object_unref (bxml);
+	gtk_window_set_transient_for (GTK_WINDOW (dlg.dialog), NULL);
 
 	/* Create debug tree */
 	dlg.tree = debug_tree_new_with_view (ANJUTA_PLUGIN (ew->plugin), GTK_TREE_VIEW (dlg.treeview));
@@ -118,7 +101,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 	{
 		debug_tree_add_dummy (dlg.tree, NULL);
 	}
-
+	
 	for(;;)
 	{
 		reply = gtk_dialog_run (GTK_DIALOG (dlg.dialog));
@@ -147,26 +130,25 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 static void
 debug_tree_add_watch_dialog (ExprWatch *ew, const gchar* expression)
 {
-	GtkBuilder *bxml = gtk_builder_new ();
+	GtkBuilder *bxml;
 	GtkWidget *dialog;
 	GtkWidget *name_entry;
 	GtkWidget *auto_update_check;
 	gint reply;
 	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, -1};
-	GError* error = NULL;
 
-	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
-	{
-		g_warning ("Couldn't load builder file: %s", error->message);
-		g_error_free (error);
-	}
 
-	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, ADD_WATCH_DIALOG));
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return;
+	anjuta_util_builder_get_objects (bxml,
+	    ADD_WATCH_DIALOG, &dialog,
+	    AUTO_UPDATE_CHECK, &auto_update_check,
+	    NAME_ENTRY, &name_entry,
+	    NULL);
+	g_object_unref (bxml);
+	
 	gtk_window_set_transient_for (GTK_WINDOW (dialog),
 								  NULL);
-	auto_update_check = GTK_WIDGET (gtk_builder_get_object (bxml, AUTO_UPDATE_CHECK));
-	name_entry = GTK_WIDGET (gtk_builder_get_object (bxml, NAME_ENTRY));
-	g_object_unref (bxml);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auto_update_check), TRUE);
 	gtk_entry_set_text (GTK_ENTRY (name_entry), expression == NULL ? "" : expression);
