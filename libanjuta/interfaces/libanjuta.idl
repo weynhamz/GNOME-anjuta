@@ -670,6 +670,27 @@ interface IAnjutaBuilder
 	*/
 	#define ROOT_URI		"build_root_uri"
 
+	/**
+	* IANJUTA_BUILDER_CONFIGURATION_DEBUG
+	*
+	* Name of debugging configutation.
+	*/
+	#define CONFIGURATION_DEBUG	"Debug"
+
+	/**
+	* IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED
+	*
+	* Name of optimized configutation.
+	*/
+	#define CONFIGURATION_OPTIMIZED	"Optimized"
+
+	/**
+	* IANJUTA_BUILDER_CONFIGURATION_PROFILING
+	*
+	* Name of profiling configutation.
+	*/
+	#define CONFIGURATION_PROFILING	"Profiling"
+
 	/** 
 	* ianjuta_builder_is_built:
 	* @obj: Self
@@ -715,6 +736,35 @@ interface IAnjutaBuilder
 	*
 	*/
 	void cancel (Handle handle);
+
+	/**
+	* ianjuta_builder_list_configuration:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* List all defined configuration. These names returned are
+	* the internal non localized names for the following 
+	* predefined configuration: Debug, Profiling, Optimized.
+	* The default configuration has no name and is not returned.
+	*
+	* Returns: a list configuration name. The names are owned
+	* by the plugin, so only the list has to be free using
+	* g_list_free.
+	*/
+	List<const gchar*> list_configuration();
+
+	/**
+	* ianjuta_builder_get_uri_configuration:
+	* @obj: Self
+	* @uri: target uri
+	* @err: Error propagation and reporting.
+	* 
+	* Get the configuration corresponding to the target uri.
+	*
+	* Returns: The configuration name or NULL if the corresponding
+	* configuration cannot be found.
+	*/
+	const gchar* get_uri_configuration(const gchar *uri);
 }
 
 /**

@@ -42,6 +42,8 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
+#include <gconf/gconf-client.h>
+
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -150,6 +152,9 @@ struct _DmaStart
 #define SERIAL_RADIO "serial_radio"
 #define SERIAL_CONTAINER "serial_container"
 
+#define CHECK_DEBUG_DIALOG "check_debug_dialog"
+#define DO_NOT_SHOW_CHECK "hide_checkbox"
+
 /* Constants
  *---------------------------------------------------------------------------*/
 
@@ -161,6 +166,8 @@ struct _DmaStart
 
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
+
+#define GCONF_NOT_CHECK_DEBUG "/apps/anjuta/debug_manager/silent_non_debug_config"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
@@ -826,6 +833,55 @@ attach_process_destroy (AttachProcess * ap)
 	g_free (ap);
 }
 
+/* Check debug configuration dialog
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+show_check_debug_dialog (DmaStart *this)
+{
+	GConfClient *client;
+	GtkBuilder *bxml = gtk_builder_new ();
+	GtkWindow *parent;
+	GtkWidget *dialog;
+	GtkToggleButton *do_not_show;
+	gboolean no_check_debug;
+	GError* error = NULL;
+	gint res = GTK_RESPONSE_OK;
+
+	client = gconf_client_get_default ();
+	no_check_debug = gconf_client_get_bool (client, GCONF_NOT_CHECK_DEBUG, NULL);
+	
+	if (!no_check_debug)
+	{
+		parent = GTK_WINDOW (this->plugin->shell);
+
+		if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
+		{
+			g_warning ("Couldn't load builder file: %s", error->message);
+			anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+			g_error_free (error);
+			return FALSE;
+		}
+
+		/* Fetch out the widget we care about for now */
+		dialog = GTK_WIDGET (gtk_builder_get_object (bxml, CHECK_DEBUG_DIALOG));
+		do_not_show = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, DO_NOT_SHOW_CHECK));
+		g_object_unref (bxml);
+	
+		res = gtk_dialog_run (GTK_DIALOG (dialog));
+	
+		if (gtk_toggle_button_get_active	(do_not_show))
+		{
+			gconf_client_set_bool (client, GCONF_NOT_CHECK_DEBUG, TRUE, NULL);
+		}
+	
+		gtk_widget_destroy (dialog);
+	}
+
+	return res == GTK_RESPONSE_OK;
+}
+
+
 /* Load file private functions
  *---------------------------------------------------------------------------*/
 
@@ -989,6 +1045,9 @@ check_target (DmaStart *this, const gchar *target)
 	builder = anjuta_shell_get_interface (this->plugin->shell, IAnjutaBuilder, NULL);
 	if (builder != NULL)
 	{
+		GList *cfg_list;
+		GList *found;
+		
 		if (this->build_target)
 		{
 			/* a build operation is currently running */
@@ -1001,6 +1060,17 @@ check_target (DmaStart *this, const gchar *target)
 			{
 				/* Cancel old operation */
 				ianjuta_builder_cancel (builder, this->build_handle, NULL);
+			}
+		}
+
+		/* Check if debug configuration is used */
+		cfg_list = ianjuta_builder_list_configuration (builder, NULL);
+		found = g_list_find_custom(cfg_list, IANJUTA_BUILDER_CONFIGURATION_DEBUG, (GCompareFunc)strcmp);
+		if (found != NULL)
+		{
+			if (ianjuta_builder_get_uri_configuration (builder, target, NULL) != (const gchar *)found)
+			{
+				if (!show_check_debug_dialog (this)) return FALSE;
 			}
 		}
 		
@@ -1318,6 +1388,7 @@ add_source_show (DmaStart *this)
 	}
 	gtk_widget_destroy (widget);
 }
+
 
 /* Public functions
  *---------------------------------------------------------------------------*/

@@ -5,6 +5,11 @@ anjuta_glade_DATA = anjuta-debug-manager.ui
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.xml
 
+schemadir = @GCONF_SCHEMA_FILE_DIR@
+schema_in_files = anjuta-debug-manager.schemas
+schema_DATA = $(schema_in_files:.schemas.in=.schemas)
+@INTLTOOL_SCHEMAS_RULE@
+
 plugin_in_files = anjuta-debug-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
@@ -36,6 +41,18 @@ anjuta-marshal.h: anjuta-marshal.list
 anjuta-marshal.c: anjuta-marshal.list
 	echo "#include \"anjuta-marshal.h\"" > $@ && \
 	glib-genmarshal $< --body --prefix=anjuta_marshal >> $@
+
+if GCONF_SCHEMAS_INSTALL
+install-data-local:
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
+
+uninstall-local:
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $(srcdir)/$(schema_DATA)
+else
+install-data-local:
+
+uninstall-local:
+endif
 
 libanjuta_debug_manager_la_SOURCES = \
 	$(BUILT_SOURCES) \
@@ -91,9 +108,15 @@ libanjuta_debug_manager_la_SOURCES = \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
+	$(schema_in_files) \
+	$(schema_DATA) \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA) \
 	anjuta-marshal.list
+
+DISTCLEANFILES = \
+	$(anjuta_plugin_DATA) \
+	$(schema_DATA)
 
 SUBDIRS = \
 	images 

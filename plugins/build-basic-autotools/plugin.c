@@ -1983,6 +1983,44 @@ build_configure_and_build (BasicAutotoolsPlugin *plugin, BuildFunc func, const g
 	}
 }
 
+/* Configuration commands
+ *---------------------------------------------------------------------------*/
+
+static GList*
+build_list_configuration (BasicAutotoolsPlugin *plugin)
+{
+	BuildConfiguration *cfg;
+	GList *list = NULL;
+	
+	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
+	{
+		const gchar *name = build_configuration_get_name (cfg);
+
+		if (name != NULL) list = g_list_prepend (list, (gpointer)name);
+	}
+
+	return list;
+}
+
+static const gchar*
+build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
+{
+	BuildConfiguration *cfg;
+	
+	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
+	{
+		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
+
+		if (strncmp (uri, root, strlen (root)) == 0)
+		{
+			return build_configuration_get_name (cfg);
+		}
+	}
+
+	return NULL;
+}
+
+
 /* User actions
  *---------------------------------------------------------------------------*/
 
@@ -3332,12 +3370,30 @@ ibuilder_cancel (IAnjutaBuilder *builder, IAnjutaBuilderHandle handle, GError **
 	build_cancel_command (plugin, (BuildContext *)handle, err);
 }
 
+static GList*
+ibuilder_list_configuration (IAnjutaBuilder *builder, GError **err)
+{
+	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
+
+	return build_list_configuration (plugin);
+}
+
+static const gchar*
+ibuilder_get_uri_configuration (IAnjutaBuilder *builder, const gchar *uri, GError **err)
+{
+	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
+
+	return build_get_uri_configuration (plugin, uri);
+}
+
 static void
 ibuilder_iface_init (IAnjutaBuilderIface *iface)
 {
 	iface->is_built = ibuilder_is_built;
 	iface->build = ibuilder_build;
 	iface->cancel = ibuilder_cancel;
+	iface->list_configuration = ibuilder_list_configuration;
+	iface->get_uri_configuration = ibuilder_get_uri_configuration;
 }
 
 /* IAnjutaPreferences implementation

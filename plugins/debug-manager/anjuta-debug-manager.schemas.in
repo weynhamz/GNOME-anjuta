@@ -1,0 +1,18 @@
+<gconfschemafile>
+  <schemalist>
+
+    <!-- Anjuta Debug Manager Plugin settings -->
+
+    <schema>
+      <key>/schemas/apps/anjuta/debug_manager/silent_non_debug_config</key>
+      <applyto>/apps/anjuta/debug_manager/silent_non_debug_config</applyto>
+      <owner>anjuta</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Do not display warning if not using a Debug configuration</short>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>

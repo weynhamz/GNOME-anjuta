@@ -21,6 +21,7 @@
 #include "configuration-list.h"
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-builder.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <string.h>
@@ -59,9 +60,9 @@ struct  _DefaultBuildConfiguration
 
 const DefaultBuildConfiguration default_config[] = {
 	{N_("Default"), NULL, "--enable-maintainer-mode"},
-	{N_("Debug"), "Debug", "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},
-	{N_("Profiling"), "Profiling", "--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'"},
-	{N_("Optimized"), "Optimized", "--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'"},
+	{N_("Debug"), IANJUTA_BUILDER_CONFIGURATION_DEBUG, "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},
+	{N_("Profiling"), IANJUTA_BUILDER_CONFIGURATION_PROFILING, "--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'"},
+	{N_("Optimized"), IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED, "--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'"},
 	{NULL, NULL, NULL}
 };
 
