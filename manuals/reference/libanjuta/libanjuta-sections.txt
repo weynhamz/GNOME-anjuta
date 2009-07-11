@@ -154,6 +154,7 @@ anjuta_shell_freeze
 anjuta_shell_thaw
 anjuta_shell_add_widget
 anjuta_shell_add_widget_full
+anjuta_shell_add_widget_custom
 anjuta_shell_remove_widget
 anjuta_shell_present_widget
 anjuta_shell_add_value
