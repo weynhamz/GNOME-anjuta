@@ -220,9 +220,8 @@ git_command_launch (GitCommand *self)
 	else
 		callback = (AnjutaLauncherOutputCallback) git_command_multi_line_output_arrived;
 
-	chdir (self->priv->working_directory);
-	
-	if (!anjuta_launcher_execute_v (self->priv->launcher, 
+	if (!anjuta_launcher_execute_v (self->priv->launcher,
+	    							self->priv->working_directory,
 									args,
 									NULL,
 									callback,

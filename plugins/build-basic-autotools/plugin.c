@@ -1320,9 +1320,6 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	
 	build_program_override (context->program, context->environment);
 	
-	/* Add current directory */
-	build_program_add_env (context->program, "PWD", context->program->work_dir);
-	
 	if (context->message_view)
 	{
 		gchar *command;
@@ -1337,16 +1334,18 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		g_free (command);
 	
 		anjuta_launcher_execute_v (context->launcher,
-								   context->program->argv,
-								   context->program->envp,
-								   on_build_mesg_arrived, context);
+		    context->program->work_dir,
+		    context->program->argv,
+		    context->program->envp,
+		    on_build_mesg_arrived, context);
 	}
 	else
 	{
 		anjuta_launcher_execute_v (context->launcher,
-								   context->program->argv,
-								   context->program->envp,
-								   NULL, NULL);
+		    context->program->work_dir,
+		    context->program->argv,
+		    context->program->envp,
+		    NULL, NULL);
 	}		
 	
 	return TRUE;

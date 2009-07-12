@@ -84,6 +84,7 @@ gboolean anjuta_launcher_execute (AnjutaLauncher *launcher,
 								  AnjutaLauncherOutputCallback callback,
 								  gpointer callback_data);
 gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
+									gchar *const dir,
 									gchar *const argv[],
 									gchar *const envp[],
 									AnjutaLauncherOutputCallback callback,

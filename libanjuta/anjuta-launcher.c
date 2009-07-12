@@ -1082,16 +1082,13 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 }
 
 static pid_t
-anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *const envp[])
+anjuta_launcher_fork (AnjutaLauncher *launcher, const gchar *dir, gchar *const args[], gchar *const envp[])
 {
-	char *working_dir;
 	int pty_master_fd, md;
 	int stdout_pipe[2], stderr_pipe[2];
 	pid_t child_pid;
 	struct termios termios_flags;
 	gchar * const *env;
-	
-	working_dir = g_get_current_dir ();
 	
 	/* The pipes */
 	pipe (stderr_pipe);
@@ -1120,7 +1117,13 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *cons
 			fcntl (stdout_pipe[1], F_SETFL, O_SYNC | md);
 		if ((md = fcntl (stderr_pipe[1], F_GETFL)) != -1)
 			fcntl (stderr_pipe[1], F_SETFL, O_SYNC | md);
-		
+	
+		/* Set working directory */
+		if (dir != NULL)
+		{
+			chdir (dir);
+		}
+
 		/* Set up environment */
 		if (envp != NULL)
 		{
@@ -1148,7 +1151,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *cons
 		perror(_("execvp failed"));
 		_exit(-1);
 	}
-	g_free (working_dir);
 	
 	/* Close parent's side pipes */
 	close (stderr_pipe[1]);
@@ -1230,6 +1232,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *cons
 /**
  * anjuta_launcher_execute_v:
  * @launcher: a #AnjutaLancher object.
+ * @dir: Working directory or NULL.
  * @argv: Command args.
  * @envp: Additional environment variable.
  * @callback: The callback for delivering output from the process.
@@ -1241,10 +1244,11 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[], gchar *cons
  * Return value: TRUE if successfully launched, otherwise FALSE.
  */
 gboolean
-anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
-						   gchar *const envp[],
-						   AnjutaLauncherOutputCallback callback,
-						   gpointer callback_data)
+anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const dir,
+	       	gchar *const argv[],
+	       	gchar *const envp[],
+	       	AnjutaLauncherOutputCallback callback,
+	       	gpointer callback_data)
 {
 	if (anjuta_launcher_is_busy (launcher))
 		return FALSE;
@@ -1260,7 +1264,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
 	launcher->priv->callback_data = callback_data;
 	
 	/* On a fork error perform a cleanup and return */
-	if (anjuta_launcher_fork (launcher, argv, envp) < 0)
+	if (anjuta_launcher_fork (launcher, dir, argv, envp) < 0)
 	{
 		anjuta_launcher_initialize (launcher);
 		return FALSE;
@@ -1306,7 +1310,7 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 	}
 	*args_ptr = NULL;
 
-	ret = anjuta_launcher_execute_v (launcher, args, NULL,
+	ret = anjuta_launcher_execute_v (launcher, NULL, args, NULL,
 		callback, callback_data);
 	g_free (args);
 	anjuta_util_glist_strings_free (args_list);
