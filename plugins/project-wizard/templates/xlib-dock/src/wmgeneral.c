@@ -4,9 +4,9 @@
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  *
 [+CASE (get "License") +]
-[+ == "BSD" +][+(bsd "wmgeneral.c" (get "Author") "\t")+]
-[+ == "LGPL" +][+(lgpl "wmgeneral.c" (get "Author") "\t")+]
-[+ == "GPL" +][+(gpl "wmgeneral.c"  "\t")+]
+[+ == "BSD" +][+(bsd (get "Name") (get "Author") "\t")+]
+[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") "\t")+]
+[+ == "GPL" +][+(gpl (get "Name")  "\t")+]
 [+ESAC+] */
 
 /*	wmgeneral was taken from wmppp.

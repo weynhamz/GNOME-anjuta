@@ -4,9 +4,9 @@
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  *
 [+CASE (get "License") +]
-[+ == "BSD" +][+(bsd "main.c" (get "Author") "\t")+]
-[+ == "LGPL" +][+(lgpl "main.c" (get "Author") "\t")+]
-[+ == "GPL" +][+(gpl "main.c"  "\t")+]
+[+ == "BSD" +][+(bsd (get "Name") (get "Author") "\t")+]
+[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") "\t")+]
+[+ == "GPL" +][+(gpl (get "Name")  "\t")+]
 [+ESAC+] */
 
 /*Program closes with a mouse click or keypress */

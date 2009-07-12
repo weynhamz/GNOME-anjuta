@@ -5,9 +5,9 @@
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
 [+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  "plugin.h" (get "Author") " * ")+]
-[+ == "LGPL" +][+(lgpl "plugin.h" (get "Author") " * ")+]
-[+ == "GPL"  +][+(gpl  "plugin.h"                " * ")+]
+[+ == "BSD"  +][+(bsd  (get "Name") (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
 #ifndef _[+NameCUpper+]_H_

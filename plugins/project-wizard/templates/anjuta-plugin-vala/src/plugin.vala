@@ -4,9 +4,9 @@
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
 [+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  "plugin.c" (get "Author") " * ")+]
-[+ == "LGPL" +][+(lgpl "plugin.c" (get "Author") " * ")+]
-[+ == "GPL"  +][+(gpl  "plugin.c"                " * ")+]
+[+ == "BSD"  +][+(bsd  (get "Name") (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
 using GLib;

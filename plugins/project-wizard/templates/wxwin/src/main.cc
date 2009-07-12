@@ -4,9 +4,9 @@
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  *
 [+CASE (get "License") +]
-[+ == "BSD" +][+(bsd "main.cc" (get "Author") "\t")+]
-[+ == "LGPL" +][+(lgpl "main.cc" (get "Author") "\t")+]
-[+ == "GPL" +][+(gpl "main.cc"  "\t")+]
+[+ == "BSD" +][+(bsd (get "Name") (get "Author") "\t")+]
+[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") "\t")+]
+[+ == "GPL" +][+(gpl (get "Name")  "\t")+]
 [+ESAC+] */
 
 #ifdef HAVE_CONFIG_H
