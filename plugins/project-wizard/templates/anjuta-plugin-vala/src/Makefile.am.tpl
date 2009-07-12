@@ -2,13 +2,13 @@
 # Sample Makefile for a anjuta plugin.
 [+IF (=(get "HasUI") "1")+]
 # Plugin UI file
-[+NameCLower+]_uidir = $(anjuta_ui_dir)
-[+NameCLower+]_ui_DATA =  [+NameHLower+].ui
+[+NameCLower+]_xmldir = $(anjuta_ui_dir)
+[+NameCLower+]_xml_DATA =  [+NameHLower+].xml
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1")+]
 # Plugin Glade file
-[+NameCLower+]_gladedir = $(anjuta_glade_dir)
-[+NameCLower+]_glade_DATA =  [+NameHLower+].glade
+[+NameCLower+]_uidir = $(anjuta_glade_dir)
+[+NameCLower+]_ui_DATA =  [+NameHLower+].ui
 [+ENDIF+]
 # Plugin Icon file
 [+NameCLower+]_pixmapsdir = $(anjuta_image_dir)
@@ -69,6 +69,6 @@ lib[+NameCLower+]_la_LIBADD = \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$([+NameCLower+]_plugin_DATA) \
-	[+IF (=(get "HasUI") "1")+]$([+NameCLower+]_ui_DATA)[+ENDIF+] \
-	[+IF (=(get "HasGladeFile") "1")+]$([+NameCLower+]_glade_DATA)[+ENDIF+] \
+	[+IF (=(get "HasUI") "1")+]$([+NameCLower+]_xml_DATA)[+ENDIF+] \
+	[+IF (=(get "HasGladeFile") "1")+]$([+NameCLower+]_ui_DATA)[+ENDIF+] \
 	$([+NameCLower+]_pixmaps_DATA)

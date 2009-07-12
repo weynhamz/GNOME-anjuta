@@ -2,7 +2,7 @@
 /*
  * plugin.vala
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
- * 
+ *
 [+CASE (get "License") +]
 [+ == "BSD"  +][+(bsd  (get "Name") (get "Author") " * ")+]
 [+ == "LGPL" +][+(lgpl (get "Name") (get "Author") " * ")+]
@@ -14,14 +14,14 @@ using Anjuta;
 
 public class [+PluginClass+] : Plugin {
 [+IF (=(get "HasUI") "1") +]
-	static string UI_FILE;
+	static string XML_FILE;
 [+ENDIF+][+IF (=(get "HasGladeFile") "1") +]
-	static string GLADE_FILE;
+	static string UI_FILE;
 [+ENDIF+][+IF (or (=(get "HasUI") "1") (=(get "HasGladeFile") "1") ) +]
 	static construct {
 		// workaround for bug 538166, should be const
-[+IF (=(get "HasUI") "1") +]		UI_FILE = Config.ANJUTA_DATA_DIR + "/ui/[+NameHLower+].ui";
-[+ ENDIF +][+IF (=(get "HasGladeFile") "1") +]		GLADE_FILE = Config.ANJUTA_DATA_DIR + "/glade/[+NameHLower+].glade";
+[+IF (=(get "HasUI") "1") +]		XML_FILE = Config.ANJUTA_DATA_DIR + "/ui/[+NameHLower+].xml";
+[+ ENDIF +][+IF (=(get "HasGladeFile") "1") +]		UI_FILE = Config.ANJUTA_DATA_DIR + "/glade/[+NameHLower+].ui";
 [+ ENDIF +]
 	}
 [+ ENDIF +]
@@ -64,14 +64,23 @@ public class [+PluginClass+] : Plugin {
 													actions_file,
 													Config.GETTEXT_PACKAGE, true,
 													this);
-		uiid = ui.merge (UI_FILE);
+		uiid = ui.merge (XML_FILE);
 [+ENDIF+][+IF (=(get "HasGladeFile") "1") +]
 		/* Add plugin widgets to Shell */
-		var gxml = new Glade.XML (GLADE_FILE, "top_widget", null);
-		widget = gxml.get_widget ("top_widget");
-		shell.add_widget (widget, "[+PluginClass+]Widget",
+		try {
+			var builder = new Builder ();
+			builder.add_from_file (UI_FILE);
+
+			widget = builder.get_object ("top_widget") as widget;
+
+			shell.add_widget (widget, "[+PluginClass+]Widget",
 						  _("[+PluginClass+] widget"), null,
 						  ShellPlacement.BOTTOM);
+		} catch (Error e) {
+			stderr.printf ("Could not load UI: %s\n", e.message);
+			return false;
+		}
+
 [+ENDIF+]
 		return true;
 	}
