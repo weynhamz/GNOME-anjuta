@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 
 [+IF (=(get "HaveI18n") "1")+]
@@ -49,21 +48,29 @@
 
 #include "callbacks.h"
 
-/* For testing propose use the local (not installed) glade file */
-/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/glade/[+NameHLower+].glade" */
-#define GLADE_FILE "src/[+NameHLower+].glade"
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
+#define UI_FILE "src/[+NameHLower+].ui"
 	
 GtkWidget*
 create_window (void)
 {
 	GtkWidget *window;
-	GladeXML *gxml;
-	
-	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
-	
+	GtkBuilder *builder;
+	GError* error = NULL;
+
+	builder = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+	}
+
 	/* This is important */
-	glade_xml_signal_autoconnect (gxml);
-	window = glade_xml_get_widget (gxml, "window");
+	gtk_builder_connect_signals (builder, NULL);
+	window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+
+	g_object_unref (builder);
 	
 	return window;
 }

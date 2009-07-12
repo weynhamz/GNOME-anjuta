@@ -3,8 +3,8 @@
 
 ## Created by Anjuta
 
-gladedir = $(datadir)/[+NameHLower+]/glade
-glade_DATA = [+NameHLower+].glade
+uidir = $(datadir)/[+NameHLower+]/ui
+ui_DATA = [+NameHLower+].ui
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -28,9 +28,9 @@ bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
-EXTRA_DIST = $(glade_DATA)
+EXTRA_DIST = $(ui_DATA)
 
-# Remove glade directory on uninstall
+# Remove ui directory on uninstall
 uninstall-local:
-	-rm -r $(gladedir)
+	-rm -r $(uidir)
 	-rm -r $(datadir)/[+NameHLower+]

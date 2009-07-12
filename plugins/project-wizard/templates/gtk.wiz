@@ -7,7 +7,6 @@
 	<required-program>autoconf</required-program>
 	<required-program>make</required-program>
 	<required-package>gtk+-2.0 >= 2.8</required-package>
-	<required-package>libglade-2.0 >= 2.6.0</required-package>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Information">
@@ -31,7 +30,7 @@
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]"/>
 	<property type="hidden" name="NameHLower" default="[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]"/>
 	<property type="hidden" name="HavePackage" default="1"/>
-	<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.8 libglade-2.0 >= 2.6.0"/>
+	<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.12"/>
 	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
@@ -76,7 +75,7 @@
 			<file source="main.c"/>
 			<file source="callbacks.c"/>
 			<file source="callbacks.h"/>
-			<file source="project.glade" destination="[+NameHLower+].glade"/>
+			<file source="project.ui" destination="[+NameHLower+].ui"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>
