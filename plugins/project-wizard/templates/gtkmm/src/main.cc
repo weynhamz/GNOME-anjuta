@@ -10,7 +10,6 @@
 [+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
-#include <libglademm/xml.h>
 #include <gtkmm.h>
 #include <iostream>
 
@@ -20,9 +19,9 @@
 #endif
 [+ENDIF+]
 
-/* For testing propose use the local (not installed) glade file */
-/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/glade/[+NameHLower+].glade" */
-#define GLADE_FILE "src/[+NameHLower+].glade"
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
+#define UI_FILE "src/[+NameHLower+].ui"
    
 int
 main (int argc, char *argv[])
@@ -30,18 +29,18 @@ main (int argc, char *argv[])
 	Gtk::Main kit(argc, argv);
 	
 	//Load the Glade file and instiate its widgets:
-	Glib::RefPtr<Gnome::Glade::Xml> refXml;
+	Glib::RefPtr<Gtk::Builder> builder;
 	try
 	{
-		refXml = Gnome::Glade::Xml::create(GLADE_FILE);
+		builder = Gtk::Builder::create_from_file(UI_FILE);
 	}
-	catch(const Gnome::Glade::XmlError& ex)
-    {
+	catch (const Glib::FileError & ex)
+	{
 		std::cerr << ex.what() << std::endl;
 		return 1;
 	}
 	Gtk::Window* main_win = 0;
-	refXml->get_widget("main_window", main_win);
+	builder->get_widget("main_window", main_win);
 	if (main_win)
 	{
 		kit.run(*main_win);
