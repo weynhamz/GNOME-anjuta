@@ -20,6 +20,13 @@ AC_PROG_CPP
 AC_PROG_CXX
 [+ENDIF+]
 
+[+IF (=(get "HavePackage") "1")+]
+PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
+[+ENDIF+]
+
+AS_AC_EXPAND(LIBEXECDIR, $libexecdir)
+AC_SUBST(LIBEXECDIR)
+
 [+IF (=(get "HaveI18n") "1")+]
 dnl ***************************************************************************
 dnl Internatinalization
@@ -31,14 +38,6 @@ AC_DEFINE_DIR(GNOMELOCALEDIR, "${datadir}/locale", [locale directory])
 AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.35.0])
 [+ENDIF+]
-
-PKG_CHECK_MODULES(GNOME_APPLETS, libpanelapplet-2.0) 
-[+IF (=(get "HavePackage") "1")+]
-PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
-[+ENDIF+]
-
-AS_AC_EXPAND(LIBEXECDIR, $libexecdir)
-AC_SUBST(LIBEXECDIR)
 
 AC_OUTPUT([
 Makefile

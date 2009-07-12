@@ -6,7 +6,6 @@
 	<required-program>automake</required-program>
 	<required-program>autoconf</required-program>
 	<required-program>make</required-program>
-	<required-package>libgnome-2.0 >= 2.14</required-package>
 	<required-package>libpanelapplet-2.0 >= 2.14</required-package>	
 </project-wizard>
 
@@ -34,7 +33,7 @@
 	<property type="icon" name="Icon" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
 	<property type="string" name="Title" _label="Applet Title:" _description="Display title of the applet" default="GNOME Applet" summary="yes" mandatory="yes"/>
 	<property type="string" name="Description" _label="Description:" _description="Display description of the applet" default="A sample demonstration GNOME applet created by Anjuta" summary="yes" mandatory="yes"/>
-	<property type="hidden" name="PackageModule1" default="libgnome-2.0 >= 2.14 libpanelapplet-2.0 >= 2.14"/>
+	<property type="hidden" name="PackageModule1" default="libpanelapplet-2.0 >= 2.14"/>
 	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 	<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
@@ -72,6 +71,7 @@
 	<directory source="." destination="[+Destination+]">
 		<directory source="m4">
 			<file source="as-ac-expand.m4"/>
+			<file source="ac-define-dir.m4"/>
 		</directory>
 	</directory>
 	<directory source="gnome-applet" destination="[+Destination+]">
