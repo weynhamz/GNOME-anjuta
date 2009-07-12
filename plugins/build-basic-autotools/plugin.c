@@ -1047,6 +1047,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 							   _("Command terminated for an unknown reason"));
 		}
 		build_program_callback (context->program, G_OBJECT (context->plugin), context, err);
+		if (err != NULL) g_error_free (err);
 	}
 	if (context->used)
 		return;	/* Another command is run */
@@ -1241,6 +1242,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 {
 	BuildContext *context = NULL;
 	AnjutaPluginManager *plugin_manager;
+	gchar *buf;
 
 	if (with_view)
 	{
@@ -1277,8 +1279,9 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
 	build_context_push_dir (context, "default", dir);
-	dir = g_strconcat (dir, "/", NULL);
-	g_chdir (dir);
+	buf = g_strconcat (dir, "/", NULL);
+	g_chdir (buf);
+	g_free (buf);
 	
 	plugin->contexts_pool = g_list_append (plugin->contexts_pool, context);
 	
@@ -1288,8 +1291,6 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 static void
 build_set_command_in_context (BuildContext* context, BuildProgram *prog)
 {
-	if (context->program != NULL)
-		build_program_free (context->program);
 	context->program = prog;
 	context->used = TRUE;
 }
@@ -1351,6 +1352,58 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	return TRUE;
 }	
 
+static void
+build_delayed_execute_command (IAnjutaFileSavable *savable, GFile *file, gpointer user_data)
+{
+	BuildContext *context = (BuildContext *)user_data;
+
+	if (savable != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (savable, G_CALLBACK (build_delayed_execute_command), user_data); 
+		context->file_saved--;
+	}	
+	
+	if (context->file_saved == 0)
+	{
+		build_execute_command_in_context (context, NULL);
+	}
+}
+
+static gboolean
+build_save_and_execute_command_in_context (BuildContext* context, GError **err)
+{
+	IAnjutaDocumentManager *docman;
+
+	context->file_saved = 0;
+	
+	docman = anjuta_shell_get_interface (context->plugin->shell, IAnjutaDocumentManager, NULL);
+	/* No document manager, so no file to save */
+	if (docman != NULL)
+	{
+		GList *doc_list = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+		GList *node;
+
+		for (node = g_list_first (doc_list); node != NULL; node = g_list_next (node))
+		{
+			if (IANJUTA_IS_FILE_SAVABLE (node->data))
+			{
+				IAnjutaFileSavable* save = IANJUTA_FILE_SAVABLE (node->data);
+				if (ianjuta_file_savable_is_dirty (save, NULL))
+				{
+					context->file_saved++;
+					g_signal_connect (G_OBJECT (save), "saved", G_CALLBACK (build_delayed_execute_command), context);
+					ianjuta_file_savable_save (save, NULL);
+				}
+			}
+		}
+		g_list_free (doc_list);		
+	}
+	
+	build_delayed_execute_command (NULL, NULL, context);
+
+	return TRUE;
+}
+
 static gchar *
 build_dir_from_source (BasicAutotoolsPlugin *plugin, const gchar *src_dir)
 {
@@ -1391,60 +1444,81 @@ build_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
 	}
 }
 
-static void
-build_delayed_execute_command (IAnjutaFileSavable *savable, GFile *file, gpointer user_data)
-{
-	BuildContext *context = (BuildContext *)user_data;
-
-	if (savable != NULL)
-	{
-		g_signal_handlers_disconnect_by_func (savable, G_CALLBACK (build_delayed_execute_command), user_data); 
-		context->file_saved--;
-	}	
-	
-	if (context->file_saved == 0)
-	{
-		build_execute_command_in_context (context, NULL);
-	}
-}
-
 static BuildContext*
 build_save_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
 								gboolean with_view, GError **err)
 {
-	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
 	BuildContext *context;
-	IAnjutaDocumentManager *docman;
+	
+	context = build_get_context (bplugin, prog->work_dir, with_view);
+
+	build_set_command_in_context (context, prog);
+	if (!build_execute_command_in_context (context, err))
+	{
+		build_context_destroy (context);
+		context = NULL;
+	}
+
+	return context;
+}
+
+static void
+build_execute_after_command (GObject *sender,
+							   IAnjutaBuilderHandle handle,
+							   GError *error,
+							   gpointer user_data)
+{
+	BuildProgram *prog = (BuildProgram *)user_data;
+	BuildContext *context = (BuildContext *)handle;
+
+	/* Try next command even if the first one fail (make distclean return an error) */
+	if ((error == NULL) || (error->code != IANJUTA_BUILDER_ABORTED))
+	{
+		build_set_command_in_context (context, prog);
+		build_execute_command_in_context (context, NULL);
+	}
+	else
+	{
+		build_program_free (prog);
+	}
+}
+
+static BuildContext*
+build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *prog,
+								gboolean with_view, GError **err)
+{
+	BuildContext *context;
 
 	context = build_get_context (bplugin, prog->work_dir, with_view);
-	build_set_command_in_context (context, prog);
-	context->file_saved = 0;
-
-	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
-	/* No document manager, so no file to save */
-	if (docman != NULL)
+	
+	if ((strcmp (prog->work_dir, bplugin->project_root_dir) != 0) && directory_has_file (bplugin->project_root_dir, "config.status"))
 	{
-		GList *doc_list = ianjuta_document_manager_get_doc_widgets (docman, NULL);
-		GList *node;
-
-		for (node = g_list_first (doc_list); node != NULL; node = g_list_next (node))
+		BuildProgram *new_prog;
+		
+		// Need to run make clean before
+		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Using this new configuration, need to to remove the default one. Do you want to do it ?"), NULL))
 		{
-			if (IANJUTA_IS_FILE_SAVABLE (node->data))
-			{
-				IAnjutaFileSavable* save = IANJUTA_FILE_SAVABLE (node->data);
-				if (ianjuta_file_savable_is_dirty (save, NULL))
-				{
-					context->file_saved++;
-					g_signal_connect (G_OBJECT (save), "saved", G_CALLBACK (build_delayed_execute_command), context);
-					ianjuta_file_savable_save (save, NULL);
-				}
-			}
+			GError *err;
+			
+			err = g_error_new (ianjuta_builder_error_quark (),
+									 IANJUTA_BUILDER_CANCELED,
+									 _("Command canceled by user"));
+			
+			build_program_callback (context->program, G_OBJECT (bplugin), context, err);
+			
+			return NULL;
 		}
-		g_list_free (doc_list);		
+		new_prog = build_program_new_with_command (bplugin->project_root_dir,
+										   "%s",
+										   CHOOSE_COMMAND (bplugin, DISTCLEAN));
+		build_program_set_callback (new_prog, build_execute_after_command, prog);
+		prog = new_prog;
 	}
 	
-	build_delayed_execute_command (NULL, NULL, context);
-	
+	build_set_command_in_context (context, prog);
+
+	build_save_and_execute_command_in_context (context, NULL);
+
 	return context;
 }
 
@@ -1776,7 +1850,7 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const g
 {
 	BuildContext *context;
 	BuildProgram *prog;
-	BuildConfigureAndBuild *pack = g_new(BuildConfigureAndBuild, 1);
+	BuildConfigureAndBuild *pack = g_new0 (BuildConfigureAndBuild, 1);
 
 	
 	prog = build_program_new_with_command (dirname,
@@ -1790,7 +1864,7 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const g
 	pack->name = g_strdup (name);
 	build_program_set_callback (prog, build_project_configured, pack);
 	
-	context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
+	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
 	
 	return context;
 }
@@ -1821,7 +1895,7 @@ build_configure_after_autogen (GObject *sender,
 		{
 			gboolean older;
 			
-			filename = g_build_filename (context->program->work_dir, "config.log", NULL);
+			filename = g_build_filename (context->program->work_dir, "config.status", NULL);
 			older =(stat (filename, &log_stat) != 0) || (log_stat.st_mtime < conf_stat.st_mtime);
 			g_free (filename);
 			
@@ -1866,7 +1940,7 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const gc
 {
 	BuildContext *context;
 	BuildProgram *prog;
-	BuildConfigureAndBuild *pack = g_new (BuildConfigureAndBuild, 1);
+	BuildConfigureAndBuild *pack = g_new0 (BuildConfigureAndBuild, 1);
 	
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
@@ -1889,7 +1963,7 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const gc
 	pack->name = g_strdup (name);
 	build_program_set_callback (prog, build_configure_after_autogen, pack);
 	
-	context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
+	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
 	
 	return context;
 }
@@ -1901,16 +1975,19 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, const gcha
 	gboolean run_autogen = FALSE;
 	const gchar *project_root;
 	GValue value = {0,};
+	const gchar *old_config_name;
 	
 	run_autogen = !directory_has_file (plugin->project_root_dir, "configure");
 	
 	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
 	project_root = g_value_get_string (&value);
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
-	
+
+	old_config_name = build_configuration_get_name (build_configuration_list_get_selected (plugin->configurations));
 	if (build_dialog_configure (parent, project_root, plugin->configurations, &run_autogen))
 	{
 		BuildConfiguration *config;
+		BuildContext* context;
 		GFile *file;
 		gchar *uri;
 		gchar *build_dir;
@@ -1928,13 +2005,19 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, const gcha
 		
 		if (run_autogen)
 		{
-			build_generate_dir (plugin, build_dir, args, func, name);
+			context = build_generate_dir (plugin, build_dir, args, func, name);
 		}
 		else
 		{
-			build_configure_dir (plugin, build_dir, args, func, name);
+			context = build_configure_dir (plugin, build_dir, args, func, name);
 		}
 		g_free (build_dir);
+
+		if (context == NULL)
+		{
+			/* Restore previous configuration */
+			build_configuration_list_select (plugin->configurations, old_config_name);
+		}
 	}
 	
 }
