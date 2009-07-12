@@ -1,5 +1,5 @@
 /*
-*   $Id: read.c 659 2008-04-20 23:27:48Z elliotth $
+*   $Id: read.c 708 2009-07-04 05:29:02Z dhiebert $
 *
 *   Copyright (c) 1996-2002, Darren Hiebert
 *
@@ -449,7 +449,7 @@ extern int fileGetc (void)
 	return c;
 }
 
-extern int fileSkipToCharacter (const int c)
+extern int fileSkipToCharacter (int c)
 {
 	int d;
 	do

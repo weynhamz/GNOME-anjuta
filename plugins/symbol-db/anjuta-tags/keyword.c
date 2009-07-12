@@ -1,5 +1,5 @@
 /*
-*   $Id: keyword.c 658 2008-04-20 23:21:35Z elliotth $
+*   $Id: keyword.c 715 2009-07-06 03:31:00Z dhiebert $
 *
 *   Copyright (c) 1998-2002, Darren Hiebert
 *
@@ -123,8 +123,7 @@ static hashEntry *newEntry (
 extern void addKeyword (const char *const string, langType language, int value)
 {
 	const unsigned long hashedValue = hashValue (string);
-	hashEntry *tableEntry = getHashTableEntry (hashedValue);
-	hashEntry *entry = tableEntry;
+	hashEntry *entry = getHashTableEntry (hashedValue);
 
 	if (entry == NULL)
 	{

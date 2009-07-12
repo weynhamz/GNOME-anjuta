@@ -5707,7 +5707,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		filetm.tm_min = timestamp->minute;
 		filetm.tm_sec = timestamp->second;
 
-		/* add one hour to the db_file_time. */
+		/* remove one hour to the db_file_time. */
 		db_time = mktime (&filetm) - 3600;
 /*
 		DEBUG_PRINT ("%s %d ## %d", file_abs_path, db_time, 

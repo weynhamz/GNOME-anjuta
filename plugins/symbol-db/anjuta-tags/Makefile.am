@@ -58,6 +58,7 @@ anjuta_tags_SOURCES = \
 	make.c        \
 	Makefile.am        \
 	matlab.c        \
+  ocaml.c \
 	options.c        \
 	options.h        \
 	parse.c        \
