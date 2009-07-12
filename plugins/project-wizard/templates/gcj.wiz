@@ -86,6 +86,13 @@
 	<directory source="licenses" destination="[+Destination+]">
 		<file source="[+License+]" destination="COPYING"/>	
 	</directory>
+	<directory source="minimal" destination="[+Destination+]">
+		<directory source="." destination=".anjuta">
+			<directory source="." destination="session">
+				<file source="anjuta.session"/>
+			</directory>
+		</directory>
+	</directory>
 </content>
 
 <action>

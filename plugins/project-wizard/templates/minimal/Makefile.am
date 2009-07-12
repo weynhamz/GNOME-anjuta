@@ -4,7 +4,8 @@ wizard_files_DATA = \
 	autogen.sh \
 	configure.ac.tpl \
 	Makefile.am.tpl \
-	project.anjuta
+	project.anjuta \
+	anjuta.session
 
 EXTRA_DIST = $(wizard_files_DATA)
 
