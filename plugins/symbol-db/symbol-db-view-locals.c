@@ -243,6 +243,24 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 	priv->nodes_displayed = NULL;
 }
 
+static gboolean
+sdb_view_locals_search_equal_func (GtkTreeModel *model, gint column,
+                                   const gchar *key, GtkTreeIter *iter,
+                                   gpointer search_data)
+{
+	gchar *pattern, *str;
+	gboolean res;
+
+	gtk_tree_model_get (model, iter, column, &str, -1);
+	
+	pattern = g_strdup_printf ("*%s*", key);
+	res = g_pattern_match_simple (pattern, str);
+
+	g_free (pattern);
+	g_free (str);
+
+	return !res;
+}
 
 static void
 sdb_view_locals_init (SymbolDBViewLocals *dbvl)
@@ -286,6 +304,8 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	/* search through the tree interactively */
 	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (dbvl), TRUE);
 	gtk_tree_view_set_search_column (GTK_TREE_VIEW (dbvl), COLUMN_NAME);
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (dbvl),
+	    sdb_view_locals_search_equal_func, NULL, NULL);
 	
 	/* Columns */
 	column = gtk_tree_view_column_new ();
