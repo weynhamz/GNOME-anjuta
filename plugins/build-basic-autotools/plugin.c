@@ -1453,7 +1453,7 @@ build_save_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildProgram *pro
 	context = build_get_context (bplugin, prog->work_dir, with_view);
 
 	build_set_command_in_context (context, prog);
-	if (!build_execute_command_in_context (context, err))
+	if (!build_save_and_execute_command_in_context (context, err))
 	{
 		build_context_destroy (context);
 		context = NULL;
