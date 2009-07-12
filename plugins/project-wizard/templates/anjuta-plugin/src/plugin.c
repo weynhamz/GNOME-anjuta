@@ -18,10 +18,10 @@
 #include "plugin.h"
 
 [+IF (=(get "HasUI") "1") +]
-#define UI_FILE ANJUTA_DATA_DIR"/ui/[+NameHLower+].ui"
+#define XML_FILE ANJUTA_DATA_DIR"/ui/[+NameHLower+].xml"
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
-#define GLADE_FILE ANJUTA_DATA_DIR"/glade/[+NameHLower+].glade"
+#define UI_FILE ANJUTA_DATA_DIR"/glade/[+NameHLower+].ui"
 [+ENDIF+]
 
 static gpointer parent_class;
@@ -67,7 +67,8 @@ static gboolean
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
 	GtkWidget *wid;
-	GladeXML *gxml;
+	GtkBuilder *builder;
+	GError *error;
 [+ENDIF+]
 	[+PluginClass+] *[+NameCLower+];
 	
@@ -84,17 +85,24 @@ static gboolean
 											G_N_ELEMENTS (actions_file),
 											GETTEXT_PACKAGE, TRUE,
 											plugin);
-	[+NameCLower+]->uiid = anjuta_ui_merge (ui, UI_FILE);
+	[+NameCLower+]->uiid = anjuta_ui_merge (ui, XML_FILE);
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
 	/* Add plugin widgets to Shell */
-	gxml = glade_xml_new (GLADE_FILE, "top_widget", NULL);
-	wid = glade_xml_get_widget (gxml, "top_widget");
+	builder = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
+	{
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
+		return FALSE;
+	}
+
+	wid = gtk_builder_get_object (builder, "top_widget");
 	[+NameCLower+]->widget = wid;
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "[+PluginClass+]Widget", _("[+PluginClass+] widget"), NULL,
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
-	g_object_unref (gxml);
+	g_object_unref (builder);
 [+ENDIF+]
 	return TRUE;
 }
