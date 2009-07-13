@@ -253,8 +253,9 @@ sdb_view_locals_search_equal_func (GtkTreeModel *model, gint column,
 
 	gtk_tree_model_get (model, iter, column, &str, -1);
 	
-	pattern = g_strdup_printf ("*%s*", key);
-	res = g_pattern_match_simple (pattern, str);
+	pattern = g_strdup_printf (".*%s.*", key);
+	res = g_regex_match_simple (pattern, str, G_REGEX_CASELESS,
+	                            0);
 
 	g_free (pattern);
 	g_free (str);
