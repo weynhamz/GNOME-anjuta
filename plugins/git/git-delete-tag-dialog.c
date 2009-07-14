@@ -43,27 +43,6 @@ on_delete_command_finished (AnjutaCommand *command, guint return_code,
 }
 
 static void
-on_list_tag_command_data_arrived (AnjutaCommand *command,
-                                  GtkListStore *tag_list_model)
-{
-	GQueue *output_queue;
-	gchar *tag_name;
-	GtkTreeIter iter;
-	
-	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
-	
-	while (g_queue_peek_head (output_queue))
-	{
-		tag_name = g_queue_pop_head (output_queue);
-
-		gtk_list_store_append (tag_list_model, &iter);
-		gtk_list_store_set (tag_list_model, &iter, 1, tag_name, -1);
-		
-		g_free (tag_name);
-	}
-}
-
-static void
 on_delete_tag_dialog_response (GtkDialog *dialog, gint response_id, 
 							   GitUIData *data)
 {
