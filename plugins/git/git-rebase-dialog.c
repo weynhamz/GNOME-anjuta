@@ -121,7 +121,7 @@ rebase_dialog (Git *plugin)
 	data = git_ui_data_new (plugin, bxml);
 	
 	list_command = git_branch_list_command_new (plugin->project_root_directory,
-												GIT_BRANCH_TYPE_REMOTE);
+												GIT_BRANCH_TYPE_ALL);
 	
 	g_signal_connect (G_OBJECT (list_command), "data-arrived", 
 					  G_CALLBACK (on_git_list_branch_combo_command_data_arrived), 
