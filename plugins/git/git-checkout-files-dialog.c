@@ -46,15 +46,19 @@ on_checkout_files_dialog_response (GtkDialog *dialog, gint response_id,
 								   GitUIData *data)
 {
 	GtkWidget *checkout_status_view;
+	GtkWidget *checkout_all_check;
 	GList *selected_paths;
 	GitCheckoutFilesCommand *checkout_files_command;
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
 		checkout_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "checkout_status_view"));
+		checkout_all_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																 "checkout_all_check"));
 		selected_paths = anjuta_vcs_status_tree_view_get_selected (ANJUTA_VCS_STATUS_TREE_VIEW (checkout_status_view));
 		checkout_files_command = git_checkout_files_command_new (data->plugin->project_root_directory,
-																 selected_paths);
+																 selected_paths,
+																 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (checkout_all_check)));
 		
 		git_command_free_string_list (selected_paths);
 		
@@ -70,6 +74,28 @@ on_checkout_files_dialog_response (GtkDialog *dialog, gint response_id,
 }
 
 static void
+on_checkout_all_check_toggled (GtkToggleButton *toggle_button,
+							   GitUIData *data)
+{
+	GtkWidget *checkout_select_all_button;
+	GtkWidget *checkout_clear_button;
+	GtkWidget *checkout_status_view;
+	gboolean active;
+
+	checkout_select_all_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																	 "checkout_select_all_button"));
+	checkout_clear_button = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+																"checkout_clear_button"));
+	checkout_status_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+									   "checkout_status_view"));
+	active = gtk_toggle_button_get_active (toggle_button);
+
+	gtk_widget_set_sensitive (checkout_select_all_button, !active);
+	gtk_widget_set_sensitive (checkout_clear_button, !active);
+	gtk_widget_set_sensitive (checkout_status_view, !active);
+}
+
+static void
 checkout_files_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
@@ -80,6 +106,7 @@ checkout_files_dialog (Git *plugin)
 	GtkWidget *checkout_clear_button;
 	GtkWidget *checkout_status_view;
 	GtkWidget *checkout_status_progress_bar;
+	GtkWidget *checkout_all_check;
 	GitStatusCommand *status_command;
 	GitUIData *data;
 	
@@ -98,6 +125,8 @@ checkout_files_dialog (Git *plugin)
 	checkout_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_clear_button"));
 	checkout_status_view = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_status_view"));
 	checkout_status_progress_bar = GTK_WIDGET (gtk_builder_get_object (bxml, "checkout_status_progress_bar"));
+	checkout_all_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
+															 "checkout_all_check"));
 	
 	status_command = git_status_command_new (plugin->project_root_directory,
 											 GIT_STATUS_SECTION_NOT_UPDATED);
@@ -135,6 +164,10 @@ checkout_files_dialog (Git *plugin)
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	
 	data = git_ui_data_new (plugin, bxml);
+
+	g_signal_connect (G_OBJECT (checkout_all_check), "toggled",
+					  G_CALLBACK (on_checkout_all_check_toggled),
+					  data);
 	
 	g_signal_connect(G_OBJECT (dialog), "response", 
 					 G_CALLBACK (on_checkout_files_dialog_response), 

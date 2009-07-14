@@ -27,6 +27,7 @@
 struct _GitCheckoutFilesCommandPriv
 {
 	GList *paths;
+	gboolean checkout_all;
 };
 
 G_DEFINE_TYPE (GitCheckoutFilesCommand, git_checkout_files_command, GIT_TYPE_COMMAND);
@@ -39,7 +40,11 @@ git_checkout_files_command_run (AnjutaCommand *command)
 	self = GIT_CHECKOUT_FILES_COMMAND (command);
 	
 	git_command_add_arg (GIT_COMMAND (self), "checkout");
-	git_command_add_list_to_args (GIT_COMMAND (self), self->priv->paths);
+
+	if (self->priv->checkout_all)
+		git_command_add_arg (GIT_COMMAND (self), "-f");
+	else
+		git_command_add_list_to_args (GIT_COMMAND (self), self->priv->paths);
 	
 	return 0;
 }
@@ -77,7 +82,8 @@ git_checkout_files_command_class_init (GitCheckoutFilesCommandClass *klass)
 
 
 GitCheckoutFilesCommand *
-git_checkout_files_command_new (const gchar *working_directory, GList *paths)
+git_checkout_files_command_new (const gchar *working_directory, GList *paths,
+								gboolean checkout_all)
 {
 	GitCheckoutFilesCommand *self;
 	
@@ -86,6 +92,7 @@ git_checkout_files_command_new (const gchar *working_directory, GList *paths)
 						 NULL);
 	
 	self->priv->paths = git_command_copy_string_list (paths);
+	self->priv->checkout_all = checkout_all;
 	
 	return self;
 }

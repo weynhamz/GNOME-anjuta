@@ -55,7 +55,8 @@ struct _GitCheckoutFilesCommand
 
 GType git_checkout_files_command_get_type (void) G_GNUC_CONST;
 GitCheckoutFilesCommand *git_checkout_files_command_new (const gchar *working_directory,
-														 GList *paths);
+														 GList *paths,
+														 gboolean checkout_all);
 										  
 
 G_END_DECLS
