@@ -44,7 +44,10 @@ git_checkout_files_command_run (AnjutaCommand *command)
 	if (self->priv->checkout_all)
 		git_command_add_arg (GIT_COMMAND (self), "-f");
 	else
+	{
+		git_command_add_arg (GIT_COMMAND (self), "--");
 		git_command_add_list_to_args (GIT_COMMAND (self), self->priv->paths);
+	}
 	
 	return 0;
 }
