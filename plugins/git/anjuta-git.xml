@@ -18,6 +18,11 @@
   				<menuitem name="Push..." action="ActionGitPush" />
   				<menuitem name="Pull..." action="ActionGitPull" />
   				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+  				<placeholder name="PlaceholderStashMenu">
+  					<menu name="Stash" action="ActionMenuGitStash">
+  						<menuitem name="Stash uncomitted changes" action="ActionGitStashUncommitted" />
+  					</menu>
+  				</placeholder>
   				<separator />
 				<menuitem name="Add..." action="ActionGitAdd" />
 				<menuitem name="Remove..." action="ActionGitRemove" />

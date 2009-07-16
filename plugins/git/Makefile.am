@@ -199,7 +199,11 @@ libanjuta_git_la_SOURCES = \
 	git-tag-delete-command.c \
 	git-tag-delete-command.h \
 	git-tag-list-command.c \
-	git-tag-list-command.h
+	git-tag-list-command.h \
+	git-stash-save-command.h \
+	git-stash-save-command.c \
+	git-stash-changes-dialog.c \
+	git-stash-changes-dialog.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

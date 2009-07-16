@@ -49,6 +49,7 @@
 #include "git-apply-mailbox-dialog.h"
 #include "git-cherry-pick-dialog.h"
 #include "git-delete-tag-dialog.h"
+#include "git-stash-changes-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -143,6 +144,22 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		N_("Show uncommitted changes"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_diff)    /* action callback */
+	},
+	{
+		"ActionMenuGitStash",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Stash"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitStashUncommitted",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Stash uncommitted changes..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Save ucommitted changes and re-apply them later"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_stash_changes)    /* action callback */
 	},
 	{
 		"ActionGitAdd",                       /* Action name */
