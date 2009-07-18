@@ -62,6 +62,8 @@ struct _Git
 	
 	GtkWidget *log_viewer;
 	GtkWidget *log_popup_menu;
+	GtkWidget *stash_widget;
+	GtkWidget *stash_widget_grip;
 	
 	/* File monitors */
 	GFileMonitor *bisect_file_monitor;

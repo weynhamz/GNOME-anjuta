@@ -50,6 +50,7 @@
 #include "git-cherry-pick-dialog.h"
 #include "git-delete-tag-dialog.h"
 #include "git-stash-changes-dialog.h"
+#include "git-stash-widget.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -577,6 +578,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	gtk_action_set_sensitive (git_menu_action, TRUE);
 	gtk_action_set_sensitive (git_fm_menu_action, TRUE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, TRUE);
+	gtk_widget_set_sensitive (git_plugin->stash_widget, TRUE);
+	gtk_widget_set_sensitive (git_plugin->stash_widget_grip, TRUE);
 	
 	g_free (project_root_uri);
 	
@@ -612,6 +615,9 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	gtk_action_set_sensitive (git_menu_action, FALSE);
 	gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE);
+	gtk_widget_set_sensitive (git_plugin->stash_widget, FALSE);
+	gtk_widget_set_sensitive (git_plugin->stash_widget_grip, FALSE);
+
 	git_log_window_clear (git_plugin);
 	
 	g_file_monitor_cancel (git_plugin->bisect_file_monitor);
@@ -732,6 +738,18 @@ git_activate_plugin (AnjutaPlugin *plugin)
 							 ANJUTA_SHELL_PLACEMENT_CENTER,
 							 NULL);
 	g_object_unref (git_plugin->log_viewer);
+
+	/* Stash widget */
+	git_stash_widget_create (git_plugin, &git_plugin->stash_widget, 
+							 &git_plugin->stash_widget_grip);
+	anjuta_shell_add_widget_custom (plugin->shell, 
+									git_plugin->stash_widget,
+									"GitStashWidget", 
+									_("Stash"), 
+									GTK_STOCK_SAVE,
+									git_plugin->stash_widget_grip,
+									ANJUTA_SHELL_PLACEMENT_LEFT,
+									NULL);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -797,6 +815,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_free (git_plugin->current_fm_filename);
 	
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->log_viewer, NULL);
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->stash_widget, NULL);
 	gtk_widget_destroy (git_plugin->log_popup_menu);
 	
 	return TRUE;

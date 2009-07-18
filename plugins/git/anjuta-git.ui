@@ -35,6 +35,14 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="stash_list_model">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="commit_dialog">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="border_width">5</property>
@@ -5153,7 +5161,7 @@
                     <property name="visible">True</property>
                     <property name="left_padding">12</property>
                     <child>
-                      <object class="GtkCheckButton" id="stash_chnages_keep_index_check">
+                      <object class="GtkCheckButton" id="stash_changes_keep_index_check">
                         <property name="label" translatable="yes">Stash indexed changes</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -5227,5 +5235,158 @@
       <action-widget response="-6">button40</action-widget>
       <action-widget response="-5">button41</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkScrolledWindow" id="stash_widget_scrolled_window">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="hscrollbar_policy">automatic</property>
+    <property name="vscrollbar_policy">automatic</property>
+    <property name="shadow_type">in</property>
+    <child>
+      <object class="GtkTreeView" id="stash_widget_view">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="model">stash_list_model</property>
+        <property name="headers_visible">False</property>
+        <child>
+          <object class="GtkTreeViewColumn" id="treeviewcolumn9">
+            <property name="title">column</property>
+            <child>
+              <object class="GtkCellRendererText" id="stash_widget_view_name_renderer"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkHBox" id="stash_widget_grip_hbox">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkImage" id="image2">
+        <property name="visible">True</property>
+        <property name="stock">gtk-save</property>
+        <property name="icon-size">1</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label67">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Stash</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="padding">2</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="stash_widget_save_button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Stash the working tree's uncommitted changes</property>
+        <child>
+          <object class="GtkImage" id="image3">
+            <property name="visible">True</property>
+            <property name="stock">gtk-floppy</property>
+            <property name="icon-size">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="stash_widget_apply_button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Apply the selected stash</property>
+        <child>
+          <object class="GtkImage" id="image4">
+            <property name="visible">True</property>
+            <property name="stock">gtk-apply</property>
+            <property name="icon-size">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="stash_widget_show_button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Show the contents of the selected stash in an editor</property>
+        <child>
+          <object class="GtkImage" id="image5">
+            <property name="visible">True</property>
+            <property name="stock">gtk-zoom-100</property>
+            <property name="icon-size">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="stash_widget_delete_button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Delete this stash</property>
+        <child>
+          <object class="GtkImage" id="image6">
+            <property name="visible">True</property>
+            <property name="stock">gtk-delete</property>
+            <property name="icon-size">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="stash_widget_clear_button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Delete all stashes</property>
+        <child>
+          <object class="GtkImage" id="image7">
+            <property name="visible">True</property>
+            <property name="stock">gtk-clear</property>
+            <property name="icon-size">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">6</property>
+      </packing>
+    </child>
   </object>
 </interface>
