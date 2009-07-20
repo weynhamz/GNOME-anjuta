@@ -19,6 +19,35 @@
 
 #include "git-stash-widget.h"
 
+static void 
+on_stash_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
+								  GFile *other_file, 
+								  GFileMonitorEvent event_type, Git *plugin)
+{
+	
+	 /* Git seems to make several changes to this file at once, so just respond
+	  * to the changes done hint so we don't refresh more than once at a 
+	  * time. */
+	if (event_type == G_FILE_MONITOR_EVENT_CREATED ||
+	    event_type == G_FILE_MONITOR_EVENT_DELETED ||
+	    event_type == G_FILE_MONITOR_EVENT_CHANGED)
+	{
+		git_stash_widget_refresh (plugin);
+	}
+}
+
+static void
+on_list_command_finished (AnjutaCommand *command, guint return_code,
+						  GtkListStore *stash_list_model)
+{
+	/* Allow refreshes to continue */
+	g_object_set_data (G_OBJECT (stash_list_model), "being-refreshed", 
+					   GINT_TO_POINTER (FALSE));
+
+	git_report_errors (command, return_code);
+	g_object_unref (command);
+}
+
 void
 git_stash_widget_create (Git *plugin, GtkWidget **stash_widget, 
 						 GtkWidget **stash_widget_grip)
@@ -53,4 +82,84 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 
 	*stash_widget = stash_widget_scrolled_window;
 	*stash_widget_grip = stash_widget_grip_hbox;
+}
+
+void
+git_stash_widget_refresh (Git *plugin)
+{
+	GitUIData *data;
+	GtkListStore *stash_list_model;
+	gboolean being_refreshed;
+	GitStashListCommand *list_command;
+
+	data = g_object_get_data (G_OBJECT (plugin->stash_widget), "ui-data");
+	stash_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
+															   "stash_list_model"));
+	being_refreshed = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (stash_list_model), 
+														  "being-refreshed"));
+
+	/* Use a crude locking hack similar to what the log viewer does to avoid 
+	 * multiple concurrent refreshes. */
+	if (!being_refreshed)
+	{
+		list_command = git_stash_list_command_new (plugin->project_root_directory);
+
+		gtk_list_store_clear (stash_list_model);
+
+		g_signal_connect (G_OBJECT (list_command), "data-arrived",
+						  G_CALLBACK (on_git_list_stash_command_data_arrived),
+						  stash_list_model);
+
+		g_signal_connect (G_OBJECT (list_command), "command-finished",
+						  G_CALLBACK (on_list_command_finished),
+						  stash_list_model);
+
+		g_object_set_data (G_OBJECT (stash_list_model), "being-refreshed", 
+						   GINT_TO_POINTER (TRUE));
+
+		anjuta_command_start (ANJUTA_COMMAND (list_command));
+	}
+	 
+}
+
+void
+git_stash_widget_clear (Git *plugin)
+{
+	GitUIData *data;
+	GtkListStore *stash_list_model;
+
+	data = g_object_get_data (G_OBJECT (plugin->stash_widget), "ui-data");
+	stash_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
+															   "stash_list_model"));
+
+	gtk_list_store_clear (stash_list_model);
+}
+
+GFileMonitor *
+git_stash_widget_setup_refresh_monitor (Git *plugin)
+{
+	gchar *git_stash_path;
+	GFile *git_stash_file;
+	GFileMonitor *git_stash_monitor;
+
+	git_stash_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                            plugin->project_root_directory,
+	                            ".git",
+								"logs",
+	                            "refs",
+	                            "stash",
+	                            NULL);
+
+	git_stash_file = g_file_new_for_path (git_stash_path);
+	git_stash_monitor = g_file_monitor_file (git_stash_file, 0, NULL, 
+											 NULL);
+
+	g_signal_connect (G_OBJECT (git_stash_monitor), "changed",
+	                  G_CALLBACK (on_stash_refresh_monitor_changed),
+	                  plugin);
+
+	g_free (git_stash_path);
+	g_object_unref (git_stash_file);
+
+	return git_stash_monitor;
 }

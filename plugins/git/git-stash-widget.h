@@ -24,5 +24,8 @@
 
 void git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 							  GtkWidget **stash_widget_grip);
+void git_stash_widget_refresh (Git *plugin);
+void git_stash_widget_clear (Git *plugin);
+GFileMonitor *git_stash_widget_setup_refresh_monitor (Git *plugin);
 
 #endif

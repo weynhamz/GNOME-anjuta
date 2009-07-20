@@ -428,6 +428,37 @@ on_git_list_tag_command_data_arrived (AnjutaCommand *command,
 		g_free (tag_name);
 	}
 }
+
+void
+on_git_list_stash_command_data_arrived (AnjutaCommand *command,
+										GtkListStore *stash_list_model)
+{
+	GQueue *output_queue;
+	GitStash *stash;
+	GtkTreeIter iter;
+	gchar *id;
+	gchar *message;
+	
+	output_queue = git_stash_list_command_get_output (GIT_STASH_LIST_COMMAND (command));
+
+	while (g_queue_peek_head (output_queue))
+	{
+		stash = g_queue_pop_head (output_queue);
+		id = git_stash_get_id (stash);
+		message = git_stash_get_message (stash);
+
+		gtk_list_store_append (stash_list_model, &iter);
+		gtk_list_store_set (stash_list_model, &iter, 
+							0, id,
+							1, message, 
+							-1);
+		
+		g_object_unref (stash);
+		g_free (id);
+		g_free (message);
+	}
+}
+
 void
 git_select_all_status_items (GtkButton *select_all_button,
 							 AnjutaVcsStatusTreeView *tree_view)

@@ -69,6 +69,7 @@ struct _Git
 	GFileMonitor *bisect_file_monitor;
 	GFileMonitor *log_branch_refresh_monitor;
 	GFileMonitor *log_refresh_monitor;
+	GFileMonitor *stash_refresh_monitor;
 };
 
 struct _GitClass

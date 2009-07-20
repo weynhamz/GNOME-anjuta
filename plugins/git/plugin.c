@@ -586,7 +586,9 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	git_plugin->bisect_file_monitor = bisect_menus_init (git_plugin);
 	git_plugin->log_branch_refresh_monitor = git_log_setup_branch_refresh_monitor (git_plugin);
 	git_plugin->log_refresh_monitor = git_log_setup_log_refresh_monitor (git_plugin);
+	git_plugin->stash_refresh_monitor = git_stash_widget_setup_refresh_monitor (git_plugin);
 	git_log_refresh_branches (git_plugin);
+	git_stash_widget_refresh (git_plugin);
 }
 
 static void
@@ -619,14 +621,17 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	gtk_widget_set_sensitive (git_plugin->stash_widget_grip, FALSE);
 
 	git_log_window_clear (git_plugin);
+	git_stash_widget_clear (git_plugin);
 	
 	g_file_monitor_cancel (git_plugin->bisect_file_monitor);
 	g_file_monitor_cancel (git_plugin->log_branch_refresh_monitor);
 	g_file_monitor_cancel (git_plugin->log_refresh_monitor);
+	g_file_monitor_cancel (git_plugin->stash_refresh_monitor);
 	
 	g_object_unref (git_plugin->bisect_file_monitor);
 	g_object_unref (git_plugin->log_branch_refresh_monitor);
 	g_object_unref (git_plugin->log_refresh_monitor);
+	g_object_unref (git_plugin->stash_refresh_monitor);
 }
 
 static void

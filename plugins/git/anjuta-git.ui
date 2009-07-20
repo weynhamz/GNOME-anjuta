@@ -37,9 +37,9 @@
   </object>
   <object class="GtkListStore" id="stash_list_model">
     <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
       <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name message -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -5254,7 +5254,7 @@
             <child>
               <object class="GtkCellRendererText" id="stash_widget_view_name_renderer"/>
               <attributes>
-                <attribute name="text">0</attribute>
+                <attribute name="text">1</attribute>
               </attributes>
             </child>
           </object>
