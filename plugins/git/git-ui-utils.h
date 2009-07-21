@@ -85,6 +85,8 @@ void on_git_list_stash_command_data_arrived (AnjutaCommand *command,
 											 GtkListStore *stash_list_model);
 void on_git_stash_save_command_finished (AnjutaCommand *command, 
 										 guint return_code, Git *plugin);
+void on_git_stash_apply_command_finished (AnjutaCommand *command,
+										  guint return_code, Git *plugin);
 void git_select_all_status_items (GtkButton *select_all_button, 
 								  AnjutaVcsStatusTreeView *tree_view);
 void git_clear_all_status_selections (GtkButton *clear_button,
