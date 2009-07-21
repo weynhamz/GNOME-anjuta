@@ -529,7 +529,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 		}		
 		
 		g_free (local_path);
-		
+		sdb_plugin->buffer_update_semaphore = FALSE;
 	}	 
 }
 
