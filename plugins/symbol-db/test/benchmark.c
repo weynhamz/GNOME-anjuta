@@ -13,8 +13,6 @@ static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 
 static GPtrArray* get_files (const gchar* dir)
 {
-	GList* list = NULL;
-	GList* node;
 	GPtrArray* files = g_ptr_array_new();
 	GFile *file;
 	GFileEnumerator *enumerator;

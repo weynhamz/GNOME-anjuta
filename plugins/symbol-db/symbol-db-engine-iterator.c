@@ -91,9 +91,9 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 	dbi = g_object_new (SYMBOL_TYPE_DB_ENGINE_ITERATOR, NULL);
 	priv = dbi->priv;
 	
-	priv->data_model = model;
+	priv->data_model = model;	
 	priv->data_iter = gda_data_model_create_iter (model);	
-
+	
 	/* because gda_data_model_get_n_rows () could be cpu-intensive, we'll 
 	 * proxy this value, e.g. it's calculated if it is really needed */
 	priv->total_rows = -1; 

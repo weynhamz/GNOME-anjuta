@@ -26,7 +26,7 @@
 
 #include "symbol-db-engine-queries.h"
 #include "symbol-db-engine-priv.h"
-
+#include "libgda-extra/gda-data-model-concat.h"
 
 /*
  * extern declarations 
@@ -1570,87 +1570,6 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 												priv->project_directory);	
 }
 
-SymbolDBEngineIterator *
-symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
-									gint sym_id, SymExtraInfo sym_info)
-{
-	SymbolDBEnginePriv *priv;
-	gchar *query_str;	
-	GdaDataModel *data;
-	GString *info_data;
-	GString *join_data;
-	GdaHolder *param;
-	const DynChildQueryNode *dyn_node;
-	GValue *ret_value;
-	gboolean ret_bool;
-	
-	
-	g_return_val_if_fail (dbe != NULL, NULL);
-	priv = dbe->priv;
-
-	SDB_LOCK(priv);
-
-	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-		DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID, sym_info, 0)) == NULL)
-	{
-		/* info_data contains the stuff after SELECT and befor FROM */
-		info_data = g_string_new ("");
-	
-		/* join_data contains the optionals joins to do to retrieve new data on other
-	 	 * tables.
-	 	 */
-		join_data = g_string_new ("");
-
-		/* fill info_data and join data with optional sql */
-		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
-	
-		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
-			"symbol.name AS name, symbol.file_position AS file_position, "
-			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-		    "symbol.returntype AS returntype "
-			"%s FROM symbol "
-			"%s WHERE symbol.symbol_id = ## /* name:'symid' type:gint */", 
-									info_data->str, join_data->str);
-		
-		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
-						DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
-						sym_info, 0,
-						query_str);
-		
-		g_free (query_str);
-		g_string_free (info_data, TRUE);
-		g_string_free (join_data, TRUE);	
-	}
-	
-	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "symid")) == NULL)
-	{
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, sym_id, ret_bool, ret_value);		
-	
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
-	
-	if (!GDA_IS_DATA_MODEL (data) ||
-		gda_data_model_get_n_rows (data) <= 0)
-	{
-		if (data != NULL)
-			g_object_unref (data);
-		
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-	
-	SDB_UNLOCK(priv);
-	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash,
-												priv->project_directory);	
-}
-
 #define DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_YES			0x010000
 #define DYN_FIND_SYMBOL_NAME_BY_PATTERN_EXTRA_PAR_EXACT_MATCH_NO			0x020000
 
@@ -2026,6 +1945,185 @@ select * from symbol where scope_definition_id = (
 	
 	SDB_UNLOCK(priv);
 	return res;
+}
+
+/**
+ * On some queries we need to know the GdaDataModel instead of the iterator.
+ */
+static GdaDataModel *
+sdb_engine_get_symbol_info_by_id_1 (SymbolDBEngine *dbe, 
+									gint sym_id, SymExtraInfo sym_info)
+{
+	SymbolDBEnginePriv *priv;
+	gchar *query_str;	
+	GdaDataModel *data;
+	GString *info_data;
+	GString *join_data;
+	GdaHolder *param;
+	const DynChildQueryNode *dyn_node;
+	GValue *ret_value;
+	gboolean ret_bool;
+	
+		
+	priv = dbe->priv;
+
+	SDB_LOCK(priv);
+
+	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
+		DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID, sym_info, 0)) == NULL)
+	{
+		/* info_data contains the stuff after SELECT and befor FROM */
+		info_data = g_string_new ("");
+	
+		/* join_data contains the optionals joins to do to retrieve new data on other
+	 	 * tables.
+	 	 */
+		join_data = g_string_new ("");
+
+		/* fill info_data and join data with optional sql */
+		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
+	
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
+			"symbol.name AS name, symbol.file_position AS file_position, "
+			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
+		    "symbol.returntype AS returntype "
+			"%s FROM symbol "
+			"%s WHERE symbol.symbol_id = ## /* name:'symid' type:gint */", 
+									info_data->str, join_data->str);
+
+		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
+						DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
+						sym_info, 0,
+						query_str);
+		
+		g_free (query_str);
+		g_string_free (info_data, TRUE);
+		g_string_free (join_data, TRUE);	
+	}
+	
+	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "symid")) == NULL)
+	{
+		SDB_UNLOCK(priv);
+		return NULL;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(priv, param, sym_id, ret_bool, ret_value);		
+	
+	/* execute the query with parameters just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+	
+	if (!GDA_IS_DATA_MODEL (data) ||
+		gda_data_model_get_n_rows (data) <= 0)
+	{
+		if (data != NULL)
+			g_object_unref (data);
+		
+		SDB_UNLOCK(priv);
+		return NULL;
+	}
+	
+	SDB_UNLOCK(priv);
+	return data;
+}
+
+SymbolDBEngineIterator *
+symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe, 
+									gint sym_id, SymExtraInfo sym_info)
+{
+	SymbolDBEnginePriv *priv;
+	GdaDataModel *data;
+
+	g_return_val_if_fail (dbe != NULL, NULL);
+	priv = dbe->priv;
+	
+	data = sdb_engine_get_symbol_info_by_id_1 (dbe, sym_id, sym_info);
+	return data == NULL ? NULL : 
+		(SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
+												priv->sym_type_conversion_hash,
+												priv->project_directory);	
+}
+
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
+    								gint scoped_symbol_id,
+    								const gchar* db_file,
+    								SymExtraInfo sym_info)
+{
+	SymbolDBEnginePriv *priv;
+	GdaDataModel *tmp_res_data = NULL;	
+	GdaDataModel *final_data;
+	gint parent_sym_id;
+	gint i;
+	
+	g_return_val_if_fail (dbe != NULL, NULL);
+	priv = dbe->priv;
+
+	/* use an hacked GdaDataModel that can receive multiple datamodels in sequence. 
+	 * This is necessary because unfortunately there's no way to retrieve the 
+	 * scopes in one go: the returned query would always order them by id and there's no way
+	 * to keep the results unsorted.
+	 */	 
+	final_data = gda_data_model_concat_new ();
+	
+	tmp_res_data = sdb_engine_get_symbol_info_by_id_1 (dbe, scoped_symbol_id, sym_info);
+	gda_data_model_concat_append_model (GDA_DATA_MODEL_CONCAT (final_data), 
+	    tmp_res_data);	
+	
+	/* no need to get a lock */
+	/* first item is considered separately */
+	parent_sym_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
+	    					scoped_symbol_id, db_file);
+	
+	if (parent_sym_id <= 0)
+	{
+		return NULL;
+	}
+
+	tmp_res_data = sdb_engine_get_symbol_info_by_id_1 (dbe, parent_sym_id, sym_info);
+
+	/* did something go wrong? */
+	if (!GDA_IS_DATA_MODEL (tmp_res_data) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (tmp_res_data)) <= 0	)
+	{
+		return NULL;
+	}
+
+	gda_data_model_concat_append_model (GDA_DATA_MODEL_CONCAT (final_data), 
+	    tmp_res_data);
+
+	/* a ref will be taken into the GdaDataModelConcat object so it's safe to 
+	 * unref here 
+	 */
+	g_object_unref (tmp_res_data);
+
+	/* we're ready for the big loop. The 100 is an infinite-loop protection. */
+	for (i = 0; i < 100; i++) 
+	{
+		/* get the parent scope */
+		parent_sym_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
+	    					parent_sym_id, db_file);
+		/* DEBUG_PRINT ("got parent symbol_id  %d", parent_sym_id); */
+		if (parent_sym_id <= 0)
+		{
+			break;
+		}
+		else 
+		{
+			tmp_res_data = sdb_engine_get_symbol_info_by_id_1 (dbe, parent_sym_id, 
+			    sym_info);
+
+			/* merge into the result data */
+			gda_data_model_concat_append_model (GDA_DATA_MODEL_CONCAT (final_data), 
+			    tmp_res_data);
+			g_object_unref (tmp_res_data);
+		}
+	}
+	
+	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (final_data, 
+												priv->sym_type_conversion_hash,
+												priv->project_directory);
 }
 
 #define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_YES		0x010000

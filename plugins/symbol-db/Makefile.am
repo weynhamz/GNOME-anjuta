@@ -67,7 +67,9 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	symbol-db-engine-core.c  symbol-db-engine-core.h \
 	symbol-db-engine.h  symbol-db-iface.c \
 	symbol-db-iface.h  symbol-db-search-command.h \
-	symbol-db-search-command.c
+	symbol-db-search-command.c \
+	libgda-extra/gda-data-model-concat.c \
+	libgda-extra/gda-data-model-concat.h
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

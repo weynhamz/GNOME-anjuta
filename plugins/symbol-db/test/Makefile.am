@@ -26,7 +26,11 @@ benchmark_SOURCES = \
 	../symbol-db-engine-iterator-node.c \
 	../symbol-db-engine-iterator-node.h \
 	../symbol-db-view.h \
-	../symbol-db-view.c
+	../symbol-db-view.c \
+	../symbol-db-engine-iterator.h \
+	../symbol-db-engine-queries.h \
+	../libgda-extra/gda-data-model-concat.c \
+	../libgda-extra/gda-data-model-concat.h
  
 
 benchmark_LDFLAGS = \

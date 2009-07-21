@@ -153,6 +153,29 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
 									gint scoped_symbol_id,
 									const gchar* db_file);
 
+/**
+ * Walk the path up to the root scope given a scoped_symbol_id parameter.
+ * The returned iterator will be populated with SymbolDBEngineIteratorNode(s)
+ * so that it could be easily browsed by a client app.
+ *
+ * e.g.
+ * namespace FooBase {
+ * class FooKlass {
+ *	
+ * }
+ *
+ * void FooKlass::foo_func () {			<-------------- this is the scoped symbol
+ *              
+ * }
+ * 
+ * the returned iterator'll contain symbols in this order: foo_func, FooKlass, FooBase.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
+    								gint scoped_symbol_id,
+    								const gchar* db_file,
+    								SymExtraInfo sym_info);
+
 /** 
  * scope_path cannot be NULL.
  * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
