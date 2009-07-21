@@ -21,6 +21,7 @@
 #define _GIT_STASH_WIDGET_H
 
 #include "git-ui-utils.h"
+#include "git-stash-save-command.h"
 
 void git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 							  GtkWidget **stash_widget_grip);

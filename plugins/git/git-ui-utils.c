@@ -460,6 +460,22 @@ on_git_list_stash_command_data_arrived (AnjutaCommand *command,
 }
 
 void
+on_git_stash_save_command_finished (AnjutaCommand *command, guint return_code,
+									Git *plugin)
+{
+	AnjutaStatus *status;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell,
+									  NULL);
+	
+	anjuta_status (status, _("Git: Changes stored in a stash."), 5);
+	
+	git_report_errors (command, return_code);
+	
+	g_object_unref (command);
+}
+
+void
 git_select_all_status_items (GtkButton *select_all_button,
 							 AnjutaVcsStatusTreeView *tree_view)
 {

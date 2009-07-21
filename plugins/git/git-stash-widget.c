@@ -76,6 +76,28 @@ on_stash_widget_view_row_selected (GtkTreeSelection *selection,
 	return TRUE;
 }
 
+static void
+on_stash_widget_save_button_clicked (GtkButton *button, GitUIData *data)
+{
+	GitStashSaveCommand *save_command;
+
+	save_command = git_stash_save_command_new (data->plugin->project_root_directory,
+											   FALSE, NULL);
+
+	git_create_message_view (data->plugin);
+
+	g_signal_connect (G_OBJECT (save_command), "command-finished",
+					  G_CALLBACK (on_git_stash_save_command_finished),
+					  data->plugin);
+
+	g_signal_connect (G_OBJECT (save_command), "data-arrived",
+					  G_CALLBACK (on_git_command_info_arrived),
+					  data->plugin);
+
+	anjuta_command_start (ANJUTA_COMMAND (save_command));
+	
+}
+
 void
 git_stash_widget_create (Git *plugin, GtkWidget **stash_widget, 
 						 GtkWidget **stash_widget_grip)
@@ -89,6 +111,7 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 	GtkWidget *stash_widget_scrolled_window;
 	GtkWidget *stash_widget_view;
 	GtkWidget *stash_widget_grip_hbox;
+	GtkWidget *stash_widget_save_button;
 	GtkTreeSelection *selection;
 
 	bxml = gtk_builder_new ();
@@ -108,11 +131,17 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 															"stash_widget_view"));
 	stash_widget_grip_hbox = GTK_WIDGET (gtk_builder_get_object (bxml,
 																 "stash_widget_grip_hbox"));
+	stash_widget_save_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+																   "stash_widget_save_button"));
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stash_widget_view));
 
 	gtk_tree_selection_set_select_function (selection, 
 											(GtkTreeSelectionFunc) on_stash_widget_view_row_selected,
 											data, NULL);
+
+	g_signal_connect (G_OBJECT (stash_widget_save_button), "clicked",
+					  G_CALLBACK (on_stash_widget_save_button_clicked),
+					  data);
 
 	g_object_set_data_full (G_OBJECT (stash_widget_scrolled_window), "ui-data",
 							data, (GDestroyNotify) git_ui_data_free);

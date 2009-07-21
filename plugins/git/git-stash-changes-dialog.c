@@ -20,22 +20,6 @@
 #include "git-stash-changes-dialog.h"
 
 static void
-on_stash_command_finished (AnjutaCommand *command, guint return_code,
-						   Git *plugin)
-{
-	AnjutaStatus *status;
-	
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell,
-									  NULL);
-	
-	anjuta_status (status, _("Git: Changes stored in a stash."), 5);
-	
-	git_report_errors (command, return_code);
-	
-	g_object_unref (command);
-}
-
-static void
 on_stash_changes_dialog_response (GtkDialog *dialog, gint response, 
 								  GitUIData *data)
 {
@@ -67,7 +51,7 @@ on_stash_changes_dialog_response (GtkDialog *dialog, gint response,
 		git_create_message_view (data->plugin);
 
 		g_signal_connect (G_OBJECT (stash_command), "command-finished",
-						  G_CALLBACK (on_stash_command_finished),
+						  G_CALLBACK (on_git_stash_save_command_finished),
 						  data->plugin);
 
 		g_signal_connect (G_OBJECT (stash_command), "data-arrived",
