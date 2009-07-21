@@ -58,7 +58,7 @@ sdb_engine_iterator_finalize (GObject *object)
 {
 	SymbolDBEngineIterator *dbi;
 	SymbolDBEngineIteratorPriv *priv;
-	
+
 	dbi = SYMBOL_DB_ENGINE_ITERATOR (object);	
 	priv = dbi->priv;
 
@@ -116,6 +116,17 @@ symbol_db_engine_iterator_new (GdaDataModel *model,
 	symbol_db_engine_iterator_node_set_prj_directory (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
 													  prj_directory);
 	return dbi;
+}
+
+const GdaDataModel *
+symbol_db_engine_iterator_get_datamodel (SymbolDBEngineIterator *dbi)
+{
+	SymbolDBEngineIteratorPriv *priv;
+
+	g_return_val_if_fail (dbi != NULL, NULL);
+
+	priv = dbi->priv;
+	return priv->data_model;	
 }
 
 /**

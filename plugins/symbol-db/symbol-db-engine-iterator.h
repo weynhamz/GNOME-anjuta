@@ -58,6 +58,10 @@ struct _SymbolDBEngineIterator
 GType sdb_engine_iterator_get_type (void) /*G_GNUC_CONST*/;
 
 
+/**
+ * The GdaDataModel passed as parameter will be unreffed when the user destroys
+ * the SymbolDBEngineIterator. No need then for the user to release GdaDataModel.
+ */
 SymbolDBEngineIterator *
 symbol_db_engine_iterator_new (GdaDataModel *model, 
 							   const GHashTable *sym_type_conversion_hash,
@@ -87,6 +91,9 @@ symbol_db_engine_iterator_get_position (SymbolDBEngineIterator *dbi);
 void
 symbol_db_engine_iterator_foreach (SymbolDBEngineIterator *dbi, GFunc callback, 
 								   gpointer user_data);
+
+const GdaDataModel *
+symbol_db_engine_iterator_get_datamodel (SymbolDBEngineIterator *dbi);
 
 G_END_DECLS
 
