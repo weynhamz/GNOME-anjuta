@@ -5311,6 +5311,7 @@
     <child>
       <object class="GtkButton" id="stash_widget_apply_button">
         <property name="visible">True</property>
+        <property name="sensitive">False</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
         <property name="tooltip_text" translatable="yes">Apply the selected stash</property>
@@ -5331,6 +5332,7 @@
     <child>
       <object class="GtkButton" id="stash_widget_show_button">
         <property name="visible">True</property>
+        <property name="sensitive">False</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
         <property name="tooltip_text" translatable="yes">Show the contents of the selected stash in an editor</property>
@@ -5351,6 +5353,7 @@
     <child>
       <object class="GtkButton" id="stash_widget_delete_button">
         <property name="visible">True</property>
+        <property name="sensitive">False</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
         <property name="tooltip_text" translatable="yes">Delete this stash</property>

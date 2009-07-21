@@ -48,6 +48,34 @@ on_list_command_finished (AnjutaCommand *command, guint return_code,
 	g_object_unref (command);
 }
 
+static gboolean
+on_stash_widget_view_row_selected (GtkTreeSelection *selection,
+								   GtkTreeModel *model,
+						  		   GtkTreePath *path, 
+							  	   gboolean path_currently_selected,
+								   GitUIData *data)
+{
+	GtkWidget *stash_widget_apply_button;
+	GtkWidget *stash_widget_show_button;
+	GtkWidget *stash_widget_delete_button;
+
+	stash_widget_apply_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	"stash_widget_apply_button"));
+	stash_widget_show_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																   "stash_widget_show_button"));
+	stash_widget_delete_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	 "stash_widget_delete_button"));
+
+	gtk_widget_set_sensitive (stash_widget_apply_button, 
+							  !path_currently_selected);
+	gtk_widget_set_sensitive (stash_widget_show_button,
+							  !path_currently_selected);
+	gtk_widget_set_sensitive (stash_widget_delete_button,
+							  !path_currently_selected);
+
+	return TRUE;
+}
+
 void
 git_stash_widget_create (Git *plugin, GtkWidget **stash_widget, 
 						 GtkWidget **stash_widget_grip)
@@ -59,7 +87,9 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 	GError *error;
 	GitUIData *data;
 	GtkWidget *stash_widget_scrolled_window;
+	GtkWidget *stash_widget_view;
 	GtkWidget *stash_widget_grip_hbox;
+	GtkTreeSelection *selection;
 
 	bxml = gtk_builder_new ();
 	error = NULL;
@@ -74,8 +104,15 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 
 	stash_widget_scrolled_window = GTK_WIDGET (gtk_builder_get_object (bxml, 
 																	   "stash_widget_scrolled_window"));
+	stash_widget_view = GTK_WIDGET (gtk_builder_get_object (bxml,
+															"stash_widget_view"));
 	stash_widget_grip_hbox = GTK_WIDGET (gtk_builder_get_object (bxml,
 																 "stash_widget_grip_hbox"));
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stash_widget_view));
+
+	gtk_tree_selection_set_select_function (selection, 
+											(GtkTreeSelectionFunc) on_stash_widget_view_row_selected,
+											data, NULL);
 
 	g_object_set_data_full (G_OBJECT (stash_widget_scrolled_window), "ui-data",
 							data, (GDestroyNotify) git_ui_data_free);
@@ -104,7 +141,7 @@ git_stash_widget_refresh (Git *plugin)
 	{
 		list_command = git_stash_list_command_new (plugin->project_root_directory);
 
-		gtk_list_store_clear (stash_list_model);
+		git_stash_widget_clear (plugin);
 
 		g_signal_connect (G_OBJECT (list_command), "data-arrived",
 						  G_CALLBACK (on_git_list_stash_command_data_arrived),
@@ -127,12 +164,25 @@ git_stash_widget_clear (Git *plugin)
 {
 	GitUIData *data;
 	GtkListStore *stash_list_model;
+	GtkWidget *stash_widget_apply_button;
+	GtkWidget *stash_widget_show_button;
+	GtkWidget *stash_widget_delete_button;
 
 	data = g_object_get_data (G_OBJECT (plugin->stash_widget), "ui-data");
 	stash_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
 															   "stash_list_model"));
+	stash_widget_apply_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	"stash_widget_apply_button"));
+	stash_widget_show_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																   "stash_widget_show_button"));
+	stash_widget_delete_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+																	 "stash_widget_delete_button"));
 
 	gtk_list_store_clear (stash_list_model);
+
+	gtk_widget_set_sensitive (stash_widget_apply_button, FALSE);
+	gtk_widget_set_sensitive (stash_widget_show_button, FALSE);
+	gtk_widget_set_sensitive (stash_widget_delete_button, FALSE);
 }
 
 GFileMonitor *
