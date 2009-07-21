@@ -351,33 +351,6 @@ enable_view_signals (SymbolDBPlugin *sdb_plugin, gboolean enable, gboolean force
 	}
 }
 
-static void
-on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
-										  gpointer data)
-{
-	SymbolDBPlugin *sdb_plugin;
-	gint i;
-	
-	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);	
-	
-	/* search for the proc id */
-	for (i = 0; i < sdb_plugin->buffer_update_ids->len; i++)
-	{
-		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == GINT_TO_POINTER (process_id))
-		{
-			gchar *str;
-			/* hey we found it */
-			/* remove both the items */
-			g_ptr_array_remove_index (sdb_plugin->buffer_update_ids, i);
-			
-			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
-													i);
-			/* we can now free it */
-			g_free (str);			
-		}
-	}
-}
-
 static gboolean
 on_editor_buffer_symbols_update_timeout (gpointer user_data)
 {
@@ -488,6 +461,76 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	sdb_plugin->need_symbols_update = FALSE;
 
 	return proc_id > 0 ? TRUE : FALSE;
+}
+
+static void
+on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id, 
+										  gpointer data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	gint i;
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);	
+	
+	/* search for the proc id */
+	for (i = 0; i < sdb_plugin->buffer_update_ids->len; i++)
+	{
+		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == GINT_TO_POINTER (process_id))
+		{
+			gchar *str;
+			/* hey we found it */
+			/* remove both the items */
+			g_ptr_array_remove_index (sdb_plugin->buffer_update_ids, i);
+			
+			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
+													i);
+			/* we can now free it */
+			g_free (str);			
+		}
+	}
+
+	/* was the updating of view-locals symbols blocked while we were scanning?
+	 * e.g. was the editor switched? */
+	if (sdb_plugin->buffer_update_semaphore == TRUE)
+	{
+		GFile *file;
+		gchar *local_path;
+		gboolean tags_update;
+		if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
+			return;
+	
+		file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor), 
+		    NULL);
+	
+		if (file == NULL)
+			return;
+
+		local_path = g_file_get_path (file);
+	
+		if (local_path == NULL)
+		{
+			g_critical ("local_path == NULL");
+			return;
+		}	
+
+		symbol_db_view_locals_update_list (
+					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
+					 sdb_plugin->sdbe_project, local_path, FALSE);
+
+		/* add a default timeout to the updating of buffer symbols */	
+		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+		
+		if (tags_update)
+		{
+			sdb_plugin->buf_update_timeout_id = 
+					g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+										   on_editor_buffer_symbols_update_timeout,
+										   sdb_plugin);
+		}		
+		
+		g_free (local_path);
+		
+	}	 
 }
 
 static void
@@ -639,10 +682,33 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_critical ("local_path == NULL");
 		return;
 	}	
+
+	/* we can have a weird behaviour here if we're not paying the right attention:
+	 * A timeout scan could have been launched and a millisecond later the user could
+	 * have switched editor: we'll be getting the symbol inserted in the previous
+	 * editor into the new one's view.
+	 */
+	if (sdb_plugin->buffer_update_files->len > 0)
+	{
+		sdb_plugin->buffer_update_semaphore = TRUE;
+	}
+	else
+	{
+		symbol_db_view_locals_update_list (
+					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
+					 sdb_plugin->sdbe_project, local_path, FALSE);
+
+		/* add a default timeout to the updating of buffer symbols */	
+		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
 				
-	symbol_db_view_locals_update_list (
-				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-				 sdb_plugin->sdbe_project, local_path, FALSE);
+		if (tags_update)
+		{
+			sdb_plugin->buf_update_timeout_id = 
+					g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+										   on_editor_buffer_symbols_update_timeout,
+										   plugin);
+		}		
+	}
 				 
 	if (g_hash_table_lookup (sdb_plugin->editor_connected, editor) == NULL)
 	{
@@ -673,14 +739,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	g_free (uri);
 	g_free (local_path);
 	
-	/* add a default timeout to the updating of buffer symbols */	
-	tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
-				
-	if (tags_update)
-		sdb_plugin->buf_update_timeout_id = 
-				g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
-									   on_editor_buffer_symbols_update_timeout,
-									   plugin);
 	sdb_plugin->need_symbols_update = FALSE;
 }
 
@@ -2180,6 +2238,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 */
 	sdb_plugin->buffer_update_files = g_ptr_array_new ();
 	sdb_plugin->buffer_update_ids = g_ptr_array_new ();
+	sdb_plugin->buffer_update_semaphore = FALSE;
 	
 	sdb_plugin->is_offline_scanning = FALSE;
 	sdb_plugin->is_project_importing = FALSE;

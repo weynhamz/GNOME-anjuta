@@ -72,6 +72,12 @@ struct _SymbolDBPlugin {
 	GTimer *update_timer;
 	GPtrArray *buffer_update_files;
 	GPtrArray *buffer_update_ids;
+	gboolean buffer_update_semaphore;		/* it monitors the update status of the
+	 										 * buffer _and_ the editor switching.
+	 										 * A new page cannot be updated with the
+	 										 * new view-locals symbols if a scanning
+	 										 * is in progress 
+	 										 */
 	guint editor_watch_id;
 	gchar *project_root_uri;
 	gchar *project_root_dir;
@@ -130,7 +136,9 @@ struct _SymbolDBPlugin {
 	gchar *current_scanned_package;
 	GList *session_packages;
 	
-	GTree *proc_id_tree;
+	GTree *proc_id_tree;				/* the scan processes'll receive an id from 
+	 									 * the symbol engine when scan-end happens. 
+	 									 * Track them here */
 	
 	gboolean is_project_importing;		/* refreshes or resumes after abort */
 	gboolean is_project_updating;		/* makes up to date symbols of the project's files */

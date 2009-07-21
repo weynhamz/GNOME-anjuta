@@ -358,7 +358,7 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 {
 	SymbolDBPrefsPriv *priv;
 /*	GtkWidget *fchooser;*/
-	gchar *ctags_value;
+/*	gchar *ctags_value;*/
 
 	priv = sdbp->priv;
 

@@ -5984,12 +5984,12 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	/* in case we didn't have any good buffer to scan...*/
 	ret_id = -1;
 	
-	/* it may happens that no buffer is correctly set up */
+	/* it may happen that no buffer is correctly set up */
 	if (real_files_on_db->len > 0)
 	{
 		/* data will be freed when callback will be called. The signal will be
-	 	* disconnected too, don't worry about disconnecting it by hand.
-	 	*/
+	 	 * disconnected too, don't worry about disconnecting it by hand.
+	 	 */
 		g_signal_connect (G_OBJECT (dbe), "scan-end",
 						  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
 	

@@ -51,8 +51,8 @@ typedef struct _WaitingForSymbol {
 
 typedef struct _TraverseData {
 	SymbolDBViewLocals *dbvl;
-	SymbolDBEngine *dbe;
-
+	void *data;
+	
 } TraverseData;
 
 typedef struct _FileSymbolsStatus {
@@ -74,7 +74,8 @@ struct _SymbolDBViewLocalsPriv {
 	
 	GTree *nodes_displayed;
 	GTree *waiting_for;	
-	GQueue *symbols_inserted_ids;
+	GQueue *symbols_inserted_ids;	
+	GTree *nodes_not_yet_removed;		/* this'll remain active across views */
 
 	gboolean display_nothing;
 	gboolean recv_signals;
@@ -220,6 +221,12 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 			priv->waiting_for = NULL;
 		}
 
+		if (priv->nodes_not_yet_removed)
+		{
+			g_tree_destroy (priv->nodes_not_yet_removed);
+			priv->nodes_not_yet_removed = NULL;
+		}
+			
 		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 		if (store != NULL)
 			g_object_unref (store);
@@ -274,7 +281,7 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	
 	g_return_if_fail (dbvl != NULL);
 
-	DEBUG_PRINT ("%s", "sdb_view_locals_init  ()");
+	/*DEBUG_PRINT ("%s", "sdb_view_locals_init  ()");*/
 	dbvl->priv = g_new0 (SymbolDBViewLocalsPriv, 1);		
 	priv = dbvl->priv;
 		
@@ -282,6 +289,10 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	priv->current_local_file_path = NULL;
 	priv->nodes_displayed = NULL;
 	priv->waiting_for = NULL;
+	priv->nodes_not_yet_removed = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
+	    											NULL,
+	    											NULL,
+	    											NULL);
 	priv->symbols_inserted_ids = NULL;
 	priv->insert_handler = 0;
 	priv->scan_end_handler = 0;
@@ -490,7 +501,7 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 
 	tdata = (TraverseData *)data;
 
-	dbe = tdata->dbe;
+	dbe = SYMBOL_DB_ENGINE (tdata->data);
 	dbvl = tdata->dbvl;
 
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -843,7 +854,7 @@ consume_symbols_inserted_queue_idle_destroy (gpointer data)
 	tdata = (TraverseData *)data;
 
 	dbvl = tdata->dbvl;
-	dbe = tdata->dbe;	
+	dbe = SYMBOL_DB_ENGINE (tdata->data);
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 	
@@ -889,7 +900,7 @@ consume_symbols_inserted_queue_idle (gpointer data)
 	tdata = (TraverseData *)data;
 
 	dbvl = tdata->dbvl;
-	dbe = tdata->dbe;	
+	dbe = SYMBOL_DB_ENGINE (tdata->data);
 	g_return_val_if_fail (dbvl != NULL, FALSE);
 	priv = dbvl->priv;
 	
@@ -1039,7 +1050,7 @@ on_scan_end (SymbolDBEngine *dbe, gint process_id, gpointer data)
 	
 	tdata = g_new (TraverseData, 1);
 	tdata->dbvl = dbvl;
-	tdata->dbe = dbe;
+	tdata->data = dbe;
 	
 	/*DEBUG_PRINT ("%s", "locals: on_scan_end");*/
 	if (priv->symbols_inserted_ids != NULL)
@@ -1117,11 +1128,14 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		return;
 	}
 	
-	/*DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);*/
+	/* DEBUG_PRINT ("-local- %d", symbol_id); */
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (symbol_id));
 	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
+		/* DEBUG_PRINT ("found no row...."); */
+		g_tree_insert (priv->nodes_not_yet_removed, GINT_TO_POINTER (symbol_id), 
+		    GINT_TO_POINTER (symbol_id));
 		return;
 	}
 
@@ -1174,6 +1188,8 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	{
 		return;
 	}
+
+	/* DEBUG_PRINT ("-local- %d", symbol_id); */
 	
 	/* save the symbol_id to be added in the queue and just return */
 	g_queue_push_head (priv->symbols_inserted_ids, GINT_TO_POINTER (symbol_id));
@@ -1309,6 +1325,44 @@ symbol_db_view_locals_display_nothing (SymbolDBViewLocals *dbvl,
 	}
 }
 
+static gboolean 
+traverse_check_for_unremoved_symbols (gpointer key, gpointer value, gpointer data)
+{
+	SymbolDBViewLocals *dbvl;
+	SymbolDBViewLocalsPriv *priv;	
+    GtkTreeIter iter;	
+	GtkTreeRowReference *row_ref;	
+	GList *removed_items = NULL;
+	TraverseData *tdata;
+
+	tdata = (TraverseData *)data;
+	
+	dbvl = tdata->dbvl;
+	removed_items = tdata->data;
+	
+	priv = dbvl->priv;
+
+	row_ref = g_tree_lookup (priv->nodes_displayed, GINT_TO_POINTER (key));
+	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
+	{
+		tdata->data = removed_items;
+		/* nothing found */
+		/* continue traversing */
+		return FALSE;
+	}
+		
+	do_recurse_subtree_and_remove (dbvl, &iter);	
+
+	/* we've removed something. Save it in the list so later the items
+	 * can be removed from the gtree.
+	 */
+	removed_items = g_list_prepend (removed_items, key);
+
+	tdata->data = removed_items;
+	/* continue traversing */
+	return FALSE;
+}
+
 void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
 							  const gchar* filepath, gboolean force_update)
@@ -1441,13 +1495,43 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 			
 			tdata = g_new0 (TraverseData, 1);
 			tdata->dbvl = dbvl;
-			tdata->dbe = dbe;
+			tdata->data = dbe;
 			
 			priv->insertion_idle_handler = g_idle_add_full (G_PRIORITY_LOW, 
 						 (GSourceFunc) consume_symbols_inserted_queue_idle,
 						 (gpointer) tdata,
 						 (GDestroyNotify) consume_symbols_inserted_queue_idle_destroy);			
-		}		
+		}
+
+		/* fine, but some symbol-remove signals can have been left. Check if they
+		 * can be removed 
+		 */
+		GList *removed_list;
+		TraverseData *tdata;
+
+		tdata = g_new0 (TraverseData, 1);
+		tdata->dbvl = dbvl;
+
+		g_tree_foreach (priv->nodes_not_yet_removed, 
+		    traverse_check_for_unremoved_symbols, tdata);
+
+		/* the result */
+		removed_list = tdata->data;
+		
+		/* have we removed something? We'll know that checking the list */
+		if (removed_list != NULL)
+		{
+			GList *node = removed_list;
+			while (node != NULL)
+			{
+				g_tree_remove (priv->nodes_not_yet_removed, node->data);
+
+				node = node->next;
+			}			
+		}
+		
+		g_list_free (removed_list);
+		g_free (tdata);	
 	}
 	else 
 	{	
