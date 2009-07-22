@@ -142,6 +142,42 @@ git_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 	return ret;
 }
 
+gboolean
+git_get_selected_stash (GtkTreeSelection *selection, gchar **stash)
+{
+	gboolean ret;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkWidget *stash_view;
+	GtkWidget *parent;
+	GtkWidget *dialog;
+
+	ret = FALSE;
+	*stash = NULL;
+
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		gtk_tree_model_get (model, &iter, 0, stash, -1);
+		ret = TRUE;
+	}
+	else
+	{
+		stash_view = GTK_WIDGET (gtk_tree_selection_get_tree_view (selection));
+		parent = gtk_widget_get_toplevel (stash_view);
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_WARNING,
+										 GTK_BUTTONS_OK,
+										 "%s", _("Please select a stash"));
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+	}
+	
+
+	return ret;
+}
+
 gchar * 
 git_get_log_from_textview (GtkWidget* textview)
 {

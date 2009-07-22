@@ -17,18 +17,13 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef _GIT_STASH_WIDGET_H
-#define _GIT_STASH_WIDGET_H
+#ifndef _GIT_APPLY_STASH_DIALOG_H
+#define _GIT_APPLY_STASH_DIALOG_H
 
-#include "git-ui-utils.h"
-#include "git-stash-save-command.h"
 #include "git-stash-apply-command.h"
+#include "git-stash-widget.h"
+#include "git-ui-utils.h"
 
-void git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
-							  GtkWidget **stash_widget_grip);
-void git_stash_widget_refresh (Git *plugin);
-void git_stash_widget_clear (Git *plugin);
-GFileMonitor *git_stash_widget_setup_refresh_monitor (Git *plugin);
-GtkListStore *git_stash_widget_get_model (Git *plugin);
+void on_menu_git_apply_stash (GtkAction *action, Git *plugin);
 
 #endif

@@ -51,6 +51,7 @@
 #include "git-delete-tag-dialog.h"
 #include "git-stash-changes-dialog.h"
 #include "git-stash-widget.h"
+#include "git-apply-stash-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -161,6 +162,14 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		N_("Save ucommitted changes and re-apply them later"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_stash_changes)    /* action callback */
+	},
+	{
+		"ActionGitApplyStash",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Apply stashed changes..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Apply stashed changes to the working tree"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_apply_stash)    /* action callback */
 	},
 	{
 		"ActionGitAdd",                       /* Action name */

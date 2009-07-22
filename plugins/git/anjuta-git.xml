@@ -20,7 +20,8 @@
   				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
   				<placeholder name="PlaceholderStashMenu">
   					<menu name="Stash" action="ActionMenuGitStash">
-  						<menuitem name="Stash uncomitted changes" action="ActionGitStashUncommitted" />
+  						<menuitem name="Stash uncomitted changes..." action="ActionGitStashUncommitted" />
+  						<menuitem name="Apply stashed changes..." action="ActionGitApplyStash" />
   					</menu>
   				</placeholder>
   				<separator />

@@ -290,3 +290,15 @@ git_stash_widget_setup_refresh_monitor (Git *plugin)
 
 	return git_stash_monitor;
 }
+
+GtkListStore *
+git_stash_widget_get_model (Git *plugin)
+{
+	GitUIData *data;
+	GtkListStore *stash_list_model;
+
+	data = g_object_get_data (G_OBJECT (plugin->stash_widget), "ui-data");
+	stash_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
+															   "stash_list_model"));
+	return stash_list_model;
+}
