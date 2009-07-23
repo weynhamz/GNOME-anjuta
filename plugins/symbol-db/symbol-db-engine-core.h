@@ -111,6 +111,12 @@ gboolean
 symbol_db_engine_is_connected (SymbolDBEngine * dbe);
 
 /**
+ * Getter for the connection string. Returned char must be freed by caller.
+ */
+gchar *
+symbol_db_engine_get_cnc_string (SymbolDBEngine * dbe);
+
+/**
  * Check if the database already exists into the prj_directory
  */
 gboolean

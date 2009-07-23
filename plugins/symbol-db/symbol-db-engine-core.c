@@ -3031,6 +3031,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	SymbolDBEnginePriv *priv;
 	gboolean needs_tables_creation = FALSE;
 	gchar *cnc_string;
+	gboolean connect_res;
 
 	DEBUG_PRINT ("Opening project %s with base dir %s", 
 				 prj_directory, base_db_path);
@@ -3062,9 +3063,12 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);
-	sdb_engine_connect_to_db (dbe, cnc_string);
+	connect_res = sdb_engine_connect_to_db (dbe, cnc_string);
 	g_free (cnc_string);
 
+	if (connect_res == FALSE)
+		return FALSE;
+	
 	if (needs_tables_creation == TRUE)
 	{
 		DEBUG_PRINT ("Creating tables: it needs tables...");
@@ -3082,6 +3086,17 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	sdb_engine_normalize_sym_type (dbe);
 		
 	return TRUE;
+}
+
+gchar *
+symbol_db_engine_get_cnc_string (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+
+	g_return_val_if_fail (dbe != NULL, FALSE);	
+	priv = dbe->priv;
+
+	return g_strdup (priv->cnc_string);
 }
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
