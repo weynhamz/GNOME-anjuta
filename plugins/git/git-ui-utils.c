@@ -474,6 +474,7 @@ on_git_list_stash_command_data_arrived (AnjutaCommand *command,
 	GtkTreeIter iter;
 	gchar *id;
 	gchar *message;
+	guint number;
 	
 	output_queue = git_stash_list_command_get_output (GIT_STASH_LIST_COMMAND (command));
 
@@ -482,11 +483,13 @@ on_git_list_stash_command_data_arrived (AnjutaCommand *command,
 		stash = g_queue_pop_head (output_queue);
 		id = git_stash_get_id (stash);
 		message = git_stash_get_message (stash);
+		number = git_stash_get_number (stash);
 
 		gtk_list_store_append (stash_list_model, &iter);
 		gtk_list_store_set (stash_list_model, &iter, 
 							0, id,
-							1, message, 
+							1, message,
+		                    2, number,
 							-1);
 		
 		g_object_unref (stash);

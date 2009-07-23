@@ -28,6 +28,7 @@ struct _GitStashPriv
 {
 	gchar *id;
 	gchar *message;
+	guint number;
 };
 
 G_DEFINE_TYPE (GitStash, git_stash, G_TYPE_OBJECT);
@@ -61,7 +62,7 @@ git_stash_class_init (GitStashClass *klass)
 }
 
 GitStash *
-git_stash_new (const gchar *id, const gchar *message)
+git_stash_new (const gchar *id, const gchar *message, guint number)
 {
 	GitStash *self;
 	
@@ -69,6 +70,7 @@ git_stash_new (const gchar *id, const gchar *message)
 	
 	self->priv->id = g_strdup (id);
 	self->priv->message = g_strdup (message);
+	self->priv->number = number;
 	
 	return self;
 }
@@ -83,4 +85,10 @@ gchar *
 git_stash_get_message (GitStash *self)
 {
 	return g_strdup (self->priv->message);
+}
+
+guint
+git_stash_get_number (GitStash *self)
+{
+	return self->priv->number;
 }

@@ -53,9 +53,10 @@ struct _GitStash
 };
 
 GType git_stash_get_type (void) G_GNUC_CONST;
-GitStash *git_stash_new (const gchar *id, const gchar *message);
+GitStash *git_stash_new (const gchar *id, const gchar *message, guint number);
 gchar *git_stash_get_id (GitStash *self);
 gchar *git_stash_get_message (GitStash *self);
+guint git_stash_get_number (GitStash *self);
 
 G_END_DECLS
 

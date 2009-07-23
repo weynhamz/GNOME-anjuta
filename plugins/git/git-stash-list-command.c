@@ -25,7 +25,7 @@
 #include "git-stash-list-command.h"
 
 /* Splits the stash ID from the stash message */
-#define STASH_REGEX "(stash@\\{\\d+\\})(?:\\:) (.*)"
+#define STASH_REGEX "(stash@\\{(\\d+)\\})(?:\\:) (.*)"
 
 struct _GitStashListCommandPriv
 {
@@ -86,6 +86,7 @@ git_stash_list_command_handle_output (GitCommand *git_command,
 	GitStashListCommand *self;
 	GMatchInfo *match_info;
 	gchar *stash_id;
+	gchar *stash_number;
 	gchar *stash_message;
 	GitStash *stash;
 
@@ -99,22 +100,21 @@ git_stash_list_command_handle_output (GitCommand *git_command,
 	if (g_regex_match (self->priv->stash_regex, output, 0, &match_info))
 	{
 		stash_id = g_match_info_fetch (match_info, 1);
-		stash_message = g_match_info_fetch (match_info, 2);
-	}
-	
-	if (stash_id && stash_message)
-		stash = git_stash_new (stash_id, stash_message);
-	
-	g_free (stash_id);
-	g_free (stash_message);
+		stash_number = g_match_info_fetch (match_info, 2);
+		stash_message = g_match_info_fetch (match_info, 3);
 
+		stash = git_stash_new (stash_id, stash_message, atoi (stash_number));
+
+		g_free (stash_id);
+		g_free (stash_number);
+		g_free (stash_message);
+
+		g_queue_push_head (self->priv->output, stash);
+		anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
+	}
 
 	if (match_info)
 		g_match_info_free (match_info);
-	
-	g_queue_push_head (self->priv->output, stash);
-	anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
-	
 }
 
 static void

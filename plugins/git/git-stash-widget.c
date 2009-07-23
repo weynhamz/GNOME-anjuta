@@ -147,6 +147,7 @@ on_stash_widget_show_button_clicked (GtkButton *button, GitUIData *data)
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	gchar *stash;
+	guint stash_number;
 	gchar *editor_name;
 	IAnjutaDocumentManager *document_manager;
 	IAnjutaEditor *editor;
@@ -160,13 +161,15 @@ on_stash_widget_show_button_clicked (GtkButton *button, GitUIData *data)
 
 	if (gtk_tree_selection_get_selected (selection, NULL, &iter))
 	{
-		gtk_tree_model_get (GTK_TREE_MODEL (stash_list_model), &iter, 0, 
-							&stash, -1);
+		gtk_tree_model_get (GTK_TREE_MODEL (stash_list_model), &iter,  
+							0, &stash, 
+		                    2, &stash_number, 
+		                    -1);
 
 		show_command = git_stash_show_command_new (data->plugin->project_root_directory,
 												   stash);
 
-		editor_name = g_strdup_printf ("%s.diff", stash);
+		editor_name = g_strdup_printf ("Stash %i.diff", stash_number);
 
 		document_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 		                                               IAnjutaDocumentManager, 
