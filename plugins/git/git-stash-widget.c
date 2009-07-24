@@ -38,11 +38,25 @@ on_stash_refresh_monitor_changed (GFileMonitor *file_monitor, GFile *file,
 
 static void
 on_list_command_finished (AnjutaCommand *command, guint return_code,
-						  GtkListStore *stash_list_model)
+						  GitUIData *data)
 {
+	GtkTreeModel *stash_list_model;
+	GtkWidget *stash_widget_clear_button;
+	GtkTreeIter iter;
+
+	stash_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+	                                                       	   "stash_list_model"));
+	stash_widget_clear_button = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                            	"stash_widget_clear_button"));
+
 	/* Allow refreshes to continue */
 	g_object_set_data (G_OBJECT (stash_list_model), "being-refreshed", 
 					   GINT_TO_POINTER (FALSE));
+
+	gtk_widget_set_sensitive (stash_widget_clear_button,
+	                          gtk_tree_model_get_iter_first (stash_list_model, 
+	                                                         &iter));
+	    
 
 	git_report_errors (command, return_code);
 	g_object_unref (command);
@@ -350,7 +364,7 @@ git_stash_widget_refresh (Git *plugin)
 
 		g_signal_connect (G_OBJECT (list_command), "command-finished",
 						  G_CALLBACK (on_list_command_finished),
-						  stash_list_model);
+						  data);
 
 		g_object_set_data (G_OBJECT (stash_list_model), "being-refreshed", 
 						   GINT_TO_POINTER (TRUE));
