@@ -261,6 +261,7 @@ typedef enum {
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv
 {
+	gchar *anjuta_db_file;
 	gchar *ctags_path;
 	
 	GdaConnection *db_connection;

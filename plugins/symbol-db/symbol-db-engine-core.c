@@ -1995,6 +1995,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
 
+	/* NULL the name of the default db */
+	sdbe->priv->anjuta_db_file = NULL;
+
 	/* identify the scan process with an id. There can be multiple files associated
 	 * within a process. A call to scan_files () will put inside the queue an id
 	 * returned and emitted by scan-end.
@@ -2550,6 +2553,12 @@ sdb_engine_finalize (GObject * object)
 	
 	sdb_engine_clear_caches (dbe);
 
+	g_free (priv->anjuta_db_file);
+	priv->anjuta_db_file = NULL;
+	
+	g_free (priv->ctags_path);
+	priv->ctags_path = NULL;
+	
 	g_tree_destroy (priv->file_symbols_cache);
 
 #ifdef USE_ASYNC_QUEUE	
@@ -2722,6 +2731,7 @@ symbol_db_engine_new (const gchar * ctags_path)
 	
 	priv = sdbe->priv;
 	priv->mutex = g_mutex_new ();
+	priv->anjuta_db_file = g_strdup (ANJUTA_DB_FILE);
 
 	/* set the mandatory ctags_path */
 	if (!symbol_db_engine_set_ctags_path (sdbe, ctags_path))
@@ -2730,6 +2740,24 @@ symbol_db_engine_new (const gchar * ctags_path)
 	}
 		
 	return sdbe;
+}
+
+SymbolDBEngine* 
+symbol_db_engine_new_full (const gchar * ctags_path, const gchar * database_name)
+{
+	SymbolDBEngine* dbe;
+	SymbolDBEnginePriv* priv;
+
+	g_return_val_if_fail (database_name != NULL, NULL);
+	dbe = symbol_db_engine_new (ctags_path);
+
+	g_return_val_if_fail (dbe != NULL, NULL);
+
+	priv = dbe->priv;
+	g_free (priv->anjuta_db_file);
+	priv->anjuta_db_file = g_strdup (database_name);
+
+	return dbe;
 }
 
 /**
@@ -2870,7 +2898,7 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 
 	/* check whether the db filename already exists.*/
 	gchar *tmp_file = g_strdup_printf ("%s/%s.db", prj_directory,
-									   ANJUTA_DB_FILE);
+									   priv->anjuta_db_file);
 	
 	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS) == FALSE)
 	{
@@ -3044,7 +3072,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	/* check whether the db filename already exists. If it's not the case
 	 * create the tables for the database. */
 	gchar *tmp_file = g_strdup_printf ("%s/%s.db", base_db_path,
-									   ANJUTA_DB_FILE);
+									   priv->anjuta_db_file);
 
 	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS) == FALSE)
 	{
@@ -3059,7 +3087,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	priv->project_directory = g_strdup (prj_directory);
 
 	cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
-								ANJUTA_DB_FILE);
+								priv->anjuta_db_file);
 
 	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);

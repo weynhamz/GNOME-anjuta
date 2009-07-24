@@ -447,3 +447,46 @@ symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe)
 		
 	return priv->sym_type_conversion_hash;
 }
+
+GPtrArray* 
+symbol_db_util_get_c_source_files (const gchar* dir)
+{
+	GPtrArray* files = g_ptr_array_new();
+	GFile *file;
+	GFileEnumerator *enumerator;
+	GFileInfo* info;
+	GError *error = NULL;
+	
+	file = g_file_new_for_commandline_arg (dir);
+	enumerator = g_file_enumerate_children (file, 
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+			G_FILE_ATTRIBUTE_STANDARD_NAME,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, &error);
+
+	if (!enumerator)
+	{
+		g_warning ("Could not enumerate: %s %s\n", 
+				g_file_get_path (file),
+				error->message);
+		g_error_free (error);
+		g_object_unref (file);
+		return files;
+	}
+
+	for (info = g_file_enumerator_next_file (enumerator, NULL, NULL); info != NULL; 
+			info = g_file_enumerator_next_file (enumerator, NULL, NULL))
+	{
+		const gchar *mime_type = g_file_info_get_content_type (info);
+		if (!mime_type)
+			continue;
+		if (g_str_equal (mime_type, "text/x-csrc") ||
+				g_str_equal (mime_type, "text/x-chdr"))
+		{
+			DEBUG_PRINT ("File: %s", g_file_info_get_name (info));
+			g_ptr_array_add (files, g_build_filename (dir, g_file_info_get_name (info), NULL));
+		}
+	}
+	
+	return files;
+}

@@ -71,10 +71,17 @@ GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 /**
  * Create a new instance of an engine. 
+ * Default name of database is ANJUTA_DB_FILE (see symbol-db-engine-priv.h)
  * @param ctags_path is mandatory. No NULL value is accepted.
  */
 SymbolDBEngine* 
 symbol_db_engine_new (const gchar * ctags_path);
+
+/**
+ * similar to symbol_db_engine_new but you can specify the name of resulting db.
+ */
+SymbolDBEngine* 
+symbol_db_engine_new_full (const gchar * ctags_path, const gchar * database_name);
 
 /**
  * Set a new path for ctags executable.

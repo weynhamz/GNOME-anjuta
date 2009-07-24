@@ -30,7 +30,8 @@ benchmark_SOURCES = \
 	../symbol-db-engine-iterator.h \
 	../symbol-db-engine-queries.h \
 	../libgda-extra/gda-data-model-concat.c \
-	../libgda-extra/gda-data-model-concat.h
+	../libgda-extra/gda-data-model-concat.h \
+	../symbol-db-engine.h
  
 
 benchmark_LDFLAGS = \
