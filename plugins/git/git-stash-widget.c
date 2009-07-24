@@ -263,6 +263,36 @@ on_stash_widget_drop_button_clicked (GtkButton *button, GitUIData *data)
 	}
 }
 
+static void
+on_stash_clear_command_finished (AnjutaCommand *command, guint return_code,
+                                 Git *plugin)
+{
+	AnjutaStatus *status;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell,
+									  NULL);
+	
+	anjuta_status (status, _("Git: All stashes cleared."), 5);
+	
+	git_report_errors (command, return_code);
+	
+	g_object_unref (command);
+}
+
+static void
+on_stash_widget_clear_button_clicked (GtkButton *button, GitUIData *data)
+{
+	GitStashClearCommand *clear_command;
+
+	clear_command = git_stash_clear_command_new (data->plugin->project_root_directory);
+
+	g_signal_connect (G_OBJECT (clear_command), "command-finished",
+	                  G_CALLBACK (on_stash_clear_command_finished),
+	                  data->plugin);
+
+	anjuta_command_start (ANJUTA_COMMAND (clear_command));
+}
+
 void
 git_stash_widget_create (Git *plugin, GtkWidget **stash_widget, 
 						 GtkWidget **stash_widget_grip)
@@ -280,6 +310,7 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 	GtkWidget *stash_widget_apply_button;
 	GtkWidget *stash_widget_show_button;
 	GtkWidget *stash_widget_drop_button;
+	GtkWidget *stash_widget_clear_button;
 	GtkTreeSelection *selection;
 
 	bxml = gtk_builder_new ();
@@ -307,6 +338,8 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 	                                                           	   "stash_widget_show_button"));
 	stash_widget_drop_button = GTK_WIDGET (gtk_builder_get_object (bxml,
 	                                                           	   "stash_widget_drop_button"));
+	stash_widget_clear_button = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                           	    "stash_widget_clear_button"));
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stash_widget_view));
 
 	gtk_tree_selection_set_select_function (selection, 
@@ -327,6 +360,10 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 
 	g_signal_connect (G_OBJECT (stash_widget_drop_button), "clicked",
 					  G_CALLBACK (on_stash_widget_drop_button_clicked),
+					  data);
+
+	g_signal_connect (G_OBJECT (stash_widget_clear_button), "clicked",
+					  G_CALLBACK (on_stash_widget_clear_button_clicked),
 					  data);
 
 	g_object_set_data_full (G_OBJECT (stash_widget_scrolled_window), "ui-data",

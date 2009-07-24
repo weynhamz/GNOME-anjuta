@@ -217,7 +217,9 @@ libanjuta_git_la_SOURCES = \
 	git-stash-show-command.c \
 	git-stash-show-command.h \
 	git-stash-drop-command.c \
-	git-stash-drop-command.h
+	git-stash-drop-command.h \
+	git-stash-clear-command.c \
+	git-stash-clear-command.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
