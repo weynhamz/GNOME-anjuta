@@ -5364,12 +5364,12 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="stash_widget_delete_button">
+      <object class="GtkButton" id="stash_widget_drop_button">
         <property name="visible">True</property>
         <property name="sensitive">False</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="tooltip_text" translatable="yes">Delete the selected stash</property>
+        <property name="tooltip_text" translatable="yes">Drop the selected stash</property>
         <child>
           <object class="GtkImage" id="image6">
             <property name="visible">True</property>

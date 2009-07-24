@@ -24,6 +24,7 @@
 #include "git-stash-save-command.h"
 #include "git-stash-apply-command.h"
 #include "git-stash-show-command.h"
+#include "git-stash-drop-command.h"
 
 void git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 							  GtkWidget **stash_widget_grip);
