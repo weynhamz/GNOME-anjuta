@@ -59,4 +59,4 @@ GitStashDropCommand *git_stash_drop_command_new (const gchar *working_directory,
 
 G_END_DECLS
 
-#endif /* _GIT_CAT_BLOB_COMMAND_H_ */
+#endif /* _GIT_STASH_DROP_COMMAND_H_ */
