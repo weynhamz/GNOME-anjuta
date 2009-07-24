@@ -812,10 +812,15 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	Git *git_plugin;
+	AnjutaStatus *status;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin ...");
+
+	anjuta_status_set_default (status, _("Branch"), NULL);
+	
 	anjuta_ui_unmerge (ui, git_plugin->uiid);
 	anjuta_plugin_remove_watch (plugin, git_plugin->project_root_watch_id, 
 								TRUE);

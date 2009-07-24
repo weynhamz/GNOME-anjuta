@@ -803,7 +803,7 @@ setup_filters (LogData *data)
 
 static void
 on_log_list_branch_command_data_arrived (AnjutaCommand *command,
-                                         GtkBuilder *bxml)
+                                         LogData *data)
 {
 	GtkListStore *log_branch_combo_model;
 	GtkComboBox *log_branch_combo;
@@ -813,10 +813,11 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 	GtkTreeIter iter;
 	gchar *name;
 	gboolean active;
+	AnjutaStatus *status;
 	
-	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
+	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml, 
 	                                                                 "log_branch_combo_model"));
-	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (bxml,
+	log_branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (data->bxml,
 	                                                          "log_branch_combo"));
 	branches_table = g_object_get_data (G_OBJECT (log_branch_combo), 
 	                                    "branches-table");
@@ -840,6 +841,12 @@ on_log_list_branch_command_data_arrived (AnjutaCommand *command,
 			                        g_free);
 
 			active = TRUE;
+
+			/* Show the active branch in the status bar */
+			status = anjuta_shell_get_status (ANJUTA_PLUGIN (data->plugin)->shell,
+											  NULL);
+
+			anjuta_status_set_default (status, _("Branch"), "%s", name);
 		}
 		
 		gtk_list_store_set (log_branch_combo_model, &iter, 
@@ -1299,7 +1306,7 @@ git_log_refresh_branches_full (Git *plugin,
 
 		g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
 		                  G_CALLBACK (on_log_list_branch_command_data_arrived),
-		                  data->bxml);
+		                  data);
 
 		g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
 		                  G_CALLBACK (on_log_list_branch_command_finished),
