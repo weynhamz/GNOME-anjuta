@@ -299,7 +299,7 @@ git_stash_widget_create (Git *plugin, GtkWidget **stash_widget,
 {
 	gchar *objects[] = {"stash_widget_scrolled_window", 
 						"stash_widget_grip_hbox",
-						"stash_list_model"};
+						"stash_list_model", NULL};
 	GtkBuilder *bxml;
 	GError *error;
 	GitUIData *data;
