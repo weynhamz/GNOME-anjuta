@@ -1363,8 +1363,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	if (db_relative_file == NULL)
 		return NULL;
 	
-	DEBUG_PRINT ("db_relative_file  %s", db_relative_file);
-	DEBUG_PRINT ("full_local_file_path %s", full_local_file_path);
+	/*DEBUG_PRINT ("db_relative_file  %s", db_relative_file);*/
+	/*DEBUG_PRINT ("full_local_file_path %s", full_local_file_path);*/
 	
 	SDB_LOCK(priv);
 
@@ -2070,6 +2070,7 @@ symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
 	tmp_res_data = sdb_engine_get_symbol_info_by_id_1 (dbe, scoped_symbol_id, sym_info);
 	gda_data_model_concat_append_model (GDA_DATA_MODEL_CONCAT (final_data), 
 	    tmp_res_data);	
+	g_object_unref (tmp_res_data);
 	
 	/* no need to get a lock */
 	/* first item is considered separately */
@@ -2078,7 +2079,9 @@ symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
 	
 	if (parent_sym_id <= 0)
 	{
-		return NULL;
+		return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (final_data, 
+												priv->sym_type_conversion_hash,
+												priv->project_directory);
 	}
 
 	tmp_res_data = sdb_engine_get_symbol_info_by_id_1 (dbe, parent_sym_id, sym_info);
@@ -2087,7 +2090,9 @@ symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
 	if (!GDA_IS_DATA_MODEL (tmp_res_data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (tmp_res_data)) <= 0	)
 	{
-		return NULL;
+		return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (final_data, 
+												priv->sym_type_conversion_hash,
+												priv->project_directory);
 	}
 
 	gda_data_model_concat_append_model (GDA_DATA_MODEL_CONCAT (final_data), 
@@ -2125,6 +2130,40 @@ symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
 												priv->sym_type_conversion_hash,
 												priv->project_directory);
 }
+
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
+									const gchar* full_local_file_path, 
+    								gulong line,
+    								SymExtraInfo sym_info)
+{
+	SymbolDBEngineIterator *iter, *res_iter;	
+	SymbolDBEngineIteratorNode *node;
+	gchar *db_file;
+	gint symbol_id;
+	
+	g_return_val_if_fail (dbe != NULL, NULL);
+	g_return_val_if_fail (full_local_file_path != NULL, NULL);
+
+	/* passing SYMINFO_SIMPLE is ok because we don't need extra info at this step */
+	iter = symbol_db_engine_get_current_scope (dbe,	
+	    full_local_file_path, line, SYMINFO_SIMPLE);
+
+	if (iter == NULL)
+	{
+		return NULL;
+	}
+
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+	symbol_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	db_file = symbol_db_util_get_file_db_path (dbe, full_local_file_path);
+	
+	res_iter = symbol_db_engine_get_scope_chain (dbe, symbol_id, db_file, sym_info);
+	    
+	g_free (db_file);
+	return res_iter;
+}
+
 
 #define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_YES		0x010000
 #define DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_NO			0x020000

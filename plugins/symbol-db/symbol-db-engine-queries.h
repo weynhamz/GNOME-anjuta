@@ -110,7 +110,8 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, 
-									const gchar* full_local_file_path, gulong line, 
+									const gchar* full_local_file_path, 
+    								gulong line, 
 									SymExtraInfo sym_info);
 
 
@@ -169,12 +170,28 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
  * }
  * 
  * the returned iterator'll contain symbols in this order: foo_func, FooKlass, FooBase.
+ *
+ * @return NULL on error or if scope isn't found.
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
     								gint scoped_symbol_id,
     								const gchar* db_file,
     								SymExtraInfo sym_info);
+
+/**
+ * Walk the path up to the root scope given a full_local_file_path and a line number.
+ * The returned iterator will be populated with SymbolDBEngineIteratorNode(s)
+ * so that it could be easily browsed by a client app.
+ *
+ * @return NULL on error or if scope isn't found.
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
+									const gchar* full_local_file_path, 
+    								gulong line,
+    								SymExtraInfo sym_info);
+
 
 /** 
  * scope_path cannot be NULL.
@@ -201,7 +218,7 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
 
 /**
  * A filtered version of the symbol_db_engine_get_scope_members_by_symbol_id ().
- * You can specify which kind of symbols to retrieve, and if include them or exclude.
+ * You can specify which kind of symbols to retrieve, and if to include them or exclude.
  * Kinds are 'namespace', 'class' etc.
  * @param filter_kinds cannot be NULL.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
