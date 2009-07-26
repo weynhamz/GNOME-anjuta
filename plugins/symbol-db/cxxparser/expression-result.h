@@ -40,8 +40,8 @@ public:
 public:
 	ExpressionResult();
 	virtual ~ExpressionResult();
-	void Reset();
-	void Print();
-	std::string ToString() const;
+	void reset();
+	void print();
+	std::string toString() const;
 };
 #endif //EXPRESSION_RESULT_H

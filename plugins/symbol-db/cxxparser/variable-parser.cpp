@@ -769,7 +769,7 @@ case 14:
 { yyval = yyvsp[0]; }
 break;
 case 17:
-{curr_var.Reset(); gs_names.clear(); s_tmpString.clear();}
+{curr_var.reset(); gs_names.clear(); s_tmpString.clear();}
 break;
 case 19:
 {
@@ -820,7 +820,7 @@ case 26:
 									var.m_name = gs_names.at(i);
 									gs_vars->push_back(var);
 								}
-								curr_var.Reset();
+								curr_var.reset();
 								gs_names.clear();
 							}
 						}
@@ -841,7 +841,7 @@ case 27:
 								var = curr_var;
 								var.m_name = yyvsp[-1];;
 								gs_vars->push_back(var);
-								curr_var.Reset();
+								curr_var.reset();
 								gs_names.clear();
 							}
 						}
@@ -864,7 +864,7 @@ case 28:
 								var.m_name = yyvsp[-1];
 								gs_vars->push_back(var);
 
-								curr_var.Reset();
+								curr_var.reset();
 								gs_names.clear();
 							}
 						}
@@ -886,7 +886,7 @@ case 29:
 								var.m_name = "";
 								gs_vars->push_back(var);
 
-								curr_var.Reset();
+								curr_var.reset();
 								gs_names.clear();
 							}
 							if(yyvsp[0] == ",") {
@@ -911,7 +911,7 @@ case 30:
 								var.m_name = "";
 								gs_vars->push_back(var);
 
-								curr_var.Reset();
+								curr_var.reset();
 								gs_names.clear();
 							}
 							if(yyvsp[0] == ",") {

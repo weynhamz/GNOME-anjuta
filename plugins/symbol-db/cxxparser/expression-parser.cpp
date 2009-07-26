@@ -513,7 +513,7 @@ void expr_syncParser(){
 // return the scope name at the end of the input string
 ExpressionResult &parse_expression(const std::string &in)
 {
-	result.Reset();
+	result.reset();
 	//provide the lexer with new input
 	if( !setExprLexerInput(in) ){
 		return result;
@@ -669,7 +669,7 @@ yyreduce:
     switch (yyn)
     {
 case 3:
-{result.Reset();}
+{result.reset();}
 break;
 case 5:
 { 

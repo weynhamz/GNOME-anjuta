@@ -18,8 +18,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FUNCTION_H
-#define FUNCTION_H
+#ifndef _FUNCTION_H_
+#define _FUNCTION_H_
 
 #include "string"
 #include "list"
@@ -44,11 +44,11 @@ public:
 	virtual ~clFunction();
 
 	//clear the class content
-	void Reset();
+	void reset();
 
 	//print the variable to stdout
-	void Print();
+	void print();
 };
 
 typedef std::list<clFunction> FunctionList;
-#endif //FUNCTION_H
+#endif // _FUNCTION_H_

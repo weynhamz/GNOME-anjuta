@@ -42,8 +42,8 @@
 //                                                                          
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-#ifndef _CPPTOKENIZER_H
-#define _CPPTOKENIZER_H
+#ifndef _CPPTOKENIZER_H_
+#define _CPPTOKENIZER_H_
 
 #include "flex-lexer-klass.h"
 
@@ -77,4 +77,4 @@ private:
 	int   m_curr;
 };
 
-#endif // _CPPTOKENIZER_H
+#endif // _CPPTOKENIZER_H_

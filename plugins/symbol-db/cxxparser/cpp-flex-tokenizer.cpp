@@ -49,8 +49,7 @@
 #include <string.h>
 
 
-CppTokenizer::CppTokenizer()
-: m_curr(0)
+CppTokenizer::CppTokenizer() : m_curr(0)
 {
 	m_data = NULL;
 	m_pcurr = NULL;

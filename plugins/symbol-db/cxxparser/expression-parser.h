@@ -29,7 +29,4 @@
  */
 ExpressionResult &parse_expression(const std::string &in);
 
-
-
-
-#endif 
+#endif  /* _EXPRESSION_PARSER_H_ */

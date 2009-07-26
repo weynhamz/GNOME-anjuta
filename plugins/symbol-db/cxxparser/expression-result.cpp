@@ -24,19 +24,19 @@
 
 ExpressionResult::ExpressionResult()
 {
-	Reset();
+	reset();
 }
 
 ExpressionResult::~ExpressionResult()
 {
 }
 
-void ExpressionResult::Print()
+void ExpressionResult::print()
 {
-	printf("%s\n", ToString().c_str());
+	printf("%s\n", toString().c_str());
 }
 
-std::string ExpressionResult::ToString() const
+std::string ExpressionResult::toString() const
 {
 	char tmp[256];
 	sprintf(tmp, "{m_name:%s, m_isFunc:%s, m_isTemplate:%s, m_isThis:%s, m_isaType:%s, m_isPtr:%s, m_scope:%s, m_templateInitList:%s}", 
@@ -51,7 +51,7 @@ std::string ExpressionResult::ToString() const
 	return tmp;
 }
 
-void ExpressionResult::Reset()
+void ExpressionResult::reset()
 {
 	m_isFunc = false;
 	m_name = "";

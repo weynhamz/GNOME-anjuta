@@ -779,7 +779,7 @@ case 14:
 { yyval = yyvsp[0]; }
 break;
 case 17:
-{curr_func.Reset();}
+{curr_func.reset();}
 break;
 case 19:
 {
@@ -858,7 +858,7 @@ case 69:
 						{
 							g_funcs->push_back(curr_func);
 						}
-						curr_func.Reset();
+						curr_func.reset();
 					}
 break;
 case 70:

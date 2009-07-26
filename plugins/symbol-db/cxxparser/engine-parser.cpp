@@ -140,7 +140,7 @@ EngineParser::testParseExpression (const string &str)
 		// fill up ExpressionResult
 		result = parseExpression (word);
 
-		result.Print ();
+		result.print ();
 
 		word.clear ();
 	}
@@ -215,7 +215,7 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 			break;
 		}
 		
-		result.Print ();
+		result.print ();
 
 		// no tokens before this, what we need to do now, is find the TagEntry
 		// that corresponds to the result
@@ -322,7 +322,7 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 			cout << "variables found are..." << endl;
 			for (VariableList::iterator iter = li.begin(); iter != li.end(); iter++) {
 				Variable var = (*iter);
-				var.Print ();				
+				var.print ();				
 				
 				if (word == var.m_name) {
 					cout << "wh0a! we found the variable type to parse... it's ->" << 

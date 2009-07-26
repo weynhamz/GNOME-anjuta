@@ -22,7 +22,7 @@
 
 Variable::Variable()
 {
-	Reset();
+	reset();
 }
 
 Variable::~Variable()
@@ -51,7 +51,7 @@ Variable & Variable::operator =(const Variable &src)
 	return *this;
 }
 
-void Variable::Reset()
+void Variable::reset()
 {
 	m_type = "";
 	m_templateDecl = "";
@@ -67,9 +67,11 @@ void Variable::Reset()
 	m_arrayBrackets = "";
 }
 
-void Variable::Print()
+void Variable::print()
 {
-	fprintf(    stdout, "{m_name=%s, m_defaultValue=%s, m_lineno=%d, m_starAmp=%s, m_type=%s, m_isConst=%s, m_typeScope=%s, m_templateDecl=%s, m_arrayBrackets=%s, m_isPtr=%s, m_isTemplate=%s }\n",
+	fprintf(    stdout, "{m_name=%s, m_defaultValue=%s, m_lineno=%d, m_starAmp=%s, "
+	    "m_type=%s, m_isConst=%s, m_typeScope=%s, m_templateDecl=%s, m_arrayBrackets=%s, "
+	    "m_isPtr=%s, m_isTemplate=%s }\n",		
 				m_name.c_str(),
 				m_defaultValue.c_str(),
 				m_lineno,

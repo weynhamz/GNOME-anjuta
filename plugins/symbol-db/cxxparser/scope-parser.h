@@ -27,8 +27,8 @@
 using namespace std;
 
 
-std::string get_scope_name(	const std::string &in,
+std::string get_scope_name (const std::string &in,
 							std::vector<std::string> &additionalNS,
-							const std::map<std::string, std::string> &ignoreTokens);
+							const std::map <std::string, std::string> &ignoreTokens);
 
 #endif
