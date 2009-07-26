@@ -11,7 +11,7 @@ anjuta_doc_DATA = \
 
 man_MANS = \
 	anjuta.1 \
-	anjuta_launcher.1
+	anjuta-launcher.1
 
 EXTRA_DIST = $(anjuta_doc_DATA) $(man_MANS)
 

@@ -720,7 +720,7 @@ pixmaps/Makefile
 data/Makefile
 data/welcome.txt
 doc/anjuta.1
-doc/anjuta_launcher.1
+doc/anjuta-launcher.1
 doc/Makefile
 scripts/Makefile
 launcher/Makefile

@@ -404,7 +404,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 
 				g_free (oldcmd);
 			} else {
-				gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
+				gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
 
 				if (launcher_path != NULL)
 				{

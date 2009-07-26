@@ -100,7 +100,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	gdb_plugin_stop_terminal (plugin);
 
 	/* Check if anjuta launcher is here */
-	if (anjuta_util_prog_is_installed ("anjuta_launcher", TRUE) == FALSE)
+	if (anjuta_util_prog_is_installed ("anjuta-launcher", TRUE) == FALSE)
 	{
 		return NULL;
 	}

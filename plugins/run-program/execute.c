@@ -237,7 +237,7 @@ execute_with_terminal (RunProgramPlugin *plugin,
 {
 	IAnjutaTerminal *term;
 	GPid pid = -1;
-	gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
+	gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
 	gchar *new_cmd;
 	RunProgramChild *child;
 	
