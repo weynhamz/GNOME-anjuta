@@ -41,38 +41,25 @@ public:
 
 	void DEBUG_printTokens (const string& text);
 
-	// setter for the IAnjutaSymbolManager.
+	/* setter for the IAnjutaSymbolManager. */
 	void setSymbolManager (SymbolDBEngine *manager);
 
-	// getter for the IAnjutaSymbolManager.
+	/* getter for the IAnjutaSymbolManager. */
 	SymbolDBEngine * getSymbolManager ();
 
 	// FIXME comments.
-	/**
-	 * Evaluate a C++ expression. for example, the following expression: '((Notebook*)book)->'
-	 * will be processed into typeName=Notebook, and typeScope=<global> (assuming Notebook is not
-	 * placed within any namespace)
-	 * \param stmt c++ expression
-	 * \param text text where this expression was found
-	 * \param fn filename context
-	 * \param lineno current line number
-	 * \param typeName [output]
-	 * \param typeScope [output]
-	 * \param oper [output] return the operator used (::, ., ->)
-	 * \param scopeTemplateInitList [output] return the scope tempalte intialization (e.g. "std::auto_ptr<wxString> str;" -> <wxString>
-	 * \return true on success, false otherwise. The output fields are only to be checked with the return
-	 * valus is 'true'
-	 */
-	SymbolDBEngineIterator *
-		processExpression(const string& stmt, const string& above_text, 
-	    	const string& full_file_path, unsigned long linenum, 
-		    string &out_type_name, string &out_type_scope, 
-		    string &out_oper, string &out_scope_template_init_list);
-	
+	bool
+	processExpression(const string& stmt, 
+    				  const string& above_text,
+    				  const string& full_file_path, 
+    				  unsigned long linenum,
+    				  string &out_type_name, 
+    				  string &out_type_scope, 
+    				  string &out_oper);
 
 	void testParseExpression (const string &in);
 
-	string GetScopeName(const string &in, std::vector<string> *additionlNS);
+	/*string GetScopeName(const string &in, std::vector<string> *additionlNS);*/
 
 	
 protected:
@@ -80,25 +67,29 @@ protected:
 	EngineParser ();
 
 	/**
-	 * parse an expression and return the result. this functions uses
-	 * the sqlite database as its symbol table
-	 * \param in input string expression
-	 * \return ExpressionResult, if it fails to parse it, check result.m_name.empty() for success
+	 * Parse an expression and return the result. 
+	 * @param in Input string expression
+	 * @return An ExpressionResult struct. If it fails to parse it, 
+	 * check result.m_name.empty() for success
 	 */
 	ExpressionResult parseExpression(const string &in);
+	
 private:
+	
 	/**
 	 * Return the next token and the delimiter found, the source string is taken from the
-	 * m_tokenScanner member of this class
-	 * \param token next token
-	 * \param delim delimiter found
-	 * \return true if token was found false otherwise
+	 * _tokenizer member of this class.
+	 *
+	 * @param token Next token
+	 * @param delim Delimiter found (as ".", "::", or "->")
+	 * @return true If token was found false otherwise
 	 */	
 	bool nextToken (string &out_token, string &out_delimiter);
 
-
 	/**
-	 * trim () a string
+	 * Trim a string using some default chars.
+	 * The code is expected to run quite performantly, as STL doesn't provide
+	 * a method to trim a string.
 	 */
 	void trim (string& str, string trimChars = "{};\r\n\t\v ");
 

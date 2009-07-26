@@ -31,7 +31,7 @@
 
 using namespace std;
 
-// Singleton
+// Singleton pattern.
 EngineParser* 
 EngineParser::getInstance ()
 {
@@ -163,7 +163,7 @@ EngineParser::getSymbolManager ()
 }
 
 void 
-EngineParser::trim (string& str, string trimChars)
+EngineParser::trim (string& str, string trimChars /* = "{};\r\n\t\v " */)
 {
   	string::size_type pos = str.find_last_not_of (trimChars);
 	
@@ -182,49 +182,57 @@ EngineParser::trim (string& str, string trimChars)
 	}
 }
 
-SymbolDBEngineIterator *
-EngineParser::processExpression(const string& stmt, const string& above_text,
-    const string& full_file_path, unsigned long linenum,
-    string &out_type_name, string &out_type_scope, string &out_oper, 
-	    string &out_scope_template_init_list)
+/* FIXME TODO: error processing. Find out a way to notify the caller of the occurred 
+ * error. The "cout" method cannot be used
+ */
+bool
+EngineParser::processExpression(const string& stmt, 
+    							const string& above_text,
+    							const string& full_file_path, 
+    							unsigned long linenum,
+    							string &out_type_name, 
+    							string &out_type_scope, 
+    							string &out_oper)
 {
-	bool evaluation_succeed = false;
-	_tokenizer->setText(stmt.c_str ());
-
-	string word;
+	bool evaluation_succeed = false;	
+		
+	string current_token;
 	string op;
 	string scope_name;
 	ExpressionResult result;
-	
-	while (nextToken (word, op)) 
-	{
-		trim (word);
-		
-		cout << "--------\ngot word ->" << word << "<- op " << op << endl; 
-		out_oper = op;
 
+	_tokenizer->setText (stmt.c_str ());
+	
+	while (nextToken (current_token, op)) 
+	{
+		trim (current_token);
 		
+		cout << "--------\nCurrent token ->" << current_token << "<- with op " << op << endl; 
+		out_oper = op;	
 		
-		// fill up ExpressionResult
-		result = parseExpression (word);
+		/* parse the current sub-expression of a statement and fill up 
+		 * ExpressionResult object
+		 */
+		result = parseExpression (current_token);
 
 		//parsing failed?
 		if (result.m_name.empty()) {
-			cout << "Failed to parse " << word << " from " << stmt << endl;
+			cout << "Failed to parse " << current_token << " from " << stmt << endl;
 			evaluation_succeed = false;
 			break;
 		}
-		
+
+		// DEBUG PRINT
 		result.print ();
 
 		// no tokens before this, what we need to do now, is find the TagEntry
 		// that corresponds to the result
 		if (result.m_isaType) 
 		{
-			//--------------------------------------------
-			// Handle type (usually when casting is found)
-			//--------------------------------------------
-
+			cout << "Found a cast expression" << endl;
+			/*
+			 * Handle type (usually when casting is found)
+			 */
 			if (result.m_isPtr && op == ".") 
 			{
 				cout << "Did you mean to use '->' instead of '.' ?" << endl;
@@ -241,12 +249,13 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 			
 			out_type_scope = result.m_scope.empty() ? "<global>" : result.m_scope.c_str();
 			out_type_name = result.m_name.c_str();
+			evaluation_succeed = true;
 		} 
 		else if (result.m_isThis) 
 		{
-			//-----------------------------------------
-			// special handle for 'this' keyword
-			//-----------------------------------------
+			/*
+			 * special handle for 'this' keyword
+			 */
 			out_type_scope = result.m_scope.empty() ? "<global>" : result.m_scope.c_str();
 			if (scope_name == "<global>") 
 			{
@@ -276,13 +285,13 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 				break;
 			}
 			out_type_name = scope_name;
+			evaluation_succeed = true;
 		}
-
  		else 
 		{
-			//-------------------------------------------
-			// found an identifier (can be a local variable, a global one etc)
-			//--------------------------------------------
+			/*
+			 * Found an identifier (can be a local variable, a global one etc)
+			 */
 			
 			cout << "found an identifier or local variable..." << endl;
 
@@ -308,8 +317,6 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 				} while (symbol_db_engine_iterator_move_next (iter) == TRUE);
 			}			
 						    
-
-			/* TODO */
 			/* optimize scope'll clear the scopes leaving the local variables */
 			string optimized_scope = optimizeScope(above_text);
 
@@ -319,44 +326,20 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 			std::map<std::string, std::string> ignoreTokens;
 			get_variables(optimized_scope, li, ignoreTokens, false);
 
+			// FIXME: start enumerating from the end.
 			cout << "variables found are..." << endl;
 			for (VariableList::iterator iter = li.begin(); iter != li.end(); iter++) {
 				Variable var = (*iter);
 				var.print ();				
 				
-				if (word == var.m_name) {
+				if (current_token == var.m_name) {
 					cout << "wh0a! we found the variable type to parse... it's ->" << 
 						var.m_type << "<-" << endl;
 
-					SymbolDBEngineIterator *iter = 
-						symbol_db_engine_find_symbol_by_name_pattern_filtered (
-						    _dbe, var.m_type.c_str (), TRUE, NULL, TRUE, -1, NULL, -1 , 
-						    -1, SYMINFO_SIMPLE);
+					out_type_name = var.m_type;
+					out_type_scope = var.m_typeScope;
 
-					if (iter != NULL) {
-						SymbolDBEngineIteratorNode *node = 
-							SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
-						cout << "SymbolDBEngine: Searched var got name: " << 
-							symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
-						
-						// print the scope members
-						SymbolDBEngineIterator * children = 
-							symbol_db_engine_get_scope_members_by_symbol_id (_dbe, 
-								symbol_db_engine_iterator_node_get_symbol_id (node), 
-								-1,
-								-1,
-								SYMINFO_SIMPLE);
-						if (children != NULL)
-						{
-							cout << "scope children are: " << endl;
-							do {
-								SymbolDBEngineIteratorNode *child = 
-									SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
-								cout << "SymbolDBEngine: Searched var got name: " << 
-									symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
-							}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
-						} 
-					}
+					evaluation_succeed = true;
 					break;
 				}
 			}			
@@ -364,168 +347,15 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 			/* TODO */
 			/* get the derivation list of the typename */
 		}
-#if 0					
-/*		
-			wxString scopeToSearch(scopeName);
-			if (parentTypeScope.IsEmpty() == false && parentTypeScope != wxT("<global>")) {
-				scopeToSearch = parentTypeScope + wxT("::") + parentTypeName;
-			} else if ((parentTypeScope.IsEmpty()|| parentTypeScope == wxT("<global>")) && !parentTypeName.IsEmpty()) {
-				scopeToSearch = parentTypeName;
-			}
-
-			//--------------------------------------------------------------------------------------------
-			//keep the scope that we searched so far. The accumumlated scope
-			//are used for types, for scenarios like:
-			//void Box::GetWidth()
-			// {
-			//	Rectangle::
-			//
-			//trying to process the above code, will yield searching Rectangle inside Box scope, since we are
-			//inside Box's GetWidth() function.
-			//the correct behavior shuold be searching for Rectangle in the global scope.
-			//to correct this, we do special handling for Qualifier followed by coloon:colon operator (::)
-			if (accumulatedScope.IsEmpty() == false) {
-				if (accumulatedScope == wxT("<global>")) {
-					accumulatedScope = scopeToSearch;
-				} else {
-					accumulatedScope << wxT("::");
-					accumulatedScope << scopeToSearch;
-				}
-			} else {
-				accumulatedScope << wxT("<global>");
-			}
-
-			wxString originalScopeName(scopeToSearch);
-			if (op == wxT("::")) {
-				//if the operator was something like 'Qualifier::', it is safe to assume
-				//that the secope to be searched is the full expression
-				scopeToSearch = accumulatedScope;
-			}
-*/
-			// get the derivation list of the typename
-			bool res(false);
-			wxString _name(_U(result.m_name.c_str()));
-			PERF_BLOCK("TypeFromName") {
-				for (int i=0; i<2; i++) {
-					res = TypeFromName(	_name, 
-					                    visibleScope,
-					                    lastFuncSig,
-					                    scopeToSearch,
-					                    additionalScopes,
-					                    parentTypeName.IsEmpty(),
-					                    typeName,   //output
-					                    typeScope); //output
-
-					if (!res && originalScopeName.IsEmpty() == false) {
-						// the scopeToSearch was modified earlier with the accumulated scope
-						// restore the search scope and try again
-						scopeToSearch = originalScopeName;
-						continue;
-					}
-					break;
-				}
-			}
-
-			if (!res) {
-				evaluationSucceeded = false;
-				break;
-			}
-
-			// do typedef subsitute
-			wxString tmp_name(typeName);
-			while (OnTypedef(typeName, typeScope, templateInitList, scopeName, scopeTemplateInitList)) {
-				if (tmp_name == typeName) {
-					//same type? break
-					break;
-				}
-				tmp_name = typeName;
-			}
-
-			//do template subsitute
-			if (OnTemplates(typeName, typeScope, parent)) {
-				//do typedef subsitute
-				wxString tmp_name(typeName);
-				while (OnTypedef(typeName, typeScope, templateInitList, scopeName, scopeTemplateInitList)) {
-					if (tmp_name == typeName) {
-						//same type? break
-						break;
-					}
-					tmp_name = typeName;
-				}
-			}
-
-			// try match any overloading operator to the typeName
-			wxString origTypeName(typeName);
-
-			// keep the typeScope in variable origTypeScope since it might be modified by
-			// the OnArrowOperatorOverloading() method, but we might need it again in case
-			// -> operator overloading is found
-			wxString origTypeScope(typeScope);
-			if ( op == wxT("->") && OnArrowOperatorOverloading(typeName, typeScope) ) {
-
-				// there is an operator overloading for ->
-				// do the whole typedef/template subsitute again
-				wxString tmp_name(typeName);
-				while (OnTypedef(typeName, typeScope, templateInitList, scopeName, scopeTemplateInitList)) {
-					if (tmp_name == typeName) {
-						//same type? break
-						break;
-					}
-					tmp_name = typeName;
-				}
-
-				// When template is found, replace the typeName with the temporary type name
-				// usually it will replace 'T' with the parent type, such as
-				// 'Singleton'
-				if (templateInitList.IsEmpty() == false) {
-					m_parentVar.m_isTemplate = true;
-					m_parentVar.m_templateDecl = _C(templateInitList);
-					m_parentVar.m_type = _C(origTypeName);
-					m_parentVar.m_typeScope = _C(origTypeScope); // we use the original type scope
-				}
-
-				// do template subsitute
-				if (OnTemplates(typeName, typeScope, m_parentVar)) {
-					//do typedef subsitute
-					wxString tmp_name(typeName);
-					while (OnTypedef(typeName, typeScope, templateInitList, scopeName, scopeTemplateInitList)) {
-						if (tmp_name == typeName) {
-							//same type? break
-							break;
-						}
-						tmp_name = typeName;
-					}
-				}
-			}
-		}
-
-		parent = m_parentVar;
-
-		//Keep the information about this token for next iteration
-		if (!parent.m_isTemplate && result.m_isTemplate) {
-
-			parent.m_isTemplate = true;
-			parent.m_templateDecl = result.m_templateInitList;
-			parent.m_type = _C(typeName);
-			parent.m_typeScope = _C(typeScope);
-
-		} else if (templateInitList.IsEmpty() == false) {
-
-			parent.m_isTemplate = true;
-			parent.m_templateDecl = _C(templateInitList);
-			parent.m_type = _C(typeName);
-			parent.m_typeScope = _C(typeScope);
-		}
-
+#if 0
 		parentTypeName = typeName;
 		parentTypeScope = typeScope;
 
 #endif		
-		word.clear ();
+		current_token.clear ();
 	}	
 
-	// FIXME
-	return NULL;
+	return evaluation_succeed;
 }
 
 
@@ -637,7 +467,7 @@ EngineParser::optimizeScope(const string& srcString)
 	return srcString;
 }
 
-
+/*
 string
 EngineParser::GetScopeName(const string &in, std::vector<string> *additionlNS)
 {
@@ -664,7 +494,7 @@ EngineParser::GetScopeName(const string &in, std::vector<string> *additionlNS)
 	}
 	return scope;
 }
-
+*/
 
 
 /************ C FUNCTIONS ************/
@@ -715,15 +545,53 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 	string out_type_name;
 	string out_type_scope;
 	string out_oper;
-	string out_scope_template_init_list;
 	
-	return EngineParser::getInstance ()->processExpression (stmt, above_text,  
-	    full_file_path, linenum, out_type_name,
-	    out_type_scope, out_oper, out_scope_template_init_list);
+	bool result = EngineParser::getInstance ()->processExpression (stmt, above_text,  
+	    full_file_path, linenum, out_type_name, out_type_scope, out_oper);
 
-/*
-	cout << "process expression result: " << endl << "out_type_name " << out_type_name <<  endl << 
-	    "out_type_scope " << out_type_scope << endl << "out_oper " << out_oper << endl <<
-		"out_scope_template_init_list " << out_scope_template_init_list << endl;
-*/	 
+	if (result == false)
+	{
+		cout << "Hey, something went wrong in processExpression, bailing out" << endl;
+		return NULL;		
+	}
+	
+	SymbolDBEngine * dbe = EngineParser::getInstance ()->getSymbolManager ();
+
+	cout << "process expression result: " << endl << "out_type_name " << out_type_name <<  
+		endl << 
+	    "out_type_scope " << out_type_scope << endl << "out_oper " << out_oper << endl;
+					
+	SymbolDBEngineIterator *iter = 
+		symbol_db_engine_find_symbol_by_name_pattern_filtered (
+		    dbe, out_type_name.c_str (), TRUE, NULL, TRUE, -1, NULL, -1 , 
+		    -1, SYMINFO_SIMPLE);
+
+	if (iter != NULL) {
+		SymbolDBEngineIteratorNode *node = 
+			SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+		cout << "SymbolDBEngine: Searched var got name: " << 
+			symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
+		
+		// print the scope members
+		SymbolDBEngineIterator * children = 
+			symbol_db_engine_get_scope_members_by_symbol_id (dbe, 
+				symbol_db_engine_iterator_node_get_symbol_id (node), 
+				-1,
+				-1,
+				SYMINFO_SIMPLE);
+		
+		if (children != NULL)
+		{
+			cout << "scope children are: " << endl;
+			do {
+				SymbolDBEngineIteratorNode *child = 
+					SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
+				cout << "SymbolDBEngine: Searched var got name: " << 
+					symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
+			}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
+		} 
+	}	
+
+	//  FIXME
+	return NULL;
 }

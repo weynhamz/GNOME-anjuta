@@ -57,7 +57,8 @@ anjuta_cxxparser_SOURCES = \
 		../symbol-db-engine-iterator.h \
 		../symbol-db-engine-queries.h \
 		../symbol-db-engine.h \
-		../symbol-db-engine-utils.h
+		../symbol-db-engine-utils.h \
+		../symbol-db-engine-core.h
  
 anjuta_cxxparser_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

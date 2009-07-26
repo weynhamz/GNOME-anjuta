@@ -64,46 +64,68 @@ load_file(const gchar *fileName)
 #define SAMPLE_DB_ABS_PATH "/home/pescio/gitroot/anjuta/plugins/symbol-db/cxxparser/sample-db/"
 #define ANJUTA_TAGS "/home/pescio/svnroot/svninstalled/usr/bin/anjuta-tags"
 
+
+
+/* source_file must be provided without extension */
+#define INIT_C_TEST(source_file,callback) { \
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH""source_file".c";	\
+	gchar *associated_db = source_file;	\
+	gchar *root_dir = SAMPLE_DB_ABS_PATH;	\
+	SymbolDBEngine *dbe = symbol_db_engine_new_full (ANJUTA_TAGS, associated_db);	\
+	symbol_db_engine_open_db (dbe, root_dir, root_dir);	\
+	symbol_db_engine_add_new_project (dbe, NULL, root_dir);	\
+	g_signal_connect (dbe, "scan-end", G_CALLBACK (callback), NULL);	\
+	\
+	GPtrArray *files_array = g_ptr_array_new ();	\
+	g_ptr_array_add (files_array, associated_source_file);	\
+	GPtrArray *source_array = g_ptr_array_new ();	\
+	g_ptr_array_add (source_array, "C");	\
+	\
+	if (symbol_db_engine_add_new_files_full (dbe, root_dir, files_array, source_array, TRUE) < 0)	\
+		g_warning ("Error on scanning");	\
+	\
+	engine_parser_init (dbe);	\
+}
+
+static void 
+on_test_cast_simple_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
+{	
+	g_message ("dbe %p user data is %p", dbe, user_data);
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-cast-simple-struct.c";	
+	gchar *file_content = load_file (associated_source_file);
+
+	engine_parser_process_expression ("((foo)var).", file_content, 
+	    associated_source_file, 15);
+
+	g_free (file_content);
+}
+
+
+static void
+test_cast_simple_struct ()
+{		
+	INIT_C_TEST("test-cast-simple-struct", on_test_cast_simple_struct_scan_end);
+}
+
+
+
 static void 
 on_test_simple_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 {	
 	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-simple-struct.c";	
 	gchar *file_content = load_file (associated_source_file);
 
-	g_message ("above text: %s", file_content);
-
-	
 	engine_parser_process_expression ("var.", file_content, associated_source_file, 9);
 
-//	g_free (file_content);
+	g_free (file_content);
 }
 
 static void
 test_simple_struct ()
 {		
-	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-simple-struct.c";	
-	gchar *associated_db_file = "test-simple-struct";
-	gchar *root_dir = SAMPLE_DB_ABS_PATH;
-	SymbolDBEngine *dbe = symbol_db_engine_new_full (ANJUTA_TAGS, 
-	    associated_db_file);	
-	symbol_db_engine_open_db (dbe, root_dir, root_dir);
-	symbol_db_engine_add_new_project (dbe, NULL, root_dir);
-
-	g_signal_connect (dbe, "scan-end", 
-	    G_CALLBACK (on_test_simple_struct_scan_end), NULL);
-	
-	GPtrArray *files_array = g_ptr_array_new ();
-	g_ptr_array_add (files_array, associated_source_file);
-	
-	GPtrArray *source_array = g_ptr_array_new ();
-	g_ptr_array_add (source_array, "C");
-	
-	if (symbol_db_engine_add_new_files (dbe, root_dir, files_array, source_array, TRUE) < 0)
-		g_warning ("Error on scanning");
-
-
-	engine_parser_init (dbe);
+	INIT_C_TEST("test-simple-struct", on_test_simple_struct_scan_end);
 }
+
 
 /**
  * This main simulate an anjuta glib/gtk process. We'll then call some functions
@@ -111,43 +133,26 @@ test_simple_struct ()
  */
 int	main (int argc, char *argv[])
 {
-  	gtk_init(&argc, &argv);
-  	g_thread_init (NULL);
+	GMainLoop * main_loop;
+  	//gtk_init(&argc, &argv);
+
+	if ( !g_thread_supported() )
+  		g_thread_init( NULL );	
+  	
+	g_type_init();
 	gda_init ();	
+
+	main_loop = g_main_loop_new (NULL, FALSE);
+	
  	g_test_init (&argc, &argv, NULL);
 
 	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
-	
+	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
 
-	g_test_run();
-	gtk_main ();
+	g_test_run ();
+	g_message ("test run finished");
+
+	
+	g_main_loop_run (main_loop);
 	return 0;
 } 	
-#if 0
-	
-	// FIXME: an instance of symbolmanager should be passed instead of a dbe one.
-	engine_parser_init (dbe);
-	
-	//engine_parser_DEBUG_print_tokens (buf);
-
-//	char *test_str = "str.";
-	char *test_str = "Std::String *asd";
-	
-//	char *test_str = "(wxString*)str.";
-//	char *test_str = "((Std::string*)eran)->";
-//	char *test_str = "((TypeDefFoo)((Std::string*)eran))->func_returning_klass ().";
-	//char *test_str = "((A*)((B*)(foo)))->"; // should return A* as m_name. Check here..
-//	char *test_str = "*this->"; // should return A* as m_name. Check here. 
-
-//	printf ("print tokens.....\n");
-//	engine_parser_DEBUG_print_tokens (test_str);
-
-	printf ("process expression..... %s\n", test_str);
-	engine_parser_process_expression (test_str);
-
-/*
-	engine_parser_test_optimize_scope (buf);
-	engine_parser_get_local_variables (buf);
-*/	
-	//gtk_main();
-#endif	

@@ -738,7 +738,7 @@ case 23:
 						result.m_isaType = true;
 						result.m_name = yyvsp[-2];
 						result.m_isFunc = false;
-						printf("Rule 1\n");						
+						/*printf("Rule 1\n");	*/
 					}
 break;
 case 24:
@@ -749,7 +749,7 @@ case 24:
 						result.m_isFunc = false;
 						result.m_isThis = true;
 						result.m_isPtr = true;
-						printf("Rule 2\n");	
+						/*printf("Rule 2\n");	*/
 					}
 break;
 case 25:
@@ -759,7 +759,7 @@ case 25:
 						result.m_name = yyval;
 						result.m_isFunc = false;
 						result.m_isThis = true;
-						printf("Rule 3\n");		
+						/*printf("Rule 3\n");		*/
 					}
 break;
 case 26:
@@ -770,7 +770,7 @@ case 26:
 						result.m_isFunc = false;
 						result.m_isThis = false;
 						result.m_isPtr = false;
-						printf("Rule 4\n");		
+						/*printf("Rule 4\n");		*/
 					}
 break;
 case 27:
@@ -780,7 +780,7 @@ case 27:
 						result.m_name = yyval;
 						result.m_isFunc = false;
 						result.m_isThis = false;
-						printf("Rule 5\n");		
+						/*printf("Rule 5\n");		*/
 					}
 break;
 case 28:
@@ -792,7 +792,7 @@ case 28:
 						result.m_scope = yyvsp[-3];
 						result.m_isTemplate = yyvsp[-1].empty() ? false : true;
 						result.m_templateInitList = yyvsp[-1];
-						printf("Rule 6\n");		
+						/*printf("Rule 6\n");		*/
 					}
 break;
 case 29:
@@ -802,7 +802,7 @@ case 29:
 						result.m_name = yyval;
 						result.m_isFunc = false;
 						result.m_isThis = false;
-						printf("Rule 7\n");		
+						/*printf("Rule 7\n");		*/
 					}
 break;
 case 30:
