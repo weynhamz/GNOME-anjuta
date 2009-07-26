@@ -45,7 +45,7 @@ EngineParser::getInstance ()
 
 EngineParser::EngineParser ()
 {	
-	_tokenizer = new CppScanner ();	
+	_tokenizer = new CppTokenizer ();	
 	_dbe = NULL;
 }
 
@@ -99,7 +99,7 @@ void
 EngineParser::DEBUG_printTokens (const string& text)
 {
 	// FIXME
-	_tokenizer->SetText (text.c_str ());
+	_tokenizer->setText (text.c_str ());
 
 	string op;
 	string token;
@@ -128,7 +128,7 @@ EngineParser::parseExpression(const string &in)
 void
 EngineParser::testParseExpression (const string &str)
 {
-	_tokenizer->SetText(str.c_str ());
+	_tokenizer->setText(str.c_str ());
 
 	string word;
 	string op;
@@ -163,29 +163,33 @@ EngineParser::getSymbolManager ()
 }
 
 void 
-EngineParser::trim (string& str)
+EngineParser::trim (string& str, string trimChars)
 {
-	string trim_str = "{};\r\n\t\v ";
-  	string::size_type pos = str.find_last_not_of(trim_str);
-  	if(pos != string::npos) 
+  	string::size_type pos = str.find_last_not_of (trimChars);
+	
+  	if (pos != string::npos) 
 	{
     	str.erase(pos + 1);
-    	pos = str.find_first_not_of(trim_str);
+    	pos = str.find_first_not_of (trimChars);
     	if(pos != string::npos) 
+		{			
 			  str.erase(0, pos);
+		}
   	}
   	else 
+	{
 		str.erase(str.begin(), str.end());
+	}
 }
 
-bool 
+SymbolDBEngineIterator *
 EngineParser::processExpression(const string& stmt, const string& above_text,
     const string& full_file_path, unsigned long linenum,
     string &out_type_name, string &out_type_scope, string &out_oper, 
 	    string &out_scope_template_init_list)
 {
 	bool evaluation_succeed = false;
-	_tokenizer->SetText(stmt.c_str ());
+	_tokenizer->setText(stmt.c_str ());
 
 	string word;
 	string op;
@@ -307,7 +311,7 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 
 			/* TODO */
 			/* optimize scope'll clear the scopes leaving the local variables */
-			string optimized_scope = OptimizeScope(above_text);
+			string optimized_scope = optimizeScope(above_text);
 
 			cout << "here it is the optimized scope " << optimized_scope << endl;
 
@@ -519,14 +523,15 @@ EngineParser::processExpression(const string& stmt, const string& above_text,
 #endif		
 		word.clear ();
 	}	
-	
-	return true;
+
+	// FIXME
+	return NULL;
 }
 
 
 /// Return the visible scope until pchStopWord is encountered
 string 
-EngineParser::OptimizeScope(const string& srcString)
+EngineParser::optimizeScope(const string& srcString)
 {
 	string wxcurrScope;
 	std::vector<std::string> scope_stack;
@@ -536,7 +541,7 @@ EngineParser::OptimizeScope(const string& srcString)
 
 	// Initialize the scanner with the string to search
 	const char * scannerText =  srcString.c_str ();
-	_tokenizer->SetText (scannerText);
+	_tokenizer->setText (scannerText);
 	bool changedLine = false;
 	bool prepLine = false;
 	int curline = 0;
@@ -613,7 +618,7 @@ EngineParser::OptimizeScope(const string& srcString)
 		}
 	}
 
-	_tokenizer->Reset();
+	_tokenizer->reset();
 
 	if (scope_stack.empty())
 		return srcString;
@@ -682,22 +687,11 @@ engine_parser_parse_expression (const char*str)
 {
 	EngineParser::getInstance ()->testParseExpression (str);
 }
-
-void 
-engine_parser_test_optimize_scope (const char*str)
-{
-	string res = EngineParser::getInstance ()->OptimizeScope (str);
-	cout << "OptimizeScope: " << res << endl;
-
-	res = EngineParser::getInstance ()->GetScopeName (str, NULL);
-	cout << "GetScopeName: " << res << endl;
-	
-}
-
+/*
 void
 engine_parser_get_local_variables (const char *str)
 {
-	string res = EngineParser::getInstance ()->OptimizeScope (str);
+	string res = EngineParser::getInstance ()->optimizeScope (str);
 
 	VariableList li;
 	std::map<std::string, std::string> ignoreTokens;
@@ -712,9 +706,9 @@ engine_parser_get_local_variables (const char *str)
 	//	printf("total time: %d\n", end-start);
 	printf("matches found: %d\n", li.size());	
 }
+*/
 
-
-void 
+SymbolDBEngineIterator *
 engine_parser_process_expression (const char *stmt, const char * above_text, 
     const char * full_file_path, unsigned long linenum)
 {
@@ -723,7 +717,7 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 	string out_oper;
 	string out_scope_template_init_list;
 	
-	EngineParser::getInstance ()->processExpression (stmt, above_text,  
+	return EngineParser::getInstance ()->processExpression (stmt, above_text,  
 	    full_file_path, linenum, out_type_name,
 	    out_type_scope, out_oper, out_scope_template_init_list);
 

@@ -47,6 +47,7 @@ public:
 	// getter for the IAnjutaSymbolManager.
 	SymbolDBEngine * getSymbolManager ();
 
+	// FIXME comments.
 	/**
 	 * Evaluate a C++ expression. for example, the following expression: '((Notebook*)book)->'
 	 * will be processed into typeName=Notebook, and typeScope=<global> (assuming Notebook is not
@@ -62,19 +63,17 @@ public:
 	 * \return true on success, false otherwise. The output fields are only to be checked with the return
 	 * valus is 'true'
 	 */
-	bool processExpression(const string& stmt, const string& above_text, 
-	    const string& full_file_path, unsigned long linenum, string &out_type_name, 
-	    string &out_type_scope, string &out_oper, 
-	    string &out_scope_template_init_list);
+	SymbolDBEngineIterator *
+		processExpression(const string& stmt, const string& above_text, 
+	    	const string& full_file_path, unsigned long linenum, 
+		    string &out_type_name, string &out_type_scope, 
+		    string &out_oper, string &out_scope_template_init_list);
 	
 
 	void testParseExpression (const string &in);
 
-	// ?!? unuseful, remove it sometime 
-	string OptimizeScope(const string& srcString);
 	string GetScopeName(const string &in, std::vector<string> *additionlNS);
 
-	void trim (string& str);
 	
 protected:
 
@@ -96,13 +95,28 @@ private:
 	 * \return true if token was found false otherwise
 	 */	
 	bool nextToken (string &out_token, string &out_delimiter);
-	
+
+
+	/**
+	 * trim () a string
+	 */
+	void trim (string& str, string trimChars = "{};\r\n\t\v ");
+
+	/**
+	 * This method reduces the various scopes/variables/functions in the buffer 
+	 * passed as parameter to a file where the only things left are the local
+	 * variables and the functions names. 
+	 * You can use this method to retrieve the type of a local variable, if it's
+	 * present in the passed buffer of course.
+	 */
+	string optimizeScope(const string& srcString);
 	
 	/*
 	 * D A T A
 	 */	
-	CppScanner *_tokenizer;	
-	static EngineParser *s_engine;
+	static EngineParser *s_engine;	
+
+	CppTokenizer *_tokenizer;
 	SymbolDBEngine *_dbe;
 };
 

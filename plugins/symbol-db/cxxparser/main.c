@@ -151,10 +151,3 @@ int	main (int argc, char *argv[])
 */	
 	//gtk_main();
 #endif	
-
-	return 0;
-}
-#endif
-
-
-

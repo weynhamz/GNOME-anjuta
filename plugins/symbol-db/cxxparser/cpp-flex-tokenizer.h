@@ -42,36 +42,33 @@
 //                                                                          
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-#ifndef CODELITE_CPPSCANNER_H
-#define CODELITE_CPPSCANNER_H
+#ifndef _CPPTOKENIZER_H
+#define _CPPTOKENIZER_H
 
 #include "flex-lexer-klass.h"
 
-class CppScanner : public flex::yyFlexLexer
+class CppTokenizer : public flex::yyFlexLexer
 {
 public:
-	CppScanner();
-	~CppScanner(void);
+	CppTokenizer();
+	~CppTokenizer(void);
 	
-	/// Override the LexerInput function
+	/* Override the LexerInput function */
 	int LexerInput(char *buf, int max_size);
-	void SetText(const char* data);
-	void Reset();
+	void setText(const char* data);
+	void reset();
 
 	 
-	///	Note about comment and line number:
-	///	If the last text consumed is a comment, the line number 
-	///	returned is the line number of the last line of the comment
-	///	incase the comment spans over number of lines
-	///	(i.e. /* ... */ comment style)
-
-	// FIXME: move all the implementations into the .cpp file.
-	// FIXME: keeo coherent.
-	const int& LineNo() const { return yylineno; }
-	inline void ClearComment() { m_comment = ""; }
-	inline const char* GetComment() const { return m_comment.c_str (); }
-	inline void KeepComment(const int& keep) { m_keepComments = keep; }
-	inline void ReturnWhite(const int& rw) { m_returnWhite = rw; }
+	/*	Note about comment and line number:
+	 *	If the last text consumed is a comment, the line number 
+	 *	returned is the line number of the last line of the comment
+	 *	incase the comment spans over number of lines
+	 */
+	const int& lineNo() const; 
+	inline void clearComment();
+	inline const char* getComment() const;
+	inline void keepComment(const int& keep);
+	inline void returnWhite(const int& rw);
 
 private:
 	char *m_data;
@@ -80,4 +77,4 @@ private:
 	int   m_curr;
 };
 
-#endif // CODELITE_CPPSCANNER_H
+#endif // _CPPTOKENIZER_H

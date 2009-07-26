@@ -49,7 +49,7 @@
 #include <string.h>
 
 
-CppScanner::CppScanner()
+CppTokenizer::CppTokenizer()
 : m_curr(0)
 {
 	m_data = NULL;
@@ -59,12 +59,13 @@ CppScanner::CppScanner()
 	m_comment = "";
 }
 
-CppScanner::~CppScanner(void)
+CppTokenizer::~CppTokenizer(void)
 {
 	delete m_data;
 }
 
-int CppScanner::LexerInput(char *buf, int max_size)
+int 
+CppTokenizer::LexerInput(char *buf, int max_size)
 {
 	if( !m_data )
 		return 0;
@@ -80,17 +81,19 @@ int CppScanner::LexerInput(char *buf, int max_size)
 	return n;
 }
 
-void CppScanner::SetText(const char* data)
+void 
+CppTokenizer::setText(const char* data)
 {
 	// release previous buffer
-	Reset();
+	reset();
 
 	m_data = new char[strlen(data)+1];
 	strcpy(m_data, data);
 	m_pcurr = m_data;
 }
 
-void CppScanner::Reset()
+void 
+CppTokenizer::reset()
 {
 	if(m_data)
 	{
@@ -104,4 +107,34 @@ void CppScanner::Reset()
 	yy_flush_buffer(yy_current_buffer);
 	m_comment = "";
 	yylineno = 1;
+}
+
+const int& 
+CppTokenizer::lineNo() const
+{
+	return yylineno;
+}
+
+void 
+CppTokenizer::clearComment() 
+{ 
+	m_comment = ""; 
+}
+
+const char* 
+CppTokenizer::getComment () const 
+{
+	return m_comment.c_str ();
+}
+
+void 
+CppTokenizer::keepComment (const int& keep) 
+{ 
+	m_keepComments = keep; 
+}
+
+void 
+CppTokenizer::returnWhite (const int& rw) 
+{ 
+	m_returnWhite = rw; 
 }
