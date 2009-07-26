@@ -959,7 +959,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 			continue;
 		
 		gfile_info = g_file_query_info (gfile, 
-										"*", 
+										"standard::content-type", 
 										G_FILE_QUERY_INFO_NONE,
 										NULL,
 										NULL);
@@ -1011,7 +1011,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 		/* ok, we've just tested that the local_filename does exist.
 		 * We can safely add it to the array.
 		 */
-		g_ptr_array_add (languages_array, g_strdup (lang));					
+		g_ptr_array_add (languages_array, g_strdup (lang));
 		g_ptr_array_add (to_scan_array, g_strdup (local_filename));
 		g_object_unref (gfile);
 		g_object_unref (gfile_info);		
@@ -1022,7 +1022,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	 */
 	if (to_scan_array->len > 0)
 	{		
-		gint proc_id = 	symbol_db_engine_add_new_files (sdb_plugin->sdbe_project, 
+		gint proc_id = 	symbol_db_engine_add_new_files_full (sdb_plugin->sdbe_project, 
 					sdb_plugin->project_opened, to_scan_array, languages_array, 
 														   TRUE);
 		

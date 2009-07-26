@@ -3571,9 +3571,81 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	SDB_UNLOCK(priv);
 	return ret_id;
 }
-	
+
+/* !!!! FIXME: not yet tested !!!! */
 gint
-symbol_db_engine_add_new_files (SymbolDBEngine * dbe, 
+symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
+    							IAnjutaLanguage* lang_manager,
+								const gchar * project_name,
+							    const GPtrArray *sources_array)
+{
+	SymbolDBEnginePriv *priv;
+	GPtrArray *lang_array;
+	gint i;
+	
+	g_return_val_if_fail (dbe != NULL, FALSE);	
+	g_return_val_if_fail (lang_manager != NULL, FALSE);	
+	g_return_val_if_fail (sources_array != NULL, FALSE);
+
+	priv = dbe->priv;
+
+	lang_array = g_ptr_array_new ();
+
+	for (i = 0; i < sources_array->len; i++)
+	{		
+		IAnjutaLanguageId lang_id;
+		GFile *gfile;
+		GFileInfo *gfile_info;	
+		const gchar *file_mime;
+		const gchar *lang;
+		const gchar *local_filename;
+		
+		local_filename = g_ptr_array_index (sources_array, i);			
+		gfile = g_file_new_for_path (local_filename);		
+		gfile_info = g_file_query_info (gfile, 
+										"standard::content-type", 
+										G_FILE_QUERY_INFO_NONE,
+										NULL,
+										NULL);
+		if (gfile_info == NULL)
+		{
+			g_warning ("GFileInfo corresponding to %s was NULL", local_filename);
+			g_object_unref (gfile);
+			continue;
+		}
+		
+		file_mime = g_file_info_get_attribute_string (gfile_info,
+										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);										  		
+					
+		lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+													 file_mime, NULL);
+					
+		if (!lang_id)
+		{
+			g_warning ("Language not found for %s was NULL", local_filename);
+			g_object_unref (gfile);
+			g_object_unref (gfile_info);			
+			continue;
+		}
+				
+		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);	
+		g_ptr_array_add (lang_array, g_strdup (lang));
+		g_object_unref (gfile);
+		g_object_unref (gfile_info);
+	}
+
+	gint res = symbol_db_engine_add_new_files_full (dbe, project_name, sources_array,
+	    lang_array, TRUE);
+
+	/* free resources */
+	g_ptr_array_foreach (lang_array, (GFunc)g_free, NULL);
+	g_ptr_array_free (lang_array, TRUE);
+
+	return res;
+}
+
+gint
+symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe, 
 								const gchar * project_name,
 								const GPtrArray * files_path, 
 								const GPtrArray * languages,

@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include <glib.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/anjuta-plugin.h>
 #include "symbol-db-engine-iterator.h"
 
@@ -163,8 +164,9 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
 /** 
  * Add a group of files of a single language to a project. It will perform also 
  * a symbols scannig/populating of db if scan_symbols is TRUE.
- * This function requires an opened db, i.e. calling before
- * symbol_db_engine_open_db ().
+ * This function requires an opened db, i.e. You must call 
+ * symbol_db_engine_open_db () before.
+ * 
  * @note if some file fails to enter the db the function will return without
  * processing the remaining files.
  * @param project_name something like 'foo_project', or 'helloworld_project'. Can be NULL,
@@ -190,11 +192,25 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
+symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe, 
+									const gchar * project_name,
+							    	const GPtrArray *files_path,
+									const GPtrArray *languages,
+									gboolean force_scan);
+
+/**
+ * See symbol_db_engine_add_new_files_full () for doc.
+ * This function adds files to db in a quicker way than 
+ * symbol_db_engine_add_new_files_full because you won't have to specify the
+ * GPtrArray of languages, but it'll try to autodetect them.
+ * When added, the files are forced to be scanned.
+ */
+/* !!!! FIXME: not yet tested !!!! */
+gint
 symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
+    							IAnjutaLanguage* lang_manager,
 								const gchar * project_name,
-							    const GPtrArray *files_path,
-								const GPtrArray *languages,
-								gboolean force_scan);
+							    const GPtrArray *files_path);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 
