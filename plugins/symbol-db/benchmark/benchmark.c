@@ -57,7 +57,7 @@ int main (int argc, char** argv)
 	g_signal_connect (G_OBJECT (engine), "single-file-scan-end",
 		  G_CALLBACK (on_single_file_scan_end), files);
 	
-	symbol_db_engine_add_new_files (engine, root_dir, files, languages, TRUE);	
+	symbol_db_engine_add_new_files_full (engine, root_dir, files, languages, TRUE);	
 	
 	gtk_main();
 	

@@ -513,7 +513,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	 * infact to have more references of the same files in different
 	 * packages
 	 */
-	proc_id = symbol_db_engine_add_new_files (priv->sdbe_globals,
+	proc_id = symbol_db_engine_add_new_files_full (priv->sdbe_globals,
 							es_data->special_abort_scan == FALSE ? 
 									es_data->package_name : NULL, 
 							files_to_scan_array,
