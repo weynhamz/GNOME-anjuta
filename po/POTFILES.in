@@ -107,6 +107,7 @@ plugins/git/git-commit-dialog.c
 plugins/git/git-create-branch-dialog.c
 plugins/git/git-create-tag-dialog.c
 plugins/git/git-delete-branch-dialog.c
+plugins/git/git-delete-tag-dialog.c
 plugins/git/git-fetch-dialog.c
 plugins/git/git-log-dialog.c
 plugins/git/git-merge-dialog.c
@@ -117,6 +118,7 @@ plugins/git/git-remove-dialog.c
 plugins/git/git-reset-dialog.c
 plugins/git/git-resolve-dialog.c
 plugins/git/git-revert-dialog.c
+plugins/git/git-stash-widget.c
 plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c

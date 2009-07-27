@@ -1,3 +1,35 @@
+Anjuta 2.27.5 (27 July 2009) -- Johannes Schmid
+
+Updates:
+- Even better git plugin (James Liggett)
+- Work to get C++ autocompletion done (Massimo' Cora)
+
+Bugs fixed:
+git: Show the active branch in the status bar (bgo 589401)
+symbol-db: #588387 make typeahead searching caseless
+Migrate anjuta project wizards from libglade to GtkBuilder (GnomeBug:530740)
+bgo #575147 – Headers of new C++/GObject classes have wrong copyright and license notices.
+bgo #577741 – "single step over function" does not always work as expected
+bgo #587957 – doap file missing bug-database
+bgo #583731 – Some untranslated strings
+git: Refresh the log view when switching branches (bgo 580276)
+bgo#578438 – broken svn libraries detection in configure
+git: Fix a typo in a menu tooltip (bgo 587191)
+gbf-am: build fix #586926
+#586926 – gdbmi_test build fails
+bgo#513156 – Get rid of libgnome(ui)
+git: Add descriptions to the menu items (bgo 577924)
+#586621 – Crash while loading project file
+go#586148 – Case had to be the other way around
+bgo#586148 – Fixing setting whitespace for the editor not working
+bgo#577924 – Fixing AnjutaStatusbar for displaying menu tags
+#577232 – run-program plugin: projects's working directory should be set to project root on start
+#586030 – Value of a new environment variable is not saved in run parameter dialog
+#584180 – Duplicate copy of GBF/General.pm installed to same location
+#582961 – Replace SexyIconEntry by GtkEntry icon functionality (available in GTK+ 2.16)
+subversion: Show conflicted files in the commit dialog (bgo 578411)
+symbol-db: #585498 – Completion stop working and strange warning
+
 Anjuta 2.27.3 (14 June 2009) -- Johannes Schmid
 
 Updates:
