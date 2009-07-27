@@ -39,7 +39,7 @@ int main (int argc, char** argv)
 	}
 	root_dir = argv[1];
 	
-    engine = symbol_db_engine_new ("/usr/bin/ctags");
+    engine = symbol_db_engine_new ("anjuta-tags");
   
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))
 	{
