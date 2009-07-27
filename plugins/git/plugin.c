@@ -57,16 +57,21 @@
 
 static gpointer parent_class;
 
+/* Give the top-level git menu its own action group. The items in the menu 
+ * are separated so that we can disable the menu's actions in one shot 
+ * without disabling the whole menu. */
+static GtkActionEntry action_git_menu_toplevel = 
+{
+	"ActionMenuGit",                       /* Action name */
+	NULL,                            /* Stock icon, if any */
+	N_("_Git"),                     /* Display label */
+	NULL,                                     /* short-cut */
+	NULL,                      /* Tooltip */
+	NULL    /* action callback */
+};
+
 static GtkActionEntry actions_git[] = 
 {
-	{
-		"ActionMenuGit",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Git"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		NULL,                      /* Tooltip */
-		NULL    /* action callback */
-	},
 	{
 		"ActionGitCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
@@ -565,7 +570,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	gchar *project_root_uri;
 	GFile *file;
 	AnjutaUI *ui;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
@@ -577,14 +581,11 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_unref (file);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	git_menu_action = anjuta_ui_get_action (ui, 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (ui, 
 											   "ActionGroupGitFM",
 											   "ActionMenuGitFM");
 	
-	gtk_action_set_sensitive (git_menu_action, TRUE);
+	g_object_set (git_plugin->git_menu_actions, "sensitive", TRUE, NULL);
 	gtk_action_set_sensitive (git_fm_menu_action, TRUE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, TRUE);
 	gtk_widget_set_sensitive (git_plugin->stash_widget, TRUE);
@@ -605,7 +606,6 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 						 gpointer user_data)
 {
 	AnjutaUI *ui;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	Git *git_plugin;
 	
@@ -616,14 +616,11 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	git_menu_action = anjuta_ui_get_action (ui, 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (ui, 
 												"ActionGroupGitFM",
 												"ActionMenuGitFM");
 	
-	gtk_action_set_sensitive (git_menu_action, FALSE);
+	g_object_set (git_plugin->git_menu_actions, "sensitive", FALSE, NULL);
 	gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE);
 	gtk_widget_set_sensitive (git_plugin->stash_widget, FALSE);
@@ -712,7 +709,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	Git *git_plugin;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin ...");
@@ -721,11 +717,20 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGit",
-										_("Git operations"),
-										actions_git,
-										G_N_ELEMENTS (actions_git),
-										GETTEXT_PACKAGE, TRUE, plugin);
+	anjuta_ui_add_action_group_entries (ui,
+	                                    "ActionGroupGitToplevelMenu",
+	                                    _("Top level git menu item"),
+	                                    &action_git_menu_toplevel,
+	                                    1,
+	                                    GETTEXT_PACKAGE,
+	                                    TRUE,
+	                                    plugin);
+	git_plugin->git_menu_actions = anjuta_ui_add_action_group_entries (ui, 
+	                                                                   "ActionGroupGit",
+	                                                                   _("Git operations"),
+	                                                                   actions_git,
+	                                                                   G_N_ELEMENTS (actions_git),
+	                                                                   GETTEXT_PACKAGE, TRUE, plugin);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitLog",
 										_("Git log operations"),
 										actions_log,
@@ -788,10 +793,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Git needs a working directory to work with; it can't take full paths,
 	 * so make sure that Git can't be used if there's no project opened. */
-	git_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
-																 NULL), 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
 																	NULL), 
 											   "ActionGroupGitFM",
@@ -799,7 +800,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!git_plugin->project_root_directory)
 	{
-		gtk_action_set_sensitive (git_menu_action, FALSE);
+		g_object_set (git_plugin->git_menu_actions, "sensitive", FALSE, NULL);
 		gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 		gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE); 
 	}

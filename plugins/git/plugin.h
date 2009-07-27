@@ -50,6 +50,7 @@ struct _Git
 {
 	AnjutaPlugin parent;
 	gint uiid;
+	GtkActionGroup *git_menu_actions;
 	gchar *project_root_directory;
 	gchar *current_editor_filename;
 	gchar *current_fm_filename;
