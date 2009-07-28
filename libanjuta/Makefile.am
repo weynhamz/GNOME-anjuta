@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" \
-	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
+	-DPACKAGE_DOC_DIR="\"$(docdir)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
 lib_LTLIBRARIES = libanjuta.la 

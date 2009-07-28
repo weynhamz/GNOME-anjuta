@@ -6,7 +6,7 @@ SUBDIRS = \
 	pixmaps scripts data \
 	doc libanjuta plugins src manuals mime launcher po
 
-anjutadocdir = $(datadir)/doc/anjuta
+anjutadocdir = $(docdir)
 anjutadoc_DATA = \
 	MAINTAINERS\
 	README\
