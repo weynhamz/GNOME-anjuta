@@ -66,12 +66,7 @@ git_progress_data_new (Git *plugin, const gchar *text)
 
 void
 git_progress_data_free (GitProgressData *data)
-{
-	AnjutaStatus *status;
-	
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (data->plugin)->shell, 
-									  NULL);
-	
+{	
 	g_free (data->text);
 	g_free (data);
 }
