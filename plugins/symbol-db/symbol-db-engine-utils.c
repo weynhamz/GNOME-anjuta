@@ -451,19 +451,41 @@ symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe)
 GPtrArray* 
 symbol_db_util_get_c_source_files (const gchar* dir)
 {
+	GHashTable *mimes;
+	GPtrArray *res;
+
+	mimes = g_hash_table_new (g_str_hash, g_str_equal);
+	g_hash_table_insert (mimes, "text/x-csrc", "text/x-csrc");
+	g_hash_table_insert (mimes, "text/x-chdr", "text/x-chdr");
+
+	res = symbol_db_util_get_source_files_by_mime (dir, mimes);
+	
+	g_hash_table_destroy (mimes);
+	return res;
+}
+
+GPtrArray * 
+symbol_db_util_get_source_files_by_mime (const gchar* dir, const GHashTable *mimes)
+{
 	GPtrArray* files = g_ptr_array_new();
 	GFile *file;
 	GFileEnumerator *enumerator;
 	GFileInfo* info;
 	GError *error = NULL;
-	
-	file = g_file_new_for_commandline_arg (dir);
+	gchar *buildable_dir;
+
+	g_return_val_if_fail (dir != NULL, NULL);
+	g_return_val_if_fail (mimes != NULL, NULL);
+		
+	if ((file = g_file_new_for_commandline_arg (dir)) == NULL)
+		return NULL;
+		
 	enumerator = g_file_enumerate_children (file, 
 			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 			G_FILE_ATTRIBUTE_STANDARD_NAME,
 			G_FILE_QUERY_INFO_NONE,
 			NULL, &error);
-
+	
 	if (!enumerator)
 	{
 		g_warning ("Could not enumerate: %s %s\n", 
@@ -474,19 +496,23 @@ symbol_db_util_get_c_source_files (const gchar* dir)
 		return files;
 	}
 
+	buildable_dir = g_file_get_path (file);
+		
 	for (info = g_file_enumerator_next_file (enumerator, NULL, NULL); info != NULL; 
 			info = g_file_enumerator_next_file (enumerator, NULL, NULL))
 	{
 		const gchar *mime_type = g_file_info_get_content_type (info);
 		if (!mime_type)
 			continue;
-		if (g_str_equal (mime_type, "text/x-csrc") ||
-				g_str_equal (mime_type, "text/x-chdr"))
+		if (g_hash_table_lookup ((GHashTable*)mimes, mime_type) != NULL)
 		{
-			DEBUG_PRINT ("File: %s", g_file_info_get_name (info));
-			g_ptr_array_add (files, g_build_filename (dir, g_file_info_get_name (info), NULL));
+			g_ptr_array_add (files, g_build_filename (buildable_dir, g_file_info_get_name (info), NULL));
 		}
 	}
-	
+
+	g_free (buildable_dir);
+	g_object_unref (enumerator);
+	g_object_unref (file);
+		
 	return files;
 }

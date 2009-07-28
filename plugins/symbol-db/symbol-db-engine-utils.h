@@ -108,4 +108,18 @@ symbol_db_util_is_pattern_exact_match (const gchar *pattern);
 GPtrArray * 
 symbol_db_util_get_c_source_files (const gchar* dir);
 
+/**
+ * This function gets all the source files in the specified dir that match mime type
+ * specified in the hashtable and returns the GPtrArray associated.
+ * 
+ * @param dir Directory of the files
+ * @param mimes Hash table where the keys must be the mimes of the source files.
+ * for convenience set the values to the same value of the keys.
+ * @return A GPtrArray composed by gchar * strings like "dir + g_file_info_get_name ()"
+ */
+GPtrArray * 
+symbol_db_util_get_source_files_by_mime (const gchar* dir, const GHashTable *mimes);
+
+
+
 #endif

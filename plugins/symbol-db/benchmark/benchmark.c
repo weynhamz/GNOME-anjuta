@@ -25,7 +25,9 @@ int main (int argc, char** argv)
   	SymbolDBEngine* engine;
   	GPtrArray* files;
 	GPtrArray* languages = g_ptr_array_new();
-	const gchar* root_dir;
+	gchar* root_dir;
+	GFile *g_dir;
+	GHashTable *mimes;
 	int i;
 	
   	gtk_init(&argc, &argv);
@@ -37,9 +39,17 @@ int main (int argc, char** argv)
 		g_message ("Usage: benchmark <source_directory>");
 		return 1;
 	}
-	root_dir = argv[1];
+
+	g_dir = g_file_new_for_path (argv[1]);
+	if (g_dir == NULL)
+	{
+		g_warning ("%s doesn't exist", argv[1]);
+		return -1;
+	}
+
+	root_dir = g_file_get_path (g_dir);
 	
-    engine = symbol_db_engine_new ("anjuta-tags");
+    engine = symbol_db_engine_new_full ("anjuta-tags", "benchmark-db");
   
 	if (!symbol_db_engine_open_db (engine, root_dir, root_dir))
 	{
@@ -49,7 +59,15 @@ int main (int argc, char** argv)
 
 	symbol_db_engine_add_new_project (engine, NULL, root_dir);
 			
-	files = symbol_db_util_get_c_source_files (root_dir);
+	mimes = g_hash_table_new (g_str_hash, g_str_equal);
+	g_hash_table_insert (mimes, "text/x-csrc", "text/x-csrc");
+	g_hash_table_insert (mimes, "text/x-chdr", "text/x-chdr");
+	g_hash_table_insert (mimes, "text/x-c++src", "text/x-c++src");
+	g_hash_table_insert (mimes, "text/x-c+++hdr", "text/x-c++hdr");
+	
+	files = symbol_db_util_get_source_files_by_mime (root_dir, mimes);
+	g_hash_table_destroy (mimes);
+
 	for (i = 0; i < files->len; i++)
 		g_ptr_array_add (languages, "C");
 	
@@ -58,6 +76,9 @@ int main (int argc, char** argv)
 		  G_CALLBACK (on_single_file_scan_end), files);
 	
 	symbol_db_engine_add_new_files_full (engine, root_dir, files, languages, TRUE);	
+
+	g_free (root_dir);
+	g_object_unref (g_dir);
 	
 	gtk_main();
 	
