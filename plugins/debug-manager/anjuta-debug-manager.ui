@@ -2201,7 +2201,7 @@
     </action-widgets>
   </object>
   <object class="GtkWindow" id="debug_manager_preferences">
-    <property name="title" translatable="yes">window1</property>
+    <property name="title" translatable="no">window1</property>
     <child>
       <object class="GtkVBox" id="preferences_container">
         <property name="visible">True</property>
@@ -2443,7 +2443,7 @@ When optimizations are enabled, the debugger cannot always identify the source c
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button4">
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label" translatable="no">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -2457,7 +2457,7 @@ When optimizations are enabled, the debugger cannot always identify the source c
             </child>
             <child>
               <object class="GtkButton" id="button8">
-                <property name="label" translatable="yes">gtk-execute</property>
+                <property name="label" translatable="no">gtk-execute</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
