@@ -343,7 +343,7 @@ on_git_command_info_arrived (AnjutaCommand *command, Git *plugin)
 	{
 		message = g_queue_pop_head (info);
 		ianjuta_message_view_append (plugin->message_view, 
-								     IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+								     IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 									 message, "", NULL);
 		g_free (message);
 	}
