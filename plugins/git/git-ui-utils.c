@@ -130,6 +130,7 @@ git_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_WARNING,
 										 GTK_BUTTONS_OK,
+		                                 "%s",
 										 error_message);
 		
 		gtk_dialog_run (GTK_DIALOG (dialog));
