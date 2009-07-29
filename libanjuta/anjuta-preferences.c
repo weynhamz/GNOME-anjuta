@@ -522,9 +522,9 @@ anjuta_preferences_set_bool (AnjutaPreferences *pr, const gchar *key,
 	{
 		switch (gvalue->type)
 		{
-			case GCONF_VALUE_BOOL:
-				g_warning ("Invalid gconf type for key: %s", key);
 			case GCONF_VALUE_INT:
+				g_warning ("Invalid gconf type for key: %s", key);
+			case GCONF_VALUE_BOOL:
 				gconf_client_set_bool (pr->priv->gclient, build_key (key),
 									   value, NULL);
 				break;
