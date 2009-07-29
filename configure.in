@@ -755,6 +755,7 @@ plugins/symbol-db/benchmark/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/anjuta-tags/Makefile
+plugins/symbol-db/test-queries/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile

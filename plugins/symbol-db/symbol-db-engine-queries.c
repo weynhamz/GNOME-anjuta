@@ -1221,7 +1221,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
  * "scope2_name", NULL 
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
+symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe, 
 									const GPtrArray* scope_path, 
 									SymExtraInfo sym_info)
 {

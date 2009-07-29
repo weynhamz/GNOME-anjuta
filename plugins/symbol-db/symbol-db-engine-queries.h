@@ -37,6 +37,15 @@
  * ITERATABLE QUERIES
  **********************/
 
+/* Usually you'll see many functions that have a gint symbol_id parameter.
+ * You may wonder why we don't pass a SymbolDBEngineIteratorNode. Well,
+ * because of the iterator architecture and its underlying data (the 
+ * GdaDataModel): you can easily save an integer id, but not an IteratorNode, which
+ * would change after a symbol_db_engine_iterator_move_next ().
+ * Think of that integer id as an handle, and use it as that.
+ */
+
+
 /**
  * Use this function to find symbols names by patterns like '%foo_func%'
  * that will return a family of my_foo_func_1, your_foo_func_2 etc
@@ -127,7 +136,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
  * Use this function to get global symbols only. I.e. private or file-only scoped symbols
  * will NOT be returned.
  * @param filter_kinds Can be NULL. In that case we'll return all the kinds of symbols found
- * at root level [global level]. A maximum of 5 filter_kinds are admitted.
+ * at root level [global level]. A maximum of 255 filter_kinds are admitted.
  * @param include_kinds Should we include in the result the filter_kinds or not?
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
  * 		If FALSE you can have as result more symbols with the same name but different
@@ -199,7 +208,7 @@ symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
  * "scope2_name", NULL 
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
+symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe, 
 									const GPtrArray* scope_path, 
 									SymExtraInfo sym_info);
 
