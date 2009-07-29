@@ -208,12 +208,13 @@ on_value_added_current_doc (AnjutaPlugin *plugin, const gchar *name,
 {
 	AnjutaFileLoaderPlugin *fplugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
+	GFile *file;
 
 	g_free (fplugin->dm_current_uri);
 
-	if (IANJUTA_IS_FILE (doc))
+	if (IANJUTA_IS_FILE (doc) &&
+	    (file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL)))
 	{
-		GFile* file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL);
 		GFile* parent = g_file_get_parent (file);
 		fplugin->dm_current_uri = g_file_get_uri (parent);
 		g_object_unref (parent);
