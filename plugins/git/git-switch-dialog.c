@@ -58,14 +58,15 @@ on_switch_dialog_response (GtkDialog *dialog, gint response_id,
 		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 	                                                         		 "branch_combo_model"));
 
+		if (!git_check_branches (GTK_COMBO_BOX (merge_branch_combo)))
+			return;
+
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (switch_branch_combo), &iter);
 		gtk_tree_model_get (branch_combo_model, &iter, 0, &branch, -1);
 		
 
 		checkout_command = git_branch_checkout_command_new (data->plugin->project_root_directory,
 															branch);
-		
-		
 		
 		g_free (branch);
 		

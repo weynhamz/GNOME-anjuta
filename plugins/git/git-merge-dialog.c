@@ -72,6 +72,10 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 		                                                     "merge_log_view"));
 		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 		                                                             "branch_combo_model"));
+		
+		if (!git_check_branches (GTK_COMBO_BOX (merge_branch_combo)))
+			return;
+		
 		log = NULL;
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_custom_log_check)))
