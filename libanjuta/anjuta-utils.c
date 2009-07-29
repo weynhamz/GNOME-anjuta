@@ -816,6 +816,7 @@ anjuta_util_create_dir (const gchar* path)
 {
 	GFile *dir = g_file_new_for_path (path);
 	GError *err = NULL;
+	gchar *parent;
 
 	if (g_file_query_exists (dir, NULL))
 	{
@@ -832,11 +833,25 @@ anjuta_util_create_dir (const gchar* path)
 		}
 		g_object_unref (info);
 	}
-	else if (!g_file_make_directory (dir, NULL, &err))
+	else
 	{
-		g_warning ("Error directory:\n %s", err->message);
-		g_object_unref (dir);
-		return FALSE;
+		parent = g_path_get_dirname (path);
+		if (anjuta_util_create_dir (parent))
+		{
+			g_free (parent);
+			if (!g_file_make_directory (dir, NULL, &err))
+			{
+				g_warning ("Error directory:\n %s", err->message);
+				g_object_unref (dir);
+				return FALSE;
+			}
+		}
+		else
+		{
+			g_free (parent);
+			g_object_unref (dir);
+			return FALSE;
+		}
 	}
 	g_object_unref (dir);
 
