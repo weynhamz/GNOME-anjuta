@@ -139,6 +139,33 @@ git_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 }
 
 gboolean
+git_check_branches (GtkComboBox *combo_box)
+{
+	gint ret;
+	GtkWidget *parent;
+	GtkWidget *dialog;
+	
+	ret = (gtk_combo_box_get_active (combo_box) > 0);
+
+	if (!ret)
+	{
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (combo_box));
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_WARNING,
+										 GTK_BUTTONS_OK,
+		                                 "%s",
+										 _("There are no branches available."));
+		
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		
+	}
+
+	return ret;
+}
+
+gboolean
 git_get_selected_stash (GtkTreeSelection *selection, gchar **stash)
 {
 	gboolean ret;

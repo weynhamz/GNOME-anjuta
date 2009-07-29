@@ -56,6 +56,7 @@ void git_create_message_view (Git* plugin);
 gboolean git_check_input (GtkWidget *parent, GtkWidget *widget,  
 						  const gchar *input, const gchar *error_message);
 gboolean git_get_selected_stash (GtkTreeSelection *selection, gchar **stash);
+gboolean git_check_branches (GtkComboBox *combo_box);
 gchar *git_get_log_from_textview (GtkWidget* textview);
 guint git_status_bar_progress_pulse (Git *plugin, gchar *text);
 void git_clear_status_bar_progress_pulse (guint timer_id);
