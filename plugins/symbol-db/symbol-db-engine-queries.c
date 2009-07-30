@@ -2856,7 +2856,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
-			DEBUG_PRINT ("adding type %s", g_ptr_array_index (filter_kinds_array, i));
+			/*DEBUG_PRINT ("adding type %s", g_ptr_array_index (filter_kinds_array, i));*/
 			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
 			    ret_bool, ret_value);		
 			g_free (curr_str);
