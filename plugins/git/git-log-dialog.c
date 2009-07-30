@@ -965,9 +965,13 @@ log_refresh (LogData *data)
 		return;
 
 	/* Don't refresh the log if the user isn't looking at the active 
-	 * branch */
-	gtk_combo_box_get_active_iter (log_branch_combo, &iter);
-	gtk_tree_model_get (log_branch_combo_model, &iter, 2, &active, -1);
+	 * branch. In some other cases, like when initializing a new repository, 
+	 * the user will be looking at no branch. Don't try to refresh in this case
+	 * either */
+	active = FALSE;
+	
+	if (gtk_combo_box_get_active_iter (log_branch_combo, &iter))
+		gtk_tree_model_get (log_branch_combo_model, &iter, 2, &active, -1);
 
 	if (!active)
 		return;
