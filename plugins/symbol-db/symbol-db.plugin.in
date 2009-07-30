@@ -2,5 +2,6 @@
 Location=anjuta-symbol-db:SymbolDBPlugin
 Icon=anjuta-symbol-db-plugin-48.png
 _Name=Symbol Database
-_Description=Symbol Database Plugin for Anjuta (unstable).
+_Description=Symbol Database Plugin for Anjuta.
 Interfaces=IAnjutaSymbolManager
+UserActivatable=no
