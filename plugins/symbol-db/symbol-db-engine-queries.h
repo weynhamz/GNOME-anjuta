@@ -62,10 +62,14 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
  *        Please provide a pattern with '%' if you also specify a exact_match = FALSE
  * @param exact_match Should the pattern be searched for an exact match?
- * @param filter_kinds Can be NULL. In that case these filters will not be taken into consideration.
+ * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
- * @param global_symbols_search If 1 only global public function will be searched. If 0
- *		  even private or static (for C language) will be searched. -1 to be ignored.
+ * @param filescope_search If SYMSEARCH_FILESCOPE_PUBLIC only global public 
+ *		  function will be searched (the ones that _do not_ belong to the file scope). 
+ *        If SYMSEARCH_FILESCOPE_PRIVATE even private or 
+ *        static (for C language) will be searched (the ones that _do_ belong to the file scope). 
+ *        SYMSEARCH_FILESCOPE_IGNORE to be ignored (e.g. Will search both private and public scopes). 
+ *        You cannot use bitwise OR in this parameter.
  * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
  *        If yes then provide a GList, if no then pass NULL.	 
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
@@ -76,9 +80,9 @@ SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
 									const gchar *pattern, 
 									gboolean exact_match,
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,
-									gint global_symbols_search,
+									SymSearchFileScope filescope_search,
 									GList *session_projects,													   
 									gint results_limit, 
 									gint results_offset,
@@ -89,7 +93,7 @@ SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 									const gchar *pattern,
 									const gchar *full_local_file_path,
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,
 									gint results_limit,
 									gint results_offset,
@@ -101,8 +105,10 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
  * given symbol name.
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
-									 const GPtrArray *scope_path, SymExtraInfo sym_info);
+symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, 
+    								const gchar *klass_name, 
+									const GPtrArray *scope_path, 
+    								SymExtraInfo sym_info);
 
 /**
  * Use this function to get parent symbols of a given class.
@@ -135,7 +141,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 /**
  * Use this function to get global symbols only. I.e. private or file-only scoped symbols
  * will NOT be returned.
- * @param filter_kinds Can be NULL. In that case we'll return all the kinds of symbols found
+ * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
  * at root level [global level]. A maximum of 255 filter_kinds are admitted.
  * @param include_kinds Should we include in the result the filter_kinds or not?
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
@@ -146,7 +152,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds, 
 									gboolean group_them,
 									gint results_limit, 
@@ -229,14 +235,14 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
  * A filtered version of the symbol_db_engine_get_scope_members_by_symbol_id ().
  * You can specify which kind of symbols to retrieve, and if to include them or exclude.
  * Kinds are 'namespace', 'class' etc.
- * @param filter_kinds cannot be NULL.
+ * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,														  
 									gint results_limit,
 									gint results_offset,

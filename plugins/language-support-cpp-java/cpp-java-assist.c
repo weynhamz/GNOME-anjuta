@@ -356,7 +356,7 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
 														   IANJUTA_SYMBOL(symbol),
 														   IANJUTA_SYMBOL_FIELD_SIMPLE,
-														   TRUE, NULL);
+														   NULL);
 					if (members && ianjuta_iterable_get_length (members, NULL))
 					{
 						gboolean found = FALSE;
@@ -389,7 +389,7 @@ cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
 						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
 														   IANJUTA_SYMBOL(symbol),
 														   IANJUTA_SYMBOL_FIELD_SIMPLE,
-														   TRUE, NULL);
+														   NULL);
 					if (members)
 					{
 						assist->priv->completion_cache =

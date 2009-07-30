@@ -74,7 +74,6 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 {
 	SymbolDBSearchCommandPriv *priv;
 	SymbolDBEngineIterator *iterator;
-	GPtrArray *filter_array;
 	gchar *abs_file_path;	
 
 	priv = sdbsc->priv;
@@ -86,20 +85,11 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 		return NULL;
 	}
 	
-	if (priv->match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
-	{
-		filter_array = NULL;
-	}
-	else 
-	{
-		filter_array = symbol_db_util_fill_type_array (priv->match_types);
-	}
-	
 	iterator = 
 		symbol_db_engine_find_symbol_by_name_pattern_on_file (priv->dbe,
 				    priv->pattern,
 					abs_file_path,
-					filter_array,
+					priv->match_types,
 					priv->include_types,
 					priv->results_limit,
 					priv->results_offset,
@@ -115,28 +105,17 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 {
 	SymbolDBEngineIterator *iterator;
 	gboolean exact_match;
-	GPtrArray *filter_array;
-	SymbolDBSearchCommandPriv *priv;
-	
+	SymbolDBSearchCommandPriv *priv;	
 
 	priv = sdbsc->priv;
 	
 	exact_match = symbol_db_util_is_pattern_exact_match (priv->pattern);
 
-	if (priv->match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
-	{
-		filter_array = NULL;
-	}
-	else 
-	{
-		filter_array = symbol_db_util_fill_type_array (priv->match_types);
-	}
-	
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
 					priv->pattern,
 					exact_match,
-					filter_array,
+					priv->match_types,
 					priv->include_types,
 					1,
 					priv->session_packages,

@@ -240,7 +240,7 @@ typedef struct _ChildDynQueryNode {
 } DynChildQueryNode;
 
 
-/* WARNING: these must match the ones on libanjuta.idl [AnjutaSymbol::Field] */
+/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Field] */
 typedef enum {
 	SYMINFO_SIMPLE = 1,
 	SYMINFO_FILE_PATH = 2,
@@ -257,6 +257,45 @@ typedef enum {
 	
 } SymExtraInfo;
 
+/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Type] */
+typedef enum 
+{
+	SYMTYPE_UNDEF = 1,                
+	SYMTYPE_CLASS = 2,                
+	SYMTYPE_ENUM = 4,                 
+	SYMTYPE_ENUMERATOR = 8,           
+	SYMTYPE_FIELD = 16,               
+	SYMTYPE_FUNCTION = 32,            
+	SYMTYPE_INTERFACE = 64,           
+	SYMTYPE_MEMBER = 128,             
+	SYMTYPE_METHOD = 256,             
+	SYMTYPE_NAMESPACE = 512,          
+	SYMTYPE_PACKAGE = 1024,           
+	SYMTYPE_PROTOTYPE = 2048,         
+	SYMTYPE_STRUCT = 4096,            
+	SYMTYPE_TYPEDEF = 8192,           
+	SYMTYPE_UNION = 16384,            
+	SYMTYPE_VARIABLE = 32768,
+	SYMTYPE_EXTERNVAR = 65536,
+	SYMTYPE_MACRO = 131072,
+	SYMTYPE_MACRO_WITH_ARG = 262144,
+	SYMTYPE_FILE = 524288,
+	SYMTYPE_OTHER = 1048576,
+	SYMTYPE_SCOPE_CONTAINER = SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_ENUMERATOR |
+							SYMTYPE_INTERFACE | SYMTYPE_NAMESPACE | SYMTYPE_PACKAGE |
+							SYMTYPE_STRUCT | SYMTYPE_TYPEDEF | SYMTYPE_UNION,
+	SYMTYPE_MAX = 2097151,	
+		
+} SymType;
+
+/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbolManager:SearchFileScope] */
+typedef enum 
+{
+	SYMSEARCH_FILESCOPE_IGNORE = -1,
+	SYMSEARCH_FILESCOPE_PUBLIC = 1,
+	SYMSEARCH_FILESCOPE_PRIVATE = 0
+	
+} SymSearchFileScope;
 
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv

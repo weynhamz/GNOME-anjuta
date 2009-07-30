@@ -71,7 +71,7 @@ symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
  * @return a GPtrArray that must be freed from caller.
  */
 GPtrArray *
-symbol_db_util_fill_type_array (IAnjutaSymbolType match_types);
+symbol_db_util_fill_type_array (SymType match_types);
 
 /**
  * Try to get all the files with zero symbols: these should be the ones

@@ -46,7 +46,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBEngine *dbe_project;
 	SymbolDBEngine *dbe_globals;
-	GPtrArray *filter_array;
 	gchar *pattern;
 	gboolean exact_match = !partial_name_match;
 
@@ -54,17 +53,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	dbe_project = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 	dbe_globals = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
-	{
-		filter_array = NULL;
-		/*DEBUG_PRINT ("%s", "filter_array is NULL");*/
-	}
-	else 
-	{
-		filter_array = symbol_db_util_fill_type_array (match_types);
-		/*DEBUG_PRINT ("filter_array filled with %d kinds", filter_array->len);*/
-	}
-
 	if (exact_match == FALSE)
 		pattern = g_strdup_printf ("%s%%", match_name == NULL ? "" : match_name);
 	else
@@ -81,7 +69,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 					global_tags_search == FALSE ? dbe_project : dbe_globals, 
 					pattern,
 					exact_match,
-					filter_array,
+					match_types,
 					include_types,
 					global_symbols_search,
 					global_tags_search == FALSE ? NULL : sdb_plugin->session_packages,
@@ -90,11 +78,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 					info_fields);	
 	g_free (pattern);
 	
-	if (filter_array)
-	{
-		g_ptr_array_foreach (filter_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (filter_array, TRUE);
-	}
 	return IANJUTA_ITERABLE (iterator);
 }
 
@@ -102,7 +85,6 @@ IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 							 const IAnjutaSymbol *symbol, 
 							 IAnjutaSymbolField info_fields,
-							 gboolean global_search,
 							 GError **err)
 {
 	SymbolDBEngineIteratorNode *node;
@@ -261,24 +243,14 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
 {
 	SymbolDBEngineIterator *iterator;
 	gboolean exact_match;
-	GPtrArray *filter_array;
 	
 	exact_match = symbol_db_util_is_pattern_exact_match (pattern);
 
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
-	{
-		filter_array = NULL;
-	}
-	else 
-	{
-		filter_array = symbol_db_util_fill_type_array (match_types);
-	}
-	
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe,
 					pattern,
 					exact_match,
-					filter_array,
+					match_types,
 					include_types,
 					1,
 					session_packages,
@@ -485,7 +457,6 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBEngine *dbe;
 	SymbolDBEngineIterator *iterator;
-	GPtrArray *filter_array;
 	gchar *abs_file_path;
 
 	g_return_val_if_fail (file != NULL, NULL);
@@ -501,21 +472,12 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 		g_warning ("isymbol_manager_search_file (): GFile has no absolute path");
 		return NULL;
 	}
-	
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNDEF)
-	{
-		filter_array = NULL;
-	}
-	else 
-	{
-		filter_array = symbol_db_util_fill_type_array (match_types);
-	}
-	
+		
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_on_file (dbe,
 				    pattern,
 					abs_file_path,
-					filter_array,
+					match_types,
 					include_types,
 					results_limit,
 					results_offset,
