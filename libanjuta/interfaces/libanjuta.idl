@@ -4888,7 +4888,8 @@ interface IAnjutaSymbol
 	/** 
 	 * IAnjutaSymbolType:
 	 *
-	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type
+	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type. If you have to search for all the known
+	 * types use this flag because it's quicker than #IANJUTA_SYMBOL_TYPE_MAX.
 	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
 	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration 
 	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value 

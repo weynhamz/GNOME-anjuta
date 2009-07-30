@@ -786,17 +786,18 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	/*DEBUG_PRINT ("symbol_db_engine_get_global_members_filtered  () query_str is %s",
 				 dyn_node->query_str);*/
 
+
+	/* execute the query with parametes just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
 	{
 		g_ptr_array_foreach (filter_kinds_array, (GFunc)g_free, NULL);
 		g_ptr_array_free (filter_kinds_array, TRUE);
 	}
-	
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
@@ -1046,6 +1047,12 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 
 	MP_SET_HOLDER_BATCH_INT(priv, param, scope_parent_symbol_id, ret_bool, ret_value);	
 
+
+	/* execute the query with parametes just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
 	{
@@ -1053,11 +1060,6 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 		g_ptr_array_free (filter_kinds_array, TRUE);
 	}
 	
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
-		
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
 	{
@@ -2465,6 +2467,11 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	
 	/*DEBUG_PRINT ("query: %s", dyn_node->query_str);*/
 
+	/* execute the query with parametes just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
 	{
@@ -2472,11 +2479,6 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 		g_ptr_array_free (filter_kinds_array, TRUE);
 	}
 	
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
-		
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
 	{
@@ -2854,6 +2856,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
+			DEBUG_PRINT ("adding type %s", g_ptr_array_index (filter_kinds_array, i));
 			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
 			    ret_bool, ret_value);		
 			g_free (curr_str);
@@ -2889,6 +2892,11 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	/*DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
 				 dyn_node->query_str);*/
 
+	/* execute the query with parametes just set */
+	data = gda_connection_statement_execute_select (priv->db_connection, 
+												  (GdaStatement*)dyn_node->stmt, 
+												  (GdaSet*)dyn_node->plist, NULL);
+
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
 	{
@@ -2896,11 +2904,6 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		g_ptr_array_free (filter_kinds_array, TRUE);
 	}
 	
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
-		
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
 	{
