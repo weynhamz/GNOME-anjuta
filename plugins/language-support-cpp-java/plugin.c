@@ -1269,6 +1269,11 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	gboolean colon_indent = FALSE;
 	
 	g_return_val_if_fail (line > 0, 0);
+
+	/* be sure to set a default if we're in the first line otherwise
+	 * the pointer'll be left hanging with no value.
+	 */
+	*line_indent_spaces = 0;
 	
 	if (line == 1) /* First line */
 	{
