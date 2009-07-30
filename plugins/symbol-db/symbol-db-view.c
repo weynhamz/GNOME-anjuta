@@ -940,10 +940,10 @@ static void
 sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
 							 GtkTreeIter *expanded_iter, gint expanded_symbol_id) 
 {
+
 	SymbolDBViewPriv *priv;
 	SymbolDBEngineIterator *iterator;	
 	GtkTreeStore *store;
-	GPtrArray *filter_array;
 	gpointer node;
 	
 	g_return_if_fail (dbv != NULL);
@@ -960,23 +960,18 @@ sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		return;
 	}
 	
-	filter_array = g_ptr_array_new ();
-	g_ptr_array_add (filter_array, "class");
-	g_ptr_array_add (filter_array, "struct");	
-		
 	/* get results from database */
 	iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
 									expanded_symbol_id, 
-									filter_array,
+									SYMTYPE_CLASS |
+	    							SYMTYPE_STRUCT,
 									TRUE,
 									-1,
 									-1,
 									SYMINFO_SIMPLE| 
 									SYMINFO_KIND| 
 									SYMINFO_ACCESS
-									);
-
-	g_ptr_array_free (filter_array, TRUE);
+									);	
 
 	if (iterator != NULL)
 	{
@@ -1013,7 +1008,6 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	GtkTreeStore *store;
 	SymbolDBViewPriv *priv;
 	SymbolDBEngineIterator *iterator;
-	GPtrArray *filter_array;
 	gpointer node;
 	g_return_if_fail (dbv != NULL);
 	
@@ -1030,14 +1024,12 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		return;
 	}
 
-	filter_array = g_ptr_array_new ();
-	g_ptr_array_add (filter_array, "class");
-	g_ptr_array_add (filter_array, "struct");
-	
 	/* check for the presence of namespaces. 
 	 * If that's the case then populate the root with a 'Global' node.
 	 */
-	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, 
+	iterator = symbol_db_engine_get_global_members_filtered (dbe, 
+	    											SYMTYPE_CLASS |
+	    											SYMTYPE_STRUCT, 
 													TRUE, 
 													TRUE, 
 													-1,
@@ -1045,7 +1037,6 @@ sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 													SYMINFO_SIMPLE |
 												  	SYMINFO_ACCESS |
 													SYMINFO_KIND);
-	g_ptr_array_free (filter_array, TRUE);
 	
 	if (iterator != NULL)
 	{	
@@ -1082,7 +1073,6 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	SymbolDBViewPriv *priv;
 	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
-	GPtrArray *filter_array;	
 	gint positive_symbol_expanded;	
 	gpointer node;
 	
@@ -1100,14 +1090,12 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	{
 		return;
 	}
-	
-	filter_array = g_ptr_array_new ();
-	g_ptr_array_add (filter_array, "class");
-	g_ptr_array_add (filter_array, "struct");	
-		
+			
 	if (positive_symbol_expanded == ROOT_GLOBAL)
 	{
-		iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, 
+		iterator = symbol_db_engine_get_global_members_filtered (dbe, 
+		    										SYMTYPE_CLASS |
+		    										SYMTYPE_STRUCT,
 													FALSE, 
 													TRUE, 
 													-1,
@@ -1120,7 +1108,8 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	{
 		iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
 									positive_symbol_expanded, 
-									filter_array,
+									SYMTYPE_CLASS |
+		    						SYMTYPE_STRUCT,
 									FALSE,
 									-1,
 									-1,
@@ -1128,10 +1117,8 @@ sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 									SYMINFO_KIND|
 									SYMINFO_ACCESS
 									);
-	}
+	}	
 	
-	g_ptr_array_free (filter_array, TRUE);
-
 	if (iterator != NULL)
 	{		
 		NodeIdleExpand *node_expand;
@@ -1552,8 +1539,7 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	GtkTreeStore *store;
 	SymbolDBViewPriv *priv;
 	SymbolDBEngineIterator *iterator;
-	gboolean we_have_namespaces;
-	GPtrArray *filter_array;
+	gboolean we_have_namespaces;	
 	GtkTreeRowReference *global_tree_row_ref;
 	GtkTreeIter global_child_iter;
 	const GdkPixbuf *global_pixbuf;
@@ -1565,21 +1551,19 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
 	we_have_namespaces = FALSE;
-
-	filter_array = g_ptr_array_new ();
-	g_ptr_array_add (filter_array, "namespace");
 	
 	/* check for the presence of namespaces. 
 	 * If that's the case then populate the root with a 'Global' node.
 	 */
-	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, TRUE, 
+	iterator = symbol_db_engine_get_global_members_filtered (dbe, 
+	    											SYMTYPE_NAMESPACE, 
+	    											TRUE, 
 													TRUE, 
 													-1,
 													-1,
 													SYMINFO_SIMPLE |
 												  	SYMINFO_ACCESS |
 													SYMINFO_KIND);
-	g_ptr_array_free (filter_array, TRUE);
 	
 	if (iterator != NULL)
 	{

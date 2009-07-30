@@ -108,7 +108,6 @@ IAnjutaIterable*
 isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 							 const IAnjutaSymbol *symbol, 
 							 IAnjutaSymbolField info_fields,
-							 gboolean global_search,
 							 GError **err);
 
 IAnjutaIterable*

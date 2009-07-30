@@ -550,7 +550,7 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds, 
 									gboolean group_them,
 									gint results_limit, 
@@ -572,13 +572,14 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	GdaHolder *param;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GPtrArray *filter_kinds_array;
 
 	/* use to merge multiple extra_parameters flags */
 	gint other_parameters = 0;	
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
-
+	
 	SDB_LOCK(priv);
 	
 	/* check for an already flagged sym_info with KIND. SYMINFO_KIND on sym_info
@@ -586,6 +587,12 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	 */
 	sym_info = sym_info & ~SYMINFO_KIND;
 
+	/* determine the filter_kinds thing */
+	if (filter_kinds == SYMTYPE_UNDEF)
+		filter_kinds_array = NULL;
+	else
+		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
+	
 	if (group_them == TRUE)
 	{
 		other_parameters |= DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_GROUP_YES;
@@ -614,7 +621,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	/* test if user gave an array with more than 255 filter_kinds. In that case
 	 * we'll not be able to save/handle it, so consider it as a NULL array 
 	 */
-	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
+	if (filter_kinds_array == NULL || filter_kinds_array->len > 255 || filter_kinds_array->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 					DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
@@ -665,7 +672,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		}
 		
 		/* set the number of parameters in the less important byte */
-		other_parameters |= filter_kinds->len;
+		other_parameters |= filter_kinds_array->len;
 		
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 				DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
@@ -697,7 +704,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
 			}
 			
-			for (i = 1; i < filter_kinds->len; i++)
+			for (i = 1; i < filter_kinds_array->len; i++)
 			{				
 				g_string_append_printf (filter_str , 
 						",## /* name:'filter%d' type:gchararray */", i);
@@ -765,12 +772,12 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		other_parameters & DYN_GET_GLOBAL_MEMBERS_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
 		gint i;
-		for (i = 0; i < filter_kinds->len; i++)
+		for (i = 0; i < filter_kinds_array->len; i++)
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
 
-			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds, i), 
+			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
 									ret_bool, ret_value);
 			g_free (curr_str);
 		}
@@ -778,6 +785,13 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 
 	/*DEBUG_PRINT ("symbol_db_engine_get_global_members_filtered  () query_str is %s",
 				 dyn_node->query_str);*/
+
+	/* free the filter kinds, if it's not null */
+	if (filter_kinds_array)
+	{
+		g_ptr_array_foreach (filter_kinds_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (filter_kinds_array, TRUE);
+	}
 	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
@@ -824,7 +838,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,
 									gint results_limit,
 									gint results_offset,
@@ -845,6 +859,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	GdaHolder *param;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GPtrArray *filter_kinds_array;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -860,6 +875,12 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	/* syminfo kind is already included in results */
 	sym_info = sym_info & ~SYMINFO_KIND;
 
+	/* determine the filter_kinds thing */
+	if (filter_kinds == SYMTYPE_UNDEF)
+		filter_kinds_array = NULL;
+	else
+		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
+	
 	/* init parameters */
 	other_parameters = 0;	
 
@@ -894,11 +915,11 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	/* we'll take into consideration the number of filter_kinds only it the number
 	 * is fillable in a byte.
 	 */
-	if (filter_kinds != NULL && filter_kinds->len < 255 
-		&& filter_kinds->len > 0)
+	if (filter_kinds_array != NULL && filter_kinds_array->len < 255 
+		&& filter_kinds_array->len > 0)
 	{		
 		/* set the number of parameters in the less important byte */
-		other_parameters |= filter_kinds->len;	
+		other_parameters |= filter_kinds_array->len;	
 	}
 	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
@@ -930,7 +951,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 				"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
 		}
 		
-		for (i = 1; i < filter_kinds->len; i++)
+		for (i = 1; i < filter_kinds_array->len; i++)
 		{				
 			g_string_append_printf (filter_str , 
 					",## /* name:'filter%d' type:gchararray */", i);
@@ -1006,12 +1027,12 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 			DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
 		gint i;
-		for (i = 0; i < filter_kinds->len; i++)
+		for (i = 0; i < filter_kinds_array->len; i++)
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
 			
-			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds, i), 
+			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
 									ret_bool, ret_value);
 			g_free (curr_str);
 		}
@@ -1025,6 +1046,13 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 
 	MP_SET_HOLDER_BATCH_INT(priv, param, scope_parent_symbol_id, ret_bool, ret_value);	
 
+	/* free the filter kinds, if it's not null */
+	if (filter_kinds_array)
+	{
+		g_ptr_array_foreach (filter_kinds_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (filter_kinds_array, TRUE);
+	}
+	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
@@ -2176,7 +2204,7 @@ SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 									const gchar *pattern,
 									const gchar *full_local_file_path,
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,
 									gint results_limit,
 									gint results_offset,
@@ -2199,6 +2227,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	GValue *ret_value;
 	gboolean ret_bool;	
 	gchar *db_rel_path;
+	GPtrArray *filter_kinds_array;
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -2213,7 +2242,12 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	other_parameters = 0;
 	dyn_node = NULL;
 
-
+	/* determine the filter_kinds thing */
+	if (filter_kinds == SYMTYPE_UNDEF)
+		filter_kinds_array = NULL;
+	else
+		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
+	
 	/* check for match */
 	if (g_strrstr (pattern, "%") == NULL)
 	{
@@ -2242,7 +2276,8 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");		
 	}
 	
-	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
+	if (filter_kinds_array == NULL || filter_kinds_array->len > 255 || 
+	    filter_kinds_array->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 			DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE, sym_info, 
@@ -2293,7 +2328,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 		}
 
 		/* set the number of parameters in the less important byte */
-		other_parameters |= filter_kinds->len;
+		other_parameters |= filter_kinds_array->len;
 		
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 				DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE, sym_info, 
@@ -2318,7 +2353,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 			{				
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
-				for (i = 1; i < filter_kinds->len; i++)
+				for (i = 1; i < filter_kinds_array->len; i++)
 				{				
 					g_string_append_printf (filter_str , 
 							",## /* name:'filter%d' type:gchararray */", i);
@@ -2329,7 +2364,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 			{
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
-				for (i = 1; i < filter_kinds->len; i++)
+				for (i = 1; i < filter_kinds_array->len; i++)
 				{				
 					g_string_append_printf (filter_str , 
 							",## /* name:'filter%d' type:gchararray */", i);
@@ -2399,11 +2434,12 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 		other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILE_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
 		gint i;
-		for (i = 0; i < filter_kinds->len; i++)
+		for (i = 0; i < filter_kinds_array->len; i++)
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
-			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds, i), ret_bool, ret_value);		
+			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
+			    ret_bool, ret_value);		
 			g_free (curr_str);
 		}
 	}
@@ -2428,7 +2464,14 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	MP_SET_HOLDER_BATCH_STR(priv, param, db_rel_path, ret_bool, ret_value);
 	
 	/*DEBUG_PRINT ("query: %s", dyn_node->query_str);*/
-		
+
+	/* free the filter kinds, if it's not null */
+	if (filter_kinds_array)
+	{
+		g_ptr_array_foreach (filter_kinds_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (filter_kinds_array, TRUE);
+	}
+	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
@@ -2490,9 +2533,9 @@ SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
 									const gchar *pattern, 
 									gboolean exact_match,
-									const GPtrArray *filter_kinds,
+									SymType filter_kinds,
 									gboolean include_kinds,
-									gint global_symbols_search,
+									SymSearchFileScope filescope_search,
 									GList *session_projects,
 									gint results_limit, 
 									gint results_offset,
@@ -2515,6 +2558,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	gboolean offset_free = FALSE;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GPtrArray *filter_kinds_array;
 	
 
 	g_return_val_if_fail (dbe != NULL, NULL);
@@ -2528,6 +2572,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	other_parameters = 0;
 	dyn_node = NULL;
 
+	/* determine the filter_kinds thing */
+	if (filter_kinds == SYMTYPE_UNDEF)
+		filter_kinds_array = NULL;
+	else
+		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
+	
 	
 	/* check for a null pattern. If NULL we'll set a patter like '%' 
 	 * and exact_match = FALSE . In this way we will match everything.
@@ -2553,19 +2603,19 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
 	}
 	
-	if (global_symbols_search == 1)
+	if (filescope_search == SYMSEARCH_FILESCOPE_PUBLIC)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES;
 		file_scope_str = " AND symbol.is_file_scope = 0 ";
 	}
-	else if (global_symbols_search == 0)
+	else if (filescope_search == SYMSEARCH_FILESCOPE_PRIVATE)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO;
 		file_scope_str = " AND symbol.is_file_scope = 1 ";
 	}
-	else 	/* -1 */
+	else 	/* SYMSEARCH_FILESCOPE_IGNORE */
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_IGNORE;
@@ -2602,7 +2652,8 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		}
 	}
 	
-	if (filter_kinds == NULL || filter_kinds->len > 255 || filter_kinds->len <= 0) 
+	if (filter_kinds_array == NULL || filter_kinds_array->len > 255 || 
+	    filter_kinds_array->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 			DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
@@ -2674,7 +2725,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		}
 
 		/* set the number of parameters in the less important byte */
-		other_parameters |= filter_kinds->len;
+		other_parameters |= filter_kinds_array->len;
 		
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 				DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED, sym_info, 
@@ -2700,7 +2751,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			{				
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name IN (## /* name:'filter0' type:gchararray */");		
-				for (i = 1; i < filter_kinds->len; i++)
+				for (i = 1; i < filter_kinds_array->len; i++)
 				{				
 					g_string_append_printf (filter_str , 
 							",## /* name:'filter%d' type:gchararray */", i);
@@ -2711,7 +2762,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			{
 				filter_str = g_string_append (filter_str , 
 					"AND sym_kind.kind_name NOT IN (## /* name:'filter0' type:gchararray */");
-				for (i = 1; i < filter_kinds->len; i++)
+				for (i = 1; i < filter_kinds_array->len; i++)
 				{				
 					g_string_append_printf (filter_str , 
 							",## /* name:'filter%d' type:gchararray */", i);
@@ -2799,11 +2850,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		other_parameters & DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_INCLUDE_KINDS_NO)
 	{	
 		gint i;
-		for (i = 0; i < filter_kinds->len; i++)
+		for (i = 0; i < filter_kinds_array->len; i++)
 		{
 			gchar *curr_str = g_strdup_printf ("filter%d", i);
 			param = gda_set_get_holder ((GdaSet*)dyn_node->plist, curr_str);
-			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds, i), ret_bool, ret_value);		
+			MP_SET_HOLDER_BATCH_STR(priv, param, g_ptr_array_index (filter_kinds_array, i), 
+			    ret_bool, ret_value);		
 			g_free (curr_str);
 		}
 	}
@@ -2836,7 +2888,14 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	
 	/*DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
 				 dyn_node->query_str);*/
-		
+
+	/* free the filter kinds, if it's not null */
+	if (filter_kinds_array)
+	{
+		g_ptr_array_foreach (filter_kinds_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (filter_kinds_array, TRUE);
+	}
+	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 

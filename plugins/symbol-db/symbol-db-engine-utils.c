@@ -319,117 +319,117 @@ symbol_db_util_is_pattern_exact_match (const gchar *pattern)
 }
 
 GPtrArray *
-symbol_db_util_fill_type_array (IAnjutaSymbolType match_types)
+symbol_db_util_fill_type_array (SymType match_types)
 {
 	GPtrArray *filter_array;
 	filter_array = g_ptr_array_new ();
 
-	if (match_types & IANJUTA_SYMBOL_TYPE_CLASS)
+	if (match_types & SYMTYPE_CLASS)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("class"));
 	}
 
-	if (match_types & IANJUTA_SYMBOL_TYPE_ENUM)
+	if (match_types & SYMTYPE_ENUM)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("enum"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_ENUMERATOR)
+	if (match_types & SYMTYPE_ENUMERATOR)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("enumerator"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FIELD)
+	if (match_types & SYMTYPE_FIELD)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("field"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FUNCTION)
+	if (match_types & SYMTYPE_FUNCTION)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("function"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_INTERFACE)
+	if (match_types & SYMTYPE_INTERFACE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("interface"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MEMBER)
+	if (match_types & SYMTYPE_MEMBER)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("member"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_METHOD)
+	if (match_types & SYMTYPE_METHOD)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("method"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_NAMESPACE)
+	if (match_types & SYMTYPE_NAMESPACE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("namespace"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_PACKAGE)
+	if (match_types & SYMTYPE_PACKAGE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("package"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_PROTOTYPE)
+	if (match_types & SYMTYPE_PROTOTYPE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("prototype"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
+	if (match_types & SYMTYPE_STRUCT)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("struct"));
 	}
 
-	if (match_types & IANJUTA_SYMBOL_TYPE_TYPEDEF)
+	if (match_types & SYMTYPE_TYPEDEF)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("typedef"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
+	if (match_types & SYMTYPE_STRUCT)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("struct"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_UNION)
+	if (match_types & SYMTYPE_UNION)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("union"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
+	if (match_types & SYMTYPE_VARIABLE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("variable"));
 	}
 				
-	if (match_types & IANJUTA_SYMBOL_TYPE_EXTERNVAR)
+	if (match_types & SYMTYPE_EXTERNVAR)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("externvar"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO)
+	if (match_types & SYMTYPE_MACRO)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("macro"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG)
+	if (match_types & SYMTYPE_MACRO_WITH_ARG)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("macro_with_arg"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_FILE)
+	if (match_types & SYMTYPE_FILE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("file"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
+	if (match_types & SYMTYPE_VARIABLE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("variable"));
 	}
 	
-	if (match_types & IANJUTA_SYMBOL_TYPE_OTHER)
+	if (match_types & SYMTYPE_OTHER)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("other"));
 	}

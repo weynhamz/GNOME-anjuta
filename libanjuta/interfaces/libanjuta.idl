@@ -4909,6 +4909,7 @@ interface IAnjutaSymbol
 	 * @IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG: Parameterized macro 
 	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
 	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
+	 * @IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER: types which are subjected to create a scope.
 	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values.
 	 */                   
 	enum Type               
@@ -4934,6 +4935,7 @@ interface IAnjutaSymbol
 		TYPE_MACRO_WITH_ARG = 262144,  
 		TYPE_FILE = 524288,            
 		TYPE_OTHER = 1048576,          
+		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,		
 		TYPE_MAX = 2097151             
 	}
 
@@ -5115,6 +5117,23 @@ interface IAnjutaSymbolManager
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
+	/** 
+	 * IAnjutaSymbolManagerSearchFileScope: 
+	 *
+	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE: to be ignored (e.g. Will search both private and public scopes). 
+ 	 * You cannot use bitwise OR in this parameter.
+	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC: only global public function will be searched 
+ 	 * (the ones that _do not_ belong to the file scope). 
+	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE: even private or static (for C language) will be searched 
+     * (the ones that _do_ belong to the file scope). 
+	 */	
+	enum SearchFileScope
+	{
+		SEARCH_FS_IGNORE = -1,
+		SEARCH_FS_PUBLIC = 1,
+		SEARCH_FS_PRIVATE = 0		
+	}
+	
 	/**
 	* ianjuta_symbol_manager_search:
 	* @obj: Self
@@ -5125,8 +5144,9 @@ interface IAnjutaSymbolManager
 	* @match_name: fixme
 	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
 	* 					string match_name.
-	* @global_symbols_search: if TRUE it will search only for public/extern functions. 
-	* 						If FALSE it will search also for static/private functions.
+	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
 	* @global_tags_search: If TRUE it'll search only for system tags, using pkg-config to retrieve installed packages
 	* info. If FALSE only current project's symbols will be searched.
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
@@ -5139,7 +5159,7 @@ interface IAnjutaSymbolManager
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
 	*/
-	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, gboolean global_symbols_search, gboolean global_tags_search, gint results_limit, gint results_offset);
+	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, SearchFileScope filescope_search, gboolean global_tags_search, gint results_limit, gint results_offset);
 	
 	/**
 	* ianjuta_symbol_manager_search_system:
@@ -5300,7 +5320,6 @@ interface IAnjutaSymbolManager
 	* ianjuta_symbol_manager_get_members:
 	* @obj: Self
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @global_search: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
@@ -5308,7 +5327,7 @@ interface IAnjutaSymbolManager
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.	
 	* 
 	*/
-	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields, gboolean global_search);
+	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
 	
 	/**
 	* ianjuta_symbol_manager_get_parents:
