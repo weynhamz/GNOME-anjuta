@@ -85,6 +85,8 @@
 				</placeholder>
 				<separator />
 				<menuitem name="View log..." action="ActionGitLog" />
+				<separator />
+				<menuitem name="Initialize repository" action="ActionGitInit" />
 			</placeholder>
 		</menu>
 		</placeholder>

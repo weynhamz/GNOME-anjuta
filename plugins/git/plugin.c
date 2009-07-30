@@ -52,6 +52,7 @@
 #include "git-stash-changes-dialog.h"
 #include "git-stash-widget.h"
 #include "git-apply-stash-dialog.h"
+#include "git-init-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
@@ -439,7 +440,15 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		N_("View change history"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_log)    /* action callback */
-	}
+	},
+	{
+		"ActionGitInit",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Initialize repository"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Create a new git repository or reinitialize an existing one"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_init)    /* action callback */
+	},
 };
 
 static GtkActionEntry actions_log[] =
