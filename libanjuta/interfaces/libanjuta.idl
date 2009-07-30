@@ -4911,7 +4911,8 @@ interface IAnjutaSymbol
 	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
 	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
 	 * @IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER: types which are subjected to create a scope.
-	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values.
+	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values. You can reach
+	 * the same result using IANJUTA_SYMBOL_TYPE_UNDEF, which is much faster.
 	 */                   
 	enum Type               
 	{
@@ -5138,7 +5139,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5165,7 +5166,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_system:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5187,7 +5188,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_project_async:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5213,7 +5214,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_project:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5234,7 +5235,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_project_async:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5260,7 +5261,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_file:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
@@ -5282,7 +5283,7 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_search_file_async:
 	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_MAX the function will not perfom any filter.
+	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.

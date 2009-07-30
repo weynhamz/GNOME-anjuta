@@ -518,7 +518,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 			if (file != NULL)
 			{				
 				IAnjutaIterable* iter_file = ianjuta_symbol_manager_search_file (assist->priv->isymbol_manager,
-																				 IANJUTA_SYMBOL_TYPE_MAX,
+																				 IANJUTA_SYMBOL_TYPE_UNDEF,
 																				 TRUE,
 																				 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 																				 pattern, file, -1, -1, NULL);
@@ -534,14 +534,14 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		
 		IAnjutaIterable* iter_project = 
 			ianjuta_symbol_manager_search_project (assist->priv->isymbol_manager,
-										   IANJUTA_SYMBOL_TYPE_MAX,
+										   IANJUTA_SYMBOL_TYPE_UNDEF,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										   pattern, -1, -1, NULL);
 		
 		IAnjutaIterable* iter_globals = 
 			ianjuta_symbol_manager_search_system (assist->priv->isymbol_manager,
-										   IANJUTA_SYMBOL_TYPE_MAX,
+										   IANJUTA_SYMBOL_TYPE_UNDEF,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 										   pattern, -1, -1, NULL);
