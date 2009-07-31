@@ -5025,7 +5025,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	/* ok: was the symbol updated [at least on it's type_id/name]? 
 	 * There are 3 cases:
-	 * #1. The symbol remain the same [at least on unique index key]. We will 
+	 * #1. The symbol remains the same [at least on unique index key]. We will 
 	 *     perform only a simple update.
 	 * #2. The symbol has changed: at least on name/type/file. We will insert a 
 	 *     new symbol on table 'symbol'. Deletion of old one will take place 

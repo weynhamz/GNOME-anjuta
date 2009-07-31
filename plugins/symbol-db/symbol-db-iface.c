@@ -571,3 +571,67 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->search_file = isymbol_manager_search_file;
 	iface->search_file_async = isymbol_manager_search_file_async;	
 }
+
+void
+on_isymbol_manager_prj_symbol_inserted (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "prj-symbol-inserted", symbol_id);
+}
+
+void
+on_isymbol_manager_prj_symbol_removed (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "prj-symbol-removed", symbol_id);
+}
+
+void
+on_isymbol_manager_prj_symbol_updated (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "prj-symbol-updated", symbol_id);
+}
+
+void
+on_isymbol_manager_prj_scan_end (SymbolDBEngine *dbe,
+    								gint process_id,
+    								IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "prj-scan-end", process_id);
+}
+
+void
+on_isymbol_manager_sys_symbol_inserted (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "sys-symbol-inserted", symbol_id);
+}
+
+void
+on_isymbol_manager_sys_symbol_removed (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "sys-symbol-removed", symbol_id);
+}
+
+void
+on_isymbol_manager_sys_symbol_updated (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "sys-symbol-updated", symbol_id);
+}
+
+void
+on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
+    								gint process_id,
+    								IAnjutaSymbolManager *sm)
+{
+	g_signal_emit_by_name (sm, "sys-scan-end", process_id);
+}

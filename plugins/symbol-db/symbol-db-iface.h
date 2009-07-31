@@ -123,6 +123,46 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						gint results_offset,
 						GError **err);
 
+void
+on_isymbol_manager_prj_symbol_inserted (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_prj_symbol_removed (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_prj_symbol_updated (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_prj_scan_end (SymbolDBEngine *dbe,
+    								gint process_id,
+    								IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_sys_symbol_inserted (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_sys_symbol_removed (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_sys_symbol_updated (SymbolDBEngine *dbe,
+    									gint symbol_id,
+    									IAnjutaSymbolManager *sm);
+
+void
+on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,    								
+    								gint process_id,
+    								IAnjutaSymbolManager *sm);
+
 #endif /* _SYMBOL_DB_IFACE_H_ */
 
 

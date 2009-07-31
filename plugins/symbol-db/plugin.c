@@ -2293,8 +2293,34 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
 		  		G_CALLBACK (on_scan_end_manager), sdb_plugin);
+
+	/* connect signals for interface to receive them */
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "symbol-inserted",
+				G_CALLBACK (on_isymbol_manager_sys_symbol_inserted), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "symbol-updated",
+				G_CALLBACK (on_isymbol_manager_sys_symbol_updated), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "symbol-removed",
+				G_CALLBACK (on_isymbol_manager_sys_symbol_removed), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "scan-end",
+				G_CALLBACK (on_isymbol_manager_sys_scan_end), sdb_plugin);
 	
-	/* sets preferences to NULL, it'll be instantiated when required.\ */
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "symbol-inserted",
+				G_CALLBACK (on_isymbol_manager_prj_symbol_inserted), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "symbol-updated",
+				G_CALLBACK (on_isymbol_manager_prj_symbol_updated), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "symbol-removed",
+				G_CALLBACK (on_isymbol_manager_prj_symbol_inserted), sdb_plugin);
+	
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
+				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
+
+	
+	/* sets preferences to NULL, it'll be instantiated when required. */
 	sdb_plugin->sdbp = NULL;
 	
 	/* Create widgets */
