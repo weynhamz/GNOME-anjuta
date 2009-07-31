@@ -10,6 +10,38 @@ static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 }
 
 static void
+find_symbol_in_scope (SymbolDBEngine *dbe)
+{
+	SymbolDBEngineIterator *iter;
+	DEBUG_PRINT ("");	
+		
+	iter = symbol_db_engine_find_symbol_in_scope (dbe, 
+	    "%", 
+	    1,
+	    SYMTYPE_UNDEF,
+	    TRUE,	    
+	    -1,
+	    -1,
+	    SYMINFO_SIMPLE);
+
+	if (iter == NULL)
+	{
+		g_warning ("Iterator null");
+		return;
+	}
+
+	do {
+		SymbolDBEngineIteratorNode *node;
+
+		node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+
+		DEBUG_PRINT ("node name %s", 
+		    symbol_db_engine_iterator_node_get_symbol_name (node));
+		
+	} while (symbol_db_engine_iterator_move_next (iter) == TRUE);	
+}
+
+static void
 find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe)
 {	
 	SymbolDBEngineIterator *iter;
@@ -17,8 +49,7 @@ find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe)
 		
 	iter = symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe, 
 	    "TwoC", 
-	    TRUE,
-	    SYMTYPE_MAX,
+	    SYMTYPE_UNDEF,
 	    TRUE,
 	    SYMSEARCH_FILESCOPE_IGNORE,
 	    NULL,
@@ -85,7 +116,9 @@ do_test_queries (SymbolDBEngine* dbe)
     
 //	get_scope_members_by_path (dbe);
 
-	find_symbol_by_name_pattern_filtered (dbe);
+//	find_symbol_by_name_pattern_filtered (dbe);
+
+	find_symbol_in_scope (dbe);
 }
 
 static void 

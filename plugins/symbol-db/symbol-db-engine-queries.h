@@ -59,9 +59,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 									SymExtraInfo sym_info);
 
 /**
- * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
- *        Please provide a pattern with '%' if you also specify a exact_match = FALSE
- * @param exact_match Should the pattern be searched for an exact match?
+ * @param pattern Pattern you want to search for. It cannot be NULL. If you want to search for
+ *        everything then use a pattern like "%".
  * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
  * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
  * @param filescope_search If SYMSEARCH_FILESCOPE_PUBLIC only global public 
@@ -79,7 +78,6 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe, 
 									const gchar *pattern, 
-									gboolean exact_match,
 									SymType filter_kinds,
 									gboolean include_kinds,
 									SymSearchFileScope filescope_search,
@@ -88,7 +86,15 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									gint results_offset,
 									SymExtraInfo sym_info);
 
-
+/**
+ * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
+ * @param full_local_file_path Path of the file you want to search in.
+ * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
+ * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par.
+ * @param sym_info Infos about symbols you want to know.
+ */
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 									const gchar *pattern,
@@ -98,6 +104,29 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 									gint results_limit,
 									gint results_offset,
 									SymExtraInfo sym_info);
+
+/**
+ * Usually, for instance in a completion engine we have to search for symbols
+ * that are part of a container symbol, even for their existence.
+ * This function would be useful and fast in those cases.
+ *
+ * @param pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
+ * @param container_symbol_id The container symbol id where you want to search in.
+ * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
+ * @param include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
+ * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ * @param results_offset Skip results_offset results. -1 If you don't want to use this par.
+ * @param sym_info Infos about symbols you want to know. 
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
+    								const gchar *pattern,
+    								gint container_symbol_id,
+									SymType filter_kinds,
+									gboolean include_kinds,
+									gint results_limit,
+									gint results_offset,    
+    								SymExtraInfo sym_info);
 
 /**
  * Return an iterator to the data retrieved from database. 

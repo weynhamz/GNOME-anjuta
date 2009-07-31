@@ -2387,6 +2387,10 @@ sdb_engine_init (SymbolDBEngine * object)
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
 									TRUE);
+
+	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
+									DYN_PREP_QUERY_FIND_SYMBOL_IN_SCOPE,
+									TRUE);	
 	
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
