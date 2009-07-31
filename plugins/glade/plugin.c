@@ -2155,7 +2155,7 @@ goto_symbol (const gchar *handler_name, GladePlugin* plugin,
 			                               IANJUTA_SYMBOL_TYPE_FUNCTION, TRUE,
 			                               do_goto ? IANJUTA_SYMBOL_FIELD_FILE_PATH :
 			                               IANJUTA_SYMBOL_FIELD_SIMPLE,
-			                               handler_name, FALSE, FALSE, FALSE,
+			                               handler_name, FALSE, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE, FALSE,
 			                               1, -1, &error);
 		if (error)
 		{
@@ -3430,7 +3430,7 @@ append_symbols_to_store (GtkListStore *store, GladePlugin *plugin)
 		ianjuta_symbol_manager_search (symbol_manager,
 		                               IANJUTA_SYMBOL_TYPE_FUNCTION, TRUE,
 		                               IANJUTA_SYMBOL_FIELD_SIMPLE,
-		                               "", TRUE, FALSE, FALSE,
+		                               "", TRUE, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE, FALSE,
 		                               MAX_COMPLETION_STORE_SYMBOLS, -1,
 		                               &error);
 	if (error)
