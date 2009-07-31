@@ -145,7 +145,7 @@ git_check_branches (GtkComboBox *combo_box)
 	GtkWidget *parent;
 	GtkWidget *dialog;
 	
-	ret = (gtk_combo_box_get_active (combo_box) > 0);
+	ret = (gtk_combo_box_get_active (combo_box) > -1);
 
 	if (!ret)
 	{
