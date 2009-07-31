@@ -191,7 +191,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 /** 
  * No iterator for now. We need the quickest query possible.
  * @param scoped_symbol_id Symbol you want to know the parent of.
- * @param db_file db-relative filename path. eg. /src/foo.c
+ * @param db_file db-relative filename path. eg. /src/foo.c Can be NULL.
  */
 gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
