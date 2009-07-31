@@ -5120,12 +5120,12 @@ interface IAnjutaSymbolManager
 
 	/** 
 	 * IAnjutaSymbolManagerSearchFileScope: 
+ 	 * You cannot use bitwise OR in this parameter.	 
 	 *
 	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE: to be ignored (e.g. Will search both private and public scopes). 
- 	 * You cannot use bitwise OR in this parameter.
 	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC: only global public function will be searched 
  	 * (the ones that _do not_ belong to the file scope). 
-	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE: even private or static (for C language) will be searched 
+	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE: only private or static (for C language) will be searched 
      * (the ones that _do_ belong to the file scope). 
 	 */	
 	enum SearchFileScope

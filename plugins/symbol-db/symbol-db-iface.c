@@ -36,7 +36,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						IAnjutaSymbolField info_fields,
 						const gchar *match_name,
 						gboolean partial_name_match,
-						gboolean global_symbols_search,
+						IAnjutaSymbolManagerSearchFileScope filescope_search,
 						gboolean global_tags_search,
 						gint results_limit,
 						gint results_offset,
@@ -57,10 +57,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		pattern = g_strdup_printf ("%s%%", match_name == NULL ? "" : match_name);
 	else
 	{
-		if (match_name == NULL)
-			pattern = NULL;
-		else
-			pattern = g_strdup_printf ("%s", match_name);
+		pattern = g_strdup_printf ("%s", match_name == NULL ? "%" : match_name);
 	}
 	
 	/* should we lookup for project of system tags? */
@@ -68,10 +65,9 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (
 					global_tags_search == FALSE ? dbe_project : dbe_globals, 
 					pattern,
-					exact_match,
 					match_types,
 					include_types,
-					global_symbols_search,
+					filescope_search,
 					global_tags_search == FALSE ? NULL : sdb_plugin->session_packages,
 					results_limit,
 					results_offset,
@@ -242,17 +238,13 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
            GList *session_packages)
 {
 	SymbolDBEngineIterator *iterator;
-	gboolean exact_match;
 	
-	exact_match = symbol_db_util_is_pattern_exact_match (pattern);
-
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (dbe,
 					pattern,
-					exact_match,
 					match_types,
 					include_types,
-					1,
+					SYMSEARCH_FILESCOPE_PUBLIC,
 					session_packages,
 					results_limit,
 					results_offset,

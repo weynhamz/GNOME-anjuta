@@ -104,20 +104,16 @@ static SymbolDBEngineIterator *
 do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 {
 	SymbolDBEngineIterator *iterator;
-	gboolean exact_match;
 	SymbolDBSearchCommandPriv *priv;	
 
 	priv = sdbsc->priv;
-	
-	exact_match = symbol_db_util_is_pattern_exact_match (priv->pattern);
 
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
 					priv->pattern,
-					exact_match,
 					priv->match_types,
 					priv->include_types,
-					1,
+					SYMSEARCH_FILESCOPE_PUBLIC,
 					priv->session_packages,
 					priv->results_limit,
 					priv->results_offset,
