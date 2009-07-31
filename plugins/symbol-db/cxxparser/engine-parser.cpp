@@ -226,20 +226,40 @@ EngineParser::processExpression(const string& stmt,
 					symbol_db_engine_find_symbol_by_name_pattern_filtered (
 		    			_dbe, prev_token_type_name.c_str (), 
 					    SYMTYPE_SCOPE_CONTAINER, TRUE, 
-					    SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
-		    			-1, SYMINFO_SIMPLE);
-			do {
+					    SYMSEARCH_FILESCOPE_IGNORE, NULL, 1, 
+		    			-1, (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+			if (curr_searchable_scope != NULL)
+			{
 				SymbolDBEngineIteratorNode *node;
 
 				node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
 	
 				cout << "Current Searchable Scope " <<
-		    		symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
-		
-			} while (symbol_db_engine_iterator_move_next (curr_searchable_scope) == TRUE);
+		    		symbol_db_engine_iterator_node_get_symbol_name (node) << 					
+					" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
+					endl;
 
-			/* reset it to first position */
-			symbol_db_engine_iterator_first (curr_searchable_scope);
+				/* is it a typedef? In that case find the parent struct */
+				if (g_strcmp0 (symbol_db_engine_iterator_node_get_symbol_extra_string (node,
+				    SYMINFO_KIND), "typedef") == 0)
+				{
+					cout << "it's a struct!" << endl;
+					int struct_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (_dbe, 
+					    symbol_db_engine_iterator_node_get_symbol_id (node),
+					    NULL);
+
+					g_object_unref (curr_searchable_scope);
+					curr_searchable_scope = symbol_db_engine_get_symbol_info_by_id (_dbe,
+					    struct_id,
+					    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+
+					node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+					cout << "(NEW) Current Searchable Scope " <<
+						symbol_db_engine_iterator_node_get_symbol_name (node) << 					
+						" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
+						endl;					
+				}
+			}
 		}
 		
 		cout << "--------\nCurrent token \"" << current_token << "\" with op " << op << endl; 
@@ -289,6 +309,10 @@ EngineParser::processExpression(const string& stmt,
 			else 
 			{
 				cout << "Good element " << result.m_name << endl;
+				out_type_name = result.m_name;
+				out_type_scope = symbol_db_engine_iterator_node_get_symbol_name (node);
+				evaluation_succeed = true;
+				continue;
 			}
 
 			// FIXME iter?

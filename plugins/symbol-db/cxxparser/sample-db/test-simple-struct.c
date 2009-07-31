@@ -1,11 +1,11 @@
 
 
-struct asd {
+struct _asd {
 	char a; 
 	int b; 
 };
 	
 
 void main () { 
-	asd var; 
+	_asd var; 
 	var.

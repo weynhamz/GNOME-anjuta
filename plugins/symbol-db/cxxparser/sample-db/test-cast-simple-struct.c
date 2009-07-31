@@ -1,15 +1,15 @@
 
 
-struct asd {
+struct _asd {
 	char a; 
 	int b; 
 };
 
-struct foo {
+struct _foo {
 	char c;
 	void *d;
 };
 
 void main () { 
-	asd var; 
-	((foo)var).
+	_asd var; 
+	((_foo)var).
