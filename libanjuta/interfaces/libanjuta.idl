@@ -5119,6 +5119,102 @@ interface IAnjutaSymbolManager
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
+	/**
+	 * IAnjutaSymbolManager::prj_scan_end:
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when a scanning of one or more files on project db
+	 * ends. 
+	 */
+	void ::prj_scan_end (gint process_id);
+
+	/**
+	 * IAnjutaSymbolManager::prj_symbol_inserted:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is added to project db.
+	 * The chain of symbols emitted is inserted, scan-end, removed.
+	 */
+	void ::prj_symbol_inserted (gint symbol_id);
+
+	
+	/**
+	 * IAnjutaSymbolManager::prj_symbol_removed:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is removed from project db.
+	 * The chain of symbols emitted is inserted, scan-end, removed.
+	 */
+	void ::prj_symbol_removed (gint symbol_id);
+
+	/**
+	 * IAnjutaSymbolManager::prj_symbol_updated:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is updated on project db.
+	 * For 'update' we mean updating on all the fields which are not its primary key.
+	 * Be sure to consider the following cases (comment from the core): 
+	 *
+	 * #1. The symbol remains the same [at least on unique index key]. We will 
+	 *     perform only a simple update.
+	 * #2. The symbol has changed: at least on name/type/file. We will insert a 
+	 *     new symbol on table 'symbol'. Deletion of old one will take place 
+	 *     at a second stage, when a delete of all symbols with 
+	 *     'tmp_flag = 0' will be done.
+	 * #3. The symbol has been deleted. As above it will be deleted at 
+	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
+	 *     also scope_ids and other things.
+	 */
+	void ::prj_symbol_updated (gint symbol_id);
+
+	/**
+	 * IAnjutaSymbolManager::sys_scan_end:
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when a scanning of one or more packages on system db
+	 * ends. This signal doesn't mean that all the scan process for the packages
+	 * is ended, but that just one (or more) is (are).
+	 */
+	void ::sys_scan_end (gint process_id);
+
+	/**
+	 * IAnjutaSymbolManager::sys_symbol_inserted:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is added to system db.
+	 * The chain of symbols emitted is inserted, scan-end, removed.
+	 */	
+	void ::sys_symbol_inserted (gint symbol_id);	
+
+	/**
+	 * IAnjutaSymbolManager::sys_symbol_removed:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is removed from system db.
+	 * The chain of symbols emitted is inserted, scan-end, removed.
+	 */	
+	void ::sys_symbol_removed (gint symbol_id);	
+
+	/**
+	 * IAnjutaSymbolManager::sys_symbol_updated:
+	 * @obj: Self
+	 *
+	 * This signal is emitted when a new symbol is updated on system db.
+	 * For 'update' we mean updating on all the fields which are not its primary key.
+	 * Be sure to consider the following cases (comment from the core): 
+	 *
+	 * #1. The symbol remains the same [at least on unique index key]. We will 
+	 *     perform only a simple update.
+	 * #2. The symbol has changed: at least on name/type/file. We will insert a 
+	 *     new symbol on table 'symbol'. Deletion of old one will take place 
+	 *     at a second stage, when a delete of all symbols with 
+	 *     'tmp_flag = 0' will be done.
+	 * #3. The symbol has been deleted. As above it will be deleted at 
+	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
+	 *     also scope_ids and other things.
+	 */	
+	void ::sys_symbol_updated (gint symbol_id);	
+	
 	/** 
 	 * IAnjutaSymbolManagerSearchFileScope: 
  	 * You cannot use bitwise OR in this parameter.	 
