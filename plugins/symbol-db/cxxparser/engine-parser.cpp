@@ -194,11 +194,22 @@ EngineParser::processExpression(const string& stmt,
     							string &out_type_scope, 
     							string &out_oper)
 {
-	bool evaluation_succeed = false;	
-		
+	bool evaluation_succeed = false;
+	int loop_num = 0;
+
+	/* scope that'll follow the expression tokens.
+	 * it'll be consistent and'll change it's value as long as the 
+	 * expression is being solved
+	 *
+	 * The initial status is obviously a global status, so put it to NULL.
+	 */
+	SymbolDBEngineIterator *curr_searchable_scope = NULL;
+	
 	string current_token;
 	string op;
 	string scope_name;
+	string prev_token_type_name = "";
+	string prev_token_type_scope = "";
 	ExpressionResult result;
 
 	_tokenizer->setText (stmt.c_str ());
@@ -206,8 +217,32 @@ EngineParser::processExpression(const string& stmt,
 	while (nextToken (current_token, op)) 
 	{
 		trim (current_token);
+
+		if (loop_num > 0) 
+		{
+			// FIXME: case of more results
+			/* seems like we're at the second, or nth, loop */
+			curr_searchable_scope =
+					symbol_db_engine_find_symbol_by_name_pattern_filtered (
+		    			_dbe, prev_token_type_name.c_str (), 
+					    SYMTYPE_SCOPE_CONTAINER, TRUE, 
+					    SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
+		    			-1, SYMINFO_SIMPLE);
+			do {
+				SymbolDBEngineIteratorNode *node;
+
+				node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+	
+				cout << "Current Searchable Scope " <<
+		    		symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
 		
-		cout << "--------\nCurrent token ->" << current_token << "<- with op " << op << endl; 
+			} while (symbol_db_engine_iterator_move_next (curr_searchable_scope) == TRUE);
+
+			/* reset it to first position */
+			symbol_db_engine_iterator_first (curr_searchable_scope);
+		}
+		
+		cout << "--------\nCurrent token \"" << current_token << "\" with op " << op << endl; 
 		out_oper = op;	
 		
 		/* parse the current sub-expression of a statement and fill up 
@@ -215,7 +250,7 @@ EngineParser::processExpression(const string& stmt,
 		 */
 		result = parseExpression (current_token);
 
-		//parsing failed?
+		/* is parsing failed? */
 		if (result.m_name.empty()) {
 			cout << "Failed to parse " << current_token << " from " << stmt << endl;
 			evaluation_succeed = false;
@@ -225,11 +260,46 @@ EngineParser::processExpression(const string& stmt,
 		// DEBUG PRINT
 		result.print ();
 
+
+		/* check if the name of the result if valuable or not */
+		// FIXME: move away this function.
+		if (loop_num > 0) 
+		{
+			SymbolDBEngineIteratorNode *node;
+			int search_scope_id;
+			SymbolDBEngineIterator * iter;
+
+			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+
+			search_scope_id =
+				symbol_db_engine_iterator_node_get_symbol_id (node);
+			
+			iter = symbol_db_engine_find_symbol_in_scope (_dbe, result.m_name.c_str (), 
+			    search_scope_id,
+			    SYMTYPE_UNDEF,
+			    TRUE,
+			    -1, -1, SYMINFO_SIMPLE);
+			
+			if (iter == NULL)
+			{
+				cout << "Warning, the result.m_name does not belong to scope" << endl;
+				evaluation_succeed = false;
+				break;
+			}
+			else 
+			{
+				cout << "Good element " << result.m_name << endl;
+			}
+
+			// FIXME iter?
+		}
+		 
+		
 		// no tokens before this, what we need to do now, is find the TagEntry
 		// that corresponds to the result
 		if (result.m_isaType) 
 		{
-			cout << "Found a cast expression" << endl;
+			cout << "*** Found a cast expression" << endl;
 			/*
 			 * Handle type (usually when casting is found)
 			 */
@@ -247,17 +317,19 @@ EngineParser::processExpression(const string& stmt,
 				break;
 			}
 			
-			out_type_scope = result.m_scope.empty() ? "<global>" : result.m_scope.c_str();
+			out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 			out_type_name = result.m_name.c_str();
 			evaluation_succeed = true;
 		} 
 		else if (result.m_isThis) 
 		{
+			cout << "*** Found 'this'" << endl;
+			
 			/*
 			 * special handle for 'this' keyword
 			 */
-			out_type_scope = result.m_scope.empty() ? "<global>" : result.m_scope.c_str();
-			if (scope_name == "<global>") 
+			out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+			if (scope_name.empty ()) 
 			{
 				cout << "'this' can not be used in the global scope" << endl;
 				evaluation_succeed = false;
@@ -291,19 +363,43 @@ EngineParser::processExpression(const string& stmt,
 		{
 			/*
 			 * Found an identifier (can be a local variable, a global one etc)
-			 */
-			
-			cout << "found an identifier or local variable..." << endl;
+			 */			
+			cout << "*** Found an identifier or local variable..." << endl;
 
+			/* we have a previous global type with global scope (empty means global) */
+			if (prev_token_type_scope.empty () == true && 
+			    prev_token_type_name.empty () == false)
+			{
+				cout << "prev_tok scope empty | prev_tok name NOT emtpy (" <<
+					prev_token_type_name << ")" <<  endl;
+
+				SymbolDBEngineIterator *iter = 
+					symbol_db_engine_find_symbol_by_name_pattern_filtered (
+		    			_dbe, out_type_name.c_str (), SYMTYPE_UNDEF, TRUE, 
+					    SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
+		    			-1, SYMINFO_SIMPLE);
+
+				
+			}
 			/* TODO */
-			// get the scope iterator
-			SymbolDBEngineIterator *iter = symbol_db_engine_get_scope_chain_by_file_line (_dbe,
-			    full_file_path.c_str (), linenum, SYMINFO_SIMPLE);
+			else if (prev_token_type_scope.empty () == false)
+			{
+				cout << "prev_tok scope NOT empty " << endl;				
+			}
 
+
+			
+			
+			SymbolDBEngineIterator *iter = 
+				symbol_db_engine_get_scope_chain_by_file_line (_dbe,
+			    		full_file_path.c_str (), linenum, SYMINFO_SIMPLE);
+
+			cout << "checking for completion scope..";
 			// it's a global one if it's NULL or if it has just only one element
 			if (iter == NULL || symbol_db_engine_iterator_get_n_items (iter) <= 1)
 			{
-				cout << "...we've a global scope" << endl;
+				cout << "...we've a global completion scope" << endl;
+				
 			}
 			else 
 			{
@@ -312,7 +408,7 @@ EngineParser::processExpression(const string& stmt,
 				{
 					SymbolDBEngineIteratorNode *node = 
 						SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
-					cout << "got scope name: " << 
+					cout << "got completion scope name: " << 
 						symbol_db_engine_iterator_node_get_symbol_name (node) << endl;					
 				} while (symbol_db_engine_iterator_move_next (iter) == TRUE);
 			}			
@@ -320,21 +416,24 @@ EngineParser::processExpression(const string& stmt,
 			/* optimize scope'll clear the scopes leaving the local variables */
 			string optimized_scope = optimizeScope(above_text);
 
-			cout << "here it is the optimized scope " << optimized_scope << endl;
+			cout << "here it is the optimized buffer scope " << optimized_scope << endl;
 
 			VariableList li;
 			std::map<std::string, std::string> ignoreTokens;
 			get_variables(optimized_scope, li, ignoreTokens, false);
 
-			// FIXME: start enumerating from the end.
+			/* here the trick is to start from the end of the found variables
+			 * up to the begin. This because the local variable declaration should be found
+			 * just above to the statement line 
+			 */
 			cout << "variables found are..." << endl;
-			for (VariableList::iterator iter = li.begin(); iter != li.end(); iter++) {
+			for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
 				Variable var = (*iter);
-				var.print ();				
+				var.print ();
 				
 				if (current_token == var.m_name) {
-					cout << "wh0a! we found the variable type to parse... it's ->" << 
-						var.m_type << "<-" << endl;
+					cout << "wh0a! we found the variable type to parse... it's \"" << 
+						var.m_type << "\"" << endl;
 
 					out_type_name = var.m_type;
 					out_type_scope = var.m_typeScope;
@@ -342,17 +441,21 @@ EngineParser::processExpression(const string& stmt,
 					evaluation_succeed = true;
 					break;
 				}
-			}			
-			
-			/* TODO */
-			/* get the derivation list of the typename */
-		}
-#if 0
-		parentTypeName = typeName;
-		parentTypeScope = typeScope;
+			}
 
-#endif		
+			/* if we reach this point it's likely that we missed the right var type */
+			cout << "## Wrong detection of the variable type" << endl;
+		}
+
+		/* save the current type_name and type_scope */
+		cout << "** Saving prev_token_type_name \"" << out_type_name << 
+			"\" prev_token_type_scope \"" << out_type_scope << "\"" << endl;
+		prev_token_type_name = out_type_name;
+		prev_token_type_scope = out_type_scope;
+		
 		current_token.clear ();
+		/* increase the loop number */
+		loop_num++;		
 	}	
 
 	return evaluation_succeed;
@@ -375,19 +478,22 @@ EngineParser::optimizeScope(const string& srcString)
 	bool changedLine = false;
 	bool prepLine = false;
 	int curline = 0;
-	while (true) {
+	while (true) 
+	{
 		type = _tokenizer->yylex();
 
 
 		// Eof ?
-		if (type == 0) {
+		if (type == 0) 
+		{
 			if (!currScope.empty())
 				scope_stack.push_back(currScope);
 			break;
 		}
 
 		// eat up all tokens until next line
-		if ( prepLine && _tokenizer->lineno() == curline) {
+		if ( prepLine && _tokenizer->lineno() == curline) 
+		{
 			currScope += " ";
 			currScope += _tokenizer->YYText();
 			continue;
@@ -397,50 +503,52 @@ EngineParser::optimizeScope(const string& srcString)
 
 		// Get the current line number, it will help us detect preprocessor lines
 		changedLine = (_tokenizer->lineno() > curline);
-		if (changedLine) {
+		if (changedLine) 
+		{
 			currScope += "\n";
 		}
 
 		curline = _tokenizer->lineno();
-		switch (type) {
+		switch (type) 
+		{
 		case (int)'(':
-						currScope += "\n";
+			currScope += "\n";
 			scope_stack.push_back(currScope);
 			currScope = "(\n";
 			break;
 		case (int)'{':
-						currScope += "\n";
+			currScope += "\n";
 			scope_stack.push_back(currScope);
 			currScope = "{\n";
 			break;
 		case (int)')':
-						// Discard the current scope since it is completed
-						if ( !scope_stack.empty() ) {
-					currScope = scope_stack.back();
-					scope_stack.pop_back();
-					currScope += "()";
-				} else
-					currScope.clear();
+			// Discard the current scope since it is completed
+			if ( !scope_stack.empty() ) {
+				currScope = scope_stack.back();
+				scope_stack.pop_back();
+				currScope += "()";
+			} else
+				currScope.clear();
 			break;
 		case (int)'}':
-						// Discard the current scope since it is completed
-						if ( !scope_stack.empty() ) {
-					currScope = scope_stack.back();
-					scope_stack.pop_back();
-					currScope += "\n{}\n";
-				} else {
-					currScope.clear();
-				}
+			// Discard the current scope since it is completed
+			if ( !scope_stack.empty() ) {
+				currScope = scope_stack.back();
+				scope_stack.pop_back();
+				currScope += "\n{}\n";
+			} else {
+				currScope.clear();
+			}
 			break;
 		case (int)'#':
-						if (changedLine) {
-					// We are at the start of a new line
-					// consume everything until new line is found or end of text
-					currScope += " ";
-					currScope += _tokenizer->YYText();
-					prepLine = true;
-					break;
-				}
+			if (changedLine) {
+				// We are at the start of a new line
+				// consume everything until new line is found or end of text
+				currScope += " ";
+				currScope += _tokenizer->YYText();
+				prepLine = true;
+				break;
+			}
 		default:
 			currScope += " ";
 			currScope += _tokenizer->YYText();
@@ -467,36 +575,6 @@ EngineParser::optimizeScope(const string& srcString)
 	return srcString;
 }
 
-/*
-string
-EngineParser::GetScopeName(const string &in, std::vector<string> *additionlNS)
-{
-	std::string lastFunc, lastFuncSig;
-	std::vector<std::string> moreNS;
-//	FunctionList fooList;
-
-	const char *buf = in.c_str ();
-
-//	TagsManager *mgr = GetTagsManager();
-	//std::map<std::string, std::string> ignoreTokens = mgr->GetCtagsOptions().GetPreprocessorAsMap();
-
-	std::map<std::string, std::string> foo_map;
-	
-	std::string scope_name = get_scope_name(buf, moreNS, foo_map);
-	string scope = scope_name;
-	if (scope.empty()) {
-		scope = "<global>";
-	}
-	if (additionlNS) {
-		for (size_t i=0; i<moreNS.size(); i++) {
-			additionlNS->push_back(moreNS.at(i).c_str());
-		}
-	}
-	return scope;
-}
-*/
-
-
 /************ C FUNCTIONS ************/
 
 void
@@ -517,26 +595,6 @@ engine_parser_parse_expression (const char*str)
 {
 	EngineParser::getInstance ()->testParseExpression (str);
 }
-/*
-void
-engine_parser_get_local_variables (const char *str)
-{
-	string res = EngineParser::getInstance ()->optimizeScope (str);
-
-	VariableList li;
-	std::map<std::string, std::string> ignoreTokens;
-	
-	get_variables (res, li, ignoreTokens, true);
-
-	for (VariableList::iterator iter = li.begin(); iter != li.end(); iter++) {
-		Variable var = *iter;
-		var.Print();
-	}
-
-	//	printf("total time: %d\n", end-start);
-	printf("matches found: %d\n", li.size());	
-}
-*/
 
 SymbolDBEngineIterator *
 engine_parser_process_expression (const char *stmt, const char * above_text, 
@@ -552,7 +610,7 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 	if (result == false)
 	{
 		cout << "Hey, something went wrong in processExpression, bailing out" << endl;
-		return NULL;		
+		return NULL;
 	}
 	
 	SymbolDBEngine * dbe = EngineParser::getInstance ()->getSymbolManager ();
@@ -563,7 +621,7 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 					
 	SymbolDBEngineIterator *iter = 
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (
-		    dbe, out_type_name.c_str (), TRUE, NULL, TRUE, -1, NULL, -1 , 
+		    dbe, out_type_name.c_str (), SYMTYPE_UNDEF, TRUE, SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
 		    -1, SYMINFO_SIMPLE);
 
 	if (iter != NULL) {
