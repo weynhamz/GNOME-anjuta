@@ -16,9 +16,10 @@ anjuta_pixmaps_DATA = \
 	anjuta-preferences-general-48.png
 
 AM_CPPFLAGS = \
-	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)\
-	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
+	-I.. -I. \
+	$(LIBANJUTA_CFLAGS) \
+	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR=\"$(docdir)\" \
 	-DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" \

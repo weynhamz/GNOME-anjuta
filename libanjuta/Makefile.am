@@ -2,13 +2,14 @@
 SUBDIRS = interfaces 
 
 AM_CPPFLAGS = \
+	-I$(top_srcdir) \
+	-I . \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GTK_CFLAGS) \
 	$(GCONF_CFLAGS) \
 	$(GLADE_DEPRECATED_CFLAGS) \
 	$(LIBXML_CFLAGS) \
-	-I$(top_srcdir) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
