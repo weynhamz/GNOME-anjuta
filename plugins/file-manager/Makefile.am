@@ -51,6 +51,8 @@ libfile_manager_la_SOURCES = \
 	file-model.c \
 	file-model.h
 
+libfile_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libfile_manager_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
