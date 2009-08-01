@@ -234,7 +234,8 @@ isymbol_manager_get_symbol_by_id (IAnjutaSymbolManager *sm,
 static SymbolDBEngineIterator *
 do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
            gboolean include_types, IAnjutaSymbolField info_fields,
-           const gchar *pattern, gint results_limit, gint results_offset, 
+           const gchar *pattern, IAnjutaSymbolManagerSearchFileScope filescope_search,
+    	   gint results_limit, gint results_offset, 
            GList *session_packages)
 {
 	SymbolDBEngineIterator *iterator;
@@ -244,7 +245,7 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
 					pattern,
 					match_types,
 					include_types,
-					SYMSEARCH_FILESCOPE_PUBLIC,
+					filescope_search,
 					session_packages,
 					results_limit,
 					results_offset,
@@ -256,7 +257,8 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
 IAnjutaIterable* 
 isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, 
-				const gchar *pattern, gint results_limit, gint results_offset, 
+				const gchar *pattern, IAnjutaSymbolManagerSearchFileScope filescope_search,
+    			gint results_limit, gint results_offset, 
 				GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -269,7 +271,7 @@ isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 
 	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, 
+	                      include_types, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  sdb_plugin->session_packages);
 
@@ -350,7 +352,8 @@ do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id,
 
 guint
 isymbol_manager_search_system_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
-				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern,
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 			    gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 
@@ -374,7 +377,8 @@ isymbol_manager_search_system_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType
 	
 	/* create a new command */
 	search_command = symbol_db_search_command_new (dbe, CMD_SEARCH_SYSTEM, match_types, 
-				include_types, info_fields, pattern, results_limit, results_offset);
+				include_types, info_fields, pattern, filescope_search, results_limit, 
+	    		results_offset);
 
 	/* don't forget to set the session packages too */
 	symbol_db_search_command_set_session_packages (search_command, 
@@ -387,6 +391,7 @@ isymbol_manager_search_system_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType
 IAnjutaIterable* 
 isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 				gint results_limit, gint results_offset, GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
@@ -399,7 +404,7 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 
 	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, 
+	                      include_types, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  NULL);
 
@@ -409,6 +414,7 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 guint
 isymbol_manager_search_project_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 				gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 
@@ -432,7 +438,8 @@ isymbol_manager_search_project_async (IAnjutaSymbolManager *sm, IAnjutaSymbolTyp
 	
 	/* create a new command */
 	search_command = symbol_db_search_command_new (dbe, CMD_SEARCH_PROJECT, match_types, 
-				include_types, info_fields, pattern, results_limit, results_offset);
+				include_types, info_fields, pattern, filescope_search, results_limit, 
+	    		results_offset);
 
 	/* don't forget to set the session packages to NULL */
 	symbol_db_search_command_set_session_packages (search_command, NULL);	
@@ -483,7 +490,7 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 
 guint
 isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
-				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern,     			
 			 	const GFile *file, gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 
@@ -508,7 +515,9 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 	
 	/* create a new command */
 	search_command = symbol_db_search_command_new (dbe, CMD_SEARCH_FILE, match_types, 
-				include_types, info_fields, pattern, results_limit, results_offset);
+				include_types, info_fields, pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE, 
+	    		results_limit, 
+	    		results_offset);
 
 	/* don't forget to set the file too */
 	symbol_db_search_command_set_file (search_command, file);	
