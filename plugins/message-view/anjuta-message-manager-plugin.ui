@@ -42,19 +42,19 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">Underline-Plain</col>
+        <col id="0" comments="text style in editor" translatable="yes">Underline-Plain</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Underline-Squiggle</col>
+        <col id="0" comments="text style in editor" translatable="yes">Underline-Squiggle</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Underline-TT</col>
+        <col id="0" comments="text style in editor, TT is for typewriter text" translatable="yes">Underline-TT</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Diagonal</col>
+        <col id="0" comments="text style in editor" translatable="yes">Diagonal</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Strike-Out</col>
+        <col id="0" comments="text style in editor" translatable="yes">Strike-Out</col>
       </row>
     </data>
   </object>
