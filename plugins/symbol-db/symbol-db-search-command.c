@@ -36,6 +36,7 @@ struct _SymbolDBSearchCommandPriv {
 	gboolean include_types;
 	IAnjutaSymbolField info_fields;
 	const gchar *pattern;
+	IAnjutaSymbolManagerSearchFileScope filescope_search;
 	gint results_limit;
 	gint results_offset;
 	
@@ -113,7 +114,7 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 					priv->pattern,
 					priv->match_types,
 					priv->include_types,
-					SYMSEARCH_FILESCOPE_PUBLIC,
+					priv->filescope_search,
 					priv->session_packages,
 					priv->results_limit,
 					priv->results_offset,
@@ -176,6 +177,7 @@ SymbolDBSearchCommand*
 symbol_db_search_command_new (SymbolDBEngine *dbe, CmdSearchType cmd_search_type, 
                               IAnjutaSymbolType match_types, gboolean include_types,  
                               IAnjutaSymbolField info_fields, const gchar *pattern, 
+    						  IAnjutaSymbolManagerSearchFileScope filescope_search,
                               gint results_limit, gint results_offset)
 {
 	SymbolDBSearchCommand *sdb_search_cmd;
@@ -191,6 +193,7 @@ symbol_db_search_command_new (SymbolDBEngine *dbe, CmdSearchType cmd_search_type
 	priv->include_types = include_types;
 	priv->info_fields = info_fields;
 	priv->pattern = pattern;
+	priv->filescope_search = filescope_search;
 	priv->results_limit = results_limit;
 	priv->results_offset = results_offset;	
 	priv->dbe = dbe;

@@ -65,6 +65,7 @@ SymbolDBSearchCommand*
 symbol_db_search_command_new (SymbolDBEngine *dbe, CmdSearchType cmd_search_type, 
                               IAnjutaSymbolType match_types, gboolean include_types,  
                               IAnjutaSymbolField info_fields, const gchar *pattern, 
+    						  IAnjutaSymbolManagerSearchFileScope filescope_search,
 			 				  gint results_limit, gint results_offset);
 
 /** set a gfile in case of a CMD_SEARCH_FILE command */

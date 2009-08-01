@@ -40,7 +40,7 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 
 guint
 isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
-				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern,     			
 			 	const GFile *file, gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 
@@ -49,11 +49,13 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 IAnjutaIterable* 
 isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
-				gint results_limit, gint results_offset, GError **err);
+				IAnjutaSymbolManagerSearchFileScope filescope_search,
+    			gint results_limit, gint results_offset, GError **err);
 
 guint
 isymbol_manager_search_project_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 				gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 
@@ -62,11 +64,13 @@ isymbol_manager_search_project_async (IAnjutaSymbolManager *sm, IAnjutaSymbolTyp
 IAnjutaIterable* 
 isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 			    gint results_limit, gint results_offset, GError **err);
 
 guint
 isymbol_manager_search_system_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern, 
+    			IAnjutaSymbolManagerSearchFileScope filescope_search,
 			    gint results_limit, gint results_offset, 
                 GCancellable* cancel, AnjutaAsyncNotify *notify, 
                 IAnjutaSymbolManagerSearchCallback callback, 

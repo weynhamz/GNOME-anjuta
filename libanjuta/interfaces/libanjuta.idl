@@ -5269,6 +5269,9 @@ interface IAnjutaSymbolManager
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
 	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
 	*          'foo_fun'). NULL _is not_ accepted
+	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 
@@ -5280,7 +5283,7 @@ interface IAnjutaSymbolManager
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
 	*/	
-	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
+	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset);
 
 	/**
 	* ianjuta_symbol_manager_search_project_async:
@@ -5292,6 +5295,9 @@ interface IAnjutaSymbolManager
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
 	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
 	*          'foo_fun'). NULL _is not_ accepted
+	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
@@ -5307,7 +5313,7 @@ interface IAnjutaSymbolManager
 	* more async queries at the same time. This is for identify them. Returns 0 on error.
 	* 
     */
-	guint search_system_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
+	guint search_system_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
 	
 	/**
 	* ianjuta_symbol_manager_search_project:
@@ -5319,6 +5325,9 @@ interface IAnjutaSymbolManager
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
 	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
 	*          'foo_fun'). NULL _is not_ accepted
+	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 
@@ -5329,7 +5338,7 @@ interface IAnjutaSymbolManager
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
 	*/	
-	IAnjutaIterable* search_project (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset);
+	IAnjutaIterable* search_project (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset);
 
 	/**
 	* ianjuta_symbol_manager_search_project_async:
@@ -5341,6 +5350,9 @@ interface IAnjutaSymbolManager
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
 	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
 	*          'foo_fun'). NULL _is not_ accepted	
+	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
+	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
     * @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
@@ -5356,7 +5368,7 @@ interface IAnjutaSymbolManager
 	* more async queries at the same time. This is for identify them. Returns 0 on error.
 	* 
     */	
-	guint search_project_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
+	guint search_project_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
 	
 	/**
 	* ianjuta_symbol_manager_search_file:
@@ -5375,6 +5387,7 @@ interface IAnjutaSymbolManager
 	*
 	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* The search is case sensitive. Symbols are searched only in the specified file.
+	* There won't be distinction in symbols with file_scope = 1 or 0
 	* 
 	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
 	* 
@@ -5402,6 +5415,7 @@ interface IAnjutaSymbolManager
 	*
 	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
 	* The search is case sensitive. Symbols are searched only in the specified file.
+	* There won't be distinction in symbols with file_scope = 1 or 0
 	* 
 	* Returns: guint handle to identify the query result. It would infact be possible to have
 	* more async queries at the same time. This is for identify them. Returns 0 on error.
