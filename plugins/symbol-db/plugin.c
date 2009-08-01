@@ -2575,6 +2575,33 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
 										  on_scan_end_manager,
 										  plugin);
+
+	/* disconnect the interface ones */
+	/* connect signals for interface to receive them */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_globals),
+				G_CALLBACK (on_isymbol_manager_sys_symbol_inserted), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_globals),
+				G_CALLBACK (on_isymbol_manager_sys_symbol_updated), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_globals),
+				G_CALLBACK (on_isymbol_manager_sys_symbol_removed), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_globals),
+				G_CALLBACK (on_isymbol_manager_sys_scan_end), plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+				G_CALLBACK (on_isymbol_manager_prj_symbol_inserted), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project), 
+				G_CALLBACK (on_isymbol_manager_prj_symbol_updated), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+				G_CALLBACK (on_isymbol_manager_prj_symbol_inserted), plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+				G_CALLBACK (on_isymbol_manager_prj_scan_end), plugin);
+	
 	if (sdb_plugin->update_timer)
 	{
 		g_timer_destroy (sdb_plugin->update_timer);
