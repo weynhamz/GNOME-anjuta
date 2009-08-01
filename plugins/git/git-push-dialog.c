@@ -89,15 +89,70 @@ on_push_all_check_toggled (GtkToggleButton *toggle_button,
 }
 
 static void
+on_remote_list_command_data_arrived (AnjutaCommand *command, GitUIData *data)
+{
+	GtkListStore *remote_list_model;
+	GtkWidget *push_origin_check;
+	GQueue *output_queue;
+	gchar *remote_name;
+	GtkTreeIter iter;
+	
+	remote_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
+	                                                        	"remote_list_model"));
+	push_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+	                                                        "push_origin_check"));
+	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
+	
+	while (g_queue_peek_head (output_queue))
+	{
+		remote_name = g_queue_pop_head (output_queue);
+
+		gtk_list_store_append (remote_list_model, &iter);
+		gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
+
+		if (strcmp (remote_name, "origin") == 0)
+			gtk_widget_set_sensitive (push_origin_check, TRUE);
+		
+		g_free (remote_name);
+	}
+}
+
+static void
+on_notebook_button_toggled (GtkToggleButton *toggle_button, GitUIData *data)
+{
+	GtkWidget *push_repository_notebook;
+	gint tab_index;
+
+	if (gtk_toggle_button_get_active (toggle_button))
+	{
+		push_repository_notebook = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                               "push_repository_notebook"));
+		tab_index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (toggle_button),
+		                                                "tab-index"));
+
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (push_repository_notebook), 
+		                               tab_index);
+	}
+}
+
+static void
 on_push_dialog_response (GtkDialog *dialog, gint response_id, 
 						 GitUIData *data)
 {
+	GtkWidget *push_remote_toggle;
+	GtkWidget *push_url_toggle;
+	GtkWidget *push_remote_view;
 	GtkWidget *push_origin_check;
 	GtkWidget *push_url_entry;
 	GtkWidget *push_all_check;
 	GtkWidget *push_tags_check;
+	GtkTreeModel *remote_list_model;
 	GtkTreeModel *branch_list_model;
 	GtkTreeModel *tag_list_model;
+	GtkWidget *focus_widget;
+	const gchar *input_error;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
 	gchar *url;
 	gboolean push_all_tags;
 	gboolean push_all_refs;
@@ -107,6 +162,12 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{
+		push_remote_toggle = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                         "push_remote_toggle"));
+		push_url_toggle = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                      "push_url_toggle"));
+		push_remote_view = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                       "push_remote_view"));
 		push_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                      					"push_origin_check"));
 		push_url_entry = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
@@ -115,20 +176,38 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		                                                     "push_all_check"));
 		push_tags_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                                      "push_tags_check"));
+		remote_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
+		                                                    		"remote_list_model"));
 		branch_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 																	"branch_list_model"));
 		tag_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 																  "tag_list_model"));
 
+		/* The "focus widget" is the widget that should receive focus if the
+		 * user does not properly enter anything */
+		input_error = _("Please select a remote to push to.");
+		focus_widget = push_remote_view;
+
+		url = NULL;
+
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_origin_check)))
 			url = g_strdup ("origin");
-		else 
+		else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_remote_toggle)))
+		{
+			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (push_remote_view));
+
+			if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+				gtk_tree_model_get (remote_list_model, &iter, 0, &url, -1);
+		}
+		else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_url_toggle)))
 		{
 			url = gtk_editable_get_chars (GTK_EDITABLE (push_url_entry), 0, -1);
+			focus_widget = push_url_entry;
+			input_error = _("Please enter the URL of the repository to push to.");
 		}
 
-		if (!git_check_input (GTK_WIDGET (dialog), push_url_entry, url, 
-							  _("Please enter the URL of the repository to push to.")))
+		if (!git_check_input (GTK_WIDGET (dialog), focus_widget, url, 
+							  input_error))
 		{
 			g_free (url);
 			return;
@@ -193,21 +272,25 @@ static void
 push_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"push_dialog", "branch_list_model", "tag_list_model", 
-						NULL};
+	gchar *objects[] = {"push_dialog", "remote_list_model", "branch_list_model", 
+						"tag_list_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
+	GtkWidget *push_remote_toggle;
+	GtkWidget *push_url_toggle;
 	GtkWidget *push_origin_check;
-	GtkWidget *push_url_entry;
+	GtkWidget *push_repository_vbox;
 	GtkWidget *push_tags_check;
 	GtkWidget *push_all_check;
 	GtkListStore *branch_list_model;
 	GtkListStore *tag_list_model;
 	GtkCellRenderer *push_branches_view_selected_renderer;
 	GtkCellRenderer *push_tags_view_selected_renderer;
+	GitUIData *data;
+	GitRemoteListCommand *remote_list_command;
 	GitBranchListCommand *branch_list_command;
 	GitTagListCommand *tag_list_command;
-	GitUIData *data;
+	
 	
 	bxml = gtk_builder_new ();
 	error = NULL;
@@ -220,10 +303,14 @@ push_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "push_dialog"));
+	push_remote_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                         "push_remote_toggle"));
+	push_url_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                      "push_url_toggle"));
 	push_origin_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
 	                                                        "push_origin_check"));
-	push_url_entry = GTK_WIDGET (gtk_builder_get_object (bxml, 
-	                                                     "push_url_entry"));
+	push_repository_vbox = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                 		   "push_repository_vbox"));
 	push_all_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
 		                                                 "push_all_check"));
 	push_tags_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
@@ -238,10 +325,21 @@ push_dialog (Git *plugin)
 	push_tags_view_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (bxml,
 																				  "push_tags_view_selected_renderer"));
 
+	data = git_ui_data_new (plugin, bxml);
+
+	remote_list_command = git_remote_list_command_new (plugin->project_root_directory);
 	branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
 													   GIT_BRANCH_TYPE_LOCAL);
 	tag_list_command = git_tag_list_command_new (plugin->project_root_directory);
 
+	g_signal_connect (G_OBJECT (remote_list_command), "data-arrived",
+	                  G_CALLBACK (on_remote_list_command_data_arrived),
+	                  data);
+
+	g_signal_connect (G_OBJECT (remote_list_command), "command-finished",
+	                  G_CALLBACK (on_git_command_finished),
+	                  NULL);
+	
 	g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
 					  G_CALLBACK (on_git_list_branch_command_data_arrived),
 					  branch_list_model);
@@ -258,18 +356,31 @@ push_dialog (Git *plugin)
 					  G_CALLBACK (git_report_errors),
 					  NULL);
 
+	anjuta_command_start (ANJUTA_COMMAND (remote_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (tag_list_command));
 	
-	data = git_ui_data_new (plugin, bxml);
-
+	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_push_dialog_response), 
 					  data);
 
+	g_object_set_data (G_OBJECT (push_remote_toggle), "tab-index",
+	                   GINT_TO_POINTER (0));
+	g_object_set_data (G_OBJECT (push_url_toggle), "tab-index",
+	                   GINT_TO_POINTER (1));
+
+	g_signal_connect (G_OBJECT (push_remote_toggle), "toggled",
+	                  G_CALLBACK (on_notebook_button_toggled),
+	                  data);
+
+	g_signal_connect (G_OBJECT (push_url_toggle), "toggled",
+	                  G_CALLBACK (on_notebook_button_toggled),
+	                  data);
+
 	g_signal_connect (G_OBJECT (push_origin_check), "toggled",
 	                  G_CALLBACK (on_git_origin_check_toggled),
-	                  push_url_entry);
+	                  push_repository_vbox);
 
 	g_signal_connect (G_OBJECT (push_tags_check), "toggled",
 					  G_CALLBACK (on_push_tags_check_toggled),
